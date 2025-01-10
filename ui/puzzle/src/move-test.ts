@@ -1,11 +1,11 @@
+import { plyColor } from 'shogi/common';
 import { opposite } from 'shogiground/util';
 import { parseSfen } from 'shogiops/sfen';
-import { parseUsi, isDrop, isMove } from 'shogiops/util';
-import { Shogi } from 'shogiops/variant/shogi';
+import { isDrop, isMove, parseUsi } from 'shogiops/util';
+import type { Shogi } from 'shogiops/variant/shogi';
 import { pieceForcePromote } from 'shogiops/variant/util';
-import { plyColor } from 'shogi/common';
 import { path as pathOps } from 'tree';
-import { MoveTest, Puzzle, Vm } from './interfaces';
+import type { MoveTest, Puzzle, Vm } from './interfaces';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
 

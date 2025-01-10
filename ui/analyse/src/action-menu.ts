@@ -1,13 +1,13 @@
 import { isEmpty } from 'common/common';
 import { editor, encodeSfen, setup } from 'common/links';
-import { MaybeVNodes, bind, bindNonPassive, dataIcon } from 'common/snabbdom';
+import { type MaybeVNodes, bind, bindNonPassive, dataIcon } from 'common/snabbdom';
 import { cont as contRoute } from 'game/router';
-import { Hooks, VNode, h } from 'snabbdom';
-import { AutoplayDelay } from './autoplay';
-import { BoolSetting, boolSetting } from './bool-setting';
-import AnalyseCtrl from './ctrl';
-import * as kifExport from './notation-export';
 import { i18n } from 'i18n';
+import { type Hooks, type VNode, h } from 'snabbdom';
+import type { AutoplayDelay } from './autoplay';
+import { type BoolSetting, boolSetting } from './bool-setting';
+import type AnalyseCtrl from './ctrl';
+import * as kifExport from './notation-export';
 
 interface AutoplaySpeed {
   name: string;
@@ -56,9 +56,9 @@ function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefin
               'data-icon': 'q',
             },
           },
-          i18n('delete')
+          i18n('delete'),
         ),
-      ]
+      ],
     );
   return;
 }
@@ -78,9 +78,9 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
         {
           hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw),
         },
-        speed.name
+        speed.name,
       );
-    })
+    }),
   );
 }
 
@@ -89,7 +89,7 @@ function rangeConfig(read: () => number, write: (value: number) => void): Hooks 
     insert: vnode => {
       const el = vnode.elm as HTMLInputElement;
       el.value = '' + read();
-      el.addEventListener('input', _ => write(parseInt(el.value)));
+      el.addEventListener('input', _ => write(Number.parseInt(el.value)));
       el.addEventListener('mouseout', _ => el.blur());
     },
   };
@@ -117,7 +117,7 @@ function studyButton(ctrl: AnalyseCtrl) {
           'data-icon': '4',
         },
       },
-      i18n('openStudy')
+      i18n('openStudy'),
     );
   if (ctrl.study || ctrl.ongoing || ctrl.embed) return;
   return h(
@@ -129,7 +129,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       },
       hook: bind('submit', e => {
         const kifInput = (e.target as HTMLElement).querySelector(
-          'input[name=notation]'
+          'input[name=notation]',
         ) as HTMLInputElement;
         if (kifInput) kifInput.value = kifExport.renderFullKif(ctrl);
       }),
@@ -147,14 +147,14 @@ function studyButton(ctrl: AnalyseCtrl) {
             'data-icon': '4',
           },
         },
-        i18n('toStudy')
+        i18n('toStudy'),
       ),
-    ]
+    ],
   );
 }
 
 export class Ctrl {
-  open: boolean = false;
+  open = false;
   toggle = (): boolean => (this.open = !this.open);
 }
 
@@ -172,7 +172,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           hook: bind('click', ctrl.flip),
           attrs: dataIcon('B'),
         },
-        i18n('flipBoard')
+        i18n('flipBoard'),
       ),
       ctrl.ongoing
         ? null
@@ -188,7 +188,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 'data-icon': 'm',
               },
             },
-            i18n('boardEditor')
+            i18n('boardEditor'),
           ),
       canContinue
         ? h(
@@ -197,7 +197,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
               attrs: dataIcon('U'),
             },
-            i18n('continueFromHere')
+            i18n('continueFromHere'),
           )
         : null,
       studyButton(ctrl),
@@ -219,7 +219,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 disabled: mandatoryCeval,
                 change: ctrl.toggleComputer,
               },
-              ctrl
+              ctrl,
             ),
           ])
           .concat(
@@ -233,7 +233,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       checked: ctrl.showAutoShapes(),
                       change: ctrl.toggleAutoShapes,
                     },
-                    ctrl
+                    ctrl,
                   ),
                   ctrlBoolSetting(
                     {
@@ -242,7 +242,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       checked: ctrl.showGauge(),
                       change: ctrl.toggleGauge,
                     },
-                    ctrl
+                    ctrl,
                   ),
                   ctrlBoolSetting(
                     {
@@ -251,7 +251,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       checked: ctrl.showMoveAnnotation(),
                       change: ctrl.toggleMoveAnnotation,
                     },
-                    ctrl
+                    ctrl,
                   ),
                   ctrlBoolSetting(
                     {
@@ -261,7 +261,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       checked: ceval.infinite(),
                       change: ctrl.cevalSetInfinite,
                     },
-                    ctrl
+                    ctrl,
                   ),
                   ctrlBoolSetting(
                     {
@@ -274,7 +274,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       change: ctrl.cevalSetEnableNnue,
                       disabled: !ceval.supportsNnue,
                     },
-                    ctrl
+                    ctrl,
                   ),
                   ctrlBoolSetting(
                     {
@@ -285,7 +285,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       change: ctrl.cevalSetEnteringKingRule,
                       disabled: !ceval.supportsNnue,
                     },
-                    ctrl
+                    ctrl,
                   ),
                   (id => {
                     const max = 5;
@@ -298,7 +298,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           max,
                           step: 1,
                         },
-                        hook: rangeConfig(() => parseInt(ceval!.multiPv()), ctrl.cevalSetMultiPv),
+                        hook: rangeConfig(
+                          () => Number.parseInt(ceval!.multiPv()),
+                          ctrl.cevalSetMultiPv,
+                        ),
                       }),
                       h('div.range_value', ceval.multiPv() + ' / ' + max),
                     ]);
@@ -314,7 +317,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                                 ...(ceval.maxThreads <= 1 ? { title: notSupported } : null),
                               },
                             },
-                            i18n('cpus')
+                            i18n('cpus'),
                           ),
                           h('input#' + id, {
                             attrs: {
@@ -341,7 +344,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                                 ...(ceval.maxHashSize <= 16 ? { title: notSupported } : null),
                               },
                             },
-                            i18n('memory')
+                            i18n('memory'),
                           ),
                           h('input#' + id, {
                             attrs: {
@@ -353,14 +356,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
                             },
                             hook: rangeConfig(
                               () => Math.floor(Math.log2(ceval.hashSize!())),
-                              v => ctrl.cevalSetHashSize(Math.pow(2, v))
+                              v => ctrl.cevalSetHashSize(Math.pow(2, v)),
                             ),
                           }),
                           h('div.range_value', formatHashSize(ceval.hashSize())),
                         ]))('analyse-memory')
                     : null,
                 ]
-              : []
+              : [],
           )
       : [];
 
@@ -376,7 +379,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           ctrl.actionMenu.toggle();
         },
       },
-      ctrl
+      ctrl,
     ),
   ];
 
@@ -400,7 +403,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     rel: 'nofollow',
                   },
                 },
-                i18n('playWithTheMachine')
+                i18n('playWithTheMachine'),
               ),
               h(
                 'a.button',
@@ -412,11 +415,11 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     rel: 'nofollow',
                   },
                 },
-                i18n('playWithAFriend')
+                i18n('playWithAFriend'),
               ),
             ])
           : null,
-      ])
+      ]),
   );
 }
 

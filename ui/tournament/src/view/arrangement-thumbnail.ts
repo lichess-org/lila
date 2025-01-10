@@ -1,11 +1,17 @@
-import { bind, MaybeVNode } from 'common/snabbdom';
-import TournamentController from '../ctrl';
-import { Arrangement } from '../interfaces';
-import { arrangementHasUser, playerName } from './util';
+import { type MaybeVNode, bind } from 'common/snabbdom';
 import { h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { Arrangement } from '../interfaces';
+import { arrangementHasUser, playerName } from './util';
 
-export function arrangementThumbnail(ctrl: TournamentController, a: Arrangement, asLink = false): MaybeVNode {
-  const players = ctrl.data.standing.players.filter(p => arrangementHasUser(a, p.name.toLowerCase())),
+export function arrangementThumbnail(
+  ctrl: TournamentController,
+  a: Arrangement,
+  asLink = false,
+): MaybeVNode {
+  const players = ctrl.data.standing.players.filter(p =>
+      arrangementHasUser(a, p.name.toLowerCase()),
+    ),
     gameDate = a.scheduledAt || a.startedAt,
     date = gameDate ? new Date(gameDate) : undefined;
 
@@ -25,9 +31,15 @@ export function arrangementThumbnail(ctrl: TournamentController, a: Arrangement,
         ]),
         h(
           'div.arr-time',
-          date ? h('time.timeago', { attrs: { datetime: date.getTime() } }, window.lishogi.timeago.format(date)) : null
+          date
+            ? h(
+                'time.timeago',
+                { attrs: { datetime: date.getTime() } },
+                window.lishogi.timeago.format(date),
+              )
+            : null,
         ),
-      ]
+      ],
     );
   else null;
 }

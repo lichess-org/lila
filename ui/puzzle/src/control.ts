@@ -1,5 +1,5 @@
 import { path as treePath } from 'tree';
-import { KeyboardController } from './interfaces';
+import type { KeyboardController } from './interfaces';
 
 export function canGoForward(ctrl: KeyboardController): boolean {
   return ctrl.vm.node.children.length > 0;
@@ -21,6 +21,7 @@ export function last(ctrl: KeyboardController): void {
 }
 
 export function first(ctrl: KeyboardController): void {
-  const toInit = ctrl.vm.path !== ctrl.vm.initialPath && treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
+  const toInit =
+    ctrl.vm.path !== ctrl.vm.initialPath && treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
   ctrl.userJump(toInit ? ctrl.vm.initialPath : treePath.root);
 }

@@ -1,4 +1,4 @@
-import { Hook, Seek } from './interfaces';
+import type { Hook, Seek } from './interfaces';
 
 export function isHook(x: Seek | Hook): x is Hook {
   return 'clock' in x;

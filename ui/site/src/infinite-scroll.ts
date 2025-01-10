@@ -1,5 +1,5 @@
-import { spinnerHtml } from 'common/spinner';
 import * as domData from 'common/data';
+import { spinnerHtml } from 'common/spinner';
 
 export function loadInfiniteScroll(sel: string): void {
   document.querySelectorAll(sel).forEach(el => {
@@ -20,11 +20,11 @@ export function loadInfiniteScroll(sel: string): void {
 
     domData.set(el, 'infinite-scroll', infScroll);
 
-    infScroll.on('error', function () {
+    infScroll.on('error', () => {
       document.getElementById('infscr-loading')?.remove();
     });
 
-    infScroll.on('append', function () {
+    infScroll.on('append', () => {
       window.lishogi.pubsub.emit('content_loaded');
       const ids: string[] = [];
       el.querySelectorAll('.paginated[data-dedup]').forEach((dedupEL: HTMLElement) => {
@@ -42,7 +42,7 @@ export function loadInfiniteScroll(sel: string): void {
     const moreButton = document.createElement('button');
     moreButton.className = 'inf-more button button-empty';
     moreButton.textContent = '…';
-    moreButton.addEventListener('click', function () {
+    moreButton.addEventListener('click', () => {
       infScroll.loadNextPage();
     });
 

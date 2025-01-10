@@ -1,5 +1,5 @@
 import * as game from 'game';
-import { Redraw, RoundData } from '../interfaces';
+import type { Redraw, RoundData } from '../interfaces';
 import { updateElements } from './clock-view';
 
 export type Seconds = number;
@@ -92,7 +92,7 @@ export class ClockController {
 
   constructor(
     d: RoundData,
-    readonly opts: ClockOpts
+    readonly opts: ClockOpts,
   ) {
     const cdata = d.clock!;
 
@@ -129,7 +129,7 @@ export class ClockController {
     gote: Seconds,
     sPer: number,
     gPer: number,
-    delay: Centis = 0
+    delay: Centis = 0,
   ): void => {
     const isClockRunning = game.playable(d) && (game.playedPlies(d) > 1 || d.clock!.running),
       delayMs = delay * 10;
@@ -180,7 +180,7 @@ export class ClockController {
       this.tick,
       // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui ? 1000 : (time % (this.showTenths(time, color) ? 100 : 500)) + 1 + extraDelay
+      this.opts.nvui ? 1000 : (time % (this.showTenths(time, color) ? 100 : 500)) + 1 + extraDelay,
     );
   };
 

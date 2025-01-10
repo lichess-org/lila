@@ -1,10 +1,10 @@
-import { h } from 'snabbdom';
-import SimulCtrl from '../ctrl';
-import { Pairing } from '../interfaces';
+import { initOneWithState } from 'common/mini-board';
 import * as status from 'game/status';
 import { i18n, i18nFormat } from 'i18n';
-import { initOneWithState } from 'common/mini-board';
 import { i18nVariant } from 'i18n/variant';
+import { h } from 'snabbdom';
+import type SimulCtrl from '../ctrl';
+import type { Pairing } from '../interfaces';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
@@ -53,7 +53,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
             },
           },
         },
-        [h('div', { class: { 'sg-wrap': true } })]
+        [h('div', { class: { 'sg-wrap': true } })],
       ),
       h('span', { class: { vstext: true } }, [
         h('span', { class: { vstext__pl: true } }, [i18nVariant(pairing.variant), h('br'), result]),
@@ -64,6 +64,6 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
           player.rating,
         ]),
       ]),
-    ]
+    ],
   );
 };

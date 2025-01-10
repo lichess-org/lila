@@ -1,8 +1,8 @@
 import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
 import { allGlyphs } from 'shogi/glyphs';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 
 export interface GlyphCtrl {
   root: AnalyseCtrl;
@@ -11,8 +11,8 @@ export interface GlyphCtrl {
 }
 
 function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
-  return function (glyph: Tree.Glyph) {
-    return h(
+  return (glyph: Tree.Glyph) =>
+    h(
       'button',
       {
         hook: bind('click', _ => ctrl.toggleGlyph(glyph.id), ctrl.redraw),
@@ -23,7 +23,6 @@ function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
       },
       [glyph.name],
     );
-  };
 }
 
 export function ctrl(root: AnalyseCtrl): GlyphCtrl {

@@ -1,4 +1,4 @@
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 
 export interface Setting<A> {
   choices: Choices<A>;
@@ -50,9 +50,9 @@ export function renderSetting<A>(setting: Setting<A>, redraw: () => void): VNode
             selected: key === v,
           },
         },
-        name
+        name,
       );
-    })
+    }),
   );
 }
 

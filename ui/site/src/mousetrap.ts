@@ -95,7 +95,8 @@ const keyFromEvent = (e: KeyboardEvent): string => {
   return MAP[e.which] || KEYCODE_MAP[e.which] || String.fromCharCode(e.which).toLowerCase();
 };
 
-const modifiersMatch = (a: string[], b: string[]): boolean => a.sort().join(',') === b.sort().join(',');
+const modifiersMatch = (a: string[], b: string[]): boolean =>
+  a.sort().join(',') === b.sort().join(',');
 
 const eventModifiers = (e: KeyboardEvent): string[] => {
   const modifiers: string[] = [];
@@ -106,7 +107,8 @@ const eventModifiers = (e: KeyboardEvent): string[] => {
   return modifiers;
 };
 
-const isModifier = (key: string): boolean => key == 'shift' || key == 'ctrl' || key == 'alt' || key == 'meta';
+const isModifier = (key: string): boolean =>
+  key == 'shift' || key == 'ctrl' || key == 'alt' || key == 'meta';
 
 const getReverseMap = (() => {
   let REVERSE_MAP: Record<string, string> | undefined;
@@ -114,7 +116,7 @@ const getReverseMap = (() => {
     if (!REVERSE_MAP) {
       REVERSE_MAP = {};
       for (const key in MAP) {
-        if (parseInt(key, 10) > 95 && parseInt(key, 10) < 112) continue; // skip numeric keypad
+        if (Number.parseInt(key, 10) > 95 && Number.parseInt(key, 10) < 112) continue; // skip numeric keypad
         if (Object.prototype.hasOwnProperty.call(MAP, key)) {
           REVERSE_MAP[MAP[key]] = key;
         }
@@ -168,7 +170,11 @@ class Mousetrap {
    * When adding modifiers, list the actual key last.
    */
   bind = (combinations: string | string[], callback: Callback, action?: Action): Mousetrap => {
-    this.bindMultiple(combinations instanceof Array ? combinations : [combinations], callback, action);
+    this.bindMultiple(
+      combinations instanceof Array ? combinations : [combinations],
+      callback,
+      action,
+    );
     return this;
   };
 
@@ -217,7 +223,8 @@ class Mousetrap {
         // Chrome will not fire a keypress if meta or control is down,
         // Safari will fire a keypress if meta or meta+shift is down,
         // Firefox will fire a keypress if meta or control is down
-        ((action == 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, binding.modifiers))
+        ((action == 'keypress' && !e.metaKey && !e.ctrlKey) ||
+          modifiersMatch(modifiers, binding.modifiers)),
     );
   };
 }

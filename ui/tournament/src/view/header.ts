@@ -1,8 +1,8 @@
-import { dataIcon } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
 import { assetUrl } from 'common/assets';
+import { dataIcon } from 'common/snabbdom';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
 
 function startClock(time) {
   return {
@@ -30,7 +30,7 @@ function clock(d): VNode | undefined {
         {
           hook: startClock(d.secondsToFinish),
         },
-        [h('span.shy', i18n('ending')), h('div.time')]
+        [h('span.shy', i18n('ending')), h('div.time')],
       );
   }
   if (d.secondsToStart) {
@@ -44,10 +44,13 @@ function clock(d): VNode | undefined {
           },
           hook: {
             insert(vnode) {
-              (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + d.secondsToStart * 1000));
+              (vnode.elm as HTMLElement).setAttribute(
+                'datetime',
+                '' + (Date.now() + d.secondsToStart * 1000),
+              );
             },
           },
-        })
+        }),
       );
     else
       return h(
@@ -55,7 +58,7 @@ function clock(d): VNode | undefined {
         {
           hook: startClock(d.secondsToStart),
         },
-        [h('span.shy', i18n('starting')), h('span.time.text')]
+        [h('span.shy', i18n('starting')), h('span.time.text')],
       );
   }
 }
@@ -83,7 +86,7 @@ function title(ctrl: TournamentController) {
         {
           attrs: { href: '/tournament/shields' },
         },
-        d.perf.icon
+        d.perf.icon,
       ),
       d.fullName,
     ]);
@@ -99,12 +102,12 @@ function title(ctrl: TournamentController) {
                 target: '_blank',
               },
             },
-            d.animal.name
+            d.animal.name,
           ),
           ' Arena',
         ]
       : [d.fullName]
-    ).concat(d.private ? [' ', h('span', { attrs: dataIcon('a') })] : [])
+    ).concat(d.private ? [' ', h('span', { attrs: dataIcon('a') })] : []),
   );
 }
 

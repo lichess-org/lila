@@ -1,4 +1,4 @@
-import { DrawShape, SquareHighlight } from 'shogiground/draw';
+import type { DrawShape, SquareHighlight } from 'shogiground/draw';
 
 export type Score = 0 | 1 | 2 | 3;
 
@@ -14,9 +14,7 @@ export interface UsiWithColor {
 
 export type Shape = DrawShape | SquareHighlight;
 
-export interface VmEvaluation<T> {
-  (level: Level, usiCList: UsiWithColor[]): T;
-}
+export type VmEvaluation<T> = (level: Level, usiCList: UsiWithColor[]) => T;
 
 export type Assertion = VmEvaluation<boolean>;
 

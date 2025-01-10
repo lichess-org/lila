@@ -1,10 +1,15 @@
-import Chart, { ChartConfiguration, ChartData, LegendOptions, TooltipOptions } from 'chart.js/auto';
+import Chart, {
+  type ChartConfiguration,
+  type ChartData,
+  type LegendOptions,
+  type TooltipOptions,
+} from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { h, VNode } from 'snabbdom';
-import { bg, fontClear, fontDimmer } from './colors';
-import { Options } from 'chartjs-plugin-datalabels/types/options';
-import { fixed } from '../util';
+import type { Options } from 'chartjs-plugin-datalabels/types/options';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import { fixed } from '../util';
+import { bg, fontClear, fontDimmer } from './colors';
 
 const isLight = document.body.classList.contains('light');
 
@@ -12,7 +17,7 @@ export function chart<T extends 'line' | 'bar' | 'doughnut'>(
   id: string,
   key: string,
   full: boolean,
-  opts: ChartConfiguration<T, number[] | Record<string | number, number>>
+  opts: ChartConfiguration<T, number[] | Record<string | number, number>>,
 ): VNode {
   return h(
     'div.canvas-wrap.' + id + (full ? '.full' : ''),
@@ -23,7 +28,7 @@ export function chart<T extends 'line' | 'bar' | 'doughnut'>(
           new Chart(vnode.elm as HTMLCanvasElement, opts);
         },
       },
-    })
+    }),
   );
 }
 
@@ -171,9 +176,7 @@ function scales(opts: MyChartOptions, nbOfLabels: number) {
       ticks: {
         precision: 0,
         color: fontClear(isLight),
-        callback: function (value: string): string {
-          return value + affix;
-        },
+        callback: (value: string): string => value + affix,
       },
       suggestedMin: 0,
       suggestedMax: suggestedMax,
@@ -189,13 +192,13 @@ function datalabels(data: MyChartData, labelsLength: number): DeepPartialObject<
   }, 0);
   return {
     display: true,
-    align: function (context) {
+    align: context => {
       const index = context.dataIndex;
       const cur = context.dataset.data[index] as number;
       return cur > maxValue / 8 ? 'start' : 'end';
     },
     anchor: 'end',
-    color: function (context) {
+    color: context => {
       const index = context.dataIndex;
       const cur = context.dataset.data[index] as number;
       return cur >= maxValue / 8 ? 'white' : fontClear(isLight);
@@ -203,7 +206,7 @@ function datalabels(data: MyChartData, labelsLength: number): DeepPartialObject<
     font: {
       weight: 'bold',
     },
-    formatter: function (value) {
+    formatter: value => {
       if (!value || (value === 100 && data.opts.percentage)) return '';
       const affix = data.opts.valueAffix || (data.opts.percentage ? '%' : '');
       return Math.round(value) + affix;
@@ -211,7 +214,9 @@ function datalabels(data: MyChartData, labelsLength: number): DeepPartialObject<
   };
 }
 
-function tooltip<T extends 'bar' | 'line'>(data: MyChartData): DeepPartialObject<TooltipOptions<T>> {
+function tooltip<T extends 'bar' | 'line'>(
+  data: MyChartData,
+): DeepPartialObject<TooltipOptions<T>> {
   return {
     animation: false,
     yAlign: 'bottom',
@@ -224,11 +229,11 @@ function tooltip<T extends 'bar' | 'line'>(data: MyChartData): DeepPartialObject
     boxPadding: 2,
     usePointStyle: true,
     callbacks: {
-      title: function (context) {
+      title: context => {
         const dataset = data.datasets[context[0].datasetIndex];
         return `${context[0].label} - ${dataset.label}`;
       },
-      label: function (context) {
+      label: context => {
         const res: string[] = [],
           dataset = data.datasets[context.datasetIndex],
           index = context.dataIndex,
@@ -243,10 +248,12 @@ function tooltip<T extends 'bar' | 'line'>(data: MyChartData): DeepPartialObject
         const averageData = dataset.tooltip.average?.[index];
         if (averageData !== undefined)
           res.push(
-            `${i18n('insights:average')}: ${fixed(averageData, 2) + (data.opts.valueAffix || (data.opts.percentage ? '%' : ''))}`
+            `${i18n('insights:average')}: ${fixed(averageData, 2) + (data.opts.valueAffix || (data.opts.percentage ? '%' : ''))}`,
           );
 
-        const percentageOfDataset = dataset.tooltip.total ? fixed((d / dataset.tooltip.total) * 100, 1) : undefined;
+        const percentageOfDataset = dataset.tooltip.total
+          ? fixed((d / dataset.tooltip.total) * 100, 1)
+          : undefined;
         if (percentageOfDataset) res.push(`${dataset.label}: ${percentageOfDataset}%`);
 
         const percentageOfTotal = data.total ? fixed((d / data.total) * 100, 1) : undefined;
@@ -254,16 +261,12 @@ function tooltip<T extends 'bar' | 'line'>(data: MyChartData): DeepPartialObject
 
         return res;
       },
-      labelPointStyle: function () {
-        return {
-          pointStyle: 'circle',
-          rotation: 0,
-        };
-      },
-      labelTextColor: function () {
-        return fontClear(isLight);
-      },
-      labelColor: function (context) {
+      labelPointStyle: () => ({
+        pointStyle: 'circle',
+        rotation: 0,
+      }),
+      labelTextColor: () => fontClear(isLight),
+      labelColor: context => {
         const dataset = data.datasets[context.datasetIndex];
         const color = dataset.backgroundColor as string;
         return {

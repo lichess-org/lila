@@ -1,6 +1,6 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
-import { ChatOpts, ChatCtrl } from './interfaces';
+import type { ChatCtrl, ChatOpts } from './interfaces';
 import view from './view';
 
 export function makeChat(opts: ChatOpts): ChatCtrl {

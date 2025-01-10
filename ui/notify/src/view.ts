@@ -1,16 +1,16 @@
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import { Ctrl, NotifyData } from './interfaces';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { Ctrl, NotifyData } from './interfaces';
 import type { Notification } from './interfaces';
 import { renderers } from './renderers';
-import { i18n } from 'i18n';
 
 export default function (ctrl: Ctrl): VNode {
   const d = ctrl.data();
 
   return h(
     'div#notify-app.links.dropdown',
-    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())]
+    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())],
   );
 }
 
@@ -25,7 +25,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
       h('div.pager.prev', {
         attrs: { 'data-icon': 'S' },
         hook: clickHook(ctrl.previousPage),
-      })
+      }),
     );
   else if (nb > 0)
     nodes.push(
@@ -37,8 +37,8 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
             title: i18n('delete'),
           },
           hook: clickHook(ctrl.clear),
-        })
-      )
+        }),
+      ),
     );
 
   nodes.push(nb ? recentNotifications(d, ctrl.scrolling()) : empty());
@@ -48,7 +48,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
       h('div.pager.next', {
         attrs: { 'data-icon': 'R' },
         hook: clickHook(ctrl.nextPage),
-      })
+      }),
     );
 
   if (!('Notification' in window))
@@ -71,7 +71,7 @@ function notificationDenied(): VNode {
         target: '_blank',
       },
     },
-    'Notification popups disabled by browser setting'
+    'Notification popups disabled by browser setting',
   );
 }
 
@@ -102,7 +102,7 @@ function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
         postpatch: contentLoaded,
       },
     },
-    d.pager.currentPageResults.map(asHtml) as VNode[]
+    d.pager.currentPageResults.map(asHtml) as VNode[],
   );
 }
 

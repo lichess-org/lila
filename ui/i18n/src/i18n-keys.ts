@@ -1,6 +1,6 @@
 // Generated with bin/trans-dump.ts
 
-// prettier-ignore
+// biome-ignore format: Auto generated
 export type I18nKey =
   | 'shogi'
   | 'playWithAFriend'

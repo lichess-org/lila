@@ -1,19 +1,19 @@
-import { MaybeVNodes } from 'common/snabbdom';
+import type { MaybeVNodes } from 'common/snabbdom';
 import * as game from 'game';
 import * as status from 'game/status';
+import { i18n, i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
 import { isHandicap } from 'shogiops/handicaps';
 import { h } from 'snabbdom';
 import { renderClock } from '../clock/clock-view';
 import renderCorresClock from '../corres-clock/corres-clock-view';
-import RoundController from '../ctrl';
-import { Position } from '../interfaces';
+import type RoundController from '../ctrl';
+import type { Position } from '../interfaces';
 import * as button from './button';
-import * as suggestion from './suggestions';
 import renderExpiration from './expiration';
 import * as replay from './replay';
+import * as suggestion from './suggestions';
 import * as renderUser from './user';
-import { colorName } from 'shogi/color-name';
-import { i18n, i18nFormatCapitalized } from 'i18n';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
@@ -62,14 +62,14 @@ export const renderTablePlay = (ctrl: RoundController): MaybeVNodes => {
                   'i',
                   i18n('proposeATakeback'),
                   'takeback-yes',
-                  ctrl.takebackYes
+                  ctrl.takebackYes,
                 ),
             ctrl.showImpasseButton() ? button.impasse(ctrl) : null,
             ctrl.showDrawButton()
               ? ctrl.drawConfirm
                 ? button.drawConfirm(ctrl)
                 : button.standard(ctrl, ctrl.canOfferDraw, '', i18n('offerDraw'), 'draw-yes', () =>
-                    ctrl.offerDraw(true)
+                    ctrl.offerDraw(true),
                   )
               : null,
             pausable
@@ -81,13 +81,13 @@ export const renderTablePlay = (ctrl: RoundController): MaybeVNodes => {
                     'Z',
                     i18n('offerAdjournment'),
                     'pause-yes',
-                    () => ctrl.offerPause(true)
+                    () => ctrl.offerPause(true),
                   )
               : null,
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
               : button.standard(ctrl, game.resignable, 'b', i18n('resign'), 'resign-confirm', () =>
-                  ctrl.resign(true)
+                  ctrl.resign(true),
                 ),
             replay.analysisButton(ctrl),
           ],
@@ -118,7 +118,7 @@ export const renderTablePlay = (ctrl: RoundController): MaybeVNodes => {
             empty: icons.length === 0,
           },
         },
-        icons
+        icons,
       ),
     ]),
   ];
@@ -136,12 +136,12 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
                 'xPlays',
                 colorName(
                   d.game.player,
-                  isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen })
-                )
+                  isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen }),
+                ),
               )
             : d.game.player === d.player.color
               ? i18n('yourTurn')
-              : i18n('waitingForOpponent')
+              : i18n('waitingForOpponent'),
         )
       : null,
   ]);

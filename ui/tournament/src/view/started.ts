@@ -1,26 +1,26 @@
-import { MaybeVNodes } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
+import type { MaybeVNodes } from 'common/snabbdom';
+import { i18n, i18nFormat } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
 import * as pagination from '../pagination';
-import { arenaControls, robinControls, organizedControls } from './controls';
 import * as tour from '../tournament';
 import { standing } from './arena';
+import { teamStanding } from './battle';
+import { arenaControls, organizedControls, robinControls } from './controls';
+import header from './header';
+import { standing as oStanding } from './organized';
+import playerInfo from './player-info';
 import {
   howDoesThisWork,
   playing,
-  recents,
   standing as rStanding,
+  recents,
   upcoming,
   yourCurrent,
   yourUpcoming,
 } from './robin';
-import { standing as oStanding } from './organized';
-import { teamStanding } from './battle';
-import header from './header';
-import playerInfo from './player-info';
 import tourTable from './table';
 import teamInfo from './team-info';
-import { i18n, i18nFormat } from 'i18n';
 
 function joinTheGame(gameId: string) {
   return h(
@@ -28,7 +28,7 @@ function joinTheGame(gameId: string) {
     {
       attrs: { href: '/' + gameId },
     },
-    [i18n('youArePlaying'), h('br'), i18n('joinTheGame')]
+    [i18n('youArePlaying'), h('br'), i18n('joinTheGame')],
   );
 }
 

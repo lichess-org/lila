@@ -1,16 +1,16 @@
-import { VNode, h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import InsightCtrl from '../ctrl';
-import { Result, Tab, tabs } from '../types';
-import { outcomes } from './tabs/outcomes';
-import { opponents } from './tabs/opponents';
-import { moves } from './tabs/moves';
-import { times } from './tabs/times';
+import { i18nPluralSame } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type InsightCtrl from '../ctrl';
+import { type Result, type Tab, tabs } from '../types';
+import { filter } from './filter';
 import { analysis } from './tabs/analysis';
 import { custom } from './tabs/custom';
-import { filter } from './filter';
-import { i18nPluralSame } from 'i18n';
+import { moves } from './tabs/moves';
+import { opponents } from './tabs/opponents';
+import { outcomes } from './tabs/outcomes';
+import { times } from './tabs/times';
 
 export default function (ctrl: InsightCtrl): VNode {
   return h('div.page-menu', [
@@ -24,7 +24,7 @@ function side(ctrl: InsightCtrl): VNode {
     h(
       'h2.title-username',
       { class: { small: ctrl.username.length > 11 } },
-      h('a', { attrs: { href: `@/${ctrl.userId}` } }, ctrl.username)
+      h('a', { attrs: { href: `@/${ctrl.userId}` } }, ctrl.username),
     ),
     filter(ctrl),
   ]);
@@ -45,9 +45,9 @@ function tabsView(ctrl: InsightCtrl): VNode {
           },
           hook: bind('click', () => ctrl.changeTab(tab), ctrl.redraw),
         },
-        tab
-      )
-    )
+        tab,
+      ),
+    ),
   );
 }
 
@@ -59,9 +59,9 @@ function content(ctrl: InsightCtrl, tab: Tab): VNode {
       ctrl.isError
         ? h(
             'p',
-            'Insights are not currently available. Sorry about that! If this keeps happening please report this on GitHub.'
+            'Insights are not currently available. Sorry about that! If this keeps happening please report this on GitHub.',
           )
-        : spinner()
+        : spinner(),
     );
 
   const res =

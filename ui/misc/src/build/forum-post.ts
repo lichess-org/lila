@@ -32,27 +32,23 @@ window.lishogi.ready.then(() => {
     });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
-    const textarea = this,
-      topicId = $(this).attr('data-topic');
+    const topicId = $(this).attr('data-topic');
 
     if (!topicId) return;
 
-    const searchCandidates = function (term: string, candidateUsers: string[]) {
-      return candidateUsers.filter((user: string) =>
-        user.toLowerCase().startsWith(term.toLowerCase()),
-      );
-    };
+    const searchCandidates = (term: string, candidateUsers: string[]) =>
+      candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
 
     // We only ask the server for the thread participants once the user has clicked the text box as most hits to the
     // forums will be only to read the thread. So the 'thread participants' starts out empty until the post text area
     // is focused.
     const threadParticipants = window.lishogi.xhr.json('GET', '/forum/participants/' + topicId);
 
-    new Textcomplete(new TextareaEditor(textarea), [
+    new Textcomplete(new TextareaEditor(this), [
       {
         index: 2,
         match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
-        search: function (term: string, callback: (names: string[]) => void) {
+        search: (term: string, callback: (names: string[]) => void) => {
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.
           threadParticipants.then(participants => {

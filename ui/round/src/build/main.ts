@@ -3,7 +3,7 @@ import { Shogiground } from 'shogiground';
 import { attributesModule, classModule, init } from 'snabbdom';
 import { boot } from '../boot';
 import RoundController from '../ctrl';
-import { RoundOpts } from '../interfaces';
+import type { RoundOpts } from '../interfaces';
 import { main as view } from '../view/main';
 
 const patch = init([classModule, attributesModule]);

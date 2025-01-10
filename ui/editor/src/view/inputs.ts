@@ -1,9 +1,9 @@
+import { i18n } from 'i18n';
 import { makeCsaHeader, parseCsaHeader } from 'shogiops/notation/csa';
 import { makeKifHeader, parseKifHeader } from 'shogiops/notation/kif';
 import { makeSfen, parseSfen } from 'shogiops/sfen';
-import { VNode, h } from 'snabbdom';
-import EditorCtrl from '../ctrl';
-import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type EditorCtrl from '../ctrl';
 
 export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
   const pos = parseSfen(ctrl.rules, sfen);
@@ -62,7 +62,9 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
           attrs: { 'data-icon': 'G' },
           on: {
             click: () => {
-              const kifEl = document.querySelector('.copyables .kif textarea') as HTMLTextAreaElement,
+              const kifEl = document.querySelector(
+                  '.copyables .kif textarea',
+                ) as HTMLTextAreaElement,
                 kif = kifEl.value,
                 parsed = parseKifHeader(kif);
               if (parsed.isOk) ctrl.setSfen(makeSfen(parsed.value));
@@ -70,7 +72,7 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
             },
           },
         },
-        i18n('importKif')
+        i18n('importKif'),
       ),
     ]),
     ctrl.rules === 'standard'
@@ -90,7 +92,9 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
               attrs: { 'data-icon': 'G' },
               on: {
                 click: () => {
-                  const csaEl = document.querySelector('.copyables .csa textarea') as HTMLTextAreaElement,
+                  const csaEl = document.querySelector(
+                      '.copyables .csa textarea',
+                    ) as HTMLTextAreaElement,
                     csa = csaEl.value,
                     parsed = parseCsaHeader(csa);
                   if (parsed.isOk) ctrl.setSfen(makeSfen(parsed.value));
@@ -98,7 +102,7 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
                 },
               },
             },
-            i18n('importCsa')
+            i18n('importCsa'),
           ),
         ])
       : null,

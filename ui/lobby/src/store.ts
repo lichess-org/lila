@@ -1,4 +1,4 @@
-import { Mode, Sort, Tab } from './interfaces';
+import type { Mode, Sort, Tab } from './interfaces';
 
 interface Store<A> {
   set(v: string): A;

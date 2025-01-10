@@ -1,12 +1,12 @@
+import { hasTouchEvents } from 'common/mobile';
 import stepwiseScroll from 'common/wheel';
-import { VNode, h } from 'snabbdom';
-import RoundController from '../ctrl';
+import { render as keyboardMove } from 'keyboard-move';
+import { type VNode, h } from 'snabbdom';
+import type RoundController from '../ctrl';
 import * as shogiground from '../ground';
 import * as keyboard from '../keyboard';
-import { render as keyboardMove } from 'keyboard-move';
 import * as util from '../util';
 import { renderTable } from './table';
-import { hasTouchEvents } from 'common/mobile';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data;
@@ -38,13 +38,13 @@ export function main(ctrl: RoundController): VNode {
                         }
                       }),
                       undefined,
-                      false
+                      false,
                     ),
             },
-            shogiground.renderBoard(ctrl)
+            shogiground.renderBoard(ctrl),
           ),
           ...renderTable(ctrl),
           ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
-        ]
+        ],
       );
 }

@@ -1,12 +1,18 @@
-import { MaybeVNodes, bind } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from './ctrl';
+import { type MaybeVNodes, bind } from 'common/snabbdom';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from './ctrl';
+import type { PageData } from './interfaces';
 import { searchOr } from './search';
-import { PageData } from './interfaces';
 
 export const maxPerPage = 10;
 
-function button(text: string, icon: string, click: () => void, enable: boolean, ctrl: TournamentController): VNode {
+function button(
+  text: string,
+  icon: string,
+  click: () => void,
+  enable: boolean,
+  ctrl: TournamentController,
+): VNode {
   return h('button.fbt.is', {
     attrs: {
       'data-icon': icon,

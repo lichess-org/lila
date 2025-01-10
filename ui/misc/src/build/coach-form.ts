@@ -4,7 +4,7 @@ import { debounce } from 'common/timings';
 window.lishogi.ready.then(() => {
   const $editor = $('.coach-edit');
 
-  const todo = (function () {
+  const todo = (() => {
     const $overview = $editor.find('.overview'),
       $el = $overview.find('.todo'),
       $listed = $editor.find('#form3-listed');
@@ -12,20 +12,16 @@ window.lishogi.ready.then(() => {
     const must = [
       {
         html: '<a href="/account/profile">Complete your lishogi profile</a>',
-        check: function () {
-          return $el.data('profile');
-        },
+        check: () => $el.data('profile'),
       },
       {
         html: 'Upload a profile picture',
-        check: function () {
-          return $editor.find('img.picture').length;
-        },
+        check: () => $editor.find('img.picture').length,
       },
       {
         html: 'Fill in basic information',
-        check: function () {
-          for (let name of ['profile.headline', 'languages']) {
+        check: () => {
+          for (const name of ['profile.headline', 'languages']) {
             if (!$editor.find('[name="' + name + '"]').val()) return false;
           }
           return true;
@@ -33,19 +29,16 @@ window.lishogi.ready.then(() => {
       },
       {
         html: 'Fill at least 3 description texts',
-        check: function () {
-          return (
-            $editor.find('.panel.texts textarea').filter(function () {
-              return !!$(this).val();
-            }).length >= 3
-          );
-        },
+        check: () =>
+          $editor.find('.panel.texts textarea').filter(function () {
+            return !!$(this).val();
+          }).length >= 3,
       },
     ];
 
-    return function () {
+    return () => {
       const points: JQuery[] = [];
-      for (let o of must) if (!o.check()) points.push($('<li>').html(o.html));
+      for (const o of must) if (!o.check()) points.push($('<li>').html(o.html));
       $el.find('ul').empty();
       const fail = !!points.length;
       $overview.toggleClass('with-todo', fail);
@@ -61,7 +54,7 @@ window.lishogi.ready.then(() => {
     $editor.find('.panel.' + $(this).data('tab')).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
-  const submit = debounce(function () {
+  const submit = debounce(() => {
     const form = document.querySelector('form.async') as HTMLFormElement;
     if (!form) return;
     window.lishogi.xhr.formToXhr(form).then(() => {
@@ -69,7 +62,7 @@ window.lishogi.ready.then(() => {
       todo();
     });
   }, 1000);
-  $editor.find('input, textarea, select').on('input paste change keyup', function () {
+  $editor.find('input, textarea, select').on('input paste change keyup', () => {
     $editor.find('div.status').removeClass('saved');
     submit();
   });

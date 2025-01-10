@@ -1,5 +1,5 @@
-import { Shogiground } from 'shogiground';
 import menuSlowdown from 'common/menu-slowdown';
+import { Shogiground } from 'shogiground';
 import {
   attributesModule,
   classModule,
@@ -9,7 +9,7 @@ import {
   styleModule,
 } from 'snabbdom';
 import LearnCtrl from '../ctrl';
-import { LearnOpts } from '../interfaces';
+import type { LearnOpts } from '../interfaces';
 import view from '../views/view';
 
 const patch = init([classModule, attributesModule, styleModule, propsModule, eventListenersModule]);

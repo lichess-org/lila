@@ -11,7 +11,7 @@ export function notifyApp(): typeof window.lishogi.notifyApp {
         .find('span')
         .attr(
           'data-icon',
-          'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf'
+          'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf',
         );
 
       if (instance) instance.redraw();

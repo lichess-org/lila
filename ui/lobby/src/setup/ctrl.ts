@@ -1,27 +1,27 @@
 import { clockEstimateSeconds, clockToPerf } from 'common/clock';
-import LobbyController from '../ctrl';
-import { FormStore, makeStore } from '../form';
+import { idToVariant, variantToId } from 'common/variant';
+import { engineName } from 'shogi/engine-name';
+import { RULES } from 'shogiops';
+import { findHandicaps, isHandicap } from 'shogiops/handicaps';
+import { parseSfen } from 'shogiops/sfen';
+import type LobbyController from '../ctrl';
+import { type FormStore, makeStore } from '../form';
 import {
+  Mode,
+  Position,
+  TimeMode,
+  aiLevelChoices,
   byoChoices,
   dayChoices,
   incChoices,
   maxRatingChoices,
   minRatingChoices,
-  periodChoices,
-  timeChoices,
   modeChoices,
-  timeModeChoices,
+  periodChoices,
   positionChoices,
-  TimeMode,
-  Mode,
-  aiLevelChoices,
-  Position,
+  timeChoices,
+  timeModeChoices,
 } from './util';
-import { RULES } from 'shogiops';
-import { idToVariant, variantToId } from 'common/variant';
-import { findHandicaps, isHandicap } from 'shogiops/handicaps';
-import { engineName } from 'shogi/engine-name';
-import { parseSfen } from 'shogiops/sfen';
 
 export default class SetupCtrl {
   key: SetupKey;
@@ -185,8 +185,8 @@ export default class SetupCtrl {
     const store = this.stores[this.key]?.get() || {};
 
     const getNumber = (k: keyof SetupData, options: number[]): number => {
-      const extra = extraData?.[k] ? parseInt(extraData[k]) : undefined,
-        saved = extra ?? parseInt(store[k]);
+      const extra = extraData?.[k] ? Number.parseInt(extraData[k]) : undefined,
+        saved = extra ?? Number.parseInt(store[k]);
       if (saved !== null && saved !== undefined && !isNaN(saved) && options.includes(saved))
         return saved;
       else return SetupCtrl.defaultData[k] as number;

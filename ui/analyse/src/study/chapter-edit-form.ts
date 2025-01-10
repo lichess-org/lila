@@ -1,14 +1,14 @@
-import { Prop, defined, prop } from 'common/common';
+import { type Prop, defined, prop } from 'common/common';
 import * as modal from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import { Redraw } from '../interfaces';
+import { i18n } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { type VNode, h } from 'snabbdom';
+import type { Redraw } from '../interfaces';
 import { emptyRedButton, option } from '../util';
 import * as chapterForm from './chapter-new-form';
-import { StudyChapterConfig, StudyChapterMeta } from './interfaces';
-import { colorName } from 'shogi/color-name';
-import { i18n } from 'i18n';
+import type { StudyChapterConfig, StudyChapterMeta } from './interfaces';
 
 interface StudyChapterEditFormCtrl {
   current: Prop<StudyChapterMeta | StudyChapterConfig | null>;
@@ -25,7 +25,7 @@ interface StudyChapterEditFormCtrl {
 export function ctrl(
   send: Socket.Send,
   chapterConfig: (id: string) => Promise<StudyChapterConfig>,
-  redraw: Redraw
+  redraw: Redraw,
 ): StudyChapterEditFormCtrl {
   const current = prop<StudyChapterMeta | StudyChapterConfig | null>(null);
 
@@ -107,7 +107,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                   {
                     attrs: { for: 'chapter-name' },
                   },
-                  i18n('name')
+                  i18n('name'),
                 ),
                 h('input#chapter-name.form-control', {
                   attrs: {
@@ -124,7 +124,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                 }),
               ]),
               ...(isLoaded(data) ? viewLoaded(data) : [spinner()]),
-            ]
+            ],
           ),
           h('div.destructive', [
             h(
@@ -136,11 +136,11 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                     if (confirm(i18n('study:clearAllCommentsInThisChapter')))
                       ctrl.clearAnnotations(data.id);
                   },
-                  ctrl.redraw
+                  ctrl.redraw,
                 ),
                 attrs: { type: 'button' },
               },
-              i18n('study:clearAnnotations')
+              i18n('study:clearAnnotations'),
             ),
             h(
               emptyRedButton,
@@ -150,11 +150,11 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
                   _ => {
                     if (confirm(i18n('study:deleteThisChapter'))) ctrl.delete(data.id);
                   },
-                  ctrl.redraw
+                  ctrl.redraw,
                 ),
                 attrs: { type: 'button' },
               },
-              i18n('study:deleteChapter')
+              i18n('study:deleteChapter'),
             ),
             // !ctrl.chapter().gameLength
             //  ? h(
@@ -203,13 +203,13 @@ function viewLoaded(data: StudyChapterConfig): VNode[] {
           {
             attrs: { for: 'chapter-orientation' },
           },
-          i18n('study:orientation')
+          i18n('study:orientation'),
         ),
         h(
           'select#chapter-orientation.form-control',
-          ['sente', 'gote'].map(function (color: Color) {
-            return option(color, data.orientation, colorName(color, false));
-          })
+          ['sente', 'gote'].map((color: Color) =>
+            option(color, data.orientation, colorName(color, false)),
+          ),
         ),
       ]),
       h('div.form-group.form-half', [
@@ -218,13 +218,13 @@ function viewLoaded(data: StudyChapterConfig): VNode[] {
           {
             attrs: { for: 'chapter-mode' },
           },
-          i18n('study:analysisMode')
+          i18n('study:analysisMode'),
         ),
         h(
           'select#chapter-mode.form-control',
           chapterForm.modeChoices.map(c => {
             return option(c[0], mode, c[1]);
-          })
+          }),
         ),
       ]),
     ]),
@@ -234,14 +234,14 @@ function viewLoaded(data: StudyChapterConfig): VNode[] {
         {
           attrs: { for: 'chapter-description' },
         },
-        i18n('study:pinnedChapterComment')
+        i18n('study:pinnedChapterComment'),
       ),
       h(
         'select#chapter-description.form-control',
         [
           ['', i18n('study:noPinnedComment')],
           ['1', i18n('study:rightUnderTheBoard')],
-        ].map(v => option(v[0], data.description ? '1' : '', v[1]))
+        ].map(v => option(v[0], data.description ? '1' : '', v[1])),
       ),
     ]),
     modal.button(i18n('study:saveChapter')),

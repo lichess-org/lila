@@ -17,7 +17,7 @@ LIMITS[2] *= 2; // Show hours up to 2 days.
 function toDate(input: Date | string | number) {
   return input instanceof Date
     ? input
-    : new Date(isNaN(input as any) ? input : parseInt(input as any));
+    : new Date(isNaN(input as any) ? input : Number.parseInt(input as any));
 }
 
 // format the diff second to *** time ago
@@ -53,9 +53,7 @@ function formatter(): (date?: Date | number) => string {
           hour: 'numeric',
           minute: 'numeric',
         }).format
-      : function (d: Date) {
-          return d.toLocaleString();
-        }));
+      : (d: Date) => d.toLocaleString()));
 }
 
 export function render(nodes: HTMLElement[]): void {
@@ -65,7 +63,7 @@ export function render(nodes: HTMLElement[]): void {
     str,
     diff,
     now = Date.now();
-  nodes.forEach(function (node: HTMLElement & { date?: Date }) {
+  nodes.forEach((node: HTMLElement & { date?: Date }) => {
     (cl = node.classList), (abs = cl.contains('abs')), (set = cl.contains('set'));
     node.date = node.date || toDate(node.getAttribute('datetime')!);
     if (!set) {

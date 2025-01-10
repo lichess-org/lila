@@ -1,14 +1,14 @@
 import { Result } from '@badrap/result';
 import { prop } from 'common/common';
-import { EngineCode, engineCode, engineName } from 'shogi/engine-name';
-import { isImpasse } from 'shogi/impasse';
 import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
+import { EngineCode, engineCode, engineName } from 'shogi/engine-name';
+import { isImpasse } from 'shogi/impasse';
 import { parseSfen } from 'shogiops/sfen';
 import { defaultPosition } from 'shogiops/variant/variant';
 import { Cache } from './cache';
-import {
+import type {
   CevalCtrl,
   CevalOpts,
   CevalTechnology,
@@ -20,14 +20,14 @@ import {
 } from './types';
 import { unsupportedVariants } from './util';
 import { povChances } from './winning-chances';
-import { AbstractWorker, ThreadedWasmWorker } from './worker';
+import { type AbstractWorker, ThreadedWasmWorker } from './worker';
 
 const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
   new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
 
 function sendableSharedWasmMemory(
   initial: number,
-  maximum: number
+  maximum: number,
 ): WebAssembly.Memory | undefined {
   // Atomics
   if (typeof Atomics !== 'object') return;
@@ -118,13 +118,13 @@ export default function (opts: CevalOpts): CevalCtrl {
   const initialAllocationMaxThreads = useYaneuraou ? 2 : 1,
     maxThreads = Math.min(
       Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-      growableSharedMem ? 32 : initialAllocationMaxThreads
+      growableSharedMem ? 32 : initialAllocationMaxThreads,
     );
   const threads = () => {
     const stored = window.lishogi.storage.get(storageKey('ceval.threads'));
     return Math.min(
       maxThreads,
-      stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4)
+      stored ? Number.parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4),
     );
   };
   const pow2floor = (n: number) => {
@@ -158,7 +158,7 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   const hashSize = () => {
     const stored = window.lishogi.storage.get(storageKey('ceval.hash-size'));
-    return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
+    return Math.min(maxHashSize, stored ? Number.parseInt(stored, 10) : 16);
   };
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const enteringKingRule = storedProp(storageKey('ceval.enteringKingRule'), true);
@@ -166,7 +166,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   let curEval: Tree.LocalEval | null = null;
   const allowed = prop(true);
   const enabled = prop(
-    technology !== 'none' && opts.possible && analysable && allowed() && enabledAfterDisable()
+    technology !== 'none' && opts.possible && analysable && allowed() && enabledAfterDisable(),
   );
   const downloadProgress = prop(0);
   let running = false;
@@ -192,12 +192,10 @@ export default function (opts: CevalOpts): CevalCtrl {
   const curDepth = () => (curEval ? curEval.depth : 0);
 
   const effectiveMaxDepth = () =>
-    isDeeper() || infinite() ? 99 : defaultDepth(technology, threads(), parseInt(multiPv()));
+    isDeeper() || infinite() ? 99 : defaultDepth(technology, threads(), Number.parseInt(multiPv()));
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
-    pvs.sort(function (a, b) {
-      return povChances(color, b) - povChances(color, a);
-    });
+    pvs.sort((a, b) => povChances(color, b) - povChances(color, a));
 
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
     const step = steps[steps.length - 1];
@@ -238,7 +236,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       path,
       ply: step.ply,
       maxDepth,
-      multiPv: parseInt(multiPv()),
+      multiPv: Number.parseInt(multiPv()),
       threatMode,
       emit(ev: Tree.LocalEval) {
         if (enabled()) onEmit(ev, work);
@@ -261,7 +259,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     window.lishogi.storage.fire('ceval.disable');
     window.lishogi.tempStorage.set(
       'ceval.enabled-after',
-      window.lishogi.storage.get('ceval.disable')!
+      window.lishogi.storage.get('ceval.disable')!,
     );
 
     if (!worker) {
@@ -356,7 +354,7 @@ export default function (opts: CevalOpts): CevalCtrl {
               sfen,
               usi,
             }
-          : null
+          : null,
       );
       opts.setAutoShapes();
     },

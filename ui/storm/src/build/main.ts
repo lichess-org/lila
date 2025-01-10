@@ -2,7 +2,7 @@ import menuSlowdown from 'common/menu-slowdown';
 import { Shogiground } from 'shogiground';
 import { attributesModule, classModule, init } from 'snabbdom';
 import StormCtrl from '../ctrl';
-import { StormOpts } from '../interfaces';
+import type { StormOpts } from '../interfaces';
 import view from '../view/main';
 
 const patch = init([classModule, attributesModule]);

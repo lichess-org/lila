@@ -1,7 +1,7 @@
 import { hookMobileMousedown } from 'common/mobile';
-import { VNode, h } from 'snabbdom';
-import MsgCtrl from '../ctrl';
-import { Contact, LastMsg } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type MsgCtrl from '../ctrl';
+import type { Contact, LastMsg } from '../interfaces';
 import { userIcon, userName } from './util';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
@@ -28,7 +28,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
             {
               class: { 'msg-app__side__contact__msg--new': isNew },
             },
-            msg.text
+            msg.text,
           ),
           isNew
             ? h('i.msg-app__side__contact__new', {
@@ -37,7 +37,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
             : null,
         ]),
       ]),
-    ]
+    ],
   );
 }
 
@@ -51,6 +51,6 @@ function renderDate(msg: LastMsg): VNode {
         datetime: msg.date.getTime(),
       },
     },
-    window.lishogi.timeago.format(msg.date)
+    window.lishogi.timeago.format(msg.date),
   );
 }

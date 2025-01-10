@@ -1,10 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import SetupCtrl, { type SetupDataKey } from './ctrl';
 import { onInsert } from 'common/snabbdom';
-import { RULES } from 'shogiops';
-import { i18nVariant } from 'i18n/variant';
 import { variantToId } from 'common/variant';
 import { i18n } from 'i18n';
+import { i18nVariant } from 'i18n/variant';
+import { RULES } from 'shogiops';
+import { type VNode, h } from 'snabbdom';
+import type SetupCtrl from './ctrl';
+import type { SetupDataKey } from './ctrl';
 
 export const variantChoicesTranslated: [number, string][] = RULES.map(
   r => [variantToId(r), i18nVariant(r)] as [number, string],
@@ -138,7 +139,7 @@ export function slider(ctrl: SetupCtrl, key: SetupDataKey, options: number[], bi
           index = options.findIndex(n => n == ctrl.data[key]);
         el.value = `${index}`;
         el.addEventListener('input', _ => {
-          const value = options[parseInt(el.value)];
+          const value = options[Number.parseInt(el.value)];
           ctrl.set(key, value);
         });
         el.addEventListener('change', _ => {
@@ -170,7 +171,7 @@ export function radioGroup(
             insert: vnode => {
               const el = vnode.elm as HTMLInputElement;
               el.addEventListener('input', _ => {
-                ctrl.set(key, parseInt(el.value));
+                ctrl.set(key, Number.parseInt(el.value));
                 ctrl.save();
               });
             },

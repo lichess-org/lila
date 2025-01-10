@@ -1,9 +1,10 @@
 import * as game from 'game';
+import { i18n } from 'i18n';
 import { commands } from 'nvui/command';
 import { Notify } from 'nvui/notify';
 import { renderSetting } from 'nvui/setting';
 import {
-  Style,
+  type Style,
   renderBoard,
   renderHand,
   renderMove,
@@ -12,20 +13,19 @@ import {
   supportedVariant,
   validUsi,
 } from 'nvui/shogi';
+import { engineNameFromCode } from 'shogi/engine-name';
 import { Shogiground } from 'shogiground';
-import { VNode, h } from 'snabbdom';
+import { opposite } from 'shogiground/util';
+import { type VNode, h } from 'snabbdom';
 import { renderClock } from '../clock/clock-view';
 import renderCorresClock from '../corres-clock/corres-clock-view';
-import RoundController from '../ctrl';
+import type RoundController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';
-import { Position, Redraw, Step } from '../interfaces';
+import type { Position, Redraw, Step } from '../interfaces';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { renderResult } from '../view/replay';
 import { renderTableEnd, renderTablePlay, renderTableWatch } from '../view/table';
-import { opposite } from 'shogiground/util';
-import { engineNameFromCode } from 'shogi/engine-name';
-import { i18n } from 'i18n';
 
 function main(redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -62,14 +62,14 @@ function main(redraw: Redraw) {
           h('h1', gameText(ctrl)),
           h('h2', i18n('nvui:gameInfo')),
           ...['sente', 'gote'].map((color: Color) =>
-            h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))])
+            h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))]),
           ),
           h('p', `${d.game.rated ? i18n('rated') : i18n('casual')} ${d.game.perf}`),
           d.clock
             ? h(
                 'p',
                 i18n('clock') +
-                  `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`
+                  `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`,
               )
             : null,
           h('h2', i18n('nvui:moves')),
@@ -81,7 +81,7 @@ function main(redraw: Redraw) {
                 'aria-live': 'off',
               },
             },
-            renderMoves(d.steps.slice(1), ctrl.data.game.variant.key, style)
+            renderMoves(d.steps.slice(1), ctrl.data.game.variant.key, style),
           ),
           h('h2', i18n('nvui:pieces')),
           h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
@@ -95,7 +95,7 @@ function main(redraw: Redraw) {
                 'aria-atomic': 'true',
               },
             },
-            [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]
+            [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)],
           ),
           h('h2', 'Last move'),
           h(
@@ -106,7 +106,7 @@ function main(redraw: Redraw) {
                 'aria-atomic': 'true',
               },
             },
-            renderMove(step.usi, step.sfen, ctrl.data.game.variant.key, style)
+            renderMove(step.usi, step.sfen, ctrl.data.game.variant.key, style),
           ),
           ...(ctrl.isPlaying()
             ? [
@@ -134,7 +134,7 @@ function main(redraw: Redraw) {
                         },
                       }),
                     ]),
-                  ]
+                  ],
                 ),
               ]
             : []),
@@ -157,8 +157,8 @@ function main(redraw: Redraw) {
               opposite(ctrl.data.player.color),
               ctrl.shogiground.state.hands.handMap.get(opposite(ctrl.data.player.color)),
               ctrl.data.game.variant.key,
-              style
-            )
+              style,
+            ),
           ),
           h(
             'pre.board',
@@ -166,8 +166,8 @@ function main(redraw: Redraw) {
               ctrl.shogiground.state.pieces,
               ctrl.data.player.color,
               ctrl.data.game.variant.key,
-              style
-            )
+              style,
+            ),
           ),
           h(
             'pre.hand',
@@ -176,8 +176,8 @@ function main(redraw: Redraw) {
               ctrl.data.player.color,
               ctrl.shogiground.state.hands.handMap.get(ctrl.data.player.color),
               ctrl.data.game.variant.key,
-              style
-            )
+              style,
+            ),
           ),
           h('h2', i18n('settings:settings')),
           h('label', [i18n('notationSystem'), renderSetting(moveStyle, ctrl.redraw)]),
@@ -202,7 +202,7 @@ function main(redraw: Redraw) {
             'takeback: Offer or accept take back.',
             h('br'),
           ]),
-        ]
+        ],
       );
     },
   };
@@ -212,9 +212,9 @@ function onSubmit(
   ctrl: RoundController,
   notify: (txt: string) => void,
   style: () => Style,
-  $input: JQuery<HTMLInputElement>
+  $input: JQuery<HTMLInputElement>,
 ) {
-  return function () {
+  return () => {
     let input = $input.val()?.trim()!;
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -269,7 +269,7 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
     notify(
       commands.piece.apply(c, pieces, hands, style) ||
         commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`
+        `Invalid command: ${c}`,
     );
   }
 }
@@ -310,7 +310,7 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
           {
             attrs: { href: '/@/' + user.username },
           },
-          user.title ? `${user.title} ${user.username}` : user.username
+          user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,

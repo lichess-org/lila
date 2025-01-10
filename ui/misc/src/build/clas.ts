@@ -1,6 +1,6 @@
-import tablesort from 'tablesort';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
+import tablesort from 'tablesort';
 
 window.lishogi.ready.then(() => {
   $('table.sortable').each(function () {
@@ -66,8 +66,8 @@ window.lishogi.ready.then(() => {
   }
 
   function compareNumber(a, b) {
-    a = parseFloat(a);
-    b = parseFloat(b);
+    a = Number.parseFloat(a);
+    b = Number.parseFloat(b);
 
     a = isNaN(a) ? 0 : a;
     b = isNaN(b) ? 0 : b;
@@ -77,11 +77,9 @@ window.lishogi.ready.then(() => {
 
   tablesort.extend(
     'number',
-    function (item) {
+    item => {
       return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
     },
-    function (a, b) {
-      return compareNumber(cleanNumber(b), cleanNumber(a));
-    },
+    (a, b) => compareNumber(cleanNumber(b), cleanNumber(a)),
   );
 });

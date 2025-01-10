@@ -1,49 +1,49 @@
 import { view as cevalView } from 'ceval';
+import { makeChat } from 'chat';
 import { defined } from 'common/common';
 import { bindMobileMousedown, hasTouchEvents } from 'common/mobile';
-import { bind, bindNonPassive, dataIcon, MaybeVNode, onInsert } from 'common/snabbdom';
+import { type MaybeVNode, bind, bindNonPassive, dataIcon, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 import { playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
+import { i18n, i18nFormatCapitalized, i18nPluralSame } from 'i18n';
+import { colorName } from 'shogi/color-name';
 import { isHandicap } from 'shogiops/handicaps';
 import { parseSfen } from 'shogiops/sfen';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
 import { render as acplView } from './acpl';
 import { view as actionMenu } from './action-menu';
 import renderClocks from './clocks';
 import * as control from './control';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import forecastView from './forecast/forecast-view';
 import { view as forkView } from './fork';
 import * as gridHacks from './grid-hacks';
 import * as shogiground from './ground';
-import { ConcealOf } from './interfaces';
+import type { ConcealOf } from './interfaces';
 import { view as keyboardView } from './keyboard';
 import * as notationExport from './notation-export';
 import practiceView from './practice/practice-view';
 import retroView from './retrospect/retro-view';
 import serverSideUnderboard from './server-side-underboard';
+import { studyAdvancedButton, studyModal } from './study-modal';
 import * as gbEdit from './study/gamebook/gamebook-edit';
 import * as gbPlay from './study/gamebook/gamebook-play-view';
-import { StudyCtrl } from './study/interfaces';
+import type { StudyCtrl } from './study/interfaces';
 import renderPlayerBars from './study/player-bars';
 import * as studyPracticeView from './study/practice/study-practice-view';
 import * as studyView from './study/study-view';
 import { render as renderTreeView } from './tree-view/tree-view';
-import { studyAdvancedButton, studyModal } from './study-modal';
-import { colorName } from 'shogi/color-name';
-import { i18n, i18nFormatCapitalized, i18nPluralSame } from 'i18n';
-import { makeChat } from 'chat';
 
 function renderResult(ctrl: AnalyseCtrl): MaybeVNode {
   const handicap = isHandicap({
     rules: ctrl.data.game.variant.key,
     sfen: ctrl.data.game.initialSfen,
   });
-  const render = (status: String, winner?: Color) =>
+  const render = (status: string, winner?: Color) =>
     h('div.status', [
       status,
       winner ? ', ' + i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap)) : null,
@@ -70,12 +70,10 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
         }
       : null;
   if (conceal)
-    return function (isMainline: boolean) {
-      return function (path: Tree.Path, node: Tree.Node) {
-        if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
-        if (treePath.contains(ctrl.path, path)) return null;
-        return conceal.owner ? 'conceal' : 'hide';
-      };
+    return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {
+      if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
+      if (treePath.contains(ctrl.path, path)) return null;
+      return conceal.owner ? 'conceal' : 'hide';
     };
   return undefined;
 }
@@ -259,7 +257,7 @@ function dataAct(e: Event): string | null {
 }
 
 function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
-  const repeat = function () {
+  const repeat = () => {
     control[action](ctrl);
     ctrl.redraw();
     delay = Math.max(100, delay - delay / 15);

@@ -1,7 +1,7 @@
-import { h } from 'snabbdom';
 import * as status from 'game/status';
-import SimulCtrl from '../ctrl';
 import { i18nPluralSame } from 'i18n';
+import { h } from 'snabbdom';
+import type SimulCtrl from '../ctrl';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.results', [
@@ -10,36 +10,36 @@ export default function (ctrl: SimulCtrl) {
       splitNumber(
         i18nPluralSame(
           'nbPlaying',
-          ctrl.data.pairings.filter(p => p.game.status < status.ids.aborted).length
-        )
-      )
+          ctrl.data.pairings.filter(p => p.game.status < status.ids.aborted).length,
+        ),
+      ),
     ),
     h(
       'div',
       splitNumber(
         i18nPluralSame(
           'nbWins',
-          ctrl.data.pairings.filter(p => p.game.winner === p.hostColor).length
-        )
-      )
+          ctrl.data.pairings.filter(p => p.game.winner === p.hostColor).length,
+        ),
+      ),
     ),
     h(
       'div',
       splitNumber(
         i18nPluralSame(
           'nbDraws',
-          ctrl.data.pairings.filter(p => p.game.status >= status.ids.mate && !p.game.winner).length
-        )
-      )
+          ctrl.data.pairings.filter(p => p.game.status >= status.ids.mate && !p.game.winner).length,
+        ),
+      ),
     ),
     h(
       'div',
       splitNumber(
         i18nPluralSame(
           'nbLosses',
-          ctrl.data.pairings.filter(p => p.game.winner === opposite(p.hostColor)).length
-        )
-      )
+          ctrl.data.pairings.filter(p => p.game.winner === opposite(p.hostColor)).length,
+        ),
+      ),
     ),
   ]);
 }

@@ -1,5 +1,5 @@
-import { writeFile, readdir } from 'fs/promises';
 import * as path from 'path';
+import { readdir, writeFile } from 'fs/promises';
 import { parseXmls } from './parser.js';
 import { categoryName } from './util.js';
 
@@ -12,12 +12,12 @@ export async function dumpTypes(baseDir: string): Promise<void> {
   const parsed = await parseXmls(
     sourceFilenames.map(sf => {
       return { name: categoryName(sf), path: path.join(sourceDir, sf) };
-    })
+    }),
   );
 
   const codeTs = `// Generated with bin/trans-dump.ts
 
-// prettier-ignore
+// biome-ignore format: Auto generated
 export type I18nKey =
 ${Object.keys(parsed)
   .map(k => `  | '${k}'`)

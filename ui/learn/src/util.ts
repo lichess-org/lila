@@ -1,14 +1,10 @@
 import { forsythToPiece, parseSfen } from 'shogiops/sfen';
-import { Piece } from 'shogiops/types';
+import type { Piece } from 'shogiops/types';
 import { opposite, parseSquareName, parseUsi } from 'shogiops/util';
-import { Position } from 'shogiops/variant/position';
-import { Level, Scenario, UsiWithColor } from './interfaces';
+import type { Position } from 'shogiops/variant/position';
+import type { Level, Scenario, UsiWithColor } from './interfaces';
 
-export function createScenario(
-  usis: Usi[],
-  color: Color = 'sente',
-  switchColor: boolean = false,
-): Scenario {
+export function createScenario(usis: Usi[], color: Color = 'sente', switchColor = false): Scenario {
   return usis.map((usi, i) => {
     return {
       usi: usi,
@@ -52,7 +48,7 @@ function make(file: string, volume?: number) {
     src: [baseUrl + file + '.ogg', baseUrl + file + '.mp3'],
     volume: volume || 1,
   });
-  return function () {
+  return () => {
     if (window.lishogi.sound.set() !== 'silent') sound.play();
   };
 }

@@ -1,17 +1,17 @@
-import { Role, Square } from 'shogiops/types';
-import { h, VNode } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
-import { Api as SgApi } from 'shogiground/api';
-import { userMove, userDrop } from 'shogiground/board';
-import { anim } from 'shogiground/anim';
 import { loadCompiledScript } from 'common/assets';
+import { onInsert } from 'common/snabbdom';
 import { i18nFormat } from 'i18n';
+import { anim } from 'shogiground/anim';
+import type { Api as SgApi } from 'shogiground/api';
+import { userDrop, userMove } from 'shogiground/board';
+import type { Role, Square } from 'shogiops/types';
+import { type VNode, h } from 'snabbdom';
 
 export type KeyboardMoveHandler = (
   variant: VariantKey,
   sfen: Sfen,
   lastSquare: Square | undefined,
-  yourMove: boolean
+  yourMove: boolean,
 ) => void;
 
 interface ClockController {
@@ -92,7 +92,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
           root.data.game.variant.key,
           step.sfen,
           step.lastSquare,
-          root.shogiground.state.activeColor === root.shogiground.state.turnColor
+          root.shogiground.state.activeColor === root.shogiground.state.turnColor,
         );
       else preHandlerBuffer = step;
     },
@@ -103,7 +103,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
           root.data.game.variant.key,
           preHandlerBuffer.sfen,
           preHandlerBuffer.lastSquare,
-          root.shogiground.state.activeColor === root.shogiground.state.turnColor
+          root.shogiground.state.activeColor === root.shogiground.state.turnColor,
         );
     },
     hasFocus: () => focus,
@@ -141,9 +141,9 @@ export function render(ctrl: KeyboardMove): VNode {
             window.lishogi.modules.keyboardMove!({
               input,
               ctrl,
-            })
+            }),
           );
-        })
+        }),
       ),
     }),
     ctrl.hasFocus()

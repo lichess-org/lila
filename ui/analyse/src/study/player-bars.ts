@@ -1,9 +1,9 @@
 import { defined } from 'common/common';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import { ops as treeOps } from 'tree';
 import renderClocks from '../clocks';
-import AnalyseCtrl from '../ctrl';
-import { TagArray } from './interfaces';
+import type AnalyseCtrl from '../ctrl';
+import type { TagArray } from './interfaces';
 import { findTag, isFinished } from './study-chapters';
 
 interface PlayerNames {
@@ -28,7 +28,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const clocks = renderClocks(ctrl, false),
     ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
   return (['sente', 'gote'] as Color[]).map(color =>
-    renderPlayer(tags, clocks, playerNames, color, ticking === color, ctrl.bottomColor() !== color)
+    renderPlayer(tags, clocks, playerNames, color, ticking === color, ctrl.bottomColor() !== color),
   );
 }
 
@@ -38,7 +38,7 @@ function renderPlayer(
   playerNames: PlayerNames,
   color: Color,
   ticking: boolean,
-  top: boolean
+  top: boolean,
 ): VNode {
   const title = findTag(tags, `${color}title`),
     elo = findTag(tags, `${color}elo`);
@@ -57,6 +57,6 @@ function renderPlayer(
         ]),
       ]),
       clocks && clocks[color === 'sente' ? 0 : 1],
-    ]
+    ],
   );
 }

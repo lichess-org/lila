@@ -1,16 +1,16 @@
-import { tempStorage, storage } from '../storage';
-import { pubsub } from '../pubsub';
 import { announce } from '../announce';
-import { render as tRender, format as tFormat, absolute as tAbsolute } from '../timeago';
-import { createSound } from '../sound';
-import { powertip } from '../powertip';
-import { generateSri } from '../util';
-import { redirect, reload } from '../navigation';
-import { StrongSocket } from '../socket';
-import { mousetrap } from '../mousetrap';
-import { init, initSocket } from '../init';
 import { loadInfiniteScroll } from '../infinite-scroll';
+import { init, initSocket } from '../init';
+import { mousetrap } from '../mousetrap';
+import { redirect, reload } from '../navigation';
+import { powertip } from '../powertip';
+import { pubsub } from '../pubsub';
+import { StrongSocket } from '../socket';
+import { createSound } from '../sound';
+import { storage, tempStorage } from '../storage';
+import { absolute as tAbsolute, format as tFormat, render as tRender } from '../timeago';
 import { userAutocomplete } from '../user-autocomplete';
+import { generateSri } from '../util';
 import { formToXhr, json, text, urlWithParams } from '../xhr';
 
 const lishogi = window.lishogi;

@@ -1,19 +1,17 @@
-import { makeNotationLine, notationsWithColor } from 'shogi/notation';
-import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
+import { type MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { ForecastCtrl, ForecastStep } from './interfaces';
 import { i18n, i18nFormat, i18nPluralSame } from 'i18n';
+import { makeNotationLine, notationsWithColor } from 'shogi/notation';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { ForecastCtrl, ForecastStep } from './interfaces';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
-  let firstNode = cNodes[0];
+  const firstNode = cNodes[0];
   if (!firstNode) return;
-  let fcs = fctrl.findStartingWithNode(firstNode);
+  const fcs = fctrl.findStartingWithNode(firstNode);
   if (!fcs.length) return;
-  let lines = fcs.filter(function (fc) {
-    return fc.length > 1;
-  });
+  const lines = fcs.filter(fc => fc.length > 1);
   const moveNotation = firstNode.notation || i18n('move');
 
   return h(
@@ -29,7 +27,7 @@ function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefine
           ? h('span', i18nPluralSame('andSaveNbPremoveLines', lines.length))
           : h('span', i18nFormat('noConditionalPremoves')),
       ]),
-    ]
+    ],
   );
 }
 
@@ -39,7 +37,11 @@ function parentNode(ctrl: AnalyseCtrl, ply: number): Tree.Node {
 }
 
 function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
-  const afterPly = ctrl.tree.getCurrentNodesAfterPly(ctrl.nodeList, ctrl.mainline, ctrl.data.game.plies);
+  const afterPly = ctrl.tree.getCurrentNodesAfterPly(
+    ctrl.nodeList,
+    ctrl.mainline,
+    ctrl.data.game.plies,
+  );
   return fctrl.truncate(
     afterPly.map(node => ({
       ply: node.ply,
@@ -47,7 +49,7 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
       usi: node.usi!,
       notation: node.notation!,
       check: node.check,
-    }))
+    })),
   );
 }
 
@@ -80,13 +82,13 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h('div.top', i18n('conditionalPremoves')),
         h(
           'div.list',
-          fctrl.list().map(function (nodes, i) {
+          fctrl.list().map((nodes, i) => {
             const par = parentNode(ctrl, nodes[0].ply),
               notations = makeNotationLine(
                 par.sfen,
                 ctrl.data.game.variant.key,
                 nodes.map(n => n.usi),
-                par.usi
+                par.usi,
               );
             notations.map((n, i) => (nodes[i].notation = n));
             return h(
@@ -100,9 +102,9 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                   attrs: { 'data-icon': 'L', type: 'button' },
                 }),
                 h('moves-notation', renderNodesHtml(nodes)),
-              ]
+              ],
             );
-          })
+          }),
         ),
         h(
           'button.add.text',
@@ -113,12 +115,15 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           },
           [
             isCandidate
-              ? h('span', [h('span', i18n('addCurrentVariation')), h('moves-notation', renderNodesHtml(cNodes))])
+              ? h('span', [
+                  h('span', i18n('addCurrentVariation')),
+                  h('moves-notation', renderNodesHtml(cNodes)),
+                ])
               : h('span', i18n('playVariationToCreateConditionalPremoves')),
-          ]
+          ],
         ),
       ]),
       fctrl.onMyTurn ? onMyTurn(fctrl, cNodes) : null,
-    ]
+    ],
   );
 }

@@ -1,5 +1,5 @@
 import { capitalize } from 'common/string';
-import { I18nKey } from './i18n-keys';
+import type { I18nKey } from './i18n-keys';
 
 const i18nRecord: Record<string, string> = (window.lishogi as any).i18n || {},
   quantity: (c: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other' =
@@ -22,13 +22,13 @@ const interpolate = (str: string, args: any[]): string => {
 };
 
 export const i18nFormat = (key: I18nKey, ...args: any[]): string => {
-  let str = i18nRecord[key];
+  const str = i18nRecord[key];
   return str ? interpolate(str, args) : `${key} ${args.join(', ')}`;
 };
 
 // args can be at the start
 export const i18nFormatCapitalized = (key: I18nKey, ...args: any[]): string => {
-  let str = i18nRecord[key];
+  const str = i18nRecord[key];
   return capitalize(str ? interpolate(str, args) : `${key} ${args.join(', ')}`);
 };
 

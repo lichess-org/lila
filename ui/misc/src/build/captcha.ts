@@ -1,9 +1,9 @@
-import * as compat from 'shogiops/compat';
-import * as util from 'shogiops/variant/util';
-import { initOneWithState } from 'common/mini-board';
 import * as domData from 'common/data';
+import { initOneWithState } from 'common/mini-board';
 import { toBW } from 'shogiops';
+import * as compat from 'shogiops/compat';
 import { parseSfen } from 'shogiops/sfen';
+import * as util from 'shogiops/variant/util';
 
 const readServerValue = (t: string): string => atob(t.split('').reverse().join(''));
 
@@ -78,7 +78,7 @@ window.lishogi.ready.then(() => {
               }
               sg.stop();
             } else
-              setTimeout(function () {
+              setTimeout(() => {
                 sg.set({
                   sfen: {
                     board: sfen,

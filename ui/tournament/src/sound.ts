@@ -1,6 +1,6 @@
 import notify from 'common/notification';
-import { TournamentData } from './interfaces';
 import { once } from 'common/storage';
+import type { TournamentData } from './interfaces';
 
 let countDownTimeout: number | undefined;
 const li = window.lishogi;
@@ -9,15 +9,18 @@ function doCountDown(targetTime: number) {
   let started = false;
 
   return function curCounter() {
-    let secondsToStart = (targetTime - performance.now()) / 1000;
+    const secondsToStart = (targetTime - performance.now()) / 1000;
 
     // always play the 0 sound before completing.
-    let bestTick = Math.max(0, Math.round(secondsToStart));
+    const bestTick = Math.max(0, Math.round(secondsToStart));
     if (bestTick <= 10) li.sound.play('countDown' + bestTick);
 
     if (bestTick > 0) {
-      let nextTick = Math.min(10, bestTick - 1);
-      countDownTimeout = setTimeout(curCounter, 1000 * Math.min(1.1, Math.max(0.8, secondsToStart - nextTick)));
+      const nextTick = Math.min(10, bestTick - 1);
+      countDownTimeout = setTimeout(
+        curCounter,
+        1000 * Math.min(1.1, Math.max(0.8, secondsToStart - nextTick)),
+      );
     }
 
     if (!started && bestTick <= 10) {
@@ -49,7 +52,10 @@ export function countDown(data: TournamentData): void {
   if (countDownTimeout) return;
   if (data.secondsToStart > 60 * 60 * 24) return;
 
-  countDownTimeout = setTimeout(doCountDown(performance.now() + 1000 * data.secondsToStart - 100), 900); // wait 900ms before starting countdown.
+  countDownTimeout = setTimeout(
+    doCountDown(performance.now() + 1000 * data.secondsToStart - 100),
+    900,
+  ); // wait 900ms before starting countdown.
 
   setTimeout(li.sound.warmup, (data.secondsToStart - 15) * 1000);
 

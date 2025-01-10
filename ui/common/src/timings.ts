@@ -42,24 +42,22 @@ export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => voi
 export function debounce<T extends (...args: any) => any>(
   f: T,
   wait: number,
-  immediate = false
+  immediate = false,
 ): (...args: Parameters<T>) => any {
   let timeout: Timeout | undefined;
   let lastBounce = 0;
 
   return function (this: any, ...args: Parameters<T>) {
-    const self = this;
-
     if (timeout) clearTimeout(timeout);
     timeout = undefined;
 
     const elapsed = performance.now() - lastBounce;
     lastBounce = performance.now();
-    if (immediate && elapsed > wait) f.apply(self, args);
+    if (immediate && elapsed > wait) f.apply(this, args);
     else
       timeout = setTimeout(() => {
         timeout = undefined;
-        f.apply(self, args);
+        f.apply(this, args);
       }, wait);
   };
 }

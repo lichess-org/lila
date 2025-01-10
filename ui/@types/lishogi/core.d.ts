@@ -72,5 +72,3 @@ declare global {
     nbPages: number;
   }
 }
-
-export {};

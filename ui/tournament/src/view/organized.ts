@@ -1,10 +1,10 @@
-import { bind, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
+import { type MaybeVNode, type MaybeVNodes, bind } from 'common/snabbdom';
 import { ids } from 'game/status';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
-import { arrangementHasUser, preloadUserTips, player as renderPlayer } from './util';
-import { Arrangement, PageData } from '../interfaces';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { Arrangement, PageData } from '../interfaces';
+import { arrangementHasUser, preloadUserTips, player as renderPlayer } from './util';
 
 function tableClick(ctrl: TournamentController): (e: Event) => void {
   return (e: Event) => {
@@ -18,7 +18,7 @@ function tableClick(ctrl: TournamentController): (e: Event) => void {
 
 function pointsTag(ctrl: TournamentController, arr: Arrangement, player) {
   const player2 = ctrl.data.standing.players.find(
-      p => p.id === (arr.user1.id === player.id ? arr.user2.id : arr.user1.id)
+      p => p.id === (arr.user1.id === player.id ? arr.user2.id : arr.user1.id),
     ),
     points = arr.points || { w: 3, d: 2, l: 1 },
     w = arr.winner === player.id,
@@ -36,13 +36,13 @@ function pointsTag(ctrl: TournamentController, arr: Arrangement, player) {
         l,
       },
     },
-    points[w ? 'w' : l ? 'l' : 'd']
+    points[w ? 'w' : l ? 'l' : 'd'],
   );
 }
 
 function playerTr(ctrl: TournamentController, player, rank: number) {
   const arrs = ctrl.data.standing.arrangements.filter(
-    a => a.status && a.status >= ids.mate && arrangementHasUser(a, player.id)
+    a => a.status && a.status >= ids.mate && arrangementHasUser(a, player.id),
   );
   return h(
     'tr',
@@ -66,15 +66,15 @@ function playerTr(ctrl: TournamentController, player, rank: number) {
                 title: i18n('pause'),
               },
             })
-          : rank
+          : rank,
       ),
       h('td.player', [renderPlayer(player, false, true)]),
       h(
         'td.sheet',
-        arrs.map(a => pointsTag(ctrl, a, player))
+        arrs.map(a => pointsTag(ctrl, a, player)),
       ),
       h('td.total', h('strong', player.score)),
-    ]
+    ],
   );
 }
 
@@ -97,8 +97,8 @@ export function standing(ctrl: TournamentController, pag: PageData, klass?: stri
           },
         },
       },
-      tableBody
-    )
+      tableBody,
+    ),
   );
 }
 
@@ -109,6 +109,6 @@ export function organizeArrangementButton(ctrl: TournamentController): MaybeVNod
     {
       hook: bind('click', () => ctrl.showOrganizerArrangement(), ctrl.redraw),
     },
-    'Create new game'
+    'Create new game',
   );
 }

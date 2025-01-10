@@ -1,7 +1,15 @@
-import { InsightData, InsightFilter, InsightOpts, Redraw, Tab, tabs, variants } from './types';
-import { defaultFilter, filterOptions } from './filter';
-import { idFromSpeed, idFromVariant } from './util';
 import { debounce } from 'common/timings';
+import { defaultFilter, filterOptions } from './filter';
+import {
+  type InsightData,
+  type InsightFilter,
+  type InsightOpts,
+  type Redraw,
+  type Tab,
+  tabs,
+  variants,
+} from './types';
+import { idFromSpeed, idFromVariant } from './util';
 
 export default class InsightCtrl {
   userId: string;
@@ -24,7 +32,7 @@ export default class InsightCtrl {
 
   constructor(
     opts: InsightOpts,
-    readonly redraw: Redraw
+    readonly redraw: Redraw,
   ) {
     this.username = opts.username;
     this.userId = this.username.toLowerCase();
@@ -59,7 +67,7 @@ export default class InsightCtrl {
     window.history.replaceState(
       '',
       '',
-      `/insights/${this.userId}/${this.activeTab}${q ? `?${q}` : ''}`
+      `/insights/${this.userId}/${this.activeTab}${q ? `?${q}` : ''}`,
     );
   }
 
@@ -78,12 +86,12 @@ export default class InsightCtrl {
     for (const key of keys) {
       let val: any = params.get(key);
       if (val) {
-        if (key === 'since') val = parseInt(val);
-        else if (key === 'variant') val = variants[(parseInt(val) || 1) - 1];
+        if (key === 'since') val = Number.parseInt(val);
+        else if (key === 'variant') val = variants[(Number.parseInt(val) || 1) - 1];
         else if (key === 'speeds')
           val = val
             .split('')
-            .map((n: string) => parseInt(n))
+            .map((n: string) => Number.parseInt(n))
             .filter((n: number) => !isNaN(n));
         val = val || flt[key] || df[key];
         if (key !== 'custom') {
@@ -170,7 +178,7 @@ export default class InsightCtrl {
     this.fetchData('custom');
   }
 
-  updateFilter(flt: Partial<InsightFilter>, toDebounce: boolean = false): void {
+  updateFilter(flt: Partial<InsightFilter>, toDebounce = false): void {
     if (flt.color && flt.color !== 'both') this.mostPlayedMovesColor = flt.color;
 
     Object.assign(this.filter, flt);

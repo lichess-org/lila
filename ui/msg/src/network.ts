@@ -1,5 +1,5 @@
-import MsgCtrl from './ctrl';
-import { Contact, Convo, Msg, MsgData, SearchResult, User } from './interfaces';
+import type MsgCtrl from './ctrl';
+import type { Contact, Convo, Msg, MsgData, SearchResult, User } from './interfaces';
 
 export function loadConvo(userId: string): Promise<MsgData> {
   return window.lishogi.xhr.json('GET', `/inbox/${userId}`).then(upgradeData);
@@ -31,7 +31,7 @@ export function search(q: string): Promise<SearchResult> {
         ({
           ...res,
           contacts: res.contacts.map(upgradeContact),
-        }) as SearchResult
+        }) as SearchResult,
     );
 }
 

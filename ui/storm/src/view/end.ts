@@ -1,11 +1,11 @@
 import * as miniBoard from 'common/mini-board';
 import { numberSpread } from 'common/number';
 import { onInsert } from 'common/snabbdom';
+import { i18n, i18nFormat } from 'i18n';
 import { getNow } from 'puz/util';
 import { toColor } from 'shogiops/util';
-import { VNode, h } from 'snabbdom';
-import StormCtrl from '../ctrl';
-import { i18n, i18nFormat } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type StormCtrl from '../ctrl';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
 
@@ -31,7 +31,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
                 h('strong', newHighI18n[high.key]),
                 high.prev ? h('span', i18nFormat('storm:previousHighscoreWasX', high.prev)) : null,
               ]),
-            ])
+            ]),
           ),
         ]
       : []),
@@ -40,10 +40,10 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
         'span.storm--end__score__number',
         {
           hook: onInsert(el =>
-            numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score)
+            numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score),
           ),
         },
-        '0'
+        '0',
       ),
       h('p', i18n('storm:puzzlesSolved')),
     ]),
@@ -70,7 +70,7 @@ const renderSummary = (ctrl: StormCtrl): VNode[] => {
       {
         attrs: ctrl.run.endAt! < getNow() - 900 ? { href: '/storm' } : {},
       },
-      i18n('storm:playAgain')
+      i18n('storm:playAgain'),
     ),
   ];
 };
@@ -90,7 +90,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
             },
             hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterFailed)),
           },
-          'Failed puzzles'
+          'Failed puzzles',
         ),
         h(
           'button.storm--end__history__filter.button',
@@ -101,7 +101,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
             },
             hook: onInsert(e => e.addEventListener('click', ctrl.toggleFilterSlow)),
           },
-          'Slow puzzles'
+          'Slow puzzles',
         ),
       ]),
     ]),
@@ -136,9 +136,9 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
                 ]),
                 h('span.storm--end__history__round__id', '#' + round.puzzle.id),
               ]),
-            ]
-          )
-        )
+            ],
+          ),
+        ),
     ),
   ]);
 };

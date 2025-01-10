@@ -1,7 +1,7 @@
-import { Notation } from 'shogi/notation';
-import { VNode, h } from 'snabbdom';
-import { Close, Redraw, bind, header } from './util';
 import { i18n } from 'i18n';
+import { Notation } from 'shogi/notation';
+import { type VNode, h } from 'snabbdom';
+import { type Close, type Redraw, bind, header } from './util';
 
 export interface NotationData {
   current: Notation;
@@ -72,7 +72,7 @@ function notationExample(notation: Notation): string {
     case Notation.Usi:
       return '7g7f';
     case Notation.Yorozuya:
-      return '７六歩';
+      return '';
   }
 }
 

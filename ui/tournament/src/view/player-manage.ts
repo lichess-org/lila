@@ -1,9 +1,9 @@
-import { h, VNode, VNodes } from 'snabbdom';
-import TournamentController from '../ctrl';
-import { bind, MaybeVNode } from 'common/snabbdom';
-import header from './header';
-import { backControl } from './controls';
+import { type MaybeVNode, bind } from 'common/snabbdom';
 import { i18n } from 'i18n';
+import { type VNode, type VNodes, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import { backControl } from './controls';
+import header from './header';
 
 export interface User {
   id: string;
@@ -53,7 +53,7 @@ function playerManagement(ctrl: TournamentController): VNode {
                 });
               },
             },
-          })
+          }),
         ),
       ]),
       h('div.joining', [
@@ -63,7 +63,7 @@ function playerManagement(ctrl: TournamentController): VNode {
             attrs: { 'data-icon': 'L', title: 'Accept' },
             hook: bind('click', () => {}),
           },
-          ctrl.data.closed ? 'Open joining' : 'Close joining'
+          ctrl.data.closed ? 'Open joining' : 'Close joining',
         ),
       ]),
     ]),
@@ -96,18 +96,18 @@ function renderCandidates(ctrl: TournamentController): MaybeVNode {
                       attrs: { 'data-icon': 'E', title: i18n('accept') },
                       hook: bind('click', () => ctrl.processCandidate(c.id, true)),
                     },
-                    i18n('accept')
+                    i18n('accept'),
                   ),
                   h('button.button.button-red', {
                     attrs: { 'data-icon': 'L', title: i18n('decline') },
                     hook: bind('click', () => ctrl.processCandidate(c.id, false)),
                   }),
                 ]),
-              ]
+              ],
             );
-          })
-        )
-      )
+          }),
+        ),
+      ),
     ),
   ]);
 }
@@ -137,11 +137,11 @@ function renderDenied(ctrl: TournamentController) {
                     hook: bind('click', () => ctrl.processCandidate(d.id, true)),
                   }),
                 ]),
-              ]
+              ],
             );
-          })
-        )
-      )
+          }),
+        ),
+      ),
     ),
   ]);
 }
@@ -155,6 +155,6 @@ function renderUser(user: LightUser) {
         destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
       },
     },
-    user.title ? [h('span.title', user.title), ' ' + user.name] : user.name
+    user.title ? [h('span.title', user.title), ' ' + user.name] : user.name,
   );
 }

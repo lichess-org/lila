@@ -1,13 +1,13 @@
+import { useJp } from 'common/common';
+import { modal } from 'common/modal';
+import { type MaybeVNode, bind } from 'common/snabbdom';
+import { i18n, i18nFormat } from 'i18n';
+import { i18nVariant } from 'i18n/variant';
 import { h } from 'snabbdom';
-import { bind, MaybeVNode } from 'common/snabbdom';
-import SimulCtrl from '../ctrl';
-import { Applicant } from '../interfaces';
+import type SimulCtrl from '../ctrl';
+import type { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
-import { modal } from 'common/modal';
-import { i18n, i18nFormat } from 'i18n';
-import { useJp } from 'common/common';
-import { i18nVariant } from 'i18n/variant';
 
 export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
@@ -39,7 +39,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                     {
                       hook: bind('click', () => xhr.withdraw(ctrl.data.id)),
                     },
-                    i18n('withdraw')
+                    i18n('withdraw'),
                   )
                 : h(
                     'a.button.text' + (ctrl.teamBlock() ? '.disabled' : ''),
@@ -66,9 +66,9 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                                             'data-variant': variant.key,
                                           },
                                         },
-                                        i18nVariant(variant.key)
-                                      )
-                                    )
+                                        i18nVariant(variant.key),
+                                      ),
+                                    ),
                                   ),
                                 ],
                                 onClose() {
@@ -80,7 +80,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                     },
                     ctrl.teamBlock() && ctrl.data.team
                       ? i18nFormat('mustBeInTeam', ctrl.data.team.name)
-                      : i18n('join')
+                      : i18n('join'),
                   )
             : h(
                 'a.button.text',
@@ -90,8 +90,8 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                     href: '/login?referrer=' + window.location.pathname,
                   },
                 },
-                i18n('signIn')
-              )
+                i18n('signIn'),
+              ),
         ),
       ]),
       showText(ctrl),
@@ -123,9 +123,9 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                     {
                       attrs: { colspan: 3 },
                     },
-                    [h('strong', candidates.length), ' candidate players']
-                  )
-                )
+                    [h('strong', candidates.length), ' candidate players'],
+                  ),
+                ),
               ),
               h(
                 'tbody',
@@ -151,17 +151,17 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                                   title: 'Accept',
                                 },
                                 hook: bind('click', () =>
-                                  xhr.accept(applicant.player.id)(ctrl.data.id)
+                                  xhr.accept(applicant.player.id)(ctrl.data.id),
                                 ),
                               }),
                             ]
-                          : []
+                          : [],
                       ),
-                    ]
+                    ],
                   );
-                })
-              )
-            )
+                }),
+              ),
+            ),
           ),
           h('div.half.accepted', [
             h(
@@ -174,14 +174,14 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                     {
                       attrs: { colspan: 3 },
                     },
-                    [h('strong', accepted.length), ' accepted players']
-                  )
+                    [h('strong', accepted.length), ' accepted players'],
+                  ),
                 ),
                 isHost && candidates.length && !accepted.length
                   ? [
                       h(
                         'tr.help',
-                        h('th', 'Now you get to accept some players, then start the simul')
+                        h('th', 'Now you get to accept some players, then start the simul'),
                       ),
                     ]
                   : [],
@@ -209,19 +209,19 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                                   'data-icon': '',
                                 },
                                 hook: bind('click', () =>
-                                  xhr.reject(applicant.player.id)(ctrl.data.id)
+                                  xhr.reject(applicant.player.id)(ctrl.data.id),
                                 ),
                               }),
                             ]
-                          : []
+                          : [],
                       ),
-                    ]
+                    ],
                   );
-                })
-              )
+                }),
+              ),
             ),
           ]),
-        ]
+        ],
       ),
       ctrl.data.proverb
         ? h('blockquote.pull-quote', [
@@ -248,7 +248,7 @@ const randomButton = (ctrl: SimulCtrl) =>
             xhr.accept(randomCandidate.player.id)(ctrl.data.id);
           }),
         },
-        'Accept random candidate'
+        'Accept random candidate',
       )
     : null;
 
@@ -262,7 +262,7 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
           },
           hook: bind('click', () => xhr.start(ctrl.data.id)),
         },
-        `Start (${accepted.length})`
+        `Start (${accepted.length})`,
       )
     : h(
         'a.button.button-red.text',
@@ -274,5 +274,5 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
             if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
           }),
         },
-        i18n('cancel')
+        i18n('cancel'),
       );

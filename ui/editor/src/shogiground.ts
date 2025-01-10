@@ -1,11 +1,11 @@
-import resizeHandle from 'shogi/resize';
 import { notationFiles, notationRanks } from 'shogi/notation';
-import { Config as SgConfig } from 'shogiground/config';
+import resizeHandle from 'shogi/resize';
+import type { Config as SgConfig } from 'shogiground/config';
+import type { BoardElements, HandElements } from 'shogiground/types';
 import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
 import { handRoles, promote, unpromote } from 'shogiops/variant/util';
-import { VNode, h } from 'snabbdom';
-import EditorCtrl from './ctrl';
-import { BoardElements, HandElements } from 'shogiground/types';
+import { type VNode, h } from 'snabbdom';
+import type EditorCtrl from './ctrl';
 
 export function renderBoard(ctrl: EditorCtrl): VNode {
   return h('div.sg-wrap', {
@@ -76,7 +76,8 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     events: {
       change: ctrl.onChange.bind(ctrl),
       insert(boardEls?: BoardElements, _handEls?: HandElements) {
-        if (!ctrl.data.embed && boardEls) resizeHandle(boardEls, ctrl.data.pref.resizeHandle, { visible: () => true });
+        if (!ctrl.data.embed && boardEls)
+          resizeHandle(boardEls, ctrl.data.pref.resizeHandle, { visible: () => true });
       },
     },
   };

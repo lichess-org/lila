@@ -1,19 +1,19 @@
 import { parseSfen } from 'shogiops/sfen';
 import { parseUsi } from 'shogiops/util';
-import { Shogi } from 'shogiops/variant/shogi';
-import { Puzzle } from './interfaces';
+import type { Shogi } from 'shogiops/variant/shogi';
+import type { Puzzle } from './interfaces';
 import { getNow } from './util';
 
 export default class CurrentPuzzle {
   line: Usi[];
   startAt: number;
-  moveIndex: number = 0;
+  moveIndex = 0;
   pov: Color;
   ambPromotions: number[];
 
   constructor(
     readonly index: number,
-    readonly puzzle: Puzzle
+    readonly puzzle: Puzzle,
   ) {
     this.line = puzzle.line.split(' ');
     this.pov = parseSfen('standard', puzzle.sfen).unwrap().turn;

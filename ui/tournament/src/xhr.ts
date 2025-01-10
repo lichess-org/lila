@@ -1,5 +1,5 @@
 import throttle from 'common/throttle';
-import TournamentController from './ctrl';
+import type TournamentController from './ctrl';
 
 function onFail() {
   setTimeout(window.lishogi.reload, Math.floor(Math.random() * 9000));

@@ -1,11 +1,11 @@
+import { loadCompiledScript } from 'common/assets';
 import { bind } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
 import discussionView from './discussion';
-import { ChatCtrl, Tab } from './interfaces';
+import type { ChatCtrl, Tab } from './interfaces';
 import { moderationView } from './moderation';
 import { noteView } from './note';
-import { loadCompiledScript } from 'common/assets';
-import { i18n } from 'i18n';
 
 export default function (ctrl: ChatCtrl): VNode {
   const mod = ctrl.moderation();
@@ -20,7 +20,7 @@ export default function (ctrl: ChatCtrl): VNode {
         destroy: ctrl.destroy,
       },
     },
-    moderationView(mod) || normalView(ctrl)
+    moderationView(mod) || normalView(ctrl),
   );
 }
 
@@ -62,7 +62,7 @@ function normalView(ctrl: ChatCtrl) {
         ? [noteView(ctrl.note)]
         : ctrl.plugin && active === ctrl.plugin.tab.key
           ? [ctrl.plugin.view()]
-          : discussionView(ctrl)
+          : discussionView(ctrl),
     ),
   ];
 }
@@ -74,7 +74,7 @@ function renderTab(ctrl: ChatCtrl, tab: Tab, active: Tab) {
       class: { 'mchat__tab-active': tab === active },
       hook: bind('click', () => ctrl.setTab(tab)),
     },
-    tabName(ctrl, tab)
+    tabName(ctrl, tab),
   );
 }
 

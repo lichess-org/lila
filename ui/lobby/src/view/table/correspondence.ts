@@ -1,7 +1,7 @@
 import { bind } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import LobbyController from '../../ctrl';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type LobbyController from '../../ctrl';
 import { TimeMode } from '../../setup/util';
 
 export function createSeek(ctrl: LobbyController): VNode {

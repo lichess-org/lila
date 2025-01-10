@@ -1,8 +1,9 @@
-import { Prop, prop } from 'common/common';
+import { type Prop, prop } from 'common/common';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
 import { iconTag, scrollTo, titleNameToId } from '../util';
-import {
+import type {
   StudyCtrl,
   StudyData,
   StudyMember,
@@ -11,8 +12,7 @@ import {
   Tab,
 } from './interfaces';
 import { makeCtrl as inviteFormCtrl } from './invite-form';
-import { NotifCtrl } from './notif';
-import { i18n } from 'i18n';
+import type { NotifCtrl } from './notif';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -28,7 +28,7 @@ interface Opts {
 
 function memberActivity(onIdle) {
   let timeout;
-  let schedule = function () {
+  const schedule = () => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(onIdle, 100);
   };
@@ -39,7 +39,7 @@ function memberActivity(onIdle) {
 export function ctrl(opts: Opts): StudyMembersCtrl {
   const dict = prop<StudyMemberMap>(opts.initDict);
   const confing = prop<string | undefined>(undefined);
-  let active: { [id: string]: () => void } = {};
+  const active: { [id: string]: () => void } = {};
   let online: { [id: string]: boolean } = {};
   let spectatorIds: string[] = [];
   const max = 30;
@@ -67,7 +67,7 @@ export function ctrl(opts: Opts): StudyMembersCtrl {
     if (opts.tab() !== 'members') return;
     if (active[id]) active[id]();
     else
-      active[id] = memberActivity(function () {
+      active[id] = memberActivity(() => {
         delete active[id];
         opts.redraw();
       });
@@ -77,7 +77,7 @@ export function ctrl(opts: Opts): StudyMembersCtrl {
   function updateOnline() {
     online = {};
     const members: StudyMemberMap = dict();
-    spectatorIds.forEach(function (id) {
+    spectatorIds.forEach(id => {
       if (members[id]) online[id] = true;
     });
     if (opts.tab() === 'members') opts.redraw();
@@ -89,12 +89,7 @@ export function ctrl(opts: Opts): StudyMembersCtrl {
     myId: opts.myId,
     inviteForm,
     update(members: StudyMemberMap) {
-      if (isOwner())
-        confing(
-          Object.keys(members).find(function (sri) {
-            return !dict()[sri];
-          }),
-        );
+      if (isOwner()) confing(Object.keys(members).find(sri => !dict()[sri]));
       const wasViewer = myMember() && !canContribute();
       const wasContrib = myMember() && canContribute();
       dict(members);
@@ -157,7 +152,7 @@ export function ctrl(opts: Opts): StudyMembersCtrl {
     },
     hasOnlineContributor() {
       const members = dict();
-      for (let i in members) if (online[i] && members[i].role === 'w') return true;
+      for (const i in members) if (online[i] && members[i].role === 'w') return true;
       return false;
     },
   };
@@ -295,7 +290,7 @@ export function view(ctrl: StudyCtrl): VNode {
     },
     [
       ...ordered
-        .map(function (member) {
+        .map(member => {
           const confing = members.confing() === member.user.id;
           return [
             h(

@@ -1,4 +1,4 @@
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 
 export default function (): VNode {
   return h(
@@ -18,10 +18,10 @@ export default function (): VNode {
               fill: 'none',
               'stroke-width': '2.5',
             },
-          })
+          }),
         ),
       ]),
-    ]
+    ],
   );
 }
 

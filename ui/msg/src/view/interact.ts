@@ -1,9 +1,9 @@
+import { hasTouchEvents } from 'common/mobile';
 import { bindSubmit } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { VNode, h } from 'snabbdom';
-import MsgCtrl from '../ctrl';
-import { User } from '../interfaces';
-import { hasTouchEvents } from 'common/mobile';
+import { type VNode, h } from 'snabbdom';
+import type MsgCtrl from '../ctrl';
+import type { User } from '../interfaces';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();
@@ -28,7 +28,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
           disabled: !connected,
         },
       }),
-    ]
+    ],
   );
 }
 
@@ -64,18 +64,19 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
 
   // hack to automatically resize the textarea based on content
   area.value = '';
-  let baseScrollHeight = area.scrollHeight;
+  const baseScrollHeight = area.scrollHeight;
   area.addEventListener(
     'input',
     throttle(500, () => {
       const text = area.value.trim();
       area.rows = 1;
       // the resize magic
-      if (text) area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
+      if (text)
+        area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
       // and save content
       storage.set(text);
       ctrl.sendTyping(contact);
-    })
+    }),
   );
 
   // restore previously saved content

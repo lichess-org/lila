@@ -1,4 +1,4 @@
-import { Config, TimeMod } from './interfaces';
+import type { Config, TimeMod } from './interfaces';
 import { getNow } from './util';
 
 export class Combo {
@@ -17,7 +17,10 @@ export class Combo {
   };
 
   level = (): number =>
-    this.config.combo.levels.reduce((lvl, [threshold, _], index) => (threshold <= this.current ? index : lvl), 0);
+    this.config.combo.levels.reduce(
+      (lvl, [threshold, _], index) => (threshold <= this.current ? index : lvl),
+      0,
+    );
 
   percent = (): number => {
     const lvl = this.level();

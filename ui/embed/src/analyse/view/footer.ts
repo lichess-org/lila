@@ -1,7 +1,7 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom';
-import { AnalyseCtrl, StudyData } from '../ctrl';
 import { i18n, i18nFormat } from 'i18n';
+import { h } from 'snabbdom';
+import type { VNode } from 'snabbdom';
+import type { AnalyseCtrl, StudyData } from '../ctrl';
 
 export function renderFooter(ctrl: AnalyseCtrl): VNode {
   return ctrl.study ? renderStudyFooter(ctrl.study) : renderGameFooter(ctrl);

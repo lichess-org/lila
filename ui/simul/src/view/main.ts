@@ -1,14 +1,14 @@
-import { h } from 'snabbdom';
-import { initAll } from 'common/mini-board';
-import { onInsert } from 'common/snabbdom';
-import { richHTML } from 'common/rich-text';
-import SimulCtrl from '../ctrl';
-import * as util from './util';
-import created from './created';
-import results from './results';
-import pairings from './pairings';
 import { makeChat } from 'chat';
+import { initAll } from 'common/mini-board';
+import { richHTML } from 'common/rich-text';
+import { onInsert } from 'common/snabbdom';
 import { i18n } from 'i18n';
+import { h } from 'snabbdom';
+import type SimulCtrl from '../ctrl';
+import created from './created';
+import pairings from './pairings';
+import results from './results';
+import * as util from './util';
 
 export default function (ctrl: SimulCtrl) {
   const handler = ctrl.data.isRunning

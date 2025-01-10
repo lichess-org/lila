@@ -1,10 +1,10 @@
-import { h, VNode } from 'snabbdom';
 import * as status from 'game/status';
-import { Millis } from '../clock/clock-ctrl';
-import { Position } from '../interfaces';
-import { moretime } from '../view/button';
-import { CorresClockController } from './corres-clock-ctrl';
 import { i18n, i18nPluralSame } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { Millis } from '../clock/clock-ctrl';
+import type { Position } from '../interfaces';
+import { moretime } from '../view/button';
+import type { CorresClockController } from './corres-clock-ctrl';
 
 function prefixInteger(num: number, length: number): string {
   return (num / Math.pow(10, length)).toFixed(length).slice(2);
@@ -41,7 +41,7 @@ export default function (
   ctrl: CorresClockController,
   color: Color,
   position: Position,
-  runningColor: Color
+  runningColor: Color,
 ): VNode {
   const millis = ctrl.millisOf(color),
     update = (el: HTMLElement) => {
@@ -64,6 +64,6 @@ export default function (
         },
       }),
       isPlayer ? null : moretime(ctrl.root),
-    ]
+    ],
   );
 }

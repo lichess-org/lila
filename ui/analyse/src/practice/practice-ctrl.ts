@@ -1,8 +1,8 @@
-import { Eval, winningChances } from 'ceval';
-import { Prop, prop, requestIdleCallbackWithFallback } from 'common/common';
+import { type Eval, winningChances } from 'ceval';
+import { type Prop, prop, requestIdleCallbackWithFallback } from 'common/common';
 import { path as treePath } from 'tree';
-import AnalyseCtrl from '../ctrl';
-import { Redraw } from '../interfaces';
+import type AnalyseCtrl from '../ctrl';
+import type { Redraw } from '../interfaces';
 import { detectFourfold } from '../node-finder';
 
 export type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
@@ -57,7 +57,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     if (root.threatMode()) root.toggleThreatMode();
   }
 
-  function commentable(node: Tree.Node, bonus: number = 0): boolean {
+  function commentable(node: Tree.Node, bonus = 0): boolean {
     if (node.tbhit || root.outcome(node)) return true;
     const ceval = node.ceval;
     return ceval

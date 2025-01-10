@@ -1,11 +1,11 @@
 import { execSync } from 'child_process';
-import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import * as fs from 'fs/promises';
 
 const baseDistFolder = path.join(
   path.dirname(execSync('pnpm root -w').toString()),
-  'public/vendors'
+  'public/vendors',
 );
 
 function stripScope(packageName: string): string {
@@ -41,7 +41,7 @@ export async function copyVendorPackage(packageName: string, fileNames: string[]
       const sourceFilePath = path.join(packagePath, fileName),
         destinationFilePath = path.join(
           path.join(baseDistFolder, nameNoScope),
-          path.basename(fileName)
+          path.basename(fileName),
         );
 
       await fs.copyFile(sourceFilePath, destinationFilePath);

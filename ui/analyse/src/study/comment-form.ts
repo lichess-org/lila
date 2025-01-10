@@ -1,6 +1,6 @@
-import { Prop, prop } from 'common/common';
+import { type Prop, prop } from 'common/common';
 import throttle from 'common/throttle';
-import { h, type VNode } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { currentComments } from './study-comments';
 
@@ -54,9 +54,9 @@ export function view(root: AnalyseCtrl): VNode {
     const newKey = current.chapterId + current.path;
 
     if (old?.data!.path !== newKey) {
-      const mine = (current.node.comments || []).find(function (c: any) {
-        return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
-      });
+      const mine = (current.node.comments || []).find(
+        (c: any) => c.by && c.by.id && c.by.id === ctrl.root.opts.userId,
+      );
       el.value = mine ? mine.text : '';
     }
     vnode.data!.path = newKey;
@@ -78,7 +78,7 @@ export function view(root: AnalyseCtrl): VNode {
             el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
             const heightStore = window.lishogi.storage.make('study.comment.height');
             el.onmouseup = () => heightStore.set('' + el.offsetHeight);
-            el.style.height = parseInt(heightStore.get() || '80') + 'px';
+            el.style.height = Number.parseInt(heightStore.get() || '80') + 'px';
 
             $(el).on('keydown', e => {
               if (e.code === 'Escape') el.blur();

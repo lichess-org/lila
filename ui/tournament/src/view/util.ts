@@ -1,8 +1,8 @@
-import { dataIcon } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
-import { Arrangement } from '../interfaces';
 import { initOneWithState } from 'common/mini-board';
 import { numberFormat } from 'common/number';
+import { dataIcon } from 'common/snabbdom';
+import { type VNode, h } from 'snabbdom';
+import type { Arrangement } from '../interfaces';
 
 export function miniBoard(game: any): VNode {
   return h(
@@ -23,7 +23,7 @@ export function miniBoard(game: any): VNode {
         },
       },
     },
-    h('div.sg-wrap')
+    h('div.sg-wrap'),
   );
 }
 
@@ -39,8 +39,8 @@ export function player(
   p: any,
   asLink: boolean,
   withRating: boolean,
-  defender: boolean = false,
-  leader: boolean = false
+  defender = false,
+  leader = false,
 ): VNode {
   return h(
     'a.ulpt.user-link' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
@@ -54,10 +54,10 @@ export function player(
       h(
         'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
         defender ? { attrs: dataIcon('5') } : leader ? { attrs: dataIcon('8') } : {},
-        playerName(p)
+        playerName(p),
       ),
       withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
-    ]
+    ],
   );
 }
 
@@ -72,7 +72,7 @@ export function numberRow(name: string, value: any, typ?: string): VNode {
           ? value[1] > 0
             ? ratio2percent(value[0] / value[1])
             : 0
-          : numberFormat(value)
+          : numberFormat(value),
     ),
   ]);
 }

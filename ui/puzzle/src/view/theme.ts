@@ -1,7 +1,7 @@
-import { MaybeVNode, bind, dataIcon } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import { Controller, RoundThemes, ThemeKey } from '../interfaces';
+import { type MaybeVNode, bind, dataIcon } from 'common/snabbdom';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { Controller, RoundThemes, ThemeKey } from '../interfaces';
 
 // const studyUrl = 'https://lishogi.org/study/viiWlKjv'; // change
 
@@ -37,7 +37,9 @@ const editor = (ctrl: Controller): VNode => {
   const visibleThemes: ThemeKey[] = data.puzzle.themes
     .filter(t => !invisibleThemes.has(t))
     .concat(
-      Object.keys(votedThemes).filter((t: ThemeKey) => votedThemes[t] && !data.puzzle.themes.includes(t)) as ThemeKey[]
+      Object.keys(votedThemes).filter(
+        (t: ThemeKey) => votedThemes[t] && !data.puzzle.themes.includes(t),
+      ) as ThemeKey[],
     )
     .sort();
   const allThemes = location.pathname == '/training/daily' ? null : ctrl.allThemes;
@@ -70,7 +72,7 @@ const editor = (ctrl: Controller): VNode => {
                   title: i18nThemes[`${key}Description`],
                 },
               },
-              i18nThemes[key]
+              i18nThemes[key],
             ),
             !allThemes
               ? null
@@ -82,7 +84,7 @@ const editor = (ctrl: Controller): VNode => {
                           'div.puzzle__themes__lock',
                           h('i', {
                             attrs: dataIcon('a'),
-                          })
+                          }),
                         ),
                       ]
                     : [
@@ -94,11 +96,11 @@ const editor = (ctrl: Controller): VNode => {
                           class: { active: votedThemes[key] === false },
                           attrs: { 'data-theme': key },
                         }),
-                      ]
+                      ],
                 ),
-          ]
-        )
-      )
+          ],
+        ),
+      ),
     ),
     ...(availableThemes
       ? [
@@ -121,7 +123,7 @@ const editor = (ctrl: Controller): VNode => {
                 {
                   attrs: { value: '', selected: true },
                 },
-                i18n('puzzle:addAnotherTheme')
+                i18n('puzzle:addAnotherTheme'),
               ),
               ...availableThemes.map(theme =>
                 h(
@@ -132,10 +134,10 @@ const editor = (ctrl: Controller): VNode => {
                       title: i18nThemes[`${theme}Description`],
                     },
                   },
-                  i18nThemes[theme]
-                )
+                  i18nThemes[theme],
+                ),
               ),
-            ]
+            ],
           ),
           //h(
           //  'a.puzzle__themes__study.text',

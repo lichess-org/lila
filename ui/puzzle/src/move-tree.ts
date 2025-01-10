@@ -1,11 +1,11 @@
 import { makeNotationWithPosition } from 'shogi/notation';
 import { scalashogiCharPair } from 'shogiops/compat';
 import { initialSfen, makeSfen, parseSfen } from 'shogiops/sfen';
-import { MoveOrDrop } from 'shogiops/types';
+import type { MoveOrDrop } from 'shogiops/types';
 import { makeUsi, parseUsi } from 'shogiops/util';
-import { Position } from 'shogiops/variant/position';
+import type { Position } from 'shogiops/variant/position';
 import { Shogi } from 'shogiops/variant/shogi';
-import { TreeWrapper } from 'tree';
+import type { TreeWrapper } from 'tree';
 
 export function usiToTree(usis: Usi[]): Tree.Node {
   const pos = Shogi.default();
@@ -29,7 +29,7 @@ export function usiToTree(usis: Usi[]): Tree.Node {
 }
 
 export function sfenToTree(sfen: string): Tree.Node {
-  const startPly = parseInt(sfen.split(' ')[3]) - 1;
+  const startPly = Number.parseInt(sfen.split(' ')[3]) - 1;
   return {
     ply: startPly || 0,
     id: '',

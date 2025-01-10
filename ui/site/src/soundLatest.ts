@@ -1,10 +1,10 @@
 // @ts-nocheck
 
-import pubsub from './pubsub';
-import { assetUrl } from './assets';
-import { storage } from './storage';
-import { isIOS } from 'common/mobile';
 import { charRole } from 'chess';
+import { isIOS } from 'common/mobile';
+import { assetUrl } from './assets';
+import pubsub from './pubsub';
+import { storage } from './storage';
 
 declare class Howl {
   constructor(opts: { src: string | string[] });
@@ -40,7 +40,7 @@ new (class implements SoundI {
       name,
       new Howl({
         src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`),
-      })
+      }),
     );
 
   loadStandard = (name: Name, soundSet?: string) => {
@@ -50,7 +50,8 @@ new (class implements SoundI {
   };
 
   preloadBoardSounds() {
-    if (this.soundSet !== 'music') ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
+    if (this.soundSet !== 'music')
+      ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
   }
 
   private getOrLoadSound = (name: string, set: string): Howl => {
@@ -80,7 +81,7 @@ new (class implements SoundI {
     // increase chances that the first tab can put a local storage lock
     const doIt = () => {
       const storage = lichess.storage.make('just-played');
-      if (Date.now() - parseInt(storage.get()!, 10) < 2000) return;
+      if (Date.now() - Number.parseInt(storage.get()!, 10) < 2000) return;
       storage.set('' + Date.now());
       this.play(name);
     };
@@ -92,7 +93,7 @@ new (class implements SoundI {
 
   getVolume = () => {
     // garbage has been stored here by accident (e972d5612d)
-    const v = parseFloat(this.volumeStorage.get() || '');
+    const v = Number.parseFloat(this.volumeStorage.get() || '');
     return v >= 0 ? v : 0.7;
   };
 

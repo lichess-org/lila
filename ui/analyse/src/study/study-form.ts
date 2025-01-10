@@ -1,11 +1,11 @@
-import { Prop, prop } from 'common/common';
+import { type Prop, prop } from 'common/common';
 import * as modal from 'common/modal';
-import { MaybeVNodes, bindNonPassive, bindSubmit } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import { Redraw } from '../interfaces';
-import { emptyRedButton } from '../util';
-import { StudyData } from './interfaces';
+import { type MaybeVNodes, bindNonPassive, bindSubmit } from 'common/snabbdom';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { Redraw } from '../interfaces';
+import { emptyRedButton } from '../util';
+import type { StudyData } from './interfaces';
 
 export interface StudyFormCtrl {
   open: Prop<boolean>;
@@ -35,12 +35,12 @@ function select(s: Select): MaybeVNodes {
       {
         attrs: { for: 'study-' + s.key },
       },
-      s.name
+      s.name,
     ),
     h(
       `select#study-${s.key}.form-control`,
-      s.choices.map(function (o) {
-        return h(
+      s.choices.map(o =>
+        h(
           'option',
           {
             attrs: {
@@ -48,9 +48,9 @@ function select(s: Select): MaybeVNodes {
               selected: s.selected === o[0],
             },
           },
-          o[1]
-        );
-      })
+          o[1],
+        ),
+      ),
     ),
   ];
 }
@@ -58,7 +58,7 @@ function select(s: Select): MaybeVNodes {
 export function ctrl(
   save: (data: FormData, isNew: boolean) => void,
   getData: () => StudyData,
-  redraw: Redraw
+  redraw: Redraw,
 ): StudyFormCtrl {
   const initAt = Date.now();
 
@@ -87,7 +87,7 @@ export function ctrl(
 export function view(ctrl: StudyFormCtrl): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
-  const updateName = function (vnode: VNode, isUpdate: boolean) {
+  const updateName = (vnode: VNode, isUpdate: boolean) => {
     const el = vnode.elm as HTMLInputElement;
     if (!isUpdate && !el.value) {
       el.value = data.name;
@@ -148,7 +148,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   ['private', i18n('study:inviteOnly')],
                 ],
                 selected: data.visibility,
-              })
+              }),
             ),
             h(
               'div.form-group.form-half',
@@ -157,7 +157,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 name: i18n('study:allowCloning'),
                 choices: userSelectionChoices,
                 selected: data.settings.cloneable,
-              })
+              }),
             ),
           ]),
           h('div.form-split', [
@@ -168,7 +168,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 name: i18n('computerAnalysis'),
                 choices: userSelectionChoices.map(c => [c[0], c[1]]),
                 selected: data.settings.computer,
-              })
+              }),
             ),
             h(
               'div.form-group.form-half',
@@ -177,7 +177,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 name: i18n('chat'),
                 choices: userSelectionChoices,
                 selected: data.settings.chat,
-              })
+              }),
             ),
           ]),
           h('div.form-split', [
@@ -191,7 +191,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   ['false', i18n('study:noLetPeopleBrowseFreely')],
                 ],
                 selected: '' + data.settings.sticky,
-              })
+              }),
             ),
             h(
               'div.form-group.form-half',
@@ -203,7 +203,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   ['true', i18n('study:rightUnderTheBoard')],
                 ],
                 selected: '' + data.settings.description,
-              })
+              }),
             ),
           ]),
           h('div.form-actions', [
@@ -212,10 +212,10 @@ export function view(ctrl: StudyFormCtrl): VNode {
               {
                 attrs: { type: 'submit' },
               },
-              isNew ? i18n('study:start') : i18n('save')
+              isNew ? i18n('study:start') : i18n('save'),
             ),
           ]),
-        ]
+        ],
       ),
       h('div.destructive', [
         isNew
@@ -227,9 +227,11 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   action: '/study/' + data.id + '/clear-chat',
                   method: 'post',
                 },
-                hook: bindNonPassive('submit', _ => confirm(i18n('study:deleteTheStudyChatHistory'))),
+                hook: bindNonPassive('submit', _ =>
+                  confirm(i18n('study:deleteTheStudyChatHistory')),
+                ),
               },
-              [h(emptyRedButton, i18n('study:clearChat'))]
+              [h(emptyRedButton, i18n('study:clearChat'))],
             ),
         h(
           'form',
@@ -238,9 +240,12 @@ export function view(ctrl: StudyFormCtrl): VNode {
               action: '/study/' + data.id + '/delete',
               method: 'post',
             },
-            hook: bindNonPassive('submit', _ => isNew || confirm(i18n('study:deleteTheEntireStudy'))),
+            hook: bindNonPassive(
+              'submit',
+              _ => isNew || confirm(i18n('study:deleteTheEntireStudy')),
+            ),
           },
-          [h(emptyRedButton, isNew ? i18n('cancel') : i18n('study:deleteStudy'))]
+          [h(emptyRedButton, isNew ? i18n('cancel') : i18n('study:deleteStudy'))],
         ),
       ]),
     ],

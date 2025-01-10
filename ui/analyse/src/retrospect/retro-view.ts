@@ -1,13 +1,13 @@
 import { bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { isHandicap } from 'shogiops/handicaps';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { renderIndexAndMove } from '../move-view';
-import { RetroCtrl } from './retro-ctrl';
-import { opposite } from 'shogiops/util';
 import { i18n, i18nFormatCapitalized, i18nVdom } from 'i18n';
 import { colorName } from 'shogi/color-name';
+import { isHandicap } from 'shogiops/handicaps';
+import { opposite } from 'shogiops/util';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import { renderIndexAndMove } from '../move-view';
+import type { RetroCtrl } from './retro-ctrl';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [

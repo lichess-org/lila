@@ -1,6 +1,6 @@
 import { ops as treeOps, path as treePath } from 'tree';
 import { makeShapesFromUsi } from '../../auto-shape';
-import AnalyseCtrl from '../../ctrl';
+import type AnalyseCtrl from '../../ctrl';
 
 export type Feedback = 'play' | 'good' | 'bad' | 'end';
 
@@ -18,7 +18,7 @@ export default class GamebookPlayCtrl {
   constructor(
     readonly root: AnalyseCtrl,
     readonly chapterId: string,
-    readonly redraw: () => void
+    readonly redraw: () => void,
   ) {
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
@@ -103,7 +103,7 @@ export default class GamebookPlayCtrl {
 
   solution = (): void => {
     this.root.shogiground.setShapes(
-      makeShapesFromUsi(this.root.turnColor(), this.root.node.children[0].usi!, 'engine')
+      makeShapesFromUsi(this.root.turnColor(), this.root.node.children[0].usi!, 'engine'),
     );
   };
 

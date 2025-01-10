@@ -1,12 +1,12 @@
-import { MaybeVNodes, bind, bindNonPassive } from 'common/snabbdom';
-import spinner from 'common/spinner';
 import { richHTML } from 'common/rich-text';
-import { VNode, h, thunk } from 'snabbdom';
+import { type MaybeVNodes, bind, bindNonPassive } from 'common/snabbdom';
+import spinner from 'common/spinner';
+import { type VNode, h, thunk } from 'snabbdom';
 import { boolSetting } from '../../bool-setting';
 import { option, plural } from '../../util';
 import { view as descView } from '../description';
-import { StudyCtrl } from '../interfaces';
-import { StudyPracticeCtrl, StudyPracticeData } from './interfaces';
+import type { StudyCtrl } from '../interfaces';
+import type { StudyPracticeCtrl, StudyPracticeData } from './interfaces';
 
 function selector(data: StudyPracticeData) {
   return h(
@@ -24,17 +24,17 @@ function selector(data: StudyPracticeData) {
         },
         'Practice list',
       ),
-      ...data.structure.map(function (section) {
-        return h(
+      ...data.structure.map(section =>
+        h(
           'optgroup',
           {
             attrs: { label: section.name },
           },
-          section.studies.map(function (study) {
-            return option(section.id + '/' + study.slug + '/' + study.id, '', study.name);
-          }),
-        );
-      }),
+          section.studies.map(study =>
+            option(section.id + '/' + study.slug + '/' + study.id, '', study.name),
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -143,7 +143,7 @@ export function side(ctrl: StudyCtrl): VNode {
       },
       ctrl.chapters
         .list()
-        .map(function (chapter) {
+        .map(chapter => {
           const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
             active = !ctrl.vm.loading && current && current.id === chapter.id,
             completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';

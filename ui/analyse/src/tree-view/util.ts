@@ -1,16 +1,16 @@
 import { defined, isEmpty } from 'common/common';
 import { bindMobileTapHold } from 'common/mobile';
 import { enrichText, innerHTML } from 'common/rich-text';
-import { usiToNotation } from 'shogi/notation';
-import { MaybeVNodes } from 'common/snabbdom';
+import type { MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { playable } from 'game';
-import { Hooks, VNode, h } from 'snabbdom';
+import { i18n } from 'i18n';
+import { usiToNotation } from 'shogi/notation';
+import { type Hooks, type VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { authorText as commentAuthorText } from '../study/study-comments';
 import contextMenu from './context-menu';
-import { i18n } from 'i18n';
 
 export interface Ctx {
   ctrl: AnalyseCtrl;

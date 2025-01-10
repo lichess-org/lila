@@ -2,15 +2,15 @@ import { view as cevalView } from 'ceval';
 import { bindMobileMousedown } from 'common/mobile';
 import { bindNonPassive, onInsert } from 'common/snabbdom';
 import stepwiseScroll from 'common/wheel';
-import { VNode, h } from 'snabbdom';
+import { render as renderKeyboardMove } from 'keyboard-move';
+import { type VNode, h } from 'snabbdom';
 import * as control from '../control';
-import { Controller } from '../interfaces';
+import type { Controller } from '../interfaces';
 import feedbackView from './feedback';
 import * as shogiground from './shogiground';
 import * as side from './side';
 import theme from './theme';
 import { render as treeView } from './tree';
-import { render as renderKeyboardMove } from 'keyboard-move';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -23,12 +23,7 @@ function dataAct(e: Event): string | null {
   );
 }
 
-function jumpButton(
-  icon: string,
-  effect: string,
-  disabled: boolean,
-  glowing: boolean = false,
-): VNode {
+function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
   return h('button.fbt', {
     class: { disabled, glowing },
     attrs: {

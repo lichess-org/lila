@@ -1,16 +1,16 @@
-import { h, VNode } from 'snabbdom';
-import { categories } from '../categories';
-import LearnCtrl from '../ctrl';
-import { Stage } from '../interfaces';
-import { average } from '../util';
 import { i18n, i18nFormat } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import { categories } from '../categories';
+import type LearnCtrl from '../ctrl';
+import type { Stage } from '../interfaces';
+import { average } from '../util';
 
 function calcPercentage(ctrl: LearnCtrl): number {
   const max = ctrl.stages.map(s => s.levels.length).reduce((a, b) => a + b, 0) * 3,
     keys = Object.keys(ctrl.progress.progress.stages),
     total: number = keys
       .map(k =>
-        ((ctrl.progress.progress.stages[k]?.scores || []) as number[]).reduce((a, b) => a + b, 0)
+        ((ctrl.progress.progress.stages[k]?.scores || []) as number[]).reduce((a, b) => a + b, 0),
       )
       .reduce((a, b) => a + b, 0);
 
@@ -25,7 +25,7 @@ function makeStars(start: number) {
         attrs: {
           'data-icon': 't',
         },
-      })
+      }),
     );
   return stars;
 }
@@ -64,7 +64,7 @@ function side(ctrl: LearnCtrl) {
                 },
               },
             },
-            i18n('learn:resetMyProgress')
+            i18n('learn:resetMyProgress'),
           )
         : null,
     ]),
@@ -77,7 +77,7 @@ function whatNext(ctrl: LearnCtrl) {
     img: string,
     title: string,
     subtitle: string,
-    done?: boolean
+    done?: boolean,
   ) => {
     return h(
       'a.stage' + titleVerbosityClass(title) + (done ? '.done' : ''),
@@ -90,7 +90,7 @@ function whatNext(ctrl: LearnCtrl) {
         done ? h('div.ribbon.done', h('div.ribbon-inner', makeStars(3))) : null,
         h('div.stage-img.' + img),
         h('div.text', [h('h3', title), h('p.subtitle', subtitle)]),
-      ]
+      ],
     );
   };
   const userId = ctrl.progress.progress._id;
@@ -104,37 +104,37 @@ function whatNext(ctrl: LearnCtrl) {
             'beams-aura',
             i18n('learn:register'),
             i18n('learn:getAFreeLishogiAccount'),
-            true
+            true,
           )
         : makeStage(
             '/signup',
             'beams-aura',
             i18n('learn:register'),
-            i18n('learn:getAFreeLishogiAccount')
+            i18n('learn:getAFreeLishogiAccount'),
           ),
       makeStage(
         '/resources',
         'king',
         i18n('learn:shogiResources'),
-        i18n('learn:curatedShogiResources')
+        i18n('learn:curatedShogiResources'),
       ),
       makeStage(
         '/training',
         'bullseye',
         i18n('learn:puzzles'),
-        i18n('learn:exerciseYourTacticalSkills')
+        i18n('learn:exerciseYourTacticalSkills'),
       ),
       makeStage(
         '/#hook',
         'sword-clash',
         i18n('learn:playPeople'),
-        i18n('learn:opponentsFromAroundTheWorld')
+        i18n('learn:opponentsFromAroundTheWorld'),
       ),
       makeStage(
         '/#ai',
         'vintage-robot',
         i18n('learn:playMachine'),
-        i18n('learn:testYourSkillsWithTheComputer')
+        i18n('learn:testYourSkillsWithTheComputer'),
       ),
     ]),
   ]);
@@ -186,9 +186,9 @@ export default function (ctrl: LearnCtrl): VNode {
                     h('h3', s.title),
                     h('p.subtitle', s.subtitle),
                   ]),
-                ]
+                ],
               );
-            })
+            }),
           ),
         ]);
       }),

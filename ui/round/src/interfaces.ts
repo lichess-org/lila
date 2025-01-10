@@ -1,11 +1,11 @@
-import { ChatPlugin } from 'chat/interfaces';
-import { GameData, Status } from 'game';
-import { MoveMetadata as SgMoveMetadata } from 'shogiground/types';
-import { Role } from 'shogiops/types';
-import { VNode } from 'snabbdom';
-import { Centis, ClockData, Seconds } from './clock/clock-ctrl';
-import { CorresClockData } from './corres-clock/corres-clock-ctrl';
-import RoundController from './ctrl';
+import type { ChatPlugin } from 'chat/interfaces';
+import type { GameData, Status } from 'game';
+import type { MoveMetadata as SgMoveMetadata } from 'shogiground/types';
+import type { Role } from 'shogiops/types';
+import type { VNode } from 'snabbdom';
+import type { Centis, ClockData, Seconds } from './clock/clock-ctrl';
+import type { CorresClockData } from './corres-clock/corres-clock-ctrl';
+import type RoundController from './ctrl';
 
 export type Redraw = () => void;
 

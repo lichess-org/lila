@@ -1,11 +1,11 @@
 import { defined } from 'common/common';
-import { engineNameFromCode } from 'shogi/engine-name';
 import { bind, dataIcon } from 'common/snabbdom';
 import * as game from 'game';
-import { VNode, VNodeData, h, thunk } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
-import { findTag } from './study/study-chapters';
 import { i18n } from 'i18n';
+import { engineNameFromCode } from 'shogi/engine-name';
+import { type VNode, type VNodeData, h, thunk } from 'snabbdom';
+import type AnalyseCtrl from './ctrl';
+import { findTag } from './study/study-chapters';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -30,14 +30,14 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
       {
         attrs: { href: '/@/' + p.user.username },
       },
-      [p.user.username, ' ', renderRatingDiff(p.ratingDiff)]
+      [p.user.username, ' ', renderRatingDiff(p.ratingDiff)],
     );
   return h(
     'span',
     p.name ||
       (p.ai && engineNameFromCode(p.aiCode, p.ai)) ||
       (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
-      'Anonymous'
+      'Anonymous',
   );
 }
 
@@ -62,7 +62,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     [
       h(
         'thead',
-        h('tr', [h('td', h('i.is.color-icon.' + color)), h('th', renderPlayer(ctrl, color))])
+        h('tr', [h('td', h('i.is.color-icon.' + color)), h('th', renderPlayer(ctrl, color))]),
       ),
       h(
         'tbody',
@@ -85,10 +85,10 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
             h('tr', [
               h('td', '' + (defined(acpl) ? acpl : '?')),
               h('th', i18n('averageCentipawnLoss')),
-            ])
-          )
+            ]),
+          ),
       ),
-    ]
+    ],
   );
 }
 
@@ -116,10 +116,10 @@ function doRender(ctrl: AnalyseCtrl): VNode {
               attrs: dataIcon('G'),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            i18n('learnFromYourMistakes')
+            i18n('learnFromYourMistakes'),
           ),
       playerTable(ctrl, 'gote'),
-    ]
+    ],
   );
 }
 

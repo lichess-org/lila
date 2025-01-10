@@ -1,11 +1,11 @@
-import { bind, MaybeVNode } from 'common/snabbdom';
-import { VNode, VNodes, h } from 'snabbdom';
-import TournamentController from '../ctrl';
-import * as buttons from './button';
-import * as pagination from '../pagination';
-import { PageData } from '../interfaces';
-import { organizeArrangementButton } from './organized';
+import { type MaybeVNode, bind } from 'common/snabbdom';
 import { i18n } from 'i18n';
+import { type VNode, type VNodes, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { PageData } from '../interfaces';
+import * as pagination from '../pagination';
+import * as buttons from './button';
+import { organizeArrangementButton } from './organized';
 
 export function arenaControls(ctrl: TournamentController, pag: PageData): VNode {
   return h('div.tour__controls', [
@@ -32,14 +32,18 @@ export function robinControls(ctrl: TournamentController): VNode {
         controlButton(i18n('study:last'), 'V', 'last'),
       ]),
       h('div.right', [buttons.managePlayers(ctrl), buttons.joinWithdraw(ctrl)]),
-    ]
+    ],
   );
 }
 
 export function organizedControls(ctrl: TournamentController, pag: PageData): VNode {
   return h('div.tour__controls', [
     h('div.pager', pagination.renderPager(ctrl, pag)),
-    h('div.right', [organizeArrangementButton(ctrl), buttons.managePlayers(ctrl), buttons.joinWithdraw(ctrl)]),
+    h('div.right', [
+      organizeArrangementButton(ctrl),
+      buttons.managePlayers(ctrl),
+      buttons.joinWithdraw(ctrl),
+    ]),
   ]);
 }
 
@@ -58,8 +62,8 @@ export function backControl(ctrl: TournamentController, f: () => void, extra: VN
             title: i18n('back'),
           },
         },
-        i18n('back')
-      )
+        i18n('back'),
+      ),
     ),
     ...extra,
   ]);
@@ -80,7 +84,7 @@ export function utcControl(ctrl: TournamentController): VNode {
           const val = (e.target as HTMLInputElement).checked;
           ctrl.utc(val);
         },
-        ctrl.redraw
+        ctrl.redraw,
       ),
     }),
     h('label', { attrs: { for: 'f-UTC' } }),
@@ -96,7 +100,7 @@ function controlButton(text: string, icon: string, cls: string, el: MaybeVNode =
         title: text,
       },
     },
-    el
+    el,
   );
 }
 
@@ -111,7 +115,8 @@ function robinArrowControls(ctrl: TournamentController) {
 
   function updateArrowState() {
     const canScrollLeft = container.scrollLeft > 0,
-      canScrollRight = Math.round(container.scrollLeft) < container.scrollWidth - container.clientWidth - 1;
+      canScrollRight =
+        Math.round(container.scrollLeft) < container.scrollWidth - container.clientWidth - 1;
 
     firstArrow.classList.toggle('disabled', !canScrollLeft);
     prevArrow.classList.toggle('disabled', !canScrollLeft);

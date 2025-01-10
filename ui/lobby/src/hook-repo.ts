@@ -1,5 +1,5 @@
-import LobbyController from './ctrl';
-import { Hook, Tab } from './interfaces';
+import type LobbyController from './ctrl';
+import type { Hook, Tab } from './interfaces';
 
 export const tabs: Tab[] = ['real_time', 'presets'];
 

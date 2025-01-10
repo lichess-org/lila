@@ -1,4 +1,4 @@
-import type { ChartConfiguration, ChartDataset, ChartType, ArcElement } from 'chart.js';
+import type { ArcElement, ChartConfiguration, ChartDataset, ChartType } from 'chart.js';
 import { fontColor, fontFamily } from '../common';
 
 declare module 'chart.js' {
@@ -99,7 +99,7 @@ function main(): void {
         updateAnswer();
       });
     else {
-      setInterval(function () {
+      setInterval(() => {
         v.network = Math.round(window.lishogi.socket.averageLag);
         if (v.network <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.network);

@@ -4,12 +4,14 @@ import { debounce } from 'common/timings';
 window.lishogi.ready.then(() => {
   const $form = $('#signup_form'),
     $exists = $form.find('.username-exists'),
-    $username = $form.find<HTMLInputElement>('input[name="username"]').on('change keyup paste', function () {
-      $exists.hide();
-      usernameCheck();
-    });
+    $username = $form
+      .find<HTMLInputElement>('input[name="username"]')
+      .on('change keyup paste', () => {
+        $exists.hide();
+        usernameCheck();
+      });
 
-  const usernameCheck = debounce(function () {
+  const usernameCheck = debounce(() => {
     const name = $username.val();
     if (name && name.length >= 3)
       window.lishogi.xhr
@@ -21,7 +23,7 @@ window.lishogi.ready.then(() => {
         });
   }, 300);
 
-  $form.on('submit', function () {
+  $form.on('submit', () => {
     $form
       .find('button.submit')
       .prop('disabled', true)
@@ -30,7 +32,7 @@ window.lishogi.ready.then(() => {
       .html(spinnerHtml);
   });
 });
-(window as any).signupSubmit = function () {
+(window as any).signupSubmit = () => {
   const form = document.getElementById('signup_form') as HTMLFormElement;
   if (form.reportValidity()) form.submit();
 };

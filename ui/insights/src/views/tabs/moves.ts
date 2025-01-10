@@ -1,17 +1,17 @@
-import { VNode, h } from 'snabbdom';
-import { allRoles } from 'shogiops/variant/util';
-import { COLORS } from 'shogiops/constants';
-import { initialSfen } from 'shogiops/sfen';
 import { bind } from 'common/snabbdom';
+import { i18n } from 'i18n';
 import { colorName } from 'shogi/color-name';
 import { makeNotationLine } from 'shogi/notation';
-import InsightCtrl from '../../ctrl';
-import { horizontalBar, section, translateRole, winrateTable } from '../util';
+import { COLORS } from 'shogiops/constants';
+import { initialSfen } from 'shogiops/sfen';
+import { allRoles } from 'shogiops/variant/util';
+import { type VNode, h } from 'snabbdom';
+import type InsightCtrl from '../../ctrl';
+import type { InsightFilter, MovesResult, WinRate } from '../../types';
+import { toPercentage } from '../../util';
 import { barChart } from '../charts';
 import { accent, primary, total } from '../colors';
-import { InsightFilter, MovesResult, WinRate } from '../../types';
-import { toPercentage } from '../../util';
-import { i18n } from 'i18n';
+import { horizontalBar, section, translateRole, winrateTable } from '../util';
 
 export function moves(ctrl: InsightCtrl, data: MovesResult): VNode {
   return h('div.moves', [
@@ -101,8 +101,8 @@ function movesAndDropByRoleChart(data: MovesResult, flt: InsightFilter): VNode {
 }
 
 function capturesByRoleChart(data: MovesResult, flt: InsightFilter): VNode {
-  let variant = flt.variant;
-  let captures = data.nbOfCapturesByRole;
+  const variant = flt.variant;
+  const captures = data.nbOfCapturesByRole;
   const roles = allRoles(variant),
     totalCaptures = roles.reduce((a, b) => a + (captures[b] || 0), 0);
 

@@ -1,5 +1,5 @@
-import SimulCtrl from './ctrl';
-import { SimulOpts } from './interfaces';
+import type SimulCtrl from './ctrl';
+import type { SimulOpts } from './interfaces';
 
 export function boot(opts: SimulOpts, start: (opts: SimulOpts) => SimulCtrl): SimulCtrl {
   $('body').data('simul-id', opts.data.id);
@@ -9,10 +9,10 @@ export function boot(opts: SimulOpts, start: (opts: SimulOpts) => SimulCtrl): Si
     '/simul/' + opts.data.id + '/socket/v4',
     opts.socketVersion,
     {
-      receive: function (t, d) {
+      receive: (t, d) => {
         ctrl.socket.receive(t, d);
       },
-    }
+    },
   );
   opts.socketSend = window.lishogi.socket.send;
   opts.$side = $('.simul__side').clone();

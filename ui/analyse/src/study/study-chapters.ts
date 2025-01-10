@@ -1,11 +1,14 @@
-import { Prop, prop } from 'common/common';
+import { loadVendorScript } from 'common/assets';
+import { type Prop, prop } from 'common/common';
+import { hasTouchEvents } from 'common/mobile';
 import { bind, dataIcon } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { iconTag, scrollTo } from '../util';
 import { ctrl as chapterEditForm } from './chapter-edit-form';
-import { StudyChapterNewFormCtrl, ctrl as chapterNewForm } from './chapter-new-form';
-import {
+import { type StudyChapterNewFormCtrl, ctrl as chapterNewForm } from './chapter-new-form';
+import type {
   LocalPaths,
   StudyChapter,
   StudyChapterConfig,
@@ -13,9 +16,6 @@ import {
   StudyCtrl,
   TagArray,
 } from './interfaces';
-import { hasTouchEvents } from 'common/mobile';
-import { loadVendorScript } from 'common/assets';
-import { i18n } from 'i18n';
 
 export interface StudyChaptersCtrl {
   newForm: StudyChapterNewFormCtrl;
@@ -95,7 +95,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      const makeSortable = function () {
+      const makeSortable = () => {
         vData.sortable = window.Sortable.create(el, {
           draggable: '.draggable',
           handle: hasTouchEvents ? 'span' : undefined,

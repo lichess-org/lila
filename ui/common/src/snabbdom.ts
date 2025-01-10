@@ -9,7 +9,12 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
   };
 }
 
-export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void, passive = true): Hooks {
+export function bind(
+  eventName: string,
+  f: (e: Event) => any,
+  redraw?: () => void,
+  passive = true,
+): Hooks {
   return onInsert(el =>
     el.addEventListener(
       eventName,
@@ -19,13 +24,16 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
         redraw?.();
         return res;
       },
-      { passive }
-    )
+      { passive },
+    ),
   );
 }
 
-export const bindNonPassive = (eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks =>
-  bind(eventName, f, redraw, false);
+export const bindNonPassive = (
+  eventName: string,
+  f: (e: Event) => any,
+  redraw?: () => void,
+): Hooks => bind(eventName, f, redraw, false);
 
 export function bindSubmit(f: (e: Event) => unknown, redraw?: () => void): Hooks {
   return bind('submit', e => (e.preventDefault(), f(e)), redraw, false);

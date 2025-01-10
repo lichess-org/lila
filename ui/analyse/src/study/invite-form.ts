@@ -1,17 +1,17 @@
-import { Prop, prop } from 'common/common';
+import { type Prop, prop } from 'common/common';
 import { modal } from 'common/modal';
 import { bind, onInsert } from 'common/snabbdom';
 import { storedSet } from 'common/storage';
-import { VNode, h } from 'snabbdom';
-import { titleNameToId } from '../util';
-import { StudyInviteFormCtrl, StudyMemberMap } from './interfaces';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import { titleNameToId } from '../util';
+import type { StudyInviteFormCtrl, StudyMemberMap } from './interfaces';
 
 export function makeCtrl(
   send: Socket.Send,
   members: Prop<StudyMemberMap>,
   setTab: () => void,
-  redraw: () => void
+  redraw: () => void,
 ): StudyInviteFormCtrl {
   const open = prop(false),
     previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
@@ -28,7 +28,7 @@ export function makeCtrl(
       return followings
         .concat(spectators)
         .concat(...previouslyInvited())
-        .filter(function (elem, idx, arr) {
+        .filter((elem, idx, arr) => {
           return (
             arr.indexOf(elem) >= idx && // remove duplicates
             !existing.hasOwnProperty(titleNameToId(elem))
@@ -44,16 +44,10 @@ export function makeCtrl(
       updateFollowings((_: string[]) => usernames);
     },
     delFollowing(username: string) {
-      updateFollowings(function (prevs: string[]) {
-        return prevs.filter(function (u: string) {
-          return username !== u;
-        });
-      });
+      updateFollowings((prevs: string[]) => prevs.filter((u: string) => username !== u));
     },
     addFollowing(username: string) {
-      updateFollowings(function (prevs: string[]) {
-        return prevs.concat([username]);
-      });
+      updateFollowings((prevs: string[]) => prevs.concat([username]));
     },
     toggle() {
       open(!open());
@@ -101,16 +95,16 @@ export function view(ctrl: StudyInviteFormCtrl): VNode {
       candidates.length
         ? h(
             'div.users',
-            candidates.map(function (username: string) {
-              return h(
+            candidates.map((username: string) =>
+              h(
                 'span.button.button-metal',
                 {
                   key: username,
                   hook: bind('click', _ => ctrl.invite(username)),
                 },
-                username
-              );
-            })
+                username,
+              ),
+            ),
           )
         : undefined,
     ],

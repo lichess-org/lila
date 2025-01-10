@@ -1,12 +1,12 @@
 import { opposite } from 'shogiground/util';
-import { VNode, h } from 'snabbdom';
-import EditorCtrl from '../ctrl';
+import { type VNode, h } from 'snabbdom';
+import type EditorCtrl from '../ctrl';
 import * as ground from '../shogiground';
-import { sparePieces } from './spares';
 import { actions } from './actions';
-import { underboard } from './underboard';
 import { links } from './links';
+import { sparePieces } from './spares';
 import { tools } from './tools';
+import { underboard } from './underboard';
 
 export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState(),

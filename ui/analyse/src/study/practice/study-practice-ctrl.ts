@@ -1,17 +1,17 @@
 import { prop } from 'common/common';
 import { storedProp } from 'common/storage';
-import AnalyseCtrl from '../../ctrl';
+import type AnalyseCtrl from '../../ctrl';
 import { readOnlyProp } from '../../util';
-import { StudyCtrl, StudyData } from '../interfaces';
+import type { StudyCtrl, StudyData } from '../interfaces';
 import * as xhr from '../study-xhr';
-import { Goal, StudyPracticeCtrl, StudyPracticeData } from './interfaces';
+import type { Goal, StudyPracticeCtrl, StudyPracticeData } from './interfaces';
 import makeSound from './sound';
 import makeSuccess from './study-practice-success';
 
 export default function (
   root: AnalyseCtrl,
   studyData: StudyData,
-  data: StudyPracticeData
+  data: StudyPracticeData,
 ): StudyPracticeCtrl {
   const goal = prop<Goal>(root.data.practiceGoal!),
     nbMoves = prop(0),
@@ -31,7 +31,7 @@ export default function (
     const chapter = studyData.chapter;
     history.replaceState(null, chapter.name, data.url + '/' + chapter.id);
     analysisUrl(
-      '/analysis/standard/' + root.node.sfen.replace(/ /g, '_') + '?color=' + root.bottomColor()
+      '/analysis/standard/' + root.node.sfen.replace(/ /g, '_') + '?color=' + root.bottomColor(),
     );
   }
   onLoad();

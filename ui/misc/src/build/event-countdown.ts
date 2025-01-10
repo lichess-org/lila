@@ -1,6 +1,6 @@
 $('.event .countdown').each(function () {
   const $el = $(this),
-    seconds = parseInt($(this).data('seconds')) - 1,
+    seconds = Number.parseInt($(this).data('seconds')) - 1,
     target = new Date().getTime() + seconds * 1000;
 
   const second = 1000,

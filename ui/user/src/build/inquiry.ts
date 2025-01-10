@@ -2,7 +2,7 @@ window.lishogi.ready.then(() => {
   $('#inquiry .notes').on('mouseenter', function () {
     ($(this).find('textarea')[0] as HTMLTextAreaElement).focus();
   });
-  $('#inquiry .costello').on('click', function () {
+  $('#inquiry .costello').on('click', () => {
     $('#inquiry').toggleClass('hidden');
     $('body').toggleClass('no-inquiry');
   });

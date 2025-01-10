@@ -1,5 +1,5 @@
 import * as control from './control';
-import { KeyboardController } from './interfaces';
+import type { KeyboardController } from './interfaces';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();
@@ -17,33 +17,33 @@ export default function (ctrl: KeyboardController): void {
       preventing(() => {
         control.next(ctrl);
         ctrl.redraw();
-      })
+      }),
     )
     .bind(
       ['up', '0', 'home'],
       preventing(() => {
         control.first(ctrl);
         ctrl.redraw();
-      })
+      }),
     )
     .bind(
       ['down', '$', 'end'],
       preventing(() => {
         control.last(ctrl);
         ctrl.redraw();
-      })
+      }),
     )
     .bind(
       'l',
       preventing(() => {
         ctrl.toggleCeval;
-      })
+      }),
     )
     .bind(
       'x',
       preventing(() => {
         ctrl.toggleThreatMode;
-      })
+      }),
     )
     .bind(
       'space',
@@ -52,12 +52,12 @@ export default function (ctrl: KeyboardController): void {
           if (ctrl.getCeval().enabled()) ctrl.playBestMove();
           else ctrl.toggleCeval();
         }
-      })
+      }),
     )
     .bind(
       'z',
       preventing(() => {
         window.lishogi.pubsub.emit('zen');
-      })
+      }),
     );
 }

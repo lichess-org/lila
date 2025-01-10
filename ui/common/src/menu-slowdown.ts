@@ -41,7 +41,10 @@ const menuSlowdown = (): void => {
     // compares current and previous mouse positions
     const compare = () => {
       // compare mouse positions to see if pointer has slowed enough to trigger `over` function
-      if (Math.sqrt((state.pX - cX) * (state.pX - cX) + (state.pY - cY) * (state.pY - cY)) < sensitivity) {
+      if (
+        Math.sqrt((state.pX - cX) * (state.pX - cX) + (state.pY - cY) * (state.pY - cY)) <
+        sensitivity
+      ) {
         $el.off(state.event, track);
         delete state.timeoutId;
         // set hoverIntent state as active for this element (permits `out` handler to trigger)
@@ -57,7 +60,7 @@ const menuSlowdown = (): void => {
     };
 
     // A private function for handling mouse 'hovering'
-    const handleHover = function (ev: JQueryEventObject) {
+    const handleHover = (ev: JQueryEventObject) => {
       // clear any existing timeout
       if (state.timeoutId) state.timeoutId = clearTimeout(state.timeoutId);
 

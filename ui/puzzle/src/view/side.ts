@@ -1,7 +1,9 @@
-import { MaybeVNode, dataIcon, onInsert } from 'common/snabbdom';
+import { numberFormat } from 'common/number';
+import { type MaybeVNode, dataIcon, onInsert } from 'common/snabbdom';
+import { i18n, i18nVdom, i18nVdomPlural } from 'i18n';
 import { engineNameFromCode } from 'shogi/engine-name';
-import { VNode, h } from 'snabbdom';
-import {
+import { type VNode, h } from 'snabbdom';
+import type {
   Controller,
   Puzzle,
   PuzzleDifficulty,
@@ -9,9 +11,7 @@ import {
   PuzzlePlayer,
   ThemeKey,
 } from '../interfaces';
-import { i18n, i18nVdom, i18nVdomPlural } from 'i18n';
 import { i18nThemes } from './theme';
-import { numberFormat } from 'common/number';
 
 export function puzzleBox(ctrl: Controller): VNode {
   const data = ctrl.getData();

@@ -7,7 +7,7 @@ const ColorName = {
   Black: 3,
 } as const;
 
-const colorNamePref: number = parseInt(document.body.dataset.colorName || '0');
+const colorNamePref: number = Number.parseInt(document.body.dataset.colorName || '0');
 
 export function colorName(color: Color, isHandicap: boolean): string {
   return isHandicap ? handicapColorName(color) : standardColorName(color);

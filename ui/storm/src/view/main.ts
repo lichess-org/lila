@@ -1,13 +1,13 @@
 import { onInsert } from 'common/snabbdom';
+import { i18n } from 'i18n';
 import { makeSgOpts } from 'puz/run';
 import renderClock from 'puz/view/clock';
 import { makeConfig as makeSgConfig } from 'puz/view/shogiground';
 import { playModifiers, renderCombo } from 'puz/view/util';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import config from '../config';
-import StormCtrl from '../ctrl';
+import type StormCtrl from '../ctrl';
 import renderEnd from './end';
-import { i18n } from 'i18n';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -18,7 +18,7 @@ export default function (ctrl: StormCtrl): VNode {
       {
         class: playModifiers(ctrl.run),
       },
-      renderPlay(ctrl)
+      renderPlay(ctrl),
     );
   return h('main.storm.storm--end', renderEnd(ctrl));
 }
@@ -29,7 +29,12 @@ const shogigroundBoard = (ctrl: StormCtrl): VNode =>
       insert: vnode => {
         ctrl.shogiground.attach({ board: vnode.elm as HTMLElement });
         ctrl.shogiground.set(
-          makeSgConfig(makeSgOpts(ctrl.run, !ctrl.run.endAt), ctrl.pref, ctrl.userMove, ctrl.userDrop)
+          makeSgConfig(
+            makeSgOpts(ctrl.run, !ctrl.run.endAt),
+            ctrl.pref,
+            ctrl.userMove,
+            ctrl.userDrop,
+          ),
         );
       },
     },
@@ -87,7 +92,10 @@ const renderControls = (ctrl: StormCtrl): VNode =>
 const renderStart = () =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [h('strong', 'Tsume Storm'), h('span', i18n('storm:moveToStart'))])
+    h('div.puz-side__start__text', [
+      h('strong', 'Tsume Storm'),
+      h('span', i18n('storm:moveToStart')),
+    ]),
   );
 
 const renderReload = (msg: string) =>
@@ -99,6 +107,6 @@ const renderReload = (msg: string) =>
       {
         attrs: { href: '/storm' },
       },
-      'Click to reload'
+      'Click to reload',
     ),
   ]);

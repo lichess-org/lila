@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { obstaclesCaptured } from '../assert';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, initial, pieceMovesHighlihts } from '../shapes';
 import { toPiece } from '../util';
@@ -12,7 +12,12 @@ const levels: IncompleteLevel[] = [
     nbMoves: 4,
     success: obstaclesCaptured,
     obstacles: ['5e', '6d', '8f'],
-    drawShapes: initial([arrow('5f', '5e'), arrow('5e', '6d'), arrow('6d', '7e'), arrow('7e', '8f')]),
+    drawShapes: initial([
+      arrow('5f', '5e'),
+      arrow('5e', '6d'),
+      arrow('6d', '7e'),
+      arrow('7e', '8f'),
+    ]),
   },
   {
     goal: i18n('learn:grabAllTheStars'),

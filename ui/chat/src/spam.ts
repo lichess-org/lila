@@ -44,7 +44,7 @@ const spamRegex = new RegExp(
     .map(url => {
       return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
     })
-    .join('|')
+    .join('|'),
 );
 
 function analyse(txt: string) {

@@ -1,10 +1,13 @@
-import { PackageInfo, PackageName } from '@build/wrapper/types';
+import type { PackageInfo, PackageName } from '@build/wrapper/types';
 import { withColor } from '@build/wrapper/util';
 
 export const graphWrap =
   (pkgs: PackageInfo[], fn: (pkg: PackageInfo) => Promise<void>) =>
   (changedPkg?: PackageInfo): Record<string, any> => {
-    const collectAffected = (name: PackageName, visited = new Set<PackageName>()): Set<PackageName> => {
+    const collectAffected = (
+      name: PackageName,
+      visited = new Set<PackageName>(),
+    ): Set<PackageName> => {
       const pkg = pkgs.find(p => p.name === name);
       if (pkg && !visited.has(name)) {
         visited.add(name);
@@ -18,7 +21,7 @@ export const graphWrap =
       `Building ${affected.size}/${pkgs.length} packages:`,
       Array.from(affected)
         .map(a => `${withColor(a)}`)
-        .join(', ')
+        .join(', '),
     );
     const g: Record<string, any> = {};
     for (const pkg of pkgs.filter(p => affected.has(p.name))) {

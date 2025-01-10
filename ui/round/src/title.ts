@@ -1,19 +1,17 @@
 import { isPlayerTurn } from 'game';
 import { aborted, finished, paused } from 'game/status';
-import RoundController from './ctrl';
 import { i18n } from 'i18n';
+import type RoundController from './ctrl';
 
 const initialTitle = document.title;
 
 let curFaviconIdx = 0;
 const F = ['/assets/logo/lishogi-favicon-32.png', '/assets/logo/lishogi-favicon-32-invert.png'].map(
-  function (path, i) {
-    return function () {
-      if (curFaviconIdx !== i) {
-        (document.getElementById('favicon') as HTMLAnchorElement).href = path;
-        curFaviconIdx = i;
-      }
-    };
+  (path, i) => () => {
+    if (curFaviconIdx !== i) {
+      (document.getElementById('favicon') as HTMLAnchorElement).href = path;
+      curFaviconIdx = i;
+    }
   },
 );
 

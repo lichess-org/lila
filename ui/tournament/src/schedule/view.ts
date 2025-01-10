@@ -1,6 +1,6 @@
-import { VNode, h } from 'snabbdom';
 import dragscroll from 'dragscroll';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
 
 const scale = 8;
 let now: number, startTime: number, stopTime: number;
@@ -45,7 +45,7 @@ function laneGrouper(t) {
   } else if (t.variant.key !== 'standard') {
     return 99;
   } else if (t.schedule && t.hasMaxRating) {
-    return 50 + parseInt(t.fullName.slice(1, 5)) / 10000;
+    return 50 + Number.parseInt(t.fullName.slice(1, 5)) / 10000;
   } else if (t.schedule && t.schedule.speed === 'superBlitz') {
     return t.perf.position - 0.5;
   } else if (t.schedule && t.schedule.speed === 'hyperBullet') {
@@ -67,15 +67,13 @@ function group(arr, grouper) {
   });
   return Object.keys(groups)
     .sort()
-    .map(function (k) {
-      return groups[k];
-    });
+    .map(k => groups[k]);
 }
 
 function fitLane(lane, tour2) {
-  return !lane.some(function (tour1) {
-    return !(tour1.finishesAt <= tour2.startsAt || tour2.finishesAt <= tour1.startsAt);
-  });
+  return !lane.some(
+    tour1 => !(tour1.finishesAt <= tour2.startsAt || tour2.finishesAt <= tour1.startsAt),
+  );
 }
 
 // splits lanes that have collisions, but keeps

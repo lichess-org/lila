@@ -1,11 +1,11 @@
+import { loadCompiledScript } from 'common/assets';
 import { requestIdleCallbackWithFallback } from 'common/common';
 import { bind, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { loadCompiledScript } from 'common/assets';
 import { i18n } from 'i18n';
-import { AnalyseData } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { AnalyseData } from '../interfaces';
 
 export class ServerEval {
   requested = false;

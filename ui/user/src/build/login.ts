@@ -5,7 +5,7 @@ window.lishogi.ready.then(() => {
 });
 
 function load($f: JQuery): void {
-  $f.on('submit', function () {
+  $f.on('submit', () => {
     $f.find('.submit').prop('disabled', true);
 
     window.lishogi.xhr
@@ -15,7 +15,7 @@ function load($f: JQuery): void {
         if (res === 'MissingTotpToken' || res === 'InvalidTotpToken') {
           $f.find('.one-factor').hide();
           $f.find('.two-factor').show();
-          requestAnimationFrame(function () {
+          requestAnimationFrame(() => {
             $f.find('.two-factor input').val('').trigger('focus');
           });
           $f.find('.submit').prop('disabled', false);
@@ -30,7 +30,7 @@ function load($f: JQuery): void {
             load($(selector));
           } else {
             alert(
-              err.responseText || err.statusText + '. Please wait some time before trying again.'
+              err.responseText || err.statusText + '. Please wait some time before trying again.',
             );
             $f.find('.submit').prop('disabled', false);
           }

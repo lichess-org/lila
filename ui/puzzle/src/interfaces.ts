@@ -1,15 +1,15 @@
-import { CevalCtrl, NodeEvals } from 'ceval';
-import { Prop } from 'common/common';
-import { Deferred } from 'common/defer';
-import { EngineCode } from 'shogi/engine-name';
-import { StoredBooleanProp } from 'common/storage';
-import { Api as SgApi } from 'shogiground/api';
-import { Config as SgConfig } from 'shogiground/config';
-import { MoveOrDrop, Outcome, Piece } from 'shogiops/types';
-import { Shogi } from 'shogiops/variant/shogi';
-import { TreeWrapper } from 'tree';
-import PuzzleSession from './session';
-import { KeyboardMove } from 'keyboard-move';
+import type { CevalCtrl, NodeEvals } from 'ceval';
+import type { Prop } from 'common/common';
+import type { Deferred } from 'common/defer';
+import type { StoredBooleanProp } from 'common/storage';
+import type { KeyboardMove } from 'keyboard-move';
+import type { EngineCode } from 'shogi/engine-name';
+import type { Api as SgApi } from 'shogiground/api';
+import type { Config as SgConfig } from 'shogiground/config';
+import type { MoveOrDrop, Outcome, Piece } from 'shogiops/types';
+import type { Shogi } from 'shogiops/variant/shogi';
+import type { TreeWrapper } from 'tree';
+import type PuzzleSession from './session';
 
 export type Redraw = () => void;
 

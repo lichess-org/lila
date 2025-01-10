@@ -35,9 +35,7 @@ export interface TreeWrapper {
 
 export function build(root: Tree.Node): TreeWrapper {
   function lastNode(): Tree.Node {
-    return ops.findInMainline(root, function (node: Tree.Node) {
-      return !node.children.length;
-    })!;
+    return ops.findInMainline(root, (node: Tree.Node) => !node.children.length)!;
   }
 
   function nodeAtPath(path: Tree.Path): Tree.Node {
@@ -71,8 +69,8 @@ export function build(root: Tree.Node): TreeWrapper {
     mainline: Tree.Node[],
     ply: number,
   ): Tree.Node[] {
-    let nodes = [];
-    for (let i in nodeList) {
+    const nodes = [];
+    for (const i in nodeList) {
       const node = nodeList[i];
       if (node.ply <= ply && mainline[i].id !== node.id) break;
       if (node.ply > ply) nodes.push(node);
@@ -109,7 +107,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function getNodeList(path: Tree.Path): Tree.Node[] {
-    return ops.collect(root, function (node: Tree.Node) {
+    return ops.collect(root, (node: Tree.Node) => {
       const id = treePath.head(path);
       if (id === '') return;
       path = treePath.tail(path);
@@ -136,7 +134,7 @@ export function build(root: Tree.Node): TreeWrapper {
       });
       return newPath;
     }
-    return updateAt(path, function (parent: Tree.Node) {
+    return updateAt(path, (parent: Tree.Node) => {
       parent.children.push(node);
     })
       ? newPath
@@ -173,25 +171,23 @@ export function build(root: Tree.Node): TreeWrapper {
   function setCommentAt(comment: Tree.Comment, path: Tree.Path) {
     return !comment.text
       ? deleteCommentAt(comment.id, path)
-      : updateAt(path, function (node) {
+      : updateAt(path, node => {
           node.comments = node.comments || [];
-          const existing = node.comments.find(function (c) {
-            return c.id === comment.id;
-          });
+          const existing = node.comments.find(c => c.id === comment.id);
           if (existing) existing.text = comment.text;
           else node.comments.push(comment);
         });
   }
 
   function deleteCommentAt(id: string, path: Tree.Path) {
-    return updateAt(path, function (node) {
+    return updateAt(path, node => {
       const comments = (node.comments || []).filter(c => c.id !== id);
       node.comments = comments.length ? comments : undefined;
     });
   }
 
   function setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path) {
-    return updateAt(path, function (node) {
+    return updateAt(path, node => {
       node.glyphs = glyphs;
     });
   }
@@ -222,7 +218,7 @@ export function build(root: Tree.Node): TreeWrapper {
     addNode,
     addNodes,
     setShapes(shapes: Tree.Shape[], path: Tree.Path) {
-      return updateAt(path, function (node: Tree.Node) {
+      return updateAt(path, (node: Tree.Node) => {
         node.shapes = shapes;
       });
     },
@@ -230,7 +226,7 @@ export function build(root: Tree.Node): TreeWrapper {
     deleteCommentAt,
     setGlyphsAt,
     setClockAt(clock: Tree.Clock | undefined, path: Tree.Path) {
-      return updateAt(path, function (node) {
+      return updateAt(path, node => {
         node.clock = clock;
       });
     },
@@ -243,7 +239,7 @@ export function build(root: Tree.Node): TreeWrapper {
     deleteNodeAt,
     promoteAt,
     forceVariationAt(path: Tree.Path, force: boolean) {
-      return updateAt(path, function (node) {
+      return updateAt(path, node => {
         node.forceVariation = force;
       });
     },
@@ -252,16 +248,14 @@ export function build(root: Tree.Node): TreeWrapper {
       ops.merge(root, tree);
     },
     removeCeval() {
-      ops.updateAll(root, function (n) {
+      ops.updateAll(root, n => {
         delete n.ceval;
         delete n.threat;
       });
     },
     removeComputerVariations() {
-      ops.mainlineNodeList(root).forEach(function (n) {
-        n.children = n.children.filter(function (c) {
-          return !c.comp;
-        });
+      ops.mainlineNodeList(root).forEach(n => {
+        n.children = n.children.filter(c => !c.comp);
       });
     },
     parentNode,

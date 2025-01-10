@@ -1,6 +1,6 @@
-import { VNode, h } from 'snabbdom';
-import { Open, Redraw, bind, header } from './util';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import { type Open, type Redraw, bind, header } from './util';
 
 type ThemeKey = string;
 type Theme = {
@@ -57,7 +57,7 @@ export function view(ctrl: ThemeCtrl): VNode {
     header(i18n('boardTheme'), () => ctrl.open('links')),
     h(
       'div.list',
-      list.map(i => themeView(ctrl, i))
+      list.map(i => themeView(ctrl, i)),
     ),
   ]);
 }
@@ -73,7 +73,7 @@ function themeView(ctrl: ThemeCtrl, t: Theme | 'thickGrid') {
         attrs: { title: t.name },
         class: { active: ctrl.data.current === t.key },
       },
-      h('span.' + t.key)
+      h('span.' + t.key),
     );
 }
 
@@ -91,12 +91,12 @@ function thickGrid(ctrl: ThemeCtrl): VNode {
             checked: ctrl.data.thickGrid,
           },
           hook: bind('change', (e: Event) =>
-            ctrl.setThickGrid((e.target as HTMLInputElement).checked)
+            ctrl.setThickGrid((e.target as HTMLInputElement).checked),
           ),
         }),
         h('label', { attrs: { for: 'thickGrid' } }),
       ]),
-    ]
+    ],
   );
 }
 
@@ -111,7 +111,7 @@ function customThemeView(ctrl: ThemeCtrl): VNode {
       attrs: { 'data-icon': 'H' },
       class: { active: ctrl.data.current === 'custom' },
     },
-    i18n('customTheme')
+    i18n('customTheme'),
   );
 }
 

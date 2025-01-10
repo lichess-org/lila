@@ -18,7 +18,7 @@ export function storedProp(k: string, defaultValue: any) {
   const sk = 'analyse.' + k, // remove analyse
     isBoolean = defaultValue === true || defaultValue === false;
   let value: any;
-  return function (v: any) {
+  return (v: any) => {
     if (defined(v) && v != value) {
       value = v + '';
       storage.set(sk, v);

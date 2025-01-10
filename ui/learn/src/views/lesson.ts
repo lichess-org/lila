@@ -1,11 +1,11 @@
-import { VNode, h } from 'snabbdom';
-import LearnCtrl from '../ctrl';
-import { Level } from '../interfaces';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type LearnCtrl from '../ctrl';
+import type { Level } from '../interfaces';
 import congrats from './congrats';
 import completed from './overlays/completed';
 import starting from './overlays/starting';
 import side from './side';
-import { i18n } from 'i18n';
 
 const star = h('i', { attrs: { 'data-icon': 't' } });
 
@@ -19,7 +19,7 @@ function progress(ctrl: LearnCtrl) {
   const vm = ctrl.vm!;
   return h(
     'div.progress',
-    vm.stage.levels.map(function (level: Level) {
+    vm.stage.levels.map((level: Level) => {
       const score = ctrl.progress.get(vm.stage.key)[level.id - 1];
       const status = level.id === vm.level.id ? 'active' : score ? 'done' : 'future';
       const label = score ? makeStars(score) : h('span.id', level.id);
@@ -33,9 +33,9 @@ function progress(ctrl: LearnCtrl) {
             },
           },
         },
-        label
+        label,
       );
-    })
+    }),
   );
 }
 
@@ -62,9 +62,9 @@ function renderFailed(ctrl: LearnCtrl) {
             },
           },
         },
-        i18n('learn:retry')
+        i18n('learn:retry'),
       ),
-    ]
+    ],
   );
 }
 
@@ -93,10 +93,10 @@ function renderCompleted(ctrl: LearnCtrl) {
                 },
               },
             },
-            i18n('next')
+            i18n('next'),
           )
         : makeStars(vm.score || 0),
-    ]
+    ],
   );
 }
 
@@ -112,7 +112,7 @@ function renderInfo(ctrl: LearnCtrl) {
         },
       },
     },
-    ctrl.vm.level.text
+    ctrl.vm.level.text,
   );
 }
 
@@ -166,6 +166,6 @@ export default function (ctrl: LearnCtrl): VNode {
           progress(ctrl),
         ]),
       ]),
-    ]
+    ],
   );
 }

@@ -1,12 +1,11 @@
-import { bind } from 'common/snabbdom';
 import { isMoreThanText } from 'common/rich-text';
-import { VNode, h } from 'snabbdom';
-import MsgCtrl from '../ctrl';
-import { Convo, Daily, Msg } from '../interfaces';
-import { scroller } from './scroller';
+import { bind } from 'common/snabbdom';
 import { i18n, i18nFormat } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type MsgCtrl from '../ctrl';
+import type { Convo, Daily, Msg } from '../interfaces';
 import { msgEnhance } from './enhance';
-import { loadCompiledScript } from 'common/assets';
+import { scroller } from './scroller';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h(

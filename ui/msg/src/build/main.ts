@@ -1,6 +1,6 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import MsgCtrl from '../ctrl';
-import { MsgOpts } from '../interfaces';
+import type { MsgOpts } from '../interfaces';
 import { upgradeData } from '../network';
 import view from '../view/main';
 

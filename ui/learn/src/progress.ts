@@ -1,4 +1,4 @@
-import { LearnOpts, LearnProgress, Score } from './interfaces';
+import type { LearnOpts, LearnProgress, Score } from './interfaces';
 
 const defaultProgress: LearnProgress = {
   stages: {},

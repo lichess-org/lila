@@ -2,8 +2,8 @@ import { spinnerHtml } from 'common/spinner';
 
 window.lishogi.ready.then(() => {
   const $form = $('main.importer form');
-  $form.submit(function () {
-    setTimeout(function () {
+  $form.submit(() => {
+    setTimeout(() => {
       $form.html(spinnerHtml);
     }, 50);
   });
@@ -11,7 +11,7 @@ window.lishogi.ready.then(() => {
     function readFile(file, encoding) {
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = e => {
         const res = e.target?.result as string;
         if (res && encoding === 'UTF-8' && res.match(/�/)) {
           console.log(

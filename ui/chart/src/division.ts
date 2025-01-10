@@ -1,7 +1,7 @@
+import type { ChartDataset, Point } from 'chart.js';
 import { i18n } from 'i18n';
 import { chartYMax, chartYMin } from './common';
 import type { Division } from './interface';
-import type { ChartDataset, Point } from 'chart.js';
 
 export default function (div?: Division): ChartDataset<'line'>[] {
   const lines: { div: string; loc: number }[] = [];

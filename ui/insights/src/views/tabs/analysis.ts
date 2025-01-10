@@ -1,12 +1,12 @@
-import { VNode, h } from 'snabbdom';
-import InsightCtrl from '../../ctrl';
-import { bigNumberWithDesc, section, translateRole } from '../util';
+import { i18n } from 'i18n';
+import { allRoles } from 'shogiops/variant/util';
+import { type VNode, h } from 'snabbdom';
+import type InsightCtrl from '../../ctrl';
+import type { AnalysisResult, InsightFilter } from '../../types';
+import { fixed } from '../../util';
 import { barChart, lineChart } from '../charts';
 import { accent, accuracy, primary, total } from '../colors';
-import { AnalysisResult, InsightFilter } from '../../types';
-import { allRoles } from 'shogiops/variant/util';
-import { fixed } from '../../util';
-import { i18n } from 'i18n';
+import { bigNumberWithDesc, section, translateRole } from '../util';
 
 export function analysis(ctrl: InsightCtrl, data: AnalysisResult): VNode {
   return h('div.analysis', [
@@ -15,7 +15,7 @@ export function analysis(ctrl: InsightCtrl, data: AnalysisResult): VNode {
       h('div.one-third-wrap', [
         bigNumberWithDesc(fixed(data.accuracy), i18n('insights:averageAccuracy'), 'total', '%'),
         accuracyByResult(data),
-      ])
+      ]),
     ),
     section(i18n('insights:accuracyByMoveNumber'), accuracyByMoveNumber(data, ctrl.filter)),
     section(i18n('insights:accuracyByPiece'), accuracyByRoleChart(data, ctrl.filter)),
@@ -32,20 +32,22 @@ function accuracyByResult(data: AnalysisResult): VNode {
         bigNumberWithDesc(fixed(nb), outcomes[i], 'accuracy', '%'),
         verticalBar(['win', 'draw', 'loss'][i], [100, nb], ['not-accuracy', 'accuracy']),
       ]);
-    })
+    }),
   );
 }
 
 function verticalBar(name: string, numbers: number[], cls: string[] = []): VNode {
   return h(
     'div.simple-vertical-bar.' + name,
-    numbers.filter(n => n > 5).map((n, i) => h('div' + (cls[i] ? `.${cls[i]}` : ''), { style: { height: n + '%' } }))
+    numbers
+      .filter(n => n > 5)
+      .map((n, i) => h('div' + (cls[i] ? `.${cls[i]}` : ''), { style: { height: n + '%' } })),
   );
 }
 
 function accuracyByMoveNumber(data: AnalysisResult, flt: InsightFilter): VNode {
   const d = data.accuracyByMoveNumber,
-    maxKey = Object.keys(d).reduce((a, b) => Math.max(a, parseInt(b) || 0), 0),
+    maxKey = Object.keys(d).reduce((a, b) => Math.max(a, Number.parseInt(b) || 0), 0),
     labels = [...Array(maxKey).keys()];
   return lineChart('line-by-move-number-chart', JSON.stringify(flt), {
     labels: labels.map(n => n.toString()),

@@ -1,6 +1,6 @@
 import notify from 'common/notification';
 import throttle from 'common/throttle';
-import {
+import type {
   Contact,
   Convo,
   LastMsg,

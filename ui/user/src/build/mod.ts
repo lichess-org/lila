@@ -1,9 +1,9 @@
-import tablesort from 'tablesort';
-import { debounce } from 'common/timings';
 import { spinnerHtml } from 'common/spinner';
+import { debounce } from 'common/timings';
+import tablesort from 'tablesort';
 
-let $toggle = $('.mod-zone-toggle');
-let $zone = $('.mod-zone');
+const $toggle = $('.mod-zone-toggle');
+const $zone = $('.mod-zone');
 let nbOthers = 100;
 
 function streamLoad() {
@@ -45,7 +45,7 @@ function scrollTo(el) {
   window.scrollTo(0, document.querySelector(el).offsetTop + offset);
 }
 
-$toggle.on('click', function () {
+$toggle.on('click', () => {
   if ($zone.hasClass('none')) loadZone();
   else unloadZone();
   return false;
@@ -80,7 +80,7 @@ function userMod($zone: any): void {
   });
 
   makeReady('form.fide_title select', el => {
-    $(el).on('change', function () {
+    $(el).on('change', () => {
       $(el).parent('form').trigger('submit');
     });
   });
@@ -115,7 +115,7 @@ function userMod($zone: any): void {
           $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
         });
       });
-    $(el).on('mouseleave', function () {
+    $(el).on('mouseleave', () => {
       $('#mz_others tbody tr').removeClass('none');
     });
   });
@@ -149,13 +149,11 @@ const onScroll = () =>
     $zone.toggleClass('stick-menu', window.scrollY > 200);
   });
 
-(function () {
-  const cleanNumber = function (i) {
-      return i.replace(/[^\-?0-9.]/g, '');
-    },
-    compareNumber = function (a, b) {
-      a = parseFloat(a);
-      b = parseFloat(b);
+(() => {
+  const cleanNumber = i => i.replace(/[^\-?0-9.]/g, ''),
+    compareNumber = (a, b) => {
+      a = Number.parseFloat(a);
+      b = Number.parseFloat(b);
 
       a = isNaN(a) ? 0 : a;
       b = isNaN(b) ? 0 : b;
@@ -165,12 +163,10 @@ const onScroll = () =>
 
   tablesort.extend(
     'number',
-    function (item) {
+    item => {
       return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
     },
-    function (a, b) {
-      return compareNumber(cleanNumber(b), cleanNumber(a));
-    },
+    (a, b) => compareNumber(cleanNumber(b), cleanNumber(a)),
   );
 })();
 

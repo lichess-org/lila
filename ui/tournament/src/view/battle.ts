@@ -1,9 +1,9 @@
-import { MaybeVNode, bind, onInsert } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
-import { TeamBattle, RankedTeam } from '../interfaces';
-import { playerName } from './util';
+import { type MaybeVNode, bind, onInsert } from 'common/snabbdom';
 import { i18nFormat } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { RankedTeam, TeamBattle } from '../interfaces';
+import { playerName } from './util';
 
 export function joinWithTeamSelector(ctrl: TournamentController): VNode {
   const onClose = () => {
@@ -41,8 +41,8 @@ export function joinWithTeamSelector(ctrl: TournamentController): VNode {
                       {
                         hook: bind('click', () => ctrl.join(undefined, id), ctrl.redraw),
                       },
-                      tb.teams[id]
-                    )
+                      tb.teams[id],
+                    ),
                   ),
                 ]
               : [
@@ -57,16 +57,16 @@ export function joinWithTeamSelector(ctrl: TournamentController): VNode {
                           {
                             attrs: { href: '/team/' + t },
                           },
-                          tb.teams[t]
-                        )
-                      )
-                    )
+                          tb.teams[t],
+                        ),
+                      ),
+                    ),
                   ),
                 ]),
           ]),
-        ]
+        ],
       ),
-    ]
+    ],
   );
 }
 
@@ -99,9 +99,9 @@ function extraTeams(ctrl: TournamentController): VNode {
             href: `/tournament/${ctrl.data.id}/teams`,
           },
         },
-        i18nFormat('arena:viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length)
-      )
-    )
+        i18nFormat('arena:viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length),
+      ),
+    ),
   );
 }
 
@@ -113,7 +113,7 @@ function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
 export function teamName(battle: TeamBattle, teamId: string): VNode {
   return h(
     battle.hasMoreThanTenTeams ? 'team' : 'team.ttc-' + Object.keys(battle.teams).indexOf(teamId),
-    battle.teams[teamId]
+    battle.teams[teamId],
   );
 }
 
@@ -134,8 +134,8 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
           },
         },
-        [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), '' + p.score]
-      )
+        [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), '' + p.score],
+      ),
     );
   });
   return h(
@@ -161,10 +161,10 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
             }
           }),
         },
-        players
+        players,
       ),
       h('td.total', [h('strong', '' + team.score)]),
-    ]
+    ],
   );
 }
 

@@ -1,8 +1,8 @@
-import throttle from 'common/throttle';
 import { assetUrl } from 'common/assets';
+import { capitalize } from 'common/string';
+import throttle from 'common/throttle';
 import { pubsub } from './pubsub';
 import { storage } from './storage';
-import { capitalize } from 'common/string';
 
 type Name = string;
 type Path = string;
@@ -25,7 +25,7 @@ export function createSound(): typeof window.lishogi.sound {
       name,
       new window.Howl({
         src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`),
-      })
+      }),
     );
   }
 
@@ -69,7 +69,7 @@ export function createSound(): typeof window.lishogi.sound {
   }
 
   function getVolume() {
-    const v = parseFloat(state.volumeStorage.get() || '');
+    const v = Number.parseFloat(state.volumeStorage.get() || '');
     return v >= 0 ? v : 0.7;
   }
 
@@ -84,7 +84,7 @@ export function createSound(): typeof window.lishogi.sound {
     return state.speechStorage.get();
   }
 
-  function say(texts: { en?: string; jp?: string }, cut: boolean = false, force: boolean = false) {
+  function say(texts: { en?: string; jp?: string }, cut = false, force = false) {
     if (!state.speechStorage.get() && !force) return false;
     const useJp = !!texts.jp && document.documentElement.lang === 'ja',
       text = useJp ? texts.jp : texts.en,

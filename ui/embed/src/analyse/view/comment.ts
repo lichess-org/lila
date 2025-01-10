@@ -1,6 +1,6 @@
 import { isEmpty } from 'common/common';
 import { enrichText, innerHTML } from 'common/rich-text';
-import { MaybeVNodes } from 'common/snabbdom';
+import type { MaybeVNodes } from 'common/snabbdom';
 import { plyColor } from 'shogi/common';
 import { usiToNotation } from 'shogi/notation';
 import { h } from 'snabbdom';

@@ -1,7 +1,7 @@
-import { spinnerHtml } from 'common/spinner';
-import { isHoverable } from 'common/mobile';
-import { pubsub } from './pubsub';
 import { requestIdleCallbackWithFallback } from 'common/common';
+import { isHoverable } from 'common/mobile';
+import { spinnerHtml } from 'common/spinner';
+import { pubsub } from './pubsub';
 
 function containedIn(el: HTMLElement, container: Element | null) {
   return container && container.contains(el);
@@ -12,7 +12,7 @@ function inCrosstable(el: HTMLElement) {
 
 function onPowertipPreRender(id: string, preload?: (url: string) => void) {
   return function (this: HTMLElement) {
-    let url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+    const url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
     if (preload) preload(url);
     window.lishogi.xhr.text('GET', `${url}/mini`).then(html => {
       $('#' + id).html(html);
@@ -21,10 +21,10 @@ function onPowertipPreRender(id: string, preload?: (url: string) => void) {
   };
 }
 
-let uptA = (url: string, icon: string) =>
+const uptA = (url: string, icon: string) =>
   '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
 
-let userPowertip = (el: HTMLElement, pos?: any) => {
+const userPowertip = (el: HTMLElement, pos?: any) => {
   pos = pos || el.getAttribute('data-pt-pos') || (inCrosstable(el) ? 'n' : 's');
   $(el)
     .removeClass('ulpt')
@@ -47,7 +47,7 @@ let userPowertip = (el: HTMLElement, pos?: any) => {
             uptA('/@/' + u + '/tv', '1') +
             uptA('/inbox/new?user=' + u, 'c') +
             uptA('/?user=' + u + '#friend', 'U') +
-            '<a class="btn-rack__btn relation-button" disabled></a></div>'
+            '<a class="btn-rack__btn relation-button" disabled></a></div>',
         );
       }),
     });
@@ -78,7 +78,7 @@ function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => any) {
 }
 
 function onIdleForAll(par: HTMLElement, sel: string, fun: (...args: any[]) => any) {
-  requestIdleCallbackWithFallback(function () {
+  requestIdleCallbackWithFallback(() => {
     Array.prototype.forEach.call(par.querySelectorAll(sel), fun);
   });
 }

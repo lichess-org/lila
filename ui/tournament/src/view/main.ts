@@ -1,15 +1,15 @@
-import { MaybeVNodes, onInsert } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
+import { makeChat } from 'chat';
+import { type MaybeVNodes, onInsert } from 'common/snabbdom';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import { arrangementView } from './arrangement';
 import { joinWithTeamSelector } from './battle';
 import * as created from './created';
 import * as finished from './finished';
-import * as started from './started';
-import { arrangementView } from './arrangement';
-import { playerManagementView } from './player-manage';
 import { organizedArrangementView } from './organized-arrangement';
-import { i18n } from 'i18n';
-import { makeChat } from 'chat';
+import { playerManagementView } from './player-manage';
+import * as started from './started';
 
 export default function (ctrl: TournamentController): VNode {
   let handler: {
@@ -49,8 +49,8 @@ export default function (ctrl: TournamentController): VNode {
               ? playerManagementView(ctrl)
               : ctrl.newArrangement
                 ? organizedArrangementView(ctrl)
-                : handler.main(ctrl)
-        )
+                : handler.main(ctrl),
+        ),
       ),
       ctrl.opts.chat
         ? h('div.chat__members.none', [
@@ -62,6 +62,6 @@ export default function (ctrl: TournamentController): VNode {
           ])
         : null,
       ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
-    ]
+    ],
   );
 }

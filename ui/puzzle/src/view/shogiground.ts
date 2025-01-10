@@ -1,11 +1,11 @@
 import { notationFiles, notationRanks } from 'shogi/notation';
 import resizeHandle from 'shogi/resize';
-import { Config as SgConfig } from 'shogiground/config';
-import { Piece, Role } from 'shogiops/types';
+import type { Config as SgConfig } from 'shogiground/config';
+import type { Piece, Role } from 'shogiops/types';
 import { parseSquareName } from 'shogiops/util';
 import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
-import { VNode, h } from 'snabbdom';
-import { Controller } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { Controller } from '../interfaces';
 
 export function renderBoard(ctrl: Controller): VNode {
   return h('div.sg-wrap', {
@@ -50,7 +50,12 @@ function makeConfig(ctrl: Controller): SgConfig {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
         return (
           !!piece &&
-          pieceCanPromote('standard')(piece, parseSquareName(orig)!, parseSquareName(dest)!, undefined) &&
+          pieceCanPromote('standard')(
+            piece,
+            parseSquareName(orig)!,
+            parseSquareName(dest)!,
+            undefined,
+          ) &&
           !pieceForcePromote('standard')(piece, parseSquareName(dest)!)
         );
       },

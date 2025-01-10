@@ -16,7 +16,7 @@ export function variantToId(variant: VariantKey): number {
 }
 
 export function idToVariant(id: number | string): VariantKey {
-  switch (typeof id === 'string' ? parseInt(id) : id) {
+  switch (typeof id === 'string' ? Number.parseInt(id) : id) {
     case 2:
       return 'minishogi';
     case 3:

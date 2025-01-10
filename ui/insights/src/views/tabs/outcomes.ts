@@ -1,11 +1,11 @@
-import { VNode, h } from 'snabbdom';
-import InsightCtrl from '../../ctrl';
-import { barChart } from '../charts';
-import { horizontalBar, section, translateStatus } from '../util';
-import { CounterObj, OutcomeResult, StatusId } from '../../types';
-import { toPercentage } from '../../util';
-import { green, red, total } from '../colors';
 import { i18n, i18nPluralSame } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type InsightCtrl from '../../ctrl';
+import type { CounterObj, OutcomeResult, StatusId } from '../../types';
+import { toPercentage } from '../../util';
+import { barChart } from '../charts';
+import { green, red, total } from '../colors';
+import { horizontalBar, section, translateStatus } from '../util';
 
 export function outcomes(ctrl: InsightCtrl, data: OutcomeResult): VNode {
   const key = JSON.stringify(ctrl.filter);
@@ -38,15 +38,20 @@ function winrateInfo(type: 'win' | 'draw' | 'loss', percent: number, nbGames: nu
   ]);
 }
 
-function barResultChart(wins: CounterObj<StatusId>, losses: CounterObj<StatusId>, key: string): VNode {
-  const winKeys = Object.keys(wins).map(n => parseInt(n)) as StatusId[],
+function barResultChart(
+  wins: CounterObj<StatusId>,
+  losses: CounterObj<StatusId>,
+  key: string,
+): VNode {
+  const winKeys = Object.keys(wins).map(n => Number.parseInt(n)) as StatusId[],
     totalWins = winKeys.reduce((a, b) => a + (wins[b] || 0), 0);
-  const lossKeys = Object.keys(losses).map(n => parseInt(n)) as StatusId[],
+  const lossKeys = Object.keys(losses).map(n => Number.parseInt(n)) as StatusId[],
     totalLosses = lossKeys.reduce((a, b) => a + (losses[b] || 0), 0);
 
   const allKeys = [...new Set([...winKeys, ...lossKeys])];
 
-  const valueMap = (n: number | string): string => i18nPluralSame('nbGames', typeof n === 'number' ? n : parseInt(n));
+  const valueMap = (n: number | string): string =>
+    i18nPluralSame('nbGames', typeof n === 'number' ? n : Number.parseInt(n));
 
   return barChart('terminations', key, {
     labels: allKeys.map(key => translateStatus(key)),

@@ -1,13 +1,17 @@
-import { Prop, prop } from 'common/common';
-import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
-import { CustomThemeCtrl, CustomThemeData, ctrl as customThemeCtrl } from './custom-theme';
-import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
-import { NotationCtrl, NotationData, ctrl as notationCtrl } from './notation';
-import { PieceCtrl, PieceSetData, ctrl as pieceCtrl } from './piece';
-import { PingCtrl, ctrl as pingCtrl } from './ping';
-import { SoundCtrl, SoundData, ctrl as soundCtrl } from './sound';
-import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
-import { Redraw } from './util';
+import { type Prop, prop } from 'common/common';
+import { type BackgroundCtrl, type BackgroundData, ctrl as backgroundCtrl } from './background';
+import {
+  type CustomThemeCtrl,
+  type CustomThemeData,
+  ctrl as customThemeCtrl,
+} from './custom-theme';
+import { type LangsCtrl, type LangsData, ctrl as langsCtrl } from './langs';
+import { type NotationCtrl, type NotationData, ctrl as notationCtrl } from './notation';
+import { type PieceCtrl, type PieceSetData, ctrl as pieceCtrl } from './piece';
+import { type PingCtrl, ctrl as pingCtrl } from './ping';
+import { type SoundCtrl, type SoundData, ctrl as soundCtrl } from './sound';
+import { type ThemeCtrl, type ThemeData, ctrl as themeCtrl } from './theme';
+import type { Redraw } from './util';
 
 export interface DasherData {
   user?: LightUser;
@@ -60,7 +64,7 @@ export interface DasherOpts {
 }
 
 export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
-  let mode: Prop<Mode> = prop(defaultMode as Mode);
+  const mode: Prop<Mode> = prop(defaultMode as Mode);
 
   function setMode(m: Mode) {
     mode(m);

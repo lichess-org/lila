@@ -1,5 +1,5 @@
 import { parseSfen } from 'shogiops/sfen';
-import { Rules } from 'shogiops/types';
+import type { Rules } from 'shogiops/types';
 import { promotionZone } from 'shogiops/variant/util';
 
 export interface ImpasseInfo {
@@ -13,7 +13,11 @@ export interface ImpasseInfoByColor {
   gote: ImpasseInfo;
 }
 
-export function impasseInfo(rules: Rules, sfen: Sfen, initialSfen?: Sfen): ImpasseInfoByColor | undefined {
+export function impasseInfo(
+  rules: Rules,
+  sfen: Sfen,
+  initialSfen?: Sfen,
+): ImpasseInfoByColor | undefined {
   if (!['standard', 'annanshogi', 'checkshogi'].includes(rules)) return;
 
   const shogi = parseSfen(rules, sfen, false),
@@ -40,14 +44,17 @@ export function impasseInfo(rules: Rules, sfen: Sfen, initialSfen?: Sfen): Impas
     senteNumberOfPieces +
     allMajorPieces.intersect(sentePromotion).size() * 4 +
     shogi.value.hands.color('sente').count() +
-    (shogi.value.hands.color('sente').get('bishop') + shogi.value.hands.color('sente').get('rook')) * 4;
+    (shogi.value.hands.color('sente').get('bishop') +
+      shogi.value.hands.color('sente').get('rook')) *
+      4;
 
   const goteImpasseValue =
     pointOffset +
     goteNumberOfPieces +
     allMajorPieces.intersect(gotePromotion).size() * 4 +
     shogi.value.hands.color('gote').count() +
-    (shogi.value.hands.color('gote').get('bishop') + shogi.value.hands.color('gote').get('rook')) * 4;
+    (shogi.value.hands.color('gote').get('bishop') + shogi.value.hands.color('gote').get('rook')) *
+      4;
 
   return {
     sente: {
@@ -70,7 +77,9 @@ export function isImpasse(rules: Rules, sfen: Sfen, initialSfen?: Sfen): boolean
   if (info) {
     return ['sente', 'gote'].some((color: Color) => {
       const i = info[color];
-      return i.king && i.nbOfPieces >= 10 && i.pieceValue >= (color === 'sente' ? 28 : 27) && !i.check;
+      return (
+        i.king && i.nbOfPieces >= 10 && i.pieceValue >= (color === 'sente' ? 28 : 27) && !i.check
+      );
     });
   } else return false;
 }

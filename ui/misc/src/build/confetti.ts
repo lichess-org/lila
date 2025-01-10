@@ -10,7 +10,7 @@ export function initModule(): void {
   const durationMs = 20 * 1000;
   const endAt = Date.now() + durationMs;
 
-  const interval = setInterval(function () {
+  const interval = setInterval(() => {
     const timeLeft = endAt - Date.now();
 
     if (timeLeft <= 0) {
@@ -33,7 +33,7 @@ export function initModule(): void {
     // left cannon
     confetti.create(
       canvas,
-      global
+      global,
     )({
       ...options,
       angle: 60,
@@ -44,7 +44,7 @@ export function initModule(): void {
     // right cannon
     confetti.create(
       canvas,
-      global
+      global,
     )({
       ...options,
       angle: 120,

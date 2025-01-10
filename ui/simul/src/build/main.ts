@@ -1,8 +1,8 @@
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { SimulOpts } from '../interfaces';
-import SimulCtrl from '../ctrl';
-import view from '../view/main';
+import { type VNode, attributesModule, classModule, init } from 'snabbdom';
 import { boot } from '../boot';
+import SimulCtrl from '../ctrl';
+import type { SimulOpts } from '../interfaces';
+import view from '../view/main';
 
 const patch = init([classModule, attributesModule]);
 

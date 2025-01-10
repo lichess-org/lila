@@ -1,10 +1,10 @@
-import { DrawShape, SquareHighlight } from 'shogiground/draw';
+import type { DrawShape, SquareHighlight } from 'shogiground/draw';
 import { opposite } from 'shogiground/util';
 import { attacks } from 'shogiops/attacks';
 import { SquareSet } from 'shogiops/square-set';
-import { Piece } from 'shogiops/types';
+import type { Piece } from 'shogiops/types';
 import { makeSquareName, parseSquareName } from 'shogiops/util';
-import { Level, Shape, UsiWithColor, VmEvaluation } from './interfaces';
+import type { Level, Shape, UsiWithColor, VmEvaluation } from './interfaces';
 import { findCaptures, inCheck } from './shogi';
 import { currentPosition } from './util';
 

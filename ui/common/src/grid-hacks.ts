@@ -1,13 +1,13 @@
 import throttle from './throttle';
 
-export const runner = (hacks: () => void, throttleMs: number = 100): void => {
+export const runner = (hacks: () => void, throttleMs = 100): void => {
   let timeout: number | undefined;
 
   const runHacks = throttle(throttleMs, () =>
     requestAnimationFrame(() => {
       hacks();
       schedule();
-    })
+    }),
   );
 
   function schedule() {

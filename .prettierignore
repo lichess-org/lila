@@ -1,18 +1,14 @@
+# scalafmt
 /app
 /modules
 project
-conf
+target
 
+# misc
+/conf
 /public
 /translation
+local
 
-dist/
-
-*.min.js
-
-.bloop/
-.bsp/
-.metals/
-
-*.md
-*.yml
+# biome js
+ui/**/*.ts

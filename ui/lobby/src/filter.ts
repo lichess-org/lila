@@ -1,6 +1,13 @@
-import LobbyController from './ctrl';
-import { FormLines, FormObject, FormStore, makeStore, toFormLines, toFormObject } from './form';
-import { Hook, Seek } from './interfaces';
+import type LobbyController from './ctrl';
+import {
+  type FormLines,
+  type FormObject,
+  type FormStore,
+  makeStore,
+  toFormLines,
+  toFormObject,
+} from './form';
+import type { Hook, Seek } from './interfaces';
 import { action } from './util';
 
 interface FilterData {
@@ -21,7 +28,7 @@ interface FilteredSeeks {
 export default class Filter {
   store: FormStore;
   data: FilterData | null;
-  open: boolean = false;
+  open = false;
 
   constructor(
     storage: LishogiStorage,

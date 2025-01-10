@@ -1,7 +1,7 @@
-import { Piece } from 'shogiops/types';
-import { Clock } from './clock';
-import { Combo } from './combo';
-import CurrentPuzzle from './current';
+import type { Piece } from 'shogiops/types';
+import type { Clock } from './clock';
+import type { Combo } from './combo';
+import type CurrentPuzzle from './current';
 
 export type Redraw = () => void;
 

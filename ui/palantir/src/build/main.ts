@@ -1,5 +1,5 @@
-import { PalantirOpts, State } from '../interface';
 import Peer from 'peerjs';
+import type { PalantirOpts, State } from '../interface';
 
 function main(opts: PalantirOpts): void | {
   render: (h: any) => any;
@@ -25,13 +25,13 @@ function main(opts: PalantirOpts): void | {
               window.lishogi.sound.say(
                 { en: 'Voice chat is ready.', jp: 'ボイスチャットの準備が整いました' },
                 true,
-                true
+                true,
               );
               ping();
             },
-            function (err) {
+            err => {
               log(`Failed to get local stream: ${err}`);
-            }
+            },
           )
           .catch(err => log(err));
       })
@@ -102,7 +102,7 @@ function main(opts: PalantirOpts): void | {
     console.log('[palantir]', msg);
   }
 
-  function setState(s: State, msg: string = '') {
+  function setState(s: State, msg = '') {
     log(`state: ${state} -> ${s} ${msg}`);
     state = s;
     opts.redraw();
@@ -142,7 +142,7 @@ function main(opts: PalantirOpts): void | {
   }
   function closeDisconnectedCalls() {
     if (peer) {
-      for (let otherPeer in peer.connections) {
+      for (const otherPeer in peer.connections) {
         peer.connections[otherPeer].forEach(c => {
           if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
             log(`close disconnected call to ${c.peer}`);
@@ -156,7 +156,7 @@ function main(opts: PalantirOpts): void | {
   function allOpenConnections() {
     if (!peer) return [];
     const conns: any[] = [];
-    for (let peerId in peer.connections) {
+    for (const peerId in peer.connections) {
       const c = findOpenConnectionTo(peerId);
       if (c) conns.push(c);
     }
@@ -180,7 +180,7 @@ function main(opts: PalantirOpts): void | {
   setInterval(closeDisconnectedCalls, 1400);
   setInterval(ping, 5000);
 
-  setInterval(function () {
+  setInterval(() => {
     peer &&
       Object.keys(peer.connections).forEach(peerId => {
         console.log(peerId, !!findOpenConnectionTo(peerId));
@@ -202,7 +202,7 @@ function main(opts: PalantirOpts): void | {
               hook: {
                 insert(vnode) {
                   (vnode.elm as HTMLElement).addEventListener('click', () =>
-                    peer ? stop() : start()
+                    peer ? stop() : start(),
                   );
                 },
               },
@@ -216,9 +216,9 @@ function main(opts: PalantirOpts): void | {
                         (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream;
                       },
                     },
-                  })
+                  }),
                 )
-              : []
+              : [],
           )
         : null;
     },

@@ -1,11 +1,11 @@
+import { i18n } from 'i18n';
+import { engineNameFromCode } from 'shogi/engine-name';
 import { Shogiground } from 'shogiground';
 import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
-import { h, VNode } from 'snabbdom';
-import LobbyController from '../ctrl';
-import { engineNameFromCode } from 'shogi/engine-name';
-import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type LobbyController from '../ctrl';
 
 function timer(pov) {
   const date = Date.now() + pov.secondsLeft * 1000;
@@ -25,8 +25,8 @@ function timer(pov) {
 export default function (ctrl: LobbyController): VNode {
   return h(
     'div.now-playing',
-    ctrl.data.nowPlaying.map(function (pov) {
-      return h(
+    ctrl.data.nowPlaying.map(pov =>
+      h(
         'a' + (pov.isMyTurn ? '.my_turn' : ''),
         {
           key: pov.gameId,
@@ -81,7 +81,7 @@ export default function (ctrl: LobbyController): VNode {
             ),
           ]),
         ],
-      );
-    }),
+      ),
+    ),
   );
 }

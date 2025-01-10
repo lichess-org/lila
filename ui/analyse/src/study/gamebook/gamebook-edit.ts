@@ -1,12 +1,12 @@
-import { MaybeVNodes, bind } from 'common/snabbdom';
-import throttle from 'common/throttle';
-import { Hooks, VNode, h } from 'snabbdom';
-import * as control from '../../control';
-import AnalyseCtrl from '../../ctrl';
-import { iconTag } from '../../util';
-import { requestIdleCallbackWithFallback } from 'common/common';
 import { loadCssPath } from 'common/assets';
+import { requestIdleCallbackWithFallback } from 'common/common';
+import { type MaybeVNodes, bind } from 'common/snabbdom';
+import throttle from 'common/throttle';
 import { i18n } from 'i18n';
+import { type Hooks, type VNode, h } from 'snabbdom';
+import * as control from '../../control';
+import type AnalyseCtrl from '../../ctrl';
+import { iconTag } from '../../util';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return (
@@ -32,7 +32,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
       study.vm.toolTab('comments');
       requestIdleCallbackWithFallback(() => $('#comment-text').trigger('focus'));
     },
-    ctrl.redraw
+    ctrl.redraw,
   );
 
   if (!ctrl.path) {
@@ -44,7 +44,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
             class: { done: isCommented },
           },
-          [iconTag('c'), h('p', i18n('study:initHelp'))]
+          [iconTag('c'), h('p', i18n('study:initHelp'))],
         ),
         renderHint(ctrl),
       ];
@@ -55,7 +55,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           {
             hook: commentHook,
           },
-          [iconTag('c'), h('p', i18n('study:introGamebook'))]
+          [iconTag('c'), h('p', i18n('study:introGamebook'))],
         ),
         h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
           iconTag('G'),
@@ -71,7 +71,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
             hook: commentHook,
             class: { done: isCommented },
           },
-          [iconTag('c'), h('p', i18n('study:explainMove'))]
+          [iconTag('c'), h('p', i18n('study:explainMove'))],
         ),
         renderHint(ctrl),
       ];
@@ -82,7 +82,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           {
             hook: commentHook,
           },
-          [iconTag('c'), h('p', i18n('study:reflectOnMove'))]
+          [iconTag('c'), h('p', i18n('study:reflectOnMove'))],
         ),
         hasVariation
           ? null
@@ -91,7 +91,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
               {
                 hook: bind('click', () => control.prev(ctrl), ctrl.redraw),
               },
-              [iconTag('G'), h('p', i18n('study:variationMoves'))]
+              [iconTag('G'), h('p', i18n('study:variationMoves'))],
             ),
         renderDeviation(ctrl),
       ];
@@ -103,7 +103,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
           hook: commentHook,
           class: { done: isCommented },
         },
-        [iconTag('c'), h('p', i18n('study:explainWrongMove'))]
+        [iconTag('c'), h('p', i18n('study:explainWrongMove'))],
       ),
       h('div.legend', [h('p', i18n('study:orPromote'))]),
     ];
@@ -115,7 +115,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         insert: _ => loadCssPath('analyse.gamebook.edit'),
       },
     },
-    content
+    content,
   );
 }
 

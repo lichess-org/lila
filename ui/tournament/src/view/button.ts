@@ -1,9 +1,9 @@
-import { bind, MaybeVNode } from 'common/snabbdom';
+import { type MaybeVNode, bind } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { h } from 'snabbdom';
-import TournamentController from '../ctrl';
-import { isIn } from '../tournament';
 import { i18n } from 'i18n';
+import { h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import { isIn } from '../tournament';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => MaybeVNode): MaybeVNode {
   return ctrl.joinSpinner ? spinner() : f();
@@ -25,7 +25,7 @@ export function withdraw(ctrl: TournamentController): MaybeVNode {
         },
         hook: bind('click', ctrl.withdraw, ctrl.redraw),
       },
-      !candidate ? title : undefined
+      !candidate ? title : undefined,
     );
     if (candidate) return h('div.waiting', [h('span', i18n('waitingForApproval')), button]);
     else return button;
@@ -53,10 +53,10 @@ export function join(ctrl: TournamentController): MaybeVNode {
                 if (p !== null) ctrl.join(p);
               } else ctrl.join();
             },
-            ctrl.redraw
+            ctrl.redraw,
           ),
         },
-        askToJoin ? i18n('askToJoin') : i18n('join')
+        askToJoin ? i18n('askToJoin') : i18n('join'),
       );
     return delay
       ? h(
@@ -81,9 +81,9 @@ export function join(ctrl: TournamentController): MaybeVNode {
                   },
                 },
               },
-              button
+              button,
             ),
-          ]
+          ],
         )
       : button;
   });
@@ -99,10 +99,11 @@ export function joinWithdraw(ctrl: TournamentController): MaybeVNode {
           'data-icon': 'G',
         },
       },
-      i18n('signIn')
+      i18n('signIn'),
     );
   if (ctrl.data.isDenied) return h('div.fbt.denied', i18n('denied'));
-  else if (!ctrl.data.isFinished) return isIn(ctrl) || ctrl.data.isCandidate ? withdraw(ctrl) : join(ctrl);
+  else if (!ctrl.data.isFinished)
+    return isIn(ctrl) || ctrl.data.isCandidate ? withdraw(ctrl) : join(ctrl);
 }
 
 export function managePlayers(ctrl: TournamentController): MaybeVNode {
@@ -120,6 +121,6 @@ export function managePlayers(ctrl: TournamentController): MaybeVNode {
         },
         hook: bind('click', () => (ctrl.playerManagement = !ctrl.playerManagement), ctrl.redraw),
       },
-      !ctrl.isOrganized() ? i18n('managePlayers') : undefined
+      !ctrl.isOrganized() ? i18n('managePlayers') : undefined,
     );
 }

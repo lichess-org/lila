@@ -1,4 +1,4 @@
-import TournamentController from './ctrl';
+import type TournamentController from './ctrl';
 
 export function isIn(ctrl: TournamentController): boolean {
   return ctrl.data.me && !ctrl.data.me.withdraw;

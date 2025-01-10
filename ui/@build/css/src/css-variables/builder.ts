@@ -1,8 +1,8 @@
-import { parseThemes } from './theme-parser.js';
+import path from 'path';
+import { mkdir } from 'fs/promises';
 import { generateCssVariables } from './css-variable-generator.js';
 import { generateScssMap } from './scss-map-generator.js';
-import { mkdir } from 'fs/promises';
-import path from 'path';
+import { parseThemes } from './theme-parser.js';
 
 export async function build(extracted: Set<string>, themeDir: string): Promise<void> {
   try {

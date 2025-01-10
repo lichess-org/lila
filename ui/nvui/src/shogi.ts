@@ -1,17 +1,17 @@
-import { Hand, Hands, Pieces } from 'shogiground/types';
-import { opposite } from 'shogiground/util';
-import { boardToSfen } from 'shogiground/sfen';
-import { parseBoardSfen, parseSfen, pieceToForsyth, roleToForsyth } from 'shogiops/sfen';
-import { Piece, Role, SquareName } from 'shogiops/types';
-import { VNode, h } from 'snabbdom';
-import { Setting, makeSetting } from './setting';
-import { dimensions, handRoles } from 'shogiops/variant/util';
-import { isDrop, makeUsi, parseUsi } from 'shogiops/util';
-import { toKanjiDigit } from 'shogiops/notation/util';
-import { makeKifBoard } from 'shogiops/notation/kif';
+import { useJp } from 'common/common';
 import { toMoveOrDrop } from 'keyboard-move/util';
 import { allKeys, files, ranks } from 'shogiground/constants';
-import { useJp } from 'common/common';
+import { boardToSfen } from 'shogiground/sfen';
+import type { Hand, Hands, Pieces } from 'shogiground/types';
+import { opposite } from 'shogiground/util';
+import { makeKifBoard } from 'shogiops/notation/kif';
+import { toKanjiDigit } from 'shogiops/notation/util';
+import { parseBoardSfen, parseSfen, pieceToForsyth, roleToForsyth } from 'shogiops/sfen';
+import type { Piece, Role, SquareName } from 'shogiops/types';
+import { isDrop, makeUsi, parseUsi } from 'shogiops/util';
+import { dimensions, handRoles } from 'shogiops/variant/util';
+import { type VNode, h } from 'snabbdom';
+import { type Setting, makeSetting } from './setting';
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna' | 'japanese';
 
@@ -164,10 +164,10 @@ export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey, sty
   }
   const reversedFiles = [...files].slice(0, dimensions(variant).files).reverse(),
     board = [[' ', ...reversedFiles, ' ']];
-  for (let rank of ranks.slice(0, dimensions(variant).ranks)) {
-    let line: string[] = [];
-    for (let file of reversedFiles) {
-      let key = (file + rank) as Key;
+  for (const rank of ranks.slice(0, dimensions(variant).ranks)) {
+    const line: string[] = [];
+    for (const file of reversedFiles) {
+      const key = (file + rank) as Key;
       const piece = pieces.get(key) as Piece;
       if (piece) {
         const letter = pieceToForsyth(variant)(piece)!;

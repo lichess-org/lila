@@ -1,13 +1,13 @@
 import { notationFiles, notationRanks } from 'shogi/notation';
 import resizeHandle from 'shogi/resize';
-import { Config } from 'shogiground/config';
-import { Drawable, SquareHighlight } from 'shogiground/draw';
+import type { Config } from 'shogiground/config';
+import type { Drawable, SquareHighlight } from 'shogiground/draw';
 import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
-import { Piece, Role } from 'shogiops/types';
-import { makeSquareName, parseSquareName, parseUsi, isDrop } from 'shogiops/util';
+import type { Piece, Role } from 'shogiops/types';
+import { isDrop, makeSquareName, parseSquareName, parseUsi } from 'shogiops/util';
 import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
-import LearnCtrl from './ctrl';
-import { Level, UsiWithColor } from './interfaces';
+import type LearnCtrl from './ctrl';
+import type { Level, UsiWithColor } from './interfaces';
 import { illegalShogigroundDropDests, illegalShogigroundMoveDests, inCheck } from './shogi';
 import { currentPosition } from './util';
 

@@ -1,8 +1,8 @@
-import { DropDests, MoveDests } from 'shogiground/types';
+import type { DropDests, MoveDests } from 'shogiground/types';
 import { SquareSet } from 'shogiops/square-set';
-import { NormalMove, PieceName, Square } from 'shogiops/types';
+import type { NormalMove, PieceName, Square } from 'shogiops/types';
 import { makeSquareName, makeUsi, opposite } from 'shogiops/util';
-import { Position } from 'shogiops/variant/position';
+import type { Position } from 'shogiops/variant/position';
 import { fullSquareSet, handRoles } from 'shogiops/variant/util';
 
 export function illegalShogigroundMoveDests(pos: Position): MoveDests {

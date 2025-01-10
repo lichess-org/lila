@@ -1,11 +1,11 @@
-import { engineName } from 'shogi/engine-name';
-import AnalyseCtrl from './ctrl';
-import { AnalyseData } from './interfaces';
-import { baseUrl } from './util';
 import { loadCompiledScript } from 'common/assets';
-import { escapeHtml } from 'common/string';
 import { spinnerHtml } from 'common/spinner';
+import { escapeHtml } from 'common/string';
 import { i18n } from 'i18n';
+import { engineName } from 'shogi/engine-name';
+import type AnalyseCtrl from './ctrl';
+import type { AnalyseData } from './interfaces';
+import { baseUrl } from './util';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
   const li = window.lishogi;
@@ -23,9 +23,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
 
   if (!li.modules.analyseNvui) {
     li.pubsub.on('analysis.comp.toggle', (v: boolean) => {
-      setTimeout(function () {
+      setTimeout(() => {
         (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger(
-          'mousedown'
+          'mousedown',
         );
       }, 50);
     });
@@ -54,7 +54,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
     if (!$('#acpl-chart-container').length)
       $panel.html(
         '<div id="acpl-chart-container"><canvas id="acpl-chart"></canvas></div>' +
-          (loading ? chartLoader() : '')
+          (loading ? chartLoader() : ''),
       );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
     loadCompiledScript('chart').then(() => {
@@ -65,7 +65,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
   }
 
   const storage = li.storage.make('analysis.panel');
-  const setPanel = function (panel: string) {
+  const setPanel = (panel: string) => {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
     $panels
@@ -79,7 +79,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
           li.modules.chartMovetime!(
             $('#movetimes-chart')[0] as HTMLCanvasElement,
             data,
-            ctrl.opts.hunter
+            ctrl.opts.hunter,
           );
         });
       });
@@ -135,8 +135,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
           '</pre><br />' +
           iframe +
           '<br /><br />' +
-          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>'
-      )
+          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>',
+      ),
     );
   });
 }

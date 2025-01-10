@@ -1,7 +1,7 @@
 import { bind, dataIcon } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import { Controller } from '../interfaces';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { Controller } from '../interfaces';
 
 const renderVote = (ctrl: Controller): VNode =>
   h(
@@ -29,9 +29,9 @@ const renderVote = (ctrl: Controller): VNode =>
               h('div.vote.vote-down', {
                 hook: bind('click', () => ctrl.vote(false)),
               }),
-            ]
+            ],
           ),
-        ]
+        ],
   );
 
 const renderContinue = (ctrl: Controller) =>
@@ -40,13 +40,16 @@ const renderContinue = (ctrl: Controller) =>
     {
       hook: bind('click', ctrl.nextPuzzle),
     },
-    [h('i', { attrs: dataIcon('G') }), i18n('puzzle:continueTraining')]
+    [h('i', { attrs: dataIcon('G') }), i18n('puzzle:continueTraining')],
   );
 
 export default function (ctrl: Controller): VNode {
   const data = ctrl.getData();
   return h('div.puzzle__feedback.after', [
-    h('div.complete', ctrl.vm.lastFeedback == 'win' ? i18n('puzzle:puzzleSuccess') : i18n('puzzle:puzzleComplete')),
+    h(
+      'div.complete',
+      ctrl.vm.lastFeedback == 'win' ? i18n('puzzle:puzzleSuccess') : i18n('puzzle:puzzleComplete'),
+    ),
     data.user ? renderVote(ctrl) : renderContinue(ctrl),
     h('div.puzzle__more', [
       h('a', {
@@ -62,7 +65,7 @@ export default function (ctrl: Controller): VNode {
             {
               hook: bind('click', ctrl.nextPuzzle),
             },
-            i18n('puzzle:continueTraining')
+            i18n('puzzle:continueTraining'),
           )
         : undefined,
     ]),

@@ -1,6 +1,11 @@
-import { Position } from 'shogiops/variant/position';
+import type { DrawShape } from 'shogiground/draw';
+import { Board } from 'shogiops/board';
 import { parseSfen } from 'shogiops/sfen';
-import { KeyboardMove, KeyboardMoveHandler } from '../ctrl';
+import type { RoleMap, Square } from 'shogiops/types';
+import { isDrop, makeSquareName, opposite } from 'shogiops/util';
+import type { Position } from 'shogiops/variant/position';
+import { unpromote } from 'shogiops/variant/util';
+import type { KeyboardMove, KeyboardMoveHandler } from '../ctrl';
 import {
   KKlastDestR,
   allCandidates,
@@ -9,11 +14,6 @@ import {
   toMoveOrDrop,
   toRole,
 } from '../util';
-import { Board } from 'shogiops/board';
-import { RoleMap, Square } from 'shogiops/types';
-import { makeSquareName, opposite, isDrop } from 'shogiops/util';
-import { DrawShape } from 'shogiground/draw';
-import { unpromote } from 'shogiops/variant/util';
 
 // NO chushogi support, because of - lion moves and three character long coords
 

@@ -1,5 +1,5 @@
-import { Prop } from 'common/common';
-import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
+import type { Prop } from 'common/common';
+import type { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
   data: StormData;

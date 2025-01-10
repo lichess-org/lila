@@ -4,8 +4,8 @@ import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import format from 'date-fns/format';
 import getHours from 'date-fns/getHours';
 import getMinutes from 'date-fns/getMinutes';
-import { VNode, h } from 'snabbdom';
-import { Ctrl, Lanes, Tournament } from './interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { Ctrl, Lanes, Tournament } from './interfaces';
 
 function tournamentClass(tour: Tournament, day: Date) {
   const classes = {
@@ -46,17 +46,17 @@ function renderTournament(tour: Tournament, day: Date) {
                 'data-icon': iconOf(tour, tour.perf.icon),
               },
             }
-          : {}
+          : {},
       ),
       h('span.body', [tour.fullName]),
-    ]
+    ],
   );
 }
 
 function renderLane(tours: Tournament[], day: Date) {
   return h(
     'lane',
-    tours.map(t => renderTournament(t, day))
+    tours.map(t => renderTournament(t, day)),
   );
 }
 
@@ -69,7 +69,7 @@ function fitLane(lane: Tournament[], tour2: Tournament) {
 function makeLanes(tours: Tournament[]): Lanes {
   const lanes: Lanes = [];
   tours.forEach(t => {
-    let lane = lanes.find(l => fitLane(l, t));
+    const lane = lanes.find(l => fitLane(l, t));
     if (lane) lane.push(t);
     else lanes.push([t]);
   });
@@ -77,7 +77,7 @@ function makeLanes(tours: Tournament[]): Lanes {
 }
 
 function renderDay(ctrl: Ctrl) {
-  return function (day: Date): VNode {
+  return (day: Date): VNode => {
     const dayEnd = addDays(day, 1);
     const tours = ctrl.data.tournaments.filter(t => t.bounds.start < dayEnd && t.bounds.end > day);
     return h('day', [
@@ -88,20 +88,19 @@ function renderDay(ctrl: Ctrl) {
             title: format(day, 'EEEE, dd/MM/yyyy'),
           },
         },
-        [format(day, 'dd/MM')]
+        [format(day, 'dd/MM')],
       ),
       h(
         'lanes',
-        makeLanes(tours).map(l => renderLane(l, day))
+        makeLanes(tours).map(l => renderLane(l, day)),
       ),
     ]);
   };
 }
 
 function renderGroup(ctrl: Ctrl) {
-  return function (group: Date[]): VNode {
-    return h('group', [renderTimeline(), h('days', group.map(renderDay(ctrl)))]);
-  };
+  return (group: Date[]): VNode =>
+    h('group', [renderTimeline(), h('days', group.map(renderDay(ctrl)))]);
 }
 
 function renderTimeline() {
@@ -115,9 +114,9 @@ function renderTimeline() {
         {
           attrs: { style: 'left: ' + (hour / 24) * 100 + '%' },
         },
-        timeString(hour)
-      )
-    )
+        timeString(hour),
+      ),
+    ),
   );
 }
 

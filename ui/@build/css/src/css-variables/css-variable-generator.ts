@@ -1,12 +1,12 @@
-import { writeFile } from 'fs/promises';
-import { defaultTheme, ThemeRecord } from './types.js';
 import path from 'path';
+import { writeFile } from 'fs/promises';
 import { prefix, signature, themes } from './constants.js';
+import { type ThemeRecord, defaultTheme } from './types.js';
 
 export async function generateCssVariables(
   themeVars: ThemeRecord,
   extracted: Set<string>,
-  outDir: string
+  outDir: string,
 ): Promise<void> {
   themes.forEach(async theme => {
     let output = `${signature}
@@ -57,7 +57,7 @@ function colorFunction(variable: string, themeKeys: string[]): string | undefine
     parts = name.split('_'),
     length = parts.length,
     percentagePart = parts[length - 1],
-    percentage = parseInt(`${percentagePart.replace('neg', '-')}`),
+    percentage = Number.parseInt(`${percentagePart.replace('neg', '-')}`),
     func = parts[length - 2],
     colors = parts.slice(0, -2).map(p => themifyColor(p));
 

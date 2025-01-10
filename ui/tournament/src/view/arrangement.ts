@@ -1,22 +1,26 @@
-import { h, VNode, VNodes } from 'snabbdom';
-import statusView from 'game/view/status';
-import { Arrangement, ArrangementUser } from '../interfaces';
-import TournamentController from '../ctrl';
-import { adjustDateToLocal, adjustDateToUTC, formattedDate, player as renderPlayer } from './util';
-import { bind } from 'common/snabbdom';
-import header from './header';
-import { backControl, utcControl } from './controls';
 import { flatpickr } from 'common/assets';
+import { bind } from 'common/snabbdom';
+import statusView from 'game/view/status';
 import { i18n } from 'i18n';
+import { type VNode, type VNodes, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { Arrangement, ArrangementUser } from '../interfaces';
+import { backControl, utcControl } from './controls';
+import header from './header';
+import { adjustDateToLocal, adjustDateToUTC, formattedDate, player as renderPlayer } from './util';
 
 export function arrangementView(ctrl: TournamentController, a: Arrangement): VNodes {
   return [header(ctrl), controls(ctrl), arrangement(ctrl, a)];
 }
 
 function controls(ctrl: TournamentController) {
-  return backControl(ctrl, () => {
-    ctrl.showArrangement(undefined);
-  }, [utcControl(ctrl)]);
+  return backControl(
+    ctrl,
+    () => {
+      ctrl.showArrangement(undefined);
+    },
+    [utcControl(ctrl)],
+  );
 }
 
 function arrangement(ctrl: TournamentController, a: Arrangement): VNode {
@@ -48,7 +52,7 @@ function arrangement(ctrl: TournamentController, a: Arrangement): VNode {
             hasMe && player1.id === ctrl.opts.userId
               ? myActions(ctrl, a, a.user1)
               : otherActions(a, a.user1, hasMe, utc),
-          ]
+          ],
         ),
         middleButtons(ctrl, a, hasMe, utc),
         h(
@@ -64,9 +68,9 @@ function arrangement(ctrl: TournamentController, a: Arrangement): VNode {
             hasMe && player2.id === ctrl.opts.userId
               ? myActions(ctrl, a, a.user2)
               : otherActions(a, a.user2, hasMe, utc),
-          ]
+          ],
         ),
-      ]
+      ],
     );
   } else return h('div', 'Players not found');
 }
@@ -101,7 +105,7 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
               parseDate: (dateString, format) => {
                 console.log('parseDate', dateString, format, new Date(dateString));
                 if (format === 'U') {
-                  return new Date(parseInt(dateString));
+                  return new Date(Number.parseInt(dateString));
                 }
                 return new Date(dateString);
               },
@@ -174,7 +178,7 @@ function otherActions(a: Arrangement, u: ArrangementUser, hasMe: boolean, utc: b
       ? h(
           'div.user-button.confirm',
           { class: { disabled, active: !disabled && !!u.scheduledAt } },
-          h('span', { attrs: { 'data-icon': 'E' } })
+          h('span', { attrs: { 'data-icon': 'E' } }),
         )
       : undefined,
     hasMe
@@ -196,7 +200,7 @@ function middleButtons(
   ctrl: TournamentController,
   a: Arrangement,
   hasMe: boolean,
-  utc: boolean
+  utc: boolean,
 ): VNode {
   const winner = a.winner
     ? ctrl.data.standing.players.find(p => p.id === a.winner)?.name
@@ -205,7 +209,7 @@ function middleButtons(
     h('div.infos', [
       infoLine(
         i18n('tourArrangements:scheduledAt'),
-        a.scheduledAt ? formattedDate(new Date(a.scheduledAt), utc) : undefined
+        a.scheduledAt ? formattedDate(new Date(a.scheduledAt), utc) : undefined,
       ),
       infoLine(i18n('search:result'), a.status ? statusView(a.status, a.color, false) : undefined),
       infoLine(i18n('winner'), winner),
@@ -221,7 +225,7 @@ function middleButtons(
               hook: bind('click', _ => ctrl.arrangementMatch(a, true)),
               attrs: { disabled: !hasMe },
             },
-            i18n('tourArrangements:startGame')
+            i18n('tourArrangements:startGame'),
           ),
       !a.gameId ? h('div.warning', i18n('tourArrangements:gameWillNotStart')) : null,
     ]),
@@ -249,7 +253,10 @@ function middleButtons(
             return h('div.line', {
               hook: {
                 insert: vnode => {
-                  const date = formattedDate(new Date(parseInt(split[1]) * 1000), ctrl.utc());
+                  const date = formattedDate(
+                    new Date(Number.parseInt(split[1]) * 1000),
+                    ctrl.utc(),
+                  );
                   (vnode.elm as HTMLElement).innerHTML =
                     `<span>${player.name}</span> ` +
                     historyAction(split[2]) +
@@ -258,7 +265,10 @@ function middleButtons(
                 },
                 postpatch(old, vnode) {
                   if (old.data!.cachedUTC !== ctrl.utc) {
-                    const date = formattedDate(new Date(parseInt(split[1]) * 1000), ctrl.utc());
+                    const date = formattedDate(
+                      new Date(Number.parseInt(split[1]) * 1000),
+                      ctrl.utc(),
+                    );
                     (vnode.elm as HTMLElement).innerHTML =
                       `<span>${player.name}</span> ` +
                       historyAction(split[2]) +
@@ -269,8 +279,8 @@ function middleButtons(
               },
             });
           } else null;
-        })
-      )
+        }),
+      ),
     ),
   ]);
 }

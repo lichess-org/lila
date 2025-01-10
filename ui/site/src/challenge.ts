@@ -4,10 +4,10 @@ import { initiatingHtml } from './util';
 export function challengeApp(): typeof window.lishogi.challengeApp {
   let instance: any, booted: boolean;
   const $toggle = $('#challenge-toggle');
-  $toggle.one('mouseover click', function () {
+  $toggle.one('mouseover click', () => {
     load();
   });
-  const load = function (data?) {
+  const load = (data?) => {
     if (booted) return;
     booted = true;
     $('#challenge-app').html(initiatingHtml);
@@ -15,24 +15,24 @@ export function challengeApp(): typeof window.lishogi.challengeApp {
     loadCompiledScript('challenge').then(() => {
       instance = window.lishogi.modules.challenge!({
         data: data,
-        show: function () {
+        show: () => {
           if (!$('#challenge-app').is(':visible')) $toggle.trigger('click');
         },
-        setCount: function (nb) {
+        setCount: nb => {
           $toggle.find('span').attr('data-count', nb);
         },
-        pulse: function () {
+        pulse: () => {
           $toggle.addClass('pulse');
         },
       });
     });
   };
   return {
-    update: function (data) {
+    update: data => {
       if (!instance) load(data);
       else instance.update(data);
     },
-    open: function () {
+    open: () => {
       $toggle.trigger('click');
     },
   };

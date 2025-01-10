@@ -1,6 +1,6 @@
 import { bind } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
-import { Redraw } from './interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { Redraw } from './interfaces';
 
 export interface BoolSetting {
   name: string;
@@ -32,6 +32,6 @@ export function boolSetting(o: BoolSetting, redraw: Redraw): VNode {
         }),
         h('label', { attrs: { for: fullId } }),
       ]),
-    ]
+    ],
   );
 }

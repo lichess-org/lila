@@ -1,13 +1,13 @@
-import { h, VNode } from 'snabbdom';
-import { adjustDateToLocal, adjustDateToUTC, formattedDate } from './util';
 import { flatpickr } from 'common/assets';
+import { type VNode, h } from 'snabbdom';
+import { adjustDateToLocal, adjustDateToUTC, formattedDate } from './util';
 
 let fInstance;
 export function flatpickrInput(
   disabled: boolean,
   scheduledAt: number | undefined,
   f: (date: Date) => void,
-  utc: () => boolean
+  utc: () => boolean,
 ): VNode {
   return h('input.flatpickr', {
     attrs: {
@@ -34,7 +34,7 @@ export function flatpickrInput(
             parseDate: (dateString, format) => {
               console.log('parseDate', dateString, format, new Date(dateString));
               if (format === 'U') {
-                return new Date(parseInt(dateString));
+                return new Date(Number.parseInt(dateString));
               }
               return new Date(dateString);
             },

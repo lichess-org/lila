@@ -1,5 +1,5 @@
-import { MaybeVNodes, bind, onInsert } from './snabbdom';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
+import { type MaybeVNodes, bind, onInsert } from './snabbdom';
 
 interface Modal {
   class?: string;
@@ -29,9 +29,9 @@ export function modal(d: Modal): VNode {
             hook: bind('click', d.onClose),
           }),
           h('div', d.content),
-        ]
+        ],
       ),
-    ]
+    ],
   );
 }
 
@@ -43,7 +43,7 @@ export function button(name: string): VNode {
       {
         attrs: { type: 'submit' },
       },
-      name
-    )
+      name,
+    ),
   );
 }

@@ -1,12 +1,12 @@
-import { VNode, h } from 'snabbdom';
-import EditorCtrl from '../ctrl';
-import { EditorState } from '../interfaces';
-import { initialSfen } from 'shogiops/sfen';
-import { handRoles } from 'shogiops/variant/util';
-import { opposite } from 'shogiops/util';
-import { isHandicap } from 'shogiops/handicaps';
-import { colorName } from 'shogi/color-name';
 import { i18n, i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { isHandicap } from 'shogiops/handicaps';
+import { initialSfen } from 'shogiops/sfen';
+import { opposite } from 'shogiops/util';
+import { handRoles } from 'shogiops/variant/util';
+import { type VNode, h } from 'snabbdom';
+import type EditorCtrl from '../ctrl';
+import type { EditorState } from '../interfaces';
 
 export function actions(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.actions', [
@@ -32,7 +32,7 @@ function initialPosition(ctrl: EditorCtrl, state: EditorState): VNode {
         },
       },
     },
-    i18n('startPosition')
+    i18n('startPosition'),
   );
 }
 
@@ -50,7 +50,7 @@ function clearBoard(ctrl: EditorCtrl, state: EditorState): VNode {
         },
       },
     },
-    i18n('clearBoard')
+    i18n('clearBoard'),
   );
 }
 
@@ -70,7 +70,7 @@ function fillGotesHand(ctrl: EditorCtrl): VNode | null {
             },
           },
         },
-        i18nFormatCapitalized('fillXHand', colorName('gote', false))
+        i18nFormatCapitalized('fillXHand', colorName('gote', false)),
       );
 }
 
@@ -85,14 +85,14 @@ function flipBoard(ctrl: EditorCtrl): VNode {
         },
       },
     },
-    `${i18n('flipBoard')} (${colorName(ctrl.shogiground.state.orientation, false)})`
+    `${i18n('flipBoard')} (${colorName(ctrl.shogiground.state.orientation, false)})`,
   );
 }
 
 function colorTurn(ctrl: EditorCtrl, state: EditorState): VNode {
   const handicap = isHandicap({ rules: ctrl.data.variant, sfen: state.sfen });
   return h(
-    'div.action.text.color-icon.' + ctrl.turn,
+    `div.action.text.color-icon.${ctrl.turn}`,
     {
       on: {
         click: () => {
@@ -102,6 +102,6 @@ function colorTurn(ctrl: EditorCtrl, state: EditorState): VNode {
       },
       attrs: { 'data-icon': '' },
     },
-    h('span', i18nFormatCapitalized('xPlays', colorName(ctrl.turn, handicap)))
+    h('span', i18nFormatCapitalized('xPlays', colorName(ctrl.turn, handicap))),
   );
 }

@@ -1,6 +1,6 @@
 import { prop } from 'common/common';
-import { AnalyseData } from '../interfaces';
-import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
+import type { AnalyseData } from '../interfaces';
+import type { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
 
 export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): ForecastCtrl {
   const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
@@ -17,9 +17,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   function findStartingWithNode(node: ForecastStep): ForecastStep[][] {
-    return forecasts.filter(function (fc) {
-      return contains(fc, [node]);
-    });
+    return forecasts.filter(fc => contains(fc, [node]));
   }
 
   function collides(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
@@ -44,21 +42,13 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
 
   function fixAll() {
     // remove contained forecasts
-    forecasts = forecasts.filter(function (fc, i) {
-      return (
-        forecasts.filter(function (f, j) {
-          return i !== j && contains(f, fc);
-        }).length === 0
-      );
-    });
+    forecasts = forecasts.filter(
+      (fc, i) => forecasts.filter((f, j) => i !== j && contains(f, fc)).length === 0,
+    );
     // remove colliding forecasts
-    forecasts = forecasts.filter(function (fc, i) {
-      return (
-        forecasts.filter(function (f, j) {
-          return i < j && collides(f, fc);
-        }).length === 0
-      );
-    });
+    forecasts = forecasts.filter(
+      (fc, i) => forecasts.filter((f, j) => i < j && collides(f, fc)).length === 0,
+    );
   }
 
   fixAll();
@@ -73,9 +63,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   function isCandidate(fc: ForecastStep[]): boolean {
     fc = truncate(fc);
     if (!isLongEnough(fc)) return false;
-    const collisions = forecasts.filter(function (f) {
-      return contains(f, fc);
-    });
+    const collisions = forecasts.filter(f => contains(f, fc));
     if (collisions.length) return false;
     return true;
   }
@@ -109,12 +97,8 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     window.lishogi.xhr
       .json('POST', saveUrl + '/' + encodeUsi(node.usi), {
         json: findStartingWithNode(node)
-          .filter(function (fc) {
-            return fc.length > 1;
-          })
-          .map(function (fc) {
-            return fc.slice(1);
-          }),
+          .filter(fc => fc.length > 1)
+          .map(fc => fc.slice(1)),
       })
       .then(data => {
         if (data.reload) reloadToLastPly();

@@ -1,6 +1,6 @@
 import { defined } from 'common/common';
-import { VNode, h } from 'snabbdom';
-import { Run, TimeMod } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { Run, TimeMod } from '../interfaces';
 import { getNow } from '../util';
 
 type OnFlag = () => void;
@@ -26,8 +26,12 @@ export default function renderClock(run: Run, onFlag: OnFlag, withBonus: boolean
     }),
     ...(withBonus
       ? [
-          !!malus && malus.at > getNow() - 900 ? h('div.puz-clock__malus', '-' + malus.seconds) : null,
-          !!bonus && bonus.at > getNow() - 900 ? h('div.puz-clock__bonus', '+' + bonus.seconds) : null,
+          !!malus && malus.at > getNow() - 900
+            ? h('div.puz-clock__malus', '-' + malus.seconds)
+            : null,
+          !!bonus && bonus.at > getNow() - 900
+            ? h('div.puz-clock__bonus', '+' + bonus.seconds)
+            : null,
         ]
       : []),
   ]);
@@ -38,7 +42,9 @@ function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement, withBonus: boolean)
   const mods = run.modifier;
   const now = getNow();
   const millis = run.clock.millis();
-  const diffs = withBonus ? computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus) : 0;
+  const diffs = withBonus
+    ? computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus)
+    : 0;
   const text = formatMs(millis - diffs);
   if (text != lastText) el.innerText = text;
   lastText = text;

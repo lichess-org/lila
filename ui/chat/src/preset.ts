@@ -1,6 +1,6 @@
 import { bind } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import { Redraw } from './interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { Redraw } from './interfaces';
 
 export interface PresetCtrl {
   group(): string | undefined;
@@ -31,7 +31,9 @@ export interface PresetOpts {
 
 const groups: PresetGroups = {
   start: ['hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'].map(splitIt),
-  end: ['gg/Good game', 'wp/Well played', 'ty/Thank you', "gtg/I've got to go", 'bye/Bye!'].map(splitIt),
+  end: ['gg/Good game', 'wp/Well played', 'ty/Thank you', "gtg/I've got to go", 'bye/Bye!'].map(
+    splitIt,
+  ),
 };
 
 export function presetCtrl(opts: PresetOpts): PresetCtrl {
@@ -84,9 +86,9 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
                 !disabled && ctrl.post(p);
               }),
             },
-            p.key
+            p.key,
           );
-        })
+        }),
       )
     : undefined;
 }

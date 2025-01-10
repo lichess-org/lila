@@ -1,6 +1,6 @@
-import { Prop } from 'common/common';
-import { VNode } from 'snabbdom';
-import { PresetCtrl } from './preset';
+import type { Prop } from 'common/common';
+import type { VNode } from 'snabbdom';
+import type { PresetCtrl } from './preset';
 
 export interface ChatOpts {
   data: ChatData;

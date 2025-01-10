@@ -1,9 +1,9 @@
-import { bind } from 'common/snabbdom';
 import { richHTML } from 'common/rich-text';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { bind } from 'common/snabbdom';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { nodeFullName } from '../util';
-import { StudyCtrl } from './interfaces';
+import type { StudyCtrl } from './interfaces';
 
 function authorDom(author: Tree.CommentAuthor) {
   if (!author) return 'Unknown';

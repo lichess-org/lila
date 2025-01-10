@@ -5,7 +5,7 @@ function make(file: string) {
   const sound = new window.Howl({
     src: [baseUrl + file + '.ogg', baseUrl + file + '.mp3'],
   });
-  return function () {
+  return () => {
     if (window.lishogi.sound.set() !== 'silent') sound.play();
   };
 }

@@ -1,9 +1,9 @@
-import { VNode, h } from 'snabbdom';
-import { modal } from 'common/modal';
 import { setup } from 'common/links';
-import { EditorState } from '../interfaces';
-import EditorCtrl from '../ctrl';
+import { modal } from 'common/modal';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type EditorCtrl from '../ctrl';
+import type { EditorState } from '../interfaces';
 
 export function links(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.links', [analysis(ctrl, state), continueWith(ctrl, state), study(ctrl, state)]);
@@ -24,7 +24,7 @@ function analysis(ctrl: EditorCtrl, state: EditorState): VNode {
         disabled: !state.legalSfen,
       },
     },
-    i18n('analysis')
+    i18n('analysis'),
   );
 }
 
@@ -67,7 +67,7 @@ function continueWith(ctrl: EditorCtrl, state: EditorState): VNode {
                     rel: 'nofollow',
                   },
                 },
-                i18n('playWithTheMachine')
+                i18n('playWithTheMachine'),
               ),
               h(
                 'a.button.text',
@@ -77,12 +77,12 @@ function continueWith(ctrl: EditorCtrl, state: EditorState): VNode {
                     rel: 'nofollow',
                   },
                 },
-                i18n('playWithAFriend')
+                i18n('playWithAFriend'),
               ),
             ],
           })
         : undefined,
-    ]
+    ],
   );
 }
 
@@ -121,8 +121,8 @@ function study(ctrl: EditorCtrl, state: EditorState): VNode {
             disabled: !state.legalSfen,
           },
         },
-        i18n('toStudy')
+        i18n('toStudy'),
       ),
-    ]
+    ],
   );
 }

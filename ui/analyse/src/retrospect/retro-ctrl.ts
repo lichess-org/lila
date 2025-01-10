@@ -2,7 +2,7 @@ import { winningChances } from 'ceval';
 import { isEmpty, prop } from 'common/common';
 import { opposite } from 'shogiground/util';
 import { path as treePath } from 'tree';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { evalSwings } from '../node-finder';
 
 export interface RetroCtrl {

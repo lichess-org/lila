@@ -1,5 +1,5 @@
 // Taken from https://github.com/lichess-org/lila/blob/9c8c964037dac0e71728af3a66ef515fac6e8997/ui/common/src/richText.ts
-import type { VNode, Hooks } from 'snabbdom';
+import type { Hooks, VNode } from 'snabbdom';
 import { escapeHtml } from './string';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js

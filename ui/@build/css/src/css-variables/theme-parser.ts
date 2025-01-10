@@ -1,7 +1,7 @@
 import * as fs from 'fs';
-import { ThemeRecord } from './types.js';
 import path from 'path';
 import { themes } from './constants.js';
+import type { ThemeRecord } from './types.js';
 
 export async function parseThemes(themeDir: string): Promise<ThemeRecord> {
   const themeRec = {} as ThemeRecord;
@@ -9,7 +9,7 @@ export async function parseThemes(themeDir: string): Promise<ThemeRecord> {
   await Promise.all(
     themes.map(async t => {
       themeRec[t] = await parseThemeFile(path.join(themeDir, `_${t}.scss`));
-    })
+    }),
   );
 
   return themeRec;

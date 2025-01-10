@@ -1,12 +1,12 @@
-import { Hands, Pieces } from 'shogiground/types';
-import { Style, renderPieceKeys, renderPiecesOn } from './shogi';
+import type { Hands, Pieces } from 'shogiground/types';
+import { type Style, renderPieceKeys, renderPiecesOn } from './shogi';
 
 export const commands = {
   piece: {
     help: 'p: Read locations of a piece type. Example: p N, p k.',
     apply(c: string, pieces: Pieces, hands: Hands, style: Style): string | undefined {
       return tryC(c, /^p (p|l|n|s|g|b|r|k|\+p|\+l|\+n|\+s|\+b|\+r|d|h|t)$/i, p =>
-        renderPieceKeys(pieces, hands, p, style)
+        renderPieceKeys(pieces, hands, p, style),
       );
     },
   },

@@ -15,7 +15,7 @@ function listenToFocus() {
 
 function notify(msg: string | (() => string)) {
   const storage = window.lishogi.storage.make('just-notified');
-  if (document.hasFocus() || Date.now() - parseInt(storage.get()!, 10) < 1000) return;
+  if (document.hasFocus() || Date.now() - Number.parseInt(storage.get()!, 10) < 1000) return;
   storage.set('' + Date.now());
   if ($.isFunction(msg)) msg = msg();
   const notification = new Notification('lishogi.org', {

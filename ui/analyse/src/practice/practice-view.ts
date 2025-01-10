@@ -1,11 +1,11 @@
-import { MaybeVNodes, bind } from 'common/snabbdom';
-import { isHandicap } from 'shogiops/handicaps';
-import { Outcome } from 'shogiops/types';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { Comment, PracticeCtrl, Verdict } from './practice-ctrl';
+import { type MaybeVNodes, bind } from 'common/snabbdom';
 import { i18n, i18nFormatCapitalized, i18nVdom } from 'i18n';
 import { colorName } from 'shogi/color-name';
+import { isHandicap } from 'shogiops/handicaps';
+import type { Outcome } from 'shogiops/types';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { Comment, PracticeCtrl, Verdict } from './practice-ctrl';
 
 function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best
@@ -24,8 +24,8 @@ function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
               destroy: () => ctrl.commentShape(false),
             },
           },
-          c.best.usi
-        )
+          c.best.usi,
+        ),
       )
     : [];
 }
@@ -60,10 +60,10 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
                   isHandicap({
                     rules: root.data.game.variant.key,
                     sfen: root.data.game.initialSfen,
-                  })
-                )
-              )
-            )
+                  }),
+                ),
+              ),
+            ),
           )
         : h('em', i18n('theGameIsADraw')),
     ]),
@@ -83,7 +83,7 @@ function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
             : 0
         }`,
       },
-    })
+    }),
   );
 }
 
@@ -111,11 +111,11 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
                   ? hint.mode === 'piece'
                     ? i18n('seeBestMove')
                     : i18n('hideBestMove')
-                  : i18n('getAHint')
+                  : i18n('getAHint'),
               )
             : '',
-        ])
-      )
+        ]),
+      ),
     ),
   ]);
 }
@@ -132,16 +132,16 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     h('div.title', i18n('practiceWithComputer')),
     h(
       'div.feedback',
-      !running ? renderOffTrack(ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl)
+      !running ? renderOffTrack(ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
     ),
     running
       ? h(
           'div.comment',
           comment
             ? ([h('span.verdict', i18nVerdict(comment.verdict)), ' '] as MaybeVNodes).concat(
-                commentBest(comment, ctrl)
+                commentBest(comment, ctrl),
               )
-            : [ctrl.isMyTurn() || end ? '' : h('span.wait', i18n('evaluatingYourMove'))]
+            : [ctrl.isMyTurn() || end ? '' : h('span.wait', i18n('evaluatingYourMove'))],
         )
       : running
         ? h('div.comment')

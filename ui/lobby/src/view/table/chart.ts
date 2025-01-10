@@ -1,10 +1,10 @@
-import { bind } from 'common/snabbdom';
 import { getPerfIcon } from 'common/perf-icons';
-import { VNode, h } from 'snabbdom';
-import LobbyController from '../../ctrl';
-import { Hook, Seek } from '../../interfaces';
-import { action, isHook } from '../../util';
+import { bind } from 'common/snabbdom';
 import { i18n, i18nPluralSame } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type LobbyController from '../../ctrl';
+import type { Hook, Seek } from '../../interfaces';
+import { action, isHook } from '../../util';
 
 function percents(v) {
   return v + '%';
@@ -39,7 +39,7 @@ function renderPlot(ctrl: LobbyController, hs: Hook | Seek): VNode {
               });
             },
           });
-        setTimeout(function () {
+        setTimeout(() => {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
       },
@@ -102,13 +102,13 @@ function renderXAxis(tab: 'seeks' | 'real_time') {
         {
           attrs: { style: 'left:' + percents(oneSlice * (i + 1)) },
         },
-        '' + v
-      )
+        '' + v,
+      ),
     );
     tags.push(
       h('div.grid.vert', {
         attrs: { style: 'width:' + percents(oneSlice * (i + 1)) },
-      })
+      }),
     );
   });
   return tags;
@@ -132,20 +132,20 @@ function yCoord(hs: Hook | Seek): number {
 function renderYAxis() {
   const tags: VNode[] = [],
     oneSlice = 100 / (yMarks.length + 1);
-  yMarks.forEach(function (v, i) {
+  yMarks.forEach((v, i) => {
     tags.push(
       h(
         'span.y.label',
         {
           attrs: { style: 'bottom:' + percents(oneSlice * (i + 1)) },
         },
-        '' + v
-      )
+        '' + v,
+      ),
     );
     tags.push(
       h('div.grid.horiz', {
         attrs: { style: 'height:' + percents(oneSlice * (i + 1)) },
-      })
+      }),
     );
   });
   return tags;
@@ -162,7 +162,7 @@ export function toggle(ctrl: LobbyController): VNode {
 export function render(
   tab: 'seeks' | 'real_time',
   ctrl: LobbyController,
-  hss: Seek[] | Hook[]
+  hss: Seek[] | Hook[],
 ): VNode {
   // filter out overlappping seeks
   if (tab === 'seeks') {
@@ -184,10 +184,10 @@ export function render(
             if ((e.target as HTMLElement).classList.contains('plot'))
               ctrl.clickHook((e.target as HTMLElement).id);
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
       },
-      hss.map(hook => renderPlot(ctrl, hook))
+      hss.map(hook => renderPlot(ctrl, hook)),
     ),
     ...renderYAxis(),
     ...renderXAxis(tab),

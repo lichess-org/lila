@@ -1,15 +1,15 @@
 import { modal } from 'common/modal';
-import { MaybeVNode, MaybeVNodes, onInsert } from 'common/snabbdom';
+import { type MaybeVNode, type MaybeVNodes, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
+import { debounce } from 'common/timings';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
-import { Hooks, VNode, h } from 'snabbdom';
-import RoundController from '../ctrl';
-import { RoundData } from '../interfaces';
-import * as util from '../util';
-import { debounce } from 'common/timings';
 import { i18n, i18nFormat, i18nVdomPlural } from 'i18n';
+import { type Hooks, type VNode, h } from 'snabbdom';
+import type RoundController from '../ctrl';
+import type { RoundData } from '../interfaces';
+import * as util from '../util';
 
 function analysisBoardOrientation(data: RoundData) {
   return data.player.color;
@@ -38,9 +38,9 @@ function standardStudyForm(ctrl: RoundController): VNode {
             type: 'submit',
           },
         },
-        i18n('study:createStudy')
+        i18n('study:createStudy'),
       ),
-    ]
+    ],
   );
 }
 
@@ -68,7 +68,7 @@ function postGameStudyForm(ctrl: RoundController): VNode {
                 .catch(res => alert(`${res.statusText} - ${res.error}`));
             },
             1000,
-            true
+            true,
           )();
         });
       }),
@@ -102,9 +102,9 @@ function postGameStudyForm(ctrl: RoundController): VNode {
             type: 'submit',
           },
         },
-        i18n('study:createStudy')
+        i18n('study:createStudy'),
       ),
-    ]
+    ],
   );
 }
 
@@ -119,7 +119,7 @@ function studyAdvancedButton(ctrl: RoundController): VNode | null {
             ctrl.redraw();
           }),
         },
-        '+'
+        '+',
       )
     : null;
 }
@@ -141,7 +141,7 @@ function studyModal(ctrl: RoundController): VNode {
           h(
             'a.text',
             { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
-            i18n('postGameStudiesOfGame')
+            i18n('postGameStudiesOfGame'),
           ),
         ]),
         h('div.study-option', [
@@ -179,7 +179,7 @@ function studyButton(ctrl: RoundController): VNode | null {
                   ctrl.redraw();
                 }),
               },
-              ctrl.nvui ? i18n('decline') : ''
+              ctrl.nvui ? i18n('decline') : '',
             )
           : null,
         d.game.postGameStudy && !loadingStudy
@@ -194,7 +194,7 @@ function studyButton(ctrl: RoundController): VNode | null {
                   ctrl.postGameStudyOffer = false;
                 }),
               },
-              h('span', title)
+              h('span', title),
             )
           : h(
               'form',
@@ -225,9 +225,9 @@ function studyButton(ctrl: RoundController): VNode | null {
                       disabled: !!ctrl.data.player.spectator || isAnon,
                     },
                   },
-                  loadingStudy ? spinner() : title
+                  loadingStudy ? spinner() : title,
                 ),
-              ]
+              ],
             ),
         loadingStudy ? null : studyAdvancedButton(ctrl),
       ])
@@ -247,7 +247,7 @@ function analysisButton(ctrl: RoundController): VNode | null {
             if (location.pathname === url.split('#')[0]) location.reload();
           }),
         },
-        i18n('analysis')
+        i18n('analysis'),
       )
     : null;
 }
@@ -269,7 +269,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
               ctrl.socket.send('rematch-no');
             }),
           },
-          ctrl.nvui ? i18n('decline') : ''
+          ctrl.nvui ? i18n('decline') : '',
         )
       : null,
     h(
@@ -301,10 +301,10 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
             } else if (!(e.target as HTMLElement).classList.contains('disabled'))
               ctrl.challengeRematch();
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
       },
-      [me ? spinner() : h('span', i18n('rematch'))]
+      [me ? spinner() : h('span', i18n('rematch'))],
     ),
   ];
 }
@@ -327,7 +327,7 @@ export function resume(ctrl: RoundController): MaybeVNode {
               ctrl.socket.send('resume-no');
             }),
           },
-          ctrl.nvui ? i18n('decline') : ''
+          ctrl.nvui ? i18n('decline') : '',
         )
       : null,
     h(
@@ -357,10 +357,10 @@ export function resume(ctrl: RoundController): MaybeVNode {
               ctrl.socket.send('resume-yes');
             }
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
       },
-      [me ? spinner() : h('span', them ? i18n('acceptResumption') : i18n('offerResumption'))]
+      [me ? spinner() : h('span', them ? i18n('acceptResumption') : i18n('offerResumption'))],
     ),
   ]);
 }
@@ -371,12 +371,10 @@ export function standard(
   icon: string,
   hint: string,
   socketMsg: string,
-  onclick?: () => void
+  onclick?: () => void,
 ): VNode {
   // disabled if condition callback is provided and is falsy
-  const enabled = function () {
-    return !condition || condition(ctrl.data);
-  };
+  const enabled = () => !condition || condition(ctrl.data);
   return h(
     'button.fbt.' + socketMsg,
     {
@@ -388,7 +386,7 @@ export function standard(
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    [h('span', ctrl.nvui ? [hint] : util.justIcon(icon))]
+    [h('span', ctrl.nvui ? [hint] : util.justIcon(icon))],
   );
 }
 
@@ -406,7 +404,7 @@ export function impasse(ctrl: RoundController): MaybeVNode {
         ctrl.redraw();
       }),
     },
-    [h('span', ctrl.nvui ? [i18n('impasse')] : util.justIcon('&'))]
+    [h('span', ctrl.nvui ? [i18n('impasse')] : util.justIcon('&'))],
   );
 }
 
@@ -420,14 +418,14 @@ export function opponentGone(ctrl: RoundController): MaybeVNode {
           {
             hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')),
           },
-          i18n('forceResignation')
+          i18n('forceResignation'),
         ),
         h(
           'button.button',
           {
             hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')),
           },
-          i18n('forceDraw')
+          i18n('forceDraw'),
         ),
       ])
     : gone
@@ -442,7 +440,7 @@ function actConfirm(
   transKey: string,
   title: string,
   icon: string,
-  klass?: string
+  klass?: string,
 ): VNode {
   return h('div.act-confirm.' + transKey, [
     h('button.fbt.yes.' + (klass || ''), {
@@ -470,7 +468,7 @@ export function pauseConfirm(ctrl: RoundController): VNode {
     'offerAdjournment',
     i18n('offerAdjournment'),
     'Z',
-    'pause-yes'
+    'pause-yes',
   );
 }
 
@@ -519,7 +517,7 @@ export function cancelTakebackProposition(ctrl: RoundController): MaybeVNode {
           {
             hook: util.bind('click', () => ctrl.socket.sendLoading('takeback-no')),
           },
-          i18n('cancel')
+          i18n('cancel'),
         ),
       ])
     : null;
@@ -533,7 +531,7 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void) 
         {
           hook: util.bind('click', action),
         },
-        text
+        text,
       )
     : h('a.accept', {
         attrs: {
@@ -546,7 +544,7 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void) 
 function declineButton(
   ctrl: RoundController,
   action: () => void,
-  text: string | undefined = undefined
+  text: string | undefined = undefined,
 ) {
   text = text || i18n('decline');
   return ctrl.nvui
@@ -555,7 +553,7 @@ function declineButton(
         {
           hook: util.bind('click', action),
         },
-        text
+        text,
       )
     : h('a.decline', {
         attrs: {
@@ -599,7 +597,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
             },
             hook: util.bind('click', ctrl.setRedirecting),
           },
-          i18n('backToTournament')
+          i18n('backToTournament'),
         ),
         h(
           'form',
@@ -609,7 +607,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
               action: '/tournament/' + d.tournament.id + '/withdraw',
             },
           },
-          [h('button.text.fbt.weak', util.justIcon('Z'), i18n('pause'))]
+          [h('button.text.fbt.weak', util.justIcon('Z'), i18n('pause'))],
         ),
         analysisButton(ctrl),
       ])
@@ -646,7 +644,7 @@ export function followUp(ctrl: RoundController): VNode {
             {
               hook: onSuggestionHook,
             },
-            i18n('rematchOfferSent')
+            i18n('rematchOfferSent'),
           ),
         ]
       : rematchable || d.game.rematch
@@ -660,7 +658,7 @@ export function followUp(ctrl: RoundController): VNode {
           {
             attrs: { href: '/tournament/' + d.tournament.id },
           },
-          i18n('viewTournament')
+          i18n('viewTournament'),
         )
       : null,
     newable
@@ -671,7 +669,7 @@ export function followUp(ctrl: RoundController): VNode {
               href: '/?hook_like=' + d.game.id,
             },
           },
-          i18n('newOpponent')
+          i18n('newOpponent'),
         )
       : null,
     studyButton(ctrl),
@@ -692,7 +690,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
                 href: `/${d.game.rematch}/${d.opponent.color}`,
               },
             },
-            i18n('viewRematch')
+            i18n('viewRematch'),
           )
         : null,
       d.tournament
@@ -701,7 +699,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
             {
               attrs: { href: '/tournament/' + d.tournament.id },
             },
-            i18n('viewTournament')
+            i18n('viewTournament'),
           )
         : null,
       studyButton(ctrl),
@@ -712,5 +710,5 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
 }
 
 const onSuggestionHook: Hooks = util.onInsert(el =>
-  window.lishogi.pubsub.emit('round.suggestion', el.textContent)
+  window.lishogi.pubsub.emit('round.suggestion', el.textContent),
 );

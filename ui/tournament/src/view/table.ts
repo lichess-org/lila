@@ -1,8 +1,8 @@
 import { bind } from 'common/snabbdom';
 import { opposite } from 'shogiground/util';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
-import { Duel, DuelPlayer, DuelTeams, TeamBattle } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { Duel, DuelPlayer, DuelTeams, TeamBattle } from '../interfaces';
 import { teamName } from './battle';
 import { miniBoard, player as renderPlayer } from './util';
 
@@ -22,7 +22,11 @@ function featuredPlayer(player) {
 }
 
 function featured(f): VNode {
-  return h('div.tour__featured', [featuredPlayer(f[opposite(f.color)]), miniBoard(f), featuredPlayer(f[f.color])]);
+  return h('div.tour__featured', [
+    featuredPlayer(f[opposite(f.color)]),
+    miniBoard(f),
+    featuredPlayer(f[f.color]),
+  ]);
 }
 
 function duelPlayerMeta(p: DuelPlayer) {
@@ -41,12 +45,12 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
         battle && duelTeams
           ? h(
               'line.t',
-              [0, 1].map(i => teamName(battle, duelTeams[d.p[i].n.toLowerCase()]))
+              [0, 1].map(i => teamName(battle, duelTeams[d.p[i].n.toLowerCase()])),
             )
           : undefined,
         h('line.a', [h('strong', d.p[0].n), h('span', duelPlayerMeta(d.p[1]).reverse())]),
         h('line.b', [h('span', duelPlayerMeta(d.p[0])), h('strong', d.p[1].n)]),
-      ]
+      ],
     );
 }
 
@@ -61,7 +65,9 @@ export default function (ctrl: TournamentController): VNode | undefined {
               {
                 hook: bind('click', _ => !ctrl.disableClicks),
               },
-              [h('h2', 'Top games')].concat(ctrl.data.duels.map(renderDuel(ctrl.data.teamBattle, ctrl.data.duelTeams)))
+              [h('h2', 'Top games')].concat(
+                ctrl.data.duels.map(renderDuel(ctrl.data.teamBattle, ctrl.data.duelTeams)),
+              ),
             )
           : null,
       ]);

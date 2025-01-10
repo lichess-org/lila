@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { scenarioFailure, scenarioSuccess } from '../assert';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { concat, custom, onPly } from '../shapes';
 import { createScenario } from '../util';
@@ -23,12 +23,25 @@ const levels: IncompleteLevel[] = [
       onPly(0, [custom('5e', digits.one)]),
       onPly(4, [custom('5e', digits.two)]),
       onPly(8, [custom('5e', digits.three)]),
-      onPly(12, [custom('5e', digits.four)])
+      onPly(12, [custom('5e', digits.four)]),
     ),
     scenario: createScenario(
-      ['9i8i', '9e8e', '8i9i', '8e9e', '9i8i', '9e8e', '8i9i', '8e9e', '9i8i', '9e8e', '8i9i', '8e9e'],
+      [
+        '9i8i',
+        '9e8e',
+        '8i9i',
+        '8e9e',
+        '9i8i',
+        '9e8e',
+        '8i9i',
+        '8e9e',
+        '9i8i',
+        '9e8e',
+        '8i9i',
+        '8e9e',
+      ],
       'sente',
-      true
+      true,
     ),
   },
   {
@@ -38,9 +51,22 @@ const levels: IncompleteLevel[] = [
     success: scenarioSuccess,
     failure: scenarioFailure,
     scenario: createScenario(
-      ['9f8e', '8g7f', '8e9f', '7f8g', '9f8e', '8g7f', '8e9f', '7f8g', '9f8e', '8g7f', '8e9f', '7f8g'],
+      [
+        '9f8e',
+        '8g7f',
+        '8e9f',
+        '7f8g',
+        '9f8e',
+        '8g7f',
+        '8e9f',
+        '7f8g',
+        '9f8e',
+        '8g7f',
+        '8e9f',
+        '7f8g',
+      ],
       'sente',
-      true
+      true,
     ),
   },
   {

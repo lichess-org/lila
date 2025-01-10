@@ -1,10 +1,10 @@
-import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
+import { type MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { PageData } from '../interfaces';
 import { teamName } from './battle';
 import { playerName, preloadUserTips, ratio2percent, player as renderPlayer } from './util';
-import { PageData } from '../interfaces';
-import { i18n } from 'i18n';
 
 const scoreTagNames = ['score', 'streak', 'double'];
 
@@ -38,7 +38,7 @@ function playerTr(ctrl: TournamentController, player) {
                 title: i18n('pause'),
               },
             })
-          : player.rank
+          : player.rank,
       ),
       h('td.player', [
         renderPlayer(player, false, true, userId === ctrl.data.defender),
@@ -50,7 +50,7 @@ function playerTr(ctrl: TournamentController, player) {
           ? h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total)
           : h('strong', player.sheet.total),
       ]),
-    ]
+    ],
   );
 }
 
@@ -60,7 +60,7 @@ function podiumUsername(p) {
     {
       attrs: { href: '/@/' + p.name },
     },
-    playerName(p)
+    playerName(p),
   );
 }
 
@@ -94,7 +94,9 @@ export function podium(ctrl: TournamentController): VNode {
 }
 
 export function standing(ctrl: TournamentController, pag: PageData, klass?: string): VNode {
-  const tableBody = pag.currentPageResults ? pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
+  const tableBody = pag.currentPageResults
+    ? pag.currentPageResults.map(res => playerTr(ctrl, res))
+    : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
     'table.slist.tour__standing' + (klass ? '.' + klass : ''),
@@ -112,8 +114,8 @@ export function standing(ctrl: TournamentController, pag: PageData, klass?: stri
             },
           },
         },
-        tableBody
+        tableBody,
       ),
-    ]
+    ],
   );
 }

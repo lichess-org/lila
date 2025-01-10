@@ -1,7 +1,7 @@
-import { VNode, h } from 'snabbdom';
-import { Close, Redraw, bind, header, validateUrl } from './util';
 import { debounce } from 'common/timings';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import { type Close, type Redraw, bind, header, validateUrl } from './util';
 
 type Key = 'light' | 'dark' | 'transp';
 

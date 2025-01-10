@@ -1,7 +1,7 @@
-import { makeSocket, SimulSocket } from './socket';
-import xhr from './xhr';
-import { SimulData, SimulOpts } from './interfaces';
 import { idleTimer } from 'common/timings';
+import type { SimulData, SimulOpts } from './interfaces';
+import { type SimulSocket, makeSocket } from './socket';
+import xhr from './xhr';
 
 export default class SimulCtrl {
   data: SimulData;
@@ -9,7 +9,7 @@ export default class SimulCtrl {
 
   constructor(
     readonly opts: SimulOpts,
-    readonly redraw: () => void
+    readonly redraw: () => void,
   ) {
     this.data = opts.data;
     this.socket = makeSocket(opts.socketSend, this);
@@ -26,7 +26,7 @@ export default class SimulCtrl {
       },
       () => {
         hostIsAround = true;
-      }
+      },
     );
     setInterval(() => {
       if (this.data.isCreated && hostIsAround) xhr.ping(this.data.id);

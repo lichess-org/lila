@@ -1,5 +1,5 @@
-import { VNode, h } from 'snabbdom';
-import { Notification, Renderers } from './interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { Notification, Renderers } from './interfaces';
 
 // function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
 export const renderers: Renderers = {
@@ -79,7 +79,7 @@ export const renderers: Renderers = {
         h('span', result),
       ]);
     },
-    text: function (n) {
+    text: n => {
       let result;
       switch (n.content.win) {
         case true:

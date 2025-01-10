@@ -1,15 +1,15 @@
-import { bind } from 'common/snabbdom';
 import { getPerfIcon } from 'common/perf-icons';
-import { h, VNode } from 'snabbdom';
-import LobbyController from '../../ctrl';
-import * as hookRepo from '../../hook-repo';
-import * as seekRepo from '../../seek-repo';
-import { Hook, Seek } from '../../interfaces';
-import { tds } from '../util';
-import { action, isHook } from '../../util';
+import { bind } from 'common/snabbdom';
 import { i18n, i18nPluralSame } from 'i18n';
 import { i18nPerf } from 'i18n/perf';
 import { i18nVariant } from 'i18n/variant';
+import { type VNode, h } from 'snabbdom';
+import type LobbyController from '../../ctrl';
+import * as hookRepo from '../../hook-repo';
+import type { Hook, Seek } from '../../interfaces';
+import * as seekRepo from '../../seek-repo';
+import { action, isHook } from '../../util';
+import { tds } from '../util';
 
 function renderHookOrSeek(hs: Hook | Seek) {
   const act = action(hs),
@@ -40,7 +40,7 @@ function renderHookOrSeek(hs: Hook | Seek) {
             {
               attrs: { 'data-href': '/@/' + username },
             },
-            username
+            username,
           )
         : 'Anonymous',
       (hs.rating ? hs.rating : '-') + ((isHook(hs) ? hs.prov : hs.provisional) ? '?' : ''),
@@ -50,16 +50,14 @@ function renderHookOrSeek(hs: Hook | Seek) {
         {
           attrs: { 'data-icon': getPerfIcon(hs.perf || hs.variant || 'standard') },
         },
-        isRated ? i18n('rated') : i18n('casual')
+        isRated ? i18n('rated') : i18n('casual'),
       ),
-    ])
+    ]),
   );
 }
 
 function isStandard(value: boolean) {
-  return function (hs: Hook | Seek) {
-    return !hs.variant === value;
-  };
+  return (hs: Hook | Seek) => !hs.variant === value;
 }
 
 function isMine(hs: Hook | Seek) {
@@ -81,7 +79,7 @@ export function toggle(ctrl: LobbyController): VNode {
 export function render(
   tab: 'seeks' | 'real_time',
   ctrl: LobbyController,
-  allHs: Seek[] | Hook[]
+  allHs: Seek[] | Hook[],
 ): VNode {
   const mine = allHs.filter(isMine),
     render = (hs: Hook | Seek) => renderHookOrSeek(hs),
@@ -112,9 +110,9 @@ export function render(
               {
                 attrs: { colspan: 5 },
               },
-              '— ' + i18n('variant') + ' —'
+              '— ' + i18n('variant') + ' —',
             ),
-          ]
+          ],
         )
       : null,
     ...variants.map(render),
@@ -136,7 +134,7 @@ export function render(
             },
             hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
           },
-          [h('i.is'), i18n('rating')]
+          [h('i.is'), i18n('rating')],
         ),
         h(
           'th',
@@ -148,10 +146,10 @@ export function render(
             },
             hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
           },
-          [h('i.is'), i18n('time')]
+          [h('i.is'), i18n('time')],
         ),
         h('th', i18n('mode')),
-      ])
+      ]),
     ),
     h(
       'tbody',
@@ -170,10 +168,10 @@ export function render(
               }
             } while (el.nodeName !== 'TABLE');
           },
-          ctrl.redraw
+          ctrl.redraw,
         ),
       },
-      renderedHss
+      renderedHss,
     ),
   ]);
 }

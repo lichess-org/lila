@@ -3,7 +3,7 @@ import { spinnerHtml } from 'common/spinner';
 window.lishogi.ready.then(() => {
   const $checkout = $('div.plan_checkout'),
     lifetime = {
-      cents: parseInt($checkout.data('lifetime-cents')),
+      cents: Number.parseInt($checkout.data('lifetime-cents')),
       usd: $checkout.data('lifetime-usd'),
     };
   const min = 100,
@@ -34,7 +34,7 @@ window.lishogi.ready.then(() => {
     const raw = prompt($(this).attr('title'));
     let amount;
     try {
-      amount = parseFloat(raw!.replace(',', '.').replace(/[^0-9\.]/gim, ''));
+      amount = Number.parseFloat(raw!.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (e) {
       return false;
     }
@@ -53,13 +53,13 @@ window.lishogi.ready.then(() => {
     return true;
   });
 
-  $checkout.find('button.paypal').on('click', function () {
+  $checkout.find('button.paypal').on('click', () => {
     const freq = getFreq();
     let cents;
     if (freq == 'lifetime') {
       cents = lifetime.cents;
     } else {
-      cents = parseInt($checkout.find('group.amount input:checked').data('amount'));
+      cents = Number.parseInt($checkout.find('group.amount input:checked').data('amount'));
     }
     if (!cents || cents < min || cents > max) return;
     const amount = cents / 100,
@@ -69,7 +69,7 @@ window.lishogi.ready.then(() => {
     $checkout.find('.service').html(spinnerHtml);
   });
 
-  $('.confirm-policy input').on('change', function () {
+  $('.confirm-policy input').on('change', () => {
     $('.service button').toggleClass('disabled');
   });
 });

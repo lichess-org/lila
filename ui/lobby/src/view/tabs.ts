@@ -1,8 +1,8 @@
-import { MaybeVNodes, bind } from 'common/snabbdom';
-import { h } from 'snabbdom';
-import LobbyController from '../ctrl';
-import { Tab } from '../interfaces';
+import { type MaybeVNodes, bind } from 'common/snabbdom';
 import { i18n, i18nPluralSame } from 'i18n';
+import { h } from 'snabbdom';
+import type LobbyController from '../ctrl';
+import type { Tab } from '../interfaces';
 
 function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes) {
   return h(
@@ -13,14 +13,12 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
       },
       hook: bind('mousedown', _ => ctrl.setTab(key), ctrl.redraw),
     },
-    content
+    content,
   );
 }
 
 export default function (ctrl: LobbyController): MaybeVNodes {
-  const myTurnPovsNb = ctrl.data.nowPlaying.filter(function (p) {
-    return p.isMyTurn;
-  }).length;
+  const myTurnPovsNb = ctrl.data.nowPlaying.filter(p => p.isMyTurn).length;
   const active = ctrl.tab;
   return [
     ctrl.isBot ? undefined : tab(ctrl, 'presets', active, [i18n('presets')]),

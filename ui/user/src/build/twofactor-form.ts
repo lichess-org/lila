@@ -10,6 +10,6 @@ window.lishogi.ready.then(() => {
     'otpauth://totp/' + issuer + ':' + user + '?secret=' + secret + '&issuer=' + issuer,
     {
       width: 320,
-    }
+    },
   );
 });

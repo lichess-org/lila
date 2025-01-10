@@ -1,26 +1,29 @@
-import { CevalCtrl, ctrl as cevalCtrl } from 'ceval';
+import { type CevalCtrl, ctrl as cevalCtrl } from 'ceval';
 import { prop, requestIdleCallbackWithFallback } from 'common/common';
 import { defer } from 'common/defer';
-import { isImpasse as impasse } from 'shogi/impasse';
-import { makeNotationWithPosition } from 'shogi/notation';
-import { plyColor } from 'shogi/common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
+import { type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboard-move';
+import { plyColor } from 'shogi/common';
+import { isImpasse as impasse } from 'shogi/impasse';
+import { makeNotationWithPosition } from 'shogi/notation';
 import { Shogiground } from 'shogiground';
-import { Config as SgConfig } from 'shogiground/config';
+import type { Config as SgConfig } from 'shogiground/config';
 import {
+  scalashogiCharPair,
   shogigroundDropDests,
   shogigroundMoveDests,
   usiToSquareNames,
-  scalashogiCharPair,
 } from 'shogiops/compat';
 import { makeSfen, parseSfen } from 'shogiops/sfen';
-import { MoveOrDrop, Outcome, Piece, Role } from 'shogiops/types';
+import type { MoveOrDrop, Outcome, Piece, Role } from 'shogiops/types';
 import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
-import { Shogi } from 'shogiops/variant/shogi';
-import { TreeWrapper, build as treeBuild, ops as treeOps, path as treePath } from 'tree';
+import type { Shogi } from 'shogiops/variant/shogi';
+import { type TreeWrapper, build as treeBuild, ops as treeOps, path as treePath } from 'tree';
+import { last } from 'tree/ops';
+import { fromNodeList } from 'tree/path';
 import computeAutoShapes from './auto-shape';
-import {
+import type {
   Controller,
   MoveTest,
   PuzzleData,
@@ -37,12 +40,9 @@ import { mergeSolution, sfenToTree, usiToTree } from './move-tree';
 import PuzzleSession from './session';
 import * as speech from './speech';
 import * as xhr from './xhr';
-import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboard-move';
-import { last } from 'tree/ops';
-import { fromNodeList } from 'tree/path';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
-  let vm: Vm = {
+  const vm: Vm = {
     next: defer<PuzzleData>(),
   } as Vm;
   let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
@@ -342,8 +342,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       },
       initialSfen: data.game.sfen,
       possible: true,
-      emit: function (ev, work) {
-        tree.updateAt(work.path, function (node) {
+      emit: (ev, work) => {
+        tree.updateAt(work.path, node => {
           if (work.threatMode) {
             const threat = ev as Tree.LocalEval;
             if (
@@ -388,14 +388,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
   }
 
-  const doStartCeval = throttle(800, function () {
+  const doStartCeval = throttle(800, () => {
     ceval.start(vm.path, vm.nodeList, threatMode());
   });
 
   function nextNodeBest() {
-    return treeOps.withMainlineChild(vm.node, function (n) {
-      return n.eval ? n.eval.best : undefined;
-    });
+    return treeOps.withMainlineChild(vm.node, n => (n.eval ? n.eval.best : undefined));
   }
 
   function getCeval() {

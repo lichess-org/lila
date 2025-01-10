@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { PackageInfo, PackagesWrap } from './types.js';
+import type { PackageInfo, PackagesWrap } from './types.js';
 
 interface PackageJson {
   name: string;
@@ -59,7 +59,7 @@ export async function getAllPackages(flags: string[]): Promise<PackagesWrap> {
             console.error(`Error reading package.json from ${pkgPath}:`, error);
             return null;
           }
-        })
+        }),
       )
     )
       .filter(pkg => !!pkg)
@@ -81,7 +81,9 @@ export async function getAllPackages(flags: string[]): Promise<PackagesWrap> {
     root,
     packages: packages.filter(
       pkg =>
-        pkg.name !== root.name && !root.deps.includes(pkg.name) && (!filtered.length || filtered.includes(pkg.name))
+        pkg.name !== root.name &&
+        !root.deps.includes(pkg.name) &&
+        (!filtered.length || filtered.includes(pkg.name)),
     ),
   };
 }

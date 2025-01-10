@@ -1,9 +1,9 @@
-import { VNode, h } from 'snabbdom';
-import { StatusId, StatusKey, StatusObject, WinRate } from '../types';
-import { toPercentage } from '../util';
+import { capitalize } from 'common/string';
 import { i18n, i18nFormat } from 'i18n';
 import type { Role } from 'shogiops/types';
-import { capitalize } from 'common/string';
+import { type VNode, h } from 'snabbdom';
+import { type StatusId, type StatusKey, StatusObject, type WinRate } from '../types';
+import { toPercentage } from '../util';
 
 export function section(title: string, content: VNode | VNode[] | string): VNode {
   return h('section.with-title', [h('h2', title), h('div.section-container', content)]);
@@ -37,8 +37,8 @@ export function horizontalBar(numbers: number[], cls: string[] = []): VNode {
         style: {
           width: n + '%',
         },
-      })
-    )
+      }),
+    ),
   );
 }
 
@@ -46,7 +46,7 @@ export function winrateTable(
   cls: string,
   headers: [string, string, string],
   records: Record<string, WinRate>,
-  fn: (key: string) => VNode
+  fn: (key: string) => VNode,
 ): VNode {
   return h('div.winrate-table.' + cls, [
     h('div.winrate-table-header', [
@@ -69,13 +69,18 @@ function tableContent(records: Record<string, WinRate>, fn: (key: string) => VNo
   });
 }
 
-export function bigNumberWithDesc(nb: number | string, desc: string, cls: string = '', affix: string = ''): VNode {
+export function bigNumberWithDesc(nb: number | string, desc: string, cls = '', affix = ''): VNode {
   const node = affix ? h('div', [nb, h('span.tiny', affix)]) : nb;
-  return h('div.big-number-with-desc' + (cls ? '.' + cls : ''), [h('div.big-number', node), h('span.desc', desc)]);
+  return h('div.big-number-with-desc' + (cls ? '.' + cls : ''), [
+    h('div.big-number', node),
+    h('span.desc', desc),
+  ]);
 }
 
 export function translateStatus(statusId: StatusId): string {
-  const key = Object.keys(StatusObject).find(key => StatusObject[key as StatusKey] === statusId) as string | undefined;
+  const key = Object.keys(StatusObject).find(key => StatusObject[key as StatusKey] === statusId) as
+    | string
+    | undefined;
   return translateStatusName(key);
 }
 

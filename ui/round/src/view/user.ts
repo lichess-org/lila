@@ -1,11 +1,11 @@
-import { engineNameFromCode } from 'shogi/engine-name';
-import { Player } from 'game';
-import { isHandicap } from 'shogiops/handicaps';
-import { h, VNode } from 'snabbdom';
-import RoundController from '../ctrl';
-import { Position } from '../interfaces';
-import { colorName } from 'shogi/color-name';
+import type { Player } from 'game';
 import { i18n, i18nFormat } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { engineNameFromCode } from 'shogi/engine-name';
+import { isHandicap } from 'shogiops/handicaps';
+import { type VNode, h } from 'snabbdom';
+import type RoundController from '../ctrl';
+import type { Position } from '../interfaces';
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {
   const d = ctrl.data,

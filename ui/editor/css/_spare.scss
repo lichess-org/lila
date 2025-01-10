@@ -4,17 +4,21 @@
     width: 100%;
     height: 0;
     padding-bottom: calc(100% / 9 / 11 * 12 * 2);
+
     .outer {
       position: absolute;
       width: 100%;
       height: 50%;
+
       &:last-child {
         top: 50%;
       }
+
       .inner {
         display: flex;
         flex-direction: row-reverse;
         height: 100%;
+
         .selectable-wrap {
           position: relative;
           height: 100%;
@@ -22,6 +26,7 @@
         }
       }
     }
+
     &-bottom {
       .outer .inner .selectable-wrap {
         &:first-child {
@@ -29,6 +34,7 @@
         }
       }
     }
+
     &-top {
       .outer .inner {
         justify-content: flex-end;
@@ -41,27 +47,33 @@
     display: flex;
     flex-wrap: wrap;
     padding: 0 0.5rem;
+
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 2px;
       height: 100%;
-      @include transition();
+
+      @include transition;
+
       background-color: $c-border;
     }
+
     &:not(.inactive):hover,
     &.active {
       &::after {
         background-color: $c-accent;
       }
     }
+
     .outer {
       width: 50%;
       height: 0;
       padding-bottom: calc(100% / 2 * 9 / 11 * 12);
       position: relative;
+
       .inner {
         display: flex;
         flex-direction: column;
@@ -69,47 +81,58 @@
         position: absolute;
         width: 100%;
         height: 100%;
+
         .selectable-wrap {
           height: calc(100% / 9);
           position: relative;
         }
       }
     }
+
     &-top {
       grid-area: spare-top;
       flex-direction: row-reverse;
+
       .outer .inner {
         flex-direction: column-reverse;
       }
+
       &::after {
         left: unset;
         right: 0;
       }
     }
+
     &-bottom {
       grid-area: spare-bottom;
+
       .outer {
         align-self: flex-end;
       }
     }
   }
+
   .outer .inner .selectable-wrap {
     &.selected-square {
       background-color: $c-accent;
       border-radius: $box-radius-size;
+
       &:has(div) {
         background-color: unset;
+
         div {
           filter: grayscale(0);
         }
       }
     }
+
     piece {
       cursor: pointer;
       width: 200%;
       height: 200%;
       margin: calc(-50% / 11 * 12) -50%;
     }
+
     div {
       width: 100%;
       height: 100%;
@@ -117,9 +140,11 @@
       background-repeat: no-repeat;
       background-size: 90%;
       filter: grayscale(1);
+
       &.pointer svg {
         fill: $c-good;
       }
+
       &.trash svg {
         fill: $c-bad;
       }

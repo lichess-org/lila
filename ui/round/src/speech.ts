@@ -1,9 +1,9 @@
-import viewStatus from 'game/view/status';
-import RoundController from './ctrl';
-import { isHandicap } from 'shogiops/handicaps';
 import { loadCompiledScript } from 'common/assets';
-import { colorName } from 'shogi/color-name';
+import viewStatus from 'game/view/status';
 import { i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { isHandicap } from 'shogiops/handicaps';
+import type RoundController from './ctrl';
 
 export function setup(ctrl: RoundController): void {
   window.lishogi.pubsub.on('speech.enabled', onSpeechChange(ctrl));
@@ -11,7 +11,7 @@ export function setup(ctrl: RoundController): void {
 }
 
 function onSpeechChange(ctrl: RoundController) {
-  return function (enabled: boolean) {
+  return (enabled: boolean) => {
     if (!window.lishogi.modules.speech && enabled)
       loadCompiledScript('speech').then(() => status(ctrl));
     else if (window.lishogi.modules.speech && !enabled) window.lishogi.modules.speech = undefined;

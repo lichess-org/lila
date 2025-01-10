@@ -1,6 +1,6 @@
-import { VNode, h } from 'snabbdom';
-import { Close, header } from './util';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import { type Close, header } from './util';
 
 type Code = string;
 
@@ -26,7 +26,10 @@ export function ctrl(data: LangsData, close: Close): LangsCtrl {
   const accepted = new Set(data.accepted);
   return {
     list() {
-      return [...data.list.filter(lang => accepted.has(lang[0])), ...data.list.filter(lang => !accepted.has(lang[0]))];
+      return [
+        ...data.list.filter(lang => accepted.has(lang[0])),
+        ...data.list.filter(lang => !accepted.has(lang[0])),
+      ];
     },
     current: data.current,
     accepted,
@@ -42,7 +45,7 @@ export function view(ctrl: LangsCtrl): VNode {
       {
         attrs: { method: 'post', action: '/translation/select' },
       },
-      ctrl.list().map(langView(ctrl.current, ctrl.accepted))
+      ctrl.list().map(langView(ctrl.current, ctrl.accepted)),
     ),
     h(
       'a.help.text',
@@ -52,7 +55,7 @@ export function view(ctrl: LangsCtrl): VNode {
           'data-icon': '',
         },
       },
-      'Help translate Lishogi'
+      'Help translate Lishogi',
     ),
   ]);
 }
@@ -69,6 +72,6 @@ function langView(current: Code, accepted: Set<Code>) {
           title: l[0],
         },
       },
-      l[1]
+      l[1],
     );
 }

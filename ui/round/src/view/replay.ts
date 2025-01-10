@@ -1,19 +1,19 @@
-import { notationsWithColor } from 'shogi/notation';
-import { MaybeVNodes } from 'common/snabbdom';
+import { isCol1 } from 'common/mobile';
+import type { MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import viewStatus from 'game/view/status';
-import { VNode, h } from 'snabbdom';
-import RoundController from '../ctrl';
-import { RoundData } from '../interfaces';
+import { i18n, i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { notationsWithColor } from 'shogi/notation';
+import { isHandicap } from 'shogiops/handicaps';
+import { type VNode, h } from 'snabbdom';
+import type RoundController from '../ctrl';
+import type { RoundData } from '../interfaces';
 import * as round from '../round';
 import * as util from '../util';
-import { isHandicap } from 'shogiops/handicaps';
-import { isCol1 } from 'common/mobile';
-import { colorName } from 'shogi/color-name';
-import { i18n, i18nFormatCapitalized } from 'i18n';
 
 const scrollMax = 99999,
   moveTag = 'm2';
@@ -36,7 +36,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
       else if (isCol1()) movesEl.scrollLeft = st;
       else movesEl.scrollTop = st;
     }
-  })
+  }),
 );
 
 function plyOffset(ctrl: RoundController): number {
@@ -74,9 +74,9 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
             winner
               ? ' - ' + i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap))
               : '',
-          ]
+          ],
         ),
-      ]
+      ],
     );
   }
   return;
@@ -102,8 +102,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
         {
           class: { active: moveNumber === curMove },
         },
-        s.notation
-      )
+        s.notation,
+      ),
     );
   });
   els.push(renderResult(ctrl));
@@ -128,7 +128,7 @@ export function analysisButton(ctrl: RoundController): VNode {
         'data-icon': 'A',
       },
     },
-    forecastCount ? ['' + forecastCount] : []
+    forecastCount ? ['' + forecastCount] : [],
   );
 }
 
@@ -143,7 +143,7 @@ function renderButtons(ctrl: RoundController) {
         'mousedown',
         e => {
           const target = e.target as HTMLElement;
-          const ply = parseInt(target.getAttribute('data-ply') || '');
+          const ply = Number.parseInt(target.getAttribute('data-ply') || '');
           if (!isNaN(ply)) ctrl.userJump(ply);
           else {
             const action =
@@ -156,7 +156,7 @@ function renderButtons(ctrl: RoundController) {
             }
           }
         },
-        ctrl.redraw
+        ctrl.redraw,
       ),
     },
     [
@@ -186,7 +186,7 @@ function renderButtons(ctrl: RoundController) {
         });
       }),
       analysisButton(ctrl) || h('div.noop'),
-    ]
+    ],
   );
 }
 
@@ -198,8 +198,8 @@ function initMessage(d: RoundData) {
             'youPlayAsX',
             colorName(
               d.player.color,
-              isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen })
-            )
+              isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen }),
+            ),
           ),
           ...(d.player.color === 'sente' ? [h('br'), h('strong', i18n('itsYourTurn'))] : []),
         ]),
@@ -222,7 +222,7 @@ function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: 
         ctrl.redraw();
       },
       undefined,
-      false
+      false,
     ),
   });
 }
@@ -241,7 +241,7 @@ export function render(ctrl: RoundController): VNode | undefined {
               if (node.tagName !== moveTag.toUpperCase()) return;
               while ((node = node.previousSibling as HTMLElement)) {
                 if (node.tagName === 'INDEX') {
-                  ctrl.userJump(parseInt(node.textContent || '') + (plyOffset(ctrl) % 2));
+                  ctrl.userJump(Number.parseInt(node.textContent || '') + (plyOffset(ctrl) % 2));
                   ctrl.redraw();
                   break;
                 }
@@ -254,7 +254,7 @@ export function render(ctrl: RoundController): VNode | undefined {
             }
           }),
         },
-        renderMoves(ctrl)
+        renderMoves(ctrl),
       );
   return ctrl.nvui
     ? undefined
@@ -284,9 +284,9 @@ export function render(ctrl: RoundController): VNode | undefined {
                         }
                       }),
                     },
-                    moves
+                    moves,
                   )
               : renderResult(ctrl)),
-        ]
+        ],
       );
 }

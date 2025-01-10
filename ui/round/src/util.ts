@@ -1,8 +1,8 @@
-import { Result } from '@badrap/result';
-import * as sg from 'shogiground/types';
+import type { Result } from '@badrap/result';
+import type * as sg from 'shogiground/types';
 import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
-import { Position } from 'shogiops/variant/position';
-import { VNodeData } from 'snabbdom';
+import type { Position } from 'shogiops/variant/position';
+import type { VNodeData } from 'snabbdom';
 
 export { bind, onInsert } from 'common/snabbdom';
 
@@ -14,13 +14,13 @@ export function justIcon(icon: string): VNodeData {
 export function getMoveDests(posRes: Result<Position>): sg.MoveDests {
   return posRes.unwrap(
     p => shogigroundMoveDests(p),
-    _ => new Map()
+    _ => new Map(),
   );
 }
 
 export function getDropDests(posRes: Result<Position>): sg.DropDests {
   return posRes.unwrap(
     p => shogigroundDropDests(p),
-    _ => new Map()
+    _ => new Map(),
   );
 }

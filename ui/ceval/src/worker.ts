@@ -1,15 +1,13 @@
 import { assetUrl, loadScript } from 'common/assets';
-import { Cache } from './cache';
+import type { Cache } from './cache';
 import { Protocol } from './protocol';
-import { Config, Work } from './types';
+import type { Config, Work } from './types';
 
-interface WasmEngineModule {
-  (opts: {
-    wasmBinary?: ArrayBuffer;
-    locateFile(path: string): string;
-    wasmMemory: WebAssembly.Memory;
-  }): Promise<Engine>;
-}
+type WasmEngineModule = (opts: {
+  wasmBinary?: ArrayBuffer;
+  locateFile(path: string): string;
+  wasmMemory: WebAssembly.Memory;
+}) => Promise<Engine>;
 
 interface Engine {
   addMessageListener(cb: (msg: string) => void): void;

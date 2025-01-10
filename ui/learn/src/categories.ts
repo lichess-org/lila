@@ -1,5 +1,5 @@
 import { i18n } from 'i18n';
-import { Category, IncompleteStage, Stage } from './interfaces';
+import type { Category, IncompleteStage, Stage } from './interfaces';
 import bishop from './stages/bishop';
 import capture from './stages/capture';
 import check1 from './stages/check1';

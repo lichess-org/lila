@@ -1,9 +1,9 @@
-import { MaybeVNode, bind } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import { Controller } from '../interfaces';
-import afterView from './after';
-import { colorName } from 'shogi/color-name';
+import { type MaybeVNode, bind } from 'common/snabbdom';
 import { i18n, i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { type VNode, h } from 'snabbdom';
+import type { Controller } from '../interfaces';
+import afterView from './after';
 
 function viewSolution(ctrl: Controller): VNode {
   return h(
@@ -17,9 +17,9 @@ function viewSolution(ctrl: Controller): VNode {
         {
           hook: bind('click', ctrl.viewSolution),
         },
-        i18n('viewTheSolution')
+        i18n('viewTheSolution'),
       ),
-    ]
+    ],
   );
 }
 

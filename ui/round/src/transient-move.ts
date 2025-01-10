@@ -1,4 +1,4 @@
-import { RoundSocket } from './socket';
+import type { RoundSocket } from './socket';
 
 /* Tracks moves that were played on the board,
  * sent to the server, possibly acked,
@@ -16,7 +16,8 @@ export default class TransientMove {
   current: number | undefined = undefined;
 
   register = (remaining: number | undefined): void => {
-    const toTrigger = remaining && remaining <= this.defaultTimeout + 1000 ? 3500 : this.defaultTimeout;
+    const toTrigger =
+      remaining && remaining <= this.defaultTimeout + 1000 ? 3500 : this.defaultTimeout;
     this.current = setTimeout(this.expire, toTrigger);
   };
 

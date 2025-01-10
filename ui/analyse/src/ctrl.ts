@@ -1,18 +1,32 @@
-import { Result } from '@badrap/result';
-import { CevalCtrl, EvalMeta, NodeEvals, ctrl as cevalCtrl, isEvalBetter } from 'ceval';
-import { Prop, defined, prop, requestIdleCallbackWithFallback } from 'common/common';
-import { makeNotation } from 'shogi/notation';
-import { isImpasse as impasse } from 'shogi/impasse';
+import type { Result } from '@badrap/result';
+import {
+  type CevalCtrl,
+  type EvalMeta,
+  type NodeEvals,
+  ctrl as cevalCtrl,
+  isEvalBetter,
+} from 'ceval';
+import {
+  loadChushogiPieceSprite,
+  loadCompiledScript,
+  loadKyotoshogiPieceSprite,
+} from 'common/assets';
+import { type Prop, defined, prop, requestIdleCallbackWithFallback } from 'common/common';
 import { analysis } from 'common/links';
 import { getPerfIcon } from 'common/perf-icons';
-import { StoredBooleanProp, storedProp } from 'common/storage';
+import { type StoredBooleanProp, storedProp } from 'common/storage';
 import throttle from 'common/throttle';
+import { debounce } from 'common/timings';
 import * as game from 'game';
+import { i18n, i18nPluralSame } from 'i18n';
+import { i18nVariant } from 'i18n/variant';
+import { isImpasse as impasse } from 'shogi/impasse';
+import { makeNotation } from 'shogi/notation';
 import { Shogiground } from 'shogiground';
-import { Api as ShogigroundApi } from 'shogiground/api';
-import { Config as ShogigroundConfig } from 'shogiground/config';
-import { DrawShape } from 'shogiground/draw';
-import * as sg from 'shogiground/types';
+import type { Api as ShogigroundApi } from 'shogiground/api';
+import type { Config as ShogigroundConfig } from 'shogiground/config';
+import type { DrawShape } from 'shogiground/draw';
+import type * as sg from 'shogiground/types';
 import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
 import {
   shogigroundDropDests,
@@ -21,41 +35,33 @@ import {
   usiToSquareNames,
 } from 'shogiops/compat';
 import { parseSfen } from 'shogiops/sfen';
-import { NormalMove, Outcome, Piece } from 'shogiops/types';
+import type { NormalMove, Outcome, Piece } from 'shogiops/types';
 import { makeSquareName, makeUsi, opposite, parseSquareName, squareDist } from 'shogiops/util';
-import { Chushogi } from 'shogiops/variant/chushogi';
-import { Position, PositionError } from 'shogiops/variant/position';
-import { TreeWrapper, build as makeTree, ops as treeOps, path as treePath } from 'tree';
+import type { Chushogi } from 'shogiops/variant/chushogi';
+import type { Position, PositionError } from 'shogiops/variant/position';
+import { promotableOnDrop, promote } from 'shogiops/variant/util';
+import { type TreeWrapper, build as makeTree, ops as treeOps, path as treePath } from 'tree';
 import { Ctrl as ActionMenuCtrl } from './action-menu';
 import { compute as computeAutoShapes } from './auto-shape';
-import { Autoplay, AutoplayDelay } from './autoplay';
-import { EvalCache, make as makeEvalCache } from './eval-cache';
+import { Autoplay, type AutoplayDelay } from './autoplay';
+import { type EvalCache, make as makeEvalCache } from './eval-cache';
 import { make as makeForecast } from './forecast/forecast-ctrl';
-import { ForecastCtrl } from './forecast/interfaces';
-import { ForkCtrl, make as makeFork } from './fork';
+import type { ForecastCtrl } from './forecast/interfaces';
+import { type ForkCtrl, make as makeFork } from './fork';
 import { makeConfig } from './ground';
-import { AnalyseData, AnalyseOpts, NvuiPlugin, Redraw, ServerEvalData } from './interfaces';
+import type { AnalyseData, AnalyseOpts, NvuiPlugin, Redraw, ServerEvalData } from './interfaces';
 import * as keyboard from './keyboard';
 import { nextGlyphSymbol } from './node-finder';
-import { PracticeCtrl, make as makePractice } from './practice/practice-ctrl';
-import { RetroCtrl, make as makeRetro } from './retrospect/retro-ctrl';
-import { Socket, make as makeSocket } from './socket';
+import { type PracticeCtrl, make as makePractice } from './practice/practice-ctrl';
+import { type RetroCtrl, make as makeRetro } from './retrospect/retro-ctrl';
+import { type Socket, make as makeSocket } from './socket';
 import * as speech from './speech';
-import GamebookPlayCtrl from './study/gamebook/gamebook-play-ctrl';
-import { StudyCtrl } from './study/interfaces';
-import { StudyPracticeCtrl } from './study/practice/interfaces';
+import type GamebookPlayCtrl from './study/gamebook/gamebook-play-ctrl';
+import type { StudyCtrl } from './study/interfaces';
+import type { StudyPracticeCtrl } from './study/practice/interfaces';
 import makeStudy from './study/study-ctrl';
-import { TreeView, ctrl as treeViewCtrl } from './tree-view/tree-view';
+import { type TreeView, ctrl as treeViewCtrl } from './tree-view/tree-view';
 import * as util from './util';
-import { promotableOnDrop, promote } from 'shogiops/variant/util';
-import {
-  loadChushogiPieceSprite,
-  loadCompiledScript,
-  loadKyotoshogiPieceSprite,
-} from 'common/assets';
-import { i18nVariant } from 'i18n/variant';
-import { debounce } from 'common/timings';
-import { i18n, i18nPluralSame } from 'i18n';
 
 const li = window.lishogi;
 
@@ -86,18 +92,18 @@ export default class AnalyseCtrl {
 
   // state flags
   justPlayedUsi?: string;
-  autoScrollRequested: boolean = false;
-  redirecting: boolean = false;
-  onMainline: boolean = true;
+  autoScrollRequested = false;
+  redirecting = false;
+  onMainline = true;
   synthetic: boolean; // false if coming from a real game
   imported: boolean; // true if coming from kif or csa
   ongoing: boolean; // true if real game is ongoing
   lionFirstMove: NormalMove | undefined;
 
   // display flags
-  flipped: boolean = false;
+  flipped = false;
   embed: boolean;
-  showComments: boolean = true; // whether to display comments in the move tree
+  showComments = true; // whether to display comments in the move tree
   showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showMoveAnnotation: StoredBooleanProp = storedProp('show-move-annotation', true);
@@ -147,7 +153,7 @@ export default class AnalyseCtrl {
     const params = new URLSearchParams(window.location.search);
     if (opts.initialPly) {
       const loc = window.location,
-        intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
+        intHash = loc.hash === '#last' ? this.tree.lastPly() : Number.parseInt(loc.hash.slice(1)),
         plyStr = opts.initialPly === 'url' ? intHash || '' : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       // and remove moves query param
@@ -162,7 +168,7 @@ export default class AnalyseCtrl {
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
       else {
-        const ply = parseInt(plyStr as string);
+        const ply = Number.parseInt(plyStr as string);
         if (ply) this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= ply);
       }
     }
@@ -193,7 +199,7 @@ export default class AnalyseCtrl {
     keyboard.bind(this);
 
     li.pubsub.on('jump', (ply: any) => {
-      this.jumpToMain(parseInt(ply));
+      this.jumpToMain(Number.parseInt(ply));
       this.redraw();
     });
 
@@ -778,7 +784,7 @@ export default class AnalyseCtrl {
     if (this.ceval.enabled()) {
       if (this.canUseCeval()) {
         this.ceval.start(this.path, this.nodeList, this.threatMode());
-        this.evalCache.fetch(this.path, parseInt(this.ceval.multiPv()));
+        this.evalCache.fetch(this.path, Number.parseInt(this.ceval.multiPv()));
       } else this.ceval.stop();
     }
   });

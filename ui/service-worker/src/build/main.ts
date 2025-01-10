@@ -15,7 +15,7 @@ self.addEventListener('push', event => {
       tag: data.tag,
       data: data.payload,
       requireInteraction: true,
-    })
+    }),
   );
 });
 

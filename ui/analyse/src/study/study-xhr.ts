@@ -1,4 +1,4 @@
-import { ChapterPreview, ReloadData, StudyChapterConfig } from './interfaces';
+import type { ChapterPreview, ReloadData, StudyChapterConfig } from './interfaces';
 
 export function reload(baseUrl: string, id: string, chapterId?: string): Promise<ReloadData> {
   let url = '/' + baseUrl + '/' + id;
@@ -20,14 +20,14 @@ export function importNotation(studyId: string, data: Record<string, any>): Prom
     `/study/${studyId}/import-notation?sri=${window.lishogi.sri}`,
     {
       formData: data,
-    }
+    },
   );
 }
 
 export function multiBoard(
   studyId: string,
   page: number,
-  playing: boolean
+  playing: boolean,
 ): Promise<Paginator<ChapterPreview>> {
   return window.lishogi.xhr.json('GET', `/study/${studyId}/multi-board`, {
     url: { page: page.toString(), playing },

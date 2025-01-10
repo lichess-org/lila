@@ -1,11 +1,11 @@
-import { type ChartDataset, type Point, type ChartConfiguration, type PointStyle } from 'chart.js';
-import type { PerfRatingHistory } from '../interface';
-import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from '../common';
+import type { ChartConfiguration, ChartDataset, Point, PointStyle } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
+import duration from 'dayjs/plugin/duration';
 import utc from 'dayjs/plugin/utc';
+import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor } from '../common';
+import type { PerfRatingHistory } from '../interface';
 
 window.Chart.register(zoomPlugin);
 

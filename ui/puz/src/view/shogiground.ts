@@ -1,11 +1,16 @@
 import resizeHandle from 'shogi/resize';
-import { Config as SgConfig } from 'shogiground/config';
+import type { Config as SgConfig } from 'shogiground/config';
 //mport { Role } from 'shogiops/types';
 //mport { parseSquareName } from 'shogiops/util';
 //mport { pieceCanPromote, pieceInDeadZone, promote } from 'shogiops/variant/util';
-import { PuzPrefs, UserDrop, UserMove } from '../interfaces';
+import type { PuzPrefs, UserDrop, UserMove } from '../interfaces';
 
-export function makeConfig(opts: SgConfig, pref: PuzPrefs, userMove: UserMove, userDrop: UserDrop): SgConfig {
+export function makeConfig(
+  opts: SgConfig,
+  pref: PuzPrefs,
+  userMove: UserMove,
+  userDrop: UserDrop,
+): SgConfig {
   return {
     sfen: opts.sfen,
     activeColor: opts.activeColor,

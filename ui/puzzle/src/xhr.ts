@@ -1,12 +1,12 @@
 import { defined } from 'common/common';
 import throttle from 'common/throttle';
-import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
+import type { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 
 export function complete(
   puzzleId: string,
   theme: ThemeKey,
   win: boolean,
-  replay?: PuzzleReplay
+  replay?: PuzzleReplay,
 ): Promise<PuzzleResult | undefined> {
   return window.lishogi.xhr.json('POST', `/training/complete/${theme}/${puzzleId}`, {
     formData: {
@@ -25,7 +25,7 @@ export function vote(puzzleId: string, vote: boolean): Promise<void> {
 export function voteTheme(
   puzzleId: string,
   theme: ThemeKey,
-  vote: boolean | undefined
+  vote: boolean | undefined,
 ): Promise<void> {
   return window.lishogi.xhr.json(
     'POST',
@@ -34,12 +34,12 @@ export function voteTheme(
       ? {
           formData: { vote },
         }
-      : undefined
+      : undefined,
   );
 }
 
 export const setZen: (zen: boolean) => void = throttle(1000, zen =>
   window.lishogi.xhr.text('POST', '/pref/zen', {
     formData: { zen: zen ? 1 : 0 },
-  })
+  }),
 );

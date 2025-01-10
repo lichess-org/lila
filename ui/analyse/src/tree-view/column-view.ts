@@ -1,16 +1,16 @@
 import { isEmpty } from 'common/common';
-import { notationsWithColor, usiToNotation } from 'shogi/notation';
-import { MaybeVNodes } from 'common/snabbdom';
 import { enrichText, innerHTML } from 'common/rich-text';
-import { VNode, h } from 'snabbdom';
+import type { MaybeVNodes } from 'common/snabbdom';
+import { notationsWithColor, usiToNotation } from 'shogi/notation';
+import { type VNode, h } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'tree';
-import AnalyseCtrl from '../ctrl';
-import { Conceal, ConcealOf } from '../interfaces';
+import type AnalyseCtrl from '../ctrl';
+import type { Conceal, ConcealOf } from '../interfaces';
 import * as moveView from '../move-view';
 import { authorText as commentAuthorText } from '../study/study-comments';
 import {
-  Ctx as BaseCtx,
-  Opts as BaseOpts,
+  type Ctx as BaseCtx,
+  type Opts as BaseOpts,
   findCurrentPath,
   mainHook,
   nodeClasses,
@@ -234,11 +234,7 @@ function renderMainlineCommentsOf(
   });
 }
 
-const emptyConcealOf: ConcealOf = function () {
-  return function () {
-    return null;
-  };
-};
+const emptyConcealOf: ConcealOf = () => () => null;
 
 export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;

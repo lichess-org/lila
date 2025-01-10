@@ -1,12 +1,12 @@
 import { renderEval as normalizeEval } from 'ceval';
 import { defined } from 'common/common';
-import { notationsWithColor } from 'shogi/notation';
-import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
+import type { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { Classes, VNode, h } from 'snabbdom';
-import { path as treePath } from 'tree';
-import { Controller } from '../interfaces';
 import { i18n } from 'i18n';
+import { notationsWithColor } from 'shogi/notation';
+import { type Classes, type VNode, h } from 'snabbdom';
+import { path as treePath } from 'tree';
+import type { Controller } from '../interfaces';
 
 interface Ctx {
   ctrl: Controller;
@@ -79,15 +79,15 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
     {
       class: { single: !!nodes[1] },
     },
-    nodes.map(function (n) {
-      return h(
+    nodes.map(n =>
+      h(
         'line',
         renderMoveAndChildrenOf(ctx, n, {
           parentPath: opts.parentPath,
           isMainline: false,
         }),
-      );
-    }),
+      ),
+    ),
   );
 }
 

@@ -1,21 +1,21 @@
-import { MaybeVNodes } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
-import { TournamentData } from '../interfaces';
+import { loadCompiledScript } from 'common/assets';
+import type { MaybeVNodes } from 'common/snabbdom';
+import { once } from 'common/storage';
+import { i18n, i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { TournamentData } from '../interfaces';
 import * as pagination from '../pagination';
-import { arenaControls, robinControls, organizedControls } from './controls';
-import { recents, standing as rStanding, podium as rPodium } from './robin';
 import { podium, standing } from './arena';
-import { standing as oStanding } from './organized';
 import { teamStanding } from './battle';
+import { arenaControls, organizedControls, robinControls } from './controls';
 import header from './header';
+import { standing as oStanding } from './organized';
 import playerInfo from './player-info';
+import { podium as rPodium, standing as rStanding, recents } from './robin';
 import teamInfo from './team-info';
 import { numberRow } from './util';
-import { once } from 'common/storage';
-import { loadCompiledScript } from 'common/assets';
-import { colorName } from 'shogi/color-name';
-import { i18n, i18nFormatCapitalized } from 'i18n';
 
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
@@ -34,12 +34,12 @@ function stats(data: TournamentData): VNode {
     numberRow(
       i18nFormatCapitalized('xWins', colorName('sente', false)),
       [data.stats.senteWins, data.stats.games],
-      'percent'
+      'percent',
     ),
     numberRow(
       i18nFormatCapitalized('xWins', colorName('gote', false)),
       [data.stats.goteWins, data.stats.games],
-      'percent'
+      'percent',
     ),
     numberRow(i18n('draws'), [data.stats.draws, data.stats.games], 'percent'),
   ];

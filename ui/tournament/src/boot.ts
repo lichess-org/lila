@@ -1,9 +1,9 @@
-import TournamentController from './ctrl';
-import { TournamentOpts } from './interfaces';
+import type TournamentController from './ctrl';
+import type { TournamentOpts } from './interfaces';
 
 export function boot(
   opts: TournamentOpts,
-  start: (opts: TournamentOpts) => TournamentController
+  start: (opts: TournamentOpts) => TournamentController,
 ): TournamentController {
   $('body').data('tournament-id', opts.data.id);
   let ctrl;
@@ -12,7 +12,7 @@ export function boot(
     opts.data.socketVersion,
     {
       receive: (t, d) => ctrl.socket.receive(t, d),
-    }
+    },
   );
   opts.socketSend = window.lishogi.socket.send;
   ctrl = start(opts);

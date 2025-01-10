@@ -3,8 +3,11 @@ export function withMainlineChild<T>(node: Tree.Node, f: (node: Tree.Node) => T)
   return next ? f(next) : undefined;
 }
 
-export function findInMainline(fromNode: Tree.Node, predicate: (node: Tree.Node) => boolean): Tree.Node | undefined {
-  const findFrom = function (node: Tree.Node): Tree.Node | undefined {
+export function findInMainline(
+  fromNode: Tree.Node,
+  predicate: (node: Tree.Node) => boolean,
+): Tree.Node | undefined {
+  const findFrom = (node: Tree.Node): Tree.Node | undefined => {
     if (predicate(node)) return node;
     return withMainlineChild(node, findFrom);
   };
@@ -12,7 +15,10 @@ export function findInMainline(fromNode: Tree.Node, predicate: (node: Tree.Node)
 }
 
 // returns a list of nodes collected from the original one
-export function collect(from: Tree.Node, pickChild: (node: Tree.Node) => Tree.Node | undefined): Tree.Node[] {
+export function collect(
+  from: Tree.Node,
+  pickChild: (node: Tree.Node) => Tree.Node | undefined,
+): Tree.Node[] {
   let nodes = [from],
     n = from,
     c;
@@ -39,9 +45,12 @@ export function nodeAtPly(nodeList: Tree.Node[], ply: number): Tree.Node | undef
   return nodeList.find(node => node.ply === ply);
 }
 
-export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node) => boolean): Tree.Path {
+export function takePathWhile(
+  nodeList: Tree.Node[],
+  predicate: (node: Tree.Node) => boolean,
+): Tree.Path {
   let path = '';
-  for (let i in nodeList) {
+  for (const i in nodeList) {
     if (predicate(nodeList[i])) path += nodeList[i].id;
     else break;
   }
@@ -49,9 +58,7 @@ export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node
 }
 
 export function removeChild(parent: Tree.Node, id: string): void {
-  parent.children = parent.children.filter(function (n) {
-    return n.id !== id;
-  });
+  parent.children = parent.children.filter(n => n.id !== id);
 }
 
 export function countChildrenAndComments(node: Tree.Node): {
@@ -62,7 +69,7 @@ export function countChildrenAndComments(node: Tree.Node): {
     nodes: 1,
     comments: (node.comments || []).length,
   };
-  node.children.forEach(function (child) {
+  node.children.forEach(child => {
     const c = countChildrenAndComments(child);
     count.nodes += c.nodes;
     count.comments += c.comments;
@@ -91,16 +98,11 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
   n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments &&
-    n2.comments.forEach(function (c) {
+    n2.comments.forEach(c => {
       if (!n1.comments) n1.comments = [c];
-      else if (
-        !n1.comments.some(function (d) {
-          return d.text === c.text;
-        })
-      )
-        n1.comments.push(c);
+      else if (!n1.comments.some(d => d.text === c.text)) n1.comments.push(c);
     });
-  n2.children.forEach(function (c) {
+  n2.children.forEach(c => {
     const existing = childById(n1, c.id);
     if (existing) merge(existing, c);
     else n1.children.push(c);
@@ -108,7 +110,11 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
 }
 
 export function hasBranching(node: Tree.Node, maxDepth: number): boolean {
-  return maxDepth <= 0 || !!node.children[1] || (node.children[0] && hasBranching(node.children[0], maxDepth - 1));
+  return (
+    maxDepth <= 0 ||
+    !!node.children[1] ||
+    (node.children[0] && hasBranching(node.children[0], maxDepth - 1))
+  );
 }
 
 export function mainlineNodeList(from: Tree.Node): Tree.Node[] {

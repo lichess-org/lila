@@ -1,9 +1,9 @@
 import { makeChat } from 'chat';
 import type { ChatCtrl, ChatOpts } from 'chat/interfaces';
-import { TourPlayer } from 'game';
-import { RoundData, RoundOpts } from './interfaces';
-import { TourStandingCtrl, tourStandingCtrl } from './tour-standing';
-import RoundController from './ctrl';
+import type { TourPlayer } from 'game';
+import type RoundController from './ctrl';
+import type { RoundData, RoundOpts } from './interfaces';
+import { type TourStandingCtrl, tourStandingCtrl } from './tour-standing';
 
 export function boot(
   opts: RoundOpts,
@@ -60,7 +60,7 @@ export function boot(
     if (data.tournament)
       $('.game__tournament .clock').each(function (this: HTMLElement) {
         $(this).clock({
-          time: parseFloat($(this).data('time')),
+          time: Number.parseFloat($(this).data('time')),
         });
       });
   }
@@ -94,7 +94,7 @@ export function boot(
   $('.round__now-playing .move-on input')
     .on('change', ctrl.moveOn.toggle)
     .prop('checked', ctrl.moveOn.get())
-    .on('click', 'a', function () {
+    .on('click', 'a', () => {
       window.lishogi.properReload = true;
       return true;
     });

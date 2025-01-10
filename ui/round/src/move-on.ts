@@ -1,6 +1,6 @@
 import * as game from 'game';
 import { finished } from 'game/status';
-import RoundController from './ctrl';
+import type RoundController from './ctrl';
 import * as xhr from './xhr';
 
 export default class MoveOn {
@@ -8,7 +8,7 @@ export default class MoveOn {
 
   constructor(
     private ctrl: RoundController,
-    private key: string
+    private key: string,
   ) {}
 
   toggle = (): void => {
@@ -26,11 +26,18 @@ export default class MoveOn {
 
   next = (force?: boolean): void => {
     const d = this.ctrl.data;
-    if ((!d.simul && finished(d)) || d.player.spectator || !game.isSwitchable(d) || game.isPlayerTurn(d) || !this.get())
+    if (
+      (!d.simul && finished(d)) ||
+      d.player.spectator ||
+      !game.isSwitchable(d) ||
+      game.isPlayerTurn(d) ||
+      !this.get()
+    )
       return;
     if (force) this.redirect('/round-next/' + d.game.id);
     else if (d.simul) {
-      if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1) this.redirect('/round-next/' + d.game.id);
+      if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1)
+        this.redirect('/round-next/' + d.game.id);
     } else
       xhr.whatsNext(this.ctrl).then(data => {
         if (data.next) this.redirect('/' + data.next);

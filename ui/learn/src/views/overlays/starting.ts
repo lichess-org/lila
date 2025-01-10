@@ -1,7 +1,7 @@
-import { h } from 'snabbdom';
-import { MaybeVNode } from 'common/snabbdom';
-import LearnCtrl from '../../ctrl';
+import type { MaybeVNode } from 'common/snabbdom';
 import { i18n, i18nFormat } from 'i18n';
+import { h } from 'snabbdom';
+import type LearnCtrl from '../../ctrl';
 
 export default function (ctrl: LearnCtrl): MaybeVNode {
   if (!ctrl.vm) return null;
@@ -21,6 +21,6 @@ export default function (ctrl: LearnCtrl): MaybeVNode {
         h('div.stage-img.' + ctrl.vm.stage.key),
         h('p', ctrl.vm.stage.intro),
         h('div.buttons', h('a.next', i18n('learn:letsGo'))),
-      ])
+      ]),
     );
 }

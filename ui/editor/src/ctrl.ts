@@ -1,9 +1,10 @@
 import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from 'common/assets';
-import { Prop, defined, prop } from 'common/common';
+import { type Prop, defined, prop } from 'common/common';
 import { analysis, editor } from 'common/links';
+import { i18n } from 'i18n';
 import { Shogiground } from 'shogiground';
-import { Api as SgApi } from 'shogiground/api';
-import { NumberPair } from 'shogiground/types';
+import type { Api as SgApi } from 'shogiground/api';
+import type { NumberPair } from 'shogiground/types';
 import { eventPosition, opposite, samePiece } from 'shogiground/util';
 import { Board } from 'shogiops/board';
 import { Hand, Hands } from 'shogiops/hands';
@@ -18,13 +19,12 @@ import {
   parseSfen,
   roleToForsyth,
 } from 'shogiops/sfen';
-import { Role, Rules, Setup } from 'shogiops/types';
+import type { Role, Rules, Setup } from 'shogiops/types';
 import { toBW } from 'shogiops/util';
 import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variant/util';
 import { defaultPosition } from 'shogiops/variant/variant';
-import { EditorData, EditorOptions, EditorState, Redraw, Selected } from './interfaces';
+import type { EditorData, EditorOptions, EditorState, Redraw, Selected } from './interfaces';
 import { makeConfig } from './shogiground';
-import { i18n } from 'i18n';
 
 export default class EditorCtrl {
   options: EditorOptions;
@@ -45,7 +45,7 @@ export default class EditorCtrl {
 
   constructor(
     public data: EditorData,
-    redraw: Redraw
+    redraw: Redraw,
   ) {
     this.rules = this.data.variant;
     this.options = this.data.options || {};
@@ -76,35 +76,35 @@ export default class EditorCtrl {
       ['f'],
       preventing(() => {
         if (this.shogiground) this.setOrientation(opposite(this.shogiground.state.orientation));
-      })
+      }),
     );
     kbd.bind(
       ['left', 'k'],
       preventing(() => {
         this.backward();
         this.redraw();
-      })
+      }),
     );
     kbd.bind(
       ['right', 'j'],
       preventing(() => {
         this.forward();
         this.redraw();
-      })
+      }),
     );
     kbd.bind(
       ['up', '0'],
       preventing(() => {
         this.first();
         this.redraw();
-      })
+      }),
     );
     kbd.bind(
       ['down', '$'],
       preventing(() => {
         this.last();
         this.redraw();
-      })
+      }),
     );
 
     document.addEventListener('touchmove', e => {
@@ -183,12 +183,12 @@ export default class EditorCtrl {
       boardSfen = this.shogiground ? this.shogiground.getBoardSfen() : splitSfen[0] || '',
       board = parseBoardSfen(this.rules, boardSfen).unwrap(
         b => b,
-        _ => Board.empty()
+        _ => Board.empty(),
       ),
       handsSfen = this.shogiground ? this.shogiground.getHandsSfen() : splitSfen[2] || '',
       hands = parseHands(this.rules, handsSfen).unwrap(
         b => b,
-        _ => Hands.empty()
+        _ => Hands.empty(),
       );
     return {
       board: board,
@@ -213,14 +213,14 @@ export default class EditorCtrl {
       pos => {
         return makeSfen(pos);
       },
-      _ => undefined
+      _ => undefined,
     );
   }
 
   private isPlayable(): boolean {
     return parseSfen(this.rules, this.getSfen()).unwrap(
       pos => !pos.isEnd(),
-      _ => false
+      _ => false,
     );
   }
 
@@ -241,7 +241,9 @@ export default class EditorCtrl {
   }
 
   bottomColor(): Color {
-    return this.shogiground ? this.shogiground.state.orientation : this.options.orientation || 'sente';
+    return this.shogiground
+      ? this.shogiground.state.orientation
+      : this.options.orientation || 'sente';
   }
 
   setTurn(turn: Color): void {
@@ -260,15 +262,16 @@ export default class EditorCtrl {
         hands: Hands.empty(),
         turn: this.turn,
         moveNumber: 1,
-      })
+      }),
     );
   }
 
-  setSfen(sfen: string, history: boolean = false): boolean {
+  setSfen(sfen: string, history = false): boolean {
     return parseSfen(this.rules, sfen, false).unwrap(
       pos => {
         const splitSfen = sfen.split(' ');
-        if (this.shogiground) this.shogiground.set({ sfen: { board: splitSfen[0], hands: splitSfen[2] } });
+        if (this.shogiground)
+          this.shogiground.set({ sfen: { board: splitSfen[0], hands: splitSfen[2] } });
         this.turn = pos.turn;
         this.moveNumber = pos.moveNumber;
 
@@ -278,12 +281,13 @@ export default class EditorCtrl {
       err => {
         console.warn(err);
         return false;
-      }
+      },
     );
   }
 
   setHands(hands: Hands): void {
-    if (this.shogiground) this.shogiground.set({ sfen: { hands: makeHandsSfen(this.rules, hands) } });
+    if (this.shogiground)
+      this.shogiground.set({ sfen: { hands: makeHandsSfen(this.rules, hands) } });
     this.onChange();
   }
 
@@ -311,7 +315,9 @@ export default class EditorCtrl {
       (handRoles(this.rules).includes(role)
         ? setup.hands.color('sente').get(role) + setup.hands.color('gote').get(role)
         : 0) +
-      (promotableRoles(this.rules).includes(role) ? setup.board.role(promote(this.rules)(role)!).size() : 0)
+      (promotableRoles(this.rules).includes(role)
+        ? setup.board.role(promote(this.rules)(role)!).size()
+        : 0)
     );
   }
 
@@ -383,7 +389,7 @@ export default class EditorCtrl {
           toForsyth: roleToForsyth(rules),
         },
       },
-      true
+      true,
     );
     if (rules === 'chushogi') loadChushogiPieceSprite();
     else if (rules === 'kyotoshogi') loadKyotoshogiPieceSprite();
@@ -396,12 +402,12 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  addToHand(c: Color, r: Role, reload: boolean = false): void {
+  addToHand(c: Color, r: Role, reload = false): void {
     const unpromotedRole = handRoles(this.rules).includes(r) ? r : unpromote(this.rules)(r);
     this.shogiground.addToHand({ color: c, role: unpromotedRole || r });
     if (reload) this.onChange();
   }
-  removeFromHand(c: Color, r: Role, reload: boolean = false): void {
+  removeFromHand(c: Color, r: Role, reload = false): void {
     const unpromotedRole = handRoles(this.rules).includes(r) ? r : unpromote(this.rules)(r);
     const piece = { color: c, role: unpromotedRole || r };
     this.shogiground.removeFromHand(piece);

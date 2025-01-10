@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 
 export function userLink(u: string, title?: string): VNode {
   const trunc = u.substring(0, 14);
@@ -14,6 +14,8 @@ export function userLink(u: string, title?: string): VNode {
         href: '/@/' + u,
       },
     },
-    title ? [h('span.title', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title), trunc] : [trunc]
+    title
+      ? [h('span.title', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title), trunc]
+      : [trunc],
   );
 }

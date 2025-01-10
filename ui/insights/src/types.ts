@@ -1,4 +1,4 @@
-import { Role } from 'shogiops/types';
+import type { Role } from 'shogiops/types';
 
 export const tabs = ['outcomes', 'moves', 'times', 'analysis', 'opponents', 'custom'] as const;
 export type Tab = (typeof tabs)[number];

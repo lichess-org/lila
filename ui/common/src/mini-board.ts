@@ -1,10 +1,10 @@
-import type { Config } from 'shogiground/config';
 import type { Api as SgApi } from 'shogiground/api';
+import type { Config } from 'shogiground/config';
 import { usiToSquareNames } from 'shogiops/compat';
-import { handRoles } from 'shogiops/variant/util';
-import * as domData from './data';
 import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
+import { handRoles } from 'shogiops/variant/util';
 import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from './assets';
+import * as domData from './data';
 
 export const initAll = (): void => {
   const minis = Array.from(

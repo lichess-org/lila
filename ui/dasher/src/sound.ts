@@ -1,7 +1,7 @@
-import { VNode, h } from 'snabbdom';
-import { Close, Redraw, bind, header } from './util';
 import { debounce } from 'common/timings';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import { type Close, type Redraw, bind, header } from './util';
 
 type SoundKey = string;
 
@@ -97,7 +97,7 @@ function slider(ctrl: SoundCtrl): VNode {
 
           el.value = ctrl.api.getVolume();
           el.addEventListener('input', _ => {
-            const value = parseFloat(el.value);
+            const value = Number.parseFloat(el.value);
             setVolume(value);
           });
           el.addEventListener('mouseout', _ => el.blur());

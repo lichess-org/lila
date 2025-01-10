@@ -1,7 +1,9 @@
 import { winningChances } from 'ceval';
 import type { ChartConfiguration, ChartDataset, PointStyle } from 'chart.js';
+import { i18n } from 'i18n';
 import {
   animation,
+  axisOpts,
   blackFill,
   fontColor,
   fontFamily,
@@ -11,11 +13,9 @@ import {
   selectPly,
   tooltipBgColor,
   whiteFill,
-  axisOpts,
 } from '../common';
 import division from '../division';
 import type { AcplChart, AnalyseData, Player } from '../interface';
-import { i18n } from 'i18n';
 
 function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): AcplChart {
   const possibleChart = maybeChart(el);
@@ -46,8 +46,9 @@ function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): 
     mainline.slice(1).map(node => {
       const isSente = (node.ply & 1) === 1;
       let cp: number | undefined = node.eval && 0;
-      if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
-      else if (node.eval?.mate) cp = isSente ? Infinity : -Infinity;
+      if (node.eval && node.eval.mate)
+        cp = node.eval.mate > 0 ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
+      else if (node.eval?.mate) cp = isSente ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
       if (node.eval?.cp) cp = node.eval.cp;
       const plyOffset = ((d.game.startedAtPly || 0) - ((d.game.startedAtStep || 1) - 1)) % 2;
       const winchance = winningChances.povChances('sente', { cp: cp });

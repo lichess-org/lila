@@ -26,7 +26,7 @@ async function extractI18nKeys(packageName: string, filePath: string): Promise<S
 
     const callRegex = new RegExp(
       `(?<![.])(?:\\.{3})?\\b(?:${functionPattern})\\s*\\(\\s*(['"\`])([^\\'"\`]+)\\1`,
-      'g'
+      'g',
     );
     for (const match of sourceCode.matchAll(callRegex)) {
       keys.add(match[2]);
@@ -40,7 +40,7 @@ async function extractI18nKeys(packageName: string, filePath: string): Promise<S
 
 export async function extractI18nKeysFromDir(
   packageName: string,
-  dirPath: string
+  dirPath: string,
 ): Promise<Set<string>> {
   const allKeys = new Set<string>(),
     files = await fg(['**/*.{ts,js}'], {

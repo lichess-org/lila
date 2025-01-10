@@ -1,9 +1,9 @@
 import { winningChances } from 'ceval';
-import { DrawShape } from 'shogiground/draw';
+import type { DrawShape } from 'shogiground/draw';
 import { opposite } from 'shogiground/util';
-import { Role } from 'shogiops/types';
-import { makeSquareName, parseUsi, isDrop } from 'shogiops/util';
-import AnalyseCtrl from './ctrl';
+import type { Role } from 'shogiops/types';
+import { isDrop, makeSquareName, parseUsi } from 'shogiops/util';
+import type AnalyseCtrl from './ctrl';
 
 function pieceDrop(
   key: Key,
@@ -72,7 +72,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     shapes = shapes.concat(makeShapesFromUsi(color, hovering.usi, 'engine'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval?.best) shapes = shapes.concat(makeShapesFromUsi(rcolor, nEval.best, 'engine'));
-    if (!hovering && parseInt(instance.multiPv())) {
+    if (!hovering && Number.parseInt(instance.multiPv())) {
       const curNodeBest = instance.enabled() && nCeval,
         nextBest = curNodeBest ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest)

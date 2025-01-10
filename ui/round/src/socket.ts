@@ -1,13 +1,13 @@
+import { loadCssPath } from 'common/assets';
 import notify from 'common/notification';
 import throttle from 'common/throttle';
 import * as game from 'game';
 import { isPlayerTurn } from 'game';
-import RoundController from './ctrl';
-import { RoundData, Untyped } from './interfaces';
+import { i18n } from 'i18n';
+import type RoundController from './ctrl';
+import type { RoundData, Untyped } from './interfaces';
 import * as sound from './sound';
 import * as xhr from './xhr';
-import { i18n } from 'i18n';
-import { loadCssPath } from 'common/assets';
 
 const li = window.lishogi;
 
@@ -166,8 +166,8 @@ export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
             simul.id +
             '">Back to ' +
             simul.name +
-            ' simul</a>'
-        )
+            ' simul</a>',
+        ),
       );
     },
     postGameStudy(studyId: string) {

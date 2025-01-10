@@ -1,8 +1,8 @@
-import { SquareHighlight } from 'shogiground/draw';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import { i18n } from 'i18n';
+import type { SquareHighlight } from 'shogiground/draw';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, initial } from '../shapes';
-import { i18n } from 'i18n';
 
 const levels: IncompleteLevel[] = [
   {

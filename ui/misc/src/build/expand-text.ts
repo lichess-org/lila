@@ -23,11 +23,13 @@ function toYouTubeEmbedUrl(url: string | undefined): Parsed | undefined {
   m[2].split('&').forEach(p => {
     const s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
-      if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
+      if (s[1].match(/^\d+$/)) start = Number.parseInt(s[1]);
       else {
         const n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
         start = n
-          ? (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0)
+          ? (Number.parseInt(n[1]) || 0) * 3600 +
+            (Number.parseInt(n[2]) || 0) * 60 +
+            (Number.parseInt(n[3]) || 0)
           : 0;
       }
     }
@@ -159,7 +161,7 @@ const expandAnalysis = (a: Candidate): HTMLIFrameElement => {
   return iframe;
 };
 
-function expandStudies(studies: Candidate[], delay: number = 100): void {
+function expandStudies(studies: Candidate[], delay = 100): void {
   const currentStudy = studies.shift();
   const waitTime = Math.min(1500, delay);
 

@@ -25,7 +25,8 @@
     "typescript": "^5"
   },
   "devDependencies": {
-    "prettier": "^3"
+    "prettier": "^3",
+    "@biomejs/biome": "^1"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",

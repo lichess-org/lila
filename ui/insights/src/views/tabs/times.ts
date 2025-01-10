@@ -1,12 +1,12 @@
-import { VNode, h } from 'snabbdom';
-import InsightCtrl from '../../ctrl';
-import { section, translateRole } from '../util';
-import { InsightFilter, TimesResult } from '../../types';
+import { i18n } from 'i18n';
 import { allRoles } from 'shogiops/variant/util';
+import { type VNode, h } from 'snabbdom';
+import type InsightCtrl from '../../ctrl';
+import type { InsightFilter, TimesResult } from '../../types';
+import { fixed } from '../../util';
 import { barChart } from '../charts';
 import { accent, primary, total } from '../colors';
-import { fixed } from '../../util';
-import { i18n } from 'i18n';
+import { section, translateRole } from '../util';
 
 export function times(ctrl: InsightCtrl, data: TimesResult): VNode {
   return h('div.times', [
@@ -62,7 +62,9 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter): VNode {
         tooltip: {
           valueMap,
           counts: roles.map(key => movesCnt[key] || 0),
-          average: roles.map(key => (data.nbOfMovesByRole[key] ? (moves[key] || 0) / data.nbOfMovesByRole[key]! : 0)),
+          average: roles.map(key =>
+            data.nbOfMovesByRole[key] ? (moves[key] || 0) / data.nbOfMovesByRole[key]! : 0,
+          ),
           total: totalMoves,
         },
       },
@@ -73,7 +75,9 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter): VNode {
         tooltip: {
           valueMap,
           counts: roles.map(key => dropsCnt[key] || 0),
-          average: roles.map(key => (data.nbOfDropsByRole[key] ? (drops[key] || 0) / data.nbOfDropsByRole[key]! : 0)),
+          average: roles.map(key =>
+            data.nbOfDropsByRole[key] ? (drops[key] || 0) / data.nbOfDropsByRole[key]! : 0,
+          ),
           total: totalDrops,
         },
       },

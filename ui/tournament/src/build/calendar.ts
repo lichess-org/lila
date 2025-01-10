@@ -1,5 +1,5 @@
-import { VNode, attributesModule, classModule, init } from 'snabbdom';
-import { Ctrl } from '../calendar/interfaces';
+import { type VNode, attributesModule, classModule, init } from 'snabbdom';
+import type { Ctrl } from '../calendar/interfaces';
 import view from '../calendar/view';
 
 const patch = init([classModule, attributesModule]);

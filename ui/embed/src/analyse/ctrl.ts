@@ -1,7 +1,7 @@
 import { update } from 'common/mini-board';
-import { Source, Status } from 'game';
+import type { Source, Status } from 'game';
 import { makeNotation } from 'shogi/notation';
-import { TreeWrapper, build as makeTree, ops as treeOps, path as treePath } from 'tree';
+import { type TreeWrapper, build as makeTree, ops as treeOps, path as treePath } from 'tree';
 
 export class AnalyseCtrl {
   tree: TreeWrapper;
@@ -12,7 +12,7 @@ export class AnalyseCtrl {
 
   groundElement: HTMLElement | undefined;
 
-  autoScrollRequested: boolean = true;
+  autoScrollRequested = true;
   constructor(
     public data: AnalyseData,
     public study: StudyData | undefined,

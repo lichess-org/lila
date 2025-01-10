@@ -1,7 +1,7 @@
 import throttle from 'common/throttle';
 
 class Scroller {
-  enabled: boolean = false;
+  enabled = false;
   element?: HTMLElement;
   marker?: HTMLElement;
 
@@ -14,11 +14,12 @@ class Scroller {
         const el = this.element;
         this.enable(!!el && el.offsetHeight + el.scrollTop > el.scrollHeight - 20);
       }),
-      { passive: true }
+      { passive: true },
     );
   };
   auto = (): void => {
-    if (this.element && this.enabled) requestAnimationFrame(() => (this.element!.scrollTop = 9999999));
+    if (this.element && this.enabled)
+      requestAnimationFrame(() => (this.element!.scrollTop = 9999999));
   };
   enable = (v: boolean): void => {
     this.enabled = v;

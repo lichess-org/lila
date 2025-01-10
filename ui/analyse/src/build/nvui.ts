@@ -1,27 +1,27 @@
-import { Prop, prop } from 'common/common';
-import { MaybeVNodes, bind } from 'common/snabbdom';
-import { Player } from 'game';
+import { type Prop, prop } from 'common/common';
+import { type MaybeVNodes, bind } from 'common/snabbdom';
+import type { Player } from 'game';
+import { i18n } from 'i18n';
 import { commands } from 'nvui/command';
 import { Notify } from 'nvui/notify';
 import { renderSetting } from 'nvui/setting';
 import {
-  Style,
+  type Style,
   renderBoard,
+  renderHand,
   renderMove,
   renderPieces,
   styleSetting,
   supportedVariant,
   validUsi,
-  renderHand,
 } from 'nvui/shogi';
-import { Shogiground } from 'shogiground';
-import { VNode, h } from 'snabbdom';
-import AnalyseController from '../ctrl';
-import { makeConfig as makeSgConfig } from '../ground';
-import { AnalyseData, Redraw } from '../interfaces';
-import { opposite } from 'shogiground/util';
 import { engineNameFromCode } from 'shogi/engine-name';
-import { i18n } from 'i18n';
+import { Shogiground } from 'shogiground';
+import { opposite } from 'shogiground/util';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseController from '../ctrl';
+import { makeConfig as makeSgConfig } from '../ground';
+import type { AnalyseData, Redraw } from '../interfaces';
 
 function main(redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -55,14 +55,14 @@ function main(redraw: Redraw) {
           h('h1', i18n('nvui:textualRepresentation')),
           h('h2', i18n('nvui:gameInfo')),
           ...['sente', 'gote'].map((color: Color) =>
-            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))])
+            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
           ),
           h('p', `${d.game.rated ? i18n('rated') : i18n('casual')}`),
           d.clock
             ? h(
                 'p',
                 i18n('clock') +
-                  `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`
+                  `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`,
               )
             : null,
           h('h2', i18n('nvui:moves')),
@@ -74,7 +74,7 @@ function main(redraw: Redraw) {
                 'aria-live': 'off',
               },
             },
-            renderMainline(ctrl.mainline, ctrl.path, ctrl.data.game.variant.key, style)
+            renderMainline(ctrl.mainline, ctrl.path, ctrl.data.game.variant.key, style),
           ),
           h('h2', i18n('nvui:pieces')),
           h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
@@ -87,7 +87,7 @@ function main(redraw: Redraw) {
                 'aria-atomic': 'true',
               },
             },
-            renderCurrentNode(ctrl.node, ctrl.data.game.variant.key, style)
+            renderCurrentNode(ctrl.node, ctrl.data.game.variant.key, style),
           ),
           h('h2', i18n('nvui:moveForm')),
           h(
@@ -113,7 +113,7 @@ function main(redraw: Redraw) {
                   },
                 }),
               ]),
-            ]
+            ],
           ),
           notify.render(),
           // h('h2', 'Actions'),
@@ -130,8 +130,8 @@ function main(redraw: Redraw) {
               opposite(ctrl.data.player.color),
               ctrl.shogiground.state.hands.handMap.get(opposite(ctrl.data.player.color)),
               ctrl.data.game.variant.key,
-              style
-            )
+              style,
+            ),
           ),
           h(
             'pre.board',
@@ -139,8 +139,8 @@ function main(redraw: Redraw) {
               ctrl.shogiground.state.pieces,
               ctrl.data.player.color,
               ctrl.data.game.variant.key,
-              style
-            )
+              style,
+            ),
           ),
           h(
             'pre.hand',
@@ -149,8 +149,8 @@ function main(redraw: Redraw) {
               ctrl.data.player.color,
               ctrl.shogiground.state.hands.handMap.get(ctrl.data.player.color),
               ctrl.data.game.variant.key,
-              style
-            )
+              style,
+            ),
           ),
           h('div.content', {
             hook: {
@@ -182,9 +182,9 @@ function onSubmit(
   ctrl: AnalyseController,
   notify: (txt: string) => void,
   style: () => Style,
-  $input: JQuery<HTMLInputElement>
+  $input: JQuery<HTMLInputElement>,
 ) {
-  return function () {
+  return () => {
     let input = $input.val()?.trim()!;
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -208,14 +208,14 @@ function onCommand(
   ctrl: AnalyseController,
   notify: (txt: string) => void,
   c: string,
-  style: Style
+  style: Style,
 ) {
   const pieces = ctrl.shogiground.state.pieces,
     hands = ctrl.shogiground.state.hands.handMap;
   notify(
     commands.piece.apply(c, pieces, hands, style) ||
       commands.scan.apply(c, pieces, style) ||
-      `Invalid command: ${c}`
+      `Invalid command: ${c}`,
   );
 }
 
@@ -224,12 +224,12 @@ const analysisGlyphs = ['?!', '?', '??'];
 function renderAcpl(
   ctrl: AnalyseController,
   variant: VariantKey,
-  style: Style
+  style: Style,
 ): MaybeVNodes | undefined {
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
   const analysisNodes = ctrl.mainline.filter(n =>
-    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol))
+    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)),
   );
   const res: Array<VNode> = [];
   ['sente', 'gote'].forEach((color: Color) => {
@@ -241,8 +241,8 @@ function renderAcpl(
         {
           hook: bind(
             'change',
-            e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)),
-            ctrl.redraw
+            e => ctrl.jumpToMain(Number.parseInt((e.target as HTMLSelectElement).value)),
+            ctrl.redraw,
           ),
         },
         analysisNodes
@@ -260,10 +260,10 @@ function renderAcpl(
                 node.ply + ctrl.plyOffset(),
                 renderMove(node.usi, node.sfen, variant, style),
                 renderComments(node),
-              ].join(' ')
-            )
-          )
-      )
+              ].join(' '),
+            ),
+          ),
+      ),
     );
   });
   return res;
@@ -272,7 +272,7 @@ function renderAcpl(
 function requestAnalysisButton(
   ctrl: AnalyseController,
   inProgress: Prop<boolean>,
-  notify: (msg: string) => void
+  notify: (msg: string) => void,
 ) {
   if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
@@ -291,7 +291,7 @@ function requestAnalysisButton(
           });
       }),
     },
-    'Request a computer analysis'
+    'Request a computer analysis',
   );
 }
 
@@ -299,7 +299,7 @@ function renderMainline(
   nodes: Tree.Node[],
   currentPath: Tree.Path,
   variant: VariantKey,
-  style: Style
+  style: Style,
 ) {
   const res: Array<string | VNode> = [];
   let path: Tree.Path = '';
@@ -317,8 +317,8 @@ function renderMainline(
           attrs: { p: path },
           class: { active: path === currentPath },
         },
-        content.join(' ')
-      )
+        content.join(' '),
+      ),
     );
     res.push(renderComments(node));
     res.push(', ');
@@ -329,7 +329,7 @@ function renderMainline(
 
 function renderCurrentNode(node: Tree.Node, variant: VariantKey, style: Style): string {
   return [node.ply, renderMove(node.usi, node.sfen, variant, style), renderComments(node)].join(
-    ' '
+    ' ',
   );
 }
 
@@ -360,7 +360,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
           {
             attrs: { href: '/@/' + user.username },
           },
-          user.title ? `${user.title} ${user.username}` : user.username
+          user.title ? `${user.title} ${user.username}` : user.username,
         ),
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,

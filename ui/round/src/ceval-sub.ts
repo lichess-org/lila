@@ -1,5 +1,5 @@
-import RoundController from './ctrl';
-import { ApiMove, RoundData } from './interfaces';
+import type RoundController from './ctrl';
+import type { ApiMove, RoundData } from './interfaces';
 import { lastStep } from './round';
 
 const li = window.lishogi;

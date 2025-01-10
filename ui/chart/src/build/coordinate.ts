@@ -1,5 +1,5 @@
 import type { Chart, ChartConfiguration } from 'chart.js';
-import { fontColor, tooltipBgColor, blueLineColor, fontFamily } from '../common';
+import { blueLineColor, fontColor, fontFamily, tooltipBgColor } from '../common';
 
 function main(canvas: HTMLCanvasElement, data: number[], color: Color): Chart {
   const isSente = color === 'sente',

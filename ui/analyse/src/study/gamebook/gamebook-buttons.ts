@@ -1,8 +1,8 @@
 import { bind, dataIcon } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../../ctrl';
-import { StudyCtrl } from '../interfaces';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../../ctrl';
+import type { StudyCtrl } from '../interfaces';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,
@@ -20,7 +20,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { 'data-icon': 'I', disabled: !root.path },
           hook: bind('click', () => root.userJump(''), ctrl.redraw),
         },
-        i18n('back')
+        i18n('back'),
       ),
       h(
         'div.text.solution',
@@ -28,10 +28,10 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { 'data-icon': 'G', disabled: !myTurn },
           hook: bind('click', ctrl.solution, ctrl.redraw),
         },
-        i18n('viewTheSolution')
+        i18n('viewTheSolution'),
       ),
       overrideButton(study),
-    ])
+    ]),
   );
 }
 
@@ -49,10 +49,10 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
             () => {
               study.setGamebookOverride(o === 'play' ? undefined : 'play');
             },
-            study.redraw
+            study.redraw,
           ),
         },
-        i18n('preview')
+        i18n('preview'),
       );
     else {
       const isAnalyse = o === 'analyse',
@@ -68,10 +68,10 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
               () => {
                 study.setGamebookOverride(isAnalyse ? undefined : 'analyse');
               },
-              study.redraw
+              study.redraw,
             ),
           },
-          i18n('analyse')
+          i18n('analyse'),
         );
     }
   }

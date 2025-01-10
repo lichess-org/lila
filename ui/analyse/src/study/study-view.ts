@@ -1,7 +1,8 @@
-import { MaybeVNodes, bind, dataIcon, MaybeVNode } from 'common/snabbdom';
+import { type MaybeVNode, type MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
+import { i18n, i18nPluralSame } from 'i18n';
 import { opposite } from 'shogiground/util';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { iconTag } from '../util';
 import { view as chapterEditFormView } from './chapter-edit-form';
 import { view as chapterNewFormView } from './chapter-new-form';
@@ -11,7 +12,7 @@ import {
   overrideButton as gbOverrideButton,
   playButtons as gbPlayButtons,
 } from './gamebook/gamebook-buttons';
-import { StudyCtrl, Tab, ToolTab } from './interfaces';
+import type { StudyCtrl, Tab, ToolTab } from './interfaces';
 import { view as inviteFormView } from './invite-form';
 import { view as multiBoardView } from './multi-board';
 import { view as notifView } from './notif';
@@ -24,7 +25,6 @@ import { view as memberView } from './study-members';
 import { view as studyShareView } from './study-share';
 import { view as tagsView } from './study-tags';
 import { formView as topicsFormView, view as topicsView } from './topics';
-import { i18n, i18nPluralSame } from 'i18n';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -220,8 +220,8 @@ function metadata(ctrl: StudyCtrl): VNode {
 export function side(ctrl: StudyCtrl): VNode {
   const activeTab = ctrl.vm.tab();
 
-  const makeTab = function (key: Tab, name: string) {
-    return h(
+  const makeTab = (key: Tab, name: string) =>
+    h(
       'span.' + key,
       {
         class: { active: activeTab === key },
@@ -235,7 +235,6 @@ export function side(ctrl: StudyCtrl): VNode {
       },
       name,
     );
-  };
 
   const tabs = h('div.tabs-horiz', [
     makeTab('chapters', i18nPluralSame('study:nbChapters', ctrl.chapters.size())),

@@ -14,13 +14,13 @@ window.lishogi.ready.then(() => {
 
   function userChoices(row) {
     const options = ["<option value=''></option>"],
-      isSelected = function (row, rowClassName, user, dataKey): string {
+      isSelected = (row, rowClassName, user, dataKey): string => {
         const player = $form.data(dataKey);
         return row.classList.contains(rowClassName) && player.length && user == player
           ? 'selected'
           : '';
       };
-    getUsernames().forEach(function (user) {
+    getUsernames().forEach(user => {
       const option: string[] = [];
       option.push("<option value='" + user + "'");
       option.push(isSelected(row, 'winner', user, 'req-winner'));
@@ -42,7 +42,7 @@ window.lishogi.ready.then(() => {
   reloadUserChoices();
   $usernames.on('input paste', reloadUserChoices);
 
-  const toggleAiLevel = function () {
+  const toggleAiLevel = () => {
     $form.find('.opponent select').each(function () {
       $form.find('.aiLevel').toggleNone($(this).val() == 1);
       $form.find('.opponentName').toggleNone($(this).val() != 1);
@@ -51,7 +51,7 @@ window.lishogi.ready.then(() => {
   toggleAiLevel();
   $form.find('.opponent select').on('change', toggleAiLevel);
 
-  const serialize = function (all = false) {
+  const serialize = (all = false) => {
     const sel = $form.find('input,select');
     return (all ? sel : sel.not('[type=hidden]'))
       .filter(function () {
@@ -89,7 +89,7 @@ window.lishogi.ready.then(() => {
     });
   });
 
-  $form.on('submit', function () {
+  $form.on('submit', () => {
     $form
       .find('input,select')
       .filter(function () {

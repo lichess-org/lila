@@ -1,5 +1,5 @@
-import { VNode } from 'snabbdom';
-import LearnCtrl from '../ctrl';
+import type { VNode } from 'snabbdom';
+import type LearnCtrl from '../ctrl';
 import home from './home';
 import lesson from './lesson';
 

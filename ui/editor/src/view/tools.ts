@@ -1,13 +1,13 @@
-import { RULES } from 'shogiops/constants';
-import { Handicap, Role, Rules } from 'shogiops/types';
-import { defaultPosition } from 'shogiops/variant/variant';
-import { findHandicaps, isHandicap } from 'shogiops/handicaps';
-import { VNode, h } from 'snabbdom';
-import { roleName } from 'shogi/notation';
-import { i18nVariant } from 'i18n/variant';
-import EditorCtrl from '../ctrl';
-import { EditorState } from '../interfaces';
 import { i18n } from 'i18n';
+import { i18nVariant } from 'i18n/variant';
+import { roleName } from 'shogi/notation';
+import { RULES } from 'shogiops/constants';
+import { findHandicaps, isHandicap } from 'shogiops/handicaps';
+import type { Handicap, Role, Rules } from 'shogiops/types';
+import { defaultPosition } from 'shogiops/variant/variant';
+import { type VNode, h } from 'snabbdom';
+import type EditorCtrl from '../ctrl';
+import type { EditorState } from '../interfaces';
 
 export function tools(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.tools', [
@@ -47,8 +47,8 @@ function variants(ctrl: EditorCtrl): VNode {
 }
 
 function positions(ctrl: EditorCtrl, state: EditorState): VNode {
-  const position2option = function (handicap: Omit<Handicap, 'rules'>): VNode {
-    return h(
+  const position2option = (handicap: Omit<Handicap, 'rules'>): VNode =>
+    h(
       'option',
       {
         attrs: {
@@ -59,7 +59,6 @@ function positions(ctrl: EditorCtrl, state: EditorState): VNode {
       },
       `${handicap.japaneseName} (${handicap.englishName})`,
     );
-  };
   return h('div.positions', [
     h(
       'select',
@@ -109,12 +108,7 @@ function pieceCounter(ctrl: EditorCtrl): VNode {
     'tokin',
     'king',
   ];
-  function singlePieceCounter(
-    cur: number,
-    total: number,
-    name: string,
-    suffix: string = '',
-  ): VNode {
+  function singlePieceCounter(cur: number, total: number, name: string, suffix = ''): VNode {
     return h('span', [
       h('strong', ` ${name}: `),
       `${cur.toString()}/${total.toString()}`,

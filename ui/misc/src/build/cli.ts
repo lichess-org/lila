@@ -13,7 +13,7 @@ function main(opts: { $wrap: JQuery; toggle: () => void }): void {
         $('body').hasClass('clinput') && opts.toggle();
       },
     })
-    .then(function () {
+    .then(() => {
       $input.on('blur', () => {
         $input.val('');
         $('body').hasClass('clinput') && opts.toggle();
@@ -31,9 +31,7 @@ function command(q: string) {
   const parts = q.split(' '),
     exec = parts[0];
 
-  const is = function (commands: string) {
-    return commands.split(' ').includes(exec);
-  };
+  const is = (commands: string) => commands.split(' ').includes(exec);
 
   if (is('tv follow') && parts[1]) location.href = '/@/' + parts[1] + '/tv';
   else if (is('tv')) location.href = '/tv';

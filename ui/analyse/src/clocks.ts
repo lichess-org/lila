@@ -1,12 +1,12 @@
-import * as game from 'game';
-import { VNode, h } from 'snabbdom';
 import { defined } from 'common/common';
+import * as game from 'game';
 import { engineNameFromCode } from 'shogi/engine-name';
-import AnalyseCtrl from './ctrl';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from './ctrl';
 
 export default function renderClocks(
   ctrl: AnalyseCtrl,
-  withNames: boolean
+  withNames: boolean,
 ): [VNode, VNode] | undefined {
   if (ctrl.embed || (ctrl.data.game.status.name === 'started' && !ctrl.imported)) return;
   const node = ctrl.node,
@@ -42,7 +42,7 @@ export default function renderClocks(
       isSenteTurn,
       sentePov ? 'bottom' : 'top',
       showTenths,
-      showNames
+      showNames,
     ),
     renderClock(
       'gote',
@@ -51,7 +51,7 @@ export default function renderClocks(
       !isSenteTurn,
       sentePov ? 'top' : 'bottom',
       showTenths,
-      showNames
+      showNames,
     ),
   ];
 }
@@ -63,7 +63,7 @@ function renderClock(
   active: boolean,
   cls: string,
   showTenths: boolean,
-  showNames: boolean
+  showNames: boolean,
 ): VNode {
   return h(
     `div.analyse__clock.${cls}`,
@@ -73,7 +73,7 @@ function renderClock(
     [
       showNames ? playerName(color, player) : undefined,
       h('div.time', clockContent(centis, showTenths)),
-    ]
+    ],
   );
 }
 
@@ -120,6 +120,6 @@ function renderOnlyName(color: Color, player: game.Player, active: boolean, cls:
     {
       class: { active },
     },
-    playerName(color, player)
+    playerName(color, player),
   );
 }

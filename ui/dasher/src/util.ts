@@ -1,10 +1,14 @@
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 
 export type Redraw = () => void;
 export type Close = () => void;
 export type Open = (sub: string) => void;
 
-export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
+export function bind(
+  eventName: string,
+  f: (e: Event) => void,
+  redraw: Redraw | undefined = undefined,
+) {
   return {
     insert: (vnode: VNode): void => {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
@@ -24,11 +28,14 @@ export function header(name: string, close: Close): VNode {
       attrs: { 'data-icon': 'I' },
       hook: bind('click', close),
     },
-    name
+    name,
   );
 }
 
 export function validateUrl(url: string): boolean {
   // modules/pref/src/main/PrefForm.scala
-  return url === '' || ((url.startsWith('https://') || url.startsWith('//')) && url.length >= 10 && url.length <= 400);
+  return (
+    url === '' ||
+    ((url.startsWith('https://') || url.startsWith('//')) && url.length >= 10 && url.length <= 400)
+  );
 }

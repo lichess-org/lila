@@ -1,4 +1,4 @@
-import { Eval } from './types';
+import type { Eval } from './types';
 
 const toPov = (color: Color, diff: number): number => (color === 'sente' ? diff : -diff);
 
@@ -8,7 +8,8 @@ const rawWinningChances = (cp: number): number => {
   return 2 / (1 + Math.exp(MULTIPLIER * cp)) - 1;
 };
 
-const cpWinningChances = (cp: number): number => rawWinningChances(Math.min(Math.max(-5500, cp), 5500));
+const cpWinningChances = (cp: number): number =>
+  rawWinningChances(Math.min(Math.max(-5500, cp), 5500));
 
 const mateWinningChances = (mate: number): number => {
   // note: the minimum value of cp here (i.e. when mate >= 20) must be above the range in cpWinningChances (5500)

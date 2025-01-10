@@ -15,7 +15,7 @@ export interface Prop<T> {
 // like mithril prop but with type safety
 export const prop = <A>(initialValue: A): Prop<A> => {
   let value = initialValue;
-  const fun = function (v: A | undefined) {
+  const fun = (v: A | undefined) => {
     if (defined(v)) value = v;
     return value;
   };

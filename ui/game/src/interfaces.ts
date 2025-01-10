@@ -1,4 +1,4 @@
-import { EngineCode } from 'shogi/engine-name';
+import type { EngineCode } from 'shogi/engine-name';
 
 export interface GameData {
   game: Game;

@@ -1,12 +1,12 @@
-import { Status, StatusId, StatusName } from '../interfaces';
-import { colorName } from 'shogi/color-name';
-import { statusIdToName } from '../status';
 import { i18n, i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import type { Status, StatusId, StatusName } from '../interfaces';
+import { statusIdToName } from '../status';
 
 export default function status(
   status: Status | StatusName | StatusId,
   winner: Color | undefined,
-  isHandicap: boolean
+  isHandicap: boolean,
 ): string {
   const name: StatusName | undefined =
     typeof status === 'object'
@@ -29,7 +29,7 @@ export default function status(
       return winner
         ? i18nFormatCapitalized(
             'xResigned',
-            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap)
+            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap),
           )
         : i18n('finished');
     case 'stalemate':
@@ -48,7 +48,7 @@ export default function status(
         case 'gote':
           return i18nFormatCapitalized(
             'xLeftTheGame',
-            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap)
+            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap),
           );
         default:
           return i18n('draw');
@@ -61,7 +61,7 @@ export default function status(
       return winner
         ? i18nFormatCapitalized(
             'xDidntMove',
-            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap)
+            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap),
           )
         : i18n('finished');
     case 'cheat':

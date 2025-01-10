@@ -1,5 +1,5 @@
 import { requestIdleCallbackWithFallback } from 'common/common';
-import { h, VNode } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 
 type Notification = {
   text: string;
@@ -11,7 +11,7 @@ export class Notify {
 
   constructor(
     readonly redraw: () => void,
-    readonly timeout: number = 3000
+    readonly timeout: number = 3000,
   ) {}
 
   set = (msg: string): void => {
@@ -22,7 +22,9 @@ export class Notify {
   };
 
   currentText = (): string =>
-    this.notification && this.notification.date.getTime() > Date.now() - this.timeout ? this.notification.text : '';
+    this.notification && this.notification.date.getTime() > Date.now() - this.timeout
+      ? this.notification.text
+      : '';
 
   render = (): VNode =>
     h(
@@ -33,6 +35,6 @@ export class Notify {
           'aria-atomic': 'true',
         },
       },
-      this.currentText()
+      this.currentText(),
     );
 }

@@ -1,35 +1,42 @@
-import { makeNotation, makeNotationLine } from 'shogi/notation';
+import { loadScript } from 'common/assets';
+import { requestIdleCallbackWithFallback } from 'common/common';
 import notify from 'common/notification';
 import * as game from 'game';
 import * as status from 'game/status';
+import { i18n } from 'i18n';
+import { type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboard-move';
+import { makeNotation, makeNotationLine } from 'shogi/notation';
 import { Shogiground } from 'shogiground';
-import { Api as SgApi } from 'shogiground/api';
-import { Config as SgConfig } from 'shogiground/config';
-import * as sg from 'shogiground/types';
+import type { Api as SgApi } from 'shogiground/api';
+import type { Config as SgConfig } from 'shogiground/config';
+import type { State } from 'shogiground/state';
+import type * as sg from 'shogiground/types';
 import { samePiece } from 'shogiground/util';
 import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
 import { checksSquareNames, shogigroundSecondLionStep, usiToSquareNames } from 'shogiops/compat';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
-import { NormalMove, Piece, Role, Square } from 'shogiops/types';
-import { State } from 'shogiground/state';
+import type { NormalMove, Piece, Role, Square } from 'shogiops/types';
 import {
   defined,
+  isDrop,
   makeSquareName,
   makeUsi,
   opposite,
   parseSquareName,
   parseUsi,
   squareDist,
-  isDrop,
 } from 'shogiops/util';
-import { Chushogi } from 'shogiops/variant/chushogi';
+import type { Chushogi } from 'shogiops/variant/chushogi';
 import { handRoles, promotableOnDrop, promote, unpromote } from 'shogiops/variant/util';
 import * as blur from './blur';
 import * as cevalSub from './ceval-sub';
 import { ClockController } from './clock/clock-ctrl';
-import { CorresClockController, ctrl as makeCorresClock } from './corres-clock/corres-clock-ctrl';
-import * as ground from './ground';
 import {
+  type CorresClockController,
+  ctrl as makeCorresClock,
+} from './corres-clock/corres-clock-ctrl';
+import * as ground from './ground';
+import type {
   ApiEnd,
   ApiMove,
   MoveMetadata,
@@ -43,10 +50,9 @@ import {
   Step,
 } from './interfaces';
 import * as keyboard from './keyboard';
-import { KeyboardMove, ctrl as makeKeyboardMove } from 'keyboard-move';
 import MoveOn from './move-on';
 import * as round from './round';
-import { RoundSocket, make as makeSocket } from './socket';
+import { type RoundSocket, make as makeSocket } from './socket';
 import * as sound from './sound';
 import * as speech from './speech';
 import * as title from './title';
@@ -54,9 +60,6 @@ import TransientMove from './transient-move';
 import * as util from './util';
 import * as renderUser from './view/user';
 import * as xhr from './xhr';
-import { loadScript } from 'common/assets';
-import { requestIdleCallbackWithFallback } from 'common/common';
-import { i18n } from 'i18n';
 
 interface GoneBerserk {
   sente?: boolean;
@@ -77,13 +80,13 @@ export default class RoundController {
   moveOn: MoveOn;
 
   ply: number;
-  firstSeconds: boolean = true;
-  flip: boolean = false;
-  loading: boolean = false;
+  firstSeconds = true;
+  flip = false;
+  loading = false;
   loadingTimeout: number;
-  redirecting: boolean = false;
-  impasseHelp: boolean = false;
-  postGameStudyOffer: boolean = false;
+  redirecting = false;
+  impasseHelp = false;
+  postGameStudyOffer = false;
   transientMove: TransientMove;
   usiToSubmit?: SocketUsi;
   lionFirstMove?: NormalMove;
@@ -93,8 +96,8 @@ export default class RoundController {
   pauseConfirm?: Timeout = undefined;
   // will be replaced by view layer
   autoScroll: () => void = $.noop;
-  challengeRematched: boolean = false;
-  shouldSendMoveTime: boolean = false;
+  challengeRematched = false;
+  shouldSendMoveTime = false;
   openStudyModal = false;
   lastDrawOfferAtPly?: Ply;
   lastPauseOfferAtTime?: number;
@@ -156,7 +159,7 @@ export default class RoundController {
 
     // at the end:
     li.pubsub.on('jump', ply => {
-      this.jump(parseInt(ply));
+      this.jump(Number.parseInt(ply));
       this.redraw();
     });
 
@@ -203,7 +206,7 @@ export default class RoundController {
     // to update hand immediately and not wait on apiMove
     if (meta.captured) {
       const role = meta.captured.role as Role;
-      let unpromotedRole = handRoles(this.data.game.variant.key).includes(role)
+      const unpromotedRole = handRoles(this.data.game.variant.key).includes(role)
         ? role
         : unpromote(this.data.game.variant.key)(role) || role;
       this.shogiground.addToHand({
@@ -691,7 +694,7 @@ export default class RoundController {
     $('<i data-icon="`">').appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
-  setLoading = (v: boolean, duration: number = 1500): void => {
+  setLoading = (v: boolean, duration = 1500): void => {
     clearTimeout(this.loadingTimeout);
     if (v) {
       this.loading = true;

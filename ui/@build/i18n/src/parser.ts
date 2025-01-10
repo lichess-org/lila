@@ -1,6 +1,6 @@
-import { readFile } from 'fs/promises';
 import { XMLParser } from 'fast-xml-parser';
-import { I18nObj, PluralCategory, XmlSource } from './types.js';
+import { readFile } from 'fs/promises';
+import type { I18nObj, PluralCategory, XmlSource } from './types.js';
 
 interface StringResource {
   '@_name': string;
@@ -69,7 +69,7 @@ async function parseXml(source: XmlSource): Promise<I18nObj> {
             acc[item['@_quantity']] = item['#text'];
             return acc;
           },
-          {} as Partial<Record<PluralCategory, string>>
+          {} as Partial<Record<PluralCategory, string>>,
         );
       });
     }

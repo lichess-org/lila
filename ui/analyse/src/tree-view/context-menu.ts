@@ -1,10 +1,10 @@
 import { bind, onInsert } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import patch from '../patch';
 import * as studyView from '../study/study-view';
 import { nodeFullName } from '../util';
-import { i18n } from 'i18n';
 
 export interface Opts {
   path: Tree.Path;
@@ -65,7 +65,7 @@ function action(icon: string, text: string, handler: () => void): VNode {
       attrs: { 'data-icon': icon },
       hook: bind('click', handler),
     },
-    text
+    text,
   );
 }
 
@@ -102,7 +102,7 @@ function view(opts: Opts, coords: Coords): VNode {
         onMainline && !cantChangeMainline
           ? action('F', i18n('forceVariation'), () => ctrl.forceVariation(opts.path, true))
           : null,
-      ])
+      ]),
   );
 }
 

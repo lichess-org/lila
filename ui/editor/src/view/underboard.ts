@@ -1,6 +1,6 @@
-import { VNode, h } from 'snabbdom';
-import EditorCtrl from '../ctrl';
-import { EditorState } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type EditorCtrl from '../ctrl';
+import type { EditorState } from '../interfaces';
 import { inputs } from './inputs';
 import { tools } from './tools';
 

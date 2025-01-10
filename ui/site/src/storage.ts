@@ -9,7 +9,7 @@ function buildStorage(storage: Storage): LishogiStorageHelper {
           sri: window.lishogi.sri,
           nonce: Math.random(), // ensure item changes
           value: v,
-        })
+        }),
       ),
     remove: k => storage.removeItem(k),
     make: k => ({

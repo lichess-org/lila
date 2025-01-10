@@ -1,4 +1,4 @@
-import { pluralCategories } from './constants.js';
+import type { pluralCategories } from './constants.js';
 
 export type PluralCategory = (typeof pluralCategories)[number];
 

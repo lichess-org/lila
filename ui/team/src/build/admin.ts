@@ -17,7 +17,7 @@ window.lishogi.ready.then(() => {
   const doFetch: (term: string) => Promise<string[]> = debounce(
     (term: string) =>
       window.lishogi.xhr.json('GET', '/api/player/autocomplete', { url: { term, names: true } }),
-    300
+    300,
   );
   tagify.on('input', e => {
     const term = (e.detail as Tagify.TagData).value.trim();

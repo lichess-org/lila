@@ -1,9 +1,9 @@
-import { CevalCtrl, winningChances } from 'ceval';
-import { Api as SgApi } from 'shogiground/api';
-import { DrawShape } from 'shogiground/draw';
+import { type CevalCtrl, winningChances } from 'ceval';
+import type { Api as SgApi } from 'shogiground/api';
+import type { DrawShape } from 'shogiground/draw';
 import { opposite } from 'shogiground/util';
-import { makeSquareName, parseUsi, isDrop } from 'shogiops/util';
-import { Vm } from './interfaces';
+import { isDrop, makeSquareName, parseUsi } from 'shogiops/util';
+import type { Vm } from './interfaces';
 
 interface Opts {
   vm: Vm;

@@ -78,7 +78,7 @@ function playMusic(): { jump: (node: Tree.Node) => void } {
 
   // 7f = (7 - 1) * 12 + 5 = 77
   const keyToInt = (key: string): number => {
-    return (parseInt(key[0]) - 1) * 12 + rankToInt(key[1]);
+    return (Number.parseInt(key[0]) - 1) * 12 + rankToInt(key[1]);
   };
 
   const usiBase = 122,

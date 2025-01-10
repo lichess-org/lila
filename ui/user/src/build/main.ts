@@ -2,7 +2,7 @@ import * as domData from 'common/data';
 
 window.lishogi.ready.then(() => {
   $('.user-show .note-zone-toggle').each(function (this: HTMLElement) {
-    $(this).on('click',function () {
+    $(this).on('click', () => {
       $('.user-show .note-zone').toggle();
     });
     if (location.search.includes('note')) $(this).trigger('click');

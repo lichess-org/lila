@@ -1,10 +1,15 @@
+import { numberFormat } from 'common/number';
 import { bind } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import { ModerationCtrl, ModerationData, ModerationOpts, ModerationReason } from './interfaces';
+import { type VNode, h } from 'snabbdom';
+import type {
+  ModerationCtrl,
+  ModerationData,
+  ModerationOpts,
+  ModerationReason,
+} from './interfaces';
 import { userLink } from './util';
 import { userModInfo } from './xhr';
-import { numberFormat } from 'common/number';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -79,7 +84,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                   href: '/@/' + data.username + '?mod',
                 },
               },
-              'profile'
+              'profile',
             ),
           ])
           .concat(
@@ -92,11 +97,11 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                         href: '/mod/' + data.username + '/communication',
                       },
                     },
-                    'coms'
+                    'coms',
                   ),
                 ]
-              : []
-          )
+              : [],
+          ),
       )
     : undefined;
 
@@ -110,7 +115,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               attrs: { 'data-icon': 'p' },
               hook: bind('click', () => ctrl.timeout(r, data.text)),
             },
-            r.name
+            r.name,
           );
         }),
       ])
@@ -122,7 +127,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             attrs: { 'data-icon': 'p' },
             hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text)),
           },
-          'Timeout 10 minutes'
+          'Timeout 10 minutes',
         ),
       ]);
 
@@ -138,19 +143,19 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                 insert: () => window.lishogi.pubsub.emit('content_loaded'),
               },
             },
-            data.history.map(function (e) {
-              return h('tr', [
+            data.history.map(e =>
+              h('tr', [
                 h('td.reason', e.reason),
                 h('td.mod', e.mod),
                 h(
                   'td',
                   h('time.timeago', {
                     attrs: { datetime: e.date },
-                  })
+                  }),
                 ),
-              ]);
-            })
-          )
+              ]),
+            ),
+          ),
         ),
       ])
     : undefined;
@@ -162,13 +167,18 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         {
           attrs: { 'data-icon': '' },
         },
-        [userLink(data.username)]
+        [userLink(data.username)],
       ),
       h('a', {
         attrs: { 'data-icon': 'L' },
         hook: bind('click', ctrl.close),
       }),
     ]),
-    h('div.mchat__content.moderation', [h('i.line-text.block', ['"', data.text, '"']), infos, timeout, history]),
+    h('div.mchat__content.moderation', [
+      h('i.line-text.block', ['"', data.text, '"']),
+      infos,
+      timeout,
+      history,
+    ]),
   ];
 }

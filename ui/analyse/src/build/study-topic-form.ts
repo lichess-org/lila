@@ -1,17 +1,17 @@
-import debounce from 'debounce-promise';
 import Tagify from '@yaireo/tagify';
+import debounce from 'debounce-promise';
 
 window.lishogi.ready.then(() => {
   const input = document.getElementById('form3-topics') as HTMLInputElement;
   const tagify = new Tagify(input, {
     pattern: /.{2,}/,
-    maxTags: parseInt(input?.dataset['max'] ?? '64'),
+    maxTags: Number.parseInt(input?.dataset['max'] ?? '64'),
   });
 
   const doFetch: (term: string) => Promise<string[]> = debounce(
     (term: string) =>
       window.lishogi.xhr.json('GET', '/study/topic/autocomplete', { url: { term } }),
-    300
+    300,
   );
   let clickDebounce: Timeout | undefined; // https://yaireo.github.io/tagify/#section-advance-options
 

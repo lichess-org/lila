@@ -1,8 +1,8 @@
-import { VNode, h } from 'snabbdom';
-import { Close, Redraw, bind, header } from './util';
 import { assetUrl } from 'common/assets';
-import { i18nVariant } from 'i18n/variant';
 import { i18n } from 'i18n';
+import { i18nVariant } from 'i18n/variant';
+import { type VNode, h } from 'snabbdom';
+import { type Close, type Redraw, bind, header } from './util';
 
 type PieceSetKey = string;
 type PieceSet = {
@@ -31,7 +31,7 @@ export function ctrl(
   chu: PieceSetData,
   kyo: PieceSetData,
   redraw: Redraw,
-  close: Close
+  close: Close,
 ): PieceCtrl {
   const isChushogi = !!document.body.querySelector('.main-v-chushogi'),
     isKyotoshogi = !isChushogi && !!document.body.querySelector('.main-v-kyotoshogi');
@@ -57,7 +57,7 @@ export function ctrl(
           `/pref/${isChu(key) ? 'chuPieceSet' : isKyo(key) ? 'kyoPieceSet' : 'pieceSet'}`,
           {
             formData: { set: key },
-          }
+          },
         )
         .catch(() => window.lishogi.announce({ msg: 'Failed to save piece set preference' }));
       redraw();
@@ -81,7 +81,7 @@ export function view(ctrl: PieceCtrl): VNode {
         ? h('div.list', ctrl.chu.list.map(pieceView(ctrl.chu.current)))
         : ctrl.activeTab === 'kyotoshogi'
           ? h('div.list', ctrl.kyo.list.map(pieceView(ctrl.kyo.current)))
-          : h('div.list', ctrl.std.list.map(pieceView(ctrl.std.current)))
+          : h('div.list', ctrl.std.list.map(pieceView(ctrl.std.current))),
     ),
     h(
       'a.piece-tabs',
@@ -95,9 +95,9 @@ export function view(ctrl: PieceCtrl): VNode {
         h(
           'div',
           { attrs: { 'data-tab': v }, class: { active: ctrl.activeTab === v } },
-          i18nVariant(v)
-        )
-      )
+          i18nVariant(v),
+        ),
+      ),
     ),
   ]);
 }
@@ -142,7 +142,7 @@ function pieceView(current: PieceSetKey) {
             }`,
           },
         }),
-      ]
+      ],
     );
 }
 

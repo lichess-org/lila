@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { and, check, colorOn, not, pieceOn, unprotectedCapture } from '../assert';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, checkShapes, circle, concat, initial, onUsi } from '../shapes';
 import { toPiece } from '../util';

@@ -1,7 +1,7 @@
 import { hookMobileMousedown } from 'common/mobile';
-import { VNode, h } from 'snabbdom';
-import MsgCtrl from '../ctrl';
-import { Convo } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type MsgCtrl from '../ctrl';
+import type { Convo } from '../interfaces';
 import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';
@@ -30,7 +30,10 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
                 offline: !user.online,
               },
             },
-            [h('i.line' + (user.id == 'lishogi' ? '.moderator' : user.patron ? '.patron' : '')), ...userName(user)]
+            [
+              h('i.line' + (user.id == 'lishogi' ? '.moderator' : user.patron ? '.patron' : '')),
+              ...userName(user),
+            ],
           ),
         ]),
         h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),
@@ -43,7 +46,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
               {
                 attrs: { 'data-icon': 'k' },
               },
-              'This conversation is blocked.'
+              'This conversation is blocked.',
             )
           : convo.postable
             ? renderInteract(ctrl, user)
@@ -52,9 +55,9 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
                 {
                   attrs: { 'data-icon': 'k' },
                 },
-                `${user.name} doesn't accept new messages.`
+                `${user.name} doesn't accept new messages.`,
               ),
       ]),
-    ]
+    ],
   );
 }

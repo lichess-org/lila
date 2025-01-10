@@ -1,12 +1,12 @@
-import { VNode, h } from 'snabbdom';
-import InsightCtrl from '../../ctrl';
-import { MyChartDataset, barChart } from '../charts';
 import { bind } from 'common/snabbdom';
-import { CustomResult, InsightCustom } from '../../types';
-import { accent, accuracy, bright, green, primary, red, total } from '../colors';
-import { translateStatusName } from '../util';
 import { i18n } from 'i18n';
 import { colorName } from 'shogi/color-name';
+import { type VNode, h } from 'snabbdom';
+import type InsightCtrl from '../../ctrl';
+import type { CustomResult, InsightCustom } from '../../types';
+import { type MyChartDataset, barChart } from '../charts';
+import { accent, accuracy, bright, green, primary, red, total } from '../colors';
+import { translateStatusName } from '../util';
 
 export function custom(ctrl: InsightCtrl, res: CustomResult): VNode {
   const data = res.data,
@@ -22,7 +22,7 @@ export function custom(ctrl: InsightCtrl, res: CustomResult): VNode {
           select(ctrl, 'type', [
             ['game', i18n('insights:game')],
             ['moves', i18n('insights:moves')],
-          ])
+          ]),
         ),
       ]),
       h('div.section-container', [
@@ -33,7 +33,7 @@ export function custom(ctrl: InsightCtrl, res: CustomResult): VNode {
           select(ctrl, 'x', domainByType(custom.type)),
         ]),
       ]),
-    ])
+    ]),
   );
 }
 
@@ -46,8 +46,8 @@ function select(ctrl: InsightCtrl, key: 'x' | 'y' | 'type', options: string[][])
       }),
     },
     options.map(o =>
-      h('option', { attrs: { value: o[0], selected: ctrl.filter.custom[key] === o[0] } }, o[1])
-    )
+      h('option', { attrs: { value: o[0], selected: ctrl.filter.custom[key] === o[0] } }, o[1]),
+    ),
   );
 }
 
@@ -118,7 +118,7 @@ function groupChart(
     dataset: Record<string, Record<string, number>>;
   },
   custom: InsightCustom,
-  key: string
+  key: string,
 ): VNode {
   const dataset = data.dataset,
     count = data.dataset.count,

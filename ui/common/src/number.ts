@@ -1,12 +1,18 @@
 let numberFormatter: false | Intl.NumberFormat | null = false;
 
 export const numberFormat = (n: number): string => {
-  if (numberFormatter === false) numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
+  if (numberFormatter === false)
+    numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
   if (numberFormatter === null) return n.toString();
   return numberFormatter.format(n);
 };
 
-export const numberSpread = (el: HTMLElement, nbSteps: number, duration: number, previous: number) => {
+export const numberSpread = (
+  el: HTMLElement,
+  nbSteps: number,
+  duration: number,
+  previous: number,
+) => {
   let displayed: string;
   const display = (prev: number, cur: number, it: number) => {
     const val = numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));

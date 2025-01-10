@@ -1,10 +1,10 @@
 import { bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
 import { teamName } from './battle';
 import { numberRow, player as renderPlayer } from './util';
-import { i18n } from 'i18n';
 
 export default function (ctrl: TournamentController): VNode | undefined {
   const battle = ctrl.data.teamBattle,
@@ -12,7 +12,8 @@ export default function (ctrl: TournamentController): VNode | undefined {
   if (!battle) return undefined;
   const teamTag = ctrl.teamInfo.requested ? teamName(battle, ctrl.teamInfo.requested) : null;
   const tag = 'div.tour__team-info.tour__actor-info';
-  if (!data || data.id !== ctrl.teamInfo.requested) return h(tag, [h('div.stats', [h('h2', [teamTag]), spinner()])]);
+  if (!data || data.id !== ctrl.teamInfo.requested)
+    return h(tag, [h('div.stats', [h('h2', [teamTag]), spinner()])]);
   const nbLeaders = ctrl.data.teamStanding?.find(s => s.id == data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {
@@ -57,9 +58,9 @@ export default function (ctrl: TournamentController): VNode | undefined {
                 {
                   attrs: { href: '/team/' + data.id },
                 },
-                i18n('team:teamPage')
-              )
-            )
+                i18n('team:teamPage'),
+              ),
+            ),
           ),
         ]),
       ]),
@@ -81,11 +82,11 @@ export default function (ctrl: TournamentController): VNode | undefined {
                     ? h('strong.is-gold', { attrs: dataIcon('Q') }, '' + p.score)
                     : h('strong', '' + p.score),
                 ]),
-              ]
-            )
-          )
+              ],
+            ),
+          ),
         ),
       ]),
-    ]
+    ],
   );
 }

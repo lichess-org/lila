@@ -1,8 +1,8 @@
-import { MaybeVNode } from 'common/snabbdom';
+import type { MaybeVNode } from 'common/snabbdom';
 import { isPlayerTurn, playable } from 'game';
-import { h } from 'snabbdom';
-import RoundController from '../ctrl';
 import { i18nVdomPlural } from 'i18n';
+import { h } from 'snabbdom';
+import type RoundController from '../ctrl';
 
 let rang = false;
 
@@ -26,6 +26,6 @@ export default function (ctrl: RoundController): MaybeVNode {
         'bar-glider': myTurn,
       },
     },
-    i18nVdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft))
+    i18nVdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft)),
   );
 }

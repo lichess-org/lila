@@ -1,5 +1,5 @@
-import { Millis, Seconds } from '../clock/clock-ctrl';
-import RoundController from '../ctrl';
+import type { Millis, Seconds } from '../clock/clock-ctrl';
+import type RoundController from '../ctrl';
 
 export interface CorresClockData {
   daysPerTurn: number;
@@ -25,7 +25,7 @@ interface Times {
 export function ctrl(
   root: RoundController,
   data: CorresClockData,
-  onFlag: () => void
+  onFlag: () => void,
 ): CorresClockController {
   let times: Times;
 

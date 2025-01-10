@@ -1,36 +1,36 @@
+import { useJp } from 'common/common';
+import { initOneWithState, update } from 'common/mini-board';
 import { modal } from 'common/modal';
-import { h, VNode } from 'snabbdom';
+import { getPerfIcon } from 'common/perf-icons';
+import { type MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
 import { i18n } from 'i18n';
-import SetupCtrl from './ctrl';
-import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
+import { i18nPerf } from 'i18n/perf';
 import { colorName } from 'shogi/color-name';
+import { findHandicaps, isHandicap } from 'shogiops/handicaps';
+import { type VNode, h } from 'snabbdom';
+import type SetupCtrl from './ctrl';
 import {
+  Position,
   aiLevelChoices,
   byoChoices,
+  colorChoices,
   dayChoices,
+  fieldId,
   formatMinutes,
   incChoices,
   maxRatingChoices,
   minRatingChoices,
+  modeChoicesTranslated,
   periodChoices,
+  positionChoicesTranslated,
   radioGroup,
   select,
+  selectNvui,
   slider,
   timeChoices,
-  Position,
-  selectNvui,
-  variantChoicesTranslated,
   timeModeChoicesTranslated,
-  modeChoicesTranslated,
-  colorChoices,
-  positionChoicesTranslated,
-  fieldId,
+  variantChoicesTranslated,
 } from './util';
-import { findHandicaps, isHandicap } from 'shogiops/handicaps';
-import { useJp } from 'common/common';
-import { initOneWithState, update } from 'common/mini-board';
-import { getPerfIcon } from 'common/perf-icons';
-import { i18nPerf } from 'i18n/perf';
 
 export function setupModal(ctrl: SetupCtrl): VNode {
   return modal({

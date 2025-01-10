@@ -1,11 +1,11 @@
 import * as game from 'game';
-import { Player } from 'game';
-import { Hooks, VNode, h } from 'snabbdom';
-import RoundController from '../ctrl';
-import { Position } from '../interfaces';
+import type { Player } from 'game';
+import { type Hooks, type VNode, h } from 'snabbdom';
+import type RoundController from '../ctrl';
+import type { Position } from '../interfaces';
 import { bind, justIcon } from '../util';
 import * as button from '../view/button';
-import { ClockController, ClockElements, Millis, Seconds } from './clock-ctrl';
+import type { ClockController, ClockElements, Millis, Seconds } from './clock-ctrl';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position): VNode {
   const clock = ctrl.clock!,
@@ -25,7 +25,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       millis,
       clock.showTenths(millis, player.color),
       isRunning,
-      clock.opts.nvui
+      clock.opts.nvui,
     );
   };
   const timeHook: Hooks = {
@@ -65,13 +65,13 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
             renderByoyomiTime(
               clock.byoyomi,
               clock.totalPeriods - clock.curPeriods[player.color],
-              ctrl.goneBerserk[player.color]
+              ctrl.goneBerserk[player.color],
             ),
           ]),
           renderBerserk(ctrl, player.color, position),
           isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
           tourRank(ctrl, player.color, position),
-        ]
+        ],
   );
 }
 
@@ -79,12 +79,12 @@ function pad2(num: number): string {
   return (num < 10 ? '0' : '') + num;
 }
 
-function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean = false) {
+function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk = false) {
   const perStr = periods > 1 ? `(${periods}x)` : '';
   return h(
     `div.byoyomi.per${periods}`,
     { berserk: berserk },
-    !berserk && byoyomi && periods ? [h('span', '|'), `${byoyomi}s${perStr}`] : ''
+    !berserk && byoyomi && periods ? [h('span', '|'), `${byoyomi}s${perStr}`] : '',
   );
 }
 
@@ -123,14 +123,14 @@ export function updateElements(
   clock: ClockController,
   els: ClockElements,
   millis: Millis,
-  color: Color
+  color: Color,
 ): void {
   if (els.time)
     els.time.innerHTML = formatClockTime(
       millis,
       clock.showTenths(millis, color),
       true,
-      clock.opts.nvui
+      clock.opts.nvui,
     );
   if (els.clock && els.clock.parentElement) {
     const cl = els.clock.parentElement.classList;
@@ -172,7 +172,7 @@ function tourRank(ctrl: RoundController, color: Color, position: Position) {
         {
           attrs: { title: 'Current tournament rank' },
         },
-        '#' + ranks[color]
+        '#' + ranks[color],
       )
     : null;
 }

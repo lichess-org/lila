@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+
   .action {
     display: flex;
     align-items: center;
@@ -14,17 +15,22 @@
     padding: 0 0.75em;
     text-align: center;
     cursor: pointer;
-    @include transition();
+
+    @include transition;
+
     &.disabled {
       pointer-events: none;
       opacity: 0.5;
     }
+
     &:hover {
       color: $c-accent;
     }
+
     @include breakpoint($mq-col1-uniboard) {
       width: calc(100% / 3);
       font-size: 0.85rem;
+
       &:nth-last-child(-n + 2) {
         flex: 1;
       }

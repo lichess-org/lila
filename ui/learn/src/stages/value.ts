@@ -1,11 +1,11 @@
+import { i18n } from 'i18n';
 import { parseSquareName, parseUsi } from 'shogiops/util';
 import { colorOn, extinct, not, pieceOn, scenarioFailure, scenarioSuccess } from '../assert';
-import { IncompleteLevel, IncompleteStage, Level, UsiWithColor } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage, Level, UsiWithColor } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, circle, initial, onFailure } from '../shapes';
 import { findRandomMove } from '../shogi';
 import { createScenario, currentPosition, toPiece } from '../util';
-import { i18n } from 'i18n';
 
 const notSuccess = () => true;
 

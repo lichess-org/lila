@@ -1,20 +1,19 @@
-import { Position } from 'shogiops/variant/position';
 import { defined } from 'common/common';
-import { forsythToRole } from 'shogiops/sfen';
-import { aimingAt, csaToRole, fromKanjiDigit, kanjiToRole } from 'shogiops/notation/util';
-import { parseSquareName } from 'shogiops/util';
-import { MoveOrDrop, Role, Square } from 'shogiops/types';
-import { SquareSet } from 'shogiops/square-set';
 import { makeJapaneseMoveOrDrop } from 'shogiops/notation/japanese';
+import { aimingAt, csaToRole, fromKanjiDigit, kanjiToRole } from 'shogiops/notation/util';
+import { forsythToRole } from 'shogiops/sfen';
+import type { SquareSet } from 'shogiops/square-set';
+import type { MoveOrDrop, Role, Square } from 'shogiops/types';
+import { parseSquareName } from 'shogiops/util';
+import type { Position } from 'shogiops/variant/position';
 import { pieceCanPromote } from 'shogiops/variant/util';
 
-export const fileR: RegExp = new RegExp('(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9])'),
-  rankR: RegExp = new RegExp('(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9]|[a-i])'),
+export const fileR: RegExp = /(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9])/,
+  rankR: RegExp = /(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9]|[a-i])/,
   keyR: RegExp = new RegExp(`${fileR.source}${rankR.source}`, 'g'),
-  japaneseAmbiguitiesR: RegExp = new RegExp('左|右|上|行|引|寄|直'),
-  allRolesR: RegExp = new RegExp(
-    'fu|kyou|kyoo|kyo|ky|kei|ke|gin|gi|kin|ki|kaku|ka|hi|to|ny|nk|ng|uma|um|ryuu|ryu|ry|gyoku|ou|p|l|n|s|g|b|r|k|\\+p|\\+l|\\+n|\\+s|\\+b|\\+r|歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|王|玉|d|h|t|o',
-  ),
+  japaneseAmbiguitiesR: RegExp = /左|右|上|行|引|寄|直/,
+  allRolesR: RegExp =
+    /fu|kyou|kyoo|kyo|ky|kei|ke|gin|gi|kin|ki|kaku|ka|hi|to|ny|nk|ng|uma|um|ryuu|ryu|ry|gyoku|ou|p|l|n|s|g|b|r|k|\+p|\+l|\+n|\+s|\+b|\+r|歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|王|玉|d|h|t|o/,
   KKlastDestR: RegExp = new RegExp(`^(?:${allRolesR.source})x$`);
 
 export function toMoveOrDrop(str: string, pos: Position): MoveOrDrop | undefined {
@@ -107,7 +106,7 @@ export function fixDigits(str: string): string {
 export function toSquare(str: string): Square | undefined {
   if (str.length !== 2) return;
   const mapped = fixDigits(str),
-    secondDigit = parseInt(mapped[1]);
+    secondDigit = Number.parseInt(mapped[1]);
 
   const numberLetter = secondDigit ? mapped[0] + String.fromCharCode(96 + secondDigit) : mapped,
     parsed = parseSquareName(numberLetter);

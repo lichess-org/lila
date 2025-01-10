@@ -1,6 +1,6 @@
 import throttle from 'common/throttle';
-import RoundController from './ctrl';
-import { RoundData } from './interfaces';
+import type RoundController from './ctrl';
+import type { RoundData } from './interfaces';
 
 export function reload(ctrl: RoundController): Promise<RoundData> {
   const url = ctrl.data.player.spectator
@@ -20,5 +20,5 @@ export function challengeRematch(gameId: string): Promise<void> {
 export const setZen: (zen: boolean) => void = throttle(1000, zen =>
   window.lishogi.xhr.text('POST', '/pref/zen', {
     formData: { zen },
-  })
+  }),
 );

@@ -1,4 +1,4 @@
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 
 interface Notif {
   duration: number;
@@ -18,7 +18,7 @@ export function ctrl(redraw: () => void): NotifCtrl {
     set(n: Notif) {
       clearTimeout(timeout);
       current = n;
-      timeout = setTimeout(function () {
+      timeout = setTimeout(() => {
         current = undefined;
         redraw();
       }, n.duration);

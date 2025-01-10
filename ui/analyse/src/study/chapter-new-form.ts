@@ -1,19 +1,19 @@
-import { Prop, defined, prop } from 'common/common';
+import { loadCompiledScript } from 'common/assets';
+import { type Prop, defined, prop } from 'common/common';
 import * as modal from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { StoredProp, storedProp } from 'common/storage';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { Redraw } from '../interfaces';
-import { option } from '../util';
-import { StudyChapterMeta } from './interfaces';
-import { importNotation } from './study-xhr';
-import { RULES } from 'shogiops/constants';
+import { type StoredProp, storedProp } from 'common/storage';
 import { i18n, i18nFormat } from 'i18n';
-import { loadCompiledScript } from 'common/assets';
 import { i18nVariant } from 'i18n/variant';
 import { colorName } from 'shogi/color-name';
+import { RULES } from 'shogiops/constants';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { Redraw } from '../interfaces';
+import { option } from '../util';
+import type { StudyChapterMeta } from './interfaces';
+import { importNotation } from './study-xhr';
 
 export const modeChoices: [string, string][] = [
   ['normal', i18n('study:normalAnalysis')],
@@ -98,8 +98,8 @@ export function ctrl(
 
 export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   const activeTab = ctrl.vm.tab(),
-    makeTab = function (key: string, name: string, title: string) {
-      return h(
+    makeTab = (key: string, name: string, title: string) =>
+      h(
         'span.' + key,
         {
           class: { active: activeTab === key },
@@ -107,8 +107,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
         },
         name,
-      );
-    },
+      ),
     currentChapter = ctrl.root.study!.data.chapter,
     notVariantTab = activeTab === 'game' || activeTab === 'notation' || activeTab === 'edit',
     notOrientationTab = activeTab === 'edit',
@@ -169,7 +168,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     'study:chapterX',
                     ctrl.vm.initial() ? 1 : ctrl.chapters().length + 1,
                   );
-                  el.onchange = function () {
+                  el.onchange = () => {
                     isDefaultName = false;
                   };
                   el.select();
@@ -259,7 +258,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         function readFile(file: File, encoding: string) {
                           if (!file) return;
                           const reader = new FileReader();
-                          reader.onload = function () {
+                          reader.onload = () => {
                             const res = reader.result as string;
                             if (encoding === 'UTF-8' && res.match(/�/)) {
                               console.log(
@@ -315,13 +314,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 },
                 notOrientationTab
                   ? [h('option', i18n('study:automatic'))]
-                  : ['sente', 'gote'].map(function (color: Color) {
-                      return option(
-                        color,
-                        currentChapter.setup.orientation,
-                        colorName(color, false),
-                      );
-                    }),
+                  : ['sente', 'gote'].map((color: Color) =>
+                      option(color, currentChapter.setup.orientation, colorName(color, false)),
+                    ),
               ),
             ]),
           ]),

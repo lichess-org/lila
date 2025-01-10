@@ -1,6 +1,6 @@
-import { bind, MaybeVNodes } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import TournamentController from './ctrl';
+import { type MaybeVNodes, bind } from 'common/snabbdom';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from './ctrl';
 
 export function searchOr(ctrl: TournamentController, nodes: MaybeVNodes): MaybeVNodes {
   return [button(ctrl), ...(ctrl.searching ? [input(ctrl)] : nodes)];
@@ -40,6 +40,6 @@ function input(ctrl: TournamentController): VNode {
           });
         },
       },
-    })
+    }),
   );
 }

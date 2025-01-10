@@ -7,7 +7,7 @@ function main(opts: LishogiSpeech): void {
       en: opts.notation ? enRender(opts.notation) : 'Game start',
       jp: opts.notation ? jpRender(opts.notation) : '開始',
     },
-    opts.cut
+    opts.cut,
   );
 }
 

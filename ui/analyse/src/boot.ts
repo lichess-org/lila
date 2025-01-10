@@ -1,5 +1,5 @@
-import { AnalyseOpts } from './interfaces';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
+import type { AnalyseOpts } from './interfaces';
 
 export function replay(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseCtrl): AnalyseCtrl {
   let ctrl: AnalyseCtrl;
@@ -13,7 +13,7 @@ export function replay(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseC
     params: {
       userTv: data.userTv && data.userTv.id,
     },
-    receive: function (t, d) {
+    receive: (t, d) => {
       ctrl.socket.receive(t, d);
     },
     events: {},
@@ -31,7 +31,7 @@ export function study(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseCt
   let ctrl: AnalyseCtrl;
   opts.initialPly = 'url';
   window.lishogi.socket = new window.lishogi.StrongSocket(opts.socketUrl, opts.socketVersion, {
-    receive: function (t, d) {
+    receive: (t, d) => {
       ctrl.socket.receive(t, d);
     },
   });
@@ -43,12 +43,12 @@ export function study(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseCt
 
 export function analysis(
   opts: AnalyseOpts,
-  start: (opts: AnalyseOpts) => AnalyseCtrl
+  start: (opts: AnalyseOpts) => AnalyseCtrl,
 ): AnalyseCtrl {
   let ctrl: AnalyseCtrl;
   opts.initialPly = 'url';
   window.lishogi.socket = new window.lishogi.StrongSocket('/analysis/socket/v4', false, {
-    receive: function (t, d) {
+    receive: (t, d) => {
       ctrl.socket.receive(t, d);
     },
   });
@@ -61,11 +61,11 @@ export function analysis(
 
 export function practice(
   opts: AnalyseOpts,
-  start: (opts: AnalyseOpts) => AnalyseCtrl
+  start: (opts: AnalyseOpts) => AnalyseCtrl,
 ): AnalyseCtrl {
   let ctrl: AnalyseCtrl;
   window.lishogi.socket = new window.lishogi.StrongSocket('/analysis/socket/v4', false, {
-    receive: function (t, d) {
+    receive: (t, d) => {
       ctrl.socket.receive(t, d);
     },
   });

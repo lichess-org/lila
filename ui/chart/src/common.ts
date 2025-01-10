@@ -103,7 +103,7 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
       type: 'number',
       easing: 'easeOutQuad',
       duration: duration,
-      from: NaN, // the point is initially skipped
+      from: Number.NaN, // the point is initially skipped
       delay: ctx => (ctx.mode === 'resize' ? 0 : ctx.dataIndex * duration),
     },
     y: {

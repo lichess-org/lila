@@ -1,18 +1,18 @@
 import { defined, notNull, requestIdleCallbackWithFallback } from 'common/common';
-import { makeNotationLineWithPosition, notationsWithColor } from 'shogi/notation';
 import stepwiseScroll from 'common/wheel';
-import { Config } from 'shogiground/config';
+import { i18n, i18nFormat } from 'i18n';
+import { makeNotationLineWithPosition, notationsWithColor } from 'shogi/notation';
+import type { Config } from 'shogiground/config';
 import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole, makeSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { MoveOrDrop } from 'shogiops/types';
+import type { MoveOrDrop } from 'shogiops/types';
 import { makeUsi, opposite, parseUsi } from 'shogiops/util';
-import { Position } from 'shogiops/variant/position';
+import type { Position } from 'shogiops/variant/position';
 import { handRoles } from 'shogiops/variant/util';
-import { VNode, h } from 'snabbdom';
-import { CevalCtrl, Eval, NodeEvals, ParentCtrl } from './types';
+import { type VNode, h } from 'snabbdom';
+import type { CevalCtrl, Eval, NodeEvals, ParentCtrl } from './types';
 import { renderEval, unsupportedVariants } from './util';
 import * as winningChances from './winning-chances';
-import { i18n, i18nFormat } from 'i18n';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -321,7 +321,7 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
-  const multiPv = parseInt(instance.multiPv()),
+  const multiPv = Number.parseInt(instance.multiPv()),
     node = ctrl.getNode(),
     position = parseSfen(instance.variant.key, node.sfen, false);
   let pvs: Tree.PvData[],

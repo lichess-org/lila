@@ -1,12 +1,12 @@
-import { VNode, VNodeData, h, thunk } from 'snabbdom';
 import * as enhance from 'common/rich-text';
-import { ChatCtrl, Line } from './interfaces';
+import { i18n } from 'i18n';
+import { type VNode, type VNodeData, h, thunk } from 'snabbdom';
+import type { ChatCtrl, Line } from './interfaces';
 import { lineAction as modLineAction } from './moderation';
 import { presetView } from './preset';
 import * as spam from './spam';
 import { userLink } from './util';
 import { flag } from './xhr';
-import { i18n } from 'i18n';
 
 const whisperRegex = /^\/w(?:hisper)?\s/;
 

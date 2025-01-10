@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import { getAllPackages } from './package.js';
-import { Context, PackageInfo } from './types.js';
+import type { Context, PackageInfo } from './types.js';
 import { debounce, errorMsg, withColor } from './util.js';
 
 const watchers: fs.FSWatcher[] = [];
@@ -9,13 +9,13 @@ function packageWatch(
   ctx: Context,
   pkg: PackageInfo,
   fullPath: string,
-  opts: fs.WatchOptions = {}
+  opts: fs.WatchOptions = {},
 ): void {
   try {
     if (fs.existsSync(fullPath)) {
       const fn = debounce(async (event: fs.WatchEventType, filename: string | null) => {
         console.log(
-          `\n🧭 Change detected in package: ${withColor(pkg.name)} (${`${fullPath}/${filename}`})`
+          `\n🧭 Change detected in package: ${withColor(pkg.name)} (${`${fullPath}/${filename}`})`,
         );
         try {
           console.time('🔨 Rebuild completed in');

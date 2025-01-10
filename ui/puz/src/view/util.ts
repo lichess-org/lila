@@ -1,5 +1,5 @@
-import { VNode, h } from 'snabbdom';
-import { Config, Run } from '../interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { Config, Run } from '../interfaces';
 import { getNow } from '../util';
 
 export const playModifiers = (run: Run): Record<string, boolean> => {
@@ -40,9 +40,9 @@ export const renderCombo =
                   active: l < level,
                 },
               },
-              h('span', renderBonus(config.combo.levels[l + 1][1]))
-            )
-          )
+              h('span', renderBonus(config.combo.levels[l + 1][1])),
+            ),
+          ),
         ),
       ]),
     ]);

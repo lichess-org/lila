@@ -6,8 +6,8 @@ import {
   propsModule,
   styleModule,
 } from 'snabbdom';
-import { InsightOpts } from '../types';
 import InsightCtrl from '../ctrl';
+import type { InsightOpts } from '../types';
 import view from '../views/view';
 
 const patch = init([classModule, attributesModule, styleModule, propsModule, eventListenersModule]);

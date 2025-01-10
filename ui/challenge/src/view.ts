@@ -1,8 +1,15 @@
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Ctrl, TimeControl } from './interfaces';
-import { i18nVariant } from 'i18n/variant';
 import { i18n, i18nPluralSame } from 'i18n';
+import { i18nVariant } from 'i18n/variant';
+import { type VNode, h } from 'snabbdom';
+import type {
+  Challenge,
+  ChallengeData,
+  ChallengeDirection,
+  ChallengeUser,
+  Ctrl,
+  TimeControl,
+} from './interfaces';
 
 export function loaded(ctrl: Ctrl): VNode {
   return ctrl.redirecting()
@@ -15,7 +22,7 @@ export function loading(): VNode {
 }
 
 function renderContent(ctrl: Ctrl): VNode[] {
-  let d = ctrl.data();
+  const d = ctrl.data();
   const nb = d.in.length + d.out.length;
   return nb ? [allChallenges(ctrl, d, nb)] : [empty(), create()];
 }
@@ -34,7 +41,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
         postpatch: userPowertips,
       },
     },
-    d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out')))
+    d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))),
   );
 }
 
@@ -52,16 +59,18 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
           h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
           h(
             'span.desc',
-            [c.rated ? i18n('rated') : i18n('casual'), timeControl(c.timeControl), i18nVariant(c.variant.key)].join(
-              ' - '
-            )
+            [
+              c.rated ? i18n('rated') : i18n('casual'),
+              timeControl(c.timeControl),
+              i18nVariant(c.variant.key),
+            ].join(' - '),
           ),
         ]),
         h('i', {
           attrs: { 'data-icon': c.perf.icon },
         }),
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
-      ]
+      ],
     );
   };
 }
@@ -85,7 +94,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
           },
           hook: onClick(ctrl.onRedirect),
         }),
-      ]
+      ],
     ),
     h('button.button.decline', {
       attrs: {
@@ -143,7 +152,8 @@ function renderUser(u?: ChallengeUser): VNode {
     [
       h('i.line' + (u.patron ? '.patron' : '')),
       h('name', [
-        u.title && h('span.title', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
+        u.title &&
+          h('span.title', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
         u.name + ' (' + rating + ') ',
       ]),
       h(
@@ -153,10 +163,10 @@ function renderUser(u?: ChallengeUser): VNode {
           : [1, 2, 3, 4].map(i =>
               h('i', {
                 class: { off: u.lag! < i },
-              })
-            )
+              }),
+            ),
       ),
-    ]
+    ],
   );
 }
 
@@ -178,7 +188,7 @@ function empty(): VNode {
         'data-icon': '',
       },
     },
-    'No challenges.'
+    'No challenges.',
   );
 }
 

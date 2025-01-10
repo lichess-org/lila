@@ -1,14 +1,14 @@
-import { BuildContext, context } from 'esbuild';
-import { WatchEventType } from 'node:fs';
+import type { WatchEventType } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import grfn from 'grfn';
-import fg from 'fast-glob';
-import { isoldatedDtsPlugin } from 'esbuild-isolated-dts';
-import { Context, PackageInfo, PackagesWrap, PackageName } from '@build/wrapper/types';
+import type { Context, PackageInfo, PackageName, PackagesWrap } from '@build/wrapper/types';
 import { errorMsg } from '@build/wrapper/util';
+import { type BuildContext, context } from 'esbuild';
+import { isoldatedDtsPlugin } from 'esbuild-isolated-dts';
+import fg from 'fast-glob';
+import grfn from 'grfn';
 import { graphWrap } from './graph.js';
-import { BuildConfig } from './types.js';
+import type { BuildConfig } from './types.js';
 
 const target = 'es2017',
   srcDir = 'src',
@@ -44,7 +44,7 @@ export function esbuildContext(): Context {
         packages.map(async pkg => {
           const ctxs = await initPackageContexts(pkg);
           ctxsMap.set(pkg.name, ctxs);
-        })
+        }),
       );
     },
 
@@ -142,7 +142,7 @@ export function esbuildContext(): Context {
   }
 
   async function initPackageContexts(
-    pkg: PackageInfo & { lishogi?: BuildConfig }
+    pkg: PackageInfo & { lishogi?: BuildConfig },
   ): Promise<BuildContext[]> {
     const ctxs: BuildContext[] = [];
 
@@ -157,7 +157,7 @@ export function esbuildContext(): Context {
           allEntries: string[] = await fg(`${pkg.path}/${bundlePath}/*`);
 
         const bundleCtxs = await Promise.all(
-          allEntries.map(entry => createBundleContext(pkg, entry))
+          allEntries.map(entry => createBundleContext(pkg, entry)),
         );
         ctxs.push(...bundleCtxs);
       }

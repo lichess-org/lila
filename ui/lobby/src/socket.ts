@@ -1,7 +1,7 @@
 import { idleTimer } from 'common/timings';
-import LobbyController from './ctrl';
+import type LobbyController from './ctrl';
 import * as hookRepo from './hook-repo';
-import { Hook } from './interfaces';
+import type { Hook } from './interfaces';
 import { action } from './util';
 
 interface Handlers {
@@ -13,7 +13,7 @@ export default class LobbySocket {
 
   constructor(
     readonly send: Socket.Send,
-    ctrl: LobbyController
+    ctrl: LobbyController,
   ) {
     this.send = send;
 
@@ -24,7 +24,7 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       hrm(ids: string) {
-        ids.match(/.{8}/g)!.forEach(function (id) {
+        ids.match(/.{8}/g)!.forEach(id => {
           hookRepo.remove(ctrl, id);
         });
         ctrl.redraw();
@@ -51,7 +51,7 @@ export default class LobbySocket {
       () => {
         send('idle', false);
         ctrl.awake();
-      }
+      },
     );
   }
 

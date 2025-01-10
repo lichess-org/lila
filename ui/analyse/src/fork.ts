@@ -1,8 +1,8 @@
 import { defined } from 'common/common';
-import { MaybeVNode, onInsert } from 'common/snabbdom';
+import { type MaybeVNode, onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
-import { ConcealOf } from './interfaces';
+import type AnalyseCtrl from './ctrl';
+import type { ConcealOf } from './interfaces';
 import { renderIndexAndMove } from './move-view';
 
 export interface ForkCtrl {
@@ -18,7 +18,7 @@ export interface ForkCtrl {
 
 export function make(root: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
-  let selected: number = 0;
+  let selected = 0;
   function displayed() {
     return root.node.children.length > 1;
   }
@@ -71,10 +71,10 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf): MaybeVNode {
       hook: onInsert(el => {
         el.addEventListener('click', e => {
           const target = e.target as HTMLElement,
-            it = parseInt(
+            it = Number.parseInt(
               (target.parentNode as HTMLElement).getAttribute('data-it') ||
                 target.getAttribute('data-it') ||
-                ''
+                '',
             );
           root.fork.proceed(it);
           root.redraw();
@@ -98,10 +98,10 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf): MaybeVNode {
               showGlyphs: root.showComputer(),
               offset: root.plyOffset(),
             },
-            node
-          )!
+            node,
+          )!,
         );
       return undefined;
-    })
+    }),
   );
 }

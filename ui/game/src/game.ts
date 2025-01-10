@@ -1,4 +1,4 @@
-import { GameData, Player } from './interfaces';
+import type { GameData, Player } from './interfaces';
 import * as status from './status';
 
 export * from './interfaces';
@@ -73,7 +73,12 @@ export function resignable(data: GameData): boolean {
 
 // can the current player go berserk?
 export function berserkableBy(data: GameData): boolean {
-  return !!data.tournament && data.tournament.berserkable && isPlayerPlaying(data) && !bothPlayersHavePlayed(data);
+  return (
+    !!data.tournament &&
+    data.tournament.berserkable &&
+    isPlayerPlaying(data) &&
+    !bothPlayersHavePlayed(data)
+  );
 }
 
 export function moretimeable(data: GameData): boolean {
@@ -81,7 +86,8 @@ export function moretimeable(data: GameData): boolean {
     isPlayerPlaying(data) &&
     data.moretimeable &&
     (!!data.clock ||
-      (!!data.correspondence && data.correspondence[data.opponent.color] < data.correspondence.increment - 3600))
+      (!!data.correspondence &&
+        data.correspondence[data.opponent.color] < data.correspondence.increment - 3600))
   );
 }
 
@@ -90,7 +96,9 @@ export function imported(data: GameData): boolean {
 }
 
 export function replayable(data: GameData): boolean {
-  return imported(data) || status.finished(data) || (status.aborted(data) && bothPlayersHavePlayed(data));
+  return (
+    imported(data) || status.finished(data) || (status.aborted(data) && bothPlayersHavePlayed(data))
+  );
 }
 
 export function getPlayer(data: GameData, color: Color | undefined): Player;

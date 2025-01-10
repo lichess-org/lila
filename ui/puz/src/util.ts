@@ -1,10 +1,11 @@
 import throttle from 'common/throttle';
 import { parseSfen } from 'shogiops/sfen';
-import { Puzzle } from './interfaces';
+import type { Puzzle } from './interfaces';
 
 export const getNow = (): number => Math.round(performance.now());
 
-export const puzzlePov = (puzzle: Puzzle): Color => parseSfen('standard', puzzle.sfen, false).unwrap().turn;
+export const puzzlePov = (puzzle: Puzzle): Color =>
+  parseSfen('standard', puzzle.sfen, false).unwrap().turn;
 
 function make(file: string, volume?: number): () => void {
   const baseUrl = $('body').data('asset-url') + '/assets/sound/';
@@ -12,7 +13,7 @@ function make(file: string, volume?: number): () => void {
     src: [baseUrl + file + '.ogg', baseUrl + file + '.mp3'],
     volume: volume || 1,
   });
-  return function () {
+  return () => {
     if (window.lishogi.sound.set() !== 'silent') throttle(1000, sound.play);
   };
 }

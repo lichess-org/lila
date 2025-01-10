@@ -1,13 +1,13 @@
-import { Api } from 'shogiground/api';
+import type { Api } from 'shogiground/api';
 import { Shogiground } from 'shogiground/shogiground';
-import { Piece } from 'shogiground/types';
+import type { Piece } from 'shogiground/types';
 import { opposite } from 'shogiground/util';
 import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
-import { Role } from 'shogiops/types';
+import type { Role } from 'shogiops/types';
 import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
 import * as categories from './categories';
 import * as ground from './ground';
-import { Category, LearnOpts, Redraw, Stage, Vm } from './interfaces';
+import type { Category, LearnOpts, Redraw, Stage, Vm } from './interfaces';
 import { calcScore } from './level';
 import { ProgressStorage } from './progress';
 import {
@@ -34,7 +34,7 @@ export default class LearnCtrl {
 
   constructor(
     private opts: LearnOpts,
-    readonly redraw: Redraw
+    readonly redraw: Redraw,
   ) {
     this.pref = opts.pref;
 
@@ -47,7 +47,7 @@ export default class LearnCtrl {
 
     const hash = window.location.hash.split('/').filter(c => c !== '#' && c !== '');
     if (hash.length > 0) {
-      this.setLesson(parseInt(hash[0]), parseInt(hash[1]));
+      this.setLesson(Number.parseInt(hash[0]), Number.parseInt(hash[1]));
     }
   }
 
@@ -57,7 +57,7 @@ export default class LearnCtrl {
     window.history.replaceState('', '', '/learn');
   }
 
-  setLesson(stageId: number, levelId: number = 1): void {
+  setLesson(stageId: number, levelId = 1): void {
     const category = this.categories.find(c => c.stages.some(s => s.id === stageId)),
       stage = category && category.stages.find(s => s.id === stageId),
       level = stage && stage.levels.find(l => l.id === levelId);
@@ -69,7 +69,10 @@ export default class LearnCtrl {
         category,
         sideCategory: category.key,
         stage,
-        stageState: prevStage?.id !== stage.id && !this.progress.has(stage.key) && level.id === 1 ? 'init' : 'running',
+        stageState:
+          prevStage?.id !== stage.id && !this.progress.has(stage.key) && level.id === 1
+            ? 'init'
+            : 'running',
         level,
         levelState: 'play',
         usiCList: [],
@@ -88,7 +91,8 @@ export default class LearnCtrl {
   nextLesson(): void {
     this.clearTimetouts();
     if (this.vm) {
-      if (this.vm.level.id < this.vm.stage.levels.length) this.setLesson(this.vm.stage.id, this.vm.level.id + 1);
+      if (this.vm.level.id < this.vm.stage.levels.length)
+        this.setLesson(this.vm.stage.id, this.vm.level.id + 1);
       else if (this.vm.stage.id < categories.stages.length) this.setLesson(this.vm.stage.id + 1);
       else this.setHome();
     }
@@ -116,7 +120,7 @@ export default class LearnCtrl {
           setTimeout(() => {
             this.nextLesson();
             this.redraw();
-          }, 1000)
+          }, 1000),
         );
       }
       this.redraw();
@@ -170,7 +174,8 @@ export default class LearnCtrl {
 
       // check if we are done - success or fail
       if (this.vm.level.success(this.vm.level, this.vm.usiCList)) this.completeLevel();
-      else if (this.vm.level.failure && this.vm.level.failure(this.vm.level, this.vm.usiCList)) this.failLevel();
+      else if (this.vm.level.failure && this.vm.level.failure(this.vm.level, this.vm.usiCList))
+        this.failLevel();
 
       // update shogiground accordingly
       const pos = currentPosition(this.vm.level, this.vm.usiCList),
@@ -204,10 +209,18 @@ export default class LearnCtrl {
         activeColor: active ? this.vm.level.color : undefined,
         checks: !hasObstacles && inCheck(pos),
         movable: {
-          dests: active ? (illegalDests ? illegalShogigroundMoveDests(pos) : shogigroundMoveDests(pos)) : new Map(),
+          dests: active
+            ? illegalDests
+              ? illegalShogigroundMoveDests(pos)
+              : shogigroundMoveDests(pos)
+            : new Map(),
         },
         droppable: {
-          dests: active ? (illegalDests ? illegalShogigroundDropDests(pos) : shogigroundDropDests(pos)) : new Map(),
+          dests: active
+            ? illegalDests
+              ? illegalShogigroundDropDests(pos)
+              : shogigroundDropDests(pos)
+            : new Map(),
         },
         drawable: ground.createDrawable(this.vm.level, this.vm.usiCList),
       });
@@ -229,7 +242,10 @@ export default class LearnCtrl {
     else sound.move();
 
     if (capturedPiece) {
-      this.shogiground.addToHand({ role: capturedPiece.role, color: opposite(capturedPiece.color) });
+      this.shogiground.addToHand({
+        role: capturedPiece.role,
+        color: opposite(capturedPiece.color),
+      });
     }
   }
 

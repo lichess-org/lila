@@ -1,6 +1,6 @@
-import type { BoardElements } from 'shogiground/types';
-import { debounce } from 'common/timings';
 import { loadCssPath } from 'common/assets';
+import { debounce } from 'common/timings';
+import type { BoardElements } from 'shogiground/types';
 
 export type MouchEvent = MouseEvent & TouchEvent;
 
@@ -11,7 +11,7 @@ export default function resizeHandle(
     ply?: number;
     initialPly?: number;
     visible?: () => boolean;
-  }
+  },
 ): void {
   if (!pref) return;
 
@@ -25,7 +25,7 @@ export default function resizeHandle(
     const mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup';
 
     const startPos = eventPosition(start)!;
-    const initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
+    const initialZoom = Number.parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
     let zoom = initialZoom;
 
     const saveZoom = debounce(() => {
@@ -54,7 +54,7 @@ export default function resizeHandle(
         document.removeEventListener(mousemoveEvent, resize);
         document.body.classList.remove('resizing');
       },
-      { once: true }
+      { once: true },
     );
   };
 
@@ -65,7 +65,7 @@ export default function resizeHandle(
     const toggle = (ply: number) =>
       el.classList.toggle(
         'none',
-        conf.visible ? !conf.visible() : ply - (conf.initialPly || 0) >= 2
+        conf.visible ? !conf.visible() : ply - (conf.initialPly || 0) >= 2,
       );
     toggle(conf.ply || 0);
     window.lishogi.pubsub.on('ply', toggle);
@@ -95,7 +95,7 @@ function addNag(el: HTMLElement) {
         storage.set(true);
         el.innerHTML = '';
       },
-      { once: true }
+      { once: true },
     );
   }
 

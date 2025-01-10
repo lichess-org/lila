@@ -20,11 +20,15 @@ function move(s: any): void {
 function startPuzzle(): void {
   const mcnt = document.getElementById('move-cnt');
   if (mcnt) mcnt.innerHTML = '0 ';
-  SlidingPuzzles(document.getElementById('game'), 'G1 K K G2/G1 K K G2/B S S R/B N L R/ P1 . . P2', {
-    solution: solution,
-    onVictory: win,
-    onMove: move,
-  });
+  SlidingPuzzles(
+    document.getElementById('game'),
+    'G1 K K G2/G1 K K G2/B S S R/B N L R/ P1 . . P2',
+    {
+      solution: solution,
+      onVictory: win,
+      onMove: move,
+    },
+  );
 }
 
 window.lishogi.ready.then(() => {

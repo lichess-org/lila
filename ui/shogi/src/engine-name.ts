@@ -1,7 +1,7 @@
-import { Rules } from 'shogiops/types';
+import { i18nFormat } from 'i18n';
 import { isHandicap } from 'shogiops/handicaps';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
-import { i18nFormat } from 'i18n';
+import type { Rules } from 'shogiops/types';
 
 const useJp: boolean = document.documentElement.lang === 'ja';
 

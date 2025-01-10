@@ -1,6 +1,6 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from '../ctrl';
-import { Ctrl, NotifyOpts } from '../interfaces';
+import type { Ctrl, NotifyOpts } from '../interfaces';
 import view from '../view';
 
 const patch = init([classModule, attributesModule]);

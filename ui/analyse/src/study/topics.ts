@@ -1,11 +1,11 @@
-import { Prop, prop } from 'common/common';
+import { loadCssPath, loadVendorScript } from 'common/assets';
+import { type Prop, prop } from 'common/common';
 import * as modal from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
-import { Redraw } from '../interfaces';
-import { StudyCtrl, Topic } from './interfaces';
-import { loadCssPath, loadVendorScript } from 'common/assets';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { Redraw } from '../interfaces';
+import type { StudyCtrl, Topic } from './interfaces';
 
 export interface TopicsCtrl {
   open: Prop<boolean>;
@@ -17,7 +17,7 @@ export interface TopicsCtrl {
 export function ctrl(
   save: (data: string) => void,
   getTopics: () => Topic[],
-  redraw: Redraw
+  redraw: Redraw,
 ): TopicsCtrl {
   const open = prop(false);
 
@@ -40,8 +40,8 @@ export function view(ctrl: StudyCtrl): VNode {
         {
           attrs: { href: `/study/topic/${encodeURIComponent(topic)}/hot` },
         },
-        topic
-      )
+        topic,
+      ),
     ),
     ctrl.members.canContribute()
       ? h(
@@ -49,7 +49,7 @@ export function view(ctrl: StudyCtrl): VNode {
           {
             hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw),
           },
-          i18n('study:manageTopics')
+          i18n('study:manageTopics'),
         )
       : null,
   ]);
@@ -80,16 +80,16 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
             {
               hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)),
             },
-            ctrl.getTopics().join(', ').replace(/[<>]/g, '')
+            ctrl.getTopics().join(', ').replace(/[<>]/g, ''),
           ),
           h(
             'button.button',
             {
               type: 'submit',
             },
-            i18n('apply')
+            i18n('apply'),
           ),
-        ]
+        ],
       ),
     ],
   });
@@ -115,7 +115,7 @@ function setupTagify(elm: HTMLTextAreaElement, userId?: string) {
           { url: { term, user: userId } },
           {
             signal: abortCtrl.signal,
-          }
+          },
         )
         .then(list => {
           tagi.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place

@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { pieceOn, scenarioFailure, scenarioSuccess } from '../assert';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, circle, concat, initial, onPly } from '../shapes';
 import { createScenario } from '../util';
@@ -76,7 +76,7 @@ const levels: IncompleteLevel[] = [
       onPly(10, [circle('8g')]),
       onPly(12, [circle('2g')]),
       onPly(14, [circle('9g')]),
-      onPly(16, [circle('1g')])
+      onPly(16, [circle('1g')]),
     ),
     scenario: createScenario(
       [
@@ -100,7 +100,7 @@ const levels: IncompleteLevel[] = [
         'R*8b',
       ],
       'sente',
-      true
+      true,
     ),
   },
   {

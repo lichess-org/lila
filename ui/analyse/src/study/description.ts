@@ -1,12 +1,12 @@
-import { bind, onInsert } from 'common/snabbdom';
 import { richHTML } from 'common/rich-text';
-import { VNode, h } from 'snabbdom';
-import { StudyCtrl } from './interfaces';
+import { bind, onInsert } from 'common/snabbdom';
+import { type VNode, h } from 'snabbdom';
+import type { StudyCtrl } from './interfaces';
 
 export type Save = (t: string) => void;
 
 export class DescriptionCtrl {
-  edit: boolean = false;
+  edit = false;
 
   constructor(
     public text: string | undefined,

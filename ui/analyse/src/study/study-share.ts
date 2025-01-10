@@ -1,10 +1,10 @@
-import { Prop, prop } from 'common/common';
+import { type Prop, prop } from 'common/common';
 import { bind } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
+import { i18n, i18nVdom } from 'i18n';
+import { type VNode, h } from 'snabbdom';
 import { renderIndexAndMove } from '../move-view';
 import { baseUrl } from '../util';
-import { StudyChapterMeta, StudyData } from './interfaces';
-import { i18n, i18nVdom } from 'i18n';
+import type { StudyChapterMeta, StudyData } from './interfaces';
 
 interface StudyShareCtrl {
   studyId: string;
@@ -27,7 +27,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
       showEval: false,
       offset: ctrl.offset,
     },
-    ctrl.currentNode()
+    ctrl.currentNode(),
   );
   return h(
     'div.ply-wrap',
@@ -40,14 +40,14 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
               e => {
                 ctrl.withPly((e.target as HTMLInputElement).checked);
               },
-              ctrl.redraw
+              ctrl.redraw,
             ),
           }),
           ...(renderedMove
             ? i18nVdom('study:startAtX', h('strong', renderedMove))
             : [i18n('study:startAtInitialPosition')]),
         ])
-      : null
+      : null,
   );
 }
 
@@ -57,7 +57,7 @@ export function ctrl(
   currentNode: () => Tree.Node,
   onMainline: () => boolean,
   redraw: () => void,
-  offset: number
+  offset: number,
 ): StudyShareCtrl {
   const withPly = prop(false);
   return {
@@ -113,7 +113,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               {
                 attrs: { 'data-icon': '' },
               },
-              i18n('study:youCanPasteThisInTheForumToEmbed')
+              i18n('study:youCanPasteThisInTheForumToEmbed'),
             )
           : null,
       ]),
@@ -154,11 +154,11 @@ export function view(ctrl: StudyShareCtrl): VNode {
                       'data-icon': '',
                     },
                   },
-                  i18n('study:readMoreAboutEmbedding')
+                  i18n('study:readMoreAboutEmbedding'),
                 ),
               ]
-            : []
-        )
+            : [],
+        ),
       ),
       h('div.form-group', [
         h('label.form-label', 'SFEN'),
@@ -180,7 +180,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             download: true,
           },
         },
-        i18n('study:chapterKif')
+        i18n('study:chapterKif'),
       ),
       'standard' === chapter.variant
         ? h(
@@ -192,7 +192,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 download: true,
               },
             },
-            i18n('study:chapterCsa')
+            i18n('study:chapterCsa'),
           )
         : null,
       ctrl.cloneable
@@ -204,7 +204,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 href: `/study/${studyId}/clone`,
               },
             },
-            i18n('study:cloneStudy')
+            i18n('study:cloneStudy'),
           )
         : null,
       'standard' === chapter.variant
@@ -217,7 +217,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 download: true,
               },
             },
-            'GIF'
+            'GIF',
           )
         : null,
     ]),

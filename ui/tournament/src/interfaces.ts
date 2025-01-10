@@ -1,4 +1,4 @@
-import { StatusId } from 'game';
+import type { StatusId } from 'game';
 
 interface Untyped {
   [key: string]: any;

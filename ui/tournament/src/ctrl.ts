@@ -1,5 +1,10 @@
-import { StoredBooleanProp, StoredJsonProp, storedJsonProp, storedProp } from 'common/storage';
 import {
+  type StoredBooleanProp,
+  type StoredJsonProp,
+  storedJsonProp,
+  storedProp,
+} from 'common/storage';
+import type {
   Arrangement,
   NewArrangement,
   NewArrangementSettings,
@@ -11,7 +16,7 @@ import {
   TournamentOpts,
 } from './interfaces';
 import { maxPerPage, myPage, players } from './pagination';
-import makeSocket, { TournamentSocket } from './socket';
+import makeSocket, { type TournamentSocket } from './socket';
 import * as sound from './sound';
 import * as tour from './tournament';
 import xhr from './xhr';
@@ -29,21 +34,21 @@ export default class TournamentController {
   pages: Pages = {};
   lastPageDisplayed: number | undefined;
   focusOnMe: boolean;
-  joinSpinner: boolean = false;
+  joinSpinner = false;
   playerInfo: PlayerInfo = {};
   teamInfo: CtrlTeamInfo = {};
   arrangement: Arrangement | undefined;
   utc: StoredBooleanProp = storedProp('arrangement.utc', false);
-  playerManagement: boolean = false;
+  playerManagement = false;
   newArrangement: NewArrangement | undefined;
   newArrangementSettings: StoredJsonProp<NewArrangementSettings>;
   shadedCandidates: string[] = [];
   highlightArrs: string[] = [];
-  disableClicks: boolean = true;
-  searching: boolean = false;
-  joinWithTeamSelector: boolean = false;
+  disableClicks = true;
+  searching = false;
+  joinWithTeamSelector = false;
   redraw: () => void;
-  nbWatchers: number = 0;
+  nbWatchers = 0;
 
   private lastStorage = window.lishogi.storage.make('last-redirect');
 
@@ -66,7 +71,7 @@ export default class TournamentController {
       'arrangement.newArrangementSettings' + this.data.id,
       () => {
         return { points: { w: 3, d: 2, l: 1 } };
-      }
+      },
     );
     console.log('Data', this.data);
     // this.newArrangement = this.newArrangementSettings();
@@ -241,7 +246,7 @@ export default class TournamentController {
 
   findArrangement = (users: string[]): Arrangement | undefined => {
     return this.data.standing.arrangements.find(
-      a => users.includes(a.user1.id) && users.includes(a.user2.id)
+      a => users.includes(a.user1.id) && users.includes(a.user2.id),
     );
   };
 
@@ -270,7 +275,7 @@ export default class TournamentController {
       window.history.replaceState(
         null,
         '',
-        '#' + arrangement.user1.id + ';' + arrangement.user2.id
+        '#' + arrangement.user1.id + ';' + arrangement.user2.id,
       );
     else history.replaceState(null, '', window.location.pathname + window.location.search);
     this.redraw();

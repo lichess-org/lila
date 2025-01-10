@@ -1,5 +1,5 @@
 import notify from 'common/notification';
-import { Ctrl, NotifyData, NotifyOpts, Redraw } from './interfaces';
+import type { Ctrl, NotifyData, NotifyOpts, Redraw } from './interfaces';
 import { asText } from './view';
 
 const li = window.lishogi;
@@ -41,7 +41,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (!li.quietMode) li.sound.play('newPM');
     const text = asText(notif);
     const pushSubsribed =
-      parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
+      Number.parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
     if (!pushSubsribed && text) notify(text);
   }
 

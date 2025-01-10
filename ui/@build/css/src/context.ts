@@ -1,12 +1,12 @@
-import * as sass from 'sass-embedded';
-import path from 'node:path';
 import fs from 'node:fs';
-import fg from 'fast-glob';
-import postcss from 'postcss';
+import path from 'node:path';
+import type { Context, PackageInfo, PackagesWrap } from '@build/wrapper/types';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
+import fg from 'fast-glob';
+import postcss from 'postcss';
+import * as sass from 'sass-embedded';
 import { SassGraph } from 'sass-graph-ts';
-import { Context, PackageInfo, PackagesWrap } from '@build/wrapper/types';
 import { build } from './css-variables/builder.js';
 import { extractVariables } from './css-variables/extractor.js';
 

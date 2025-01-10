@@ -1,7 +1,10 @@
-import { bind, MaybeVNode } from 'common/snabbdom';
+import { type MaybeVNode, bind } from 'common/snabbdom';
 import { ids } from 'game/status';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { Arrangement } from '../interfaces';
+import { arrangementThumbnail } from './arrangement-thumbnail';
 import {
   arrangementHasUser,
   playerName,
@@ -9,9 +12,6 @@ import {
   ratio2percent,
   player as renderPlayer,
 } from './util';
-import { Arrangement } from '../interfaces';
-import { arrangementThumbnail } from './arrangement-thumbnail';
-import { i18n } from 'i18n';
 
 function tableClick(ctrl: TournamentController): (e: Event) => void {
   return (e: Event) => {
@@ -40,7 +40,7 @@ function playerNameStanding(_ctrl: TournamentController, player) {
           })
         : undefined,
       renderPlayer(player, false, true),
-    ]
+    ],
   );
 }
 
@@ -72,11 +72,11 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
                   kicked: player.kicked,
                 },
               },
-              [h('td', i + 1), h('td.player-name', playerNameStanding(ctrl, player))]
-            )
-          )
+              [h('td', i + 1), h('td.player-name', playerNameStanding(ctrl, player))],
+            ),
+          ),
         ),
-      ])
+      ]),
     ),
     h(
       'div.r-table-wrap-arrs',
@@ -86,9 +86,9 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
           h(
             'tr',
             ctrl.data.standing.players.map((player, i) =>
-              h('th', { attrs: { title: player.name } }, i + 1)
-            )
-          )
+              h('th', { attrs: { title: player.name } }, i + 1),
+            ),
+          ),
         ),
         h(
           'tbody',
@@ -125,13 +125,13 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
                           l: arr.winner === player2.id,
                         },
                       })
-                    : null
+                    : null,
                 );
-              })
-            )
-          )
+              }),
+            ),
+          ),
         ),
-      ])
+      ]),
     ),
     h(
       'div.r-table-wrap-scores',
@@ -146,12 +146,12 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
               h(
                 'td',
                 { class: { winner: !!maxScore && maxScore === player.score } },
-                player.score || 0
-              )
-            )
-          )
+                player.score || 0,
+              ),
+            ),
+          ),
         ),
-      ])
+      ]),
     ),
   ]);
 }
@@ -162,7 +162,7 @@ function podiumUsername(p) {
     {
       attrs: { href: '/@/' + p.name },
     },
-    playerName(p)
+    playerName(p),
   );
 }
 
@@ -179,8 +179,8 @@ function podiumStats(p, games: Arrangement[]): VNode {
             h(
               'td',
               ratio2percent(
-                gamesOfPlayer.filter(g => g.winner === userId).length / gamesOfPlayer.length
-              )
+                gamesOfPlayer.filter(g => g.winner === userId).length / gamesOfPlayer.length,
+              ),
             ),
           ]),
         ]
@@ -267,19 +267,19 @@ export function howDoesThisWork(): VNode {
     h('div', [
       h(
         'p',
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac quam nec leo facilisis dignissim. Sed fringilla mi vel augue consequat, at cursus dolor laoreet.'
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac quam nec leo facilisis dignissim. Sed fringilla mi vel augue consequat, at cursus dolor laoreet.',
       ),
       h(
         'p',
-        'Suspendisse potenti. Integer quis orci at sapien viverra malesuada. Donec gravida, eros ac facilisis laoreet, justo arcu malesuada urna, ut vehicula orci lectus ac lacus.'
+        'Suspendisse potenti. Integer quis orci at sapien viverra malesuada. Donec gravida, eros ac facilisis laoreet, justo arcu malesuada urna, ut vehicula orci lectus ac lacus.',
       ),
       h(
         'p',
-        'Proin volutpat sapien vel augue interdum, id feugiat mi ultrices. Ut tristique ipsum ac arcu vehicula, ut eleifend odio tempor. Aliquam erat volutpat.'
+        'Proin volutpat sapien vel augue interdum, id feugiat mi ultrices. Ut tristique ipsum ac arcu vehicula, ut eleifend odio tempor. Aliquam erat volutpat.',
       ),
       h(
         'p',
-        'Maecenas ultricies magna sit amet lectus volutpat, a luctus libero fermentum. Nam et nisl non magna eleifend venenatis. Cras ut turpis elit. Fusce auctor sem at urna commodo, at placerat tortor ultrices.'
+        'Maecenas ultricies magna sit amet lectus volutpat, a luctus libero fermentum. Nam et nisl non magna eleifend venenatis. Cras ut turpis elit. Fusce auctor sem at urna commodo, at placerat tortor ultrices.',
       ),
     ]),
   ]);

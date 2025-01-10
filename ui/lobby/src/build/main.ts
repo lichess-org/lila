@@ -2,9 +2,9 @@ import { Shogiground } from 'shogiground';
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from '../boot';
 import makeCtrl from '../ctrl';
-import { LobbyOpts } from '../interfaces';
+import type LobbyController from '../ctrl';
+import type { LobbyOpts } from '../interfaces';
 import view from '../view/main';
-import LobbyController from '../ctrl';
 
 const patch = init([classModule, attributesModule]);
 

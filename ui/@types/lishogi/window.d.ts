@@ -1,10 +1,10 @@
-import type { Shogiground } from 'shogiground';
-import type { Howl, Howler } from 'howler';
-import type Tagify from 'yaireo__tagify';
 import type { Chart } from 'chart.js/auto';
 import type flatpickr from 'flatpickr';
-import type { LishogiModules } from './modules';
+import type { Howl, Howler } from 'howler';
+import type { Shogiground } from 'shogiground';
+import type Tagify from 'yaireo__tagify';
 import type { InfiniteScroll } from './infinite-scroll';
+import type { LishogiModules } from './modules';
 
 declare global {
   interface Window {

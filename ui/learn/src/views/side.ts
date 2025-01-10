@@ -1,6 +1,6 @@
-import { VNode, h } from 'snabbdom';
-import LearnCtrl from '../ctrl';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type LearnCtrl from '../ctrl';
 
 export default function (ctrl: LearnCtrl): VNode {
   return h('div.learn__side-map', [
@@ -15,7 +15,7 @@ export default function (ctrl: LearnCtrl): VNode {
             },
           },
         },
-        [h('div.stage-img.samurai-helmet'), i18n('learn:menu')]
+        [h('div.stage-img.samurai-helmet'), i18n('learn:menu')],
       ),
       ...ctrl.categories.map(categ => {
         return h(
@@ -36,12 +36,13 @@ export default function (ctrl: LearnCtrl): VNode {
                   },
                 },
               },
-              categ.name
+              categ.name,
             ),
             h(
               'div.categ_stages',
               categ.stages.map(s => {
-                const result = ctrl.progress.get(s.key).filter(s => s > 0).length === s.levels.length;
+                const result =
+                  ctrl.progress.get(s.key).filter(s => s > 0).length === s.levels.length;
                 const status = s.key === ctrl.vm?.stage.key ? 'active' : result ? 'done' : 'future';
                 return h(
                   'a.stage.' + status,
@@ -53,11 +54,11 @@ export default function (ctrl: LearnCtrl): VNode {
                       },
                     },
                   },
-                  [h(`div.stage-img.${s.key}`), h('span', s.title)]
+                  [h(`div.stage-img.${s.key}`), h('span', s.title)],
                 );
-              })
+              }),
             ),
-          ]
+          ],
         );
       }),
     ]),

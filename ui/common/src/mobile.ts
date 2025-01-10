@@ -1,9 +1,13 @@
-import { Hooks } from 'snabbdom';
+import type { Hooks } from 'snabbdom';
 import { bind } from './snabbdom';
 
 const longPressDuration = 610;
 
-export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
+export function bindMobileTapHold(
+  el: HTMLElement,
+  f: (e: Event) => unknown,
+  redraw?: () => void,
+): void {
   let longPressCountdown: number;
 
   el.addEventListener('touchstart', e => {
@@ -26,7 +30,11 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, red
   });
 }
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
+export function bindMobileMousedown(
+  el: HTMLElement,
+  f: (e: Event) => unknown,
+  redraw?: () => void,
+): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
     el.addEventListener(
       mousedownEvent,
@@ -35,7 +43,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, r
         e.preventDefault();
         if (redraw) redraw();
       },
-      { passive: false }
+      { passive: false },
     );
   }
 }
@@ -51,7 +59,8 @@ export const isAndroid = (): boolean => /Android/.test(navigator.platform);
 export const isIOS = (): boolean => /iPhone|iPod/.test(navigator.platform) || isIPad();
 
 // some newer iPads pretend to be Macs, hence checking for "Macintosh"
-export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
+export const isIPad = (): boolean =>
+  navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
 export const hasTouchEvents: boolean = 'ontouchstart' in window;
 
@@ -78,6 +87,7 @@ let hoverable: boolean | undefined = undefined;
 export function isHoverable(): boolean {
   if (hoverable === undefined)
     hoverable =
-      !hasTouchEvents /* Firefox <= 63 */ || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
+      !hasTouchEvents /* Firefox <= 63 */ ||
+      !!getComputedStyle(document.body).getPropertyValue('--hoverable');
   return hoverable;
 }

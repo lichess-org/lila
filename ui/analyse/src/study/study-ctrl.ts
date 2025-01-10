@@ -1,13 +1,14 @@
 import { prop } from 'common/common';
-import { makeNotation } from 'shogi/notation';
-import throttle from 'common/throttle';
 import { storedProp } from 'common/storage';
+import throttle from 'common/throttle';
+import { debounce } from 'common/timings';
+import { makeNotation } from 'shogi/notation';
 import { path as treePath } from 'tree';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { CommentForm } from './comment-form';
 import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebook-play-ctrl';
-import {
+import type {
   ReloadData,
   StudyChapterMeta,
   StudyCtrl,
@@ -19,18 +20,17 @@ import {
 } from './interfaces';
 import { MultiBoardCtrl } from './multi-board';
 import { ctrl as notifCtrl } from './notif';
-import { StudyPracticeCtrl, StudyPracticeData } from './practice/interfaces';
+import type { StudyPracticeCtrl, StudyPracticeData } from './practice/interfaces';
 import practiceCtrl from './practice/study-practice-ctrl';
 import { ServerEval } from './server-eval';
 import { ctrl as chapterCtrl } from './study-chapters';
-import { StudyFormCtrl, ctrl as studyFormCtrl } from './study-form';
-import { GlyphCtrl, ctrl as glyphFormCtrl } from './study-glyph';
+import { type StudyFormCtrl, ctrl as studyFormCtrl } from './study-form';
+import { type GlyphCtrl, ctrl as glyphFormCtrl } from './study-glyph';
 import { ctrl as memberCtrl } from './study-members';
 import { ctrl as shareCtrl } from './study-share';
 import { ctrl as tagsCtrl } from './study-tags';
 import * as xhr from './study-xhr';
-import { TopicsCtrl, ctrl as topicsCtrl } from './topics';
-import { debounce } from 'common/timings';
+import { type TopicsCtrl, ctrl as topicsCtrl } from './topics';
 
 const li = window.lishogi;
 
@@ -667,7 +667,8 @@ export default function (
     nextChapter(): StudyChapterMeta | undefined {
       const chapters = data.chapters,
         currentId = currentChapter().id;
-      for (let i in chapters) if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+      for (const i in chapters)
+        if (chapters[i].id === currentId) return chapters[Number.parseInt(i) + 1];
       return undefined;
     },
     setGamebookOverride(o) {

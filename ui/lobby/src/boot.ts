@@ -1,7 +1,7 @@
-import { LobbyOpts } from './interfaces';
-import LobbyController from './ctrl';
 import { numberFormat } from 'common/number';
-import { SetupKey } from './setup/ctrl';
+import type LobbyController from './ctrl';
+import type { LobbyOpts } from './interfaces';
+import type { SetupKey } from './setup/ctrl';
 
 export default function boot(
   opts: LobbyOpts,
@@ -27,35 +27,35 @@ export default function boot(
       history.replaceState(null, '', '/');
     };
   window.lishogi.socket = new window.lishogi.StrongSocket('/lobby/socket/v4', false, {
-    receive: function (t, d) {
+    receive: (t, d) => {
       ctrl.socket.receive(t, d);
     },
     events: {
-      n: function (_nbUsers, msg) {
+      n: (_nbUsers, msg) => {
         nbUserSpread(msg.d);
-        setTimeout(function () {
+        setTimeout(() => {
           nbRoundSpread(msg.r);
         }, window.lishogi.socket.pingInterval() / 2);
       },
-      reload_timeline: function () {
+      reload_timeline: () => {
         window.lishogi.xhr.text('GET', '/timeline').then(html => {
           $('.timeline').html(html);
           window.lishogi.pubsub.emit('content_loaded');
         });
       },
-      featured: function (o) {
+      featured: o => {
         $('.lobby__tv').html(o.html);
         window.lishogi.pubsub.emit('content_loaded');
       },
-      redirect: function (e) {
+      redirect: e => {
         ctrl.setRedirecting();
         window.lishogi.redirect(e);
       },
-      tournaments: function (data) {
+      tournaments: data => {
         $('#enterable_tournaments').html(data);
         window.lishogi.pubsub.emit('content_loaded');
       },
-      sfen: function (e) {
+      sfen: e => {
         window.lishogi.StrongSocket.defaultParams.events.sfen(e);
         ctrl.gameActivity(e.id);
       },
@@ -90,9 +90,7 @@ export default function boot(
       ctrl.redraw();
       return false;
     })
-    .on('click', function () {
-      return false;
-    });
+    .on('click', () => false);
 
   const hash = location.hash;
 
@@ -127,14 +125,14 @@ export default function boot(
 
 function spreadNumber(selector: string, nbSteps: number) {
   const el = document.querySelector(selector) as HTMLElement;
-  let previous = parseInt(el.getAttribute('data-count')!);
-  const display = function (prev, cur, it) {
+  let previous = Number.parseInt(el.getAttribute('data-count')!);
+  const display = (prev, cur, it) => {
     el.textContent = numberFormat(
       Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps),
     );
   };
   let timeouts: number[] = [];
-  return function (nb, overrideNbSteps?) {
+  return (nb, overrideNbSteps?) => {
     if (!el || (!nb && nb !== 0)) return;
     if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
     timeouts.forEach(clearTimeout);

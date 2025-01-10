@@ -1,9 +1,9 @@
-import { bind, onInsert } from 'common/snabbdom';
 import { modal } from 'common/modal';
-import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
+import { bind, onInsert } from 'common/snabbdom';
 // import { debounce } from 'common/timings';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from './ctrl';
 
 function standardStudyForm(ctrl: AnalyseCtrl): VNode {
   return h(
@@ -28,9 +28,9 @@ function standardStudyForm(ctrl: AnalyseCtrl): VNode {
             type: 'submit',
           },
         },
-        i18n('study:createStudy')
+        i18n('study:createStudy'),
       ),
-    ]
+    ],
   );
 }
 
@@ -94,9 +94,9 @@ function postGameStudyForm(ctrl: AnalyseCtrl): VNode {
             type: 'submit',
           },
         },
-        i18n('study:createStudy')
+        i18n('study:createStudy'),
       ),
-    ]
+    ],
   );
 }
 
@@ -132,7 +132,7 @@ export function studyModal(ctrl: AnalyseCtrl): VNode {
           h(
             'a.text',
             { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
-            i18n('postGameStudiesOfGame')
+            i18n('postGameStudiesOfGame'),
           ),
         ]),
         h('div.study-option', [

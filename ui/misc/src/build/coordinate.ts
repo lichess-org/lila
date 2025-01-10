@@ -24,7 +24,7 @@ function main(opts: CoordinatesOpts): void {
     $timer = $('.coord-trainer__timer');
 
   const scoreUrl = opts.scoreUrl,
-    notationPref = parseInt(document.body.dataset.notation || '0');
+    notationPref = Number.parseInt(document.body.dataset.notation || '0');
 
   let ground: ReturnType<typeof window.Shogiground>,
     colorPref = opts.colorPref,
@@ -34,7 +34,7 @@ function main(opts: CoordinatesOpts): void {
     wrongTimeout: Timeout;
 
   $board.removeClass('preload');
-  const showColor = function () {
+  const showColor = () => {
     color =
       colorPref === 'random'
         ? (['sente', 'gote'] as Color[])[Math.round(Math.random())]
@@ -61,16 +61,15 @@ function main(opts: CoordinatesOpts): void {
   showColor();
 
   $trainer.find('form.color').each(function (this: HTMLFormElement) {
-    const form = this,
-      $form = $(this);
-    $form.find('input').on('change', function () {
+    const $form = $(this);
+    $form.find('input').on('change', () => {
       const selected: string = $form.find<HTMLInputElement>('input:checked').val()!,
         c = {
           1: 'sente',
           2: 'random',
           3: 'gote',
         }[selected]!;
-      if (c !== colorPref) window.lishogi.xhr.formToXhr(form);
+      if (c !== colorPref) window.lishogi.xhr.formToXhr(this);
       colorPref = c as any;
       showColor();
       return false;
@@ -86,13 +85,13 @@ function main(opts: CoordinatesOpts): void {
   };
   showCharts();
 
-  const centerRight = function () {
+  const centerRight = () => {
     $right.css('top', 256 - $right.height()! / 2 + 'px');
   };
   centerRight();
 
   const clearCoords = () => {
-    $.each($coords, function (_i, e) {
+    $.each($coords, (_i, e) => {
       e.text('');
     });
   };
@@ -116,7 +115,7 @@ function main(opts: CoordinatesOpts): void {
   const advanceCoords = () => {
     $('#next_coord0').removeClass('nope');
     const lastElement = $coords.shift()!;
-    $.each($coords, function (i, e) {
+    $.each($coords, (i, e) => {
       e.attr('id', 'next_coord' + i);
     });
     lastElement.attr('id', 'next_coord' + $coords.length);
@@ -196,7 +195,7 @@ function main(opts: CoordinatesOpts): void {
     }
   }
 
-  $start.on('click', function () {
+  $start.on('click', () => {
     $explanation.remove();
     $trainer.addClass('play').removeClass('init');
     $timer.removeClass('hurry');
@@ -206,11 +205,11 @@ function main(opts: CoordinatesOpts): void {
     score = 0;
     $score.text(score);
     $bar.css('width', 0);
-    setTimeout(function () {
+    setTimeout(() => {
       startAt = new Date();
       ground.set({
         events: {
-          select: function (key: string) {
+          select: (key: string) => {
             const hit =
               codeCoords(key[0] + (key.charCodeAt(1) - 96).toString()) == $coords[0].text();
             if (hit) {
@@ -221,7 +220,7 @@ function main(opts: CoordinatesOpts): void {
               clearTimeout(wrongTimeout);
               $trainer.addClass('wrong');
 
-              wrongTimeout = setTimeout(function () {
+              wrongTimeout = setTimeout(() => {
                 $trainer.removeClass('wrong');
               }, 500);
             }

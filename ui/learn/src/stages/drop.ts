@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { anyCapture, extinct } from '../assert';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, circle, concat, initial, onDest } from '../shapes';
 import { toPiece } from '../util';
@@ -36,7 +36,7 @@ const levels: IncompleteLevel[] = [
         circle('5e', 'red'),
         circle('6e', 'red'),
         arrow(toPiece('P'), '5f'),
-      ])
+      ]),
     ),
     showFailureMove: 'capture',
   },

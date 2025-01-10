@@ -9,7 +9,7 @@ declare global {
       html: string | JQuery,
       cls?: string,
       onClose?: () => void,
-      withDataAndEvents?: boolean
+      withDataAndEvents?: boolean,
     ): JQuery;
     close(): void;
   }

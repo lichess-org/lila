@@ -1,7 +1,7 @@
-import { Pieces } from 'shogiground/types';
+import type { Pieces } from 'shogiground/types';
 import { attacks } from 'shogiops/attacks';
-import { Piece } from 'shogiops/types';
 import { SquareSet } from 'shogiops/square-set';
+import type { Piece } from 'shogiops/types';
 import { makeSquareName, parseSquareName } from 'shogiops/util';
 import { directlyBehind } from 'shogiops/variant/annanshogi';
 import { fullSquareSet } from 'shogiops/variant/util';

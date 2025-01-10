@@ -1,6 +1,6 @@
 import { clockToPerf } from 'common/clock';
-import { Preset, PresetOpts, Seek } from './interfaces';
 import debounce from 'debounce-promise';
+import type { Preset, PresetOpts, Seek } from './interfaces';
 
 export const seeks: () => Promise<Seek[]> = debounce(
   () => window.lishogi.xhr.json('GET', '/lobby/seeks'),

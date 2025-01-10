@@ -1,6 +1,6 @@
 import notify from 'common/notification';
-import { ChallengeData, ChallengeOpts, ChallengeUser, Ctrl } from './interfaces';
 import { once } from 'common/storage';
+import type { ChallengeData, ChallengeOpts, ChallengeUser, Ctrl } from './interfaces';
 
 const li = window.lishogi;
 
@@ -25,7 +25,7 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
           li.sound.play('newChallenge');
         }
         const pushSubsribed =
-          parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
+          Number.parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
         !pushSubsribed && c.challenger && notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }

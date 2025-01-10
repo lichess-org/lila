@@ -1,10 +1,10 @@
-import { StoredProp, storedProp } from 'common/storage';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { ConcealOf } from '../interfaces';
+import { isCol1 } from 'common/mobile';
+import { type StoredProp, storedProp } from 'common/storage';
+import type { VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { ConcealOf } from '../interfaces';
 import column from './column-view';
 import inline from './inline-view';
-import { isCol1 } from 'common/mobile';
 
 export type TreeViewKey = 'column' | 'inline';
 

@@ -1,6 +1,6 @@
-import { notationsWithColor } from 'shogi/notation';
 import { dataIcon } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
+import { notationsWithColor } from 'shogi/notation';
+import { type VNode, h } from 'snabbdom';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';
 
@@ -9,9 +9,7 @@ export function plyColor(ply: number): Color {
 }
 
 export function readOnlyProp<A>(value: A): () => A {
-  return function (): A {
-    return value;
-  };
+  return (): A => value;
 }
 
 export function iconTag(icon: string): VNode {

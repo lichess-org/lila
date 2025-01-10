@@ -2,9 +2,7 @@ import { winningChances } from 'ceval';
 import { defined } from 'common/common';
 
 function hasCompChild(node: Tree.Node): boolean {
-  return !!node.children.find(function (c) {
-    return !!c.comp;
-  });
+  return !!node.children.find(c => !!c.comp);
 }
 
 export function nextGlyphSymbol(
@@ -21,9 +19,7 @@ export function nextGlyphSymbol(
     const found =
       node.ply % 2 === (color === 'sente' ? 1 : 0) &&
       node.glyphs &&
-      node.glyphs.find(function (g) {
-        return g.symbol === symbol;
-      });
+      node.glyphs.find(g => g.symbol === symbol);
     if (found) return node;
   }
   return;

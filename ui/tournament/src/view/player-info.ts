@@ -1,11 +1,11 @@
 import { bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import * as status from 'game/status';
-import { VNode, h } from 'snabbdom';
-import TournamentController from '../ctrl';
+import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
 import { teamName } from './battle';
 import { numberRow, playerName, player as renderPlayer } from './util';
-import { i18n } from 'i18n';
 
 function result(win, stat): string {
   switch (win) {
@@ -19,7 +19,10 @@ function result(win, stat): string {
 }
 
 function playerTitle(player) {
-  return h('h2', [h('span.rank', player.rank ? player.rank + '. ' : ''), renderPlayer(player, true, false, false)]);
+  return h('h2', [
+    h('span.rank', player.rank ? player.rank + '. ' : ''),
+    renderPlayer(player, true, false, false),
+  ]);
 }
 
 function setup(vnode: VNode) {
@@ -39,13 +42,7 @@ export default function (ctrl: TournamentController): VNode {
   const nb = data.player.nb,
     poa = data.pairings || data.arrangements,
     poaLen = poa.length,
-    avgOp = poaLen
-      ? Math.round(
-          poa.reduce(function (a, b) {
-            return a + b.op.rating;
-          }, 0) / poaLen
-        )
-      : undefined;
+    avgOp = poaLen ? Math.round(poa.reduce((a, b) => a + b.op.rating, 0) / poaLen) : undefined;
   return h(
     tag,
     {
@@ -69,12 +66,16 @@ export default function (ctrl: TournamentController): VNode {
               {
                 hook: bind('click', () => ctrl.showTeamInfo(data.player.team), ctrl.redraw),
               },
-              [teamName(ctrl.data.teamBattle!, data.player.team)]
+              [teamName(ctrl.data.teamBattle!, data.player.team)],
             )
           : null,
         h('table', [
           data.player.performance
-            ? numberRow(i18n('performance'), data.player.performance + (nb.game < 3 ? '?' : ''), 'raw')
+            ? numberRow(
+                i18n('performance'),
+                data.player.performance + (nb.game < 3 ? '?' : ''),
+                'raw',
+              )
             : null,
           numberRow(i18n('gamesPlayed'), nb.game),
           ...(nb.game
@@ -91,11 +92,13 @@ export default function (ctrl: TournamentController): VNode {
           'table.pairings.sublist',
           {
             hook: bind('click', e => {
-              const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
+              const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute(
+                'data-href',
+              );
               if (href) window.open(href, '_blank');
             }),
           },
-          poa.map(function (p, i) {
+          poa.map((p, i) => {
             const res = result(p.win, p.status);
             return h(
               'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),
@@ -112,11 +115,11 @@ export default function (ctrl: TournamentController): VNode {
                 h('td', p.op.rating),
                 h('td.is.color-icon.' + p.color),
                 h('td', res),
-              ]
+              ],
             );
-          })
+          }),
         ),
       ]),
-    ]
+    ],
   );
 }

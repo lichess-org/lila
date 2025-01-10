@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { check, not } from '../assert';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, checkShapes, concat, initial } from '../shapes';
 

@@ -14,7 +14,7 @@ const fetchWrap = (
   method: FetchMethod,
   url: string,
   content: LishogiFetchContent | undefined,
-  init: RequestInit
+  init: RequestInit,
 ): Promise<Response> => {
   const fullUrl = content?.url ? urlWithParams(url, content.url) : url,
     body = content?.json
@@ -42,7 +42,7 @@ export const json = <T = any>(
   method: FetchMethod,
   url: string,
   content?: LishogiFetchContent,
-  init?: LishogiFetchInit
+  init?: LishogiFetchInit,
 ): Promise<T> => {
   return fetchWrap(method, url, content, {
     headers: { ...xhrHeader, ...jsonHeader },
@@ -54,7 +54,7 @@ export const text = (
   method: FetchMethod,
   url: string,
   content?: LishogiFetchContent,
-  init?: LishogiFetchInit
+  init?: LishogiFetchInit,
 ): Promise<any> => {
   return fetchWrap(method, url, content, {
     headers: { ...xhrHeader },
@@ -64,7 +64,7 @@ export const text = (
 
 export const formToXhr = (
   el: HTMLFormElement,
-  submitter?: HTMLButtonElement
+  submitter?: HTMLButtonElement,
 ): Promise<Response> => {
   const action = el.getAttribute('action'),
     method = (el.method || 'GET') as 'GET' | 'POST',
@@ -82,7 +82,7 @@ export const formToXhr = (
 
 export const urlWithParams = (
   base: string,
-  params: Record<string, string | boolean | undefined | null | number>
+  params: Record<string, string | boolean | undefined | null | number>,
 ): string => {
   const searchParams = new URLSearchParams();
   for (const k of Object.keys(params)) {

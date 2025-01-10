@@ -7,7 +7,7 @@ function main(opts: any): void {
       name: 'challenge',
     },
     events: {
-      reload: function () {
+      reload: () => {
         window.lishogi.xhr.text('GET', opts.xhrUrl).then(html => {
           $el.replaceWith($(html).find($el));
           init();
@@ -25,7 +25,7 @@ function main(opts: any): void {
       accepting = true;
       $(this).html('<span class="ddloader"></span>');
     });
-    $el.find('form.xhr').on('submit',function (this: HTMLFormElement, e) {
+    $el.find('form.xhr').on('submit', function (this: HTMLFormElement, e) {
       e.preventDefault();
       window.lishogi.xhr.formToXhr(this);
       $(this).html('<span class="ddloader"></span>');
@@ -36,7 +36,7 @@ function main(opts: any): void {
         focus: 1,
         friend: 1,
         tag: 'span',
-        onSelect: function () {
+        onSelect: () => {
           $input.parents('form').trigger('submit');
         },
       });

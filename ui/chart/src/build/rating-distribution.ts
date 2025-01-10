@@ -1,7 +1,7 @@
+import type { ChartConfiguration, ChartData, ChartDataset } from 'chart.js';
+import { i18n } from 'i18n';
 import { animation, fontFamily, gridColor, hoverBorderColor } from '../common';
 import type { DistributionData } from '../interface';
-import { type ChartConfiguration, type ChartData, type ChartDataset } from 'chart.js';
-import { i18n } from 'i18n';
 
 function main(data: DistributionData): void {
   $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
@@ -75,7 +75,7 @@ function main(data: DistributionData): void {
       pushLine(
         '#eeaaee',
         Math.min(data.otherRating, maxRating),
-        `${data.otherPlayer} (${data.otherRating})`
+        `${data.otherPlayer} (${data.otherRating})`,
       );
     }
     const chartData: ChartData<'line'> = {

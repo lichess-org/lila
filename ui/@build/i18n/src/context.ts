@@ -1,25 +1,25 @@
-import path from 'node:path';
 import fs from 'node:fs';
-import { Context, PackageInfo, PackagesWrap } from '@build/wrapper/types';
-import { extractI18nKeysFromDir } from './extractor.js';
-import { dumpTypes } from './dumper.js';
 import { readdir, writeFile } from 'node:fs/promises';
-import { parseXmls } from './parser.js';
-import { I18nObj } from './types.js';
-import { categoryName, isValidJs } from './util.js';
+import path from 'node:path';
+import type { Context, PackageInfo, PackagesWrap } from '@build/wrapper/types';
 import { defaultLang, otherLangs } from './constants.js';
+import { dumpTypes } from './dumper.js';
+import { extractI18nKeysFromDir } from './extractor.js';
+import { parseXmls } from './parser.js';
 import { quantity } from './quantity.js';
 import { timeago } from './timeago.js';
+import type { I18nObj } from './types.js';
+import { categoryName, isValidJs } from './util.js';
 
 const separatePackages = ['learn', 'insights', 'puzzle'];
 
 export function i18nContext(): Context {
   let outdir: string, translationDir: string, translationSourceDir: string;
 
-  let packagesKeyCache: Record<string, Set<string>> = {};
+  const packagesKeyCache: Record<string, Set<string>> = {};
 
   let sourceI18n: I18nObj;
-  let langsI18n: Record<string, I18nObj> = {};
+  const langsI18n: Record<string, I18nObj> = {};
 
   let usedFilter: boolean;
 
@@ -50,7 +50,7 @@ export function i18nContext(): Context {
       console.log(`Building i18n files...`);
       packagesKeyCache[pkg.name] = await extractI18nKeysFromDir(
         pkg.name,
-        path.join(pkg.path, 'src')
+        path.join(pkg.path, 'src'),
       );
       await writeI18n();
     },
@@ -73,8 +73,8 @@ export function i18nContext(): Context {
   async function initDirs(): Promise<void> {
     await Promise.all(
       [...separatePackages, 'core'].map(async p =>
-        fs.promises.mkdir(path.join(outdir, p), { recursive: true })
-      )
+        fs.promises.mkdir(path.join(outdir, p), { recursive: true }),
+      ),
     );
   }
 
@@ -92,7 +92,7 @@ export function i18nContext(): Context {
           name: pkg.name,
           keys: await extractI18nKeysFromDir(pkg.name, path.join(pkg.path, 'src')),
         };
-      })
+      }),
     );
     result.forEach(({ name, keys }) => {
       console.log(`${name}: ${keys.size} keys`);
@@ -107,7 +107,7 @@ export function i18nContext(): Context {
     sourceI18n = await parseXmls(
       sourceFiles.map(sf => {
         return { name: categoryName(sf), path: path.join(translationSourceDir, sf) };
-      })
+      }),
     );
   }
 
@@ -118,7 +118,7 @@ export function i18nContext(): Context {
       const i18n = await parseXmls(
         categoryDirs.map(cd => {
           return { name: categoryName(cd), path: path.join(translationDestDir, cd, `${lang}.xml`) };
-        })
+        }),
       );
       langsI18n[lang] = i18n;
     }

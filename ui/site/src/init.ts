@@ -1,18 +1,18 @@
 import { assetUrl, compiledScriptPath, loadCompiledScript, loadCssPath } from 'common/assets';
+import { initAll as initMiniBoards, update as updateMiniBoard } from 'common/mini-board';
 import { announce } from './announce';
+import { challengeApp } from './challenge';
+import { loadInfiniteScroll } from './infinite-scroll';
 import { fillJquery } from './jquery';
 import { mousetrap } from './mousetrap';
-import { pubsub } from './pubsub';
-import * as timeago from './timeago';
-import { storage } from './storage';
-import { userAutocomplete } from './user-autocomplete';
-import { StrongSocket } from './socket';
-import { loadInfiniteScroll } from './infinite-scroll';
-import { initiatingHtml } from './util';
-import { notifyApp } from './notify';
-import { challengeApp } from './challenge';
-import { initAll as initMiniBoards, update as updateMiniBoard } from 'common/mini-board';
 import { redirect, reload } from './navigation';
+import { notifyApp } from './notify';
+import { pubsub } from './pubsub';
+import { StrongSocket } from './socket';
+import { storage } from './storage';
+import * as timeago from './timeago';
+import { userAutocomplete } from './user-autocomplete';
+import { initiatingHtml } from './util';
 import { initWidgets } from './widget';
 
 export function init(): void {
@@ -92,8 +92,8 @@ export function init(): void {
     $('.mselect .button').on('click', function (this: HTMLElement) {
       const $p = $(this).parent();
       $p.toggleClass('shown');
-      setTimeout(function () {
-        const handler = function (e) {
+      setTimeout(() => {
+        const handler = e => {
           if ($.contains($p[0], e.target)) return;
           $p.removeClass('shown');
           $('html').off('click', handler);
@@ -121,7 +121,7 @@ export function init(): void {
     {
       let booted = false;
 
-      $('#top .dasher .toggle').one('mouseover click', function () {
+      $('#top .dasher .toggle').one('mouseover click', () => {
         if (booted) return;
         booted = true;
         const $dasher = $('#dasher_app');
@@ -188,8 +188,8 @@ export function init(): void {
       $p.toggleClass('shown');
       $p.siblings('.shown').removeClass('shown');
       window.lishogi.pubsub.emit('top.toggle.' + $(this).attr('id'));
-      setTimeout(function () {
-        const handler: (e: JQuery.ClickEvent) => void = function (e: JQuery.ClickEvent) {
+      setTimeout(() => {
+        const handler: (e: JQuery.ClickEvent) => void = (e: JQuery.ClickEvent) => {
           if (
             $.contains($p[0], e.target as HTMLElement) ||
             !!$('.sp-container:not(.sp-hidden)').length
@@ -210,12 +210,12 @@ export function init(): void {
     $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
       const t = $(this).toggleClass('bookmarked');
       window.lishogi.xhr.text('POST', this.href);
-      const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
+      const count = (Number.parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
       t.find('span').html(count > 0 ? count.toString() : '');
       return false;
     });
 
-    mousetrap.bind('esc', function () {
+    mousetrap.bind('esc', () => {
       const $oc = $('#modal-wrap .close');
       if ($oc.length) $oc.trigger('click');
       else {
@@ -226,7 +226,7 @@ export function init(): void {
     });
 
     if (!storage.get('grid'))
-      setTimeout(function () {
+      setTimeout(() => {
         if (getComputedStyle(document.body).getPropertyValue('--grid')) storage.set('grid', '1');
         else
           window.lishogi.xhr
@@ -344,7 +344,8 @@ export function init(): void {
           const curKey = sub && sub.options.applicationServerKey;
           const isNewKey =
             curKey && btoa(String.fromCharCode.apply(null, new Uint8Array(curKey))) !== vapid;
-          const resub = isNewKey || parseInt(pushStorage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+          const resub =
+            isNewKey || Number.parseInt(pushStorage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
           if (!sub || resub) {
             const subscribeOptions = {
               userVisibleOnly: true,

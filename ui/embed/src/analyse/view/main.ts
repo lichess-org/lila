@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
-import { AnalyseCtrl } from '../ctrl';
-import { renderMoves } from './moves';
 import { initOneWithState } from 'common/mini-board';
-import { renderJumps } from './jumps';
+import { type VNode, h } from 'snabbdom';
+import type { AnalyseCtrl } from '../ctrl';
 import { renderFooter } from './footer';
+import { renderJumps } from './jumps';
+import { renderMoves } from './moves';
 
 export function view(ctrl: AnalyseCtrl): VNode {
   return h('main.analyse', [

@@ -1,4 +1,4 @@
-import RoundController from './ctrl';
+import type RoundController from './ctrl';
 import { lastPly } from './round';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
@@ -18,35 +18,35 @@ export function init(ctrl: RoundController): void {
   const k = window.lishogi.mousetrap;
   k.bind(
     ['left', 'j'],
-    preventing(function () {
+    preventing(() => {
       prev(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   k.bind(
     ['right', 'k'],
-    preventing(function () {
+    preventing(() => {
       next(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   k.bind(
     ['up', '0', 'home'],
-    preventing(function () {
+    preventing(() => {
       ctrl.userJump(0);
       ctrl.redraw();
-    })
+    }),
   );
   k.bind(
     ['down', '$', 'end'],
-    preventing(function () {
+    preventing(() => {
       ctrl.userJump(lastPly(ctrl.data));
       ctrl.redraw();
-    })
+    }),
   );
   k.bind('f', preventing(ctrl.flipNow));
   k.bind(
     'z',
-    preventing(() => window.lishogi.pubsub.emit('zen'))
+    preventing(() => window.lishogi.pubsub.emit('zen')),
   );
 }

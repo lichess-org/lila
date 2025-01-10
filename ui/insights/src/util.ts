@@ -1,12 +1,12 @@
-import { Role } from 'shogiops/types';
 import { ROLES } from 'shogiops/constants';
+import type { Role } from 'shogiops/types';
 import { speeds, variants } from './types';
 
 export function toPercentage(n: number, total: number): number {
   return total ? +((n / total) * 100).toFixed(2) : 0;
 }
 
-export function fixed(n: number | undefined, digits: number = 2): number {
+export function fixed(n: number | undefined, digits = 2): number {
   return +(n || 0).toFixed(digits);
 }
 

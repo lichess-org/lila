@@ -1,13 +1,13 @@
 import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { isHandicap } from 'shogiops/handicaps';
-import { VNode, h, thunk } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { option } from '../util';
-import { StudyChapter, StudyCtrl, StudyTagsCtrl, TagTypes } from './interfaces';
-import { tagToKif } from '../notation-export';
-import { colorName } from 'shogi/color-name';
 import { i18n, i18nFormatCapitalized } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { isHandicap } from 'shogiops/handicaps';
+import { type VNode, h, thunk } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import { tagToKif } from '../notation-export';
+import { option } from '../util';
+import type { StudyChapter, StudyCtrl, StudyTagsCtrl, TagTypes } from './interfaces';
 
 const unwantedTags = ['Result', 'SenteElo', 'SenteTitle', 'GoteElo', 'GoteTitle'];
 
@@ -19,10 +19,10 @@ function editable(value: string, submit: (v: string, el: HTMLInputElement) => vo
       value,
     },
     hook: onInsert<HTMLInputElement>(el => {
-      el.onblur = function () {
+      el.onblur = () => {
         submit(el.value, el);
       };
-      el.onkeypress = function (e) {
+      el.onkeypress = e => {
         if ((e.keyCode || e.which) == 13) el.blur();
       };
     }),
@@ -42,7 +42,7 @@ function renderTags(chapter: StudyChapter, submit, types: string[]): VNode {
   const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0])),
     handicap = isHandicap({ rules: chapter.setup.variant.key, sfen: chapter.initialSfen });
   rows = rows.concat(
-    wantedTags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])])
+    wantedTags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]),
   );
   if (submit) {
     const existingTypes = wantedTags.map(t => t[0]);
@@ -72,7 +72,7 @@ function renderTags(chapter: StudyChapter, submit, types: string[]): VNode {
               if (!existingTypes.includes(t)) return option(t, '', translateTag(t, handicap));
               return undefined;
             }),
-        ]
+        ],
       ),
       editable('', (value, el) => {
         if (selectedType) {
@@ -87,7 +87,7 @@ function renderTags(chapter: StudyChapter, submit, types: string[]): VNode {
     'table.study__tags.slist',
     h(
       'tbody',
-      rows.map(function (r) {
+      rows.map(r => {
         const tag = typeof r[0] === 'string' ? translateTag(r[0], handicap) : r[0];
 
         return h(
@@ -103,22 +103,22 @@ function renderTags(chapter: StudyChapter, submit, types: string[]): VNode {
                   title: (typeof r[0] === 'string' ? tagToKif(r[0], handicap) : undefined) || '',
                 },
               },
-              tag
+              tag,
             ),
             h('td', r[1]),
-          ]
+          ],
         );
-      })
-    )
+      }),
+    ),
   );
 }
 
 export function ctrl(
   root: AnalyseCtrl,
   getChapter: () => StudyChapter,
-  types: TagTypes
+  types: TagTypes,
 ): StudyTagsCtrl {
-  const submit = throttle(500, function (name, value) {
+  const submit = throttle(500, (name, value) => {
     root.study!.makeChange('setTag', {
       chapterId: getChapter().id,
       name,
@@ -137,7 +137,7 @@ export function ctrl(
 function doRender(root: StudyCtrl): VNode {
   return h(
     'div',
-    renderTags(root.tags.getChapter(), root.vm.mode.write && root.tags.submit, root.tags.types)
+    renderTags(root.tags.getChapter(), root.vm.mode.write && root.tags.submit, root.tags.types),
   );
 }
 

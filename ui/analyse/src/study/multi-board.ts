@@ -1,25 +1,25 @@
-import { MaybeVNodes, bind } from 'common/snabbdom';
+import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from 'common/assets';
+import { type MaybeVNodes, bind } from 'common/snabbdom';
 import spinner from 'common/spinner';
+import { i18n } from 'i18n';
 import { Shogiground } from 'shogiground';
 import { opposite } from 'shogiground/util';
 import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
-import { VNode, h } from 'snabbdom';
-import { ChapterPreview, ChapterPreviewPlayer, Position, StudyCtrl } from './interfaces';
+import { type VNode, h } from 'snabbdom';
+import type { ChapterPreview, ChapterPreviewPlayer, Position, StudyCtrl } from './interfaces';
 import { multiBoard as xhrLoad } from './study-xhr';
-import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from 'common/assets';
-import { i18n } from 'i18n';
 
 export class MultiBoardCtrl {
-  loading: boolean = false;
-  page: number = 1;
+  loading = false;
+  page = 1;
   pager?: Paginator<ChapterPreview>;
-  playing: boolean = false;
+  playing = false;
 
   constructor(
     readonly studyId: string,
-    readonly redraw: () => void
+    readonly redraw: () => void,
   ) {}
 
   addNode(pos: Position, node: Tree.Node): void {
@@ -76,7 +76,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
         },
       },
     },
-    ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()]
+    ctrl.pager ? renderPager(ctrl.pager, study) : [spinner()],
   );
 }
 
@@ -121,7 +121,7 @@ function pagerButton(
   icon: string,
   click: () => void,
   enable: boolean,
-  ctrl: MultiBoardCtrl
+  ctrl: MultiBoardCtrl,
 ): VNode {
   return h('button.fbt', {
     attrs: {
@@ -151,7 +151,7 @@ function makePreview(study: StudyCtrl) {
         },
         hook: bind('mousedown', _ => study.setChapter(preview.id)),
       },
-      contents
+      contents,
     );
   };
 }
@@ -197,7 +197,7 @@ function makeSg(preview: ChapterPreview): VNode {
                 toForsyth: roleToForsyth(variant),
               },
             },
-            { board: vnode.elm as HTMLElement }
+            { board: vnode.elm as HTMLElement },
           );
           vnode.data!.cp = { sg, sfen: preview.sfen };
         },
@@ -218,6 +218,6 @@ function makeSg(preview: ChapterPreview): VNode {
           vnode.data!.cp = old.data!.cp;
         },
       },
-    })
+    }),
   );
 }

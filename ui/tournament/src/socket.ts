@@ -1,5 +1,5 @@
-import TournamentController from './ctrl';
-import { Arrangement } from './interfaces';
+import type TournamentController from './ctrl';
+import type { Arrangement } from './interfaces';
 
 export interface TournamentSocket {
   send: Socket.Send;
@@ -29,7 +29,11 @@ export default function (send: Socket.Send, ctrl: TournamentController): Tournam
       if (index !== -1) ctrl.data.standing.arrangements[index] = arr;
       else ctrl.data.standing.arrangements.push(arr);
 
-      if (ctrl.arrangement && users.includes(ctrl.arrangement.user1.id) && users.includes(ctrl.arrangement.user2.id))
+      if (
+        ctrl.arrangement &&
+        users.includes(ctrl.arrangement.user1.id) &&
+        users.includes(ctrl.arrangement.user2.id)
+      )
         ctrl.arrangement = arr;
       else {
         const key = arr.user1.id + ';' + arr.user2.id;

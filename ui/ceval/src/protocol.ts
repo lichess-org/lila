@@ -1,9 +1,9 @@
 import { defined } from 'common/common';
-import { DropMove } from 'shogiops/types';
-import { makeUsi, parseUsi, isDrop } from 'shogiops/util';
 import { parseSfen } from 'shogiops/sfen';
-import { Config, Work } from './types';
+import type { DropMove } from 'shogiops/types';
+import { isDrop, makeUsi, parseUsi } from 'shogiops/util';
 import { promote } from 'shogiops/variant/util';
+import type { Config, Work } from './types';
 
 const minDepth = 6;
 const maxSearchPlies = 245;
@@ -81,20 +81,20 @@ export class Protocol {
       for (let i = 1; i < parts.length; i++) {
         switch (parts[i]) {
           case 'depth':
-            depth = parseInt(parts[++i]);
+            depth = Number.parseInt(parts[++i]);
             break;
           case 'nodes':
-            nodes = parseInt(parts[++i]);
+            nodes = Number.parseInt(parts[++i]);
             break;
           case 'multipv':
-            multiPv = parseInt(parts[++i]);
+            multiPv = Number.parseInt(parts[++i]);
             break;
           case 'time':
-            elapsedMs = parseInt(parts[++i]);
+            elapsedMs = Number.parseInt(parts[++i]);
             break;
           case 'score':
             isMate = parts[++i] === 'mate';
-            povEv = parseInt(parts[++i]);
+            povEv = Number.parseInt(parts[++i]);
             if (parts[i + 1] === 'lowerbound' || parts[i + 1] === 'upperbound')
               evalType = parts[++i];
             break;
@@ -185,7 +185,7 @@ export class Protocol {
     }
   }
 
-  private swapWork(reloaded: boolean = false): void {
+  private swapWork(reloaded = false): void {
     this.reloading = false;
 
     if (!this.send || (this.work && !reloaded)) return;
@@ -266,7 +266,7 @@ export class Protocol {
         .join('');
     }
 
-    let uMoves: string[] = [];
+    const uMoves: string[] = [];
     const pos = parseSfen('kyotoshogi', sfen, false).unwrap();
     moves.forEach(usi => {
       const move = parseUsi(usi)!;

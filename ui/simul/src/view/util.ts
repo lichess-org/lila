@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
 
-import { Player } from '../interfaces';
-import SimulCtrl from '../ctrl';
 import { i18nVdom } from 'i18n';
+import type SimulCtrl from '../ctrl';
+import type { Player } from '../interfaces';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
@@ -19,7 +19,7 @@ export function player(p: Player, ctrl: SimulCtrl) {
       h(`i.line${p.patron ? '.patron' : ''}`),
       h('span.name', userName(p)),
       h('em', ` ${p.rating}${p.provisional ? '?' : ''}`),
-    ]
+    ],
   );
 }
 

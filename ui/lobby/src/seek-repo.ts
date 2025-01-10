@@ -1,5 +1,5 @@
-import LobbyController from './ctrl';
-import { Seek } from './interfaces';
+import type LobbyController from './ctrl';
+import type { Seek } from './interfaces';
 
 const ratingOrder =
   (reverse: boolean) =>

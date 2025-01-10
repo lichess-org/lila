@@ -1,4 +1,4 @@
-import { VNode, attributesModule, classModule, init } from 'snabbdom';
+import { type VNode, attributesModule, classModule, init } from 'snabbdom';
 import view from '../schedule/view';
 
 const patch = init([classModule, attributesModule]);

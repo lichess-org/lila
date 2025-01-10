@@ -1,4 +1,4 @@
-import { Prop, defined, prop } from 'common/common';
+import { type Prop, defined, prop } from 'common/common';
 import throttle from 'common/throttle';
 
 export interface EvalCache {
@@ -43,7 +43,7 @@ function toCeval(e: Tree.ServerEval) {
     sfen: e.sfen,
     nodes: e.knodes * 1000,
     depth: e.depth,
-    pvs: e.pvs.map(function (from) {
+    pvs: e.pvs.map(from => {
       const to: Tree.PvData = {
         moves: typeof from.moves === 'string' ? from.moves.split(' ') : from.moves,
       };

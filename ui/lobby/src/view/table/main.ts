@@ -1,5 +1,5 @@
-import { VNodes } from 'snabbdom';
-import LobbyController from '../../ctrl';
+import type { VNodes } from 'snabbdom';
+import type LobbyController from '../../ctrl';
 import * as chart from './chart';
 import { createSeek } from './correspondence';
 import * as filterView from './filter';
@@ -12,7 +12,9 @@ export default function (ctrl: LobbyController): VNodes {
   if (ctrl.filter.open) filterBody = filterView.render(ctrl);
   switch (ctrl.mode) {
     case 'chart':
-      res = isSeeks ? ctrl.filter.filterSeeks(ctrl.data.seeks) : ctrl.filter.filter(ctrl.data.hooks);
+      res = isSeeks
+        ? ctrl.filter.filterSeeks(ctrl.data.seeks)
+        : ctrl.filter.filter(ctrl.data.hooks);
       nbFiltered = res.hidden;
       body = filterBody || chart.render(isSeeks ? 'seeks' : 'real_time', ctrl, res.visible);
       modeToggle = ctrl.filter.open ? null : chart.toggle(ctrl);

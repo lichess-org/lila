@@ -1,9 +1,9 @@
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import { NoteCtrl, NoteOpts } from './interfaces';
-import * as xhr from './xhr';
 import { debounce } from 'common/timings';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { NoteCtrl, NoteOpts } from './interfaces';
+import * as xhr from './xhr';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;
@@ -36,7 +36,7 @@ export function noteView(ctrl: NoteCtrl): VNode {
           insert: ctrl.fetch,
         },
       },
-      [spinner()]
+      [spinner()],
     );
   return h('textarea', {
     attrs: {

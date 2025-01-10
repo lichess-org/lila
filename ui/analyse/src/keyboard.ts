@@ -1,9 +1,9 @@
+import { loadCssPath } from 'common/assets';
 import { modal } from 'common/modal';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import * as control from './control';
-import AnalyseCtrl from './ctrl';
-import { loadCssPath } from 'common/assets';
+import type AnalyseCtrl from './ctrl';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();
@@ -18,42 +18,42 @@ export function bind(ctrl: AnalyseCtrl): void {
     preventing(() => {
       control.prev(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     ['shift+left', 'shift+j'],
     preventing(() => {
       control.exitVariation(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     ['right', 'k'],
     preventing(() => {
       if (!ctrl.fork.proceed()) control.next(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     ['shift+right', 'shift+k'],
     preventing(() => {
       control.enterVariation(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     ['up', '0', 'home'],
     preventing(() => {
       if (!ctrl.fork.prev()) control.first(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     ['down', '$', 'end'],
     preventing(() => {
       if (!ctrl.fork.next()) control.last(ctrl);
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     'shift+c',
@@ -61,21 +61,21 @@ export function bind(ctrl: AnalyseCtrl): void {
       ctrl.showComments = !ctrl.showComments;
       ctrl.autoScroll();
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     'shift+i',
     preventing(() => {
       ctrl.treeView.toggle();
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind(
     'z',
     preventing(() => {
       ctrl.toggleComputer();
       ctrl.redraw();
-    })
+    }),
   );
 
   if (ctrl.embed) return;
@@ -88,7 +88,7 @@ export function bind(ctrl: AnalyseCtrl): void {
       else if (ctrl.studyPractice) return;
       else if (ctrl.ceval.enabled()) ctrl.playBestMove();
       else ctrl.toggleCeval();
-    })
+    }),
   );
 
   if (ctrl.studyPractice) return;
@@ -99,7 +99,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     preventing(() => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind('l', preventing(ctrl.toggleCeval));
   kbd.bind(
@@ -107,7 +107,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     preventing(() => {
       ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
       ctrl.redraw();
-    })
+    }),
   );
   kbd.bind('x', preventing(ctrl.toggleThreatMode));
   if (ctrl.study) {
@@ -118,7 +118,7 @@ export function bind(ctrl: AnalyseCtrl): void {
           $(selector).each(function (this: HTMLElement) {
             this.dispatchEvent(new Event('mousedown'));
           });
-        })
+        }),
       );
     };
     keyToMousedown('d', '.study__buttons .comments');

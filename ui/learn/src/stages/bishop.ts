@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 import { obstaclesCaptured } from '../assert';
-import { IncompleteLevel, IncompleteStage } from '../interfaces';
+import type { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, circle, initial, pieceMovesHighlihts } from '../shapes';
 import { toPiece } from '../util';

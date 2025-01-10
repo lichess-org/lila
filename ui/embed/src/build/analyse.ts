@@ -6,7 +6,7 @@ import {
   propsModule,
   styleModule,
 } from 'snabbdom';
-import { AnalyseCtrl, AnalyseData, StudyData } from '../analyse/ctrl';
+import { AnalyseCtrl, type AnalyseData, type StudyData } from '../analyse/ctrl';
 import { view } from '../analyse/view/main';
 
 const patch = init([classModule, attributesModule, styleModule, propsModule, eventListenersModule]);

@@ -1,12 +1,12 @@
+import type { MaybeVNodes } from 'common/snabbdom';
 import { notationsWithColor } from 'shogi/notation';
-import { MaybeVNodes } from 'common/snabbdom';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import { ops as treeOps, path as treePath } from 'tree';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import * as moveView from '../move-view';
 import {
-  Ctx,
-  Opts,
+  type Ctx,
+  type Opts,
   findCurrentPath,
   mainHook,
   nodeClasses,

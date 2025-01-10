@@ -1,9 +1,9 @@
+import { spectrum } from 'common/assets';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
-import { Open, Redraw, header, validateUrl } from './util';
 import { debounce } from 'common/timings';
 import { i18n } from 'i18n';
-import { spectrum } from 'common/assets';
+import { type VNode, h } from 'snabbdom';
+import { type Open, type Redraw, header, validateUrl } from './util';
 
 export interface CustomThemeData {
   boardColor: string;
@@ -136,7 +136,7 @@ function makeSelection(ctrl: CustomThemeCtrl, name: string, options: string[]): 
         hook: {
           insert: vm =>
             $(vm.elm as HTMLElement).on('change', function (this: HTMLElement) {
-              ctrl.set('gridWidth', $(this).val());
+              ctrl.set('gridWidth', $(this).val() as number);
             }),
         },
       },
@@ -146,7 +146,7 @@ function makeSelection(ctrl: CustomThemeCtrl, name: string, options: string[]): 
           {
             attrs: {
               value: i,
-              selected: ctrl.data['gridWidth'] == i,
+              selected: ctrl.data.gridWidth == i,
             },
           },
           o,
@@ -190,7 +190,7 @@ function defaultColor(key: ColorKey): string {
 function cssVariableName(key: keyof Omit<CustomThemeData, 'gridWidth'>): string {
   switch (key) {
     case 'boardColor':
-      return `board-color`;
+      return 'board-color';
     case 'boardImg':
       return 'board-url';
     case 'gridColor':

@@ -1,4 +1,4 @@
-import { Notation as sgNotation } from 'shogiground/types';
+import type { Notation as sgNotation } from 'shogiground/types';
 import { makeJapaneseMoveOrDrop } from 'shogiops/notation/japanese';
 import { makeKifMoveOrDrop } from 'shogiops/notation/kif';
 import { makeKitaoKawasakiMoveOrDrop } from 'shogiops/notation/kitao-kawasaki';
@@ -7,9 +7,9 @@ import { makeWesternMoveOrDrop } from 'shogiops/notation/western';
 import { makeWesternEngineMoveOrDrop } from 'shogiops/notation/western-engine';
 import { makeYorozuyaMoveOrDrop } from 'shogiops/notation/yorozuya';
 import { parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { MoveOrDrop, Role, Rules, Square } from 'shogiops/types';
+import type { MoveOrDrop, Role, Rules, Square } from 'shogiops/types';
 import { makeUsi, parseUsi, toBW } from 'shogiops/util';
-import { Position } from 'shogiops/variant/position';
+import type { Position } from 'shogiops/variant/position';
 import { plyColor } from './common';
 
 export const Notation = {
@@ -23,7 +23,7 @@ export const Notation = {
 } as const;
 export type Notation = (typeof Notation)[keyof typeof Notation];
 
-const notationPref = parseInt(document.body.dataset.notation || '0') as Notation;
+const notationPref = Number.parseInt(document.body.dataset.notation || '0') as Notation;
 
 // Notations, that should be displayed with ☖/☗
 export function notationsWithColor(): boolean {
@@ -144,7 +144,7 @@ export function usiToNotation(
     for (const mText of matches) {
       const match = mText.match(/usi:(\d*)\.?((?:\d\w|\w\*)\d\w(?:\+|=)?)/);
       if (match) {
-        const textPlyColor = plyColor(parseInt(match[1]) || node.ply),
+        const textPlyColor = plyColor(Number.parseInt(match[1]) || node.ply),
           useParentNode = plyColor(node.ply) !== textPlyColor,
           refNode = useParentNode && parentNode ? parentNode : node,
           refSfen =

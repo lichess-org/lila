@@ -1,9 +1,18 @@
+import { loadCssPath } from 'common/assets';
 import { prop, requestIdleCallbackWithFallback } from 'common/common';
-import { ChatOpts, ChatCtrl, Line, ModerationCtrl, Permissions, Redraw, Tab, ViewModel } from './interfaces';
+import type {
+  ChatCtrl,
+  ChatOpts,
+  Line,
+  ModerationCtrl,
+  Permissions,
+  Redraw,
+  Tab,
+  ViewModel,
+} from './interfaces';
 import { moderationCtrl } from './moderation';
 import { noteCtrl } from './note';
 import { presetCtrl } from './preset';
-import { loadCssPath } from 'common/assets';
 
 const li = window.lishogi;
 
@@ -38,9 +47,10 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
 
   /* If discussion is disabled, and we have another chat tab,
    * then select that tab over discussion */
-  if (allTabs.length > 1 && vm.tab === 'discussion' && li.storage.get('nochat')) vm.tab = allTabs[1];
+  if (allTabs.length > 1 && vm.tab === 'discussion' && li.storage.get('nochat'))
+    vm.tab = allTabs[1];
 
-  const post = function (text: string): void {
+  const post = (text: string): void => {
     text = text.trim();
     if (!text) return;
     if (text.length > 140) {
@@ -50,7 +60,7 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
     li.pubsub.emit('socket.send', 'talk', text);
   };
 
-  const onTimeout = function (userId: string) {
+  const onTimeout = (userId: string) => {
     data.lines.forEach(l => {
       if (l.u && l.u.toLowerCase() == userId) l.d = true;
     });
@@ -59,14 +69,14 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
     redraw();
   };
 
-  const onReinstate = function (userId: string) {
+  const onReinstate = (userId: string) => {
     if (userId == data.userId) {
       vm.timeout = false;
       redraw();
     }
   };
 
-  const onMessage = function (line: Line) {
+  const onMessage = (line: Line) => {
     data.lines.push(line);
     const nb = data.lines.length;
     if (nb > maxLines) {
@@ -76,12 +86,12 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
     redraw();
   };
 
-  const onWriteable = function (v: boolean) {
+  const onWriteable = (v: boolean) => {
     vm.writeable = v;
     redraw();
   };
 
-  const onPermissions = function (obj: Permissions) {
+  const onPermissions = (obj: Permissions) => {
     let p: keyof Permissions;
     for (p in obj) opts.permissions[p] = obj[p];
     instanciateModeration();
@@ -140,7 +150,8 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') requestIdleCallbackWithFallback(() => $('.mchat__say').trigger('focus'));
+      if (t === 'discussion')
+        requestIdleCallbackWithFallback(() => $('.mchat__say').trigger('focus'));
       redraw();
     },
     moderation: () => moderation,

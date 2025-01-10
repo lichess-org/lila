@@ -1,18 +1,18 @@
-import { Prop } from 'common/common';
-import { Status } from 'game';
-import { AnalyseData, Redraw } from '../interfaces';
-import { CommentForm } from './comment-form';
-import { DescriptionCtrl } from './description';
-import GamebookPlayCtrl from './gamebook/gamebook-play-ctrl';
-import { GamebookOverride } from './gamebook/interfaces';
-import { MultiBoardCtrl } from './multi-board';
-import { NotifCtrl } from './notif';
-import { StudyPracticeCtrl } from './practice/interfaces';
-import { ServerEval } from './server-eval';
-import { StudyChaptersCtrl } from './study-chapters';
-import { GlyphCtrl } from './study-glyph';
-import { TopicsCtrl } from './topics';
-import { StoredProp, StoredSet } from 'common/storage';
+import type { Prop } from 'common/common';
+import type { StoredProp, StoredSet } from 'common/storage';
+import type { Status } from 'game';
+import type { AnalyseData, Redraw } from '../interfaces';
+import type { CommentForm } from './comment-form';
+import type { DescriptionCtrl } from './description';
+import type GamebookPlayCtrl from './gamebook/gamebook-play-ctrl';
+import type { GamebookOverride } from './gamebook/interfaces';
+import type { MultiBoardCtrl } from './multi-board';
+import type { NotifCtrl } from './notif';
+import type { StudyPracticeCtrl } from './practice/interfaces';
+import type { ServerEval } from './server-eval';
+import type { StudyChaptersCtrl } from './study-chapters';
+import type { GlyphCtrl } from './study-glyph';
+import type { TopicsCtrl } from './topics';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -121,8 +121,8 @@ export interface StudySettings {
   computer: UserSelection;
   cloneable: UserSelection;
   chat: UserSelection;
-  sticky: Boolean;
-  description: Boolean;
+  sticky: boolean;
+  description: boolean;
 }
 
 export interface ReloadData {

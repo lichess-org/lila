@@ -17,7 +17,7 @@ export const announce = (d: LishogiAnnouncement): void => {
           escapeHtml(d.msg) +
           (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
           '<div class="actions"><a class="close">X</a></div>' +
-          '</div>'
+          '</div>',
       )
       .find('#announce .close')
       .on('click', kill);

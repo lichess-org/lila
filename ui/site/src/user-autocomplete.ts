@@ -25,7 +25,7 @@ export function userAutocomplete($input: JQuery, opts: UserCompleteOpts): Promis
         {
           hint: true,
           highlight: false,
-          source: function (query: string, _: any, runAsync: (arg: any) => Promise<void>) {
+          source: (query: string, _: any, runAsync: (arg: any) => Promise<void>) => {
             if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i))
               json(
                 'GET',
@@ -53,7 +53,7 @@ export function userAutocomplete($input: JQuery, opts: UserCompleteOpts): Promis
           templates: {
             empty: '<div class="empty">No player found</div>',
             pending: spinnerHtml,
-            suggestion: function (o: any) {
+            suggestion: (o: any) => {
               const tag = opts.tag || 'a';
               return (
                 '<' +

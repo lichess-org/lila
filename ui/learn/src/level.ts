@@ -1,4 +1,4 @@
-import { IncompleteLevel, Level, Score, UsiWithColor } from './interfaces';
+import type { IncompleteLevel, Level, Score, UsiWithColor } from './interfaces';
 
 export function createLevel(l: IncompleteLevel, it: number): Level {
   return {

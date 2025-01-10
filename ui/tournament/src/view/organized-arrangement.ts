@@ -1,23 +1,27 @@
-import { h, VNode, VNodes } from 'snabbdom';
-import TournamentController from '../ctrl';
-import header from './header';
-import { colors } from 'shogiground/constants';
-import { bind, MaybeVNode } from 'common/snabbdom';
-import { opposite } from 'shogiground/util';
-import { NewArrangement } from '../interfaces';
-import { flatpickrInput } from './flatpickrs';
-import { backControl, utcControl } from './controls';
-import { arrangementHasUser } from './util';
-import { arrangementThumbnail } from './arrangement-thumbnail';
-import { colorName } from 'shogi/color-name';
+import { type MaybeVNode, bind } from 'common/snabbdom';
 import { i18n } from 'i18n';
+import { colorName } from 'shogi/color-name';
+import { colors } from 'shogiground/constants';
+import { opposite } from 'shogiground/util';
+import { type VNode, type VNodes, h } from 'snabbdom';
+import type TournamentController from '../ctrl';
+import type { NewArrangement } from '../interfaces';
+import { arrangementThumbnail } from './arrangement-thumbnail';
+import { backControl, utcControl } from './controls';
+import { flatpickrInput } from './flatpickrs';
+import header from './header';
+import { arrangementHasUser } from './util';
 
 export function organizedArrangementView(ctrl: TournamentController): VNodes {
   return [
     header(ctrl),
-    backControl(ctrl, () => {
-      ctrl.newArrangement = undefined;
-    }, [utcControl(ctrl)]),
+    backControl(
+      ctrl,
+      () => {
+        ctrl.newArrangement = undefined;
+      },
+      [utcControl(ctrl)],
+    ),
     organizerArrangement(ctrl),
   ];
 }
@@ -39,14 +43,14 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
     gamesBetweenUsers =
       user1Id && user2Id
         ? ctrl.data.standing.arrangements.filter(
-            a => arrangementHasUser(a, user1Id) && arrangementHasUser(a, user2Id)
+            a => arrangementHasUser(a, user1Id) && arrangementHasUser(a, user2Id),
           )
         : [];
 
   const updateState = <K extends keyof NewArrangement>(
     key: K,
     value: NewArrangement[K],
-    redraw = false
+    redraw = false,
   ) => {
     state[key] = value;
     if (redraw) ctrl.redraw();
@@ -55,7 +59,7 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
     key: K,
     value: NewArrangement[K],
     elm: HTMLInputElement,
-    redraw = false
+    redraw = false,
   ) => {
     if (elm.checkValidity()) updateState(key, value);
     else elm.value = state.allowGameBefore?.toString() || '';
@@ -63,7 +67,7 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
     if (redraw) ctrl.redraw();
   };
   const updatePoints = (key: 'w' | 'd' | 'l', elm: HTMLInputElement) => {
-    if (elm.checkValidity()) state.points[key] = parseInt(elm.value) || 0;
+    if (elm.checkValidity()) state.points[key] = Number.parseInt(elm.value) || 0;
     else elm.value = state.points[key].toString() || '';
   };
 
@@ -111,7 +115,7 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
               },
             },
           },
-          playerOptions(ctrl, state.user1?.id, state.user2?.id)
+          playerOptions(ctrl, state.user1?.id, state.user2?.id),
         ),
         h('span', 'vs'),
         h(
@@ -123,7 +127,7 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
               },
             },
           },
-          playerOptions(ctrl, state.user2?.id, state.user1?.id)
+          playerOptions(ctrl, state.user2?.id, state.user1?.id),
         ),
       ]),
     ]),
@@ -140,11 +144,11 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
                 updateState(
                   'color',
                   (e.target as HTMLInputElement).value as Color | undefined,
-                  true
+                  true,
                 ),
             },
           },
-          colorOptions(state.color, false)
+          colorOptions(state.color, false),
         ),
         h(
           'select',
@@ -156,11 +160,11 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
                 updateState(
                   'color',
                   (e.target as HTMLInputElement).value as Color | undefined,
-                  true
+                  true,
                 ),
             },
           },
-          colorOptions(state.color, true)
+          colorOptions(state.color, true),
         ),
       ]),
     ]),
@@ -190,7 +194,7 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
           state.scheduledAt = d.getTime();
           ctrl.redraw();
         },
-        () => ctrl.utc()
+        () => ctrl.utc(),
       ),
     ]),
     h(
@@ -214,18 +218,18 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
             input: (e: Event) => {
               updateStateWithValidity(
                 'allowGameBefore',
-                parseInt((e.target as HTMLInputElement).value),
-                e.target as HTMLInputElement
+                Number.parseInt((e.target as HTMLInputElement).value),
+                e.target as HTMLInputElement,
               );
             },
           },
         }),
-      ]
+      ],
     ),
     h(
       'button.button',
       { hook: bind('click', () => handleSubmit()), class: { disabled: !canSubmit } },
-      isNew ? 'Create new game arrangement' : 'Update arrangement'
+      isNew ? 'Create new game arrangement' : 'Update arrangement',
     ),
     gamesBetweenUsers.length
       ? h('div.games-users-wrap', [
@@ -234,8 +238,8 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
             'div.games-users',
             h(
               'div',
-              gamesBetweenUsers.map(g => arrangementThumbnail(ctrl, g))
-            )
+              gamesBetweenUsers.map(g => arrangementThumbnail(ctrl, g)),
+            ),
           ),
         ])
       : null,
@@ -250,7 +254,7 @@ function colorOptions(stateColor: Color | undefined, flip: boolean) {
       return h(
         'option',
         { attrs: { value: realColor, selected: stateColor === realColor } },
-        colorName(color, false)
+        colorName(color, false),
       );
     }),
   ];
@@ -259,7 +263,7 @@ function colorOptions(stateColor: Color | undefined, flip: boolean) {
 function playerOptions(
   ctrl: TournamentController,
   selectedUserId: string | undefined,
-  otherUserId: string | undefined
+  otherUserId: string | undefined,
 ) {
   return [
     h('option', { attrs: { value: '', disabled: true, hidden: true, selected: !selectedUserId } }),
@@ -273,7 +277,7 @@ function playerOptions(
             disabled: player.id === otherUserId,
           },
         },
-        player.name
+        player.name,
       );
     }),
   ];

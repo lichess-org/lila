@@ -1,7 +1,7 @@
-import { storage as makeStorage } from './storage';
-import { pubsub } from './pubsub';
-import { reload } from './navigation';
 import { idleTimer } from 'common/timings';
+import { reload } from './navigation';
+import { pubsub } from './pubsub';
+import { storage as makeStorage } from './storage';
 import { urlWithParams } from './xhr';
 
 // versioned events, acks, retries, resync
@@ -14,12 +14,12 @@ export class StrongSocket implements IStrongSocket {
   connectSchedule: Timeout;
   ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
   lastPingTime: number = performance.now();
-  pongCount: number = 0;
-  averageLag: number = 0;
-  isOpen: boolean = false;
-  tryOtherUrl: boolean = false;
-  autoReconnect: boolean = true;
-  nbConnects: number = 0;
+  pongCount = 0;
+  averageLag = 0;
+  isOpen = false;
+  tryOtherUrl = false;
+  autoReconnect = true;
+  nbConnects = 0;
   storage: LishogiStorage = makeStorage.make('surl8');
   private _sign?: string;
 
@@ -43,7 +43,7 @@ export class StrongSocket implements IStrongSocket {
   constructor(
     readonly url: string,
     version: number | false,
-    settings: Partial<Socket.Settings> = {}
+    settings: Partial<Socket.Settings> = {},
   ) {
     this.settings = {
       receive: settings.receive,
@@ -275,7 +275,7 @@ export class StrongSocket implements IStrongSocket {
           this.options.idle = false;
           if (this.ws) clearTimeout(disconnectTimeout);
           else location.reload();
-        }
+        },
       );
     }
   };

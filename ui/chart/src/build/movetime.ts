@@ -1,8 +1,11 @@
-import { type Chart, type ChartDataset, type PointStyle } from 'chart.js';
+import type { Chart, ChartDataset, PointStyle } from 'chart.js';
+import { i18nPluralSame } from 'i18n';
 import {
   type MovePoint,
   animation,
+  axisOpts,
   blackFill,
+  blueLineColor,
   fontColor,
   fontFamily,
   maybeChart,
@@ -10,12 +13,9 @@ import {
   selectPly,
   tooltipBgColor,
   whiteFill,
-  axisOpts,
-  blueLineColor,
 } from '../common';
-import type { AnalyseData, Player, PlyChart } from '../interface';
 import division from '../division';
-import { i18nPluralSame } from 'i18n';
+import type { AnalyseData, Player, PlyChart } from '../interface';
 
 export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | undefined {
   const possibleChart = maybeChart(el);

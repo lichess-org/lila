@@ -1,5 +1,5 @@
 import { ops as treeOps } from 'tree';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 
 interface Handlers {
   [key: string]: any; // #TODO
@@ -21,7 +21,7 @@ export function make(send: Socket.Send, ctrl: AnalyseCtrl): Socket {
 
   // forecast mode: reload when opponent moves
   if (!ctrl.synthetic)
-    setTimeout(function () {
+    setTimeout(() => {
       send('startWatching', ctrl.data.game.id);
     }, 1000);
 

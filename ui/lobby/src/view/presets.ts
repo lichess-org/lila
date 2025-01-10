@@ -1,11 +1,11 @@
-import { bind } from 'common/snabbdom';
 import { clockShow, clockToPerf } from 'common/clock';
-import { Hooks, VNode, VNodes, h } from 'snabbdom';
-import LobbyController from '../ctrl';
-import { Hook, Preset, PresetOpts, Seek } from '../interfaces';
-import { engineName } from 'shogi/engine-name';
+import { bind } from 'common/snabbdom';
 import { i18n, i18nFormat, i18nPluralSame } from 'i18n';
 import { i18nPerf } from 'i18n/perf';
+import { engineName } from 'shogi/engine-name';
+import { type Hooks, type VNode, type VNodes, h } from 'snabbdom';
+import type LobbyController from '../ctrl';
+import type { Hook, Preset, PresetOpts, Seek } from '../interfaces';
 
 export function render(ctrl: LobbyController): VNodes {
   return ctrl.allPresets
@@ -110,7 +110,7 @@ function ratingInRange(
   const myPerf = opts.ratings?.[perf],
     myRating = myPerf && !myPerf.clueless ? myPerf.rating : undefined;
   if (myRating && range) {
-    const parsed = range.split('-').map(s => parseInt(s));
+    const parsed = range.split('-').map(s => Number.parseInt(s));
     if (parsed.length !== 2) return true;
     return (
       myRating >= parsed[0] &&

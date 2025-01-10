@@ -2,7 +2,7 @@ import menuSlowdown from 'common/menu-slowdown';
 import { Shogiground } from 'shogiground';
 import { attributesModule, classModule, init } from 'snabbdom';
 import makeCtrl from '../ctrl';
-import { Controller, PuzzleOpts } from '../interfaces';
+import type { Controller, PuzzleOpts } from '../interfaces';
 import view from '../view/main';
 
 const patch = init([classModule, attributesModule]);

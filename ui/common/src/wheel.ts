@@ -1,4 +1,6 @@
-export default function stepwiseScroll(inner: (e: WheelEvent, scroll: boolean) => void): (e: WheelEvent) => void {
+export default function stepwiseScroll(
+  inner: (e: WheelEvent, scroll: boolean) => void,
+): (e: WheelEvent) => void {
   let scrollTotal = 0;
   return (e: WheelEvent) => {
     scrollTotal += e.deltaY * (e.deltaMode ? 40 : 1);

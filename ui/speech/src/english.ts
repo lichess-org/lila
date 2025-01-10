@@ -37,7 +37,7 @@ function toRole(char: string): string | undefined {
 }
 
 function toNumber(digit: string): string | undefined {
-  if (parseInt(digit)) return digit;
+  if (Number.parseInt(digit)) return digit;
   switch (digit) {
     case '一':
     case '１':

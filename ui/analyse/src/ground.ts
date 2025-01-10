@@ -2,11 +2,11 @@ import { notationFiles, notationRanks } from 'shogi/notation';
 import { predrop } from 'shogi/pre-drop';
 import { premove } from 'shogi/pre-move';
 import resizeHandle from 'shogi/resize';
-import { Config as SgConfig } from 'shogiground/config';
-import { DrawShape } from 'shogiground/draw';
-import * as sg from 'shogiground/types';
+import type { Config as SgConfig } from 'shogiground/config';
+import type { DrawShape } from 'shogiground/draw';
+import type * as sg from 'shogiground/types';
 import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
-import { Piece, Role } from 'shogiops/types';
+import type { Piece, Role } from 'shogiops/types';
 import { makeSquareName, parseSquareName } from 'shogiops/util';
 import {
   handRoles,
@@ -15,8 +15,8 @@ import {
   promotableOnDrop,
   promote as shogiPromote,
 } from 'shogiops/variant/util';
-import { VNode, h } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
+import { type VNode, h } from 'snabbdom';
+import type AnalyseCtrl from './ctrl';
 
 export function renderBoard(ctrl: AnalyseCtrl): VNode {
   return h('div.sg-wrap', {
@@ -113,7 +113,7 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
             piece,
             parseSquareName(orig)!,
             parseSquareName(dest)!,
-            capture
+            capture,
           ) &&
           !pieceForcePromote(variant)(piece, parseSquareName(dest)!)
         );

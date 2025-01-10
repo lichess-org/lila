@@ -2,15 +2,15 @@ window.lishogi.ready.then(() => {
   let autoRefreshEnabled = true;
   let autoRefreshOnHold = false;
 
-  const renderButton = function () {
+  const renderButton = () => {
     $('#auto_refresh')
       .toggleClass('active', autoRefreshEnabled)
       .toggleClass('hold', autoRefreshOnHold);
   };
 
-  const onPageReload = function () {
+  const onPageReload = () => {
     $('#communication').append(
-      $('<a id="auto_refresh" class="button">Auto refresh</a>').on('click', function () {
+      $('<a id="auto_refresh" class="button">Auto refresh</a>').on('click', () => {
         autoRefreshEnabled = !autoRefreshEnabled;
         renderButton();
       }),
@@ -22,18 +22,18 @@ window.lishogi.ready.then(() => {
     });
 
     $('#communication')
-      .on('mouseenter', '.chat', function () {
+      .on('mouseenter', '.chat', () => {
         autoRefreshOnHold = true;
         $('#auto_refresh').addClass('hold');
       })
-      .on('mouseleave', '.chat', function () {
+      .on('mouseleave', '.chat', () => {
         autoRefreshOnHold = false;
         $('#auto_refresh').removeClass('hold');
       });
   };
   onPageReload();
 
-  setInterval(function () {
+  setInterval(() => {
     if (!autoRefreshEnabled || document.visibilityState === 'hidden' || autoRefreshOnHold) return;
 
     // Reload only the chat grid portions of the page

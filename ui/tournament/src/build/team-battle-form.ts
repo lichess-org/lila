@@ -21,15 +21,11 @@ window.lishogi.ready.then(() => {
                   .slice(0, -1);
                 callback(res.filter(t => !current.includes(t.id)));
               },
-              _ => callback([])
+              _ => callback([]),
             );
         },
-        template: function (team) {
-          return team.name + ', by ' + team.owner + ', with ' + team.members + ' members';
-        },
-        replace: function (team) {
-          return '$1' + team.id + ' "' + team.name + '" by ' + team.owner + '\n';
-        },
+        template: team => team.name + ', by ' + team.owner + ', with ' + team.members + ' members',
+        replace: team => '$1' + team.id + ' "' + team.name + '" by ' + team.owner + '\n',
       },
     ]);
   });

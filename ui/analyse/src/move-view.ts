@@ -1,9 +1,9 @@
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 import { defined } from 'common/common';
+import type { MaybeVNodes } from 'common/snabbdom';
 import { notationsWithColor } from 'shogi/notation';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import { renderTime } from './clocks';
-import { MaybeVNodes } from 'common/snabbdom';
 
 export interface Ctx {
   variant: VariantKey;

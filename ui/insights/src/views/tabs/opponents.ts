@@ -1,8 +1,8 @@
-import { VNode, h } from 'snabbdom';
-import { section, winrateTable } from '../util';
-import { OpponentResult } from '../../types';
-import { fixed } from '../../util';
 import { i18n } from 'i18n';
+import { type VNode, h } from 'snabbdom';
+import type { OpponentResult } from '../../types';
+import { fixed } from '../../util';
+import { section, winrateTable } from '../util';
 
 export function opponents(data: OpponentResult): VNode {
   return h('div.opponents', [
@@ -39,7 +39,7 @@ function mostPlayedOpponentsTable(data: OpponentResult): VNode {
           attrs: { href: '/@/' + key },
           class: { small: key.length >= 16 },
         },
-        key
-      )
+        key,
+      ),
   );
 }

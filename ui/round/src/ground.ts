@@ -2,10 +2,10 @@ import { notationFiles, notationRanks } from 'shogi/notation';
 import { predrop } from 'shogi/pre-drop';
 import { premove } from 'shogi/pre-move';
 import resizeHandle from 'shogi/resize';
-import { Config } from 'shogiground/config';
+import type { Config } from 'shogiground/config';
 import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole, parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { Piece, Role } from 'shogiops/types';
+import type { Piece, Role } from 'shogiops/types';
 import { makeSquareName, parseSquareName } from 'shogiops/util';
 import {
   handRoles,
@@ -14,9 +14,9 @@ import {
   promotableOnDrop,
   promote,
 } from 'shogiops/variant/util';
-import { h, VNode } from 'snabbdom';
-import RoundController from './ctrl';
-import { RoundData } from './interfaces';
+import { type VNode, h } from 'snabbdom';
+import type RoundController from './ctrl';
+import type { RoundData } from './interfaces';
 import { firstPly, plyStep } from './round';
 import * as util from './util';
 
@@ -96,7 +96,7 @@ export function makeConfig(ctrl: RoundController): Config {
             piece,
             parseSquareName(orig)!,
             parseSquareName(dest)!,
-            capture
+            capture,
           ) &&
           !pieceForcePromote(variant)(piece, parseSquareName(dest)!)
         );

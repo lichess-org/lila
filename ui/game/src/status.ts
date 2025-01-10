@@ -1,4 +1,4 @@
-import { GameData, StatusId, StatusName } from './interfaces';
+import type { GameData, StatusId, StatusName } from './interfaces';
 
 // https://github.com/WandererXII/scalashogi/blob/main/src/main/scala/Status.scala
 

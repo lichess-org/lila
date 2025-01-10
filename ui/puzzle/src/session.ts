@@ -1,5 +1,5 @@
-import { StoredJsonProp, storedJsonProp } from 'common/storage';
-import { ThemeKey } from './interfaces';
+import { type StoredJsonProp, storedJsonProp } from 'common/storage';
+import type { ThemeKey } from './interfaces';
 
 interface SessionRound {
   id: string;
@@ -13,12 +13,12 @@ interface Store {
 }
 
 export default class PuzzleSession {
-  maxSize: number = 100;
+  maxSize = 100;
   maxAge: number = 1000 * 3600;
 
   constructor(
     readonly theme: ThemeKey,
-    readonly userId?: string
+    readonly userId?: string,
   ) {}
 
   default = (): Store => ({
@@ -27,7 +27,10 @@ export default class PuzzleSession {
     at: Date.now(),
   });
 
-  store: StoredJsonProp<Store> = storedJsonProp<Store>(`puzzle.session.${this.userId || 'anon'}`, this.default);
+  store: StoredJsonProp<Store> = storedJsonProp<Store>(
+    `puzzle.session.${this.userId || 'anon'}`,
+    this.default,
+  );
 
   clear = (): Store => this.update(s => ({ ...s, rounds: [] }));
 

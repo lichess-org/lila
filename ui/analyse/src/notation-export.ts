@@ -1,16 +1,16 @@
 import { defined } from 'common/common';
+import { analysis } from 'common/links';
+import { isHandicap } from 'shogiops/handicaps';
 import { makeCsaHeader, makeCsaMoveOrDrop } from 'shogiops/notation/csa';
 import { makeKifHeader, makeKifMoveOrDrop } from 'shogiops/notation/kif';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
-import { Square } from 'shogiops/types';
+import type { Square } from 'shogiops/types';
 import { parseUsi } from 'shogiops/util';
-import { Position } from 'shogiops/variant/position';
-import { Shogi } from 'shogiops/variant/shogi';
+import type { Position } from 'shogiops/variant/position';
+import type { Shogi } from 'shogiops/variant/shogi';
 import { ops as treeOps } from 'tree';
 import { renderTime } from './clocks';
-import AnalyseCtrl from './ctrl';
-import { isHandicap } from 'shogiops/handicaps';
-import { analysis } from 'common/links';
+import type AnalyseCtrl from './ctrl';
 import { baseUrl } from './util';
 
 function makeKifTime(moveTime: number, totalTime: number): string {
@@ -29,7 +29,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
   const mainline = treeOps.mainlineNodeList(node);
   const padding = mainline.length.toString().length;
   let lastDest: Square | undefined = undefined;
-  let timesSoFar: number[] = [0, 0];
+  const timesSoFar: number[] = [0, 0];
 
   const moveNumberSuf = pos.rules === 'chushogi' ? '手目' : '';
 
@@ -38,7 +38,9 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
       const move = parseUsi(m.usi);
       if (defined(move)) {
         const kifMove = makeKifMoveOrDrop(pos, move, lastDest),
-          kifTime = defined(m.clock) ? makeKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '',
+          kifTime = defined(m.clock)
+            ? makeKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock))
+            : '',
           moveNumStr = pad((m.ply - offset).toString(), padding + 1) + moveNumberSuf;
         if (kifMove?.includes('\n')) {
           const split = kifMove.split('\n');
@@ -240,7 +242,7 @@ export function renderUrlUsiLine(ctrl: AnalyseCtrl): string {
         .map(n => n.usi || '')
         .filter(n => !!n),
       ctrl.bottomColor(),
-      ctrl.node.ply !== 0 ? ctrl.node.ply : undefined
+      ctrl.node.ply !== 0 ? ctrl.node.ply : undefined,
     )
   );
 }

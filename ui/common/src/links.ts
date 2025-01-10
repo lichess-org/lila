@@ -8,7 +8,7 @@ export function analysis(
   usis?: string[],
   color?: Color,
   moveNumber?: number,
-  evaluation?: boolean
+  evaluation?: boolean,
 ): string {
   const variantPath = variant !== 'standard' ? `/${variant}` : '',
     sfenPath = sfen === initialSfen(variant) ? '' : `/${encodeSfen(sfen)}`,
@@ -34,7 +34,7 @@ export function setup(
   baseUrl: string,
   variant: VariantKey,
   sfen: Sfen,
-  mode?: 'ai' | 'friend'
+  mode?: 'ai' | 'friend',
 ): string {
   const sfenQuery = sfen !== initialSfen(variant) ? `sfen=${encodeSfen(sfen, true)}&` : '',
     variantQuery = `variant=${variantToId(variant)}`,

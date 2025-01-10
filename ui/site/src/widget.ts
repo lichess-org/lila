@@ -62,11 +62,9 @@ export function initWidgets(): void {
 
   widget(
     'friends',
-    (function () {
-      const getId = function (titleName: string) {
-        return titleName.toLowerCase().replace(/^\w+\s/, '');
-      };
-      const makeUser = function (titleName: string) {
+    (() => {
+      const getId = (titleName: string) => titleName.toLowerCase().replace(/^\w+\s/, '');
+      const makeUser = (titleName: string) => {
         const split = titleName.split(' ');
         return {
           id: split[split.length - 1].toLowerCase(),
@@ -76,7 +74,7 @@ export function initWidgets(): void {
           patron: false,
         };
       };
-      const renderUser = function (user: any) {
+      const renderUser = (user: any) => {
         const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
           titleTag = user.title
             ? '<span class="title"' +
@@ -107,18 +105,17 @@ export function initWidgets(): void {
       };
       return {
         _create: function () {
-          const self = this,
-            el = self.element;
+          const el = this.element;
 
-          self.$friendBoxTitle = el.find('.friend_box_title').on('click', function () {
+          this.$friendBoxTitle = el.find('.friend_box_title').on('click', () => {
             el.find('.content_wrap').toggleNone();
-            if (!self.loaded) {
-              self.loaded = true;
+            if (!this.loaded) {
+              this.loaded = true;
               window.lishogi.socket.send('following_onlines');
             }
           });
 
-          self.$nobody = el.find('.nobody');
+          this.$nobody = el.find('.nobody');
 
           const data = {
             users: [],
@@ -126,7 +123,7 @@ export function initWidgets(): void {
             patrons: [],
             ...el.data('preload'),
           };
-          self.set(data);
+          this.set(data);
         },
         repaint: function () {
           if (this.loaded)
@@ -142,13 +139,7 @@ export function initWidgets(): void {
                   ),
                 );
                 this.$nobody.toggleNone(!ids.length);
-                this.element.find('.list').html(
-                  ids
-                    .map(function (id) {
-                      return renderUser(users[id]);
-                    })
-                    .join(''),
-                );
+                this.element.find('.list').html(ids.map(id => renderUser(users[id])).join(''));
               }.bind(this),
             );
         },
@@ -189,21 +180,18 @@ export function initWidgets(): void {
 
   widget('clock', {
     _create: function () {
-      const self = this;
       const target = this.options.time * 1000 + Date.now();
       const timeEl = this.element.find('.time')[0];
-      const tick = function () {
+      const tick = () => {
         const remaining = target - Date.now();
-        if (remaining <= 0) clearInterval(self.interval);
-        timeEl.innerHTML = self._formatMs(remaining);
+        if (remaining <= 0) clearInterval(this.interval);
+        timeEl.innerHTML = this._formatMs(remaining);
       };
       this.interval = setInterval(tick, 1000);
       tick();
     },
 
-    _pad: function (x) {
-      return (x < 10 ? '0' : '') + x;
-    },
+    _pad: x => (x < 10 ? '0' : '') + x,
 
     _formatMs: function (msTime) {
       const date = new Date(Math.max(0, msTime + 500));

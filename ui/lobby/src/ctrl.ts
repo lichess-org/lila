@@ -1,7 +1,8 @@
+import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from 'common/assets';
 import throttle from 'common/throttle';
 import Filter from './filter';
 import * as hookRepo from './hook-repo';
-import {
+import type {
   Hook,
   LobbyData,
   LobbyOpts,
@@ -14,13 +15,12 @@ import {
   Tab,
 } from './interfaces';
 import * as seekRepo from './seek-repo';
+import SetupCtrl from './setup/ctrl';
 import LobbySocket from './socket';
-import { Stores, make as makeStores } from './store';
+import { type Stores, make as makeStores } from './store';
 import { action } from './util';
 import variantConfirm from './variant';
 import * as xhr from './xhr';
-import SetupCtrl from './setup/ctrl';
-import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from 'common/assets';
 
 const li = window.lishogi;
 
@@ -35,9 +35,9 @@ export default class LobbyController {
   mode: Mode;
   sort: Sort;
   stepHooks: Hook[] = [];
-  stepping: boolean = false;
-  reloadSeeks: boolean = false;
-  redirecting: boolean = false;
+  stepping = false;
+  reloadSeeks = false;
+  redirecting = false;
   filter: Filter;
   ratings: RatingsRecord | undefined;
   presetOpts: PresetOpts;
@@ -61,7 +61,7 @@ export default class LobbyController {
     this.presetOpts = {
       isAnon: this.isAnon,
       isNewPlayer: !!opts.data.me?.isNewPlayer,
-      aiLevel: opts.data.me?.aiLevel && parseInt(opts.data.me.aiLevel),
+      aiLevel: opts.data.me?.aiLevel && Number.parseInt(opts.data.me.aiLevel),
       ratings: opts.data.me?.ratings,
       ratingDiff: 300,
     };
