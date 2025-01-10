@@ -26,7 +26,7 @@ export type SoundEvents = { [key in SoundEvent]?: Sound[] };
 
 export type ZeroSearch = { multipv: number; net: string; nodes?: number };
 
-export type Book = { key: string; weight: number };
+export type Book = { key: string; weight: number; color?: Color };
 
 export type LocalSpeed = Exclude<Speed, 'correspondence'>;
 

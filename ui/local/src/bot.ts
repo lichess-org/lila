@@ -1,13 +1,6 @@
 import * as co from 'chessops';
 import { zip, clamp } from 'common/algo';
-import {
-  quantizeFilter,
-  filterParameter,
-  //filterData,
-  filterFacets,
-  combine,
-  type FilterValue,
-} from './filter';
+import { quantizeFilter, filterParameter, filterFacets, combine, type FilterValue } from './filter';
 import type { FishSearch, SearchResult, Line } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
@@ -159,11 +152,12 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   private async bookMove(chess: co.Chess) {
+    const books = this.books?.filter(b => !b.color || b.color === chess.turn);
     // first use book relative weights to choose from the subset of books with moves for  the current position
-    if (!this.books?.length) return undefined;
+    if (!books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; book: Book }[] = [];
     let bookChance = 0;
-    for (const [book, opening] of zip(this.books, await this.openings)) {
+    for (const [book, opening] of zip(books, await this.openings)) {
       const moves = opening(chess);
       if (moves.length === 0) continue;
       moveList.push({ moves, book });
@@ -179,7 +173,7 @@ export class Bot implements BotInfo, MoveSource {
         for (const { uci, weight } of moves) {
           chance -= weight;
           if (chance > 0) continue;
-          this.trace(`[bookMove] - chose ${uci} from book '${key}'`);
+          this.trace(`[bookMove] - chose ${uci} from ${book.color ? book.color + ' ' : ''}book '${key}'`);
           return uci;
         }
       }

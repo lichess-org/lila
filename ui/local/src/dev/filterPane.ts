@@ -20,6 +20,7 @@ export class FilterPane extends Pane {
     if (this.info.title && this.label) this.label.title = this.info.title;
     this.el.title = '';
     this.input = document.createElement('select');
+    this.input.title = 'function used to combine data from multiple facets (tabs)';
     this.input.append(
       ...filterBys.map(c =>
         frag(`<option ${c === this.paneValue.by ? 'selected ' : ''}value="${c}">${c}</option>`),

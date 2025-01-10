@@ -200,6 +200,28 @@
       max-width: 5ch;
     }
   }
+  .books {
+    .btn-rack {
+      gap: 4px;
+      border: none;
+      button {
+        padding: 0.6em;
+        border: 1px solid $c-border;
+      }
+      button.active {
+        border-color: $c-primary;
+        outline: 4px solid $c-primary;
+      }
+      button[data-color='white'] {
+        border-radius: 0 6px 6px 0;
+        background: $c-paper;
+      }
+      button[data-color='black'] {
+        border-radius: 6px 0 0 6px;
+        background: $c-dark;
+      }
+    }
+  }
   .sound-events {
     padding: 0.5em 1em;
     .hide-disabled {

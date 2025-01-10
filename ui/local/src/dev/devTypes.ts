@@ -111,7 +111,7 @@ export interface Schema extends PaneInfo {
   type?: undefined | 'group' | 'radioGroup';
 }
 
-export type PaneArgs = { host: EditDialog; info: PaneInfo; parent?: Pane };
+export type PaneArgs = { host: EditDialog; info: PaneInfo & Record<string, any>; parent?: Pane };
 
 export type PropertySource = 'scratch' | 'local' | 'server' | 'schema';
 
