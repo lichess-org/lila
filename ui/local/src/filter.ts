@@ -3,12 +3,12 @@ import { clamp, quantize } from 'common/algo';
 
 export type Point = [number, number];
 export type FilterFacet = keyof typeof filterData;
-export type FilterCombinator = 'max' | 'min' | 'avg';
+export type FilterBy = 'max' | 'min' | 'avg';
 export type FilterValue = { [key in FilterFacet]?: number };
 export type Filters = { [key: string]: Filter };
 export interface Filter {
   readonly range: { min: number; max: number };
-  by: FilterCombinator;
+  by: FilterBy;
   move?: Point[];
   score?: Point[];
   time?: Point[];
@@ -19,6 +19,7 @@ export const filterData = {
   time: { domain: { min: -2, max: 8 }, quantum: 1 },
 } as const;
 export const filterFacets = Object.keys(filterData) as FilterFacet[];
+export const filterBys: FilterBy[] = ['max', 'min', 'avg'];
 
 export function addPoint(f: Filter, facet: FilterFacet, add: Point): void {
   // TODO functional
@@ -85,7 +86,7 @@ export function filterParameter(f: Filter, x: FilterValue): FilterValue {
   return value;
 }
 
-export function combine(v: FilterValue, by: FilterCombinator): number {
+export function combine(v: FilterValue, by: FilterBy): number {
   switch (by) {
     case 'max':
       return Math.max(...Object.values(v));

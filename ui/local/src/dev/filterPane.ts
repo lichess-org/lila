@@ -1,85 +1,147 @@
 import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
-import { addPoint, asData, domain } from '../filter';
+import { type FilterBy, addPoint, asData, filterData, filterFacets, filterBys } from '../filter';
 import { frag } from 'common';
 import { clamp } from 'common/algo';
 import type { PaneArgs, FilterInfo } from './devTypes';
-import type { Filter } from '../types';
+import type { Filter, FilterFacet } from '../types';
+
+type FacetToggle = { el: HTMLElement; input: HTMLInputElement };
 
 export class FilterPane extends Pane {
   info: FilterInfo;
-  canvas: HTMLCanvasElement;
-  chart: Chart;
+  graphEl: HTMLElement;
+  graph: Chart;
+  facets = {} as { [key in FilterFacet]: FacetToggle };
 
   constructor(p: PaneArgs) {
     super(p);
+    if (!this.isDefined) this.setProperty(structuredClone(this.info.value));
     if (this.info.title && this.label) this.label.title = this.info.title;
     this.el.title = '';
-    this.el.firstElementChild?.append(this.toggleGroup());
-    this.canvas = document.createElement('canvas');
-    const wrapper = frag<HTMLElement>(`<div class="chart-wrapper">`);
-    wrapper.append(this.canvas);
-    this.el.append(wrapper);
-    this.host.chartJanitor.addCleanupTask(() => this.chart?.destroy());
-    this.render();
+    this.input = document.createElement('select');
+    this.input.append(
+      ...filterBys.map(c =>
+        frag(`<option ${c === this.paneValue.by ? 'selected ' : ''}value="${c}">${c}</option>`),
+      ),
+    );
+    this.input.addEventListener('change', e => {
+      this.paneValue.by = (e.target as HTMLSelectElement).value as FilterBy;
+      super.update();
+    });
+    this.label?.append(this.input);
+    const tabs = frag<HTMLElement>(`<div class="btn-rack"></div>`);
+    for (const facet of filterFacets) {
+      this.facets[facet] = this.makeFacet(facet);
+      tabs.append(this.facets[facet].el);
+    }
+    this.el.firstElementChild?.append(tabs);
+    this.graphEl = frag<HTMLElement>(`<div class="graph-wrapper"><canvas></canvas></div>`);
+    this.el.append(this.graphEl);
+    this.host.janitor.addCleanupTask(() => this.graph?.destroy());
   }
 
   setEnabled(enabled?: boolean): boolean {
     if (this.requirementsAllow) enabled ??= !this.isOptional || (this.isDefined && !this.isDisabled);
     else enabled = false;
-    if (enabled && !this.isDefined) {
-      this.setProperty(structuredClone(this.info.value));
-      this.render();
+    let enabledFacets = 0;
+    for (const [facet, facetPane] of Object.entries(this.facets)) {
+      facetPane.el.classList.toggle('active', enabled && facet === this.viewing && facetPane.input.checked);
+      if (facetPane.input.checked) enabledFacets++;
     }
+    this.input?.classList.toggle('none', enabledFacets < 2);
     super.setEnabled(enabled);
-    this.el.querySelectorAll('.chart-wrapper, .btn-rack')?.forEach(x => x.classList.toggle('none', !enabled));
-    if (enabled) this.host.bot.disabled.delete(this.id);
-    else this.host.bot.disabled.add(this.id);
+    this.renderGraph();
     return enabled;
   }
 
-  update(e?: Event): void {
-    if (!(e instanceof MouseEvent && e.target instanceof HTMLElement)) return;
-    if (e.target.dataset.action && this.enabled) {
-      if (e.target.classList.contains('active')) return;
-      this.el.querySelector('.by.active')?.classList.remove('active');
-      e.target.classList.add('active');
-      this.paneValue.by = e.target.dataset.action as 'move' | 'score' | 'time';
-      this.paneValue.data = [];
-      this.render();
-    }
-    if (e.target instanceof HTMLCanvasElement) {
-      const m = this.paneValue;
-      const remove = this.chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
-      if (remove.length > 0 && remove[0].index > 0) {
-        m.data.splice(remove[0].index - 1, 1);
-      } else {
-        const rect = e.target.getBoundingClientRect();
+  private toggleFacet = (facet: FilterFacet, checked?: boolean): boolean => {
+    if (checked) this.facets[facet].input.checked = checked;
+    else checked = this.facets[facet].input.checked;
+    if (checked) {
+      this.host.bot.disabled.delete(`${this.id}_${facet}`);
+      this.paneValue[facet] ??= [];
+    } else this.host.bot.disabled.add(`${this.id}_${facet}`);
+    return checked;
+  };
 
-        const chartX = this.chart.scales.x.getValueForPixel(e.clientX - rect.left);
-        const chartY = this.chart.scales.y.getValueForPixel(e.clientY - rect.top);
-        if (!chartX || !chartY) return;
-        addPoint(m, [clamp(chartX, domain(m)), clamp(chartY, m.range)]);
+  private makeFacet(facet: FilterFacet): { input: HTMLInputElement; el: HTMLElement } {
+    const input = frag<HTMLInputElement>(`<input type="checkbox">`);
+    const el = frag<HTMLElement>(
+      `<div data-facet="${facet}" class="${this.viewing === facet ? 'active ' : ''}facet" title="${
+        tooltips[facet]
+      }">${facet}</div>`,
+    );
+    input.addEventListener('change', () => {
+      this.toggleFacet(facet);
+      super.update();
+    });
+    input.checked = Boolean(this.paneValue?.[facet]) && !this.host.bot.disabled.has(`${this.id}_${facet}`);
+    if (input.checked && !this.viewing) this.viewing = facet;
+    el.addEventListener('click', e => {
+      if (e.target instanceof HTMLInputElement || !(e.target instanceof HTMLElement)) return;
+      if (this.viewing === facet) this.viewing = undefined;
+      else {
+        this.viewing = facet;
+        this.toggleFacet(facet, true);
       }
-      this.chart.data.datasets[0].data = asData(m);
-      this.chart.update();
+      if (this.facets[facet].input.checked && this.viewing === facet) {
+        e.target.closest('.facet')?.classList.add('active');
+        this.paneValue[facet] ??= [];
+      }
+      super.update(e);
+    });
+    el.prepend(input);
+    return { input, el };
+  }
+
+  update(e?: Event): void {
+    if (!(e instanceof MouseEvent && this.viewing && e.target instanceof HTMLCanvasElement)) return;
+
+    const f = this.paneValue;
+    const data = this.paneValue[this.viewing];
+    const remove = this.graph.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
+    if (remove.length > 0 && remove[0].index > 0) {
+      data?.splice(remove[0].index - 1, 1);
+    } else {
+      const rect = e.target.getBoundingClientRect();
+
+      const graphX = this.graph.scales.x.getValueForPixel(e.clientX - rect.left);
+      const graphY = this.graph.scales.y.getValueForPixel(e.clientY - rect.top);
+      if (!graphX || !graphY) return;
+      addPoint(f, this.viewing, [clamp(graphX, filterData[this.viewing].domain), clamp(graphY, f.range)]);
     }
+    this.graph.data.datasets[0].data = asData(f, this.viewing);
+    this.graph.update();
   }
 
   get paneValue(): Filter {
     return this.getProperty() as Filter;
   }
 
-  private render() {
-    this.chart?.destroy();
-    const m = this.paneValue;
-    if (!m?.data) return;
-    this.chart = new Chart(this.canvas.getContext('2d')!, {
+  get viewing(): FilterFacet | undefined {
+    return this.host.bot.viewing?.get(this.id) as FilterFacet | undefined;
+  }
+
+  set viewing(f: FilterFacet | undefined) {
+    if (f) this.host.bot.viewing.set(this.id, f);
+    else this.host.bot.viewing.delete(this.id);
+  }
+
+  private renderGraph() {
+    this.graph?.destroy();
+    this.graphEl.classList.remove('hidden', 'none');
+    const f = this.paneValue;
+    if (!this.viewing || !f?.[this.viewing] || this.host.bot.disabled.has(`${this.id}_${this.viewing}`)) {
+      this.graphEl.classList.add(Object.values(this.facets).some(x => x.input.checked) ? 'hidden' : 'none');
+      return;
+    }
+    this.graph = new Chart(this.graphEl.querySelector<HTMLCanvasElement>('canvas')!.getContext('2d')!, {
       type: 'line',
       data: {
         datasets: [
           {
-            data: asData(m),
+            data: asData(f, this.viewing),
             backgroundColor: 'rgba(75, 192, 192, 0.6)',
             pointRadius: 4,
             pointHoverBackgroundColor: 'rgba(220, 105, 105, 0.6)',
@@ -94,24 +156,24 @@ export class FilterPane extends Pane {
         scales: {
           x: {
             type: 'linear',
-            min: domain(m).min,
-            max: domain(m).max,
-            reverse: m.by === 'time',
-            ticks: getTicks(m),
+            min: filterData[this.viewing].domain.min,
+            max: filterData[this.viewing].domain.max,
+            //reverse: this.viewing === 'time',
+            ticks: getTicks(this.viewing),
             title: {
               display: true,
               color: '#555',
               text:
-                m.by === 'move'
+                this.viewing === 'move'
                   ? 'full moves'
-                  : m.by === 'time'
+                  : this.viewing === 'time'
                     ? 'think time'
                     : `outcome expectancy for ${this.host.bot.name.toLowerCase()}`,
             },
           },
           y: {
-            min: m.range.min,
-            max: m.range.max,
+            min: f.range.min,
+            max: f.range.max,
             title: {
               display: true,
               color: '#555',
@@ -122,26 +184,10 @@ export class FilterPane extends Pane {
       },
     });
   }
-
-  private toggleGroup() {
-    const active = (this.paneValue ?? this.info.value).by;
-    const by = frag<HTMLElement>(`<div class="btn-rack">
-        <div data-action="move" class="by${active === 'move' ? ' active' : ''}" title="${
-          tooltips.byMove
-        }">by move</div>
-        <div data-action="score" class="by${active === 'score' ? ' active' : ''}" title="${
-          tooltips.byScore
-        }">by score</div>
-        <div data-action="time" class="by${active === 'time' ? ' active' : ''}" title="${
-          tooltips.byTime
-        }">by time</div>
-      </div>`);
-    return by;
-  }
 }
 
-function getTicks(o: Filter) {
-  return o.by === 'time'
+function getTicks(facet: FilterFacet) {
+  return facet === 'time'
     ? {
         callback: (value: number) => ticks[value] ?? '',
         maxTicksLimit: 11,
@@ -164,10 +210,10 @@ const ticks: Record<number, string> = {
   8: '4m',
 };
 
-const tooltips = {
-  byMove: 'vary the filter parameter by number of full moves since start of game',
-  byScore: `vary the filter parameter by current outcome expectancy for bot`,
-  byTime: 'vary the filter parameter by think time in seconds per move',
+const tooltips: { [key in FilterFacet]: string } = {
+  move: 'vary the filter parameter by number of full moves since start of game',
+  score: `vary the filter parameter by current outcome expectancy for bot`,
+  time: 'vary the filter parameter by think time in seconds per move',
 };
 
 Chart.register(PointElement, LinearScale, LineController, LineElement);

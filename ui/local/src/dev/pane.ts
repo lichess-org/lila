@@ -20,11 +20,11 @@ import type {
 export class Pane<Info extends PaneInfo = PaneInfo> {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
   label?: HTMLLabelElement;
+  toggle?: (v?: boolean) => boolean; // TODO use common whatever
   readonly host: EditDialog;
   readonly info: Info;
   readonly el: HTMLElement;
   readonly parent: Pane | undefined;
-  enabledToggle?: HTMLInputElement;
 
   constructor(args: PaneArgs) {
     Object.assign(this, args);
@@ -42,11 +42,18 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         this.el.appendChild(header);
       }
     }
-    this.initEnabledToggle();
-    if (!this.enabledToggle) return;
-    this.enabledToggle.classList.add('toggle');
-    this.enabledToggle.checked = this.isDefined;
-    this.label?.prepend(this.enabledToggle);
+    const toggleInputEl = this.radioGroup
+      ? frag<HTMLInputElement>(`<input type="radio" class="toggle" name="${this.radioGroup}" tabindex="-1">`)
+      : this.isOptional && this.info.label && this.info.type !== 'books' && this.info.type !== 'soundEvent'
+        ? frag<HTMLInputElement>(`<input type="checkbox" class="toggle">`)
+        : undefined;
+    if (!toggleInputEl) return;
+    toggleInputEl.checked = this.isDefined;
+    this.label?.prepend(toggleInputEl);
+    this.toggle = (v?: boolean) => {
+      if (v !== undefined) toggleInputEl.checked = v;
+      return toggleInputEl.checked;
+    };
   }
 
   setEnabled(enabled: boolean = this.canEnable): boolean {
@@ -54,7 +61,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     if (!allowed) enabled = false;
     this.el.classList.toggle('none', !allowed);
 
-    if (this.input || this.enabledToggle) {
+    if (this.input || this.toggle) {
       const { panes: editor, view } = this.host;
       this.el.classList.toggle('disabled', !enabled);
 
@@ -67,8 +74,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       for (const kid of this.children) {
         kid.el.classList.toggle('none', !enabled || !kid.requirementsAllow);
         if (!enabled) continue;
-        if (!kid.isOptional)
-          kid.update(); // ?? why update if not optional?
+        if (!kid.isOptional) kid.update();
         else if (kid.info.type !== 'radioGroup') continue;
         const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
         const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['local', 'server']));
@@ -76,7 +82,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         else if (radios.length) radios[0].update();
       }
 
-      if (this.enabledToggle) this.enabledToggle.checked = enabled;
+      this.toggle?.(enabled);
       if (this.radioGroup && enabled)
         view.querySelectorAll(`[name="${this.radioGroup}"]`).forEach(el => {
           const radio = editor.byEl(el);
@@ -228,21 +234,6 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       }
     }
     return true;
-  }
-
-  private initEnabledToggle() {
-    if (this.radioGroup) {
-      this.enabledToggle = frag<HTMLInputElement>(
-        `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
-      );
-    } else if (
-      this.isOptional &&
-      this.info.label &&
-      this.info.type !== 'books' &&
-      this.info.type !== 'soundEvent'
-    ) {
-      this.enabledToggle = frag<HTMLInputElement>(`<input type="checkbox">`);
-    }
   }
 }
 

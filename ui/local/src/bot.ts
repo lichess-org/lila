@@ -3,7 +3,7 @@ import { zip, clamp } from 'common/algo';
 import {
   quantizeFilter,
   filterParameter,
-  filterData,
+  //filterData,
   filterFacets,
   combine,
   type FilterValue,
@@ -52,7 +52,7 @@ export class Bot implements BotInfo, MoveSource {
     // keep these from being stored or cloned with the bot
     Object.defineProperties(this, {
       stats: { value: { cplMoves: 0, cpl: 0 } },
-      traces: { value: [] },
+      traces: { value: [], writable: true },
       openings: {
         get: () => Promise.all(this.books?.flatMap(b => env.assets.getBook(b.key)) ?? []),
       },
@@ -80,25 +80,33 @@ export class Bot implements BotInfo, MoveSource {
     const { fish, zero } = this;
 
     this.trace([`  ${env.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
-
+    if (args.avoid?.length || args.cp)
+      this.trace(
+        `[move] - ${args.avoid?.length ? 'avoid = [' + args.avoid.join(', ') + '], ' : ''}` +
+          (args.cp ? `cp = ${args.cp?.toFixed(2)}, ` : ''),
+      );
     const opening = await this.bookMove(chess);
     args.thinkTime = this.thinkTime(args);
 
     // i need a better way to handle thinkTime, we probably need to adjust it in chooseMove
     if (opening) return { uci: opening, thinkTime: args.thinkTime };
 
+    const zeroSearch = zero
+      ? {
+          nodes: zero.nodes,
+          multipv: Math.max(zero.multipv, args.avoid.length + 1), // avoid threefold
+          net: {
+            key: this.name + '-' + zero.net,
+            fetch: () => env.assets.getNet(zero.net),
+          },
+        }
+      : undefined;
+    if (fish) this.trace(`[move] - fish: ${stringify(fish)}`);
+    if (zeroSearch) this.trace(`[move] - zero: ${stringify(zeroSearch)}`);
     const { uci, cpl, thinkTime } = this.chooseMove(
       await Promise.all([
         fish && env.bot.zerofish.goFish(pos, fish),
-        zero &&
-          env.bot.zerofish.goZero(pos, {
-            nodes: zero.nodes,
-            multipv: Math.max(zero.multipv, args.avoid.length + 1),
-            net: {
-              key: this.name + '-' + zero.net,
-              fetch: () => env.assets.getNet(zero.net),
-            },
-          }),
+        zeroSearch && env.bot.zerofish.goZero(pos, zeroSearch),
       ]),
       args,
     );
@@ -144,7 +152,8 @@ export class Bot implements BotInfo, MoveSource {
     const variateMax = Math.min(remaining, increment + initial / pace);
     const thinkTime = quickest + Math.random() * variateMax;
     this.trace(
-      `[thinkTime] - thinktime = ${thinkTime.toFixed(1)}, pace = ${pace.toFixed(1)}, quickest = ${quickest.toFixed(1)}, variateMax = ${variateMax.toFixed(1)}`,
+      `[thinkTime] - remaining = ${remaining.toFixed(1)}s, thinktime = ${thinkTime.toFixed(1)}s, pace = ` +
+        `${pace.toFixed(1)}, quickest = ${quickest.toFixed(1)}s, variateMax = ${variateMax.toFixed(1)}`,
     );
     return thinkTime;
   }

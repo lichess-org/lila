@@ -35,13 +35,14 @@ export class EditDialog {
   assetDlg: AssetDialog | undefined;
   uid: string;
   panes: Panes;
-  scratch: Record<string, WritableBot> = {}; // scratchpad for bot edits
-  chartJanitor: Janitor = new Janitor();
+  scratch: Record<string, WritableBot> = {};
+  janitor: Janitor = new Janitor();
 
   constructor(readonly color: Color) {
     this.view = frag<HTMLElement>(`<div class="base-view dev-view edit-view with-cards">
         <div class="edit-bot"></div>
       </div>`);
+    if (!env.bot.all.length) env.bot.save(EditDialog.default);
     this.selectBot();
     this.deck = handOfCards({
       view: this.view,
@@ -62,7 +63,7 @@ export class EditDialog {
       onClose: () => {
         pubsub.off('local.dev.import.book', this.onBookImported);
         window.removeEventListener('resize', this.deck.resize);
-        this.chartJanitor.cleanup();
+        this.janitor.cleanup();
       },
     });
     pubsub.on('local.dev.import.book', this.onBookImported);
@@ -94,9 +95,10 @@ export class EditDialog {
   };
 
   get bot(): WritableBot {
-    // side effects on a getter are horrible, but this one is lovely and wonderful
-    this.scratch[this.uid] ??= Object.defineProperty(structuredClone(this.bots[this.uid]), 'disabled', {
-      value: new Set<string>(),
+    // these getter side effects are lovely and wonderful
+    this.scratch[this.uid] ??= Object.defineProperties(structuredClone(this.bots[this.uid]), {
+      disabled: { value: new Set<string>() },
+      viewing: { value: new Map<string, string>() },
     }) as WritableBot;
     return this.scratch[this.uid];
   }
@@ -134,7 +136,7 @@ export class EditDialog {
     return (
       other !== undefined &&
       this.scratch[other.uid] !== undefined &&
-      !closeEnough(other, deadStrip(this.scratch[other.uid]))
+      !closeEnough(other, deadStrip(this.scratch[other.uid])) // TODO avoid structured cloning for this
     );
   };
 
@@ -153,19 +155,22 @@ export class EditDialog {
   private async push() {
     const err = await env.push.pushBot(this.bot);
     if (err) return alert(err);
-    delete this.scratch[this.uid];
+    // is needed?
+    // delete this.scratch[this.uid];
     this.update();
   }
 
   private save() {
-    const sourcesScroll = this.view.querySelector('.sources')!.scrollTop;
+    const behaviorScroll = this.view.querySelector('.behavior')!.scrollTop;
     const filtersScroll = this.view.querySelector('.filters')!.scrollTop;
-    for (const id of this.bot.disabled) removeObjectProperty({ obj: this.bot, path: { id } }, true);
-    this.bot.disabled.clear();
-    env.bot.save(this.bot);
-    delete this.scratch[this.uid];
-    this.selectBot();
-    this.view.querySelector('.sources')!.scrollTop = sourcesScroll ?? 0;
+    // for (const id of this.bot.disabled) removeObjectProperty({ obj: this.bot, path: { id } }, true);
+    // this.bot.disabled.clear();
+    // i wonder if this commented out stuff was needed?
+    env.bot.save(deadStrip(this.bot));
+    //delete this.scratch[this.uid];
+    //this.selectBot();
+    this.update();
+    this.view.querySelector('.behavior')!.scrollTop = behaviorScroll ?? 0;
     this.view.querySelector('.filters')!.scrollTop = filtersScroll ?? 0;
   }
 
@@ -208,12 +213,12 @@ export class EditDialog {
   }
 
   private makeEditView(): void {
-    this.chartJanitor?.cleanup();
+    this.janitor?.cleanup();
     this.panes = new Panes();
     const el = this.view.querySelector('.edit-bot') as HTMLElement;
     el.innerHTML = '';
     el.appendChild(this.botCardEl);
-    el.appendChild(buildFromSchema(this, ['sources']).el);
+    el.appendChild(buildFromSchema(this, ['behavior']).el);
     el.appendChild(buildFromSchema(this, ['bot_filters']).el);
     el.appendChild(this.deckEl);
     el.appendChild(this.globalActionsEl);
@@ -297,7 +302,7 @@ export class EditDialog {
   private async json(): Promise<void> {
     const version = this.bot.version;
     const view = frag<HTMLElement>(`<div class="dev-view json-dialog">
-        <textarea class="json" autocomplete="false" spellcheck="false">${stringify(this.bot, { indent: 2, maxLength: 80 })}</textarea>
+        <textarea class="json" autocomplete="false" spellcheck="false">${stringify(deadStrip(this.bot), { indent: 2, maxLength: 80 })}</textarea>
         <div class="actions">
           <button class="button button-empty button-dim" data-icon="${licon.Clipboard}" data-action="copy"></button>
           <button class="button button-empty button-red" data-action="cancel">cancel</button>
@@ -385,4 +390,5 @@ interface ReadableBot extends BotInfo {
 interface WritableBot extends Bot {
   [key: string]: any;
   disabled: Set<string>;
+  viewing: Map<string, string>;
 }

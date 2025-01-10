@@ -1,5 +1,6 @@
 import type { BotCtrl } from './botCtrl';
 import type { GameCtrl } from './gameCtrl';
+import type { Board } from 'chessops';
 import type { DevCtrl } from './dev/devCtrl';
 import type { Assets } from './assets';
 import type { PushCtrl } from './dev/pushCtrl';
@@ -11,6 +12,7 @@ export let env: LocalEnv;
 export function initEnv(cfg: Partial<LocalEnv>): LocalEnv {
   return (env = new LocalEnv(cfg));
 }
+
 class LocalEnv {
   user: string;
   username: string;
@@ -22,6 +24,7 @@ class LocalEnv {
   assets: Assets;
   push: PushCtrl;
   round: RoundController;
+  hash: (board: Board) => bigint;
   redraw: () => void;
 
   constructor(cfg: Partial<LocalEnv>) {

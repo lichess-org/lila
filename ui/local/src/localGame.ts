@@ -1,7 +1,5 @@
 import * as co from 'chessops';
-import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
-import { makeSanAndPlay } from 'chessops/san';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
 import { deepFreeze } from 'common/algo';
@@ -36,7 +34,7 @@ export class LocalGame {
   moves: LocalMove[];
   chess: co.Chess;
   initialPly: number = 0;
-  threefoldFens: Map<string, number> = new Map();
+  threefoldHashes: Map<bigint, number> = new Map();
   fiftyHalfMove: number = 0;
   finished?: GameStatus;
 
@@ -45,7 +43,7 @@ export class LocalGame {
     moves: LocalMove[] = [],
   ) {
     this.chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
-    this.threefoldFens = new Map();
+    this.threefoldHashes = new Map();
     this.moves = [];
     for (const move of moves ?? []) this.move(move);
     this.initialPly = 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
@@ -58,11 +56,11 @@ export class LocalGame {
       return this.moveResultWith({
         end: true,
         uci: move.uci,
-        reason: `${this.turn} made illegal move ${move.uci} at ${makeFen(this.chess.toSetup())}`,
+        reason: `${this.turn} made illegal move ${move.uci} at ${co.fen.makeFen(this.chess.toSetup())}`,
         status: statusOf('cheat'), // bots are sneaky
       });
     }
-    const san = makeSanAndPlay(this.chess, coMove);
+    const san = co.san.makeSanAndPlay(this.chess, coMove);
     const clock = move.clock ? { white: move.clock.white, black: move.clock.black } : undefined;
     this.moves.push({ uci, clock });
     this.fifty(coMove);
@@ -83,10 +81,10 @@ export class LocalGame {
   }
 
   updateThreefold(): boolean {
-    const boardFen = this.fen.split('-')[0];
-    let fenCount = this.threefoldFens.get(boardFen) ?? 0;
-    this.threefoldFens.set(boardFen, ++fenCount);
-    return fenCount >= 3;
+    const boardHash = env.hash(this.chess.board);
+    let count = this.threefoldHashes.get(boardHash) ?? 0;
+    this.threefoldHashes.set(boardHash, count + 1);
+    return count > 1;
   }
 
   finish(finishStatus: Omit<GameStatus, 'end' | 'turn'>): void {
@@ -153,11 +151,11 @@ export class LocalGame {
   }
 
   get isThreefold(): boolean {
-    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3;
+    return (this.threefoldHashes.get(env.hash(this.chess.board)) ?? 0) > 2;
   }
 
   get fen(): string {
-    return makeFen(this.chess.toSetup());
+    return co.fen.makeFen(this.chess.toSetup());
   }
 
   get dests(): { [from: string]: string } {
@@ -170,13 +168,13 @@ export class LocalGame {
 
   get threefoldDraws(): Uci[] {
     const draws: Uci[] = [];
-    const boardFen = this.fen.split('-')[0];
+    const boardHash = env.hash(this.chess.board);
     for (const [from, dests] of this.chess.allDests()) {
       for (const to of dests) {
         const chess = this.chess.clone();
         chess.play({ from, to });
-        const moveFen = makeFen(chess.toSetup()).split('-')[0];
-        if (moveFen !== boardFen && (this.threefoldFens.get(moveFen) ?? 0 >= 2))
+        const moveHash = env.hash(chess.board);
+        if (moveHash !== boardHash && (this.threefoldHashes.get(moveHash) ?? 0) > 1)
           draws.push(co.makeUci({ from, to }));
       }
     }

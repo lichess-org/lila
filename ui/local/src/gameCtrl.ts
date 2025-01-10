@@ -8,15 +8,15 @@ import { env } from './localEnv';
 import { statusOf } from 'game/status';
 import { pubsub } from 'common/pubsub';
 
-export class GameCtrl implements LocalSetup {
-  private stopped = true;
-  private setup: LocalSetup;
+export class GameCtrl /*implements LocalSetup*/ {
   live: LocalGame;
   history?: LocalGame;
   proxy: RoundProxy;
   clock?: ClockData & { since?: number };
   orientation: Color;
-  resolveThink?: () => void;
+  private stopped = true;
+  private setup: LocalSetup;
+  private resolveThink?: () => void;
 
   constructor(readonly opts: LocalPlayOpts) {
     this.setup =
@@ -53,6 +53,17 @@ export class GameCtrl implements LocalSetup {
     this.triggerStart();
   }
 
+  start(): void {
+    this.stopped = false;
+    if (!this.live.end) this.updateTurn(); // ??
+  }
+
+  stop(): void {
+    if (this.isStopped) return;
+    this.stopped = true;
+    this.resolveThink?.();
+  }
+
   flag(): void {
     if (this.clock) this.clock[this.turn] = 0;
     this.gameOver({ winner: this.awaitingTurn, status: statusOf('outoftime') });
@@ -65,75 +76,6 @@ export class GameCtrl implements LocalSetup {
 
   draw(): void {
     this.gameOver({ winner: undefined, status: statusOf('draw') });
-  }
-
-  start(): void {
-    this.stopped = false;
-    if (!this.live.end) this.updateTurn(); // ??
-  }
-
-  stop(): void {
-    if (this.isStopped) return;
-    this.stopped = true;
-    this.resolveThink?.();
-  }
-
-  async maybeBotMove(): Promise<void> {
-    const [bot, game] = [env.bot[this.turn], this.live];
-    if (!bot || game.end || this.isStopped || this.resolveThink) return;
-    const move = await env.bot.move({
-      pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
-      chess: this.live.chess,
-      avoid: this.live.threefoldDraws,
-      remaining: this.clock?.[this.turn],
-      initial: this.clock?.initial,
-      increment: this.clock?.increment,
-    });
-    if (!move) return;
-    await new Promise<void>(resolve => {
-      if (this.clock) {
-        this.clock[this.turn] -= move.thinkTime;
-        this.clock.since = undefined;
-      }
-      if (env.dev?.hurry) return resolve();
-      this.resolveThink = resolve;
-      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? move.thinkTime : 0);
-      setTimeout(resolve, realWait * 1000);
-    });
-    this.resolveThink = undefined;
-    if (!this.isStopped && game === this.live && env.round.ply === game.ply) this.move(move.uci);
-    else setTimeout(() => this.updateTurn(), 200);
-  }
-
-  move(uci: Uci): boolean {
-    if (this.history) this.live = this.history;
-    this.history = undefined;
-    this.stopped = false;
-    env.dev?.beforeMove(uci);
-
-    if (this.clock?.since) this.clock[this.turn] -= (performance.now() - this.clock.since) / 1000;
-    const moveCtx = this.live.move({ uci, clock: this.clock });
-    const { end, move, justPlayed } = moveCtx;
-
-    this.proxy.data.steps.splice(this.live.ply);
-
-    env.dev?.afterMove?.(moveCtx);
-
-    this.playSounds(moveCtx);
-    env.round.apiMove(moveCtx);
-
-    if (move?.promotion)
-      env.round.chessground?.setPieces(
-        new Map([[uci.slice(2, 4) as Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
-      );
-
-    if (end) this.gameOver(moveCtx);
-    if (this.clock?.increment) {
-      this.clock[justPlayed] += this.clock.increment;
-      this.updateClockUi();
-    }
-    env.redraw();
-    return !end;
   }
 
   nameOf(color: Color): string {
@@ -197,6 +139,37 @@ export class GameCtrl implements LocalSetup {
     return { ...this.setup };
   }
 
+  move(uci: Uci): boolean {
+    if (this.history) this.live = this.history;
+    this.history = undefined;
+    this.stopped = false;
+    env.dev?.beforeMove(uci);
+
+    if (this.clock?.since) this.clock[this.turn] -= (performance.now() - this.clock.since) / 1000;
+    const moveCtx = this.live.move({ uci, clock: this.clock });
+    const { end, move, justPlayed } = moveCtx;
+
+    this.proxy.data.steps.splice(this.live.ply);
+
+    env.dev?.afterMove?.(moveCtx);
+
+    this.playSounds(moveCtx);
+    env.round.apiMove(moveCtx);
+
+    if (move?.promotion)
+      env.round.chessground?.setPieces(
+        new Map([[uci.slice(2, 4) as Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
+      );
+
+    if (end) this.gameOver(moveCtx);
+    if (this.clock?.increment) {
+      this.clock[justPlayed] += this.clock.increment;
+      this.updateClockUi();
+    }
+    env.redraw();
+    return !end;
+  }
+
   private jump = (ply: number): void => {
     this.history =
       ply < this.live.moves.length
@@ -206,11 +179,38 @@ export class GameCtrl implements LocalSetup {
     this.updateTurn();
   };
 
+  private async maybeMakeBotMove(): Promise<void> {
+    const [bot, game] = [env.bot[this.turn], this.live];
+    if (!bot || game.end || this.isStopped || this.resolveThink) return;
+    const move = await env.bot.move({
+      pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
+      chess: this.live.chess,
+      avoid: this.live.threefoldDraws,
+      remaining: this.clock?.[this.turn],
+      initial: this.clock?.initial,
+      increment: this.clock?.increment,
+    });
+    if (!move) return;
+    await new Promise<void>(resolve => {
+      if (this.clock) {
+        this.clock[this.turn] -= move.thinkTime;
+        this.clock.since = undefined;
+      }
+      if (env.dev?.hurry) return resolve();
+      this.resolveThink = resolve;
+      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? move.thinkTime : 0);
+      setTimeout(resolve, realWait * 1000);
+    });
+    this.resolveThink = undefined;
+    if (!this.isStopped && game === this.live && env.round.ply === game.ply) this.move(move.uci);
+    else setTimeout(() => this.updateTurn(), 200);
+  }
+
   private updateTurn(game: LocalGame = this.history ?? this.live): void {
     if (this.clock && game !== this.live) this.clock = { ...this.clock, ...game.clock };
     this.proxy.cg(game, this.live.ply === 0 ? { lastMove: undefined } : {});
     this.updateClockUi();
-    if (this.isLive) this.maybeBotMove();
+    if (this.isLive) this.maybeMakeBotMove();
   }
 
   private updateClockUi(): void {
@@ -218,6 +218,16 @@ export class GameCtrl implements LocalSetup {
     this.clock.running = this.isLive && this.live.ply > 0;
     env.round.clock?.setClock(this.proxy.data, this.clock.white, this.clock.black);
     if (this.isStopped || !this.isLive) env.round.clock?.stopClock();
+  }
+
+  private gameOver(final: Omit<GameStatus, 'end' | 'turn'>) {
+    this.live.finish(final);
+    this.stop();
+    if (this.clock) env.round.clock?.stopClock();
+    if (!env.dev?.onGameOver({ ...final, end: true, turn: this.turn })) {
+      env.round.endWithData?.({ ...final, boosted: false });
+    }
+    env.redraw();
   }
 
   private playSounds(moveCtx: MoveContext): void {
@@ -236,16 +246,6 @@ export class GameCtrl implements LocalSetup {
   private triggerStart(): void {
     ['white', 'black'].forEach(c => env.bot.playSound(c as Color, ['greeting']));
     setTimeout(() => !env.dev && !this.isUserTurn && this.start(), 500);
-  }
-
-  private gameOver(final: Omit<GameStatus, 'end' | 'turn'>) {
-    this.live.finish(final);
-    this.stop();
-    if (this.clock) env.round.clock?.stopClock();
-    if (!env.dev?.onGameOver({ ...final, end: true, turn: this.turn })) {
-      env.round.endWithData?.({ ...final, boosted: false });
-    }
-    env.redraw();
   }
 
   private resetClock(): void {

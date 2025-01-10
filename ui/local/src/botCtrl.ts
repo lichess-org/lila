@@ -61,7 +61,7 @@ export class BotCtrl {
       }
       //site.pubsub.on('local.dev.import.book', this.onBookImported);
     }
-    return this.initBots(serverBots!);
+    return this.initBots(serverBots.filter(Bot.viable));
   }
 
   async initBots(defBots?: BotInfo[]): Promise<this> {
@@ -70,7 +70,7 @@ export class BotCtrl {
       defBots ??
         fetch('/local/bots')
           .then(res => res.json())
-          .then(res => res.bots),
+          .then(res => res.bots.filter(Bot.viable)),
     ]);
     for (const b of [...serverBots, ...localBots]) {
       if (Bot.viable(b)) this.bots[b.uid] = new Bot(b);

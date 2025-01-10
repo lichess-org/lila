@@ -1,4 +1,4 @@
-import type { Filter, Book, SoundEvent, Sound as NamedSound } from '../types';
+import type { Filter, FilterFacet, Book, SoundEvent, Sound as NamedSound } from '../types';
 import type { Pane } from './pane';
 import type { AssetType } from './devAssets';
 import type { EditDialog } from './editDialog';

@@ -10,7 +10,7 @@
   textarea,
   select,
   input {
-    padding: 5px;
+    padding: 3px 5px;
     &.invalid {
       background-color: $m-bg_bad--mix-80;
     }

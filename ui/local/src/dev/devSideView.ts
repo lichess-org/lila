@@ -46,40 +46,41 @@ function player(color: Color): VNode {
           }),
         }),
       h('img', { attrs: { src: imgUrl } }),
-      p &&
-        !('level' in p) &&
+      (!(env.bot.white || env.bot.black) || (p && !('level' in p))) &&
         h('div.bot-actions', [
-          p instanceof Bot &&
-            h(
-              'button.button' + buttonClass[color],
-              {
-                hook: onInsert(el =>
-                  el.addEventListener('click', e => {
-                    editBot(color);
-                    e.stopPropagation();
-                  }),
-                ),
-              },
-              'Edit',
-            ),
+          //p instanceof Bot &&
           h(
             'button.button' + buttonClass[color],
             {
               hook: onInsert(el =>
                 el.addEventListener('click', e => {
-                  const bot = env.bot[color] as Bot;
-                  if (!bot) return;
-                  env.dev.setRating(bot.uid, env.game.speed, { r: 1500, rd: 350 });
+                  editBot(color);
                   e.stopPropagation();
-                  env.dev.run({
-                    type: 'rate',
-                    players: [bot.uid, ...env.bot.rateBots.map(b => b.uid)],
-                  });
                 }),
               ),
             },
-            'rate',
+            'Edit',
           ),
+          p &&
+            !('level' in p) &&
+            h(
+              'button.button' + buttonClass[color],
+              {
+                hook: onInsert(el =>
+                  el.addEventListener('click', e => {
+                    const bot = env.bot[color] as Bot;
+                    if (!bot) return;
+                    env.dev.setRating(bot.uid, env.game.speed, { r: 1500, rd: 350 });
+                    e.stopPropagation();
+                    env.dev.run({
+                      type: 'rate',
+                      players: [bot.uid, ...env.bot.rateBots.map(b => b.uid)],
+                    });
+                  }),
+                ),
+              },
+              'rate',
+            ),
         ]),
       h('div.stats', [
         h('span', env.game.nameOf(color)),
@@ -118,8 +119,6 @@ function speedIcon(speed: LocalSpeed = env.game.speed): string {
   }
 }
 async function editBot(color: Color) {
-  const selected = env.bot[color]?.uid;
-  if (!selected) return;
   await new EditDialog(color).show();
   env.redraw();
 }

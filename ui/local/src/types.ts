@@ -1,9 +1,9 @@
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
 import type { Chess } from 'chessops';
-import type { Filter, Filters, Point } from './filter';
+import type { Filter, FilterFacet, Filters, Point } from './filter';
 
-export type { CardData, Filter, Filters, Point };
+export type { CardData, Filter, FilterFacet, Filters, Point };
 
 export interface Quirks {
   // tbd
