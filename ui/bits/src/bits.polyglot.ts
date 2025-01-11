@@ -125,10 +125,12 @@ async function* pgnFromBlob(blob: Blob, chunkSize: number, progress?: PgnProgres
     }
     const chunk = blob.slice(offset, offset + chunkSize);
     const textChunk = await chunk.text();
+    const crlfLast = textChunk.lastIndexOf('\r\n\r\n[');
+    const lfLast = textChunk.lastIndexOf('\n\n[');
     const gamesThisChunk =
-      offset + chunk.size === totalSize || textChunk.lastIndexOf('\n\n[') === -1
+      offset + chunk.size === totalSize || Math.max(crlfLast, lfLast) === -1
         ? textChunk
-        : textChunk.slice(0, textChunk.lastIndexOf('\n\n[') + 2);
+        : textChunk.slice(0, Math.max(lfLast + 2, crlfLast + 4));
     const games = co.pgn.parsePgn(residual + gamesThisChunk).filter(game => {
       const tag = game.headers.get('Variant');
       return !tag || tag.toLowerCase() === 'standard';

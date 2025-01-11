@@ -214,12 +214,22 @@ export class BotCtrl {
   private getSavedBots() {
     return (
       this.store?.getMany() ??
-      objectStorage<BotInfo>({ store: 'local.bots' }).then(s => {
+      objectStorage<BotInfo>({ store: 'local.bots', version: 2, upgrade: this.upgrade }).then(s => {
         this.store = s;
         return s.getMany();
       })
     );
   }
+
+  private upgrade = (change: IDBVersionChangeEvent, store: IDBObjectStore): void => {
+    const req = store.openCursor();
+    req.onsuccess = e => {
+      const cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;
+      if (!cursor) return;
+      cursor.update(Bot.migrate(change.oldVersion, cursor.value));
+      cursor.continue();
+    };
+  };
 
   private async fetchBestMove(pos: Position): Promise<{ uci: string; cp: number }> {
     const best = (await this.zerofish.goFish(pos, { multipv: 1, by: { depth: 12 } })).lines[0];

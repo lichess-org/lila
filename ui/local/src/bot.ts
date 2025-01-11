@@ -56,6 +56,21 @@ export class Bot implements BotInfo, MoveSource {
     return Boolean(info.uid && info.name && (info.zero || info.fish));
   }
 
+  static migrate(oldDbVersion: number, old: any): BotInfo {
+    const bot = structuredClone(old);
+    if (oldDbVersion < 2) {
+      bot.filters = {};
+      for (const [name, filter] of Object.entries<any>(old.filters)) {
+        bot.filters[name] = {
+          range: { ...filter.range },
+          by: 'max',
+        };
+        bot.filters[name][filter.by] = structuredClone(filter.data);
+      }
+    }
+    return bot;
+  }
+
   get traceMove(): string {
     return this.traces.join('\n');
   }
