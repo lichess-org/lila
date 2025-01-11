@@ -239,12 +239,14 @@ export function render(ctrl: RoundController): VNode | undefined {
             el.addEventListener('mousedown', e => {
               let node = e.target as HTMLElement;
               if (node.tagName !== moveTag.toUpperCase()) return;
-              while ((node = node.previousSibling as HTMLElement)) {
+              node = node.previousSibling as HTMLElement;
+              while (node) {
                 if (node.tagName === 'INDEX') {
                   ctrl.userJump(Number.parseInt(node.textContent || '') + (plyOffset(ctrl) % 2));
                   ctrl.redraw();
                   break;
                 }
+                node = node.previousSibling as HTMLElement;
               }
             });
             if (col1) {

@@ -3,16 +3,17 @@
 import { i18nVdomPlural } from 'i18n';
 
 const widget = (name: string, prototype: any): any => {
-  const constructor = ($[name] = function (options, element) {
+  // biome-ignore lint/suspicious/noShadowRestrictedNames: Stupid widgets will be removed anyway
+  const constructor = function (options, element) {
     this.element = $(element);
     $.data(element, name, this);
     this.options = options;
     this._create();
-  });
+  };
+  $[name] = constructor;
   constructor.prototype = prototype;
-  $.fn[name] = function (method) {
+  $.fn[name] = function (method, ...args) {
     let returnValue = this;
-    const args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string')
       this.each(function () {
         const instance = $.data(this, name);
@@ -132,7 +133,7 @@ export function initWidgets(): void {
         },
         set: function (d) {
           this.users = {};
-          let i;
+          let i: any;
           for (i in d.users) this.insert(d.users[i]);
           for (i in d.playing) this.insert(d.playing[i]).playing = true;
           for (i in d.patrons) this.insert(d.patrons[i]).patron = true;

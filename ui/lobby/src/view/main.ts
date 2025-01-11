@@ -1,6 +1,6 @@
 import { dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { type VNode, type VNodeData, h } from 'snabbdom';
+import { type VNode, type VNodeData, type VNodes, h } from 'snabbdom';
 import type LobbyController from '../ctrl';
 import { setupModal } from '../setup/view';
 import renderPlaying from './playing';
@@ -9,7 +9,7 @@ import renderTable from './table/main';
 import renderTabs from './tabs';
 
 export default function (ctrl: LobbyController): VNode {
-  let body,
+  let body: VNodes | VNode,
     data: VNodeData = {};
   if (ctrl.redirecting) body = spinner();
   else

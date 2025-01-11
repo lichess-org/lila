@@ -64,7 +64,7 @@ export function init(): void {
 
     $('#main-wrap')
       .on('click', '.autoselect', function (this: HTMLElement) {
-        $(this).select();
+        $(this).trigger('select');
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
         $(`#${$(this).data('rel')}`).trigger('select');
@@ -139,7 +139,7 @@ export function init(): void {
     {
       const $wrap = $('#clinput');
       if (!$wrap.length) return;
-      let booted;
+      let booted = false;
       const $input = $wrap.find('input');
       const boot = () => {
         if (booted) return;

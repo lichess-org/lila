@@ -184,7 +184,8 @@ class Mousetrap {
 
   private bindSingle = (combination: string, callback: Callback, action?: Action) => {
     const info = getKeyInfo(combination, action);
-    (this.bindings[info.key] = this.bindings[info.key] || []).push({
+    this.bindings[info.key] = this.bindings[info.key] || [];
+    this.bindings[info.key].push({
       combination,
       callback,
       modifiers: info.modifiers,

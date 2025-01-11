@@ -526,7 +526,10 @@ export default class AnalyseCtrl {
   };
 
   userMove = (orig: Key, dest: Key, prom: boolean, capture?: sg.Piece): void => {
-    if (this.data.game.variant.key === 'chushogi') this.chushogiUserMove(orig, dest, prom, capture);
+    if (this.data.game.variant.key === 'chushogi') {
+      this.chushogiUserMove(orig, dest, prom, capture);
+      return;
+    }
 
     const usi = orig + dest + (prom ? '+' : '');
     this.justPlayedUsi = usi;
@@ -613,7 +616,10 @@ export default class AnalyseCtrl {
 
   addNode(node: Tree.Node, path: Tree.Path): void {
     const newPath = this.tree.addNode(node, path);
-    if (!newPath) return this.redraw();
+    if (!newPath) {
+      this.redraw();
+      return;
+    }
     const parent = this.tree.nodeAtPath(path);
     if (node.usi) {
       node.notation = makeNotation(parent.sfen, this.data.game.variant.key, node.usi, parent.usi);

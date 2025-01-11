@@ -2,7 +2,7 @@ import { flatpickr } from 'common/assets';
 import { type VNode, h } from 'snabbdom';
 import { adjustDateToLocal, adjustDateToUTC, formattedDate } from './util';
 
-let fInstance;
+let fInstance: any;
 export function flatpickrInput(
   disabled: boolean,
   scheduledAt: number | undefined,

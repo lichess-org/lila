@@ -119,7 +119,13 @@ export function managePlayers(ctrl: TournamentController): MaybeVNode {
           'data-icon': 'f',
           'data-count': ctrl.data.candidates?.length || 0,
         },
-        hook: bind('click', () => (ctrl.playerManagement = !ctrl.playerManagement), ctrl.redraw),
+        hook: bind(
+          'click',
+          () => {
+            ctrl.playerManagement = !ctrl.playerManagement;
+          },
+          ctrl.redraw,
+        ),
       },
       !ctrl.isOrganized() ? i18n('managePlayers') : undefined,
     );

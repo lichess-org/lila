@@ -40,15 +40,24 @@ export default function moveTest(vm: Vm, puzzle: Puzzle): MoveTestReturn {
 
   for (const i in nodes) {
     const shogi = parseSfen('standard', nodes[i].sfen, false).unwrap() as Shogi;
-    if (shogi.isCheckmate()) return (vm.node.puzzle = 'win');
+    if (shogi.isCheckmate()) {
+      vm.node.puzzle = 'win';
+      return vm.node.puzzle;
+    }
     const usi = nodes[i].usi!,
       isAmbProm = puzzle.ambPromotions?.includes(nodes[i].ply),
       solUsi = puzzle.solution[i];
-    if (!sameMove(usi, solUsi, isAmbProm, shogi)) return (vm.node.puzzle = 'fail');
+    if (!sameMove(usi, solUsi, isAmbProm, shogi)) {
+      vm.node.puzzle = 'fail';
+      return vm.node.puzzle;
+    }
   }
 
   const nextUsi = puzzle.solution[nodes.length];
-  if (!nextUsi) return (vm.node.puzzle = 'win');
+  if (!nextUsi) {
+    vm.node.puzzle = 'win';
+    return vm.node.puzzle;
+  }
 
   // from here we have a next move
   vm.node.puzzle = 'good';

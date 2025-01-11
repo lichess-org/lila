@@ -77,7 +77,8 @@ export class StrongSocket implements IStrongSocket {
 
     this.debug(`connection attempt to ${fullUrl}`);
     try {
-      const ws = (this.ws = new WebSocket(fullUrl));
+      this.ws = new WebSocket(fullUrl);
+      const ws = this.ws;
       ws.onerror = e => this.onError(e);
       ws.onclose = () => {
         this.isOpen = false;
@@ -303,7 +304,9 @@ class Ackable {
     setInterval(this.resend, 1200);
   }
 
-  sign = (s: string): string => (this._sign = s);
+  sign = (s: string): void => {
+    this._sign = s;
+  };
 
   resend = (): void => {
     const resendCutoff = performance.now() - 2500;

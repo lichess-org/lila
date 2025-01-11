@@ -170,9 +170,12 @@ export class ClockController {
       this.emergSound.byoTicks = undefined;
       return curElapse;
     }
+    return;
   };
 
-  hardStopClock = (): void => (this.times.activeColor = undefined);
+  hardStopClock = (): void => {
+    this.times.activeColor = undefined;
+  };
 
   private scheduleTick = (time: Millis, color: Color, extraDelay: Millis) => {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);

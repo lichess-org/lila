@@ -32,7 +32,7 @@ function makeStars(start: number) {
 
 function ribbon(s: Stage, status: string, res: number[]) {
   if (status === 'future') return;
-  let content;
+  let content: VNode[] | string;
   if (status === 'ongoing') {
     content = res.length > 0 ? [res.length, s.levels.length].join(' / ') : i18n('learn:play');
   } else content = makeStars(Math.floor(average(res)));

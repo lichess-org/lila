@@ -21,10 +21,11 @@ export function collect(
 ): Tree.Node[] {
   let nodes = [from],
     n = from,
-    c;
-  while ((c = pickChild(n))) {
+    c = pickChild(n);
+  while (c) {
     nodes.push(c);
     n = c;
+    c = pickChild(n);
   }
   return nodes;
 }

@@ -111,7 +111,8 @@ export default class RoundController {
   ) {
     round.massage(opts.data);
 
-    const d = (this.data = opts.data);
+    this.data = opts.data;
+    const d = this.data;
 
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;

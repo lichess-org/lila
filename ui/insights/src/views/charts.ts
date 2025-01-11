@@ -282,6 +282,7 @@ function tooltip<T extends 'bar' | 'line'>(
 // DeepPartial implementation taken from the utility-types NPM package, which is
 // Copyright (c) 2016 Piotr Witek <piotrek.witek@gmail.com> (http://piotrwitek.github.io)
 // and used under the terms of the MIT license
+// biome-ignore lint/complexity/noBannedTypes: <Copied...>
 type DeepPartial<T> = T extends Function
   ? T
   : T extends Array<infer U>

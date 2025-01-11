@@ -61,7 +61,7 @@ export const renderers: Renderers = {
   },
   gameEnd: {
     html: n => {
-      let result;
+      let result: string;
       switch (n.content.win) {
         case true:
           result = 'Congratulations, you won!';
@@ -78,7 +78,7 @@ export const renderers: Renderers = {
       ]);
     },
     text: n => {
-      let result;
+      let result: string;
       switch (n.content.win) {
         case true:
           result = 'Victory';

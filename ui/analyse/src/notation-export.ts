@@ -37,11 +37,14 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
     if (defined(m.usi)) {
       const move = parseUsi(m.usi);
       if (defined(move)) {
-        const kifMove = makeKifMoveOrDrop(pos, move, lastDest),
-          kifTime = defined(m.clock)
-            ? makeKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock))
-            : '',
-          moveNumStr = pad((m.ply - offset).toString(), padding + 1) + moveNumberSuf;
+        const kifMove = makeKifMoveOrDrop(pos, move, lastDest);
+        const moveNumStr = pad((m.ply - offset).toString(), padding + 1) + moveNumberSuf;
+
+        let kifTime = '';
+        if (defined(m.clock)) {
+          timesSoFar[m.ply % 2] += m.clock;
+          kifTime = makeKifTime(m.clock, timesSoFar[m.ply % 2]);
+        }
         if (kifMove?.includes('\n')) {
           const split = kifMove.split('\n');
           res.push(moveNumStr + split[0]);

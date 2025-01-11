@@ -59,7 +59,9 @@ export default class TournamentController {
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page || 1;
     this.focusOnMe = tour.isIn(this);
-    setTimeout(() => (this.disableClicks = false), 1500);
+    setTimeout(() => {
+      this.disableClicks = false;
+    }, 1500);
     this.loadPage(this.data.standing);
     this.scrollToMe();
     sound.end(this.data);
@@ -293,7 +295,7 @@ export default class TournamentController {
 
   arrangementTime = (arrangement: Arrangement, date: Date | undefined): void => {
     console.log('arrangementTime', arrangement, date, date?.getTime());
-    const data = {
+    const data: Socket.Payload = {
       id: arrangement.id,
       users: `${arrangement.user1.id};${arrangement.user2.id}`,
     };

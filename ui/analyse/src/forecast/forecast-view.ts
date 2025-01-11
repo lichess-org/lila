@@ -61,7 +61,7 @@ function renderNodesHtml(nodes: ForecastStep[]): MaybeVNodes {
     addColorIcon = notationsWithColor();
 
   nodes.forEach((node, index) => {
-    const colorIcon = addColorIcon ? (`.color-icon.${node.ply % 2}` ? 'gote' : 'sente') : '';
+    const colorIcon = addColorIcon ? `.color-icon.${node.ply % 2 ? 'gote' : 'sente'}` : '';
     tags.push(h('index', `${index + 1}.`));
     tags.push(h(`move-notation${colorIcon}`, node.notation));
   });
@@ -90,7 +90,9 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 nodes.map(n => n.usi),
                 par.usi,
               );
-            notations.map((n, i) => (nodes[i].notation = n));
+            notations.forEach((n, i) => {
+              nodes[i].notation = n;
+            });
             return h(
               'div.entry.text',
               {

@@ -53,7 +53,8 @@ export default function (
       return;
     }
     if (!getStudy().data.chapter.practice) {
-      return saveNbMoves();
+      saveNbMoves();
+      return;
     }
     if (success() !== null) return;
     nbMoves(computeNbMoves());

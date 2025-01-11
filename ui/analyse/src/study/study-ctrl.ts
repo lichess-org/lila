@@ -126,7 +126,8 @@ export default function (
       send(t, d);
       return true;
     }
-    return (vm.mode.sticky = false);
+    vm.mode.sticky = false;
+    return vm.mode.sticky;
   }
 
   const commentForm: CommentForm = new CommentForm(ctrl);
@@ -290,7 +291,10 @@ export default function (
   let gamebookPlay: GamebookPlayCtrl | undefined;
 
   function instanciateGamebookPlay() {
-    if (!isGamebookPlay()) return (gamebookPlay = undefined);
+    if (!isGamebookPlay()) {
+      gamebookPlay = undefined;
+      return;
+    }
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, redraw);
     vm.mode.sticky = false;

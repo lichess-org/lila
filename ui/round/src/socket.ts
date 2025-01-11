@@ -76,8 +76,8 @@ export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
     takebackOffers(o) {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
-      const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
-      if (fromOp) notify(i18n('yourOpponentProposesATakeback'));
+      ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
+      if (ctrl.data.opponent.proposingTakeback) notify(i18n('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
     usi: ctrl.apiMove,
@@ -105,7 +105,8 @@ export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
     endData: ctrl.endWithData,
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
-      if ((ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color))
+      ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
+      if (ctrl.data.opponent.offeringRematch)
         notify(i18n('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
@@ -116,8 +117,8 @@ export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
     },
     drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
-      const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
-      if (fromOp) notify(i18n('yourOpponentOffersADraw'));
+      ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
+      if (ctrl.data.opponent.offeringDraw) notify(i18n('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
     pauseOffer(by) {
@@ -133,8 +134,8 @@ export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
     resumeOffer(by) {
       ctrl.data.player.offeringPause = ctrl.data.opponent.offeringPause = false;
       ctrl.data.player.offeringResume = by === ctrl.data.player.color;
-      const fromOp = (ctrl.data.opponent.offeringResume = by === ctrl.data.opponent.color);
-      if (fromOp) notify(i18n('yourOpponentProposesResumption'));
+      ctrl.data.opponent.offeringResume = by === ctrl.data.opponent.color;
+      if (ctrl.data.opponent.offeringResume) notify(i18n('yourOpponentProposesResumption'));
       ctrl.redraw();
     },
     berserk(color: Color) {

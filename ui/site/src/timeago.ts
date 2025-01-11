@@ -43,7 +43,7 @@ function formatDiff(diff: number): string {
 let formatterInst: (date?: Date | number) => string;
 
 function formatter(): (date?: Date | number) => string {
-  return (formatterInst =
+  formatterInst =
     formatterInst ||
     (window.Intl && Intl.DateTimeFormat
       ? new Intl.DateTimeFormat(document.documentElement.lang, {
@@ -53,28 +53,26 @@ function formatter(): (date?: Date | number) => string {
           hour: 'numeric',
           minute: 'numeric',
         }).format
-      : (d: Date) => d.toLocaleString()));
+      : (d: Date) => d.toLocaleString());
+  return formatterInst;
 }
 
 export function render(nodes: HTMLElement[]): void {
-  let cl,
-    abs,
-    set,
-    str,
-    diff,
-    now = Date.now();
+  const now = Date.now();
   nodes.forEach((node: HTMLElement & { date?: Date }) => {
-    (cl = node.classList), (abs = cl.contains('abs')), (set = cl.contains('set'));
+    const cl = node.classList,
+      abs = cl.contains('abs'),
+      set = cl.contains('set');
     node.date = node.date || toDate(node.getAttribute('datetime')!);
     if (!set) {
-      str = formatter()(node.date);
+      const str = formatter()(node.date);
       if (abs) node.textContent = str;
       else node.setAttribute('title', str);
       cl.add('set');
       if (abs || cl.contains('once')) cl.remove('timeago');
     }
     if (!abs) {
-      diff = (now - node.date.getTime()) / 1000;
+      const diff = (now - node.date.getTime()) / 1000;
       node.textContent = formatDiff(diff);
       if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
     }

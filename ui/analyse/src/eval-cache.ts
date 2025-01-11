@@ -92,8 +92,10 @@ export function make(opts: Opts): EvalCache {
       const node = opts.getNode();
       if (node.ceval?.cloud || !opts.canGet()) return;
       const serverEval = fetchedBySfen[node.sfen];
-      if (serverEval) return opts.receive(toCeval(serverEval), path, false);
-      else if (node.sfen in fetchedBySfen) return;
+      if (serverEval) {
+        opts.receive(toCeval(serverEval), path, false);
+        return;
+      } else if (node.sfen in fetchedBySfen) return;
       // waiting for response
       else fetchedBySfen[node.sfen] = undefined; // mark as waiting
       const obj: any = {

@@ -301,7 +301,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
     toolTab = study.vm.toolTab();
   if (study.gamebookPlay())
     return [descView(study, true), descView(study, false), gbPlayButtons(ctrl), metadata(study)];
-  let panel;
+  let panel: VNode | undefined;
   switch (toolTab) {
     case 'tags':
       panel = metadata(study);

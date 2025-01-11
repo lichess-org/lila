@@ -20,7 +20,7 @@ function buildStorage(storage: Storage): LishogiStorageHelper {
       listen: f =>
         window.addEventListener('storage', e => {
           if (e.key !== k || e.storageArea !== storage || e.newValue === null) return;
-          let parsed;
+          let parsed: any;
           try {
             parsed = JSON.parse(e.newValue);
           } catch (_) {

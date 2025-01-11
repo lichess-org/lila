@@ -48,14 +48,10 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
     windowHeight = window.innerHeight;
 
   menu.style.left =
-    windowWidth - coords.x < menuWidth
-      ? `${windowWidth - menuWidth}px`
-      : (menu.style.left = `${coords.x}px`);
+    windowWidth - coords.x < menuWidth ? `${windowWidth - menuWidth}px` : `${coords.x}px`;
 
   menu.style.top =
-    windowHeight - coords.y < menuHeight
-      ? `${windowHeight - menuHeight}px`
-      : (menu.style.top = `${coords.y}px`);
+    windowHeight - coords.y < menuHeight ? `${windowHeight - menuHeight}px` : `${coords.y}px`;
 }
 
 function action(icon: string, text: string, handler: () => void): VNode {
@@ -79,7 +75,10 @@ function view(opts: Opts, coords: Coords): VNode {
     {
       hook: {
         ...onInsert(elm => {
-          elm.addEventListener('contextmenu', e => (e.preventDefault(), false));
+          elm.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            return false;
+          });
           positionMenu(elm, coords);
         }),
         postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords),

@@ -19,7 +19,9 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
           el.scrollTop === 0 || el.scrollTop > el.scrollHeight - el.clientHeight - 100;
         if (autoScroll) {
           el.scrollTop = 999999;
-          setTimeout((_: any) => (el.scrollTop = 999999), 300);
+          setTimeout((_: any) => {
+            el.scrollTop = 999999;
+          }, 300);
         }
       }
     },

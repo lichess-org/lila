@@ -144,7 +144,7 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
 export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
   const bestEv = getBestEval(ctrl.currentEvals());
-  let ev;
+  let ev: number;
   if (bestEv) {
     ev = winningChances.povChances('sente', bestEv);
     gaugeLast = ev;
@@ -306,7 +306,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
     .children()
     .filter('span.pv-move')
     .each(function (this: Element) {
-      pvMoves.push($(this).attr('data-board'));
+      pvMoves.push($(this).attr('data-board')!);
     });
 
   return pvMoves;
@@ -502,8 +502,9 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     `div.mini-board.v-${instance.variant.key}`,
     h('div.sg-wrap', {
       hook: {
-        insert: (vnode: any) =>
-          (vnode.elm._sg = window.Shogiground(sgConfig, { board: vnode.elm })),
+        insert: (vnode: any) => {
+          vnode.elm._sg = window.Shogiground(sgConfig, { board: vnode.elm });
+        },
         update: (vnode: any) => vnode.elm._sg.set(sgConfig),
         destroy: (vnode: any) => vnode.elm._sg.destroy(),
       },

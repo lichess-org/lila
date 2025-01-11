@@ -36,7 +36,15 @@ export const bindNonPassive = (
 ): Hooks => bind(eventName, f, redraw, false);
 
 export function bindSubmit(f: (e: Event) => unknown, redraw?: () => void): Hooks {
-  return bind('submit', e => (e.preventDefault(), f(e)), redraw, false);
+  return bind(
+    'submit',
+    e => {
+      e.preventDefault();
+      return f(e);
+    },
+    redraw,
+    false,
+  );
 }
 
 export function dataIcon(icon: string): Attrs {

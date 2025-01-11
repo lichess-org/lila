@@ -98,7 +98,8 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
 function setupTagify(elm: HTMLTextAreaElement, userId?: string) {
   loadCssPath('misc.tagify');
   loadVendorScript('tagify', 'tagify/tagify.min.js').then(() => {
-    const tagi = (tagify = new window.Tagify(elm, { pattern: /.{2,}/, maxTags: 30 }));
+    tagify = new window.Tagify(elm, { pattern: /.{2,}/, maxTags: 30 });
+    const tagi = tagify;
     let abortCtrl: AbortController | undefined; // for aborting the call
     tagi.on('input', e => {
       const term = (e.detail as Tagify.TagData).value.trim();

@@ -82,10 +82,11 @@ export function toMoveOrDrop(str: string, pos: Position): MoveOrDrop | undefined
 
 export function regexMatchAllSquares(str: string): Square[] {
   const matches: Square[] = [];
-  let match;
-  while ((match = keyR.exec(str)) !== null) {
+  let match = keyR.exec(str);
+  while (match) {
     const sq = toSquare(match[0]);
     if (defined(sq)) matches.push(sq);
+    match = keyR.exec(str);
   }
   return matches;
 }

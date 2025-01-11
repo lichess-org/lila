@@ -59,9 +59,8 @@ function laneGrouper(t) {
 
 function group(arr, grouper) {
   const groups = {};
-  let g;
   arr.forEach(e => {
-    g = grouper(e);
+    const g = grouper(e);
     if (!groups[g]) groups[g] = [];
     groups[g].push(e);
   });

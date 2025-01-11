@@ -2,10 +2,10 @@ import type AnalyseCtrl from './ctrl';
 import type { AnalyseOpts } from './interfaces';
 
 export function replay(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseCtrl): AnalyseCtrl {
-  let ctrl: AnalyseCtrl;
+  let ctrl: AnalyseCtrl | undefined = undefined;
 
-  const data = opts.data,
-    socketUrl = `/watch/${data.game.id}/${data.player.color}/v6`;
+  const data = opts.data;
+  const socketUrl = `/watch/${data.game.id}/${data.player.color}/v6`;
   window.lishogi.socket = new window.lishogi.StrongSocket(socketUrl, data.player.version, {
     options: {
       name: 'analyse',
@@ -14,7 +14,7 @@ export function replay(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseC
       userTv: data.userTv?.id,
     },
     receive: (t, d) => {
-      ctrl.socket.receive(t, d);
+      ctrl?.socket.receive(t, d);
     },
     events: {},
   });
@@ -28,16 +28,16 @@ export function replay(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseC
 }
 
 export function study(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseCtrl): AnalyseCtrl {
-  let ctrl: AnalyseCtrl;
-  opts.initialPly = 'url';
+  let ctrl: AnalyseCtrl | undefined = undefined;
+
   window.lishogi.socket = new window.lishogi.StrongSocket(opts.socketUrl, opts.socketVersion, {
     receive: (t, d) => {
-      ctrl.socket.receive(t, d);
+      ctrl?.socket.receive(t, d);
     },
   });
+  opts.initialPly = 'url';
   opts.socketSend = window.lishogi.socket.send;
   ctrl = start(opts);
-
   return ctrl;
 }
 
@@ -45,15 +45,17 @@ export function analysis(
   opts: AnalyseOpts,
   start: (opts: AnalyseOpts) => AnalyseCtrl,
 ): AnalyseCtrl {
-  let ctrl: AnalyseCtrl;
-  opts.initialPly = 'url';
+  let ctrl: AnalyseCtrl | undefined = undefined;
+
   window.lishogi.socket = new window.lishogi.StrongSocket('/analysis/socket/v4', false, {
     receive: (t, d) => {
-      ctrl.socket.receive(t, d);
+      ctrl?.socket.receive(t, d);
     },
   });
-  opts.socketSend = window.lishogi.socket.send;
+  opts.initialPly = 'url';
   opts.$side = $('.analyse__side').clone();
+  opts.socketSend = window.lishogi.socket.send;
+
   ctrl = start(opts);
 
   return ctrl;
@@ -63,10 +65,10 @@ export function practice(
   opts: AnalyseOpts,
   start: (opts: AnalyseOpts) => AnalyseCtrl,
 ): AnalyseCtrl {
-  let ctrl: AnalyseCtrl;
+  let ctrl: AnalyseCtrl | undefined = undefined;
   window.lishogi.socket = new window.lishogi.StrongSocket('/analysis/socket/v4', false, {
     receive: (t, d) => {
-      ctrl.socket.receive(t, d);
+      ctrl?.socket.receive(t, d);
     },
   });
   opts.socketSend = window.lishogi.socket.send;

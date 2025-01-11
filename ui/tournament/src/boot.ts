@@ -6,12 +6,12 @@ export function boot(
   start: (opts: TournamentOpts) => TournamentController,
 ): TournamentController {
   $('body').data('tournament-id', opts.data.id);
-  let ctrl;
+  let ctrl: TournamentController | undefined = undefined;
   window.lishogi.socket = new window.lishogi.StrongSocket(
     `/tournament/${opts.data.id}/socket/v4`,
     opts.data.socketVersion,
     {
-      receive: (t, d) => ctrl.socket.receive(t, d),
+      receive: (t, d) => ctrl?.socket.receive(t, d),
     },
   );
   opts.socketSend = window.lishogi.socket.send;

@@ -29,7 +29,7 @@ export function enterVariation(ctrl: AnalyseCtrl): void {
 
 export function exitVariation(ctrl: AnalyseCtrl): void {
   if (ctrl.onMainline) return;
-  let found,
+  let found: string | undefined,
     path = treePath.root;
   ctrl.nodeList.slice(1, -1).forEach((n: Tree.Node) => {
     path += n.id;

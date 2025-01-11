@@ -155,7 +155,10 @@ function studyButton(ctrl: AnalyseCtrl) {
 
 export class Ctrl {
   open = false;
-  toggle = (): boolean => (this.open = !this.open);
+  toggle = (): boolean => {
+    this.open = !this.open;
+    return this.open;
+  };
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {

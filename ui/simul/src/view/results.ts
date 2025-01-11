@@ -48,11 +48,10 @@ const NumberFirstRegex = /^(\d+)\s(.+)$/,
   NumberLastRegex = /^(.+)\s(\d+)$/;
 
 const splitNumber = (s: string) => {
-  let found: string[] | null;
-  if ((found = s.match(NumberFirstRegex)))
-    return [h('div.number', found[1]), h('div.text', found[2])];
-  if ((found = s.match(NumberLastRegex)))
-    return [h('div.number', found[2]), h('div.text', found[1])];
+  const foundFirst = s.match(NumberFirstRegex);
+  if (foundFirst) return [h('div.number', foundFirst[1]), h('div.text', foundFirst[2])];
+  const foundLast = s.match(NumberLastRegex);
+  if (foundLast) return [h('div.number', foundLast[2]), h('div.text', foundLast[1])];
   return h('div.text', s);
 };
 

@@ -64,10 +64,7 @@ function renderPowertip(hs: Hook | Seek): string {
   }
   html += '<div class="inner-clickable">';
   html += `<div>${isHook(hs) ? hs.clock : hs.days ? i18nPluralSame('nbDays', hs.days) : 'INF'}</div>`;
-  html +=
-    `<i data-icon="${getPerfIcon(hs.perf || hs.variant || 'standard')}"> ${isHook(hs) ? hs.ra : hs.mode}`
-      ? i18n('rated')
-      : `${i18n('casual')}</i>`;
+  html += `<i data-icon="${getPerfIcon(hs.perf || hs.variant || 'standard')}"> ${(isHook(hs) ? hs.ra : hs.mode) ? i18n('rated') : i18n('casual')}</i>`;
   html += '</div>';
   html += '</div>';
   return html;

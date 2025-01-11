@@ -19,7 +19,9 @@ class Scroller {
   };
   auto = (): void => {
     if (this.element && this.enabled)
-      requestAnimationFrame(() => (this.element!.scrollTop = 9999999));
+      requestAnimationFrame(() => {
+        this.element!.scrollTop = 9999999;
+      });
   };
   enable = (v: boolean): void => {
     this.enabled = v;

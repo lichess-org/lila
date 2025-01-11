@@ -133,10 +133,9 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               (el as HTMLTextAreaElement).value = defined(ctrl.kifInput)
                 ? ctrl.kifInput
                 : notationExport.renderFullKif(ctrl);
-              el.addEventListener(
-                'input',
-                e => (ctrl.kifInput = (e.target as HTMLTextAreaElement).value),
-              );
+              el.addEventListener('input', e => {
+                ctrl.kifInput = (e.target as HTMLTextAreaElement).value;
+              });
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.kifInput)
@@ -173,10 +172,9 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
                   (el as HTMLTextAreaElement).value = defined(ctrl.csaInput)
                     ? ctrl.csaInput
                     : notationExport.renderFullCsa(ctrl);
-                  el.addEventListener(
-                    'input',
-                    e => (ctrl.csaInput = (e.target as HTMLTextAreaElement).value),
-                  );
+                  el.addEventListener('input', e => {
+                    ctrl.csaInput = (e.target as HTMLTextAreaElement).value;
+                  });
                 }),
                 postpatch: (_, vnode) => {
                   (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.csaInput)
@@ -213,10 +211,9 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               (el as HTMLTextAreaElement).value = defined(ctrl.urlInput)
                 ? ctrl.urlInput
                 : notationExport.renderUrlUsiLine(ctrl);
-              el.addEventListener(
-                'input',
-                e => (ctrl.urlInput = (e.target as HTMLTextAreaElement).value),
-              );
+              el.addEventListener('input', e => {
+                ctrl.urlInput = (e.target as HTMLTextAreaElement).value;
+              });
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.urlInput)

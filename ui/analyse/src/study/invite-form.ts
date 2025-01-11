@@ -31,7 +31,7 @@ export function makeCtrl(
         .filter((elem, idx, arr) => {
           return (
             arr.indexOf(elem) >= idx && // remove duplicates
-            !existing.hasOwnProperty(titleNameToId(elem))
+            !Object.prototype.hasOwnProperty.call(existing, titleNameToId(elem))
           ); // remove existing members
         })
         .sort();

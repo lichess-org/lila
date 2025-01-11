@@ -25,5 +25,5 @@ export function reload(): void {
   window.lishogi.properReload = true;
   window.lishogi.socket.destroy(); // todo
   if (location.hash) location.reload();
-  else location.href = location.href;
+  else location.assign(location.href);
 }

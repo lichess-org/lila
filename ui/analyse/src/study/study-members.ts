@@ -27,7 +27,7 @@ interface Opts {
 }
 
 function memberActivity(onIdle) {
-  let timeout;
+  let timeout: Timeout;
   const schedule = () => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(onIdle, 100);

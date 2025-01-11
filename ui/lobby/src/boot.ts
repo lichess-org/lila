@@ -7,7 +7,7 @@ export default function boot(
   opts: LobbyOpts,
   start: (opts: LobbyOpts) => LobbyController,
 ): LobbyController {
-  let ctrl: LobbyController;
+  let ctrl: LobbyController | undefined = undefined;
   const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
     nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
     getParameterByName = <T extends string>(name: string): T | undefined => {
@@ -19,16 +19,16 @@ export default function boot(
       if (!gameId) return;
       window.lishogi.xhr.text('POST', `/setup/hook/${window.lishogi.sri}/like/${gameId}`, {
         url: {
-          rr: ctrl.setupCtrl.ratingRange() || '',
+          rr: ctrl?.setupCtrl.ratingRange() || '',
         },
       });
-      ctrl.setTab('real_time', false);
-      ctrl.redraw();
+      ctrl?.setTab('real_time', false);
+      ctrl?.redraw();
       history.replaceState(null, '', '/');
     };
   window.lishogi.socket = new window.lishogi.StrongSocket('/lobby/socket/v4', false, {
     receive: (t, d) => {
-      ctrl.socket.receive(t, d);
+      ctrl?.socket.receive(t, d);
     },
     events: {
       n: (_nbUsers, msg) => {
@@ -48,7 +48,7 @@ export default function boot(
         window.lishogi.pubsub.emit('content_loaded');
       },
       redirect: e => {
-        ctrl.setRedirecting();
+        ctrl?.setRedirecting();
         window.lishogi.redirect(e);
       },
       tournaments: data => {
@@ -57,7 +57,7 @@ export default function boot(
       },
       sfen: e => {
         window.lishogi.StrongSocket.defaultParams.events.sfen(e);
-        ctrl.gameActivity(e.id);
+        ctrl?.gameActivity(e.id);
       },
     },
     options: {

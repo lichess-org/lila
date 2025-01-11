@@ -184,7 +184,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
 }
 
 function isLoaded(data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig {
-  return data.hasOwnProperty('orientation');
+  return Object.prototype.hasOwnProperty.call(data, 'orientation');
 }
 
 function viewLoaded(data: StudyChapterConfig): VNode[] {

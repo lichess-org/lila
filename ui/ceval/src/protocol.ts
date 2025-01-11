@@ -71,12 +71,12 @@ export class Protocol {
       return;
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
       let depth = 0,
-        nodes,
+        nodes: number | undefined,
         multiPv = 1,
-        elapsedMs,
-        evalType,
+        elapsedMs: number | undefined,
+        evalType: string | undefined,
         isMate = false,
-        povEv,
+        povEv: number | undefined,
         moves: string[] = [];
       for (let i = 1; i < parts.length; i++) {
         switch (parts[i]) {

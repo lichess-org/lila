@@ -42,7 +42,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     const node = findNextNode();
     if (!node) {
       current(null);
-      return redraw();
+      redraw();
+      return;
     }
     const fault = {
       node,

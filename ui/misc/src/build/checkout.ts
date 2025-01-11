@@ -32,7 +32,7 @@ window.lishogi.ready.then(() => {
 
   $checkout.find('group.amount .other label').on('click', function () {
     const raw = prompt($(this).attr('title'));
-    let amount;
+    let amount: number;
     try {
       amount = Number.parseFloat(raw!.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (_e) {
@@ -55,7 +55,7 @@ window.lishogi.ready.then(() => {
 
   $checkout.find('button.paypal').on('click', () => {
     const freq = getFreq();
-    let cents;
+    let cents: number;
     if (freq == 'lifetime') {
       cents = lifetime.cents;
     } else {

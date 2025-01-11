@@ -118,8 +118,8 @@ function expandTwitter(a: Candidate) {
 
     // polyfill document.createElement so that iframes created by twitter get the `credentialless` attribute
     const originalCreateElement = document.createElement;
-    document.createElement = function () {
-      const element = originalCreateElement.apply(this, arguments as any);
+    document.createElement = function (this, ...args) {
+      const element = originalCreateElement.apply(this, args);
       if (element instanceof HTMLIFrameElement) {
         (element as any).credentialless = true;
       }

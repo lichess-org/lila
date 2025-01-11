@@ -89,7 +89,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
-    let verdict: Verdict, best;
+    let verdict: Verdict, best: Usi | undefined;
     const outcome = root.outcome(node);
 
     if (outcome?.winner) verdict = 'goodMove';
@@ -101,7 +101,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
       best = nodeBestUsi(prev)!;
-      if (best === node.usi) best = null;
+      if (best === node.usi) best = undefined;
 
       if (!best) verdict = 'goodMove';
       else if (shift < 0.025) verdict = 'goodMove';

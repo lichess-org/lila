@@ -15,7 +15,13 @@ export function filter(ctrl: InsightCtrl): VNode {
       h(
         'div',
         {
-          hook: bind('click', () => (ctrl.filterToggle = !ctrl.filterToggle), ctrl.redraw),
+          hook: bind(
+            'click',
+            () => {
+              ctrl.filterToggle = !ctrl.filterToggle;
+            },
+            ctrl.redraw,
+          ),
         },
         [i18n('filterGames'), h('i', { attrs: dataIcon(ctrl.filterToggle ? 'S' : 'R') })],
       ),

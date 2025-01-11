@@ -1,12 +1,18 @@
-import type { VNodes } from 'snabbdom';
+import type { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
+import type { VNode } from 'snabbdom';
 import type LobbyController from '../../ctrl';
 import * as chart from './chart';
 import { createSeek } from './correspondence';
 import * as filterView from './filter';
 import * as list from './list';
 
-export default function (ctrl: LobbyController): VNodes {
-  let filterBody, body, nbFiltered, modeToggle, res, button;
+export default function (ctrl: LobbyController): MaybeVNodes {
+  let filterBody: VNode | undefined,
+    body: VNode,
+    nbFiltered: number,
+    modeToggle: MaybeVNode,
+    res: any,
+    button: MaybeVNode;
 
   const isSeeks = ctrl.tab === 'seeks';
   if (ctrl.filter.open) filterBody = filterView.render(ctrl);

@@ -88,7 +88,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
         for (const [key, piece] of pieces) {
           if (piece.color === color && piece.role === role) keys.push(key);
         }
-        let name;
+        let name: string;
         if (style === 'japanese') name = rolesJP[role];
         else name = `${role}${keys.length > 1 ? 's' : ''}`;
         if (keys.length) lists.push([name, ...keys]);
