@@ -97,8 +97,8 @@
   grid-template-columns: min(36vh, 30vw) min(480px, 33vw) 1fr;
   grid-template-rows: 74% auto fit-content(0);
   grid-template-areas:
-    'info sources filters'
-    'deck sources filters'
+    'info behavior filters'
+    'deck behavior filters'
     'deck actions actions';
 
   [data-bot-action='unrate-one'] {
@@ -200,6 +200,28 @@
       max-width: 5ch;
     }
   }
+  .books {
+    .btn-rack {
+      gap: 4px;
+      border: none;
+      button {
+        padding: 0.6em;
+        border: 1px solid $c-border;
+      }
+      button.active {
+        border-color: $c-primary;
+        outline: 4px solid $c-primary;
+      }
+      button[data-color='white'] {
+        border-radius: 0 6px 6px 0;
+        background: $c-paper;
+      }
+      button[data-color='black'] {
+        border-radius: 6px 0 0 6px;
+        background: $c-dark;
+      }
+    }
+  }
   .sound-events {
     padding: 0.5em 1em;
     .hide-disabled {
@@ -220,7 +242,7 @@
       gap: 6px;
     }
   }
-  .sources,
+  .behavior,
   .filters {
     overflow-y: auto;
     overflow-x: visible;
@@ -240,9 +262,9 @@
       display: none;
     }
   }
-  .sources {
+  .behavior {
     @extend %flex-column;
-    grid-area: sources;
+    grid-area: behavior;
     padding: 0 1em;
     min-width: 300px;
     justify-content: start;
@@ -262,22 +284,25 @@
       height: 32px;
       padding-inline-start: 0.5em;
     }
-    .chart-wrapper {
+    .graph-wrapper {
       border: 1px solid $c-border-light;
       position: relative;
       border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
       background: $c-paper;
       cursor: pointer;
       padding: 1em 1em 0.5em 0.5em;
-    }
-    &.disabled .chart-wrapper {
-      display: none;
+      &.hidden {
+        background: $m-paper_dimmer--mix-50;
+        canvas {
+          display: none;
+        }
+      }
     }
     .btn-rack {
       width: 100%;
       border: none;
     }
-    .by {
+    .facet {
       @extend %flex-center-nowrap;
       z-index: $z-above-dialog-12;
       justify-content: center;
@@ -287,10 +312,15 @@
       user-select: none;
       color: $c-font;
       white-space: nowrap;
+      gap: 0.5em;
       border: 1px solid $c-border-light;
       border-bottom: none;
       border-radius: $box-radius-size $box-radius-size 0 0;
       margin-inline-end: -1px;
+
+      input {
+        padding-inline-end: 0.5em;
+      }
 
       &:last-child {
         margin-inline-end: 0;
@@ -304,10 +334,13 @@
         cursor: default;
       }
 
-      &:hover:not(.active) {
+      &:hover {
+        //:not(.active) {
+        cursor: pointer;
+        //&:has(input:checked) {
         background: $m-paper_dimmer--mix-75;
         color: $c-font-clearer;
-        cursor: pointer;
+        //}
       }
     }
   }

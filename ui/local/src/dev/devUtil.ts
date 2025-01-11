@@ -29,7 +29,7 @@ export function setObjectProperty({ obj, path, value }: ObjectPath & { value: an
   setObjectProperty({ obj: obj[keys[0]], path: { keys: keys.slice(1) }, value });
 }
 
-// ignores empty objects & arrays for BotInfo equivalence.
+// ignores empty objects for BotInfo equivalence.
 export function closeEnough(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
@@ -110,7 +110,7 @@ function pathToKeys({ path, obj }: ObjectPath): string[] {
 
 function isEmpty(prop: any): boolean {
   return Array.isArray(prop)
-    ? prop.length === 0
+    ? false //prop.length === 0
     : typeof prop === 'object'
       ? Object.keys(prop).length === 0
       : false;

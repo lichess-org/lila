@@ -57,8 +57,8 @@ export const schema: Schema = deepFreeze<Schema>({
       step: 10,
     },
   },
-  sources: {
-    class: ['sources'],
+  behavior: {
+    class: ['behavior'],
     books: {
       label: 'books',
       type: 'books',
@@ -127,7 +127,7 @@ export const schema: Schema = deepFreeze<Schema>({
         step: 1,
         toggle: true,
         requires: {
-          some: ['sources_zero_net <<= e55a', 'sources_zero_net <<= 2d2e', 'sources_zero_net <<= d685'],
+          some: ['behavior_zero_net <<= e55a', 'behavior_zero_net <<= 2d2e', 'behavior_zero_net <<= d685'],
         },
         // '<<=' means startsWith and those hex values are tinygyal, evilgyal, and goodgyal
       },
@@ -186,8 +186,8 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'lc0 bias',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 1 }, by: 'move', data: [] },
-      requires: { every: ['sources_zero', 'sources_fish'] },
+      value: { range: { min: 0, max: 1 }, by: 'max' },
+      requires: { every: ['behavior_zero', 'behavior_fish'] },
       title: condense(
         `lc0 bias controls the likelihood of choosing an lc0 move over stockfish.
         0 will always choose from stockfish, 1 will always choose from lc0.`,
@@ -197,9 +197,8 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'cpl target',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 150 }, by: 'move', data: [] },
-      toggle: true,
-      requires: { every: ['sources_fish', 'sources_fish_multipv > 1'] },
+      value: { range: { min: 0, max: 150 }, by: 'max' },
+      requires: { every: ['behavior_fish', 'behavior_fish_multipv > 1'] },
       title: condense(
         `cpl target influences the average centipawn loss relative to bestmove according
         to stockfish.
@@ -218,7 +217,7 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'cpl stdev',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 100 }, by: 'move', data: [] },
+      value: { range: { min: 0, max: 100 }, by: 'max' },
       requires: 'bot_filters_cplTarget',
       title: `cpl stdev describes the standard deviation of the normal distribution
         from which noisy cpl targets are chosen.`,
@@ -227,23 +226,22 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'move quality decay',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 1 }, by: 'time', data: [] },
-      toggle: true,
+      value: { range: { min: 0, max: 1 }, by: 'max' },
       requires: {
         // moveDecay needs more than 1 line, whatever the source
         some: [
-          'sources_fish_multipv > 1',
-          'sources_zero_multipv > 1',
-          { every: ['sources_zero', 'sources_fish'] },
+          'behavior_fish_multipv > 1',
+          'behavior_zero_multipv > 1',
+          { every: ['behavior_zero', 'behavior_fish'] },
         ],
       },
       title: condense(
-        `move quality decay is the final stage of move selection.
+        `move quality decay is an optional final stage of move selection.
 
         if any previous filter assigns weights, they are first used to sort moves in
         descending order
         of the weight sums. when move quality decay is off or zero,
-        the first move in that sort order is chosen. with a non-zero move quality decay,
+        the first move in that sort order is chosen. if move quality decay is non-zero,
         each move's quality weight is equal to that decay raised to the power of the move's
         sort order index (counting from zero). a random number between
         0 and the sum of all quality weights will then select the final move.
@@ -254,7 +252,7 @@ export const schema: Schema = deepFreeze<Schema>({
         
         move quality decay is engine independent and can be used to resolve between
         scored stockfish and unscored lc0 moves.
-        it operates on the full list provided by engine sources and pairs well
+        it operates on the full list provided by engine behavior and pairs well
         with the think time tab and a crisp chardonnay.`,
       ),
     },

@@ -21,7 +21,7 @@ export class RateBot implements BotInfo, MoveSource {
   books: Book[] = [];
   sounds = {};
   filters = {};
-  traceMove = '';
+  traceMove: string;
 
   constructor(readonly level: number) {
     const rating = (this.level + 8) * 75;
@@ -32,6 +32,7 @@ export class RateBot implements BotInfo, MoveSource {
       rapid: rating,
       classical: rating,
     };
+    Object.defineProperty(this, 'traceMove', { value: '', writable: true });
   }
 
   get uid(): string {
@@ -45,16 +46,17 @@ export class RateBot implements BotInfo, MoveSource {
   }
 
   get description(): string {
-    return `Stockfish UCI_Elo ${this.ratings.classical} depth ${this.depth}`;
+    return `Stockfish ${this.ratings.classical} Skill Level ${this.level - 10} Depth ${this.depth}`;
   }
 
   async move({ pos }: MoveArgs): Promise<MoveResult> {
     const ply = env.game.live.ply;
     const turn = env.game.live.turn;
+    const fen = pos.fen;
     const uci = (
       await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } })
     ).bestmove;
-    this.traceMove = `  ${ply}. '${this.name} ${this.ratings.classical}' at '${pos.fen}': '${uci}'`;
+    this.traceMove = `  ${ply}. '${this.name} ${this.ratings.classical}' at '${fen}': '${uci}'`;
     return { uci, thinkTime: 0.2 };
   }
 }

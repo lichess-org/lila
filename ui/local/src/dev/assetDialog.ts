@@ -300,6 +300,16 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
             focus: '.name',
             noClickAway: true,
             actions: [
+              {
+                selector: '.options',
+                event: 'keydown',
+                listener: (e: KeyboardEvent) => {
+                  if (!(e.target instanceof HTMLElement) || e.key !== 'Enter') return;
+                  e.preventDefault();
+                  e.stopPropagation();
+                  e.target.closest('.options')?.querySelector<HTMLElement>('[data-action="import"]')?.click();
+                },
+              },
               { selector: '[data-action="cancel"]', result: 'cancel' },
               {
                 selector: '[data-action="import"]',
@@ -315,14 +325,20 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
                     const bar = progress.querySelector('.bar') as HTMLElement;
                     const text = progress.querySelector('.text') as HTMLElement;
                     progress.classList.remove('none');
-                    await env.repo.importPgn(name, file, ply, false, (processed: number, total: number) => {
-                      bar.style.width = `${(processed / total) * 100}%`;
-                      processed = Math.round(processed / (1024 * 1024));
-                      total = Math.round(total / (1024 * 1024));
-                      text.textContent = `processed ${processed} out of ${total} MB`;
-                      return dlg.open;
-                    });
-                    if (dlg.returnValue !== 'cancel') onSuccess(name);
+                    const key = await env.repo.importPgn(
+                      name,
+                      file,
+                      ply,
+                      false,
+                      (processed: number, total: number) => {
+                        bar.style.width = `${(processed / total) * 100}%`;
+                        processed = Math.round(processed / (1024 * 1024));
+                        total = Math.round(total / (1024 * 1024));
+                        text.textContent = `processed ${processed} out of ${total} MB`;
+                        return dlg.open;
+                      },
+                    );
+                    if (dlg.returnValue !== 'cancel' && key) onSuccess(key);
                   }
                   dlg.close();
                 },

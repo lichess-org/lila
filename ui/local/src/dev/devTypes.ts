@@ -1,4 +1,4 @@
-import type { Filter, Book, SoundEvent, Sound as NamedSound } from '../types';
+import type { Filter, FilterFacet, Book, SoundEvent, Sound as NamedSound } from '../types';
 import type { Pane } from './pane';
 import type { AssetType } from './devAssets';
 import type { EditDialog } from './editDialog';
@@ -111,7 +111,7 @@ export interface Schema extends PaneInfo {
   type?: undefined | 'group' | 'radioGroup';
 }
 
-export type PaneArgs = { host: EditDialog; info: PaneInfo; parent?: Pane };
+export type PaneArgs = { host: EditDialog; info: PaneInfo & Record<string, any>; parent?: Pane };
 
 export type PropertySource = 'scratch' | 'local' | 'server' | 'schema';
 

@@ -1,9 +1,9 @@
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
 import type { Chess } from 'chessops';
-import type { Filter, Filters, Point } from './filter';
+import type { Filter, FilterFacet, Filters, Point } from './filter';
 
-export type { CardData, Filter, Filters, Point };
+export type { CardData, Filter, FilterFacet, Filters, Point };
 
 export interface Quirks {
   // tbd
@@ -26,11 +26,13 @@ export type SoundEvents = { [key in SoundEvent]?: Sound[] };
 
 export type ZeroSearch = { multipv: number; net: string; nodes?: number };
 
-export type Book = { key: string; weight: number };
+export type Book = { key: string; weight: number; color?: Color };
 
 export type LocalSpeed = Exclude<Speed, 'correspondence'>;
 
 export type Ratings = { [speed in LocalSpeed]?: number };
+
+export type FilterType = 'cplTarget' | 'cplStdev' | 'lc0bias' | 'moveDecay';
 
 export interface BotInfo {
   readonly uid: string;

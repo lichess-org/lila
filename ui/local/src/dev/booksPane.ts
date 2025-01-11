@@ -5,6 +5,7 @@ import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
 import type { Book } from '../types';
 import { renderRemoveButton } from './devUtil';
 import { env } from '../localEnv';
+import { opposite } from 'chessops';
 
 export class BooksPane extends Pane {
   info: BooksInfo;
@@ -52,6 +53,15 @@ export class BooksPane extends Pane {
     return index == -1 ? undefined : (this.value[this.index(pane)]?.weight ?? 1);
   }
 
+  setColor(pane: BookPane, color?: Color): void {
+    this.value[this.index(pane)].color = color;
+    this.host.update();
+  }
+
+  getColor(pane: BookPane): Color | undefined {
+    return this.value[this.index(pane)]?.color;
+  }
+
   setEnabled(): boolean {
     this.el.classList.toggle('disabled', !this.value.length);
     return true;
@@ -74,6 +84,7 @@ export class BooksPane extends Pane {
         ...this.template,
         label: env.repo.nameOf(book.key) ?? `unknown '${book.key}'`,
         value: book.weight,
+        color: book.color,
         id: `${this.id}_${idCounter++}`,
       },
       parent: this,
@@ -97,8 +108,28 @@ let idCounter = 0;
 class BookPane extends RangeSetting {
   label: HTMLLabelElement;
   parent: BooksPane;
+  colorInput: HTMLElement = frag<HTMLElement>(
+    `<div class="btn-rack" title="colors for this book">
+      <button data-color="black"></button>
+      <button data-color="white"></button>
+    </div>`,
+  );
   constructor(p: PaneArgs, key: string) {
     super(p);
+    this.colorInput.querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', e => {
+        if (!(e.target instanceof HTMLElement)) return;
+        const color = e.target.dataset.color as Color;
+        const other = this.colorInput.querySelector<HTMLElement>(`button[data-color="${opposite(color)}"]`);
+        if (e.target.classList.contains('active')) other?.classList.toggle('active');
+        e.target.classList.add('active');
+        this.parent.setColor(this, other?.classList.contains('active') ? undefined : color);
+      });
+    });
+    this.colorInput
+      .querySelectorAll(p.info.color ? `button[data-color="${p.info.color}"]` : 'button')
+      .forEach(b => b.classList.add('active'));
+    this.el.append(this.colorInput);
     this.el.append(renderRemoveButton());
     const span = this.label.firstElementChild as HTMLElement;
     span.dataset.src = env.repo.getBookCoverUrl(key);

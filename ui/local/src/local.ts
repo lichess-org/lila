@@ -7,11 +7,18 @@ import { showSetupDialog } from './setupDialog';
 import { env, initEnv } from './localEnv';
 import { renderGameView } from './gameView';
 import type { LocalPlayOpts } from './types';
+import { boardHasher } from 'bits/polyglot';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
-  initEnv({ redraw, bot: new BotCtrl(), assets: new Assets(), game: new GameCtrl(opts) });
+  initEnv({
+    redraw,
+    hash: await boardHasher(),
+    bot: new BotCtrl(),
+    assets: new Assets(),
+    game: new GameCtrl(opts),
+  });
   await Promise.all([env.bot.init(opts.bots), env.assets.init()]);
   await env.game.init();
 

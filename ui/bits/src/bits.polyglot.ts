@@ -1,6 +1,5 @@
 import * as co from 'chessops';
 import { deepFreeze } from 'common/algo';
-import { type NormalMove, type Chess, parseUci, makeUci } from 'chessops';
 import { normalizeMove } from 'chessops/chess';
 
 export type OpeningMove = { uci: string; weight: number };
@@ -19,7 +18,8 @@ export type PolyglotOpts = { cover?: boolean | { boardSize: number } } & (
 
 export type PolyglotResult = { getMoves: OpeningBook; positions?: number; polyglot?: Blob; cover?: Blob };
 
-export async function initModule(o: PolyglotOpts): Promise<PolyglotResult> {
+export async function initModule(o: PolyglotOpts): Promise<any> {
+  if (!o) return hashBoard;
   const book =
     'bytes' in o
       ? makeBookPolyglot(o.bytes)
@@ -74,7 +74,7 @@ async function makeBookPgn(
 
   function traverseTree(chess: co.Chess, node: co.pgn.Node<co.pgn.PgnNodeData>, plyToGo: number) {
     if (plyToGo === 0) return;
-    const zobrist = hashBoard(chess);
+    const zobrist = hashChess(chess);
     const moves = bigMap!.get(zobrist) ?? new Map<string, number>();
     if (plyToGo > 1)
       for (const nextNode of node.children) {
@@ -125,10 +125,12 @@ async function* pgnFromBlob(blob: Blob, chunkSize: number, progress?: PgnProgres
     }
     const chunk = blob.slice(offset, offset + chunkSize);
     const textChunk = await chunk.text();
+    const crlfLast = textChunk.lastIndexOf('\r\n\r\n[');
+    const lfLast = textChunk.lastIndexOf('\n\n[');
     const gamesThisChunk =
-      offset + chunk.size === totalSize || textChunk.lastIndexOf('\n\n[') === -1
+      offset + chunk.size === totalSize || Math.max(crlfLast, lfLast) === -1
         ? textChunk
-        : textChunk.slice(0, textChunk.lastIndexOf('\n\n[') + 2);
+        : textChunk.slice(0, Math.max(lfLast + 2, crlfLast + 4));
     const games = co.pgn.parsePgn(residual + gamesThisChunk).filter(game => {
       const tag = game.headers.get('Variant');
       return !tag || tag.toLowerCase() === 'standard';
@@ -217,19 +219,24 @@ function makeImage(svg: string) {
 
 function getMoves(book: Map<bigint, OpeningMove[]>): OpeningBook {
   return (pos: co.Chess, normalized = true) => {
-    const moves = book.get(hashBoard(pos)) ?? [];
+    const moves = book.get(hashChess(pos)) ?? [];
     if (!normalized) return moves;
     const sum = moves.reduce((sum: number, m) => sum + m.weight, 0);
     return moves.map(m => ({ uci: m.uci, weight: m.weight / sum }));
   };
 }
 
-function hashBoard({ board, castles, epSquare, turn }: co.Chess) {
+function hashBoard(board: co.Board): bigint {
   let hash = 0n;
   for (const sq of board.occupied) {
     const { color, role } = board.get(sq) as co.Piece;
     hash ^= hashish[sq + 64 * rolodex[color][role]];
   }
+  return hash;
+}
+
+function hashChess({ board, castles, epSquare, turn }: co.Chess) {
+  let hash = hashBoard(board);
   const rights = castles.castlingRights;
   if (rights.has(7)) hash ^= hashish[768];
   if (rights.has(0)) hash ^= hashish[769];
@@ -269,10 +276,10 @@ function uciToShort(uci: Uci): number {
   return (promotion << 12) | (from << 6) | to;
 }
 
-function normalMove(chess: Chess, unsafeUci: Uci): { uci: Uci; move: NormalMove } | undefined {
-  const unsafe = parseUci(unsafeUci);
+function normalMove(chess: co.Chess, unsafeUci: Uci): { uci: Uci; move: co.NormalMove } | undefined {
+  const unsafe = co.parseUci(unsafeUci);
   const move = unsafe && 'from' in unsafe ? { ...unsafe, ...normalizeMove(chess, unsafe) } : undefined;
-  return move && chess.isLegal(move) ? { uci: makeUci(move), move } : undefined;
+  return move && chess.isLegal(move) ? { uci: co.makeUci(move), move } : undefined;
 }
 
 const promotes = ['', 'n', 'b', 'r', 'q', '?', '?', '?'];

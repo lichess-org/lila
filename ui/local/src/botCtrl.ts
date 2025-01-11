@@ -61,7 +61,7 @@ export class BotCtrl {
       }
       //site.pubsub.on('local.dev.import.book', this.onBookImported);
     }
-    return this.initBots(serverBots!);
+    return this.initBots(serverBots.filter(Bot.viable));
   }
 
   async initBots(defBots?: BotInfo[]): Promise<this> {
@@ -70,7 +70,7 @@ export class BotCtrl {
       defBots ??
         fetch('/local/bots')
           .then(res => res.json())
-          .then(res => res.bots),
+          .then(res => res.bots.filter(Bot.viable)),
     ]);
     for (const b of [...serverBots, ...localBots]) {
       if (Bot.viable(b)) this.bots[b.uid] = new Bot(b);
@@ -214,12 +214,22 @@ export class BotCtrl {
   private getSavedBots() {
     return (
       this.store?.getMany() ??
-      objectStorage<BotInfo>({ store: 'local.bots' }).then(s => {
+      objectStorage<BotInfo>({ store: 'local.bots', version: 2, upgrade: this.upgrade }).then(s => {
         this.store = s;
         return s.getMany();
       })
     );
   }
+
+  private upgrade = (change: IDBVersionChangeEvent, store: IDBObjectStore): void => {
+    const req = store.openCursor();
+    req.onsuccess = e => {
+      const cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;
+      if (!cursor) return;
+      cursor.update(Bot.migrate(change.oldVersion, cursor.value));
+      cursor.continue();
+    };
+  };
 
   private async fetchBestMove(pos: Position): Promise<{ uci: string; cp: number }> {
     const best = (await this.zerofish.goFish(pos, { multipv: 1, by: { depth: 12 } })).lines[0];
