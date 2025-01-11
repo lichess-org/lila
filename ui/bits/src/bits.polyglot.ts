@@ -46,7 +46,6 @@ async function makeBookPgn(
     if (filter && !filter(game)) continue;
     traverseTree(co.pgn.startingPosition(game.headers).unwrap(), game.moves, maxPly);
   }
-  // calc weights and collapse secondary maps into arrays for less memory overhead
   const posMap = new Map<bigint, OpeningMove[]>();
   for (const [hash, map] of bigMap) {
     const moves = Array.from(map, ([uci, weight]) => ({ uci, weight }));
@@ -127,16 +126,16 @@ async function* pgnFromBlob(blob: Blob, chunkSize: number, progress?: PgnProgres
     const textChunk = await chunk.text();
     const crlfLast = textChunk.lastIndexOf('\r\n\r\n[');
     const lfLast = textChunk.lastIndexOf('\n\n[');
-    const gamesThisChunk =
+    const wholePgnsChunk =
       offset + chunk.size === totalSize || Math.max(crlfLast, lfLast) === -1
         ? textChunk
         : textChunk.slice(0, Math.max(lfLast + 2, crlfLast + 4));
-    const games = co.pgn.parsePgn(residual + gamesThisChunk).filter(game => {
+    const games = co.pgn.parsePgn(residual + wholePgnsChunk).filter(game => {
       const tag = game.headers.get('Variant');
       return !tag || tag.toLowerCase() === 'standard';
     });
     for (const game of games) yield game;
-    residual = textChunk.slice(gamesThisChunk.length);
+    residual = textChunk.slice(wholePgnsChunk.length);
     offset += chunkSize;
   }
 }

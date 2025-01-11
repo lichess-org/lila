@@ -296,3 +296,4 @@ declare const site: Site;
 declare const fipr: Fipr;
 declare const i18n: I18n;
 declare module 'tablesort';
+declare const _html: (s: TemplateStringsArray, ...k: any) => string; // file://./../../.build/src/esbuild.ts

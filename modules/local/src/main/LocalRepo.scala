@@ -2,7 +2,7 @@ package lila.local
 
 import reactivemongo.api.Cursor
 import reactivemongo.api.bson.*
-import lila.common.Json.opaqueFormat
+import lila.common.Json.given
 import lila.db.JSON
 import play.api.libs.json.*
 
