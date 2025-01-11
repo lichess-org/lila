@@ -1,6 +1,5 @@
 package lila.tournament
 
-import java.util.concurrent.ConcurrentHashMap
 import scala.collection.immutable.TreeSet
 import chess.IntRating
 
@@ -38,9 +37,9 @@ final private class DuelStore:
 
   import Duel.*
 
-  private val byTourId = new ConcurrentHashMap[TourId, TreeSet[Duel]](256)
+  private val byTourId = scalalib.ConcurrentMap[TourId, TreeSet[Duel]](256)
 
-  def get(tourId: TourId): Option[TreeSet[Duel]] = Option(byTourId.get(tourId))
+  export byTourId.get
 
   def bestRated(tourId: TourId, nb: Int): List[Duel] =
     get(tourId).so {
@@ -61,19 +60,13 @@ final private class DuelStore:
         averageRating = IntRating((p1.rating.value + p2.rating.value) / 2)
       )
     do
-      byTourId.compute(
-        tour.id,
-        (_: TourId, v: TreeSet[Duel]) =>
-          if v == null then TreeSet(tb)(gameIdOrdering)
-          else v + tb
-      )
+      byTourId.compute(tour.id):
+        _.fold(TreeSet(tb)(gameIdOrdering))(_ + tb).some
 
   def remove(game: Game): Unit =
     game.tournamentId.foreach: tourId =>
-      byTourId.computeIfPresent(
-        tourId,
-        (_: TourId, tb: TreeSet[Duel]) =>
-          val w = tb - emptyGameId(game.id)
-          if w.isEmpty then null else w
-      )
+      byTourId.computeIfPresent(tourId): tb =>
+        val w = tb - emptyGameId(game.id)
+        Option.when(w.nonEmpty)(w)
+
   def remove(tour: Tournament): Unit = byTourId.remove(tour.id)

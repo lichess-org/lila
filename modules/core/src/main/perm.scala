@@ -122,6 +122,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           GamifyView,
           SeeReport,
           ModLog,
+          SeeInsight,
           ModMessage,
           ModNote,
           ViewPrintNoIP,

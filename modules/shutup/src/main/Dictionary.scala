@@ -7,8 +7,9 @@ package lila.shutup
 private object Dictionary:
 
   def en = dict("""
-(burn|die) in hell
+(burn|die|rot) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
+go to hell
 (kill|hang|neck) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
@@ -54,6 +55,7 @@ cunn?ilingu
 dic?k(head|face|suc?ker|)
 dildo
 dogg?ystyle
+dogshit
 douche(bag|)
 downsie?
 dumb(ass?|)
@@ -301,6 +303,7 @@ gaa?ndu?
   def fr = dict("""
 batard
 connard
+cr[eé]tin
 encul[eé]
 fdp
 pd
