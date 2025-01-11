@@ -5,26 +5,33 @@ import { escapeHtml, myUserId } from 'common';
 import { storage } from 'common/storage';
 import { log } from 'common/permalog';
 
-export async function initModule(): Promise<void> {
-  const ops = processQueryParams();
-  const logs = await log.get();
+interface DiagnosticOpts {
+  text: string;
+  header?: string;
+  submit?: string;
+}
+
+export async function initModule(opts?: DiagnosticOpts): Promise<void> {
+  const ops = opts ? 0 : processQueryParams();
+  const logs = !opts && (await log.get());
   const text =
+    opts?.text ??
     `Browser: ${navigator.userAgent}\n` +
-    `Cores: ${navigator.hardwareConcurrency}, ` +
-    `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
-    `Screen: ${window.screen.width}x${window.screen.height}, ` +
-    `Lang: ${navigator.language}, ` +
-    `Engine: ${storage.get('ceval.engine')}, ` +
-    `Threads: ${storage.get('ceval.threads')}, ` +
-    `Blindfold: ${storage.boolean('blindfold.' + (myUserId() || 'anon')).get()}, ` +
-    `Pieces: ${document.body.dataset.pieceSet}` +
-    (logs ? `\n\n${logs}` : '');
+      `Cores: ${navigator.hardwareConcurrency}, ` +
+      `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
+      `Screen: ${window.screen.width}x${window.screen.height}, ` +
+      `Lang: ${navigator.language}, ` +
+      `Engine: ${storage.get('ceval.engine')}, ` +
+      `Threads: ${storage.get('ceval.threads')}, ` +
+      `Blindfold: ${storage.boolean('blindfold.' + (myUserId() || 'anon')).get()}, ` +
+      `Pieces: ${document.body.dataset.pieceSet}` +
+      (logs ? `\n\n${logs}` : '');
   const escaped = escapeHtml(text);
   const flash = ops > 0 ? `<p class="good">Changes applied</p>` : '';
   const submit = myUserId()
     ? `<form method="post" action="/diagnostic">
       <input type="hidden" name="text" value="${escaped}"/>
-      <button type="submit" class="button">send to lichess</button></form>`
+      <button type="submit" class="button">${opts?.submit ?? 'send to lichess'}</button></form>`
     : '';
   const clear = logs ? `<button class="button button-empty button-red clear">clear logs</button>` : '';
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
@@ -32,8 +39,9 @@ export async function initModule(): Promise<void> {
     class: 'diagnostic',
     css: [{ hashed: 'bits.diagnosticDialog' }],
     modal: true,
+    focus: '.copy',
     htmlText: `
-      <h2>Diagnostics</h2>${flash}
+      <h2>${opts?.header ?? 'Diagnostics'}</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>
       <span class="actions"> ${clear} <div class="spacer"></div> ${copy} ${submit} </span>`,
   });
