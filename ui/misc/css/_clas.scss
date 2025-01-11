@@ -66,12 +66,12 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
       border-bottom: $border;
       padding: 2em var(--box-padding);
       position: relative;
-      @include transition();
+      @include transition;
       &::before {
         color: $m-clas_bg-box_mix_80;
         font-size: 5em;
         margin-right: 0.4em;
-        @include transition();
+        @include transition;
         @include breakpoint($mq-not-xx-small) {
           display: none;
         }

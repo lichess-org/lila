@@ -26,13 +26,12 @@
   },
   "devDependencies": {
     "prettier": "^3",
+    "stylelint": "^16",
+    "stylelint-config-standard-scss": "^14",
     "@biomejs/biome": "^1"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "format": "prettier --write .",
-    "check-format": "prettier --check .",
-    "lint": "eslint . --ext .ts",
     "type-check": "pnpm m run type-check",
     "clean": "del public/compiled && del public/css && del public/translation && pnpm m run clean",
     "build:js": "pnpm --filter @build/js run start",
@@ -42,6 +41,11 @@
     "build:i18n:ts": "pnpm --filter @build/i18n run start",
     "build:i18n:scala": "pnpm --filter @bin/utils run trans-dump",
     "build:ui": "pnpm run clean && pnpm run build:js && pnpm run build:i18n:ts && pnpm run build:css && pnpm run build:pieces && pnpm run build:vendor",
+    "lint:ts": "biome check --write",
+    "lint:scss": "stylelint **/*.scss --cache --ignore-path .gitignore --fix; stylelint_exit=$?; prettier **/*.scss --cache --write; exit $stylelint_exit",
+    "lint": "pnpm run lint:ts && pnpm run lint:scss",
+    "format": "prettier --cache --write .",
+    "check-format": "prettier --cache --check .",
     "server": "./lila"
   }
 }

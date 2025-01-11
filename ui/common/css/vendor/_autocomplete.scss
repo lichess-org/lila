@@ -16,7 +16,7 @@
   padding: 0.4em 0 0.4em 0.4em;
   display: block;
   cursor: pointer;
-  @include transition();
+  @include transition;
   &.tt-cursor,
   &:hover {
     color: $c-font-clear !important;

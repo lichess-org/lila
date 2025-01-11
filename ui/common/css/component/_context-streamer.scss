@@ -7,7 +7,7 @@
   height: 2.2em;
   color: $c-secondary-over !important;
   background: $m-secondary_bg-page_mix_60;
-  @include transition();
+  @include transition;
   &::before {
     font-size: 1.3em;
     margin-left: 0.4em;

@@ -46,7 +46,7 @@
       color: $c-accent;
       display: block;
       line-height: 1.5em;
-      @include transition();
+      @include transition;
       margin-left: -10px;
     }
     .timeout a::before {

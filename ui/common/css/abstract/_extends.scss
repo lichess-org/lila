@@ -1,14 +1,14 @@
 %base-font-fallback {
-  font-family: 'Noto Sans', Sans-Serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 %base-font {
   font-family: 'Noto Sans';
 }
 %roboto {
-  font-family: 'Roboto';
+  font-family: Roboto;
 }
 %roboto-fat {
-  font-family: 'Roboto';
+  font-family: Roboto;
   font-weight: 600;
 }
 %shogi-font {
@@ -41,7 +41,7 @@
 }
 
 %active-inset-shadow {
-  box-shadow: 0 3px 4px hsla(0, 0%, 0%, 0.15) inset;
+  box-shadow: 0 3px 4px hsla(0deg, 0%, 0%, 0.15) inset;
 }
 
 %active {
@@ -71,10 +71,10 @@
     0 10px 10px rgba(0, 0, 0, 0.22);
 }
 %button-shadow {
-  box-shadow: 0 2px 5px 0 hsla(0, 0%, 0%, 0.225);
+  box-shadow: 0 2px 5px 0 hsla(0deg, 0%, 0%, 0.225);
 }
 %button-raised-shadow {
-  box-shadow: 0 4px 10px 0px hsla(0, 0%, 0%, 0.225);
+  box-shadow: 0 4px 10px 0 hsla(0deg, 0%, 0%, 0.225);
 }
 %button-none {
   background: none;
@@ -167,7 +167,7 @@
 %data-icon {
   font-size: 1.2em;
   vertical-align: middle;
-  font-family: 'lishogi';
+  font-family: lishogi;
   font-style: normal;
   font-weight: normal;
   text-transform: none;

@@ -7,8 +7,15 @@
   .links button,
   .subs .sub {
     @extend %nowrap-hidden;
+
     display: block;
     padding: 0.5rem 1rem;
+  }
+  .links button {
+    width: 100%;
+    text-align: left;
+    border: 0;
+    background: none;
   }
   .links a::before,
   .links button::before {
@@ -25,12 +32,6 @@
   }
   .logout button:hover {
     background: $c-error;
-  }
-  .links button {
-    width: 100%;
-    text-align: left;
-    border: 0;
-    background: none;
   }
   .subs {
     border-top: $border;

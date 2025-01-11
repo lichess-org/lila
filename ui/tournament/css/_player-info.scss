@@ -18,7 +18,7 @@
     }
     th {
       border-left: 3px solid transparent;
-      @include transition();
+      @include transition;
     }
     tr:hover th {
       border-color: $c-font;

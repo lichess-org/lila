@@ -11,7 +11,7 @@
     &.highlight strong {
       color: $c-brag;
     }
-    strong:before {
+    strong::before {
       font-size: 1.5em;
       margin-right: 0.1rem;
     }

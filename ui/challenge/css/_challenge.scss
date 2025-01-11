@@ -40,7 +40,7 @@
       position: absolute;
       opacity: 0;
       top: 62px;
-      left: 0px;
+      left: 0;
       width: 100%;
       @include transition(opacity);
       transition-delay: 0ms;
@@ -66,7 +66,7 @@
       padding: 0;
       background: transparent;
       font-size: 1.6rem;
-      @include transition();
+      @include transition;
       box-shadow: none;
     }
     button,
@@ -139,7 +139,7 @@
     margin: auto;
     background: rgba(56, 147, 232, 0.5);
     color: rgba(255, 255, 255, 0.6);
-    @include transition();
+    @include transition;
   }
   .create:hover {
     background: rgba(56, 147, 232, 0.9);

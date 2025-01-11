@@ -22,7 +22,7 @@
       line-height: 1.5em;
       padding-left: 2em;
     }
-    li:before {
+    li::before {
       vertical-align: middle;
       content: '\2713';
       display: inline-block;

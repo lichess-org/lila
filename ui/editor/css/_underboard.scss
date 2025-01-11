@@ -35,12 +35,13 @@
       }
       .action {
         @extend %box-radius-bottom;
+
         position: absolute;
         top: 100%;
         right: 0;
         text-align: right;
         opacity: 0;
-        @include transition();
+        @include transition;
       }
       textarea:focus ~ .action {
         opacity: 1;

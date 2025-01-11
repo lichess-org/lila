@@ -106,7 +106,7 @@
   position: absolute;
   top: 30px;
   right: 20px;
-  @include transition();
+  @include transition;
 }
 .public_chat #auto_refresh.active.hold {
   opacity: 0.4;

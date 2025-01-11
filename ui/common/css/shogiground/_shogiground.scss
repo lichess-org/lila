@@ -180,7 +180,7 @@ sg-promotion {
       display: flex;
       flex-direction: column;
       background-color: $c-bg-high;
-      box-shadow: 3px 3px 7px #000000aa;
+      box-shadow: 3px 3px 7px #000a;
       border-radius: 10px;
       cursor: pointer;
       width: 100%;
@@ -206,8 +206,8 @@ svg.sg-shapes,
 svg.sg-custom-svgs {
   @extend %abs-100;
   overflow: visible;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   pointer-events: none;
 }
 .sg-custom-svgs {
@@ -283,7 +283,7 @@ sg-hand-wrap {
           opacity: 0;
         }
       }
-      &:after {
+      &::after {
         @extend %box-radius;
         content: attr(data-nb);
         position: absolute;
@@ -303,7 +303,7 @@ sg-hand-wrap {
       &:not([data-nb])::after {
         content: none;
       }
-      &.drawing:before {
+      &.drawing::before {
         content: '';
         position: absolute;
         top: 3px;

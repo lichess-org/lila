@@ -8,7 +8,7 @@
   }
   button {
     @extend %flex-center-nowrap;
-    @include transition();
+    @include transition;
     color: $c-font;
     height: 2.3em;
     line-height: 2.3em;
@@ -25,7 +25,7 @@
       width: 2em;
       background: $c-bg-low;
       margin-right: 0.5em;
-      @include transition();
+      @include transition;
     }
     &:hover,
     &.active {

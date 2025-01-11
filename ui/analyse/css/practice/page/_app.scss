@@ -25,7 +25,7 @@
     height: 110px;
     min-width: 300px;
     color: #fff;
-    @include transition();
+    @include transition;
     white-space: nowrap;
     font-size: 1.2em;
     overflow-x: hidden;
@@ -82,9 +82,8 @@
     display: block;
     font-size: 15px;
     font-weight: bold;
-    color: #333;
     text-align: center;
-    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+    text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
     transform: rotate(45deg);
     position: relative;
     padding: 7px 0;
@@ -92,31 +91,28 @@
     top: 15px;
     width: 120px;
     color: #6a6340;
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
-    &:before,
-    &:after {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    &::before,
+    &::after {
       content: '';
       border-left: 3px solid transparent;
       border-right: 3px solid transparent;
+      border-top: 3px solid #536dfe;
       position: absolute;
       bottom: -3px;
     }
-    &:before {
+    &::before {
       left: 0;
     }
-    &:after {
+    &::after {
       right: 0;
     }
     background-color: #b3e5fc;
-    &:before,
-    &:after {
-      border-top: 3px solid #536dfe;
-    }
   }
   .done .ribbon {
     background-color: #bfdc7a;
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       border-top: 3px solid #6e8900;
     }
   }

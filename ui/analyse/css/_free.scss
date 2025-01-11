@@ -24,7 +24,7 @@
       top: 100%;
       text-align: right;
       opacity: 0;
-      @include transition();
+      @include transition;
     }
     textarea:focus ~ .action {
       opacity: 1;

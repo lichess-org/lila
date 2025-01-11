@@ -2,6 +2,7 @@
   .piece {
     .list {
       @extend %flex-wrap;
+
       background-size: cover;
       background-position: center;
       .no-square {
@@ -14,14 +15,14 @@
         &.active {
           background: rgba(20, 85, 30, 0.5);
         }
-        &[data-value='pixel'] piece {
-          image-rendering: pixelated;
-        }
         piece {
           width: 200%;
           height: 200%;
           margin: calc(-50% / 11 * 12) -50%;
           background-repeat: no-repeat;
+        }
+        &[data-value='pixel'] piece {
+          image-rendering: pixelated;
         }
       }
     }

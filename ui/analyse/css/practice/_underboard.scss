@@ -15,7 +15,7 @@
     color: $c-good-over;
     animation: 1.7s soft-bright ease-in-out infinite;
     opacity: 0.8;
-    @include transition();
+    @include transition;
   }
   &.fail {
     background: $c-bad;
@@ -33,7 +33,6 @@
     padding: 1em 1.5em;
   }
   .goal {
-    margin-bottom: 0.8em;
     text-align: center;
     font-size: 1.2em;
     width: 100%;

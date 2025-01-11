@@ -13,7 +13,7 @@ $mq-picture: $mq-medium;
     border-top: $border;
     position: relative;
     display: flex;
-    @include transition();
+    @include transition;
     @include breakpoint($mq-subnav-top) {
       overflow-x: hidden;
     }

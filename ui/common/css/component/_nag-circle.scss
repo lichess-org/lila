@@ -12,7 +12,7 @@ $scale-out: 1.15;
     transform: scale(0.9);
   }
 
-  to {
+  100% {
     opacity: 0.2;
     transform: scale(#{$scale-out});
   }
@@ -29,7 +29,7 @@ $scale-out: 1.15;
     transform: scale(0.9);
   }
 
-  to {
+  100% {
     opacity: 0;
     transform: scale(#{$scale-out});
   }

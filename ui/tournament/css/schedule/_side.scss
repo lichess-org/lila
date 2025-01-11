@@ -22,7 +22,7 @@
     white-space: nowrap;
     padding: 0.2em 0;
     line-height: 1.5;
-    @include transition();
+    @include transition;
     &:hover a {
       color: $c-link;
     }
@@ -40,7 +40,7 @@
   margin-top: 1em;
   a {
     color: $c-font;
-    @include transition();
+    @include transition;
     &:hover {
       color: $c-link;
     }
@@ -54,7 +54,7 @@
     display: block;
     position: relative;
     line-height: 1.2;
-    @include transition();
+    @include transition;
     &:hover {
       @extend %box-radius;
       padding-left: 3.2rem;
@@ -69,7 +69,7 @@
     display: block;
   }
   a::before {
-    @include transition();
+    @include transition;
     position: absolute;
     top: 0.3rem;
     left: 0;

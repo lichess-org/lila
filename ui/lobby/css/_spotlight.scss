@@ -6,7 +6,7 @@
   flex: 0 0 auto;
   padding: 0.3em;
   margin: 3px 0;
-  @include transition();
+  @include transition;
   color: $c-font-dim;
   &:hover {
     color: $c-font;

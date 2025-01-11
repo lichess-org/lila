@@ -15,7 +15,7 @@
   }
 }
 .trophy.award {
-  font-family: 'lishogi';
+  font-family: lishogi;
   speak: none;
   line-height: 100%;
 }
@@ -134,12 +134,12 @@
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
-  font-family: 'lishogi';
+  font-family: lishogi;
   text-align: center;
 }
 .shield-trophy {
   width: 50px;
-  background-image: url(../images/trophy/shield-gold.png);
+  background-image: url('../images/trophy/shield-gold.png');
   font-size: 30px;
   line-height: 60px;
   color: #333 !important;
@@ -148,7 +148,7 @@
   filter: drop-shadow(0 0 6px $c-brag);
 }
 .revol_trophy {
-  background-image: url(../images/trophy/round-star.png);
+  background-image: url('../images/trophy/round-star.png');
   font-size: 24px;
   line-height: 68px;
   color: #fff !important;

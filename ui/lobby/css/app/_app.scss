@@ -61,7 +61,7 @@
     &.toggle-filter {
       right: 0;
     }
-    @include transition();
+    @include transition;
     &:hover {
       color: $c-accent;
     }
@@ -69,7 +69,7 @@
 
   .gamesFiltered {
     color: $c-accent;
-    @include transition();
+    @include transition;
     &:hover {
       color: $c-accent-dim;
     }

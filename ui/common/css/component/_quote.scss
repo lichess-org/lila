@@ -9,7 +9,7 @@
     border-width: 1px 0;
     font-style: italic;
     font-size: 1.1rem;
-    &:after {
+    &::after {
       content: '';
       position: absolute;
       bottom: -9px;
@@ -32,7 +32,7 @@
     margin: 10px;
     line-height: 20px;
     text-align: right;
-    &:before {
+    &::before {
       content: '\2014\2009';
     }
   }

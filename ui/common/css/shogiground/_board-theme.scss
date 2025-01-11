@@ -159,15 +159,18 @@ sg-squares {
   }
   .preload sg-squares {
     background-image: none;
-    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 9) calc(200% / 9);
+    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 9)
+      calc(200% / 9);
     background-position: 100% 100%;
   }
   .preload.d-5x5 sg-squares {
-    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 5) calc(200% / 5);
+    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 5)
+      calc(200% / 5);
     background-position: 100% 100%;
   }
   .preload.d-12x12 sg-squares {
-    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 12) calc(200% / 12);
+    background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 12)
+      calc(200% / 12);
     background-position: 100% 100%;
   }
   @include breakpoint($mq-col2-uniboard) {
@@ -217,15 +220,18 @@ sg-squares {
   }
   .preload sg-squares {
     background-image: none;
-    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 9) calc(200% / 9);
+    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 9)
+      calc(200% / 9);
     background-position: 100% 100%;
   }
   .preload.d-5x5 sg-squares {
-    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 5) calc(200% / 5);
+    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 5)
+      calc(200% / 5);
     background-position: 100% 100%;
   }
   .preload.d-12x12 sg-squares {
-    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 12) calc(200% / 12);
+    background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 12)
+      calc(200% / 12);
     background-position: 100% 100%;
   }
   @include breakpoint($mq-col2-uniboard) {
@@ -363,7 +369,7 @@ sg-squares {
 
 .doubutsu {
   .orientation-gote sg-board {
-    background-image: url(../images/boards/doubutsu_flip.png);
+    background-image: url('../images/boards/doubutsu_flip.png');
   }
   sg-squares {
     border-top: 2px dashed #bb645c;
@@ -383,7 +389,7 @@ sg-squares {
   }
   @include breakpoint($mq-col2-uniboard) {
     .orientation-gote sg-hand {
-      background-image: url(../images/boards/doubutsu_flip.png);
+      background-image: url('../images/boards/doubutsu_flip.png');
     }
     sg-hand {
       border: 2px dashed #bb645c;
@@ -494,7 +500,11 @@ sg-squares {
         }
       }
       &.preload sg-squares {
-        background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 2px, transparent 2px),
+        background-image: linear-gradient(
+            to right,
+            var(--c-grid-color, $c-font) 2px,
+            transparent 2px
+          ),
           linear-gradient(to bottom, var(--c-grid-color, $c-font) 2px, transparent 2px);
       }
     }
@@ -524,7 +534,11 @@ sg-squares {
         }
       }
       &.preload sg-squares {
-        background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 3px, transparent 3px),
+        background-image: linear-gradient(
+            to right,
+            var(--c-grid-color, $c-font) 3px,
+            transparent 3px
+          ),
           linear-gradient(to bottom, var(--c-grid-color, $c-font) 3px, transparent 3px);
       }
     }

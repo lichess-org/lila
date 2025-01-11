@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   padding-bottom: 1rem;
-  @include transition();
+  @include transition;
   @include breakpoint($mq-picture) {
     height: 300px;
   }

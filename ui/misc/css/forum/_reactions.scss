@@ -8,7 +8,7 @@
 
   button {
     @extend %button-none, %flex-center;
-    @include transition();
+    @include transition;
     padding: 0.3em 0.6em;
     order: 1;
     color: $c-link;

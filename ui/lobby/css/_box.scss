@@ -17,7 +17,7 @@
         padding: 0.3em;
       }
       &:hover .more {
-        @include transition();
+        @include transition;
         color: $c-link;
       }
     }
@@ -44,7 +44,7 @@
       &.name a {
         font-weight: bold;
         color: $c-font-dim;
-        @include transition();
+        @include transition;
         &:hover {
           color: $c-link;
         }

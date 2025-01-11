@@ -48,7 +48,7 @@
   }
   .stage {
     @extend %roboto, %flex-center;
-    @include transition();
+    @include transition;
     font-size: 1.1em;
     opacity: 0.9;
     color: $c-font;

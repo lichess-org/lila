@@ -16,9 +16,10 @@ public/css
 public/vendors
 public/translation
 ui/common/css/theme/gen
-ui/**/*/tsconfig.tsbuildinfo
 dist/
 node_modules/
+tsconfig.tsbuildinfo
+.stylelintcache
 
 # logs
 logs

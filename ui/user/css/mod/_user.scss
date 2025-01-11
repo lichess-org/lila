@@ -50,8 +50,6 @@
   bottom: 0;
   background: $c-brag;
   z-index: z('mz-menu');
-  // border-top: 1px solid $c-brag;
-  // border-width: 3px 2px 0 2px;
   padding: 0;
   a {
     padding: 1.2em 1.2em;
@@ -80,8 +78,6 @@
   > form {
     margin: 1em 1em 0 0;
   }
-  .btn-rack .active {
-  }
 }
 #mz_actions .inquiry {
   height: 2em;
@@ -94,7 +90,7 @@
     display: block;
     height: 30px;
     width: 30px;
-    background: no-repeat url(../images/icons/octopus.svg);
+    background: no-repeat url('../images/icons/octopus.svg');
     background-size: 80%;
     background-position: 50% 50%;
   }
@@ -250,8 +246,6 @@
   }
   form {
     display: block;
-    > .user-link {
-    }
   }
   button {
     white-space: nowrap;
@@ -291,39 +285,30 @@
   }
   .sig_1 {
     color: #2077c0;
-    /* dark blue */
   }
   .sig_2 {
     color: #23a1ab;
-    /* light blue */
   }
   .sig_3 {
     color: #ddcf3f;
-    /* yellow */
   }
   .sig_4 {
     color: #e79b64;
-    /* orange */
   }
   .sig_5 {
     color: $c-bad;
-    /* red */
   }
   .result_4 {
     color: $c-bad;
-    /* red */
   }
   .result_3 {
     color: #e73b38;
-    /* red */
   }
   .result_2 {
     color: #e79b64;
-    /* orange */
   }
   .result_1 {
     color: #2077c0;
-    /* dark blue */
   }
   .match {
     font-weight: bold;

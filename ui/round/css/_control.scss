@@ -40,7 +40,7 @@
       display: flex;
       justify-content: space-around;
       margin-bottom: 1rem;
-      .color-icon:before {
+      .color-icon::before {
         font-size: 1.3rem;
       }
       .impasse-list {
@@ -182,13 +182,13 @@
       @extend %metal;
       font-size: 1.2em;
       height: 5.5rem;
-      @include transition();
+      @include transition;
     }
     &.me {
       background: $m-primary_bg-box_mix_80;
     }
     @keyframes rubber-band {
-      from {
+      0% {
         transform: scale3d(1, 1, 1);
       }
       6% {
@@ -269,7 +269,6 @@
   .resume-decline,
   .post-game-study-decline {
     @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
-    background: $c-bg-zebra;
     justify-content: center;
     position: absolute;
     top: 0;
@@ -280,7 +279,7 @@
     border: 0;
     opacity: 0.7;
     background: $m-bad_bg-box_mix_50;
-    @include transition();
+    @include transition;
     display: none;
     @include breakpoint($mq-col2) {
       display: block;

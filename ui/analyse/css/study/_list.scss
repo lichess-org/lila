@@ -10,7 +10,7 @@
   > div {
     @extend %flex-between-nowrap;
     align-items: stretch;
-    @include transition();
+    @include transition;
     &:hover,
     &.active {
       color: $c-font-clear;
@@ -26,7 +26,7 @@
     font-size: 0.9em;
     opacity: 0.15;
     padding: 0.4em;
-    @include transition();
+    @include transition;
   }
   > div:hover act {
     opacity: 0.7;

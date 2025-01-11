@@ -19,7 +19,7 @@
     @extend %box-radius-top;
     margin-top: 0.7em;
     padding-bottom: 0.8em;
-    @include transition();
+    @include transition;
     border-bottom: $border;
     &:first-child {
       border-top-left-radius: 0;

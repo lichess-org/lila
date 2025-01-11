@@ -2,7 +2,7 @@
   @extend %button-none;
   text-transform: uppercase;
   line-height: 1.5;
-  @include transition();
+  @include transition;
   @media (hover: hover) {
     &:hover:not(.disabled):not([disabled]) {
       background: $m-secondary_bg-box_mix_75;

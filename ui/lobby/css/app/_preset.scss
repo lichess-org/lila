@@ -24,7 +24,7 @@
       background: $m-bg-box_alpha_neg50;
     }
     color: $c-font-clear;
-    @include transition();
+    @include transition;
     &.highlight {
       outline: 2px solid transparent;
       outline-offset: -1px;

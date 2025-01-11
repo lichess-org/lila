@@ -13,7 +13,7 @@
     top: 4px;
     right: 5px;
     opacity: 0.6;
-    @include transition();
+    @include transition;
     color: $c-red;
     &:hover {
       opacity: 1;

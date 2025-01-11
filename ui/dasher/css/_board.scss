@@ -1,11 +1,13 @@
 #dasher_app .theme {
   .list {
     @extend %flex-wrap;
+
     margin-top: 5px;
     a {
       flex: 0 0 50%;
       height: 44px;
       @extend %flex-center;
+
       justify-content: center;
       @include transition(background);
       &:hover {
@@ -41,49 +43,47 @@
         }
       }
     }
-    & {
-      .natural {
-        background-image: url(../images/boards/thumbnails/natural.png);
-      }
-      .orange {
-        background-image: url(../images/boards/thumbnails/orange.png);
-      }
-      .space {
-        background-image: url(../images/boards/thumbnails/space.png);
-      }
-      .blue {
-        background-image: url(../images/boards/thumbnails/blue.png);
-      }
-      .gray {
-        background-image: url(../images/boards/thumbnails/gray.png);
-      }
-      .wood {
-        background-image: url(../images/boards/thumbnails/wood.png);
-      }
-      .wood1 {
-        background-image: url(../images/boards/thumbnails/wood1.png);
-      }
-      .doubutsu {
-        background-image: url(../images/boards/thumbnails/doubutsu.png);
-      }
-      .kaya1 {
-        background-image: url(../images/boards/thumbnails/kaya1.png);
-      }
-      .kaya2 {
-        background-image: url(../images/boards/thumbnails/kaya2.png);
-      }
-      .oak {
-        background-image: url(../images/boards/thumbnails/oak.png);
-      }
-      .painting1 {
-        background-image: url(../images/boards/thumbnails/painting1.png);
-      }
-      .painting2 {
-        background-image: url(../images/boards/thumbnails/painting2.png);
-      }
-      .kinkaku {
-        background-image: url(../images/boards/thumbnails/kinkaku.png);
-      }
+    .natural {
+      background-image: url('../images/boards/thumbnails/natural.png');
+    }
+    .orange {
+      background-image: url('../images/boards/thumbnails/orange.png');
+    }
+    .space {
+      background-image: url('../images/boards/thumbnails/space.png');
+    }
+    .blue {
+      background-image: url('../images/boards/thumbnails/blue.png');
+    }
+    .gray {
+      background-image: url('../images/boards/thumbnails/gray.png');
+    }
+    .wood {
+      background-image: url('../images/boards/thumbnails/wood.png');
+    }
+    .wood1 {
+      background-image: url('../images/boards/thumbnails/wood1.png');
+    }
+    .doubutsu {
+      background-image: url('../images/boards/thumbnails/doubutsu.png');
+    }
+    .kaya1 {
+      background-image: url('../images/boards/thumbnails/kaya1.png');
+    }
+    .kaya2 {
+      background-image: url('../images/boards/thumbnails/kaya2.png');
+    }
+    .oak {
+      background-image: url('../images/boards/thumbnails/oak.png');
+    }
+    .painting1 {
+      background-image: url('../images/boards/thumbnails/painting1.png');
+    }
+    .painting2 {
+      background-image: url('../images/boards/thumbnails/painting2.png');
+    }
+    .kinkaku {
+      background-image: url('../images/boards/thumbnails/kinkaku.png');
     }
     .thick-switch {
       margin-left: auto;

@@ -42,7 +42,7 @@ $mq-col3: $mq-x-large;
   }
   &__score,
   &__timer {
-    font-family: 'storm';
+    font-family: storm;
     font-size: 5em;
     margin: $block-gap;
   }
@@ -101,13 +101,13 @@ $mq-col3: $mq-x-large;
       padding: 0;
     }
     .color_1 i {
-      background-image: url(../images/blackPiece.svg);
+      background-image: url('../images/blackPiece.svg');
     }
     .color_2 i {
-      background-image: url(../images/bwPiece.svg);
+      background-image: url('../images/bwPiece.svg');
     }
     .color_3 i {
-      background-image: url(../images/whitePiece.svg);
+      background-image: url('../images/whitePiece.svg');
     }
   }
 
@@ -122,7 +122,6 @@ $mq-col3: $mq-x-large;
     height: 100%;
     font-size: 160px;
     font-weight: bold;
-    opacity: 1;
     pointer-events: none;
     color: #eee;
     text-shadow: 0 10px 10px #444;
@@ -173,13 +172,13 @@ $mq-col3: $mq-x-large;
   &.play.sente .coord-trainer__button .current-color {
     width: 64px;
     height: 64px;
-    background-image: url(../images/blackPiece.svg);
+    background-image: url('../images/blackPiece.svg');
     background-repeat: no-repeat;
   }
   &.play.gote .coord-trainer__button .current-color {
     width: 64px;
     height: 64px;
-    background-image: url(../images/whitePiece.svg);
+    background-image: url('../images/whitePiece.svg');
     background-repeat: no-repeat;
   }
 

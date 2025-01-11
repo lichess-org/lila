@@ -184,7 +184,7 @@
 
   > a {
     @extend %box-neat-force;
-    @include transition();
+    @include transition;
     background: $c-bg-zebra;
     color: $c-font;
     position: relative;

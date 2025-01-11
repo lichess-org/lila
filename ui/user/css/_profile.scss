@@ -55,7 +55,7 @@
     }
     &:hover,
     &:hover::before {
-      @include transition();
+      @include transition;
       background: $c-primary;
       color: $c-primary-over;
     }

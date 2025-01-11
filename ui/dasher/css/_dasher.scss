@@ -4,6 +4,7 @@
 
 #dasher_app {
   @extend %box-radius-left;
+
   width: 225px;
 
   .spinner {
@@ -23,6 +24,7 @@
     .ping,
     .server {
       @extend %roboto;
+
       display: block;
     }
     strong {
@@ -109,7 +111,7 @@
       }
     }
     &.large a {
-      padding: 1rem 1rem;
+      padding: 1rem;
     }
   }
   .zen {
@@ -161,7 +163,7 @@
   }
   .custom-theme {
     p {
-      margin: 6px 0 3px 0;
+      margin: 6px 0 3px;
     }
     .board,
     .grid,
@@ -228,7 +230,7 @@
           border-right-color: transparent;
           opacity: 0;
           animation:
-            0.5s delayedShow forwards,
+            0.5s delayed-show forwards,
             1.3s bounce ease-in-out infinite;
           animation-delay: 3s;
         }
@@ -275,7 +277,7 @@
   }
 }
 
-@keyframes delayedShow {
+@keyframes delayed-show {
   to {
     opacity: 1;
   }

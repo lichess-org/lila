@@ -27,7 +27,7 @@
     text-align: right;
     white-space: nowrap;
   }
-  .desc:first-letter {
+  .desc::first-letter {
     text-transform: uppercase;
   }
   or {

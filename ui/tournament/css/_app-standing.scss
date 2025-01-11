@@ -1,8 +1,8 @@
 .tour__standing {
   border: none;
   .player {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
     .name {
       @extend %nowrap-ellipsis;
       display: inline-block;
@@ -20,10 +20,10 @@
   }
   tr.long .user-link .rating {
     display: block;
-    padding-left: 0px;
+    padding-left: 0;
   }
   tr {
-    @include transition();
+    @include transition;
     user-select: none;
   }
   .loading tbody {
@@ -38,7 +38,7 @@
     $c-me-border: $m-secondary_bg-box_mix_70;
     background: linear-gradient(
       to right,
-      $c-me-border 0px,
+      $c-me-border 0,
       $c-me-border 5px,
       rgba(0, 0, 0, 0) 5px,
       rgba(0, 0, 0, 0) 100%
@@ -48,7 +48,7 @@
     $c-active-border: $m-primary_bg-box_mix_70;
     background: linear-gradient(
       to left,
-      $c-active-border 0px,
+      $c-active-border 0,
       $c-active-border 5px,
       rgba(0, 0, 0, 0) 5px,
       rgba(0, 0, 0, 0) 100%

@@ -40,13 +40,13 @@
       background: $c-accent;
       border-bottom: 5px solid $act-confirm-shade;
       text-shadow: 0 -1px $act-confirm-shade;
-      @include transition();
-      transform: translate(0px, 0px);
+      @include transition;
+      transform: translate(0, 0);
       &:hover {
         filter: brightness(1.07);
       }
       &:active {
-        transform: translate(0px, 5px);
+        transform: translate(0, 5px);
         border-bottom-width: 1px;
         text-shadow: 0 0 $act-confirm-shade;
         filter: brightness(1);

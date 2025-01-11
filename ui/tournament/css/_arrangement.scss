@@ -133,7 +133,9 @@
     justify-content: space-between;
     background: $c-bg-box;
     min-height: 5rem;
-    height: calc(100vh - var(--site-header-height) - var(--site-header-margin) - 7em - 6rem - 2 * 6rem);
+    height: calc(
+      100vh - var(--site-header-height) - var(--site-header-margin) - 7em - 6rem - 2 * 6rem
+    );
     max-height: 25rem;
     border: $border;
     border-width: 0 1px 0 1px;

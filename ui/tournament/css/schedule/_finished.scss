@@ -10,7 +10,7 @@
     .header {
       letter-spacing: 2px;
       cursor: pointer;
-      @include transition();
+      @include transition;
       padding: 0;
       &:hover {
         transform: translateX(3px);

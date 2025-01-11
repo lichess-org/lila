@@ -12,7 +12,7 @@ $c-study: $c-primary;
     border-width: 0 1px 1px 0;
     padding: 1em 0.6em 1em 1.3em;
     overflow: hidden;
-    @include transition();
+    @include transition;
     .overlay {
       @extend %link-overlay;
     }
@@ -58,7 +58,7 @@ $c-study: $c-primary;
         color: $m-link_bg-box_mix_80;
         font-size: 4em;
         margin-right: 0.2em;
-        @include transition();
+        @include transition;
         @include breakpoint($mq-not-xx-small) {
           display: none;
         }

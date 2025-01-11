@@ -15,7 +15,7 @@
     @extend %flex-center;
     color: $c-font;
     height: 6em;
-    @include transition();
+    @include transition;
     &:hover {
       background: $m-link_bg-box_mix_20;
     }
@@ -23,7 +23,7 @@
       font-size: 3.5em;
       margin-right: 1rem;
       opacity: 0.7;
-      @include transition();
+      @include transition;
     }
     &:hover::before {
       opacity: 1;

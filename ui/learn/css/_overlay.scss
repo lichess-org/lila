@@ -10,7 +10,6 @@
   margin: auto;
   background-color: $c-bg-box;
   width: 350px;
-  overflow: hidden;
   text-align: center;
   padding-top: 36px;
   max-height: 100%;
@@ -47,14 +46,14 @@
         width: 60px;
         height: 60px;
         content: '';
-        background-image: url(../images/learn/star.svg);
+        background-image: url('../images/learn/star.svg');
         background-size: cover;
         filter: saturate(0%);
         opacity: 0.2;
       }
       .star {
         display: inline-block;
-        background-image: url(../images/learn/star.svg);
+        background-image: url('../images/learn/star.svg');
         background-size: cover;
         width: 100%;
         height: 100%;
@@ -83,7 +82,7 @@
   .stage-img {
     width: 200px;
     height: 200px;
-    padding: 0px;
+    padding: 0;
     background-color: $c-brag;
     background-size: 75%;
     border-radius: 50%;
@@ -145,7 +144,7 @@
   }
   100% {
     opacity: 1;
-    filter: blur(0px);
+    filter: blur(0);
   }
 }
 

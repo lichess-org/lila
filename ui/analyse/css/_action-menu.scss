@@ -12,8 +12,8 @@
     margin: $block-gap 0 3px 0;
     display: table;
     padding: 0 10px;
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       border-top: $border;
       content: '';
       display: table-cell;
@@ -21,10 +21,10 @@
       top: 0.5em;
       width: 45%;
     }
-    &:before {
+    &::before {
       right: 8px;
     }
-    &:after {
+    &::after {
       left: 8px;
     }
   }

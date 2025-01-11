@@ -6,12 +6,14 @@
     );
     &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc(
-        (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 7 * 5 / 12 * 11
+        (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 7 * 5 /
+          12 * 11
       );
     }
     &:has(.main-v-chushogi) {
       --main-max-width: calc(
-        (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 11
+        (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 *
+          11
       );
     }
   }

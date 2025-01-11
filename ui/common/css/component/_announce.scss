@@ -1,7 +1,6 @@
 #announce {
   @extend %flex-between, %popup-shadow;
   font-size: 1.4em;
-  position: fixed;
   background: $c-primary;
   color: $c-primary-over;
   position: fixed;

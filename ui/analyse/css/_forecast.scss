@@ -1,6 +1,6 @@
 .forecast {
   user-select: none;
-  @include transition();
+  @include transition;
   position: relative;
   &.loading .box,
   &.loading .add {
@@ -21,7 +21,7 @@
     @extend %flex-center-nowrap;
     padding: 0.7em 0.1em 0.7em 0.6em;
     margin-left: -0.1em;
-    @include transition();
+    @include transition;
     position: relative;
     border-bottom: $border;
     &::before {
@@ -43,7 +43,7 @@
       align-items: center;
       padding-right: 0.5px;
 
-      @include transition();
+      @include transition;
       background: $c-bad;
       color: $c-bad-over;
       border-radius: 50%;
@@ -74,7 +74,7 @@
       @extend %metal;
       cursor: pointer;
       color: $c-font;
-      @include transition();
+      @include transition;
       &::before {
         opacity: 0.7;
         color: $c-good;

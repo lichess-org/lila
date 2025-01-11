@@ -82,7 +82,7 @@
   }
   .new-feature {
     position: relative;
-    &:after {
+    &::after {
       content: 'NEW';
       font-size: 0.7rem;
       transform: rotate(37deg);

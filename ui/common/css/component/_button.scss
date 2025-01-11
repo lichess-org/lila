@@ -6,7 +6,7 @@
   border: none;
   cursor: pointer;
   text-align: center;
-  @include transition();
+  @include transition;
   white-space: nowrap;
   &,
   &:visited {

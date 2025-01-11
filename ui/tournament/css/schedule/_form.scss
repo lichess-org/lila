@@ -78,7 +78,7 @@
     cursor: pointer;
     &::after {
       content: 'S';
-      font-family: 'lishogi';
+      font-family: lishogi;
       margin-left: 1ch;
     }
   }
@@ -95,7 +95,7 @@
       background: $c-bg-zebra;
     }
     &::after {
-      font-family: 'lishogi';
+      font-family: lishogi;
       content: 'R';
     }
   }

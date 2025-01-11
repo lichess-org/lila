@@ -49,7 +49,7 @@ $c-mselect: $c-primary;
       white-space: nowrap;
       display: block;
       padding: 0.45rem 1rem;
-      @include transition();
+      @include transition;
       color: $c-mselect;
       background: $c-bg-popup;
       &:not(.current):hover {

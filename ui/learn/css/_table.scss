@@ -52,7 +52,7 @@
     border-top: none;
     text-align: center;
     cursor: pointer;
-    @include transition();
+    @include transition;
     padding: 6px 0;
     font-size: 1.7em;
     @include breakpoint($mq-col2) {
@@ -140,7 +140,7 @@
       font-size: 0.9em;
       outline: $border;
       opacity: 0.8;
-      @include transition();
+      @include transition;
       span {
         margin: auto;
         &.st3 i:first-child {

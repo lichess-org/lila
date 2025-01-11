@@ -13,6 +13,7 @@ html {
     margin: 0;
     font-size: 1.2rem;
     align-items: center;
+
     --balloon-font-size: 18px;
   }
 }
@@ -63,12 +64,14 @@ html {
   justify-content: center;
   padding: 6rem 0;
   font-size: 2rem;
+
   --balloon-font-size: 10px;
   @media (min-width: 325px) {
     --balloon-font-size: 12px;
   }
   @include breakpoint($mq-small) {
     font-size: 3rem;
+
     --balloon-font-size: 18px;
   }
 }
@@ -136,7 +139,7 @@ html {
 }
 
 .variations span {
-  border-left: 3px solid #00000000;
+  border-left: 3px solid #0000;
   padding-left: 3px;
   &.v8 {
     border-left: 3px solid #34568b;

@@ -40,15 +40,15 @@
     &.sort {
       font-weight: normal;
     }
-    &.sortable .is:before {
+    &.sortable .is::before {
       opacity: 0;
       margin-right: 3px;
       content: 'R';
     }
-    &.sortable.reverse .is:before {
+    &.sortable.reverse .is::before {
       content: 'S';
     }
-    &.sort .is:before {
+    &.sort .is::before {
       opacity: 0.7;
     }
     &.player {

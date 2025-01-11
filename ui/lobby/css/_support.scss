@@ -8,7 +8,7 @@ $c-support: $c-brag;
     padding: 0.5em;
     outline: 1px solid $c-support;
     outline-offset: -1px;
-    @include transition();
+    @include transition;
     &:hover {
       background: $c-support;
     }
@@ -24,13 +24,13 @@ $c-support: $c-brag;
       margin-right: 0.15em;
       color: $c-support;
       font-size: 3em;
-      @include transition();
+      @include transition;
     }
   }
   &__text {
     flex: 1 1 auto;
     color: $c-support;
-    @include transition();
+    @include transition;
     strong {
       font-weight: normal;
       display: block;

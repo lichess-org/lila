@@ -78,7 +78,7 @@
     &:not(.disabled) {
       cursor: pointer;
       color: $c-link;
-      @include transition();
+      @include transition;
     }
     &:not(.disabled):hover {
       background: $c-primary;

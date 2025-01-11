@@ -4,15 +4,15 @@
 @use 'dark' as *;
 
 $c-bg-page: hsl($c-site-hue, 10%, 92%);
-$c-bg-high: hsl(0, 0%, 100%);
-$c-bg-low: hsl(0, 0%, 89%);
+$c-bg-high: hsl(0deg, 0%, 100%);
+$c-bg-low: hsl(0deg, 0%, 89%);
 
 $c-bg-zebra: hsl($c-site-hue, 12%, 96.5%);
 $c-bg-zebra2: hsl($c-site-hue, 12%, 92%);
 
 $c-body-gradient: hsl($c-site-hue, 12%, 84%);
 
-$c-font: hsl(0, 0%, 28%);
+$c-font: hsl(0deg, 0%, 28%);
 $c-font-dim: c-light($c-font, 42%);
 $c-font-dimmer: c-light($c-font, 70%);
 $c-font-clear: c-light($c-font, 12%);
@@ -20,10 +20,10 @@ $c-font-clearer: c-light($c-font, 0%);
 $c-shade: c-whiter($c-font, 75%);
 $c-font-page: c-light($c-font, 37%);
 
-$c-primary: hsl(209, 73%, 46%);
+$c-primary: hsl(209deg, 73%, 46%);
 $c-primary-dim: c-whiter($c-primary, 17%);
 $c-primary-clear: c-blacker($c-primary, 17%);
-$c-primary-glow: hsl(199, 92%, 85%);
+$c-primary-glow: hsl(199deg, 92%, 85%);
 
 $c-secondary-dim: c-whiter($c-secondary, 17%);
 $c-secondary-dimmer: c-whiter($c-secondary, 40%);
@@ -31,17 +31,17 @@ $c-secondary-dimmer: c-whiter($c-secondary, 40%);
 $c-accent-dim: c-whiter($c-accent, 17%);
 $c-accent-clear: c-blacker($c-accent, 17%);
 
-$c-brag: hsl(37, 74%, 48%);
+$c-brag: hsl(37deg, 74%, 48%);
 
 $c-warn: $c-brag;
 
-$c-fancy: hsl(294, 61%, 62%);
+$c-fancy: hsl(294deg, 61%, 62%);
 
-$c-inaccuracy: hsl(202, 78%, 40%);
-$c-mistake: hsl(41, 100%, 35%);
-$c-blunder: hsl(0, 68%, 50%);
+$c-inaccuracy: hsl(202deg, 78%, 40%);
+$c-mistake: hsl(41deg, 100%, 35%);
+$c-blunder: hsl(0deg, 68%, 50%);
 
-$c-good-move: hsl(130, 67%, 40%);
+$c-good-move: hsl(130deg, 67%, 40%);
 
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;
@@ -52,8 +52,8 @@ $c-bg-box: $c-bg-high;
 $c-bg-box-opaque: $c-bg-box;
 $c-bg-input: c-light($c-bg-page, 98%);
 
-$c-border: hsl(0, 0%, 85%);
-$c-border-page: hsl(0, 0%, 80%);
+$c-border: hsl(0deg, 0%, 85%);
+$c-border-page: hsl(0deg, 0%, 80%);
 
 $c-bg-popup: $c-bg-high;
 $c-popup: $c-font;

@@ -22,7 +22,7 @@
   }
   .stage {
     @extend %box-radius, %flex-center-nowrap;
-    @include transition();
+    @include transition;
     position: relative;
     height: 90px;
     color: $c-font-clear;
@@ -89,12 +89,12 @@
       &::before,
       &::after {
         content: '';
-        border-top-color: transparent;
-        border-right-color: transparent;
         position: absolute;
         z-index: -1;
         display: block;
         border: 3px solid #2980b9;
+        border-top-color: transparent;
+        border-right-color: transparent;
       }
       &::before {
         top: 0;
@@ -114,8 +114,8 @@
         display: block;
         padding: 6px 0;
         color: #6a6340;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
-        text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        text-shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
         text-align: center;
         font-weight: bold;
         line-height: 1.46em;

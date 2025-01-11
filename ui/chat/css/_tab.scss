@@ -11,7 +11,7 @@
     // background: $c-shade;
     cursor: pointer;
     color: $c-font-page;
-    @include transition();
+    @include transition;
     &:hover {
       background: $m-accent_bg-box_mix_15;
     }

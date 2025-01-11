@@ -1,14 +1,14 @@
 $team-colors: (
-  0: hsl(274, 100%, 59%),
-  1: hsl(240, 100%, 67%),
+  0: hsl(274deg, 100%, 59%),
+  1: hsl(240deg, 100%, 67%),
   2: #008000,
   3: #b22222,
-  4: hsl(16, 80%, 62%),
+  4: hsl(16deg, 80%, 62%),
   5: #9acd32,
   6: #ff4500,
   7: #2e8b57,
   8: #daa520,
-  9: hsl(32, 75%, 47%),
+  9: hsl(32deg, 75%, 47%),
 );
 
 team {
@@ -79,7 +79,7 @@ team {
     $c-active-border: $m-primary_bg-box_mix_70;
     background: linear-gradient(
       to left,
-      $c-active-border 0px,
+      $c-active-border 0,
       $c-active-border 5px,
       rgba(0, 0, 0, 0) 5px,
       rgba(0, 0, 0, 0) 100%

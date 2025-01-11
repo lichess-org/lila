@@ -12,7 +12,7 @@ $c-bg-zebra2: hsl($c-site-hue, 3%, 23%);
 
 $c-body-gradient: hsl($c-site-hue, 5%, 16%);
 
-$c-font: hsl(0, 0%, 75%);
+$c-font: hsl(0deg, 0%, 75%);
 $c-font-dim: c-light($c-font, 64%);
 $c-font-dimmer: c-light($c-font, 42%);
 $c-font-clear: c-light($c-font, 80%);
@@ -20,26 +20,26 @@ $c-font-clearer: c-light($c-font, 89%);
 $c-shade: c-light($c-font, 30%);
 $c-font-page: $c-font-dim;
 
-$c-primary: hsl(209, 73%, 52%);
+$c-primary: hsl(209deg, 73%, 52%);
 $c-primary-dim: c-blacker($c-primary, 15%);
 $c-primary-clear: c-whiter($c-primary, 20%);
-$c-primary-glow: hsl(231, 99%, 66%);
+$c-primary-glow: hsl(231deg, 99%, 66%);
 $c-primary-over: #fff;
 
-$c-secondary: hsl(88, 62%, 37%);
+$c-secondary: hsl(88deg, 62%, 37%);
 $c-secondary-dim: c-blacker($c-secondary, 20%);
 $c-secondary-dimmer: c-blacker($c-secondary, 40%);
 $c-secondary-over: #fff;
 
-$c-accent: hsl(22, 100%, 42%);
+$c-accent: hsl(22deg, 100%, 42%);
 $c-accent-dim: c-blacker($c-accent, 20%);
 $c-accent-clear: c-whiter($c-accent, 20%);
 $c-accent-over: #fff;
 
-$c-brag: hsl(37, 74%, 43%);
+$c-brag: hsl(37deg, 74%, 43%);
 $c-brag-over: #fff;
 
-$c-red: hsl(0, 60%, 50%);
+$c-red: hsl(0deg, 60%, 50%);
 $c-error: $c-red;
 $c-error-over: #fff;
 
@@ -52,16 +52,16 @@ $c-warn-over: $c-brag-over;
 $c-bad: $c-error;
 $c-bad-over: $c-error-over;
 
-$c-fancy: hsl(294, 62%, 48%);
+$c-fancy: hsl(294deg, 62%, 48%);
 $c-fancy-over: white;
 
-$c-inaccuracy: hsl(202, 78%, 62%);
-$c-mistake: hsl(41, 100%, 45%);
-$c-blunder: hsl(0, 69%, 60%);
+$c-inaccuracy: hsl(202deg, 78%, 62%);
+$c-mistake: hsl(41deg, 100%, 45%);
+$c-blunder: hsl(0deg, 69%, 60%);
 
-$c-good-move: hsl(130, 67%, 62%);
-$c-brilliant: hsl(129, 71%, 45%);
-$c-interesting: hsl(307, 80%, 70%);
+$c-good-move: hsl(130deg, 67%, 62%);
+$c-brilliant: hsl(129deg, 71%, 45%);
+$c-interesting: hsl(307deg, 80%, 70%);
 
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;
@@ -73,10 +73,10 @@ $c-bg-box: $c-bg-high;
 $c-bg-box-opaque: $c-bg-box;
 $c-bg-input: c-light($c-bg-page, 13%);
 
-$c-border: hsl(0, 0%, 25%);
-$c-border-page: hsl(0, 0%, 22%);
+$c-border: hsl(0deg, 0%, 25%);
+$c-border-page: hsl(0deg, 0%, 22%);
 
-$c-page-mask: hsla(0, 0%, 0%, 0.6);
+$c-page-mask: hsla(0deg, 0%, 0%, 0.6);
 
 $c-bg-popup: $c-bg-low;
 $c-popup: $c-font-clear;

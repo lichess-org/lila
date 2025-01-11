@@ -23,7 +23,7 @@
     line-height: 1.9em;
     border: 1px solid $c-border-page;
     border-bottom: none;
-    @include transition();
+    @include transition;
     &:first-child {
       border-top: none;
     }

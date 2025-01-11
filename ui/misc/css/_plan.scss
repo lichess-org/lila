@@ -135,7 +135,7 @@
     }
     group.freq input:checked + label::before,
     group .lifetime-check input + label::before {
-      font-family: 'lishogi';
+      font-family: lishogi;
       content: '';
       padding-right: 5px;
     }

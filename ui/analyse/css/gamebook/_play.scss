@@ -1,5 +1,5 @@
-@keyframes rubberBand {
-  from {
+@keyframes rubber-band {
+  0% {
     transform: scale3d(1, 1, 1);
   }
   6% {
@@ -36,6 +36,7 @@
     border-radius: 1rem;
     margin-top: 1em;
     position: relative;
+
     /* fixes firefox overflow when comment is long https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox */
     min-height: 0;
     max-height: 25rem;
@@ -117,12 +118,12 @@
       color: #fff;
       cursor: pointer;
       opacity: 0.85;
-      @include transition();
+      @include transition;
       &:hover {
         opacity: 1;
       }
       &.com span {
-        animation: rubberBand 7s infinite;
+        animation: rubber-band 7s infinite;
       }
     }
     &.play {
@@ -173,7 +174,7 @@
         padding: 0.5em;
         border-left: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
-        @include transition();
+        @include transition;
         &::before {
           font-size: 2.2em;
           margin: 0.5em 0;

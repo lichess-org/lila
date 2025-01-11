@@ -48,7 +48,7 @@
   border-bottom: $border;
   align-items: stretch;
   color: $c-font;
-  @include transition();
+  @include transition;
   h3 {
     @extend %flex-center;
     padding: 0.5rem 0 0.5rem 0.3rem;

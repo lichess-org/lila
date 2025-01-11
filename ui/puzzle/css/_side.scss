@@ -1,6 +1,37 @@
 .puzzle__side {
+  display: grid;
+  grid-gap: $block-gap;
+  grid-template-areas: 'user' 'theme' 'metas' 'config';
+
+  .puzzle-replay & {
+    grid-template-areas: 'replay' 'user' 'metas' 'config';
+  }
+
+  @include breakpoint($mq-xx-small) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
+    grid-template-rows: min-content min-content min-content min-content;
+
+    .puzzle-replay & {
+      grid-template-areas: 'metas replay' 'metas user' 'config user';
+    }
+  }
+
+  @include breakpoint($mq-x-large) {
+    grid-template-columns: $col3-uniboard-side;
+    grid-template-areas: 'metas' 'user' 'theme' 'config';
+    grid-template-rows: min-content min-content min-content;
+    justify-self: end;
+
+    .puzzle-replay & {
+      grid-template-areas: 'metas' 'replay' 'user' 'config';
+    }
+  }
+
   &__metas {
     @extend %box-neat-force;
+
+    grid-area: metas;
 
     background: $c-bg-box;
 
@@ -18,6 +49,7 @@
       @extend %flex-center-nowrap;
 
       overflow: hidden;
+
       // white-space: nowrap;
 
       &::before {
@@ -46,6 +78,8 @@
   &__user {
     @extend %box-neat;
 
+    grid-area: user;
+
     background: $c-bg-box;
     padding: 2vmin;
 
@@ -73,6 +107,8 @@
 
   &__config {
     @extend %box-neat;
+
+    grid-area: config;
 
     align-self: start;
     background: $c-bg-box;
@@ -106,6 +142,8 @@
   &__replay {
     @extend %box-neat;
 
+    grid-area: replay;
+
     background: $c-bg-box;
     padding: 2vmin;
 
@@ -136,7 +174,8 @@
         bottom: 0;
         left: 0;
         width: var(--p);
-        background: $m-bg-page_primary_mix_40 linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
+        background: $m-bg-page_primary_mix_40
+          linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
         @include transition(width, 1s);
       }
@@ -149,6 +188,8 @@
 
   &__theme {
     @extend %box-neat, %roboto;
+
+    grid-area: theme;
 
     background: $c-bg-box;
     padding: 2vmin;

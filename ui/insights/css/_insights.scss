@@ -1,9 +1,9 @@
 @import 'side';
-
-// canvas {
-//   image-rendering: -moz-crisp-edges;
-//   image-rendering: pixelated;
-// }
+@import 'outcomes';
+@import 'opponents';
+@import 'moves';
+@import 'analysis';
+@import 'custom';
 
 .angles {
   @extend %metal;
@@ -22,15 +22,6 @@
   .unread {
     margin-left: 0.5em;
   }
-}
-
-.angle-content {
-  @import 'outcomes';
-  @import 'opponents';
-  @import 'moves';
-  @import 'times';
-  @import 'analysis';
-  @import 'custom';
 }
 
 .angle-content {

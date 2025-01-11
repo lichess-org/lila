@@ -15,7 +15,7 @@
       font-size: 0.9em;
       text-transform: uppercase;
       cursor: pointer;
-      @include transition();
+      @include transition;
       &.disabled {
         background: $m-accent_bg-box_mix_15;
         color: transparent;

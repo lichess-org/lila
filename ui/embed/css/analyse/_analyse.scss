@@ -41,6 +41,12 @@ body {
     background: none;
   }
 }
+.fbt {
+  border-radius: 0;
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+}
 .analyse__controls {
   @extend %box-radius-bottom;
   overflow: hidden;
@@ -50,12 +56,6 @@ body {
     border-right: $border;
     &:last-child {
       border-right: none;
-    }
-  }
-  .fbt {
-    border-radius: 0;
-    &:not(.disabled) {
-      cursor: pointer;
     }
   }
 }
