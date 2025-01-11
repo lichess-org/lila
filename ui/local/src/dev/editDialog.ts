@@ -155,20 +155,13 @@ export class EditDialog {
   private async push() {
     const err = await env.push.pushBot(this.bot);
     if (err) return alert(err);
-    // is needed?
-    // delete this.scratch[this.uid];
     this.update();
   }
 
-  private save() {
+  private async save() {
     const behaviorScroll = this.view.querySelector('.behavior')!.scrollTop;
     const filtersScroll = this.view.querySelector('.filters')!.scrollTop;
-    // for (const id of this.bot.disabled) removeObjectProperty({ obj: this.bot, path: { id } }, true);
-    // this.bot.disabled.clear();
-    // i wonder if this commented out stuff was needed?
-    env.bot.save(deadStrip(this.bot));
-    //delete this.scratch[this.uid];
-    //this.selectBot();
+    await env.bot.save(deadStrip(this.bot));
     this.update();
     this.view.querySelector('.behavior')!.scrollTop = behaviorScroll ?? 0;
     this.view.querySelector('.filters')!.scrollTop = filtersScroll ?? 0;
@@ -335,8 +328,9 @@ export class EditDialog {
       ...(JSON.parse(view.querySelector<HTMLTextAreaElement>('.json')!.value) as BotInfo),
       version,
     };
-    this.scratch[this.uid] = Object.defineProperty(new Bot(newBot), 'disabled', {
-      value: new Set<string>(),
+    this.scratch[this.uid] = Object.defineProperties(new Bot(newBot), {
+      disabled: { value: new Set<string>() },
+      viewing: { value: new Map<string, string>() },
     }) as WritableBot;
     this.makeEditView();
     this.update();
