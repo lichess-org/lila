@@ -24,11 +24,13 @@ body {
 
 %lobby__side__more {
   @extend %roboto;
+
   font-size: 0.9em;
   margin: 0.5em 1em 0.5em 0;
   display: block;
   text-align: right;
   color: $c-font-dim;
+
   &:hover {
     color: $c-link;
   }
@@ -37,15 +39,19 @@ body {
 .lobby__tv,
 .lobby__puzzle {
   @extend %box-neat;
+
   background: $c-bg-box;
 }
 
 .lobby__side {
   @extend %flex-column;
+
   overflow: hidden;
+
   @include breakpoint($mq-col2) {
     overflow: visible;
   }
+
   @include breakpoint($mq-col3) {
     overflow: hidden;
   }
@@ -53,18 +59,23 @@ body {
 
 .lobby__nope {
   text-align: center;
+
   @include lobby-app-size;
+
   .lobby__app__content {
     @extend %flex-column;
+
     height: 100%;
     align-items: center;
     padding-top: 2em;
   }
+
   ul {
     margin: 0.6em auto;
     display: inline-block;
     text-align: left;
   }
+
   li {
     list-style: disc outside;
     font-size: 1.1em;
@@ -90,6 +101,7 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
+
     p {
       line-height: 1.5;
       margin: 0.5rem 0.75rem;
@@ -100,10 +112,12 @@ body {
 .game-setup {
   display: none;
 }
+
 .about-side {
   margin-top: $block-gap;
   margin-bottom: $block-gap;
 }
+
 @include breakpoint($mq-not-col3) {
   .about-side,
   .lobby__streams,
@@ -114,18 +128,22 @@ body {
 
 #announce.fff {
   background: $c-good;
+
   .link {
     @extend %flex-center-nowrap;
+
     img {
       width: 50px;
       height: 50px;
       margin: -25px 1rem -5px 0;
     }
   }
+
   .close {
     font-weight: bold;
     margin-left: 2rem;
   }
+
   @include breakpoint($mq-not-col3) {
     font-size: 1.1em;
   }

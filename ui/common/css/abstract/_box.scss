@@ -3,6 +3,7 @@
 }
 %box-radius-force {
   @extend %box-radius;
+
   overflow: hidden; /* helps with clipping background into border-radius */
 }
 %box-radius-left {

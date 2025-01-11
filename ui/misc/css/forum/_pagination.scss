@@ -2,22 +2,28 @@
   color: $c-font-dimmer;
   display: flex;
   justify-content: center;
+
   a,
   span {
     width: 2rem;
     height: 2rem;
+
     @extend %box-radius;
+
     margin: 0 0.1rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   span {
     color: $c-font-dimmer;
   }
+
   a:hover {
     background: $m-primary_bg-box_mix_10;
   }
+
   .current {
     background: $c-primary;
     color: $c-primary-over;

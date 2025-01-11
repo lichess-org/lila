@@ -5,6 +5,7 @@ $c-site-hue: 32deg;
 @function c-blacker($color, $weight) {
   @return color.mix(#000, $color, $weight);
 }
+
 @function c-whiter($color, $weight) {
   @return color.mix(#fff, $color, $weight);
 }

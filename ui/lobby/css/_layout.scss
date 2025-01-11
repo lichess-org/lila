@@ -10,9 +10,11 @@ $mq-not-col3: $mq-not-small;
 
 @mixin lobby-app-size {
   min-height: 300px;
+
   @include breakpoint($mq-col2) {
     min-height: 400px;
   }
+
   @include breakpoint($mq-col3) {
     height: 626px;
     max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
@@ -22,7 +24,6 @@ $mq-not-col3: $mq-not-small;
 .lobby {
   grid-area: main;
   display: grid;
-
   grid-template-areas:
     'app'
     'table'
@@ -63,9 +64,7 @@ $mq-not-col3: $mq-not-small;
 
   @include breakpoint($mq-col3) {
     grid-template-columns: repeat(3, 1fr);
-
     grid-template-rows: 12em repeat(5, fit-content(0)) min-content 1fr;
-
     grid-template-areas:
       'table   app     app'
       'side    app     app'
@@ -81,9 +80,11 @@ $mq-not-col3: $mq-not-small;
       align-items: stretch;
       justify-content: center;
     }
+
     &__counters {
       margin: math.div($block-gap, 3) 0 math.div($block-gap, -3) 0;
     }
+
     .timeline {
       margin-left: 0;
     }
@@ -91,7 +92,6 @@ $mq-not-col3: $mq-not-small;
 
   @include breakpoint($mq-col4) {
     grid-template-columns: repeat(4, 1fr);
-
     grid-template-rows:
       fit-content(0)
       fit-content(0)
@@ -112,9 +112,11 @@ $mq-not-col3: $mq-not-small;
     &__forum {
       height: 26.5em;
     }
+
     &__side {
       margin-top: 2em;
     }
+
     &__counters {
       margin: 0;
     }
@@ -123,40 +125,52 @@ $mq-not-col3: $mq-not-small;
   &__side {
     grid-area: side;
   }
+
   &__app,
   &__nope {
     grid-area: app;
   }
+
   &__table {
     grid-area: table;
   }
+
   &__tv {
     grid-area: tv;
   }
+
   &__description {
     grid-area: desc;
   }
+
   &__leaderboard {
     grid-area: leader;
   }
+
   &__winners {
     grid-area: winner;
   }
+
   &__puzzle {
     grid-area: puzzle;
   }
+
   &__tournaments {
     grid-area: tours;
   }
+
   &__studies {
     grid-area: studies;
   }
+
   &__forum {
     grid-area: forum;
   }
+
   &__blog {
     grid-area: blog;
   }
+
   &__about {
     grid-area: about;
   }

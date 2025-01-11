@@ -3,10 +3,12 @@
   @include theme-wrap('transp') {
     background: $c-bg-box;
   }
+
   .moves {
     display: flex;
     flex-flow: row wrap;
   }
+
   index {
     /* Edge 18: flex: 0 0 calc(100% / 6); causes wrap */
     flex: 0 0 17%;
@@ -24,30 +26,36 @@
     line-height: 1.75em;
     padding: 0 0.3em 0 0.5em;
     cursor: pointer;
+
     &:hover {
       background: $c-primary;
       color: #fff;
     }
+
     &.active {
       font-weight: bold;
       background: $m-primary_bg-box_mix_20;
       color: $c-font-clear;
     }
   }
+
   .message {
     display: flex;
     align-items: center;
     margin: 0 1em;
+
     &::before {
       color: $c-font-dim;
       font-size: 3em;
       margin-right: 12px;
     }
   }
+
   .result-wrap {
     width: 100%;
     text-align: center;
   }
+
   .status {
     border-top: $border;
     font-style: italic;
@@ -63,6 +71,7 @@
     border-top: $border;
     position: relative; /* required so line::before scrolls along the moves! */
     will-change: scroll-position;
+
     .moves {
       white-space: normal;
     }

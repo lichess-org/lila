@@ -1,61 +1,78 @@
 .advice-summary {
   @extend %flex-column;
+
   color: $c-font-page;
   font-size: 0.9em;
   align-items: flex-start;
   line-height: 1.15em;
   margin-top: 1em;
+
   .hidden {
     visibility: hidden;
   }
+
   td {
     text-align: center;
+
     &:first-child {
       width: 5ch;
     }
   }
+
   tbody td {
     font-weight: bold;
   }
+
   .color-icon::before {
     vertical-align: text-bottom;
   }
+
   tr {
     &.symbol {
       cursor: pointer;
     }
+
     &.inaccuracy {
       color: $c-inaccuracy;
+
       &:hover {
         color: $m-inaccuracy_saturation_100;
       }
     }
+
     &.mistake {
       color: $c-mistake;
+
       &:hover {
         color: $m-mistake_saturation_100;
       }
     }
+
     &.blunder {
       color: $c-blunder;
+
       &:hover {
         color: $m-blunder_saturation_100;
       }
     }
   }
+
   .button {
     margin: 0.6em 0;
   }
+
   @include breakpoint($mq-col1) {
     flex-flow: row wrap;
     justify-content: center;
     padding-bottom: $block-gap;
     border-bottom: $border;
     margin: 0;
+
     table {
       flex: 0 0 calc(50% - #{$block-gap});
       margin-left: $block-gap;
     }
+
     > a {
       order: 1;
     }

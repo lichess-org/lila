@@ -2,42 +2,55 @@ $c-support: $c-brag;
 
 .lobby__support {
   margin-top: auto;
+
   a {
     @extend %flex-center-nowrap, %box-neat;
+
     background: $c-bg-box;
     padding: 0.5em;
     outline: 1px solid $c-support;
     outline-offset: -1px;
+
     @include transition;
+
     &:hover {
       background: $c-support;
     }
+
     &:hover .lobby__support__text,
     &:hover i::before {
       color: #fff;
     }
   }
+
   i {
     flex: 0 0 auto;
     margin: 0 0.5em;
+
     &::before {
       margin-right: 0.15em;
       color: $c-support;
       font-size: 3em;
+
       @include transition;
     }
   }
+
   &__text {
     flex: 1 1 auto;
     color: $c-support;
+
     @include transition;
+
     strong {
       font-weight: normal;
       display: block;
       font-size: 1.3em;
     }
+
     span {
       @extend %nowrap-ellipsis;
+
       display: block;
       font-size: 0.95em;
     }

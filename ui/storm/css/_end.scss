@@ -3,7 +3,6 @@
 
 .storm--end {
   display: grid;
-
   grid-row-gap: $block-gap;
   grid-column-gap: $block-gap;
   grid-template-areas: 'high' 'score' 'play' 'stats' 'history';

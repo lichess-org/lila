@@ -1,5 +1,6 @@
 %border-bottom-active {
   border-bottom: $border;
+
   @include breakpoint($mq-col2-uniboard) {
     border-bottom: 3px solid $c-secondary;
   }
@@ -8,14 +9,19 @@
 .analyse {
   &__tools {
     @extend %box-neat-force, %flex-column;
+
     max-height: 100vh; /* magically fixes fit-content on safari 10 */
     background: $c-bg-box;
+
     .ceval {
       flex: 0 0 40px;
     }
+
     .sub-box {
       @extend %border-bottom-active;
+
       user-select: none;
+
       .title {
         font-size: 0.9rem;
         line-height: 1.9em;
@@ -36,12 +42,14 @@
       border-top: $border;
       text-align: center;
     }
+
     .result {
       border-top: $border;
       font-weight: bold;
       font-size: 1.2em;
       padding: 5px 0 3px 0;
     }
+
     .status {
       font-size: 1em;
       font-style: italic;
@@ -52,25 +60,32 @@
   &__controls {
     height: $col3-uniboard-controls;
     align-items: stretch;
+
     div {
       display: flex;
       flex: 0 1 32px;
       align-items: stretch;
     }
+
     div.from-game {
       flex: 1 1 32px;
     }
+
     .jumps {
       flex: 3 1 auto;
     }
+
     .fbt {
       @extend %page-text;
+
       flex: 0 0 2.5rem;
     }
+
     .active {
       margin-top: -3px;
       padding-top: 3px;
     }
+
     ::before {
       vertical-align: middle;
     }

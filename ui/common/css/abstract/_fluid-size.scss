@@ -16,12 +16,14 @@ $vp-max-width: 1200px !default;
   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
     & {
       #{$prop}: $min-size;
+
       @media (min-width: $min-vw) {
         #{$prop}: calc(
           #{$min-size} + #{strip-unit($max-size - $min-size)} *
             ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
         );
       }
+
       @media (min-width: $max-vw) {
         #{$prop}: $max-size;
       }

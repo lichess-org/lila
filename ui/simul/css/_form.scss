@@ -3,15 +3,19 @@
     width: 48% !important;
     display: inline-block;
   }
+
   .variants {
     display: flex;
     flex-flow: row wrap;
+
     .checkable {
       flex: 1 1 50%;
       white-space: nowrap;
+
       input {
         margin-right: 0.3em;
       }
+
       label,
       input {
         vertical-align: middle;

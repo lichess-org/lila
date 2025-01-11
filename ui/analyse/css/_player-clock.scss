@@ -4,11 +4,13 @@ $clock-height: 20px;
   sg-board {
     border-radius: 0;
   }
+
   @include breakpoint($mq-col2) {
     .analyse__underboard {
       margin-top: calc($clock-height / 2 + 3vmin);
     }
   }
+
   @include breakpoint($mq-col1) {
     .analyse__board {
       margin: 16px 0 20px 0;
@@ -23,31 +25,35 @@ $clock-height: 20px;
   position: absolute;
   right: 0;
   text-shadow: none;
-
   height: $clock-height;
-
   font-weight: bold;
   text-align: center;
 
   &.top {
     @extend %box-radius-top;
+
     top: #{-$clock-height};
     z-index: 2; // over the board coords
     .time {
       border-top-right-radius: $box-radius-size;
     }
   }
+
   &.bottom {
     @extend %box-shadow;
     @extend %box-radius-bottom;
+
     bottom: #{-$clock-height};
+
     .time {
       border-bottom-right-radius: $box-radius-size;
     }
   }
+
   & > div {
     padding: 0 0.8rem;
   }
+
   .name i {
     margin-right: 0.4em;
   }
@@ -56,25 +62,31 @@ $clock-height: 20px;
     background: $c-secondary;
     color: $c-secondary-over;
   }
+
   tenths {
     font-size: 80%;
   }
 
   @include breakpoint($mq-col1) {
     background: none;
+
     &.top {
       left: 0;
       right: unset;
     }
+
     &.bottom {
       box-shadow: none;
     }
+
     .time {
       border-radius: $box-radius-size;
     }
   }
+
   @include breakpoint($mq-col2) {
     @include hand-width(right);
+
     margin-right: 1px;
   }
 }

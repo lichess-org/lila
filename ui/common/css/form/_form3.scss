@@ -4,18 +4,23 @@
 .form-group {
   margin-bottom: 2rem;
 }
+
 .form-split {
   @extend %flex-between;
+
   align-items: inherit;
   justify-content: space-between;
 }
+
 .form-half {
   flex: 1 1 48%;
   min-width: 200px;
 }
+
 .form-third {
   flex: 1 1 31%;
 }
+
 @include breakpoint($mq-xx-small) {
   .form-half,
   .form-third {
@@ -28,28 +33,34 @@
   display: inline-block;
   margin-bottom: 0.5rem;
 }
+
 .form-control {
   display: block;
   width: 100%;
   height: calc(2.7em + 2px);
   background-clip: padding-box;
 }
+
 textarea.form-control {
   height: auto;
 }
+
 .form-control:invalid,
 .form-group.is-invalid .form-control {
   border-color: $c-error;
 }
+
 .form3 .error,
 .form-help {
   font-size: 90%;
   margin-top: 0.25rem;
 }
+
 .form3 .error {
   color: $c-error;
   font-weight: bold;
 }
+
 .form-help {
   color: $c-font-dim;
 }
@@ -69,10 +80,12 @@ textarea.form-control {
 
 .form-actions {
   @extend %flex-between;
+
   margin: 1.5rem 0;
   padding-top: 1.5rem;
   border-top: $border;
 }
+
 .form-actions.single {
   justify-content: flex-end;
 }

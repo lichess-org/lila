@@ -1,5 +1,6 @@
 .learn__side-map {
   user-select: none;
+
   .back,
   .categ > h2 {
     display: block;
@@ -10,10 +11,12 @@
     cursor: pointer;
     opacity: 0.81;
   }
+
   .back {
     display: flex;
     color: $c-font;
   }
+
   .back .stage-img {
     width: 50px;
     height: 50px;
@@ -22,33 +25,42 @@
     background-color: rgba(120, 120, 120, 1);
     background-size: 70%;
   }
+
   .back:hover {
     background-color: rgba(120, 120, 120, 0.2);
   }
+
   .categ > h2 {
     border-top: $border;
   }
+
   .categ > h2:hover {
     background-color: $m-primary_alpha_neg80;
   }
+
   .categ.active {
     border: $border;
     border-width: 0 1px;
   }
+
   .categ.active:last-child {
     border-bottom-width: 1px;
   }
+
   .categ.active > h2 {
     cursor: default;
     background-color: $c-primary;
     color: $c-primary-over;
   }
+
   .categ:not(.active) .categ_stages {
     display: none;
   }
+
   .stage {
     @extend %roboto, %flex-center;
     @include transition;
+
     font-size: 1.1em;
     opacity: 0.9;
     color: $c-font;
@@ -60,26 +72,33 @@
       margin-left: 2px;
       padding: 10px;
       filter: brightness(0.9);
+
       @include theme-wrap('light') {
         filter: brightness(0.2);
       }
     }
+
     &.active {
       background-color: $m-primary_alpha_neg80;
       border-left: 2px solid $c-primary;
     }
+
     &.done {
       border-left: 2px solid $c-good;
+
       &:hover {
         background-color: $m-good_alpha_neg80;
       }
     }
+
     &.future {
       border-left: 2px solid $c-primary;
+
       &:hover {
         background-color: $m-primary_alpha_neg80;
       }
     }
+
     &:hover {
       color: $c-font-clearer;
     }

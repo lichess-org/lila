@@ -2,26 +2,34 @@
   form p {
     margin: 1em 0;
   }
+
   .goto-current {
     float: right;
   }
+
   #comment-text {
     @extend %box-shadow;
+
     height: 12em;
   }
 }
+
 .study__comment {
   @extend %box-neat;
+
   background: $c-bg-box;
   padding: 0.8em 1em;
   margin-bottom: 0.8em;
+
   .text {
     @extend %break-word;
+
     margin-top: 0.3em;
     width: 100%;
     overflow: hidden;
     display: inline-block;
   }
+
   .edit {
     float: right;
     margin-left: 8px;
@@ -29,12 +37,15 @@
     display: none;
     height: 1em;
   }
+
   &:hover .edit {
     display: block;
   }
+
   .edit:hover {
     opacity: 1;
   }
+
   .user-link,
   .node {
     font-weight: bold;

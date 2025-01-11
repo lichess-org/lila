@@ -5,6 +5,7 @@ $recon-height: 2.5rem;
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY($recon-height);
@@ -13,6 +14,7 @@ $recon-height: 2.5rem;
 
 #reconnecting {
   @extend %flex-center-nowrap, %popup-shadow;
+
   font-size: 1.2em;
   font-weight: bold;
   background: $c-bad;
@@ -30,14 +32,17 @@ $recon-height: 2.5rem;
   &::before {
     font-size: 1.3em;
   }
+
   .offline & {
     transform: translateY(0);
     opacity: 1;
   }
+
   .online.reconnected & {
     background: $c-good;
     animation: reconnected 2.5s ease-out 1.5s backwards;
   }
+
   .online &::before {
     content: 'J';
   }

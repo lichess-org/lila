@@ -1,56 +1,72 @@
 .lobby__spotlights {
   flex: 0 0 auto;
 }
+
 .tour-spotlight {
   @extend %flex-center-nowrap, %nowrap-hidden, %box-neat-force, %metal;
+
   flex: 0 0 auto;
   padding: 0.3em;
   margin: 3px 0;
+
   @include transition;
+
   color: $c-font-dim;
+
   &:hover {
     color: $c-font;
   }
+
   .img {
     flex: 0 0 50px;
     margin: 0 0.5em 0 0.3em;
   }
+
   img.img {
     width: 40px;
   }
+
   i.img,
   .img.icon {
     margin: 0 5px 0 0;
   }
+
   i.img::before {
     font-size: 50px;
   }
+
   .name {
     margin-top: 1px;
     line-height: 13px;
     display: block;
   }
+
   .headline {
     display: block;
     font-size: 0.85em;
     margin-bottom: -3px;
   }
+
   .more {
     font-size: 0.85em;
+
     time {
       margin-left: 3px;
     }
   }
+
   &.Yearly,
   &.Unique {
     .img {
       color: $c-brag;
     }
   }
+
   &.little {
     .img {
       flex: 0 0 40px;
       margin: 0 0.5em 0 0.3em;
+
       &::before {
         font-size: 40px;
       }

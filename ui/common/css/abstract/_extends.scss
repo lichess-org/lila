@@ -24,6 +24,7 @@
 }
 %page-text {
   @extend %page-font;
+
   @include theme-wrap('transp') {
     text-shadow: $text-shadow;
   }
@@ -46,6 +47,7 @@
 
 %active {
   @extend %active-inset-shadow;
+
   background: $c-accent;
   color: $c-accent-over;
   text-shadow: 0 1px 1px black !important;
@@ -56,6 +58,7 @@
 
 %active-soft {
   @extend %active-inset-shadow;
+
   background: $c-shade;
   color: $c-font-clearer;
   text-shadow: 1px 1px 1px $c-font-shadow !important;
@@ -84,11 +87,13 @@
 }
 %checkbox {
   @extend %box-radius;
+
   -webkit-appearance: none;
   background: $c-bg-page;
   border: 1px solid $c-bg-low;
   display: inline-block;
   padding: 0.5em;
+
   &:checked {
     background: $c-secondary-dimmer;
     border-color: $c-secondary-dim;
@@ -105,6 +110,7 @@
 }
 %nowrap-ellipsis {
   @extend %ellipsis;
+
   white-space: nowrap;
 }
 
@@ -144,14 +150,17 @@
 %video {
   display: block;
   width: 100%;
+
   > * {
     @extend %abs-100;
+
     border: none;
   }
 }
 
 %embed {
   @extend %video;
+
   position: relative;
   height: 0;
   padding-bottom: calc(56.25%);
@@ -159,6 +168,7 @@
 
 %game-embed {
   padding-bottom: calc(175%);
+
   @include breakpoint($mq-x-small) {
     padding-bottom: calc(56.25%);
   }

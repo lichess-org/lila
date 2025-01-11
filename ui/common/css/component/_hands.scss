@@ -2,26 +2,33 @@ sg-hand-wrap {
   position: relative;
   width: calc(100% / 9 * 7);
   height: 100%;
+
   &.hand-top {
     grid-area: sg-hand-top;
   }
+
   &.hand-bottom {
     grid-area: sg-hand-bottom;
     justify-self: end;
     align-self: end;
   }
+
   &.r-5 {
     width: 100%;
+
     sg-hand sg-hp-wrap piece {
       flex: 1 0 20%;
     }
   }
+
   &.r-4 {
     width: calc(100% / 5 * 4);
+
     sg-hand sg-hp-wrap piece {
       flex: 1 0 25%;
     }
   }
+
   &.r-0 {
     display: none;
   }
@@ -32,20 +39,25 @@ sg-hand-wrap {
     padding-bottom: unset;
     width: 100%;
     height: calc(100% / 9 * 7);
+
     sg-hand {
       flex-direction: column-reverse;
+
       sg-hp-wrap {
         width: 100%;
       }
     }
+
     &.hand-bottom {
       sg-hand {
         flex-direction: column;
       }
     }
+
     &.r-5 {
       height: calc(100%);
     }
+
     &.r-4 {
       height: calc(100% / 5 * 4);
       width: 100%;

@@ -17,6 +17,7 @@
 
     &.result-empty::before {
       @extend %data-icon;
+
       content: 'E';
       font-size: 0.9em;
     }

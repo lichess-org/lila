@@ -4,67 +4,84 @@ $c-challenge: $c-secondary;
   .challenge-id-form {
     display: flex;
     flex-wrap: wrap;
+
     & > input {
       width: 32ch;
       max-width: 80%;
     }
   }
+
   .invite {
     display: flex;
     flex-flow: row wrap;
+
     > div {
       @extend %box-radius;
+
       padding: 2em 2em 1em 2em;
       background: $c-bg-zebra;
       margin: 1em;
       flex: 1 1 auto;
     }
   }
+
   .waiting {
     text-align: center;
+
     .user-link {
       font-size: 2em;
     }
+
     .spinner {
       width: 13em;
       height: 16em;
       margin: 2em auto;
     }
   }
+
   .cancel {
     margin: 2em 0;
     text-align: center;
   }
+
   .details {
     @extend %flex-between;
+
     border-radius: 99px;
     background: $m-secondary_bg-box_mix_10;
     border: 1px solid $c-challenge;
     padding: 0.5em 1.1em;
     margin-bottom: 3rem;
     font-size: 2em;
+
     @include breakpoint($mq-col1-uniboard) {
       flex-direction: column;
       gap: 1rem;
     }
+
     > div {
       @extend %flex-center, %roboto;
+
       &::before {
         color: $c-challenge;
         font-size: 6rem;
         margin-right: 0.2em;
       }
+
       div {
         line-height: 1.4;
       }
+
       .clock {
         font-weight: bold;
       }
     }
+
     .game-color {
       font-size: 1.25rem;
       justify-content: center;
     }
+
     .mode {
       font-weight: bold;
       color: $c-challenge;
@@ -72,10 +89,12 @@ $c-challenge: $c-secondary;
       justify-content: flex-end;
     }
   }
+
   .follow-up .button {
     display: block;
     margin-top: 2em;
   }
+
   .board-preview {
     margin: 0 auto;
     max-width: 300px;

@@ -14,10 +14,12 @@
     font-weight: bold;
     cursor: pointer;
   }
+
   li.textcomplete-header,
   li.textcomplete-footer {
     display: none;
   }
+
   li:hover,
   .active {
     background-color: #f0f0f0;

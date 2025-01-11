@@ -21,6 +21,7 @@ main {
       grid-template-columns: 300px auto;
       grid-template-areas: 'side main';
       grid-gap: 2rem;
+
       .coach-side {
         margin: 4rem 0 0 0;
       }

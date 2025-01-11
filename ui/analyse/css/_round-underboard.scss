@@ -10,18 +10,23 @@ $col2-panel-height: 240px;
 .analyse__underboard {
   &__menu {
     @extend %flex-center-nowrap;
+
     justify-content: center;
     align-items: flex-start;
     border-top: 2px solid $c-border;
+
     > span {
       @extend %roboto, %box-radius-bottom;
+
       flex: 1 1 0;
       text-align: center;
       font-size: 0.9em;
       padding: 0.4em 0.1em;
       cursor: pointer;
       position: relative;
+
       @include transition(color, 0.25s);
+
       &::after {
         content: '';
         background: $m-accent_alpha_neg40;
@@ -30,81 +35,104 @@ $col2-panel-height: 240px;
         width: 96%;
         left: 2%;
         top: -2px;
+
         @include transition(all, 0.25s);
+
         transform: scale(0);
       }
+
       &.active,
       &:hover::after {
         transform: scale(1);
       }
+
       &.active {
         color: $c-accent;
       }
     }
   }
+
   &__panels {
     --panel-height: #{$col1-panel-height};
+
     min-height: var(--panel-height);
+
     @include breakpoint($mq-col2) {
       --panel-height: #{$col2-panel-height};
     }
+
     > div {
       height: var(--panel-height);
       display: none;
       text-align: left;
+
       &.active {
         display: block;
       }
     }
+
     .crosstable table {
       margin-top: 60px;
     }
   }
+
   .computer-analysis,
   .ctable {
     align-items: center;
     justify-content: center;
     position: relative;
+
     &.active {
       display: flex;
     }
   }
+
   .future-game-analysis {
     text-align: center;
   }
+
   .sfen-notation {
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
+
     > div {
       @extend %flex-center-nowrap;
+
       margin-bottom: 1em;
     }
+
     .kif {
       white-space: pre-wrap;
       font-family: monospace;
     }
+
     strong {
       display: inline-block;
       margin-right: 1em;
       min-width: 3rem;
     }
+
     .notation-options {
       div {
         @extend %flex-wrap;
+
         flex: 1;
       }
+
       a,
       span {
         display: flex;
         flex: 0 0 50%;
         line-height: 1.6em;
       }
+
       .jis {
         margin-left: 0.5rem;
       }
     }
   }
+
   &__sfen {
     width: 100%;
     border: 0;
@@ -120,6 +148,7 @@ $col2-panel-height: 240px;
   height: var(--panel-height);
   overflow: hidden;
 }
+
 #acpl-chart-container-loader {
   font-size: 0.9em;
   position: absolute;
@@ -132,19 +161,23 @@ $col2-panel-height: 240px;
   display: flex;
   border: $border;
   border-radius: 0 99px 99px 0;
+
   span {
     @extend %nowrap-hidden;
+
     margin-left: 7px;
     opacity: 1;
     transition: 0.5s;
     width: 100px;
     display: block;
+
     .analyse__underboard:hover & {
       margin-left: 0;
       width: 0;
       opacity: 0;
     }
   }
+
   .spinner {
     width: 32px;
     height: 32px;

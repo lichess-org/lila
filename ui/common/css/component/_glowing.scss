@@ -2,13 +2,16 @@
   42% {
     background: none;
   }
+
   50% {
     background: $m-link_bg-box_mix_20;
   }
+
   58% {
     background: none;
   }
 }
+
 .glowing {
   animation: glowing 2s ease-in-out infinite;
 }

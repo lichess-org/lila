@@ -1,6 +1,7 @@
 .main-board,
 .mini-board {
   @extend %square;
+
   align-self: center;
   padding-bottom: calc(100% / 11 * 12 / 9 * 11 + #{$hands-gap}); // 100% / 11 * 12 / 9 * 11
   .sg-wrap {
@@ -15,19 +16,24 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+
     sg-board {
       grid-area: sg-board;
     }
   }
+
   &.v-minishogi,
   &.v-kyotoshogi {
     padding-bottom: calc(100% / 11 * 12 / 5 * 7 + #{$hands-gap});
+
     .sg-wrap {
       grid-template-rows: 1fr 5fr 1fr;
     }
   }
+
   &.v-chushogi {
     padding-bottom: calc(100% / 11 * 12);
+
     .sg-wrap {
       grid-template-areas: 'sg-board';
       grid-template-rows: 1fr;
@@ -38,6 +44,7 @@
 .main-board {
   @include breakpoint($mq-col2-uniboard) {
     padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
+
     .sg-wrap {
       width: 100%;
       height: 100%;
@@ -46,17 +53,21 @@
       grid-template-areas: 'sg-hand-top sg-board sg-hand-bottom';
       gap: 2vmin;
     }
+
     &.v-minishogi,
     &.v-kyotoshogi {
       padding-bottom: calc((100% - #{$hands-gap}) / 7 * 5 / 11 * 12);
+
       .sg-wrap {
         grid-template-columns: 1fr 5fr 1fr;
         grid-template-rows: auto;
       }
     }
+
     &.v-chushogi {
       justify-self: center;
       padding-bottom: calc(100% / 11 * 12);
+
       .sg-wrap {
         width: 100%;
         grid-template-areas: 'sg-board';
@@ -72,18 +83,21 @@
     gap: 1vmin;
     padding-top: 1vmin;
     padding-bottom: 1vmin;
+
     sg-board {
       sg-squares sq::after {
         width: 5px !important;
         height: 5px !important;
         margin: -3px !important;
       }
+
       .grid-width-2 & sg-squares sq::after,
       .thick-grid:not(.custom) & sg-squares sq::after {
         width: 6px !important;
         height: 6px !important;
         margin: -4px !important;
       }
+
       .grid-width-3 & sg-squares sq::after {
         width: 8px !important;
         height: 8px !important;
@@ -91,19 +105,23 @@
       }
     }
   }
+
   &.v-chushogi .sg-wrap {
     padding: unset;
+
     sg-squares sq::after {
       width: 3px !important;
       height: 3px !important;
       margin: -2px !important;
     }
+
     .grid-width-2 & sg-squares sq::after,
     .thick-grid:not(.custom) & sg-squares sq::after {
       width: 5px !important;
       height: 5px !important;
       margin: -3px !important;
     }
+
     .grid-width-3 & sg-squares sq::after {
       width: 6px !important;
       height: 6px !important;

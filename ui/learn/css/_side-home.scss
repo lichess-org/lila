@@ -1,5 +1,6 @@
 .learn__side-home {
   @extend %box-neat;
+
   background: $c-primary;
   color: $c-primary-over;
   text-align: center;
@@ -9,6 +10,7 @@
     font-size: 2.5em;
     margin: 0;
   }
+
   h2 {
     font-size: 1.8em;
     margin: 0.4em 0 1em 0;
@@ -19,6 +21,7 @@
       transform: translateY(-4px);
     }
   }
+
   i.fat {
     display: block;
     width: 200px;
@@ -27,9 +30,11 @@
     margin: auto;
     opacity: 0.9;
   }
+
   &:hover i.fat {
     animation: 1.2s fat-glide ease-in-out infinite;
   }
+
   .progress {
     position: relative;
     width: 100%;
@@ -37,6 +42,7 @@
     background: $c-primary-clear;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+
     .bar {
       height: 100%;
       background: $c-primary-dim;
@@ -46,29 +52,36 @@
   &.done {
     background: $c-secondary;
     color: $c-secondary-over;
+
     .progress {
       background: #86bb4a;
+
       .bar {
         background: #3f6217;
       }
     }
   }
+
   @keyframes animatedBackground {
     from {
       background-position: 0 0;
     }
+
     to {
       background-position: 0 1000%;
     }
   }
+
   @keyframes animatedBar {
     from {
       transform: translateX(-100px);
     }
+
     to {
       transform: translateX(0);
     }
   }
+
   .progress .text {
     position: absolute;
     top: 0;
@@ -77,13 +90,16 @@
     line-height: 30px;
     z-index: 3;
   }
+
   .actions {
     padding: 20px 10px;
     text-align: left;
   }
+
   a {
     opacity: 0.6;
     color: #fff;
+
     &:hover {
       opacity: 1;
     }

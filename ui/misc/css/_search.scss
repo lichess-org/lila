@@ -16,6 +16,7 @@
 
     .half {
       @extend %flex-between-nowrap;
+
       flex: 1 188px;
       gap: 2rem;
     }
@@ -32,6 +33,7 @@
     input[type='text'] {
       width: 100%;
     }
+
     select {
       text-transform: capitalize;
     }
@@ -70,9 +72,11 @@
     .action {
       text-align: center;
     }
+
     .button {
       width: 100%;
     }
+
     .wait {
       display: none;
     }
@@ -83,9 +87,11 @@
         vertical-align: middle;
         margin-right: 10px;
       }
+
       .wait {
         display: block;
       }
+
       .button {
         display: none;
       }

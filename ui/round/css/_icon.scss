@@ -3,23 +3,28 @@
   justify-content: center;
   margin-top: 10px;
   padding-bottom: 1rem;
+
   .fbt {
     font-size: 1.4em;
     padding: 0.1em 1em;
     border-radius: 3px;
+
     &.pause-yes {
       font-size: 1.2em;
     }
   }
+
   &.confirm > button {
     visibility: hidden;
     pointer-events: none;
     transition: unset;
   }
+
   .act-confirm {
     visibility: visible;
     position: relative;
     width: 60px;
+
     .fbt.no {
       padding: 0.1em 0;
       width: 30px;
@@ -31,6 +36,7 @@
 
     .fbt.yes {
       $act-confirm-shade: $m-black_accent_mix_30;
+
       position: absolute;
       right: 0;
       top: -3px;
@@ -40,11 +46,15 @@
       background: $c-accent;
       border-bottom: 5px solid $act-confirm-shade;
       text-shadow: 0 -1px $act-confirm-shade;
+
       @include transition;
+
       transform: translate(0, 0);
+
       &:hover {
         filter: brightness(1.07);
       }
+
       &:active {
         transform: translate(0, 5px);
         border-bottom-width: 1px;

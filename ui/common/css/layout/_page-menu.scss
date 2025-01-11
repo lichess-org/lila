@@ -14,6 +14,7 @@
 
   &.page-small {
     margin: unset;
+
     @include breakpoint($mq-col3-uniboard) {
       grid-template-columns: max-content 1fr minmax(100px, max-content);
       grid-template-areas: 'menu content .';
@@ -25,6 +26,7 @@
     grid-area: menu;
     min-width: 100px;
   }
+
   &__content {
     grid-area: content;
     height: 100%;

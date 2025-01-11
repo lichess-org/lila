@@ -2,33 +2,43 @@ $c-study-button: $c-accent;
 
 .study__buttons {
   @extend %flex-between;
+
   align-items: stretch;
   height: calc(#{$col2-uniboard-controls} - 2px);
+
   span {
     font-size: 1.15em;
     min-width: 0;
   }
+
   .left-buttons {
     flex: 1 1 auto;
     border-bottom: 0;
   }
+
   .right {
     @extend %flex-center;
+
     align-items: stretch;
     justify-content: flex-end;
     margin-left: auto;
+
     .preview {
       @extend %flex-center-nowrap, %box-radius-top;
+
       transition: background-color 150ms;
       padding: 0 0.5em;
+
       &:hover:not(.disabled):not([disabled]) {
         background: $c-primary;
       }
     }
+
     &:empty {
       display: none;
     }
   }
+
   .behind {
     background: $c-bad;
     color: $c-bad-over;
@@ -36,21 +46,26 @@ $c-study-button: $c-accent;
     border-radius: 9px;
     margin-right: 4px;
   }
+
   .mode {
     @extend %flex-center-nowrap, %box-radius-top, %page-text;
+
     align-self: stretch;
     padding: 0 0.4em;
     opacity: 0.8;
+
     i::before {
       font-size: 1.4em;
       content: 'L';
       color: $c-bad;
       margin-right: 0.2rem;
     }
+
     &.on i::before {
       content: 'E';
       color: $c-good;
     }
+
     &:hover {
       background: $c-bg-zebra;
       opacity: 1;

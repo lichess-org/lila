@@ -3,11 +3,14 @@
     filter: brightness(1.2);
   }
 }
+
 .feedback {
   @extend %box-neat;
+
   display: flex;
   background: $c-bg-box;
   justify-content: center;
+
   &.win,
   &.fail {
     padding: 2em 1.5em;
@@ -15,32 +18,40 @@
     color: $c-good-over;
     animation: 1.7s soft-bright ease-in-out infinite;
     opacity: 0.8;
+
     @include transition;
   }
+
   &.fail {
     background: $c-bad;
   }
+
   &:hover {
     opacity: 1;
   }
+
   span {
     margin-right: 1em;
   }
+
   &.ongoing {
     align-items: flex-start;
     flex-flow: column;
     text-align: left;
     padding: 1em 1.5em;
   }
+
   .goal {
     text-align: center;
     font-size: 1.2em;
     width: 100%;
     margin-bottom: 10px;
   }
+
   .comment {
     width: 100%;
     display: block;
+
     iframe {
       margin: 10px 0;
     }
@@ -50,7 +61,9 @@
 .analyse__underboard {
   .setting {
     @extend %flex-center;
+
     margin-top: 1em;
+
     > label {
       order: 1;
       flex: 1 0;

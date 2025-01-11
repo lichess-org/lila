@@ -17,6 +17,7 @@ $board-files: (
     #dasher_app .piece .list {
       background-image: url(../images/boards/#{$file});
     }
+
     @include breakpoint($mq-col2-uniboard) {
       sg-hand {
         background-image: url(../images/boards/#{$file});
@@ -40,10 +41,12 @@ $board-files: (
 sg-squares {
   border-top: 1px solid black;
   border-left: 1px solid black;
+
   sq {
     border-bottom: 1px solid black;
     border-right: 1px solid black;
   }
+
   .preload & {
     border-width: 0;
     border-bottom: 1px solid black;
@@ -61,11 +64,13 @@ sg-squares {
     &:nth-child(58),
     &:nth-child(61) {
       position: relative;
+
       &::after {
         @extend %grid-dot;
       }
     }
   }
+
   &.d-5x5 {
     sg-squares sq {
       &:nth-child(7),
@@ -73,15 +78,18 @@ sg-squares {
       &:nth-child(22),
       &:nth-child(25) {
         position: relative;
+
         &::after {
           @extend %grid-dot;
         }
       }
     }
+
     &.preload sg-squares {
       background-size: calc(100% / 5) calc(100% / 5);
     }
   }
+
   &.d-12x12 {
     sg-squares sq {
       &:nth-child(53),
@@ -89,14 +97,17 @@ sg-squares {
       &:nth-child(101),
       &:nth-child(105) {
         position: relative;
+
         &::after {
           @extend %grid-dot;
+
           width: 5px;
           height: 5px;
           margin: -3px;
         }
       }
     }
+
     &.preload sg-squares {
       background-size: calc(100% / 12) calc(100% / 12);
     }
@@ -107,12 +118,15 @@ sg-squares {
   sg-hand {
     border: 1px solid black;
   }
+
   .coords-edge .main-board .sg-wrap {
     border: 1px solid transparent;
+
     sg-board,
     sg-hand {
       outline: 1px solid black;
     }
+
     sg-hand {
       border: none;
     }
@@ -122,23 +136,28 @@ sg-squares {
 .gray {
   sg-board {
     background-color: #878787;
+
     sq:nth-child(odd) {
       background: #878787 !important; // dark squares
     }
+
     sq:nth-child(even) {
       background: #d1d1d1 !important; // light squares
     }
   }
+
   .d-9x9 sg-board {
     sq:nth-child(-2n + 26),
     sq:nth-child(2n + 56) {
       background: #c0c0c0 !important;
     }
   }
+
   .d-12x12 sg-board {
     sq {
       background: #878787 !important; // reset squares
     }
+
     sq:nth-child(-n + 12):nth-child(even),
     sq:nth-child(n + 12):nth-child(-n + 24):nth-child(odd),
     sq:nth-child(n + 25):nth-child(-n + 36):nth-child(even),
@@ -154,25 +173,30 @@ sg-squares {
       background: #d1d1d1 !important; // light squares
     }
   }
+
   #dasher_app .piece .list {
     background: #878787;
   }
+
   .preload sg-squares {
     background-image: none;
     background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 9)
       calc(200% / 9);
     background-position: 100% 100%;
   }
+
   .preload.d-5x5 sg-squares {
     background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 5)
       calc(200% / 5);
     background-position: 100% 100%;
   }
+
   .preload.d-12x12 sg-squares {
     background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 12)
       calc(200% / 12);
     background-position: 100% 100%;
   }
+
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
       background-color: #bcbcbc;
@@ -183,23 +207,28 @@ sg-squares {
 .blue {
   sg-board {
     background-color: #617a8e;
+
     sq:nth-child(odd) {
       background: #617a8e !important; // dark squares
     }
+
     sq:nth-child(even) {
       background: #99aec2 !important; // light squares
     }
   }
+
   .d-9x9 sg-board {
     sq:nth-child(-2n + 26),
     sq:nth-child(2n + 56) {
       background: #91a4b6 !important;
     }
   }
+
   .d-12x12 sg-board {
     sq {
       background: #617a8e !important; // reset squares
     }
+
     sq:nth-child(-n + 12):nth-child(even),
     sq:nth-child(n + 12):nth-child(-n + 24):nth-child(odd),
     sq:nth-child(n + 25):nth-child(-n + 36):nth-child(even),
@@ -215,25 +244,30 @@ sg-squares {
       background: #99aec2 !important; // light squares
     }
   }
+
   #dasher_app .piece .list {
     background: #617a8e;
   }
+
   .preload sg-squares {
     background-image: none;
     background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 9)
       calc(200% / 9);
     background-position: 100% 100%;
   }
+
   .preload.d-5x5 sg-squares {
     background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 5)
       calc(200% / 5);
     background-position: 100% 100%;
   }
+
   .preload.d-12x12 sg-squares {
     background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 12)
       calc(200% / 12);
     background-position: 100% 100%;
   }
+
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
       background-color: #8a9daf;
@@ -245,35 +279,45 @@ sg-squares {
 .gray {
   sg-squares {
     border: none;
+
     sq {
       border: none;
+
       &::after {
         content: unset !important;
       }
     }
+
     sq:not([class='']) {
       position: relative;
+
       &::before {
         content: '';
         position: absolute;
         width: 100%;
         height: 100%;
       }
+
       &.dest::before {
         background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
       }
+
       &.pre-dest::before {
         background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
       }
+
       &.oc.dest::before {
         background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
       }
+
       &.oc.pre-dest::before {
         background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
       }
+
       &.last-dest::before {
         background-color: rgba(155, 199, 0, 0.41);
       }
+
       &.check::before {
         background: radial-gradient(
           ellipse at center,
@@ -283,33 +327,42 @@ sg-squares {
           rgba(158, 0, 0, 0) 100%
         );
       }
+
       &.selected::before {
         background-color: rgba(20, 85, 30, 0.5);
       }
+
       &.preselected::before,
       &.current-pre::before {
         background-color: rgba(20, 30, 85, 0.5);
       }
+
       &.dest.hover::before {
         background: rgba(20, 85, 30, 0.3);
       }
+
       &.pre-dest.hover::before {
         background: rgba(20, 30, 85, 0.2);
       }
+
       &.force-selected:not(.selected)::before {
         animation: selected 1s ease-in-out infinite alternate;
       }
     }
   }
+
   sg-hand {
     border: none;
   }
+
   &.coords-edge .main-board .sg-wrap {
     border: none;
+
     sg-board {
       outline: none;
       border-color: #22222260;
     }
+
     sg-hand {
       outline: none;
     }
@@ -321,6 +374,7 @@ sg-squares {
   dasher_app .piece .list {
     background-color: #ffd890;
   }
+
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
       background-color: #ffd890;
@@ -333,6 +387,7 @@ sg-squares {
   dasher_app .piece .list {
     background-color: #f4bf57;
   }
+
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
       background-color: #f4bf57;
@@ -346,19 +401,23 @@ sg-squares {
   sg-hand {
     border-color: #eee;
   }
+
   &.coords-edge .main-board {
     sg-board,
     sg-hand {
       outline-color: #eee;
     }
   }
+
   sg-squares sq::after {
     background-color: #eee !important;
   }
+
   .sg-wrap.preload sg-squares {
     background-image: linear-gradient(to right, #eee 1px, transparent 1px),
       linear-gradient(to bottom, #eee 1px, transparent 1px);
   }
+
   sg-resize {
     &::after,
     &::before {
@@ -371,37 +430,46 @@ sg-squares {
   .orientation-gote sg-board {
     background-image: url('../images/boards/doubutsu_flip.png');
   }
+
   sg-squares {
     border-top: 2px dashed #bb645c;
     border-left: 2px dashed #bb645c;
+
     sq {
       border-right: 2px dashed #bb645c;
       border-bottom: 2px dashed #bb645c;
+
       &::after {
         content: unset !important;
       }
     }
   }
+
   .preload sg-squares {
     border-bottom: 2px dashed #bb645c;
     border-right: 2px dashed #bb645c;
     background-image: none;
   }
+
   @include breakpoint($mq-col2-uniboard) {
     .orientation-gote sg-hand {
       background-image: url('../images/boards/doubutsu_flip.png');
     }
+
     sg-hand {
       border: 2px dashed #bb645c;
       background-origin: border-box;
     }
+
     &.coords-edge .main-board .sg-wrap {
       border: 2px solid transparent;
+
       sg-board,
       sg-hand {
         outline: 2px solid #bb645c;
       }
     }
+
     sg-resize {
       &::after,
       &::before {
@@ -416,20 +484,25 @@ sg-squares {
     background-color: var(--c-board-color, $c-bg-box);
     background-image: var(--c-board-url, none);
   }
+
   sg-board {
     background-color: var(--c-board-color, $c-bg-box);
     background-image: var(--c-board-url, none);
+
     sg-squares {
       border-top: 1px solid var(--c-grid-color, $c-font);
       border-left: 1px solid var(--c-grid-color, $c-font);
     }
+
     sq {
       border-bottom: 1px solid var(--c-grid-color, $c-font);
       border-right: 1px solid var(--c-grid-color, $c-font);
+
       &::after {
         background-color: var(--c-grid-color, $c-font) !important;
       }
     }
+
     sg-resize {
       &::after,
       &::before {
@@ -437,12 +510,14 @@ sg-squares {
       }
     }
   }
+
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
       background-color: var(--c-hands-color, $c-bg-box);
       background-image: var(--c-hands-url, none);
       border: 1px solid var(--c-grid-color, $c-font);
     }
+
     &.coords-edge .main-board {
       sg-board,
       sg-hand {
@@ -450,6 +525,7 @@ sg-squares {
       }
     }
   }
+
   .preload sg-squares {
     border-top: unset;
     border-left: unset;
@@ -458,40 +534,52 @@ sg-squares {
     background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 1px, transparent 1px),
       linear-gradient(to bottom, var(--c-grid-color, $c-font) 1px, transparent 1px);
   }
+
   &.grid-width-0 {
     .sg-wrap {
       border-width: 0;
+
       sg-squares {
         border-width: 0;
+
         sq {
           border-width: 0;
+
           &::after {
             content: unset !important;
           }
         }
       }
+
       &.preload sg-squares {
         background-image: none;
       }
     }
+
     sg-hand {
       border-width: 0;
     }
+
     &.coords-edge .main-board .sg-wrap {
       border-width: 0;
+
       sg-board,
       sg-hand {
         outline-width: 0;
       }
     }
   }
+
   &.grid-width-2 {
     .sg-wrap {
       border-width: 2px;
+
       sg-squares {
         border-width: 2px;
+
         sq {
           border-width: 2px;
+
           &::after {
             margin: -6px !important;
             width: 10px !important;
@@ -499,6 +587,7 @@ sg-squares {
           }
         }
       }
+
       &.preload sg-squares {
         background-image: linear-gradient(
             to right,
@@ -508,24 +597,31 @@ sg-squares {
           linear-gradient(to bottom, var(--c-grid-color, $c-font) 2px, transparent 2px);
       }
     }
+
     sg-hand {
       border-width: 2px;
     }
+
     &.coords-edge .main-board .sg-wrap {
       border-width: 2px;
+
       sg-board,
       sg-hand {
         outline-width: 2px;
       }
     }
   }
+
   &.grid-width-3 {
     .sg-wrap {
       border-width: 3px;
+
       sg-squares {
         border-width: 3px;
+
         sq {
           border-width: 3px;
+
           &::after {
             margin: -7px !important;
             width: 12px !important;
@@ -533,6 +629,7 @@ sg-squares {
           }
         }
       }
+
       &.preload sg-squares {
         background-image: linear-gradient(
             to right,
@@ -542,11 +639,14 @@ sg-squares {
           linear-gradient(to bottom, var(--c-grid-color, $c-font) 3px, transparent 3px);
       }
     }
+
     sg-hand {
       border-width: 3px;
     }
+
     &.coords-edge .main-board .sg-wrap {
       border-width: 3px;
+
       sg-board,
       sg-hand {
         outline-width: 3px;
@@ -558,10 +658,13 @@ sg-squares {
 .thick-grid:not(.custom) {
   .sg-wrap {
     border-width: 2px;
+
     sg-squares {
       border-width: 2px;
+
       sq {
         border-width: 2px;
+
         &::after {
           margin: -5px !important;
           width: 8px !important;
@@ -570,11 +673,14 @@ sg-squares {
       }
     }
   }
+
   sg-hand {
     border-width: 2px;
   }
+
   &.coords-edge .main-board .sg-wrap {
     border-width: 2px;
+
     sg-board,
     sg-hand {
       outline-width: 2px;
@@ -591,12 +697,15 @@ sg-squares {
   sg-hand {
     border-width: 2px;
   }
+
   .coords-edge .main-board .sg-wrap {
     border-width: 2px;
+
     sg-board {
       outline-width: 2px;
     }
   }
+
   body:not(.custom) sg-squares sq::after {
     margin: -6px !important;
     width: 10px !important;
@@ -606,10 +715,13 @@ sg-squares {
   .thick-grid:not(.custom) {
     .sg-wrap {
       border-width: 3px;
+
       sg-squares {
         border-width: 3px;
+
         sq {
           border-width: 3px;
+
           &::after {
             margin: -7px !important;
             width: 12px !important;
@@ -618,6 +730,7 @@ sg-squares {
         }
       }
     }
+
     sg-hand,
     &.coords-edge .main-board .sg-wrap {
       border-width: 3px;
@@ -632,6 +745,7 @@ body:not(.hands-background),
     background-color: transparent;
     border: none;
   }
+
   &.coords-edge .main-board .sg-wrap sg-hand {
     outline: none;
   }

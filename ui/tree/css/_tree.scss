@@ -2,76 +2,98 @@
 
 .tview2 {
   white-space: normal;
+
   &-column {
     @extend %flex-wrap;
   }
+
   &-inline {
     padding: 7px 3px 7px 7px;
   }
+
   move {
     @extend %move;
+
     &.inaccuracy {
       color: $c-inaccuracy;
     }
+
     &.mistake {
       color: $c-mistake;
     }
+
     &.blunder {
       color: $c-blunder;
     }
+
     &.good-move {
       color: $c-good-move;
     }
+
     &.brilliant {
       color: $c-brilliant;
     }
+
     &.interesting {
       color: $c-interesting;
     }
+
     move-notation::before {
       color: $c-font;
     }
+
     @media (hover: none) {
       user-select: none;
     }
   }
+
   &-column move {
     font-size: 1.092em;
     padding: 0 3px;
   }
+
   &-inline move {
     padding: 0.25em 0.2em;
     white-space: nowrap;
     font-weight: bold;
   }
+
   comment a {
     vertical-align: top;
   }
+
   move.current {
     border: 1px solid $c-accent;
   }
+
   move.active {
     font-weight: bold;
     background: $m-primary_bg-box_mix_20;
     color: $c-font-clear;
+
     move-notation::before {
       color: $c-font-clear;
     }
   }
+
   &-inline move.active,
   line move.active {
     @extend %box-radius;
+
     background: $m-primary_bg-box_mix_40;
     color: $c-font-clearer;
     outline: 1px solid $m-primary_bg-box_mix_60;
+
     move-notation::before {
       color: $c-font-clearer;
     }
   }
+
   move.nongame {
     font-style: italic;
     color: $c-font;
   }
+
   move:not(.empty):hover {
     &,
     index,
@@ -82,38 +104,48 @@
       color: $c-primary-over;
     }
   }
+
   interrupt move:hover,
   &-inline move:hover {
     @extend %box-radius;
   }
+
   move.empty {
     color: $c-font-dimmer;
     cursor: default;
   }
+
   move index {
     font-size: 90%;
     color: $c-font-dim;
   }
+
   move.context-menu {
     background: $c-accent;
     color: $c-accent-over;
+
     index {
       color: $c-accent-over;
     }
   }
+
   &-column move index {
     padding-left: 5px;
   }
+
   &-column move index:first-child {
     padding-left: 0;
   }
+
   &-inline move index {
     padding-right: 0.2em;
     line-height: 111.11%;
   }
+
   line move {
     color: $c-font;
   }
+
   &-column > move {
     flex: 0 0 83%;
     display: flex;
@@ -122,12 +154,15 @@
     padding: 0 0.3em 0 0.5em;
     justify-content: space-between;
   }
+
   &-column > index + move {
     border-right: $c-border;
   }
+
   eval,
   movetime {
     @extend %roboto;
+
     flex: 3 0 auto;
     text-align: right;
     font-size: 0.8em;
@@ -135,16 +170,21 @@
     max-width: 3rem;
     margin-right: 0.5rem;
   }
+
   eval {
     margin-left: auto;
   }
+
   glyph {
     @extend %base-font;
+
     margin-left: 0.08em;
     vertical-align: bottom;
   }
+
   &-column > move .glyphs {
     flex: 0 1 auto;
+
     glyph {
       margin-right: auto;
       text-align: center;
@@ -152,6 +192,7 @@
       font-size: 0.82em;
     }
   }
+
   &-column > index {
     flex: 0 0 17%;
     display: flex;
@@ -161,9 +202,11 @@
     line-height: 2.07em;
     color: $c-font-dimmer;
   }
+
   > interrupt {
     font-size: 95%;
   }
+
   &-column > interrupt {
     flex: 0 0 100%;
     background: $c-bg-zebra;
@@ -171,19 +214,24 @@
     border-bottom: 1px solid $c-border;
     max-width: 100%;
   }
+
   &-column > interrupt > comment {
     @extend %break-word;
+
     display: block;
     padding: 3px 5px;
   }
+
   &-inline comment {
     vertical-align: 45%;
     word-wrap: break-word;
     margin: 0 0.2em 0 0.1em;
     font-size: 0.9em;
   }
+
   comment .by {
     @extend %nowrap-ellipsis, %roboto;
+
     display: inline-block;
     vertical-align: -0.3em;
     font-size: 0.9em;
@@ -191,26 +239,33 @@
     margin-right: 0.4em;
     max-width: 9em;
   }
+
   &-column comment.sente,
   &-column comment.gote {
     border-left: 3px solid;
     overflow-x: hidden;
   }
+
   &-column comment.inaccuracy {
     border-color: $c-inaccuracy;
   }
+
   &-column comment.mistake {
     border-color: $c-mistake;
   }
+
   &-column comment.blunder {
     border-color: $c-blunder;
   }
+
   &-column comment.undefined {
     border-color: #66558c;
   }
+
   line comment {
     font-size: 90%;
   }
+
   &-column line comment {
     display: inline;
     color: $c-font-dim;
@@ -218,10 +273,12 @@
     padding: 0 5px 0 3px;
     vertical-align: top;
   }
+
   line comment .by {
     font-size: 1em;
     vertical-align: top;
   }
+
   lines {
     display: block;
     margin-top: 2px;
@@ -229,28 +286,36 @@
     margin-bottom: 0.8em;
     border-left: 2px solid $c-border;
   }
+
   > interrupt > lines {
     margin-left: 0;
   }
+
   lines.single {
     border-left: none;
   }
+
   lines:last-child {
     margin-bottom: 0;
   }
+
   line {
     display: block;
     padding-left: 7px;
   }
+
   &-column line {
     margin: 2px 0 0 0;
   }
+
   lines lines move {
     font-size: 13px;
   }
+
   lines lines {
     margin-left: 1px;
   }
+
   lines lines::before {
     content: ' ';
     border-top: 2px solid $c-border;
@@ -259,6 +324,7 @@
     width: 9px;
     height: 6px;
   }
+
   lines line::before {
     margin-top: 0.7em;
     margin-left: -8px;
@@ -268,36 +334,44 @@
     width: 7px;
     height: 6px;
   }
+
   lines lines:last-child {
     margin-bottom: 0;
   }
+
   inline {
     display: inline;
     font-style: italic;
     font-size: 0.9em;
     opacity: 0.8;
   }
+
   inline::before,
   inline::after {
     vertical-align: 0.4em;
     opacity: 0.7;
     font-size: 0.9em;
   }
+
   inline::before {
     content: '(';
     margin-left: 2px;
   }
+
   inline::after {
     content: ')';
     margin-right: 2px;
   }
+
   &-inline inline::before,
   &-inline inline::after {
     vertical-align: 0.7em;
   }
+
   .conceal {
     opacity: 0.4;
   }
+
   .hide {
     display: none;
   }

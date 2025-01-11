@@ -2,21 +2,26 @@
 @include breakpoint($mq-col1) {
   overflow: hidden;
   margin-bottom: 1vmin;
+
   .col1-moves {
     flex: 0 0 $col1-moves-height;
     display: flex;
+
     .fbt {
       flex: 0 0 auto;
       padding: 0 1.1em;
       opacity: 0.7;
+
       &[disabled] {
         opacity: 0.3;
       }
     }
+
     body.playing.zen & {
       display: none;
     }
   }
+
   .moves {
     flex: 1 1 100%;
     display: flex;
@@ -25,9 +30,11 @@
     overflow-x: scroll;
     color: $c-font-page;
     box-shadow: 0 4px 12px #000 inset;
+
     @include theme-wrap('light') {
       box-shadow: 0 4px 4px $m-bg-page_c-lightness_78 inset;
     }
+
     &::-webkit-scrollbar {
       height: 0;
     }
@@ -44,6 +51,7 @@
     justify-content: center;
     padding: 0 0.3rem;
   }
+
   index {
     padding-right: 0.15em;
     color: $c-font-dimmer;
@@ -51,6 +59,7 @@
   #{$move-tag} {
     font-size: 1.1em;
     cursor: pointer;
+
     &.active,
     &:hover {
       background: $c-bg-zebra;
@@ -59,37 +68,46 @@
       //   background: hsl($c-site-hue, 20%, 85%);
       // }
     }
+
     &.active {
       color: $c-font-clearer;
     }
   }
+
   .buttons {
     display: none;
   }
+
   .result {
     margin: 0;
     font-weight: bold;
     font-size: 1.1em;
   }
+
   .message {
     flex: 0 0 $col1-moves-height;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1.2;
+
     br {
       display: none;
     }
+
     strong {
       margin-left: 0.5em;
     }
+
     &::before {
       margin-right: 0.3em;
     }
+
     body.playing.zen & {
       display: none;
     }
   }
+
   .status {
     display: none;
   }

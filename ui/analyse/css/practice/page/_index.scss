@@ -4,6 +4,7 @@
 
 .page-menu__menu {
   margin: 0 0 #{2 * $block-gap} 0;
+
   @include breakpoint($mq-subnav-side) {
     margin: 0 #{2 * $block-gap} 0 0;
   }

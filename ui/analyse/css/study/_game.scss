@@ -5,36 +5,45 @@
       border-radius: 0;
       box-shadow: none;
     }
+
     .game_info {
       @extend %box-neat-bottom;
+
       background-color: $c-bg-box;
       display: flex;
       border-top: $border;
+
       a,
       button {
         padding: 0.8em;
         flex: 5;
         box-shadow: none;
         border-radius: 0;
+
         &:focus,
         &:hover,
         &.active {
           box-shadow: none;
         }
+
         @keyframes button-glowing {
           0% {
             opacity: 0;
           }
+
           60% {
             opacity: 0.2;
           }
+
           85% {
             opacity: 0;
           }
         }
+
         &.glowing {
           position: relative;
           animation: none;
+
           &::before {
             content: '';
             position: absolute;
@@ -49,10 +58,12 @@
           }
         }
       }
+
       a {
         &:first-child {
           flex: 1;
         }
+
         &:last-child {
           overflow: hidden;
           text-overflow: ellipsis;

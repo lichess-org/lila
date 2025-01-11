@@ -1,28 +1,35 @@
 .tt-menu {
   @extend %box-radius, %popup-shadow;
+
   width: 14em;
   background-color: $c-bg-box;
 }
+
 .tt-menu .empty {
   padding: 0.5em 0 0.5em 1em;
 }
+
 .tt-menu .spinner {
   margin: 10px auto;
   width: 20px;
   height: 20px;
 }
+
 .tt-suggestion {
   color: $c-font;
   padding: 0.4em 0 0.4em 0.4em;
   display: block;
   cursor: pointer;
+
   @include transition;
+
   &.tt-cursor,
   &:hover {
     color: $c-font-clear !important;
     background: $m-link_bg-box_mix_20;
   }
 }
+
 .tt-hint {
   color: $c-font-dimmer;
 }

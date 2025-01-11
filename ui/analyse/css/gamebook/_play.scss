@@ -2,33 +2,44 @@
   0% {
     transform: scale3d(1, 1, 1);
   }
+
   6% {
     transform: scale3d(1.25, 0.75, 1);
   }
+
   8% {
     transform: scale3d(0.75, 1.25, 1);
   }
+
   10% {
     transform: scale3d(1.15, 0.85, 1);
   }
+
   13% {
     transform: scale3d(0.95, 1.05, 1);
   }
+
   15% {
     transform: scale3d(1.05, 0.95, 1);
   }
+
   20% {
     transform: scale3d(1, 1, 1);
   }
 }
+
 .gamebook {
   @extend %flex-column;
+
   grid-area: tools;
+
   @include breakpoint($mq-col2-uniboard) {
     justify-content: flex-end;
   }
+
   .comment {
     @extend %flex-column, %box-shadow;
+
     flex: 2 1 0;
     justify-content: space-between;
     font-size: 1.1em;
@@ -40,9 +51,11 @@
     /* fixes firefox overflow when comment is long https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox */
     min-height: 0;
     max-height: 25rem;
+
     body.dark & {
       border: 1px solid $c-font-dimmer;
     }
+
     &::after {
       position: absolute;
       content: '';
@@ -56,9 +69,11 @@
       transform: skew(45deg) rotate(45deg);
       z-index: 1;
     }
+
     &.hinted::after {
       background: $c-primary;
     }
+
     .content {
       z-index: 2;
       overflow-y: auto;
@@ -66,6 +81,7 @@
       margin-top: 1rem; // so that the scroll is not over the border-radius
       min-height: 2.5em;
     }
+
     div.hint {
       padding: 0.8em 1em 0 1em;
       max-height: 8rem;
@@ -77,13 +93,16 @@
       overflow-y: scroll;
       font-size: 0.9em;
       z-index: 2;
+
       &::-webkit-scrollbar-track {
         background: $c-primary;
       }
+
       &::-webkit-scrollbar-thumb {
         background: $c-primary-over;
       }
     }
+
     a.hint {
       padding: 0.8em 1em;
       color: $c-primary;
@@ -96,74 +115,95 @@
     flex: 0 0 8rem;
     display: flex;
   }
+
   .mascot {
     flex: 0 0 8rem;
     margin-left: 1em;
   }
+
   .feedback {
     @extend %flex-column, %box-radius;
+
     flex: 1 1 100%;
     height: 8rem;
     text-align: center;
     justify-content: center;
+
     &.info {
       font-size: 1.6em;
     }
+
     &.good.init {
       visibility: hidden;
     }
+
     &.act {
       @extend %box-neat;
+
       font-size: 2em;
       color: #fff;
       cursor: pointer;
       opacity: 0.85;
+
       @include transition;
+
       &:hover {
         opacity: 1;
       }
+
       &.com span {
         animation: rubber-band 7s infinite;
       }
     }
+
     &.play {
       font-size: 0.8em;
       text-align: left;
     }
+
     &.play strong {
       font-size: 1.5em;
     }
+
     &.play > div {
       display: flex;
       align-items: center;
       margin: 0 10px;
     }
+
     &.play .no-square {
       flex: 0 0 64px;
       height: 64px;
       margin-right: 10px;
     }
+
     .instruction > * {
       display: block;
     }
+
     &.play piece {
       position: inherit;
       display: block;
       width: 100%;
       height: 100%;
     }
+
     &.bad {
       background: #dc322f;
     }
+
     &.good {
       background: #639b24 !important;
       color: #fff;
     }
+
     &.end {
       flex-flow: row;
       font-size: 0.8em;
+
       a {
         @extend %flex-column;
+
         flex: 1 1 100%;
         background: $m-primary_bg-box_mix_80;
         color: $c-primary-over;
@@ -174,17 +214,22 @@
         padding: 0.5em;
         border-left: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
+
         @include transition;
+
         &::before {
           font-size: 2.2em;
           margin: 0.5em 0;
         }
+
         &:first-child {
           @extend %box-radius-left;
         }
+
         &:last-child {
           @extend %box-radius-right;
         }
+
         &:hover {
           background: $c-primary;
         }
@@ -198,13 +243,16 @@
   align-items: center;
   margin: 0 1rem;
   cursor: pointer;
+
   &:hover {
     color: $c-primary;
   }
+
   &[disabled] {
     pointer-events: none;
     opacity: 0.5;
   }
+
   &::before {
     font-size: 1.15em;
   }

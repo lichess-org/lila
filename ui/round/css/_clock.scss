@@ -3,6 +3,7 @@
   display: flex;
   justify-content: flex-end;
   user-select: none;
+
   @include breakpoint($mq-col1) {
     /* that weird shit is required so the clock goes above the player since they share the same grid cell */
     justify-self: flex-end;
@@ -12,14 +13,17 @@
   @include breakpoint($mq-col2) {
     justify-content: space-between;
     height: 45px;
+
     &-bottom {
       /* over the table shadow */
       z-index: 0;
     }
   }
+
   &-turn {
     align-self: center;
     line-height: $col1-player-clock-height;
+
     @include breakpoint($mq-col1) {
       &__text {
         background: $c-bg-box;
@@ -28,20 +32,24 @@
         white-space: nowrap;
       }
     }
+
     @include breakpoint($mq-col2) {
       height: 45px;
       line-height: 45px;
     }
   }
+
   .clock-byo {
     display: flex;
     flex-direction: row-reverse;
     min-width: 3em;
     z-index: -1;
+
     @include breakpoint($mq-col2) {
       flex-direction: row;
     }
   }
+
   .byoyomi {
     display: flex;
     flex-direction: row-reverse;
@@ -49,13 +57,16 @@
     font-size: 1.2rem;
     padding: 0 0.35rem;
     opacity: 0.8;
+
     @include breakpoint($mq-col2) {
       font-size: 1.5rem;
       flex-direction: row;
     }
   }
+
   .time {
     @extend %roboto;
+
     background: $c-bg-box;
     font-size: 2.5em;
     font-weight: bold;
@@ -64,91 +75,115 @@
     padding-top: 3px;
     white-space: nowrap;
     display: flex;
+
     &.hour {
       font-size: 2.3em;
     }
+
     @include breakpoint($mq-col1) {
       border-radius: 0;
       box-shadow: none;
       background: none;
       padding-top: 0;
     }
+
     @include breakpoint($mq-col2) {
       align-items: flex-end;
     }
+
     @include breakpoint($mq-col2) {
       font-size: 2.8em;
       letter-spacing: 0.1em;
+
       &.hour {
         font-size: 2.7em;
         letter-spacing: 0.1em;
       }
     }
   }
+
   &-top .time {
     @extend %box-radius-top;
   }
+
   &-bottom .time {
     @extend %box-radius-bottom, %box-shadow;
   }
+
   &-correspondence .time {
     font-size: 1.6em;
     letter-spacing: inherit;
+
     @include breakpoint($mq-col2) {
       line-height: 1.5em;
     }
+
     @include breakpoint($mq-xx-small) {
       font-size: 1.9em;
     }
   }
+
   tenths {
     font-size: 70%;
     margin-bottom: -0.18em;
   }
+
   huns {
     font-size: 80%;
+
     @include breakpoint($mq-col1) {
       display: none; /* since clock is right-aligned, huns shift it left on every move */
     }
   }
+
   sep {
     opacity: 0.5;
     font-size: 0.8em;
+
     &.low {
       opacity: 0.15;
     }
   }
+
   &.running .time {
     background: $m-secondary_bg-box_mix_30;
     color: $c-font-clearer;
   }
+
   &.emerg:not(.byo) .time,
   &.outoftime .time {
     background-color: $m-bad_bg-box_mix_30;
   }
+
   &.emerg.running .time {
     background-color: $m-bad_bg-box_mix_50;
     color: $c-font-clearer;
   }
+
   &.over {
     .time,
     .byoyomi {
       color: $c-font-dimmer;
     }
   }
+
   .go-berserk {
     font-size: 2.2em;
     padding: 0 0.3em;
+
     &:hover {
       color: $c-accent !important;
       background: none !important;
     }
   }
+
   .tour-rank,
   .moretime,
   .berserked {
     @extend %flex-center, %zen;
+
     display: none;
+
     @include breakpoint($mq-col2) {
       order: -1;
       display: flex;
@@ -156,20 +191,26 @@
       font-size: 1.7em;
       padding: 0 0.3em;
     }
+
     @include breakpoint($mq-col2) {
       order: inherit;
     }
   }
+
   .tour-rank {
     @extend %page-text;
+
     opacity: 0.65;
   }
+
   .moretime {
     opacity: 0.4;
+
     &:hover {
       opacity: 1;
     }
   }
+
   .berserked {
     font-size: 2.2em;
     color: $c-accent;

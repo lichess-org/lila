@@ -1,8 +1,10 @@
 .learn__table {
   display: flex;
   align-items: center;
+
   .wrap {
     @extend %box-neat, %box-radius-force;
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -14,26 +16,31 @@
     display: flex;
     background: $c-primary;
     color: $c-primary-over;
+
     h2,
     h3 {
       font-size: 2.3em;
       margin: 15px 0 5px -3px;
       white-space: nowrap;
     }
+
     .stage-img {
       flex: 1;
       margin: 5px 8px 5px 5px;
     }
+
     .text {
       flex: 4;
     }
   }
+
   .subtitle {
     margin-bottom: 1em;
   }
 
   .goal {
     @extend %flex-center;
+
     flex: 1;
     border: $border;
     border-top: none;
@@ -43,8 +50,10 @@
     white-space: pre-line;
     font-size: 1.1em;
   }
+
   .result {
     @extend %flex-center;
+
     flex: 1;
     justify-content: center;
     flex-flow: column nowrap;
@@ -52,9 +61,12 @@
     border-top: none;
     text-align: center;
     cursor: pointer;
+
     @include transition;
+
     padding: 6px 0;
     font-size: 1.7em;
+
     @include breakpoint($mq-col2) {
       padding: 0;
     }
@@ -64,28 +76,35 @@
         box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.5);
       }
     }
+
     @keyframes text-shadow-glow {
       50% {
         text-shadow: 0 0 10px #fff;
       }
     }
+
     h2 {
       animation: text-shadow-glow 1s 1;
     }
+
     &.failed h2,
     &.next h2 {
       margin-top: 15px;
     }
+
     &:hover {
       filter: brightness(1.1);
     }
+
     .stars {
       margin-top: 4px;
+
       i {
         margin: 3px;
         animation: text-shadow-glow 1s 1;
       }
     }
+
     button {
       margin: 15px auto 15px auto;
       font-size: 28px;
@@ -98,28 +117,35 @@
       box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.5);
       animation: shadow-glow 1s infinite;
     }
+
     &.completed {
       background: $c-good;
       color: $c-good-over;
+
       button {
         color: $c-good;
       }
     }
+
     &.failed {
       background: $c-bad;
       color: $c-bad-over;
+
       button {
         color: $c-bad;
       }
     }
+
     @keyframes go-home {
       from {
         opacity: 1;
       }
+
       to {
         opacity: 0.1;
       }
     }
+
     &.completed:not(.no-go-home) piece {
       animation: 0.7s ease-in-out 0.7s go-home;
     }
@@ -131,8 +157,10 @@
     grid-gap: 1px;
     text-align: center;
     border-top: 0;
+
     a {
       @extend %flex-center;
+
       align-content: center;
       text-align: center;
       background: $c-bg-high;
@@ -140,20 +168,26 @@
       font-size: 0.9em;
       outline: $border;
       opacity: 0.8;
+
       @include transition;
+
       span {
         margin: auto;
+
         &.st3 i:first-child {
           display: block;
         }
       }
+
       &:hover {
         opacity: 1;
       }
+
       &.done {
         color: $c-good-over;
         background: $c-good;
       }
+
       &.active {
         opacity: 1;
         color: $c-primary-over;

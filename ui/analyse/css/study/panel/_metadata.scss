@@ -1,22 +1,29 @@
 .study__metadata {
   @extend %box-neat;
+
   background: $c-bg-box;
   text-align: left;
+
   h2 {
     @extend %metal, %flex-between-nowrap;
+
     font-size: 1.3em;
     padding: 0 1rem;
     white-space: nowrap;
     border-bottom: $border;
+
     .name {
       @extend %ellipsis;
+
       padding: 0.7rem 0;
     }
+
     .credit {
       display: block;
       font-size: 0.8rem;
       margin: 0.2rem 0 -0.3rem 0;
     }
+
     .liking {
       margin-left: 1rem;
       font-weight: bold;
@@ -24,6 +31,7 @@
       opacity: 0.7;
       transition: 0.3s;
     }
+
     .liking:hover {
       opacity: 1;
       color: $c-red;
@@ -33,6 +41,7 @@
 
 .study__tags {
   border: none;
+
   th {
     font-weight: bold;
     color: $c-font-dim;
@@ -40,24 +49,29 @@
     padding: 0 0.3em 0 1em !important;
     word-break: keep-all;
   }
+
   td {
     padding: 0;
   }
+
   input,
   span {
     display: block;
     padding: 0.6em 1em 0.6em 0.7em;
     line-height: 1.7;
   }
+
   input {
     border: none;
     background: none;
     width: 100%;
   }
+
   input:hover,
   input:focus {
     background: $m-primary_bg-box_mix_10;
   }
+
   select {
     cursor: pointer;
     border: none;
@@ -68,13 +82,17 @@
 
 .study__topics {
   @extend %flex-center, %roboto;
+
   margin: 0.75em;
+
   .topic {
     @extend %box-radius;
+
     background: $m-primary_bg-box_mix_15;
     padding: 0.2em 0.6em;
     margin: 0.2em;
   }
+
   .manage {
     margin: 0.2em;
   }

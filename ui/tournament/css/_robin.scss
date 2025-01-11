@@ -5,9 +5,11 @@ main.arr-table {
   .scroll-controls {
     display: flex;
     justify-content: space-evenly;
+
     .scroll-arrow {
       cursor: pointer;
       padding: 0.75rem;
+
       &.disabled {
         opacity: 0.5;
       }
@@ -17,21 +19,27 @@ main.arr-table {
   .r-table-wrap {
     $cell-size: 2.2rem;
     $large-cell-size: 3rem;
+
     display: flex;
+
     table {
       background: $c-bg-box;
+
       tr {
         &:nth-child(even) {
           background-color: $c-bg-zebra;
         }
+
         &.kicked {
           background-color: rgba($c-bad, 0.2) !important;
           color: $c-font-dimmer !important;
+
           .user-link {
             color: $c-font-dimmer !important;
           }
         }
       }
+
       td,
       th {
         min-width: $cell-size;
@@ -39,11 +47,13 @@ main.arr-table {
         border: 1px solid $c-font-dimmer;
         text-align: center;
       }
+
       th {
         background-color: $c-bg-zebra;
         background-clip: padding-box; // firefox...
       }
     }
+
     &-players {
       table tr {
         &.long {
@@ -51,17 +61,21 @@ main.arr-table {
             font-size: 0.85rem;
           }
         }
+
         td {
           &.player-name {
             min-width: 12rem;
             padding: 0 1rem;
             text-align: left;
+
             i {
               margin-right: 0.5rem;
             }
+
             .name {
               padding-right: 5px;
             }
+
             .rating {
               font-style: italic;
               font-size: 0.9em;
@@ -71,30 +85,38 @@ main.arr-table {
         }
       }
     }
+
     &-arrs {
       overflow-x: scroll;
+
       table {
         table-layout: fixed;
         overflow: hidden;
+
         thead {
           position: relative;
           z-index: 2;
+
           tr th {
             max-width: $cell-size;
+
             &:first-child {
               border-left: none;
             }
+
             &:last-child {
               border-right: none;
             }
           }
         }
+
         tbody {
           tr {
             td {
               position: relative;
               width: $cell-size;
               cursor: pointer;
+
               &.same {
                 cursor: unset;
                 pointer-events: none;
@@ -108,6 +130,7 @@ main.arr-table {
                   background-color: $c-font-dimmer;
                   transform-origin: center;
                 }
+
                 &::before {
                   top: 0;
                   left: 50%;
@@ -124,28 +147,35 @@ main.arr-table {
                   transform: translateY(-50%) rotate(45deg);
                 }
               }
+
               &.h {
                 animation: highlight 5s ease;
                 animation-fill-mode: both;
+
                 @keyframes highlight {
                   0% {
                     background-color: transparent;
                   }
+
                   50% {
                     background-color: $m-accent_alpha_neg30;
                   }
+
                   100% {
                     background-color: transparent;
                   }
                 }
               }
+
               & > div {
                 z-index: 100;
                 margin: auto;
               }
+
               & .p {
                 width: 100%;
                 height: 100%;
+
                 &::after {
                   content: '...';
                   display: block;
@@ -157,6 +187,7 @@ main.arr-table {
                   margin-left: 1px;
                 }
               }
+
               & .d {
                 width: 0;
                 height: 0;
@@ -164,27 +195,34 @@ main.arr-table {
                 border-right: 5px solid transparent;
                 border-bottom: 10px solid $c-font;
               }
+
               & .w,
               & .l {
                 width: 10px;
                 height: 10px;
                 border-radius: 50%;
               }
+
               & .w {
                 background-color: $c-good !important;
               }
+
               & .l {
                 background-color: $c-bad !important;
               }
+
               &:first-child {
                 border-left: none;
               }
+
               &:last-child {
                 border-right: none;
               }
+
               &:hover {
                 background-color: $c-accent;
               }
+
               &:hover {
                 &::before {
                   content: '';
@@ -196,6 +234,7 @@ main.arr-table {
                   width: 10000px;
                   pointer-events: none;
                 }
+
                 &::after {
                   content: '';
                   background-color: rgba(255, 137, 11, 0.1);
@@ -206,6 +245,7 @@ main.arr-table {
                   width: 100%;
                   pointer-events: none;
                 }
+
                 & > div {
                   border: $border;
                 }
@@ -215,10 +255,12 @@ main.arr-table {
         }
       }
     }
+
     &-scores {
       table {
         td {
           min-width: $large-cell-size;
+
           &.winner {
             color: $c-brag;
             font-weight: bold;
@@ -235,13 +277,16 @@ main.arr-table {
       padding: 1rem;
       border-bottom: $border;
     }
+
     .arrs-grid {
       display: grid;
       grid-template-columns: repeat(1, 1fr);
+
       @include breakpoint($mq-col2) {
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
     .view-more {
       font-size: 1.3rem;
       text-align: center;

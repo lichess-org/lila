@@ -3,44 +3,56 @@
     flex: 0 0 auto;
     display: flex;
   }
+
   &__tab {
     @extend %roboto, %nowrap-hidden, %box-radius-top;
+
     flex: 1 1 auto;
     text-align: center;
     padding: 0.4em 10px;
     // background: $c-shade;
     cursor: pointer;
     color: $c-font-page;
+
     @include transition;
+
     &:hover {
       background: $m-accent_bg-box_mix_15;
     }
+
     &-active,
     &:only-child {
       color: $c-font;
       background: $c-bg-box !important;
     }
+
     input {
       cursor: pointer;
       display: none;
+
       @extend %checkbox;
     }
+
     &-active input {
       display: block;
     }
+
     span {
       @extend %nowrap-ellipsis;
     }
+
     &:last-child {
       border-right: none;
     }
   }
+
   &-optional .mchat__tab.discussion {
     display: flex;
     flex: 6;
     justify-content: space-between;
     align-items: center;
   }
+
   &-optional .mchat__tab.note {
     flex: 4;
   }

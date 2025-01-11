@@ -1,6 +1,5 @@
 .ceval {
   background: $c-bg-zebra;
-
   position: relative;
   display: flex;
   align-items: stretch;
@@ -20,6 +19,7 @@
     flex: 0 0 40px;
     margin-right: 8px;
     cursor: not-allowed;
+
     &.disabled label {
       pointer-events: none;
       opacity: 0.5;
@@ -74,12 +74,15 @@
 
   .technology {
     margin-left: 5px;
+
     &.bad {
       &:not(.chushogi):not(.annanshogi):not(.checkshogi) {
         color: $c-bad;
       }
+
       margin-left: 0;
     }
+
     &.good {
       color: $c-good;
     }
@@ -113,10 +116,12 @@
       background: $c-bad;
     }
   }
+
   &.computing .bar span {
     background-image: img-url('bar-highlight.png');
     animation: bar-anim 1000s linear infinite;
   }
+
   .show-threat {
     flex: 0 99 auto;
     line-height: 38px;
@@ -125,10 +130,12 @@
     padding-right: 0.5em;
     overflow: hidden;
     visibility: hidden;
+
     &:hover:not(.hidden),
     &.active {
       color: $c-red;
     }
+
     &.hidden {
       opacity: 0.3;
       cursor: default;

@@ -11,7 +11,6 @@
 .puzzle {
   grid-area: main;
   display: grid;
-
   grid-template-areas:
     'board'
     'controls'
@@ -22,6 +21,7 @@
 
   &__side {
     @extend %zen;
+
     grid-area: side;
   }
 
@@ -35,12 +35,14 @@
 
   &__controls {
     @extend %zen;
+
     grid-area: controls;
     height: $col3-uniboard-controls;
   }
 
   &__session {
     @extend %zen;
+
     grid-area: session;
     align-self: start;
   }
@@ -88,6 +90,7 @@
     &-top {
       margin-bottom: #{$block-gap};
     }
+
     &-bottom {
       margin-top: #{$block-gap};
     }

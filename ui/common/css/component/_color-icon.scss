@@ -1,12 +1,15 @@
 .color-icon {
   font-family: lishogi;
   text-transform: unset;
+
   &.sente::before {
     content: $sente-symbol;
   }
+
   &.gote::before {
     content: $gote-symbol;
   }
+
   &.random::before {
     content: 'l';
   }

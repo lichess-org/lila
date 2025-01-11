@@ -4,6 +4,7 @@
   @include breakpoint($mq-col2) {
     width: 30em;
   }
+
   h2 {
     margin: 1.25rem 0;
   }
@@ -12,18 +13,22 @@
     width: 100%;
     padding: 0.6rem 0;
   }
+
   input.slider.big {
     font-size: 1.25rem;
   }
 
   group.radio {
     margin-bottom: 0.5rem;
+
     & > div {
       flex: 1;
     }
+
     &.dual > div {
       min-width: 125px;
     }
+
     .disabled {
       cursor: not-allowed;
       opacity: 0.4;
@@ -34,6 +39,7 @@
     display: inline-block;
     width: 2.2rem;
     text-align: left;
+
     &.right {
       text-align: right;
     }
@@ -41,6 +47,7 @@
 
   .section {
     padding: 1rem 2rem;
+
     &.setup-time {
       padding: 0 2rem;
       padding-top: 1rem;
@@ -51,10 +58,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     label {
       width: 50%;
       text-align: center;
     }
+
     select {
       min-width: 50%;
     }
@@ -62,6 +71,7 @@
 
   a.info {
     color: $c-font-dimmer;
+
     &:hover {
       color: $c-font;
     }
@@ -73,10 +83,12 @@
     .setup-handicap {
       margin: 1rem 0;
     }
+
     .setup-sfen {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+
       input {
         flex: 1;
       }
@@ -99,9 +111,11 @@
     margin: auto;
     cursor: pointer;
     transition: 100ms;
+
     &.open {
       transform: rotate(180deg);
     }
+
     &:hover {
       color: $c-accent;
     }
@@ -122,10 +136,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     input {
       width: unset;
       max-width: 30%;
     }
+
     .rating-values {
       flex: 1;
       display: flex;
@@ -142,6 +158,7 @@
     position: relative;
     margin-top: 0.5em;
     margin-bottom: 1em;
+
     button {
       display: flex;
       align-items: center;
@@ -151,23 +168,28 @@
       padding: 0;
       width: 64px;
       height: 64px;
+
       @include theme-wrap('transp') {
         background: $c-bg-input;
+
         &:hover {
           background: $m-bg-input_lightness_neg3 !important;
         }
       }
+
       &.random {
         font-size: 5rem;
         width: 85px;
         height: 85px;
         padding: 0;
       }
+
       &:disabled {
         opacity: 0.3;
         cursor: not-allowed;
       }
     }
+
     .button-title {
       margin-top: 0.25rem;
     }
@@ -175,16 +197,20 @@
 
   .setup-ratings {
     @extend %box-radius-bottom;
+
     background: $c-bg-zebra;
     border-top: $border;
     padding: 0.5em;
     width: 100%;
     text-align: center;
     border-bottom: none;
+
     &-value {
       @extend %flex-center;
+
       justify-content: center;
       min-height: 2rem;
+
       strong {
         width: unset;
         margin-left: 0.4em;

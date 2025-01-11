@@ -1,25 +1,32 @@
 .simul {
   .results {
     @extend %flex-center;
+
     > div {
       flex: 0 0 25%;
       text-align: center;
     }
+
     .number {
       font-size: 3em;
       font-weight: bold;
     }
+
     .text {
       @extend %roboto;
+
       font-size: 1.5em;
       text-transform: uppercase;
     }
   }
+
   .game-list {
     .host {
       @extend %box-radius;
+
       box-shadow: 0 0 0 7px $m-accent_alpha_neg70;
     }
+
     .vstext {
       @extend %metal;
     }

@@ -1,6 +1,7 @@
 #main-wrap {
   min-height: calc(95vh - #{$site-header-outer-height} - 4em);
 }
+
 .auth {
   width: 100%;
   margin: auto;
@@ -12,9 +13,11 @@
   .button {
     width: 100%;
     padding: 1rem;
+
     &.frameless {
       padding: 0.5rem;
     }
+
     .spinner {
       width: 26px;
       height: unset;
@@ -24,7 +27,9 @@
   .alternative {
     margin-top: 2rem;
     font-size: 0.9em;
+
     @extend %flex-between;
+
     a {
       margin: 0 0.1rem;
     }
@@ -46,6 +51,7 @@
   #top {
     display: none;
   }
+
   .form-group {
     margin-bottom: 1rem;
   }

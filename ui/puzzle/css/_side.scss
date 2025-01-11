@@ -32,7 +32,6 @@
     @extend %box-neat-force;
 
     grid-area: metas;
-
     background: $c-bg-box;
 
     p {
@@ -67,6 +66,7 @@
         margin-top: 0.3rem;
         font-size: 90%;
       }
+
       .source-description {
         white-space: normal;
         margin-top: 0.3rem;
@@ -79,7 +79,6 @@
     @extend %box-neat;
 
     grid-area: user;
-
     background: $c-bg-box;
     padding: 2vmin;
 
@@ -109,7 +108,6 @@
     @extend %box-neat;
 
     grid-area: config;
-
     align-self: start;
     background: $c-bg-box;
     padding: 2vmin;
@@ -143,7 +141,6 @@
     @extend %box-neat;
 
     grid-area: replay;
-
     background: $c-bg-box;
     padding: 2vmin;
 
@@ -167,6 +164,7 @@
 
       &::before {
         @extend %box-radius;
+
         z-index: 0;
         content: '';
         position: absolute;
@@ -177,8 +175,10 @@
         background: $m-bg-page_primary_mix_40
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
+
         @include transition(width, 1s);
       }
+
       &::after {
         z-index: 1;
         content: attr(data-text);
@@ -190,7 +190,6 @@
     @extend %box-neat, %roboto;
 
     grid-area: theme;
-
     background: $c-bg-box;
     padding: 2vmin;
     font-size: 0.9em;

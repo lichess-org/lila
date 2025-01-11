@@ -5,10 +5,13 @@
 
   &__metas {
     @extend %flex-between;
+
     margin-bottom: 1.5rem;
+
     > div {
       @extend %flex-center;
     }
+
     .author {
       color: $c-font-dim;
       font-weight: bold;
@@ -18,6 +21,7 @@
 
     a.author--op {
       @extend %box-radius;
+
       padding: 0.2em;
       padding-right: 0.8em;
       background: $m-primary_bg-box_mix_12;
@@ -25,36 +29,45 @@
 
     .anchor {
       @extend %break-nope;
+
       color: $c-link-dim;
       font-weight: bold;
     }
   }
+
   .mod {
     font-size: 0.9em;
+
     @media (hover: hover) {
       visibility: hidden;
     }
+
     &.postip {
       margin-left: 1rem;
       max-width: 50vw;
       overflow: hidden;
       display: none;
+
       @include breakpoint($mq-small) {
         display: block;
       }
     }
   }
+
   &:hover .mod {
     visibility: visible;
   }
+
   &:last-child {
     border-bottom: $border;
     margin-bottom: 3rem;
   }
+
   &.erased {
     background: $c-shade;
     opacity: 0.6;
   }
+
   &.erased .forum-post__message {
     font-style: italic;
     text-align: center;
@@ -63,21 +76,27 @@
 
   &__message {
     @extend %break-word;
+
     margin-bottom: 0.5em;
+
     .embed-wrap {
       max-width: calc(60vh * (16 / 9));
       max-width: min(calc(60vh * (16 / 9)), 80vw);
       margin: $block-gap;
     }
+
     .embed:not(img) {
       @extend %embed;
+
       &.embed--game {
         @extend %game-embed;
       }
     }
+
     img {
       max-width: 100%;
       max-height: 90vh;
+
       &.embed {
         cursor: pointer;
       }
@@ -88,6 +107,7 @@
     text-align: right;
     margin-top: 0.5em;
   }
+
   .edit-buttons a {
     margin-right: 1em;
   }
@@ -95,6 +115,7 @@
   .edit-post-form {
     display: none;
     margin-top: 1.5em;
+
     textarea {
       width: 100%;
       height: 20em;

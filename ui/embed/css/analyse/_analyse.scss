@@ -10,9 +10,11 @@ $mq-col1: 9999px;
 html {
   overflow: hidden;
 }
+
 body {
   overflow-y: hidden;
   background: none;
+
   ::-webkit-scrollbar,
   ::-webkit-scrollbar-corner {
     background: $c-bg-zebra;
@@ -21,6 +23,7 @@ body {
 
 .chapter-name {
   @extend %roboto;
+
   padding: 0.3em;
   border-bottom: $border;
   background: $c-bg-zebra;
@@ -29,6 +32,7 @@ body {
 
 .analyse__tools {
   @extend %box-radius-top;
+
   background: $c-bg-box;
   box-shadow: none;
   border: $border;
@@ -37,23 +41,30 @@ body {
 
 .analyse__moves {
   border: none;
+
   .tview2-column > index {
     background: none;
   }
 }
+
 .fbt {
   border-radius: 0;
+
   &:not(.disabled) {
     cursor: pointer;
   }
 }
+
 .analyse__controls {
   @extend %box-radius-bottom;
+
   overflow: hidden;
   background: $c-bg-box;
   border: $border;
+
   .jumps .fbt {
     border-right: $border;
+
     &:last-child {
       border-right: none;
     }

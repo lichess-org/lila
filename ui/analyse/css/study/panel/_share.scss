@@ -1,31 +1,40 @@
 .study__share {
   @extend %box-neat;
+
   background: $c-bg-box;
   padding: 1.5em 1.2em;
+
   input[type='text'] {
     font-family: monospace;
     width: 100%;
     font-size: 0.9em;
   }
+
   .ply-wrap {
     color: $c-font-dim;
     text-align: left;
     font-size: 0.9em;
   }
+
   .ply {
     cursor: pointer;
+
     input {
       margin-right: 0.3em;
       vertical-align: middle;
     }
+
     .index {
       margin-right: 2px;
     }
   }
+
   .downloads {
     @extend %flex-around;
+
     gap: 1rem;
     margin-bottom: 2em;
+
     .button {
       padding: 1em 0;
       width: calc(50% - 1rem);

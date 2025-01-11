@@ -13,6 +13,7 @@
   margin: 0 auto;
 
   --dropdown-top: 40px;
+
   @include breakpoint($mq-site-header-tall) {
     --dropdown-top: 60px;
   }
@@ -20,8 +21,10 @@
 
 #topnav a[href='/patron'] {
   @extend %flex-center;
+
   &::after {
     @extend %data-icon;
+
     content: '';
     font-size: 1.3em;
     color: $c-brag;

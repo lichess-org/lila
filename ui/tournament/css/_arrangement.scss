@@ -5,46 +5,57 @@
   max-width: 875px;
   margin: 1rem auto;
   padding-bottom: 1rem;
+
   &.flipped {
     flex-direction: column-reverse;
   }
+
   .arr-user {
     @extend %metal;
+
     display: flex;
     flex-wrap: wrap;
     font-size: 1.1rem;
     outline: $border;
     outline-offset: -1px;
     border-radius: 3px;
+
     &.winner {
       border-color: $c-good;
     }
+
     &.loser {
       border-color: $c-bad;
     }
+
     &.bottom {
       @extend %box-shadow;
     }
+
     .user-link {
       min-width: 15rem;
       padding: 1.25rem;
       margin: auto;
       text-align: center;
+
       &.long {
         letter-spacing: -0.7px;
       }
+
       .rating {
         font-style: italic;
         font-size: 1rem;
         opacity: 0.9;
       }
     }
+
     .actions {
       display: flex;
       justify-content: flex-end;
       flex: 1;
       border-top: $border;
       border-top-style: dashed;
+
       input {
         flex: 1;
         appearance: none;
@@ -59,25 +70,32 @@
         text-align: center;
         display: block;
       }
+
       .flatpickr {
         &:focus {
           outline: none;
         }
+
         cursor: pointer;
+
         &[disabled] {
           cursor: auto;
         }
       }
+
       .user-button {
         @extend %flex-center;
+
         color: $c-font;
         padding: 0 1rem;
         cursor: pointer;
+
         @keyframes blink {
           0%,
           100% {
             color: inherit;
           }
+
           50% {
             color: $c-good;
           }
@@ -88,6 +106,7 @@
           100% {
             color: inherit;
           }
+
           50% {
             color: $c-bad;
           }
@@ -98,21 +117,26 @@
             color: $c-good;
             animation: blink 1s infinite;
           }
+
           &.clear {
             color: $c-bad;
             animation: blink-clear 1s infinite;
           }
         }
+
         &:hover,
         &.active {
           color: $c-link;
+
           &.confirm {
             color: $c-good;
           }
+
           &.clear {
             color: $c-bad;
           }
         }
+
         &.disabled {
           pointer-events: none;
           color: $c-font-dimmer;
@@ -127,6 +151,7 @@
       }
     }
   }
+
   .arr-agreed {
     display: flex;
     align-items: center;
@@ -139,35 +164,42 @@
     max-height: 25rem;
     border: $border;
     border-width: 0 1px 0 1px;
+
     & > * {
       flex: 1;
       height: 100%;
     }
+
     .infos {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       border-right: $border;
       padding: 0.75rem;
+
       .info-line {
         width: 100%;
+
         .title {
           font-size: 1.1rem;
           font-weight: bold;
           text-align: center;
           padding: 2px;
         }
+
         .value {
           text-align: center;
         }
       }
     }
+
     .game-button {
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 0 0.5rem;
       position: relative;
+
       .button {
         display: block;
         font-size: 1.1rem;
@@ -175,6 +207,7 @@
         background-color: $c-accent;
         color: $c-accent-over;
       }
+
       .warning {
         color: $c-font-dim;
         font-size: 0.9rem;
@@ -182,19 +215,24 @@
         text-align: center;
       }
     }
+
     .history {
       border-left: $border;
+
       .history-inner {
         height: 100%;
         padding: 0.5rem;
         padding-right: 0;
         overflow-y: scroll;
+
         .line {
           padding: 0.3rem 0;
           font-size: 0.9rem;
+
           span {
             font-weight: bold;
           }
+
           time {
             font-style: italic;
           }

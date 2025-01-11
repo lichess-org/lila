@@ -4,7 +4,9 @@
 
 .fullscreen-mask {
   @extend %fullscreen-mask;
+
   display: none;
+
   .fullscreen-toggle:checked ~ & {
     display: block;
   }
@@ -12,9 +14,11 @@
 
 .rp::before {
   @extend %data-icon;
+
   margin-right: 0.2em;
   content: 'N';
 }
+
 bad.rp {
   &::before {
     content: 'M';
@@ -24,6 +28,7 @@ bad.rp {
 good {
   color: $c-good;
 }
+
 bad {
   color: $c-bad;
 }
@@ -32,6 +37,7 @@ bad {
 .inf-more {
   width: 100%;
 }
+
 #infscr-loading .spinner {
   margin: 10px auto;
 }

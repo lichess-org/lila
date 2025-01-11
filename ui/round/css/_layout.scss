@@ -1,5 +1,6 @@
 #main-wrap {
   --main-max-width: auto;
+
   @include breakpoint($mq-col1) {
     $vertical-total: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$hands-gap} -
       2vmin;
@@ -7,9 +8,11 @@
       1vmin;
 
     --main-max-width: calc((#{$vertical-total}) / 12 * 9);
+
     &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc((#{$vertical-total}) / 7 * 5 / 12 * 11);
     }
+
     &:has(.main-v-chushogi) {
       --main-max-width: calc((#{$vertical-total-no-hands}) / 12 * 11);
     }
@@ -29,15 +32,20 @@
   &__app {
     grid-area: app;
   }
+
   &__side {
     grid-area: side;
   }
+
   &__underboard {
     @extend %zen;
+
     grid-area: under;
   }
+
   &__underchat {
     @extend %zen;
+
     grid-area: uchat;
   }
 
@@ -49,15 +57,19 @@
       'under side'
       'under uchat'
       'under .';
+
     &__app {
       justify-self: center;
     }
+
     &__app__board {
       align-self: center;
     }
+
     &__underboard {
       width: var(--col2-uniboard-main-size);
     }
+
     &.main-v-chushogi {
       .round__underboard {
         width: var(--col2-uniboard-main-size-no-hands);
@@ -72,10 +84,12 @@
       'side  . app   app'
       'uchat . under under';
     grid-gap: 0;
+
     &__underboard,
     &__underchat {
       margin-top: 3vmin;
     }
+
     &__underboard {
       display: grid;
       grid-template-columns: var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
@@ -83,24 +97,31 @@
         'cs          . .'
         'now-playing . .';
       width: 100%;
+
       .crosstable {
         grid-area: cs;
       }
     }
+
     &__underboard:empty {
       display: none;
     }
+
     &__underchat:has(div.none) {
       display: none;
     }
+
     .compact-layout & {
       .mchat {
         margin-bottom: 25px;
       }
     }
+
     @include crosstable-large;
+
     &.main-v-chushogi {
       grid-template-columns: $col3-uniboard-side $big-block-gap 1fr $col3-uniboard-table;
+
       .round__underboard {
         grid-template-columns: var(--col3-uniboard-main-size-no-hands) $block-gap $col3-uniboard-table;
       }

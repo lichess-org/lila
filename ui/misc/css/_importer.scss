@@ -5,20 +5,25 @@ main.importer {
     margin: 3vh 0;
     text-align: center;
   }
+
   form {
     .import-top {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+
       @include breakpoint($mq-col2) {
         flex-direction: row;
       }
+
       .left {
         flex: 4;
+
         @include breakpoint($mq-col2) {
           margin-right: 1rem;
         }
       }
+
       .right {
         flex: 3;
         display: flex;
@@ -56,6 +61,7 @@ main.importer {
       float: left;
       margin-right: 10px;
     }
+
     .analyse > label {
       cursor: pointer;
     }
@@ -73,10 +79,12 @@ main.importer {
       margin: 10px 0;
       color: red;
     }
+
     pre.error {
       max-width: 90vw;
       overflow-x: auto;
     }
+
     .wait {
       display: none;
     }

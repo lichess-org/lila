@@ -9,7 +9,6 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
 .tour {
   display: grid;
   grid-gap: $block-gap;
-
   grid-template-areas:
     'main'
     'side'
@@ -19,14 +18,17 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
   &__side {
     grid-area: side;
   }
+
   &__table,
   &__stats,
   &__player {
     grid-area: table;
   }
+
   &__main {
     grid-area: main;
   }
+
   .chat__members {
     grid-area: uchat;
   }
@@ -41,10 +43,12 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
 
     &__table {
       display: flex;
+
       > * {
         flex: 0 0 50%;
       }
     }
+
     .mchat__messages {
       max-height: inherit;
     }
@@ -59,6 +63,7 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
 
     &__table {
       flex-flow: column;
+
       > * {
         flex: inherit;
       }

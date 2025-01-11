@@ -2,13 +2,16 @@
   0% {
     transform: translateX(-1300px);
   }
+
   100% {
     transform: translateX(2100px);
   }
 }
+
 .bar-glider {
   position: relative;
   overflow: hidden;
+
   &::after {
     content: '';
     position: absolute;
@@ -18,6 +21,7 @@
     width: 70px;
     background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
     animation: bar-glider-anim 3s linear infinite;
+
     @media (prefers-reduced-motion: reduce) {
       display: none;
     }

@@ -23,12 +23,15 @@ body::-webkit-scrollbar-corner {
   background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 100px) no-repeat;
   max-width: 0.8rem;
 }
+
 body::-webkit-scrollbar-track {
   display: none;
 }
+
 body::-webkit-scrollbar-thumb {
   background: $c-font-dimmer;
 }
+
 body::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:active {
   background: $c-font-dim;
@@ -37,6 +40,7 @@ body::-webkit-scrollbar-thumb:active {
 a {
   color: $c-link;
   text-decoration: none;
+
   &:hover,
   &:active,
   &:focus {
@@ -86,6 +90,7 @@ td {
   vertical-align: middle;
   text-align: inherit;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;

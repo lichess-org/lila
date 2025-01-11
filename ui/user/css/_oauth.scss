@@ -9,6 +9,7 @@
   ul {
     margin: 25px;
   }
+
   li {
     list-style: disc outside;
   }
@@ -16,6 +17,7 @@
   strong {
     color: $c-brag;
   }
+
   code {
     word-wrap: anywhere;
   }
@@ -33,6 +35,7 @@
 
   h1 {
     @extend %break-word;
+
     margin: 1rem 0 1.5rem 0;
   }
 
@@ -40,6 +43,7 @@
     li {
       margin: 0.7em 0;
     }
+
     .danger {
       &::before {
         @extend %data-icon;

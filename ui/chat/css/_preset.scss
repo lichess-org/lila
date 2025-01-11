@@ -5,6 +5,7 @@
     align-items: center;
     flex-flow: row nowrap;
     line-height: 1.4em;
+
     span {
       flex: 1 1 auto;
       text-align: center;
@@ -15,12 +16,15 @@
       font-size: 0.9em;
       text-transform: uppercase;
       cursor: pointer;
+
       @include transition;
+
       &.disabled {
         background: $m-accent_bg-box_mix_15;
         color: transparent;
         cursor: default;
       }
+
       &:not(.disabled):hover {
         background: $c-accent;
         color: $c-accent-over;

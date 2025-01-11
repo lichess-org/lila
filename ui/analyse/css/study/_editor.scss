@@ -9,15 +9,18 @@
   margin-bottom: 1em;
   padding-bottom: 1em;
   border-bottom: $border;
+
   .spinner {
     padding-top: 90px;
   }
+
   @include breakpoint($mq-col2) {
     min-width: var(--col2-uniboard-main-size);
   }
 }
 
 $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
+
 .board-editor {
   display: grid;
   grid-template-columns: minmax(0, $board-width);
@@ -30,34 +33,43 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
   user-select: none;
   width: 75%;
   margin: auto;
+
   .actions {
     grid-area: e-actions;
     font-size: 0.8em;
   }
+
   .tools {
     grid-area: e-tools;
     display: flex;
     gap: 4%;
+
     & > div {
       flex: 1;
+
       select {
         width: 100%;
       }
     }
   }
+
   .main-board {
     grid-area: e-board;
+
     sg-board {
       cursor: inherit;
     }
   }
+
   .spare {
     &-top {
       grid-area: e-spare-top;
     }
+
     &-bottom {
       grid-area: e-spare-bottom;
     }
+
     &::after {
       content: unset;
     }
@@ -77,15 +89,19 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
     .spare {
       padding: 0 calc(#{$hands-gap} / 11); // hands padding per square
     }
+
     &.main-v-chushogi {
       grid-template-columns: 4fr 12fr 4fr;
+
       .spare {
         padding: 0;
       }
     }
+
     &.main-v-minishogi,
     &.main-v-kyotoshogi {
       grid-template-columns: 2fr 7fr 2fr;
+
       .spare {
         padding: 0 calc(#{$hands-gap} / 7);
       }

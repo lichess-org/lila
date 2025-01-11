@@ -3,25 +3,32 @@
     @extend %flex-wrap;
 
     margin-top: 5px;
+
     a {
       flex: 0 0 50%;
       height: 44px;
+
       @extend %flex-center;
 
       justify-content: center;
+
       @include transition(background);
+
       &:hover {
         background: $c-dasher-light;
       }
+
       &.active {
         background-color: $c-dasher;
         color: $c-dasher-over;
       }
+
       span {
         display: block;
         width: 69px;
         height: 38px;
       }
+
       &.custom {
         display: block;
         padding: 8px 1rem;
@@ -29,12 +36,15 @@
         height: 38px;
         margin-top: 6px;
         border-top: $border;
+
         &.active {
           color: $c-dasher-over;
+
           &::before {
             color: $c-dasher-over;
           }
         }
+
         &::before {
           float: right;
           font-size: 80%;
@@ -43,56 +53,73 @@
         }
       }
     }
+
     .natural {
       background-image: url('../images/boards/thumbnails/natural.png');
     }
+
     .orange {
       background-image: url('../images/boards/thumbnails/orange.png');
     }
+
     .space {
       background-image: url('../images/boards/thumbnails/space.png');
     }
+
     .blue {
       background-image: url('../images/boards/thumbnails/blue.png');
     }
+
     .gray {
       background-image: url('../images/boards/thumbnails/gray.png');
     }
+
     .wood {
       background-image: url('../images/boards/thumbnails/wood.png');
     }
+
     .wood1 {
       background-image: url('../images/boards/thumbnails/wood1.png');
     }
+
     .doubutsu {
       background-image: url('../images/boards/thumbnails/doubutsu.png');
     }
+
     .kaya1 {
       background-image: url('../images/boards/thumbnails/kaya1.png');
     }
+
     .kaya2 {
       background-image: url('../images/boards/thumbnails/kaya2.png');
     }
+
     .oak {
       background-image: url('../images/boards/thumbnails/oak.png');
     }
+
     .painting1 {
       background-image: url('../images/boards/thumbnails/painting1.png');
     }
+
     .painting2 {
       background-image: url('../images/boards/thumbnails/painting2.png');
     }
+
     .kinkaku {
       background-image: url('../images/boards/thumbnails/kinkaku.png');
     }
+
     .thick-switch {
       margin-left: auto;
       margin-right: calc(225px / 6);
+
       & > label {
         width: 100%;
         display: block;
         text-align: center;
       }
+
       &.disabled {
         pointer-events: none;
         opacity: 0.5;

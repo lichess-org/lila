@@ -1,15 +1,19 @@
 .eval-gauge {
   @extend %box-radius;
+
   width: $block-gap;
   position: relative;
   background: $c-eval-sente;
   overflow: hidden;
+
   @include breakpoint($mq-col1-uniboard) {
     display: none;
   }
+
   &.reverse {
     transform: rotateX(180deg);
   }
+
   &::after {
     content: '';
     display: block;
@@ -20,6 +24,7 @@
     right: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
   }
+
   tick {
     position: absolute;
     top: 0;
@@ -28,10 +33,12 @@
     border-bottom: 2px ridge $c-eval-gote;
     opacity: 0.4;
   }
+
   tick.zero {
     border-color: $c-accent;
     opacity: 1;
   }
+
   .gote {
     width: 100%;
     height: 50%;

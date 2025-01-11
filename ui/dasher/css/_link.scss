@@ -3,6 +3,7 @@
   .subs {
     padding: 5px 0;
   }
+
   .links a,
   .links button,
   .subs .sub {
@@ -11,17 +12,20 @@
     display: block;
     padding: 0.5rem 1rem;
   }
+
   .links button {
     width: 100%;
     text-align: left;
     border: 0;
     background: none;
   }
+
   .links a::before,
   .links button::before {
     position: relative;
     bottom: 0.05em;
   }
+
   .links a:hover,
   .links a:hover::before,
   .links button:hover,
@@ -30,12 +34,15 @@
     color: $c-dasher-over;
     opacity: 1;
   }
+
   .logout button:hover {
     background: $c-error;
   }
+
   .subs {
     border-top: $border;
   }
+
   .sub {
     &::before {
       float: right;
@@ -43,6 +50,7 @@
       margin-top: 0.25rem;
       color: $c-dasher;
     }
+
     &:hover::before {
       color: $c-dasher-over;
       opacity: 0.9;

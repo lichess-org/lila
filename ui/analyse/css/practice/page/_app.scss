@@ -2,6 +2,7 @@
   section {
     > h2 {
       @extend %roboto;
+
       color: $c-font-dim;
       font-size: 2em;
       letter-spacing: 0.3em;
@@ -9,59 +10,76 @@
       text-align: center;
     }
   }
+
   .studies {
     --min-width: 100vw;
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em;
     margin: 0.8em 0 3em 0;
+
     @include breakpoint($mq-xx-small) {
       --min-width: 400px;
     }
   }
+
   .study {
     @extend %flex-center, %box-neat;
+
     position: relative;
     height: 110px;
     min-width: 300px;
     color: #fff;
+
     @include transition;
+
     white-space: nowrap;
     font-size: 1.2em;
     overflow-x: hidden;
+
     @include breakpoint($mq-main-margin) {
       overflow-x: visible; /* ribbon */
     }
+
     i {
       flex: 0 0 80px;
       height: 80px;
       margin: 0 0.9em;
       opacity: 0.9;
     }
+
     h3 {
       font-size: 1.4em;
     }
+
     @keyframes soft-bright {
       50% {
         filter: brightness(1.2);
       }
     }
+
     &.ongoing {
       background: $c-primary;
+
       &:hover {
         animation: 1.7s soft-bright ease-in-out infinite;
       }
     }
+
     &.done {
       background: #4caf50 !important;
     }
+
     &.future {
       opacity: 0.7;
       background: #f57c00;
     }
+
     &.future .icon {
       opacity: 0.7;
     }
+
     &.active,
     &:hover {
       filter: brightness(1.08);
@@ -69,6 +87,7 @@
       opacity: 1;
     }
   }
+
   .ribbon-wrapper {
     display: block;
     width: 85px;
@@ -78,6 +97,7 @@
     top: -3px;
     right: -3px;
   }
+
   .ribbon {
     display: block;
     font-size: 15px;
@@ -92,6 +112,7 @@
     width: 120px;
     color: #6a6340;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+
     &::before,
     &::after {
       content: '';
@@ -101,21 +122,27 @@
       position: absolute;
       bottom: -3px;
     }
+
     &::before {
       left: 0;
     }
+
     &::after {
       right: 0;
     }
+
     background-color: #b3e5fc;
   }
+
   .done .ribbon {
     background-color: #bfdc7a;
+
     &::before,
     &::after {
       border-top: 3px solid #6e8900;
     }
   }
+
   .what_next > p {
     width: 100%;
     text-align: center;

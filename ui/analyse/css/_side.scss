@@ -4,9 +4,11 @@
   .back-to-game {
     margin-top: 2em;
     text-align: center;
+
     @include breakpoint($mq-col3) {
       margin-top: 10vh;
     }
+
     .button {
       margin: 0 auto;
     }

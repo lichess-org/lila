@@ -1,41 +1,54 @@
 .tour__standing {
   border: none;
+
   .player {
     padding-left: 0;
     padding-right: 0;
+
     .name {
       @extend %nowrap-ellipsis;
+
       display: inline-block;
       vertical-align: middle;
       padding-right: 5px;
       max-width: 140px;
     }
   }
+
   .user-link.long {
     letter-spacing: -0.7px;
   }
+
   .user-link .rating {
     font-style: italic;
     font-size: 0.8em;
   }
+
   tr.long .user-link .rating {
     display: block;
     padding-left: 0;
   }
+
   tr {
     @include transition;
+
     user-select: none;
   }
+
   .loading tbody {
     opacity: 0.6;
+
     @include transition(opacity, 0.3s);
   }
+
   &:not(.created):not(.loading) tbody tr:hover {
     background: $m-primary_bg-box_mix_30;
     cursor: pointer;
   }
+
   tr.me td:first-child {
     $c-me-border: $m-secondary_bg-box_mix_70;
+
     background: linear-gradient(
       to right,
       $c-me-border 0,
@@ -44,8 +57,10 @@
       rgba(0, 0, 0, 0) 100%
     );
   }
+
   tr.active td:last-child {
     $c-active-border: $m-primary_bg-box_mix_70;
+
     background: linear-gradient(
       to left,
       $c-active-border 0,
@@ -54,8 +69,10 @@
       rgba(0, 0, 0, 0) 100%
     );
   }
+
   td.rank {
     @extend %roboto;
+
     padding: 1em 0.5em 1em 10px;
     width: 1px; /* helps keeping it as small as possible */
     i {
@@ -63,34 +80,42 @@
       font-size: 0.8em;
     }
   }
+
   .sheet {
     text-align: right;
     padding-right: 0;
     padding-left: 0;
     letter-spacing: 0.1em;
+
     & > * {
       display: inline-block;
     }
+
     score {
       opacity: 0.7;
     }
   }
+
   tr.long .sheet {
     font-size: 0.9rem;
     letter-spacing: 0.06em;
   }
+
   tr.xlong .sheet {
     font-size: 0.85rem;
     letter-spacing: 0.04em;
   }
+
   double {
     color: $c-brag;
     /* font-weight: bold; */
   }
+
   streak {
     color: $c-secondary;
     /* font-weight: bold; */
   }
+
   .total {
     text-align: right;
     font-weight: bold;

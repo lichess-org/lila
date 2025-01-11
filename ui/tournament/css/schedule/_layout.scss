@@ -9,9 +9,11 @@
     grid-area: side;
     margin: 0 $block-gap;
   }
+
   &__schedule {
     grid-area: schedule;
   }
+
   &__list {
     grid-area: list;
     display: none;
@@ -23,9 +25,11 @@
       'side schedule'
       'side list'
       'side .';
+
     &__side {
       margin: 0;
     }
+
     &__list {
       display: block;
     }

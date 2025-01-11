@@ -8,14 +8,18 @@
   #topnav {
     --nav-section: 26px;
     --nav-section-hover: 35px;
+
     @include breakpoint($mq-site-header-tall) {
       --nav-section: 48px;
       --nav-section-hover: 53px;
     }
+
     display: flex;
+
     section {
       position: relative;
       height: var(--nav-section);
+
       > a {
         color: $c-font-page;
         text-shadow: $text-shadow;
@@ -25,14 +29,17 @@
         padding: 0 0.7rem;
         text-transform: uppercase;
         border-left: 2px solid transparent;
+
         @media (hover: none) {
           pointer-events: none;
         }
       }
+
       .home {
         display: none;
       }
     }
+
     div {
       visibility: hidden;
       max-height: inherit;
@@ -43,29 +50,36 @@
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
       border-radius: 0 3px 3px 3px;
       border-left: 2px solid $c-primary;
+
       a {
         display: block;
         padding: 0.6rem 0.7rem;
         color: $c-header-dropdown;
+
         &:hover {
           background: $c-primary;
+
           &,
           &::after {
             color: $c-primary-over;
           }
         }
+
         &:first-child {
           border-radius: 0 3px 0 0;
         }
+
         &:last-child {
           border-radius: 0 0 3px 1px;
         }
       }
     }
+
     &.blind div {
       display: block;
       margin-left: -9000px;
     }
+
     &.hover section:hover,
     section:active {
       > a {
@@ -74,14 +88,17 @@
         color: $c-header-dropdown;
         border-color: $c-primary;
       }
+
       div {
         visibility: visible;
         max-height: none;
       }
     }
   }
+
   .new-feature {
     position: relative;
+
     &::after {
       content: 'NEW';
       font-size: 0.7rem;

@@ -109,8 +109,10 @@
 
 .puzzle-of-player {
   position: relative;
+
   &__form {
     display: flex;
+
     input {
       margin-right: 1em;
       width: 30ch;
@@ -136,12 +138,14 @@
 
     &__meta {
       @extend %flex-between;
+
       font-size: 0.9em;
       padding: 0 0.3em;
     }
 
     &__id {
       opacity: 0;
+
       @include transition;
     }
 
@@ -163,6 +167,7 @@
     padding: 0 1em;
     display: flex;
     align-items: center;
+
     &::before {
       font-size: 2em;
     }

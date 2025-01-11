@@ -1,15 +1,18 @@
 #main-wrap {
   --main-max-width: auto;
+
   @include breakpoint($mq-col1) {
     --main-max-width: calc(
       (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 9
     );
+
     &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc(
         (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 7 * 5 /
           12 * 11
       );
     }
+
     &:has(.main-v-chushogi) {
       --main-max-width: calc(
         (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 *
@@ -22,7 +25,6 @@
 .analyse {
   grid-area: main;
   display: grid;
-
   grid-template-rows: auto auto minmax(20em, 30vh);
   grid-template-areas:
     'board'
@@ -41,28 +43,36 @@
     justify-content: start;
     margin: $block-gap;
   }
+
   &__board,
   .intro {
     grid-area: board;
   }
+
   &__tools {
     grid-area: tools;
   }
+
   &__controls {
     grid-area: controls;
   }
+
   &__underboard {
     grid-area: under;
+
     @include breakpoint($mq-col1) {
       overflow: hidden; // helps truncating long study names
     }
   }
+
   &__acpl {
     grid-area: acpl;
   }
+
   .chat__members {
     grid-area: uchat;
   }
+
   .eval-gauge {
     grid-area: gauge;
     display: none;
@@ -70,7 +80,6 @@
 
   @include breakpoint($mq-col2) {
     grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
-
     grid-template-rows: fit-content(0) $col2-uniboard-controls;
     grid-template-areas:
       'board      gauge tools'
@@ -110,6 +119,7 @@
     &__side {
       margin-top: 0;
     }
+
     .mchat {
       min-height: 10em;
     }
@@ -121,6 +131,7 @@
     @include breakpoint($mq-col2) {
       grid-template-columns: var(--col2-uniboard-main-size-no-hands) $big-block-gap $col2-uniboard-table;
     }
+
     @include breakpoint($mq-col3) {
       grid-template-columns:
         $col3-uniboard-side $big-block-gap var(--col3-uniboard-main-size-no-hands) $big-block-gap

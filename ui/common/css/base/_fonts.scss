@@ -1,6 +1,7 @@
 @function local-font($path) {
   @return url(#{$font-path}/#{$path});
 }
+
 @font-face {
   font-family: lishogi;
   src:
@@ -10,6 +11,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Noto Shogi';
   src:

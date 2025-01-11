@@ -2,6 +2,7 @@
 
 #main-wrap {
   --main-max-width: auto;
+
   @include breakpoint($mq-col1-uniboard) {
     justify-items: center;
 
@@ -9,12 +10,14 @@
       (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 15 * 9 /
         12 * 11
     );
+
     &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc(
         (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 11 * 5 /
           12 * 11
       );
     }
+
     &:has(.main-v-chushogi) {
       --main-max-width: calc(
         (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls}) / 20 * 12 / 12 * 11
@@ -64,6 +67,7 @@
         minmax(math.div($col2-uniboard-table-min, 2), $files2k)
         minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4k}));
     }
+
     &.main-v-chushogi {
       $files2k-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 4 + 1rem);
       $files4k-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 8 + 2rem);
@@ -100,6 +104,7 @@
         minmax(0, $files2k) $block-gap var(--col3-uniboard-main-size)
         $block-gap minmax(0, $files2k);
     }
+
     &.main-v-chushogi {
       $files2k-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 4 + 1rem);
       $files4k-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 8 + 2rem);

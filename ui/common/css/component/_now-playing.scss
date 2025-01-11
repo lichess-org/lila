@@ -2,29 +2,35 @@
   display: grid;
 
   --np-min-width: 200px;
+
   grid-template-columns: repeat(auto-fill, minmax(var(--np-min-width), 1fr));
 
   @include breakpoint($mq-not-xx-small) {
     --np-min-width: 50%;
   }
+
   > a {
     @extend %box-radius;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     color: $c-font;
     padding: 0.3em;
   }
+
   .meta {
     display: block;
     text-align: center;
     overflow: hidden;
   }
+
   .indicator {
     color: $c-accent;
     margin-top: -3px;
     display: block;
   }
+
   sg-board {
     box-shadow: none;
   }

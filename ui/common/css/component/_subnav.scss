@@ -8,11 +8,11 @@
     grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
     grid-gap: 3px;
     margin-bottom: 3px;
-
     background: $c-bg-page;
 
     a {
       @include box-neat;
+
       font-family: Roboto;
       display: flex;
       align-items: center;
@@ -20,14 +20,17 @@
       padding: 0.6rem 0 0.6rem 0.5rem;
       letter-spacing: -0.06em;
       background: $c-bg-high;
+
       &:hover {
         color: $c-link;
       }
+
       &.active {
         background: $c-primary;
         color: $c-primary-over;
       }
     }
+
     .sep {
       display: none;
     }
@@ -41,7 +44,9 @@
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
+
       @include transition;
+
       &::after {
         content: '';
         background: $m-accent_alpha_neg40;
@@ -50,19 +55,24 @@
         height: 98%;
         top: 1%;
         right: -1px;
+
         @include transition(all, 0.25s);
+
         transform: scale(0);
       }
+
       &.active,
       &:hover {
         &::after {
           transform: scale(1);
         }
       }
+
       &.active {
         color: $c-accent;
       }
     }
+
     .sep {
       height: 2em;
     }

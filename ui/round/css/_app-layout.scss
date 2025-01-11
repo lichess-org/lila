@@ -1,27 +1,35 @@
 .rcontrols {
   grid-area: controls;
 }
+
 .expiration-top {
   grid-area: expi-top;
 }
+
 .expiration-bottom {
   grid-area: expi-bot;
 }
+
 .ruser-top {
   grid-area: user-top;
 }
+
 .ruser-bottom {
   grid-area: user-bot;
 }
+
 .rclock-top {
   grid-area: clock-top;
 }
+
 .rclock-bottom {
   grid-area: clock-bot;
 }
+
 .rmoves {
   grid-area: moves;
 }
+
 .keyboard-move {
   grid-area: kb-move;
 }
@@ -36,7 +44,6 @@
       auto
       auto
       $col1-player-clock-height;
-
     grid-template-areas:
       '.' // for move confirm
       'user-top'
@@ -55,6 +62,7 @@
     .rclock-top {
       grid-area: 2 / 1 / 2 / 2;
     }
+
     .rclock-bottom {
       grid-area: 5 / 1 / 5 / 2;
     }
@@ -62,15 +70,19 @@
     sg-board {
       box-shadow: none;
     }
+
     .expiration-top {
       display: none;
     }
+
     &__table {
       display: none;
     }
+
     .keyboard-move {
       margin-left: $block-gap;
     }
+
     .rmoves {
       margin-top: 1vmin;
     }
@@ -100,27 +112,35 @@
       'board    . expi-bot'
       'board    . clock-bot'
       'kb-move  . .';
+
     .round__app__table {
       grid-area: 2 / 3 / 8 / 4;
     }
+
     .expiration-top {
       display: flex;
     }
+
     .rmoves {
       margin-bottom: 1px;
+
       .moves {
         display: none;
         background: none;
       }
+
       &.impasse {
         display: flex;
       }
     }
+
     .keyboard-move {
       margin: $block-gap 0 0 0;
     }
+
     .rcontrols {
       align-self: flex-end;
+
       .ricons {
         &.empty {
           display: none;
@@ -140,21 +160,26 @@
         'kb-move  . .';
       margin-top: -25px;
       grid-column-gap: 0;
+
       .rclock-turn {
         height: unset;
         line-height: unset;
       }
+
       .rclock-top,
       .empty__clock-top {
         grid-area: 1 / 1 / 2 / 2;
       }
+
       .rclock-bottom,
       .empty__clock-bottom {
         grid-area: 5 / 1 / 6 / 2;
       }
+
       .round__app__table {
         grid-area: 2 / 3 / 5 / 4;
       }
+
       .rclock {
         @include hand-width(margin-right);
         /* that weird shit is required so the clock goes above the player since they share the same grid cell */
@@ -162,6 +187,7 @@
         height: 25px;
         z-index: 1;
         background-color: $c-bg-high;
+
         .moretime,
         .berserked,
         .go-berserk {
@@ -169,49 +195,60 @@
             font-size: 18px;
           }
         }
+
         .go-berserk,
         .tour-rank {
           font-size: 18px;
           line-height: unset;
         }
       }
+
       .rclock .tour-rank,
       .rclock .moretime,
       .rclock .berserked {
         order: -1;
       }
+
       .rclock .bar {
         display: none;
       }
+
       .rclock {
         .time,
         .byoyomi {
           font-size: 16px !important;
           line-height: 22px;
+
           &.per0 {
             padding: 0;
           }
         }
+
         .time {
           padding: 3px 1vmin 0 1vmin;
           box-shadow: none;
         }
+
         .byoyomi {
           padding-left: 0;
         }
       }
+
       .ruser {
         @include board-width(width);
         @include hand-width(margin-left);
+
         height: 25px;
         padding: 0.1em 0.3em 0 0.3em;
         line-height: 22px;
         background-color: $c-bg-high;
         z-index: 1;
       }
+
       .ruser a {
         flex: none;
       }
+
       .expiration {
         height: 25px;
       }
@@ -235,6 +272,7 @@
       .round__app__table {
         grid-area: 3 / 3 / 9 / 4;
       }
+
       .rmoves .areplay {
         flex: 0 0 8rem;
       }
@@ -249,8 +287,10 @@
 
   &__board {
     grid-area: board;
+
     @include breakpoint($mq-col1) {
       margin: 1vmin 0;
+
       .main-v-chushogi & {
         margin: 0;
       }
@@ -262,15 +302,18 @@
       grid-template-columns: var(--col2-uniboard-main-size-no-hands) $big-block-gap $col2-uniboard-table;
     }
   }
+
   .main-v-chushogi &.compact-layout {
     @include breakpoint($mq-col2-uniboard) {
       grid-template-columns: var(--col3-uniboard-main-size-no-hands) $big-block-gap $col3-uniboard-table;
     }
   }
+
   .main-board.v-minishogi &.compact-layout,
   .main-board.v-kyotoshogi &.compact-layout {
     @include breakpoint($mq-col2-uniboard) {
       padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
+
       .sg-wrap {
         height: calc(100% / 9 * 5 / 7 * 11);
         top: calc(100% / 9 * 5 / 7);

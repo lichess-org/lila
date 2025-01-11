@@ -3,6 +3,7 @@
 
 sg-board {
   @extend %rel-100;
+
   display: block;
   background-size: cover;
   top: 0;
@@ -12,6 +13,7 @@ sg-squares,
 sg-pieces,
 sg-promotion {
   @extend %abs-100;
+
   top: 0;
   left: 0;
   display: block;
@@ -27,37 +29,45 @@ sg-pieces {
     cursor: pointer;
   }
 }
+
 sg-squares {
   display: grid;
   justify-content: space-between;
   grid-template: repeat(9, 1fr) / repeat(9, 1fr);
+
   .d-5x5 & {
     grid-template: repeat(5, 1fr) / repeat(5, 1fr);
   }
+
   .d-12x12 & {
     grid-template: repeat(12, 1fr) / repeat(12, 1fr);
   }
   // to force grid to fully cover the background
   width: calc(100% + 0.04px);
   height: calc(100% + 0.04px);
-
   pointer-events: none;
+
   sq {
     &.dest {
       background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
     }
+
     &.pre-dest {
       background: radial-gradient(rgba(20, 30, 85, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
     }
+
     &.oc.dest {
       background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
     }
+
     &.oc.pre-dest {
       background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
     }
+
     &.last-dest {
       background-color: rgba(155, 199, 0, 0.41);
     }
+
     &.check {
       background: radial-gradient(
         ellipse at center,
@@ -67,27 +77,34 @@ sg-squares {
         rgba(158, 0, 0, 0) 100%
       );
     }
+
     &.selected {
       background-color: rgba(20, 85, 30, 0.5);
     }
+
     &.preselected,
     &.current-pre {
       background-color: rgba(20, 30, 85, 0.5);
     }
+
     &.dest.hover {
       background: rgba(20, 85, 30, 0.3);
     }
+
     &.pre-dest.hover {
       background: rgba(20, 30, 85, 0.2);
     }
+
     &.force-selected:not(.selected) {
       animation: selected 1s ease-in-out infinite alternate;
     }
+
     &.sealed {
       background-color: rgba(20, 30, 85, 0.5);
     }
   }
 }
+
 piece {
   position: absolute;
   top: 0;
@@ -95,36 +112,44 @@ piece {
   width: calc(200% / 9);
   height: calc(200% / 9);
   margin: calc(-50% / 11 * 12 / 9) calc(-50% / 9);
+
   .d-5x5 sg-board & {
     width: calc(200% / 5);
     height: calc(200% / 5);
     margin: calc(-50% / 11 * 12 / 5) calc(-50% / 5);
   }
+
   .d-12x12 sg-board & {
     width: calc(200% / 12);
     height: calc(200% / 12);
     margin: calc(-50% / 11) calc(-50% / 12);
   }
+
   transform: scale(0.5);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
   z-index: z('sg__piece');
+
   &.anim {
     z-index: z('sg__piece.anim');
   }
+
   &.fading {
     z-index: z('sg__piece.fading');
     opacity: 0.5;
   }
+
   &.ghost {
     opacity: 0.3;
   }
+
   &.dragging {
     cursor: pointer;
     // pointer-events: auto; // interferes, but cursor has no effect without it
     z-index: z('sg__piece.dragging') !important;
+
     &.touch {
       top: -50px;
     }
@@ -138,14 +163,17 @@ sg-square-over {
   left: 0;
   width: calc(100% / 9);
   height: calc(100% / 9);
+
   .d-5x5 & {
     width: calc(100% / 5);
     height: calc(100% / 5);
   }
+
   .d-12x12 & {
     width: calc(100% / 12);
     height: calc(100% / 12);
   }
+
   background: #00000050;
   border-radius: 50%;
   padding: 6%;
@@ -158,24 +186,29 @@ sg-square-over {
 sg-promotion {
   z-index: z('sg__promotion');
   background-color: #0000003f;
+
   &.active {
     display: block;
     pointer-events: auto;
   }
+
   sg-promotion-square {
     position: absolute;
     top: 0;
     left: 0;
     width: calc(100% / 9);
     height: calc(100% / 9);
+
     .d-5x5 & {
       width: calc(100% / 5);
       height: calc(100% / 5);
     }
+
     .d-12x12 & {
       width: calc(100% / 12);
       height: calc(100% / 12);
     }
+
     sg-promotion-choices {
       display: flex;
       flex-direction: column;
@@ -185,6 +218,7 @@ sg-promotion {
       cursor: pointer;
       width: 100%;
       height: 200%;
+
       piece {
         display: block;
         position: relative;
@@ -194,6 +228,7 @@ sg-promotion {
         margin: calc(-50%) !important;
         pointer-events: auto;
       }
+
       &.reversed {
         margin: calc(-100% / 11 * 12) 0;
         flex-direction: column-reverse;
@@ -205,17 +240,21 @@ sg-promotion {
 svg.sg-shapes,
 svg.sg-custom-svgs {
   @extend %abs-100;
+
   overflow: visible;
   top: 0;
   left: 0;
   pointer-events: none;
 }
+
 .sg-custom-svgs {
   z-index: z('sg__svg.sg-custom-svgs');
+
   svg {
     overflow: visible;
   }
 }
+
 sg-free-pieces piece {
   z-index: z('sg__svg.sg-free-pieces');
   opacity: 0.7;
@@ -225,6 +264,7 @@ sg-free-pieces piece {
   from {
     background-color: transparent;
   }
+
   to {
     background-color: rgba(20, 85, 30, 0.5);
   }
@@ -232,6 +272,7 @@ sg-free-pieces piece {
 
 sg-hand-wrap {
   position: relative;
+
   sg-hand {
     display: flex;
     flex-wrap: wrap;
@@ -244,10 +285,13 @@ sg-hand-wrap {
     top: 0;
     left: 0;
     background-size: cover;
+
     &.promotion {
       opacity: 0.6;
+
       .hands-background & {
         opacity: 1;
+
         &::after {
           content: '';
           position: absolute;
@@ -263,10 +307,12 @@ sg-hand-wrap {
       position: relative;
       flex: 1 0 14%;
       height: 100%;
+
       &.selected {
         opacity: 1;
         background-color: rgba(20, 85, 30, 0.5);
       }
+
       &.preselected {
         opacity: 1;
         background-color: rgba(20, 30, 85, 0.5);
@@ -279,12 +325,15 @@ sg-hand-wrap {
       &[data-nb='0']:not(.drawing),
       &:not([data-nb]) {
         opacity: 0.1;
+
         .clear-hands & {
           opacity: 0;
         }
       }
+
       &::after {
         @extend %box-radius;
+
         content: attr(data-nb);
         position: absolute;
         bottom: 0;
@@ -299,10 +348,12 @@ sg-hand-wrap {
         cursor: pointer;
         z-index: 2;
       }
+
       &[data-nb='0']:not(.selected):not(.drawing)::after,
       &:not([data-nb])::after {
         content: none;
       }
+
       &.drawing::before {
         content: '';
         position: absolute;
@@ -325,13 +376,16 @@ sg-hand-wrap {
       }
     }
   }
+
   &.hand-top sg-hand {
     background-position: top left;
+
     sg-hp-wrap::after {
       bottom: unset;
       top: 0;
     }
   }
+
   &.hand-bottom sg-hand {
     background-position: bottom right;
   }

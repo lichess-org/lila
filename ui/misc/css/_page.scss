@@ -2,59 +2,75 @@
   .body {
     font-size: 1.1em;
     text-align: justify;
+
     h2 {
       margin-top: 1.3em;
       border-bottom: 2px solid $c-brag;
       line-height: 2.5em;
     }
+
     p,
     ul,
     ol {
       margin: 1em 0;
     }
+
     ul li {
       list-style: disc outside;
       margin: 0.5em 0 0 1.5em;
     }
+
     ol li {
       list-style: decimal inside;
       margin: 0.5em 0;
     }
+
     li {
       margin-left: 2em;
     }
+
     h3 {
       @extend %roboto;
+
       font-size: 1.5em;
       line-height: 2.5em;
       border-bottom: 1px solid $c-font;
     }
+
     h4 {
       font-weight: bold;
     }
+
     em {
       font-style: italic;
     }
+
     iframe {
       width: 100%;
     }
+
     img,
     .block-img {
       max-width: 100%;
     }
+
     .block-img {
       margin: 1em auto;
       text-align: center;
+
       img {
         width: auto;
         height: auto;
       }
     }
+
     .center {
       text-align: center;
     }
+
     .copy-zone {
       @extend %flex-center-nowrap;
+
       input {
         flex: 1 1 auto;
       }

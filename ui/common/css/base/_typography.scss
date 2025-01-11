@@ -1,6 +1,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   @include fluid-size('font-size', 12px, 14px);
   @extend %base-font-fallback;
 }
@@ -10,14 +11,19 @@ h2,
 h3,
 h4 {
   @extend %roboto;
+
   font-weight: normal;
   font-size: 1em;
 }
+
 h1 {
   margin-bottom: 5vh;
+
   @include fluid-size('font-size', 20px, 40px);
+
   a {
     color: $c-link-dim;
+
     &:hover {
       color: $c-link;
     }
@@ -30,5 +36,6 @@ h2 {
 
 .ninja-title {
   @extend %base-font;
+
   font-size: 1em;
 }

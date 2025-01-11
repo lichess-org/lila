@@ -4,7 +4,9 @@
 
 .lobby__app {
   @extend %flex-column;
+
   user-select: none;
+
   @include lobby-app-size;
 
   .lobby-nope & {
@@ -17,17 +19,21 @@
 
   &__content {
     @extend %box-neat-bottom;
+
     flex: 1 1 100%;
     position: relative;
     background: $c-bg-box;
     overflow-x: hidden;
     overflow-y: auto;
+
     &.lseeks,
     &.lreal_time {
       background: transparent;
+
       &:has(.hook__filters) {
         background: $c-bg-box;
       }
+
       &::before {
         display: flex;
         align-items: center;
@@ -46,6 +52,7 @@
   .lredir {
     background: $c-bg-box;
     display: flex;
+
     .spinner {
       width: 100px;
       height: 100px;
@@ -58,10 +65,13 @@
     cursor: pointer;
     z-index: 2;
     font-size: 1.3em;
+
     &.toggle-filter {
       right: 0;
     }
+
     @include transition;
+
     &:hover {
       color: $c-accent;
     }
@@ -69,10 +79,13 @@
 
   .gamesFiltered {
     color: $c-accent;
+
     @include transition;
+
     &:hover {
       color: $c-accent-dim;
     }
+
     i {
       margin-left: 0.2rem;
       font-size: 11px;

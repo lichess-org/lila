@@ -3,17 +3,21 @@
   0% {
     stroke-dashoffset: 0;
   }
+
   50% {
     stroke-dashoffset: 161;
   }
+
   100% {
     stroke-dashoffset: 322;
   }
 }
+
 .spinner {
   width: 64px;
   height: 80px;
   margin: auto;
+
   path {
     stroke-linecap: round;
     stroke-dasharray: 161;
@@ -28,15 +32,19 @@
   0% {
     background-position: left;
   }
+
   100% {
     background-position: right;
   }
 }
+
 .ddloader {
   background: img-url('loader/whitex1.png') no-repeat;
+
   @include theme-wrap('light') {
     background: img-url('loader/blackx1.png') no-repeat;
   }
+
   animation: ddloader 0.5s steps(15) infinite;
   vertical-align: middle;
   display: inline-block;

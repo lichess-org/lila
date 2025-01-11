@@ -1,17 +1,21 @@
 .hooks__list {
   width: 100%;
+
   tr {
     &.disabled {
       opacity: 0.4;
+
       td {
         cursor: default;
         background: transparent;
         border-color: transparent;
       }
     }
+
     &.cancel td {
       background: $m-secondary_alpha_neg60;
     }
+
     &.join:hover td {
       background: $m-accent_alpha_neg50;
       color: #fff;
@@ -20,6 +24,7 @@
     &:not(.disabled):hover ::before {
       opacity: 1;
     }
+
     &.variants td {
       text-align: center;
       padding: 4px 0;
@@ -29,32 +34,41 @@
       cursor: default;
     }
   }
+
   th {
     @extend %roboto;
+
     padding: 1em;
+
     &.sortable {
       cursor: pointer;
       padding-left: 0;
     }
+
     &.sortable:hover,
     &.sort {
       font-weight: normal;
     }
+
     &.sortable .is::before {
       opacity: 0;
       margin-right: 3px;
       content: 'R';
     }
+
     &.sortable.reverse .is::before {
       content: 'S';
     }
+
     &.sort .is::before {
       opacity: 0.7;
     }
+
     &.player {
       width: 110px;
     }
   }
+
   td {
     word-break: break-all;
     overflow: hidden;
@@ -62,31 +76,39 @@
     border-bottom: $border;
     cursor: pointer;
     background: $m-bg-box_alpha_neg50;
+
     &:first-child {
       width: 16px;
     }
+
     &:first-child ::before {
       font-size: 1.2em;
       line-height: 1.3;
     }
+
     &:last-child ::before {
       margin-right: 8px;
       line-height: 0.9;
       font-size: 1.6em;
     }
+
     ::before {
       opacity: 0.6;
     }
   }
+
   tbody.stepping {
     opacity: 0.7;
   }
 }
+
 .lseeks .create {
   margin: 20px 0;
   text-align: center;
+
   a.accent {
     background: $c-accent;
+
     &:hover {
       background: $c-accent;
     }

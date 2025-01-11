@@ -1,6 +1,8 @@
 .keyboard-move {
   @extend %flex-center-nowrap;
+
   height: fit-content;
+
   input {
     width: 6em;
     font-size: 1.1em;

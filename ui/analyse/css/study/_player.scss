@@ -4,11 +4,13 @@ $player-height: 1.6rem;
   sg-board {
     border-radius: 0;
   }
+
   @include breakpoint($mq-col2) {
     .analyse__underboard {
       margin-top: $player-height;
     }
   }
+
   @include breakpoint($mq-col1) {
     .analyse__board {
       margin: $player-height 0;
@@ -18,55 +20,70 @@ $player-height: 1.6rem;
 
 .study__player {
   @extend %flex-between-nowrap, %metal, %box-shadow;
+
   position: absolute;
   left: 0;
   right: 0;
   font-weight: bold;
   height: $player-height;
   white-space: nowrap;
+
   @include breakpoint($mq-col2) {
     @include hand-width(left);
     @include board-width(width);
   }
+
   &-top {
     @extend %box-radius-top;
+
     top: #{-$player-height};
   }
+
   &-bot {
     @extend %box-radius-bottom;
+
     bottom: #{-$player-height};
   }
+
   .left {
     flex: 1 1 100%;
     display: flex;
   }
+
   .result {
     flex: 0 0 auto;
     margin-left: 0.8em;
     padding-right: 0.8em;
     border-right: $border;
   }
+
   .analyse__clock {
     @extend %roboto, %flex-center-nowrap;
+
     align-self: stretch;
     font-size: 1.2em;
     padding: 0 0.8em;
     border-radius: 0 4px 0 0;
   }
+
   &-bot .analyse__clock {
     border-radius: 0 0 4px 0;
   }
+
   &.ticking .analyse__clock {
     background: $c-secondary;
     color: $c-secondary-over;
     text-shadow: none;
   }
+
   .info {
     margin-left: 10px;
+
     .color-icon {
       margin-right: 0.4em;
     }
   }
+
   .elo {
     margin-left: 0.5em;
     font-weight: normal;
@@ -78,6 +95,7 @@ $player-height: 1.6rem;
       background: none;
       box-shadow: none;
       border-radius: $box-radius-size;
+
       .analyse__clock {
         border-radius: $box-radius-size;
       }

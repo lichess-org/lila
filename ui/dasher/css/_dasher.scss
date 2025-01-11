@@ -10,23 +10,27 @@
   .spinner {
     margin: 20px auto;
   }
+
   .status {
     display: block;
     position: relative;
     padding: 0.8rem;
     border-top: $border;
+
     signal {
       position: absolute;
       right: 1rem;
       top: 1rem;
       font-size: 1.7rem;
     }
+
     .ping,
     .server {
       @extend %roboto;
 
       display: block;
     }
+
     strong {
       padding: 0 5px;
     }
@@ -37,10 +41,12 @@
     padding: 1rem;
     border-bottom: $border;
   }
+
   .head::before {
     color: $c-dasher;
     opacity: 0.8;
   }
+
   .head:hover::before {
     opacity: 1;
   }
@@ -50,6 +56,7 @@
       max-height: 400px;
       overflow: auto;
     }
+
     button {
       display: block;
       padding: 0.7rem 0.7rem 0.7rem 1rem;
@@ -57,67 +64,84 @@
       background: none;
       width: 100%;
       text-align: left;
+
       &:hover {
         background: $c-dasher-light;
       }
     }
+
     .accepted {
       border-left: 4px solid $c-dasher;
     }
+
     .current {
       background: $c-dasher !important;
       color: $c-dasher-over !important;
       border-left: none;
     }
+
     .help {
       color: $c-link;
       display: block;
       padding: 0.7rem 0.7rem 0.7rem 1rem;
+
       &:hover {
         background: $c-link;
         color: $c-link-over;
       }
     }
   }
+
   .selector {
     flex: 1 1 100%;
     margin: 0.5rem 0;
+
     a {
       display: block;
       padding: 0.7rem 1rem;
+
       @include transition(background);
+
       &:hover {
         background: $c-dasher-light;
       }
+
       &.active {
         background: $c-dasher !important;
         color: $c-dasher-over !important;
       }
+
       &::before {
         margin-right: 8px;
         font-size: 19px;
         justify-content: center;
         align-items: center;
         opacity: 0;
+
         @include transition(opacity);
       }
+
       &:hover::before {
         opacity: 1;
         color: $c-dasher;
       }
+
       &.active::before {
         opacity: 1;
         color: $c-dasher-over !important;
       }
     }
+
     &.large a {
       padding: 1rem;
     }
   }
+
   .zen {
     a::before {
       opacity: 0.5;
     }
+
     &:hover a::before {
       opacity: 1;
     }
@@ -126,11 +150,13 @@
   .sound {
     .slider {
       border-top: $border;
+
       input {
         width: 100%;
         font-size: 1.25rem;
       }
     }
+
     &.silent .slider {
       opacity: 0.2;
     }
@@ -141,6 +167,7 @@
       font-size: 0.9em;
       padding: 5px;
     }
+
     input {
       padding: 5px;
       border: 1px solid #444;
@@ -154,56 +181,70 @@
     display: none;
     border-top: $border;
     padding: 1.5rem;
+
     @include breakpoint($mq-board-resizable) {
       display: block;
     }
   }
+
   .board .slider {
     margin-top: 1rem;
   }
+
   .custom-theme {
     p {
       margin: 6px 0 3px;
     }
+
     .board,
     .grid,
     .hands {
       margin-top: 0.5rem;
     }
+
     .board,
     .grid {
       border-bottom: $border;
       padding-bottom: 1rem;
     }
+
     .title {
       padding: 3px;
       text-align: center;
     }
+
     .color-wrap,
     .url-wrap,
     .select-wrap {
       margin: 6px;
     }
+
     .select-wrap {
       display: inline-flex;
       align-items: center;
       justify-content: space-around;
       width: calc(100% - 12px);
+
       & > * {
         flex-grow: 1;
       }
     }
+
     .color-wrap input {
       width: calc(100% - 35px);
     }
+
     .url-wrap input {
       width: 100%;
     }
+
     &.loading {
       height: 400px;
+
       body.hands-background & {
         height: 550px;
       }
+
       .spinner {
         display: flex;
         justify-content: center;
@@ -212,13 +253,16 @@
 
     .sp-container {
       background-color: $c-bg-box;
+
       .sp-alpha {
         border-radius: 4px;
       }
+
       .sp-alpha-handle.highlight {
         background: $c-bg-input;
         outline: 2px solid $c-bad;
         animation: 1.3s flash-glow ease-in-out infinite;
+
         &::after {
           content: '';
           position: absolute;
@@ -235,15 +279,18 @@
           animation-delay: 3s;
         }
       }
+
       .sp-alpha-handle,
       .sp-slider {
         background: $c-bg-input;
         outline: 1px solid $c-font-clearer;
       }
+
       .sp-dragger {
         outline: 1px solid #1b1b1b;
       }
     }
+
     body:not(.hands-background) & .hands {
       display: none;
     }
@@ -255,10 +302,12 @@
     background: $c-bg-input;
     outline: 2px solid $c-bad;
   }
+
   50% {
     background: $c-bad;
     outline: 2px solid $c-font-clearer;
   }
+
   100% {
     background: $c-bg-input;
     outline: 2px solid $c-bad;
@@ -269,9 +318,11 @@
   0% {
     top: -20px;
   }
+
   50% {
     top: -15px;
   }
+
   100% {
     top: -20px;
   }

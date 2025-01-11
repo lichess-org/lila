@@ -1,17 +1,21 @@
 .tour__podium {
   > div {
     @extend %ellipsis;
+
     display: inline-block;
     text-align: center;
   }
+
   .first {
     width: 44%;
     font-size: 1.6em;
   }
+
   .second {
     font-size: 1.3em;
     width: 31%;
   }
+
   .third {
     font-size: 1.2em;
     width: 25%;
@@ -26,51 +30,62 @@
     background-image: img-url('icons/trophy_gold.svg');
     background-size: cover;
   }
+
   .second .trophy {
     height: 9em;
     width: 7em;
     background-image: img-url('icons/trophy_silver.svg');
   }
+
   .third .trophy {
     height: 7em;
     width: 7em;
     width: calc(1.1056 * 65px);
     background-image: img-url('icons/trophy_bronze.svg');
   }
+
   .trophy {
     margin: 0 auto 8px auto;
     background-size: contain !important;
     background-repeat: no-repeat;
     background-position: center;
   }
+
   @include breakpoint($mq-not-xx-small) {
     .trophy {
       display: none;
     }
   }
+
   .user-link {
     font-weight: bold;
     letter-spacing: -1px;
   }
+
   .stats {
     margin: 0.5em auto 0 auto;
     font-size: 0.7em;
   }
+
   .stats th {
     letter-spacing: -1px;
   }
+
   .stats td {
     font-weight: bold;
     padding-left: 5px;
     text-align: right;
   }
+
   .third .stats {
     font-size: 0.8em;
   }
 }
+
 .tour .big_top {
   position: relative;
   padding-bottom: 20px;
+
   #confetti {
     position: absolute;
     top: 0;

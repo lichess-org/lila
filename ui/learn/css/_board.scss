@@ -1,19 +1,23 @@
 .learn__main {
   sg-squares sq.help {
     position: relative;
+
     &::before {
       content: '';
       position: absolute;
       width: 100%;
       height: 100%;
       background-color: rgba(54, 146, 231, 0.5);
+
       .blue & {
         background-color: rgba(231, 54, 216, 0.5);
       }
     }
   }
+
   sg-squares sq.star {
     position: relative;
+
     &::before {
       content: '';
       position: absolute;
@@ -24,6 +28,7 @@
       background-size: cover;
       background-position: center;
     }
+
     &.dest:not(.hover) {
       background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
     }

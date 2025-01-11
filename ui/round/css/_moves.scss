@@ -1,8 +1,11 @@
 .rmoves {
   @extend %flex-column, %double-tap;
+
   max-height: 100vh;
+
   .buttons {
     @extend %box-shadow;
+
     flex: 0 0 40px;
     align-items: center;
     display: flex;
@@ -10,32 +13,39 @@
     background: $c-bg-zebra;
     font-size: 0.9em;
     order: 2;
+
     @include breakpoint($mq-col2) {
       order: 0;
     }
   }
+
   .fbt,
   .noop {
     padding: 9px 0;
     flex: 0 0 calc(100% / 6);
     text-align: center;
   }
+
   .fbt[disabled] {
     pointer-events: none;
   }
+
   .message {
     flex: 0 0 6.1rem;
   }
+
   .moves {
     @extend %zen;
   }
   #{$move-tag} {
     @extend %move-notation;
   }
+
   .result-wrap {
     &.victorious {
       color: $c-good;
     }
+
     &.defeated {
       color: $c-bad;
     }

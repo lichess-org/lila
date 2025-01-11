@@ -17,6 +17,7 @@ $mq-col3: $mq-col3-uniboard;
     grid-template-areas:
       'app   app'
       'side under';
+
     &__app {
       justify-self: center;
     }
@@ -38,14 +39,17 @@ $mq-col3: $mq-col3-uniboard;
 
   .tv-history {
     grid-area: now-playing;
+
     h2 {
       @extend %roboto, %page-text;
+
       font-size: 1.3em;
       text-transform: uppercase;
       margin: $block-gap 0;
       flex: 0 0 100%;
       text-align: center;
     }
+
     .now-playing {
       grid-template-columns: 50% 50%;
     }

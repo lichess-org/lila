@@ -3,6 +3,7 @@
 
   .categ > h2 {
     @extend %roboto;
+
     font-size: 2em;
     letter-spacing: 8px;
     text-transform: uppercase;
@@ -10,19 +11,24 @@
     text-shadow: $text-shadow;
     text-align: center;
   }
+
   .categ_stages {
     --min-width: 100vw;
+
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em 1.5em;
     margin: 0.8em 0 3em 0;
+
     @include breakpoint($mq-xx-small) {
       --min-width: 400px;
     }
   }
+
   .stage {
     @extend %box-radius, %flex-center-nowrap;
     @include transition;
+
     position: relative;
     height: 90px;
     color: $c-font-clear;
@@ -33,30 +39,36 @@
     font-size: 1.2em;
     background: $c-bg-box;
     border-left: 2px solid $c-primary;
+
     .stage-img {
       width: 80px;
       height: 80px;
       margin: 0 13px;
       filter: brightness(0.9);
+
       @include theme-wrap('light') {
         filter: brightness(0.2);
       }
     }
+
     .text {
       height: 100%;
       width: 75%;
       display: flex;
       flex-direction: column;
       justify-content: center;
+
       h3 {
         font-size: 1.6em;
         letter-spacing: 2px;
         margin: 0 0 1px -1px;
       }
+
       &.vvv h3 {
         font-size: 1.4em;
         letter-spacing: 1px;
       }
+
       p {
         margin: 0 2rem 0 0;
         overflow: hidden;
@@ -64,21 +76,27 @@
         text-overflow: ellipsis;
       }
     }
+
     &.first {
       animation: glow 1200ms infinite alternate;
     }
+
     &.done {
       border-left: 2px solid $c-secondary;
     }
+
     &:hover {
       & > div {
         opacity: 1;
       }
+
       background: $m-primary_bg-box_mix_15;
+
       &.done {
         background: $m-secondary_bg-box_mix_15;
       }
     }
+
     .ribbon {
       width: 85px;
       height: 85px;
@@ -86,6 +104,7 @@
       right: -6px;
       overflow: hidden;
       position: absolute;
+
       &::before,
       &::after {
         content: '';
@@ -96,14 +115,17 @@
         border-top-color: transparent;
         border-right-color: transparent;
       }
+
       &::before {
         top: 0;
         left: 0;
       }
+
       &::after {
         bottom: 0;
         right: 0;
       }
+
       .ribbon-inner {
         width: 120px;
         height: 35px;
@@ -119,31 +141,38 @@
         text-align: center;
         font-weight: bold;
         line-height: 1.46em;
+
         i {
           color: $c-brag;
           animation: 0.6s soft-hue ease-in-out infinite;
           text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
         }
+
         i:nth-child(2) {
           animation-delay: 0.2s;
         }
+
         i:nth-child(3) {
           animation-delay: 0.4s;
         }
       }
+
       &.done {
         .ribbon-inner {
           background-color: #bfdc7a;
         }
+
         &::before,
         &::after {
           border: 3px solid #6e8900;
         }
       }
+
       &.ongoing {
         .ribbon-inner {
           background-color: #b3e5fc;
         }
+
         &::before,
         &::after {
           border: 3px solid #536dfe;
@@ -151,19 +180,24 @@
       }
     }
   }
+
   .what_next {
     .stage {
       border-left: 2px solid $c-accent;
+
       &:hover {
         background: $m-accent_bg-box_mix_15;
       }
+
       &.done {
         border-left: 2px solid $c-secondary;
+
         &:hover {
           background: $m-secondary_bg-box_mix_15;
         }
       }
     }
+
     & > p {
       width: 100%;
       text-align: center;
@@ -177,6 +211,7 @@
   from {
     box-shadow: 0 0 15px -5px $c-primary-glow;
   }
+
   to {
     box-shadow: 0 0 15px 5px $c-primary-glow;
   }

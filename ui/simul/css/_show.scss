@@ -12,11 +12,13 @@ $box-padding: var(--box-padding);
 .simul {
   h1 {
     font-size: 2.1em;
+
     .author {
       margin-left: 0.7em;
       font-size: 0.7em;
     }
   }
+
   .finished {
     font-size: 2em;
   }
@@ -29,6 +31,7 @@ $box-padding: var(--box-padding);
   .game-list {
     margin: 2em 0;
     grid-gap: 1rem;
+
     .vstext .vstext__pl {
       width: 60%;
       max-width: 60%;
@@ -37,6 +40,7 @@ $box-padding: var(--box-padding);
 
   .simul-text {
     @extend %box-neat;
+
     margin: 0 auto 2em auto;
     padding: 1.5em 2.5em;
     background: $c-bg-zebra;
@@ -46,9 +50,11 @@ $box-padding: var(--box-padding);
       width: 100%;
       height: 10em;
     }
+
     .save {
       width: 100%;
     }
+
     p {
       margin: 0;
     }

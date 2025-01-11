@@ -5,40 +5,49 @@
 
       background-size: cover;
       background-position: center;
+
       .no-square {
         width: 56.25px;
         height: calc(56.25px / 11 * 12);
         position: relative;
+
         &:hover {
           background: rgba(20, 85, 30, 0.3);
         }
+
         &.active {
           background: rgba(20, 85, 30, 0.5);
         }
+
         piece {
           width: 200%;
           height: 200%;
           margin: calc(-50% / 11 * 12) -50%;
           background-repeat: no-repeat;
         }
+
         &[data-value='pixel'] piece {
           image-rendering: pixelated;
         }
       }
     }
+
     .piece-tabs {
       display: flex;
       justify-content: space-around;
       border-top: 2px solid $c-dasher;
+
       div {
         flex: 1;
         opacity: 0.65;
         padding: 5px 0;
         text-align: center;
         font-size: 0.9rem;
+
         &:hover {
           opacity: 0.9;
         }
+
         &.active {
           opacity: 1;
           font-weight: bold;

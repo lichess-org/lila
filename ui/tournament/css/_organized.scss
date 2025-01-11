@@ -10,9 +10,11 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+
     label {
       padding: 1.5rem 0 0.25rem 0;
     }
+
     &.disabled {
       opacity: 0.7;
       cursor: not-allowed;
@@ -28,12 +30,15 @@
       .search-wrap {
         display: flex;
         align-items: center;
+
         & > span {
           text-align: center;
           width: 3rem;
         }
+
         select {
           width: 12rem;
+
           option:disabled {
             color: $c-font-dimmer;
           }
@@ -63,20 +68,25 @@
   .games-users-wrap {
     margin-top: 2rem;
     width: 100%;
+
     h4 {
       font-size: 1.3rem;
       text-align: center;
       margin-bottom: 3px;
     }
+
     .games-users {
       overflow-x: scroll;
       scrollbar-width: none;
       border-top: $border;
+
       &::-webkit-scrollbar {
         display: none;
       }
+
       & > div {
         display: flex;
+
         .arr-thumb-wrap {
           flex: 1;
         }

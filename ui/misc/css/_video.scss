@@ -1,6 +1,7 @@
 .video {
   .box__top form {
     position: relative;
+
     span {
       position: absolute;
       left: 10px;
@@ -8,6 +9,7 @@
       font-size: 1.4em;
       opacity: 0.6;
     }
+
     input {
       text-indent: 23px;
     }
@@ -22,27 +24,37 @@
 
   .card {
     @extend %box-radius, %button-shadow;
+
     position: relative;
     overflow: hidden;
     padding-bottom: calc(56.25% + 30px);
+
     @include transition;
+
     color: $c-font;
+
     &:hover {
       @extend %button-raised-shadow;
     }
+
     .img {
       @extend %video;
+
       position: absolute;
       height: 100%;
       background-size: cover;
       background-position-y: bottom;
+
       @include transition;
     }
+
     &:hover .img {
       opacity: 0.5;
     }
+
     .info {
       @extend %metal;
+
       display: block;
       position: absolute;
       width: 100%;
@@ -51,13 +63,16 @@
       border: $border;
       border-top: 0;
     }
+
     .title {
       font-weight: bold;
       display: block;
       height: 32px;
     }
+
     .reveal {
       @extend %metal;
+
       position: absolute;
       top: 100%;
       width: 100%;
@@ -66,12 +81,15 @@
       z-index: 1;
       padding: 10px 10px 0 10px;
       opacity: 0;
+
       @include transition;
     }
+
     &:hover .reveal {
       transform: translateY(-100%);
       opacity: 1;
     }
+
     .duration {
       position: absolute;
       bottom: 1px;
@@ -81,8 +99,10 @@
       padding: 0 5px;
       background: $m-bg-box_alpha_neg20;
     }
+
     .view {
       @extend %box-radius;
+
       position: absolute;
       top: 5px;
       left: 5px;
@@ -93,23 +113,27 @@
       text-transform: uppercase;
       font-weight: bold;
     }
+
     .full-title {
       font-weight: bold;
       display: block;
       max-height: 55px;
       overflow: hidden;
     }
+
     .author {
       display: block;
       margin-bottom: 0.8em;
       opacity: 0.8;
     }
+
     .target {
       text-transform: uppercase;
       text-align: center;
       display: block;
       margin-bottom: 0.8em;
     }
+
     .tags span {
       display: block;
     }
@@ -118,34 +142,41 @@
   .show {
     .embed {
       @extend %video, %box-radius-top;
+
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       margin-bottom: 2em;
     }
+
     .meta {
       padding: 0 25px 10px 25px;
+
       .target {
         display: block;
         text-align: center;
         text-transform: uppercase;
         margin-bottom: 1em;
       }
+
       .author {
         color: $c-font-dim;
         font-size: 1.5em;
         margin-right: 15px;
       }
+
       .tag {
         color: $c-font-dim;
         font-weight: bold;
         margin-right: 5px;
       }
+
       .author:hover,
       .tag:hover {
         color: $c-link;
       }
+
       .description {
         margin-top: 1em;
       }
@@ -155,40 +186,51 @@
   .subnav {
     text-transform: capitalize;
     min-width: 225px;
+
     a {
       @extend %flex-between;
+
       padding: 0.5em 0.8em;
+
       em {
         font-weight: bold;
         color: $c-font-dim;
         margin-left: 1em;
+
         @include breakpoint($mq-subnav-top) {
           display: none;
         }
       }
+
       &.full span::before {
         content: '+';
         font-size: 1.2em;
         margin-right: 0.5em;
         font-weight: bold;
       }
+
       &.checked {
         @extend %box-radius-left;
+
         font-weight: bold;
         background: $c-bg-box;
         border-bottom: $border;
+
         span::before {
           content: '-';
         }
+
         @include breakpoint($mq-subnav-top) {
           background: $c-accent;
           color: $c-accent-over;
         }
       }
+
       &.empty {
         color: $c-font-dimmer;
         cursor: default;
       }
+
       &:hover span::before {
         color: $c-accent;
       }
@@ -202,18 +244,23 @@
 
   .tag-list {
     text-align: justify;
+
     a {
       @extend %box-radius;
+
       color: $c-font;
       display: inline-block;
       padding: 3px 5px;
       margin: 5px 5px;
       background: $c-bg-zebra;
       text-transform: capitalize;
+
       &:hover {
         @extend %button-shadow;
+
         background: $c-bg-box;
       }
+
       em {
         font-weight: bold;
         opacity: 0.6;
@@ -226,13 +273,16 @@
     margin-top: 200px;
     text-align: center;
   }
+
   #video .not_much {
     margin-top: 100px;
     text-align: center;
   }
+
   #video .not_much.nb_0 {
     margin-top: 200px;
   }
+
   #video .explain {
     text-align: center;
     margin: 50px 0 35px 0;

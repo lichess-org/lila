@@ -15,22 +15,27 @@
   &__side {
     grid-area: side;
   }
+
   &__main {
     grid-area: main;
+
     .box__top__actions {
       margin-left: unset;
+
       .button {
         min-width: 8rem;
         justify-content: center;
       }
     }
   }
+
   .chat__members {
     grid-area: uchat;
   }
 
   @include breakpoint($mq-col2) {
     min-width: 600px;
+
     &:not(.simul-created) {
       grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
       grid-template-rows: auto max-content;

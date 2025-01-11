@@ -24,18 +24,23 @@ $shape-themes: (
 
 .sg-shapes {
   z-index: z('sg__svg.sg-shapes');
+
   & > g > g {
     opacity: 0.8;
   }
+
   ellipse {
     fill: none;
   }
+
   g.current line {
     opacity: 0.7;
   }
+
   g.outside line {
     opacity: 0.4;
   }
+
   .description text {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 50%;
@@ -58,6 +63,7 @@ $shape-themes: (
   }
   $blues: 'engine', 'engineAlt';
   $blue-alt: #e68f00;
+
   @each $blue in $blues {
     .blue &,
     .space &,
@@ -78,6 +84,7 @@ $shape-themes: (
   g.engineThreat {
     opacity: 0.6;
   }
+
   g.engineAlt,
   g.engineThreatAlt {
     opacity: 0.35;
@@ -87,6 +94,7 @@ $shape-themes: (
   g.pre-suggest {
     opacity: 0.4;
   }
+
   g.confirm,
   g.pre-confirm {
     opacity: 0.9;

@@ -1,74 +1,94 @@
 .rcontrols {
   text-align: center;
   width: 100%;
+
   p {
     margin: 0;
   }
+
   .disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
+
   .ddloader {
     margin: 20px auto 10px auto;
   }
+
   .q-explanation {
     padding: 0.5rem;
   }
+
   .suggestion,
   .pending,
   .negotiation {
     padding: 0.5em 3%;
     background: $c-bg-zebra;
   }
+
   .suggestion {
     @extend %flex-center;
+
     justify-content: space-around;
+
     p {
       width: 100%;
     }
+
     h5 {
       width: 100%;
       font-size: 1.2rem;
       text-align: center;
       margin-left: 1rem;
     }
+
     .button {
       margin: 0.5em 0 0 0;
     }
+
     .impasse {
       width: 100%;
       display: flex;
       justify-content: space-around;
       margin-bottom: 1rem;
+
       .color-icon::before {
         font-size: 1.3rem;
       }
+
       .impasse-list {
         text-align: left;
+
         li {
           margin: 0.1rem;
         }
       }
+
       .good {
         color: $c-good;
         font-weight: bold;
       }
     }
+
     .sealed-move {
       font-size: 1.1rem;
       padding: 2rem 1rem;
     }
   }
+
   .pending {
     @extend %flex-center-nowrap;
+
     p {
       flex: 3 1;
       margin-right: 7px;
     }
+
     .button {
       flex: 1 1;
     }
   }
+
   @keyframes flash-once {
     from {
       background: $c-accent;
@@ -80,87 +100,110 @@
       color: $c-font;
     }
   }
+
   .negotiation {
     @extend %flex-center-nowrap;
-    animation: flash-once 1s ease-in;
 
+    animation: flash-once 1s ease-in;
     padding: 1px;
+
     p {
       flex: 3 1 auto;
       margin: 0.5rem;
     }
+
     a {
       flex: 1 0 3rem;
       font-size: 1.5em;
       line-height: 3em;
       background: $c-bg-box;
     }
+
     .accept {
       color: $c-good;
       margin-right: 1px;
     }
+
     .decline {
       color: $c-bad;
     }
+
     a:hover {
       color: #fff;
       background: $c-good;
     }
+
     a.decline:hover {
       background: $c-bad;
     }
+
     @include breakpoint($mq-col1) {
       a {
         line-height: 1.6em;
         flex: 0 0 2.5rem;
         padding: 0 1.2em;
       }
+
       padding: 3px;
     }
   }
+
   .glowing:hover {
     animation: none;
   }
+
   .follow-up {
     @extend %flex-column;
+
     position: relative; /* for rematch-decline */
     .fbt {
       padding: 12px 0;
     }
+
     > .fbt:first-child {
       margin-top: 0;
     }
+
     .fbt.strong {
       padding: 1.8em 0;
       font-size: 1.2em;
     }
+
     .weak {
       font-weight: normal;
       padding: 6px 0;
     }
+
     .weak::before {
       opacity: 0.7;
     }
+
     form .fbt {
       width: 100%;
     }
+
     .spinner {
       width: 45px;
       height: 55px;
+
       @include breakpoint($mq-col1) {
         width: 36px;
         height: 44px;
       }
+
       path {
         stroke: white;
       }
     }
+
     @include breakpoint($mq-col1) {
       margin-top: $block-gap;
     }
   }
+
   .analysis {
     display: none;
+
     @include breakpoint($mq-col1) {
       &:not(.disabled) {
         display: block;
@@ -168,48 +211,62 @@
       }
     }
   }
+
   .draw {
     p {
       order: 2;
     }
+
     a {
       order: 1;
     }
   }
+
   .rematch,
   .resume {
     &.fbt {
       @extend %metal;
+
       font-size: 1.2em;
       height: 5.5rem;
+
       @include transition;
     }
+
     &.me {
       background: $m-primary_bg-box_mix_80;
     }
+
     @keyframes rubber-band {
       0% {
         transform: scale3d(1, 1, 1);
       }
+
       6% {
         transform: scale3d(1.25, 0.75, 1);
       }
+
       8% {
         transform: scale3d(0.75, 1.25, 1);
       }
+
       10% {
         transform: scale3d(1.15, 0.85, 1);
       }
+
       13% {
         transform: scale3d(0.95, 1.05, 1);
       }
+
       15% {
         transform: scale3d(1.05, 0.95, 1);
       }
+
       20% {
         transform: scale3d(1, 1, 1);
       }
     }
+
     &.fbt:not(.disabled):hover,
     &.fbt.active {
       background: $m-link_bg-box_mix_70;
@@ -217,34 +274,43 @@
       animation: none;
     }
   }
+
   .resume-button {
     position: relative;
+
     .fbt.resume {
       width: 100%;
+
       .spinner {
         width: 45px;
         height: 55px;
+
         path {
           stroke: white;
         }
       }
     }
   }
+
   @keyframes button-glowing {
     0% {
       opacity: 0;
     }
+
     60% {
       opacity: 0.2;
     }
+
     85% {
       opacity: 0;
     }
   }
+
   .glowing {
     position: relative;
     animation: none;
     color: $c-font-clear;
+
     &::before {
       content: '';
       position: absolute;
@@ -258,6 +324,7 @@
       opacity: 0;
       animation: button-glowing 2s ease-in-out infinite;
     }
+
     span {
       display: block;
       position: relative;
@@ -265,10 +332,12 @@
       animation: rubber-band 5s infinite;
     }
   }
+
   .rematch-decline,
   .resume-decline,
   .post-game-study-decline {
     @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
+
     justify-content: center;
     position: absolute;
     top: 0;
@@ -279,33 +348,43 @@
     border: 0;
     opacity: 0.7;
     background: $m-bad_bg-box_mix_50;
+
     @include transition;
+
     display: none;
+
     @include breakpoint($mq-col2) {
       display: block;
     }
+
     &:hover {
       background: $c-bad;
       color: $c-bad-over;
     }
   }
+
   .post-game-study {
     position: relative;
     min-height: calc(1.5rem + 25px);
+
     form,
     a.fbt {
       display: flex;
       justify-content: center;
+
       .spinner {
         width: 16px;
         height: 20px;
       }
+
       button.inactive {
         pointer-events: none;
       }
+
       &:hover ~ .new-study-button {
         color: #fff;
         background: $m-secondary_bg-box_mix_75;
+
         &::after {
           content: '';
           width: 1px;
@@ -317,12 +396,14 @@
           opacity: 0.3;
         }
       }
+
       &.glowing {
         &::before {
           background: $c-secondary;
         }
       }
     }
+
     .new-study-button {
       display: flex;
       align-items: center;
@@ -333,10 +414,12 @@
       font-size: 1.5rem;
       color: $c-font-dim;
       padding: 0 0.75rem;
+
       &:hover {
         color: #fff;
       }
     }
+
     &-decline {
       height: calc(1.5rem + 25px);
     }

@@ -152,6 +152,7 @@
         color: $c-good-over;
       }
     }
+
     @include theme-wrap('light') {
       &--played span {
         color: $c-font-dim !important;
@@ -180,6 +181,7 @@
     &__title {
       font-size: 1.2em;
       margin-bottom: 4vh;
+
       h2 {
         @include fluid-size('font-size', 20px, 40px);
       }

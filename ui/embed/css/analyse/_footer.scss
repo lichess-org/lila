@@ -1,5 +1,6 @@
 .analyse__footer {
   @extend %flex-center-nowrap, %box-radius-bottom;
+
   font-size: 0.9em;
   height: 3rem;
   padding: 0 1vw;
@@ -11,14 +12,18 @@
 
   .left {
     @extend %nowrap-ellipsis;
+
     flex: 1 1 100%;
   }
+
   h1 {
     @extend %base-font;
+
     display: inline;
     font-size: 1em;
     margin: 0 1vw;
   }
+
   .open {
     flex: 0 0 auto;
     font-size: 1.5em;

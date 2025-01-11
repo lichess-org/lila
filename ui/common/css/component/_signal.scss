@@ -5,6 +5,7 @@ signal {
   overflow: visible;
   white-space: nowrap;
 }
+
 signal > i {
   width: 20%;
   margin-left: 1px;
@@ -12,12 +13,15 @@ signal > i {
   height: 40%;
   background-color: $m-good_bg-high_mix_80;
 }
+
 signal > i:nth-child(2) {
   height: 60%;
 }
+
 signal > i:nth-child(3) {
   height: 80%;
 }
+
 signal > i:nth-child(4) {
   height: 100%;
 }
@@ -25,9 +29,11 @@ signal > i:nth-child(4) {
 signal.q1 > i {
   background-color: $c-bad;
 }
+
 signal.q2 > i {
   background-color: $c-warn;
 }
+
 signal > i.off {
   background-color: $c-shade;
 }

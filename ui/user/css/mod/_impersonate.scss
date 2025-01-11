@@ -4,6 +4,7 @@ body {
 
 #impersonate {
   @extend %flex-center, %popup-shadow;
+
   height: 40px;
   background: #7f1010;
   color: #fff;
@@ -14,13 +15,16 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
+
   form {
     height: 40px;
   }
+
   a,
   .button {
     color: #fff;
   }
+
   .actions {
     margin-left: 2em;
   }
