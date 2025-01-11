@@ -28,4 +28,6 @@
   <string name="editRoundStudy">Forduló tanulmányának szerkesztése</string>
   <string name="deleteTournament">Verseny törlése</string>
   <string name="definitivelyDeleteTournament">Az egész verseny végleges törlése az összes fordulóval és játszmával együtt.</string>
+  <string name="fidePlayers">FIDE játékosok</string>
+  <string name="fideProfile">FIDE profil</string>
 </resources>

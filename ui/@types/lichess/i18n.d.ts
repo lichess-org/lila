@@ -3631,6 +3631,12 @@ interface I18n {
     notifications: string;
     /** Notifications: %1$s */
     notificationsX: I18nFormat;
+    /** %s Blunders */
+    numberBlunders: I18nPlural;
+    /** %s Inaccuracies */
+    numberInaccuracies: I18nPlural;
+    /** %s Mistakes */
+    numberMistakes: I18nPlural;
     /** Offer draw */
     offerDraw: string;
     /** OK */

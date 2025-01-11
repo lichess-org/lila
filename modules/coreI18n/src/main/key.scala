@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.ts
+// Generated with bin/i18n-file-gen.ts
 package lila.core.i18n
 
 opaque type I18nKey = String
@@ -2209,8 +2209,11 @@ object I18nKey:
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"
+    val `numberBlunders`: I18nKey = "numberBlunders"
     val `nbMistakes`: I18nKey = "nbMistakes"
+    val `numberMistakes`: I18nKey = "numberMistakes"
     val `nbInaccuracies`: I18nKey = "nbInaccuracies"
+    val `numberInaccuracies`: I18nKey = "numberInaccuracies"
     val `nbPlayers`: I18nKey = "nbPlayers"
     val `nbGames`: I18nKey = "nbGames"
     val `ratingXOverYGames`: I18nKey = "ratingXOverYGames"
