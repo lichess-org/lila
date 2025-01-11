@@ -13,7 +13,7 @@ export default function (ctrl: ChatCtrl): VNode {
   return h(
     'section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'),
     { class: { 'mchat-mod': !!ctrl.moderation }, hook: { destroy: ctrl.destroy } },
-    moderationView(ctrl.moderation) || normalView(ctrl),
+    moderationView(ctrl.moderation) || normalView(ctrl) || kidView(ctrl),
   );
 }
 
@@ -40,7 +40,16 @@ function renderPalantir(ctrl: ChatCtrl) {
       });
 }
 
-function normalView(ctrl: ChatCtrl) {
+function kidView(ctrl: ChatCtrl) {
+  const active = 'note';
+  return [
+    h('div.mchat__tabs.nb_1', { attrs: { role: 'tablist' } }, [renderTab(ctrl, 'note', active)]),
+    h('div.mchat__content.note', ctrl.note ? [noteView(ctrl.note, ctrl.vm.autofocus)] : []),
+  ];
+}
+
+function normalView(ctrl: ChatCtrl): VNode[] | undefined {
+  if (ctrl.data.kidMode) return;
   const active = ctrl.vm.tab;
   return [
     h('div.mchat__tabs.nb_' + ctrl.allTabs.length, { attrs: { role: 'tablist' } }, [

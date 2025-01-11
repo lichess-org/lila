@@ -40,6 +40,7 @@ export interface ChatData {
   restricted: boolean;
   palantir: boolean;
   hostIds?: string[];
+  kidMode: boolean;
 }
 
 export interface Line {

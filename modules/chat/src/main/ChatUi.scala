@@ -73,6 +73,7 @@ final class ChatUi(helpers: Helpers):
             "lines"      -> lines,
             "resourceId" -> resourceId.value
           )
+          .add("kidMode" -> ctx.kid)
           .add("hostIds" -> hostIds.some.filter(_.nonEmpty))
           .add("userId" -> ctx.userId)
           .add("loginRequired" -> chat.loginRequired)
