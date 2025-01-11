@@ -70,8 +70,8 @@ function positions(ctrl: EditorCtrl, state: EditorState): VNode {
         },
         on: {
           change(e) {
-            const el = e.target as HTMLSelectElement,
-              value = el.selectedOptions[0].getAttribute('data-sfen');
+            const el = e.target as HTMLSelectElement;
+            const value = el.selectedOptions[0].getAttribute('data-sfen');
             if (!value || !ctrl.setSfen(value)) el.value = '';
           },
         },
@@ -115,12 +115,12 @@ function pieceCounter(ctrl: EditorCtrl): VNode {
       h('span', suffix),
     ]);
   }
-  const defaultBoard = defaultPosition(ctrl.rules).board,
-    initialRoles = defaultBoard.presentRoles().sort((a, b) => {
-      const indexA = pieceValueOrder.indexOf(a),
-        indexB = pieceValueOrder.indexOf(b);
-      return indexA - indexB;
-    });
+  const defaultBoard = defaultPosition(ctrl.rules).board;
+  const initialRoles = defaultBoard.presentRoles().sort((a, b) => {
+    const indexA = pieceValueOrder.indexOf(a);
+    const indexB = pieceValueOrder.indexOf(b);
+    return indexA - indexB;
+  });
 
   const pieceCount: [Role, number, string][] = initialRoles.map((r: Role) => [
     r,

@@ -13,10 +13,10 @@ export function makeCtrl(
   setTab: () => void,
   redraw: () => void,
 ): StudyInviteFormCtrl {
-  const open = prop(false),
-    previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
-  let followings: string[] = [],
-    spectators: string[] = [];
+  const open = prop(false);
+  const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
+  let followings: string[] = [];
+  let spectators: string[] = [];
   function updateFollowings(f) {
     followings = f(followings);
     if (open()) redraw();

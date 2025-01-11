@@ -24,9 +24,9 @@ import { makeConfig as makeSgConfig } from '../ground';
 import type { AnalyseData, Redraw } from '../interfaces';
 
 function main(redraw: Redraw) {
-  const notify = new Notify(redraw),
-    moveStyle = styleSetting(),
-    analysisInProgress = prop(false);
+  const notify = new Notify(redraw);
+  const moveStyle = styleSetting();
+  const analysisInProgress = prop(false);
 
   window.lishogi.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
@@ -34,11 +34,11 @@ function main(redraw: Redraw) {
 
   return {
     render(ctrl: AnalyseController): VNode {
-      const d = ctrl.data,
-        style = moveStyle.get(),
-        variantNope =
-          !supportedVariant(d.game.variant.key) &&
-          'Sorry, this variant is not supported in blind mode.';
+      const d = ctrl.data;
+      const style = moveStyle.get();
+      const variantNope =
+        !supportedVariant(d.game.variant.key) &&
+        'Sorry, this variant is not supported in blind mode.';
       if (!ctrl.shogiground)
         ctrl.shogiground = Shogiground({
           ...makeSgConfig(ctrl),
@@ -94,8 +94,8 @@ function main(redraw: Redraw) {
             {
               hook: {
                 insert(vnode) {
-                  const $form = $(vnode.elm as HTMLFormElement),
-                    $input = $form.find<HTMLInputElement>('.move').val('').trigger('focus');
+                  const $form = $(vnode.elm as HTMLFormElement);
+                  const $input = $form.find<HTMLInputElement>('.move').val('').trigger('focus');
                   $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
                 },
               },
@@ -209,8 +209,8 @@ function onCommand(
   c: string,
   style: Style,
 ) {
-  const pieces = ctrl.shogiground.state.pieces,
-    hands = ctrl.shogiground.state.hands.handMap;
+  const pieces = ctrl.shogiground.state.pieces;
+  const hands = ctrl.shogiground.state.hands.handMap;
   notify(
     commands.piece.apply(c, pieces, hands, style) ||
       commands.scan.apply(c, pieces, style) ||
@@ -346,12 +346,12 @@ function renderPlayer(ctrl: AnalyseController, player: Player) {
 }
 
 function userHtml(ctrl: AnalyseController, player: Player) {
-  const d = ctrl.data,
-    user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf?.rating,
-    rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? `+${rd}` : rd < 0 ? `−${-rd}` : '') : '';
+  const d = ctrl.data;
+  const user = player.user;
+  const perf = user ? user.perfs[d.game.perf] : null;
+  const rating = player.rating ? player.rating : perf?.rating;
+  const rd = player.ratingDiff;
+  const ratingDiff = rd ? (rd > 0 ? `+${rd}` : rd < 0 ? `−${-rd}` : '') : '';
   return user
     ? h('span', [
         h(

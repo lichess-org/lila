@@ -104,9 +104,9 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
 }
 
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
-  const page = ctrl.page,
-    from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
-    to = Math.min(pager.nbResults, page * pager.maxPerPage);
+  const page = ctrl.page;
+  const from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1);
+  const to = Math.min(pager.nbResults, page * pager.maxPerPage);
   return h('div.pager', [
     pagerButton(i18n('study:first'), 'W', () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(i18n('study:previous'), 'Y', ctrl.prevPage, page > 1, ctrl),

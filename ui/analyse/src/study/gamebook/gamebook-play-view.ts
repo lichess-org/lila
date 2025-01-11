@@ -18,8 +18,8 @@ const defaultComments: Record<Feedback, string> = {
 };
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
-  const state = ctrl.state,
-    comment = state.comment || defaultComments[state.feedback];
+  const state = ctrl.state;
+  const comment = state.comment || defaultComments[state.feedback];
 
   return h(
     'div.gamebook',
@@ -66,10 +66,10 @@ function mascot(ctrl: GamebookPlayCtrl) {
 }
 
 function hintZone(ctrl: GamebookPlayCtrl) {
-  const state = ctrl.state,
-    clickHook = () => ({
-      hook: bind('click', ctrl.hint, ctrl.redraw),
-    });
+  const state = ctrl.state;
+  const clickHook = () => ({
+    hook: bind('click', ctrl.hint, ctrl.redraw),
+  });
   if (state.showHint)
     return h('div', clickHook(), [h('div.hint', { hook: richHTML(state.hint!) })]);
   if (state.hint) return h('a.hint', clickHook(), i18n('getAHint'));
@@ -77,8 +77,8 @@ function hintZone(ctrl: GamebookPlayCtrl) {
 }
 
 function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
-  const fb = state.feedback,
-    color = ctrl.root.turnColor();
+  const fb = state.feedback;
+  const color = ctrl.root.turnColor();
   if (fb === 'bad')
     return h(
       `div.feedback.act.bad${state.comment ? '.com' : ''}`,
@@ -132,8 +132,8 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
 }
 
 function renderEnd(ctrl: GamebookPlayCtrl) {
-  const study = ctrl.root.study!,
-    nextChapter = study.nextChapter();
+  const study = ctrl.root.study!;
+  const nextChapter = study.nextChapter();
   return h('div.feedback.end', [
     nextChapter
       ? h(

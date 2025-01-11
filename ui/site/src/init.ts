@@ -68,8 +68,8 @@ export function init(): void {
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
         $(`#${$(this).data('rel')}`).trigger('select');
-        const targetId = $(this).data('rel'),
-          textToCopy = $(`#${targetId}`).val() as string;
+        const targetId = $(this).data('rel');
+        const textToCopy = $(`#${targetId}`).val() as string;
         navigator.clipboard
           .writeText(textToCopy)
           .then(() => {

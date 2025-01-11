@@ -2,11 +2,11 @@ import { usiToSquareNames } from 'shogiops/compat';
 import { resize } from '../util';
 
 window.lishogi.ready.then(() => {
-  const el = document.querySelector<HTMLAnchorElement>('#daily-puzzle')!,
-    board = el.querySelector<HTMLElement>('.mini-board')!,
-    lm = board.getAttribute('data-lastmove'),
-    sfen = board.getAttribute('data-sfen')!,
-    splitSfen = sfen.split(' ');
+  const el = document.querySelector<HTMLAnchorElement>('#daily-puzzle')!;
+  const board = el.querySelector<HTMLElement>('.mini-board')!;
+  const lm = board.getAttribute('data-lastmove');
+  const sfen = board.getAttribute('data-sfen')!;
+  const splitSfen = sfen.split(' ');
 
   el.target = '_blank';
 

@@ -20,15 +20,15 @@ function onSpeechChange(ctrl: RoundController) {
 
 export function status(ctrl: RoundController): void {
   const handicap = isHandicap({
-      rules: ctrl.data.game.variant.key,
-      sfen: ctrl.data.game.initialSfen,
-    }),
-    s = viewStatus(ctrl.data.game.status, ctrl.data.game.winner, handicap);
+    rules: ctrl.data.game.variant.key,
+    sfen: ctrl.data.game.initialSfen,
+  });
+  const s = viewStatus(ctrl.data.game.status, ctrl.data.game.winner, handicap);
   if (s === 'playingRightNow') notation(ctrl.stepAt(ctrl.ply)?.notation);
   else if (window.lishogi.modules.speech) {
     window.lishogi.sound.say({ en: s, jp: s }, false);
-    const w = ctrl.data.game.winner,
-      text = w && i18nFormatCapitalized('xIsVictorious', colorName(w, handicap));
+    const w = ctrl.data.game.winner;
+    const text = w && i18nFormatCapitalized('xIsVictorious', colorName(w, handicap));
     if (text) window.lishogi.sound.say({ en: text, jp: text }, false);
   }
 }

@@ -46,9 +46,9 @@ function verticalBar(name: string, numbers: number[], cls: string[] = []): VNode
 }
 
 function accuracyByMoveNumber(data: AnalysisResult, flt: InsightFilter): VNode {
-  const d = data.accuracyByMoveNumber,
-    maxKey = Object.keys(d).reduce((a, b) => Math.max(a, Number.parseInt(b) || 0), 0),
-    labels = [...Array(maxKey).keys()];
+  const d = data.accuracyByMoveNumber;
+  const maxKey = Object.keys(d).reduce((a, b) => Math.max(a, Number.parseInt(b) || 0), 0);
+  const labels = [...Array(maxKey).keys()];
   return lineChart('line-by-move-number-chart', JSON.stringify(flt), {
     labels: labels.map(n => n.toString()),
     datasets: [
@@ -68,12 +68,12 @@ function accuracyByMoveNumber(data: AnalysisResult, flt: InsightFilter): VNode {
 }
 
 function accuracyByRoleChart(data: AnalysisResult, flt: InsightFilter): VNode {
-  const variant = flt.variant,
-    moves = data.accuracyByMoveRole,
-    drops = data.accuracyByDropRole,
-    movesAndDrops = data.accuracyByRole,
-    roles = allRoles(variant),
-    valueMap = (value: number | string) => `${i18n('insights:average')}: ${value}`;
+  const variant = flt.variant;
+  const moves = data.accuracyByMoveRole;
+  const drops = data.accuracyByDropRole;
+  const movesAndDrops = data.accuracyByRole;
+  const roles = allRoles(variant);
+  const valueMap = (value: number | string) => `${i18n('insights:average')}: ${value}`;
 
   return barChart('moves-drops-by-role', JSON.stringify(flt), {
     labels: roles.map(r => translateRole(r).split(' ')),

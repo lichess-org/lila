@@ -5,10 +5,10 @@ import { handRoles } from 'shogiops/variant/util';
 import type { Run } from './interfaces';
 
 export const makeSgOpts = (run: Run, canMove: boolean): SgConfig => {
-  const cur = run.current,
-    pos = cur.position(),
-    sfen = makeSfen(pos),
-    splitSfen = sfen.split(' ');
+  const cur = run.current;
+  const pos = cur.position();
+  const sfen = makeSfen(pos);
+  const splitSfen = sfen.split(' ');
   return {
     sfen: { board: splitSfen[0], hands: splitSfen[2] },
     activeColor: run.pov,

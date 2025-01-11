@@ -54,9 +54,9 @@ function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement, withBonus: boolean)
 const pad = (x: number): string => (x < 10 ? '0' : '') + x;
 
 const formatMs = (millis: number): string => {
-  const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000)),
-    minutes = date.getUTCMinutes(),
-    seconds = date.getUTCSeconds();
+  const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000));
+  const minutes = date.getUTCMinutes();
+  const seconds = date.getUTCSeconds();
   return `${minutes}:${pad(seconds)}`;
 };
 

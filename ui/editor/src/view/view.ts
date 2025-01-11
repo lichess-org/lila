@@ -9,8 +9,8 @@ import { tools } from './tools';
 import { underboard } from './underboard';
 
 export default function (ctrl: EditorCtrl): VNode {
-  const state = ctrl.getState(),
-    color = ctrl.bottomColor();
+  const state = ctrl.getState();
+  const color = ctrl.bottomColor();
   return h(`div.board-editor.main-v-${ctrl.rules}`, [
     sparePieces(ctrl, opposite(color), 'top'),
     h(`div.main-board.v-${ctrl.rules}`, [ground.renderBoard(ctrl)]),

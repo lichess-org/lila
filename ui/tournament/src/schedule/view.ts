@@ -3,7 +3,9 @@ import { i18n } from 'i18n';
 import { type VNode, h } from 'snabbdom';
 
 const scale = 8;
-let now: number, startTime: number, stopTime: number;
+let now: number;
+let startTime: number;
+let stopTime: number;
 
 const i18nNames = {};
 
@@ -78,8 +80,8 @@ function fitLane(lane, tour2) {
 // splits lanes that have collisions, but keeps
 // groups separate by not compacting existing lanes
 function splitOverlaping(lanes) {
-  let ret: any[] = [],
-    i: number;
+  let ret: any[] = [];
+  let i: number;
   lanes.forEach(lane => {
     const newLanes: any[] = [[]];
     lane.forEach(tour => {
@@ -99,18 +101,18 @@ function splitOverlaping(lanes) {
 }
 
 function tournamentClass(tour) {
-  const finished = tour.status === 30,
-    userCreated = tour.createdBy !== 'lishogi',
-    classes = {
-      'tsht-rated': tour.rated,
-      'tsht-casual': !tour.rated,
-      'tsht-finished': finished,
-      'tsht-joinable': !finished,
-      'tsht-user-created': userCreated,
-      'tsht-thematic': !!tour.position,
-      'tsht-short': tour.minutes <= 30,
-      'tsht-max-rating': !userCreated && tour.hasMaxRating,
-    };
+  const finished = tour.status === 30;
+  const userCreated = tour.createdBy !== 'lishogi';
+  const classes = {
+    'tsht-rated': tour.rated,
+    'tsht-casual': !tour.rated,
+    'tsht-finished': finished,
+    'tsht-joinable': !finished,
+    'tsht-user-created': userCreated,
+    'tsht-thematic': !!tour.position,
+    'tsht-short': tour.minutes <= 30,
+    'tsht-max-rating': !userCreated && tour.hasMaxRating,
+  };
   if (tour.schedule) classes[`tsht-${tour.schedule.freq}`] = true;
   return classes;
 }
@@ -229,8 +231,8 @@ export default function (ctrl: any): VNode {
 
   const data = ctrl.data();
 
-  const systemTours: any[] = [],
-    userTours: any[] = [];
+  const systemTours: any[] = [];
+  const userTours: any[] = [];
 
   data.finished
     .concat(data.started)

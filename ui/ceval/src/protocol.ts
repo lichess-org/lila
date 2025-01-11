@@ -70,14 +70,14 @@ export class Protocol {
       this.swapWork();
       return;
     } else if (this.work && !this.work.stopRequested && parts[0] === 'info') {
-      let depth = 0,
-        nodes: number | undefined,
-        multiPv = 1,
-        elapsedMs: number | undefined,
-        evalType: string | undefined,
-        isMate = false,
-        povEv: number | undefined,
-        moves: string[] = [];
+      let depth = 0;
+      let nodes: number | undefined;
+      let multiPv = 1;
+      let elapsedMs: number | undefined;
+      let evalType: string | undefined;
+      let isMate = false;
+      let povEv: number | undefined;
+      let moves: string[] = [];
       for (let i = 1; i < parts.length; i++) {
         switch (parts[i]) {
           case 'depth':
@@ -128,8 +128,8 @@ export class Protocol {
       )
         return;
 
-      const pivot = this.work.threatMode ? 0 : 1,
-        ev = this.work.ply % 2 === pivot ? -povEv : povEv;
+      const pivot = this.work.threatMode ? 0 : 1;
+      const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
 
       // For now, ignore most upperbound/lowerbound messages.
       // However non-primary pvs may only have an upperbound.
@@ -207,12 +207,12 @@ export class Protocol {
           : 'NoEnteringKing'
         : undefined;
 
-      const threadChange = this.setOption('Threads', this.work.threads || 1),
-        hashChange = this.setOption('USI_Hash', this.work.hashSize || 16),
-        enteringKingRuleChange = enteringKingRule
-          ? this.setOption('EnteringKingRule', enteringKingRule)
-          : false,
-        multiPvChange = this.setOption('MultiPV', this.work.multiPv);
+      const threadChange = this.setOption('Threads', this.work.threads || 1);
+      const hashChange = this.setOption('USI_Hash', this.work.hashSize || 16);
+      const enteringKingRuleChange = enteringKingRule
+        ? this.setOption('EnteringKingRule', enteringKingRule)
+        : false;
+      const multiPvChange = this.setOption('MultiPV', this.work.multiPv);
 
       if (threadChange || hashChange || enteringKingRuleChange || multiPvChange) {
         this.reloading = true;
@@ -272,14 +272,14 @@ export class Protocol {
       const move = parseUsi(usi)!;
       // G*3b -> +N*3b
       if (isDrop(move)) {
-        const roleChar = usi[0],
-          uUsi = (mappingBoard[roleChar] || roleChar) + usi.slice(1);
+        const roleChar = usi[0];
+        const uUsi = (mappingBoard[roleChar] || roleChar) + usi.slice(1);
         uMoves.push(uUsi);
       }
       // 5e4d+ -> 5e4d-, if necessary
       else if (move.promotion) {
-        const roleChar = pos.board.getRole(move.from)![0],
-          fairyUsi = mappingBoard[roleChar]?.includes('+') ? `${usi.slice(0, -1)}-` : usi;
+        const roleChar = pos.board.getRole(move.from)![0];
+        const fairyUsi = mappingBoard[roleChar]?.includes('+') ? `${usi.slice(0, -1)}-` : usi;
 
         uMoves.push(fairyUsi);
       } else uMoves.push(usi);
@@ -297,8 +297,8 @@ export class Protocol {
     return moves.map(usi => {
       // +N*3b -> G*3b
       if (usi[0] === '+') {
-        const dropUnpromoted = parseUsi(usi.slice(1)) as DropMove,
-          promotedRole = promote('kyotoshogi')(dropUnpromoted.role)!;
+        const dropUnpromoted = parseUsi(usi.slice(1)) as DropMove;
+        const promotedRole = promote('kyotoshogi')(dropUnpromoted.role)!;
         return makeUsi({ role: promotedRole, to: dropUnpromoted.to });
       }
       // 5e4d- -> 5e4d+

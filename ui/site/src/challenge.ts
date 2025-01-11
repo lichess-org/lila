@@ -2,7 +2,8 @@ import { loadCompiledScript, loadCssPath } from 'common/assets';
 import { initiatingHtml } from './util';
 
 export function challengeApp(): typeof window.lishogi.challengeApp {
-  let instance: any, booted: boolean;
+  let instance: any;
+  let booted: boolean;
   const $toggle = $('#challenge-toggle');
   $toggle.one('mouseover click', () => {
     load();

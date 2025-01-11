@@ -15,8 +15,8 @@ const storage = window.lishogi.storage;
 export function storedProp(k: string, defaultValue: boolean): StoredBooleanProp;
 export function storedProp<T>(k: string, defaultValue: T): StoredProp<T>;
 export function storedProp(k: string, defaultValue: any) {
-  const sk = `analyse.${k}`, // remove analyse
-    isBoolean = defaultValue === true || defaultValue === false;
+  const sk = `analyse.${k}`; // remove analyse
+  const isBoolean = defaultValue === true || defaultValue === false;
   let value: any;
   return (v: any) => {
     if (defined(v) && v != value) {

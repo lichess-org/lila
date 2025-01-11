@@ -5,9 +5,9 @@ import type { Contact, LastMsg } from '../interfaces';
 import { userIcon, userName } from './util';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
-  const user = contact.user,
-    msg = contact.lastMsg,
-    isNew = !msg.read && msg.user != ctrl.data.me.id;
+  const user = contact.user;
+  const msg = contact.lastMsg;
+  const isNew = !msg.read && msg.user != ctrl.data.me.id;
   return h(
     'div.msg-app__side__contact',
     {

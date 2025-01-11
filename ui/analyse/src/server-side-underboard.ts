@@ -12,10 +12,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
 
   $(element).replaceWith(ctrl.opts.$underboard!);
 
-  const data = ctrl.data,
-    $panels = $('.analyse__underboard__panels > div'),
-    $menu = $('.analyse__underboard__menu'),
-    inputSfen = document.querySelector('.analyse__underboard__sfen') as HTMLInputElement;
+  const data = ctrl.data;
+  const $panels = $('.analyse__underboard__panels > div');
+  const $menu = $('.analyse__underboard__menu');
+  const inputSfen = document.querySelector('.analyse__underboard__sfen') as HTMLInputElement;
 
   let lastInputHash: string;
   let advChart: any;
@@ -111,8 +111,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
   }
 
   $panels.on('click', '.kif', function (this: HTMLElement) {
-    const selection = window.getSelection(),
-      range = document.createRange();
+    const selection = window.getSelection();
+    const range = document.createRange();
     range.selectNodeContents(this);
     selection!.removeAllRanges();
     selection!.addRange(range);

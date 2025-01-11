@@ -6,8 +6,8 @@ interface AssetUrlOpts {
 
 export const assetUrl = (path: string, opts?: AssetUrlOpts): string => {
   opts = opts || {};
-  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
-    version = document.body.getAttribute('data-asset-version');
+  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
+  const version = document.body.getAttribute('data-asset-version');
   return `${baseUrl}/assets${opts.noVersion ? '' : `/_${version}`}/${path}`;
 };
 
@@ -49,8 +49,8 @@ export const loadScript = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
     if (document.head.querySelector(`script[scr="${src}"]`)) return resolve();
 
-    const nonce = document.body.getAttribute('data-nonce'),
-      el = document.createElement('script');
+    const nonce = document.body.getAttribute('data-nonce');
+    const el = document.createElement('script');
     if (nonce) el.setAttribute('nonce', nonce);
     el.onload = resolve as () => void;
     el.onerror = reject;

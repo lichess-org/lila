@@ -68,14 +68,14 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
         'tbody',
         advices
           .map(a => {
-            const nb: number = d.analysis![color][a.kind],
-              style = nb ? `.symbol.${a.kind}` : '',
-              attrs: VNodeData = nb
-                ? {
-                    'data-color': color,
-                    'data-symbol': a.symbol,
-                  }
-                : {};
+            const nb: number = d.analysis![color][a.kind];
+            const style = nb ? `.symbol.${a.kind}` : '';
+            const attrs: VNodeData = nb
+              ? {
+                  'data-color': color,
+                  'data-symbol': a.symbol,
+                }
+              : {};
             return h(`tr${nb ? `.symbol${style}` : ''}`, { attrs }, [
               h('td', `${nb}`),
               h('th', a.name),

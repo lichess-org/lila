@@ -7,12 +7,12 @@ import * as filterView from './filter';
 import * as list from './list';
 
 export default function (ctrl: LobbyController): MaybeVNodes {
-  let filterBody: VNode | undefined,
-    body: VNode,
-    nbFiltered: number,
-    modeToggle: MaybeVNode,
-    res: any,
-    button: MaybeVNode;
+  let filterBody: VNode | undefined;
+  let body: VNode;
+  let nbFiltered: number;
+  let modeToggle: MaybeVNode;
+  let res: any;
+  let button: MaybeVNode;
 
   const isSeeks = ctrl.tab === 'seeks';
   if (ctrl.filter.open) filterBody = filterView.render(ctrl);

@@ -158,8 +158,8 @@ function makeSelection(ctrl: CustomThemeCtrl, name: string, options: string[]): 
 
 function makeColorPicker(ctrl: CustomThemeCtrl, vnode: VNode, key: Key) {
   const move = (color: any) => {
-    const hexColor = color.toHex8String(),
-      prevColor = ctrl.data[key] as string;
+    const hexColor = color.toHex8String();
+    const prevColor = ctrl.data[key] as string;
     if (hexColor === prevColor) return;
     if (hexColor.slice(-2) === '00' && prevColor.slice(1, -2) !== hexColor.slice(1, -2))
       $('.sp-container:not(.sp-hidden) .sp-alpha-handle').addClass('highlight');
@@ -181,8 +181,8 @@ function makeColorPicker(ctrl: CustomThemeCtrl, vnode: VNode, key: Key) {
 }
 
 function defaultColor(key: ColorKey): string {
-  const isDark = document.body.classList.contains('dark'),
-    isTransp = document.body.classList.contains('transp');
+  const isDark = document.body.classList.contains('dark');
+  const isTransp = document.body.classList.contains('transp');
   if (key === 'gridColor') return isTransp ? '#cccccc' : isDark ? '#bababa' : '#4d4d4d';
   else return isTransp ? '#00000099' : isDark ? '#262421' : '#ffffff';
 }

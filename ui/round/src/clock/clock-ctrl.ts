@@ -131,8 +131,8 @@ export class ClockController {
     gPer: number,
     delay: Centis = 0,
   ): void => {
-    const isClockRunning = game.playable(d) && (game.playedPlies(d) > 1 || d.clock!.running),
-      delayMs = delay * 10;
+    const isClockRunning = game.playable(d) && (game.playedPlies(d) > 1 || d.clock!.running);
+    const delayMs = delay * 10;
 
     this.times = {
       sente: sente * 1000,
@@ -194,9 +194,9 @@ export class ClockController {
     const color = this.times.activeColor;
     if (color === undefined) return;
 
-    const now = performance.now(),
-      millis = Math.max(0, this.times[color] - this.elapsed(now)),
-      curPeriod = this.curPeriods[color];
+    const now = performance.now();
+    const millis = Math.max(0, this.times[color] - this.elapsed(now));
+    const curPeriod = this.curPeriods[color];
 
     this.scheduleTick(millis, color, 0);
     if (

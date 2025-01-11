@@ -9,13 +9,13 @@ export default function renderClocks(
   withNames: boolean,
 ): [VNode, VNode] | undefined {
   if (ctrl.embed || (ctrl.data.game.status.name === 'started' && !ctrl.imported)) return;
-  const node = ctrl.node,
-    clock = node.clock,
-    sentePov = ctrl.bottomIsSente(),
-    isSenteTurn = node.ply % 2 === 0,
-    showNames = withNames && !ctrl.study,
-    sentePlayer = showNames ? game.getPlayer(ctrl.data, 'sente') : undefined,
-    gotePlayer = showNames ? game.getPlayer(ctrl.data, 'gote') : undefined;
+  const node = ctrl.node;
+  const clock = node.clock;
+  const sentePov = ctrl.bottomIsSente();
+  const isSenteTurn = node.ply % 2 === 0;
+  const showNames = withNames && !ctrl.study;
+  const sentePlayer = showNames ? game.getPlayer(ctrl.data, 'sente') : undefined;
+  const gotePlayer = showNames ? game.getPlayer(ctrl.data, 'gote') : undefined;
 
   // We are not gonna show remaining time for imported games, since it's prob not worth it for now
   if (!defined(clock) || ctrl.imported) {
@@ -27,8 +27,8 @@ export default function renderClocks(
     return;
   }
 
-  const parentClock = ctrl.tree.getParentClock(node, ctrl.path),
-    centis: Array<number | undefined> = [parentClock, clock];
+  const parentClock = ctrl.tree.getParentClock(node, ctrl.path);
+  const centis: Array<number | undefined> = [parentClock, clock];
 
   if (!isSenteTurn) centis.reverse();
 
@@ -79,10 +79,10 @@ function renderClock(
 
 function clockContent(centis: number | undefined, showTenths: boolean): Array<string | VNode> {
   if (!centis && centis !== 0) return ['-'];
-  const date = new Date(centis * 10),
-    millis = date.getUTCMilliseconds(),
-    sep = ':',
-    baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
+  const date = new Date(centis * 10);
+  const millis = date.getUTCMilliseconds();
+  const sep = ':';
+  const baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (!showTenths || centis >= 360000) return [Math.floor(centis / 360000) + sep + baseStr];
   return centis >= 6000
     ? [baseStr]
@@ -90,10 +90,10 @@ function clockContent(centis: number | undefined, showTenths: boolean): Array<st
 }
 
 export function renderTime(centis: number, forceHours: boolean): string {
-  const hrs = Math.floor(centis / 360_000),
-    mins = Math.floor(centis / 6000) % 60,
-    secs = Math.floor(centis / 100) % 60,
-    sep = ':';
+  const hrs = Math.floor(centis / 360_000);
+  const mins = Math.floor(centis / 6000) % 60;
+  const secs = Math.floor(centis / 100) % 60;
+  const sep = ':';
   return (hrs > 0 || forceHours ? pad2(hrs) + sep : '') + pad2(mins) + sep + pad2(secs);
 }
 

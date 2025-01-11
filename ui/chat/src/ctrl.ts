@@ -32,8 +32,8 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
   if (opts.noteId) allTabs.push('note');
   if (opts.plugin) allTabs.push(opts.plugin.tab.key);
 
-  const tabStorage = li.storage.make('chat.tab'),
-    storedTab = tabStorage.get();
+  const tabStorage = li.storage.make('chat.tab');
+  const storedTab = tabStorage.get();
 
   let moderation: ModerationCtrl | undefined;
 

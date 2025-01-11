@@ -63,9 +63,9 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
 
 export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   if (ctrl.vm.loading) return [h('div.feedback', spinner())];
-  const p = ctrl.practice!,
-    gb = ctrl.gamebookPlay(),
-    pinned = ctrl.data.chapter.description;
+  const p = ctrl.practice!;
+  const gb = ctrl.gamebookPlay();
+  const pinned = ctrl.data.chapter.description;
   if (gb)
     return pinned
       ? [h('div.feedback.ongoing', [h('div.comment', { hook: richHTML(pinned) })])]
@@ -121,8 +121,8 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
 }
 
 export function side(ctrl: StudyCtrl): VNode {
-  const current = ctrl.currentChapter(),
-    data = ctrl.practice!.data;
+  const current = ctrl.currentChapter();
+  const data = ctrl.practice!.data;
 
   return h('div.practice__side', [
     h('div.practice__side__title', [
@@ -134,10 +134,10 @@ export function side(ctrl: StudyCtrl): VNode {
       {
         hook: bindNonPassive('click', e => {
           e.preventDefault();
-          const target = e.target as HTMLElement,
-            id =
-              (target.parentNode as HTMLElement).getAttribute('data-id') ||
-              target.getAttribute('data-id');
+          const target = e.target as HTMLElement;
+          const id =
+            (target.parentNode as HTMLElement).getAttribute('data-id') ||
+            target.getAttribute('data-id');
           if (id) ctrl.setChapter(id, true);
           return false;
         }),
@@ -145,9 +145,9 @@ export function side(ctrl: StudyCtrl): VNode {
       ctrl.chapters
         .list()
         .map(chapter => {
-          const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-            active = !ctrl.vm.loading && current && current.id === chapter.id,
-            completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
+          const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
+          const active = !ctrl.vm.loading && current && current.id === chapter.id;
+          const completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';
           return [
             h(
               'a.ps__chapter',

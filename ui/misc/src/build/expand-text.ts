@@ -54,17 +54,17 @@ function toTwitterEmbedUrl(url: string | undefined): Parsed | undefined {
 const domain = window.location.host;
 
 function toStudyEmbedUrl(url: string | undefined): Parsed | undefined {
-  const studyRegex = new RegExp(`${domain}/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b`, 'i'),
-    m = url?.match(studyRegex);
+  const studyRegex = new RegExp(`${domain}/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b`, 'i');
+  const m = url?.match(studyRegex);
   return m ? { type: 'study', src: `/study/embed/${m[1]}/${m[2]}${m[3] || ''}` } : undefined;
 }
 
 function toGameEmbedUrl(url: string | undefined): Parsed | undefined {
   const gameRegex = new RegExp(
-      `${domain}/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?\\b`,
-      'i',
-    ),
-    m = url?.match(gameRegex);
+    `${domain}/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?\\b`,
+    'i',
+  );
+  const m = url?.match(gameRegex);
   if (!m) return;
 
   let src = `/embed/${m[1]}`;
@@ -210,10 +210,10 @@ const expandGames = (games: Candidate[]): void => {
 
 function configureSrc(url: string) {
   if (url.includes('://')) return url; // youtube, img, etc
-  const parsed = new URL(url, window.location.href),
-    theme =
-      document.body.dataset.boardTheme === 'custom' ? undefined : document.body.dataset.boardTheme,
-    pieceSet = document.body.dataset.pieceSet;
+  const parsed = new URL(url, window.location.href);
+  const theme =
+    document.body.dataset.boardTheme === 'custom' ? undefined : document.body.dataset.boardTheme;
+  const pieceSet = document.body.dataset.pieceSet;
   if (theme) parsed.searchParams.append('theme', theme);
   if (pieceSet) parsed.searchParams.append('pieceSet', pieceSet);
   parsed.searchParams.append('bg', document.body.getAttribute('data-theme')!);

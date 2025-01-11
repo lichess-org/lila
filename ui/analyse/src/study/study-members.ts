@@ -166,11 +166,11 @@ function isPostGameStudyPlayer(data: StudyData, userId: string): boolean {
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  const members = ctrl.members,
-    isOwner = members.isOwner(),
-    canInvite =
-      isOwner ||
-      (ctrl.data.postGameStudy?.withOpponent && isPostGameStudyPlayer(ctrl.data, members.myId));
+  const members = ctrl.members;
+  const isOwner = members.isOwner();
+  const canInvite =
+    isOwner ||
+    (ctrl.data.postGameStudy?.withOpponent && isPostGameStudyPlayer(ctrl.data, members.myId));
 
   function username(member: StudyMember) {
     const u = member.user;

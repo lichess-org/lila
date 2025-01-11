@@ -1,12 +1,12 @@
 $('.event .countdown').each(function () {
-  const $el = $(this),
-    seconds = Number.parseInt($(this).data('seconds')) - 1,
-    target = new Date().getTime() + seconds * 1000;
+  const $el = $(this);
+  const seconds = Number.parseInt($(this).data('seconds')) - 1;
+  const target = new Date().getTime() + seconds * 1000;
 
-  const second = 1000,
-    minute = second * 60,
-    hour = minute * 60,
-    day = hour * 24;
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
   let interval: number | undefined = undefined;
 

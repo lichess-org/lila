@@ -45,11 +45,11 @@ export interface PracticeCtrl {
 }
 
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
-  const running = prop(true),
-    comment = prop<Comment | null>(null),
-    hovering = prop<any>(null),
-    hinting = prop<Hinting | null>(null),
-    played = prop(false);
+  const running = prop(true);
+  const comment = prop<Comment | null>(null);
+  const hovering = prop<any>(null);
+  const hinting = prop<Hinting | null>(null);
+  const played = prop(false);
 
   function ensureCevalRunning() {
     if (!root.showComputer()) root.toggleComputer();
@@ -89,7 +89,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
-    let verdict: Verdict, best: Usi | undefined;
+    let verdict: Verdict;
+    let best: Usi | undefined;
     const outcome = root.outcome(node);
 
     if (outcome?.winner) verdict = 'goodMove';
@@ -217,8 +218,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
-        prev = hinting();
+      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null;
+      const prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else
         hinting({

@@ -6,13 +6,13 @@ import type { Stage } from '../interfaces';
 import { average } from '../util';
 
 function calcPercentage(ctrl: LearnCtrl): number {
-  const max = ctrl.stages.map(s => s.levels.length).reduce((a, b) => a + b, 0) * 3,
-    keys = Object.keys(ctrl.progress.progress.stages),
-    total: number = keys
-      .map(k =>
-        ((ctrl.progress.progress.stages[k]?.scores || []) as number[]).reduce((a, b) => a + b, 0),
-      )
-      .reduce((a, b) => a + b, 0);
+  const max = ctrl.stages.map(s => s.levels.length).reduce((a, b) => a + b, 0) * 3;
+  const keys = Object.keys(ctrl.progress.progress.stages);
+  const total: number = keys
+    .map(k =>
+      ((ctrl.progress.progress.stages[k]?.scores || []) as number[]).reduce((a, b) => a + b, 0),
+    )
+    .reduce((a, b) => a + b, 0);
 
   return Math.round((total / max) * 100);
 }

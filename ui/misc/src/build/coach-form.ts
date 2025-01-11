@@ -5,9 +5,9 @@ window.lishogi.ready.then(() => {
   const $editor = $('.coach-edit');
 
   const todo = (() => {
-    const $overview = $editor.find('.overview'),
-      $el = $overview.find('.todo'),
-      $listed = $editor.find('#form3-listed');
+    const $overview = $editor.find('.overview');
+    const $el = $overview.find('.todo');
+    const $listed = $editor.find('#form3-listed');
 
     const must = [
       {

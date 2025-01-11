@@ -10,11 +10,11 @@ import grfn from 'grfn';
 import { graphWrap } from './graph.js';
 import type { BuildConfig } from './types.js';
 
-const target = 'es2017',
-  srcDir = 'src',
-  distDir = 'dist',
-  bundleDir = 'build',
-  publicDir = 'public/compiled';
+const target = 'es2017';
+const srcDir = 'src';
+const distDir = 'dist';
+const bundleDir = 'build';
+const publicDir = 'public/compiled';
 
 export function esbuildContext(): Context {
   const ctxsMap = new Map<PackageName, BuildContext[]>();
@@ -120,11 +120,11 @@ export function esbuildContext(): Context {
   }
 
   function createBundleContext(pkg: PackageInfo, entryPoint: string): Promise<BuildContext> {
-    const fileName = path.basename(entryPoint, '.ts'),
-      pkgName = pkg.name.startsWith('@') ? pkg.name.split('/')[1] : pkg.name,
-      name = fileName === 'main' ? pkgName : `${pkgName}.${fileName}`,
-      lishogiName = `lishogi.${name}`,
-      ext = isProd ? '.min.js' : '.js';
+    const fileName = path.basename(entryPoint, '.ts');
+    const pkgName = pkg.name.startsWith('@') ? pkg.name.split('/')[1] : pkg.name;
+    const name = fileName === 'main' ? pkgName : `${pkgName}.${fileName}`;
+    const lishogiName = `lishogi.${name}`;
+    const ext = isProd ? '.min.js' : '.js';
 
     return context({
       entryPoints: [entryPoint],
@@ -152,8 +152,8 @@ export function esbuildContext(): Context {
       }
 
       if (pkg.lishogi?.bundle) {
-        const bundlePath = path.join(srcDir, bundleDir),
-          allEntries: string[] = await fg(`${pkg.path}/${bundlePath}/*`);
+        const bundlePath = path.join(srcDir, bundleDir);
+        const allEntries: string[] = await fg(`${pkg.path}/${bundlePath}/*`);
 
         const bundleCtxs = await Promise.all(
           allEntries.map(entry => createBundleContext(pkg, entry)),

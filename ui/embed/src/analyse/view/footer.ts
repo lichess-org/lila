@@ -8,8 +8,8 @@ export function renderFooter(ctrl: AnalyseCtrl): VNode {
 }
 
 export function renderGameFooter(ctrl: AnalyseCtrl): VNode {
-  const url = `//${window.location.host}/${ctrl.data.game.id}/${ctrl.data.orientation || 'sente'}`,
-    title = i18nFormat('fromGameLink', ctrl.data.game.id);
+  const url = `//${window.location.host}/${ctrl.data.game.id}/${ctrl.data.orientation || 'sente'}`;
+  const title = i18nFormat('fromGameLink', ctrl.data.game.id);
 
   return h('div.analyse__footer', [
     h('div.left', [

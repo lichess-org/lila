@@ -45,11 +45,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const vm: Vm = {
     next: defer<PuzzleData>(),
   } as Vm;
-  let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl;
-  const autoNext = storedProp('puzzle.autoNext', false),
-    shogiground = Shogiground(),
-    threatMode = prop(false),
-    session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id);
+  let data: PuzzleData;
+  let tree: TreeWrapper;
+  let ceval: CevalCtrl;
+  const autoNext = storedProp('puzzle.autoNext', false);
+  const shogiground = Shogiground();
+  const threatMode = prop(false);
+  const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id);
 
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
@@ -113,38 +115,38 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function makeSgOpts(): SgConfig {
-    const node = vm.node,
-      color = plyColor(node.ply),
-      pos = position(),
-      dests = shogigroundMoveDests(pos),
-      dropDests = shogigroundDropDests(pos),
-      nextNode = vm.node.children[0],
-      canMove =
-        vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail')),
-      splitSfen = node.sfen.split(' '),
-      config: SgConfig = {
-        sfen: {
-          board: splitSfen[0],
-          hands: splitSfen[2],
-        },
-        orientation: vm.pov,
-        turnColor: color,
-        activeColor: canMove && (dests.size > 0 || dropDests.size > 0) ? color : undefined,
-        movable: {
-          dests: canMove ? dests : new Map(),
-        },
-        droppable: {
-          dests: canMove ? dropDests : new Map(),
-        },
-        premovable: {
-          enabled: false,
-        },
-        predroppable: {
-          enabled: false,
-        },
-        checks: pos.isCheck(),
-        lastDests: node.usi ? usiToSquareNames(node.usi) : undefined,
-      };
+    const node = vm.node;
+    const color = plyColor(node.ply);
+    const pos = position();
+    const dests = shogigroundMoveDests(pos);
+    const dropDests = shogigroundDropDests(pos);
+    const nextNode = vm.node.children[0];
+    const canMove =
+      vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
+    const splitSfen = node.sfen.split(' ');
+    const config: SgConfig = {
+      sfen: {
+        board: splitSfen[0],
+        hands: splitSfen[2],
+      },
+      orientation: vm.pov,
+      turnColor: color,
+      activeColor: canMove && (dests.size > 0 || dropDests.size > 0) ? color : undefined,
+      movable: {
+        dests: canMove ? dests : new Map(),
+      },
+      droppable: {
+        dests: canMove ? dropDests : new Map(),
+      },
+      premovable: {
+        enabled: false,
+      },
+      predroppable: {
+        enabled: false,
+      },
+      checks: pos.isCheck(),
+      lastDests: node.usi ? usiToSquareNames(node.usi) : undefined,
+    };
     if (node.ply >= vm.initialNode.ply) {
       if (vm.mode !== 'view' && color !== vm.pov && !nextNode) {
         config.activeColor = vm.pov;
@@ -190,10 +192,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function sendMoveOrDropAt(path: Tree.Path, pos: Shogi, md: MoveOrDrop): void {
-    const parent = tree.nodeAtPath(path),
-      lastUsi = parent.usi ? parseUsi(parent.usi) : undefined,
-      capture = pos.board.get(md.to),
-      notationMove = makeNotationWithPosition(pos, md, lastUsi);
+    const parent = tree.nodeAtPath(path);
+    const lastUsi = parent.usi ? parseUsi(parent.usi) : undefined;
+    const capture = pos.board.get(md.to);
+    const notationMove = makeNotationWithPosition(pos, md, lastUsi);
     pos.play(md);
     addNode(
       {
@@ -306,8 +308,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function instanciateKeyboard(): void {
-    const parent = tree.parentNode(vm.path),
-      lastMove = parent.usi ? parseUsi(parent.usi) : undefined;
+    const parent = tree.parentNode(vm.path);
+    const lastMove = parent.usi ? parseUsi(parent.usi) : undefined;
 
     if (!keyboardMove) {
       keyboardMove = makeKeyboardMove(
@@ -428,8 +430,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function jump(path: Tree.Path): void {
-    const pathChanged = path !== vm.path,
-      isForwardStep = pathChanged && path.length === vm.path.length + 2;
+    const pathChanged = path !== vm.path;
+    const isForwardStep = pathChanged && path.length === vm.path.length + 2;
     setPath(path);
     shogiground.set(makeSgOpts());
     if (pathChanged) {
@@ -448,8 +450,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     }
     vm.autoScrollRequested = true;
     if (keyboardMove) {
-      const parent = tree.parentNode(vm.path),
-        lastMove = parent.usi ? parseUsi(parent.usi) : undefined;
+      const parent = tree.parentNode(vm.path);
+      const lastMove = parent.usi ? parseUsi(parent.usi) : undefined;
       keyboardMove.update({ sfen: vm.node.sfen, lastSquare: lastMove?.to });
     }
     window.lishogi.pubsub.emit('ply', vm.node.ply);

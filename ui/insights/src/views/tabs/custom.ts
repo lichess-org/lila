@@ -9,9 +9,9 @@ import { accent, accuracy, bright, green, primary, red, total } from '../colors'
 import { translateStatusName } from '../util';
 
 export function custom(ctrl: InsightCtrl, res: CustomResult): VNode {
-  const data = res.data,
-    custom = ctrl.filter.custom,
-    key = JSON.stringify(ctrl.filter);
+  const data = res.data;
+  const custom = ctrl.filter.custom;
+  const key = JSON.stringify(ctrl.filter);
   return h(
     `div.custom.${custom.type}${custom.x}-${custom.y}`,
     h('section.with-title', [
@@ -120,28 +120,28 @@ function groupChart(
   custom: InsightCustom,
   key: string,
 ): VNode {
-  const dataset = data.dataset,
-    count = data.dataset.count,
-    keys = generateKeys(dataset),
-    parsedDatasets: MyChartDataset[] = keys.map(k => {
-      const chartData = data.labels.map(l => dataset[k][l] || 0);
-      return {
-        label: labelTranslate(k),
-        backgroundColor: barColor(k, custom),
-        data: chartData,
-        tooltip: {
-          valueMap: (value: number | string) => label(custom.y, value),
-          counts:
-            countMappingKeys.includes(custom.y) && count
-              ? data.labels.map(l => count[l] || 0)
-              : undefined,
-          total:
-            !k.includes('total') && !countMappingKeys.includes(custom.y)
-              ? chartData.reduce((a, b) => a + b, 0)
-              : undefined,
-        },
-      };
-    });
+  const dataset = data.dataset;
+  const count = data.dataset.count;
+  const keys = generateKeys(dataset);
+  const parsedDatasets: MyChartDataset[] = keys.map(k => {
+    const chartData = data.labels.map(l => dataset[k][l] || 0);
+    return {
+      label: labelTranslate(k),
+      backgroundColor: barColor(k, custom),
+      data: chartData,
+      tooltip: {
+        valueMap: (value: number | string) => label(custom.y, value),
+        counts:
+          countMappingKeys.includes(custom.y) && count
+            ? data.labels.map(l => count[l] || 0)
+            : undefined,
+        total:
+          !k.includes('total') && !countMappingKeys.includes(custom.y)
+            ? chartData.reduce((a, b) => a + b, 0)
+            : undefined,
+      },
+    };
+  });
 
   const labels =
     custom.x === 'status'
@@ -226,15 +226,15 @@ function labelTranslate(k: string): string {
 
 function translateWeekday(weekday: string): string {
   const weekdaysMap = [
-      'sunday',
-      'monday',
-      'tuesday',
-      'wednesday',
-      'thursday',
-      'friday',
-      'saturday',
-    ],
-    index = weekdaysMap.indexOf(weekday.toLowerCase());
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ];
+  const index = weekdaysMap.indexOf(weekday.toLowerCase());
 
   if (index === -1) return weekday;
 

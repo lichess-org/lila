@@ -13,19 +13,19 @@ const whisperRegex = /^\/w(?:hisper)?\s/;
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
-      const el = vnode.elm as HTMLElement;
-      if (ctrl.data.lines.length > 5) {
-        const autoScroll =
-          el.scrollTop === 0 || el.scrollTop > el.scrollHeight - el.clientHeight - 100;
-        if (autoScroll) {
+    const el = vnode.elm as HTMLElement;
+    if (ctrl.data.lines.length > 5) {
+      const autoScroll =
+        el.scrollTop === 0 || el.scrollTop > el.scrollHeight - el.clientHeight - 100;
+      if (autoScroll) {
+        el.scrollTop = 999999;
+        setTimeout((_: any) => {
           el.scrollTop = 999999;
-          setTimeout((_: any) => {
-            el.scrollTop = 999999;
-          }, 300);
-        }
+        }, 300);
       }
-    },
-    mod = ctrl.moderation();
+    }
+  };
+  const mod = ctrl.moderation();
   const vnodes = [
     h(
       `ol.mchat__messages.chat-v-${ctrl.data.domVersion}`,
@@ -105,9 +105,9 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
 
   chatEl.addEventListener('keypress', (e: KeyboardEvent) =>
     setTimeout(() => {
-      const el = e.target as HTMLInputElement,
-        txt = el.value,
-        pub = ctrl.opts.public;
+      const el = e.target as HTMLInputElement;
+      const txt = el.value;
+      const pub = ctrl.opts.public;
       storage.set(el.value);
       if (e.which == 10 || e.which == 13) {
         if (txt === '') $('.keyboard-move input').focus();
@@ -166,8 +166,8 @@ function sameLines(l1: Line, l2: Line) {
 }
 
 function selectLines(ctrl: ChatCtrl): Array<Line> {
-  let prev: Line,
-    ls: Array<Line> = [];
+  let prev: Line;
+  const ls: Array<Line> = [];
   ctrl.data.lines.forEach(line => {
     if (
       !line.d &&
@@ -212,8 +212,8 @@ function report(ctrl: ChatCtrl, line: HTMLElement) {
 }
 
 function renderLine(ctrl: ChatCtrl, line: Line) {
-  const system = line.u === 'lishogi',
-    textNode = renderText(line.t, ctrl.opts.parseMoves);
+  const system = line.u === 'lishogi';
+  const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
   if (system) return h('li.system', textNode);
 

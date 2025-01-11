@@ -2,14 +2,14 @@ import { spinnerHtml } from 'common/spinner';
 import { debounce } from 'common/timings';
 
 window.lishogi.ready.then(() => {
-  const $form = $('#signup_form'),
-    $exists = $form.find('.username-exists'),
-    $username = $form
-      .find<HTMLInputElement>('input[name="username"]')
-      .on('change keyup paste', () => {
-        $exists.hide();
-        usernameCheck();
-      });
+  const $form = $('#signup_form');
+  const $exists = $form.find('.username-exists');
+  const $username = $form
+    .find<HTMLInputElement>('input[name="username"]')
+    .on('change keyup paste', () => {
+      $exists.hide();
+      usernameCheck();
+    });
 
   const usernameCheck = debounce(() => {
     const name = $username.val();

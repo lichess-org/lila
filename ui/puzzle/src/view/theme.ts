@@ -32,8 +32,8 @@ export default function theme(ctrl: Controller): MaybeVNode {
 const invisibleThemes = new Set<ThemeKey>(['lishogiGames', 'otherSources']);
 
 const editor = (ctrl: Controller): VNode => {
-  const data = ctrl.getData(),
-    votedThemes = ctrl.vm.round?.themes || ({} as RoundThemes);
+  const data = ctrl.getData();
+  const votedThemes = ctrl.vm.round?.themes || ({} as RoundThemes);
   const visibleThemes: ThemeKey[] = data.puzzle.themes
     .filter(t => !invisibleThemes.has(t))
     .concat(

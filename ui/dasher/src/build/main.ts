@@ -8,7 +8,8 @@ const patch = init([classModule, attributesModule]);
 function main(opts: DasherOpts): Promise<DasherCtrl> {
   const element = document.getElementById('dasher_app')!;
 
-  let vnode: VNode, ctrl: DasherCtrl;
+  let vnode: VNode;
+  let ctrl: DasherCtrl;
 
   const redraw: Redraw = () => {
     vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());

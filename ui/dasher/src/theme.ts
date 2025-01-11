@@ -47,12 +47,12 @@ export function ctrl(data: ThemeData, redraw: Redraw, open: Open): ThemeCtrl {
 }
 
 export function view(ctrl: ThemeCtrl): VNode {
-  const lastIndex = ctrl.data.list.length - 1,
-    list: (Theme | 'thickGrid')[] = [
-      ...ctrl.data.list.slice(0, lastIndex),
-      'thickGrid',
-      ctrl.data.list[lastIndex],
-    ];
+  const lastIndex = ctrl.data.list.length - 1;
+  const list: (Theme | 'thickGrid')[] = [
+    ...ctrl.data.list.slice(0, lastIndex),
+    'thickGrid',
+    ctrl.data.list[lastIndex],
+  ];
   return h('div.sub.theme', [
     header(i18n('boardTheme'), () => ctrl.open('links')),
     h(

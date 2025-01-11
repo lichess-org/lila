@@ -103,9 +103,9 @@ export function initLevelConfig(level: Level): Config {
 }
 
 export function destsAndCheck(level: Level, usiCList: UsiWithColor[]): Config {
-  const pos = currentPosition(level, usiCList),
-    hasObstacles = !!level.obstacles?.length,
-    illegalDests = !!level.offerIllegalDests || hasObstacles;
+  const pos = currentPosition(level, usiCList);
+  const hasObstacles = !!level.obstacles?.length;
+  const illegalDests = !!level.offerIllegalDests || hasObstacles;
 
   return {
     checks: !hasObstacles && inCheck(pos),
@@ -119,11 +119,11 @@ export function destsAndCheck(level: Level, usiCList: UsiWithColor[]): Config {
 }
 
 export function createDrawable(level: Level, usiCList: UsiWithColor[] = []): Partial<Drawable> {
-  const obastacles: SquareHighlight[] = [],
-    usis = usiCList.map(uc => uc.usi),
-    dests = usis.map(u => makeSquareName(parseUsi(u)!.to)),
-    drawShapes = level.drawShapes?.(level, usiCList),
-    squares = level.squareHighlights?.(level, usiCList);
+  const obastacles: SquareHighlight[] = [];
+  const usis = usiCList.map(uc => uc.usi);
+  const dests = usis.map(u => makeSquareName(parseUsi(u)!.to));
+  const drawShapes = level.drawShapes?.(level, usiCList);
+  const squares = level.squareHighlights?.(level, usiCList);
 
   if (level.obstacles)
     level.obstacles.map(o => {

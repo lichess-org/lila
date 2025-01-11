@@ -10,7 +10,8 @@ function main(opts: ChallengeOpts): {
 } {
   const element = document.getElementById('challenge-app')!;
 
-  let vnode: VNode, ctrl: Ctrl;
+  let vnode: VNode;
+  let ctrl: Ctrl;
 
   function redraw() {
     vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());

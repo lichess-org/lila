@@ -79,8 +79,8 @@ export default class InsightCtrl {
   }
 
   processFilter(params: URLSearchParams): void {
-    const df = defaultFilter(this.isBot),
-      flt: Partial<InsightFilter> = this.filter || df;
+    const df = defaultFilter(this.isBot);
+    const flt: Partial<InsightFilter> = this.filter || df;
 
     const keys = Object.keys(flt) as (keyof InsightFilter)[];
     for (const key of keys) {
@@ -137,8 +137,8 @@ export default class InsightCtrl {
   }
 
   queryString(tab: Tab, forApi: boolean): string {
-    const params: Record<string, string> = {},
-      df = defaultFilter(false);
+    const params: Record<string, string> = {};
+    const df = defaultFilter(false);
     if (forApi) {
       params.u = this.userId;
       params.tmz =

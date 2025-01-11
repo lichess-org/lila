@@ -11,16 +11,16 @@ export default function (ctrl: SimulCtrl) {
 }
 
 const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
-  const game = pairing.game,
-    player = pairing.player,
-    result =
-      pairing.game.status >= status.ids.mate
-        ? pairing.game.winner
-          ? pairing.game.winner === pairing.hostColor
-            ? i18nFormat('xWon', ctrl.data.host.name)
-            : i18nFormat('xLost', ctrl.data.host.name)
-          : i18n('draw')
-        : '*';
+  const game = pairing.game;
+  const player = pairing.player;
+  const result =
+    pairing.game.status >= status.ids.mate
+      ? pairing.game.winner
+        ? pairing.game.winner === pairing.hostColor
+          ? i18nFormat('xWon', ctrl.data.host.name)
+          : i18nFormat('xLost', ctrl.data.host.name)
+        : i18n('draw')
+      : '*';
 
   return h(
     'a',

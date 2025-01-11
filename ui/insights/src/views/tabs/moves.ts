@@ -56,13 +56,13 @@ function movesStatistics(data: MovesResult): VNode {
 }
 
 function movesAndDropByRoleChart(data: MovesResult, flt: InsightFilter): VNode {
-  const variant = flt.variant,
-    moves = data.nbOfMovesByRole,
-    drops = data.nbOfDropsByRole,
-    roles = allRoles(variant),
-    totalMoves = roles.reduce((a, b) => a + (moves[b] || 0), 0),
-    totalDrops = roles.reduce((a, b) => a + (drops[b] || 0), 0),
-    valueMap = (value: number | string) => `${i18n('insights:count')}: ${value}`;
+  const variant = flt.variant;
+  const moves = data.nbOfMovesByRole;
+  const drops = data.nbOfDropsByRole;
+  const roles = allRoles(variant);
+  const totalMoves = roles.reduce((a, b) => a + (moves[b] || 0), 0);
+  const totalDrops = roles.reduce((a, b) => a + (drops[b] || 0), 0);
+  const valueMap = (value: number | string) => `${i18n('insights:count')}: ${value}`;
 
   return barChart('moves-drops-by-role', JSON.stringify(flt), {
     labels: roles.map(r => translateRole(r).split(' ')),
@@ -103,8 +103,8 @@ function movesAndDropByRoleChart(data: MovesResult, flt: InsightFilter): VNode {
 function capturesByRoleChart(data: MovesResult, flt: InsightFilter): VNode {
   const variant = flt.variant;
   const captures = data.nbOfCapturesByRole;
-  const roles = allRoles(variant),
-    totalCaptures = roles.reduce((a, b) => a + (captures[b] || 0), 0);
+  const roles = allRoles(variant);
+  const totalCaptures = roles.reduce((a, b) => a + (captures[b] || 0), 0);
 
   return barChart('captures-by-role', JSON.stringify(flt), {
     labels: roles

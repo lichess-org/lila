@@ -13,13 +13,13 @@ window.lishogi.ready.then(() => {
   }
 
   function userChoices(row) {
-    const options = ["<option value=''></option>"],
-      isSelected = (row, rowClassName, user, dataKey): string => {
-        const player = $form.data(dataKey);
-        return row.classList.contains(rowClassName) && player.length && user == player
-          ? 'selected'
-          : '';
-      };
+    const options = ["<option value=''></option>"];
+    const isSelected = (row, rowClassName, user, dataKey): string => {
+      const player = $form.data(dataKey);
+      return row.classList.contains(rowClassName) && player.length && user == player
+        ? 'selected'
+        : '';
+    };
     getUsernames().forEach(user => {
       const option: string[] = [];
       option.push(`<option value='${user}'`);
@@ -62,8 +62,8 @@ window.lishogi.ready.then(() => {
 
   const serialized = serialize();
 
-  const result = document.querySelector('')!,
-    rows = result.querySelectorAll('.search__rows');
+  const result = document.querySelector('')!;
+  const rows = result.querySelectorAll('.search__rows');
 
   result.querySelectorAll('a.permalink').forEach(el => {
     const s = el.classList.contains('download') ? serialize(true) : serialized;

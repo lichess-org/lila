@@ -97,27 +97,27 @@ export function ctrl(
 }
 
 export function view(ctrl: StudyChapterNewFormCtrl): VNode {
-  const activeTab = ctrl.vm.tab(),
-    makeTab = (key: string, name: string, title: string) =>
-      h(
-        `span.${key}`,
-        {
-          class: { active: activeTab === key },
-          attrs: { title },
-          hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
-        },
-        name,
-      ),
-    currentChapter = ctrl.root.study!.data.chapter,
-    notVariantTab = activeTab === 'game' || activeTab === 'notation' || activeTab === 'edit',
-    notOrientationTab = activeTab === 'edit',
-    mode = currentChapter.practice
-      ? 'practice'
-      : defined(currentChapter.conceal)
-        ? 'conceal'
-        : currentChapter.gamebook
-          ? 'gamebook'
-          : 'normal';
+  const activeTab = ctrl.vm.tab();
+  const makeTab = (key: string, name: string, title: string) =>
+    h(
+      `span.${key}`,
+      {
+        class: { active: activeTab === key },
+        attrs: { title },
+        hook: bind('click', () => ctrl.vm.tab(key), ctrl.root.redraw),
+      },
+      name,
+    );
+  const currentChapter = ctrl.root.study!.data.chapter;
+  const notVariantTab = activeTab === 'game' || activeTab === 'notation' || activeTab === 'edit';
+  const notOrientationTab = activeTab === 'edit';
+  const mode = currentChapter.practice
+    ? 'practice'
+    : defined(currentChapter.conceal)
+      ? 'conceal'
+      : currentChapter.gamebook
+        ? 'gamebook'
+        : 'normal';
   let isDefaultName = true;
 
   return modal.modal({

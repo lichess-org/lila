@@ -15,8 +15,8 @@ import type { RoundData } from '../interfaces';
 import * as round from '../round';
 import * as util from '../util';
 
-const scrollMax = 99999,
-  moveTag = 'm2';
+const scrollMax = 99999;
+const moveTag = 'm2';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -45,12 +45,12 @@ function plyOffset(ctrl: RoundController): number {
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
   if (status.finished(ctrl.data) || status.aborted(ctrl.data) || status.paused(ctrl.data)) {
-    const winner = ctrl.data.game.winner,
-      spectator = !ctrl.data.player.spectator,
-      handicap = isHandicap({
-        rules: ctrl.data.game.variant.key,
-        sfen: ctrl.data.game.initialSfen,
-      });
+    const winner = ctrl.data.game.winner;
+    const spectator = !ctrl.data.player.spectator;
+    const handicap = isHandicap({
+      rules: ctrl.data.game.variant.key,
+      sfen: ctrl.data.game.initialSfen,
+    });
 
     return h(
       'div.result-wrap',
@@ -112,8 +112,8 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 }
 
 export function analysisButton(ctrl: RoundController): VNode {
-  const forecastCount = ctrl.data.forecastCount,
-    disabled = !game.userAnalysable(ctrl.data);
+  const forecastCount = ctrl.data.forecastCount;
+  const disabled = !game.userAnalysable(ctrl.data);
   return h(
     'a.fbt.analysis',
     {
@@ -133,9 +133,9 @@ export function analysisButton(ctrl: RoundController): VNode {
 }
 
 function renderButtons(ctrl: RoundController) {
-  const d = ctrl.data,
-    firstPly = round.firstPly(d),
-    lastPly = round.lastPly(d);
+  const d = ctrl.data;
+  const firstPly = round.firstPly(d);
+  const lastPly = round.lastPly(d);
   return h(
     'div.buttons',
     {
@@ -174,8 +174,8 @@ function renderButtons(ctrl: RoundController) {
         ['X', ctrl.ply + 1],
         ['V', lastPly],
       ].map((b, i) => {
-        const ply = b[1] as number,
-          enabled = ctrl.ply !== ply && ply >= firstPly && ply <= lastPly;
+        const ply = b[1] as number;
+        const enabled = ctrl.ply !== ply && ply >= firstPly && ply <= lastPly;
         return h('button.fbt', {
           class: { glowing: i === 3 && ctrl.isLate() },
           attrs: {
@@ -228,36 +228,36 @@ function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: 
 }
 
 export function render(ctrl: RoundController): VNode | undefined {
-  const d = ctrl.data,
-    col1 = isCol1(),
-    moves =
-      ctrl.replayEnabledByPref() &&
-      h(
-        'div.moves',
-        {
-          hook: util.onInsert(el => {
-            el.addEventListener('mousedown', e => {
-              let node = e.target as HTMLElement;
-              if (node.tagName !== moveTag.toUpperCase()) return;
-              node = node.previousSibling as HTMLElement;
-              while (node) {
-                if (node.tagName === 'INDEX') {
-                  ctrl.userJump(Number.parseInt(node.textContent || '') + (plyOffset(ctrl) % 2));
-                  ctrl.redraw();
-                  break;
-                }
-                node = node.previousSibling as HTMLElement;
+  const d = ctrl.data;
+  const col1 = isCol1();
+  const moves =
+    ctrl.replayEnabledByPref() &&
+    h(
+      'div.moves',
+      {
+        hook: util.onInsert(el => {
+          el.addEventListener('mousedown', e => {
+            let node = e.target as HTMLElement;
+            if (node.tagName !== moveTag.toUpperCase()) return;
+            node = node.previousSibling as HTMLElement;
+            while (node) {
+              if (node.tagName === 'INDEX') {
+                ctrl.userJump(Number.parseInt(node.textContent || '') + (plyOffset(ctrl) % 2));
+                ctrl.redraw();
+                break;
               }
-            });
-            if (col1) {
-              ctrl.autoScroll = () => autoScroll(el, ctrl);
-              ctrl.autoScroll();
-              window.addEventListener('load', ctrl.autoScroll);
+              node = node.previousSibling as HTMLElement;
             }
-          }),
-        },
-        renderMoves(ctrl),
-      );
+          });
+          if (col1) {
+            ctrl.autoScroll = () => autoScroll(el, ctrl);
+            ctrl.autoScroll();
+            window.addEventListener('load', ctrl.autoScroll);
+          }
+        }),
+      },
+      renderMoves(ctrl),
+    );
   return ctrl.nvui
     ? undefined
     : h(

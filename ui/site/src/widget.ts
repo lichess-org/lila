@@ -76,14 +76,14 @@ export function initWidgets(): void {
         };
       };
       const renderUser = (user: any) => {
-        const icon = `<i class="line${user.patron ? ' patron' : ''}"></i>`,
-          titleTag = user.title
-            ? `<span class="title"${user.title === 'BOT' ? ' data-bot' : ''}>${user.title}</span>&nbsp;`
-            : '',
-          url = `/@/${user.name}`,
-          tvButton = user.playing
-            ? `<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>`
-            : '';
+        const icon = `<i class="line${user.patron ? ' patron' : ''}"></i>`;
+        const titleTag = user.title
+          ? `<span class="title"${user.title === 'BOT' ? ' data-bot' : ''}>${user.title}</span>&nbsp;`
+          : '';
+        const url = `/@/${user.name}`;
+        const tvButton = user.playing
+          ? `<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>`
+          : '';
         return `<div><a class="user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${user.name}</a>${tvButton}</div>`;
       };
       return {
@@ -112,8 +112,8 @@ export function initWidgets(): void {
           if (this.loaded)
             requestAnimationFrame(
               function () {
-                const users = this.users,
-                  ids = Object.keys(users).sort();
+                const users = this.users;
+                const ids = Object.keys(users).sort();
                 this.$friendBoxTitle.html(
                   i18nVdomPlural(
                     'nbFriendsOnline',
@@ -179,9 +179,9 @@ export function initWidgets(): void {
     _formatMs: function (msTime) {
       const date = new Date(Math.max(0, msTime + 500));
 
-      const hours = date.getUTCHours(),
-        minutes = date.getUTCMinutes(),
-        seconds = date.getUTCSeconds();
+      const hours = date.getUTCHours();
+      const minutes = date.getUTCMinutes();
+      const seconds = date.getUTCSeconds();
 
       if (hours > 0) {
         return `${hours}:${this._pad(minutes)}:${this._pad(seconds)}`;

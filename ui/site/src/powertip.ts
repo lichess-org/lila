@@ -79,8 +79,8 @@ function onIdleForAll(par: HTMLElement, sel: string, fun: (...args: any[]) => an
 
 export const powertip: any = {
   mouseover(e: Event) {
-    const t = e.target as HTMLElement,
-      cl = t.classList;
+    const t = e.target as HTMLElement;
+    const cl = t.classList;
     if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
     else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
   },

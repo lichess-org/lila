@@ -7,8 +7,8 @@ import { teamName } from './battle';
 import { numberRow, player as renderPlayer } from './util';
 
 export default function (ctrl: TournamentController): VNode | undefined {
-  const battle = ctrl.data.teamBattle,
-    data = ctrl.teamInfo.loaded;
+  const battle = ctrl.data.teamBattle;
+  const data = ctrl.teamInfo.loaded;
   if (!battle) return undefined;
   const teamTag = ctrl.teamInfo.requested ? teamName(battle, ctrl.teamInfo.requested) : null;
   const tag = 'div.tour__team-info.tour__actor-info';

@@ -14,16 +14,16 @@ import teamInfo from './team-info';
 export const name = 'created';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const pag = pagination.players(ctrl),
-    proverb = h(
-      'blockquote.pull-quote',
-      h('p', useJp() ? ctrl.data.proverb.japanese : ctrl.data.proverb.english),
-    ),
-    faq = ctrl.opts.$faq
-      ? h('div', {
-          hook: onInsert(el => $(el).replaceWith(ctrl.opts.$faq)),
-        })
-      : null;
+  const pag = pagination.players(ctrl);
+  const proverb = h(
+    'blockquote.pull-quote',
+    h('p', useJp() ? ctrl.data.proverb.japanese : ctrl.data.proverb.english),
+  );
+  const faq = ctrl.opts.$faq
+    ? h('div', {
+        hook: onInsert(el => $(el).replaceWith(ctrl.opts.$faq)),
+      })
+    : null;
   if (ctrl.isArena())
     return [
       header(ctrl),

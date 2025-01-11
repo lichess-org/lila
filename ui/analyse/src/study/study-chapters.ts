@@ -78,13 +78,13 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  const canContribute = ctrl.members.canContribute(),
-    current = ctrl.currentChapter();
+  const canContribute = ctrl.members.canContribute();
+  const current = ctrl.currentChapter();
 
   function update(vnode: VNode) {
-    const newCount = ctrl.chapters.list().length,
-      vData = vnode.data!.li!,
-      el = vnode.elm as HTMLElement;
+    const newCount = ctrl.chapters.list().length;
+    const vData = vnode.data!.li!;
+    const el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
       if (current.id !== ctrl.chapters.firstChapterId()) {
         scrollTo(el, el.querySelector('.active'));
@@ -140,9 +140,9 @@ export function view(ctrl: StudyCtrl): VNode {
     ctrl.chapters
       .list()
       .map((chapter, i) => {
-        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && current.id === chapter.id;
+        const editing = ctrl.chapters.editForm.isEditing(chapter.id);
+        const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId;
+        const active = !ctrl.vm.loading && current && current.id === chapter.id;
         return h(
           'div',
           {

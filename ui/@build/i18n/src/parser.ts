@@ -40,9 +40,9 @@ export async function parseXmls(sources: XmlSource[]): Promise<I18nObj> {
 async function parseXml(source: XmlSource): Promise<I18nObj> {
   const result: I18nObj = {};
   try {
-    const xmlContent = await readFile(source.path, 'utf-8'),
-      prefix = source.name === 'site' ? '' : `${source.name}:`,
-      parsed = parser.parse(xmlContent) as ParsedResources;
+    const xmlContent = await readFile(source.path, 'utf-8');
+    const prefix = source.name === 'site' ? '' : `${source.name}:`;
+    const parsed = parser.parse(xmlContent) as ParsedResources;
 
     if (parsed.resources.string) {
       const strings = Array.isArray(parsed.resources.string)
@@ -61,8 +61,8 @@ async function parseXml(source: XmlSource): Promise<I18nObj> {
         : [parsed.resources.plurals];
 
       plurals.forEach(plural => {
-        const baseKey = `${prefix}${plural['@_name']}`,
-          items = Array.isArray(plural.item) ? plural.item : [plural.item];
+        const baseKey = `${prefix}${plural['@_name']}`;
+        const items = Array.isArray(plural.item) ? plural.item : [plural.item];
 
         result[baseKey] = items.reduce(
           (acc, item) => {

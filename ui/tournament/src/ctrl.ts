@@ -78,8 +78,8 @@ export default class TournamentController {
     console.log('Data', this.data);
     // this.newArrangement = this.newArrangementSettings();
 
-    const hash = window.location.hash,
-      userIds = hash.slice(1).split(';');
+    const hash = window.location.hash;
+    const userIds = hash.slice(1).split(';');
     if (
       userIds.length === 2 &&
       userIds[0] !== userIds[1] &&

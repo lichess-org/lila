@@ -120,8 +120,8 @@ export default class LobbyController {
   private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
 
   initAllPresets = (): void => {
-    const highestDefeatedAi = this.presetOpts.aiLevel || 1,
-      level = Math.min(Math.max(highestDefeatedAi, 2), 7); // the middle level
+    const highestDefeatedAi = this.presetOpts.aiLevel || 1;
+    const level = Math.min(Math.max(highestDefeatedAi, 2), 7); // the middle level
     this.allPresets = [
       { lim: 3, byo: 0 },
       { lim: 0, byo: 10 },

@@ -13,13 +13,13 @@ export default function (
   studyData: StudyData,
   data: StudyPracticeData,
 ): StudyPracticeCtrl {
-  const goal = prop<Goal>(root.data.practiceGoal!),
-    nbMoves = prop(0),
-    // null = ongoing, true = win, false = fail
-    success = prop<boolean | null>(null),
-    sound = makeSound(),
-    analysisUrl = prop(''),
-    autoNext = storedProp('practice-auto-next', true);
+  const goal = prop<Goal>(root.data.practiceGoal!);
+  const nbMoves = prop(0);
+  // null = ongoing, true = win, false = fail
+  const success = prop<boolean | null>(null);
+  const sound = makeSound();
+  const analysisUrl = prop('');
+  const autoNext = storedProp('practice-auto-next', true);
 
   function onLoad() {
     root.showAutoShapes = readOnlyProp(true);
@@ -70,8 +70,8 @@ export default function (
   }
 
   function saveNbMoves(): void {
-    const chapterId = getStudy().currentChapter().id,
-      former = data.completion[chapterId];
+    const chapterId = getStudy().currentChapter().id;
+    const former = data.completion[chapterId];
     if (typeof former === 'undefined' || nbMoves() < former) {
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());

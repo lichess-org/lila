@@ -49,16 +49,16 @@ export function renderMove(
   style: Style,
 ): string {
   if (!usi) return '';
-  const pos = parseSfen(variant, sfen, false),
-    move = parseUsi(usi);
+  const pos = parseSfen(variant, sfen, false);
+  const move = parseUsi(usi);
   if (pos.isErr || !move) return '';
   const piece = pos.value.board.get(move.to)!;
   if (isDrop(move)) {
     const to = usi.slice(2, 4) as Key;
     return `${renderRole(piece.role, style)} * ${renderKey(to, style)}`;
   } else {
-    const from = usi.slice(0, 2) as Key,
-      to = usi.slice(2, 4) as Key;
+    const from = usi.slice(0, 2) as Key;
+    const to = usi.slice(2, 4) as Key;
     return [renderRole(piece.role, style), renderKey(from, style), renderKey(to, style)].join(' ');
   }
 }
@@ -112,9 +112,9 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
 export function renderPieceKeys(pieces: Pieces, hands: Hands, p: string, style: Style): string {
   const role = letterToRole(p);
   if (!role) return 'Invalid piece';
-  const color = p === p.toUpperCase() ? 'sente' : 'gote',
-    name = `${color} ${role}`,
-    res: Key[] = [];
+  const color = p === p.toUpperCase() ? 'sente' : 'gote';
+  const name = `${color} ${role}`;
+  const res: Key[] = [];
   for (const [k, piece] of pieces) {
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k);
   }
@@ -142,8 +142,8 @@ export function renderHand(
   variant: VariantKey,
   style: Style,
 ): string {
-  let handStr = '',
-    color = position === 'top' ? opposite(pov) : pov;
+  let handStr = '';
+  let color = position === 'top' ? opposite(pov) : pov;
   if (style === 'japanese') color = position === 'top' ? 'gote' : 'sente';
   if (!hand) return '-';
   for (const role of handRoles(variant)) {
@@ -158,12 +158,12 @@ export function renderHand(
 
 export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey, style: Style): string {
   if (style === 'japanese') {
-    const boardSfen = boardToSfen(pieces, dimensions(variant), roleToForsyth(variant)),
-      board = parseBoardSfen(variant, boardSfen);
+    const boardSfen = boardToSfen(pieces, dimensions(variant), roleToForsyth(variant));
+    const board = parseBoardSfen(variant, boardSfen);
     if (board.isOk) return makeKifBoard(variant, board.value);
   }
-  const reversedFiles = [...files].slice(0, dimensions(variant).files).reverse(),
-    board = [[' ', ...reversedFiles, ' ']];
+  const reversedFiles = [...files].slice(0, dimensions(variant).files).reverse();
+  const board = [[' ', ...reversedFiles, ' ']];
   for (const rank of ranks.slice(0, dimensions(variant).ranks)) {
     const line: string[] = [];
     for (const file of reversedFiles) {

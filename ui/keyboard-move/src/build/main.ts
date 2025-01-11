@@ -41,9 +41,9 @@ type Submit = (v: string, submitOpts: SubmitOpts) => void;
 function main(opts: Opts): KeyboardMoveHandler | undefined {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
-  let pos: Position | null = null,
-    lastKey: Key | null | undefined,
-    canPlay: boolean | undefined;
+  let pos: Position | null = null;
+  let lastKey: Key | null | undefined;
+  let canPlay: boolean | undefined;
 
   const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
     opts.input.classList.remove('wrong');
@@ -61,8 +61,8 @@ function main(opts: Opts): KeyboardMoveHandler | undefined {
       if (KKlastDestR.test(v)) v = v + lastKey;
       else if (v.includes('同')) v = v.replace('同', lastKey);
     }
-    const shapes: DrawShape[] = [],
-      move = pos && toMoveOrDrop(v, pos);
+    const shapes: DrawShape[] = [];
+    const move = pos && toMoveOrDrop(v, pos);
 
     if (!submitOpts.submitCommand) {
       if (move) {
@@ -80,11 +80,11 @@ function main(opts: Opts): KeyboardMoveHandler | undefined {
             description: move.promotion ? '+' : undefined,
           });
       } else if (pos) {
-        const sqs = regexMatchAllSquares(v),
-          m = v.match(allRolesR)?.[0] || '',
-          forceDrop = v.includes('*') || v.includes('打'),
-          role = toRole(pos.rules, m),
-          brush = `${!canPlay ? 'pre-' : ''}suggest`;
+        const sqs = regexMatchAllSquares(v);
+        const m = v.match(allRolesR)?.[0] || '';
+        const forceDrop = v.includes('*') || v.includes('打');
+        const role = toRole(pos.rules, m);
+        const brush = `${!canPlay ? 'pre-' : ''}suggest`;
 
         if (sqs.length === 1) {
           if (role && !forceDrop) {
@@ -169,8 +169,8 @@ function main(opts: Opts): KeyboardMoveHandler | undefined {
     // premove/predrop
     if (!canPlay) {
       pos.turn = opposite(pos.turn);
-      const myOccupied = pos.board.color(pos.turn),
-        roleMap: RoleMap = new Map();
+      const myOccupied = pos.board.color(pos.turn);
+      const roleMap: RoleMap = new Map();
 
       for (const r of pos.board.presentRoles()) {
         roleMap.set(r, pos.board.role(r).intersect(myOccupied));
@@ -191,8 +191,8 @@ function makeBindings(opts: any, submit: Submit, clear: () => void) {
   window.lishogi.mousetrap.bind('enter', () => opts.input.focus());
   opts.input.addEventListener('keyup', (e: KeyboardEvent) => {
     if (!e.isTrusted) return;
-    const v = (e.target as HTMLInputElement).value,
-      submitCommand = e.which === 13 && initiated;
+    const v = (e.target as HTMLInputElement).value;
+    const submitCommand = e.which === 13 && initiated;
 
     if (v.includes('/')) {
       focusChat();

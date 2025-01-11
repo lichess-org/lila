@@ -18,8 +18,8 @@ window.lishogi.ready.then(() => {
   });
 
   $('.user-show .angles').each(function () {
-    const $angles = $(this),
-      $content = $('.angle-content');
+    const $angles = $(this);
+    const $content = $('.angle-content');
     function browseTo(path: string) {
       const node = document.querySelector('.angle-content .infinitescroll');
       if (node) {

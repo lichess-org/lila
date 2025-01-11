@@ -41,8 +41,8 @@ export function renderIndex(ply: Ply, offset?: number, withDots?: boolean): VNod
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node, moveTime?: number): MaybeVNodes {
-  const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {},
-    colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '';
+  const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
+  const colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '';
 
   return [
     h(`move-notation${colorIcon}`, node.notation),

@@ -46,28 +46,28 @@ const innerInit = (node: HTMLElement): void => {
     if (state.variant === 'chushogi') loadChushogiPieceSprite();
     else if (state.variant === 'kyotoshogi') loadKyotoshogiPieceSprite();
 
-    const splitSfen = state.sfen.split(' '),
-      config: Config = {
-        orientation: state.orientation,
-        coordinates: {
-          enabled: false,
-        },
-        viewOnly: !state.playable,
-        sfen: { board: splitSfen[0], hands: splitSfen[2] },
-        hands: {
-          inlined: state.variant !== 'chushogi' && !state.noHands,
-          roles: handRoles(state.variant),
-        },
-        lastDests: state.lastMove ? usiToSquareNames(state.lastMove) : undefined,
-        forsyth: {
-          fromForsyth: forsythToRole(state.variant),
-          toForsyth: roleToForsyth(state.variant),
-        },
-        drawable: {
-          enabled: false,
-          visible: false,
-        },
-      };
+    const splitSfen = state.sfen.split(' ');
+    const config: Config = {
+      orientation: state.orientation,
+      coordinates: {
+        enabled: false,
+      },
+      viewOnly: !state.playable,
+      sfen: { board: splitSfen[0], hands: splitSfen[2] },
+      hands: {
+        inlined: state.variant !== 'chushogi' && !state.noHands,
+        roles: handRoles(state.variant),
+      },
+      lastDests: state.lastMove ? usiToSquareNames(state.lastMove) : undefined,
+      forsyth: {
+        fromForsyth: forsythToRole(state.variant),
+        toForsyth: roleToForsyth(state.variant),
+      },
+      drawable: {
+        enabled: false,
+        visible: false,
+      },
+    };
     domData.set<SgApi>(node, 'shogiground', window.Shogiground(config, { board: sgWrap }));
     sgWrap.classList.remove('preload');
     node.classList.remove('parse-sfen');

@@ -15,8 +15,8 @@ import {
 } from './util';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
-  const cs = node.children,
-    main = cs[0];
+  const cs = node.children;
+  const main = cs[0];
   if (!main) return;
   if (opts.isMainline) {
     if (!cs[1] && !main.forceVariation)
@@ -88,8 +88,8 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
 }
 
 function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes {
-  const path = opts.parentPath + node.id,
-    comments = renderInlineCommentsOf(ctx, node, opts.parentPath);
+  const path = opts.parentPath + node.id;
+  const comments = renderInlineCommentsOf(ctx, node, opts.parentPath);
   if (opts.truncate === 0) return [h('move', { attrs: { p: path } }, '[...]')];
   return ([renderMoveOf(ctx, node, opts)] as MaybeVNodes)
     .concat(comments)
@@ -114,12 +114,12 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const path = opts.parentPath + node.id,
-    colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '',
-    content: MaybeVNodes = [
-      node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
-      h(`move-notation${colorIcon}`, node.notation),
-    ];
+  const path = opts.parentPath + node.id;
+  const colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '';
+  const content: MaybeVNodes = [
+    node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
+    h(`move-notation${colorIcon}`, node.notation),
+  ];
   if (node.glyphs && ctx.showGlyphs) content.push(moveView.renderGlyphs(node.glyphs));
   return h(
     'move',

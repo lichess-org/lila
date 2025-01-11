@@ -147,8 +147,8 @@ function legend(data: MyChartData): DeepPartialObject<LegendOptions<'bar'>> {
 }
 
 function scales(opts: MyChartOptions, nbOfLabels: number) {
-  const affix = opts.valueAffix || (opts.percentage ? '%' : ''),
-    suggestedMax = opts.percentage ? 100 : undefined;
+  const affix = opts.valueAffix || (opts.percentage ? '%' : '');
+  const suggestedMax = opts.percentage ? 100 : undefined;
   return {
     x: {
       grid: {
@@ -234,10 +234,10 @@ function tooltip<T extends 'bar' | 'line'>(
         return `${context[0].label} - ${dataset.label}`;
       },
       label: context => {
-        const res: string[] = [],
-          dataset = data.datasets[context.datasetIndex],
-          index = context.dataIndex,
-          d = fixed(dataset.data[index], 2);
+        const res: string[] = [];
+        const dataset = data.datasets[context.datasetIndex];
+        const index = context.dataIndex;
+        const d = fixed(dataset.data[index], 2);
 
         const dWithAffix = d + (data.opts.valueAffix || (data.opts.percentage ? '%' : ''));
         res.push(dataset.tooltip.valueMap(dWithAffix));

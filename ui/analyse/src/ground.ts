@@ -33,10 +33,10 @@ export function renderBoard(ctrl: AnalyseCtrl): VNode {
 }
 
 export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
-  const d = ctrl.data,
-    variant = d.game.variant.key,
-    pref = d.pref,
-    opts = ctrl.makeSgOpts();
+  const d = ctrl.data;
+  const variant = d.game.variant.key;
+  const pref = d.pref;
+  const opts = ctrl.makeSgOpts();
   const config: SgConfig = {
     turnColor: opts.turnColor,
     activeColor: opts.activeColor,
@@ -72,8 +72,8 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
       drop: ctrl.userDrop,
       unselect: (key: Key) => {
         if (ctrl.lionFirstMove && ctrl.lionFirstMove.to === parseSquareName(key)) {
-          const from = ctrl.lionFirstMove.from,
-            to = ctrl.lionFirstMove.to;
+          const from = ctrl.lionFirstMove.from;
+          const to = ctrl.lionFirstMove.to;
           ctrl.userMove(makeSquareName(from), makeSquareName(to), false, undefined);
         }
       },
@@ -105,8 +105,8 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     promotion: {
       promotesTo: (role: Role) => shogiPromote(variant)(role),
       movePromotionDialog: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece,
-          capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
+        const capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
           pieceCanPromote(variant)(

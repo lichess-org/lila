@@ -33,8 +33,8 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
   }
 
   function showUser(user: ChallengeUser) {
-    const rating = user.rating + (user.provisional ? '?' : ''),
-      fullName = (user.title ? `${user.title} ` : '') + user.name;
+    const rating = user.rating + (user.provisional ? '?' : '');
+    const fullName = (user.title ? `${user.title} ` : '') + user.name;
     return `${fullName} (${rating})`;
   }
 

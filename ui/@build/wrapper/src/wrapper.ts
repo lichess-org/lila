@@ -101,8 +101,8 @@ function setupWatchers(ctx: Context, packages: PackageInfo[], root: PackageInfo)
 
 export async function wrapper(context: Context): Promise<void> {
   try {
-    const flags = process.argv.slice(2),
-      isProd = flags.includes('--prod');
+    const flags = process.argv.slice(2);
+    const isProd = flags.includes('--prod');
     console.log(`# ${withColor(context.name)} [${isProd ? 'PROD' : 'DEV'}]\n`);
 
     setupSignalHandlers(context);

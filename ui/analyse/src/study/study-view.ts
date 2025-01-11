@@ -55,10 +55,10 @@ function toolButton(opts: ToolButtonOpts): VNode {
 }
 
 function buttons(root: AnalyseCtrl): VNode {
-  const ctrl: StudyCtrl = root.study!,
-    canContribute = ctrl.members.canContribute(),
-    showSticky =
-      ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
+  const ctrl: StudyCtrl = root.study!;
+  const canContribute = ctrl.members.canContribute();
+  const showSticky =
+    ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
   return h('div.study__buttons', [
     h('div.left-buttons.tabs-horiz', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
@@ -142,25 +142,25 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
           ? 'gote'
           : undefined;
     };
-    const userId = document.body.dataset.user,
-      myColor = userId ? usersGameColor(userId) : undefined,
-      me = myColor && ctrl.data.postGameStudy.players[myColor],
-      gameBackButton = h(
-        'a.button.button-empty.text',
-        {
-          attrs: {
-            title: i18n('backToGame'),
-            href: `/${ctrl.data.postGameStudy.gameId}${me?.playerId || ''}`,
-            ...dataIcon('i'),
-          },
+    const userId = document.body.dataset.user;
+    const myColor = userId ? usersGameColor(userId) : undefined;
+    const me = myColor && ctrl.data.postGameStudy.players[myColor];
+    const gameBackButton = h(
+      'a.button.button-empty.text',
+      {
+        attrs: {
+          title: i18n('backToGame'),
+          href: `/${ctrl.data.postGameStudy.gameId}${me?.playerId || ''}`,
+          ...dataIcon('i'),
         },
-        !me ? i18n('backToGame') : null,
-      );
+      },
+      !me ? i18n('backToGame') : null,
+    );
     if (me) {
-      const myOpponent = ctrl.data.postGameStudy.players[opposite(myColor)],
-        isOnline = myOpponent.userId && ctrl.members.isOnline(myOpponent.userId),
-        offering = !!ctrl.data.postGameStudy.rematches[myColor],
-        offered = !!ctrl.data.postGameStudy.rematches[opposite(myColor)];
+      const myOpponent = ctrl.data.postGameStudy.players[opposite(myColor)];
+      const isOnline = myOpponent.userId && ctrl.members.isOnline(myOpponent.userId);
+      const offering = !!ctrl.data.postGameStudy.rematches[myColor];
+      const offered = !!ctrl.data.postGameStudy.rematches[opposite(myColor)];
       return h('div.game_info', [
         gameBackButton,
         h(
@@ -194,8 +194,8 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
 }
 
 function metadata(ctrl: StudyCtrl): VNode {
-  const d = ctrl.data,
-    title = `${d.name}: ${ctrl.currentChapter().name}`;
+  const d = ctrl.data;
+  const title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
       h('span.name', { attrs: { title } }, title),
@@ -297,8 +297,8 @@ export function overboard(ctrl: StudyCtrl): MaybeVNode {
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.embed) return [];
   if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);
-  const study = ctrl.study!,
-    toolTab = study.vm.toolTab();
+  const study = ctrl.study!;
+  const toolTab = study.vm.toolTab();
   if (study.gamebookPlay())
     return [descView(study, true), descView(study, false), gbPlayButtons(ctrl), metadata(study)];
   let panel: VNode | undefined;

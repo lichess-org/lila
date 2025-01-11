@@ -28,8 +28,8 @@ function execute(q: string) {
 }
 
 function command(q: string) {
-  const parts = q.split(' '),
-    exec = parts[0];
+  const parts = q.split(' ');
+  const exec = parts[0];
 
   const is = (commands: string) => commands.split(' ').includes(exec);
 

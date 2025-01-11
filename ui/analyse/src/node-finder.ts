@@ -29,11 +29,11 @@ export function evalSwings(
   mainline: Tree.Node[],
   nodeFilter: (node: Tree.Node) => boolean,
 ): Tree.Node[] {
-  const found: Tree.Node[] = [],
-    threshold = 0.1;
+  const found: Tree.Node[] = [];
+  const threshold = 0.1;
   for (let i = 1; i < mainline.length; i++) {
-    const node = mainline[i],
-      prev = mainline[i - 1];
+    const node = mainline[i];
+    const prev = mainline[i - 1];
     if (nodeFilter(node) && node.eval && prev.eval) {
       const diff = Math.abs(winningChances.povDiff('sente', prev.eval, node.eval));
       if (diff > threshold && hasCompChild(prev)) found.push(node);

@@ -9,8 +9,8 @@ import renderTable from './table/main';
 import renderTabs from './tabs';
 
 export default function (ctrl: LobbyController): VNode {
-  let body: VNodes | VNode,
-    data: VNodeData = {};
+  let body: VNodes | VNode;
+  let data: VNodeData = {};
   if (ctrl.redirecting) body = spinner();
   else
     switch (ctrl.tab) {

@@ -88,10 +88,10 @@ export function select(
   empty = false,
   disabledValues: (string | number)[] = [],
 ): VNode {
-  const cur = ctrl.selected(key),
-    emptyOption = empty
-      ? [h('option', { attrs: { selected: cur === '', hidden: true, value: '' } }, '')]
-      : [];
+  const cur = ctrl.selected(key);
+  const emptyOption = empty
+    ? [h('option', { attrs: { selected: cur === '', hidden: true, value: '' } }, '')]
+    : [];
   return h(
     'select',
     {
@@ -135,8 +135,8 @@ export function slider(ctrl: SetupCtrl, key: SetupDataKey, options: number[], bi
     },
     hook: {
       insert: vnode => {
-        const el = vnode.elm as HTMLInputElement,
-          index = options.findIndex(n => n == ctrl.data[key]);
+        const el = vnode.elm as HTMLInputElement;
+        const index = options.findIndex(n => n == ctrl.data[key]);
         el.value = `${index}`;
         el.addEventListener('input', _ => {
           const value = options[Number.parseInt(el.value)];
@@ -160,11 +160,11 @@ export function radioGroup(
   return h(
     `group.radio${inputs.length === 2 ? '.dual' : ''}`,
     inputs.map(i => {
-      const value = i[0],
-        id = fieldId(key, value),
-        name = i[1],
-        disabled = disabledValue === value,
-        checked = ctrl.data[key] == value;
+      const value = i[0];
+      const id = fieldId(key, value);
+      const name = i[1];
+      const disabled = disabledValue === value;
+      const checked = ctrl.data[key] == value;
       return h('div', { key: `${id}-${ctrl.data[key]}` }, [
         h(`input#${id}`, {
           hook: {

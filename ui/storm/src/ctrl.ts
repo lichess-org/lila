@@ -165,8 +165,8 @@ export default class StormCtrl {
     turn: Color,
     role?: Role,
   ): boolean {
-    const usi1 = parseUsi(u1)!,
-      usi2 = parseUsi(u2)!;
+    const usi1 = parseUsi(u1)!;
+    const usi2 = parseUsi(u2)!;
     if (isDrop(usi1) && isDrop(usi2)) {
       return usi1.role === usi2.role && usi1.to === usi2.to;
     } else if (isMove(usi1) && isMove(usi2)) {

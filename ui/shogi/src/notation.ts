@@ -110,8 +110,8 @@ export function makeNotation(
   usi: Usi,
   lastUsi?: Usi,
 ): MoveNotation {
-  const pos = createPosition(sfen, variant),
-    lastMoveOrDrop = lastUsi ? parseUsi(lastUsi) : undefined;
+  const pos = createPosition(sfen, variant);
+  const lastMoveOrDrop = lastUsi ? parseUsi(lastUsi) : undefined;
   return makeNotationWithPosition(pos, parseUsi(usi)!, lastMoveOrDrop);
 }
 
@@ -144,15 +144,16 @@ export function usiToNotation(
     for (const mText of matches) {
       const match = mText.match(/usi:(\d*)\.?((?:\d\w|\w\*)\d\w(?:\+|=)?)/);
       if (match) {
-        const textPlyColor = plyColor(Number.parseInt(match[1]) || node.ply),
-          useParentNode = plyColor(node.ply) !== textPlyColor,
-          refNode = useParentNode && parentNode ? parentNode : node,
-          refSfen =
-            !node.usi && useParentNode
-              ? refNode.sfen.replace(/ (b|w) /, ` ${toBW(textPlyColor)} `)
-              : refNode.sfen, // for initial node
-          moveOrDrop = match[2] && parseUsi(match[2]), // to make sure we have valid usi
-          notation = moveOrDrop && makeNotation(refSfen, variant, makeUsi(moveOrDrop), refNode.usi);
+        const textPlyColor = plyColor(Number.parseInt(match[1]) || node.ply);
+        const useParentNode = plyColor(node.ply) !== textPlyColor;
+        const refNode = useParentNode && parentNode ? parentNode : node;
+        const refSfen =
+          !node.usi && useParentNode
+            ? refNode.sfen.replace(/ (b|w) /, ` ${toBW(textPlyColor)} `)
+            : refNode.sfen; // for initial node
+        const moveOrDrop = match[2] && parseUsi(match[2]); // to make sure we have valid usi
+        const notation =
+          moveOrDrop && makeNotation(refSfen, variant, makeUsi(moveOrDrop), refNode.usi);
         if (notation) text = text.replace(mText, notation);
         else text = text.replace(mText, 'Invalid move');
       }

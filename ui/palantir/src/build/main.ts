@@ -9,9 +9,9 @@ function main(opts: PalantirOpts):
   const devices = navigator.mediaDevices;
   if (!devices) return alert('Voice chat requires navigator.mediaDevices');
 
-  let state: State = 'off',
-    peer: any | undefined,
-    myStream: any | undefined;
+  let state: State = 'off';
+  let peer: any | undefined;
+  let myStream: any | undefined;
 
   function start() {
     setState('opening');

@@ -73,8 +73,8 @@ export function make(opts: Opts): EvalCache {
   const upgradable = prop(false);
   return {
     onCeval: throttle(1000, () => {
-      const node = opts.getNode(),
-        ev = node.ceval;
+      const node = opts.getNode();
+      const ev = node.ceval;
       const fetched = fetchedBySfen[node.sfen];
       if (
         ev &&

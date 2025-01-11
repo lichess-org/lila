@@ -1,9 +1,9 @@
 import { capitalize } from 'common/string';
 import type { I18nKey } from './i18n-keys';
 
-const i18nRecord: Record<string, string> = (window.lishogi as any).i18n || {},
-  quantity: (c: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other' =
-    (window.lishogi as any).quantity || (() => 'other');
+const i18nRecord: Record<string, string> = (window.lishogi as any).i18n || {};
+const quantity: (c: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other' =
+  (window.lishogi as any).quantity || (() => 'other');
 
 export const i18n = (key: I18nKey): string => {
   return i18nRecord[key] || key;
@@ -33,8 +33,8 @@ export const i18nFormatCapitalized = (key: I18nKey, ...args: any[]): string => {
 };
 
 export const i18nPlural = (key: I18nKey, count: number, ...args: any[]): string => {
-  const pluralKey = `${key}|${quantity(count)}`,
-    str = i18nRecord[pluralKey] || i18nRecord[key];
+  const pluralKey = `${key}|${quantity(count)}`;
+  const str = i18nRecord[pluralKey] || i18nRecord[key];
   return str ? interpolate(str, args) : `${key} ${count} ${args.join(', ')}`;
 };
 
@@ -63,7 +63,7 @@ export const i18nVdom = (key: I18nKey, ...args: any[]): string[] => {
 };
 
 export const i18nVdomPlural = (key: I18nKey, count: number, ...args: any[]): string[] => {
-  const pluralKey = `${key}|${quantity(count)}`,
-    str = i18nRecord[pluralKey] || i18nRecord[key];
+  const pluralKey = `${key}|${quantity(count)}`;
+  const str = i18nRecord[pluralKey] || i18nRecord[key];
   return str ? vdomInterpolate(str, args) : [`${key} ${count} ${args.join(', ')}`];
 };

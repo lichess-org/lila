@@ -45,67 +45,67 @@ export const renderTableWatch = (ctrl: RoundController): MaybeVNodes => {
 };
 
 export const renderTablePlay = (ctrl: RoundController): MaybeVNodes => {
-  const d = ctrl.data,
-    loading = isLoading(ctrl),
-    pausable = ctrl.showPauseButton(),
-    paused = pausable && (status.paused(ctrl.data) || status.prepaused(ctrl.data)),
-    submit = button.submitUsi(ctrl) || suggestion.sealedUsi(ctrl),
-    icons =
-      loading || submit || paused
-        ? []
-        : [
-            game.abortable(d)
-              ? button.standard(ctrl, undefined, 'L', i18n('abortGame'), 'abort')
+  const d = ctrl.data;
+  const loading = isLoading(ctrl);
+  const pausable = ctrl.showPauseButton();
+  const paused = pausable && (status.paused(ctrl.data) || status.prepaused(ctrl.data));
+  const submit = button.submitUsi(ctrl) || suggestion.sealedUsi(ctrl);
+  const icons =
+    loading || submit || paused
+      ? []
+      : [
+          game.abortable(d)
+            ? button.standard(ctrl, undefined, 'L', i18n('abortGame'), 'abort')
+            : button.standard(
+                ctrl,
+                game.takebackable,
+                'i',
+                i18n('proposeATakeback'),
+                'takeback-yes',
+                ctrl.takebackYes,
+              ),
+          ctrl.showImpasseButton() ? button.impasse(ctrl) : null,
+          ctrl.showDrawButton()
+            ? ctrl.drawConfirm
+              ? button.drawConfirm(ctrl)
+              : button.standard(ctrl, ctrl.canOfferDraw, '', i18n('offerDraw'), 'draw-yes', () =>
+                  ctrl.offerDraw(true),
+                )
+            : null,
+          pausable
+            ? ctrl.pauseConfirm
+              ? button.pauseConfirm(ctrl)
               : button.standard(
                   ctrl,
-                  game.takebackable,
-                  'i',
-                  i18n('proposeATakeback'),
-                  'takeback-yes',
-                  ctrl.takebackYes,
-                ),
-            ctrl.showImpasseButton() ? button.impasse(ctrl) : null,
-            ctrl.showDrawButton()
-              ? ctrl.drawConfirm
-                ? button.drawConfirm(ctrl)
-                : button.standard(ctrl, ctrl.canOfferDraw, '', i18n('offerDraw'), 'draw-yes', () =>
-                    ctrl.offerDraw(true),
-                  )
-              : null,
-            pausable
-              ? ctrl.pauseConfirm
-                ? button.pauseConfirm(ctrl)
-                : button.standard(
-                    ctrl,
-                    ctrl.canOfferPause,
-                    'Z',
-                    i18n('offerAdjournment'),
-                    'pause-yes',
-                    () => ctrl.offerPause(true),
-                  )
-              : null,
-            ctrl.resignConfirm
-              ? button.resignConfirm(ctrl)
-              : button.standard(ctrl, game.resignable, 'b', i18n('resign'), 'resign-confirm', () =>
-                  ctrl.resign(true),
-                ),
-            replay.analysisButton(ctrl),
-          ],
-    buttons: MaybeVNodes = loading
-      ? [loader()]
-      : submit
-        ? [submit]
-        : [
-            suggestion.impasse(ctrl),
-            button.resume(ctrl),
-            button.opponentGone(ctrl),
-            button.cancelDrawOffer(ctrl),
-            button.cancelPauseOffer(ctrl),
-            button.answerOpponentDrawOffer(ctrl),
-            button.answerOpponentPauseOffer(ctrl),
-            button.cancelTakebackProposition(ctrl),
-            button.answerOpponentTakebackProposition(ctrl),
-          ];
+                  ctrl.canOfferPause,
+                  'Z',
+                  i18n('offerAdjournment'),
+                  'pause-yes',
+                  () => ctrl.offerPause(true),
+                )
+            : null,
+          ctrl.resignConfirm
+            ? button.resignConfirm(ctrl)
+            : button.standard(ctrl, game.resignable, 'b', i18n('resign'), 'resign-confirm', () =>
+                ctrl.resign(true),
+              ),
+          replay.analysisButton(ctrl),
+        ];
+  const buttons: MaybeVNodes = loading
+    ? [loader()]
+    : submit
+      ? [submit]
+      : [
+          suggestion.impasse(ctrl),
+          button.resume(ctrl),
+          button.opponentGone(ctrl),
+          button.cancelDrawOffer(ctrl),
+          button.cancelPauseOffer(ctrl),
+          button.answerOpponentDrawOffer(ctrl),
+          button.answerOpponentPauseOffer(ctrl),
+          button.cancelTakebackProposition(ctrl),
+          button.answerOpponentTakebackProposition(ctrl),
+        ];
   return [
     replay.render(ctrl),
     h('div.rcontrols', [

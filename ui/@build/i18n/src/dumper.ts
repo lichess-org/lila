@@ -4,10 +4,10 @@ import { parseXmls } from './parser.js';
 import { categoryName } from './util.js';
 
 export async function dumpTypes(baseDir: string): Promise<void> {
-  const sourceDir = path.join(baseDir, 'translation/source'),
-    sourceFilenames = (await readdir(sourceDir))
-      .filter(file => file.endsWith('.xml'))
-      .sort((a, b) => (a === 'site.xml' ? -1 : b === 'site.xml' ? 1 : 0));
+  const sourceDir = path.join(baseDir, 'translation/source');
+  const sourceFilenames = (await readdir(sourceDir))
+    .filter(file => file.endsWith('.xml'))
+    .sort((a, b) => (a === 'site.xml' ? -1 : b === 'site.xml' ? 1 : 0));
 
   const parsed = await parseXmls(
     sourceFilenames.map(sf => {

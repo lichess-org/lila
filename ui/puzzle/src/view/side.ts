@@ -92,8 +92,8 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
 }
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
-  const perfName = game.perf?.name || game.id,
-    gameName = game.clock ? `${game.clock} - ${perfName}` : `${perfName}`;
+  const perfName = game.perf?.name || game.id;
+  const gameName = game.clock ? `${game.clock} - ${perfName}` : `${perfName}`;
   return h(
     'div.infos',
     {

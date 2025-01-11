@@ -11,9 +11,9 @@ function orJoinSpinner(ctrl: TournamentController, f: () => MaybeVNode): MaybeVN
 
 export function withdraw(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
-    const candidate = ctrl.data.isCandidate,
-      pause = ctrl.data.isStarted && !candidate,
-      title = pause ? i18n('pause') : i18n('withdraw');
+    const candidate = ctrl.data.isCandidate;
+    const pause = ctrl.data.isStarted && !candidate;
+    const title = pause ? i18n('pause') : i18n('withdraw');
 
     if (pause && !ctrl.isArena()) return;
     const button = h(
@@ -34,30 +34,30 @@ export function withdraw(ctrl: TournamentController): MaybeVNode {
 
 export function join(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
-    const askToJoin = ctrl.data.candidatesOnly && !ctrl.data.me,
-      delay = ctrl.data.me?.pauseDelay,
-      joinable = ctrl.data.verdicts.accepted && !delay && !ctrl.data.isBot,
-      highlightable = joinable && ctrl.data.createdBy !== ctrl.opts.userId,
-      button = h(
-        `button.fbt.text${highlightable ? '.highlight' : ''}`,
-        {
-          attrs: {
-            disabled: !joinable,
-            'data-icon': 'G',
-          },
-          hook: bind(
-            'click',
-            _ => {
-              if (ctrl.data.private && !ctrl.data.me) {
-                const p = prompt(i18n('password'));
-                if (p !== null) ctrl.join(p);
-              } else ctrl.join();
-            },
-            ctrl.redraw,
-          ),
+    const askToJoin = ctrl.data.candidatesOnly && !ctrl.data.me;
+    const delay = ctrl.data.me?.pauseDelay;
+    const joinable = ctrl.data.verdicts.accepted && !delay && !ctrl.data.isBot;
+    const highlightable = joinable && ctrl.data.createdBy !== ctrl.opts.userId;
+    const button = h(
+      `button.fbt.text${highlightable ? '.highlight' : ''}`,
+      {
+        attrs: {
+          disabled: !joinable,
+          'data-icon': 'G',
         },
-        askToJoin ? i18n('askToJoin') : i18n('join'),
-      );
+        hook: bind(
+          'click',
+          _ => {
+            if (ctrl.data.private && !ctrl.data.me) {
+              const p = prompt(i18n('password'));
+              if (p !== null) ctrl.join(p);
+            } else ctrl.join();
+          },
+          ctrl.redraw,
+        ),
+      },
+      askToJoin ? i18n('askToJoin') : i18n('join'),
+    );
     return delay
       ? h(
           'div.delay-wrap',

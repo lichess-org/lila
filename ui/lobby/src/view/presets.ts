@@ -44,19 +44,17 @@ function presetPerf(p: Preset): Perf {
 
 function presetButton(p: Preset, ctrl: LobbyController): VNode {
   const clock =
-      p.timeMode == 2
-        ? i18nPluralSame('nbDays', p.days)
-        : clockShow(p.lim * 60, p.byo, p.inc, p.per),
-    perf = presetPerf(p),
-    perfName = p.ai ? `AI - ${i18nFormat('levelX', p.ai).toLowerCase()}` : i18nPerf(perf),
-    isReady =
-      !!p.ai ||
-      (p.timeMode == 2
-        ? ctrl.data.seeks.some(s => isSameSeek(p, s, ctrl))
-        : ctrl.data.hooks.some(h => isSameHook(h, clock, perf, ctrl))),
-    attrs = {
-      'data-id': p.id,
-    };
+    p.timeMode == 2 ? i18nPluralSame('nbDays', p.days) : clockShow(p.lim * 60, p.byo, p.inc, p.per);
+  const perf = presetPerf(p);
+  const perfName = p.ai ? `AI - ${i18nFormat('levelX', p.ai).toLowerCase()}` : i18nPerf(perf);
+  const isReady =
+    !!p.ai ||
+    (p.timeMode == 2
+      ? ctrl.data.seeks.some(s => isSameSeek(p, s, ctrl))
+      : ctrl.data.hooks.some(h => isSameHook(h, clock, perf, ctrl)));
+  const attrs = {
+    'data-id': p.id,
+  };
   if (p.ai) attrs.title = engineName('standard', undefined, p.ai);
 
   return h(
@@ -107,8 +105,8 @@ function ratingInRange(
   theirRating: number | undefined,
   opts: PresetOpts,
 ): boolean {
-  const myPerf = opts.ratings?.[perf],
-    myRating = myPerf && !myPerf.clueless ? myPerf.rating : undefined;
+  const myPerf = opts.ratings?.[perf];
+  const myRating = myPerf && !myPerf.clueless ? myPerf.rating : undefined;
   if (myRating && range) {
     const parsed = range.split('-').map(s => Number.parseInt(s));
     if (parsed.length !== 2) return true;

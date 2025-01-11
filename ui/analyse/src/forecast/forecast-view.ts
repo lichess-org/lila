@@ -57,8 +57,8 @@ function renderNodesHtml(nodes: ForecastStep[]): MaybeVNodes {
   if (!nodes[0]) return [];
   if (!nodes[0].usi) nodes = nodes.slice(1);
   if (!nodes[0]) return [];
-  const tags: MaybeVNodes = [],
-    addColorIcon = notationsWithColor();
+  const tags: MaybeVNodes = [];
+  const addColorIcon = notationsWithColor();
 
   nodes.forEach((node, index) => {
     const colorIcon = addColorIcon ? `.color-icon.${node.ply % 2 ? 'gote' : 'sente'}` : '';
@@ -83,13 +83,13 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h(
           'div.list',
           fctrl.list().map((nodes, i) => {
-            const par = parentNode(ctrl, nodes[0].ply),
-              notations = makeNotationLine(
-                par.sfen,
-                ctrl.data.game.variant.key,
-                nodes.map(n => n.usi),
-                par.usi,
-              );
+            const par = parentNode(ctrl, nodes[0].ply);
+            const notations = makeNotationLine(
+              par.sfen,
+              ctrl.data.game.variant.key,
+              nodes.map(n => n.usi),
+              par.usi,
+            );
             notations.forEach((n, i) => {
               nodes[i].notation = n;
             });

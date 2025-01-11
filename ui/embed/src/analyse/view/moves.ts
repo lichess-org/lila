@@ -17,8 +17,8 @@ interface RenderOpts {
 }
 
 const autoScroll = throttle(150, (ctrl: AnalyseCtrl, el) => {
-  const cont = el.parentNode,
-    target = el.querySelector('.active');
+  const cont = el.parentNode;
+  const target = el.querySelector('.active');
   if (!target) {
     cont.scrollTop = ctrl.path === treePath.root ? 0 : 99999;
     return;
@@ -31,8 +31,8 @@ export function renderIndex(ply: number, withDots: boolean): VNode {
 }
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): MaybeVNodes {
-  const cs = node.children,
-    main = cs[0];
+  const cs = node.children;
+  const main = cs[0];
   if (!main) return [];
   if (opts.isMainline) {
     const commentTags = renderMainlineCommentsOf(
@@ -49,13 +49,13 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): MaybeVNo
         }),
       ];
     const mainChildren = renderChildrenOf(ctx, main, {
-        parentPath: opts.parentPath + main.id,
-        isMainline: true,
-      }),
-      passOpts = {
-        parentPath: opts.parentPath,
-        isMainline: true,
-      };
+      parentPath: opts.parentPath + main.id,
+      isMainline: true,
+    });
+    const passOpts = {
+      parentPath: opts.parentPath,
+      isMainline: true,
+    };
     return [
       renderIndex(main.ply, false),
       renderMoveOf(ctx, main, passOpts),
@@ -99,8 +99,8 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
 }
 
 function moveClasses(ctx: Ctx, node: Tree.Node, opts: RenderOpts): Classes {
-  const path = opts.parentPath + node.id,
-    glyphIds = node.glyphs ? node.glyphs.map(g => g.id) : [];
+  const path = opts.parentPath + node.id;
+  const glyphIds = node.glyphs ? node.glyphs.map(g => g.id) : [];
   return {
     active: path === ctx.ctrl.path,
     inaccuracy: glyphIds.includes(6),
@@ -113,8 +113,8 @@ function moveClasses(ctx: Ctx, node: Tree.Node, opts: RenderOpts): Classes {
 }
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
-  const path = opts.parentPath + node.id,
-    classes = moveClasses(ctx, node, opts);
+  const path = opts.parentPath + node.id;
+  const classes = moveClasses(ctx, node, opts);
   return h(
     'move',
     {
@@ -159,8 +159,8 @@ export function renderMove(node: Tree.Node): MaybeVNodes {
 }
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
-  const path = opts.parentPath + node.id,
-    classes = moveClasses(ctx, node, opts);
+  const path = opts.parentPath + node.id;
+  const classes = moveClasses(ctx, node, opts);
   return h(
     'move',
     {
@@ -201,17 +201,17 @@ function eventPath(e: Event): Tree.Path | null {
 }
 
 export function renderMoves(ctrl: AnalyseCtrl): VNode {
-  const root = ctrl.tree.root,
-    ctx = {
-      ctrl: ctrl,
-      showComputer: false,
-    },
-    commentTags = renderMainlineCommentsOf(
-      root,
-      undefined,
-      ctx.ctrl.data.game.variant.key,
-      false,
-    ).filter(c => !!c);
+  const root = ctrl.tree.root;
+  const ctx = {
+    ctrl: ctrl,
+    showComputer: false,
+  };
+  const commentTags = renderMainlineCommentsOf(
+    root,
+    undefined,
+    ctx.ctrl.data.game.variant.key,
+    false,
+  ).filter(c => !!c);
   return h(
     'div.analyse__tools',
     h(

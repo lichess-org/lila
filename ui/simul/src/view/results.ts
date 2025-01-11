@@ -44,8 +44,8 @@ export default function (ctrl: SimulCtrl) {
   ]);
 }
 
-const NumberFirstRegex = /^(\d+)\s(.+)$/,
-  NumberLastRegex = /^(.+)\s(\d+)$/;
+const NumberFirstRegex = /^(\d+)\s(.+)$/;
+const NumberLastRegex = /^(.+)\s(\d+)$/;
 
 const splitNumber = (s: string) => {
   const foundFirst = s.match(NumberFirstRegex);

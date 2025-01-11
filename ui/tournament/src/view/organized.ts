@@ -8,8 +8,8 @@ import { arrangementHasUser, preloadUserTips, player as renderPlayer } from './u
 
 function tableClick(ctrl: TournamentController): (e: Event) => void {
   return (e: Event) => {
-    const target = e.target as HTMLElement,
-      id = target.dataset.id;
+    const target = e.target as HTMLElement;
+    const id = target.dataset.id;
     if (id) {
       ctrl.showArrangement(ctrl.data.standing.arrangements.find(a => a.id === id));
     }
@@ -18,11 +18,11 @@ function tableClick(ctrl: TournamentController): (e: Event) => void {
 
 function pointsTag(ctrl: TournamentController, arr: Arrangement, player) {
   const player2 = ctrl.data.standing.players.find(
-      p => p.id === (arr.user1.id === player.id ? arr.user2.id : arr.user1.id),
-    ),
-    points = arr.points || { w: 3, d: 2, l: 1 },
-    w = arr.winner === player.id,
-    l = !!arr.winner && !w;
+    p => p.id === (arr.user1.id === player.id ? arr.user2.id : arr.user1.id),
+  );
+  const points = arr.points || { w: 3, d: 2, l: 1 };
+  const w = arr.winner === player.id;
+  const l = !!arr.winner && !w;
   return h(
     'span',
     {

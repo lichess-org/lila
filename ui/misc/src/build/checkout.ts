@@ -1,13 +1,13 @@
 import { spinnerHtml } from 'common/spinner';
 
 window.lishogi.ready.then(() => {
-  const $checkout = $('div.plan_checkout'),
-    lifetime = {
-      cents: Number.parseInt($checkout.data('lifetime-cents')),
-      usd: $checkout.data('lifetime-usd'),
-    };
-  const min = 100,
-    max = 100 * 100000;
+  const $checkout = $('div.plan_checkout');
+  const lifetime = {
+    cents: Number.parseInt($checkout.data('lifetime-cents')),
+    usd: $checkout.data('lifetime-usd'),
+  };
+  const min = 100;
+  const max = 100 * 100000;
 
   if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
   if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
@@ -62,8 +62,8 @@ window.lishogi.ready.then(() => {
       cents = Number.parseInt($checkout.find('group.amount input:checked').data('amount'));
     }
     if (!cents || cents < min || cents > max) return;
-    const amount = cents / 100,
-      $form = $checkout.find(`form.paypal_checkout.${getFreq()}`);
+    const amount = cents / 100;
+    const $form = $checkout.find(`form.paypal_checkout.${getFreq()}`);
     $form.find('input.amount').val(amount);
     $form.trigger('submit');
     $checkout.find('.service').html(spinnerHtml);

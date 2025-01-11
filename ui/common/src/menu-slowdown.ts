@@ -20,7 +20,8 @@ const menuSlowdown = (): void => {
   const timeoutKey = 'timeoutId';
 
   // current X and Y position of mouse, updated during mousemove tracking (shared across instances)
-  let cX: number, cY: number;
+  let cX: number;
+  let cY: number;
 
   // saves the current pointer position coordinates based on the given mousemove event
   const track = (ev: JQuery.Event) => {
@@ -36,8 +37,8 @@ const menuSlowdown = (): void => {
   let state: State = {};
 
   $('#topnav.hover').each(function (this: HTMLElement) {
-    const $el = $(this).removeClass('hover'),
-      handler = () => $el.toggleClass('hover');
+    const $el = $(this).removeClass('hover');
+    const handler = () => $el.toggleClass('hover');
 
     // compares current and previous mouse positions
     const compare = () => {

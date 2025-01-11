@@ -15,10 +15,10 @@ function stripScope(packageName: string): string {
 
 export async function copyLocalPackage(packageName: string): Promise<void> {
   try {
-    const __dirname = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
-      packagePath = path.join(__dirname, 'src/local', packageName),
-      nameNoScope = stripScope(packageName),
-      destinationPath = path.join(baseDistFolder, nameNoScope);
+    const __dirname = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+    const packagePath = path.join(__dirname, 'src/local', packageName);
+    const nameNoScope = stripScope(packageName);
+    const destinationPath = path.join(baseDistFolder, nameNoScope);
 
     await fs.mkdir(destinationPath, { recursive: true });
 
@@ -31,18 +31,18 @@ export async function copyLocalPackage(packageName: string): Promise<void> {
 
 export async function copyVendorPackage(packageName: string, fileNames: string[]): Promise<void> {
   try {
-    const __dirname = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
-      nameNoScope = stripScope(packageName),
-      packagePath = path.join(__dirname, 'node_modules', packageName);
+    const __dirname = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+    const nameNoScope = stripScope(packageName);
+    const packagePath = path.join(__dirname, 'node_modules', packageName);
 
     await fs.mkdir(path.join(baseDistFolder, nameNoScope), { recursive: true });
 
     for (const fileName of fileNames) {
-      const sourceFilePath = path.join(packagePath, fileName),
-        destinationFilePath = path.join(
-          path.join(baseDistFolder, nameNoScope),
-          path.basename(fileName),
-        );
+      const sourceFilePath = path.join(packagePath, fileName);
+      const destinationFilePath = path.join(
+        path.join(baseDistFolder, nameNoScope),
+        path.basename(fileName),
+      );
 
       await fs.copyFile(sourceFilePath, destinationFilePath);
       console.log(`✓ ${packageName}`);

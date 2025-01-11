@@ -38,8 +38,8 @@ const levels: IncompleteLevel[] = [
     nbMoves: 11,
     success: extinct('gote'),
     failure: (_level: Level, usiCList: UsiWithColor[]) => {
-      const dests = usiCList.map(uc => parseUsi(uc.usi)!.to),
-        targets = ['7g', '5g', '5d', '7h', '4f', '6d', '4g'].map(sq => parseSquareName(sq)!);
+      const dests = usiCList.map(uc => parseUsi(uc.usi)!.to);
+      const targets = ['7g', '5g', '5d', '7h', '4f', '6d', '4g'].map(sq => parseSquareName(sq)!);
       for (const d of dests) {
         if (targets[0] === d) targets.shift();
         else if (targets.includes(d)) return true;

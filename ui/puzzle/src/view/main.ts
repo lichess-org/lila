@@ -68,8 +68,8 @@ function controls(ctrl: Controller): VNode {
 let cevalShown = false;
 
 export default function (ctrl: Controller): VNode {
-  const showCeval = ctrl.vm.showComputer(),
-    gaugeOn = ctrl.showEvalGauge();
+  const showCeval = ctrl.vm.showComputer();
+  const gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
     if (!cevalShown) ctrl.vm.autoScrollNow = true;
     cevalShown = showCeval;
@@ -129,8 +129,8 @@ export default function (ctrl: Controller): VNode {
 }
 
 function session(ctrl: Controller) {
-  const rounds = ctrl.session.get().rounds,
-    current = ctrl.getData().puzzle.id;
+  const rounds = ctrl.session.get().rounds;
+  const current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
       const rd = round.ratingDiff

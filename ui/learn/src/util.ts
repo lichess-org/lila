@@ -18,8 +18,8 @@ export function currentPosition(
   usiCList: UsiWithColor[] = [],
   ignoreObstacles = false,
 ): Position {
-  const shogi = parseSfen('standard', level.sfen, false).unwrap(),
-    obstacles = level.obstacles;
+  const shogi = parseSfen('standard', level.sfen, false).unwrap();
+  const obstacles = level.obstacles;
 
   if (!ignoreObstacles && obstacles)
     for (const obstacle of obstacles) {

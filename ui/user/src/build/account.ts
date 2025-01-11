@@ -12,9 +12,9 @@ window.lishogi.ready.then(() => {
   const smStorage = window.lishogi.storage.make('scrollMoves');
 
   $('form.autosubmit').each(function (this: HTMLFormElement) {
-    const form = this,
-      $form = $(form),
-      showSaved = () => $form.find('.saved').removeClass('none');
+    const form = this;
+    const $form = $(form);
+    const showSaved = () => $form.find('.saved').removeClass('none');
     $form.find('input').on('change', function (this: HTMLInputElement) {
       if (this.name == 'behavior.scrollMoves') {
         smStorage.set(this.value);

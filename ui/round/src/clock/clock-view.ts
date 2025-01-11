@@ -8,17 +8,17 @@ import * as button from '../view/button';
 import type { ClockController, ClockElements, Millis, Seconds } from './clock-ctrl';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position): VNode {
-  const clock = ctrl.clock!,
-    millis = clock.millisOf(player.color),
-    isPlayer = ctrl.data.player.color === player.color,
-    usingByo = clock.isUsingByo(player.color),
-    isRunning = player.color === clock.times.activeColor,
-    isOver = ctrl.data.game.status.id > 20 && ctrl.data.game.status.name !== 'paused';
+  const clock = ctrl.clock!;
+  const millis = clock.millisOf(player.color);
+  const isPlayer = ctrl.data.player.color === player.color;
+  const usingByo = clock.isUsingByo(player.color);
+  const isRunning = player.color === clock.times.activeColor;
+  const isOver = ctrl.data.game.status.id > 20 && ctrl.data.game.status.name !== 'paused';
 
   const update = (el: HTMLElement) => {
-    const els = clock.elements[player.color],
-      millis = clock.millisOf(player.color),
-      isRunning = player.color === clock.times.activeColor;
+    const els = clock.elements[player.color];
+    const millis = clock.millisOf(player.color);
+    const isRunning = player.color === clock.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
     el.innerHTML = formatClockTime(
@@ -97,9 +97,9 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, 
     return `${
       (time >= 3600000 ? `${Math.floor(time / 3600000)}H:` : '') + date.getUTCMinutes()
     }M:${date.getUTCSeconds()}S`;
-  const millis = date.getUTCMilliseconds(),
-    sep = isRunning && millis < 500 ? sepLow : sepHigh,
-    baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
+  const millis = date.getUTCMilliseconds();
+  const sep = isRunning && millis < 500 ? sepLow : sepHigh;
+  const baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (time >= 3600000) {
     const hours = pad2(Math.floor(time / 3600000));
     return hours + sepHigh + baseStr;
@@ -160,8 +160,8 @@ function goBerserk(ctrl: RoundController) {
 }
 
 function tourRank(ctrl: RoundController, color: Color, position: Position) {
-  const d = ctrl.data,
-    ranks = d.tournament?.ranks;
+  const d = ctrl.data;
+  const ranks = d.tournament?.ranks;
   return ranks && !showBerserk(ctrl, color)
     ? h(
         `div.tour-rank.${position}`,

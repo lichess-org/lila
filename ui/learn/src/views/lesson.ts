@@ -130,11 +130,11 @@ function shogigroundBoard(ctrl: LearnCtrl): VNode {
 }
 
 export default function (ctrl: LearnCtrl): VNode {
-  const vm = ctrl.vm!,
-    stage = vm.stage,
-    level = vm.level,
-    stageStarting = vm.stageState === 'init',
-    stageEnding = vm.stageState === 'completed';
+  const vm = ctrl.vm!;
+  const stage = vm.stage;
+  const level = vm.level;
+  const stageStarting = vm.stageState === 'init';
+  const stageEnding = vm.stageState === 'completed';
 
   return h(
     'div.main.learn learn--run',

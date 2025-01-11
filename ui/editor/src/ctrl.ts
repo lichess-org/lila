@@ -179,17 +179,17 @@ export default class EditorCtrl {
   }
 
   private getSetup(): Setup {
-    const splitSfen = this.data.sfen.split(' '),
-      boardSfen = this.shogiground ? this.shogiground.getBoardSfen() : splitSfen[0] || '',
-      board = parseBoardSfen(this.rules, boardSfen).unwrap(
-        b => b,
-        _ => Board.empty(),
-      ),
-      handsSfen = this.shogiground ? this.shogiground.getHandsSfen() : splitSfen[2] || '',
-      hands = parseHands(this.rules, handsSfen).unwrap(
-        b => b,
-        _ => Hands.empty(),
-      );
+    const splitSfen = this.data.sfen.split(' ');
+    const boardSfen = this.shogiground ? this.shogiground.getBoardSfen() : splitSfen[0] || '';
+    const board = parseBoardSfen(this.rules, boardSfen).unwrap(
+      b => b,
+      _ => Board.empty(),
+    );
+    const handsSfen = this.shogiground ? this.shogiground.getHandsSfen() : splitSfen[2] || '';
+    const hands = parseHands(this.rules, handsSfen).unwrap(
+      b => b,
+      _ => Hands.empty(),
+    );
     return {
       board: board,
       hands: hands,
@@ -292,8 +292,8 @@ export default class EditorCtrl {
   }
 
   canFillGoteHand(): boolean {
-    const setup = this.getSetup(),
-      startingBoard = defaultPosition(this.rules).board;
+    const setup = this.getSetup();
+    const startingBoard = defaultPosition(this.rules).board;
     return (
       this.countPieces('pawn', setup) <= startingBoard.role('pawn').size() &&
       this.countPieces('lance', setup) <= startingBoard.role('lance').size() &&
@@ -322,10 +322,10 @@ export default class EditorCtrl {
   }
 
   fillGotesHand(): void {
-    const setup = this.getSetup(),
-      board = setup.board,
-      senteHand = setup.hands.color('sente'),
-      startingBoard = defaultPosition(this.rules).board;
+    const setup = this.getSetup();
+    const board = setup.board;
+    const senteHand = setup.hands.color('sente');
+    const startingBoard = defaultPosition(this.rules).board;
 
     const pieceCounts: { [index: string]: number } = {
       lance:
@@ -372,8 +372,8 @@ export default class EditorCtrl {
   setRules(rules: Rules): void {
     this.rules = rules;
     this.turn = 'sente';
-    const sfen = initialSfen(rules),
-      splitSfen = sfen.split(' ');
+    const sfen = initialSfen(rules);
+    const splitSfen = sfen.split(' ');
     this.shogiground.set(
       {
         sfen: {

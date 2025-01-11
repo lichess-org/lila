@@ -152,9 +152,10 @@ export default class AnalyseCtrl {
 
     const params = new URLSearchParams(window.location.search);
     if (opts.initialPly) {
-      const loc = window.location,
-        intHash = loc.hash === '#last' ? this.tree.lastPly() : Number.parseInt(loc.hash.slice(1)),
-        plyStr = opts.initialPly === 'url' ? intHash || '' : opts.initialPly;
+      const loc = window.location;
+      const intHash =
+        loc.hash === '#last' ? this.tree.lastPly() : Number.parseInt(loc.hash.slice(1));
+      const plyStr = opts.initialPly === 'url' ? intHash || '' : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       // and remove moves query param
       if (intHash || params.has('moves')) {
@@ -244,15 +245,15 @@ export default class AnalyseCtrl {
   }
 
   setOrientation = (): void => {
-    const userId = document.body.dataset.user,
-      players = this.study?.data.postGameStudy?.players,
-      userOrientation =
-        players &&
-        (players.sente.userId === userId
-          ? 'sente'
-          : players.gote.userId === userId
-            ? 'gote'
-            : undefined);
+    const userId = document.body.dataset.user;
+    const players = this.study?.data.postGameStudy?.players;
+    const userOrientation =
+      players &&
+      (players.sente.userId === userId
+        ? 'sente'
+        : players.gote.userId === userId
+          ? 'gote'
+          : undefined);
     this.flipped = !!(userOrientation && this.data.orientation !== userOrientation);
   };
 
@@ -332,37 +333,37 @@ export default class AnalyseCtrl {
   }
 
   makeSgOpts(): ShogigroundConfig {
-    const node = this.node,
-      color = this.turnColor(),
-      posRes = this.position(this.node),
-      dests = this.getMoveDests(posRes),
-      drops = this.getDropDests(posRes),
-      movableColor =
-        this.practice || this.gamebookPlay()
-          ? this.bottomColor()
-          : !this.embed && (dests.size > 0 || drops.size > 0)
-            ? color
-            : undefined,
-      splitSfen = node.sfen.split(' '),
-      config: ShogigroundConfig = {
-        sfen: {
-          board: splitSfen[0],
-          hands: splitSfen[2],
-        },
-        turnColor: color,
-        activeColor: this.embed ? undefined : movableColor,
-        movable: {
-          dests: this.embed || movableColor !== color ? new Map() : dests,
-        },
-        droppable: {
-          dests: this.embed || movableColor !== color ? new Map() : drops,
-        },
-        checks: node.check,
-        lastDests: node.usi ? usiToSquareNames(node.usi) : undefined,
-        drawable: {
-          squares: [],
-        },
-      };
+    const node = this.node;
+    const color = this.turnColor();
+    const posRes = this.position(this.node);
+    const dests = this.getMoveDests(posRes);
+    const drops = this.getDropDests(posRes);
+    const movableColor =
+      this.practice || this.gamebookPlay()
+        ? this.bottomColor()
+        : !this.embed && (dests.size > 0 || drops.size > 0)
+          ? color
+          : undefined;
+    const splitSfen = node.sfen.split(' ');
+    const config: ShogigroundConfig = {
+      sfen: {
+        board: splitSfen[0],
+        hands: splitSfen[2],
+      },
+      turnColor: color,
+      activeColor: this.embed ? undefined : movableColor,
+      movable: {
+        dests: this.embed || movableColor !== color ? new Map() : dests,
+      },
+      droppable: {
+        dests: this.embed || movableColor !== color ? new Map() : drops,
+      },
+      checks: node.check,
+      lastDests: node.usi ? usiToSquareNames(node.usi) : undefined,
+      drawable: {
+        squares: [],
+      },
+    };
     config.premovable = {
       enabled: config.activeColor && config.turnColor !== config.activeColor,
     };
@@ -408,8 +409,8 @@ export default class AnalyseCtrl {
     !!this.justPlayedUsi && this.node.usi === this.justPlayedUsi;
 
   jump(path: Tree.Path): void {
-    const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length == this.path.length + 2;
+    const pathChanged = path !== this.path;
+    const isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
 
@@ -493,8 +494,8 @@ export default class AnalyseCtrl {
       .json('POST', '/analysis/notation', { formData: { notation } })
       .then((data: AnalyseData) => {
         this.reloadData(data, false);
-        const $selSpan = $('.mselect__label span'),
-          icon = getPerfIcon(data.game.variant.key);
+        const $selSpan = $('.mselect__label span');
+        const icon = getPerfIcon(data.game.variant.key);
         $selSpan.attr('data-icon', icon);
         $selSpan.text(i18nVariant(data.game.variant.key));
         $('nav.mselect__list a').each(function (this: HTMLElement) {
@@ -553,8 +554,8 @@ export default class AnalyseCtrl {
   private chushogiUserMove = (orig: Key, dest: Key, prom: boolean, capture?: sg.Piece): void => {
     this.sound[capture ? 'capture' : 'move']();
 
-    const posRes = this.position(this.node),
-      piece = posRes.isOk && posRes.value.board.get(parseSquareName(orig))!;
+    const posRes = this.position(this.node);
+    const piece = posRes.isOk && posRes.value.board.get(parseSquareName(orig))!;
     if (
       piece &&
       this.lionFirstMove === undefined &&
@@ -691,8 +692,8 @@ export default class AnalyseCtrl {
   };
 
   private initNotation = (): void => {
-    const variant = this.data.game.variant.key,
-      captureRegex = this.captureRegex;
+    const variant = this.data.game.variant.key;
+    const captureRegex = this.captureRegex;
     function update(node: Tree.Node, prev?: Tree.Node) {
       if (prev && node.usi && !node.notation) {
         node.notation = makeNotation(prev.sfen, variant, node.usi, prev.usi);

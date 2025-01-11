@@ -26,10 +26,10 @@ export function authorText(author: Tree.CommentAuthor): string {
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
   if (!ctrl.node.comments) return;
-  const node = ctrl.node,
-    study: StudyCtrl = ctrl.study!,
-    chapter = study.currentChapter(),
-    comments = node.comments!;
+  const node = ctrl.node;
+  const study: StudyCtrl = ctrl.study!;
+  const chapter = study.currentChapter();
+  const comments = node.comments!;
   if (!comments.length) return;
   return h(
     'div',

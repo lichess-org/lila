@@ -58,9 +58,9 @@ export default class LearnCtrl {
   }
 
   setLesson(stageId: number, levelId = 1): void {
-    const category = this.categories.find(c => c.stages.some(s => s.id === stageId)),
-      stage = category?.stages.find(s => s.id === stageId),
-      level = stage?.levels.find(l => l.id === levelId);
+    const category = this.categories.find(c => c.stages.some(s => s.id === stageId));
+    const stage = category?.stages.find(s => s.id === stageId);
+    const level = stage?.levels.find(l => l.id === levelId);
 
     if (level) {
       this.clearTimetouts();
@@ -147,9 +147,9 @@ export default class LearnCtrl {
 
   private applyOpponentMoveOrDrop(): void {
     if (this.vm?.level.scenario) {
-      const scenario = this.vm.level.scenario,
-        usiCList = this.vm.usiCList,
-        sUsiC = scenario[usiCList.length];
+      const scenario = this.vm.level.scenario;
+      const usiCList = this.vm.usiCList;
+      const sUsiC = scenario[usiCList.length];
 
       if (
         sUsiC &&
@@ -177,21 +177,21 @@ export default class LearnCtrl {
       else if (this.vm.level.failure?.(this.vm.level, this.vm.usiCList)) this.failLevel();
 
       // update shogiground accordingly
-      const pos = currentPosition(this.vm.level, this.vm.usiCList),
-        hasObstacles = !!this.vm.level.obstacles?.length,
-        illegalDests = !!this.vm.level.offerIllegalDests || hasObstacles,
-        active = this.vm.levelState !== 'fail' && this.vm.levelState !== 'completed';
+      const pos = currentPosition(this.vm.level, this.vm.usiCList);
+      const hasObstacles = !!this.vm.level.obstacles?.length;
+      const illegalDests = !!this.vm.level.offerIllegalDests || hasObstacles;
+      const active = this.vm.levelState !== 'fail' && this.vm.levelState !== 'completed';
 
       if (this.vm.levelState === 'fail' && this.vm.level.showFailureMove) {
         const usi =
-            this.vm.level.showFailureMove === 'capture'
-              ? findCapture(pos)
-              : this.vm.level.showFailureMove === 'unprotected'
-                ? findUnprotectedCapture(pos)
-                : this.vm.level.showFailureMove === 'random'
-                  ? findRandomMove(pos)
-                  : this.vm.level.showFailureMove(this.vm.level, this.vm.usiCList),
-          parsedUsi = usi && parseUsi(usi);
+          this.vm.level.showFailureMove === 'capture'
+            ? findCapture(pos)
+            : this.vm.level.showFailureMove === 'unprotected'
+              ? findUnprotectedCapture(pos)
+              : this.vm.level.showFailureMove === 'random'
+                ? findRandomMove(pos)
+                : this.vm.level.showFailureMove(this.vm.level, this.vm.usiCList);
+        const parsedUsi = usi && parseUsi(usi);
 
         if (parsedUsi && pos.board.getRole(parsedUsi.to) !== 'king') {
           const usiC = { usi: usi, color: opposite(this.vm.level.color) };

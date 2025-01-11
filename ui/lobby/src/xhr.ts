@@ -12,25 +12,25 @@ export const nowPlaying: () => Promise<void> = () =>
 
 export function seekFromPreset(preset: Preset, opts: PresetOpts): Promise<any> {
   const perf =
-      preset.timeMode == 2
-        ? 'correspondence'
-        : clockToPerf(preset.lim * 60, preset.byo, preset.inc, preset.per),
-    rating = opts.ratings?.[perf],
-    data = {
-      variant: '1',
-      timeMode: preset.timeMode.toString(),
-      time: preset.lim.toString(),
-      byoyomi: preset.byo.toString(),
-      increment: preset.inc.toString(),
-      periods: preset.per.toString(),
-      days: preset.days.toString(),
-      mode: (opts.isAnon ? 0 : 1).toString(),
-      ratingRange:
-        rating && !rating.clueless
-          ? [rating.rating - opts.ratingDiff, rating.rating + opts.ratingDiff].join('-')
-          : '',
-      color: 'random',
-    };
+    preset.timeMode == 2
+      ? 'correspondence'
+      : clockToPerf(preset.lim * 60, preset.byo, preset.inc, preset.per);
+  const rating = opts.ratings?.[perf];
+  const data = {
+    variant: '1',
+    timeMode: preset.timeMode.toString(),
+    time: preset.lim.toString(),
+    byoyomi: preset.byo.toString(),
+    increment: preset.inc.toString(),
+    periods: preset.per.toString(),
+    days: preset.days.toString(),
+    mode: (opts.isAnon ? 0 : 1).toString(),
+    ratingRange:
+      rating && !rating.clueless
+        ? [rating.rating - opts.ratingDiff, rating.rating + opts.ratingDiff].join('-')
+        : '',
+    color: 'random',
+  };
   if (preset.ai) {
     return window.lishogi.xhr
       .json('POST', '/setup/ai', {

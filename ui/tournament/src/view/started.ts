@@ -41,8 +41,8 @@ function notice(ctrl: TournamentController): VNode {
 export const name = 'started';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const gameId = ctrl.myGameId(),
-    pag = pagination.players(ctrl);
+  const gameId = ctrl.myGameId();
+  const pag = pagination.players(ctrl);
   console.log('pag', pag);
   if (ctrl.isArena())
     return [

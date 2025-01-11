@@ -124,8 +124,8 @@ function engineName(ctrl: CevalCtrl): VNode[] {
 const serverNodes = 4e6;
 
 export function getBestEval(evs: NodeEvals): Eval | undefined {
-  const serverEv = evs.server,
-    localEv = evs.client;
+  const serverEv = evs.server;
+  const localEv = evs.client;
 
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
@@ -165,13 +165,14 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
 export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
-  const enabled = instance.enabled(),
-    evs = ctrl.currentEvals(),
-    threatMode = ctrl.threatMode(),
-    threat = threatMode && ctrl.getNode().threat,
-    bestEv = threat || getBestEval(evs),
-    isImpasseOutcome = instance.enteringKingRule() && ctrl.isImpasse();
-  let pearl: VNode | string, percent: number;
+  const enabled = instance.enabled();
+  const evs = ctrl.currentEvals();
+  const threatMode = ctrl.threatMode();
+  const threat = threatMode && ctrl.getNode().threat;
+  const bestEv = threat || getBestEval(evs);
+  const isImpasseOutcome = instance.enteringKingRule() && ctrl.isImpasse();
+  let pearl: VNode | string;
+  let percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
     percent = evs.client
@@ -321,13 +322,13 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
-  const multiPv = Number.parseInt(instance.multiPv()),
-    node = ctrl.getNode(),
-    position = parseSfen(instance.variant.key, node.sfen, false);
-  let pvs: Tree.PvData[],
-    threat = false,
-    pvMoves: (string | null)[],
-    pvIndex: number | null;
+  const multiPv = Number.parseInt(instance.multiPv());
+  const node = ctrl.getNode();
+  const position = parseSfen(instance.variant.key, node.sfen, false);
+  let pvs: Tree.PvData[];
+  let threat = false;
+  let pvMoves: (string | null)[];
+  let pvIndex: number | null;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
@@ -439,17 +440,17 @@ function renderPvWrapToggle(): VNode {
 
 function renderPvMoves(pos: Position, pv: Usi[]): VNode[] {
   let key = makeSfen(pos);
-  const vnodes: VNode[] = [],
-    moves = pv.map(u => parseUsi(u)).filter((m): m is MoveOrDrop => defined(m)),
-    notationMoves = makeNotationLineWithPosition(pos, moves, pos.lastMoveOrDrop),
-    addColorIcon = notationsWithColor();
+  const vnodes: VNode[] = [];
+  const moves = pv.map(u => parseUsi(u)).filter((m): m is MoveOrDrop => defined(m));
+  const notationMoves = makeNotationLineWithPosition(pos, moves, pos.lastMoveOrDrop);
+  const addColorIcon = notationsWithColor();
 
   for (let i = 0; i < moves.length; i++) {
-    const colorIcon = addColorIcon ? `.color-icon.${pos.turn}` : '',
-      moveNumber = `${pos.moveNumber}. `;
+    const colorIcon = addColorIcon ? `.color-icon.${pos.turn}` : '';
+    const moveNumber = `${pos.moveNumber}. `;
     pos.play(moves[i]);
-    const usi = makeUsi(moves[i]),
-      sfen = makeSfen(pos);
+    const usi = makeUsi(moves[i]);
+    const sfen = makeSfen(pos);
     key += `|${usi}`;
     vnodes.push(
       h(

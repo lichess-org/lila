@@ -29,8 +29,8 @@ export function enterVariation(ctrl: AnalyseCtrl): void {
 
 export function exitVariation(ctrl: AnalyseCtrl): void {
   if (ctrl.onMainline) return;
-  let found: string | undefined,
-    path = treePath.root;
+  let found: string | undefined;
+  let path = treePath.root;
   ctrl.nodeList.slice(1, -1).forEach((n: Tree.Node) => {
     path += n.id;
     if (n.children[1]) found = path;

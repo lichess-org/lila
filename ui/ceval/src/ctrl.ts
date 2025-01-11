@@ -83,11 +83,11 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   // select nnue > hce > none
   const useYaneuraou =
-      analysable && engineCode(opts.variant.key, opts.initialSfen) === EngineCode.YaneuraOu,
-    fairySupports = analysable && !useYaneuraou;
-  let supportsNnue = false,
-    technology: CevalTechnology = 'none',
-    growableSharedMem = false;
+    analysable && engineCode(opts.variant.key, opts.initialSfen) === EngineCode.YaneuraOu;
+  const fairySupports = analysable && !useYaneuraou;
+  let supportsNnue = false;
+  let technology: CevalTechnology = 'none';
+  let growableSharedMem = false;
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (
     (useYaneuraou || fairySupports) &&
@@ -115,11 +115,11 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   }
 
-  const initialAllocationMaxThreads = useYaneuraou ? 2 : 1,
-    maxThreads = Math.min(
-      Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-      growableSharedMem ? 32 : initialAllocationMaxThreads,
-    );
+  const initialAllocationMaxThreads = useYaneuraou ? 2 : 1;
+  const maxThreads = Math.min(
+    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+    growableSharedMem ? 32 : initialAllocationMaxThreads,
+  );
   const threads = () => {
     const stored = window.lishogi.storage.get(storageKey('ceval.threads'));
     return Math.min(

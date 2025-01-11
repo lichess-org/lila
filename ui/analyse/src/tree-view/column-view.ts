@@ -29,8 +29,8 @@ interface Opts extends BaseOpts {
 }
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
-  const cs = node.children,
-    main = cs[0];
+  const cs = node.children;
+  const main = cs[0];
   if (!main) return;
   const conceal = opts.noConceal
     ? null
@@ -124,8 +124,8 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const path = opts.parentPath + node.id,
-    classes = nodeClasses(ctx, node, path, true);
+  const path = opts.parentPath + node.id;
+  const classes = nodeClasses(ctx, node, path, true);
   if (opts.conceal) classes[opts.conceal as string] = true;
   return h(
     'move',
@@ -138,13 +138,13 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
-  const path = opts.parentPath + node.id,
-    colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '',
-    content: MaybeVNodes = [
-      moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true),
-      h(`move-notation${colorIcon}`, node.notation),
-    ],
-    classes = nodeClasses(ctx, node, path);
+  const path = opts.parentPath + node.id;
+  const colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '';
+  const content: MaybeVNodes = [
+    moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true),
+    h(`move-notation${colorIcon}`, node.notation),
+  ];
+  const classes = nodeClasses(ctx, node, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
   if (node.glyphs) content.push(moveView.renderGlyphs(node.glyphs));
   return h(
@@ -213,8 +213,8 @@ function renderMainlineCommentsOf(
     else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
     else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
     if (conceal) sel += `.${conceal}`;
-    const by = withAuthor ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
-      truncated = truncateComment(comment.text, 400, ctx);
+    const by = withAuthor ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '';
+    const truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
       hook: innerHTML(by + truncated, text => {
         const s = text.split('</span>');

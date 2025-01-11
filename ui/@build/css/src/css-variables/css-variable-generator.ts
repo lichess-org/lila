@@ -19,8 +19,8 @@ ${theme !== defaultTheme ? `@use '../${theme}' as *` : ''};
     const sel = theme === defaultTheme ? 'html' : `html.${theme}`;
     output += `\n${sel} {\n`;
 
-    const vars = themeVars[theme],
-      varKeys = Object.keys(vars).sort();
+    const vars = themeVars[theme];
+    const varKeys = Object.keys(vars).sort();
 
     varKeys.forEach(name => {
       const value = vars[name];
@@ -53,13 +53,13 @@ function colorFunction(variable: string, themeKeys: string[]): string | undefine
     else return `$c-${color}`;
   }
 
-  const name = variable.substring(prefix.length),
-    parts = name.split('_'),
-    length = parts.length,
-    percentagePart = parts[length - 1],
-    percentage = Number.parseInt(`${percentagePart.replace('neg', '-')}`),
-    func = parts[length - 2],
-    colors = parts.slice(0, -2).map(p => themifyColor(p));
+  const name = variable.substring(prefix.length);
+  const parts = name.split('_');
+  const length = parts.length;
+  const percentagePart = parts[length - 1];
+  const percentage = Number.parseInt(`${percentagePart.replace('neg', '-')}`);
+  const func = parts[length - 2];
+  const colors = parts.slice(0, -2).map(p => themifyColor(p));
 
   if (!colors.some(c => themeKeys.includes(c.split('$')[1]))) {
     // console.log('Skipping', variable, 'for', theme, 'theme');
@@ -82,7 +82,7 @@ function colorFunction(variable: string, themeKeys: string[]): string | undefine
 // $m-accent_bg-box_mix_10
 // $m-bg-box_accent_mix_90
 function normalizeMixVariable(colors: string[], percentage: number): string {
-  const sortedCols = colors.slice().sort(),
-    sortedPerc = sortedCols[0] === colors[0] ? percentage : 100 - percentage;
+  const sortedCols = colors.slice().sort();
+  const sortedPerc = sortedCols[0] === colors[0] ? percentage : 100 - percentage;
   return `${prefix}${[...sortedCols, sortedPerc, 'mix'].join('_')}`;
 }

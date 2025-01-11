@@ -88,8 +88,8 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
     if (path === '') return true;
-    const pathId = treePath.head(path),
-      child = node.children[0];
+    const pathId = treePath.head(path);
+    const child = node.children[0];
     if (!child || child.id !== pathId) return false;
     return pathIsMainlineFrom(child, treePath.tail(path));
   }
@@ -126,8 +126,8 @@ export function build(root: Tree.Node): TreeWrapper {
 
   // returns new path
   function addNode(node: Tree.Node, path: Tree.Path): Tree.Path | undefined {
-    const newPath = path + node.id,
-      existing = nodeAtPathOrNull(newPath);
+    const newPath = path + node.id;
+    const existing = nodeAtPathOrNull(newPath);
     if (existing) {
       (['dests', 'drops', 'clock'] as Array<keyof Tree.Node>).forEach(key => {
         if (defined(node[key]) && !defined(existing[key])) existing[key] = node[key] as never;

@@ -6,8 +6,8 @@ import { parseThemes } from './theme-parser.js';
 
 export async function build(extracted: Set<string>, themeDir: string): Promise<void> {
   try {
-    const outDir = path.join(themeDir, 'gen'),
-      themeVars = await parseThemes(themeDir);
+    const outDir = path.join(themeDir, 'gen');
+    const themeVars = await parseThemes(themeDir);
 
     await mkdir(outDir, { recursive: true });
 

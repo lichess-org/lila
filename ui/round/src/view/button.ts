@@ -156,9 +156,9 @@ function studyModal(ctrl: RoundController): VNode {
 let loadingStudy = false;
 let initiatedStudy = false;
 function studyButton(ctrl: RoundController): VNode | null {
-  const d = ctrl.data,
-    isAnon = !ctrl.data.player.user,
-    withAnonOrAnon = !ctrl.data.opponent.user || isAnon;
+  const d = ctrl.data;
+  const isAnon = !ctrl.data.player.user;
+  const withAnonOrAnon = !ctrl.data.opponent.user || isAnon;
   const title = withAnonOrAnon
     ? i18n('postGameStudy')
     : ctrl.data.player.spectator
@@ -235,8 +235,8 @@ function studyButton(ctrl: RoundController): VNode | null {
 }
 
 function analysisButton(ctrl: RoundController): VNode | null {
-  const d = ctrl.data,
-    url = `${gameRoute(d, analysisBoardOrientation(d))}#${ctrl.ply}`;
+  const d = ctrl.data;
+  const url = `${gameRoute(d, analysisBoardOrientation(d))}#${ctrl.ply}`;
   return game.replayable(d)
     ? h(
         'a.fbt',
@@ -253,9 +253,9 @@ function analysisButton(ctrl: RoundController): VNode | null {
 }
 
 function rematchButtons(ctrl: RoundController): MaybeVNodes {
-  const d = ctrl.data,
-    me = !!d.player.offeringRematch,
-    them = !!d.opponent.offeringRematch;
+  const d = ctrl.data;
+  const me = !!d.player.offeringRematch;
+  const them = !!d.opponent.offeringRematch;
   return [
     them
       ? h(
@@ -311,9 +311,9 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
 
 export function resume(ctrl: RoundController): MaybeVNode {
   if (!status.paused(ctrl.data)) return null;
-  const d = ctrl.data,
-    me = !!d.player.offeringResume,
-    them = !!d.opponent.offeringResume;
+  const d = ctrl.data;
+  const me = !!d.player.offeringResume;
+  const them = !!d.opponent.offeringResume;
   return h('div.resume-button', [
     them
       ? h(
@@ -629,27 +629,27 @@ export function moretime(ctrl: RoundController): MaybeVNode {
 }
 
 export function followUp(ctrl: RoundController): VNode {
-  const d = ctrl.data,
-    rematchable =
-      !d.game.rematch &&
-      (status.finished(d) || status.aborted(d)) &&
-      !d.tournament &&
-      !d.simul &&
-      !d.game.boosted,
-    newable = (status.finished(d) || status.aborted(d)) && d.game.source === 'lobby',
-    rematchZone = ctrl.challengeRematched
-      ? [
-          h(
-            'div.suggestion.text',
-            {
-              hook: onSuggestionHook,
-            },
-            i18n('rematchOfferSent'),
-          ),
-        ]
-      : rematchable || d.game.rematch
-        ? rematchButtons(ctrl)
-        : [];
+  const d = ctrl.data;
+  const rematchable =
+    !d.game.rematch &&
+    (status.finished(d) || status.aborted(d)) &&
+    !d.tournament &&
+    !d.simul &&
+    !d.game.boosted;
+  const newable = (status.finished(d) || status.aborted(d)) && d.game.source === 'lobby';
+  const rematchZone = ctrl.challengeRematched
+    ? [
+        h(
+          'div.suggestion.text',
+          {
+            hook: onSuggestionHook,
+          },
+          i18n('rematchOfferSent'),
+        ),
+      ]
+    : rematchable || d.game.rematch
+      ? rematchButtons(ctrl)
+      : [];
   return h('div.follow-up', [
     ...rematchZone,
     d.tournament
@@ -679,33 +679,33 @@ export function followUp(ctrl: RoundController): VNode {
 }
 
 export function watcherFollowUp(ctrl: RoundController): VNode | null {
-  const d = ctrl.data,
-    content = [
-      d.game.rematch
-        ? h(
-            'a.fbt.text',
-            {
-              attrs: {
-                'data-icon': 'v',
-                href: `/${d.game.rematch}/${d.opponent.color}`,
-              },
+  const d = ctrl.data;
+  const content = [
+    d.game.rematch
+      ? h(
+          'a.fbt.text',
+          {
+            attrs: {
+              'data-icon': 'v',
+              href: `/${d.game.rematch}/${d.opponent.color}`,
             },
-            i18n('viewRematch'),
-          )
-        : null,
-      d.tournament
-        ? h(
-            'a.fbt',
-            {
-              attrs: { href: `/tournament/${d.tournament.id}` },
-            },
-            i18n('viewTournament'),
-          )
-        : null,
-      studyButton(ctrl),
-      analysisButton(ctrl),
-      ctrl.openStudyModal ? studyModal(ctrl) : null,
-    ];
+          },
+          i18n('viewRematch'),
+        )
+      : null,
+    d.tournament
+      ? h(
+          'a.fbt',
+          {
+            attrs: { href: `/tournament/${d.tournament.id}` },
+          },
+          i18n('viewTournament'),
+        )
+      : null,
+    studyButton(ctrl),
+    analysisButton(ctrl),
+    ctrl.openStudyModal ? studyModal(ctrl) : null,
+  ];
   return content.find(x => !!x) ? h('div.follow-up', content) : null;
 }
 

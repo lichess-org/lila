@@ -18,9 +18,9 @@ export function outcomes(ctrl: InsightCtrl, data: OutcomeResult): VNode {
 function winrateChart(winrate: [number, number, number]): VNode {
   const totalGames = winrate.reduce((a, b) => a + b, 0);
 
-  const winPercent = toPercentage(winrate[0], totalGames),
-    drawPercent = toPercentage(winrate[1], totalGames),
-    lossPercent = toPercentage(winrate[2], totalGames);
+  const winPercent = toPercentage(winrate[0], totalGames);
+  const drawPercent = toPercentage(winrate[1], totalGames);
+  const lossPercent = toPercentage(winrate[2], totalGames);
   return h('div.winrate-wrap', [
     h('div.winrate-info-wrap', [
       winrateInfo('win', winPercent, winrate[0]),
@@ -43,10 +43,10 @@ function barResultChart(
   losses: CounterObj<StatusId>,
   key: string,
 ): VNode {
-  const winKeys = Object.keys(wins).map(n => Number.parseInt(n)) as StatusId[],
-    totalWins = winKeys.reduce((a, b) => a + (wins[b] || 0), 0);
-  const lossKeys = Object.keys(losses).map(n => Number.parseInt(n)) as StatusId[],
-    totalLosses = lossKeys.reduce((a, b) => a + (losses[b] || 0), 0);
+  const winKeys = Object.keys(wins).map(n => Number.parseInt(n)) as StatusId[];
+  const totalWins = winKeys.reduce((a, b) => a + (wins[b] || 0), 0);
+  const lossKeys = Object.keys(losses).map(n => Number.parseInt(n)) as StatusId[];
+  const totalLosses = lossKeys.reduce((a, b) => a + (losses[b] || 0), 0);
 
   const allKeys = [...new Set([...winKeys, ...lossKeys])];
 

@@ -92,8 +92,8 @@ function slider(ctrl: SoundCtrl): VNode {
       },
       hook: {
         insert: vnode => {
-          const el = vnode.elm as HTMLInputElement,
-            setVolume = debounce(ctrl.volume, 300);
+          const el = vnode.elm as HTMLInputElement;
+          const setVolume = debounce(ctrl.volume, 300);
 
           el.value = ctrl.api.getVolume();
           el.addEventListener('input', _ => {

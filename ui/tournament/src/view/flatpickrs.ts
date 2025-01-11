@@ -47,8 +47,8 @@ export function flatpickrInput(
           });
           console.log('fInstance: ', fInstance);
           if (scheduledAt) {
-            const scheduledDate = new Date(scheduledAt),
-              finalDate = utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
+            const scheduledDate = new Date(scheduledAt);
+            const finalDate = utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
             fInstance.setDate(finalDate, false);
             fInstance.altInput.value = formattedDate(scheduledDate, utc());
           }
@@ -62,8 +62,8 @@ export function flatpickrInput(
       postpatch: () => {
         console.log('postpatch:', fInstance, utc());
         if (fInstance && scheduledAt) {
-          const scheduledDate = new Date(scheduledAt),
-            finalDate = utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
+          const scheduledDate = new Date(scheduledAt);
+          const finalDate = utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
           console.log('FINAL DATE:', finalDate);
 
           fInstance.setDate(finalDate, false);

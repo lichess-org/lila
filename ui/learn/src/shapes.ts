@@ -96,8 +96,8 @@ export function checkShapes(level: Level, usiCList: UsiWithColor[]): DrawShape[]
 }
 
 export function pieceMovesHighlihts(piece: Piece, key: Key): SquareHighlight[] {
-  const keys: Key[] = [],
-    squares = attacks(piece, parseSquareName(key), SquareSet.empty());
+  const keys: Key[] = [];
+  const squares = attacks(piece, parseSquareName(key), SquareSet.empty());
   for (const s of squares) {
     keys.push(makeSquareName(s));
   }

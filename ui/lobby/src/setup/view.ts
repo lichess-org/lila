@@ -73,11 +73,11 @@ function position(ctrl: SetupCtrl): VNode {
 }
 
 function positionInput(ctrl: SetupCtrl): VNode {
-  const jp = useJp(),
-    handicapLink = jp
-      ? 'https://ja.wikipedia.org/wiki/%E5%B0%86%E6%A3%8B%E3%81%AE%E6%89%8B%E5%90%88%E5%89%B2'
-      : 'https://en.wikipedia.org/wiki/Handicap_(shogi)',
-    variant = ctrl.variantKey();
+  const jp = useJp();
+  const handicapLink = jp
+    ? 'https://ja.wikipedia.org/wiki/%E5%B0%86%E6%A3%8B%E3%81%AE%E6%89%8B%E5%90%88%E5%89%B2'
+    : 'https://en.wikipedia.org/wiki/Handicap_(shogi)';
+  const variant = ctrl.variantKey();
 
   return h('div.setup-position-input', [
     h('div.setup-handicap.select', [
@@ -232,8 +232,8 @@ function submitButtons(ctrl: SetupCtrl): VNode {
   return h(
     'div.setup-submits.section',
     colorChoices.map(color => {
-      const name = color === 'random' ? i18n('randomColor') : colorName(color, ctrl.isHandicap()),
-        disabled = allDisabled || (color !== 'random' && !ctrl.canChooseColor());
+      const name = color === 'random' ? i18n('randomColor') : colorName(color, ctrl.isHandicap());
+      const disabled = allDisabled || (color !== 'random' && !ctrl.canChooseColor());
       return h('div.button-wrap', [
         h(`button.button.button-metal.color-icon.${color}${disabled ? '.disabled' : ''}`, {
           attrs: {

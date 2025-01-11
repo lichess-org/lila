@@ -16,9 +16,9 @@ export async function parseThemes(themeDir: string): Promise<ThemeRecord> {
 }
 
 async function parseThemeFile(filePath: string): Promise<Record<string, string>> {
-  const content = await fs.promises.readFile(filePath, 'utf-8'),
-    regex = /^\$([\w-_]+):\s*([^;]+);/gm,
-    variables: Record<string, string> = {};
+  const content = await fs.promises.readFile(filePath, 'utf-8');
+  const regex = /^\$([\w-_]+):\s*([^;]+);/gm;
+  const variables: Record<string, string> = {};
 
   for (const match of content.matchAll(regex)) {
     const [, name, value] = match;

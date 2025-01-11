@@ -128,25 +128,25 @@ export function tagToKif(tag: string, handicap: boolean): string | undefined {
   }
 }
 export function renderFullKif(ctrl: AnalyseCtrl): string {
-  const g = ctrl.data.game,
-    offset = ctrl.plyOffset(),
-    sfen = g.initialSfen || initialSfen(ctrl.data.game.variant.key);
+  const g = ctrl.data.game;
+  const offset = ctrl.plyOffset();
+  const sfen = g.initialSfen || initialSfen(ctrl.data.game.variant.key);
 
-  const pos = parseSfen(ctrl.data.game.variant.key, sfen, false).unwrap(),
-    moves = makeKifNodes(ctrl.tree.root, pos, offset % 2).join('\n');
+  const pos = parseSfen(ctrl.data.game.variant.key, sfen, false).unwrap();
+  const moves = makeKifNodes(ctrl.tree.root, pos, offset % 2).join('\n');
 
-  const tags = ctrl.data.tags ?? [],
-    handicap = isHandicap({ sfen: sfen, rules: g.variant.key }),
-    colorTags = [handicap ? '下手' : '先手', handicap ? '上手' : '後手'];
+  const tags = ctrl.data.tags ?? [];
+  const handicap = isHandicap({ sfen: sfen, rules: g.variant.key });
+  const colorTags = [handicap ? '下手' : '先手', handicap ? '上手' : '後手'];
   // We either don't want to display these or we display them through other means
-  const unwatedTagNames = ['Sente', 'Gote', 'Handicap', 'Termination', 'Result'],
-    otherTags = tags
-      .filter(t => !unwatedTagNames.includes(t[0]))
-      .map(t => `${tagToKif(t[0], handicap) || t[0]}：${t[1]}`);
+  const unwatedTagNames = ['Sente', 'Gote', 'Handicap', 'Termination', 'Result'];
+  const otherTags = tags
+    .filter(t => !unwatedTagNames.includes(t[0]))
+    .map(t => `${tagToKif(t[0], handicap) || t[0]}：${t[1]}`);
 
   // We want these even empty
-  const sente = tags.find(t => t[0] === 'Sente')?.[1] ?? '',
-    gote = tags.find(t => t[0] === 'Gote')?.[1] ?? '';
+  const sente = tags.find(t => t[0] === 'Sente')?.[1] ?? '';
+  const gote = tags.find(t => t[0] === 'Gote')?.[1] ?? '';
 
   return [
     ...otherTags,

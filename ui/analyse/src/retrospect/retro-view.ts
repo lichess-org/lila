@@ -196,8 +196,8 @@ const feedback = {
           ]),
         ),
       ];
-    const nothing = !ctrl.completion()[1],
-      handicap = isHandicap({ rules: ctrl.variant, sfen: ctrl.initialSfen });
+    const nothing = !ctrl.completion()[1];
+    const handicap = isHandicap({ rules: ctrl.variant, sfen: ctrl.initialSfen });
     return [
       h('div.player', [
         h('div.no-square', h(`piece.king.${ctrl.color}`)),
@@ -245,8 +245,8 @@ function renderFeedback(root: AnalyseCtrl, fb) {
 export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
-  const fb = ctrl.feedback(),
-    completion = ctrl.completion();
+  const fb = ctrl.feedback();
+  const completion = ctrl.completion();
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
       h('span', i18n('learnFromYourMistakes')),

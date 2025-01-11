@@ -127,9 +127,9 @@ function timeString(hour) {
 
 function makeGroups(days: Date[]): Date[][] {
   const groups: Date[][] = [];
-  let i: number,
-    j: number,
-    chunk = 10;
+  let i: number;
+  let j: number;
+  const chunk = 10;
   for (i = 0, j = days.length; i < j; i += chunk) groups.push(days.slice(i, i + chunk));
   return groups;
 }

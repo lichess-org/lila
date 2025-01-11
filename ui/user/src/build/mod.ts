@@ -61,8 +61,8 @@ function userMod($zone: any): void {
     $(el)
       .find('a')
       .each(function (i) {
-        const id = (this as HTMLAnchorElement).href.replace(/.+(#\w+)$/, '$1'),
-          n = `${i + 1}`;
+        const id = (this as HTMLAnchorElement).href.replace(/.+(#\w+)$/, '$1');
+        const n = `${i + 1}`;
         $(this).prepend(`<i>${n}</i>`);
         window.lishogi.mousetrap.bind(n, () => scrollTo(id));
       });
@@ -150,16 +150,16 @@ const onScroll = () =>
   });
 
 (() => {
-  const cleanNumber = i => i.replace(/[^\-?0-9.]/g, ''),
-    compareNumber = (a, b) => {
-      a = Number.parseFloat(a);
-      b = Number.parseFloat(b);
+  const cleanNumber = i => i.replace(/[^\-?0-9.]/g, '');
+  const compareNumber = (a, b) => {
+    a = Number.parseFloat(a);
+    b = Number.parseFloat(b);
 
-      a = Number.isNaN(a) ? 0 : a;
-      b = Number.isNaN(b) ? 0 : b;
+    a = Number.isNaN(a) ? 0 : a;
+    b = Number.isNaN(b) ? 0 : b;
 
-      return a - b;
-    };
+    return a - b;
+  };
 
   tablesort.extend(
     'number',

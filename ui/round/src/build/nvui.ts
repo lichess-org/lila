@@ -28,8 +28,8 @@ import { renderResult } from '../view/replay';
 import { renderTableEnd, renderTablePlay, renderTableWatch } from '../view/table';
 
 function main(redraw: Redraw) {
-  const notify = new Notify(redraw),
-    moveStyle = styleSetting();
+  const notify = new Notify(redraw);
+  const moveStyle = styleSetting();
 
   window.lishogi.pubsub.on('socket.in.message', line => {
     if (line.u === 'lishogi') notify.set(line.t);
@@ -38,12 +38,12 @@ function main(redraw: Redraw) {
 
   return {
     render(ctrl: RoundController): VNode {
-      const d = ctrl.data,
-        step = plyStep(d, ctrl.ply),
-        style = moveStyle.get(),
-        variantNope =
-          !supportedVariant(d.game.variant.key) &&
-          'Sorry, this variant is not supported in blind mode.';
+      const d = ctrl.data;
+      const step = plyStep(d, ctrl.ply);
+      const style = moveStyle.get();
+      const variantNope =
+        !supportedVariant(d.game.variant.key) &&
+        'Sorry, this variant is not supported in blind mode.';
       if (!ctrl.shogiground) {
         ctrl.shogiground = Shogiground({
           ...makeSgConfig(ctrl),
@@ -114,8 +114,8 @@ function main(redraw: Redraw) {
                   'form',
                   {
                     hook: onInsert(el => {
-                      const $form = $(el as HTMLFormElement),
-                        $input = $form.find<HTMLInputElement>('.move').val('').trigger('focus');
+                      const $form = $(el as HTMLFormElement);
+                      const $input = $form.find<HTMLInputElement>('.move').val('').trigger('focus');
                       $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
                     }),
                   },
@@ -218,8 +218,8 @@ function onSubmit(
     if (isShortCommand(input)) input = `/${input}`;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
-      const d = ctrl.data,
-        usi = validUsi(input, plyStep(d, ctrl.ply).sfen, ctrl.data.game.variant.key);
+      const d = ctrl.data;
+      const usi = validUsi(input, plyStep(d, ctrl.ply).sfen, ctrl.data.game.variant.key);
 
       if (usi)
         ctrl.sendUsiData({
@@ -263,8 +263,8 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (lowered == 'takeback') $('.nvui button.takeback-yes').trigger('click');
   else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
-    const pieces = ctrl.shogiground.state.pieces,
-      hands = ctrl.shogiground.state.hands.handMap;
+    const pieces = ctrl.shogiground.state.pieces;
+    const hands = ctrl.shogiground.state.hands.handMap;
     notify(
       commands.piece.apply(c, pieces, hands, style) ||
         commands.scan.apply(c, pieces, style) ||
@@ -274,8 +274,8 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
-  const d = ctrl.data,
-    player = ctrl.playerAt(position);
+  const d = ctrl.data;
+  const player = ctrl.playerAt(position);
   return (
     (ctrl.clock && renderClock(ctrl, player, position)) ||
     (d.correspondence &&
@@ -296,12 +296,12 @@ function renderMoves(steps: Step[], variant: VariantKey, style: Style) {
 
 function playerHtml(ctrl: RoundController, player: game.Player) {
   if (player.ai) return engineNameFromCode(player.aiCode, player.ai);
-  const d = ctrl.data,
-    user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf?.rating,
-    rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? `+${rd}` : rd < 0 ? `−${-rd}` : '') : '';
+  const d = ctrl.data;
+  const user = player.user;
+  const perf = user ? user.perfs[d.game.perf] : null;
+  const rating = player.rating ? player.rating : perf?.rating;
+  const rd = player.ratingDiff;
+  const ratingDiff = rd ? (rd > 0 ? `+${rd}` : rd < 0 ? `−${-rd}` : '') : '';
   return user
     ? h('span', [
         h(
@@ -319,10 +319,10 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
 
 function playerText(ctrl: RoundController, player: game.Player) {
   if (player.ai) return engineNameFromCode(player.aiCode, player.ai);
-  const d = ctrl.data,
-    user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf?.rating;
+  const d = ctrl.data;
+  const user = player.user;
+  const perf = user ? user.perfs[d.game.perf] : null;
+  const rating = player.rating ? player.rating : perf?.rating;
   if (!user) return 'Anonymous';
   return `${user.title || ''} ${user.username} rated ${rating || 'unknown'}`;
 }

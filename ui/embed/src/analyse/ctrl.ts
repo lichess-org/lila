@@ -46,8 +46,8 @@ export class AnalyseCtrl {
 
   private captureRegex = /[a-z]/gi;
   private initNotation = (): void => {
-    const variant = this.data.game.variant.key,
-      captureRegex = this.captureRegex;
+    const variant = this.data.game.variant.key;
+    const captureRegex = this.captureRegex;
     function update(node: Tree.Node, prev?: Tree.Node) {
       if (prev && node.usi && !node.notation) {
         node.notation = makeNotation(prev.sfen, variant, node.usi, prev.usi);

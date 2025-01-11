@@ -17,9 +17,9 @@ export const fileR: RegExp = /(?:[１２３４５６７８９]|[一二三四五�
   KKlastDestR: RegExp = new RegExp(`^(?:${allRolesR.source})x$`);
 
 export function toMoveOrDrop(str: string, pos: Position): MoveOrDrop | undefined {
-  const sqs = regexMatchAllSquares(str),
-    unpromotion = str.includes('不成') || str.endsWith('='),
-    forceDrop = str.includes('*') || str.includes('打');
+  const sqs = regexMatchAllSquares(str);
+  const unpromotion = str.includes('不成') || str.endsWith('=');
+  const forceDrop = str.includes('*') || str.includes('打');
 
   if (sqs.length) {
     if (sqs.length === 2) {
@@ -43,13 +43,13 @@ export function toMoveOrDrop(str: string, pos: Position): MoveOrDrop | undefined
         return pos.isLegal(move) ? move : undefined;
       }
     } else if (sqs.length === 1) {
-      const keyChar = str.match(keyR)![0],
-        roleChar = str.replace(keyChar, '').match(allRolesR),
-        role = roleChar && toRole(pos.rules, roleChar[0]);
+      const keyChar = str.match(keyR)![0];
+      const roleChar = str.replace(keyChar, '').match(allRolesR);
+      const role = roleChar && toRole(pos.rules, roleChar[0]);
 
       if (role) {
-        const candidates = allCandidates(sqs[0], role, pos),
-          piece = { color: pos.turn, role };
+        const candidates = allCandidates(sqs[0], role, pos);
+        const piece = { color: pos.turn, role };
         if ((forceDrop || candidates.isEmpty()) && pos.dropDests(piece).has(sqs[0])) {
           const drop = { role, to: sqs[0] };
           return pos.isLegal(drop) ? drop : undefined;
@@ -106,11 +106,11 @@ export function fixDigits(str: string): string {
 
 export function toSquare(str: string): Square | undefined {
   if (str.length !== 2) return;
-  const mapped = fixDigits(str),
-    secondDigit = Number.parseInt(mapped[1]);
+  const mapped = fixDigits(str);
+  const secondDigit = Number.parseInt(mapped[1]);
 
-  const numberLetter = secondDigit ? mapped[0] + String.fromCharCode(96 + secondDigit) : mapped,
-    parsed = parseSquareName(numberLetter);
+  const numberLetter = secondDigit ? mapped[0] + String.fromCharCode(96 + secondDigit) : mapped;
+  const parsed = parseSquareName(numberLetter);
   if (parsed !== undefined) return parsed;
   else return;
 }

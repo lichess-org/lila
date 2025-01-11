@@ -20,25 +20,25 @@ export function impasseInfo(
 ): ImpasseInfoByColor | undefined {
   if (!['standard', 'annanshogi', 'checkshogi'].includes(rules)) return;
 
-  const shogi = parseSfen(rules, sfen, false),
-    pointOffset = initialSfen ? pointOffsetFromSfen(initialSfen) : 0;
+  const shogi = parseSfen(rules, sfen, false);
+  const pointOffset = initialSfen ? pointOffsetFromSfen(initialSfen) : 0;
 
   if (shogi.isErr) return;
 
   const board = shogi.value.board;
-  const sentePromotion = promotionZone(rules)('sente').intersect(board.color('sente')),
-    gotePromotion = promotionZone(rules)('gote').intersect(board.color('gote')),
-    allMajorPieces = board
-      .role('bishop')
-      .union(board.role('rook'))
-      .union(board.role('horse'))
-      .union(board.role('dragon'));
+  const sentePromotion = promotionZone(rules)('sente').intersect(board.color('sente'));
+  const gotePromotion = promotionZone(rules)('gote').intersect(board.color('gote'));
+  const allMajorPieces = board
+    .role('bishop')
+    .union(board.role('rook'))
+    .union(board.role('horse'))
+    .union(board.role('dragon'));
 
-  const senteKing: boolean = !sentePromotion.intersect(board.role('king')).isEmpty(),
-    goteKing: boolean = !gotePromotion.intersect(board.role('king')).isEmpty();
+  const senteKing: boolean = !sentePromotion.intersect(board.role('king')).isEmpty();
+  const goteKing: boolean = !gotePromotion.intersect(board.role('king')).isEmpty();
 
-  const senteNumberOfPieces: number = sentePromotion.diff(board.role('king')).size(),
-    goteNumberOfPieces: number = gotePromotion.diff(board.role('king')).size();
+  const senteNumberOfPieces: number = sentePromotion.diff(board.role('king')).size();
+  const goteNumberOfPieces: number = gotePromotion.diff(board.role('king')).size();
 
   const senteImpasseValue =
     senteNumberOfPieces +

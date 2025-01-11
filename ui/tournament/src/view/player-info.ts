@@ -26,23 +26,23 @@ function playerTitle(player) {
 }
 
 function setup(vnode: VNode) {
-  const el = vnode.elm as HTMLElement,
-    p = window.lishogi.powertip;
+  const el = vnode.elm as HTMLElement;
+  const p = window.lishogi.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }
 
 export default function (ctrl: TournamentController): VNode {
-  const data = ctrl.playerInfo.data,
-    tag = 'div.tour__player-info.tour__actor-info';
+  const data = ctrl.playerInfo.data;
+  const tag = 'div.tour__player-info.tour__actor-info';
   console.log('PPPP:', !data, data?.player?.id !== ctrl.playerInfo.id);
 
   if (!data || data.player.id !== ctrl.playerInfo.id)
     return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player), spinner()])]);
-  const nb = data.player.nb,
-    poa = data.pairings || data.arrangements,
-    poaLen = poa.length,
-    avgOp = poaLen ? Math.round(poa.reduce((a, b) => a + b.op.rating, 0) / poaLen) : undefined;
+  const nb = data.player.nb;
+  const poa = data.pairings || data.arrangements;
+  const poaLen = poa.length;
+  const avgOp = poaLen ? Math.round(poa.reduce((a, b) => a + b.op.rating, 0) / poaLen) : undefined;
   return h(
     tag,
     {

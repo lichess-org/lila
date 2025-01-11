@@ -4,9 +4,9 @@ import { type VNode, h } from 'snabbdom';
 import type LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
-  const f = ctrl.filter.data?.form,
-    isSeek: boolean = ctrl.tab === 'seeks',
-    $div = $(el);
+  const f = ctrl.filter.data?.form;
+  const isSeek: boolean = ctrl.tab === 'seeks';
+  const $div = $(el);
 
   if (f)
     Object.keys(f).forEach(k => {
@@ -34,8 +34,8 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
 }
 
 export function toggle(ctrl: LobbyController, nbFiltered: number): VNode {
-  const filter = ctrl.filter,
-    hasFiltered = nbFiltered > 0;
+  const filter = ctrl.filter;
+  const hasFiltered = nbFiltered > 0;
   return h(
     'i.toggle.toggle-filter',
     {

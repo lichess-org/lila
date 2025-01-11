@@ -13,16 +13,16 @@ export function renderMainlineCommentsOf(
 ): MaybeVNodes {
   if (isEmpty(node.comments)) return [];
 
-  const withAuthor = node.comments!.some(c => c.by !== node.comments![0].by),
-    color = withColor ? `.${plyColor(node.ply)}` : '';
+  const withAuthor = node.comments!.some(c => c.by !== node.comments![0].by);
+  const color = withColor ? `.${plyColor(node.ply)}` : '';
 
   return node.comments!.map(comment => {
     let sel = `comment${color}`;
     if (comment.text.startsWith('Inaccuracy.')) sel += '.inaccuracy';
     else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
     else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
-    const by = withAuthor ? `<span class="by">${authorText(comment.by)}</span>` : '',
-      truncated = truncateComment(comment.text, 200);
+    const by = withAuthor ? `<span class="by">${authorText(comment.by)}</span>` : '';
+    const truncated = truncateComment(comment.text, 200);
     return h(sel, {
       hook: innerHTML(by + truncated, text => {
         const s = text.split('</span>');
@@ -40,8 +40,8 @@ export function renderInlineCommentsOf(
   if (isEmpty(node.comments)) return [];
   return node
     .comments!.map(comment => {
-      const by = node.comments![1] ? `<span class="by">${authorText(comment.by)}</span>` : '',
-        truncated = truncateComment(comment.text, 150);
+      const by = node.comments![1] ? `<span class="by">${authorText(comment.by)}</span>` : '';
+      const truncated = truncateComment(comment.text, 150);
       return h('comment', {
         hook: innerHTML(
           truncated,

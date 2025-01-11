@@ -8,23 +8,23 @@ import { handRoles } from 'shogiops/variant/util';
 import { resize } from '../util';
 
 function parseSfen(el: HTMLElement): void {
-  const lm = el.dataset.lastmove,
-    sfen = el.dataset.sfen,
-    hands = sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '',
-    color = (el.dataset.color || 'sente') as Color,
-    variant = (el.dataset.variant || 'standard') as VariantKey,
-    config: Config = {
-      coordinates: { enabled: false },
-      orientation: color,
-      drawable: { enabled: false, visible: false },
-      viewOnly: true,
-      sfen: { board: sfen, hands: hands },
-      hands: { roles: handRoles(variant), inlined: variant !== 'chushogi' },
-      lastDests: lm ? usiToSquareNames(lm) : undefined,
-      forsyth: {
-        fromForsyth: forsythToRole(variant),
-      },
-    };
+  const lm = el.dataset.lastmove;
+  const sfen = el.dataset.sfen;
+  const hands = sfen && sfen.split(' ').length > 2 ? sfen.split(' ')[2] : '';
+  const color = (el.dataset.color || 'sente') as Color;
+  const variant = (el.dataset.variant || 'standard') as VariantKey;
+  const config: Config = {
+    coordinates: { enabled: false },
+    orientation: color,
+    drawable: { enabled: false, visible: false },
+    viewOnly: true,
+    sfen: { board: sfen, hands: hands },
+    hands: { roles: handRoles(variant), inlined: variant !== 'chushogi' },
+    lastDests: lm ? usiToSquareNames(lm) : undefined,
+    forsyth: {
+      fromForsyth: forsythToRole(variant),
+    },
+  };
 
   if (variant === 'chushogi') loadChushogiPieceSprite();
   else if (variant === 'kyotoshogi') loadKyotoshogiPieceSprite();

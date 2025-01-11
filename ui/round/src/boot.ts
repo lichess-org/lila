@@ -9,11 +9,12 @@ export function boot(
   opts: RoundOpts,
   start: (element: HTMLElement, opts: RoundOpts) => RoundController,
 ): RoundController {
-  const li = window.lishogi,
-    element = document.querySelector('.round__app') as HTMLElement,
-    data: RoundData = opts.data;
+  const li = window.lishogi;
+  const element = document.querySelector('.round__app') as HTMLElement;
+  const data: RoundData = opts.data;
 
-  let ctrl: RoundController, chat: ChatCtrl | undefined;
+  let ctrl: RoundController | undefined = undefined;
+  let chat: ChatCtrl | undefined = undefined;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
   const socketUrl = opts.data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
@@ -22,7 +23,7 @@ export function boot(
     options: { name: 'round' },
     params: { userTv: data.userTv?.id },
     receive(t: string, d: any) {
-      ctrl.socket.receive(t, d);
+      ctrl?.socket.receive(t, d);
     },
     events: {
       tvSelect(o: any) {
@@ -39,8 +40,8 @@ export function boot(
         window.lishogi.xhr
           .text('GET', `${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`)
           .then(html => {
-            const $html = $(html),
-              $meta = $html.find('.game__meta');
+            const $html = $(html);
+            const $meta = $html.find('.game__meta');
             $meta.length && $('.game__meta').replaceWith($meta);
             $('.crosstable').replaceWith($html.find('.crosstable'));
             startTournamentClock();

@@ -11,27 +11,27 @@ const duration: number = 30 * 1000;
 const tickDelay: number = 50;
 
 function main(opts: CoordinatesOpts): void {
-  const $trainer = $('#trainer'),
-    $board = $('.coord-trainer__board .sg-wrap'),
-    $side = $('.coord-trainer__side'),
-    $right = $('.coord-trainer__table'),
-    $button = $('.coord-trainer__button'),
-    $bar = $trainer.find('.progress_bar'),
-    $coords = [$('#next_coord0'), $('#next_coord1')],
-    $start = $button.find('.start'),
-    $explanation = $right.find('.explanation'),
-    $score = $('.coord-trainer__score'),
-    $timer = $('.coord-trainer__timer');
+  const $trainer = $('#trainer');
+  const $board = $('.coord-trainer__board .sg-wrap');
+  const $side = $('.coord-trainer__side');
+  const $right = $('.coord-trainer__table');
+  const $button = $('.coord-trainer__button');
+  const $bar = $trainer.find('.progress_bar');
+  const $coords = [$('#next_coord0'), $('#next_coord1')];
+  const $start = $button.find('.start');
+  const $explanation = $right.find('.explanation');
+  const $score = $('.coord-trainer__score');
+  const $timer = $('.coord-trainer__timer');
 
-  const scoreUrl = opts.scoreUrl,
-    notationPref = Number.parseInt(document.body.dataset.notation || '0');
+  const scoreUrl = opts.scoreUrl;
+  const notationPref = Number.parseInt(document.body.dataset.notation || '0');
 
-  let ground: ReturnType<typeof window.Shogiground>,
-    colorPref = opts.colorPref,
-    color: Color,
-    startAt: Date,
-    score: number,
-    wrongTimeout: Timeout;
+  let ground: ReturnType<typeof window.Shogiground>;
+  let colorPref = opts.colorPref;
+  let color: Color;
+  let startAt: Date;
+  let score: number;
+  let wrongTimeout: Timeout;
 
   $board.removeClass('preload');
   const showColor = () => {
@@ -63,12 +63,12 @@ function main(opts: CoordinatesOpts): void {
   $trainer.find('form.color').each(function (this: HTMLFormElement) {
     const $form = $(this);
     $form.find('input').on('change', () => {
-      const selected: string = $form.find<HTMLInputElement>('input:checked').val()!,
-        c = {
-          1: 'sente',
-          2: 'random',
-          3: 'gote',
-        }[selected]!;
+      const selected: string = $form.find<HTMLInputElement>('input:checked').val()!;
+      const c = {
+        1: 'sente',
+        2: 'random',
+        3: 'gote',
+      }[selected]!;
       if (c !== colorPref) window.lishogi.xhr.formToXhr(this);
       colorPref = c as any;
       showColor();
@@ -78,8 +78,8 @@ function main(opts: CoordinatesOpts): void {
 
   const showCharts = () => {
     $side.find('.user_chart').each(function (this: HTMLCanvasElement, index: number) {
-      const isSente = index === 0,
-        data = isSente ? opts.points.sente : opts.points.gote;
+      const isSente = index === 0;
+      const data = isSente ? opts.points.sente : opts.points.gote;
       (window.lishogi.modules as any).chartCoordinate(this, data, isSente ? 'sente' : 'gote');
     });
   };
@@ -148,8 +148,8 @@ function main(opts: CoordinatesOpts): void {
   };
 
   const tick = () => {
-    const spent = Math.min(duration, new Date().getTime() - startAt.getTime()),
-      left = ((duration - spent) / 1000).toFixed(1);
+    const spent = Math.min(duration, new Date().getTime() - startAt.getTime());
+    const left = ((duration - spent) / 1000).toFixed(1);
     if (+left < 10) {
       $timer.addClass('hurry');
     }

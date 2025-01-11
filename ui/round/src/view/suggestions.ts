@@ -9,10 +9,10 @@ import type RoundController from '../ctrl';
 export function impasse(ctrl: RoundController): MaybeVNode {
   if (!ctrl.impasseHelp) return null;
 
-  const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1],
-    rules = ctrl.data.game.variant.key,
-    initialSfen = ctrl.data.game.initialSfen,
-    i = impasseInfo(rules, lastStep.sfen, initialSfen);
+  const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
+  const rules = ctrl.data.game.variant.key;
+  const initialSfen = ctrl.data.game.initialSfen;
+  const i = impasseInfo(rules, lastStep.sfen, initialSfen);
 
   if (!i) return null;
 

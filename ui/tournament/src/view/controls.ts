@@ -105,18 +105,18 @@ function controlButton(text: string, icon: string, cls: string, el: MaybeVNode =
 }
 
 function robinArrowControls(ctrl: TournamentController) {
-  const container = document.querySelector('.r-table-wrap-arrs') as HTMLElement,
-    table = container.querySelector('table') as HTMLElement,
-    controls = document.querySelector('.tour__controls') as HTMLElement,
-    firstArrow = controls.querySelector('button.first') as HTMLElement,
-    prevArrow = controls.querySelector('button.prev') as HTMLElement,
-    nextArrow = controls.querySelector('button.next') as HTMLElement,
-    lastArrow = controls.querySelector('button.last') as HTMLElement;
+  const container = document.querySelector('.r-table-wrap-arrs') as HTMLElement;
+  const table = container.querySelector('table') as HTMLElement;
+  const controls = document.querySelector('.tour__controls') as HTMLElement;
+  const firstArrow = controls.querySelector('button.first') as HTMLElement;
+  const prevArrow = controls.querySelector('button.prev') as HTMLElement;
+  const nextArrow = controls.querySelector('button.next') as HTMLElement;
+  const lastArrow = controls.querySelector('button.last') as HTMLElement;
 
   function updateArrowState() {
-    const canScrollLeft = container.scrollLeft > 0,
-      canScrollRight =
-        Math.round(container.scrollLeft) < container.scrollWidth - container.clientWidth - 1;
+    const canScrollLeft = container.scrollLeft > 0;
+    const canScrollRight =
+      Math.round(container.scrollLeft) < container.scrollWidth - container.clientWidth - 1;
 
     firstArrow.classList.toggle('disabled', !canScrollLeft);
     prevArrow.classList.toggle('disabled', !canScrollLeft);

@@ -23,8 +23,8 @@ interface Glyph {
 }
 
 const autoScroll = throttle(150, (ctrl: Controller, el) => {
-  const cont = el.parentNode,
-    target = el.querySelector('.active');
+  const cont = el.parentNode;
+  const target = el.querySelector('.active');
   if (!target) {
     cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
     return;
@@ -37,8 +37,8 @@ export function renderIndex(ply: number, withDots: boolean): VNode {
 }
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): MaybeVNodes {
-  const cs = node.children,
-    main = cs[0];
+  const cs = node.children;
+  const main = cs[0];
   if (!main) return [];
   if (opts.isMainline) {
     if (!cs[1])
@@ -50,13 +50,13 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): MaybeVNo
         }),
       ];
     const mainChildren = renderChildrenOf(ctx, main, {
-        parentPath: opts.parentPath + main.id,
-        isMainline: true,
-      }),
-      passOpts = {
-        parentPath: opts.parentPath,
-        isMainline: true,
-      };
+      parentPath: opts.parentPath + main.id,
+      isMainline: true,
+    });
+    const passOpts = {
+      parentPath: opts.parentPath,
+      isMainline: true,
+    };
     return [
       renderIndex(main.ply, false),
       renderMoveOf(ctx, main, passOpts),

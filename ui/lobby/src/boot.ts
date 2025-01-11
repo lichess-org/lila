@@ -8,24 +8,24 @@ export default function boot(
   start: (opts: LobbyOpts) => LobbyController,
 ): LobbyController {
   let ctrl: LobbyController | undefined = undefined;
-  const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
-    nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
-    getParameterByName = <T extends string>(name: string): T | undefined => {
-      const match = RegExp(`[?&]${name}=([^&]*)`).exec(location.search);
-      return match ? (decodeURIComponent(match[1].replace(/\+/g, ' ')) as T) : undefined;
-    },
-    onFirstConnect = () => {
-      const gameId = getParameterByName<string>('hook_like');
-      if (!gameId) return;
-      window.lishogi.xhr.text('POST', `/setup/hook/${window.lishogi.sri}/like/${gameId}`, {
-        url: {
-          rr: ctrl?.setupCtrl.ratingRange() || '',
-        },
-      });
-      ctrl?.setTab('real_time', false);
-      ctrl?.redraw();
-      history.replaceState(null, '', '/');
-    };
+  const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8);
+  const nbUserSpread = spreadNumber('#nb_connected_players > strong', 10);
+  const getParameterByName = <T extends string>(name: string): T | undefined => {
+    const match = RegExp(`[?&]${name}=([^&]*)`).exec(location.search);
+    return match ? (decodeURIComponent(match[1].replace(/\+/g, ' ')) as T) : undefined;
+  };
+  const onFirstConnect = () => {
+    const gameId = getParameterByName<string>('hook_like');
+    if (!gameId) return;
+    window.lishogi.xhr.text('POST', `/setup/hook/${window.lishogi.sri}/like/${gameId}`, {
+      url: {
+        rr: ctrl?.setupCtrl.ratingRange() || '',
+      },
+    });
+    ctrl?.setTab('real_time', false);
+    ctrl?.redraw();
+    history.replaceState(null, '', '/');
+  };
   window.lishogi.socket = new window.lishogi.StrongSocket('/lobby/socket/v4', false, {
     receive: (t, d) => {
       ctrl?.socket.receive(t, d);
@@ -73,19 +73,19 @@ export default function boot(
 
   ctrl = start(opts);
 
-  const $startButtons = $('.lobby__start'),
-    clickEvent = opts.blindMode ? 'click' : 'mousedown';
+  const $startButtons = $('.lobby__start');
+  const clickEvent = opts.blindMode ? 'click' : 'mousedown';
 
   $startButtons
     .find('button:not(.disabled)')
     .on(clickEvent, function (this: HTMLElement) {
       $(this).addClass('active').siblings().removeClass('active');
-      const cls = this.classList,
-        sKey = cls.contains('config_hook')
-          ? 'hook'
-          : cls.contains('config_friend')
-            ? 'friend'
-            : 'ai';
+      const cls = this.classList;
+      const sKey = cls.contains('config_hook')
+        ? 'hook'
+        : cls.contains('config_friend')
+          ? 'friend'
+          : 'ai';
       ctrl.setupCtrl.open(sKey);
       ctrl.redraw();
       return false;

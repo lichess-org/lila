@@ -56,9 +56,9 @@ const dateFormat = (d: Date) => d.toLocaleDateString();
 function main(ratingHistoryOpts: { data: string; singlePerfName: string }): void {
   $('.spinner').remove();
 
-  const $el = $('canvas.rating-history'),
-    data = JSON.parse(ratingHistoryOpts.data) as PerfRatingHistory[],
-    singlePerfName = ratingHistoryOpts.singlePerfName;
+  const $el = $('canvas.rating-history');
+  const data = JSON.parse(ratingHistoryOpts.data) as PerfRatingHistory[];
+  const singlePerfName = ratingHistoryOpts.singlePerfName;
 
   const singlePerfIndex = data.findIndex(x => x.name === singlePerfName);
   if (singlePerfName && !data[singlePerfIndex]?.points.length) {

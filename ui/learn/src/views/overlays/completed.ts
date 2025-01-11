@@ -13,9 +13,9 @@ function makeStars(score: number): VNode[] {
 
 export default function (ctrl: LearnCtrl): MaybeVNode {
   if (!ctrl.vm) return;
-  const stage = ctrl.vm.stage,
-    next = nextStage(stage.id),
-    stars = Math.floor(average(ctrl.progress.get(stage.key)));
+  const stage = ctrl.vm.stage;
+  const next = nextStage(stage.id);
+  const stars = Math.floor(average(ctrl.progress.get(stage.key)));
   return h(
     'div.learn__screen-overlay.completed',
     {

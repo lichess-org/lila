@@ -16,9 +16,9 @@ export function halfSection(title: string, content: (VNode | string)[]): VNode {
 export function smallWinrateChart(winrate: WinRate): VNode {
   const totalGames = winrate.reduce((a, b) => a + b, 0);
 
-  const winPercent = toPercentage(winrate[0], totalGames),
-    drawPercent = toPercentage(winrate[1], totalGames),
-    lossPercent = toPercentage(winrate[2], totalGames);
+  const winPercent = toPercentage(winrate[0], totalGames);
+  const drawPercent = toPercentage(winrate[1], totalGames);
+  const lossPercent = toPercentage(winrate[2], totalGames);
   return h('div.small-winrate-wrap', [
     h('div.small-winrate-info-wrap', [
       winPercent ? h('span.win', `${winPercent}%`) : null,

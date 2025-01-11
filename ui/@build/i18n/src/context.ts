@@ -14,7 +14,9 @@ import { categoryName, isValidJs } from './util.js';
 const separatePackages = ['learn', 'insights', 'puzzle'];
 
 export function i18nContext(): Context {
-  let outdir: string, translationDir: string, translationSourceDir: string;
+  let outdir: string;
+  let translationDir: string;
+  let translationSourceDir: string;
 
   const packagesKeyCache: Record<string, Set<string>> = {};
 
@@ -112,8 +114,8 @@ export function i18nContext(): Context {
   }
 
   async function initLangDests(): Promise<void> {
-    const translationDestDir = path.join(translationDir, 'dest'),
-      categoryDirs = await readdir(translationDestDir);
+    const translationDestDir = path.join(translationDir, 'dest');
+    const categoryDirs = await readdir(translationDestDir);
     for (const lang of otherLangs) {
       const i18n = await parseXmls(
         categoryDirs.map(cd => {

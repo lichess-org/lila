@@ -10,10 +10,10 @@ export function arrangementThumbnail(
   asLink = false,
 ): MaybeVNode {
   const players = ctrl.data.standing.players.filter(p =>
-      arrangementHasUser(a, p.name.toLowerCase()),
-    ),
-    gameDate = a.scheduledAt || a.startedAt,
-    date = gameDate ? new Date(gameDate) : undefined;
+    arrangementHasUser(a, p.name.toLowerCase()),
+  );
+  const gameDate = a.scheduledAt || a.startedAt;
+  const date = gameDate ? new Date(gameDate) : undefined;
 
   if (players.length === 2)
     return h(

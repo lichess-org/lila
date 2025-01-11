@@ -32,8 +32,8 @@ function secondBackrank(color: Color): SquareSet {
 
 export function illegalShogigroundDropDests(pos: Position): DropDests {
   // From https://github.com/WandererXII/shogiops/blob/master/src/shogi.ts
-  const result: Map<PieceName, Key[]> = new Map(),
-    notOccuppied = pos.board.occupied.complement().intersect(fullSquareSet('standard'));
+  const result: Map<PieceName, Key[]> = new Map();
+  const notOccuppied = pos.board.occupied.complement().intersect(fullSquareSet('standard'));
 
   for (const role of handRoles('standard')) {
     const pieceName: PieceName = `${pos.turn} ${role}`;
@@ -50,11 +50,11 @@ export function illegalShogigroundDropDests(pos: Position): DropDests {
 }
 
 export function findRandomMove(pos: Position): Usi | undefined {
-  const moveDests = pos.allMoveDests(),
-    origs: Square[] = Array.from(moveDests.keys()).filter(sq => moveDests.get(sq)?.nonEmpty()),
-    randomOrig: Square | undefined = origs[Math.floor(Math.random() * origs.length)],
-    dests: Square[] = Array.from(moveDests.get(randomOrig)!),
-    randomDest: Square | undefined = dests[Math.floor(Math.random() * dests.length)];
+  const moveDests = pos.allMoveDests();
+  const origs: Square[] = Array.from(moveDests.keys()).filter(sq => moveDests.get(sq)?.nonEmpty());
+  const randomOrig: Square | undefined = origs[Math.floor(Math.random() * origs.length)];
+  const dests: Square[] = Array.from(moveDests.get(randomOrig)!);
+  const randomDest: Square | undefined = dests[Math.floor(Math.random() * dests.length)];
 
   if (randomOrig !== undefined && randomDest !== undefined)
     return makeUsi({ from: randomOrig, to: randomDest });

@@ -45,8 +45,8 @@ function playerNameStanding(_ctrl: TournamentController, player) {
 }
 
 export function standing(ctrl: TournamentController, klass?: string): VNode {
-  const maxScore = Math.max(...ctrl.data.standing.players.map(p => p.score || 0)),
-    size = ctrl.data.standing.players.length;
+  const maxScore = Math.max(...ctrl.data.standing.players.map(p => p.score || 0));
+  const size = ctrl.data.standing.players.length;
   return h(`div.r-table-wrap${klass ? `.${klass}` : ''}${size === 0 ? '.none' : ''}`, [
     h(
       'div.r-table-wrap-players',
@@ -102,8 +102,8 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
                 },
               },
               ctrl.data.standing.players.map((player2, j) => {
-                const arr = ctrl.findArrangement([player.id, player2.id]),
-                  key = `${player.id};${player2.id}`;
+                const arr = ctrl.findArrangement([player.id, player2.id]);
+                const key = `${player.id};${player2.id}`;
                 return h(
                   'td',
                   {
@@ -167,8 +167,8 @@ function podiumUsername(p) {
 }
 
 function podiumStats(p, games: Arrangement[]): VNode {
-  const userId = p.id,
-    gamesOfPlayer = games.filter(a => arrangementHasUser(a, userId));
+  const userId = p.id;
+  const gamesOfPlayer = games.filter(a => arrangementHasUser(a, userId));
   return h('table.stats', [
     p.performance ? h('tr', [h('th', i18n('performance')), h('td', p.performance)]) : null,
     h('tr', [h('th', i18n('gamesPlayed')), h('td', gamesOfPlayer.length)]),
@@ -193,8 +193,8 @@ function podiumPosition(p, pos, games: Arrangement[]): VNode | undefined {
 }
 
 export function podium(ctrl: TournamentController): VNode {
-  const p = [...ctrl.data.standing.players].sort((a, b) => b.score - a.score).slice(0, 3),
-    games = ctrl.data.standing.arrangements.filter(a => !!a.gameId);
+  const p = [...ctrl.data.standing.players].sort((a, b) => b.score - a.score).slice(0, 3);
+  const games = ctrl.data.standing.arrangements.filter(a => !!a.gameId);
   return h('div.tour__podium', [
     podiumPosition(p[1], 'second', games),
     podiumPosition(p[0], 'first', games),

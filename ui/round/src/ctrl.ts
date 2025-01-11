@@ -184,12 +184,12 @@ export default class RoundController {
 
   private initNotation = (): void => {
     if (this.data.steps.length <= 1) return;
-    const usis = this.data.steps.slice(1).map(s => s.usi!),
-      movesNotation: MoveNotation[] = makeNotationLine(
-        this.data.game.initialSfen || initialSfen(this.data.game.variant.key),
-        this.data.game.variant.key,
-        usis,
-      );
+    const usis = this.data.steps.slice(1).map(s => s.usi!);
+    const movesNotation: MoveNotation[] = makeNotationLine(
+      this.data.game.initialSfen || initialSfen(this.data.game.variant.key),
+      this.data.game.variant.key,
+      usis,
+    );
     for (let i = 1; i < this.data.steps.length; i++)
       this.data.steps[i].notation = movesNotation[i - 1];
   };
@@ -228,8 +228,8 @@ export default class RoundController {
   };
 
   private onChushogiMove = (orig: Key, dest: Key, prom: boolean, meta: sg.MoveMetadata) => {
-    const posRes = parseSfen(this.data.game.variant.key, this.stepAt(this.ply).sfen, false),
-      piece = posRes.isOk && posRes.value.board.get(parseSquareName(orig))!;
+    const posRes = parseSfen(this.data.game.variant.key, this.stepAt(this.ply).sfen, false);
+    const piece = posRes.isOk && posRes.value.board.get(parseSquareName(orig))!;
     if (
       piece &&
       this.lionFirstMove === undefined &&
@@ -318,20 +318,20 @@ export default class RoundController {
     ply = Math.max(round.firstPly(this.data), Math.min(round.lastPly(this.data), ply));
     const isForwardStep = ply === this.ply + 1;
     this.ply = ply;
-    const s = this.stepAt(ply),
-      splitSfen = s.sfen.split(' '),
-      variant = this.data.game.variant.key,
-      posRes = this.isPlaying() ? parseSfen(variant, s.sfen, false) : undefined,
-      config: SgConfig = {
-        sfen: { board: splitSfen[0], hands: splitSfen[2] },
-        lastDests: s.usi ? usiToSquareNames(s.usi) : undefined,
-        checks: !!s.check,
-        turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
-        activeColor: this.isPlaying() ? this.data.player.color : undefined,
-        drawable: {
-          squares: [],
-        },
-      };
+    const s = this.stepAt(ply);
+    const splitSfen = s.sfen.split(' ');
+    const variant = this.data.game.variant.key;
+    const posRes = this.isPlaying() ? parseSfen(variant, s.sfen, false) : undefined;
+    const config: SgConfig = {
+      sfen: { board: splitSfen[0], hands: splitSfen[2] },
+      lastDests: s.usi ? usiToSquareNames(s.usi) : undefined,
+      checks: !!s.check,
+      turnColor: this.ply % 2 === 0 ? 'sente' : 'gote',
+      activeColor: this.isPlaying() ? this.data.player.color : undefined,
+      drawable: {
+        squares: [],
+      },
+    };
     if (this.replaying()) this.shogiground.stop();
     else {
       config.movable = {
@@ -341,8 +341,9 @@ export default class RoundController {
         dests: this.isPlaying() && posRes ? util.getDropDests(posRes) : new Map(),
       };
     }
-    const move = s.usi && parseUsi(s.usi),
-      capture = isForwardStep && move && this.shogiground.state.pieces.get(makeSquareName(move.to));
+    const move = s.usi && parseUsi(s.usi);
+    const capture =
+      isForwardStep && move && this.shogiground.state.pieces.get(makeSquareName(move.to));
     this.shogiground.set(config);
     if (s.usi && isForwardStep) {
       if (capture) sound.capture();
@@ -424,8 +425,8 @@ export default class RoundController {
     const d = this.data;
     if (game.isPlayerTurn(d))
       notify(() => {
-        let txt = i18n('yourTurn'),
-          opponent = renderUser.userTxt(d.opponent);
+        let txt = i18n('yourTurn');
+        const opponent = renderUser.userTxt(d.opponent);
         if (this.ply < 1) txt = `${opponent}\njoined the game.\n${txt}`;
         else {
           const m_step = d.steps[d.steps.length - 1];
@@ -451,44 +452,45 @@ export default class RoundController {
     this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): void => {
-    const d = this.data,
-      playing = this.isPlaying();
+    const d = this.data;
+    const playing = this.isPlaying();
 
     d.game.plies = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'sente' : 'gote';
-    const playedColor: Color = o.ply % 2 === 0 ? 'gote' : 'sente',
-      activeColor = d.player.color === d.game.player,
-      variant = d.game.variant.key;
+    const playedColor: Color = o.ply % 2 === 0 ? 'gote' : 'sente';
+    const activeColor = d.player.color === d.game.player;
+    const variant = d.game.variant.key;
     if (o.status) d.game.status = o.status;
     if (o.winner) d.game.winner = o.winner;
     this.playerByColor('sente').offeringDraw = o.sDraw;
     this.playerByColor('gote').offeringDraw = o.gDraw;
     this.setTitle();
-    const move = parseUsi(o.usi!)!,
-      keys = usiToSquareNames(o.usi!),
-      posRes = playing && activeColor ? parseSfen(d.game.variant.key, o.sfen, false) : undefined;
+    const move = parseUsi(o.usi!)!;
+    const keys = usiToSquareNames(o.usi!);
+    const posRes =
+      playing && activeColor ? parseSfen(d.game.variant.key, o.sfen, false) : undefined;
 
     if (!this.replaying()) {
       this.ply++;
       if (isDrop(move)) {
-        const capture = this.shogiground.state.pieces.get(keys[0]),
-          unpromotedRole =
-            variant === 'kyotoshogi' && !handRoles(variant).includes(move.role)
-              ? unpromote(variant)(move.role)
-              : undefined, // unify this behaviour, somewhere we get piece already promoted, somwehere we get original piece with boolean promotion
-          piece = {
-            role: unpromotedRole || move.role,
-            color: playedColor,
-          };
+        const capture = this.shogiground.state.pieces.get(keys[0]);
+        const unpromotedRole =
+          variant === 'kyotoshogi' && !handRoles(variant).includes(move.role)
+            ? unpromote(variant)(move.role)
+            : undefined; // unify this behaviour, somewhere we get piece already promoted, somwehere we get original piece with boolean promotion
+        const piece = {
+          role: unpromotedRole || move.role,
+          color: playedColor,
+        };
         // no need to drop the piece if it is already there - would play the sound again
         if (!capture || !samePiece(capture, piece))
           this.shogiground.drop(piece, keys[0], !!unpromotedRole);
       } else {
         // This block needs to be idempotent
         if (defined(move.midStep)) {
-          const orig = keys[0],
-            midStep = keys[1],
-            dest = keys[2];
+          const orig = keys[0];
+          const midStep = keys[1];
+          const dest = keys[2];
           if (orig !== dest) this.shogiground.move(orig, dest, move.promotion);
           else if (game.isPlayerTurn(d)) {
             const capture = this.shogiground.state.pieces.get(midStep);
@@ -518,21 +520,21 @@ export default class RoundController {
       blur.onMove();
       li.pubsub.emit('ply', this.ply);
     }
-    const lastStep = round.lastStep(d),
-      step = {
-        ply: lastStep.ply + 1,
-        sfen: o.sfen,
-        usi: o.usi,
-        notation: makeNotation(lastStep.sfen, d.game.variant.key, o.usi!, lastStep.usi),
-        check: o.check,
-      };
+    const lastStep = round.lastStep(d);
+    const step = {
+      ply: lastStep.ply + 1,
+      sfen: o.sfen,
+      usi: o.usi,
+      notation: makeNotation(lastStep.sfen, d.game.variant.key, o.usi!, lastStep.usi),
+      check: o.check,
+    };
     d.steps.push(step);
     game.setOnGame(d, playedColor, true);
     this.data.forecastCount = undefined;
     if (o.clock) {
       this.shouldSendMoveTime = true;
-      const oc = o.clock,
-        delay = playing && activeColor ? 0 : oc.lag || 1;
+      const oc = o.clock;
+      const delay = playing && activeColor ? 0 : oc.lag || 1;
       if (this.clock) this.clock.setClock(d, oc.sente, oc.gote, oc.sPer, oc.gPer, delay);
       else if (this.corresClock) this.corresClock.update(oc.sente, oc.gote);
     }

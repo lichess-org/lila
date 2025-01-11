@@ -8,8 +8,8 @@ import type EditorCtrl from '../ctrl';
 import { type Selected, type SpecialSelected, isSpecialSelected } from '../interfaces';
 
 export function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'bottom'): VNode {
-  const baseRoles: (Role | 'skip' | SpecialSelected)[] = [],
-    promotedRoles: (Role | 'skip' | SpecialSelected)[] = [];
+  const baseRoles: (Role | 'skip' | SpecialSelected)[] = [];
+  const promotedRoles: (Role | 'skip' | SpecialSelected)[] = [];
 
   // initial pieces first
   const roles: Role[] =
@@ -36,8 +36,8 @@ export function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'b
       // so we don't force redraw because of class change
       hook: {
         update(_oldVNode: VNode, vnode: VNode) {
-          const active = ctrl.shogiground.state.selectedPiece?.color === color,
-            elm = vnode.elm as HTMLElement;
+          const active = ctrl.shogiground.state.selectedPiece?.color === color;
+          const elm = vnode.elm as HTMLElement;
           elm.classList.toggle('active', active);
           if (!!ctrl.shogiground.state.selectedPiece && !active)
             elm.classList.toggle('inactive', !active);
@@ -68,11 +68,11 @@ function sparesVNodes(
 
   return spares.map((s: Role | 'skip' | SpecialSelected) => {
     if (s === 'skip') return h('div.selectable-wrap');
-    const sel: Selected = isSpecialSelected(s) ? s : [color, s],
-      className = selectedToClass(sel),
-      attrs: Record<string, string> = {
-        class: className,
-      };
+    const sel: Selected = isSpecialSelected(s) ? s : [color, s];
+    const className = selectedToClass(sel);
+    const attrs: Record<string, string> = {
+      class: className,
+    };
 
     if (typeof sel !== 'string') {
       attrs['data-color'] = s[0];
@@ -136,9 +136,9 @@ function selectSPEnd(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
     if (!initSpareEvent) return;
 
     e.preventDefault();
-    const cur = ctrl.selected(),
-      pos = eventPosition(e) || ctrl.lastTouchMovePos,
-      dragged = ctrl.shogiground.state.draggable.current?.piece as Piece | undefined;
+    const cur = ctrl.selected();
+    const pos = eventPosition(e) || ctrl.lastTouchMovePos;
+    const dragged = ctrl.shogiground.state.draggable.current?.piece as Piece | undefined;
     ctrl.shogiground.selectPiece(null);
     // default to pointer if we click on selected
     if (compareSelected(cur, s)) {

@@ -6,8 +6,8 @@ import { dimensions, fullSquareSet } from 'shogiops/variant/util';
 
 export function predrop(variant: VariantKey): (piece: Piece, pieces: Pieces) => Key[] {
   return (piece, pieces) => {
-    const dims = dimensions(variant),
-      limitDrops = variant !== 'kyotoshogi';
+    const dims = dimensions(variant);
+    const limitDrops = variant !== 'kyotoshogi';
     let mask = fullSquareSet(variant);
     if ((piece.role === 'pawn' || piece.role === 'lance') && limitDrops)
       mask = mask.diff(SquareSet.fromRank(piece.color === 'sente' ? 0 : dims.ranks - 1));

@@ -70,12 +70,12 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf): MaybeVNode {
     {
       hook: onInsert(el => {
         el.addEventListener('click', e => {
-          const target = e.target as HTMLElement,
-            it = Number.parseInt(
-              (target.parentNode as HTMLElement).getAttribute('data-it') ||
-                target.getAttribute('data-it') ||
-                '',
-            );
+          const target = e.target as HTMLElement;
+          const it = Number.parseInt(
+            (target.parentNode as HTMLElement).getAttribute('data-it') ||
+              target.getAttribute('data-it') ||
+              '',
+          );
           root.fork.proceed(it);
           root.redraw();
         });

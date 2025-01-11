@@ -41,18 +41,18 @@ function makeAutoShapesFromUsi(
 }
 
 export default function (opts: Opts): DrawShape[] {
-  const n = opts.vm.node,
-    hovering = opts.ceval.hovering(),
-    color = opts.ground.state.activeColor,
-    turnColor = opts.ground.state.turnColor;
+  const n = opts.vm.node;
+  const hovering = opts.ceval.hovering();
+  const color = opts.ground.state.activeColor;
+  const turnColor = opts.ground.state.turnColor;
   let shapes: DrawShape[] = [];
   if (hovering && hovering.sfen === n.sfen)
     shapes = shapes.concat(makeAutoShapesFromUsi(hovering.usi, turnColor, 'engine'));
   if (opts.vm.showAutoShapes() && opts.vm.showComputer()) {
     if (n.eval) shapes = shapes.concat(makeAutoShapesFromUsi(n.eval.best!, turnColor, 'engine'));
     if (!hovering) {
-      const useCur = !opts.nextNodeBest && opts.ceval.enabled(),
-        nextBest = useCur && n.ceval ? n.ceval.pvs[0].moves[0] : opts.nextNodeBest;
+      const useCur = !opts.nextNodeBest && opts.ceval.enabled();
+      const nextBest = useCur && n.ceval ? n.ceval.pvs[0].moves[0] : opts.nextNodeBest;
       if (nextBest)
         shapes = shapes.concat(
           makeAutoShapesFromUsi(nextBest, turnColor, useCur && n.ceval ? 'engine' : 'engineThreat'),

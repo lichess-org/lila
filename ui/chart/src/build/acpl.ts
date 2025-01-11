@@ -132,9 +132,9 @@ function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): 
             label: item => {
               const ev = mainline[item.dataIndex + 1]?.eval;
               if (!ev) return ''; // Pos is mate
-              let e = 0,
-                mateSymbol = '',
-                advantageSign = '';
+              let e = 0;
+              let mateSymbol = '';
+              let advantageSign = '';
               if (ev.cp) {
                 e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
                 if (ev.cp > 0) advantageSign = '+';

@@ -42,10 +42,10 @@ function getPosition(e: MouseEvent | TouchEvent): Coords | null {
 }
 
 function positionMenu(menu: HTMLElement, coords: Coords): void {
-  const menuWidth = menu.offsetWidth + 4,
-    menuHeight = menu.offsetHeight + 4,
-    windowWidth = window.innerWidth,
-    windowHeight = window.innerHeight;
+  const menuWidth = menu.offsetWidth + 4;
+  const menuHeight = menu.offsetHeight + 4;
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
 
   menu.style.left =
     windowWidth - coords.x < menuWidth ? `${windowWidth - menuWidth}px` : `${coords.x}px`;
@@ -66,10 +66,11 @@ function action(icon: string, text: string, handler: () => void): VNode {
 }
 
 function view(opts: Opts, coords: Coords): VNode {
-  const ctrl = opts.root,
-    node = ctrl.tree.nodeAtPath(opts.path),
-    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
-    cantChangeMainline = !!ctrl.study?.data.chapter.gameLength;
+  const ctrl = opts.root;
+  const node = ctrl.tree.nodeAtPath(opts.path);
+  const onMainline =
+    ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path);
+  const cantChangeMainline = !!ctrl.study?.data.chapter.gameLength;
   return h(
     `div#${elementId}.visible`,
     {

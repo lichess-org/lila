@@ -12,10 +12,10 @@ import { action, isHook } from '../../util';
 import { tds } from '../util';
 
 function renderHookOrSeek(hs: Hook | Seek) {
-  const act = action(hs),
-    disabled = isHook(hs) && !!hs.disabled,
-    username = isHook(hs) ? hs.u : hs.username,
-    isRated = isHook(hs) ? hs.ra : hs.mode === 1;
+  const act = action(hs);
+  const disabled = isHook(hs) && !!hs.disabled;
+  const username = isHook(hs) ? hs.u : hs.username;
+  const isRated = isHook(hs) ? hs.ra : hs.mode === 1;
   return h(
     `tr.hook.${act}`,
     {
@@ -79,10 +79,10 @@ export function render(
   ctrl: LobbyController,
   allHs: Seek[] | Hook[],
 ): VNode {
-  const mine = allHs.filter(isMine),
-    render = (hs: Hook | Seek) => renderHookOrSeek(hs),
-    standards = allHs.filter(isNotMine).filter(isStandard(true)),
-    variants = allHs.filter(isNotMine).filter(isStandard(false));
+  const mine = allHs.filter(isMine);
+  const render = (hs: Hook | Seek) => renderHookOrSeek(hs);
+  const standards = allHs.filter(isNotMine).filter(isStandard(true));
+  const variants = allHs.filter(isNotMine).filter(isStandard(false));
 
   if (tab === 'seeks') {
     seekRepo.sort(ctrl, mine as Seek[]);

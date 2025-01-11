@@ -11,10 +11,10 @@ function percents(v) {
 }
 
 function renderPlot(ctrl: LobbyController, hs: Hook | Seek): VNode {
-  const bottom = Math.max(0, yCoord(hs)),
-    left = Math.max(0, xCoord(hs)),
-    act = action(hs),
-    klass = ['plot.new', (isHook(hs) ? hs.ra : hs.mode) ? 'rated' : 'casual', act].join('.');
+  const bottom = Math.max(0, yCoord(hs));
+  const left = Math.max(0, xCoord(hs));
+  const act = action(hs);
+  const klass = ['plot.new', (isHook(hs) ? hs.ra : hs.mode) ? 'rated' : 'casual', act].join('.');
   return h(`span#${hs.id}.${klass}`, {
     key: hs.id,
     attrs: {
@@ -78,16 +78,16 @@ function xCoord(hs: Hook | Seek) {
     const left = (hs.t * 90) / 3000 + 5;
     return Math.max(Math.min(left, 95), 0);
   } else {
-    const oneSlice = 100 / (xMarksSeek.length + 1),
-      index = (xMarksSeek.findIndex(x => x == hs.days) || 14) + 1;
+    const oneSlice = 100 / (xMarksSeek.length + 1);
+    const index = (xMarksSeek.findIndex(x => x == hs.days) || 14) + 1;
     return Math.min(oneSlice * index - 2, 95);
   }
 }
 
 function renderXAxis(tab: 'seeks' | 'real_time') {
-  const tags: VNode[] = [],
-    values = tab === 'seeks' ? xMarksSeek : xMarksHook,
-    oneSlice = 100 / (values.length + 1);
+  const tags: VNode[] = [];
+  const values = tab === 'seeks' ? xMarksSeek : xMarksHook;
+  const oneSlice = 100 / (values.length + 1);
   values.forEach((v, i) => {
     tags.push(
       h(
@@ -110,9 +110,9 @@ function renderXAxis(tab: 'seeks' | 'real_time') {
 const yMarks = [1000, 1200, 1400, 1600, 1800, 2000];
 
 function yCoord(hs: Hook | Seek): number {
-  const isRated = isHook(hs) ? hs.ra : hs.mode,
-    r = hs.rating || 1500,
-    offset = 100 / (yMarks.length + 1);
+  const isRated = isHook(hs) ? hs.ra : hs.mode;
+  const r = hs.rating || 1500;
+  const offset = 100 / (yMarks.length + 1);
 
   let height: number;
   if (r < 1000) height = ((r - 500) * 10) / 500;
@@ -123,8 +123,8 @@ function yCoord(hs: Hook | Seek): number {
 }
 
 function renderYAxis() {
-  const tags: VNode[] = [],
-    oneSlice = 100 / (yMarks.length + 1);
+  const tags: VNode[] = [];
+  const oneSlice = 100 / (yMarks.length + 1);
   yMarks.forEach((v, i) => {
     tags.push(
       h(

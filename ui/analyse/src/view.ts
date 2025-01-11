@@ -270,9 +270,9 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
 }
 
 function controls(ctrl: AnalyseCtrl) {
-  const canJumpPrev = ctrl.path !== '',
-    canJumpNext = !!ctrl.node.children[0],
-    menuIsOpen = ctrl.actionMenu.open;
+  const canJumpPrev = ctrl.path !== '';
+  const canJumpNext = !!ctrl.node.children[0];
+  const menuIsOpen = ctrl.actionMenu.open;
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -357,17 +357,17 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
 
 export default function (ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
-  const concealOf = makeConcealOf(ctrl),
-    study = ctrl.study,
-    showCevalPvs = !ctrl.retro?.isSolving() && !ctrl.practice,
-    menuIsOpen = ctrl.actionMenu.open,
-    gamebookPlay = ctrl.gamebookPlay(),
-    gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
-    gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
-    playerBars = renderPlayerBars(ctrl),
-    clocks = !playerBars && renderClocks(ctrl, true),
-    gaugeOn = ctrl.showEvalGauge(),
-    needsInnerCoords = !!playerBars;
+  const concealOf = makeConcealOf(ctrl);
+  const study = ctrl.study;
+  const showCevalPvs = !ctrl.retro?.isSolving() && !ctrl.practice;
+  const menuIsOpen = ctrl.actionMenu.open;
+  const gamebookPlay = ctrl.gamebookPlay();
+  const gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay);
+  const gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined;
+  const playerBars = renderPlayerBars(ctrl);
+  const clocks = !playerBars && renderClocks(ctrl, true);
+  const gaugeOn = ctrl.showEvalGauge();
+  const needsInnerCoords = !!playerBars;
   return h(
     `main.sb-insert.analyse.main-v-${ctrl.data.game.variant.key}`, // sb-insert - to force snabbdom to call insert
     {

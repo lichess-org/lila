@@ -77,10 +77,10 @@ export function ctrl(
 }
 
 export function view(ctrl: StudyShareCtrl): VNode {
-  const studyId = ctrl.studyId,
-    chapter = ctrl.chapter();
-  let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`,
-    embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
+  const studyId = ctrl.studyId;
+  const chapter = ctrl.chapter();
+  let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`;
+  let embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
   const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly() && ctrl.onMainline()) {
     const p = ctrl.currentNode().ply;

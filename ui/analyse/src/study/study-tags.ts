@@ -39,8 +39,8 @@ type TagRow = (string | VNode)[];
 
 function renderTags(chapter: StudyChapter, submit, types: string[]): VNode {
   let rows: TagRow[] = [];
-  const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0])),
-    handicap = isHandicap({ rules: chapter.setup.variant.key, sfen: chapter.initialSfen });
+  const wantedTags = chapter.tags.filter(t => !unwantedTags.includes(t[0]));
+  const handicap = isHandicap({ rules: chapter.setup.variant.key, sfen: chapter.initialSfen });
   rows = rows.concat(
     wantedTags.map(tag => [tag[0], submit ? editable(tag[1], submit(tag[0])) : fixed(tag[1])]),
   );
@@ -151,19 +151,19 @@ function translateTag(tag: string, handicap: boolean): string {
 }
 
 export function view(root: StudyCtrl): VNode {
-  const chapter = root.tags.getChapter(),
-    tagKey = chapter.tags
-      .filter(t => !unwantedTags.includes(t[0]))
-      .map(t => t[1])
-      .join(','),
-    key =
-      chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
+  const chapter = root.tags.getChapter();
+  const tagKey = chapter.tags
+    .filter(t => !unwantedTags.includes(t[0]))
+    .map(t => t[1])
+    .join(',');
+  const key =
+    chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
   return thunk(`div.${chapter.id}`, doRender, [root, key]);
 }
 
 function i18nColorTag(tag: string, handicap: boolean): string {
-  const xTag = `${tag.replace(/^(Sente|Gote)/, 'x')}Tag`,
-    color = tag.startsWith('Sente') ? 'sente' : 'gote';
+  const xTag = `${tag.replace(/^(Sente|Gote)/, 'x')}Tag`;
+  const color = tag.startsWith('Sente') ? 'sente' : 'gote';
   switch (xTag) {
     case 'xEloTag':
       return i18nFormatCapitalized('study:xEloTag', colorName(color, handicap));

@@ -38,9 +38,9 @@ export default function (ctrl: LobbyController): VNode {
             h('div.sg-wrap', {
               hook: {
                 insert(vnode) {
-                  const lm = pov.lastMove,
-                    variant = pov.variant.key,
-                    splitSfen = pov.sfen.split(' ');
+                  const lm = pov.lastMove;
+                  const variant = pov.variant.key;
+                  const splitSfen = pov.sfen.split(' ');
                   Shogiground(
                     {
                       coordinates: { enabled: false },

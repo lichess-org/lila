@@ -59,10 +59,10 @@ export default class Filter {
 
   filter = (hooks: Hook[]): Filtered => {
     if (!this.data) return { visible: hooks, hidden: 0 };
-    const f = this.data.filter,
-      visible: Hook[] = [];
-    let variant: string,
-      hidden = 0;
+    const f = this.data.filter;
+    const visible: Hook[] = [];
+    let variant: string;
+    let hidden = 0;
     hooks.forEach(hook => {
       variant = hook.variant || 'standard';
       if (action(hook) === 'cancel') visible.push(hook);
@@ -89,10 +89,10 @@ export default class Filter {
 
   filterSeeks = (seeks: Seek[]): FilteredSeeks => {
     if (!this.data) return { visible: seeks, hidden: 0 };
-    const f = this.data.filter,
-      visible: Seek[] = [];
-    let variant: string,
-      hidden = 0;
+    const f = this.data.filter;
+    const visible: Seek[] = [];
+    let variant: string;
+    let hidden = 0;
 
     seeks.forEach(seek => {
       variant = seek.variant || 'standard';

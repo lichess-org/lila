@@ -131,9 +131,9 @@ export function renderInlineCommentsOf(
     .comments!.map(comment => {
       if (comment.by === 'lishogi' && !ctx.showComputer) return;
       const by = node.comments![1]
-          ? `<span class="by">${commentAuthorText(comment.by)}</span>`
-          : '',
-        truncated = truncateComment(comment.text, 300, ctx);
+        ? `<span class="by">${commentAuthorText(comment.by)}</span>`
+        : '';
+      const truncated = truncateComment(comment.text, 300, ctx);
       return h('comment', {
         hook: innerHTML(
           truncated,

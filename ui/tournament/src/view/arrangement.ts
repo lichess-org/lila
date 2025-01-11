@@ -24,10 +24,10 @@ function controls(ctrl: TournamentController) {
 }
 
 function arrangement(ctrl: TournamentController, a: Arrangement): VNode {
-  const hasMe = a.user1.id === ctrl.opts.userId || a.user2.id === ctrl.opts.userId,
-    player1 = ctrl.data.standing.players.find(p => p.id === a.user1.id),
-    player2 = ctrl.data.standing.players.find(p => p.id === a.user2.id),
-    utc = ctrl.utc();
+  const hasMe = a.user1.id === ctrl.opts.userId || a.user2.id === ctrl.opts.userId;
+  const player1 = ctrl.data.standing.players.find(p => p.id === a.user1.id);
+  const player2 = ctrl.data.standing.players.find(p => p.id === a.user2.id);
+  const utc = ctrl.utc();
   console.log('arrangement', ctrl.data.standing.players, a, player1, player2);
   if (player1 && player2) {
     return h(
@@ -115,8 +115,8 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
             });
             console.log('fInstance: ', fInstance);
             if (user.scheduledAt) {
-              const scheduledDate = new Date(user.scheduledAt),
-                finalDate = ctrl.utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
+              const scheduledDate = new Date(user.scheduledAt);
+              const finalDate = ctrl.utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
               fInstance.setDate(finalDate, false);
               fInstance.altInput.value = formattedDate(scheduledDate, ctrl.utc());
             }
@@ -130,9 +130,9 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
         postpatch: () => {
           console.log('postpatch:', fInstance);
           if (fInstance && user.scheduledAt) {
-            const utc = ctrl.utc(),
-              scheduledDate = new Date(user.scheduledAt),
-              finalDate = utc ? adjustDateToUTC(scheduledDate) : scheduledDate;
+            const utc = ctrl.utc();
+            const scheduledDate = new Date(user.scheduledAt);
+            const finalDate = utc ? adjustDateToUTC(scheduledDate) : scheduledDate;
             fInstance.setDate(finalDate, false);
             fInstance.altInput.value = formattedDate(scheduledDate, utc);
           }
@@ -247,8 +247,8 @@ function middleButtons(
         (a.history?.slice().reverse() || []).map(e => {
           const split = e.split(';');
           if (split.length !== 3) return null;
-          const userId = split[0] === '1' ? a.user1.id : a.user2.id,
-            player = ctrl.data.standing.players.find(p => p.id === userId);
+          const userId = split[0] === '1' ? a.user1.id : a.user2.id;
+          const player = ctrl.data.standing.players.find(p => p.id === userId);
           if (player) {
             return h('div.line', {
               hook: {

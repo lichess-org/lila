@@ -31,15 +31,15 @@ export default class GamebookPlayCtrl {
   }
 
   private makeState = (): void => {
-    const node = this.root.node,
-      nodeComment = (node.comments || [])[0],
-      state: Partial<State> = {
-        init: this.root.path === '',
-        comment: nodeComment ? nodeComment.text : undefined,
-        showHint: false,
-      },
-      parPath = treePath.init(this.root.path),
-      parNode = this.root.tree.nodeAtPath(parPath);
+    const node = this.root.node;
+    const nodeComment = (node.comments || [])[0];
+    const state: Partial<State> = {
+      init: this.root.path === '',
+      comment: nodeComment ? nodeComment.text : undefined,
+      showHint: false,
+    };
+    const parPath = treePath.init(this.root.path);
+    const parNode = this.root.tree.nodeAtPath(parPath);
     if (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath)) return;
     if (this.root.onMainline && !node.children[0]) {
       state.feedback = 'end';
@@ -84,8 +84,8 @@ export default class GamebookPlayCtrl {
         this.retry();
         break;
       case 'end': {
-        const s = this.root.study!,
-          c = s.nextChapter();
+        const s = this.root.study!;
+        const c = s.nextChapter();
         if (c) s.setChapter(c.id);
         break;
       }

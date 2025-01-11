@@ -18,8 +18,8 @@ export function subscribe(ctrl: RoundController): void {
   if (ctrl.data.player.user && ctrl.data.player.user.title === 'BOT') return;
   li.storage.make('ceval.sfen').listen(e => {
     if (e.value === 'start') return li.storage.fire('round.ongoing');
-    const d = ctrl.data,
-      step = lastStep(ctrl.data);
+    const d = ctrl.data;
+    const step = lastStep(ctrl.data);
     if (
       !found &&
       step.ply > 14 &&

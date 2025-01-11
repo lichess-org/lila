@@ -60,9 +60,9 @@ function formatter(): (date?: Date | number) => string {
 export function render(nodes: HTMLElement[]): void {
   const now = Date.now();
   nodes.forEach((node: HTMLElement & { date?: Date }) => {
-    const cl = node.classList,
-      abs = cl.contains('abs'),
-      set = cl.contains('set');
+    const cl = node.classList;
+    const abs = cl.contains('abs');
+    const set = cl.contains('set');
     node.date = node.date || toDate(node.getAttribute('datetime')!);
     if (!set) {
       const str = formatter()(node.date);

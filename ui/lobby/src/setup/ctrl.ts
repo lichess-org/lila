@@ -130,22 +130,22 @@ export default class SetupCtrl {
   }
 
   canSubmit(): boolean {
-    const timeOk = this.validTime(),
-      ratedOk = this.data.mode != Mode.Rated || this.canBeRated(),
-      aiOk =
-        this.key !== 'ai' ||
-        this.data.variant === 1 ||
-        this.data.time >= 1 ||
-        this.data.byoyomi >= 10 ||
-        this.data.increment >= 5;
+    const timeOk = this.validTime();
+    const ratedOk = this.data.mode != Mode.Rated || this.canBeRated();
+    const aiOk =
+      this.key !== 'ai' ||
+      this.data.variant === 1 ||
+      this.data.time >= 1 ||
+      this.data.byoyomi >= 10 ||
+      this.data.increment >= 5;
 
     return !this.invalidSfen && timeOk && ratedOk && aiOk;
   }
 
   engineName(): string {
-    const sfen = this.data.sfen,
-      rules = idToVariant(this.data.variant),
-      level = this.data.level;
+    const sfen = this.data.sfen;
+    const rules = idToVariant(this.data.variant);
+    const level = this.data.level;
 
     return engineName(rules, sfen, level);
   }
@@ -185,16 +185,16 @@ export default class SetupCtrl {
     const store = this.stores[this.key]?.get() || {};
 
     const getNumber = (k: keyof SetupData, options: number[]): number => {
-      const extra = extraData?.[k] ? Number.parseInt(extraData[k]) : undefined,
-        saved = extra ?? Number.parseInt(store[k]);
+      const extra = extraData?.[k] ? Number.parseInt(extraData[k]) : undefined;
+      const saved = extra ?? Number.parseInt(store[k]);
       if (saved !== null && saved !== undefined && !Number.isNaN(saved) && options.includes(saved))
         return saved;
       else return SetupCtrl.defaultData[k] as number;
     };
 
     const getString = (k: keyof SetupData, options: string[] | undefined = undefined): string => {
-      const extra = extraData?.[k],
-        saved = extra ?? store[k];
+      const extra = extraData?.[k];
+      const saved = extra ?? store[k];
       if (saved !== null && saved !== undefined && (!options || options.includes(saved)))
         return saved;
       else return SetupCtrl.defaultData[k] as string;
@@ -277,21 +277,21 @@ export default class SetupCtrl {
   };
 
   submit = (color: Color | 'random'): void => {
-    const rating = this.rating(),
-      postData = {
-        variant: this.data.variant,
-        timeMode: this.data.timeMode,
-        time: this.data.time,
-        byoyomi: this.data.byoyomi,
-        increment: this.data.increment,
-        periods: this.data.periods,
-        days: this.data.days,
-        sfen: this.data.sfen,
-        level: this.data.level,
-        mode: this.data.mode,
-        ratingRange: this.ratingRange(),
-        color: color,
-      };
+    const rating = this.rating();
+    const postData = {
+      variant: this.data.variant,
+      timeMode: this.data.timeMode,
+      time: this.data.time,
+      byoyomi: this.data.byoyomi,
+      increment: this.data.increment,
+      periods: this.data.periods,
+      days: this.data.days,
+      sfen: this.data.sfen,
+      level: this.data.level,
+      mode: this.data.mode,
+      ratingRange: this.ratingRange(),
+      color: color,
+    };
     console.log(
       rating ? `${rating - this.data.ratingMin}-${rating + this.data.ratingMin}` : undefined,
     );

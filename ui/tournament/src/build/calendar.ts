@@ -15,10 +15,10 @@ function main(env: any): void {
       };
   });
 
-  let vnode: VNode,
-    ctrl: Ctrl = {
-      data: env.data,
-    };
+  let vnode: VNode;
+  const ctrl: Ctrl = {
+    data: env.data,
+  };
 
   function redraw() {
     vnode = patch(vnode || element, view(ctrl));

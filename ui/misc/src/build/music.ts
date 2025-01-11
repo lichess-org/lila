@@ -8,13 +8,13 @@ function lishogiOrchestra() {
   };
 
   const instruments: Record<string, any[]> = {
-      celesta: [],
-      clav: [],
-      swells: [],
-    },
-    noteOverlap = 15,
-    noteTimeout = 300,
-    maxPitch = 23;
+    celesta: [],
+    clav: [],
+    swells: [],
+  };
+  const noteOverlap = 15;
+  const noteTimeout = 300;
+  const maxPitch = 23;
   let currentNotes = 0;
 
   // load celesta and clav sounds
@@ -81,15 +81,15 @@ function playMusic(): { jump: (node: Tree.Node) => void } {
     return (Number.parseInt(key[0]) - 1) * 12 + rankToInt(key[1]);
   };
 
-  const usiBase = 122,
-    keyToPitch = (key: string): number => {
-      return keyToInt(key) / (usiBase / 23);
-    };
+  const usiBase = 122;
+  const keyToPitch = (key: string): number => {
+    return keyToInt(key) / (usiBase / 23);
+  };
 
   const jump = (node: Tree.Node) => {
     if (node.usi) {
-      const pitch = keyToPitch(node.usi.slice(2)),
-        instrument = isPawn(node.notation) ? 'clav' : 'celesta';
+      const pitch = keyToPitch(node.usi.slice(2));
+      const instrument = isPawn(node.notation) ? 'clav' : 'celesta';
       orchestra.play(instrument, pitch);
       if (node.check) orchestra.play('swells', pitch);
       else if (node.capture) {

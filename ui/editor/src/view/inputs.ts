@@ -63,10 +63,10 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
           on: {
             click: () => {
               const kifEl = document.querySelector(
-                  '.copyables .kif textarea',
-                ) as HTMLTextAreaElement,
-                kif = kifEl.value,
-                parsed = parseKifHeader(kif);
+                '.copyables .kif textarea',
+              ) as HTMLTextAreaElement;
+              const kif = kifEl.value;
+              const parsed = parseKifHeader(kif);
               if (parsed.isOk) ctrl.setSfen(makeSfen(parsed.value));
               ctrl.redraw();
             },
@@ -93,10 +93,10 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
               on: {
                 click: () => {
                   const csaEl = document.querySelector(
-                      '.copyables .csa textarea',
-                    ) as HTMLTextAreaElement,
-                    csa = csaEl.value,
-                    parsed = parseCsaHeader(csa);
+                    '.copyables .csa textarea',
+                  ) as HTMLTextAreaElement;
+                  const csa = csaEl.value;
+                  const parsed = parseCsaHeader(csa);
                   if (parsed.isOk) ctrl.setSfen(makeSfen(parsed.value));
                   ctrl.redraw();
                 },

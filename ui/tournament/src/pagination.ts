@@ -35,8 +35,8 @@ function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
 }
 
 export function renderPager(ctrl: TournamentController, pag: PageData): MaybeVNodes {
-  const enabled = !!pag.currentPageResults,
-    page = ctrl.page;
+  const enabled = !!pag.currentPageResults;
+  const page = ctrl.page;
   return pag.nbPages > -1
     ? searchOr(ctrl, [
         button('First', 'W', () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
@@ -50,10 +50,10 @@ export function renderPager(ctrl: TournamentController, pag: PageData): MaybeVNo
 }
 
 export function players(ctrl: TournamentController): PageData {
-  const page = ctrl.page,
-    nbResults = ctrl.data.nbPlayers,
-    from = (page - 1) * maxPerPage,
-    to = Math.min(nbResults, page * maxPerPage);
+  const page = ctrl.page;
+  const nbResults = ctrl.data.nbPlayers;
+  const from = (page - 1) * maxPerPage;
+  const to = Math.min(nbResults, page * maxPerPage);
   return {
     currentPage: page,
     maxPerPage,

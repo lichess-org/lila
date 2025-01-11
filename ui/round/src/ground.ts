@@ -21,14 +21,14 @@ import { firstPly, plyStep } from './round';
 import * as util from './util';
 
 export function makeConfig(ctrl: RoundController): Config {
-  const data = ctrl.data,
-    variant = data.game.variant.key,
-    hooks = ctrl.makeSgHooks(),
-    step = plyStep(data, ctrl.ply),
-    playing = ctrl.isPlaying(),
-    posRes = playing ? parseSfen(variant, step.sfen, false) : undefined,
-    splitSfen = step.sfen.split(' '),
-    sealedUsi = data.player.sealedUsi && usiToSquareNames(data.player.sealedUsi);
+  const data = ctrl.data;
+  const variant = data.game.variant.key;
+  const hooks = ctrl.makeSgHooks();
+  const step = plyStep(data, ctrl.ply);
+  const playing = ctrl.isPlaying();
+  const posRes = playing ? parseSfen(variant, step.sfen, false) : undefined;
+  const splitSfen = step.sfen.split(' ');
+  const sealedUsi = data.player.sealedUsi && usiToSquareNames(data.player.sealedUsi);
   return {
     sfen: { board: splitSfen[0], hands: splitSfen[2] },
     orientation: boardOrientation(data, ctrl.flip),
@@ -50,8 +50,8 @@ export function makeConfig(ctrl: RoundController): Config {
       drop: hooks.onDrop,
       unselect: (key: Key) => {
         if (ctrl.lionFirstMove && ctrl.lionFirstMove.to === parseSquareName(key)) {
-          const from = ctrl.lionFirstMove.from,
-            to = ctrl.lionFirstMove.to;
+          const from = ctrl.lionFirstMove.from;
+          const to = ctrl.lionFirstMove.to;
           hooks.onUserMove(makeSquareName(from), makeSquareName(to), false, { premade: false });
         }
       },
@@ -88,8 +88,8 @@ export function makeConfig(ctrl: RoundController): Config {
         return promote(variant)(role);
       },
       movePromotionDialog: (orig: Key, dest: Key) => {
-        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece | undefined,
-          capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
+        const piece = ctrl.shogiground.state.pieces.get(orig) as Piece | undefined;
+        const capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
           pieceCanPromote(variant)(

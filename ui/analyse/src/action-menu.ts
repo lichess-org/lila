@@ -162,10 +162,10 @@ export class Ctrl {
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  const d = ctrl.data,
-    canContinue = !ctrl.ongoing && !ctrl.embed,
-    ceval = ctrl.getCeval(),
-    mandatoryCeval = ctrl.mandatoryCeval();
+  const d = ctrl.data;
+  const canContinue = !ctrl.ongoing && !ctrl.embed;
+  const ceval = ctrl.getCeval();
+  const mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
     h('div.action-menu__tools', [

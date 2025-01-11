@@ -17,9 +17,9 @@ export function usiToTree(usis: Usi[]): Tree.Node {
   } as Tree.Node;
   let current = root;
   usis.forEach((usi, i) => {
-    const move = parseUsi(usi)!,
-      captured = pos.board.has(move.to),
-      notationMove = makeNotationWithPosition(pos, move, pos.lastMoveOrDrop);
+    const move = parseUsi(usi)!;
+    const captured = pos.board.has(move.to);
+    const notationMove = makeNotationWithPosition(pos, move, pos.lastMoveOrDrop);
     pos.play(move);
     const nextNode = makeNode(pos, move, notationMove, captured, i + 1);
     current.children.push(nextNode);
@@ -44,14 +44,14 @@ export function mergeSolution(
   solution: Usi[],
   pov: Color,
 ): void {
-  const initialNode = root.nodeAtPath(initialPath),
-    pos = parseSfen('standard', initialNode.sfen, false).unwrap(),
-    fromPly = initialNode.ply;
+  const initialNode = root.nodeAtPath(initialPath);
+  const pos = parseSfen('standard', initialNode.sfen, false).unwrap();
+  const fromPly = initialNode.ply;
 
   const nodes = solution.map((usi, i) => {
-    const move = parseUsi(usi)!,
-      captured = pos.board.has(move.to),
-      notationMove = makeNotationWithPosition(pos, move, pos.lastMoveOrDrop);
+    const move = parseUsi(usi)!;
+    const captured = pos.board.has(move.to);
+    const notationMove = makeNotationWithPosition(pos, move, pos.lastMoveOrDrop);
     pos.play(move);
     const node = makeNode(pos, move, notationMove, captured, fromPly + i + 1);
     if ((pov == 'sente') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';

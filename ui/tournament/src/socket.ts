@@ -17,14 +17,14 @@ export default function (send: Socket.Send, ctrl: TournamentController): Tournam
     },
     arrangement(arr: Arrangement) {
       const f: (a: Arrangement) => boolean = ctrl.isRobin()
-          ? a => {
-              return users.includes(a.user1.id) && users.includes(a.user2.id);
-            }
-          : a => {
-              return a.id === arr.id;
-            },
-        users = [arr.user1.id, arr.user2.id],
-        index = ctrl.data.standing.arrangements.findIndex(a => f(a));
+        ? a => {
+            return users.includes(a.user1.id) && users.includes(a.user2.id);
+          }
+        : a => {
+            return a.id === arr.id;
+          };
+      const users = [arr.user1.id, arr.user2.id];
+      const index = ctrl.data.standing.arrangements.findIndex(a => f(a));
 
       if (index !== -1) ctrl.data.standing.arrangements[index] = arr;
       else ctrl.data.standing.arrangements.push(arr);

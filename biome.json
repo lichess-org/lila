@@ -14,10 +14,8 @@
     "rules": {
       "recommended": true,
       "style": {
-        "useSingleVarDeclarator": "off",
         "noNonNullAssertion": "off",
         "noParameterAssign": "off",
-        "useImportType": "error",
         "noUselessElse": "off"
       },
       "suspicious": {

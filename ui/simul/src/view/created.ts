@@ -11,9 +11,9 @@ import * as util from './util';
 
 export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
   return (ctrl: SimulCtrl) => {
-    const candidates = ctrl.candidates().sort(byName),
-      accepted = ctrl.accepted().sort(byName),
-      isHost = ctrl.createdByMe();
+    const candidates = ctrl.candidates().sort(byName);
+    const accepted = ctrl.accepted().sort(byName);
+    const isHost = ctrl.createdByMe();
     const variantIconFor = (a: Applicant) => {
       const variant = ctrl.data.variants.find(v => a.variant == v.key);
       return (

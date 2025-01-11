@@ -89,9 +89,9 @@ export function sassContext(): Context {
         await innerInit();
       } else updateGraph(filepath);
 
-      const newExtracted = await extractVariables([filepath]),
-        allAffected = recImports(filepath),
-        rebuildFiles = filterBuildFiles(allAffected);
+      const newExtracted = await extractVariables([filepath]);
+      const allAffected = recImports(filepath);
+      const rebuildFiles = filterBuildFiles(allAffected);
       if (Array.from(newExtracted).some(e => !extracted.has(e))) {
         console.log('Rebuilding variable files...');
         await buildVars();
@@ -122,8 +122,8 @@ export function sassContext(): Context {
 
     await Promise.all(
       packages.map(async pkg => {
-        const name = pkg.name.startsWith('@') ? pkg.name.split('/')[1] : pkg.name,
-          files = await fg(`${pkg.path}/css/**/*.scss`);
+        const name = pkg.name.startsWith('@') ? pkg.name.split('/')[1] : pkg.name;
+        const files = await fg(`${pkg.path}/css/**/*.scss`);
         allFiles.set(name, files);
         buildFiles.set(name, filterBuildFiles(files));
       }),
@@ -143,16 +143,16 @@ export function sassContext(): Context {
   }
 
   async function processFile(packageName: string, file: string): Promise<void> {
-    const sassResult = await compiler.compileAsync(file, sassOptions),
-      postCssResult = await processor.process(sassResult.css, { from: file });
+    const sassResult = await compiler.compileAsync(file, sassOptions);
+    const postCssResult = await processor.process(sassResult.css, { from: file });
 
     for (const warning of postCssResult.warnings()) {
       console.warn(warning.toString());
     }
 
-    const basename = path.basename(file, '.scss'),
-      name = basename === 'main' ? packageName : `${packageName}.${basename}`,
-      outputPath = path.join(outdir, `${name}.${isProd ? 'min' : 'dev'}.css`);
+    const basename = path.basename(file, '.scss');
+    const name = basename === 'main' ? packageName : `${packageName}.${basename}`;
+    const outputPath = path.join(outdir, `${name}.${isProd ? 'min' : 'dev'}.css`);
 
     let res = postCssResult.css;
     if (!isProd && sassResult.sourceMap)
@@ -162,8 +162,8 @@ export function sassContext(): Context {
   }
 
   function createSourceMap(sourceMap: Exclude<sass.CompileResult['sourceMap'], undefined>): string {
-    const sm = JSON.stringify(sourceMap),
-      smBase64 = (Buffer.from(sm, 'utf8') || '').toString('base64');
+    const sm = JSON.stringify(sourceMap);
+    const smBase64 = (Buffer.from(sm, 'utf8') || '').toString('base64');
     return `/*# sourceMappingURL=data:application/json;charset=utf-8;base64,${smBase64} */`;
   }
 
@@ -193,8 +193,8 @@ export function sassContext(): Context {
   }
 
   function recImports(path: string): string[] {
-    const paths = graph.index[path].importedBy,
-      arr = [path];
+    const paths = graph.index[path].importedBy;
+    const arr = [path];
     paths.forEach(p => {
       arr.push(...recImports(p));
     });

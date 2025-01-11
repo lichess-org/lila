@@ -10,10 +10,10 @@ const readServerValue = (t: string): string => atob(t.split('').reverse().join('
 window.lishogi.ready.then(() => {
   setTimeout(() => {
     document.querySelectorAll('div.captcha').forEach((captchaEl: HTMLElement) => {
-      const board = captchaEl.querySelector<HTMLElement>('.mini-board')!,
-        hint = readServerValue(board.dataset.x!),
-        orientation = readServerValue(board.dataset.y!) as Color,
-        sfen = readServerValue(board.dataset.z!);
+      const board = captchaEl.querySelector<HTMLElement>('.mini-board')!;
+      const hint = readServerValue(board.dataset.x!);
+      const orientation = readServerValue(board.dataset.y!) as Color;
+      const sfen = readServerValue(board.dataset.z!);
       initOneWithState(board, {
         variant: 'minishogi',
         sfen,
@@ -26,9 +26,9 @@ window.lishogi.ready.then(() => {
       const input = captchaEl.querySelector<HTMLInputElement>('input')!;
       input.value = '';
 
-      const fullSfen = `${sfen} ${toBW(orientation)}`,
-        pos = parseSfen('minishogi', fullSfen, false),
-        dests = pos.isOk ? compat.shogigroundMoveDests(pos.value) : new Map();
+      const fullSfen = `${sfen} ${toBW(orientation)}`;
+      const pos = parseSfen('minishogi', fullSfen, false);
+      const dests = pos.isOk ? compat.shogigroundMoveDests(pos.value) : new Map();
 
       sg.set({
         activeColor: sg.state.orientation,
@@ -58,10 +58,10 @@ window.lishogi.ready.then(() => {
             const isSuccess = data == '1';
             captchaEl.classList.add(isSuccess ? 'success' : 'failure');
             if (isSuccess) {
-              const key = solution.slice(2, 4),
-                piece = sg.state.pieces.get(key),
-                sfenStr = `${sg.getBoardSfen()} ${piece.color === 'sente' ? ' w' : ' b'}`,
-                pos = parseSfen('minishogi', sfenStr, false);
+              const key = solution.slice(2, 4);
+              const piece = sg.state.pieces.get(key);
+              const sfenStr = `${sg.getBoardSfen()} ${piece.color === 'sente' ? ' w' : ' b'}`;
+              const pos = parseSfen('minishogi', sfenStr, false);
               if (pos.isOk && !pos.value.isCheckmate()) {
                 sg.setPieces(
                   new Map([

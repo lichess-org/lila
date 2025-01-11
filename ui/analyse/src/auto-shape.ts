@@ -23,8 +23,8 @@ export function makeShapesFromUsi(
   usi: Usi,
   brush: 'engine' | 'engineAlt' | 'engineThreat' | 'engineThreatAlt',
 ): DrawShape[] {
-  const move = parseUsi(usi)!,
-    to = makeSquareName(move.to);
+  const move = parseUsi(usi)!;
+  const to = makeSquareName(move.to);
   if (isDrop(move)) return [pieceDrop(to, move.role, color, brush)];
   return [
     {
@@ -73,8 +73,8 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval?.best) shapes = shapes.concat(makeShapesFromUsi(rcolor, nEval.best, 'engine'));
     if (!hovering && Number.parseInt(instance.multiPv())) {
-      const curNodeBest = instance.enabled() && nCeval,
-        nextBest = curNodeBest ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
+      const curNodeBest = instance.enabled() && nCeval;
+      const nextBest = curNodeBest ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest)
         shapes = shapes.concat(
           makeShapesFromUsi(color, nextBest, curNodeBest ? 'engine' : 'engineThreat'),
@@ -112,9 +112,9 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (ctrl.showMoveAnnotation() && ctrl.showComputer()) {
     const { usi, glyphs } = ctrl.node;
     if (usi && glyphs && glyphs.length > 0) {
-      const glyph = glyphs[0],
-        svg = glyphToSvg[glyph.symbol],
-        move = parseUsi(usi);
+      const glyph = glyphs[0];
+      const svg = glyphToSvg[glyph.symbol];
+      const move = parseUsi(usi);
       if (svg && move) {
         shapes = shapes.concat({
           orig: makeSquareName(move.to),

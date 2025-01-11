@@ -5,12 +5,12 @@ import type AnalyseCtrl from '../../ctrl';
 import type { StudyCtrl } from '../interfaces';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
-  const study = root.study!,
-    ctrl = study.gamebookPlay();
+  const study = root.study!;
+  const ctrl = study.gamebookPlay();
   if (!ctrl) return;
-  const state = ctrl.state,
-    fb = state.feedback,
-    myTurn = fb === 'play';
+  const state = ctrl.state;
+  const fb = state.feedback;
+  const myTurn = fb === 'play';
   return h(
     'div.study__buttons.gamebook-buttons',
     h('div.right', [
@@ -55,8 +55,8 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         i18n('preview'),
       );
     else {
-      const isAnalyse = o === 'analyse',
-        ctrl = study.gamebookPlay();
+      const isAnalyse = o === 'analyse';
+      const ctrl = study.gamebookPlay();
       if (isAnalyse || (ctrl && ctrl.state.feedback === 'end'))
         return h(
           'a.fbt.text.preview',

@@ -16,12 +16,12 @@ const fetchWrap = (
   content: LishogiFetchContent | undefined,
   init: RequestInit,
 ): Promise<Response> => {
-  const fullUrl = content?.url ? urlWithParams(url, content.url) : url,
-    body = content?.json
-      ? JSON.stringify(content.json)
-      : content?.formData
-        ? formData(content.formData)
-        : undefined;
+  const fullUrl = content?.url ? urlWithParams(url, content.url) : url;
+  const body = content?.json
+    ? JSON.stringify(content.json)
+    : content?.formData
+      ? formData(content.formData)
+      : undefined;
 
   return fetch(fullUrl, {
     ...defaultInit,
@@ -66,9 +66,9 @@ export const formToXhr = (
   el: HTMLFormElement,
   submitter?: HTMLButtonElement,
 ): Promise<Response> => {
-  const action = el.getAttribute('action'),
-    method = (el.method || 'GET') as 'GET' | 'POST',
-    body = new FormData(el);
+  const action = el.getAttribute('action');
+  const method = (el.method || 'GET') as 'GET' | 'POST';
+  const body = new FormData(el);
   if (submitter?.name && submitter?.value) {
     body.set(submitter.name, submitter.value);
   }

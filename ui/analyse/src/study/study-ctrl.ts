@@ -343,8 +343,8 @@ export default function (
 
   const socketHandlers = {
     path(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (!vm.mode.sticky) {
         vm.behind++;
@@ -359,10 +359,10 @@ export default function (
       redraw();
     },
     addNode(d) {
-      const position = d.p,
-        node = d.n,
-        who = d.w,
-        sticky = d.s;
+      const position = d.p;
+      const node = d.n;
+      const who = d.w;
+      const sticky = d.s;
       const parent = ctrl.tree.nodeAtPath(position.path);
       if (node.usi) {
         node.notation = makeNotation(parent.sfen, ctrl.data.game.variant.key, node.usi, parent.usi);
@@ -393,8 +393,8 @@ export default function (
       redraw();
     },
     deleteNode(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       // deleter already has it done
@@ -405,8 +405,8 @@ export default function (
       redraw();
     },
     promote(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       if (who && who.s === li.sri) return;
@@ -472,8 +472,8 @@ export default function (
       redraw();
     },
     shapes(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       if (who && who.s === li.sri) return;
@@ -485,8 +485,8 @@ export default function (
       alert(d.error);
     },
     setComment(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setCommentAt(d.c, position.path);
@@ -499,16 +499,16 @@ export default function (
       redraw();
     },
     deleteComment(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.deleteCommentAt(d.id, position.path);
       redraw();
     },
     glyphs(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setGlyphsAt(d.g, position.path);
@@ -516,16 +516,16 @@ export default function (
       redraw();
     },
     clock(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setClockAt(d.c, position.path);
       redraw();
     },
     forceVariation(d) {
-      const position = d.p,
-        who = d.w;
+      const position = d.p;
+      const who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.forceVariationAt(position.path, d.force);
@@ -669,8 +669,8 @@ export default function (
     practice,
     gamebookPlay: () => gamebookPlay,
     nextChapter(): StudyChapterMeta | undefined {
-      const chapters = data.chapters,
-        currentId = currentChapter().id;
+      const chapters = data.chapters;
+      const currentId = currentChapter().id;
       for (const i in chapters)
         if (chapters[i].id === currentId) return chapters[Number.parseInt(i) + 1];
       return undefined;

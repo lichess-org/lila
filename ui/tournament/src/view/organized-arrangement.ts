@@ -35,17 +35,17 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
   if (!state) return;
   const points = state.points;
 
-  const canSubmit = state.user1?.id && state.user2?.id,
-    isNew = !state.id;
+  const canSubmit = state.user1?.id && state.user2?.id;
+  const isNew = !state.id;
 
-  const user1Id = state.user1?.id,
-    user2Id = state.user2?.id,
-    gamesBetweenUsers =
-      user1Id && user2Id
-        ? ctrl.data.standing.arrangements.filter(
-            a => arrangementHasUser(a, user1Id) && arrangementHasUser(a, user2Id),
-          )
-        : [];
+  const user1Id = state.user1?.id;
+  const user2Id = state.user2?.id;
+  const gamesBetweenUsers =
+    user1Id && user2Id
+      ? ctrl.data.standing.arrangements.filter(
+          a => arrangementHasUser(a, user1Id) && arrangementHasUser(a, user2Id),
+        )
+      : [];
 
   const updateState = <K extends keyof NewArrangement>(
     key: K,

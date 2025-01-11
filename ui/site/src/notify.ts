@@ -2,20 +2,21 @@ import { loadCompiledScript, loadCssPath } from 'common/assets';
 import { initiatingHtml } from './util';
 
 export function notifyApp(): typeof window.lishogi.notifyApp {
-  let instance: any, booted: boolean;
-  const $toggle = $('#notify-toggle'),
-    isVisible = () => $('#notify-app').is(':visible'),
-    permissionChanged = () => {
-      console.log('permissionChanged', instance);
-      $toggle
-        .find('span')
-        .attr(
-          'data-icon',
-          'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf',
-        );
+  let instance: any;
+  let booted: boolean;
+  const $toggle = $('#notify-toggle');
+  const isVisible = () => $('#notify-app').is(':visible');
+  const permissionChanged = () => {
+    console.log('permissionChanged', instance);
+    $toggle
+      .find('span')
+      .attr(
+        'data-icon',
+        'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf',
+      );
 
-      if (instance) instance.redraw();
-    };
+    if (instance) instance.redraw();
+  };
 
   if ('permissions' in navigator)
     navigator.permissions.query({ name: 'notifications' }).then(perm => {

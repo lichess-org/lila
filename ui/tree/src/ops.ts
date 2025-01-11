@@ -19,9 +19,9 @@ export function collect(
   from: Tree.Node,
   pickChild: (node: Tree.Node) => Tree.Node | undefined,
 ): Tree.Node[] {
-  let nodes = [from],
-    n = from,
-    c = pickChild(n);
+  const nodes = [from];
+  let n = from;
+  let c = pickChild(n);
   while (c) {
     nodes.push(c);
     n = c;
@@ -79,10 +79,10 @@ export function countChildrenAndComments(node: Tree.Node): {
 }
 
 export function reconstruct(parts: any): Tree.Node {
-  const root = parts[0],
-    nb = parts.length;
-  let node = root,
-    i: number;
+  const root = parts[0];
+  const nb = parts.length;
+  let node = root;
+  let i: number;
   root.id = '';
   for (i = 1; i < nb; i++) {
     const n = parts[i];

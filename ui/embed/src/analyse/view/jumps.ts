@@ -4,8 +4,8 @@ import { type VNode, h } from 'snabbdom';
 import type { AnalyseCtrl } from '../ctrl';
 
 export function renderJumps(ctrl: AnalyseCtrl): VNode {
-  const canJumpPrev = ctrl.path !== '',
-    canJumpNext = !!ctrl.node.children[0];
+  const canJumpPrev = ctrl.path !== '';
+  const canJumpNext = !!ctrl.node.children[0];
   return h(
     'div.analyse__controls.analyse-controls',
     h(

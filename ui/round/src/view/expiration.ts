@@ -9,10 +9,10 @@ let rang = false;
 export default function (ctrl: RoundController): MaybeVNode {
   const d = playable(ctrl.data) && ctrl.data.expiration;
   if (!d) return;
-  const timeLeft = Math.max(0, d.movedAt - Date.now() + d.millisToMove),
-    secondsLeft = Math.floor(timeLeft / 1000),
-    myTurn = isPlayerTurn(ctrl.data),
-    emerg = myTurn && timeLeft < 8000;
+  const timeLeft = Math.max(0, d.movedAt - Date.now() + d.millisToMove);
+  const secondsLeft = Math.floor(timeLeft / 1000);
+  const myTurn = isPlayerTurn(ctrl.data);
+  const emerg = myTurn && timeLeft < 8000;
   if (!rang && emerg) {
     window.lishogi.sound.play('lowtime');
     rang = true;

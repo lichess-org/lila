@@ -18,8 +18,8 @@ function getFiltered(args: string[]): string[] {
   const filterIndex = args.findIndex(arg => arg.startsWith('--filter'));
   if (filterIndex === -1) return [];
 
-  const result: string[] = [],
-    filterArg = args[filterIndex];
+  const result: string[] = [];
+  const filterArg = args[filterIndex];
 
   if (filterArg.includes('=')) {
     result.push(...filterArg.split('=')[1].split(','));
@@ -39,31 +39,31 @@ function isRootPkg(pkg: PackageInfo): boolean {
 }
 
 export async function getAllPackages(flags: string[]): Promise<PackagesWrap> {
-  const paths = getAllPackagesPath(),
-    filtered = getFiltered(flags),
-    packages: PackageInfo[] = (
-      await Promise.all(
-        paths.map(async (pkgPath): Promise<PackageInfo | null> => {
-          try {
-            const rawData = await fs.readFile(path.join(pkgPath, 'package.json'), 'utf8'),
-              parsed = JSON.parse(rawData) as PackageJson;
+  const paths = getAllPackagesPath();
+  const filtered = getFiltered(flags);
+  const packages: PackageInfo[] = (
+    await Promise.all(
+      paths.map(async (pkgPath): Promise<PackageInfo | null> => {
+        try {
+          const rawData = await fs.readFile(path.join(pkgPath, 'package.json'), 'utf8');
+          const parsed = JSON.parse(rawData) as PackageJson;
 
-            return {
-              name: parsed.name,
-              deps: Object.keys(parsed.dependencies || {}),
-              revDeps: [],
-              path: pkgPath,
-              lishogi: parsed.lishogi,
-            };
-          } catch (error) {
-            console.error(`Error reading package.json from ${pkgPath}:`, error);
-            return null;
-          }
-        }),
-      )
+          return {
+            name: parsed.name,
+            deps: Object.keys(parsed.dependencies || {}),
+            revDeps: [],
+            path: pkgPath,
+            lishogi: parsed.lishogi,
+          };
+        } catch (error) {
+          console.error(`Error reading package.json from ${pkgPath}:`, error);
+          return null;
+        }
+      }),
     )
-      .filter(pkg => !!pkg)
-      .filter(pkg => !!pkg.lishogi || isRootPkg(pkg));
+  )
+    .filter(pkg => !!pkg)
+    .filter(pkg => !!pkg.lishogi || isRootPkg(pkg));
 
   packages.forEach(pkg => {
     pkg.deps = pkg.deps.filter(d => packages.some(pkg2 => pkg2.name === d));
