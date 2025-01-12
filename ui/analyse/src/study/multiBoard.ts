@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
-import { type MaybeVNode, type VNode, bind, onInsert } from 'common/snabbdom';
+import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';
@@ -109,9 +109,9 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
     ]),
     !ctrl.showResults()
       ? h(
-          'div.empty-boards-note',
-          { attrs: { 'data-icon': licon.InfoCircle } },
-          ' Since you chose to hide the results, all the preview boards are empty to avoid spoilers.',
+          'div.empty-boards-note.text',
+          { attrs: dataIcon(licon.InfoCircle) },
+          'Since you chose to hide the results, all the preview boards are empty to avoid spoilers.',
         )
       : undefined,
     h(
