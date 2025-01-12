@@ -138,11 +138,23 @@ PlayFirstOpeningEndgameExplorerMove
     <item quantity="one">%sලොකු වරද</item>
     <item quantity="other">%sලොකු වරදවල්</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%sලොකු වරද</item>
+    <item quantity="other">%sලොකු වරදවල්</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s දෝෂය ඇත</item>
     <item quantity="other">%sදෝෂ ඇත</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s දෝෂය ඇත</item>
+    <item quantity="other">%sදෝෂ ඇත</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%sනිවැරදිම නෑ</item>
+    <item quantity="other">%sනිවැරදිම නෑ</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%sනිවැරදිම නෑ</item>
     <item quantity="other">%sනිවැරදිම නෑ</item>
   </plurals>
@@ -677,7 +689,7 @@ You are playing chess.</string>
   <string name="aboutSimulRules">සිමියුලය ආරම්භ වන විට, සෑම ක්‍රීඩකයෙක්ම සත්කාරකයා සමඟ ක්‍රීඩාවක් ආරම්භ කරයි. සියලුම ක්‍රීඩා සම්පූර්ණ වූ විට සිමියුලය අවසන් වේ.</string>
   <string name="aboutSimulSettings">සිමියුල්ස් සෑම විටම අනියම් වේ. නැවත ගැලපීම්, ආපසු ගැනීම් සහ කාලය එකතු කිරීම අබල කර ඇත.</string>
   <string name="create">සාදන්න</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">ඔබ සිමියුලයක් නිර්මාණය කරන විට, ඔබට එකවර ක්‍රීඩකයන් කිහිප දෙනෙකු ක්‍රීඩා කිරීමට අවස්ථාව ලැබේ.</string>
+  <string name="whenCreateSimul">ඔබ සිමියුලයක් නිර්මාණය කරන විට, ඔබට එකවර ක්‍රීඩකයන් කිහිප දෙනෙකු ක්‍රීඩා කිරීමට අවස්ථාව ලැබේ.</string>
   <string name="simulVariantsHint">ඔබ ප්‍රභේද කිහිපයක් තෝරා ගන්නේ නම්, එක් එක් ක්‍රීඩකයාට ක්‍රීඩා කළ යුත්තේ කුමන එකක්ද යන්න තෝරා ගත හැකිය.</string>
   <string name="simulClockHint">ෆිෂර් ඔරලෝසු සැකසුම. ඔබ වැඩිපුර ක්‍රීඩකයින් භාර ගන්නා තරමට, ඔබට වැඩි කාලයක් අවශ්‍ය විය හැකිය.</string>
   <string name="simulAddExtraTime">ඔබට සිමියුලය සමඟ සාර්ථකව කටයුතු කිරීමට උපකාර කිරීම සඳහා ඔබේ ඔරලෝසුවට අමතර ආරම්භක වේලාවක් එක් කළ හැක.</string>

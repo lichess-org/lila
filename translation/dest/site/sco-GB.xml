@@ -125,13 +125,25 @@
     <item quantity="one">%s blunner</item>
     <item quantity="other">%s blunners</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Blunner</item>
+    <item quantity="other">%s Blunners</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s mistak</item>
     <item quantity="other">%s mistaks</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Mistak</item>
+    <item quantity="other">%s Mistaks</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s wee mistak</item>
     <item quantity="other">%s wee mistaks</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Wee mistak</item>
+    <item quantity="other">%s Wee mistaks</item>
   </plurals>
   <string name="moveTimes">Times tae muive</string>
   <string name="flipBoard">Reverse buird</string>

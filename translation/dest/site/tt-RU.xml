@@ -109,11 +109,20 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s хаталар</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s Хаталар</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s хата</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s Хата</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s төгәлсезлек</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="other">%s Төгәлсезлек</item>
   </plurals>
   <string name="moveTimes">Йөреш вакыты</string>
   <string name="flipBoard">Тактаны әйләндерү</string>
@@ -543,7 +552,7 @@
   <string name="aboutSimulRules">Берүк башлаганда һәр бер уенчы алып баручы белән уенны уенны башлады. Берүк барча уеннар тутаганнан соң туктый.</string>
   <string name="aboutSimulSettings">Берүк һаманда рәсми түгел. Кайтаргыч уеннар, кайтарып алулар һәм вакыт өстәү мәгакъ.</string>
   <string name="create">Ячарга</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Качанда сез Берүк ачканда, сезгә уйнау өчен берничә уенчы тугры киләдер.</string>
+  <string name="whenCreateSimul">Качанда сез Берүк ачканда, сезгә уйнау өчен берничә уенчы тугры киләдер.</string>
   <string name="simulVariantsHint">Әгәр сез берничә вариантны сайласагыз, һәр уйнаучы сайлый ала берне уйнау өчен.</string>
   <string name="simulClockHint">Фишер Сәгатен үзләштерү. Күбрәк уенчыларны кабул кылсагыз, сезгә кубрәк вакыт кирәк буласы мөмкин.</string>
   <string name="simulAddExtraTime">Берүктә җиңәр өчен сезгә сәгатькә кушымча вакыт кушышсагыз мөмкин.</string>

@@ -132,13 +132,25 @@
     <item quantity="one">%s blunder</item>
     <item quantity="other">%s blunders</item>
   </plurals>
+  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Blunder</item>
+    <item quantity="other">%s Blunders</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s fout</item>
     <item quantity="other">%s fouten</item>
   </plurals>
+  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Fout</item>
+    <item quantity="other">%s Fouten</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s imperfectie</item>
     <item quantity="other">%s imperfecties</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Onnauwkeurigheid</item>
+    <item quantity="other">%s Onnauwkeurigheden</item>
   </plurals>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
@@ -185,7 +197,7 @@
   <string name="minutesPerSide">Minuten per speler</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
-  <string name="timeControl">Speelduur</string>
+  <string name="timeControl">Speeltempo</string>
   <string name="realTime">Live</string>
   <string name="correspondence">Correspondentie</string>
   <string name="daysPerTurn">Dagen per zet</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">Wanneer de simultaan begint, begint iedere partij met de simultaangever. De simultaangever speelt iedere partij met wit en de simultaan eindigt wanneer alle partijen afgerond zijn.</string>
   <string name="aboutSimulSettings">Simultanen zijn altijd zonder rating. Extra partijen, extra tijd en terugzetten is niet mogelijk.</string>
   <string name="create">Creëer</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wanneer je een simultaan creëert, kun je tegen meerdere spelers tegelijk spelen.</string>
+  <string name="whenCreateSimul">Wanneer je een simultaan creëert, kun je tegen meerdere spelers tegelijk spelen.</string>
   <string name="simulVariantsHint">Als je meerdere varianten selecteert, kan iedere speler kiezen welke variant hij wil spelen.</string>
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>

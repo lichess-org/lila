@@ -109,11 +109,20 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s roi srera sai</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s Roi srera sai</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s roi srera na\'oi</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s Roi srera na\'oi</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s roi srera ru\'e</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="other">%s Roi srera ru\'e</item>
   </plurals>
   <string name="moveTimes">lo kelka\'u ditcu</string>
   <string name="flipBoard">gapnifagau lo plita</string>
@@ -507,7 +516,7 @@
   <string name="aboutSimulRules">ca lonu lo cabna cmicfu nunjvi ku cfari keiku co\'a caxmati lo finti loi ci\'erkei .i ca lonu ro loi nunjvi ku mulno keiku lo cabna cmicfu nunjvi cu mulno .i</string>
   <string name="aboutSimulSettings">ro lo cabna cmicfu nunjvi cu na nilcre cnegau .i lonu krefu jvikei .e lonu kelka\'u xruti .e lonu tcegau lo temci cu se tolcru .i</string>
   <string name="create">finti</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">lonu do finti lo cabna cmicfu nunjvi cu se jalge lonu jivna piso\'o loi ci\'erkei .i</string>
+  <string name="whenCreateSimul">lonu do finti lo cabna cmicfu nunjvi cu se jalge lonu jivna piso\'o loi ci\'erkei .i</string>
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="timeBeforeTournamentStarts">temci lo cabna lonu lo grinunjvi ku cfari</string>

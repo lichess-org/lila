@@ -58,15 +58,27 @@
   <string name="uploadImage">Încărcați imaginea turneului</string>
   <string name="noBoardsYet">Încă nu sunt table. Acestea vor apărea după ce partidele vor fi încărcate.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tablele pot fi încărcate dintr-o sursă sau prin intermediul %s</string>
+  <string name="startsAfter">Începe după %s</string>
   <string name="startVerySoon">Transmisiunea va începe foarte curând.</string>
   <string name="notYetStarted">Transmisiunea nu a început încă.</string>
   <string name="officialWebsite">Website-ul oficial</string>
   <string name="standings">Clasament</string>
   <string name="officialStandings">Clasament oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Mai multe opțiuni pe %s</string>
+  <string name="webmastersPage">pagina administratorilor de site</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">O sursă publică de PGN în timp real pentru această rundă. De asemenea, oferim un %s pentru o sincronizare mai rapidă și mai eficientă.</string>
+  <string name="embedThisBroadcast">Încorporează această transmisiune în site-ul tău</string>
+  <string name="embedThisRound">Încorporează %s în site-ul tău</string>
+  <string name="ratingDiff">Diferență rating</string>
+  <string name="gamesThisTournament">Jocuri în acest turneu</string>
   <string name="score">Scor</string>
   <string name="allTeams">Toate echipele</string>
   <string name="tournamentFormat">Format turneu</string>
   <string name="tournamentLocation">Locație turneu</string>
+  <string name="topPlayers">Jucători de top</string>
   <string name="timezone">Fus orar</string>
+  <string name="fideRatingCategory">Categoria de rating FIDE</string>
+  <string name="optionalDetails">Detalii opționale</string>
+  <string name="pastBroadcasts">Transmisii anterioare</string>
+  <string name="allBroadcastsByMonth">Vezi toate transmisiunile pe fiecare lună</string>
 </resources>

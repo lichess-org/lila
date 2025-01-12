@@ -21,7 +21,7 @@
   <string name="inGameOnly">Csak játék közben</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Amikor a hátralévő idő &lt; 10 másodperc</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Amikor a hátralévő idő &lt; 10 másodperc</string>
   <string name="horizontalGreenProgressBars">Vízszintes zöld folyamatjelző</string>
   <string name="soundWhenTimeGetsCritical">Figyelmeztető hang, ha nagyon kevés idő maradt</string>
   <string name="giveMoreTime">Több idő adása</string>
@@ -37,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Gyalogátváltozáskor tartsd lenyomva a &lt;ctrl&gt; billentyűt, hogy a gyalog ne változzon át automatikusan</string>
   <string name="whenPremoving">Előre meghatározott lépés esetén</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ha a hátralévő idő &lt; 30 másodperc</string>
   <string name="moveConfirmation">Lépés jóváhagyatása</string>
   <string name="explainCanThenBeTemporarilyDisabled">Játék közben a tábla melletti menüvel kikapcsolható</string>
   <string name="inCorrespondenceGames">Levelező mérkőzés</string>

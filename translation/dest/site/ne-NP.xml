@@ -130,6 +130,10 @@
     <item quantity="one">%s  ब्लण्डर</item>
     <item quantity="other">%s  ब्लण्डरहरू</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s  ब्लण्डर</item>
+    <item quantity="other">%s  ब्लण्डरहरू</item>
+  </plurals>
   <string name="moveTimes">चालका लागी समय</string>
   <string name="flipBoard">बोर्ड फर्काउनुहोस्</string>
   <string name="threefoldRepetition">चाल तेहेर्याइएको ।</string>
@@ -607,7 +611,7 @@
   <string name="aboutSimulRules">जब समकालिक प्रदर्शन शुरु हुन्छ, सबै खेलाडीले आयोजक सँग खेल शुरु गर्छ, र आयोजक ले सेतो लिएर खेल्छ। जब सबै खेल खत्तम हुन्छन्, तब प्रदर्शन पनि समाप्त हुन्छ।</string>
   <string name="aboutSimulSettings">समकालिक प्रदर्शन सधै अनौपचारिक हुन्छ, फेरी खेल्न, चाल फिर्ता गर्न, र थप समय दिन निषेध गरिएको छ।</string>
   <string name="create">रचना गरौ</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">समाकालिक प्रदर्शन शुरु गर्दा तपाइले धेरै खेलाडीसंग एकैपटक खेल्न पाउनु हुन्छ।</string>
+  <string name="whenCreateSimul">समाकालिक प्रदर्शन शुरु गर्दा तपाइले धेरै खेलाडीसंग एकैपटक खेल्न पाउनु हुन्छ।</string>
   <string name="simulVariantsHint">यदि परिमार्जन हरु छानेको खण्डमा, सबै खेलाडीले आफ्नो इच्छाको परिमार्जन छान्न पाउछन्।</string>
   <string name="simulClockHint">फिशर घडीको सेट अप। जति धेरै खेलाडी हुन्छन्, त्यति नै धेरै समय आवश्यक पर्न सक्दछ।</string>
   <string name="simulAddExtraTime">आयोजकको आफ्नो घडीमा थप समय राख्न सकिन्छ</string>

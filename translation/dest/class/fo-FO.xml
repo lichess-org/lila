@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Ger kvikliga talvnæmingum trygg brúkaranøvn og loyniorð</string>
   <string name="trackStudentProgress">Fylg næmingaframgongd í talvum og uppgávum</string>
   <string name="messageAllStudents">Boða øllum næmingum frá um nýtt flokstilfar</string>
-  <string name="freeForAllForever">100% ókeypis fyri øll, altíð, við ongum lýsingum ella farsporum</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% ókeypis fyri øll, altíð, við ongum lýsingum ella farsporum</string>
   <string name="applyToBeLichessTeacher">Søk um at gerast Lichess-lærari</string>
   <string name="noClassesYet">Eingir flokkar enn.</string>
   <string name="teachersX">Lærarar: %s</string>
