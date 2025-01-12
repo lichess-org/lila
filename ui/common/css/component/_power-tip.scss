@@ -33,7 +33,14 @@
       }
 
       &__country {
+        @extend %flex-center;
+
         margin-left: 0.5em;
+        font-size: 0.9em;
+
+        img {
+          margin-right: 0.3em;
+        }
       }
 
       .user-link {
@@ -43,16 +50,6 @@
 
         .line {
           vertical-align: middle;
-        }
-      }
-
-      &__country {
-        @extend %flex-center;
-
-        font-size: 0.9em;
-
-        img {
-          margin-right: 0.3em;
         }
       }
     }

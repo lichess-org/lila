@@ -7,33 +7,22 @@
   grid-column-gap: $block-gap;
   grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
 
-  &__high {
-    grid-area: high;
-  }
-
-  &__score {
-    grid-area: score;
-  }
-
-  &__stats {
-    grid-area: stats;
-  }
-
-  &__history {
-    grid-area: history;
+  @include breakpoint($mq-col2) {
+    grid-template-areas: 'high high' 'score stats' 'play play' 'history history';
   }
 
   .storm-play-again {
     grid-area: play;
   }
 
-  @include breakpoint($mq-col2) {
-    grid-template-areas: 'high high' 'score stats' 'play play' 'history history';
+  &__history {
+    grid-area: history;
   }
 
   &__high {
     @extend %box-neat;
 
+    grid-area: high;
     padding: 1.5em 1.5em;
     background: $c-brag;
     color: $c-brag-over;
@@ -70,6 +59,7 @@
   &__stats {
     @extend %flex-center;
 
+    grid-area: stats;
     padding: 2vh var(--box-padding);
     align-items: stretch;
 
@@ -91,6 +81,7 @@
   &__score {
     @extend %box-neat, %flex-column;
 
+    grid-area: score;
     justify-content: center;
     align-items: center;
     background: $c-good;

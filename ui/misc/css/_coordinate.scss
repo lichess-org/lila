@@ -33,7 +33,15 @@ $mq-col3: $mq-x-large;
   }
 
   &__table {
+    @extend %flex-center;
+
     grid-area: table;
+    justify-content: space-around;
+
+    .explanation li {
+      list-style: outside disc;
+      margin: 0.5em 0 0.5em 1em;
+    }
   }
 
   &__progress {
@@ -41,7 +49,10 @@ $mq-col3: $mq-x-large;
   }
 
   &__button {
+    @extend %flex-center;
+
     grid-area: button;
+    justify-content: center;
   }
 
   &__score,
@@ -159,23 +170,6 @@ $mq-col3: $mq-x-large;
     width: 100%;
     height: 10px;
     background-color: $c-font-dim;
-  }
-
-  &__table {
-    @extend %flex-center;
-
-    justify-content: space-around;
-
-    .explanation li {
-      list-style: outside disc;
-      margin: 0.5em 0 0.5em 1em;
-    }
-  }
-
-  &__button {
-    @extend %flex-center;
-
-    justify-content: center;
   }
 
   &.wrong .coord-trainer__score,

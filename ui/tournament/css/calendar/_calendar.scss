@@ -67,7 +67,7 @@
       background-color: #0072b2;
     }
 
-    @keyframes animatedBackground {
+    @keyframes animated-background {
       from {
         background-position: 0 0;
       }
@@ -85,7 +85,7 @@
       text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
       letter-spacing: 1px;
       background-image: url('../images/grain.png');
-      animation: animatedBackground 50s linear infinite;
+      animation: animated-background 50s linear infinite;
     }
 
     &.weekly {

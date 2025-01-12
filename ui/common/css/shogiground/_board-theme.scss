@@ -179,9 +179,9 @@ sg-squares {
   }
 
   .preload sg-squares {
-    background-image: none;
     background: repeating-conic-gradient(#d1d1d1 0% 25%, transparent 0% 50%) 0 / calc(200% / 9)
       calc(200% / 9);
+    background-image: none;
     background-position: 100% 100%;
   }
 
@@ -250,9 +250,9 @@ sg-squares {
   }
 
   .preload sg-squares {
-    background-image: none;
     background: repeating-conic-gradient(#99aec2 0% 25%, transparent 0% 50%) 0 / calc(200% / 9)
       calc(200% / 9);
+    background-image: none;
     background-position: 100% 100%;
   }
 

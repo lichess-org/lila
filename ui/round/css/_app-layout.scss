@@ -201,19 +201,7 @@
           font-size: 18px;
           line-height: unset;
         }
-      }
 
-      .rclock .tour-rank,
-      .rclock .moretime,
-      .rclock .berserked {
-        order: -1;
-      }
-
-      .rclock .bar {
-        display: none;
-      }
-
-      .rclock {
         .time,
         .byoyomi {
           font-size: 16px !important;
@@ -232,6 +220,16 @@
         .byoyomi {
           padding-left: 0;
         }
+      }
+
+      .rclock .tour-rank,
+      .rclock .moretime,
+      .rclock .berserked {
+        order: -1;
+      }
+
+      .rclock .bar {
+        display: none;
       }
 
       .ruser {

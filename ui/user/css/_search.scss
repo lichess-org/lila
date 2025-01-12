@@ -9,27 +9,7 @@
     table {
       flex: 0 1 48%;
       margin-left: 2%;
-    }
 
-    td {
-      padding: 0.4em 0;
-    }
-
-    input[type='text'],
-    select {
-      padding: 0.3em 1em !important;
-    }
-
-    label {
-      margin-right: 0.5em;
-      white-space: normal;
-    }
-
-    .single select {
-      width: 100%;
-    }
-
-    table {
       .half {
         @extend %flex-center;
 
@@ -49,6 +29,24 @@
           width: 100%;
         }
       }
+    }
+
+    td {
+      padding: 0.4em 0;
+    }
+
+    input[type='text'],
+    select {
+      padding: 0.3em 1em !important;
+    }
+
+    label {
+      margin-right: 0.5em;
+      white-space: normal;
+    }
+
+    .single select {
+      width: 100%;
     }
 
     .action {

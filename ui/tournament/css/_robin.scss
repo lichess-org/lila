@@ -221,9 +221,7 @@ main.arr-table {
 
               &:hover {
                 background-color: $c-accent;
-              }
 
-              &:hover {
                 &::before {
                   content: '';
                   background-color: rgba(255, 137, 11, 0.1);

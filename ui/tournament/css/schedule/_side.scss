@@ -75,6 +75,7 @@
 
       &::before {
         left: 0.5rem;
+        opacity: 1;
       }
     }
   }
@@ -93,9 +94,5 @@
     font-size: 2.2em;
     opacity: 0.6;
     color: $c-brag;
-  }
-
-  a:hover::before {
-    opacity: 1;
   }
 }
