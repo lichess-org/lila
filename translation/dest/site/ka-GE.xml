@@ -128,13 +128,25 @@
     <item quantity="one">%s უხეში შეცდომა</item>
     <item quantity="other">%s უხეში შეცდომები</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Უხეში შეცდომა</item>
+    <item quantity="other">%s Უხეში შეცდომები</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s შეცდომა</item>
     <item quantity="other">%s შეცდომები</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Შეცდომა</item>
+    <item quantity="other">%s Შეცდომები</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s უზუსტობა</item>
     <item quantity="other">%s უზუსტობები</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Უზუსტობა</item>
+    <item quantity="other">%s Უზუსტობები</item>
   </plurals>
   <string name="moveTimes">სვლის დრო</string>
   <string name="flipBoard">დაფის შემობრუნება</string>
@@ -655,7 +667,7 @@
   <string name="aboutSimulRules">\"Simul\" _ის დროს ყველა მოთამაშე თამაშობს \"Simul\" _ის შემქნელთან შავი ფერით. ის მთავრდება მაშინ როცა ყველა თამაში დასულდება</string>
   <string name="aboutSimulSettings">ერთდროული თამაშები არასარეიტინგოა. საპასუხო გამოწვევები, სვლის დაბრუნება და დროის დამატება შესაძლებელი არ არის.</string>
   <string name="create">შექმნა</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">როდესაც ქმნით ერთდროულ თამაშს, პარალელურ რეჟიმში გიწევთ რამდენიმე მოთამაშესთან დაპირისპირება.</string>
+  <string name="whenCreateSimul">როდესაც ქმნით ერთდროულ თამაშს, პარალელურ რეჟიმში გიწევთ რამდენიმე მოთამაშესთან დაპირისპირება.</string>
   <string name="simulVariantsHint">თუ აირჩევთ რამდენიმე ვარიანტს, თითოეული მოთამაშეს ეძლევა საშუალება აირჩიოს მათგან ერთ-ერთი.</string>
   <string name="simulClockHint">ფიშერის საათის გამართვა. რაც მეტ მოთამაშეს დაუპირისპირდებით, შესაძლოა მით მეტი დრო დაგჭირდეთ.</string>
   <string name="simulAddExtraTime">თქვენ შეგიძლიათ დროის დამატება ერთდროული თამაშისას.</string>

@@ -129,13 +129,25 @@
     <item quantity="one">%s kobud səhv</item>
     <item quantity="other">%s kobud səhv</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Kobud səhv</item>
+    <item quantity="other">%s Kobud səhv</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s səhv</item>
     <item quantity="other">%s səhv</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Səhv</item>
+    <item quantity="other">%s Səhv</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s qeyri-dəqiqlik</item>
     <item quantity="other">%s qeyri-dəqiqlik</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Qeyri-dəqiqlik</item>
+    <item quantity="other">%s Qeyri-dəqiqlik</item>
   </plurals>
   <string name="moveTimes">Gediş müddəti</string>
   <string name="flipBoard">Lövhəni fırlat</string>
@@ -641,7 +653,7 @@
   <string name="aboutSimulRules">Sinxron seansda iştirak edən hər bir oyunçu, ağlarla oynayan ev sahibi ilk gedişi etdikdən sonra oyuna başlayır. Seans bütün oyunlar başa çatdıqda bitir.</string>
   <string name="aboutSimulSettings">Sinxron seanslar adətən reytinqsizdir. Revanşlar, dala qaytarmalar və əlavə vaxt qadağan edilmişdir.</string>
   <string name="create">Yarat</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Bir Seans yaratdığınızda eyni anda bir neçə oyunçu ilə oynamağa başlayırsınız.</string>
+  <string name="whenCreateSimul">Bir Seans yaratdığınızda eyni anda bir neçə oyunçu ilə oynamağa başlayırsınız.</string>
   <string name="simulVariantsHint">Əgər bir neçə oyun variantı seçsəniz, hər bir oyunçu oynamaq istədiyi variantı seçə biləcək.</string>
   <string name="simulClockHint">Fişer Saatını quraşdırma. Daha çox oyunçu götürsəniz, daha çox vaxta ehtiyacınız ola bilər.</string>
   <string name="simulAddExtraTime">Sinxron seansla başa çıxmaq üçün öz saatınıza əlavə vaxtlar artıra bilərsiniz.</string>

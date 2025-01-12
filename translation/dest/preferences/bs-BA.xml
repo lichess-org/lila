@@ -21,7 +21,7 @@
   <string name="inGameOnly">Samo unutar igre</string>
   <string name="chessClock">Sat</string>
   <string name="tenthsOfSeconds">Desetinke sekundi</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kada je ostalo &lt; 10 sekundi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kada je ostalo &lt; 10 sekundi</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvučno upozorenje pred istek vremena</string>
   <string name="giveMoreTime">Dodajte više vremena</string>
@@ -37,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Držite tipku &lt;ctrl&gt; prilikom promocije pješaka da biste privremeno onemogućili automatsku promociju u damu</string>
   <string name="whenPremoving">Kada odigram potez unaprijed</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kada je preostalo vrijeme &lt; 30 sekundi</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kada je preostalo vrijeme &lt; 30 sekundi</string>
   <string name="moveConfirmation">Potvrda poteza</string>
   <string name="explainCanThenBeTemporarilyDisabled">Može se isključiti tokom partije u izborniku za tablu</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>

@@ -132,13 +132,25 @@
     <item quantity="one">%s vahim hata</item>
     <item quantity="other">%s vahim hata</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Vahim hata</item>
+    <item quantity="other">%s Vahim hata</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s hata</item>
     <item quantity="other">%s hata</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Hata</item>
+    <item quantity="other">%s Hata</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s kusurlu hamle</item>
     <item quantity="other">%s kusurlu hamle</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Kusurlu hamle</item>
+    <item quantity="other">%s Kusurlu hamle</item>
   </plurals>
   <string name="moveTimes">Hamle zamanları</string>
   <string name="flipBoard">Tahtayı döndür</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">Eş zamanlı gösteriye katılan her oyuncu, beyaz taşlarla oynayan ev sahibi ilk hamleyi yaptıktan sonra maça başlar. Bütün oyunlar bittiğinde eş zamanlı gösteri sona erer.</string>
   <string name="aboutSimulSettings">Eş zamanlı gösteriler daima puansızdır. Yeniden maç teklifi göndermek, hamleyi geri almak ve ek süre talep etmek devre dışıdır.</string>
   <string name="create">Oluştur</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Eş zamanlı gösterilerde, birkaç oyuncuyla aynı anda oynarsınız.</string>
+  <string name="whenCreateSimul">Eş zamanlı gösterilerde, birkaç oyuncuyla aynı anda oynarsınız.</string>
   <string name="simulVariantsHint">Eğer birkaç varyant seçerseniz, her oyuncu istediği varyantı seçip oynar.</string>
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
   <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>

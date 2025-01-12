@@ -130,7 +130,7 @@
 ブラウザが lichess.org のサウンド再生を阻止すると、赤のミュート・アイコンが表示されます。通常、何かをクリックするとこの制限は解除されます。一部のモバイル用ブラウザでは、駒のタッチ＆ドラッグはクリックしたことになりません。その場合は対局が始まるたびに盤をタップして音声をオンにする必要があります。
 
 たいていの場合、ブラウザの設定で lichess.org のサウンド再生を許可できます。以下によく使われるブラウザの最近のバージョンでの操作方法をまとめました。</string>
-  <string name="desktop">デスクトップ</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">デスクトップ</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org に行く
 2. Linux/Windows なら Ctrl+i を、MacOS なら cmd+i を押す
 3. 許可設定タブをクリック

@@ -55,6 +55,27 @@ export async function stopEsbuildWatch(): Promise<void> {
 
 const plugins = [
   {
+    // our html minifier will only process characters between the first two backticks encountered
+    // so:
+    //   $html`     <div>    ${    x ?      `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
+    //
+    // minifies (partially) to:
+    //   `<div> ${ x ? `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
+    //
+    // nested template literals in interpolations are unchanged and still work, but they
+    // won't be minified. this is fine, we don't need an ast parser as it's pretty rare
+    name: '$html',
+    setup(build: es.PluginBuild) {
+      build.onLoad({ filter: /\.ts$/ }, async (args: es.OnLoadArgs) => ({
+        loader: 'ts',
+        contents: (await fs.promises.readFile(args.path, 'utf8')).replace(
+          /\$html`([^`]*)`/g,
+          (_, s) => `\`${s.replace(/\s+/g, ' ').replaceAll('> <', '><').trim()}\``,
+        ),
+      }));
+    },
+  },
+  {
     name: 'onBundleDone',
     setup(build: es.PluginBuild) {
       build.onEnd(async (result: es.BuildResult) => {

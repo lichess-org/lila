@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">o pali e nimi awen tawa jan pi kama sona</string>
   <string name="trackStudentProgress">o lukin e pali lon jan pi kama sona</string>
   <string name="messageAllStudents">o toki pi sona sin tawa jan kulupu ale</string>
-  <string name="freeForAllForever">tenpo ala la o pana e mani. sitelen esun en ilo lukin ike li lon ala</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">tenpo ala la o pana e mani. sitelen esun en ilo lukin ike li lon ala</string>
   <string name="applyToBeLichessTeacher">o kama jan pi pana sona</string>
   <string name="noClassesYet">kulupu li lon ala.</string>
   <string name="teachersX">jan pi pana sona: %s</string>

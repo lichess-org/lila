@@ -135,6 +135,13 @@
     <item quantity="many">%s botún</item>
     <item quantity="other">%s botún</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Botún</item>
+    <item quantity="two">%s Bhotún</item>
+    <item quantity="few">%s Mbotún</item>
+    <item quantity="many">%s Botún</item>
+    <item quantity="other">%s Botún</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s botún</item>
     <item quantity="two">%s bhotún</item>
@@ -142,12 +149,26 @@
     <item quantity="many">%s botún</item>
     <item quantity="other">%s botún</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Botún</item>
+    <item quantity="two">%s Bhotún</item>
+    <item quantity="few">%s Mbotún</item>
+    <item quantity="many">%s Botún</item>
+    <item quantity="other">%s Botún</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s míchruinneas</item>
     <item quantity="two">%s mhíchruinneas</item>
     <item quantity="few">%s míchruinneas</item>
     <item quantity="many">%s míchruinneas</item>
     <item quantity="other">%s míchruinneas</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Míchruinneas</item>
+    <item quantity="two">%s Mhíchruinneas</item>
+    <item quantity="few">%s Míchruinneas</item>
+    <item quantity="many">%s Míchruinneas</item>
+    <item quantity="other">%s Míchruinneas</item>
   </plurals>
   <string name="moveTimes">Amanna na mbearta</string>
   <string name="flipBoard">Cas an bord</string>
@@ -750,7 +771,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach imreoir cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a chríochnaíonn gach cluiche.</string>
   <string name="aboutSimulSettings">Bíonn cluichí comhuaineacha neamhfhoirmiúil i gconaí. Tá athimirt, aistarraing agus am breise díchumasaithe.</string>
   <string name="create">Cruthaigh</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
+  <string name="whenCreateSimul">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
   <string name="simulVariantsHint">Má roghnaíonn tú roinnt leaganacha, faigheann gach imreoir deis cluiche a roghnú.</string>
   <string name="simulClockHint">Suiteáil Clog Fischer. Braitheann an méid ama a theastaíonn uait ar an méid céile comhraic atá agat.</string>
   <string name="simulAddExtraTime">Féadfaidh tú am breise a chur le do chlog chun cabhrú leat déileáil leis an gcluiche comhuaineach.</string>

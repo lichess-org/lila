@@ -132,13 +132,25 @@
     <item quantity="one">%s gaffe</item>
     <item quantity="other">%s gaffes</item>
   </plurals>
+  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Erreur grave</item>
+    <item quantity="other">%s Erreurs graves</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erreur</item>
     <item quantity="other">%s erreurs</item>
   </plurals>
+  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Erreur</item>
+    <item quantity="other">%s Erreurs</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s imprécision</item>
     <item quantity="other">%s imprécisions</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Imprécision</item>
+    <item quantity="other">%s Imprécisions</item>
   </plurals>
   <string name="moveTimes">Temps par coup</string>
   <string name="flipBoard">Tourner l\'échiquier</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">Quand la simultanée commence, chaque joueur débute une partie contre l\'hôte, qui a les Blancs. La simultanée prend fin lorsque toutes les parties sont terminées.</string>
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
+  <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
   <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
@@ -868,7 +880,7 @@
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
-  <string name="showUnreadLichessMessage">Vous avez reçu un message privé de Lichess.</string>
+  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Vous avez reçu un message privé de Lichess.</string>
   <string name="clickHereToReadIt">Cliquez ici pour le lire.</string>
   <string name="sorry">Désolé :(</string>
   <string name="weHadToTimeYouOutForAWhile">Nous avons dû temporairement vous suspendre.</string>

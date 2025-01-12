@@ -147,7 +147,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 当浏览器阻止 lichess.org 播放音频时，红色的静音标志会出现。通常来说这个限制会在您点击某些内容之后取消。在一些移动浏览器上，触摸拖动棋子不被视为点击。在这种情况下您必须在每盘对局开始前点击棋盘来允许声音播放。
 
 当这种情况发生时我们会通过红色的标志来提醒您。通常您可以直接设置允许 lichess.org 播放音频。以下是一些流行的浏览器的最新版本的设置方法。</string>
-  <string name="desktop">桌面端</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">桌面端</string>
   <string name="enableAutoplayForSoundsFirefox">1.前往lichess.org
 2.Linux与Windows系统请点击Ctrl键加i键，MacOS系统请点击cmd键加i键
 3.点击权限选项卡

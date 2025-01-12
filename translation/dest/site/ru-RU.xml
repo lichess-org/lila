@@ -72,7 +72,7 @@
   <string name="promoteVariation">Повысить приоритет варианта</string>
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
-  <string name="collapseVariations">Свернуть вариантыуцппцупупцупуц</string>
+  <string name="collapseVariations">Свернуть варианты</string>
   <string name="expandVariations">Развернуть варианты</string>
   <string name="forceVariation">Сделать вариантом</string>
   <string name="copyVariationPgn">Скопировать вариант в формате PGN</string>
@@ -138,17 +138,35 @@
     <item quantity="many">%s зевков</item>
     <item quantity="other">%s зевков</item>
   </plurals>
+  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Зевок</item>
+    <item quantity="few">%s Зевка</item>
+    <item quantity="many">%s Зевков</item>
+    <item quantity="other">%s Зевков</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s ошибка</item>
     <item quantity="few">%s ошибки</item>
     <item quantity="many">%s ошибок</item>
     <item quantity="other">%s ошибок</item>
   </plurals>
+  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Ошибка</item>
+    <item quantity="few">%s Ошибки</item>
+    <item quantity="many">%s Ошибок</item>
+    <item quantity="other">%s Ошибок</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточность</item>
     <item quantity="few">%s неточности</item>
     <item quantity="many">%s неточностей</item>
     <item quantity="other">%s неточностей</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Неточность</item>
+    <item quantity="few">%s Неточности</item>
+    <item quantity="many">%s Неточностей</item>
+    <item quantity="other">%s Неточностей</item>
   </plurals>
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
@@ -752,7 +770,7 @@
   <string name="aboutSimulRules">Когда начинается сеанс одновременной игры, каждый игрок начинает игру с сеансёром, который играет белыми. Сеанс закончится, когда все партии будут сыграны.</string>
   <string name="aboutSimulSettings">Сеансы одновременной игры не предполагают партий на рейтинг. Переигровки, отмены ходов и «добавки времени» запрещены.</string>
   <string name="create">Создать</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Если вы создадите сеанс одновременной игры, вам придётся сыграть против нескольких игроков одновременно.</string>
+  <string name="whenCreateSimul">Если вы создадите сеанс одновременной игры, вам придётся сыграть против нескольких игроков одновременно.</string>
   <string name="simulVariantsHint">Если вы выберете несколько вариантов игры, тогда каждый игрок выберет тот из них, в который он хочет сыграть с вами.</string>
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
@@ -952,7 +970,7 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
-  <string name="showUnreadLichessMessage">Вы получили личное сообщение от Lichess.</string>
+  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Вы получили личное сообщение от Lichess.</string>
   <string name="clickHereToReadIt">Нажмите здесь, чтобы прочитать его</string>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
@@ -1020,7 +1038,7 @@
   <string name="streamerManager">Управление стримом</string>
   <string name="cancelTournament">Отменить турнир</string>
   <string name="tournDescription">Описание турнира</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Хотите рассказать что-то пользователям? Постарайтесь быть лаконичны. Доступны ссылки в формате Markdown: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Хотите рассказать что-то пользователям? Постарайтесь быть лаконичны. Доступны ссылки в формате Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Игры идут с обсчётом рейтинга
 и влияют на рейтинг игроков</string>
   <string name="onlyMembersOfTeam">Только для членов клуба</string>

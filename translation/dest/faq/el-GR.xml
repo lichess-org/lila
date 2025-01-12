@@ -148,7 +148,7 @@
 Το κόκκινο εικονίδιο σίγασης εμφανίζεται όταν το πρόγραμμα περιήγησής σας εμποδίζει το lichess.org να αναπαράγει έναν ήχο. Συνήθως αυτός ο περιορισμός ενεργοποιήτε μόλις κάνετε κλικ σε κάτι. Σε ορισμένα προγράμματα περιήγησης για κινητά, η μεταφορά ενός πιονιού με άγγιγμα δεν υπολογίζεται ως κλικ. Σε αυτήν την περίπτωση, πρέπει να πατήσετε τον πίνακα για να επιτρέπεται ο ήχος στην αρχή κάθε παιχνιδιού.
 
 Δείχνουμε το κόκκινο εικονίδιο για να σας ειδοποιούμε όταν συμβεί αυτό. Συχνά μπορείτε να επιτρέψετε ρητά στο lichess.org να αναπαράγει ήχους. Ακολουθούν οδηγίες για να το κάνετε αυτό σε πρόσφατες εκδόσεις ορισμένων δημοφιλών προγραμμάτων περιήγησης.</string>
-  <string name="desktop">υπολογιστής</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">υπολογιστής</string>
   <string name="enableAutoplayForSoundsFirefox">1. Μεταβείτε στο lichess.org
 2. Πατήστε Ctrl-i στο Linux/Windows ή cmd-i στο MacOS
 3. Κάντε κλικ στην καρτέλα Δικαιώματα ή Άδειες

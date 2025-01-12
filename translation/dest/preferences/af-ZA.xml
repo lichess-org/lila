@@ -21,7 +21,7 @@
   <string name="exceptInGame">Behalwe in spel</string>
   <string name="chessClock">Skaakklok</string>
   <string name="tenthsOfSeconds">Tiendes van sekondes</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">&lt; 10 sekondes voor tyd uitloop</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">&lt; 10 sekondes voor tyd uitloop</string>
   <string name="horizontalGreenProgressBars">Horisontale groen voortgangsbalkies</string>
   <string name="soundWhenTimeGetsCritical">Klank as tyd noop</string>
   <string name="giveMoreTime">Gee meer tyd</string>
@@ -37,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Druk die &lt;ctrl&gt;-sleutel terwyl jy promoveer om outo-promovering tydelik te deaktiveer</string>
   <string name="whenPremoving">Tydens vooraf-skuiwe</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis gelykop met drievoudige repetisie outomaties</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">&lt; 30 sekondes voor tyd uitloop</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">&lt; 30 sekondes voor tyd uitloop</string>
   <string name="moveConfirmation">Skuif bevestiging</string>
   <string name="inCorrespondenceGames">Korrespondensie spelle</string>
   <string name="correspondenceAndUnlimited">Korrespondensie en onbeperkte</string>

@@ -49,7 +49,7 @@
   <string name="ageThisYear">Age this year</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Unrated</string>
   <string name="recentTournaments">Recent tournaments</string>
-  <string name="openLichess">Open in Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Open in Lichess</string>
   <string name="teams">Teams</string>
   <string name="boards">Boards</string>
   <string name="overview">Overview</string>
