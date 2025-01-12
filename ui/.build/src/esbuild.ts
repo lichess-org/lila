@@ -3,7 +3,7 @@ import es from 'esbuild';
 import fs from 'node:fs';
 import { env, errorMark, colors as c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { readable } from './parse.ts';
+import { minifyHtml, readable } from './parse.ts';
 
 const esbuildCtx: es.BuildContext[] = [];
 const inlineWatch: fs.FSWatcher[] = [];
@@ -70,7 +70,7 @@ const plugins = [
         loader: 'ts',
         contents: (await fs.promises.readFile(args.path, 'utf8')).replace(
           /\$html`([^`]*)`/g,
-          (_, s) => `\`${s.replace(/\s+/g, ' ').replaceAll('> <', '><').trim()}\``,
+          (_, s) => `\`${minifyHtml(s)}\``,
         ),
       }));
     },

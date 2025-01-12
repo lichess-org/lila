@@ -110,3 +110,7 @@ async function parsePackage(packageDir: string): Promise<Package> {
   }
   return pkgInfo;
 }
+
+export function minifyHtml(html: string): string {
+  return html.replace(/\s+/g, ' ').replaceAll('> <', '><').trim();
+}
