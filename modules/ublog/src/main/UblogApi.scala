@@ -83,13 +83,7 @@ final class UblogApi(
         Match($doc("blog" -> blogId, "live" -> true)) -> List(
           AddFields(
             $doc(
-              "isSticky" -> $doc(
-                "$cond" -> $doc(
-                  "if"   -> $doc("$ne" -> $arr($doc("$type" -> "$sticky"), "missing")),
-                  "then" -> "$sticky",
-                  "else" -> false
-                )
-              )
+              "isSticky" -> $doc("$ifNull" -> $arr("$sticky", false))
             )
           ),
           Sort(Descending("isSticky"), Descending("lived.at")),
