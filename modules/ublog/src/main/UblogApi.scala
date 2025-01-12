@@ -93,7 +93,7 @@ final class UblogApi(
             )
           ),
           Sort(Descending("isSticky"), Descending("lived.at")),
-          Project($doc(previewPostProjection)),
+          Project(previewPostProjection),
           Limit(nb)
         )
       .map: docs =>
