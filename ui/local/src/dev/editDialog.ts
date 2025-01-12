@@ -39,7 +39,8 @@ export class EditDialog {
   janitor: Janitor = new Janitor();
 
   constructor(readonly color: Color) {
-    this.view = frag<HTMLElement>(`<div class="base-view dev-view edit-view with-cards">
+    this.view = frag<HTMLElement>($html`
+      <div class="base-view dev-view edit-view with-cards">
         <div class="edit-bot"></div>
       </div>`);
     if (!env.bot.all.length) env.bot.save(EditDialog.default);
@@ -241,7 +242,7 @@ export class EditDialog {
     const input = frag<HTMLInputElement>(`<input class="invalid" spellcheck="false" type="text" value="#">`);
     domDialog({
       class: 'dev-view',
-      htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p><span></span>`,
+      htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p>`,
       append: [
         { node: input, where: 'span' },
         { node: ok, where: 'span' },
@@ -275,13 +276,8 @@ export class EditDialog {
           selector: '.ok',
           listener: (_, dlg) => {
             if (!input.dataset.uid) return;
-            const newBot = {
-              ...structuredClone(EditDialog.default),
-              uid: input.dataset.uid,
-              name: input.dataset.uid.slice(1),
-            } as WritableBot;
-            env.bot.save(newBot);
-            this.selectBot(newBot.uid);
+            env.bot.save({ ...EditDialog.default, uid: input.dataset.uid, name: input.dataset.uid.slice(1) });
+            this.selectBot(input.dataset.uid);
             dlg.close();
           },
         },
@@ -294,7 +290,8 @@ export class EditDialog {
 
   private async json(): Promise<void> {
     const version = this.bot.version;
-    const view = frag<HTMLElement>(`<div class="dev-view json-dialog">
+    const view = frag<HTMLElement>($html`
+      <div class="dev-view json-dialog">
         <textarea class="json" autocomplete="false" spellcheck="false">${stringify(deadStrip(this.bot), { indent: 2, maxLength: 80 })}</textarea>
         <div class="actions">
           <button class="button button-empty button-dim" data-icon="${licon.Clipboard}" data-action="copy"></button>
@@ -336,7 +333,8 @@ export class EditDialog {
     this.update();
   }
 
-  private deckEl = frag<HTMLElement>(`<div class="deck">
+  private deckEl = frag<HTMLElement>($html`
+    <div class="deck">
       <div class="placeholder"></div>
       <fieldset class="deck-legend">
         <legend>legend</legend>
@@ -347,14 +345,16 @@ export class EditDialog {
       </fieldset>
     </div>`);
 
-  private globalActionsEl = frag<HTMLElement>(`<div class="global-actions">
+  private globalActionsEl = frag<HTMLElement>($html`
+    <div class="global-actions">
       <button class="button button-empty button-green" data-bot-action="new">new bot</button>
       <button class="button button-empty button-brag" data-bot-action="assets">assets</button>
       <button class="button button-empty" data-bot-action="pull-all">pull all</button>
       <button class="button button-empty button-red" data-bot-action="unrate-all">clear all ratings</button>
     </div>`);
 
-  private botActionsEl = frag<HTMLElement>(`<div class="bot-actions">
+  private botActionsEl = frag<HTMLElement>($html`
+    <div class="bot-actions">
       <button class="button button-empty button-red none" data-bot-action="delete">delete</button>
       <button class="button button-empty button-dim" data-bot-action="json">json</button>
       <button class="button button-empty button-brag" data-bot-action="history-one">history</button>
@@ -364,7 +364,8 @@ export class EditDialog {
     </div>`);
 
   private get botCardEl(): Node {
-    const botCard = frag<Element>(`<div class="bot-card">
+    const botCard = frag<Element>($html`
+      <div class="bot-card">
         <div class="player"><span class="uid">${this.uid}</span></div>
       </div>`);
 

@@ -54,17 +54,27 @@ export async function stopEsbuildWatch(): Promise<void> {
 }
 
 const plugins = [
-  // {
-  //   name: '_html', // experimental
-  //   setup(build: es.PluginBuild) {
-  //     build.onLoad({ filter: /\.ts$/ }, async (args: es.OnLoadArgs) => ({
-  //       loader: 'ts',
-  //       contents: (await fs.promises.readFile(args.path, 'utf8')).replace(/_html`([\s\S]*?)`/g, (_, s) =>
-  //         env.prod ? `\`${s.replace(/\s+/g, ' ').replaceAll('> <', '><').trim()}\`` : `\`${s}\``,
-  //       ),
-  //     }));
-  //   },
-  // },
+  {
+    // our html minifier only processes characters between the first two backticks encountered
+    // so:
+    //   $html`     <div>    ${    x ?      `   ${y}${z}` : ''    }     </div>`
+    //
+    // minifies to:
+    //   `<div> ${ x ? `   ${y}${z}` : ''    }     </div>`
+    //
+    // while nested template literals inside of interpolations are unchanged and will still work, they
+    // won't be minified. this is fine, we don't need an ast parser. nesting is rare
+    name: '$html',
+    setup(build: es.PluginBuild) {
+      build.onLoad({ filter: /\.ts$/ }, async (args: es.OnLoadArgs) => ({
+        loader: 'ts',
+        contents: (await fs.promises.readFile(args.path, 'utf8')).replace(
+          /\$html`([^`]*)`/g,
+          (_, s) => `\`${s.replace(/\s+/g, ' ').replaceAll('> <', '><').trim()}\``,
+        ),
+      }));
+    },
+  },
   {
     name: 'onBundleDone',
     setup(build: es.PluginBuild) {

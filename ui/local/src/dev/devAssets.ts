@@ -205,7 +205,6 @@ export class DevAssets extends Assets {
     // a study can be repeatedly imported with the same name during the play balancing cycle. in
     // that case, we need to patch all bots using the key associated with the previous version to
     // the new key at the time we import the change because it's tough for a user to figure out later.
-    if (!pgn.type.endsWith('chess-pgn')) throw new Error(`${pgn.type} not recognized as pgn`);
     const name = blobname.endsWith('.pgn') ? blobname.slice(0, -4) : blobname;
     const result = await makeBookFromPgn({ pgn, ply, cover: true, progress, filter });
     if (!result.positions || !result.polyglot || !result.cover) {
