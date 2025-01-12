@@ -243,7 +243,11 @@ export default class StudyCtrl {
     this.practice = practiceData && new StudyPracticeCtrl(ctrl, data, practiceData);
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
-    else if (this.data.chapter.relayPath && !defined(this.ctrl.requestInitialPly))
+    else if (
+      this.data.chapter.relayPath &&
+      !defined(this.ctrl.requestInitialPly) &&
+      !(this.relay && !this.multiBoard.showResults())
+    )
       this.ctrl.userJump(this.data.chapter.relayPath);
 
     this.configureAnalysis();
