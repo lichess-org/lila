@@ -138,17 +138,35 @@
     <item quantity="many">%s hrubých chýb</item>
     <item quantity="other">%s hrubých chýb</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Hrubá chyba</item>
+    <item quantity="few">%s Hrubé chyby</item>
+    <item quantity="many">%s Hrubých chýb</item>
+    <item quantity="other">%s Hrubých chýb</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s chyba</item>
     <item quantity="few">%s chyby</item>
     <item quantity="many">%s chýb</item>
     <item quantity="other">%s chýb</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Chyba</item>
+    <item quantity="few">%s Chyby</item>
+    <item quantity="many">%s Chýb</item>
+    <item quantity="other">%s Chýb</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s nepresnosť</item>
     <item quantity="few">%s nepresnosti</item>
     <item quantity="many">%s nepresností</item>
     <item quantity="other">%s nepresností</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Nepresnosť</item>
+    <item quantity="few">%s Nepresnosti</item>
+    <item quantity="many">%s Nepresností</item>
+    <item quantity="other">%s Nepresností</item>
   </plurals>
   <string name="moveTimes">Trvanie ťahov</string>
   <string name="flipBoard">Otočiť šachovnicu</string>
@@ -752,7 +770,7 @@
   <string name="aboutSimulRules">Keď simultánka začne, každý hráč hrá s hostiteľom, ktorý má biele figúrky. Simultánka končí, keď sa dohrajú všetky partie.</string>
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
+  <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
   <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať, ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>

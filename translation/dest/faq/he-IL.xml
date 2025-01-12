@@ -143,7 +143,7 @@
   <string name="enableAutoplayForSoundsA">רוב דפדפני האינטרנט לא מאפשרים ניגון צלילים בעמודים חדשים כדי להגן על המשתמשים. כך, לא כל אתר קיקיוני יכול להפציץ אותנו בפרסומות קוליות. בדרך כלל ההגבלה הזאת מבוטלת ברגע שאנו לוחצים על משהו בתוך האתר. בחלק מהדפדפנים, הזזת הכלים בלוח לא נחשבת לחיצה, ואז יהיה עליהם ללחוץ במקום ריק על הלוח כדי לאפשר הפעלת צלילים. תאלצו לעשות זאת כל פעם שאתם מתחילים משחק.
 
 אנו מציגים סמליל אדום כדי להודיע לכם כשזה קורה. ברוב המקרים, ניתן לאפשר לדפדפן להפעיל צלילים ב־lichess.org כברירת מחדל ובכך לחסוך לחיצות מיותרות על הלוח. עקבו אחר ההוראות הבאות על פי הדפדפן שלכם.</string>
-  <string name="desktop">מחשבים</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">מחשבים</string>
   <string name="enableAutoplayForSoundsFirefox">1. היכנסו ל־lichess.org
 2. לחצו על Ctrl-i ב־Linux או Windows או על cmd ב־MacOS
 3. לחצו על הלשונית ״הרשאות״ (Permissions)

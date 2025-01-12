@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Cruthaigh ainmneacha úsáideora agus pasfhocail shábháilte go tapa do daltaí</string>
   <string name="trackStudentProgress">Rianaigh dul chun cinn na daltaí i gcluichí agus i fadhbhanna fichille</string>
   <string name="messageAllStudents">Cuir teachtaireacht chuig gach dalta faoi ábhar nua ranga</string>
-  <string name="freeForAllForever">100% saor in aisce do chách, go deo, gan aon fhógraí nó rianairí</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% saor in aisce do chách, go deo, gan aon fhógraí nó rianairí</string>
   <string name="applyToBeLichessTeacher">Déan iarratas bheith i do Mhúinteoir Lichess</string>
   <string name="noClassesYet">Níl aon ranganna fós.</string>
   <string name="teachersX">Múinteoirí: %s</string>

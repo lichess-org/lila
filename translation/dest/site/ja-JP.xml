@@ -129,10 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s 大悪手</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s 大悪手</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s 悪手</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s 悪手</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="other">%s 緩手</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="other">%s 緩手</item>
   </plurals>
   <string name="moveTimes">消費時間</string>
@@ -642,7 +651,7 @@
   <string name="aboutSimulRules">同時対局が始まると、全員がホスト（白番）と対戦します。同時対局はすべての対局が終わった時に終了します。</string>
   <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>
   <string name="create">作成する</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
+  <string name="whenCreateSimul">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
   <string name="simulVariantsHint">複数のバリアントを選ぶと、どのバリアントにするか相手が選べます。</string>
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
@@ -895,7 +904,7 @@
   <string name="streamerManager">配信者用設定</string>
   <string name="cancelTournament">トーナメントをキャンセル</string>
   <string name="tournDescription">トーナメントの説明</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">参加者に特に説明しておきたいことはありますか？　短く書いてください。リンクも入れられます：[name](https://url)</string>
+  <string name="tournDescriptionHelp">参加者に特に説明しておきたいことはありますか？　短く書いてください。リンクも入れられます：[name](https://url)</string>
   <string name="ratedFormHelp">レート戦です
 プレイヤーのレーティングが動きます</string>
   <string name="onlyMembersOfTeam">チームメンバーのみ</string>

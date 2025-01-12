@@ -10,9 +10,9 @@
     <item quantity="one">%s rolda</item>
     <item quantity="other">%s roldas</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s rolda suíza</item>
-    <item quantity="other">%s roldas suízas</item>
+  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
+    <item quantity="one">Suízo %s rolda</item>
+    <item quantity="other">Suízo %s roldas</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Unha rolda por día</item>

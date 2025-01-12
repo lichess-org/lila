@@ -39,11 +39,10 @@ const newKey = (oldKey: Key | '', selectedFiles?: Set<Files>, selectedRanks?: Se
   return (files[randomChoice(files.length)] + rows[randomChoice(rows.length)]) as Key;
 };
 
-const targetSvg = (target: 'current' | 'next'): string => `
-<g transform="translate(50, 50)">
-  <rect class="${target}-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
-</g>
-`;
+const targetSvg = (target: 'current' | 'next'): string => $html`
+  <g transform="translate(50, 50)">
+    <rect class="${target}-target" fill="none" stroke-width="10" x="-50" y="-50" width="100" height="100" rx="5" />
+  </g>`;
 
 const rankWords: { [_: string]: string } = {
   one: '1',

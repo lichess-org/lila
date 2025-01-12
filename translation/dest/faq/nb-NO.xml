@@ -149,7 +149,7 @@ Avgjør så om du vil tillate eller blokkere varsler fra Lichess.</string>
 Det røde mute-ikonet vises når nettleseren din forhindrer lichess.org fra å spille av en lyd. Vanligvis oppheves denne begrensningen når du klikker på noe. På enkelte mobile nettlesere teller ikke å dra en brikke som et klikk. I så fall må du trykke på brettet for å tillate lyd ved starten av hvert spill.
 
 Vi viser det røde ikonet for å varsle deg når dette skjer. Ofte kan du eksplisitt tillate lichess.org å spille av lyder. Her er instruksjoner for å gjøre dette på nyere versjoner av noen populære nettlesere.</string>
-  <string name="desktop">skrivebord</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">skrivebord</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gå til lichess.org
 2. Trykk Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klikk på fanen for tillatelser

@@ -129,6 +129,13 @@
     <item quantity="many">%s bourd</item>
     <item quantity="other">%s bourd</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Bourd</item>
+    <item quantity="two">%s Vourd</item>
+    <item quantity="few">%s Bourd</item>
+    <item quantity="many">%s Bourd</item>
+    <item quantity="other">%s A vourdoù</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s fazi</item>
     <item quantity="two">%s fazi</item>
@@ -136,12 +143,26 @@
     <item quantity="many">%s fazi</item>
     <item quantity="other">%s fazi</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Fazi</item>
+    <item quantity="two">%s Fazi</item>
+    <item quantity="few">%s Fazi</item>
+    <item quantity="many">%s Fazi</item>
+    <item quantity="other">%s A fAzioù</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s diresisted</item>
     <item quantity="two">%s ziresisted</item>
     <item quantity="few">%s diresisted</item>
     <item quantity="many">%s diresisted</item>
     <item quantity="other">%s diresisted</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Diresisted</item>
+    <item quantity="two">%s Ziresisted</item>
+    <item quantity="few">%s Diresisted</item>
+    <item quantity="many">%s Diseristed</item>
+    <item quantity="other">%s Diseristed</item>
   </plurals>
   <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
@@ -742,7 +763,7 @@
   <string name="aboutSimulRules">Pa grog an abadenn gempred e krog pep krogad gant an ostiz ivez. Gantañ e vez c\'hoariet ar re wenn. Ur wech echu an holl grogadoù e vo fin an abadenn gempred.</string>
   <string name="aboutSimulSettings">Krogadoù a vignoniezh eo an abadennoù kempred bepred. Kinnigoù c\'hoari en-dro, nullañ ar fiñvadenn ziwezhañ pe ouzhpennañ amzer zo diweredekaet.</string>
   <string name="create">Krouiñ</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
+  <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
   <string name="simulClockHint">Aozet an horolaj e mod Fischer. Seul vuioc\'h a c\'hoarierien seul vuioc\'h a amzer ho po ezhomm da gaout.</string>
   <string name="simulAddExtraTime">Gallout a rit lakaat amzer ouzhpenn d\'ho horolaj, evit ho sikour d\'ober war-dro ar bartienn gempred.</string>

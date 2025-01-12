@@ -149,7 +149,7 @@ Ondoren aukeratu Lichessen jakinarazpenak blokeatu nahi dituzun ala ez.</string>
 Bozgorailu gorri bat agertzen da zure nabigatzaileak lichess.org-i horrelako soinu bat jotea galarazten dionean. Normalean debeku hau nonbaiten klik egin ostean desaktibatzen da. Eskuko gailuetako nabigatzaile batzuetan, pieza mugitzeko keinuak ez dira klik gisa ulertzen. Horrelako kasuetan taula sakatu beharko duzu partida hasi bezain laster.
 
 Ikono gorria zu ohartarazteko erakusten dugu. Sarri lichess.org baimendu dezakezu soinuak entzun ahal izateko. Hemen dituzu horretarako argibideak.</string>
-  <string name="desktop">mahaigaina</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">mahaigaina</string>
   <string name="enableAutoplayForSoundsFirefox">1. Joan lichess.org webgunera
 2. Sakatu Ctrl-i Linux/Windowsesn edo cmd-i MacOSen
 3. Sakatu Baimenen fitxa

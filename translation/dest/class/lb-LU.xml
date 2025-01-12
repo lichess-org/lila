@@ -2,7 +2,7 @@
 <resources>
   <string name="lichessClasses">Coursen</string>
   <string name="features">Funktiounen</string>
-  <string name="freeForAllForever">100 % gratis fir jiddereen, fir ëmmer, ouni Reklammen oder Trackeren</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100 % gratis fir jiddereen, fir ëmmer, ouni Reklammen oder Trackeren</string>
   <string name="applyToBeLichessTeacher">Bewerb dech als Lichess-Enseignant</string>
   <string name="noClassesYet">Nach keng Coursen.</string>
   <string name="teachersX">Enseignanten: %s</string>

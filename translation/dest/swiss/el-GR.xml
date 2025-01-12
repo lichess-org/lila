@@ -10,6 +10,10 @@
     <item quantity="one">%s γύροι</item>
     <item quantity="other">%s γύροι</item>
   </plurals>
+  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
+    <item quantity="one">Ελβετικό %s γύρου</item>
+    <item quantity="other">Ελβετικό %s γύρων</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Ένας γύρος την ημέρα</item>
     <item quantity="other">Ένας γύρος κάθε %s ημέρες</item>

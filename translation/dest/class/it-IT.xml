@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Genera facilmente username e password sicure per gli studenti</string>
   <string name="trackStudentProgress">Tieni traccia dei progressi degli studenti in partite e problemi</string>
   <string name="messageAllStudents">Invia a tutti gli studenti un messaggio sul nuovo materiale di classe</string>
-  <string name="freeForAllForever">100% gratuito per tutti, per sempre, senza pubblicità o tracker</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratuito per tutti, per sempre, senza pubblicità o tracker</string>
   <string name="applyToBeLichessTeacher">Candidati per essere un Insegnante di Lichess</string>
   <string name="noClassesYet">Ancora nessuna classe.</string>
   <string name="teachersX">Insegnanti: %s</string>
