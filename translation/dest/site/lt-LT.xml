@@ -138,17 +138,35 @@
     <item quantity="many">%s šiurkščios klaidos</item>
     <item quantity="other">%s šiurkščių klaidų</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Šiurkšti klaida</item>
+    <item quantity="few">%s Šiurkščios klaidos</item>
+    <item quantity="many">%s Šiurkščių klaidų</item>
+    <item quantity="other">%s Šiurkščių klaidų</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s klaida</item>
     <item quantity="few">%s klaidos</item>
     <item quantity="many">%s klaidos</item>
     <item quantity="other">%s klaidų</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Klaida</item>
+    <item quantity="few">%s Klaidos</item>
+    <item quantity="many">%s Klaidų</item>
+    <item quantity="other">%s Klaidų</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s netikslumas</item>
     <item quantity="few">%s netikslumai</item>
     <item quantity="many">%s netikslumo</item>
     <item quantity="other">%s netikslumų</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Netikslumas</item>
+    <item quantity="few">%s Netikslumai</item>
+    <item quantity="many">%s Netikslumo</item>
+    <item quantity="other">%s Netikslumų</item>
   </plurals>
   <string name="moveTimes">Ėjimų trukmė</string>
   <string name="flipBoard">Apsukti lentą</string>
@@ -753,7 +771,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="aboutSimulRules">Prasidėjus simultanui, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simultanas baigiasi kai užbaigiamos visos partijos.</string>
   <string name="aboutSimulSettings">Simulai visada yra nevertinami. Revanšai, ėjimų atšaukimai ir „daugiau laiko“ yra negalimi.</string>
   <string name="create">Sukurti</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Sukūrę simultaną, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
+  <string name="whenCreateSimul">Sukūrę simultaną, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
   <string name="simulVariantsHint">Jei pasirinksite keletą variantų, kiekvienas žaidėjas galės nuspręsti kurį norės žaisti.</string>
   <string name="simulClockHint">Fišerio laikrodžio nustatymas. Prieš kuo daugiau žaidėjų rungsitės, tuo daugiau laiko jums gali prireikti.</string>
   <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simultane.</string>

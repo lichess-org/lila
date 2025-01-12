@@ -148,7 +148,7 @@ Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
 La ruĝa silentiga ikono aperas kiam via retumilo malhelpis lichess.org ludi sonon. Ĝenerale tiu limigo foriĝas kiam vi alklaki ion. Sur kelkaj poŝtelefonaj retumiloj, tuŝŝovoj ne estas tipo de alklako. En tiu okazo vi devas tuŝeti la tabulon por permesi sonon ĉe la komenco de la ludo.
 
 Ni montras la ruĝan ikonon por averti vin kiam tio okazas. Ofte vi povas eksplice permesi lichess.org ludi sonojn. Ĉi tie estas instrukcio por fari tio sur lastaj versioj de kelkaj popularaj retumiloj.</string>
-  <string name="desktop">labortablo</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">labortablo</string>
   <string name="enableAutoplayForSoundsFirefox">1. Iru al lichess.org
 2. Premu str-i sur Linukso/Vindozo aŭ kmd-i sur MakOS
 3. Alklaku la langeton de Permesoj

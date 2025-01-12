@@ -149,7 +149,7 @@ Em seguida, selecione se deve permitir ou bloquear notificações de Lichhess.</
 O ícone vermelho de silêncio indica que seu navegador está bloqueando o som do lichess.org. Ao clicar em alguma coisa, geralmente isso se resolve. No mobile, arrastar uma peça às vezes não conta como um clique. Nesse caso, você precisa mover com um clique para ativar o som a cada partida nova.
 
 O ícone serve para você saber quando isso acontece. Você também pode alterar as permissões do lichess.org. Aqui estão as instruções para as versões atuais de alguns navegadores populares.</string>
-  <string name="desktop">desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Acesse o lichess.org
 2. Pressione Ctrl-i em Linux/Windows ou cmd-i em MacOS
 3. Clique na página Permissões

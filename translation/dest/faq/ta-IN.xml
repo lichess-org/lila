@@ -148,7 +148,7 @@ LM பட்டத்தைக் கேட்க வேண்டாம்.</str
 உங்கள் உலாவி lichess.org ஒலியை இயக்குவதைத் தடுக்கும்போது சிவப்பு மியூட் ஐகான் தோன்றும். பொதுவாக நீங்கள் ஏதாவது ஒன்றைக் கிளிக் செய்தவுடன் இந்தக் கட்டுப்பாடு நீக்கப்படும். சில மொபைல் உலாவிகளில், ஒரு பகுதியை இழுப்பதைத் தொடுவது ஒரு கிளிக்காகக் கணக்கிடப்படாது. அந்தச் சூழ்நிலையில், ஒவ்வொரு விளையாட்டின் தொடக்கத்திலும் ஒலியை அனுமதிக்க நீங்கள் பலகையைத் தட்ட வேண்டும்.
 
 இது நிகழும்போது உங்களை எச்சரிக்க சிவப்பு ஐகானைக் காட்டுகிறோம். பெரும்பாலும் நீங்கள் lichess.org ஒலிகளை இயக்க வெளிப்படையாக அனுமதிக்கலாம். சில பிரபலமான உலாவிகளின் சமீபத்திய பதிப்புகளில் அவ்வாறு செய்வதற்கான வழிமுறைகள் இங்கே.</string>
-  <string name="desktop">டெஸ்க்டாப்</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">டெஸ்க்டாப்</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org க்குச் செல்லவும்
 2. Linux/Windows இல் Ctrl-i ஐ அழுத்தவும் அல்லது MacOS இல் cmd-i ஐ அழுத்தவும்
 3. அனுமதிகள் தாவலைக் கிளிக் செய்யவும்

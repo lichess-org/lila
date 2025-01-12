@@ -37,7 +37,7 @@
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
-  <string name="showScores">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="fideFederations">Các liên đoàn FIDE</string>
   <string name="top10Rating">Hệ số Elo top 10</string>
@@ -48,7 +48,7 @@
   <string name="ageThisYear">Tuổi năm nay</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Chưa xếp hạng</string>
   <string name="recentTournaments">Các giải đấu tham gia gần đây</string>
-  <string name="openLichess">Mở trên Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Mở trên Lichess</string>
   <string name="teams">Các đội</string>
   <string name="boards">Các bàn đấu</string>
   <string name="overview">Tổng quan</string>

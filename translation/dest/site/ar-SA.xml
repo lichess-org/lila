@@ -144,6 +144,14 @@
     <item quantity="many">%s غلطات</item>
     <item quantity="other">%s غلطات</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="zero">%s غلطة</item>
+    <item quantity="one">%s غلطة</item>
+    <item quantity="two">%s غلطة</item>
+    <item quantity="few">%s غلطة</item>
+    <item quantity="many">%s غلطة</item>
+    <item quantity="other">%s غلطات</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="zero">%s خطأ</item>
     <item quantity="one">%s خطأ</item>
@@ -152,7 +160,23 @@
     <item quantity="many">%s أخطاء</item>
     <item quantity="other">%s أخطاء</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="zero">%s خطأ</item>
+    <item quantity="one">%s خطأ</item>
+    <item quantity="two">%s خطأ</item>
+    <item quantity="few">%s خطأ</item>
+    <item quantity="many">%s خطأ</item>
+    <item quantity="other">%s أخطاء</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="zero">%s غموض</item>
+    <item quantity="one">%s غموض</item>
+    <item quantity="two">%s غموض</item>
+    <item quantity="few">%s غموض</item>
+    <item quantity="many">%s غموض</item>
+    <item quantity="other">%s غموض</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="zero">%s غموض</item>
     <item quantity="one">%s غموض</item>
     <item quantity="two">%s غموض</item>
@@ -829,7 +853,7 @@ https://lichess. org/report.</string>
   <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب مباراة مع المضيف، حيث يلعب المضيف بالقطع البيضاء. تنتهي التزامنية بإنتهاء جميع المبارايات.</string>
   <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
   <string name="create">ابدأ</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">عندما تنشئ تزامنية، يمكنك اللعب مع عدة لاعبين في الوقت ذاته.</string>
+  <string name="whenCreateSimul">عندما تنشئ تزامنية، يمكنك اللعب مع عدة لاعبين في الوقت ذاته.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
@@ -1107,7 +1131,7 @@ https://lichess. org/report.</string>
   <string name="streamerManager">مدير البث</string>
   <string name="cancelTournament">الغاء البطولة</string>
   <string name="tournDescription">وصف البطولة</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">هل تريد إخبار أي شيء مميز للمشاركين؟ حاول أن تبقيه قصيرة. روابط Markdown متوفرة: [name](https://url)</string>
+  <string name="tournDescriptionHelp">هل تريد إخبار أي شيء مميز للمشاركين؟ حاول أن تبقيه قصيرة. روابط Markdown متوفرة: [name](https://url)</string>
   <string name="ratedFormHelp">المباريات مصنفة
 وتأثر على تقييم اللاعبين</string>
   <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>

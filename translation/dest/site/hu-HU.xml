@@ -130,13 +130,25 @@
     <item quantity="one">%s súlyos hiba</item>
     <item quantity="other">%s súlyos hiba</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Súlyos hiba</item>
+    <item quantity="other">%s Súlyos hiba</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s hiba</item>
     <item quantity="other">%s hiba</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Hiba</item>
+    <item quantity="other">%s Hiba</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s pontatlanság</item>
     <item quantity="other">%s pontatlanság</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Pontatlanság</item>
+    <item quantity="other">%s Pontatlanság</item>
   </plurals>
   <string name="moveTimes">Lépésidő</string>
   <string name="flipBoard">Tábla megfordítása</string>
@@ -672,7 +684,7 @@
   <string name="aboutSimulRules">Minden játékos a szimultánt adó játékos ellen játszik, aki a világos bábukat vezeti. A szimultán akkor ér véget, amikor az összes játszma befejeződik.</string>
   <string name="aboutSimulSettings">A szimultán játékok mindig fixáltak. Visszavágó, visszalépés és több idő adás funkciók nem elérhetőek.</string>
   <string name="create">Létrehozás</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ha egy szimultánt hozol létre, több játékos ellen fogsz játszani.</string>
+  <string name="whenCreateSimul">Ha egy szimultánt hozol létre, több játékos ellen fogsz játszani.</string>
   <string name="simulVariantsHint">Ha több variánst hozol létre, minden játékos eldöntheti mihez csatlakozik.</string>
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>
@@ -921,7 +933,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
   <string name="cancelTournament">Versenykiírás törlése</string>
   <string name="tournDescription">Verseny leírása</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Bármi különleges amit a résztvevőkkel közölnél? Próbáld rövidre fogni. Markdown linkek elérhetőek: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Bármi különleges amit a résztvevőkkel közölnél? Próbáld rövidre fogni. Markdown linkek elérhetőek: [name](https://url)</string>
   <string name="ratedFormHelp">Rangsorolt játszmák amik
 befolyásolják a játékosok értékszámát</string>
   <string name="onlyMembersOfTeam">Kizárólag csapattagoknak</string>

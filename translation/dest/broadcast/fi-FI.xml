@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Kierrostutkielman muokkaus</string>
   <string name="deleteTournament">Poista tämä turnaus</string>
   <string name="definitivelyDeleteTournament">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
-  <string name="showScores">Näytä pelaajien pisteet pelien tulosten pohjalta</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Näytä pelaajien pisteet pelien tulosten pohjalta</string>
   <string name="replacePlayerTags">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
   <string name="fideFederations">FIDEn liitot</string>
   <string name="top10Rating">Top 10 -vahvuuslukulista</string>
@@ -49,7 +49,7 @@
   <string name="ageThisYear">Ikä tänä vuonna</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Pisteyttämätön</string>
   <string name="recentTournaments">Viimeisimmät turnaukset</string>
-  <string name="openLichess">Avaa Lichessissä</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Avaa Lichessissä</string>
   <string name="teams">Joukkueet</string>
   <string name="boards">Laudat</string>
   <string name="overview">Pääsivu</string>

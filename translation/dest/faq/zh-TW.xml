@@ -142,7 +142,7 @@ Lichess上的電腦分析是基於Stockfish的。</string>
 紅色靜音按鈕會在音效被阻擋時顯示。大多在點擊棋子時才會停用此種限制。在某些行動版瀏覽器上，拖曳一個棋子不會被認為為一種點擊方式。在那種情況下您必須在每個棋局開始後點擊棋盤以啟用音效。
 
 在此種限制發生時我們會以紅色圖示警告你。大多時候可以允許 lichess.org 播放音效。以下是如何在大多瀏覽器上啟用音效：</string>
-  <string name="desktop">電腦</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">電腦</string>
   <string name="enableAutoplayForSoundsFirefox">1. 到 lichess.org
 2. 在 Linux/Windows 上按下 Ctrl-i  或是在 macOS 按下 cmd-i
 3. 點擊「權限」分頁

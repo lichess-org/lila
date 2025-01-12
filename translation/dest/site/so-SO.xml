@@ -132,13 +132,25 @@
     <item quantity="one">%s qalad</item>
     <item quantity="other">%s qaladaad</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Qalad</item>
+    <item quantity="other">%s Qaladaad</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s halmaam</item>
     <item quantity="other">%s halmaamyo</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Halmaam</item>
+    <item quantity="other">%s Halmaamyo</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s aan fiicnayn</item>
     <item quantity="other">%s aan fiicnayn</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Aan fiicnayn</item>
+    <item quantity="other">%s Aan fiicnayn</item>
   </plurals>
   <string name="moveTimes">Wakhtiyada tallaabo</string>
   <string name="flipBoard">Rog looxa</string>

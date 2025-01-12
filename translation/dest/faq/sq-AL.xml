@@ -149,7 +149,7 @@ Mandej përzgjidhni nëse doni të lejohen apo të bllokohen njoftimet nga Liche
 Ikona e kuqe e heshtimit duket kur shfletuesi juaj i pengon lichess.org të luajë një tingull. Zakonisht ky kufizim hiqet kur klikoni mbi diçka.Në disa shfletues për celularë, tërheqja e nëj guri nuk llogaritet si klikim. Në atë rast duhet të prekni fushën, që të lejoni tingull në fillim të çdo loje.
 
 Ikonën e kuqe jua shfaqim për t’ju sinjalizuar, kur ndodh kjo. Shpesh, mund ta lejoni shprehimisht lichess.org të luajë tinguj. Ja udhëzimet për ta bërë këtë në versione të afërt të disa shfletuesve të njohur.</string>
-  <string name="desktop">desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Kaloni te lichess.org
 2. Shtypni Ctrl-i në Linux/Windows, ose cmd-i në MacOS
 3. Klikoni skedën Leje

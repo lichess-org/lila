@@ -22,7 +22,7 @@
   <string name="exceptInGame">Ausser an der Partie</string>
   <string name="chessClock">Schachauer</string>
   <string name="tenthsOfSeconds">Zéngtelsekonnen</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 10 Sekonnen</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 10 Sekonnen</string>
   <string name="horizontalGreenProgressBars">Horizontalen gréngen Fortschrëttsbalken</string>
   <string name="soundWhenTimeGetsCritical">Toun wann Zäit kritesch gëtt</string>
   <string name="giveMoreTime">Zäit bäiginn</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">Dréck ob deng &lt;ctrl&gt; Tasten während der Emwandlung fir temporär déi automatesch Emwandlung ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
   <string name="moveConfirmation">Zich confirméieren</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während der Partie desaktivéiert ginn iwwert den Brietmenü</string>
   <string name="inCorrespondenceGames">Korrespondenz Schach</string>

@@ -128,15 +128,30 @@
     <item quantity="few">%s хыбы</item>
     <item quantity="other">%s хыб</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Хыба</item>
+    <item quantity="few">%s Хыбы</item>
+    <item quantity="other">%s Хыб</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s захыб</item>
     <item quantity="few">%s захыба</item>
     <item quantity="other">%s захыбув</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Захыб</item>
+    <item quantity="few">%s Захыба</item>
+    <item quantity="other">%s Захыбув</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточность</item>
     <item quantity="few">%s неточности</item>
     <item quantity="other">%s неточностюв</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Неточность</item>
+    <item quantity="few">%s Неточности</item>
+    <item quantity="other">%s Неточностюв</item>
   </plurals>
   <string name="moveTimes">Час на ход</string>
   <string name="flipBoard">Перевернути дощку</string>

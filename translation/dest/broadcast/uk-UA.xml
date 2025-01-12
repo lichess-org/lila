@@ -39,7 +39,7 @@
   <string name="editRoundStudy">Редагувати дослідження раунду</string>
   <string name="deleteTournament">Видалити турнір</string>
   <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
-  <string name="showScores">Показувати результати гравців за результатами гри</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Показувати результати гравців за результатами гри</string>
   <string name="replacePlayerTags">За бажанням: замінити імена, рейтинги та титули гравців</string>
   <string name="fideFederations">Федерації FIDE</string>
   <string name="top10Rating">Топ 10 рейтингу</string>
@@ -50,7 +50,7 @@
   <string name="ageThisYear">Вік цього року</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
-  <string name="openLichess">Відкрити в Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Відкрити в Lichess</string>
   <string name="teams">Команди</string>
   <string name="boards">Дошки</string>
   <string name="overview">Огляд</string>

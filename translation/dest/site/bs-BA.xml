@@ -131,15 +131,30 @@
     <item quantity="few">%s velike greške</item>
     <item quantity="other">%s velike greške</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Velika greška</item>
+    <item quantity="few">%s Velike greške</item>
+    <item quantity="other">%s Velike greške</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s greška</item>
     <item quantity="few">%s greške</item>
     <item quantity="other">%s greške</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Greška</item>
+    <item quantity="few">%s Greške</item>
+    <item quantity="other">%s Greške</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s nepreciznost</item>
     <item quantity="few">%s nepreciznosti</item>
     <item quantity="other">%s nepreciznosti</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Nepreciznost</item>
+    <item quantity="few">%s Nepreciznosti</item>
+    <item quantity="other">%s Nepreciznosti</item>
   </plurals>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okrenite ploču</string>
@@ -692,7 +707,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka se završava tek kada se završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Opcije za revanš, vraćanje poteza i dodavanje vremena su isključene.</string>
   <string name="create">Kreiraj</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kada kreirate simultanku, igrate protiv više igrača istovremeno.</string>
+  <string name="whenCreateSimul">Kada kreirate simultanku, igrate protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izaberete nekoliko varijanti, svaki igrač može da odabere koju varijantu želi da igra.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primite, više će Vam vremena trebati.</string>
   <string name="simulAddExtraTime">Možete dodati više vremena na svoj sat kako bi Vam to pomoglo tokom igranja simultanke.</string>
