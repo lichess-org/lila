@@ -14,6 +14,7 @@ import { userTitle } from 'common/userLink';
 import { h } from 'snabbdom';
 import { storage, storedBooleanProp, StoredProp } from 'common/storage';
 import { Chessground as makeChessground } from 'chessground';
+import { EMPTY_BOARD_FEN } from 'chessops/fen';
 
 export class MultiBoardCtrl {
   playing: Toggle;
@@ -237,7 +238,7 @@ const makePreview =
                         ...baseConfig,
                       })
                     : makeChessground(el, {
-                        fen: '8/8/8/8/8/8/8/8',
+                        fen: EMPTY_BOARD_FEN,
                         ...baseConfig,
                       });
                   vnode.data!.fen = preview.fen;
@@ -254,7 +255,7 @@ const makePreview =
                   const el = vnode.elm as HTMLElement;
                   vnode.data!.cg = showResults
                     ? old.data!.cg
-                    : makeChessground(el, { fen: '8/8/8/8/8/8/8/8', ...baseConfig });
+                    : makeChessground(el, { fen: EMPTY_BOARD_FEN, ...baseConfig });
                 },
               },
             }),
