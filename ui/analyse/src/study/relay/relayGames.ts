@@ -12,6 +12,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
   const cloudEval = study.multiCloudEval?.thisIfShowEval();
   const roundPath = relay.roundPath();
+  const showResults = study.multiBoard.showResults();
   return h(
     'div.relay-games',
     {
@@ -45,7 +46,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              cloudEval && verticalEvalGauge(c, cloudEval),
+              showResults ? cloudEval && verticalEvalGauge(c, cloudEval) : undefined,
               h(
                 'span.relay-game__players',
                 players.map((p, i) => {
@@ -58,7 +59,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             playerFed(p.fed),
                             h('span.name', [userTitle(p), p.name]),
                           ]),
-                          h(s === '1' ? 'good' : s === '0' ? 'bad' : 'status', [s]),
+                          showResults ? h(s === '1' ? 'good' : s === '0' ? 'bad' : 'status', [s]) : null,
                         ]
                       : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
                   );
