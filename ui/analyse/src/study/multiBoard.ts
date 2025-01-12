@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
 import { type MaybeVNode, type VNode, bind, dataIcon, onInsert } from 'common/snabbdom';
-import { opposite as CgOpposite, uciToMove } from 'chessground/util';
+import { opposite as cgOpposite, uciToMove } from 'chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';
 import { type CloudEval, type MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
@@ -207,23 +207,14 @@ const makePreview =
   (roundPath: string, current: ChapterId, cloudEval?: MultiCloudEval, showResults?: boolean) =>
   (preview: ChapterPreview) => {
     const orientation = preview.orientation || 'white';
-    const baseConfig = {
-      coordinates: false,
-      viewOnly: true,
-      orientation,
-      drawable: {
-        enabled: false,
-        visible: false,
-      },
-    };
     return h(
-      `a.mini-game.is2d.chap-${preview.id}`,
+      `a.mini-game.is2d.chap-${preview.id}${showResults ? '' : '.no-spoilers'}`,
       {
         class: { active: preview.id === current },
         attrs: gameLinkAttrs(roundPath, preview),
       },
       [
-        boardPlayer(preview, CgOpposite(orientation), showResults),
+        boardPlayer(preview, cgOpposite(orientation), showResults),
         h('span.cg-gauge', [
           showResults ? cloudEval && verticalEvalGauge(preview, cloudEval) : undefined,
           h(
@@ -232,30 +223,22 @@ const makePreview =
               hook: {
                 insert(vnode) {
                   const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = showResults
-                    ? makeChessground(el, {
-                        ...previewToCgConfig(preview),
-                        ...baseConfig,
-                      })
-                    : makeChessground(el, {
-                        fen: EMPTY_BOARD_FEN,
-                        ...baseConfig,
-                      });
+                  vnode.data!.cg = makeChessground(el, {
+                    coordinates: false,
+                    viewOnly: true,
+                    orientation,
+                    drawable: { enabled: false, visible: false },
+                    ...(showResults ? previewToCgConfig(preview) : { fen: EMPTY_BOARD_FEN }),
+                  });
                   vnode.data!.fen = preview.fen;
                 },
                 postpatch(old, vnode) {
+                  if (!showResults) return;
                   if (old.data!.fen !== preview.fen) {
                     old.data!.cg?.set(previewToCgConfig(preview));
                   }
-                  // In this case, showResults was set to true but the cg fen is still on the initial pos
-                  if (showResults && old.data!.cg.fen != old.data!.cg.getFen()) {
-                    old.data!.cg.set(previewToCgConfig(preview));
-                  }
                   vnode.data!.fen = preview.fen;
-                  const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = showResults
-                    ? old.data!.cg
-                    : makeChessground(el, { fen: EMPTY_BOARD_FEN, ...baseConfig });
+                  vnode.data!.cg = old.data!.cg;
                 },
               },
             }),
