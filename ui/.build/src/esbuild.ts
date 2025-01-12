@@ -54,6 +54,17 @@ export async function stopEsbuildWatch(): Promise<void> {
 }
 
 const plugins = [
+  // {
+  //   name: '_html', // experimental
+  //   setup(build: es.PluginBuild) {
+  //     build.onLoad({ filter: /\.ts$/ }, async (args: es.OnLoadArgs) => ({
+  //       loader: 'ts',
+  //       contents: (await fs.promises.readFile(args.path, 'utf8')).replace(/_html`([\s\S]*?)`/g, (_, s) =>
+  //         env.prod ? `\`${s.replace(/\s+/g, ' ').replaceAll('> <', '><').trim()}\`` : `\`${s}\``,
+  //       ),
+  //     }));
+  //   },
+  // },
   {
     name: 'onBundleDone',
     setup(build: es.PluginBuild) {

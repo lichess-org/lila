@@ -1,22 +1,22 @@
 import { objectStorage, type ObjectStorage, type DbInfo } from './objectStorage';
 
-export const log: LichessLog = makeLog();
-
-interface LichessLog {
+export interface PermaLog {
   (...args: any[]): Promise<number | void>;
   clear(): Promise<void>;
   get(): Promise<string>;
 }
 
-function makeLog(): LichessLog {
-  const dbInfo: DbInfo = {
+export const log: PermaLog = makeLog(
+  {
     db: 'log--db',
     store: 'log',
     version: 3,
     upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
-  };
-  const defaultLogWindow = 100;
+  },
+  parseInt(localStorage.getItem('log.window') || '100'),
+);
 
+export function makeLog(dbInfo: DbInfo, windowSize: number): PermaLog {
   let store: ObjectStorage<string, number>;
   let resolveReady: () => void;
   let lastKey = 0;
@@ -30,18 +30,7 @@ function makeLog(): LichessLog {
 
   objectStorage<string, number>(dbInfo)
     .then(async s => {
-      try {
-        const keys = await s.list();
-        const window = parseInt(localStorage.getItem('log.window') ?? `${defaultLogWindow}`);
-        const constrained = window >= 0 && window <= 10000 ? window : defaultLogWindow;
-        if (keys.length > constrained) {
-          await s.remove(IDBKeyRange.upperBound(keys[keys.length - constrained], true));
-        }
-        store = s;
-      } catch (e) {
-        console.error(e);
-        s.clear();
-      }
+      store = s;
       resolveReady();
     })
     .catch(e => {
@@ -54,11 +43,11 @@ function makeLog(): LichessLog {
     return !val || typeof val === 'string' ? String(val) : JSON.stringify(val);
   }
 
-  const log: LichessLog = (...args: any[]) => {
-    console.log(...args);
-    const msg = `#${site.info ? `${site.info.commit.substring(0, 7)} - ` : ''}${args
-      .map(stringify)
-      .join(' ')}`;
+  const log: PermaLog = (...args: any[]) => {
+    if (dbInfo.db === 'log--db') console.log(...args);
+    const msg =
+      (dbInfo.db === 'log--db' && site.info ? `#${site.info.commit.substring(0, 7)} - ` : '') +
+      args.map(stringify).join(' ');
     let nextKey = Date.now();
     if (nextKey === lastKey) {
       nextKey += drift;
@@ -79,6 +68,17 @@ function makeLog(): LichessLog {
   log.get = async (): Promise<string> => {
     await ready;
     if (!store) return '';
+    try {
+      const keys = await store.list();
+      if (windowSize >= 0 && keys.length > windowSize) {
+        await store.remove(IDBKeyRange.upperBound(keys[keys.length - windowSize], true));
+      }
+    } catch (e) {
+      console.error(e);
+      store.clear();
+      window.indexedDB.deleteDatabase(dbInfo.db!);
+      return '';
+    }
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);
     return keys.map((k, i) => `${new Date(k).toISOString().replace(/[TZ]/g, ' ')}${vals[i]}`).join('\n');
   };

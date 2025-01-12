@@ -19,13 +19,22 @@ export default function table(ctrl: LobbyController) {
           ['hook', i18n.site.createAGame, hookDisabled],
           ['friend', i18n.site.playWithAFriend, hasOngoingRealTimeGame],
           ['ai', i18n.site.playWithTheMachine, hasOngoingRealTimeGame],
-        ].map(([gameType, text, disabled]: [Exclude<GameType, 'local'>, string, boolean]) =>
+        ].map(([gameType, text, disabled]: [GameType, string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,
             {
               class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
               attrs: { type: 'button' },
-              hook: disabled ? {} : bind('click', () => ctrl.setupCtrl.openModal(gameType), ctrl.redraw),
+              hook: disabled
+                ? {}
+                : bind(
+                    'click',
+                    () => {
+                      if (gameType === 'local') site.asset.loadEsm('local.setup');
+                      else ctrl.setupCtrl.openModal(gameType);
+                    },
+                    ctrl.redraw,
+                  ),
             },
             text,
           ),

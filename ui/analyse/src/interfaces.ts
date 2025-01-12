@@ -49,6 +49,8 @@ export interface AnalyseData {
   };
   puzzle?: OpeningPuzzle;
   externalEngines?: ExternalEngineInfo[];
+  boards: any;
+  pieces: any;
 }
 
 export interface AnalysePref {

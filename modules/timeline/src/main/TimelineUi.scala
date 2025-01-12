@@ -51,6 +51,14 @@ final class TimelineUi(helpers: Helpers)(
               title := topicName
             )(shorten(topicName, 30))
           )
+        case AskConcluded(userId, question, url) =>
+          trans.site.askConcluded(
+            userLink(userId),
+            a(
+              href  := url,
+              title := question
+            )(shorten(question, 30))
+          )
         case UblogPost(userId, id, slug, title) =>
           trans.ublog.xPublishedY(
             userLink(userId),

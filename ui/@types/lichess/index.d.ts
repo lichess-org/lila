@@ -132,6 +132,12 @@ interface AssetUrlOpts {
   version?: false | string;
 }
 
+interface Dictionary<T> {
+  [key: string]: T | undefined;
+}
+
+type SocketHandlers = Dictionary<(d: any) => void>;
+
 type Timeout = ReturnType<typeof setTimeout>;
 
 type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
@@ -286,13 +292,8 @@ declare namespace PowerTip {
   }
 }
 
-interface Dictionary<T> {
-  [key: string]: T | undefined;
-}
-
-type SocketHandlers = Dictionary<(d: any) => void>;
-
 declare const site: Site;
 declare const fipr: Fipr;
 declare const i18n: I18n;
 declare module 'tablesort';
+declare const _html: (s: TemplateStringsArray, ...k: any) => string; // file://./../../.build/src/esbuild.ts
