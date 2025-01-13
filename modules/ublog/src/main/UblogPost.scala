@@ -27,7 +27,8 @@ case class UblogPost(
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
-  def isBy[U: UserIdOf](u: U) = created.by.is(u)
+  def isBy[U: UserIdOf](u: U)       = created.by.is(u)
+  def isUserBlog[U: UserIdOf](u: U) = blog == UblogBlog.Id.User(u.id)
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
   def allText   = s"$title $intro $markdown"
