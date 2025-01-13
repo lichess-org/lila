@@ -7,7 +7,7 @@ import lila.core.team.LightTeam
 
 object MsgPreset:
 
-  import lila.core.msg.{ MsgPreset as Msg }
+  import lila.core.msg.MsgPreset as Msg
 
   private val baseUrl = "https://lichess.org"
 

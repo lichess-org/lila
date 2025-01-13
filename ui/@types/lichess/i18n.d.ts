@@ -4867,6 +4867,8 @@ interface I18n {
     shareChanges: string;
     /** Evaluation bars */
     showEvalBar: string;
+    /** Results */
+    showResults: string;
     /** Spectator */
     spectator: string;
     /** Start */
@@ -5453,6 +5455,10 @@ interface I18n {
     saveDraft: string;
     /** Select the topics your post is about */
     selectPostTopics: string;
+    /** Sticky post */
+    stickyPost: string;
+    /** If checked, this post will be listed first in your profile recent posts. */
+    stickyPostHelp: string;
     /** This is a draft */
     thisIsADraft: string;
     /** This post is published */

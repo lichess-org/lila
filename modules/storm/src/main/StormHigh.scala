@@ -28,7 +28,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   import StormHigh.NewHigh
 
   private val cache = cacheApi[UserId, StormHigh](8192, "storm.high"):
-    _.expireAfterAccess(1 hour).buildAsyncFuture(compute)
+    _.expireAfterAccess(1.hour).buildAsyncFuture(compute)
 
   export cache.get
 

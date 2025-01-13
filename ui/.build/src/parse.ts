@@ -50,16 +50,20 @@ export async function globArrays(globs: string[] | undefined, opts: fg.Options =
 }
 
 export async function folderSize(folder: string): Promise<number> {
-  let totalSize = 0;
+  async function getSize(dir: string): Promise<number> {
+    const entries = await fs.promises.readdir(dir, { withFileTypes: true });
 
-  async function getSize(dir: string) {
-    for (const file of await fs.promises.readdir(dir, { withFileTypes: true })) {
-      if (file.isDirectory()) await getSize(path.join(dir, file.name));
-      else if (file.isFile()) totalSize += (await fs.promises.stat(path.join(dir, file.name))).size;
-    }
+    const sizes = await Promise.all(
+      entries.map(async entry => {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) return getSize(fullPath);
+        if (entry.isFile()) return (await fs.promises.stat(fullPath)).size;
+        return 0;
+      }),
+    );
+    return sizes.reduce((acc: number, size: number) => acc + size, 0);
   }
-  await getSize(folder);
-  return totalSize;
+  return getSize(folder);
 }
 
 export async function readable(file: string): Promise<boolean> {
@@ -105,4 +109,8 @@ async function parsePackage(packageDir: string): Promise<Package> {
     }));
   }
   return pkgInfo;
+}
+
+export function trimAndConsolidateWhitespace(text: string): string {
+  return text.trim().replace(/\s+/g, ' ');
 }

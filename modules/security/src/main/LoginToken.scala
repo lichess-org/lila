@@ -10,7 +10,7 @@ final class LoginToken(secret: Secret, userRepo: UserRepo)(using Executor):
   def consume(token: String): Fu[Option[User]] =
     tokener.read(token).flatMapz(userRepo.byId)
 
-  private val tokener = LoginToken.makeTokener(secret, 1 minute)
+  private val tokener = LoginToken.makeTokener(secret, 1.minute)
 
 private object LoginToken:
 

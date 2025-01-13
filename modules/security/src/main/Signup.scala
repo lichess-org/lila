@@ -190,7 +190,7 @@ final class Signup(
     key = "account.create.ip"
   )(
     ("fast", 10, 10.minutes),
-    ("slow", 150, 1 day)
+    ("slow", 150, 1.day)
   )
 
   private val rateLimitDefault = fuccess(Signup.Result.RateLimited)

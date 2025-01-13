@@ -19,9 +19,9 @@ final class PrefApi(
   private def fetchPref(id: UserId): Fu[Option[Pref]] = coll.find($id(id)).one[Pref]
 
   private val cache = cacheApi[UserId, Option[Pref]](200_000, "pref.fetchPref"):
-    _.expireAfterAccess(10 minutes).buildAsyncFuture(fetchPref)
+    _.expireAfterAccess(10.minutes).buildAsyncFuture(fetchPref)
 
-  export cache.{ get as getPrefById }
+  export cache.get as getPrefById
 
   def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) =
     for _ <-

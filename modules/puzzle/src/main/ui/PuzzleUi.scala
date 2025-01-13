@@ -200,8 +200,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
                 ),
                 href := routes.Puzzle.show(op.opening.key.value)
               ):
-                h3(op.opening.variation, em(op.count.localize))
-          )
+                h3(op.opening.variation, em(op.count.localize)))
         )
 
     private def familyLink(family: LilaOpeningFamily, mine: Option[PuzzleOpening.Mine]): Tag = a(

@@ -149,7 +149,7 @@ Nato izberite, ali želite dovoliti ali blokirati obvestila strani Lichess.</str
 Rdeča ikona za izklop zvoka se prikaže, ko vaš brskalnik lichess.org prepreči predvajanje zvoka. Običajno se ta omejitev odpravi, ko nekaj kliknete. V nekaterih mobilnih brskalnikih se vlečenje kosa na dotik ne šteje kot klik. V tem primeru se morate dotakniti table, da omogočite zvok na začetku vsake igre.
 
 Prikažemo rdečo ikono, da vas opozorimo, ko se to zgodi. Pogosto lahko lichess.org izrecno dovolite predvajanje zvokov. Tu so navodila, kako to narediti v najnovejših različicah nekaterih priljubljenih brskalnikov.</string>
-  <string name="desktop">namizje</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">namizje</string>
   <string name="enableAutoplayForSoundsFirefox">1. Pojdite na lichess.org
 2. Pritisnite Ctrl-i v sistemu Linux/Windows ali cmd-i v sistemu MacOS
 3. Kliknite zavihek Dovoljenja

@@ -223,7 +223,7 @@ final class AccessTokenApi(
 
   private val accessTokenCache =
     cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):
-      _.expireAfterWrite(5 minutes).buildAsyncFuture(fetchAccessToken)
+      _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](

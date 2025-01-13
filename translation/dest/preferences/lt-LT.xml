@@ -22,7 +22,7 @@
   <string name="inGameOnly">Tik žaidimo metu</string>
   <string name="chessClock">Žaidimo laikrodis</string>
   <string name="tenthsOfSeconds">Dešimtosios sekundės dalys</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kai lieka mažiau nei 10 sekundžių</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kai lieka mažiau nei 10 sekundžių</string>
   <string name="horizontalGreenProgressBars">Horizontalios, žalios eigos juostos</string>
   <string name="soundWhenTimeGetsCritical">Garsas pasiekus kritinę laiko ribą</string>
   <string name="giveMoreTime">Duoti daugiau laiko</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">Norėdami laikinai sulaikyti automatinį paaukšinimą paaušktindami laikykite &lt;ctrl&gt; klavišą</string>
   <string name="whenPremoving">Per išankstinį ėjimą</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatiškai įskaityti lygiąsias pozicijai pasikartojus tris kartus</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kai lieka mažiau nei 30 sekundžių</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kai lieka mažiau nei 30 sekundžių</string>
   <string name="moveConfirmation">Ėjimo patvirtinimas</string>
   <string name="explainCanThenBeTemporarilyDisabled">Gali būti išjungta partijos metu per lentos meniu</string>
   <string name="inCorrespondenceGames">Korespondenciniuose</string>

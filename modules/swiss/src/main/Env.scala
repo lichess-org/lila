@@ -99,13 +99,13 @@ final class Env(
     case lila.core.mod.MarkCheater(userId, true)               => api.kickLame(userId)
     case lila.core.mod.MarkBooster(userId)                     => api.kickLame(userId)
 
-  LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
+  LilaScheduler("Swiss.startPendingRounds", _.Every(1.seconds), _.AtMost(20.seconds), _.Delay(20.seconds)):
     api.startPendingRounds.logFailure(logger)
 
-  LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds)):
+  LilaScheduler("Swiss.checkOngoingGames", _.Every(10.seconds), _.AtMost(15.seconds), _.Delay(20.seconds)):
     api.checkOngoingGames.logFailure(logger)
 
-  LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes)):
+  LilaScheduler("Swiss.generate", _.Every(3.hours), _.AtMost(15.seconds), _.Delay(15.minutes)):
     officialSchedule.generate.logFailure(logger)
 
 final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

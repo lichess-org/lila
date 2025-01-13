@@ -68,7 +68,7 @@ final class Gamify(
   def leaderboards = leaderboardsCache.getUnit
 
   private val leaderboardsCache = cacheApi.unit[Leaderboards] {
-    _.expireAfterWrite(10 minutes)
+    _.expireAfterWrite(10.minutes)
       .buildAsyncFuture { _ =>
         mixedLeaderboard(nowInstant.minusDays(1), none)
           .zip(mixedLeaderboard(nowInstant.minusWeeks(1), none))

@@ -135,15 +135,30 @@
     <item quantity="few">%s grube greške</item>
     <item quantity="other">%s grubih grešaka</item>
   </plurals>
+  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Gruba greška</item>
+    <item quantity="few">%s Grube greške</item>
+    <item quantity="other">%s Grubih grešaka</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s greška</item>
     <item quantity="few">%s greške</item>
     <item quantity="other">%s grešaka</item>
   </plurals>
+  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Greška</item>
+    <item quantity="few">%s Greške</item>
+    <item quantity="other">%s Grešaka</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s nepreciznost</item>
     <item quantity="few">%s nepreciznosti</item>
     <item quantity="other">%s nepreciznosti</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Nepreciznost</item>
+    <item quantity="few">%s Nepreciznosti</item>
+    <item quantity="other">%s Nepreciznosti</item>
   </plurals>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
@@ -666,7 +681,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.email">Ova email adresa je neispravna</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva. Molimo provjerite ju te pokušajte ponovo.</string>
   <string name="error.email_unique">Email adresa je neispravna ili je već u upotrebi</string>
-  <string name="error.email_different">Već koristiš ovu e-mail adresu</string>
+  <string name="error.email_different">Već koristite ovu e-mail adresu</string>
   <string name="error.minLength">Minimalna dužina je %s</string>
   <string name="error.maxLength">Maksimalna dužina je %s</string>
   <string name="error.min">Mora biti veće ili jednako %s</string>
@@ -714,7 +729,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka završava kada završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Revanši, vraćanje poteza te dodavanje vremena su isključeni.</string>
   <string name="create">Kreiraj</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
+  <string name="whenCreateSimul">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izabereš nekoliko varijanti, svaki igrač je u mogućnosti da izabere koju će igrati.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
@@ -907,7 +922,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
     <item quantity="few">i uštedi %s predpoteza</item>
     <item quantity="other">i uštedi %s predpoteza</item>
   </plurals>
-  <string name="showUnreadLichessMessage">Primili ste privatnu poruku od Lichess-a</string>
+  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Primili ste privatnu poruku od Lichess-a</string>
   <string name="clickHereToReadIt">Klikni ovdje da pročitaš</string>
   <string name="sorry">Oprosti :(</string>
   <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
@@ -963,7 +978,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="youAreNowPartOfTeam">Sad si član tima.</string>
   <string name="youHaveJoinedTeamX">Pridružio si se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nekome koga si prijavio je zabranjen pristup</string>
-  <string name="congratsYouWon">Čestitamo na pobjedi!</string>
+  <string name="congratsYouWon">Čestitamo, pobijedili ste!</string>
   <string name="gameVsX">Partija protiv %1$s</string>
   <string name="resVsX">%1$s protiv %2$s</string>
   <string name="lostAgainstTOSViolator">Izgubio si od nekoga tko je prekršio Lichess TOS</string>
@@ -975,7 +990,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
   <string name="tournDescription">Opis turnira</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Želite li nešto posebno poručiti sudionicima? Pokušajte biti kratki. Markdown veze su dostupne: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Želite li nešto posebno poručiti sudionicima? Pokušajte biti kratki. Markdown veze su dostupne: [name](https://url)</string>
   <string name="ratedFormHelp">Igre se ocjenjuju
 i utječu na ocjene igrača</string>
   <string name="onlyMembersOfTeam">Samo za članove tima</string>

@@ -4,6 +4,7 @@
   <string name="lichessAndDgt">Το Lichess &amp; η σκακιέρα DGT</string>
   <string name="dgtBoardRequirements">Απαιτήσεις Σκακιέρας DGT</string>
   <string name="dgtBoardLimitations">Περιορισμοί της Σκακιέρας DGT</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Για να συνδεθείτε με την ηλεκτρονική σκακιέρα DGT, πρέπει να εγκαταστήσετε το %s.</string>
   <string name="downloadHere">Μπορείτε να κατεβάσετε το λογισμικό εδώ: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Εάν το %1$s εκτελείται σε αυτόν τον υπολογιστή, μπορείτε να ελέγξετε τη σύνδεσή σας με αυτό το πρόγραμμα %2$s.</string>
   <string name="openingThisLink">ανοίγοντας αυτόν τον σύνδεσμο</string>
@@ -17,11 +18,14 @@
   <string name="noSuitableOauthToken">Δεν έχει δημιουργηθεί κατάλληλο διακριτικό πρόσβασης OAuth.</string>
   <string name="dgtBoardConnectivity">Σύνδεση σκακιέρας DGT</string>
   <string name="clickToGenerateOne">Κάντε κλικ για να δημιουργήσετε ένα</string>
+  <string name="webSocketUrl">WebSocket URL %s</string>
+  <string name="useWebSocketUrl">Χρησιμοποιήστε «%1$s», εκτός αν το %2$s εκτελείται σε άλλο υπολογιστή ή άλλη θύρα.</string>
   <string name="textToSpeech">Κείμενο σε ομιλία</string>
   <string name="enableSpeechSynthesis">Ενεργοποίηση Σύνθεσης Ομιλίας</string>
   <string name="speechSynthesisVoice">Επιλογή φωνής για τη σύνθεση ομιλίας</string>
   <string name="announceAllMoves">Ανακοίνωση Όλων Των Κινήσεων</string>
   <string name="selectAnnouncePreference">Επιλέξτε ΝΑΙ ώστε να ανακοινώνονται οι κινήσεις και των δύο παικτών. Επιλέξτε ΟΧΙ ώστε να ανακοινώνονται μόνο οι κινήσεις του αντιπάλου σας.</string>
+  <string name="keywords">Λέξεις-κλειδιά</string>
   <string name="debug">Αποσφαλμάτωση</string>
   <string name="verboseLogging">Λεπτομερής καταγραφή</string>
   <string name="toSeeConsoleMessage">Για να δείτε το μήνυμα κονσόλας, πατήστε Ctrl + Shift + C (Windows, Linux, Chrome OS) ή ⌘ + ⌥ + C (Mac).</string>

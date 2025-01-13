@@ -40,7 +40,7 @@ object RoomSocket:
   def makeRoomMap(send: SocketSend)(using Executor) =
     SyncActorMap[RoomId, RoomState](
       mkActor = roomId => RoomState(roomId, send),
-      accessTimeout = 5 minutes
+      accessTimeout = 5.minutes
     )
 
   def roomHandler(

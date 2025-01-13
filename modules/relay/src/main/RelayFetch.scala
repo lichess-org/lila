@@ -36,17 +36,17 @@ final private class RelayFetch(
 
   LilaScheduler(
     "RelayFetch.official",
-    _.Every(if mode.isDev then 2.seconds else 500 millis),
-    _.AtMost(15 seconds),
-    _.Delay(if mode.isDev then 1.second else 21 seconds)
+    _.Every(if mode.isDev then 2.seconds else 500.millis),
+    _.AtMost(15.seconds),
+    _.Delay(if mode.isDev then 1.second else 21.seconds)
   ):
     syncRelays(official = true)
 
   LilaScheduler(
     "RelayFetch.user",
-    _.Every(if mode.isDev then 2.seconds else 879 millis),
-    _.AtMost(10 seconds),
-    _.Delay(if mode.isDev then 2.second else 33 seconds)
+    _.Every(if mode.isDev then 2.seconds else 879.millis),
+    _.AtMost(10.seconds),
+    _.Delay(if mode.isDev then 2.second else 33.seconds)
   ):
     syncRelays(official = false)
 
@@ -93,7 +93,7 @@ final private class RelayFetch(
         withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
         res <- sync
           .updateStudyChapters(rt, withTeams)
-          .withTimeoutError(7 seconds, SyncResult.Timeout)
+          .withTimeoutError(7.seconds, SyncResult.Timeout)
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
@@ -153,8 +153,7 @@ final private class RelayFetch(
           Seconds(tour.tier.fold(60):
             case RelayTour.Tier.best => 10
             case RelayTour.Tier.high => 20
-            case _                   => 40
-          )
+            case _                   => 40)
         else round.sync.period | dynamicPeriod(tour, round, upstream)
       updating:
         _.withSync:
@@ -241,7 +240,7 @@ final private class RelayFetch(
     // cache finished games so they're not requested again for a while
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
-        _.expireAfterWrite(8 minutes).build()
+        _.expireAfterWrite(8.minutes).build()
     // cache created (non-started) games until they start
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
@@ -254,7 +253,7 @@ final private class RelayFetch(
     val tailAt = 30
     private val tailGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
-        _.expireAfterWrite(1 minutes).build()
+        _.expireAfterWrite(1.minutes).build()
 
     // index starts at 1
     def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, started: Boolean)(
@@ -279,7 +278,7 @@ final private class RelayFetch(
   // if a single URL fails, it should not moves the games of the following URLs.
   private val multiUrlFetchRecoverCache =
     cacheApi.notLoadingSync[URL, RelayGames](16, "relay.fetch.recoverCache"):
-      _.expireAfterWrite(1 hour).build()
+      _.expireAfterWrite(1.hour).build()
 
   private def fetchFromUpstreamWithRecovery(rt: RelayRound.WithTour)(url: URL)(using
       CanProxy
@@ -391,7 +390,7 @@ private object RelayFetch:
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, RelayGame]] =
       CacheApi
         .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
-        .expireAfterAccess(2 minutes)
+        .expireAfterAccess(2.minutes)
         .initialCapacity(1024)
         .maximumSize(4096)
         .build(compute)

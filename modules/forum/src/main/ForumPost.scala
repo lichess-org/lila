@@ -95,8 +95,8 @@ object ForumPost:
   type Reactions = Map[Reaction, Set[UserId]]
 
   val idSize                  = 8
-  private val permitEditsFor  = 4 hours
-  private val showEditFormFor = 3 hours
+  private val permitEditsFor  = 4.hours
+  private val showEditFormFor = 3.hours
 
   enum Reaction(val key: String):
     case PlusOne  extends Reaction("+1")

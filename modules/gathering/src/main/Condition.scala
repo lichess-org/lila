@@ -72,14 +72,12 @@ object Condition:
       then
         fuccess(Refused: t =>
           given Translate = t
-          trans.site.yourPerfRatingIsProvisional.txt(pt.trans)
-        )
+          trans.site.yourPerfRatingIsProvisional.txt(pt.trans))
       else if perf.intRating > rating
       then
         fuccess(Refused: t =>
           given Translate = t
-          trans.site.yourPerfRatingIsTooHigh.txt(pt.trans, perf.intRating)
-        )
+          trans.site.yourPerfRatingIsTooHigh.txt(pt.trans, perf.intRating))
       else
         getMaxRating(pt).map:
           case r if r <= rating => Accepted

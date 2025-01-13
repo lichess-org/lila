@@ -38,7 +38,7 @@ private case class PlayerWithColorHistory(player: Player, colorHistory: ColorHis
 final private class ColorHistoryApi(using Executor):
 
   private val cache = CacheApi.scaffeine
-    .expireAfterAccess(1 hour)
+    .expireAfterAccess(1.hour)
     .build[TourPlayerId, ColorHistory]()
 
   private val default = ColorHistory(0, 0)

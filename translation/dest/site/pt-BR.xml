@@ -132,13 +132,25 @@
     <item quantity="one">%s capivarada</item>
     <item quantity="other">%s capivaradas</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Capivarada</item>
+    <item quantity="other">%s Capivaradas</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erro</item>
     <item quantity="other">%s erros</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Erro</item>
+    <item quantity="other">%s Erros</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s imprecisão</item>
     <item quantity="other">%s imprecisões</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Imprecisão</item>
+    <item quantity="other">%s Imprecisões</item>
   </plurals>
   <string name="moveTimes">Tempo por movimento</string>
   <string name="flipBoard">Girar o tabuleiro</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">Quando a simultânea começa, cada jogador começa sua partida contra o simultanista, o qual sempre tem as brancas. A simultânea termina quando todas as partidas são finalizadas.</string>
   <string name="aboutSimulSettings">As simultâneas sempre são partidas amigáveis. Revanches, voltar jogadas e tempo adicional estão desativados.</string>
   <string name="create">Criar</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quando cria uma simultânea, você joga com vários adversários ao mesmo tempo.</string>
+  <string name="whenCreateSimul">Quando cria uma simultânea, você joga com vários adversários ao mesmo tempo.</string>
   <string name="simulVariantsHint">Se você selecionar diversas variantes, cada jogador poderá escolher qual delas jogar.</string>
   <string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
   <string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>

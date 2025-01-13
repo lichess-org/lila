@@ -130,6 +130,21 @@
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Превид</item>
+    <item quantity="few">%s Грубе грешке</item>
+    <item quantity="other">%s Грубе грешке</item>
+  </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Грешка</item>
+    <item quantity="few">%s Грешке</item>
+    <item quantity="other">%s Грешке</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Непрецизност</item>
+    <item quantity="few">%s Непрецизности</item>
+    <item quantity="other">%s Непрецизности</item>
+  </plurals>
   <string name="moveTimes">Време померања фигура</string>
   <string name="flipBoard">Обрни таблу</string>
   <string name="threefoldRepetition">Троструко понављање</string>
@@ -691,7 +706,7 @@
   <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогућено.</string>
   <string name="create">Креирај</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Када креираш симултанку, играш против више играча истовремено.</string>
+  <string name="whenCreateSimul">Када креираш симултанку, играш против више играча истовремено.</string>
   <string name="simulVariantsHint">Ако изабереш неколико варијанти, сваки играч је у могућности да изабере коју ће играти.</string>
   <string name="simulClockHint">Фишерово подешавање сата. Што више играча примиш, више времена ће ти бити потребно.</string>
   <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>

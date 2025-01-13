@@ -52,7 +52,7 @@ final class Ip2ProxyServer(
             ws.url(s"$checkUrl/batch")
               .addQueryStringParameters("ips" -> uncachedIps.mkString(","))
               .get()
-              .withTimeout(1 second, "Ip2Proxy.batch")
+              .withTimeout(1.second, "Ip2Proxy.batch")
               .map:
                 _.body[JsValue]
                   .asOpt[Seq[JsObject]]
@@ -70,7 +70,7 @@ final class Ip2ProxyServer(
         }
 
   private val cache = cacheApi[String, IsProxy](32_768, "ip2proxy.ip"):
-    _.expireAfterWrite(1 hour).buildAsyncFuture: ip =>
+    _.expireAfterWrite(1.hour).buildAsyncFuture: ip =>
       ws
         .url(checkUrl)
         .addQueryStringParameters("ip" -> ip)

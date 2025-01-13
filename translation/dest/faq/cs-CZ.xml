@@ -140,7 +140,7 @@ Klikněte na ikonu zámku vedle URL adresy ve Vašem prohlížeči, a poté vybe
 Červená ikona ztlumení zvuku se zobrazí, když prohlížeč zabrání přehrávání zvuku na stránce lichess.org. Obvykle se toto omezení zruší, jakmile na něco kliknete. V některých mobilních prohlížečích se přetažení figurky dotykem nepočítá jako kliknutí. V takovém případě musíte na začátku každé hry klepnout na šachovnici, aby byl zvuk povolen.
 
 Zobrazujeme červenou ikonu, abychom vás upozornili, když k tomu dojde. Často můžete výslovně povolit, aby lichess.org přehrával zvuky. Zde jsou pokyny, jak to udělat v posledních verzích některých populárních prohlížečů.</string>
-  <string name="desktop">počítač</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">počítač</string>
   <string name="enableAutoplayForSoundsFirefox">1. Jděte na lichess.org
 2. Stiskněte klávesu Ctrl-i v systému Linux/Windows nebo cmd-i v systému MacOS.
 3. Klikněte na kartu Oprávnění

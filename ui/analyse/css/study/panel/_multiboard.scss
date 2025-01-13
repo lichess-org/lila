@@ -47,12 +47,14 @@
   }
 
   .playing,
-  .eval {
+  .eval,
+  .results {
     cursor: pointer;
   }
 
   .playing input,
-  .eval input {
+  .eval input,
+  .results input {
     vertical-align: middle;
     margin-inline-end: 3px;
   }
@@ -163,4 +165,9 @@
   .mini-game__gauge ~ .mini-game__board cg-board {
     border-radius: 4px 0 0 4px;
   }
+}
+
+.empty-boards-note {
+  padding: 1em;
+  color: $c-font-dim;
 }

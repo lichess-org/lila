@@ -148,7 +148,7 @@ Then select whether to allow or block notifications from Lichess.</string>
 The red mute icon appears when your browser prevents lichess.org from playing a sound. Usually this restriction is lifted once you click something. On some mobile browsers, touch dragging a piece does not count as a click. In that case you must tap the board to allow sound at the start of each game.
 
 We show the red icon to alert you when this happens. Often you can explicitly allow lichess.org to play sounds. Here are instructions for doing so on recent versions of some popular browsers.</string>
-  <string name="desktop">desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Go to lichess.org
 2. Press Ctrl-i on Linux/Windows or cmd-i on MacOS
 3. Click the Permissions tab

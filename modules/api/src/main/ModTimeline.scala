@@ -167,7 +167,7 @@ final class ModTimelineApi(
   private object modsList:
     var all: Set[ModId]               = Set(UserId.lichess.into(ModId))
     def contains(mod: ModId): Boolean = all.contains(mod)
-    scheduler.scheduleWithFixedDelay(19 seconds, 1 hour): () =>
+    scheduler.scheduleWithFixedDelay(19.seconds, 1.hour): () =>
       userRepo
         .userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList)
         .foreach: ids =>

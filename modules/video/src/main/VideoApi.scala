@@ -154,7 +154,7 @@ final private[video] class VideoApi(
     object count:
 
       private val cache = cacheApi.unit[Long]:
-        _.refreshAfterWrite(3 hours).buildAsyncFuture(_ => videoColl.countAll)
+        _.refreshAfterWrite(3.hours).buildAsyncFuture(_ => videoColl.countAll)
 
       def apply: Fu[Long] = cache.getUnit
 
@@ -197,7 +197,7 @@ final private[video] class VideoApi(
     private val max = 25
 
     private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths") {
-      _.expireAfterAccess(10 minutes)
+      _.expireAfterAccess(10.minutes)
         .buildAsyncFuture { filterTags =>
           val allPaths =
             if filterTags.isEmpty then

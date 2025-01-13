@@ -131,11 +131,23 @@
     <item quantity="one">%s गंभीर गलती</item>
     <item quantity="other">%s गंभीर गल्तियां</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s गंभीर गलती</item>
+    <item quantity="other">%s गंभीर गल्तियां</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s ग़लती</item>
     <item quantity="other">%s गलतियाँ</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s ग़लती</item>
+    <item quantity="other">%s गलतियाँ</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s अशुद्धि</item>
+    <item quantity="other">%s अशुद्धियाँ</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%s अशुद्धि</item>
     <item quantity="other">%s अशुद्धियाँ</item>
   </plurals>
@@ -662,7 +674,7 @@
   <string name="aboutSimulRules">जब सिमुल आरम्भ होता है तब हर खिलाडी एक खेल आरम्भ करता है  जिसे सफ़ेद खेलने को दिया जाता है। सिमुल तब समाप्त हो जाता है जब सारे खेलों का अंत हो जाता है।</string>
   <string name="aboutSimulSettings">सिमुल हमेशा आकाशमिक होते हैं। फिर से खेलना, चाल वापस लेना और अधिक समय प्रदान करने के विकलब बंद होते हैं।</string>
   <string name="create">बनाएं</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">जब आप सिमुल बनाते हैं तो आपको कई खिलाडियों के साथ एक साथ खेलने का मौका मिलता है</string>
+  <string name="whenCreateSimul">जब आप सिमुल बनाते हैं तो आपको कई खिलाडियों के साथ एक साथ खेलने का मौका मिलता है</string>
   <string name="simulVariantsHint">अगर आप कई सारे रूपांतर लेते हैं तो हर खिलाडी को यह चुनने का हक़ होती है की वो क्या खेले</string>
   <string name="simulClockHint">फिशर क्लॉक सेटअप। आप जितने ज्यादा खिलाडी लेंगे, उतना आपको अधिक समय की आव्यशकता होगी।</string>
   <string name="simulAddExtraTime">सिमुल का सामना करने के लिए आप अपनी घडी में अतिरिक्त समय जोड़ सकते हैं</string>
@@ -893,7 +905,7 @@
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
   <string name="cancelTournament">टूर्नामेंट रद्द करें</string>
   <string name="tournDescription">टूर्नामेंट विवरण</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">क्या आप प्रतिभागियों को कोई विशेष बात बताना चाहते हैं? संक्षिप्त में कहें।मार्क्डाउन लिंक्स उपलब्ध हैं: [name](https://url)</string>
+  <string name="tournDescriptionHelp">क्या आप प्रतिभागियों को कोई विशेष बात बताना चाहते हैं? संक्षिप्त में कहें।मार्क्डाउन लिंक्स उपलब्ध हैं: [name](https://url)</string>
   <string name="ratedFormHelp">खेल मूल्यांकित हैं तथा खिलाड़ी के मूल्यांकन को प्रभावित करते हैं</string>
   <string name="onlyMembersOfTeam">केवल टीम के सदस्य</string>
   <string name="noRestriction">अप्रतिबंधित</string>

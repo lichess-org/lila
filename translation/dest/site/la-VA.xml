@@ -117,13 +117,25 @@
     <item quantity="one">%s erratum grave</item>
     <item quantity="other">%s errata gravia</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Erratum grave</item>
+    <item quantity="other">%s Errata gravia</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erratum</item>
     <item quantity="other">%s errata</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Erratum</item>
+    <item quantity="other">%s Errata</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s menda</item>
     <item quantity="other">%s mendae</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Menda</item>
+    <item quantity="other">%s Mendae</item>
   </plurals>
   <string name="moveTimes">Duratio actionum</string>
   <string name="flipBoard">Tabulam vertere</string>
@@ -555,7 +567,7 @@
   <string name="aboutSimulRules">Cum simultanea incepit, omnes lusores ludum cum hospite incipiunt, qui cum calculis albis ludit. Cum omnes ludi finiti sunt, sumultanea completa erit.</string>
   <string name="aboutSimulSettings">Simultaneae semper leviores sunt. Vindictas, receptus, atque \"plus temporis\" tibi non licet.</string>
   <string name="create">Creare</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
+  <string name="whenCreateSimul">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
   <string name="simulVariantsHint">Si variationes plures legis quas ludere quisque lusor eligere potest.</string>
   <string name="simulClockHint">Fischer Horologica fabrica. Tot lusores ludeabis ut plurem tempus requireas.</string>
   <string name="simulAddExtraTime">Plurem tempus in tuo horologio addeas ut exhibitio simultanea molliatur.</string>

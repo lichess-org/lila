@@ -27,7 +27,7 @@ final class PuzzleReplayApi(
   private val maxPuzzles = 100
 
   private val replays = cacheApi.notLoading[UserId, PuzzleReplay](512, "puzzle.replay")(
-    _.expireAfterWrite(1 hour).buildAsync()
+    _.expireAfterWrite(1.hour).buildAsync()
   )
 
   def apply(

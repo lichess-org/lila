@@ -6,7 +6,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
   import helpers.{ *, given }
-  import trans.{ patron as trp }
+  import trans.patron as trp
 
   def features(using Context) =
     def header(name: Frag)(using Translate) = thead(

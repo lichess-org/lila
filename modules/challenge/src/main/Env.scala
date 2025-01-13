@@ -69,10 +69,10 @@ final class Env(
 
   val forms = new ChallengeForm
 
-  scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis): () =>
+  scheduler.scheduleWithFixedDelay(10.seconds, 3343.millis): () =>
     api.sweep
 
-  scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis): () =>
+  scheduler.scheduleWithFixedDelay(20.seconds, 2897.millis): () =>
     bulk.tick
 
   lila.common.Bus.subscribeFun("roundUnplayed"):

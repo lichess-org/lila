@@ -15,7 +15,7 @@ final private class SandbagWatch(
   import SandbagWatch.*
   import Outcome.*
 
-  private val messageOnceEvery = scalalib.cache.OnceEvery[UserId](1 hour)
+  private val messageOnceEvery = scalalib.cache.OnceEvery[UserId](1.hour)
 
   def apply(game: Game): Unit = for
     loser <- game.loser.map(_.color)
@@ -66,7 +66,7 @@ final private class SandbagWatch(
         f(winner, _)
 
   private val records: Cache[UserId, Record] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterWrite(3 hours)
+    .expireAfterWrite(3.hours)
     .build[UserId, Record]()
 
   private def outcomeOf(game: Game, loser: Color, userId: UserId): Outcome =
@@ -108,8 +108,7 @@ private object SandbagWatch:
 
     def countSandbagWithLatest: Int = latestIsSandbag.so(outcomes.count:
       case Outcome.Sandbag(_) => true
-      case _                  => false
-    )
+      case _                  => false)
 
     def sandbagOpponents = outcomes.collect { case Outcome.Sandbag(opponent) => opponent }.distinct
 

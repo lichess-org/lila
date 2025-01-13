@@ -129,13 +129,25 @@
     <item quantity="one">%s өрескел қателік</item>
     <item quantity="other">%s өрескел қателік</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Өрескел қателік</item>
+    <item quantity="other">%s Өрескел қателік</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s қателік</item>
     <item quantity="other">%s қателік</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Қателік</item>
+    <item quantity="other">%s Қателік</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s ағаттық</item>
     <item quantity="other">%s ағаттық</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Ағаттық</item>
+    <item quantity="other">%s Ағаттық</item>
   </plurals>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
@@ -658,7 +670,7 @@
   <string name="aboutSimulRules">Қалың ойын басталысымен әр ойыншы бас ойыншымен бел ұстасады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
   <string name="aboutSimulSettings">Қалың ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
+  <string name="whenCreateSimul">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Қалың ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
@@ -897,7 +909,7 @@
   <string name="streamerManager">Стример басқармасы</string>
   <string name="cancelTournament">Жарысты болдырмау</string>
   <string name="tournDescription">Жарыс сипаттамасы</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Қатысушыларға арнайы сөзіңіз болса, жазыңыз. Қысқа болған жақсы. Сілтемелерді markdown күйінде қосуыңызға болады: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Қатысушыларға арнайы сөзіңіз болса, жазыңыз. Қысқа болған жақсы. Сілтемелерді markdown күйінде қосуыңызға болады: [name](https://url)</string>
   <string name="ratedFormHelp">Ойындар бағалы
 яғни ойыншылардың рейтингіне әсер етеді</string>
   <string name="onlyMembersOfTeam">Тек топ мүшелері</string>

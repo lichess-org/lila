@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 
 object Query:
 
-  import Game.{ BSONFields as F }
+  import Game.BSONFields as F
 
   val rated: Bdoc = F.rated.$eq(true)
 

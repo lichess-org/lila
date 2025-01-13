@@ -114,11 +114,23 @@
     <item quantity="one">%s غلطی</item>
     <item quantity="other">%s غلطیاں</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s غلطی</item>
     <item quantity="other">%s غلطیاں</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%s غلطی</item>
     <item quantity="other">%s غلطیاں</item>
   </plurals>
@@ -570,7 +582,7 @@
   <string name="aboutSimulRules">نمائشی مقابلہ شروع ہونے پر ہر کھلاڑی میزبان سے کھیلے گا۔ تمام مقابلے ختم ہونے پر نمائیش ختم ہو جائے گی۔</string>
   <string name="aboutSimulSettings">نمائشی مقابلے ہمیشہ غیررسمی ہوتے ہیں- آپ چال واپس، مزید وقت اور مقابلے کا اعادہ نہیں کر سکتے۔</string>
   <string name="create">شروع کریں</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">نمائشی مقابلے میں آپ ایک ساتھ کئی حریفوں سے کھیلیں گے۔</string>
+  <string name="whenCreateSimul">نمائشی مقابلے میں آپ ایک ساتھ کئی حریفوں سے کھیلیں گے۔</string>
   <string name="simulVariantsHint">متعدد انواع کی صورت میں ہر کھلاڑی اپنی پسند کی نوع اختیار کر سکے گا۔</string>
   <string name="simulClockHint">فشر کا نظام وقت۔ جتنے زیادہ حریف منتخب کریں گے اتنا زیادہ وقت درکار ہو گا۔</string>
   <string name="simulAddExtraTime">اپنے لیے اضافی وقت منتخب کر سکتے ہیں-</string>

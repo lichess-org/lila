@@ -149,7 +149,7 @@
 Чырвоны значок адключэння гуку з\'яўляецца, калі ваш браўзер не дазваляе lichess.org прайграваць гук. Звычайна гэтае абмежаванне здымаецца, як толькі вы нешта націснеце. У некаторых мабільных браўзерах перацягванне фрагмента дотыкам не лічыцца клікам. У такім выпадку вы павінны дакрануцца да дошкі, каб уключыць гук у пачатку кожнай гульні.
 
 Мы паказваем чырвоны значок, каб папярэдзіць вас, калі гэта адбудзецца. Часта вы можаце яўна дазволіць lichess.org прайграваць гукі. Вось інструкцыі, як зрабіць гэта ў апошніх версіях некаторых папулярных браўзераў.</string>
-  <string name="desktop">працоўны стол</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">працоўны стол</string>
   <string name="enableAutoplayForSoundsFirefox">1. Перайдзіце на lichess.org
 2. Націсніце Ctrl-i на Linux/Windows або cmd-i на MacOS
 3. Націсніце ўкладку Дазволы

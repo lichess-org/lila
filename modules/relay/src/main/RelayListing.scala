@@ -18,7 +18,7 @@ final class RelayListing(
   def spotlight: List[RelayCard] = spotlightCache
 
   val defaultRoundToLink = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.defaultRoundToLink"):
-    _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
+    _.expireAfterWrite(5.seconds).buildAsyncFuture: tourId =>
       tourWithRounds(tourId).mapz(RelayListing.defaultRoundToLink)
 
   def active: Fu[List[RelayCard]] = activeCache.get({})
@@ -32,7 +32,7 @@ final class RelayListing(
   private var spotlightCache: List[RelayCard] = Nil
 
   private val activeCache = cacheApi.unit[List[RelayCard]]:
-    _.expireAfterWrite(5 seconds).buildAsyncFuture: _ =>
+    _.expireAfterWrite(5.seconds).buildAsyncFuture: _ =>
       for
         spots <- getSpots
         selected = spots.flatMap:

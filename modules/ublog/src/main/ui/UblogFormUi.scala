@@ -110,6 +110,13 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                 help = trans.ublog.publishHelp().some,
                 half = true
               )
+            ),
+            form3.split(
+              form3.checkbox(
+                form("sticky"),
+                trans.ublog.stickyPost(),
+                help = trans.ublog.stickyPostHelp().some
+              )
             )
           )
       ,

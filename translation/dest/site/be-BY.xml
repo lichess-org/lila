@@ -135,17 +135,35 @@
     <item quantity="many">%s позехаў</item>
     <item quantity="other">%s позехаў</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Позех</item>
+    <item quantity="few">%s Позеха</item>
+    <item quantity="many">%s Позехаў</item>
+    <item quantity="other">%s Позехаў</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s памылка</item>
     <item quantity="few">%s памылкі</item>
     <item quantity="many">%s памылак</item>
     <item quantity="other">%s памылак</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Памылка</item>
+    <item quantity="few">%s Памылкі</item>
+    <item quantity="many">%s Памылак</item>
+    <item quantity="other">%s Памылак</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s недакладнасць</item>
     <item quantity="few">%s недакладнасці</item>
     <item quantity="many">%s недакладнасцяў</item>
     <item quantity="other">%s недакладнасцяў</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Недакладнасць</item>
+    <item quantity="few">%s Недакладнасці</item>
+    <item quantity="many">%s Недакладнасцяў</item>
+    <item quantity="other">%s Недакладнасцяў</item>
   </plurals>
   <string name="moveTimes">Час на ход</string>
   <string name="flipBoard">Перавярнуць дошку</string>
@@ -722,7 +740,7 @@
   <string name="aboutSimulRules">Калі пачынаецца сеанс адначасовай гульні, кожны ўдзельнік гуляе асобную партыю з сеансёрам. Сеанс лічыцца скончаным, калі ўсе гульні завершаны.</string>
   <string name="aboutSimulSettings">Сеансы адначасовай гульні заўсёды таварыскія. Нельга перахадзіць ці дадаваць час.</string>
   <string name="create">Стварыць</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
+  <string name="whenCreateSimul">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
   <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>
   <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
@@ -972,7 +990,7 @@
   <string name="streamerManager">Стрымерская старонка</string>
   <string name="cancelTournament">Скасаваць турнір</string>
   <string name="tournDescription">Апісанне турніру</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
   <string name="ratedFormHelp">Гульні - рэйтынгавыя
 і ўплываюць на рэйтынг гульцоў</string>
   <string name="onlyMembersOfTeam">Толькі чальцы каманды</string>

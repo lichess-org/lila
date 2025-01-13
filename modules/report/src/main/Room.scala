@@ -21,7 +21,7 @@ object Room:
   def apply(key: String): Option[Room] = byKey.get(key)
 
   def apply(reason: Reason): Room =
-    import lila.report.{ Reason as R }
+    import lila.report.Reason as R
     reason match
       case R.Cheat       => Cheat
       case R.Boost       => Boost

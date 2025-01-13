@@ -22,7 +22,7 @@ def show(
 )(using ctx: Context) = ui.show(
   c,
   studies = studies.map(s => st.article(cls := "study")(views.study.bits.widget(s, h3))),
-  posts = posts.map(views.ublog.ui.card(_))
+  posts = posts.map(p => views.ublog.ui.card(p, showSticky = ~p.sticky))
 )
 
 def edit(c: lila.coach.Coach.WithUser, form: Form[?])(using ctx: Context) =

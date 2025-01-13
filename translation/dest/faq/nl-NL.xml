@@ -149,7 +149,7 @@ Selecteer vervolgens of u meldingen van Lichess wilt toestaan of blokkeren.</str
 Het rode mute pictogram verschijnt wanneer jouw browser verhindert dat lichess.org een geluid afspeelt. Meestal wordt deze beperking opgeheven zodra je op iets klikt. Bij sommige mobiele browsers telt het slepen van een stuk niet als een klik. In dat geval moet je op het bord tikken om geluid aan het begin van elk spel toe te staan.
 
 Wij laten het rode icoon zien om je te waarschuwen wanneer dit gebeurt. Vaak kun je lichess.org expliciet toestaan om geluiden af te spelen. Hier zijn instructies om dit te doen op recente versies van sommige populaire browsers.</string>
-  <string name="desktop">bureaublad</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">bureaublad</string>
   <string name="enableAutoplayForSoundsFirefox">1. Ga naar lichess.org
 2. Druk op Ctrl-i op Linux/Windows of cmd-i op MacOS
 3. Klik op het tabblad Rechten

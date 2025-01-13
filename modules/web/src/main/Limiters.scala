@@ -63,7 +63,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val userActivity = RateLimit[IpAddress](credits = 15, duration = 2.minutes, key = "user_activity.api.ip")
 
-  val magicLink = RateLimit[String](credits = 3, duration = 1 hour, key = "login.magicLink.token")
+  val magicLink = RateLimit[String](credits = 3, duration = 1.hour, key = "login.magicLink.token")
 
   val challenge = RateLimit[IpAddress](
     500,
@@ -128,7 +128,7 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val ublog = RateLimit[UserId](credits = 5 * 3, duration = 24.hour, key = "ublog.create.user")
 
-  val tourJoin = RateLimit[UserId](credits = 30, duration = 10 minutes, key = "tournament.user.join")
+  val tourJoin = RateLimit[UserId](credits = 30, duration = 10.minutes, key = "tournament.user.join")
 
   val tourCreate = RateLimit[UserId](credits = 240, duration = 1.day, key = "tournament.user")
 

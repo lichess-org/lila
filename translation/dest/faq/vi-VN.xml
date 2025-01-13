@@ -148,7 +148,7 @@ Sau đó, chọn cho phép hoặc chặn thông báo từ Lichess.</string>
 Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của bạn ngăn lichess.org phát âm thanh. Thông thường, hạn chế này sẽ được dỡ bỏ khi bạn nhấp vào thứ gì đó. Trên một số trình duyệt di động, thao tác chạm kéo một phần không được tính là một lần nhấp. Trong trường hợp đó, bạn phải chạm vào bàn cờ để phát ra âm thanh khi bắt đầu mỗi ván cờ.
 
 Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xẩy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
-  <string name="desktop">máy tính để bàn</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">máy tính để bàn</string>
   <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
 2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
 3. Nhấn vào tab Quyền (Permissions)

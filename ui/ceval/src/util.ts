@@ -43,12 +43,18 @@ export function showEngineError(engine: string, error: string): void {
     htmlText:
       `<h2>${escapeHtml(engine)} <bad>error</bad></h2>` +
       (error.includes('Status 503')
-        ? `<p>Your external engine does not appear to be connected.</p>
+        ? $html`
+          <p>Your external engine does not appear to be connected.</p>
           <p>Please check the network and restart your provider if possible.</p>`
-        : `${escapeHtml(error)}</pre><h2>Things to try</h2><ul>
-          <li>Decrease memory slider in engine settings</li>
-          <li>Clear site settings for lichess.org</li>
-          <li>Select another engine</li><li>Update your browser</li></ul>`),
+        : $html`
+          <pre>${escapeHtml(error)}</pre>
+          <h2>Things to try</h2>
+          <ul>
+            <li>Decrease memory slider in engine settings</li>
+            <li>Clear site settings for lichess.org</li>
+            <li>Select another engine</li>
+            <li>Update your browser</li>
+          </ul>`),
   }).then(dlg => {
     const select = () =>
       setTimeout(() => {

@@ -113,7 +113,7 @@ final class Env(
 
   lila.i18n.Registry.asyncLoadLanguages()
 
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
+  scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size())
     lila.mon.jvm.threads()
     // ensure the Lichess user is online

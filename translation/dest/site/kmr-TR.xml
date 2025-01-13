@@ -132,13 +132,25 @@
     <item quantity="one">%s şelipan</item>
     <item quantity="other">%s şelipan</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Şelipan</item>
+    <item quantity="other">%s Şelipan</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s çewtî</item>
     <item quantity="other">%s çewtî</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Çewtî</item>
+    <item quantity="other">%s Çewtî</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s nerastî</item>
     <item quantity="other">%s nerastî</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Nerastî</item>
+    <item quantity="other">%s Nerastî</item>
   </plurals>
   <string name="moveTimes">Demên hemleyan</string>
   <string name="flipBoard">Texteyê biqulipîne</string>
@@ -659,7 +671,7 @@
   <string name="aboutSimulRules">Gava pêşangeha hevdemî dest pê kir, her lîzer dest bi lîstikekê dike tevî hewangerê. Hewanger bi kabikên spî ye û ew dest pê dike. Wextê ku hemû lîstik temam bûn, pêşangeha hevdemî jî xelas dibe.</string>
   <string name="aboutSimulSettings">Pêşangehên hevdemî hertim bêpoînt in. Cardinlîstin, hemlevegerandin û demên ekstra neçalak e.</string>
   <string name="create">Çêke</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Gava pêşangeheke hevdemî ava bikî, tu yê bi çendîn lîzeran re bilîzî, bi carekê.</string>
+  <string name="whenCreateSimul">Gava pêşangeheke hevdemî ava bikî, tu yê bi çendîn lîzeran re bilîzî, bi carekê.</string>
   <string name="simulVariantsHint">Ger tu çendîn varyantan bibijêrî, wê her lîzerek bibijêre ku kîjanî bilîze.</string>
   <string name="simulClockHint">Formata Saeta Fischer. Çiqas lîzeran bigirî wê ew qasî wext lazim be bo te.</string>
   <string name="simulAddExtraTime">Belkî bixwazî zêdetir wext tevlî demjimêra xwe bikî, qene ku karibî pêşangeha hevdemî temam bikî.</string>

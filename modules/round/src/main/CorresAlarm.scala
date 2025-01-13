@@ -47,7 +47,7 @@ final private class CorresAlarm(
         }
   }
 
-  LilaScheduler("CorresAlarm", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(2 minutes)):
+  LilaScheduler("CorresAlarm", _.Every(10.seconds), _.AtMost(10.seconds), _.Delay(2.minutes)):
     def deleteAlarm(id: GameId) = coll.delete.one($id(id)).void
     coll
       .find($doc("ringsAt".$lt(nowInstant)))
