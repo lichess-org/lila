@@ -35,7 +35,7 @@ case class LightPlayer(
 )
 
 case class LightPov(game: LightGame, color: Color):
-  export game.{ id as gameId }
+  export game.id as gameId
   def player   = game.player(color)
   def opponent = game.player(!color)
 

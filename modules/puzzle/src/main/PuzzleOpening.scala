@@ -59,7 +59,7 @@ final class PuzzleOpeningApi(
   import SimpleOpening.*
   import PuzzleOpening.*
 
-  private val countedCache = mongoCache.unitNoHeap[List[Bdoc]]("puzzle:opening:counted", 24 hours): _ =>
+  private val countedCache = mongoCache.unitNoHeap[List[Bdoc]]("puzzle:opening:counted", 24.hours): _ =>
     import Puzzle.BSONFields.*
     colls.puzzle:
       _.aggregateList(maxOpenings): framework =>
@@ -71,7 +71,7 @@ final class PuzzleOpeningApi(
 
   private val collectionCache =
     cacheApi.unit[PuzzleOpeningCollection]:
-      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
         countedCache
           .get(())
           .map {

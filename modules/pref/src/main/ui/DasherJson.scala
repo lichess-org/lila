@@ -11,7 +11,7 @@ import lila.ui.Context
 object DasherJson:
 
   object i18n:
-    import trans.{ site as trs }
+    import trans.site as trs
     val base = List(
       trs.networkLagBetweenYouAndLichess,
       trs.timeToProcessAMoveOnLichessServer,

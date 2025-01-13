@@ -71,7 +71,7 @@ final class Env(
 
   private lazy val expiration = new Expiration(userApi, mongo.patron, notifier)
 
-  scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes): () =>
+  scheduler.scheduleWithFixedDelay(5.minutes, 5.minutes): () =>
     expiration.run
 
   lila.common.Bus.subscribeFun("email"):

@@ -130,7 +130,7 @@ final class UblogPaginator(
       )
 
     private val cache = cacheApi[(UserId, Int, Int), List[PreviewPost]](256, "ublog.paginator.followed"):
-      _.expireAfterWrite(15 seconds).buildAsyncFuture: (userId, offset, length) =>
+      _.expireAfterWrite(15.seconds).buildAsyncFuture: (userId, offset, length) =>
         relationApi.coll
           .aggregateList(length, _.sec) { framework =>
             import framework.*

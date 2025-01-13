@@ -79,7 +79,7 @@ object PrefForm:
         fields.autoThreefold,
         fields.submitMove.map2: mapping =>
           if lichobile then
-            import Pref.SubmitMove.{ lichobile as compat }
+            import Pref.SubmitMove.lichobile as compat
             optional(numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp))
           else optional(mapping),
         fields.confirmResign,

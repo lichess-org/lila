@@ -9,8 +9,7 @@ final class AutoAnalysis(gameRepo: GameRepo, gameApi: GameApi)(using ec: Executo
     else
       (candidate.reason == Reason.AltPrint).so(fuccess:
         List(30, 90).foreach: minutes =>
-          scheduler.scheduleOnce(minutes minutes) { doItNow(candidate) }
-      )
+          scheduler.scheduleOnce(minutes.minutes)(doItNow(candidate)))
 
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate).map: games =>

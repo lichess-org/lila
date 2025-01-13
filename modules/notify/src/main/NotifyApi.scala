@@ -66,7 +66,7 @@ final class NotifyApi(
             customAllows ::: defaultAllows.toList
 
   private val unreadCountCache = cacheApi[UserId, UnreadCount](65_536, "notify.unreadCountCache"):
-    _.expireAfterAccess(15 minutes).buildAsyncFuture(repo.expireAndCount)
+    _.expireAfterAccess(15.minutes).buildAsyncFuture(repo.expireAndCount)
 
   def getNotifications(userId: UserId, page: Int): Fu[Paginator[Notification]] =
     Paginator(

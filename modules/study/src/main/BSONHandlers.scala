@@ -127,7 +127,7 @@ object BSONHandlers:
 
   // shallow read, as not reading children
   private[study] def readBranch(doc: Bdoc, id: UciCharPair): Option[Branch] =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     for
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
@@ -161,7 +161,7 @@ object BSONHandlers:
 
   // shallow read, as not reading children
   private[study] def readNewBranch(doc: Bdoc, path: UciPath): Option[NewBranch] =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     for
       id  <- path.lastId
       ply <- doc.getAsOpt[Ply](F.ply)
@@ -197,7 +197,7 @@ object BSONHandlers:
 
   // shallow write, as not writing children
   private[study] def writeBranch(n: Branch) =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     val w = new Writer
     $doc(
       F.ply            -> n.ply,
@@ -216,7 +216,7 @@ object BSONHandlers:
     )
 
   private[study] def writeNewBranch(n: NewBranch) =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     val w = new Writer
     $doc(
       F.ply      -> n.metas.ply,
@@ -235,7 +235,7 @@ object BSONHandlers:
     )
 
   private[study] given BSON[Root] with
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     def reads(fullReader: Reader) =
       val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey).err("Missing root")
       val r        = Reader(rootNode)
@@ -270,7 +270,7 @@ object BSONHandlers:
     )
 
   private[study] given BSON[NewRoot] with
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     def reads(fullReader: Reader) =
       val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey).err("Missing root")
       val r        = Reader(rootNode)
@@ -394,8 +394,7 @@ object BSONHandlers:
         case From.Scratch   => "scratch"
         case From.Game(id)  => s"game $id"
         case From.Study(id) => s"study $id"
-        case From.Relay(id) => s"relay${id.fold("")(" " + _)}"
-      )
+        case From.Relay(id) => s"relay${id.fold("")(" " + _)}")
   )
   import Settings.UserSelection
   private[study] given BSONHandler[UserSelection] = tryHandler[UserSelection](

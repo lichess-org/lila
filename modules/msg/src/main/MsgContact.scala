@@ -34,7 +34,7 @@ private final class ContactApi(userColl: Coll)(using Executor):
   private given BSONDocumentHandler[Contact] = Macros.handler[Contact]
 
   def contacts(orig: UserId, dest: UserId): Fu[Option[Contacts]] =
-    import lila.core.user.{ BSONFields as F }
+    import lila.core.user.BSONFields as F
     userColl
       .byOrderedIds[Contact, UserId](
         List(orig, dest),

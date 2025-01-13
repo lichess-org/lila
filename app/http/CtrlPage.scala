@@ -24,5 +24,4 @@ trait CtrlPage(using Executor) extends RequestContext with ControllerHelpers wit
     def snipAsync(frag: Fu[Frag | Snippet])(using Context): Fu[Result] = frag.dmap(snip)
     def snip(frag: Frag | Snippet)(using Context): Result = s(frag.match
       case s: Snippet => s
-      case f: Frag    => Snippet(f)
-    )
+      case f: Frag    => Snippet(f))

@@ -404,4 +404,4 @@ final class TeamApi(
 
   private def publish(msg: Any) = Bus.publish(msg, "team")
 
-  export cached.nbRequests.{ get as nbRequests }
+  export cached.nbRequests.get as nbRequests

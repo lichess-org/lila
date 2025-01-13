@@ -62,7 +62,7 @@ object Termination:
 
   val byId = values.mapBy(_.id)
 
-  import chess.{ Status as S }
+  import chess.Status as S
 
   def fromStatus(s: chess.Status) =
     s match

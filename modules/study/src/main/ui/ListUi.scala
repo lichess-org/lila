@@ -12,7 +12,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class ListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
-  import trans.{ study as trs }
+  import trans.study as trs
 
   def all(pag: Paginator[WithChaptersAndLiked], order: Order)(using Context) =
     page(

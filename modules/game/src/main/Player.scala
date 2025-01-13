@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.{ ByColor, Color, IntRating, PlayerName, Ply }
-import chess.rating.{ RatingProvisional }
+import chess.rating.RatingProvisional
 
 import lila.core.game.{ Blurs, LightGame, Player }
 import lila.core.user.WithPerf

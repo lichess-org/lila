@@ -60,7 +60,7 @@ final class ParallelMongoQueue[A: BSONHandler](
    * start new ones, expire old ones
    */
   private val startAfter = if mode.isProd then 33.seconds else 3.seconds
-  LilaScheduler(s"ParallelQueue($name).poll", _.Every(1 second), _.AtMost(5 seconds), _.Delay(startAfter)):
+  LilaScheduler(s"ParallelQueue($name).poll", _.Every(1.second), _.AtMost(5.seconds), _.Delay(startAfter)):
 
     def fetchEntriesToProcess: Fu[List[Entry[A]]] =
       coll.find($empty).sort($sort.asc(F.createdAt)).cursor[Entry[A]]().list(parallelism())

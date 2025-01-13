@@ -38,8 +38,8 @@ final class SwissApi(
 
   private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
-    expiration = 20 minutes,
-    timeout = 10 seconds,
+    expiration = 20.minutes,
+    timeout = 10.seconds,
     name = "swiss.api",
     lila.log.asyncActorMonitor.full
   )
@@ -186,7 +186,8 @@ final class SwissApi(
                 _ <- ok.so:
                   mongo.player.insert
                     .one(SwissPlayer.make(swiss.id, user))
-                    .zip(mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1))) void
+                    .zip(mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)))
+                    .void
               yield
                 cache.swissCache.clear(swiss.id)
                 ok
@@ -475,7 +476,7 @@ final class SwissApi(
     cache.swissCache.clear(swiss.id)
     socket.reload(swiss.id)
     scheduler
-      .scheduleOnce(10 seconds):
+      .scheduleOnce(10.seconds):
         // we're delaying this to make sure the ranking has been recomputed
         // since doFinish is called by finishGame before that
         rankingApi(swiss).foreach: ranking =>
@@ -672,7 +673,7 @@ final class SwissApi(
         .batchSize(perSecond.value)
         .cursor[SwissPlayer](ReadPref.priTemp)
         .documentSource(nb)
-        .throttle(perSecond.value, 1 second)
+        .throttle(perSecond.value, 1.second)
         .zipWithIndex
         .map: (player, index) =>
           SwissPlayer.WithRank(player, index.toInt + 1)

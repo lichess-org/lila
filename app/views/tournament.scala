@@ -20,7 +20,7 @@ private lazy val showUi = TournamentShow(helpers, ui, views.gathering)(
       (team, teamLink(team, true))
     .toMap
 )
-export showUi.faq.{ page as faq }
+export showUi.faq.page as faq
 
 lazy val form = TournamentForm(helpers, showUi)(
   modMenu = views.mod.ui.menu("tour"),

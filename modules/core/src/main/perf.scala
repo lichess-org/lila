@@ -2,7 +2,7 @@ package lila.core
 
 import _root_.chess.variant.Variant
 import _root_.chess.{ Speed, IntRating, variant as ChessVariant }
-import _root_.chess.rating.{ IntRatingDiff }
+import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
 import monocle.syntax.all.*
 import monocle.syntax.AppliedPLens

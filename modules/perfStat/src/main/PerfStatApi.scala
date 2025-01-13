@@ -78,10 +78,10 @@ final class PerfStatApi(
     private val cache = mongoCache[PerfId, List[NbUsers]](
       lila.rating.PerfType.leaderboardable.size,
       "user:rating:distribution",
-      179 minutes,
+      179.minutes,
       _.toString
     ): loader =>
-      _.refreshAfterWrite(180 minutes).buildAsyncFuture:
+      _.refreshAfterWrite(180.minutes).buildAsyncFuture:
         loader(compute)
 
     // from 600 to 2800 by Stat.group

@@ -14,7 +14,7 @@ final class RelayPlayerTour(
 )(using Executor, akka.stream.Materializer):
 
   private val tourIdsCache = cacheApi[chess.FideId, List[RelayTourId]](128, "relay.player.tourIds"):
-    _.expireAfterWrite(10 minutes).buildAsyncFuture: fideId =>
+    _.expireAfterWrite(10.minutes).buildAsyncFuture: fideId =>
       chapterRepo
         .studyIdsByRelayFideId(fideId)
         .flatMap: studyIds =>

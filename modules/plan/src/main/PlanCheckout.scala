@@ -49,7 +49,7 @@ final class PlanCheckoutForm(lightUserApi: lila.core.user.LightUserApi):
   )
 
   private def blockingFetchUser(user: UserStr) =
-    lightUserApi.async(user.id).await(1 second, "giftUser")
+    lightUserApi.async(user.id).await(1.second, "giftUser")
 
 case class Switch(money: Money)
 

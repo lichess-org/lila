@@ -101,11 +101,11 @@ final class Env(
           .map: res =>
             if res then "done" else "not found"
 
-  scheduler.scheduleAtFixedRate(10 minutes, 1 day): () =>
+  scheduler.scheduleAtFixedRate(10.minutes, 1.day): () =>
     tagger.addAllMissing
 
   if mode.isProd then
-    scheduler.scheduleAtFixedRate(10 minutes, 10 minutes): () =>
+    scheduler.scheduleAtFixedRate(10.minutes, 10.minutes): () =>
       pathApi.isStale.foreach: stale =>
         if stale then logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
 

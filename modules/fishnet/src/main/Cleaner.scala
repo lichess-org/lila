@@ -37,7 +37,7 @@ final private class Cleaner(
       .runWith(Sink.ignore)
       .void
 
-  system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds): () =>
+  system.scheduler.scheduleWithFixedDelay(15.seconds, 10.seconds): () =>
     cleanAnalysis
 
 object Cleaner:

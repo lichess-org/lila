@@ -47,8 +47,8 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
             case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
     default = id => LightUser(id, id.into(UserName), None, None, isPatron = false).some,
-    strategy = Syncache.Strategy.WaitAfterUptime(10 millis),
-    expireAfter = Syncache.ExpireAfter.Write(20 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(10.millis),
+    expireAfter = Syncache.ExpireAfter.Write(20.minutes)
   )
 
   private given BSONDocumentReader[LightUser] with
