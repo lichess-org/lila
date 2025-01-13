@@ -13,6 +13,7 @@
   <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
   <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
   <string name="publishHelp">ئەگەر پشکنین کرا، پۆستەکە لە بلۆگەکەتدا دەخرێتە لیستی پۆستەکەوە. ئەگەر نا، تایبەت دەبێت، لە ڕەشنووسی پۆستەکانتاندا</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">ئەگەر بێنە ناو پرۆفایلت، ئەو پۆستە لە سەرەتای پۆستەکانت دەردەکەوێت.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">پەیامەکانی بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
     <item quantity="other">پەیامەکانی%s بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
