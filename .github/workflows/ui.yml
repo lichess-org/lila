@@ -28,11 +28,13 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
-      - name: "Install pnpm dependencies"
+      - name: 'Install pnpm dependencies'
         run: pnpm install
-      - name: "Build"
-        run: pnpm run build:ui
-      - name: "Lint"
-        run: pnpm run lint
-      - name: "Format"
-        run: pnpm run check-format
+      - name: 'Build'
+        run: pnpm build:ui
+      - name: 'Type check'
+        run: pnpm type-check
+      - name: 'Lint'
+        run: pnpm lint
+      - name: 'Format'
+        run: pnpm format
