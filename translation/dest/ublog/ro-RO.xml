@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Va fi creat un subiect pe forum pentru ca oamenii să comenteze despre postarea dumneavoastră</string>
   <string name="publishOnYourBlog">Publică pe blogul tău</string>
   <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tau. Daca nu, va fi privată, în ciornele tale</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixează postarea</string>
+  <string name="stickyPostHelp">Dacă este bifat, această postare va fi listată înaintea postărilor recente de pe profil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">A publicat o postare pe blog</item>
     <item quantity="few">A publicat %s postări pe blog</item>
