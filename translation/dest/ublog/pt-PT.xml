@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Será criado um tópico no fórum para as pessoas comentarem a tua publicação</string>
   <string name="publishOnYourBlog">Publicar no teu blog</string>
   <string name="publishHelp">Se for marcada, a publicação será listada no teu blog. Se não, ficará privada, nos teus rascunhos de publicações</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;pin&quot; if it is more natural in your language.">Fixar publicação</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Se selecionado, esta publicação será listada em primeiro no teu perfil de publicações recentes.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Fez uma publicação no blog</item>
     <item quantity="other">Fez %s publicações no blog</item>
