@@ -8,6 +8,8 @@ import scalatags.Text.RawFrag
 import scala.concurrent.duration.FiniteDuration
 export scalalib.newtypes.{ given, * }
 
+val maxLangs = 128
+
 /* play.api.i18n.Lang is composed of language and country.
  * Let's make new types for those so we don't mix them.
  */

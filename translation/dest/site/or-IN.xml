@@ -92,7 +92,15 @@
     <item quantity="one">%s ଗମ୍ଭୀର ତ୍ରୁଟି</item>
     <item quantity="other">%s ଗମ୍ଭୀର ତ୍ରୁଟିଗୁଡିକ</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s ଗମ୍ଭୀର ତ୍ରୁଟି</item>
+    <item quantity="other">%s ଗମ୍ଭୀର ତ୍ରୁଟିଗୁଡିକ</item>
+  </plurals>
   <plurals name="nbMistakes">
+    <item quantity="one">%s ଭୁଲ</item>
+    <item quantity="other">%s ଭୁଲଗୁଡିକ</item>
+  </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
     <item quantity="one">%s ଭୁଲ</item>
     <item quantity="other">%s ଭୁଲଗୁଡିକ</item>
   </plurals>

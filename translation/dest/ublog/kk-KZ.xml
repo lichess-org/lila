@@ -9,7 +9,7 @@
   <string name="postBody">Мәтін</string>
   <string name="drafts">Уақытша жазбалар</string>
   <string name="published">Жарияланды</string>
-  <string name="createBlogDiscussion">Пікірді рұқсат беру</string>
+  <string name="createBlogDiscussion">Пікірді рұқсат ету</string>
   <string name="createBlogDiscussionHelp">Жазбаңыз туралы пікір айтатындай форумда тақырып құралатын болады</string>
   <string name="publishOnYourBlog">Блогта жария ету</string>
   <string name="publishHelp">Егер белгіленсе, жазба блог тізімінде көрінетін болады, егер белгіленбесе, жасырын, уақытша жазбалар қатарында болады</string>

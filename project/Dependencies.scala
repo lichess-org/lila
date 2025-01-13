@@ -27,7 +27,7 @@ object Dependencies {
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.116.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.3" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.4" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.18.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.13.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.1.1"
+    val version  = "17.2.0"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -51,7 +51,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.5.4"
+    val version  = "11.6.0"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version

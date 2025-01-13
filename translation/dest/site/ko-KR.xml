@@ -129,10 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
+  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s 블런더</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s 실수</item>
   </plurals>
+  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s 실수</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="other">%s 부정확한 수</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="other">%s 부정확한 수</item>
   </plurals>
   <string name="moveTimes">이동 시간</string>
@@ -641,7 +650,7 @@
   <string name="aboutSimulRules">다면기가 시작되면, 모든 플레이어가 주최자와 대국을 합니다. 다면기는 모든 플레이어와 게임이 끝나면 종료됩니다.</string>
   <string name="aboutSimulSettings">다면기는 항상 캐주얼전입니다. 재대결, 무르기, 시간추가를 할 수 없습니다.</string>
   <string name="create">생성</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">동시대국을 생성하면 한 번에 여러 명의 플레이어와 게임하게 됩니다.</string>
+  <string name="whenCreateSimul">동시대국을 생성하면 한 번에 여러 명의 플레이어와 게임하게 됩니다.</string>
   <string name="simulVariantsHint">복수의 게임방식을 선택할 경우, 상대방 측에서 게임 방식을 선택하게 됩니다.</string>
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">동시대국을 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
@@ -826,7 +835,7 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
-  <string name="showUnreadLichessMessage">Lichess로부터 비공개 메시지를 받았습니다.</string>
+  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Lichess로부터 비공개 메시지를 받았습니다.</string>
   <string name="clickHereToReadIt">클릭하여 읽기</string>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>

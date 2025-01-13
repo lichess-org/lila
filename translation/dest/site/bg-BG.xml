@@ -132,13 +132,25 @@
     <item quantity="one">%s груба грешка</item>
     <item quantity="other">%s груби грешки</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Груба грешка</item>
+    <item quantity="other">%s Груби грешки</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s грешка</item>
     <item quantity="other">%s грешки</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Грешка</item>
+    <item quantity="other">%s Грешки</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточност</item>
     <item quantity="other">%s неточности</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Неточност</item>
+    <item quantity="other">%s Неточности</item>
   </plurals>
   <string name="moveTimes">Време за ход</string>
   <string name="flipBoard">Завърти дъската</string>
@@ -669,7 +681,7 @@
   <string name="aboutSimulRules">Когато едновременното предизвикателство започне, всеки играч започва игра с приемащия, който играе с белите. Предизвикателството свършва когато всички игри са завършели.</string>
   <string name="aboutSimulSettings">Сеансите са винаги без рейтинг. Искане на повторна игра, връщане на ход и добавяне на време са изключени.</string>
   <string name="create">Създай</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Когато създадете сеанс, трябва да можете да играете с много играчи наведнъж.</string>
+  <string name="whenCreateSimul">Когато създадете сеанс, трябва да можете да играете с много играчи наведнъж.</string>
   <string name="simulVariantsHint">Ако изберете няколко варианта, всеки играч може да избере кой да играе.</string>
   <string name="simulClockHint">Fischer-засичане на времето. Колкото повече играчи приемеш, толкова повече време ти е нужно.</string>
   <string name="simulAddExtraTime">Можеш да си прибавиш време, за да се справиш с предизвикателството.</string>

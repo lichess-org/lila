@@ -132,13 +132,25 @@
     <item quantity="one">%s şelipan</item>
     <item quantity="other">%s şelipan</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Şelipan</item>
+    <item quantity="other">%s Şelipan</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s çewtî</item>
     <item quantity="other">%s çewtî</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Çewtî</item>
+    <item quantity="other">%s Çewtî</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s nerastî</item>
     <item quantity="other">%s nerastî</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Nerastî</item>
+    <item quantity="other">%s Nerastî</item>
   </plurals>
   <string name="moveTimes">Demên hemleyan</string>
   <string name="flipBoard">Texteyê biqulipîne</string>
@@ -158,7 +170,7 @@
     <item quantity="other">%s lîstik</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">%1$s puanên ji ser %2$s lîstikan</item>
+    <item quantity="one">%1$s puana ji ser %2$s lîstikê</item>
     <item quantity="other">%1$s puanên ji ser %2$s lîstikan</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -352,8 +364,13 @@
     <item quantity="one">%s Xebat</item>
     <item quantity="other">Xebatên %s</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s lîstikên hevdem</item>
+    <item quantity="other">%s lîstikên hevdem</item>
+  </plurals>
   <string name="viewTournament">Pêşbirkê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
+  <string name="noDrawBeforeSwissLimit">Di turnuvaya Swîsreyê de berî 30 hemleyan tu nikarî beranberîyê teklîf bikî.</string>
   <string name="thematic">Pêngavên destpêkê ên cuda</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s lîstika bipuan</item>
@@ -383,6 +400,7 @@
   <string name="siteDescription">Malpera kişikê yê serhêl û belaş. Kişikê li ser navrûyeke zelal bilîze. Qeydbûn ne hewce ye, reklam tine, pêvekek lazim tine. Kişikê bi kombersê, bi hevaleke xwe re an bi dijbereke ketober bilîze.</string>
   <string name="xJoinedTeamY">%1$s tevlî koma %2$s bû</string>
   <string name="xCreatedTeamY">%1$s koma %2$s çêkir</string>
+  <string name="startedStreaming">dest bi weşana zindî kir</string>
   <string name="xStartedStreaming">%s di weşana zindî de yi</string>
   <string name="averageElo">Reytînga averaj</string>
   <string name="location">Cih</string>
@@ -391,13 +409,18 @@
   <string name="apply">Bisepîne</string>
   <string name="save">Tomar bik</string>
   <string name="leaderboard">Texteya skoran</string>
+  <string name="screenshotCurrentPosition">Wêneyê ekranê bigire ji bo pozîsyona mewcûd</string>
+  <string name="gameAsGIF">Lîstik wek GIF</string>
   <string name="pasteTheFenStringHere">Nivîsa FENê bi vir de bizeliqîne</string>
   <string name="pasteThePgnStringHere">Nivîsa PGNê bi vir ve bizeliqîne</string>
+  <string name="orUploadPgnFile">An jî dosyeyeke PGNê bar bike</string>
   <string name="fromPosition">Ji pozisyonekê</string>
   <string name="continueFromHere">Ji vir bidomîne</string>
   <string name="toStudy">Bi Xebit</string>
   <string name="importGame">Lîstikê têxe</string>
   <string name="importGameExplanation">PGNeke lîstikê pê ve bizeliqîne da ku tekrareke gerbar, analîza kombersê, gotûbêja lîstikê û URLyeke parvekirinbar werbigirî.</string>
+  <string name="importGameCaveat">Varyasyon wê bên jêbirin. Ji bo hiştina wan, bi rêya xebateke PGNyê împort bike.</string>
+  <string name="importGameDataPrivacyWarning">Ev PGN ji alîyê her kesî ve kare were gihîn. Ji bo lîstikekê bi awayekî veşartî împort bikî, xebatekê biemilîne.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lîstika têxistî</item>
     <item quantity="other">%s lîstikên têxistî</item>
@@ -483,6 +506,7 @@
   <string name="setTheBoard">Texteyê bisazîne</string>
   <string name="popularOpenings">Destpêkên binavûdeng</string>
   <string name="endgamePositions">Pozisyonên Dawîyê</string>
+  <string name="chess960StartPosition">Pozîsyona destpêkê ya Chess960ê: %s</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="clearBoard">Texteyê paqij bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
@@ -493,10 +517,17 @@
   <string name="ifNoneLeaveEmpty">Ger nîn be, vala bihêle</string>
   <string name="profile">Profîl</string>
   <string name="editProfile">Profîlê sererast bike</string>
+  <string name="realName">Navê heqîqî</string>
+  <string name="setFlair">Îkona xwe saz bike</string>
+  <string name="flair">Îkon</string>
+  <string name="youCanHideFlair">Mîhengekê heye ji bo veşartina hemû îkonên bikarhêneran li seransera malperê.</string>
   <string name="biography">Biyografî</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Welat an herêm</string>
   <string name="thankYou">Spas!</string>
   <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
+  <string name="oneUrlPerLine">Serê rêzikê yek URL.</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
+  <string name="makeAStudy">Ji bo parastin û parvekirinê, çêkirina xebatekê li be çav bigire.</string>
   <string name="clearSavedMoves">Hemleyan jê bibe</string>
   <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
   <string name="onlinePlayers">Lîzerên serhêl</string>
@@ -510,10 +541,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Piştî hemleyê jixweber derbasî lîstika din bibe</string>
   <string name="autoSwitch">Otomatîk biguherîne</string>
   <string name="puzzles">Pazil</string>
+  <string name="onlineBots">Botên onlayn</string>
   <string name="name">Nav</string>
   <string name="description">Danasîn</string>
+  <string name="descPrivate">Danasîna xisûsî</string>
+  <string name="descPrivateHelp">Tenê endamên tîmê wê metnê bibînin. Eger were danîn, ji bo endamên tîmê li şûna danasîna giştî bicih dike.</string>
   <string name="no">Na</string>
   <string name="yes">Erê</string>
+  <string name="website">Malper</string>
+  <string name="mobile">Mobîl</string>
   <string name="help">Alîkarî:</string>
   <string name="createANewTopic">Mijareke nû çêke</string>
   <string name="topics">Mijar</string>
@@ -532,6 +568,7 @@
   <string name="cheat">Hîle</string>
   <string name="troll">Troll</string>
   <string name="other">Yên din</string>
+  <string name="reportCheatBoostHelp">Lînka li lîstikê(an) bi vir de deyne û îzah bike ka çi xeletî heye di halûhereketên vê bikarhênerê de. Tenê bêjî \"ew hîle dike\" nabe, ji me re îzah bike ku te çawa gihîştîye vê qenaetê.</string>
   <string name="error.provideOneCheatedGameLink">Ji kerema xwe bi kêmanî lînkek pêşkêş bike ji bo lîstika hîlekirî.</string>
   <string name="by">ji alî %s ve</string>
   <string name="thisTopicIsNowClosed">Ev mijar vêga girtî ye.</string>
@@ -634,7 +671,7 @@
   <string name="aboutSimulRules">Gava pêşangeha hevdemî dest pê kir, her lîzer dest bi lîstikekê dike tevî hewangerê. Hewanger bi kabikên spî ye û ew dest pê dike. Wextê ku hemû lîstik temam bûn, pêşangeha hevdemî jî xelas dibe.</string>
   <string name="aboutSimulSettings">Pêşangehên hevdemî hertim bêpoînt in. Cardinlîstin, hemlevegerandin û demên ekstra neçalak e.</string>
   <string name="create">Çêke</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Gava pêşangeheke hevdemî ava bikî, tu yê bi çendîn lîzeran re bilîzî, bi carekê.</string>
+  <string name="whenCreateSimul">Gava pêşangeheke hevdemî ava bikî, tu yê bi çendîn lîzeran re bilîzî, bi carekê.</string>
   <string name="simulVariantsHint">Ger tu çendîn varyantan bibijêrî, wê her lîzerek bibijêre ku kîjanî bilîze.</string>
   <string name="simulClockHint">Formata Saeta Fischer. Çiqas lîzeran bigirî wê ew qasî wext lazim be bo te.</string>
   <string name="simulAddExtraTime">Belkî bixwazî zêdetir wext tevlî demjimêra xwe bikî, qene ku karibî pêşangeha hevdemî temam bikî.</string>

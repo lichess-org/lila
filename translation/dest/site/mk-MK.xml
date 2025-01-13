@@ -127,13 +127,25 @@
     <item quantity="one">%s голема грешка</item>
     <item quantity="other">%s големи грешки</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Голема грешка</item>
+    <item quantity="other">%s Големи грешки</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s грешка</item>
     <item quantity="other">%s грешки</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Грешка</item>
+    <item quantity="other">%s Грешки</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s непрецизност</item>
     <item quantity="other">%s непрецизности</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Непрецизност</item>
+    <item quantity="other">%s Непрецизности</item>
   </plurals>
   <string name="moveTimes">Време по потег</string>
   <string name="flipBoard">Сврти ја таблата</string>
@@ -650,7 +662,7 @@
   <string name="aboutSimulRules">Кога симултаната партија почнува, секој играч почнува игра со домаќинот, кој игра со белите. Симултаната партија завршува кога сите партии се готови.</string>
   <string name="aboutSimulSettings">Симултаните партии се секогаш пријателски. Нема реванши, враќање потези и додавање време.</string>
   <string name="create">Создади</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Кога создаваш симултана партија, играш со повеќе противници наеднаш.</string>
+  <string name="whenCreateSimul">Кога создаваш симултана партија, играш со повеќе противници наеднаш.</string>
   <string name="simulVariantsHint">Ако одбереш повеќе видови, секој играч може да одбере како ќе игра.</string>
   <string name="simulClockHint">Поставување на Фишерскиот часовник. Што повеќе противници, толку повеќе време ти треба.</string>
   <string name="simulAddExtraTime">Можеш да додадеш додатно време на часовникот, за да ти помогне со симултаната партија.</string>

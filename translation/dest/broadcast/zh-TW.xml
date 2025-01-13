@@ -37,7 +37,7 @@
   <string name="editRoundStudy">編輯此輪研究</string>
   <string name="deleteTournament">刪除此錦標賽</string>
   <string name="definitivelyDeleteTournament">刪除錦標賽以及所有棋局</string>
-  <string name="showScores">根據比賽結果顯示玩家分數</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">根據比賽結果顯示玩家分數</string>
   <string name="replacePlayerTags">取代玩家名字、評級、以及頭銜（選填）</string>
   <string name="fideFederations">FIDE 國別</string>
   <string name="top10Rating">前 10 名平均評級</string>
@@ -48,7 +48,7 @@
   <string name="ageThisYear">年齡</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">未評級</string>
   <string name="recentTournaments">最近錦標賽</string>
-  <string name="openLichess">在 lichess 中開啟</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">在 lichess 中開啟</string>
   <string name="teams">團隊</string>
   <string name="boards">棋局</string>
   <string name="overview">概覽</string>

@@ -125,13 +125,25 @@
     <item quantity="one">%s sbaglione</item>
     <item quantity="other">%s sbaglioni</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Sbaglione</item>
+    <item quantity="other">%s Sbaglioni</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s sbagliu</item>
     <item quantity="other">%s sbagli</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Sbagliu</item>
+    <item quantity="other">%s Sbagli</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s imprecisione</item>
     <item quantity="other">%s imprecisioni</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Imprecisione</item>
+    <item quantity="other">%s Imprecisioni</item>
   </plurals>
   <string name="moveTimes">Durata di u coplu</string>
   <string name="flipBoard">Vultà a scacchera</string>
@@ -613,7 +625,7 @@
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucadore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
   <string name="create">Creà</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
+  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
   <string name="simulVariantsHint">Sèè vo sceglite parechji modi di ghjocu, ogni ghjucadore hà da sceglia a soia pè a partita.</string>
   <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucadore, più averete bisognu di tempu.</string>
   <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>

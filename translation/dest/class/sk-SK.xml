@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Triedy</string>
+  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Triedy</string>
   <string name="teachClassesOfChessStudents">Učte triedy šachových študentov so súpravou nástrojov na Lichess výučbu.</string>
   <string name="features">Funkcie</string>
   <string name="quicklyGenerateSafeUsernames">Rýchlo vygenerovať bezpečné prihlasovacie mená a heslá pre študentov</string>
   <string name="trackStudentProgress">Sledovať napredovanie študenta v partiách a šachových úlohách</string>
   <string name="messageAllStudents">Poslať všetkým študentom správu o novom výučbovom materiáli</string>
-  <string name="freeForAllForever">100% zadarmo pre všetkých, navždy, bez akýchkoľvek reklám alebo sledovaní aktivity</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% zadarmo pre všetkých, navždy, bez akýchkoľvek reklám alebo sledovaní aktivity</string>
   <string name="applyToBeLichessTeacher">Uchádzať sa o post Lichess učiteľa</string>
   <string name="noClassesYet">Žiadne dostupné triedy.</string>
   <string name="teachersX">Učitelia: %s</string>
   <string name="newClass">Nová trieda</string>
   <string name="closeClass">Uzavrieť triedu</string>
   <string name="removedByX">Boli ste odstránení používateľom %s</string>
-  <string name="reopen">Znovu otvoriť</string>
-  <string name="removeStudent">Odstrániť študenta</string>
-  <string name="removedStudents">Odstránené</string>
-  <string name="inviteTheStudentBack">Znovu pozvať študenta</string>
+  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Znovu otvoriť</string>
+  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Odstrániť študenta</string>
+  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Odstránené</string>
+  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Znovu pozvať študenta</string>
   <string name="sendAMessage">Poslať správu všetkým študentom.</string>
   <string name="aLinkToTheClassWillBeAdded">Odkaz na kurz bude automatický pridaný na konci správy, čiže Vy ho už pridávať nemusíte.</string>
   <string name="className">Názov triedy</string>
@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Vygenerovať nové heslo pre študenta</string>
   <string name="invitedToXByY">Pozvaný na %1$s užívateľom %2$s</string>
   <string name="realName">Skutočné meno</string>
-  <string name="privateWillNeverBeShown">Súkromné. Nikdy nebude zobrazené mimo kurzu. Pomôcka pre zapamätanie si študenta.</string>
+  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Súkromné. Nikdy nebude zobrazené mimo kurzu. Pomôcka pre zapamätanie si študenta.</string>
   <string name="addStudent">Pridať študenta</string>
   <string name="lichessProfileXCreatedForY">Lichess profile %1$s vytvorený pre %2$s.</string>
   <string name="studentCredentials">Študent: %1$s
@@ -41,14 +41,14 @@ Heslo: %3$s</string>
   <string name="inviteDesc2">Obdrží Lichess správu s odkazom na vstup do triedy.</string>
   <string name="inviteDesc3">Dôležité: pozývajte iba študentov, ktorých poznáte a ktorí majú aktívny záujem pridať sa do triedy.</string>
   <string name="inviteDesc4">Nikdy neposielajte nevyžiadané pozvánky náhodným hráčom!</string>
-  <string name="createANewLichessAccount">Vytvoriť nový Lichess účet</string>
+  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Vytvoriť nový Lichess účet</string>
   <string name="createDesc1">Ak študent ešte nemá Lichess účet, môžete mu ho vytvoriť tu.</string>
   <string name="createDesc2">Nevyžaduje sa e-mailová adresa. Heslo sa vygeneruje automaticky. Vy následne heslo zašlete študentovi aby sa mohol prihlásiť.</string>
   <string name="createDesc3">Dôležité: študent nesmie mať viacero účtov.</string>
   <string name="createDesc4">Ak už účet má, použite pozývací formulár.</string>
   <string name="createStudentWarning">Vytvárajte účty len pre skutočných študentov! Nepoužívajte na vytvorenie viacerých účtov pre seba! Dostali by ste zákaz.</string>
   <string name="lichessUsername">Lichess užívateľské meno</string>
-  <string name="generateANewUsername">Vygenerovať nové užívateľské meno</string>
+  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Vygenerovať nové užívateľské meno</string>
   <string name="welcomeToClass">Vitaj na kurze: %s.
 Tu je link pre prístup ku kurzu.</string>
   <string name="invitationToClass">Si pozvaný aby si sa ako študent pripojil ku kurzu \"%s\".</string>
@@ -59,12 +59,14 @@ Tu je link pre prístup ku kurzu.</string>
     <item quantity="many">%s čakajúcich pozvánok</item>
     <item quantity="other">%s čakajúcich pozvánok</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Čaká</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Odmietnuté</string>
   <string name="onlyVisibleToTeachers">Viditeľné iba pre učiteľov kurzu</string>
   <string name="lastActiveDate">Aktívny</string>
   <string name="managed">Spravovaný</string>
   <string name="thisStudentAccountIsManaged">Tento študentský účet je spravovaný</string>
   <string name="upgradeFromManaged">Povýšiť zo spravovaného na nezávislý</string>
-  <string name="release">Uvoľniť</string>
+  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Uvoľniť</string>
   <string name="releaseTheAccount">Uvoľniť účet aby si ho študent mohol spravovať sám.</string>
   <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
   <string name="releaseDesc2">Študent ostane v triede po uvoľnení jeho účtu.</string>

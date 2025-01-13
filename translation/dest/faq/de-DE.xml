@@ -148,7 +148,7 @@ Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden
 Das rote Stummschaltungssymbol erscheint, wenn dein Browser verhindert, dass lichess.org einen Ton abspielt. Normalerweise wird diese Einschränkung aufgehoben, sobald du etwas anklickst. Bei einigen mobilen Browsern gilt das Ziehen einer Figur durch Berührung nicht als Klick. In diesem Fall musst du zu Beginn einer Partie auf das Brett tippen, um den Ton zu aktivieren.
 
 Wir zeigen das rote Symbol an, um darauf aufmerksam zu machen, wenn dies geschieht. Oft kann man lichess.org ausdrücklich erlauben, Töne abzuspielen. Hier findest du eine Anleitung, wie dies in den neuesten Versionen einiger gängiger Browser funktioniert.</string>
-  <string name="desktop">Desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">Desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gehe zu lichess.org
 2. Drücke Strg-i unter Linux/Windows oder cmd-i auf MacOS
 3. Klicke auf die Registerkarte Berechtigungen

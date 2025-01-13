@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jucaţi cu un prieten</string>
+  <string name="playWithAFriend">Jucați cu un prieten</string>
   <string name="playWithTheMachine">Jucați cu calculatorul</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
@@ -11,15 +11,15 @@
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Putere</string>
-  <string name="toggleTheChat">Arată/ascunde discuția</string>
+  <string name="toggleTheChat">Arată/Ascunde discuţia</string>
   <string name="chat">Discuţie</string>
-  <string name="resign">Abandonează</string>
+  <string name="resign">Renunță</string>
   <string name="checkmate">Şah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
   <string name="asWhite">cu albele</string>
-  <string name="asBlack">cu negrele</string>
+  <string name="asBlack">ca negrul</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -135,15 +135,30 @@
     <item quantity="few">%s gafe</item>
     <item quantity="other">%s de gafe</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Gafă</item>
+    <item quantity="few">%s Gafe</item>
+    <item quantity="other">%s De gafe</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s greșeală</item>
     <item quantity="few">%s greșeli</item>
     <item quantity="other">%s de greșeli</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Greșeală</item>
+    <item quantity="few">%s Greșeli</item>
+    <item quantity="other">%s De greșeli</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s inexactitate</item>
     <item quantity="few">%s inexactități</item>
     <item quantity="other">%s de inexactități</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Inexactitate</item>
+    <item quantity="few">%s Inexactități</item>
+    <item quantity="other">%s De inexactități</item>
   </plurals>
   <string name="moveTimes">Timpii de mutare</string>
   <string name="flipBoard">Rotiţi tabla</string>
@@ -715,7 +730,7 @@
   <string name="aboutSimulRules">Când simultanul începe, fiecare jucător începe jocul cu gazda și va juca cu piesele albe. Simultanul se termină când toate jocurile sunt complete.</string>
   <string name="aboutSimulSettings">Simultanele sunt tot timpul amicale. Revanșele, mutările înapoi și opțiunea \"mai mult timp\" sunt dezactivate.</string>
   <string name="create">Creează</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
+  <string name="whenCreateSimul">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
   <string name="simulVariantsHint">Dacă alegi mai multe variante, fiecare jucător va avea de ales ce variantă va juca.</string>
   <string name="simulClockHint">Configurare de ceas Fischer. Cu cât joci împotriva mai multor jucători, cu atât vei avea nevoie de mai mult timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>

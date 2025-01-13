@@ -300,11 +300,11 @@ body { margin-top: 45px; }
       )
     )
 
-  def tor(using Context) =
-    Page("Tor exit node"):
+  def pubOrTor(using Context) =
+    Page("Public proxy"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
-        p("Sorry, you can't signup to Lichess through Tor!"),
+        p("Sorry, you can't signup to Lichess through Tor or public proxies!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
       )
 

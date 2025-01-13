@@ -20,9 +20,10 @@
   <string name="displayBoardResizeHandle">Näytä laudan koon muokkauskahva</string>
   <string name="onlyOnInitialPosition">Vain alkuasemassa</string>
   <string name="inGameOnly">Vain pelin aikana</string>
+  <string name="exceptInGame">Paitsi pelin aikana</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kun aikaa jäljellä &lt; 10 sekuntia</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kun aikaa jäljellä &lt; 10 sekuntia</string>
   <string name="horizontalGreenProgressBars">Vaakasuora vihreä ajanetenemispalkki</string>
   <string name="soundWhenTimeGetsCritical">Äänimerkki kun aika on vähissä</string>
   <string name="giveMoreTime">Anna lisää aikaa</string>
@@ -38,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Pidä &lt;ctrl&gt;-näppäintä painettuna korottaessasi sotilaan, jos haluat ottaa automaattisen korotuksen väliaikaisesti pois käytöstä</string>
   <string name="whenPremoving">Esisiirtäessä</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
   <string name="explainCanThenBeTemporarilyDisabled">Voidaan poistaa käytöstä pelin aikana lautavalikon kautta</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>

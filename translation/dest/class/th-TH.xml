@@ -4,7 +4,7 @@
   <string name="features">แสดง</string>
   <string name="quicklyGenerateSafeUsernames">สร้างชื่อและพาสเวิร์ดที่ปลอดภัยให้นักเรียนโดยเร็ว</string>
   <string name="trackStudentProgress">ติดตามความก้าวหน้าของนักเรียนจากเกมและปริศนา</string>
-  <string name="freeForAllForever">ฟรีสำหรับทุกคนตลอดไป 100% โดยไม่มีโฆษณาหรือการติดตาม</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">ฟรีสำหรับทุกคนตลอดไป 100% โดยไม่มีโฆษณาหรือการติดตาม</string>
   <string name="applyToBeLichessTeacher">สมัครเพื่อเป็นครู Lichess</string>
   <string name="noClassesYet">ยังไม่มีห้อง</string>
   <string name="teachersX">ครู: %s</string>

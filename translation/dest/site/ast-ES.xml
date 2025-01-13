@@ -132,13 +132,25 @@
     <item quantity="one">%s picia</item>
     <item quantity="other">%s picies</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Picia</item>
+    <item quantity="other">%s Picies</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s fallu</item>
     <item quantity="other">%s fallos</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Fallu</item>
+    <item quantity="other">%s Fallos</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s inexautitú</item>
     <item quantity="other">%s inexautitúes</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Inexautitú</item>
+    <item quantity="other">%s Inexautitúes</item>
   </plurals>
   <string name="moveTimes">Tiempu ente movimientos</string>
   <string name="flipBoard">Xirar tableru</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">Cuando la simultánea empieza, cada xugador empieza una partida col agospiu, que xuega con blanques. La simultánea termina cuando s\'acaben toles partíes.</string>
   <string name="aboutSimulSettings">Les simultánees son partíes amistoses. Les opciones de pidimientu de revancha, desfacer xugada y añedir tiempu tán evacuaes.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cuando creas una simultánea, xuegues contra dellos xugadores al empar.</string>
+  <string name="whenCreateSimul">Cuando creas una simultánea, xuegues contra dellos xugadores al empar.</string>
   <string name="simulVariantsHint">Si escueyes distintes variantes, cada xugador escueye cuál xugar.</string>
   <string name="simulClockHint">Configuración de reló Fischer. Cuantos más oponentes, más tiempu precísase.</string>
   <string name="simulAddExtraTime">Pues añedir tiempu adicional al to reló para ayudar na simultánea.</string>
