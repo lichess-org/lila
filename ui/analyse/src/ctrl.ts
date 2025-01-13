@@ -150,7 +150,7 @@ export default class AnalyseCtrl {
 
     this.persistence = opts.study ? undefined : new Persistence(this);
 
-    this.configureCeval();
+    this.initCeval();
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
@@ -193,7 +193,11 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-    pubsub.on('board.change', redraw);
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
+      redraw();
+    });
     this.persistence?.merge();
     (window as any).lichess.analysis = api(this);
   }
@@ -375,10 +379,6 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
-    pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground.state.addPieceZIndex = is3d;
-      this.chessground.redrawAll();
-    });
   };
 
   private onChange: () => void = throttle(300, () => {
@@ -463,7 +463,7 @@ export default class AnalyseCtrl {
     this.initialize(data, merge);
     this.redirecting = false;
     this.setPath(treePath.root);
-    this.configureCeval();
+    this.initCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
   }
@@ -623,6 +623,7 @@ export default class AnalyseCtrl {
     if (treePath.contains(this.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.path);
     if (this.study) this.study.deleteNode(path);
+    this.redraw();
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {
@@ -701,7 +702,7 @@ export default class AnalyseCtrl {
     });
   };
 
-  private configureCeval(): void {
+  private initCeval(): void {
     const opts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
@@ -717,12 +718,12 @@ export default class AnalyseCtrl {
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
       onSelectEngine: () => {
-        this.configureCeval();
+        this.initCeval();
         this.redraw();
       },
       search: this.practice?.search,
     };
-    if (this.ceval) this.ceval.configure(opts);
+    if (this.ceval) this.ceval.init(opts);
     else this.ceval = new CevalCtrl(opts);
   }
 
@@ -981,6 +982,8 @@ export default class AnalyseCtrl {
   togglePractice = () => {
     if (this.practice || !this.ceval.possible) {
       this.practice = undefined;
+      this.ceval.setOpts({ search: undefined }); // TODO, improve ceval integration in this file
+      if (this.ceval.enabled()) this.clearCeval();
       this.showGround();
     } else {
       this.closeTools();

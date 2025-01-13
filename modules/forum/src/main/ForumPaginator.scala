@@ -27,7 +27,8 @@ final class ForumPaginator(
       maxPerPage = MaxPerPage(30)
     )
 
-  def topicPosts(topic: ForumTopic, page: Int)(using me: Option[Me])(using
+  def topicPosts(topic: ForumTopic, page: Int)(using
+      me: Option[Me],
       netDomain: NetDomain
   ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(

@@ -2471,6 +2471,10 @@ interface I18n {
     intermezzo: string;
     /** Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between". */
     intermezzoDescription: string;
+    /** Kill box mate */
+    killBoxMate: string;
+    /** A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box". */
+    killBoxMateDescription: string;
     /** Kingside attack */
     kingsideAttack: string;
     /** An attack of the opponent's king, after they castled on the king side. */
@@ -3625,6 +3629,12 @@ interface I18n {
     notifications: string;
     /** Notifications: %1$s */
     notificationsX: I18nFormat;
+    /** %s Blunders */
+    numberBlunders: I18nPlural;
+    /** %s Inaccuracies */
+    numberInaccuracies: I18nPlural;
+    /** %s Mistakes */
+    numberMistakes: I18nPlural;
     /** Offer draw */
     offerDraw: string;
     /** OK */
@@ -4857,6 +4867,8 @@ interface I18n {
     shareChanges: string;
     /** Evaluation bars */
     showEvalBar: string;
+    /** Results */
+    showResults: string;
     /** Spectator */
     spectator: string;
     /** Start */
@@ -5443,6 +5455,10 @@ interface I18n {
     saveDraft: string;
     /** Select the topics your post is about */
     selectPostTopics: string;
+    /** Sticky post */
+    stickyPost: string;
+    /** If checked, this post will be listed first in your profile recent posts. */
+    stickyPostHelp: string;
     /** This is a draft */
     thisIsADraft: string;
     /** This post is published */

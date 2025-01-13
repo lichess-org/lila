@@ -23,7 +23,7 @@
   <string name="exceptInGame">Excepte durant la partida</string>
   <string name="chessClock">Rellotge d\'escacs</string>
   <string name="tenthsOfSeconds">Dècimes de segon</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quan restin menys de 10 segons</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quan restin menys de 10 segons</string>
   <string name="horizontalGreenProgressBars">Barres de progrés verdes horitzontals</string>
   <string name="soundWhenTimeGetsCritical">Emetre so quan quedi poc temps</string>
   <string name="giveMoreTime">Donar més temps</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taules per repetició automàticament</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quan restin &lt; 30 segons</string>
   <string name="moveConfirmation">Confirmació del moviment</string>
   <string name="explainCanThenBeTemporarilyDisabled">Es pot desactivar durant la partida al menú del taulell</string>
   <string name="inCorrespondenceGames">Partides per correspondència</string>

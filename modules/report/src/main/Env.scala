@@ -44,7 +44,7 @@ final class Env(
 
   lazy val modFilters = new ModReportFilter
 
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
+  scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
     api.inquiries.expire
 
   lila.common.Bus.subscribeFun("playban"):

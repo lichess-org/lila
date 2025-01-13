@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Umiestnenie figúry medzi dve súperove figúry čím sa tieto dve stávajú nekrytými, napr. umiestnenie jazdca na kryté pole medzi dve veže.</string>
   <string name="intermezzo">Medziťah</string>
   <string name="intermezzoDescription">Namiesto očakávaného ťahu, zahranie ťahu znamenajúceho okamžitú hrozbu, na ktorú musí protihráč reagovať. Nazývaný tiež \"Zwischenzug\".</string>
+  <string name="killBoxMate">Mat na poli smrti</string>
+  <string name="killBoxMateDescription">Veža je vedľa súperovho kráľa a podporuje ju dáma, ktorá zároveň blokuje kráľove únikové polia. Veža a dáma chytia súperovho kráľa do pasce na 3 x 3 „poli smrti“.</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
   <string name="knightEndgameDescription">Koncovka iba s jazdcami a pešiakmi.</string>
   <string name="long">Troj-ťahové úlohy</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">Figúra bráni alebo útočí na pole cez súperovu figúru.</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
   <string name="zugzwangDescription">Súper je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Zdravá zmes</string>
+  <string name="mix">Zdravá zmes</string>
   <string name="mixDescription">Od všetkého trochu. Neviete, čo môžete očakávať, a tak ste neustále pripravení na všetko! Presne ako v skutočných partiách.</string>
   <string name="playerGames">Vaše partie</string>
   <string name="playerGamesDescription">Vyhľadajte si úlohy vygenerované z Vašich partií alebo z partií iných hráčov.</string>

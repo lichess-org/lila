@@ -24,7 +24,7 @@
     @extend %move;
 
     @media (hover: none) {
-      user-select: none;
+      @include prevent-select;
     }
 
     &.inaccuracy {

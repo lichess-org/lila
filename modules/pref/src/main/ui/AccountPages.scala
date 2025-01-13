@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.user.FlagApi):
   import helpers.{ *, given }
-  import trans.{ settings as trs }
+  import trans.settings as trs
   import ui.AccountPage
 
   def close(form: Form[?], managed: Boolean)(using Context)(using me: Me) =

@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Å flytte en brikke mellom to motstanderbrikker slik at en av eller begge motstanderbrikkene er udekket, for eksempel en springer på et dekket felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
   <string name="intermezzoDescription">I stedet for å foreta det forventede trekket utføres først et annet trekk som utgjør en umiddelbar trussel, som motstanderen må svare på.</string>
+  <string name="killBoxMate">Kassematt</string>
+  <string name="killBoxMateDescription">Et tårn står ved siden av motstanderens konge og er støttet av en dronning som også blokkerer kongens fluktfelter. Tårnet og dronningen fanger motstanderens konge i en 3x3 «kasse».</string>
   <string name="knightEndgame">Springersluttspill</string>
   <string name="knightEndgameDescription">Et sluttspill med kun springere og bønder.</string>
   <string name="long">Lang sjakknøtt</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">En brikke angriper eller dekker et felt indirekte, gjennom en av motstanderens brikker.</string>
   <string name="zugzwang">Trekktvang</string>
   <string name="zugzwangDescription">Motstanderen kan bare utføre trekk som forverrer egen stilling.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Frisk blanding</string>
+  <string name="mix">Frisk blanding</string>
   <string name="mixDescription">Litt av alt. Du vet ikke hva du får, så du er klar for alt! Akkurat som i virkelige partier.</string>
   <string name="playerGames">Spillerpartier</string>
   <string name="playerGamesDescription">Finn sjakknøtter generert fra dine eller andres partier.</string>

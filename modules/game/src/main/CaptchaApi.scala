@@ -21,7 +21,7 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
     get(gameId).map(_.solutions.toList contains move)
 
   def validateSync(data: WithCaptcha): Boolean =
-    validate(data.gameId, data.move).await(2 seconds, "CaptchaApi.validateSync")
+    validate(data.gameId, data.move).await(2.seconds, "CaptchaApi.validateSync")
 
   def newCaptcha() = Impl.refresh
 
@@ -87,7 +87,8 @@ final private class CaptchaApi(gameRepo: GameRepo)(using Executor) extends ICapt
           tags = Tags.empty
         )
         .flatMap(_.valid)
-        .map(_.state) toOption
+        .map(_.state)
+        .toOption
 
     def safeInit[A]: List[A] => List[A] =
       case _ :: Nil => Nil

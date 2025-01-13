@@ -117,7 +117,9 @@ final class AuthUi(helpers: Helpers):
       .css("bits.email-confirm")
       .js(esmInitBit("validateEmail")):
         main(
-          cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
+          cls := s"page-small box box-pad email-confirm ${
+              if form.exists(_.hasErrors) then "error" else "anim"
+            }"
         )(
           boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
           p(trans.site.weHaveSentYouAnEmailClickTheLink()),
@@ -300,11 +302,11 @@ body { margin-top: 45px; }
       )
     )
 
-  def tor(using Context) =
-    Page("Tor exit node"):
+  def pubOrTor(using Context) =
+    Page("Public proxy"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
-        p("Sorry, you can't signup to Lichess through Tor!"),
+        p("Sorry, you can't signup to Lichess through Tor or public proxies!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
       )
 
@@ -321,8 +323,7 @@ body { margin-top: 45px; }
     div(cls := "agreement")(
       error.option(p:
         strong(cls := "error"):
-          "You must agree to the Lichess policies listed below:"
-      ),
+          "You must agree to the Lichess policies listed below:"),
       agreements.map: (field, text) =>
         form3.checkbox(form(field), text)
     )

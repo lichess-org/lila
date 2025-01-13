@@ -74,7 +74,7 @@ final class OpeningApi(
 
   private val allGamesHistory =
     cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory") {
-      _.expireAfterWrite(1 hour).buildAsyncFuture(config =>
+      _.expireAfterWrite(1.hour).buildAsyncFuture(config =>
         explorer.stats(Vector.empty, config, Crawler(false)).map(_.so(_.popularityHistory))
       )
     }

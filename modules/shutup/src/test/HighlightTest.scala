@@ -8,7 +8,7 @@ import scalatags.Text.all.*
  */
 class HighlightTest extends munit.FunSuite:
 
-  import Analyser.{ highlightBad as hi }
+  import Analyser.highlightBad as hi
 
   given munit.Compare[Frag, String] with
     def isEqual(obtained: Frag, expected: String): Boolean = obtained.render == expected

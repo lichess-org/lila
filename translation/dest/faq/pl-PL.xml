@@ -155,7 +155,7 @@ Następnie wybierz czy chcesz zezwolić czy zablokować powiadomienia z Lichess.
 Ikona czerwonego wyciszenia pojawia się, gdy przeglądarka uniemożliwia lichess.org odtwarzanie dźwięku. Zazwyczaj to ograniczenie zostaje zniesione po kliknięciu czegokolwiek na stronie. W niektórych przeglądarkach mobilnych próba przeciągania elementu nie liczy się jako kliknięcie. W takim przypadku musisz dotknąć ekranu, aby włączyć dźwięk na początku każdej gry.
 
 Pokazujemy czerwoną ikonę, aby Cię ostrzec, kiedy to się wydarzy. W wielu przeglądarkach możesz wprost zezwolić na odtwarzanie dźwięków na lichess.org. Poniżej znajdują się instrukcje jak to zrobić w najnowszych wersjach niektórych popularnych przeglądarek.</string>
-  <string name="desktop">pulpit</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">pulpit</string>
   <string name="enableAutoplayForSoundsFirefox">1. Przejdź do lichess.org
 2. Naciśnij Ctrl-i na Linux/Windows lub cmd-i na MacOS
 3. Kliknij kartę Uprawnienia

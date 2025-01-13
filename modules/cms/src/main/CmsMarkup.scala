@@ -19,7 +19,7 @@ final class CmsMarkup(cacheApi: CacheApi)(using Executor, play.api.Mode):
   def apply(page: CmsPage): Fu[Html] = cache.get((page.id, page.markdown))
 
   private val cache = cacheApi[(CmsPageId, Markdown), Html](64, "cms.markup"):
-    _.expireAfterWrite(15 minutes)
+    _.expireAfterWrite(15.minutes)
       .buildAsyncFuture: (id, markdown) =>
         fuccess(process(id)(markdown))
 

@@ -82,7 +82,7 @@ final class EventStream(
             lastSetSeenAt = nowInstant
 
           context.system.scheduler
-            .scheduleOnce(6 second):
+            .scheduleOnce(6.second):
               if online then
                 // gotta send a message to check if the client has disconnected
                 queue.offer(None)

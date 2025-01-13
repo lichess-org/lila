@@ -32,9 +32,9 @@ const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
 };
 
 const advices: Advice[] = [
-  { kind: 'inaccuracy', i18n: i18n.site.nbInaccuracies, symbol: '?!' },
-  { kind: 'mistake', i18n: i18n.site.nbMistakes, symbol: '?' },
-  { kind: 'blunder', i18n: i18n.site.nbBlunders, symbol: '??' },
+  { kind: 'inaccuracy', i18n: i18n.site.numberInaccuracies, symbol: '?!' },
+  { kind: 'mistake', i18n: i18n.site.numberMistakes, symbol: '?' },
+  { kind: 'blunder', i18n: i18n.site.numberBlunders, symbol: '??' },
 ];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {

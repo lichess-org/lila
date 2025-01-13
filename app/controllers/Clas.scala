@@ -400,8 +400,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         ,
         data =>
           Found(env.user.repo.enabledById(data.username)): user =>
-            import lila.clas.ClasInvite.{ Feedback as F }
-            import lila.core.i18n.{ I18nKey as trans }
+            import lila.clas.ClasInvite.Feedback as F
+            import lila.core.i18n.I18nKey as trans
             env.clas.api.invite.create(clas, user, data.realName).map { feedback =>
               Redirect(routes.Clas.studentForm(clas.id)).flashing:
                 feedback match
@@ -487,8 +487,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                   env.security.emailChange
                     .send(s.user, newUserEmail.email)
                     .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess:
-                      s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account."
-                    )
+                      s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account.")
             )
         else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
   }

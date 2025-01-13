@@ -142,8 +142,7 @@ final class StreamerApi(
       .one[Streamer]
       .map(_.foreach: s =>
         s.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, false))
-        coll.delete.one($id(user.id)).void
-      )
+        coll.delete.one($id(user.id)).void)
 
   def create(u: User): Funit =
     coll.insert.one(Streamer.make(u)).void.recover(lila.db.ignoreDuplicateKey)
@@ -224,13 +223,13 @@ final class StreamerApi(
       )
 
     val listedIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
         coll.secondaryPreferred.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
 
     def isListed(id: Streamer.Id): Fu[Boolean] = listedIds.getUnit.dmap(_ contains id)
 
     val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
         coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
           "_id",
           selectListedApproved ++ $doc("liveAt".$exists(false))

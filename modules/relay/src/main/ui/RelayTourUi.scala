@@ -11,7 +11,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   import helpers.{ *, given }
-  import trans.{ broadcast as trc }
+  import trans.broadcast as trc
 
   def asRelayPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound] = p.mapResults(identity)
 
@@ -24,8 +24,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map: sel =>
-          card.render(sel, live = _.display.hasStarted, alt = sel.alts.headOption)
-      )
+          card.render(sel, live = _.display.hasStarted, alt = sel.alts.headOption))
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):

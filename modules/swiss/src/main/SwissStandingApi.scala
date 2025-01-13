@@ -21,7 +21,7 @@ final class SwissStandingApi(
   private val perPage = 10
 
   private val pageCache = lila.memo.CacheApi.scaffeine
-    .expireAfterWrite(60 minutes)
+    .expireAfterWrite(60.minutes)
     .build[(SwissId, Int), JsObject]()
 
   def apply(swiss: Swiss, forPage: Int): Fu[JsObject] =
@@ -68,7 +68,7 @@ final class SwissStandingApi(
       }
 
   private val first = cacheApi[SwissId, JsObject](256, "swiss.page.first") {
-    _.expireAfterWrite(1 minute)
+    _.expireAfterWrite(1.minute)
       .buildAsyncFuture { compute(_, 1) }
   }
 

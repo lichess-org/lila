@@ -19,7 +19,7 @@ final class Firewall(
   scheduler.scheduleOnce(49.seconds):
     loadFromDb
 
-  scheduler.scheduleWithFixedDelay(47 seconds, 2 hours): () =>
+  scheduler.scheduleWithFixedDelay(47.seconds, 2.hours): () =>
     blockProxyScrapeIps()
 
   def blocksIp(ip: IpAddress): Boolean = current.contains(ip.value) || proxies.contains(ip)

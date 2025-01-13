@@ -57,6 +57,8 @@
   <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて浮き駒を作る問題。相手の 2 個のルークの間に守られたナイトを入れる、など。</string>
   <string name="intermezzo">ツヴィッシェンツーク（利かし）</string>
   <string name="intermezzoDescription">当然に見える手を指す代わりに、いったん相手が受けざるを得ない別の手をはさむ問題。</string>
+  <string name="killBoxMate">キルボックスのメイト</string>
+  <string name="killBoxMateDescription">ルークが敵キングの隣にあり、クイーンがルークを守ると同時にキングの逃げ道をふさいでいる。ルークとクイーンが 3 × 3 の「キルボックス」に敵キングを捕えた形。</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>
   <string name="knightEndgameDescription">ナイトとポーンだけの終盤。</string>
   <string name="long">長手数問題</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">相手の駒の向こうにあるマスを間接的に攻撃（または防御）する。</string>
   <string name="zugzwang">ツークツワンク</string>
   <string name="zugzwangDescription">相手の指せる手が、どれを選んでも局面を悪くしてしまう形。</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">混合</string>
+  <string name="mix">混合</string>
   <string name="mixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！　実戦と同じです。</string>
   <string name="playerGames">プレイヤーの対局</string>
   <string name="playerGamesDescription">自分の対局、他のプレイヤーの対局から取られた問題を検索します。</string>

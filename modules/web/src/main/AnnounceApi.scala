@@ -46,8 +46,7 @@ object AnnounceApi:
           val json    = Json.obj("msg" -> msg, "date" -> isoDate)
           Announce(msg, date, json)
         }.toOption
-      case _ => none
-    )
+      case _ => none)
     get
 
   def cancel = Announce("", nowInstant, Json.obj())

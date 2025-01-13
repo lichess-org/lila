@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Τάξεις Lichess</string>
+  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to &quot;Classes&quot;.">Τάξεις</string>
   <string name="teachClassesOfChessStudents">Διδασκαλία μαθητών με την σουίτα εργαλείων των τάξεων που προσφέρει το Lichess.</string>
   <string name="features">Δυνατότητες</string>
   <string name="quicklyGenerateSafeUsernames">Γρήγορη δημιουργία χρηστών και κωδικών για μαθητές</string>
   <string name="trackStudentProgress">Παρακολούθηση προόδου μαθητών σε παρτίδες και γρίφους</string>
   <string name="messageAllStudents">Αποστολή μηνύματος σε όλους τους μαθητές σχετικά με νέο υλικό τάξης</string>
-  <string name="freeForAllForever">100% χωρίς χρέωση για όλους, για πάντα, χωρίς διαφημίσεις ή ιχνηλάτηση</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% χωρίς χρέωση για όλους, για πάντα, χωρίς διαφημίσεις ή ιχνηλάτηση</string>
   <string name="applyToBeLichessTeacher">Ζητήστε να γίνετε δάσκαλος στο Lichess</string>
   <string name="noClassesYet">Δεν υπάρχουν τάξεις ακόμη.</string>
   <string name="teachersX">Δάσκαλοι: %s</string>
   <string name="newClass">Νέα τάξη</string>
   <string name="closeClass">Κλείσιμο τάξης</string>
   <string name="removedByX">Διεγράφη από τον %s</string>
-  <string name="reopen">Ξανανοίξτε</string>
-  <string name="removeStudent">Απομάκρυνση μαθητή</string>
-  <string name="removedStudents">Απομακρύνθηκε</string>
-  <string name="inviteTheStudentBack">Προσκαλέστε πάλι τον μαθητή</string>
+  <string name="reopen" comment="A button, permitting a teacher to reopen a closed class.">Ξανανοίξτε</string>
+  <string name="removeStudent" comment="Removes a student from the class. Note the same text is used both for initial removal, and for full erasure.">Απομάκρυνση μαθητή</string>
+  <string name="removedStudents" comment="This is in plural form. It is a heading showing all students who have been removed from the class.">Απομακρύνθηκε</string>
+  <string name="inviteTheStudentBack" comment="A button. Clicking this will re-invite a student that has been removed from the class.">Προσκαλέστε πάλι τον μαθητή</string>
   <string name="sendAMessage">Στείλτε ένα μήνυμα σε όλους τους μαθητές.</string>
   <string name="aLinkToTheClassWillBeAdded">Ο σύνδεσμος της τάξης θα προστεθεί αυτόματα στο τέλος του μηνύματος.</string>
   <string name="className">Όνομα τάξης</string>
@@ -30,25 +30,25 @@
   <string name="generateANewPassword">Δημιουργία νέου κωδικού για τον μαθητή</string>
   <string name="invitedToXByY">Προσκλήθηκε στην τάξη %1$s από τον χρήστη %2$s</string>
   <string name="realName">Αληθινό όνομα</string>
-  <string name="privateWillNeverBeShown">Ιδιωτικό. Δεν εμφανίζεται εκτός τάξης. Έτσι αναγνωρίζετε ευκολότερα τον μαθητή.</string>
+  <string name="privateWillNeverBeShown" comment="A description of the real name field for members of a class.">Ιδιωτικό. Δεν εμφανίζεται εκτός τάξης. Έτσι αναγνωρίζετε ευκολότερα τον μαθητή.</string>
   <string name="addStudent">Προσθήκη μαθητή</string>
   <string name="lichessProfileXCreatedForY">Δημιουργήθηκε το Lichess προφίλ %1$s για %2$s.</string>
   <string name="studentCredentials">Μαθητής: %1$s
-Χρήστης: %2$s
+Όνομα χρήστη: %2$s
 Κωδικός: %3$s</string>
   <string name="inviteALichessAccount">Πρόσκληση λογαριασμού Lichess</string>
   <string name="inviteDesc1">Εάν ο μαθητής έχει ήδη λογαριασμό στο Lichess, μπορείτε να τον προσκαλέσετε στην τάξη.</string>
   <string name="inviteDesc2">Θα λάβουν μήνυμα στο Lichess με σύνδεσμο για συμμετοχή στη τάξη.</string>
   <string name="inviteDesc3">Σημαντικό: προσκαλέστε μόνο μαθητές που γνωρίζετε, και που θέλουν να συμμετέχουν ενεργά στη τάξη.</string>
   <string name="inviteDesc4">Μην στέλνετε ανεπιθύμητες προσκλήσεις σε τυχαίους παίκτες.</string>
-  <string name="createANewLichessAccount">Δημιουργία νέου λογαριασμού Lichess</string>
+  <string name="createANewLichessAccount" comment="The person who would see this would always be a teacher.&#10;In this context, it is to create a new account for a student of their class.">Δημιουργία νέου λογαριασμού Lichess</string>
   <string name="createDesc1">Εάν ο μαθητής δεν έχει λογαριασμό Lichess, μπορείτε να δημιουργήσετε έναν για αυτόν εδώ.</string>
-  <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
+  <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον στείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
   <string name="createDesc3">Σημαντικό: ο μαθητής δεν πρέπει να έχει πολλαπλούς λογαριασμούς.</string>
   <string name="createDesc4">Εάν έχουν ήδη έναν, χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
   <string name="createStudentWarning">Δημιουργήστε λογαριασμούς μόνο για πραγματικούς μαθητές. Εάν δημιουργήσετε πολλούς λογαριασμούς για σας, ενδέχεται να κλείσει ο λογαριασμός σας.</string>
   <string name="lichessUsername">Όνομα χρήστη Lichess</string>
-  <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
+  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Παραγωγή νέου ονόματος χρήστη</string>
   <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
 Πατήστε στον σύνδεσμο για να αποκτήσετε πρόσβαση.</string>
   <string name="invitationToClass">Προσκληθήκατε να συμμετάσχετε στην τάξη \"%s\" ως μαθητής.</string>
@@ -62,7 +62,7 @@
   <string name="managed">Διαχειριζόμενος</string>
   <string name="thisStudentAccountIsManaged">Ο λογαριασμός του μαθητή είναι διαχειριζόμενος</string>
   <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενο σε αυτόνομο</string>
-  <string name="release">Απελευθέρωση</string>
+  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Απελευθέρωση</string>
   <string name="releaseTheAccount">Απελευθερώστε τον λογαριασμό για να μπορεί ο μαθητής να τον διαχειριστεί ο ίδιος.</string>
   <string name="releaseDesc1">Ένας αυτόνομος λογαριασμός δεν μπορεί να ξαναγίνει διαχειριζόμενος. Ο μαθητής θα μπορεί να ενεργοποιήσει ή να απενεργοποιήσει την παιδική λειτουργία και να επαναφέρει το κωδικό πρόσβασης.</string>
   <string name="releaseDesc2">Ο μαθητής θα παραμείνει στην τάξη μετά την απελευθέρωση του λογαριασμού του.</string>

@@ -37,7 +37,7 @@
   <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
   <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
-  <string name="showScores">Toon scores van spelers op basis van partij-uitslagen</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Toon scores van spelers op basis van partij-uitslagen</string>
   <string name="replacePlayerTags">Optioneel: vervang spelersnamen, beoordelingen en titels</string>
   <string name="fideFederations">FIDE-federaties</string>
   <string name="top10Rating">Top 10-rating</string>
@@ -48,7 +48,7 @@
   <string name="ageThisYear">Leeftijd dit jaar</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Zonder rating</string>
   <string name="recentTournaments">Recente toernooien</string>
-  <string name="openLichess">Openen in Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Openen in Lichess</string>
   <string name="teams">Teams</string>
   <string name="boards">Borden</string>
   <string name="overview">Overzicht</string>

@@ -2,8 +2,8 @@ package lila.relay
 
 import play.api.libs.json.*
 import scalalib.model.Seconds
-import chess.Outcome
-import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
+import chess.{ Centis, Outcome, ByColor }
+import chess.format.pgn.{ PgnStr, SanStr, Move, Tag, Tags }
 
 private object DgtJson:
 
@@ -46,7 +46,11 @@ private object DgtJson:
 
   case class ClockJson(white: Option[Seconds], black: Option[Seconds], time: Long):
     def referenceTime: Instant = millisToInstant(time)
+    def byColor                = ByColor(white, black)
 
+  /** This is DGT so it's all sorts of wrong. When the clock time is set in both the move `Rxd1 3010` and in
+    * `clock.white`, then the latter should be used. Most of the time.
+    */
   case class GameJson(
       moves: List[String],
       result: Option[String],
@@ -71,18 +75,35 @@ private object DgtJson:
           ).flatten
         )
     def toPgn(roundTags: Tags): PgnStr =
-      val mergedTags = clockTags ++ mergeRoundTags(roundTags)
-      val strMoves = moves
-        .map(_.split(' '))
-        .map: move =>
-          chess.format.pgn
-            .Move(
-              san = SanStr(~move.headOption),
-              secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)).flatMap(_.toIntOption)
-            )
-            .render
-        .mkString(" ")
+      val mergedTags  = clockTags ++ mergeRoundTags(roundTags)
+      val parsedMoves = moves.map(parseMove)
+      val fixedMoves  = clock.foldLeft(parsedMoves)(replaceLastMoveTimesWithClock)
+      val strMoves    = fixedMoves.map(_.render).mkString(" ")
       PgnStr(s"$mergedTags\n\n$strMoves")
+
+  /* - dxe4 63
+   * - fxe4 +31
+   * - Nc2 34+2
+   */
+  private def parseMove(str: String): Move =
+    val parts = str.split(' ')
+    val (clk: Option[Int], emt: Option[Int]) = parts
+      .lift(1)
+      .fold((none, none)):
+        _.split('+') match
+          case Array(clk)      => (clk.toIntOption, none)
+          case Array("", emt)  => (none, emt.toIntOption)
+          case Array(clk, emt) => (clk.toIntOption, emt.toIntOption)
+          case _               => (none, none)
+    Move(san = SanStr(~parts.headOption), timeLeft = Seconds.from(clk), moveTime = Seconds.from(emt))
+
+  private def replaceLastMoveTimesWithClock(moves: List[Move], clock: ClockJson): List[Move] =
+    val lastMoveIndex                            = moves.size - 1
+    def change(move: Move, sec: Option[Seconds]) = sec.fold(move)(s => move.copy(timeLeft = s.some))
+    moves.mapWithIndex: (move, i) =>
+      if i >= lastMoveIndex - 1
+      then change(move, clock.byColor(Color.fromWhite(i % 2 == 0)))
+      else move
 
   given Reads[PairingPlayer]    = Json.reads
   given Reads[RoundJsonPairing] = Json.reads

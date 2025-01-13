@@ -18,7 +18,7 @@ import chess.{
 import org.scalacheck.{ Arbitrary, Cogen, Gen }
 
 import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
-import lila.tree.{ Metas, NewBranch, NewRoot, NewTree }
+import lila.tree.{ Metas, NewBranch, NewRoot, NewTree, Clock }
 
 object StudyArbitraries:
 
@@ -26,6 +26,12 @@ object StudyArbitraries:
   type RootWithPath = (NewRoot, UciPath)
   given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Situation(chess.variant.Standard)))
   given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Situation(chess.variant.Standard)))
+
+  given Arbitrary[Clock] = Arbitrary:
+    for
+      centis <- Arbitrary.arbitrary[Centis]
+      trust  <- Arbitrary.arbitrary[Option[Boolean]]
+    yield Clock(centis, trust)
 
   def genRoot(seed: Situation): Gen[NewRoot] =
     for
@@ -67,7 +73,7 @@ object StudyArbitraries:
     for
       comments <- genComments(5)
       glyphs   <- Arbitrary.arbitrary[Glyphs]
-      clock    <- Arbitrary.arbitrary[Option[Centis]]
+      clock    <- Arbitrary.arbitrary[Option[Clock]]
       shapes   <- Arbitrary.arbitrary[Shapes]
     yield Metas(
       ply,

@@ -1,5 +1,5 @@
 .learn__side-map {
-  user-select: none;
+  @include prevent-select;
 
   .back,
   .categ > h2 {

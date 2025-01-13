@@ -32,7 +32,7 @@ final class InsightPerfStatsApi(
     storage.coll:
       _.aggregateList(perfTypes.size): framework =>
         import framework.*
-        import InsightEntry.{ BSONFields as F }
+        import InsightEntry.BSONFields as F
         val filters = List(lila.insight.Filter(InsightDimension.Perf, perfTypes))
         Match(InsightStorage.selectUserId(user.id) ++ pipeline.gameMatcher(filters)) -> List(
           Sort(Descending(F.date)),

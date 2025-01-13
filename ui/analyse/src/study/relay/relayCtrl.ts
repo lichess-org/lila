@@ -173,10 +173,6 @@ export default class RelayCtrl {
         this.redraw();
       }, 4500);
       this.redraw();
-      if (event.error) {
-        if (this.data.sync.log.slice(-3).every(e => e.error)) site.sound.play('error');
-        console.warn(`relay synchronisation error: ${event.error}`);
-      }
     },
   };
 

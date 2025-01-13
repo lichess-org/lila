@@ -144,8 +144,7 @@ final private class RoundAsyncActor(
       fuccess:
         publish(List(line match
           case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
-          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
-        ))
+          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>
@@ -336,7 +335,7 @@ final private class RoundAsyncActor(
       handle: game =>
         game.playable.so:
           messenger.volatile(game, "Lichess has been updated! Sorry for the inconvenience.")
-          val progress = moretimer.give(game, Color.all, 20 seconds)
+          val progress = moretimer.give(game, Color.all, 20.seconds)
           proxy.save(progress).inject(progress.events)
 
     case BotConnected(color, v) =>
@@ -370,8 +369,7 @@ final private class RoundAsyncActor(
                 _.so: millis =>
                   if millis <= 0 then notifyGone(c, gone = true)
                   else g.clock.exists(_.remainingTime(c).millis > millis + 3000).so(notifyGoneIn(c, millis))
-              }
-        )
+              })
       } | funit
 
     case Stop => for _ <- proxy.terminate() yield socketSend.exec(RP.Out.stop(roomId))

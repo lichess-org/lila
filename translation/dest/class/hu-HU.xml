@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Gyorsan létrehozhatsz a tanulóknak biztonságos felhasználónevet és jelszót</string>
   <string name="trackStudentProgress">Nyomon követheted a tanulók fejlődését a játékaikban és feladványokban</string>
   <string name="messageAllStudents">Üzeneted küldhetsz minden tanulónak az új anyagokról</string>
-  <string name="freeForAllForever">Teljesen ingyenes mindenkinek, örökre, hirdetések és nyomkövetők nélkül</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Teljesen ingyenes mindenkinek, örökre, hirdetések és nyomkövetők nélkül</string>
   <string name="applyToBeLichessTeacher">Jelentkezz Lichess tanárnak</string>
   <string name="noClassesYet">Még nincs tanulócsoportod.</string>
   <string name="teachersX">Tanár: %s</string>

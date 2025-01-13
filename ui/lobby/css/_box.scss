@@ -48,6 +48,9 @@
       padding: 0.5em 0.4em;
       border-top: $border;
       max-width: 21ch;
+      @media (max-width: at-most($x-small)) {
+        max-width: 18ch;
+      }
 
       &.name a {
         font-weight: bold;
@@ -88,6 +91,13 @@
       background: $m-bg--fade-40;
     }
     overflow: hidden;
+    @media (max-width: at-most($x-small)) {
+      max-width: 23ch;
+      margin: auto;
+    }
+    @media (max-width: at-most($xx-small)) {
+      max-width: 16ch;
+    }
   }
   .progress__bar {
     border-radius: 2em;

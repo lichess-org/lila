@@ -72,8 +72,7 @@ final class ModQueueStats(
                       Json.obj(
                         "name" -> score,
                         "data" -> days.map(~_._2.collectFirst:
-                          case (r, s, nb) if r == roomKey && s == score => nb
-                        )
+                          case (r, s, nb) if r == roomKey && s == score => nb)
                       )
                 )
           )

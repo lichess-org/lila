@@ -57,6 +57,7 @@
   <string name="interferenceDescription">Jogar uma peça para uma casa entre duas peças do adversário deixando pelo menos uma delas desprotegia, como por exemplo um cavalo numa casa defendida entre duas torres.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">Em vez de jogares o movimento esperado, primeiro interpõe outro movimento colocando uma ameaça imediata à qual o oponente deve responder. Também conhecido como \"Zwischenzug\" ou jogada intermédia.</string>
+  <string name="killBoxMateDescription">Uma torre está ao lado do rei inimigo apoiada por uma dama que também bloqueia as casas de fuga do rei. A torre e a dama apanham o rei inimigo numa “caixa de morte” de 3 por 3.</string>
   <string name="knightEndgame">Final de cavalo</string>
   <string name="knightEndgameDescription">Um final de jogo com apenas cavalos e peões.</string>
   <string name="long">Problema longo</string>
@@ -119,7 +120,7 @@
   <string name="xRayAttackDescription">Uma peça ataque ou defende uma casa através de uma peça inimiga.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">O adversário está limitado quanto aos seus movimentos, e todas as jogadas pioram a sua posição.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mistura saudável</string>
+  <string name="mix">Mistura saudável</string>
   <string name="mixDescription">Um pouco de tudo. Não sabes o que esperar, então ficas pronto para qualquer coisa! Exatamente como em jogos de verdade.</string>
   <string name="playerGames">Jogos de jogadores</string>
   <string name="playerGamesDescription">Procura problemas gerados a partir dos teus jogos ou de jogos de outro jogador.</string>

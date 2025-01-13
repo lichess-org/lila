@@ -31,7 +31,7 @@ final class TournamentFeaturing(
     yield teamTours ::: base
 
     private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] = cacheApi.unit[List[Tournament]]:
-      _.refreshAfterWrite(2 seconds)
+      _.refreshAfterWrite(2.seconds)
         .buildAsyncFuture: _ =>
           repo.scheduledStillWorthEntering
             .zip(
@@ -60,8 +60,7 @@ final class TournamentFeaturing(
             case Weekly | Weekend           => 3 * 45
             case Daily                      => 1 * 30
             case _                          => 20
-          if tour.variant.exotic && schedule.freq != Unique then base / 3 else base
-        )
+          if tour.variant.exotic && schedule.freq != Unique then base / 3 else base)
 
   private def visibleForTeams(teamIds: List[TeamId], aheadMinutes: Int, page: String): Fu[List[Tournament]] =
     teamIds.nonEmpty.so:

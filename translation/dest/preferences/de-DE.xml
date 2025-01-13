@@ -23,7 +23,7 @@
   <string name="exceptInGame">Außer in der Partie</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wenn Restzeit &lt; 10 Sekunden</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wenn Restzeit &lt; 10 Sekunden</string>
   <string name="horizontalGreenProgressBars">Horizontale grüne Fortschrittsbalken</string>
   <string name="soundWhenTimeGetsCritical">Ton, wenn die Zeit knapp wird</string>
   <string name="giveMoreTime">Mehr Zeit geben</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Halte die &lt;ctrl&gt; Taste während der Umwandlung um vorübergehend die automatische Umwandlung zu deaktivieren</string>
   <string name="whenPremoving">Bei Vorauszug</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reklamiere automatisch Remis bei dreifacher Stellungswiederholung</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Wenn Restzeit &lt; 30 Sekunden</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wenn Restzeit &lt; 30 Sekunden</string>
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während einer Partie mittels Brettmenü deaktiviert werden</string>
   <string name="inCorrespondenceGames">Im Fernschach</string>

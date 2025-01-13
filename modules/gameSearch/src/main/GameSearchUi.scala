@@ -15,7 +15,7 @@ final class GameSearchUi(helpers: Helpers)(
     gameWidgets: Seq[Game] => Context ?=> Frag
 ):
   import helpers.{ *, given }
-  import trans.{ search as trs }
+  import trans.search as trs
 
   def index(form: Form[?], paginator: Option[Paginator[Game]] = None, nbGames: Long)(using
       ctx: Context
@@ -150,7 +150,7 @@ final class GameSearchUi(helpers: Helpers)(
 
 final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
   import helpers.*
-  import trans.{ search as trs }
+  import trans.search as trs
 
   private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
   private val dateMin       = "2011-01-01"

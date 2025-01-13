@@ -27,7 +27,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
         import framework.*
         import question.{ dimension, filters, metric }
         import lila.insight.{ InsightDimension as D, InsightMetric as M }
-        import InsightEntry.{ BSONFields as F }
+        import InsightEntry.BSONFields as F
 
         val limitGames     = Limit(nbGames.value)
         val sortDate       = target.isLeft.so(List(Sort(Descending(F.date))))
@@ -182,8 +182,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 "v"   -> f.some,
                 "nb"  -> SumAll.some,
                 "ids" -> addGameId
-              )
-          ).map(some)
+              )).map(some)
 
         def groupMulti(d: InsightDimension[?], metricDbKey: String): List[Option[PipelineOperator]] =
           dimensionGrouping(d)
