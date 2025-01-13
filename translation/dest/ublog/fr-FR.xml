@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Un sujet sera créé dans le forum pour permettre aux gens de commenter votre message.</string>
   <string name="publishOnYourBlog">Publier sur votre blogue</string>
   <string name="publishHelp">Si coché, l’article sera listé sur votre blogue. Sinon, il restera privé dans vos brouillons</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">Publication épinglée</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Si vous sélectionnez cette option, votre publication s\'affichera en premier parmi les publications récentes de votre profil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">A publié un article de blog</item>
     <item quantity="other">A publié %s articles de blog</item>
