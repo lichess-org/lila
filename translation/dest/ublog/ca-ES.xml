@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Es crearà una nova entrada al fòrum on els usuaris puguin comentar la vostra publicació</string>
   <string name="publishOnYourBlog">Publica al teu blog</string>
   <string name="publishHelp">Si marques la casella, es publicarà al teu blog. Si no, serà privada i només es mostrarà als teus esborranys</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;pin&quot; if it is more natural in your language.">Fixa la publicació</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Si es marca, l\'entrada es mostrarà primera en la llista de publicacions recents del teu perfil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Ha publicat una entrada nova</item>
     <item quantity="other">Ha publicat %s entrades noves</item>
