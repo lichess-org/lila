@@ -11,11 +11,11 @@ project/target
 .metals
 
 # ui stuff
-public/compiled
-public/css
-public/vendors
-public/translation
-ui/common/css/theme/gen
+/public/compiled
+/public/css
+/public/vendors
+/public/translation
+/ui/common/css/theme/gen
 dist/
 node_modules/
 tsconfig.tsbuildinfo

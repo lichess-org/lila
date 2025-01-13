@@ -27,10 +27,7 @@ var clientId = Math.random().toString(36).substring(2); // created and stored by
 var socketVersion = 0; // last message version number seen on this socket. Starts at zero.
 
 var socketUrl =
-  "http://socket.l.org:9021/lobby/socket?mobile=1&sri=" +
-  clientId +
-  "&version=" +
-  socketVersion;
+  'http://socket.l.org:9021/lobby/socket?mobile=1&sri=' + clientId + '&version=' + socketVersion;
 
 var socket = new WebSocket(socketUrl);
 ```

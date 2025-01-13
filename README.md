@@ -41,13 +41,13 @@ This code exists because of [ornicar](https://github.com/ornicar), and the whole
 
 ## Supported browsers
 
-| Name              | Version | Notes                                       |
-| ----------------- | ------- | ------------------------------------------- |
-| Chromium / Chrome | last 10 | Full support, fastest local analysis        |
-| Firefox           | 67+     | Full support, second fastest local analysis |
-| Edge              | 91+     | Full support (reasonable support for 17+) support                          |
-| Opera             | 55+     | Reasonable support                          |
-| Safari            | 11.1+   | Reasonable support                          |
+| Name              | Version | Notes                                             |
+| ----------------- | ------- | ------------------------------------------------- |
+| Chromium / Chrome | last 10 | Full support, fastest local analysis              |
+| Firefox           | 67+     | Full support, second fastest local analysis       |
+| Edge              | 91+     | Full support (reasonable support for 17+) support |
+| Opera             | 55+     | Reasonable support                                |
+| Safari            | 11.1+   | Reasonable support                                |
 
 Older browsers (including any version of Internet Explorer) will probably not work.
 For your own sake, please upgrade. Security and performance, think about it!
@@ -55,5 +55,5 @@ For your own sake, please upgrade. Security and performance, think about it!
 ## License
 
 Li[shogi in scala]la is licensed under the GNU Affero General Public License 3 or any later
-version at your choice with an exception for Highcharts. See [LICENSE](/LICENSE) and 
+version at your choice with an exception for Highcharts. See [LICENSE](/LICENSE) and
 [COPYING.md](/COPYING.md) for details. WIP

@@ -4,7 +4,7 @@
 
 - [Set up your development environment](https://github.com/WandererXII/lishogi/wiki/Lishogi-Development-Setup).
 - To play against AI and use server analysis install and run https://github.com/WandererXII/shoginet.
-- Lishogi takes a lot of RAM, 8-12GB is the minimum you will need to run it somewhat comfortably for development (lila, lila-ws, code editor, browser, build processes, etc.). 
+- Lishogi takes a lot of RAM, 8-12GB is the minimum you will need to run it somewhat comfortably for development (lila, lila-ws, code editor, browser, build processes, etc.).
 - [Pick a GitHub issue to work on](https://github.com/WandererXII/lishogi/issues).
 
 ## Report a bug or a problem about Lishogi

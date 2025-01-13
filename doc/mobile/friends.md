@@ -9,7 +9,7 @@ Request the list of your online friends from any authenticated websocket connect
 ```javascript
 // send
 {
-  t: "following_onlines";
+  t: 'following_onlines';
 }
 ```
 
@@ -25,7 +25,7 @@ This allows direct display but requires some gymnastic to infer the user ID:
 
 ```javascript
 function userFullNameToId(fullName) {
-  var split = fullName.split(" ");
+  var split = fullName.split(' ');
   var id = split.length == 1 ? split[0] : split[1];
   return id.toLowerCase();
 }

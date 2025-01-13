@@ -3,30 +3,28 @@ name: Build server
 on:
   push:
     paths:
-      - ".github/workflows/server.yml"
-      - "app/**"
-      - "conf/**"
-      - "modules/**"
-      - "project/**"
-      - "translation/**"
-      - "build.sbt"
-      - "lila"
-      - "conf/application.conf.default"
-      - ".sbtopts.default"
+      - '.github/workflows/server.yml'
+      - 'app/**'
+      - 'conf/**'
+      - 'modules/**'
+      - 'project/**'
+      - 'translation/**'
+      - 'build.sbt'
+      - 'lila'
+      - '.sbtopts.default'
     branches-ignore:
-      - "l10n_master2"
+      - 'l10n_master2'
   pull_request:
     paths:
-      - ".github/workflows/server.yml"
-      - "app/**"
-      - "conf/**"
-      - "modules/**"
-      - "project/**"
-      - "translation/source/**"
-      - "build.sbt"
-      - "lila"
-      - "conf/application.conf.default"
-      - ".sbtopts.default"
+      - '.github/workflows/server.yml'
+      - 'app/**'
+      - 'conf/**'
+      - 'modules/**'
+      - 'project/**'
+      - 'translation/source/**'
+      - 'build.sbt'
+      - 'lila'
+      - '.sbtopts.default'
 
 jobs:
   server:

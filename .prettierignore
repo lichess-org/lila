@@ -9,6 +9,8 @@ target
 /public
 /translation
 local
+pnpm-lock.yaml
 
 # biome js
 ui/**/*.ts
+bin/**/*.ts
