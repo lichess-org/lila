@@ -201,7 +201,7 @@ final class Round(
   private[controllers] def getWatcherChat(
       game: GameModel
   )(using ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    ctx.kid.no && (ctx.noBot || ctx.userId.exists(game.userIds.has)) && ctx.me.fold(
+    (ctx.noBot || ctx.userId.exists(game.userIds.has)) && ctx.me.fold(
       HTTPRequest.isHuman(ctx.req)
     )(env.chat.panic.allowed(_)) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.has)
@@ -212,41 +212,40 @@ final class Round(
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(using
       ctx: Context
   ): Fu[Option[Chat.GameOrEvent]] =
-    ctx.kid.no.so:
-      def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
-        Chat
-          .GameOrEvent:
-            Right:
-              (c.truncate(100), lila.chat.Chat.ResourceId(resource))
-          .some
-      (game.tournamentId, game.simulId, game.swissId) match
-        case (Some(tid), _, _) =>
-          val hasChat = ctx.isAuth && tour.forall(tournamentC.canHaveChat(_, none))
-          hasChat.so(
+    def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
+      Chat
+        .GameOrEvent:
+          Right:
+            (c.truncate(100), lila.chat.Chat.ResourceId(resource))
+        .some
+    (game.tournamentId, game.simulId, game.swissId) match
+      case (Some(tid), _, _) =>
+        val hasChat = ctx.isAuth && tour.forall(tournamentC.canHaveChat(_, none))
+        hasChat.so(
+          env.chat.api.userChat.cached
+            .findMine(tid.into(ChatId))
+            .dmap(toEventChat(s"tournament/$tid"))
+        )
+      case (_, Some(sid), _) =>
+        env.chat.api.userChat.cached.findMine(sid.into(ChatId)).dmap(toEventChat(s"simul/$sid"))
+      case (_, _, Some(sid)) =>
+        env.swiss.api
+          .roundInfo(sid)
+          .flatMapz(swissC.canHaveChat)
+          .flatMapz:
             env.chat.api.userChat.cached
-              .findMine(tid.into(ChatId))
-              .dmap(toEventChat(s"tournament/$tid"))
-          )
-        case (_, Some(sid), _) =>
-          env.chat.api.userChat.cached.findMine(sid.into(ChatId)).dmap(toEventChat(s"simul/$sid"))
-        case (_, _, Some(sid)) =>
-          env.swiss.api
-            .roundInfo(sid)
-            .flatMapz(swissC.canHaveChat)
-            .flatMapz:
-              env.chat.api.userChat.cached
-                .findMine(sid.into(ChatId))
-                .dmap(toEventChat(s"swiss/$sid"))
-        case _ =>
-          game.hasChat.so:
-            for
-              chat  <- env.chat.api.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
-              lines <- lila.chat.JsonView.asyncLines(chat)
-            yield Chat
-              .GameOrEvent:
-                Left:
-                  Chat.Restricted(chat, lines, restricted = game.sourceIs(_.Lobby) && ctx.isAnon)
-              .some
+              .findMine(sid.into(ChatId))
+              .dmap(toEventChat(s"swiss/$sid"))
+      case _ =>
+        game.hasChat.so:
+          for
+            chat  <- env.chat.api.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
+            lines <- lila.chat.JsonView.asyncLines(chat)
+          yield Chat
+            .GameOrEvent:
+              Left:
+                Chat.Restricted(chat, lines, restricted = game.sourceIs(_.Lobby) && ctx.isAnon)
+            .some
 
   def sides(gameId: GameId, color: Color) = Open:
     FoundSnip(env.round.proxyRepo.pov(gameId, color)): pov =>

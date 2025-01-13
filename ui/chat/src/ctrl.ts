@@ -25,7 +25,7 @@ export default class ChatCtrl {
   private maxLinesDrop = 50; // how many lines to drop at once
   private subs: [PubsubEvent, PubsubCallback][];
 
-  allTabs: Tab[] = ['discussion'];
+  allTabs: Tab[] = [];
   palantir: ChatPalantir;
   tabStorage: LichessStorage = storage.make('chat.tab');
   storedTab: string | null = this.tabStorage.get();
@@ -39,12 +39,13 @@ export default class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     this.data = opts.data;
+    if (!opts.kidMode) this.allTabs.push('discussion');
     if (opts.noteId) this.allTabs.push('note');
-    if (opts.plugin) this.allTabs.push(opts.plugin.tab.key);
+    if (!opts.kidMode && opts.plugin) this.allTabs.push(opts.plugin.tab.key);
     this.palantir = {
       instance: undefined,
       loaded: false,
-      enabled: prop(!!this.data.palantir),
+      enabled: prop(!!this.data.palantir && !opts.kidMode),
     };
     const noChat = storage.get('nochat');
     this.vm = {
@@ -70,6 +71,8 @@ export default class ChatCtrl {
       post: this.post,
       redraw: this.redraw,
     });
+
+    if (opts.kidMode) return;
 
     /* If discussion is disabled, and we have another chat tab,
      * then select that tab over discussion */
