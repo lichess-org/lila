@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Der vil bli oppretta eit diskusjonstema i forumet der folk kan kommentera innlegga dine</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
   <string name="publishHelp">Kryss av om du vil syna innlegget på bloggen din. Om du ikkje gjer det vert dette eit privat utkast som ikkje andre kan lesa</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fast oppslag</string>
+  <string name="stickyPostHelp">Dersom avmerka vil dette innlegget bli vist først av dei seinaste innlegga i profilen din.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publiserte eitt innlegg</item>
     <item quantity="other">Publiserte %s innlegg</item>
