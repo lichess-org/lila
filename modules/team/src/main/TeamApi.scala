@@ -78,9 +78,12 @@ final class TeamApi(
         hideMembers = Some(edit.hideMembers),
         flair = edit.flair
       )
+    update(team)
+
+  def update(team: Team)(using me: Me): Funit =
     import reactivemongo.api.bson.*
     for
-      blocklist <- blocklist.get(old)
+      blocklist <- blocklist.get(team)
       _        <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
       isLeader <- hasPerm(team.id, me, _.Settings)
     yield
