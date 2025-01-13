@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC-medlemene ser den same stillingen</string>
   <string name="shareChanges">Lagre endringar på serveren og del dei med tilskodarar</string>
   <string name="playing">Spelar no</string>
+  <string name="showResults">Resultat</string>
   <string name="showEvalBar">Evalueringssøyler</string>
   <string name="first">Første</string>
   <string name="previous">Attende</string>
