@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Na forum zostanie utworzony temat, pod którym inni będą mogli komentować Twój wpis</string>
   <string name="publishOnYourBlog">Opublikuj na swoim blogu</string>
   <string name="publishHelp">Jeśli zaznaczone, post będzie wyświetlany na Twoim blogu. Jeśli nie, będzie prywatny, w twoich wersjach roboczych</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Przyklejony post</string>
+  <string name="stickyPostHelp">Jeśli zaznaczone, ten post będzie wyświetlany jako pierwszy w twoim profilu.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Opublikowano wpis na blogu</item>
     <item quantity="few">Opublikowano %s wpisy na blogu</item>
