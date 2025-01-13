@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Θα δημιουργηθεί ένα θέμα στο φόρουμ για να σχολιάσουν τα άτομα στη δημοσίευσή σας</string>
   <string name="publishOnYourBlog">Δημοσίευση στο ιστολόγιό σας</string>
   <string name="publishHelp">Εάν επιλεχθεί, τότε η δημοσίευση θα υπάρχει στο ιστολόγιό σας. Εάν όχι, θα είναι ιδιωτική, στις προσχέδιες αναρτήσεις σας</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">Καρφίτσωμα ανάρτησης</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Αν επιλεχθεί, αυτή η ανάρτηση θα εμφανίζεται πρώτη στις πρόσφατες αναρτήσεις του προφίλ σας.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Δημοσιεύθηκε μια ανάρτηση ιστολογίου</item>
     <item quantity="other">Δημοσιεύθηκαν οι αναρτήσεις ιστολογίου του %s</item>
