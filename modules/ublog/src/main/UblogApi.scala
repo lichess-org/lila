@@ -78,18 +78,10 @@ final class UblogApi(
 
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
-      .aggregateList(maxDocs = nb, _.sec): framework =>
-        import framework.*
-        Match($doc("blog" -> blogId, "live" -> true)) -> List(
-          Sort(Descending("sticky"), Descending("lived.at")),
-          Project(previewPostProjection),
-          Limit(nb)
-        )
-      .map: docs =>
-        for
-          doc  <- docs
-          post <- doc.asOpt[UblogPost.PreviewPost]
-        yield post
+      .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
+      .sort($doc("sticky" -> -1, "lived.at" -> -1))
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
+      .list(nb)
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
