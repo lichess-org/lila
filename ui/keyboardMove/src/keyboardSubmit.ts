@@ -1,5 +1,5 @@
 import { files } from 'chessground/types';
-import type { SanToUci } from 'chess';
+import { sanToUci, type SanToUci } from 'chess';
 import type { Opts } from './exports';
 
 const keyRegex = /^[a-h][1-8]$/;
@@ -136,13 +136,6 @@ function iccfToUci(v: string) {
   if (chars[0]) chars[0] = files[parseInt(chars[0]) - 1];
   if (chars[2]) chars[2] = 'kqrbn'[parseInt(chars[2])];
   return chars.join('');
-}
-
-function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
-  if (san in legalSans) return legalSans[san];
-  const lowered = san.toLowerCase();
-  for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
-  return;
 }
 
 function sanCandidates(san: string, legalSans: SanToUci): San[] {
