@@ -18,7 +18,7 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     Translator
 ):
 
-  LilaScheduler("TournamentScheduler", _.Every(5 minutes), _.AtMost(1 minute), _.Delay(1 minute)):
+  LilaScheduler("TournamentScheduler", _.Every(5.minutes), _.AtMost(1.minute), _.Delay(1.minute)):
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try

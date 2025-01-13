@@ -21,9 +21,9 @@ If you forget your password, or if your password is leaked from another website,
 
 Please visit $baseUrl/account/email to set your account email address. That way, you'll be able to reset your password when needed."""
 
-  private val cache = mongoCache[UserId, Boolean](1024, "security:email:reminder", 10 days, _.value):
+  private val cache = mongoCache[UserId, Boolean](1024, "security:email:reminder", 10.days, _.value):
     loader =>
-      _.expireAfterWrite(11 days)
+      _.expireAfterWrite(11.days)
         .maximumSize(8 * 1024)
         .buildAsyncFuture:
           loader: userId =>

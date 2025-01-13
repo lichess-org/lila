@@ -20,5 +20,5 @@ final private class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(usin
     }
 
   if config.enabled then
-    scheduler.scheduleWithFixedDelay(44 seconds, config.refreshDelay): () =>
+    scheduler.scheduleWithFixedDelay(44.seconds, config.refreshDelay): () =>
       refresh

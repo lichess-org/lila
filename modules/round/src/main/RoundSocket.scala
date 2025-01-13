@@ -225,13 +225,13 @@ final class RoundSocket(
       send:
         RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_reinstate", userId))
 
-  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval): () =>
+  scheduler.scheduleWithFixedDelay(25.seconds, tickInterval): () =>
     rounds.tellAll(RoundAsyncActor.Tick)
 
-  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds): () =>
+  scheduler.scheduleWithFixedDelay(60.seconds, 60.seconds): () =>
     lila.mon.round.asyncActorCount.update(rounds.size)
 
-  private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
+  private val terminationDelay = TerminationDelay(scheduler, 1.minute, finishRound)
 
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
@@ -453,19 +453,17 @@ object RoundSocket:
       duration: FiniteDuration,
       terminate: GameId => Unit
   )(using Executor):
-    import java.util.concurrent.ConcurrentHashMap
 
-    private val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
+    private val terminations = scalalib.ConcurrentMap[GameId, Cancellable](65536)
 
     def schedule(gameId: GameId): Unit =
-      terminations.compute(
-        gameId,
-        (id, canc) =>
-          Option(canc).foreach(_.cancel())
-          scheduler.scheduleOnce(duration):
-            terminations.remove(id)
-            terminate(id)
-      )
+      terminations.compute(gameId): canc =>
+        canc.foreach(_.cancel())
+        scheduler
+          .scheduleOnce(duration):
+            terminations.remove(gameId)
+            terminate(gameId)
+          .some
 
     def cancel(gameId: GameId): Unit =
-      Option(terminations.remove(gameId)).foreach(_.cancel())
+      terminations.remove(gameId).foreach(_.cancel())

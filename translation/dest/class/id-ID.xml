@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Secara cepat menghasilkan nama pengguna dan kata sandi yang aman untuk siswa</string>
   <string name="trackStudentProgress">Lacak kemajuan siswa dalam permainan dan teka-teki</string>
   <string name="messageAllStudents">Kirim pesan semua siswa tentang materi kelas baru</string>
-  <string name="freeForAllForever">100% gratis untuk semua, selamanya, tanpa iklan atau pelacak</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratis untuk semua, selamanya, tanpa iklan atau pelacak</string>
   <string name="applyToBeLichessTeacher">Terapkan menjadi Guru Lichess</string>
   <string name="noClassesYet">Tidak ada sesi kelas.</string>
   <string name="teachersX">Guru: %s</string>

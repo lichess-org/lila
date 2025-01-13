@@ -150,7 +150,7 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
 Den röda tystningsikonen visas när din webbläsare hindrar lichess.org från att spela ett ljud. Vanligtvis lyfts denna begränsning när du klickar på något. På vissa mobila webbläsare, att trycka-och-dra en bit räknas inte som ett klick. I så fall måste du trycka på tavlan för att tillåta ljud i början av varje spel.
 
 Vi visar den röda ikonen för att varna dig när detta händer. Ofta kan du uttryckligen tillåta lichess.org att spela ljud. Här är instruktioner för att göra det på senaste versioner av några populära webbläsare.</string>
-  <string name="desktop">skrivbord</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">skrivbord</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gå till lichess.org
 2. Tryck Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klicka på fliken Behörigheter

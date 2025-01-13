@@ -61,8 +61,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
               if ctx.is(UserId.explorer) then env.web.settings.apiExplorerGamesPerSecond.get()
               else if ctx.is(user) then 60
               else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
-              else 25
-            )
+              else 25)
             .flatMap: perSecond =>
               val finished = getBoolOpt("finished") | true
               val config = GameApiV2.ByUserConfig(
@@ -161,5 +160,4 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     env.user.lightUserApi.preloadMany(game.userIds)
   private[controllers] def preloadUsers(users: lila.core.user.GameUsers): Unit =
     env.user.lightUserApi.preloadUsers(users.all.collect:
-      case Some(lila.core.user.WithPerf(u, _)) => u
-    )
+      case Some(lila.core.user.WithPerf(u, _)) => u)

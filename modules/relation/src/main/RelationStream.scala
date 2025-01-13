@@ -22,7 +22,7 @@ final class RelationStream(colls: Colls)(using akka.stream.Materializer):
       .documentSource()
       .grouped(perSecond.value)
       .map(_.flatMap(_.getAsOpt[UserId](projectField(direction))))
-      .throttle(1, 1 second)
+      .throttle(1, 1.second)
 
   private def selectField(d: Direction) = d match
     case Direction.Following => "u1"

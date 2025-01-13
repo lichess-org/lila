@@ -104,26 +104,17 @@ final private class EventBus[Event, Channel, Subscriber](
     publish: (Subscriber, Event) => Unit
 ):
 
-  private val entries = java.util.concurrent.ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
+  private val entries = scalalib.ConcurrentMap[Channel, Set[Subscriber]](initialCapacity)
   export entries.size
 
   def subscribe(subscriber: Subscriber, channel: Channel): Unit =
-    entries
-      .compute(
-        channel,
-        (_: Channel, subs: Set[Subscriber]) => Option(subs).fold(Set(subscriber))(_ + subscriber)
-      )
+    entries.compute(channel):
+      _.fold(Set(subscriber))(_ + subscriber).some
 
   def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
-    entries
-      .computeIfPresent(
-        channel,
-        (_: Channel, subs: Set[Subscriber]) =>
-          val newSubs = subs - subscriber
-          if newSubs.isEmpty then null
-          else newSubs
-      )
+    entries.computeIfPresent(channel): subs =>
+      val newSubs = subs - subscriber
+      Option.when(newSubs.nonEmpty)(newSubs)
 
   def publish(event: Event, channel: Channel): Unit =
-    Option(entries.get(channel)).foreach:
-      _.foreach(publish(_, event))
+    entries.get(channel).foreach(_.foreach(publish(_, event)))

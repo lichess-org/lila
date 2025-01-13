@@ -132,13 +132,25 @@
     <item quantity="one">%s blunder</item>
     <item quantity="other">%s blundrar</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Blunder</item>
+    <item quantity="other">%s Blundrar</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s misstag</item>
     <item quantity="other">%s misstag</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Misstag</item>
+    <item quantity="other">%s Misstag</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s felaktighet</item>
     <item quantity="other">%s felaktigheter</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Felaktighet</item>
+    <item quantity="other">%s Felaktigheter</item>
   </plurals>
   <string name="moveTimes">Dragtider</string>
   <string name="flipBoard">Vänd brädet</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">När simultanmatchen börjar startar varje spelare ett parti med värden som spelar vit i alla partier.  Simultanmatchen slutar när alla partier är avklarade.</string>
   <string name="aboutSimulSettings">Simultanpartier är alltid orankade. Returmatch, ångerdrag och \"extratid\" är inaktiverat.</string>
   <string name="create">Skapa</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">När du skapar en simultan får du spela mot flera spelare samtidigt.</string>
+  <string name="whenCreateSimul">När du skapar en simultan får du spela mot flera spelare samtidigt.</string>
   <string name="simulVariantsHint">Om du väljer flera varianter får varje spelare välja vilken de vill spela.</string>
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>

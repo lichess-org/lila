@@ -31,7 +31,7 @@ case class UserRecord(
       case Outcome.Sandbag                => .7f
       case Outcome.NoPlay | Outcome.Abort => .8f
       case o if o != Outcome.Good         => 1
-    } sum
+    }.sum
 
   def badOutcomeTolerance(age: Days): Float =
     if age <= 1 then 0.3f

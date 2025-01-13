@@ -7,7 +7,7 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
 
   import AnalyseBsonHandlers.given
 
-  def save(analysis: Analysis) = coll.insert.one(analysis) void
+  def save(analysis: Analysis) = coll.insert.one(analysis).void
 
   def byId(id: Analysis.Id): Fu[Option[Analysis]] = coll.byId[Analysis](id.value)
 

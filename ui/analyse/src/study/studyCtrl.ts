@@ -243,7 +243,11 @@ export default class StudyCtrl {
     this.practice = practiceData && new StudyPracticeCtrl(ctrl, data, practiceData);
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
-    else if (this.data.chapter.relayPath && !defined(this.ctrl.requestInitialPly))
+    else if (
+      this.data.chapter.relayPath &&
+      !defined(this.ctrl.requestInitialPly) &&
+      !(this.relay && !this.multiBoard.showResults())
+    )
       this.ctrl.userJump(this.data.chapter.relayPath);
 
     this.configureAnalysis();
@@ -361,7 +365,9 @@ export default class StudyCtrl {
     } else {
       nextPath = sameChapter
         ? prevPath
-        : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
+        : this.relay && !this.multiBoard.showResults()
+          ? treePath.root
+          : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
     }
 
     // path could be gone (because of subtree deletion), go as far as possible

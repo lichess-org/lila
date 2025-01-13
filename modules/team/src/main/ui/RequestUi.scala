@@ -10,7 +10,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class RequestUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
-  import trans.{ team as trt }
+  import trans.team as trt
   import bits.{ TeamPage, menu }
 
   def requestForm(t: Team, form: Form[?])(using Context) =

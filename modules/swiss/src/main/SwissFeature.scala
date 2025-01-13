@@ -17,7 +17,7 @@ final class SwissFeature(
   import BsonHandlers.given
 
   val onHomepage = cacheApi.unit[Option[Swiss]]:
-    _.refreshAfterWrite(30 seconds)
+    _.refreshAfterWrite(30.seconds)
       .buildAsyncFuture: _ =>
         mongo.swiss
           .find:
@@ -30,7 +30,7 @@ final class SwissFeature(
 
   def get(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     cache.getUnit
-      .zip(getForTeams(teams :+ lichessTeamId distinct))
+      .zip(getForTeams((teams :+ lichessTeamId).distinct))
       .map: (cached, teamed) =>
         FeaturedSwisses(
           created = (teamed.created ::: cached.created).distinctBy(_.id),
@@ -58,7 +58,7 @@ final class SwissFeature(
         )
 
   private val cache = cacheApi.unit[FeaturedSwisses]:
-    _.refreshAfterWrite(10 seconds)
+    _.refreshAfterWrite(10.seconds)
       .buildAsyncFuture: _ =>
         val now = nowInstant
         cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1)))

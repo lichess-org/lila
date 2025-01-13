@@ -32,8 +32,8 @@ final class SwissStatsApi(
 
   private given BSONDocumentHandler[SwissStats] = Macros.handler
 
-  private val cache = mongoCache[SwissId, SwissStats](64, "swiss:stats", 60 days, _.value): loader =>
-    _.expireAfterAccess(5 seconds).maximumSize(256).buildAsyncFuture(loader(fetch))
+  private val cache = mongoCache[SwissId, SwissStats](64, "swiss:stats", 60.days, _.value): loader =>
+    _.expireAfterAccess(5.seconds).maximumSize(256).buildAsyncFuture(loader(fetch))
 
   private def fetch(id: SwissId): Fu[SwissStats] =
     mongo.swiss.byId[Swiss](id).flatMap {

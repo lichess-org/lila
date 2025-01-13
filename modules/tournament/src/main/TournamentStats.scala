@@ -15,8 +15,8 @@ final class TournamentStatsApi(
 
   private given BSONDocumentHandler[TournamentStats] = Macros.handler
 
-  private val cache = mongoCache[TourId, TournamentStats](64, "tournament:stats", 60 days, _.value): loader =>
-    _.expireAfterAccess(10 minutes)
+  private val cache = mongoCache[TourId, TournamentStats](64, "tournament:stats", 60.days, _.value): loader =>
+    _.expireAfterAccess(10.minutes)
       .maximumSize(256)
       .buildAsyncFuture(loader(fetch))
 

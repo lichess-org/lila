@@ -132,13 +132,25 @@
     <item quantity="one">%s erarego</item>
     <item quantity="other">%s eraregoj</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Erarego</item>
+    <item quantity="other">%s Eraregoj</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s eraro</item>
     <item quantity="other">%s eraroj</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Eraro</item>
+    <item quantity="other">%s Eraroj</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s erareto</item>
     <item quantity="other">%s eraretoj</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Erareto</item>
+    <item quantity="other">%s Eraretoj</item>
   </plurals>
   <string name="moveTimes">Movaj tempoj</string>
   <string name="flipBoard">Rotacii tabulon</string>
@@ -671,7 +683,7 @@
   <string name="aboutSimulRules">Kiam la samtempludo komenciĝas, ĉiu ludanto komencas ludon kontraŭ la gastiganto, kiu ludu per la blankaj ŝakpecoj. La samtempludo finiĝas kiam ĉiuj ludoj estas finitaj.</string>
   <string name="aboutSimulSettings">Samtempludoj ĉiam estas amikaj. Redefioj, reprenoj kaj plia tempo ne eblas.</string>
   <string name="create">Krei</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
+  <string name="whenCreateSimul">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
   <string name="simulVariantsHint">Se vi elektas multajn variaĵojn, ĉiu ludanto povas laŭvole elekti unu el la variaĵoj.</string>
   <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>

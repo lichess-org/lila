@@ -12,8 +12,8 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
 
   private val sequencer = scalalib.actor.AskPipelines[SwissId, Option[SwissScoring.Result]](
     compute = recompute,
-    expiration = 1 minute,
-    timeout = 10 seconds,
+    expiration = 1.minute,
+    timeout = 10.seconds,
     name = "swiss.scoring"
   )
 

@@ -53,7 +53,9 @@ final class JsonView(
       withScores: Boolean,
       withAllowList: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
-  )(using me: Option[Me])(using
+  )(using
+      me: Option[Me]
+  )(using
       getMyTeamIds: Condition.GetMyTeamIds,
       lightTeamApi: lila.core.team.LightTeam.Api
   )(using Lang): Fu[JsObject] =
@@ -313,8 +315,8 @@ final class JsonView(
         .add("berserk" -> berserk)
 
   private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](128, "tournament.podiumJson") {
-    _.expireAfterAccess(15 seconds)
-      .expireAfterWrite(1 minute)
+    _.expireAfterAccess(15.seconds)
+      .expireAfterWrite(1.minute)
       .maximumSize(256)
       .buildAsyncFuture: id =>
         tournamentRepo
@@ -376,11 +378,11 @@ final class JsonView(
       else teamStandingJsonCache.get(tour.id)
 
   private val teamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding"):
-    _.expireAfterWrite(500 millis)
+    _.expireAfterWrite(500.millis)
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.displayTeams))
 
   private val bigTeamStandingJsonCache = cacheApi[TourId, JsArray](4, "tournament.teamStanding.big"):
-    _.expireAfterWrite(2 seconds)
+    _.expireAfterWrite(2.seconds)
       .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
 
   private[tournament] def fetchAndRenderTeamStandingJson(max: Int)(id: TourId) =
@@ -412,7 +414,7 @@ final class JsonView(
             _.find(_.teamId == teamId)
 
   private val teamInfoCache = cacheApi[(TourId, TeamId), JsObject](16, "tournament.teamInfo.json"):
-    _.expireAfterWrite(5 seconds)
+    _.expireAfterWrite(5.seconds)
       .maximumSize(32)
       .buildAsyncFuture: (tourId, teamId) =>
         cached.teamInfo

@@ -78,7 +78,7 @@ final private class RatingRefund(
 
 private object RatingRefund:
 
-  val delay = 1 minute
+  val delay = 1.minute
 
   case class Refund(victim: UserId, perf: PerfKey, diff: IntRatingDiff, topRating: IntRating):
     def is(v: UserId, p: PerfKey): Boolean  = v == victim && p == perf
@@ -89,5 +89,4 @@ private object RatingRefund:
     def add(victim: UserId, perf: PerfKey, diff: IntRatingDiff, rating: IntRating) =
       copy(all = all.find(_.is(victim, perf)) match
         case None    => Refund(victim, perf, diff, rating) :: all
-        case Some(r) => r.add(diff, rating) :: all.filterNot(_.is(r))
-      )
+        case Some(r) => r.add(diff, rating) :: all.filterNot(_.is(r)))

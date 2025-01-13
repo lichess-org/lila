@@ -442,7 +442,7 @@ final class RelayApi(
       .mapAsync(1): study =>
         byIdWithTour(study.id.into(RelayRoundId)).map2(_.withStudy(study))
       .mapConcat(identity)
-      .throttle(perSecond.value, 1 second)
+      .throttle(perSecond.value, 1.second)
       .take(max.fold(9999)(_.value))
 
   export tourRepo.{ isSubscribed, setSubscribed as subscribe, byId as tourById }

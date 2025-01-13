@@ -18,8 +18,8 @@ final class Cached(
     initialCapacity = 32_768,
     compute = teamRepo.light,
     default = _ => none,
-    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfter.Write(10 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20.millis),
+    expireAfter = Syncache.ExpireAfter.Write(10.minutes)
   )
 
   val async = LightTeam.Getter(lightCache.async)
@@ -30,7 +30,7 @@ final class Cached(
   val lightApi = new LightTeam.Api:
     def async = Cached.this.async
     def sync  = Cached.this.sync
-    export lightCache.{ preloadSet as preload }
+    export lightCache.preloadSet as preload
 
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",
@@ -60,8 +60,8 @@ final class Cached(
         .map: doc =>
           Team.IdsStr(~doc.flatMap(_.getAsOpt[List[TeamId]]("ids"))),
     default = _ => Team.IdsStr.empty,
-    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfter.Write(40 minutes)
+    strategy = Syncache.Strategy.WaitAfterUptime(20.millis),
+    expireAfter = Syncache.ExpireAfter.Write(40.minutes)
   )
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
@@ -69,7 +69,7 @@ final class Cached(
   def teamIdsSet[U: UserIdOf](user: UserId): Fu[Set[TeamId]] = teamIds(user.id).dmap(_.toSet)
 
   val nbRequests = cacheApi[UserId, Int](32_768, "team.nbRequests"):
-    _.expireAfterAccess(40 minutes)
+    _.expireAfterAccess(40.minutes)
       .maximumSize(131_072)
       .buildAsyncFuture[UserId, Int]: userId =>
         for
@@ -79,7 +79,7 @@ final class Cached(
         yield nbReqs
 
   private[team] val forumAccess = cacheApi[TeamId, Access](256, "team.forum.access"):
-    _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Access.None))
+    _.expireAfterWrite(5.minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Access.None))
 
   val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):
-    _.expireAfterWrite(1 hour).buildAsyncFuture(memberRepo.countUnsub)
+    _.expireAfterWrite(1.hour).buildAsyncFuture(memberRepo.countUnsub)

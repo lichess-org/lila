@@ -148,7 +148,7 @@ Choisissez ensuite si vous souhaitez autoriser ou bloquer les notifications de L
 L\'icône rouge de sourdine apparaît lorsque votre navigateur empêche lichess.org de jouer un son. En général, cette restriction est levée lorsque vous cliquez sur quelque chose. Sur certains navigateurs mobiles, faire glisser une pièce n\'est pas considéré comme un clic. Vous devez alors toucher l\'échiquier pour autoriser le son au début de chaque partie.
 
 Nous affichons l\'icône rouge pour vous avertir lorsque cela se produit. Souvent, vous pouvez autoriser lichess.org à jouer des sons. Voici des instructions pour le faire sur les versions récentes de certains navigateurs populaires.</string>
-  <string name="desktop">bureau</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">bureau</string>
   <string name="enableAutoplayForSoundsFirefox">1. Allez sur lichess.org
 2. Appuyez sur Ctrl-i sur Linux/Windows ou cmd-i sur MacOS
 3. Cliquez sur l\'onglet Autorisations

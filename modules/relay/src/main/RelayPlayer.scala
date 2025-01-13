@@ -11,7 +11,7 @@ import lila.db.dsl.*
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
-import lila.core.fide.{ Player as FidePlayer }
+import lila.core.fide.Player as FidePlayer
 import lila.common.Json.given
 import lila.core.fide.FideTC
 
@@ -92,10 +92,10 @@ private final class RelayPlayerApi(
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
   private val cache = cacheApi[RelayTourId, RelayPlayers](32, "relay.players.data"):
-    _.expireAfterWrite(1 minute).buildAsyncFuture(compute)
+    _.expireAfterWrite(1.minute).buildAsyncFuture(compute)
 
   private val jsonCache = cacheApi[RelayTourId, JsonStr](32, "relay.players.json"):
-    _.expireAfterWrite(1 minute).buildAsyncFuture: tourId =>
+    _.expireAfterWrite(1.minute).buildAsyncFuture: tourId =>
       import RelayPlayer.json.given
       cache
         .get(tourId)
@@ -103,7 +103,7 @@ private final class RelayPlayerApi(
           JsonStr(Json.stringify(Json.toJson(players.values.toList)))
 
   export cache.get
-  export jsonCache.{ get as jsonList }
+  export jsonCache.get as jsonList
 
   def player(tour: RelayTour, str: String): Fu[Option[JsObject]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)

@@ -12,7 +12,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
 
   import InsightStorage.*
   import BSONHandlers.given
-  import InsightEntry.{ BSONFields as F }
+  import InsightEntry.BSONFields as F
 
   def fetchFirst(userId: UserId): Fu[Option[InsightEntry]] =
     coll(_.find(selectUserId(userId)).sort(sortChronological).one[InsightEntry])
@@ -77,7 +77,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
 
 object InsightStorage:
 
-  import InsightEntry.{ BSONFields as F }
+  import InsightEntry.BSONFields as F
 
   def selectId(id: String)               = $doc(F.id -> id)
   def selectUserId(id: UserId)           = $doc(F.userId -> id)

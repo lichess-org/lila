@@ -23,16 +23,16 @@ final private class Rematcher(
 
   private given play.api.i18n.Lang = defaultLang
 
-  private val declined = ExpireSetMemo[GameFullId](1 minute)
+  private val declined = ExpireSetMemo[GameFullId](1.minute)
 
   private val rateLimit = lila.memo.RateLimit[GameFullId](
     credits = 2,
-    duration = 1 minute,
+    duration = 1.minute,
     key = "round.rematch",
     log = false
   )
 
-  private val chess960 = ExpireSetMemo[GameId](3 hours)
+  private val chess960 = ExpireSetMemo[GameId](3.hours)
 
   export rematches.isOffering
 

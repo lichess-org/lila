@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Švicarski</string>
   <string name="swissTournaments">Švicarski turniri</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Pogledajte kolo</item>
@@ -68,6 +69,7 @@ Mislimo da je vjerojatnije da će se ti uvjeti ispuniti unutar momčadi nego na 
   <string name="numberOfByesQ">Koliko \"byes\" igrač može dobiti?</string>
   <string name="numberOfByesA">Igrač dobiva jedan bod svaki put kada sustav uparivanja ne može pronaći uparivanje za njega.
 Dodatno, jedan bod od pola boda se pripisuje kada se igrač kasno pridruži turniru.</string>
+  <string name="earlyDrawsQ">Što se dogodi s ranim neriješenim rezultatima?</string>
   <string name="whatIfOneDoesntPlayQ">Što se događa ako igrač ne igra igru?</string>
   <string name="whatIfOneDoesntPlayA">Njihov sat će otkucati, zastavit će se i izgubiti utakmicu.
 Tada će sustav povući igrača s turnira, kako ne bi izgubio više partija.

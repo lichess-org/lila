@@ -39,8 +39,8 @@ final class Env(
   lazy val boardApiHookStream = wire[BoardApiHookStream]
 
   private lazy val lobbySyncActor = LobbySyncActor.start(
-    broomPeriod = 2 seconds,
-    resyncIdsPeriod = 25 seconds
+    broomPeriod = 2.seconds,
+    resyncIdsPeriod = 25.seconds
   ): () =>
     wire[LobbySyncActor]
 

@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
   import helpers.{ *, given }
-  import trans.{ streamer as trs }
+  import trans.streamer as trs
 
   def apply(s: Streamer.WithUserAndStream, form: Form[?], modZone: Option[(Frag, List[Streamer])])(using
       ctx: Context

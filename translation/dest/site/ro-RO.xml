@@ -135,15 +135,30 @@
     <item quantity="few">%s gafe</item>
     <item quantity="other">%s de gafe</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Gafă</item>
+    <item quantity="few">%s Gafe</item>
+    <item quantity="other">%s De gafe</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s greșeală</item>
     <item quantity="few">%s greșeli</item>
     <item quantity="other">%s de greșeli</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Greșeală</item>
+    <item quantity="few">%s Greșeli</item>
+    <item quantity="other">%s De greșeli</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s inexactitate</item>
     <item quantity="few">%s inexactități</item>
     <item quantity="other">%s de inexactități</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Inexactitate</item>
+    <item quantity="few">%s Inexactități</item>
+    <item quantity="other">%s De inexactități</item>
   </plurals>
   <string name="moveTimes">Timpii de mutare</string>
   <string name="flipBoard">Rotiţi tabla</string>
@@ -715,7 +730,7 @@
   <string name="aboutSimulRules">Când simultanul începe, fiecare jucător începe jocul cu gazda și va juca cu piesele albe. Simultanul se termină când toate jocurile sunt complete.</string>
   <string name="aboutSimulSettings">Simultanele sunt tot timpul amicale. Revanșele, mutările înapoi și opțiunea \"mai mult timp\" sunt dezactivate.</string>
   <string name="create">Creează</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
+  <string name="whenCreateSimul">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
   <string name="simulVariantsHint">Dacă alegi mai multe variante, fiecare jucător va avea de ales ce variantă va juca.</string>
   <string name="simulClockHint">Configurare de ceas Fischer. Cu cât joci împotriva mai multor jucători, cu atât vei avea nevoie de mai mult timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
@@ -978,7 +993,7 @@
   <string name="streamerManager">Setări pentru streamer</string>
   <string name="cancelTournament">Anulează turneul</string>
   <string name="tournDescription">Descrierea turneului</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Partidele sunt evaluate
 și vor avea ca rezultat modificarea ratingului</string>
   <string name="onlyMembersOfTeam">Numai membrii echipei</string>

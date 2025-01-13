@@ -56,7 +56,7 @@ final class EntryApi(
       )
 
   def insert(e: Entry.ForUsers) =
-    coll.insert.one(bsonWriteObjTry(e.entry).get ++ $doc("users" -> e.userIds)) void
+    coll.insert.one(bsonWriteObjTry(e.entry).get ++ $doc("users" -> e.userIds)).void
 
   // can't remove from capped collection,
   // so we set a date in the past instead.
@@ -74,7 +74,7 @@ final class EntryApi(
   object broadcast:
 
     private val cache = cacheApi.unit[Vector[Entry]]:
-      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
         coll
           .find($doc("users".$exists(false), "date".$gt(nowInstant.minusWeeks(2))))
           .sort($sort.desc("date"))

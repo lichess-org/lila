@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Prodhoni shpejt e shpejt për nxënësit emra përdoruesish dhe fjalëkalime të parrezik</string>
   <string name="trackStudentProgress">Ndiqni ecurinë e nxënësve në lojëra dhe ushtrime</string>
   <string name="messageAllStudents">Dërgojuni mesazh krejt nxënësve mbi lëndë të re mësimi</string>
-  <string name="freeForAllForever">100% e lirë për gjithkënd, përgjithmonë, pa reklama dhe gjurmues</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% e lirë për gjithkënd, përgjithmonë, pa reklama dhe gjurmues</string>
   <string name="applyToBeLichessTeacher">Aplikoni për t’u bërë Mësues i Lichess-it</string>
   <string name="noClassesYet">Ende pa klasë.</string>
   <string name="teachersX">Mësues: %s</string>

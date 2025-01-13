@@ -145,7 +145,7 @@
 تظهر أيقونة كتم الصوت الحمراء عندما يمنع متصفحك موقعنا من تشغيل الصوت، يزال هذا القيد عادة بمجرد النقر في أي مكان، لكن في بعض متصفحات الأجهزة المحمولة، لا يعد سحب القطعة بمثابة نقرة، لذا يجب عليك النقر على الرقعة لتشغيل الصوت في بداية كل مباراة تلعبها.
 
 نعرض الرمز الأحمر لتنبيهك عند حدوث ذلك، في كثير من الأحيان يمكنك السماح لنا بتشغيل الأصوات عن طريق متصفحك، وفيما يلي تعليمات للقيام بذلك على الإصدارات الحديثة من بعض المتصفحات الشائعة.</string>
-  <string name="desktop">سطح المكتب</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">سطح المكتب</string>
   <string name="enableAutoplayForSoundsFirefox">1. اذهب إلى lichess.org
 2. اضغط Ctrl-i في نظامي Linux/Windows أو cmd-i على MacOS
 3. انقر فوق علامة تبويب الأذونات

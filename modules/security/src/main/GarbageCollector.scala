@@ -18,7 +18,7 @@ final class GarbageCollector(
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = scalalib.cache.OnceEvery[UserId](10 minutes)
+  private val justOnce = scalalib.cache.OnceEvery[UserId](10.minutes)
 
   private case class ApplyData(
       user: User,
@@ -33,13 +33,13 @@ final class GarbageCollector(
   def delay(user: User, email: EmailAddress, req: RequestHeader, quickly: Boolean): Unit =
     if user.createdAt.isAfter(nowInstant.minusDays(3)) then
       val ip = HTTPRequest.ipAddress(req)
-      scheduler.scheduleOnce(6 seconds):
+      scheduler.scheduleOnce(6.seconds):
         val applyData = ApplyData(user, ip, email, req, quickly)
         logger.debug(s"delay $applyData")
         lila.common.LilaFuture
           .retry(
             () => ensurePrintAvailable(applyData),
-            delay = 10 seconds,
+            delay = 10.seconds,
             retries = 5,
             logger = none
           )

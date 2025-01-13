@@ -125,13 +125,25 @@
     <item quantity="one">%s prohmakas</item>
     <item quantity="other">%s prohmakat</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Prohmakas</item>
+    <item quantity="other">%s Prohmakat</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s viga</item>
     <item quantity="other">%s viga</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Viga</item>
+    <item quantity="other">%s Viga</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s ebatäpsus</item>
     <item quantity="other">%s ebatäpsust</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Ebatäpsus</item>
+    <item quantity="other">%s Ebatäpsust</item>
   </plurals>
   <string name="moveTimes">Aeg käigu tegemisel</string>
   <string name="flipBoard">Keera lauda</string>
@@ -641,7 +653,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="aboutSimulRules">Simultaani algades, iga mängija alustab mängu korraldajaga, kes mängib valgete nuppudega. Simultaan lõpeb kui kõik mängud on mängitud.</string>
   <string name="aboutSimulSettings">Simultaanid on alati ilma reitinguta. Kordusmäng, käikude tagasivõtmised ning aja lisamine on keelatud.</string>
   <string name="create">Loo</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kui lood simultaani, saad mängida samaaegselt mitme vastasega.</string>
+  <string name="whenCreateSimul">Kui lood simultaani, saad mängida samaaegselt mitme vastasega.</string>
   <string name="simulVariantsHint">Kui valid mitu varianti, saab iga mängija valida ise millist mängida.</string>
   <string name="simulClockHint">Fischeri ajakontroll. Mida rohkemate mängijate vastu mängida, seda enam aega võib vaja minna.</string>
   <string name="simulAddExtraTime">Võid lisada kellale lisaaega, et simultaaniga paremini hakkama saada.</string>

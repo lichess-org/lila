@@ -97,8 +97,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def update(child: Branch): Branches =
     Branches(nodes.map:
       case n if child.id == n.id => child
-      case n                     => n
-    )
+      case n                     => n)
 
   def updateWith(id: UciCharPair, op: Branch => Option[Branch]): Option[Branches] =
     get(id).flatMap(op).map(update)
@@ -111,8 +110,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
       case main :: others =>
         val newNode = f(main)
         newNode.copy(children = newNode.children.updateMainline(f)) :: others
-      case x => x
-    )
+      case x => x)
 
   def takeMainlineWhile(f: Branch => Boolean): Branches =
     updateMainline: node =>

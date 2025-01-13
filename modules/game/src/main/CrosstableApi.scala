@@ -10,7 +10,7 @@ final class CrosstableApi(
 )(using Executor):
 
   import Crosstable.{ Matchup, Result }
-  import Crosstable.{ BSONFields as F }
+  import Crosstable.BSONFields as F
 
   def apply(game: Game): Fu[Option[Crosstable]] =
     game.twoUserIds.soFu(apply.tupled)
@@ -80,7 +80,7 @@ final class CrosstableApi(
             )
             .void
         }
-        updateCrosstable.zip(updateMatchup) void
+        updateCrosstable.zip(updateMatchup).void
       case _ => funit
 
   private val matchupProjection = $doc(F.lastPlayed -> false)

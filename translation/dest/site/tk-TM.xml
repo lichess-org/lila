@@ -522,7 +522,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="aboutSimulRules">Birwagtly sergi başlanda her oýunçy aklarda oýnaýan gurnaýja garşy oýna başlaýar. Ähli oýunlar tamamlananda birwagtly sergi tamamlanýar.</string>
   <string name="aboutSimulSettings">Birwagtly küşt hemişe reýtingsizdir. Ýene oýnama, yza-alym we \"goşmaça wagt\" ýaly funksiýalar beklidir.</string>
   <string name="create">Döret</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Birwagtly sergi döredeniňizde şol bir wagtyň özünde birnäçe oýunça garşy oýnarsyňyz.</string>
+  <string name="whenCreateSimul">Birwagtly sergi döredeniňizde şol bir wagtyň özünde birnäçe oýunça garşy oýnarsyňyz.</string>
   <string name="simulVariantsHint">Birnäçe wariant saýlasaňyz her oýunçy öz isleýän wariantyny saýlar.</string>
   <string name="simulClockHint">Fischer sagady düzümi. Näçe köp oýunçy kabul etseňiz şonça köp wagt zerur bolup biler.</string>
   <string name="simulAddExtraTime">Birwagtla uýmak üçin sagadyňyza goşmaça wagt goşup bilersiňiz.</string>

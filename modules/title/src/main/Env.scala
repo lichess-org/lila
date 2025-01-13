@@ -17,4 +17,4 @@ final class Env(db: lila.db.Db, picfitApi: lila.memo.PicfitApi)(using
 
   val form = TitleForm
 
-  scheduler.scheduleWithFixedDelay(5 minutes, 113 minutes)(() => api.cleanupOldPics)
+  scheduler.scheduleWithFixedDelay(5.minutes, 113.minutes)(() => api.cleanupOldPics)

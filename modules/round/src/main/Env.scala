@@ -144,7 +144,7 @@ final class Env(
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 
-  scheduler.scheduleAtFixedRate(10 minute, 10 minute): () =>
+  scheduler.scheduleAtFixedRate(10.minute, 10.minute): () =>
     correspondenceEmail.tick()
 
   import SettingStore.Regex.given

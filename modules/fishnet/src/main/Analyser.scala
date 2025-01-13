@@ -20,7 +20,7 @@ final class Analyser(
 
   private val maxPlies = 300
 
-  private val dedup = OnceEvery[String](2 seconds)
+  private val dedup = OnceEvery[String](2.seconds)
 
   private val systemSender = Sender(UserId.lichess, none, mod = false, system = true)
 

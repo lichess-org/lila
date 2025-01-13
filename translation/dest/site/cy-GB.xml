@@ -112,6 +112,14 @@
     <item quantity="many">%s camgymeriad difrifol</item>
     <item quantity="other">%s camgymeriad difrifol</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="zero">%s Gamgymeriad difrifol</item>
+    <item quantity="one">%s Camgymeriad difrifol</item>
+    <item quantity="two">%s Gamgymeriad difrifol</item>
+    <item quantity="few">%s Gamgymeriad difrifol</item>
+    <item quantity="many">%s Gamgymeriad difrifol</item>
+    <item quantity="other">%s Camgymeriad difrifol</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="zero">%s camgymeriad</item>
     <item quantity="one">%s camgymeriad</item>
@@ -120,6 +128,14 @@
     <item quantity="many">%s camgymeriad</item>
     <item quantity="other">%s camgymeriad</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="zero">%s Gamgymeriad</item>
+    <item quantity="one">%s Camgymeriad</item>
+    <item quantity="two">%s Gamgymeriad</item>
+    <item quantity="few">%s Gamgymeriad</item>
+    <item quantity="many">%s Gamgymeriad</item>
+    <item quantity="other">%s Gamgymeriad</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="zero">%s anghywirdeb</item>
     <item quantity="one">%s anghywirdeb</item>
@@ -127,6 +143,14 @@
     <item quantity="few">%s anghywirdeb</item>
     <item quantity="many">%s anghywirdeb</item>
     <item quantity="other">%s anghywirdeb</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="zero">%s Anghywirdeb</item>
+    <item quantity="one">%s Anghywirdeb</item>
+    <item quantity="two">%s Anghywirdeb</item>
+    <item quantity="few">%s Anghywirdeb</item>
+    <item quantity="many">%s Anghywirdeb</item>
+    <item quantity="other">%s Anghywirdeb</item>
   </plurals>
   <string name="moveTimes">Amser symudiadau</string>
   <string name="flipBoard">Troi\'r bwrdd</string>
@@ -498,7 +522,7 @@
   <string name="aboutSimulRules">Wrth gychwyn, mae pawb chwaraewr yn dechrau chwarae yn erbyn y gweinydd sy\'n chwarae efo\'r darnau gwynion. Mae\'r cystadleuaeth yn dod i\'w ben pan fydd pob gêm wedi\'i chwblhau..</string>
   <string name="aboutSimulSettings">Mae gêmau simul wastad yn gêmau heb raddio. Does dim ail gêm, cymryd yn ôl neu amser ychwanegol.</string>
   <string name="create">Creu</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wrth greu cystadleuaeth cyfochrog, chwaraei yn erbyn rhai chwaraewyr ar y pryd.</string>
+  <string name="whenCreateSimul">Wrth greu cystadleuaeth cyfochrog, chwaraei yn erbyn rhai chwaraewyr ar y pryd.</string>
   <string name="simulVariantsHint">Os dach chi\'n dewis rhai amrywiadau, ceith pawb chwaraewr ddewis pa un i chwarae.</string>
   <string name="simulClockHint">Cloc Fischer. Os dach chi\'n chwarae yn fwy o chwaraewyr, bydd angen mwy o amser gennoch.</string>
   <string name="simulAddExtraTime">Gellwch ychwanegu amser at dy gloc i\'ch helpu ymdopi â\'r cystadleuaeth simul.</string>

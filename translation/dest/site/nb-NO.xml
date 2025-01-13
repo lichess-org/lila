@@ -132,13 +132,25 @@
     <item quantity="one">%s bukk</item>
     <item quantity="other">%s bukker</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Bukk</item>
+    <item quantity="other">%s Bukker</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s feil</item>
     <item quantity="other">%s feil</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Feil</item>
+    <item quantity="other">%s Feil</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s unøyaktighet</item>
     <item quantity="other">%s unøyaktigheter</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Unøyaktighet</item>
+    <item quantity="other">%s Unøyaktigheter</item>
   </plurals>
   <string name="moveTimes">Tidsbruk</string>
   <string name="flipBoard">Snu brettet</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">Når simultanen begynner, starter hver spiller et parti med verten. Simultanen avsluttes når alle partiene er ferdige.</string>
   <string name="aboutSimulSettings">Simultaner er alltid uformelle. Omkamper, angring og ekstra tid er ikke lov.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
+  <string name="whenCreateSimul">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
   <string name="simulVariantsHint">Hvis du velger flere varianter får hver spiller anledning til å velge hvilken de vil spille.</string>
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>

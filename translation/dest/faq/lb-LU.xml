@@ -72,7 +72,7 @@
   <string name="connexionLostCanIGetMyRatingBack">Ech hunn eng Partie wéinst Lag/Verbindungsverloscht verluer. Kann ech meng Wäertungspunkten zeréckkréien?</string>
   <string name="howToThreeDots">Wéi...</string>
   <string name="enableDisableNotificationPopUps">Notifikatiouns-Popups aktivéieren an desaktivéieren?</string>
-  <string name="desktop">Desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">Desktop</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Mech selwer vum s`Spillen ofhalen?</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess-Benotzerstiler</string>
 </resources>

@@ -132,11 +132,23 @@
     <item quantity="one">%s هەڵەی دۆڕان</item>
     <item quantity="other">%s هەڵە دۆڕاو</item>
   </plurals>
+  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s هەڵەی دۆڕان</item>
+    <item quantity="other">%s هەڵە دۆڕن</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s هەڵە</item>
     <item quantity="other">%s هەڵەکان</item>
   </plurals>
+  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s هەڵە</item>
+    <item quantity="other">%s هەڵەکان</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s نا تەواو</item>
+    <item quantity="other">%s ناتەواوەکان</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%s نا تەواو</item>
     <item quantity="other">%s ناتەواوەکان</item>
   </plurals>
@@ -669,7 +681,7 @@
   <string name="aboutSimulRules">کاتێک سیمول دەست پێدەکات، هەموو یاریزانێک یارییەک لەگەڵ هۆستەکە دەستپێدەکات. سیمولەکە کاتێک کۆتایی دێت کە هەموو یارییەکان تەواو بوون.</string>
   <string name="aboutSimulSettings">سیمولەکان، کات زیادکردن، دووبارە کردنەوە یان وەرگرتنەوەی نییە.</string>
   <string name="create">دروستکردن</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">کاتێک سیموڵێک دروست دەکەی، ئەوە بەدەستدێنی کە بتوانی لە یەک کاتدا لەگەڵ چەند یاریزانێک یاری بکەیت.</string>
+  <string name="whenCreateSimul">کاتێک سیموڵێک دروست دەکەی، ئەوە بەدەستدێنی کە بتوانی لە یەک کاتدا لەگەڵ چەند یاریزانێک یاری بکەیت.</string>
   <string name="simulVariantsHint">ئەگەر چەند جۆرێک هەڵبژێریت، هەر یاریزانێک دەتوانێت ئەوە هەڵبژێرێت کە دەیەوێت یاری پێبکات.</string>
   <string name="simulClockHint">ڕێکخستنی کاتژمێری فیشەر. تا یاریزانی زیاتر وەربگریت، ڕەنگە پێویستت بە کاتێکی زیاتر بێت.</string>
   <string name="simulAddExtraTime">لەوانەیە کاتێکی زیاتر بۆ کاتژمێرەکەت زیاد بکەیت بۆ ئەوەی یارمەتیت بدات لەگەڵ سیموڵدا ڕوبەڕو ببیتەوە.</string>

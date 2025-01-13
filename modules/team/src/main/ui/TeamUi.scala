@@ -10,14 +10,14 @@ import ScalatagsTemplate.{ *, given }
 
 final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
-  import trans.{ team as trt }
+  import trans.team as trt
 
   def TeamPage(title: String) = Page(title).css("bits.team").js(infiniteScrollEsmInit)
 
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(10 minutes)
+      .expireAfterAccess(10.minutes)
       .maximumSize(1024)
       .build[Markdown, Html]()
     def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))

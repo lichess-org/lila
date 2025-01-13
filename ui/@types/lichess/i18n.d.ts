@@ -4867,6 +4867,8 @@ interface I18n {
     shareChanges: string;
     /** Evaluation bars */
     showEvalBar: string;
+    /** Results */
+    showResults: string;
     /** Spectator */
     spectator: string;
     /** Start */
