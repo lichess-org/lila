@@ -15,6 +15,7 @@ import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
 import { toggleBoxInit } from 'common/controls';
 import { addExceptionListeners } from './unhandledError';
+import { eventuallySetupDefaultConnection } from 'common/socket';
 
 export function boot() {
   addExceptionListeners();
@@ -67,6 +68,9 @@ export function boot() {
     serviceWorker();
 
     console.info('Lichess is open source! See https://lichess.org/source');
+
+    // if not already connected by a ui module, setup default connection
+    eventuallySetupDefaultConnection();
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {

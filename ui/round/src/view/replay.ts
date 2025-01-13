@@ -2,22 +2,24 @@ import * as licon from 'common/licon';
 import { userAnalysable, playable } from 'game';
 import { finished, aborted } from 'game/status';
 import * as util from '../util';
-import { isCol1 } from 'common/device';
+import { bindMobileMousedown, isCol1 } from 'common/device';
 import type RoundController from '../ctrl';
 import { throttle } from 'common/timing';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
-import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
+import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
+import { repeater } from 'common';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
   indexTag = 'i5z',
   indexTagUC = indexTag.toUpperCase(),
   movesTag = 'l4x',
-  rmovesTag = 'rm6';
+  rmovesTag = 'rm6',
+  rbuttonsTag = 'rb1';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -129,41 +131,39 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-function renderButtons(ctrl: RoundController) {
-  const d = ctrl.data,
-    firstPly = util.firstPly(d),
-    lastPly = util.lastPly(d);
-
-  return h(
-    'div.buttons',
-    {
-      hook: bind(
-        'mousedown',
-        e => {
-          const target = e.target as HTMLElement;
-          const ply = parseInt(target.getAttribute('data-ply') || '');
-          if (!isNaN(ply)) ctrl.userJump(ply);
-        },
-        ctrl.redraw,
-      ),
+const goThroughMoves = (ctrl: RoundController, e: Event) => {
+  const targetPly = () => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+  repeater(
+    () => {
+      const ply = targetPly();
+      if (!isNaN(ply)) ctrl.userJump(ply);
+      ctrl.redraw();
     },
-    [
-      analysisButton(ctrl) || h('div.noop'),
-      ...[
-        [licon.JumpFirst, firstPly],
-        [licon.JumpPrev, ctrl.ply - 1],
-        [licon.JumpNext, ctrl.ply + 1],
-        [licon.JumpLast, lastPly],
-      ].map((b: [string, number], i) => {
-        const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-        return h('button.fbt', {
-          class: { glowing: i === 3 && ctrl.isLate() },
-          attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
-        });
-      }),
-      boardMenuToggleButton(ctrl.menu, i18n.site.menu),
-    ],
+    e,
+    () => isNaN(targetPly()),
   );
+};
+
+function renderButtons(ctrl: RoundController) {
+  const firstPly = util.firstPly(ctrl.data),
+    lastPly = util.lastPly(ctrl.data);
+  return h(rbuttonsTag, [
+    analysisButton(ctrl) || h('div.noop'),
+    ...[
+      [licon.JumpFirst, firstPly],
+      [licon.JumpPrev, ctrl.ply - 1],
+      [licon.JumpNext, ctrl.ply + 1],
+      [licon.JumpLast, lastPly],
+    ].map((b: [string, number], i) => {
+      const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+      return h('button.fbt.repeatable', {
+        class: { glowing: i === 3 && ctrl.isLate() },
+        attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
+        hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
+      });
+    }),
+    boardMenuToggleButton(ctrl.menu, i18n.site.menu),
+  ]);
 }
 
 function initMessage(ctrl: RoundController) {
@@ -185,11 +185,7 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: bind('mousedown', e => {
-      e.preventDefault();
-      ctrl.userJump(ctrl.ply + dir);
-      ctrl.redraw();
-    }),
+    hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
   });
 
 export function render(ctrl: RoundController): LooseVNode {

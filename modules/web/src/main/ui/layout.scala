@@ -253,7 +253,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
 
-    private def reports(using Context) =
+    private def privileges(using Context) =
       if Granter.opt(_.SeeReport) then
         val threshold = reportScoreThreshold()
         val maxScore  = reportScore()
@@ -268,17 +268,22 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           dataCount := maxScore,
           dataIcon  := Icon.Agent
         ).some
+      else if Granter.opt(_.PublicChatView) then
+        a(
+          cls      := "link",
+          title    := "Moderation",
+          href     := routes.Mod.publicChat,
+          dataIcon := Icon.Agent
+        ).some
       else
-        Granter
-          .opt(_.PublicChatView)
-          .option(
-            a(
-              cls      := "link",
-              title    := "Moderation",
-              href     := routes.Mod.publicChat,
-              dataIcon := Icon.Agent
-            )
+        (Granter.opt(_.Pages) || Granter.opt(_.ManageEvent)).option(
+          a(
+            cls      := "link",
+            title    := "Content",
+            href     := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
+            dataIcon := Icon.InkQuill
           )
+        )
 
     private def teamRequests(nb: Int)(using Translate) =
       Option.when(nb > 0):
@@ -326,7 +331,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         div(cls := "site-buttons")(
           warnNoAutoplay,
           (!isAppealUser).option(clinput),
-          reports,
+          privileges,
           teamRequests(ctx.teamNbRequests),
           if isAppealUser then
             postForm(action := routes.Auth.logout):

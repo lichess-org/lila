@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
-import { defined } from 'common';
+import { defined, repeater } from 'common';
 import * as licon from 'common/licon';
 import {
   type VNode,
@@ -42,6 +42,7 @@ import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
 import { storage } from 'common/storage';
 import { makeChat } from 'chat';
+import { backToLiveView } from '../study/relay/relayView';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -91,6 +92,7 @@ export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
   kids: VNodeKids,
 ): VNode {
+  const isRelay = defined(ctrl.study?.relay);
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -118,9 +120,10 @@ export function renderMain(
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': hasRelayTour,
-        'is-relay': ctrl.study?.relay !== undefined,
+        'is-relay': isRelay,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
+        'relay-in-variation': !!ctrl.study?.isRelayAndInVariation(),
       },
     },
     kids,
@@ -137,6 +140,7 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
           !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
           renderMoveList(ctrl, deps, concealOf),
           deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
+          backToLiveView(ctrl),
           forkView(ctrl, concealOf),
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
         ]),
@@ -279,7 +283,11 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hook: onInsert(
         bindMobileMousedown(e => {
           const action = dataAct(e);
-          if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
+          if (action === 'prev' || action === 'next')
+            repeater(() => {
+              control[action](ctrl);
+              ctrl.redraw();
+            }, e);
           else if (action === 'first') control.first(ctrl);
           else if (action === 'last') control.last(ctrl);
           else if (action === 'explorer') ctrl.toggleExplorer();
@@ -423,25 +431,11 @@ const dataAct = (e: Event): string | null => {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 };
 
-function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
-  const repeat = () => {
-    control[action](ctrl);
-    ctrl.redraw();
-    delay = Math.max(100, delay - delay / 15);
-    timeout = setTimeout(repeat, delay);
-  };
-  let delay = 350;
-  let timeout = setTimeout(repeat, 500);
-  control[action](ctrl);
-  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
-}
-
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
     h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
-  const clocks = renderClocks(ctrl),
+  const clocks = renderClocks(ctrl, ctrl.path),
     whitePov = ctrl.bottomIsWhite(),
     materialDiffs = renderMaterialDiffs(ctrl);
 

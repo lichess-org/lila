@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: NetDomain):
   import helpers.{ *, given }
-  import trans.{ streamer as trs }
+  import trans.streamer as trs
 
   private val dataDedup = attr("data-dedup")
 
@@ -72,7 +72,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     Page(title)
       .css("bits.streamer.list")
       .js(infiniteScrollEsmInit)
-      .js(esmInitBit("streamer")):
+      .js(esmInitBit("streamerSubscribe")):
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
@@ -106,7 +106,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     Page(s"${s.titleName} streams chess")
       .csp(csp)
       .css("bits.streamer.show")
-      .js(esmInitBit("streamer"))
+      .js(esmInitBit("streamerSubscribe"))
       .graph(
         OpenGraph(
           title = s"${s.titleName} streams chess",
@@ -170,8 +170,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
               bits.header(s),
               div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
               ctx.pref.showRatings.option(a(cls := "ratings", href := routes.User.show(s.user.username)):
-                perfRatings
-              ),
+                perfRatings),
               activities
             )
           )

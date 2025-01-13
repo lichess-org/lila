@@ -163,4 +163,5 @@
   <string name="playAgain">重玩</string>
   <string name="whatWouldYouPlay">你会在这个位置上怎么走？</string>
   <string name="youCompletedThisLesson">恭喜！你完成了这个课程！</string>
+  <string name="perPage">%s 每页</string>
 </resources>

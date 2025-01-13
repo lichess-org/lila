@@ -11,8 +11,7 @@ private final class RecapRepo(colls: RecapColls)(using Executor):
   private given BSONHandler[FiniteDuration] =
     BSONIntegerHandler.as[FiniteDuration](_.seconds, _.toSeconds.toInt)
 
-  private given BSONDocumentHandler[NbAndStreak]                = Macros.handler
-  private given BSONDocumentHandler[Results]                    = Macros.handler
+  private given BSONDocumentHandler[NbWin]                      = Macros.handler
   private given [A: BSONHandler]: BSONHandler[Recap.Counted[A]] = Macros.handler
   private given BSONDocumentHandler[Recap.Perf]                 = Macros.handler
 

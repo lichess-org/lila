@@ -6,21 +6,6 @@ import scalalib.paginator.Paginator
 import lila.notify.Notification.*
 import lila.core.notify.{ UnreadCount, NotificationContent }
 
-case class TitledTournamentInvitation(
-    id: TourId,
-    text: String
-) extends NotificationContent("titledTourney")
-
-case object CoachReview extends NotificationContent("coachReview")
-
-case class PlanStart(userId: UserId)  extends NotificationContent("planStart")  // BC
-case class PlanExpire(userId: UserId) extends NotificationContent("planExpire") // BC
-
-case class CorresAlarm(
-    gameId: GameId,
-    opponent: String
-) extends NotificationContent("corresAlarm")
-
 private[notify] case class Notification(
     @Key("_id") id: Notification.Id,
     notifies: UserId,

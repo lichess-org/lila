@@ -153,8 +153,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
           div(cls := "bots__list__entry__head")(
             userLink(u),
             ctx.pref.showRatings.option(div(cls := "bots__list__entry__rating"):
-              bestPerfs(u.perfs).map { showPerfRating(u.perfs, _) }
-            )
+              bestPerfs(u.perfs).map { showPerfRating(u.perfs, _) })
           ),
           u.profile
             .ifTrue(ctx.kid.no)

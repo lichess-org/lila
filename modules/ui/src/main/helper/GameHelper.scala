@@ -48,7 +48,7 @@ trait GameHelper:
             user.name,
             user.flair.map(userFlair),
             withRating.option(
-              frag(
+              span(cls := "rating")(
                 " (",
                 player.rating.fold(frag("?")): rating =>
                   if player.provisional.yes then
@@ -97,7 +97,8 @@ trait GameHelper:
         frag(
           (if link then a else span) (
             cls := userClass(user.id, cssClass, withOnline),
-            (if link then href else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
+            (if link then href
+             else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
           )(
             withOnline.option(frag(lineIcon(user), " ")),
             playerUsername(
@@ -137,7 +138,8 @@ trait GameHelper:
         frag(
           (if link then a else span) (
             cls := userClass(user.id, cssClass, withOnline),
-            (if link then href else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
+            (if link then href
+             else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
           )(
             withOnline.option(frag(lineIcon(user), " ")),
             playerUsername(

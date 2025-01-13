@@ -67,7 +67,6 @@ announce 10 minutes Lichess will restart!
 announce cancel
 change asset version
 fishnet client create {username}
-gdpr erase {username} forever
 msg multi {sender} {recipient1,recipient2} {message}
 team members add {teamId} {username1,username2,username3}
 notify url users {username1,username2,username3} {url} {link title} | {link description}

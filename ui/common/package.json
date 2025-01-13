@@ -20,7 +20,7 @@
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",
     "debounce-promise": "^3.1.2",
-    "lichess-pgn-viewer": "^2.2.0",
+    "lichess-pgn-viewer": "^2.3.0",
     "tablesort": "^5.3.0"
   }
 }

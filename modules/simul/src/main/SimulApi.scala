@@ -6,9 +6,10 @@ import chess.{ ByColor, Status }
 import monocle.syntax.all.*
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
+import scalalib.Debouncer
 
 import lila.common.Json.given
-import lila.common.{ Bus, Debouncer }
+import lila.common.Bus
 import lila.core.perf.UserWithPerfs
 import lila.core.socket.SendToFlag
 import lila.core.team.LightTeam
@@ -29,13 +30,13 @@ final class SimulApi(
     repo: SimulRepo,
     verify: SimulCondition.Verify,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler)
+)(using Executor)(using scheduler: Scheduler)
     extends lila.core.simul.SimulApi:
 
   private val workQueue = scalalib.actor.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
-    expiration = 10 minutes,
-    timeout = 10 seconds,
+    expiration = 10.minutes,
+    timeout = 10.seconds,
     name = "simulApi",
     lila.log.asyncActorMonitor.full
   )
@@ -47,7 +48,7 @@ final class SimulApi(
   def isSimulHost(userId: UserId): Fu[Boolean] = currentHostIds.map(_ contains userId)
 
   private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
-    _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
       repo.allStarted.dmap(_.view.map(_.hostId).toSet)
 
   def create(setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] = for
@@ -67,7 +68,7 @@ final class SimulApi(
     _ <- repo.create(simul)
   yield
     publish()
-    lila.common.Bus.pub(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
+    Bus.pub(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
     simul
 
   def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] =
@@ -118,7 +119,7 @@ final class SimulApi(
                       val newSimul = simul.addApplicant(SimulApplicant(player, accepted = false))
                       for _ <- repo.update(newSimul)
                       yield
-                        lila.common.Bus.pub:
+                        Bus.pub:
                           Propagate(SimulJoin(me.userId, simul.id, simul.fullName)).toFollowersOf(user.id)
                         socket.reload(newSimul.id)
                         publish()
@@ -216,8 +217,7 @@ final class SimulApi(
         socket.filterPresent(simul, applicantIds).flatMap { online =>
           val leaving = applicantIds.diff(online.toSet)
           leaving.nonEmpty.so(WithSimul(repo.findCreated, simul.id):
-            _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
-          )
+            _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user))))
         }
       }
 
@@ -314,5 +314,7 @@ final class SimulApi(
 
   private object publish:
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer   = Debouncer[Unit](5 seconds, 1)(_ => Bus.publish(siteMessage, "sendToFlag"))
-    def apply()             = debouncer.push(())
+    private val debouncer =
+      Debouncer[Unit](scheduler.scheduleOnce(5.seconds, _), 1): _ =>
+        Bus.publish(siteMessage, "sendToFlag")
+    def apply() = debouncer.push(())

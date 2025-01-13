@@ -20,4 +20,4 @@ final class Env(
   private val feedback = wire[PlaybanFeedback]
 
   val api = wire[PlaybanApi]
-  export api.{ bansOf, HasCurrentPlayban, rageSitOf }
+  export api.{ bansOf, hasCurrentPlayban, rageSitOf }

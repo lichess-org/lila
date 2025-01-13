@@ -84,10 +84,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   }
 
   private def compute(key: OpeningKey): Fu[OpeningWiki] = for
-    docOpt <- coll
-      .aggregateOne() { F =>
-        F.Match($id(key)) -> List(F.Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
-      }
+    docOpt <- coll.aggregateOne(): F =>
+      F.Match($id(key)) -> List(F.Project($doc("lastRev" -> $doc("$first" -> "$revisions"))))
     popularity <- updatePopularity(key)
     lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
     text    = lastRev.map(_.text)

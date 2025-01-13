@@ -167,4 +167,5 @@
   <string name="playAgain">Jokatu berriz</string>
   <string name="whatWouldYouPlay">Zer jokatuko zenuke posizio honetan?</string>
   <string name="youCompletedThisLesson">Zorionak! Ikasgai hau osatu duzu.</string>
+  <string name="perPage">%s orrialde bakoitzean</string>
 </resources>

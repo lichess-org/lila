@@ -60,7 +60,8 @@ function help() {
   domDialog({
     css: [{ hashed: 'cli.help' }],
     class: 'clinput-help',
-    show: 'modal',
+    modal: true,
+    show: true,
     htmlText:
       '<div><h3>Commands</h3>' +
       commandHelp('/tv /follow', ' <user>', 'Watch someone play') +

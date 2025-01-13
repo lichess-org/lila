@@ -20,9 +20,8 @@ final class Fishnet(env: Env) extends LilaController(env):
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
       api
         .acquire(client, slow)
-        .addEffect { jobOpt =>
+        .addEffect: jobOpt =>
           lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
-        }
         .map(Right.apply)
     }
 

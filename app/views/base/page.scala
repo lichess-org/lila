@@ -101,7 +101,7 @@ object page:
               "kid"                  -> ctx.kid.yes,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> p.playing,
-              "no-rating"            -> !pref.showRatings,
+              "no-rating"            -> (!pref.showRatings || (p.playing && pref.hideRatingsInGame)),
               "no-flair"             -> !pref.flairs,
               "zen"                  -> (pref.isZen || (p.playing && pref.isZenAuto)),
               "zenable"              -> p.zenable,
@@ -111,10 +111,10 @@ object page:
           dataDev,
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
-          dataUser                         := ctx.userId,
-          dataSoundSet                     := pref.currentSoundSet.toString,
-          attr("data-socket-domains")      := socketTest.socketEndpoints(netConfig).mkString(","),
-          attr("data-socket-test-running") := socketTest.isUserInTestBucket(),
+          dataUser     := ctx.userId,
+          dataSoundSet := pref.currentSoundSet.toString,
+          attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
+                                          else netConfig.socketDomains).mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),

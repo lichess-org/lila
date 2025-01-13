@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Churzi Turnier Beschribig</string>
   <string name="fullDescription">Vollschtändigi Ereignisbeschribig</string>
   <string name="fullDescriptionHelp">Optionali, usfüehrlichi Beschribig vu de Überträgig. %1$s isch verfügbar. Die Beschribig muess chürzer als %2$s Zeiche si.</string>
-  <string name="sourceSingleUrl">PGN Quälle URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Quälle URL</string>
   <string name="sourceUrlHelp">URL wo Lichess abfrögt, für PGN Aktualisierige z\'erhalte. Sie muess öffentlich im Internet zuegänglich si.</string>
   <string name="sourceGameIds">Bis zu 64 Lichess Schpiel-IDs, trännt dur en Leerschlag.</string>
   <string name="startDateTimeZone">Startdatum i de lokale Zitzone vum Turnier: %s</string>
@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Runde-Schtudie bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
   <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Schpiel definitiv lösche.</string>
-  <string name="showScores">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
   <string name="fideFederations">FIDE Wältschachverband</string>
   <string name="top10Rating">Top 10 Ratings</string>
@@ -47,9 +47,9 @@
   <string name="fideProfile">FIDE Profil</string>
   <string name="federation">Verband</string>
   <string name="ageThisYear">Alter i dem Jahr</string>
-  <string name="unrated">Ungwertet</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Ungwertet</string>
   <string name="recentTournaments">Aktuellschti Turnier</string>
-  <string name="openLichess">In Lichess öffne</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">In Lichess öffne</string>
   <string name="teams">Teams</string>
   <string name="boards">Brätter</string>
   <string name="overview">Überblick</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Zitzone</string>
   <string name="fideRatingCategory">FIDE-Wertigskategorie</string>
   <string name="optionalDetails">Optionali Details</string>
-  <string name="upcomingBroadcasts">Kommendi Überträgige</string>
   <string name="pastBroadcasts">G\'machti Überträgige</string>
   <string name="allBroadcastsByMonth">Zeig alli Überträgige im Monet</string>
 </resources>

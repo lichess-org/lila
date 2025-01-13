@@ -27,7 +27,7 @@ final class User(
     modC: => Mod
 ) extends LilaController(env):
 
-  import env.relation.{ api as relationApi }
+  import env.relation.api as relationApi
   import env.gameSearch.userGameSearch
   import env.user.lightUserApi
 
@@ -44,10 +44,9 @@ final class User(
     env.game.cached
       .lastPlayedPlayingId(username.id)
       .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-      .flatMap {
+      .flatMap:
         case None         => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
-      }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
@@ -55,7 +54,7 @@ final class User(
     }
 
   private[controllers] val userShowRateLimit =
-    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(3))
+    env.security.ipTrust.rateLimit(8_000, 1.day, "user.show.ip", _.proxyMultiplier(4))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -129,7 +128,7 @@ final class User(
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
-                    info   <- env.userInfo(u, nbs, withUblog = false)
+                    info   <- env.userInfo(u, nbs, withUblog = true)
                     _      <- env.team.cached.lightCache.preloadMany(info.teamIds)
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search).option(
@@ -177,11 +176,12 @@ final class User(
               ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
-              val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
               negotiate(
-                html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-                  Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                    .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
+                html = ctx.isnt(user).so(currentlyPlaying(user.user)).flatMap { pov =>
+                  val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
+                  Ok.snip(
+                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable)
+                  ).map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
                 json =
                   import lila.game.JsonView.given
@@ -333,9 +333,9 @@ final class User(
           .so(
             env.user.noteApi
               .byUsersForMod(familyUserIds)
-              .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)
+              .logTimeIfGt(s"${user.username} noteApi.forMod", 2.seconds)
           ))
-          .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds))
+          .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2.seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
       otherUsers <- env.mod.logApi.addModlog(otherUsers)
@@ -350,7 +350,7 @@ final class User(
       .ofModId(me)
       .zip(env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username"))
       .flatMap { case (inquiry, WithPerfsAndEmails(user, emails)) =>
-        import views.mod.{ user as ui }
+        import views.mod.user as ui
         import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 

@@ -144,6 +144,14 @@
     <item quantity="many">%s غلطات</item>
     <item quantity="other">%s غلطات</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="zero">%s غلطة</item>
+    <item quantity="one">%s غلطة</item>
+    <item quantity="two">%s غلطة</item>
+    <item quantity="few">%s غلطة</item>
+    <item quantity="many">%s غلطة</item>
+    <item quantity="other">%s غلطات</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="zero">%s خطأ</item>
     <item quantity="one">%s خطأ</item>
@@ -152,7 +160,23 @@
     <item quantity="many">%s أخطاء</item>
     <item quantity="other">%s أخطاء</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="zero">%s خطأ</item>
+    <item quantity="one">%s خطأ</item>
+    <item quantity="two">%s خطأ</item>
+    <item quantity="few">%s خطأ</item>
+    <item quantity="many">%s خطأ</item>
+    <item quantity="other">%s أخطاء</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="zero">%s غموض</item>
+    <item quantity="one">%s غموض</item>
+    <item quantity="two">%s غموض</item>
+    <item quantity="few">%s غموض</item>
+    <item quantity="many">%s غموض</item>
+    <item quantity="other">%s غموض</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="zero">%s غموض</item>
     <item quantity="one">%s غموض</item>
     <item quantity="two">%s غموض</item>
@@ -318,6 +342,7 @@
     <item quantity="many">%s مباراة معك</item>
     <item quantity="other">%s مباراة معك</item>
   </plurals>
+  <string name="ok">حسناً</string>
   <string name="cancel">إلغاء</string>
   <string name="whiteTimeOut">انتهى وقت الأبيض</string>
   <string name="blackTimeOut">انتهى وقت الأسود</string>
@@ -1163,4 +1188,5 @@ https://lichess. org/report.</string>
   <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
   <string name="nothingToSeeHere">لا يوجد شيء يمكن رؤيته هنا في الوقت الحالي.</string>
+  <string name="stats">الإحصائيات</string>
 </resources>

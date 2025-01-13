@@ -60,6 +60,7 @@
 您無法移除已加入錦標賽的團隊。</string>
   <string name="numberOfLeadsPerTeam">每隊的團長人數。他們的分數加總即是整對的分數。</string>
   <string name="numberOfLeadsPerTeamHelp">您不應該在錦標賽開始後改變此值！</string>
+  <string name="innerTeam">隊內比賽</string>
   <plurals name="battleOfNbTeams">
     <item quantity="other">%s 隊之間的戰鬥</item>
   </plurals>

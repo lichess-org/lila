@@ -91,7 +91,7 @@ object MongoCache:
         keyToString: K => String
     )(f: K => Fu[V]): MongoCache[K, V] =
       apply[K, V](8, name, dbTtl, keyToString): loader =>
-        _.expireAfterWrite(1 second).buildAsyncFuture(loader(f))
+        _.expireAfterWrite(1.second).buildAsyncFuture(loader(f))
 
     // AsyncLoadingCache for single entry with DB persistence
     def unit[V: BSONHandler](
@@ -112,4 +112,4 @@ object MongoCache:
         dbTtl: FiniteDuration
     )(f: Unit => Fu[V]): MongoCache[Unit, V] =
       unit[V](name, dbTtl): loader =>
-        _.expireAfterWrite(1 second).buildAsyncFuture(loader(f))
+        _.expireAfterWrite(1.second).buildAsyncFuture(loader(f))

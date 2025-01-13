@@ -8,7 +8,7 @@ import chess.{ ByColor, Centis, Color, Ply }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.tree.{ Branch, Root }
+import lila.tree.{ Branch, Root, Clock }
 
 case class Chapter(
     @Key("_id") id: StudyChapterId,
@@ -49,7 +49,7 @@ case class Chapter(
         .collect:
           case '+' => Chapter.Check.Check
           case '#' => Chapter.Check.Mate
-      Chapter.LastPosDenorm(node.fen, uci, check, clocks)
+      Chapter.LastPosDenorm(node.fen, uci, check, clocks.map(_.map(_.centis)))
     copy(denorm = newDenorm)
 
   def updateRoot(f: Root => Option[Root]) =
@@ -78,7 +78,7 @@ case class Chapter(
     updateRoot(_.toggleGlyphAt(glyph, path))
 
   def setClock(
-      clock: Option[Centis],
+      clock: Option[Clock],
       path: UciPath
   ): Option[(Chapter, Option[BothClocks])] =
     updateRoot(_.setClockAt(clock, path))

@@ -58,8 +58,7 @@ object GameExt:
     // TODO: make movetime.read return List after writes are disabled.
     val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
     val mts  = if color == g.startColor then base else base.drop(1)
-    everyOther(mts.toList)
-  )
+    everyOther(mts.toList))
 
   def analysable(g: Game) =
     g.replayable && g.playedTurns > 4 &&
@@ -168,8 +167,7 @@ object GameExt:
           Event.CheckCount(
             white = updated.history.checkCount.white,
             black = updated.history.checkCount.black
-          )
-        )
+          ))
       }
 
       Progress(g, updated, events)
@@ -311,7 +309,7 @@ object CastleLastMove:
     { case bin: BSONBinary =>
       byteArrayHandler.readTry(bin).map(BinaryFormat.castleLastMove.read)
     },
-    clmt => byteArrayHandler.writeTry { BinaryFormat.castleLastMove.write(clmt) } get
+    clmt => byteArrayHandler.writeTry(BinaryFormat.castleLastMove.write(clmt)).get
   )
 
 enum DrawReason:

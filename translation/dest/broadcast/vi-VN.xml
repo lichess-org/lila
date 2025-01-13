@@ -23,7 +23,7 @@
   <string name="tournamentDescription">Mô tả ngắn giải đấu</string>
   <string name="fullDescription">Mô tả đầy đủ giải đấu</string>
   <string name="fullDescriptionHelp">Tùy chọn mô tả dài về giải đấu. Có thể sử dụng %1$s. Độ dài phải nhỏ hơn %2$s ký tự.</string>
-  <string name="sourceSingleUrl">URL Nguồn PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL Nguồn PGN</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
   <string name="sourceGameIds">Tối đa 64 ID ván cờ trên Lichess, phân tách bằng dấu cách.</string>
   <string name="startDateTimeZone">Thời gian bắt đầu của giải theo múi giờ địa phương: %s</string>
@@ -37,7 +37,7 @@
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
-  <string name="showScores">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="fideFederations">Các liên đoàn FIDE</string>
   <string name="top10Rating">Hệ số Elo top 10</string>
@@ -46,9 +46,9 @@
   <string name="fideProfile">Hồ sơ FIDE</string>
   <string name="federation">Liên đoàn</string>
   <string name="ageThisYear">Tuổi năm nay</string>
-  <string name="unrated">Chưa xếp hạng</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Chưa xếp hạng</string>
   <string name="recentTournaments">Các giải đấu tham gia gần đây</string>
-  <string name="openLichess">Mở trên Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Mở trên Lichess</string>
   <string name="teams">Các đội</string>
   <string name="boards">Các bàn đấu</string>
   <string name="overview">Tổng quan</string>
@@ -77,7 +77,6 @@
   <string name="timezone">Múi giờ</string>
   <string name="fideRatingCategory">Thể loại xếp hạng FIDE</string>
   <string name="optionalDetails">Tùy chọn chi tiết</string>
-  <string name="upcomingBroadcasts">Các phát sóng sắp tới</string>
   <string name="pastBroadcasts">Các phát sóng đã qua</string>
   <string name="allBroadcastsByMonth">Xem tất cả phát sóng theo tháng</string>
 </resources>

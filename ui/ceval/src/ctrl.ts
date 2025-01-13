@@ -54,11 +54,15 @@ export default class CevalCtrl {
   private worker: CevalEngine | undefined;
 
   constructor(opts: CevalOpts) {
-    this.configure(opts);
+    this.init(opts);
     this.engines = new Engines(this);
   }
 
-  configure(opts: CevalOpts): void {
+  setOpts(opts: Partial<CevalOpts>): void {
+    this.init({ ...this.opts, ...opts });
+  }
+
+  init(opts: CevalOpts): void {
     this.opts = opts;
     this.possible = this.opts.possible;
     this.rules = lichessRules(this.opts.variant.key);

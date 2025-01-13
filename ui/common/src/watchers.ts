@@ -1,3 +1,4 @@
+import { get, set } from './data';
 import * as licon from './licon';
 import { pubsub } from './pubsub';
 
@@ -20,10 +21,11 @@ export function watchers(element: HTMLElement): void {
     `<div class="chat__members__number" data-icon="${licon.User}" title="Spectators"></div>`,
   ).appendTo($innerElement);
   const $listEl = $('<div>').appendTo($innerElement);
+  const listEl = $listEl[0] as HTMLElement;
 
-  pubsub.on('socket.in.crowd', data => set(data.watchers || data));
+  pubsub.on('socket.in.crowd', data => setWatchers(data.watchers || data));
 
-  const set = (data: Data): void => {
+  const setWatchers = (data: Data): void => {
     watchersData = data;
 
     if (!data || !data.nb) {
@@ -35,8 +37,8 @@ export function watchers(element: HTMLElement): void {
 
     if (data.users) {
       const prevUsers = data.users.map(u => u || '').join(';');
-      if ($listEl.data('prevUsers') !== prevUsers) {
-        $listEl.data('prevUsers', prevUsers);
+      if (get(listEl, 'prevUsers') !== prevUsers) {
+        set(listEl, 'prevUsers', prevUsers);
         const tags = data.users.map(u =>
           u ? `<a class="user-link ulpt" href="/@/${name(u)}">${u}</a>` : 'Anonymous',
         );
@@ -49,5 +51,5 @@ export function watchers(element: HTMLElement): void {
     element.classList.remove('none');
   };
 
-  if (watchersData) set(watchersData);
+  if (watchersData) setWatchers(watchersData);
 }

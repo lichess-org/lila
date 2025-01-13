@@ -62,13 +62,18 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
       tours.map: tour =>
         val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)
         tr(
-          td(cls := "name")(
+          td(
             a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
               tour.name(full = false)
           ),
-          td(
-            if tour.isStarted then timeRemaining(tour.finishesAt)
-            else momentFromNow(tour.schedule.fold(tour.startsAt)(_.atInstant))
+          td(cls := "progress-td")(
+            span(cls := "progress")(
+              (
+                if tour.isStarted then timeRemaining(tour.finishesAt)
+                else momentFromNow(tour.schedule.fold(tour.startsAt)(_.atInstant))
+              ) (cls   := "progress__text"),
+              span(cls := "progress__bar", st.style := s"width:${tour.progressPercent}%")
+            )
           ),
           td(tour.durationString),
           tour.conditions.teamMember match

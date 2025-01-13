@@ -14,16 +14,16 @@ final private class GameStarter(
 )(using Executor, Scheduler):
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
-    maxSize = Max(32),
-    timeout = 10 seconds,
+    maxSize = Max(64),
+    timeout = 10.seconds,
     name = "gameStarter",
     lila.log.asyncActorMonitor.full
   )
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.nonEmpty.so:
+      val userIds = couples.flatMap(_.userIds)
       workQueue:
-        val userIds = couples.flatMap(_.userIds)
         for
           (perfs, ids) <- userApi.perfOf(userIds, pool.perfKey).zip(idGenerator.games(couples.size))
           pairings     <- couples.zip(ids).parallel(one(pool, perfs).tupled)

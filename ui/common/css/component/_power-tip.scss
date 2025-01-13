@@ -46,6 +46,7 @@
       &__flag {
         @extend %flex-center;
         margin-inline-start: 0.5ch;
+        gap: 0.5ch;
         flex: 1 1 auto;
         overflow: hidden;
         font-size: 0.9em;
@@ -66,6 +67,9 @@
         max-width: 25%;
         padding: 2px 3px;
         text-align: left;
+      }
+      body.no-rating & {
+        display: none;
       }
     }
 

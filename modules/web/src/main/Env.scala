@@ -16,7 +16,7 @@ final class Env(
 )(using mode: play.api.Mode, scheduler: Scheduler)(using Executor):
 
   val config = WebConfig.loadFrom(appConfig)
-  export config.{ pagerDuty as pagerDutyConfig }
+  export config.pagerDuty as pagerDutyConfig
   export net.baseUrl
 
   val manifest = wire[AssetManifest]
@@ -32,13 +32,8 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if mode.isProd then scheduler.scheduleOnce(5 seconds)(influxEvent.start())
+  if mode.isProd then scheduler.scheduleOnce(5.seconds)(influxEvent.start())
   private lazy val pagerDuty = wire[PagerDuty]
-
-  val socketTest = SocketTest(
-    yoloDb(lila.core.config.CollName("socket_test")).failingSilently(),
-    settingStore
-  )
 
   lila.common.Bus.subscribeFun("announce"):
     case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>

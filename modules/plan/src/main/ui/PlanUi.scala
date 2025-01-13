@@ -11,7 +11,7 @@ import lila.plan.PlanPricingApi.pricingWrites
 
 final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   import helpers.{ *, given }
-  import trans.{ patron as trp }
+  import trans.patron as trp
 
   private val stripeScript  = script(src := "https://js.stripe.com/v3/")
   private val namespaceAttr = attr("data-namespace")

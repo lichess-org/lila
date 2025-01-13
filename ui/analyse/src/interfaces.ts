@@ -81,7 +81,6 @@ export interface EvalHit {
 
 export interface EvalHitMulti extends EvalScore {
   fen: FEN;
-  depth: number;
 }
 
 export interface EvalHitMultiArray {
@@ -156,6 +155,8 @@ export interface AnalyseOpts {
   inlinePgn?: string;
   externalEngineEndpoint: string;
   embed?: boolean;
+  socketUrl?: string;
+  socketVersion?: number;
 }
 
 export interface JustCaptured extends Piece {

@@ -97,8 +97,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def update(child: Branch): Branches =
     Branches(nodes.map:
       case n if child.id == n.id => child
-      case n                     => n
-    )
+      case n                     => n)
 
   def updateWith(id: UciCharPair, op: Branch => Option[Branch]): Option[Branches] =
     get(id).flatMap(op).map(update)
@@ -111,8 +110,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
       case main :: others =>
         val newNode = f(main)
         newNode.copy(children = newNode.children.updateMainline(f)) :: others
-      case x => x
-    )
+      case x => x)
 
   def takeMainlineWhile(f: Branch => Boolean): Branches =
     updateMainline: node =>
@@ -154,7 +152,7 @@ sealed trait Node:
   def crazyData: Option[Crazyhouse.Data]
   def addChild(branch: Branch): Node
   def dropFirstChild: Node
-  def clock: Option[Centis]
+  def clock: Option[Clock]
   def forceVariation: Boolean
 
   // implementation dependent
@@ -181,7 +179,7 @@ case class Root(
     glyphs: Glyphs = Glyphs.empty,
     children: Branches = Branches.empty,
     opening: Option[Opening] = None,
-    clock: Option[Centis] = None, // clock state at game start, assumed same for both players
+    clock: Option[Clock] = None, // clock state at game start, assumed same for both players
     crazyData: Option[Crazyhouse.Data]
 ) extends Node:
 
@@ -226,7 +224,7 @@ case class Root(
     if path.isEmpty then copy(glyphs = glyphs.toggle(glyph)).some
     else updateChildrenAt(path, _.toggleGlyph(glyph))
 
-  def setClockAt(clock: Option[Centis], path: UciPath): Option[Root] =
+  def setClockAt(clock: Option[Clock], path: UciPath): Option[Root] =
     if path.isEmpty then copy(clock = clock).some
     else updateChildrenAt(path, _.withClock(clock))
 
@@ -301,6 +299,9 @@ object Root:
       crazyData = variant.crazyhouse.option(Crazyhouse.Data.init)
     )
 
+case class Clock(centis: Centis, trust: Option[Boolean] = none):
+  def positive = centis >= Centis(0)
+
 case class Branch(
     id: UciCharPair,
     ply: Ply,
@@ -318,7 +319,7 @@ case class Branch(
     children: Branches = Branches.empty, // Vector used in `Study.Node`, switch?
     opening: Option[Opening] = None,
     comp: Boolean = false,
-    clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
+    clock: Option[Clock] = None, // clock state after the move is played, and the increment applied
     crazyData: Option[Crazyhouse.Data],
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node:
@@ -339,7 +340,7 @@ case class Branch(
 
   def addChild(branch: Branch): Branch = copy(children = children :+ branch)
 
-  def withClock(centis: Option[Centis])  = copy(clock = centis)
+  def withClock(clock: Option[Clock])    = copy(clock = clock)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
 
   def isCommented                          = comments.value.nonEmpty
@@ -486,7 +487,7 @@ object Node:
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
 
-  import Eval.jsonWrites
+  import lila.tree.evals.jsonWrites
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 
@@ -518,7 +519,7 @@ object Node:
           .add("opening", opening)
           .add("dests", dests)
           .add("drops", drops.map(drops => JsString(drops.map(_.key).mkString)))
-          .add("clock", clock)
+          .add("clock", clock.map(_.centis))
           .add("crazy", crazyData)
           .add("comp", comp)
           .add(

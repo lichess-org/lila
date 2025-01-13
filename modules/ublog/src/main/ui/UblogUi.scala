@@ -31,7 +31,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: ShowAt = ShowAt.none,
-      showIntro: Boolean = true
+      showIntro: Boolean = true,
+      showSticky: Boolean = false
   )(using Context) =
     a(
       cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
@@ -41,7 +42,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
         showAuthor match
-          case ShowAt.none => emptyFrag
+          case ShowAt.none =>
+            if showSticky then
+              span(dataIcon := Icon.Star, cls := "user-link ublog-post-card__over-image pos-top")
+            else emptyFrag
           case showAt =>
             userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAt")
       ),
@@ -345,8 +349,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
     private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
       frag(
-        tag("id")(post.id),
+        tag("id")(s"$netBaseUrl${urlOfPost(post)}"),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
+        tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
           rel  := "alternate",
           tpe  := "text/html",
@@ -361,11 +366,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         },
         tag("content")(tpe := "html")(
-          thumbnail(post, _.Size.Large),
-          "<br>", // yes, scalatags encodes it.
-          post.intro
+          frag(
+            thumbnail(post, _.Size.Large),
+            br,
+            post.intro
+          ).render // html as escaped string in xml
         ),
-        tag("tag")("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
+        tag("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
         tag("author")(tag("name")(authorName))
       )
 

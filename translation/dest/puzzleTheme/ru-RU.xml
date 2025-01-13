@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Ход, перекрывающий линию взаимодействия дальнобойных фигур противника, в результате которого одна или обе фигуры становятся беззащитными. Например, конь встаёт на защищённое поле между двумя ладьями.</string>
   <string name="intermezzo">Промежуточный ход</string>
   <string name="intermezzoDescription">Вместо того, чтобы сделать ожидаемый ход, сначала делается другой ход, представляющий непосредственную угрозу, на которую противник должен ответить. Также известен как «Zwischenzug» или «Intermezzo».</string>
+  <string name="killBoxMate">Мат «Смертельная коробка»</string>
+  <string name="killBoxMateDescription">Ладья ставится рядом с королём противника под защитой ферзя, который одновременно препятствует побегу короля. Ладья и ферзь ловят вражеского короля в «смертельную коробку» 3×3.</string>
   <string name="knightEndgame">Коневой эндшпиль</string>
   <string name="knightEndgameDescription">Эндшпиль, в котором на доске остались только кони и пешки.</string>
   <string name="long">Трёхходовая задача</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">Ситуация, когда на линии нападения или защиты дальнобойной фигуры стоит фигура противника.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Противник вынужден сделать один из немногих возможных ходов, но любой ход ведёт к ухудшению его положения.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Сборная солянка</string>
+  <string name="mix">Сборная солянка</string>
   <string name="mixDescription">Всего понемногу. Вы не знаете, чего ожидать, так что будьте готовы ко всему! Прямо как в настоящей партии.</string>
   <string name="playerGames">Партии игрока</string>
   <string name="playerGamesDescription">Найти задачи, созданные из ваших партий, или партий других игроков.</string>

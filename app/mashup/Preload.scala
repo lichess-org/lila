@@ -143,7 +143,7 @@ object Preload:
       tours: List[Tournament],
       swiss: Option[Swiss],
       events: List[Event],
-      relays: List[lila.relay.RelayTour.ActiveWithSomeRounds],
+      relays: List[lila.relay.RelayCard],
       simuls: List[Simul],
       featured: Option[Game],
       puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],

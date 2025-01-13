@@ -6,10 +6,30 @@ body {
   --c-font-shadow: hsla(0, 0, 0%, 0);
   &,
   .site-title,
+  .site-title span,
+  .site-title:hover span,
   .site-buttons .link {
+    #user_tag::after,
     &,
     &:hover {
       color: #fff;
+    }
+  }
+  .hbg__in {
+    &,
+    &::before,
+    &::after {
+      background-color: #fff;
+    }
+  }
+  #clinput,
+  #friend_box,
+  .site-title-nav__donate {
+    display: none;
+  }
+  @media (min-width: at-least($medium)) {
+    #topnav {
+      display: none;
     }
   }
 }
@@ -20,6 +40,7 @@ body {
   left: 1vw;
   right: 1vw;
   height: 100%;
+  text-align: center;
 }
 
 .recap a {
@@ -34,6 +55,12 @@ body {
   &-initialized {
     opacity: 1;
   }
+  --swiper-theme-color: #fff;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  font-size: 3em;
 }
 
 .swiper-slide {
@@ -47,22 +74,14 @@ body {
 .recap {
   &__logo,
   .lpv {
-    width: 384px;
-    max-width: 80vw;
+    width: 45vh;
+    max-width: 61vw;
     max-height: 50vh;
   }
   .lpv {
     --c-lpv-bg: transparent;
     outline: none;
     box-shadow: none;
-    &,
-    .lpv__controls,
-    .lpv__fbt {
-      border: none;
-    }
-    .lpv__fbt {
-      padding: 0.1em 1em;
-    }
   }
 }
 
@@ -89,13 +108,14 @@ body {
 .recap--massive {
   @extend %flex-column;
   align-items: center;
+  max-width: 80%;
   @include fluid-size('font-size', 19px, 42px);
   strong {
     font-size: 3em;
   }
 }
 .recap--big {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .recap__slide--time .recap--massive strong {
@@ -139,7 +159,200 @@ body {
   font-weight: 2em;
 }
 
+.recap__shareable {
+  .logo,
+  h2 {
+    display: none;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.5em;
+
+    .stat {
+      a {
+        border: none;
+
+        .uflair {
+          margin-right: 0.2em;
+        }
+      }
+    }
+  }
+
+  .openings {
+    margin-top: 1em;
+    display: flex;
+
+    .stat {
+      flex: 50%;
+      font-size: 0.8em;
+      margin-top: 1em;
+    }
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .recap__shareable .grid .stat {
+    flex: 50%;
+  }
+}
+@media screen and (orientation: landscape) {
+  .recap__shareable .grid .stat {
+    flex: 33%;
+  }
+}
+
+@media (min-height: at-least($short)) {
+  .recap__shareable {
+    .logo {
+      display: inline;
+      height: 30px;
+    }
+    h2 {
+      display: block;
+      margin: 0.5em 0;
+    }
+    .grid {
+      row-gap: 1em;
+      padding: 0.5em;
+    }
+  }
+}
+
+@media (min-width: at-least($x-small)) and (max-width: at-most($small)) and (min-height: at-least($tall)) and (max-width: at-most($x-tall)) {
+  .recap__shareable {
+    .logo {
+      height: 40px;
+    }
+  }
+}
+
+@media (min-width: at-least($small)) and (max-width: at-most($large)), (min-height: at-least($x-tall)) {
+  .recap__shareable {
+    .logo {
+      height: 40px;
+    }
+    .openings {
+      margin-top: 2em;
+      .stat {
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+@media (min-width: at-least($large)) and (min-height: at-least($x-tall)) {
+  .recap__shareable {
+    .logo {
+      height: 80px;
+    }
+  }
+}
+
 .recap small {
   font-size: 0.8em;
   opacity: 0.6;
+}
+
+.swiper .autoplay-progress {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--swiper-theme-color);
+
+  svg {
+    --progress: 0;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    stroke-width: 4px;
+    stroke: var(--swiper-theme-color);
+    fill: none;
+    stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+    stroke-dasharray: 125.6;
+    transform: rotate(-90deg);
+  }
+}
+
+.recap__data {
+  td {
+    padding: 0.5em 0;
+  }
+  td:first-child {
+    text-align: left;
+  }
+  td:last-child {
+    text-align: right;
+    font-size: 0.8em;
+    opacity: 0.8;
+    min-width: 12ch;
+    padding-left: 1em;
+  }
+}
+.recap__slide--opponents {
+  a {
+    border: none;
+  }
+  .uflair,
+  .noflair {
+    font-size: 1.5em;
+    margin-right: 0.5em;
+  }
+  .noflair {
+    opacity: 0.8;
+  }
+  .trophy {
+    height: 1em;
+  }
+}
+
+@media (max-width: at-most($xx-small)) {
+  .recap__slide--lichess-games {
+    .recap--massive {
+      strong {
+        font-size: 2em;
+      }
+    }
+  }
+}
+
+.recap ul {
+  text-align: left;
+  li {
+    @extend %flex-center;
+    &:before {
+      content: '✓';
+      font-size: 1.5em;
+      margin-right: 0.3em;
+    }
+  }
+}
+
+.animated-pulse {
+  animation: pulse 1s 1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

@@ -1,21 +1,28 @@
 package lila.study
 
 import chess.MoveOrDrop.*
-import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags }
+import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
-import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
+import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, TournamentClock, Ply }
 
 import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ Branch, Branches, ImportResult, Root }
+import lila.tree.{ Branch, Branches, ImportResult, Root, Clock }
 
 object StudyPgnImport:
 
-  def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
+  case class Context(
+      currentGame: chess.Game,
+      clocks: ByColor[Option[Clock]],
+      timeControl: Option[TournamentClock]
+  )
+
+  def result(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
     lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn) =>
       val annotator = findAnnotator(parsedPgn, contributors)
 
-      val clock = parsedPgn.tags.clockConfig.map(_.limit)
+      val timeControl = parsedPgn.tags.timeControl
+      val clock       = timeControl.map(_.limit).map(Clock(_, trust = true.some))
       parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
           val root = Root(
@@ -27,12 +34,12 @@ object StudyPgnImport:
             glyphs = Glyphs.empty,
             clock = clock,
             crazyData = replay.setup.board.crazyData,
-            children = parsedPgn.tree
-              .fold(Branches.empty)(makeBranches(Context(replay.setup, clock, clock), _, annotator))
+            children = parsedPgn.tree.fold(Branches.empty):
+              makeBranches(Context(replay.setup, ByColor.fill(clock), timeControl), _, annotator)
           )
 
-          val end = result.map: res =>
-            End(
+          val ending = result.map: res =>
+            Ending(
               status = res.status,
               points = res.points,
               resultText = chess.Outcome.showPoints(res.points.some),
@@ -42,15 +49,16 @@ object StudyPgnImport:
           val commented =
             if root.mainline.lastOption.so(_.isCommented) then root
             else
-              end.map(endComment).fold(root) { comment =>
+              ending.map(endComment).fold(root) { comment =>
                 root.updateMainlineLast { _.setComment(comment) }
               }
 
           Result(
             root = commented,
             variant = game.board.variant,
-            tags = PgnTags(parsedPgn.tags),
-            end = end
+            tags = PgnTags
+              .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
+            ending = ending
           )
     }
 
@@ -58,10 +66,10 @@ object StudyPgnImport:
       root: Root,
       variant: chess.variant.Variant,
       tags: Tags,
-      end: Option[End]
+      ending: Option[Ending]
   )
 
-  case class End(
+  case class Ending(
       status: Status,
       points: Outcome.GamePoints,
       resultText: String,
@@ -72,16 +80,14 @@ object StudyPgnImport:
     pgn.tags("annotator").map { a =>
       val lowered = a.toLowerCase
       contributors
-        .find { c =>
+        .find: c =>
           c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
-        }
-        .map { c =>
+        .map: c =>
           Comment.Author.User(c.id, c.titleName)
-        }
         .getOrElse(Comment.Author.External(a))
     }
 
-  def endComment(end: End): Comment =
+  def endComment(end: Ending): Comment =
     import end.*
     val text = s"$resultText $statusText"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
@@ -98,11 +104,10 @@ object StudyPgnImport:
               (shapes ++ s),
               c.orElse(clock),
               e.orElse(emt),
-              (str.trim match
+              str.trim match
                 case "" => comments
                 case com =>
                   comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
-              )
             )
     }
 
@@ -128,32 +133,46 @@ object StudyPgnImport:
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val game   = moveOrDrop.applyGame(context.currentGame)
-            val uci    = moveOrDrop.toUci
-            val sanStr = moveOrDrop.toSanStr
-            parseComments(node.value.metas.comments, annotator) match
-              case (shapes, clock, emt, comments) =>
-                val computedClock = clock.orElse((context.previousClock, emt).mapN(_ - _))
-                Branch(
-                  id = UciCharPair(uci),
-                  ply = game.ply,
-                  move = Uci.WithSan(uci, sanStr),
-                  fen = Fen.write(game),
-                  check = game.situation.check,
-                  shapes = shapes,
-                  comments = comments,
-                  glyphs = node.value.metas.glyphs,
-                  clock = computedClock,
-                  crazyData = game.situation.board.crazyData,
-                  children = node.child.fold(Branches.empty)(
-                    makeBranches(Context(game, computedClock, context.currentClock), _, annotator)
-                  )
-                ).some
+            val game                           = moveOrDrop.applyGame(context.currentGame)
+            val uci                            = moveOrDrop.toUci
+            val sanStr                         = moveOrDrop.toSanStr
+            val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
+            val mover                          = !game.ply.turn
+            val computedClock: Option[Clock] = clock
+              .map(Clock(_, trust = true.some))
+              .orElse:
+                (context.clocks(mover), emt).mapN(guessNewClockState(_, game.ply, context.timeControl, _))
+              .filter(_.positive)
+            Branch(
+              id = UciCharPair(uci),
+              ply = game.ply,
+              move = Uci.WithSan(uci, sanStr),
+              fen = Fen.write(game),
+              check = game.situation.check,
+              shapes = shapes,
+              comments = comments,
+              glyphs = node.value.metas.glyphs,
+              clock = computedClock,
+              crazyData = game.situation.board.crazyData,
+              children = node.child.fold(Branches.empty):
+                makeBranches(
+                  Context(
+                    game,
+                    context.clocks.update(mover, _ => computedClock),
+                    context.timeControl
+                  ),
+                  _,
+                  annotator
+                )
+            ).some
         )
     catch
       case _: StackOverflowError =>
         logger.warn(s"study PgnImport.makeNode StackOverflowError")
         None
+
+  private def guessNewClockState(prev: Clock, ply: Ply, tc: Option[TournamentClock], emt: Centis): Clock =
+    Clock(prev.centis - emt + ~tc.map(_.incrementAtPly(ply)), trust = false.some)
 
   /*
    * Fix bad PGN like this one found on reddit:

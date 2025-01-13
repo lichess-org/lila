@@ -18,8 +18,17 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
   return snabDialog({
     class: 'game-setup',
     css: [{ hashed: 'lobby.setup' }],
-    onClose: setupCtrl.closeModal,
+    onClose: () => {
+      setupCtrl.closeModal = undefined;
+      setupCtrl.gameType = null;
+      setupCtrl.root.redraw();
+    },
+    modal: true,
     vnodes: [...views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
+    onInsert: dlg => {
+      setupCtrl.closeModal = dlg.close;
+      dlg.show();
+    },
   });
 }
 

@@ -26,6 +26,9 @@
   <plurals name="completedNbGames">
     <item quantity="other">完成了 %s 盘通讯棋</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="other">下完了%1$s%2$s局通信棋局</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">新关注 %s 个用户</item>
   </plurals>

@@ -16,21 +16,13 @@ final class RecapUi(helpers: Helpers):
     if ctx.is(user) then "Your yearly recap"
     else s"${user.username} yearly recap"
 
-  def home(av: Availability, user: User)(using Context) = av match
-    case Availability.Available(data) =>
-      Page(title(user))
-        .csp(_.withInlineIconFont) // swiper's `data: font`
-        .js(esmInit("recap", data))
-        .css("recap"):
-          main(cls := "recap"):
-            div(id := "recap-swiper", cls := "swiper")
-    case Availability.Queued(data) =>
-      Page(title(user))
-        .js(esmInit("recap", data))
-        .css("recap"):
-          main(cls := "recap"):
-            div(id := "recap-swiper", cls := "swiper")(
-              h1("Hi, ", userSpan(user)),
-              p("What have you been up to this year?"),
-              spinner
-            )
+  def home(av: Availability, user: User)(using Context) =
+    val data = av match
+      case Availability.Available(data) => data
+      case Availability.Queued(data)    => data
+    Page(title(user))
+      .css("recap")
+      .js(esmInit("recap", data))
+      .csp(_.withInlineIconFont): // swiper's `data: font`
+        main(cls := "recap"):
+          div(id := "recap-swiper", cls := "swiper")

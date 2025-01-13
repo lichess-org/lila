@@ -1,9 +1,10 @@
 th[role='columnheader']:not(.no-sort) {
+  @include prevent-select;
   cursor: pointer;
-  user-select: none;
 }
 
 th[role='columnheader']:not(.no-sort):after {
+  @include prevent-select;
   content: '';
   float: right;
   margin-top: 7px;
@@ -12,7 +13,6 @@ th[role='columnheader']:not(.no-sort):after {
   border-color: $c-accent transparent;
   visibility: hidden;
   opacity: 0;
-  user-select: none;
 }
 
 th[aria-sort='descending']:not(.no-sort):after {

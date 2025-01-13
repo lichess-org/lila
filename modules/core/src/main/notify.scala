@@ -12,36 +12,40 @@ opaque type UnreadCount = Int
 object UnreadCount extends RelaxedOpaqueInt[UnreadCount]:
   given Zero[UnreadCount] = Zero(0)
 
-abstract class NotificationContent(val key: String)
-
 case class NotifiedBatch(userIds: Iterable[UserId])
 
-case class IrwinDone(userId: UserId)   extends NotificationContent("irwinDone")
-case class KaladinDone(userId: UserId) extends NotificationContent("kaladinDone")
-case class InvitedToStudy(invitedBy: UserId, studyName: StudyName, studyId: StudyId)
-    extends NotificationContent("invitedStudy")
-case class TeamJoined(id: TeamId, name: String) extends NotificationContent("teamJoined")
-case class MentionedInThread(
-    mentionedBy: UserId,
-    topicName: String,
-    topidId: ForumTopicId,
-    category: ForumCategId,
-    postId: ForumPostId
-) extends NotificationContent("mention")
-case class PrivateMessage(user: UserId, text: String) extends NotificationContent("privateMessage")
-case class GenericLink(
-    url: String,
-    title: Option[String],
-    text: Option[String],
-    icon: String // should be lila.ui.Icon
-) extends NotificationContent("genericLink")
-case object ReportedBanned                         extends NotificationContent("reportedBanned")
-case class RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
-case class GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[Win])
-    extends NotificationContent("gameEnd")
-case class StreamStart(streamerId: UserId, streamerName: String) extends NotificationContent("streamStart")
-case class BroadcastRound(url: String, title: String, text: String)
-    extends NotificationContent("broadcastRound")
+enum NotificationContent(val key: String):
+  case IrwinDone(userId: UserId)   extends NotificationContent("irwinDone")
+  case KaladinDone(userId: UserId) extends NotificationContent("kaladinDone")
+  case InvitedToStudy(invitedBy: UserId, studyName: StudyName, studyId: StudyId)
+      extends NotificationContent("invitedStudy")
+  case TeamJoined(id: TeamId, name: String) extends NotificationContent("teamJoined")
+  case MentionedInThread(
+      mentionedBy: UserId,
+      topicName: String,
+      topidId: ForumTopicId,
+      category: ForumCategId,
+      postId: ForumPostId
+  )                                               extends NotificationContent("mention")
+  case PrivateMessage(user: UserId, text: String) extends NotificationContent("privateMessage")
+  case GenericLink(
+      url: String,
+      title: Option[String],
+      text: Option[String],
+      icon: String // should be lila.ui.Icon
+  )                                            extends NotificationContent("genericLink")
+  case ReportedBanned                          extends NotificationContent("reportedBanned")
+  case RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
+  case GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[Win])
+      extends NotificationContent("gameEnd")
+  case StreamStart(streamerId: UserId, streamerName: String)    extends NotificationContent("streamStart")
+  case BroadcastRound(url: String, title: String, text: String) extends NotificationContent("broadcastRound")
+  case TitledTournamentInvitation(id: TourId, text: String)     extends NotificationContent("titledTourney")
+  case CoachReview                                              extends NotificationContent("coachReview")
+  case PlanStart(userId: UserId)                                extends NotificationContent("planStart") // BC
+  case PlanExpire(userId: UserId)                    extends NotificationContent("planExpire") // BC
+  case CorresAlarm(gameId: GameId, opponent: String) extends NotificationContent("corresAlarm")
+  case Recap(year: Int)                              extends NotificationContent("recap")
 
 case class NotifyAllows(userId: UserId, allows: Allows)
 case class PushNotification(

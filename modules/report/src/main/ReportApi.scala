@@ -355,7 +355,7 @@ final class ReportApi(
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry".$exists(false))
 
   private val maxScoreCache = cacheApi.unit[Room.Scores]:
-    _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
       Room.allButXfiles
         .parallel: room =>
           coll // hits the best_open partial index
@@ -481,7 +481,7 @@ final class ReportApi(
 
     private val cache =
       cacheApi[ReporterId, Option[Accuracy]](512, "report.accuracy"):
-        _.expireAfterWrite(24 hours).buildAsyncFuture: reporterId =>
+        _.expireAfterWrite(24.hours).buildAsyncFuture: reporterId =>
           coll
             .find:
               $doc(
@@ -531,7 +531,7 @@ final class ReportApi(
 
     private val workQueue = scalalib.actor.AsyncActorSequencer(
       maxSize = Max(32),
-      timeout = 20 seconds,
+      timeout = 20.seconds,
       name = "report.inquiries",
       lila.log.asyncActorMonitor.full
     )

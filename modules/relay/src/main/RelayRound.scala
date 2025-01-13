@@ -126,8 +126,9 @@ object RelayRound:
     def addLog(event: SyncLog.Event) = copy(log = log.add(event))
     def clearLog                     = copy(log = SyncLog.empty)
 
-    def nonEmptyDelay = delay.filter(_.value > 0)
-    def hasDelay      = nonEmptyDelay.isDefined
+    // subtract estimated source polling lag from transmission delay
+    private def pollingLag = Seconds(if isPush then 1 else 6)
+    def delayMinusLag      = delay.map(_ - pollingLag).filter(_.value > 0)
 
     override def toString = upstream.toString
 
@@ -155,7 +156,10 @@ object RelayRound:
         case Url(url)   => url.looksLikeLcc
         case Urls(urls) => urls.exists(_.looksLikeLcc)
         case _          => false
-
+      def hasUnsafeHttp: Option[URL] = this match
+        case Url(url)   => Option.when(url.scheme == "http")(url)
+        case Urls(urls) => urls.find(_.scheme == "http")
+        case _          => none
       def roundId: Option[RelayRoundId] = this match
         case Url(url) =>
           url.path.split("/") match

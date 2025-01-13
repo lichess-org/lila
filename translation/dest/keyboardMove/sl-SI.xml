@@ -10,6 +10,7 @@
   <string name="dropARookAtB4">Spustite trdnjavo na b4 (samo varianta Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Ponudite ali sprejmite remi</string>
   <string name="readOutClocks">Odčitajte ure</string>
+  <string name="readOutOpponentName">Preberite nasprotnikovo ime</string>
   <string name="otherCommands">Drugi ukazi</string>
   <string name="tips">Nasveti</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Če zgornji zapis poteze ne poznate, preberite več tukaj:</string>

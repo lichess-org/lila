@@ -27,12 +27,12 @@ export default function (ctrl: RoundController): LooseVNode {
         h(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/display' } },
-          'Game display preferences',
+          i18n.preferences.display,
         ),
         h(
           'a',
           { attrs: { target: '_blank', href: '/account/preferences/game-behavior ' } },
-          'Game behavior preferences',
+          i18n.preferences.gameBehavior,
         ),
       ]),
     ];

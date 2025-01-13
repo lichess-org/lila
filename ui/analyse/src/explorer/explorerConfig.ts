@@ -83,7 +83,7 @@ export class ExplorerConfigCtrl {
         value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
-      color: prevData?.color || prop('white'),
+      color: prevData?.color || prop(root.bottomColor()),
       byDb() {
         return this.byDbData[this.db()] || this.byDbData.lichess;
       },
@@ -333,6 +333,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
+    modal: true,
     vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [

@@ -258,6 +258,21 @@ final class ClasApi(
             sendWelcomeMessage(teacher.id, user, clas)).inject(Student.WithPassword(student, password))
         }
 
+    def move(s: Student.WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
+      _ <- closeAccount(s)
+      stu = s.student.copy(
+        id = Student.makeId(s.user.id, toClas.id),
+        clasId = toClas.id,
+        created = Clas.Recorded(by = teacher.userId, at = nowInstant)
+      )
+      moved <- colls.student.insert
+        .one(stu)
+        .inject(stu.some)
+        .recoverWith(lila.db.recoverDuplicateKey { _ =>
+          student.get(toClas, s.user.id)
+        })
+    yield moved
+
     def manyCreate(
         clas: Clas,
         data: ClasForm.ManyNewStudent,

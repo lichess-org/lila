@@ -5,7 +5,7 @@ export interface RelayData {
   group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
   videoUrls?: [string, string];
-  pinnedStream?: { name: string; youtube?: string; twitch?: string };
+  pinned?: { name: string; redirect: string; text?: string };
   note?: string;
   lcc?: boolean;
 }

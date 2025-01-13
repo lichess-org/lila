@@ -59,6 +59,12 @@ $clock-height: 20px;
   tenths {
     font-size: 80%;
   }
+
+  i {
+    font-size: 0.7em;
+    margin-inline-end: 0.4em;
+    color: $c-accent;
+  }
 }
 
 .material {

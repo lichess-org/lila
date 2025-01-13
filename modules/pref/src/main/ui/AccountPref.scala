@@ -11,7 +11,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
   import helpers.{ *, given }
   import helper.*
   import bits.*
-  import trans.{ preferences as trp }
+  import trans.preferences as trp
 
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
@@ -77,7 +77,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
             setting(
               trp.showPlayerRatings(),
               frag(
-                radios(form("ratings"), booleanChoices),
+                radios(form("ratings"), translatedRatingsChoices),
                 div(cls := "help text shy", dataIcon := Icon.InfoCircle)(trp.explainShowPlayerRatings())
               ),
               "showRatings"

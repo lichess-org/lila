@@ -7,8 +7,7 @@
   @extend %flex-column;
 
   @include lobby-app-size;
-
-  user-select: none;
+  @include prevent-select;
 
   .lobby-nope & {
     display: none;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Suízo</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Suízo</string>
   <string name="swissTournaments">Torneos suízos</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Ver a rolda</item>
@@ -10,9 +10,9 @@
     <item quantity="one">%s rolda</item>
     <item quantity="other">%s roldas</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s rolda suíza</item>
-    <item quantity="other">%s roldas suízas</item>
+  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
+    <item quantity="one">Suízo %s rolda</item>
+    <item quantity="other">Suízo %s roldas</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Unha rolda por día</item>

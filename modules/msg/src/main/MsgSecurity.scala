@@ -37,17 +37,17 @@ final private class MsgSecurity(
 
   private val CreateLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
-    duration = 24 hour,
+    duration = 24.hour,
     key = "msg_create.user"
   )
 
   private val ReplyLimitPerUser = RateLimit[UserId](
     credits = 20 * limitCost.normal,
-    duration = 1 minute,
+    duration = 1.minute,
     key = "msg_reply.user"
   )
 
-  private val dirtSpamDedup = scalalib.cache.OnceEvery.hashCode[String](1 minute)
+  private val dirtSpamDedup = scalalib.cache.OnceEvery.hashCode[String](1.minute)
 
   object can:
 
@@ -140,7 +140,8 @@ final private class MsgSecurity(
     def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
       (
         !contacts.dest.isLichess &&
-          (!contacts.any(_.marks.exists(_.isolate)) || contacts.any(_.isGranted(_.Shadowban)))
+          (!contacts.any(_.marks.exists(_.isolate)) ||
+            contacts.any(c => c.isGranted(_.Shadowban) && c.isGranted(_.PublicMod)))
       ).so:
         fuccess(contacts.orig.isGranted(_.PublicMod)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&

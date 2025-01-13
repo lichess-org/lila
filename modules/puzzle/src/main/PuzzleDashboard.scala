@@ -89,7 +89,7 @@ final class PuzzleDashboardApi(
 
   private val cache =
     cacheApi[(UserId, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
-      _.expireAfterWrite(10 seconds).buildAsyncFuture { case (userId, days) =>
+      _.expireAfterWrite(10.seconds).buildAsyncFuture { case (userId, days) =>
         compute(userId, days)
       }
     }
@@ -125,26 +125,24 @@ final class PuzzleDashboardApi(
             )
           )
         )
-      }
-        .map { r =>
-          for
-            result     <- r
-            globalDocs <- result.getAsOpt[List[Bdoc]]("global")
-            globalDoc  <- globalDocs.headOption
-            global     <- readResults(globalDoc)
-            themeDocs  <- result.getAsOpt[List[Bdoc]]("byTheme")
-            byTheme = for
-              doc      <- themeDocs
-              themeStr <- doc.string("_id")
-              theme    <- PuzzleTheme.find(themeStr)
-              results  <- readResults(doc)
-            yield theme.key -> results
-          yield PuzzleDashboard(
-            global = global,
-            byTheme = byTheme.toMap
-          )
-        }
-        .dmap(_.filter(_.global.nb > 0))
+      }.map: r =>
+        for
+          result     <- r
+          globalDocs <- result.getAsOpt[List[Bdoc]]("global")
+          globalDoc  <- globalDocs.headOption
+          global     <- readResults(globalDoc)
+          themeDocs  <- result.getAsOpt[List[Bdoc]]("byTheme")
+          byTheme = for
+            doc      <- themeDocs
+            themeStr <- doc.string("_id")
+            theme    <- PuzzleTheme.find(themeStr)
+            results  <- readResults(doc)
+          yield theme.key -> results
+        yield PuzzleDashboard(
+          global = global,
+          byTheme = byTheme.toMap
+        )
+      .dmap(_.filter(_.global.nb > 0))
     }
 
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))

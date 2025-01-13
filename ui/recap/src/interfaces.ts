@@ -1,11 +1,12 @@
-interface NbStreak {
-  nb: number;
-  streak: number;
+export interface Opts {
+  recap?: Recap;
+  user: LightUser;
+  navigation: boolean;
 }
-export interface Results {
+
+interface NbWin {
+  total: number;
   win: number;
-  draw: number;
-  loss: number;
 }
 export interface Opening {
   key: string;
@@ -20,38 +21,40 @@ export interface ByColor<A> {
   white: A;
   black: A;
 }
+export interface Sources {
+  friend: number;
+  simul: number;
+  swiss: number;
+  pool: number;
+  lobby: number;
+  ai: number;
+  arena: number;
+}
+
+export interface RecapPerf {
+  key: Exclude<Perf, 'fromPosition'>;
+  games: number;
+}
 
 export interface Recap {
   year: number;
   createdAt: number;
   puzzles: {
-    nb: NbStreak;
-    results: Results;
+    nbs: NbWin;
     votes: {
-      up: number;
-      down: number;
+      nb: number;
       themes: number;
     };
   };
   games: {
-    perfs: {
-      key: string;
-      seconds: number;
-      games: number;
-    }[];
+    perfs: RecapPerf[];
     moves: number;
     openings: ByColor<Counted<Opening>>;
-    nb: NbStreak;
+    nbs: NbWin;
+    nbWhite: number;
     opponents: Counted<LightUser>[];
     timePlaying: number;
-    sources: {
-      friend: number;
-      simul: number;
-      pool: number;
-      ai: number;
-      arena: number;
-    };
+    sources: Sources;
     firstMoves: Counted<string>[];
-    results: Results;
   };
 }

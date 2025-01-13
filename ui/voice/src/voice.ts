@@ -15,11 +15,13 @@ export * from './interfaces';
 export * from './move/interfaces';
 export { renderVoiceBar } from './view';
 
-export const supportedLangs: [string, string][] = [['en', 'English']];
+export const supportedLangs: [string, string][] = [
+  ['en', 'English'],
+  ['fr', 'Français (expérimental)'],
+];
 
 if (site.debug)
   supportedLangs.push(
-    ['fr', 'Français'],
     ['de', 'Deutsch'],
     ['tr', 'Türkçe'],
     ['vi', 'Tiếng Việt'],

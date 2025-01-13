@@ -129,3 +129,19 @@ export function $as<T>(cashOrHtml: Cash | string): T {
 export function myUserId(): string | undefined {
   return document.body.dataset.user;
 }
+
+export function repeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {
+  let timeout: number | undefined = undefined;
+  const delay = (function* () {
+    yield 500;
+    for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
+  })();
+  const repeat = () => {
+    f();
+    timeout = setTimeout(repeat, delay.next().value!);
+    if (additionalStopCond?.()) clearTimeout(timeout);
+  };
+  repeat();
+  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
+  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
+}

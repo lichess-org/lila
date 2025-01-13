@@ -49,7 +49,7 @@ object PrefForm:
     val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
     val clockSound    = "clockSound"    -> booleanNumber
     val pieceNotation = "pieceNotation" -> booleanNumber
-    val ratings       = "ratings"       -> booleanNumber
+    val ratings       = "ratings"       -> checkedNumber(Pref.Ratings.choices)
     val flairs        = "flairs"        -> boolean
     val follow        = "follow"        -> booleanNumber
     val challenge     = "challenge"     -> checkedNumber(Pref.Challenge.choices)
@@ -79,7 +79,7 @@ object PrefForm:
         fields.autoThreefold,
         fields.submitMove.map2: mapping =>
           if lichobile then
-            import Pref.SubmitMove.{ lichobile as compat }
+            import Pref.SubmitMove.lichobile as compat
             optional(numberIn(compat.choices).transform(compat.appToServer, compat.serverToApp))
           else optional(mapping),
         fields.confirmResign,

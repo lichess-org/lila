@@ -181,7 +181,8 @@ final class PlanApi(
       stripeClient.getSession(sessionId).flatMapz { session =>
         stripeClient
           .setCustomerPaymentMethod(sub.customer, session.setup_intent.payment_method)
-          .zip(stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method)) void
+          .zip(stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method))
+          .void
       }
 
     def canUse(ip: IpAddress, freq: Freq)(using me: Me): Fu[StripeCanUse] = ip2proxy(ip).flatMap { proxy =>
@@ -569,7 +570,7 @@ final class PlanApi(
 
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]:
-    _.refreshAfterWrite(30 minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(30.minutes).buildAsyncFuture: _ =>
       mongo.charge
         .primitive[UserId](
           $doc("date" -> $gt(nowInstant.minusWeeks(1))),
@@ -652,7 +653,8 @@ final class PlanApi(
         .map {
           case 1 => lila.mon.plan.charge.first(charge.serviceName).increment()
           case _ =>
-        } void
+        }
+        .void
     } >>
       monthlyGoalApi.get
         .map: m =>

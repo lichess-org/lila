@@ -65,7 +65,7 @@ final class Env(
 
   private lazy val chapterMaker = wire[ChapterMaker]
 
-  private lazy val explorerGame = wire[ExplorerGame]
+  private lazy val explorerGame = wire[ExplorerGameApi]
 
   private lazy val studyMaker = wire[StudyMaker]
 

@@ -44,9 +44,9 @@ bad {
 }
 
 .icon-flair {
+  @include prevent-select;
   height: 1.1em;
   vertical-align: middle;
   margin-right: 0.5ch;
   transform: translateY(-0.1em);
-  user-select: none;
 }

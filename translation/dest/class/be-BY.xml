@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Заняткі</string>
+  <string name="lichessClasses">Заняткі</string>
   <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў Lichess.</string>
   <string name="features">Магчымасці</string>
   <string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
   <string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
   <string name="messageAllStudents">Паведамляйце ўсім студэнтам аб новым матэрыяле занятка</string>
-  <string name="freeForAllForever">100% бясплатна для ўсіх, назаўсёды, без рэкламы і трэкінгу</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% бясплатна для ўсіх, назаўсёды, без рэкламы і трэкінгу</string>
   <string name="applyToBeLichessTeacher">Падаць заяўку, каб стаць Lichess выкладчыкам</string>
   <string name="noClassesYet">Пакуль няма ніякіх заняткаў.</string>
   <string name="teachersX">Выкладчыкі: %s</string>

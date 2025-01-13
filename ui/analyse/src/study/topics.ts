@@ -41,6 +41,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
       ctrl.open(false);
       ctrl.redraw();
     },
+    modal: true,
     vnodes: [
       h('h2', i18n.study.topics),
       h(

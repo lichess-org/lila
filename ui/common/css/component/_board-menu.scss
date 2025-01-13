@@ -1,8 +1,9 @@
 .board-menu {
   @extend %flex-column, %dropdown-shadow;
+  @include prevent-select;
+
   background: $c-bg-popup;
   padding: 0.5em 1.5em;
-  user-select: none;
 
   @media (min-width: at-least($small)) {
     position: absolute;

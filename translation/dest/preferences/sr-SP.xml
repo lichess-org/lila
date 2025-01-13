@@ -15,7 +15,7 @@
   <string name="onlyOnInitialPosition">Само на почетку партије</string>
   <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када имате &lt; 10 секунди</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када имате &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Хоризонтални зелени индикатор</string>
   <string name="soundWhenTimeGetsCritical">Звук када преостане мало времена</string>
   <string name="giveMoreTime">Додај још времена</string>
@@ -30,7 +30,7 @@
   <string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
   <string name="whenPremoving">Током претпотеза</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Када преостане &lt; 30 секунди</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Када преостане &lt; 30 секунди</string>
   <string name="moveConfirmation">Потврди потез</string>
   <string name="inCorrespondenceGames">У дописним играма</string>
   <string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>
@@ -40,5 +40,5 @@
   <string name="castleByMovingOntoTheRook">Помери краља на топа</string>
   <string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Кажи \"Добра партија, добро одиграно\" након пораза или нерешеног</string>
-  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Ваше преференце су сачуване.</string>
+  <string name="yourPreferencesHaveBeenSaved">Ваше преференце су сачуване.</string>
 </resources>

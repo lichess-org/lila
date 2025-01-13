@@ -14,13 +14,11 @@ final class RelayPgnStream(
 )(using Executor):
 
   def exportFullTourAs(tour: RelayTour, me: Option[User]): Source[PgnStr, ?] = Source.futureSource:
-    roundRepo
-      .idsByTourOrdered(tour.id)
-      .flatMap: ids =>
-        studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)).map { studies =>
-          val visible = studies.filter(_.canView(me.map(_.id)))
-          Source(visible).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
-        }
+    for
+      ids     <- roundRepo.idsByTourOrdered(tour.id)
+      studies <- studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids))
+      visible = studies.filter(_.canView(me.map(_.id)))
+    yield Source(visible).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
 
   private val flags = PgnDump.WithFlags(
     comments = false,
@@ -38,7 +36,7 @@ final class RelayPgnStream(
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
   def streamRoundGames(rs: RelayRound.WithStudy): Source[PgnStr, ?] = {
-    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(32, 1 second)
+    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(32, 1.second)
     else Source.empty[PgnStr]
   }.concat(
     Source
@@ -53,6 +51,6 @@ final class RelayPgnStream(
           .addEffectAnyway:
             Bus.unsubscribe(sub, chan)
       .flatMapConcat(studyChapterRepo.byIdsSource)
-      .throttle(16, 1 second)
+      .throttle(16, 1.second)
       .mapAsync(1)(studyPgnDump.ofChapter(rs.study, flags))
   )

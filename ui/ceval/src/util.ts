@@ -39,15 +39,22 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
 export function showEngineError(engine: string, error: string): void {
   domDialog({
     class: 'engine-error',
+    modal: true,
     htmlText:
       `<h2>${escapeHtml(engine)} <bad>error</bad></h2>` +
       (error.includes('Status 503')
-        ? `<p>Your external engine does not appear to be connected.</p>
+        ? $html`
+          <p>Your external engine does not appear to be connected.</p>
           <p>Please check the network and restart your provider if possible.</p>`
-        : `${escapeHtml(error)}</pre><h2>Things to try</h2><ul>
-          <li>Decrease memory slider in engine settings</li>
-          <li>Clear site settings for lichess.org</li>
-          <li>Select another engine</li><li>Update your browser</li></ul>`),
+        : $html`
+          <pre>${escapeHtml(error)}</pre>
+          <h2>Things to try</h2>
+          <ul>
+            <li>Decrease memory slider in engine settings</li>
+            <li>Clear site settings for lichess.org</li>
+            <li>Select another engine</li>
+            <li>Update your browser</li>
+          </ul>`),
   }).then(dlg => {
     const select = () =>
       setTimeout(() => {
@@ -57,6 +64,6 @@ export function showEngineError(engine: string, error: string): void {
         window.getSelection()?.addRange(range);
       }, 0);
     dlg.view.querySelector('.err')?.addEventListener('focus', select);
-    dlg.showModal();
+    dlg.show();
   });
 }

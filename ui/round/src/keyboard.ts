@@ -40,4 +40,5 @@ export const view = (ctrl: RoundController): VNode =>
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
+    modal: true,
   });

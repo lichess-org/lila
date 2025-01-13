@@ -12,15 +12,18 @@ object RelayGroup:
     def make = Id(ThreadLocalRandom.nextString(8))
 
   opaque type Name = String
-  object Name extends OpaqueString[Name]
+  object Name extends OpaqueString[Name]:
+    extension (name: Name)
+      def shortTourName(tour: RelayTour.Name): RelayTour.Name =
+        if tour.value.startsWith(name.value)
+        then RelayTour.Name(tour.value.drop(name.value.size + 1).dropWhile(!_.isLetterOrDigit))
+        else tour
 
   case class WithTours(group: RelayGroup, tours: List[RelayTour.IdName]):
-    def withShorterTourNames = copy(tours = tours.map: tour =>
-      if tour.name.value.startsWith(group.name.value)
-      then
-        val shortName = tour.name.value.drop(group.name.value.size + 1).dropWhile(!_.isLetterOrDigit)
-        tour.copy(name = RelayTour.Name(shortName))
-      else tour)
+    def withShorterTourNames = copy(
+      tours = tours.map: tour =>
+        tour.copy(name = group.name.shortTourName(tour.name))
+    )
 
   private[relay] object form:
     import play.api.data.*

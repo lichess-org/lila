@@ -1,6 +1,6 @@
 package lila.study
 
-import lila.core.notify.{ InvitedToStudy, NotifyApi }
+import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.core.perm.Granter
 import lila.core.relation.Relation.{ Block, Follow }
 import lila.db.dsl.{ *, given }
@@ -15,13 +15,13 @@ final private class StudyInvite(
 
   private val inviteLimit = lila.memo.RateLimit[UserId](
     credits = 400,
-    duration = 1 day,
+    duration = 1.day,
     key = "study.invite.user"
   )
 
   private val notifyRateLimit = lila.memo.RateLimit[UserId](
     credits = 100,
-    duration = 1 day,
+    duration = 1.day,
     key = "study.invite.notify.user"
   )
 
@@ -72,13 +72,12 @@ final private class StudyInvite(
     _ <- shouldNotify.so(notifyRateLimit.zero(inviter.userId, rateLimitCost):
       notifyApi.notifyOne(
         invited,
-        InvitedToStudy(
+        NotificationContent.InvitedToStudy(
           invitedBy = inviter.userId,
           studyName = study.name,
           studyId = study.id
         )
-      )
-    )
+      ))
   yield invited
 
   def becomeAdmin(me: MyId)(study: Study): Funit =

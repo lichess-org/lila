@@ -1,6 +1,6 @@
 package lila.relay
 
-import lila.core.notify.*
+import lila.core.notify.{ NotifyApi, NotificationContent }
 
 final private class RelayNotifier(notifyApi: NotifyApi, tourRepo: RelayTourRepo)(using Executor):
 
@@ -16,7 +16,7 @@ final private class RelayNotifier(notifyApi: NotifyApi, tourRepo: RelayTourRepo)
               subscribers.nonEmpty.so:
                 notifyApi.notifyMany(
                   subscribers,
-                  BroadcastRound(
+                  NotificationContent.BroadcastRound(
                     rt.path,
                     rt.tour.name.value,
                     s"${rt.round.name} has begun"

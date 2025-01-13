@@ -91,12 +91,12 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
   <string name="usernamesNotOffensive">Obecně platí, že uživatelská jména by neměla být: urážlivá, uživatel by se vydávat za někoho jiného, a neměla by sloužit jako reklama. Více si o tom můžete přečíst %1$s.</string>
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Mohu si změnit své uživatelské jméno?</string>
-  <string name="usernamesCannotBeChanged">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
   <string name="uniqueTrophies">Unikátní trofeje</string>
   <string name="ownerUniqueTrophies">Tato trofej je jedinečná, a nikdo jiný než %1$s ji nikdy mít nebude.</string>
   <string name="wayOfBerserkExplanation">Aby trofej získal, musel hiimgosu berserkovat a vyhrát všechny partie %s.</string>
   <string name="aHourlyBulletTournament">hodinový bullet turnaj</string>
-  <string name="goldenZeeExplanation">ZugAddict vysílal živý přenos poslední 2 hodiny, přičemž se snažil porazit AI level 8 v partii 1+0, ale neúspěšně. Thibault ho vyzval, že pokud AI porazí v průběhu jeho živého přenosu, dostane unikátní trofej. O hodinu později Stockfishe porazil, a trofej obdržel.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict vysílal živý přenos poslední 2 hodiny, přičemž se snažil porazit AI level 8 v partii 1+0, ale neúspěšně. Thibault ho vyzval, že pokud AI porazí v průběhu jeho živého přenosu, dostane unikátní trofej. O hodinu později Stockfishe porazil, a trofej obdržel.</string>
   <string name="lichessRatings">Ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
   <string name="ratingSystemUsedByLichess">Ratingy se počítají pomocí metody Glicko-2 vyvinuté Markem Glickmanem. Jedná se o velmi populární metodu, a je využívána značným množstvím šachových organizací (není mezi nimi FIDE, jež stále využívá již zastaralou metodu Elo). 
@@ -140,7 +140,7 @@ Klikněte na ikonu zámku vedle URL adresy ve Vašem prohlížeči, a poté vybe
 Červená ikona ztlumení zvuku se zobrazí, když prohlížeč zabrání přehrávání zvuku na stránce lichess.org. Obvykle se toto omezení zruší, jakmile na něco kliknete. V některých mobilních prohlížečích se přetažení figurky dotykem nepočítá jako kliknutí. V takovém případě musíte na začátku každé hry klepnout na šachovnici, aby byl zvuk povolen.
 
 Zobrazujeme červenou ikonu, abychom vás upozornili, když k tomu dojde. Často můžete výslovně povolit, aby lichess.org přehrával zvuky. Zde jsou pokyny, jak to udělat v posledních verzích některých populárních prohlížečů.</string>
-  <string name="desktop">počítač</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">počítač</string>
   <string name="enableAutoplayForSoundsFirefox">1. Jděte na lichess.org
 2. Stiskněte klávesu Ctrl-i v systému Linux/Windows nebo cmd-i v systému MacOS.
 3. Klikněte na kartu Oprávnění

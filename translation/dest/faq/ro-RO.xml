@@ -96,12 +96,12 @@ Nu cere titlul LM.</string>
   <string name="usernamesNotOffensive">În general, numele de utilizator nu ar trebui să fie: ofensiv, să nu fie numele altcuiva sau publicitate. Puteți citi %1$s aici.</string>
   <string name="guidelines">instrucțiunile</string>
   <string name="canIChangeMyUsername">Îmi pot schimba numele de utilizator?</string>
-  <string name="usernamesCannotBeChanged">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nu, numele de utilizator nu poate fi schimbat din motive tehnice și practice. Numele de utilizator sunt stocate în prea multe locuri: baze de date, exporturi, jurnale și mințile oamenilor. Poți ajusta capitalizarea o dată.</string>
   <string name="uniqueTrophies">Trofee unice</string>
   <string name="ownerUniqueTrophies">Acest trofeu este unic în istoria Lichess, nimeni înafară de %1$s nu îl va avea vreodată.</string>
   <string name="wayOfBerserkExplanation">Pentru a-l obține, hiimgosu a înnebunit și s-a provocat să câştige 100%% din jocurile de %s.</string>
   <string name="aHourlyBulletTournament">turneu de o oră de Bullet</string>
-  <string name="goldenZeeExplanation">ZugAddict a făcut stream şi în ultimele 2 ore a încercat să învingă I.A. de nivel 8 într-un joc 1+0, fără succes. Thibault i-a spus că dacă va face acest lucru pe stream, va primi un trofeu unic. O oră mai târziu, l-a spart pe Stockfish, iar promisiunea a fost onorată.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict a făcut stream şi în ultimele 2 ore a încercat să învingă I.A. de nivel 8 într-un joc 1+0, fără succes. Thibault i-a spus că dacă va face acest lucru pe stream, va primi un trofeu unic. O oră mai târziu, l-a spart pe Stockfish, iar promisiunea a fost onorată.</string>
   <string name="lichessRatings">Scoruri Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Ce sistem de scor folosește Licehss?</string>
   <string name="ratingSystemUsedByLichess">Scorurile sunt calculate folosind metoda Glicko-2 creată de Mark Glickman. Aceasta este o metoda de calculare a scorului foarte populară, și este folosit de un număr mare de organizații de șah (FIDE ar fi un contraexemplu, fiindcă ei încă folosesc metoda veche de tip Elo).
@@ -149,7 +149,7 @@ Apoi selecteaza daca dacă vrei să permiți sau să blochezi notificarile de la
 Pictograma roşie cu sunet apare atunci când browserul dumneavoastră împiedică lichess.org să ruleze un sunet. De obicei, această restricţie este ridicată odată ce faceţi clic pe ceva. Pe unele browsere mobile, atingerea sau glisarea unei piese nu contează ca un click. În acest caz trebuie să atingeți tabla pentru a permite sunetul la începutul fiecărui joc.
 
 Vă arătăm pictograma roșie pentru a vă alerta când se întâmplă acest lucru. De multe ori puteți permite în mod explicit lichess.org pentru a reda sunete. Aici sunt instrucţiuni pentru aceasta în versiunile recente ale unor browsere populare.</string>
-  <string name="desktop">desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Mergeți la lichess.org
 2. Apăsați Ctrl-i pe Linux/Windows sau cmd-i pe MacOS
 3. Faceți clic pe fila Permisiuni

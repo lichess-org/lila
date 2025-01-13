@@ -140,6 +140,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
+    modal: true,
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();

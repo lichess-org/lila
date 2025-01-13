@@ -17,11 +17,11 @@
   <string name="tournamentDescription">คำบรรยายทัวร์นาเมนต์สั้นๆ</string>
   <string name="fullDescription">คำอธิบายรายการแบบเต็ม</string>
   <string name="fullDescriptionHelp">คำอธิบายยาวซึ่งไม่บังคับของการออกอากาศ %1$s มีพร้อม ความยาวต้องน้อยกว่า %2$s ตัวอักษร</string>
-  <string name="sourceSingleUrl">PGN ของแหล่ง URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN ของแหล่ง URL</string>
   <string name="sourceUrlHelp">URL ที่ Lichess จะทำโพลเพื่อรับอัพเดท PGN มันต้องเข้าถึงได้อย่างสาธารณะจากอินเทอร์เน็ต</string>
   <string name="startDateHelp">ไม่บังคับ, ถ้าคุณรู้ว่ารายการจะเริ่มเมื่อใด</string>
   <string name="currentGameUrl">URL เกมปัจจุบัน</string>
-  <string name="showScores">แสดงคะแนนผู้เล่นอ้างอิงจากผลของเกม</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">แสดงคะแนนผู้เล่นอ้างอิงจากผลของเกม</string>
   <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
   <string name="fideFederations">สหพันธ์ FIDE</string>
   <string name="top10Rating">10 ผู้เล่นที่แต้มสูงสุด</string>
@@ -30,6 +30,14 @@
   <string name="fideProfile">ประวัติผู้เล่น FIDE</string>
   <string name="federation">สหพันธ์</string>
   <string name="ageThisYear">อายุปัจจุบัน</string>
-  <string name="unrated">ไม่มีคะแนน</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">ไม่มีคะแนน</string>
   <string name="recentTournaments">ทัวร์นาเมนต์ล่าสุด</string>
+  <string name="allTeams">ทีมทั้งหมด</string>
+  <string name="tournamentLocation">ตำแหน่งของทัวร์นาเมนต์</string>
+  <string name="topPlayers">ผู้เล่นท็อป:</string>
+  <string name="timezone">เขตเวลา</string>
+  <string name="fideRatingCategory">หมวดหมู่คะแนน FIDE</string>
+  <string name="optionalDetails">รายละเอียดเพิ่มเติม</string>
+  <string name="pastBroadcasts">การออกอากาศที่ผ่านมา</string>
+  <string name="allBroadcastsByMonth">ดูการออกอากาศทั้งหมดตามเดือน</string>
 </resources>

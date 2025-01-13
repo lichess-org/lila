@@ -132,11 +132,23 @@
     <item quantity="one">%s grober Patzer</item>
     <item quantity="other">%s grobe Patzer</item>
   </plurals>
+  <plurals name="numberBlunders">
+    <item quantity="one">%s Grober Patzer</item>
+    <item quantity="other">%s Grobe Patzer</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s Fehler</item>
     <item quantity="other">%s Fehler</item>
   </plurals>
+  <plurals name="numberMistakes">
+    <item quantity="one">%s Fehler</item>
+    <item quantity="other">%s Fehler</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s Ungenauigkeit</item>
+    <item quantity="other">%s Ungenauigkeiten</item>
+  </plurals>
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Ungenauigkeit</item>
     <item quantity="other">%s Ungenauigkeiten</item>
   </plurals>

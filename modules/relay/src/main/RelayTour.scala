@@ -9,6 +9,8 @@ import lila.core.id.ImageId
 import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
+import chess.TournamentClock
+import chess.format.pgn.Tag
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
@@ -45,11 +47,10 @@ case class RelayTour(
 
   def path: String = s"/broadcast/$slug/$id"
 
-  def tierIs(selector: RelayTour.Tier.Selector) =
-    tier.fold(false)(_ == selector(RelayTour.Tier))
+  def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 
   def studyVisibility: Visibility =
-    if tier.contains(RelayTour.Tier.`private`)
+    if tier.has(RelayTour.Tier.`private`)
     then Visibility.`private`
     else Visibility.public
 
@@ -95,8 +96,9 @@ object RelayTour:
   ):
     def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
     override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
-    lazy val fideTcOrGuess: FideTC = fideTc | FideTC.standard
-    def timeZoneOrDefault: ZoneId  = timeZone | ZoneId.systemDefault
+    lazy val fideTcOrGuess: FideTC     = fideTc | FideTC.standard
+    def timeZoneOrDefault: ZoneId      = timeZone | ZoneId.systemDefault
+    def clock: Option[TournamentClock] = tc.flatMap(TournamentClock.parse.apply)
 
   case class Dates(start: Instant, end: Option[Instant])
 
@@ -105,23 +107,6 @@ object RelayTour:
     def specialLanguage: Option[Language] = (language != lila.core.i18n.defaultLanguage).option(language)
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
-
-  case class ActiveWithSomeRounds(
-      tour: RelayTour,
-      display: RelayRound, // which round to show on the tour link
-      link: RelayRound,    // which round to actually link to
-      group: Option[RelayGroup.Name]
-  ) extends RelayRound.AndTourAndGroup:
-    def errors: List[String] =
-      val round = display
-      ~round.sync.log.lastErrors.some
-        .filter(_.nonEmpty)
-        .orElse:
-          (round.hasStarted && round.sync.hasUpstream && !round.sync.ongoing)
-            .option(List("Not syncing!"))
-        .orElse:
-          round.shouldHaveStarted1Hour.option:
-            List(if round.sync.hasUpstream then "Upstream has not started" else "Nothing pushed yet")
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:

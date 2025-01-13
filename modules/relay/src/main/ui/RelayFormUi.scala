@@ -1,10 +1,9 @@
 package lila.relay
 package ui
+
 import play.api.data.Form
-
 import lila.ui.*
-
-import ScalatagsTemplate.{ given, * }
+import lila.ui.ScalatagsTemplate.{ given, * }
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -154,30 +153,42 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav: FormNavigation
     )(using ctx: Context) =
       val broadcastEmailContact = a(href := "mailto:broadcast@lichess.org")("broadcast@lichess.org")
-      val lccWarning = nav.round
-        .flatMap(_.sync.upstream)
-        .exists(_.hasLcc)
-        .option:
-          flashMessage("box relay-form__lcc-deprecated")(
-            p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-            p(
-              "LiveChessCloud support is deprecated and will be removed soon.",
-              br,
-              s"If you need help, please contact us at ",
-              broadcastEmailContact,
-              "."
-            )
-          )
-      val contactUsForOfficial = nav.featurableRound.isDefined
-        .option:
-          flashMessage("box relay-form__contact-us")(
-            p(
-              "Is this a tournament you organize? Do you want Lichess to feature it on the ",
-              a(href := routes.RelayTour.index(1))("broadcast page"),
-              "?"
-            ),
-            p(trans.contact.sendEmailAt(broadcastEmailContact))
-          )
+      val lccWarning = for
+        round    <- nav.round
+        upstream <- round.sync.upstream
+        if upstream.hasLcc
+      yield flashMessage("box relay-form__warning")(
+        p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+        p(
+          "LiveChessCloud support is deprecated and will be removed soon.",
+          br,
+          s"If you need help, please contact us at ",
+          broadcastEmailContact,
+          "."
+        )
+      )
+      val contactUsForOfficial = nav.featurableRound.isDefined.option:
+        flashMessage("box relay-form__contact-us")(
+          p(
+            "Is this a tournament you organize? Do you want Lichess to feature it on the ",
+            a(href := routes.RelayTour.index(1))("broadcast page"),
+            "?"
+          ),
+          p(trans.contact.sendEmailAt(broadcastEmailContact))
+        )
+      val httpWarning = for
+        round    <- nav.round
+        upstream <- round.sync.upstream
+        http     <- upstream.hasUnsafeHttp
+        https = http.withScheme("https").withPort(-1) // else it adds :80 for some reason
+      yield flashMessage("box relay-form__warning")(
+        p(
+          strong("Warning: a source uses an insecure http:// protocol:"),
+          br,
+          a(href := http.toString)(http.toString)
+        ),
+        p("Did you mean ", a(href := https.toString)(https.toString), "?")
+      )
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
@@ -195,7 +206,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           div(cls := "relay-form__sync relay-form__sync-url")(
-            lccWarning.orElse(contactUsForOfficial),
+            httpWarning.orElse(lccWarning).orElse(contactUsForOfficial),
             form3.group(
               form("syncUrl"),
               trb.sourceSingleUrl(),
@@ -235,7 +246,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             help = frag("The games will be combined in the order of the URLs.").some,
             half = false
           )(field =>
-            frag(lccWarning, form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace"))
+            frag(
+              httpWarning.orElse(lccWarning),
+              form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace")
+            )
           )(cls := "relay-form__sync relay-form__sync-urls none"),
           form3.group(
             form("syncIds"),
@@ -454,7 +468,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form3.group(
               form("info.tc"),
               trs.timeControl(),
-              help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
+              help = frag("""e.g. "15 min + 10 sec" or "15+10"""").some,
               half = true
             )(form3.input(_)),
             form3.group(
@@ -533,20 +547,20 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               trb.replacePlayerTags(),
               help = frag( // do not translate
                 "One line per player, formatted as such:",
-                pre("player name = FIDE ID"),
+                pre("player name / FIDE ID"),
                 "Example:",
-                pre("""Magnus Carlsen = 1503014"""),
+                pre("""Magnus Carlsen / 1503014"""),
                 "Player names ignore case and punctuation, and match all possible combinations of 2 words:",
                 br,
                 """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
                 br,
                 "If the player is NM or WNM, you can:",
-                pre("""Player Name = FIDE ID / Title"""),
+                pre("""Player Name / FIDE ID / title"""),
                 "Alternatively, you may set tags manually, like so:",
-                pre("player name / rating / title / new name"),
+                pre("player name / FIDE ID / title / rating / new name"),
                 "All values are optional. Example:",
-                pre("""Magnus Carlsen / 2863 / GM
-YouGotLittUp / 1890 / / Louis Litt""")
+                pre("""Magnus Carlsen / / GM / 2863
+YouGotLittUp / / / 1890 / Louis Litt""")
               ).some,
               half = true
             )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace")),
@@ -630,6 +644,17 @@ Team Dogs ; Scooby Doo"""),
                     form("pinnedStream.name"),
                     "Stream name",
                     half = true
+                  )(form3.input(_))
+                ),
+                form3.split(
+                  form3.group(
+                    form("pinnedStream.text"),
+                    "Stream link label",
+                    help = frag(
+                      "Optional. Show a label on the image link to your live stream.",
+                      br,
+                      "Example: 'Watch us live on YouTube!'"
+                    ).some
                   )(form3.input(_))
                 )
               )

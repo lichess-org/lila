@@ -24,7 +24,7 @@ final private class SwissBoardApi(
   private val displayBoards = 6
 
   private val boardsCache = lila.memo.CacheApi.scaffeine
-    .expireAfterWrite(60 minutes)
+    .expireAfterWrite(60.minutes)
     .build[SwissId, List[SwissBoard]]()
 
   def get(id: SwissId): Fu[List[SwissBoard.WithGame]] =

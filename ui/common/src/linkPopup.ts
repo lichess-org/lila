@@ -15,7 +15,7 @@ export const onClick = (a: HTMLLinkElement): boolean => {
   domDialog({
     class: 'link-popup',
     css: [{ hashed: 'bits.linkPopup' }],
-    htmlText: `
+    htmlText: $html`
       <div class="link-popup__content">
         <div class="link-popup__content__title">
           <h2>${i18n.site.youAreLeavingLichess}</h2>
@@ -28,10 +28,11 @@ export const onClick = (a: HTMLLinkElement): boolean => {
           ${i18n.site.proceedToX(url.host)}
         </a>
       </div>`,
+    modal: true,
   }).then(dlg => {
     $('.cancel', dlg.view).on('click', dlg.close);
     $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
-    dlg.showModal();
+    dlg.show();
   });
   return false;
 };

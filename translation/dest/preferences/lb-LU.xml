@@ -15,13 +15,14 @@
   <string name="pgnLetter">Buschtaf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-Modus</string>
   <string name="showPlayerRatings">Spillerwäertungen uweisen</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
+  <string name="explainShowPlayerRatings">Verstopp all Wäertungen op der Websäit, fir dass du dech voll op de Schach konzentréieren kanns. Partien können ëmmer nach gewäert sinn, et geet just drëm, wat du gesäis.</string>
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
   <string name="inGameOnly">Nëmmen während enger Partie</string>
+  <string name="exceptInGame">Ausser an der Partie</string>
   <string name="chessClock">Schachauer</string>
   <string name="tenthsOfSeconds">Zéngtelsekonnen</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 10 Sekonnen</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 10 Sekonnen</string>
   <string name="horizontalGreenProgressBars">Horizontalen gréngen Fortschrëttsbalken</string>
   <string name="soundWhenTimeGetsCritical">Toun wann Zäit kritesch gëtt</string>
   <string name="giveMoreTime">Zäit bäiginn</string>
@@ -37,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">Dréck ob deng &lt;ctrl&gt; Tasten während der Emwandlung fir temporär déi automatesch Emwandlung ze desaktivéieren</string>
   <string name="whenPremoving">Wann Virauszuch</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Remis duerch dräifach Stellungswidderhuelung reklaméieren</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 30 Sekonnen</string>
   <string name="moveConfirmation">Zich confirméieren</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kann während der Partie desaktivéiert ginn iwwert den Brietmenü</string>
   <string name="inCorrespondenceGames">Korrespondenz Schach</string>
@@ -50,7 +51,7 @@
   <string name="inputMovesWithVoice">Zich per Sproocherkennung aginn</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Feiler können just legal Zich weisen</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">No Defaite oder Remis \"Good game, well played\" (Gudd Partie, gudd gespillt) soen</string>
-  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Deng Astellungen goufen gespäichert.</string>
+  <string name="yourPreferencesHaveBeenSaved">Deng Astellungen goufen gespäichert.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll iwwer d\'Briet fir Zich nozespillen</string>
   <string name="correspondenceEmailNotification">Deegleg Email mat Lëscht vun Korrespondenzpartien</string>
   <string name="notifyStreamStart">Streamer geet live</string>
@@ -66,4 +67,5 @@
   <string name="notifyWeb">Web-Browser</string>
   <string name="notifyDevice">Gerät</string>
   <string name="bellNotificationSound">Glacken-Notifikatiounstoun</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blann</string>
 </resources>

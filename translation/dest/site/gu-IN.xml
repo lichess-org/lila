@@ -27,9 +27,6 @@
   <string name="youPlayTheWhitePieces">તમે સફેદ ટુકડાઓ સાથે રમસો</string>
   <string name="youPlayTheBlackPieces">તમે કાળા ટુકડાઓ સાથે રમસો</string>
   <string name="itsYourTurn">તમારો વારો!</string>
-  <string name="cheatDetected">આ રમત સમાપ્તિની સ્થિતિ છે, જો રમત ચાલુ હોય ત્યારે કોઈ ખેલાડી છેતરપિંડી કરે છે. રમત તરત જ સમાપ્ત થાય છે.
-
- અનુવાદ નિષ્ક્રિય અવાજમાં હોવો જોઈએ કારણ કે ખેલાડીઓ અને દર્શકો બંને તેને જુએ છે. કૃપા કરીને શક્ય તેટલું ટૂંકું રાખો.</string>
   <string name="kingInTheCenter">મધ્યમાં રાજા</string>
   <string name="threeChecks">ત્રણ ચેક</string>
   <string name="raceFinished">રેસ પુરી થઇ ગઇ</string>
@@ -74,6 +71,7 @@
   <string name="promoteVariation">પ્રોમોટ વેરીએશન</string>
   <string name="makeMainLine">મેઈન લાઈન બનાવો</string>
   <string name="deleteFromHere">અહીંથી ડિલીટ કરો</string>
+  <string name="collapseVariations">વિભ્કતો બંધ</string>
   <string name="forceVariation">ફોર્સ વેરિએશન</string>
   <string name="copyVariationPgn">PGN ની વિવિધતા ની નકલ કરો</string>
   <string name="move">ચાલ</string>
@@ -134,7 +132,15 @@
     <item quantity="one">%s ભૂલ</item>
     <item quantity="other">%s ભૂલો</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s ભૂલ</item>
+    <item quantity="other">%s ભૂલો</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s અચોક્સાઈ</item>
+    <item quantity="other">%s અચોક્સાઈઓ</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%s અચોક્સાઈ</item>
     <item quantity="other">%s અચોક્સાઈઓ</item>
   </plurals>

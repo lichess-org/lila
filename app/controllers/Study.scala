@@ -16,7 +16,7 @@ import lila.core.study.Order
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
-import lila.study.actorApi.{ BecomeStudyAdmin, Who }
+import lila.study.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
 import com.fasterxml.jackson.core.JsonParseException
@@ -209,7 +209,8 @@ final class Study(
               oldSc,
               withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
             )
-            chatOpt <- chatOf(sc.study)
+            loadChat = !HTTPRequest.isXhr(ctx.req)
+            chatOpt <- loadChat.so(chatOf(sc.study))
             jsChat <- chatOpt.soFu: c =>
               lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
           yield Ok:

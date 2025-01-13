@@ -77,5 +77,5 @@
 Браузерыгызның URL сызыгында lichess.org адресы янындагы йозак иконасына басыгыз.
 
 Аннары Lichess хәбәрләрне рөхсәт итәргәме, ябаргамы-юкмы икәнен сайлагыз.</string>
-  <string name="desktop">эш өстәле</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">эш өстәле</string>
 </resources>

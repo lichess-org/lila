@@ -82,9 +82,9 @@ case class Game(
 
   def fullIds: ByColor[GameFullId] = ByColor(fullIdOf)
 
-  export tournamentId.{ isDefined as isTournament }
-  export simulId.{ isDefined as isSimul }
-  export swissId.{ isDefined as isSwiss }
+  export tournamentId.isDefined as isTournament
+  export simulId.isDefined as isSimul
+  export swissId.isDefined as isSwiss
   def isMandatory          = isTournament || isSimul || isSwiss
   def nonMandatory         = !isMandatory
   def canTakebackOrAddTime = !isMandatory

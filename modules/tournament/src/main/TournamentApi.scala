@@ -6,9 +6,10 @@ import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
+import scalalib.Debouncer
 import chess.IntRating
 
-import lila.common.{ Bus, Debouncer }
+import lila.common.Bus
 import lila.core.game.LightPov
 import lila.core.round.{ AbortForce, GoBerserk }
 import lila.core.team.LightTeam
@@ -39,10 +40,14 @@ final class TournamentApi(
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator)
-    extends lila.core.tournament.TournamentApi:
+)(using scheduler: Scheduler)(using
+    Executor,
+    akka.actor.ActorSystem,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator
+) extends lila.core.tournament.TournamentApi:
 
-  export tournamentRepo.{ byId as get }
+  export tournamentRepo.byId as get
 
   def createTournament(
       setup: TournamentSetup,
@@ -113,7 +118,7 @@ final class TournamentApi(
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.TeamInfo]] =
     tour.teamBattle.exists(_.teams(teamId)).soFu(cached.teamInfo.get(tour.id -> teamId))
 
-  private val hadPairings = scalalib.cache.ExpireSetMemo[TourId](1 hour)
+  private val hadPairings = scalalib.cache.ExpireSetMemo[TourId](1.hour)
 
   private[tournament] def makePairings(
       forTour: Tournament,
@@ -246,7 +251,9 @@ final class TournamentApi(
             case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
     }
 
-  def getVerdicts(tour: Tournament, playerExists: Boolean)(using GetMyTeamIds)(using
+  def getVerdicts(tour: Tournament, playerExists: Boolean)(using
+      GetMyTeamIds
+  )(using
       me: Option[Me]
   ): Fu[Condition.WithVerdicts] =
     me.foldUse(fuccess(tour.conditions.accepted)): me ?=>
@@ -330,7 +337,7 @@ final class TournamentApi(
     }
 
   private object updateNbPlayers:
-    private val onceEvery = scalalib.cache.OnceEvery[TourId](1 second)
+    private val onceEvery = scalalib.cache.OnceEvery[TourId](1.second)
     def apply(tourId: TourId): Funit = onceEvery(tourId).so {
       playerRepo.count(tourId).flatMap { tournamentRepo.setNbPlayers(tourId, _) }
     }
@@ -526,8 +533,8 @@ final class TournamentApi(
 
   private val tournamentTopNb = 20
   private val tournamentTopCache = cacheApi[TourId, TournamentTop](16, "tournament.top") {
-    _.refreshAfterWrite(3 second)
-      .expireAfterAccess(5 minutes)
+    _.refreshAfterWrite(3.second)
+      .expireAfterAccess(5.minutes)
       .maximumSize(64)
       .buildAsyncFuture { id =>
         playerRepo.bestByTour(id, tournamentTopNb).dmap(TournamentTop.apply)
@@ -636,7 +643,7 @@ final class TournamentApi(
     playerRepo
       .sortedCursor(tour.id, perSecond.value)
       .documentSource(nb)
-      .throttle(perSecond.value, 1 second)
+      .throttle(perSecond.value, 1.second)
       .mapAsync(1): player =>
         withSheet.soFu(cached.sheet(tour, player.userId)).dmap(player -> _)
       .zipWithIndex
@@ -655,7 +662,7 @@ final class TournamentApi(
     tournamentRepo
       .sortedCursor(owner, status, perSecond.value)
       .documentSource(nb)
-      .throttle(perSecond.value, 1 second)
+      .throttle(perSecond.value, 1.second)
 
   def byOwnerPager(owner: User, page: Int): Fu[Paginator[Tournament]] =
     Paginator(
@@ -670,7 +677,7 @@ final class TournamentApi(
 
     private val cache =
       cacheApi[UserId, lila.db.paginator.StaticAdapter[Tournament]](64, "tournament.upcomingByPlayer"):
-        _.expireAfterWrite(10 seconds).buildAsyncFuture:
+        _.expireAfterWrite(10.seconds).buildAsyncFuture:
           tournamentRepo.upcomingAdapterExpensiveCacheMe(_, max)
 
     def apply(player: User, page: Int): Fu[Paginator[Tournament]] =
@@ -710,7 +717,7 @@ final class TournamentApi(
     }
 
   private object publish:
-    private val debouncer = Debouncer[Unit](15 seconds, 1): _ =>
+    private val debouncer = Debouncer[Unit](scheduler.scheduleOnce(15.seconds, _), 1): _ =>
       given play.api.i18n.Lang = lila.core.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
         Bus.publish(
@@ -725,7 +732,7 @@ final class TournamentApi(
     // last published top hashCode
     private val lastPublished = lila.memo.CacheApi.scaffeineNoScheduler
       .initialCapacity(16)
-      .expireAfterWrite(2 minute)
+      .expireAfterWrite(2.minute)
       .build[TourId, Int]()
 
     private def publishNow(tourId: TourId) =

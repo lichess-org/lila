@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arēna</string>
   <string name="arenaTournaments">Arēnas turnīri</string>
   <string name="isItRated">Vai tas ir vērtēts?</string>
   <string name="willBeNotified">Saņemsiet paziņojumu, kad turnīrs sāksies, tāpēc gaidot varat droši spēlēt citā cilnē.</string>

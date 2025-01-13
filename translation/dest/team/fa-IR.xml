@@ -58,9 +58,9 @@
   <string name="thisTeamBattleIsOver">این مسابقات به پایان رسیده‌است و تیم‌ها دیگر نمی‌توانند به‌روز شوند.</string>
   <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>
   <string name="oneTeamPerLine">هر تیم در یک خط. از تکمیل خودکار استفاده کنید.</string>
-  <string name="oneTeamPerLineHelp">می‌توانید این لیست را از یک مسابقه به مسابقات دیگر کپی کنید!
+  <string name="oneTeamPerLineHelp">می توانید این فهرست یک مسابقات را جای دیگری جای‌گذارید!
 
-اگر در حال حاضر یک بازیکن از یک تیم، به مسابقه ملحق شده است، نمی‌توانید آن تیم را حذف کنید.</string>
+اگر بازیکنی از قبل با یک یَران به مسابقات پیوسته باشد، نمی‌توانید آن یَران را حذف کنید.</string>
   <string name="numberOfLeadsPerTeam">تعداد رهبران در هر تیم. مجموع امتیاز آنها امتیاز تیم است.</string>
   <string name="numberOfLeadsPerTeamHelp">واقعا نباید این مقدار را پس از شروع مسابقه تغییر دهید!</string>
   <string name="innerTeam">تیم داخلی</string>

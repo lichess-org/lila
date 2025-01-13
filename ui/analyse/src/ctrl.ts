@@ -99,7 +99,7 @@ export default class AnalyseCtrl {
   keyboardHelp: boolean = location.hash === '#keyboard';
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
-  treeVersion = 1; // increment to recreate tree
+  treeVersion = 1; // increment to recreate vnode tree
   cgVersion = {
     js: 1, // increment to recreate chessground
     dom: 1,
@@ -153,7 +153,7 @@ export default class AnalyseCtrl {
 
     this.persistence = opts.study ? undefined : new Persistence(this);
 
-    this.configureCeval();
+    this.initCeval();
 
     this.initialPath = this.makeInitialPath();
     this.setPath(this.initialPath);
@@ -196,9 +196,13 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-    pubsub.on('board.change', redraw);
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
+      redraw();
+    });
     this.persistence?.merge();
-    window.lichess.analysis = api(this);
+    (window as any).lichess.analysis = api(this);
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -378,10 +382,6 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
-    pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground.state.addPieceZIndex = is3d;
-      this.chessground.redrawAll();
-    });
   };
 
   private onChange: () => void = throttle(300, () => {
@@ -466,7 +466,7 @@ export default class AnalyseCtrl {
     this.initialize(data, merge);
     this.redirecting = false;
     this.setPath(treePath.root);
-    this.configureCeval();
+    this.initCeval();
     this.instanciateEvalCache();
     this.cgVersion.js++;
   }
@@ -626,6 +626,7 @@ export default class AnalyseCtrl {
     if (treePath.contains(this.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.path);
     if (this.study) this.study.deleteNode(path);
+    this.redraw();
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {
@@ -704,7 +705,7 @@ export default class AnalyseCtrl {
     });
   };
 
-  private configureCeval(): void {
+  private initCeval(): void {
     const opts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
@@ -720,12 +721,12 @@ export default class AnalyseCtrl {
           endpoint: this.opts.externalEngineEndpoint,
         })) || [],
       onSelectEngine: () => {
-        this.configureCeval();
+        this.initCeval();
         this.redraw();
       },
       search: this.practice?.search,
     };
-    if (this.ceval) this.ceval.configure(opts);
+    if (this.ceval) this.ceval.init(opts);
     else this.ceval = new CevalCtrl(opts);
   }
 
@@ -945,13 +946,13 @@ export default class AnalyseCtrl {
     this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
       canGet: this.canEvalGet,
-      canPut: () =>
-        !!(
-          this.ceval?.isCacheable &&
-          this.canEvalGet() &&
-          // if not in study, only put decent opening moves
-          (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
-        ),
+      canPut: () => true,
+      // !!(
+      //   this.ceval?.isCacheable &&
+      //   this.canEvalGet() &&
+      //   // if not in study, only put decent opening moves
+      //   (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
+      // ),
       getNode: () => this.node,
       send: this.opts.socketSend,
       receive: this.onNewCeval,
@@ -984,6 +985,8 @@ export default class AnalyseCtrl {
   togglePractice = () => {
     if (this.practice || !this.ceval.possible) {
       this.practice = undefined;
+      this.ceval.setOpts({ search: undefined }); // TODO, improve ceval integration in this file
+      if (this.ceval.enabled()) this.clearCeval();
       this.showGround();
     } else {
       this.closeTools();

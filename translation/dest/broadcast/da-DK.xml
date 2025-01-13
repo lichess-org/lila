@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Kort beskrivelse af turnering</string>
   <string name="fullDescription">Fuld beskrivelse af begivenheden</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse af transmissionen. %1$s er tilgængelig. Længde skal være mindre end %2$s tegn.</string>
-  <string name="sourceSingleUrl">URL for PGN-kilde</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL for PGN-kilde</string>
   <string name="sourceUrlHelp">URL som Lichess vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
   <string name="sourceGameIds">Op til 64 Lichess parti-ID\'er, adskilt af mellemrum.</string>
   <string name="startDateTimeZone">Startdato i turneringens lokale tidszone: %s</string>
@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slet denne turnering</string>
   <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
-  <string name="showScores">Vis spilleres point baseret på resultater fra partier</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Vis spilleres point baseret på resultater fra partier</string>
   <string name="replacePlayerTags">Valgfrit: udskift spillernavne, ratings og titler</string>
   <string name="fideFederations">FIDE-føderationer</string>
   <string name="top10Rating">Top 10 rating</string>
@@ -47,9 +47,9 @@
   <string name="fideProfile">FIDE-profil</string>
   <string name="federation">Føderation</string>
   <string name="ageThisYear">Alder i år</string>
-  <string name="unrated">Uden rating</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Uden rating</string>
   <string name="recentTournaments">Seneste turneringer</string>
-  <string name="openLichess">Åbn i Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Åbn i Lichess</string>
   <string name="teams">Hold</string>
   <string name="boards">Brætter</string>
   <string name="overview">Oversigt</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Tidszone</string>
   <string name="fideRatingCategory">FIDE-ratingkategori</string>
   <string name="optionalDetails">Valgfri detaljer</string>
-  <string name="upcomingBroadcasts">Kommende udsendelser</string>
   <string name="pastBroadcasts">Tidligere udsendelser</string>
   <string name="allBroadcastsByMonth">Vis alle udsendelser efter måned</string>
 </resources>

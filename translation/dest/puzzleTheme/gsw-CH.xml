@@ -57,6 +57,8 @@
   <string name="interferenceDescription">E Figur zwüsche 2 gägnerischi Figure stelle, um einere oder beide de Schutz znäh - z. B. en Schpringer uf es verteidigts Fäld, zwüsche 2 Türm, stelle.</string>
   <string name="intermezzo">Zwüschezug</string>
   <string name="intermezzoDescription">Anstatt de erwarteti Zug, zerscht en Andere mache, wo diräkt droht, so dass de Gägner muess reagiere. Isch au bekannt als \"Zwüschezug\".</string>
+  <string name="killBoxMate">Kill Box Matt</string>
+  <string name="killBoxMateDescription">En Turm staht näbem gegnerische König und wird vu de Dame unterschtützt, wo au d\'Fluchtfälder vum König blockiert. De Turm und d\'Dame fanged so de König inere 3x3 Fälder grosse, sogenannte „Killbox“.</string>
   <string name="knightEndgame">Schpringer Ändschpil</string>
   <string name="knightEndgameDescription">Es Ändschpiel, nur mit Schpringer und Pure.</string>
   <string name="long">Mehrzügigi Ufgab</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">E Figur attackiert oder verteidigt es Fäld dur e gägnerischi Figur.</string>
   <string name="zugzwang">Zugszwang</string>
   <string name="zugzwangDescription">De Gägner hät nur e limitierti Azahl Züg und Jede verschlächteret sini Schtellig.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">En gsunde Mix</string>
+  <string name="mix">En gsunde Mix</string>
   <string name="mixDescription">Es bitzli vu Allem, me weiss nöd was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpiel.</string>
   <string name="playerGames">Schpiller-Schpiel</string>
   <string name="playerGamesDescription">Suech nach Ufgabe us dine Schpiel oder Ufgabe us Schpiel vu Andere.</string>

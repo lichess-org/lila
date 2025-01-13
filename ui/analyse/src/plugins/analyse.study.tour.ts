@@ -2,6 +2,7 @@ import type AnalyseCtrl from '../ctrl';
 import Shepherd from 'shepherd.js';
 import type { ChapterTab, StudyTour, Tab } from '../study/interfaces';
 import { pubsub } from 'common/pubsub';
+import * as licon from 'common/licon';
 
 export function initModule(): StudyTour {
   return {
@@ -48,8 +49,8 @@ export function initModule(): StudyTour {
       {
         title: 'Study members',
         text:
-          "<i data-icon=''></i> Spectators can view the study and talk in the chat.<br>" +
-          "<br><i data-icon=''></i> Contributors can make moves and update the study.",
+          `<i data-icon='${licon.Eye}'></i> Spectators can view the study and talk in the chat.<br>` +
+          `<br><i data-icon='${licon.User}'></i> Contributors can make moves and update the study.`,
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -58,7 +59,9 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.isOwner()) {
       steps.push({
         title: 'Invite members',
-        text: "By clicking the <i data-icon=''></i> button.<br>" + 'Then decide who can contribute or not.',
+        text:
+          `By clicking the <i data-icon='${licon.PlusButton}'></i> button.<br>` +
+          'Then decide who can contribute or not.',
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
@@ -76,7 +79,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.canContribute()) {
       steps.push({
         title: 'Create new chapters',
-        text: "By clicking the <i data-icon=''></i> button.",
+        text: `By clicking the <i data-icon='${licon.PlusButton}'></i> button.`,
         attachTo: { element: '.study__chapters .add', on: 'right' },
         when: onTab('chapters'),
         scrollTo: true,
@@ -84,8 +87,8 @@ export function initModule(): StudyTour {
       steps.push({
         title: 'Comment on a position',
         text:
-          "With the <i data-icon=''></i> button, or a right click on the move list on the right.<br>" +
-          'Comments are shared and persisted.',
+          `With the <i data-icon='${licon.BubbleSpeech}'></i> button, or a right click on the move ` +
+          'list on the right.<br>Comments are shared and persisted.',
         attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
       });
       steps.push({

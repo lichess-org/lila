@@ -148,7 +148,7 @@ Tada pasirinkite, ar norite gauti, ar blokuoti pranešimus iš Lichess.</string>
 Raudona nutildymo piktograma pasirodo, kai naršyklė neleidžia lichess.org leisti garso. Paprastai šis apribojimas panaikinamas, kai kur nors spustelėsite. Kai kuriose mobiliosiose naršyklėse elemento vilkimas jį palietus nelaikomas paspaudimu. Tokiu atveju turite paliesti lentą, kad kiekvieno žaidimo pradžioje būtų leidžiamas garsas.
 
 Rodome raudoną piktogramą, kad įspėtume jus, kai tai atsitiks. Dažnai galite aiškiai leisti lichess.org skleisti garsą. Čia pateikiamos instrukcijos, kaip tai padaryti naudojant naujausias kai kurių populiarių naršyklių versijas.</string>
-  <string name="desktop">darbalaukis</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">darbalaukis</string>
   <string name="enableAutoplayForSoundsFirefox">1. Eikite į lichess.org
 2. Paspauskite Ctrl-i, jei naudojate „Linux“ ir/arba „Windows“, arba cmd-i, jei naudojate „MacOS“.
 3. Spustelėkite skirtuką Leidimai

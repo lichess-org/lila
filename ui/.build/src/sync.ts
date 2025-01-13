@@ -95,7 +95,7 @@ async function syncOne(absSrc: string, absDest: string, pkgName: string) {
         fs.promises.mkdir(path.dirname(absDest), { recursive: true }),
       ])
     ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
-    if (src && (!dest || quantize(src.mtimeMs) !== quantize(dest.mtimeMs))) {
+    if (src && (!dest || quantize(src.mtimeMs, 2000) !== quantize(dest.mtimeMs, 2000))) {
       await fs.promises.copyFile(absSrc, absDest);
       fs.utimes(absDest, src.atime, src.mtime, () => {});
     }

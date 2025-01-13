@@ -1,11 +1,12 @@
 package lila.insight
 
+import scalalib.model.Percent
 import chess.format.pgn.SanStr
 import chess.{ Centis, Clock, Ply, Role }
+import chess.eval.WinPercent
 
-import lila.analyse.{ AccuracyPercent, WinPercent }
+import lila.analyse.AccuracyPercent
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
-import lila.core.data.Percent
 
 case class InsightUser(
     count: Int, // nb insight entries
@@ -61,7 +62,7 @@ object Termination:
 
   val byId = values.mapBy(_.id)
 
-  import chess.{ Status as S }
+  import chess.Status as S
 
   def fromStatus(s: chess.Status) =
     s match

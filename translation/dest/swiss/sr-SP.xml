@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Швајцарски</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Швајцарски</string>
   <string name="swissTournaments">Турнири по швајцарском систему</string>
 </resources>

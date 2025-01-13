@@ -69,8 +69,7 @@ object side:
                         submitButton(
                           cls   := "button-link yes-no-confirm",
                           title := trans.site.deleteThisImportedGame.txt()
-                        )(trans.site.delete.txt())
-                      )
+                        )(trans.site.delete.txt()))
                   )
             )
           ),
@@ -78,7 +77,12 @@ object side:
             game.players.mapList: p =>
               frag(
                 div(cls := s"player color-icon is ${p.color.name} text")(
-                  playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
+                  playerLink(
+                    p,
+                    withOnline = false,
+                    withDiff = true,
+                    withBerserk = true
+                  )
                 ),
                 tour.flatMap(_.teamVs).map(_.teams(p.color)).map {
                   teamLink(_, withIcon = false)(cls := "team")
@@ -102,8 +106,7 @@ object side:
             .map: number =>
               val url = routes.UserAnalysis
                 .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
-              st.section(trans.site.chess960StartPosition(a(href := url)(number)))
-        ),
+              st.section(trans.site.chess960StartPosition(a(href := url)(number)))),
         userTv.map: u =>
           st.section(cls := "game__tv"):
             h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := Icon.AnalogTv)(u.titleUsername)

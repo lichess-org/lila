@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Klasse</string>
+  <string name="lichessClasses">Klasse</string>
   <string name="teachClassesOfChessStudents">Klasse vu Schachlerende mit Lichess Werchzüg underrichte.</string>
   <string name="features">Funktione</string>
   <string name="quicklyGenerateSafeUsernames">Schnälli Erschtellig vu Benutzernäme und Passwörter für Schüeler</string>
   <string name="trackStudentProgress">Verfolg de Fortschritt vu dine Schüeler - in Schpiel und Ufgabe</string>
   <string name="messageAllStudents">Benachrichtig all Schüeler über neus Lehrmaterial</string>
-  <string name="freeForAllForever">100% gratis für jedermann, für immer, ohni Werbig oder Tracker</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratis für jedermann, für immer, ohni Werbig oder Tracker</string>
   <string name="applyToBeLichessTeacher">Bewirb dich als Lichess Schachlehrer</string>
   <string name="noClassesYet">Bis jetzt kei Klasse.</string>
   <string name="teachersX">Lehrer: %s</string>
@@ -57,6 +57,8 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
     <item quantity="one">1 usstehendi Iladig</item>
     <item quantity="other">%s usstehendi Iladige</item>
   </plurals>
+  <string name="pending">Hängig</string>
+  <string name="declined">Abglehnt</string>
   <string name="onlyVisibleToTeachers">Nur für de Klasselehrer sichtbar</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Verwaltet</string>
@@ -114,4 +116,6 @@ Es wird als horizontali Linie azeigt.</string>
   <string name="anInvitationHasBeenSentToX">An %s isch e Iladig gsändet worde</string>
   <string name="xAlreadyHasAPendingInvitation">%s hät bereits e usstehendi Iladig</string>
   <string name="xIsAKidAccountWarning">%1$s isch es Chinder Konto, es chann dini Nachricht nöd empfange. Du muesch e Iladigs-URL manuell übermittle: %2$s</string>
+  <string name="moveToClass">Gang zu %s</string>
+  <string name="moveToAnotherClass">Gang ine anderi Klass</string>
 </resources>

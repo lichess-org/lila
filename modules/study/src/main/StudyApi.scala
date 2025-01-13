@@ -10,10 +10,8 @@ import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.tree.Branch
+import lila.tree.{ Branch, Clock }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-
-import actorApi.Who
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -22,7 +20,7 @@ final class StudyApi(
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
-    explorerGameHandler: ExplorerGame,
+    explorerGameHandler: ExplorerGameApi,
     topicApi: StudyTopicApi,
     lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
@@ -170,7 +168,7 @@ final class StudyApi(
         val study = study1.rewindTo(first.id)
         studyRepo.insert(study).inject(study)
 
-  export preview.dataList.{ apply as chapterPreviews }
+  export preview.dataList.apply as chapterPreviews
 
   def maybeResetAndGetChapter(study: Study, chapter: Chapter): Fu[(Study, Chapter)] =
     val defaultResult = (study, chapter)
@@ -225,27 +223,21 @@ final class StudyApi(
               yield sendTo(study.id)(_.setPath(position, who))
             case _ => funit
 
-  def addNode(
-      studyId: StudyId,
-      position: Position.Ref,
-      node: Branch,
-      opts: MoveOpts,
-      relay: Option[Chapter.Relay] = None
-  )(who: Who): Funit =
-    sequenceStudyWithChapter(studyId, position.chapterId):
+  def addNode(args: AddNode): Funit =
+    import args.{ *, given }
+    sequenceStudyWithChapter(studyId, positionRef.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          doAddNode(study, Position(chapter, position.path), node, opts, relay)(who)
+          doAddNode(args, study, Position(chapter, positionRef.path))
     .flatMapz { _() }
 
   private def doAddNode(
+      args: AddNode,
       study: Study,
-      position: Position,
-      rawNode: Branch,
-      opts: MoveOpts,
-      relay: Option[Chapter.Relay]
-  )(who: Who): Fu[Option[() => Funit]] =
-    val singleNode   = rawNode.withoutChildren
+      position: Position
+  ): Fu[Option[() => Funit]] =
+    import args.{ *, given }
+    val singleNode   = args.node.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
@@ -272,7 +264,7 @@ final class StudyApi(
                 isMainline        = newPosition.path.isMainline(chapter.root)
                 promoteToMainline = opts.promoteToMainline && !isMainline
               yield promoteToMainline.option: () =>
-                promote(study.id, position.ref + node, toMainline = true)(who)
+                promote(study.id, position.ref + node, toMainline = true)
             }
           }
 
@@ -326,7 +318,7 @@ final class StudyApi(
           yield onChapterChange(study.id, chapter.id, who)
 
   // rewrites the whole chapter because of `forceVariation`. Very inefficient.
-  def promote(studyId: StudyId, position: Position.Ref, toMainline: Boolean)(who: Who): Funit =
+  def promote(studyId: StudyId, position: Position.Ref, toMainline: Boolean)(using who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -425,23 +417,23 @@ final class StudyApi(
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid setShapes $position $shapes")
 
-  def setClock(studyId: StudyId, position: Position.Ref, clock: Centis)(who: Who): Funit =
+  def setClock(studyId: StudyId, position: Position.Ref, clock: Clock)(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId):
       doSetClock(_, position, clock)(who)
 
-  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Centis)(
+  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Clock)(
       who: Who
   ): Funit =
     sc.chapter.setClock(clock.some, position.path) match
       case Some(chapter, newCurrentClocks) =>
         studyRepo.updateNow(sc.study)
         for _ <- chapterRepo.setClockAndDenorm(chapter, position.path, clock, newCurrentClocks)
-        yield sendTo(sc.study.id)(_.setClock(position, clock.some, newCurrentClocks))
+        yield sendTo(sc.study.id)(_.setClock(position, clock.centis.some, newCurrentClocks))
       case None =>
         reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
         fufail(s"Invalid setClock $position $clock")
 
-  def setTag(studyId: StudyId, setTag: actorApi.SetTag)(who: Who) =
+  def setTag(studyId: StudyId, setTag: SetTag)(who: Who) =
     sequenceStudyWithChapter(studyId, setTag.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -545,7 +537,7 @@ final class StudyApi(
               reloadSriBecauseOf(study, who.sri, chapter.id)
               fufail(s"Invalid setGamebook $studyId $position")
 
-  def explorerGame(studyId: StudyId, data: actorApi.ExplorerGame)(who: Who) =
+  def explorerGame(studyId: StudyId, data: ExplorerGame)(who: Who) =
     sequenceStudyWithChapter(studyId, data.position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):

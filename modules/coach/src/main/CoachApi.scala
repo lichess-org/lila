@@ -73,13 +73,13 @@ final class CoachApi(
       }
 
   private val languagesCache = cacheApi.unit[Set[String]]:
-    _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
       coachColl.secondaryPreferred.distinctEasy[String, Set]("languages", $empty)
 
   def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
   private val countriesCache = cacheApi.unit[CountrySelection]:
-    _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
       import lila.core.user.Flag
       userRepo.coll.secondaryPreferred
         .distinctEasy[Flag.Code, Set](

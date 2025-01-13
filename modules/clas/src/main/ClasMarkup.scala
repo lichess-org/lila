@@ -11,7 +11,7 @@ final class ClasMarkup(using Executor):
   )
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(20 minutes)
+    .expireAfterAccess(20.minutes)
     .maximumSize(512)
     .build[Markdown, Html]()
 

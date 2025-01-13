@@ -19,7 +19,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   ): Fu[RelayGames] =
     dedupCache(url, round, () => doFetchUrl(url))
       .flatMap: latest =>
-        round.sync.delay match
+        round.sync.delayMinusLag match
           case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
           case _                        => fuccess(latest)
 
@@ -29,7 +29,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
     private val cache = CacheApi.scaffeineNoScheduler
       .initialCapacity(8)
-      .maximumSize(128)
+      .maximumSize(256)
       .build[String, GamesSeenBy]()
       .underlying
 
@@ -41,14 +41,14 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
             Option(v) match
               case Some(GamesSeenBy(games, seenBy)) if !seenBy(round.id) =>
                 lila.mon.relay.dedup.increment()
-                logger.info(s"Relay dedup cache hit ${round.id} ${round.name} ${url.toString}")
+                logger.debug(s"Relay dedup cache hit ${round.id} ${round.name} ${url.toString}")
                 GamesSeenBy(games, seenBy + round.id)
               case _ =>
                 GamesSeenBy(doFetch(), Set(round.id))
         )
         .games
         .addEffect: games =>
-          if round.sync.hasDelay then store.putIfNew(url, games)
+          if round.sync.delayMinusLag.isDefined then store.putIfNew(url, games)
 
   private object store:
 

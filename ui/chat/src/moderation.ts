@@ -158,7 +158,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             {
               hook: {
                 insert() {
-                  window.lichess.initializeDom();
+                  pubsub.emit('content-loaded');
                 },
               },
             },

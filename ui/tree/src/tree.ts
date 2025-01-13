@@ -74,8 +74,6 @@ export function build(root: Tree.Node): TreeWrapper {
 
   const pathIsMainline = (path: Tree.Path): boolean => pathIsMainlineFrom(root, path);
 
-  const pathExists = (path: Tree.Path): boolean => !!nodeAtPathOrNull(path);
-
   function pathIsMainlineFrom(node: Tree.Node, path: Tree.Path): boolean {
     if (path === '') return true;
     const pathId = treePath.head(path),
@@ -83,6 +81,8 @@ export function build(root: Tree.Node): TreeWrapper {
     if (!child || child.id !== pathId) return false;
     return pathIsMainlineFrom(child, treePath.tail(path));
   }
+
+  const pathExists = (path: Tree.Path): boolean => !!nodeAtPathOrNull(path);
 
   const pathIsForcedVariation = (path: Tree.Path): boolean => !!getNodeList(path).find(n => n.forceVariation);
 
@@ -233,9 +233,7 @@ export function build(root: Tree.Node): TreeWrapper {
     },
     pathIsMainline,
     pathIsForcedVariation,
-    lastMainlineNode(path: Tree.Path): Tree.Node {
-      return lastMainlineNodeFrom(root, path);
-    },
+    lastMainlineNode: (path: Tree.Path): Tree.Node => lastMainlineNodeFrom(root, path),
     pathExists,
     deleteNodeAt,
     promoteAt,

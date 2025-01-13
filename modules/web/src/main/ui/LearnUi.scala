@@ -9,7 +9,7 @@ import ScalatagsTemplate.*
 
 final class LearnUi(helpers: Helpers):
   import helpers.{ *, given }
-  import trans.{ learn as trl }
+  import trans.learn as trl
 
   def apply(data: Option[play.api.libs.json.JsValue])(using ctx: Context) =
     Page(s"${trl.learnChess.txt()} - ${trl.byPlaying.txt()}")
@@ -20,7 +20,8 @@ final class LearnUi(helpers: Helpers):
             "data" -> data,
             "pref" -> Json.obj(
               "coords"      -> ctx.pref.coords,
-              "destination" -> ctx.pref.destination
+              "destination" -> ctx.pref.destination,
+              "is3d"        -> ctx.pref.is3d
             )
           )
         )

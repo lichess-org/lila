@@ -30,7 +30,7 @@ final private class Titivate(
 
   given Executor = context.system.dispatcher
 
-  def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5 seconds, self, Run)
+  def scheduleNext(): Unit = context.system.scheduler.scheduleOnce(5.seconds, self, Run)
 
   def receive =
     case ReceiveTimeout =>

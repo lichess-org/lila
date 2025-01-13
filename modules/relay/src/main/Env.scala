@@ -11,7 +11,8 @@ import scala.util.matching.Regex
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
-import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound }
+import lila.relay.RelayTour.WithLastRound
+import lila.core.id.RelayRoundId
 
 @Module
 final class Env(
@@ -87,10 +88,15 @@ final class Env(
 
   lazy val videoEmbed = wire[lila.relay.RelayVideoEmbedStore]
 
-  def top(page: Int): Fu[(List[ActiveWithSomeRounds], Paginator[WithLastRound])] =
+  def top(page: Int): Fu[(List[RelayCard], Paginator[WithLastRound])] =
     (page == 1).so(listing.active).zip(pager.inactive(page))
 
   private lazy val sync = wire[RelaySync]
+
+  private lazy val proxy                 = wire[RelayProxy]
+  private def selectProxy: ProxySelector = proxy.select
+
+  private lazy val httpClient = wire[HttpClient]
 
   private lazy val formatApi = wire[RelayFormatApi]
 
@@ -98,7 +104,7 @@ final class Env(
 
   // eager init to start the scheduler
   private val stats = wire[RelayStatsApi]
-  export stats.{ getJson as statsJson }
+  export stats.getJson as statsJson
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](
@@ -131,32 +137,36 @@ final class Env(
   // start the sync scheduler
   wire[RelayFetch]
 
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
+  scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
     api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
 
   lila.common.Bus.subscribeFuns(
     "study" -> { case lila.core.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
     },
-    "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
+    "relayToggle" -> { case lila.study.RelayToggle(id, v, who) =>
       studyApi
         .isContributor(id, who.u)
         .foreach:
           _.so(api.requestPlay(id.into(RelayRoundId), v, "manual toggle"))
     },
-    "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
+    "kickStudy" -> { case lila.study.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
     },
-    "adminStudy" -> { case lila.study.actorApi.BecomeStudyAdmin(studyId, me) =>
+    "adminStudy" -> { case lila.study.BecomeStudyAdmin(studyId, me) =>
       api.becomeStudyAdmin(studyId, me)
     },
-    "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
+    "isOfficialRelay" -> { case lila.study.IsOfficialRelay(studyId, promise) =>
       promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))
     }
   )
 
   lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
     studyPropagation.onStudyMembersChange(change.study)
+
+  lila.common.Bus.subscribeFun("getRelayCrowd"):
+    case lila.core.study.GetRelayCrowd(studyId, promise) =>
+      roundRepo.currentCrowd(studyId.into(RelayRoundId)).map(_.orZero).foreach(promise.success)
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))

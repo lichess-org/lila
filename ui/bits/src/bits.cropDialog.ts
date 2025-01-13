@@ -8,7 +8,7 @@ export interface CropOpts {
   source?: Blob | string; // image or url
   max?: { megabytes?: number; pixels?: number }; // constrain size
   post?: { url: string; field?: string }; // multipart post form url and field name
-  onCropped?: (result: Blob | boolean, error?: string) => void; // result callback
+  onCropped?: (result: Blob | false, error?: string) => void; // result callback
 }
 
 export async function initModule(o?: CropOpts): Promise<void> {
@@ -66,10 +66,14 @@ export async function initModule(o?: CropOpts): Promise<void> {
   const dlg = await domDialog({
     class: 'crop-viewer',
     css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
-    htmlText: `<h2>Crop image to desired shape</h2>
+    modal: true,
+    htmlText: $html`
+      <h2>Crop image to desired shape</h2>
       <div class="crop-view"></div>
-      <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
-      <button class="button submit">submit</button></span>`,
+      <span class="dialog-actions">
+        <button class="button button-empty cancel">cancel</button>
+        <button class="button submit">submit</button>
+      </span>`,
     append: [{ where: '.crop-view', node: container }],
     actions: [
       { selector: '.dialog-actions > .cancel', listener: (_, d) => d.close() },
@@ -81,7 +85,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     },
   });
 
-  dlg.showModal();
+  dlg.show();
 
   async function crop() {
     const view = dlg.view.querySelector('.crop-view') as HTMLElement;

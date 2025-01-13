@@ -89,7 +89,7 @@
   <string name="averageRatingX">Hệ số bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
-  <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Rating FIDE %1$s+ từ năm %2$s đến %3$s</string>
+  <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số FIDE %1$s+ từ năm %2$s đến %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
   </plurals>
@@ -129,11 +129,20 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s sai lầm nghiêm trọng</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s Sai lầm nghiêm trọng</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s sai lầm</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s Sai lầm</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s không chính xác</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="other">%s Không chính xác</item>
   </plurals>
   <string name="moveTimes">Thời gian nghĩ nước đi</string>
   <string name="flipBoard">Quay bàn cờ</string>

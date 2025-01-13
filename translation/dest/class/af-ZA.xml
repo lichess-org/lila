@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Klasse</string>
+  <string name="lichessClasses">Klasse</string>
   <string name="teachClassesOfChessStudents">Bied klasse vir skaakstudente aan met die Lichess Klasse-funksionaliteitpakket.</string>
   <string name="features">Kenmerke</string>
   <string name="quicklyGenerateSafeUsernames">Genereer spoedig veilige gebruikersname en wagwoorde vir studente</string>
   <string name="trackStudentProgress">Monitor die studente se vooruitgang in wedstryde en kopkrappers</string>
   <string name="messageAllStudents">Stel alle studente in kennis oor nuwe klas materiaal</string>
-  <string name="freeForAllForever">100% gratis vir almal, vir ewig, met geen advertensies of koekies</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratis vir almal, vir ewig, met geen advertensies of koekies</string>
   <string name="applyToBeLichessTeacher">Doen aansoek om \'n Lichess Onderwyser te wees</string>
   <string name="noClassesYet">Nog geen klasse.</string>
   <string name="teachersX">Onderwyser: %s</string>
@@ -57,6 +57,8 @@ Hier is die skakel om die klas te betree.</string>
     <item quantity="one">Een hangende uitnodiging</item>
     <item quantity="other">%s hangende uitnodigings</item>
   </plurals>
+  <string name="pending">Hangende</string>
+  <string name="declined">Afgekeur</string>
   <string name="onlyVisibleToTeachers">Slegs sigbaar vir die klas onderwysers</string>
   <string name="lastActiveDate">Aktief</string>
   <string name="managed">Onder Administrasie</string>
@@ -114,4 +116,6 @@ Dit sal \'n horisontale lyn vertoon.</string>
   <string name="anInvitationHasBeenSentToX">\'n Uitnodiging is gestuur na %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s is reeds genooi</string>
   <string name="xIsAKidAccountWarning">%1$s is \'n kind en kan nie jou boodskap ontvang nie. Gee die uitnodiging met die hand: %2$s</string>
+  <string name="moveToClass">Skuif na %s</string>
+  <string name="moveToAnotherClass">Skuif na \'n ander klas</string>
 </resources>

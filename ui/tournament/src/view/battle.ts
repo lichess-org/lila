@@ -13,12 +13,13 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   };
   return snabDialog({
     class: 'team-battle__choice',
+    modal: true,
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {
         ctrl.join(e.target.dataset['id']);
         dlg.close();
       });
-      dlg.showModal();
+      dlg.show();
     },
     onClose,
     vnodes: [

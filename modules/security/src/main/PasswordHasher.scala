@@ -69,19 +69,19 @@ final class PasswordHasher(
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 200,
-    duration = 10 minutes,
+    duration = 10.minutes,
     key = "password.hashes.ip"
   )
 
   private lazy val rateLimitPerUser = RateLimit[UserIdOrEmail](
     credits = 10,
-    duration = 10 minutes,
+    duration = 10.minutes,
     key = "password.hashes.user"
   )
 
   private lazy val rateLimitGlobal = RateLimit[String](
     credits = 12 * 10 * 60, // max out 12 cores for 60 seconds
-    duration = 1 minute,
+    duration = 1.minute,
     key = "password.hashes.global"
   )
 

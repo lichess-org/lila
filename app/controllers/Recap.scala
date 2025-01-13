@@ -3,12 +3,12 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.recap.{ Recap as RecapModel }
+import lila.recap.Recap as RecapModel
 import lila.recap.Recap.Availability
 
 final class Recap(env: Env) extends LilaController(env):
 
-  def home = Secure(_.Beta) { _ ?=> me ?=>
+  def home = Auth { _ ?=> me ?=>
     Redirect(routes.Recap.user(me.username))
   }
 
@@ -24,14 +24,12 @@ final class Recap(env: Env) extends LilaController(env):
   private def RecapPage(
       username: UserStr
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
-    Secure(_.Beta) { ctx ?=> me ?=>
+    Auth { ctx ?=> me ?=>
       def proceed(user: lila.core.user.User) = for
         av  <- env.recap.api.availability(user)
         res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
       yield res
       if me.is(username) then proceed(me)
-      else
-        Found(env.user.api.byId(username)): user =>
-          val canView = isGranted(_.SeeInsight) || !env.net.isProd
-          canView.so(proceed(user))
+      else if isGranted(_.SeeInsight) || !env.net.isProd then Found(env.user.api.byId(username))(proceed)
+      else Redirect(routes.Recap.home).toFuccess
     }

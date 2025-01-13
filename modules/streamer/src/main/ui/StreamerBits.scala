@@ -7,7 +7,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
-  import trans.{ streamer as trs }
+  import trans.streamer as trs
 
   def create(using Context) =
     postForm(cls := "streamer-new", action := routes.Streamer.create)(
@@ -169,7 +169,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
             a(href := routes.Cms.lonePage(CmsPageKey("streaming-fairplay-faq")))(trs.streamingFairplayFAQ())
           )
         ),
-        li(a(href := routes.Cms.lonePage(CmsPageKey("streamer-page-activation")))(trs.rule3()))
+        li(a(href := streamerPageActivationRoute.url)(trs.rule3()))
       ),
       h2(trs.perks()),
       ul(

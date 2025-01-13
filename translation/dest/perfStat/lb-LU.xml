@@ -22,8 +22,8 @@
   <string name="fromXToY">Vun %1$s bis %2$s</string>
   <string name="winningStreak">Erfollegsserie</string>
   <string name="losingStreak">Verloschserie</string>
-  <string name="longestStreak">Längsten Erfollegserie: %s</string>
-  <string name="currentStreak">Aktuell Erfollegserie: %s</string>
+  <string name="longestStreak">Längste Serie: %s</string>
+  <string name="currentStreak">Aktuell Serie: %s</string>
   <string name="bestRated">Bescht gewäert Victoirë</string>
   <string name="gamesInARow">Partien hannerteneen gespillt</string>
   <string name="lessThanOneHour">Manner wéi eng Stonn zwëschen den Partien</string>

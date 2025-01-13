@@ -73,13 +73,16 @@ final class StreamerApi(
       candidateIds <- cache.candidateIds.getUnit
     yield if streams.map(_.streamer.id).exists(candidateIds.contains) then cache.candidateIds.invalidateUnit()
 
-  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
+  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Option[Streamer.ModChange]] =
     val streamer = data(prev, asMod)
-    for
-      _ <- coll.update.one($id(streamer.id), streamer)
-      _ = cache.listedIds.invalidateUnit()
-      _ = streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
-    yield modChange(prev, streamer)
+    coll.update
+      .one($id(streamer.id), streamer)
+      .map: _ =>
+        asMod.option:
+          cache.listedIds.invalidateUnit()
+          streamer.youTube
+            .foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
+          modChange(prev, streamer)
 
   def forceCheck(uid: UserId): Funit =
     byId(uid.into(Streamer.Id)).map:
@@ -87,22 +90,34 @@ final class StreamerApi(
         s.youTube.foreach(ytApi.forceCheckWithHtmlScraping)
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
-    val list = (prev.approval.granted != current.approval.granted).option(current.approval.granted)
-    (~list).so(
+    val (prevRequested, prevGranted, currRequested, currGranted) =
+      (prev.approval.requested, prev.approval.granted, current.approval.requested, current.approval.granted)
+
+    if (prevRequested || prevGranted) && !(currRequested || currGranted) then
       notifyApi.notifyOne(
         current,
-        lila.core.notify.GenericLink(
-          url = "/streamer/edit",
-          title = "Listed on /streamer".some,
-          text = "Your streamer page is public".some,
+        lila.core.notify.NotificationContent.GenericLink(
+          url = streamerPageActivationRoute.url,
+          title = "Streamer application declined".some,
+          text = current.approval.reason,
           icon = lila.ui.Icon.Mic.value
         )
       )
-    )
+    else if !prevGranted && currGranted then
+      notifyApi.notifyOne(
+        current,
+        lila.core.notify.NotificationContent.GenericLink(
+          url = routes.Streamer.edit.url,
+          title = "Streamer application approved".some,
+          text = "Your streamer page is now visible to others".some,
+          icon = lila.ui.Icon.Mic.value
+        )
+      )
     Streamer.ModChange(
-      list = list,
+      list = (prevGranted != currGranted).option(currGranted),
       tier = (prev.approval.tier != current.approval.tier).option(current.approval.tier),
-      decline = !current.approval.granted && !current.approval.requested && prev.approval.requested
+      decline = !currGranted && !currRequested && prevRequested,
+      reason = current.approval.reason
     )
 
   def demote(userId: UserId): Funit =
@@ -127,8 +142,7 @@ final class StreamerApi(
       .one[Streamer]
       .map(_.foreach: s =>
         s.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, false))
-        coll.delete.one($id(user.id)).void
-      )
+        coll.delete.one($id(user.id)).void)
 
   def create(u: User): Funit =
     coll.insert.one(Streamer.make(u)).void.recover(lila.db.ignoreDuplicateKey)
@@ -209,13 +223,13 @@ final class StreamerApi(
       )
 
     val listedIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
         coll.secondaryPreferred.distinctEasy[Streamer.Id, Set]("_id", selectListedApproved)
 
     def isListed(id: Streamer.Id): Fu[Boolean] = listedIds.getUnit.dmap(_ contains id)
 
     val candidateIds = cacheApi.unit[Set[Streamer.Id]]:
-      _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
         coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
           "_id",
           selectListedApproved ++ $doc("liveAt".$exists(false))

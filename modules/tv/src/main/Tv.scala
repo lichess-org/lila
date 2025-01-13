@@ -18,7 +18,10 @@ final class Tv(
   import ChannelSyncActor.*
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(gameProxy.game)
+    actor
+      .ask[Option[GameId]](TvSyncActor.GetGameId(channel, _))
+      .flatMapz(gameProxy.game)
+      .orElse(gameRepo.random)
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     actor
@@ -57,7 +60,7 @@ final class Tv(
 
 object Tv:
   import chess.{ variant as V, Speed as S }
-  import lila.rating.{ PerfType as P }
+  import lila.rating.PerfType as P
 
   case class Champion(user: LightUser, rating: IntRating, gameId: GameId, color: Color)
   case class Champions(channels: Map[Channel, Champion]):

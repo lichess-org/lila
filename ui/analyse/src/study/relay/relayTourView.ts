@@ -15,7 +15,6 @@ import { statsView } from './relayStats';
 import { makeChatEl, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
-import { renderVideoPlayer } from './videoPlayer';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { copyMeInput } from 'common/copyMe';
@@ -350,10 +349,9 @@ const teams = (ctx: RelayViewContext) => [
 const stats = (ctx: RelayViewContext) => [...header(ctx), statsView(ctx.relay.stats)];
 
 const header = (ctx: RelayViewContext) => {
-  const { ctrl, relay, allowVideo } = ctx;
+  const { ctrl, relay } = ctx;
   const d = relay.data,
     group = d.group,
-    embedVideo = d.videoUrls && allowVideo,
     studyD = ctrl.study?.data.description;
 
   return [
@@ -365,20 +363,7 @@ const header = (ctx: RelayViewContext) => {
           roundSelect(relay, ctx.study),
         ]),
       ]),
-      h(
-        `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
-        embedVideo
-          ? renderVideoPlayer(relay)
-          : d.tour.image
-            ? h('img', { attrs: { src: d.tour.image } })
-            : ctx.study.members.isOwner()
-              ? h(
-                  'a.button.relay-tour__header__image-upload',
-                  { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
-                  i18n.broadcast.uploadImage,
-                )
-              : undefined,
-      ),
+      broadcastImageOrStream(ctx),
     ]),
     studyD && h('div.relay-tour__note.pinned', h('div', [h('div', { hook: richHTML(studyD, false) })])),
     d.note &&
@@ -461,3 +446,24 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
         { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
         titleAsText && i18n.site.finished,
       );
+
+const broadcastImageOrStream = (ctx: RelayViewContext) => {
+  const { relay, allowVideo } = ctx;
+  const d = relay.data,
+    embedVideo = (d.videoUrls || relay.isPinnedStreamOngoing()) && allowVideo;
+
+  return h(
+    `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
+    embedVideo
+      ? relay.videoPlayer?.render()
+      : d.tour.image
+        ? h('img', { attrs: { src: d.tour.image } })
+        : ctx.study.members.isOwner()
+          ? h(
+              'a.button.relay-tour__header__image-upload',
+              { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
+              i18n.broadcast.uploadImage,
+            )
+          : undefined,
+  );
+};

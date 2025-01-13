@@ -4,6 +4,7 @@ import { bind } from 'common/snabbdom';
 import { h, type VNode } from 'snabbdom';
 import type { Hook } from '../../interfaces';
 import perfIcons from 'common/perfIcons';
+import { memoize } from 'common';
 
 const percents = (v: number) => v + '%';
 
@@ -30,9 +31,15 @@ const clockX = (dur: number) => {
   return Math.round((durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax)) * 100);
 };
 
+const iconTranslateAmts: () => [number, number] = memoize<[number, number]>(() => {
+  const chart = document.querySelector('.hooks__chart') as HTMLElement;
+  const fontSize = parseFloat(window.getComputedStyle(chart).fontSize);
+  return [(fontSize / chart.clientWidth) * 95, (fontSize / chart.clientHeight) * 75];
+});
+
 function renderPlot(ctrl: LobbyController, hook: Hook) {
-  const bottom = Math.max(0, ratingY(hook.rating) - 2),
-    left = Math.max(0, clockX(hook.t) - 2),
+  const bottom = Math.max(0, ratingY(hook.rating) - iconTranslateAmts()[1]),
+    left = Math.max(0, clockX(hook.t) - iconTranslateAmts()[0]),
     klass = [
       hook.id,
       'plot.new',

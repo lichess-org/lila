@@ -25,7 +25,7 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
   import reactivemongo.api.bson.*
   private given bsonHandler: BSONDocumentHandler[Note] = Macros.handler[Note]
 
-  def getForMyPermissions(user: User, max: Max = Max(20))(using me: Me): Fu[List[Note]] =
+  def getForMyPermissions(user: User, max: Max = Max(30))(using me: Me): Fu[List[Note]] =
     coll
       .find(
         $doc("to" -> user.id) ++ {

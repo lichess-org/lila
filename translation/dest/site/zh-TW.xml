@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">和電腦下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">請分享此網址以邀人下棋</string>
   <string name="gameOver">遊戲結束</string>
-  <string name="waitingForOpponent">等待對手</string>
+  <string name="waitingForOpponent">正在等待對手</string>
   <string name="orLetYourOpponentScanQrCode">或是讓對手掃描這個 QR code</string>
   <string name="waiting">等待對手確認中</string>
   <string name="yourTurn">該您走</string>
@@ -129,10 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s 次漏著</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s 次漏著</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s 次失誤</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s 次失誤</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="other">%s 次輕微失誤</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="other">%s 次輕微失誤</item>
   </plurals>
   <string name="moveTimes">走棋時間</string>
@@ -243,6 +252,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">與您下過%s盤棋</item>
   </plurals>
+  <string name="ok">確認</string>
   <string name="cancel">取消</string>
   <string name="whiteTimeOut">白方時間到</string>
   <string name="blackTimeOut">黑方時間到</string>

@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Turnuvanın kısa tanımı</string>
   <string name="fullDescription">Etkinliğin detaylıca açıklaması</string>
   <string name="fullDescriptionHelp">Etkinliğin isteğe bağlı detaylı açıklaması. %1$s seçeneği mevcuttur. Metnin uzunluğu azami %2$s karakter olmalıdır.</string>
-  <string name="sourceSingleUrl">PGN Kaynak URL\'si</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Kaynak URL\'si</string>
   <string name="sourceUrlHelp">Lichess, sağladığınız URL yardımıyla PGN\'yi güncelleyecektir. İnternet üzerinden herkese açık bir URL yazmalısınız.</string>
   <string name="sourceGameIds">Boşluklarla ayrılmış 64 adede kadar Lichess oyun ID\'si.</string>
   <string name="startDateTimeZone">Turnuva yerel saati ile başlama zamanı: %s</string>
@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Tur çalışmasını düzenle</string>
   <string name="deleteTournament">Bu turnuvayı sil</string>
   <string name="definitivelyDeleteTournament">Bütün turnuvayı, turlarını ve oyunlarını kalıcı olarak sil.</string>
-  <string name="showScores">Oyuncuların puanlarını oyun sonuçlarına göre göster</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Oyuncuların puanlarını oyun sonuçlarına göre göster</string>
   <string name="replacePlayerTags">İsteğe bağlı: Oyuncu adlarını, derecelendirmelerini ve unvanlarını değiştirin</string>
   <string name="fideFederations">FIDE federasyonları</string>
   <string name="top10Rating">İlk 10 rating</string>
@@ -47,9 +47,9 @@
   <string name="fideProfile">FIDE profili</string>
   <string name="federation">Federasyon</string>
   <string name="ageThisYear">Bu yılki yaşı</string>
-  <string name="unrated">Derecelendirilmemiş</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Derecelendirilmemiş</string>
   <string name="recentTournaments">Son Turnuvalar</string>
-  <string name="openLichess">Lichess\'te aç</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Lichess\'te aç</string>
   <string name="teams">Takımlar</string>
   <string name="boards">Tahtalar</string>
   <string name="overview">Genel Bakış</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Zaman dilimi</string>
   <string name="fideRatingCategory">FIDE derecelendirme kategorisi</string>
   <string name="optionalDetails">İsteğe bağlı ayrıntılar</string>
-  <string name="upcomingBroadcasts">Yaklaşan yayınlar</string>
   <string name="pastBroadcasts">Geçmiş yayınlar</string>
   <string name="allBroadcastsByMonth">Tüm yayınları aylara göre görüntüleyin</string>
 </resources>

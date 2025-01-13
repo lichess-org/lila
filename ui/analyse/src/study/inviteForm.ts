@@ -64,6 +64,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
       ctrl.open(false);
       ctrl.redraw();
     },
+    modal: true,
     noScrollable: true,
     vnodes: [
       h('h2', i18n.study.inviteToTheStudy),

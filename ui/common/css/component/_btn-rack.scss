@@ -1,10 +1,10 @@
 .btn-rack {
   @extend %box-radius;
+  @include prevent-select;
 
   display: inline-flex;
   align-items: center;
   border: $border;
-  user-select: none;
 
   .btn-rack {
     /* embedded racks */
