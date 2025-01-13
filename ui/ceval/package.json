@@ -13,10 +13,10 @@
     "@badrap/result": "catalog:",
     "common": "workspace:*",
     "i18n": "workspace:*",
+    "idb-keyval": "^6.2.1",
     "shogi": "workspace:*",
-    "idb-keyval": "^6.2",
-    "shogiops": "catalog:",
     "shogiground": "catalog:",
+    "shogiops": "catalog:",
     "snabbdom": "catalog:"
   },
   "scripts": {

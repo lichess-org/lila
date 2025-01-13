@@ -4,8 +4,8 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
-    "common": "workspace:",
-    "peerjs": "^1.5"
+    "common": "workspace:*",
+    "peerjs": "^1.5.4"
   },
   "scripts": {
     "type-check": "tsc --noEmit"

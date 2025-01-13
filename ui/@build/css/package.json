@@ -4,19 +4,19 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
-    "breakpoint-sass": "^2.7",
-    "balloon-css": "^1"
+    "balloon-css": "^1.2.0",
+    "breakpoint-sass": "^2.7.1"
   },
   "devDependencies": {
-    "tsx": "catalog:",
     "@build/wrapper": "workspace:*",
     "@types/node": "catalog:",
-    "sass-embedded": "^1",
-    "sass-graph-ts": "^5",
-    "fast-glob": "^3",
-    "postcss": "^8",
-    "cssnano": "^7",
-    "autoprefixer": "^10"
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "fast-glob": "^3.3.3",
+    "postcss": "^8.4.49",
+    "sass-embedded": "^1.83.1",
+    "sass-graph-ts": "^5.0.0",
+    "tsx": "catalog:"
   },
   "scripts": {
     "type-check": "tsc --noEmit",

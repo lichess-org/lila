@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "chalk": "^5"
+    "chalk": "^5.4.1"
   },
   "scripts": {
     "type-check": "tsc --noEmit"

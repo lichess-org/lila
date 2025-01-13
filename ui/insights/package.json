@@ -5,10 +5,10 @@
   "type": "module",
   "dependencies": {
     "chart.js": "catalog:",
-    "chartjs-plugin-datalabels": "^2.2",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*",
-    "shogi": "workspace:*",
     "i18n": "workspace:*",
+    "shogi": "workspace:*",
     "shogiops": "catalog:",
     "snabbdom": "catalog:"
   },

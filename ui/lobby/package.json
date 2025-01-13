@@ -5,15 +5,15 @@
   "type": "module",
   "dependencies": {
     "common": "workspace:*",
+    "debounce-promise": "catalog:",
     "i18n": "workspace:*",
     "shogi": "workspace:*",
-    "debounce-promise": "catalog:",
     "shogiground": "catalog:",
     "shogiops": "catalog:",
     "snabbdom": "catalog:"
   },
   "devDependencies": {
-    "@types/debounce-promise": "^3.1.4"
+    "@types/debounce-promise": "^3.1.9"
   },
   "scripts": {
     "type-check": "tsc --noEmit"

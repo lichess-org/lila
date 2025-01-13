@@ -6,11 +6,11 @@
   "devDependencies": {
     "@build/wrapper": "workspace:*",
     "@types/node": "catalog:",
-    "esbuild": "^0.24",
+    "esbuild": "^0.24.2",
     "esbuild-isolated-dts": "^0.1.1",
-    "fast-glob": "^3",
-    "tsx": "catalog:",
-    "grfn": "^2"
+    "fast-glob": "^3.3.3",
+    "grfn": "^2.0.0",
+    "tsx": "catalog:"
   },
   "scripts": {
     "type-check": "tsc --noEmit",

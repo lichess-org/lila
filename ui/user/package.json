@@ -5,8 +5,8 @@
   "type": "module",
   "dependencies": {
     "common": "workspace:*",
-    "tablesort": "^5.3",
-    "qrcode": "^1.5.3"
+    "qrcode": "^1.5.4",
+    "tablesort": "^5.3.0"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5"

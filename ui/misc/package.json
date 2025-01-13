@@ -4,16 +4,16 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
-    "common": "workspace:*",
-    "shogiops": "catalog:",
-    "canvas-confetti": "^1.9.3",
-    "flatpickr": "^4.6",
-    "tablesort": "^5.3",
     "@textcomplete/core": "catalog:",
-    "@textcomplete/textarea": "catalog:"
+    "@textcomplete/textarea": "catalog:",
+    "canvas-confetti": "^1.9.3",
+    "common": "workspace:*",
+    "flatpickr": "^4.6.13",
+    "shogiops": "catalog:",
+    "tablesort": "^5.3.0"
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.6.4"
+    "@types/canvas-confetti": "^1.9.0"
   },
   "scripts": {
     "type-check": "tsc --noEmit"

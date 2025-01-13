@@ -4,17 +4,17 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
+    "@textcomplete/core": "catalog:",
+    "@textcomplete/textarea": "catalog:",
     "chat": "workspace:*",
     "common": "workspace:*",
-    "shogi": "workspace:*",
-    "i18n": "workspace:*",
-    "game": "workspace:*",
-    "shogiground": "catalog:",
-    "snabbdom": "catalog:",
-    "date-fns": "^2.30",
+    "date-fns": "^2.30.0",
     "dragscroll": "^0.0.8",
-    "@textcomplete/core": "catalog:",
-    "@textcomplete/textarea": "catalog:"
+    "game": "workspace:*",
+    "i18n": "workspace:*",
+    "shogi": "workspace:*",
+    "shogiground": "catalog:",
+    "snabbdom": "catalog:"
   },
   "scripts": {
     "type-check": "tsc --noEmit"

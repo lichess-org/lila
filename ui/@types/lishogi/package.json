@@ -5,11 +5,11 @@
   "type": "module",
   "types": "index.d.ts",
   "devDependencies": {
-    "flatpickr": "^4.6",
+    "@types/howler": "^2.2.12",
+    "@types/yaireo__tagify": "^4.27.0",
+    "chart.js": "^4.4.7",
+    "flatpickr": "^4.6.13",
     "shogiground": "catalog:",
-    "shogiops": "catalog:",
-    "chart.js": "^4",
-    "@types/howler": "^2",
-    "@types/yaireo__tagify": "^4"
+    "shogiops": "catalog:"
   }
 }

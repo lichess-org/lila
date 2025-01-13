@@ -4,16 +4,16 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
-    "howler": "^2",
+    "@liskadan/sliding-puzzles": "^0.1.0",
+    "@yaireo/tagify": "catalog:",
+    "fairy-stockfish-nnue.wasm": "^1.1.8",
+    "howler": "^2.2.4",
+    "infinite-scroll": "^4.0.1",
     "jquery": "3.7.1",
-    "spectrum": "github:WandererXII/spectrum",
-    "fairy-stockfish-nnue.wasm": "=1.1.8",
+    "jquery-powertip": "^1.3.2",
     "shogiground": "catalog:",
-    "jquery-powertip": "^1",
-    "infinite-scroll": "^4",
-    "sortablejs": "^1.15",
-    "@liskadan/sliding-puzzles": "^0.1",
-    "@yaireo/tagify": "catalog:"
+    "sortablejs": "^1.15.6",
+    "spectrum": "github:WandererXII/spectrum"
   },
   "devDependencies": {
     "@types/node": "catalog:",
