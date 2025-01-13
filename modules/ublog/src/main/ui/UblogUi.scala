@@ -43,7 +43,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     )(
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
-        post.lived.map { live => semanticDate(live.at)(cls := s"ublog-post-card__over-image")() },
+        post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
         showAuthor match
           case ShowAt.none =>
             if showSticky then
