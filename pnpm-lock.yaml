@@ -230,8 +230,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       lila-stockfish-web:
-        specifier: 0.0.7
-        version: 0.0.7
+        specifier: ^0.0.8
+        version: 0.0.8
       stockfish-mv.wasm:
         specifier: ^0.6.1
         version: 0.6.1
@@ -1728,8 +1728,8 @@ packages:
   lichess-pgn-viewer@2.3.0:
     resolution: {integrity: sha512-pNcDWG/NOBCtHE58k3734acAapKqEY2XTiTP4xVRCuChbS0EzgRksznu0jGLyCrG7LdT3yzn1abaYwi83mPcYg==}
 
-  lila-stockfish-web@0.0.7:
-    resolution: {integrity: sha512-W+NBi/y19zubvnAlxdSC3oh9QrM9dLA46pw/tT/0NvBKrR/ZLDgYgm1jiBizQPAjq7gp4Kl7jp6yidO1JoJgJw==}
+  lila-stockfish-web@0.0.8:
+    resolution: {integrity: sha512-MleY51HmWnRNSx9fhK6JZHRsOeAeDyPs+iHuTipL2VqpSKPv1Ml7uVPnLAgoRDHCb90UM+pMuqN4yQE3SVpU2A==}
 
   lilconfig@3.1.3:
     resolution: {integrity: sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==}
@@ -3368,7 +3368,7 @@ snapshots:
       chessops: 0.14.2
       snabbdom: 3.5.1
 
-  lila-stockfish-web@0.0.7: {}
+  lila-stockfish-web@0.0.8: {}
 
   lilconfig@3.1.3: {}
 
