@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
   <string name="publishHelp">Se está marcado, o artigo publicarase no teu blog. Se non, será privado, e estará xunto ós teus borradores</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Publicación fixada</string>
+  <string name="stickyPostHelp">Se está marcada, esta entrada será a primeira das túas publicacións recentes no teu perfil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicou un artigo no blog</item>
     <item quantity="other">Publicou %s artigos no blog</item>
