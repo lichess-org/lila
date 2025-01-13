@@ -438,6 +438,7 @@ object I18nKeys {
   val `replyToThisTopic` = new I18nKey("replyToThisTopic")
   val `reply` = new I18nKey("reply")
   val `message` = new I18nKey("message")
+  val `xIsTyping` = new I18nKey("xIsTyping")
   val `createTheTopic` = new I18nKey("createTheTopic")
   val `reportAUser` = new I18nKey("reportAUser")
   val `user` = new I18nKey("user")
@@ -1753,6 +1754,7 @@ object I18nKeys {
     val `japaneseNotation` = new I18nKey("preferences:japaneseNotation")
     val `kitaoKawasakiNotation` = new I18nKey("preferences:kitaoKawasakiNotation")
     val `kifNotation` = new I18nKey("preferences:kifNotation")
+    val `yorozuyaNotation` = new I18nKey("preferences:yorozuyaNotation")
     val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
     val `smallMoves` = new I18nKey("preferences:smallMoves")
 }
