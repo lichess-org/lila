@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Тема форуму буде створена для того, щоб коментувати ваш допис</string>
   <string name="publishOnYourBlog">Опублікувати у вашому блозі</string>
   <string name="publishHelp">Якщо відмічено, цей допис буде опубліковано у вашому блозі. У іншому разі він буде приватним, у вашій чернетці дописів</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Закріплений пост</string>
+  <string name="stickyPostHelp">Якщо обрано, цей пост показуватиметься першим у списку останніх постів.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Опубліковано допис в блозі</item>
     <item quantity="few">Опубліковано %s дописи в блозі</item>
