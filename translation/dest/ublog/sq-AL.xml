@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Një temë do të krijohet në forum për të lejuar njerëzit të komentojnë postimin tuaj</string>
   <string name="publishOnYourBlog">Botojeni në blogun tuaj</string>
   <string name="publishHelp">Në iu vëntë shenjë, postimi do të shfaqet në blogun tuaj. Nëse jo, do të jetë privat, te postimet tuaja skicë</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postim ngjitës</string>
+  <string name="stickyPostHelp">Në iu vëntë shenjë, ky postim do të radhitet i pari te postime së fundi të profilit tuaj.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Botoi një postim blogu</item>
     <item quantity="other">Botoi %s postime blogu</item>
@@ -32,7 +34,7 @@
   <string name="xPublishedY">%1$s botoi %2$s</string>
   <string name="thisPostIsPublished">Ky postim u botua</string>
   <string name="thisIsADraft">Kjo është një skicë</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Më tepër postime blogu nga %s</string>
+  <string name="moreBlogPostsBy">Më tepër postime blogu nga %s</string>
   <string name="noPostsInThisBlogYet">Ende pa postime në këtë blog.</string>
   <string name="noDrafts">S’ka skica për shfaqje.</string>
   <string name="latestBlogPosts">Postimet më të reja në blog</string>

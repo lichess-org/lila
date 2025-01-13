@@ -20,6 +20,7 @@
   <string name="displayBoardResizeHandle">Показати інструмент для зміни розміру дошки</string>
   <string name="onlyOnInitialPosition">Лише в початковій позиції</string>
   <string name="inGameOnly">Лише під час гри</string>
+  <string name="exceptInGame">Окрім під час гри</string>
   <string name="chessClock">Шаховий годинник</string>
   <string name="tenthsOfSeconds">Десяті частки секунди</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Коли часу залишається &lt; 10 секунд</string>

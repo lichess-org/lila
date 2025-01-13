@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Тема форуму буде створена для того, щоб коментувати ваш допис</string>
   <string name="publishOnYourBlog">Опублікувати у вашому блозі</string>
   <string name="publishHelp">Якщо відмічено, цей допис буде опубліковано у вашому блозі. У іншому разі він буде приватним, у вашій чернетці дописів</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Закріплений пост</string>
+  <string name="stickyPostHelp">Якщо обрано, цей пост показуватиметься першим у списку останніх постів.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Опубліковано допис в блозі</item>
     <item quantity="few">Опубліковано %s дописи в блозі</item>
@@ -36,7 +38,7 @@
   <string name="xPublishedY">%1$s опубліковав %2$s</string>
   <string name="thisPostIsPublished">Цей допис опубліковано</string>
   <string name="thisIsADraft">Це чернетка</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Більше дописів блогу від %s</string>
+  <string name="moreBlogPostsBy">Більше дописів блогу від %s</string>
   <string name="noPostsInThisBlogYet">У цьому блозі ще немає дописів.</string>
   <string name="noDrafts">Немає чернеток для перегляду.</string>
   <string name="latestBlogPosts">Останні дописи у блозі</string>
