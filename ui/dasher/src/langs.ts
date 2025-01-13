@@ -4,7 +4,7 @@ import { type Close, header } from './util';
 
 type Code = string;
 
-export interface Lang {
+interface Lang {
   0: Code;
   1: string;
 }

@@ -32,7 +32,7 @@ export const i18nFormatCapitalized = (key: I18nKey, ...args: any[]): string => {
   return capitalize(str ? interpolate(str, args) : `${key} ${args.join(', ')}`);
 };
 
-export const i18nPlural = (key: I18nKey, count: number, ...args: any[]): string => {
+const i18nPlural = (key: I18nKey, count: number, ...args: any[]): string => {
   const pluralKey = `${key}|${quantity(count)}`;
   const str = i18nRecord[pluralKey] || i18nRecord[key];
   return str ? interpolate(str, args) : `${key} ${count} ${args.join(', ')}`;

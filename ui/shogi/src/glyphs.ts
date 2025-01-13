@@ -1,6 +1,6 @@
 import { i18n } from 'i18n';
 
-export interface AllGlyphs {
+interface AllGlyphs {
   move: Tree.Glyph[];
   observation: Tree.Glyph[];
   position: Tree.Glyph[];

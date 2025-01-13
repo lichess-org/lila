@@ -11,7 +11,6 @@
     "tsx": "catalog:",
     "@build/wrapper": "workspace:*",
     "@types/node": "catalog:",
-    "@types/sass-graph": "^2",
     "sass-embedded": "^1",
     "sass-graph-ts": "^5",
     "fast-glob": "^3",

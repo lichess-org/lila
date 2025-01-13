@@ -8,21 +8,21 @@ const giphyRegex =
 const teamMessageRegex =
   /You received this because you are subscribed to messages of the team <a(?:[^>]+)>(?:[^\/]+)(.+)<\/a>\.$/;
 
-export const img = (src: string): string => `<img src="${src}"/>`;
+const img = (src: string): string => `<img src="${src}"/>`;
 
-export const aImg = (src: string): string => linkReplace(src, img(src));
+const aImg = (src: string): string => linkReplace(src, img(src));
 
-export const expandImgur = (url: string): string | undefined =>
+const expandImgur = (url: string): string | undefined =>
   imgurRegex.test(url)
     ? url.replace(imgurRegex, (_, id) => aImg(`https://i.imgur.com/${id}.jpg`))
     : undefined;
 
-export const expandGiphy = (url: string): string | undefined =>
+const expandGiphy = (url: string): string | undefined =>
   giphyRegex.test(url)
     ? url.replace(giphyRegex, (_, id) => aImg(`https://media.giphy.com/media/${id}/giphy.gif`))
     : undefined;
 
-export const expandImage = (url: string): string | undefined =>
+const expandImage = (url: string): string | undefined =>
   /\.(jpg|jpeg|png|gif)$/.test(url) ? aImg(url) : undefined;
 
 const expandLink = (url: string) => linkReplace(url, url.replace(/^https?:\/\//, ''));

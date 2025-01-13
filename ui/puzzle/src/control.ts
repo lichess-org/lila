@@ -1,10 +1,6 @@
 import { path as treePath } from 'tree';
 import type { KeyboardController } from './interfaces';
 
-export function canGoForward(ctrl: KeyboardController): boolean {
-  return ctrl.vm.node.children.length > 0;
-}
-
 export function next(ctrl: KeyboardController): void {
   const child = ctrl.vm.node.children[0];
   if (!child) return;

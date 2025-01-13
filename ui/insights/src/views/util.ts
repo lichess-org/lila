@@ -9,26 +9,6 @@ export function section(title: string, content: VNode | VNode[] | string): VNode
   return h('section.with-title', [h('h2', title), h('div.section-container', content)]);
 }
 
-export function halfSection(title: string, content: (VNode | string)[]): VNode {
-  return h('section.half.with-title', [h('h2', title), h('div.section-container', content)]);
-}
-
-export function smallWinrateChart(winrate: WinRate): VNode {
-  const totalGames = winrate.reduce((a, b) => a + b, 0);
-
-  const winPercent = toPercentage(winrate[0], totalGames);
-  const drawPercent = toPercentage(winrate[1], totalGames);
-  const lossPercent = toPercentage(winrate[2], totalGames);
-  return h('div.small-winrate-wrap', [
-    h('div.small-winrate-info-wrap', [
-      winPercent ? h('span.win', `${winPercent}%`) : null,
-      drawPercent ? h('span.draw', `${drawPercent}%`) : null,
-      lossPercent ? h('span.loss', `${lossPercent}%`) : null,
-    ]),
-    horizontalBar([winPercent, drawPercent, lossPercent], ['win', 'draw', 'loss']),
-  ]);
-}
-
 export function horizontalBar(numbers: number[], cls: string[] = []): VNode {
   return h(
     'div.simple-horizontal-bar',
@@ -67,6 +47,21 @@ function tableContent(records: Record<string, WinRate>, fn: (key: string) => VNo
       h('div.table-col3', smallWinrateChart(cur)),
     ]);
   });
+}
+function smallWinrateChart(winrate: WinRate): VNode {
+  const totalGames = winrate.reduce((a, b) => a + b, 0);
+
+  const winPercent = toPercentage(winrate[0], totalGames);
+  const drawPercent = toPercentage(winrate[1], totalGames);
+  const lossPercent = toPercentage(winrate[2], totalGames);
+  return h('div.small-winrate-wrap', [
+    h('div.small-winrate-info-wrap', [
+      winPercent ? h('span.win', `${winPercent}%`) : null,
+      drawPercent ? h('span.draw', `${drawPercent}%`) : null,
+      lossPercent ? h('span.loss', `${lossPercent}%`) : null,
+    ]),
+    horizontalBar([winPercent, drawPercent, lossPercent], ['win', 'draw', 'loss']),
+  ]);
 }
 
 export function bigNumberWithDesc(nb: number | string, desc: string, cls = '', affix = ''): VNode {

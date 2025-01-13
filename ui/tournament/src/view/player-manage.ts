@@ -5,13 +5,6 @@ import type TournamentController from '../ctrl';
 import { backControl } from './controls';
 import header from './header';
 
-export interface User {
-  id: string;
-  name: string;
-  title?: string;
-  patron: boolean;
-}
-
 export function playerManagementView(ctrl: TournamentController): VNodes {
   return [
     header(ctrl),

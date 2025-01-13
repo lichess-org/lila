@@ -1,5 +1,5 @@
 import notify from 'common/notification';
-import type { Ctrl, NotifyData, NotifyOpts, Redraw } from './interfaces';
+import type { Ctrl, NotifyData, NotifyOpts } from './interfaces';
 import { asText } from './view';
 
 const li = window.lishogi;

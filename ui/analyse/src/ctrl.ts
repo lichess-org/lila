@@ -49,7 +49,7 @@ import { make as makeForecast } from './forecast/forecast-ctrl';
 import type { ForecastCtrl } from './forecast/interfaces';
 import { type ForkCtrl, make as makeFork } from './fork';
 import { makeConfig } from './ground';
-import type { AnalyseData, AnalyseOpts, NvuiPlugin, Redraw, ServerEvalData } from './interfaces';
+import type { AnalyseData, AnalyseOpts, NvuiPlugin, ServerEvalData } from './interfaces';
 import * as keyboard from './keyboard';
 import { nextGlyphSymbol } from './node-finder';
 import { type PracticeCtrl, make as makePractice } from './practice/practice-ctrl';
@@ -223,7 +223,7 @@ export default class AnalyseCtrl {
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
-    this.imported = data.game.source === 'import';
+    this.imported = game.imported(data);
     this.ongoing = !this.synthetic && game.playable(data);
 
     if (this.data.game.variant.key === 'chushogi') loadChushogiPieceSprite();

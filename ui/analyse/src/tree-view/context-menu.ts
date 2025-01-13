@@ -6,7 +6,7 @@ import patch from '../patch';
 import * as studyView from '../study/study-view';
 import { nodeFullName } from '../util';
 
-export interface Opts {
+interface Opts {
   path: Tree.Path;
   root: AnalyseCtrl;
 }

@@ -6,7 +6,7 @@ import type { ConcealOf } from '../interfaces';
 import column from './column-view';
 import inline from './inline-view';
 
-export type TreeViewKey = 'column' | 'inline';
+type TreeViewKey = 'column' | 'inline';
 
 export interface TreeView {
   get: StoredProp<TreeViewKey>;

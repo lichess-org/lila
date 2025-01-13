@@ -19,24 +19,8 @@ export function isPlayerTurn(data: GameData): boolean {
   return isPlayerPlaying(data) && data.game.player == data.player.color;
 }
 
-export function isFriendGame(data: GameData): boolean {
-  return data.game.source === 'friend';
-}
-
-export function isClassical(data: GameData): boolean {
-  return data.game.perf === 'classical';
-}
-
-export function mandatory(data: GameData): boolean {
-  return !!data.tournament || !!data.simul;
-}
-
 export function playedPlies(data: GameData): number {
   return data.game.plies - (data.game.startedAtPly || 0);
-}
-
-export function bothPlayersHavePlayed(data: GameData): boolean {
-  return playedPlies(data) > 1;
 }
 
 export function abortable(data: GameData): boolean {
@@ -116,10 +100,6 @@ export function userAnalysable(data: GameData): boolean {
   return status.finished(data) || (playable(data) && (!data.clock || !isPlayerPlaying(data)));
 }
 
-export function isCorrespondence(data: GameData): boolean {
-  return data.game.speed === 'correspondence';
-}
-
 export function setOnGame(data: GameData, color: Color, onGame: boolean): void {
   const player = getPlayer(data, color);
   onGame = onGame || !!player.ai;
@@ -138,5 +118,13 @@ export function nbMoves(data: GameData, color: Color): number {
 }
 
 export function isSwitchable(data: GameData): boolean {
-  return !hasAi(data) && (!!data.simul || isCorrespondence(data));
+  return !hasAi(data) && (!!data.simul || data.game.speed === 'correspondence');
+}
+
+function bothPlayersHavePlayed(data: GameData): boolean {
+  return playedPlies(data) > 1;
+}
+
+function mandatory(data: GameData): boolean {
+  return !!data.tournament || !!data.simul;
 }

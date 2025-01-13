@@ -1,6 +1,7 @@
 import { makeChat } from 'chat';
 import type { ChatCtrl, ChatOpts } from 'chat/interfaces';
 import type { TourPlayer } from 'game';
+import { finished } from 'game/status';
 import type RoundController from './ctrl';
 import type { RoundData, RoundOpts } from './interfaces';
 import { type TourStandingCtrl, tourStandingCtrl } from './tour-standing';
@@ -68,7 +69,7 @@ export function boot(
   function getPresetGroup(d: RoundData) {
     if (d.player.spectator) return;
     if (d.steps.length < 4) return 'start';
-    else if (d.game.status.id >= 30) return 'end';
+    else if (finished(d)) return 'end';
     return;
   }
   opts.klasses = Array.from(element.classList);

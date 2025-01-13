@@ -57,13 +57,13 @@ function reload(ctrl: TournamentController): Promise<void> {
     }, onFail);
 }
 
-export const playerInfo = (ctrl: TournamentController, userId: string): any =>
+const playerInfo = (ctrl: TournamentController, userId: string): any =>
   window.lishogi.xhr.json('GET', `/tournament/${ctrl.data.id}/player/${userId}`).then(data => {
     ctrl.setPlayerInfoData(data);
     ctrl.redraw();
   }, onFail);
 
-export const teamInfo = (ctrl: TournamentController, teamId: string): any =>
+const teamInfo = (ctrl: TournamentController, teamId: string): any =>
   window.lishogi.xhr.json('GET', `/tournament/${ctrl.data.id}/team/${teamId}`).then(data => {
     ctrl.setTeamInfo(data);
     ctrl.redraw();

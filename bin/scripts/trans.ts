@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
-import { readFile, writeFile, readdir } from 'fs/promises';
+import { execSync } from 'node:child_process';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
+import * as path from 'node:path';
 import { parseStringPromise } from 'xml2js';
-import * as path from 'path';
 
 interface ParsedXmlElement {
   name: string;
@@ -11,9 +11,9 @@ interface ParsedXmlElement {
 }
 type ParsedXml = ParsedXmlElement[];
 
-const baseFolder = path.dirname(execSync('pnpm root -w').toString()),
-  translationFolder = path.join(baseFolder, 'translation'),
-  sourceFolder = path.join(translationFolder, 'source');
+const baseFolder = path.dirname(execSync('pnpm root -w').toString());
+const translationFolder = path.join(baseFolder, 'translation');
+const sourceFolder = path.join(translationFolder, 'source');
 
 function validName(name: string): string {
   const noExt = name.replace('.xml', '');
@@ -22,14 +22,17 @@ function validName(name: string): string {
 async function writeScala(parsed: ParsedXml): Promise<void> {
   function mapKeys(el: ParsedXmlElement, nested = false): string {
     const spaces = nested ? '    ' : '  ';
-    return (
-      el.keys
-        .map(k => `${spaces}val \`${k}\` = new I18nKey("${el.name === 'site' ? '' : el.name + ':'}${k}")`)
-        .join('\n') + '\n'
-    );
+    return `${el.keys
+      .map(
+        k =>
+          `${spaces}val \`${k}\` = new I18nKey("${el.name === 'site' ? '' : `${el.name}:`}${k}")`,
+      )
+      .join('\n')}\n`;
   }
   function dbCode(el: ParsedXmlElement): string {
-    return el.name === 'site' ? mapKeys(el) : `  object ${validName(el.name)} {\n${mapKeys(el, true)}}\n`;
+    return el.name === 'site'
+      ? mapKeys(el)
+      : `  object ${validName(el.name)} {\n${mapKeys(el, true)}}\n`;
   }
   const codeScala = `// Generated with bin/trans-dump.ts
 package lila.i18n
@@ -48,17 +51,17 @@ try {
 
   const parsedXml: ParsedXml = await Promise.all(
     sourceFilenames.map(async fileName => {
-      const fileContent = await readFile(path.join(sourceFolder, fileName), { encoding: 'utf8' }),
-        parsed = await parseStringPromise(fileContent),
-        strings = (parsed?.resources?.string || []).map((e: any) => e['$'].name),
-        plurals = (parsed?.resources?.plurals || []).map((e: any) => e['$'].name),
-        keys = [...strings, ...plurals];
+      const fileContent = await readFile(path.join(sourceFolder, fileName), { encoding: 'utf8' });
+      const parsed = await parseStringPromise(fileContent);
+      const strings = (parsed?.resources?.string || []).map((e: any) => e.$.name);
+      const plurals = (parsed?.resources?.plurals || []).map((e: any) => e.$.name);
+      const keys = [...strings, ...plurals];
 
       return {
         name: fileName.replace('.xml', ''),
         keys,
       };
-    })
+    }),
   );
   await writeScala(parsedXml);
 } catch (e) {

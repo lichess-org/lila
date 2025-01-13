@@ -6,7 +6,6 @@ import type {
   Line,
   ModerationCtrl,
   Permissions,
-  Redraw,
   Tab,
   ViewModel,
 } from './interfaces';

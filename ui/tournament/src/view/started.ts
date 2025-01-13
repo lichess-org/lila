@@ -8,6 +8,7 @@ import { standing } from './arena';
 import { teamStanding } from './battle';
 import { arenaControls, organizedControls, robinControls } from './controls';
 import header from './header';
+import type { ViewHandler } from './main';
 import { standing as oStanding } from './organized';
 import playerInfo from './player-info';
 import {
@@ -38,9 +39,9 @@ function notice(ctrl: TournamentController): VNode {
     : h('div.tour__notice.closed', i18n('tournamentPairingsAreNowClosed'));
 }
 
-export const name = 'started';
+const name = 'started';
 
-export function main(ctrl: TournamentController): MaybeVNodes {
+function main(ctrl: TournamentController): MaybeVNodes {
   const gameId = ctrl.myGameId();
   const pag = pagination.players(ctrl);
   console.log('pag', pag);
@@ -77,10 +78,16 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     ];
 }
 
-export function table(ctrl: TournamentController): VNode | undefined {
+function table(ctrl: TournamentController): VNode | undefined {
   return ctrl.playerInfo.id
     ? playerInfo(ctrl)
     : ctrl.teamInfo.requested
       ? teamInfo(ctrl)
       : tourTable(ctrl);
 }
+
+export const started: ViewHandler = {
+  name,
+  main,
+  table,
+};

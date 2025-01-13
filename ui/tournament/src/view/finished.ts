@@ -11,6 +11,7 @@ import { podium, standing } from './arena';
 import { teamStanding } from './battle';
 import { arenaControls, organizedControls, robinControls } from './controls';
 import header from './header';
+import type { ViewHandler } from './main';
 import { standing as oStanding } from './organized';
 import playerInfo from './player-info';
 import { podium as rPodium, standing as rStanding, recents } from './robin';
@@ -21,7 +22,10 @@ function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && once(`tournament.end.canvas.${data.id}`))
     return h('canvas#confetti', {
       hook: {
-        insert: _ => loadCompiledScript('misc.confetti'),
+        insert: vnode =>
+          loadCompiledScript('misc.confetti').then(() => {
+            window.lishogi.modules.miscConfetti(vnode.elm as HTMLCanvasElement);
+          }),
       },
     });
 }
@@ -52,9 +56,9 @@ function stats(data: TournamentData): VNode {
   return h('div.tour__stats', [h('h2', i18n('tournamentComplete')), h('table', tableData)]);
 }
 
-export const name = 'finished';
+const name = 'finished';
 
-export function main(ctrl: TournamentController): MaybeVNodes {
+function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
   const teamS = teamStanding(ctrl, 'finished');
   if (ctrl.isArena())
@@ -85,7 +89,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     ];
 }
 
-export function table(ctrl: TournamentController): VNode | undefined {
+function table(ctrl: TournamentController): VNode | undefined {
   return ctrl.playerInfo.id
     ? playerInfo(ctrl)
     : ctrl.teamInfo.requested
@@ -94,3 +98,9 @@ export function table(ctrl: TournamentController): VNode | undefined {
         ? stats(ctrl.data)
         : undefined;
 }
+
+export const finished: ViewHandler = {
+  name,
+  main,
+  table,
+};

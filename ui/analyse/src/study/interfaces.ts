@@ -1,7 +1,7 @@
 import type { Prop } from 'common/common';
 import type { StoredProp, StoredSet } from 'common/storage';
 import type { Status } from 'game';
-import type { AnalyseData, Redraw } from '../interfaces';
+import type { AnalyseData } from '../interfaces';
 import type { CommentForm } from './comment-form';
 import type { DescriptionCtrl } from './description';
 import type GamebookPlayCtrl from './gamebook/gamebook-play-ctrl';
@@ -117,7 +117,7 @@ export type Topic = string;
 
 type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
 
-export interface StudySettings {
+interface StudySettings {
   computer: UserSelection;
   cloneable: UserSelection;
   chat: UserSelection;
@@ -135,7 +135,7 @@ export interface Position {
   path: Tree.Path;
 }
 
-export interface StudyFeatures {
+interface StudyFeatures {
   cloneable: boolean;
   chat: boolean;
   sticky: boolean;
@@ -171,7 +171,7 @@ export interface StudyChapter {
   serverEval?: StudyChapterServerEval;
 }
 
-export interface StudyChapterServerEval {
+interface StudyChapterServerEval {
   done: boolean;
   path: string;
 }
@@ -258,7 +258,7 @@ export interface ChapterPreviewPlayer {
   rating?: number;
 }
 
-export interface GamePlayer {
+interface GamePlayer {
   playerId: string;
   userId?: string;
 }

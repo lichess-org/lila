@@ -23,7 +23,7 @@ import type { Role, Rules, Setup } from 'shogiops/types';
 import { toBW } from 'shogiops/util';
 import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variant/util';
 import { defaultPosition } from 'shogiops/variant/variant';
-import type { EditorData, EditorOptions, EditorState, Redraw, Selected } from './interfaces';
+import type { EditorData, EditorOptions, EditorState, Selected } from './interfaces';
 import { makeConfig } from './shogiground';
 
 export default class EditorCtrl {

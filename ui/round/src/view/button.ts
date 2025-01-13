@@ -482,11 +482,11 @@ export function cancelPauseOffer(ctrl: RoundController): MaybeVNode {
     : null;
 }
 
-export function cancelResumeOffer(ctrl: RoundController): MaybeVNode {
-  return ctrl.data.player.offeringResume
-    ? h('div.pending', [h('p', i18n('resumptionOfferSent'))])
-    : null;
-}
+// export function cancelResumeOffer(ctrl: RoundController): MaybeVNode {
+//   return ctrl.data.player.offeringResume
+//     ? h('div.pending', [h('p', i18n('resumptionOfferSent'))])
+//     : null;
+// }
 
 export function answerOpponentDrawOffer(ctrl: RoundController): MaybeVNode {
   return ctrl.data.opponent.offeringDraw

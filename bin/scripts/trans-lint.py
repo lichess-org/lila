@@ -135,6 +135,11 @@ def lint_string(ctx, dest, source, allow_missing=0):
         if pattern in m_source and pattern not in m_dest:
             ctx.error(f"missing {pattern}")
 
+    for pattern in ["sex", "porn", "cunt", "fuck", "pussy", "dick", " anal ", " anal."]:
+        m_dest = dest.lower()
+        if pattern in m_dest:
+            ctx.error(f"BAD WORDS {pattern}")
+
     if "lichess" in dest.lower() and not "lichess" in source.lower():
         ctx.error("lichess in dest while not in source")
 

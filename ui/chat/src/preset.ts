@@ -1,6 +1,5 @@
 import { bind } from 'common/snabbdom';
 import { type VNode, h } from 'snabbdom';
-import type { Redraw } from './interfaces';
 
 export interface PresetCtrl {
   group(): string | undefined;
@@ -9,21 +8,21 @@ export interface PresetCtrl {
   post(preset: Preset): void;
 }
 
-export type PresetKey = string;
-export type PresetText = string;
+type PresetKey = string;
+type PresetText = string;
 
-export interface Preset {
+interface Preset {
   key: PresetKey;
   text: PresetText;
 }
 
-export interface PresetGroups {
+interface PresetGroups {
   start: Preset[];
   end: Preset[];
   [key: string]: Preset[];
 }
 
-export interface PresetOpts {
+interface PresetOpts {
   initialGroup?: string;
   redraw: Redraw;
   post(text: string): void;

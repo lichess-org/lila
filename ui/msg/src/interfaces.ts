@@ -17,7 +17,7 @@ export interface User {
   patron: boolean;
   online: boolean;
 }
-export interface Me extends User {
+interface Me extends User {
   kid: boolean;
 }
 export interface Msg {
@@ -35,7 +35,7 @@ export interface Convo {
   postable: boolean;
 }
 
-export interface Relations {
+interface Relations {
   in?: boolean;
   out?: boolean;
 }
@@ -61,5 +61,3 @@ export interface Typing {
 }
 
 export type Pane = 'side' | 'convo';
-
-export type Redraw = () => void;

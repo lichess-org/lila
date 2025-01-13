@@ -47,7 +47,7 @@ export abstract class AbstractWorker<T> {
   abstract destroy(): void;
 }
 
-export interface ThreadedWasmWorkerOpts {
+interface ThreadedWasmWorkerOpts {
   baseName: string;
   baseUrl: string;
   module: 'YaneuraOu_K_P' | 'Stockfish';

@@ -3,7 +3,6 @@ import * as modal from 'common/modal';
 import { type MaybeVNodes, bindNonPassive, bindSubmit } from 'common/snabbdom';
 import { i18n } from 'i18n';
 import { type VNode, h } from 'snabbdom';
-import type { Redraw } from '../interfaces';
 import { emptyRedButton } from '../util';
 import type { StudyData } from './interfaces';
 

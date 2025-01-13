@@ -4,16 +4,8 @@ import type AnalyseController from './ctrl';
 import type { ForecastData } from './forecast/interfaces';
 import type { Goal as PracticeGoal, StudyPracticeData } from './study/practice/interfaces';
 
-export type Seconds = number;
-
 export interface NvuiPlugin {
   render(ctrl: AnalyseController): VNode;
-}
-
-export interface AnalyseApi {
-  socketReceive(type: string, data: any): boolean;
-  path(): Tree.Path;
-  setChapter(id: string): void;
 }
 
 // similar, but not identical, to game/GameData
@@ -47,7 +39,7 @@ export interface ServerEvalData {
 }
 
 // similar, but not identical, to game/Game
-export interface Game {
+interface Game {
   id: string;
   status: Status;
   player: Color;
@@ -66,25 +58,19 @@ export interface Game {
   rated?: boolean;
 }
 
-export interface Opening {
-  english: string;
-  japanese: string;
-  ply: number;
-}
-
-export interface Division {
+interface Division {
   middle?: number;
   end?: number;
 }
 
-export interface Analysis {
+interface Analysis {
   id: string;
   sente: AnalysisSide;
   gote: AnalysisSide;
   partial?: boolean;
 }
 
-export interface AnalysisSide {
+interface AnalysisSide {
   acpl: number;
   inaccuracy: number;
   mistake: number;
@@ -111,5 +97,3 @@ export interface AnalyseOpts {
 
 export type Conceal = boolean | 'conceal' | 'hide' | null;
 export type ConcealOf = (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => Conceal;
-
-export type Redraw = () => void;

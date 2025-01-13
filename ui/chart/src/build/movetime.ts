@@ -17,7 +17,7 @@ import {
 import division from '../division';
 import type { AnalyseData, Player, PlyChart } from '../interface';
 
-export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | undefined {
+function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | undefined {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;
@@ -179,7 +179,7 @@ export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | u
           titleFont: fontFamily(13),
           displayColors: false,
           callbacks: {
-            title: items =>
+            title: (items: any) =>
               labels[items[0].dataset.label === 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x],
             label: () => '',
           },

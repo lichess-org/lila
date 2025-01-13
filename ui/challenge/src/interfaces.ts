@@ -60,5 +60,3 @@ export interface ChallengeData {
     [key: string]: string;
   };
 }
-
-export type Redraw = () => void;

@@ -11,8 +11,6 @@ import type { Shogi } from 'shogiops/variant/shogi';
 import type { TreeWrapper } from 'tree';
 import type PuzzleSession from './session';
 
-export type Redraw = () => void;
-
 export interface KeyboardController {
   vm: Vm;
   redraw: Redraw;
@@ -50,7 +48,7 @@ export type ThemeKey =
   | 'tsume'
   | 'lishogiGames'
   | 'otherSources';
-export interface AllThemes {
+interface AllThemes {
   dynamic: ThemeKey[];
   static: Set<ThemeKey>;
 }
@@ -126,7 +124,7 @@ export interface PuzzleOpts {
   };
 }
 
-export interface PuzzlePrefs {
+interface PuzzlePrefs {
   coords: 0 | 1 | 2;
   destination: boolean;
   dropDestination: boolean;
@@ -142,7 +140,7 @@ export interface PuzzlePrefs {
   keyboardMove: boolean;
 }
 
-export interface Theme {
+interface Theme {
   key: ThemeKey;
   name: string;
   desc: string;
@@ -191,7 +189,7 @@ export interface PuzzlePlayer {
   color: Color;
 }
 
-export interface PuzzleUser {
+interface PuzzleUser {
   id: string;
   rating: number;
   provisional?: boolean;
@@ -215,7 +213,7 @@ export interface PuzzleResult {
 
 export type RoundThemes = Record<ThemeKey, boolean>;
 
-export interface PuzzleRound {
+interface PuzzleRound {
   win: boolean;
   ratingDiff: number;
   themes?: RoundThemes;

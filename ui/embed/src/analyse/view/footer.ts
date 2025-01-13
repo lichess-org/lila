@@ -7,7 +7,7 @@ export function renderFooter(ctrl: AnalyseCtrl): VNode {
   return ctrl.study ? renderStudyFooter(ctrl.study) : renderGameFooter(ctrl);
 }
 
-export function renderGameFooter(ctrl: AnalyseCtrl): VNode {
+function renderGameFooter(ctrl: AnalyseCtrl): VNode {
   const url = `//${window.location.host}/${ctrl.data.game.id}/${ctrl.data.orientation || 'sente'}`;
   const title = i18nFormat('fromGameLink', ctrl.data.game.id);
 

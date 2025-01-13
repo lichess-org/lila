@@ -1,9 +1,3 @@
-import type { VNode } from 'snabbdom';
-
-export type MaybeVNode = VNode | string | null | undefined;
-export type MaybeVNodes = MaybeVNode[];
-export type Redraw = () => void;
-
 export interface SimulOpts {
   data: SimulData;
   userId?: string;
@@ -32,12 +26,12 @@ export interface SimulData {
   team?: Team;
 }
 
-export interface Variant {
+interface Variant {
   key: VariantKey;
   icon: string;
 }
 
-export interface Team {
+interface Team {
   id: string;
   name: string;
   isIn: boolean;
@@ -48,7 +42,7 @@ export interface Player extends LightUser {
   provisional?: boolean;
 }
 
-export interface Host extends LightUser {
+interface Host extends LightUser {
   rating: number;
   gameId?: string;
 }
@@ -66,7 +60,7 @@ export interface Pairing {
   game: Game;
 }
 
-export interface Game {
+interface Game {
   id: string;
   status: number;
   variant: VariantKey;

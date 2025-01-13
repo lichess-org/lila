@@ -5,18 +5,20 @@ import { type VNode, h } from 'snabbdom';
 import type TournamentController from '../ctrl';
 import { arrangementView } from './arrangement';
 import { joinWithTeamSelector } from './battle';
-import * as created from './created';
-import * as finished from './finished';
+import { created } from './created';
+import { finished } from './finished';
 import { organizedArrangementView } from './organized-arrangement';
 import { playerManagementView } from './player-manage';
-import * as started from './started';
+import { started } from './started';
+
+export interface ViewHandler {
+  name: string;
+  main(ctrl: TournamentController): MaybeVNodes;
+  table(ctrl: TournamentController): VNode | undefined;
+}
 
 export default function (ctrl: TournamentController): VNode {
-  let handler: {
-    name: string;
-    main(ctrl: TournamentController): MaybeVNodes;
-    table(ctrl: TournamentController): VNode | undefined;
-  };
+  let handler: ViewHandler;
   if (ctrl.data.isFinished) handler = finished;
   else if (ctrl.data.isStarted) handler = started;
   else handler = created;

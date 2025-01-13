@@ -29,7 +29,3 @@ export function fromNodeList(nodes: Tree.Node[]): Tree.Path {
   for (const i in nodes) path += nodes[i].id;
   return path;
 }
-
-export function isChildOf(child: Tree.Path, parent: Tree.Path): boolean {
-  return !!child && child.slice(0, -2) === parent;
-}

@@ -24,12 +24,6 @@ export interface StormVm {
   filterSlow: boolean;
 }
 
-export interface DailyBest {
-  score: number;
-  prev?: number;
-  at: number;
-}
-
 export interface StormRecap {
   puzzles: number;
   score: number;
@@ -45,7 +39,7 @@ export interface RunResponse {
   newHigh?: NewHigh;
 }
 
-export interface NewHigh {
+interface NewHigh {
   key: 'day' | 'week' | 'month' | 'allTime';
   prev: number;
 }

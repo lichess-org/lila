@@ -13,7 +13,7 @@ export interface GameData {
   correspondence?: CorrespondenceClock;
 }
 
-export interface Game {
+interface Game {
   id: string;
   status: Status;
   player: Color;
@@ -89,12 +89,12 @@ export interface Player {
   version: number;
 }
 
-export interface TournamentRanks {
+interface TournamentRanks {
   sente: number;
   gote: number;
 }
 
-export interface Tournament {
+interface Tournament {
   id: string;
   berserkable: boolean;
   ranks?: TournamentRanks;
@@ -129,7 +129,7 @@ export interface Clock {
   increment: number;
   byoyomi: number;
 }
-export interface CorrespondenceClock {
+interface CorrespondenceClock {
   daysPerTurn: number;
   increment: number;
   sente: number;
@@ -138,7 +138,7 @@ export interface CorrespondenceClock {
 
 export type Source = 'import' | 'lobby' | 'friend' | 'ai' | 'tournament' | 'api';
 
-export interface PlayerUser {
+interface PlayerUser {
   id: string;
   online: boolean;
   username: string;
@@ -149,7 +149,7 @@ export interface PlayerUser {
   };
 }
 
-export interface Perf {
+interface Perf {
   games: number;
   rating: number;
   rd: number;
@@ -157,29 +157,15 @@ export interface Perf {
   prov?: boolean;
 }
 
-export interface Ctrl {
-  data: GameData;
-  trans: Trans;
-}
-
-export interface Blurs {
+interface Blurs {
   nb: number;
   percent: number;
 }
 
-export interface Trans {
-  (key: string): string;
-  noarg: (key: string) => string;
-}
-
-export interface Hold {
+interface Hold {
   ply: number;
   mean: number;
   sd: number;
 }
 
 export type ContinueMode = 'friend' | 'ai';
-
-export interface GameView {
-  status(ctrl: Ctrl): string;
-}

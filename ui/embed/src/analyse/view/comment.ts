@@ -58,6 +58,6 @@ function authorText(author: Tree.CommentAuthor): string {
   else return `[${author.name}]`;
 }
 
-export function truncateComment(text: string, len: number): string {
+function truncateComment(text: string, len: number): string {
   return text.length > len ? `${text.slice(0, len - 10)} [...]` : text;
 }

@@ -28,7 +28,7 @@ export const loadCssPath = (key: string): Promise<void> => {
   return loadCss(assetUrl(`css/${key}.${isDev ? 'dev' : 'min'}.css`));
 };
 
-export const loadPieceSprite = (id: string, defaultSet: string): void => {
+const loadPieceSprite = (id: string, defaultSet: string): void => {
   if (!document.getElementById(id)) {
     const cps = document.body.dataset[id] || defaultSet;
     const link = document.createElement('link');

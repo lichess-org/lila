@@ -10,7 +10,6 @@ import { colorName } from 'shogi/color-name';
 import { RULES } from 'shogiops/constants';
 import { type VNode, h } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
-import type { Redraw } from '../interfaces';
 import { option } from '../util';
 import type { StudyChapterMeta } from './interfaces';
 import { importNotation } from './study-xhr';
@@ -205,7 +204,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                             ctrl.vm.editorOrientation(orientation);
                           },
                         };
-                        ctrl.vm.editor = window.LishogiEditor(vnode.elm as HTMLElement, data);
+                        ctrl.vm.editor = window.lishogi.modules.editor(
+                          vnode.elm as HTMLElement,
+                          data,
+                        );
                         ctrl.vm.editorSfen(ctrl.vm.editor.getSfen());
                       });
                     },

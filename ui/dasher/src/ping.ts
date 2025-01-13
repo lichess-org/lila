@@ -1,9 +1,8 @@
 import { defined } from 'common/common';
 import { i18n } from 'i18n';
 import { type VNode, h } from 'snabbdom';
-import type { Redraw } from './util';
 
-export interface PingData {
+interface PingData {
   ping: number | undefined;
   server: number | undefined;
 }

@@ -2,13 +2,13 @@ import { parseSfen } from 'shogiops/sfen';
 import type { Rules } from 'shogiops/types';
 import { promotionZone } from 'shogiops/variant/util';
 
-export interface ImpasseInfo {
+interface ImpasseInfo {
   king: boolean;
   nbOfPieces: number;
   pieceValue: number;
   check?: boolean;
 }
-export interface ImpasseInfoByColor {
+interface ImpasseInfoByColor {
   sente: ImpasseInfo;
   gote: ImpasseInfo;
 }

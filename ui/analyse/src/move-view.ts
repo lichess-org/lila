@@ -5,7 +5,7 @@ import { notationsWithColor } from 'shogi/notation';
 import { type VNode, h } from 'snabbdom';
 import { renderTime } from './clocks';
 
-export interface Ctx {
+interface Ctx {
   variant: VariantKey;
   withDots?: boolean;
   showEval: boolean;
@@ -32,7 +32,7 @@ function renderEval(e): VNode {
   return h('eval', e);
 }
 
-export function renderIndexText(ply: Ply, offset?: number, withDots?: boolean): string {
+function renderIndexText(ply: Ply, offset?: number, withDots?: boolean): string {
   return ply - ((offset ?? 0) % 2) + (withDots ? '.' : '');
 }
 

@@ -7,8 +7,6 @@ import type { Centis, ClockData, Seconds } from './clock/clock-ctrl';
 import type { CorresClockData } from './corres-clock/corres-clock-ctrl';
 import type RoundController from './ctrl';
 
-export type Redraw = () => void;
-
 export interface Untyped {
   [key: string]: any;
 }
@@ -41,13 +39,13 @@ export interface RoundData extends GameData {
   expiration?: Expiration;
 }
 
-export interface Expiration {
+interface Expiration {
   idleMillis: number;
   movedAt: number;
   millisToMove: number;
 }
 
-export interface Tv {
+interface Tv {
   channel: string;
   flip: boolean;
 }
@@ -62,7 +60,7 @@ export interface RoundOpts {
   chat?: Chat;
 }
 
-export interface Chat {
+interface Chat {
   preset: 'start' | 'end' | undefined;
   parseMoves?: boolean;
   plugin?: ChatPlugin;
@@ -116,7 +114,7 @@ export interface ApiEnd {
   };
 }
 
-export interface Pref {
+interface Pref {
   animationDuration: number;
   blindfold: boolean;
   clockSound: boolean;
@@ -140,11 +138,3 @@ export interface Pref {
 export type MoveMetadata = Partial<SgMoveMetadata>;
 
 export type Position = 'top' | 'bottom';
-
-export interface MaterialDiffSide {
-  [role: string]: number;
-}
-export interface MaterialDiff {
-  sente: MaterialDiffSide;
-  gote: MaterialDiffSide;
-}

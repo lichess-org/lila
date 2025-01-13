@@ -328,7 +328,7 @@ export default class SetupCtrl {
 
 export type SetupKey = 'hook' | 'friend' | 'ai';
 
-export interface SetupData {
+interface SetupData {
   variant: number;
   timeMode: number;
   time: number;

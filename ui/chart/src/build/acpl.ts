@@ -127,9 +127,9 @@ function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): 
           bodyFont: fontFamily(13),
           caretPadding: 10,
           displayColors: false,
-          filter: item => item.datasetIndex === 0,
+          filter: (item: any) => item.datasetIndex === 0,
           callbacks: {
-            label: item => {
+            label: (item: any) => {
               const ev = mainline[item.dataIndex + 1]?.eval;
               if (!ev) return ''; // Pos is mate
               let e = 0;
@@ -145,7 +145,7 @@ function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): 
               }
               return `${i18n('advantage')}: ${mateSymbol}${advantageSign}${e}`;
             },
-            title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
+            title: (items: any) => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },
         },
         legend: {

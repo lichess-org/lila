@@ -7,7 +7,6 @@ const vendorsJs: [string, string[]][] = [
   ['fairy-stockfish-nnue.wasm', ['stockfish.js', 'stockfish.wasm', 'stockfish.worker.js']],
   ['shogiground', ['dist/shogiground.min.js']],
   ['jquery-powertip', ['dist/jquery.powertip.min.js']],
-  ['nouislider', ['dist/nouislider.min.js', 'dist/nouislider.min.css']],
   ['infinite-scroll', ['dist/infinite-scroll.pkgd.min.js']],
   ['sortablejs', ['Sortable.min.js']],
   [

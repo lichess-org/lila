@@ -1,5 +1,5 @@
 import * as game from 'game';
-import type { Redraw, RoundData } from '../interfaces';
+import type { RoundData } from '../interfaces';
 import { updateElements } from './clock-view';
 
 export type Seconds = number;
@@ -13,7 +13,7 @@ interface ClockOpts {
   nvui: boolean;
 }
 
-export type TenthsPref = 0 | 1 | 2;
+type TenthsPref = 0 | 1 | 2;
 
 export interface ClockData {
   running: boolean;

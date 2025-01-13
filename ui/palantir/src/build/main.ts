@@ -1,3 +1,4 @@
+import { reverse } from 'common/string';
 import Peer from 'peerjs';
 import type { PalantirOpts, State } from '../interface';
 
@@ -7,7 +8,10 @@ function main(opts: PalantirOpts):
       render: (h: any) => any;
     } {
   const devices = navigator.mediaDevices;
-  if (!devices) return alert('Voice chat requires navigator.mediaDevices');
+  if (!devices) {
+    alert('Voice chat requires navigator.mediaDevices');
+    return;
+  }
 
   let state: State = 'off';
   let peer: any | undefined;
@@ -108,10 +112,6 @@ function main(opts: PalantirOpts):
     log(`state: ${state} -> ${s} ${msg}`);
     state = s;
     opts.redraw();
-  }
-
-  function reverse(s: string) {
-    return s.split('').reverse().join('');
   }
 
   function peerIdOf(uid: string) {

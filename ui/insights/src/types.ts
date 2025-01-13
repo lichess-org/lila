@@ -105,27 +105,15 @@ export interface AnalysisResult extends Result {
 }
 
 export type CounterObj<TKey extends PropertyKey> = PartialRecord<TKey, number>;
-export type PartialRecord<TKey extends PropertyKey, TValue> = {
+
+type PartialRecord<TKey extends PropertyKey, TValue> = {
   [key in TKey]?: TValue;
 };
 
-export type Accuracy = number;
-
 export type WinRate = [number, number, number];
 
-// centipawns or mate
-export type Eval = [number, undefined] | [undefined, number];
-
-export type Centis = number;
-
-export interface ClockConfig {
-  limit: Centis;
-  byo: Centis;
-  inc: Centis;
-  per: number;
-}
-
-export type Usi = string;
+type Accuracy = number;
+type Centis = number;
 
 export const StatusObject = {
   checkmate: 30,
@@ -163,5 +151,3 @@ export const variants: VariantKey[] = [
   'kyotoshogi',
   'checkshogi',
 ];
-
-export type Redraw = () => void;

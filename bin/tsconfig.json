@@ -1,7 +1,7 @@
 {
   "extends": "@build/tsconfig/build",
   "compilerOptions": {
-    "rootDir": "."
+    "rootDir": "scripts"
   },
-  "include": ["trans.ts"]
+  "include": ["scripts/trans.ts"]
 }

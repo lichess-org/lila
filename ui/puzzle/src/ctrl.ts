@@ -29,7 +29,6 @@ import type {
   PuzzleData,
   PuzzleOpts,
   PuzzleResult,
-  Redraw,
   RoundThemes,
   ThemeKey,
   Vm,

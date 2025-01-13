@@ -27,7 +27,7 @@ export const initOneWithState = (node: HTMLElement, state: MiniBoardState): void
   initOne(node);
 };
 
-export const initOne = (node: HTMLElement): void => {
+const initOne = (node: HTMLElement): void => {
   innerInit(node);
   const live = node.dataset.live;
   if (live) startWatching([live]);
@@ -111,7 +111,7 @@ const startWatching = (ids: string[]) => {
   } else window.lishogi.socket.send('startWatching', ids.join(' '));
 };
 
-export interface MiniBoardState {
+interface MiniBoardState {
   variant: VariantKey;
   sfen: string;
   orientation: Color;

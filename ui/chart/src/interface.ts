@@ -46,18 +46,6 @@ export interface AnalyseData {
   };
 }
 
-export type acpl = (
-  el: HTMLCanvasElement,
-  data: AnalyseData,
-  mainline: Tree.Node[],
-) => Promise<AcplChart>;
-
-export type movetime = (
-  el: HTMLCanvasElement,
-  data: AnalyseData,
-  hunter: boolean,
-) => Promise<PlyChart | undefined>;
-
 export interface DistributionData {
   freq: number[];
   myRating: number | null;

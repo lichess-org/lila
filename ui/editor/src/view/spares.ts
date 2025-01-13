@@ -168,8 +168,8 @@ function compareSelected(a: Selected, b: Selected): boolean {
 // +/-
 // export function handSpares(ctrl: EditorCtrl, position: 'top' | 'bottom'): VNode {
 //   const processPiece = (e: Event) => {
-//     const piece = getPiece(e, ctrl.shogiground.state.orientation),
-//       action = (e.target as HTMLElement).dataset.action;
+//     const piece = getPiece(e, ctrl.shogiground.state.orientation);
+//     const action = (e.target as HTMLElement).dataset.action;
 //     console.log(e, piece, action);
 //     if (piece) {
 //       if (action === 'add') ctrl.addToHand(piece.color, piece.role, true);

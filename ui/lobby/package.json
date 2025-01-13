@@ -8,7 +8,6 @@
     "i18n": "workspace:*",
     "shogi": "workspace:*",
     "debounce-promise": "catalog:",
-    "game": "workspace:*",
     "shogiground": "catalog:",
     "shogiops": "catalog:",
     "snabbdom": "catalog:"

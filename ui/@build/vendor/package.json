@@ -10,7 +10,6 @@
     "fairy-stockfish-nnue.wasm": "=1.1.8",
     "shogiground": "catalog:",
     "jquery-powertip": "^1",
-    "nouislider": "^15",
     "infinite-scroll": "^4",
     "sortablejs": "^1.15",
     "@liskadan/sliding-puzzles": "^0.1",

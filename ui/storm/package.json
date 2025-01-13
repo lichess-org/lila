@@ -6,7 +6,6 @@
   "dependencies": {
     "common": "workspace:*",
     "i18n": "workspace:*",
-    "shogi": "workspace:*",
     "puz": "workspace:*",
     "shogiground": "catalog:",
     "shogiops": "catalog:",

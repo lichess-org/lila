@@ -3,7 +3,7 @@ import { spinnerHtml } from 'common/spinner';
 import { pubsub } from './pubsub';
 import { json } from './xhr';
 
-export interface UserCompleteOpts {
+interface UserCompleteOpts {
   tag?: 'a' | 'span';
   minLength?: number;
   onSelect?: (result: any) => void;

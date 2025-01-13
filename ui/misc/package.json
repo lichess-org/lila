@@ -5,9 +5,7 @@
   "type": "module",
   "dependencies": {
     "common": "workspace:*",
-    "i18n": "workspace:*",
     "shogiops": "catalog:",
-    "shogiground": "catalog:",
     "canvas-confetti": "^1.9.3",
     "flatpickr": "^4.6",
     "tablesort": "^5.3",

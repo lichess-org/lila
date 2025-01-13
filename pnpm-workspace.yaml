@@ -1,6 +1,6 @@
 packages:
   - 'ui/**/*'
-  - 'bin/'
+  - 'bin'
 
 catalog:
   shogiground: ^0.10.1

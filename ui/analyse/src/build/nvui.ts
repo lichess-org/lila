@@ -21,7 +21,7 @@ import { opposite } from 'shogiground/util';
 import { type VNode, h } from 'snabbdom';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';
-import type { AnalyseData, Redraw } from '../interfaces';
+import type { AnalyseData } from '../interfaces';
 
 function main(redraw: Redraw) {
   const notify = new Notify(redraw);

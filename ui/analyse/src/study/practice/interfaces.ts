@@ -20,13 +20,13 @@ export interface StudyPracticeData {
   structure: PracticeSection[];
 }
 
-export interface PracticeSection {
+interface PracticeSection {
   id: string;
   name: string;
   studies: PracticeStudy[];
 }
 
-export interface PracticeStudy {
+interface PracticeStudy {
   id: string;
   slug: string;
   name: string;

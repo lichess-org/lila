@@ -11,9 +11,8 @@ import { type PieceCtrl, type PieceSetData, ctrl as pieceCtrl } from './piece';
 import { type PingCtrl, ctrl as pingCtrl } from './ping';
 import { type SoundCtrl, type SoundData, ctrl as soundCtrl } from './sound';
 import { type ThemeCtrl, type ThemeData, ctrl as themeCtrl } from './theme';
-import type { Redraw } from './util';
 
-export interface DasherData {
+interface DasherData {
   user?: LightUser;
   lang: LangsData;
   notation: NotationData;

@@ -4,9 +4,7 @@ function randomInRange(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
 
-export function initModule(): void {
-  const canvas = document.querySelector('canvas#confetti') as HTMLCanvasElement;
-
+function main(canvas: HTMLCanvasElement): void {
   const durationMs = 20 * 1000;
   const endAt = Date.now() + durationMs;
 
@@ -53,3 +51,5 @@ export function initModule(): void {
     });
   }, 250);
 }
+
+window.lishogi.registerModule(__bundlename__, main);

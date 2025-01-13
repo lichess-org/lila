@@ -2,7 +2,6 @@ import { type Eval, winningChances } from 'ceval';
 import { type Prop, prop, requestIdleCallbackWithFallback } from 'common/common';
 import { path as treePath } from 'tree';
 import type AnalyseCtrl from '../ctrl';
-import type { Redraw } from '../interfaces';
 import { detectFourfold } from '../node-finder';
 
 export type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';

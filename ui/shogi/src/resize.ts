@@ -2,7 +2,7 @@ import { loadCssPath } from 'common/assets';
 import { debounce } from 'common/timings';
 import type { BoardElements } from 'shogiground/types';
 
-export type MouchEvent = MouseEvent & TouchEvent;
+type MouchEvent = MouseEvent & TouchEvent;
 
 export default function resizeHandle(
   els: BoardElements,

@@ -7,7 +7,6 @@ import type {
   Msg,
   MsgData,
   Pane,
-  Redraw,
   Search,
   SearchResult,
   Typing,

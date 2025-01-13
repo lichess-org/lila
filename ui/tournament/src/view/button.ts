@@ -9,7 +9,7 @@ function orJoinSpinner(ctrl: TournamentController, f: () => MaybeVNode): MaybeVN
   return ctrl.joinSpinner ? spinner() : f();
 }
 
-export function withdraw(ctrl: TournamentController): MaybeVNode {
+function withdraw(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
     const candidate = ctrl.data.isCandidate;
     const pause = ctrl.data.isStarted && !candidate;
@@ -32,7 +32,7 @@ export function withdraw(ctrl: TournamentController): MaybeVNode {
   });
 }
 
-export function join(ctrl: TournamentController): MaybeVNode {
+function join(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
     const askToJoin = ctrl.data.candidatesOnly && !ctrl.data.me;
     const delay = ctrl.data.me?.pauseDelay;

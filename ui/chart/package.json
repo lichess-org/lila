@@ -12,8 +12,7 @@
     "@juggle/resize-observer": "^3.4.0",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "chartjs-plugin-zoom": "^2.2.0",
-    "dayjs": "^1.11.13",
-    "nouislider": "^15.8.1"
+    "dayjs": "^1.11.13"
   },
   "scripts": {},
   "lishogi": {

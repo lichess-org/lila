@@ -7,7 +7,7 @@ import type { Role } from 'shogiops/types';
 import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
 import * as categories from './categories';
 import * as ground from './ground';
-import type { Category, LearnOpts, Redraw, Stage, Vm } from './interfaces';
+import type { Category, LearnOpts, Stage, Vm } from './interfaces';
 import { calcScore } from './level';
 import { ProgressStorage } from './progress';
 import {
@@ -62,7 +62,7 @@ export default class LearnCtrl {
     const stage = category?.stages.find(s => s.id === stageId);
     const level = stage?.levels.find(l => l.id === levelId);
 
-    if (level) {
+    if (category && stage && level) {
       this.clearTimetouts();
       const prevStage = this.vm?.stage;
       this.vm = {

@@ -27,7 +27,7 @@ export interface ChatPlugin {
   view(): VNode;
 }
 
-export interface ChatData {
+interface ChatData {
   id: string;
   name: string;
   lines: Array<Line>;
@@ -73,7 +73,7 @@ export interface ChatCtrl {
   destroy(): void;
 }
 
-export interface ChatPalantir {
+interface ChatPalantir {
   instance?: any;
   loaded: boolean;
   enabled: Prop<boolean>;
@@ -130,10 +130,8 @@ export interface ModerationReason {
   name: string;
 }
 
-export interface ModerationHistoryEntry {
+interface ModerationHistoryEntry {
   reason: ModerationReason;
   mod: string;
   date: number;
 }
-
-export type Redraw = () => void;

@@ -20,7 +20,7 @@ export const byoChoices: number[] = Array.from(Array(21), (_, i) => i).concat([
   25, 30, 35, 40, 45, 60, 90, 120, 150, 180,
 ]);
 
-export const incChoices: number[] = byoChoices;
+export const incChoices: number[] = Array.from(byoChoices);
 
 export const periodChoices: number[] = [1, 2, 3, 4, 5];
 

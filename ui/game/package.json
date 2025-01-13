@@ -16,8 +16,7 @@
   "dependencies": {
     "common": "workspace:*",
     "shogi": "workspace:*",
-    "i18n": "workspace:*",
-    "snabbdom": "catalog:"
+    "i18n": "workspace:*"
   },
   "scripts": {
     "clean": "del dist",

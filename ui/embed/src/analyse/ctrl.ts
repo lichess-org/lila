@@ -67,7 +67,7 @@ export interface AnalyseData {
   orientation: Color;
 }
 
-export interface Game {
+interface Game {
   id: string;
   status: Status;
   player: Color;

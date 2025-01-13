@@ -6,7 +6,6 @@ import { escapeHtml } from './string';
 export const linkRegex: RegExp =
   /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lishogi\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 export const newLineRegex: RegExp = /\n/g;
-export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 
 // looks like it has a @mention or #gameid or a url.tld
 export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,})|(:\d+\/)/.test(str);
@@ -14,12 +13,12 @@ export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,})|(:\
 const linkHtml = (href: string, content: string): string =>
   `<a target="_blank" rel="nofollow noopener noreferrer" href="${href}">${content}</a>`;
 
-export function toLink(url: string): string {
+function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = `https://${url}`;
   return linkHtml(url, url.replace(/https?:\/\//, ''));
 }
 
-export const autolink = (str: string, callback: (str: string) => string): string =>
+const autolink = (str: string, callback: (str: string) => string): string =>
   str.replace(linkRegex, (_, space, url) => space + callback(url));
 
 export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
@@ -43,9 +42,10 @@ export function linkReplace(href: string, body?: string): string {
   );
 }
 
-export const userLinkReplace = (_: string, prefix: string, user: string): string =>
+const userLinkReplace = (_: string, prefix: string, user: string): string =>
   prefix + linkReplace(`/@/${user}`, `@${user}`);
 
+const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
 export function enrichText(text: string, allowNewlines = true): string {

@@ -8,13 +8,14 @@ import { parseSquareName } from 'shogiops/util';
 import type { Position } from 'shogiops/variant/position';
 import { pieceCanPromote } from 'shogiops/variant/util';
 
-export const fileR: RegExp = /(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9])/,
-  rankR: RegExp = /(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9]|[a-i])/,
-  keyR: RegExp = new RegExp(`${fileR.source}${rankR.source}`, 'g'),
-  japaneseAmbiguitiesR: RegExp = /左|右|上|行|引|寄|直/,
-  allRolesR: RegExp =
-    /fu|kyou|kyoo|kyo|ky|kei|ke|gin|gi|kin|ki|kaku|ka|hi|to|ny|nk|ng|uma|um|ryuu|ryu|ry|gyoku|ou|p|l|n|s|g|b|r|k|\+p|\+l|\+n|\+s|\+b|\+r|歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|王|玉|d|h|t|o/,
-  KKlastDestR: RegExp = new RegExp(`^(?:${allRolesR.source})x$`);
+const fileR: RegExp = /(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9])/;
+const rankR: RegExp = /(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9]|[a-i])/;
+const keyR: RegExp = new RegExp(`${fileR.source}${rankR.source}`, 'g');
+const japaneseAmbiguitiesR: RegExp = /左|右|上|行|引|寄|直/;
+
+export const allRolesR: RegExp =
+  /fu|kyou|kyoo|kyo|ky|kei|ke|gin|gi|kin|ki|kaku|ka|hi|to|ny|nk|ng|uma|um|ryuu|ryu|ry|gyoku|ou|p|l|n|s|g|b|r|k|\+p|\+l|\+n|\+s|\+b|\+r|歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|王|玉|d|h|t|o/;
+export const KKlastDestR: RegExp = new RegExp(`^(?:${allRolesR.source})x$`);
 
 export function toMoveOrDrop(str: string, pos: Position): MoveOrDrop | undefined {
   const sqs = regexMatchAllSquares(str);
@@ -91,7 +92,7 @@ export function regexMatchAllSquares(str: string): Square[] {
   return matches;
 }
 
-export function fixDigits(str: string): string {
+function fixDigits(str: string): string {
   return str
     .split('')
     .map(c => {
@@ -104,7 +105,7 @@ export function fixDigits(str: string): string {
     .join('');
 }
 
-export function toSquare(str: string): Square | undefined {
+function toSquare(str: string): Square | undefined {
   if (str.length !== 2) return;
   const mapped = fixDigits(str);
   const secondDigit = Number.parseInt(mapped[1]);

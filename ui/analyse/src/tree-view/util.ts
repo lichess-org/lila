@@ -30,7 +30,7 @@ export interface Opts {
   truncate?: number;
 }
 
-export interface NodeClasses {
+interface NodeClasses {
   active: boolean;
   'context-menu': boolean;
   current: boolean;
@@ -73,7 +73,7 @@ function eventPath(e: MouseEvent): Tree.Path | null {
   );
 }
 
-export const autoScroll: (ctrl: AnalyseCtrl, el: HTMLElement) => void = throttle(
+const autoScroll: (ctrl: AnalyseCtrl, el: HTMLElement) => void = throttle(
   200,
   (ctrl: AnalyseCtrl, el: HTMLElement) => {
     const cont = el.parentNode as HTMLElement;

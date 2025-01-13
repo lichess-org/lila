@@ -1,5 +1,6 @@
 import * as game from 'game';
 import type { Player } from 'game';
+import { ids } from 'game/status';
 import { type Hooks, type VNode, h } from 'snabbdom';
 import type RoundController from '../ctrl';
 import type { Position } from '../interfaces';
@@ -13,7 +14,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
   const isPlayer = ctrl.data.player.color === player.color;
   const usingByo = clock.isUsingByo(player.color);
   const isRunning = player.color === clock.times.activeColor;
-  const isOver = ctrl.data.game.status.id > 20 && ctrl.data.game.status.name !== 'paused';
+  const isOver = ctrl.data.game.status.id > ids.paused;
 
   const update = (el: HTMLElement) => {
     const els = clock.elements[player.color];

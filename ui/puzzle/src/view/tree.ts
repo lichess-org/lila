@@ -32,7 +32,7 @@ const autoScroll = throttle(150, (ctrl: Controller, el) => {
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
-export function renderIndex(ply: number, withDots: boolean): VNode {
+function renderIndex(ply: number, withDots: boolean): VNode {
   return h('index', ply + (withDots ? '.' : ''));
 }
 
@@ -146,7 +146,7 @@ function puzzleGlyph(node: Tree.Node): MaybeVNode {
   }
 }
 
-export function renderMove(node: Tree.Node): MaybeVNodes {
+function renderMove(node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
     renderNotation(node),

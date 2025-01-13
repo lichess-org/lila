@@ -71,4 +71,6 @@ declare global {
     nextPage?: number;
     nbPages: number;
   }
+
+  type Redraw = () => void;
 }

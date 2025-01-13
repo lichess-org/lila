@@ -2,29 +2,27 @@ import { defined } from 'common/common';
 import * as ops from './ops';
 import * as treePath from './path';
 
-export type MaybeNode = Tree.Node | undefined;
-
 export interface TreeWrapper {
   root: Tree.Node;
   lastPly(): number;
   nodeAtPath(path: Tree.Path): Tree.Node;
   getNodeList(path: Tree.Path): Tree.Node[];
   longestValidPath(path: string): Tree.Path;
-  updateAt(path: Tree.Path, update: (node: Tree.Node) => void): MaybeNode;
+  updateAt(path: Tree.Path, update: (node: Tree.Node) => void): Tree.Node | undefined;
   addNode(node: Tree.Node, path: Tree.Path): Tree.Path | undefined;
   addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
-  setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
-  setCommentAt(comment: Tree.Comment, path: Tree.Path): MaybeNode;
-  deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
-  setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path): MaybeNode;
-  setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): MaybeNode;
+  setShapes(shapes: Tree.Shape[], path: Tree.Path): Tree.Node | undefined;
+  setCommentAt(comment: Tree.Comment, path: Tree.Path): Tree.Node | undefined;
+  deleteCommentAt(id: string, path: Tree.Path): Tree.Node | undefined;
+  setGlyphsAt(glyphs: Tree.Glyph[], path: Tree.Path): Tree.Node | undefined;
+  setClockAt(clock: Tree.Clock | undefined, path: Tree.Path): Tree.Node | undefined;
   pathIsMainline(path: Tree.Path): boolean;
   pathIsForcedVariation(path: Tree.Path): boolean;
   lastMainlineNode(path: Tree.Path): Tree.Node;
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
-  forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
+  forceVariationAt(path: Tree.Path, force: boolean): Tree.Node | undefined;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
   merge(tree: Tree.Node): void;
   removeCeval(): void;

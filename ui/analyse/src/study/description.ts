@@ -3,7 +3,7 @@ import { bind, onInsert } from 'common/snabbdom';
 import { type VNode, h } from 'snabbdom';
 import type { StudyCtrl } from './interfaces';
 
-export type Save = (t: string) => void;
+type Save = (t: string) => void;
 
 export class DescriptionCtrl {
   edit = false;
@@ -25,7 +25,7 @@ export class DescriptionCtrl {
   }
 }
 
-export function descTitle(chapter: boolean) {
+function descTitle(chapter: boolean) {
   return `${chapter ? 'Chapter' : 'Study'} pinned comment`;
 }
 

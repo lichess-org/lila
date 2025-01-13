@@ -22,7 +22,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
           //        target: '_blank',
           //      },
           //    },
-          //    [' ', ctrl.trans.noarg('example')]
+          //    [' ', i18n('example')]
           //  ),
         ]),
         ctrl.vm.mode != 'view' || ctrl.autoNexting() ? null : editor(ctrl),

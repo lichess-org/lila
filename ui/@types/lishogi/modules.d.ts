@@ -1,10 +1,12 @@
 export interface LishogiModules {
   challenge?: (opts: any) => { update: (d: any) => any };
   dasher?: (opts: { playing: boolean }) => Promise<any>;
+  editor?: (opts: any) => any;
   keyboardMove?: (opts: any) => any;
   miscCli?: (opts: { $wrap: JQuery; toggle: () => void }) => any;
   miscExpandText?: () => void;
   miscMusic: () => { jump: (node: Tree.Node) => void };
+  miscConfetti: (canvas: HTMLCanvasElement) => void;
   notify?: (opts: any) => any;
   palantir: (opts: any) => undefined | { render: (h: any) => any };
   speech?: (opts: LishogiSpeech) => any;

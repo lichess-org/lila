@@ -7,13 +7,14 @@ import { standing } from './arena';
 import { teamStanding } from './battle';
 import { arenaControls, organizedControls, robinControls } from './controls';
 import header from './header';
+import type { ViewHandler } from './main';
 import { standing as oStanding } from './organized';
 import { playing, standing as rStanding, recents, yourUpcoming } from './robin';
 import teamInfo from './team-info';
 
-export const name = 'created';
+const name = 'created';
 
-export function main(ctrl: TournamentController): MaybeVNodes {
+function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
   const proverb = h(
     'blockquote.pull-quote',
@@ -57,6 +58,12 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     ];
 }
 
-export function table(ctrl: TournamentController): VNode | undefined {
+function table(ctrl: TournamentController): VNode | undefined {
   return ctrl.teamInfo.requested ? teamInfo(ctrl) : undefined;
 }
+
+export const created: ViewHandler = {
+  name,
+  main,
+  table,
+};

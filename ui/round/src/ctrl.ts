@@ -42,7 +42,6 @@ import type {
   MoveMetadata,
   NvuiPlugin,
   Position,
-  Redraw,
   RoundData,
   RoundOpts,
   SocketOpts,
@@ -600,7 +599,7 @@ export default class RoundController {
     this.userJump(round.lastPly(d));
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
     if (
-      o.status.name === 'outoftime' &&
+      o.status.id === status.ids.outoftime &&
       d.player.color !== o.winner &&
       this.shogiground.state.turnColor === d.opponent.color
     ) {
@@ -868,7 +867,7 @@ export default class RoundController {
             this.nvui ||
             !game.playable(d) ||
             !d.clock ||
-            d.opponent.ai ||
+            game.hasAi(d) ||
             this.isSimulHost()
           )
             return;

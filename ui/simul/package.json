@@ -6,7 +6,6 @@
   "dependencies": {
     "chat": "workspace:*",
     "common": "workspace:*",
-    "shogi": "workspace:*",
     "i18n": "workspace:*",
     "game": "workspace:*",
     "snabbdom": "catalog:"

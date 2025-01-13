@@ -1,11 +1,12 @@
 import * as domData from 'common/data';
 import { initOneWithState } from 'common/mini-board';
+import { reverse } from 'common/string';
 import { toBW } from 'shogiops';
 import * as compat from 'shogiops/compat';
 import { parseSfen } from 'shogiops/sfen';
 import * as util from 'shogiops/variant/util';
 
-const readServerValue = (t: string): string => atob(t.split('').reverse().join(''));
+const readServerValue = (t: string): string => atob(reverse(t));
 
 window.lishogi.ready.then(() => {
   setTimeout(() => {

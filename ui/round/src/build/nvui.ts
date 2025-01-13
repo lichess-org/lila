@@ -1,4 +1,5 @@
 import * as game from 'game';
+import * as status from 'game/status';
 import { i18n } from 'i18n';
 import { commands } from 'nvui/command';
 import { Notify } from 'nvui/notify';
@@ -21,7 +22,7 @@ import { renderClock } from '../clock/clock-view';
 import renderCorresClock from '../corres-clock/corres-clock-view';
 import type RoundController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';
-import type { Position, Redraw, Step } from '../interfaces';
+import type { Position, Step } from '../interfaces';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { renderResult } from '../view/replay';
@@ -94,7 +95,7 @@ function main(redraw: Redraw) {
                 'aria-atomic': 'true',
               },
             },
-            [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)],
+            [status.started(ctrl.data) ? 'Playing' : renderResult(ctrl)],
           ),
           h('h2', 'Last move'),
           h(
@@ -330,7 +331,7 @@ function playerText(ctrl: RoundController, player: game.Player) {
 function gameText(ctrl: RoundController) {
   const d = ctrl.data;
   return [
-    d.game.status.name == 'started'
+    status.started(d)
       ? ctrl.isPlaying()
         ? `You play the ${ctrl.data.player.color} pieces.`
         : 'Spectating.'

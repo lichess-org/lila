@@ -9,7 +9,7 @@ export default class SimulCtrl {
 
   constructor(
     readonly opts: SimulOpts,
-    readonly redraw: () => void,
+    readonly redraw: Redraw,
   ) {
     this.data = opts.data;
     this.socket = makeSocket(opts.socketSend, this);

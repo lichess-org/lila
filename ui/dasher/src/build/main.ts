@@ -1,6 +1,5 @@
 import { type VNode, attributesModule, classModule, init } from 'snabbdom';
 import { type DasherCtrl, type DasherOpts, makeCtrl } from '../dasher';
-import type { Redraw } from '../util';
 import { loaded, loading } from '../view';
 
 const patch = init([classModule, attributesModule]);

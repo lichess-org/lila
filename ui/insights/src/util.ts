@@ -1,5 +1,3 @@
-import { ROLES } from 'shogiops/constants';
-import type { Role } from 'shogiops/types';
 import { speeds, variants } from './types';
 
 export function toPercentage(n: number, total: number): number {
@@ -8,10 +6,6 @@ export function toPercentage(n: number, total: number): number {
 
 export function fixed(n: number | undefined, digits = 2): number {
   return +(n || 0).toFixed(digits);
-}
-
-export function roleToIndex(role: Role): number {
-  return ROLES.indexOf(role);
 }
 
 export function idFromVariant(variant: VariantKey): number {

@@ -1,6 +1,7 @@
-import { isEmpty } from 'common/common';
+import { notEmpty } from 'common/common';
 import { editor, encodeSfen, setup } from 'common/links';
 import { type MaybeVNodes, bind, bindNonPassive, dataIcon } from 'common/snabbdom';
+import { imported } from 'game';
 import { cont as contRoute } from 'game/router';
 import { i18n } from 'i18n';
 import { type Hooks, type VNode, h } from 'snabbdom';
@@ -37,7 +38,7 @@ const cplSpeed: AutoplaySpeed = {
 
 function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefined {
   const g = ctrl.data.game;
-  if (g.source === 'import' && g.importedBy && g.importedBy === userId)
+  if (imported(ctrl.data) && g.importedBy && g.importedBy === userId)
     return h(
       'form.delete',
       {
@@ -67,7 +68,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const speeds = [
     ...baseSpeeds,
-    ...(d.game.speed !== 'correspondence' && !isEmpty(d.game.moveCentis) ? [realtimeSpeed] : []),
+    ...(d.game.speed !== 'correspondence' && notEmpty(d.game.moveCentis) ? [realtimeSpeed] : []),
     ...(d.analysis ? [cplSpeed] : []),
   ];
   return h(

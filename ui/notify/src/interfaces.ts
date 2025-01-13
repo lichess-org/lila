@@ -36,8 +36,6 @@ export interface Ctrl {
   clear(): void;
 }
 
-export type Redraw = () => void;
-
 export interface Renderers {
   [key: string]: Renderer;
 }

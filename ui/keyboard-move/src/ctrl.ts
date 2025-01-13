@@ -38,11 +38,11 @@ export interface KeyboardMove {
   resign(v: boolean): void;
 }
 
-export interface RootData {
+interface RootData {
   game: { variant: { key: VariantKey } };
   player: { color: Color };
 }
-export interface RootController {
+interface RootController {
   shogiground: SgApi;
   clock?: ClockController;
   data: RootData;
@@ -58,7 +58,6 @@ interface Step {
   sfen: Sfen;
   lastSquare: Square | undefined;
 }
-type Redraw = () => void;
 
 export function ctrl(root: RootController, step: Step): KeyboardMove {
   let focus = false;

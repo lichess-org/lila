@@ -3,8 +3,6 @@ import type { Clock } from './clock';
 import type { Combo } from './combo';
 import type CurrentPuzzle from './current';
 
-export type Redraw = () => void;
-
 export interface PuzPrefs {
   coords: 0 | 1 | 2 | 3;
   destination: boolean;
@@ -39,13 +37,13 @@ export interface Run {
   endAt?: number;
 }
 
-export interface Round {
+interface Round {
   puzzle: Puzzle;
   win: boolean;
   millis: number;
 }
 
-export interface Modifier {
+interface Modifier {
   moveAt: number;
   malus?: TimeMod;
   bonus?: TimeMod;

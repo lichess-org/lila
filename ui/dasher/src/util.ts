@@ -1,6 +1,5 @@
 import { type VNode, h } from 'snabbdom';
 
-export type Redraw = () => void;
 export type Close = () => void;
 export type Open = (sub: string) => void;
 

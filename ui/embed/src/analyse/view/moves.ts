@@ -26,7 +26,7 @@ const autoScroll = throttle(150, (ctrl: AnalyseCtrl, el) => {
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
-export function renderIndex(ply: number, withDots: boolean): VNode {
+function renderIndex(ply: number, withDots: boolean): VNode {
   return h('index', ply + (withDots ? '.' : ''));
 }
 
@@ -125,7 +125,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
   );
 }
 
-export function renderGlyphs(glyphs: Tree.Glyph[]): VNode {
+function renderGlyphs(glyphs: Tree.Glyph[]): VNode {
   return h(
     'span.glyphs',
     glyphs.map(glyph =>
@@ -140,12 +140,12 @@ export function renderGlyphs(glyphs: Tree.Glyph[]): VNode {
   );
 }
 
-export function normalizeEval(e: number): string {
+function normalizeEval(e: number): string {
   e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
   return (e > 0 ? '+' : '') + e.toFixed(1);
 }
 
-export function renderMove(node: Tree.Node): MaybeVNodes {
+function renderMove(node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
     renderNotation(node),

@@ -1,6 +1,5 @@
 import { bind } from 'common/snabbdom';
 import { type VNode, h } from 'snabbdom';
-import type { Redraw } from './interfaces';
 
 export interface BoolSetting {
   name: string;

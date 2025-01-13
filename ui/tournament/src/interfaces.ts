@@ -4,7 +4,7 @@ interface Untyped {
   [key: string]: any;
 }
 
-export interface StandingPlayer extends Untyped {}
+interface StandingPlayer extends Untyped {}
 
 export interface Standing {
   failed?: boolean;
@@ -42,14 +42,18 @@ export interface RankedTeam {
   players: TeamPlayer[];
 }
 
-export interface TeamPlayer {
+interface TeamPlayer {
   user: {
     name: string;
   };
+  name: string;
+  rating: number;
   score: number;
+  fire: boolean;
+  title?: string;
 }
 
-export type Page = StandingPlayer[];
+type Page = StandingPlayer[];
 
 export interface Pages {
   [n: number]: Page;
@@ -77,14 +81,6 @@ export interface TeamInfo {
   perf: number;
   score: number;
   topPlayers: TeamPlayer[];
-}
-
-export interface TeamPlayer {
-  name: string;
-  rating: number;
-  score: number;
-  fire: boolean;
-  title?: string;
 }
 
 export interface Duel {
@@ -126,7 +122,7 @@ export interface ArrangementUser {
   scheduledAt?: number;
 }
 
-export interface Points {
+interface Points {
   w: number;
   d: number;
   l: number;

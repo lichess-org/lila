@@ -5,9 +5,7 @@
   "type": "module",
   "dependencies": {
     "common": "workspace:*",
-    "i18n": "workspace:*",
     "chat": "workspace:*",
-    "snabbdom": "catalog:",
     "@yaireo/tagify": "catalog:",
     "debounce-promise": "catalog:"
   },

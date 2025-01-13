@@ -3,7 +3,7 @@ import spinner from 'common/spinner';
 import { debounce } from 'common/timings';
 import { i18n } from 'i18n';
 import { type VNode, h } from 'snabbdom';
-import { type Open, type Redraw, header, validateUrl } from './util';
+import { type Open, header, validateUrl } from './util';
 
 export interface CustomThemeData {
   boardColor: string;

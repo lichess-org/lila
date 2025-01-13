@@ -5,13 +5,12 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "catalog:",
-    "tsx": "catalog:",
-    "xml2js": "^0.6.2",
     "@types/xml2js": "^0.4.14",
-    "fast-xml-parser": "^4"
+    "tsx": "catalog:",
+    "xml2js": "^0.6.2"
   },
   "scripts": {
-    "trans-dump": "tsx ./trans.ts",
-    "trans-lint": "./trans-lint.py ../translation/dest/*/*.xml"
+    "trans-dump": "tsx ./scripts/trans.ts",
+    "trans-lint": "./scripts/trans-lint.py ../translation/dest/*/*.xml"
   }
 }

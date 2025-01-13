@@ -4,7 +4,6 @@ import {
   type InsightData,
   type InsightFilter,
   type InsightOpts,
-  type Redraw,
   type Tab,
   tabs,
   variants,

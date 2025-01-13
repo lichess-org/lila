@@ -7,6 +7,7 @@ import spinner from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
 import { playable } from 'game';
 import * as router from 'game/router';
+import { finished } from 'game/status';
 import statusView from 'game/view/status';
 import { i18n, i18nFormatCapitalized, i18nPluralSame } from 'i18n';
 import { colorName } from 'shogi/color-name';
@@ -48,7 +49,7 @@ function renderResult(ctrl: AnalyseCtrl): MaybeVNode {
       status,
       winner ? `, ${i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap))}` : null,
     ]);
-  if (ctrl.data.game.status.id >= 30) {
+  if (finished(ctrl.data)) {
     const status = statusView(ctrl.data.game.status, ctrl.data.game.winner, handicap);
     return render(status, ctrl.data.game.winner);
   } else if (ctrl.study?.data.chapter.setup.endStatus) {

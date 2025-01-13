@@ -21,8 +21,6 @@ export interface EditorState {
   playable: boolean;
 }
 
-export type Redraw = () => void;
-
 export type SpecialSelected = 'pointer' | 'trash';
 export function isSpecialSelected(s: string): s is SpecialSelected {
   return ['pointer', 'trash'].includes(s);

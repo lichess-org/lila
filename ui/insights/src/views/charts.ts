@@ -13,7 +13,7 @@ import { bg, fontClear, fontDimmer } from './colors';
 
 const isLight = document.body.classList.contains('light');
 
-export function chart<T extends 'line' | 'bar' | 'doughnut'>(
+function chart<T extends 'line' | 'bar' | 'doughnut'>(
   id: string,
   key: string,
   full: boolean,
@@ -32,7 +32,7 @@ export function chart<T extends 'line' | 'bar' | 'doughnut'>(
   );
 }
 
-export interface MyChartData {
+interface MyChartData {
   labels?: string[] | string[][];
   datasets: MyChartDataset[];
   total?: number;
@@ -53,7 +53,7 @@ export interface MyChartDataset {
   };
 }
 
-export interface MyChartOptions {
+interface MyChartOptions {
   percentage?: boolean;
   valueAffix?: string;
   autoSkip?: boolean;

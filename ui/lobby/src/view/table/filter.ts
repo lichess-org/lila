@@ -50,7 +50,7 @@ export function toggle(ctrl: LobbyController, nbFiltered: number): VNode {
   );
 }
 
-export interface FilterNode extends HTMLElement {
+interface FilterNode extends HTMLElement {
   filterLoaded?: boolean;
 }
 

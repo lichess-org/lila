@@ -42,10 +42,6 @@ export function last(nodeList: Tree.Node[]): Tree.Node | undefined {
   return nodeList[nodeList.length - 1];
 }
 
-export function nodeAtPly(nodeList: Tree.Node[], ply: number): Tree.Node | undefined {
-  return nodeList.find(node => node.ply === ply);
-}
-
 export function takePathWhile(
   nodeList: Tree.Node[],
   predicate: (node: Tree.Node) => boolean,

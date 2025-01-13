@@ -1,0 +1,35 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "includeEntryExports": true,
+  "ignoreDependencies": ["common"],
+  "ignoreBinaries": ["type", "ruby"],
+  "ignore": ["**/_*.ts"],
+  "workspaces": {
+    ".": {
+      "includeEntryExports": false
+    },
+    "bin": {
+      "entry": ["scripts/*.ts"],
+      "project": ["scripts/**"]
+    },
+    "ui/*": {
+      "entry": ["src/build/*.ts"],
+      "project": ["src/**"]
+    },
+    "ui/@build/*": {
+      "entry": ["src/index.ts"],
+      "project": ["src/**"]
+    },
+    "ui/@build/css": {
+      "entry": ["src/index.ts"],
+      "project": ["src/**"],
+      "ignoreDependencies": [".*-s?css", ".*-sass"]
+    },
+    "ui/@build/vendor": {
+      "entry": ["src/index.ts"],
+      "project": ["src/**"],
+      "ignore": ["src/local/**"],
+      "ignoreDependencies": [".*"]
+    }
+  }
+}

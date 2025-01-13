@@ -2,10 +2,10 @@ import type { DrawShape, SquareHighlight } from 'shogiground/draw';
 
 export type Score = 0 | 1 | 2 | 3;
 
-export type StageKey = string;
-export type StageId = number;
-export type LevelId = number;
-export type CategoryKey = string;
+type StageKey = string;
+type StageId = number;
+type LevelId = number;
+type CategoryKey = string;
 
 export interface UsiWithColor {
   usi: Usi;
@@ -62,8 +62,8 @@ export interface Category {
   stages: Stage[];
 }
 
-export type StageState = 'init' | 'running' | 'completed' | 'end';
-export type LevelState = 'play' | 'completed' | 'fail';
+type StageState = 'init' | 'running' | 'completed' | 'end';
+type LevelState = 'play' | 'completed' | 'fail';
 
 export interface Vm {
   category: Category;
@@ -86,8 +86,6 @@ export interface LearnProgress {
   stages: Record<string, ProgressScore>;
 }
 
-export interface ProgressScore {
+interface ProgressScore {
   scores: Score[];
 }
-
-export type Redraw = () => void;

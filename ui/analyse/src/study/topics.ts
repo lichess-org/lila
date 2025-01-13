@@ -4,7 +4,6 @@ import * as modal from 'common/modal';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { i18n } from 'i18n';
 import { type VNode, h } from 'snabbdom';
-import type { Redraw } from '../interfaces';
 import type { StudyCtrl, Topic } from './interfaces';
 
 export interface TopicsCtrl {

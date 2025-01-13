@@ -1,5 +1,6 @@
 import { defined } from 'common/common';
 import * as game from 'game';
+import * as status from 'game/status';
 import { engineNameFromCode } from 'shogi/engine-name';
 import { type VNode, h } from 'snabbdom';
 import type AnalyseCtrl from './ctrl';
@@ -8,7 +9,7 @@ export default function renderClocks(
   ctrl: AnalyseCtrl,
   withNames: boolean,
 ): [VNode, VNode] | undefined {
-  if (ctrl.embed || (ctrl.data.game.status.name === 'started' && !ctrl.imported)) return;
+  if (ctrl.embed || (status.started(ctrl.data) && !ctrl.imported)) return;
   const node = ctrl.node;
   const clock = node.clock;
   const sentePov = ctrl.bottomIsSente();

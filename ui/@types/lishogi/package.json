@@ -3,6 +3,7 @@
   "private": true,
   "license": "AGPL-3.0-or-later",
   "type": "module",
+  "types": "index.d.ts",
   "devDependencies": {
     "flatpickr": "^4.6",
     "shogiground": "catalog:",
