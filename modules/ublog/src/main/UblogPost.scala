@@ -74,7 +74,7 @@ object UblogPost:
       created: Recorded,
       updated: Option[Recorded],
       lived: Option[Recorded],
-      isSticky: Option[Boolean],
+      sticky: Option[Boolean],
       topics: List[UblogTopic]
   ) extends BasePost
 

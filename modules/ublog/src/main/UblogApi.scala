@@ -81,12 +81,7 @@ final class UblogApi(
       .aggregateList(maxDocs = nb, _.sec): framework =>
         import framework.*
         Match($doc("blog" -> blogId, "live" -> true)) -> List(
-          AddFields(
-            $doc(
-              "isSticky" -> $doc("$ifNull" -> $arr("$sticky", false))
-            )
-          ),
-          Sort(Descending("isSticky"), Descending("lived.at")),
+          Sort(Descending("sticky"), Descending("lived.at")),
           Project(previewPostProjection),
           Limit(nb)
         )

@@ -25,12 +25,12 @@ private object UblogBsonHandlers:
   val lightPostProjection = $doc("title" -> true)
   val previewPostProjection =
     $doc(
-      "blog"     -> true,
-      "title"    -> true,
-      "intro"    -> true,
-      "image"    -> true,
-      "created"  -> true,
-      "lived"    -> true,
-      "topics"   -> true,
-      "isSticky" -> true
+      "blog"    -> true,
+      "title"   -> true,
+      "intro"   -> true,
+      "image"   -> true,
+      "created" -> true,
+      "lived"   -> true,
+      "topics"  -> true,
+      "sticky"  -> true
     )
