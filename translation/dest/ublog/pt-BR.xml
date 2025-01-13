@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Será criado um tópico do fórum para que as pessoas comentem em sua publicação</string>
   <string name="publishOnYourBlog">Publicar no seu blog</string>
   <string name="publishHelp">Se ativado, a postagem será listada no seu blog. Senão, ficará privada, e salva como rascunho</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Postagem fixa</string>
+  <string name="stickyPostHelp">Se ativado, a postagem ficará no topo da lista de postagens recentes.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Fez uma postagem no blog</item>
     <item quantity="other">Fez %s postagens no blog</item>
