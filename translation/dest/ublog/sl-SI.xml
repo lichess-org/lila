@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Ustvarjena bo tema foruma, da bodo ljudje komentirali vašo objavo</string>
   <string name="publishOnYourBlog">Objava na svojem blogu</string>
   <string name="publishHelp">Če je označeno, bo objava navedena na vašem spletnem dnevniku. Če ne, bo v vaših osnutkih objav zaseben</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;pin&quot; if it is more natural in your language.">Prilepljena objava</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Če je označeno, bo ta objava navedena kot prva med nedavnimi objavami v vašem profilu.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Objavil objavo v blogu</item>
     <item quantity="two">Objavljene objave v spletnem dnevniku %s</item>
