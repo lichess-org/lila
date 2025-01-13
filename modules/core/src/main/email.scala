@@ -20,10 +20,11 @@ object email:
       def normalize = NormalizedEmailAddress: // changing normalization requires database migration!
         val lower = e.toLowerCase
         lower.split('@') match
-          case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
-            val normalizedName = name
-              .replace(".", "")    // remove all dots
-              .takeWhile('+' != _) // skip everything after the first '+'
+          case Array(name, domain) =>
+            val skipAfterPlus = name.takeWhile('+' != _)
+            val normalizedName =
+              if EmailAddress.gmailLikeNormalizedDomains(domain) then skipAfterPlus.replace(".", "")
+              else skipAfterPlus
             if normalizedName.isEmpty then lower else s"$normalizedName@$domain"
           case _ => lower
 
