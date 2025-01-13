@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Na fóre sa vytvorí téma, v ktorej budú ľudia môcť komentovať Váš príspevok</string>
   <string name="publishOnYourBlog">Zverejnené na tvojom blogu</string>
   <string name="publishHelp">Ak je toto pole začiarknuté, príspevok bude uvedený na vašom blogu. Ak nie je, bude príspevok uvedený ako súkromný vo forme konceptu</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Prilepiť príspevok</string>
+  <string name="stickyPostHelp">Ak zapnuté, tento príspevok bude uvedený ako prvý v posledných príspevkoch vo Vašom profile.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Zverejnil jeden príspevok na blogu</item>
     <item quantity="few">Zverejnil %s príspevky na blogu</item>
