@@ -17,6 +17,7 @@ case class UblogPost(
     topics: List[UblogTopic],
     live: Boolean,
     discuss: Option[Boolean],
+    sticky: Option[Boolean],
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
@@ -73,6 +74,7 @@ object UblogPost:
       created: Recorded,
       updated: Option[Recorded],
       lived: Option[Recorded],
+      sticky: Option[Boolean],
       topics: List[UblogTopic]
   ) extends BasePost
 
