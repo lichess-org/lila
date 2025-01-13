@@ -52,7 +52,7 @@ function presetButton(p: Preset, ctrl: LobbyController): VNode {
     (p.timeMode == 2
       ? ctrl.data.seeks.some(s => isSameSeek(p, s, ctrl))
       : ctrl.data.hooks.some(h => isSameHook(h, clock, perf, ctrl)));
-  const attrs = {
+  const attrs: Record<string, string> = {
     'data-id': p.id,
   };
   if (p.ai) attrs.title = engineName('standard', undefined, p.ai);

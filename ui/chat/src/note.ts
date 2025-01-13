@@ -44,9 +44,9 @@ export function noteView(ctrl: NoteCtrl): VNode {
     },
     hook: {
       insert(vnode) {
-        const $el = $(vnode.elm as HTMLElement);
+        const $el = $(vnode.elm as HTMLTextAreaElement);
         $el.val(text).on('change keyup paste', () => {
-          ctrl.post($el.val());
+          ctrl.post($el.val()!);
         });
       },
     },

@@ -241,12 +241,7 @@ export default class SetupCtrl {
   }
 
   open(key: SetupKey, extraData?: Record<string, string>): void {
-    console.log('store hook:', this.stores.hook.get());
-    console.log('store friend:', this.stores.friend.get());
-    console.log('store ai:', this.stores.ai.get());
     this.initData(key, extraData);
-
-    console.log('data:', this.data);
 
     this.isOpen = true;
     this.redraw();

@@ -204,10 +204,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                             ctrl.vm.editorOrientation(orientation);
                           },
                         };
-                        ctrl.vm.editor = window.lishogi.modules.editor(
-                          vnode.elm as HTMLElement,
-                          data,
-                        );
+                        ctrl.vm.editor = window.lishogi.modules.editor?.({
+                          element: vnode.elm as HTMLElement,
+                          ...data,
+                        });
                         ctrl.vm.editorSfen(ctrl.vm.editor.getSfen());
                       });
                     },

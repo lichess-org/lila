@@ -26,11 +26,11 @@ export interface PracticeCtrl {
   onJump(): void;
   isMyTurn(): boolean;
   comment: Prop<Comment | null>;
-  running;
-  hovering;
-  hinting;
-  resume;
-  playableDepth;
+  running: Prop<boolean>;
+  hovering: Prop<{ usi: Usi } | null>;
+  hinting: Prop<Hinting | null>;
+  resume(): void;
+  playableDepth: Prop<number>;
   reset(): void;
   preUserJump(from: Tree.Path, to: Tree.Path): void;
   postUserJump(from: Tree.Path, to: Tree.Path): void;

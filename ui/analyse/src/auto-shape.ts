@@ -41,10 +41,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const rcolor = opposite(color);
 
   if (ctrl.practice) {
-    if (ctrl.practice.hovering())
-      return makeShapesFromUsi(color, ctrl.practice.hovering().usi, 'engine');
-    const hint = ctrl.practice.hinting();
+    const hover = ctrl.practice.hovering();
+    if (hover) return makeShapesFromUsi(color, hover.usi, 'engine');
 
+    const hint = ctrl.practice.hinting();
     if (hint) {
       if (hint.mode === 'move') return makeShapesFromUsi(color, hint.usi, 'engine');
       else {

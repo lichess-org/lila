@@ -14,7 +14,7 @@ export function createSeek(ctrl: LobbyController): VNode {
         'a.button.accent',
         {
           hook: bind('click', () => {
-            ctrl.setupCtrl.open('hook', { timeMode: TimeMode.Corres });
+            ctrl.setupCtrl.open('hook', { timeMode: `${TimeMode.Corres}` });
             ctrl.redraw();
           }),
         },
