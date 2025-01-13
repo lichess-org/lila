@@ -9,7 +9,7 @@ final class ChatPanic:
   )
 
   val allowed: lila.core.chat.panic.IsAllowed = id =>
-    fetch => if enabled then fetch(id).dmap { _.so(allowed) } else fuTrue
+    fetch => if enabled then fetch(id).dmap(_.so(allowed)) else fuTrue
 
   def enabled =
     until.exists { d =>

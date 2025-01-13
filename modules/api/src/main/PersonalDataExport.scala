@@ -102,9 +102,11 @@ final class PersonalDataExport(
 
     val forumPosts =
       Source(List(textTitle("Forum posts"))).concat(
-        forumEnv.postRepo.allByUserCursor(user).documentSource().throttle(heavyPerSecond, 1.second).map { p =>
-          s"${textDate(p.createdAt)}\n${p.text}$bigSep"
-        }
+        forumEnv.postRepo
+          .allByUserCursor(user)
+          .documentSource()
+          .throttle(heavyPerSecond, 1.second)
+          .map(p => s"${textDate(p.createdAt)}\n${p.text}$bigSep")
       )
 
     val privateMessages =

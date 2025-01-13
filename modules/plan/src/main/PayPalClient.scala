@@ -186,7 +186,7 @@ final private class PayPalClient(
 
   private def postOneNoResponse(url: String, data: JsObject): Funit =
     logger.info(s"POST $url $data")
-    request(url).flatMap { _.post(data) }.void
+    request(url).flatMap(_.post(data)).void
 
   private val logger = lila.plan.logger.branch("payPal")
 

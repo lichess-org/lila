@@ -28,8 +28,7 @@ final class ForumPaginator(
     )
 
   def topicPosts(topic: ForumTopic, page: Int)(using
-      me: Option[Me]
-  )(using
+      me: Option[Me],
       netDomain: NetDomain
   ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(

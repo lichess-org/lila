@@ -321,7 +321,7 @@ object CastleLastMove:
     { case bin: BSONBinary =>
       byteArrayHandler.readTry(bin).map(BinaryFormat.castleLastMove.read)
     },
-    clmt => byteArrayHandler.writeTry { BinaryFormat.castleLastMove.write(clmt) }.get
+    clmt => byteArrayHandler.writeTry(BinaryFormat.castleLastMove.write(clmt)).get
   )
 
 enum DrawReason:
