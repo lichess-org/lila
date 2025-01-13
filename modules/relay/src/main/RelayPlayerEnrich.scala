@@ -157,7 +157,7 @@ private final class RelayPlayerEnrich(
     chapterRepo: ChapterRepo
 )(using Executor, akka.stream.Materializer):
 
-  private val once = scalalib.cache.OnceEvery.hashCode[List[RelayPlayerLine.Ambiguous]](1 hour)
+  private val once = scalalib.cache.OnceEvery.hashCode[List[RelayPlayerLine.Ambiguous]](1.hour)
 
   def enrichAndReportAmbiguous(rt: RelayRound.WithTour)(games: RelayGames): Fu[RelayGames] =
     rt.tour.players.fold(fuccess(games)): txt =>

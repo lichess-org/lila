@@ -44,7 +44,7 @@ final class UblogTopicApi(colls: UblogColls, cacheApi: CacheApi)(using Executor)
 
   private val withPostsCache =
     cacheApi.unit[List[UblogTopic.WithPosts]]:
-      _.refreshAfterWrite(30 seconds).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(30.seconds).buildAsyncFuture: _ =>
         colls.post
           .aggregateList(UblogTopic.all.size, _.sec): framework =>
             import framework.*

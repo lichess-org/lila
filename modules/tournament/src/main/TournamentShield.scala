@@ -44,7 +44,7 @@ final class TournamentShieldApi(
     then clear()
 
   private val cache = cacheApi.unit[History]:
-    _.refreshAfterWrite(1 day).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
       tournamentRepo.coll
         .find:
           $doc(

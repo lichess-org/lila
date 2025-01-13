@@ -7,9 +7,9 @@ import lila.db.dsl.{ *, given }
 final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
   import BsonHandlers.given
 
-  private val doneMemo = scalalib.cache.ExpireSetMemo[SwissId](10 minutes)
+  private val doneMemo = scalalib.cache.ExpireSetMemo[SwissId](10.minutes)
 
-  LilaScheduler("SwissNotify", _.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)):
+  LilaScheduler("SwissNotify", _.Every(20.seconds), _.AtMost(10.seconds), _.Delay(1.minute)):
     mongo.swiss
       .find(
         $doc(

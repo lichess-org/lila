@@ -72,7 +72,7 @@ private object AuthorizationApi:
 
   import lila.db.BSON
   import lila.db.dsl.{ *, given }
-  import AuthorizationApi.{ BSONFields as F }
+  import AuthorizationApi.BSONFields as F
 
   given PendingAuthorizationBSONHandler: BSON[PendingAuthorization] = new:
     def reads(r: BSON.Reader): PendingAuthorization =

@@ -118,7 +118,7 @@ final class ClasProgressApi(
       userIds: List[UserId],
       days: Days
   ): Fu[Map[UserId, PlayStats]] =
-    import lila.core.game.{ BSONFields as F }
+    import lila.core.game.BSONFields as F
     gameRepo.coll
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*

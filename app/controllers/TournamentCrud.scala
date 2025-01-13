@@ -4,8 +4,8 @@ import lila.app.*
 
 final class TournamentCrud(env: Env) extends LilaController(env):
 
-  import env.tournament.{ crudApi as crud }
-  import views.tournament.form.{ crud as crudView }
+  import env.tournament.crudApi as crud
+  import views.tournament.form.crud as crudView
 
   def index(page: Int) = Secure(_.ManageTournament) { _ ?=> _ ?=>
     Ok.async:

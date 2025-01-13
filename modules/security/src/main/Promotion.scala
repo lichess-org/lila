@@ -27,7 +27,7 @@ final class PromotionApi(domain: NetDomain)(using Executor) extends lila.core.se
 
   private val cache: Cache[UserId, Set[Id]] =
     lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(24 hours)
+      .expireAfterAccess(24.hours)
       .build[UserId, Set[Id]]()
 
   private lazy val regexes = List(

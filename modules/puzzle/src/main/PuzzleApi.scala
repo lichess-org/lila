@@ -59,8 +59,8 @@ final class PuzzleApi(
 
     private val sequencer = AsyncActorSequencers[PuzzleId](
       maxSize = Max(32),
-      expiration = 1 minute,
-      timeout = 3 seconds,
+      expiration = 1.minute,
+      timeout = 3.seconds,
       name = "puzzle.vote",
       monitor = lila.log.asyncActorMonitor.highCardinality
     )
@@ -76,14 +76,15 @@ final class PuzzleApi(
               updatePuzzle(id, voteValue, prevRound.vote)
                 .zip(colls.round {
                   _.updateField($id(prevRound.id), PuzzleRound.BSONFields.vote, voteValue)
-                }) void
+                })
+                .void
             }
       .monSuccess(_.puzzle.vote.future)
         .recoverDefault
 
     private def updatePuzzle(puzzleId: PuzzleId, newVote: Int, prevVote: Option[Int]): Funit =
       colls.puzzle: coll =>
-        import Puzzle.{ BSONFields as F }
+        import Puzzle.BSONFields as F
         coll
           .one[Bdoc](
             $id(puzzleId),
@@ -124,7 +125,7 @@ final class PuzzleApi(
     def vote(user: User, id: PuzzleId, theme: PuzzleTheme.Key, vote: Option[Boolean]): Funit =
       round.find(user, id).flatMapz { round =>
         round.themeVote(theme, vote).so { newThemes =>
-          import PuzzleRound.{ BSONFields as F }
+          import PuzzleRound.BSONFields as F
           val update =
             if newThemes.isEmpty || !PuzzleRound.themesLookSane(newThemes) then
               fuccess($unset(F.themes, F.puzzle).some)
@@ -143,13 +144,14 @@ final class PuzzleApi(
             lila.mon.puzzle.vote.theme(theme.value, vote, round.win.yes).increment()
             colls
               .round(_.update.one($id(round.id), up))
-              .zip(colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true))) void
+              .zip(colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)))
+              .void
         }
       }
 
   object casual:
 
-    private val store = scalalib.cache.ExpireSetMemo[String](30 minutes)
+    private val store = scalalib.cache.ExpireSetMemo[String](30.minutes)
 
     private def key(user: User, id: PuzzleId) = s"${user.id}:${id}"
 

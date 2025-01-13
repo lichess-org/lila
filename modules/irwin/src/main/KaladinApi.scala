@@ -31,7 +31,7 @@ final class KaladinApi(
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(512),
-    timeout = 2 minutes,
+    timeout = 2.minutes,
     name = "kaladinApi",
     lila.log.asyncActorMonitor.full
   )
@@ -172,10 +172,10 @@ final class KaladinApi(
         else this
       def isEnough = blitz >= minMoves || rapid >= minMoves
     private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
-      _.expireAfterWrite(1 hour).buildAsyncFuture(userId =>
+      _.expireAfterWrite(1.hour).buildAsyncFuture(userId =>
         {
           import lila.game.Query
-          import lila.game.Game.{ BSONFields as F }
+          import lila.game.Game.BSONFields as F
           import lila.db.ByteArray.given
           gameRepo.coll
             .find(

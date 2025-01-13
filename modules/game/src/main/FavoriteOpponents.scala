@@ -10,7 +10,7 @@ final class FavoriteOpponents(
   val gameLimit     = lila.core.game.favOpponentOverGames
 
   private val userIdsCache = cacheApi[UserId, List[(UserId, Int)]](64, "favoriteOpponents"):
-    _.expireAfterWrite(15 minutes)
+    _.expireAfterWrite(15.minutes)
       .maximumSize(4096)
       .buildAsyncFuture:
         gameRepo.favoriteOpponents(_, opponentLimit, gameLimit)

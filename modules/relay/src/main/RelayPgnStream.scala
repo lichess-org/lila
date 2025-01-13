@@ -36,7 +36,7 @@ final class RelayPgnStream(
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
   def streamRoundGames(rs: RelayRound.WithStudy): Source[PgnStr, ?] = {
-    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(32, 1 second)
+    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(32, 1.second)
     else Source.empty[PgnStr]
   }.concat(
     Source
@@ -51,6 +51,6 @@ final class RelayPgnStream(
           .addEffectAnyway:
             Bus.unsubscribe(sub, chan)
       .flatMapConcat(studyChapterRepo.byIdsSource)
-      .throttle(16, 1 second)
+      .throttle(16, 1.second)
       .mapAsync(1)(studyPgnDump.ofChapter(rs.study, flags))
   )

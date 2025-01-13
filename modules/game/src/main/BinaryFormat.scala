@@ -169,7 +169,7 @@ object BinaryFormat:
       val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { (o, d) =>
         (posInt(o) << 6) + posInt(d)
       }
-      Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
+      Array(((castleInt << 4) + (lastMoveInt >> 8)).toByte, lastMoveInt.toByte)
 
     def read(ba: ByteArray): CastleLastMove =
       val ints = ba.value.map(toInt)

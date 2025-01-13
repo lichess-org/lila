@@ -21,6 +21,5 @@ final class UblogViewCounter(colls: UblogColls)(using Executor):
           bloomFilter.add(key)
           lila.mon.ublog.view(post.created.by.value).increment()
           colls.post.incFieldUnchecked($id(post.id), "views")
-          post.views + 1
-      )
+          post.views + 1)
     else post

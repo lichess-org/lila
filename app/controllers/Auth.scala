@@ -418,8 +418,7 @@ final class Auth(
                         env.security.magicLink
                           .send(user, storedEmail)
                           .inject(Redirect:
-                            routes.Auth.magicLinkSent
-                          )
+                            routes.Auth.magicLinkSent)
                     case _ =>
                       lila.mon.user.auth.magicLinkRequest("no_email").increment()
                       Redirect(routes.Auth.magicLinkSent)

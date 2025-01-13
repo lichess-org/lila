@@ -87,7 +87,7 @@ final class GameStateStream(
       Bus.unsubscribe(self, classifiers)
       // hang around if game is over
       // so the opponent has a chance to rematch
-      context.system.scheduler.scheduleOnce(if gameOver then 10 second else 1 second):
+      context.system.scheduler.scheduleOnce(if gameOver then 10.second else 1.second):
         Bus.publish(Tell(init.game.id.value, BotConnected(as, v = false)), "roundSocket")
       queue.complete()
       lila.mon.bot.gameStream("stop").increment()
@@ -105,14 +105,14 @@ final class GameStateStream(
       case SetOnline =>
         onlineApiUsers.setOnline(user.id)
         context.system.scheduler
-          .scheduleOnce(6 second):
+          .scheduleOnce(6.second):
             // gotta send a message to check if the client has disconnected
             queue.offer(None)
             self ! SetOnline
             Bus.publish(Tell(id.value, QuietFlag), "roundSocket")
 
     def pushState(g: Game): Funit =
-      jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer) void
+      jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer).void
 
     def pushChatLine(username: UserName, text: String, player: Boolean) =
       queue.offer(jsonView.chatLine(username, text, player).some)

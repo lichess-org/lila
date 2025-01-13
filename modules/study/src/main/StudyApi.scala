@@ -168,7 +168,7 @@ final class StudyApi(
         val study = study1.rewindTo(first.id)
         studyRepo.insert(study).inject(study)
 
-  export preview.dataList.{ apply as chapterPreviews }
+  export preview.dataList.apply as chapterPreviews
 
   def maybeResetAndGetChapter(study: Study, chapter: Chapter): Fu[(Study, Chapter)] =
     val defaultResult = (study, chapter)

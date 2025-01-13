@@ -35,7 +35,7 @@ final class ChatApi(
     object cached:
 
       private val cache = cacheApi[ChatId, UserChat](1024, "chat.user"):
-        _.expireAfterWrite(1 minute).buildAsyncFuture(find)
+        _.expireAfterWrite(1.minute).buildAsyncFuture(find)
 
       def invalidate = cache.invalidate
 
@@ -262,7 +262,7 @@ final class ChatApi(
 
   private object Speaker:
     def get(userId: UserId): Fu[Option[Speaker]] = userApi.byIdAs[Speaker](userId.value, Speaker.projection)
-    import lila.core.user.{ BSONFields as F }
+    import lila.core.user.BSONFields as F
     val projection = lila.db.dsl.$doc(
       F.username -> true,
       F.title    -> true,

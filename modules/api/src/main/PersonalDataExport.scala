@@ -51,7 +51,7 @@ final class PersonalDataExport(
 
     val connections =
       Source(List(textTitle("Connections"))).concat(
-        securityEnv.store.allSessions(user.id).documentSource().throttle(lightPerSecond, 1 second).map { s =>
+        securityEnv.store.allSessions(user.id).documentSource().throttle(lightPerSecond, 1.second).map { s =>
           s"${s.date.so(textDate)} ${s.ip} ${s.ua}"
         }
       )
@@ -102,7 +102,7 @@ final class PersonalDataExport(
 
     val forumPosts =
       Source(List(textTitle("Forum posts"))).concat(
-        forumEnv.postRepo.allByUserCursor(user).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
+        forumEnv.postRepo.allByUserCursor(user).documentSource().throttle(heavyPerSecond, 1.second).map { p =>
           s"${textDate(p.createdAt)}\n${p.text}$bigSep"
         }
       )
@@ -111,7 +111,7 @@ final class PersonalDataExport(
       Source(List(textTitle("Direct messages"))).concat(
         msgEnv.api
           .allMessagesOf(user.id)
-          .throttle(heavyPerSecond, 1 second)
+          .throttle(heavyPerSecond, 1.second)
           .map: (text, date) =>
             s"${textDate(date)}\n$text$bigSep"
       )
@@ -132,7 +132,7 @@ final class PersonalDataExport(
           )
         .documentSource()
         .map { _.string("l").so(_.drop(user.id.value.size + 1)) }
-        .throttle(heavyPerSecond, 1 second)
+        .throttle(heavyPerSecond, 1.second)
 
     val spectatorGameChats =
       Source(List(textTitle("Spectator game chat messages"))).concat(gameChatsLookup:
@@ -141,8 +141,7 @@ final class PersonalDataExport(
           as = "chat",
           let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
           pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
-        )
-      )
+        ))
 
     val gameNotes =
       Source(List(textTitle("Game notes"))).concat(
@@ -166,7 +165,7 @@ final class PersonalDataExport(
             )
           .documentSource()
           .map { ~_.string("t") }
-          .throttle(heavyPerSecond, 1 second)
+          .throttle(heavyPerSecond, 1.second)
       )
 
     val ublogPosts =
@@ -185,7 +184,7 @@ final class PersonalDataExport(
             ).map: (k, v) =>
               s"$k: $v"
             .mkString("\n") + bigSep
-          .throttle(heavyPerSecond, 1 second)
+          .throttle(heavyPerSecond, 1.second)
       )
 
     val appeals = Source.futureSource:
@@ -263,7 +262,7 @@ final class PersonalDataExport(
       appeals,
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
-      .keepAlive(15 seconds, () => " ")
+      .keepAlive(15.seconds, () => " ")
 
   private val bigSep = "\n------------------------------------------\n"
 

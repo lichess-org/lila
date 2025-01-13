@@ -40,7 +40,7 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  export cached.{ lightApi as lightTeamApi }
+  export cached.lightApi as lightTeamApi
 
   export cached.{ async as lightTeam, sync as lightTeamSync }
 
