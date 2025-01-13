@@ -35,10 +35,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       showSticky: Boolean = false
   )(using Context) =
     a(
-      cls := List(
-        s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}" -> true,
-        "ublog-post-card--sticky"                                                       -> showSticky
-      ),
+      cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
       href := makeUrl(post)
     )(
       span(cls := "ublog-post-card__top")(
