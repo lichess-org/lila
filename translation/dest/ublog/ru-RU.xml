@@ -9,7 +9,7 @@
   <string name="lichessBlogPostsFromXYear">Записи в блоге Lichess за %s</string>
   <string name="previousBlogPosts">Предыдущие записи блога</string>
   <string name="xBlog">Блог %s</string>
-  <string name="newPost">Новое сообщение в блоге</string>
+  <string name="newPost">Новая запись</string>
   <string name="editYourBlogPost">Редактировать запись в блоге</string>
   <string name="saveDraft">Сохранить черновик</string>
   <string name="postTitle">Название записи</string>
@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Тема форума будет создана с возможностью оставлять комментарии в ней</string>
   <string name="publishOnYourBlog">Опубликовать в вашем блоге</string>
   <string name="publishHelp">Если отмечено, сообщение будет отображаться в вашем блоге. В противном случае оно будет приватным, в ваших черновиках сообщений</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;pin&quot; if it is more natural in your language.">Закреплённая запись</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Если отмечено, то эта запись будет первой в списке последних записей в вашем профиле.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Опубликована запись в блоге</item>
     <item quantity="few">Опубликованы %s записи в блоге</item>
