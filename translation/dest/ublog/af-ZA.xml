@@ -18,6 +18,7 @@
   <string name="createBlogDiscussionHelp">\'n Forumgespreksonderwerp sal geskep word sodat ander kommentaar kan lewer op jou plasing</string>
   <string name="publishOnYourBlog">Publiseer op jou webjoernaal</string>
   <string name="publishHelp">As die gemerk is sal dit op jou webjoernaal verskyn. Indien nie so nie, sal dit privaat wees, in jou konsepte</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Indien gekies, sal hierdie plasing eerste gelys word in die onlangse plasings in jou profiel.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">\'n Joernaal inskrywing was gepubliseerd</item>
     <item quantity="other">%s joernaal inskrywings was gepubliseerd</item>
