@@ -98,7 +98,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         .fold(fuccess(ApiResult.ClientError("incorrect setting key"))): change =>
           bindForm(change.form)(
             form => fuccess(ApiResult.ClientError(form.errors.flatMap(_.messages).mkString("\n"))),
-            v => api.insertUpdate(change.update(v)(team)).inject(ApiResult.Done)
+            v => api.update(change.update(v)(team)).inject(ApiResult.Done)
           )
   }
 

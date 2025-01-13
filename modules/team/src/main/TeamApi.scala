@@ -78,9 +78,9 @@ final class TeamApi(
         hideMembers = Some(edit.hideMembers),
         flair = edit.flair
       )
-    insertUpdate(team)
+    update(team)
 
-  def insertUpdate(team: Team)(using me: Me): Funit =
+  def update(team: Team)(using me: Me): Funit =
     import reactivemongo.api.bson.*
     for
       blocklist <- blocklist.get(team)
