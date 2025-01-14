@@ -105,7 +105,6 @@ final class ChatUi(helpers: Helpers):
             .add("timeout" -> (public && Granter.opt(_.ChatTimeout)))
             .add("shadowban" -> (public && Granter.opt(_.Shadowban)))
         )
-        .add("kidMode" -> ctx.kid.yes)
         .add("kobold" -> ctx.troll)
         .add("blind" -> ctx.blind)
         .add("timeout" -> timeout)
