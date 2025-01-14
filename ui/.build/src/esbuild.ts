@@ -109,7 +109,7 @@ async function jsManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
 
   const newJsManifest: Manifest = {};
   for (const [filename, info] of Object.entries(meta.outputs)) {
-    const out = parsePath(filename);
+    const out = splitPath(filename);
     if (!out) continue;
     if (out.name === 'common') {
       out.name = `common.${out.hash}`;
@@ -118,7 +118,7 @@ async function jsManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
     const imports: string[] = [];
     for (const imp of info.imports) {
       if (imp.kind === 'import-statement') {
-        const path = parsePath(imp.path);
+        const path = splitPath(imp.path);
         if (path) imports.push(`${path.name}.${path.hash}.js`);
       }
     }
@@ -173,7 +173,7 @@ async function inlineManifest(js: Manifest) {
   if (success) updateManifest({ js });
 }
 
-function parsePath(path: string) {
+function splitPath(path: string) {
   const match = path.match(/\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/);
   return match ? { name: match[1], hash: match[2] } : undefined;
 }
