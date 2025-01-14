@@ -10,7 +10,7 @@ on:
       - 'project/**'
       - 'translation/**'
       - 'build.sbt'
-      - 'lila'
+      - 'lila.sh'
       - '.sbtopts.default'
     branches-ignore:
       - 'l10n_master2'
@@ -23,7 +23,7 @@ on:
       - 'project/**'
       - 'translation/source/**'
       - 'build.sbt'
-      - 'lila'
+      - 'lila.sh'
       - '.sbtopts.default'
 
 jobs:
@@ -36,4 +36,5 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: sbt
-      - run: ./lila -Depoll=true "test;stage"
+      - uses: sbt/setup-sbt@v1
+      - run: ./lila.sh -Depoll=true "test;stage"

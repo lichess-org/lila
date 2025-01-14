@@ -3,7 +3,7 @@
 # Starts a dev console to compile and run lichess.
 
 # Usage:
-# ./lila
+# ./lila.sh
 # Then in the sbt console:
 # run
 
