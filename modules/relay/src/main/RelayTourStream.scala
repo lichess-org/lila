@@ -49,6 +49,6 @@ final class RelayTourStream(colls: RelayColls, jsonView: JsonView)(using Executo
           .flatMap: tour =>
             doc.getAsOpt[List[RelayRound]]("rounds").map(tour.withRounds)
           .toList
-      .throttle(perSecond.value, 1 second)
+      .throttle(perSecond.value, 1.second)
       .take(nb.value)
       .map(jsonView.fullTourWithRounds(_, group = none))

@@ -20,7 +20,7 @@ final private class PuzzleCountApi(
     case PuzzleAngle.Opening(either) => openingApi.count(either)
 
   private val byThemeCache = cacheApi.unit[Map[PuzzleTheme.Key, Int]]:
-    _.refreshAfterWrite(1 day).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
       import Puzzle.BSONFields.*
       colls.puzzle:
         _.aggregateList(Int.MaxValue): framework =>

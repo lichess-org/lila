@@ -90,5 +90,5 @@ object CacheApi:
       name: String,
       cache: caffeine.cache.Cache[?, ?]
   )(using ec: Executor, scheduler: Scheduler): Unit =
-    scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
+    scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
       lila.mon.caffeineStats(cache, name)

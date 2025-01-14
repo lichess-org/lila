@@ -48,8 +48,7 @@ final class JsonView(
                 Json.obj("key" -> op.key, "name" -> op.name))
               .add("openingAbstract" -> a.match
                 case op: PuzzleAngle.Opening => op.isAbstract
-                case _                       => false
-              )
+                case _                       => false)
         )
 
   def userJson(using me: Option[Me], perf: Perf) = me.map: me =>
@@ -70,8 +69,7 @@ final class JsonView(
         .add("themes" -> round.nonEmptyThemes.map: rt =>
           JsObject:
             rt.map: t =>
-              t.theme.value -> JsBoolean(t.vote)
-        )
+              t.theme.value -> JsBoolean(t.vote))
 
     def api = base
     private def base(round: PuzzleRound, ratingDiff: IntRatingDiff) = Json.obj(

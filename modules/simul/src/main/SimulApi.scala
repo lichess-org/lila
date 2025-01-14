@@ -35,8 +35,8 @@ final class SimulApi(
 
   private val workQueue = scalalib.actor.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
-    expiration = 10 minutes,
-    timeout = 10 seconds,
+    expiration = 10.minutes,
+    timeout = 10.seconds,
     name = "simulApi",
     lila.log.asyncActorMonitor.full
   )
@@ -48,7 +48,7 @@ final class SimulApi(
   def isSimulHost(userId: UserId): Fu[Boolean] = currentHostIds.map(_ contains userId)
 
   private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
-    _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(5.minutes).buildAsyncFuture: _ =>
       repo.allStarted.dmap(_.view.map(_.hostId).toSet)
 
   def create(setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] = for
@@ -217,8 +217,7 @@ final class SimulApi(
         socket.filterPresent(simul, applicantIds).flatMap { online =>
           val leaving = applicantIds.diff(online.toSet)
           leaving.nonEmpty.so(WithSimul(repo.findCreated, simul.id):
-            _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
-          )
+            _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user))))
         }
       }
 

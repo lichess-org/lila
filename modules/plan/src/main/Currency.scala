@@ -28,10 +28,10 @@ final class CurrencyApi(
 
   private val ratesCache = mongoCache.unit[Map[String, Double]](
     "currency:rates",
-    if mode.isProd then 120 minutes // i.e. 377/month, under the 1000/month limit of free OER plan
-    else 1 day
+    if mode.isProd then 120.minutes // i.e. 377/month, under the 1000/month limit of free OER plan
+    else 1.day
   ) { loader =>
-    _.refreshAfterWrite(121 minutes)
+    _.refreshAfterWrite(121.minutes)
       .buildAsyncFuture {
         loader { _ =>
           ws.url(s"$baseUrl/latest.json")

@@ -17,7 +17,7 @@ final private[puzzle] class DailyPuzzle(
 
   private val cache =
     cacheApi.unit[Option[DailyPuzzle.WithHtml]]:
-      _.refreshAfterWrite(1 minutes).buildAsyncFuture(_ => find)
+      _.refreshAfterWrite(1.minutes).buildAsyncFuture(_ => find)
 
   def get: Fu[Option[DailyPuzzle.WithHtml]] = cache.getUnit
 

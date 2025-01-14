@@ -17,7 +17,7 @@ import lila.db.dsl.{ *, given }
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
-  import lila.user.{ BSONFields as F }
+  import lila.user.BSONFields as F
   export lila.user.BSONHandlers.given
 
   private def recoverErased(user: Fu[Option[User]]): Fu[Option[User]] =

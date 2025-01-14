@@ -18,7 +18,7 @@ final private class InsightIndexer(
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(256),
-    timeout = 1 minute,
+    timeout = 1.minute,
     name = "insightIndexer",
     lila.log.asyncActorMonitor.full
   )

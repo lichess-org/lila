@@ -33,7 +33,7 @@ final class LobbySocket(
   private val actor: SyncActor = new SyncActor:
 
     private val members = lila.memo.CacheApi.scaffeine
-      .expireAfterWrite(1 hour)
+      .expireAfterWrite(1.hour)
       .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
@@ -82,7 +82,7 @@ final class LobbySocket(
         if removedHookIds.nonEmpty then
           tellActiveHookSubscribers(makeMessage("hrm", removedHookIds.toString))
           removedHookIds.clear()
-        scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
+        scheduler.scheduleOnce(1249.millis)(this ! SendHookRemovals)
 
       case JoinHook(sri, hook, game, creatorColor) =>
         lila.mon.lobby.hook.join.increment()
@@ -113,8 +113,8 @@ final class LobbySocket(
         hookSubscriberSris += member.sri.value
 
     lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
-    scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
-    scheduler.scheduleWithFixedDelay(31 seconds, 31 seconds)(() => this ! Cleanup)
+    scheduler.scheduleOnce(7.seconds)(this ! SendHookRemovals)
+    scheduler.scheduleWithFixedDelay(31.seconds, 31.seconds)(() => this ! Cleanup)
 
     private def tellActive(msg: JsObject): Unit = send.exec(Out.tellLobbyActive(msg))
 
@@ -144,7 +144,7 @@ final class LobbySocket(
 
   private val poolLimitPerSri = lila.memo.RateLimit[SriStr](
     credits = 14,
-    duration = 30 seconds,
+    duration = 30.seconds,
     key = "lobby.hook_pool.member"
   )
 

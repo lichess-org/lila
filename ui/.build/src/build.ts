@@ -38,8 +38,7 @@ export async function build(pkgs: string[]): Promise<void> {
   ]);
 
   await Promise.all([sass(), sync(), i18n()]);
-  await Promise.all([tsc(), esbuild()]);
-  if (env.watch) monitor(pkgs);
+  await Promise.all([tsc(), esbuild(), monitor(pkgs)]);
 }
 
 export async function stopBuildWatch(): Promise<void> {
@@ -61,6 +60,7 @@ let packageTimeout: NodeJS.Timeout | undefined;
 let tscTimeout: NodeJS.Timeout | undefined;
 
 async function monitor(pkgs: string[]): Promise<void> {
+  if (!env.watch) return;
   const [typePkgs, typings] = await Promise.all([
     globArray('*/package.json', { cwd: env.typesDir }),
     globArray('*/*.d.ts', { cwd: env.typesDir }),

@@ -89,7 +89,7 @@ final class ClasForm(
       )
 
   private def blockingFetchUser(username: UserStr) =
-    lightUserAsync(username.id).await(1 second, "clasInviteUser")
+    lightUserAsync(username.id).await(1.second, "clasInviteUser")
 
 object ClasForm:
 

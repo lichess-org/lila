@@ -104,7 +104,7 @@ final class Env(
 
   // eager init to start the scheduler
   private val stats = wire[RelayStatsApi]
-  export stats.{ getJson as statsJson }
+  export stats.getJson as statsJson
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](
@@ -137,7 +137,7 @@ final class Env(
   // start the sync scheduler
   wire[RelayFetch]
 
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
+  scheduler.scheduleWithFixedDelay(1.minute, 1.minute): () =>
     api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
 
   lila.common.Bus.subscribeFuns(

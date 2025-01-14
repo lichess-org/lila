@@ -117,7 +117,9 @@ final class AuthUi(helpers: Helpers):
       .css("bits.email-confirm")
       .js(esmInitBit("validateEmail")):
         main(
-          cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
+          cls := s"page-small box box-pad email-confirm ${
+              if form.exists(_.hasErrors) then "error" else "anim"
+            }"
         )(
           boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
           p(trans.site.weHaveSentYouAnEmailClickTheLink()),
@@ -321,8 +323,7 @@ body { margin-top: 45px; }
     div(cls := "agreement")(
       error.option(p:
         strong(cls := "error"):
-          "You must agree to the Lichess policies listed below:"
-      ),
+          "You must agree to the Lichess policies listed below:"),
       agreements.map: (field, text) =>
         form3.checkbox(form(field), text)
     )

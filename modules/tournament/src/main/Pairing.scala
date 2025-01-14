@@ -37,8 +37,7 @@ case class Pairing(
   def longGame(variant: Variant) = turns.exists(_ >= (variant match
     case Standard | Chess960 | Horde            => 60
     case Antichess | Crazyhouse | KingOfTheHill => 40
-    case ThreeCheck | Atomic | RacingKings      => 20
-  ))
+    case ThreeCheck | Atomic | RacingKings      => 20))
 
   def wonBy(user: UserId): Boolean     = winner.exists(user.is(_))
   def lostBy(user: UserId): Boolean    = winner.exists(user.isnt(_))

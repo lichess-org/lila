@@ -8,7 +8,7 @@ import lila.core.socket.userLag.*
 final class UserLagCache(using Executor):
 
   private val cache: Cache[UserId, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterWrite(15 minutes)
+    .expireAfterWrite(15.minutes)
     .build[UserId, Centis]()
 
   val put: Put = (userId, lag) =>
@@ -22,7 +22,7 @@ final class UserLagCache(using Executor):
             _.avg(lag)
       )
 
-  export cache.{ getIfPresent as get }
+  export cache.getIfPresent as get
 
   val getLagRating: GetLagRating = userId =>
     Centis

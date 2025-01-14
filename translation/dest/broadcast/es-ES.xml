@@ -46,7 +46,7 @@
   <string name="fidePlayerNotFound">Jugador FIDE no encontrado</string>
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federación</string>
-  <string name="ageThisYear">Edad actual</string>
+  <string name="ageThisYear">Edad</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Sin puntuación</string>
   <string name="recentTournaments">Torneos recientes</string>
   <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Abrir en Lichess</string>

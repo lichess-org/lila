@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC leden blijven op dezelfde positie</string>
   <string name="shareChanges">Deel veranderingen met toeschouwers en sla deze op op de server</string>
   <string name="playing">Spelend</string>
+  <string name="showResults">Resultaten</string>
   <string name="showEvalBar">Evaluatiebalk</string>
   <string name="first">Eerste</string>
   <string name="previous">Vorige</string>

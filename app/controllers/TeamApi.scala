@@ -5,7 +5,7 @@ import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
-import lila.team.{ Team as TeamModel, TeamSecurity }
+import lila.team.{ Team as TeamModel, TeamSecurity, TeamSingleChange }
 
 import Api.ApiResult
 
@@ -89,6 +89,17 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         if getBool("declined") then api.declinedRequestsWithUsers(team)
         else api.requestsWithUsers(team)
       reqs.map(Json.toJson).map(ApiResult.Data.apply)
+  }
+
+  def update(id: TeamId, name: String) = ScopedBody(_.Team.Lead) { _ ?=> me ?=>
+    WithOwnedTeamEnabled(id, _.Settings): team =>
+      TeamSingleChange.changes
+        .get(name)
+        .fold(fuccess(ApiResult.ClientError("incorrect setting key"))): change =>
+          bindForm(change.form)(
+            form => fuccess(ApiResult.ClientError(form.errors.flatMap(_.messages).mkString("\n"))),
+            v => api.update(change.update(v)(team)).inject(ApiResult.Done)
+          )
   }
 
   def requestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me ?=>

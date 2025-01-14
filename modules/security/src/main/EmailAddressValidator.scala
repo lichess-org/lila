@@ -27,7 +27,7 @@ final class EmailAddressValidator(
       val (taken, reused) =
         (isTakenBySomeoneElse(email, forUser)
           .zip(wasUsedTwiceRecently(email)))
-          .await(2 seconds, "emailUnique")
+          .await(2.seconds, "emailUnique")
       if taken || reused then Invalid(ValidationError("error.email_unique"))
       else Valid
     }

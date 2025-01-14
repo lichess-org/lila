@@ -64,7 +64,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
             ),
             lila.fishnet.Work.Origin.autoHunter.some
           )
-      _ <- env.fishnet.awaiter(games.map(_.id), 2 minutes)
+      _ <- env.fishnet.awaiter(games.map(_.id), 2.minutes)
     yield NoContent
 
   private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Context) =

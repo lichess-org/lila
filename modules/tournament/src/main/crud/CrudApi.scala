@@ -12,7 +12,7 @@ final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crud
 
   def list = tournamentRepo.uniques(50)
 
-  export tournamentRepo.{ uniqueById as one }
+  export tournamentRepo.uniqueById as one
 
   def editForm(tour: Tournament)(using Me) =
     crudForm.edit(tour)

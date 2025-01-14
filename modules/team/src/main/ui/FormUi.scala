@@ -13,7 +13,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag
 ):
   import helpers.{ *, given }
-  import trans.{ team as trt }
+  import trans.team as trt
   import bits.{ TeamPage, menu }
 
   def create(form: Form[?], captcha: Captcha)(using Context) =

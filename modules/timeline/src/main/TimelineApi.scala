@@ -11,7 +11,7 @@ private final class TimelineApi(
     teamApi: lila.core.team.TeamApi
 )(using Executor):
 
-  private val dedup = scalalib.cache.OnceEvery.hashCode[Atom](10 minutes)
+  private val dedup = scalalib.cache.OnceEvery.hashCode[Atom](10.minutes)
 
   def apply(propagate: Propagate): Unit =
     import propagate.*

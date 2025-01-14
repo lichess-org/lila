@@ -23,7 +23,8 @@ object MatchMaking:
       .grouped(2)
       .collect { case Vector(p1, p2) =>
         Couple(p1, p2)
-      } toVector
+      }
+      .toVector
 
   private object wmMatching:
 

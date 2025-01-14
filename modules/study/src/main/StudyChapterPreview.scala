@@ -43,7 +43,7 @@ final class ChapterPreviewApi(
   object jsonList:
     // Can't be higher without skewing the clocks
     // because of Preview.secondsSinceLastMove
-    private val cacheDuration = 1 second
+    private val cacheDuration = 1.second
     private[ChapterPreviewApi] val cache =
       cacheApi[StudyId, AsJsons](32, "study.chapterPreview.json"):
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
@@ -66,7 +66,7 @@ final class ChapterPreviewApi(
   object dataList:
     private[ChapterPreviewApi] val cache =
       cacheApi[StudyId, List[ChapterPreview]](1024, "study.chapterPreview.data"):
-        _.expireAfterWrite(1 minute).buildAsyncFuture(listAll)
+        _.expireAfterWrite(1.minute).buildAsyncFuture(listAll)
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)
 
@@ -112,7 +112,7 @@ final class ChapterPreviewApi(
 
   object federations:
     private val cache = cacheApi[StudyId, JsObject](256, "study.chapterPreview.federations"):
-      _.expireAfterWrite(1 minute).buildAsyncFuture: studyId =>
+      _.expireAfterWrite(1.minute).buildAsyncFuture: studyId =>
         for
           chapters <- dataList(studyId)
           fedNames <- federationNamesOf(chapters.flatMap(_.fideIds))
@@ -128,7 +128,7 @@ object ChapterPreview:
   type AsJsons = JsValue
 
   object json:
-    import lila.common.Json.{ given }
+    import lila.common.Json.given
     import StudyPlayer.json.given
 
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for

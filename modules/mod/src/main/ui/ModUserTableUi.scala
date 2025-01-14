@@ -31,8 +31,7 @@ object ModUserTableUi:
       name     := "user[]",
       st.value := "all",
       disabled := isAlt.option(true)
-    )
-  )
+    ))
 
 final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }

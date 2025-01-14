@@ -24,11 +24,11 @@ final private class SwissRankingApi(
     )
 
   private val scoreCache = CacheApi.scaffeine
-    .expireAfterWrite(60 minutes)
+    .expireAfterWrite(60.minutes)
     .build[SwissId, Ranking]()
 
   private val dbCache = cacheApi[SwissId, Ranking](512, "swiss.ranking"):
-    _.expireAfterAccess(1 hour)
+    _.expireAfterAccess(1.hour)
       .maximumSize(1024)
       .buildAsyncFuture(computeRanking)
 

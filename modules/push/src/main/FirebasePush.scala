@@ -24,7 +24,7 @@ final private class FirebasePush(
   private val workQueue =
     scalalib.actor.AsyncActorSequencer(
       maxSize = Max(512),
-      timeout = 10 seconds,
+      timeout = 10.seconds,
       name = "firebasePush",
       lila.log.asyncActorMonitor.full
     )
@@ -59,7 +59,7 @@ final private class FirebasePush(
 
   opaque type StatusCode = Int
   object StatusCode extends OpaqueInt[StatusCode]
-  private val errorCounter = FrequencyThreshold[StatusCode](50, 10 minutes)
+  private val errorCounter = FrequencyThreshold[StatusCode](50, 10.minutes)
 
   private def send(
       token: AccessToken,
@@ -100,8 +100,7 @@ final private class FirebasePush(
         lila.mon.push
           .firebaseType(data.firebaseMod.fold("both"):
             case PushApi.Data.FirebaseMod.DataOnly     => "data"
-            case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif"
-          )
+            case PushApi.Data.FirebaseMod.NotifOnly(_) => "notif")
           .increment()
         if res.status == 200 then funit
         else if res.status == 404 then

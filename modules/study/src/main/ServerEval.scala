@@ -17,7 +17,7 @@ object ServerEval:
       userApi: lila.core.user.UserApi
   )(using Executor):
 
-    private val onceEvery = scalalib.cache.OnceEvery[StudyChapterId](5 minutes)
+    private val onceEvery = scalalib.cache.OnceEvery[StudyChapterId](5.minutes)
 
     def apply(study: Study, chapter: Chapter, userId: UserId, official: Boolean = false): Funit =
       chapter.serverEval
@@ -95,7 +95,7 @@ object ServerEval:
       def saveInfoAdvice() =
         import BSONHandlers.given
         import lila.db.dsl.given
-        import lila.study.Node.{ BsonFields as F }
+        import lila.study.Node.BsonFields as F
         ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment))
           .so(
             chapterRepo

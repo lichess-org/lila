@@ -125,8 +125,7 @@ object JsonView:
               "date" -> note.date
             )
             .add("mod", note.mod)
-            .add("dox", note.dox)
-      )
+            .add("dox", note.dox))
 
   given leaderboardsWrites(using OWrites[LightPerf]): OWrites[lila.rating.UserPerfs.Leaderboards] =
     OWrites: leaderboards =>

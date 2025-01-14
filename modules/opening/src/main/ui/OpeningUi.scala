@@ -203,8 +203,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
       val content = frag(
         (if fold then summary else div) (op match
           case (name, None)     => name
-          case (name, Some(op)) => a(href := openingUrl(op))(name)
-        ),
+          case (name, Some(op)) => a(href := openingUrl(op))(name)),
         renderChildren(node, level + 1)
       )
       if fold then details(content) else content
