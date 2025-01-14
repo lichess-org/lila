@@ -9,7 +9,7 @@
   <string name="lichessBlogPostsFromXYear">Записи в блоге Lichess за %s</string>
   <string name="previousBlogPosts">Предыдущие записи блога</string>
   <string name="xBlog">Блог %s</string>
-  <string name="newPost">Новое сообщение в блоге</string>
+  <string name="newPost">Новая запись</string>
   <string name="editYourBlogPost">Редактировать запись в блоге</string>
   <string name="saveDraft">Сохранить черновик</string>
   <string name="postTitle">Название записи</string>
@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Тема форума будет создана с возможностью оставлять комментарии в ней</string>
   <string name="publishOnYourBlog">Опубликовать в вашем блоге</string>
   <string name="publishHelp">Если отмечено, сообщение будет отображаться в вашем блоге. В противном случае оно будет приватным, в ваших черновиках сообщений</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;pin&quot; if it is more natural in your language.">Закреплённая запись</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Если отмечено, то эта запись будет первой в списке последних записей в вашем профиле.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Опубликована запись в блоге</item>
     <item quantity="few">Опубликованы %s записи в блоге</item>
@@ -36,7 +38,7 @@
   <string name="xPublishedY">%1$s опубликовал %2$s</string>
   <string name="thisPostIsPublished">Эта запись опубликована</string>
   <string name="thisIsADraft">Это черновик</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Больше записей в блоге от %s</string>
+  <string name="moreBlogPostsBy">Больше записей в блоге от %s</string>
   <string name="noPostsInThisBlogYet">В этом блоге пока нет записей.</string>
   <string name="noDrafts">Нет черновиков для просмотра.</string>
   <string name="latestBlogPosts">Свежие записи в блоге</string>

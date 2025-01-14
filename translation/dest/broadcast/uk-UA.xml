@@ -29,6 +29,7 @@
   <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Адреса джерела PGN</string>
   <string name="sourceUrlHelp">Посилання, яке Lichess перевірятиме, щоб отримати оновлення PGN. Воно має бути загальнодоступним в Інтернеті.</string>
   <string name="sourceGameIds">До 64 ігрових ID Lichess, відокремлені пробілами.</string>
+  <string name="startDateTimeZone">Дата початку в місцевому часовому поясі турніру: %s</string>
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
   <string name="downloadAllRounds">Завантажити всі тури</string>
@@ -56,12 +57,15 @@
   <string name="overview">Огляд</string>
   <string name="uploadImage">Завантажити зображення турніру</string>
   <string name="noBoardsYet">Ще немає дощок. Вони з\'являться, коли ігри будуть завантажені.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Дошки можна завантажити із джерела або через %s</string>
+  <string name="startsAfter">Почнеться після %s</string>
   <string name="startVerySoon">Трансляція розпочнеться дуже скоро.</string>
   <string name="notYetStarted">Трансляція ще не розпочалася.</string>
   <string name="officialWebsite">Офіційний вебсайт</string>
   <string name="standings">Турнірна таблиця</string>
   <string name="officialStandings">Офіційна турнірна таблиця</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Більше опцій на %s</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публічне джерело PGN у реальному часі для цього раунду. Ми також пропонуємо %s для швидшої й ефективнішої синхронізації.</string>
   <string name="embedThisBroadcast">Вбудувати цю трансляцію на своєму сайті</string>
   <string name="embedThisRound">Вбудувати %s на своєму сайті</string>
   <string name="ratingDiff">Різниця у рейтингу</string>
