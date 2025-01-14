@@ -132,7 +132,7 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
         .readFile(path.join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
         .catch(() => '')
         .then(parseXml)
-    : [];
+    : new Map<String, String | Plural>();
 
   const translations = new Map([...dicts.get(cat)!, ...localeSpecific]);
   const lang = locale?.split('-')[0];
@@ -143,6 +143,7 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
         'window.i18n.quantity=' +
         (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
         ';';
+  if (!jsInit && locale && !localeSpecific.size) return;
   const code =
     jsPrelude +
     jsInit +
@@ -215,6 +216,12 @@ export async function i18nManifest(): Promise<void> {
       i18nManifest[name] = { hash };
 
       if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
+    }),
+  );
+  await Promise.all(
+    cats.map(cat => {
+      const path = `i18n/${cat}.en-GB.${i18nManifest[`i18n/${cat}.en-GB`].hash}.js`;
+      return Promise.all(locales.map(locale => (i18nManifest[`i18n/${cat}.${locale}`] ??= { path })));
     }),
   );
   updateManifest({ i18n: i18nManifest });
