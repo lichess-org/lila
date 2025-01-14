@@ -10,7 +10,8 @@
     },
     "./*": {
       "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
+      "import": "./dist/*.js",
+      "sass": "./css/_*.scss"
     }
   },
   "dependencies": {

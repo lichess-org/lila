@@ -17,6 +17,8 @@ const sassOptions: sass.Options<'async'> = {
   verbose: true,
 };
 
+const loadPaths = ['ui/@build/css/node_modules', ''];
+
 export function sassContext(): Context {
   let outdir: string;
 
@@ -76,7 +78,10 @@ export function sassContext(): Context {
           ];
       processor = postcss(postCssPlugins);
 
-      sassOptions.loadPaths = [`${rootPath}/ui/@build/css/node_modules`];
+      sassOptions.loadPaths = loadPaths.map(p => path.join(rootPath, p));
+      sassOptions.importers = [new sass.NodePackageImporter()];
+      console.log('loadPaths:', sassOptions.loadPaths);
+
       if (!isProd) sassOptions.sourceMap = true;
     },
 
@@ -88,7 +93,6 @@ export function sassContext(): Context {
         console.log('Reinitiating build files and graph dependency');
         await innerInit();
       } else updateGraph(filepath);
-
       const newExtracted = await extractVariables([filepath]);
       const allAffected = recImports(filepath);
       const rebuildFiles = filterBuildFiles(allAffected);
@@ -223,7 +227,9 @@ export function sassContext(): Context {
   }
 
   function filterBuildFiles(files: string[]): string[] {
-    return files.filter(file => !file.includes('/_') && !path.basename(file).startsWith('_'));
+    return files.filter(
+      file => path.basename(path.dirname(file)) === 'build' && !path.basename(file).startsWith('_'),
+    );
   }
 
   function packageNameOfFile(file: string): string {

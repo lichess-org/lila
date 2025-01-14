@@ -4,7 +4,6 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
-    "balloon-css": "^1.2.0",
     "breakpoint-sass": "^2.7.1"
   },
   "devDependencies": {

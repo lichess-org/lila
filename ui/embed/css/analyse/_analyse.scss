@@ -1,8 +1,8 @@
 $mq-col1: 9999px;
 
-@import '../../../analyse/css/tools';
-@import '../../../analyse/css/action-menu';
-@import '../../../analyse/css/controls';
+@import 'ui/analyse/css/tools';
+@import 'ui/analyse/css/action-menu';
+@import 'ui/analyse/css/controls';
 @import './layout';
 @import './footer';
 @import './not-found';

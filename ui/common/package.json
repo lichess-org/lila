@@ -4,9 +4,37 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "exports": {
+    "./abstract/*": {
+      "sass": "./css/abstract/_*.scss"
+    },
+    "./base/*": {
+      "sass": "./css/base/_*.scss"
+    },
+    "./component/*": {
+      "sass": "./css/component/_*.scss"
+    },
+    "./form/*": {
+      "sass": "./css/form/_*.scss"
+    },
+    "./header/*": {
+      "sass": "./css/header/_*.scss"
+    },
+    "./layout/*": {
+      "sass": "./css/layout/_*.scss"
+    },
+    "./shogiground/*": {
+      "sass": "./css/shogiground/_*.scss"
+    },
+    "./theme": {
+      "sass": "./css/theme/gen/_theme.scss"
+    },
+    "./vendor/*": {
+      "sass": "./css/vendor/_*.scss"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
+      "import": "./dist/*.js",
+      "sass": "./css/_*.scss"
     }
   },
   "dependencies": {

@@ -6,6 +6,7 @@
   "dependencies": {
     "@textcomplete/core": "catalog:",
     "@textcomplete/textarea": "catalog:",
+    "balloon-css": "^1.2.0",
     "canvas-confetti": "^1.9.3",
     "common": "workspace:*",
     "flatpickr": "^4.6.13",

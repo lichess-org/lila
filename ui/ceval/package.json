@@ -7,6 +7,9 @@
     ".": {
       "types": "./dist/main.d.ts",
       "import": "./dist/main.js"
+    },
+    "./*": {
+      "sass": "./css/_*.scss"
     }
   },
   "dependencies": {
