@@ -59,7 +59,7 @@ export function sassContext(): Context {
 
       compiler = await sass.initAsyncCompiler();
 
-      const postCssPlugins = flags.includes('--no-plugins')
+      const postCssPlugins: postcss.AcceptedPlugin[] = flags.includes('--no-plugins')
         ? []
         : [
             autoprefixer({ remove: false }),
