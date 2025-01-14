@@ -6,10 +6,10 @@
   "dependencies": {
     "@liskadan/sliding-puzzles": "^0.1.0",
     "@yaireo/tagify": "catalog:",
-    "fairy-stockfish-nnue.wasm": "^1.1.8",
+    "fairy-stockfish-nnue.wasm": "1.1.8",
     "howler": "^2.2.4",
     "infinite-scroll": "^4.0.1",
-    "jquery": "3.7.1",
+    "jquery": "^3.7.1",
     "jquery-powertip": "^1.3.2",
     "shogiground": "catalog:",
     "sortablejs": "^1.15.6",

@@ -13,8 +13,8 @@
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
     "fast-glob": "^3.3.3",
-    "postcss": "^8.4.49",
-    "sass-embedded": "^1.83.1",
+    "postcss": "^8.5.1",
+    "sass-embedded": "^1.83.4",
     "sass-graph-ts": "^5.0.0",
     "tsx": "catalog:"
   },
