@@ -66,7 +66,18 @@ final class ChatUi(helpers: Helpers):
   )(using ctx: Context): JsObject =
     if ctx.kid.yes then
       Json
-        .obj("data" -> false)
+        .obj(
+          "data" -> Json
+            .obj(
+              "id"         -> "",
+              "name"       -> "",
+              "lines"      -> JsonChatLines.empty,
+              "resourceId" -> ""
+            )
+            .add("loginRequired" -> true)
+            .add("restricted" -> true)
+            .add("palantir" -> false)
+        )
         .add("kidMode" -> true)
         .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8)))
         .add("noteAge" -> withNoteAge)
