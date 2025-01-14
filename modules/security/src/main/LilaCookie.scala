@@ -47,6 +47,7 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
       maxAge = if maxAge.has(0) then none else maxAge.orElse(baker.maxAge).orElse(86400.some),
       path = "/",
       domain = cookieDomain.some,
+      secure = config.baseUrl.value.startsWith("https:"),
       httpOnly = httpOnly | baker.httpOnly,
       sameSite = Cookie.SameSite.Lax.some
     )
