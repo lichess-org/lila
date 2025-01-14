@@ -64,6 +64,7 @@ final class ChatUi(helpers: Helpers):
       palantir: Boolean = false,
       hostIds: List[UserId] = Nil
   )(using ctx: Context): JsObject =
+    val noteId = (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8))
     if ctx.kid.yes then
       Json
         .obj(
@@ -79,7 +80,7 @@ final class ChatUi(helpers: Helpers):
             .add("palantir" -> false)
         )
         .add("kidMode" -> true)
-        .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8)))
+        .add("noteId" -> noteId)
         .add("noteAge" -> withNoteAge)
     else
       Json
@@ -108,7 +109,7 @@ final class ChatUi(helpers: Helpers):
         .add("kobold" -> ctx.troll)
         .add("blind" -> ctx.blind)
         .add("timeout" -> timeout)
-        .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8)))
+        .add("noteId" -> noteId)
         .add("noteAge" -> withNoteAge)
         .add(
           "timeoutReasons" -> (!localMod && (Granter.opt(_.ChatTimeout) || Granter.opt(_.BroadcastTimeout)))
