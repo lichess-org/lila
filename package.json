@@ -19,18 +19,18 @@
   "packageManager": "pnpm@9.12.2",
   "dependencies": {
     "@build/tsconfig": "workspace:*",
-    "@types/jquery": "^3",
+    "@types/jquery": "^3.5.32",
     "@types/lishogi": "workspace:*",
-    "del-cli": "^6",
-    "typescript": "^5"
+    "del-cli": "^6.0.0",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
-    "prettier": "^3",
-    "stylelint": "^16",
-    "stylelint-config-standard-scss": "^14",
-    "@biomejs/biome": "^1",
+    "@biomejs/biome": "^1.9.4",
     "@types/node": "catalog:",
-    "knip": "^5"
+    "knip": "^5.42.0",
+    "prettier": "^3.4.2",
+    "stylelint": "^16.13.0",
+    "stylelint-config-standard-scss": "^14.0.0"
   },
   "scripts": {
     "preinstall": "npx --yes only-allow pnpm",
@@ -51,6 +51,6 @@
     "lint:fix": "pnpm lint:ts:fix && pnpm lint:scss:fix",
     "format": "biome format && prettier --cache --check .",
     "format:fix": "biome format --write && prettier --cache --write .",
-    "server": "./lila"
+    "server": "./lila.sh"
   }
 }
