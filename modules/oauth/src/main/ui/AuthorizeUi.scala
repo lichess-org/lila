@@ -25,7 +25,8 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     Page("Authorization")
       .css("bits.oauth")
-      .js(Esm("bits.oauth")):
+      .js(Esm("bits.oauth"))
+      .csp(_.withUnsafeInlineScripts):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(
             ringsImage,
