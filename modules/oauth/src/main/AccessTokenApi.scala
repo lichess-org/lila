@@ -2,6 +2,8 @@ package lila.oauth
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+import reactivemongo.akkastream.cursorProducer
+import akka.stream.scaladsl.*
 
 import lila.common.Json.given
 import lila.core.misc.oauth.TokenRevoke
@@ -12,7 +14,7 @@ final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi
-)(using Executor):
+)(using Executor, akka.stream.Materializer):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }
@@ -169,8 +171,13 @@ final class AccessTokenApi(
     yield onRevoke(id)
 
   def revokeAllByUser(using me: MyId): Funit =
-    for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
-    yield onRevoke(id)
+    coll
+      .find($doc(F.userId -> me))
+      .cursor[AccessToken]()
+      .documentSource()
+      .mapAsyncUnordered(4)(token => revokeById(token.id))
+      .runWith(Sink.ignore)
+      .void
 
   def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
     coll

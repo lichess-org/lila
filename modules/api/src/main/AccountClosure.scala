@@ -58,6 +58,7 @@ final class AccountClosure(
     _       <- planApi.cancelIfAny(u).recoverDefault
     _       <- seekApi.removeByUser(u)
     _       <- securityStore.closeAllSessionsOf(u.id)
+    _       <- tokenApi.revokeAllByUser
     _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
     _       <- pushEnv.unregisterDevices(u)
     _       <- streamerApi.demote(u.id)
