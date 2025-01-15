@@ -108,7 +108,7 @@
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
   <string name="winOr50MovesByPriorMistake">Victoria o 50 movimientos por error anterior</string>
   <string name="lossOr50MovesByPriorMistake">Derrota o 50 movimientos por error anterior</string>
-  <string name="unknownDueToRounding">Victoria o derrota segura solo si se siguió la línea de movimientos recomendados desde la última captura o movimiento de peón, a causa del posible redondeo de valores DTZ de las Tablas de Finales Syzygy.</string>
+  <string name="unknownDueToRounding">Victoria o derrota segura solo si se siguió la línea de movimientos recomendados desde la última captura o movimiento de peón, a causa del posible redondeo de valores DTZ de las tablas de finales Syzygy.</string>
   <string name="allSet">¡Listo!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Borrar</string>
@@ -132,7 +132,7 @@
     <item quantity="one">%s error grave</item>
     <item quantity="other">%s errores graves</item>
   </plurals>
-  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Error grave</item>
     <item quantity="other">%s Errores graves</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s error</item>
     <item quantity="other">%s errores</item>
   </plurals>
-  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Error</item>
     <item quantity="other">%s Errores</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s imprecisión</item>
     <item quantity="other">%s imprecisiones</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisión</item>
     <item quantity="other">%s Imprecisiones</item>
   </plurals>
@@ -230,31 +230,31 @@
   <string name="email">Correo</string>
   <string name="passwordReset">Cambiar contraseña</string>
   <string name="forgotPassword">¿Olvidaste tu contraseña?</string>
-  <string name="error.weakPassword">Esta contraseña es extremadamente común y fácil de adivinar.</string>
+  <string name="error.weakPassword">Esta contraseña es extremadamente común y muy fácil de adivinar.</string>
   <string name="error.namePassword">Por favor, no uses tu nombre de usuario como contraseña.</string>
   <string name="blankedPassword">Has utilizado la misma contraseña en otro sitio y ese sitio se ha visto comprometido. Para garantizar la seguridad de tu cuenta en Lichess, necesitamos que establezcas una nueva contraseña. Gracias por tu comprensión.</string>
   <string name="youAreLeavingLichess">Estás saliendo de Lichess</string>
-  <string name="neverTypeYourPassword">¡Nunca expongas tu contraseña de Lichess en otro sitio!</string>
+  <string name="neverTypeYourPassword">¡Nunca escribas tu contraseña de Lichess en otro sitio!</string>
   <string name="proceedToX">Ir a %s</string>
   <string name="passwordSuggestion">No establezcas una contraseña sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailSuggestion">No establezcas una dirección de correo electrónico sugerida por otra persona. La usarán para robar tu cuenta.</string>
   <string name="emailConfirmHelp">Ayuda con la confirmación del correo</string>
-  <string name="emailConfirmNotReceived">¿No recibiste un correo de confirmación tras registrarte?</string>
+  <string name="emailConfirmNotReceived">¿No recibiste un correo de confirmación después de registrarte?</string>
   <string name="whatSignupUsername">¿Qué nombre de usuario utilizaste para registrarte?</string>
   <string name="usernameNotFound">No pudimos encontrar ningún usuario con este nombre: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Puedes usar este nombre de usuario para crear una nueva cuenta</string>
   <string name="emailSent">Hemos enviado un correo a %s.</string>
   <string name="emailCanTakeSomeTime">Puede tardar un poco en llegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minutos y actualiza tu bandeja de entrada.</string>
-  <string name="checkSpamFolder">Comprueba tu carpeta de spam, puede que haya terminado ahí. Si es así, por favor, márcalo como no spam.</string>
+  <string name="checkSpamFolder">Comprueba tu carpeta de spam, puede que haya terminado ahí. Si es así, márcalo como no spam.</string>
   <string name="emailForSignupHelp">Si todo lo demás falla, envíanos este correo:</string>
-  <string name="copyTextToEmail">Copiar y pegar el texto anterior y enviarlo a %s</string>
+  <string name="copyTextToEmail">Copia y pega el texto anterior y envíalo a %s</string>
   <string name="waitForSignupHelp">Nos pondremos en contacto contigo dentro de poco para ayudarte a completar el registro.</string>
-  <string name="accountConfirmed">El usuario %s se ha confirmado correctamente.</string>
+  <string name="accountConfirmed">El usuario %s fue confirmado con éxito.</string>
   <string name="accountCanLogin">Puedes iniciar sesión ahora como %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necesitas un correo de confirmación.</string>
   <string name="accountClosed">La cuenta %s está cerrada.</string>
-  <string name="accountRegisteredWithoutEmail">La cuenta %s se registró sin un correo.</string>
+  <string name="accountRegisteredWithoutEmail">La cuenta %s fue registrada sin un correo.</string>
   <string name="rank">Posición</string>
   <string name="rankX">Clasificación: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -400,7 +400,7 @@
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="xJoinedTeamY">%1$s se unió al equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
-  <string name="startedStreaming">comenzó a retransmitir</string>
+  <string name="startedStreaming">comenzó a transmitir</string>
   <string name="xStartedStreaming">%s comenzó a emitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
@@ -413,7 +413,7 @@
   <string name="gameAsGIF">Guardar partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
   <string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
-  <string name="orUploadPgnFile">O sube un archivo PGN</string>
+  <string name="orUploadPgnFile">o sube un archivo PGN</string>
   <string name="fromPosition">Desde posición</string>
   <string name="continueFromHere">Continuar desde aquí</string>
   <string name="toStudy">Estudiar</string>
@@ -518,9 +518,9 @@
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="realName">Nombre real</string>
-  <string name="setFlair">Configura tu entorno</string>
-  <string name="flair">Entorno</string>
-  <string name="youCanHideFlair">Existe una opción para ocultar la configuración de entorno en todo el sitio.</string>
+  <string name="setFlair">Configura tu estilo</string>
+  <string name="flair">Estilo</string>
+  <string name="youCanHideFlair">Existe una opción para ocultar el estilo del usuario en todo el sitio.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o región</string>
   <string name="thankYou">¡Gracias!</string>
@@ -639,7 +639,7 @@
   <string name="increment">Incremento</string>
   <string name="error.unknown">Valor no válido</string>
   <string name="error.required">Este campo es obligatorio</string>
-  <string name="error.email">Esta dirección de correo electrónico es inválida</string>
+  <string name="error.email">Esta dirección de correo electrónico no es válida</string>
   <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e intenta de nuevo.</string>
   <string name="error.email_unique">Dirección de correo no válida o en uso</string>
   <string name="error.email_different">Esta ya es tu dirección de correo electrónico</string>
@@ -708,17 +708,17 @@
   <string name="keyCycleSelectedVariation">Alterna la variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
-  <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, Aprende de tus errores</string>
+  <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, aprende de tus errores</string>
   <string name="keyNextLearnFromYourMistakes">Siguiente (Aprende de tus errores)</string>
   <string name="keyNextBlunder">Siguiente error grave</string>
   <string name="keyNextMistake">Siguiente error</string>
   <string name="keyNextInaccuracy">Siguiente imprecisión</string>
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama siguiente</string>
-  <string name="toggleVariationArrows">Activar/Desactivar flechas de variantes</string>
+  <string name="toggleVariationArrows">Activa o desactiva flechas de variantes</string>
   <string name="cyclePreviousOrNextVariation">Alterna entre la variante siguiente y la anterior</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
-  <string name="togglePositionAnnotations">Alternar anotaciones de posición</string>
+  <string name="togglePositionAnnotations">Activa o desactiva anotaciones de posición</string>
   <string name="variationArrowsInfo">Las flechas de variantes te permiten navegar sin usar la lista de movimientos.</string>
   <string name="playSelectedMove">hacer movimiento seleccionado</string>
   <string name="newTournament">Nuevo torneo</string>
@@ -880,7 +880,7 @@
     <item quantity="one">y ahorra %s línea de premovimiento</item>
     <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
-  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Has recibido un mensaje privado de Lichess.</string>
+  <string name="showUnreadLichessMessage">Has recibido un mensaje privado de Lichess.</string>
   <string name="clickHereToReadIt">Haz clic aquí para leerlo</string>
   <string name="sorry">Lo sentimos :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hemos tenido que suspenderte temporalmente.</string>
