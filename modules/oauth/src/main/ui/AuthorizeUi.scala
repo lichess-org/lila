@@ -58,7 +58,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                   )
                 case None =>
                   submitButton(
-                    cls      := List(s"${buttonClass(prompt)} disabled" -> true, "danger" -> isDanger),
+                    cls      := List(s"${buttonClass(prompt)} disabled" -> true),
                     dataIcon := isDanger.option(Icon.CautionTriangle),
                     disabled := true,
                     id       := "oauth-authorize",

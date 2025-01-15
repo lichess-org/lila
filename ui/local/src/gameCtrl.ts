@@ -46,10 +46,10 @@ export class GameCtrl {
     this.triggerStart();
   }
 
-  reset(params: LocalSetup): void {
+  reset(params?: LocalSetup): void {
     this.stop();
     this.history = undefined;
-    this.live = new LocalGame({ setup: { ...params } });
+    this.live = new LocalGame({ setup: { ...this.live.setup, ...params } });
     env.bot.reset();
     env.bot.setUids(this.live);
     env.assets.preload();

@@ -70,7 +70,7 @@ export type MoveResult = { uci: string; thinkTime: Seconds };
 export interface LocalSetup {
   white?: string;
   black?: string;
-  initialFen?: string;
+  initialFen?: FEN;
   initial?: Seconds;
   increment?: Seconds;
   go?: boolean;

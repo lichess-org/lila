@@ -180,16 +180,6 @@ export class LocalGame implements LocalSetup {
     return co.fen.makeFen(this.chess.toSetup());
   }
 
-  get setup(): LocalSetup {
-    return {
-      initialFen: this.initialFen,
-      initial: this.initial,
-      increment: this.increment,
-      white: this.white,
-      black: this.black,
-    };
-  }
-
   get dests(): { [from: string]: string } {
     return Object.fromEntries([...this.cgDests].map(([src, dests]) => [src, dests.join('')]));
   }
@@ -225,6 +215,16 @@ export class LocalGame implements LocalSetup {
       }
     }
     return draws;
+  }
+
+  get setup(): LocalSetup {
+    return {
+      initialFen: this.initialFen,
+      initial: this.initial,
+      increment: this.increment,
+      white: this.white,
+      black: this.black,
+    };
   }
 }
 
