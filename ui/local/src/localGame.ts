@@ -59,7 +59,7 @@ export class LocalGame implements LocalSetup {
     this.initialFen ??= co.fen.INITIAL_FEN;
     this.chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
     this.initialPly = 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
-    if ('game' in o) {
+    if ('game' in o && o.game) {
       this.moves = [];
       this.threefoldHashes = new Map();
       this.fiftyHalfMove = 0;
