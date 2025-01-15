@@ -32,9 +32,6 @@ export interface MoveContext extends GameStatus {
 
 type LocalMove = {
   uci: Uci;
-  san?: San;
-  fen?: FEN;
-  check?: boolean;
   clock?: { white: number; black: number };
 };
 
@@ -80,7 +77,7 @@ export class LocalGame implements LocalSetup {
     }
     const san = co.san.makeSanAndPlay(this.chess, coMove);
     const clock = move.clock ? { white: move.clock.white, black: move.clock.black } : undefined;
-    this.moves.push({ uci, clock, san, fen: this.fen, check: this.chess.isCheck() });
+    this.moves.push({ uci, clock });
     this.fifty(coMove);
     this.updateThreefold();
     return this.moveResultWith({ uci, san, move: coMove });
@@ -129,8 +126,8 @@ export class LocalGame implements LocalSetup {
   get clock(): { white: number; black: number } | undefined {
     return this.moves.length
       ? this.moves[this.moves.length - 1].clock
-      : Number.isFinite(env.game.initial)
-        ? { white: env.game.initial, black: env.game.initial }
+      : Number.isFinite(this.initial)
+        ? { white: this.initial, black: this.initial }
         : undefined;
   }
 
@@ -189,17 +186,21 @@ export class LocalGame implements LocalSetup {
   }
 
   get steps(): Step[] {
-    console.log('booo', this.moves);
-    return [
-      { uci: '', san: '', fen: this.initialFen, check: false, ply: 0 },
-      ...this.moves.map(({ uci, san, fen, check }, i) => ({
-        uci,
-        san: san!,
-        fen: fen!,
-        check: check!,
-        ply: i + 1,
-      })),
-    ];
+    const steps: Step[] = [{ fen: this.initialFen, ply: 0, uci: '', san: '', check: false }];
+    const chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
+    for (const move of this.moves) {
+      const { move: coMove } = normalMove(chess, move.uci) ?? {};
+      if (!coMove) break;
+      const san = co.san.makeSanAndPlay(chess, coMove);
+      steps.push({
+        uci: move.uci,
+        san,
+        fen: co.fen.makeFen(chess.toSetup()),
+        check: chess.isCheck(),
+        ply: steps.length,
+      });
+    }
+    return steps;
   }
 
   get threefoldDraws(): Uci[] {

@@ -9,8 +9,8 @@ import java.nio.file.Files
 
 import lila.core.config.NetConfig
 
-case class SplitAsset(name: String, imports: List[String], inlineJs: Option[String]):
-  def all = name :: imports
+case class SplitAsset(name: Option[String], imports: List[String], inlineJs: Option[String]):
+  def all = name.toList ::: imports
 case class AssetMaps(
     js: Map[String, SplitAsset],
     css: Map[String, String],
@@ -74,22 +74,23 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .as[JsObject]
       .value
       .map:
-        case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js", Nil, None))
+        case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js".some, Nil, None))
         case (k, value) =>
           val path = (value \ "hash")
             .asOpt[String]
             .map(h => s"$k.$h.js")
             .orElse((value \ "path").asOpt[String])
-            .getOrElse(s"$k.js")
           val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
           val inlineJs = (value \ "inline").asOpt[String]
           (k, SplitAsset(path, imports, inlineJs))
       .toMap
 
-    val js = splits.view.mapValues: asset =>
-      if asset.imports.nonEmpty
-      then asset.copy(imports = closure(asset.name, splits).distinct)
-      else asset
+    val js = splits.view.mapValues:
+      case asset if asset.name.isDefined =>
+        asset.name.map(path => asset.copy(imports = closure(path, splits).distinct))
+      case asset if asset.inlineJs.isDefined =>
+        asset.inlineJs.map(js => asset.copy(name = None))
+      case asset => asset.some
 
     val css = (manifest \ "css")
       .as[JsObject]
@@ -113,7 +114,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       }
       .toMap
 
-    AssetMaps(js.toMap, css, hashed, nowInstant)
+    AssetMaps(js.toMap.flatMap { case (k, v) => v.map(k -> _) }, css, hashed, nowInstant)
 
   private def fetchManifestJson(filename: String) =
     val resource = s"${net.assetBaseUrlInternal}/assets/compiled/$filename"

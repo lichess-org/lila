@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
-import { env } from './env.ts';
+import { env, errorMark } from './env.ts';
 
 export type Bundle = { module?: string; inline?: string };
 
@@ -89,16 +89,18 @@ async function parsePackage(packageDir: string): Promise<Package> {
 
   if ('bundle' in build) {
     for (const one of [].concat(build.bundle).map<Bundle>(b => (typeof b === 'string' ? { module: b } : b))) {
-      if (!one.module) continue;
+      const moduleSource = one.module ?? one.inline;
+      if (!moduleSource) continue;
 
-      if (await readable(path.join(pkgInfo.root, one.module))) pkgInfo.bundle.push(one);
-      else
+      if (await readable(path.join(pkgInfo.root, moduleSource))) pkgInfo.bundle.push(one);
+      else if (one.module)
         pkgInfo.bundle.push(
           ...(await globArray(one.module, { cwd: pkgInfo.root, absolute: false })).map(module => ({
             ...one,
             module,
           })),
         );
+      else env.log(`${errorMark} - Bundle error ${JSON.stringify(one)}`);
     }
   }
   if ('sync' in build) {
