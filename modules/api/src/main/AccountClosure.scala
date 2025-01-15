@@ -3,14 +3,35 @@ package lila.api
 import lila.common.Bus
 import lila.core.perm.Granter
 
-/* There are 3 stages to account eradication.
- * - close:
- *   - disable the account; the user can reopen it later on
- *   - close all open sessions
- *   - cancel patron sub
- *   - leave teams and tournaments
- *   - unfollow everyone
- *   -
+enum Termination:
+  case disable, delete, erase
+
+/* There are 3 stages to account termination.
+|                           | disable                          | delete                | erase                          |
+|---------------------------|----------------------------------|-----------------------|--------------------------------|
+| how                       | from settings menu               | from /account/delete  | request to contact@lichess.org |
+| reopen                    | available to user                | strictly impossible   | strictly impossible            |
+| games                     | intact                           | anonymized            | anonymized                     |
+| username                  | intact, no reuse                 | anonymized, no reuse  | anonymized, no reuse           |
+| email                     | kept for reopening, no reuse[^1] | deleted, no reuse[^1] | deleted, no reuse[^1]          |
+| profile data              | hidden                           | deleted               | deleted                        |
+| sessions and oauth tokens | closed                           | deleted               | deleted                        |
+| patron subscription       | canceled                         | canceled              | canceled                       |
+| blog posts                | unlisted                         | deleted               | deleted                        |
+| studies                   | hidden                           | deleted               | deleted                        |
+| activity                  | hidden                           | deleted               | deleted                        |
+| coach/streamer profiles   | hidden                           | deleted               | deleted                        |
+| tournaments joined        | unlisted                         | anonymized            | anonymized                     |
+| tournaments created       | hidden                           | anonymized            | anonymized                     |
+| forum posts               | intact                           | anonymized            | deleted                        |
+| teams/classes joined      | quit                             | quit                  | quit                           |
+| team/classes created      | intact[^2]                       | intact[^2]            | intact[^2]                     |
+| classes joiated           | intact[^2]                       | intact[^2]            | intact[^2]                     |
+| puzzle history            | hidden                           | deleted               | deleted                        |
+| follows and blocks        | deleted                          | deleted               | deleted                        |
+
+[^1] the email address of a closed account can be re-used to make a new account, up to 4 times per month.
+[^2] classes and teams have a life of their own. Close them manually if you want to, before deleting your account.
  */
 final class AccountClosure(
     userRepo: lila.user.UserRepo,
