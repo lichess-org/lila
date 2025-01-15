@@ -834,7 +834,7 @@
   <string name="bestWasX">El mejor era %s</string>
   <string name="youBrowsedAway">Has salido de la revisión</string>
   <string name="resumePractice">Volver a la revisión de errores</string>
-  <string name="drawByFiftyMoves">La partida ha acabado en tablas por la regla de los cincuenta movimientos.</string>
+  <string name="drawByFiftyMoves">La partida ha finalizado en tablas por la regla de los cincuenta movimientos.</string>
   <string name="theGameIsADraw">La partida es tablas.</string>
   <string name="computerThinking">El ordenador está calculando...</string>
   <string name="seeBestMove">Ver el mejor movimiento</string>
