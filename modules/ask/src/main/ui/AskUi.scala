@@ -156,8 +156,7 @@ private case class RenderAsk(
             ask.footer.map(label(_)),
             fmap.toSeq.flatMap:
               case (user, text) => Seq(div(ask.isTraceable.so(s"$user:")), div(text))
-          )
-      )
+          ))
     )
 
   def pollBody = choiceContainer:
@@ -209,8 +208,7 @@ private case class RenderAsk(
             div(title := hint)(ask.choices(choice)),
             div(cls := "votes-text", title := hint)(pluralize("vote", total)),
             div(cls := "set-width", title := hint, css("width") := s"$pct%")(nbsp)
-          )
-    )
+          ))
 
   def rankGraphBody =
     div(cls := "ask__rank-graph")(frag:
@@ -225,8 +223,7 @@ private case class RenderAsk(
             Seq(
               div(title := hint)(ask.choices(choice)),
               div(cls := "set-width", title := hint, style := s"width: $pct%")(nbsp)
-            )
-    )
+            ))
 
   def maybeDiv(clz: String, tags: Option[Frag]*) =
     if tags.toList.flatten.nonEmpty then div(cls := clz, tags) else emptyFrag

@@ -26,8 +26,8 @@ final class AskRepo(
     initialCapacity = 1000,
     compute = getDb,
     default = _ => none[Ask],
-    strategy = lila.memo.Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = lila.memo.Syncache.ExpireAfter.Access(1 hour)
+    strategy = lila.memo.Syncache.Strategy.WaitAfterUptime(20.millis),
+    expireAfter = lila.memo.Syncache.ExpireAfter.Access(1.hour)
   )
 
   def get(aid: AskId): Option[Ask] = cache.sync(aid)

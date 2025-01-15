@@ -127,7 +127,7 @@ object AskApi:
       _id = extractIdFromTagString(tagString),
       question = extractQuestion(segment),
       choices = extractChoices(segment),
-      tags = extractTagList(tagString.map(_ toLowerCase)),
+      tags = extractTagList(tagString.map(_.toLowerCase)),
       creator = creator,
       footer = extractFooter(segment),
       url = url
@@ -160,7 +160,7 @@ object AskApi:
       while i != -1 && i <= t.length - 14 do // 14 is total magic length
         ids.addOne(i, i + 14)                // (5, 13) delimit id within magic
         i = t.indexOf(frozenIdMagic, i + 14)
-      ids toList
+      ids.toList
 
   private def extractQuestion(t: String): String =
     questionInAskRe.findFirstMatchIn(t).fold("")(_.group(1)).trim

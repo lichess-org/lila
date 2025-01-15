@@ -4,7 +4,7 @@ package ask
 import alleycats.Zero
 
 import scalalib.extensions.{ *, given }
-import lila.core.id.{ AskId }
+import lila.core.id.AskId
 import lila.core.userId.*
 
 trait AskApi:
