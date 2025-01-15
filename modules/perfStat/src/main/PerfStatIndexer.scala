@@ -1,5 +1,6 @@
 package lila.perfStat
 
+import cats.syntax.all.*
 import lila.rating.PerfType
 import lila.rating.PerfType.GamePerf
 
@@ -17,21 +18,22 @@ final class PerfStatIndexer(
     lila.log.asyncActorMonitor.full
   )
 
-  private[perfStat] def userPerf(user: UserId, perfKey: GamePerf): Fu[PerfStat] =
+  private[perfStat] def userPerf(user: UserId, perf: GamePerf): Fu[PerfStat] =
     workQueue:
       storage
-        .find(user, perfKey)
-        .getOrElse(
-          gameRepo
-            .sortedCursor(user.id, perfKey)
-            .fold(PerfStat.init(user.id, perfKey)):
-              case (perfStat, game) if game.perfKey == perfKey =>
-                Pov(game, user.id).fold(perfStat)(perfStat.agg)
-              case (perfStat, _) => perfStat
-            .flatMap: ps =>
-              storage.insert(ps).recover(lila.db.ignoreDuplicateKey).inject(ps)
-            .mon(_.perfStat.indexTime)
-        )
+        .find(user, perf)
+        .getOrElse(buildPerfStat(user, perf))
+
+  private def buildPerfStat(user: UserId, perf: GamePerf): Fu[PerfStat] =
+    gameRepo
+      .sortedCursor(user.id, perf.key)
+      .fold(PerfStat.init(user.id, perf)): (perfStat, game) =>
+        if game.perfKey === perf.key
+        then Pov(game, user.id).fold(perfStat)(perfStat.agg)
+        else perfStat
+      .flatMap: ps =>
+        storage.insert(ps).recover(lila.db.ignoreDuplicateKey).inject(ps)
+      .mon(_.perfStat.indexTime)
 
   def addGame(game: Game): Funit =
     game.players.toList.sequentiallyVoid: player =>
