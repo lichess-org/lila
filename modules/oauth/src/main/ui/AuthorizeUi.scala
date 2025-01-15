@@ -16,7 +16,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
   )
 
   private def buttonClass(prompt: AuthorizationRequest.Prompt) =
-    s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")}"
+    s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")} disabled"
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using
       Context
@@ -58,7 +58,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                   )
                 case None =>
                   submitButton(
-                    cls      := List(s"${buttonClass(prompt)} disabled" -> true, "danger" -> isDanger),
+                    cls      := buttonClass(prompt),
                     dataIcon := isDanger.option(Icon.CautionTriangle),
                     disabled := true,
                     id       := "oauth-authorize",

@@ -2,13 +2,11 @@
 // as the oauth page can be embedded in very dubious webviews
 
 const el: HTMLElement = document.getElementById('oauth-authorize')!;
-const danger: boolean = el.classList.contains('danger');
 
 setTimeout(
   () => {
     el.removeAttribute('disabled');
-    el.className = 'button';
-    if (danger) el.classList.add('button-red', 'ok-cancel-confirm', 'text');
+    el.classList.remove('disabled');
   },
-  danger ? 5000 : 2000,
+  el.classList.contains('button-red') ? 5000 : 2000,
 );
