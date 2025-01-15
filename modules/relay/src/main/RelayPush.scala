@@ -3,7 +3,7 @@ package lila.relay
 import akka.actor.*
 import akka.pattern.after
 import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
-import chess.{ ErrorStr, Game, Replay, Square }
+import chess.{ ErrorStr, Game, Replay, Square, TournamentClock }
 import scalalib.actor.AsyncActorSequencers
 
 import scala.concurrent.duration.*
@@ -21,8 +21,8 @@ final class RelayPush(
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(32),
-    expiration = 1 minute,
-    timeout = 10 seconds,
+    expiration = 1.minute,
+    timeout = 10.seconds,
     name = "relay.push",
     lila.log.asyncActorMonitor.full
   )
@@ -34,13 +34,13 @@ final class RelayPush(
     if rt.round.sync.hasUpstream
     then fuccess(List(Left(Failure(Tags.empty, "The relay has an upstream URL, and cannot be pushed to."))))
     else
-      val parsed = pgnToGames(pgn)
+      val parsed = pgnToGames(pgn, rt.tour.info.clock)
       val games  = parsed.collect { case Right(g) => g }.toVector
       val response: List[Either[Failure, Success]] =
         parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
       val andSyncTargets = response.exists(_.isRight)
 
-      rt.round.sync.nonEmptyDelay
+      rt.round.sync.delayMinusLag
         .ifTrue(games.exists(_.root.children.nonEmpty))
         .match
           case None => push(rt, games, andSyncTargets).inject(response)
@@ -52,8 +52,8 @@ final class RelayPush(
     workQueue(rt.round.id):
       for
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
-        enriched    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        games = rt.tour.teams.fold(enriched)(_.update(enriched))
+        withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        games = rt.tour.teams.fold(withFide)(_.update(withFide))
         event <- sync
           .updateStudyChapters(rt, games)
           .map: res =>
@@ -72,28 +72,18 @@ final class RelayPush(
         _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
       yield ()
 
-  private def pgnToGames(pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
-    MultiPgn
-      .split(pgnBody, RelayFetch.maxChaptersToShow)
+  private def pgnToGames(pgnBody: PgnStr, tc: Option[TournamentClock]): List[Either[Failure, RelayGame]] =
+    RelayFetch.injectTimeControl
+      .in(tc)(MultiPgn.split(pgnBody, RelayFetch.maxChaptersToShow))
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>
-          StudyPgnImport(pgn, Nil).fold(
-            errStr => Left(Failure(tags, oneline(errStr))),
-            game =>
-              Right(
-                RelayGame(
-                  tags = game.tags,
-                  variant = game.variant,
-                  root = game.root.copy(
-                    comments = lila.tree.Node.Comments.empty,
-                    children = game.root.children
-                      .updateMainline(_.copy(comments = lila.tree.Node.Comments.empty))
-                  ),
-                  points = game.end.map(_.points)
-                )
-              )
-          )
+          StudyPgnImport
+            .result(pgn, Nil)
+            .fold(
+              errStr => Left(Failure(tags, oneline(errStr))),
+              game => Right(RelayGame.fromStudyImport(game))
+            )
 
   // silently consume DGT board king-check move to center at game end
   private def validate(pgnBody: PgnStr): Either[Failure, Tags] =

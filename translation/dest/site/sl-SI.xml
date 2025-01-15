@@ -138,17 +138,35 @@
     <item quantity="few">%s napake</item>
     <item quantity="other">%s napak</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Napaka</item>
+    <item quantity="two">%s Napaki</item>
+    <item quantity="few">%s Napake</item>
+    <item quantity="other">%s Napak</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s napakica</item>
     <item quantity="two">%s napakici</item>
     <item quantity="few">%s napakice</item>
     <item quantity="other">%s napakic</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Napakica</item>
+    <item quantity="two">%s Napakici</item>
+    <item quantity="few">%s Napakice</item>
+    <item quantity="other">%s Napakic</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s nenatančnost</item>
     <item quantity="two">%s nenatančnosti</item>
     <item quantity="few">%s nenatančnosti</item>
     <item quantity="other">%s nenatančnosti</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Nenatančnost</item>
+    <item quantity="two">%s Nenatančnosti</item>
+    <item quantity="few">%s Nenatančnosti</item>
+    <item quantity="other">%s Nenatančnosti</item>
   </plurals>
   <string name="moveTimes">Časi za poteze</string>
   <string name="flipBoard">Obrni igralno desko</string>
@@ -625,6 +643,8 @@
   <string name="troll">Provokacija</string>
   <string name="other">Drugo</string>
   <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
+  <string name="reportUsernameHelp">Razložite, zakaj je to uporabniško ime žaljivo. Ne recite zgolj \"je žaljivo/neprimerno\", povejte nam, kako ste prišli do tega zaključka. Še posebej, le je žalitev prikrita, ni v angleščini, je v slengu ali ima zgodovinsko/kulturno referenco. </string>
+  <string name="reportProcessedFasterInEnglish">Vaša prijava bo obravnavana hitreje, če jo napišete v angleščini.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvozil je %s</string>
@@ -657,6 +677,7 @@
   <string name="slow">Počasno</string>
   <string name="insideTheBoard">Znotraj šahovnice</string>
   <string name="outsideTheBoard">Zunaj šahovnice</string>
+  <string name="allSquaresOfTheBoard">Vsa polja šahovnice</string>
   <string name="onSlowGames">Pri počasnih igrah</string>
   <string name="always">Vedno</string>
   <string name="never">Nikoli</string>
@@ -749,7 +770,7 @@
   <string name="aboutSimulRules">V simultanki ima igralec-gostitelj zmeraj bele figure. Simultanka se zaključi, ko so vse partije končane.</string>
   <string name="aboutSimulSettings">Simultanke so zmeraj nerangirane. Revanše, popravki potez in dodajanje časa niso možni.</string>
   <string name="create">Ustvari</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ko ustvariš simultanko, boš igral z več nasprotniki hkrati.</string>
+  <string name="whenCreateSimul">Ko ustvariš simultanko, boš igral z več nasprotniki hkrati.</string>
   <string name="simulVariantsHint">Če si izbral več variant, vsak igralec izbere katero varianto bo igral.</string>
   <string name="simulClockHint">Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa boš morda potreboval.</string>
   <string name="simulAddExtraTime">Uri lahko dodaš več časa v pomoč pri igranju simultanke.</string>
@@ -764,6 +785,7 @@
   <string name="keyboardShortcuts">Bližnjice na tipkovnici</string>
   <string name="keyMoveBackwardOrForward">pomik naprej/nazaj</string>
   <string name="keyGoToStartOrEnd">pojdi na začetek/konec</string>
+  <string name="keyCycleSelectedVariation">Preglej izbrano varianto</string>
   <string name="keyShowOrHideComments">pokaži/skrij komentarje</string>
   <string name="keyEnterOrExitVariation">vstopi/izstopi v varianto</string>
   <string name="keyRequestComputerAnalysis">Zahtevajte računalniško analizo, učite se iz svojih napak</string>
@@ -771,7 +793,14 @@
   <string name="keyNextBlunder">Naslednji spodrsljaj</string>
   <string name="keyNextMistake">Naslednja napaka</string>
   <string name="keyNextInaccuracy">Naslednja nepravilnost</string>
+  <string name="keyPreviousBranch">Prejšnja veja</string>
+  <string name="keyNextBranch">Naslednja veja</string>
+  <string name="toggleVariationArrows">Preklopi prikaz variant s puščicami</string>
+  <string name="cyclePreviousOrNextVariation">Preglej zadnjo/naslednjo varianto</string>
+  <string name="toggleGlyphAnnotations">Preklopi opombe potez</string>
   <string name="togglePositionAnnotations">Preklop opomb o položaju</string>
+  <string name="variationArrowsInfo">Puščice variant vam omogočajo, da krmarite brez uporabe seznama potez</string>
+  <string name="playSelectedMove">igraj izbrano potezo</string>
   <string name="newTournament">Nov turnir</string>
   <string name="tournamentHomeTitle">Turnir z možnostjo različnih variant in različnih igralnih časov</string>
   <string name="tournamentHomeDescription">Igraj turnirje z hitrim tempom! Pridruži se uradnemu turnirju ali ustvari svoj turnir. Hitropotezno, Pospešeno, Klasično, Šah960, Trojni šah in ostale možnosti so na voljo za neskončno šahovsko zabavo.</string>
@@ -1061,7 +1090,10 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="switchSides">Zamenjaj strani</string>
   <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
   <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
+  <string name="instructions">Navodila</string>
+  <string name="showMeEverything">Prikaži vse</string>
   <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
 Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
   <string name="nothingToSeeHere">Tukaj trenutno ni ničesar za videti.</string>
+  <string name="stats">Statistika</string>
 </resources>

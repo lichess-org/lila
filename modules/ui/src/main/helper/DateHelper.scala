@@ -4,18 +4,18 @@ import play.api.i18n.Lang
 
 import java.time.format.{ DateTimeFormatter, FormatStyle, TextStyle }
 import java.time.{ Duration, LocalDate, Month, YearMonth }
-import java.util.concurrent.ConcurrentHashMap
 
-import lila.core.i18n.Translate
+import lila.core.i18n.{ maxLangs, Translate }
 import lila.ui.ScalatagsTemplate.*
+import scalalib.model.Seconds
 
 trait DateHelper:
   self: StringHelper =>
 
   private val datetimeAttr = attr("datetime")
 
-  private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
-  private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
+  private val dateTimeFormatters = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
+  private val dateFormatters     = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
 
   private val englishDateTimeFormatter =
     DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
@@ -23,17 +23,12 @@ trait DateHelper:
     DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
   private def dateTimeFormatter(using lang: Lang): DateTimeFormatter =
-    dateTimeFormatters.computeIfAbsent(
-      lang.code,
-      _ =>
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(lang.toLocale)
-    )
+    dateTimeFormatters.computeIfAbsentAlways(lang.code):
+      DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(lang.toLocale)
 
   private def dateFormatter(using lang: Lang): DateTimeFormatter =
-    dateFormatters.computeIfAbsent(
-      lang.code,
-      _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
-    )
+    dateFormatters.computeIfAbsentAlways(lang.code):
+      DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
 
   private val englishTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
@@ -101,8 +96,8 @@ trait DateHelper:
 
   def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 
-  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
-    momentFromNow(nowInstant.plusSeconds(seconds), alwaysRelative)
+  def secondsFromNow(seconds: Seconds, alwaysRelative: Boolean = false): Tag =
+    momentFromNow(nowInstant.plusSeconds(seconds.value), alwaysRelative)
 
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))

@@ -2,13 +2,14 @@ package lila.core
 package game
 
 import _root_.chess.Color
+import scalalib.model.Seconds
 
 import lila.core.id.GameId
 import lila.core.userId.UserIdOf
 
 case class Pov(game: Game, color: Color):
 
-  export game.{ id as gameId }
+  export game.id as gameId
 
   def player = game.player(color)
 
@@ -29,11 +30,11 @@ case class Pov(game: Game, color: Color):
 
   lazy val isMyTurn = game.started && game.playable && game.turnColor == color
 
-  lazy val remainingSeconds: Option[Int] =
+  lazy val remainingSeconds: Option[Seconds] =
     game.clock
       .map(c => c.remainingTime(color).roundSeconds)
       .orElse:
-        game.playableCorrespondenceClock.map(_.remainingTime(color).toInt)
+        game.playableCorrespondenceClock.map(_.remainingTime(color).toInt).map(Seconds(_))
 
   def hasMoved = game.playerHasMoved(color)
 

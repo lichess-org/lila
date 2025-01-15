@@ -101,8 +101,7 @@ object PlayerAssessment:
       listAverage(AccuracyCP.diffsList(pov.sideAndStart, analysis).flatten) < (game.speed match
         case Speed.Bullet => 25
         case Speed.Blitz  => 20
-        case _            => 15
-      )
+        case _            => 15)
 
     lazy val alwaysHasAdvantage: Boolean =
       !analysis.infos.exists { info =>

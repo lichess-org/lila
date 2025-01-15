@@ -54,11 +54,15 @@ export default class CevalCtrl {
   private worker: CevalEngine | undefined;
 
   constructor(opts: CevalOpts) {
-    this.configure(opts);
+    this.init(opts);
     this.engines = new Engines(this);
   }
 
-  configure(opts: CevalOpts): void {
+  setOpts(opts: Partial<CevalOpts>): void {
+    this.init({ ...this.opts, ...opts });
+  }
+
+  init(opts: CevalOpts): void {
     this.opts = opts;
     this.possible = this.opts.possible;
     this.rules = lichessRules(this.opts.variant.key);
@@ -288,6 +292,9 @@ export default class CevalCtrl {
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
     showEngineError(this.engines.active?.name ?? 'Engine', msg);
+    //this.toggle();
+    this.worker?.destroy();
+    this.worker = undefined;
   }
 
   private lastEmitFen: string | null = null;

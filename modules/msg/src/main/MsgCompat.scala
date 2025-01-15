@@ -44,13 +44,12 @@ final class MsgCompat(
                 "name"      -> t.lastMsg.text,
                 "updatedAt" -> t.lastMsg.date,
                 "isUnread"  -> t.lastMsg.unreadBy(me)
-              )
-        )
+              ))
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
   private val unreadCountCache = cacheApi[UserId, Int](256, "message.unreadCount") {
-    _.expireAfterWrite(10 seconds)
+    _.expireAfterWrite(10.seconds)
       .buildAsyncFuture[UserId, Int] { userId =>
         colls.thread
           .aggregateOne(_.sec): framework =>
@@ -88,7 +87,7 @@ final class MsgCompat(
             name =>
               security.may
                 .post(me, name.id, isNew = true)
-                .await(2 seconds, "pmAccept") // damn you blocking API
+                .await(2.seconds, "pmAccept") // damn you blocking API
           ),
         "subject" -> text(minLength = 3, maxLength = 100),
         "text"    -> text(minLength = 3, maxLength = 8000)
@@ -111,7 +110,7 @@ final class MsgCompat(
       )
 
   private def blockingFetchUser(username: UserStr) =
-    lightUserApi.async(username.id).await(500 millis, "pmUser")
+    lightUserApi.async(username.id).await(500.millis, "pmUser")
 
   private case class ThreadData(user: UserStr, subject: String, text: String)
 

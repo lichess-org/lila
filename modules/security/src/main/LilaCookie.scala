@@ -4,12 +4,12 @@ package security
 import play.api.mvc.*
 import scalalib.SecureRandom
 
-import lila.core.config.NetDomain
+import lila.core.config.{ NetDomain, NetConfig }
 import lila.core.security.LilaCookie
 
-final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) extends lila.core.security.LilaCookie:
+final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lila.core.security.LilaCookie:
 
-  private val cookieDomain = domain.value.split(":").head
+  private val cookieDomain = config.domain.value.split(":").head
 
   def makeSessionId(using RequestHeader): Cookie = session(LilaCookie.sessionId, generateSessionId())
 
@@ -44,12 +44,12 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) extends lil
     Cookie(
       name,
       value,
-      if maxAge.has(0) then none
-      else maxAge.orElse(baker.maxAge).orElse(86400.some),
-      "/",
-      cookieDomain.some,
-      baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
-      httpOnly | baker.httpOnly
+      maxAge = if maxAge.has(0) then none else maxAge.orElse(baker.maxAge).orElse(86400.some),
+      path = "/",
+      domain = cookieDomain.some,
+      secure = config.baseUrl.value.startsWith("https:"),
+      httpOnly = httpOnly | baker.httpOnly,
+      sameSite = Cookie.SameSite.Lax.some
     )
 
   def isRememberMe(req: RequestHeader) = !req.session.get(LilaCookie.noRemember).has("1")

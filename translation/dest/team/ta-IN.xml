@@ -50,8 +50,26 @@
   <string name="entryCodeDescriptionForLeader">(விரும்பினால்) இந்தக் குழுவில் சேர புதிய உறுப்பினர்கள் தெரிந்து கொள்ள வேண்டிய நுழைவுக் குறியீடு.</string>
   <string name="incorrectEntryCode">தவறான நுழைவு குறியீடு.</string>
   <string name="teamAlreadyExists">இந்தக் குழு ஏற்கனவே உள்ளது.</string>
+  <string name="upcomingTournaments">வரவிருக்கும் போட்டிகள்</string>
   <string name="completedTourns">போட்டிகள் நிறைவடைந்தன</string>
   <string name="declinedRequests">நிராகரிக்கப்பட்ட கோரிக்கைகள்</string>
   <string name="joinLichessVariantTeam">செய்திகள் மற்றும் நிகழ்வுகளுக்கு அதிகாரப்பூர்வ %s குழுவில் சேரவும்</string>
   <string name="teamPage">குழுப் பக்கம்</string>
+  <string name="thisTeamBattleIsOver">இந்த போட்டி முடிந்துவிட்டது, மேலும் அணிகளை இனி புதுப்பிக்க முடியாது.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">இந்த போரில் போட்டியிடும் அணிகளை பட்டியலிடுங்கள்.</string>
+  <string name="oneTeamPerLine">ஒரு வரிக்கு ஒரு குழு. தானாக முடிப்பதைப் பயன்படுத்தவும்.</string>
+  <string name="oneTeamPerLineHelp">இந்தப் பட்டியலை ஒரு போட்டியில் இருந்து மற்றொன்றுக்கு நகலெடுத்து ஒட்டலாம்!
+
+ஒரு வீரர் ஏற்கனவே போட்டியில் சேர்ந்திருந்தால், நீங்கள் ஒரு அணியை அகற்ற முடியாது.</string>
+  <string name="numberOfLeadsPerTeam">ஒரு அணிக்கு தலைவர்களின் எண்ணிக்கை. அவர்களின் ஸ்கோரின் கூட்டுத்தொகை அணியின் ஸ்கோர் ஆகும்.</string>
+  <string name="numberOfLeadsPerTeamHelp">போட்டி தொடங்கிய பிறகு நீங்கள் உண்மையில் இந்த மதிப்பை மாற்றக்கூடாது!</string>
+  <string name="innerTeam">உள் அணி</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s அணிகளின் போர்</item>
+    <item quantity="other">%s அணிகளின் போர்</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">ஒரு அணிக்கு ஒரு தலைவர்</item>
+    <item quantity="other">ஒரு அணிக்கு %s தலைவர்கள்</item>
+  </plurals>
 </resources>

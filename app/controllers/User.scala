@@ -27,7 +27,7 @@ final class User(
     modC: => Mod
 ) extends LilaController(env):
 
-  import env.relation.{ api as relationApi }
+  import env.relation.api as relationApi
   import env.gameSearch.userGameSearch
   import env.user.lightUserApi
 
@@ -54,7 +54,7 @@ final class User(
     }
 
   private[controllers] val userShowRateLimit =
-    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(3))
+    env.security.ipTrust.rateLimit(8_000, 1.day, "user.show.ip", _.proxyMultiplier(4))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -128,7 +128,7 @@ final class User(
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
-                    info   <- env.userInfo(u, nbs, withUblog = false)
+                    info   <- env.userInfo(u, nbs, withUblog = true)
                     _      <- env.team.cached.lightCache.preloadMany(info.teamIds)
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search).option(
@@ -333,9 +333,9 @@ final class User(
           .so(
             env.user.noteApi
               .byUsersForMod(familyUserIds)
-              .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)
+              .logTimeIfGt(s"${user.username} noteApi.forMod", 2.seconds)
           ))
-          .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds))
+          .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2.seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
       otherUsers <- env.mod.logApi.addModlog(otherUsers)
@@ -350,7 +350,7 @@ final class User(
       .ofModId(me)
       .zip(env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username"))
       .flatMap { case (inquiry, WithPerfsAndEmails(user, emails)) =>
-        import views.mod.{ user as ui }
+        import views.mod.user as ui
         import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 
@@ -553,24 +553,21 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    PerfType
-      .isLeaderboardable(perfKey)
-      .so:
-        Found(env.perfStat.api.data(username, perfKey)): data =>
-          negotiate(
-            Ok.async:
-              env.history
-                .ratingChartApi(data.user.user)
-                .map:
-                  views.user.perfStatPage(data, _)
-            ,
-            JsonOk:
-              getBool("graph")
-                .soFu:
-                  env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
-                .map: graph =>
-                  env.perfStat.jsonView(data).add("graph", graph)
-          )
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = HTTPRequest.isCrawler(req).no)): data =>
+      negotiate(
+        Ok.async:
+          env.history
+            .ratingChartApi(data.user.user)
+            .map:
+              views.user.perfStatPage(data, _)
+        ,
+        JsonOk:
+          getBool("graph")
+            .soFu:
+              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
+            .map: graph =>
+              env.perfStat.jsonView(data).add("graph", graph)
+      )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:

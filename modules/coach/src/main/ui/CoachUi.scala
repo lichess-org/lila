@@ -20,7 +20,7 @@ final class CoachUi(helpers: Helpers)(
     languages: Set[String] => Context ?=> List[Lang]
 )(using NetDomain):
   import helpers.{ *, given }
-  import trans.{ coach as trc }
+  import trans.coach as trc
 
   def titleName(c: Coach.WithUser) =
     frag(c.user.title.map(t => s"$t "), c.user.realNameOrUsername)

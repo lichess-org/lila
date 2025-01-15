@@ -137,7 +137,7 @@ object JsonView:
   )
 
   def glyphs(using Translate): JsObject =
-    import lila.core.i18n.I18nKey.{ study as trans }
+    import lila.core.i18n.I18nKey.study as trans
     import chess.format.pgn.Glyph
     import Glyph.MoveAssessment.*
     import Glyph.PositionAssessment.*
@@ -218,5 +218,5 @@ object JsonView:
 
   private[study] given Writes[Chapter.ServerEval] = Json.writes
 
-  private[study] given OWrites[actorApi.Who] = OWrites: w =>
+  private[study] given OWrites[Who] = OWrites: w =>
     Json.obj("u" -> w.u, "s" -> w.sri)

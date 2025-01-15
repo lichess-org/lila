@@ -19,7 +19,7 @@ final class RevolutionApi(
   private[tournament] def clear() = cache.invalidateUnit()
 
   private val cache = cacheApi.unit[PerOwner] {
-    _.refreshAfterWrite(1 day)
+    _.refreshAfterWrite(1.day)
       .buildAsyncFuture { _ =>
         tournamentRepo.coll
           .find(

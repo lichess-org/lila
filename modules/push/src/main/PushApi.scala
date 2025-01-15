@@ -79,7 +79,7 @@ final private class PushApi(
       }
 
   def move(move: MoveEvent): Funit =
-    LilaFuture.delay(2 seconds):
+    LilaFuture.delay(2.seconds):
       gameProxy
         .game(move.gameId)
         .flatMap:
@@ -112,7 +112,7 @@ final private class PushApi(
                   yield ()
 
   def takebackOffer(gameId: GameId): Funit =
-    LilaFuture.delay(1 seconds):
+    LilaFuture.delay(1.seconds):
       gameProxy
         .game(gameId)
         .flatMap:
@@ -141,7 +141,7 @@ final private class PushApi(
               }
 
   def drawOffer(gameId: GameId): Funit =
-    LilaFuture.delay(1 seconds):
+    LilaFuture.delay(1.seconds):
       gameProxy
         .game(gameId)
         .flatMap:

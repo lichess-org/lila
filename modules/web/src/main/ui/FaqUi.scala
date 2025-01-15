@@ -12,7 +12,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
     variantRankableDeviation: Int
 ):
   import helpers.{ given, * }
-  import trans.{ faq as trf }
+  import trans.faq as trf
 
   private def cmsPageUrl(key: String) = routes.Cms.lonePage(lila.core.id.CmsPageKey(key))
 

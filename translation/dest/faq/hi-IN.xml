@@ -149,7 +149,7 @@
 लाल म्यूट आइकन तब दिखाई देता है जब आपका ब्राउज़र lichess.org को ध्वनि चलाने से रोकता है. आमतौर पर कुछ क्लिक करने के बाद यह प्रतिबंध हटा दिया जाता है. कुछ मोबाइल ब्राउज़रों पर, एक टुकड़े को खींचने वाले स्पर्श को एक क्लिक के रूप में नहीं गिना जाता है. उस स्थिति में आपको प्रत्येक गेम की शुरुआत में ध्वनि की अनुमति देने के लिए बोर्ड को टैप करना होगा.
 
 ऐसा होने पर हम आपको सचेत करने के लिए लाल आइकन दिखाते हैं. अक्सर आप स्पष्ट रूप से lichess.org को ध्वनियों को खेलने की अनुमति दे सकते हैं. यहां कुछ लोकप्रिय ब्राउज़रों के हाल के संस्करणों पर ऐसा करने के निर्देश दिए गए हैं.</string>
-  <string name="desktop">डेस्कटॉप</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">डेस्कटॉप</string>
   <string name="enableAutoplayForSoundsFirefox">1. Lichess.org पर जाएं
 2. MacOS पर Linux / Windows या cmd-i पर Ctrl-i दबाएं
 3. अनुमति टैब पर क्लिक करें

@@ -13,8 +13,6 @@ case class ContentSecurityPolicy(
 ):
   def withNonce(nonce: Nonce) = copy(scriptSrc = s"'nonce-${nonce}'" :: scriptSrc)
 
-  def withLegacyCompatibility = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
-
   def withWebAssembly = copy(scriptSrc = "'unsafe-eval'" :: scriptSrc)
 
   def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)

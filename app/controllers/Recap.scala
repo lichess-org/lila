@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.recap.{ Recap as RecapModel }
+import lila.recap.Recap as RecapModel
 import lila.recap.Recap.Availability
 
 final class Recap(env: Env) extends LilaController(env):
@@ -30,8 +30,6 @@ final class Recap(env: Env) extends LilaController(env):
         res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
       yield res
       if me.is(username) then proceed(me)
-      else
-        Found(env.user.api.byId(username)): user =>
-          val canView = isGranted(_.SeeInsight) || !env.net.isProd
-          canView.so(proceed(user))
+      else if isGranted(_.SeeInsight) || !env.net.isProd then Found(env.user.api.byId(username))(proceed)
+      else Redirect(routes.Recap.home).toFuccess
     }

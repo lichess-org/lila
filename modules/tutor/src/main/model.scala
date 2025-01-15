@@ -1,10 +1,10 @@
 package lila.tutor
 
 import alleycats.Zero
+import scalalib.model.Percent
 import chess.IntRating
 
 import lila.analyse.AccuracyPercent
-import lila.core.data.Percent
 import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats }
 import lila.rating.PerfType
 

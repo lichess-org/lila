@@ -19,7 +19,7 @@
     <item quantity="other">%2$s प्रकार %1$s वेळा खेळला</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">%2$s मध्ये %1$s संदेश लिहिले</item>
+    <item quantity="one">%2$s मध्ये %1$s संदेश लिहिला</item>
     <item quantity="other">%2$s या फोरम मध्ये %1$s वेळा लिहिले</item>
   </plurals>
   <plurals name="playedNbMoves">
@@ -52,7 +52,7 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s नवीन अभ्यास बनवले</item>
-    <item quantity="other">%s नवीन अभ्यास बनवले</item>
+    <item quantity="other">%s नवीन स्टडी बनवल्या</item>
   </plurals>
   <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">%s आखाड्यामध्ये भाग घेतला</item>

@@ -71,6 +71,8 @@
   <string name="promoteVariation">Промовишите варијацију</string>
   <string name="makeMainLine">Направи као главну линију</string>
   <string name="deleteFromHere">Избриши одавде</string>
+  <string name="collapseVariations">Скупи варијације</string>
+  <string name="expandVariations">Рашири варијације</string>
   <string name="forceVariation">Промакни варијацију</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
   <string name="move">Потез</string>
@@ -128,6 +130,21 @@
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Превид</item>
+    <item quantity="few">%s Грубе грешке</item>
+    <item quantity="other">%s Грубе грешке</item>
+  </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Грешка</item>
+    <item quantity="few">%s Грешке</item>
+    <item quantity="other">%s Грешке</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Непрецизност</item>
+    <item quantity="few">%s Непрецизности</item>
+    <item quantity="other">%s Непрецизности</item>
+  </plurals>
   <string name="moveTimes">Време померања фигура</string>
   <string name="flipBoard">Обрни таблу</string>
   <string name="threefoldRepetition">Троструко понављање</string>
@@ -165,6 +182,7 @@
   <string name="latestForumPosts">Последње објаве на форуму</string>
   <string name="players">Шахисти</string>
   <string name="friends">Пријатељи</string>
+  <string name="otherPlayers">остали играчи</string>
   <string name="discussions">Разговори</string>
   <string name="today">Данас</string>
   <string name="yesterday">Јуче</string>
@@ -250,6 +268,7 @@
     <item quantity="few">%s игара са вама</item>
     <item quantity="other">%s игара са вама</item>
   </plurals>
+  <string name="ok">У реду</string>
   <string name="cancel">Откажи</string>
   <string name="whiteTimeOut">Време истекло белом</string>
   <string name="blackTimeOut">Време истекло црном</string>
@@ -510,6 +529,7 @@
   <string name="ifNoneLeaveEmpty">Ако немате рејтинг, оставите празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Уредите профил</string>
+  <string name="realName">Право име</string>
   <string name="setFlair">Постави своју значку</string>
   <string name="flair">Значка</string>
   <string name="youCanHideFlair">Постоји подешавање којим се сакривају све корисникове значке на читавом сајту.</string>
@@ -541,6 +561,8 @@
   <string name="descPrivateHelp">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
+  <string name="website">Интернет страница</string>
+  <string name="mobile">Мобилни</string>
   <string name="help">Помоћ</string>
   <string name="createANewTopic">Направиte нову тему</string>
   <string name="topics">Теме</string>
@@ -559,6 +581,9 @@
   <string name="cheat">Варање</string>
   <string name="troll">Трол</string>
   <string name="other">Остало</string>
+  <string name="reportCheatBoostHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
+  <string name="reportUsernameHelp">Објасните шта је неприкладно у имену корисника. Немојте само да кажете да је неприкладно, реците нам како сте то закључили, поготово ако је увреда збуњујућа, није у енглеском, у сленгу, или де односи на културу/историју.</string>
+  <string name="reportProcessedFasterInEnglish">Ваша пријава ће бити обрађена брже ако је написана на енглеском језику.</string>
   <string name="error.provideOneCheatedGameLink">Наведите барем једну везу игре у којој је играч варао.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Увезао %s</string>
@@ -591,6 +616,7 @@
   <string name="slow">Споро</string>
   <string name="insideTheBoard">Унутар табле</string>
   <string name="outsideTheBoard">Ван табле</string>
+  <string name="allSquaresOfTheBoard">Сва поља табле</string>
   <string name="onSlowGames">У споријим партијама</string>
   <string name="always">Увек</string>
   <string name="never">Никада</string>
@@ -680,7 +706,7 @@
   <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогућено.</string>
   <string name="create">Креирај</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Када креираш симултанку, играш против више играча истовремено.</string>
+  <string name="whenCreateSimul">Када креираш симултанку, играш против више играча истовремено.</string>
   <string name="simulVariantsHint">Ако изабереш неколико варијанти, сваки играч је у могућности да изабере коју ће играти.</string>
   <string name="simulClockHint">Фишерово подешавање сата. Што више играча примиш, више времена ће ти бити потребно.</string>
   <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>
@@ -745,8 +771,10 @@
   <string name="downloadImported">Увезено преузимање</string>
   <string name="crosstable">Упоредни преглед</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можете скроловати преко табле ради повлачења потеза у партији.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Листајте до компјутерских варијација да бисте их прегледали.</string>
   <string name="analysisShapesHowTo">Pитисните shif-click или десни клик за цртање кругова и стрелица на плочи.</string>
   <string name="letOtherPlayersMessageYou">Дозволите другим играчима да вам пошаљу поруку</string>
+  <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Поделите своје личне податке</string>
   <string name="withNobody">Нисаким</string>
   <string name="withFriends">Са пријатељима</string>

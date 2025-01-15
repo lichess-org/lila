@@ -29,10 +29,9 @@ final class IpRender(using Executor):
   def decrypt(str: String): Option[IpAddress] = IpAddress
     .from(str)
     .orElse(cache.underlying.asMap.asScala.collectFirst:
-      case (ip, encrypted) if encrypted == str => ip
-    )
+      case (ip, encrypted) if encrypted == str => ip)
 
   private val cache: LoadingCache[IpAddress, Rendered] = CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(30 minutes)
+    .expireAfterAccess(30.minutes)
     .build: (_: IpAddress) =>
       s"NoIP:${~CuteNameGenerator.make(maxSize = 30)}-${ThreadLocalRandom.nextString(3)}"

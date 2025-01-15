@@ -132,11 +132,23 @@
     <item quantity="one">%s Gaffe</item>
     <item quantity="other">%s Gaffen</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Gaffe</item>
+    <item quantity="other">%s Gaffen</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s Feeler</item>
     <item quantity="other">%s Feeler</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Feeler</item>
+    <item quantity="other">%s Feeler</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s Ongenauegkeet</item>
+    <item quantity="other">%s Ongenauegkeeten</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%s Ongenauegkeet</item>
     <item quantity="other">%s Ongenauegkeeten</item>
   </plurals>
@@ -667,7 +679,7 @@
   <string name="aboutSimulRules">Wann d\'Simul ufänkt, start all Spiller eng Partie mam Host. D\'Simul ass fäerdeg wann all Partien fäerdeg sinn.</string>
   <string name="aboutSimulSettings">Simultanpartië sinn ëmmer ongewäert. Revanchen, Zeréckhuelen an Zäit bäigi sinn net méiglech.</string>
   <string name="create">Kreéieren</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wanns du eng Simul kreéiers. kanns du géint puer Spiller gläichzäiteg spillen.</string>
+  <string name="whenCreateSimul">Wanns du eng Simul kreéiers. kanns du géint puer Spiller gläichzäiteg spillen.</string>
   <string name="simulVariantsHint">Wanns du puer Varianten auswiehls, kann all Spiller wiehlen, wéieng hien spillt.</string>
   <string name="simulClockHint">Fischer Bedenkzäit. Je méi Géigner du hues, desto méi Zäit wäers du brauchen.</string>
   <string name="simulAddExtraTime">Du kanns dir extra Zäit ginn fir besser mat der Simul zurechtzekommen.</string>

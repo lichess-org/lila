@@ -155,29 +155,8 @@ interface Events {
   off(key: string, cb: (...args: any[]) => void): void;
 }
 
-interface Api {
-  initializeDom: (root?: HTMLElement) => void;
-  events: Events;
-  socket: {
-    subscribeToMoveLatency: () => void;
-    events: Events;
-  };
-  onlineFriends: {
-    request: () => void;
-    events: Events;
-  };
-  chat: {
-    post: (text: string) => void;
-  };
-  overrides: {
-    [key: string]: (...args: any[]) => unknown;
-  };
-  analysis?: any;
-}
-
 interface Window {
   site: Site;
-  lichess: Api;
   fipr: Fipr;
   i18n: I18n;
   $as<T>(cash: Cash): T;
@@ -317,3 +296,4 @@ declare const site: Site;
 declare const fipr: Fipr;
 declare const i18n: I18n;
 declare module 'tablesort';
+declare const $html: (s: TemplateStringsArray, ...k: any[]) => string; // file://./../../.build/src/esbuild.ts

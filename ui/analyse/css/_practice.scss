@@ -1,6 +1,6 @@
 .practice-box {
+  @include prevent-select;
   flex: 0 0 135px;
-  user-select: none;
 
   .comment {
     flex: 0 0 30px;

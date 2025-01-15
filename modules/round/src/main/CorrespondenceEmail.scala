@@ -67,12 +67,12 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           povs = games
             .flatMap(Pov(_, userId))
             .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
-            .sortBy(_.remainingSeconds.getOrElse(Int.MaxValue))
+            .sortBy(_.remainingSeconds.fold(Int.MaxValue)(_.value))
           if !povs.isEmpty
           opponents = povs.map: pov =>
             CorrespondenceOpponent(
               pov.opponent.userId,
-              pov.remainingSeconds.map(s => Duration.ofSeconds(s.toLong)),
+              pov.remainingSeconds.map(s => Duration.ofSeconds(s.value)),
               pov.game.id
             )
         yield CorrespondenceOpponents(userId, opponents)).toList

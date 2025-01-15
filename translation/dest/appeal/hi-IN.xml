@@ -2,6 +2,6 @@
 <resources>
   <string name="closedByModerators">आपका एकाउंट मॉडरेटर द्वारा बंद कर दिया गया था.</string>
   <string name="hiddenBlogInfo">हमारे %s को दोबारा पढ़ना सुनिश्चित करें।</string>
-  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">संचार दिशानिर्देश</string>
+  <string name="communicationGuidelines">संचार दिशानिर्देश</string>
   <string name="fairPlay">फेयर प्ले</string>
 </resources>

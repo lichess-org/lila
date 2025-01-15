@@ -3,6 +3,7 @@ package lila.tree
 import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.{ Comment, SanStr }
+import chess.eval.WinPercent
 
 // ply AFTER the move was played
 case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
@@ -30,9 +31,8 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
 
   def cpComment: Option[String] = cp.map(_.showPawns)
   def mateComment: Option[String] =
-    mate.map { m =>
+    mate.map: m =>
       s"Mate in ${math.abs(m.value)}"
-    }
   // advise comment
   def evalComment: Option[String] = cpComment.orElse(mateComment)
 
@@ -51,21 +51,21 @@ case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):
 
 object Info:
 
-  import Eval.{ Cp, Mate }
+  import chess.eval.Eval.{ Cp, Mate }
 
   val LineMaxPlies = 12
 
   private val separator     = ","
   private val listSeparator = ";"
 
-  def start(ply: Ply) = Info(ply, Eval.initial, Nil)
+  def start(ply: Ply) = Info(ply, evals.initial, Nil)
 
   private def strCp(s: String)   = Cp.from(s.toIntOption)
   private def strMate(s: String) = Mate.from(s.toIntOption)
 
   private def decode(ply: Ply, str: String): Option[Info] =
     str.split(separator) match
-      case Array()       => Info(ply, Eval.empty, Nil).some
+      case Array()       => Info(ply, evals.empty, Nil).some
       case Array(cp)     => Info(ply, Eval(strCp(cp), None, None), Nil).some
       case Array(cp, ma) => Info(ply, Eval(strCp(cp), strMate(ma), None), Nil).some
       case Array(cp, ma, va) =>

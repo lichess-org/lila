@@ -56,12 +56,12 @@ export class Engines {
       make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
     });
     const variants: Variant[] = [
-      ['antichess', '689c016df8e0'],
+      ['antichess', 'dd3cbe53cd4e'],
       ['atomic', '2cf13ff256cc'],
       ['crazyhouse', '8ebf84784ad2'],
       ['horde', '28173ddccabe'],
       ['kingOfTheHill', '978b86d0e6a4'],
-      ['threeCheck', '313cc226a173'],
+      ['threeCheck', 'cb5f517c228b'],
       ['racingKings', '636b95f085e3'],
     ];
     const browserEngines: WithMake[] = [

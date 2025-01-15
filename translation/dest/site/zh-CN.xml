@@ -129,10 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s 次漏着</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s 次漏着</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s 次错着</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s 次错着</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="other">%s 次失准</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="other">%s 次失准</item>
   </plurals>
   <string name="moveTimes">走棋时间</string>
@@ -243,6 +252,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">与你下了%s盘棋</item>
   </plurals>
+  <string name="ok">好的</string>
   <string name="cancel">取消</string>
   <string name="whiteTimeOut">白方超时</string>
   <string name="blackTimeOut">黑方超时</string>
@@ -640,7 +650,7 @@
   <string name="aboutSimulRules">当车轮战开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，车轮战就结束了。</string>
   <string name="aboutSimulSettings">车轮战都是休闲对局。重赛、悔棋和加时功能被禁用。</string>
   <string name="create">创建</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
+  <string name="whenCreateSimul">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
   <string name="simulVariantsHint">如果你选择几种变体，每个棋手都能选择其中之一。</string>
   <string name="simulClockHint">菲舍尔时钟设置。挑战者越多，你所需时间就可能相应越多。</string>
   <string name="simulAddExtraTime">你可以为自己附加时间应对车轮战。</string>
@@ -949,4 +959,5 @@
   <string name="showMeEverything">全部展示</string>
   <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
   <string name="nothingToSeeHere">此刻没有什么可看的。</string>
+  <string name="stats">统计信息</string>
 </resources>

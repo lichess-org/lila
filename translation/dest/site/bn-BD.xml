@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">কাউকে খেলার জন্য আমন্ত্রণ জানাতে চাইলে এই URL টি দিন</string>
   <string name="gameOver">খেলা সমাপ্ত</string>
   <string name="waitingForOpponent">প্রতিপক্ষের জন্য অপেক্ষারত</string>
-  <string name="orLetYourOpponentScanQrCode">Or let your opponent scan this QR code</string>
+  <string name="orLetYourOpponentScanQrCode">অথবা আপনার প্রতিপক্ষকে এই কিউআর কোডটি স্ক্যান করতে দিন</string>
   <string name="waiting">অপেক্ষা করুন</string>
   <string name="yourTurn">আপনার চাল</string>
   <string name="aiNameLevelAiLevel">%1$s এর লেভেল %2$s</string>
@@ -26,7 +26,7 @@
   <string name="blackIsVictorious">কালো বিজয়ী</string>
   <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন</string>
   <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন</string>
-  <string name="itsYourTurn">এবার আপনার পালা!</string>
+  <string name="itsYourTurn">এবার আপনার চাল!</string>
   <string name="cheatDetected">প্রতারণা শনাক্ত করা হয়েছে</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
@@ -128,11 +128,23 @@
     <item quantity="one">%s টি ব্লান্ডার</item>
     <item quantity="other">%s টি ব্লান্ডার</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s টি ব্লান্ডার</item>
+    <item quantity="other">%s টি ব্লান্ডার</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%sটি ভূল</item>
     <item quantity="other">%sটি ভূল</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%sটি ভূল</item>
+    <item quantity="other">%sটি ভূল</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%sটি অনিপুণতা</item>
+    <item quantity="other">%sটি অনিপুণতা</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%sটি অনিপুণতা</item>
     <item quantity="other">%sটি অনিপুণতা</item>
   </plurals>
@@ -254,6 +266,7 @@
     <item quantity="one">%s টি খেলা আপনার সঙ্গে</item>
     <item quantity="other">%s টি খেলা আপনার সঙ্গে</item>
   </plurals>
+  <string name="ok">কোনো সমস্যা নেই</string>
   <string name="cancel">বাতিল করুন</string>
   <string name="whiteTimeOut">সাদার সময় শেষ</string>
   <string name="blackTimeOut">কালোর সময় আপ</string>
@@ -500,6 +513,7 @@
   <string name="ifNoneLeaveEmpty">যদি কিছুই না হয়, খালি রাখুন</string>
   <string name="profile">পরিচিতি</string>
   <string name="editProfile">পরিচিতি সম্পাদনা</string>
+  <string name="realName">আসল নাম</string>
   <string name="setFlair">আপনার ফ্লেয়ার সেট করুন</string>
   <string name="flair">ফ্লেয়ার</string>
   <string name="youCanHideFlair">পুরো সাইট জুড়ে সমস্ত ব্যবহারকারীর ফ্লেয়ার লুকানোর জন্য একটি সেটিং রয়েছে.</string>
@@ -667,7 +681,7 @@
   <string name="aboutSimulRules">যখন সিমুল শুরু হয়, প্রত্যেক খেলোয়াড় শুরু করে স্বাগতিকের সাথে একটি খেলা, যে পায় খেলার জন্য সাদা টুকরোগুলো, যখন সব খেলা সম্পন্ন হয় তখন সিমুল শেষ হয়ে যায়.</string>
   <string name="aboutSimulSettings">সিমুলগুলো হয় সবসময় আকস্মিক. পূনারয়খেলা, পেছনেনেওয়া এবং \"অনেকসময়\" বিকল হয়.</string>
   <string name="create">তৈরি করুন</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">যখন আপনি একটি সিমুল তৈরি করেন, আপনি খেলার জন্য একাধিক খেলোয়ার পাবেন.</string>
+  <string name="whenCreateSimul">যখন আপনি একটি সিমুল তৈরি করেন, আপনি খেলার জন্য একাধিক খেলোয়ার পাবেন.</string>
   <string name="simulVariantsHint">যদি আপনি বিভিন্ন অপশন নির্বাচন করেন, প্রতিটি খেলোয়াড়কে বেছে নিতে হবে যেটা সে খেলতে চায়.</string>
   <string name="simulClockHint">ফিশার ঘড়ি বিন্যাস. একবারে অনেক খেলোয়াড় নিলে, হয়তো আপনার অনেক সময় প্রয়োজন হবে.</string>
   <string name="simulAddExtraTime">আপনি হয়তো অতিরিক্ত সময় যোগ করে আপনার ঘড়ি সিমুলের সাথে মোকাবেলা করতে পারবেন.</string>

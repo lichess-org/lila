@@ -27,16 +27,16 @@ object StreamerForm:
         text.verifying("Invalid YouTube channel ID", s => Streamer.YouTube.parseChannelId(s).isDefined)
       ),
       "listed" -> of[Listed],
-      "approval" -> optional(
+      "approval" ->
         mapping(
           "granted"   -> boolean,
           "tier"      -> optional(number(min = 0, max = Streamer.maxTier)),
           "requested" -> boolean,
           "ignored"   -> boolean,
           "chat"      -> boolean,
-          "quick"     -> optional(nonEmptyText)
+          "quick"     -> optional(nonEmptyText),
+          "reason"    -> optional(text)
         )(ApprovalData.apply)(unapply)
-      )
     )(UserData.apply)(unapply)
       .verifying(
         "Must specify a Twitch and/or YouTube channel.",
@@ -59,7 +59,7 @@ object StreamerForm:
           requested = streamer.approval.requested,
           ignored = streamer.approval.ignored,
           chat = streamer.approval.chatEnabled
-        ).some
+        )
       )
     )
 
@@ -70,41 +70,43 @@ object StreamerForm:
       twitch: Option[String],
       youTube: Option[String],
       listed: Listed,
-      approval: Option[ApprovalData]
+      approval: ApprovalData
   ):
 
     def apply(streamer: Streamer, asMod: Boolean) =
       val liveVideoId   = streamer.youTube.flatMap(_.liveVideoId)
       val pubsubVideoId = streamer.youTube.flatMap(_.pubsubVideoId)
-      val newStreamer = streamer.copy(
+      val newTwitch     = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply)
+      val newYouTube =
+        youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId))
+      val urlChanges = newTwitch != streamer.twitch || newYouTube != streamer.youTube
+      val newApproval: Streamer.Approval =
+        if asMod then
+          val m = approval.resolve
+          streamer.approval.copy(
+            granted = m.granted,
+            tier = m.tier | streamer.approval.tier,
+            requested = m.requested,
+            ignored = m.ignored,
+            chatEnabled = m.chat,
+            reason = if m.granted then none else (~m.reason).some,
+            lastGrantedAt = m.granted.option(nowInstant).orElse(streamer.approval.lastGrantedAt)
+          )
+        else // data in UserData.approval must be ignored here
+          streamer.approval.copy(
+            requested = streamer.approval.requested || urlChanges || name != streamer.name
+              || headline != streamer.headline || description != streamer.description,
+            granted = streamer.approval.granted && !urlChanges
+          )
+      streamer.copy(
         name = name,
         headline = headline,
         description = description,
-        twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
-        youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId)),
+        twitch = newTwitch,
+        youTube = newYouTube,
         listed = listed,
-        updatedAt = nowInstant
-      )
-      newStreamer.copy(
-        approval = approval.map(_.resolve) match
-          case Some(m) if asMod =>
-            streamer.approval.copy(
-              granted = m.granted,
-              tier = m.tier | streamer.approval.tier,
-              requested = !m.granted && {
-                if streamer.approval.requested != m.requested then m.requested
-                else streamer.approval.requested || m.requested
-              },
-              ignored = m.ignored && !m.granted,
-              chatEnabled = m.chat,
-              lastGrantedAt = m.granted.option(nowInstant).orElse(streamer.approval.lastGrantedAt)
-            )
-          case _ =>
-            streamer.approval.copy(
-              granted = streamer.approval.granted &&
-                newStreamer.twitch.forall(streamer.twitch.has) &&
-                newStreamer.youTube.forall(streamer.youTube.has)
-            )
+        updatedAt = nowInstant,
+        approval = newApproval
       )
 
   case class ApprovalData(
@@ -113,7 +115,8 @@ object StreamerForm:
       requested: Boolean,
       ignored: Boolean,
       chat: Boolean,
-      quick: Option[String] = None
+      quick: Option[String] = None,
+      reason: Option[String] = None
   ):
     def resolve =
       quick.fold(this) {

@@ -2,10 +2,10 @@
 <resources>
   <string name="playWithAFriend">بازی با دوستان</string>
   <string name="playWithTheMachine">بازی با رایانه</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این لینک را برای او بفرستید</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
-  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف‌تان این کد QR را بِروبینَد</string>
+  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف‌تان این کد QR را اسکن کنند</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -30,7 +30,7 @@
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه روی تپه</string>
   <string name="threeChecks">سه‌کیش</string>
-  <string name="raceFinished">مسابقه تمام شد</string>
+  <string name="raceFinished">پایان تاخت</string>
   <string name="variantEnding">پایان وَرتا</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
@@ -83,7 +83,7 @@
   <string name="close">بستن</string>
   <string name="winning">حرکت برنده</string>
   <string name="losing">حرکت بازنده</string>
-  <string name="drawn">حرکت تساوی‌دهنده</string>
+  <string name="drawn">مساوی</string>
   <string name="unknown">ناشناخته</string>
   <string name="database">پایگاه داده</string>
   <string name="whiteDrawBlack">سفید / مساوی / سیاه</string>
@@ -132,11 +132,23 @@
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s اشتباه بزرگ</item>
+    <item quantity="other">%s اشتباه بزرگ</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s اشتباه</item>
     <item quantity="other">%s اشتباه</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s اشتباه</item>
+    <item quantity="other">%s اشتباه</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s نادقیق</item>
+    <item quantity="other">%s نادقیق</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%s نادقیق</item>
     <item quantity="other">%s نادقیق</item>
   </plurals>
@@ -217,7 +229,7 @@
   <string name="changeEmail">تغییر ایمیل</string>
   <string name="email">ایمیل</string>
   <string name="passwordReset">بازنشانی گذرواژه</string>
-  <string name="forgotPassword">گذرواژه را فراموش کرده‌اید؟</string>
+  <string name="forgotPassword">گذرواژه را فراموش کرده‌اید?</string>
   <string name="error.weakPassword">این گذرواژه بسیار رایج و آسان‌حدس است.</string>
   <string name="error.namePassword">خواهشانه از نام کاربری‌تان برای گذرواژه‌تان استفاده نکنید.</string>
   <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهراییده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب Lichessتان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
@@ -523,8 +535,8 @@
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
   <string name="success">موفق شدید</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s بازی در حال انجام است</item>
-    <item quantity="other">%s بازی در حال انجام است</item>
+    <item quantity="one">%s بازی جاریست</item>
+    <item quantity="other">%s بازی جاریست</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">پس از حرکت، خودکار به بازی بعدی روید</string>
   <string name="autoSwitch">تعویض خودکار</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">وقتی نمایش همزمان شروع شود، هر بازیکن یک بازی را با میزبان که با مهره سفید بازی میکند آغاز میکند. نمایش وقتی تمام می شود که تمام بازی ها تمام شده باشند.</string>
   <string name="aboutSimulSettings">نمایشگاه همزمان همیشه نارسمی است. بازرویارویی، برگرداندن و زمان افزاینده نافعال شده‌اند.</string>
   <string name="create">ساختن</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
+  <string name="whenCreateSimul">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
   <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام‌یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
@@ -979,10 +991,10 @@
   <string name="sentEmailWithLink">ما رایانامه‌ای شامل یک پیوند را به شما فرستاده‌ایم.</string>
   <string name="tournamentEntryCode">کد ورودی مسابقه</string>
   <string name="hangOn">صبر کن!</string>
-  <string name="gameInProgress">شما یک بازی در حال انجام با %s دارید.</string>
+  <string name="gameInProgress">شما یک بازی جاری با %s دارید.</string>
   <string name="abortTheGame">انصراف از بازی</string>
   <string name="resignTheGame">تسلیم</string>
-  <string name="youCantStartNewGame">شما نمی توانید تا زمانی که این بازی تمام نشده بازی جدیدی آغاز کنید.</string>
+  <string name="youCantStartNewGame">تا وقتی که این بازی تمام نشده، نمی‌توانید بازی جدیدی را بیاغازید.</string>
   <string name="since">از وقتی که</string>
   <string name="until">تا وقتی که</string>
   <string name="lichessDbExplanation">بازی‌های رسمی برگزاریده در Lichess</string>

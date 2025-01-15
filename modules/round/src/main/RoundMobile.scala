@@ -89,8 +89,7 @@ final class RoundMobile(
           Json.obj(
             "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
             "millisToMove" -> game.timeForFirstMove.millis
-          )
-        )
+          ))
         .add("clock", game.clock.map(roundJson.clockJson))
         .add("correspondence", game.correspondenceClock)
         .add("takebackable" -> takebackable)

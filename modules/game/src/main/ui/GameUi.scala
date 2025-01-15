@@ -82,7 +82,7 @@ final class GameUi(helpers: Helpers):
           if c == pov.color then "1" else "0"
 
     private def renderClock(clock: chess.Clock, color: Color) =
-      val s = clock.remainingTime(color).roundSeconds
+      val s = clock.remainingTime(color).roundSeconds.value
       span(
         cls      := s"mini-game__clock mini-game__clock--${color.name}",
         dataTime := s

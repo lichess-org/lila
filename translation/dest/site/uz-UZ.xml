@@ -132,13 +132,25 @@
     <item quantity="one">%s qo\'pol xato</item>
     <item quantity="other">%s qo\'pol xatolar</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Qo\'pol xato</item>
+    <item quantity="other">%s Qo\'pol xatolar</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s xato</item>
     <item quantity="other">%s xatolar</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Xato</item>
+    <item quantity="other">%s Xatolar</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s noaniqlik</item>
     <item quantity="other">%s noaniqliklar</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Noaniqlik</item>
+    <item quantity="other">%s Noaniqliklar</item>
   </plurals>
   <string name="moveTimes">Yurishlar soni</string>
   <string name="flipBoard">Taxtani o\'girmoq</string>
@@ -665,7 +677,7 @@
   <string name="aboutSimulRules">Seans boshlanganda har bir o\'yinchi seanschi bilan o\'ynashni boshlaydi, seanschi oqda o\'ynaydi. Seans xamma o\'yinlar tugaganda yakunlanadi.</string>
   <string name="aboutSimulSettings">Seanslar doim norasmiy. Qayta o\'ynashlar, ortga qaytarishlar va \"ko\'pmarta\"liklar barchasi o\'chirilgan.</string>
   <string name="create">Yaratish</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Siz Seans yaratganingizda bir vaqtda bir nechta o\'yinchilar bilan o\'ynash imkoniyatingiz bo\'ladi.</string>
+  <string name="whenCreateSimul">Siz Seans yaratganingizda bir vaqtda bir nechta o\'yinchilar bilan o\'ynash imkoniyatingiz bo\'ladi.</string>
   <string name="simulVariantsHint">Agar siz bir nechta variantlarni tanlasangiz, har bir o\'yinchi qaysi variantda o\'ynashni o\'zi tanlaydi.</string>
   <string name="simulClockHint">Fisher soatini sozlash. Qancha ko\'p o\'yinchi olsangiz shunga mos vaqt olishingiz kerak bo\'ladi.</string>
   <string name="simulAddExtraTime">Seansga ulgurishingiz uchun siz soatingizga qo\'shimcha vaqt qo\'shishingiz mumkin.</string>

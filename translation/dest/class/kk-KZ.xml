@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Үйірме</string>
+  <string name="lichessClasses">Үйірме</string>
   <string name="teachClassesOfChessStudents">Личес Үйірме құралын пайдаланып, шәкірттерге шахматты үйретіңіз.</string>
   <string name="features">Ерекшеліктері</string>
   <string name="quicklyGenerateSafeUsernames">Шәкірттерге қауіпсіз тіркеулі ат пен құпиясөздерді құрастыру</string>
   <string name="trackStudentProgress">Шәкірттердің ойны мен жұмбақ шешу жетістіктерін қадағалау</string>
   <string name="messageAllStudents">Барлық шәкірттерге жаңа оқу материал туралы хабар жіберу</string>
-  <string name="freeForAllForever">Барлығы үшін 100% тегін, мәңгі, жарнамасыз, трекерсіз</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Барлығы үшін 100% тегін, мәңгі, жарнамасыз, трекерсіз</string>
   <string name="applyToBeLichessTeacher">Личесте Ұстаз болуға сұраныс жіберіңіз</string>
   <string name="noClassesYet">Әзірге үйірме жоқ.</string>
   <string name="teachersX">Ұстаздар: %s</string>

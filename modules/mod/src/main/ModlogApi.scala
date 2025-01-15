@@ -31,8 +31,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       Modlog.isolate
     )
 
-  def streamerDecline(streamerId: UserId)(using MyId) = add:
-    Modlog(streamerId.some, Modlog.streamerDecline)
+  def streamerDecline(streamerId: UserId, reason: Option[String])(using MyId) = add:
+    Modlog(streamerId.some, Modlog.streamerDecline, reason)
 
   def streamerList(streamerId: UserId, v: Boolean)(using MyId) = add:
     Modlog(streamerId.some, if v then Modlog.streamerList else Modlog.streamerUnlist)
@@ -338,7 +338,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       } >> (m.notableZulip.so(zulipMonitor(m)))
 
   private def zulipMonitor(m: Modlog): Funit =
-    import lila.mod.{ Modlog as M }
+    import lila.mod.Modlog as M
     given MyId = m.mod.into(MyId)
     val icon = m.action match
       case M.alt | M.arenaBan | M.engine | M.booster | M.troll | M.isolate | M.closeAccount => "thorhammer"
@@ -353,15 +353,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       case _                                                   => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
     userRepo.getRoles(m.mod).map(Permission.ofDbKeys(_)).flatMap { permissions =>
-      import lila.core.irc.{ ModDomain as domain }
+      import lila.core.irc.ModDomain as domain
       val monitorType = m.action match
         case M.closeAccount | M.alt => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>
           Some(domain.Cheat)
         case M.booster | M.unbooster | M.arenaBan | M.unArenaBan => Some(domain.Boost)
-        case M.troll | M.untroll | M.isolate | M.unisolate | M.chatTimeout |
-            M.closeTopic | M.openTopic | M.disableTeam | M.enableTeam | M.setKidMode | M.deletePost |
-            M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
+        case M.troll | M.untroll | M.isolate | M.unisolate | M.chatTimeout | M.closeTopic | M.openTopic |
+            M.disableTeam | M.enableTeam | M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod |
+            M.blogTier | M.blogPostEdit =>
           Some(domain.Comm)
         case _ => Some(domain.Other)
       import Permission.*

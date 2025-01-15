@@ -38,8 +38,7 @@
 
   tr {
     @include transition;
-
-    user-select: none;
+    @include prevent-select;
   }
 
   .loading tbody {

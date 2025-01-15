@@ -148,7 +148,7 @@
 Коли браузер буде блокувати озвучування на сайті lichess.org, то з\'явиться червона піктограма вимкненого звуку. Зазвичай це обмеження зникає після того, як Ви на щось натиснете. В деякий мобільних браузерах дотик до фігури з метою її перетягнення не вважається за натискання. В такому випадку для відтворення звуків Вам потрібно натискати на вільне місце на дошці на початку кожної гри.
 
 Ми показуємо червону піктограму у випадках, коли таке трапляється. Зачасту Ви можете явно дозволити програш звуків на lichess.org. Ось інструкції, як це зробити свіжих версіях деяких популярних браузерів.</string>
-  <string name="desktop">настільний</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">настільний</string>
   <string name="enableAutoplayForSoundsFirefox">1. Перейдіть на lichess.org
 2. Натисніть Ctrl-i на Linux/Windows або cmd-i на MacOS
 3. Клацніть вкладку \"Дозволи\"

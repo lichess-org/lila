@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="team">Equipu</string>
+  <string name="teams">Equipos</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s miembru</item>
+    <item quantity="other">%s miembros</item>
+  </plurals>
+  <string name="allTeams">Tolos equipos</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Equipos que lidero</string>
+  <string name="newTeam">Nuevu equipu</string>
+  <string name="myTeams">Los mios equipos</string>
+  <string name="noTeamFound">Nengún equipu atopáu</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Xunirse al equipu</string>
+  <string name="quitTeam">Abandonar l\'equipu</string>
+</resources>

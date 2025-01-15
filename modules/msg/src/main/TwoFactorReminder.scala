@@ -9,8 +9,8 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userApi: lila.core.use
 
   def apply(userId: UserId) = cache.get(userId)
 
-  private val cache = mongoCache[UserId, Boolean](1024, "security:2fa:reminder", 10 days, _.value): loader =>
-    _.expireAfterWrite(11 days).buildAsyncFuture:
+  private val cache = mongoCache[UserId, Boolean](1024, "security:2fa:reminder", 10.days, _.value): loader =>
+    _.expireAfterWrite(11.days).buildAsyncFuture:
       loader: userId =>
         userApi
           .enabledById(userId)

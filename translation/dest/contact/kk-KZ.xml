@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
   <string name="accountSupport">Маған тіркелгі жөнінде көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
-  <string name="visitTitleConfirmation">Сіздің куәлік парақшаңызда атақты көрсету үшін, әрі Атақтылар Алаңына қатысу үшін атақты растау парақшасына өтіңіз</string>
+  <string name="visitTitleConfirmation">Сіздің төлқұжатыңызда атақты көрсету үшін, әрі Атақтылар Алаңына қатысу үшін атақты растау парақшасына өтіңіз</string>
   <string name="wantCloseAccount">Мен тіркелгімді жабамын деп шештім</string>
   <string name="closeYourAccount">Тіркелгіңізді осы парақшаға өтіп, жаба аласыз</string>
   <string name="doNotAskByEmail">Поштамен тіркелгі жабуды сұрамаңыз, біз оны орындамаймыз.</string>
@@ -28,7 +28,7 @@
   <string name="cantClearHistory">Ойын тарихын, жұмбақ шешу тарихын немесе рейтингті өшіру мүмкін емес.</string>
   <string name="wantReport">Мен бір ойыншыға шағым білдіргім келеді</string>
   <string name="toReportAPlayerUseForm">Ойыншы үстіне шағымдану үшін шағым үлгісін ашыңыз</string>
-  <string name="youCanAlsoReachReportPage">Сонымен қатар, сіз сол парақшаны, куәлік парақшадағы %s шағым батырмасына басып, аша аласыз.</string>
+  <string name="youCanAlsoReachReportPage">Бұл парақшаға жетудің тағы бір жолы: төлқұжаттағы %s шағым батырмасы.</string>
   <string name="doNotReportInForum">Форумдағы ойыншыларға қарсы шағым жібермеңіз.</string>
   <string name="doNotSendReportEmails">Бізге поштамен шағым жібермеңіз.</string>
   <string name="doNotMessageModerators">Тікелей модераторларға хабарлама жібермеңіз.</string>

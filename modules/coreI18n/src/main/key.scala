@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.ts
+// Generated with bin/i18n-file-gen.ts
 package lila.core.i18n
 
 opaque type I18nKey = String
@@ -1274,6 +1274,8 @@ object I18nKey:
     val `interferenceDescription`: I18nKey = "puzzleTheme:interferenceDescription"
     val `intermezzo`: I18nKey = "puzzleTheme:intermezzo"
     val `intermezzoDescription`: I18nKey = "puzzleTheme:intermezzoDescription"
+    val `killBoxMate`: I18nKey = "puzzleTheme:killBoxMate"
+    val `killBoxMateDescription`: I18nKey = "puzzleTheme:killBoxMateDescription"
     val `knightEndgame`: I18nKey = "puzzleTheme:knightEndgame"
     val `knightEndgameDescription`: I18nKey = "puzzleTheme:knightEndgameDescription"
     val `long`: I18nKey = "puzzleTheme:long"
@@ -2206,8 +2208,11 @@ object I18nKey:
     val `opponentLeftCounter`: I18nKey = "opponentLeftCounter"
     val `mateInXHalfMoves`: I18nKey = "mateInXHalfMoves"
     val `nbBlunders`: I18nKey = "nbBlunders"
+    val `numberBlunders`: I18nKey = "numberBlunders"
     val `nbMistakes`: I18nKey = "nbMistakes"
+    val `numberMistakes`: I18nKey = "numberMistakes"
     val `nbInaccuracies`: I18nKey = "nbInaccuracies"
+    val `numberInaccuracies`: I18nKey = "numberInaccuracies"
     val `nbPlayers`: I18nKey = "nbPlayers"
     val `nbGames`: I18nKey = "nbGames"
     val `ratingXOverYGames`: I18nKey = "ratingXOverYGames"
@@ -2331,10 +2336,11 @@ object I18nKey:
     val `pendingReview`: I18nKey = "streamer:pendingReview"
     val `pleaseFillIn`: I18nKey = "streamer:pleaseFillIn"
     val `whenReady`: I18nKey = "streamer:whenReady"
-    val `requestReview`: I18nKey = "streamer:requestReview"
+    val `submitForReview`: I18nKey = "streamer:submitForReview"
     val `streamerLanguageSettings`: I18nKey = "streamer:streamerLanguageSettings"
     val `twitchUsername`: I18nKey = "streamer:twitchUsername"
-    val `optionalOrEmpty`: I18nKey = "streamer:optionalOrEmpty"
+    val `twitchOrYouTubeRequired`: I18nKey = "streamer:twitchOrYouTubeRequired"
+    val `twitchOrYouTubeMustBeVerified`: I18nKey = "streamer:twitchOrYouTubeMustBeVerified"
     val `youTubeChannelId`: I18nKey = "streamer:youTubeChannelId"
     val `streamerName`: I18nKey = "streamer:streamerName"
     val `visibility`: I18nKey = "streamer:visibility"
@@ -2390,6 +2396,7 @@ object I18nKey:
     val `allSyncMembersRemainOnTheSamePosition`: I18nKey = "study:allSyncMembersRemainOnTheSamePosition"
     val `shareChanges`: I18nKey = "study:shareChanges"
     val `playing`: I18nKey = "study:playing"
+    val `showResults`: I18nKey = "study:showResults"
     val `showEvalBar`: I18nKey = "study:showEvalBar"
     val `first`: I18nKey = "study:first"
     val `previous`: I18nKey = "study:previous"
@@ -2755,6 +2762,8 @@ object I18nKey:
     val `createBlogDiscussionHelp`: I18nKey = "ublog:createBlogDiscussionHelp"
     val `publishOnYourBlog`: I18nKey = "ublog:publishOnYourBlog"
     val `publishHelp`: I18nKey = "ublog:publishHelp"
+    val `stickyPost`: I18nKey = "ublog:stickyPost"
+    val `stickyPostHelp`: I18nKey = "ublog:stickyPostHelp"
     val `xPublishedY`: I18nKey = "ublog:xPublishedY"
     val `thisPostIsPublished`: I18nKey = "ublog:thisPostIsPublished"
     val `thisIsADraft`: I18nKey = "ublog:thisIsADraft"

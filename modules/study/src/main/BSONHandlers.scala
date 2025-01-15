@@ -4,6 +4,7 @@ import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ ByColor, Centis, Check, FideId, Ply, PromotableRole, Role, Square }
+import chess.eval.*
 import reactivemongo.api.bson.*
 
 import scala.util.Success
@@ -12,7 +13,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Score }
+import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Clock }
 
 object BSONHandlers:
 
@@ -82,6 +83,8 @@ object BSONHandlers:
 
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
+  given BSONHandler[Clock] = isoHandler(_.centis, Clock(_))
+
   private given BSON[Crazyhouse.Data] with
     private def writePocket(p: Crazyhouse.Pocket) =
       p.flatMap((role, nb) => List.fill(nb)(role.forsyth)).mkString
@@ -124,7 +127,7 @@ object BSONHandlers:
 
   // shallow read, as not reading children
   private[study] def readBranch(doc: Bdoc, id: UciCharPair): Option[Branch] =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     for
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
@@ -135,8 +138,8 @@ object BSONHandlers:
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
-      clock          = doc.getAsOpt[Centis](F.clock)
+      eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
+      clock          = doc.getAsOpt[Clock](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield Branch(
@@ -158,7 +161,7 @@ object BSONHandlers:
 
   // shallow read, as not reading children
   private[study] def readNewBranch(doc: Bdoc, path: UciPath): Option[NewBranch] =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     for
       id  <- path.lastId
       ply <- doc.getAsOpt[Ply](F.ply)
@@ -170,8 +173,8 @@ object BSONHandlers:
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
-      clock          = doc.getAsOpt[Centis](F.clock)
+      eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
+      clock          = doc.getAsOpt[Clock](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(
@@ -194,7 +197,7 @@ object BSONHandlers:
 
   // shallow write, as not writing children
   private[study] def writeBranch(n: Branch) =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     val w = new Writer
     $doc(
       F.ply            -> n.ply,
@@ -213,7 +216,7 @@ object BSONHandlers:
     )
 
   private[study] def writeNewBranch(n: NewBranch) =
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     val w = new Writer
     $doc(
       F.ply      -> n.metas.ply,
@@ -232,7 +235,7 @@ object BSONHandlers:
     )
 
   private[study] given BSON[Root] with
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     def reads(fullReader: Reader) =
       val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey).err("Missing root")
       val r        = Reader(rootNode)
@@ -244,8 +247,8 @@ object BSONHandlers:
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
         glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-        eval = r.getO[Score](F.score).map(_.eval),
-        clock = r.getO[Centis](F.clock),
+        eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
+        clock = r.getO[Clock](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
@@ -267,7 +270,7 @@ object BSONHandlers:
     )
 
   private[study] given BSON[NewRoot] with
-    import Node.{ BsonFields as F }
+    import Node.BsonFields as F
     def reads(fullReader: Reader) =
       val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey).err("Missing root")
       val r        = Reader(rootNode)
@@ -280,8 +283,8 @@ object BSONHandlers:
           comments = r.getO[Comments](F.comments) | Comments.empty,
           gamebook = r.getO[Gamebook](F.gamebook),
           glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-          eval = r.getO[Score](F.score).map(_.eval),
-          clock = r.getO[Centis](F.clock),
+          eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
+          clock = r.getO[Clock](F.clock),
           crazyData = r.getO[Crazyhouse.Data](F.crazy)
         ),
         tree = StudyFlatTree.reader.newRoot(fullReader.doc)
@@ -391,8 +394,7 @@ object BSONHandlers:
         case From.Scratch   => "scratch"
         case From.Game(id)  => s"game $id"
         case From.Study(id) => s"study $id"
-        case From.Relay(id) => s"relay${id.fold("")(" " + _)}"
-      )
+        case From.Relay(id) => s"relay${id.fold("")(" " + _)}")
   )
   import Settings.UserSelection
   private[study] given BSONHandler[UserSelection] = tryHandler[UserSelection](

@@ -5,6 +5,7 @@ import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { hashNavigate } from '../hashRouting';
+import * as licon from 'common/licon';
 
 function makeStars(rank: number) {
   const stars = [];
@@ -50,10 +51,14 @@ export default function (ctrl: RunCtrl) {
         next
           ? h('a.next', { hook: bind('click', () => hashNavigate(next.id)) }, [
               i18n.learn.nextX(next.title) + ' ',
-              h('i', { attrs: { 'data-icon': '' } }),
+              h('i', { attrs: { 'data-icon': licon.GreaterThan } }),
             ])
           : null,
-        h('a.back.text[data-icon=]', { hook: bind('click', () => hashNavigate()) }, i18n.learn.backToMenu),
+        h(
+          `a.back.text[data-icon=${licon.LessThan}]`,
+          { hook: bind('click', () => hashNavigate()) },
+          i18n.learn.backToMenu,
+        ),
       ]),
     ]),
   );

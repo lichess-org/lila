@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Editatu txandako azterlana</string>
   <string name="deleteTournament">Ezabatu txapelketa hau</string>
   <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
-  <string name="showScores">Erakutsi jokalarien puntuazioak partiden emaitzen arabera</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Erakutsi jokalarien puntuazioak partiden emaitzen arabera</string>
   <string name="replacePlayerTags">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
   <string name="fideFederations">FIDE federazioak</string>
   <string name="top10Rating">10 onenak</string>
@@ -49,7 +49,7 @@
   <string name="ageThisYear">Adina</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Ez du sailkapenik</string>
   <string name="recentTournaments">Azken txapelketak</string>
-  <string name="openLichess">Ireki Lichessen</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Ireki Lichessen</string>
   <string name="teams">Taldeak</string>
   <string name="boards">Taulak</string>
   <string name="overview">Laburpena</string>

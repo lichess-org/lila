@@ -149,7 +149,7 @@
 Красная иконка отключённого звука появляется в том случае, если ваш браузер не позволяет lichess.org проигрывать звук. Обычно это ограничение возникает однократно, и пропадает, как только вы нажмете на что-нибудь. На некоторых мобильных браузерах перетаскивание фигуры не считается за клик. В этом случае вы должны коснуться доски, чтобы разрешить звук, и делать это в начале каждой партии.
 
 Мы показываем красную иконку, чтобы предупредить вас, когда это произойдёт. Часто вы можете явно разрешить воспроизведение звука. Вот инструкции для последних версий некоторых популярных браузеров.</string>
-  <string name="desktop">настольный</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">настольный</string>
   <string name="enableAutoplayForSoundsFirefox">1. Перейдите на lichess.org
 2. Нажмите Ctrl-i на Linux/Windows или cmd-i на MacOS
 3. Нажмите на вкладку Разрешения

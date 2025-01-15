@@ -53,7 +53,7 @@ final class LiveStreamApi(
 )(using Executor):
 
   private val cache = cacheApi.unit[LiveStreams] {
-    _.refreshAfterWrite(2 seconds)
+    _.refreshAfterWrite(2.seconds)
       .buildAsyncFuture: _ =>
         fuccess(streaming.getLiveStreams)
           .dmap: s =>

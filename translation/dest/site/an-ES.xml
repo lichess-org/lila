@@ -132,13 +132,25 @@
     <item quantity="one">%s error grieu</item>
     <item quantity="other">%s errors grieus</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Error grieu</item>
+    <item quantity="other">%s Errors grieus</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s error</item>
     <item quantity="other">%s errors</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Error</item>
+    <item quantity="other">%s Errors</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s imprecisión</item>
     <item quantity="other">%s imprecisions</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Imprecisión</item>
+    <item quantity="other">%s Imprecisions</item>
   </plurals>
   <string name="moveTimes">Tiempo per movimiento</string>
   <string name="flipBoard">Chirar lo escaquero</string>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">Cuan la simultania encomienza, cada chugador prencipia una partida con l\'anfitrión, que chuga con blancas. La simultania remata cuan s\'acaban totas las partidas.</string>
   <string name="aboutSimulSettings">Las simultanias son siempre partidas amistosas. Las opcions de petición de reminche, desfer chugada y anyadir tiempo son desactivadas.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cuan creigas una simultania, chugas contra cuantos chugadors de vez.</string>
+  <string name="whenCreateSimul">Cuan creigas una simultania, chugas contra cuantos chugadors de vez.</string>
   <string name="simulVariantsHint">Si trías diferents variants, cada chugador tría quál chugar.</string>
   <string name="simulClockHint">Configuración de reloch Fischer. Contra mas oponents, mas tiempo se precisa.</string>
   <string name="simulAddExtraTime">Puez anyadir tiempo adicional a lo tuyo reloch pa aduyar-te en a simultania.</string>

@@ -14,12 +14,12 @@ final class Rematches(idGenerator: IdGenerator)(using Executor):
   import Rematches.*
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterWrite(1 hour)
+    .expireAfterWrite(1.hour)
     .build[GameId, NextGame]()
 
   // challengeId -> prevGameId
   private val offeredReverseLookup = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterWrite(1 hour)
+    .expireAfterWrite(1.hour)
     .build[GameId, GameId]()
 
   def prevGameIdOffering = offeredReverseLookup.getIfPresent

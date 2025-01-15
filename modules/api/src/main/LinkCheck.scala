@@ -59,10 +59,9 @@ final private class LinkCheck(
   private def tourLink(tourId: String, source: FullSource): Fu[Boolean] =
     tournamentRepo.byId(TourId(tourId)).flatMapz { tour =>
       fuccess(tour.isScheduled) >>| {
-        source.teamId.so { sourceTeamId =>
+        source.teamId.so: sourceTeamId =>
           fuccess(tour.conditions.teamMember.exists(_.teamId == sourceTeamId)) >>|
             tournamentRepo.isForTeam(tour.id, sourceTeamId)
-        }
       }
     }
 

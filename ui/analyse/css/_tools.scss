@@ -10,8 +10,7 @@
 
     .sub-box {
       @extend %border-bottom-active;
-
-      user-select: none;
+      @include prevent-select;
 
       .title {
         font-size: 0.9rem;
@@ -45,6 +44,7 @@
   }
 
   &__moves {
+    @include prevent-select;
     flex: 2 1 0;
     display: flex;
     flex-direction: column;

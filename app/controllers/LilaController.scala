@@ -237,7 +237,9 @@ abstract private[controllers] class LilaController(val env: Env)
       oauthBodyContext(scoped).flatMap: ctx =>
         f(using ctx)(using scoped.me)
 
-  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
+  private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using
+      req: RequestHeader
+  )(
       f: OAuthScope.Scoped => Fu[Result]
   ) =
     val accepted = OAuthScope.select(selectors).into(EndpointScopes)

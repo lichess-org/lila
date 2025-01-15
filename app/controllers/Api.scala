@@ -343,7 +343,7 @@ final class Api(
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
-      .data(username, perfKey)
+      .data(username, perfKey, computeIfNeeded = true)
       .map:
         _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
 

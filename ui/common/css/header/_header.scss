@@ -4,6 +4,7 @@
 @import 'buttons';
 
 body > header {
+  @include prevent-select;
   height: $site-header-height;
   display: flex;
   justify-content: space-between;
@@ -11,7 +12,6 @@ body > header {
   z-index: $z-site-header-106;
   max-width: 1800px;
   margin: 0 auto;
-  user-select: none;
 
   @include mq-sticky-header {
     max-width: unset;

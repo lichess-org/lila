@@ -92,7 +92,7 @@ def main() -> None:
             r = subprocess.run(["sed","-i", "", f"/{unused}.*</d", path], capture_output=True)
 
 
-    r = subprocess.run(["pnpm", "run", "trans-dump"], cwd=LILA_DIR)
+    r = subprocess.run(["pnpm", "run", "i18n-file-gen"], cwd=LILA_DIR)
     sys.exit(r.returncode)
 
 

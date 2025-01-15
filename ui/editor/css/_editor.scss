@@ -5,7 +5,7 @@
 @include body-fixed-scroll;
 
 .board-editor {
-  user-select: none;
+  @include prevent-select;
 
   .main-board {
     grid-area: board;

@@ -149,7 +149,7 @@ Selecteer vervolgens of u meldingen van Lichess wilt toestaan of blokkeren.</str
 Het rode mute pictogram verschijnt wanneer jouw browser verhindert dat lichess.org een geluid afspeelt. Meestal wordt deze beperking opgeheven zodra je op iets klikt. Bij sommige mobiele browsers telt het slepen van een stuk niet als een klik. In dat geval moet je op het bord tikken om geluid aan het begin van elk spel toe te staan.
 
 Wij laten het rode icoon zien om je te waarschuwen wanneer dit gebeurt. Vaak kun je lichess.org expliciet toestaan om geluiden af te spelen. Hier zijn instructies om dit te doen op recente versies van sommige populaire browsers.</string>
-  <string name="desktop">bureaublad</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">bureaublad</string>
   <string name="enableAutoplayForSoundsFirefox">1. Ga naar lichess.org
 2. Druk op Ctrl-i op Linux/Windows of cmd-i op MacOS
 3. Klik op het tabblad Rechten
@@ -167,6 +167,8 @@ Wij laten het rode icoon zien om je te waarschuwen wanneer dit gebeurt. Vaak kun
 3. Klik op Cookies en Siterechten
 4. Scroll naar beneden en klik op Media autoplay
 5. Voeg lichess.org toe aan Toestaan</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Mezelf doen stoppen met spelen?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">op zichzelf staande mentale aandoening</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess gebruikersstijlen</string>
   <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">minder lobby pools</string>
   <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">We ontvangen regelmatig berichten van gebruikers die ons om hulp vragen om te voorkomen dat ze te veel spelen.

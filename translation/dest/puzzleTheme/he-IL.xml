@@ -57,6 +57,8 @@
   <string name="interferenceDescription">הזזת כלי בין שני כלים יריבים על מנת להותיר אותם לא מוגנים, למשל פרש על משבצת מוגנת בין שני צריחים.</string>
   <string name="intermezzo">אינטרמצו</string>
   <string name="intermezzoDescription">טקטיקה בה במקום לבצע את המהלך הצפוי, מבצעים מהלך ביניים המציב איום הדורש תגובה מיידית מהיריב. נקראת גם \"מסע ביניים\" או מגרמנית \"זווישנזוג\".</string>
+  <string name="killBoxMate">מט ״קופסת החנק״</string>
+  <string name="killBoxMateDescription">הצריח ממוקם ליד המלך של היריב והוא נתמך על ידי מלכה, שמצדה חוסמת את נתיב הבריחה של המלך. הצריח והמלכה לוכדים את המלך ב״קופסת חנק״ בגודל 3X3.</string>
   <string name="knightEndgame">סיום פרשים</string>
   <string name="knightEndgameDescription">סיום עם פרשים ורגלים בלבד.</string>
   <string name="long">פאזל ארוך</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">כלי המאיים או מגן על משבצת דרך כלי יריב.</string>
   <string name="zugzwang">כפאי</string>
   <string name="zugzwangDescription">היריב מוגבל במסעים שביכולתו לבצע, וכל אחד מחמיר את מצבו.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">שילוב בריא</string>
+  <string name="mix">שילוב בריא</string>
   <string name="mixDescription">קצת מהכול. לא תדעו למה לצפות. עליכם להיות מוכנים להכול! בדיוק כמו במשחקים אמיתיים.</string>
   <string name="playerGames">המשחקים שלי</string>
   <string name="playerGamesDescription">חפשו חידות אשר נוצרו ממשחקים שלכם או של שחקנים אחרים.</string>

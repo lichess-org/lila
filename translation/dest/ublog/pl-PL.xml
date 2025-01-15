@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Na forum zostanie utworzony temat, pod którym inni będą mogli komentować Twój wpis</string>
   <string name="publishOnYourBlog">Opublikuj na swoim blogu</string>
   <string name="publishHelp">Jeśli zaznaczone, post będzie wyświetlany na Twoim blogu. Jeśli nie, będzie prywatny, w twoich wersjach roboczych</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Przyklejony post</string>
+  <string name="stickyPostHelp">Jeśli zaznaczone, ten post będzie wyświetlany jako pierwszy w twoim profilu.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Opublikowano wpis na blogu</item>
     <item quantity="few">Opublikowano %s wpisy na blogu</item>
@@ -36,7 +38,7 @@
   <string name="xPublishedY">%1$s opublikował %2$s</string>
   <string name="thisPostIsPublished">Ten wpis jest opublikowany</string>
   <string name="thisIsADraft">To jest wersja robocza</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Zobacz więcej wpisów opublikowanych przez %s</string>
+  <string name="moreBlogPostsBy">Zobacz więcej wpisów opublikowanych przez %s</string>
   <string name="noPostsInThisBlogYet">Nie ma jeszcze wpisów na tym blogu.</string>
   <string name="noDrafts">Brak wersji roboczych.</string>
   <string name="latestBlogPosts">Najnowsze wpisy na blogu</string>

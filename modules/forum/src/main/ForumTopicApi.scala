@@ -69,7 +69,7 @@ final private class ForumTopicApi(
   object findDuplicate:
     private val cache =
       cacheApi.notLoadingSync[(UserId, String), ForumTopicId](64, "forum.topic.duplicate"):
-        _.expireAfterWrite(1 hour).build()
+        _.expireAfterWrite(1.hour).build()
     def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId.so: uid =>
       val key = (uid, topic.name)
       cache.getIfPresent(key).so { topicRepo.coll.byId[ForumTopic](_) }.orElse {

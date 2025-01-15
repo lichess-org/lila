@@ -17,7 +17,7 @@ final class UblogMarkup(
 
   private val pgnCache =
     cacheApi.notLoadingSync[PgnSourceId, LpvEmbed](32, "ublogMarkup.pgn"):
-      _.expireAfterWrite(2 second).build()
+      _.expireAfterWrite(2.second).build()
 
   private val renderer = MarkdownRender(
     autoLink = true,
@@ -40,7 +40,7 @@ final class UblogMarkup(
 
   private val cache = cacheApi[(UblogPostId, Markdown, Max), Html](1024, "ublog.markup"):
     _.maximumSize(2048)
-      .expireAfterWrite(if mode.isProd then 20 minutes else 1 second)
+      .expireAfterWrite(if mode.isProd then 20.minutes else 1.second)
       .buildAsyncFuture: (id, markdown, max) =>
         Bus
           .ask("lpv")(AllPgnsFromText(markdown.value, max, _))

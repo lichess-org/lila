@@ -3,8 +3,9 @@ package lila.insight
 import chess.format.pgn.SanStr
 import chess.opening.OpeningDb
 import chess.{ Centis, Clock, Ply, Role, Situation, Stats }
+import chess.eval.WinPercent
 
-import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis, WinPercent }
+import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis }
 import lila.common.SimpleOpening
 import lila.game.Blurs.booleans
 
@@ -137,7 +138,7 @@ final private class PovToEntry(
           role = role,
           eval = prevInfo.flatMap(_.eval.forceAsCp).map(_.ceiled.centipawns),
           cpl = cpDiffs.lift(i).flatten,
-          winPercent = prevInfo.map(_.eval).flatMap(WinPercent.fromEval),
+          winPercent = prevInfo.map(_.eval).flatMap(_.score).map(WinPercent.fromScore),
           accuracyPercent = accuracyPercent,
           material = situation.board.materialImbalance * from.pov.color.fold(1, -1),
           awareness = awareness,

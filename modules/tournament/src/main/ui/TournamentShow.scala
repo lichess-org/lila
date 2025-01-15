@@ -63,8 +63,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
           ,
           div(cls := "tour__main")(div(cls := "box")),
           tour.isCreated.option(div(cls := "tour__faq"):
-            faq(tour.mode.rated.some, tour.isPrivate.option(tour.id))
-          )
+            faq(tour.mode.rated.some, tour.isPrivate.option(tour.id)))
         )
 
   object side:
@@ -173,7 +172,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
 
   object faq:
 
-    import trans.{ arena as tra }
+    import trans.arena as tra
 
     def page(using Context) =
       Page(trans.site.tournamentFAQ.txt()).css("bits.page")(pageContent)

@@ -26,16 +26,14 @@ export function initModule(args: { fn: string } & any): void {
       return hcaptcha();
     case 'importer':
       return importer();
-    case 'oauth':
-      return oauth(args);
     case 'pmAll':
       return pmAll();
     case 'relayForm':
       return relayForm();
     case 'setAssetInfo':
       return setAssetInfo();
-    case 'streamer':
-      return streamer();
+    case 'streamerSubscribe':
+      return streamerSubscribe();
     case 'thanksReport':
       return thanksReport();
     case 'titleRequest':
@@ -188,20 +186,6 @@ function pmAll() {
   });
 }
 
-// ensure maximum browser compatibility here,
-// as the oauth page can be embedded in very dubious webviews
-function oauth({ danger }: { danger: boolean }) {
-  setTimeout(
-    () => {
-      const el = document.getElementById('oauth-authorize')!;
-      el.removeAttribute('disabled');
-      el.className = 'button';
-      if (danger) el.classList.add('button-red', 'ok-cancel-confirm', 'text');
-    },
-    danger ? 5000 : 2000,
-  );
-}
-
 function relayForm() {
   wireCropDialog({
     aspectRatio: 2 / 1,
@@ -233,7 +217,7 @@ function setAssetInfo() {
   $('#asset-version-message').text(site.info.message);
 }
 
-function streamer() {
+function streamerSubscribe() {
   $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {
     const target = e.target as HTMLInputElement;
     $(target)
@@ -246,13 +230,6 @@ function streamer() {
           { method: 'post' },
         );
       });
-  });
-  wireCropDialog({
-    aspectRatio: 1,
-    post: { url: '/upload/image/streamer', field: 'picture' },
-    max: { pixels: 1000 },
-    selectClicks: $('.select-image, .drop-target'),
-    selectDrags: $('.drop-target'),
   });
 }
 

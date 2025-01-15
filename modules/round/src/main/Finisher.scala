@@ -91,7 +91,7 @@ final private class Finisher(
     quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
     compEstOvers = lt.compEstOvers.centis
   do
-    import lila.mon.round.move.{ lag as lRec }
+    import lila.mon.round.move.lag as lRec
     lRec.mean.record(Math.round(10 * mean))
     lRec.stdDev.record(Math.round(10 * sd))
     // wikipedia.org/wiki/Coefficient_of_variation#Estimation

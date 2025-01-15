@@ -123,11 +123,20 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s blunder</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="other">%s Blunder</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s kesalahan</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="other">%s Kesalahan</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s ketidaktepatan</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="other">%s Ketidaktepatan</item>
   </plurals>
   <string name="moveTimes">Waktu gerak</string>
   <string name="flipBoard">Putar papan catur</string>
@@ -628,7 +637,7 @@
   <string name="aboutSimulRules">Saat Simultan dimulai, setiap pemain melawan penyedia, yang bermain sebagai buah putih. Simultan berakhir jika seluruh partai telah selesai dimainkan.</string>
   <string name="aboutSimulSettings">Simultan selalu sederhana, tanding ulang, langkah balik dan tambahan waktu tidak diijinkan.</string>
   <string name="create">Buat baru</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
+  <string name="whenCreateSimul">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
   <string name="simulVariantsHint">Jika anda memilih banyak varian, setiap pemain bisa memilih yang dimainkan.</string>
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
   <string name="simulAddExtraTime">Anda bisa menambah waktu pada jam anda untuk membantu simultan anda</string>

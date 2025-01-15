@@ -17,7 +17,7 @@ $hover-bg: $m-primary_bg--mix-30;
     }
     &__header {
       @extend %flex-center-nowrap, %box-radius-top;
-      user-select: none;
+      @include prevent-select;
       overflow: hidden;
       align-items: stretch;
       flex: 0 0 auto;
@@ -117,9 +117,12 @@ $hover-bg: $m-primary_bg--mix-30;
         flex: 0 0 50%;
       }
       line-height: 0;
-      img {
+      > img {
         width: 100%;
         @include broken-img(2 / 1);
+      }
+      .video-player-close {
+        display: none;
       }
       text-align: center;
     }
@@ -282,7 +285,7 @@ $hover-bg: $m-primary_bg--mix-30;
   &__nav {
     @extend %flex-between, %tour-margin-horiz;
     gap: 1em;
-    user-select: none;
+    @include prevent-select;
   }
   &__subscribe {
     @extend %flex-center-nowrap;

@@ -7,7 +7,9 @@
     <item quantity="other">%s sändningar</item>
   </plurals>
   <string name="liveBroadcasts">Direktsända turneringar</string>
+  <string name="broadcastCalendar">Sändningsschema</string>
   <string name="newBroadcast">Ny direktsändning</string>
+  <string name="subscribedBroadcasts">Bokade sändningar</string>
   <string name="aboutBroadcasts">Om sändningar</string>
   <string name="howToUseLichessBroadcasts">Hur man använder Lichess-Sändningar.</string>
   <string name="theNewRoundHelp">Den nya rundan kommer att ha samma medlemmar och bidragsgivare som den föregående.</string>
@@ -22,7 +24,10 @@
   <string name="tournamentDescription">Kort beskrivning av turneringen</string>
   <string name="fullDescription">Fullständig beskrivning</string>
   <string name="fullDescriptionHelp">Valfri längre beskrivning av sändningen. %1$s är tillgänglig. Längden måste vara mindre än %2$s tecken.</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PNG-källans URL</string>
   <string name="sourceUrlHelp">URL som Lichess kan använda för att få PGN-uppdateringar. Den måste vara publikt tillgänglig från Internet.</string>
+  <string name="sourceGameIds">Upp till 64 Lichess-partiers ID, separerade med mellanslag.</string>
+  <string name="startDateTimeZone">Startdatum i turneringens lokala tidszon: %s</string>
   <string name="startDateHelp">Valfritt, om du vet när händelsen startar</string>
   <string name="currentGameUrl">Länk till aktuellt parti (URL)</string>
   <string name="downloadAllRounds">Ladda ner alla omgångar</string>

@@ -56,7 +56,7 @@ final class TeamInfoApi(
   import TeamInfo.*
 
   object pmAll:
-    val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10 minutes)
+    val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10.minutes)
     val limiter = mongoRateLimitApi[TeamId](
       "team.pm.all",
       credits = pmAllCredits * pmAllCost,

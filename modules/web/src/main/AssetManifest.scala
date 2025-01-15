@@ -76,10 +76,14 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .map:
         case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js", Nil, None))
         case (k, value) =>
-          val name     = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
+          val path = (value \ "hash")
+            .asOpt[String]
+            .map(h => s"$k.$h.js")
+            .orElse((value \ "path").asOpt[String])
+            .getOrElse(s"$k.js")
           val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
           val inlineJs = (value \ "inline").asOpt[String]
-          (k, SplitAsset(name, imports, inlineJs))
+          (k, SplitAsset(path, imports, inlineJs))
       .toMap
 
     val js = splits.view.mapValues: asset =>

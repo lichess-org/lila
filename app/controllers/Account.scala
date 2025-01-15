@@ -177,8 +177,7 @@ final class Account(
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
-                lila.core.i18n.I18nKey.site.checkYourEmail.txt()
-              )
+                lila.core.i18n.I18nKey.site.checkYourEmail.txt())
   }
 
   def emailConfirm(token: String) = Open:

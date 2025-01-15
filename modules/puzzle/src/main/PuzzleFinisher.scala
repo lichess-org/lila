@@ -22,8 +22,8 @@ final private[puzzle] class PuzzleFinisher(
 
   private val sequencer = AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),
-    expiration = 5 minutes,
-    timeout = 5 seconds,
+    expiration = 5.minutes,
+    timeout = 5.seconds,
     name = "puzzle.finish",
     lila.log.asyncActorMonitor.full
   )
@@ -150,7 +150,8 @@ final private[puzzle] class PuzzleFinisher(
                       (userPerf != perf).so:
                         userApi
                           .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
-                          .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf)) void
+                          .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf))
+                          .void
                   _ = if prevRound.isEmpty then
                     Bus.publish(
                       Puzzle

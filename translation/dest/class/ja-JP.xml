@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Lichess 教室</string>
+  <string name="lichessClasses">Lichess 教室</string>
   <string name="teachClassesOfChessStudents">「Lichess 教室」機能で生徒にチェスを教えよう。</string>
   <string name="features">機能</string>
   <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成</string>
   <string name="trackStudentProgress">対局やタクティクス問題での生徒の進歩を表示</string>
   <string name="messageAllStudents">新しい教材について全生徒に通知</string>
-  <string name="freeForAllForever">誰にでも永久に完全無料、広告・トラッカーなし</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">誰にでも永久に完全無料、広告・トラッカーなし</string>
   <string name="applyToBeLichessTeacher">Lichess 講師に登録申請する</string>
   <string name="noClassesYet">まだ教室がありません。</string>
   <string name="teachersX">講師：%s</string>
@@ -56,6 +56,8 @@
   <plurals name="nbPendingInvitations">
     <item quantity="other">まだ返事のない招待 %s 件</item>
   </plurals>
+  <string name="pending">ペンディング</string>
+  <string name="declined">だめ</string>
   <string name="onlyVisibleToTeachers">講師だけに見えます</string>
   <string name="lastActiveDate">最後のログイン</string>
   <string name="managed">管理下</string>
@@ -110,4 +112,6 @@
   <string name="anInvitationHasBeenSentToX">%s に招待が送信されました</string>
   <string name="xAlreadyHasAPendingInvitation">%s はすでに招待ずみです</string>
   <string name="xIsAKidAccountWarning">%1$s は子供のアカウントで、あなたのメッセージを受信できません。招待 URL を手動で伝えてください： %2$s</string>
+  <string name="moveToClass">%s へ移動</string>
+  <string name="moveToAnotherClass">別のクラスに移動</string>
 </resources>
