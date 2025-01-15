@@ -26,8 +26,6 @@ export function initModule(args: { fn: string } & any): void {
       return hcaptcha();
     case 'importer':
       return importer();
-    case 'oauth':
-      return oauth(args);
     case 'pmAll':
       return pmAll();
     case 'relayForm':
@@ -186,20 +184,6 @@ function pmAll() {
   $('.copy-url-button').on('click', function (e) {
     $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n');
   });
-}
-
-// ensure maximum browser compatibility here,
-// as the oauth page can be embedded in very dubious webviews
-function oauth({ danger }: { danger: boolean }) {
-  setTimeout(
-    () => {
-      const el = document.getElementById('oauth-authorize')!;
-      el.removeAttribute('disabled');
-      el.className = 'button';
-      if (danger) el.classList.add('button-red', 'ok-cancel-confirm', 'text');
-    },
-    danger ? 5000 : 2000,
-  );
 }
 
 function relayForm() {

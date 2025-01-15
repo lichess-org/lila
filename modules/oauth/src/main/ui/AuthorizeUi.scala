@@ -25,8 +25,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     Page("Authorization")
       .css("bits.oauth")
-      .js(esmInitBit("oauth", "danger" -> prompt.isDanger))
-      .csp(_.withLegacyCompatibility):
+      .js(Esm("bits.oauth")):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(
             ringsImage,
@@ -59,7 +58,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                   )
                 case None =>
                   submitButton(
-                    cls      := s"${buttonClass(prompt)} disabled",
+                    cls      := List(s"${buttonClass(prompt)} disabled" -> true, "danger" -> isDanger),
                     dataIcon := isDanger.option(Icon.CautionTriangle),
                     disabled := true,
                     id       := "oauth-authorize",
