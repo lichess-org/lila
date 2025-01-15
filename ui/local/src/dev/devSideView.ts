@@ -151,7 +151,7 @@ function clockOptions() {
 
 function reset(params: Partial<LocalSetup>): void {
   env.game.reset(params);
-  localStorage.setItem('local.dev.setup', JSON.stringify(env.game.localSetup));
+  //localStorage.setItem('local.dev.setup', JSON.stringify(env.game.localSetup));
   env.redraw();
 }
 
@@ -234,8 +234,9 @@ function progress() {
 }
 
 function renderPlayPause(): VNode {
-  const disabled = env.game.isUserTurn;
-  const paused = env.game.isStopped || env.game.live.end;
+  const boardTurn = env.game.history?.turn ?? env.game.live.turn;
+  const disabled = !env.bot[boardTurn];
+  const paused = env.game.isStopped || env.game.history || env.game.live.end;
   return h(
     `button.play-pause.button.button-metal${disabled ? '.play.disabled' : paused ? '.play' : '.pause'}`,
     {
@@ -263,10 +264,11 @@ function renderPlayPause(): VNode {
 }
 
 function fen(): VNode {
+  const boardFen = env.game.history?.fen ?? env.game.live.fen;
   return h('input.fen', {
     attrs: {
       type: 'text',
-      value: env.game.live.fen === co.fen.INITIAL_FEN ? '' : env.game.live.fen,
+      value: boardFen === co.fen.INITIAL_FEN ? '' : boardFen,
       spellcheck: 'false',
       placeholder: co.fen.INITIAL_FEN,
     },

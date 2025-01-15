@@ -70,7 +70,7 @@ case class PlayerAggregateAssessment(
     playerAssessments.map { pa =>
       if pa.assessment != assessment then 0.0
       else pa.tcFactor.getOrElse(1.0) * (if pa.flags.highlyConsistentMoveTimes then 1.6 else 1.0)
-    } sum
+    }.sum
 
   val weightedCheatingSum       = weightedAssessmentValue(Cheating)
   val weightedLikelyCheatingSum = weightedAssessmentValue(LikelyCheating)

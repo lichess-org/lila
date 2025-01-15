@@ -87,7 +87,7 @@ export class DevCtrl {
   beforeMove(uci: string): void {
     const ply = env.game.live.ply;
     const fen = env.game.live.fen;
-    const turn = env.game.turn;
+    const turn = env.game.live.turn;
     if (ply === 0) {
       const white = env.game.nameOf('white');
       const black = env.game.nameOf('black');
@@ -106,7 +106,7 @@ export class DevCtrl {
 
   afterMove(moveResult: MoveContext): void {
     const ply = env.game.live.ply - 1;
-    const lastColor = env.game.awaitingTurn;
+    const lastColor = env.game.live.awaiting;
     env.round.chessground?.set({ animation: { enabled: !this.hurry } });
     if (this.hurry) moveResult.silent = true;
     const trace = env.bot[lastColor]?.traceMove;
@@ -166,7 +166,7 @@ export class DevCtrl {
   }
 
   get gameInProgress(): boolean {
-    return env.game.live.ply > 0 && !env.game.live.status.end;
+    return !!env.game.history || (env.game.live.ply > 0 && !env.game.live.status.end);
   }
 
   async clearRatings(): Promise<void> {

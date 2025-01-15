@@ -132,11 +132,23 @@
     <item quantity="one">%s பெரிய தவறு</item>
     <item quantity="other">%s பெரிய தவறுகள்</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s பெரிய தவறு</item>
+    <item quantity="other">%s பெரிய தவறுகள்</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s பிசகு</item>
     <item quantity="other">%s தவறுகள்</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s பிசகு</item>
+    <item quantity="other">%s தவறுகள்</item>
+  </plurals>
   <plurals name="nbInaccuracies">
+    <item quantity="one">%s துல்லியமின்மை</item>
+    <item quantity="other">%s கச்சிதப்பிழைகள்</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
     <item quantity="one">%s துல்லியமின்மை</item>
     <item quantity="other">%s கச்சிதப்பிழைகள்</item>
   </plurals>
@@ -678,7 +690,7 @@
   <string name="aboutSimulRules">சிமுல் தொடங்கும் போது, ​​​​ஒவ்வொரு வீரரும் ஹோஸ்டுடன் ஒரு விளையாட்டைத் தொடங்குகிறார்கள். அனைத்து விளையாட்டுகளும் முடிந்ததும் சிமுல் முடிவடைகிறது.</string>
   <string name="aboutSimulSettings">சிமுல்கள் எப்போதும் சாதாரணமானவை. மறு பொருத்தங்கள், திரும்பப் பெறுதல் மற்றும் நேரத்தைச் சேர்ப்பது ஆகியவை முடக்கப்பட்டுள்ளன.</string>
   <string name="create">உருவாக்கு</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">நீங்கள் ஒரு சிமுலை உருவாக்கும்போது, ​​ஒரே நேரத்தில் பல வீரர்களை விளையாடலாம்.</string>
+  <string name="whenCreateSimul">நீங்கள் ஒரு சிமுலை உருவாக்கும்போது, ​​ஒரே நேரத்தில் பல வீரர்களை விளையாடலாம்.</string>
   <string name="simulVariantsHint">நீங்கள் பல வகைகளைத் தேர்ந்தெடுத்தால், ஒவ்வொரு வீரரும் எதை விளையாட வேண்டும் என்பதைத் தேர்ந்தெடுக்க வேண்டும்.</string>
   <string name="simulClockHint">பிஷ்ஷர் கடிகார அமைப்பு. நீங்கள் அதிக வீரர்களை எடுத்துக்கொள்கிறீர்கள், உங்களுக்கு அதிக நேரம் தேவைப்படலாம்.</string>
   <string name="simulAddExtraTime">சிமுலைச் சமாளிக்க உங்களுக்கு உதவ, உங்கள் கடிகாரத்தில் கூடுதல் ஆரம்ப நேரத்தைச் சேர்க்கலாம்.</string>
@@ -936,7 +948,7 @@
   <string name="streamerManager">ஸ்ட்ரீமர் மேலாளர்</string>
   <string name="cancelTournament">போட்டியை ரத்து செய்</string>
   <string name="tournDescription">போட்டி விளக்கம்</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">பங்கேற்பாளர்களுக்கு ஏதாவது சிறப்புச் சொல்ல விரும்புகிறீர்களா? அதை சுருக்கமாக வைக்க முயற்சி செய்யுங்கள். மார்க் டவுன் இணைப்புகள் உள்ளன: [name](https://url)</string>
+  <string name="tournDescriptionHelp">பங்கேற்பாளர்களுக்கு ஏதாவது சிறப்புச் சொல்ல விரும்புகிறீர்களா? அதை சுருக்கமாக வைக்க முயற்சி செய்யுங்கள். மார்க் டவுன் இணைப்புகள் உள்ளன: [name](https://url)</string>
   <string name="ratedFormHelp">கேம்கள் மதிப்பிடப்படுகின்றன மற்றும் பிளேயர்களின் மதிப்பீடுகளை பாதிக்கின்றன</string>
   <string name="onlyMembersOfTeam">குழு உறுப்பினர்கள் மட்டுமே</string>
   <string name="noRestriction">தடை இல்லை</string>

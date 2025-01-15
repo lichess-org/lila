@@ -35,10 +35,13 @@ final class Ublog(env: Env) extends LilaController(env):
               views.ublog.ui.drafts(user, blog, _)
   }
 
-  def post(username: UserStr, slug: String, id: UblogPostId) = Open:
+  def post(username: UserStr, slug: String, id: UblogPostId) = Open: ctx ?=>
     Found(env.ublog.api.getPost(id)): post =>
-      if slug == post.slug && username.is(post.created.by) then handlePost(post)
-      else Redirect(urlOfPost(post))
+      if slug == post.slug && post.isUserBlog(username)
+      then handlePost(post)
+      else
+        val url = urlOfPost(post).url
+        if url != ctx.req.path then Redirect(urlOfPost(post)) else handlePost(post)
 
   private def handlePost(post: UblogPost)(using Context) =
     val createdBy = post.created.by

@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Rapide kreu sekurajn uzantonomon kaj pasvortojn por viaj lernantoj</string>
   <string name="trackStudentProgress">Sekvi la progreson de la lernanto en ludoj kaj puzloj</string>
   <string name="messageAllStudents">Mesaĝu al ĉiuj lernantoj pri nova leciona materialo</string>
-  <string name="freeForAllForever">100% senpaga por ĉiuj, por ĉiam, sen reklamoj aŭ spuriloj</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% senpaga por ĉiuj, por ĉiam, sen reklamoj aŭ spuriloj</string>
   <string name="applyToBeLichessTeacher">Petu esti Instruisto en Lichess</string>
   <string name="noClassesYet">Neniu leciono ankoraŭ.</string>
   <string name="teachersX">Instruistoj: %s</string>

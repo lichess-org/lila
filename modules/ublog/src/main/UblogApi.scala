@@ -82,7 +82,7 @@ final class UblogApi(
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
-      .sort($doc("lived.at" -> -1))
+      .sort($doc("sticky" -> -1, "lived.at" -> -1))
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 

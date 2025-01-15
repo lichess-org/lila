@@ -149,7 +149,7 @@ Quindi seleziona se consentire o bloccare le notifiche da Lichess.</string>
 L\'icona rossa di muto appare quando il tuo browser impedisce a lichess.org di riprodurre suoni. Normalmente questa restrizione è rimossa non appena clicchi da qualche parte. Su alcuni browser per dispositivi mobili, toccare e trascinare un pezzo non conta come un click. In tal caso devi toccare la scacchiera per abilitare i suoni all\'inizio di ogni partita.
 
 Ti mostriamo l\'icona rossa di muto per avvisarti quando questo succede. Spesso puoi esplicitamente dare il permesso a lichess.org di riprodurre suoni. Qui sotto trovi delle istruzioni per versioni recenti di alcuni browser popolari.</string>
-  <string name="desktop">desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Vai su lichess.org
 2. Premi Ctrl-i su Linux/Windows o cmd-i su MacOS
 3. Fai clic sulla scheda Autorizzazioni

@@ -19,7 +19,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   export BSONHandlers.{ statusHandler, gameHandler }
   import BSONHandlers.given
-  import lila.game.Game.{ BSONFields as F }
+  import lila.game.Game.BSONFields as F
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
@@ -418,7 +418,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .one(bson)
       .addFailureEffect {
         case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment()
-      } void
+      }
+      .void
 
   def removeRecentChallengesOf(userId: UserId) =
     coll.delete.one:

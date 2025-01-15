@@ -135,7 +135,7 @@ final class ForumPostApi(
         _ =
           if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v
           then
-            scheduler.scheduleOnce(5 minutes):
+            scheduler.scheduleOnce(5.minutes):
               react(categId, postId, reaction.key, false)
       yield post
     }

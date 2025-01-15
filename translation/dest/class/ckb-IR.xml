@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">دروستکردنی ناوی بەکارهێنەر و وشەی نهێنی پارێزراو بۆ خوێندکاران</string>
   <string name="trackStudentProgress">بەدواداچوون بۆ پێشکەوتنی ئاستی خوێندکار لە یاری و مەتەڵەکاندا</string>
   <string name="messageAllStudents">پەیام بۆ هەموو خوێندکاران بنێرە دەربارەی مادەی نوێی ناو پۆلەکەت</string>
-  <string name="freeForAllForever">100% بەخۆڕاییە بۆ هەمووان، بۆ هەمیشە، بەبێ هیچ ڕیکلام و شوێنپێهەڵگرێک</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% بەخۆڕاییە بۆ هەمووان، بۆ هەمیشە، بەبێ هیچ ڕیکلام و شوێنپێهەڵگرێک</string>
   <string name="applyToBeLichessTeacher">داواکاری پێشکەش بکە بۆ ئەوەی ببیتە مامۆستای لیچێس</string>
   <string name="noClassesYet">هێشتا هیچ پۆلێک نییە.</string>
   <string name="teachersX">مامۆستایان: %s</string>

@@ -38,6 +38,27 @@ export class Bot implements BotInfo, MoveSource {
   zero?: ZeroSearch;
   fish?: FishSearch;
 
+  static viable(info: BotInfo): boolean {
+    return Boolean(info.uid && info.name && (info.zero || info.fish)); // TODO moar validate
+  }
+
+  static migrate(oldDbVersion: number, oldBot: any): BotInfo {
+    const bot = structuredClone(oldBot);
+    // example: migrate from version 1
+    //
+    // if (oldDbVersion === 1) {
+    //   bot.filters = {};
+    //   for (const [name, filter] of Object.entries<any>(oldBot.filters)) {
+    //     bot.filters[name] = {
+    //       range: { ...filter.range },
+    //       by: 'max',
+    //     };
+    //     bot.filters[name][filter.by] = structuredClone(filter.data);
+    //   }
+    // }
+    return bot;
+  }
+
   constructor(info: BotInfo) {
     Object.assign(this, structuredClone(info));
     if (this.filters) Object.values(this.filters).forEach(quantizeFilter);
@@ -50,25 +71,6 @@ export class Bot implements BotInfo, MoveSource {
         get: () => Promise.all(this.books?.flatMap(b => env.assets.getBook(b.key)) ?? []),
       },
     });
-  }
-
-  static viable(info: BotInfo): boolean {
-    return Boolean(info.uid && info.name && (info.zero || info.fish));
-  }
-
-  static migrate(oldDbVersion: number, old: any): BotInfo {
-    const bot = structuredClone(old);
-    if (oldDbVersion < 2) {
-      bot.filters = {};
-      for (const [name, filter] of Object.entries<any>(old.filters)) {
-        bot.filters[name] = {
-          range: { ...filter.range },
-          by: 'max',
-        };
-        bot.filters[name][filter.by] = structuredClone(filter.data);
-      }
-    }
-    return bot;
   }
 
   get traceMove(): string {

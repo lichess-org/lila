@@ -17,6 +17,7 @@ case class UblogPost(
     topics: List[UblogTopic],
     live: Boolean,
     discuss: Option[Boolean],
+    sticky: Option[Boolean],
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
@@ -27,7 +28,8 @@ case class UblogPost(
 ) extends UblogPost.BasePost
     with lila.core.ublog.UblogPost:
 
-  def isBy[U: UserIdOf](u: U) = created.by.is(u)
+  def isBy[U: UserIdOf](u: U)       = created.by.is(u)
+  def isUserBlog[U: UserIdOf](u: U) = blog == UblogBlog.Id.User(u.id)
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
   def allText   = s"$title $intro $markdown"
@@ -73,6 +75,7 @@ object UblogPost:
       created: Recorded,
       updated: Option[Recorded],
       lived: Option[Recorded],
+      sticky: Option[Boolean],
       topics: List[UblogTopic]
   ) extends BasePost
 

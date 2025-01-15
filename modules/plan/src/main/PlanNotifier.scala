@@ -12,7 +12,7 @@ final private[plan] class PlanNotifier(using ec: Executor, scheduler: Scheduler)
     if user.plan.months > 1 then onRenew(user) else onStart(user)
 
   private def onStart(user: User): Unit =
-    scheduler.scheduleOnce(5 seconds) {
+    scheduler.scheduleOnce(5.seconds) {
       Bus.publish(lila.core.misc.plan.PlanStart(user.id), "planStart")
     }
     pushTimeline(user)(lila.core.timeline.PlanStart.apply)

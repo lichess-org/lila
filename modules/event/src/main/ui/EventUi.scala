@@ -78,7 +78,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
     private val renderer = new MarkdownRender(table = true, list = true)
     // hashcode caching is safe for official events
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(10 minutes)
+      .expireAfterAccess(10.minutes)
       .maximumSize(64)
       .build[Int, Html]()
     def apply(e: Event, text: Markdown): Frag =

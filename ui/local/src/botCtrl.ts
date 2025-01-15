@@ -59,7 +59,6 @@ export class BotCtrl {
       for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
         this.rateBots.push(new RateBot(i));
       }
-      //site.pubsub.on('local.dev.import.book', this.onBookImported);
     }
     return this.initBots(serverBots.filter(Bot.viable));
   }
@@ -205,11 +204,6 @@ export class BotCtrl {
     }
     return 1;
   }
-
-  // private onBookImported = (key: string, oldKey?: string): void => {
-  //   if (!oldKey) return;
-
-  // }
 
   private getSavedBots() {
     return (

@@ -7,7 +7,7 @@ import { allSources as allCssSources } from './sass.ts';
 import { jsLogger } from './console.ts';
 import { shallowSort, isEquivalent } from './algo.ts';
 
-type SplitAsset = { hash?: string; imports?: string[]; inline?: string; mtime?: number };
+type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string; mtime?: number };
 export type Manifest = { [key: string]: SplitAsset };
 
 export const current: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {

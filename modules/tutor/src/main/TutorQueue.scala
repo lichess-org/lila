@@ -27,7 +27,7 @@ final private class TutorQueue(
   )
 
   private val durationCache = cacheApi.unit[FiniteDuration]:
-    _.refreshAfterWrite(1 minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.minutes).buildAsyncFuture: _ =>
       colls.report
         .aggregateOne(_.sec): framework =>
           import framework.*

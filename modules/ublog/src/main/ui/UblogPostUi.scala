@@ -211,8 +211,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
               "User tier:",
               st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
                 (value, name) =>
-                  st.option(st.value := value.toString, (blog.tier == value).option(selected))(name)
-              )
+                  st.option(st.value := value.toString, (blog.tier == value).option(selected))(name))
             ),
             span(
               "Post adjust:",

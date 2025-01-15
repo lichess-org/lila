@@ -7,7 +7,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class DgtUi(helpers: Helpers):
   import helpers.{ *, given }
-  import trans.{ dgt as trd }
+  import trans.dgt as trd
 
   private val liveChessVersion = "2.2.5+"
 

@@ -31,14 +31,14 @@ final private class GameJson(
   private def writeKey(id: GameId, ply: Ply) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson"):
-    _.expireAfterAccess(5 minutes)
+    _.expireAfterAccess(5.minutes)
       .maximumSize(4096)
       .buildAsyncFuture: key =>
         val (id, plies) = readKey(key)
         generate(id, plies, false)
 
   private val bcCache = cacheApi[String, JsObject](64, "puzzle.bc.gameJson"):
-    _.expireAfterAccess(5 minutes)
+    _.expireAfterAccess(5.minutes)
       .maximumSize(1024)
       .buildAsyncFuture: key =>
         val (id, plies) = readKey(key)
@@ -74,8 +74,7 @@ final private class GameJson(
     Json.toJsObject(user) ++
       Json
         .obj("color" -> p.color.name)
-        .add("rating" -> p.rating)
-  )
+        .add("rating" -> p.rating))
 
   private def generateBc(game: Game, plies: Ply): JsObject =
     Json

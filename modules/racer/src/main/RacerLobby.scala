@@ -14,7 +14,7 @@ final class RacerLobby(api: RacerApi)(using Executor)(using scheduler: Scheduler
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(128),
-    timeout = 20 seconds,
+    timeout = 20.seconds,
     name = "racer.lobby",
     lila.log.asyncActorMonitor.full
   )

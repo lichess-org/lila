@@ -82,8 +82,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
               case None              => "missing"
               case Some("")          => "empty"
               case Some("undefined") => "undefined"
-              case _                 => "wrong"
-            )
+              case _                 => "wrong")
             .increment()
         fuccess(none)
 

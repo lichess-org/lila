@@ -22,7 +22,7 @@ private final class HttpClient(
   import HttpClient.*
 
   val etagCache = cacheApi.notLoadingSync[URL, (Body, Etag)](256, "relay.fetch.etagCache"):
-    _.expireAfterWrite(10 minutes).build()
+    _.expireAfterWrite(10.minutes).build()
 
   def get(url: URL)(using CanProxy): Fu[Body] =
     etagCache

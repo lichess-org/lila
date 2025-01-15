@@ -22,8 +22,8 @@ final class TrophyApi(
       kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
     ,
     default = _ => TrophyKind.Unknown,
-    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfter.Write(1 hour)
+    strategy = Syncache.Strategy.WaitAfterUptime(20.millis),
+    expireAfter = Syncache.ExpireAfter.Write(1.hour)
   )
 
   private given BSONHandler[TrophyKind]     = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)

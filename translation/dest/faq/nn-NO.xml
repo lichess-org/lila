@@ -149,7 +149,7 @@ Sjå meir om dette trekket i %3$s for å få litt øving med det.</string>
 Det røde mute-ikonet blir vist når weblesaren hindrar lichess.org i å spele av lyd. Til vanleg vert denne avgrensinga oppheva når du klikkar på noko. På nokre mobile weblesarar gjeld ikkje dette om du klikkar på ei brikke. I så fall skal du klikke på brettet for å tillata lyd i starten av kvart parti.
 
 Vi viser det raude ikonet for å gje ei åtvaring når dette skjer. Ofte kan du uttrykkjeleg tillata lichess.org å spele av lydar. Her er instrukjsjonar om korleis du gjer det i nyare versjonar av nokre mykje brukte weblesarar.</string>
-  <string name="desktop">skrivebord</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">skrivebord</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gå til lichess.org
 2. Trykk Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klikk på fanen Løyver

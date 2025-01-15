@@ -22,7 +22,7 @@ final private class DnsApi(
 
   private val mxCache = mongoCache.noHeap[Domain.Lower, List[Domain]](
     "security.mx",
-    3 days,
+    3.days,
     _.value
   ) { domain =>
     fetch(domain, "mx") {

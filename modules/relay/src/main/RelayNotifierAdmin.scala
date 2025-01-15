@@ -15,10 +15,10 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
     private val notifyAfterMisses = 10
 
     private val counter: Cache[StudyChapterId, Int] = scalalib.cache.scaffeineNoScheduler
-      .expireAfterWrite(3 minutes)
+      .expireAfterWrite(3.minutes)
       .build[StudyChapterId, Int]()
 
-    private val once = scalalib.cache.OnceEvery[StudyChapterId](1 hour)
+    private val once = scalalib.cache.OnceEvery[StudyChapterId](1.hour)
 
     def inspectPlan(rt: RelayRound.WithTour, plan: RelayUpdatePlan.Plan): Funit =
       (rt.tour.official && plan.input.games.nonEmpty).so:
@@ -30,11 +30,11 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
           else fuccess(counter.put(chapter.id, count))
 
   object missingFideIds:
-    private val once = scalalib.cache.OnceEvery[RelayRoundId](1 hour)
+    private val once = scalalib.cache.OnceEvery[RelayRoundId](1.hour)
 
     def schedule(id: RelayRoundId) =
       if once(id) then
-        scheduler.scheduleOnce(1 minute):
+        scheduler.scheduleOnce(1.minute):
           api.byIdWithTour(id).flatMapz(checkNow)
 
     private def checkNow(rt: RelayRound.WithTour): Funit =

@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Schnälli Erschtellig vu Benutzernäme und Passwörter für Schüeler</string>
   <string name="trackStudentProgress">Verfolg de Fortschritt vu dine Schüeler - in Schpiel und Ufgabe</string>
   <string name="messageAllStudents">Benachrichtig all Schüeler über neus Lehrmaterial</string>
-  <string name="freeForAllForever">100% gratis für jedermann, für immer, ohni Werbig oder Tracker</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratis für jedermann, für immer, ohni Werbig oder Tracker</string>
   <string name="applyToBeLichessTeacher">Bewirb dich als Lichess Schachlehrer</string>
   <string name="noClassesYet">Bis jetzt kei Klasse.</string>
   <string name="teachersX">Lehrer: %s</string>

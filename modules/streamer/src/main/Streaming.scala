@@ -20,7 +20,7 @@ final private class Streaming(
 
   def getLiveStreams: LiveStreams = liveStreams
 
-  LilaScheduler("Streaming", _.Every(15 seconds), _.AtMost(10 seconds), _.Delay(20 seconds)) {
+  LilaScheduler("Streaming", _.Every(15.seconds), _.AtMost(10.seconds), _.Delay(20.seconds)) {
     for
       streamerIds <- api.allListedIds
       activeIds = streamerIds.filter { id =>
@@ -52,7 +52,7 @@ final private class Streaming(
     yield publishStreams(streamers, streams)
   }
 
-  private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2 hour)
+  private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2.hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     Bus.pub:

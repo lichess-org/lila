@@ -149,7 +149,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
 Kun selaimesi estää lichess.org-sivun äänten toiston, näytetään punainen mykistyskuvake. Tavallisesti rajoitus poistuu, kun klikkaat jotain. Joissakin mobiiliselaimissa nappulan siirtoa vetämällä ei lasketa klikkaukseksi. Tässä tapauksessa voit pelin alkaessa napauttaa lautaa salliaksesi äänet.
 
 Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voit nimenomaisesti sallia sen, että lichess.org toistaa äänet. Ohessa ovat ohjeet äänten sallimiseksi joidenkin suosituimpien selainten viimeaikaisia versioita varten.</string>
-  <string name="desktop">tietokone</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">tietokone</string>
   <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
 2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
 3. Klikkaa käyttöoikeusvälilehteä

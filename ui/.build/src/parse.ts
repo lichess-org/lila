@@ -110,3 +110,7 @@ async function parsePackage(packageDir: string): Promise<Package> {
   }
   return pkgInfo;
 }
+
+export function trimAndConsolidateWhitespace(text: string): string {
+  return text.trim().replace(/\s+/g, ' ');
+}

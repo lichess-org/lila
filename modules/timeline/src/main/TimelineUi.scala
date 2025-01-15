@@ -95,8 +95,7 @@ final class TimelineUi(helpers: Helpers)(
             )(win match
               case Some(true)  => trans.site.victory()
               case Some(false) => trans.site.defeat()
-              case None        => trans.site.draw()
-            ),
+              case None        => trans.site.draw()),
             userIdLink(opponent),
             perfKey.perfTrans
           )

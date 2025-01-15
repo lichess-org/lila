@@ -17,7 +17,7 @@ final private class RelayFormatApi(
   import HttpClient.*
 
   private val cache = cacheApi[(URL, CanProxy), RelayFormat](64, "relay.format"):
-    _.expireAfterWrite(5 minutes).buildAsyncFuture: (url, proxy) =>
+    _.expireAfterWrite(5.minutes).buildAsyncFuture: (url, proxy) =>
       guessFormat(url)(using proxy)
 
   def get(url: URL)(using proxy: CanProxy): Fu[RelayFormat] =

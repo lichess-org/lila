@@ -91,7 +91,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         case _                         => none
 
     private[UserApi] val cache = cacheApi[PlayersKey, GameUsers](1024, "user.perf.pair"):
-      _.expireAfterWrite(3 seconds).buildAsyncFuture(fetch)
+      _.expireAfterWrite(3.seconds).buildAsyncFuture(fetch)
 
     private def fetch(userIds: PairOf[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
       val (x, y) = userIds
@@ -244,7 +244,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     perfsRepo.coll
       .aggregateList(nb, _.sec): framework =>
         import framework.*
-        import lila.user.{ BSONFields as F }
+        import lila.user.BSONFields as F
         Match(
           $inIds(ids) ++ $doc("standard.gl.d".$lt(chess.rating.glicko.provisionalDeviation))
         ) -> List(

@@ -15,7 +15,7 @@ final class RacerApi(
   import RacerRace.Id
 
   private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race"):
-    _.expireAfterAccess(30 minutes).build()
+    _.expireAfterAccess(30.minutes).build()
 
   def get(id: Id): Option[RacerRace] = store.getIfPresent(id)
 
@@ -49,7 +49,7 @@ final class RacerApi(
 
   private val rematchQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(32),
-    timeout = 20 seconds,
+    timeout = 20.seconds,
     name = "racer.rematch",
     lila.log.asyncActorMonitor.full
   )

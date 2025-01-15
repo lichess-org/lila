@@ -127,15 +127,14 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
       await fs.promises.readFile(path.join(env.i18nSrcDir, `${cat}.xml`), 'utf8').then(parseXml),
     );
 
-  const translations = new Map([
-    ...dicts.get(cat)!,
-    ...(locale
-      ? await fs.promises
-          .readFile(path.join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
-          .catch(() => '')
-          .then(parseXml)
-      : []),
-  ]);
+  const localeSpecific = locale
+    ? await fs.promises
+        .readFile(path.join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
+        .catch(() => '')
+        .then(parseXml)
+    : new Map<String, String | Plural>();
+
+  const translations = new Map([...dicts.get(cat)!, ...localeSpecific]);
   const lang = locale?.split('-')[0];
   const jsInit =
     cat !== 'site'
@@ -144,6 +143,7 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
         'window.i18n.quantity=' +
         (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
         ';';
+  if (!jsInit && locale && !localeSpecific.size) return;
   const code =
     jsPrelude +
     jsInit +
@@ -205,15 +205,25 @@ async function min(js: string): Promise<string> {
 export async function i18nManifest(): Promise<void> {
   const i18nManifest: Manifest = {};
   fs.mkdirSync(path.join(env.jsOutDir, 'i18n'), { recursive: true });
-  const scripts = await globArray('*.js', { cwd: env.i18nJsDir });
-  for (const file of scripts) {
-    const name = `i18n/${path.basename(file, '.js')}`;
-    const content = await fs.promises.readFile(file, 'utf-8');
-    const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
-    const destPath = path.join(env.jsOutDir, `${name}.${hash}.js`);
-    i18nManifest[name] = { hash };
-    if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
-  }
+
+  await Promise.all(
+    (await globArray('*.js', { cwd: env.i18nJsDir })).map(async file => {
+      const name = `i18n/${path.basename(file, '.js')}`;
+      const content = await fs.promises.readFile(file, 'utf-8');
+      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+      const destPath = path.join(env.jsOutDir, `${name}.${hash}.js`);
+
+      i18nManifest[name] = { hash };
+
+      if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
+    }),
+  );
+  await Promise.all(
+    cats.map(cat => {
+      const path = `i18n/${cat}.en-GB.${i18nManifest[`i18n/${cat}.en-GB`].hash}.js`;
+      return Promise.all(locales.map(locale => (i18nManifest[`i18n/${cat}.${locale}`] ??= { path })));
+    }),
+  );
   updateManifest({ i18n: i18nManifest });
 }
 

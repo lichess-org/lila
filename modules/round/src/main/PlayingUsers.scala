@@ -4,7 +4,7 @@ import lila.common.Bus
 
 final class PlayingUsers(using Executor):
 
-  private val playing = scalalib.cache.ExpireSetMemo[UserId](4 hours)
+  private val playing = scalalib.cache.ExpireSetMemo[UserId](4.hours)
 
   def apply(userId: UserId): Boolean = playing.get(userId)
 

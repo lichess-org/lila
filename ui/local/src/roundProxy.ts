@@ -25,21 +25,18 @@ export class RoundProxy implements IRoundProxy {
         variant: { key: 'standard', name: 'Standard', short: 'Std' },
         speed: 'classical',
         perf: 'unlimited',
-        rated: false,
-        fen: env.game.initialFen,
-        turns: env.game.live.ply,
+        fen: co.fen.INITIAL_FEN,
+        turns: 0,
         source: 'local',
         status: { id: 20, name: 'started' },
-        player: env.game.live.turn,
+        player: 'white',
       },
       player: player('white'),
       opponent: player('black'),
       pref: { ...env.game.opts.pref, submitMove: 0 },
-      steps: [{ ply: 0, san: '', uci: '', fen: env.game.initialFen }],
+      steps: [],
       takebackable: false,
       moretimeable: false,
-      possibleMoves: env.game.live.dests,
-      clock: env.game.clock,
     };
     this.reset();
   }
@@ -70,7 +67,7 @@ export class RoundProxy implements IRoundProxy {
       gameUpdates.fen = game.fen;
       gameUpdates.check = game.chess.isCheck();
       gameUpdates.turnColor = game.turn;
-      if (env.game.history || env.game.isUserTurn)
+      if (env.game.history || !env.bot[env.game.live.turn])
         gameUpdates.movable = {
           color: game.turn,
           dests: game.cgDests,
@@ -83,9 +80,9 @@ export class RoundProxy implements IRoundProxy {
     const bottom = env.game.orientation;
     const top = co.opposite(bottom);
     this.data.game.fen = env.game.initialFen;
-    this.data.game.turns = 0;
+    this.data.game.turns = env.game.live.ply;
     this.data.game.status = { id: 20, name: 'started' };
-    this.data.steps = [{ ply: 0, san: '', uci: '', fen: env.game.initialFen }];
+    this.data.steps = env.game.live.steps;
     this.data.possibleMoves = env.game.live.dests;
     this.data.player = player(bottom);
     this.data.opponent = player(top);

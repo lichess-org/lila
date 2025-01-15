@@ -33,8 +33,8 @@ final class ChallengeBulkApi(
 
   private val workQueue = scalalib.actor.AsyncActorSequencers[UserId](
     maxSize = Max(16),
-    expiration = 10 minutes,
-    timeout = 10 seconds,
+    expiration = 10.minutes,
+    timeout = 10.seconds,
     name = "challenge.bulk",
     lila.log.asyncActorMonitor.full
   )

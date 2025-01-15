@@ -31,8 +31,7 @@ def mini(
       ):
         trans.site.yourScore(raw:
           val opponent = ~cross.showOpponentScore(myId)
-          s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>"""
-        )
+          s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>""")
   val playing   = playingGame.map(views.game.mini(_))
   def userMarks = views.mod.user.userMarks(u.user, None)
   val flag      = u.profileOrDefault.flagInfo

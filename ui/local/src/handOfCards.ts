@@ -72,7 +72,6 @@ class HandOfCardsImpl {
     this.update();
     this.group = opts.getGroup?.();
     setTimeout(this.resize);
-    requestAnimationFrame(() => (this.isAnimationReady = true));
   }
 
   resize: () => void = () => {
@@ -87,7 +86,12 @@ class HandOfCardsImpl {
     this.originY = this.isLeft
       ? (r.height - h2) * this.center
       : r.height + Math.sqrt(3 / 4) * this.fanRadius - h2;
-    this.redraw();
+    if (this.isAnimationReady) this.redraw();
+    else
+      requestAnimationFrame(() => {
+        this.isAnimationReady = true;
+        this.redraw();
+      });
   };
 
   update(): void {

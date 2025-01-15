@@ -466,6 +466,7 @@ GET   /api/team/:id/users                     controllers.TeamApi.users(id: Team
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: TeamId)
 GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id: TeamId)
 GET   /api/team/:id/requests                  controllers.TeamApi.requests(id: TeamId)
+POST  /api/team/:id/update/:name			  controllers.TeamApi.update(id: TeamId, name: String)
 POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id: TeamId, userId: UserStr, decision)
 POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id: TeamId, user: UserStr)
 

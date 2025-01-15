@@ -112,8 +112,7 @@ final class Round(
           case None =>
             Redirect(currentGame.simulId match
               case Some(simulId) => routes.Simul.show(simulId)
-              case None          => routes.Round.watcher(gameId, Color.white)
-            )
+              case None          => routes.Round.watcher(gameId, Color.white))
   }
 
   def watcher(gameId: GameId, color: Color) = Open:

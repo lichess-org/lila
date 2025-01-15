@@ -13,7 +13,7 @@ final class RealPlayerApi(
   def apply(url: String): Fu[Option[RealPlayers]] = cache.get(url)
 
   private val cache = cacheApi[String, Option[RealPlayers]](4, "api.realPlayer"):
-    _.expireAfterAccess(30 seconds).buildAsyncFuture: url =>
+    _.expireAfterAccess(30.seconds).buildAsyncFuture: url =>
       ws.url(url)
         .withRequestTimeout(3.seconds)
         .get()

@@ -11,7 +11,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
     domain: lila.core.config.NetDomain
 ):
   import helpers.{ *, given }
-  import trans.{ tfa as trt }
+  import trans.tfa as trt
 
   def setup(form: Form[?])(using Context)(using me: Me) =
     val secret = form("secret").value.orZero

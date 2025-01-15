@@ -3,7 +3,7 @@ import es from 'esbuild';
 import fs from 'node:fs';
 import { env, errorMark, colors as c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { readable } from './parse.ts';
+import { trimAndConsolidateWhitespace, readable } from './parse.ts';
 
 const esbuildCtx: es.BuildContext[] = [];
 const inlineWatch: fs.FSWatcher[] = [];
@@ -55,22 +55,22 @@ export async function stopEsbuildWatch(): Promise<void> {
 
 const plugins = [
   {
-    // our html minifier only processes characters between the first two backticks encountered
+    // our html minifier will only process characters between the first two backticks encountered
     // so:
-    //   $html`     <div>    ${    x ?      `   ${y}${z}` : ''    }     </div>`
+    //   $html`     <div>    ${    x ?      `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
     //
-    // minifies to:
-    //   `<div> ${ x ? `   ${y}${z}` : ''    }     </div>`
+    // minifies (partially) to:
+    //   `<div> ${ x ? `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
     //
-    // while nested template literals inside of interpolations are unchanged and will still work, they
-    // won't be minified. this is fine, we don't need an ast parser. nesting is rare
+    // nested template literals in interpolations are unchanged and still work, but they
+    // won't be minified. this is fine, we don't need an ast parser as it's pretty rare
     name: '$html',
     setup(build: es.PluginBuild) {
       build.onLoad({ filter: /\.ts$/ }, async (args: es.OnLoadArgs) => ({
         loader: 'ts',
         contents: (await fs.promises.readFile(args.path, 'utf8')).replace(
           /\$html`([^`]*)`/g,
-          (_, s) => `\`${s.replace(/\s+/g, ' ').replaceAll('> <', '><').trim()}\``,
+          (_, s) => `\`${trimAndConsolidateWhitespace(s)}\``,
         ),
       }));
     },
@@ -109,7 +109,7 @@ async function jsManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
 
   const newJsManifest: Manifest = {};
   for (const [filename, info] of Object.entries(meta.outputs)) {
-    const out = parsePath(filename);
+    const out = splitPath(filename);
     if (!out) continue;
     if (out.name === 'common') {
       out.name = `common.${out.hash}`;
@@ -118,7 +118,7 @@ async function jsManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
     const imports: string[] = [];
     for (const imp of info.imports) {
       if (imp.kind === 'import-statement') {
-        const path = parsePath(imp.path);
+        const path = splitPath(imp.path);
         if (path) imports.push(`${path.name}.${path.hash}.js`);
       }
     }
@@ -173,7 +173,7 @@ async function inlineManifest(js: Manifest) {
   if (success) updateManifest({ js });
 }
 
-function parsePath(path: string) {
+function splitPath(path: string) {
   const match = path.match(/\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/);
   return match ? { name: match[1], hash: match[2] } : undefined;
 }

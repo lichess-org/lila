@@ -7,8 +7,8 @@
   <string name="whatNowSuggestions">Что дальше? Вот несколько предложений:</string>
   <string name="learnChessRules">Изучите шахматные правила</string>
   <string name="improveWithChessTacticsPuzzles">Улучшайте свой уровень решая шахматные задачи.</string>
-  <string name="playTheArtificialIntelligence">Играть против искусственного интеллекта.</string>
-  <string name="playOpponentsFromAroundTheWorld">Играть с соперниками со всего мира.</string>
+  <string name="playTheArtificialIntelligence">Играйте против искусственного интеллекта.</string>
+  <string name="playOpponentsFromAroundTheWorld">Играйте с соперниками со всего мира.</string>
   <string name="followYourFriendsOnLichess">Следите за друзьями на Lichess.</string>
   <string name="playInTournaments">Играйте в турнирах.</string>
   <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Учитесь с помощью %1$s и %2$s.</string>

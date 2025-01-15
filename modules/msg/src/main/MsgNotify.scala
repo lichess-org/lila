@@ -13,7 +13,7 @@ final private class MsgNotify(
 
   import BsonHandlers.given
 
-  private val delay = 5 seconds
+  private val delay = 5.seconds
 
   private val delayed = scalalib.ConcurrentMap[MsgThread.Id, Cancellable](256)
 

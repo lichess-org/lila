@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">フォーラムにトピックを作るといろんな人からコメントが来ます</string>
   <string name="publishOnYourBlog">ブログ上で公開</string>
   <string name="publishHelp">チェックすると投稿がブログに表示されます。しないと下書きで非公開となります。</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">優先表示</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">チェックするとこの投稿がプロフィールの「最近の投稿」の最初に表示されます。</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="other">%s 件のブログ記事を公開</item>
   </plurals>
@@ -30,7 +32,7 @@
   <string name="xPublishedY">%1$s が %2$s を公開しました</string>
   <string name="thisPostIsPublished">この投稿は公開ずみです</string>
   <string name="thisIsADraft">これは下書きです</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s のブログ投稿をもっと見る</string>
+  <string name="moreBlogPostsBy">%s のブログ投稿をもっと見る</string>
   <string name="noPostsInThisBlogYet">このブログにはまだ投稿なし。</string>
   <string name="noDrafts">下書きがありません。</string>
   <string name="latestBlogPosts">最新のブログ投稿</string>

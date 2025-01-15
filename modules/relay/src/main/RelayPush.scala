@@ -21,8 +21,8 @@ final class RelayPush(
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(32),
-    expiration = 1 minute,
-    timeout = 10 seconds,
+    expiration = 1.minute,
+    timeout = 10.seconds,
     name = "relay.push",
     lila.log.asyncActorMonitor.full
   )

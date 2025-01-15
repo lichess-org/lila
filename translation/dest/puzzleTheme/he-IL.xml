@@ -57,6 +57,8 @@
   <string name="interferenceDescription">הזזת כלי בין שני כלים יריבים על מנת להותיר אותם לא מוגנים, למשל פרש על משבצת מוגנת בין שני צריחים.</string>
   <string name="intermezzo">אינטרמצו</string>
   <string name="intermezzoDescription">טקטיקה בה במקום לבצע את המהלך הצפוי, מבצעים מהלך ביניים המציב איום הדורש תגובה מיידית מהיריב. נקראת גם \"מסע ביניים\" או מגרמנית \"זווישנזוג\".</string>
+  <string name="killBoxMate">מט ״קופסת החנק״</string>
+  <string name="killBoxMateDescription">הצריח ממוקם ליד המלך של היריב והוא נתמך על ידי מלכה, שמצדה חוסמת את נתיב הבריחה של המלך. הצריח והמלכה לוכדים את המלך ב״קופסת חנק״ בגודל 3X3.</string>
   <string name="knightEndgame">סיום פרשים</string>
   <string name="knightEndgameDescription">סיום עם פרשים ורגלים בלבד.</string>
   <string name="long">פאזל ארוך</string>

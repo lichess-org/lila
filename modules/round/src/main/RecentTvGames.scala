@@ -4,8 +4,8 @@ import lila.game.GameRepo
 
 final class RecentTvGames(gameRepo: GameRepo)(using Executor):
 
-  private val fast = scalalib.cache.ExpireSetMemo[GameId](7 minutes)
-  private val slow = scalalib.cache.ExpireSetMemo[GameId](2 hours)
+  private val fast = scalalib.cache.ExpireSetMemo[GameId](7.minutes)
+  private val slow = scalalib.cache.ExpireSetMemo[GameId](2.hours)
 
   def get(gameId: GameId): Boolean = fast.get(gameId) || slow.get(gameId)
 

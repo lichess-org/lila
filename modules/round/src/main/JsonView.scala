@@ -47,8 +47,7 @@ final class JsonView(
           val p = withFlags.rating.option(KeyedPerf(g.perfKey, perf))
           userJsonView.roundPlayer(user, p).some
         case _ if p.hasUser => userJsonView.ghost.some
-        case _              => none
-      )
+        case _              => none)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
@@ -134,8 +133,7 @@ final class JsonView(
         Json.obj(
           "idleMillis"   -> (nowMillis - game.movedAt.toMillis),
           "millisToMove" -> game.timeForFirstMove.millis
-        )
-      )
+        ))
 
   private def commonWatcherJson(
       g: Game,
@@ -152,8 +150,7 @@ final class JsonView(
         case Some(WithPerf(user, perf)) =>
           userJsonView.roundPlayer(user, withFlags.rating.option(KeyedPerf(g.perfKey, perf))).some
         case _ if p.hasUser => userJsonView.ghost.some
-        case _              => none
-      )
+        case _              => none)
       .add("ai" -> p.aiLevel)
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))

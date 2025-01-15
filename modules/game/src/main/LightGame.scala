@@ -7,7 +7,7 @@ import lila.core.game.LightPlayer
 
 object LightGame:
 
-  import Game.{ BSONFields as F }
+  import Game.BSONFields as F
 
   def projection =
     lila.db.dsl.$doc(

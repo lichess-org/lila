@@ -89,7 +89,7 @@ final class PuzzleDashboardApi(
 
   private val cache =
     cacheApi[(UserId, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
-      _.expireAfterWrite(10 seconds).buildAsyncFuture { case (userId, days) =>
+      _.expireAfterWrite(10.seconds).buildAsyncFuture { case (userId, days) =>
         compute(userId, days)
       }
     }

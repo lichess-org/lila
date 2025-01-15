@@ -153,8 +153,7 @@ object RawHtml:
             acc + (sArr(idx) match
               case '(' => 1
               case ')' => -1
-              case _   => 0
-            )
+              case _   => 0)
           )
       var parenCnt = pCnter(start, -1)
       while (sArr(last): @switch).match

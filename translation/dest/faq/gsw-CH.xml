@@ -150,7 +150,7 @@ Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert werde sö
 Das roti Stummschaltigssymbol erschint, wänn de Browser verhinderet, dass lichess.org Tön abschpillt. Normal wird die Ischränkig uf g\'hobe, sobald du öppis klicksch. Bi einige mobile Browser gilt s\'Figureziehe, dur Berüherig, nöd als Klick. Isch das so, dänn muesch du bim Beginn vu jedem Schpiel ufs Brätt tippe zum so de Ton aktiviere.
 
 s\'rote Symbol macht dich druf ufmerksam, wänn das passiert. Oft chann mer lichess.org usdrücklich erlaube, Tön ab z\'schpille. Da findsch du e Aleitig, wie mer das - ide neuschte Versione, vu einige gängige Browser - ischtelle chann.</string>
-  <string name="desktop">Desktop</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">Desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gang zu Lichess.org
 2. Taschte Ctrl-i bi Linux / Windos oder cmd-i bi MacOS
 3. Klick de Tab \"Permissions\"

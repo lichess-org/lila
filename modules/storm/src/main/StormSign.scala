@@ -12,7 +12,7 @@ final class StormSign(secret: Secret)(using Executor):
 
   private val store: LoadingCache[UserId, String] =
     CacheApi.scaffeine
-      .expireAfterAccess(24 hours)
+      .expireAfterAccess(24.hours)
       .build(_ => ThreadLocalRandom.nextString(12))
 
   private val signer = Algo.hmac(secret.value)

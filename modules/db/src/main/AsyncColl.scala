@@ -15,7 +15,7 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executo
 
   def map[A](f: Coll => A): Fu[A] = get.map(f)
 
-  def failingSilently(timeout: FiniteDuration = 500 millis)(using Scheduler) =
+  def failingSilently(timeout: FiniteDuration = 500.millis)(using Scheduler) =
     AsyncCollFailingSilently(this, timeout)
 
 /* For data we don't really care about,

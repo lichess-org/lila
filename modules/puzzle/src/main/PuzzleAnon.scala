@@ -40,7 +40,7 @@ final class PuzzleAnon(
       initialCapacity = 64,
       name = "puzzle.byTheme.anon"
     ):
-      _.expireAfterWrite(1 minute).buildAsyncFuture: (angle, difficulty) =>
+      _.expireAfterWrite(1.minute).buildAsyncFuture: (angle, difficulty) =>
         countApi.byAngle(angle).flatMap { count =>
           val tier =
             if count > 5000 then PuzzleTier.top

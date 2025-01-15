@@ -1,8 +1,10 @@
 import * as co from 'chessops';
 import { normalizeMove } from 'chessops/chess';
 import { statusOf } from 'game/status';
-import { Status } from 'game';
-import { deepFreeze } from 'common/algo';
+import type { Status } from 'game';
+import type { LocalSetup } from './types';
+import type { Step } from 'round';
+import { deepFreeze, randomToken } from 'common/algo';
 import { env } from './localEnv';
 
 export interface GameStatus {
@@ -28,25 +30,41 @@ export interface MoveContext extends GameStatus {
   silent?: boolean;
 }
 
-type LocalMove = { uci: Uci; clock?: { white: number; black: number } };
+type LocalMove = {
+  uci: Uci;
+  san?: San;
+  fen?: FEN;
+  check?: boolean;
+  clock?: { white: number; black: number };
+};
 
-export class LocalGame {
-  moves: LocalMove[];
+export class LocalGame implements LocalSetup {
+  id: string;
+  moves: LocalMove[] = [];
   chess: co.Chess;
   initialPly: number = 0;
+  initialFen: FEN;
+  initial: number = Infinity;
+  white?: string;
+  black?: string;
+  increment: number = 0;
   threefoldHashes: Map<bigint, number> = new Map();
   fiftyHalfMove: number = 0;
   finished?: GameStatus;
 
-  constructor(
-    readonly initialFen: string = co.fen.INITIAL_FEN,
-    moves: LocalMove[] = [],
-  ) {
+  constructor(o: { game: LocalGame; ply?: number } | { setup: LocalSetup }) {
+    Object.assign(this, 'game' in o ? o.game : o.setup);
+
+    this.id ??= randomToken();
+    this.initialFen ??= co.fen.INITIAL_FEN;
     this.chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
-    this.threefoldHashes = new Map();
-    this.moves = [];
-    for (const move of moves ?? []) this.move(move);
     this.initialPly = 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
+    if ('game' in o) {
+      this.moves = [];
+      this.threefoldHashes = new Map();
+      this.fiftyHalfMove = 0;
+      for (const move of o.game.moves.slice(0, o.ply)) this.move(move);
+    }
   }
 
   move(move: LocalMove): MoveContext {
@@ -62,7 +80,7 @@ export class LocalGame {
     }
     const san = co.san.makeSanAndPlay(this.chess, coMove);
     const clock = move.clock ? { white: move.clock.white, black: move.clock.black } : undefined;
-    this.moves.push({ uci, clock });
+    this.moves.push({ uci, clock, san, fen: this.fen, check: this.chess.isCheck() });
     this.fifty(coMove);
     this.updateThreefold();
     return this.moveResultWith({ uci, san, move: coMove });
@@ -143,11 +161,15 @@ export class LocalGame {
   }
 
   get ply(): number {
-    return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0) - this.initialPly;
+    return this.moves.length; //2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0) - this.initialPly;
   }
 
   get turn(): Color {
     return this.chess.turn;
+  }
+
+  get awaiting(): Color {
+    return co.opposite(this.chess.turn);
   }
 
   get isThreefold(): boolean {
@@ -158,12 +180,36 @@ export class LocalGame {
     return co.fen.makeFen(this.chess.toSetup());
   }
 
+  get setup(): LocalSetup {
+    return {
+      initialFen: this.initialFen,
+      initial: this.initial,
+      increment: this.increment,
+      white: this.white,
+      black: this.black,
+    };
+  }
+
   get dests(): { [from: string]: string } {
     return Object.fromEntries([...this.cgDests].map(([src, dests]) => [src, dests.join('')]));
   }
 
   get cgDests(): Map<Key, Key[]> {
     return co.compat.chessgroundDests(this.chess);
+  }
+
+  get steps(): Step[] {
+    console.log('booo', this.moves);
+    return [
+      { uci: '', san: '', fen: this.initialFen, check: false, ply: 0 },
+      ...this.moves.map(({ uci, san, fen, check }, i) => ({
+        uci,
+        san: san!,
+        fen: fen!,
+        check: check!,
+        ply: i + 1,
+      })),
+    ];
   }
 
   get threefoldDraws(): Uci[] {

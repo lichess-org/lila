@@ -22,6 +22,7 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
       "topics"      -> optional(text),
       "live"        -> boolean,
       "discuss"     -> boolean,
+      "sticky"      -> boolean,
       "gameId"      -> of[GameId],
       "move"        -> text
     )(UblogPostData.apply)(unapply)
@@ -40,6 +41,7 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
       topics = post.topics.mkString(", ").some,
       live = post.live,
       discuss = ~post.discuss,
+      sticky = ~post.sticky,
       gameId = GameId(""),
       move = ""
     )
@@ -56,6 +58,7 @@ object UblogForm:
       topics: Option[String],
       live: Boolean,
       discuss: Boolean,
+      sticky: Boolean,
       gameId: GameId,
       move: String
   ) extends WithCaptcha:
@@ -72,6 +75,7 @@ object UblogForm:
         image = none,
         live = false,
         discuss = Option(false),
+        sticky = Option(false),
         created = UblogPost.Recorded(user.id, nowInstant),
         updated = none,
         lived = none,
@@ -92,6 +96,7 @@ object UblogForm:
         topics = topics.so(UblogTopic.fromStrList),
         live = live,
         discuss = Option(discuss),
+        sticky = Option(sticky),
         updated = UblogPost.Recorded(user.id, nowInstant).some,
         lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )

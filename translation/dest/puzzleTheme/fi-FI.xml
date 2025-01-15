@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Siirrä nappulasi kahden vastustajan nappulan väliin niin, että yksi tai molemmat vastustajan nappuloista jäävät ilman suojaa, esimerkiksi ratsusi suojattuun ruutuun kahden tornin väliin.</string>
   <string name="intermezzo">Välisiirto</string>
   <string name="intermezzoDescription">Tee odotetun siirron sijaan ensin toinen siirto, jonka synnyttämään välittömään uhkaan vastustajasi täytyy vastata. Tunnetaan myös nimellä \"Zwischenzug\".</string>
+  <string name="killBoxMate">Tapponeliömatti</string>
+  <string name="killBoxMateDescription">Torni on vastustajan kuninkaan vieressä, ja sitä suojelee daami, joka myös vie kuninkaalta pakoruudut. Vastustajan kuningas jää kiinni tornin ja daamin muodostamaan 3x3-ruudun \"tapponeliöön\".</string>
   <string name="knightEndgame">Ratsuloppupeli</string>
   <string name="knightEndgameDescription">Loppupeli, jossa on vain ratsuja ja sotilaita.</string>
   <string name="long">Pitkä tehtävä</string>

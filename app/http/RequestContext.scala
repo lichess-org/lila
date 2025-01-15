@@ -86,8 +86,8 @@ trait RequestContext(using Executor):
           FingerPrintedUser(me, true).some
         case Some(Right(d)) if !env.net.isProd =>
           d.copy(me = d.me.map:
-            _.addRole(lila.core.perm.Permission.Beta.dbKey)
-          ).some
+            _.addRole(lila.core.perm.Permission.Beta.dbKey))
+            .some
         case Some(Right(d)) => d.some
         case _              => none
       }

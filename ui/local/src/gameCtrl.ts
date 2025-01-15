@@ -1,6 +1,7 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
 import { type MoveContext, type GameStatus, LocalGame } from './localGame';
+import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { clockToSpeed } from 'game';
 import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
@@ -8,28 +9,35 @@ import { env } from './localEnv';
 import { statusOf } from 'game/status';
 import { pubsub } from 'common/pubsub';
 
-export class GameCtrl /*implements LocalSetup*/ {
+export class GameCtrl {
   live: LocalGame;
   history?: LocalGame;
   proxy: RoundProxy;
   clock?: ClockData & { since?: number };
   orientation: Color;
+  store: ObjectStorage<LocalGame>;
+
   private stopped = true;
-  private setup: LocalSetup;
+  //private setup: LocalSetup;
   private resolveThink?: () => void;
 
   constructor(readonly opts: LocalPlayOpts) {
-    this.setup =
-      opts.setup ??
-      JSON.parse(localStorage.getItem('assets' in opts ? 'local.dev.setup' : 'local.setup') ?? '{}');
-    this.setup.initial ??= Infinity;
-    this.setup.initialFen ??= co.fen.INITIAL_FEN;
-    this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
-    this.live = new LocalGame(this.initialFen);
+    // this.setup =
+    //   opts.setup ??
+    //   JSON.parse(localStorage.getItem('assets' in opts ? 'local.dev.setup' : 'local.setup') ?? '{}');
+    // this.setup.initial ??= Infinity;
+    // this.setup.initialFen ??= co.fen.INITIAL_FEN;
+    //this.live = new LocalGame({ setup: opts.setup ?? {} });
   }
 
   async init(): Promise<void> {
-    env.bot.setUids(this.setup);
+    this.store = await objectStorage<LocalGame>({ store: 'local.games' });
+    const id = localStorage.getItem(`local.${env.user}.gameId`);
+    const game = id ? await this.store.get(id) : undefined;
+    this.live = new LocalGame({ game, setup: this.opts.setup ?? {} });
+    this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
+    console.log(this.live);
+    env.bot.setUids(this.live);
     env.assets.preload();
     pubsub.on('ply', this.jump);
     pubsub.on('flip', env.redraw);
@@ -38,14 +46,13 @@ export class GameCtrl /*implements LocalSetup*/ {
     this.triggerStart();
   }
 
-  reset(params: LocalSetup = this.setup): void {
-    this.setup = { ...this.setup, ...params };
+  reset(params: LocalSetup): void {
     this.stop();
     this.history = undefined;
+    this.live = new LocalGame({ setup: { ...params } });
     env.bot.reset();
-    env.bot.setUids(this.setup);
+    env.bot.setUids(this.live);
     env.assets.preload();
-    this.live = new LocalGame(this.initialFen);
     this.updateTurn();
     this.resetClock();
     this.proxy.reset();
@@ -55,6 +62,8 @@ export class GameCtrl /*implements LocalSetup*/ {
 
   start(): void {
     this.stopped = false;
+    if (this.history) this.live = this.history;
+    this.history = undefined;
     if (!this.live.end) this.updateTurn(); // ??
   }
 
@@ -65,13 +74,13 @@ export class GameCtrl /*implements LocalSetup*/ {
   }
 
   flag(): void {
-    if (this.clock) this.clock[this.turn] = 0;
-    this.gameOver({ winner: this.awaitingTurn, status: statusOf('outoftime') });
+    if (this.clock) this.clock[this.live.turn] = 0;
+    this.gameOver({ winner: this.live.awaiting, status: statusOf('outoftime') });
     this.updateClockUi();
   }
 
   resign(): void {
-    this.gameOver({ winner: this.awaitingTurn, status: statusOf('resign') });
+    this.gameOver({ winner: this.live.awaiting, status: statusOf('resign') });
   }
 
   draw(): void {
@@ -85,18 +94,6 @@ export class GameCtrl /*implements LocalSetup*/ {
 
   idOf(color: Color): string {
     return this[color] ?? env.user;
-  }
-
-  get turn(): Color {
-    return this.live.chess.turn;
-  }
-
-  get awaitingTurn(): Color {
-    return co.opposite(this.live.chess.turn);
-  }
-
-  get isUserTurn(): boolean {
-    return this.history === undefined && !env.bot[this.turn];
   }
 
   get isStopped(): boolean {
@@ -116,11 +113,11 @@ export class GameCtrl /*implements LocalSetup*/ {
   }
 
   get white(): string | undefined {
-    return this.setup.white;
+    return this.live?.white;
   }
 
   get black(): string | undefined {
-    return this.setup.black;
+    return this.live?.black;
   }
 
   get initial(): number {
@@ -132,11 +129,7 @@ export class GameCtrl /*implements LocalSetup*/ {
   }
 
   get initialFen(): string {
-    return this.setup.initialFen ?? co.fen.INITIAL_FEN;
-  }
-
-  get localSetup(): LocalSetup {
-    return { ...this.setup };
+    return this.live.initialFen; //this.setup.initialFen ?? co.fen.INITIAL_FEN;
   }
 
   move(uci: Uci): boolean {
@@ -145,7 +138,7 @@ export class GameCtrl /*implements LocalSetup*/ {
     this.stopped = false;
     env.dev?.beforeMove(uci);
 
-    if (this.clock?.since) this.clock[this.turn] -= (performance.now() - this.clock.since) / 1000;
+    if (this.clock?.since) this.clock[this.live.turn] -= (performance.now() - this.clock.since) / 1000;
     const moveCtx = this.live.move({ uci, clock: this.clock });
     const { end, move, justPlayed } = moveCtx;
 
@@ -162,6 +155,8 @@ export class GameCtrl /*implements LocalSetup*/ {
       );
 
     if (end) this.gameOver(moveCtx);
+    this.store.put(this.live.id, structuredClone(this.live));
+    localStorage.setItem(`local.${env.user}.gameId`, this.live.id);
     if (this.clock?.increment) {
       this.clock[justPlayed] += this.clock.increment;
       this.updateClockUi();
@@ -171,29 +166,27 @@ export class GameCtrl /*implements LocalSetup*/ {
   }
 
   private jump = (ply: number): void => {
-    this.history =
-      ply < this.live.moves.length
-        ? new LocalGame(this.initialFen, this.live.moves.slice(0, ply))
-        : undefined;
+    this.history = ply < this.live.moves.length ? new LocalGame({ game: this.live, ply }) : undefined;
     if (this.clock) this.clock.since = this.history ? undefined : performance.now();
     this.updateTurn();
+    setTimeout(env.redraw);
   };
 
   private async maybeMakeBotMove(): Promise<void> {
-    const [bot, game] = [env.bot[this.turn], this.live];
+    const [bot, game] = [env.bot[this.live.turn], this.live];
     if (!bot || game.end || this.isStopped || this.resolveThink) return;
     const move = await env.bot.move({
       pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
       chess: this.live.chess,
       avoid: this.live.threefoldDraws,
-      remaining: this.clock?.[this.turn],
+      remaining: this.clock?.[this.live.turn],
       initial: this.clock?.initial,
       increment: this.clock?.increment,
     });
     if (!move) return;
     await new Promise<void>(resolve => {
       if (this.clock) {
-        this.clock[this.turn] -= move.thinkTime;
+        this.clock[this.live.turn] -= move.thinkTime;
         this.clock.since = undefined;
       }
       if (env.dev?.hurry) return resolve();
@@ -208,7 +201,7 @@ export class GameCtrl /*implements LocalSetup*/ {
 
   private updateTurn(game: LocalGame = this.history ?? this.live): void {
     if (this.clock && game !== this.live) this.clock = { ...this.clock, ...game.clock };
-    this.proxy.cg(game, this.live.ply === 0 ? { lastMove: undefined } : {});
+    this.proxy.cg(game, game.ply === 0 ? { lastMove: undefined } : {});
     this.updateClockUi();
     if (this.isLive) this.maybeMakeBotMove();
   }
@@ -224,7 +217,7 @@ export class GameCtrl /*implements LocalSetup*/ {
     this.live.finish(final);
     this.stop();
     if (this.clock) env.round.clock?.stopClock();
-    if (!env.dev?.onGameOver({ ...final, end: true, turn: this.turn })) {
+    if (!env.dev?.onGameOver({ ...final, end: true, turn: this.live.turn })) {
       env.round.endWithData?.({ ...final, boosted: false });
     }
     env.redraw();
@@ -245,15 +238,15 @@ export class GameCtrl /*implements LocalSetup*/ {
 
   private triggerStart(): void {
     ['white', 'black'].forEach(c => env.bot.playSound(c as Color, ['greeting']));
-    setTimeout(() => !env.dev && !this.isUserTurn && this.start(), 500);
+    setTimeout(() => !env.dev && env.bot[this.live.turn] && this.start(), 500);
   }
 
   private resetClock(): void {
-    const initial = this.setup.initial as number;
+    const initial = this.live.initial as number;
     this.clock = Number.isFinite(initial)
       ? {
           initial: initial,
-          increment: this.setup.increment ?? 0,
+          increment: this.live.increment ?? 0,
           white: initial,
           black: initial,
           emerg: 0,

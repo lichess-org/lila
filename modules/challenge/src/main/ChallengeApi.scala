@@ -49,7 +49,7 @@ final class ChallengeApi(
 
   private val openCreatedBy =
     cacheApi.notLoadingSync[ChallengeId, UserId](32, "challenge.open.by"):
-      _.expireAfterWrite(1 hour).build()
+      _.expireAfterWrite(1.hour).build()
 
   private def doCreate(c: Challenge) =
     for _ <- repo.insertIfMissing(c)
@@ -74,7 +74,7 @@ final class ChallengeApi(
       })
 
   val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor"):
-    _.expireAfterAccess(15 minutes).buildAsyncFuture(repo.countCreatedByDestId)
+    _.expireAfterAccess(15.minutes).buildAsyncFuture(repo.countCreatedByDestId)
 
   def createdByChallengerId = repo.createdByChallengerId()
 
@@ -108,7 +108,7 @@ final class ChallengeApi(
 
   private val acceptQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
-    timeout = 5 seconds,
+    timeout = 5.seconds,
     "challengeAccept",
     lila.log.asyncActorMonitor.full
   )
@@ -165,8 +165,7 @@ final class ChallengeApi(
     challengeMaker.makeRematchOf(game, user).flatMapz { challenge =>
       create(challenge).recover(lila.db.recoverDuplicateKey: _ =>
         logger.warn(s"${game.id} duplicate key ${challenge.id}")
-        false
-      )
+        false)
     }
 
   def setDestUser(c: Challenge, u: User): Funit = for
