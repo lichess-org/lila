@@ -5457,7 +5457,7 @@ interface I18n {
     selectPostTopics: string;
     /** Sticky post */
     stickyPost: string;
-    /** If checked, this post will be listed first in your profile recent posts. */
+    /** If checked, this post will be listed first in your profile recent posts and on your blog. */
     stickyPostHelp: string;
     /** This is a draft */
     thisIsADraft: string;

@@ -22,7 +22,7 @@
   <string name="publishOnYourBlog">Publish on your blog</string>
   <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private, in your draft posts</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Sticky post</string>
-  <string name="stickyPostHelp">If checked, this post will be listed first in your profile recent posts.</string>
+  <string name="stickyPostHelp">If checked, this post will be listed first in your profile recent posts and on your blog.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Published a blog post</item>
     <item quantity="other">Published %s blog posts</item>
