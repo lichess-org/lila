@@ -30,7 +30,9 @@ final class PerfStatApi(
 )(using Executor)
     extends lila.core.perf.PerfStatApi:
 
-  def data(name: UserStr, perfKey: PerfKey)(using me: Option[Me]): Fu[Option[PerfStatData]] =
+  def data(name: UserStr, perfKey: PerfKey, computeIfNeeded: Boolean)(using
+      me: Option[Me]
+  ): Fu[Option[PerfStatData]] =
     PerfType(perfKey) match
       case pk: GamePerf =>
         userApi.withPerfs(name.id).flatMap {
@@ -40,7 +42,7 @@ final class PerfStatApi(
             !u.isBot || (perfKey != PerfKey.ultraBullet)
           .soFu: u =>
             for
-              oldPerfStat <- get(u.user.id, pk)
+              oldPerfStat <- get(u.user.id, pk, computeIfNeeded)
               perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
               distribution <- u
                 .perfs(perfKey)
@@ -60,14 +62,18 @@ final class PerfStatApi(
       val (under, sum) = percentileOf(distrib, intRating)
       Math.round(under * 1000.0 / sum) / 10.0
 
-  def get(user: UserId, perf: GamePerf): Fu[PerfStat] =
-    storage.find(user, perf).getOrElse(indexer.userPerf(user, perf))
+  def get(user: UserId, perf: GamePerf, computeIfNeeded: Boolean): Fu[PerfStat] =
+    storage
+      .find(user, perf)
+      .getOrElse:
+        if computeIfNeeded then indexer.userPerf(user, perf)
+        else fuccess(PerfStat.init(user, perf))
 
   def highestRating(user: UserId, perfKey: PerfKey): Fu[Option[IntRating]] =
     PerfType
       .gamePerf(perfKey)
       .so: (gp: GamePerf) =>
-        get(user, gp).map(_.highest.map(_.int))
+        get(user, gp, computeIfNeeded = true).map(_.highest.map(_.int))
 
   object weeklyRatingDistribution:
 
