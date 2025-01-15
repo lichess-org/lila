@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">یک گفتگوی انجمنی برای دیگران ساخته خواهد شد تا دربارهٔ فرسته‌تان نظر دهند</string>
   <string name="publishOnYourBlog">روی وبنوشت‌تان منتشر کنید</string>
   <string name="publishHelp">اگر علامت زنید، نوشته در وبنوشت‌تان قرار می‌گیرد. اگر نه، در نوشته‌های پیش‌نویس‌تان، خصوصی خواهد شد</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">سنجاق کردن نوشته</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">گر علامت زنید،این نوشه در نوشته‌های اخیر رُخ‌نمای شما اول قرار میگیرد.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">یک وبنوشته منتشر کرد</item>
     <item quantity="other">%s وبنوشته منتشر کرد</item>

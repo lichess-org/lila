@@ -256,7 +256,7 @@ object header:
       ,
       (ctx.kid.no && info.ublog.so(_.latests).nonEmpty).option(
         div(cls := "user-show__blog ublog-post-cards")(
-          info.ublog.so(_.latests).map(p => views.ublog.ui.card(p, showSticky = ~p.sticky))
+          info.ublog.so(_.latests).map(views.ublog.ui.card(_))
         )
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(

@@ -50,7 +50,8 @@
   <string name="allSyncMembersRemainOnTheSamePosition">동기화된 모든 멤버들은 같은 포지션을 공유합니다</string>
   <string name="shareChanges">관전자와 변경 사항을 공유하고 서버에 저장</string>
   <string name="playing">대국 중</string>
-  <string name="showEvalBar">평가 막대</string>
+  <string name="showResults">결과</string>
+  <string name="showEvalBar">엔진 평가치</string>
   <string name="first">처음</string>
   <string name="previous">이전</string>
   <string name="next">다음</string>
