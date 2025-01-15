@@ -97,7 +97,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
             standardFlash,
             if posts.nbResults > 0 then
               div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map(p => card(p, showSticky = ~p.sticky)),
+                posts.currentPageResults.map(card(_)),
                 pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")
               )
             else
