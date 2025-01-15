@@ -1,8 +1,12 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'local';
+
 .lobby__streams {
   .stream {
     @extend %roboto, %nowrap-ellipsis, %page-text;
 
-    color: $c-font-page;
+    color: theme.$c-font-page;
     display: block;
     margin-bottom: 0.5em;
     line-height: 0.9;
@@ -12,7 +16,7 @@
     }
 
     &.highlight strong {
-      color: $c-brag;
+      color: theme.$c-brag;
     }
 
     strong::before {

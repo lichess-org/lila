@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .tour__team-info {
   .players {
     width: 100%;
@@ -5,14 +8,14 @@
     tr {
       cursor: pointer;
 
-      @include transition(background-color);
+      @include mixins.transition(background-color);
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
       }
 
       &:hover {
-        background: $m-link_bg-box_mix_10;
+        background: theme.$m-link_bg-box_mix_10;
       }
     }
 
@@ -32,7 +35,7 @@
 
     .leader {
       &::before {
-        color: $c-brag;
+        color: theme.$c-brag;
         margin-right: 0.15em;
       }
     }

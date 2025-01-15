@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .ricons {
   display: flex;
   justify-content: center;
@@ -35,7 +38,7 @@
     }
 
     .fbt.yes {
-      $act-confirm-shade: $m-black_accent_mix_30;
+      $act-confirm-shade: theme.$m-black_accent_mix_30;
 
       position: absolute;
       right: 0;
@@ -43,11 +46,11 @@
       border-radius: 8px;
       color: #fff;
       text-decoration: none;
-      background: $c-accent;
+      background: theme.$c-accent;
       border-bottom: 5px solid $act-confirm-shade;
       text-shadow: 0 -1px $act-confirm-shade;
 
-      @include transition;
+      @include mixins.transition;
 
       transform: translate(0, 0);
 

@@ -1,3 +1,7 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/variables';
+@use '../local';
+
 .analyse {
   grid-template-rows: auto;
   grid-template-areas:
@@ -9,14 +13,14 @@
 
   .practice__side {
     grid-area: side;
-    margin-top: $block-gap;
+    margin-top: variables.$block-gap;
   }
 
   &__acpl {
     display: none;
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     grid-template-rows: min-content;
     grid-template-areas:
       'board gauge tools'
@@ -24,7 +28,7 @@
       'side  .     .';
   }
 
-  @include breakpoint($mq-col3) {
+  @include breakpoint.breakpoint(local.$mq-col3) {
     grid-template-areas:
       'side    . board gauge tools'
       '.       . under .     controls';

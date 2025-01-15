@@ -1,3 +1,7 @@
+@use '../abstract/extends';
+@use '../abstract/mixins';
+@use '../theme/gen/theme';
+
 .cmn-toggle {
   @extend %double-tap;
 
@@ -15,7 +19,7 @@
   padding: 1px;
   width: 40px;
   height: 24px;
-  background-color: $c-border;
+  background-color: theme.$c-border;
   border-radius: 24px;
 }
 
@@ -31,7 +35,7 @@
 
 .cmn-toggle + label::before {
   right: 1px;
-  background-color: $c-bad;
+  background-color: theme.$c-bad;
   border-radius: 24px;
 }
 
@@ -40,12 +44,12 @@
 }
 
 .cmn-toggle--subtle + label::before {
-  background-color: $c-font-dimmer;
+  background-color: theme.$c-font-dimmer;
 }
 
 .cmn-toggle:hover + label::before {
   @extend %focus-shadow;
-  @include transition(background);
+  @include mixins.transition(background);
 }
 
 .cmn-toggle + label::after {
@@ -58,11 +62,11 @@
 
 .cmn-toggle:hover + label::after {
   @extend %metal-hover;
-  @include transition(margin);
+  @include mixins.transition(margin);
 }
 
 .cmn-toggle:checked + label::before {
-  background-color: $c-good;
+  background-color: theme.$c-good;
 }
 
 .cmn-toggle:checked + label::after {

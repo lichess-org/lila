@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .angle-content .analysis {
   .accuracy-by-result {
     display: flex;
@@ -20,21 +22,21 @@
         div {
           position: absolute;
           width: 100%;
-          border-left: 2px solid $c-brilliant;
-          border-right: 2px solid $c-brilliant;
+          border-left: 2px solid theme.$c-brilliant;
+          border-right: 2px solid theme.$c-brilliant;
           border-radius: 10px;
 
           &:first-child {
-            border-top: 2px solid $c-brilliant;
+            border-top: 2px solid theme.$c-brilliant;
           }
 
           &:last-child {
-            border-bottom: 2px solid $c-brilliant;
+            border-bottom: 2px solid theme.$c-brilliant;
             bottom: 0;
           }
 
           &.accuracy {
-            background-color: $c-brilliant;
+            background-color: theme.$c-brilliant;
           }
 
           &.not-accuracy {
@@ -43,26 +45,26 @@
         }
 
         &.win div {
-          border-color: $c-good;
+          border-color: theme.$c-good;
 
           &.accuracy {
-            background-color: $c-good;
+            background-color: theme.$c-good;
           }
         }
 
         &.loss div {
-          border-color: $c-bad;
+          border-color: theme.$c-bad;
 
           &.accuracy {
-            background-color: $c-bad;
+            background-color: theme.$c-bad;
           }
         }
 
         &.draw div {
-          border-color: $c-font-dim;
+          border-color: theme.$c-font-dim;
 
           &.accuracy {
-            background-color: $c-font-dim;
+            background-color: theme.$c-font-dim;
           }
         }
       }

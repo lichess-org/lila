@@ -1,3 +1,10 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .learn__table {
   display: flex;
   align-items: center;
@@ -9,13 +16,13 @@
     flex-direction: column;
     width: 100%;
     min-height: 55%;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
   }
 
   .title {
     display: flex;
-    background: $c-primary;
-    color: $c-primary-over;
+    background: theme.$c-primary;
+    color: theme.$c-primary-over;
 
     h2,
     h3 {
@@ -42,9 +49,9 @@
     @extend %flex-center;
 
     flex: 1;
-    border: $border;
+    border: theme.$border;
     border-top: none;
-    padding: 3rem $block-gap;
+    padding: 3rem variables.$block-gap;
     text-align: center;
     justify-content: center;
     white-space: pre-line;
@@ -57,17 +64,17 @@
     flex: 1;
     justify-content: center;
     flex-flow: column nowrap;
-    border: $border;
+    border: theme.$border;
     border-top: none;
     text-align: center;
     cursor: pointer;
 
-    @include transition;
+    @include mixins.transition;
 
     padding: 6px 0;
     font-size: 1.7em;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       padding: 0;
     }
 
@@ -119,20 +126,20 @@
     }
 
     &.completed {
-      background: $c-good;
-      color: $c-good-over;
+      background: theme.$c-good;
+      color: theme.$c-good-over;
 
       button {
-        color: $c-good;
+        color: theme.$c-good;
       }
     }
 
     &.failed {
-      background: $c-bad;
-      color: $c-bad-over;
+      background: theme.$c-bad;
+      color: theme.$c-bad-over;
 
       button {
-        color: $c-bad;
+        color: theme.$c-bad;
       }
     }
 
@@ -163,13 +170,13 @@
 
       align-content: center;
       text-align: center;
-      background: $c-bg-high;
+      background: theme.$c-bg-high;
       height: 3em;
       font-size: 0.9em;
-      outline: $border;
+      outline: theme.$border;
       opacity: 0.8;
 
-      @include transition;
+      @include mixins.transition;
 
       span {
         margin: auto;
@@ -184,14 +191,14 @@
       }
 
       &.done {
-        color: $c-good-over;
-        background: $c-good;
+        color: theme.$c-good-over;
+        background: theme.$c-good;
       }
 
       &.active {
         opacity: 1;
-        color: $c-primary-over;
-        background: $c-primary;
+        color: theme.$c-primary-over;
+        background: theme.$c-primary;
       }
     }
   }

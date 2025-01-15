@@ -1,7 +1,14 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use '../local';
+
 .lobby__app-presets {
   height: 300px;
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     height: 400px;
   }
 }
@@ -15,7 +22,7 @@
   grid-gap: 9px;
   padding: 9px;
 
-  @include fluid-size('font-size', 14px, 25px);
+  @include fluid-size.fluid-size('font-size', 14px, 25px);
 
   > div {
     @extend %flex-column, %box-radius, %break-word;
@@ -23,16 +30,16 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border: $border;
-    background: $m-font-dim_alpha_neg90;
+    border: theme.$border;
+    background: theme.$m-font-dim_alpha_neg90;
 
-    @include theme-wrap('light') {
-      background: $m-bg-box_alpha_neg50;
+    @include mixins.theme-wrap('light') {
+      background: theme.$m-bg-box_alpha_neg50;
     }
 
-    color: $c-font-clear;
+    color: theme.$c-font-clear;
 
-    @include transition;
+    @include mixins.transition;
 
     &.highlight {
       outline: 2px solid transparent;
@@ -50,7 +57,7 @@
     }
 
     &:hover {
-      background: $m-accent_alpha_neg80;
+      background: theme.$m-accent_alpha_neg80;
       opacity: 1;
 
       &.isReady::before {
@@ -62,7 +69,7 @@
   .active {
     @extend %popup-shadow;
 
-    background: $c-bg-popup;
+    background: theme.$c-bg-popup;
 
     .perf {
       display: none;
@@ -106,12 +113,12 @@
     right: 3px;
     opacity: 0.3;
 
-    @include transition(opacity);
+    @include mixins.transition(opacity);
   }
 }
 
 @keyframes outline-glow {
   50% {
-    outline-color: $c-accent;
+    outline-color: theme.$c-accent;
   }
 }

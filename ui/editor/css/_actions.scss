@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
+
 .board-editor .actions {
   grid-area: actions;
   display: flex;
@@ -11,12 +16,12 @@
     justify-content: center;
     width: calc(100% / 5);
     max-width: 32rem;
-    height: $col3-uniboard-controls;
+    height: uniboard.$col3-uniboard-controls;
     padding: 0 0.75em;
     text-align: center;
     cursor: pointer;
 
-    @include transition;
+    @include mixins.transition;
 
     &.disabled {
       pointer-events: none;
@@ -24,10 +29,10 @@
     }
 
     &:hover {
-      color: $c-accent;
+      color: theme.$c-accent;
     }
 
-    @include breakpoint($mq-col1-uniboard) {
+    @include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
       width: calc(100% / 3);
       font-size: 0.85rem;
 

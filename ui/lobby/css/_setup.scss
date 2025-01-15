@@ -1,7 +1,13 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'local';
+
 #modal-wrap.lobby-setup {
   padding: 0;
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     width: 30em;
   }
 
@@ -70,15 +76,15 @@
   }
 
   a.info {
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
 
     &:hover {
-      color: $c-font;
+      color: theme.$c-font;
     }
   }
 
   .setup-position.section {
-    border-top: $border;
+    border-top: theme.$border;
 
     .setup-handicap {
       margin: 1rem 0;
@@ -100,9 +106,9 @@
   }
 
   .setup-time.section {
-    background: $c-bg-zebra;
-    border-top: $border;
-    border-bottom: $border;
+    background: theme.$c-bg-zebra;
+    border-top: theme.$border;
+    border-bottom: theme.$border;
   }
 
   .setup-time-extra-toggle {
@@ -117,7 +123,7 @@
     }
 
     &:hover {
-      color: $c-accent;
+      color: theme.$c-accent;
     }
   }
 
@@ -169,11 +175,11 @@
       width: 64px;
       height: 64px;
 
-      @include theme-wrap('transp') {
-        background: $c-bg-input;
+      @include mixins.theme-wrap('transp') {
+        background: theme.$c-bg-input;
 
         &:hover {
-          background: $m-bg-input_lightness_neg3 !important;
+          background: theme.$m-bg-input_lightness_neg3 !important;
         }
       }
 
@@ -198,8 +204,8 @@
   .setup-ratings {
     @extend %box-radius-bottom;
 
-    background: $c-bg-zebra;
-    border-top: $border;
+    background: theme.$c-bg-zebra;
+    border-top: theme.$border;
     padding: 0.5em;
     width: 100%;
     text-align: center;

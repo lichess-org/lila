@@ -1,7 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .gamebook-edit {
   @extend %flex-column;
 
-  background: $c-bg-low;
+  background: theme.$c-bg-low;
 
   .deviation,
   .hint {
@@ -19,7 +22,7 @@
 
   .legend {
     display: flex;
-    border-bottom: $border;
+    border-bottom: theme.$border;
     min-height: 3.5em;
 
     i {
@@ -33,8 +36,8 @@
 
     &.clickable:hover {
       cursor: pointer;
-      background: $c-primary;
-      color: $c-primary-over;
+      background: theme.$c-primary;
+      color: theme.$c-primary-over;
 
       i {
         opacity: 0.9;
@@ -50,11 +53,11 @@
   }
 
   .todo i {
-    background: $c-bad;
-    color: $c-bad-over;
+    background: theme.$c-bad;
+    color: theme.$c-bad-over;
   }
 
   .done i {
-    background: $c-good;
+    background: theme.$c-good;
   }
 }

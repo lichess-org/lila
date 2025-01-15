@@ -1,3 +1,8 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'local';
+
 #dasher_app .theme {
   .list {
     @extend %flex-wrap;
@@ -12,15 +17,15 @@
 
       justify-content: center;
 
-      @include transition(background);
+      @include mixins.transition(background);
 
       &:hover {
-        background: $c-dasher-light;
+        background: local.$c-dasher-light;
       }
 
       &.active {
-        background-color: $c-dasher;
-        color: $c-dasher-over;
+        background-color: theme.$c-secondary;
+        color: theme.$c-secondary-over;
       }
 
       span {
@@ -35,13 +40,13 @@
         flex-basis: 100%;
         height: 38px;
         margin-top: 6px;
-        border-top: $border;
+        border-top: theme.$border;
 
         &.active {
-          color: $c-dasher-over;
+          color: theme.$c-secondary-over;
 
           &::before {
-            color: $c-dasher-over;
+            color: theme.$c-secondary-over;
           }
         }
 
@@ -49,7 +54,7 @@
           float: right;
           font-size: 80%;
           margin-top: 0.25rem;
-          color: $c-dasher;
+          color: theme.$c-secondary;
         }
       }
     }

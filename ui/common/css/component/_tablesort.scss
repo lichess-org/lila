@@ -1,3 +1,5 @@
+@use "../theme/gen/theme";
+
 th[role='columnheader']:not(.no-sort) {
   cursor: pointer;
   user-select: none;
@@ -9,7 +11,7 @@ th[role='columnheader']:not(.no-sort)::after {
   margin-top: 7px;
   border-width: 0 5px 5px;
   border-style: solid;
-  border-color: $c-accent transparent;
+  border-color: theme.$c-accent transparent;
   visibility: hidden;
   opacity: 0;
   user-select: none;
@@ -26,7 +28,7 @@ th[aria-sort]:not(.no-sort)::after {
 }
 
 th[role='columnheader']:not(.no-sort):hover {
-  color: $c-font-clear;
+  color: theme.$c-font-clear;
 
   &::after {
     opacity: 1;

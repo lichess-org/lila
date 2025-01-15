@@ -1,3 +1,5 @@
+@use "../theme/gen/theme";
+
 signal {
   display: inline-block;
   height: 1em;
@@ -11,7 +13,7 @@ signal > i {
   margin-left: 1px;
   display: inline-block;
   height: 40%;
-  background-color: $m-good_bg-high_mix_80;
+  background-color: theme.$m-good_bg-high_mix_80;
 }
 
 signal > i:nth-child(2) {
@@ -27,13 +29,13 @@ signal > i:nth-child(4) {
 }
 
 signal.q1 > i {
-  background-color: $c-bad;
+  background-color: theme.$c-bad;
 }
 
 signal.q2 > i {
-  background-color: $c-warn;
+  background-color: theme.$c-warn;
 }
 
 signal > i.off {
-  background-color: $c-shade;
+  background-color: theme.$c-shade;
 }

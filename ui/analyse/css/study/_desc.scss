@@ -1,7 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .study-desc {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   padding: 0.7em 1em;
   margin-top: 0.5em;
   position: relative;
@@ -21,7 +24,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background: $m-accent_bg-box_mix_10;
+    background: theme.$m-accent_bg-box_mix_10;
     padding: 0.5em 0.8em;
     display: none;
     z-index: 1;

@@ -1,11 +1,13 @@
-@import 'search';
-@import 'topic';
-@import 'post';
-@import 'completion';
-@import 'table';
-@import 'pagination';
-@import 'mention';
-@import 'reactions';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'search';
+@use 'topic';
+@use 'post';
+@use 'completion';
+@use 'table';
+@use 'pagination';
+@use 'mention';
+@use 'reactions';
 
 .forum {
   h1,
@@ -17,11 +19,11 @@
     padding-bottom: 1rem;
 
     .sticky {
-      background: $m-secondary_bg-box_mix_10;
+      background: theme.$m-secondary_bg-box_mix_10;
     }
 
     .sticky:nth-child(even) {
-      background: $m-secondary_bg-zebra_mix_10;
+      background: theme.$m-secondary_bg-zebra_mix_10;
     }
 
     .bar-top {

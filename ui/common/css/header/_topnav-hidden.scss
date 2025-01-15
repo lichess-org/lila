@@ -1,4 +1,11 @@
-@include breakpoint($mq-topnav-hidden) {
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/media-queries';
+@use '../abstract/mixins';
+@use '../abstract/variables';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+
+@include breakpoint.breakpoint(media-queries.$mq-topnav-hidden) {
   .topnav-toggle {
     display: block;
     position: absolute;
@@ -10,10 +17,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: $site-header-height;
-    height: $site-header-height;
+    width: variables.$site-header-height;
+    height: variables.$site-header-height;
     cursor: pointer;
-    z-index: z('topnav');
+    z-index: z.get('topnav');
 
     &__in {
       top: 50%;
@@ -29,15 +36,15 @@
         width: 23px;
         height: 2px;
         border-radius: 3px;
-        background-color: $c-font-dim;
+        background-color: theme.$c-font-dim;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include breakpoint.breakpoint(media-queries.$mq-site-header-tall) {
           width: 34px;
           height: 3px;
         }
       }
 
-      @include breakpoint($mq-site-header-tall) {
+      @include breakpoint.breakpoint(media-queries.$mq-site-header-tall) {
         left: 13px;
       }
 
@@ -49,7 +56,7 @@
       &::before {
         top: -6px;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include breakpoint.breakpoint(media-queries.$mq-site-header-tall) {
           top: -9px;
         }
 
@@ -64,7 +71,7 @@
           bottom 0.1s 0.25s ease-in,
           transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
-        @include breakpoint($mq-site-header-tall) {
+        @include breakpoint.breakpoint(media-queries.$mq-site-header-tall) {
           bottom: -10px;
         }
       }
@@ -72,7 +79,7 @@
 
     .topnav-toggle:checked ~ & {
       position: fixed;
-      background: $c-bg-high;
+      background: theme.$c-bg-high;
 
       .hbg__in {
         transform: rotate(225deg);
@@ -102,13 +109,13 @@
     display: flex;
     flex-flow: row wrap;
     position: fixed;
-    top: $site-header-height;
+    top: variables.$site-header-height;
     bottom: 0;
     left: 0;
-    background: $c-bg-high;
+    background: theme.$c-bg-high;
     transform: translateX(calc(-100% - 10px));
 
-    @include transition(transform, 200ms);
+    @include mixins.transition(transform, 200ms);
 
     padding-bottom: 1.2rem;
     overflow-y: auto;
@@ -117,19 +124,19 @@
     border-radius: 0 3px 0 0;
     max-width: 80%;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       max-width: 70%;
     }
 
-    z-index: z('topnav');
+    z-index: z.get('topnav');
 
     a {
-      color: $c-font;
+      color: theme.$c-font;
       text-decoration: none;
       padding: 0.7em 0;
       opacity: 0;
 
-      @include transition(opacity);
+      @include mixins.transition(opacity);
     }
 
     section {
@@ -157,8 +164,8 @@
       }
 
       a:active {
-        background: $c-primary;
-        color: $c-primary-over;
+        background: theme.$c-primary;
+        color: theme.$c-primary-over;
       }
     }
 

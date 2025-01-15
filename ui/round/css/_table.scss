@@ -1,8 +1,12 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .round__app {
   &__table {
     @extend %box-radius-right, %box-shadow;
 
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
   }
 }
 
@@ -12,19 +16,19 @@
   font-size: 0.9rem;
   justify-content: center;
   line-height: 2;
-  background: $c-good;
+  background: theme.$c-good;
   color: #fff;
 
   &-top {
-    border-top-right-radius: $box-radius-size;
+    border-top-right-radius: variables.$box-radius-size;
   }
 
   &-bottom {
-    border-bottom-right-radius: $box-radius-size;
+    border-bottom-right-radius: variables.$box-radius-size;
   }
 
   &.emerg {
-    background: $c-bad;
+    background: theme.$c-bad;
   }
 
   strong {

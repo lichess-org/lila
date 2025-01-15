@@ -1,16 +1,21 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/abstract/z-index' as z;
+@use 'pkg:common/theme';
+
 @use 'sass:math';
 
 /* shared with analysis */
 .game__meta {
   @extend %box-neat-force;
 
-  background: $c-bg-box;
-  padding: #{$block-gap * 0.7} $block-gap;
+  background: theme.$c-bg-box;
+  padding: #{variables.$block-gap * 0.7} variables.$block-gap;
 
   section:not(:last-child) {
-    border-bottom: $border;
-    margin-bottom: math.div($block-gap * 2, 3);
-    padding-bottom: math.div($block-gap * 2, 3);
+    border-bottom: theme.$border;
+    margin-bottom: math.div(variables.$block-gap * 2, 3);
+    padding-bottom: math.div(variables.$block-gap * 2, 3);
   }
 
   &__infos {
@@ -43,8 +48,8 @@
   .bookmark {
     position: absolute;
     right: 0;
-    z-index: z('game-bookmark');
-    color: $c-font-dim;
+    z-index: z.get('game-bookmark');
+    color: theme.$c-font-dim;
 
     ::before {
       font-size: 1.3em;

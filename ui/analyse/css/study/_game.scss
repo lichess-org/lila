@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .post-game {
   .study__side {
     .study__members,
@@ -9,9 +12,9 @@
     .game_info {
       @extend %box-neat-bottom;
 
-      background-color: $c-bg-box;
+      background-color: theme.$c-bg-box;
       display: flex;
-      border-top: $border;
+      border-top: theme.$border;
 
       a,
       button {
@@ -52,7 +55,7 @@
             right: 0;
             bottom: 0;
             pointer-events: none;
-            background: $c-primary;
+            background: theme.$c-primary;
             opacity: 0;
             animation: button-glowing 2s ease-in-out infinite;
           }

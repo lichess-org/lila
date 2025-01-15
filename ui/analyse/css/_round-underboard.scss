@@ -1,3 +1,9 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'local';
+
 @use 'sass:color';
 
 $col1-panel-height: 30vh;
@@ -13,7 +19,7 @@ $col2-panel-height: 240px;
 
     justify-content: center;
     align-items: flex-start;
-    border-top: 2px solid $c-border;
+    border-top: 2px solid theme.$c-border;
 
     > span {
       @extend %roboto, %box-radius-bottom;
@@ -25,18 +31,18 @@ $col2-panel-height: 240px;
       cursor: pointer;
       position: relative;
 
-      @include transition(color, 0.25s);
+      @include mixins.transition(color, 0.25s);
 
       &::after {
         content: '';
-        background: $m-accent_alpha_neg40;
+        background: theme.$m-accent_alpha_neg40;
         height: 2px;
         position: absolute;
         width: 96%;
         left: 2%;
         top: -2px;
 
-        @include transition(all, 0.25s);
+        @include mixins.transition(all, 0.25s);
 
         transform: scale(0);
       }
@@ -47,7 +53,7 @@ $col2-panel-height: 240px;
       }
 
       &.active {
-        color: $c-accent;
+        color: theme.$c-accent;
       }
     }
   }
@@ -57,7 +63,7 @@ $col2-panel-height: 240px;
 
     min-height: var(--panel-height);
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       --panel-height: #{$col2-panel-height};
     }
 
@@ -154,12 +160,12 @@ $col2-panel-height: 240px;
   position: absolute;
   top: 91px;
   left: -1px;
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   padding: 7px 10px 7px 0;
   line-height: 20px;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
   display: flex;
-  border: $border;
+  border: theme.$border;
   border-radius: 0 99px 99px 0;
 
   span {

@@ -1,3 +1,9 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .learn-stages {
   padding-top: 10px;
 
@@ -8,7 +14,7 @@
     letter-spacing: 8px;
     text-transform: uppercase;
     color: #999;
-    text-shadow: $text-shadow;
+    text-shadow: theme.$text-shadow;
     text-align: center;
   }
 
@@ -20,25 +26,25 @@
     grid-gap: 1em 1.5em;
     margin: 0.8em 0 3em 0;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       --min-width: 400px;
     }
   }
 
   .stage {
     @extend %box-radius, %flex-center-nowrap;
-    @include transition;
+    @include mixins.transition;
 
     position: relative;
     height: 90px;
-    color: $c-font-clear;
+    color: theme.$c-font-clear;
     margin-top: 13px;
     box-shadow:
       0 3px 5px 0 rgba(0, 0, 0, 0.3),
       0 1px 1px 0 rgba(0, 0, 0, 0.2);
     font-size: 1.2em;
-    background: $c-bg-box;
-    border-left: 2px solid $c-primary;
+    background: theme.$c-bg-box;
+    border-left: 2px solid theme.$c-primary;
 
     .stage-img {
       width: 80px;
@@ -46,7 +52,7 @@
       margin: 0 13px;
       filter: brightness(0.9);
 
-      @include theme-wrap('light') {
+      @include mixins.theme-wrap('light') {
         filter: brightness(0.2);
       }
     }
@@ -82,7 +88,7 @@
     }
 
     &.done {
-      border-left: 2px solid $c-secondary;
+      border-left: 2px solid theme.$c-secondary;
     }
 
     &:hover {
@@ -90,10 +96,10 @@
         opacity: 1;
       }
 
-      background: $m-primary_bg-box_mix_15;
+      background: theme.$m-primary_bg-box_mix_15;
 
       &.done {
-        background: $m-secondary_bg-box_mix_15;
+        background: theme.$m-secondary_bg-box_mix_15;
       }
     }
 
@@ -143,7 +149,7 @@
         line-height: 1.46em;
 
         i {
-          color: $c-brag;
+          color: theme.$c-brag;
           animation: 0.6s soft-hue ease-in-out infinite;
           text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
         }
@@ -183,17 +189,17 @@
 
   .what_next {
     .stage {
-      border-left: 2px solid $c-accent;
+      border-left: 2px solid theme.$c-accent;
 
       &:hover {
-        background: $m-accent_bg-box_mix_15;
+        background: theme.$m-accent_bg-box_mix_15;
       }
 
       &.done {
-        border-left: 2px solid $c-secondary;
+        border-left: 2px solid theme.$c-secondary;
 
         &:hover {
-          background: $m-secondary_bg-box_mix_15;
+          background: theme.$m-secondary_bg-box_mix_15;
         }
       }
     }
@@ -209,11 +215,11 @@
 
 @keyframes glow {
   from {
-    box-shadow: 0 0 15px -5px $c-primary-glow;
+    box-shadow: 0 0 15px -5px theme.$c-primary-glow;
   }
 
   to {
-    box-shadow: 0 0 15px 5px $c-primary-glow;
+    box-shadow: 0 0 15px 5px theme.$c-primary-glow;
   }
 }
 

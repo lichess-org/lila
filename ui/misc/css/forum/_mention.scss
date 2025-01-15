@@ -1,11 +1,14 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .textcomplete-dropdown {
   @extend %popup-shadow;
 
-  background: $c-bg-popup;
+  background: theme.$c-bg-popup;
 
   li {
     list-style: none;
-    border-top: $border;
+    border-top: theme.$border;
     padding: 0.5em;
     min-width: 100px;
     font-weight: bold;
@@ -19,10 +22,10 @@
 
   li:hover,
   .active {
-    background-color: $m-accent_bg-popup_mix_10;
+    background-color: theme.$m-accent_bg-popup_mix_10;
   }
 
   a {
-    color: $c-font;
+    color: theme.$c-font;
   }
 }

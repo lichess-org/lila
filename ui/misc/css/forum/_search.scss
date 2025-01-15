@@ -1,3 +1,5 @@
+@use 'pkg:common/abstract/extends';
+
 .search {
   &__results {
     @extend %break-word;

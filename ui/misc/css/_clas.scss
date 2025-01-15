@@ -1,12 +1,19 @@
-$c-font-clas: $m-font-clear_clas_mix_30;
-$c-bg-clas: $c-clas;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
+$c-font-clas: theme.$m-font-clear_clas_mix_30;
+$c-bg-clas: theme.$c-clas;
 $c-bg-clas-over: white;
-$c-bg-clas-over-dim: $m-white_clas_mix_80;
+$c-bg-clas-over-dim: theme.$m-white_clas_mix_80;
 
 %archived {
   @extend %box-radius, %flex-between;
 
-  background: $c-bg-zebra2;
+  background: theme.$c-bg-zebra2;
   padding: 1em 2em;
   margin-bottom: 2em;
 }
@@ -15,7 +22,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
   white-space: normal;
   max-width: 22vw;
 
-  @include breakpoint($mq-medium) {
+  @include breakpoint.breakpoint(media-queries.$mq-medium) {
     max-width: 15vw;
   }
 
@@ -24,7 +31,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
   }
 
   &::after {
-    background: $c-clas;
+    background: theme.$c-clas;
   }
 
   &.student {
@@ -34,7 +41,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
       display: none;
     }
 
-    @include breakpoint($mq-subnav-side) {
+    @include breakpoint.breakpoint(media-queries.$mq-subnav-side) {
       font-weight: bold;
       padding: 0.4rem 2vw 0.4rem 0.8rem;
 
@@ -47,7 +54,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
 }
 
 .slist tbody tr:nth-child(2n) {
-  background: $m-bg-box_clas_mix_93;
+  background: theme.$m-bg-box_clas_mix_93;
 }
 
 .clas-index {
@@ -77,29 +84,29 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
     .clas-widget {
       @extend %flex-center-nowrap, %break-word;
 
-      border-bottom: $border;
+      border-bottom: theme.$border;
       padding: 2em var(--box-padding);
       position: relative;
 
-      @include transition;
+      @include mixins.transition;
 
       &::before {
-        color: $m-clas_bg-box_mix_80;
+        color: theme.$m-clas_bg-box_mix_80;
         font-size: 5em;
         margin-right: 0.4em;
 
-        @include transition;
+        @include mixins.transition;
 
-        @include breakpoint($mq-not-xx-small) {
+        @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
           display: none;
         }
       }
 
       &:hover {
-        background: $m-clas_bg-box_mix_10;
+        background: theme.$m-clas_bg-box_mix_10;
 
         &::before {
-          color: $c-clas;
+          color: theme.$c-clas;
         }
       }
 
@@ -108,9 +115,9 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
       }
 
       h3 {
-        color: $c-clas;
+        color: theme.$c-clas;
 
-        @include fluid-size('font-size', 23px, 35px);
+        @include fluid-size.fluid-size('font-size', 23px, 35px);
       }
 
       p {
@@ -120,7 +127,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
       &-archived {
         &::before,
         h3 {
-          color: $c-font-dim;
+          color: theme.$c-font-dim;
         }
       }
     }
@@ -144,7 +151,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
   &__overview {
     @extend %box-padding;
 
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
 
     &__manage {
       @extend %flex-between;
@@ -217,7 +224,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
     justify-content: center;
     align-items: flex-end;
 
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
       font-size: 0.9em;
     }
 
@@ -237,17 +244,17 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
       }
 
       &:hover {
-        background: $m-bg-zebra_clas_mix_20;
+        background: theme.$m-bg-zebra_clas_mix_20;
       }
 
       &.active {
-        background: $c-bg-box;
+        background: theme.$c-bg-box;
         color: $c-font-clas;
         font-weight: bold;
 
         .dashboard-teacher-overview &,
         .dashboard-teacher-progress & {
-          background: $c-bg-zebra;
+          background: theme.$c-bg-zebra;
         }
       }
     }
@@ -293,7 +300,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
     .progress {
       @extend %box-padding;
 
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
 
       > div {
         @extend %flex-center;
@@ -306,7 +313,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
       label {
         width: 12ch;
         display: inline-block;
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
         text-transform: uppercase;
       }
 
@@ -318,7 +325,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
         }
 
         flex: 1 1 auto;
-        background: $c-bg-box;
+        background: theme.$c-bg-box;
       }
 
       a {
@@ -326,19 +333,19 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
         text-align: center;
         font-weight: bold;
         padding: 0.7em;
-        color: $c-clas;
+        color: theme.$c-clas;
 
         &:hover {
-          background: $m-bg-box_clas_mix_70;
-          color: $c-font-clear;
+          background: theme.$m-bg-box_clas_mix_70;
+          color: theme.$c-font-clear;
         }
 
         &.active {
-          background: $c-clas;
-          color: $c-good-over;
+          background: theme.$c-clas;
+          color: theme.$c-good-over;
         }
 
-        border-right: 1px solid $c-border;
+        border-right: theme.$border;
 
         &:last-child {
           border: 0;
@@ -377,7 +384,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
 }
 
 .button-clas {
-  background: $c-clas;
+  background: theme.$c-clas;
 }
 
 .clas-wall {
@@ -485,7 +492,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
   &__managed {
     @extend %box-radius, %flex-between;
 
-    background: $m-primary_alpha_neg80;
+    background: theme.$m-primary_alpha_neg80;
     padding: 1em 2em;
     margin: 1em 0 2em 0;
 
@@ -552,7 +559,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
   }
 
   &__or {
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
     margin: 2rem 0;
     text-align: center;
     font-style: italic;
@@ -599,7 +606,7 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
     .button {
       margin-bottom: 2em;
       display: inline-block;
-      background: $m-clas_white_mix_86;
+      background: theme.$m-clas_white_mix_86;
     }
   }
 }
@@ -607,11 +614,11 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
 .textcomplete-dropdown {
   @extend %popup-shadow;
 
-  background: $c-bg-popup;
+  background: theme.$c-bg-popup;
 
   li {
     list-style: none;
-    border-top: $border;
+    border-top: theme.$border;
     padding: 0.5em;
     min-width: 100px;
     font-weight: bold;
@@ -625,10 +632,10 @@ $c-bg-clas-over-dim: $m-white_clas_mix_80;
 
   li:hover,
   .active {
-    background-color: $m-accent_bg-popup_mix_10;
+    background-color: theme.$m-accent_bg-popup_mix_10;
   }
 
   a {
-    color: $c-font;
+    color: theme.$c-font;
   }
 }

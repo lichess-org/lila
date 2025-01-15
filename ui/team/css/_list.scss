@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .slist {
   @extend %break-word-hard;
 
@@ -16,7 +21,7 @@
     margin-bottom: 0.3em;
 
     &.mine {
-      color: $c-brag;
+      color: theme.$c-brag;
     }
   }
 
@@ -25,7 +30,7 @@
     white-space: nowrap;
     display: none;
 
-    @include breakpoint($mq-x-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-x-small) {
       display: table-cell;
     }
   }

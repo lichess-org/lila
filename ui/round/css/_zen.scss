@@ -1,16 +1,14 @@
-%zen {
-  body.playing.zen & {
-    display: none;
-  }
-}
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/abstract/z-index' as z;
+@use 'local';
 
 #zentog {
   position: absolute;
   padding: 0.5em 1em;
   opacity: 0.5;
-  z-index: z('zen-toggle');
+  z-index: z.get('zen-toggle');
   display: none;
-  border-bottom-right-radius: $box-radius-size;
+  border-bottom-right-radius: variables.$box-radius-size;
 
   body.playing.zen & {
     display: block;

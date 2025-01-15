@@ -1,5 +1,8 @@
-@import 'board-theme';
-@import 'shapes';
+@use '../abstract/extends';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+@use 'board-theme';
+@use 'shapes';
 
 sg-board {
   @extend %rel-100;
@@ -130,14 +133,14 @@ piece {
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: none;
-  z-index: z('sg__piece');
+  z-index: z.get('sg__piece');
 
   &.anim {
-    z-index: z('sg__piece.anim');
+    z-index: z.get('sg__piece.anim');
   }
 
   &.fading {
-    z-index: z('sg__piece.fading');
+    z-index: z.get('sg__piece.fading');
     opacity: 0.5;
   }
 
@@ -148,7 +151,7 @@ piece {
   &.dragging {
     cursor: pointer;
     // pointer-events: auto; // interferes, but cursor has no effect without it
-    z-index: z('sg__piece.dragging') !important;
+    z-index: z.get('sg__piece.dragging') !important;
 
     &.touch {
       top: -50px;
@@ -180,11 +183,11 @@ sg-square-over {
   margin: -6%;
   will-change: transform;
   pointer-events: none;
-  z-index: z('sg__overlay');
+  z-index: z.get('sg__overlay');
 }
 
 sg-promotion {
-  z-index: z('sg__promotion');
+  z-index: z.get('sg__promotion');
   background-color: #0000003f;
 
   &.active {
@@ -212,7 +215,7 @@ sg-promotion {
     sg-promotion-choices {
       display: flex;
       flex-direction: column;
-      background-color: $c-bg-high;
+      background-color: theme.$c-bg-high;
       box-shadow: 3px 3px 7px #000a;
       border-radius: 10px;
       cursor: pointer;
@@ -248,7 +251,7 @@ svg.sg-custom-svgs {
 }
 
 .sg-custom-svgs {
-  z-index: z('sg__svg.sg-custom-svgs');
+  z-index: z.get('sg__svg.sg-custom-svgs');
 
   svg {
     overflow: visible;
@@ -256,7 +259,7 @@ svg.sg-custom-svgs {
 }
 
 sg-free-pieces piece {
-  z-index: z('sg__svg.sg-free-pieces');
+  z-index: z.get('sg__svg.sg-free-pieces');
   opacity: 0.7;
 }
 
@@ -342,9 +345,9 @@ sg-hand-wrap {
         padding: 3px 0.25em;
         font-weight: bold;
         font-size: calc(1.3em * var(--board-scale));
-        border: 1px solid $c-font;
-        background-color: $c-bg-high;
-        color: $c-font-clearer;
+        border: 1px solid theme.$c-font;
+        background-color: theme.$c-bg-high;
+        color: theme.$c-font-clearer;
         cursor: pointer;
         z-index: 2;
       }
@@ -361,7 +364,7 @@ sg-hand-wrap {
         left: 0;
         width: 12%;
         height: 12%;
-        background-color: $c-font-dimmer;
+        background-color: theme.$c-font-dimmer;
         border-radius: 50%;
       }
 
@@ -372,7 +375,7 @@ sg-hand-wrap {
         margin: calc(-50% / 11 * 12) -50%;
         transform: scale(0.5);
         pointer-events: auto;
-        z-index: z('sg__hand-piece');
+        z-index: z.get('sg__hand-piece');
       }
     }
   }

@@ -1,27 +1,31 @@
+@use '../theme/gen/theme';
+@use '../abstract/extends';
+@use '../abstract/mixins';
+
 .button {
   @extend %roboto-fat, %button-shadow, %box-radius;
 
-  background: $c-primary;
+  background: theme.$c-primary;
   text-transform: uppercase;
   padding: 0.8em 1em;
   border: none;
   cursor: pointer;
   text-align: center;
 
-  @include transition;
+  @include mixins.transition;
 
   white-space: nowrap;
 
   &,
   &:visited {
-    color: $c-primary-over;
+    color: theme.$c-primary-over;
   }
 
   &:not(.disabled):hover {
     @extend %button-raised-shadow;
 
-    color: $c-primary-over;
-    background: $m-primary_lightness_10;
+    color: theme.$c-primary-over;
+    background: theme.$m-primary_lightness_10;
   }
 
   &:not(.disabled):focus {
@@ -42,18 +46,18 @@
   }
 
   &-green {
-    background: $c-secondary;
+    background: theme.$c-secondary;
 
     &:not(.disabled):hover {
-      background: $m-secondary_lightness_4;
+      background: theme.$m-secondary_lightness_4;
     }
   }
 
   &-red {
-    background: $c-error;
+    background: theme.$c-error;
 
     &:not(.disabled):hover {
-      background: $m-error_lightness_11;
+      background: theme.$m-error_lightness_11;
     }
   }
 
@@ -64,7 +68,7 @@
 
     &,
     &:hover {
-      color: $c-primary;
+      color: theme.$c-primary;
     }
 
     &:not(.disabled):hover {
@@ -81,22 +85,22 @@
 
     &.button-red,
     &.button-red:hover {
-      color: $c-error;
+      color: theme.$c-error;
     }
 
     &.button-green,
     &.button-green:hover {
-      color: $c-secondary;
+      color: theme.$c-secondary;
     }
   }
 
   &.button-metal {
     @extend %metal;
 
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
 
     &:not(.disabled):hover {
-      color: $c-font;
+      color: theme.$c-font;
 
       @extend %metal-hover;
     }

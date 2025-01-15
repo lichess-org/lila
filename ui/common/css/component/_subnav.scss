@@ -1,33 +1,40 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../abstract/mixins';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+
 .subnav {
   a {
     @extend %nowrap-hidden, %page-text;
   }
 
-  @include breakpoint($mq-subnav-top) {
+  @include breakpoint.breakpoint(media-queries.$mq-subnav-top) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
     grid-gap: 3px;
     margin-bottom: 3px;
-    background: $c-bg-page;
+    background: theme.$c-bg-page;
 
     a {
-      @include box-neat;
+      @include mixins.box-neat;
 
       font-family: Roboto;
       display: flex;
       align-items: center;
-      color: $c-font;
+      color: theme.$c-font;
       padding: 0.6rem 0 0.6rem 0.5rem;
       letter-spacing: -0.06em;
-      background: $c-bg-high;
+      background: theme.$c-bg-high;
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
 
       &.active {
-        background: $c-primary;
-        color: $c-primary-over;
+        background: theme.$c-primary;
+        color: theme.$c-primary-over;
       }
     }
 
@@ -36,27 +43,27 @@
     }
   }
 
-  @include breakpoint($mq-subnav-side) {
+  @include breakpoint.breakpoint(media-queries.$mq-subnav-side) {
     margin-top: 5px;
-    z-index: z('subnav-side'); /* active border must go over the page content */
+    z-index: z.get('subnav-side'); /* active border must go over the page content */
     a {
       display: block;
-      color: $c-font-page;
+      color: theme.$c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
 
-      @include transition;
+      @include mixins.transition;
 
       &::after {
         content: '';
-        background: $m-accent_alpha_neg40;
+        background: theme.$m-accent_alpha_neg40;
         width: 3px;
         position: absolute;
         height: 98%;
         top: 1%;
         right: -1px;
 
-        @include transition(all, 0.25s);
+        @include mixins.transition(all, 0.25s);
 
         transform: scale(0);
       }
@@ -69,7 +76,7 @@
       }
 
       &.active {
-        color: $c-accent;
+        color: theme.$c-accent;
       }
     }
 

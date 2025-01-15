@@ -1,7 +1,7 @@
-@import 'base';
-@import 'pkg:common/form/form3';
-@import 'pkg:common/component/tabs-horiz';
-@import 'pkg:common/component/slist';
-@import 'pkg:common/component/context-streamer';
-@import 'pkg:chat/chat';
-@import '../study/show';
+@use 'base';
+@use 'pkg:common/form/form3';
+@use 'pkg:common/component/tabs-horiz';
+@use 'pkg:common/component/slist';
+@use 'pkg:common/component/context-streamer';
+@use 'pkg:chat/chat';
+@use '../study/show';

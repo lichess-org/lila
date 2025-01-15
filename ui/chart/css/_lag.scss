@@ -1,3 +1,7 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+
 .lag {
   h1 .answer {
     display: block;
@@ -26,7 +30,7 @@
     width: 300px;
     height: 300px;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       width: 350px;
       height: 350px;
     }

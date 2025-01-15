@@ -1,3 +1,9 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .round__now-playing {
   grid-area: now-playing;
 
@@ -6,8 +12,8 @@
 
     margin: 1em 0 0.5em 0;
 
-    @include breakpoint($mq-col1) {
-      margin: 1em $block-gap 0.5em $block-gap;
+    @include breakpoint.breakpoint(local.$mq-col1) {
+      margin: 1em variables.$block-gap 0.5em variables.$block-gap;
     }
   }
 
@@ -18,15 +24,15 @@
     }
 
     .win {
-      color: $c-good;
+      color: theme.$c-good;
     }
 
     .draw {
-      color: $c-brag;
+      color: theme.$c-brag;
     }
 
     .loss {
-      color: $c-bad;
+      color: theme.$c-bad;
     }
   }
 

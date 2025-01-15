@@ -1,13 +1,21 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .blog {
   .atom {
     font-size: 2.6em;
-    color: $c-accent;
+    color: theme.$c-accent;
   }
 
   .meta-headline {
     @extend %box-shadow;
 
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
     padding: 1.4rem var(--box-padding) 0.4rem var(--box-padding);
     text-align: center;
   }
@@ -93,40 +101,40 @@
     }
 
     h2 {
-      border-bottom: 2px solid $c-brag;
+      border-bottom: 2px solid theme.$c-brag;
       margin: 1.5em 0 1em 0;
 
-      @include fluid-size('font-size', 20px, 32px);
+      @include fluid-size.fluid-size('font-size', 20px, 32px);
     }
 
     h3 {
       margin: 1.2em 0 0.6em 0;
-      border-bottom: 1px solid $c-border;
+      border-bottom: theme.$border;
 
-      @include fluid-size('font-size', 16px, 28px);
+      @include fluid-size.fluid-size('font-size', 16px, 28px);
     }
 
     h4 {
-      @include fluid-size('font-size', 14px, 26px);
+      @include fluid-size.fluid-size('font-size', 14px, 26px);
     }
 
     img {
       padding: 5px;
-      border: 1px solid $c-border;
+      border: theme.$border;
     }
 
     pre {
       white-space: pre-wrap;
       font-size: 0.9em;
       line-height: 1.2;
-      border: 1px solid $c-border;
+      border: theme.$border;
       padding: 1em;
     }
 
     .embed {
       @extend %embed;
 
-      margin: $block-gap auto;
+      margin: variables.$block-gap auto;
 
       &--game {
         @extend %game-embed;
@@ -180,7 +188,7 @@
       margin-top: 2em;
       text-align: center;
 
-      @include breakpoint($mq-not-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-not-small) {
         a.button {
           width: 80vw;
           display: block;
@@ -228,16 +236,16 @@
 
   > a {
     @extend %box-neat-force;
-    @include transition;
+    @include mixins.transition;
 
-    background: $c-bg-zebra;
-    color: $c-font;
+    background: theme.$c-bg-zebra;
+    color: theme.$c-font;
     position: relative;
 
     &:hover {
       box-shadow:
-        0 0 5px $c-link,
-        0 0 20px $c-link;
+        0 0 5px theme.$c-link,
+        0 0 20px theme.$c-link;
     }
 
     time {
@@ -247,13 +255,13 @@
       padding: 0.2em 0.5em;
       background: #111;
       color: #ddd;
-      border-radius: 0 0 $box-radius-size 0;
+      border-radius: 0 0 variables.$box-radius-size 0;
       opacity: 1;
     }
 
     img {
       width: 100%;
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     .content {
@@ -262,7 +270,7 @@
 
     .title {
       font-size: 1.3em;
-      color: $c-font-clear;
+      color: theme.$c-font-clear;
       display: block;
     }
 

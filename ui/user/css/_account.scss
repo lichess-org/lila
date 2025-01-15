@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .security {
   .revoke-all,
   .revoke-all button {
@@ -18,7 +23,7 @@
   }
 
   .current {
-    color: $c-brag;
+    color: theme.$c-brag;
     margin-left: 1em;
     font-weight: bold;
   }
@@ -70,7 +75,7 @@
   .brand {
     @extend %box-neat;
 
-    background: $m-accent_bg-box_mix_10;
+    background: theme.$m-accent_bg-box_mix_10;
     padding: 1em 1.5em;
   }
 
@@ -117,12 +122,12 @@
 }
 
 .account {
-  @include breakpoint($mq-subnav-side) {
+  @include breakpoint.breakpoint(media-queries.$mq-subnav-side) {
     min-height: 100%;
   }
 
   h1 {
-    color: $c-accent;
+    color: theme.$c-accent;
   }
 
   form section {
@@ -133,7 +138,7 @@
     margin-bottom: 1.3rem;
     font-size: 1.3em;
 
-    @include breakpoint($mq-x-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-x-small) {
       overflow: hidden;
       white-space: nowrap;
 
@@ -144,7 +149,7 @@
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to right, $m-accent_alpha_neg50, $c-bg-box 80%);
+        background: linear-gradient(to right, theme.$m-accent_alpha_neg50, theme.$c-bg-box 80%);
       }
     }
   }
@@ -154,9 +159,9 @@
 
     width: 100%;
     text-align: center;
-    color: $c-good;
-    border: 1px solid $c-good;
-    background: $m-good_bg-box_mix_10;
+    color: theme.$c-good;
+    border: 1px solid theme.$c-good;
+    background: theme.$m-good_bg-box_mix_10;
     padding: 2rem;
   }
 
@@ -166,14 +171,14 @@
     }
   }
 
-  @include breakpoint($mq-not-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
     td.icon {
       display: none;
     }
   }
 
   .kiddo {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     font-size: 1.1em;
     font-weight: bold;
   }

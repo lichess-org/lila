@@ -1,8 +1,7 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/form3';
-@import 'pkg:common/component/slist';
-@import 'pkg:common/component/tablesort';
-@import 'pkg:common/component/color-icon';
-@import 'pkg:common/base/scrollbar';
-@import 'ui/user/css/activity';
-@import '../clas';
+@use 'pkg:common/form/form3';
+@use 'pkg:common/component/slist';
+@use 'pkg:common/component/tablesort';
+@use 'pkg:common/component/color-icon';
+@use 'pkg:common/base/scrollbar';
+@use 'ui/user/css/activity';
+@use '../clas';

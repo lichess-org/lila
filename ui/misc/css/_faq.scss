@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .faq {
   .question {
     .answer {
@@ -7,7 +10,7 @@
     &:target {
       @extend %box-neat;
 
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
       padding: 2em 3em 1em 3em;
       margin-top: 1em;
 
@@ -20,7 +23,7 @@
         font-weight: bold;
 
         a {
-          color: $c-accent;
+          color: theme.$c-accent;
         }
       }
     }

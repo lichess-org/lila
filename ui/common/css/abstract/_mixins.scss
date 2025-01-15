@@ -1,9 +1,13 @@
+@use "breakpoint-sass/stylesheets/breakpoint";
+@use "uniboard";
+@use "variables";
+
 @mixin box-radius {
-  border-radius: $box-radius-size;
+  border-radius: variables.$box-radius-size;
 }
 
 @mixin box-shadow {
-  box-shadow: $box-shadow;
+  box-shadow: variables.$box-shadow;
 }
 
 @mixin box-neat {
@@ -15,7 +19,7 @@
   #zoom-input {
     display: none;
 
-    @include breakpoint($mq-zoom-enabled) {
+    @include breakpoint.breakpoint(uniboard.$mq-zoom-enabled) {
       display: block;
       position: fixed;
       bottom: 3px;
@@ -25,7 +29,7 @@
   }
 }
 
-@mixin transition($prop: all, $dur: $transition-duration) {
+@mixin transition($prop: all, $dur: variables.$transition-duration) {
   transition: $prop $dur;
 }
 
@@ -69,11 +73,11 @@
 }
 
 @mixin board-width($prop: width) {
-  #{$prop}: calc((100% - #{$hands-gap}) / 11 * 9);
+  #{$prop}: calc((100% - #{uniboard.$hands-gap}) / 11 * 9);
 
   .main-v-minishogi &,
   .main-v-kyotoshogi & {
-    #{$prop}: calc((100% - #{$hands-gap}) / 7 * 5);
+    #{$prop}: calc((100% - #{uniboard.$hands-gap}) / 7 * 5);
   }
 
   .main-v-chushogi & {
@@ -82,11 +86,11 @@
 }
 
 @mixin hand-width($prop: width) {
-  #{$prop}: calc((100% - #{$hands-gap}) / 11 + #{$hand-gap});
+  #{$prop}: calc((100% - #{uniboard.$hands-gap}) / 11 + #{uniboard.$hand-gap});
 
   .main-v-minishogi &,
   .main-v-kyotoshogi & {
-    #{$prop}: calc((100% - #{$hands-gap}) / 7 + #{$hand-gap});
+    #{$prop}: calc((100% - #{uniboard.$hands-gap}) / 7 + #{uniboard.$hand-gap});
   }
 
   .main-v-chushogi & {

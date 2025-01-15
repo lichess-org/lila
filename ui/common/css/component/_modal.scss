@@ -1,3 +1,9 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../abstract/variables';
+@use '../theme/gen/theme';
+
 #modal {
   &-overlay {
     @extend %fullscreen-mask, %flex-center;
@@ -8,8 +14,8 @@
   &-wrap {
     @extend %box-radius, %popup-shadow, %flex-column;
 
-    background: $c-bg-box;
-    border: $border;
+    background: theme.$c-bg-box;
+    border: theme.$border;
     position: relative;
     padding: 2rem;
     text-align: center;
@@ -21,7 +27,7 @@
     }
 
     .close {
-      color: $c-font;
+      color: theme.$c-font;
       position: absolute;
       font-size: 16px;
       line-height: 28px;
@@ -32,10 +38,10 @@
       right: 0;
       background: none;
 
-      @include breakpoint($mq-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-small) {
         top: -12px;
         right: -12px;
-        background: $c-bg-popup;
+        background: theme.$c-bg-popup;
         border-radius: 50%;
       }
     }
@@ -43,7 +49,7 @@
     .close:hover {
       @extend %box-shadow;
 
-      background: $c-bad;
+      background: theme.$c-bad;
       color: #fff;
     }
   }

@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
+    "breakpoint-sass": "^2.7.1",
     "shogiground": "catalog:",
     "shogiops": "catalog:",
     "snabbdom": "catalog:"

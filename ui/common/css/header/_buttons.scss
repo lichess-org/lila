@@ -1,7 +1,13 @@
+@use '../abstract/extends';
+@use '../abstract/mixins';
+@use '../abstract/variables';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+
 %top-icon {
   display: block;
-  height: $site-header-height;
-  line-height: $site-header-height;
+  height: variables.$site-header-height;
+  line-height: variables.$site-header-height;
 }
 
 .site-buttons {
@@ -20,9 +26,9 @@
   .link {
     @extend %top-icon;
     /* we don't want a lighter dark font in the top gradient */
-    color: $c-font;
+    color: theme.$c-font;
 
-    @include theme-wrap('transp') {
+    @include mixins.theme-wrap('transp') {
       @extend %page-text;
     }
 
@@ -30,7 +36,7 @@
     padding: 0 0.7rem;
 
     &:hover {
-      color: $c-font-clearer;
+      color: theme.$c-font-clearer;
     }
 
     span::before {
@@ -58,19 +64,19 @@
     position: absolute;
     right: 0;
     top: var(--dropdown-top);
-    background: $c-bg-header-dropdown;
-    z-index: z('dropdown');
+    background: theme.$c-bg-header-dropdown;
+    z-index: z.get('dropdown');
 
     a,
     button {
-      color: $c-header-dropdown;
+      color: theme.$c-header-dropdown;
     }
   }
 
   .shown {
     .toggle {
-      background: $c-bg-header-dropdown;
-      color: $c-header-dropdown;
+      background: theme.$c-bg-header-dropdown;
+      color: theme.$c-header-dropdown;
     }
 
     .dropdown {
@@ -81,11 +87,11 @@
   .signin {
     margin: 0 1rem;
 
-    @include theme-wrap('transp') {
+    @include mixins.theme-wrap('transp') {
       &.button-empty {
         @extend %metal;
 
-        color: $c-font-clear;
+        color: theme.$c-font-clear;
       }
     }
   }

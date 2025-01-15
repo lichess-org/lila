@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .forum-topic {
   &.topic-form {
     .warning {
@@ -5,15 +10,15 @@
 
       border-radius: 20px;
       padding: 1rem;
-      background: $m-error_bg-box_mix_15;
-      border: 1px solid $c-error;
+      background: theme.$m-error_bg-box_mix_15;
+      border: 1px solid theme.$c-error;
       text-align: center;
       font-size: 1.3em;
       margin-bottom: 2rem;
 
       h2 {
         font-weight: bold;
-        color: $c-error;
+        color: theme.$c-error;
       }
 
       h2,
@@ -34,7 +39,7 @@
       &:not(:empty) {
         margin-bottom: 1.5rem;
 
-        @include breakpoint($mq-x-small) {
+        @include breakpoint.breakpoint(media-queries.$mq-x-small) {
           margin-bottom: 0;
         }
       }

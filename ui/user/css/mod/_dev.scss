@@ -1,6 +1,8 @@
+@use 'pkg:common/theme';
+
 #settings form {
   margin-top: 1rem;
-  border-top: 1px dotted $c-border;
+  border-top: 1px dotted theme.$c-border;
   padding-top: 1rem;
   display: flex;
 
@@ -12,7 +14,7 @@
   }
 
   .button {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
   }
 }
 

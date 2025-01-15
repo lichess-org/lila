@@ -1,8 +1,14 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .simul-list {
   &__help {
-    color: $c-font-page;
+    color: theme.$c-font-page;
     max-width: 350px;
-    margin: 9em $block-gap 0 0;
+    margin: 9em variables.$block-gap 0 0;
 
     img {
       @extend %box-radius;
@@ -18,7 +24,7 @@
 
     display: none;
 
-    @include breakpoint($mq-large) {
+    @include breakpoint.breakpoint(media-queries.$mq-large) {
       display: block;
     }
   }
@@ -34,13 +40,13 @@
       display: none;
     }
 
-    @include breakpoint($mq-x-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-x-small) {
       .host {
         display: table-cell;
       }
     }
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       .players {
         display: table-cell;
       }

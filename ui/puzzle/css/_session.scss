@@ -1,7 +1,11 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .puzzle__session {
   display: flex;
   flex-flow: row wrap-reverse;
-  margin-bottom: $block-gap;
+  margin-bottom: variables.$block-gap;
 
   a {
     @extend %box-radius, %flex-center;
@@ -23,11 +27,11 @@
     }
 
     &.result-true {
-      background: $c-good;
+      background: theme.$c-good;
     }
 
     &.result-false {
-      background: $c-bad;
+      background: theme.$c-bad;
 
       &.result-empty::before {
         content: 'L';
@@ -35,11 +39,11 @@
     }
 
     &.current {
-      background: $c-brag;
+      background: theme.$c-brag;
     }
 
     &.session-new {
-      background: $c-link;
+      background: theme.$c-link;
     }
 
     &:hover {

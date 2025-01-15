@@ -1,3 +1,2 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/slist';
-@import '../mod/report';
+@use 'pkg:common/component/slist';
+@use '../mod/report';

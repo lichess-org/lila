@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .keyboard-help {
   @extend %flex-column;
 
@@ -18,8 +22,8 @@
 
   th p {
     margin: 1.2em 0 0.6em 0;
-    background: $c-brag;
-    color: $c-brag-over;
+    background: theme.$c-brag;
+    color: theme.$c-brag-over;
     font-weight: bold;
     padding: 0.3em 0;
   }
@@ -55,7 +59,7 @@
     background-color: #fcfcfc;
     border: solid 1px #ccc;
     border-bottom-color: #bbb;
-    border-radius: $box-radius-size;
+    border-radius: variables.$box-radius-size;
     box-shadow: inset 0 -1px 0 #bbb;
   }
 

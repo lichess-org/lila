@@ -1,5 +1,4 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/base/scrollbar';
-@import 'pkg:common/component/slist';
-@import 'pkg:common/component/number-menu';
-@import '../insights';
+@use 'pkg:common/base/scrollbar';
+@use 'pkg:common/component/slist';
+@use 'pkg:common/component/number-menu';
+@use '../insights';

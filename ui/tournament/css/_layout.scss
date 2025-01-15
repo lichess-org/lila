@@ -1,14 +1,21 @@
-@include breakpoint($mq-col2) {
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'local';
+
+@include breakpoint.breakpoint(local.$mq-col2) {
   #main-wrap {
     --main-max-width: auto;
   }
 }
 
-$chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 3rem);
+$chat-optimal-size: calc(
+  100vh - #{variables.$site-header-outer-height} - #{variables.$block-gap} - 3rem
+);
 
 .tour {
   display: grid;
-  grid-gap: $block-gap;
+  grid-gap: variables.$block-gap;
   grid-template-areas:
     'main'
     'side'
@@ -33,8 +40,8 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
     grid-area: uchat;
   }
 
-  @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
+  @include breakpoint.breakpoint(local.$mq-col2) {
+    grid-template-columns: uniboard.$col2-uniboard-default-width uniboard.$col2-uniboard-table;
     grid-template-rows: $chat-optimal-size min-content;
     grid-template-areas:
       'main  side'
@@ -54,8 +61,8 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
     }
   }
 
-  @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
+  @include breakpoint.breakpoint(local.$mq-col3) {
+    grid-template-columns: uniboard.$col3-uniboard-side uniboard.$col3-uniboard-default-width uniboard.$col3-uniboard-table;
     grid-template-rows: $chat-optimal-size auto;
     grid-template-areas:
       'side  main table'

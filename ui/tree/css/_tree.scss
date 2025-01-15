@@ -1,4 +1,6 @@
-@import 'extend';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'extend';
 
 .tview2 {
   white-space: normal;
@@ -15,31 +17,31 @@
     @extend %move;
 
     &.inaccuracy {
-      color: $c-inaccuracy;
+      color: theme.$c-inaccuracy;
     }
 
     &.mistake {
-      color: $c-mistake;
+      color: theme.$c-mistake;
     }
 
     &.blunder {
-      color: $c-blunder;
+      color: theme.$c-blunder;
     }
 
     &.good-move {
-      color: $c-good-move;
+      color: theme.$c-good-move;
     }
 
     &.brilliant {
-      color: $c-brilliant;
+      color: theme.$c-brilliant;
     }
 
     &.interesting {
-      color: $c-interesting;
+      color: theme.$c-interesting;
     }
 
     move-notation::before {
-      color: $c-font;
+      color: theme.$c-font;
     }
 
     @media (hover: none) {
@@ -63,16 +65,16 @@
   }
 
   move.current {
-    border: 1px solid $c-accent;
+    border: 1px solid theme.$c-accent;
   }
 
   move.active {
     font-weight: bold;
-    background: $m-primary_bg-box_mix_20;
-    color: $c-font-clear;
+    background: theme.$m-primary_bg-box_mix_20;
+    color: theme.$c-font-clear;
 
     move-notation::before {
-      color: $c-font-clear;
+      color: theme.$c-font-clear;
     }
   }
 
@@ -80,18 +82,18 @@
   line move.active {
     @extend %box-radius;
 
-    background: $m-primary_bg-box_mix_40;
-    color: $c-font-clearer;
-    outline: 1px solid $m-primary_bg-box_mix_60;
+    background: theme.$m-primary_bg-box_mix_40;
+    color: theme.$c-font-clearer;
+    outline: 1px solid theme.$m-primary_bg-box_mix_60;
 
     move-notation::before {
-      color: $c-font-clearer;
+      color: theme.$c-font-clearer;
     }
   }
 
   move.nongame {
     font-style: italic;
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   move:not(.empty):hover {
@@ -100,8 +102,8 @@
     eval,
     movetime,
     move-notation::before {
-      background: $c-primary;
-      color: $c-primary-over;
+      background: theme.$c-primary;
+      color: theme.$c-primary-over;
     }
   }
 
@@ -111,21 +113,21 @@
   }
 
   move.empty {
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
     cursor: default;
   }
 
   move index {
     font-size: 90%;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
   }
 
   move.context-menu {
-    background: $c-accent;
-    color: $c-accent-over;
+    background: theme.$c-accent;
+    color: theme.$c-accent-over;
 
     index {
-      color: $c-accent-over;
+      color: theme.$c-accent-over;
     }
   }
 
@@ -143,7 +145,7 @@
   }
 
   line move {
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   &-column > move {
@@ -156,7 +158,7 @@
   }
 
   &-column > index + move {
-    border-right: $c-border;
+    border-right: theme.$c-border;
   }
 
   eval,
@@ -166,7 +168,7 @@
     flex: 3 0 auto;
     text-align: right;
     font-size: 0.8em;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     max-width: 3rem;
     margin-right: 0.5rem;
   }
@@ -197,10 +199,10 @@
     flex: 0 0 17%;
     display: flex;
     justify-content: center;
-    border-right: $border;
-    background: $c-bg-zebra;
+    border-right: theme.$border;
+    background: theme.$c-bg-zebra;
     line-height: 2.07em;
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
   }
 
   > interrupt {
@@ -209,9 +211,9 @@
 
   &-column > interrupt {
     flex: 0 0 100%;
-    background: $c-bg-zebra;
-    border-top: 1px solid $c-border;
-    border-bottom: 1px solid $c-border;
+    background: theme.$c-bg-zebra;
+    border-top: theme.$border;
+    border-bottom: theme.$border;
     max-width: 100%;
   }
 
@@ -247,15 +249,15 @@
   }
 
   &-column comment.inaccuracy {
-    border-color: $c-inaccuracy;
+    border-color: theme.$c-inaccuracy;
   }
 
   &-column comment.mistake {
-    border-color: $c-mistake;
+    border-color: theme.$c-mistake;
   }
 
   &-column comment.blunder {
-    border-color: $c-blunder;
+    border-color: theme.$c-blunder;
   }
 
   &-column comment.undefined {
@@ -268,7 +270,7 @@
 
   &-column line comment {
     display: inline;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     word-wrap: break-word;
     padding: 0 5px 0 3px;
     vertical-align: top;
@@ -284,7 +286,7 @@
     margin-top: 2px;
     margin-left: 6px;
     margin-bottom: 0.8em;
-    border-left: 2px solid $c-border;
+    border-left: 2px solid theme.$c-border;
   }
 
   > interrupt > lines {
@@ -318,7 +320,7 @@
 
   lines lines::before {
     content: ' ';
-    border-top: 2px solid $c-border;
+    border-top: 2px solid theme.$c-border;
     position: absolute;
     margin-left: -11px;
     width: 9px;
@@ -329,7 +331,7 @@
     margin-top: 0.7em;
     margin-left: -8px;
     content: ' ';
-    border-top: 2px solid $c-border;
+    border-top: 2px solid theme.$c-border;
     position: absolute;
     width: 7px;
     height: 6px;

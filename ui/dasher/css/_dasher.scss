@@ -1,6 +1,12 @@
-@import 'link';
-@import 'board';
-@import 'piece';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
+@use 'pkg:common/abstract/extends';
+@use 'link';
+@use 'board';
+@use 'piece';
+@use 'local';
 
 #dasher_app {
   @extend %box-radius-left;
@@ -15,7 +21,7 @@
     display: block;
     position: relative;
     padding: 0.8rem;
-    border-top: $border;
+    border-top: theme.$border;
 
     signal {
       position: absolute;
@@ -39,11 +45,11 @@
   .head {
     display: block;
     padding: 1rem;
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 
   .head::before {
-    color: $c-dasher;
+    color: theme.$c-secondary;
     opacity: 0.8;
   }
 
@@ -66,28 +72,28 @@
       text-align: left;
 
       &:hover {
-        background: $c-dasher-light;
+        background: local.$c-dasher-light;
       }
     }
 
     .accepted {
-      border-left: 4px solid $c-dasher;
+      border-left: 4px solid theme.$c-secondary;
     }
 
     .current {
-      background: $c-dasher !important;
-      color: $c-dasher-over !important;
+      background: theme.$c-secondary !important;
+      color: theme.$c-secondary-over !important;
       border-left: none;
     }
 
     .help {
-      color: $c-link;
+      color: theme.$c-link;
       display: block;
       padding: 0.7rem 0.7rem 0.7rem 1rem;
 
       &:hover {
-        background: $c-link;
-        color: $c-link-over;
+        background: theme.$c-link;
+        color: theme.$c-link-over;
       }
     }
   }
@@ -100,15 +106,15 @@
       display: block;
       padding: 0.7rem 1rem;
 
-      @include transition(background);
+      @include mixins.transition(background);
 
       &:hover {
-        background: $c-dasher-light;
+        background: local.$c-dasher-light;
       }
 
       &.active {
-        background: $c-dasher !important;
-        color: $c-dasher-over !important;
+        background: theme.$c-secondary !important;
+        color: theme.$c-secondary-over !important;
       }
 
       &::before {
@@ -118,17 +124,17 @@
         align-items: center;
         opacity: 0;
 
-        @include transition(opacity);
+        @include mixins.transition(opacity);
       }
 
       &:hover::before {
         opacity: 1;
-        color: $c-dasher;
+        color: theme.$c-secondary;
       }
 
       &.active::before {
         opacity: 1;
-        color: $c-dasher-over !important;
+        color: theme.$c-secondary-over !important;
       }
     }
 
@@ -149,7 +155,7 @@
 
   .sound {
     .slider {
-      border-top: $border;
+      border-top: theme.$border;
 
       input {
         width: 100%;
@@ -179,10 +185,10 @@
 
   .board .zoom {
     display: none;
-    border-top: $border;
+    border-top: theme.$border;
     padding: 1.5rem;
 
-    @include breakpoint($mq-board-resizable) {
+    @include breakpoint.breakpoint(uniboard.$mq-board-resizable) {
       display: block;
     }
   }
@@ -204,7 +210,7 @@
 
     .board,
     .grid {
-      border-bottom: $border;
+      border-bottom: theme.$border;
       padding-bottom: 1rem;
     }
 
@@ -252,15 +258,15 @@
     }
 
     .sp-container {
-      background-color: $c-bg-box;
+      background-color: theme.$c-bg-box;
 
       .sp-alpha {
         border-radius: 4px;
       }
 
       .sp-alpha-handle.highlight {
-        background: $c-bg-input;
-        outline: 2px solid $c-bad;
+        background: theme.$c-bg-input;
+        outline: 2px solid theme.$c-bad;
         animation: 1.3s flash-glow ease-in-out infinite;
 
         &::after {
@@ -268,7 +274,7 @@
           position: absolute;
           left: -2px;
           top: -20px;
-          border: 10px solid $c-bad;
+          border: 10px solid theme.$c-bad;
           border-bottom: 0;
           border-left-color: transparent;
           border-right-color: transparent;
@@ -282,8 +288,8 @@
 
       .sp-alpha-handle,
       .sp-slider {
-        background: $c-bg-input;
-        outline: 1px solid $c-font-clearer;
+        background: theme.$c-bg-input;
+        outline: 1px solid theme.$c-font-clearer;
       }
 
       .sp-dragger {
@@ -299,18 +305,18 @@
 
 @keyframes flash-glow {
   0% {
-    background: $c-bg-input;
-    outline: 2px solid $c-bad;
+    background: theme.$c-bg-input;
+    outline: 2px solid theme.$c-bad;
   }
 
   50% {
-    background: $c-bad;
-    outline: 2px solid $c-font-clearer;
+    background: theme.$c-bad;
+    outline: 2px solid theme.$c-font-clearer;
   }
 
   100% {
-    background: $c-bg-input;
-    outline: 2px solid $c-bad;
+    background: theme.$c-bg-input;
+    outline: 2px solid theme.$c-bad;
   }
 }
 

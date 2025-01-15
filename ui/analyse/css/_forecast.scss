@@ -1,7 +1,11 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .forecast {
   user-select: none;
 
-  @include transition;
+  @include mixins.transition;
 
   position: relative;
 
@@ -21,7 +25,7 @@
   .top {
     @extend %metal;
 
-    border-bottom: $border;
+    border-bottom: theme.$border;
     padding: 0.5em 0.7em;
   }
 
@@ -31,10 +35,10 @@
     padding: 0.7em 0.1em 0.7em 0.6em;
     margin-left: -0.1em;
 
-    @include transition;
+    @include mixins.transition;
 
     position: relative;
-    border-bottom: $border;
+    border-bottom: theme.$border;
 
     &::before {
       margin-left: -0.6em;
@@ -56,10 +60,10 @@
       align-items: center;
       padding-right: 0.5px;
 
-      @include transition;
+      @include mixins.transition;
 
-      background: $c-bad;
-      color: $c-bad-over;
+      background: theme.$c-bad;
+      color: theme.$c-bad-over;
       border-radius: 50%;
       z-index: 1;
 
@@ -83,7 +87,7 @@
     width: 100%;
     padding: 0.7em;
     text-align: left;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     cursor: inherit;
 
     &::before {
@@ -95,13 +99,13 @@
       @extend %metal;
 
       cursor: pointer;
-      color: $c-font;
+      color: theme.$c-font;
 
-      @include transition;
+      @include mixins.transition;
 
       &::before {
         opacity: 0.7;
-        color: $c-good;
+        color: theme.$c-good;
       }
 
       &:hover {
@@ -117,7 +121,7 @@
       font-size: 0.9em;
 
       > span {
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
       }
     }
   }

@@ -1,4 +1,11 @@
-@include crosstable-small;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../abstract/mixins';
+@use '../abstract/variables';
+@use '../theme/gen/theme';
+
+@include mixins.crosstable-small;
 
 .crosstable {
   @extend %box-neat-force;
@@ -9,7 +16,7 @@
 
   fill,
   povs {
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     flex: 1 1 auto;
   }
 
@@ -34,7 +41,7 @@
     text-align: left;
 
     a {
-      padding-left: $block-gap;
+      padding-left: variables.$block-gap;
     }
   }
 
@@ -43,19 +50,19 @@
     font-weight: bold;
 
     span {
-      padding: 0 $block-gap;
+      padding: 0 variables.$block-gap;
     }
   }
 
   &__matchup {
     flex: 1 1 auto;
     font-weight: bold;
-    background: $m-primary_bg-box_mix_20;
+    background: theme.$m-primary_bg-box_mix_20;
   }
 
   povs {
     a {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       flex: 0 0 50%;
     }
 
@@ -72,16 +79,16 @@
     }
 
     &.current a {
-      background: $m-accent_bg-box_mix_70;
+      background: theme.$m-accent_bg-box_mix_70;
       color: #fff;
       opacity: 1 !important;
     }
 
     &.new {
-      border: $c-border;
+      border: theme.$c-border;
     }
 
-    @include breakpoint($mq-not-x-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-x-small) {
       display: none;
 
       &:nth-last-child(-n + 12) {
@@ -93,17 +100,17 @@
   .sep {
     @extend %box-radius-left;
 
-    border-left: $border;
+    border-left: theme.$border;
     margin-left: 0.3em;
   }
 
   .win {
     font-weight: bold;
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   .loss {
-    color: $c-bad;
+    color: theme.$c-bad;
   }
 
   .unavailable {

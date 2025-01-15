@@ -1,18 +1,24 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+
 #clinput {
   display: flex;
-  height: $site-header-height;
+  height: variables.$site-header-height;
 
   input {
     @extend %page-text;
 
-    line-height: $site-header-height;
+    line-height: variables.$site-header-height;
     background: none;
     padding: 0;
     border: 0;
     width: 0;
 
-    @include breakpoint($mq-x-large) {
-      @include transition(width);
+    @include breakpoint.breakpoint(media-queries.$mq-x-large) {
+      @include mixins.transition(width);
     }
 
     body.clinput & {
@@ -33,19 +39,19 @@
 }
 
 body.clinput #top {
-  @include breakpoint($mq-not-x-large) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-x-large) {
     #topnav {
       display: none;
     }
   }
 
-  @include breakpoint($mq-not-x-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-x-small) {
     .site-title {
       display: none;
     }
   }
 
-  @include breakpoint($mq-not-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
     .site-buttons > *:not(#clinput) {
       display: none;
     }

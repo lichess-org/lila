@@ -1,3 +1,6 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+
 .angle-content .custom {
   .custom-title-bar {
     display: flex;
@@ -41,7 +44,7 @@
     width: 100%;
     aspect-ratio: 1 / 1;
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       aspect-ratio: 3 / 1;
     }
   }

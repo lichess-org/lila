@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'local';
+
 .ruser {
   @extend %zen;
 
@@ -5,16 +10,16 @@
   justify-content: left;
   font-size: 1.2em;
   padding: 0 0.3em;
-  line-height: $col1-player-clock-height;
+  line-height: local.$col1-player-clock-height;
 
   &:hover {
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   a {
     @extend %ellipsis;
 
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   &.long a {
@@ -25,7 +30,7 @@
   .ai-level {
     flex: 0 0 auto;
     margin: 0 0.25em 0 0.3em;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     letter-spacing: -0.5px;
   }
 
@@ -57,7 +62,7 @@
     margin-right: 0.2em;
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     padding: 0.5em 0.5em 0.5em 0.3em;
     line-height: inherit;
 

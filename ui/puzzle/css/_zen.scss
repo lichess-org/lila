@@ -1,8 +1,4 @@
-%zen {
-  .zen & {
-    display: none;
-  }
-}
+@use 'local';
 
 body.playing.zen {
   #top {

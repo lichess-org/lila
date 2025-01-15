@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'list';
+
 .study__members {
   @extend %study-list;
 
@@ -36,7 +40,7 @@
 
   .online i {
     opacity: 0.8;
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   .online.contrib i {
@@ -70,19 +74,19 @@
   }
 
   .leave {
-    color: $c-bad;
+    color: theme.$c-bad;
     opacity: 0.7;
   }
 
   > div:hover .leave:hover {
-    background-color: $c-bad;
+    background-color: theme.$c-bad;
   }
 
   .add {
     @extend %roboto;
 
     &:hover i {
-      color: $c-link;
+      color: theme.$c-link;
       opacity: 1;
       transition: none;
     }
@@ -98,7 +102,7 @@
 
   m-config,
   .editing {
-    background: $m-accent_bg-box_mix_10 !important;
+    background: theme.$m-accent_bg-box_mix_10 !important;
   }
 
   m-config {

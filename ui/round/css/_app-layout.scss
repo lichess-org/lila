@@ -1,3 +1,11 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .rcontrols {
   grid-area: controls;
 }
@@ -37,13 +45,13 @@
 .round__app {
   display: grid;
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     grid-template-rows:
       auto
-      $col1-player-clock-height
+      local.$col1-player-clock-height
       auto
       auto
-      $col1-player-clock-height;
+      local.$col1-player-clock-height;
     grid-template-areas:
       '.' // for move confirm
       'user-top'
@@ -80,7 +88,7 @@
     }
 
     .keyboard-move {
-      margin-left: $block-gap;
+      margin-left: variables.$block-gap;
     }
 
     .rmoves {
@@ -99,9 +107,11 @@
     }
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     grid-template-rows: auto auto auto minmax(0, 1fr);
-    grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
+    grid-template-columns:
+      var(--col2-uniboard-main-size)
+      variables.$block-gap uniboard.$col2-uniboard-table;
     grid-template-areas:
       'board    . clock-top'
       'board    . expi-top'
@@ -135,7 +145,7 @@
     }
 
     .keyboard-move {
-      margin: $block-gap 0 0 0;
+      margin: variables.$block-gap 0 0 0;
     }
 
     .rcontrols {
@@ -150,7 +160,9 @@
 
     &.compact-layout {
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
-      grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
+      grid-template-columns:
+        var(--col2-uniboard-main-size)
+        variables.$block-gap uniboard.$col2-uniboard-table;
       grid-template-areas:
         'user-top . expi-top'
         'board    . moves'
@@ -181,12 +193,12 @@
       }
 
       .rclock {
-        @include hand-width(margin-right);
+        @include mixins.hand-width(margin-right);
         /* that weird shit is required so the clock goes above the player since they share the same grid cell */
         justify-self: flex-end;
         height: 25px;
         z-index: 1;
-        background-color: $c-bg-high;
+        background-color: theme.$c-bg-high;
 
         .moretime,
         .berserked,
@@ -233,13 +245,13 @@
       }
 
       .ruser {
-        @include board-width(width);
-        @include hand-width(margin-left);
+        @include mixins.board-width(width);
+        @include mixins.hand-width(margin-left);
 
         height: 25px;
         padding: 0.1em 0.3em 0 0.3em;
         line-height: 22px;
-        background-color: $c-bg-high;
+        background-color: theme.$c-bg-high;
         z-index: 1;
       }
 
@@ -276,7 +288,7 @@
       }
     }
 
-    @include breakpoint($mq-short) {
+    @include breakpoint.breakpoint(media-queries.$mq-short) {
       & .rmoves .moves {
         display: flex;
       }
@@ -286,7 +298,7 @@
   &__board {
     grid-area: board;
 
-    @include breakpoint($mq-col1) {
+    @include breakpoint.breakpoint(local.$mq-col1) {
       margin: 1vmin 0;
 
       .main-v-chushogi & {
@@ -296,21 +308,25 @@
   }
 
   .main-v-chushogi & {
-    @include breakpoint($mq-col2) {
-      grid-template-columns: var(--col2-uniboard-main-size-no-hands) $big-block-gap $col2-uniboard-table;
+    @include breakpoint.breakpoint(local.$mq-col2) {
+      grid-template-columns:
+        var(--col2-uniboard-main-size-no-hands)
+        uniboard.$big-block-gap uniboard.$col2-uniboard-table;
     }
   }
 
   .main-v-chushogi &.compact-layout {
-    @include breakpoint($mq-col2-uniboard) {
-      grid-template-columns: var(--col3-uniboard-main-size-no-hands) $big-block-gap $col3-uniboard-table;
+    @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
+      grid-template-columns:
+        var(--col3-uniboard-main-size-no-hands)
+        uniboard.$big-block-gap uniboard.$col3-uniboard-table;
     }
   }
 
   .main-board.v-minishogi &.compact-layout,
   .main-board.v-kyotoshogi &.compact-layout {
-    @include breakpoint($mq-col2-uniboard) {
-      padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
+    @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
+      padding-bottom: calc((100% - #{uniboard.$hands-gap}) / 11 * 9 / 11 * 12);
 
       .sg-wrap {
         height: calc(100% / 9 * 5 / 7 * 11);

@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/z-index' as z;
+@use 'pkg:common/theme';
+
 body,
 #mz_menu .inner {
   margin-top: 53px !important;
@@ -32,7 +36,7 @@ body.no-inquiry {
   top: 0;
   left: 0;
   right: 0;
-  z-index: z('inquiry');
+  z-index: z.get('inquiry');
 
   .costello {
     flex: 0 0 160px;
@@ -243,7 +247,7 @@ body.no-inquiry {
 
   .links a:hover,
   .report a:hover {
-    color: $c-link;
+    color: theme.$c-link;
   }
 
   .process button {
@@ -253,7 +257,7 @@ body.no-inquiry {
   }
 
   .process button:hover {
-    background: $c-secondary;
+    background: theme.$c-secondary;
   }
 
   .cancel button {

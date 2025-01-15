@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 #dasher_app {
   .piece {
     .list {
@@ -35,7 +38,7 @@
     .piece-tabs {
       display: flex;
       justify-content: space-around;
-      border-top: 2px solid $c-dasher;
+      border-top: 2px solid theme.$c-secondary;
 
       div {
         flex: 1;

@@ -1,3 +1,7 @@
+@use '../abstract/extends';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+
 $recon-height: 2.5rem;
 
 @keyframes reconnected {
@@ -17,15 +21,15 @@ $recon-height: 2.5rem;
 
   font-size: 1.2em;
   font-weight: bold;
-  background: $c-bad;
-  color: $c-bad-over;
+  background: theme.$c-bad;
+  color: theme.$c-bad-over;
   position: fixed;
   bottom: 0;
   left: 0;
   height: $recon-height;
   padding: 0 1rem;
   border-top-right-radius: 3px;
-  z-index: z('reconnecting');
+  z-index: z.get('reconnecting');
   opacity: 0;
   transform: translateY($recon-height);
 
@@ -39,7 +43,7 @@ $recon-height: 2.5rem;
   }
 
   .online.reconnected & {
-    background: $c-good;
+    background: theme.$c-good;
     animation: reconnected 2.5s ease-out 1.5s backwards;
   }
 

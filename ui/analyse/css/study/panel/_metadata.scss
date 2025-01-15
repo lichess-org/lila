@@ -1,7 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .study__metadata {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   text-align: left;
 
   h2 {
@@ -10,7 +13,7 @@
     font-size: 1.3em;
     padding: 0 1rem;
     white-space: nowrap;
-    border-bottom: $border;
+    border-bottom: theme.$border;
 
     .name {
       @extend %ellipsis;
@@ -34,7 +37,7 @@
 
     .liking:hover {
       opacity: 1;
-      color: $c-red;
+      color: theme.$c-red;
     }
   }
 }
@@ -44,7 +47,7 @@
 
   th {
     font-weight: bold;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     width: 1px;
     padding: 0 0.3em 0 1em !important;
     word-break: keep-all;
@@ -69,7 +72,7 @@
 
   input:hover,
   input:focus {
-    background: $m-primary_bg-box_mix_10;
+    background: theme.$m-primary_bg-box_mix_10;
   }
 
   select {
@@ -88,7 +91,7 @@
   .topic {
     @extend %box-radius;
 
-    background: $m-primary_bg-box_mix_15;
+    background: theme.$m-primary_bg-box_mix_15;
     padding: 0.2em 0.6em;
     margin: 0.2em;
   }

@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .puzzle-history {
   &__session {
     margin-bottom: 5em;
@@ -33,7 +36,7 @@
     }
 
     &:hover .puzzle-history__round__id {
-      color: $c-font;
+      color: theme.$c-font;
       visibility: visible;
     }
   }
@@ -56,7 +59,7 @@
   }
 
   good {
-    background: $c-good;
+    background: theme.$c-good;
 
     &::before {
       content: 'E';
@@ -64,7 +67,7 @@
   }
 
   bad {
-    background: $c-bad;
+    background: theme.$c-bad;
 
     &::before {
       content: 'L';

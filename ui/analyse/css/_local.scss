@@ -1,0 +1,8 @@
+@use 'pkg:common/abstract/uniboard';
+
+$mq-col1: uniboard.$mq-col1-uniboard;
+$mq-col2: uniboard.$mq-col2-uniboard;
+$mq-col3: uniboard.$mq-col3-uniboard;
+
+$meta-height: var(--meta-height);
+$chat-height: 1fr;

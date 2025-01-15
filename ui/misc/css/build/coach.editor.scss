@@ -1,5 +1,4 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/form3';
-@import 'pkg:common/component/btn-rack';
-@import '../coach/editor';
-@import '../coach/picture';
+@use 'pkg:common/form/form3';
+@use 'pkg:common/component/btn-rack';
+@use '../coach/editor';
+@use '../coach/picture';

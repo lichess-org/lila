@@ -1,8 +1,10 @@
+@use 'pkg:common/abstract/variables';
+
 @font-face {
   font-family: storm;
   font-style: normal;
   font-weight: 400;
   src:
-    url('#{$font-path}/Segment7.woff2') format('woff2'),
-    url('#{$font-path}/Segment7.woff') format('woff');
+    url('#{variables.$font-path}/Segment7.woff2') format('woff2'),
+    url('#{variables.$font-path}/Segment7.woff') format('woff');
 }

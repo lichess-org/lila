@@ -53,6 +53,7 @@ $c-bg-input: c-light($c-bg-page, 98%);
 
 $c-border: hsl(0deg, 0%, 85%);
 $c-border-page: hsl(0deg, 0%, 80%);
+$border: 1px solid $c-border;
 
 $c-bg-popup: $c-bg-high;
 $c-popup: $c-font;

@@ -1,6 +1,11 @@
-/* free analysis on /analysis */
-@import 'base';
-@import 'player-clock';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+@use 'base';
+@use 'player-clock';
 
 .copyables {
   .pair {
@@ -12,13 +17,13 @@
       min-width: 4rem;
       font-weight: bold;
       text-align: center;
-      color: $c-font-dim;
-      margin-left: $block-gap;
+      color: theme.$c-font-dim;
+      margin-left: variables.$block-gap;
     }
 
     .copyable {
       flex-grow: 1;
-      margin-right: $block-gap;
+      margin-right: variables.$block-gap;
     }
 
     .action {
@@ -26,28 +31,28 @@
 
       position: absolute;
 
-      @include hand-width(right);
+      @include mixins.hand-width(right);
 
       top: 100%;
       text-align: right;
       opacity: 0;
 
-      @include transition;
+      @include mixins.transition;
     }
 
     textarea:focus ~ .action {
       opacity: 1;
     }
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       .name {
-        @include hand-width(width);
+        @include mixins.hand-width(width);
 
         margin-left: 0;
       }
 
       .copyable {
-        @include board-width(width);
+        @include mixins.board-width(width);
 
         flex-grow: 0;
         margin-right: 0;
@@ -82,14 +87,14 @@
     margin: 2em 0;
 
     .form-help {
-      @include hand-width(margin-left);
+      @include mixins.hand-width(margin-left);
 
       font-size: 90%;
       margin-top: 0.25rem;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
 
       .error {
-        color: $c-bad;
+        color: theme.$c-bad;
         margin-left: 2rem;
       }
     }
@@ -110,6 +115,6 @@
 
   .inner {
     padding-left: 0.4em;
-    border-left: $border;
+    border-left: theme.$border;
   }
 }

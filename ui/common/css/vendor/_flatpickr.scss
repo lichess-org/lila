@@ -1,22 +1,25 @@
+@use "../abstract/variables";
+@use "../theme/gen/theme";
+
 /* stylelint-disable */
 
-$f-bg: $m-bg-box_c-alpha_100; // #3f4458;
-$f-border: $c-bg-low; //#20222c;
-$f-border-2: $m-bg-low_c-alpha_8; // rgba(0, 0, 0, 0.08)
-$f-shadow: $c-font-dim; // #e6e6e6;
-$f-font: $c-font-clearer; // #fff;
-$f-font-2: $c-font; // #eee;
-$f-focus: $c-accent; // #646c8c;
-$f-focus-2: $m-accent_bg-box_mix_90; // #80cbc4;
-$f-focus-3: $m-accent_bg-box_mix_70; // #6a7395;
-$f-focus-over: $c-accent-over;
-$f-clear-15: $m-font-clearer_c-alpha_15; // rgba(255, 255, 255, 0.15);
-$f-clear-30: $m-font-clearer_c-alpha_30; // rgba(255, 255, 255, 0.3);
-$f-clear-50: $m-font-clearer_c-alpha_50; // rgba(255, 255, 255, 0.5);
-$f-clear-60: $m-font-clearer_c-alpha_60; // rgba(255, 255, 255, 0.6);
-$f-clear-95: $m-font-clearer_c-alpha_95; // rgba(255, 255, 255, 0.95);
-$f-dim-05: $m-font-dim_c-alpha_5; //  rgba(192, 187, 167, 0.05);
-$f-dim-20: $m-font-dim_c-alpha_20; // rgba(192, 187, 167, 0.2);
+$f-bg: theme.$m-bg-box_c-alpha_100; // #3f4458;
+$f-border: theme.$c-bg-low; //#20222c;
+$f-border-2: theme.$m-bg-low_c-alpha_8; // rgba(0, 0, 0, 0.08)
+$f-shadow: theme.$c-font-dim; // #e6e6e6;
+$f-font: theme.$c-font-clearer; // #fff;
+$f-font-2: theme.$c-font; // #eee;
+$f-focus: theme.$c-accent; // #646c8c;
+$f-focus-2: theme.$m-accent_bg-box_mix_90; // #80cbc4;
+$f-focus-3: theme.$m-accent_bg-box_mix_70; // #6a7395;
+$f-focus-over: theme.$c-accent-over;
+$f-clear-15: theme.$m-font-clearer_c-alpha_15; // rgba(255, 255, 255, 0.15);
+$f-clear-30: theme.$m-font-clearer_c-alpha_30; // rgba(255, 255, 255, 0.3);
+$f-clear-50: theme.$m-font-clearer_c-alpha_50; // rgba(255, 255, 255, 0.5);
+$f-clear-60: theme.$m-font-clearer_c-alpha_60; // rgba(255, 255, 255, 0.6);
+$f-clear-95: theme.$m-font-clearer_c-alpha_95; // rgba(255, 255, 255, 0.95);
+$f-dim-05: theme.$m-font-dim_c-alpha_5; //  rgba(192, 187, 167, 0.05);
+$f-dim-20: theme.$m-font-dim_c-alpha_20; // rgba(192, 187, 167, 0.2);
 
 .flatpickr-calendar {
   background: transparent;
@@ -31,7 +34,7 @@ $f-dim-20: $m-font-dim_c-alpha_20; // rgba(192, 187, 167, 0.2);
   border: 0;
   font-size: 14px;
   line-height: 24px;
-  border-radius: $box-radius-size;
+  border-radius: variables.$box-radius-size;
   position: absolute;
   width: 307.875px;
   -webkit-box-sizing: border-box;

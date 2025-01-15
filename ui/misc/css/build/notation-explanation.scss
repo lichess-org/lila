@@ -1,4 +1,3 @@
-@import 'balloon-css/src/balloon';
-@import 'pkg:common/plugin';
-@import '../page';
-@import '../notation-explanation';
+@use '../../node_modules/balloon-css/src/balloon.scss';
+@use '../page';
+@use '../notation-explanation';

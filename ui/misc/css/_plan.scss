@@ -1,5 +1,12 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .plan {
-  grid-gap: $block-gap;
+  grid-gap: variables.$block-gap;
 
   .all {
     margin-top: 20px;
@@ -8,7 +15,7 @@
 
     td,
     th {
-      border-top: $border;
+      border-top: theme.$border;
     }
 
     td {
@@ -39,7 +46,7 @@
       display: none;
       margin-top: 1em;
       padding: 1em;
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     .change form input {
@@ -57,7 +64,7 @@
     }
 
     .thanks {
-      color: $c-good;
+      color: theme.$c-good;
       display: block;
     }
   }
@@ -80,8 +87,8 @@
     @extend %box-radius-top, %flex-center-nowrap;
 
     margin-bottom: 2.5em;
-    background: $c-good;
-    color: $c-good-over;
+    background: theme.$c-good;
+    color: theme.$c-good-over;
     text-align: center;
     font-size: 1.3em;
     min-height: 200px;
@@ -91,7 +98,7 @@
     > i {
       margin: 0 0.4em;
 
-      @include fluid-size('font-size', 40px, 120px);
+      @include fluid-size.fluid-size('font-size', 40px, 120px);
     }
 
     > i:last-child {
@@ -149,10 +156,10 @@
     group input:checked + label,
     .amount_fixed label,
     .lifetime-check input + label {
-      background: $c-good;
-      border-color: $c-border;
+      background: theme.$c-good;
+      border-color: theme.$c-border;
       box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
-      color: $c-good-over;
+      color: theme.$c-good-over;
       text-shadow: 0 1px 0 #000 !important;
     }
 
@@ -169,7 +176,7 @@
     }
 
     group .lifetime-check input + label {
-      background: $c-brag !important;
+      background: theme.$c-brag !important;
       opacity: 0.8;
       cursor: default;
     }
@@ -212,8 +219,8 @@
     align-items: flex-start;
     margin: 50px 0 40px 0;
     padding: 30px 0;
-    border-top: $border;
-    border-bottom: $border;
+    border-top: theme.$border;
+    border-bottom: theme.$border;
     justify-content: space-between;
 
     dl {
@@ -263,14 +270,14 @@
   .recent-patrons {
     display: none;
 
-    @include breakpoint($mq-medium) {
+    @include breakpoint.breakpoint(media-queries.$mq-medium) {
       display: block;
     }
 
     h2 {
       font-size: 1.5em;
       margin: 300px 0 0.4em 0;
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
 
     .list div {
@@ -278,7 +285,7 @@
     }
 
     a {
-      color: $c-font-page;
+      color: theme.$c-font-page;
     }
   }
 }

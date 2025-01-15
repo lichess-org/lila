@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .keyboard-move {
   @extend %flex-center-nowrap;
 
@@ -8,17 +12,17 @@
     font-size: 1.1em;
     font-weight: bold;
     margin-right: 1rem;
-    border: $border;
+    border: theme.$border;
 
-    @include transition;
+    @include mixins.transition;
 
     &.wrong {
-      background: $c-bad;
-      color: $c-bad-over;
+      background: theme.$c-bad;
+      color: theme.$c-bad-over;
     }
   }
 
   em {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
   }
 }

@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .lobby__about {
   display: flex;
   justify-content: center;
@@ -12,10 +16,10 @@
     margin-right: 1.2em;
     white-space: nowrap;
 
-    @include transition(color);
+    @include mixins.transition(color);
 
     &:hover {
-      color: $c-link;
+      color: theme.$c-link;
     }
   }
 }

@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .coach-list {
   .mselect {
     font-size: 1.2em;
@@ -30,10 +35,10 @@
 
   &__main {
     .coach-widget {
-      border-top: $border;
+      border-top: theme.$border;
 
       &:nth-child(even) {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
         justify-content: space-between;
 
         .picture {
@@ -42,11 +47,11 @@
       }
 
       &:hover {
-        background: $m-accent_bg-box_mix_12;
+        background: theme.$m-accent_bg-box_mix_12;
       }
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
       .rating {
         display: none;
       }

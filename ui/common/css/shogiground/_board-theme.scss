@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/media-queries';
+@use '../abstract/uniboard';
+@use '../theme/gen/theme';
+
 $board-files: (
   'wood': 'wood.png',
   'wood1': 'wood1.jpg',
@@ -15,12 +20,12 @@ $board-files: (
   .#{$board} {
     sg-board,
     #dasher_app .piece .list {
-      background-image: url(../images/boards/#{$file});
+      background-image: url('../images/boards/#{$file}');
     }
 
-    @include breakpoint($mq-col2-uniboard) {
+    @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
       sg-hand {
-        background-image: url(../images/boards/#{$file});
+        background-image: url('../images/boards/#{$file}');
       }
     }
   }
@@ -114,7 +119,7 @@ sg-squares {
   }
 }
 
-@include breakpoint($mq-col2-uniboard) {
+@include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
   sg-hand {
     border: 1px solid black;
   }
@@ -197,7 +202,7 @@ sg-squares {
     background-position: 100% 100%;
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     sg-hand {
       background-color: #bcbcbc;
     }
@@ -268,7 +273,7 @@ sg-squares {
     background-position: 100% 100%;
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     sg-hand {
       background-color: #8a9daf;
     }
@@ -375,7 +380,7 @@ sg-squares {
     background-color: #ffd890;
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     sg-hand {
       background-color: #ffd890;
     }
@@ -388,7 +393,7 @@ sg-squares {
     background-color: #f4bf57;
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     sg-hand {
       background-color: #f4bf57;
     }
@@ -451,7 +456,7 @@ sg-squares {
     background-image: none;
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     .orientation-gote sg-hand {
       background-image: url('../images/boards/doubutsu_flip.png');
     }
@@ -481,47 +486,47 @@ sg-squares {
 
 .custom {
   #dasher_app .piece .list {
-    background-color: var(--c-board-color, $c-bg-box);
+    background-color: var(--c-board-color, theme.$c-bg-box);
     background-image: var(--c-board-url, none);
   }
 
   sg-board {
-    background-color: var(--c-board-color, $c-bg-box);
+    background-color: var(--c-board-color, theme.$c-bg-box);
     background-image: var(--c-board-url, none);
 
     sg-squares {
-      border-top: 1px solid var(--c-grid-color, $c-font);
-      border-left: 1px solid var(--c-grid-color, $c-font);
+      border-top: 1px solid var(--c-grid-color, theme.$c-font);
+      border-left: 1px solid var(--c-grid-color, theme.$c-font);
     }
 
     sq {
-      border-bottom: 1px solid var(--c-grid-color, $c-font);
-      border-right: 1px solid var(--c-grid-color, $c-font);
+      border-bottom: 1px solid var(--c-grid-color, theme.$c-font);
+      border-right: 1px solid var(--c-grid-color, theme.$c-font);
 
       &::after {
-        background-color: var(--c-grid-color, $c-font) !important;
+        background-color: var(--c-grid-color, theme.$c-font) !important;
       }
     }
 
     sg-resize {
       &::after,
       &::before {
-        background-color: var(--c-grid-color, $c-font);
+        background-color: var(--c-grid-color, theme.$c-font);
       }
     }
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     sg-hand {
-      background-color: var(--c-hands-color, $c-bg-box);
+      background-color: var(--c-hands-color, theme.$c-bg-box);
       background-image: var(--c-hands-url, none);
-      border: 1px solid var(--c-grid-color, $c-font);
+      border: 1px solid var(--c-grid-color, theme.$c-font);
     }
 
     &.coords-edge .main-board {
       sg-board,
       sg-hand {
-        outline: 1px solid var(--c-grid-color, $c-font);
+        outline: 1px solid var(--c-grid-color, theme.$c-font);
       }
     }
   }
@@ -529,10 +534,14 @@ sg-squares {
   .preload sg-squares {
     border-top: unset;
     border-left: unset;
-    border-bottom: 1px solid var(--c-grid-color, $c-font);
-    border-right: 1px solid var(--c-grid-color, $c-font);
-    background-image: linear-gradient(to right, var(--c-grid-color, $c-font) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--c-grid-color, $c-font) 1px, transparent 1px);
+    border-bottom: 1px solid var(--c-grid-color, theme.$c-font);
+    border-right: 1px solid var(--c-grid-color, theme.$c-font);
+    background-image: linear-gradient(
+        to right,
+        var(--c-grid-color, theme.$c-font) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, var(--c-grid-color, theme.$c-font) 1px, transparent 1px);
   }
 
   &.grid-width-0 {
@@ -591,10 +600,10 @@ sg-squares {
       &.preload sg-squares {
         background-image: linear-gradient(
             to right,
-            var(--c-grid-color, $c-font) 2px,
+            var(--c-grid-color, theme.$c-font) 2px,
             transparent 2px
           ),
-          linear-gradient(to bottom, var(--c-grid-color, $c-font) 2px, transparent 2px);
+          linear-gradient(to bottom, var(--c-grid-color, theme.$c-font) 2px, transparent 2px);
       }
     }
 
@@ -633,10 +642,10 @@ sg-squares {
       &.preload sg-squares {
         background-image: linear-gradient(
             to right,
-            var(--c-grid-color, $c-font) 3px,
+            var(--c-grid-color, theme.$c-font) 3px,
             transparent 3px
           ),
-          linear-gradient(to bottom, var(--c-grid-color, $c-font) 3px, transparent 3px);
+          linear-gradient(to bottom, var(--c-grid-color, theme.$c-font) 3px, transparent 3px);
       }
     }
 
@@ -691,7 +700,7 @@ sg-squares {
 // Not too sure about this
 // I believe 1px border is going to be too small for bigger (for example 4k) screens
 // Can't test it tho..., if you can, please let me know
-@include breakpoint($mq-xx-large) {
+@include breakpoint.breakpoint(media-queries.$mq-xx-large) {
   sg-squares,
   sg-squares sq,
   sg-hand {

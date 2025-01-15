@@ -1,0 +1,8 @@
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/uniboard';
+
+$mq-col1: uniboard.$mq-col1-uniboard;
+$mq-col2: media-queries.$mq-small;
+$mq-col3: uniboard.$mq-col3-uniboard;
+
+$box-padding: var(--box-padding);

@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/base/scrollbar';
-@import 'pkg:common/component/hover-text';
-@import '../msg';
+@use 'pkg:common/base/scrollbar';
+@use 'pkg:common/component/hover-text';
+@use '../msg';

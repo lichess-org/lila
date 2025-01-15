@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .tour__player-info {
   .pairings {
     border-collapse: unset;
@@ -6,14 +10,14 @@
     tr {
       cursor: pointer;
 
-      @include transition(background-color);
+      @include mixins.transition(background-color);
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
       }
 
       &:hover {
-        background: $m-link_bg-box_mix_10;
+        background: theme.$m-link_bg-box_mix_10;
       }
     }
 
@@ -25,19 +29,19 @@
     th {
       border-left: 3px solid transparent;
 
-      @include transition;
+      @include mixins.transition;
     }
 
     tr:hover th {
-      border-color: $c-font;
+      border-color: theme.$c-font;
     }
 
     tr.win:hover th {
-      border-color: $c-good;
+      border-color: theme.$c-good;
     }
 
     tr.loss:hover th {
-      border-color: $c-bad;
+      border-color: theme.$c-bad;
     }
 
     td:nth-child(2) {
@@ -52,12 +56,12 @@
     }
 
     tr.win td:last-child {
-      color: $c-good;
+      color: theme.$c-good;
       opacity: 1;
     }
 
     tr.loss td:last-child {
-      color: $c-bad;
+      color: theme.$c-bad;
       opacity: 1;
     }
   }

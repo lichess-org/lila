@@ -1,8 +1,12 @@
+@use 'pkg:common/abstract/functions';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .learn__side-home {
   @extend %box-neat;
 
-  background: $c-primary;
-  color: $c-primary-over;
+  background: theme.$c-primary;
+  color: theme.$c-primary-over;
   text-align: center;
   padding: 1em 0;
 
@@ -26,7 +30,7 @@
     display: block;
     width: 200px;
     height: 200px;
-    background: img-url('learn/samurai-helmet.svg');
+    background: functions.img-url('learn/samurai-helmet.svg');
     margin: auto;
     opacity: 0.9;
   }
@@ -39,19 +43,19 @@
     position: relative;
     width: 100%;
     height: 30px;
-    background: $c-primary-clear;
+    background: theme.$c-primary-clear;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 
     .bar {
       height: 100%;
-      background: $c-primary-dim;
+      background: theme.$c-primary-dim;
     }
   }
 
   &.done {
-    background: $c-secondary;
-    color: $c-secondary-over;
+    background: theme.$c-secondary;
+    color: theme.$c-secondary-over;
 
     .progress {
       background: #86bb4a;

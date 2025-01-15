@@ -1,5 +1,11 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .board-editor .spare {
-  @include breakpoint($mq-col1-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
     position: relative;
     width: 100%;
     height: 0;
@@ -42,7 +48,7 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -56,15 +62,15 @@
       width: 2px;
       height: 100%;
 
-      @include transition;
+      @include mixins.transition;
 
-      background-color: $c-border;
+      background-color: theme.$c-border;
     }
 
     &:not(.inactive):hover,
     &.active {
       &::after {
-        background-color: $c-accent;
+        background-color: theme.$c-accent;
       }
     }
 
@@ -122,17 +128,17 @@
       filter: grayscale(1);
 
       &.pointer svg {
-        fill: $c-good;
+        fill: theme.$c-good;
       }
 
       &.trash svg {
-        fill: $c-bad;
+        fill: theme.$c-bad;
       }
     }
 
     &.selected-square {
-      background-color: $c-accent;
-      border-radius: $box-radius-size;
+      background-color: theme.$c-accent;
+      border-radius: variables.$box-radius-size;
 
       &:has(div) {
         background-color: unset;

@@ -1,13 +1,17 @@
+@use '../abstract/extends';
+@use '../abstract/variables';
+@use '../theme/gen/theme';
+
 .slist {
   width: 100%;
-  border-bottom: $border;
+  border-bottom: theme.$border;
 
   thead {
     @extend %metal, %roboto;
 
     th {
-      border-top: $border;
-      border-bottom: $border;
+      border-top: theme.$border;
+      border-bottom: theme.$border;
       padding: 0.5rem 0.8rem;
     }
 
@@ -26,7 +30,7 @@
   }
 
   tbody tr:nth-child(even) {
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
   }
 
   td:first-child,
@@ -48,7 +52,7 @@
 
   &-invert {
     tbody tr:nth-child(odd) {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     tbody tr:nth-child(even) {

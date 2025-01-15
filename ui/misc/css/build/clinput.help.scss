@@ -1,3 +1,2 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/modal';
-@import '../cli/help';
+@use 'pkg:common/component/modal';
+@use '../cli/help';

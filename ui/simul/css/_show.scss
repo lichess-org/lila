@@ -1,13 +1,9 @@
-$mq-col1: $mq-col1-uniboard;
-$mq-col2: $mq-small;
-$mq-col3: $mq-col3-uniboard;
-
-$box-padding: var(--box-padding);
-
-@import 'layout';
-@import 'side';
-@import 'created';
-@import 'started';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'layout';
+@use 'side';
+@use 'created';
+@use 'started';
 
 .simul {
   h1 {
@@ -43,7 +39,7 @@ $box-padding: var(--box-padding);
 
     margin: 0 auto 2em auto;
     padding: 1.5em 2.5em;
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
     width: 70%;
 
     textarea {

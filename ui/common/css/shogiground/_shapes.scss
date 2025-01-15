@@ -1,3 +1,5 @@
+@use '../abstract/z-index' as z;
+
 // opacity has to be set outside color
 $shape-themes: (
   // user shape colors
@@ -23,7 +25,7 @@ $shape-themes: (
 );
 
 .sg-shapes {
-  z-index: z('sg__svg.sg-shapes');
+  z-index: z.get('sg__svg.sg-shapes');
 
   & > g > g {
     opacity: 0.8;

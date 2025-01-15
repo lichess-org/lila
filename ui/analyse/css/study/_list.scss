@@ -1,8 +1,12 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 %study-list {
   @extend %box-neat;
 
   max-height: 18em;
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   overflow: hidden;
   overflow-y: auto;
   position: relative;
@@ -13,12 +17,12 @@
 
     align-items: stretch;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover,
     &.active {
-      color: $c-font-clear;
-      background: $m-link_bg-box_mix_10;
+      color: theme.$c-font-clear;
+      background: theme.$m-link_bg-box_mix_10;
     }
   }
 
@@ -33,21 +37,21 @@
     opacity: 0.15;
     padding: 0.4em;
 
-    @include transition;
+    @include mixins.transition;
   }
 
   > div:hover act {
     opacity: 0.7;
 
     &:hover {
-      background: $c-primary;
-      color: $c-primary-over;
+      background: theme.$c-primary;
+      color: theme.$c-primary-over;
       opacity: 1;
     }
   }
 
   .add {
-    border-top: 1px solid $c-border;
+    border-top: theme.$border;
     cursor: pointer;
   }
 }

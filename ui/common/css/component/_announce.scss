@@ -1,23 +1,30 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../abstract/variables';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+
 #announce {
   @extend %flex-between, %popup-shadow;
 
   font-size: 1.4em;
-  background: $c-primary;
-  color: $c-primary-over;
+  background: theme.$c-primary;
+  color: theme.$c-primary-over;
   position: fixed;
   bottom: 0;
   left: 0;
   padding: 0.7rem 1rem;
-  z-index: z('tour-reminder');
+  z-index: z.get('tour-reminder');
   width: 100%;
 
-  @include breakpoint($mq-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
     width: auto;
-    border-top-right-radius: $box-radius-size;
+    border-top-right-radius: variables.$box-radius-size;
   }
 
   a {
-    color: $c-primary-over;
+    color: theme.$c-primary-over;
   }
 
   time {
@@ -33,6 +40,6 @@
 
   &.announce {
     flex-flow: row nowrap;
-    background: $c-accent;
+    background: theme.$c-accent;
   }
 }

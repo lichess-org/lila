@@ -1,3 +1,10 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .board-editor .underboard {
   grid-area: underboard;
   display: flex;
@@ -20,7 +27,7 @@
         flex: 1 1 100%;
 
         &::-webkit-resizer {
-          background: $c-bg-box;
+          background: theme.$c-bg-box;
         }
       }
 
@@ -50,7 +57,7 @@
         text-align: right;
         opacity: 0;
 
-        @include transition;
+        @include mixins.transition;
       }
 
       textarea:focus ~ .action {
@@ -85,18 +92,18 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     flex-direction: row;
     gap: 1rem;
 
     .copyables {
       width: calc(100% / 3 * 2 + 1rem);
-      margin-top: $block-gap;
+      margin-top: variables.$block-gap;
     }
 
     .tools {
       width: calc(100% / 3);
-      margin-top: $block-gap;
+      margin-top: variables.$block-gap;
 
       .variants,
       .positions {

@@ -1,3 +1,8 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 @use 'sass:math';
 
 #challenge-app {
@@ -8,7 +13,7 @@
   .empty {
     @extend %dropdown-shadow;
 
-    background: $c-bg-header-dropdown;
+    background: theme.$c-bg-header-dropdown;
     padding: 2rem 0;
   }
 
@@ -21,12 +26,12 @@
   .challenge {
     @extend %box-radius-force, %dropdown-shadow;
 
-    background: $c-bg-header-dropdown;
+    background: theme.$c-bg-header-dropdown;
     margin-bottom: 5px;
 
-    @include transition(height);
+    @include mixins.transition(height);
 
-    transition-delay: math.div($transition-duration * 2, 3);
+    transition-delay: math.div(variables.$transition-duration * 2, 3);
     position: relative;
     height: 67px;
 
@@ -35,7 +40,7 @@
       height: 103px;
 
       > i {
-        color: $c-primary;
+        color: theme.$c-primary;
       }
     }
 
@@ -52,7 +57,7 @@
       left: 0;
       width: 100%;
 
-      @include transition(opacity);
+      @include mixins.transition(opacity);
 
       transition-delay: 0ms;
     }
@@ -75,14 +80,14 @@
 
     button {
       cursor: pointer;
-      color: $c-good;
+      color: theme.$c-good;
       width: 100%;
       display: block;
       padding: 0;
       background: transparent;
       font-size: 1.6rem;
 
-      @include transition;
+      @include mixins.transition;
 
       box-shadow: none;
     }
@@ -93,7 +98,7 @@
     }
 
     .owner {
-      color: $c-link;
+      color: theme.$c-link;
       line-height: 42px;
     }
 
@@ -104,8 +109,8 @@
 
     .owner:hover .view {
       display: block;
-      background: $c-primary;
-      color: $c-primary-over;
+      background: theme.$c-primary;
+      color: theme.$c-primary-over;
 
       &::before {
         vertical-align: middle;
@@ -117,17 +122,17 @@
     }
 
     button.decline {
-      color: $c-bad;
+      color: theme.$c-bad;
       border-right: none;
     }
 
     button:hover {
-      background: $c-good;
-      color: $c-good-over;
+      background: theme.$c-good;
+      color: theme.$c-good-over;
     }
 
     button.decline:hover {
-      background: $c-bad;
+      background: theme.$c-bad;
     }
 
     &:last-child {
@@ -173,7 +178,7 @@
     background: rgba(56, 147, 232, 0.5);
     color: rgba(255, 255, 255, 0.6);
 
-    @include transition;
+    @include mixins.transition;
   }
 
   .create:hover {

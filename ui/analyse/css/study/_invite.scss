@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .study__invite {
   max-width: 50em;
 
@@ -8,8 +11,8 @@
   .info {
     @extend %box-radius, %flex-center-nowrap;
 
-    background: $c-accent;
-    color: $c-primary-over;
+    background: theme.$c-accent;
+    color: theme.$c-primary-over;
     padding: 1em;
     margin-bottom: 2em;
     text-align: left;

@@ -1,3 +1,6 @@
+@use '../abstract/extends';
+@use '../theme/gen/theme';
+
 .is::before,
 [data-icon]::before,
 .is-after::after {
@@ -11,13 +14,13 @@
 
 .user-link.online .line,
 .is-green::before {
-  color: $c-good;
+  color: theme.$c-good;
 }
 
 .is-red::before {
-  color: $c-bad;
+  color: theme.$c-bad;
 }
 
 .is-gold::before {
-  color: $c-brag;
+  color: theme.$c-brag;
 }

@@ -1,22 +1,28 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .action-menu {
   flex: 1 1 0; // 0 size forces vertical scrollbar
   display: flex;
   flex-flow: column;
   overflow: auto;
-  padding: $block-gap;
+  padding: variables.$block-gap;
 
   h2 {
     font-size: 1em;
     text-transform: uppercase;
     text-align: center;
     white-space: nowrap;
-    margin: $block-gap 0 3px 0;
+    margin: variables.$block-gap 0 3px 0;
     display: table;
     padding: 0 10px;
 
     &::before,
     &::after {
-      border-top: $border;
+      border-top: theme.$border;
       content: '';
       display: table-cell;
       position: relative;
@@ -49,7 +55,7 @@
     }
 
     .button {
-      color: $c-font;
+      color: theme.$c-font;
       text-transform: none;
       white-space: normal;
 
@@ -66,7 +72,7 @@
     display: flex;
 
     a {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       font-size: 0.9em;
       flex: 1 1 auto;
       padding: 7px 0;
@@ -81,7 +87,7 @@
     .button {
       display: inline-block;
       padding: 4px 8px;
-      background: $c-bad;
+      background: theme.$c-bad;
     }
 
     .button::before {
@@ -91,7 +97,7 @@
 
   .setting {
     flex: 0 0 auto;
-    margin-top: $block-gap;
+    margin-top: variables.$block-gap;
     display: flex;
 
     label {
@@ -118,7 +124,7 @@
     }
   }
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     .abset-inline {
       display: none;
     } // force inline on mobile

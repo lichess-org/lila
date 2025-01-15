@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .note-zone {
   display: none;
   margin: 1em 1.5em;
@@ -12,7 +15,7 @@
     @extend %flex-between-nowrap, %break-word;
 
     padding-top: 1em;
-    border-top: $border;
+    border-top: theme.$border;
     margin-top: 1em;
 
     &__meta {

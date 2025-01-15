@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .lobby__forum {
   ol {
     li {
@@ -15,12 +18,12 @@
 
       .post_topic {
         font-weight: bold;
-        color: $c-link;
+        color: theme.$c-link;
         padding-right: 0.5rem;
       }
 
       span[data-icon] {
-        color: $c-link;
+        color: theme.$c-link;
       }
 
       .post_text {
@@ -34,7 +37,7 @@
       }
 
       &:hover {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
 
         .user-link {
           opacity: 1;

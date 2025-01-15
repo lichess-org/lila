@@ -1,3 +1,10 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 $clock-height: 20px;
 
 .analyse.has-clocks {
@@ -5,13 +12,13 @@ $clock-height: 20px;
     border-radius: 0;
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     .analyse__underboard {
       margin-top: calc($clock-height / 2 + 3vmin);
     }
   }
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     .analyse__board {
       margin: 16px 0 20px 0;
     }
@@ -35,7 +42,7 @@ $clock-height: 20px;
     top: #{-$clock-height};
     z-index: 2; // over the board coords
     .time {
-      border-top-right-radius: $box-radius-size;
+      border-top-right-radius: variables.$box-radius-size;
     }
   }
 
@@ -46,7 +53,7 @@ $clock-height: 20px;
     bottom: #{-$clock-height};
 
     .time {
-      border-bottom-right-radius: $box-radius-size;
+      border-bottom-right-radius: variables.$box-radius-size;
     }
   }
 
@@ -59,15 +66,15 @@ $clock-height: 20px;
   }
 
   &.active .time {
-    background: $c-secondary;
-    color: $c-secondary-over;
+    background: theme.$c-secondary;
+    color: theme.$c-secondary-over;
   }
 
   tenths {
     font-size: 80%;
   }
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     background: none;
 
     &.top {
@@ -80,12 +87,12 @@ $clock-height: 20px;
     }
 
     .time {
-      border-radius: $box-radius-size;
+      border-radius: variables.$box-radius-size;
     }
   }
 
-  @include breakpoint($mq-col2) {
-    @include hand-width(right);
+  @include breakpoint.breakpoint(local.$mq-col2) {
+    @include mixins.hand-width(right);
 
     margin-right: 1px;
   }

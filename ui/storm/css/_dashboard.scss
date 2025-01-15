@@ -1,5 +1,8 @@
-@import 'play-again';
-@import 'high';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+@use 'play-again';
+@use 'high';
 
 .storm-dashboard {
   .storm-play-again {
@@ -17,18 +20,18 @@
       text-align: right;
     }
 
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
 
     number {
       font-family: storm;
       font-size: 2em;
 
       &.score {
-        color: $c-brag;
+        color: theme.$c-brag;
       }
     }
 
-    @include breakpoint($mq-not-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-small) {
       td,
       th {
         &:nth-child(3),
@@ -39,7 +42,7 @@
       }
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
       td,
       th {
         &:nth-child(3),

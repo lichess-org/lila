@@ -99,9 +99,6 @@ importers:
 
   ui/@build/css:
     dependencies:
-      balloon-css:
-        specifier: ^1.2.0
-        version: 1.2.0
       breakpoint-sass:
         specifier: ^2.7.1
         version: 2.7.1
@@ -128,8 +125,8 @@ importers:
         specifier: ^1.83.4
         version: 1.83.4
       sass-graph-ts:
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^5.1.0
+        version: 5.1.0
       tsx:
         specifier: 'catalog:'
         version: 4.19.2
@@ -382,6 +379,9 @@ importers:
 
   ui/common:
     dependencies:
+      breakpoint-sass:
+        specifier: ^2.7.1
+        version: 2.7.1
       shogiground:
         specifier: 'catalog:'
         version: 0.10.1
@@ -572,6 +572,9 @@ importers:
       '@textcomplete/textarea':
         specifier: 'catalog:'
         version: 0.1.13(@textcomplete/core@0.1.13)
+      balloon-css:
+        specifier: ^1.2.0
+        version: 1.2.0
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -2444,8 +2447,8 @@ packages:
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  sass-graph-ts@5.0.0:
-    resolution: {integrity: sha512-a5/YqwRXtQgS7RjX+V/9V0eQaB0luzDTni+I6aq1Mn65h85t5VF04pRpU4nWNiDR8zdBw9YKMGQUzbgAhPKtsg==}
+  sass-graph-ts@5.1.0:
+    resolution: {integrity: sha512-nOKAhrf47+0mkYB9PwmwIChhJ7cmb71PQQeqecP9eQgR4S8kgFZ/LLlCa2wDSK4h2spAXkgg3blEQt1dSgfGNQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4046,7 +4049,7 @@ snapshots:
       sass-embedded-win32-ia32: 1.83.4
       sass-embedded-win32-x64: 1.83.4
 
-  sass-graph-ts@5.0.0:
+  sass-graph-ts@5.1.0:
     dependencies:
       fast-glob: 3.3.3
       scss-tokenizer: 0.4.3

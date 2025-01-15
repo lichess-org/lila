@@ -1,7 +1,13 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'local';
+
 .puzzle__feedback.after {
   flex-flow: row nowrap;
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     flex-flow: column;
   }
 
@@ -10,13 +16,13 @@
 
     justify-content: center;
     font-size: 1.3em;
-    background: $c-primary;
-    color: $c-primary-over;
+    background: theme.$c-primary;
+    color: theme.$c-primary-over;
     text-transform: uppercase;
     padding: 1em;
 
     &:hover {
-      background: $m-primary_lightness_10;
+      background: theme.$m-primary_lightness_10;
     }
 
     i::before {
@@ -38,18 +44,18 @@
     @extend %flex-between;
 
     display: none;
-    border-top: $border;
+    border-top: theme.$border;
     padding: 1em 2em;
 
     a {
-      color: $c-font;
+      color: theme.$c-font;
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       display: flex;
     }
   }
@@ -71,7 +77,7 @@
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       display: block;
       text-align: center;
       margin: 5px;
@@ -86,7 +92,7 @@
     &.enabled {
       opacity: 1;
 
-      @include transition(opacity, 0.5s);
+      @include mixins.transition(opacity, 0.5s);
     }
 
     flex: 1 1 100%;
@@ -101,10 +107,10 @@
     flex: 0 0 50%;
     padding: 5px 0;
     cursor: pointer;
-    color: $c-good;
+    color: theme.$c-good;
 
     &.vote-down {
-      color: $c-bad;
+      color: theme.$c-bad;
     }
 
     &::before {
@@ -120,13 +126,13 @@
 
     &:hover,
     &.active {
-      background: $c-good;
-      color: $c-good-over;
+      background: theme.$c-good;
+      color: theme.$c-good-over;
     }
 
     &.vote-down:hover,
     &.vote-down.active {
-      background: $c-bad;
+      background: theme.$c-bad;
     }
   }
 }

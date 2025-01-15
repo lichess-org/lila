@@ -1,4 +1,8 @@
-@import 'coords-colors';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/fluid-size' as *;
+@use '../abstract/uniboard';
+@use '../theme/gen/theme';
+@use 'coords-colors';
 
 coords {
   user-select: none;
@@ -60,10 +64,10 @@ coords {
   }
 }
 
-@include coords-colors;
+@include coords-colors.coords-colors;
 
 /* handle outer/edge coords */
-@include breakpoint($mq-col2-uniboard) {
+@include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
   .coords-out coords,
   .coords-edge coords {
     text-shadow: none;
@@ -89,7 +93,7 @@ coords {
     }
 
     coord {
-      color: $c-font-page !important;
+      color: theme.$c-font-page !important;
     }
   }
 

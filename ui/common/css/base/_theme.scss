@@ -1,7 +1,9 @@
+@use '../abstract/mixins';
+
 body {
-  @include theme-wrap('transp') {
+  @include mixins.theme-wrap('transp') {
     &::before {
-      content: ' ';
+      content: '';
       position: fixed;
       width: 100%;
       height: 100%;

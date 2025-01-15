@@ -1,19 +1,26 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/z-index' as z;
+@use 'pkg:common/theme';
+
 .game-row {
   display: flex;
   align-items: stretch;
   min-height: 21rem;
   padding: 0.5em 1em;
-  border-bottom: $border;
+  border-bottom: theme.$border;
   position: relative;
 
-  @include transition(background);
+  @include mixins.transition(background);
 
   &:nth-child(odd) {
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
   }
 
   &:hover {
-    background: $m-link_bg-box_mix_20;
+    background: theme.$m-link_bg-box_mix_20;
   }
 
   &__overlay {
@@ -24,7 +31,7 @@
     flex: 0 0 16rem;
     margin-right: 1em;
 
-    @include breakpoint($mq-not-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-small) {
       display: none;
     }
 
@@ -32,7 +39,7 @@
       display: flex;
       align-items: center;
 
-      @include breakpoint($mq-not-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-not-small) {
         display: none;
       }
     }
@@ -91,7 +98,7 @@
     a {
       font-weight: bold;
       position: relative;
-      z-index: z('above-link-overlay');
+      z-index: z.get('above-link-overlay');
     }
 
     .anon {
@@ -105,10 +112,10 @@
   }
 
   .win {
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   .loss {
-    color: $c-bad;
+    color: theme.$c-bad;
   }
 }

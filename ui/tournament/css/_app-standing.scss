@@ -1,3 +1,8 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .tour__standing {
   border: none;
 
@@ -30,7 +35,7 @@
   }
 
   tr {
-    @include transition;
+    @include mixins.transition;
 
     user-select: none;
   }
@@ -38,16 +43,16 @@
   .loading tbody {
     opacity: 0.6;
 
-    @include transition(opacity, 0.3s);
+    @include mixins.transition(opacity, 0.3s);
   }
 
   &:not(.created):not(.loading) tbody tr:hover {
-    background: $m-primary_bg-box_mix_30;
+    background: theme.$m-primary_bg-box_mix_30;
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    $c-me-border: $m-secondary_bg-box_mix_70;
+    $c-me-border: theme.$m-secondary_bg-box_mix_70;
 
     background: linear-gradient(
       to right,
@@ -59,7 +64,7 @@
   }
 
   tr.active td:last-child {
-    $c-active-border: $m-primary_bg-box_mix_70;
+    $c-active-border: theme.$m-primary_bg-box_mix_70;
 
     background: linear-gradient(
       to left,
@@ -107,18 +112,18 @@
   }
 
   double {
-    color: $c-brag;
+    color: theme.$c-brag;
     /* font-weight: bold; */
   }
 
   streak {
-    color: $c-secondary;
+    color: theme.$c-secondary;
     /* font-weight: bold; */
   }
 
   .total {
     text-align: right;
     font-weight: bold;
-    padding-right: $block-gap;
+    padding-right: variables.$block-gap;
   }
 }

@@ -1,79 +1,85 @@
-/* context: .rmoves */
-@include breakpoint($mq-col2) {
-  @include theme-wrap('transp') {
-    background: $c-bg-box;
-  }
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'local';
 
-  .moves {
-    display: flex;
-    flex-flow: row wrap;
-  }
-
-  index {
-    /* Edge 18: flex: 0 0 calc(100% / 6); causes wrap */
-    flex: 0 0 17%;
-    display: flex;
-    justify-content: center;
-    border-right: $border;
-    background: $c-bg-zebra;
-    line-height: 2.07em;
-    color: $c-font-dimmer;
-  }
-  #{$move-tag} {
-    /* Edge 18: flex: 0 0 calc(100% * 5 / 12); causes wrap */
-    flex: 0 0 83%;
-    font-size: 1.185em;
-    line-height: 1.75em;
-    padding: 0 0.3em 0 0.5em;
-    cursor: pointer;
-
-    &:hover {
-      background: $c-primary;
-      color: #fff;
+.rmoves {
+  @include breakpoint.breakpoint(local.$mq-col2) {
+    @include mixins.theme-wrap('transp') {
+      background: theme.$c-bg-box;
     }
-
-    &.active {
-      font-weight: bold;
-      background: $m-primary_bg-box_mix_20;
-      color: $c-font-clear;
-    }
-  }
-
-  .message {
-    display: flex;
-    align-items: center;
-    margin: 0 1em;
-
-    &::before {
-      color: $c-font-dim;
-      font-size: 3em;
-      margin-right: 12px;
-    }
-  }
-
-  .result-wrap {
-    width: 100%;
-    text-align: center;
-  }
-
-  .status {
-    border-top: $border;
-    font-style: italic;
-    padding: 1.3rem 0;
-    margin: 0;
-  }
-
-  .areplay {
-    display: block;
-    flex: 2 1 0;
-    overflow-y: auto;
-    overflow-x: hidden; // else a scrollbar appears sometimes
-    border-top: $border;
-    position: relative; /* required so line::before scrolls along the moves! */
-    will-change: scroll-position;
 
     .moves {
-      white-space: normal;
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    index {
+      /* Edge 18: flex: 0 0 calc(100% / 6); causes wrap */
+      flex: 0 0 17%;
+      display: flex;
+      justify-content: center;
+      border-right: theme.$border;
+      background: theme.$c-bg-zebra;
+      line-height: 2.07em;
+      color: theme.$c-font-dimmer;
+    }
+    #{local.$move-tag} {
+      /* Edge 18: flex: 0 0 calc(100% * 5 / 12); causes wrap */
+      flex: 0 0 83%;
+      font-size: 1.185em;
+      line-height: 1.75em;
+      padding: 0 0.3em 0 0.5em;
+      cursor: pointer;
+
+      &:hover {
+        background: theme.$c-primary;
+        color: #fff;
+      }
+
+      &.active {
+        font-weight: bold;
+        background: theme.$m-primary_bg-box_mix_20;
+        color: theme.$c-font-clear;
+      }
+    }
+
+    .message {
+      display: flex;
+      align-items: center;
+      margin: 0 1em;
+
+      &::before {
+        color: theme.$c-font-dim;
+        font-size: 3em;
+        margin-right: 12px;
+      }
+    }
+
+    .result-wrap {
+      width: 100%;
+      text-align: center;
+    }
+
+    .status {
+      border-top: theme.$border;
+      font-style: italic;
+      padding: 1.3rem 0;
+      margin: 0;
+    }
+
+    .areplay {
+      display: block;
+      flex: 2 1 0;
+      overflow-y: auto;
+      overflow-x: hidden; // else a scrollbar appears sometimes
+      border-top: theme.$border;
+      position: relative; /* required so line::before scrolls along the moves! */
+      will-change: scroll-position;
+
+      .moves {
+        white-space: normal;
+      }
     }
   }
 }

@@ -1,13 +1,17 @@
-@import 'preset';
-@import 'hook-chart';
-@import 'hook-list';
+@use 'pkg:common/abstract/extends';
+@use 'preset';
+@use 'hook-chart';
+@use 'hook-list';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use '../local';
 
 .lobby__app {
   @extend %flex-column;
 
   user-select: none;
 
-  @include lobby-app-size;
+  @include local.lobby-app-size;
 
   .lobby-nope & {
     display: none;
@@ -22,7 +26,7 @@
 
     flex: 1 1 100%;
     position: relative;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     overflow-x: hidden;
     overflow-y: auto;
 
@@ -31,26 +35,26 @@
       background: transparent;
 
       &:has(.hook__filters) {
-        background: $c-bg-box;
+        background: theme.$c-bg-box;
       }
 
       &::before {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: $c-bg-zebra;
+        color: theme.$c-bg-zebra;
         font-size: 32rem;
         position: absolute;
         width: 100%;
         height: 100%;
-        background: $c-bg-box;
+        background: theme.$c-bg-box;
         z-index: -1;
       }
     }
   }
 
   .lredir {
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     display: flex;
 
     .spinner {
@@ -70,20 +74,20 @@
       right: 0;
     }
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover {
-      color: $c-accent;
+      color: theme.$c-accent;
     }
   }
 
   .gamesFiltered {
-    color: $c-accent;
+    color: theme.$c-accent;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover {
-      color: $c-accent-dim;
+      color: theme.$c-accent-dim;
     }
 
     i {

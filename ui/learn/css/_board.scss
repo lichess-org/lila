@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .learn__main {
   sg-squares sq.help {
     position: relative;
@@ -35,7 +37,7 @@
   }
 
   svg.sg-custom-svgs .rep-digit {
-    fill: $c-primary;
+    fill: theme.$c-primary;
   }
 
   .info-text {

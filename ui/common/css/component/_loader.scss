@@ -1,3 +1,7 @@
+@use "../abstract/functions";
+@use "../abstract/mixins";
+@use "../theme/gen/theme";
+
 /* lishogi loader */
 @keyframes spinner-dash {
   0% {
@@ -22,7 +26,7 @@
     stroke-linecap: round;
     stroke-dasharray: 161;
     stroke-dashoffset: 0;
-    stroke: $c-font;
+    stroke: theme.$c-font;
     animation: spinner-dash 2.5s ease-in-out infinite;
   }
 }
@@ -39,10 +43,10 @@
 }
 
 .ddloader {
-  background: img-url('loader/whitex1.png') no-repeat;
+  background: functions.img-url('loader/whitex1.png') no-repeat;
 
-  @include theme-wrap('light') {
-    background: img-url('loader/blackx1.png') no-repeat;
+  @include mixins.theme-wrap('light') {
+    background: functions.img-url('loader/blackx1.png') no-repeat;
   }
 
   animation: ddloader 0.5s steps(15) infinite;

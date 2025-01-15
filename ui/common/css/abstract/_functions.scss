@@ -1,3 +1,5 @@
+@use "variables";
+
 @function img-url($path) {
-  @return url('#{$img-path}/#{$path}');
+  @return url('#{variables.$img-path}/#{$path}');
 }

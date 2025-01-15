@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .coach-show {
   &__side {
     > .button {
@@ -13,7 +18,7 @@
     @extend %metal;
 
     height: auto;
-    border-bottom: $border;
+    border-bottom: theme.$border;
 
     .overview {
       padding-bottom: 0.5em;
@@ -31,21 +36,21 @@
       font-size: 1.2em;
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
       grid-template-columns: auto;
     }
   }
 
   h2 {
     margin: 0 0 12px 0;
-    color: $c-brag;
+    color: theme.$c-brag;
     font-size: 1.6em;
   }
 
   &__youtube {
     padding: 2em;
     background: #000;
-    border: $border;
+    border: theme.$border;
     border-width: 0 1px 1px 1px;
 
     .list {
@@ -66,7 +71,7 @@
     margin-top: 20px;
 
     .studies {
-      border-top: $border;
+      border-top: theme.$border;
     }
 
     h2 {

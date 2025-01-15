@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .study__comments {
   form p {
     margin: 1em 0;
@@ -17,7 +20,7 @@
 .study__comment {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   padding: 0.8em 1em;
   margin-bottom: 0.8em;
 

@@ -1,6 +1,8 @@
-/* stylelint-disable */
-
 @use 'sass:math';
+@use '../abstract/extends';
+@use '../theme/gen/theme';
+
+/* stylelint-disable */
 
 html {
   --tagify-dd-color-primary: $c-primary; // should be same as "$tags-focus-border-color"
@@ -10,22 +12,22 @@ html {
 .tagify {
   // SCSS "default" allows overriding variables BEFORE they are set in the below lines of code
   $self: &;
-  $tags-border-color: $c-border !default;
-  $tags-hover-border-color: $m-border_lightness_20 !default;
-  $tags-focus-border-color: $c-primary !default;
+  $tags-border-color: theme.$c-border !default;
+  $tags-hover-border-color: theme.$m-border_lightness_20 !default;
+  $tags-focus-border-color: theme.$c-primary !default;
 
   $tagMargin: 5px !default;
   $tag-pad: 0.3em 0.5em !default;
 
-  $tag-text-color: $c-font-clearer !default;
-  $tag-text-color--edit: $c-font-clearer !default;
-  $tag-bg: $c-bg-zebra2 !default;
-  $tag-hover: $m-primary_bg-zebra2_mix_20 !default;
-  $tag-remove: $m-bad_bg-zebra2_mix_60 !default;
+  $tag-text-color: theme.$c-font-clearer !default;
+  $tag-text-color--edit: theme.$c-font-clearer !default;
+  $tag-bg: theme.$c-bg-zebra2 !default;
+  $tag-hover: theme.$m-primary_bg-zebra2_mix_20 !default;
+  $tag-remove: theme.$m-bad_bg-zebra2_mix_60 !default;
   $tag-remove-btn-bg: none !default;
-  $tag-remove-btn-bg--hover: $c-bad !default;
+  $tag-remove-btn-bg--hover: theme.$c-bad !default;
   $tag-invalid-color: $tag-remove !default;
-  $tag-invalid-bg: $m-bad_bg-zebra2_mix_20 !default;
+  $tag-invalid-bg: theme.$m-bad_bg-zebra2_mix_20 !default;
   $tag-inset-shadow-size: 1.1em !default;
 
   // CSS variables
@@ -571,7 +573,7 @@ html {
       @extend %box-radius-bottom;
       max-height: 300px;
       overflow: hidden;
-      background: $c-bg-popup;
+      background: theme.$c-bg-popup;
       border: 1px solid $tags-focus-border-color;
       border-top-width: 0;
       // box-sizing: border-box;

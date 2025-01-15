@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/form3';
-@import 'pkg:common/form/captcha';
-@import '../auth';
+@use 'pkg:common/form/form3';
+@use 'pkg:common/form/captcha';
+@use '../auth';

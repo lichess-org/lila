@@ -1,5 +1,4 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/shogiground/coords';
-@import 'pkg:common/component/board-resize';
-@import 'pkg:common/layout/uniboard';
-@import '../learn';
+@use 'pkg:common/shogiground/coords';
+@use 'pkg:common/component/board-resize';
+@use 'pkg:common/layout/uniboard';
+@use '../learn';

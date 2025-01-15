@@ -1,12 +1,19 @@
-.tour__duels {
-  margin: $block-gap 0 0 0;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
 
-  @include breakpoint($mq-col2) {
-    margin: 0 0 0 $block-gap;
+.tour__duels {
+  margin: variables.$block-gap 0 0 0;
+
+  @include breakpoint.breakpoint(local.$mq-col2) {
+    margin: 0 0 0 variables.$block-gap;
   }
 
-  @include breakpoint($mq-col3) {
-    margin: $block-gap 0 0 0;
+  @include breakpoint.breakpoint(local.$mq-col3) {
+    margin: variables.$block-gap 0 0 0;
   }
 
   h2 {
@@ -19,14 +26,14 @@
   a {
     @extend %flex-column;
 
-    color: $c-font;
+    color: theme.$c-font;
     padding: 0.5em 0.7em;
     white-space: nowrap;
     line-height: 1.9em;
-    border: 1px solid $c-border-page;
+    border: 1px solid theme.$c-border-page;
     border-bottom: none;
 
-    @include transition;
+    @include mixins.transition;
 
     &:first-child {
       border-top: none;
@@ -41,7 +48,7 @@
     }
 
     &:hover {
-      background: $m-link_bg-page_mix_20;
+      background: theme.$m-link_bg-page_mix_20;
     }
   }
 
@@ -53,13 +60,13 @@
     @extend %ellipsis;
 
     font-size: 1.2em;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     display: block;
     max-width: 60%;
   }
 
   .title {
-    color: $c-brag;
+    color: theme.$c-brag;
     font-weight: bold;
   }
 
@@ -67,7 +74,7 @@
     @extend %box-radius;
 
     padding: 0.1em 0.5em;
-    background: $c-brag;
+    background: theme.$c-brag;
     color: #fff;
   }
 

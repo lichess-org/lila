@@ -1,0 +1,15 @@
+@use 'pkg:common/abstract/uniboard';
+
+$mq-col1: uniboard.$mq-col1-uniboard;
+$mq-col2: uniboard.$mq-col2-uniboard;
+$mq-col3: uniboard.$mq-col3-uniboard;
+
+$col1-player-clock-height: 42px;
+$col1-moves-height: 3em;
+$move-tag: 'm2';
+
+%zen {
+  body.playing.zen & {
+    display: none;
+  }
+}

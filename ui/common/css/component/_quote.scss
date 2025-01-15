@@ -1,12 +1,16 @@
+@use '../abstract/mixins';
+@use '../abstract/variables';
+@use '../theme/gen/theme';
+
 .pull-quote {
   margin: 0 auto;
 
   p {
-    color: $c-font;
+    color: theme.$c-font;
     position: relative;
     margin: 0 0.7em;
     padding: 1em 0;
-    border: $border;
+    border: theme.$border;
     border-width: 1px 0;
     font-style: italic;
     font-size: 1.1rem;
@@ -18,12 +22,12 @@
       left: 42px;
       width: 15px;
       height: 15px;
-      background: $c-bg-box;
-      border-left: 2px solid $c-border;
-      border-bottom: 1px solid $c-border;
+      background: theme.$c-bg-box;
+      border-bottom: theme.$border;
+      border-left: 2px solid theme.$c-border;
       transform: skew(45deg) rotate(-45deg);
 
-      @include theme-wrap('transp') {
+      @include mixins.theme-wrap('transp') {
         display: none;
       }
     }

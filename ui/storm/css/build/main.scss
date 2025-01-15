@@ -1,6 +1,5 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/layout/uniboard';
-@import 'pkg:common/component/board-resize';
-@import 'pkg:common/component/bar-glider';
-@import 'pkg:puz/puz';
-@import '../storm';
+@use 'pkg:common/layout/uniboard';
+@use 'pkg:common/component/board-resize';
+@use 'pkg:common/component/bar-glider';
+@use 'pkg:puz/puz';
+@use '../storm';

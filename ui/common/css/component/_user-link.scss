@@ -1,14 +1,17 @@
+@use '../abstract/extends';
+@use '../theme/gen/theme';
+
 .user-link {
   @extend %nowrap-hidden;
 
-  color: $c-font;
+  color: theme.$c-font;
 
   &.online .line {
     &::before {
       content: '';
     }
 
-    color: $c-good;
+    color: theme.$c-good;
     opacity: 0.9;
 
     &.patron {
@@ -23,7 +26,7 @@
   .line {
     @extend %data-icon;
 
-    color: $c-font;
+    color: theme.$c-font;
     opacity: 0.5;
     display: inline-block;
     width: 1.5em;
@@ -47,15 +50,15 @@
   }
 
   .title {
-    color: $c-brag;
+    color: theme.$c-brag;
     font-weight: bold;
 
     &[data-bot] {
-      color: $c-bot;
+      color: theme.$c-bot;
     }
   }
 }
 
 a.user-link:hover {
-  color: $c-link;
+  color: theme.$c-link;
 }

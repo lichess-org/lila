@@ -1,7 +1,13 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .advice-summary {
   @extend %flex-column;
 
-  color: $c-font-page;
+  color: theme.$c-font-page;
   font-size: 0.9em;
   align-items: flex-start;
   line-height: 1.15em;
@@ -33,26 +39,26 @@
     }
 
     &.inaccuracy {
-      color: $c-inaccuracy;
+      color: theme.$c-inaccuracy;
 
       &:hover {
-        color: $m-inaccuracy_saturation_100;
+        color: theme.$m-inaccuracy_saturation_100;
       }
     }
 
     &.mistake {
-      color: $c-mistake;
+      color: theme.$c-mistake;
 
       &:hover {
-        color: $m-mistake_saturation_100;
+        color: theme.$m-mistake_saturation_100;
       }
     }
 
     &.blunder {
-      color: $c-blunder;
+      color: theme.$c-blunder;
 
       &:hover {
-        color: $m-blunder_saturation_100;
+        color: theme.$m-blunder_saturation_100;
       }
     }
   }
@@ -61,16 +67,16 @@
     margin: 0.6em 0;
   }
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     flex-flow: row wrap;
     justify-content: center;
-    padding-bottom: $block-gap;
-    border-bottom: $border;
+    padding-bottom: variables.$block-gap;
+    border-bottom: theme.$border;
     margin: 0;
 
     table {
-      flex: 0 0 calc(50% - #{$block-gap});
-      margin-left: $block-gap;
+      flex: 0 0 calc(50% - #{variables.$block-gap});
+      margin-left: variables.$block-gap;
     }
 
     > a {

@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .msg-app__convo__msgs {
   @extend %flex-column;
 
@@ -17,7 +21,7 @@
   }
 
   &__typing {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     line-height: 0.9em;
     min-height: 0.9em;
     font-size: 0.9em;
@@ -48,23 +52,23 @@
 
     margin: 0.2em 0;
     padding: 0.5em 1em;
-    color: $c-font-clear;
+    color: theme.$c-font-clear;
     max-width: 70%;
   }
 
   day {
     @extend %roboto;
 
-    background: $m-primary_bg-box_mix_15;
+    background: theme.$m-primary_bg-box_mix_15;
     align-self: center;
     font-size: 0.9em;
-    color: $c-font;
+    color: theme.$c-font;
     margin: 0.5em 0;
   }
 
   mine {
     align-self: flex-end;
-    background: $m-secondary_bg-box_mix_15;
+    background: theme.$m-secondary_bg-box_mix_15;
 
     &:first-child {
       border-top-right-radius: 0;
@@ -73,7 +77,7 @@
 
   their {
     align-self: flex-start;
-    background: $m-brag_bg-box_mix_15;
+    background: theme.$m-brag_bg-box_mix_15;
 
     &:first-child {
       border-top-left-radius: 0;
@@ -83,7 +87,7 @@
   em {
     @extend %roboto;
 
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     font-size: 0.8em;
     float: right;
     margin: 0.4em 0 0 2em;
@@ -99,7 +103,7 @@
   .embed-wrap {
     width: 70vh;
     max-width: 95%;
-    margin: $block-gap;
+    margin: variables.$block-gap;
 
     .embed {
       @extend %embed;

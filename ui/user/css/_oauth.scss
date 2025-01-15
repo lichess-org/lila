@@ -1,8 +1,13 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .oauth {
   width: 100%;
   margin: auto;
 
-  @include breakpoint($mq-x-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-x-small) {
     width: 40em;
   }
 
@@ -15,7 +20,7 @@
   }
 
   strong {
-    color: $c-brag;
+    color: theme.$c-brag;
   }
 
   code {
@@ -50,7 +55,7 @@
 
         margin-right: 0.2em;
         content: '';
-        color: $c-bad;
+        color: theme.$c-bad;
       }
     }
   }
@@ -58,11 +63,11 @@
   .form-actions {
     margin: 1.5rem 0;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid $c-border;
+    border-bottom: theme.$border;
   }
 
   &__footer {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     font-size: 0.9em;
     text-align: center;
 

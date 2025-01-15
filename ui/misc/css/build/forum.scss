@@ -1,6 +1,5 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/slist';
-@import 'pkg:common/form/form3';
-@import 'pkg:common/form/cmn-toggle';
-@import 'pkg:common/form/captcha';
-@import '../forum/forum';
+@use 'pkg:common/component/slist';
+@use 'pkg:common/form/form3';
+@use 'pkg:common/form/cmn-toggle';
+@use 'pkg:common/form/captcha';
+@use '../forum/forum';

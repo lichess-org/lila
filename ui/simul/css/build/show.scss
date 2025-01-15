@@ -1,9 +1,8 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/quote';
-@import 'pkg:common/component/slist';
-@import 'pkg:common/component/now-playing';
-@import 'pkg:common/component/modal';
-@import 'pkg:common/component/continue-with';
-@import 'pkg:common/component/context-streamer';
-@import 'pkg:chat/chat';
-@import '../show';
+@use 'pkg:common/component/quote';
+@use 'pkg:common/component/slist';
+@use 'pkg:common/component/now-playing';
+@use 'pkg:common/component/modal';
+@use 'pkg:common/component/continue-with';
+@use 'pkg:common/component/context-streamer';
+@use 'pkg:chat/chat';
+@use '../show';

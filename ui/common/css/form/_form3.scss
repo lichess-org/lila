@@ -1,5 +1,10 @@
-@import 'cmn-toggle';
-@import '../component/flash';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../abstract/variables';
+@use '../component/flash';
+@use '../theme/gen/theme';
+@use 'cmn-toggle';
 
 .form-group {
   margin-bottom: 2rem;
@@ -21,7 +26,7 @@
   flex: 1 1 31%;
 }
 
-@include breakpoint($mq-xx-small) {
+@include breakpoint.breakpoint(media-queries.$mq-xx-small) {
   .form-half,
   .form-third {
     flex-grow: 0;
@@ -47,7 +52,7 @@ textarea.form-control {
 
 .form-control:invalid,
 .form-group.is-invalid .form-control {
-  border-color: $c-error;
+  border-color: theme.$c-error;
 }
 
 .form3 .error,
@@ -57,12 +62,12 @@ textarea.form-control {
 }
 
 .form3 .error {
-  color: $c-error;
+  color: theme.$c-error;
   font-weight: bold;
 }
 
 .form-help {
-  color: $c-font-dim;
+  color: theme.$c-font-dim;
 }
 
 .form-check div {
@@ -83,7 +88,7 @@ textarea.form-control {
 
   margin: 1.5rem 0;
   padding-top: 1.5rem;
-  border-top: $border;
+  border-top: theme.$border;
 }
 
 .form-actions.single {
@@ -94,7 +99,7 @@ textarea.form-control {
   margin-top: 1rem;
   margin-bottom: 1rem;
   border: 0;
-  border-top: $border;
+  border-top: theme.$border;
 }
 
 /* VENDORS */

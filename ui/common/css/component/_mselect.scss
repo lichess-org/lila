@@ -1,20 +1,27 @@
-@import '../base/scrollbar';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/mixins';
+@use '../abstract/uniboard';
+@use '../abstract/variables';
+@use '../abstract/z-index' as z;
+@use '../base/scrollbar';
+@use '../theme/gen/theme';
 
-$c-mselect: $c-primary;
+$c-mselect: theme.$c-primary;
 
 .mselect {
   position: relative;
   white-space: nowrap;
 
   &__toggle {
-    @include hide;
+    @include mixins.hide;
   }
 
   &__label {
     @extend %box-radius, %flex-between;
 
-    background: $c-bg-box;
-    border: $border;
+    background: theme.$c-bg-box;
+    border: theme.$border;
     flex-flow: row nowrap;
     padding: 0.3rem 0.3rem 0.3rem 1rem;
     cursor: pointer;
@@ -31,7 +38,7 @@ $c-mselect: $c-primary;
   }
 
   &__toggle:checked ~ .mselect__label {
-    @include transition(opacity);
+    @include mixins.transition(opacity);
 
     opacity: 0;
   }
@@ -45,12 +52,12 @@ $c-mselect: $c-primary;
     min-width: 100%;
     max-height: 60vh;
     overflow-y: auto;
-    z-index: z('mselect');
-    background: $c-bg-popup;
+    z-index: z.get('mselect');
+    background: theme.$c-bg-popup;
     transform: scale(1, 0);
     transform-origin: top;
 
-    @include transition(transform);
+    @include mixins.transition(transform);
 
     .current {
       background: $c-mselect;
@@ -62,14 +69,14 @@ $c-mselect: $c-primary;
       display: block;
       padding: 0.45rem 1rem;
 
-      @include transition;
+      @include mixins.transition;
 
       color: $c-mselect;
-      background: $c-bg-popup;
+      background: theme.$c-bg-popup;
 
       &:not(.current):hover {
-        color: $c-font-clear; // todo
-        background: $m-primary_bg-popup_mix_50;
+        color: theme.$c-font-clear; // todo
+        background: theme.$m-primary_bg-popup_mix_50;
       }
 
       &::before {
@@ -82,7 +89,7 @@ $c-mselect: $c-primary;
     .mselect__toggle:checked ~ & {
       transform: scale(1, 1);
 
-      @include breakpoint($mq-col1-uniboard) {
+      @include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
         position: fixed;
         top: 50%;
         transform: translateY(-50%) scale(1, 1);

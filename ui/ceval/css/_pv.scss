@@ -1,6 +1,9 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .pv_box {
   position: relative;
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   font-size: 13px;
   max-width: 100vw;
 
@@ -9,7 +12,7 @@
     display: flex;
     flex-wrap: wrap;
     line-height: 2em;
-    border-top: $border;
+    border-top: theme.$border;
     padding-right: 16px;
     min-height: 4em;
 
@@ -23,7 +26,7 @@
     }
 
     &[data-usi]:hover {
-      background: $m-secondary_bg-box_mix_20;
+      background: theme.$m-secondary_bg-box_mix_20;
       cursor: pointer;
     }
 
@@ -45,11 +48,11 @@
     }
 
     .pv-move:hover {
-      color: $c-font-clearer;
+      color: theme.$c-font-clearer;
     }
 
     &[data-usi] .pv-move:hover {
-      color: $c-primary;
+      color: theme.$c-primary;
     }
 
     .pv-wrap-toggle {
@@ -61,8 +64,8 @@
       cursor: pointer;
 
       &:hover {
-        background: $c-secondary;
-        color: $c-secondary-over;
+        background: theme.$c-secondary;
+        color: theme.$c-secondary-over;
       }
 
       &::before {
@@ -83,7 +86,7 @@
     max-width: 240px;
     right: 8px; // so moves are still visible
     margin-top: 8px;
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
     z-index: 3;
 
     sg-hand-wrap {

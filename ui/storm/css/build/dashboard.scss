@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/slist';
-@import 'pkg:puz/font';
-@import '../dashboard';
+@use 'pkg:common/component/slist';
+@use 'pkg:puz/font';
+@use '../dashboard';

@@ -1,7 +1,11 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .study__multiboard {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
 
   &.loading {
     opacity: 0.7;
@@ -50,27 +54,27 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      color: $c-font;
+      color: theme.$c-font;
       padding: 0.4em;
 
-      @include transition(background);
+      @include mixins.transition(background);
 
-      background: $m-bg-box_alpha_neg50;
+      background: theme.$m-bg-box_alpha_neg50;
       overflow: hidden;
 
       &:nth-child(even) {
-        background: $c-bg-zebra2;
+        background: theme.$c-bg-zebra2;
       }
 
       &:hover {
-        background: $m-link_alpha_neg60;
-        color: $c-font-clear;
+        background: theme.$m-link_alpha_neg60;
+        color: theme.$c-font-clear;
       }
 
       &.active,
       &:active {
-        background: $c-secondary;
-        color: $c-secondary-over;
+        background: theme.$c-secondary;
+        color: theme.$c-secondary-over;
       }
 
       sg-board {

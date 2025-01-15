@@ -1,3 +1,6 @@
+@use '../abstract/extends';
+@use '../theme/gen/theme';
+
 .none {
   display: none !important;
 }
@@ -26,11 +29,11 @@ bad.rp {
 }
 
 good {
-  color: $c-good;
+  color: theme.$c-good;
 }
 
 bad {
-  color: $c-bad;
+  color: theme.$c-bad;
 }
 
 /* infinite scroll */

@@ -1,9 +1,18 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'local';
+
 #main-wrap {
   --main-max-width: calc(
-    (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 9
+    (
+        100vh - #{variables.$site-header-outer-height} - #{uniboard.$col1-uniboard-controls} -
+          #{uniboard.$hands-gap}
+      ) /
+      12 * 9
   );
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     --main-max-width: auto;
   }
 }
@@ -37,7 +46,7 @@
     @extend %zen;
 
     grid-area: controls;
-    height: $col3-uniboard-controls;
+    height: uniboard.$col3-uniboard-controls;
   }
 
   &__session {
@@ -60,9 +69,11 @@
     display: none;
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     grid-template-rows: fit-content(0);
-    grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
+    grid-template-columns:
+      var(--col2-uniboard-main-size)
+      variables.$block-gap uniboard.$col2-uniboard-table;
     grid-template-areas:
       'board   gauge tools'
       'session .     controls'
@@ -74,9 +85,11 @@
     }
   }
 
-  @include breakpoint($mq-col3) {
+  @include breakpoint.breakpoint(local.$mq-col3) {
     grid-template-rows: fit-content(0);
-    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
+    grid-template-columns:
+      uniboard.$col3-uniboard-side variables.$block-gap var(--col3-uniboard-main-size)
+      variables.$block-gap uniboard.$col3-uniboard-table;
     grid-template-areas:
       'side . board   gauge tools'
       'side . session .     controls'
@@ -85,14 +98,14 @@
   }
 }
 
-@include breakpoint($mq-col1-uniboard) {
+@include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
   .hand {
     &-top {
-      margin-bottom: #{$block-gap};
+      margin-bottom: #{variables.$block-gap};
     }
 
     &-bottom {
-      margin-top: #{$block-gap};
+      margin-top: #{variables.$block-gap};
     }
   }
 }

@@ -1,9 +1,16 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
+
 .practice-app {
   section {
     > h2 {
       @extend %roboto;
 
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       font-size: 2em;
       letter-spacing: 0.3em;
       text-transform: uppercase;
@@ -19,7 +26,7 @@
     grid-gap: 1em;
     margin: 0.8em 0 3em 0;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       --min-width: 400px;
     }
   }
@@ -32,13 +39,13 @@
     min-width: 300px;
     color: #fff;
 
-    @include transition;
+    @include mixins.transition;
 
     white-space: nowrap;
     font-size: 1.2em;
     overflow-x: hidden;
 
-    @include breakpoint($mq-main-margin) {
+    @include breakpoint.breakpoint(uniboard.$mq-main-margin) {
       overflow-x: visible; /* ribbon */
     }
 
@@ -60,7 +67,7 @@
     }
 
     &.ongoing {
-      background: $c-primary;
+      background: theme.$c-primary;
 
       &:hover {
         animation: 1.7s soft-bright ease-in-out infinite;

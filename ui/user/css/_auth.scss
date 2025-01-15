@@ -1,12 +1,17 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+
 #main-wrap {
-  min-height: calc(95vh - #{$site-header-outer-height} - 4em);
+  min-height: calc(95vh - #{variables.$site-header-outer-height} - 4em);
 }
 
 .auth {
   width: 100%;
   margin: auto;
 
-  @include breakpoint($mq-x-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-x-small) {
     width: 40em;
   }
 
@@ -36,7 +41,7 @@
   }
 
   &-login {
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       width: 30em;
     }
   }
@@ -47,7 +52,7 @@
 }
 
 /* presumably the keyboard is up */
-@include breakpoint($mq-not-x-short) {
+@include breakpoint.breakpoint(media-queries.$mq-not-x-short) {
   #top {
     display: none;
   }

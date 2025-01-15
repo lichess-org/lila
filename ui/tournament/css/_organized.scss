@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .organizer-arrangement {
   display: flex;
   flex-direction: column;
@@ -40,7 +42,7 @@
           width: 12rem;
 
           option:disabled {
-            color: $c-font-dimmer;
+            color: theme.$c-font-dimmer;
           }
         }
       }
@@ -78,7 +80,7 @@
     .games-users {
       overflow-x: scroll;
       scrollbar-width: none;
-      border-top: $border;
+      border-top: theme.$border;
 
       &::-webkit-scrollbar {
         display: none;

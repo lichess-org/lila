@@ -1,8 +1,10 @@
-@import 'pkg:common/base/scrollbar';
-@import 'tab';
-@import 'members';
-@import 'discussion';
-@import 'palantir';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/base/scrollbar';
+@use 'pkg:common/theme';
+@use 'tab';
+@use 'members';
+@use 'discussion';
+@use 'palantir';
 
 .mchat {
   @extend %box-neat-force, %flex-column;
@@ -14,7 +16,7 @@
   &__content {
     @extend %flex-column;
 
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     flex: 1 1 auto;
     overflow: hidden;
 

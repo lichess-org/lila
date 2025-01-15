@@ -1,24 +1,31 @@
-$mq-picture: $mq-medium;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
+$mq-picture: media-queries.$mq-medium;
 
 .streamer-list {
   h1 {
     &::before {
       display: none;
 
-      @include breakpoint($mq-picture) {
+      @include breakpoint.breakpoint($mq-picture) {
         display: inline;
       }
     }
   }
 
   .streamer {
-    border-top: $border;
+    border-top: theme.$border;
     position: relative;
     display: flex;
 
-    @include transition;
+    @include mixins.transition;
 
-    @include breakpoint($mq-subnav-top) {
+    @include breakpoint.breakpoint(media-queries.$mq-subnav-top) {
       overflow-x: hidden;
     }
 
@@ -27,20 +34,20 @@ $mq-picture: $mq-medium;
 
       margin-bottom: 0.7em;
 
-      @include fluid-size('font-size', 23px, 40px);
+      @include fluid-size.fluid-size('font-size', 23px, 40px);
 
       &::before {
         display: inline;
         margin-right: 0.2em;
 
-        @include breakpoint($mq-picture) {
+        @include breakpoint.breakpoint($mq-picture) {
           display: none;
         }
       }
     }
 
     &:nth-child(even) {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
       justify-content: space-between;
 
       .picture {
@@ -49,7 +56,7 @@ $mq-picture: $mq-medium;
     }
 
     &:hover {
-      background: $m-link_bg-box_mix_15;
+      background: theme.$m-link_bg-box_mix_15;
     }
   }
 
@@ -66,7 +73,7 @@ $mq-picture: $mq-medium;
 
     display: none;
 
-    @include breakpoint($mq-picture) {
+    @include breakpoint.breakpoint($mq-picture) {
       display: block;
     }
   }
@@ -95,7 +102,7 @@ $mq-picture: $mq-medium;
     margin: 5px 0 10px 0;
     display: none;
 
-    @include breakpoint($mq-large) {
+    @include breakpoint.breakpoint(media-queries.$mq-large) {
       display: block;
     }
   }
@@ -124,7 +131,7 @@ $mq-picture: $mq-medium;
     right: -10px;
     z-index: 2;
 
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
       transform: scale(0.7);
       transform-origin: top right;
     }
@@ -158,9 +165,9 @@ $mq-picture: $mq-medium;
       display: block;
       width: 225px;
       padding: 15px 0;
-      background-color: $c-primary;
+      background-color: theme.$c-primary;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-      color: $c-primary-over;
+      color: theme.$c-primary-over;
       font: 700 18px/1 Roboto;
       text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
       text-transform: uppercase;

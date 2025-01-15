@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .not-found {
   @extend %flex-column;
 
@@ -8,13 +13,13 @@
 
     h1 {
       font-size: 7em;
-      color: $c-font-dimmer;
+      color: theme.$c-font-dimmer;
       margin: 0 2rem 0 0;
     }
 
     strong {
       text-transform: uppercase;
-      color: $c-font-dimmer;
+      color: theme.$c-font-dimmer;
       font-size: 2em;
       margin: 10px 0;
       display: block;
@@ -28,7 +33,7 @@
     margin-top: 1rem;
     width: 75vmin;
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       width: 43vmin;
     }
   }
@@ -39,8 +44,8 @@
     margin-top: 6px;
 
     button {
-      color: $c-font-dimmer;
-      background: $c-bg-low;
+      color: theme.$c-font-dimmer;
+      background: theme.$c-bg-low;
       padding: 2px;
       border: none;
       text-align: center;

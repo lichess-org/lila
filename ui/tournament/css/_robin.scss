@@ -1,5 +1,8 @@
-@import 'pkg:common/form/cmn-toggle';
-@import 'pkg:common/base/scrollbar';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/form/cmn-toggle';
+@use 'pkg:common/base/scrollbar';
+@use 'pkg:common/theme';
+@use 'local';
 
 main.arr-table {
   .scroll-controls {
@@ -23,19 +26,19 @@ main.arr-table {
     display: flex;
 
     table {
-      background: $c-bg-box;
+      background: theme.$c-bg-box;
 
       tr {
         &:nth-child(even) {
-          background-color: $c-bg-zebra;
+          background-color: theme.$c-bg-zebra;
         }
 
         &.kicked {
-          background-color: rgba($c-bad, 0.2) !important;
-          color: $c-font-dimmer !important;
+          background-color: rgba(theme.$c-bad, 0.2) !important;
+          color: theme.$c-font-dimmer !important;
 
           .user-link {
-            color: $c-font-dimmer !important;
+            color: theme.$c-font-dimmer !important;
           }
         }
       }
@@ -44,12 +47,12 @@ main.arr-table {
       th {
         min-width: $cell-size;
         height: $cell-size;
-        border: 1px solid $c-font-dimmer;
+        border: 1px solid theme.$c-font-dimmer;
         text-align: center;
       }
 
       th {
-        background-color: $c-bg-zebra;
+        background-color: theme.$c-bg-zebra;
         background-clip: padding-box; // firefox...
       }
     }
@@ -127,7 +130,7 @@ main.arr-table {
                 &::after {
                   content: '';
                   position: absolute;
-                  background-color: $c-font-dimmer;
+                  background-color: theme.$c-font-dimmer;
                   transform-origin: center;
                 }
 
@@ -158,7 +161,7 @@ main.arr-table {
                   }
 
                   50% {
-                    background-color: $m-accent_alpha_neg30;
+                    background-color: theme.$m-accent_alpha_neg30;
                   }
 
                   100% {
@@ -180,7 +183,7 @@ main.arr-table {
                   content: '...';
                   display: block;
                   height: 100%;
-                  color: $c-font-dimmer;
+                  color: theme.$c-font-dimmer;
                   font-size: 1rem;
                   line-height: 1.6rem;
                   letter-spacing: 2px;
@@ -193,7 +196,7 @@ main.arr-table {
                 height: 0;
                 border-left: 5px solid transparent;
                 border-right: 5px solid transparent;
-                border-bottom: 10px solid $c-font;
+                border-bottom: 10px solid theme.$c-font;
               }
 
               & .w,
@@ -204,11 +207,11 @@ main.arr-table {
               }
 
               & .w {
-                background-color: $c-good !important;
+                background-color: theme.$c-good !important;
               }
 
               & .l {
-                background-color: $c-bad !important;
+                background-color: theme.$c-bad !important;
               }
 
               &:first-child {
@@ -220,7 +223,7 @@ main.arr-table {
               }
 
               &:hover {
-                background-color: $c-accent;
+                background-color: theme.$c-accent;
 
                 &::before {
                   content: '';
@@ -245,7 +248,7 @@ main.arr-table {
                 }
 
                 & > div {
-                  border: $border;
+                  border: theme.$border;
                 }
               }
             }
@@ -260,9 +263,9 @@ main.arr-table {
           min-width: $large-cell-size;
 
           &.winner {
-            color: $c-brag;
+            color: theme.$c-brag;
             font-weight: bold;
-            text-shadow: $text-shadow;
+            text-shadow: theme.$text-shadow;
           }
         }
       }
@@ -273,14 +276,14 @@ main.arr-table {
     .arrs-title {
       text-align: center;
       padding: 1rem;
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
 
     .arrs-grid {
       display: grid;
       grid-template-columns: repeat(1, 1fr);
 
-      @include breakpoint($mq-col2) {
+      @include breakpoint.breakpoint(local.$mq-col2) {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -291,7 +294,7 @@ main.arr-table {
       width: 2rem;
       margin: auto;
       margin-bottom: 2rem;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       cursor: pointer;
     }
   }

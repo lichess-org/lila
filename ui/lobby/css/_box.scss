@@ -1,8 +1,12 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .lobby {
   &__box {
     @extend %flex-column, %box-neat-force;
 
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
 
     &__top {
       @extend %flex-between;
@@ -11,7 +15,7 @@
       padding: 0.3em 0.5em;
 
       .more {
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
       }
 
       .title {
@@ -19,14 +23,14 @@
 
         font-size: 1em;
         font-weight: bold;
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
         padding: 0.3em;
       }
 
       &:hover .more {
-        @include transition;
+        @include mixins.transition;
 
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
 
@@ -38,7 +42,7 @@
     .user-link {
       padding-left: -1em;
       font-weight: bold;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
     }
 
     table {
@@ -57,18 +61,18 @@
 
       &.name a {
         font-weight: bold;
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
 
-        @include transition;
+        @include mixins.transition;
 
         &:hover {
-          color: $c-link;
+          color: theme.$c-link;
         }
       }
     }
 
     tr:nth-child(even) {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
   }
 
@@ -91,7 +95,7 @@
   &__forum,
   &__description {
     .lobby__box__top {
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
   }
 }

@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/functions';
+@use 'pkg:common/abstract/media-queries';
+
 @keyframes play-shake {
   10%,
   90% {
@@ -29,7 +34,7 @@
   font-size: 2em;
   letter-spacing: 0.4em;
 
-  @include breakpoint($mq-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-small) {
     justify-content: space-between;
     letter-spacing: 0.6em;
 
@@ -38,7 +43,7 @@
       content: ' ';
       width: 7rem;
       height: 7rem;
-      background-image: img-url('icons/tornado-white.svg');
+      background-image: functions.img-url('icons/tornado-white.svg');
       background-size: cover;
       opacity: 0.8;
       transition: opacity 0.5s;

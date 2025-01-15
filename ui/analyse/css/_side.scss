@@ -1,3 +1,6 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'local';
+
 .analyse__side {
   align-self: start;
 
@@ -5,7 +8,7 @@
     margin-top: 2em;
     text-align: center;
 
-    @include breakpoint($mq-col3) {
+    @include breakpoint.breakpoint(local.$mq-col3) {
       margin-top: 10vh;
     }
 

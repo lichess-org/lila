@@ -1,16 +1,20 @@
-@import 'side';
-@import 'outcomes';
-@import 'opponents';
-@import 'moves';
-@import 'analysis';
-@import 'custom';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+@use 'side';
+@use 'outcomes';
+@use 'opponents';
+@use 'moves';
+@use 'analysis';
+@use 'custom';
 
 .angles {
   @extend %metal;
 
   font-size: 1.2em;
   height: 4rem;
-  border-top: $border;
+  border-top: theme.$border;
   max-width: 100vw;
 
   .nm-item {
@@ -18,7 +22,7 @@
     flex: 1 1;
     font-size: 0.8em;
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       font-size: 0.9em;
     }
   }
@@ -42,7 +46,7 @@
 
   section.with-title {
     padding: 2rem 0;
-    border-bottom: 1px dashed $c-border;
+    border-bottom: 1px dashed theme.$c-border;
 
     &:last-child {
       border-bottom: none;
@@ -56,7 +60,7 @@
 
   section.padding {
     padding: 3rem 0;
-    border-bottom: 1px dashed $c-border;
+    border-bottom: 1px dashed theme.$c-border;
   }
 
   .half-wrap {
@@ -86,14 +90,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-bottom: 1px dashed $c-border;
+    border-bottom: 1px dashed theme.$c-border;
 
     & > * {
       &:first-child {
         width: 100%;
         padding: 3rem 0 1.5rem 0;
 
-        @include breakpoint($mq-small) {
+        @include breakpoint.breakpoint(media-queries.$mq-small) {
           width: 30%;
           padding: 3rem 0;
         }
@@ -103,7 +107,7 @@
         width: 60%;
         padding: 1.5rem 0 3rem 0;
 
-        @include breakpoint($mq-small) {
+        @include breakpoint.breakpoint(media-queries.$mq-small) {
           padding: 3rem 0;
         }
       }
@@ -121,7 +125,7 @@
         font-size: 1.5rem;
       }
 
-      @include breakpoint($mq-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-small) {
         font-size: 3.5rem;
 
         span.tiny {
@@ -142,7 +146,7 @@
     width: 95%;
     aspect-ratio: 1 / 1;
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       width: 90%;
       aspect-ratio: 3 / 1;
     }
@@ -160,15 +164,15 @@
         font-weight: bold;
 
         &.win {
-          color: $c-good;
+          color: theme.$c-good;
         }
 
         &.draw {
-          color: $c-font-dim;
+          color: theme.$c-font-dim;
         }
 
         &.loss {
-          color: $c-bad;
+          color: theme.$c-bad;
         }
       }
     }
@@ -187,23 +191,23 @@
     }
 
     .win {
-      background-color: $c-good;
+      background-color: theme.$c-good;
     }
 
     .draw {
-      background-color: $c-font-dim;
+      background-color: theme.$c-font-dim;
     }
 
     .loss {
-      background-color: $c-bad;
+      background-color: theme.$c-bad;
     }
 
     .moves {
-      background-color: $c-primary;
+      background-color: theme.$c-primary;
     }
 
     .drops {
-      background-color: $c-accent;
+      background-color: theme.$c-accent;
     }
   }
 
@@ -221,12 +225,12 @@
         height: 50px;
 
         &:nth-child(odd) {
-          background-color: $c-bg-zebra;
+          background-color: theme.$c-bg-zebra;
         }
 
         .table-col2 {
-          border-left: 1px dashed $c-border;
-          border-right: 1px dashed $c-border;
+          border-left: 1px dashed theme.$c-border;
+          border-right: 1px dashed theme.$c-border;
         }
 
         .simple-horizontal-bar {
@@ -265,7 +269,7 @@
       align-items: center;
       text-align: center;
 
-      @include breakpoint($mq-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-small) {
         flex: 7;
       }
     }
@@ -276,7 +280,7 @@
   }
 
   .footer {
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
     position: absolute;
@@ -287,6 +291,6 @@
 // private view - todo add class
 #insights-app > div.page-menu__content > h1.text {
   text-align: center;
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   padding: 37vh 0;
 }

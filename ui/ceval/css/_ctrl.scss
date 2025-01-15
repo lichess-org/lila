@@ -1,5 +1,9 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/functions';
+@use 'pkg:common/theme';
+
 .ceval {
-  background: $c-bg-zebra;
+  background: theme.$c-bg-zebra;
   position: relative;
   display: flex;
   align-items: stretch;
@@ -42,7 +46,7 @@
     font-size: 12px;
     line-height: 16px;
     margin-top: 3px;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
   }
 
   .engine {
@@ -50,8 +54,8 @@
       @extend %roboto, %box-radius;
 
       margin-left: 4px;
-      background: $c-secondary-dim;
-      color: $c-secondary-over;
+      background: theme.$c-secondary-dim;
+      color: theme.$c-secondary-over;
       padding: 1px 3px;
       text-transform: uppercase;
       font-size: 11px;
@@ -63,7 +67,7 @@
     }
 
     .deeper {
-      color: $c-primary;
+      color: theme.$c-primary;
       margin-left: 4px;
     }
 
@@ -77,14 +81,14 @@
 
     &.bad {
       &:not(.chushogi):not(.annanshogi):not(.checkshogi) {
-        color: $c-bad;
+        color: theme.$c-bad;
       }
 
       margin-left: 0;
     }
 
     &.good {
-      color: $c-good;
+      color: theme.$c-good;
     }
   }
 
@@ -109,23 +113,23 @@
     display: block;
     height: 3px;
     width: 0;
-    background: $c-good;
+    background: theme.$c-good;
     transition: width 1s;
 
     &.threat {
-      background: $c-bad;
+      background: theme.$c-bad;
     }
   }
 
   &.computing .bar span {
-    background-image: img-url('bar-highlight.png');
+    background-image: functions.img-url('bar-highlight.png');
     animation: bar-anim 1000s linear infinite;
   }
 
   .show-threat {
     flex: 0 99 auto;
     line-height: 38px;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     font-size: 0.9em;
     padding-right: 0.5em;
     overflow: hidden;
@@ -133,7 +137,7 @@
 
     &:hover:not(.hidden),
     &.active {
-      color: $c-red;
+      color: theme.$c-red;
     }
 
     &.hidden {

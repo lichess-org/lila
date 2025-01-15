@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'list';
+
 $span-width: 1.7em;
 
 .study__chapters {
@@ -20,11 +24,11 @@ $span-width: 1.7em;
 
     &.active,
     &:active {
-      color: $c-font-clear;
+      color: theme.$c-font-clear;
 
       > span {
-        color: $c-primary-over;
-        background: $c-primary;
+        color: theme.$c-primary-over;
+        background: theme.$c-primary;
       }
     }
 
@@ -33,7 +37,7 @@ $span-width: 1.7em;
 
       flex: 0 0 $span-width;
       justify-content: center;
-      color: $c-link;
+      color: theme.$c-link;
       font-weight: bold;
       height: auto;
       margin-right: 0.4em;
@@ -51,8 +55,8 @@ $span-width: 1.7em;
 
     &,
     span {
-      background: $c-secondary !important;
-      color: $c-secondary-over !important;
+      background: theme.$c-secondary !important;
+      color: theme.$c-secondary-over !important;
     }
   }
 }

@@ -1,3 +1,2 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/mselect';
-@import '../dashboard';
+@use 'pkg:common/component/mselect';
+@use '../dashboard';

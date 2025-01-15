@@ -1,3 +1,5 @@
+@use 'pkg:common/abstract/extends';
+
 %move {
   @extend %move-notation, %nowrap-hidden;
 

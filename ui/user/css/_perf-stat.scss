@@ -1,4 +1,6 @@
-@import 'rating-history';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'rating-history';
 
 .perf-stat {
   padding-bottom: 2em;
@@ -19,7 +21,7 @@
     margin-top: -4em;
 
     &.top1 {
-      filter: drop-shadow(0 0 6px $c-brag);
+      filter: drop-shadow(0 0 6px theme.$c-brag);
     }
 
     img {
@@ -44,15 +46,15 @@
   }
 
   green {
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   red {
-    color: $c-bad;
+    color: theme.$c-bad;
   }
 
   &__content [title] {
-    border-bottom: 1px dashed $c-link;
+    border-bottom: 1px dashed theme.$c-link;
     cursor: help;
   }
 
@@ -94,11 +96,11 @@
   }
 
   .counter tr.full td:last-child {
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
   }
 
   .counter tr:first-child {
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 
   .highlow a,
@@ -122,7 +124,7 @@
   }
 
   .result thead tr {
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 
   .resultStreak .streak,

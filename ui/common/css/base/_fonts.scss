@@ -1,5 +1,7 @@
+@use '../abstract/variables';
+
 @function local-font($path) {
-  @return url(#{$font-path}/#{$path});
+  @return url(#{variables.$font-path}/#{$path});
 }
 
 @font-face {

@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/cmn-toggle';
-@import 'ui/user/css/row';
-@import '../search';
+@use 'pkg:common/form/cmn-toggle';
+@use 'ui/user/css/row';
+@use '../search';

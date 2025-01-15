@@ -1,9 +1,8 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/shogiground/coords';
-@import 'pkg:common/layout/uniboard';
-@import 'pkg:common/base/scrollbar';
-@import 'pkg:common/component/board-resize';
-@import 'pkg:common/component/modal';
-@import 'pkg:common/component/color-icon';
-@import 'pkg:common/component/continue-with';
-@import '../editor';
+@use 'pkg:common/shogiground/coords';
+@use 'pkg:common/layout/uniboard';
+@use 'pkg:common/base/scrollbar';
+@use 'pkg:common/component/board-resize';
+@use 'pkg:common/component/modal';
+@use 'pkg:common/component/color-icon';
+@use 'pkg:common/component/continue-with';
+@use '../editor';

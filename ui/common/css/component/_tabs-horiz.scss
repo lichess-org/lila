@@ -1,4 +1,9 @@
-$c-tabs-active: $c-accent !default;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../theme/gen/theme';
+
+$c-tabs-active: theme.$c-accent !default;
 
 .tabs-horiz {
   @extend %flex-center-nowrap, %page-text;
@@ -6,7 +11,7 @@ $c-tabs-active: $c-accent !default;
   justify-content: center;
   align-items: flex-end;
 
-  @include breakpoint($mq-not-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
     font-size: 0.9em;
   }
 
@@ -25,13 +30,13 @@ $c-tabs-active: $c-accent !default;
     min-width: 15%;
     letter-spacing: -0.5px;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       letter-spacing: inherit;
     }
 
     &.active,
     &:hover {
-      color: $c-font-clear;
+      color: theme.$c-font-clear;
       border-color: $c-tabs-active;
     }
 

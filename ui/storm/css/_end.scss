@@ -1,13 +1,20 @@
-@import 'history';
-@import 'play-again';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/functions';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+@use 'history';
+@use 'play-again';
 
 .storm--end {
   display: grid;
-  grid-row-gap: $block-gap;
-  grid-column-gap: $block-gap;
+  grid-row-gap: variables.$block-gap;
+  grid-column-gap: variables.$block-gap;
   grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     grid-template-areas: 'high high' 'score stats' 'play play' 'history history';
   }
 
@@ -24,20 +31,20 @@
 
     grid-area: high;
     padding: 1.5em 1.5em;
-    background: $c-brag;
-    color: $c-brag-over;
+    background: theme.$c-brag;
+    color: theme.$c-brag-over;
 
     &__content {
       @extend %flex-between;
 
-      @include breakpoint($mq-col2) {
+      @include breakpoint.breakpoint(local.$mq-col2) {
         &::before,
         &::after {
           content: ' ';
           width: 7em;
           height: 7em;
           margin: 3em;
-          background-image: img-url('icons/tornado-white.svg');
+          background-image: functions.img-url('icons/tornado-white.svg');
           background-size: cover;
         }
       }
@@ -84,8 +91,8 @@
     grid-area: score;
     justify-content: center;
     align-items: center;
-    background: $c-good;
-    color: $c-good-over;
+    background: theme.$c-good;
+    color: theme.$c-good-over;
     padding: 1em 3em;
 
     &__number {
@@ -94,7 +101,7 @@
       text-align: center;
       font-size: 11em;
 
-      @include breakpoint($mq-xx-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
         font-size: 14em;
       }
     }

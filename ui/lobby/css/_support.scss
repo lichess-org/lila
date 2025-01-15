@@ -1,4 +1,8 @@
-$c-support: $c-brag;
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
+$c-support: theme.$c-brag;
 
 .lobby__support {
   margin-top: auto;
@@ -6,12 +10,12 @@ $c-support: $c-brag;
   a {
     @extend %flex-center-nowrap, %box-neat;
 
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     padding: 0.5em;
     outline: 1px solid $c-support;
     outline-offset: -1px;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover {
       background: $c-support;
@@ -32,7 +36,7 @@ $c-support: $c-brag;
       color: $c-support;
       font-size: 3em;
 
-      @include transition;
+      @include mixins.transition;
     }
   }
 
@@ -40,7 +44,7 @@ $c-support: $c-brag;
     flex: 1 1 auto;
     color: $c-support;
 
-    @include transition;
+    @include mixins.transition;
 
     strong {
       font-weight: normal;

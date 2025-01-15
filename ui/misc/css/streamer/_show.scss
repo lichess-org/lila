@@ -1,35 +1,49 @@
-$mq-picture: $mq-large;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'header';
 
-@import 'header';
+$mq-picture: media-queries.$mq-large;
 
 .streamer-show {
+  .streamer-header {
+    .overview {
+      @include breakpoint.breakpoint($mq-picture) {
+        margin: 20px 10px 0 2em;
+      }
+    }
+  }
+
   .page-menu__content {
     overflow: hidden; /* help with responsive overflow of activity */
   }
 
   h1 {
     @extend %roboto, %ellipsis;
-    @include fluid-size('font-size', 23px, 40px);
+    @include fluid-size.fluid-size('font-size', 23px, 40px);
 
     &::before {
       margin-right: 0.2em;
       display: none;
 
-      @include breakpoint($mq-xx-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
         display: inline;
       }
 
-      @include breakpoint($mq-picture) {
+      @include breakpoint.breakpoint($mq-picture) {
         display: none;
       }
     }
   }
 
   .streamer-chat {
-    margin-right: $block-gap;
+    margin-right: variables.$block-gap;
     display: none;
 
-    @include breakpoint($mq-medium) {
+    @include breakpoint.breakpoint(media-queries.$mq-medium) {
       display: block;
     }
 
@@ -41,7 +55,7 @@ $mq-picture: $mq-large;
   .picture {
     display: none;
 
-    @include breakpoint($mq-picture) {
+    @include breakpoint.breakpoint($mq-picture) {
       display: block;
     }
   }
@@ -49,7 +63,7 @@ $mq-picture: $mq-large;
   .embed {
     @extend %embed;
 
-    margin-bottom: $block-gap;
+    margin-bottom: variables.$block-gap;
   }
 
   .nostream {
@@ -69,7 +83,7 @@ $mq-picture: $mq-large;
   .services {
     display: none;
 
-    @include breakpoint($mq-large) {
+    @include breakpoint.breakpoint(media-queries.$mq-large) {
       display: block;
     }
   }
@@ -86,8 +100,8 @@ $mq-picture: $mq-large;
     padding: 2em 50px 1em 58px;
     font-size: 1.6em;
     line-height: 0.9;
-    background: $m-brag_bg-box_mix_20;
-    color: $c-font;
+    background: theme.$m-brag_bg-box_mix_20;
+    color: theme.$c-font;
 
     span {
       margin-bottom: 1em;
@@ -100,7 +114,7 @@ $mq-picture: $mq-large;
   }
 
   .blocker {
-    margin: $block-gap $block-gap 0 0;
+    margin: variables.$block-gap variables.$block-gap 0 0;
     flex-flow: column;
     align-items: center;
     text-align: center;
@@ -108,7 +122,7 @@ $mq-picture: $mq-large;
     text-transform: none;
     display: none;
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       display: flex;
     }
 

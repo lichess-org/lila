@@ -1,13 +1,24 @@
-$mq-col1: $mq-not-medium;
-$mq-col2: $mq-medium;
-$mq-col3: $mq-x-large;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
+$mq-col1: media-queries.$mq-not-medium;
+$mq-col2: media-queries.$mq-medium;
+$mq-col3: media-queries.$mq-x-large;
 
 #main-wrap {
   --main-max-width: calc(
-    (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 9
+    (
+        100vh - #{variables.$site-header-outer-height} - #{uniboard.$col1-uniboard-controls} -
+          #{uniboard.$hands-gap}
+      ) /
+      12 * 9
   );
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint($mq-col2) {
     --main-max-width: auto;
   }
 }
@@ -21,7 +32,7 @@ $mq-col3: $mq-x-large;
     'button'
     'table'
     'side';
-  grid-row-gap: $block-gap;
+  grid-row-gap: variables.$block-gap;
   overflow: hidden; // coords cause mobile to have horiz scrolling
 
   &__side {
@@ -59,15 +70,17 @@ $mq-col3: $mq-x-large;
   &__timer {
     font-family: storm;
     font-size: 5em;
-    margin: $block-gap;
+    margin: variables.$block-gap;
   }
 
   .hurry {
-    color: $c-bad !important;
+    color: theme.$c-bad !important;
   }
 
-  @include breakpoint($mq-col2) {
-    grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
+  @include breakpoint.breakpoint($mq-col2) {
+    grid-template-columns:
+      var(--col2-uniboard-main-size)
+      variables.$block-gap uniboard.$col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board    . table'
@@ -76,18 +89,20 @@ $mq-col3: $mq-x-large;
       '.        . side';
   }
 
-  @include breakpoint($mq-col3) {
+  @include breakpoint.breakpoint($mq-col3) {
     grid-template-areas:
       'side . board    . table'
       'side . board    . button'
       '.    . progress . .';
     grid-template-rows: fit-content(0);
-    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
+    grid-template-columns:
+      uniboard.$col3-uniboard-side variables.$block-gap var(--col3-uniboard-main-size)
+      variables.$block-gap uniboard.$col3-uniboard-table;
   }
 
   .box {
     padding: 2vmin 0 1vmin 0;
-    margin-top: $block-gap;
+    margin-top: variables.$block-gap;
 
     h1,
     h2 {
@@ -109,7 +124,7 @@ $mq-col3: $mq-x-large;
   }
 
   form.color {
-    margin-top: $block-gap;
+    margin-top: variables.$block-gap;
 
     .color i {
       display: block;
@@ -169,12 +184,12 @@ $mq-col3: $mq-x-large;
 
     width: 100%;
     height: 10px;
-    background-color: $c-font-dim;
+    background-color: theme.$c-font-dim;
   }
 
   &.wrong .coord-trainer__score,
   &.wrong #next_coord0 {
-    color: $c-bad !important;
+    color: theme.$c-bad !important;
   }
 
   &.play .start,
@@ -202,7 +217,7 @@ $mq-col3: $mq-x-large;
   }
 
   &.init {
-    @include breakpoint($mq-col1) {
+    @include breakpoint.breakpoint($mq-col1) {
       .explanation {
         margin: 1em;
       }
@@ -216,7 +231,7 @@ $mq-col3: $mq-x-large;
     }
 
     form.color {
-      margin-bottom: $block-gap;
+      margin-bottom: variables.$block-gap;
     }
   }
 }

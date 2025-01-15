@@ -1,3 +1,10 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use '../local';
+
 $player-height: 1.6rem;
 
 .analyse.has-players {
@@ -5,13 +12,13 @@ $player-height: 1.6rem;
     border-radius: 0;
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     .analyse__underboard {
       margin-top: $player-height;
     }
   }
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     .analyse__board {
       margin: $player-height 0;
     }
@@ -28,9 +35,9 @@ $player-height: 1.6rem;
   height: $player-height;
   white-space: nowrap;
 
-  @include breakpoint($mq-col2) {
-    @include hand-width(left);
-    @include board-width(width);
+  @include breakpoint.breakpoint(local.$mq-col2) {
+    @include mixins.hand-width(left);
+    @include mixins.board-width(width);
   }
 
   &-top {
@@ -54,7 +61,7 @@ $player-height: 1.6rem;
     flex: 0 0 auto;
     margin-left: 0.8em;
     padding-right: 0.8em;
-    border-right: $border;
+    border-right: theme.$border;
   }
 
   .analyse__clock {
@@ -71,8 +78,8 @@ $player-height: 1.6rem;
   }
 
   &.ticking .analyse__clock {
-    background: $c-secondary;
-    color: $c-secondary-over;
+    background: theme.$c-secondary;
+    color: theme.$c-secondary-over;
     text-shadow: none;
   }
 
@@ -89,15 +96,15 @@ $player-height: 1.6rem;
     font-weight: normal;
   }
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     &-top,
     &-bot {
       background: none;
       box-shadow: none;
-      border-radius: $box-radius-size;
+      border-radius: variables.$box-radius-size;
 
       .analyse__clock {
-        border-radius: $box-radius-size;
+        border-radius: variables.$box-radius-size;
       }
     }
   }

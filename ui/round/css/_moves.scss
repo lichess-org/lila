@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'local';
+
 .rmoves {
   @extend %flex-column, %double-tap;
 
@@ -10,11 +15,11 @@
     align-items: center;
     display: flex;
     justify-content: stretch;
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
     font-size: 0.9em;
     order: 2;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       order: 0;
     }
   }
@@ -37,22 +42,17 @@
   .moves {
     @extend %zen;
   }
-  #{$move-tag} {
+  #{local.$move-tag} {
     @extend %move-notation;
   }
 
   .result-wrap {
     &.victorious {
-      color: $c-good;
+      color: theme.$c-good;
     }
 
     &.defeated {
-      color: $c-bad;
+      color: theme.$c-bad;
     }
   }
-
-  /* stylelint-disable-next-line no-invalid-position-at-import-rule */
-  @import 'moves-col1';
-  /* stylelint-disable-next-line no-invalid-position-at-import-rule */
-  @import 'moves-col2';
 }

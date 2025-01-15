@@ -1,3 +1,5 @@
+@use 'pkg:common/abstract/extends';
+
 .tourStanding {
   &:hover {
     overflow-y: auto !important;

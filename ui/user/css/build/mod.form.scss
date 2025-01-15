@@ -1,5 +1,4 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/form3';
-@import 'pkg:common/form/cmn-toggle';
-@import 'pkg:common/vendor/flatpickr';
-@import '../mod/misc';
+@use 'pkg:common/form/form3';
+@use 'pkg:common/form/cmn-toggle';
+@use 'pkg:common/vendor/flatpickr';
+@use '../mod/misc';

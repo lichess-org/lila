@@ -1,12 +1,16 @@
-$vp-min-width: 320px;
-$vp-max-width: 1200px;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/fluid-size';
+@use '../abstract/mixins';
+@use '../abstract/uniboard';
+@use '../theme/gen/theme';
 
 .box {
   @extend %box-shadow;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
 
-  @include fluid-size('--box-padding', 15px, 60px);
+  @include fluid-size.fluid-size('--box-padding', 15px, 60px);
 
   &-pad {
     @extend %box-padding;
@@ -65,8 +69,8 @@ $vp-max-width: 1200px;
   }
 }
 
-@include breakpoint($mq-main-margin) {
+@include breakpoint.breakpoint(uniboard.$mq-main-margin) {
   .box {
-    @include box-radius;
+    @include mixins.box-radius;
   }
 }

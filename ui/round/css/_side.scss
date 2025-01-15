@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'local';
+
 .round__side {
   @extend %flex-column, %zen;
 
@@ -14,5 +18,5 @@
   @extend %zen;
 
   flex: 1 1 0;
-  margin-top: $block-gap;
+  margin-top: variables.$block-gap;
 }

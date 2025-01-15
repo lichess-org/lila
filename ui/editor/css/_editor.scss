@@ -1,9 +1,9 @@
-@import 'layout';
-@import 'spare';
-@import 'actions';
-@import 'links';
-@import 'underboard';
-@import 'variant';
+@use 'layout';
+@use 'spare';
+@use 'actions';
+@use 'links';
+@use 'underboard';
+@use 'variant';
 
 .board-editor {
   user-select: none;

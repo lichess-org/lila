@@ -1,8 +1,13 @@
-%border-bottom-active {
-  border-bottom: $border;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
 
-  @include breakpoint($mq-col2-uniboard) {
-    border-bottom: 3px solid $c-secondary;
+%border-bottom-active {
+  border-bottom: theme.$border;
+
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
+    border-bottom: 3px solid theme.$c-secondary;
   }
 }
 
@@ -11,7 +16,7 @@
     @extend %box-neat-force, %flex-column;
 
     max-height: 100vh; /* magically fixes fit-content on safari 10 */
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
 
     .ceval {
       flex: 0 0 40px;
@@ -25,7 +30,7 @@
       .title {
         font-size: 0.9rem;
         line-height: 1.9em;
-        background: $m-secondary_bg-box_mix_40;
+        background: theme.$m-secondary_bg-box_mix_40;
         padding: 0 7px;
       }
     }
@@ -35,16 +40,16 @@
     flex: 2 1 0; // 0 size forces vertical scrollbar
     overflow-y: auto;
     overflow-x: hidden; // else a scrollbar appears sometimes
-    border-top: $border;
+    border-top: theme.$border;
     position: relative; /* required so line::before scrolls along the moves! */
     .result,
     .status {
-      border-top: $border;
+      border-top: theme.$border;
       text-align: center;
     }
 
     .result {
-      border-top: $border;
+      border-top: theme.$border;
       font-weight: bold;
       font-size: 1.2em;
       padding: 5px 0 3px 0;
@@ -58,7 +63,7 @@
   }
 
   &__controls {
-    height: $col3-uniboard-controls;
+    height: uniboard.$col3-uniboard-controls;
     align-items: stretch;
 
     div {

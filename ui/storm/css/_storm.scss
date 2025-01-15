@@ -1,17 +1,20 @@
-$mq-col2: $mq-col2-uniboard;
-
-@import 'play';
-@import 'end';
-@import 'high';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+@use 'local';
+@use 'play';
+@use 'end';
+@use 'high';
 
 .storm {
   &-play-scores {
     @extend %flex-between;
 
-    color: $c-font-page;
+    color: theme.$c-font-page;
     margin: 2vh 2vw;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       margin: 2vh 0.5rem;
     }
 
@@ -21,7 +24,7 @@ $mq-col2: $mq-col2-uniboard;
   }
 
   &-dashboard__high__periods {
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
       display: none;
     }
   }

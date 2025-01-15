@@ -1,20 +1,26 @@
-@import 'topnav-hidden';
-@import 'topnav-visible';
-@import 'title';
-@import 'buttons';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../abstract/variables';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+@use 'topnav-hidden';
+@use 'topnav-visible';
+@use 'title';
+@use 'buttons';
 
 #top {
-  height: $site-header-height;
+  height: variables.$site-header-height;
   display: flex;
   justify-content: space-between;
   position: relative;
-  z-index: z('site-header');
+  z-index: z.get('site-header');
   max-width: 1800px;
   margin: 0 auto;
 
   --dropdown-top: 40px;
 
-  @include breakpoint($mq-site-header-tall) {
+  @include breakpoint.breakpoint(media-queries.$mq-site-header-tall) {
     --dropdown-top: 60px;
   }
 }
@@ -27,7 +33,7 @@
 
     content: '';
     font-size: 1.3em;
-    color: $c-brag;
+    color: theme.$c-brag;
     margin: 0 0 0.08ch 0.3ch;
     transform: scaleX(-1);
   }

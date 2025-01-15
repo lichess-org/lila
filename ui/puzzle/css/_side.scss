@@ -1,13 +1,21 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .puzzle__side {
   display: grid;
-  grid-gap: $block-gap;
+  grid-gap: variables.$block-gap;
   grid-template-areas: 'user' 'theme' 'metas' 'config';
 
   .puzzle-replay & {
     grid-template-areas: 'replay' 'user' 'metas' 'config';
   }
 
-  @include breakpoint($mq-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
     grid-template-rows: min-content min-content min-content min-content;
@@ -17,8 +25,8 @@
     }
   }
 
-  @include breakpoint($mq-x-large) {
-    grid-template-columns: $col3-uniboard-side;
+  @include breakpoint.breakpoint(media-queries.$mq-x-large) {
+    grid-template-columns: uniboard.$col3-uniboard-side;
     grid-template-areas: 'metas' 'user' 'theme' 'config';
     grid-template-rows: min-content min-content min-content;
     justify-self: end;
@@ -32,7 +40,7 @@
     @extend %box-neat-force;
 
     grid-area: metas;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
 
     p {
       margin: 0;
@@ -41,7 +49,7 @@
     padding: 2vmin;
 
     .hidden {
-      color: $c-font-dimmer;
+      color: theme.$c-font-dimmer;
     }
 
     .infos {
@@ -58,7 +66,7 @@
 
       &.puzzle {
         padding-bottom: 1.2vh;
-        border-bottom: $border;
+        border-bottom: theme.$border;
         margin-bottom: 1.2vh;
       }
 
@@ -79,7 +87,7 @@
     @extend %box-neat;
 
     grid-area: user;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     padding: 2vmin;
 
     &__rating {
@@ -95,11 +103,11 @@
       margin-left: 1ch;
 
       &.up {
-        color: $c-good;
+        color: theme.$c-good;
       }
 
       &.down {
-        color: $c-bad;
+        color: theme.$c-bad;
       }
     }
   }
@@ -109,7 +117,7 @@
 
     grid-area: config;
     align-self: start;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     padding: 2vmin;
 
     &__jump {
@@ -141,7 +149,7 @@
     @extend %box-neat;
 
     grid-area: replay;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     padding: 2vmin;
 
     a {
@@ -159,7 +167,7 @@
       justify-content: center;
       padding: 0 1em;
       height: 2.5em;
-      background: $c-bg-zebra2;
+      background: theme.$c-bg-zebra2;
       font-weight: bold;
 
       &::before {
@@ -172,11 +180,11 @@
         bottom: 0;
         left: 0;
         width: var(--p);
-        background: $m-bg-page_primary_mix_40
+        background: theme.$m-bg-page_primary_mix_40
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
 
-        @include transition(width, 1s);
+        @include mixins.transition(width, 1s);
       }
 
       &::after {
@@ -190,7 +198,7 @@
     @extend %box-neat, %roboto;
 
     grid-area: theme;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     padding: 2vmin;
     font-size: 0.9em;
 
@@ -204,7 +212,7 @@
 
 .puzzle__themes {
   padding-top: 1.2vh;
-  border-top: $border;
+  border-top: theme.$border;
   margin-top: 1.2vh;
 
   &__list {
@@ -220,7 +228,7 @@
       }
 
       &:hover {
-        background: $m-link_bg-box_mix_10;
+        background: theme.$m-link_bg-box_mix_10;
       }
 
       &.strike a {
@@ -243,14 +251,14 @@
     justify-content: center;
     flex: 0 0 50%;
     cursor: pointer;
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
 
     .puzzle__themes:hover & {
-      color: $c-good;
+      color: theme.$c-good;
     }
 
     .puzzle__themes:hover &.vote-down {
-      color: $c-bad;
+      color: theme.$c-bad;
     }
 
     &::before {
@@ -266,13 +274,13 @@
 
     &:hover,
     &.active {
-      background: $c-good;
-      color: $c-good-over !important;
+      background: theme.$c-good;
+      color: theme.$c-good-over !important;
     }
 
     &.vote-down:hover,
     &.vote-down.active {
-      background: $c-bad;
+      background: theme.$c-bad;
     }
   }
 
@@ -281,7 +289,7 @@
 
     justify-content: center;
     flex: 0 0 100%;
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
     opacity: 0.5;
   }
 

@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/cmn-toggle';
-@import 'pkg:common/form/form3';
-@import '../importer';
+@use 'pkg:common/form/cmn-toggle';
+@use 'pkg:common/form/form3';
+@use '../importer';

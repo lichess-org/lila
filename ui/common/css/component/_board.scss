@@ -1,9 +1,13 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/uniboard';
+
 .main-board,
 .mini-board {
   @extend %square;
 
   align-self: center;
-  padding-bottom: calc(100% / 11 * 12 / 9 * 11 + #{$hands-gap}); // 100% / 11 * 12 / 9 * 11
+  padding-bottom: calc(100% / 11 * 12 / 9 * 11 + #{uniboard.$hands-gap}); // 100% / 11 * 12 / 9 * 11
   .sg-wrap {
     display: grid;
     grid-template-rows: 1fr 9fr 1fr;
@@ -11,7 +15,7 @@
       'sg-hand-top'
       'sg-board'
       'sg-hand-bottom';
-    gap: $hand-gap;
+    gap: uniboard.$hand-gap;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -24,7 +28,7 @@
 
   &.v-minishogi,
   &.v-kyotoshogi {
-    padding-bottom: calc(100% / 11 * 12 / 5 * 7 + #{$hands-gap});
+    padding-bottom: calc(100% / 11 * 12 / 5 * 7 + #{uniboard.$hands-gap});
 
     .sg-wrap {
       grid-template-rows: 1fr 5fr 1fr;
@@ -42,8 +46,8 @@
 }
 
 .main-board {
-  @include breakpoint($mq-col2-uniboard) {
-    padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
+    padding-bottom: calc((100% - #{uniboard.$hands-gap}) / 11 * 9 / 11 * 12);
 
     .sg-wrap {
       width: 100%;
@@ -56,7 +60,7 @@
 
     &.v-minishogi,
     &.v-kyotoshogi {
-      padding-bottom: calc((100% - #{$hands-gap}) / 7 * 5 / 11 * 12);
+      padding-bottom: calc((100% - #{uniboard.$hands-gap}) / 7 * 5 / 11 * 12);
 
       .sg-wrap {
         grid-template-columns: 1fr 5fr 1fr;

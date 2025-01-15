@@ -1,0 +1,39 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
+$mq-col2: media-queries.$mq-xx-small;
+$mq-col3:
+  media-queries.$mq-small media-queries.$mq-landscape,
+  media-queries.$mq-width-large;
+$mq-col4: media-queries.$mq-x-large media-queries.$mq-landscape;
+$mq-not-col3: media-queries.$mq-not-small;
+
+%lobby-side-more {
+  @extend %roboto;
+
+  font-size: 0.9em;
+  margin: 0.5em 1em 0.5em 0;
+  display: block;
+  text-align: right;
+  color: theme.$c-font-dim;
+
+  &:hover {
+    color: theme.$c-link;
+  }
+}
+
+@mixin lobby-app-size {
+  min-height: 300px;
+
+  @include breakpoint.breakpoint($mq-col2) {
+    min-height: 400px;
+  }
+
+  @include breakpoint.breakpoint($mq-col3) {
+    height: 626px;
+    max-height: calc(100vh - #{variables.$site-header-outer-height} - #{variables.$block-gap});
+  }
+}

@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 $team-colors: (
   0: hsl(274deg, 100%, 59%),
   1: hsl(240deg, 100%, 67%),
@@ -15,7 +19,7 @@ team {
   padding: 1px 5px;
   font-size: 0.8em;
   font-weight: bold;
-  color: $c-brag;
+  color: theme.$c-brag;
 }
 
 @each $index, $color in $team-colors {
@@ -40,11 +44,11 @@ team {
 .tour__team-standing {
   tbody tr {
     &:nth-child(odd) {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     &:nth-child(even) {
-      background: $c-bg-box;
+      background: theme.$c-bg-box;
     }
   }
 
@@ -52,7 +56,7 @@ team {
     cursor: pointer;
 
     &:hover {
-      color: $c-link;
+      color: theme.$c-link;
     }
 
     team {
@@ -65,7 +69,7 @@ team {
   .players {
     @extend %break-word;
 
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
   }
 
   score {
@@ -74,7 +78,7 @@ team {
     cursor: pointer;
 
     &:hover {
-      color: $c-brag;
+      color: theme.$c-brag;
     }
 
     &.top {
@@ -87,11 +91,11 @@ team {
   .total {
     text-align: right;
     font-weight: bold;
-    padding-right: $block-gap;
+    padding-right: variables.$block-gap;
   }
 
   tr.active td:last-child {
-    $c-active-border: $m-primary_bg-box_mix_70;
+    $c-active-border: theme.$m-primary_bg-box_mix_70;
 
     background: linear-gradient(
       to left,
@@ -103,7 +107,7 @@ team {
   }
 
   .tour__main & tr:hover {
-    background: $m-primary_bg-box_mix_30 !important;
+    background: theme.$m-primary_bg-box_mix_30 !important;
   }
 
   td {
@@ -125,7 +129,7 @@ team {
       padding: 2rem 1rem;
 
       &.team {
-        color: $c-brag;
+        color: theme.$c-brag;
         font-weight: bold;
       }
     }

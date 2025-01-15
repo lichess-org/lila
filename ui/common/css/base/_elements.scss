@@ -1,3 +1,5 @@
+@use "../theme/gen/theme";
+
 html {
   box-sizing: border-box;
   min-height: 100%;
@@ -12,15 +14,15 @@ html {
 }
 
 body {
-  background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 100px) no-repeat;
-  color: $c-font;
+  background: theme.$c-bg-page linear-gradient(to bottom, theme.$c-body-gradient, theme.$c-bg-page 100px) no-repeat;
+  color: theme.$c-font;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
 body::-webkit-scrollbar,
 body::-webkit-scrollbar-corner {
-  background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 100px) no-repeat;
+  background: theme.$c-bg-page linear-gradient(to bottom, theme.$c-body-gradient, theme.$c-bg-page 100px) no-repeat;
   max-width: 0.8rem;
 }
 
@@ -29,22 +31,22 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: $c-font-dimmer;
+  background: theme.$c-font-dimmer;
 }
 
 body::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:active {
-  background: $c-font-dim;
+  background: theme.$c-font-dim;
 }
 
 a {
-  color: $c-link;
+  color: theme.$c-link;
   text-decoration: none;
 
   &:hover,
   &:active,
   &:focus {
-    color: $c-link-hover;
+    color: theme.$c-link-hover;
   }
 }
 
@@ -70,7 +72,7 @@ hr {
   margin: 1.5rem 0;
   border: 0;
   height: 1px;
-  background: $c-border;
+  background: theme.$c-border;
 }
 
 small {

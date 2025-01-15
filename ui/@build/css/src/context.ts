@@ -54,7 +54,7 @@ export function sassContext(): Context {
       await innerInit();
 
       const unusedFiles = findUnusedFiles();
-      if (unusedFiles) console.warn(`Unused files:\n'${unusedFiles.join('\n')}\n`);
+      if (unusedFiles.length) console.warn(`Unused files:\n'${unusedFiles.join('\n')}\n`);
 
       themeDir = packages.find(p => p.name === 'common')?.path;
       await buildVars();
@@ -80,7 +80,6 @@ export function sassContext(): Context {
 
       sassOptions.loadPaths = loadPaths.map(p => path.join(rootPath, p));
       sassOptions.importers = [new sass.NodePackageImporter()];
-      console.log('loadPaths:', sassOptions.loadPaths);
 
       if (!isProd) sassOptions.sourceMap = true;
     },
@@ -172,7 +171,31 @@ export function sassContext(): Context {
   }
 
   function initGraph(): void {
-    graph = SassGraph.parseDir(`${rootPath}/ui/`, { extensions: ['scss'] })!;
+    graph = SassGraph.parseDir(`${rootPath}/ui/`, {
+      extensions: ['scss'],
+      resolver: importPath => {
+        const match = importPath.match(/^pkg:([^/]+)\/(.+)$/);
+        if (match) {
+          const packageName = match[1];
+          let restOfPath = match[2];
+          const basePath = path.join(rootPath, 'ui', packageName, 'css');
+
+          if (restOfPath === 'theme') restOfPath = 'theme/gen/theme';
+
+          const firstPath = path.join(
+            basePath,
+            path.dirname(restOfPath),
+            `_${path.basename(restOfPath)}.scss`,
+          );
+          if (fs.existsSync(firstPath)) return firstPath;
+
+          const fallbackPath = path.join(basePath, `${restOfPath}.scss`);
+          if (fs.existsSync(fallbackPath)) return fallbackPath;
+        }
+
+        return false;
+      },
+    })!;
   }
 
   function updateGraph(path: string): void {

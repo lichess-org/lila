@@ -1,4 +1,5 @@
-@import 'side';
+@use 'pkg:common/abstract/extends';
+@use 'side';
 
 .tv-games {
   .page-menu__content {

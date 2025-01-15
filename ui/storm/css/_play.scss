@@ -1,13 +1,21 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .storm {
   &--play {
     display: grid;
-    grid-row-gap: $block-gap;
-    grid-column-gap: $block-gap;
+    grid-row-gap: variables.$block-gap;
+    grid-column-gap: variables.$block-gap;
     grid-template-areas: 'board' 'side';
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       grid-template-rows: min-content 1fr min-content;
-      grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
+      grid-template-columns:
+        var(--col2-uniboard-main-size)
+        variables.$block-gap uniboard.$col2-uniboard-table;
       grid-template-areas: 'board . side';
       grid-column-gap: 0;
     }
@@ -16,10 +24,10 @@
 
 .puz-clock__time {
   .puz-mod-bonus-slow & {
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   .puz-mod-malus-slow & {
-    color: $c-bad;
+    color: theme.$c-bad;
   }
 }

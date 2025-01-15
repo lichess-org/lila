@@ -1,12 +1,15 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .tour__notice {
   color: #fff;
-  background: $c-good;
+  background: theme.$c-good;
   text-align: center;
   padding: 0.5em 0;
   opacity: 0.8;
 
   &.closed {
-    background: $c-primary;
+    background: theme.$c-primary;
   }
 }
 

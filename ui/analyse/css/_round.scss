@@ -1,6 +1,6 @@
 /* analyse a game replay */
-@import 'base';
-@import 'retro';
-@import 'acpl';
-@import 'round-underboard';
-@import 'player-clock';
+@use 'base';
+@use 'retro';
+@use 'acpl';
+@use 'round-underboard';
+@use 'player-clock';

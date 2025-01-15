@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .lobby__spotlights {
   flex: 0 0 auto;
 }
@@ -9,12 +13,12 @@
   padding: 0.3em;
   margin: 3px 0;
 
-  @include transition;
+  @include mixins.transition;
 
-  color: $c-font-dim;
+  color: theme.$c-font-dim;
 
   &:hover {
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   .img {
@@ -58,7 +62,7 @@
   &.Yearly,
   &.Unique {
     .img {
-      color: $c-brag;
+      color: theme.$c-brag;
     }
   }
 

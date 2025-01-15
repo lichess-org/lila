@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .appeal {
   &__help {
     margin-bottom: 2em;
@@ -8,7 +11,7 @@
 
     padding: 1em 1.5em;
     margin-bottom: 2em;
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
 
     &::before {
       @extend %data-icon;
@@ -30,18 +33,18 @@
     }
 
     &--mod {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     &--suspect {
-      border-right: 10px solid $c-bg-zebra;
+      border-right: 10px solid theme.$c-bg-zebra;
     }
   }
 
   &__actions {
     display: flex;
     padding-top: 2em;
-    border-top: $border;
+    border-top: theme.$border;
     margin-top: 2em;
 
     .button {

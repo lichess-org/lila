@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .simul {
   .halves {
     @extend %flex-center-nowrap;
@@ -10,7 +13,7 @@
     margin-bottom: 20px;
 
     &:first-child {
-      border-right: $border;
+      border-right: theme.$border;
     }
 
     .variant::before {
@@ -27,11 +30,11 @@
     }
 
     &.candidates tr.me {
-      border-left: 10px solid $c-brag;
+      border-left: 10px solid theme.$c-brag;
     }
 
     &.accepted tr.me {
-      border-right: 10px solid $c-brag;
+      border-right: 10px solid theme.$c-brag;
     }
   }
 

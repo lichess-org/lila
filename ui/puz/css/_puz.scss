@@ -1,16 +1,24 @@
-@import 'font';
-@import 'side';
-@import 'combo';
-@import 'clock';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'local';
+@use 'font';
+@use 'side';
+@use 'combo';
+@use 'clock';
 
 #main-wrap {
   --main-max-width: calc(
-    (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 9
+    (
+        100vh - #{variables.$site-header-outer-height} - #{uniboard.$col1-uniboard-controls} -
+          #{uniboard.$hands-gap}
+      ) /
+      12 * 9
   );
 
   user-select: none;
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     --main-max-width: auto;
   }
 }

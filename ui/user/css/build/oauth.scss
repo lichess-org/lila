@@ -1,3 +1,2 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/form3';
-@import '../oauth';
+@use 'pkg:common/form/form3';
+@use '../oauth';

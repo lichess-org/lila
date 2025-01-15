@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 $section-margin: 3vh;
 $section-margin-more: 5vh;
 
@@ -25,7 +30,7 @@ $section-margin-more: 5vh;
       &__content,
       &__say,
       &__tab-active {
-        background: $c-bg-page !important;
+        background: theme.$c-bg-page !important;
       }
     }
   }
@@ -38,7 +43,7 @@ $section-margin-more: 5vh;
   &__content {
     margin: 0 var(--box-padding);
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       display: flex;
 
       &__col1 {
@@ -53,7 +58,7 @@ $section-margin-more: 5vh;
   }
 
   &__meta {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     margin-bottom: $section-margin;
   }
 
@@ -73,7 +78,7 @@ $section-margin-more: 5vh;
       }
 
       em {
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
         text-transform: none;
         white-space: normal;
       }
@@ -84,7 +89,7 @@ $section-margin-more: 5vh;
     @extend %box-neat;
 
     padding: 1.5em 2.5em;
-    background: $c-bg-low;
+    background: theme.$c-bg-low;
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
   }
@@ -96,7 +101,7 @@ $section-margin-more: 5vh;
       font-size: 1em;
     }
 
-    @include breakpoint($mq-not-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-small) {
       display: none;
     }
   }
@@ -133,19 +138,19 @@ $section-margin-more: 5vh;
 
     &__post {
       display: block;
-      color: $c-font;
+      color: theme.$c-font;
       padding: 1em 2.5em;
       overflow: hidden;
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
       }
 
       &:hover {
-        background: $m-link_bg-box_mix_10;
+        background: theme.$m-link_bg-box_mix_10;
 
         span {
-          color: $c-font;
+          color: theme.$c-font;
         }
       }
 
@@ -162,7 +167,7 @@ $section-margin-more: 5vh;
     }
 
     p {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
     }
 
     a.more {

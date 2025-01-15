@@ -1,4 +1,9 @@
-$c-challenge: $c-secondary;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
+@use 'pkg:common/abstract/extends';
+
+$c-challenge: theme.$c-secondary;
 
 .challenge-page {
   .challenge-id-form {
@@ -19,7 +24,7 @@ $c-challenge: $c-secondary;
       @extend %box-radius;
 
       padding: 2em 2em 1em 2em;
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
       margin: 1em;
       flex: 1 1 auto;
     }
@@ -48,13 +53,13 @@ $c-challenge: $c-secondary;
     @extend %flex-between;
 
     border-radius: 99px;
-    background: $m-secondary_bg-box_mix_10;
+    background: theme.$m-secondary_bg-box_mix_10;
     border: 1px solid $c-challenge;
     padding: 0.5em 1.1em;
     margin-bottom: 3rem;
     font-size: 2em;
 
-    @include breakpoint($mq-col1-uniboard) {
+    @include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
       flex-direction: column;
       gap: 1rem;
     }

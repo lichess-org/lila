@@ -1,25 +1,23 @@
-$mq-col1: $mq-col1-uniboard;
-$mq-col2: $mq-small;
-$mq-col3: $mq-col3-uniboard;
-
-@import 'layout';
-@import 'side';
-@import 'featured';
-@import 'app-header';
-@import 'app-notice';
-@import 'app-control';
-@import 'app-standing';
-@import 'podium';
-@import 'stats';
-@import 'duel';
-@import 'actor-info';
-@import 'player-info';
-@import 'team-info';
-@import 'arrangement';
-@import 'arrangement-thumbnail';
-@import 'robin';
-@import 'organized';
-@import 'player-manage';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'layout';
+@use 'side';
+@use 'featured';
+@use 'app-header';
+@use 'app-notice';
+@use 'app-control';
+@use 'app-standing';
+@use 'podium';
+@use 'stats';
+@use 'duel';
+@use 'actor-info';
+@use 'player-info';
+@use 'team-info';
+@use 'arrangement';
+@use 'arrangement-thumbnail';
+@use 'robin';
+@use 'organized';
+@use 'player-manage';
+@use 'local';
 
 .tour {
   .pull-quote {
@@ -36,7 +34,7 @@ $mq-col3: $mq-col3-uniboard;
   padding: 4em var(--box-padding);
   display: none;
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     display: block;
   }
 

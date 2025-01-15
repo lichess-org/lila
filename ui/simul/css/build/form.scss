@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/form3';
-@import 'pkg:common/vendor/flatpickr';
-@import '../form';
+@use 'pkg:common/form/form3';
+@use 'pkg:common/vendor/flatpickr';
+@use '../form';

@@ -1,11 +1,14 @@
-@import 'app';
-@import 'side';
-@import 'icons';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'app';
+@use 'side';
+@use 'icons';
 
 .page-menu__menu {
-  margin: 0 0 #{2 * $block-gap} 0;
+  margin: 0 0 #{2 * variables.$block-gap} 0;
 
-  @include breakpoint($mq-subnav-side) {
-    margin: 0 #{2 * $block-gap} 0 0;
+  @include breakpoint.breakpoint(media-queries.$mq-subnav-side) {
+    margin: 0 #{2 * variables.$block-gap} 0 0;
   }
 }

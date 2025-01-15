@@ -1,3 +1,10 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .rcontrols {
   text-align: center;
   width: 100%;
@@ -23,7 +30,7 @@
   .pending,
   .negotiation {
     padding: 0.5em 3%;
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
   }
 
   .suggestion {
@@ -65,7 +72,7 @@
       }
 
       .good {
-        color: $c-good;
+        color: theme.$c-good;
         font-weight: bold;
       }
     }
@@ -91,13 +98,13 @@
 
   @keyframes flash-once {
     from {
-      background: $c-accent;
-      color: $c-accent-over;
+      background: theme.$c-accent;
+      color: theme.$c-accent-over;
     }
 
     to {
-      background: $c-bg-zebra;
-      color: $c-font;
+      background: theme.$c-bg-zebra;
+      color: theme.$c-font;
     }
   }
 
@@ -116,28 +123,28 @@
       flex: 1 0 3rem;
       font-size: 1.5em;
       line-height: 3em;
-      background: $c-bg-box;
+      background: theme.$c-bg-box;
     }
 
     .accept {
-      color: $c-good;
+      color: theme.$c-good;
       margin-right: 1px;
     }
 
     .decline {
-      color: $c-bad;
+      color: theme.$c-bad;
     }
 
     a:hover {
       color: #fff;
-      background: $c-good;
+      background: theme.$c-good;
     }
 
     a.decline:hover {
-      background: $c-bad;
+      background: theme.$c-bad;
     }
 
-    @include breakpoint($mq-col1) {
+    @include breakpoint.breakpoint(local.$mq-col1) {
       a {
         line-height: 1.6em;
         flex: 0 0 2.5rem;
@@ -186,7 +193,7 @@
       width: 45px;
       height: 55px;
 
-      @include breakpoint($mq-col1) {
+      @include breakpoint.breakpoint(local.$mq-col1) {
         width: 36px;
         height: 44px;
       }
@@ -196,15 +203,15 @@
       }
     }
 
-    @include breakpoint($mq-col1) {
-      margin-top: $block-gap;
+    @include breakpoint.breakpoint(local.$mq-col1) {
+      margin-top: variables.$block-gap;
     }
   }
 
   .analysis {
     display: none;
 
-    @include breakpoint($mq-col1) {
+    @include breakpoint.breakpoint(local.$mq-col1) {
       &:not(.disabled) {
         display: block;
         margin-left: 2em;
@@ -230,11 +237,11 @@
       font-size: 1.2em;
       height: 5.5rem;
 
-      @include transition;
+      @include mixins.transition;
     }
 
     &.me {
-      background: $m-primary_bg-box_mix_80;
+      background: theme.$m-primary_bg-box_mix_80;
     }
 
     @keyframes rubber-band {
@@ -269,7 +276,7 @@
 
     &.fbt:not(.disabled):hover,
     &.fbt.active {
-      background: $m-link_bg-box_mix_70;
+      background: theme.$m-link_bg-box_mix_70;
       color: #fff;
       animation: none;
     }
@@ -309,7 +316,7 @@
   .glowing {
     position: relative;
     animation: none;
-    color: $c-font-clear;
+    color: theme.$c-font-clear;
 
     &::before {
       content: '';
@@ -320,7 +327,7 @@
       bottom: 0;
       margin-right: unset;
       pointer-events: none;
-      background: $c-primary;
+      background: theme.$c-primary;
       opacity: 0;
       animation: button-glowing 2s ease-in-out infinite;
     }
@@ -347,19 +354,19 @@
     margin-top: 1px;
     border: 0;
     opacity: 0.7;
-    background: $m-bad_bg-box_mix_50;
+    background: theme.$m-bad_bg-box_mix_50;
 
-    @include transition;
+    @include mixins.transition;
 
     display: none;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       display: block;
     }
 
     &:hover {
-      background: $c-bad;
-      color: $c-bad-over;
+      background: theme.$c-bad;
+      color: theme.$c-bad-over;
     }
   }
 
@@ -383,7 +390,7 @@
 
       &:hover ~ .new-study-button {
         color: #fff;
-        background: $m-secondary_bg-box_mix_75;
+        background: theme.$m-secondary_bg-box_mix_75;
 
         &::after {
           content: '';
@@ -399,7 +406,7 @@
 
       &.glowing {
         &::before {
-          background: $c-secondary;
+          background: theme.$c-secondary;
         }
       }
     }
@@ -412,7 +419,7 @@
       right: 0;
       height: calc(100% - 1px);
       font-size: 1.5rem;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       padding: 0 0.75rem;
 
       &:hover {

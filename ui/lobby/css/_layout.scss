@@ -1,25 +1,8 @@
 @use 'sass:math';
-
-$mq-col2: $mq-xx-small;
-$mq-col3:
-  $mq-small $mq-landscape,
-  $mq-width-large;
-$mq-col4: $mq-x-large $mq-landscape;
-
-$mq-not-col3: $mq-not-small;
-
-@mixin lobby-app-size {
-  min-height: 300px;
-
-  @include breakpoint($mq-col2) {
-    min-height: 400px;
-  }
-
-  @include breakpoint($mq-col3) {
-    height: 626px;
-    max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
-  }
-}
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'local';
 
 .lobby {
   grid-area: main;
@@ -39,13 +22,13 @@ $mq-not-col3: $mq-not-small;
     'forum'
     'about'
     '.';
-  grid-gap: $block-gap;
+  grid-gap: variables.$block-gap;
 
   &__counters {
-    margin-top: $block-gap;
+    margin-top: variables.$block-gap;
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(3, fit-content(0));
     grid-template-areas:
@@ -62,7 +45,7 @@ $mq-not-col3: $mq-not-small;
       'about  about';
   }
 
-  @include breakpoint($mq-col3) {
+  @include breakpoint.breakpoint(local.$mq-col3) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 12em repeat(5, fit-content(0)) min-content 1fr;
     grid-template-areas:
@@ -82,7 +65,7 @@ $mq-not-col3: $mq-not-small;
     }
 
     &__counters {
-      margin: math.div($block-gap, 3) 0 math.div($block-gap, -3) 0;
+      margin: math.div(variables.$block-gap, 3) 0 math.div(variables.$block-gap, -3) 0;
     }
 
     .timeline {
@@ -90,7 +73,7 @@ $mq-not-col3: $mq-not-small;
     }
   }
 
-  @include breakpoint($mq-col4) {
+  @include breakpoint.breakpoint(local.$mq-col4) {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows:
       fit-content(0)

@@ -14,7 +14,7 @@
     "fast-glob": "^3.3.3",
     "postcss": "^8.5.1",
     "sass-embedded": "^1.83.4",
-    "sass-graph-ts": "^5.0.0",
+    "sass-graph-ts": "^5.1.0",
     "tsx": "catalog:"
   },
   "scripts": {

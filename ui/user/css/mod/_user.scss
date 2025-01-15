@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/z-index' as z;
+@use 'pkg:common/theme';
+
 /* stylelint-disable no-duplicate-selectors */
 .mod-zone {
   @extend %flex-wrap;
@@ -62,13 +66,13 @@
 
   position: fixed;
   bottom: 0;
-  background: $c-brag;
-  z-index: z('mz-menu');
+  background: theme.$c-brag;
+  z-index: z.get('mz-menu');
   padding: 0;
 
   a {
     padding: 1.2em 1.2em;
-    color: $c-brag-over;
+    color: theme.$c-brag-over;
     font-size: 1.1em;
     font-weight: bold;
     opacity: 0.5;
@@ -78,7 +82,7 @@
     }
 
     &:not(.disabled):hover {
-      background: $m-white_brag_mix_20;
+      background: theme.$m-white_brag_mix_20;
     }
 
     i {
@@ -128,7 +132,7 @@
 }
 
 .mod-zone .slist {
-  border: $border;
+  border: theme.$border;
   border-top: none;
   font-size: 0.9em;
   margin-bottom: 1em;
@@ -166,7 +170,7 @@
       margin: 0;
     }
 
-    border: $border;
+    border: theme.$border;
   }
 
   .slist {
@@ -199,16 +203,16 @@
     .blocked {
       a,
       .button {
-        color: $c-bad;
+        color: theme.$c-bad;
       }
     }
 
     .button {
       padding: 0.4em 1em;
-      color: $c-good;
+      color: theme.$c-good;
 
       &-discouraging {
-        color: $c-font-dimmer;
+        color: theme.$c-font-dimmer;
       }
     }
 
@@ -218,7 +222,7 @@
 
     &.spy_filter {
       tbody tr:hover {
-        background: $m-brag_bg-box_mix_20;
+        background: theme.$m-brag_bg-box_mix_20;
       }
     }
   }
@@ -242,7 +246,7 @@
 }
 
 .mod-zone .proxy {
-  color: $c-brag;
+  color: theme.$c-brag;
   font-weight: bold;
 }
 
@@ -292,7 +296,7 @@
   cursor: pointer;
 
   &:hover {
-    color: $c-link;
+    color: theme.$c-link;
   }
 }
 
@@ -376,11 +380,11 @@
   }
 
   .sig_5 {
-    color: $c-bad;
+    color: theme.$c-bad;
   }
 
   .result_4 {
-    color: $c-bad;
+    color: theme.$c-bad;
   }
 
   .result_3 {
@@ -397,7 +401,7 @@
 
   .match {
     font-weight: bold;
-    color: $c-good;
+    color: theme.$c-good;
   }
 }
 

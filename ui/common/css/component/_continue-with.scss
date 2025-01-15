@@ -1,3 +1,5 @@
+@use '../abstract/extends';
+
 .continue-with {
   @extend %flex-column;
 

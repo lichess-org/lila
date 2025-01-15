@@ -1,9 +1,2 @@
-@import 'pkg:common/plugin';
-
-$c-dasher: $c-secondary;
-$c-dasher-over: $c-secondary-over;
-$c-dasher-light: $m-secondary_bg-header-dropdown_mix_15;
-$c-slider: $c-dasher;
-
-@import 'pkg:common/form/cmn-toggle';
-@import '../dasher';
+@use 'pkg:common/form/cmn-toggle';
+@use '../dasher';

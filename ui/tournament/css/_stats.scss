@@ -1,7 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .tour__stats {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   padding: 1.7em 0;
   align-self: flex-start;
 

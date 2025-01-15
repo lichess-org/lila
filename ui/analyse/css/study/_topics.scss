@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .study-topics {
   h2 {
     margin: 1em 0;
@@ -12,12 +15,12 @@
   a {
     @extend %box-radius;
 
-    background: $m-primary_bg-box_mix_12;
+    background: theme.$m-primary_bg-box_mix_12;
     padding: 0.2em 0.6em;
     margin: 0.2em;
 
     &:hover {
-      background: $m-primary_bg-box_mix_15;
+      background: theme.$m-primary_bg-box_mix_15;
     }
 
     white-space: nowrap;

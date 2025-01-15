@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .learn__side-map {
   user-select: none;
 
@@ -14,7 +18,7 @@
 
   .back {
     display: flex;
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   .back .stage-img {
@@ -31,15 +35,15 @@
   }
 
   .categ > h2 {
-    border-top: $border;
+    border-top: theme.$border;
   }
 
   .categ > h2:hover {
-    background-color: $m-primary_alpha_neg80;
+    background-color: theme.$m-primary_alpha_neg80;
   }
 
   .categ.active {
-    border: $border;
+    border: theme.$border;
     border-width: 0 1px;
   }
 
@@ -49,8 +53,8 @@
 
   .categ.active > h2 {
     cursor: default;
-    background-color: $c-primary;
-    color: $c-primary-over;
+    background-color: theme.$c-primary;
+    color: theme.$c-primary-over;
   }
 
   .categ:not(.active) .categ_stages {
@@ -59,11 +63,11 @@
 
   .stage {
     @extend %roboto, %flex-center;
-    @include transition;
+    @include mixins.transition;
 
     font-size: 1.1em;
     opacity: 0.9;
-    color: $c-font;
+    color: theme.$c-font;
 
     .stage-img {
       width: 50px;
@@ -73,34 +77,34 @@
       padding: 10px;
       filter: brightness(0.9);
 
-      @include theme-wrap('light') {
+      @include mixins.theme-wrap('light') {
         filter: brightness(0.2);
       }
     }
 
     &.active {
-      background-color: $m-primary_alpha_neg80;
-      border-left: 2px solid $c-primary;
+      background-color: theme.$m-primary_alpha_neg80;
+      border-left: 2px solid theme.$c-primary;
     }
 
     &.done {
-      border-left: 2px solid $c-good;
+      border-left: 2px solid theme.$c-good;
 
       &:hover {
-        background-color: $m-good_alpha_neg80;
+        background-color: theme.$m-good_alpha_neg80;
       }
     }
 
     &.future {
-      border-left: 2px solid $c-primary;
+      border-left: 2px solid theme.$c-primary;
 
       &:hover {
-        background-color: $m-primary_alpha_neg80;
+        background-color: theme.$m-primary_alpha_neg80;
       }
     }
 
     &:hover {
-      color: $c-font-clearer;
+      color: theme.$c-font-clearer;
     }
   }
 }

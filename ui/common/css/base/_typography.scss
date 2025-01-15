@@ -1,3 +1,7 @@
+@use '../abstract/extends';
+@use '../abstract/fluid-size' as *;
+@use '../theme/gen/theme';
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,10 +26,10 @@ h1 {
   @include fluid-size('font-size', 20px, 40px);
 
   a {
-    color: $c-link-dim;
+    color: theme.$c-link-dim;
 
     &:hover {
-      color: $c-link;
+      color: theme.$c-link;
     }
   }
 }

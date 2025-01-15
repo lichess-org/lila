@@ -1,10 +1,14 @@
-@import 'sub-rating';
-@import 'header';
-@import 'trophy';
-@import 'profile';
-@import 'note-zone';
-@import 'activity';
-@import 'games';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
+@use 'sub-rating';
+@use 'header';
+@use 'trophy';
+@use 'profile';
+@use 'note-zone';
+@use 'activity';
+@use 'games';
 
 .page-menu {
   /* for the trophies. This glorious hack bypasses the .user-show overflow: hidden */
@@ -21,7 +25,7 @@
   &__social {
     @extend %flex-between;
 
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
 
     .number-menu {
       margin: 0 0 0.2em 1em;
@@ -38,14 +42,14 @@
     .relation-actions {
       @extend %flex-center-nowrap;
 
-      border-right: $border;
+      border-right: theme.$border;
     }
   }
 
   .claim-title {
     @extend %box-padding;
 
-    border-top: $border;
+    border-top: theme.$border;
 
     h2 {
       font-size: 1.5em;
@@ -67,7 +71,7 @@
   .new-player {
     padding: 1.5em 3.5em;
     overflow-y: scroll;
-    border-right: $border;
+    border-right: theme.$border;
 
     h2 {
       font-size: 1.5em;
@@ -86,17 +90,17 @@
       border-left: none !important;
     }
 
-    @include breakpoint($mq-col1-uniboard) {
+    @include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
       width: 100%;
       padding: 0.8em;
       border-right: none;
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
   }
 
   .number-menu .to-games.active,
   #games.number-menu {
-    background: $c-bg-low !important;
+    background: theme.$c-bg-low !important;
   }
 
   .angles {
@@ -104,7 +108,7 @@
 
     font-size: 1.2em;
     height: 4rem;
-    border-top: $border;
+    border-top: theme.$border;
 
     .nm-item {
       @extend %flex-center;

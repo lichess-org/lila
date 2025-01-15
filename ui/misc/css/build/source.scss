@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/slist';
-@import '../page';
-@import '../source';
+@use 'pkg:common/component/slist';
+@use '../page';
+@use '../source';

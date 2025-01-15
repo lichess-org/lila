@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 #modal-overlay {
   .study-option {
     display: flex;
@@ -7,7 +9,7 @@
     &:first-child {
       margin-bottom: 0.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
 
     .study-title {
@@ -20,7 +22,7 @@
 
     .desc {
       max-width: 25vw;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       font-size: 0.8rem;
       margin: 0.5rem auto 0.3rem auto;
     }

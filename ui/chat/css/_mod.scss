@@ -1,10 +1,14 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .mchat-mod {
   .top {
     @extend %flex-center;
 
     justify-content: space-between;
     flex: 0 0 auto;
-    background: $c-accent;
+    background: theme.$c-accent;
     color: #fff;
     padding: 0.4em 10px;
     line-height: 1.4em;
@@ -15,7 +19,7 @@
   }
 
   .moderation {
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     overflow: auto;
 
     .block {
@@ -54,11 +58,11 @@
     .timeout a {
       @extend %nowrap-ellipsis;
 
-      color: $c-accent;
+      color: theme.$c-accent;
       display: block;
       line-height: 1.5em;
 
-      @include transition;
+      @include mixins.transition;
 
       margin-left: -10px;
     }

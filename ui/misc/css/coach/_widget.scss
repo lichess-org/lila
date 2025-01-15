@@ -1,11 +1,17 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'local';
+
 .coach-widget {
   position: relative;
   display: flex;
   padding-bottom: 1rem;
 
-  @include transition;
+  @include mixins.transition;
 
-  @include breakpoint($mq-picture) {
+  @include breakpoint.breakpoint(local.$mq-picture) {
     height: 300px;
   }
 
@@ -16,7 +22,7 @@
   .picture {
     display: none;
 
-    @include breakpoint($mq-picture) {
+    @include breakpoint.breakpoint(local.$mq-picture) {
       display: block;
     }
   }
@@ -54,13 +60,13 @@
     line-height: 1.7;
 
     th {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       padding-right: 1.2em;
       text-align: right;
     }
 
     .seen {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
 
       time {
         font-size: inherit;
@@ -73,7 +79,7 @@
 
       a {
         display: flex;
-        color: $c-font;
+        color: theme.$c-font;
 
         span {
           margin-left: 0.5em;

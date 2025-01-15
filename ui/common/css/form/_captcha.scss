@@ -1,17 +1,22 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../theme/gen/theme';
+
 .form3 .captcha {
   @extend %flex-wrap;
 
   margin: 1em 0 0 -1em;
 
-  @include breakpoint($mq-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
     flex-wrap: nowrap;
   }
 
   &.is-invalid:not(.success) {
     @extend %box-radius;
 
-    outline: 1px solid $c-error;
-    background: $m-error_bg-high_mix_10;
+    outline: 1px solid theme.$c-error;
+    background: theme.$m-error_bg-high_mix_10;
   }
 
   .challenge {
@@ -50,11 +55,11 @@
   }
 
   .success {
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   .failure {
-    color: $c-error;
+    color: theme.$c-error;
   }
 
   &.success .success,

@@ -1,11 +1,13 @@
+@use "../theme/gen/theme";
+
 @mixin range-thumb {
   // https://css-tricks.com/sliding-nightmare-understanding-range-input/
 
-  border: 1px solid $c-font-dimmer;
+  border: 1px solid theme.$c-font-dimmer;
   height: 1em;
   width: 1.5em;
   border-radius: 12px;
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   cursor: pointer;
 }
 
@@ -13,7 +15,7 @@
   width: 100%;
   height: 1em;
   cursor: pointer;
-  background: $c-shade;
+  background: theme.$c-shade;
   border-radius: 0.5em;
 }
 

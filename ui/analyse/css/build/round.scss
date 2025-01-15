@@ -1,6 +1,6 @@
-@import 'base';
-@import 'pkg:common/component/context-streamer';
-@import 'ui/round/css/meta';
-@import 'ui/round/css/modal-study';
-@import 'pkg:chat/chat';
-@import '../round';
+@use 'base';
+@use 'pkg:common/component/context-streamer';
+@use 'ui/round/css/meta';
+@use 'ui/round/css/modal-study';
+@use 'pkg:chat/chat';
+@use '../round';

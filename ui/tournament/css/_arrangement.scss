@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .arrangement {
   display: flex;
   flex-direction: column;
@@ -16,16 +19,16 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 1.1rem;
-    outline: $border;
+    outline: theme.$border;
     outline-offset: -1px;
     border-radius: 3px;
 
     &.winner {
-      border-color: $c-good;
+      border-color: theme.$c-good;
     }
 
     &.loser {
-      border-color: $c-bad;
+      border-color: theme.$c-bad;
     }
 
     &.bottom {
@@ -53,7 +56,7 @@
       display: flex;
       justify-content: flex-end;
       flex: 1;
-      border-top: $border;
+      border-top: theme.$border;
       border-top-style: dashed;
 
       input {
@@ -86,7 +89,7 @@
       .user-button {
         @extend %flex-center;
 
-        color: $c-font;
+        color: theme.$c-font;
         padding: 0 1rem;
         cursor: pointer;
 
@@ -97,7 +100,7 @@
           }
 
           50% {
-            color: $c-good;
+            color: theme.$c-good;
           }
         }
 
@@ -108,43 +111,43 @@
           }
 
           50% {
-            color: $c-bad;
+            color: theme.$c-bad;
           }
         }
 
         &.action {
           &.confirm {
-            color: $c-good;
+            color: theme.$c-good;
             animation: blink 1s infinite;
           }
 
           &.clear {
-            color: $c-bad;
+            color: theme.$c-bad;
             animation: blink-clear 1s infinite;
           }
         }
 
         &:hover,
         &.active {
-          color: $c-link;
+          color: theme.$c-link;
 
           &.confirm {
-            color: $c-good;
+            color: theme.$c-good;
           }
 
           &.clear {
-            color: $c-bad;
+            color: theme.$c-bad;
           }
         }
 
         &.disabled {
           pointer-events: none;
-          color: $c-font-dimmer;
+          color: theme.$c-font-dimmer;
         }
       }
 
       & > * {
-        border: $border;
+        border: theme.$border;
         border-width: 0 0 0 1px;
         border-style: dashed;
         height: 4rem;
@@ -156,13 +159,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     min-height: 5rem;
     height: calc(
       100vh - var(--site-header-height) - var(--site-header-margin) - 7em - 6rem - 2 * 6rem
     );
     max-height: 25rem;
-    border: $border;
+    border: theme.$border;
     border-width: 0 1px 0 1px;
 
     & > * {
@@ -174,7 +177,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      border-right: $border;
+      border-right: theme.$border;
       padding: 0.75rem;
 
       .info-line {
@@ -204,12 +207,12 @@
         display: block;
         font-size: 1.1rem;
         margin: 1rem auto;
-        background-color: $c-accent;
-        color: $c-accent-over;
+        background-color: theme.$c-accent;
+        color: theme.$c-accent-over;
       }
 
       .warning {
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
         font-size: 0.9rem;
         font-style: italic;
         text-align: center;
@@ -217,7 +220,7 @@
     }
 
     .history {
-      border-left: $border;
+      border-left: theme.$border;
 
       .history-inner {
         height: 100%;

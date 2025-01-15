@@ -1,3 +1,6 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/uniboard';
+
 .board-editor .links {
   display: flex;
   flex-direction: column;
@@ -18,7 +21,7 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     flex-direction: row;
     margin-top: 0;
 

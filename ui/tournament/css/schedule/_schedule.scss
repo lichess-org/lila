@@ -1,13 +1,16 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 $c-tour: #303e43;
 $c-tour-user: #888;
 $c-tour-hourly: #3d9333;
 $c-tour-daily: #0072b2;
 $c-tour-weekly: #d55e00;
 $c-tour-monthly: #c93d3d;
-$c-tour-yearly: $c-brag;
-$c-tour-weekend: $c-brag;
+$c-tour-yearly: theme.$c-brag;
+$c-tour-weekend: theme.$c-brag;
 $c-tour-marathon: #66558c;
-$c-tour-unique: $c-brag;
+$c-tour-unique: theme.$c-brag;
 $c-tour-max-rating: #8572ff;
 
 .tour-chart {
@@ -26,7 +29,7 @@ $c-tour-max-rating: #8572ff;
     position: relative;
     overflow-x: scroll;
     padding-top: 2.3em;
-    border-top: $border;
+    border-top: theme.$border;
     cursor: move;
   }
 
@@ -45,7 +48,7 @@ $c-tour-max-rating: #8572ff;
     position: absolute;
     display: inline;
     height: 100%;
-    border-left: 1px dashed $c-border;
+    border-left: 1px dashed theme.$c-border;
     padding: 3px 6px;
 
     &.hour {
@@ -57,7 +60,7 @@ $c-tour-max-rating: #8572ff;
       top: 1.6em;
       height: calc(100% - 1.6em);
       margin-left: 1px;
-      border-left: 3px dashed $c-accent;
+      border-left: 3px dashed theme.$c-accent;
     }
   }
 }

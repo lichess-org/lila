@@ -1,9 +1,13 @@
+@use '../theme/gen/theme';
+@use '../abstract/extends';
+@use '../abstract/variables';
+
 .btn-rack {
   @extend %box-radius;
 
   display: inline-flex;
   align-items: center;
-  border: $border;
+  border: theme.$border;
   user-select: none;
 
   .btn-rack {
@@ -19,13 +23,13 @@
     text-align: center;
     line-height: 2rem;
     cursor: pointer;
-    border-right: $border;
-    color: $c-font;
+    border-right: theme.$border;
+    color: theme.$c-font;
 
     &:hover {
       @extend %metal-hover;
 
-      color: $c-font;
+      color: theme.$c-font;
     }
 
     &:first-child {

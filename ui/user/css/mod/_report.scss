@@ -1,5 +1,8 @@
-$c-report-bg: $c-bg-high;
-$c-report-high: $c-brag;
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
+$c-report-bg: theme.$c-bg-high;
+$c-report-high: theme.$c-brag;
 $c-report-high-over: white;
 
 #report_list {
@@ -24,18 +27,18 @@ $c-report-high-over: white;
     a {
       @extend %roboto, %flex-column;
 
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       text-transform: uppercase;
       padding: 0.5rem 1.4rem;
       align-items: center;
       justify-content: center;
 
       &.new {
-        color: $c-font-clear;
+        color: theme.$c-font-clear;
       }
 
       &:hover {
-        background: $m-brag_alpha_neg50;
+        background: theme.$m-brag_alpha_neg50;
       }
 
       &.active {
@@ -88,7 +91,7 @@ $c-report-high-over: white;
 
     .button-metal {
       box-shadow: none;
-      border: $border;
+      border: theme.$border;
     }
 
     .inquiry .button {

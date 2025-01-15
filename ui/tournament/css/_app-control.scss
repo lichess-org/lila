@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .tour__controls {
   @extend %metal, %flex-between, %box-shadow;
 
@@ -10,14 +15,14 @@
     padding: 0.6em 0.8em;
     text-transform: uppercase;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       padding: 0.6em 1em;
     }
 
     &.denied {
       pointer-events: none;
-      background-color: $c-bad;
-      color: $c-bad-over;
+      background-color: theme.$c-bad;
+      color: theme.$c-bad-over;
     }
   }
 
@@ -37,7 +42,7 @@
 
     button {
       opacity: 0.7;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       mix-blend-mode: luminosity;
     }
   }
@@ -69,7 +74,7 @@
   }
 
   .right {
-    @include breakpoint($mq-x-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-x-small) {
       margin-left: auto;
     }
   }
@@ -94,7 +99,7 @@
     user-select: none;
     justify-content: space-between;
 
-    @include breakpoint($mq-x-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-x-small) {
       flex-basis: unset;
     }
 
@@ -105,7 +110,7 @@
 
     input {
       border: none;
-      background: $m-secondary_alpha_neg80;
+      background: theme.$m-secondary_alpha_neg80;
     }
 
     .search,

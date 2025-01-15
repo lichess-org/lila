@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .angle-content .outcomes {
   .winrate-wrap {
     width: 80%;
@@ -23,15 +25,15 @@
         }
 
         &__win .wr_percent {
-          color: $c-good;
+          color: theme.$c-good;
         }
 
         &__draw .wr_percent {
-          color: $c-font-dim;
+          color: theme.$c-font-dim;
         }
 
         &__loss .wr_percent {
-          color: $c-bad;
+          color: theme.$c-bad;
         }
       }
     }

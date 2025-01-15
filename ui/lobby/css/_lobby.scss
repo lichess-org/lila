@@ -1,17 +1,22 @@
-@import 'layout';
-@import 'app/app';
-@import 'app/hook-filter';
-@import 'puzzle';
-@import 'table';
-@import 'stream';
-@import 'spotlight';
-@import 'timeline';
-@import 'box';
-@import 'forum';
-@import 'blog';
-@import 'support';
-@import 'about';
-@import 'setup';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'local';
+@use 'layout';
+@use 'app/app';
+@use 'app/hook-filter';
+@use 'puzzle';
+@use 'table';
+@use 'stream';
+@use 'spotlight';
+@use 'timeline';
+@use 'box';
+@use 'forum';
+@use 'blog';
+@use 'support';
+@use 'about';
+@use 'setup';
 
 body {
   /* improves preload */
@@ -22,25 +27,11 @@ body {
   --main-max-width: 1400px;
 }
 
-%lobby-side-more {
-  @extend %roboto;
-
-  font-size: 0.9em;
-  margin: 0.5em 1em 0.5em 0;
-  display: block;
-  text-align: right;
-  color: $c-font-dim;
-
-  &:hover {
-    color: $c-link;
-  }
-}
-
 .lobby__tv,
 .lobby__puzzle {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
 }
 
 .lobby__side {
@@ -48,11 +39,11 @@ body {
 
   overflow: hidden;
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     overflow: visible;
   }
 
-  @include breakpoint($mq-col3) {
+  @include breakpoint.breakpoint(local.$mq-col3) {
     overflow: hidden;
   }
 }
@@ -60,7 +51,7 @@ body {
 .lobby__nope {
   text-align: center;
 
-  @include lobby-app-size;
+  @include local.lobby-app-size;
 
   .lobby__app__content {
     @extend %flex-column;
@@ -114,20 +105,20 @@ body {
 }
 
 .about-side {
-  margin-top: $block-gap;
-  margin-bottom: $block-gap;
+  margin-top: variables.$block-gap;
+  margin-bottom: variables.$block-gap;
 }
 
-@include breakpoint($mq-not-col3) {
+@include breakpoint.breakpoint(local.$mq-not-col3) {
   .about-side,
   .lobby__streams,
   .lobby__about {
-    margin-left: $block-gap;
+    margin-left: variables.$block-gap;
   }
 }
 
 #announce.fff {
-  background: $c-good;
+  background: theme.$c-good;
 
   .link {
     @extend %flex-center-nowrap;
@@ -144,7 +135,7 @@ body {
     margin-left: 2rem;
   }
 
-  @include breakpoint($mq-not-col3) {
+  @include breakpoint.breakpoint(local.$mq-not-col3) {
     font-size: 1.1em;
   }
 }

@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/functions';
+@use 'pkg:common/abstract/media-queries';
+
 .tour__podium {
   > div {
     @extend %ellipsis;
@@ -27,21 +32,21 @@
   .first .trophy {
     height: 9em;
     width: 9em;
-    background-image: img-url('icons/trophy_gold.svg');
+    background-image: functions.img-url('icons/trophy_gold.svg');
     background-size: cover;
   }
 
   .second .trophy {
     height: 9em;
     width: 7em;
-    background-image: img-url('icons/trophy_silver.svg');
+    background-image: functions.img-url('icons/trophy_silver.svg');
   }
 
   .third .trophy {
     height: 7em;
     width: 7em;
     width: calc(1.1056 * 65px);
-    background-image: img-url('icons/trophy_bronze.svg');
+    background-image: functions.img-url('icons/trophy_bronze.svg');
   }
 
   .trophy {
@@ -51,7 +56,7 @@
     background-position: center;
   }
 
-  @include breakpoint($mq-not-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
     .trophy {
       display: none;
     }

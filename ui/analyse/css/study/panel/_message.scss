@@ -1,7 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .study__message {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   padding: 3em;
   text-align: center;
 

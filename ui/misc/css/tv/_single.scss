@@ -1,8 +1,13 @@
-@import 'side';
+@use 'pkg:common/abstract/extends';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'side';
 
-$mq-col1: $mq-col1-uniboard;
-$mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
+$mq-col1: uniboard.$mq-col1-uniboard;
+$mq-col2: uniboard.$mq-col2-uniboard;
+$mq-col3: uniboard.$mq-col3-uniboard;
 
 .tv-single {
   grid-template-areas:
@@ -11,7 +16,7 @@ $mq-col3: $mq-col3-uniboard;
     'side'
     'uchat';
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint($mq-col2) {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto fit-content(0) fit-content(0);
     grid-template-areas:
@@ -23,14 +28,14 @@ $mq-col3: $mq-col3-uniboard;
     }
   }
 
-  @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $block-gap auto;
+  @include breakpoint.breakpoint($mq-col3) {
+    grid-template-columns: uniboard.$col3-uniboard-side variables.$block-gap auto;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'side . app   app'
       'side . under under';
 
-    @include crosstable-large;
+    @include mixins.crosstable-large;
   }
 
   .round__underboard {
@@ -45,7 +50,7 @@ $mq-col3: $mq-col3-uniboard;
 
       font-size: 1.3em;
       text-transform: uppercase;
-      margin: $block-gap 0;
+      margin: variables.$block-gap 0;
       flex: 0 0 100%;
       text-align: center;
     }

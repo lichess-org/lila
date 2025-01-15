@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .variant {
   .headline {
     font-size: 1.2em;
@@ -16,13 +20,13 @@
   .variant {
     @extend %flex-center;
 
-    color: $c-font;
+    color: theme.$c-font;
     height: 6em;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover {
-      background: $m-link_bg-box_mix_20;
+      background: theme.$m-link_bg-box_mix_20;
     }
 
     &::before {
@@ -30,7 +34,7 @@
       margin-right: 1rem;
       opacity: 0.7;
 
-      @include transition;
+      @include mixins.transition;
     }
 
     &:hover::before {

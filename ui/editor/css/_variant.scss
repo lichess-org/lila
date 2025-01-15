@@ -1,9 +1,12 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/uniboard';
+
 .board-editor {
   &.main-v-chushogi .actions .action {
     width: calc(100% / 4);
   }
 
-  @include breakpoint($mq-col1-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
     &.main-v-chushogi {
       .spare {
         padding-bottom: calc(100% / 12 * 4 / 11 * 12);
@@ -55,7 +58,7 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     &.main-v-minishogi .spare {
       .outer {
         padding-bottom: calc(100% / 2 * 5 / 11 * 12);
@@ -96,7 +99,7 @@
     }
   }
 
-  @include breakpoint($mq-col3-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col3-uniboard) {
     &.main-v-standard .spare,
     &.main-v-annanshogi .spare,
     &.main-v-checkshogi .spare {

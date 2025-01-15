@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 body {
   background: none;
   overflow: hidden;
@@ -17,7 +20,7 @@ body {
     @extend %metal;
 
     border-radius: 0 0 3px 3px;
-    border: $border;
+    border: theme.$border;
     border-top: 0;
   }
 }

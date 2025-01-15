@@ -1,10 +1,12 @@
+@use "../theme/gen/theme";
+
 @keyframes glowing {
   42% {
     background: none;
   }
 
   50% {
-    background: $m-link_bg-box_mix_20;
+    background: theme.$m-link_bg-box_mix_20;
   }
 
   58% {

@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .mchat {
   &__tabs {
     flex: 0 0 auto;
@@ -12,18 +16,18 @@
     padding: 0.4em 10px;
     // background: $c-shade;
     cursor: pointer;
-    color: $c-font-page;
+    color: theme.$c-font-page;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover {
-      background: $m-accent_bg-box_mix_15;
+      background: theme.$m-accent_bg-box_mix_15;
     }
 
     &-active,
     &:only-child {
-      color: $c-font;
-      background: $c-bg-box !important;
+      color: theme.$c-font;
+      background: theme.$c-bg-box !important;
     }
 
     input {

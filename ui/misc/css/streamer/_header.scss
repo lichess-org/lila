@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .streamer-header {
   display: flex;
 
@@ -11,10 +14,6 @@
     flex-flow: column;
     justify-content: space-between;
     width: 100%;
-
-    @include breakpoint($mq-picture) {
-      margin: 20px 10px 0 2em;
-    }
   }
 
   .metas {
@@ -55,6 +54,6 @@
   }
 
   .service.live {
-    color: $c-brag;
+    color: theme.$c-brag;
   }
 }

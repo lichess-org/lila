@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .coach-picture {
   .picture_wrap {
     text-align: center;
@@ -5,7 +7,7 @@
 
   form {
     padding: 2em var(--box-padding);
-    border-top: $border;
+    border-top: theme.$border;
     text-align: center;
   }
 
@@ -15,7 +17,7 @@
 
   .cancel {
     padding: 40px;
-    border-top: $border;
+    border-top: theme.$border;
   }
 
   .forms > *:first-child {

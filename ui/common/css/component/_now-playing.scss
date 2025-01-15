@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../theme/gen/theme';
+
 .now-playing {
   display: grid;
 
@@ -5,7 +10,7 @@
 
   grid-template-columns: repeat(auto-fill, minmax(var(--np-min-width), 1fr));
 
-  @include breakpoint($mq-not-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
     --np-min-width: 50%;
   }
 
@@ -15,7 +20,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: $c-font;
+    color: theme.$c-font;
     padding: 0.3em;
   }
 
@@ -26,7 +31,7 @@
   }
 
   .indicator {
-    color: $c-accent;
+    color: theme.$c-accent;
     margin-top: -3px;
     display: block;
   }

@@ -1,13 +1,15 @@
+@use "../theme/gen/theme";
+
 .color-icon {
   font-family: lishogi;
   text-transform: unset;
 
   &.sente::before {
-    content: $sente-symbol;
+    content: theme.$sente-symbol;
   }
 
   &.gote::before {
-    content: $gote-symbol;
+    content: theme.$gote-symbol;
   }
 
   &.random::before {

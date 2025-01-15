@@ -1,8 +1,12 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .simul__side {
   @extend %flex-column;
 
   .mchat {
-    margin-top: $block-gap;
+    margin-top: variables.$block-gap;
 
     &__messages {
       $chat-height: calc(90vh - 300px);
@@ -16,8 +20,8 @@
 .simul__meta {
   @extend %box-neat-force;
 
-  background: $c-bg-box;
-  padding: #{$block-gap * 0.6} $block-gap;
+  background: theme.$c-bg-box;
+  padding: #{variables.$block-gap * 0.6} variables.$block-gap;
 
   .header {
     @extend %flex-center;
@@ -38,7 +42,7 @@
 
   .game-infos {
     padding-bottom: 0.5em;
-    border-bottom: $border;
+    border-bottom: theme.$border;
     margin-bottom: 0.5em;
   }
 }

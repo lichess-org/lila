@@ -1,6 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .hook__filters {
-  padding: $block-gap 1.5em;
-  background: $c-bg-box;
+  padding: variables.$block-gap 1.5em;
+  background: theme.$c-bg-box;
   height: 100%;
   white-space: nowrap;
   display: block;

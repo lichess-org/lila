@@ -1,3 +1,2 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/now-playing';
-@import '../tv/games';
+@use 'pkg:common/component/now-playing';
+@use '../tv/games';

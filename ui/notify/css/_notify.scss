@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 #notify-app {
   @extend %box-radius-left;
 
@@ -14,7 +18,7 @@
   .clear {
     display: flex;
     justify-content: flex-end;
-    border-bottom: $border;
+    border-bottom: theme.$border;
     min-height: 33px;
 
     button {
@@ -22,7 +26,7 @@
       box-shadow: unset;
 
       &:hover {
-        color: $c-bad;
+        color: theme.$c-bad;
         background: unset;
       }
     }
@@ -33,7 +37,7 @@
   }
 
   .notifications {
-    @include transition(opacity);
+    @include mixins.transition(opacity);
   }
 
   .notifications.scrolling {
@@ -43,28 +47,28 @@
   .site_notification {
     display: flex;
     padding: 0.6rem 1rem;
-    border-bottom: $border;
+    border-bottom: theme.$border;
     position: relative;
 
     &:hover {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
 
       i {
-        color: $c-link;
+        color: theme.$c-link;
         opacity: 0.9;
       }
     }
 
     &.new {
-      background: $m-secondary_bg-header-dropdown_mix_27;
+      background: theme.$m-secondary_bg-header-dropdown_mix_27;
 
       i {
-        color: $c-secondary;
+        color: theme.$c-secondary;
         opacity: 0.7;
       }
 
       &:hover {
-        background: $m-secondary_bg-header-dropdown_mix_36;
+        background: theme.$m-secondary_bg-header-dropdown_mix_36;
 
         i {
           opacity: 1;
@@ -91,26 +95,26 @@
 
     &:not(.disabled) {
       cursor: pointer;
-      color: $c-link;
+      color: theme.$c-link;
 
-      @include transition;
+      @include mixins.transition;
     }
 
     &:not(.disabled):hover {
-      background: $c-primary;
-      color: $c-primary-over;
+      background: theme.$c-primary;
+      color: theme.$c-primary-over;
     }
 
     &.prev {
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
   }
 
   .browser-notification {
     display: block;
     padding: 0.5em 1em;
-    background: $c-brag;
-    color: $c-brag-over;
+    background: theme.$c-brag;
+    color: theme.$c-brag-over;
   }
 }
 

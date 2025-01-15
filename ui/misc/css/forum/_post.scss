@@ -1,6 +1,12 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .forum-post {
   font-size: 1.1em;
-  border-top: $border;
+  border-top: theme.$border;
   padding: 2rem 0 0.5rem 0;
 
   &__metas {
@@ -13,7 +19,7 @@
     }
 
     .author {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       font-weight: bold;
       font-size: 1.1em;
       margin-right: 1rem;
@@ -24,13 +30,13 @@
 
       padding: 0.2em;
       padding-right: 0.8em;
-      background: $m-primary_bg-box_mix_12;
+      background: theme.$m-primary_bg-box_mix_12;
     }
 
     .anchor {
       @extend %break-nope;
 
-      color: $c-link-dim;
+      color: theme.$c-link-dim;
       font-weight: bold;
     }
   }
@@ -48,7 +54,7 @@
       overflow: hidden;
       display: none;
 
-      @include breakpoint($mq-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-small) {
         display: block;
       }
     }
@@ -59,12 +65,12 @@
   }
 
   &:last-child {
-    border-bottom: $border;
+    border-bottom: theme.$border;
     margin-bottom: 3rem;
   }
 
   &.erased {
-    background: $c-shade;
+    background: theme.$c-shade;
     opacity: 0.6;
   }
 
@@ -82,7 +88,7 @@
     .embed-wrap {
       max-width: calc(60vh * (16 / 9));
       max-width: min(calc(60vh * (16 / 9)), 80vw);
-      margin: $block-gap;
+      margin: variables.$block-gap;
     }
 
     .embed:not(img) {

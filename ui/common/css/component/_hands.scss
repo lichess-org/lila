@@ -1,3 +1,6 @@
+@use "breakpoint-sass/stylesheets/breakpoint";
+@use "../abstract/uniboard";
+
 sg-hand-wrap {
   position: relative;
   width: calc(100% / 9 * 7);
@@ -35,7 +38,7 @@ sg-hand-wrap {
 }
 
 .main-board sg-hand-wrap {
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     padding-bottom: unset;
     width: 100%;
     height: calc(100% / 9 * 7);

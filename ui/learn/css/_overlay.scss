@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .learn__screen-overlay {
   @extend %fullscreen-mask;
 
@@ -10,7 +13,7 @@
   @extend %popup-shadow, %box-radius;
 
   margin: auto;
-  background-color: $c-bg-box;
+  background-color: theme.$c-bg-box;
   width: 350px;
   text-align: center;
   padding-top: 36px;
@@ -90,7 +93,7 @@
 
   h1 {
     font-weight: bold;
-    color: $c-font-clear;
+    color: theme.$c-font-clear;
     font-size: 24px;
     margin-bottom: 22px;
   }
@@ -99,7 +102,7 @@
     width: 200px;
     height: 200px;
     padding: 0;
-    background-color: $c-brag;
+    background-color: theme.$c-brag;
     background-size: 75%;
     border-radius: 50%;
     margin: 0 auto 10px auto;
@@ -121,7 +124,7 @@
   }
 
   p {
-    color: $c-font-clear;
+    color: theme.$c-font-clear;
     padding: 0 15%;
     line-height: 24px;
     margin-bottom: 17px;

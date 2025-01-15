@@ -1,10 +1,14 @@
-$c-study-button: $c-accent;
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
+
+$c-study-button: theme.$c-accent;
 
 .study__buttons {
   @extend %flex-between;
 
   align-items: stretch;
-  height: calc(#{$col2-uniboard-controls} - 2px);
+  height: calc(#{uniboard.$col2-uniboard-controls} - 2px);
 
   span {
     font-size: 1.15em;
@@ -30,7 +34,7 @@ $c-study-button: $c-accent;
       padding: 0 0.5em;
 
       &:hover:not(.disabled):not([disabled]) {
-        background: $c-primary;
+        background: theme.$c-primary;
       }
     }
 
@@ -40,8 +44,8 @@ $c-study-button: $c-accent;
   }
 
   .behind {
-    background: $c-bad;
-    color: $c-bad-over;
+    background: theme.$c-bad;
+    color: theme.$c-bad-over;
     padding: 0 5px;
     border-radius: 9px;
     margin-right: 4px;
@@ -57,17 +61,17 @@ $c-study-button: $c-accent;
     i::before {
       font-size: 1.4em;
       content: 'L';
-      color: $c-bad;
+      color: theme.$c-bad;
       margin-right: 0.2rem;
     }
 
     &.on i::before {
       content: 'E';
-      color: $c-good;
+      color: theme.$c-good;
     }
 
     &:hover {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
       opacity: 1;
     }
   }

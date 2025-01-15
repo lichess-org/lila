@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .study-create {
   form h2 {
     font-size: 1.6em;
@@ -29,7 +31,7 @@
       overflow: hidden;
       margin-bottom: 3px;
       text-transform: none;
-      background: $m-link_black_mix_70;
+      background: theme.$m-link_black_mix_70;
     }
   }
 }

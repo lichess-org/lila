@@ -1,12 +1,22 @@
-$mq-picture: $mq-medium;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+@use 'header';
 
-@import 'header';
+$mq-picture: media-queries.$mq-medium;
 
 .streamer-edit {
   .streamer-header {
     margin-bottom: 2em;
 
-    @include breakpoint($mq-not-medium) {
+    .overview {
+      @include breakpoint.breakpoint($mq-picture) {
+        margin: 20px 10px 0 2em;
+      }
+    }
+
+    @include breakpoint.breakpoint(media-queries.$mq-not-medium) {
       display: flex;
       flex-direction: column;
       padding-top: 2em;
@@ -17,7 +27,7 @@ $mq-picture: $mq-medium;
 
       justify-content: center;
 
-      @include breakpoint($mq-picture) {
+      @include breakpoint.breakpoint($mq-picture) {
         display: flex;
         width: 300px;
         height: 300px;
@@ -34,7 +44,7 @@ $mq-picture: $mq-medium;
     }
 
     .picture {
-      @include breakpoint($mq-picture) {
+      @include breakpoint.breakpoint($mq-picture) {
         display: block;
       }
     }
@@ -45,7 +55,7 @@ $mq-picture: $mq-medium;
 
     padding: 1em 1.5em;
     margin-bottom: 2em;
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
 
     &::before {
       font-size: 2em;
@@ -86,13 +96,13 @@ $mq-picture: $mq-medium;
 .streamer-picture {
   form {
     padding: 30px;
-    border-top: $border;
+    border-top: theme.$border;
     text-align: center;
   }
 
   .cancel {
     padding: 40px;
-    border-top: $border;
+    border-top: theme.$border;
   }
 
   .forms > *:first-child {

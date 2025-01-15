@@ -1,7 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .tour__featured {
   @extend %box-neat-force, %flex-column;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
 
   &__player {
     @extend %metal, %flex-center-nowrap;
@@ -13,7 +16,7 @@
     & strong {
       flex: 0 0 calc(100% / 9);
       text-align: center;
-      background: $c-bg-box;
+      background: theme.$c-bg-box;
       margin-right: 10px;
     }
 
@@ -28,7 +31,7 @@
       flex: 0 0 auto;
 
       &::before {
-        color: $c-accent;
+        color: theme.$c-accent;
         margin-right: 5px;
       }
     }

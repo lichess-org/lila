@@ -1,0 +1,13 @@
+@use 'pkg:common/theme';
+
+$c-msg: theme.$c-secondary;
+$msg-top-height: 4em;
+
+%msg-input-focus {
+  outline: 0;
+  border-color: theme.$c-bg-zebra2;
+
+  &:focus {
+    border-color: theme.$m-secondary_bg-box_mix_50;
+  }
+}

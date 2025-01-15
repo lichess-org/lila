@@ -1,3 +1,9 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/theme';
+
 @keyframes rubber-band {
   0% {
     transform: scale3d(1, 1, 1);
@@ -33,7 +39,7 @@
 
   grid-area: tools;
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col2-uniboard) {
     justify-content: flex-end;
   }
 
@@ -43,7 +49,7 @@
     flex: 2 1 0;
     justify-content: space-between;
     font-size: 1.1em;
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     border-radius: 1rem;
     margin-top: 1em;
     position: relative;
@@ -53,7 +59,7 @@
     max-height: 25rem;
 
     body.dark & {
-      border: 1px solid $c-font-dimmer;
+      border: 1px solid theme.$c-font-dimmer;
     }
 
     &::after {
@@ -63,15 +69,15 @@
       right: 20%;
       width: 15px;
       height: 15px;
-      background: $c-bg-box;
-      border-right: 1px solid $c-font-dimmer;
-      border-bottom: 1.5px solid $c-font-dimmer;
+      background: theme.$c-bg-box;
+      border-right: 1px solid theme.$c-font-dimmer;
+      border-bottom: 1.5px solid theme.$c-font-dimmer;
       transform: skew(45deg) rotate(45deg);
       z-index: 1;
     }
 
     &.hinted::after {
-      background: $c-primary;
+      background: theme.$c-primary;
     }
 
     .content {
@@ -85,9 +91,9 @@
     div.hint {
       padding: 0.8em 1em 0 1em;
       max-height: 8rem;
-      background: $c-primary;
-      border-bottom: 1rem solid $c-primary;
-      color: $c-primary-over;
+      background: theme.$c-primary;
+      border-bottom: 1rem solid theme.$c-primary;
+      color: theme.$c-primary-over;
       border-radius: 0 0 1rem 1rem;
       cursor: pointer;
       overflow-y: scroll;
@@ -95,17 +101,17 @@
       z-index: 2;
 
       &::-webkit-scrollbar-track {
-        background: $c-primary;
+        background: theme.$c-primary;
       }
 
       &::-webkit-scrollbar-thumb {
-        background: $c-primary-over;
+        background: theme.$c-primary-over;
       }
     }
 
     a.hint {
       padding: 0.8em 1em;
-      color: $c-primary;
+      color: theme.$c-primary;
       font-size: 1rem;
     }
   }
@@ -145,7 +151,7 @@
       cursor: pointer;
       opacity: 0.85;
 
-      @include transition;
+      @include mixins.transition;
 
       &:hover {
         opacity: 1;
@@ -205,8 +211,8 @@
         @extend %flex-column;
 
         flex: 1 1 100%;
-        background: $m-primary_bg-box_mix_80;
-        color: $c-primary-over;
+        background: theme.$m-primary_bg-box_mix_80;
+        color: theme.$c-primary-over;
         font-size: 1.2em;
         align-items: center;
         justify-content: center;
@@ -215,7 +221,7 @@
         border-left: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
 
-        @include transition;
+        @include mixins.transition;
 
         &::before {
           font-size: 2.2em;
@@ -231,7 +237,7 @@
         }
 
         &:hover {
-          background: $c-primary;
+          background: theme.$c-primary;
         }
       }
     }
@@ -245,7 +251,7 @@
   cursor: pointer;
 
   &:hover {
-    color: $c-primary;
+    color: theme.$c-primary;
   }
 
   &[disabled] {

@@ -1,3 +1,7 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .forum .slist {
   td {
     padding-top: 1.5rem;
@@ -8,7 +12,7 @@
   & th.right {
     display: none;
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       display: table-cell;
       text-align: right;
       padding-right: 2em;
@@ -20,13 +24,13 @@
     padding-right: 1em;
 
     time {
-      color: $c-link;
+      color: theme.$c-link;
       font-size: 1em;
     }
 
     display: none;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       display: table-cell;
     }
   }
@@ -34,15 +38,15 @@
   thead {
     display: none;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       display: table-header-group;
     }
   }
 
   tbody {
-    border-top: $border;
+    border-top: theme.$border;
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       border-top: none;
     }
   }

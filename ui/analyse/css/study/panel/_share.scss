@@ -1,7 +1,10 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .study__share {
   @extend %box-neat;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   padding: 1.5em 1.2em;
 
   input[type='text'] {
@@ -11,7 +14,7 @@
   }
 
   .ply-wrap {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     text-align: left;
     font-size: 0.9em;
   }

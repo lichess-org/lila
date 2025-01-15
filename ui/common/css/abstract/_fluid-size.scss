@@ -1,7 +1,7 @@
 @use 'sass:math';
 
-$vp-min-width: 320px !default;
-$vp-max-width: 1200px !default;
+$vp-min-width: 320px;
+$vp-max-width: 1200px;
 
 @function strip-unit($value) {
   @return math.div($value, $value * 0 + 1);

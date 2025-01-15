@@ -1,8 +1,12 @@
+@use '../abstract/extends';
+@use '../abstract/mixins';
+@use '../theme/gen/theme';
+
 .tt-menu {
   @extend %box-radius, %popup-shadow;
 
   width: 14em;
-  background-color: $c-bg-box;
+  background-color: theme.$c-bg-box;
 }
 
 .tt-menu .empty {
@@ -16,20 +20,20 @@
 }
 
 .tt-suggestion {
-  color: $c-font;
+  color: theme.$c-font;
   padding: 0.4em 0 0.4em 0.4em;
   display: block;
   cursor: pointer;
 
-  @include transition;
+  @include mixins.transition;
 
   &.tt-cursor,
   &:hover {
-    color: $c-font-clear !important;
-    background: $m-link_bg-box_mix_20;
+    color: theme.$c-font-clear !important;
+    background: theme.$m-link_bg-box_mix_20;
   }
 }
 
 .tt-hint {
-  color: $c-font-dimmer;
+  color: theme.$c-font-dimmer;
 }

@@ -1,5 +1,5 @@
-$mq-picture: $mq-small;
-$mq-coach-col2: $mq-large;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'local';
 
 main {
   .coach-main {
@@ -17,7 +17,7 @@ main {
       'main'
       'side';
 
-    @include breakpoint($mq-coach-col2) {
+    @include breakpoint.breakpoint(local.$mq-coach-col2) {
       grid-template-columns: 300px auto;
       grid-template-areas: 'side main';
       grid-gap: 2rem;

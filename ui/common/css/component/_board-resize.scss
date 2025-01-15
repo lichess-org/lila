@@ -1,3 +1,7 @@
+@use "breakpoint-sass/stylesheets/breakpoint";
+@use "../abstract/uniboard";
+@use "../theme/gen/theme";
+
 body.resizing {
   user-select: none;
 }
@@ -7,7 +11,7 @@ sg-resize {
 
   display: none;
 
-  @include breakpoint($mq-board-resizable) {
+  @include breakpoint.breakpoint(uniboard.$mq-board-resizable) {
     display: block;
     position: absolute;
     right: #{12px - $resize-width};
@@ -42,12 +46,12 @@ sg-resize {
 
     &:hover {
       border-radius: 50%;
-      background: $m-accent_alpha_neg50;
+      background: theme.$m-accent_alpha_neg50;
     }
 
     .resizing & {
       border-radius: 50%;
-      background: $m-secondary_alpha_neg50;
+      background: theme.$m-secondary_alpha_neg50;
     }
   }
 }

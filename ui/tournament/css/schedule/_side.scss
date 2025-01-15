@@ -1,15 +1,19 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .tour-home__side {
   h2 {
     font-size: 1.5em;
     margin-top: 30px;
     margin-bottom: 6px;
-    border-bottom: $border;
+    border-bottom: theme.$border;
 
     a {
-      color: $c-font;
+      color: theme.$c-font;
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
   }
@@ -25,15 +29,15 @@
     padding: 0.2em 0;
     line-height: 1.5;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover a {
-      color: $c-link;
+      color: theme.$c-link;
     }
   }
 
   a {
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   .user-link {
@@ -47,31 +51,31 @@
   margin-top: 1em;
 
   a {
-    color: $c-font;
+    color: theme.$c-font;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover {
-      color: $c-link;
+      color: theme.$c-link;
     }
   }
 }
 
 .scheduled {
   a {
-    color: $c-font;
+    color: theme.$c-font;
     padding: 0.5em 0 0.5em 2.7em;
     display: block;
     position: relative;
     line-height: 1.2;
 
-    @include transition;
+    @include mixins.transition;
 
     &:hover {
       @extend %box-radius;
 
       padding-left: 3.2rem;
-      background: $m-brag_bg-page_mix_20;
+      background: theme.$m-brag_bg-page_mix_20;
 
       &::before {
         left: 0.5rem;
@@ -81,18 +85,18 @@
   }
 
   strong {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     display: block;
   }
 
   a::before {
-    @include transition;
+    @include mixins.transition;
 
     position: absolute;
     top: 0.3rem;
     left: 0;
     font-size: 2.2em;
     opacity: 0.6;
-    color: $c-brag;
+    color: theme.$c-brag;
   }
 }

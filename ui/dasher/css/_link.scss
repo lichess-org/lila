@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 #dasher_app {
   .links,
   .subs {
@@ -30,17 +33,17 @@
   .links a:hover::before,
   .links button:hover,
   .subs .sub:hover {
-    background: $c-dasher;
-    color: $c-dasher-over;
+    background: theme.$c-secondary;
+    color: theme.$c-secondary-over;
     opacity: 1;
   }
 
   .logout button:hover {
-    background: $c-error;
+    background: theme.$c-error;
   }
 
   .subs {
-    border-top: $border;
+    border-top: theme.$border;
   }
 
   .sub {
@@ -48,11 +51,11 @@
       float: right;
       font-size: 80%;
       margin-top: 0.25rem;
-      color: $c-dasher;
+      color: theme.$c-secondary;
     }
 
     &:hover::before {
-      color: $c-dasher-over;
+      color: theme.$c-secondary-over;
       opacity: 0.9;
     }
   }

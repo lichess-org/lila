@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .lobby__blog {
   height: calc(6em * 3 + 3px + 2.6em);
 
@@ -8,15 +11,15 @@
     .post {
       @extend %flex-between;
 
-      color: $c-font;
+      color: theme.$c-font;
       flex-wrap: nowrap;
       overflow: hidden;
       padding: 0 0.5em 0 0;
-      border-top: $border;
+      border-top: theme.$border;
       flex: 1;
 
       &:hover {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
       }
 
       .text {
@@ -33,7 +36,7 @@
       }
 
       time {
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
         white-space: nowrap;
       }
     }

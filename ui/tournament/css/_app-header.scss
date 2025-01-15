@@ -1,9 +1,13 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .tour__main__header {
   @extend %flex-center-nowrap;
 
   position: relative;
   min-height: 7em;
-  padding: 0 #{$block-gap * 1.5};
+  padding: 0 #{variables.$block-gap * 1.5};
 
   h1 {
     font-size: 2.2rem;
@@ -13,10 +17,10 @@
 
     a {
       /* GM wikipedia */
-      color: $m-link_font_mix_35;
+      color: theme.$m-link_font_mix_35;
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
   }
@@ -62,7 +66,7 @@
   .clock {
     flex: 0 0 auto;
     font-weight: bold;
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     margin-left: 1rem;
     max-width: 25vw;
 
@@ -74,7 +78,7 @@
 
   .tour-sched & h1,
   .tour-sched & .img {
-    color: $c-brag;
+    color: theme.$c-brag;
   }
 
   .tour__main-finished & h1 {

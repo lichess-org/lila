@@ -1,11 +1,18 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'local';
+
 #main-wrap {
   --main-max-width: auto;
 
-  @include breakpoint($mq-col1) {
-    $vertical-total: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$hands-gap} -
-      2vmin;
-    $vertical-total-no-hands: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} -
-      1vmin;
+  @include breakpoint.breakpoint(local.$mq-col1) {
+    $vertical-total: 100vh - #{variables.$site-header-outer-height} -
+      #{local.$col1-player-clock-height * 2} - #{uniboard.$hands-gap} - 2vmin;
+    $vertical-total-no-hands: 100vh - #{variables.$site-header-outer-height} -
+      #{local.$col1-player-clock-height * 2} - 1vmin;
 
     --main-max-width: calc((#{$vertical-total}) / 12 * 9);
 
@@ -22,7 +29,7 @@
 .round {
   grid-area: main;
   display: grid;
-  grid-gap: $block-gap;
+  grid-gap: variables.$block-gap;
   grid-template-areas:
     'app'
     'under'
@@ -49,8 +56,8 @@
     grid-area: uchat;
   }
 
-  @include breakpoint($mq-col2) {
-    grid-template-columns: 1fr $col2-uniboard-table;
+  @include breakpoint.breakpoint(local.$mq-col2) {
+    grid-template-columns: 1fr uniboard.$col2-uniboard-table;
     grid-template-rows: auto fit-content(0) fit-content(0);
     grid-template-areas:
       'app   app'
@@ -77,8 +84,8 @@
     }
   }
 
-  @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $block-gap auto;
+  @include breakpoint.breakpoint(local.$mq-col3) {
+    grid-template-columns: uniboard.$col3-uniboard-side variables.$block-gap auto;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'side  . app   app'
@@ -92,7 +99,9 @@
 
     &__underboard {
       display: grid;
-      grid-template-columns: var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
+      grid-template-columns:
+        var(--col3-uniboard-main-size)
+        variables.$block-gap uniboard.$col3-uniboard-table;
       grid-template-areas:
         'cs          . .'
         'now-playing . .';
@@ -117,18 +126,20 @@
       }
     }
 
-    @include crosstable-large;
+    @include mixins.crosstable-large;
 
     &.main-v-chushogi {
-      grid-template-columns: $col3-uniboard-side $big-block-gap 1fr $col3-uniboard-table;
+      grid-template-columns: uniboard.$col3-uniboard-side uniboard.$big-block-gap 1fr uniboard.$col3-uniboard-table;
 
       .round__underboard {
-        grid-template-columns: var(--col3-uniboard-main-size-no-hands) $block-gap $col3-uniboard-table;
+        grid-template-columns:
+          var(--col3-uniboard-main-size-no-hands)
+          variables.$block-gap uniboard.$col3-uniboard-table;
       }
     }
   }
 
-  @include breakpoint($mq-not-small $mq-landscape) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-small media-queries.$mq-landscape) {
     .crosstable {
       display: none;
     }

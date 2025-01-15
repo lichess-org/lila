@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .hooks__list {
   width: 100%;
 
@@ -13,11 +16,11 @@
     }
 
     &.cancel td {
-      background: $m-secondary_alpha_neg60;
+      background: theme.$m-secondary_alpha_neg60;
     }
 
     &.join:hover td {
-      background: $m-accent_alpha_neg50;
+      background: theme.$m-accent_alpha_neg50;
       color: #fff;
     }
 
@@ -73,9 +76,9 @@
     word-break: break-all;
     overflow: hidden;
     padding: 0.5em 0.7em;
-    border-bottom: $border;
+    border-bottom: theme.$border;
     cursor: pointer;
-    background: $m-bg-box_alpha_neg50;
+    background: theme.$m-bg-box_alpha_neg50;
 
     &:first-child {
       width: 16px;
@@ -107,10 +110,10 @@
   text-align: center;
 
   a.accent {
-    background: $c-accent;
+    background: theme.$c-accent;
 
     &:hover {
-      background: $c-accent;
+      background: theme.$c-accent;
     }
   }
 }

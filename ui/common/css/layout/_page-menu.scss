@@ -1,4 +1,7 @@
-@import '../component/subnav';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/media-queries';
+@use '../abstract/uniboard';
+@use '../component/subnav';
 
 .page-menu {
   display: grid;
@@ -6,7 +9,7 @@
     'menu'
     'content';
 
-  @include breakpoint($mq-subnav-side) {
+  @include breakpoint.breakpoint(media-queries.$mq-subnav-side) {
     grid-template-columns: max-content auto;
     grid-template-rows: min-content;
     grid-template-areas: 'menu content';
@@ -15,7 +18,7 @@
   &.page-small {
     margin: unset;
 
-    @include breakpoint($mq-col3-uniboard) {
+    @include breakpoint.breakpoint(uniboard.$mq-col3-uniboard) {
       grid-template-columns: max-content 1fr minmax(100px, max-content);
       grid-template-areas: 'menu content .';
       max-width: unset;

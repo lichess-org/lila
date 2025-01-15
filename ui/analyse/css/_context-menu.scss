@@ -1,10 +1,14 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/z-index' as z;
+@use 'pkg:common/theme';
+
 #analyse-cm {
   @extend %box-radius, %popup-shadow;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   position: absolute;
   display: none;
-  z-index: z('context-menu');
+  z-index: z.get('context-menu');
   cursor: default;
   user-select: none;
 
@@ -18,14 +22,14 @@
     padding: 0.4em;
     text-align: center;
     font-size: 1.2em;
-    border-bottom: $border;
+    border-bottom: theme.$border;
     margin: 0;
   }
 
   a {
     @extend %flex-center-nowrap;
 
-    color: $c-font;
+    color: theme.$c-font;
     padding: 0.5em 0.6em 0.5em 0.3em;
 
     &::before {
@@ -34,7 +38,7 @@
     }
 
     &:hover {
-      background: $m-accent_bg-box_mix_10;
+      background: theme.$m-accent_bg-box_mix_10;
     }
   }
 }

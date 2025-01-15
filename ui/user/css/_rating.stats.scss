@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .rating-stats {
   .spinner {
     width: 150px;
@@ -10,7 +13,7 @@
 
     &::before {
       font-size: 4.5em;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
       margin-right: 1rem;
     }
   }

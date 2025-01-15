@@ -1,3 +1,5 @@
+@use 'pkg:common/abstract/extends';
+
 .analyse__footer {
   @extend %flex-center-nowrap, %box-radius-bottom;
 

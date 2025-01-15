@@ -1,3 +1,5 @@
+@use 'pkg:common/abstract/uniboard';
+
 .analyse {
   display: grid;
   grid-template-areas:
@@ -6,7 +8,7 @@
     'controls'
     'footer';
   grid-template-columns: auto;
-  grid-template-rows: auto calc(100vh - 6rem - (100vw / 9 * 12 + #{$hands-gap})) 3rem 3rem;
+  grid-template-rows: auto calc(100vh - 6rem - (100vw / 9 * 12 + #{uniboard.$hands-gap})) 3rem 3rem;
 
   &__board {
     grid-area: board;
@@ -28,7 +30,9 @@
 
   &.main-v-minishogi,
   &.main-v-kyotoshogi {
-    grid-template-rows: auto calc(100vh - 6rem - (100vw / 5 * 7 / 11 * 12 + #{$hands-gap})) 3rem 3rem;
+    grid-template-rows: auto calc(
+        100vh - 6rem - (100vw / 5 * 7 / 11 * 12 + #{uniboard.$hands-gap})
+      ) 3rem 3rem;
   }
 
   &.main-v-chushogi {
@@ -40,10 +44,10 @@
   }
 
   @media (min-aspect-ratio: 1 / 1) {
-    grid-template-columns: calc((100vh - 3rem) / 12 * 11 / 9 * 11 + #{$hands-gap}) 1fr;
+    grid-template-columns: calc((100vh - 3rem) / 12 * 11 / 9 * 11 + #{uniboard.$hands-gap}) 1fr;
     grid-template-rows: calc(100vh - 6rem) 3rem 3rem;
-    column-gap: $hand-gap;
-    padding-left: $hand-gap;
+    column-gap: uniboard.$hand-gap;
+    padding-left: uniboard.$hand-gap;
 
     &.main-v-minishogi,
     &.main-v-kyotoshogi {

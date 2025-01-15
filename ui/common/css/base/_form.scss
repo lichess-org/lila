@@ -1,17 +1,20 @@
+@use '../abstract/extends';
+@use '../theme/gen/theme';
+
 button,
 input,
 optgroup,
 select,
 textarea {
   font: inherit;
-  color: $c-font;
-  outline-color: $c-primary;
+  color: theme.$c-font;
+  outline-color: theme.$c-primary;
 }
 
 option,
 optgroup {
-  background: $c-bg-box-opaque;
-  color: $c-font-clear;
+  background: theme.$c-bg-box-opaque;
+  color: theme.$c-font-clear;
 }
 
 input,
@@ -19,8 +22,8 @@ textarea,
 select {
   @extend %box-radius;
 
-  background: $c-bg-input;
-  border: $border;
+  background: theme.$c-bg-input;
+  border: theme.$border;
   padding: 0.6em 1em;
 }
 
@@ -36,10 +39,10 @@ a {
 }
 
 ::placeholder {
-  color: $c-font-dim;
+  color: theme.$c-font-dim;
 }
 
 .copyable {
-  background: $c-page-input;
-  color: $c-font-clear;
+  background: theme.$c-page-input;
+  color: theme.$c-font-clear;
 }

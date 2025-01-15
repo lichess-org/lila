@@ -1,3 +1,2 @@
-@import 'pkg:common/plugin';
-@import '../sub-rating';
-@import '../perf-stat';
+@use '../sub-rating';
+@use '../perf-stat';

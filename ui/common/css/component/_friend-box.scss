@@ -1,32 +1,42 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/extends';
+@use '../abstract/media-queries';
+@use '../abstract/mixins';
+@use '../abstract/variables';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+
 #friend_box {
   display: none;
   position: fixed;
   bottom: 0;
   right: 0;
-  z-index: z('friend-box');
-  background: $c-bg-popup;
-  border: $border;
+  z-index: z.get('friend-box');
+  background: theme.$c-bg-popup;
+  border: theme.$border;
   border-right: 0;
   border-bottom: 0;
-  border-top-left-radius: $box-radius-size;
-  border-top-right-radius: $box-radius-size;
+  border-top-left-radius: variables.$box-radius-size;
+  border-top-right-radius: variables.$box-radius-size;
   font-size: 0.85rem;
   max-height: 95%;
   /* improve scroll perfs */
   backface-visibility: hidden;
 
-  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+  @include breakpoint.breakpoint(
+    media-queries.$mq-topnav-visible media-queries.$mq-site-header-tall
+  ) {
     display: block;
   }
 
-  @include hoverflow;
+  @include mixins.hoverflow;
 
   .friend_box_title {
     @extend %metal;
 
     cursor: pointer;
     padding: 3px 12px 3px 5px;
-    border-bottom: $border;
+    border-bottom: theme.$border;
 
     &:hover {
       @extend %metal-hover;
@@ -42,7 +52,7 @@
       display: flex;
 
       &:hover {
-        background: $m-secondary_bg-popup_mix_10;
+        background: theme.$m-secondary_bg-popup_mix_10;
       }
     }
 
@@ -53,7 +63,7 @@
       transition: background 0.13s;
 
       &:hover {
-        color: $c-font;
+        color: theme.$c-font;
       }
 
       &.user-link {
@@ -62,7 +72,7 @@
         max-width: 150px;
 
         .line::before {
-          color: $c-good;
+          color: theme.$c-good;
           content: '';
         }
       }

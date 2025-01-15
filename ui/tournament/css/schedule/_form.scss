@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .tour__form {
   .tour-name > div {
     @extend %flex-center-nowrap;
@@ -34,7 +38,7 @@
 }
 
 .tour__faq {
-  margin-top: $block-gap;
+  margin-top: variables.$block-gap;
 
   h2 {
     margin: 1.2em 0 0.5em 0;
@@ -44,11 +48,11 @@
 .textcomplete-dropdown {
   @extend %popup-shadow;
 
-  background: $c-bg-popup;
+  background: theme.$c-bg-popup;
 
   li {
     list-style: none;
-    border-top: $border;
+    border-top: theme.$border;
     padding: 0.5em;
     min-width: 100px;
     font-weight: bold;
@@ -62,26 +66,26 @@
 
   li:hover,
   .active {
-    background-color: $m-accent_bg-popup_mix_10;
+    background-color: theme.$m-accent_bg-popup_mix_10;
   }
 
   a {
-    color: $c-font;
+    color: theme.$c-font;
   }
 }
 
 .form-fieldset {
   @extend %box-radius;
 
-  border: $border;
-  background: $c-bg-zebra;
+  border: theme.$border;
+  background: theme.$c-bg-zebra;
   margin: 1rem 0 3rem 0;
   padding: 2rem 2rem 0 2rem;
 
   legend {
     @extend %box-radius;
 
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
     padding: 0.5em 1.5em;
     text-align: right;
     font-size: 1.2em;
@@ -91,7 +95,7 @@
 
 .form-fieldset--toggle {
   legend {
-    border-top: $border;
+    border-top: theme.$border;
     cursor: pointer;
 
     &::after {
@@ -108,13 +112,13 @@
   padding-top: 0;
 
   legend {
-    border: $border;
+    border: theme.$border;
     background: none;
 
     &:hover {
       @extend %box-neat;
 
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     &::after {

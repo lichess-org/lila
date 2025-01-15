@@ -1,13 +1,18 @@
+@use '../abstract/extends';
+@use '../abstract/variables';
+@use '../abstract/z-index' as z;
+@use '../theme/gen/theme';
+
 #powerTip,
 #miniGame {
   @extend %box-radius-force, %popup-shadow;
 
   width: 20rem;
   min-height: 3em;
-  background: $c-bg-popup;
+  background: theme.$c-bg-popup;
   display: none;
   position: absolute;
-  z-index: z('powertip');
+  z-index: z.get('powertip');
 }
 
 #powerTip {
@@ -22,7 +27,7 @@
 
     height: 83px;
     padding: 4px 5px 4px 2px;
-    border-bottom: $border;
+    border-bottom: theme.$border;
     overflow: hidden;
 
     &__top {
@@ -71,7 +76,7 @@
       @extend %flex-center;
 
       text-align: center;
-      color: $c-bad;
+      color: theme.$c-bad;
       flex: 1 1 auto;
     }
   }
@@ -107,7 +112,7 @@
 
     &__marks {
       padding: 3px 5px;
-      background: $c-bad;
+      background: theme.$c-bad;
       color: #fff;
     }
 

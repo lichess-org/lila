@@ -1,3 +1,2 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/slist';
-@import '../blog';
+@use 'pkg:common/component/slist';
+@use '../blog';

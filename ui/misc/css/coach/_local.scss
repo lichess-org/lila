@@ -1,0 +1,4 @@
+@use 'pkg:common/abstract/media-queries';
+
+$mq-picture: media-queries.$mq-small;
+$mq-coach-col2: media-queries.$mq-large;

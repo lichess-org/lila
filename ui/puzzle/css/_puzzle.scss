@@ -1,9 +1,6 @@
-$mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
-
-@import 'layout';
-@import 'side';
-@import 'tools';
-@import 'after';
-@import 'session';
-@import 'zen';
+@use 'layout';
+@use 'side';
+@use 'tools';
+@use 'after';
+@use 'session';
+@use 'zen';

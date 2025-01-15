@@ -1,16 +1,21 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 aside {
   h2.title-username a {
-    color: $c-font;
+    color: theme.$c-font;
     display: none;
     padding: 0.5rem;
     text-align: center;
     font-weight: bold;
 
     &.small {
-      @include fluid-size('font-size', 10px, 24px);
+      @include fluid-size.fluid-size('font-size', 10px, 24px);
     }
 
-    @include breakpoint($mq-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-small) {
       display: block;
     }
   }
@@ -34,7 +39,7 @@ aside {
         }
       }
 
-      @include breakpoint($mq-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-small) {
         display: none;
       }
     }
@@ -43,7 +48,7 @@ aside {
       &.hide {
         display: none;
 
-        @include breakpoint($mq-small) {
+        @include breakpoint.breakpoint(media-queries.$mq-small) {
           display: block;
         }
       }
@@ -51,7 +56,7 @@ aside {
       h2 {
         margin-top: 0.7em;
         padding-bottom: 0.8em; // same as tabs
-        border-bottom: $border;
+        border-bottom: theme.$border;
         font-size: 1.5rem;
       }
 
@@ -75,14 +80,14 @@ aside {
     .ms-choice {
       height: 38px;
       line-height: 38px;
-      background-color: $c-bg-input;
+      background-color: theme.$c-bg-input;
 
       & > div {
         width: 7px;
         height: 7px;
         background: none;
-        border-right: 2.5px solid $c-font;
-        border-bottom: 2.5px solid $c-font;
+        border-right: 2.5px solid theme.$c-font;
+        border-bottom: 2.5px solid theme.$c-font;
         transform: rotate(45deg);
         right: 5px;
         top: 13px;

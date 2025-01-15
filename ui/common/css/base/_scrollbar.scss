@@ -1,14 +1,16 @@
+@use "../theme/gen/theme";
+
 body ::-webkit-scrollbar,
 body ::-webkit-scrollbar-corner {
   width: 0.5rem;
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
 }
 
 body ::-webkit-scrollbar-thumb {
-  background: $c-shade;
+  background: theme.$c-shade;
 }
 
 body ::-webkit-scrollbar-thumb:hover,
 body ::-webkit-scrollbar-thumb:active {
-  background: $c-font-dimmer;
+  background: theme.$c-font-dimmer;
 }

@@ -1,11 +1,13 @@
-$mq-col1: 9999px;
+@use 'pkg:common/abstract/extends';
+@use 'ui/analyse/css/tools';
+@use 'ui/analyse/css/action-menu';
+@use 'ui/analyse/css/controls';
+@use 'pkg:common/theme';
+@use 'layout';
+@use 'footer';
+@use 'not-found';
 
-@import 'ui/analyse/css/tools';
-@import 'ui/analyse/css/action-menu';
-@import 'ui/analyse/css/controls';
-@import './layout';
-@import './footer';
-@import './not-found';
+$mq-col1: 9999px; // todo
 
 html {
   overflow: hidden;
@@ -17,7 +19,7 @@ body {
 
   ::-webkit-scrollbar,
   ::-webkit-scrollbar-corner {
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
   }
 }
 
@@ -25,17 +27,17 @@ body {
   @extend %roboto;
 
   padding: 0.3em;
-  border-bottom: $border;
-  background: $c-bg-zebra;
+  border-bottom: theme.$border;
+  background: theme.$c-bg-zebra;
   text-align: center;
 }
 
 .analyse__tools {
   @extend %box-radius-top;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   box-shadow: none;
-  border: $border;
+  border: theme.$border;
   border-bottom: none;
 }
 
@@ -59,11 +61,11 @@ body {
   @extend %box-radius-bottom;
 
   overflow: hidden;
-  background: $c-bg-box;
-  border: $border;
+  background: theme.$c-bg-box;
+  border: theme.$border;
 
   .jumps .fbt {
-    border-right: $border;
+    border-right: theme.$border;
 
     &:last-child {
       border-right: none;

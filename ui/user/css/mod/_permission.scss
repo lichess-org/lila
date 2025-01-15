@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .mod-permissions {
   form {
     text-align: center;
@@ -35,8 +38,8 @@
   }
 
   .granted {
-    background: $m-good_bg-box_mix_10;
-    color: $c-good;
+    background: theme.$m-good_bg-box_mix_10;
+    color: theme.$c-good;
     padding: 0.5em 0;
   }
 

@@ -1,7 +1,12 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .features {
   .check,
   .green {
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   table {
@@ -19,7 +24,7 @@
   td,
   th {
     padding: 10px 20px;
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 
   td {
@@ -28,7 +33,7 @@
 
   thead th {
     padding-top: 30px;
-    color: $c-brag;
+    color: theme.$c-brag;
     font-weight: bold;
     padding-bottom: 20px;
   }
@@ -60,8 +65,8 @@
     text-shadow: 1px 1px 1px #000;
     margin: 3em 10% 1em 10%;
     padding: 2em 3em 3em 3em;
-    background: $c-good;
-    color: $c-good-over;
+    background: theme.$c-good;
+    color: theme.$c-good-over;
     font-size: 1.3em;
 
     strong {
@@ -79,7 +84,7 @@
     text-transform: none;
   }
 
-  @include breakpoint($mq-not-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-small) {
     .is {
       font-size: 0;
 

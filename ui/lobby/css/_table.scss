@@ -1,3 +1,10 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .lobby {
   &__table {
     @extend %flex-column;
@@ -12,12 +19,12 @@
     flex: 1 1 auto;
     margin: 0 1em 0 1em;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       margin: 2em 0 0 0;
     }
 
     button {
-      color: $c-font-clear;
+      color: theme.$c-font-clear;
       font-size: 1.1em;
       text-align: center;
       margin: 0.15em 0;
@@ -28,7 +35,7 @@
       }
     }
 
-    @include breakpoint($mq-col4) {
+    @include breakpoint.breakpoint(local.$mq-col4) {
       justify-content: center;
 
       button {
@@ -41,15 +48,15 @@
   &__counters {
     @extend %flex-between, %page-text;
 
-    background: $c-bg-box;
-    padding: $block-gap #{$block-gap * 2};
+    background: theme.$c-bg-box;
+    padding: variables.$block-gap #{variables.$block-gap * 2};
 
-    @include breakpoint($mq-col3) {
+    @include breakpoint.breakpoint(local.$mq-col3) {
       background: none;
       padding: 0;
     }
 
-    @include breakpoint($mq-col4) {
+    @include breakpoint.breakpoint(local.$mq-col4) {
       flex-flow: column;
       align-items: flex-start;
       position: absolute;
@@ -57,12 +64,12 @@
     }
 
     a {
-      color: $c-font-page;
+      color: theme.$c-font-page;
 
-      @include transition(color);
+      @include mixins.transition(color);
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
   }

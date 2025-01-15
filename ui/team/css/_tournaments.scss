@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .team-tournaments {
   &--both {
     @extend %flex-wrap;
@@ -7,7 +10,7 @@
     h2 {
       @extend %box-padding;
       // padding-bottom: 1em;
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
 
     & > div {
@@ -15,7 +18,7 @@
       min-width: 60ch;
 
       &:last-child .slist {
-        border-left: $border;
+        border-left: theme.$border;
       }
     }
   }
@@ -40,10 +43,10 @@
     }
 
     a {
-      color: $c-font;
+      color: theme.$c-font;
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
 
@@ -53,7 +56,7 @@
     }
 
     .setup {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
     }
 
     .icon {
@@ -67,13 +70,13 @@
 
     .enterable {
       .icon i {
-        color: $c-brag;
+        color: theme.$c-brag;
         opacity: 1;
       }
     }
 
     .soon {
-      border: 1px solid $c-brag;
+      border: 1px solid theme.$c-brag;
     }
   }
 }

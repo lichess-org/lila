@@ -1,5 +1,2 @@
-@import 'pkg:common/embed';
-@import 'pkg:common/component/board';
-@import 'pkg:common/component/hands';
-@import 'pkg:common/component/vs';
-@import '../puzzle';
+@use '../base';
+@use '../puzzle';

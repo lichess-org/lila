@@ -1,25 +1,33 @@
-@import 'ui/editor/css/actions';
-@import 'ui/editor/css/links';
-@import 'ui/editor/css/spare';
-@import 'ui/editor/css/underboard';
-@import 'ui/editor/css/variant';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'ui/editor/css/actions';
+@use 'ui/editor/css/links';
+@use 'ui/editor/css/spare';
+@use 'ui/editor/css/underboard';
+@use 'ui/editor/css/variant';
+@use '../local';
 
 .board-editor-wrap {
   min-height: 280px;
   margin-bottom: 1em;
   padding-bottom: 1em;
-  border-bottom: $border;
+  border-bottom: theme.$border;
 
   .spinner {
     padding-top: 90px;
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     min-width: var(--col2-uniboard-main-size);
   }
 }
 
-$board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
+$board-width: calc(
+  (100vh - 4vmin) * var(--board-scale) * 0.8 - #{variables.$site-header-outer-height}
+);
 
 .board-editor {
   display: grid;
@@ -76,7 +84,7 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
   }
 }
 
-@include breakpoint($mq-x-small) {
+@include breakpoint.breakpoint(media-queries.$mq-x-small) {
   .board-editor {
     width: 100%;
     column-gap: 0.8em;
@@ -87,7 +95,7 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
       'e-tools e-tools e-tools';
 
     .spare {
-      padding: 0 calc(#{$hands-gap} / 11); // hands padding per square
+      padding: 0 calc(#{uniboard.$hands-gap} / 11); // hands padding per square
     }
 
     &.main-v-chushogi {
@@ -103,7 +111,7 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
       grid-template-columns: 2fr 7fr 2fr;
 
       .spare {
-        padding: 0 calc(#{$hands-gap} / 7);
+        padding: 0 calc(#{uniboard.$hands-gap} / 7);
       }
     }
   }

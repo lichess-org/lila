@@ -1,5 +1,7 @@
+@use 'pkg:common/theme';
+
 .user-show__header {
-  background: $c-bg-zebra;
+  background: theme.$c-bg-zebra;
   padding: 2em 1.5em 1em 1.5em;
   flex-flow: row nowrap;
 
@@ -10,11 +12,11 @@
   }
 
   .connected {
-    color: $c-good;
+    color: theme.$c-good;
   }
 
   .closed {
-    color: $c-bad;
+    color: theme.$c-bad;
     font-weight: bold;
     margin-right: 1em;
   }

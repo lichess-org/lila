@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .search {
   &__form {
     margin-bottom: 2em;
@@ -60,8 +63,8 @@
     }
 
     span.help {
-      color: $c-secondary;
-      text-decoration: underline $c-secondary;
+      color: theme.$c-secondary;
+      text-decoration: underline theme.$c-secondary;
     }
 
     .error {
@@ -101,8 +104,8 @@
   &__status {
     padding-top: 1.5em;
     padding-bottom: 1.5em;
-    background: $c-bg-zebra;
-    border: $border;
+    background: theme.$c-bg-zebra;
+    border: theme.$border;
     border-width: 1px 0;
   }
 }

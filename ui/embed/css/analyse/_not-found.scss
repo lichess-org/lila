@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .not-found {
   @extend %flex-center, %box-radius;
 
@@ -8,7 +11,7 @@
   bottom: 0;
   justify-content: center;
   height: 100%;
-  background: radial-gradient(circle, $c-shade, $c-bg-high);
+  background: radial-gradient(circle, theme.$c-shade, theme.$c-bg-high);
 
   h1 {
     @extend %roboto;

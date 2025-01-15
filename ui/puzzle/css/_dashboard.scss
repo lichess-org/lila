@@ -1,4 +1,8 @@
-@import 'history';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/fluid-size';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'history';
 
 .puzzle-dashboard {
   .box__top {
@@ -78,12 +82,12 @@
       font-size: 0.9rem;
     }
 
-    background: $c-bg-zebra2;
+    background: theme.$c-bg-zebra2;
 
     &--win {
-      $c-first: $m-good_darken_mix_85;
-      $c-fix: $m-good_darken_mix_50;
-      $c-fail: $m-bad_darken_mix_80;
+      $c-first: theme.$m-good_darken_mix_85;
+      $c-fix: theme.$m-good_darken_mix_50;
+      $c-fail: theme.$m-bad_darken_mix_80;
 
       background:
         #{$glow-gradient},
@@ -96,12 +100,12 @@
           $c-fail var(--win),
           $c-fail 100%
         );
-      color: $c-good-over;
+      color: theme.$c-good-over;
     }
 
     &--perf {
-      background: #{$glow-gradient} $m-brag_darken_mix_85;
-      color: $c-good-over;
+      background: #{$glow-gradient} theme.$m-brag_darken_mix_85;
+      color: theme.$c-good-over;
     }
 
     &--fix {
@@ -111,17 +115,17 @@
         justify-content: space-evenly;
       }
 
-      color: $c-good-over;
+      color: theme.$c-good-over;
       opacity: 0.7;
 
       &[href] {
         opacity: 1;
         cursor: pointer;
-        background: #{$glow-gradient} $m-primary_darken_mix_80;
+        background: #{$glow-gradient} theme.$m-primary_darken_mix_80;
 
         &:hover {
-          background: #{$glow-gradient} $c-primary;
-          color: $c-good-over;
+          background: #{$glow-gradient} theme.$c-primary;
+          color: theme.$c-good-over;
         }
       }
 
@@ -132,7 +136,7 @@
 
         i {
           opacity: 1;
-          color: $m-primary_bg-box_mix_70;
+          color: theme.$m-primary_bg-box_mix_70;
           position: absolute;
           font-size: 5.5em !important;
           margin-bottom: 0.2em;
@@ -149,13 +153,13 @@
         font-size: 4em;
         opacity: 0.8;
         margin-right: -0.1em;
-        color: $c-good-over;
+        color: theme.$c-good-over;
       }
     }
 
-    @include theme-wrap('light') {
+    @include mixins.theme-wrap('light') {
       &--played span {
-        color: $c-font-dim !important;
+        color: theme.$c-font-dim !important;
       }
     }
   }
@@ -183,7 +187,7 @@
       margin-bottom: 4vh;
 
       h2 {
-        @include fluid-size('font-size', 20px, 40px);
+        @include fluid-size.fluid-size('font-size', 20px, 40px);
       }
     }
   }
@@ -205,7 +209,7 @@
     }
 
     &__description {
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
     }
 
     .puzzle-dashboard__metrics {

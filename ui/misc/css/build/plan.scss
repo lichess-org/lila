@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/radio';
-@import 'pkg:common/component/slist';
-@import '../plan';
+@use 'pkg:common/form/radio';
+@use 'pkg:common/component/slist';
+@use '../plan';

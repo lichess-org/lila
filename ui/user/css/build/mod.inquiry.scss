@@ -1,4 +1,3 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/form/cmn-toggle';
-@import 'pkg:common/component/fbt';
-@import '../mod/inquiry';
+@use 'pkg:common/form/cmn-toggle';
+@use 'pkg:common/component/fbt';
+@use '../mod/inquiry';

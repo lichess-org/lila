@@ -1,16 +1,20 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/functions';
+@use 'pkg:common/theme';
+
 $user-list-width: 35ch;
 
 .tournament-leaderboards,
 .tournament-shields {
   @extend %box-radius;
 
-  border: $border;
+  border: theme.$border;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
 
   &__item {
-    background: $c-bg-box;
-    border-right: $border;
+    background: theme.$c-bg-box;
+    border-right: theme.$border;
   }
 
   h2 {
@@ -24,11 +28,11 @@ $user-list-width: 35ch;
     white-space: nowrap;
 
     a {
-      color: $c-brag;
+      color: theme.$c-brag;
       display: block;
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
   }
@@ -39,7 +43,7 @@ $user-list-width: 35ch;
     padding: 1.2rem 1.2rem 1.2rem 0.5rem;
 
     &:nth-child(even) {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
   }
 }
@@ -54,7 +58,7 @@ $user-list-width: 35ch;
   h2 {
     position: relative;
     padding-left: 95px;
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 }
 
@@ -64,7 +68,7 @@ $user-list-width: 35ch;
   left: 15px;
   width: 67px;
   height: 80px;
-  background: img-url('trophy/shield-gold.png') no-repeat;
+  background: functions.img-url('trophy/shield-gold.png') no-repeat;
   background-size: contain;
   font-family: lishogi !important;
   font-size: 40px;
@@ -73,7 +77,7 @@ $user-list-width: 35ch;
   letter-spacing: normal;
   color: #333;
   text-shadow: 0 0 6px #fff;
-  filter: drop-shadow(0 0 10px $c-brag);
+  filter: drop-shadow(0 0 10px theme.$c-brag);
 }
 
 .tournament-categ-shields {
@@ -92,7 +96,7 @@ $user-list-width: 35ch;
     padding: 0 var(--box-padding) 0 calc(var(--box-padding) + 70px);
 
     &:nth-child(odd) {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
   }
 }

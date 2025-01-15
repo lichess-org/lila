@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 @keyframes soft-bright {
   50% {
     filter: brightness(1.2);
@@ -8,22 +12,22 @@
   @extend %box-neat;
 
   display: flex;
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   justify-content: center;
 
   &.win,
   &.fail {
     padding: 2em 1.5em;
-    background: $c-good;
-    color: $c-good-over;
+    background: theme.$c-good;
+    color: theme.$c-good-over;
     animation: 1.7s soft-bright ease-in-out infinite;
     opacity: 0.8;
 
-    @include transition;
+    @include mixins.transition;
   }
 
   &.fail {
-    background: $c-bad;
+    background: theme.$c-bad;
   }
 
   &:hover {

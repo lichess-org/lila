@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .player-manage {
   .actions {
     display: flex;
@@ -14,7 +16,7 @@
       font-size: 1.2rem;
       padding: 0.75rem;
       text-align: center;
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     .table-wrap {
@@ -30,7 +32,7 @@
   }
 
   .denied .table-wrap {
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 
   .other-actions {
@@ -53,7 +55,7 @@
     .joining {
       display: flex;
       justify-content: center;
-      border-left: $border;
+      border-left: theme.$border;
     }
   }
 }

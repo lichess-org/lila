@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/component/fire-trophy';
+@use 'pkg:common/theme';
+
 @use 'sass:color';
 
 .trophies {
@@ -11,7 +16,7 @@
   justify-content: flex-end;
   margin-top: 0 !important;
 
-  @include breakpoint($mq-not-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-small) {
     display: none;
   }
 }
@@ -32,7 +37,7 @@
   }
 
   &.top1 {
-    filter: drop-shadow(0 0 6px $c-brag);
+    filter: drop-shadow(0 0 6px theme.$c-brag);
   }
 }
 
@@ -64,7 +69,7 @@
 
   &,
   &:hover {
-    color: $c-font;
+    color: theme.$c-font;
   }
 
   &:hover {
@@ -76,7 +81,7 @@
   &.marathonTopFifty,
   &.marathonTopHundred {
     filter: hue-rotate(190deg);
-    color: $c-link-clear;
+    color: theme.$c-link-clear;
   }
 
   &.marathonTopTen {
@@ -132,14 +137,14 @@
   width: 40px;
   height: 40px;
   font-size: 39px;
-  color: $c-font-dimmer;
+  color: theme.$c-font-dimmer;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 
 .trophy.streaming {
   @extend %fire-trophy-shadow;
 
-  color: $c-brag;
+  color: theme.$c-brag;
   animation: fire-trophy 1.25s ease-in-out infinite alternate;
 }
 
@@ -148,7 +153,7 @@
   font-size: 60px;
   margin: 0 -10px 0 30px;
   transform: scale(-1, 1);
-  color: $c-brag;
+  color: theme.$c-brag;
   transition: margin-top 0.5s;
 
   &:hover {
@@ -175,7 +180,7 @@
   color: #333 !important;
   text-shadow: 0 0 6px #fff;
   margin-top: -20px;
-  filter: drop-shadow(0 0 6px $c-brag);
+  filter: drop-shadow(0 0 6px theme.$c-brag);
 }
 
 .revol_trophy {

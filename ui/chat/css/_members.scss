@@ -1,3 +1,5 @@
+@use 'pkg:common/abstract/extends';
+
 .chat__members {
   @extend %page-text;
 

@@ -1,17 +1,20 @@
-@import 'rating-history';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+@use 'rating-history';
 
 #us_profile {
   @extend %flex-center;
 
-  border-top: $border;
+  border-top: theme.$border;
 
   .warning {
     @extend %box-radius, %flex-center-nowrap;
 
     padding: 0.7em;
-    background: $m-bad_bg-box_mix_10;
-    border: 1px solid $m-bad_bg-box_mix_30;
-    color: $c-bad;
+    background: theme.$m-bad_bg-box_mix_10;
+    border: 1px solid theme.$m-bad_bg-box_mix_30;
+    color: theme.$c-bad;
 
     span {
       margin-right: 0.2em;
@@ -28,7 +31,7 @@
 
     flex: 1 0 300px;
     height: 100%; // 332px;
-    border-left: $border;
+    border-left: theme.$border;
     overflow: hidden;
   }
 
@@ -43,7 +46,7 @@
     padding: 0.8em;
     overflow: auto;
 
-    @include hoverflow;
+    @include mixins.hoverflow;
   }
 
   .insights {
@@ -51,8 +54,8 @@
 
     flex: 0 0 auto;
     padding: 0.5em 1em;
-    border-top: $border;
-    color: $c-link;
+    border-top: theme.$border;
+    color: theme.$c-link;
 
     strong {
       display: block;
@@ -71,10 +74,10 @@
 
     &:hover,
     &:hover::before {
-      @include transition;
+      @include mixins.transition;
 
-      background: $c-primary;
-      color: $c-primary-over;
+      background: theme.$c-primary;
+      color: theme.$c-primary-over;
     }
   }
 

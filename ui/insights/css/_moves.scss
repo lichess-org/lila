@@ -1,10 +1,14 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
 .angle-content .moves {
   .third-wrap {
     .big-number-with-desc.total,
     .big-number-with-desc.total-per-game {
       width: 50%;
 
-      @include breakpoint($mq-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-small) {
         width: 30%;
       }
     }
@@ -14,7 +18,7 @@
       align-self: center;
       width: 85%;
 
-      @include breakpoint($mq-small) {
+      @include breakpoint.breakpoint(media-queries.$mq-small) {
         width: 30%;
       }
 
@@ -27,11 +31,11 @@
         font-size: 2.3rem;
 
         &.moves {
-          color: $c-primary;
+          color: theme.$c-primary;
         }
 
         &.drops {
-          color: $c-accent;
+          color: theme.$c-accent;
         }
       }
 
@@ -51,25 +55,25 @@
       flex: 1;
       text-align: center;
       padding: 0.5rem;
-      border-bottom: 2px solid $c-border;
-      color: $c-font-dim;
+      border-bottom: 2px solid theme.$c-border;
+      color: theme.$c-font-dim;
       transition:
         color 0.25s,
         border-color 0.25s;
 
       &.selected {
         font-weight: bold;
-        color: $c-accent;
-        border-bottom: 2px solid $c-accent;
+        color: theme.$c-accent;
+        border-bottom: 2px solid theme.$c-accent;
       }
 
       &.disabled {
-        color: $c-font-dimmer;
+        color: theme.$c-font-dimmer;
         pointer-events: none;
       }
 
       &:hover {
-        border-bottom: 2px solid $c-accent;
+        border-bottom: 2px solid theme.$c-accent;
       }
     }
   }

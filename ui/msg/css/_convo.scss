@@ -1,4 +1,9 @@
-@import 'convoMsgs';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+@use 'local';
+@use 'convoMsgs';
 
 .msg-app {
   &__convo {
@@ -6,7 +11,7 @@
 
     flex: 1 1 100%;
 
-    @include breakpoint($mq-not-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-small) {
       flex: 1 0 100%;
       display: none;
 
@@ -18,9 +23,9 @@
     &__head {
       @extend %flex-between-nowrap;
 
-      flex: 0 0 $msg-top-height;
-      background: $c-bg-zebra2;
-      border-bottom: $border;
+      flex: 0 0 local.$msg-top-height;
+      background: theme.$c-bg-zebra2;
+      border-bottom: theme.$border;
 
       &__left {
         @extend %flex-center-nowrap;
@@ -32,11 +37,11 @@
       &__back {
         @extend %flex-center;
 
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
         padding: 0 1em;
         font-size: 1.5em;
 
-        @include breakpoint($mq-small) {
+        @include breakpoint.breakpoint(media-queries.$mq-small) {
           display: none;
         }
       }
@@ -45,7 +50,7 @@
         @extend %flex-center-nowrap;
 
         flex: 0 0 auto;
-        color: $c-font-clear;
+        color: theme.$c-font-clear;
         font-size: 1.4em;
 
         .title {
@@ -67,15 +72,15 @@
 
     &__action {
       &.button {
-        color: $c-font;
+        color: theme.$c-font;
 
         &.bad:hover {
-          color: $c-bad;
+          color: theme.$c-bad;
         }
       }
 
       &__sep {
-        color: $c-font-dimmer;
+        color: theme.$c-font-dimmer;
         margin: 0 0.5em;
       }
     }
@@ -84,8 +89,8 @@
       @extend %flex-center-nowrap;
 
       flex: 0 0 auto;
-      background: $c-bg-zebra2;
-      border-top: $border;
+      background: theme.$c-bg-zebra2;
+      border-top: theme.$border;
       padding: 1em 2em;
 
       &__block {
@@ -105,7 +110,7 @@
 
         flex: 1 1 100%;
         border-radius: 1.5em;
-        background: $c-bg-box;
+        background: theme.$c-bg-box;
         resize: none;
       }
 
@@ -113,16 +118,16 @@
         outline: 0;
         margin-left: 1em;
         border-radius: 99px;
-        background: $c-font-dimmer;
+        background: theme.$c-font-dimmer;
 
         &.connected,
         &.connected:hover {
-          background: $c-msg;
+          background: local.$c-msg;
         }
       }
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-xx-small) {
       &__head__back {
         padding: 0 0.5em;
       }

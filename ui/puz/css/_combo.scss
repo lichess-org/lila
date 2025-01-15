@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .puz-combo {
   display: flex;
   flex-flow: row nowrap;
@@ -23,11 +26,11 @@
 
       font-size: 0.8em;
       letter-spacing: -1px;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
     }
 
     .puz-mod-move & {
-      color: $c-brag;
+      color: theme.$c-brag;
     }
   }
 
@@ -41,12 +44,12 @@
   &__bar {
     @extend %box-radius;
 
-    $c-bar-base: $c-bg-zebra2;
-    $c-in-base: $c-brag;
+    $c-bar-base: theme.$c-bg-zebra2;
+    $c-in-base: theme.$c-brag;
 
     flex: 0 0 2.2em;
     background: $c-bar-base;
-    border: $border;
+    border: theme.$border;
     position: relative;
 
     &__in,
@@ -70,18 +73,18 @@
 
       .puz-mod-malus-slow & {
         transition-property: width;
-        background: $c-bad;
+        background: theme.$c-bad;
         box-shadow:
-          0 0 10px $c-bad,
-          0 0 20px $c-bad;
+          0 0 10px theme.$c-bad,
+          0 0 20px theme.$c-bad;
       }
     }
 
     &__in-full {
-      background: $c-primary;
+      background: theme.$c-primary;
       box-shadow:
-        0 0 10px $c-primary,
-        0 0 20px $c-primary;
+        0 0 10px theme.$c-primary,
+        0 0 20px theme.$c-primary;
       width: 100%;
       display: none;
       opacity: 0;
@@ -110,7 +113,7 @@
   }
 
   &__level {
-    $c-level: $c-primary;
+    $c-level: theme.$c-primary;
 
     transform: skewX(-45deg);
     flex: 21% 0 0;
@@ -118,10 +121,10 @@
     font-size: 0.9em;
     height: 1.5em;
     line-height: 1.5em;
-    border: $border;
-    background: $c-bg-zebra;
+    border: theme.$border;
+    background: theme.$c-bg-zebra;
     text-align: center;
-    color: $c-font-dimmer;
+    color: theme.$c-font-dimmer;
     font-weight: bold;
 
     span {
@@ -144,7 +147,7 @@
 
     &.active {
       animation: level-fade-in 1s ease-out;
-      background: $m-primary_black_mix_80;
+      background: theme.$m-primary_black_mix_80;
       border: 1px solid $c-level;
       box-shadow: 0 0 10px $c-level;
       color: white;
@@ -154,11 +157,11 @@
       }
 
       &:nth-child(3) {
-        background: $m-primary_white_mix_60;
+        background: theme.$m-primary_white_mix_60;
       }
 
       &:nth-child(4) {
-        background: $m-primary_white_mix_40;
+        background: theme.$m-primary_white_mix_40;
       }
     }
   }

@@ -1,6 +1,2 @@
-@import 'base';
-
-// @import 'pkg:common/form/form3';
-// @import 'pkg:common/component/tabs-horiz';
-// @import 'pkg:common/component/slist';
-@import '../practice/show';
+@use 'base';
+@use '../practice/show';

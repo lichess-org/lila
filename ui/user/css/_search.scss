@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .search {
   &__form {
     @extend %flex-center;
@@ -57,6 +60,6 @@
   &__status {
     text-align: right;
     padding: 1.5em;
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 }

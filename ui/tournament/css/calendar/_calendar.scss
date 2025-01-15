@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 #tournament-calendar {
   user-select: none;
   padding-left: 5rem;
@@ -18,7 +21,7 @@
     align-items: center;
 
     &:nth-child(even) {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     date {
@@ -98,7 +101,7 @@
 
     &.yearly,
     &.weekend {
-      background-color: $c-brag;
+      background-color: theme.$c-brag;
     }
 
     &.marathon {
@@ -106,7 +109,7 @@
     }
 
     &.unique {
-      background-color: $c-brag;
+      background-color: theme.$c-brag;
     }
 
     &.max-rating {
@@ -133,14 +136,14 @@
   .timeline {
     @extend %abs-100;
 
-    border-top: $border;
+    border-top: theme.$border;
   }
 
   .timeheader {
     position: absolute;
     display: inline;
     height: 100%;
-    border-left: 1px dashed $c-border;
+    border-left: 1px dashed theme.$c-border;
     padding: 2px 5px;
 
     &:first-child {

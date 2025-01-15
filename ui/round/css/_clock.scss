@@ -1,16 +1,23 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .rclock {
   position: relative;
   display: flex;
   justify-content: flex-end;
   user-select: none;
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint.breakpoint(local.$mq-col1) {
     /* that weird shit is required so the clock goes above the player since they share the same grid cell */
     justify-self: flex-end;
     z-index: 1;
   }
   /* overflow: hidden; is not possible because of clock bars and shadows */
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     justify-content: space-between;
     height: 45px;
 
@@ -22,18 +29,18 @@
 
   &-turn {
     align-self: center;
-    line-height: $col1-player-clock-height;
+    line-height: local.$col1-player-clock-height;
 
-    @include breakpoint($mq-col1) {
+    @include breakpoint.breakpoint(local.$mq-col1) {
       &__text {
-        background: $c-bg-box;
-        padding: 0 $block-gap;
+        background: theme.$c-bg-box;
+        padding: 0 variables.$block-gap;
         font-weight: bold;
         white-space: nowrap;
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       height: 45px;
       line-height: 45px;
     }
@@ -45,7 +52,7 @@
     min-width: 3em;
     z-index: -1;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       flex-direction: row;
     }
   }
@@ -58,7 +65,7 @@
     padding: 0 0.35rem;
     opacity: 0.8;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       font-size: 1.5rem;
       flex-direction: row;
     }
@@ -67,11 +74,11 @@
   .time {
     @extend %roboto;
 
-    background: $c-bg-box;
+    background: theme.$c-bg-box;
     font-size: 2.5em;
     font-weight: bold;
-    line-height: $col1-player-clock-height;
-    padding: 0 $block-gap;
+    line-height: local.$col1-player-clock-height;
+    padding: 0 variables.$block-gap;
     padding-top: 3px;
     white-space: nowrap;
     display: flex;
@@ -80,18 +87,18 @@
       font-size: 2.3em;
     }
 
-    @include breakpoint($mq-col1) {
+    @include breakpoint.breakpoint(local.$mq-col1) {
       border-radius: 0;
       box-shadow: none;
       background: none;
       padding-top: 0;
     }
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       align-items: flex-end;
     }
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       font-size: 2.8em;
       letter-spacing: 0.1em;
 
@@ -114,11 +121,11 @@
     font-size: 1.6em;
     letter-spacing: inherit;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       line-height: 1.5em;
     }
 
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
       font-size: 1.9em;
     }
   }
@@ -131,7 +138,7 @@
   huns {
     font-size: 80%;
 
-    @include breakpoint($mq-col1) {
+    @include breakpoint.breakpoint(local.$mq-col1) {
       display: none; /* since clock is right-aligned, huns shift it left on every move */
     }
   }
@@ -146,24 +153,24 @@
   }
 
   &.running .time {
-    background: $m-secondary_bg-box_mix_30;
-    color: $c-font-clearer;
+    background: theme.$m-secondary_bg-box_mix_30;
+    color: theme.$c-font-clearer;
   }
 
   &.emerg:not(.byo) .time,
   &.outoftime .time {
-    background-color: $m-bad_bg-box_mix_30;
+    background-color: theme.$m-bad_bg-box_mix_30;
   }
 
   &.emerg.running .time {
-    background-color: $m-bad_bg-box_mix_50;
-    color: $c-font-clearer;
+    background-color: theme.$m-bad_bg-box_mix_50;
+    color: theme.$c-font-clearer;
   }
 
   &.over {
     .time,
     .byoyomi {
-      color: $c-font-dimmer;
+      color: theme.$c-font-dimmer;
     }
   }
 
@@ -172,7 +179,7 @@
     padding: 0 0.3em;
 
     &:hover {
-      color: $c-accent !important;
+      color: theme.$c-accent !important;
       background: none !important;
     }
   }
@@ -184,7 +191,7 @@
 
     display: none;
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       order: -1;
       display: flex;
       flex: 0 1 auto;
@@ -192,7 +199,7 @@
       padding: 0 0.3em;
     }
 
-    @include breakpoint($mq-col2) {
+    @include breakpoint.breakpoint(local.$mq-col2) {
       order: inherit;
     }
   }
@@ -213,6 +220,6 @@
 
   .berserked {
     font-size: 2.2em;
-    color: $c-accent;
+    color: theme.$c-accent;
   }
 }

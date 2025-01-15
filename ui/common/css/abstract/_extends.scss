@@ -1,3 +1,12 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'media-queries';
+@use 'mixins';
+@use 'z-index' as z;
+@use '../theme/gen/theme';
+
+@forward 'flex';
+@forward 'box';
+
 %base-font-fallback {
   font-family: 'Noto Sans', sans-serif;
 }
@@ -20,25 +29,25 @@
 
 /* text printed directly on the page background deserves special treatment (transp theme) */
 %page-font {
-  color: $c-font-page;
+  color: theme.$c-font-page;
 }
 %page-text {
   @extend %page-font;
 
-  @include theme-wrap('transp') {
-    text-shadow: $text-shadow;
+  @include mixins.theme-wrap('transp') {
+    text-shadow: theme.$text-shadow;
   }
 }
 
 %metal {
-  background: $c-bg-metal;
-  color: $c-font-metal;
-  text-shadow: $metal-shadow;
+  background: theme.$c-bg-metal;
+  color: theme.$c-font-metal;
+  text-shadow: theme.$metal-shadow;
 }
 %metal-hover {
-  background: $c-bg-metal-hover;
-  color: $c-font-metal-hover;
-  text-shadow: $metal-shadow;
+  background: theme.$c-bg-metal-hover;
+  color: theme.$c-font-metal-hover;
+  text-shadow: theme.$metal-shadow;
 }
 
 %active-inset-shadow {
@@ -48,20 +57,20 @@
 %active {
   @extend %active-inset-shadow;
 
-  background: $c-accent;
-  color: $c-accent-over;
+  background: theme.$c-accent;
+  color: theme.$c-accent-over;
   text-shadow: 0 1px 1px black !important;
 }
 %active-hover {
-  background: $m-white_accent_mix_20;
+  background: theme.$m-white_accent_mix_20;
 }
 
 %active-soft {
   @extend %active-inset-shadow;
 
-  background: $c-shade;
-  color: $c-font-clearer;
-  text-shadow: 1px 1px 1px $c-font-shadow !important;
+  background: theme.$c-shade;
+  color: theme.$c-font-clearer;
+  text-shadow: 1px 1px 1px theme.$c-font-shadow !important;
   font-weight: bold;
 }
 
@@ -83,25 +92,25 @@
   background: none;
   border: none;
   outline: none;
-  color: $c-font;
+  color: theme.$c-font;
 }
 %checkbox {
   @extend %box-radius;
 
   -webkit-appearance: none;
-  background: $c-bg-page;
-  border: 1px solid $c-bg-low;
+  background: theme.$c-bg-page;
+  border: 1px solid theme.$c-bg-low;
   display: inline-block;
   padding: 0.5em;
 
   &:checked {
-    background: $c-secondary-dimmer;
-    border-color: $c-secondary-dim;
+    background: theme.$c-secondary-dimmer;
+    border-color: theme.$c-secondary-dim;
   }
 }
 
 %focus-shadow {
-  box-shadow: 0 0 12px $c-font-dim;
+  box-shadow: 0 0 12px theme.$c-font-dim;
 }
 
 %nowrap-hidden {
@@ -136,7 +145,7 @@
 }
 
 %ellipsis {
-  @include ellipsis;
+  @include mixins.ellipsis;
 }
 
 %square {
@@ -169,7 +178,7 @@
 %game-embed {
   padding-bottom: calc(175%);
 
-  @include breakpoint($mq-x-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-x-small) {
     padding-bottom: calc(56.25%);
   }
 }
@@ -196,8 +205,8 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: $c-page-mask;
-  z-index: z('fullscreen-mask');
+  background: theme.$c-page-mask;
+  z-index: z.get('fullscreen-mask');
 }
 %link-overlay {
   position: absolute;
@@ -205,7 +214,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: z('link-overlay');
+  z-index: z.get('link-overlay');
 }
 %abs-100 {
   position: absolute;

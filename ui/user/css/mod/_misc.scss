@@ -1,6 +1,8 @@
-@import 'crud';
-@import 'practice';
-@import 'dev';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+@use 'crud';
+@use 'practice';
+@use 'dev';
 
 .mod-search {
   form {
@@ -63,11 +65,11 @@
 #modlog_table {
   tr {
     &.alert {
-      background: $m-bg-zebra_red_mix_80;
+      background: theme.$m-bg-zebra_red_mix_80;
     }
 
     &:nth-child(odd).alert {
-      background: $m-bg-zebra2_red_mix_80;
+      background: theme.$m-bg-zebra2_red_mix_80;
     }
   }
 }

@@ -1,9 +1,13 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+
 table td {
   @extend %ellipsis;
 
   max-width: 50vw;
 
-  @include breakpoint($mq-not-x-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-x-small) {
     &:last-child {
       display: none;
     }

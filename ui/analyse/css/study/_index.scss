@@ -1,5 +1,9 @@
-@import 'list-widget';
-@import 'topics';
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+@use 'list-widget';
+@use 'topics';
 
 $top-height: 3.2rem;
 
@@ -32,7 +36,7 @@ $top-height: 3.2rem;
         height: $top-height;
         font-size: 1.1em;
 
-        @include breakpoint($mq-xx-small) {
+        @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
           font-size: 1.2em;
         }
       }
@@ -76,7 +80,7 @@ $top-height: 3.2rem;
   }
 
   .list {
-    border-top: $border;
+    border-top: theme.$border;
   }
 
   .nostudies {

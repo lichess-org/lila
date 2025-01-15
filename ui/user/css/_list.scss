@@ -1,4 +1,9 @@
-$c-lead: $c-brag;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+
+$c-lead: theme.$c-brag;
 $user-list-width: 30ch;
 
 .community {
@@ -6,7 +11,7 @@ $user-list-width: 30ch;
   grid-gap: 2rem;
   grid-template-areas: 'online' 'leaders';
 
-  @include breakpoint($mq-xx-small) {
+  @include breakpoint.breakpoint(media-queries.$mq-xx-small) {
     grid-template-columns: min-content 1fr;
     grid-template-rows: min-content;
     grid-template-areas:
@@ -55,7 +60,7 @@ $user-list-width: 30ch;
       border: 1px solid $c-lead;
 
       .user-top {
-        border-right: 2px solid $m-brag_alpha_neg50;
+        border-right: 2px solid theme.$m-brag_alpha_neg50;
       }
 
       h2 {
@@ -80,7 +85,7 @@ $user-list-width: 30ch;
       }
 
       li:nth-child(even) {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
       }
     }
   }

@@ -1,7 +1,11 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .tour__actor-info {
   @extend %box-neat-force;
 
-  background: $c-bg-box;
+  background: theme.$c-bg-box;
   position: relative;
   align-self: flex-start;
 
@@ -15,9 +19,9 @@
     right: 5px;
     opacity: 0.6;
 
-    @include transition;
+    @include mixins.transition;
 
-    color: $c-red;
+    color: theme.$c-red;
 
     &:hover {
       opacity: 1;
@@ -34,7 +38,7 @@
 
       font-size: 1.4em;
       padding: 0.6rem 1rem;
-      border-bottom: $border;
+      border-bottom: theme.$border;
     }
 
     table {
@@ -59,14 +63,14 @@
     tr {
       cursor: pointer;
 
-      @include transition(background-color);
+      @include mixins.transition(background-color);
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: theme.$c-bg-zebra;
       }
 
       &:hover {
-        background: $m-link_bg-box_mix_10;
+        background: theme.$m-link_bg-box_mix_10;
       }
     }
 
@@ -82,7 +86,7 @@
     }
 
     .title {
-      color: $c-brag;
+      color: theme.$c-brag;
       font-weight: bold;
     }
   }

@@ -1,13 +1,17 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/variables';
+
 .tour-home {
   display: grid;
-  grid-gap: $block-gap;
+  grid-gap: variables.$block-gap;
   grid-template-areas:
     'schedule'
     'side';
 
   &__side {
     grid-area: side;
-    margin: 0 $block-gap;
+    margin: 0 variables.$block-gap;
   }
 
   &__schedule {
@@ -19,7 +23,7 @@
     display: none;
   }
 
-  @include breakpoint($mq-medium) {
+  @include breakpoint.breakpoint(media-queries.$mq-medium) {
     grid-template-columns: minmax(200px, 300px);
     grid-template-areas:
       'side schedule'

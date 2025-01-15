@@ -1,3 +1,8 @@
+@use '../abstract/extends';
+@use '../abstract/mixins';
+@use '../abstract/variables';
+@use '../theme/gen/theme';
+
 .number-menu {
   display: flex;
   user-select: none;
@@ -6,7 +11,7 @@
     @extend %roboto;
 
     flex: 1 1 auto;
-    color: $c-font;
+    color: theme.$c-font;
     text-align: center;
     line-height: 1.4em;
     padding: 0.5em 5px;
@@ -15,7 +20,7 @@
     font-size: 0.9em;
 
     &:hover {
-      color: $c-link;
+      color: theme.$c-link;
     }
   }
 
@@ -25,9 +30,9 @@
     margin-top: 0.7em;
     padding-bottom: 0.8em;
 
-    @include transition;
+    @include mixins.transition;
 
-    border-bottom: $border;
+    border-bottom: theme.$border;
 
     &:first-child {
       border-top-left-radius: 0;
@@ -40,15 +45,15 @@
     }
 
     &:hover {
-      background: $m-link_bg-box_mix_10;
-      color: $c-font-clear;
+      background: theme.$m-link_bg-box_mix_10;
+      color: theme.$c-font-clear;
     }
 
     &.active {
-      color: $c-font-clear;
-      border: $border;
+      color: theme.$c-font-clear;
+      border: theme.$border;
       border-bottom: 0;
-      background: $c-bg-box;
+      background: theme.$c-bg-box;
     }
   }
 

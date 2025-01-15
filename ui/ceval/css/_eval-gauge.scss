@@ -1,12 +1,18 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .eval-gauge {
   @extend %box-radius;
 
-  width: $block-gap;
+  width: variables.$block-gap;
   position: relative;
-  background: $c-eval-sente;
+  background: theme.$c-eval-sente;
   overflow: hidden;
 
-  @include breakpoint($mq-col1-uniboard) {
+  @include breakpoint.breakpoint(uniboard.$mq-col1-uniboard) {
     display: none;
   }
 
@@ -30,19 +36,19 @@
     top: 0;
     left: 0;
     width: 100%;
-    border-bottom: 2px ridge $c-eval-gote;
+    border-bottom: 2px ridge theme.$c-eval-gote;
     opacity: 0.4;
   }
 
   tick.zero {
-    border-color: $c-accent;
+    border-color: theme.$c-accent;
     opacity: 1;
   }
 
   .gote {
     width: 100%;
     height: 50%;
-    background: $c-eval-gote;
+    background: theme.$c-eval-gote;
     transition: height 1s;
   }
 }

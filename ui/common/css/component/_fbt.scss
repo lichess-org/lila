@@ -1,20 +1,24 @@
+@use '../abstract/mixins';
+@use '../abstract/extends';
+@use '../theme/gen/theme';
+
 .fbt {
   @extend %button-none;
 
   text-transform: uppercase;
   line-height: 1.5;
 
-  @include transition;
+  @include mixins.transition;
 
   @media (hover: hover) {
     &:hover:not(.disabled):not([disabled]) {
-      background: $m-secondary_bg-box_mix_75;
+      background: theme.$m-secondary_bg-box_mix_75;
       color: #fff;
     }
   }
 
   &.active {
-    background: $c-secondary !important;
+    background: theme.$c-secondary !important;
     color: #fff;
   }
 

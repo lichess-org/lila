@@ -1,10 +1,15 @@
-$mq-col2: $mq-col2-uniboard;
-$mq-col3: $mq-col3-uniboard;
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/uniboard';
+@use 'pkg:common/abstract/variables';
+@use 'local';
 
 #main-wrap {
-  --main-max-width: calc((100vh - #{$site-header-outer-height} - #{$hands-gap}) / 12 * 9);
+  --main-max-width: calc(
+    (100vh - #{variables.$site-header-outer-height} - #{uniboard.$hands-gap}) / 12 * 9
+  );
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     --main-max-width: auto;
   }
 }
@@ -41,10 +46,12 @@ $mq-col3: $mq-col3-uniboard;
       'main';
   }
 
-  @include breakpoint($mq-col2) {
+  @include breakpoint.breakpoint(local.$mq-col2) {
     &--run {
       grid-template-rows: fit-content(0);
-      grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
+      grid-template-columns:
+        var(--col2-uniboard-main-size)
+        variables.$block-gap uniboard.$col2-uniboard-table;
       grid-template-areas:
         'main . table'
         'side . .';
@@ -54,16 +61,18 @@ $mq-col3: $mq-col3-uniboard;
       grid-template-areas: 'side main';
       grid-template-columns: 240px auto;
 
-      @include breakpoint($mq-x-large) {
+      @include breakpoint.breakpoint(media-queries.$mq-x-large) {
         grid-template-columns: 240px 960px;
       }
     }
   }
 
-  @include breakpoint($mq-col3) {
+  @include breakpoint.breakpoint(local.$mq-col3) {
     &--run {
       grid-template-rows: fit-content(0);
-      grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
+      grid-template-columns:
+        uniboard.$col3-uniboard-side variables.$block-gap var(--col3-uniboard-main-size)
+        variables.$block-gap uniboard.$col3-uniboard-table;
       grid-template-areas:
         'side . main . table'
         'side . .    . .';

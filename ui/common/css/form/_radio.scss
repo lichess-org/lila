@@ -1,7 +1,11 @@
+@use '../abstract/extends';
+@use '../abstract/variables';
+@use '../theme/gen/theme';
+
 group.radio {
   @extend %box-radius, %flex-wrap;
 
-  border: $border;
+  border: theme.$border;
   overflow: hidden;
 
   div {
@@ -17,13 +21,13 @@ group.radio {
   label {
     @extend %flex-center;
 
-    background: $c-bg-input;
-    color: $c-font-clear;
+    background: theme.$c-bg-input;
+    color: theme.$c-font-clear;
     justify-content: center;
     padding: 10px;
     height: 100%;
     cursor: pointer;
-    border-right: $border;
+    border-right: theme.$border;
     user-select: none;
 
     &:hover {
@@ -36,7 +40,7 @@ group.radio {
   }
 
   input:checked + label {
-    background: $c-accent;
-    color: $c-accent-over;
+    background: theme.$c-accent;
+    color: theme.$c-accent-over;
   }
 }

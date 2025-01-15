@@ -1,3 +1,5 @@
+@use '../theme/gen/theme';
+
 %fire-trophy-shadow {
   text-shadow:
     0 0.008em 0.127em #fefcc9,
@@ -36,7 +38,7 @@
 .fire-trophy {
   @extend %fire-trophy-shadow;
 
-  color: $c-font;
+  color: theme.$c-font;
   font-size: 90px;
   display: block;
 

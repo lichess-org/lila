@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .arr-thumb-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -5,12 +7,12 @@
   min-width: 250px;
   // max-width: 250px;
   padding: 0.75rem 0;
-  border: $border;
+  border: theme.$border;
   border-width: 0 1px 1px 0;
   cursor: pointer;
 
   &:hover {
-    background: $m-accent_bg-box_mix_10;
+    background: theme.$m-accent_bg-box_mix_10;
   }
 
   .arr-name {
@@ -36,7 +38,7 @@
       flex: 1;
 
       .title {
-        color: $c-brag;
+        color: theme.$c-brag;
         font-weight: bold;
       }
 

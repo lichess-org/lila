@@ -1,10 +1,16 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+@use 'local';
+
 .timeline {
   @extend %page-text;
 
   flex: 1 1 auto;
-  margin: 1em 0 0 $block-gap;
+  margin: 1em 0 0 variables.$block-gap;
 
-  @include hoverflow;
+  @include mixins.hoverflow;
 
   .entry {
     @extend %roboto;
@@ -13,7 +19,7 @@
       @extend %base-font, %page-font;
 
       &:hover {
-        color: $c-link;
+        color: theme.$c-link;
       }
     }
 
@@ -22,7 +28,7 @@
       display: block;
       width: 100%;
       height: 1px;
-      background: linear-gradient(to left, $c-border 20%, $c-bg-page);
+      background: linear-gradient(to left, theme.$c-border 20%, theme.$c-bg-page);
       margin: 0.7em 0;
     }
   }

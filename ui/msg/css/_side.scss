@@ -1,18 +1,24 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/theme';
+@use 'local';
+
 .msg-app {
   &__side {
     @extend %flex-column;
 
     flex: 0 0 50ch;
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
     overflow: hidden;
     user-select: none;
-    border-right: $border;
+    border-right: theme.$border;
 
-    @include breakpoint($mq-not-medium) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-medium) {
       flex: 0 0 40ch;
     }
 
-    @include breakpoint($mq-not-small) {
+    @include breakpoint.breakpoint(media-queries.$mq-not-small) {
       flex: 1 0 100%;
       display: none;
 
@@ -23,15 +29,15 @@
 
     ::-webkit-scrollbar,
     ::-webkit-scrollbar-corner {
-      background: $c-bg-zebra;
+      background: theme.$c-bg-zebra;
     }
 
     &__search {
       @extend %flex-center;
 
-      flex: 0 0 $msg-top-height;
-      background: $c-bg-zebra2;
-      border-bottom: $border;
+      flex: 0 0 local.$msg-top-height;
+      background: theme.$c-bg-zebra2;
+      border-bottom: theme.$border;
       overflow-y: auto;
 
       input {
@@ -40,7 +46,7 @@
         width: 100%;
         margin: auto 2em;
         border-radius: 99px;
-        background: $c-bg-box;
+        background: theme.$c-bg-box;
         padding: 0.6em 1.2em;
       }
     }
@@ -55,12 +61,12 @@
       cursor: pointer;
 
       &:hover {
-        background: $m-secondary_bg-box_mix_15;
+        background: theme.$m-secondary_bg-box_mix_15;
       }
 
       &:active,
       &.active {
-        background: $m-secondary_bg-box_mix_30;
+        background: theme.$m-secondary_bg-box_mix_30;
       }
 
       &__icon {
@@ -84,7 +90,7 @@
 
         time {
           opacity: 1;
-          color: $c-font-dim;
+          color: theme.$c-font-dim;
           letter-spacing: -0.5px;
         }
       }
@@ -93,7 +99,7 @@
         @extend %nowrap-ellipsis;
 
         flex: 1 1 auto;
-        color: $c-font-clear;
+        color: theme.$c-font-clear;
         font-size: 1.2em;
       }
 
@@ -106,16 +112,16 @@
       &__msg {
         @extend %roboto, %nowrap-ellipsis;
 
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
 
         &--new {
           font-weight: bold;
-          color: $c-primary;
+          color: theme.$c-primary;
         }
       }
 
       &__new {
-        color: $c-primary;
+        color: theme.$c-primary;
         margin-left: 0.3em;
       }
     }

@@ -1,9 +1,8 @@
-@import 'pkg:common/plugin';
-@import 'pkg:common/component/now-playing';
-@import 'pkg:common/component/color-icon';
-@import 'pkg:common/component/tabs-horiz';
-@import 'pkg:common/base/scrollbar';
-@import 'pkg:common/component/modal';
-@import 'pkg:common/form/radio';
-@import 'pkg:common/form/range';
-@import '../lobby';
+@use 'pkg:common/component/now-playing';
+@use 'pkg:common/component/color-icon';
+@use 'pkg:common/component/tabs-horiz';
+@use 'pkg:common/base/scrollbar';
+@use 'pkg:common/component/modal';
+@use 'pkg:common/form/radio';
+@use 'pkg:common/form/range';
+@use '../lobby';

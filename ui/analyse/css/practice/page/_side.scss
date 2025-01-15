@@ -1,8 +1,12 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/functions';
+@use 'pkg:common/theme';
+
 .practice-side {
   @extend %box-radius;
 
-  background: $c-primary;
-  color: $c-primary-over;
+  background: theme.$c-primary;
+  color: theme.$c-primary-over;
   text-align: center;
   padding: 1.2em;
   align-self: start;
@@ -39,7 +43,7 @@
     position: relative;
     width: 100%;
     height: 2em;
-    background: $m-font-clear_primary_mix_10;
+    background: theme.$m-font-clear_primary_mix_10;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
   }
 
@@ -67,8 +71,8 @@
     @extend %box-radius-right;
 
     height: 100%;
-    background: $m-font-clearer_primary_mix_25;
-    background-image: img-url('grain.png');
+    background: theme.$m-font-clearer_primary_mix_25;
+    background-image: functions.img-url('grain.png');
     transform: translateX(-100px);
     animation:
       animated-background 50s linear infinite,

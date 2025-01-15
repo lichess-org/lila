@@ -1,3 +1,6 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/theme';
+
 .simul {
   .results {
     @extend %flex-center;
@@ -24,7 +27,7 @@
     .host {
       @extend %box-radius;
 
-      box-shadow: 0 0 0 7px $m-accent_alpha_neg70;
+      box-shadow: 0 0 0 7px theme.$m-accent_alpha_neg70;
     }
 
     .vstext {

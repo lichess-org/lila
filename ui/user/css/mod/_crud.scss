@@ -1,3 +1,5 @@
+@use 'pkg:common/theme';
+
 .crud {
   .slist time {
     display: block;
@@ -29,7 +31,7 @@
       span {
         display: block;
         font-size: 1rem;
-        color: $c-font-dim;
+        color: theme.$c-font-dim;
         margin-top: 1rem;
       }
     }

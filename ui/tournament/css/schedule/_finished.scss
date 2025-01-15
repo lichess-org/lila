@@ -1,3 +1,8 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 .tour-home__list {
   max-width: 1200px;
 
@@ -14,7 +19,7 @@
       letter-spacing: 2px;
       cursor: pointer;
 
-      @include transition;
+      @include mixins.transition;
 
       padding: 0;
 
@@ -29,10 +34,10 @@
     }
 
     a {
-      color: $c-font;
+      color: theme.$c-font;
 
       &:hover {
-        color: $c-link-hover;
+        color: theme.$c-link-hover;
       }
     }
 
@@ -40,7 +45,7 @@
       font-size: 1.5em;
       display: block;
 
-      @include breakpoint($mq-large) {
+      @include breakpoint.breakpoint(media-queries.$mq-large) {
         letter-spacing: 3px;
       }
     }
@@ -52,7 +57,7 @@
   }
 
   .tour-scheduled .icon i {
-    color: $c-brag;
+    color: theme.$c-brag;
     opacity: 0.8;
   }
 }

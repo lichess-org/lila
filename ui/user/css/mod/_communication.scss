@@ -1,3 +1,7 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
 #communication {
   h1 {
     @extend %flex-between;
@@ -22,7 +26,7 @@
   h2 {
     font-size: 1.6em;
     margin-top: 1.6em;
-    border-bottom: 1px solid $border;
+    border-bottom: theme.$border;
     text-transform: capitalize;
     letter-spacing: 2px;
   }
@@ -34,7 +38,7 @@
     max-height: 150px;
     overflow-y: auto;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid $border;
+    border-bottom: theme.$border;
   }
 
   .player_chats {
@@ -54,7 +58,7 @@
   }
 
   .player_chats .game:nth-child(odd) {
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
   }
 
   .player_chats .game .title,
@@ -70,7 +74,7 @@
 
   .player_chats .game .title {
     text-align: center;
-    border-bottom: $border;
+    border-bottom: theme.$border;
   }
 
   .player_chats .game .chat {
@@ -110,7 +114,7 @@
   }
 
   .thread:nth-child(even) {
-    background: $c-bg-zebra;
+    background: theme.$c-bg-zebra;
   }
 
   .post {
@@ -128,7 +132,7 @@
   top: 30px;
   right: 20px;
 
-  @include transition;
+  @include mixins.transition;
 }
 
 .public_chat #auto_refresh.active.hold {

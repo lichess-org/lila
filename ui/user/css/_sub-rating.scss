@@ -1,11 +1,18 @@
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/media-queries';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/abstract/variables';
+@use 'pkg:common/theme';
+
 .sub-ratings {
   .perf-item {
     @extend %box-radius-left, %flex-center-nowrap, %page-text;
 
-    padding: 0.7em $block-gap 0.7em 0.4em;
+    padding: 0.7em variables.$block-gap 0.7em 0.4em;
     white-space: nowrap;
 
-    @include transition;
+    @include mixins.transition;
 
     &.empty {
       opacity: 0.5;
@@ -16,14 +23,14 @@
       opacity: 0.5;
       margin-right: 0.2em;
 
-      @include transition;
+      @include mixins.transition;
     }
 
     &:hover {
-      background: $m-bg-box_bg-page_mix_50;
+      background: theme.$m-bg-box_bg-page_mix_50;
 
       &::before {
-        color: $c-link;
+        color: theme.$c-link;
         opacity: 0.7;
       }
     }
@@ -31,10 +38,10 @@
     &.active {
       @extend %box-shadow;
 
-      background: $c-bg-box;
+      background: theme.$c-bg-box;
 
       &::before {
-        color: $c-accent;
+        color: theme.$c-accent;
         opacity: 0.7;
       }
     }
@@ -55,13 +62,13 @@
     i {
       font-size: 0.75em;
       opacity: 0.2;
-      color: $c-font-dim;
+      color: theme.$c-font-dim;
 
-      @include transition;
+      @include mixins.transition;
     }
 
     &:hover i {
-      color: $c-link;
+      color: theme.$c-link;
       opacity: 0.7;
     }
 
@@ -80,7 +87,7 @@
     pointer-events: none;
 
     &.ai-level-8 rating {
-      color: $c-brag;
+      color: theme.$c-brag;
       font-weight: bold;
     }
   }
@@ -96,12 +103,12 @@
   }
 
   strong {
-    color: $c-font-dim;
+    color: theme.$c-font-dim;
     font-weight: bold;
     font-size: 1.2em;
   }
 
-  @include breakpoint($mq-not-medium) {
+  @include breakpoint.breakpoint(media-queries.$mq-not-medium) {
     .perf-item {
       padding: 0.3em;
     }
@@ -114,7 +121,7 @@
     }
   }
 
-  @include breakpoint($mq-subnav-top) {
+  @include breakpoint.breakpoint(media-queries.$mq-subnav-top) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15ch, 1fr));
 
