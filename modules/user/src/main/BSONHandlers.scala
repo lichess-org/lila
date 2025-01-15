@@ -28,7 +28,6 @@ object BSONFields:
   val sha512                = "sha512"
   val totpSecret            = "totp"
   val changedCase           = "changedCase"
-  val eraseAt               = "eraseAt"
   val erasedAt              = "erasedAt"
   val blind                 = "blind"
 

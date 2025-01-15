@@ -53,7 +53,9 @@ final class AccountClosure(
     appealApi: lila.appeal.AppealApi,
     ublogApi: lila.ublog.UblogApi,
     activityWrite: lila.activity.ActivityWriteApi,
-    email: lila.mailer.AutomaticEmail
+    email: lila.mailer.AutomaticEmail,
+    tokenApi: lila.oauth.AccessTokenApi,
+    mongoScheduler: lila.memo.MongoSchedulerApi
 )(using Executor):
 
   Bus.subscribeFuns(
@@ -62,6 +64,14 @@ final class AccountClosure(
     },
     "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessClose(userId) }
   )
+
+  private val eraserScheduler =
+    import lila.db.dsl.userIdHandler
+    mongoScheduler.make[UserId]("eraser")(doEraseNow)
+
+  def scheduleErasure(u: User)(using Me): Funit =
+    for _ <- close(u)
+    yield eraserScheduler.schedule(u.id, 24.hours)
 
   def close(u: User)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
@@ -79,7 +89,7 @@ final class AccountClosure(
     _       <- planApi.cancelIfAny(u).recoverDefault
     _       <- seekApi.removeByUser(u)
     _       <- securityStore.closeAllSessionsOf(u.id)
-    _       <- tokenApi.revokeAllByUser
+    _       <- tokenApi.revokeAllByUser(u)
     _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
     _       <- pushEnv.unregisterDevices(u)
     _       <- streamerApi.demote(u.id)
@@ -106,8 +116,6 @@ final class AccountClosure(
         Right(s"Erasing all data about $username in 24h")
     }
 
-  def closeThenErase(username: UserStr)(using Me): Fu[Either[String, String]] =
-    userRepo.byId(username).flatMap {
-      case None    => fuccess(Left("No such user."))
-      case Some(u) => u.enabled.yes.so(close(u)) >> eraseClosed(u.id)
-    }
+  private def doEraseNow(userId: UserId): Funit =
+    fuccess:
+      println(s"Time to wipe $userId")

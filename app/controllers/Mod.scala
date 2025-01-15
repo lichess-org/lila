@@ -381,12 +381,9 @@ final class Mod(
   }
 
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>
-    val res = Redirect(routes.User.show(username))
     env.api.accountClosure
-      .closeThenErase(username)
-      .map:
-        case Right(msg) => res.flashSuccess(msg)
-        case Left(err)  => res.flashFailure(err)
+      .scheduleErasure(username.id)
+      .inject(Redirect(routes.User.show(username)).flashSuccess("Erasure scheduled"))
   }
 
   protected[controllers] def searchTerm(query: String)(using Context, Me) =

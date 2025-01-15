@@ -123,7 +123,7 @@ final class ModApi(
   def reopenAccount(username: UserStr)(using Me): Funit =
     withUser(username): user =>
       user.enabled.no.so:
-        userRepo.reopen(user.id) >> logApi.reopenAccount(user.id)
+        userApi.reopen(user.id) >> logApi.reopenAccount(user.id)
 
   def setKid(mod: ModId, username: UserStr): Funit =
     withUser(username): user =>

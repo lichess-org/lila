@@ -58,7 +58,9 @@ final class Env(
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,
     bookmarkExists: lila.core.bookmark.BookmarkExists,
-    manifest: lila.web.AssetManifest
+    manifest: lila.web.AssetManifest,
+    tokenApi: lila.oauth.AccessTokenApi,
+    mongoScheduler: lila.memo.MongoSchedulerApi
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,

@@ -332,8 +332,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll.update
         .one(
           $id(id) ++ $doc(F.email.$exists(false)),
-          $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
-            $doc("$unset" -> $doc(F.eraseAt -> true))
+          $doc("$rename" -> $doc(F.prevEmail -> F.email))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
@@ -496,9 +495,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)),
       _.sec
     )
-
-  def setEraseAt(user: User) =
-    coll.updateField($id(user.id), F.eraseAt, nowInstant.plusDays(1)).void
 
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
