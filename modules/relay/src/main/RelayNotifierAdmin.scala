@@ -38,14 +38,17 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
           api.byIdWithTour(id).flatMapz(checkNow)
 
     private def checkNow(rt: RelayRound.WithTour): Funit =
-      previewApi
-        .dataList(rt.round.studyId)
-        .flatMap: chapters =>
-          val missing: List[(StudyChapterId, String)] = chapters.flatMap: chapter =>
-            chapter.players
-              .so(_.toList)
-              .filter(_.fideId.isEmpty)
-              .map: player =>
-                (chapter.id, player.name.fold("?")(_.value))
-          missing.nonEmpty.so:
-            irc.broadcastMissingFideId(rt.round.id, rt.fullName, missing)
+      if rt.round.sync.upstream.exists(_.isGameIds)
+      then funit
+      else
+        previewApi
+          .dataList(rt.round.studyId)
+          .flatMap: chapters =>
+            val missing: List[(StudyChapterId, String)] = chapters.flatMap: chapter =>
+              chapter.players
+                .so(_.toList)
+                .filter(_.fideId.isEmpty)
+                .map: player =>
+                  (chapter.id, player.name.fold("?")(_.value))
+            missing.nonEmpty.so:
+              irc.broadcastMissingFideId(rt.round.id, rt.fullName, missing)

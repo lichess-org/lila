@@ -45,7 +45,7 @@
   },
   "build": {
     "bundle": [
-      "src/bits.*ts",
+      "src/bits!(*.inline).ts",
       {
         "inline": "src/bits.oauth.inline.ts"
       }
