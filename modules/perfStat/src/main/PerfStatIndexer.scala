@@ -1,6 +1,5 @@
 package lila.perfStat
 
-import cats.syntax.all.*
 import lila.rating.PerfType
 import lila.rating.PerfType.GamePerf
 
