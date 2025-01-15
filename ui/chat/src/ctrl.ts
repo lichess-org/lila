@@ -45,7 +45,7 @@ export default class ChatCtrl {
     this.palantir = {
       instance: undefined,
       loaded: false,
-      enabled: prop(!!this.data.palantir && !opts.kidMode),
+      enabled: prop(!opts.kidMode && !!this.data.palantir),
     };
     const noChat = storage.get('nochat');
     this.vm = {

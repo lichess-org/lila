@@ -67,19 +67,7 @@ final class ChatUi(helpers: Helpers):
     val noteId = (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8))
     if ctx.kid.yes then
       Json
-        .obj(
-          "data" -> Json
-            .obj(
-              "id"         -> "",
-              "name"       -> "",
-              "lines"      -> JsonChatLines.empty,
-              "resourceId" -> ""
-            )
-            .add("loginRequired" -> true)
-            .add("restricted" -> true)
-            .add("palantir" -> false)
-        )
-        .add("kidMode" -> true)
+        .obj("kidMode" -> true)
         .add("noteId" -> noteId)
         .add("noteAge" -> withNoteAge)
     else
