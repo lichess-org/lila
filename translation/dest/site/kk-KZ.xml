@@ -778,6 +778,8 @@
   <string name="size">Үлкендігі</string>
   <string name="opacity">Айқындығы</string>
   <string name="brightness">Ашықтығы</string>
+  <string name="hue">Түс ауытқуы</string>
+  <string name="boardReset">Бастапқы түстерді қайтару</string>
   <string name="pieceSet">Тастар келбеті</string>
   <string name="embedInYourWebsite">Өз сайтыңызға енгізу</string>
   <string name="usernameAlreadyUsed">Бұл ат қолданыста, басқасын жазып көріңіз.</string>
@@ -849,6 +851,8 @@
     <item quantity="one">әрі ертелі жүрістердің %s жолын сақтау</item>
     <item quantity="other">әрі ертелі жүрістердің %s жолын сақтау</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Сізге Личестен жеке хат келді.</string>
+  <string name="clickHereToReadIt">Осында басып оқыңыз</string>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
   <string name="why">Себебі қандай?</string>
@@ -870,6 +874,7 @@
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Буллит</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
@@ -966,6 +971,10 @@
   <string name="switchSides">Түсті ауыстыру</string>
   <string name="closingAccountWithdrawAppeal">Тіркелгі жабылса, қарсы шағымдарыңыз жойылады</string>
   <string name="ourEventTips">Шара ұйымдастыру туралы ақыл-кеңес</string>
+  <string name="instructions">Нұсқаулық</string>
+  <string name="showMeEverything">Бәрін көрсету</string>
   <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
 Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
+  <string name="nothingToSeeHere">Әзірге ештеңе жоқ.</string>
+  <string name="stats">Статистика</string>
 </resources>
