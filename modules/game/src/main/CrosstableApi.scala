@@ -12,6 +12,10 @@ final class CrosstableApi(
   import Crosstable.{ Matchup, Result }
   import Crosstable.BSONFields as F
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    matchupColl:
+      _.delete.one($doc("_id".$regex(s"^${del.id}/"))).void
+
   def apply(game: Game): Fu[Option[Crosstable]] =
     game.twoUserIds.soFu(apply.tupled)
 

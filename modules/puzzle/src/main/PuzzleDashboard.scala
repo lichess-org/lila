@@ -85,14 +85,13 @@ final class PuzzleDashboardApi(
 
   import PuzzleDashboard.*
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    colls.round(_.delete.one($doc("u" -> del.id)))
+
   def apply(u: User, days: Days): Fu[Option[PuzzleDashboard]] = cache.get(u.id -> days)
 
-  private val cache =
-    cacheApi[(UserId, Days), Option[PuzzleDashboard]](1024, "puzzle.dashboard") {
-      _.expireAfterWrite(10.seconds).buildAsyncFuture { case (userId, days) =>
-        compute(userId, days)
-      }
-    }
+  private val cache = cacheApi[(UserId, Days), Option[PuzzleDashboard]](32, "puzzle.dashboard"):
+    _.expireAfterWrite(10.seconds).buildAsyncFuture(compute)
 
   private def compute(userId: UserId, days: Days): Fu[Option[PuzzleDashboard]] =
     colls.round {

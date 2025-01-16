@@ -3,6 +3,8 @@ package lila.api
 import lila.common.Bus
 import lila.core.perm.Granter
 import lila.user.UserDelete
+import akka.stream.scaladsl.*
+import lila.db.dsl.{ *, given }
 
 enum Termination:
   case disable, delete, erase
@@ -58,8 +60,9 @@ final class AccountTermination(
     tokenApi: lila.oauth.AccessTokenApi,
     roundApi: lila.core.round.RoundApi,
     gameRepo: lila.game.GameRepo,
-    analysisRepo: lila.analyse.AnalysisRepo
-)(using Executor, Scheduler):
+    analysisRepo: lila.analyse.AnalysisRepo,
+    chatApi: lila.chat.ChatApi
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   Bus.subscribeFuns(
     "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
@@ -77,6 +80,7 @@ final class AccountTermination(
     _       <- userRepo.disable(u, keepEmail = tos || playbanned)
     _       <- roundApi.resignAllGamesOf(u.id)
     _       <- relationApi.unfollowAll(u.id)
+    _       <- relationApi.removeAllFollowers(u.id)
     _       <- rankingApi.remove(u.id)
     teamIds <- teamApi.quitAllOnAccountClosure(u.id)
     _       <- challengeApi.removeByUserId(u.id)
@@ -133,6 +137,15 @@ final class AccountTermination(
     tos = u.lameOrTroll || u.marks.alt
     singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)
     _                   <- analysisRepo.remove(singlePlayerGameIds)
+    _                   <- deleteAllGameChats(u)
   yield
     // a lot of work is done by modules listening to the following event:
     Bus.pub(lila.core.user.UserDelete(u.id, del.erase))
+
+  private def deleteAllGameChats(u: User) = gameRepo
+    .docCursor(lila.game.Query.user(u.id), $id(true).some)
+    .documentSource()
+    .mapConcat(_.getAsOpt[GameId]("_id").toList)
+    .grouped(100)
+    .mapAsync(1)(ids => chatApi.userChat.removeMessagesBy(ids, u.id))
+    .runWith(Sink.ignore)

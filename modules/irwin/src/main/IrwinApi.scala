@@ -25,6 +25,9 @@ final class IrwinApi(
 
   import BSONHandlers.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    reportColl.delete.one($id(del.id))
+
   def dashboard: Fu[IrwinReport.Dashboard] =
     reportColl
       .find($empty)

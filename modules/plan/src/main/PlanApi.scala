@@ -32,6 +32,12 @@ final class PlanApi(
   import BsonHandlers.PatronHandlers.given
   import BsonHandlers.ChargeHandlers.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    for
+      _ <- mongo.patron.delete.one($id(del.id))
+      _ <- mongo.charge.update.one($doc("userId" -> del.id), $set("userId" -> UserId.ghost), multi = true)
+    yield ()
+
   def switch(user: User, money: Money): Fu[StripeSubscription] =
     stripe.userCustomer(user).flatMap {
       case None => fufail(s"Can't switch non-existent customer ${user.id}")

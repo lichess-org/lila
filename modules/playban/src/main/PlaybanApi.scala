@@ -28,6 +28,9 @@ final class PlaybanApi(
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one($id(del.id)).void
+
   private def blameableSource(game: Game): Boolean = game.source.exists: s =>
     s == Source.Lobby || s == Source.Pool || s == Source.Arena
 

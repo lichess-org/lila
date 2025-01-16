@@ -141,9 +141,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def docCursor(
       selector: Bdoc,
+      project: Option[Bdoc] = none,
       readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Bdoc] =
-    coll.find(selector).cursor[Bdoc](readPref)
+    coll.find(selector, project).cursor[Bdoc](readPref)
 
   def sortedCursor(
       selector: Bdoc,
