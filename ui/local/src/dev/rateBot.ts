@@ -54,7 +54,7 @@ export class RateBot implements BotInfo, MoveSource {
     const turn = env.game.live.turn;
     const fen = pos.fen;
     const uci = (
-      await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } })
+      await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level - 10, by: { depth: this.depth } })
     ).bestmove;
     this.traceMove = `  ${ply}. '${this.name} ${this.ratings.classical}' at '${fen}': '${uci}'`;
     return { uci, thinkTime: 0.2 };

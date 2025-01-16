@@ -29,7 +29,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
   env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
   if (!opts.setup?.go || location.hash === '#new') {
-    showSetupDialog(env.bot, opts.setup);
+    showSetupDialog(opts.setup);
     return;
   }
 

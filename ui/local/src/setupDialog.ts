@@ -9,8 +9,8 @@ import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
 import { env } from './localEnv';
 
-export function showSetupDialog(botCtrl: BotCtrl, setup: LocalSetup = {}): void {
-  pubsub.after('local.images.ready').then(() => new SetupDialog(botCtrl, setup).show());
+export function showSetupDialog(setup: LocalSetup = {}): void {
+  pubsub.after('local.images.ready').then(() => new SetupDialog(setup).show());
 }
 
 class SetupDialog {
@@ -21,15 +21,12 @@ class SetupDialog {
   uid?: string;
   dialog: Dialog;
 
-  constructor(
-    readonly botCtrl: BotCtrl,
-    setup: LocalSetup,
-  ) {
+  constructor(setup: LocalSetup) {
     this.setup = { ...setup };
   }
 
   show() {
-    if (window.screen.width < 1260) return;
+    //if (window.screen.width < 1260) return;
 
     domDialog({
       class: 'game-setup base-view setup-view',
@@ -71,9 +68,9 @@ class SetupDialog {
       this.dialog = dlg;
       this.view = dlg.view.querySelector('.with-cards')!;
       this.setPlayerColor(this.setup.black ? 'white' : this.setup.white ? 'black' : 'white');
-      const cardData = this.botCtrl
+      const cardData = env.bot
         .sorted('classical')
-        .map(b => this.botCtrl.card(b))
+        .map(b => env.bot.card(b))
         .filter(defined);
       this.hand = handOfCards({
         getCardData: () => cardData,
@@ -117,7 +114,7 @@ class SetupDialog {
   };
 
   private select(selection?: string) {
-    const bot = this.botCtrl.get(selection);
+    const bot = env.bot.get(selection);
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot);

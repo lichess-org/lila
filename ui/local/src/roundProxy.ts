@@ -41,7 +41,7 @@ export class RoundProxy implements IRoundProxy {
     this.reset();
   }
 
-  newOpponent = (): void => showSetupDialog(env.bot, env.game);
+  newOpponent = (): void => showSetupDialog(env.game.live.setup);
   userVNode = (player: Player, position: Position): VNode | undefined => botVNode(player, position);
   analyse = (): void => analyse(env.game);
   moreTime = (): void => {};

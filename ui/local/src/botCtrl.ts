@@ -95,7 +95,7 @@ export class BotCtrl {
   }
 
   get(uid: string | undefined): BotInfo | undefined {
-    if (uid === undefined) return;
+    if (uid === undefined) return undefined;
     return this.bots[uid] ?? this.rateBots[Number(uid.slice(1))];
   }
 

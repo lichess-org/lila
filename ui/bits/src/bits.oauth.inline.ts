@@ -4,7 +4,7 @@
 const el: HTMLElement = document.getElementById('oauth-authorize')!;
 
 setTimeout(
-  () => {
+  function () {
     el.removeAttribute('disabled');
     el.classList.remove('disabled');
   },

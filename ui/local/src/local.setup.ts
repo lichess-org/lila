@@ -10,5 +10,5 @@ export default async function initModule(opts: LocalSetup = {}): Promise<void> {
     opts.initial ??= Infinity;
   }
   initEnv({ redraw: () => {}, bot: await new BotCtrl().initBots(), assets: await new Assets().init() });
-  showSetupDialog(env.bot, opts);
+  showSetupDialog(opts);
 }
