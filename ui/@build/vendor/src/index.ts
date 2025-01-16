@@ -1,6 +1,7 @@
 import { copyLocalPackage, copyVendorPackage } from './util.js';
 
 const vendorsJs: [string, string[]][] = [
+  ['balloon-css', ['balloon.min.css']],
   ['howler', ['dist/howler.core.min.js']],
   ['jquery', ['dist/jquery.min.js']],
   ['spectrum', ['dist/spectrum.min.js', 'dist/spectrum.min.css']],

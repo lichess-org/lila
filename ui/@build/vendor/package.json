@@ -6,6 +6,7 @@
   "dependencies": {
     "@liskadan/sliding-puzzles": "^0.1.0",
     "@yaireo/tagify": "catalog:",
+    "balloon-css": "^1.2.0",
     "fairy-stockfish-nnue.wasm": "1.1.8",
     "howler": "^2.2.4",
     "infinite-scroll": "^4.0.1",
