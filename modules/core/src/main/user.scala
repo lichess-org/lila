@@ -161,6 +161,9 @@ object user:
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
 
+  case class UserDelete(id: UserId, erase: Boolean)
+  object UserDelete extends bus.GivenChannel[UserDelete]("userDelete")
+
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]
     def enabledById[U: UserIdOf](u: U): Fu[Option[User]]

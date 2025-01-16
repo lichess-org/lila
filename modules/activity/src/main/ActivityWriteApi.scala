@@ -16,6 +16,8 @@ final class ActivityWriteApi(
   import BSONHandlers.{ *, given }
   import activities.*
 
+  def deleteAll(u: User): Funit = withColl(_.delete.one(regexId(u.id)).void)
+
   def game(game: Game): Funit =
     (for
       userId <- game.userIds

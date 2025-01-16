@@ -9,6 +9,8 @@ import lila.tree.{ Analysis, Info }
 
 object AnalyseBsonHandlers:
 
+  given BSONWriter[Analysis.Id] = BSONWriter(id => BSONString(id.value))
+
   given BSON[Analysis] with
     def reads(r: BSON.Reader) =
       val startPly = Ply(r.intD("ply"))
@@ -28,7 +30,7 @@ object AnalyseBsonHandlers:
       )
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
-        "_id"     -> a.id.value,
+        "_id"     -> a.id,
         "studyId" -> a.studyId,
         "data"    -> Info.encodeList(a.infos),
         "ply"     -> w.intO(a.startPly.value),

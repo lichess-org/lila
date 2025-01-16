@@ -56,7 +56,9 @@ final class AccountTermination(
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail,
     tokenApi: lila.oauth.AccessTokenApi,
-    roundApi: lila.core.round.RoundApi
+    roundApi: lila.core.round.RoundApi,
+    gameRepo: lila.game.GameRepo,
+    analysisRepo: lila.analyse.AnalysisRepo
 )(using Executor, Scheduler):
 
   Bus.subscribeFuns(
@@ -71,8 +73,8 @@ final class AccountTermination(
     selfClose    = me.is(u)
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
     modClose     = !selfClose && Granter(_.CloseAccount)
-    badApple     = u.lameOrTroll || u.marks.alt || modClose
-    _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
+    tos          = u.lameOrTroll || u.marks.alt || modClose
+    _       <- userRepo.disable(u, keepEmail = tos || playbanned)
     _       <- roundApi.resignAllGamesOf(u.id)
     _       <- relationApi.unfollowAll(u.id)
     _       <- rankingApi.remove(u.id)
@@ -126,6 +128,11 @@ final class AccountTermination(
         then userRepo.scheduleDelete(user.id, none).inject(none)
         else doDeleteNow(user, del).inject(user.some)
 
-  private def doDeleteNow(user: User, del: UserDelete): Funit =
-    fuccess:
-      println(s"Time to wipe $user")
+  private def doDeleteNow(u: User, del: UserDelete): Funit = for
+    _ <- activityWrite.deleteAll(u)
+    tos = u.lameOrTroll || u.marks.alt
+    singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)
+    _                   <- analysisRepo.remove(singlePlayerGameIds)
+  yield
+    // a lot of work is done by modules listening to the following event:
+    Bus.pub(lila.core.user.UserDelete(u.id, del.erase))

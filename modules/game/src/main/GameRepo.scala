@@ -556,3 +556,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.sec)
       .list(nb)
+
+  def deleteAllSinglePlayerOf(id: UserId): Fu[List[GameId]] = for
+    aiIds     <- coll.primitive[GameId](Query.user(id) ++ Query.hasAi, "_id")
+    importIds <- coll.primitive[GameId](Query.imported(id), "_id")
+    allIds = aiIds ::: importIds
+    _ <- coll.delete.one($inIds(allIds))
+  yield allIds
