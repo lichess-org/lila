@@ -683,6 +683,20 @@ final class SwissApi(
   def idNames(ids: List[SwissId]): Fu[List[IdName]] =
     mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[IdName]().listAll()
 
+  def onUserDelete(u: UserId) = for
+    _       <- mongo.swiss.update.one($doc("winnerId" -> u), $set("winnerId" -> UserId.ghost), multi = true)
+    players <- mongo.player.list[SwissPlayer]($doc("u" -> u), _.priTemp) // no index!!!
+    swissIds = players.map(_.swissId).distinct
+    // here we use a single ghost ID for all swiss players and pairings,
+    // because the mapping of swiss player to swiss pairings must be preserved
+    ghostId = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")
+    newPlayers = players.map: p =>
+      p.copy(id = SwissPlayer.makeId(p.swissId, ghostId), userId = ghostId)
+    _ <- mongo.player.delete.one($inIds(players.map(_.id)))
+    _ <- mongo.player.insert.many(newPlayers)
+    _ <- mongo.pairing.update.one($inIds(swissIds) ++ $doc("p" -> u), $set("p.$" -> ghostId), multi = true)
+  yield ()
+
   private def Sequencing[A <: Matchable: alleycats.Zero](
       id: SwissId
   )(fetch: SwissId => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =

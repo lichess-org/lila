@@ -121,7 +121,7 @@ final class AccountTermination(
 
   lila.common.LilaScheduler.variableDelay(
     "accountTermination.delete",
-    prev => _.Delay(if prev.isDefined then 1.second else 10.seconds),
+    delay = prev => _.Delay(if prev.isDefined then 1.second else 10.seconds),
     timeout = _.AtMost(1.minute),
     initialDelay = _.Delay(111.seconds)
   ):
@@ -138,9 +138,14 @@ final class AccountTermination(
     singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)
     _                   <- analysisRepo.remove(singlePlayerGameIds)
     _                   <- deleteAllGameChats(u)
+    _                   <- streamerApi.delete(u)
+    _                   <- swissApi.onUserDelete(u.id)
+    _                   <- teamApi.onUserDelete(u.id)
+    _ <- u.marks.clean.so:
+      securityStore.deleteAllSessionsOf(u.id)
   yield
     // a lot of work is done by modules listening to the following event:
-    Bus.pub(lila.core.user.UserDelete(u.id, del.erase))
+    Bus.pub(lila.core.user.UserDelete(u, del.erase))
 
   private def deleteAllGameChats(u: User) = gameRepo
     .docCursor(lila.game.Query.user(u.id), $id(true).some)

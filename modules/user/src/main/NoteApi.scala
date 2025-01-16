@@ -28,7 +28,8 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
       _ <- coll.delete.one($doc("from" -> del.id)) // no index, expensive!
-      _ <- coll.delete.one($doc("to" -> del.id))
+      maybeKeepModNotes = del.user.marks.dirty.so($doc("mod" -> false))
+      _ <- coll.delete.one($doc("to" -> del.id) ++ maybeKeepModNotes)
     yield ()
 
   def getForMyPermissions(user: User, max: Max = Max(30))(using me: Me): Fu[List[Note]] =

@@ -161,7 +161,8 @@ object user:
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
 
-  case class UserDelete(id: UserId, erase: Boolean)
+  case class UserDelete(user: User, erase: Boolean):
+    export user.id
   object UserDelete extends bus.GivenChannel[UserDelete]("userDelete")
 
   trait UserApi:

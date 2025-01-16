@@ -97,6 +97,9 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       )
     })
 
+  def userTopicsDelete(userId: UserId) =
+    userTopicRepo.coll(_.delete.one($id(userId)))
+
   def popular(nb: Int): Fu[StudyTopics] =
     StudyTopics.from(
       topicRepo

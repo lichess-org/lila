@@ -319,6 +319,14 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] def isAdminMember(study: Study, userId: UserId): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true)))
 
+  private[study] def deleteByOwner(u: UserId): Fu[List[StudyId]] = for
+    c   <- coll.get
+    ids <- c.distinctEasy[StudyId, List]("_id", selectOwnerId(u))
+    _   <- c.delete.one(selectOwnerId(u))
+    _   <- c.update.one($doc(F.likers -> u), $pull(F.likers -> u))
+    _   <- c.update.one($doc(F.uids -> u), $pull(F.uids -> u) ++ $unset(s"members.$u"))
+  yield ids
+
   private def countLikes(studyId: StudyId): Fu[Option[(Study.Likes, Instant)]] =
     coll:
       _.aggregateWith[Bdoc](): framework =>
