@@ -77,7 +77,8 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                   " ",
                   editButton(post)
                 )
-              else if (Granter.opt(_.ModerateBlog) || Granter.opt(_.Pages)) then editButton(post)
+              else if Granter.opt(_.ModerateBlog) || (user.is(UserId.lichess) && Granter.opt(_.Pages)) then
+                editButton(post)
               else if !post.live then badTag(trans.ublog.thisIsADraft())
               else
                 a(
