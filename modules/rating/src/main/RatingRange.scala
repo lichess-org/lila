@@ -32,7 +32,7 @@ object RatingRange {
     for {
       min <- from.takeWhile('-' !=).toIntOption
       if acceptable(min)
-      max <- from.dropWhile('-' !=).tail.toIntOption
+      max <- from.dropWhile('-' !=).drop(1).toIntOption
       if acceptable(max)
       if min < max
     } yield RatingRange(min, max)

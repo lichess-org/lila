@@ -1,7 +1,7 @@
 package lila.evalCache
 
 import play.api.libs.json.{ JsObject, JsString }
-import scala.collection.mutable.AnyRefMap
+import scala.collection.mutable.HashMap
 import scala.concurrent.duration._
 
 import shogi.format.forsyth.Sfen
@@ -18,8 +18,8 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
 ) {
   import EvalCacheUpgrade._
 
-  private val members = AnyRefMap.empty[SriString, WatchingMember]
-  private val evals   = AnyRefMap.empty[SetupId, EvalState]
+  private val members = HashMap.empty[SriString, WatchingMember]
+  private val evals   = HashMap.empty[SetupId, EvalState]
   private val expirableSris =
     new ExpireCallbackMemo(scheduler, 10 minutes, sri => expire(Socket.Sri(sri)))
 

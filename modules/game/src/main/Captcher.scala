@@ -76,9 +76,6 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       for {
         rewinded  <- rewind(usis)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.moveDestinations map { case (from, dests) =>
-          from.key -> dests.mkString
-        }
       } yield Captcha(game.id, sfen(rewinded), rewinded.color.sente, solutions)
 
     // Not looking for drop checkmates or checking promotions

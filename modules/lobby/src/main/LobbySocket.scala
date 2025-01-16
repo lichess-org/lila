@@ -35,7 +35,7 @@ final class LobbySocket(
 
   val trouper: Trouper = new Trouper {
 
-    private val members            = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
+    private val members            = scala.collection.mutable.HashMap.empty[SriStr, Member]
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
     private val removedHookIds     = new collection.mutable.StringBuilder(1024)

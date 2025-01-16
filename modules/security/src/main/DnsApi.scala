@@ -34,7 +34,7 @@ final private class DnsApi(
       _ take 20 flatMap { obj =>
         (obj \ "data").asOpt[String].map(_ split ' ') collect { case Array(_, domain) =>
           Domain {
-            if (domain endsWith ".") domain.init
+            if (domain endsWith ".") domain.dropRight(1)
             else domain
           }
         }
