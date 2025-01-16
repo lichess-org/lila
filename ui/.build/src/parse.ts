@@ -100,7 +100,7 @@ async function parsePackage(packageDir: string): Promise<Package> {
             module,
           })),
         );
-      else env.log(`[${c.grey(pkgInfo.name)}] - ${errorMark} - Bundle error ${JSON.stringify(one)}`);
+      else env.log(`[${c.grey(pkgInfo.name)}] - ${errorMark} - Bundle error ${c.blue(JSON.stringify(one))}`);
     }
   }
   if ('sync' in build) {

@@ -133,12 +133,11 @@ async function inlineManifest(js: Manifest) {
   for (const pkg of env.building) {
     for (const bundle of pkg.bundle ?? []) {
       if (!bundle.inline) continue;
-
       const inlineSrc = path.join(pkg.root, bundle.inline);
       const moduleName = bundle.module
         ? path.basename(bundle.module, '.ts')
         : path.basename(bundle.inline, '.inline.ts');
-      const packageError = `${errorMark} - Package error ${c.blue(JSON.stringify(bundle))}`;
+      const packageError = `[${c.grey(pkg.name)}] - ${errorMark} - Package error ${c.blue(JSON.stringify(bundle))}`;
 
       if (!(await readable(inlineSrc))) {
         env.log(packageError);

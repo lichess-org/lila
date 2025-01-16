@@ -50,18 +50,16 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         case e: Throwable =>
           logger.warn(s"Error reading $pathname")
 
-  private val keyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
-  private def keyOf(path: String): String =
-    path match
-      case keyRe(k, _) => k
-      case _           => path
+  private val jsKeyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.js""".r
 
   private def closure(
       path: String,
       jsMap: Map[String, SplitAsset],
       visited: Set[String] = Set.empty
   ): List[String] =
-    val k = keyOf(path)
+    val k = path match
+      case jsKeyRe(k, _) => k
+      case _             => path
     jsMap.get(k) match
       case Some(asset) if !visited.contains(k) =>
         asset.imports.flatMap: importName =>
