@@ -45,13 +45,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def fontPreload(using ctx: Context) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
-      staticAssetUrl("font/noto-sans-v14-latin-regular.woff2"),
+      assetUrl("font/noto-sans-v14-latin-regular.woff2"),
       "font",
       crossorigin = true,
       "font/woff2".some
     ),
     (!ctx.pref.pieceNotationIsLetter).option(
-      preload(staticAssetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
+      preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
     )
   )
 
