@@ -27,7 +27,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/node": "catalog:",
-    "knip": "^5.42.0",
+    "knip": "^5.42.1",
     "prettier": "^3.4.2",
     "stylelint": "~16.13.2",
     "stylelint-config-standard-scss": "^14.0.0"
