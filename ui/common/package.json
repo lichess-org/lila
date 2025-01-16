@@ -26,6 +26,8 @@
       "sass": "./css/shogiground/_*.scss"
     },
     "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js",
       "sass": "./css/theme/gen/_theme.scss"
     },
     "./vendor/*": {
