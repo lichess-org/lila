@@ -88,7 +88,7 @@ final class Env(
 
   lazy val personalDataExport = wire[PersonalDataExport]
 
-  lazy val accountClosure = wire[AccountClosure]
+  lazy val accountTermination = wire[AccountTermination]
 
   lazy val anySearch = wire[AnySearch]
 

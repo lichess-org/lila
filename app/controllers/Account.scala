@@ -251,8 +251,8 @@ final class Account(
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
           FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): _ =>
-            env.api.accountClosure
-              .close(me.value)
+            env.api.accountTermination
+              .disable(me.value)
               .inject:
                 Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
   }
@@ -270,8 +270,8 @@ final class Account(
       auth.HasherRateLimit:
         env.security.forms.deleteAccount.flatMap: form =>
           FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
-            env.api.accountClosure
-              .close(me.value)
+            env.api.accountTermination
+              .disable(me.value)
               .inject:
                 Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
   }

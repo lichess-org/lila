@@ -113,6 +113,26 @@ $regards
 """
     )
 
+  def delete(user: User): Funit =
+    val body =
+      s"""Hello,
+
+Following your request, the Lichess account "${user.username}" will be deleted in 7 days from now.
+
+$regards
+"""
+    userApi.emailOrPrevious(user.id).flatMapz { email =>
+      given Lang = userLang(user)
+      mailer.send(
+        Mailer.Message(
+          to = email,
+          subject = "lichess.org account deletion",
+          text = Mailer.txt.addServiceNote(body),
+          htmlBody = standardEmail(body).some
+        )
+      )
+    }
+
   def gdprErase(user: User): Funit =
     val body =
       s"""Hello,

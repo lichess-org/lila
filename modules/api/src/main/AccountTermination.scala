@@ -2,6 +2,7 @@ package lila.api
 
 import lila.common.Bus
 import lila.core.perm.Granter
+import lila.user.UserDelete
 
 enum Termination:
   case disable, delete, erase
@@ -33,7 +34,7 @@ enum Termination:
 [^1] the email address of a closed account can be re-used to make a new account, up to 4 times per month.
 [^2] classes and teams have a life of their own. Close them manually if you want to, before deleting your account.
  */
-final class AccountClosure(
+final class AccountTermination(
     userRepo: lila.user.UserRepo,
     playbanApi: lila.playban.PlaybanApi,
     relationApi: lila.relation.RelationApi,
@@ -54,30 +55,25 @@ final class AccountClosure(
     ublogApi: lila.ublog.UblogApi,
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail,
-    tokenApi: lila.oauth.AccessTokenApi
+    tokenApi: lila.oauth.AccessTokenApi,
+    roundApi: lila.core.round.RoundApi
 )(using Executor, Scheduler):
 
   Bus.subscribeFuns(
     "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
-      (modApi.garbageCollect(userId) >> lichessClose(userId))
+      (modApi.garbageCollect(userId) >> lichessDisable(userId))
     },
-    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessClose(userId) }
+    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessDisable(userId) }
   )
 
-  lila.common.LilaScheduler.variableDelay(
-    "accountTermination.erase",
-    prev => _.Delay(if prev.isDefined then 1.second else 10.seconds),
-    timeout = _.AtMost(1.minute),
-    initialDelay = _.Delay(111.seconds)
-  )(findAndErase)
-
-  def close(u: User)(using me: Me): Funit = for
+  def disable(u: User)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     selfClose    = me.is(u)
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
     modClose     = !selfClose && Granter(_.CloseAccount)
     badApple     = u.lameOrTroll || u.marks.alt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
+    _       <- roundApi.resignAllGamesOf(u.id)
     _       <- relationApi.unfollowAll(u.id)
     _       <- rankingApi.remove(u.id)
     teamIds <- teamApi.quitAllOnAccountClosure(u.id)
@@ -102,22 +98,34 @@ final class AccountClosure(
       relationApi.fetchFollowing(u.id).flatMap(activityWrite.unfollowAll(u, _))
   yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
-  private def lichessClose(userId: UserId) =
-    userRepo.lichessAnd(userId).flatMapz { (lichess, user) => close(user)(using Me(lichess)) }
-
-  def scheduleErasure(user: User)(using Me): Funit = for
-    _ <- user.enabled.yes.so(close(user))
-    _ <- email.gdprErase(user)
-    _ <- userRepo.scheduleErasure(user.id, true)
+  def scheduleDelete(u: User): Funit = for
+    _ <- disable(u)(using Me(u))
+    _ <- email.delete(u)
+    _ <- userRepo.scheduleDelete(u.id, UserDelete(nowInstant, erase = false).some)
   yield ()
 
-  private def findAndErase: Fu[Option[User]] =
-    userRepo.findNextToErase.flatMapz: user =>
-      doEraseNow(user).inject(user.some)
+  def scheduleErase(u: User): Funit = for
+    _ <- disable(u)(using Me(u))
+    _ <- email.gdprErase(u)
+    _ <- userRepo.scheduleDelete(u.id, UserDelete(nowInstant, erase = true).some)
+  yield ()
 
-  private def doEraseNow(user: User): Funit =
-    if user.enabled.yes
-    then userRepo.scheduleErasure(user.id, false)
-    else
-      fuccess:
-        println(s"Time to wipe $user")
+  private def lichessDisable(userId: UserId) =
+    userRepo.lichessAnd(userId).flatMapz { (lichess, user) => disable(user)(using Me(lichess)) }
+
+  lila.common.LilaScheduler.variableDelay(
+    "accountTermination.delete",
+    prev => _.Delay(if prev.isDefined then 1.second else 10.seconds),
+    timeout = _.AtMost(1.minute),
+    initialDelay = _.Delay(111.seconds)
+  ):
+    userRepo
+      .findNextToDelete(7.days)
+      .flatMapz: (user, del) =>
+        if user.enabled.yes
+        then userRepo.scheduleDelete(user.id, none).inject(none)
+        else doDeleteNow(user, del).inject(user.some)
+
+  private def doDeleteNow(user: User, del: UserDelete): Funit =
+    fuccess:
+      println(s"Time to wipe $user")
