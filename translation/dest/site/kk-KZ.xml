@@ -734,6 +734,7 @@
   <string name="withFriends">Достармен</string>
   <string name="withEverybody">Бәрімен</string>
   <string name="kidMode">Балалық нұсқа</string>
+  <string name="kidModeIsEnabled">Балалық нұсқа қосулы.</string>
   <string name="kidModeExplanation">Бұл сақтық үшін. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Мақсатыңыз – бала мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау болса, осы нұсқаны іске қосыңыз.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Тіркелгіңізді ұстаз басқарады. Балалық нұсқаны өшіруді одан сұраңыз.</string>
@@ -773,6 +774,10 @@
   <string name="transparent">Мөлдір</string>
   <string name="deviceTheme">Құрылғы кейпі</string>
   <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
+  <string name="board">Тақта</string>
+  <string name="size">Үлкендігі</string>
+  <string name="opacity">Айқындығы</string>
+  <string name="brightness">Ашықтығы</string>
   <string name="pieceSet">Тастар келбеті</string>
   <string name="embedInYourWebsite">Өз сайтыңызға енгізу</string>
   <string name="usernameAlreadyUsed">Бұл ат қолданыста, басқасын жазып көріңіз.</string>
