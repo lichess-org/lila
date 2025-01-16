@@ -41,8 +41,6 @@ final class Env(
 
   val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  val mongoSchedulerApi = wire[MongoSchedulerApi]
-
   val picfitUrl = lila.memo.PicfitUrl(config.picfit)
 
   val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
