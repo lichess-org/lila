@@ -54,10 +54,10 @@ final class MongoScheduler[Data: BSONHandler](
       .addFailureEffect: _ =>
         lookupAndRunIn(10.seconds)
 
-  private var cancel = none[Cancellable]
+  private var nextLookup = none[Cancellable]
   private def lookupAndRunIn(delay: FiniteDuration): Unit =
-    cancel.foreach(_.cancel())
-    cancel = scheduler.scheduleOnce(delay)(lookupAndRun()).some
+    nextLookup.foreach(_.cancel())
+    nextLookup = scheduler.scheduleOnce(delay)(lookupAndRun()).some
 
   private def popNext(): Fu[Option[Data]] =
     coll
