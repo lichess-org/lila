@@ -95,12 +95,11 @@ async function parsePackage(packageDir: string): Promise<Package> {
       if (await readable(path.join(pkgInfo.root, src))) pkgInfo.bundle.push(one);
       else if (one.module)
         pkgInfo.bundle.push(
-          ...(await globArray(one.module, { cwd: pkgInfo.root, absolute: false })).map(module => ({
-            ...one,
-            module,
-          })),
+          ...(await globArray(one.module, { cwd: pkgInfo.root, absolute: false }))
+            .filter(m => !m.endsWith('.inline.ts')) // no globbed inline sources
+            .map(module => ({ ...one, module })),
         );
-      else env.log(`[${c.grey(pkgInfo.name)}] - ${errorMark} - Bundle error ${JSON.stringify(one)}`);
+      else env.log(`[${c.grey(pkgInfo.name)}] - ${errorMark} - Bundle error ${c.blue(JSON.stringify(one))}`);
     }
   }
   if ('sync' in build) {

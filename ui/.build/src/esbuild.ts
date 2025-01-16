@@ -137,7 +137,7 @@ async function inlineManifest(js: Manifest) {
       const moduleName = bundle.module
         ? path.basename(bundle.module, '.ts')
         : path.basename(bundle.inline, '.inline.ts');
-      const packageError = `${errorMark} - Package error ${c.blue(JSON.stringify(bundle))}`;
+      const packageError = `[${c.grey(pkg.name)}] - ${errorMark} - Package error ${c.blue(JSON.stringify(bundle))}`;
 
       if (!(await readable(inlineSrc))) {
         env.log(packageError);
