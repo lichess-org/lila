@@ -349,6 +349,41 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       )
       .void
 
+  def deleteWithTosViolation(user: User) =
+    import F.*
+    coll.update.one(
+      $id(user.id),
+      $unset(
+        profile,
+        roles,
+        toints,
+        "time",
+        kid,
+        lang,
+        title,
+        plan,
+        totpSecret,
+        changedCase,
+        blind,
+        salt,
+        bpass,
+        "mustConfirmEmail",
+        colorIt
+      ) ++ $set(s"${F.delete}.done" -> true)
+    )
+
+  def deleteFully(user: User) = for
+    lockEmail <- emailOrPrevious(user.id)
+    _ <- coll.update.one(
+      $id(user.id),
+      $doc(
+        "prevEmail"         -> lockEmail,
+        "createdAt"         -> user.createdAt,
+        s"${F.delete}.done" -> true
+      )
+    )
+  yield ()
+
   def findNextToDelete(delay: FiniteDuration): Fu[Option[(User, UserDelete)]] =
     coll
       .find:

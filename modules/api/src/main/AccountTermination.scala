@@ -76,8 +76,8 @@ final class AccountTermination(
     selfClose    = me.is(u)
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
     modClose     = !selfClose && Granter(_.CloseAccount)
-    tos          = u.lameOrTroll || u.marks.alt || modClose
-    _       <- userRepo.disable(u, keepEmail = tos || playbanned)
+    tos          = u.marks.dirty || modClose || playbanned
+    _       <- userRepo.disable(u, keepEmail = tos)
     _       <- roundApi.resignAllGamesOf(u.id)
     _       <- relationApi.unfollowAll(u.id)
     _       <- relationApi.removeAllFollowers(u.id)
@@ -133,18 +133,22 @@ final class AccountTermination(
         else doDeleteNow(user, del).inject(user.some)
 
   private def doDeleteNow(u: User, del: UserDelete): Funit = for
-    _ <- activityWrite.deleteAll(u)
-    tos = u.lameOrTroll || u.marks.alt
+    playbanned  <- playbanApi.hasCurrentPlayban(u.id)
+    closedByMod <- modLogApi.closedByMod(u)
+    tos = u.marks.dirty || closedByMod || playbanned
+    _                   <- if tos then userRepo.deleteWithTosViolation(u) else userRepo.deleteFully(u)
+    _                   <- activityWrite.deleteAll(u)
     singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)
     _                   <- analysisRepo.remove(singlePlayerGameIds)
     _                   <- deleteAllGameChats(u)
     _                   <- streamerApi.delete(u)
     _                   <- swissApi.onUserDelete(u.id)
     _                   <- teamApi.onUserDelete(u.id)
+    _                   <- ublogApi.onAccountDelete(u)
     _ <- u.marks.clean.so:
       securityStore.deleteAllSessionsOf(u.id)
   yield
-    // a lot of work is done by modules listening to the following event:
+    // a lot of deletion is done by modules listening to the following event:
     Bus.pub(lila.core.user.UserDelete(u, del.erase))
 
   private def deleteAllGameChats(u: User) = gameRepo
