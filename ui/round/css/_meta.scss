@@ -1,9 +1,8 @@
+@use 'sass:math';
 @use 'pkg:common/abstract/extends';
 @use 'pkg:common/abstract/variables';
 @use 'pkg:common/abstract/z-index' as z;
 @use 'pkg:common/theme';
-
-@use 'sass:math';
 
 /* shared with analysis */
 .game__meta {

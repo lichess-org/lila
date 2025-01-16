@@ -4,7 +4,6 @@
 @use '../abstract/mixins';
 @use '../abstract/variables';
 @use '../theme/gen/theme';
-
 @include mixins.crosstable-small;
 
 .crosstable {

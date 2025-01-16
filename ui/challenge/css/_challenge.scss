@@ -1,9 +1,8 @@
+@use 'sass:math';
 @use 'pkg:common/abstract/extends';
 @use 'pkg:common/abstract/mixins';
 @use 'pkg:common/abstract/variables';
 @use 'pkg:common/theme';
-
-@use 'sass:math';
 
 #challenge-app {
   width: 20rem;

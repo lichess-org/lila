@@ -1,8 +1,7 @@
+@use 'sass:math';
 @use 'breakpoint-sass/stylesheets/breakpoint';
 @use 'pkg:common/abstract/uniboard';
 @use 'pkg:common/abstract/variables';
-
-@use 'sass:math';
 
 #main-wrap {
   --main-max-width: auto;

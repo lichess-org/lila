@@ -1,10 +1,9 @@
+@use 'sass:color';
 @use 'breakpoint-sass/stylesheets/breakpoint';
 @use 'pkg:common/abstract/extends';
 @use 'pkg:common/abstract/mixins';
 @use 'pkg:common/theme';
 @use 'local';
-
-@use 'sass:color';
 
 $col1-panel-height: 30vh;
 $col2-panel-height: 240px;

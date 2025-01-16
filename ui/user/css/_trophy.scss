@@ -1,9 +1,8 @@
+@use 'sass:color';
 @use 'breakpoint-sass/stylesheets/breakpoint';
 @use 'pkg:common/abstract/media-queries';
 @use 'pkg:common/component/fire-trophy';
 @use 'pkg:common/theme';
-
-@use 'sass:color';
 
 .trophies {
   position: absolute;
