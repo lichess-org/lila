@@ -22,7 +22,7 @@
   <string name="publishOnYourBlog">روی وبنوشت‌تان منتشر کنید</string>
   <string name="publishHelp">اگر علامت زنید، نوشته در وبنوشت‌تان قرار می‌گیرد. اگر نه، در نوشته‌های پیش‌نویس‌تان، خصوصی خواهد شد</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">سنجاق کردن نوشته</string>
-  <string name="stickyPostHelp">گر علامت زنید،این نوشه در نوشته‌های اخیر رُخ‌نمای شما اول قرار میگیرد.</string>
+  <string name="stickyPostHelp">اگر علامت بزنید، این نوشته در بالای فهرست نوشته‌های اخیر نمایه و وبنوشت شما قرار میگیرد.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">یک وبنوشته منتشر کرد</item>
     <item quantity="other">%s وبنوشته منتشر کرد</item>
