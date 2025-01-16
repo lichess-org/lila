@@ -332,7 +332,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll.update
         .one(
           $id(id) ++ $doc(F.email.$exists(false)),
-          $doc("$rename" -> $doc(F.prevEmail -> F.email))
+          $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
+            $doc("$unset" -> $doc(F.eraseAt -> true))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
@@ -347,6 +348,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         }
       )
       .void
+
+  def findNextToErase: Fu[Option[User]] =
+    coll.find($doc(F.eraseAt.$lt(nowInstant))).sort($doc(F.eraseAt -> 1)).one[User]
+
+  def scheduleErasure(userId: UserId, erase: Boolean): Funit =
+    coll.updateOrUnsetField($id(userId), F.eraseAt, erase.option(nowInstant.plusDays(7))).void
 
   def getPasswordHash(id: UserId): Fu[Option[String]] =
     coll.byId[AuthData](id, AuthData.projection).map2(_.bpass.bytes.sha512.hex)

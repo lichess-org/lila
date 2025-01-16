@@ -380,10 +380,11 @@ final class Mod(
       env.user.noteApi.search(q.trim, page, withDox = true).map(views.mod.search.notes(q, _))
   }
 
-  def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>
-    env.api.accountClosure
-      .scheduleErasure(username.id)
-      .inject(Redirect(routes.User.show(username)).flashSuccess("Erasure scheduled"))
+  def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> _ ?=>
+    Found(env.user.repo.byId(username)): user =>
+      env.api.accountClosure
+        .scheduleErasure(user)
+        .inject(Redirect(routes.User.show(username)).flashSuccess("Erasure scheduled"))
   }
 
   protected[controllers] def searchTerm(query: String)(using Context, Me) =

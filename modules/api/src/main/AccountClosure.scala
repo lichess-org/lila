@@ -54,9 +54,8 @@ final class AccountClosure(
     ublogApi: lila.ublog.UblogApi,
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail,
-    tokenApi: lila.oauth.AccessTokenApi,
-    mongoScheduler: lila.memo.MongoSchedulerApi
-)(using Executor):
+    tokenApi: lila.oauth.AccessTokenApi
+)(using Executor, Scheduler):
 
   Bus.subscribeFuns(
     "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
@@ -65,13 +64,12 @@ final class AccountClosure(
     "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessClose(userId) }
   )
 
-  private val eraserScheduler =
-    import lila.db.dsl.userIdHandler
-    mongoScheduler.make[UserId]("eraser")(doEraseNow)
-
-  def scheduleErasure(u: User)(using Me): Funit =
-    for _ <- close(u)
-    yield eraserScheduler.schedule(u.id, 24.hours)
+  lila.common.LilaScheduler.variableDelay(
+    "accountTermination.erase",
+    prev => _.Delay(if prev.isDefined then 1.second else 10.seconds),
+    timeout = _.AtMost(1.minute),
+    initialDelay = _.Delay(111.seconds)
+  )(findAndErase)
 
   def close(u: User)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
@@ -107,15 +105,19 @@ final class AccountClosure(
   private def lichessClose(userId: UserId) =
     userRepo.lichessAnd(userId).flatMapz { (lichess, user) => close(user)(using Me(lichess)) }
 
-  def eraseClosed(username: UserId): Fu[Either[String, String]] =
-    userRepo.byId(username).map {
-      case None => Left("No such user.")
-      case Some(user) =>
-        userRepo.setEraseAt(user)
-        email.gdprErase(user)
-        Right(s"Erasing all data about $username in 24h")
-    }
+  def scheduleErasure(user: User)(using Me): Funit = for
+    _ <- user.enabled.yes.so(close(user))
+    _ <- email.gdprErase(user)
+    _ <- userRepo.scheduleErasure(user.id, true)
+  yield ()
 
-  private def doEraseNow(userId: UserId): Funit =
-    fuccess:
-      println(s"Time to wipe $userId")
+  private def findAndErase: Fu[Option[User]] =
+    userRepo.findNextToErase.flatMapz: user =>
+      doEraseNow(user).inject(user.some)
+
+  private def doEraseNow(user: User): Funit =
+    if user.enabled.yes
+    then userRepo.scheduleErasure(user.id, false)
+    else
+      fuccess:
+        println(s"Time to wipe $user")
