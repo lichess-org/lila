@@ -1,4 +1,4 @@
-@use "variables";
+@use 'variables';
 
 @function img-url($path) {
   @return url('#{variables.$img-path}/#{$path}');

@@ -1,7 +1,7 @@
-@use "breakpoint-sass/stylesheets/breakpoint";
-@use "../abstract/media-queries";
-@use "../abstract/variables";
-@use "../theme/gen/theme";
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/media-queries';
+@use '../abstract/variables';
+@use '../theme/gen/theme';
 
 @include breakpoint.breakpoint(media-queries.$mq-topnav-visible) {
   .hamburger,

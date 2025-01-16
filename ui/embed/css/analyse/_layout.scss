@@ -30,9 +30,9 @@
 
   &.main-v-minishogi,
   &.main-v-kyotoshogi {
-    grid-template-rows: auto calc(
-        100vh - 6rem - (100vw / 5 * 7 / 11 * 12 + #{uniboard.$hands-gap})
-      ) 3rem 3rem;
+    grid-template-rows:
+      auto calc(100vh - 6rem - (100vw / 5 * 7 / 11 * 12 + #{uniboard.$hands-gap}))
+      3rem 3rem;
   }
 
   &.main-v-chushogi {

@@ -1,6 +1,6 @@
-@use "breakpoint-sass/stylesheets/breakpoint";
-@use "uniboard";
-@use "variables";
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'uniboard';
+@use 'variables';
 
 @mixin box-radius {
   border-radius: variables.$box-radius-size;

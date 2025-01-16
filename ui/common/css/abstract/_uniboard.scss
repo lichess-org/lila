@@ -1,5 +1,5 @@
-@use "media-queries";
-@use "variables";
+@use 'media-queries';
+@use 'variables';
 
 /* Uniboard: keep the same page layout accross pages */
 
@@ -29,19 +29,23 @@ $col3-uniboard-table: minmax(#{$col3-uniboard-table-min}, #{$col3-uniboard-table
 $col3-uniboard-controls: 3rem;
 
 $col3-uniboard-main-max-width: calc(
-  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{variables.$block-gap * 2} - #{$col3-uniboard-table-min} -
-    2 * var(--main-margin, 0px) - #{$scrollbar-width}
+  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{variables.$block-gap * 2} -
+    #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
 );
 $col3-uniboard-main-max-height: calc(
-  (100vh * var(--board-scale) - #{variables.$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 /
-    9 * 11 + #{$hands-gap}
+  (
+      100vh * var(--board-scale) - #{variables.$site-header-outer-height} -
+        #{$col3-uniboard-controls}
+    ) /
+    12 * 11 / 9 * 11 + #{$hands-gap}
 );
 $col3-uniboard-main-size: Min(#{$col3-uniboard-main-max-width}, #{$col3-uniboard-main-max-height});
 
 $col3-uniboard-default-scale: 0.9; // zoom: 0.85*0.6+0.4 ≈ 0.91
 $col3-uniboard-default-min-width: 600px;
 $col3-uniboard-default-max-width: calc(
-  100vh * #{$col3-uniboard-default-scale} - #{variables.$site-header-outer-height} - #{$col3-uniboard-controls}
+  100vh * #{$col3-uniboard-default-scale} - #{variables.$site-header-outer-height} -
+    #{$col3-uniboard-controls}
 );
 $col3-uniboard-default-width: minmax(
   #{$col3-uniboard-default-min-width},
@@ -72,11 +76,15 @@ $col1-uniboard-controls: $col2-uniboard-controls;
 // COL 3 - no hands
 
 $col3-uniboard-main-max-width-no-hands: calc(
-  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{$big-block-gap * 2} - #{$col3-uniboard-table-min} -
-    2 * var(--main-margin, 0px) - #{$scrollbar-width}
+  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{$big-block-gap * 2} -
+    #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
 );
 $col3-uniboard-main-max-height-no-hands: calc(
-  (100vh * var(--board-scale) - #{variables.$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11
+  (
+      100vh * var(--board-scale) - #{variables.$site-header-outer-height} -
+        #{$col3-uniboard-controls}
+    ) /
+    12 * 11
 );
 $col3-uniboard-main-size-no-hands: Min(
   #{$col3-uniboard-main-max-width-no-hands},

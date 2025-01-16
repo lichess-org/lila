@@ -1,6 +1,6 @@
-@use "breakpoint-sass/stylesheets/breakpoint";
-@use "../abstract/uniboard";
-@use "../theme/gen/theme";
+@use 'breakpoint-sass/stylesheets/breakpoint';
+@use '../abstract/uniboard';
+@use '../theme/gen/theme';
 
 body.resizing {
   user-select: none;

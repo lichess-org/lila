@@ -1,4 +1,4 @@
-@use "../theme/gen/theme";
+@use '../theme/gen/theme';
 
 html {
   box-sizing: border-box;
@@ -14,7 +14,8 @@ html {
 }
 
 body {
-  background: theme.$c-bg-page linear-gradient(to bottom, theme.$c-body-gradient, theme.$c-bg-page 100px) no-repeat;
+  background: theme.$c-bg-page
+    linear-gradient(to bottom, theme.$c-body-gradient, theme.$c-bg-page 100px) no-repeat;
   color: theme.$c-font;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -22,7 +23,8 @@ body {
 
 body::-webkit-scrollbar,
 body::-webkit-scrollbar-corner {
-  background: theme.$c-bg-page linear-gradient(to bottom, theme.$c-body-gradient, theme.$c-bg-page 100px) no-repeat;
+  background: theme.$c-bg-page
+    linear-gradient(to bottom, theme.$c-body-gradient, theme.$c-bg-page 100px) no-repeat;
   max-width: 0.8rem;
 }
 
