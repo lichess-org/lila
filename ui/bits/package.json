@@ -44,7 +44,12 @@
     "zxcvbn": "^4.4.2"
   },
   "build": {
-    "bundle": "src/bits.*ts",
+    "bundle": [
+      "src/bits!(*.inline).ts",
+      {
+        "inline": "src/bits.oauth.inline.ts"
+      }
+    ],
     "sync": {
       "node_modules/cropperjs/dist/cropper.min.css": "public/npm",
       "../../node_modules/chessground/dist/chessground.min.js": "public/npm"

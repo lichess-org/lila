@@ -7,6 +7,7 @@ case class ContentSecurityPolicy(
     frameSrc: List[String],
     workerSrc: List[String],
     imgSrc: List[String],
+    mediaSrc: List[String],
     scriptSrc: List[String],
     fontSrc: List[String],
     baseUri: List[String]
@@ -14,6 +15,8 @@ case class ContentSecurityPolicy(
   def withNonce(nonce: Nonce) = copy(scriptSrc = s"'nonce-${nonce}'" :: scriptSrc)
 
   def withWebAssembly = copy(scriptSrc = "'unsafe-eval'" :: scriptSrc)
+
+  def withUnsafeInlineScripts = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
 
   def withExternalEngine(url: String) = copy(connectSrc = url :: connectSrc)
 

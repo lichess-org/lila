@@ -7,7 +7,8 @@ import ScalatagsTemplate.{ *, given }
 
 final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
     ublogRank: UblogRank,
-    connectLinks: Frag
+    connectLinks: Frag,
+    askRender: (Frag) => Context ?=> Frag
 ):
   import helpers.{ *, given }
 
@@ -19,11 +20,15 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followable: Boolean,
-      followed: Boolean
+      followed: Boolean,
+      hasAsks: Boolean
   )(using ctx: Context) =
     Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
       .css("bits.ublog")
-      .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
+      .css(hasAsks.option("bits.ask"))
+      .js(Esm("bits.expandText"))
+      .js(ctx.isAuth.option(Esm("bits.ublog")))
+      .js(hasAsks.option(esmInit("bits.ask")))
       .graph(
         OpenGraph(
           `type` = "article",
@@ -101,7 +106,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                 a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
             ),
             strong(cls := "ublog-post__intro")(post.intro),
-            div(cls := "ublog-post__markup expand-text")(markup),
+            div(cls := "ublog-post__markup expand-text")(askRender(markup)),
             post.isLichess.option(
               div(cls := "ublog-post__lichess")(
                 connectLinks,

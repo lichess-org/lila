@@ -133,7 +133,6 @@ async function inlineManifest(js: Manifest) {
   for (const pkg of env.building) {
     for (const bundle of pkg.bundle ?? []) {
       if (!bundle.inline) continue;
-
       const inlineSrc = path.join(pkg.root, bundle.inline);
       const moduleName = bundle.module
         ? path.basename(bundle.module, '.ts')
