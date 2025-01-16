@@ -6,6 +6,7 @@
   "dependencies": {
     "@textcomplete/core": "catalog:",
     "@textcomplete/textarea": "catalog:",
+    "breakpoint-sass": "catalog:",
     "chat": "workspace:*",
     "common": "workspace:*",
     "date-fns": "^2.30.0",

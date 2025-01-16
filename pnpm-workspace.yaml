@@ -3,13 +3,14 @@ packages:
   - 'bin'
 
 catalog:
-  shogiground: ^0.10.1
-  shogiops: ^0.18.0
-  snabbdom: ^3.6.2
+  'shogiground': ^0.10.1
+  'shogiops': ^0.18.0
+  'snabbdom': ^3.6.2
   '@badrap/result': ^0.2.13
+  'breakpoint-sass': '4.0.0-beta.1'
   'chart.js': ^4.4.7
   '@types/node': ^20.17.12
-  tsx: ^4.19.2
+  'tsx': ^4.19.2
   '@textcomplete/core': '^0.1.13'
   '@textcomplete/textarea': '^0.1.13'
   '@yaireo/tagify': '^4.33.1'

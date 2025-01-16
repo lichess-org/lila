@@ -6,6 +6,7 @@
   "dependencies": {
     "@badrap/result": "catalog:",
     "@yaireo/tagify": "catalog:",
+    "breakpoint-sass": "catalog:",
     "debounce-promise": "catalog:",
     "ceval": "workspace:*",
     "chat": "workspace:*",

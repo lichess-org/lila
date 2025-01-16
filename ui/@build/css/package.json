@@ -4,7 +4,7 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
-    "breakpoint-sass": "^2.7.1"
+    "breakpoint-sass": "catalog:"
   },
   "devDependencies": {
     "@build/wrapper": "workspace:*",

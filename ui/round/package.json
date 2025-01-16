@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@badrap/result": "catalog:",
+    "breakpoint-sass": "catalog:",
     "chat": "workspace:*",
     "common": "workspace:*",
     "shogi": "workspace:*",

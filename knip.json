@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "includeEntryExports": true,
-  "ignoreDependencies": ["common"],
+  "ignoreDependencies": ["common", ".*-[css|sass|scss]"],
   "ignoreBinaries": ["type", "ruby"],
   "ignore": ["**/_*.ts"],
   "workspaces": {
@@ -22,8 +22,7 @@
     },
     "ui/@build/css": {
       "entry": ["src/index.ts"],
-      "project": ["src/**"],
-      "ignoreDependencies": [".*-s?css", ".*-sass"]
+      "project": ["src/**"]
     },
     "ui/@build/vendor": {
       "entry": ["src/index.ts"],

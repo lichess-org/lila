@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@badrap/result": "catalog:",
+    "breakpoint-sass": "catalog:",
     "common": "workspace:*",
     "i18n": "workspace:*",
     "idb-keyval": "^6.2.1",

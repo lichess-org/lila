@@ -4,6 +4,7 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
+    "breakpoint-sass": "catalog:",
     "common": "workspace:*",
     "debounce-promise": "catalog:",
     "i18n": "workspace:*",
@@ -13,7 +14,7 @@
     "snabbdom": "catalog:"
   },
   "devDependencies": {
-    "@types/debounce-promise": "^3.1.9"
+    "@types/debounce-promise": "catalog:"
   },
   "scripts": {
     "type-check": "tsc --noEmit"

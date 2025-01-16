@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
+    "breakpoint-sass": "catalog:",
     "ceval": "workspace:*",
     "chart.js": "^4.4.7",
     "chartjs-adapter-dayjs-4": "^1.0.4",

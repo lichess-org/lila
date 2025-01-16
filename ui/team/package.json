@@ -4,6 +4,7 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
+    "breakpoint-sass": "catalog:",
     "common": "workspace:*",
     "chat": "workspace:*",
     "@yaireo/tagify": "catalog:",
