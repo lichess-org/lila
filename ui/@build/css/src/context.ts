@@ -11,8 +11,8 @@ import { build } from './css-variables/builder.js';
 import { extractVariables } from './css-variables/extractor.js';
 
 const sassOptions: sass.Options<'async'> = {
-  quietDeps: true,
-  silenceDeprecations: ['import'],
+  quietDeps: false,
+  silenceDeprecations: [],
   style: 'expanded',
   verbose: true,
 };
