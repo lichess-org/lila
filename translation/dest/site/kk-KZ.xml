@@ -129,7 +129,7 @@
     <item quantity="one">%s өрескел қателік</item>
     <item quantity="other">%s өрескел қателік</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Өрескел қателік</item>
     <item quantity="other">%s Өрескел қателік</item>
   </plurals>
@@ -137,7 +137,7 @@
     <item quantity="one">%s қателік</item>
     <item quantity="other">%s қателік</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Қателік</item>
     <item quantity="other">%s Қателік</item>
   </plurals>
@@ -145,7 +145,7 @@
     <item quantity="one">%s ағаттық</item>
     <item quantity="other">%s ағаттық</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Ағаттық</item>
     <item quantity="other">%s Ағаттық</item>
   </plurals>
@@ -180,7 +180,7 @@
   <string name="rememberMe">Мені жадта сақтау</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
-  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасау - шектеуге әкеліп соқтырады.</string>
+  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасаушыға бұғау салынады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s %2$s тақырыбында сөз жазды</string>
@@ -896,7 +896,7 @@
   <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
   <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
   <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
-  <string name="someoneYouReportedWasBanned">Сіз шағым жіберегенсіз, ол ойыншы шектелді</string>
+  <string name="someoneYouReportedWasBanned">Сіздің шағымыңыздан кейін біреу бұғауланды</string>
   <string name="congratsYouWon">Құтты болсын, сіз жеңдіңіз!</string>
   <string name="gameVsX">%1$s қарсы ойын</string>
   <string name="resVsX">%1$s қарсы %2$s</string>
