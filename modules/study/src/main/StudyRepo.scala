@@ -319,10 +319,12 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] def isAdminMember(study: Study, userId: UserId): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true)))
 
-  private[study] def deleteByOwner(u: UserId): Fu[List[StudyId]] = for
-    c   <- coll.get
-    ids <- c.distinctEasy[StudyId, List]("_id", selectOwnerId(u))
-    _   <- c.delete.one(selectOwnerId(u))
+  private[study] def deletePrivateByOwner(u: UserId): Fu[List[StudyId]] = for
+    c <- coll.get
+    privateSelector = selectOwnerId(u) ++ selectPrivateOrUnlisted
+    ids <- c.distinctEasy[StudyId, List]("_id", privateSelector)
+    _   <- c.delete.one(privateSelector)
+    _   <- c.update.one(selectOwnerId(u), $set("ownerId" -> UserId.ghost), multi = true)
     _   <- c.update.one($doc(F.likers -> u), $pull(F.likers -> u))
     _   <- c.update.one($doc(F.uids -> u), $pull(F.uids -> u) ++ $unset(s"members.$u"))
   yield ids

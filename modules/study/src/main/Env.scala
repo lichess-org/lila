@@ -112,7 +112,7 @@ final class Env(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
-      studyIds <- studyRepo.deleteByOwner(del.id)
+      studyIds <- studyRepo.deletePrivateByOwner(del.id)
       _        <- chapterRepo.deleteByStudyIds(studyIds)
       _        <- topicApi.userTopicsDelete(del.id)
     yield ()

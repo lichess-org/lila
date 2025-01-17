@@ -21,7 +21,8 @@ enum Termination:
 | sessions and oauth tokens | closed                           | deleted               | deleted                        |
 | patron subscription       | canceled                         | canceled              | canceled                       |
 | blog posts                | unlisted                         | deleted               | deleted                        |
-| studies                   | hidden                           | deleted               | deleted                        |
+| public studies            | unlisted                         | anonymized            | deleted                        |
+| private studies           | hidden                           | deleted               | deleted                        |
 | activity                  | hidden                           | deleted               | deleted                        |
 | coach/streamer profiles   | hidden                           | deleted               | deleted                        |
 | tournaments joined        | unlisted                         | anonymized            | anonymized                     |
