@@ -21,8 +21,8 @@
   <string name="createBlogDiscussionHelp">Et forumemne blir opprettet, der man kan kommentere innlegget ditt</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
   <string name="publishHelp">Kryss av for å vise innlegget på bloggen din. Ellers er det et utkast, som ikke vises.</string>
-  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">Fest innlegg</string>
-  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Kryss av for å vise innlegget først i oversikten over innleggene dine.</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fest innlegg</string>
+  <string name="stickyPostHelp">Kryss av for å vise innlegget først i oversikten over innleggene dine.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Har publisert et blogginnlegg</item>
     <item quantity="other">Har publisert %s blogginnlegg</item>
