@@ -57,7 +57,7 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="arenaStreaks">Racha de victorias</string>
   <string name="arenaStreaksHelp">Después de ganar 2 partidas seguidas, cada victoria consecutiva concede 4 puntos en lugar de 2.</string>
   <string name="noBerserkAllowed">No permitir Berserk</string>
-  <string name="noArenaStreaks">Sin rachas de victorias</string>
+  <string name="noArenaStreaks">Sin racha de victorias</string>
   <string name="averagePerformance">Rendimiento promedio</string>
   <string name="averageScore">Puntuación promedio</string>
   <string name="myTournaments">Mis torneos</string>
