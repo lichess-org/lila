@@ -54,7 +54,7 @@
   <string name="teams">Timovi</string>
   <string name="boards">Ploče</string>
   <string name="overview">Pregled</string>
-  <string name="subscribeTitle">Pretplatite se da biste bili obavješteni o počecima rundi. Možete prilagoditi obavještenja o prijenosima u preferencama vašeg računa.</string>
+  <string name="subscribeTitle">Pretplatite se da biste bili obavješteni o počecima svake runde. Možete prilagoditi obavještenja o emitovanjima u preferencama vašeg računa.</string>
   <string name="uploadImage">Ubacite sliku turnira</string>
   <string name="noBoardsYet">Ploče nisu još dostupne. Iste će se prikazati čim mečevi budu unešeni.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Ploče se mogu unijeti pomoću izvora ili preko %s</string>
