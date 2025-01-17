@@ -9,7 +9,6 @@ import { env, initEnv } from '../localEnv';
 import { renderGameView } from '../gameView';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
-import { boardHasher } from 'bits/polyglot';
 
 const patch = init([classModule, attributesModule]);
 
@@ -31,7 +30,6 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
 
   initEnv({
     redraw,
-    hash: await boardHasher(),
     bot: new BotCtrl(),
     push: new PushCtrl(),
     assets: new DevAssets(opts.assets),

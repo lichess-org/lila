@@ -1,10 +1,10 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
-import { type MoveContext, type GameStatus, LocalGame } from './localGame';
+import { type MoveContext, type GameStatus, LocalGame } from 'game/localGame';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { clockToSpeed } from 'game';
+import { type LocalSetup, clockToSpeed } from 'game';
 import type { ClockData } from 'round';
-import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
+import type { LocalPlayOpts, SoundEvent, LocalSpeed } from './types';
 import { env } from './localEnv';
 import { statusOf } from 'game/status';
 import { pubsub } from 'common/pubsub';
@@ -64,7 +64,7 @@ export class GameCtrl {
     this.stopped = false;
     if (this.history) this.live = this.history;
     this.history = undefined;
-    if (!this.live.end) this.updateTurn(); // ??
+    if (!this.live.finished) this.updateTurn(); // ??
   }
 
   stop(): void {
@@ -75,6 +75,7 @@ export class GameCtrl {
 
   flag(): void {
     if (this.clock) this.clock[this.live.turn] = 0;
+    this.live.finish({ winner: this.live.awaiting, status: statusOf('outoftime') });
     this.gameOver({ winner: this.live.awaiting, status: statusOf('outoftime') });
     this.updateClockUi();
   }
@@ -132,7 +133,7 @@ export class GameCtrl {
     return this.live.initialFen; //this.setup.initialFen ?? co.fen.INITIAL_FEN;
   }
 
-  move(uci: Uci): boolean {
+  move(uci: Uci): void {
     if (this.history) this.live = this.history;
     this.history = undefined;
     this.stopped = false;
@@ -140,7 +141,7 @@ export class GameCtrl {
 
     if (this.clock?.since) this.clock[this.live.turn] -= (performance.now() - this.clock.since) / 1000;
     const moveCtx = this.live.move({ uci, clock: this.clock });
-    const { end, move, justPlayed } = moveCtx;
+    const { move, justPlayed } = moveCtx;
 
     this.proxy.data.steps.splice(this.live.ply);
 
@@ -154,7 +155,7 @@ export class GameCtrl {
         new Map([[uci.slice(2, 4) as Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
       );
 
-    if (end) this.gameOver(moveCtx);
+    if (this.live.finished) this.gameOver(moveCtx);
     this.store.put(this.live.id, structuredClone(this.live));
     localStorage.setItem(`local.${env.user}.gameId`, this.live.id);
     if (this.clock?.increment) {
@@ -162,7 +163,6 @@ export class GameCtrl {
       this.updateClockUi();
     }
     env.redraw();
-    return !end;
   }
 
   private jump = (ply: number): void => {
@@ -174,7 +174,7 @@ export class GameCtrl {
 
   private async maybeMakeBotMove(): Promise<void> {
     const [bot, game] = [env.bot[this.live.turn], this.live];
-    if (!bot || game.end || this.isStopped || this.resolveThink) return;
+    if (!bot || game.finished || this.isStopped || this.resolveThink) return;
     const move = await env.bot.move({
       pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
       chess: this.live.chess,
@@ -214,10 +214,9 @@ export class GameCtrl {
   }
 
   private gameOver(final: Omit<GameStatus, 'end' | 'turn'>) {
-    this.live.finish(final);
     this.stop();
     if (this.clock) env.round.clock?.stopClock();
-    if (!env.dev?.onGameOver({ ...final, end: true, turn: this.live.turn })) {
+    if (!env.dev?.onGameOver({ ...final, turn: this.live.turn })) {
       env.round.endWithData?.({ ...final, boosted: false });
     }
     env.redraw();
@@ -225,12 +224,12 @@ export class GameCtrl {
 
   private playSounds(moveCtx: MoveContext): void {
     if (moveCtx.silent) return;
-    const { justPlayed, san, end } = moveCtx;
+    const { justPlayed, san } = moveCtx;
     const sounds: SoundEvent[] = [];
     const prefix = env.bot[justPlayed] ? 'bot' : 'player';
     if (san.includes('x')) sounds.push(`${prefix}Capture`);
     if (this.live.chess.isCheck()) sounds.push(`${prefix}Check`);
-    if (end) sounds.push(`${prefix}Win`);
+    if (this.live.finished) sounds.push(`${prefix}Win`);
     sounds.push(`${prefix}Move`);
     const boardSoundVolume = sounds ? env.bot.playSound(justPlayed, sounds) : 1;
     if (boardSoundVolume) site.sound.move({ ...moveCtx, volume: boardSoundVolume });

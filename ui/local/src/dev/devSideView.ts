@@ -10,7 +10,8 @@ import { type Drop, type HandOfCards, handOfCards } from '../handOfCards';
 import { domIdToUid, uidToDomId } from '../botCtrl';
 import { rangeTicks } from '../gameView';
 import { defined } from 'common';
-import type { LocalSetup, LocalSpeed } from '../types';
+import type { LocalSpeed } from '../types';
+import type { LocalSetup } from 'game';
 import { env } from '../localEnv';
 
 export function renderDevSide(): VNode {
@@ -236,7 +237,7 @@ function progress() {
 function renderPlayPause(): VNode {
   const boardTurn = env.game.history?.turn ?? env.game.live.turn;
   const disabled = !env.bot[boardTurn];
-  const paused = env.game.isStopped || env.game.history || env.game.live.end;
+  const paused = env.game.isStopped || env.game.history || env.game.live.finished;
   return h(
     `button.play-pause.button.button-metal${disabled ? '.play.disabled' : paused ? '.play' : '.pause'}`,
     {

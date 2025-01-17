@@ -1,5 +1,4 @@
 import type { OpeningBook, PolyglotResult, PgnProgress, PgnFilter } from './bits.polyglot';
-import type { Board } from 'chessops';
 
 export type {
   OpeningMove,
@@ -32,8 +31,4 @@ export async function makeCover(init: {
   cover: boolean | { boardSize: number };
 }): Promise<Blob> {
   return (await site.asset.loadEsm<PolyglotResult>('bits.polyglot', { init })).cover!;
-}
-
-export async function boardHasher(): Promise<(board: Board) => bigint> {
-  return site.asset.loadEsm<(board: Board) => bigint>('bits.polyglot', { init: undefined });
 }

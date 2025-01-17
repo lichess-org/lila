@@ -5,7 +5,7 @@ import { defined, Prop } from 'common';
 import { shuffle } from 'common/algo';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
-import type { GameStatus, MoveContext } from '../localGame';
+import type { GameStatus, MoveContext } from 'game/localGame';
 import { env } from '../localEnv';
 import { pubsub } from 'common/pubsub';
 import { type PermaLog, makeLog } from 'common/permalog';
@@ -166,7 +166,7 @@ export class DevCtrl {
   }
 
   get gameInProgress(): boolean {
-    return !!env.game.history || (env.game.live.ply > 0 && !env.game.live.status.end);
+    return !!env.game.history || (env.game.live.ply > 0 && !env.game.live.finished);
   }
 
   async clearRatings(): Promise<void> {

@@ -24,7 +24,6 @@ class LocalEnv {
   assets: Assets;
   push: PushCtrl;
   round: RoundController;
-  hash: (board: Board) => bigint;
   redraw: () => void;
 
   constructor(cfg: Partial<LocalEnv>) {

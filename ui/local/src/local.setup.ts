@@ -2,7 +2,7 @@ import { showSetupDialog } from './setupDialog';
 import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
 import { env, initEnv } from './localEnv';
-import type { LocalSetup } from './types';
+import type { LocalSetup } from 'game';
 
 export default async function initModule(opts: LocalSetup = {}): Promise<void> {
   if (localStorage.getItem('local.setup')) {

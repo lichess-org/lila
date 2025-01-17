@@ -1,6 +1,7 @@
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
 import type { Chess } from 'chessops';
+import type { LocalSetup } from 'game';
 import type { Filter, FilterFacet, Filters, Point } from './filter';
 
 export type { CardData, Filter, FilterFacet, Filters, Point };
@@ -67,20 +68,11 @@ export interface MoveArgs {
 
 export type MoveResult = { uci: string; thinkTime: Seconds };
 
-export interface LocalSetup {
-  white?: string;
-  black?: string;
-  initialFen?: FEN;
-  initial?: Seconds;
-  increment?: Seconds;
-  go?: boolean;
-}
-
 export interface LocalPlayOpts {
   pref: any;
   userId: string;
   username: string;
-  setup?: LocalSetup;
+  setup?: LocalSetup & { go?: boolean };
   bots: BotInfo[];
   dev?: boolean;
 }

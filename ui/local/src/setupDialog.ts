@@ -6,8 +6,10 @@ import { defined } from 'common';
 import { pubsub } from 'common/pubsub';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
-import type { LocalSetup } from './types';
+import type { LocalSetup as GameLocalSetup } from 'game';
 import { env } from './localEnv';
+
+type LocalSetup = GameLocalSetup & { go?: boolean };
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
   pubsub.after('local.images.ready').then(() => new SetupDialog(setup).show());
