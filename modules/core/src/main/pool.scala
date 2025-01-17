@@ -23,7 +23,7 @@ object IsClockCompatible extends FunctionWrapper[IsClockCompatible, Clock.Config
 
 case class PoolMember(
     userId: UserId,
-    sri: lila.core.socket.Sri,
+    sri: Sri,
     rating: IntRating,
     ratingRange: Option[RatingRange],
     lame: Boolean,

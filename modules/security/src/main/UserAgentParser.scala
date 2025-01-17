@@ -39,17 +39,18 @@ object UserAgentParser:
     def isSuspicious(req: RequestHeader): Boolean = HTTPRequest.userAgent(req).forall(isSuspicious)
 
     def isSuspicious(ua: UA): Boolean =
-      ua.value.lengthIs < 30 || !looksNormal(ua)
+      val str = ua.value.take(200).toLowerCase
+      str.lengthIs < 30 || isMacOsEdge(str) || !looksNormal(str)
 
-    private def looksNormal(ua: UA) =
-      val sections = ua.value.toLowerCase.split(' ')
+    private def looksNormal(ua: String) =
+      val sections = ua.split(' ')
       sections.exists: s =>
         isRecentChrome(s) || isRecentFirefox(s) || isRecentSafari(s)
 
     // based on https://caniuse.com/usage-table
     private val isRecentChrome  = isRecentBrowser("chrome", 109) // also covers Edge and Opera
     private val isRecentFirefox = isRecentBrowser("firefox", 128)
-    private val isRecentSafari  = isRecentBrowser("safari", 605) // most safaris also have a chrome/ section
+    private val isRecentSafari  = isRecentBrowser("safari", 604) // most safaris also have a chrome/ section
 
     private def isRecentBrowser(name: String, minVersion: Int): String => Boolean =
       val slashed      = name + "/"
@@ -57,3 +58,6 @@ object UserAgentParser:
       (s: String) =>
         s.startsWith(slashed) &&
           s.drop(prefixLength).takeWhile(_ != '.').toIntOption.exists(_ >= minVersion)
+
+    private def isMacOsEdge(ua: String) =
+      ua.contains("macintosh") && ua.contains("edg/")

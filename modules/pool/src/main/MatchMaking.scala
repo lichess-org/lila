@@ -21,9 +21,8 @@ object MatchMaking:
     members
       .sortBy(_.rating)(using intOrdering[IntRating].reverse)
       .grouped(2)
-      .collect { case Vector(p1, p2) =>
-        Couple(p1, p2)
-      }
+      .collect:
+        case Vector(p1, p2) => Couple(p1, p2)
       .toVector
 
   private object wmMatching:
