@@ -132,7 +132,7 @@
     <item quantity="one">%s picia</item>
     <item quantity="other">%s picies</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Picia</item>
     <item quantity="other">%s Picies</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s fallu</item>
     <item quantity="other">%s fallos</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Fallu</item>
     <item quantity="other">%s Fallos</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s inexautitú</item>
     <item quantity="other">%s inexautitúes</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Inexautitú</item>
     <item quantity="other">%s Inexautitúes</item>
   </plurals>
@@ -919,14 +919,29 @@
   <string name="inTheFAQ">nes guetes frecuentes.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pa denunciar a un usuariu por tramposu o por mal comportamientu, 
 %1$s</string>
+  <string name="useTheReportForm">usa\'l formulariu d\'informe</string>
+  <string name="toRequestSupport">Pa solicitar soporte, %1$s</string>
+  <string name="tryTheContactPage">prueba la páxina de contactu</string>
+  <string name="makeSureToRead">Estate seguru de lleer %1$s</string>
+  <string name="theForumEtiquette">les riegles del foru</string>
+  <string name="thisTopicIsArchived">Esta tema foi archiváu y ya nun almite respuestes.</string>
+  <string name="joinTheTeamXToPost">Xúnite a %1$s para publicar nesti foru</string>
+  <string name="teamNamedX">equipu %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Tovía nun pues publicar nos foros. ¡Xuega delles partíes!</string>
   <string name="subscribe">Suscribirse</string>
   <string name="unsubscribe">Encaboxar la suscripción</string>
   <string name="mentionedYouInX">mentaronte en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s te mentaron en \"%2$s\".</string>
+  <string name="invitedYouToX">te convidó a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s te convidó a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Agora yes miembru del equipu.</string>
   <string name="youHaveJoinedTeamX">Te xunisti a \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Un usuariu que denunciasti foi espulsáu</string>
   <string name="congratsYouWon">¡Felicidaes, ganasti!</string>
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="lostAgainstTOSViolator">Perdisti contra un usuariu qu\'incumplió les Condiciones del Serviciu de Lichess</string>
+  <string name="refundXpointsTimeControlY">Recuperasti %1$s puntos en %2$s.</string>
   <string name="download">Decargar</string>
   <string name="cancelTournament">Encaboxar tornéu</string>
   <string name="minimumRating">Rating mínimu</string>
