@@ -1,5 +1,5 @@
 count = 0;
-db.analysis_requester.find().forEach(function(doc) {
+db.analysis_requester.find().forEach(function (doc) {
   const entries = Object.entries(doc);
   const reduced = entries.filter(([key]) => !key.includes('-') || key.startsWith('2025-'));
   if (entries.length !== reduced.length) {
@@ -10,7 +10,7 @@ db.analysis_requester.find().forEach(function(doc) {
   count++;
 });
 
-print(count, "documents processed");
+print(count, 'documents processed');
 
 /*
   size: 2710719734,
