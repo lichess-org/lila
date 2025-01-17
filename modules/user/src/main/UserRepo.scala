@@ -349,11 +349,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       )
       .void
 
-  def deleteWithTosViolation(user: User) =
-    import F.*
-    coll.update.one(
-      $id(user.id),
-      $unset(
+  object delete:
+
+    def nowWithTosViolation(user: User) =
+      import F.*
+      val fields = List(
         profile,
         roles,
         toints,
@@ -369,35 +369,38 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         bpass,
         "mustConfirmEmail",
         colorIt
-      ) ++ $set(s"${F.delete}.done" -> true)
-    )
-
-  def deleteFully(user: User) = for
-    lockEmail <- emailOrPrevious(user.id)
-    _ <- coll.update.one(
-      $id(user.id),
-      $doc(
-        "prevEmail"         -> lockEmail,
-        "createdAt"         -> user.createdAt,
-        s"${F.delete}.done" -> true
       )
-    )
-  yield ()
+      coll.update.one(
+        $id(user.id),
+        $unset(fields) ++ $set(s"${F.delete}.done" -> true)
+      )
 
-  def findNextToDelete(delay: FiniteDuration): Fu[Option[(User, UserDelete)]] =
-    coll
-      .find:
-        $doc( // hits the delete.scheduled_1 index
-          s"${F.delete}.scheduled".$lt(nowInstant.minusMillis(delay.toMillis)),
-          s"${F.delete}.done" -> false
+    def nowFully(user: User) = for
+      lockEmail <- emailOrPrevious(user.id)
+      _ <- coll.update.one(
+        $id(user.id),
+        $doc(
+          "prevEmail"         -> lockEmail,
+          "createdAt"         -> user.createdAt,
+          s"${F.delete}.done" -> true
         )
-      .sort($doc(s"${F.delete}.scheduled" -> 1))
-      .one[User]
-      .flatMapz: user =>
-        coll.primitiveOne[UserDelete]($id(user.id), F.delete).mapz(delete => (user -> delete).some)
+      )
+    yield ()
 
-  def scheduleDelete(userId: UserId, delete: Option[UserDelete]): Funit =
-    coll.updateOrUnsetField($id(userId), F.delete, delete).void
+    def findNextScheduled(delay: FiniteDuration): Fu[Option[(User, UserDelete)]] =
+      coll
+        .find:
+          $doc( // hits the delete.scheduled_1 index
+            s"${F.delete}.scheduled".$lt(nowInstant.minusMillis(delay.toMillis)),
+            s"${F.delete}.done" -> false
+          )
+        .sort($doc(s"${F.delete}.scheduled" -> 1))
+        .one[User]
+        .flatMapz: user =>
+          coll.primitiveOne[UserDelete]($id(user.id), F.delete).mapz(delete => (user -> delete).some)
+
+    def schedule(userId: UserId, delete: Option[UserDelete]): Funit =
+      coll.updateOrUnsetField($id(userId), F.delete, delete).void
 
   def getPasswordHash(id: UserId): Fu[Option[String]] =
     coll.byId[AuthData](id, AuthData.projection).map2(_.bpass.bytes.sha512.hex)

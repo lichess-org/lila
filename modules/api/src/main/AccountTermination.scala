@@ -104,16 +104,16 @@ final class AccountTermination(
       relationApi.fetchFollowing(u.id).flatMap(activityWrite.unfollowAll(u, _))
   yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
-  def scheduleDelete(u: User): Funit = for
-    _ <- disable(u)(using Me(u))
+  def scheduleDelete(u: User)(using Me): Funit = for
+    _ <- disable(u)
     _ <- email.delete(u)
-    _ <- userRepo.scheduleDelete(u.id, UserDelete(nowInstant, erase = false).some)
+    _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant, erase = false).some)
   yield ()
 
-  def scheduleErase(u: User): Funit = for
-    _ <- disable(u)(using Me(u))
+  def scheduleErase(u: User)(using Me): Funit = for
+    _ <- disable(u)
     _ <- email.gdprErase(u)
-    _ <- userRepo.scheduleDelete(u.id, UserDelete(nowInstant, erase = true).some)
+    _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant, erase = true).some)
   yield ()
 
   private def lichessDisable(userId: UserId) =
@@ -125,18 +125,18 @@ final class AccountTermination(
     timeout = _.AtMost(1.minute),
     initialDelay = _.Delay(111.seconds)
   ):
-    userRepo
-      .findNextToDelete(7.days)
+    userRepo.delete
+      .findNextScheduled(7.days)
       .flatMapz: (user, del) =>
         if user.enabled.yes
-        then userRepo.scheduleDelete(user.id, none).inject(none)
+        then userRepo.delete.schedule(user.id, none).inject(none)
         else doDeleteNow(user, del).inject(user.some)
 
   private def doDeleteNow(u: User, del: UserDelete): Funit = for
     playbanned  <- playbanApi.hasCurrentPlayban(u.id)
     closedByMod <- modLogApi.closedByMod(u)
     tos = u.marks.dirty || closedByMod || playbanned
-    _                   <- if tos then userRepo.deleteWithTosViolation(u) else userRepo.deleteFully(u)
+    _                   <- if tos then userRepo.delete.nowWithTosViolation(u) else userRepo.delete.nowFully(u)
     _                   <- activityWrite.deleteAll(u)
     singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)
     _                   <- analysisRepo.remove(singlePlayerGameIds)

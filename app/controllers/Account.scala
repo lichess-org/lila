@@ -271,9 +271,14 @@ final class Account(
         env.security.forms.deleteAccount.flatMap: form =>
           FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
             env.api.accountTermination
-              .disable(me.value)
+              .scheduleDelete(me.value)
               .inject:
-                Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
+                Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
+  }
+
+  def deleteDone = Open { ctx ?=>
+    if ctx.isAuth then Redirect(routes.Lobby.home)
+    else FoundPage(env.cms.renderKey("delete-done"))(views.site.page.lone)
   }
 
   def kid = Auth { _ ?=> me ?=>

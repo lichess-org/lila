@@ -26,6 +26,9 @@ final class SecurityForm(
   private def newPasswordFieldForMe(using me: Me) =
     newPasswordField.verifying(PasswordCheck.sameConstraint(me.username.into(UserStr)))
 
+  def myUsernameField(using me: Me) =
+    LilaForm.cleanNonEmptyText.into[UserStr].verifying("Please log into your account first.", _.is(me))
+
   private val anyEmail: Mapping[EmailAddress] =
     LilaForm
       .cleanNonEmptyText(minLength = 6, maxLength = EmailAddress.maxLength)
@@ -199,7 +202,13 @@ final class SecurityForm(
     authenticator.loginCandidate.map: candidate =>
       Form(single("passwd" -> passwordMapping(candidate)))
 
-  def closeAccount(using Me) = passwordProtected
+  def closeAccount(using Me) =
+    authenticator.loginCandidate.map: candidate =>
+      Form:
+        mapping(
+          "username" -> myUsernameField,
+          "passwd"   -> passwordMapping(candidate)
+        )((_, _) => ())(_ => None)
 
   def toggleKid(using Me) = passwordProtected
 
@@ -211,13 +220,14 @@ final class SecurityForm(
       )(Reopen.apply)(_ => None)
   )
 
-  def deleteAccount(using Me) =
+  def deleteAccount(using me: Me) =
     authenticator.loginCandidate.map: candidate =>
       Form:
         mapping(
+          "username"   -> myUsernameField,
           "passwd"     -> passwordMapping(candidate),
           "understand" -> boolean.verifying("It's an important point.", identity[Boolean])
-        )((pass, _) => pass)(_ => None)
+        )((_, _, _) => ())(_ => None)
 
   private def passwordMapping(candidate: LoginCandidate) =
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
