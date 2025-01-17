@@ -274,6 +274,7 @@ export default class AnalyseCtrl {
     this.explorer.onFlip();
     this.onChange();
     this.persistence?.save(true);
+    this.actionMenu.toggle();
     this.redraw();
   };
 

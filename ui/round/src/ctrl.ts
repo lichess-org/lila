@@ -289,6 +289,7 @@ export default class RoundController implements MoveRootCtrl {
       orientation: boardOrientation(this.data, this.flip),
     });
     pubsub.emit('flip', this.flip);
+    this.menu.toggle();
     this.redraw();
   };
 
