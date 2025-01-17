@@ -68,7 +68,7 @@
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL del estudio</string>
   <string name="currentChapterUrl">URL del capítulo actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Puedes pegar esto en el foro para insertar la partida</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puedes pegar esto en el foro o tu blog de Lichess para insertar la partida</string>
   <string name="startAtInitialPosition">Comenzar desde la posición inicial</string>
   <string name="startAtX">Comenzar en %s</string>
   <string name="embedInYourWebsite">Insértalo en tu página o blog</string>
@@ -133,13 +133,13 @@
   <string name="deleteStudy">Borrar estudio</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">¿Seguro que quieres eliminar el estudio? Ten en cuenta que esta acción no se puede deshacer. Para confirmar, escribe el nombre del estudio: %s</string>
   <string name="whereDoYouWantToStudyThat">¿Dónde quieres estudiar eso?</string>
-  <string name="goodMove">Jugada buena</string>
+  <string name="goodMove">Buena jugada</string>
   <string name="mistake">Error</string>
-  <string name="brilliantMove">Jugada muy buena</string>
+  <string name="brilliantMove">Jugada brillante</string>
   <string name="blunder">Error grave</string>
   <string name="interestingMove">Jugada interesante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Jugada dudosa</string>
-  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Movimiento único</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Única jugada</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Posición igualada</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Posición poco clara</string>

@@ -335,3 +335,6 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       .sort($sort.desc("m"))
       .batchSize(batchSize)
       .cursor[Player](readPref)
+
+  private[tournament] def anonymize(tourId: TourId, userId: UserId)(ghostId: UserId) =
+    coll.update.one($doc("tid" -> tourId, "uid" -> userId), $set("uid" -> ghostId)).void

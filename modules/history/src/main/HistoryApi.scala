@@ -18,6 +18,9 @@ final class HistoryApi(
 
   import History.{ given, * }
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    withColl(_.delete.one($id(del.id)).void)
+
   def addPuzzle(user: User, completedAt: Instant, perf: lila.core.perf.Perf): Funit =
     withColl: coll =>
       val days = daysBetween(user.createdAt, completedAt)

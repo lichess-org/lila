@@ -132,7 +132,7 @@
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s اشتباه بزرگ</item>
     <item quantity="other">%s اشتباه بزرگ</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s اشتباه</item>
     <item quantity="other">%s اشتباه</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s اشتباه</item>
     <item quantity="other">%s اشتباه</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s نادقیق</item>
     <item quantity="other">%s نادقیق</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s نادقیق</item>
     <item quantity="other">%s نادقیق</item>
   </plurals>
@@ -515,8 +515,8 @@
   <string name="profileCompletion">میزان تکمیل رُخ‌نما: %s</string>
   <string name="xRating">درجه‌‏بندی %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
-  <string name="profile">رُخ‌نما</string>
-  <string name="editProfile">ویرایش رُخ‌نما</string>
+  <string name="profile">نمایه</string>
+  <string name="editProfile">ویرایش نمایه</string>
   <string name="realName">نام راستین</string>
   <string name="setFlair">تعیین شکلک</string>
   <string name="flair">شکلک</string>

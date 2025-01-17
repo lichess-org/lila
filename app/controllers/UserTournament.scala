@@ -46,7 +46,7 @@ final class UserTournament(env: Env, apiC: => Api) extends LilaController(env):
       apiC.jsonDownload:
         env.tournament.leaderboardApi
           .byPlayerStream(
-            user,
+            user.id,
             withPerformance = getBool("performance"),
             maxPerSecond(name),
             getInt("nb") | Int.MaxValue

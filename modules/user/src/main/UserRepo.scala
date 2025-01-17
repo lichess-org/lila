@@ -20,7 +20,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   import lila.user.BSONFields as F
   export lila.user.BSONHandlers.given
 
-  private def recoverErased(user: Fu[Option[User]]): Fu[Option[User]] =
+  private def recoverDeleted(user: Fu[Option[User]]): Fu[Option[User]] =
     user.recover:
       case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
 
@@ -31,7 +31,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
-      recoverErased:
+      recoverDeleted:
         coll.byId[User](u.id)
 
   def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
@@ -43,7 +43,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
-      recoverErased:
+      recoverDeleted:
         coll.one[User](enabledSelect ++ $id(u.id))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
@@ -333,7 +333,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         .one(
           $id(id) ++ $doc(F.email.$exists(false)),
           $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
-            $doc("$unset" -> $doc(F.eraseAt -> true))
+            $doc("$unset" -> $doc(F.delete -> true))
         )
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
@@ -348,6 +348,59 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         }
       )
       .void
+
+  object delete:
+
+    def nowWithTosViolation(user: User) =
+      import F.*
+      val fields = List(
+        profile,
+        roles,
+        toints,
+        "time",
+        kid,
+        lang,
+        title,
+        plan,
+        totpSecret,
+        changedCase,
+        blind,
+        salt,
+        bpass,
+        "mustConfirmEmail",
+        colorIt
+      )
+      coll.update.one(
+        $id(user.id),
+        $unset(fields) ++ $set(s"${F.delete}.done" -> true)
+      )
+
+    def nowFully(user: User) = for
+      lockEmail <- emailOrPrevious(user.id)
+      _ <- coll.update.one(
+        $id(user.id),
+        $doc(
+          "prevEmail"         -> lockEmail,
+          "createdAt"         -> user.createdAt,
+          s"${F.delete}.done" -> true
+        )
+      )
+    yield ()
+
+    def findNextScheduled(delay: FiniteDuration): Fu[Option[(User, UserDelete)]] =
+      coll
+        .find:
+          $doc( // hits the delete.scheduled_1 index
+            s"${F.delete}.scheduled".$lt(nowInstant.minusMillis(delay.toMillis)),
+            s"${F.delete}.done" -> false
+          )
+        .sort($doc(s"${F.delete}.scheduled" -> 1))
+        .one[User]
+        .flatMapz: user =>
+          coll.primitiveOne[UserDelete]($id(user.id), F.delete).mapz(delete => (user -> delete).some)
+
+    def schedule(userId: UserId, delete: Option[UserDelete]): Funit =
+      coll.updateOrUnsetField($id(userId), F.delete, delete).void
 
   def getPasswordHash(id: UserId): Fu[Option[String]] =
     coll.byId[AuthData](id, AuthData.projection).map2(_.bpass.bytes.sha512.hex)
@@ -486,19 +539,23 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
     coll.one[A]($id(id), proj)
 
-  def isErased(user: User): Fu[Erased] = Erased.from:
+  def isDeleted(user: User): Fu[Boolean] =
     user.enabled.no.so:
-      coll.exists($id(user.id) ++ $doc(F.erasedAt.$exists(true)))
+      coll.exists($id(user.id) ++ $doc(s"${F.delete}.done" -> true))
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
-    coll.distinctEasy[UserId, List](
-      F.id,
-      $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)),
-      _.sec
-    )
+    coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 
-  def setEraseAt(user: User) =
-    coll.updateField($id(user.id), F.eraseAt, nowInstant.plusDays(1)).void
+  def trustable(id: UserId): Fu[Boolean] = coll.exists:
+    $doc(
+      F.id -> id,
+      $or(
+        F.title.$exists(true),
+        patronSelect,
+        $doc(F.createdAt.$lt(nowInstant.minusDays(15))),
+        $doc(s"${F.count}.lossH".$gt(10))
+      )
+    )
 
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
 

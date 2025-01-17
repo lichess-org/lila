@@ -18,6 +18,7 @@ final class PlaybanApi(
     userApi: lila.core.user.UserApi,
     noteApi: lila.core.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
+    userTrustApi: lila.core.security.UserTrustApi,
     messenger: MsgApi
 )(using ec: Executor, mode: play.api.Mode):
 
@@ -27,6 +28,9 @@ final class PlaybanApi(
   )
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
+
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one($id(del.id)).void
 
   private def blameableSource(game: Game): Boolean = game.source.exists: s =>
     s == Source.Lobby || s == Source.Pool || s == Source.Arena
@@ -257,8 +261,9 @@ final class PlaybanApi(
   }.void.logFailure(lila.log("playban"))
 
   private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
+    trust <- userTrustApi.get(record.userId)
     newRec <- record
-      .bannable(age)
+      .bannable(age, trust)
       .ifFalse(record.banInEffect)
       .so: ban =>
         lila.mon.playban.ban.count.increment()

@@ -225,3 +225,6 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           "b2"    -> SumField("b2")
         )
       )
+
+  private[tournament] def anonymize(tourId: TourId, userId: UserId)(ghostId: UserId) =
+    coll.update.one($doc("tid" -> tourId, "u" -> userId), $set("u.$" -> ghostId)).void

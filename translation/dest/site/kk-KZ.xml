@@ -129,7 +129,7 @@
     <item quantity="one">%s өрескел қателік</item>
     <item quantity="other">%s өрескел қателік</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Өрескел қателік</item>
     <item quantity="other">%s Өрескел қателік</item>
   </plurals>
@@ -137,7 +137,7 @@
     <item quantity="one">%s қателік</item>
     <item quantity="other">%s қателік</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Қателік</item>
     <item quantity="other">%s Қателік</item>
   </plurals>
@@ -145,7 +145,7 @@
     <item quantity="one">%s ағаттық</item>
     <item quantity="other">%s ағаттық</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Ағаттық</item>
     <item quantity="other">%s Ағаттық</item>
   </plurals>
@@ -180,7 +180,7 @@
   <string name="rememberMe">Мені жадта сақтау</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
-  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасау - шектеуге әкеліп соқтырады.</string>
+  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат есептеуіштерін, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, көп тіркелгі жасаушыға бұғау салынады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s %2$s тақырыбында сөз жазды</string>
@@ -734,6 +734,7 @@
   <string name="withFriends">Достармен</string>
   <string name="withEverybody">Бәрімен</string>
   <string name="kidMode">Балалық нұсқа</string>
+  <string name="kidModeIsEnabled">Балалық нұсқа қосулы.</string>
   <string name="kidModeExplanation">Бұл сақтық үшін. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Мақсатыңыз – бала мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау болса, осы нұсқаны іске қосыңыз.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Тіркелгіңізді ұстаз басқарады. Балалық нұсқаны өшіруді одан сұраңыз.</string>
@@ -773,6 +774,12 @@
   <string name="transparent">Мөлдір</string>
   <string name="deviceTheme">Құрылғы кейпі</string>
   <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
+  <string name="board">Тақта</string>
+  <string name="size">Үлкендігі</string>
+  <string name="opacity">Айқындығы</string>
+  <string name="brightness">Ашықтығы</string>
+  <string name="hue">Түс ауытқуы</string>
+  <string name="boardReset">Бастапқы түстерді қайтару</string>
   <string name="pieceSet">Тастар келбеті</string>
   <string name="embedInYourWebsite">Өз сайтыңызға енгізу</string>
   <string name="usernameAlreadyUsed">Бұл ат қолданыста, басқасын жазып көріңіз.</string>
@@ -844,6 +851,8 @@
     <item quantity="one">әрі ертелі жүрістердің %s жолын сақтау</item>
     <item quantity="other">әрі ертелі жүрістердің %s жолын сақтау</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Сізге Личестен жеке хат келді.</string>
+  <string name="clickHereToReadIt">Осында басып оқыңыз</string>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
   <string name="why">Себебі қандай?</string>
@@ -865,6 +874,7 @@
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Буллит</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
@@ -896,7 +906,7 @@
   <string name="xInvitedYouToY">%1$s сізді %2$s шақырды.</string>
   <string name="youAreNowPartOfTeam">Сізді енді топ құрамындасыз.</string>
   <string name="youHaveJoinedTeamX">Сіз %1$s қосылдыңыз.</string>
-  <string name="someoneYouReportedWasBanned">Сіз шағым жіберегенсіз, ол ойыншы шектелді</string>
+  <string name="someoneYouReportedWasBanned">Сіздің шағымыңыздан кейін біреу бұғауланды</string>
   <string name="congratsYouWon">Құтты болсын, сіз жеңдіңіз!</string>
   <string name="gameVsX">%1$s қарсы ойын</string>
   <string name="resVsX">%1$s қарсы %2$s</string>
@@ -961,6 +971,10 @@
   <string name="switchSides">Түсті ауыстыру</string>
   <string name="closingAccountWithdrawAppeal">Тіркелгі жабылса, қарсы шағымдарыңыз жойылады</string>
   <string name="ourEventTips">Шара ұйымдастыру туралы ақыл-кеңес</string>
+  <string name="instructions">Нұсқаулық</string>
+  <string name="showMeEverything">Бәрін көрсету</string>
   <string name="lichessPatronInfo">Личес – толығымен тегін/еркін, қайырымдылық негізінде жасалған програм.
 Бүкіл жұмыс шығыны, әзірлеу, мазмұны пайдаланушылардың ақшалай демеуінен өтеледі.</string>
+  <string name="nothingToSeeHere">Әзірге ештеңе жоқ.</string>
+  <string name="stats">Статистика</string>
 </resources>

@@ -79,6 +79,11 @@ final class TeamRepo(val coll: Coll)(using Executor):
       coll.secondaryPreferred
         .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
 
+  def onUserDelete(userId: UserId): Funit = for
+    _ <- coll.update.one($doc("createdBy" -> userId), $set("createdBy" -> UserId.ghost))
+    _ <- coll.update.one($doc("leaders" -> userId), $pull("leaders" -> userId))
+  yield ()
+
   private[team] val enabledSelect = $doc("enabled" -> true)
 
   private[team] val sortPopular = $sort.desc("nbMembers")
