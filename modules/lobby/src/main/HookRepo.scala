@@ -77,6 +77,7 @@ final private class HookRepo:
         userId = u.id,
         sri = h.sri,
         rating = h.rating | lila.rating.Glicko.default.intRating,
+        provisional = h.provisional,
         ratingRange = h.manualRatingRange,
         lame = h.user.so(_.lame),
         blocking = h.user.so(_.blocking),

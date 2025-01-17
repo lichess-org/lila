@@ -81,12 +81,13 @@ final class PracticeApi(
 
   object progress:
 
+    lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+      coll.delete.one($id(del.id)).void
+
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.one[PracticeProgress]($id(user.id)).dmap {
-        _ | PracticeProgress.empty(user.id)
-      }
+      coll.one[PracticeProgress]($id(user.id)).dmap(_ | PracticeProgress.empty(user.id))
 
     private def save(p: PracticeProgress): Funit =
       coll.update.one($id(p.id), p, upsert = true).void

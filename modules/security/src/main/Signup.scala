@@ -42,7 +42,7 @@ final class Signup(
       val ip = HTTPRequest.ipAddress(req)
       store.recentByIpExists(ip, 7.days).flatMap { ipExists =>
         if ipExists then fuccess(YesBecauseIpExists)
-        else if HTTPRequest.weirdUA(req) then fuccess(YesBecauseUA)
+        else if UserAgentParser.trust.isSuspicious(req) then fuccess(YesBecauseUA)
         else
           print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)): fp =>
             store

@@ -39,7 +39,7 @@ final class Env(
 ):
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
-  val gameRepo = new GameRepo(db(config.gameColl))
+  val gameRepo = GameRepo(db(config.gameColl))
 
   val idGenerator = wire[IdGenerator]
 

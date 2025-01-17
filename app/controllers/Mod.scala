@@ -30,7 +30,7 @@ final class Mod(
     withSuspect(username): sus =>
       for
         _ <- api.setAlt(sus, v)
-        _ <- (v && sus.user.enabled.yes).so(env.api.accountClosure.close(sus.user))
+        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user))
         _ <- (!v && sus.user.enabled.no).so(api.reopenAccount(sus.user.id))
       yield sus.some
   }(reportC.onModAction)
@@ -40,7 +40,7 @@ final class Mod(
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
         withSuspect(username): sus =>
-          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(env.api.accountClosure.close(sus.user)))
+          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(env.api.accountTermination.disable(sus.user)))
       .runWith(Sink.ignore)
       .void
       .inject(NoContent)
@@ -114,7 +114,7 @@ final class Mod(
 
   def closeAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
     meOrFetch(username).flatMapz: user =>
-      env.api.accountClosure.close(user).map(some)
+      env.api.accountTermination.disable(user).map(some)
   }(actionResult(username))
 
   def reopenAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
@@ -380,13 +380,10 @@ final class Mod(
       env.user.noteApi.search(q.trim, page, withDox = true).map(views.mod.search.notes(q, _))
   }
 
-  def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>
-    val res = Redirect(routes.User.show(username))
-    env.api.accountClosure
-      .closeThenErase(username)
-      .map:
-        case Right(msg) => res.flashSuccess(msg)
-        case Left(err)  => res.flashFailure(err)
+  def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> _ ?=>
+    Found(env.user.repo.byId(username)): user =>
+      for _ <- env.api.accountTermination.scheduleErase(user)
+      yield Redirect(routes.User.show(username)).flashSuccess("Erasure scheduled")
   }
 
   protected[controllers] def searchTerm(query: String)(using Context, Me) =
@@ -411,7 +408,7 @@ final class Mod(
 
   def printBan(v: Boolean, fh: String) = Secure(_.PrintBan) { _ ?=> me ?=>
     val hash = FingerHash(fh)
-    env.security.printBan.toggle(hash, v).inject(Redirect(routes.Mod.print(fh)))
+    for _ <- env.security.printBan.toggle(hash, v) yield Redirect(routes.Mod.print(fh))
   }
 
   def singleIp(ip: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>

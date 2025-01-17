@@ -1,4 +1,5 @@
 package lila.user
+
 import play.api.i18n.Lang
 
 import java.time.Duration
@@ -10,12 +11,11 @@ import lila.core.user.{ Emails, PlayTime }
 object UserExt:
   extension (u: User) def userLanguage: Option[Language] = u.realLang.map(Language.apply)
 
-opaque type Erased = Boolean
-object Erased extends YesNo[Erased]
-
 case class WithPerfsAndEmails(user: UserWithPerfs, emails: Emails)
 
 case class TotpToken(value: String) extends AnyVal
+
+case class UserDelete(requested: Instant, erase: Boolean, done: Boolean = false)
 
 object PlayTime:
   extension (p: PlayTime)

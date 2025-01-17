@@ -142,6 +142,10 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       )
     yield uncacheAllOf(userId)
 
+  def deleteAllSessionsOf(userId: UserId): Funit =
+    for _ <- coll.delete.one($doc("user" -> userId))
+    yield uncacheAllOf(userId)
+
   private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
   def openSessions(userId: UserId, nb: Int): Fu[List[UserSession]] =
     coll
