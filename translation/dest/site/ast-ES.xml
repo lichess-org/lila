@@ -64,7 +64,7 @@
   <string name="engineFailed">Error cargando módulo</string>
   <string name="cloudAnalysis">Analís de la nube</string>
   <string name="goDeeper">Ve mas profundo</string>
-  <string name="showThreat">Mostrar amenaza</string>
+  <string name="showThreat">Amosar amenaza</string>
   <string name="inLocalBrowser">nel navegador local</string>
   <string name="toggleLocalEvaluation">Alternar la evaluación local</string>
   <string name="promoteVariation">Promocionar variante</string>
@@ -942,17 +942,44 @@
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="lostAgainstTOSViolator">Perdisti contra un usuariu qu\'incumplió les Condiciones del Serviciu de Lichess</string>
   <string name="refundXpointsTimeControlY">Recuperasti %1$s puntos en %2$s.</string>
+  <string name="timeAlmostUp">¡Quedate pocu tiempu!</string>
+  <string name="clickToRevealEmailAddress">[Fai clic pa amosar el corréu electrónicu]</string>
   <string name="download">Decargar</string>
+  <string name="coachManager">Xestor d\'entrenador</string>
+  <string name="streamerManager">Xestor d\'emisiones</string>
   <string name="cancelTournament">Encaboxar tornéu</string>
+  <string name="tournDescription">Descripción del tornéu</string>
+  <string name="tournDescriptionHelp">¿Quies dicir daqué especial a los participantes? Intenta ser curtiu. Pues usar enllaces al estilu Markdown: [nome](https://*url)</string>
+  <string name="ratedFormHelp">Les partíes son por puntos
+y afecten a la puntuación de los xugadores</string>
+  <string name="onlyMembersOfTeam">Namás miembros del equipu</string>
+  <string name="noRestriction">Ensin restricciones</string>
+  <string name="minimumRatedGames">Mínimu de partíes por puntos</string>
   <string name="minimumRating">Rating mínimu</string>
+  <string name="maximumWeeklyRating">Puntuación máxima selmanal</string>
   <string name="positionInputHelp">Pega un FEN válidu para empecipiar cada partida dende una posición determinada.
 Namás funciona para partíes estándar, non con variantes.
 Pues usar el %s para xenerar una posición FEN, y depués pegala equí.
 Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="cancelSimul">Encaboxar simultánea</string>
+  <string name="simulHostcolor">Color del anfitrión para cada partida</string>
+  <string name="estimatedStart">Hora d\'entamu proximada</string>
+  <string name="simulFeatured">Amosar en %s</string>
+  <string name="simulFeaturedHelp">Amuesa la simultánea públicamente en %s. Deshabilitao pa simultánees privaes.</string>
+  <string name="simulDescription">Descripción de la simultánea</string>
+  <string name="simulDescriptionHelp">¿Quies dicir dalgo a los participantes?</string>
+  <string name="markdownAvailable">Pue usase %s para formatear el testu.</string>
+  <string name="embedsAvailable">Pega l\'enllaz d\'una partida o d\'un capítulu d\'estudiu para ensertalo.</string>
+  <string name="inYourLocalTimezone">Na to zona horaria local</string>
   <string name="tournChat">Chat d\'tornéu</string>
   <string name="noChat">Ensin chat</string>
   <string name="onlyTeamLeaders">Solo líderes d\'equipu</string>
+  <string name="onlyTeamMembers">Namás miembros del equipu</string>
+  <string name="navigateMoveTree">Movese pol árbol de movimientos</string>
+  <string name="mouseTricks">Trucos de ratón</string>
+  <string name="toggleLocalAnalysis">Activar y desactivar análisis per ordenador local</string>
+  <string name="toggleAllAnalysis">Activar y desactivar tolos analises por ordenador</string>
+  <string name="playComputerMove">Xugar el meyor movimientu por ordenador</string>
   <string name="abortTheGame">Albortar partida</string>
   <string name="resignTheGame">Abandonar partida</string>
   <string name="youCantStartNewGame">Nun pues empezar una partida teniendo otra en xuegu.</string>
