@@ -18,6 +18,7 @@ final class PlaybanApi(
     userApi: lila.core.user.UserApi,
     noteApi: lila.core.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
+    userTrustApi: lila.core.security.UserTrustApi,
     messenger: MsgApi
 )(using ec: Executor, mode: play.api.Mode):
 
@@ -260,8 +261,9 @@ final class PlaybanApi(
   }.void.logFailure(lila.log("playban"))
 
   private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
+    trust <- userTrustApi.get(record.userId)
     newRec <- record
-      .bannable(age)
+      .bannable(age, trust)
       .ifFalse(record.banInEffect)
       .so: ban =>
         lila.mon.playban.ban.count.increment()
