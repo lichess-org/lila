@@ -137,6 +137,7 @@ final class AccountTermination(
     playbanned  <- playbanApi.hasCurrentPlayban(u.id)
     closedByMod <- modLogApi.closedByMod(u)
     tos = u.marks.dirty || closedByMod || playbanned
+    _   = logger.info(s"Deleting user ${u.username} tos=$tos erase=${del.erase}")
     _                   <- if tos then userRepo.delete.nowWithTosViolation(u) else userRepo.delete.nowFully(u)
     _                   <- activityWrite.deleteAll(u)
     singlePlayerGameIds <- gameRepo.deleteAllSinglePlayerOf(u.id)
