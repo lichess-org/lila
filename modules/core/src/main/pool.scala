@@ -25,6 +25,7 @@ case class PoolMember(
     userId: UserId,
     sri: Sri,
     rating: IntRating,
+    provisional: Boolean,
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: Blocking,
@@ -51,6 +52,7 @@ object HookThieve:
 case class Joiner(
     sri: Sri,
     rating: IntRating,
+    provisional: Boolean,
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: Blocking
