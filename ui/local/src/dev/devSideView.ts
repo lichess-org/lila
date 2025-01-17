@@ -267,6 +267,7 @@ function renderPlayPause(): VNode {
 function fen(): VNode {
   const boardFen = env.game.history?.fen ?? env.game.live.fen;
   return h('input.fen', {
+    key: boardFen,
     attrs: {
       type: 'text',
       value: boardFen === co.fen.INITIAL_FEN ? '' : boardFen,

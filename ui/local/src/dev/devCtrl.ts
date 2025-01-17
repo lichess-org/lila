@@ -5,7 +5,7 @@ import { defined, Prop } from 'common';
 import { shuffle } from 'common/algo';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
-import type { GameStatus, MoveContext } from 'game/localGame';
+import type { GameStatus, GameContext } from 'game/localGame';
 import { env } from '../localEnv';
 import { pubsub } from 'common/pubsub';
 import { type PermaLog, makeLog } from 'common/permalog';
@@ -104,7 +104,7 @@ export class DevCtrl {
     if (!env.bot[turn]) this.trace.push(`  ${ply}. '${env.game.nameOf(turn)}' at '${fen}': '${uci}'`);
   }
 
-  afterMove(moveResult: MoveContext): void {
+  afterMove(moveResult: GameContext): void {
     const ply = env.game.live.ply - 1;
     const lastColor = env.game.live.awaiting;
     env.round.chessground?.set({ animation: { enabled: !this.hurry } });
@@ -118,10 +118,9 @@ export class DevCtrl {
     this.log.push(last);
     const matchup = `'${env.game.nameOf('white')}' vs '${env.game.nameOf('black')}'`;
     const error =
-      status === statusOf('cheat') &&
+      status === statusOf('unknownFinish') &&
       `${matchup} - ${turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`;
-    const result =
-      `${matchup}: ` + `${winner ? `${env.game.nameOf(winner)} wins by` : ''} ${status.name} ${reason ?? ''}`;
+    const result = `${matchup}:${winner ? ` ${env.game.nameOf(winner)} wins by` : ''} ${status.name} ${reason ?? ''}`;
     this.trace.push(`\n ${error || result}\n`);
     this.trace.push('='.repeat(144));
     this.traceDb(this.trace.join('\n'));

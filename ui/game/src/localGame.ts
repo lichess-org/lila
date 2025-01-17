@@ -12,8 +12,8 @@ export interface GameStatus {
   reason?: string;
 }
 
-export interface MoveContext extends GameStatus {
-  justPlayed: Color;
+export interface GameContext extends GameStatus {
+  //justPlayed: Color;
   uci: Uci;
   san: San;
   move?: co.NormalMove;
@@ -22,7 +22,7 @@ export interface MoveContext extends GameStatus {
   dests: { [from: string]: string };
   threefold: boolean;
   check: boolean;
-  fifty: boolean;
+  fiftyMoves: boolean;
   winner?: Color;
   silent?: boolean;
 }
@@ -43,7 +43,6 @@ export class LocalGame implements LocalSetup {
   black?: string;
   increment: Seconds = 0;
   threefoldHashes: Map<bigint, number> = new Map();
-  fiftyHalfMove: number = 0;
   finished?: GameStatus;
 
   constructor(o: { game: LocalGame; ply?: number } | { setup: LocalSetup }) {
@@ -56,31 +55,30 @@ export class LocalGame implements LocalSetup {
     if ('game' in o && o.game) {
       this.moves = [];
       this.threefoldHashes = new Map();
-      this.fiftyHalfMove = 0;
       for (const move of o.game.moves.slice(0, o.ply)) this.move(move);
     }
   }
 
-  move(move: LocalMove): MoveContext {
-    //if (this.end) return this.processResult(move);
+  move(move: LocalMove): GameContext {
     const { move: coMove, uci } = normalMove(this.chess, move.uci) ?? {};
     if (!coMove || !uci) {
-      return this.processResult({
+      return this.moveResult({
         uci: move.uci,
         reason: `${this.turn} made illegal move ${move.uci} at ${this.fen}`,
         status: statusOf('unknownFinish'),
       });
     }
     const san = co.san.makeSanAndPlay(this.chess, coMove);
-    const clock = move.clock ? { white: move.clock.white, black: move.clock.black } : undefined;
-    this.moves.push({ uci, clock });
-    this.fifty(coMove);
-    this.updateThreefold();
-    return this.processResult({ uci, san, move: coMove });
+    const boardHash = hashBoard(this.chess.board);
+
+    this.threefoldHashes.set(boardHash, (this.threefoldHashes.get(boardHash) ?? 0) + 1);
+    this.moves.push({ uci, clock: structuredClone(move.clock) });
+
+    return this.moveResult({ uci, san, move: coMove });
   }
 
   finish(finishStatus: Omit<GameStatus, 'end' | 'turn'>): void {
-    if (Object.isFrozen(this)) return;
+    if (this.finished) return;
     this.finished = { ...this.status, ...finishStatus };
     deepFreeze(this);
   }
@@ -104,7 +102,7 @@ export class LocalGame implements LocalSetup {
             ? { reason: 'insufficient', status: statusOf('draw') }
             : this.chess.isStalemate()
               ? { status: statusOf('stalemate') }
-              : this.fifty()
+              : this.chess.halfmoves > 99
                 ? { reason: 'fifty', status: statusOf('draw') }
                 : this.isThreefold
                   ? { reason: 'threefold', status: statusOf('draw') }
@@ -114,7 +112,7 @@ export class LocalGame implements LocalSetup {
   }
 
   get ply(): number {
-    return this.moves.length;
+    return this.initialPly + this.moves.length;
   }
 
   get turn(): Color {
@@ -141,9 +139,11 @@ export class LocalGame implements LocalSetup {
     return co.compat.chessgroundDests(this.chess);
   }
 
-  get steps(): RoundStep[] {
-    const steps: RoundStep[] = [{ fen: this.initialFen, ply: 0, uci: '', san: '', check: false }];
+  get roundSteps(): RoundStep[] {
     const chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
+    const steps: RoundStep[] = [
+      { fen: this.initialFen, ply: this.initialPly, uci: '', san: '', check: chess.isCheck() },
+    ];
     for (const move of this.moves) {
       const { move: coMove } = normalMove(chess, move.uci) ?? {};
       if (!coMove) break;
@@ -153,7 +153,7 @@ export class LocalGame implements LocalSetup {
         san,
         fen: co.fen.makeFen(chess.toSetup()),
         check: chess.isCheck(),
-        ply: steps.length,
+        ply: steps.length + this.initialPly,
       });
     }
     return steps;
@@ -184,41 +184,22 @@ export class LocalGame implements LocalSetup {
     };
   }
 
-  private processResult(fields: Partial<MoveContext>): MoveContext {
+  private moveResult(fields: Partial<GameContext>): GameContext {
     const result = {
       uci: '',
       san: '',
       fen: this.fen,
       ply: this.ply,
-      justPlayed: this.awaiting,
+      //justPlayed: this.awaiting,
       dests: this.dests,
       threefold: this.isThreefold,
       check: this.chess.isCheck(),
-      fifty: this.fifty(),
+      fiftyMoves: this.chess.halfmoves > 99,
       ...this.status,
       ...fields,
     };
     if (!['started', 'created'].includes(result.status.name)) this.finish(result);
     return result;
-  }
-
-  private fifty(move?: co.NormalMove): boolean {
-    // TODO: replace with chessops
-    if (move) {
-      if (this.chess.board.getRole(move.from) === 'pawn' || this.chess.board.get(move.to)) {
-        this.fiftyHalfMove = 0;
-      } else {
-        this.fiftyHalfMove++;
-      }
-    }
-    return this.fiftyHalfMove >= 100;
-  }
-
-  private updateThreefold(): boolean {
-    const boardHash = hashBoard(this.chess.board);
-    const count = (this.threefoldHashes.get(boardHash) ?? 0) + 1;
-    this.threefoldHashes.set(boardHash, count);
-    return count > 2;
   }
 }
 

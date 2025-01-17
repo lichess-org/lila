@@ -82,7 +82,7 @@ export class RoundProxy implements IRoundProxy {
     this.data.game.fen = env.game.initialFen;
     this.data.game.turns = env.game.live.ply;
     this.data.game.status = { id: 20, name: 'started' };
-    this.data.steps = env.game.live.steps;
+    this.data.steps = env.game.live.roundSteps;
     this.data.possibleMoves = env.game.live.dests;
     this.data.player = player(bottom);
     this.data.opponent = player(top);

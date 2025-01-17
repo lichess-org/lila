@@ -249,7 +249,7 @@ export class Mic implements Microphone {
       timestamp: now,
       mode: 33188,
     });
-    voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp');
+    voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp'); // to throw on failure
   }
 
   private soundListener = (event: 'start' | 'stop') => {

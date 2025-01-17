@@ -1,6 +1,6 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
-import { type MoveContext, type GameStatus, LocalGame } from 'game/localGame';
+import { type GameContext, type GameStatus, LocalGame } from 'game/localGame';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { type LocalSetup, clockToSpeed } from 'game';
 import type { ClockData } from 'round';
@@ -18,17 +18,9 @@ export class GameCtrl {
   store: ObjectStorage<LocalGame>;
 
   private stopped = true;
-  //private setup: LocalSetup;
   private resolveThink?: () => void;
 
-  constructor(readonly opts: LocalPlayOpts) {
-    // this.setup =
-    //   opts.setup ??
-    //   JSON.parse(localStorage.getItem('assets' in opts ? 'local.dev.setup' : 'local.setup') ?? '{}');
-    // this.setup.initial ??= Infinity;
-    // this.setup.initialFen ??= co.fen.INITIAL_FEN;
-    //this.live = new LocalGame({ setup: opts.setup ?? {} });
-  }
+  constructor(readonly opts: LocalPlayOpts) {}
 
   async init(): Promise<void> {
     this.store = await objectStorage<LocalGame>({ store: 'local.games' });
@@ -141,25 +133,29 @@ export class GameCtrl {
 
     if (this.clock?.since) this.clock[this.live.turn] -= (performance.now() - this.clock.since) / 1000;
     const moveCtx = this.live.move({ uci, clock: this.clock });
-    const { move, justPlayed } = moveCtx;
 
-    this.proxy.data.steps.splice(this.live.ply);
+    this.proxy.data.steps.splice(this.live.moves.length);
 
     env.dev?.afterMove?.(moveCtx);
 
     this.playSounds(moveCtx);
     env.round.apiMove(moveCtx);
 
-    if (move?.promotion)
+    if (moveCtx.move?.promotion)
       env.round.chessground?.setPieces(
-        new Map([[uci.slice(2, 4) as Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
+        new Map([
+          [
+            uci.slice(2, 4) as Key,
+            { color: this.live.awaiting, role: moveCtx.move.promotion, promoted: true },
+          ],
+        ]),
       );
 
     if (this.live.finished) this.gameOver(moveCtx);
     this.store.put(this.live.id, structuredClone(this.live));
     localStorage.setItem(`local.${env.user}.gameId`, this.live.id);
     if (this.clock?.increment) {
-      this.clock[justPlayed] += this.clock.increment;
+      this.clock[this.live.awaiting] += this.clock.increment;
       this.updateClockUi();
     }
     env.redraw();
@@ -222,9 +218,10 @@ export class GameCtrl {
     env.redraw();
   }
 
-  private playSounds(moveCtx: MoveContext): void {
+  private playSounds(moveCtx: GameContext): void {
     if (moveCtx.silent) return;
-    const { justPlayed, san } = moveCtx;
+    const justPlayed = this.live.awaiting;
+    const { san } = moveCtx;
     const sounds: SoundEvent[] = [];
     const prefix = env.bot[justPlayed] ? 'bot' : 'player';
     if (san.includes('x')) sounds.push(`${prefix}Capture`);

@@ -8,6 +8,7 @@ export interface DbInfo {
   store: string;
   db?: string; // default `${store}--db`
   version?: number; // default 1
+  indices?: { name: string; keyPath: string | string[]; options?: IDBIndexParameters }[];
   upgrade?: (e: IDBVersionChangeEvent, store?: IDBObjectStore) => void;
 }
 
@@ -19,8 +20,15 @@ export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   count(key?: K | IDBKeyRange): Promise<number>;
   remove(key: K | IDBKeyRange): Promise<void>;
   clear(): Promise<void>; // remove all
-  cursor(range?: IDBKeyRange, dir?: IDBCursorDirection): Promise<IDBCursorWithValue | undefined>;
+  cursor(o: CursorOpts): Promise<IDBCursorWithValue | undefined>;
   txn(mode: IDBTransactionMode): IDBTransaction; // do anything else
+}
+
+interface CursorOpts {
+  index?: string;
+  keys?: IDBKeyRange;
+  dir?: IDBCursorDirection;
+  write?: boolean;
 }
 
 export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
@@ -48,10 +56,11 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
     count: (key?: K | IDBKeyRange) => actionPromise<number>(() => objectStore('readonly').count(key)),
     remove: (key: K | IDBKeyRange) => actionPromise<void>(() => objectStore('readwrite').delete(key)),
     clear: () => actionPromise<void>(() => objectStore('readwrite').clear()),
-    cursor: (keys?: IDBKeyRange, dir?: IDBCursorDirection) =>
-      actionPromise<IDBCursorWithValue | undefined>(() => objectStore('readonly').openCursor(keys, dir)).then(
-        cursor => cursor ?? undefined,
-      ),
+    cursor: ({ index, keys, dir, write }: CursorOpts) =>
+      actionPromise<IDBCursorWithValue | undefined>(() => {
+        const store = objectStore(write ? 'readwrite' : 'readonly');
+        return index ? store.index(index).openCursor(keys, dir) : store.openCursor(keys, dir);
+      }),
     txn: (mode: IDBTransactionMode) => db.transaction(dbInfo.store, mode),
   };
 }
@@ -71,6 +80,25 @@ export async function dbConnect(dbInfo: DbInfo): Promise<IDBDatabase> {
         ? txn!.objectStore(dbInfo.store)
         : db.createObjectStore(dbInfo.store);
 
+      const existing = new Set(store.indexNames);
+
+      dbInfo.indices?.forEach(({ name, keyPath, options }) => {
+        if (!existing.has(name)) store.createIndex(name, keyPath, options);
+        else {
+          const i = store.index(name);
+          if (
+            i.keyPath !== keyPath ||
+            i.unique !== !!options?.unique ||
+            i.multiEntry !== !!options?.multiEntry
+          ) {
+            store.deleteIndex(name);
+            store.createIndex(name, keyPath, options);
+          }
+        }
+        existing.delete(name);
+      });
+
+      existing.forEach(indexName => store.deleteIndex(indexName));
       dbInfo.upgrade?.(e, store);
     };
   });
@@ -79,7 +107,8 @@ export async function dbConnect(dbInfo: DbInfo): Promise<IDBDatabase> {
 export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
   const dbName = info?.db || `${info.store}--db`;
   return new Promise<boolean>(resolve => {
-    const dbs = window.indexedDB.databases?.(); // not all browsers support
+    // https://developer.mozilla.org/en-US/docs/Web/API/IDBFactory/databases#browser_compatibility
+    const dbs = window.indexedDB.databases?.();
     if (!dbs) storeExists();
     else
       dbs.then(dbList => {
