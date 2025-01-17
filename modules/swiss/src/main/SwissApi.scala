@@ -683,8 +683,13 @@ final class SwissApi(
   def idNames(ids: List[SwissId]): Fu[List[IdName]] =
     mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[IdName]().listAll()
 
-  def onUserDelete(u: UserId) = for
-    _       <- mongo.swiss.update.one($doc("winnerId" -> u), $set("winnerId" -> UserId.ghost), multi = true)
+  // very expensive, misses several indexes
+  def onUserErase(u: UserId) = for
+    _ <- mongo.swiss.update.one(
+      $doc("winnerId" -> u),
+      $set("winnerId" -> UserId.ghost),
+      multi = true
+    ) // no index!!!
     players <- mongo.player.list[SwissPlayer]($doc("u" -> u), _.priTemp) // no index!!!
     swissIds = players.map(_.swissId).distinct
     // here we use a single ghost ID for all swiss players and pairings,

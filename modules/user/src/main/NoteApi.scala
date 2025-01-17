@@ -27,7 +27,8 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     for
-      _ <- coll.delete.one($doc("from" -> del.id)) // no index, expensive!
+      _ <- del.erase.so:
+        coll.delete.one($doc("from" -> del.id)).void // no index, expensive!
       maybeKeepModNotes = del.user.marks.dirty.so($doc("mod" -> false))
       _ <- coll.delete.one($doc("to" -> del.id) ++ maybeKeepModNotes)
     yield ()
