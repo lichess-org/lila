@@ -546,6 +546,17 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
 
+  def trustable(id: UserId): Fu[Boolean] = coll.exists:
+    $doc(
+      F.id -> id,
+      $or(
+        F.title.$exists(true),
+        patronSelect,
+        $doc(F.createdAt.$lt(nowInstant.minusDays(15))),
+        $doc(s"${F.count}.lossH".$gt(10))
+      )
+    )
+
   private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
 
   private def newUser(

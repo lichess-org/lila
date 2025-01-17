@@ -18,18 +18,22 @@ private final class UserTrustApi(
 
   private def computeTrust(id: UserId): Fu[Boolean] =
     userRepo
-      .byId(id)
-      .flatMapz: user =>
-        if user.isVerifiedOrAdmin then fuccess(true)
-        else if user.hasTitle || user.isPatron then fuccess(true)
-        else if user.createdSinceDays(30) then fuccess(true)
-        else if user.count.game > 20 then fuccess(true)
+      .trustable(id)
+      .flatMap:
+        if _ then fuccess(true)
         else
           sessionStore
             .openSessions(id, 3)
             .flatMap: sessions =>
-              if sessions.map(_.ua).exists(UserAgentParser.trust.isSuspicious)
-              then fuccess(false)
-              else sessions.map(_.ip).existsM(ipTrust.isSuspicious).not
-      .addEffect: trust =>
-        if !trust then logger.info(s"User $id is not trusted")
+              sessions.map(_.ua).find(UserAgentParser.trust.isSuspicious) match
+                case Some(ua) =>
+                  logger.info(s"Not trusting user $id because of suspicious user agent: $ua")
+                  fuccess(false)
+                case None =>
+                  sessions
+                    .map(_.ip)
+                    .findM(ipTrust.isSuspicious)
+                    .map: found =>
+                      found.foreach: ip =>
+                        logger.info(s"Not trusting user $id because of suspicious IP: $ip")
+                      found.isEmpty

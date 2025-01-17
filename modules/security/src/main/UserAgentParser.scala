@@ -45,10 +45,10 @@ object UserAgentParser:
     private def looksNormal(ua: String) =
       val sections = ua.split(' ')
       sections.exists: s =>
-        isRecentChrome(s) || isRecentFirefox(s) || isRecentSafari(s)
+        isRecentChrome(s) || isLastWindows8Chrome(s) || isRecentFirefox(s) || isRecentSafari(s)
 
     // based on https://caniuse.com/usage-table
-    private val isRecentChrome  = isRecentBrowser("chrome", 109) // also covers Edge and Opera
+    private val isRecentChrome  = isRecentBrowser("chrome", 125) // also covers Edge and Opera
     private val isRecentFirefox = isRecentBrowser("firefox", 128)
     private val isRecentSafari  = isRecentBrowser("safari", 604) // most safaris also have a chrome/ section
 
@@ -59,5 +59,6 @@ object UserAgentParser:
         s.startsWith(slashed) &&
           s.drop(prefixLength).takeWhile(_ != '.').toIntOption.exists(_ >= minVersion)
 
-    private def isMacOsEdge(ua: String) =
-      ua.contains("macintosh") && ua.contains("edg/")
+    private def isLastWindows8Chrome(s: String) = s.startsWith("chrome/109.")
+
+    private def isMacOsEdge(ua: String) = ua.contains("macintosh") && ua.contains("edg/")
