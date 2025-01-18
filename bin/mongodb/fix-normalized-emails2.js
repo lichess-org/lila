@@ -6,22 +6,20 @@ function plusNormalize(email) {
   return name + '@' + domain;
 }
 
-db.user4
-  .find({ email: /^[^+]+\+.*@.+$/i })
-  .forEach(user => {
-    const normalized = plusNormalize(user.email);
-    const verbatim = user.verbatimEmail || user.email;
-    print(user.username, ': ', verbatim, '->', normalized);
+db.user4.find({ email: /^[^+]+\+.*@.+$/i }).forEach(user => {
+  const normalized = plusNormalize(user.email);
+  const verbatim = user.verbatimEmail || user.email;
+  print(user.username, ': ', verbatim, '->', normalized);
 
-    db.user4.update(
-      {
-        _id: user._id,
+  db.user4.update(
+    {
+      _id: user._id,
+    },
+    {
+      $set: {
+        email: normalized,
+        verbatimEmail: verbatim,
       },
-      {
-        $set: {
-          email: normalized,
-          verbatimEmail: verbatim,
-        },
-      },
-    );
-  });
+    },
+  );
+});
