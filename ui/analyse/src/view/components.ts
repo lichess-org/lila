@@ -136,14 +136,14 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
     ...(ctrl.actionMenu()
       ? [actionMenu(ctrl)]
       : [
-          ...cevalView.renderCeval(ctrl),
-          !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
-          renderMoveList(ctrl, deps, concealOf),
-          deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
-          backToLiveView(ctrl),
-          forkView(ctrl, concealOf),
-          retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
-        ]),
+        ...cevalView.renderCeval(ctrl),
+        !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
+        renderMoveList(ctrl, deps, concealOf),
+        deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
+        backToLiveView(ctrl),
+        forkView(ctrl, concealOf),
+        retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
+      ]),
   ]);
 }
 
@@ -155,22 +155,22 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
         'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
           ? undefined
           : bindNonPassive(
-              'wheel',
-              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                if (ctrl.gamebookPlay()) return;
-                const target = e.target as HTMLElement;
-                if (
-                  target.tagName !== 'PIECE' &&
-                  target.tagName !== 'SQUARE' &&
-                  target.tagName !== 'CG-BOARD'
-                )
-                  return;
-                e.preventDefault();
-                if (e.deltaY > 0 && scroll) control.next(ctrl);
-                else if (e.deltaY < 0 && scroll) control.prev(ctrl);
-                ctrl.redraw();
-              }),
-            ),
+            'wheel',
+            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+              if (ctrl.gamebookPlay()) return;
+              const target = e.target as HTMLElement;
+              if (
+                target.tagName !== 'PIECE' &&
+                target.tagName !== 'SQUARE' &&
+                target.tagName !== 'CG-BOARD'
+              )
+                return;
+              e.preventDefault();
+              if (e.deltaY > 0 && scroll) control.next(ctrl);
+              else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+              ctrl.redraw();
+            }),
+          ),
     },
     [
       ...(playerStrips || []),
@@ -252,17 +252,17 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           },
         }),
         !isMobile() &&
-          h(
-            'button.button.button-thin.bottom-item.bottom-action.text',
-            {
-              attrs: dataIcon(licon.PlayTriangle),
-              hook: bind('click', _ => {
-                const pgn = $('.copyables .pgn textarea').val() as string;
-                if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
-              }),
-            },
-            i18n.site.importPgn,
-          ),
+        h(
+          'button.button.button-thin.bottom-item.bottom-action.text',
+          {
+            attrs: dataIcon(licon.PlayTriangle),
+            hook: bind('click', _ => {
+              const pgn = $('.copyables .pgn textarea').val() as string;
+              if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
+            }),
+          },
+          i18n.site.importPgn,
+        ),
         h(
           'div.bottom-item.bottom-error',
           { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
@@ -303,35 +303,35 @@ export function renderControls(ctrl: AnalyseCtrl) {
         'div.features',
         ctrl.studyPractice
           ? [
-              h('button.fbt', {
-                attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
-              }),
-            ]
+            h('button.fbt', {
+              attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
+            }),
+          ]
           : [
-              h('button.fbt', {
-                attrs: {
-                  title: i18n.site.openingExplorerAndTablebase,
-                  'data-act': 'explorer',
-                  'data-icon': licon.Book,
-                },
-                class: {
-                  hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-                  active: ctrl.explorer.enabled(),
-                },
-              }),
-              ctrl.ceval.possible &&
-                ctrl.ceval.allowed() &&
-                !ctrl.isGamebook() &&
-                !ctrl.isEmbed &&
-                h('button.fbt', {
-                  attrs: {
-                    title: i18n.site.practiceWithComputer,
-                    'data-act': 'practice',
-                    'data-icon': licon.Bullseye,
-                  },
-                  class: { hidden: menuIsOpen || !!ctrl.retro, active: !!ctrl.practice },
-                }),
-            ],
+            h('button.fbt', {
+              attrs: {
+                title: i18n.site.openingExplorerAndTablebase,
+                'data-act': 'explorer',
+                'data-icon': licon.Book,
+              },
+              class: {
+                hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+                active: ctrl.explorer.enabled(),
+              },
+            }),
+            ctrl.ceval.possible &&
+            ctrl.ceval.allowed() &&
+            !ctrl.isGamebook() &&
+            !ctrl.isEmbed &&
+            h('button.fbt', {
+              attrs: {
+                title: i18n.site.practiceWithComputer,
+                'data-act': 'practice',
+                'data-icon': licon.Bullseye,
+              },
+              class: { hidden: menuIsOpen || !!ctrl.retro, active: !!ctrl.practice },
+            }),
+          ],
       ),
       h('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
@@ -342,9 +342,9 @@ export function renderControls(ctrl: AnalyseCtrl) {
       ctrl.studyPractice
         ? h('div.noop')
         : h('button.fbt', {
-            class: { active: menuIsOpen },
-            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
-          }),
+          class: { active: menuIsOpen },
+          attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
+        }),
     ],
   );
 }
@@ -406,12 +406,25 @@ export function makeChatEl(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => voi
 }
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
+
+  if (ctrl.study?.relay !== undefined && ctrl.study && ctrl.study.multiBoard.showResults !== undefined) {
+    if (!ctrl.study.multiBoard.showResults()) {
+      return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {
+        if (isMainline && ctrl.node.ply >= node.ply) return null;
+        if (treePath.contains(ctrl.path, path)) return null;
+        return 'hide';
+      };
+    }
+    else 
+      return undefined;
+  }
+
   const conceal =
     ctrl.study && ctrl.study.data.chapter.conceal !== undefined
       ? {
-          owner: ctrl.study.isChapterOwner(),
-          ply: ctrl.study.data.chapter.conceal,
-        }
+        owner: ctrl.study.isChapterOwner(),
+        ply: ctrl.study.data.chapter.conceal,
+      }
       : null;
   if (conceal)
     return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {

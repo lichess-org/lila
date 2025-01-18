@@ -20,6 +20,7 @@ import {
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
+  isOnlyHidden? : boolean;
 }
 interface Opts extends BaseOpts {
   conceal?: Conceal;
@@ -39,7 +40,8 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
   const conceal = opts.noConceal
     ? null
     : opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main);
-  if (conceal === 'hide') return;
+  if (!ctx.isOnlyHidden && conceal === 'hide') return;
+  const isIndexHidden = ctx.isOnlyHidden && conceal === 'hide'
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
       commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(
@@ -47,7 +49,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
       );
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return [
-        isWhite && moveView.renderIndex(main.ply, false),
+        !isIndexHidden && isWhite && moveView.renderIndex(main.ply, false),
         ...renderMoveAndChildrenOf(ctx, main, {
           parentPath: opts.parentPath,
           isMainline: true,
@@ -72,7 +74,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
     };
 
     return [
-      isWhite && moveView.renderIndex(main.ply, false),
+      !isIndexHidden && isWhite && moveView.renderIndex(main.ply, false),
       !main.forceVariation && renderMoveOf(ctx, main, passOpts),
       isWhite && !main.forceVariation && emptyMove(conceal),
       h(
@@ -223,6 +225,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const ctx: Ctx = {
     ...renderingCtx(ctrl),
     concealOf: concealOf ?? emptyConcealOf,
+    isOnlyHidden: ctrl.study?.relay !== undefined ? true : false
   };
   // root path is hardcoded, is there a better way?
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
