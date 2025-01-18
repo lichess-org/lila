@@ -6,10 +6,12 @@ import type PuzzleCtrl from '../ctrl';
 
 export default function (ctrl: PuzzleCtrl) {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => [
-    h('section', [menu.flip(i18n.site.flipBoard, ctrl.flipped(), () => {
-      ctrl.flip();
-      ctrl.menu.toggle();
-    })]),
+    h('section', [
+      menu.flip(i18n.site.flipBoard, ctrl.flipped(), () => {
+        ctrl.flip();
+        ctrl.menu.toggle();
+      }),
+    ]),
     h('section', [
       menu.zenMode(true),
       menu.blindfold(
