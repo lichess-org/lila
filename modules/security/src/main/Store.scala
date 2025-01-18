@@ -12,6 +12,8 @@ import scala.concurrent.blocking
 import lila.common.{ HTTPRequest, IpAddress, ThreadLocalRandom }
 import lila.db.dsl._
 import lila.user.User
+import reactivemongo.api.bson.BSONDocumentReader
+import reactivemongo.api.bson.BSONDocumentHandler
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddress)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -111,7 +113,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       )
       .void >> uncacheAllOf(userId)
 
-  implicit private val UserSessionBSONHandler = Macros.handler[UserSession]
+  implicit private val UserSessionBSONHandler: BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
     coll.ext
       .find(
@@ -154,7 +156,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
   }
-  implicit private val DedupInfoReader = Macros.reader[DedupInfo]
+  implicit private val DedupInfoReader: BSONDocumentReader[DedupInfo] = Macros.reader[DedupInfo]
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
     coll.ext
@@ -179,7 +181,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         coll.delete.one($inIds(olds)).void
       } >> uncacheAllOf(userId)
 
-  implicit private val IpAndFpReader = Macros.reader[IpAndFp]
+  implicit private val IpAndFpReader: BSONDocumentReader[IpAndFp] = Macros.reader[IpAndFp]
 
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
     coll.secondary.list[IpAndFp]($doc("user" $in userIds), max)
@@ -209,5 +211,5 @@ object Store {
   }
 
   implicit val fingerHashBSONHandler: BSONHandler[FingerHash] = stringIsoHandler[FingerHash]
-  implicit val InfoReader                                     = Macros.reader[Info]
+  implicit val InfoReader: BSONDocumentReader[Info]                                     = Macros.reader[Info]
 }

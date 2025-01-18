@@ -5,6 +5,7 @@ import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.NotationDump.WithFlags
 import lila.team.GameTeams
+import play.api.i18n.Lang
 
 final class NotationDump(
     val dumper: lila.game.NotationDump,
@@ -13,7 +14,7 @@ final class NotationDump(
     getTournamentName: lila.tournament.GetTourName
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val lang = lila.i18n.defaultLang
+  implicit private val lang: Lang = lila.i18n.defaultLang
 
   def apply(
       game: Game,

@@ -28,7 +28,7 @@ object BSONHandlers {
 
   import reactivemongo.api.bson._
 
-  implicit private[relation] val followerBSONHandler = Macros.handler[Follower]
-  implicit private[relation] val followedBSONHandler = Macros.handler[Followed]
-  implicit private[relation] val blockedBSONHandler  = Macros.handler[Blocked]
+  implicit private[relation] val followerBSONHandler: BSONDocumentHandler[Follower] = Macros.handler[Follower]
+  implicit private[relation] val followedBSONHandler: BSONDocumentHandler[Followed] = Macros.handler[Followed]
+  implicit private[relation] val blockedBSONHandler: BSONDocumentHandler[Blocked]  = Macros.handler[Blocked]
 }

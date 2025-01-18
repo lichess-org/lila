@@ -6,6 +6,7 @@ import shogi.Color
 import scala.util.chaining._
 
 import lila.user.User
+import reactivemongo.api.bson.BSONDocumentHandler
 
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
@@ -166,7 +167,7 @@ object Player {
   case class UserInfo(id: String, rating: Int, provisional: Boolean)
 
   import reactivemongo.api.bson.Macros
-  implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]
+  implicit val holdAlertBSONHandler: BSONDocumentHandler[HoldAlert] = Macros.handler[HoldAlert]
 
   object BSONFields {
 
@@ -205,7 +206,7 @@ object Player {
   private val ratingRange     = safeRange(0 to 4000, "rating") _
   private val ratingDiffRange = safeRange(-1000 to 1000, "ratingDiff") _
 
-  implicit val playerBSONHandler = new BSON[Builder] {
+  implicit val playerBSONHandler: BSON[Builder] = new BSON[Builder] {
 
     import BSONFields._
     import Blurs._

@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
+import reactivemongo.api.bson.BSONDocumentHandler
 
 case class User(
     id: String,
@@ -208,7 +209,7 @@ object User {
     def tvPeriod         = new Period(tv * 1000L)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
   }
-  implicit def playTimeHandler = reactivemongo.api.bson.Macros.handler[PlayTime]
+  implicit def playTimeHandler: BSONDocumentHandler[PlayTime] = reactivemongo.api.bson.Macros.handler[PlayTime]
 
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
@@ -255,17 +256,17 @@ object User {
   import lila.db.BSON
   import lila.db.dsl._
 
-  implicit val userBSONHandler = new BSON[User] {
+  implicit val userBSONHandler: BSON[User] = new BSON[User] {
 
     import BSONFields._
-    import reactivemongo.api.bson.BSONDocument
+    import reactivemongo.api.bson.{ BSONDocument, BSONHandler }
     import UserMarks.marksBsonHandler
     import Title.titleBsonHandler
-    implicit private def countHandler      = Count.countBSONHandler
-    implicit private def profileHandler    = Profile.profileBSONHandler
-    implicit private def perfsHandler      = Perfs.perfsBSONHandler
-    implicit private def planHandler       = Plan.planBSONHandler
-    implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
+    implicit private def countHandler: BSON[Count] = Count.countBSONHandler
+    implicit private def profileHandler: BSONDocumentHandler[Profile] = Profile.profileBSONHandler
+    implicit private def perfsHandler: BSON[Perfs] = Perfs.perfsBSONHandler
+    implicit private def planHandler: BSONDocumentHandler[Plan] = Plan.planBSONHandler
+    implicit private def totpSecretHandler: BSONHandler[TotpSecret] = TotpSecret.totpSecretBSONHandler
 
     def reads(r: BSON.Reader): User = {
       val userTitle = r.getO[Title](title)
@@ -315,8 +316,8 @@ object User {
       )
   }
 
-  implicit val speakerHandler = reactivemongo.api.bson.Macros.handler[Speaker]
-  implicit val contactHandler = reactivemongo.api.bson.Macros.handler[Contact]
+  implicit val speakerHandler: BSONDocumentHandler[Speaker] = reactivemongo.api.bson.Macros.handler[Speaker]
+  implicit val contactHandler: BSONDocumentHandler[Contact] = reactivemongo.api.bson.Macros.handler[Contact]
 
   private val firstRow: List[PerfType] =
     List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)

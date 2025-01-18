@@ -6,13 +6,14 @@ import lila.game.{ Event, Game, Pov, Progress, Rewind }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ defaultLang, I18nKeys => trans }
 import RoundDuct.TakebackSituation
+import play.api.i18n.Lang
 
 final private class Takebacker(
     messenger: Messenger,
     prefApi: PrefApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val chatLang = defaultLang
+  implicit private val chatLang: Lang = defaultLang
 
   def yes(
       situation: TakebackSituation

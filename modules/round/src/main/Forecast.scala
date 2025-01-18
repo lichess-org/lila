@@ -52,9 +52,9 @@ object Forecast {
     def usiMove = Usi(usi).orElse(UciToUsi(usi))
   }
 
-  implicit val forecastStepJsonFormat = Json.format[Step]
+  implicit val forecastStepJsonFormat: OFormat[Step] = Json.format[Step]
 
-  implicit val forecastJsonWriter = Json.writes[Forecast]
+  implicit val forecastJsonWriter: OWrites[Forecast] = Json.writes[Forecast]
 
   case object OutOfSync extends lila.base.LilaException {
     val message = "Forecast out of sync"

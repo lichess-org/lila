@@ -6,10 +6,11 @@ import lila.app._
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ I18nLangPicker, LangList }
 import lila.pref.JsonView.customThemeWriter
+import lila.pref.PieceSet
 
 final class Dasher(env: Env) extends LilaController(env) {
 
-  implicit private val pieceSetsJsonWriter = Writes[List[lila.pref.PieceSet]] { sets =>
+  implicit private val pieceSetsJsonWriter: Writes[List[PieceSet]] = Writes[List[lila.pref.PieceSet]] { sets =>
     JsArray(sets.map { set =>
       Json.obj(
         "key"  -> set.key,

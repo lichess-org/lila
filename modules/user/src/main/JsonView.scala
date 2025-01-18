@@ -9,8 +9,8 @@ import User.{ LightPerf, PlayTime }
 final class JsonView(isOnline: lila.socket.IsOnline) {
 
   import JsonView._
-  implicit private val profileWrites  = Json.writes[Profile]
-  implicit private val playTimeWrites = Json.writes[PlayTime]
+  implicit private val profileWrites: OWrites[Profile]  = Json.writes[Profile]
+  implicit private val playTimeWrites: OWrites[PlayTime] = Json.writes[PlayTime]
 
   def apply(u: User, onlyPerf: Option[PerfType] = None): JsObject =
     Json
@@ -55,11 +55,11 @@ object JsonView {
 
   import Title.titleJsonWrites
 
-  implicit val nameWrites = Writes[User] { u =>
+  implicit val nameWrites: Writes[User] = Writes[User] { u =>
     JsString(u.username)
   }
 
-  implicit val lightPerfWrites = OWrites[LightPerf] { l =>
+  implicit val lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf] { l =>
     Json
       .obj(
         "id"       -> l.user.id,
@@ -72,7 +72,7 @@ object JsonView {
       .add("patron" -> l.user.isPatron)
   }
 
-  implicit val modWrites = OWrites[User] { u =>
+  implicit val modWrites: OWrites[User] = OWrites[User] { u =>
     Json
       .obj(
         "id"       -> u.id,

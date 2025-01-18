@@ -8,12 +8,13 @@ import scala.concurrent.duration._
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FishnetPlay
 import lila.common.Bus
+import akka.util.Timeout
 
 final class MoveDB(implicit system: ActorSystem) {
 
   import Work.Move
 
-  implicit private val timeout = new akka.util.Timeout(20.seconds)
+  implicit private val timeout: Timeout = new akka.util.Timeout(20.seconds)
 
   def add(move: Move) = {
     actor ! Add(move)

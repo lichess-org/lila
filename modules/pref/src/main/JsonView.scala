@@ -4,9 +4,9 @@ import play.api.libs.json._
 
 object JsonView {
 
-  implicit val customThemeWriter = Json.writes[CustomTheme]
+  implicit val customThemeWriter: OWrites[CustomTheme] = Json.writes[CustomTheme]
 
-  implicit val prefJsonWriter = OWrites[Pref] { p =>
+  implicit val prefJsonWriter: OWrites[Pref] = OWrites[Pref] { p =>
     Json.obj(
       "dark"               -> p.dark,
       "transp"             -> p.transp,

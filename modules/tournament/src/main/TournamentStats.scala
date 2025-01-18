@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 
 import shogi.Color
 import lila.db.dsl._
+import reactivemongo.api.bson.BSONDocumentHandler
 
 final class TournamentStatsApi(
     playerRepo: PlayerRepo,
@@ -16,7 +17,7 @@ final class TournamentStatsApi(
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
     tournament.isFinished ?? cache.get(TournamentStats.makeKey(tournament)).dmap(some)
 
-  implicit private val statsBSONHandler = Macros.handler[TournamentStats]
+  implicit private val statsBSONHandler: BSONDocumentHandler[TournamentStats] = Macros.handler[TournamentStats]
 
   private val cache = mongoCache[TournamentStats.Key, TournamentStats](
     64,

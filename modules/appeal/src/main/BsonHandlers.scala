@@ -7,7 +7,7 @@ private[appeal] object BsonHandlers {
 
   import Appeal.Status
 
-  implicit val statusHandler = lila.db.dsl.quickHandler[Status](
+  implicit val statusHandler: BSONHandler[Status] = lila.db.dsl.quickHandler[Status](
     {
       case BSONString(v) => Status(v) | Status.Closed
       case _             => Status.Closed
@@ -15,6 +15,6 @@ private[appeal] object BsonHandlers {
     s => BSONString(s.key)
   )
 
-  implicit val appealMsgHandler = Macros.handler[AppealMsg]
-  implicit val appealHandler    = Macros.handler[Appeal]
+  implicit val appealMsgHandler: BSONDocumentHandler[AppealMsg] = Macros.handler[AppealMsg]
+  implicit val appealHandler: BSONDocumentHandler[Appeal]    = Macros.handler[Appeal]
 }

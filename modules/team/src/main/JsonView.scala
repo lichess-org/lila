@@ -6,7 +6,7 @@ import play.api.libs.json._
 
 final class JsonView(lightUserApi: LightUserApi) {
 
-  implicit val teamWrites = OWrites[Team] { team =>
+  implicit val teamWrites: OWrites[Team] = OWrites[Team] { team =>
     Json
       .obj(
         "id"          -> team.id,

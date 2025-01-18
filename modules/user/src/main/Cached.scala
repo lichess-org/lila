@@ -20,9 +20,9 @@ final class Cached(
     system: akka.actor.ActorSystem
 ) {
 
-  implicit private val LightUserBSONHandler  = Macros.handler[LightUser]
-  implicit private val LightPerfBSONHandler  = Macros.handler[LightPerf]
-  implicit private val LightCountBSONHandler = Macros.handler[LightCount]
+  implicit private val LightUserBSONHandler: BSONDocumentHandler[LightUser]  = Macros.handler[LightUser]
+  implicit private val LightPerfBSONHandler: BSONDocumentHandler[LightPerf]  = Macros.handler[LightPerf]
+  implicit private val LightCountBSONHandler: BSONDocumentHandler[LightCount] = Macros.handler[LightCount]
 
   val top10 = cacheApi.unit[Perfs.Leaderboards] {
     _.refreshAfterWrite(2 minutes)

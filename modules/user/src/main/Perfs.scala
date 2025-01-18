@@ -214,7 +214,7 @@ case object Perfs {
 
   val perfsBSONHandler = new BSON[Perfs] {
 
-    implicit def perfHandler = Perf.perfBSONHandler
+    implicit def perfHandler: BSON[Perf] = Perf.perfBSONHandler
 
     def reads(r: BSON.Reader): Perfs = {
       @inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default

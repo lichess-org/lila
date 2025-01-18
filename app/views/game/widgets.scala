@@ -30,8 +30,8 @@ object widgets {
                 if (g.imported)
                   frag(
                     span("IMPORT"),
-                    g.notationImport.flatMap(_.user).map { user =>
-                      frag(" ", trans.by(userIdLink(user.some, None, false)))
+                    g.notationImport.flatMap(_.user).map { uid =>
+                      frag(" ", trans.by(userIdLink(uid.some, None, false)))
                     },
                     separator,
                     bits.variantLink(g.variant)
@@ -83,10 +83,10 @@ object widgets {
           else frag(br, br),
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
-          g.notationImport.flatMap(_.user).map { user =>
+          g.notationImport.flatMap(_.user).map { uid =>
             div(cls := "metadata")(
               s"${if (g.isKifImport) "KIF" else "CSA"} import by ",
-              userIdLink(user.some)
+              userIdLink(uid.some)
             )
           }
         )

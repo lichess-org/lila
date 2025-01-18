@@ -6,6 +6,7 @@ import play.api.libs.ws.WSClient
 import cats.data.NonEmptyList
 
 import lila.user.User
+import play.api.ConfigLoader
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
@@ -56,5 +57,5 @@ private object WebPush {
       val url: String,
       @ConfigName("vapid_public_key") val vapidPublicKey: String
   )
-  implicit val configLoader = AutoConfig.loader[Config]
+  implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }

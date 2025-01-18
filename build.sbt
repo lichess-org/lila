@@ -36,13 +36,14 @@ libraryDependencies ++= akka.bundle ++ Seq(
 }
 
 lazy val modules = Seq(
-  common, db, rating, user, security, hub, socket,
-  msg, notifyModule, i18n, game, bookmark, search,
+  common, tree, hub, db, i18n, memo, socket, chat, room,
+  rating, user, oauth, security, game, history,
+  msg, notifyModule, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, lobby, setup,
   importer, tournament, simul, relation, report, pref,
-  evaluation, chat, puzzle, tv, coordinate, blog,
-  history, video, shutup, push, appeal,
+  evaluation, puzzle, tv, coordinate, blog,
+  video, shutup, push, appeal,
   playban, perfStat, challenge,
   study, studySearch, fishnet, learn, plan,
   event, coach, practice, evalCache,
@@ -79,7 +80,7 @@ lazy val storm = module("storm",
   reactivemongo.bundle
 )
 
-lazy val compression = module("compression", Seq(), Seq(specs2))
+lazy val compression = module("compression", Seq.empty, Seq(specs2))
 
 lazy val puzzle = module("puzzle",
   Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
@@ -117,7 +118,7 @@ lazy val evaluation = module("evaluation",
 )
 
 lazy val common = module("common",
-  Seq(),
+  Seq.empty,
   Seq(kamon.core, scalatags, jodaForms, scaffeine, specs2) ++ reactivemongo.bundle
 )
 
@@ -148,7 +149,7 @@ lazy val memo = module("memo",
 
 lazy val search = module("search",
   Seq(common, hub),
-  Seq()
+  Seq.empty
 )
 
 lazy val chat = module("chat",
@@ -368,7 +369,7 @@ lazy val notifyModule = module("notify",
 
 lazy val tree = module("tree",
   Seq(common),
-  Seq()
+  Seq.empty
 )
 
 lazy val socket = module("socket",

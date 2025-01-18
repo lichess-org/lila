@@ -56,7 +56,7 @@ ${Mailgun.txt.serviceNote}
 
   case class TokenPayload(userId: User.ID, email: EmailAddress)
 
-  implicit final private val payloadSerializable = new StringToken.Serializable[Option[TokenPayload]] {
+  implicit final private val payloadSerializable: StringToken.Serializable[Option[TokenPayload]] = new StringToken.Serializable[Option[TokenPayload]] {
     private val sep = ' '
     def read(str: String) =
       str.split(sep) match {

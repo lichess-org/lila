@@ -4,7 +4,7 @@ import cats.Functor
 
 package object paginator {
 
-  implicit val LilaPaginatorFunctor = new Functor[Paginator] {
+  implicit val LilaPaginatorFunctor: Functor[Paginator] = new Functor[Paginator] {
     def map[A, B](p: Paginator[A])(f: A => B) =
       new Paginator(
         currentPage = p.currentPage,

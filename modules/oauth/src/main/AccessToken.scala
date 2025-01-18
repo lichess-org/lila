@@ -55,10 +55,10 @@ object AccessToken {
     BSONFields.clientOrigin -> true
   )
 
-  implicit private[oauth] val idHandler     = stringAnyValHandler[Id](_.value, Id.apply)
-  implicit private[oauth] val bearerHandler = stringAnyValHandler[Bearer](_.secret, Bearer.apply)
+  implicit private[oauth] val idHandler: BSONHandler[Id]     = stringAnyValHandler[Id](_.value, Id.apply)
+  implicit private[oauth] val bearerHandler: BSONHandler[Bearer] = stringAnyValHandler[Bearer](_.secret, Bearer.apply)
 
-  implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
+  implicit val ForAuthBSONReader: BSONDocumentReader[ForAuth] = new BSONDocumentReader[ForAuth] {
     def readDocument(doc: BSONDocument) =
       for {
         userId <- doc.getAsTry[User.ID](BSONFields.userId)
@@ -67,7 +67,7 @@ object AccessToken {
       } yield ForAuth(userId, scopes, origin)
   }
 
-  implicit val AccessTokenBSONHandler = new BSON[AccessToken] {
+  implicit val AccessTokenBSONHandler: BSON[AccessToken] = new BSON[AccessToken] {
 
     import BSONFields._
 

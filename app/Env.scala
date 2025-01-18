@@ -11,6 +11,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.common.config._
 import lila.common.{ Bus, Lilakka, Strings }
+import lila.game.IdGenerator
 
 final class Env(
     val config: Configuration,
@@ -174,11 +175,11 @@ final class EnvBoot(
     ws: WSClient
 ) {
 
-  implicit def scheduler   = system.scheduler
-  implicit def mode        = environment.mode
+  implicit def scheduler: Scheduler   = system.scheduler
+  implicit def mode: Mode        = environment.mode
   def appPath              = AppPath(environment.rootPath)
   def baseUrl              = common.netConfig.baseUrl
-  implicit def idGenerator = game.idGenerator
+  implicit def idGenerator: IdGenerator = game.idGenerator
 
   lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))
   lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))

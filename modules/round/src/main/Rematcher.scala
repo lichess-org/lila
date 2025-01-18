@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
 import lila.user.{ User, UserRepo }
 import lila.i18n.{ defaultLang, I18nKeys => trans }
+import play.api.i18n.Lang
 
 final private class Rematcher(
     gameRepo: GameRepo,
@@ -20,7 +21,7 @@ final private class Rematcher(
     rematches: Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val chatLang = defaultLang
+  implicit private val chatLang: Lang = defaultLang
 
   private val declined = new lila.memo.ExpireSetMemo(1 minute)
 

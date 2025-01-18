@@ -27,11 +27,11 @@ object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit private[game] val consecutiveAttacksWriter = new BSONWriter[ConsecutiveAttacks] {
+  implicit private[game] val consecutiveAttacksWriter: BSONWriter[ConsecutiveAttacks] = new BSONWriter[ConsecutiveAttacks] {
     def writeTry(ca: ConsecutiveAttacks) = Success(BSONArray(ca.sente, ca.gote))
   }
 
-  implicit val StatusBSONHandler = quickHandler[Status](
+  implicit val StatusBSONHandler: BSONHandler[Status] = quickHandler[Status](
     { case BSONInteger(v) => Status(v).getOrElse(Status.UnknownFinish) },
     x => BSONInteger(x.id)
   )

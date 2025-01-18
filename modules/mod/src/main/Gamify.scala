@@ -20,8 +20,8 @@ final class Gamify(
   import Gamify._
   import lila.report.BSONHandlers.RoomBSONHandler
 
-  implicit private val modMixedBSONHandler     = Macros.handler[ModMixed]
-  implicit private val historyMonthBSONHandler = Macros.handler[HistoryMonth]
+  implicit private val modMixedBSONHandler: BSONDocumentHandler[ModMixed]     = Macros.handler[ModMixed]
+  implicit private val historyMonthBSONHandler: BSONDocumentHandler[HistoryMonth] = Macros.handler[HistoryMonth]
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until  = DateTime.now minusMonths 1 withDayOfMonth 1

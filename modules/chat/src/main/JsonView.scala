@@ -69,7 +69,7 @@ object JsonView {
       case l: PlayerLine => playerLineWriter writes l
     }
 
-    implicit private val userLineWriter = OWrites[UserLine] { l =>
+    implicit private val userLineWriter: OWrites[UserLine] = OWrites[UserLine] { l =>
       Json
         .obj(
           "u" -> l.username,
@@ -80,7 +80,7 @@ object JsonView {
         .add("title" -> l.title)
     }
 
-    implicit private val playerLineWriter = OWrites[PlayerLine] { l =>
+    implicit private val playerLineWriter: OWrites[PlayerLine] = OWrites[PlayerLine] { l =>
       Json.obj(
         "c" -> l.color.name,
         "t" -> l.text

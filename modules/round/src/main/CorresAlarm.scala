@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.common.LilaStream
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
+import reactivemongo.api.bson.BSONDocumentHandler
 
 final private class CorresAlarm(
     coll: Coll,
@@ -26,7 +27,7 @@ final private class CorresAlarm(
       expiresAt: DateTime
   )
 
-  implicit private val AlarmHandler = reactivemongo.api.bson.Macros.handler[Alarm]
+  implicit private val AlarmHandler: BSONDocumentHandler[Alarm] = reactivemongo.api.bson.Macros.handler[Alarm]
 
   private def scheduleNext(): Unit = system.scheduler.scheduleOnce(10 seconds) { run().unit }.unit
 

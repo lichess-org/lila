@@ -139,7 +139,7 @@ object Form {
   }
 
   object sfen {
-    implicit private val sfenFormat = formatter.stringFormatter[Sfen](_.value, Sfen.clean)
+    implicit private val sfenFormat: Formatter[Sfen] = formatter.stringFormatter[Sfen](_.value, Sfen.clean)
     def clean                       = of[Sfen](sfenFormat)
   }
 
@@ -152,19 +152,19 @@ object Form {
   object UTCDate {
     val dateTimePattern         = "yyyy-MM-dd HH:mm"
     val utcDate                 = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    implicit val dateTimeFormat: Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODateTime {
     val dateTimePattern         = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     val formatter               = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
     val isoDateTime             = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    implicit val dateTimeFormat: Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODate {
     val datePattern         = "yyyy-MM-dd"
     val formatter           = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
     val isoDateTime         = jodaDate(datePattern, DateTimeZone.UTC)
-    implicit val dateFormat = JodaFormats.jodaDateTimeFormat(datePattern)
+    implicit val dateFormat: Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(datePattern)
   }
   object Timestamp {
     val formatter = new Formatter[org.joda.time.DateTime] {

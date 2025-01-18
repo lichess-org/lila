@@ -8,7 +8,7 @@ import lila.user.User
 
 final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val DeviceBSONHandler = Macros.handler[Device]
+  implicit private val DeviceBSONHandler: BSONDocumentHandler[Device] = Macros.handler[Device]
 
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
     coll.ext.find($id(deviceId)).one[Device]

@@ -4,6 +4,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 import lila.user.User
+import lila.common.Iso
 
 private object PuzzlePath {
 
@@ -16,7 +17,7 @@ private object PuzzlePath {
     def theme = PuzzleTheme.findOrAny(~parts.headOption).key
   }
 
-  implicit val pathIdIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val pathIdIso: Iso.StringIso[Id] = lila.common.Iso.string[Id](Id.apply, _.value)
 }
 
 final private class PuzzlePathApi(

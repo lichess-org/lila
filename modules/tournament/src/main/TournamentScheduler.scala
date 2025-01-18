@@ -4,6 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.util.chaining._
+import scala.concurrent.ExecutionContextExecutor
 
 final private class TournamentScheduler(
     tournamentRepo: TournamentRepo
@@ -14,7 +15,7 @@ final private class TournamentScheduler(
   import Schedule.Plan
   import shogi.variant._
 
-  implicit def ec = context.dispatcher
+  implicit def ec: ExecutionContextExecutor = context.dispatcher
 
   /* Month plan:
    * First week: Shield standard tournaments

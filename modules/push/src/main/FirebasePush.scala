@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 
 import lila.common.Chronometer
 import lila.user.User
+import play.api.ConfigLoader
 
 final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
@@ -89,5 +90,5 @@ private object FirebasePush {
       val url: String,
       val json: lila.common.config.Secret
   )
-  implicit val configLoader = AutoConfig.loader[Config]
+  implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }

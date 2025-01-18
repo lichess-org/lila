@@ -18,7 +18,7 @@ final class RankingApi(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RankingApi._
-  implicit private val rankingBSONHandler = Macros.handler[Ranking]
+  implicit private val rankingBSONHandler: BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
   def save(user: User, perfType: Option[PerfType], perfs: Perfs): Funit =
     perfType ?? { pt =>

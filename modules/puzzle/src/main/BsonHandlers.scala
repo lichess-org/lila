@@ -12,11 +12,11 @@ import lila.rating.Glicko
 
 object BsonHandlers {
 
-  implicit val PuzzleIdBSONHandler = stringIsoHandler(Puzzle.idIso)
+  implicit val PuzzleIdBSONHandler: BSONHandler[Puzzle.Id] = stringIsoHandler(Puzzle.idIso)
 
   import Puzzle.{ BSONFields => F }
 
-  implicit private[puzzle] val PuzzleBSONHandler = new BSON[Puzzle] {
+  implicit private[puzzle] val PuzzleBSONHandler: BSON[Puzzle] = new BSON[Puzzle] {
     def reads(r: BSON.Reader) = {
       val line = r
         .get[String](F.line)
@@ -59,7 +59,7 @@ object BsonHandlers {
 
   }
 
-  implicit private[puzzle] val RoundIdHandler = tryHandler[PuzzleRound.Id](
+  implicit private[puzzle] val RoundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
       v split PuzzleRound.idSep match {
         case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, Puzzle.Id(puzzleId)))
@@ -69,7 +69,7 @@ object BsonHandlers {
     id => BSONString(id.toString)
   )
 
-  implicit private[puzzle] val RoundThemeHandler = tryHandler[PuzzleRound.Theme](
+  implicit private[puzzle] val RoundThemeHandler: BSONHandler[PuzzleRound.Theme] = tryHandler[PuzzleRound.Theme](
     { case BSONString(v) =>
       PuzzleTheme
         .find(v.drop(1))
@@ -80,7 +80,7 @@ object BsonHandlers {
     rt => BSONString(s"${if (rt.vote) "+" else "-"}${rt.theme}")
   )
 
-  implicit private[puzzle] val RoundHandler = new BSON[PuzzleRound] {
+  implicit private[puzzle] val RoundHandler: BSON[PuzzleRound] = new BSON[PuzzleRound] {
     import PuzzleRound.BSONFields._
     def reads(r: BSON.Reader) = PuzzleRound(
       id = r.get[PuzzleRound.Id](id),

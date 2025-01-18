@@ -3,6 +3,7 @@ package lila.study
 import org.joda.time.DateTime
 
 import lila.user.User
+import lila.common.Iso
 
 case class Study(
     _id: Study.Id,
@@ -87,10 +88,10 @@ object Study {
   val maxChapters = 64
 
   case class Id(value: String) extends AnyVal with StringValue
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val idIso: Iso.StringIso[Id] = Iso.string[Id](Id.apply, _.value)
 
   case class Name(value: String) extends AnyVal with StringValue
-  implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
+  implicit val nameIso: Iso.StringIso[Name] = Iso.string[Name](Name.apply, _.value)
 
   case class IdName(_id: Id, name: Name) {
     def id = _id

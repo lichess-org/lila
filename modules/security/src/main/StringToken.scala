@@ -66,7 +66,7 @@ object StringToken {
     def write(a: A): String
   }
 
-  implicit final val stringSerializable = new Serializable[String] {
+  implicit final val stringSerializable: Serializable[String] = new Serializable[String] {
     def read(str: String) = str
     def write(a: String)  = a
   }

@@ -7,6 +7,7 @@ import io.methvin.play.autoconfig._
 
 import lila.common.HTTPRequest
 import lila.common.config._
+import play.api.ConfigLoader
 
 trait Recaptcha {
 
@@ -23,7 +24,7 @@ private object Recaptcha {
   ) {
     def public = RecaptchaPublicConfig(publicKey, enabled)
   }
-  implicit val configLoader = AutoConfig.loader[Config]
+  implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }
 
 object RecaptchaSkip extends Recaptcha {
@@ -44,7 +45,7 @@ final class RecaptchaGoogle(
       hostname: String
   )
 
-  implicit private val responseReader = Json.reads[Response]
+  implicit private val responseReader: Reads[Response] = Json.reads[Response]
 
   def verify(response: String, req: RequestHeader): Fu[Boolean] = {
     ws.url(config.endpoint)

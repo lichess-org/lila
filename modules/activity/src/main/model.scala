@@ -50,7 +50,7 @@ object model {
         case (score, _) => score
       }
   }
-  implicit val ScoreZero = Zero.instance(Score(0, 0, 0, none))
+  implicit val ScoreZero: Zero[Score] = Zero.instance(Score(0, 0, 0, none))
 
   case class GameId(value: String) extends AnyVal
 }

@@ -14,6 +14,7 @@ import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
 import lila.user.User
+import play.api.ConfigLoader
 
 @Module
 private class RoundConfig(
@@ -58,7 +59,7 @@ final class Env(
 
   import lightUserApi._
 
-  implicit private val moretimeLoader = durationLoader(MoretimeDuration.apply)
+  implicit private val moretimeLoader: ConfigLoader[MoretimeDuration] = durationLoader(MoretimeDuration.apply)
   private val config                  = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)

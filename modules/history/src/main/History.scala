@@ -43,7 +43,7 @@ object History {
 
   import reactivemongo.api.bson._
 
-  implicit private[history] val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
+  implicit private[history] val RatingsMapReader: BSONDocumentReader[RatingsMap] = new BSONDocumentReader[RatingsMap] {
     def readDocument(doc: BSONDocument) =
       Success(
         doc.elements
@@ -56,7 +56,7 @@ object History {
       )
   }
 
-  implicit private[history] val HistoryBSONReader = new BSONDocumentReader[History] {
+  implicit private[history] val HistoryBSONReader: BSONDocumentReader[History] = new BSONDocumentReader[History] {
     def readDocument(doc: BSONDocument) =
       Success {
         def ratingsMap(key: String): RatingsMap = ~doc.getAsOpt[RatingsMap](key)

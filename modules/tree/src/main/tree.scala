@@ -10,6 +10,7 @@ import shogi.format.usi.{ Usi, UsiCharPair }
 import shogi.{ Pos, Piece }
 
 import shogi.Centis
+import lila.base.PimpedJsObject
 
 sealed trait Node {
   def ply: Int
@@ -202,7 +203,7 @@ object Node {
       "piece" -> c.piece
     )
   }
-  implicit private val shapeArrowWrites  = Json.writes[Shape.Arrow]
+  implicit private val shapeArrowWrites: OWrites[Shape.Arrow]  = Json.writes[Shape.Arrow]
   implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
@@ -230,11 +231,11 @@ object Node {
     case Comment.Author.Lishogi        => JsString("lishogi")
     case Comment.Author.Unknown        => JsNull
   }
-  implicit val commentWriter  = Json.writes[Node.Comment]
-  implicit val gamebookWriter = Json.writes[Node.Gamebook]
+  implicit val commentWriter: OWrites[Comment]  = Json.writes[Node.Comment]
+  implicit val gamebookWriter: OWrites[Gamebook] = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
-  @inline implicit private def toPimpedJsObject(jo: JsObject) = new lila.base.PimpedJsObject(jo)
+  @inline implicit private def toPimpedJsObject(jo: JsObject): PimpedJsObject = new lila.base.PimpedJsObject(jo)
 
   implicit val defaultNodeJsonWriter: Writes[Node] =
     makeNodeJsonWriter(alwaysChildren = true)

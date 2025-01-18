@@ -40,9 +40,9 @@ object Stream {
       def serviceName = "twitch"
     }
     object Reads {
-      implicit private val twitchStreamReads = Json.reads[TwitchStream]
-      implicit private val paginationReads   = Json.reads[Pagination]
-      implicit val twitchResultReads         = Json.reads[Result]
+      implicit private val twitchStreamReads: Reads[TwitchStream] = Json.reads[TwitchStream]
+      implicit private val paginationReads: Reads[Pagination]   = Json.reads[Pagination]
+      implicit val twitchResultReads: Reads[Result]         = Json.reads[Result]
     }
   }
 
@@ -74,10 +74,10 @@ object Stream {
     }
 
     object Reads {
-      implicit private val youtubeSnippetReads = Json.reads[Snippet]
-      implicit private val youtubeIdReads      = Json.reads[Id]
-      implicit private val youtubeItemReads    = Json.reads[Item]
-      implicit val youtubeResultReads          = Json.reads[Result]
+      implicit private val youtubeSnippetReads: Reads[Snippet] = Json.reads[Snippet]
+      implicit private val youtubeIdReads: Reads[Id]      = Json.reads[Id]
+      implicit private val youtubeItemReads: Reads[Item]    = Json.reads[Item]
+      implicit val youtubeResultReads: Reads[Result]          = Json.reads[Result]
     }
 
     case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)

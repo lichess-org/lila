@@ -24,11 +24,11 @@ case class Blurs(bits: Long) extends AnyVal {
 
 object Blurs {
 
-  implicit val blursZero = Zero.instance(Blurs(0L))
+  implicit val blursZero: Zero[Blurs] = Zero.instance(Blurs(0L))
 
   import reactivemongo.api.bson._
 
-  implicit private[game] val BlursBSONHandler = lila.db.dsl.tryHandler[Blurs](
+  implicit private[game] val BlursBSONHandler: BSONHandler[Blurs] = lila.db.dsl.tryHandler[Blurs](
     {
       case BSONInteger(bits) => Success(Blurs(bits & 0xffffffffL))
       case BSONLong(bits)    => Success(Blurs(bits))

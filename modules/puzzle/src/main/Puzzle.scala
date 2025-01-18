@@ -5,6 +5,7 @@ import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
 import lila.rating.Glicko
+import lila.common.Iso
 
 case class Puzzle(
     id: Puzzle.Id,
@@ -87,5 +88,5 @@ object Puzzle {
     val submittedBy         = "sb"
   }
 
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val idIso: Iso.StringIso[Id] = lila.common.Iso.string[Id](Id.apply, _.value)
 }

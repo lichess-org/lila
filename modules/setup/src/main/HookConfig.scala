@@ -155,7 +155,7 @@ object HookConfig extends BaseHumanConfig {
   import lila.db.BSON
   import lila.db.dsl._
 
-  implicit private[setup] val hookConfigBSONHandler = new BSON[HookConfig] {
+  implicit private[setup] val hookConfigBSONHandler: BSON[HookConfig] = new BSON[HookConfig] {
 
     def reads(r: BSON.Reader): HookConfig =
       HookConfig(

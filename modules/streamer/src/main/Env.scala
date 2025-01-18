@@ -6,6 +6,7 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
+import play.api.ConfigLoader
 
 @Module
 private class StreamerConfig(
@@ -39,8 +40,8 @@ final class Env(
     system: ActorSystem
 ) {
 
-  implicit private val twitchLoader  = AutoConfig.loader[TwitchConfig]
-  implicit private val keywordLoader = strLoader(Stream.Keyword.apply)
+  implicit private val twitchLoader: ConfigLoader[TwitchConfig]  = AutoConfig.loader[TwitchConfig]
+  implicit private val keywordLoader: ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)
   private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)

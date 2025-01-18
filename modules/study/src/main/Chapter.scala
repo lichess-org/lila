@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
+import lila.common.Iso
 
 case class Chapter(
     _id: Chapter.Id,
@@ -90,10 +91,10 @@ object Chapter {
   val maxNodes = 3000
 
   case class Id(value: String) extends AnyVal with StringValue
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val idIso: Iso.StringIso[Id] = lila.common.Iso.string[Id](Id.apply, _.value)
 
   case class Name(value: String) extends AnyVal with StringValue
-  implicit val nameIso = lila.common.Iso.string[Name](Name.apply, _.value)
+  implicit val nameIso: Iso.StringIso[Name] = lila.common.Iso.string[Name](Name.apply, _.value)
 
   sealed trait Like {
     val _id: Chapter.Id

@@ -5,6 +5,8 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsSuccess, Json }
+import play.api.data.format.Formatter
+import play.api.libs.json.Reads
 
 object CoachProfileForm {
 
@@ -37,7 +39,7 @@ object CoachProfileForm {
     )
 
   private case class TagifyLang(code: String)
-  implicit private val TagifyLangReads = Json.reads[TagifyLang]
+  implicit private val TagifyLangReads: Reads[TagifyLang] = Json.reads[TagifyLang]
 
   case class Data(
       listed: Boolean,
@@ -61,7 +63,7 @@ object CoachProfileForm {
 
   import CoachProfile.RichText
 
-  implicit private val richTextFormat =
+  implicit private val richTextFormat: Formatter[RichText] =
     lila.common.Form.formatter.stringFormatter[RichText](_.value, RichText.apply)
   private def richText = of[RichText]
 }

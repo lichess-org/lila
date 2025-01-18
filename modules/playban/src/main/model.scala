@@ -83,7 +83,7 @@ case class TempBan(
 
 object TempBan {
 
-  implicit val tempbanWrites = Json.writes[TempBan]
+  implicit val tempbanWrites: OWrites[TempBan] = Json.writes[TempBan]
 
   private def make(minutes: Int) =
     TempBan(

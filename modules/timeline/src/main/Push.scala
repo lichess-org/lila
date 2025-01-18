@@ -8,6 +8,7 @@ import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Atom, Propagate, ReloadTimelines }
 import lila.security.Permission
 import lila.user.{ User, UserRepo }
+import scala.concurrent.ExecutionContextExecutor
 
 final private[timeline] class Push(
     relationApi: lila.relation.RelationApi,
@@ -16,7 +17,7 @@ final private[timeline] class Push(
     unsubApi: UnsubApi
 ) extends Actor {
 
-  implicit def ec = context.dispatcher
+  implicit def ec: ExecutionContextExecutor = context.dispatcher
 
   def receive = { case Propagate(data, propagations) =>
     propagate(propagations) flatMap { users =>

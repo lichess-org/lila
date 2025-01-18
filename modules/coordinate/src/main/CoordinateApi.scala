@@ -8,7 +8,7 @@ import lila.db.dsl._
 
 final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val scoreBSONHandler = Macros.handler[Score]
+  implicit private val scoreBSONHandler: BSONDocumentHandler[Score] = Macros.handler[Score]
 
   def getScore(userId: User.ID): Fu[Score] =
     scoreColl.byId[Score](userId) map (_ | Score(userId))

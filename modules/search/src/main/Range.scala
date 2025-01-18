@@ -11,7 +11,7 @@ object Range {
 
   import play.api.libs.json._
 
-  implicit def rangeJsonWriter[A: Writes] =
+  implicit def rangeJsonWriter[A: Writes]: Writes[Range[A]] =
     Writes[Range[A]] { r =>
       Json.obj("a" -> r.a, "b" -> r.b)
     }

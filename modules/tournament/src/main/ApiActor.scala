@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 
 import lila.game.actorApi.FinishGame
 import lila.user.User
+import scala.concurrent.ExecutionContextExecutor
 
 final private[tournament] class ApiActor(
     api: TournamentApi,
@@ -12,7 +13,7 @@ final private[tournament] class ApiActor(
     tournamentRepo: TournamentRepo
 ) extends Actor {
 
-  implicit def ec = context.dispatcher
+  implicit def ec: ExecutionContextExecutor = context.dispatcher
 
   lila.common.Bus.subscribe(
     self,

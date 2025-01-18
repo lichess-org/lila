@@ -15,7 +15,7 @@ final class BoostingApi(
 )(implicit ec: scala.concurrent.ExecutionContext) {
   import BoostingApi._
 
-  implicit private val boostingRecordBSONHandler = Macros.handler[BoostingRecord]
+  implicit private val boostingRecordBSONHandler: BSONDocumentHandler[BoostingRecord] = Macros.handler[BoostingRecord]
 
   private val variants = Set[variant.Variant](
     variant.Standard,

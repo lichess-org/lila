@@ -9,11 +9,11 @@ import lila.db.BSON
 private object BsonHandlers {
 
   import Msg.Last
-  implicit val msgContentHandler = Macros.handler[Last]
+  implicit val msgContentHandler: BSONDocumentHandler[Last] = Macros.handler[Last]
 
-  implicit val threadIdHandler = stringAnyValHandler[MsgThread.Id](_.value, MsgThread.Id.apply)
+  implicit val threadIdHandler: BSONHandler[MsgThread.Id] = stringAnyValHandler[MsgThread.Id](_.value, MsgThread.Id.apply)
 
-  implicit val threadHandler = new BSON[MsgThread] {
+  implicit val threadHandler: BSON[MsgThread] = new BSON[MsgThread] {
     def reads(r: BSON.Reader) =
       r.strsD("users") match {
         case List(u1, u2) =>
@@ -33,8 +33,8 @@ private object BsonHandlers {
       )
   }
 
-  implicit val msgIdHandler = stringAnyValHandler[Msg.Id](_.value, Msg.Id.apply)
-  implicit val msgHandler   = Macros.handler[Msg]
+  implicit val msgIdHandler: BSONHandler[Msg.Id] = stringAnyValHandler[Msg.Id](_.value, Msg.Id.apply)
+  implicit val msgHandler: BSONDocumentHandler[Msg]   = Macros.handler[Msg]
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =
     msgHandler.writeTry(msg).get ++ $doc(

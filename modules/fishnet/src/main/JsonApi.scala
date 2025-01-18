@@ -260,18 +260,18 @@ object JsonApi {
 
   object readers {
     import play.api.libs.functional.syntax._
-    implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
-    implicit val ClientPythonReads  = Reads.of[String].map(new Client.Python(_))
-    implicit val ClientKeyReads     = Reads.of[String].map(new Client.Key(_))
-    implicit val EngineOptionsReads = Json.reads[Request.EngineOptions]
-    implicit val BaseEngineReads    = Json.reads[Request.BaseEngine]
-    implicit val FullEngineReads    = Json.reads[Request.FullEngine]
-    implicit val FishnetReads       = Json.reads[Request.Fishnet]
-    implicit val AcquireReads       = Json.reads[Request.Acquire]
-    implicit val MoveResultReads    = Json.reads[Request.MoveResult]
-    implicit val PostMoveReads      = Json.reads[Request.PostMove]
-    implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
-    implicit val usiListReads = Reads.of[String] map { str =>
+    implicit val ClientVersionReads: Reads[Client.Version] = Reads.of[String].map(new Client.Version(_))
+    implicit val ClientPythonReads: Reads[Client.Python]  = Reads.of[String].map(new Client.Python(_))
+    implicit val ClientKeyReads: Reads[Client.Key]     = Reads.of[String].map(new Client.Key(_))
+    implicit val EngineOptionsReads: Reads[Request.EngineOptions] = Json.reads[Request.EngineOptions]
+    implicit val BaseEngineReads: Reads[Request.BaseEngine]    = Json.reads[Request.BaseEngine]
+    implicit val FullEngineReads: Reads[Request.FullEngine]    = Json.reads[Request.FullEngine]
+    implicit val FishnetReads: Reads[Request.Fishnet]       = Json.reads[Request.Fishnet]
+    implicit val AcquireReads: Reads[Request.Acquire]       = Json.reads[Request.Acquire]
+    implicit val MoveResultReads: Reads[Request.MoveResult]    = Json.reads[Request.MoveResult]
+    implicit val PostMoveReads: Reads[Request.PostMove]      = Json.reads[Request.PostMove]
+    implicit val ScoreReads: Reads[Request.Evaluation.Score]         = Json.reads[Request.Evaluation.Score]
+    implicit val usiListReads: Reads[List[Usi]] = Reads.of[String] map { str =>
       ~(Usi.readList(str).orElse(UciToUsi.readList(str)).orElse(Kyoto.readFairyUsiList(str)))
     }
 
@@ -283,7 +283,7 @@ object JsonApi {
         (__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)) and
         (__ \ "depth").readNullable[Int]
     )(Request.Evaluation.apply _)
-    implicit val EvaluationOptionReads = Reads[Option[Request.Evaluation.OrSkipped]] {
+    implicit val EvaluationOptionReads: Reads[Option[Request.Evaluation.OrSkipped]] = Reads[Option[Request.Evaluation.OrSkipped]] {
       case JsNull => JsSuccess(None)
       case obj =>
         if (~(obj boolean "skipped")) JsSuccess(Left(Request.Evaluation.Skipped).some)
@@ -298,16 +298,16 @@ object JsonApi {
   }
 
   object writers {
-    implicit val VariantWrites = Writes[Variant] { v =>
+    implicit val VariantWrites: Writes[Variant] = Writes[Variant] { v =>
       JsString(v.key)
     }
     implicit val ClockWrites: Writes[Work.Clock] = Json.writes[Work.Clock]
     implicit val GameWrites: Writes[Game]        = Json.writes[Game]
-    implicit val WorkIdWrites = Writes[Work.Id] { id =>
+    implicit val WorkIdWrites: Writes[W.Id] = Writes[Work.Id] { id =>
       JsString(id.value)
     }
 
-    implicit val WorkWrites = OWrites[Work] { work =>
+    implicit val WorkWrites: OWrites[Work] = OWrites[Work] { work =>
       (work match {
         case a: Analysis =>
           Json.obj(

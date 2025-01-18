@@ -18,7 +18,7 @@ object LightUser {
 
   private type UserID = String
 
-  implicit val lightUserWrites = OWrites[LightUser] { u =>
+  implicit val lightUserWrites: OWrites[LightUser] = OWrites[LightUser] { u =>
     writeNoId(u) + ("id" -> JsString(u.id))
   }
 

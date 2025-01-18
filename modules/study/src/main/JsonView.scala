@@ -11,6 +11,8 @@ import lila.game.Game
 import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
 import lila.user.User
+import shogi.format.Tags
+import shogi.variant.Variant
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -99,7 +101,7 @@ final class JsonView(
       .add("gamebook", c.isGamebook)
       .add("conceal", c.conceal)
 
-  implicit private[study] val memberRoleWrites = Writes[StudyMember.Role] { r =>
+  implicit private[study] val memberRoleWrites: Writes[StudyMember.Role] = Writes[StudyMember.Role] { r =>
     JsString(r.id)
   }
   implicit private[study] val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
@@ -109,7 +111,7 @@ final class JsonView(
   implicit private[study] val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
     Json toJson m.members
   }
-  implicit private[study] val gamePlayersStudyWrites = Writes[Study.GamePlayer] { player =>
+  implicit private[study] val gamePlayersStudyWrites: Writes[Study.GamePlayer] = Writes[Study.GamePlayer] { player =>
     Json
       .obj(
         "playerId" -> player.playerId
@@ -119,7 +121,7 @@ final class JsonView(
       )
   }
 
-  implicit private[study] val postGameStudyWrites = Writes[Study.PostGameStudy] { pgs =>
+  implicit private[study] val postGameStudyWrites: Writes[Study.PostGameStudy] = Writes[Study.PostGameStudy] { pgs =>
     Json
       .obj(
         "gameId" -> pgs.gameId,
@@ -135,7 +137,7 @@ final class JsonView(
       .add("withOpponent" -> pgs.withOpponent)
   }
 
-  implicit private val studyWrites = OWrites[Study] { s =>
+  implicit private val studyWrites: OWrites[Study] = OWrites[Study] { s =>
     Json
       .obj(
         "id"                 -> s.id,
@@ -161,7 +163,7 @@ object JsonView {
 
   implicit val studyIdWrites: Writes[Study.Id]     = stringIsoWriter(Study.idIso)
   implicit val studyNameWrites: Writes[Study.Name] = stringIsoWriter(Study.nameIso)
-  implicit val studyIdNameWrites = OWrites[Study.IdName] { s =>
+  implicit val studyIdNameWrites: OWrites[Study.IdName] = OWrites[Study.IdName] { s =>
     Json.obj("id" -> s._id, "name" -> s.name)
   }
   implicit val chapterIdWrites: Writes[Chapter.Id]     = stringIsoWriter(Chapter.idIso)
@@ -181,7 +183,7 @@ object JsonView {
     (v.asOpt[String] flatMap { r => shogi.Role.allByName.get(r) })
       .fold[JsResult[shogi.Role]](JsError(Nil))(JsSuccess(_))
   }
-  implicit private val pieceReader = Json.reads[Piece]
+  implicit private val pieceReader: Reads[Piece] = Json.reads[Piece]
 
   implicit private[study] val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
@@ -204,7 +206,7 @@ object JsonView {
     case Study.From.Study(id) => Json.obj("study" -> id)
     case Study.From.Unknown   => JsString("unknown")
   }
-  implicit private[study] val userSelectionWriter = Writes[Settings.UserSelection] { v =>
+  implicit private[study] val userSelectionWriter: Writes[Settings.UserSelection] = Writes[Settings.UserSelection] { v =>
     JsString(v.key)
   }
   implicit private[study] val settingsWriter: Writes[Settings] = Json.writes[Settings]
@@ -233,17 +235,17 @@ object JsonView {
       }
       .fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
   }
-  implicit private val plyWrites = Writes[Chapter.Ply] { p =>
+  implicit private val plyWrites: Writes[Chapter.Ply] = Writes[Chapter.Ply] { p =>
     JsNumber(p.value)
   }
 
-  implicit val variantWrites = OWrites[shogi.variant.Variant] { v =>
+  implicit val variantWrites: OWrites[Variant] = OWrites[shogi.variant.Variant] { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
   }
   implicit val tagWrites: Writes[shogi.format.Tag] = Writes[shogi.format.Tag] { t =>
     Json.arr(t.name.name, t.value)
   }
-  implicit val tagsWrites = Writes[shogi.format.Tags] { tags =>
+  implicit val tagsWrites: Writes[Tags] = Writes[shogi.format.Tags] { tags =>
     JsArray(tags.value map tagWrites.writes)
   }
   implicit val statusWrites: OWrites[shogi.Status] = OWrites { s =>
@@ -252,12 +254,12 @@ object JsonView {
       "name" -> s.name
     )
   }
-  implicit private val chapterEndStatusWrites = Json.writes[Chapter.EndStatus]
-  implicit private val chapterSetupWrites     = Json.writes[Chapter.Setup]
-  implicit private[study] val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
+  implicit private val chapterEndStatusWrites: OWrites[Chapter.EndStatus] = Json.writes[Chapter.EndStatus]
+  implicit private val chapterSetupWrites: OWrites[Chapter.Setup]     = Json.writes[Chapter.Setup]
+  implicit private[study] val chapterMetadataWrites: OWrites[Chapter.Metadata] = OWrites[Chapter.Metadata] { c =>
     Json.obj("id" -> c._id, "name" -> c.name, "variant" -> c.setup.variant.key)
   }
-  implicit private[study] val chapterIdNameWrites = OWrites[Chapter.IdName] { c =>
+  implicit private[study] val chapterIdNameWrites: OWrites[Chapter.IdName] = OWrites[Chapter.IdName] { c =>
     Json.obj("id" -> c.id, "name" -> c.name)
   }
 

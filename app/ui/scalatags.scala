@@ -8,6 +8,8 @@ import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
+import play.api.mvc.Call
+import scalatags.Text
 
 // collection of lila attrs
 trait ScalatagsAttrs {
@@ -114,7 +116,7 @@ trait ScalatagsTemplate
   def main  = scalatags.Text.tags2.main
 
   /* Convert play URLs to scalatags attributes with toString */
-  implicit val playCallAttr = genericAttr[play.api.mvc.Call]
+  implicit val playCallAttr: Text.GenericAttr[Call] = genericAttr[play.api.mvc.Call]
 }
 
 object ScalatagsTemplate extends ScalatagsTemplate
@@ -124,14 +126,14 @@ trait ScalatagsExtensions {
 
   implicit def stringValueFrag(sv: StringValue): Frag = new StringFrag(sv.value)
 
-  implicit val stringValueAttr = new AttrValue[StringValue] {
+  implicit val stringValueAttr: AttrValue[StringValue] = new AttrValue[StringValue] {
     def apply(t: scalatags.text.Builder, a: Attr, v: StringValue): Unit =
       t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
   }
 
-  implicit val charAttr = genericAttr[Char]
+  implicit val charAttr: Text.GenericAttr[Char] = genericAttr[Char]
 
-  implicit val optionStringAttr = new AttrValue[Option[String]] {
+  implicit val optionStringAttr: AttrValue[Option[String]] = new AttrValue[Option[String]] {
     def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit = {
       v foreach { s =>
         t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(s))
@@ -140,7 +142,7 @@ trait ScalatagsExtensions {
   }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
-  implicit val classesAttr = new AttrValue[List[(String, Boolean)]] {
+  implicit val classesAttr: AttrValue[List[(String, Boolean)]] = new AttrValue[List[(String, Boolean)]] {
     def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {
       val cls = m collect { case (s, true) => s } mkString " "
       if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))

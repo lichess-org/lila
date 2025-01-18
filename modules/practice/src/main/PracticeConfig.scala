@@ -3,6 +3,7 @@ package lila.practice
 import io.methvin.play.autoconfig._
 import lila.study.Study
 import lila.common.config._
+import play.api.ConfigLoader
 
 final class PracticeConfig(
     val sections: List[PracticeConfigSection]
@@ -14,9 +15,9 @@ final class PracticeConfig(
 object PracticeConfig {
   val empty = new PracticeConfig(Nil)
 
-  implicit private val studyLoader   = AutoConfig.loader[PracticeConfigStudy]
-  implicit private val sectionLoader = AutoConfig.loader[PracticeConfigSection]
-  implicit val loader                = AutoConfig.loader[PracticeConfig]
+  implicit private val studyLoader: ConfigLoader[PracticeConfigStudy]   = AutoConfig.loader[PracticeConfigStudy]
+  implicit private val sectionLoader: ConfigLoader[PracticeConfigSection] = AutoConfig.loader[PracticeConfigSection]
+  implicit val loader: ConfigLoader[PracticeConfig]                = AutoConfig.loader[PracticeConfig]
 }
 
 final class PracticeConfigSection(

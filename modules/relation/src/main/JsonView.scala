@@ -4,7 +4,7 @@ import play.api.libs.json._
 
 object JsonView {
 
-  implicit def relatedWrites(implicit userWrites: Writes[lila.user.User]) =
+  implicit def relatedWrites(implicit userWrites: Writes[lila.user.User]): OWrites[Related] =
     OWrites[Related] { r =>
       Json.obj(
         "user"       -> r.user,

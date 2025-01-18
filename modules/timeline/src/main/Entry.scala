@@ -86,38 +86,38 @@ object Entry {
   }
 
   object atomBsonHandlers {
-    implicit val followHandler             = Macros.handler[Follow]
-    implicit val teamJoinHandler           = Macros.handler[TeamJoin]
-    implicit val teamCreateHandler         = Macros.handler[TeamCreate]
-    implicit val forumPostHandler          = Macros.handler[ForumPost]
-    implicit val tourJoinHandler           = Macros.handler[TourJoin]
-    implicit val gameEndHandler            = Macros.handler[GameEnd]
-    implicit val simulCreateHandler        = Macros.handler[SimulCreate]
-    implicit val simulJoinHandler          = Macros.handler[SimulJoin]
-    implicit val studyCreateHandler        = Macros.handler[StudyCreate]
-    implicit val studyLikeHandler          = Macros.handler[StudyLike]
-    implicit val planStartHandler          = Macros.handler[PlanStart]
-    implicit val blogPostHandler           = Macros.handler[BlogPost]
-    implicit val streamStartHandler        = Macros.handler[StreamStart]
-    implicit val systemNotificationHandler = Macros.handler[SystemNotification]
+    implicit val followHandler: BSONDocumentHandler[Follow]             = Macros.handler[Follow]
+    implicit val teamJoinHandler: BSONDocumentHandler[TeamJoin]           = Macros.handler[TeamJoin]
+    implicit val teamCreateHandler: BSONDocumentHandler[TeamCreate]         = Macros.handler[TeamCreate]
+    implicit val forumPostHandler: BSONDocumentHandler[ForumPost]          = Macros.handler[ForumPost]
+    implicit val tourJoinHandler: BSONDocumentHandler[TourJoin]           = Macros.handler[TourJoin]
+    implicit val gameEndHandler: BSONDocumentHandler[GameEnd]            = Macros.handler[GameEnd]
+    implicit val simulCreateHandler: BSONDocumentHandler[SimulCreate]        = Macros.handler[SimulCreate]
+    implicit val simulJoinHandler: BSONDocumentHandler[SimulJoin]          = Macros.handler[SimulJoin]
+    implicit val studyCreateHandler: BSONDocumentHandler[StudyCreate]        = Macros.handler[StudyCreate]
+    implicit val studyLikeHandler: BSONDocumentHandler[StudyLike]          = Macros.handler[StudyLike]
+    implicit val planStartHandler: BSONDocumentHandler[PlanStart]          = Macros.handler[PlanStart]
+    implicit val blogPostHandler: BSONDocumentHandler[BlogPost]           = Macros.handler[BlogPost]
+    implicit val streamStartHandler: BSONDocumentHandler[StreamStart]        = Macros.handler[StreamStart]
+    implicit val systemNotificationHandler: BSONDocumentHandler[SystemNotification] = Macros.handler[SystemNotification]
   }
 
   object atomJsonWrite {
-    implicit val followWrite             = Json.writes[Follow]
-    implicit val teamJoinWrite           = Json.writes[TeamJoin]
-    implicit val teamCreateWrite         = Json.writes[TeamCreate]
-    implicit val forumPostWrite          = Json.writes[ForumPost]
-    implicit val tourJoinWrite           = Json.writes[TourJoin]
-    implicit val gameEndWrite            = Json.writes[GameEnd]
-    implicit val simulCreateWrite        = Json.writes[SimulCreate]
-    implicit val simulJoinWrite          = Json.writes[SimulJoin]
-    implicit val studyCreateWrite        = Json.writes[StudyCreate]
-    implicit val studyLikeWrite          = Json.writes[StudyLike]
-    implicit val planStartWrite          = Json.writes[PlanStart]
-    implicit val blogPostWrite           = Json.writes[BlogPost]
-    implicit val streamStartWrite        = Json.writes[StreamStart]
-    implicit val systemNotificationWrite = Json.writes[SystemNotification]
-    implicit val atomWrite = Writes[Atom] {
+    implicit val followWrite: OWrites[Follow]             = Json.writes[Follow]
+    implicit val teamJoinWrite: OWrites[TeamJoin]           = Json.writes[TeamJoin]
+    implicit val teamCreateWrite: OWrites[TeamCreate]         = Json.writes[TeamCreate]
+    implicit val forumPostWrite: OWrites[ForumPost]          = Json.writes[ForumPost]
+    implicit val tourJoinWrite: OWrites[TourJoin]           = Json.writes[TourJoin]
+    implicit val gameEndWrite: OWrites[GameEnd]            = Json.writes[GameEnd]
+    implicit val simulCreateWrite: OWrites[SimulCreate]        = Json.writes[SimulCreate]
+    implicit val simulJoinWrite: OWrites[SimulJoin]          = Json.writes[SimulJoin]
+    implicit val studyCreateWrite: OWrites[StudyCreate]        = Json.writes[StudyCreate]
+    implicit val studyLikeWrite: OWrites[StudyLike]          = Json.writes[StudyLike]
+    implicit val planStartWrite: OWrites[PlanStart]          = Json.writes[PlanStart]
+    implicit val blogPostWrite: OWrites[BlogPost]           = Json.writes[BlogPost]
+    implicit val streamStartWrite: OWrites[StreamStart]        = Json.writes[StreamStart]
+    implicit val systemNotificationWrite: OWrites[SystemNotification] = Json.writes[SystemNotification]
+    implicit val atomWrite: Writes[Atom] = Writes[Atom] {
       case d: Follow             => followWrite writes d
       case d: TeamJoin           => teamJoinWrite writes d
       case d: TeamCreate         => teamCreateWrite writes d
@@ -135,9 +135,9 @@ object Entry {
     }
   }
 
-  implicit val EntryBSONHandler = Macros.handler[Entry]
+  implicit val EntryBSONHandler: BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
-  implicit val entryWrites = OWrites[Entry] { e =>
+  implicit val entryWrites: OWrites[Entry] = OWrites[Entry] { e =>
     import atomJsonWrite._
     Json.obj(
       "type" -> e.typ,

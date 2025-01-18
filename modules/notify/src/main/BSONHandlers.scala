@@ -11,52 +11,52 @@ import reactivemongo.api.bson._
 
 private object BSONHandlers {
 
-  implicit val NotifiesHandler = stringAnyValHandler[Notifies](_.value, Notifies.apply)
+  implicit val NotifiesHandler: BSONHandler[Notifies] = stringAnyValHandler[Notifies](_.value, Notifies.apply)
 
-  implicit val MentionByHandler = stringAnyValHandler[MentionedBy](_.value, MentionedBy.apply)
-  implicit val TopicHandler     = stringAnyValHandler[Topic](_.value, Topic.apply)
-  implicit val TopicIdHandler   = stringAnyValHandler[TopicId](_.value, TopicId.apply)
-  implicit val CategoryHandler  = stringAnyValHandler[Category](_.value, Category.apply)
-  implicit val PostIdHandler    = stringAnyValHandler[PostId](_.value, PostId.apply)
+  implicit val MentionByHandler: BSONHandler[MentionedBy] = stringAnyValHandler[MentionedBy](_.value, MentionedBy.apply)
+  implicit val TopicHandler: BSONHandler[Topic]     = stringAnyValHandler[Topic](_.value, Topic.apply)
+  implicit val TopicIdHandler: BSONHandler[TopicId]   = stringAnyValHandler[TopicId](_.value, TopicId.apply)
+  implicit val CategoryHandler: BSONHandler[Category]  = stringAnyValHandler[Category](_.value, Category.apply)
+  implicit val PostIdHandler: BSONHandler[PostId]    = stringAnyValHandler[PostId](_.value, PostId.apply)
 
-  implicit val InvitedToStudyByHandler = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
-  implicit val StudyNameHandler        = stringAnyValHandler[StudyName](_.value, StudyName.apply)
-  implicit val StudyIdHandler          = stringAnyValHandler[StudyId](_.value, StudyId.apply)
-  implicit val ReadHandler = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
+  implicit val InvitedToStudyByHandler: BSONHandler[InvitedBy] = stringAnyValHandler[InvitedBy](_.value, InvitedBy.apply)
+  implicit val StudyNameHandler: BSONHandler[StudyName]        = stringAnyValHandler[StudyName](_.value, StudyName.apply)
+  implicit val StudyIdHandler: BSONHandler[StudyId]          = stringAnyValHandler[StudyId](_.value, StudyId.apply)
+  implicit val ReadHandler: BSONHandler[NotificationRead] = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 
   import PrivateMessage._
-  implicit val PMSenderIdHandler     = stringAnyValHandler[Sender](_.value, Sender.apply)
-  implicit val PMTextHandler         = stringAnyValHandler[Text](_.value, Text.apply)
-  implicit val PrivateMessageHandler = Macros.handler[PrivateMessage]
+  implicit val PMSenderIdHandler: BSONHandler[Sender]     = stringAnyValHandler[Sender](_.value, Sender.apply)
+  implicit val PMTextHandler: BSONHandler[Text]         = stringAnyValHandler[Text](_.value, Text.apply)
+  implicit val PrivateMessageHandler: BSONDocumentHandler[PrivateMessage] = Macros.handler[PrivateMessage]
 
-  implicit val TeamIdHandler     = stringAnyValHandler[TeamJoined.Id](_.value, TeamJoined.Id.apply)
-  implicit val TeamNameHandler   = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
-  implicit val TeamJoinedHandler = Macros.handler[TeamJoined]
+  implicit val TeamIdHandler: BSONHandler[TeamJoined.Id]     = stringAnyValHandler[TeamJoined.Id](_.value, TeamJoined.Id.apply)
+  implicit val TeamNameHandler: BSONHandler[TeamJoined.Name]   = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
+  implicit val TeamJoinedHandler: BSONDocumentHandler[TeamJoined] = Macros.handler[TeamJoined]
 
-  implicit val GameEndGameIdHandler = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
-  implicit val GameEndOpponentHandler =
+  implicit val GameEndGameIdHandler: BSONHandler[GameEnd.GameId] = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
+  implicit val GameEndOpponentHandler: BSONHandler[GameEnd.OpponentId] =
     stringAnyValHandler[GameEnd.OpponentId](_.value, GameEnd.OpponentId.apply)
-  implicit val GameEndWinHandler = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
-  implicit val GameEndHandler    = Macros.handler[GameEnd]
+  implicit val GameEndWinHandler: BSONHandler[GameEnd.Win] = booleanAnyValHandler[GameEnd.Win](_.value, GameEnd.Win.apply)
+  implicit val GameEndHandler: BSONDocumentHandler[GameEnd]    = Macros.handler[GameEnd]
 
-  implicit val PausedGameGameIdHandler =
+  implicit val PausedGameGameIdHandler: BSONHandler[PausedGame.GameId] =
     stringAnyValHandler[PausedGame.GameId](_.value, PausedGame.GameId.apply)
-  implicit val PausedGameOpponentHandler =
+  implicit val PausedGameOpponentHandler: BSONHandler[PausedGame.OpponentId] =
     stringAnyValHandler[PausedGame.OpponentId](_.value, PausedGame.OpponentId.apply)
-  implicit val PausedGameHandler = Macros.handler[PausedGame]
+  implicit val PausedGameHandler: BSONDocumentHandler[PausedGame] = Macros.handler[PausedGame]
 
-  implicit val TitledTournamentInvitationHandler = Macros.handler[TitledTournamentInvitation]
+  implicit val TitledTournamentInvitationHandler: BSONDocumentHandler[TitledTournamentInvitation] = Macros.handler[TitledTournamentInvitation]
 
-  implicit val PlanStartHandler  = Macros.handler[PlanStart]
-  implicit val PlanExpireHandler = Macros.handler[PlanExpire]
+  implicit val PlanStartHandler: BSONDocumentHandler[PlanStart]  = Macros.handler[PlanStart]
+  implicit val PlanExpireHandler: BSONDocumentHandler[PlanExpire] = Macros.handler[PlanExpire]
 
-  implicit val RatingRefundHandler = Macros.handler[RatingRefund]
-  implicit val CorresAlarmHandler  = Macros.handler[CorresAlarm]
-  implicit val GenericLinkHandler  = Macros.handler[GenericLink]
+  implicit val RatingRefundHandler: BSONDocumentHandler[RatingRefund] = Macros.handler[RatingRefund]
+  implicit val CorresAlarmHandler: BSONDocumentHandler[CorresAlarm]  = Macros.handler[CorresAlarm]
+  implicit val GenericLinkHandler: BSONDocumentHandler[GenericLink]  = Macros.handler[GenericLink]
 
-  implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.fromSente, _.sente)
+  implicit val ColorBSONHandler: BSONHandler[Color] = BSONBooleanHandler.as[Color](Color.fromSente, _.sente)
 
-  implicit val NotificationContentHandler = new BSON[NotificationContent] {
+  implicit val NotificationContentHandler: BSON[NotificationContent] = new BSON[NotificationContent] {
 
     private def writeNotificationContent(notificationContent: NotificationContent) = {
       notificationContent match {
@@ -122,5 +122,5 @@ private object BSONHandlers {
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)
   }
 
-  implicit val NotificationBSONHandler = Macros.handler[Notification]
+  implicit val NotificationBSONHandler: BSONDocumentHandler[Notification] = Macros.handler[Notification]
 }

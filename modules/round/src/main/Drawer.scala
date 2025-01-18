@@ -4,13 +4,14 @@ import lila.game.{ Event, Game, Pov, Progress }
 import lila.i18n.{ defaultLang, I18nKeys => trans }
 
 import lila.common.Bus
+import play.api.i18n.Lang
 
 final private[round] class Drawer(
     messenger: Messenger,
     finisher: Finisher
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val chatLang = defaultLang
+  implicit private val chatLang: Lang = defaultLang
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov.game.drawable ?? {
     pov match {

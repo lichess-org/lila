@@ -13,12 +13,12 @@ trait PackageObject extends Lilaisms {
     import akka.util.Timeout
     import scala.concurrent.duration._
 
-    implicit val short     = seconds(1)
-    implicit val large     = seconds(5)
-    implicit val larger    = seconds(30)
-    implicit val veryLarge = minutes(5)
+    implicit val short: Timeout     = seconds(1)
+    implicit val large: Timeout     = seconds(5)
+    implicit val larger: Timeout    = seconds(30)
+    implicit val veryLarge: Timeout = minutes(5)
 
-    implicit val halfSecond = millis(500)
+    implicit val halfSecond: Timeout = millis(500)
 
     def apply(duration: FiniteDuration) = Timeout(duration)
     def millis(s: Int): Timeout         = Timeout(s.millis)

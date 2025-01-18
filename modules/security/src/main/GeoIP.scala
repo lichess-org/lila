@@ -6,6 +6,7 @@ import io.methvin.play.autoconfig._
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
+import play.api.ConfigLoader
 
 final class GeoIP(config: GeoIP.Config) {
 
@@ -38,7 +39,7 @@ object GeoIP {
       file: String,
       @ConfigName("cache_ttl") cacheTtl: FiniteDuration
   )
-  implicit val configLoader = AutoConfig.loader[Config]
+  implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }
 
 case class Location(

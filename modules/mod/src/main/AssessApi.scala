@@ -37,7 +37,7 @@ final class AssessApi(
 
   import PlayerFlags.playerFlagsBSONHandler
 
-  implicit private val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
+  implicit private val playerAssessmentBSONhandler: BSONDocumentHandler[PlayerAssessment] = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void

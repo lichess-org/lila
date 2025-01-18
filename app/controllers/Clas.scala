@@ -233,8 +233,8 @@ final class Clas(
                 BadRequest(html.clas.clas.edit(clas, students, err))
               },
             data =>
-              env.clas.api.clas.update(clas, data) map { clas =>
-                Redirect(routes.Clas.show(clas.id.value)).flashSuccess
+              env.clas.api.clas.update(clas, data) map { c =>
+                Redirect(routes.Clas.show(c.id.value)).flashSuccess
               }
           )
       }

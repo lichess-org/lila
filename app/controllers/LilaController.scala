@@ -18,6 +18,9 @@ import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ FingerPrintedUser, Granter, Permission }
 import lila.user.{ User => UserModel, UserContext }
+import lila.app.ui.EmbedConfig
+import akka.actor.Scheduler
+import scala.concurrent.ExecutionContext
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -26,10 +29,10 @@ abstract private[controllers] class LilaController(val env: Env)
     with ResponseWriter {
 
   def controllerComponents      = env.controllerComponents
-  implicit def executionContext = env.executionContext
-  implicit def scheduler        = env.scheduler
+  implicit def executionContext: ExecutionContext = env.executionContext
+  implicit def scheduler: Scheduler        = env.scheduler
 
-  implicit protected val LilaResultZero = Zero.instance[Result](Results.NotFound)
+  implicit protected val LilaResultZero: Zero[Result] = Zero.instance[Result](Results.NotFound)
 
   implicit final protected class LilaPimpedResult(result: Result) {
     def fuccess                           = scala.concurrent.Future successful result
@@ -71,9 +74,9 @@ abstract private[controllers] class LilaController(val env: Env)
       json = fuccess(jsonOkResult)
     )
 
-  implicit def ctxLang(implicit ctx: Context)         = ctx.lang
-  implicit def ctxReq(implicit ctx: Context)          = ctx.req
-  implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
+  implicit def ctxLang(implicit ctx: Context): Lang         = ctx.lang
+  implicit def ctxReq(implicit ctx: Context): RequestHeader          = ctx.req
+  implicit def reqConfig(implicit req: RequestHeader): EmbedConfig = ui.EmbedConfig(req)
   def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
@@ -357,7 +360,7 @@ abstract private[controllers] class LilaController(val env: Env)
     form
       .bindFromRequest()
       .fold(
-        form => fuccess(BadRequest(form.errors mkString "\n")),
+        f => fuccess(BadRequest(f.errors mkString "\n")),
         op
       )
 
@@ -367,7 +370,7 @@ abstract private[controllers] class LilaController(val env: Env)
     form
       .bindFromRequest()
       .fold(
-        form => err(form) dmap { BadRequest(_) },
+        f => err(f) dmap { BadRequest(_) },
         data => op(data)
       )
 

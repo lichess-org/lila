@@ -1,6 +1,7 @@
 package lila.evaluation
 
 import shogi.Color
+import reactivemongo.api.bson.BSONHandler
 
 case class PlayerAssessments(
     sente: Option[PlayerAssessment],
@@ -53,6 +54,6 @@ object GameAssessment {
   }.toMap
   def orDefault(id: Int) = byId.getOrElse(id, NotCheating)
 
-  implicit val GameAssessmentBSONHandler =
+  implicit val GameAssessmentBSONHandler: BSONHandler[GameAssessment] =
     reactivemongo.api.bson.BSONIntegerHandler.as[GameAssessment](orDefault, _.id)
 }

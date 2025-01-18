@@ -15,7 +15,7 @@ final class ShutupApi(
     reporter: lila.hub.actors.Report
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val UserRecordBSONHandler = Macros.handler[UserRecord]
+  implicit private val UserRecordBSONHandler: BSONDocumentHandler[UserRecord] = Macros.handler[UserRecord]
   import PublicLine.PublicLineBSONHandler
 
   def getPublicLines(userId: User.ID): Fu[List[PublicLine]] =

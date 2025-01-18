@@ -9,7 +9,7 @@ object Socket extends Socket {
   case class Sri(value: String) extends AnyVal with StringValue
 
   val sriIso             = lila.common.Iso.string[Sri](Sri.apply, _.value)
-  implicit val sriFormat = lila.common.Json.stringIsoFormat(sriIso)
+  implicit val sriFormat: Format[Sri] = lila.common.Json.stringIsoFormat(sriIso)
 
   case class Sris(sris: Set[Sri])
 
@@ -19,8 +19,8 @@ object Socket extends Socket {
   }
 
   val socketVersionIso             = lila.common.Iso.int[SocketVersion](SocketVersion.apply, _.value)
-  implicit val socketVersionFormat = lila.common.Json.intIsoFormat(socketVersionIso)
-  implicit val socketVersionZero   = Zero.instance[SocketVersion](SocketVersion(0))
+  implicit val socketVersionFormat: Format[SocketVersion] = lila.common.Json.intIsoFormat(socketVersionIso)
+  implicit val socketVersionZero: Zero[SocketVersion]   = Zero.instance[SocketVersion](SocketVersion(0))
 
   case class GetVersion(promise: Promise[SocketVersion])
 

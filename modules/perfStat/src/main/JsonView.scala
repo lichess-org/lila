@@ -22,15 +22,15 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     )
   }
 
-  implicit val ratingAtWrites                      = Json.writes[RatingAt]
-  implicit val resultWrites                        = Json.writes[Result]
-  implicit val resultsWrites                       = Json.writes[Results]
-  implicit val streakWrites                        = Json.writes[Streak]
-  implicit val streaksWrites                       = Json.writes[Streaks]
-  implicit val playStreakWrites                    = Json.writes[PlayStreak]
-  implicit val resultStreakWrites                  = Json.writes[ResultStreak]
-  implicit val countWrites                         = Json.writes[Count]
-  implicit def perfStatWrites(implicit lang: Lang) = Json.writes[PerfStat]
+  implicit val ratingAtWrites: OWrites[RatingAt]                      = Json.writes[RatingAt]
+  implicit val resultWrites: OWrites[Result]                        = Json.writes[Result]
+  implicit val resultsWrites: OWrites[Results]                       = Json.writes[Results]
+  implicit val streakWrites: OWrites[Streak]                        = Json.writes[Streak]
+  implicit val streaksWrites: OWrites[Streaks]                       = Json.writes[Streaks]
+  implicit val playStreakWrites: OWrites[PlayStreak]                    = Json.writes[PlayStreak]
+  implicit val resultStreakWrites: OWrites[ResultStreak]                  = Json.writes[ResultStreak]
+  implicit val countWrites: OWrites[Count]                         = Json.writes[Count]
+  implicit def perfStatWrites(implicit lang: Lang): OWrites[PerfStat] = Json.writes[PerfStat]
 
   def apply(
       user: User,

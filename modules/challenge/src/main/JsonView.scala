@@ -15,7 +15,7 @@ final class JsonView(
   import lila.game.JsonView._
   import Challenge._
 
-  implicit private val RegisteredWrites = OWrites[Challenger.Registered] { r =>
+  implicit private val RegisteredWrites: OWrites[Challenger.Registered] = OWrites[Challenger.Registered] { r =>
     val light = getLightUser(r.id)
     Json
       .obj(

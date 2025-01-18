@@ -12,7 +12,7 @@ private object BSONHandlers {
 
   import Challenge._
 
-  implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice](
+  implicit val ColorChoiceBSONHandler: BSONHandler[ColorChoice] = BSONIntegerHandler.as[ColorChoice](
     {
       case 1 => ColorChoice.Sente
       case 2 => ColorChoice.Gote
@@ -24,7 +24,7 @@ private object BSONHandlers {
       case ColorChoice.Random => 0
     }
   )
-  implicit val TimeControlBSONHandler = new BSON[TimeControl] {
+  implicit val TimeControlBSONHandler: BSON[TimeControl] = new BSON[TimeControl] {
     import cats.implicits._
     def reads(r: Reader) =
       (r.intO("l"), r.intO("i"), Some(r.intD("b")), Some(r.intD("p"))) mapN { (limit, inc, byo, per) =>
@@ -41,16 +41,16 @@ private object BSONHandlers {
         case TimeControl.Unlimited                             => $empty
       }
   }
-  implicit val VariantBSONHandler = tryHandler[Variant](
+  implicit val VariantBSONHandler: BSONHandler[Variant] = tryHandler[Variant](
     { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
     x => BSONInteger(x.id)
   )
-  implicit val StatusBSONHandler = tryHandler[Status](
+  implicit val StatusBSONHandler: BSONHandler[Status] = tryHandler[Status](
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
   )
-  implicit val ModeBSONHandler = BSONBooleanHandler.as[Mode](Mode.apply, _.rated)
-  implicit val RatingBSONHandler = new BSON[Rating] {
+  implicit val ModeBSONHandler: BSONHandler[Mode] = BSONBooleanHandler.as[Mode](Mode.apply, _.rated)
+  implicit val RatingBSONHandler: BSON[Rating] = new BSON[Rating] {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
     def writes(w: Writer, r: Rating) =
       $doc(
@@ -58,7 +58,7 @@ private object BSONHandlers {
         "p" -> w.boolO(r.provisional)
       )
   }
-  implicit val RegisteredBSONHandler = new BSON[Challenger.Registered] {
+  implicit val RegisteredBSONHandler: BSON[Challenger.Registered] = new BSON[Challenger.Registered] {
     def reads(r: Reader) = Challenger.Registered(r.str("id"), r.get[Rating]("r"))
     def writes(w: Writer, r: Challenger.Registered) =
       $doc(
@@ -66,14 +66,14 @@ private object BSONHandlers {
         "r"  -> r.rating
       )
   }
-  implicit val AnonymousBSONHandler = new BSON[Challenger.Anonymous] {
+  implicit val AnonymousBSONHandler: BSON[Challenger.Anonymous] = new BSON[Challenger.Anonymous] {
     def reads(r: Reader) = Challenger.Anonymous(r.str("s"))
     def writes(w: Writer, a: Challenger.Anonymous) =
       $doc(
         "s" -> a.secret
       )
   }
-  implicit val ChallengerBSONHandler = new BSON[Challenger] {
+  implicit val ChallengerBSONHandler: BSON[Challenger] = new BSON[Challenger] {
     def reads(r: Reader) =
       if (r contains "id") RegisteredBSONHandler reads r
       else if (r contains "s") AnonymousBSONHandler reads r
@@ -86,5 +86,5 @@ private object BSONHandlers {
       }
   }
 
-  implicit val ChallengeBSONHandler = Macros.handler[Challenge]
+  implicit val ChallengeBSONHandler: BSONDocumentHandler[Challenge] = Macros.handler[Challenge]
 }

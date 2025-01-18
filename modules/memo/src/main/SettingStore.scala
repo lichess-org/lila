@@ -6,6 +6,7 @@ import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl._
 import play.api.data._, Forms._
+import lila.common
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
@@ -59,42 +60,42 @@ object SettingStore {
   final class StringReader[A](val read: String => Option[A])
 
   object StringReader {
-    implicit val booleanReader = new StringReader[Boolean](v =>
+    implicit val booleanReader: StringReader[Boolean] = new StringReader[Boolean](v =>
       v match {
         case "on" | "yes" | "true" | "1"  => true.some
         case "off" | "no" | "false" | "0" => false.some
         case _                            => none
       }
     )
-    implicit val intReader                          = new StringReader[Int](_.toIntOption)
-    implicit val stringReader                       = new StringReader[String](some)
+    implicit val intReader: StringReader[Int]                          = new StringReader[Int](_.toIntOption)
+    implicit val stringReader: StringReader[String]                       = new StringReader[String](some)
     def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
   }
 
   object Strings {
     val stringsIso                  = lila.common.Iso.strings(",")
-    implicit val stringsBsonHandler = lila.db.dsl.isoHandler(stringsIso)
-    implicit val stringsReader      = StringReader.fromIso(stringsIso)
+    implicit val stringsBsonHandler: BSONHandler[common.Strings] = lila.db.dsl.isoHandler(stringsIso)
+    implicit val stringsReader: StringReader[common.Strings]      = StringReader.fromIso(stringsIso)
   }
   object Regex {
     val regexIso                  = lila.common.Iso.string[Regex](_.r, _.toString)
-    implicit val regexBsonHandler = lila.db.dsl.isoHandler(regexIso)
-    implicit val regexReader      = StringReader.fromIso(regexIso)
+    implicit val regexBsonHandler: BSONHandler[Regex] = lila.db.dsl.isoHandler(regexIso)
+    implicit val regexReader: StringReader[Regex]      = StringReader.fromIso(regexIso)
   }
 
   final class Formable[A](val form: A => Form[_])
   object Formable {
-    implicit val regexFormable = new Formable[Regex](v =>
+    implicit val regexFormable: Formable[Regex] = new Formable[Regex](v =>
       Form(
         single(
           "v" -> text.verifying(t => Try(t.r).isSuccess)
         )
       ) fill v.toString
     )
-    implicit val booleanFormable = new Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
-    implicit val intFormable     = new Formable[Int](v => Form(single("v" -> number)) fill v)
-    implicit val stringFormable  = new Formable[String](v => Form(single("v" -> text)) fill v)
-    implicit val stringsFormable = new Formable[lila.common.Strings](v =>
+    implicit val booleanFormable: Formable[Boolean] = new Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
+    implicit val intFormable: Formable[Int]     = new Formable[Int](v => Form(single("v" -> number)) fill v)
+    implicit val stringFormable: Formable[String]  = new Formable[String](v => Form(single("v" -> text)) fill v)
+    implicit val stringsFormable: Formable[common.Strings] = new Formable[lila.common.Strings](v =>
       Form(single("v" -> text)) fill Strings.stringsIso.to(v)
     )
   }

@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson.{ BSONDocument, Macros }
 
 import lila.db.BSON
+import reactivemongo.api.bson.BSONDocumentHandler
 
 case class Perf(
     glicko: Glicko,
@@ -124,7 +125,7 @@ case object Perf {
     val default = Storm(0, 0)
   }
 
-  implicit val perfBSONHandler = new BSON[Perf] {
+  implicit val perfBSONHandler: BSON[Perf] = new BSON[Perf] {
 
     import Glicko.glickoBSONHandler
 
@@ -147,6 +148,6 @@ case object Perf {
       )
   }
 
-  implicit val stormBSONHandler    = Macros.handler[Storm]
-  implicit val aiLevelsBSONHandler = Macros.handler[AiLevels]
+  implicit val stormBSONHandler: BSONDocumentHandler[Storm]    = Macros.handler[Storm]
+  implicit val aiLevelsBSONHandler: BSONDocumentHandler[AiLevels] = Macros.handler[AiLevels]
 }

@@ -80,9 +80,9 @@ object CacheApi {
 
   def scaffeineNoScheduler: Builder = Scaffeine()
 
-  implicit def beafedAsync[K, V](cache: AsyncCache[K, V])     = new BeafedAsync[K, V](cache)
-  implicit def beafedAsyncUnit[V](cache: AsyncCache[Unit, V]) = new BeafedAsyncUnit[V](cache)
-  implicit def beafedAsyncLoadingUnit[V](cache: AsyncLoadingCache[Unit, V]) =
+  implicit def beafedAsync[K, V](cache: AsyncCache[K, V]): BeafedAsync[K,V]     = new BeafedAsync[K, V](cache)
+  implicit def beafedAsyncUnit[V](cache: AsyncCache[Unit, V]): BeafedAsyncUnit[V] = new BeafedAsyncUnit[V](cache)
+  implicit def beafedAsyncLoadingUnit[V](cache: AsyncLoadingCache[Unit, V]): BeafedAsyncLoadingUnit[V] =
     new BeafedAsyncLoadingUnit[V](cache)
 
   private[memo] def startMonitor(

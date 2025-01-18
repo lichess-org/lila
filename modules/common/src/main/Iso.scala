@@ -38,17 +38,17 @@ object Iso {
 
   implicit val stringIsoIdentity: Iso[String, String] = isoIdentity[String]
 
-  implicit val ipAddressIso = string[IpAddress](IpAddress.apply, _.value)
+  implicit val ipAddressIso: StringIso[IpAddress] = string[IpAddress](IpAddress.apply, _.value)
 
-  implicit val emailAddressIso = string[EmailAddress](EmailAddress.apply, _.value)
+  implicit val emailAddressIso: StringIso[EmailAddress] = string[EmailAddress](EmailAddress.apply, _.value)
 
-  implicit val normalizedEmailAddressIso =
+  implicit val normalizedEmailAddressIso: StringIso[NormalizedEmailAddress] =
     string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)
 
-  implicit val centisIso = int[Centis](Centis.apply, _.centis)
+  implicit val centisIso: IntIso[Centis] = int[Centis](Centis.apply, _.centis)
 
-  implicit val langIso = string[Lang](Lang.apply, _.toString)
+  implicit val langIso: StringIso[Lang] = string[Lang](Lang.apply, _.toString)
 
-  implicit val sfenIso = string[Sfen](Sfen.apply, _.value)
+  implicit val sfenIso: StringIso[Sfen] = string[Sfen](Sfen.apply, _.value)
 
 }

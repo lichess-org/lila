@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 
 import lila.user.User
 import lila.study.{ Chapter, Study }
+import lila.common.Iso
 
 case class PracticeProgress(
     _id: PracticeProgress.Id,
@@ -43,7 +44,7 @@ object PracticeProgress {
   case class Id(value: String) extends AnyVal
 
   case class NbMoves(value: Int) extends AnyVal
-  implicit val nbMovesIso = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
+  implicit val nbMovesIso: Iso.IntIso[NbMoves] = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
 
   case class OnComplete(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id)
 

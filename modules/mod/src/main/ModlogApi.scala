@@ -4,6 +4,7 @@ import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.User
+import reactivemongo.api.bson.BSONDocumentHandler
 
 final class ModlogApi(repo: ModlogRepo)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -11,7 +12,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit
 
   private def coll = repo.coll
 
-  implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
+  implicit private val ModlogBSONHandler: BSONDocumentHandler[Modlog] = reactivemongo.api.bson.Macros.handler[Modlog]
 
   def streamerDecline(mod: Mod, streamerId: User.ID) =
     add {

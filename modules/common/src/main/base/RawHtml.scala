@@ -6,7 +6,7 @@ import scala.annotation.{ switch, tailrec }
 
 import lila.common.base.StringUtils.escapeHtmlRaw
 
-final object RawHtml {
+object RawHtml {
   def nl2br(s: String): String = {
     val sb      = new jStringBuilder(s.length)
     var counter = 0

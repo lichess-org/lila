@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContextExecutor
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -17,7 +18,7 @@ final private class StartedOrganizer(
     scheduleNext()
   }
 
-  implicit def ec = context.dispatcher
+  implicit def ec: ExecutionContextExecutor = context.dispatcher
 
   case object Tick
 

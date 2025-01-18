@@ -15,6 +15,7 @@ import lila.hub.LightTeam
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
+import play.api.libs.json.Reads
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -207,7 +208,7 @@ final class TeamApi(
       Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
 
   private case class TagifyUser(value: String)
-  implicit private val TagifyUserReads = Json.reads[TagifyUser]
+  implicit private val TagifyUserReads: Reads[TagifyUser] = Json.reads[TagifyUser]
 
   def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
     val leaders: Set[User.ID] = Try {

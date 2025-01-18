@@ -14,17 +14,17 @@ import lila.user.User.lishogiId
 
 object BSONHandlers {
 
-  implicit private[tournament] val formatBSONHandler = tryHandler[Format](
+  implicit private[tournament] val formatBSONHandler: BSONHandler[Format] = tryHandler[Format](
     { case BSONString(v) => Format.byKey(v) toTry s"No such format: $v" },
     x => BSONString(x.key)
   )
 
-  implicit private[tournament] val statusBSONHandler = tryHandler[Status](
+  implicit private[tournament] val statusBSONHandler: BSONHandler[Status] = tryHandler[Status](
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
   )
 
-  implicit private[tournament] val pointsBSONHandler = {
+  implicit private[tournament] val pointsBSONHandler: BSONHandler[Arrangement.Points] = {
     val intReader = collectionReader[List, Int]
     tryHandler[Arrangement.Points](
       { case arr: BSONArray =>
@@ -36,17 +36,17 @@ object BSONHandlers {
     )
   }
 
-  implicit private[tournament] val scheduleFreqHandler = tryHandler[Schedule.Freq](
+  implicit private[tournament] val scheduleFreqHandler: BSONHandler[Schedule.Freq] = tryHandler[Schedule.Freq](
     { case BSONString(v) => Schedule.Freq(v) toTry s"No such freq: $v" },
     x => BSONString(x.name)
   )
 
-  implicit private[tournament] val scheduleSpeedHandler = tryHandler[Schedule.Speed](
+  implicit private[tournament] val scheduleSpeedHandler: BSONHandler[Schedule.Speed] = tryHandler[Schedule.Speed](
     { case BSONString(v) => Schedule.Speed(v) toTry s"No such speed: $v" },
     x => BSONString(x.key)
   )
 
-  implicit val timeControlBSONHandler = tryHandler[TimeControl](
+  implicit val timeControlBSONHandler: BSONHandler[TimeControl] = tryHandler[TimeControl](
     { case doc: BSONDocument =>
       doc.getAsOpt[Int]("days") match {
         case Some(d) =>
@@ -73,11 +73,11 @@ object BSONHandlers {
     }
   )
 
-  implicit private val spotlightBSONHandler = Macros.handler[Spotlight]
+  implicit private val spotlightBSONHandler: BSONDocumentHandler[Spotlight] = Macros.handler[Spotlight]
 
-  implicit val battleBSONHandler = Macros.handler[TeamBattle]
+  implicit val battleBSONHandler: BSONDocumentHandler[TeamBattle] = Macros.handler[TeamBattle]
 
-  implicit private val leaderboardRatio =
+  implicit private val leaderboardRatio: BSONHandler[LeaderboardApi.Ratio] =
     BSONIntegerHandler.as[LeaderboardApi.Ratio](
       i => LeaderboardApi.Ratio(i.toDouble / 100_000),
       r => (r.value * 100_000).toInt
@@ -85,7 +85,7 @@ object BSONHandlers {
 
   import Condition.BSONHandlers.AllBSONHandler
 
-  implicit val tournamentHandler = new BSON[Tournament] {
+  implicit val tournamentHandler: BSON[Tournament] = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val format                 = r.getO[Format]("format").getOrElse(Format.Arena)
       val variant                = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
@@ -166,7 +166,7 @@ object BSONHandlers {
       )
   }
 
-  implicit val playerBSONHandler = new BSON[Player] {
+  implicit val playerBSONHandler: BSON[Player] = new BSON[Player] {
     def reads(r: BSON.Reader) =
       Player(
         _id = r str "_id",
@@ -200,7 +200,7 @@ object BSONHandlers {
       )
   }
 
-  implicit val pairingHandler = new BSON[Pairing] {
+  implicit val pairingHandler: BSON[Pairing] = new BSON[Pairing] {
     def reads(r: BSON.Reader) = {
       val users = r strsD "u"
       val user1 = users.headOption err "tournament pairing first user"
@@ -233,7 +233,7 @@ object BSONHandlers {
       )
   }
 
-  implicit val arrangementHandler = new BSON[Arrangement] {
+  implicit val arrangementHandler: BSON[Arrangement] = new BSON[Arrangement] {
     def reads(r: BSON.Reader) = {
       val users   = r strsD "u"
       val user1Id = users.headOption err "tournament arrangement first user"
@@ -291,7 +291,7 @@ object BSONHandlers {
       )
   }
 
-  implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {
+  implicit val leaderboardEntryHandler: BSON[LeaderboardApi.Entry] = new BSON[LeaderboardApi.Entry] {
     def reads(r: BSON.Reader) =
       LeaderboardApi.Entry(
         id = r str "_id",
@@ -324,5 +324,5 @@ object BSONHandlers {
   }
 
   import LeaderboardApi.ChartData.AggregationResult
-  implicit val leaderboardAggregationResultBSONHandler = Macros.handler[AggregationResult]
+  implicit val leaderboardAggregationResultBSONHandler: BSONDocumentHandler[AggregationResult] = Macros.handler[AggregationResult]
 }

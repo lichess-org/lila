@@ -25,12 +25,12 @@ object ByteArray {
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(hex str2Hex hexStr))
 
-  implicit val ByteArrayBSONHandler = dsl.quickHandler[ByteArray](
+  implicit val ByteArrayBSONHandler: BSONHandler[ByteArray] = dsl.quickHandler[ByteArray](
     { case v: BSONBinary => ByteArray(v.byteArray) },
     v => BSONBinary(v.value, subtype)
   )
 
-  implicit def fromBytes(value: Array[Byte]) = new ByteArray(value)
+  implicit def fromBytes(value: Array[Byte]): ByteArray = new ByteArray(value)
 
   def parseBytes(s: List[String]) = ByteArray(s.map(parseByte).toArray)
 

@@ -10,6 +10,7 @@ import scala.util.chaining._
 import lila.common.Bus
 import lila.common.config.Secret
 import lila.user.User
+import scala.concurrent.ExecutionContextExecutor
 
 final private class Streaming(
     ws: WSClient,
@@ -29,7 +30,7 @@ final private class Streaming(
 
   private var liveStreams = LiveStreams(Nil)
 
-  implicit def ec = context.dispatcher
+  implicit def ec: ExecutionContextExecutor = context.dispatcher
 
   def receive = {
 

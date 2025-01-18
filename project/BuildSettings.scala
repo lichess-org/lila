@@ -29,6 +29,7 @@ object BuildSettings {
   def defaultLibs: Seq[ModuleID] =
     akka.bundle ++ Seq(
       play.api,
+      cats,
       scalalib,
       shogi,
       jodaTime,
@@ -54,19 +55,16 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
-    "-encoding",
-    "utf-8",
+    "-encoding", "utf-8",
     "-explaintypes",
     "-feature",
     "-language:higherKinds",
     "-language:implicitConversions",
     "-language:postfixOps",
     "-Ymacro-annotations",
-    // Warnings as errors!
-    "-Xfatal-warnings",
-    // Linting options
     "-unchecked",
     "-Xcheckinit",
+    // Linting options
     "-Xlint:adapted-args",
     "-Xlint:constant",
     "-Xlint:delayedinit-select",
@@ -81,18 +79,18 @@ object BuildSettings {
     "-Xlint:private-shadow",
     "-Xlint:stars-align",
     "-Xlint:type-parameter-shadow",
-    "-Wconf:cat=other-implicit-type:s",
+    // Warning options
     "-Wdead-code",
     "-Wextra-implicit",
-    // "-Wnumeric-widen",
     "-Wunused:imports",
-    "-Wunused:locals",
     "-Wunused:patvars",
     "-Wunused:privates",
-    "-Wunused:implicits",
+    "-Wunused:locals",
     "-Wunused:explicits",
+    "-Wunused:implicits",
     "-Wmacros:after",
-    "-Wvalue-discard"
+    "-Wvalue-discard",
+    "-Werror"
   )
 
   val srcMain = Seq(

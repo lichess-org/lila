@@ -166,7 +166,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedSpeedChoices(implicit lang: Lang) =
     Speed.limited map { s =>
-      val minutes = s.range.max / 60 + 1
+      val minutes = ~s.range.maxOption.map(m => m / 60 + 1)
       (
         s.id.toString,
         s.toString + " - " + trans.lessThanNbMinutes.pluralSameTxt(minutes),

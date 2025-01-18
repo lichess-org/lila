@@ -88,17 +88,17 @@ object perfStat {
           )("(", provisional(), ")")
         ),
         ". ",
-        percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
+        percentile.filter(p => math.abs(p) > 1e-9 && !perf.glicko.provisional).map { filteredPercentile =>
           span(cls := "details")(
             if (ctx is u) {
               trans.youAreBetterThanPercentOfPerfTypePlayers(
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(filteredPercentile, "%")),
                 a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
               )
             } else {
               trans.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(filteredPercentile, "%")),
                 a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
               )
             }

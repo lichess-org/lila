@@ -21,7 +21,7 @@ final class MongoCache[K, V: BSONHandler] private (
 
   private case class Entry(_id: String, v: V, e: DateTime)
 
-  implicit private val entryBSONHandler = Macros.handler[Entry]
+  implicit private val entryBSONHandler: BSONDocumentHandler[Entry] = Macros.handler[Entry]
 
   private val cache = build { loader => k =>
     val dbKey = makeDbKey(k)

@@ -7,7 +7,7 @@ import lila.db.dsl._
 
 private object PrefHandlers {
 
-  implicit val customThemeBSONHandler = new BSON[CustomTheme] {
+  implicit val customThemeBSONHandler: BSON[CustomTheme] = new BSON[CustomTheme] {
 
     def reads(r: BSON.Reader): CustomTheme =
       CustomTheme(
@@ -30,7 +30,7 @@ private object PrefHandlers {
       )
   }
 
-  implicit val prefBSONHandler = new BSON[Pref] {
+  implicit val prefBSONHandler: BSON[Pref] = new BSON[Pref] {
 
     def reads(r: BSON.Reader): Pref =
       Pref(

@@ -412,8 +412,8 @@ final class Mod(
                   lila.mon.user.register.modConfirmEmail.increment()
                   modApi.setEmail(me.id, user.id, setEmail)
                 } >>
-                  env.user.repo.email(user.id) map { email =>
-                    Ok(html.mod.emailConfirm("", user.some, email)).some
+                  env.user.repo.email(user.id) map { userEmail =>
+                    Ok(html.mod.emailConfirm("", user.some, userEmail)).some
                   }
               case _ => fuccess(none)
             }

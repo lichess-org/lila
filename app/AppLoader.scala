@@ -10,6 +10,9 @@ import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
 import router.Routes
+import akka.actor.ActorSystem
+import play.api.http.FileMimeTypes
+import play.api.libs.ws.WSClient
 
 final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
@@ -70,11 +73,11 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
       controllerComponents
     )
 
-  implicit def system = actorSystem
-  implicit def ws     = wsClient
+  implicit def system: ActorSystem = actorSystem
+  implicit def ws: WSClient     = wsClient
 
   // dev assets
-  implicit def mimeTypes       = fileMimeTypes
+  implicit def mimeTypes: FileMimeTypes       = fileMimeTypes
   lazy val devAssetsController = wire[ExternalAssets]
 
   lazy val shutdown = CoordinatedShutdown(system)

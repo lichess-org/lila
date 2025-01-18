@@ -8,13 +8,14 @@ import org.joda.time.format.DateTimeFormat
 import lila.game.{ Event, Game, GameRepo, Pov, Progress }
 import lila.memo.CacheApi
 import lila.i18n.{ defaultLang, I18nKeys => trans }
+import play.api.i18n.Lang
 
 final private[round] class Pauser(
     messenger: Messenger,
     gameRepo: GameRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val chatLang = defaultLang
+  implicit private val chatLang: Lang = defaultLang
 
   private val rateLimit = new lila.memo.RateLimit[String](
     credits = 2,

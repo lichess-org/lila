@@ -7,6 +7,7 @@ import io.methvin.play.autoconfig._
 import scala.math.Ordering.Float.TotalOrdering
 
 import lila.common.config.Secret
+import play.api.ConfigLoader
 
 // http://detectlanguage.com
 final class DetectLanguage(
@@ -16,7 +17,7 @@ final class DetectLanguage(
 
   import DetectLanguage.Detection
 
-  implicit private val DetectionReads = Json.reads[Detection]
+  implicit private val DetectionReads: Reads[Detection] = Json.reads[Detection]
 
   private val messageMaxLength = 2000
 
@@ -51,7 +52,7 @@ final class DetectLanguage(
 object DetectLanguage {
 
   final class Config(val url: String, val key: Secret)
-  implicit val configLoader = AutoConfig.loader[Config]
+  implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 
   final private case class Detection(
       language: String,

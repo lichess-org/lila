@@ -48,12 +48,12 @@ object Line {
 
   private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
-  implicit private[chat] val userLineBSONHandler = BSONStringHandler.as[UserLine](
+  implicit private[chat] val userLineBSONHandler: BSONHandler[UserLine] = BSONStringHandler.as[UserLine](
     v => strToUserLine(v) getOrElse invalidLine,
     userLineToStr
   )
 
-  implicit private[chat] val lineBSONHandler = BSONStringHandler.as[Line](
+  implicit private[chat] val lineBSONHandler: BSONHandler[Line] = BSONStringHandler.as[Line](
     v => strToLine(v) getOrElse invalidLine,
     lineToStr
   )

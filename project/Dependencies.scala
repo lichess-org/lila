@@ -13,6 +13,7 @@ object Dependencies {
   }
 
   val shogi       = "io.github.WandererXII" %% "scalashogi"                     % "12.1.1"
+  val cats        = "org.typelevel"         %% "cats-core"                      % "2.12.0"
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.2"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.13.0"

@@ -17,7 +17,7 @@ final class JsonView(
     JsString(c.name)
   }
 
-  implicit private val simulTeamWriter = Json.writes[SimulTeam]
+  implicit private val simulTeamWriter: OWrites[SimulTeam] = Json.writes[SimulTeam]
 
   private def fetchGames(simul: Simul) =
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds

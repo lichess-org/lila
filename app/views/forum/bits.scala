@@ -23,15 +23,15 @@ object bits {
     pager.hasToPaginate option {
       def url(page: Int) = s"$route?page=$page"
       st.nav(cls := "pagination")(
-        if (pager.hasPreviousPage) a(href := url(pager.previousPage.get), dataIcon := "I")
-        else span(cls                     := "disabled", dataIcon                  := "I"),
+        pager.previousPage.fold(span(cls := "disabled", dataIcon := "I")) { prev => a(href := url(prev), dataIcon := "I") },
         pager.sliding(3, showPost = showPost).map {
           case None                              => raw(" &hellip; ")
           case Some(p) if p == pager.currentPage => span(cls := "current")(p)
           case Some(p)                           => a(href := url(p))(p)
         },
-        if (pager.hasNextPage) a(rel := "next", href         := url(pager.nextPage.get), dataIcon := "H")
-        else span(cls                := "disabled", dataIcon := "H")
+        pager.nextPage.fold(span(cls := "disabled", dataIcon := "H")) { next =>
+          a(rel := "next", href := url(next), dataIcon := "H")
+        }
       )
     }
   private[forum] val dataTopic = attr("data-topic")

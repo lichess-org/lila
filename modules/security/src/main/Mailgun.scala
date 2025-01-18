@@ -11,6 +11,7 @@ import lila.common.config.Secret
 import lila.common.EmailAddress
 import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
+import play.api.ConfigLoader
 
 final class Mailgun(
     ws: WSClient,
@@ -69,7 +70,7 @@ object Mailgun {
       sender: String,
       @ConfigName("reply_to") replyTo: String
   )
-  implicit val configLoader = AutoConfig.loader[Config]
+  implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 
   case class Message(
       to: EmailAddress,

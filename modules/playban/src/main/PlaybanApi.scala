@@ -22,13 +22,13 @@ final class PlaybanApi(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import reactivemongo.api.bson.Macros
-  implicit private val OutcomeBSONHandler = tryHandler[Outcome](
+  implicit private val OutcomeBSONHandler: BSONHandler[Outcome] = tryHandler[Outcome](
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
     x => BSONInteger(x.id)
   )
-  implicit private val RageSitBSONHandler    = intIsoHandler(Iso.int[RageSit](RageSit.apply, _.counter))
-  implicit private val BanBSONHandler        = Macros.handler[TempBan]
-  implicit private val UserRecordBSONHandler = Macros.handler[UserRecord]
+  implicit private val RageSitBSONHandler: BSONHandler[RageSit]    = intIsoHandler(Iso.int[RageSit](RageSit.apply, _.counter))
+  implicit private val BanBSONHandler: BSONDocumentHandler[TempBan]        = Macros.handler[TempBan]
+  implicit private val UserRecordBSONHandler: BSONDocumentHandler[UserRecord] = Macros.handler[UserRecord]
 
   private case class Blame(player: Player, outcome: Outcome)
 

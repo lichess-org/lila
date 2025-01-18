@@ -7,6 +7,7 @@ import shogi.format.ParsedNotation
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import lila.db.ByteArray
+import reactivemongo.api.bson.BSONDocumentHandler
 
 private[game] case class Metadata(
     source: Option[Source],
@@ -76,5 +77,5 @@ object NotationImport {
 
   import reactivemongo.api.bson.Macros
   import ByteArray.ByteArrayBSONHandler
-  implicit val notationImportBSONHandler = Macros.handler[NotationImport]
+  implicit val notationImportBSONHandler: BSONDocumentHandler[NotationImport] = Macros.handler[NotationImport]
 }

@@ -48,7 +48,7 @@ object MoveOpts {
       case _ => none
     }
 
-  implicit val clockReader = Reads[Centis] {
+  implicit val clockReader: Reads[Centis] = Reads[Centis] {
     case JsNumber(centis) => JsSuccess(Centis(centis.toInt))
     case JsString(str) =>
       readCentis(str) match {

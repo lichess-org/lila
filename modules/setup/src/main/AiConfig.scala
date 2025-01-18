@@ -118,7 +118,7 @@ object AiConfig extends BaseConfig {
   import lila.db.BSON
   import lila.db.dsl._
 
-  implicit private[setup] val aiConfigBSONHandler = new BSON[AiConfig] {
+  implicit private[setup] val aiConfigBSONHandler: BSON[AiConfig] = new BSON[AiConfig] {
 
     def reads(r: BSON.Reader): AiConfig =
       AiConfig(

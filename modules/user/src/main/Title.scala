@@ -1,12 +1,16 @@
 package lila.user
 
+import lila.common.Iso
+import play.api.libs.json.Writes
+import reactivemongo.api.bson.BSONHandler
+
 case class Title(value: String) extends AnyVal with StringValue
 
 object Title {
 
-  implicit val titleIso         = lila.common.Iso.string[Title](Title.apply, _.value)
-  implicit val titleBsonHandler = lila.db.dsl.stringIsoHandler(Title.titleIso)
-  implicit val titleJsonWrites  = lila.common.Json.stringIsoWriter(Title.titleIso)
+  implicit val titleIso: Iso.StringIso[Title]         = Iso.string[Title](Title.apply, _.value)
+  implicit val titleBsonHandler: BSONHandler[Title] = lila.db.dsl.stringIsoHandler(Title.titleIso)
+  implicit val titleJsonWrites: Writes[Title]  = lila.common.Json.stringIsoWriter(Title.titleIso)
 
   val LM  = Title("LM")
   val BOT = Title("BOT")

@@ -6,21 +6,21 @@ import lila.db.dsl._
 
 private[coach] object BsonHandlers {
 
-  implicit val CoachIdBSONHandler     = stringAnyValHandler[Coach.Id](_.value, Coach.Id.apply)
-  implicit val CoachListedBSONHandler = booleanAnyValHandler[Coach.Listed](_.value, Coach.Listed.apply)
-  implicit val CoachAvailableBSONHandler =
+  implicit val CoachIdBSONHandler: BSONHandler[Coach.Id]     = stringAnyValHandler[Coach.Id](_.value, Coach.Id.apply)
+  implicit val CoachListedBSONHandler: BSONHandler[Coach.Listed] = booleanAnyValHandler[Coach.Listed](_.value, Coach.Listed.apply)
+  implicit val CoachAvailableBSONHandler: BSONHandler[Coach.Available] =
     booleanAnyValHandler[Coach.Available](_.value, Coach.Available.apply)
-  implicit val CoachApprovedBSONHandler = booleanAnyValHandler[Coach.Approved](_.value, Coach.Approved.apply)
-  implicit val CoachPicturePathBSONHandler =
+  implicit val CoachApprovedBSONHandler: BSONHandler[Coach.Approved] = booleanAnyValHandler[Coach.Approved](_.value, Coach.Approved.apply)
+  implicit val CoachPicturePathBSONHandler: BSONHandler[Coach.PicturePath] =
     stringAnyValHandler[Coach.PicturePath](_.value, Coach.PicturePath.apply)
 
-  implicit val CoachProfileRichTextBSONHandler =
+  implicit val CoachProfileRichTextBSONHandler: BSONHandler[CoachProfile.RichText] =
     stringAnyValHandler[CoachProfile.RichText](_.value, CoachProfile.RichText.apply)
-  implicit val CoachProfileBSONHandler = Macros.handler[CoachProfile]
+  implicit val CoachProfileBSONHandler: BSONDocumentHandler[CoachProfile] = Macros.handler[CoachProfile]
 
   import Coach.User
-  implicit val CoachUserBSONHandler = Macros.handler[User]
+  implicit val CoachUserBSONHandler: BSONDocumentHandler[User] = Macros.handler[User]
 
-  implicit val CoachBSONHandler = Macros.handler[Coach]
+  implicit val CoachBSONHandler: BSONDocumentHandler[Coach] = Macros.handler[Coach]
 
 }

@@ -16,26 +16,27 @@ import lila.db.dsl._
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
+import shogi.Status
 
 object BSONHandlers {
 
   import Chapter._
 
-  implicit val StudyIdBSONHandler     = stringIsoHandler(Study.idIso)
-  implicit val StudyNameBSONHandler   = stringIsoHandler(Study.nameIso)
-  implicit val ChapterIdBSONHandler   = stringIsoHandler(Chapter.idIso)
-  implicit val ChapterNameBSONHandler = stringIsoHandler(Chapter.nameIso)
-  implicit val CentisBSONHandler      = intIsoHandler(Iso.centisIso)
-  implicit val StudyTopicBSONHandler  = stringIsoHandler(StudyTopic.topicIso)
-  implicit val StudyTopicsBSONHandler =
+  implicit val StudyIdBSONHandler: BSONHandler[Study.Id]     = stringIsoHandler(Study.idIso)
+  implicit val StudyNameBSONHandler: BSONHandler[Study.Name]   = stringIsoHandler(Study.nameIso)
+  implicit val ChapterIdBSONHandler: BSONHandler[Id]   = stringIsoHandler(Chapter.idIso)
+  implicit val ChapterNameBSONHandler: BSONHandler[Name] = stringIsoHandler(Chapter.nameIso)
+  implicit val CentisBSONHandler: BSONHandler[Centis]      = intIsoHandler(Iso.centisIso)
+  implicit val StudyTopicBSONHandler: BSONHandler[StudyTopic]  = stringIsoHandler(StudyTopic.topicIso)
+  implicit val StudyTopicsBSONHandler: BSONHandler[StudyTopics] =
     implicitly[BSONHandler[List[StudyTopic]]].as[StudyTopics](StudyTopics.apply, _.value)
 
-  implicit private val PieceBSONHandler = tryHandler[Piece](
+  implicit private val PieceBSONHandler: BSONHandler[Piece] = tryHandler[Piece](
     { case BSONString(v) => SfenUtils.toPiece(v, Standard) toTry s"No such piece: $v" },
     x => BSONString(SfenUtils.toForsyth(x, Standard).getOrElse("p"))
   )
 
-  implicit private val PosOrPieceBSONHandler = tryHandler[Shape.PosOrPiece](
+  implicit private val PosOrPieceBSONHandler: BSONHandler[Shape.PosOrPiece] = tryHandler[Shape.PosOrPiece](
     { case BSONString(v) =>
       Pos
         .fromKey(v)
@@ -45,7 +46,7 @@ object BSONHandlers {
     x => BSONString(x.fold(_.key, p => SfenUtils.toForsyth(p, Standard).getOrElse("p")))
   )
 
-  implicit val ShapeBSONHandler = new BSON[Shape] {
+  implicit val ShapeBSONHandler: BSON[Shape] = new BSON[Shape] {
     def reads(r: Reader) = {
       val brush = r str "b"
       r.getO[Shape.PosOrPiece]("p") map { pos =>
@@ -65,12 +66,12 @@ object BSONHandlers {
       }
   }
 
-  implicit val UsiHandler = tryHandler[Usi](
+  implicit val UsiHandler: BSONHandler[Usi] = tryHandler[Usi](
     { case BSONString(v) => Usi(v).orElse(UciToUsi(v)) toTry s"Bad USI: $v" },
     x => BSONString(x.usi)
   )
 
-  implicit val UsiCharPairHandler = tryHandler[UsiCharPair](
+  implicit val UsiCharPairHandler: BSONHandler[UsiCharPair] = tryHandler[UsiCharPair](
     { case BSONString(v) =>
       v.toArray match {
         case Array(a, b) => Success(UsiCharPair(a, b))
@@ -81,14 +82,14 @@ object BSONHandlers {
   )
 
   import Study.IdName
-  implicit val StudyIdNameBSONHandler = Macros.handler[IdName]
+  implicit val StudyIdNameBSONHandler: BSONDocumentHandler[IdName] = Macros.handler[IdName]
 
   implicit val ShapesBSONHandler: BSONHandler[Shapes] =
     isoHandler[Shapes, List[Shape]]((s: Shapes) => s.value, Shapes(_))
 
-  implicit private val CommentIdBSONHandler   = stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
-  implicit private val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
-  implicit val CommentAuthorBSONHandler = quickHandler[Comment.Author](
+  implicit private val CommentIdBSONHandler: BSONHandler[Comment.Id]   = stringAnyValHandler[Comment.Id](_.value, Comment.Id.apply)
+  implicit private val CommentTextBSONHandler: BSONHandler[Comment.Text] = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
+  implicit val CommentAuthorBSONHandler: BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
       case BSONString(lila.user.User.lishogiId | "l") => Comment.Author.Lishogi
       case BSONString(name)                           => Comment.Author.External(name)
@@ -108,14 +109,14 @@ object BSONHandlers {
       case Comment.Author.Unknown        => BSONString("")
     }
   )
-  implicit private val CommentBSONHandler = Macros.handler[Comment]
+  implicit private val CommentBSONHandler: BSONDocumentHandler[Comment] = Macros.handler[Comment]
 
   implicit val CommentsBSONHandler: BSONHandler[Comments] =
     isoHandler[Comments, List[Comment]]((s: Comments) => s.value, Comments(_))
 
-  implicit val GamebookBSONHandler = Macros.handler[Gamebook]
+  implicit val GamebookBSONHandler: BSONDocumentHandler[Gamebook] = Macros.handler[Gamebook]
 
-  implicit val GlyphsBSONHandler = {
+  implicit val GlyphsBSONHandler: BSONHandler[Glyphs] = {
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
       { case arr: Barr =>
@@ -127,7 +128,7 @@ object BSONHandlers {
     )
   }
 
-  implicit val EvalScoreBSONHandler = {
+  implicit val EvalScoreBSONHandler: BSONHandler[Score] = {
     val mateFactor = 1000000
     BSONIntegerHandler.as[Score](
       v =>
@@ -142,7 +143,7 @@ object BSONHandlers {
     )
   }
 
-  implicit val VariantBSONHandler = quickHandler[Variant](
+  implicit val VariantBSONHandler: BSONHandler[Variant] = quickHandler[Variant](
     { case BSONInteger(v) => Variant.orDefault(v) },
     x => BSONInteger(x.id)
   )
@@ -294,9 +295,9 @@ object BSONHandlers {
     )
   }
 
-  implicit val PathBSONHandler = BSONStringHandler.as[Path](Path.apply, _.toString)
+  implicit val PathBSONHandler: BSONHandler[Path] = BSONStringHandler.as[Path](Path.apply, _.toString)
 
-  implicit val TagBSONHandler = tryHandler[Tag](
+  implicit val TagBSONHandler: BSONHandler[Tag] = tryHandler[Tag](
     { case BSONString(v) =>
       v.split(":", 2) match {
         case Array(name, value) => Success(Tag(name, value))
@@ -305,30 +306,30 @@ object BSONHandlers {
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
-  implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
-  implicit val StatusBSONHandler = quickHandler[shogi.Status](
+  implicit val tagsHandler: BSONHandler[Tags] = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
+  implicit val StatusBSONHandler: BSONHandler[Status] = quickHandler[shogi.Status](
     { case BSONInteger(v) => shogi.Status(v).getOrElse(shogi.Status.UnknownFinish) },
     x => BSONInteger(x.id)
   )
-  implicit private val ChapterEndStatusBSONHandler = Macros.handler[Chapter.EndStatus]
-  implicit private val ChapterSetupBSONHandler     = Macros.handler[Chapter.Setup]
-  implicit val ChapterServerEvalBSONHandler        = Macros.handler[Chapter.ServerEval]
+  implicit private val ChapterEndStatusBSONHandler: BSONDocumentHandler[EndStatus] = Macros.handler[Chapter.EndStatus]
+  implicit private val ChapterSetupBSONHandler: BSONDocumentHandler[Setup]     = Macros.handler[Chapter.Setup]
+  implicit val ChapterServerEvalBSONHandler: BSONDocumentHandler[ServerEval]        = Macros.handler[Chapter.ServerEval]
   import Chapter.Ply
-  implicit val PlyBSONHandler             = intAnyValHandler[Ply](_.value, Ply.apply)
-  implicit val ChapterBSONHandler         = Macros.handler[Chapter]
-  implicit val ChapterMetadataBSONHandler = Macros.handler[Chapter.Metadata]
+  implicit val PlyBSONHandler: BSONHandler[Ply]             = intAnyValHandler[Ply](_.value, Ply.apply)
+  implicit val ChapterBSONHandler: BSONDocumentHandler[Chapter]         = Macros.handler[Chapter]
+  implicit val ChapterMetadataBSONHandler: BSONDocumentHandler[Metadata] = Macros.handler[Chapter.Metadata]
 
-  implicit val PositionRefBSONHandler = quickHandler[Position.Ref](
+  implicit val PositionRefBSONHandler: BSONHandler[Position.Ref] = quickHandler[Position.Ref](
     { case BSONString(v) => Position.Ref.decode(v) },
     x => BSONString(x.encode)
   )
-  implicit val StudyMemberRoleBSONHandler = tryHandler[StudyMember.Role](
+  implicit val StudyMemberRoleBSONHandler: BSONHandler[StudyMember.Role] = tryHandler[StudyMember.Role](
     { case BSONString(v) => StudyMember.Role.byId get v toTry s"Invalid role $v" },
     x => BSONString(x.id)
   )
   private case class DbMember(role: StudyMember.Role) extends AnyVal
-  implicit private val DbMemberBSONHandler = Macros.handler[DbMember]
-  implicit private[study] val StudyMemberBSONWriter = new BSONWriter[StudyMember] {
+  implicit private val DbMemberBSONHandler: BSONDocumentHandler[DbMember] = Macros.handler[DbMember]
+  implicit private[study] val StudyMemberBSONWriter: BSONWriter[StudyMember] = new BSONWriter[StudyMember] {
     def writeTry(x: StudyMember) = DbMemberBSONHandler writeTry DbMember(x.role)
   }
   implicit private[study] val MembersBSONHandler: BSONHandler[StudyMembers] =
@@ -340,20 +341,20 @@ object BSONHandlers {
       _.members.view.mapValues(m => DbMember(m.role)).toMap
     )
   import Study.Visibility
-  implicit private[study] val VisibilityHandler = tryHandler[Visibility](
+  implicit private[study] val VisibilityHandler: BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey get v toTry s"Invalid visibility $v" },
     v => BSONString(v.key)
   )
 
-  implicit val GamePlayerBSONHandler = quickHandler[Study.GamePlayer](
+  implicit val GamePlayerBSONHandler: BSONHandler[Study.GamePlayer] = quickHandler[Study.GamePlayer](
     { case BSONString(str) => Study.GamePlayer(str.take(4), str.drop(4).some.filter(_.nonEmpty)) },
     x => BSONString(s"${x.playerId}${~x.userId}")
   )
   import Study.PostGameStudy
-  implicit private val PostGameStudyBSONHandler = Macros.handler[PostGameStudy]
+  implicit private val PostGameStudyBSONHandler: BSONDocumentHandler[PostGameStudy] = Macros.handler[PostGameStudy]
 
   import Study.From
-  implicit private[study] val FromHandler = quickHandler[From](
+  implicit private[study] val FromHandler: BSONHandler[From] = quickHandler[From](
     { case BSONString(v) =>
       v.split(' ') match {
         case Array("scratch")   => From.Scratch
@@ -371,11 +372,11 @@ object BSONHandlers {
       })
   )
   import Settings.UserSelection
-  implicit private[study] val UserSelectionHandler = tryHandler[UserSelection](
+  implicit private[study] val UserSelectionHandler: BSONHandler[UserSelection] = tryHandler[UserSelection](
     { case BSONString(v) => UserSelection.byKey get v toTry s"Invalid user selection $v" },
     x => BSONString(x.key)
   )
-  implicit val SettingsBSONHandler = new BSON[Settings] {
+  implicit val SettingsBSONHandler: BSON[Settings] = new BSON[Settings] {
     def reads(r: Reader) =
       Settings(
         computer = r.get[UserSelection]("computer"),
@@ -389,16 +390,16 @@ object BSONHandlers {
   }
 
   import Study.Likes
-  implicit val LikesBSONHandler = intAnyValHandler[Likes](_.value, Likes.apply)
+  implicit val LikesBSONHandler: BSONHandler[Likes] = intAnyValHandler[Likes](_.value, Likes.apply)
   import Study.Rank
-  implicit private[study] val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
+  implicit private[study] val RankBSONHandler: BSONHandler[Rank] = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 
   import Study.MiniStudy
-  implicit val StudyMiniBSONHandler = Macros.handler[MiniStudy]
+  implicit val StudyMiniBSONHandler: BSONDocumentHandler[MiniStudy] = Macros.handler[MiniStudy]
 
-  implicit val StudyBSONHandler = Macros.handler[Study]
+  implicit val StudyBSONHandler: BSONDocumentHandler[Study] = Macros.handler[Study]
 
-  implicit val lightStudyBSONReader = new BSONDocumentReader[Study.LightStudy] {
+  implicit val lightStudyBSONReader: BSONDocumentReader[Study.LightStudy] = new BSONDocumentReader[Study.LightStudy] {
     def readDocument(doc: BSONDocument) =
       Success(
         Study.LightStudy(

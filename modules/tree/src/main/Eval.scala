@@ -107,6 +107,6 @@ object Eval {
       }
     )
 
-    implicit val evalWrites = Json.writes[Eval]
+    implicit val evalWrites: OWrites[Eval] = Json.writes[Eval]
   }
 }

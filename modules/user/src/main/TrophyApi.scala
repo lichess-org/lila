@@ -26,10 +26,10 @@ final class TrophyApi(
     expireAfter = Syncache.ExpireAfterWrite(1 hour)
   )
 
-  implicit private val trophyKindStringBSONHandler =
+  implicit private val trophyKindStringBSONHandler: BSONHandler[TrophyKind] =
     BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
 
-  implicit private val trophyBSONHandler = Macros.handler[Trophy]
+  implicit private val trophyBSONHandler: BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.ext.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))

@@ -57,9 +57,9 @@ object Analysis {
 
   type ID = String
 
-  implicit private[analyse] val postGameStudyBSONHandler = Macros.handler[PostGameStudy]
+  implicit private[analyse] val postGameStudyBSONHandler: BSONDocumentHandler[PostGameStudy] = Macros.handler[PostGameStudy]
 
-  implicit private[analyse] val analysisBSONHandler = new BSON[Analysis] {
+  implicit private[analyse] val analysisBSONHandler: BSON[Analysis] = new BSON[Analysis] {
     def reads(r: BSON.Reader) = {
       val startPly = r intD "ply"
       val raw      = r str "data"

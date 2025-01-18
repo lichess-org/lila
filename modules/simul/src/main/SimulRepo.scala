@@ -11,21 +11,21 @@ import lila.user.User
 
 final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val SimulStatusBSONHandler = tryHandler[SimulStatus](
+  implicit private val SimulStatusBSONHandler: BSONHandler[SimulStatus] = tryHandler[SimulStatus](
     { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },
     x => BSONInteger(x.id)
   )
-  implicit private val ShogiStatusBSONHandler = lila.game.BSONHandlers.StatusBSONHandler
-  implicit private val VariantBSONHandler = quickHandler[Variant](
+  implicit private val ShogiStatusBSONHandler: BSONHandler[Status] = lila.game.BSONHandlers.StatusBSONHandler
+  implicit private val VariantBSONHandler: BSONHandler[Variant] = quickHandler[Variant](
     { case BSONInteger(v) => Variant.orDefault(v) },
     x => BSONInteger(x.id)
   )
   import shogi.Clock.Config
-  implicit private val clockHandler         = Macros.handler[Config]
-  implicit private val ClockBSONHandler     = Macros.handler[SimulClock]
-  implicit private val PlayerBSONHandler    = Macros.handler[SimulPlayer]
-  implicit private val ApplicantBSONHandler = Macros.handler[SimulApplicant]
-  implicit private val SimulPairingBSONHandler = new BSON[SimulPairing] {
+  implicit private val clockHandler: BSONDocumentHandler[Config]         = Macros.handler[Config]
+  implicit private val ClockBSONHandler: BSONDocumentHandler[SimulClock]     = Macros.handler[SimulClock]
+  implicit private val PlayerBSONHandler: BSONDocumentHandler[SimulPlayer]    = Macros.handler[SimulPlayer]
+  implicit private val ApplicantBSONHandler: BSONDocumentHandler[SimulApplicant] = Macros.handler[SimulApplicant]
+  implicit private val SimulPairingBSONHandler: BSON[SimulPairing] = new BSON[SimulPairing] {
     def reads(r: BSON.Reader) =
       SimulPairing(
         player = r.get[SimulPlayer]("player"),
@@ -44,7 +44,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       )
   }
 
-  implicit private val SimulBSONHandler = Macros.handler[Simul]
+  implicit private val SimulBSONHandler: BSONDocumentHandler[Simul] = Macros.handler[Simul]
 
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect  = $doc("status" -> SimulStatus.Started.id)

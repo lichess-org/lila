@@ -17,10 +17,10 @@ final private[video] class Youtube(
 
   import Youtube._
 
-  implicit private val readSnippet        = Json.reads[Snippet]
-  implicit private val readStatistics     = Json.reads[Statistics]
-  implicit private val readContentDetails = Json.reads[ContentDetails]
-  implicit private val readEntry          = Json.reads[Entry]
+  implicit private val readSnippet: Reads[Snippet]        = Json.reads[Snippet]
+  implicit private val readStatistics: Reads[Statistics]     = Json.reads[Statistics]
+  implicit private val readContentDetails: Reads[ContentDetails] = Json.reads[ContentDetails]
+  implicit private val readEntry: Reads[Entry]          = Json.reads[Entry]
   implicit private val readEntries: Reads[Seq[Entry]] =
     (__ \ "items").read(Reads seq readEntry)
 

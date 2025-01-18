@@ -33,7 +33,7 @@ object View {
   import reactivemongo.api.bson._
   import lila.db.BSON
   import BSON.BSONJodaDateTimeHandler
-  implicit val viewBSONHandler = new BSON[View] {
+  implicit val viewBSONHandler: BSON[View] = new BSON[View] {
 
     import BSONFields._
 

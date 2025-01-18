@@ -1,7 +1,6 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import scala.annotation.nowarn
 
 sealed private trait I18nQuantity
 
@@ -121,7 +120,7 @@ private object I18nQuantity {
       else if (c == 2) Two
       else Other
 
-    @nowarn("cat=unused") def none(c: Count) = Other
+    def none(c: Count) = Other
   }
 
   import selectors._

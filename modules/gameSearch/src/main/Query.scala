@@ -56,9 +56,9 @@ object Query {
   import play.api.libs.json._
 
   import Range.rangeJsonWriter
-  implicit private val sortingJsonWriter  = Json.writes[Sorting]
-  implicit private val clockingJsonWriter = Json.writes[Clocking]
-  implicit val jsonWriter                 = Json.writes[Query]
+  implicit private val sortingJsonWriter: OWrites[Sorting]  = Json.writes[Sorting]
+  implicit private val clockingJsonWriter: OWrites[Clocking] = Json.writes[Clocking]
+  implicit val jsonWriter: OWrites[Query]                 = Json.writes[Query]
 
   val durations: List[(Int, String)] =
     ((30, "30 seconds") ::

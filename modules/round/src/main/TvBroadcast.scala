@@ -8,6 +8,7 @@ import lila.socket.Socket.makeMessage
 import play.api.libs.json._
 
 import lila.common.Bus
+import scala.concurrent.ExecutionContextExecutor
 
 final private class TvBroadcast extends Actor {
 
@@ -19,7 +20,7 @@ final private class TvBroadcast extends Actor {
 
   Bus.subscribe(self, "changeFeaturedGame")
 
-  implicit def system = context.dispatcher
+  implicit def system: ExecutionContextExecutor = context.dispatcher
 
   override def postStop() = {
     super.postStop()

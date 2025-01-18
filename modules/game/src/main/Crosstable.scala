@@ -136,7 +136,7 @@ object Crosstable {
       )
   }
 
-  implicit private[game] val MatchupBSONReader = new BSONDocumentReader[Matchup] {
+  implicit private[game] val MatchupBSONReader: BSONDocumentReader[Matchup] = new BSONDocumentReader[Matchup] {
     import BSONFields._
     def readDocument(doc: Bdoc) = {
       val r = new BSON.Reader(doc)

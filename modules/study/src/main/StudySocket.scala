@@ -26,8 +26,8 @@ final private class StudySocket(
 
   import StudySocket._
 
-  implicit def roomIdToStudyId(roomId: RoomId)    = Study.Id(roomId.value)
-  implicit def studyIdToRoomId(studyId: Study.Id) = RoomId(studyId.value)
+  implicit def roomIdToStudyId(roomId: RoomId): Study.Id    = Study.Id(roomId.value)
+  implicit def studyIdToRoomId(studyId: Study.Id): RoomId = RoomId(studyId.value)
 
   lazy val rooms = makeRoomMap(send)
 

@@ -62,12 +62,12 @@ object widget {
                 profile.nonEmptyLocation.map { l =>
                   span(cls := "location")(l)
                 },
-                profile.countryInfo.map { c =>
+                profile.countryInfo.map { country =>
                   frag(
                     span(cls  := "country")(
-                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                      img(cls := "flag", src := staticUrl(s"images/flags/${country.code}.png")),
                       " ",
-                      c.name
+                      country.name
                     )
                   )
                 }
