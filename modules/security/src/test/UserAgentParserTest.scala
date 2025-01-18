@@ -56,3 +56,9 @@ class UserAgentTrustTest extends munit.FunSuite:
     assert:
       susp:
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6812.83 Safari/537.36 Edg/130.0.2876.112"
+    assert:
+      susp:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6787.59 Safari/537.36 Edg/130.0.2762.100"
+    assert:
+      susp:
+        "Mozilla/5.0 Slackware/13.37 (X11; U; Linux x86_64; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/11.0.696.50"
