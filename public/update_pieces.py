@@ -10,7 +10,6 @@ def str_to_num(val: str) -> int | float:
     return (float if '.' in val else int)(val)
 
 piece_style = sys.argv[1]
-vertical_shift = str_to_num(sys.argv[2])
 
 def deduce_svg_filename(piece_abbrv: str) -> str:
     return f"piece/{piece_style}/{piece_abbrv}.svg"
@@ -21,7 +20,7 @@ def get_svg_filename(css_piece_name: str) -> str:
 def get_css_piece_name(svg_filename: str) -> str:
     return pieces[svg_filename.split('/')[-1].split('.svg')[0]]
 
-def update_svg(piece_abbrv: str) -> None:
+def update_svg(piece_abbrv: str, vertical_shift: float | int) -> None:
     svg_filename = deduce_svg_filename(piece_abbrv)
     with open(svg_filename, 'r') as f: contents = f.read()
     curr_viewbox_str = contents.split('viewBox="', 1)[1].split('"', 1)[0]
@@ -54,11 +53,12 @@ def human_readable(encoded_str: bytes) -> str:
     return encoded_str.decode("utf-8")
 
 def main() -> None:
-    """To test this script, run it with a vertical shift of 0. Then, no files should be modified.
+    """Example: `python update_pieces.py *piece style name* *vertical shift amount* *piece abbrvs, like wP or bR*
+       To test this script, run it with a vertical shift of 0. Then, no files should be modified.
        This tests that the script works correctly, and that the existing svg and css
        files are in sync."""
     for piece_abbrv in pieces:
-        update_svg(piece_abbrv)
+        update_svg(piece_abbrv, str_to_num(sys.argv[2]) if piece_abbrv in sys.argv else 0)
     update_css()
 
 if __name__ == '__main__':
