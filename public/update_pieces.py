@@ -29,13 +29,34 @@ def update_svg(piece_abbrv: str) -> None:
     new_viewbox_vals = curr_viewbox_str.split()
     new_viewbox_vals[1] = str(str_to_num(new_viewbox_vals[1]) + vertical_shift)
     new_viewbox_str = ' '.join(new_viewbox_vals)
-    contents = contents.replace(f'viewBox="{curr_viewbox_str}"', f'viewBox="{new_viewbox_str}"', 1)
-    with open(svg_filename, 'w') as f: f.write(contents)
-    # Todo - add stuff for then updating the css lines.
+    new_contents = contents.replace(f'viewBox="{curr_viewbox_str}"', f'viewBox="{new_viewbox_str}"', 1)
+    with open(svg_filename, 'w') as f: f.write(new_contents)
+
+def update_css() -> None:
+    new_css_str = ''
+    for piece_abbrv in pieces:
+        with open(deduce_svg_filename(piece_abbrv), 'r') as f: svg_contents = f.read()
+        svg_encoded = encode_svg(svg_contents)
+        assert svg_contents == decode_svg(svg_encoded)
+        new_css_str += (
+            ".is2d " + pieces[piece_abbrv] + " {background-image:url('data:image/svg+xml;base64," +
+            svg_encoded + "')}\n"
+        )
+    with open(f'piece-css/{piece_style}.css', 'w') as f: f.write(new_css_str)
+
+def encode_svg(svg: str) -> str:
+    return human_readable(base64.b64encode(svg.encode()))
+
+def decode_svg(svg: str) -> str:
+    return human_readable(base64.b64decode(svg))
+
+def human_readable(encoded_str: bytes) -> str:
+    return encoded_str.decode("utf-8")
 
 def main() -> None:
     for piece_abbrv in pieces:
         update_svg(piece_abbrv)
+    update_css()
 
 if __name__ == '__main__':
     main()
