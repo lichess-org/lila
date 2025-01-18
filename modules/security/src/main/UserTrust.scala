@@ -21,7 +21,10 @@ private final class UserTrustApi(
       .byId(id)
       .flatMapz: user =>
         if hasHistory(user) then fuccess(true)
-        else if looksLikeKnownAbuser(user) then fuccess(false)
+        else if looksLikeKnownAbuser(user)
+        then
+          logger.info(s"Not trusting user $id because of suspicious metadata")
+          fuccess(false)
         else
           sessionStore
             .openSessions(id, 3)
