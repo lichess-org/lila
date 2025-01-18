@@ -1,14 +1,16 @@
 package lila.plan
 
-import org.joda.time.DateTime
-import reactivemongo.api._
 import scala.concurrent.duration._
 
-import lila.common.config.Secret
+import org.joda.time.DateTime
+import reactivemongo.api._
+
 import lila.common.Bus
+import lila.common.config.Secret
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class PlanApi(
     stripeClient: StripeClient,

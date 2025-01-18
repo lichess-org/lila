@@ -1,13 +1,16 @@
 package lila.tournament
 
-import play.api.i18n.Lang
-import play.api.libs.json.{ JsObject, Json }
 import scala.concurrent.duration._
 
+import play.api.i18n.Lang
+import play.api.libs.json.JsObject
+import play.api.libs.json.Json
+
 import lila.hub.LightTeam.TeamID
-import lila.memo._
 import lila.memo.CacheApi._
-import lila.user.{ LightUserApi, User }
+import lila.memo._
+import lila.user.LightUserApi
+import lila.user.User
 
 final private[tournament] class Cached(
     playerRepo: PlayerRepo,

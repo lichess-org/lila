@@ -1,9 +1,10 @@
 package lila.shutup
 
+import play.api.Configuration
+
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
 
 import lila.common.config._
 import lila.user.UserRepo

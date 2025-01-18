@@ -1,13 +1,17 @@
 package controllers
 
 import play.api.mvc.AnyContentAsFormUrlEncoded
-
 import views._
 
-import lila.api.{ BodyContext, Context }
+import lila.api.BodyContext
+import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.report.{ Mod => AsMod, Report => ReportModel, Reporter, Room, Suspect }
+import lila.report.Reporter
+import lila.report.Room
+import lila.report.Suspect
+import lila.report.{Mod => AsMod}
+import lila.report.{Report => ReportModel}
 import lila.user.{ User => UserModel }
 
 final class Report(

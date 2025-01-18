@@ -1,8 +1,9 @@
 package lila.memo
 
-import com.typesafe.config.ConfigFactory
 import play.api.ConfigLoader
 import play.api.data.Form
+
+import com.typesafe.config.ConfigFactory
 
 import lila.db.dsl._
 

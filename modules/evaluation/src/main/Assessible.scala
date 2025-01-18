@@ -1,9 +1,14 @@
 package lila.evaluation
 
-import shogi.{ Color, Speed }
-import lila.analyse.{ Accuracy, Analysis }
-import lila.game.{ Game, Player, Pov }
 import org.joda.time.DateTime
+import shogi.Color
+import shogi.Speed
+
+import lila.analyse.Accuracy
+import lila.analyse.Analysis
+import lila.game.Game
+import lila.game.Player
+import lila.game.Pov
 
 case class Analysed(game: Game, analysis: Analysis, holdAlerts: Player.HoldAlert.Map)
 

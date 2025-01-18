@@ -1,11 +1,13 @@
 package lila.evalCache
 
-import com.softwaremill.macwire._
 import play.api.Configuration
+
+import com.softwaremill.macwire._
 
 import lila.common.Bus
 import lila.common.config.CollName
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
+import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.hub.actorApi.socket.remote.TellSriOut
 import lila.socket.Socket.Sri
 
 @Module

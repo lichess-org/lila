@@ -1,14 +1,14 @@
 package views.html
 
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
+
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
-
-import java.nio.charset.StandardCharsets.UTF_8
-import java.security.MessageDigest
 
 object insights {
 

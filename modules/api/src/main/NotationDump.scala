@@ -1,11 +1,14 @@
 package lila.api
 
+import play.api.i18n.Lang
+
 import shogi.format.Notation
-import lila.analyse.{ Analysis, Annotator }
+
+import lila.analyse.Analysis
+import lila.analyse.Annotator
 import lila.game.Game
 import lila.game.NotationDump.WithFlags
 import lila.team.GameTeams
-import play.api.i18n.Lang
 
 final class NotationDump(
     val dumper: lila.game.NotationDump,

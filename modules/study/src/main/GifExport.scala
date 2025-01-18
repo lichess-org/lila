@@ -1,10 +1,11 @@
 package lila.study
 
-import akka.stream.scaladsl._
-import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.WSClient
+
+import akka.stream.scaladsl._
+import akka.util.ByteString
 
 final class GifExport(
     ws: WSClient,

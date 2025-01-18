@@ -1,16 +1,25 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import shogi.{ Piece, Pos, Role }
+import org.joda.time.format.DateTimeFormat
+import shogi.Piece
+import shogi.Pos
+import shogi.Role
+import shogi.format.Glyphs
+import shogi.format.Initial
+import shogi.format.NotationStep
+import shogi.format.Tag
+import shogi.format.Tags
+import shogi.format.csa.Csa
 import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
-import shogi.format.csa.Csa
-import shogi.format.{ Glyphs, Initial, NotationStep, Tag, Tags }
 import shogi.variant.Variant
-import org.joda.time.format.DateTimeFormat
 
 import lila.common.String.slugify
-import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
+import lila.tree.Node.Comment
+import lila.tree.Node.Comments
+import lila.tree.Node.Shape
+import lila.tree.Node.Shapes
 
 final class NotationDump(
     chapterRepo: ChapterRepo,

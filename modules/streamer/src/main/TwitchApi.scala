@@ -1,8 +1,9 @@
 package lila.streamer
 
+import scala.concurrent.ExecutionContext
+
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import scala.concurrent.ExecutionContext
 
 import lila.common.config.Secret
 

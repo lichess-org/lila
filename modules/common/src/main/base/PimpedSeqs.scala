@@ -2,6 +2,7 @@ package lila.base
 
 import java.util.Base64
 import scala.util.Try
+
 import cats.data.NonEmptyList
 
 final class PimpedTryList[A](private val list: List[Try[A]]) extends AnyVal {

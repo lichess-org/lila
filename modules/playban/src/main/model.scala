@@ -1,7 +1,8 @@
 package lila.playban
 
-import org.joda.time.DateTime
 import play.api.libs.json._
+
+import org.joda.time.DateTime
 
 import lila.common.Json.jodaWrites
 

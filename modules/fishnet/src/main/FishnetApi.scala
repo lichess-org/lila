@@ -1,9 +1,12 @@
 package lila.fishnet
 
+import scala.concurrent.duration._
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
+
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.concurrent.duration._
-import scala.util.{ Failure, Success, Try }
 
 import lila.common.IpAddress
 import lila.db.dsl._

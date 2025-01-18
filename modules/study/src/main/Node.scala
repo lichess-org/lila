@@ -1,13 +1,18 @@
 package lila.study
 
-import shogi.format.{ Glyph, Glyphs }
-import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ Usi, UsiCharPair }
-import shogi.variant.Variant
 import shogi.Centis
+import shogi.format.Glyph
+import shogi.format.Glyphs
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
+import shogi.variant.Variant
 
 import lila.tree.Eval.Score
-import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
+import lila.tree.Node.Comment
+import lila.tree.Node.Comments
+import lila.tree.Node.Gamebook
+import lila.tree.Node.Shapes
 
 sealed trait RootOrNode {
   val ply: Int

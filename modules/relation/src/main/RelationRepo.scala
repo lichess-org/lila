@@ -1,8 +1,8 @@
 package lila.relation
 
-import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.user.User

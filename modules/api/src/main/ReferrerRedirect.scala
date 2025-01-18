@@ -1,7 +1,8 @@
 package lila.api
 
-import io.mola.galimatias.URL
 import scala.util.Try
+
+import io.mola.galimatias.URL
 
 import lila.common.config.BaseUrl
 

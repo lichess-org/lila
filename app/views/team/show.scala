@@ -1,16 +1,15 @@
 package views.html.team
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
+import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.paginator.Paginator
 import lila.common.String.html.richText
+import lila.common.paginator.Paginator
 import lila.team.Team
-import lila.app.mashup.TeamInfo
-
-import controllers.routes
 
 object show {
 

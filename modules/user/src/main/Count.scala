@@ -1,7 +1,8 @@
 package lila.user
 
-import lila.db.BSON
 import reactivemongo.api.bson.BSONDocument
+
+import lila.db.BSON
 
 case class Count(
     ai: Int,

@@ -1,12 +1,14 @@
 package lila.fishnet
 
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
-import shogi.{ Clock, Gote, Sente }
+import org.joda.time.DateTime
+import ornicar.scalalib.Random.approximately
+import shogi.Clock
+import shogi.Gote
+import shogi.Sente
 
 import lila.game.Game
-import ornicar.scalalib.Random.approximately
 
 final class Player(
     moveDb: MoveDB,

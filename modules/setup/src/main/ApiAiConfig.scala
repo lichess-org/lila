@@ -1,13 +1,18 @@
 package lila.setup
 
+import scala.util.chaining._
+
 import shogi.Clock
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import lila.game.{ EngineConfig, Game, Player, Pov, Source }
+
+import lila.game.EngineConfig
+import lila.game.Game
+import lila.game.Player
+import lila.game.Pov
+import lila.game.Source
 import lila.lobby.Color
 import lila.user.User
-
-import scala.util.chaining._
 
 final case class ApiAiConfig(
     variant: Variant,

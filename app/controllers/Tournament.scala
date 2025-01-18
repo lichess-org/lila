@@ -1,9 +1,11 @@
 package controllers
 
-import play.api.libs.json._
-import play.api.mvc._
 import scala.annotation.nowarn
 import scala.concurrent.duration._
+
+import play.api.libs.json._
+import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
@@ -11,9 +13,9 @@ import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
-import lila.tournament.{ Tournament => Tour, VisibleTournaments }
+import lila.tournament.VisibleTournaments
+import lila.tournament.{Tournament => Tour}
 import lila.user.{ User => UserModel }
-import views._
 
 final class Tournament(
     env: Env,
@@ -171,7 +173,7 @@ final class Tournament(
       repo byId tourId flatMap {
         _ ?? { tour =>
           JsonOk {
-            api.playerInfo(tour, userId) flatMap {
+            api.playerInfo(tour, userId.pp("playerInfo")) flatMap {
               _ ?? { jsonView.playerInfoExtended(tour, _) }
             }
           }

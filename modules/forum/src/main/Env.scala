@@ -1,11 +1,12 @@
 package lila.forum
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
 import play.api.Configuration
 
-import lila.common.config._
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+
 import lila.common.DetectLanguage
+import lila.common.config._
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi

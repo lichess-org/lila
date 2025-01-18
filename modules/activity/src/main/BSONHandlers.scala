@@ -1,9 +1,11 @@
 package lila.activity
 
-import reactivemongo.api.bson._
 import scala.util.Success
 
-import lila.common.{ Day, Iso }
+import reactivemongo.api.bson._
+
+import lila.common.Day
+import lila.common.Iso
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType

@@ -1,8 +1,9 @@
 package lila.search
 
+import scala.annotation.nowarn
+
 import play.api.libs.json._
 import play.api.libs.ws._
-import scala.annotation.nowarn
 
 sealed trait ESClient {
 

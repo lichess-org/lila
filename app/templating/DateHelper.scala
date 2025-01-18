@@ -2,12 +2,17 @@ package lila.app
 package templating
 
 import java.util.Locale
-import play.api.i18n.Lang
 import java.util.concurrent.ConcurrentHashMap
 
-import org.joda.time.format._
+import play.api.i18n.Lang
+
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import org.joda.time.DurationFieldType
+import org.joda.time.Period
+import org.joda.time.PeriodType
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
+import org.joda.time.format._
 
 import lila.app.ui.ScalatagsTemplate._
 

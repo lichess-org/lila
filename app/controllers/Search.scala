@@ -2,9 +2,11 @@ package controllers
 
 import scala.concurrent.duration._
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
 import views._
+
+import lila.app._
+import lila.common.HTTPRequest
+import lila.common.IpAddress
 
 final class Search(env: Env) extends LilaController(env) {
 

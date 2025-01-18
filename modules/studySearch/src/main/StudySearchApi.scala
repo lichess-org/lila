@@ -1,16 +1,22 @@
 package lila.studySearch
 
+import scala.concurrent.duration._
+
+import play.api.libs.json._
+
 import akka.actor._
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.json._
-import scala.concurrent.duration._
-
 import shogi.format.Tag
+
 import lila.hub.LateMultiThrottler
 import lila.search._
-import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
+import lila.study.Chapter
+import lila.study.ChapterRepo
+import lila.study.RootOrNode
+import lila.study.Study
+import lila.study.StudyRepo
 import lila.tree.Node.Comments
 
 final class StudySearchApi(

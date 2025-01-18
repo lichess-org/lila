@@ -1,9 +1,9 @@
 package lila.pref
 
-import play.api.data._
-import play.api.data.Forms._
-
 import java.nio.charset.StandardCharsets.UTF_8
+
+import play.api.data.Forms._
+import play.api.data._
 
 object DataForm {
 

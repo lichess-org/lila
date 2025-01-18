@@ -1,10 +1,14 @@
 package views.html.clas
 
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
+import lila.clas.Clas
+import lila.clas.ClasInvite
+import lila.clas.ClasProgress
+import lila.clas.Student
 import lila.common.String.html.richText
 import lila.rating.PerfType
 import lila.user.User

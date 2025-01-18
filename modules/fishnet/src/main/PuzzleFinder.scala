@@ -1,12 +1,12 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-
 import shogi.Replay
 
 import lila.analyse.Analysis
 import lila.tree.Eval
-import lila.tree.Eval.{ Cp, Mate }
+import lila.tree.Eval.Cp
+import lila.tree.Eval.Mate
 
 // finds candidates for puzzle from analysis
 private object PuzzleFinder {

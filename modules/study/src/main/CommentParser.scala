@@ -1,7 +1,11 @@
 package lila.study
 
-import shogi.{ Color, Piece, Pos }
-import lila.tree.Node.{ Shape, Shapes }
+import shogi.Color
+import shogi.Piece
+import shogi.Pos
+
+import lila.tree.Node.Shape
+import lila.tree.Node.Shapes
 
 private[study] object CommentParser {
 

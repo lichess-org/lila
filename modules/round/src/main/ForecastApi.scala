@@ -1,15 +1,18 @@
 package lila.round
 
-import reactivemongo.api.bson._
-
-import lila.db.dsl._
-import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import shogi.format.usi.{ UciToUsi, Usi }
-import Forecast.Step
+import org.joda.time.DateTime
+import reactivemongo.api.bson._
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+
+import lila.db.dsl._
+import lila.game.Game
 import lila.game.Game.PlayerId
-import lila.game.{ Game, Pov }
+import lila.game.Pov
+
+import Forecast.Step
 
 final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.concurrent.ExecutionContext) {
 

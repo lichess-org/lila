@@ -1,11 +1,11 @@
 package views.html.report
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.report.Report.WithSuspect
-
-import controllers.routes
 
 object list {
 

@@ -1,12 +1,14 @@
 package lila.puzzle
 
+import scala.concurrent.duration._
+
 import akka.pattern.ask
 import org.joda.time.DateTime
-import Puzzle.{ BSONFields => F }
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+
+import Puzzle.{ BSONFields => F }
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,

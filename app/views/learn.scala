@@ -1,13 +1,12 @@
 package views.html.learn
 
+import controllers.routes
 import play.api.libs.json.Json
+import play.api.libs.json._
 
 import lila.api.Context
-import play.api.libs.json._
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object index {
 

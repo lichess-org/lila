@@ -5,9 +5,11 @@ import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 
 import lila.common.String.shorten
-import lila.game.{ Game, Namer }
+import lila.game.Game
+import lila.game.Namer
+import lila.tree.Node.Comment
+import lila.tree.Node.Comments
 import lila.user.User
-import lila.tree.Node.{ Comment, Comments }
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,

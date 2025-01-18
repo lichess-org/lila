@@ -1,7 +1,6 @@
 package lila.db
 
 import scala.collection.Factory
-
 import scala.concurrent.ExecutionContext
 
 import reactivemongo.api._

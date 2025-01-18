@@ -1,20 +1,26 @@
 package lila.api
 
-import akka.stream.scaladsl._
-import org.joda.time.DateTime
-import play.api.libs.json._
 import scala.concurrent.duration._
 
+import play.api.libs.json._
+
+import akka.stream.scaladsl._
+import org.joda.time.DateTime
 import shogi.format.Tag
-import lila.analyse.{ Analysis, JsonView => analysisJson }
-import lila.common.config.MaxPerSecond
+
+import lila.analyse.Analysis
+import lila.analyse.{JsonView => analysisJson}
+import lila.common.HTTPRequest
 import lila.common.Json.jodaWrites
-import lila.common.{ HTTPRequest, LightUser }
+import lila.common.LightUser
+import lila.common.config.MaxPerSecond
 import lila.db.dsl._
-import lila.team.GameTeams
+import lila.game.Game
 import lila.game.JsonView._
 import lila.game.NotationDump.WithFlags
-import lila.game.{ Game, PerfPicker, Query }
+import lila.game.PerfPicker
+import lila.game.Query
+import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
 

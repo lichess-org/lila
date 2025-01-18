@@ -1,7 +1,8 @@
 package lila.memo
 
-import play.api.mvc.Result
 import scala.concurrent.duration.FiniteDuration
+
+import play.api.mvc.Result
 
 /**
   * only allow one future at a time per key

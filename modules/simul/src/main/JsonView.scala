@@ -2,9 +2,10 @@ package lila.simul
 
 import play.api.libs.json._
 
-import lila.common.LightUser
 import lila.common.Json._
-import lila.game.{ Game, GameRepo }
+import lila.common.LightUser
+import lila.game.Game
+import lila.game.GameRepo
 import lila.user.User
 
 final class JsonView(

@@ -1,6 +1,7 @@
 package lila.security
 
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final private[security] class Cli(userRepo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {

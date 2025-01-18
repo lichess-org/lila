@@ -1,7 +1,7 @@
 package lila.plan
 
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 
 case class Checkout(
     email: Option[String],

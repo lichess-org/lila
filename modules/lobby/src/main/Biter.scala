@@ -1,11 +1,15 @@
 package lila.lobby
 
-import shogi.{ Game => ShogiGame, Situation }
+import shogi.Situation
+import shogi.{Game => ShogiGame}
 
-import actorApi.{ JoinHook, JoinSeek }
-import lila.game.{ Game, PerfPicker, Player }
+import lila.game.Game
+import lila.game.PerfPicker
+import lila.game.Player
 import lila.socket.Socket.Sri
 import lila.user.User
+
+import actorApi.{ JoinHook, JoinSeek }
 
 final private class Biter(
     userRepo: lila.user.UserRepo,

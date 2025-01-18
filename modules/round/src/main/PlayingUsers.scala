@@ -2,8 +2,8 @@ package lila.round
 
 import scala.concurrent.duration._
 
-import lila.user.User
 import lila.common.Bus
+import lila.user.User
 
 final class PlayingUsers {
 

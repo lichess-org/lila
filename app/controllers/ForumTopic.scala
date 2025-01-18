@@ -2,10 +2,12 @@ package controllers
 
 import scala.concurrent.duration._
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
 import play.api.libs.json._
 import views._
+
+import lila.app._
+import lila.common.HTTPRequest
+import lila.common.IpAddress
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 

@@ -1,15 +1,21 @@
 package lila.db
 
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
+
+import cats.data.NonEmptyList
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
-import scala.util.{ Failure, Success, Try }
-import cats.data.NonEmptyList
-
-import lila.common.Iso._
-import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
-import shogi.format.forsyth.Sfen
 import shogi.Color
+import shogi.format.forsyth.Sfen
+
+import lila.common.EmailAddress
+import lila.common.IpAddress
+import lila.common.Iso
+import lila.common.Iso._
+import lila.common.NormalizedEmailAddress
 
 trait Handlers {
 

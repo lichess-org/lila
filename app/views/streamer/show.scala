@@ -1,6 +1,7 @@
 package views.html.streamer
 
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._

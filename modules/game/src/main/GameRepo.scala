@@ -1,14 +1,15 @@
 package lila.game
 
-import lila.common.ThreadLocalRandom
-
-import shogi.{ Color, Status }
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.commands.WriteResult
+import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.WriteConcern
+import reactivemongo.api.commands.WriteResult
+import shogi.Color
+import shogi.Status
 
+import lila.common.ThreadLocalRandom
 import lila.db.dsl._
 import lila.db.isDuplicateKey
 import lila.user.User

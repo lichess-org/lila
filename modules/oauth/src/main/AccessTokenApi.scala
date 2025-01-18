@@ -1,12 +1,13 @@
 package lila.oauth
 
 import scala.concurrent.duration._
+
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
+import lila.common.Bearer
 import lila.db.dsl._
 import lila.user.User
-import lila.common.Bearer
 
 final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext

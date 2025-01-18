@@ -1,12 +1,14 @@
 package lila.practice
 
 import scala.concurrent.duration._
+
 import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.study.{ Chapter, Study }
+import lila.study.Chapter
+import lila.study.Study
 import lila.user.User
 
 final class PracticeApi(

@@ -1,16 +1,18 @@
 package lila.tree
 
-import lila.common.Json._
-
 import play.api.libs.json._
 
-import shogi.format.{ Glyph, Glyphs }
-import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ Usi, UsiCharPair }
-import shogi.{ Pos, Piece }
-
 import shogi.Centis
+import shogi.Piece
+import shogi.Pos
+import shogi.format.Glyph
+import shogi.format.Glyphs
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
+
 import lila.base.PimpedJsObject
+import lila.common.Json._
 
 sealed trait Node {
   def ply: Int

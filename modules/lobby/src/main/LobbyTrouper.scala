@@ -1,17 +1,22 @@
 package lila.lobby
 
-import actorApi._
+import scala.concurrent.Promise
+import scala.concurrent.duration._
+
 import cats.implicits._
 import org.joda.time.DateTime
-import scala.concurrent.duration._
-import scala.concurrent.Promise
 
+import lila.common.AtMost
+import lila.common.Bus
+import lila.common.Every
 import lila.common.config.Max
-import lila.common.{ AtMost, Bus, Every }
 import lila.game.Game
 import lila.hub.Trouper
-import lila.socket.Socket.{ Sri, Sris }
+import lila.socket.Socket.Sri
+import lila.socket.Socket.Sris
 import lila.user.User
+
+import actorApi._
 
 final private class LobbyTrouper(
     seekApi: SeekApi,

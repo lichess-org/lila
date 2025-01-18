@@ -4,7 +4,8 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.game.{ Game, GameRepo }
+import lila.game.Game
+import lila.game.GameRepo
 import lila.user.User
 
 case class Bookmark(game: lila.game.Game, user: lila.user.User)

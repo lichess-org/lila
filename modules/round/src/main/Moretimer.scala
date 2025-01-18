@@ -2,8 +2,12 @@ package lila.round
 
 import shogi.Color
 
-import lila.game.{ Event, Game, Pov, Progress }
-import lila.pref.{ Pref, PrefApi }
+import lila.game.Event
+import lila.game.Game
+import lila.game.Pov
+import lila.game.Progress
+import lila.pref.Pref
+import lila.pref.PrefApi
 
 final private class Moretimer(
     messenger: Messenger,

@@ -1,14 +1,17 @@
 package controllers
 
-import play.api.mvc._
 import scala.concurrent.duration._
+
+import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.EmailAddress
-import lila.plan.{ MonthlyCustomerInfo, OneTimeCustomerInfo, StripeCustomer }
+import lila.plan.MonthlyCustomerInfo
+import lila.plan.OneTimeCustomerInfo
+import lila.plan.StripeCustomer
 import lila.user.{ User => UserModel }
-import views._
 
 final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env) {
 

@@ -1,15 +1,20 @@
 package lila.security
 
-import play.api.data._
-import play.api.i18n.Lang
-import play.api.mvc.{ Request, RequestHeader }
 import scala.concurrent.duration._
 import scala.util.chaining._
 
+import play.api.data._
+import play.api.i18n.Lang
+import play.api.mvc.Request
+import play.api.mvc.RequestHeader
+
+import lila.common.EmailAddress
+import lila.common.HTTPRequest
+import lila.common.IpAddress
 import lila.common.config.NetConfig
-import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
-import lila.user.{ PasswordHasher, User }
+import lila.user.PasswordHasher
+import lila.user.User
 
 final class Signup(
     store: Store,

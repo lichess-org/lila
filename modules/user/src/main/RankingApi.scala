@@ -1,13 +1,16 @@
 package lila.user
 
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
+
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.Glicko
+import lila.rating.Perf
+import lila.rating.PerfType
 
 final class RankingApi(
     userRepo: UserRepo,

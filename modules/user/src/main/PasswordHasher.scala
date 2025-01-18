@@ -3,7 +3,9 @@ package lila.user
 import java.security.SecureRandom
 import java.util.Base64
 import javax.crypto.Cipher
-import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
+
 import com.roundeights.hasher.Implicits._
 
 import lila.common.config.Secret

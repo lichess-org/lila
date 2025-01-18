@@ -3,13 +3,15 @@ package round
 
 import scala.util.chaining._
 
+import controllers.routes
+
 import shogi.variant.Variant
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Pov }
-
-import controllers.routes
+import lila.game.Game
+import lila.game.Pov
 
 object bits {
 

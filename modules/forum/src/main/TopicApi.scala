@@ -1,15 +1,17 @@
 package lila.forum
 
-import actorApi._
-
 import lila.common.Bus
-import lila.common.paginator._
 import lila.common.String.noShouting
+import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.hub.actorApi.timeline.ForumPost
+import lila.hub.actorApi.timeline.Propagate
 import lila.security.{ Granter => MasterGranter }
-import lila.user.{ User, UserContext }
+import lila.user.User
+import lila.user.UserContext
+
+import actorApi._
 
 final private[forum] class TopicApi(
     env: Env,

@@ -1,16 +1,25 @@
 package lila.game
 
-import shogi.Color.{ Gote, Sente }
+import org.joda.time.DateTime
+import shogi.Centis
+import shogi.Clock
+import shogi.Color
+import shogi.Color.Gote
+import shogi.Color.Sente
+import shogi.Handicap
+import shogi.Mode
+import shogi.Speed
+import shogi.Status
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import shogi.{ Centis, Clock, Color, Game => ShogiGame, Handicap, Mode, Speed, Status }
+import shogi.{Game => ShogiGame}
+
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.rating.PerfType.Classical
 import lila.user.User
-import org.joda.time.DateTime
 
 case class Game(
     id: Game.ID,

@@ -1,10 +1,12 @@
 package lila.game
 
-import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration._
 
+import com.github.blemale.scaffeine.LoadingCache
+
 import lila.db.dsl._
-import lila.memo.{ CacheApi, MongoCache }
+import lila.memo.CacheApi
+import lila.memo.MongoCache
 import lila.user.User
 
 final class Cached(

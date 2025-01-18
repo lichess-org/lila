@@ -1,16 +1,22 @@
 package lila.api
 
+import scala.concurrent.duration._
+
+import play.api.libs.json._
+
 import akka.actor._
 import akka.stream.scaladsl._
-import play.api.libs.json._
-import scala.concurrent.duration._
 import org.joda.time.DateTime
 
 import lila.challenge.Challenge
 import lila.common.Bus
-import lila.game.actorApi.{ FinishGame, StartGame }
-import lila.game.{ Game, Pov }
-import lila.user.{ LightUserApi, User, UserRepo }
+import lila.game.Game
+import lila.game.Pov
+import lila.game.actorApi.FinishGame
+import lila.game.actorApi.StartGame
+import lila.user.LightUserApi
+import lila.user.User
+import lila.user.UserRepo
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,

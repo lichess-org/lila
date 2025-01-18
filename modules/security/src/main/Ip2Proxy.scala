@@ -1,9 +1,11 @@
 package lila.security
 
-import com.github.blemale.scaffeine.AsyncLoadingCache
+import scala.concurrent.duration._
+
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import scala.concurrent.duration._
+
+import com.github.blemale.scaffeine.AsyncLoadingCache
 
 import lila.common.IpAddress
 

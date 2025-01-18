@@ -2,9 +2,9 @@ package lila.msg
 
 import reactivemongo.api.bson._
 
-import lila.user.User
-import lila.db.dsl._
 import lila.db.BSON
+import lila.db.dsl._
+import lila.user.User
 
 private object BsonHandlers {
 

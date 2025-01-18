@@ -1,16 +1,20 @@
 package controllers
 
-import akka.pattern.ask
-import play.api.data._, Forms._
+import scala.annotation.nowarn
+
+import play.api.data._
 import play.api.libs.json._
 import play.api.mvc._
-import scala.annotation.nowarn
+import views._
+
+import akka.pattern.ask
 
 import lila.app._
 import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
+
+import Forms._
 import makeTimeout.large
-import views._
 
 final class Main(
     env: Env,

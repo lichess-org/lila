@@ -1,7 +1,8 @@
 package controllers
 
-import lila.app._
 import views._
+
+import lila.app._
 
 final class UserTournament(env: Env) extends LilaController(env) {
 

@@ -1,10 +1,12 @@
 package lila.setup
 
-import shogi.{ Clock, Speed }
+import shogi.Clock
+import shogi.Speed
 import shogi.format.forsyth.Sfen
+
+import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
-import lila.game.PerfPicker
 
 final case class ApiConfig(
     variant: shogi.variant.Variant,

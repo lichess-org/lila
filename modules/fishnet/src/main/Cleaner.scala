@@ -1,10 +1,11 @@
 package lila.fishnet
 
+import scala.concurrent.duration._
+
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 

@@ -1,16 +1,20 @@
 package lila.security
 
-import akka.actor._
-import com.softwaremill.macwire._
-import play.api.Configuration
-import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
+import play.api.Configuration
+import play.api.libs.ws.WSClient
+
+import akka.actor._
+import com.softwaremill.macwire._
+
+import lila.common.Bus
+import lila.common.Strings
 import lila.common.config._
-import lila.common.{ Bus, Strings }
 import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
-import lila.user.{ Authenticator, UserRepo }
+import lila.user.Authenticator
+import lila.user.UserRepo
 
 @Module
 final class Env(

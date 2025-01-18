@@ -2,7 +2,8 @@ package lila.round
 
 import lila.common.IpAddress
 import lila.game.Game
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class SelfReport(
     tellRound: TellRound,

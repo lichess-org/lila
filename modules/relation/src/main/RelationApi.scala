@@ -1,18 +1,21 @@
 package lila.relation
 
+import scala.concurrent.duration._
+
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.bson._
-import scala.concurrent.duration._
 
-import BSONHandlers._
 import lila.common.Bus
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Follow => FollowUser, Propagate }
+import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.timeline.{Follow => FollowUser}
 import lila.hub.actors
 import lila.memo.CacheApi._
 import lila.user.User
+
+import BSONHandlers._
 
 final class RelationApi(
     coll: Coll,

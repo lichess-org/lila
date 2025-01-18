@@ -1,17 +1,25 @@
 package lila.app
 
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
+import play.api.Configuration
+import play.api.Environment
+import play.api.Mode
+import play.api.libs.ws.WSClient
+import play.api.mvc.ControllerComponents
+import play.api.mvc.SessionCookieBaker
+
 import akka.actor._
 import com.softwaremill.macwire._
-import lila.memo.SettingStore.Strings._
-import play.api.libs.ws.WSClient
-import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment, Mode }
-import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext, Future }
 
+import lila.common.Bus
+import lila.common.Lilakka
+import lila.common.Strings
 import lila.common.config._
-import lila.common.{ Bus, Lilakka, Strings }
 import lila.game.IdGenerator
+import lila.memo.SettingStore.Strings._
 
 final class Env(
     val config: Configuration,

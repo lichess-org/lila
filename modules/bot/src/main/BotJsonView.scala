@@ -5,8 +5,9 @@ import play.api.libs.json._
 
 import lila.common.Json.jodaWrites
 import lila.game.FairyConversion.Kyoto
+import lila.game.Game
 import lila.game.JsonView._
-import lila.game.{ Game, Pov }
+import lila.game.Pov
 
 final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,

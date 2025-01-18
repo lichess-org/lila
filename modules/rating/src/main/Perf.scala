@@ -2,10 +2,11 @@ package lila.rating
 
 import org.goochjs.glicko2.Rating
 import org.joda.time.DateTime
-import reactivemongo.api.bson.{ BSONDocument, Macros }
+import reactivemongo.api.bson.BSONDocument
+import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.bson.Macros
 
 import lila.db.BSON
-import reactivemongo.api.bson.BSONDocumentHandler
 
 case class Perf(
     glicko: Glicko,

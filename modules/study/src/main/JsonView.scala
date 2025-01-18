@@ -1,18 +1,22 @@
 package lila.study
 
+import scala.util.chaining._
+
+import play.api.libs.json._
+
+import shogi.Color
+import shogi.Piece
+import shogi.Pos
+import shogi.format.Tags
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.{ Color, Piece, Pos }
-import play.api.libs.json._
-import scala.util.chaining._
+import shogi.variant.Variant
 
 import lila.common.Json._
 import lila.game.Game
 import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
 import lila.user.User
-import shogi.format.Tags
-import shogi.variant.Variant
 
 final class JsonView(
     studyRepo: StudyRepo,

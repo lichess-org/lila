@@ -1,12 +1,15 @@
 package lila.security
 
-import com.github.blemale.scaffeine.LoadingCache
-import com.sanoma.cda.geoip.{ IpLocation, MaxMindIpGeo }
-import io.methvin.play.autoconfig._
 import scala.concurrent.duration._
 
-import lila.common.IpAddress
 import play.api.ConfigLoader
+
+import com.github.blemale.scaffeine.LoadingCache
+import com.sanoma.cda.geoip.IpLocation
+import com.sanoma.cda.geoip.MaxMindIpGeo
+import io.methvin.play.autoconfig._
+
+import lila.common.IpAddress
 
 final class GeoIP(config: GeoIP.Config) {
 

@@ -2,8 +2,10 @@ package lila.game
 
 import play.api.libs.json._
 
+import shogi.Clock
+import shogi.Color
 import shogi.format.forsyth.Sfen
-import shogi.{ Clock, Color }
+
 import lila.common.Json._
 import lila.common.LightUser
 

@@ -2,8 +2,9 @@ package lila.setup
 
 import shogi.Clock
 import shogi.format.forsyth.Sfen
-import lila.rating.PerfType
+
 import lila.game.PerfPicker
+import lila.rating.PerfType
 
 final case class OpenConfig(
     variant: shogi.variant.Variant,

@@ -1,21 +1,27 @@
 package lila.tournament
 
-import shogi.format.forsyth.Sfen
-import org.joda.time.DateTime
-import org.joda.time.format.ISODateTimeFormat
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+
 import play.api.i18n.Lang
 import play.api.libs.json._
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
+import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
+import shogi.format.forsyth.Sfen
+
+import lila.common.Animal
 import lila.common.Json._
-import lila.common.{ Animal, LightUser, Uptime }
-import lila.game.{ Game, LightPov }
+import lila.common.LightUser
+import lila.common.Uptime
+import lila.game.Game
+import lila.game.LightPov
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
-import lila.user.{ LightUserApi, User }
+import lila.user.LightUserApi
+import lila.user.User
 
 final class JsonView(
     lightUserApi: LightUserApi,

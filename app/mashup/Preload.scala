@@ -1,20 +1,24 @@
 package lila.app
 package mashup
 
+import play.api.libs.json._
+
 import lila.api.Context
 import lila.event.Event
 import lila.forum.MiniForumPost
-import lila.game.{ Game, Pov }
+import lila.game.Game
+import lila.game.Pov
 import lila.playban.TempBan
-import lila.simul.{ Simul, SimulIsFeaturable }
+import lila.simul.Simul
+import lila.simul.SimulIsFeaturable
 import lila.streamer.LiveStreams
 import lila.study.Study.MiniStudy
 import lila.timeline.Entry
-import lila.tournament.{ Tournament, Winner }
+import lila.tournament.Tournament
+import lila.tournament.Winner
 import lila.tv.Tv
 import lila.user.LightUserApi
 import lila.user.User
-import play.api.libs.json._
 
 final class Preload(
     tv: Tv,

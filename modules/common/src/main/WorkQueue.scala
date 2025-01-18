@@ -1,11 +1,15 @@
 package lila.common
 
-import akka.stream.scaladsl._
-import akka.stream.{ Materializer, QueueOfferResult }
-import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ ExecutionContext, Future, Promise }
-import scala.util.chaining._
 import java.util.concurrent.TimeoutException
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import scala.concurrent.Promise
+import scala.concurrent.duration.FiniteDuration
+import scala.util.chaining._
+
+import akka.stream.Materializer
+import akka.stream.QueueOfferResult
+import akka.stream.scaladsl._
 
 /* Sequences async tasks, so that:
  * queue.run(() => task1); queue.run(() => task2)

@@ -1,13 +1,12 @@
 package views.html.streamer
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-
-import controllers.routes
 
 object edit extends Context.ToLang {
 

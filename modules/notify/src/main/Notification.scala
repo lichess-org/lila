@@ -1,8 +1,9 @@
 package lila.notify
 
+import org.joda.time.DateTime
+
 import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
-import org.joda.time.DateTime
 
 case class NewNotification(notification: Notification, unreadNotifications: Int)
 

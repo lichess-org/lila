@@ -1,6 +1,7 @@
 package lila.common
 
 import scala.concurrent.duration._
+
 import play.api.mvc.Call
 
 case class AssetVersion(value: String) extends AnyVal with StringValue

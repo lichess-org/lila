@@ -1,14 +1,18 @@
 package views.html
 package tournament
 
-import play.api.data.{ Field, Form }
+import controllers.routes
+import play.api.data.Field
+import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tournament.{ Condition, DataForm, Format, TimeControl, Tournament }
-
-import controllers.routes
+import lila.tournament.Condition
+import lila.tournament.DataForm
+import lila.tournament.Format
+import lila.tournament.TimeControl
+import lila.tournament.Tournament
 
 object form {
 

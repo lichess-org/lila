@@ -1,10 +1,11 @@
 package lila.streamer
 
 import play.api.libs.json._
+
 import org.joda.time.DateTime
 
-import lila.user.User
 import lila.common.String.html.unescapeHtml
+import lila.user.User
 
 trait Stream {
   def serviceName: String

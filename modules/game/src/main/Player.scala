@@ -1,12 +1,12 @@
 package lila.game
 
-import cats.implicits._
-
-import shogi.Color
 import scala.util.chaining._
 
-import lila.user.User
+import cats.implicits._
 import reactivemongo.api.bson.BSONDocumentHandler
+import shogi.Color
+
+import lila.user.User
 
 case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 

@@ -1,22 +1,24 @@
 package lila.activity
 
-import org.joda.time.Interval
 import play.api.i18n.Lang
 import play.api.libs.json._
+
+import org.joda.time.Interval
 
 import lila.common.Iso
 import lila.common.Json._
 import lila.game.JsonView.colorWrites
 import lila.game.LightPov
+import lila.game.Player
 import lila.rating.PerfType
 import lila.simul.Simul
 import lila.study.JsonView.studyIdNameWrites
-import lila.tournament.LeaderboardApi.{ Entry => TourEntry, Ratio => TourRatio }
+import lila.tournament.LeaderboardApi.{Entry => TourEntry}
+import lila.tournament.LeaderboardApi.{Ratio => TourRatio}
 import lila.user.User
 
 import activities._
 import model._
-import lila.game.Player
 
 final class JsonView(
     getTourName: lila.tournament.GetTourName,

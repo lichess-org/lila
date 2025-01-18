@@ -2,13 +2,13 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.simul.{ Simul => Sim }
-import views._
 
 final class Simul(
     env: Env,

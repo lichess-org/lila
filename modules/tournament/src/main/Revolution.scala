@@ -1,13 +1,14 @@
 package lila.tournament
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
-import reactivemongo.api.ReadPreference
 
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import shogi.variant.Variant
+
 import lila.db.dsl._
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,

@@ -1,12 +1,13 @@
 package lila.lobby
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
+
+import org.joda.time.DateTime
 
 import lila.common.config._
 import lila.db.dsl._
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class SeekApi(
     config: SeekApi.Config,

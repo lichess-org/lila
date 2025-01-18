@@ -1,10 +1,12 @@
 package lila.forum
 
 import lila.common.Future
+import lila.notify.MentionedInThread
+import lila.notify.Notification
 import lila.notify.NotifyApi
-import lila.notify.{ MentionedInThread, Notification }
 import lila.relation.RelationApi
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 /** Notifier to inform users if they have been mentioned in a post
   *

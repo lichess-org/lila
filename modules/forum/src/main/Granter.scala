@@ -1,7 +1,9 @@
 package lila.forum
 
-import lila.security.{ Granter => Master, Permission }
-import lila.user.{ User, UserContext }
+import lila.security.Permission
+import lila.security.{Granter => Master}
+import lila.user.User
+import lila.user.UserContext
 
 trait Granter {
 

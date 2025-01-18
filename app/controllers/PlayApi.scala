@@ -1,9 +1,10 @@
 package controllers
 
-import play.api.i18n.Lang
-import play.api.mvc._
 import scala.concurrent.duration._
 import scala.util.chaining._
+
+import play.api.i18n.Lang
+import play.api.mvc._
 
 import lila.app._
 import lila.game.Pov

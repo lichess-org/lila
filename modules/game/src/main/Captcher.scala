@@ -1,11 +1,13 @@
 package lila.game
 
+import scala.util.Success
+
 import akka.actor._
 import akka.pattern.pipe
-import shogi.format.{ Reader, Tags }
-import shogi.{ Game => ShogiGame }
-import scala.util.Success
 import cats.data.NonEmptyList
+import shogi.format.Reader
+import shogi.format.Tags
+import shogi.{ Game => ShogiGame }
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._

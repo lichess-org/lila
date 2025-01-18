@@ -7,7 +7,8 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.storm.{ StormDay, StormHigh }
+import lila.storm.StormDay
+import lila.storm.StormHigh
 import lila.user.User
 
 object storm {

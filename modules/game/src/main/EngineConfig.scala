@@ -1,8 +1,10 @@
 package lila.game
 
+import shogi.Handicap
+import shogi.Role
 import shogi.format.forsyth.Sfen
-import shogi.variant.{ Standard, Variant }
-import shogi.{ Handicap, Role }
+import shogi.variant.Standard
+import shogi.variant.Variant
 
 case class EngineConfig(
     level: Int,

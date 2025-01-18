@@ -2,19 +2,27 @@ package controllers
 
 import scala.annotation.nowarn
 
-import lila.api.{ BodyContext, Context }
-import lila.app._
-import lila.chat.Chat
-import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
-import lila.mod.UserSearch
-import lila.report.{ Mod => AsMod, Suspect }
-import lila.security.{ FingerHash, Permission }
-import lila.user.{ Title, User => UserModel }
-import ornicar.scalalib.Zero
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 import play.api.mvc._
 import views._
+
+import ornicar.scalalib.Zero
+
+import lila.api.BodyContext
+import lila.api.Context
+import lila.app._
+import lila.chat.Chat
+import lila.common.EmailAddress
+import lila.common.HTTPRequest
+import lila.common.IpAddress
+import lila.mod.UserSearch
+import lila.report.Suspect
+import lila.report.{Mod => AsMod}
+import lila.security.FingerHash
+import lila.security.Permission
+import lila.user.Title
+import lila.user.{User => UserModel}
 
 final class Mod(
     env: Env,

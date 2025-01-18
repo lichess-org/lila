@@ -1,14 +1,21 @@
 package lila.simul
 
-import play.api.libs.json.Json
 import scala.concurrent.duration._
 
+import play.api.libs.json.Json
+
 import shogi.variant.Variant
+
 import lila.common.Bus
-import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.PerfPicker
+import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.timeline.SimulCreate
+import lila.hub.actorApi.timeline.SimulJoin
 import lila.memo.CacheApi._
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class SimulApi(
     userRepo: UserRepo,

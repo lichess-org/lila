@@ -1,6 +1,8 @@
 package lila.api
 
-import play.api.libs.json.{ JsArray, JsObject, Json }
+import play.api.libs.json.JsArray
+import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 
 import lila.game.Pov
 import lila.lobby.SeekApi

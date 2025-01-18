@@ -1,16 +1,25 @@
 package lila.app
 package templating
 
-import shogi.{ Clock, Color, Mode, Status => S }
-import shogi.variant.Variant
 import controllers.routes
 import play.api.i18n.Lang
 
+import shogi.Clock
+import shogi.Color
+import shogi.Mode
+import shogi.variant.Variant
+import shogi.{Status => S}
+
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Namer, Player, Pov }
-import lila.i18n.{ defaultLang, I18nKeys => trans }
-import lila.user.{ Title, User }
+import lila.game.Game
+import lila.game.Namer
+import lila.game.Player
+import lila.game.Pov
+import lila.i18n.defaultLang
+import lila.i18n.{I18nKeys => trans}
+import lila.user.Title
+import lila.user.User
 
 trait GameHelper {
   self: I18nHelper with UserHelper with StringHelper with ShogigroundHelper with ColorNameHelper =>

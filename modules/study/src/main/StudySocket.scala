@@ -1,18 +1,25 @@
 package lila.study
 
-import cats.data.Validated
-
-import actorApi.Who
-import shogi.Centis
-import shogi.format.{ Glyph, Glyphs }
-import play.api.libs.json._
 import scala.concurrent.duration._
+
+import play.api.libs.json._
+
+import cats.data.Validated
+import shogi.Centis
+import shogi.format.Glyph
+import shogi.format.Glyphs
 
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, Sri }
-import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
+import lila.socket.Socket.Sri
+import lila.socket.Socket.makeMessage
+import lila.tree.Node.Comment
+import lila.tree.Node.Gamebook
+import lila.tree.Node.Shape
+import lila.tree.Node.Shapes
 import lila.user.User
+
+import actorApi.Who
 
 final private class StudySocket(
     api: StudyApi,

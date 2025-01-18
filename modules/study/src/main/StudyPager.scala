@@ -2,8 +2,10 @@ package lila.study
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.db.paginator.Adapter
+import lila.db.paginator.CachedAdapter
+import lila.i18n.I18nKey
+import lila.i18n.{I18nKeys => trans}
 import lila.user.User
 
 final class StudyPager(

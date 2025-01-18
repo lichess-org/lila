@@ -1,9 +1,9 @@
 package lila.team
 
+import reactivemongo.api.bson.BSONDocumentHandler
 import reactivemongo.api.bson.Macros
 
 import lila.hub.LightTeam
-import reactivemongo.api.bson.BSONDocumentHandler
 
 private object BSONHandlers {
 

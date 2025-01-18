@@ -1,10 +1,14 @@
 package lila.round
 
-import lila.game.{ Event, Game, Pov, Progress }
-import lila.i18n.{ defaultLang, I18nKeys => trans }
+import play.api.i18n.Lang
 
 import lila.common.Bus
-import play.api.i18n.Lang
+import lila.game.Event
+import lila.game.Game
+import lila.game.Pov
+import lila.game.Progress
+import lila.i18n.defaultLang
+import lila.i18n.{I18nKeys => trans}
 
 final private[round] class Drawer(
     messenger: Messenger,

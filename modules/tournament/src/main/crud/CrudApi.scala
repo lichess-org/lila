@@ -1,13 +1,14 @@
 package lila.tournament
 package crud
 
-import BSONHandlers._
 import org.joda.time.DateTime
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.User
+
+import BSONHandlers._
 
 final class CrudApi(tournamentRepo: TournamentRepo) {
 

@@ -1,10 +1,10 @@
 package lila.evalCache
 
+import cats.data.NonEmptyList
+import org.joda.time.DateTime
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import org.joda.time.DateTime
-import cats.data.NonEmptyList
 
 import lila.tree.Eval.Score
 import lila.user.User

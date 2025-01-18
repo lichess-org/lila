@@ -1,15 +1,17 @@
 package lila.msg
 
-import akka.stream.scaladsl._
-import org.joda.time.DateTime
-
 import scala.concurrent.duration._
 import scala.util.Try
 
+import akka.stream.scaladsl._
+import org.joda.time.DateTime
+
+import lila.common.Bus
+import lila.common.LightUser
 import lila.common.config.MaxPerPage
-import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class MsgApi(
     colls: MsgColls,

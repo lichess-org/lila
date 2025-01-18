@@ -6,7 +6,8 @@ import views._
 
 import lila.api.Context
 import lila.app._
-import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
+import lila.streamer.StreamerForm
+import lila.streamer.{Streamer => StreamerModel}
 
 final class Streamer(
     env: Env,

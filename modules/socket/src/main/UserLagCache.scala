@@ -1,8 +1,9 @@
 package lila.socket
 
-import shogi.Centis
-import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
+
+import com.github.blemale.scaffeine.Cache
+import shogi.Centis
 
 object UserLagCache {
 

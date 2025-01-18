@@ -1,6 +1,7 @@
 package lila.activity
 
-import org.joda.time.{ DateTime, Interval }
+import org.joda.time.DateTime
+import org.joda.time.Interval
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._

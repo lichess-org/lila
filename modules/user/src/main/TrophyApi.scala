@@ -1,10 +1,12 @@
 package lila.user
 
-import lila.db.dsl._
-import lila.memo._
+import scala.concurrent.duration._
+
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.concurrent.duration._
+
+import lila.db.dsl._
+import lila.memo._
 
 final class TrophyApi(
     coll: Coll,

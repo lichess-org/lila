@@ -1,11 +1,13 @@
 package lila.base
 
-import scala.concurrent.duration.Duration
 import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+
+import play.api.libs.json.JsError
+import play.api.libs.json.JsObject
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
-import play.api.libs.json.{ JsError, JsObject }
 
 trait LilaTypes {
 

@@ -1,24 +1,36 @@
 package lila.tournament
 
-import akka.actor.{ ActorSystem, Props }
+import scala.concurrent.Promise
+import scala.concurrent.duration._
+import scala.util.chaining._
+
+import play.api.libs.json._
+
+import akka.actor.ActorSystem
+import akka.actor.Props
 import akka.pattern.ask
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-import play.api.libs.json._
-import scala.concurrent.duration._
-import scala.concurrent.Promise
-import scala.util.chaining._
 
-import lila.common.config.{ MaxPerPage, MaxPerSecond }
+import lila.common.Bus
+import lila.common.Debouncer
+import lila.common.LightUser
+import lila.common.config.MaxPerPage
+import lila.common.config.MaxPerSecond
 import lila.common.paginator.Paginator
-import lila.common.{ Bus, Debouncer, LightUser }
-import lila.game.{ Game, GameRepo, LightPov, Pov }
-import lila.hub.actorApi.lobby.ReloadTournaments
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.LightPov
+import lila.game.Pov
 import lila.hub.LightTeam
 import lila.hub.LightTeam._
-import lila.round.actorApi.round.{ AbortForce, GoBerserk }
+import lila.hub.actorApi.lobby.ReloadTournaments
+import lila.round.actorApi.round.AbortForce
+import lila.round.actorApi.round.GoBerserk
 import lila.socket.Socket.SendToFlag
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
+
 import makeTimeout.short
 
 final class TournamentApi(

@@ -1,16 +1,20 @@
 package lila.chat
 
-import shogi.Color
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.config.NetDomain
-import lila.common.String.noShouting
+import reactivemongo.api.ReadPreference
+import shogi.Color
+
 import lila.common.Bus
+import lila.common.String.noShouting
+import lila.common.config.NetDomain
 import lila.db.dsl._
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
+import lila.hub.actorApi.shutup.PublicSource
+import lila.hub.actorApi.shutup.RecordPrivateChat
+import lila.hub.actorApi.shutup.RecordPublicChat
 import lila.memo.CacheApi._
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class ChatApi(
     coll: Coll,

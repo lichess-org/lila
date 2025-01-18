@@ -1,13 +1,13 @@
 package views.html
 package user
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.user.User
 import lila.game.FavoriteOpponents
-
-import controllers.routes
+import lila.user.User
 
 object opponents {
   def apply(u: User, sugs: List[lila.relation.Related])(implicit ctx: Context) =

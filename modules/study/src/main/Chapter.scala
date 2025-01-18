@@ -1,13 +1,18 @@
 package lila.study
 
-import shogi.format.{ Glyph, Tags }
-import shogi.variant.Variant
-import shogi.{ Centis, Color, Status }
 import org.joda.time.DateTime
+import shogi.Centis
+import shogi.Color
+import shogi.Status
+import shogi.format.Glyph
+import shogi.format.Tags
+import shogi.variant.Variant
 
-import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
 import lila.common.Iso
+import lila.tree.Node.Comment
+import lila.tree.Node.Gamebook
+import lila.tree.Node.Shapes
+import lila.user.User
 
 case class Chapter(
     _id: Chapter.Id,

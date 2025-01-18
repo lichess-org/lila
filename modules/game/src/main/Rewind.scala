@@ -1,9 +1,9 @@
 package lila.game
 
-import org.joda.time.DateTime
 import cats.data.Validated
-
-import shogi.format.{ Reader, Tags }
+import org.joda.time.DateTime
+import shogi.format.Reader
+import shogi.format.Tags
 
 object Rewind {
 

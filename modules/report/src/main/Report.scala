@@ -1,10 +1,10 @@
 package lila.report
 
-import org.joda.time.DateTime
 import cats.data.NonEmptyList
+import org.joda.time.DateTime
 
-import lila.user.User
 import lila.common.Iso
+import lila.user.User
 
 case class Report(
     _id: Report.ID, // also the url slug

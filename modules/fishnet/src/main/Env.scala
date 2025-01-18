@@ -1,13 +1,14 @@
 package lila.fishnet
 
+import play.api.Configuration
+
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
-import lila.db.dsl._
 
 import lila.common.Bus
 import lila.common.config._
+import lila.db.dsl._
 import lila.game.Game
 
 @Module

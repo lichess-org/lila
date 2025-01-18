@@ -1,14 +1,17 @@
 package lila.simul
 
+import scala.concurrent.duration._
+
+import play.api.Configuration
+
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.config._
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.Socket.GetVersion
+import lila.socket.Socket.SocketVersion
 
 @Module
 private class SimulConfig(

@@ -1,7 +1,7 @@
 package lila.challenge
 
-import play.api.libs.json._
 import play.api.i18n.Lang
+import play.api.libs.json._
 
 import lila.socket.Socket.SocketVersion
 import lila.socket.UserLagCache

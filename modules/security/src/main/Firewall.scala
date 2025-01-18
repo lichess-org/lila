@@ -1,8 +1,10 @@
 package lila.security
 
-import org.joda.time.DateTime
-import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
+
+import play.api.mvc.RequestHeader
+
+import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import lila.common.IpAddress

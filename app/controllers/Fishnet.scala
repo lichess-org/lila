@@ -1,14 +1,17 @@
 package controllers
 
+import scala.util.Failure
+import scala.util.Success
+
 import play.api.libs.json._
 import play.api.mvc._
-import scala.util.{ Failure, Success }
 
 import lila.app._
 import lila.common.HTTPRequest
+import lila.fishnet.JsonApi
 import lila.fishnet.JsonApi.readers._
 import lila.fishnet.JsonApi.writers._
-import lila.fishnet.{ JsonApi, Work }
+import lila.fishnet.Work
 
 final class Fishnet(env: Env) extends LilaController(env) {
 

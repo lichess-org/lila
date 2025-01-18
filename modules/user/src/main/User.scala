@@ -1,12 +1,17 @@
 package lila.user
 
-import org.joda.time.DateTime
-import play.api.i18n.Lang
 import scala.concurrent.duration._
 
-import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
-import lila.rating.{ Perf, PerfType }
+import play.api.i18n.Lang
+
+import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONDocumentHandler
+
+import lila.common.EmailAddress
+import lila.common.LightUser
+import lila.common.NormalizedEmailAddress
+import lila.rating.Perf
+import lila.rating.PerfType
 
 case class User(
     id: String,

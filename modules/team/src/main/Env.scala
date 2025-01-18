@@ -6,7 +6,8 @@ import com.softwaremill.macwire._
 import lila.common.config._
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.Socket.GetVersion
+import lila.socket.Socket.SocketVersion
 
 @Module
 final class Env(

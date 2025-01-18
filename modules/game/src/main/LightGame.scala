@@ -1,6 +1,7 @@
 package lila.game
 
-import shogi.{ Color, Status }
+import shogi.Color
+import shogi.Status
 
 import lila.user.User
 

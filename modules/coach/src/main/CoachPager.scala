@@ -1,12 +1,14 @@
 package lila.coach
 
-import reactivemongo.api._
 import play.api.i18n.Lang
+
+import reactivemongo.api._
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class CoachPager(
     userRepo: UserRepo,

@@ -1,16 +1,18 @@
 package lila.tournament
 
-import shogi.variant.Variant
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
+import shogi.variant.Variant
 
-import BSONHandlers._
 import lila.common.config.CollName
 import lila.db.dsl._
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
 import lila.user.User
+
+import BSONHandlers._
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     ec: scala.concurrent.ExecutionContext

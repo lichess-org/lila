@@ -1,7 +1,8 @@
 package lila.appeal
 
-import lila.user.User
 import org.joda.time.DateTime
+
+import lila.user.User
 
 case class Appeal(
     _id: User.ID,

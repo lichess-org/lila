@@ -1,8 +1,9 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.Cache
 import scala.annotation.nowarn
 import scala.concurrent.duration.FiniteDuration
+
+import com.github.blemale.scaffeine.Cache
 
 final class ExpireSetMemo(ttl: FiniteDuration) {
 

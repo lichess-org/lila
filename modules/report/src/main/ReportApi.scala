@@ -3,12 +3,14 @@ package lila.report
 import scala.concurrent.duration._
 
 import com.softwaremill.macwire._
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+
 import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.user.{ User, UserRepo }
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
+import lila.user.User
+import lila.user.UserRepo
 
 final class ReportApi(
     val coll: Coll,

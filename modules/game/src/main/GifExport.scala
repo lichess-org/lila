@@ -1,17 +1,21 @@
 package lila.game
 
-import akka.stream.scaladsl._
-import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
+
+import akka.stream.scaladsl._
+import akka.util.ByteString
+import shogi.Centis
+import shogi.Color
+import shogi.Replay
+import shogi.Situation
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.Usi
+import shogi.{Game => ShogiGame}
 
 import lila.common.Json._
 import lila.common.Maths
 import lila.common.config.BaseUrl
-
-import shogi.{ Centis, Color, Game => ShogiGame, Replay, Situation }
-import shogi.format.forsyth.Sfen
-import shogi.format.usi.Usi
 
 final class GifExport(
     ws: WSClient,

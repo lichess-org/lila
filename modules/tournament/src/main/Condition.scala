@@ -5,7 +5,8 @@ import play.api.i18n.Lang
 import lila.hub.LightTeam._
 import lila.i18n.{ I18nKeys => trans }
 import lila.rating.PerfType
-import lila.user.{ Title, User }
+import lila.user.Title
+import lila.user.User
 
 sealed trait Condition {
 

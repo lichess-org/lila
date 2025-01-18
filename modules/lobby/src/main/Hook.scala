@@ -1,8 +1,11 @@
 package lila.lobby
 
-import shogi.{ Clock, Mode, Speed }
-import org.joda.time.DateTime
 import play.api.libs.json._
+
+import org.joda.time.DateTime
+import shogi.Clock
+import shogi.Mode
+import shogi.Speed
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange

@@ -1,9 +1,10 @@
 package lila.gameSearch
 
-import shogi.Mode
-import org.joda.time.DateTime
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
+
+import org.joda.time.DateTime
+import shogi.Mode
 
 import lila.common.Form._
 import lila.search.Range

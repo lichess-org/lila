@@ -1,11 +1,11 @@
 package lila.game
 
-import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
+import com.github.blemale.scaffeine.Cache
 import shogi.Division
-import shogi.variant.Variant
 import shogi.format.forsyth.Sfen
+import shogi.variant.Variant
 
 final class Divider {
 

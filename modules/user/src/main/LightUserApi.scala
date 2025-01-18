@@ -1,12 +1,15 @@
 package lila.user
 
-import reactivemongo.api.bson._
 import scala.concurrent.duration._
 import scala.util.Success
 
+import reactivemongo.api.bson._
+
 import lila.common.LightUser
 import lila.db.dsl._
-import lila.memo.{ CacheApi, Syncache }
+import lila.memo.CacheApi
+import lila.memo.Syncache
+
 import User.{ BSONFields => F }
 
 final class LightUserApi(

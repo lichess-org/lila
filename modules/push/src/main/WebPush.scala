@@ -1,12 +1,13 @@
 package lila.push
 
-import io.methvin.play.autoconfig._
+import play.api.ConfigLoader
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
+
 import cats.data.NonEmptyList
+import io.methvin.play.autoconfig._
 
 import lila.user.User
-import play.api.ConfigLoader
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,

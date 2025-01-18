@@ -1,13 +1,12 @@
 package views.html.mod
 
+import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.mod.Gamify.Period
-
-import controllers.routes
 
 object gamify {
 

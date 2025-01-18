@@ -1,8 +1,12 @@
 package lila.api
 
-import shogi.format.{ Notation, Tag, Tags }
-import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
+
+import play.api.libs.ws.WSClient
+
+import shogi.format.Notation
+import shogi.format.Tag
+import shogi.format.Tags
 
 import lila.user.User
 

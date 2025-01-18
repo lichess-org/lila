@@ -1,12 +1,12 @@
 package views.html.challenge
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
-
-import controllers.routes
 
 object theirs {
 

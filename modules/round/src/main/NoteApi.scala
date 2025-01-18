@@ -1,8 +1,8 @@
 package lila.round
 
-import lila.db.dsl._
-
 import reactivemongo.api.bson._
+
+import lila.db.dsl._
 
 final class NoteApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 

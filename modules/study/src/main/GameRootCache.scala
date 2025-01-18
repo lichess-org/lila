@@ -1,6 +1,7 @@
 package lila.study
 
 import scala.concurrent.duration._
+
 import com.github.blemale.scaffeine.Cache
 
 object GameRootCache {

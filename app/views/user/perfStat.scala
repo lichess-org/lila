@@ -1,16 +1,16 @@
 package views.html.user
 
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.rating.{ Perf, PerfType }
 import lila.perfStat.PerfStat
+import lila.rating.Perf
+import lila.rating.PerfType
 import lila.user.User
-
-import controllers.routes
 
 object perfStat {
 

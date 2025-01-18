@@ -1,14 +1,17 @@
 package views.html.search
 
+import scala.util.chaining._
+
+import play.api.data.Form
+
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.data.Form
-import scala.util.chaining._
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.gameSearch.{ Query, Sorting }
+import lila.gameSearch.Query
+import lila.gameSearch.Sorting
 
 private object bits {
 

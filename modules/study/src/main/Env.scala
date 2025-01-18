@@ -1,12 +1,15 @@
 package lila.study
 
-import com.softwaremill.macwire._
-import play.api.Configuration
-import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
+import play.api.Configuration
+import play.api.libs.ws.WSClient
+
+import com.softwaremill.macwire._
+
 import lila.common.config._
-import lila.socket.Socket.{ GetVersion, SocketVersion }
+import lila.socket.Socket.GetVersion
+import lila.socket.Socket.SocketVersion
 import lila.user.User
 
 @Module

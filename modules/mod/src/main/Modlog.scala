@@ -2,7 +2,8 @@ package lila.mod
 
 import org.joda.time.DateTime
 
-import lila.report.{ Mod, Suspect }
+import lila.report.Mod
+import lila.report.Suspect
 
 case class Modlog(
     mod: String,

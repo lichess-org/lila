@@ -1,8 +1,10 @@
 package lila.tournament
 package arena
 
-import lila.common.{ Chronometer, WMMatching }
+import lila.common.Chronometer
+import lila.common.WMMatching
 import lila.user.User
+
 import PairingSystem.Data
 
 private object AntmaPairing {

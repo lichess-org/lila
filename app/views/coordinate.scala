@@ -1,13 +1,12 @@
 package views.html
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.pref.Pref.Color
-
-import controllers.routes
 
 object coordinate {
 

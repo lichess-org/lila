@@ -3,11 +3,17 @@ package lila.round
 import shogi.Centis
 import shogi.format.Glyphs
 import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ UciToUsi, Usi, UsiCharPair }
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
 import shogi.variant.Variant
-import JsonView.WithFlags
-import lila.analyse.{ Advice, Analysis, Info }
+
+import lila.analyse.Advice
+import lila.analyse.Analysis
+import lila.analyse.Info
 import lila.tree._
+
+import JsonView.WithFlags
 
 object TreeBuilder {
 

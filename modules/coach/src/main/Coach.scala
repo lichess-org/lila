@@ -1,6 +1,7 @@
 package lila.coach
 
-import org.joda.time.{ DateTime, Days }
+import org.joda.time.DateTime
+import org.joda.time.Days
 
 case class Coach(
     _id: Coach.Id, // user ID

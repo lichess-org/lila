@@ -1,8 +1,9 @@
 package lila.puzzle
 
+import play.api.Configuration
+
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
 
 import lila.common.config._
 import lila.db.AsyncColl

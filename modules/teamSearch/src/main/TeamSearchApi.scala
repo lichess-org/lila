@@ -1,10 +1,12 @@
 package lila.teamSearch
 
-import akka.stream.scaladsl._
 import play.api.libs.json._
 
+import akka.stream.scaladsl._
+
 import lila.search._
-import lila.team.{ Team, TeamRepo }
+import lila.team.Team
+import lila.team.TeamRepo
 
 final class TeamSearchApi(
     client: ESClient,

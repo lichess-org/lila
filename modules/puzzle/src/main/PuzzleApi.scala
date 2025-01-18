@@ -1,13 +1,13 @@
 package lila.puzzle
 
-import cats.implicits._
 import scala.concurrent.duration._
 
+import cats.implicits._
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
-import lila.common.paginator.Paginator
 import lila.common.config.MaxPerPage
+import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.User

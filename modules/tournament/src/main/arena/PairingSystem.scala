@@ -1,9 +1,10 @@
 package lila.tournament
 package arena
 
-import lila.user.{ User, UserRepo }
-
 import scala.util.Random
+
+import lila.user.User
+import lila.user.UserRepo
 
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,

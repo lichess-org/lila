@@ -1,13 +1,16 @@
 package lila
 
-import scala.util.Try
 import scala.concurrent.duration._
-import cats.data.Validated
+import scala.util.Try
 
-import ornicar.scalalib
-import org.joda.time.DateTime
+import play.api.libs.json.JsObject
+import play.api.libs.json.JsValue
+
+import cats.data.Validated
 import com.typesafe.config.Config
-import play.api.libs.json.{ JsObject, JsValue }
+import org.joda.time.DateTime
+import ornicar.scalalib
+
 import lila.base._
 
 trait Lilaisms

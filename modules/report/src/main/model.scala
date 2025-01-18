@@ -1,7 +1,7 @@
 package lila.report
 
-import lila.user.User
 import lila.common.Iso
+import lila.user.User
 
 case class Mod(user: User) extends AnyVal {
   def id = ModId(user.id)

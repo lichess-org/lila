@@ -1,6 +1,8 @@
 package lila.lobby
 
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.Glicko
+import lila.rating.Perf
+import lila.rating.PerfType
 import lila.user.User
 
 private[lobby] case class LobbyUser(

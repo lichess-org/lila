@@ -1,8 +1,9 @@
 package lila.app
 package http
 
-import akka.stream.Materializer
 import play.api.mvc._
+
+import akka.stream.Materializer
 
 import lila.common.HTTPRequest
 

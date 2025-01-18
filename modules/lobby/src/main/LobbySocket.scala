@@ -1,19 +1,24 @@
 package lila.lobby
 
-import cats.implicits._
-import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.concurrent.duration._
 
-import actorApi._
+import play.api.libs.json._
+
+import cats.implicits._
+
 import lila.game.Pov
+import lila.hub.Trouper
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
-import lila.hub.Trouper
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, Sri, Sris }
+import lila.socket.Socket.Sri
+import lila.socket.Socket.Sris
+import lila.socket.Socket.makeMessage
 import lila.user.User
+
+import actorApi._
 
 case class LobbyCounters(members: Int, rounds: Int)
 

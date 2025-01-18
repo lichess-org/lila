@@ -1,9 +1,10 @@
 package lila.forum
 
-import org.joda.time.DateTime
-import lila.common.ThreadLocalRandom
 import scala.util.chaining._
 
+import org.joda.time.DateTime
+
+import lila.common.ThreadLocalRandom
 import lila.user.User
 
 case class Topic(

@@ -1,14 +1,18 @@
 package lila.timeline
 
+import scala.concurrent.ExecutionContextExecutor
+
 import akka.actor._
 import org.joda.time.DateTime
 
 import lila.common.config.Max
+import lila.hub.actorApi.timeline.Atom
+import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.timeline.ReloadTimelines
 import lila.hub.actorApi.timeline.propagation._
-import lila.hub.actorApi.timeline.{ Atom, Propagate, ReloadTimelines }
 import lila.security.Permission
-import lila.user.{ User, UserRepo }
-import scala.concurrent.ExecutionContextExecutor
+import lila.user.User
+import lila.user.UserRepo
 
 final private[timeline] class Push(
     relationApi: lila.relation.RelationApi,

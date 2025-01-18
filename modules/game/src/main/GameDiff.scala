@@ -1,14 +1,22 @@
 package lila.game
 
-import shogi.{ Clock, Color, ConsecutiveAttacks, Gote, Hands, Pos, Sente }
-import Game.BSONFields._
-import reactivemongo.api.bson._
 import scala.util.Try
 
+import reactivemongo.api.bson._
 import shogi.Centis
+import shogi.Clock
+import shogi.Color
+import shogi.ConsecutiveAttacks
+import shogi.Gote
+import shogi.Hands
+import shogi.Pos
+import shogi.Sente
+
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
+
+import Game.BSONFields._
 
 object GameDiff {
 

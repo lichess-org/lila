@@ -1,13 +1,15 @@
 package lila.tournament
 
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import shogi.variant.Variant
-import lila.db.dsl._
-import Schedule.{ Freq, Speed }
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson.BSONDocumentHandler
+import shogi.variant.Variant
+
+import lila.db.dsl._
+
+import Schedule.{ Freq, Speed }
 
 case class Winner(
     tourId: String,

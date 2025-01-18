@@ -2,8 +2,8 @@ package lila.game
 
 import reactivemongo.api.ReadPreference
 
-import lila.common.paginator._
 import lila.common.config.MaxPerPage
+import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
 

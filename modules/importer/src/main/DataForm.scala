@@ -1,13 +1,21 @@
 package lila.importer
 
-import cats.data.Validated
-import shogi.format.kif.KifParser
-import shogi.format.csa.CsaParser
-import shogi.format.{ ParsedNotation, Reader, Tag, TagType }
-import shogi.{ Color, Mode, Replay, Status }
-import play.api.data._
-import play.api.data.Forms._
 import scala.util.chaining._
+
+import play.api.data.Forms._
+import play.api.data._
+
+import cats.data.Validated
+import shogi.Color
+import shogi.Mode
+import shogi.Replay
+import shogi.Status
+import shogi.format.ParsedNotation
+import shogi.format.Reader
+import shogi.format.Tag
+import shogi.format.TagType
+import shogi.format.csa.CsaParser
+import shogi.format.kif.KifParser
 
 import lila.game._
 

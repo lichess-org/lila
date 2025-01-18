@@ -1,7 +1,8 @@
 package lila.hub
 
-import akka.actor._
 import scala.concurrent.duration._
+
+import akka.actor._
 
 /** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran as early as
   * possible. Also saves work and runs it after cooldown.

@@ -1,8 +1,10 @@
 package lila.hub
 
-import com.github.blemale.scaffeine.LoadingCache
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Promise
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ ExecutionContext, Promise }
+
+import com.github.blemale.scaffeine.LoadingCache
 
 /*
  * Only processes one computation at a time

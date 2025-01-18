@@ -1,13 +1,15 @@
 package lila.chat
 
+import scala.concurrent.duration.FiniteDuration
+
+import play.api.ConfigLoader
+import play.api.Configuration
+
 import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
-import play.api.ConfigLoader
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,

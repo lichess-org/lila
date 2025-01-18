@@ -2,9 +2,9 @@ package lila.simul
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-
 import shogi.Status
 import shogi.variant.Variant
+
 import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User

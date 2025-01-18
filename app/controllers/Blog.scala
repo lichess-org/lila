@@ -4,7 +4,8 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.blog.{ BlogApi, BlogLang }
+import lila.blog.BlogApi
+import lila.blog.BlogLang
 import lila.common.config.MaxPerPage
 
 final class Blog(

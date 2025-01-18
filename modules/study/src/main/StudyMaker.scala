@@ -1,10 +1,12 @@
 package lila.study
 
-import lila.game.{ Game, Namer, Pov }
-import lila.user.User
-
 import shogi.Centis
 import shogi.Color
+
+import lila.game.Game
+import lila.game.Namer
+import lila.game.Pov
+import lila.user.User
 
 final private class StudyMaker(
     lightUserApi: lila.user.LightUserApi,

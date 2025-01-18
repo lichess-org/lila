@@ -1,9 +1,13 @@
 package lila.perfStat
 
 import scala.concurrent.duration._
+
 import reactivemongo.api.ReadPreference
 
-import lila.game.{ Game, GameRepo, Pov, Query }
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Pov
+import lila.game.Query
 import lila.rating.PerfType
 import lila.user.User
 

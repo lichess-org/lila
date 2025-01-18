@@ -1,14 +1,14 @@
 package lila.base
 
-import cats.data.Validated
-import com.typesafe.config.Config
-
 import java.util.concurrent.TimeUnit
-import scala.concurrent.duration._
 import scala.concurrent.Future
+import scala.concurrent.duration._
 import scala.util.Try
 
-import org.joda.time.{ DateTime, Duration }
+import cats.data.Validated
+import com.typesafe.config.Config
+import org.joda.time.DateTime
+import org.joda.time.Duration
 import ornicar.scalalib.Zero
 
 import LilaTypes._

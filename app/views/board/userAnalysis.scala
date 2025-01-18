@@ -1,12 +1,12 @@
 package views.html.board
 
-import play.api.libs.json.{ JsObject, Json }
+import controllers.routes
+import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object userAnalysis {
 

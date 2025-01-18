@@ -1,10 +1,13 @@
 package lila.evalCache
 
-import org.joda.time.{ DateTime, Days }
 import scala.concurrent.duration._
 
+import org.joda.time.DateTime
+import org.joda.time.Days
+
 import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final private class EvalCacheTruster(
     cacheApi: lila.memo.CacheApi,

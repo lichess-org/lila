@@ -4,7 +4,8 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.Socket.{ Sri, Sris }
+import lila.socket.Socket.Sri
+import lila.socket.Socket.Sris
 
 private[lobby] case class SaveSeek(msg: AddSeek)
 private[lobby] case class RemoveHook(hookId: String)

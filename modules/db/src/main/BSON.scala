@@ -1,10 +1,11 @@
 package lila.db
 
+import scala.util.Success
+import scala.util.Try
+
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
-
-import scala.util.{ Success, Try }
 
 import dsl._
 

@@ -1,9 +1,9 @@
 package lila.socket
 
+import play.api.libs.json._
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-
-import play.api.libs.json._
 
 case class Step(
     ply: Int,

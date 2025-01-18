@@ -1,16 +1,30 @@
 package lila.round
 
-import shogi.{ Clock, Color => ShogiColor, Game => ShogiGame }
-import ShogiColor.{ Gote, Sente }
-import com.github.blemale.scaffeine.Cache
-import lila.memo.CacheApi
 import scala.concurrent.duration._
 
-import lila.common.Bus
-import lila.game.{ AnonCookie, Event, Game, GameRepo, PerfPicker, Pov, Rematches, Source }
-import lila.user.{ User, UserRepo }
-import lila.i18n.{ defaultLang, I18nKeys => trans }
 import play.api.i18n.Lang
+
+import com.github.blemale.scaffeine.Cache
+import shogi.Clock
+import shogi.{Color => ShogiColor}
+import shogi.{Game => ShogiGame}
+
+import lila.common.Bus
+import lila.game.AnonCookie
+import lila.game.Event
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.PerfPicker
+import lila.game.Pov
+import lila.game.Rematches
+import lila.game.Source
+import lila.i18n.defaultLang
+import lila.i18n.{I18nKeys => trans}
+import lila.memo.CacheApi
+import lila.user.User
+import lila.user.UserRepo
+
+import ShogiColor.{ Gote, Sente }
 
 final private class Rematcher(
     gameRepo: GameRepo,

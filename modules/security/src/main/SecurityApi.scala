@@ -1,19 +1,29 @@
 package lila.security
 
-import org.joda.time.DateTime
-import ornicar.scalalib.Random
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Invalid, Valid => FormValid, ValidationError }
-import play.api.mvc.RequestHeader
-import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 
-import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
+import play.api.data.Forms._
+import play.api.data._
+import play.api.data.validation.Constraint
+import play.api.data.validation.Invalid
+import play.api.data.validation.ValidationError
+import play.api.data.validation.{Valid => FormValid}
+import play.api.mvc.RequestHeader
+
+import org.joda.time.DateTime
+import ornicar.scalalib.Random
+import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
+
+import lila.common.EmailAddress
+import lila.common.HTTPRequest
+import lila.common.IpAddress
 import lila.db.dsl._
-import lila.oauth.{ OAuthScope, OAuthServer }
-import lila.user.{ User, UserRepo }
+import lila.oauth.OAuthScope
+import lila.oauth.OAuthServer
+import lila.user.User
+import lila.user.UserRepo
+
 import User.LoginCandidate
 
 final class SecurityApi(

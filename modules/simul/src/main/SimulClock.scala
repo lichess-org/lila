@@ -1,6 +1,8 @@
 package lila.simul
 
-import shogi.{ Centis, Clock, Color }
+import shogi.Centis
+import shogi.Clock
+import shogi.Color
 
 // All durations are expressed in seconds
 case class SimulClock(

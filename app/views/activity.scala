@@ -1,13 +1,13 @@
 package views.html
 
+import controllers.routes
+
 import lila.activity.activities._
 import lila.activity.model._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
-
-import controllers.routes
 
 object activity {
 

@@ -1,8 +1,8 @@
 package lila.chat
 
-import lila.user.User
-
 import shogi.Color
+
+import lila.user.User
 
 sealed trait Line {
   def text: String

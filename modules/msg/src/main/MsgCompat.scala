@@ -1,15 +1,17 @@
 package lila.msg
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.config._
+import play.api.data.Forms._
+import play.api.data._
+import play.api.libs.json._
+
 import lila.common.Json.jodaWrites
 import lila.common.LightUser
+import lila.common.config._
 import lila.common.paginator._
-import lila.user.{ LightUserApi, User }
+import lila.user.LightUserApi
+import lila.user.User
 
 final class MsgCompat(
     api: MsgApi,

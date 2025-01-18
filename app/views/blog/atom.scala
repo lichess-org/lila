@@ -1,11 +1,11 @@
 package views.html.blog
 
+import controllers.routes
+
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.paginator.Paginator
 import lila.common.config.BaseUrl
-
-import controllers.routes
+import lila.common.paginator.Paginator
 
 object atom {
 

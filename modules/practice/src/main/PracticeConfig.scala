@@ -1,9 +1,11 @@
 package lila.practice
 
-import io.methvin.play.autoconfig._
-import lila.study.Study
-import lila.common.config._
 import play.api.ConfigLoader
+
+import io.methvin.play.autoconfig._
+
+import lila.common.config._
+import lila.study.Study
 
 final class PracticeConfig(
     val sections: List[PracticeConfigSection]

@@ -1,17 +1,19 @@
 package controllers
 
-import cats.data.Validated
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import play.api.mvc._
-import scalatags.Text.all.stringFrag
 import views._
 
+import cats.data.Validated
+import scalatags.Text.all.stringFrag
+
 import lila.api.Context
-import lila.common.HTTPRequest
 import lila.app._
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest }
+import lila.common.HTTPRequest
+import lila.oauth.AccessTokenRequest
+import lila.oauth.AuthorizationRequest
 
 final class OAuth(env: Env) extends LilaController(env) {
 

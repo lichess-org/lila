@@ -1,13 +1,15 @@
 package lila.security
 
+import scala.concurrent.duration._
+
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import scala.concurrent.duration._
+
+import reactivemongo.api.bson.BSONHandler
 
 import lila.base.LilaException
 import lila.common.Domain
 import lila.db.dsl._
-import reactivemongo.api.bson.BSONHandler
 
 final private class DnsApi(
     ws: WSClient,

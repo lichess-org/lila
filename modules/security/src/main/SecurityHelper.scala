@@ -1,6 +1,7 @@
 package lila.security
 
-import lila.user.{ User, UserContext }
+import lila.user.User
+import lila.user.UserContext
 
 trait SecurityHelper {
 

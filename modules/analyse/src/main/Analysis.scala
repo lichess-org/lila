@@ -1,8 +1,7 @@
 package lila.analyse
 
-import shogi.Color
-
 import org.joda.time.DateTime
+import shogi.Color
 
 case class Analysis(
     id: String, // game ID, or chapter ID if studyId is set

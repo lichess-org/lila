@@ -1,10 +1,11 @@
 package lila.practice
 
-import reactivemongo.api.bson.{ BSONHandler, Macros }
+import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.bson.BSONHandler
+import reactivemongo.api.bson.Macros
 
 import lila.db.dsl._
 import lila.study.Chapter
-import reactivemongo.api.bson.BSONDocumentHandler
 
 object BSONHandlers {
 

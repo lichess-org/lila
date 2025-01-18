@@ -1,21 +1,26 @@
 package controllers
 
+import java.nio.charset.StandardCharsets.UTF_8
+import scala.concurrent.duration._
+
 import play.api.libs.json._
 import play.api.mvc._
-import scala.concurrent.duration._
-import java.nio.charset.StandardCharsets.UTF_8
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.common.IpAddress
 import lila.common.String.getBytesShiftJis
-import lila.study.actorApi.Who
+import lila.common.paginator.Paginator
+import lila.common.paginator.PaginatorJson
+import lila.study.Chapter
 import lila.study.JsonView.JsData
+import lila.study.Order
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Study => StudyModel }
-import views._
+import lila.study.actorApi.Who
+import lila.study.{Study => StudyModel}
 
 final class Study(
     env: Env,

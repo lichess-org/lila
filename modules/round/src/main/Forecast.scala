@@ -1,9 +1,11 @@
 package lila.round
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 
-import shogi.format.usi.{ UciToUsi, Usi }
+import org.joda.time.DateTime
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+
 import lila.common.Json.jodaWrites
 import lila.game.Game
 

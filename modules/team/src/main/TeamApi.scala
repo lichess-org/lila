@@ -1,21 +1,31 @@
 package lila.team
 
-import org.joda.time.Period
-import scala.util.chaining._
-import play.api.libs.json.{ JsSuccess, Json }
-import reactivemongo.api.{ Cursor, ReadPreference }
 import scala.util.Try
+import scala.util.chaining._
 
-import actorApi._
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
+import play.api.libs.json.Reads
+
+import org.joda.time.Period
+import reactivemongo.api.Cursor
+import reactivemongo.api.ReadPreference
+
 import lila.common.Bus
 import lila.db.dsl._
-import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam }
-import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LightTeam
+import lila.hub.actorApi.team.CreateTeam
+import lila.hub.actorApi.team.JoinTeam
+import lila.hub.actorApi.team.KickFromTeam
+import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.timeline.TeamCreate
+import lila.hub.actorApi.timeline.TeamJoin
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
-import lila.user.{ User, UserRepo }
-import play.api.libs.json.Reads
+import lila.user.User
+import lila.user.UserRepo
+
+import actorApi._
 
 final class TeamApi(
     teamRepo: TeamRepo,

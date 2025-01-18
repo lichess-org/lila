@@ -1,18 +1,20 @@
 package lila.app
 
-import akka.actor.CoordinatedShutdown
-import com.softwaremill.macwire._
+import scala.annotation.nowarn
+
 import play.api._
+import play.api.http.FileMimeTypes
 import play.api.http.HttpRequestHandler
 import play.api.libs.crypto.CookieSignerProvider
-import scala.annotation.nowarn
+import play.api.libs.ws.WSClient
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
 import router.Routes
+
 import akka.actor.ActorSystem
-import play.api.http.FileMimeTypes
-import play.api.libs.ws.WSClient
+import akka.actor.CoordinatedShutdown
+import com.softwaremill.macwire._
 
 final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application

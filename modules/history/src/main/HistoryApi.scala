@@ -1,15 +1,20 @@
 package lila.history
 
-import org.joda.time.{ DateTime, Days }
-import reactivemongo.api.ReadPreference
-import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
+import org.joda.time.DateTime
+import org.joda.time.Days
+import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
 import shogi.Speed
+
 import lila.db.dsl._
 import lila.game.Game
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ Perfs, User, UserRepo }
+import lila.rating.Perf
+import lila.rating.PerfType
+import lila.user.Perfs
+import lila.user.User
+import lila.user.UserRepo
 
 final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext

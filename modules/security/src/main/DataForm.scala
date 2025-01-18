@@ -1,12 +1,18 @@
 package lila.security
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation.Constraints
 import scala.concurrent.duration._
 
-import lila.common.{ EmailAddress, Form => LilaForm, LameName }
-import lila.user.{ TotpSecret, User, UserRepo }
+import play.api.data.Forms._
+import play.api.data._
+import play.api.data.validation.Constraints
+
+import lila.common.EmailAddress
+import lila.common.LameName
+import lila.common.{Form => LilaForm}
+import lila.user.TotpSecret
+import lila.user.User
+import lila.user.UserRepo
+
 import User.{ ClearPassword, TotpToken }
 
 final class DataForm(

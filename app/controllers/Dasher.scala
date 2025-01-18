@@ -4,7 +4,8 @@ import play.api.libs.json._
 
 import lila.app._
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ I18nLangPicker, LangList }
+import lila.i18n.I18nLangPicker
+import lila.i18n.LangList
 import lila.pref.JsonView.customThemeWriter
 import lila.pref.PieceSet
 

@@ -6,7 +6,8 @@ import play.api.libs.json._
 import lila.common.Json.jodaWrites
 import lila.common.LightUser
 import lila.common.paginator.Paginator
-import lila.game.{ Game, PerfPicker }
+import lila.game.Game
+import lila.game.PerfPicker
 import lila.user.User
 
 final class UserGameApi(

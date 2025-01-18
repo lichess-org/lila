@@ -2,15 +2,16 @@ package lila.storm
 
 import scala.concurrent.ExecutionContext
 
+import reactivemongo.api.ReadPreference
+
 import lila.common.Bus
-import lila.common.config.MaxPerPage
 import lila.common.Day
+import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.user.UserRepo
-import reactivemongo.api.ReadPreference
 
 // stores data of the best run of the day
 // plus the number of runs

@@ -1,6 +1,7 @@
 package lila.tournament
 
 import shogi.Color
+
 import lila.game.Game
 import lila.user.User
 

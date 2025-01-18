@@ -1,6 +1,7 @@
 package views.html.analyse
 
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig

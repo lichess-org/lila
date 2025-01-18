@@ -1,19 +1,24 @@
 package lila.bot
 
-import akka.actor._
-import akka.stream.scaladsl._
+import scala.concurrent.duration._
+
 import play.api.i18n.Lang
 import play.api.libs.json._
+
+import akka.actor._
+import akka.stream.scaladsl._
 
 import lila.chat.Chat
 import lila.chat.UserLine
 import lila.common.Bus
-import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
-import lila.game.{ Game, Pov }
+import lila.game.Game
+import lila.game.Pov
+import lila.game.actorApi.AbortedBy
+import lila.game.actorApi.FinishGame
+import lila.game.actorApi.MoveGameEvent
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
-import scala.concurrent.duration._
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,

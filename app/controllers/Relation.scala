@@ -1,15 +1,17 @@
 package controllers
 
 import play.api.libs.json.Json
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
+import lila.common.paginator.AdapterLike
+import lila.common.paginator.Paginator
+import lila.common.paginator.PaginatorJson
 import lila.relation.Related
 import lila.relation.RelationStream._
 import lila.user.{ User => UserModel }
-import views._
 
 final class Relation(
     env: Env,

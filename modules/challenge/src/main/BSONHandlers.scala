@@ -1,11 +1,12 @@
 package lila.challenge
 
 import reactivemongo.api.bson._
-
 import shogi.Mode
 import shogi.variant.Variant
+
 import lila.db.BSON
-import lila.db.BSON.{ Reader, Writer }
+import lila.db.BSON.Reader
+import lila.db.BSON.Writer
 import lila.db.dsl._
 
 private object BSONHandlers {

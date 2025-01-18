@@ -1,12 +1,14 @@
 package lila.coach
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import org.joda.time.DateTime
+
 import lila.db.Photographer
+import lila.db.dsl._
 import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class CoachApi(
     coachColl: Coll,

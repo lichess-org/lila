@@ -1,11 +1,14 @@
 package lila.hub
 
-import akka.pattern.ask
-import play.api.data._
 import scala.concurrent.duration._
 
-import actorApi.captcha._
+import play.api.data._
+
+import akka.pattern.ask
+
 import lila.common.Captcha
+
+import actorApi.captcha._
 
 trait CaptchedForm {
 

@@ -1,19 +1,22 @@
 package lila.security
 
-import org.joda.time.DateTime
+import scala.concurrent.blocking
+import scala.concurrent.duration._
+
 import play.api.mvc.RequestHeader
 
+import org.joda.time.DateTime
 import reactivemongo.api.CursorProducer
-import reactivemongo.api.bson.{ BSONHandler, Macros }
+import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.bson.BSONDocumentReader
+import reactivemongo.api.bson.BSONHandler
+import reactivemongo.api.bson.Macros
 
-import scala.concurrent.duration._
-import scala.concurrent.blocking
-
-import lila.common.{ HTTPRequest, IpAddress, ThreadLocalRandom }
+import lila.common.HTTPRequest
+import lila.common.IpAddress
+import lila.common.ThreadLocalRandom
 import lila.db.dsl._
 import lila.user.User
-import reactivemongo.api.bson.BSONDocumentReader
-import reactivemongo.api.bson.BSONDocumentHandler
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddress)(implicit
     ec: scala.concurrent.ExecutionContext

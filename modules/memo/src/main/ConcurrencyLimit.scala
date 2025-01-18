@@ -1,10 +1,12 @@
 package lila.memo
 
-import akka.stream.scaladsl._
+import scala.concurrent.duration.FiniteDuration
+
 import play.api.libs.json.Json
 import play.api.mvc.Result
 import play.api.mvc.Results.TooManyRequests
-import scala.concurrent.duration.FiniteDuration
+
+import akka.stream.scaladsl._
 
 /**
   * only allow one stream at a time per key

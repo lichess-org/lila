@@ -1,6 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+
 import scalatags.Text.RawFrag
 
 final class I18nKey(val key: String) {

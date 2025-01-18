@@ -1,14 +1,16 @@
 package lila.study
 
-import play.api.libs.json._
-import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
+import play.api.libs.json._
+
+import reactivemongo.api.bson._
+
 import lila.common.Future
+import lila.common.Iso
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
-import lila.common.Iso
 
 case class StudyTopic(value: String) extends AnyVal with StringValue
 

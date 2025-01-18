@@ -1,12 +1,12 @@
 package lila.study
 
-import BSONHandlers._
-import Node.{ Children, GameMainlineExtension, Root }
-
 import shogi.format.usi.UsiCharPair
 
 import lila.common.Chronometer
 import lila.db.dsl._
+
+import BSONHandlers._
+import Node.{ Children, GameMainlineExtension, Root }
 
 private object StudyFlatTree {
 

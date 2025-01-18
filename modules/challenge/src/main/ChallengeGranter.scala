@@ -5,7 +5,8 @@ import play.api.i18n.Lang
 import lila.i18n.I18nKeys
 import lila.pref.Pref
 import lila.rating.PerfType
-import lila.relation.{ Block, Follow }
+import lila.relation.Block
+import lila.relation.Follow
 import lila.user.User
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)

@@ -1,10 +1,12 @@
 package lila.plan
 
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
+import scala.concurrent.duration._
+
 import play.api.Configuration
 import play.api.libs.ws.WSClient
-import scala.concurrent.duration._
+
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
 
 import lila.common.config._
 

@@ -1,12 +1,14 @@
 package lila.streamer
 
-import org.joda.time.DateTime
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
+import play.api.data.format.Formatter
 import play.api.data.validation.Constraints
 
-import lila.common.Form.{ constraint, formatter }
-import play.api.data.format.Formatter
+import org.joda.time.DateTime
+
+import lila.common.Form.constraint
+import lila.common.Form.formatter
 
 object StreamerForm {
 

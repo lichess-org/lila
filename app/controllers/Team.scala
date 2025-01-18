@@ -1,20 +1,23 @@
 package controllers
 
+import scala.concurrent.duration._
+
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
-import scala.concurrent.duration._
+import views._
 
 import lila.api.Context
 import lila.app._
-import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
+import lila.common.config.MaxPerSecond
 import lila.hub.LightTeam
 import lila.security.Granter
-import lila.team.{ Joined, Motivate, Team => TeamModel }
+import lila.team.Joined
+import lila.team.Motivate
+import lila.team.{Team => TeamModel}
 import lila.user.{ User => UserModel }
-import views._
 
 final class Team(
     env: Env,

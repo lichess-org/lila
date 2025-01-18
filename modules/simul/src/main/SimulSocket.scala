@@ -2,7 +2,8 @@ package lila.simul
 
 import play.api.libs.json._
 
-import lila.game.{ Game, Pov }
+import lila.game.Game
+import lila.game.Pov
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.makeMessage

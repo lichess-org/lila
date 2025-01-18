@@ -1,12 +1,21 @@
 package lila.round
 
-import shogi.Color
-import lila.common.Bus
-import lila.game.{ Event, Game, Pov, Progress, Rewind }
-import lila.pref.{ Pref, PrefApi }
-import lila.i18n.{ defaultLang, I18nKeys => trans }
-import RoundDuct.TakebackSituation
 import play.api.i18n.Lang
+
+import shogi.Color
+
+import lila.common.Bus
+import lila.game.Event
+import lila.game.Game
+import lila.game.Pov
+import lila.game.Progress
+import lila.game.Rewind
+import lila.i18n.defaultLang
+import lila.i18n.{I18nKeys => trans}
+import lila.pref.Pref
+import lila.pref.PrefApi
+
+import RoundDuct.TakebackSituation
 
 final private class Takebacker(
     messenger: Messenger,

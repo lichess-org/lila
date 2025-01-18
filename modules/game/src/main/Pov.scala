@@ -1,6 +1,7 @@
 package lila.game
 
 import shogi.Color
+
 import lila.user.User
 
 case class Pov(game: Game, color: Color) {

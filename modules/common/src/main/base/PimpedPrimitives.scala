@@ -1,6 +1,7 @@
 package lila.base
 
-import java.lang.Math.{ max, min }
+import java.lang.Math.max
+import java.lang.Math.min
 
 import ornicar.scalalib.Zero
 

@@ -1,12 +1,15 @@
 package controllers
 
-import akka.stream.scaladsl._
-import akka.util.ByteString
 import scala.concurrent.duration._
+
 import play.api.mvc.Result
 
+import akka.stream.scaladsl._
+import akka.util.ByteString
 import shogi.Color
-import shogi.format.usi.{ UciToUsi, Usi }
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.Pov

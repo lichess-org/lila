@@ -1,13 +1,13 @@
 package views
 package html.forum
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.forum.Post
-
-import controllers.routes
 
 object post {
 

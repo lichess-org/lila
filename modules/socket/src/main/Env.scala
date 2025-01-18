@@ -1,9 +1,10 @@
 package lila.socket
 
+import play.api.Configuration
+
 import akka.actor._
 import com.softwaremill.macwire._
 import io.lettuce.core._
-import play.api.Configuration
 
 @Module
 final class Env(

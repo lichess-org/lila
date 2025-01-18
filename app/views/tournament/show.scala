@@ -1,6 +1,7 @@
 package views.html
 package tournament
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
@@ -8,8 +9,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.Tournament
 import lila.user.User
-
-import controllers.routes
 
 object show {
 

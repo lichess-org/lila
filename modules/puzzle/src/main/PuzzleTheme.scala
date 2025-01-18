@@ -1,8 +1,9 @@
 package lila.puzzle
 
-import lila.i18n.I18nKeys.{ puzzleTheme => i }
-import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.common.Iso
+import lila.i18n.I18nKey
+import lila.i18n.I18nKeys.{ puzzleTheme => i }
+import lila.i18n.{I18nKeys => trans}
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
 

@@ -1,10 +1,12 @@
 package lila.mod
 
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 
-import lila.common.{ EmailAddress, IpAddress }
-import lila.user.{ User, UserRepo }
+import lila.common.EmailAddress
+import lila.common.IpAddress
+import lila.user.User
+import lila.user.UserRepo
 
 final class UserSearch(
     securityApi: lila.security.SecurityApi,

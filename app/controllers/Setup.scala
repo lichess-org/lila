@@ -1,18 +1,22 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.mvc.Results
 import scala.concurrent.duration._
 
+import play.api.libs.json.Json
+import play.api.mvc.Results
+import views._
+
 import shogi.format.forsyth.Sfen
+
 import lila.api.Context
 import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.game.{ AnonCookie, Pov }
+import lila.common.HTTPRequest
+import lila.common.IpAddress
+import lila.game.AnonCookie
+import lila.game.Pov
 import lila.setup.Processor.HookResult
 import lila.setup.ValidSfen
 import lila.socket.Socket.Sri
-import views._
 
 final class Setup(
     env: Env,

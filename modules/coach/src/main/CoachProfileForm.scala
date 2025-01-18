@@ -1,12 +1,14 @@
 package lila.coach
 
-import org.joda.time.DateTime
-import play.api.data._
 import play.api.data.Forms._
-import play.api.i18n.Lang
-import play.api.libs.json.{ JsSuccess, Json }
+import play.api.data._
 import play.api.data.format.Formatter
+import play.api.i18n.Lang
+import play.api.libs.json.JsSuccess
+import play.api.libs.json.Json
 import play.api.libs.json.Reads
+
+import org.joda.time.DateTime
 
 object CoachProfileForm {
 

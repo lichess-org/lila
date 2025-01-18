@@ -1,13 +1,15 @@
 package lila.security
 
 import play.api.i18n.Lang
+
 import cats.implicits._
 
 import lila.common.EmailAddress
 import lila.common.config.BaseUrl
-import lila.i18n.I18nKeys.{ emails => trans }
-import lila.user.{ User, UserRepo }
 import lila.hub.actorApi.msg.SystemMsg
+import lila.i18n.I18nKeys.{ emails => trans }
+import lila.user.User
+import lila.user.UserRepo
 
 final class AutomaticEmail(
     userRepo: UserRepo,

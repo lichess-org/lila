@@ -1,7 +1,8 @@
 package lila.common
 
-import akka.actor._
 import scala.concurrent.duration._
+
+import akka.actor._
 
 // do NOT embed me in an actor
 // for it would likely create a memory leak

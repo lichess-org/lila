@@ -1,13 +1,14 @@
 package lila.game
 
-import shogi.format.kif.KifParser
-import shogi.format.csa.CsaParser
-import shogi.format.ParsedNotation
-
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import lila.db.ByteArray
+
 import reactivemongo.api.bson.BSONDocumentHandler
+import shogi.format.ParsedNotation
+import shogi.format.csa.CsaParser
+import shogi.format.kif.KifParser
+
+import lila.db.ByteArray
 
 private[game] case class Metadata(
     source: Option[Source],

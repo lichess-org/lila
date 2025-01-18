@@ -1,11 +1,13 @@
 package lila.user
 
+import play.api.data.Forms._
 import play.api.data._
 import play.api.data.validation.Constraints
-import play.api.data.Forms._
+
+import lila.common.Form.cleanNonEmptyText
+import lila.common.Form.cleanText
 
 import User.ClearPassword
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
 
 final class DataForm(authenticator: Authenticator) {
 

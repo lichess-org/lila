@@ -1,8 +1,8 @@
 package lila.app
 package ui
 
-import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 
 import lila.common.Nonce
 

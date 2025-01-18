@@ -2,10 +2,9 @@ package lila.app
 package templating
 
 import lila.api.Context
-import lila.pref.Pref
-
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.I18nKey
+import lila.pref.Pref
 
 trait ColorNameHelper { self: I18nHelper =>
 

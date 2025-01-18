@@ -1,7 +1,8 @@
 package lila.tournament
 
-import play.api.libs.json._
 import scala.concurrent.duration._
+
+import play.api.libs.json._
 
 import lila.common.WorkQueue
 import lila.memo.CacheApi._

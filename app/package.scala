@@ -2,6 +2,7 @@ package lila
 
 import play.api.http._
 import play.api.mvc.Codec
+
 import scalatags.Text.Frag
 
 package object app extends PackageObject {

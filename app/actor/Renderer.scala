@@ -1,10 +1,11 @@
 package lila.app
 package actor
 
+import views.{ html => V }
+
 import akka.actor._
 
 import lila.game.Pov
-import views.{ html => V }
 
 final private[app] class Renderer extends Actor {
 

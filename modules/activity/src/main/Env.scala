@@ -1,8 +1,9 @@
 package lila.activity
 
+import scala.concurrent.duration._
+
 import akka.actor._
 import com.softwaremill.macwire._
-import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.hub.actorApi.round.CorresMoveEvent

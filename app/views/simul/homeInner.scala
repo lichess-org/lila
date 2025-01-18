@@ -1,11 +1,11 @@
 package views.html.simul
 
+import controllers.routes
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
-import play.api.i18n.Lang
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object homeInner {
 

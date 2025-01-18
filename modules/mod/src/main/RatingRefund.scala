@@ -1,16 +1,21 @@
 package lila.mod
 
+import scala.concurrent.duration._
+
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.game.BSONHandlers._
-import lila.game.{ Game, GameRepo, Query }
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Query
 import lila.perfStat.PerfStat
 import lila.rating.PerfType
-import lila.report.{ Suspect, Victim }
-import lila.user.{ User, UserRepo }
+import lila.report.Suspect
+import lila.report.Victim
+import lila.user.User
+import lila.user.UserRepo
 
 final private class RatingRefund(
     gameRepo: GameRepo,

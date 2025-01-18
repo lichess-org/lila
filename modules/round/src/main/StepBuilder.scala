@@ -1,11 +1,12 @@
 package lila.round
 
+import play.api.libs.json._
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import lila.socket.Step
 
-import play.api.libs.json._
+import lila.socket.Step
 
 object StepBuilder {
 

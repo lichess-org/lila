@@ -1,6 +1,8 @@
 package lila.round
 
-import lila.game.{ CrosstableApi, Game, GameRepo }
+import lila.game.CrosstableApi
+import lila.game.Game
+import lila.game.GameRepo
 
 final private class BotFarming(
     gameRepo: GameRepo,

@@ -1,15 +1,19 @@
 package lila.push
 
-import akka.actor._
-import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
-import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
-import play.api.Configuration
-import play.api.libs.ws.WSClient
 import java.nio.charset.StandardCharsets.UTF_8
 import scala.jdk.CollectionConverters._
 
+import play.api.Configuration
+import play.api.libs.ws.WSClient
+
+import akka.actor._
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.auth.oauth2.ServiceAccountCredentials
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+
 import lila.common.config._
+
 import FirebasePush.configLoader
 
 @Module

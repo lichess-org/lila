@@ -1,12 +1,14 @@
 package lila.pref
 
-import play.api.mvc.RequestHeader
-import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
+import play.api.mvc.RequestHeader
+
+import reactivemongo.api.bson._
+
 import lila.db.dsl._
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class PrefApi(
     coll: Coll,

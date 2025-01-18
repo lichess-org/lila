@@ -1,9 +1,10 @@
 package lila.common
 
-import org.joda.time.DateTime
 import play.api.libs.json.{ Json => PlayJson, _ }
-import shogi.format.forsyth.Sfen
+
+import org.joda.time.DateTime
 import shogi.Centis
+import shogi.format.forsyth.Sfen
 
 object Json {
 

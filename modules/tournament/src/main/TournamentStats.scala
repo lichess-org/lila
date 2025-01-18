@@ -1,11 +1,12 @@
 package lila.tournament
 
-import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._
 
-import shogi.Color
-import lila.db.dsl._
 import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.bson.Macros
+import shogi.Color
+
+import lila.db.dsl._
 
 final class TournamentStatsApi(
     playerRepo: PlayerRepo,

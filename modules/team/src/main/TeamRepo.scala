@@ -1,6 +1,7 @@
 package lila.team
 
-import org.joda.time.{ DateTime, Period }
+import org.joda.time.DateTime
+import org.joda.time.Period
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._

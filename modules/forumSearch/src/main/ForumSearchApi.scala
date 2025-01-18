@@ -1,10 +1,15 @@
 package lila.forumSearch
 
-import akka.stream.scaladsl._
 import play.api.libs.json._
 
+import akka.stream.scaladsl._
+
 import lila.common.Json.jodaWrites
-import lila.forum.{ Post, PostApi, PostLiteView, PostRepo, PostView }
+import lila.forum.Post
+import lila.forum.PostApi
+import lila.forum.PostLiteView
+import lila.forum.PostRepo
+import lila.forum.PostView
 import lila.search._
 
 final class ForumSearchApi(

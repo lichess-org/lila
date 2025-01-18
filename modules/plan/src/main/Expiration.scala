@@ -1,9 +1,9 @@
 package lila.plan
 
+import org.joda.time.DateTime
+
 import lila.db.dsl._
 import lila.user.UserRepo
-
-import org.joda.time.DateTime
 
 final private class Expiration(
     userRepo: UserRepo,

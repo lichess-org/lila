@@ -1,10 +1,13 @@
 package lila.rating
 
 import play.api.data.Form
-import play.api.data.Forms.{ single, text }
+import play.api.data.Forms.single
+import play.api.data.Forms.text
 
 import reactivemongo.api.bson.BSONHandler
-import lila.memo.SettingStore.{ Formable, StringReader }
+
+import lila.memo.SettingStore.Formable
+import lila.memo.SettingStore.StringReader
 
 case class RatingFactor(value: Double) extends AnyVal with DoubleValue
 

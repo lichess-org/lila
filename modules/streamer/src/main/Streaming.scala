@@ -1,16 +1,18 @@
 package lila.streamer
 
-import akka.actor._
-import org.joda.time.DateTime
-import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import scala.concurrent.ExecutionContextExecutor
 import scala.concurrent.duration._
 import scala.util.chaining._
+
+import play.api.libs.json._
+import play.api.libs.ws.WSClient
+
+import akka.actor._
+import org.joda.time.DateTime
 
 import lila.common.Bus
 import lila.common.config.Secret
 import lila.user.User
-import scala.concurrent.ExecutionContextExecutor
 
 final private class Streaming(
     ws: WSClient,

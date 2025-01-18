@@ -1,8 +1,9 @@
 package lila.video
 
-import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
+
+import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
 
 import lila.common.paginator._
 import lila.db.dsl._

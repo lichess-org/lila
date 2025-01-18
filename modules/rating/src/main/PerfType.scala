@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 
 import shogi.Centis
 import shogi.Speed
+
 import lila.i18n.I18nKeys
 
 sealed abstract class PerfType(

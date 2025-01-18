@@ -2,10 +2,10 @@ package lila.msg
 
 import play.api.libs.json._
 
-import lila.user.User
 import lila.common.Json._
 import lila.common.LightUser
 import lila.relation.Relations
+import lila.user.User
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,

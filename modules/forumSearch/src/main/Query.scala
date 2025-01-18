@@ -1,6 +1,7 @@
 package lila.forumSearch
 
-import play.api.libs.json.{ Json, OWrites }
+import play.api.libs.json.Json
+import play.api.libs.json.OWrites
 
 private[forumSearch] case class Query(text: String, troll: Boolean)
 

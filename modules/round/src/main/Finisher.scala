@@ -1,12 +1,20 @@
 package lila.round
 
-import shogi.{ Color, DecayingStats, Status }
+import shogi.Color
+import shogi.DecayingStats
+import shogi.Status
 
-import lila.common.{ Bus, Uptime }
-import lila.game.actorApi.{ AbortedBy, FinishGame }
-import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
+import lila.common.Bus
+import lila.common.Uptime
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Pov
+import lila.game.RatingDiffs
+import lila.game.actorApi.AbortedBy
+import lila.game.actorApi.FinishGame
 import lila.playban.PlaybanApi
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final private class Finisher(
     gameRepo: GameRepo,

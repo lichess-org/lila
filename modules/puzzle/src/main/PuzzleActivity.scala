@@ -1,13 +1,15 @@
 package lila.puzzle
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
-import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.config.MaxPerSecond
+import play.api.libs.json._
+
+import akka.stream.scaladsl._
+import reactivemongo.akkastream.cursorProducer
+import reactivemongo.api.ReadPreference
+
 import lila.common.Json.jodaWrites
+import lila.common.config.MaxPerSecond
 import lila.db.dsl._
 import lila.user.User
 

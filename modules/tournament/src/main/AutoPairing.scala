@@ -1,8 +1,13 @@
 package lila.tournament
 
-import shogi.{ Color, Gote, Sente }
+import shogi.Color
+import shogi.Gote
+import shogi.Sente
 
-import lila.game.{ Game, GameRepo, Player => GamePlayer, Source }
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Source
+import lila.game.{Player => GamePlayer}
 import lila.user.User
 
 final class AutoPairing(

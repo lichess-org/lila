@@ -4,8 +4,8 @@ import play.api.libs.json._
 import views._
 
 import lila.app._
-import lila.common.config.Max
 import lila.common.HTTPRequest
+import lila.common.config.Max
 import lila.timeline.Entry.entryWrites
 
 final class Timeline(env: Env) extends LilaController(env) {

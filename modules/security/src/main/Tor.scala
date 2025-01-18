@@ -1,8 +1,8 @@
 package lila.security
 
-import lila.common.IpAddress
-
 import play.api.libs.ws.WSClient
+
+import lila.common.IpAddress
 
 final class Tor(ws: WSClient, config: SecurityConfig.Tor)(implicit ec: scala.concurrent.ExecutionContext) {
 

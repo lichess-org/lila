@@ -2,9 +2,8 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-
-import shogi.format.forsyth.Sfen
 import shogi.Mode
+import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 
 import lila.db.BSON

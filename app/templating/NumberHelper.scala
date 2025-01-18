@@ -3,6 +3,7 @@ package templating
 
 import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
+
 import play.api.i18n.Lang
 
 trait NumberHelper { self: I18nHelper =>

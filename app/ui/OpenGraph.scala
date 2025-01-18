@@ -1,8 +1,9 @@
 package lila.app
 package ui
 
-import lila.app.ui.ScalatagsTemplate._
 import play.api.i18n.Lang
+
+import lila.app.ui.ScalatagsTemplate._
 
 case class OpenGraph(
     title: String,

@@ -1,11 +1,11 @@
 package views.html.game
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.Crosstable
-
-import controllers.routes
 
 object crosstable {
 

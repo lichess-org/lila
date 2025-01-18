@@ -1,26 +1,40 @@
 package controllers
 
-import ornicar.scalalib.Zero
+import scala.annotation.nowarn
+import scala.concurrent.ExecutionContext
+
 import play.api.data.Form
 import play.api.data.FormBinding
 import play.api.http._
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Writes }
+import play.api.libs.json.JsArray
+import play.api.libs.json.JsObject
+import play.api.libs.json.JsString
+import play.api.libs.json.Json
+import play.api.libs.json.Writes
 import play.api.mvc._
-import scala.annotation.nowarn
+
+import akka.actor.Scheduler
+import ornicar.scalalib.Zero
 import scalatags.Text.Frag
 
-import lila.api.{ BodyContext, Context, HeaderContext, PageData }
+import lila.api.BodyContext
+import lila.api.Context
+import lila.api.HeaderContext
+import lila.api.PageData
 import lila.app._
-import lila.common.{ HTTPRequest, Nonce }
+import lila.app.ui.EmbedConfig
+import lila.common.HTTPRequest
+import lila.common.Nonce
 import lila.i18n.I18nLangPicker
 import lila.notify.Notification.Notifies
-import lila.oauth.{ OAuthScope, OAuthServer }
-import lila.security.{ FingerPrintedUser, Granter, Permission }
-import lila.user.{ User => UserModel, UserContext }
-import lila.app.ui.EmbedConfig
-import akka.actor.Scheduler
-import scala.concurrent.ExecutionContext
+import lila.oauth.OAuthScope
+import lila.oauth.OAuthServer
+import lila.security.FingerPrintedUser
+import lila.security.Granter
+import lila.security.Permission
+import lila.user.UserContext
+import lila.user.{User => UserModel}
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController

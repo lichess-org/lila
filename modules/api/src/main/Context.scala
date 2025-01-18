@@ -1,11 +1,14 @@
 package lila.api
 
-import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 
-import lila.common.{ HTTPRequest, Nonce }
+import lila.common.HTTPRequest
+import lila.common.Nonce
 import lila.pref.Pref
-import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
+import lila.user.BodyUserContext
+import lila.user.HeaderUserContext
+import lila.user.UserContext
 
 case class PageData(
     teamNbRequests: Int,

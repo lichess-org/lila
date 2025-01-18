@@ -1,6 +1,9 @@
 package views.html
 
 import controllers.routes
+import play.api.data.Form
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -9,8 +12,6 @@ import lila.common.String.html.richText
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.User
-import play.api.data.Form
-import play.api.i18n.Lang
 
 object appeal2 {
 

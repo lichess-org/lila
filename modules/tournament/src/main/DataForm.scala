@@ -1,14 +1,17 @@
 package lila.tournament
 
-import cats.implicits._
-import shogi.format.forsyth.Sfen
-import shogi.Mode
-import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation
-import play.api.data.validation.{ Constraint, Constraints }
 import scala.util.chaining._
+
+import play.api.data.Forms._
+import play.api.data._
+import play.api.data.validation
+import play.api.data.validation.Constraint
+import play.api.data.validation.Constraints
+
+import cats.implicits._
+import org.joda.time.DateTime
+import shogi.Mode
+import shogi.format.forsyth.Sfen
 
 import lila.common.Form._
 import lila.hub.LightTeam._

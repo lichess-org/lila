@@ -1,23 +1,34 @@
 package lila.socket
 
-import akka.actor.{ ActorSystem, CoordinatedShutdown }
-import shogi.Centis
-import io.lettuce.core._
-import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
-import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
-import play.api.libs.json._
+import java.util.concurrent.atomic.AtomicReference
+import scala.concurrent.Future
+import scala.concurrent.Promise
 import scala.concurrent.duration._
-import scala.concurrent.{ Future, Promise }
 import scala.util.chaining._
 
-import lila.common.{ Bus, Lilakka }
+import play.api.libs.json._
+
+import akka.actor.ActorSystem
+import akka.actor.CoordinatedShutdown
+import io.lettuce.core._
+import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
+import shogi.Centis
+
+import lila.common.Bus
+import lila.common.Lilakka
 import lila.hub.actorApi.Announce
-import lila.hub.actorApi.relation.{ Follow, UnFollow }
+import lila.hub.actorApi.relation.Follow
+import lila.hub.actorApi.relation.UnFollow
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
-import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendTos }
+import lila.hub.actorApi.socket.ApiUserIsOnline
+import lila.hub.actorApi.socket.SendTo
+import lila.hub.actorApi.socket.SendTos
+import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.hub.actorApi.socket.remote.TellSriOut
+import lila.hub.actorApi.socket.remote.TellUserIn
+
 import Socket.Sri
 
 final class RemoteSocket(

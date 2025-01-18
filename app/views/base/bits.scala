@@ -1,8 +1,9 @@
 package views.html.base
 
-import shogi.format.forsyth.Sfen
 import controllers.routes
 import play.api.i18n.Lang
+
+import shogi.format.forsyth.Sfen
 
 import lila.app.ui.ScalatagsTemplate._
 

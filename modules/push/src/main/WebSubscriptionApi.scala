@@ -1,7 +1,6 @@
 package lila.push
 
 import org.joda.time.DateTime
-
 import reactivemongo.api.bson._
 
 import lila.db.dsl._

@@ -1,13 +1,15 @@
 package controllers
 
+import scala.annotation.nowarn
+
 import play.api.libs.json._
 import play.api.mvc._
-import scala.annotation.nowarn
+import views.html
 
 import lila.api.Context
 import lila.app._
-import lila.user.{ TotpSecret, User => UserModel }
-import views.html
+import lila.user.TotpSecret
+import lila.user.{User => UserModel}
 
 final class Account(
     env: Env,

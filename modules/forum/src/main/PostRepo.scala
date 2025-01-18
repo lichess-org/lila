@@ -4,9 +4,10 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 
-import Filter._
 import lila.db.dsl._
 import lila.user.User
+
+import Filter._
 
 final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
     ec: scala.concurrent.ExecutionContext

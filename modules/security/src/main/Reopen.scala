@@ -1,13 +1,16 @@
 package lila.security
 
-import play.api.i18n.Lang
 import scala.concurrent.duration._
+
+import play.api.i18n.Lang
+
 import scalatags.Text.all._
 
-import lila.common.config._
 import lila.common.EmailAddress
+import lila.common.config._
 import lila.i18n.I18nKeys.{ emails => trans }
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class Reopen(
     mailgun: Mailgun,

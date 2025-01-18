@@ -1,8 +1,9 @@
 package lila.oauth
 
-import org.joda.time.DateTime
 import cats.data.Validated
+import org.joda.time.DateTime
 import reactivemongo.api.bson._
+
 import lila.db.dsl._
 import lila.user.User
 

@@ -1,16 +1,24 @@
 package lila.room
 
-import lila.chat.{ BusChan, Chat, ChatApi, ChatTimeout, UserLine }
-import lila.hub.actorApi.shutup.PublicSource
-import lila.hub.{ Trouper, TrouperMap }
-import lila.log.Logger
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
-import lila.user.User
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
 
 import play.api.libs.json._
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
+
+import lila.chat.BusChan
+import lila.chat.Chat
+import lila.chat.ChatApi
+import lila.chat.ChatTimeout
+import lila.chat.UserLine
+import lila.hub.Trouper
+import lila.hub.TrouperMap
+import lila.hub.actorApi.shutup.PublicSource
+import lila.log.Logger
+import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.socket.Socket.GetVersion
+import lila.socket.Socket.SocketVersion
+import lila.socket.Socket.makeMessage
+import lila.user.User
 
 object RoomSocket {
 

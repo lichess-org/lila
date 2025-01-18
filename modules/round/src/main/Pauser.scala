@@ -1,14 +1,21 @@
 package lila.round
 
 import scala.concurrent.duration._
+
+import play.api.i18n.Lang
+
 import com.github.blemale.scaffeine.Cache
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
-import lila.game.{ Event, Game, GameRepo, Pov, Progress }
+import lila.game.Event
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Pov
+import lila.game.Progress
+import lila.i18n.defaultLang
+import lila.i18n.{I18nKeys => trans}
 import lila.memo.CacheApi
-import lila.i18n.{ defaultLang, I18nKeys => trans }
-import play.api.i18n.Lang
 
 final private[round] class Pauser(
     messenger: Messenger,

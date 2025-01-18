@@ -1,10 +1,11 @@
 package lila.common
 
-import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.concurrent.duration._
 import scala.jdk.CollectionConverters._
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.ActorRef
+import akka.actor.ActorSystem
 
 object Bus {
 

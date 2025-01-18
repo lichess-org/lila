@@ -1,14 +1,16 @@
 package views.html.user
 
 import controllers.routes
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
 import lila.playban.RageSit
-import lila.security.{ Permission, UserSpy }
+import lila.security.Permission
+import lila.security.UserSpy
 import lila.user.User
-import play.api.i18n.Lang
 
 object mod {
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")

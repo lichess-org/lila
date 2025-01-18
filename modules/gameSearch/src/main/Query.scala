@@ -1,7 +1,8 @@
 package lila.gameSearch
 
-import shogi.{ Mode, Status }
 import org.joda.time.DateTime
+import shogi.Mode
+import shogi.Status
 
 import lila.common.Json.jodaWrites
 import lila.rating.RatingRange

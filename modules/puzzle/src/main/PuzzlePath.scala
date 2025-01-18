@@ -2,9 +2,9 @@ package lila.puzzle
 
 import scala.concurrent.ExecutionContext
 
+import lila.common.Iso
 import lila.db.dsl._
 import lila.user.User
-import lila.common.Iso
 
 private object PuzzlePath {
 

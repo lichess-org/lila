@@ -2,7 +2,9 @@ package lila.study
 
 import scala.util.chaining._
 
-import shogi.format.{ Tag, TagType, Tags }
+import shogi.format.Tag
+import shogi.format.TagType
+import shogi.format.Tags
 
 object StudyTags {
 

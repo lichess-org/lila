@@ -1,19 +1,23 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.mvc.Result
 import scala.annotation.nowarn
 import scala.concurrent.duration._
+
+import play.api.libs.json.Json
+import play.api.mvc.RequestHeader
+import play.api.mvc.Result
+import views.html
 
 import lila.api.Context
 import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
-import lila.common.{ Bearer, HTTPRequest, IpAddress }
-import lila.game.{ AnonCookie, Pov }
+import lila.common.Bearer
+import lila.common.HTTPRequest
+import lila.common.IpAddress
+import lila.game.AnonCookie
+import lila.game.Pov
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
-import views.html
-import play.api.mvc.RequestHeader
 
 final class Challenge(
     env: Env

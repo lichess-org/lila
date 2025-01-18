@@ -3,11 +3,13 @@ package lila.fishnet
 import cats.data.Validated
 import cats.data.Validated.valid
 import cats.implicits._
+import shogi.Game
+import shogi.Replay
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
 
-import shogi.format.usi.{ UciToUsi, Usi }
-import shogi.{ Game, Replay }
-
-import lila.analyse.{ Analysis, Info }
+import lila.analyse.Analysis
+import lila.analyse.Info
 import lila.base.LilaException
 
 // validated usi strings and drops extra variations

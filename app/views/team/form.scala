@@ -1,13 +1,12 @@
 package views.html.team
 
+import controllers.routes
 import play.api.data.Form
 
-import lila.team.Team
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
+import lila.team.Team
 
 object form {
 

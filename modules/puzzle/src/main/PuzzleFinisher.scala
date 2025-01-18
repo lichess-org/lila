@@ -1,16 +1,21 @@
 package lila.puzzle
 
-import cats.implicits._
-import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.util.chaining._
 
+import cats.implicits._
+import org.goochjs.glicko2.Rating
+import org.goochjs.glicko2.RatingCalculator
+import org.goochjs.glicko2.RatingPeriodResults
+import org.joda.time.DateTime
+
 import lila.common.Bus
 import lila.db.dsl._
+import lila.rating.Glicko
 import lila.rating.Perf
-import lila.rating.{ Glicko, PerfType }
-import lila.user.{ User, UserRepo }
+import lila.rating.PerfType
+import lila.user.User
+import lila.user.UserRepo
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,

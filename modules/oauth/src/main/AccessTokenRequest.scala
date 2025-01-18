@@ -1,6 +1,7 @@
 package lila.oauth
 
 import cats.data.Validated
+
 import lila.user.User
 
 object AccessTokenRequest {

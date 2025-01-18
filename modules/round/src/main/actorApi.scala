@@ -3,8 +3,9 @@ package actorApi
 
 import scala.concurrent.Promise
 
+import shogi.Color
+import shogi.LagMetrics
 import shogi.format.usi.Usi
-import shogi.{ Color, LagMetrics }
 
 import lila.common.IpAddress
 import lila.game.Game.PlayerId

@@ -4,12 +4,15 @@ import scala.math
 
 import play.api.libs.json._
 
-import lila.game.JsonView._
-import lila.game.{ Game, Player => GamePlayer, Pov }
-import lila.pref.Pref
-import lila.user.{ User, UserRepo }
-
 import shogi.Clock
+
+import lila.game.Game
+import lila.game.JsonView._
+import lila.game.Pov
+import lila.game.{Player => GamePlayer}
+import lila.pref.Pref
+import lila.user.User
+import lila.user.UserRepo
 
 import actorApi.SocketStatus
 

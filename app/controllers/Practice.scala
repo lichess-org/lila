@@ -1,15 +1,19 @@
 package controllers
 
-import play.api.libs.json._
 import scala.annotation.nowarn
+
+import play.api.libs.json._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.practice.JsonView._
-import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
+import lila.practice.PracticeSection
+import lila.practice.PracticeStudy
+import lila.practice.UserStudy
+import lila.study.Chapter
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Study => StudyModel }
-import views._
+import lila.study.{Study => StudyModel}
 
 final class Practice(
     env: Env,

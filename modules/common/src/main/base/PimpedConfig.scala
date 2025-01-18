@@ -1,7 +1,7 @@
 package lila.base
 
-import scala.concurrent.duration._
 import java.util.concurrent.TimeUnit
+import scala.concurrent.duration._
 
 import com.typesafe.config.Config
 

@@ -1,7 +1,8 @@
 package lila.event
 
-import reactivemongo.api.bson._
 import play.api.i18n.Lang
+
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 

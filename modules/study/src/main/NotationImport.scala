@@ -1,15 +1,19 @@
 package lila.study
 
 import cats.data.Validated
-
-import shogi.format.{ Glyphs, ParsedNotation, ParsedStep, Tags }
+import shogi.format.Glyphs
+import shogi.format.ParsedNotation
+import shogi.format.ParsedStep
+import shogi.format.Tags
 import shogi.format.usi.UsiCharPair
 
 import lila.common.LightUser
-import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.Node.{ Comment, Comments, Shapes }
-
 import lila.game.Game
+import lila.importer.ImportData
+import lila.importer.Preprocessed
+import lila.tree.Node.Comment
+import lila.tree.Node.Comments
+import lila.tree.Node.Shapes
 
 object NotationImport {
 

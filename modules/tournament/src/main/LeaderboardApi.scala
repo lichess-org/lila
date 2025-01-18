@@ -1,8 +1,8 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
 
 import lila.common.Maths
 import lila.common.config.MaxPerPage

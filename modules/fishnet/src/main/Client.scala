@@ -1,11 +1,14 @@
 package lila.fishnet
 
-import ornicar.scalalib.Random
-import com.gilt.gfc.semver.SemVer
-import lila.common.IpAddress
-import scala.util.{ Failure, Success, Try }
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
+import com.gilt.gfc.semver.SemVer
 import org.joda.time.DateTime
+import ornicar.scalalib.Random
+
+import lila.common.IpAddress
 
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis

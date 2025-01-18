@@ -2,13 +2,16 @@ package lila.user
 
 import cats.implicits._
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.common.{ EmailAddress, NormalizedEmailAddress }
+import lila.common.EmailAddress
+import lila.common.NormalizedEmailAddress
 import lila.db.dsl._
-import lila.rating.{ Perf, PerfType }
+import lila.rating.Perf
+import lila.rating.PerfType
 
 final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 

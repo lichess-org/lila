@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
-import views._
 
 final class Pref(env: Env) extends LilaController(env) {
 

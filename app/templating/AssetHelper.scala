@@ -1,13 +1,15 @@
 package lila.app
 package templating
 
-import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 import play.api.libs.json.JsValue
+import play.api.mvc.RequestHeader
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
+import lila.common.AssetVersion
+import lila.common.ContentSecurityPolicy
+import lila.common.Nonce
 import lila.common.String.html.safeJsonValue
 
 trait AssetHelper { self: I18nHelper with SecurityHelper =>

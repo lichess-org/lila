@@ -1,27 +1,55 @@
 package lila.round
 
-import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
-import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+
+import play.api.libs.json._
+
+import akka.actor.ActorSystem
+import akka.actor.Cancellable
+import akka.actor.CoordinatedShutdown
+import akka.actor.Scheduler
+import shogi.Centis
+import shogi.Color
+import shogi.Gote
+import shogi.LagMetrics
+import shogi.Sente
+import shogi.Speed
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+
+import lila.chat.BusChan
+import lila.chat.Chat
+import lila.common.Bus
+import lila.common.IpAddress
+import lila.common.Lilakka
+import lila.game.Event
+import lila.game.Game
+import lila.game.Game.FullId
+import lila.game.Game.PlayerId
+import lila.game.Pov
+import lila.hub.DuctConcMap
+import lila.hub.actorApi.map.Exists
+import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.map.TellAll
+import lila.hub.actorApi.map.TellIfExists
+import lila.hub.actorApi.map.TellMany
+import lila.hub.actorApi.round.Abort
+import lila.hub.actorApi.round.Berserk
+import lila.hub.actorApi.round.RematchNo
+import lila.hub.actorApi.round.RematchYes
+import lila.hub.actorApi.round.Resign
+import lila.hub.actorApi.round.TourStanding
+import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.hub.actorApi.tv.TvSelect
+import lila.room.RoomSocket.{ Protocol => RP, _ }
+import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.socket.Socket.SocketVersion
+import lila.socket.Socket.makeMessage
+import lila.user.User
 
 import actorApi._
 import actorApi.round._
-import shogi.format.usi.{ UciToUsi, Usi }
-import shogi.{ Centis, Color, Gote, LagMetrics, Sente, Speed }
-import lila.chat.{ BusChan, Chat }
-import lila.common.{ Bus, IpAddress, Lilakka }
-import lila.game.Game.{ FullId, PlayerId }
-import lila.game.{ Event, Game, Pov }
-import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
-import lila.hub.actorApi.socket.remote.TellSriIn
-import lila.hub.actorApi.tv.TvSelect
-import lila.hub.DuctConcMap
-import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, SocketVersion }
-import lila.user.User
 
 final class RoundSocket(
     remoteSocketApi: lila.socket.RemoteSocket,

@@ -1,13 +1,12 @@
 package views.html
 package tv
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object index {
 

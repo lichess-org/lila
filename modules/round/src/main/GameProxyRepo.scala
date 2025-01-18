@@ -1,6 +1,8 @@
 package lila.round
 
-import lila.game.{ Game, PlayerRef, Pov }
+import lila.game.Game
+import lila.game.PlayerRef
+import lila.game.Pov
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,

@@ -1,6 +1,8 @@
 package lila.round
 
-import lila.chat.{ Chat, ChatApi, ChatTimeout }
+import lila.chat.Chat
+import lila.chat.ChatApi
+import lila.chat.ChatTimeout
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.User

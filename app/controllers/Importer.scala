@@ -1,9 +1,10 @@
 package controllers
 
-import lila.app._
-import lila.common.HTTPRequest
 import play.api.libs.json.Json
 import views._
+
+import lila.app._
+import lila.common.HTTPRequest
 
 final class Importer(env: Env) extends LilaController(env) {
 

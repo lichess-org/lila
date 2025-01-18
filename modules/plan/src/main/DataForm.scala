@@ -1,8 +1,9 @@
 package lila.plan
 
-import cats.implicits._
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
+
+import cats.implicits._
 
 object DataForm {
 

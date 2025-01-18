@@ -1,15 +1,16 @@
 package lila.app
 package ui
 
-import ornicar.scalalib.Zero
+import play.api.mvc.Call
 
+import ornicar.scalalib.Zero
+import scalatags.Text
+import scalatags.Text.Aggregate
+import scalatags.Text.Cap
 import scalatags.Text.all._
 import scalatags.text.Builder
-import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
-import play.api.mvc.Call
-import scalatags.Text
 
 // collection of lila attrs
 trait ScalatagsAttrs {

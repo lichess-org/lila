@@ -1,10 +1,12 @@
 package lila.hub
 package actorApi
 
-import shogi.format.usi.Usi
-import org.joda.time.DateTime
-import play.api.libs.json._
 import scala.concurrent.Promise
+
+import play.api.libs.json._
+
+import org.joda.time.DateTime
+import shogi.format.usi.Usi
 
 // announce something to all clients
 case class Announce(msg: String, date: DateTime, json: JsObject)

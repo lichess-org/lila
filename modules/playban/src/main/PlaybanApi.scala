@@ -1,16 +1,25 @@
 package lila.playban
 
-import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import shogi.{ Centis, Color, Status }
-import lila.common.{ Bus, Iso, Uptime }
-import lila.db.dsl._
-import lila.game.{ Game, Player, Pov, Source }
-import lila.msg.{ MsgApi, MsgPreset }
-import lila.user.{ User, UserRepo }
-
 import org.joda.time.DateTime
+import reactivemongo.api.bson._
+import shogi.Centis
+import shogi.Color
+import shogi.Status
+
+import lila.common.Bus
+import lila.common.Iso
+import lila.common.Uptime
+import lila.db.dsl._
+import lila.game.Game
+import lila.game.Player
+import lila.game.Pov
+import lila.game.Source
+import lila.msg.MsgApi
+import lila.msg.MsgPreset
+import lila.user.User
+import lila.user.UserRepo
 
 final class PlaybanApi(
     coll: Coll,

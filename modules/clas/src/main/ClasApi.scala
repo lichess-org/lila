@@ -1,16 +1,19 @@
 package lila.clas
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
+
+import org.joda.time.DateTime
 import reactivemongo.api._
 
-import lila.common.config.BaseUrl
 import lila.common.EmailAddress
-import lila.security.Permission
+import lila.common.config.BaseUrl
 import lila.db.dsl._
-import lila.msg.MsgApi
-import lila.user.{ Authenticator, User, UserRepo }
 import lila.memo.CacheApi._
+import lila.msg.MsgApi
+import lila.security.Permission
+import lila.user.Authenticator
+import lila.user.User
+import lila.user.UserRepo
 
 final class ClasApi(
     colls: ClasColls,

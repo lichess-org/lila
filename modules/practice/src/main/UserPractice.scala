@@ -1,6 +1,7 @@
 package lila.practice
 
-import lila.study.{ Chapter, Study }
+import lila.study.Chapter
+import lila.study.Study
 
 case class UserPractice(
     structure: PracticeStructure,

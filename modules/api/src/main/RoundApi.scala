@@ -3,11 +3,14 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.libs.json._
 
-import lila.analyse.{ Analysis, JsonView => analysisJson }
-import lila.game.{ Game, Pov }
+import lila.analyse.Analysis
+import lila.analyse.{JsonView => analysisJson}
+import lila.game.Game
+import lila.game.Pov
 import lila.pref.Pref
+import lila.round.Forecast
+import lila.round.JsonView
 import lila.round.JsonView.WithFlags
-import lila.round.{ Forecast, JsonView }
 import lila.security.Granter
 import lila.simul.Simul
 import lila.tournament.{ GameView => TourView }

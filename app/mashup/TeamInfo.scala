@@ -2,8 +2,12 @@ package lila.app
 package mashup
 
 import lila.forum.MiniForumPost
-import lila.team.{ RequestRepo, RequestWithUser, Team, TeamApi }
-import lila.tournament.{ Tournament, TournamentApi }
+import lila.team.RequestRepo
+import lila.team.RequestWithUser
+import lila.team.Team
+import lila.team.TeamApi
+import lila.tournament.Tournament
+import lila.tournament.TournamentApi
 import lila.user.User
 
 case class TeamInfo(

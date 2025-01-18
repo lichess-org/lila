@@ -1,13 +1,14 @@
 package lila.app
 package templating
 
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import controllers.routes
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.PerfType
-import lila.tournament.{ Schedule, Tournament }
+import lila.tournament.Schedule
+import lila.tournament.Tournament
 import lila.user.User
 
 trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>

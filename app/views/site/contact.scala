@@ -1,12 +1,13 @@
 package views
 package html.site
 
+import scala.util.chaining._
+
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import scala.util.chaining._
 
 object contact {
 

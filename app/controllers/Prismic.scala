@@ -1,6 +1,7 @@
 package controllers
 
 import io.prismic.{ Api => PrismicApi, _ }
+
 import lila.app._
 import lila.blog.BlogLang
 

@@ -1,18 +1,24 @@
 package controllers
 
-import ornicar.scalalib.Zero
+import scala.annotation.nowarn
+
 import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
-import scala.annotation.nowarn
+import views._
+
+import ornicar.scalalib.Zero
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ EmailAddress, HTTPRequest }
-import lila.security.{ FingerPrint, Signup }
-import lila.user.{ PasswordHasher, User => UserModel }
+import lila.common.EmailAddress
+import lila.common.HTTPRequest
+import lila.security.FingerPrint
+import lila.security.Signup
+import lila.user.PasswordHasher
+import lila.user.{User => UserModel}
+
 import UserModel.ClearPassword
-import views._
 
 final class Auth(
     env: Env,

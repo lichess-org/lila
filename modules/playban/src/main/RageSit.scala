@@ -1,7 +1,10 @@
 package lila.playban
 
-import shogi.{ Color, Speed }
-import scala.math.{ log10, sqrt }
+import scala.math.log10
+import scala.math.sqrt
+
+import shogi.Color
+import shogi.Speed
 
 import lila.game.Game
 

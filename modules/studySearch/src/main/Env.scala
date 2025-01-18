@@ -1,13 +1,14 @@
 package lila.studySearch
 
+import scala.concurrent.duration._
+
 import akka.actor._
 import com.softwaremill.macwire._
-import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.paginator._
-import lila.hub.actorApi.study.RemoveStudy
 import lila.hub.LateMultiThrottler
+import lila.hub.actorApi.study.RemoveStudy
 import lila.search._
 import lila.study.Study
 import lila.user.User

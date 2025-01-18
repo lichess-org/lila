@@ -1,12 +1,12 @@
 package views.html
 package account
 
+import controllers.routes
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
-import play.api.i18n.Lang
 
 object security {
 

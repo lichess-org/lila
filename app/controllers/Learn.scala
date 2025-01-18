@@ -1,9 +1,9 @@
 package controllers
 
-import lila.app._
-
 import play.api.libs.json._
 import views.html
+
+import lila.app._
 
 final class Learn(env: Env) extends LilaController(env) {
 

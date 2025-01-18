@@ -1,12 +1,12 @@
 package views.html
 package forum
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-
-import controllers.routes
 
 object categ {
 

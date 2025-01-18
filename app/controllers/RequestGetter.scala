@@ -1,10 +1,10 @@
 package controllers
 
-import lila.user.UserContext
+import play.api.mvc.RequestHeader
+
 import lila.common.Form.trueish
 import lila.common.IsMobile
-
-import play.api.mvc.RequestHeader
+import lila.user.UserContext
 
 trait RequestGetter {
 

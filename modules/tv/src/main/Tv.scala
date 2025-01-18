@@ -1,7 +1,9 @@
 package lila.tv
 
 import lila.common.LightUser
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Pov
 import lila.hub.Trouper
 
 final class Tv(

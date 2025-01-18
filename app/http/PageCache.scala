@@ -1,11 +1,12 @@
 package lila.app
 package http
 
-import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.common.HTTPRequest
+import play.api.mvc._
+
 import lila.api.Context
+import lila.common.HTTPRequest
 
 final class PageCache(cacheApi: lila.memo.CacheApi) {
 

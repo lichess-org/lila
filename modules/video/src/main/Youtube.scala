@@ -1,9 +1,11 @@
 package lila.video
 
-import org.joda.time.DateTime
+import scala.concurrent.Future
+
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import scala.concurrent.Future
+
+import org.joda.time.DateTime
 
 import lila.common.config._
 

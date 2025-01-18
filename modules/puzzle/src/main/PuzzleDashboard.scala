@@ -1,9 +1,10 @@
 package lila.puzzle
 
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+
 import org.joda.time.DateTime
 import reactivemongo.api.bson.BSONNull
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 import lila.memo.CacheApi

@@ -3,13 +3,12 @@ package lila.study
 import scala.concurrent.duration._
 
 import cats.data.Validated
+import shogi.Color
 
+import lila.common.Bus
+import lila.game.Game
 import lila.hub.actorApi.map.TellIfExists
 import lila.user.User
-import lila.game.Game
-import lila.common.Bus
-
-import shogi.Color
 
 final class PostGameStudyApi(
     gameRepo: lila.game.GameRepo,

@@ -1,15 +1,19 @@
 package lila.push
 
-import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
-import io.methvin.play.autoconfig._
+import scala.concurrent.Future
+import scala.concurrent.blocking
+import scala.concurrent.duration._
+
+import play.api.ConfigLoader
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import scala.concurrent.{ blocking, Future }
-import scala.concurrent.duration._
+
+import com.google.auth.oauth2.AccessToken
+import com.google.auth.oauth2.GoogleCredentials
+import io.methvin.play.autoconfig._
 
 import lila.common.Chronometer
 import lila.user.User
-import play.api.ConfigLoader
 
 final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],

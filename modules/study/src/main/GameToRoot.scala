@@ -1,6 +1,7 @@
 package lila.study
 
-import shogi.format.usi.{ Usi, UsiCharPair }
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
 
 import lila.game.Game
 

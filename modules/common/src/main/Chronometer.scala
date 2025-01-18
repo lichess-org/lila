@@ -1,7 +1,8 @@
 package lila.common
 
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.Try
 
 object Chronometer {

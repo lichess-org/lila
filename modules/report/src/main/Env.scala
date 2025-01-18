@@ -1,10 +1,12 @@
 package lila.report
 
+import scala.concurrent.duration._
+
+import play.api.Configuration
+
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration._
 
 import lila.common.config._
 

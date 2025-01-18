@@ -1,9 +1,11 @@
 package lila.gameSearch
 
-import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.game.{ Game, GameRepo }
+import play.api.libs.json._
+
+import lila.game.Game
+import lila.game.GameRepo
 import lila.search._
 
 final class GameSearchApi(

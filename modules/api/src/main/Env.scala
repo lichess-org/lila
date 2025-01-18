@@ -1,10 +1,13 @@
 package lila.api
 
+import scala.concurrent.duration._
+
+import play.api.Configuration
+import play.api.Mode
+import play.api.libs.ws.WSClient
+
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.libs.ws.WSClient
-import play.api.{ Configuration, Mode }
-import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.user.User

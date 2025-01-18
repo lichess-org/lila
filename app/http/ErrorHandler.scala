@@ -1,13 +1,16 @@
 package lila.app
 package http
 
-import play.api.http.DefaultHttpErrorHandler
-import play.api.mvc._
-import play.api.mvc.Results._
-import play.api.routing._
-import play.api.{ Configuration, Environment, UsefulException }
-import play.core.SourceMapper
 import scala.concurrent.Future
+
+import play.api.Configuration
+import play.api.Environment
+import play.api.UsefulException
+import play.api.http.DefaultHttpErrorHandler
+import play.api.mvc.Results._
+import play.api.mvc._
+import play.api.routing._
+import play.core.SourceMapper
 
 import lila.common.HTTPRequest
 

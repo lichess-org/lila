@@ -1,8 +1,9 @@
 package lila.tournament
 
+import scala.concurrent.duration._
+
 import akka.actor._
 import akka.stream.scaladsl._
-import scala.concurrent.duration._
 
 final private class CreatedOrganizer(
     api: TournamentApi,

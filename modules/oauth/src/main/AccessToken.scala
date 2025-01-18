@@ -1,11 +1,10 @@
 package lila.oauth
 
+import com.roundeights.hasher.Algo
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import com.roundeights.hasher.Algo
 
 import lila.common.Bearer
-
 import lila.user.User
 
 case class AccessToken(

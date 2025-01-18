@@ -1,16 +1,19 @@
 package lila.game
 
-import shogi.Replay
-import shogi.format.kif.Kif
-import shogi.format.csa.Csa
-import shogi.format.usi.Usi
-import shogi.format.{ Notation, NotationStep, Tag, Tags }
-import shogi.{ Centis, Color }
-
-import lila.common.config.BaseUrl
-import lila.common.LightUser
-
 import org.joda.time.DateTime
+import shogi.Centis
+import shogi.Color
+import shogi.Replay
+import shogi.format.Notation
+import shogi.format.NotationStep
+import shogi.format.Tag
+import shogi.format.Tags
+import shogi.format.csa.Csa
+import shogi.format.kif.Kif
+import shogi.format.usi.Usi
+
+import lila.common.LightUser
+import lila.common.config.BaseUrl
 
 final class NotationDump(
     baseUrl: BaseUrl,

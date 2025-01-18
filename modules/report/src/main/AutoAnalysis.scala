@@ -1,9 +1,11 @@
 package lila.report
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.{ Game, GameRepo }
+import org.joda.time.DateTime
+
+import lila.game.Game
+import lila.game.GameRepo
 
 final class AutoAnalysis(
     gameRepo: GameRepo,

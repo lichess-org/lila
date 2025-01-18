@@ -1,10 +1,11 @@
 package lila.study
 
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
+
+import shogi.format.forsyth.Sfen
 
 import lila.common.Form.cleanNonEmptyText
-import shogi.format.forsyth.Sfen
 
 object StudyForm {
 

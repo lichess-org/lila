@@ -1,15 +1,20 @@
 package controllers
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
-import play.api.mvc._
 import scala.concurrent.duration._
 import scala.util.chaining._
 
-import lila.api.{ Context, GameApiV2 }
+import play.api.libs.json._
+import play.api.mvc._
+
+import akka.stream.scaladsl._
+
+import lila.api.Context
+import lila.api.GameApiV2
 import lila.app._
-import lila.common.config.{ MaxPerPage, MaxPerSecond }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.common.IpAddress
+import lila.common.config.MaxPerPage
+import lila.common.config.MaxPerSecond
 
 final class Api(
     env: Env,

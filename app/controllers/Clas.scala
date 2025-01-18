@@ -1,13 +1,14 @@
 package controllers
 
-import akka.stream.scaladsl._
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 import play.api.mvc._
+import views._
+
+import akka.stream.scaladsl._
 
 import lila.api.Context
 import lila.app._
-import views._
 
 final class Clas(
     env: Env,

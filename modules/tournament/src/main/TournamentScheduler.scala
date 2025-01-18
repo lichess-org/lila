@@ -1,10 +1,11 @@
 package lila.tournament
 
+import scala.concurrent.ExecutionContextExecutor
+import scala.util.chaining._
+
 import akka.actor._
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
-import scala.util.chaining._
-import scala.concurrent.ExecutionContextExecutor
 
 final private class TournamentScheduler(
     tournamentRepo: TournamentRepo

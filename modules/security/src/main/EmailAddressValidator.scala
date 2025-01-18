@@ -1,10 +1,12 @@
 package lila.security
 
-import play.api.data.validation._
 import scala.concurrent.duration._
 
+import play.api.data.validation._
+
 import lila.common.EmailAddress
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 /** Validate and normalize emails
   */

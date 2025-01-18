@@ -1,11 +1,11 @@
 package lila.activity
 
-import activities._
 import org.joda.time.Interval
 
 import lila.common.Day
-
 import lila.user.User
+
+import activities._
 
 case class Activity(
     id: Activity.Id,

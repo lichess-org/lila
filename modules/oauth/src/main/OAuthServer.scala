@@ -1,8 +1,10 @@
 package lila.oauth
 
-import play.api.mvc.{ RequestHeader, Result }
+import play.api.mvc.RequestHeader
+import play.api.mvc.Result
 
-import lila.common.{ Bearer, HTTPRequest }
+import lila.common.Bearer
+import lila.common.HTTPRequest
 import lila.user.UserRepo
 
 final class OAuthServer(

@@ -1,13 +1,18 @@
 package lila.notify
 
+import reactivemongo.api.bson._
 import shogi.Color
-import lila.db.BSON.{ Reader, Writer }
+
+import lila.db.BSON
+import lila.db.BSON.Reader
+import lila.db.BSON.Writer
+import lila.db.dsl
 import lila.db.dsl._
-import lila.db.{ dsl, BSON }
-import lila.notify.InvitedToStudy.{ InvitedBy, StudyId, StudyName }
+import lila.notify.InvitedToStudy.InvitedBy
+import lila.notify.InvitedToStudy.StudyId
+import lila.notify.InvitedToStudy.StudyName
 import lila.notify.MentionedInThread._
 import lila.notify.Notification._
-import reactivemongo.api.bson._
 
 private object BSONHandlers {
 

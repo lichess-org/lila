@@ -1,10 +1,16 @@
 package lila.app
 package http
 
-import play.api.http.{ DefaultHttpRequestHandler, HttpConfiguration, HttpErrorHandler }
-import play.api.mvc.{ ControllerComponents, EssentialFilter, Handler, RequestHeader, Results }
-import play.api.routing.Router
 import play.api.ApplicationLoader.DevContext
+import play.api.http.DefaultHttpRequestHandler
+import play.api.http.HttpConfiguration
+import play.api.http.HttpErrorHandler
+import play.api.mvc.ControllerComponents
+import play.api.mvc.EssentialFilter
+import play.api.mvc.Handler
+import play.api.mvc.RequestHeader
+import play.api.mvc.Results
+import play.api.routing.Router
 import play.core.WebCommands
 
 final class LilaHttpRequestHandler(

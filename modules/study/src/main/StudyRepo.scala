@@ -1,7 +1,8 @@
 package lila.study
 
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 
 import lila.db.AsyncColl

@@ -1,13 +1,16 @@
 package lila.evalCache
 
-import play.api.libs.json.{ JsObject, JsString }
 import scala.collection.mutable.HashMap
 import scala.concurrent.duration._
 
+import play.api.libs.json.JsObject
+import play.api.libs.json.JsString
+
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import lila.socket.Socket
+
 import lila.memo.ExpireCallbackMemo
+import lila.socket.Socket
 
 /* Upgrades the user's eval when a better one becomes available,
  * by remembering the last evalGet of each socket member,

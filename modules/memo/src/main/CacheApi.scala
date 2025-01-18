@@ -1,11 +1,13 @@
 package lila.memo
 
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+
+import play.api.Mode
+
 import akka.actor.ActorSystem
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine._
-import play.api.Mode
-import scala.concurrent.duration._
-import scala.concurrent.ExecutionContext
 
 final class CacheApi(
     mode: Mode

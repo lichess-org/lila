@@ -1,13 +1,22 @@
 package lila.game
 
-import org.joda.time.DateTime
 import scala.util.Try
 
+import org.joda.time.DateTime
+import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
+import shogi.Centis
+import shogi.Clock
+import shogi.ClockPlayer
+import shogi.Color
+import shogi.Gote
+import shogi.Piece
+import shogi.PieceMap
+import shogi.Sente
+import shogi.Situation
+import shogi.Timestamp
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import shogi.{ Centis, Clock, ClockPlayer, Color, Gote, Piece, PieceMap, Sente, Situation, Timestamp }
-import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
 
 import lila.db.ByteArray
 

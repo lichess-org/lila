@@ -1,14 +1,16 @@
 package lila.app
 package mashup
 
+import play.api.data.FormBinding
+import play.api.mvc.Request
+
+import cats.data.NonEmptyList
+
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.game.{ Game, Query }
+import lila.game.Game
+import lila.game.Query
 import lila.user.User
-
-import play.api.mvc.Request
-import cats.data.NonEmptyList
-import play.api.data.FormBinding
 
 sealed abstract class GameFilter(val name: String)
 

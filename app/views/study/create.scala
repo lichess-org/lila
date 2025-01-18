@@ -1,11 +1,11 @@
 package views.html.study
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.study.Study
-
-import controllers.routes
 
 object create {
 

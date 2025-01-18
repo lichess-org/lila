@@ -2,8 +2,8 @@ package lila.chat
 
 import play.api.libs.json._
 
-import lila.common.LightUser
 import lila.common.Json._
+import lila.common.LightUser
 
 object JsonView {
 

@@ -1,11 +1,13 @@
 package controllers
 
-import shogi.format.forsyth.Sfen
-import shogi.variant.{ Standard, Variant }
+import views._
+
 import shogi.Situation
+import shogi.format.forsyth.Sfen
+import shogi.variant.Standard
+import shogi.variant.Variant
 
 import lila.app._
-import views._
 
 final class Editor(env: Env) extends LilaController(env) {
 

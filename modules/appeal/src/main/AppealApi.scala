@@ -1,8 +1,9 @@
 package lila.appeal
 
+import org.joda.time.DateTime
+
 import lila.db.dsl._
 import lila.user.User
-import org.joda.time.DateTime
 
 final class AppealApi(
     coll: Coll

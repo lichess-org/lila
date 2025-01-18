@@ -1,7 +1,8 @@
 package lila.playban
 
-import com.softwaremill.macwire._
 import play.api.Configuration
+
+import com.softwaremill.macwire._
 
 import lila.common.config.CollName
 

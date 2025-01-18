@@ -1,10 +1,14 @@
 package lila.mod
 
+import reactivemongo.api.bson.BSONDocumentHandler
+
 import lila.db.dsl._
-import lila.report.{ Mod, ModId, Report, Suspect }
+import lila.report.Mod
+import lila.report.ModId
+import lila.report.Report
+import lila.report.Suspect
 import lila.security.Permission
 import lila.user.User
-import reactivemongo.api.bson.BSONDocumentHandler
 
 final class ModlogApi(repo: ModlogRepo)(implicit
     ec: scala.concurrent.ExecutionContext

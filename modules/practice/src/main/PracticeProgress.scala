@@ -2,9 +2,10 @@ package lila.practice
 
 import org.joda.time.DateTime
 
-import lila.user.User
-import lila.study.{ Chapter, Study }
 import lila.common.Iso
+import lila.study.Chapter
+import lila.study.Study
+import lila.user.User
 
 case class PracticeProgress(
     _id: PracticeProgress.Id,

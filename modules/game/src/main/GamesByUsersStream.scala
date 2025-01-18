@@ -1,15 +1,18 @@
 package lila.game
 
-import akka.stream.scaladsl._
-import play.api.libs.json._
 import scala.concurrent.duration._
 
-import actorApi.{ FinishGame, StartGame }
+import play.api.libs.json._
+
+import akka.stream.scaladsl._
 import shogi.format.forsyth.Sfen
+
 import lila.common.Bus
 import lila.common.Json.jodaWrites
 import lila.game.Game
 import lila.user.User
+
+import actorApi.{ FinishGame, StartGame }
 
 final class GamesByUsersStream()(implicit
     ec: scala.concurrent.ExecutionContext

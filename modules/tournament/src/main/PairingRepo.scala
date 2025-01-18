@@ -3,14 +3,16 @@ package lila.tournament
 import akka.stream.Materializer
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.bson._
+import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
 
-import BSONHandlers._
 import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
+
+import BSONHandlers._
 
 final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext, mat: Materializer) {
 

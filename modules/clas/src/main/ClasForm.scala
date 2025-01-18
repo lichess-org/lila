@@ -1,10 +1,12 @@
 package lila.clas
 
-import play.api.data._
-import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText }
+import play.api.data.Forms._
+import play.api.data._
+
+import lila.common.Form.cleanNonEmptyText
+import lila.common.Form.cleanText
 import lila.user.User
 
 final class ClasForm(

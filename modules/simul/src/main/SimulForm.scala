@@ -1,11 +1,12 @@
 package lila.simul
 
-import shogi.format.forsyth.Sfen
+import play.api.data.Forms._
+import play.api.data._
+import play.api.data.validation.Constraint
+import play.api.data.validation.Constraints
 
 import org.joda.time.DateTime
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Constraints }
+import shogi.format.forsyth.Sfen
 
 import lila.common.Form._
 import lila.user.User

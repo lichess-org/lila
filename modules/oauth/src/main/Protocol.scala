@@ -2,10 +2,14 @@ package lila.oauth
 
 import java.util.Base64
 import scala.util.Try
-import cats.data.Validated
+
 import play.api.libs.json.Json
+
+import cats.data.Validated
 import com.roundeights.hasher.Algo
-import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+import io.mola.galimatias.StrictErrorHandler
+import io.mola.galimatias.URL
+import io.mola.galimatias.URLParsingSettings
 
 import lila.common.String.urlencode
 

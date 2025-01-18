@@ -1,6 +1,8 @@
 package lila.db
 
-import java.nio.file.{ Files, Path }
+import java.nio.file.Files
+import java.nio.file.Path
+
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 

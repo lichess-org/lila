@@ -1,15 +1,14 @@
 package views.html.coach
 
+import controllers.routes
 import play.api.data.Form
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.i18n.LangList
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
+import lila.i18n.LangList
 
 object edit {
 

@@ -1,7 +1,8 @@
 package lila.user
 
-import lila.db.dsl._
 import org.joda.time.DateTime
+
+import lila.db.dsl._
 
 case class Note(
     _id: String,

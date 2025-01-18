@@ -1,12 +1,12 @@
 package views.html
 package user
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
-
-import controllers.routes
 
 object top {
 

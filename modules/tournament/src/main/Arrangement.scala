@@ -1,7 +1,6 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-
 import shogi.Color
 
 case class Arrangement(

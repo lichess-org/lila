@@ -1,8 +1,10 @@
 package lila.video
 
-import org.joda.time.DateTime
-import play.api.libs.ws.WSClient
 import scala.concurrent.Future
+
+import play.api.libs.ws.WSClient
+
+import org.joda.time.DateTime
 
 final private class VideoSheet(
     ws: WSClient,

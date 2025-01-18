@@ -1,18 +1,18 @@
 package views.html.base
 
+import controllers.routes
 import play.api.i18n.Lang
 
 import org.joda.time.DateTime
 
-import lila.api.{ AnnounceStore, Context }
+import lila.api.AnnounceStore
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.CanonicalPath
 import lila.common.ContentSecurityPolicy
 import lila.common.String.html.safeJsonValue
 import lila.common.base.StringUtils.escapeHtmlRaw
-import lila.common.CanonicalPath
-
-import controllers.routes
 
 object layout {
 

@@ -1,7 +1,8 @@
 package lila.security
 
-import lila.common.Iso
 import reactivemongo.api.bson.BSONHandler
+
+import lila.common.Iso
 
 case class FingerPrint(value: String) extends AnyVal {
   def hash: Option[FingerHash] = FingerHash(this)

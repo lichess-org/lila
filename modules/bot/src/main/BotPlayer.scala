@@ -1,16 +1,25 @@
 package lila.bot
 
-import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.concurrent.duration._
 
-import shogi.format.usi.{ UciToUsi, Usi }
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+
 import lila.common.Bus
 import lila.game.FairyConversion.Kyoto
+import lila.game.Game
 import lila.game.Game.PlayerId
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.GameRepo
+import lila.game.Pov
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
-import lila.round.actorApi.round.{ DrawNo, DrawYes }
+import lila.hub.actorApi.round.Abort
+import lila.hub.actorApi.round.BotPlay
+import lila.hub.actorApi.round.RematchNo
+import lila.hub.actorApi.round.RematchYes
+import lila.hub.actorApi.round.Resign
+import lila.round.actorApi.round.DrawNo
+import lila.round.actorApi.round.DrawYes
 import lila.user.User
 
 final class BotPlayer(

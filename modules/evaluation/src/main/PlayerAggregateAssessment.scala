@@ -1,11 +1,12 @@
 package lila.evaluation
 
-import cats.implicits._
-
-import shogi.Color
-import lila.user.User
-import org.joda.time.DateTime
 import scala.math.sqrt
+
+import cats.implicits._
+import org.joda.time.DateTime
+import shogi.Color
+
+import lila.user.User
 
 case class PlayerAssessment(
     _id: String,

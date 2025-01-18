@@ -1,15 +1,17 @@
 package lila.tournament
 
 import cats.implicits._
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.AkkaStreamCursor
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import BSONHandlers._
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
+
+import BSONHandlers._
 
 final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 

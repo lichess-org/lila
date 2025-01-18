@@ -1,8 +1,10 @@
 package lila.setup
 
 import shogi.Mode
+
 import lila.lobby.Color
-import lila.lobby.{ Hook, Seek }
+import lila.lobby.Hook
+import lila.lobby.Seek
 import lila.rating.RatingRange
 import lila.user.User
 

@@ -1,13 +1,14 @@
 package views.html.user.show
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.game.{ Game, Pov }
+import lila.game.Game
+import lila.game.Pov
 import lila.user.User
-
-import controllers.routes
 
 object gamesContent {
 

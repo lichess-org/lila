@@ -1,11 +1,13 @@
 package lila.clas
 
-import org.joda.time.{ DateTime, Period }
+import org.joda.time.DateTime
+import org.joda.time.Period
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.game.{ Game, GameRepo }
+import lila.game.Game
+import lila.game.GameRepo
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
 import lila.user.User

@@ -1,17 +1,21 @@
 package controllers
 
+import scala.util.chaining._
+
 import play.api.data.Form
 import play.api.libs.json._
-import scala.util.chaining._
 import views._
 
 import lila.api.BodyContext
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
+import lila.puzzle.PuzzleDashboard
+import lila.puzzle.PuzzleDifficulty
 import lila.puzzle.PuzzleForm.RoundData
+import lila.puzzle.PuzzleReplay
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{ Puzzle => Puz, PuzzleDashboard, PuzzleDifficulty, PuzzleReplay }
+import lila.puzzle.{Puzzle => Puz}
 
 final class Puzzle(
     env: Env,

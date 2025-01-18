@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import scala.concurrent.duration._
+
 import reactivemongo.api.bson._
 
 import lila.common.IpAddress

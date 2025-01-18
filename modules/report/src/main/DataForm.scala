@@ -1,9 +1,10 @@
 package lila.report
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.data.validation._
 import scala.concurrent.duration._
+
+import play.api.data.Forms._
+import play.api.data._
+import play.api.data.validation._
 
 import lila.common.LightUser
 import lila.user.User

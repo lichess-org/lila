@@ -1,9 +1,11 @@
 package lila.lobby
 
+import scala.concurrent.duration._
+
+import play.api.libs.json._
+
 import akka.actor._
 import akka.stream.scaladsl._
-import play.api.libs.json._
-import scala.concurrent.duration._
 
 import lila.common.Bus
 

@@ -1,15 +1,18 @@
 package lila.app
 package templating
 
-import play.api.i18n.Lang
 import controllers.routes
-import mashup._
+import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LightUser
 import lila.i18n.{ I18nKeys => trans }
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ Title, User }
+import lila.rating.Perf
+import lila.rating.PerfType
+import lila.user.Title
+import lila.user.User
+
+import mashup._
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
 

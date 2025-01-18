@@ -1,9 +1,17 @@
 package lila.mod
 
-import lila.common.{ Bus, EmailAddress }
-import lila.report.{ Mod, Room, Suspect, SuspectId }
-import lila.security.{ Granter, Permission }
-import lila.user.{ LightUserApi, Title, User, UserRepo }
+import lila.common.Bus
+import lila.common.EmailAddress
+import lila.report.Mod
+import lila.report.Room
+import lila.report.Suspect
+import lila.report.SuspectId
+import lila.security.Granter
+import lila.security.Permission
+import lila.user.LightUserApi
+import lila.user.Title
+import lila.user.User
+import lila.user.UserRepo
 
 final class ModApi(
     userRepo: UserRepo,

@@ -3,9 +3,12 @@ package lila.study
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
+import lila.notify.InvitedToStudy
+import lila.notify.Notification
+import lila.notify.NotifyApi
 import lila.pref.Pref
-import lila.relation.{ Block, Follow }
+import lila.relation.Block
+import lila.relation.Follow
 import lila.user.User
 
 final private class StudyInvite(

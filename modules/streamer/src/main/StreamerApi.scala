@@ -1,13 +1,15 @@
 package lila.streamer
 
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.db.dsl._
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+
 import lila.db.Photographer
+import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class StreamerApi(
     coll: Coll,

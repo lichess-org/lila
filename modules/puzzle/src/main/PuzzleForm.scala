@@ -1,9 +1,10 @@
 package lila.puzzle
 
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 
-import lila.common.Form.{ numberIn, stringIn }
+import lila.common.Form.numberIn
+import lila.common.Form.stringIn
 
 object PuzzleForm {
 

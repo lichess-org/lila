@@ -1,13 +1,15 @@
 package lila.gameSearch
 
+import play.api.Configuration
+
 import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
 
-import lila.game.actorApi.{ FinishGame, InsertGame }
-import lila.search._
 import lila.common.config._
+import lila.game.actorApi.FinishGame
+import lila.game.actorApi.InsertGame
+import lila.search._
 
 @Module
 private class GameSearchConfig(

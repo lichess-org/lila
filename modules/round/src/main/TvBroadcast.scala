@@ -1,14 +1,16 @@
 package lila.round
 
+import scala.concurrent.ExecutionContextExecutor
+
+import play.api.libs.json._
+
 import akka.actor._
 import akka.stream.scaladsl._
+
+import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.socket.Socket.makeMessage
-import play.api.libs.json._
-
-import lila.common.Bus
-import scala.concurrent.ExecutionContextExecutor
 
 final private class TvBroadcast extends Actor {
 

@@ -1,9 +1,10 @@
 package lila.hub
 
+import play.api.Configuration
+
 import akka.actor._
 import com.softwaremill.macwire._
 import com.typesafe.config.Config
-import play.api.Configuration
 
 object actors {
   trait Actor {

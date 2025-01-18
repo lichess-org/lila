@@ -1,20 +1,24 @@
 package controllers
 
-import shogi.format.forsyth.Sfen
-import shogi.format.usi.Usi
-import shogi.format.Reader
-import shogi.variant.{ Standard, Variant }
+import scala.concurrent.duration._
+
 import play.api.libs.json.Json
 import play.api.mvc._
-import scala.concurrent.duration._
+import views._
+
+import shogi.format.Reader
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.Usi
+import shogi.variant.Standard
+import shogi.variant.Variant
 
 import lila.api.Context
 import lila.app._
 import lila.game.Pov
-import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
+import lila.round.Forecast.forecastJsonWriter
+import lila.round.Forecast.forecastStepJsonFormat
 import lila.round.JsonView.WithFlags
 import lila.study.JsonView.tagsWrites
-import views._
 
 final class UserAnalysis(
     env: Env,

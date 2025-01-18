@@ -1,7 +1,8 @@
 package lila.game
 
-import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext
+
+import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.user.User

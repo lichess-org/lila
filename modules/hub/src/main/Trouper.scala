@@ -3,7 +3,9 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.{ ExecutionContext, Future, Promise }
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import scala.concurrent.Promise
 
 /*
  * Like an actor, but not an actor.

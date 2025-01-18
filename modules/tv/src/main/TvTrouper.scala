@@ -1,9 +1,11 @@
 package lila.tv
 
-import akka.pattern.{ ask => actorAsk }
-import play.api.libs.json.Json
-import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.concurrent.duration._
+
+import play.api.libs.json.Json
+
+import akka.pattern.{ ask => actorAsk }
 
 import lila.common.Bus
 import lila.game.Game

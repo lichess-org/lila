@@ -1,21 +1,26 @@
 package lila.study
 
-import BSONHandlers._
+import scala.concurrent.duration._
+
+import play.api.libs.json._
+
+import com.github.blemale.scaffeine.AsyncLoadingCache
+import reactivemongo.api.bson._
 import shogi.Color
 import shogi.format.Tags
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.variant.{ Standard, Variant }
-import com.github.blemale.scaffeine.AsyncLoadingCache
-import JsonView._
-import play.api.libs.json._
-import reactivemongo.api.bson._
-import scala.concurrent.duration._
+import shogi.variant.Standard
+import shogi.variant.Variant
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike
-import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.common.paginator.Paginator
+import lila.common.paginator.PaginatorJson
 import lila.db.dsl._
+
+import BSONHandlers._
+import JsonView._
 
 final class StudyMultiBoard(
     chapterRepo: ChapterRepo,

@@ -1,10 +1,12 @@
 package lila.evalCache
 
-import reactivemongo.api.bson._
-import scala.util.{ Success, Try }
-import cats.data.NonEmptyList
+import scala.util.Success
+import scala.util.Try
 
+import cats.data.NonEmptyList
+import reactivemongo.api.bson._
 import shogi.format.usi.Usi
+
 import lila.db.dsl._
 import lila.tree.Eval._
 

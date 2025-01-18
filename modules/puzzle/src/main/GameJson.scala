@@ -1,9 +1,12 @@
 package lila.puzzle
 
-import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.game.{ Game, GameRepo, PerfPicker }
+import play.api.libs.json._
+
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.PerfPicker
 import lila.i18n.defaultLang
 
 final private class GameJson(

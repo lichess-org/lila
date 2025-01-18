@@ -1,7 +1,8 @@
 package views.html
 package round
 
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.JsObject
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._

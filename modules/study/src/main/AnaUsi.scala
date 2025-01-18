@@ -1,10 +1,12 @@
 package lila.study
 
+import play.api.libs.json._
+
 import cats.data.Validated
 import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ Usi, UsiCharPair }
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
 import shogi.variant.Variant
-import play.api.libs.json._
 
 case class AnaUsi(
     usi: Usi,

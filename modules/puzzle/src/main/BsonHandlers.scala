@@ -1,9 +1,12 @@
 package lila.puzzle
 
-import shogi.format.usi.{ UciToUsi, Usi }
-import shogi.format.forsyth.Sfen
+import scala.util.Success
+import scala.util.Try
+
 import reactivemongo.api.bson._
-import scala.util.{ Success, Try }
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
 
 import lila.db.BSON
 import lila.db.dsl._

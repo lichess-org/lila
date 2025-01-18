@@ -1,17 +1,22 @@
 package lila.round
 
+import scala.concurrent.ExecutionContextExecutor
+import scala.concurrent.duration._
+
 import akka.actor._
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 
-import scala.concurrent.duration._
-
 import lila.common.LilaStream
 import lila.db.dsl._
-import lila.game.{ Game, GameRepo, Query }
-import lila.notify.{ Notification, NotifyApi, PausedGame }
-import lila.round.actorApi.round.{ Abandon, QuietFlag }
-import scala.concurrent.ExecutionContextExecutor
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Query
+import lila.notify.Notification
+import lila.notify.NotifyApi
+import lila.notify.PausedGame
+import lila.round.actorApi.round.Abandon
+import lila.round.actorApi.round.QuietFlag
 
 /*
  * Cleans up unfinished games

@@ -1,7 +1,8 @@
 package lila.common
 
-import akka.actor._
 import scala.concurrent.duration._
+
+import akka.actor._
 
 object ResilientScheduler {
 

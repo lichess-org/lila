@@ -1,24 +1,24 @@
 package lila.game
 
+import scala.util.Success
+import scala.util.Try
+
+import org.joda.time.DateTime
+import reactivemongo.api.bson._
+import shogi.Clock
+import shogi.Color
+import shogi.ConsecutiveAttacks
+import shogi.Gote
+import shogi.Hands
+import shogi.Mode
+import shogi.Pos
+import shogi.Sente
+import shogi.Status
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import shogi.{
-  Clock,
-  Color,
-  ConsecutiveAttacks,
-  Game => ShogiGame,
-  Gote,
-  Hands,
-  History => ShogiHistory,
-  Mode,
-  Pos,
-  Sente,
-  Status
-}
-import org.joda.time.DateTime
-import reactivemongo.api.bson._
-import scala.util.{ Success, Try }
+import shogi.{Game => ShogiGame}
+import shogi.{History => ShogiHistory}
 
 import lila.db.BSON
 import lila.db.dsl._

@@ -1,8 +1,8 @@
 package lila.db
 
-import dsl._
-
 import lila.common.config.CollName
+
+import dsl._
 
 final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(implicit
     ec: scala.concurrent.ExecutionContext

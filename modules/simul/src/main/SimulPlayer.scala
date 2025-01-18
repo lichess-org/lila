@@ -1,6 +1,7 @@
 package lila.simul
 
 import shogi.variant.Variant
+
 import lila.rating.Perf
 import lila.user.User
 

@@ -1,11 +1,13 @@
 package lila.team
 
-import play.api.data._
-import play.api.data.Forms._
 import scala.concurrent.duration._
 
+import play.api.data.Forms._
+import play.api.data._
+
+import lila.common.Form.cleanText
+import lila.common.Form.numberIn
 import lila.db.dsl._
-import lila.common.Form.{ cleanText, numberIn }
 
 final private[team] class DataForm(
     teamRepo: TeamRepo,

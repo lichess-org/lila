@@ -1,15 +1,17 @@
 package controllers
 
+import java.nio.charset.StandardCharsets.UTF_8
+
+import play.api.mvc._
+
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.mvc._
-import java.nio.charset.StandardCharsets.UTF_8
 
 import lila.api.GameApiV2
 import lila.app._
-import lila.common.config.MaxPerSecond
-import lila.common.String.getBytesShiftJis
 import lila.common.HTTPRequest
+import lila.common.String.getBytesShiftJis
+import lila.common.config.MaxPerSecond
 import lila.game.{ Game => GameModel }
 
 final class Game(

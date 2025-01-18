@@ -1,9 +1,9 @@
 package lila.app
 package templating
 
-import scalatags.Text.all.Tag
-
 import controllers.routes
+
+import scalatags.Text.all.Tag
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._

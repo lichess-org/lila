@@ -1,10 +1,11 @@
 package controllers
 
+import play.api.mvc.Result
+import views._
+
 import lila.api.Context
 import lila.app._
 import lila.report.Suspect
-import play.api.mvc.Result
-import views._
 
 final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
 

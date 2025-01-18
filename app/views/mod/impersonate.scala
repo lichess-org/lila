@@ -1,11 +1,10 @@
 package views.html.mod
 
+import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object impersonate {
 

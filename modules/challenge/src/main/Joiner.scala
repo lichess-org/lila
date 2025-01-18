@@ -1,7 +1,12 @@
 package lila.challenge
 
-import shogi.{ Color, Mode }
-import lila.game.{ Game, Player, Pov, Source }
+import shogi.Color
+import shogi.Mode
+
+import lila.game.Game
+import lila.game.Player
+import lila.game.Pov
+import lila.game.Source
 import lila.user.User
 
 final private class Joiner(

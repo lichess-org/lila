@@ -1,8 +1,10 @@
 package lila.user
 
-import lila.common.Iso
 import play.api.libs.json.Writes
+
 import reactivemongo.api.bson.BSONHandler
+
+import lila.common.Iso
 
 case class Title(value: String) extends AnyVal with StringValue
 

@@ -1,7 +1,7 @@
 package lila.evaluation
 
-import shogi.Color
 import reactivemongo.api.bson.BSONHandler
+import shogi.Color
 
 case class PlayerAssessments(
     sente: Option[PlayerAssessment],

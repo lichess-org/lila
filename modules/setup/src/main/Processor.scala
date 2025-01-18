@@ -3,8 +3,10 @@ package lila.setup
 import lila.common.Bus
 import lila.common.config.Max
 import lila.game.Pov
-import lila.lobby.actorApi.{ AddHook, AddSeek }
-import lila.user.{ User, UserContext }
+import lila.lobby.actorApi.AddHook
+import lila.lobby.actorApi.AddSeek
+import lila.user.User
+import lila.user.UserContext
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,

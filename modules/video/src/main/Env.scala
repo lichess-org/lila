@@ -1,11 +1,13 @@
 package lila.video
 
-import play.api.libs.ws.WSClient
+import scala.concurrent.duration._
+
+import play.api.Configuration
 import play.api.Mode
+import play.api.libs.ws.WSClient
+
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration._
 
 import lila.common.config._
 

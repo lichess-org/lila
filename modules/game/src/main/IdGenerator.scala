@@ -1,8 +1,9 @@
 package lila.game
 
-import shogi.Color
 import java.security.SecureRandom
+
 import ornicar.scalalib.Random
+import shogi.Color
 
 import lila.db.dsl._
 

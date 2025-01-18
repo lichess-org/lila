@@ -1,9 +1,10 @@
 package lila.tournament
 
+import play.api.i18n.Lang
+
+import org.joda.time.DateTime
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import org.joda.time.DateTime
-import play.api.i18n.Lang
 
 import lila.rating.PerfType
 

@@ -1,11 +1,12 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.util.chaining._
 
-import lila.common.Bus
+import org.joda.time.DateTime
+
 import lila.analyse.AnalysisRepo
+import lila.common.Bus
 import lila.game.Game
 
 final class Analyser(

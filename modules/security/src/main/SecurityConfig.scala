@@ -1,13 +1,15 @@
 package lila.security
 
+import scala.concurrent.duration.FiniteDuration
+
+import play.api.ConfigLoader
+
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
 
 import SecurityConfig._
-import play.api.ConfigLoader
 
 @Module
 final private class SecurityConfig(

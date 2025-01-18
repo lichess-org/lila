@@ -1,7 +1,8 @@
 package lila.team
 
-import org.joda.time.DateTime
 import scala.util.chaining._
+
+import org.joda.time.DateTime
 
 import lila.user.User
 

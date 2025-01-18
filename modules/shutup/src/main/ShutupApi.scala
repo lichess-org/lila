@@ -5,7 +5,8 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.game.GameRepo
 import lila.hub.actorApi.shutup.PublicSource
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class ShutupApi(
     coll: Coll,

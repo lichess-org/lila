@@ -1,15 +1,21 @@
 package lila.push
 
-import akka.actor._
-import play.api.libs.json._
 import scala.concurrent.duration._
 
+import play.api.libs.json._
+
+import akka.actor._
+
 import lila.challenge.Challenge
+import lila.common.Future
+import lila.common.LightUser
 import lila.common.String.shorten
-import lila.common.{ Future, LightUser }
-import lila.game.{ Game, Namer, Pov }
+import lila.game.Game
+import lila.game.Namer
+import lila.game.Pov
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
+import lila.hub.actorApi.round.IsOnGame
+import lila.hub.actorApi.round.MoveEvent
 import lila.user.User
 
 final private class PushApi(

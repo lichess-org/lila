@@ -1,9 +1,10 @@
 package lila.evalCache
 
-import shogi.variant.Variant
 import play.api.libs.json._
 
 import shogi.format.forsyth.Sfen
+import shogi.variant.Variant
+
 import lila.socket._
 import lila.user.User
 

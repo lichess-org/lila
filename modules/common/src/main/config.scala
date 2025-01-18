@@ -1,9 +1,11 @@
 package lila.common
 
 import scala.concurrent.duration.FiniteDuration
-import io.methvin.play.autoconfig._
 import scala.jdk.CollectionConverters._
+
 import play.api.ConfigLoader
+
+import io.methvin.play.autoconfig._
 
 object config {
 

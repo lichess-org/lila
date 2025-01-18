@@ -1,8 +1,9 @@
 package lila.forum
 
-import Filter._
 import lila.db.dsl._
 import lila.user.User
+
+import Filter._
 
 final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     ec: scala.concurrent.ExecutionContext

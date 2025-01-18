@@ -4,8 +4,8 @@ package oAuth
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.user.User
 import lila.oauth.AuthorizationRequest
+import lila.user.User
 
 object authorize {
   def apply(prompt: AuthorizationRequest.Prompt, me: User)(implicit ctx: Context) =

@@ -1,9 +1,10 @@
 package lila.tv
 
-import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.concurrent.duration._
 
 import shogi.Color
+
 import lila.game.Game
 import lila.hub.Trouper
 

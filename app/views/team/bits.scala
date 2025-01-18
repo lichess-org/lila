@@ -2,11 +2,11 @@ package views.html.team
 
 import scala.util.chaining._
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object bits {
 

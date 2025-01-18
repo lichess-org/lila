@@ -1,27 +1,28 @@
 package lila.mod
 
-import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.db.dsl._
-import lila.evaluation.Statistics
-import lila.evaluation.{
-  AccountAction,
-  Analysed,
-  Assessible,
-  PlayerAggregateAssessment,
-  PlayerAssessment,
-  PlayerAssessments,
-  PlayerFlags
-}
-import lila.game.{ Game, Player, Pov, Source }
-import lila.report.SuspectId
-import lila.user.User
-
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
-import lila.common.ThreadLocalRandom
-
 import shogi.Color
+
+import lila.analyse.Analysis
+import lila.analyse.AnalysisRepo
+import lila.common.ThreadLocalRandom
+import lila.db.dsl._
+import lila.evaluation.AccountAction
+import lila.evaluation.Analysed
+import lila.evaluation.Assessible
+import lila.evaluation.PlayerAggregateAssessment
+import lila.evaluation.PlayerAssessment
+import lila.evaluation.PlayerAssessments
+import lila.evaluation.PlayerFlags
+import lila.evaluation.Statistics
+import lila.game.Game
+import lila.game.Player
+import lila.game.Pov
+import lila.game.Source
+import lila.report.SuspectId
+import lila.user.User
 
 final class AssessApi(
     assessRepo: AssessmentRepo,

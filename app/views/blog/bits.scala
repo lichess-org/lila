@@ -1,12 +1,13 @@
 package views.html.blog
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.blog.{ FullPost, MiniPost }
+import lila.blog.FullPost
+import lila.blog.MiniPost
 import lila.common.String.html.richText
-
-import controllers.routes
 
 object bits {
 

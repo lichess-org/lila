@@ -1,11 +1,12 @@
 package lila.mod
 
-import shogi.{ variant, Color }
+import reactivemongo.api.bson._
+import shogi.Color
+import shogi.variant
+
 import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
-
-import reactivemongo.api.bson._
 
 final class BoostingApi(
     modApi: ModApi,

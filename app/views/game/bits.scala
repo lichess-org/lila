@@ -1,15 +1,16 @@
 package views.html.game
 
+import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Player, Pov }
-import lila.user.Title
+import lila.game.Game
+import lila.game.Player
+import lila.game.Pov
 import lila.rating.PerfType.Correspondence
-
-import controllers.routes
+import lila.user.Title
 
 object bits {
 

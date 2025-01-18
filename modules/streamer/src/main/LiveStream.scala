@@ -1,13 +1,15 @@
 package lila.streamer
 
+import scala.concurrent.duration._
+
 import akka.actor._
 import akka.pattern.ask
-import makeTimeout.short
-import scala.concurrent.duration._
+import ornicar.scalalib.Zero
 
 import lila.memo.CacheApi._
 import lila.user.User
-import ornicar.scalalib.Zero
+
+import makeTimeout.short
 
 case class LiveStreams(streams: List[Stream]) {
 

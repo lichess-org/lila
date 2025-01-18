@@ -1,13 +1,14 @@
 package lila.security
 
+import play.api.ConfigLoader
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import play.api.mvc.RequestHeader
+
 import io.methvin.play.autoconfig._
 
 import lila.common.HTTPRequest
 import lila.common.config._
-import play.api.ConfigLoader
 
 trait Recaptcha {
 

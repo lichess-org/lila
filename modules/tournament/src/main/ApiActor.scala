@@ -1,11 +1,12 @@
 package lila.tournament
 
+import scala.concurrent.ExecutionContextExecutor
+
 import akka.actor._
 import org.joda.time.DateTime
 
 import lila.game.actorApi.FinishGame
 import lila.user.User
-import scala.concurrent.ExecutionContextExecutor
 
 final private[tournament] class ApiActor(
     api: TournamentApi,

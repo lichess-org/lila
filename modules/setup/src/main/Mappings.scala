@@ -5,8 +5,9 @@ import play.api.data.format.Formats._
 
 import shogi.Mode
 import shogi.{ variant => V }
-import lila.rating.RatingRange
+
 import lila.lobby.Color
+import lila.rating.RatingRange
 
 private object Mappings {
 

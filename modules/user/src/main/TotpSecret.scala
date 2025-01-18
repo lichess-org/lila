@@ -1,12 +1,13 @@
 package lila.user
 
-import org.apache.commons.codec.binary.Base32
-import reactivemongo.api.bson._
-
+import java.nio.ByteBuffer
 import java.security.SecureRandom
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import java.nio.ByteBuffer
+
+import org.apache.commons.codec.binary.Base32
+import reactivemongo.api.bson._
+
 import User.TotpToken
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {

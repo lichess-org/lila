@@ -1,12 +1,15 @@
 package lila.perfStat
 
-import org.joda.time.DateTime
-import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json._
 
+import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
+
 import lila.common.LightUser
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.Glicko
+import lila.rating.Perf
+import lila.rating.PerfType
 import lila.user.User
 
 final class JsonView(getLightUser: LightUser.GetterSync) {

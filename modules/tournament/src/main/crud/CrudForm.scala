@@ -1,13 +1,14 @@
 package lila.tournament
 package crud
 
-import org.joda.time.DateTime
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 
-import shogi.variant.Variant
-import lila.common.Form._
+import org.joda.time.DateTime
 import shogi.format.forsyth.Sfen
+import shogi.variant.Variant
+
+import lila.common.Form._
 
 object CrudForm {
 

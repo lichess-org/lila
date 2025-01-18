@@ -5,7 +5,9 @@ import play.api.i18n.Lang
 import play.api.mvc.Call
 
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ LangList, MessageKey, Translator }
+import lila.i18n.LangList
+import lila.i18n.MessageKey
+import lila.i18n.Translator
 import lila.user.UserContext
 
 trait I18nHelper extends HasEnv with UserContext.ToLang {

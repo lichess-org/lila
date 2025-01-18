@@ -1,13 +1,15 @@
 package lila.storm
 
-import shogi.format.usi.{ UciToUsi, Usi }
-import shogi.format.forsyth.Sfen
-import reactivemongo.api.bson._
+import scala.util.Success
 
+import reactivemongo.api.bson._
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+
+import lila.common.Day
 import lila.db.dsl._
 import lila.puzzle.Puzzle
-import scala.util.Success
-import lila.common.Day
 
 private object StormBsonHandlers {
 

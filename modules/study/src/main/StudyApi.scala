@@ -1,19 +1,28 @@
 package lila.study
 
-import actorApi.Who
-import akka.stream.scaladsl._
-import shogi.Centis
-import shogi.format.{ Glyph, Tags }
 import scala.concurrent.duration._
 
-import lila.chat.{ Chat, ChatApi }
+import akka.stream.scaladsl._
+import shogi.Centis
+import shogi.format.Glyph
+import shogi.format.Tags
+
+import lila.chat.Chat
+import lila.chat.ChatApi
 import lila.common.Bus
-import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ RematchNo, RematchYes }
+import lila.hub.actorApi.round.RematchNo
+import lila.hub.actorApi.round.RematchYes
+import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.timeline.StudyCreate
+import lila.hub.actorApi.timeline.StudyLike
 import lila.socket.Socket.Sri
-import lila.tree.Node.{ Comment, Gamebook, Shapes }
+import lila.tree.Node.Comment
+import lila.tree.Node.Gamebook
+import lila.tree.Node.Shapes
 import lila.user.User
+
+import actorApi.Who
 
 final class StudyApi(
     studyRepo: StudyRepo,

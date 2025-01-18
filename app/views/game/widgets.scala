@@ -4,7 +4,9 @@ package game
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Player, Pov }
+import lila.game.Game
+import lila.game.Player
+import lila.game.Pov
 
 object widgets {
 

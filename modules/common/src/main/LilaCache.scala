@@ -1,7 +1,9 @@
 package lila.common
 
 import play.api.Mode
-import com.github.benmanes.caffeine.cache.{ Caffeine, Scheduler }
+
+import com.github.benmanes.caffeine.cache.Caffeine
+import com.github.benmanes.caffeine.cache.Scheduler
 import com.github.blemale.scaffeine.Scaffeine
 
 object LilaCache {

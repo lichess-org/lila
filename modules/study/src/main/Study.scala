@@ -2,8 +2,8 @@ package lila.study
 
 import org.joda.time.DateTime
 
-import lila.user.User
 import lila.common.Iso
+import lila.user.User
 
 case class Study(
     _id: Study.Id,

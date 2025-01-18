@@ -1,10 +1,12 @@
 package lila.evalCache
 
-import cats.implicits._
 import play.api.libs.json._
 
+import cats.implicits._
 import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ UciToUsi, Usi }
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+
 import lila.common.Json._
 import lila.evalCache.EvalCacheEntry._
 import lila.tree.Eval._

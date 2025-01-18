@@ -4,8 +4,10 @@ import reactivemongo.api._
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.user.{ User, UserRepo }
+import lila.db.paginator.Adapter
+import lila.db.paginator.CachedAdapter
+import lila.user.User
+import lila.user.UserRepo
 
 final class StreamerPager(
     coll: Coll,

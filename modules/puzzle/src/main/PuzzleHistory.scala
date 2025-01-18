@@ -1,8 +1,9 @@
 package lila.puzzle
 
+import scala.concurrent.ExecutionContext
+
 import cats.data.NonEmptyList
 import reactivemongo.api.ReadPreference
-import scala.concurrent.ExecutionContext
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike

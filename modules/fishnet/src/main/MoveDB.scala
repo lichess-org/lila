@@ -1,14 +1,15 @@
 package lila.fishnet
 
-import akka.actor._
-import akka.pattern.ask
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import akka.actor._
+import akka.pattern.ask
+import akka.util.Timeout
+import org.joda.time.DateTime
+
+import lila.common.Bus
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.FishnetPlay
-import lila.common.Bus
-import akka.util.Timeout
 
 final class MoveDB(implicit system: ActorSystem) {
 

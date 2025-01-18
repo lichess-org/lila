@@ -1,9 +1,9 @@
 package lila.tournament
 
+import java.util.concurrent.ConcurrentHashMap
+
 import lila.game.Game
 import lila.user.User
-
-import java.util.concurrent.ConcurrentHashMap
 
 case class Duel(
     gameId: Game.ID,

@@ -1,9 +1,12 @@
 package controllers
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
 import scala.concurrent.duration._
+
 import views._
+
+import lila.app._
+import lila.common.HTTPRequest
+import lila.common.IpAddress
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 

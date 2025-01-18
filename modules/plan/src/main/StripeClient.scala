@@ -1,11 +1,12 @@
 package lila.plan
 
+import play.api.ConfigLoader
 import play.api.libs.json._
-import play.api.libs.ws.{ WSClient, WSResponse }
+import play.api.libs.ws.WSClient
+import play.api.libs.ws.WSResponse
 
 import lila.common.config.Secret
 import lila.user.User
-import play.api.ConfigLoader
 
 final private class StripeClient(
     ws: WSClient,

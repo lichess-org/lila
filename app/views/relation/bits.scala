@@ -1,5 +1,6 @@
 package views.html.relation
 
+import controllers.routes
 import play.api.mvc.Call
 
 import lila.api.Context
@@ -8,8 +9,6 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.relation.Related
 import lila.user.User
-
-import controllers.routes
 
 object bits {
 

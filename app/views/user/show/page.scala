@@ -1,18 +1,17 @@
 package views.html.user.show
 
+import controllers.routes
 import play.api.data.Form
 import play.api.libs.json.Json
 
 import lila.api.Context
+import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.app.mashup.UserInfo
 import lila.game.Game
 import lila.user.User
-
-import controllers.routes
 
 object page {
 

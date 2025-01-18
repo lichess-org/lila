@@ -1,7 +1,7 @@
 package lila.storm
 
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi

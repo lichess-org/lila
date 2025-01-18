@@ -1,20 +1,27 @@
 package lila.round
 
+import scala.concurrent.duration._
+
+import play.api.ConfigLoader
+import play.api.Configuration
+
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import play.api.Configuration
-import scala.concurrent.duration._
 
-import actorApi.{ GetSocketStatus, SocketStatus }
-import lila.common.{ Bus, Uptime }
+import lila.common.Bus
+import lila.common.Uptime
 import lila.common.config._
-import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.round.{ Abort, Resign }
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Pov
+import lila.hub.actorApi.round.Abort
+import lila.hub.actorApi.round.Resign
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
 import lila.user.User
-import play.api.ConfigLoader
+
+import actorApi.{ GetSocketStatus, SocketStatus }
 
 @Module
 private class RoundConfig(

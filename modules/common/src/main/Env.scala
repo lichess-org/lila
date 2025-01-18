@@ -1,8 +1,9 @@
 package lila.common
 
-import com.softwaremill.macwire._
 import play.api.Configuration
 import play.api.libs.ws.WSClient
+
+import com.softwaremill.macwire._
 
 import config._
 

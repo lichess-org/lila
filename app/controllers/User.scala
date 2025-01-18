@@ -1,26 +1,32 @@
 package controllers
 
-import akka.stream.scaladsl._
+import scala.concurrent.duration._
+import scala.language.existentials
+import scala.util.chaining._
+
 import play.api.data.Form
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json._
 import play.api.mvc._
-import scala.concurrent.duration._
-import scala.language.existentials
-import scala.util.chaining._
+import views._
+
+import akka.stream.scaladsl._
 import scalatags.Text.Frag
 
-import lila.api.{ BodyContext, Context }
+import lila.api.BodyContext
+import lila.api.Context
 import lila.app._
-import lila.app.mashup.{ GameFilter, GameFilterMenu }
+import lila.app.mashup.GameFilter
+import lila.app.mashup.GameFilterMenu
+import lila.common.HTTPRequest
+import lila.common.IpAddress
 import lila.common.paginator.Paginator
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.game.{ Game => GameModel, Pov }
+import lila.game.Pov
+import lila.game.{Game => GameModel}
 import lila.rating.PerfType
 import lila.socket.UserLagCache
 import lila.user.{ User => UserModel }
-import views._
 
 final class User(
     env: Env,

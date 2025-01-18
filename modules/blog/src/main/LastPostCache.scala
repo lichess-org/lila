@@ -2,8 +2,9 @@ package lila.blog
 
 import play.api.i18n.Lang
 
-import lila.memo.{ CacheApi, Syncache }
 import lila.hub.actorApi.timeline.BlogPost
+import lila.memo.CacheApi
+import lila.memo.Syncache
 import lila.timeline.EntryApi
 
 final class LastPostCache(

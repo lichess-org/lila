@@ -1,11 +1,16 @@
 package lila.round
 
-import akka.actor.{ Cancellable, Scheduler }
 import scala.concurrent.duration._
 import scala.util.Success
 
+import akka.actor.Cancellable
+import akka.actor.Scheduler
 import shogi.Color
-import lila.game.{ Game, GameRepo, Pov, Progress }
+
+import lila.game.Game
+import lila.game.GameRepo
+import lila.game.Pov
+import lila.game.Progress
 
 // NOT thread safe
 final private class GameProxy(

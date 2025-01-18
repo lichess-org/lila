@@ -1,13 +1,17 @@
 package lila.base
 
-import akka.actor.ActorSystem
-import ornicar.scalalib.Zero
 import scala.collection.BuildFrom
+import scala.concurrent.Await
+import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.concurrent.{ Await, ExecutionContext => EC, Future }
+import scala.concurrent.{ExecutionContext => EC}
 import scala.util.Try
 
+import akka.actor.ActorSystem
+import ornicar.scalalib.Zero
+
 import lila.common.Chronometer
+
 import LilaTypes._
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {

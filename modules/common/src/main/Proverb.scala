@@ -1,7 +1,8 @@
 package lila.common
 
-import play.api.libs.json._
 import scala.util.Random
+
+import play.api.libs.json._
 
 final class Proverb(val english: String, val japanese: String)
 

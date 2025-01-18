@@ -1,8 +1,10 @@
 package lila.analyse
 
-import shogi.format.Glyph
-import lila.tree.Eval._
 import scala.util.chaining._
+
+import shogi.format.Glyph
+
+import lila.tree.Eval._
 
 sealed trait Advice {
   def judgment: Advice.Judgement

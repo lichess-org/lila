@@ -7,7 +7,8 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
+import lila.puzzle.PuzzleHistory.PuzzleSession
+import lila.puzzle.PuzzleHistory.SessionRound
 import lila.puzzle.PuzzleTheme
 import lila.user.User
 

@@ -1,12 +1,18 @@
 package lila.study
 
-import shogi.format.Glyphs
-import shogi.format.usi.{ UciToUsi, Usi, UsiCharPair }
-import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.analyse.{ Analysis, Info }
-import lila.hub.actorApi.fishnet.{ PostGameStudyRequest, StudyChapterRequest }
+import play.api.libs.json._
+
+import shogi.format.Glyphs
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
+
+import lila.analyse.Analysis
+import lila.analyse.Info
+import lila.hub.actorApi.fishnet.PostGameStudyRequest
+import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.tree.Node.Comment
 import lila.user.User
 

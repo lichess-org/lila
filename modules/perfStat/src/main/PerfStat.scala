@@ -1,9 +1,10 @@
 package lila.perfStat
 
+import org.joda.time.DateTime
+import org.joda.time.Period
+
 import lila.game.Pov
 import lila.rating.PerfType
-
-import org.joda.time.{ DateTime, Period }
 
 case class PerfStat(
     _id: String, // userId/perfId

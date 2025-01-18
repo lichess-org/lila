@@ -1,10 +1,16 @@
 package lila.security
 
-import org.joda.time.DateTime
-import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress, ThreadLocalRandom }
+import play.api.mvc.RequestHeader
+
+import org.joda.time.DateTime
+
+import lila.common.Bus
+import lila.common.EmailAddress
+import lila.common.HTTPRequest
+import lila.common.IpAddress
+import lila.common.ThreadLocalRandom
 import lila.user.User
 
 // codename UGC

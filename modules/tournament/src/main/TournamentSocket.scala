@@ -1,10 +1,12 @@
 package lila.tournament
 
-import akka.actor._
-import play.api.libs.json.JsObject
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.concurrent.duration._
+
+import play.api.libs.json.JsObject
+
+import akka.actor._
 import org.joda.time.DateTime
 
 import lila.game.Game

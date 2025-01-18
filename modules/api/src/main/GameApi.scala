@@ -1,20 +1,26 @@
 package lila.api
 
-import org.joda.time.DateTime
 import play.api.libs.json._
-import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 
-import lila.analyse.{ Analysis, JsonView => analysisJson }
-import lila.common.config._
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+import reactivemongo.api.bson._
+
+import lila.analyse.Analysis
+import lila.analyse.{JsonView => analysisJson}
 import lila.common.Json.jodaWrites
-import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.common.config._
+import lila.common.paginator.Paginator
+import lila.common.paginator.PaginatorJson
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
+import lila.db.paginator.Adapter
+import lila.db.paginator.CachedAdapter
 import lila.game.BSONHandlers._
+import lila.game.CrosstableApi
+import lila.game.Game
 import lila.game.Game.{ BSONFields => G }
 import lila.game.JsonView._
-import lila.game.{ CrosstableApi, Game, PerfPicker }
+import lila.game.PerfPicker
 import lila.user.User
 
 final private[api] class GameApi(

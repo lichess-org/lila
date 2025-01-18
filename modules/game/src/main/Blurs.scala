@@ -1,7 +1,8 @@
 package lila.game
 
-import ornicar.scalalib.Zero
 import scala.util.Success
+
+import ornicar.scalalib.Zero
 
 case class Blurs(bits: Long) extends AnyVal {
 

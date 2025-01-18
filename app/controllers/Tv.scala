@@ -1,12 +1,13 @@
 package controllers
 
-import play.api.http.ContentTypes
 import scala.util.chaining._
+
+import play.api.http.ContentTypes
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.game.Pov
-import views._
 
 final class Tv(
     env: Env,

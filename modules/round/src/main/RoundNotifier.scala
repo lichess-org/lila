@@ -1,9 +1,11 @@
 package lila.round
 
-import lila.hub.actorApi.timeline.{ GameEnd => TLGameEnd, Propagate }
-import lila.notify.{ GameEnd, Notification, NotifyApi }
-
 import lila.game.Game
+import lila.hub.actorApi.timeline.Propagate
+import lila.hub.actorApi.timeline.{GameEnd => TLGameEnd}
+import lila.notify.GameEnd
+import lila.notify.Notification
+import lila.notify.NotifyApi
 import lila.user.User
 
 final private class RoundNotifier(

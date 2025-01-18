@@ -1,7 +1,10 @@
 package lila.mod
 
-import lila.notify.{ Notification, NotifyApi }
-import lila.report.{ Mod, Suspect, Victim }
+import lila.notify.Notification
+import lila.notify.NotifyApi
+import lila.report.Mod
+import lila.report.Suspect
+import lila.report.Victim
 
 final private class ModNotifier(
     notifyApi: NotifyApi,

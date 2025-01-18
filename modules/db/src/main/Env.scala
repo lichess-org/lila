@@ -1,10 +1,12 @@
 package lila.db
 
+import scala.concurrent.ExecutionContext
+
+import play.api.Configuration
+
 import akka.actor.CoordinatedShutdown
 import com.typesafe.config.Config
-import play.api.Configuration
 import reactivemongo.api._
-import scala.concurrent.ExecutionContext
 
 import lila.common.Lilakka
 

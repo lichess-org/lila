@@ -1,16 +1,16 @@
 package views.html
 package tournament
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
+import lila.tournament.TimeControl
+import lila.tournament.Tournament
 import lila.tournament.crud.CrudForm
-import lila.tournament.{ TimeControl, Tournament }
-
-import controllers.routes
 
 object crud {
 

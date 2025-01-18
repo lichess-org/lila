@@ -1,5 +1,6 @@
 package views.html.lobby
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
@@ -7,8 +8,6 @@ import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.Pov
-
-import controllers.routes
 
 object home {
 

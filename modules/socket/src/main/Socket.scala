@@ -1,7 +1,9 @@
 package lila.socket
 
-import play.api.libs.json._
 import scala.concurrent.Promise
+
+import play.api.libs.json._
+
 import ornicar.scalalib.Zero
 
 object Socket extends Socket {

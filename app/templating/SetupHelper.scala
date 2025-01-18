@@ -1,9 +1,11 @@
 package lila.app
 package templating
 
-import shogi.{ Mode, Speed }
-import shogi.variant.Variant
 import play.api.i18n.Lang
+
+import shogi.Mode
+import shogi.Speed
+import shogi.variant.Variant
 
 import lila.i18n.{ I18nKeys => trans }
 import lila.pref.Pref

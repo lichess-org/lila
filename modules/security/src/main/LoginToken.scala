@@ -1,10 +1,12 @@
 package lila.security
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import org.joda.time.DateTime
+
 import lila.common.config.Secret
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 final class LoginToken(secret: Secret, userRepo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 

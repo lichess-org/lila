@@ -1,7 +1,8 @@
 package lila.shutup
 
-import org.joda.time.DateTime
 import scala.util.Success
+
+import org.joda.time.DateTime
 
 import lila.hub.actorApi.shutup.{ PublicSource => Source }
 

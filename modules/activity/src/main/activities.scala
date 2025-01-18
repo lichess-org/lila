@@ -5,6 +5,7 @@ import ornicar.scalalib.Zero
 import lila.rating.PerfType
 import lila.study.Study
 import lila.user.User
+
 import model._
 
 object activities {

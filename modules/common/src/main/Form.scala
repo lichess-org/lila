@@ -1,14 +1,20 @@
 package lila.common
 
-import org.joda.time.{ DateTime, DateTimeZone }
-import play.api.data.validation.Constraints
-import play.api.data.format.Formats._
-import play.api.data.format.{ Formatter, JodaFormats }
+import scala.util.Try
+
+import play.api.data.Field
+import play.api.data.FormError
 import play.api.data.Forms._
 import play.api.data.JodaForms._
+import play.api.data.Mapping
+import play.api.data.format.Formats._
+import play.api.data.format.Formatter
+import play.api.data.format.JodaFormats
 import play.api.data.validation.Constraint
-import play.api.data.{ Field, FormError, Mapping }
-import scala.util.Try
+import play.api.data.validation.Constraints
+
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import shogi.format.forsyth.Sfen
 
 import lila.common.base.StringUtils

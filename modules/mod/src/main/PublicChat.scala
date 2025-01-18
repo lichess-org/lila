@@ -1,6 +1,7 @@
 package lila.mod
 
-import lila.chat.{ Chat, UserChat }
+import lila.chat.Chat
+import lila.chat.UserChat
 import lila.report.Suspect
 import lila.simul.Simul
 import lila.tournament.Tournament

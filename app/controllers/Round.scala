@@ -2,15 +2,17 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.game.{ Game => GameModel, NotationDump, Pov }
+import lila.game.NotationDump
+import lila.game.Pov
+import lila.game.{Game => GameModel}
 import lila.tournament.{ Tournament => Tour }
 import lila.user.{ User => UserModel }
-import views._
 
 final class Round(
     env: Env,

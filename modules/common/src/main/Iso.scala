@@ -1,8 +1,9 @@
 package lila.common
 
 import play.api.i18n.Lang
-import shogi.format.forsyth.Sfen
+
 import shogi.Centis
+import shogi.format.forsyth.Sfen
 
 trait Iso[A, B] {
   val from: A => B

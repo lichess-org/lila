@@ -6,10 +6,11 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
 
-import BSONHandlers._
 import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
+
+import BSONHandlers._
 
 final class ArrangementRepo(coll: Coll)(implicit
     ec: scala.concurrent.ExecutionContext

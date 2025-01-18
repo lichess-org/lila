@@ -1,13 +1,18 @@
 package lila.tournament
 
-import shogi.format.forsyth.Sfen
-import org.joda.time.{ DateTime, Duration, Interval }
-import lila.common.ThreadLocalRandom
-import play.api.i18n.Lang
 import scala.util.chaining._
 
-import shogi.{ Mode, Speed }
+import play.api.i18n.Lang
+
+import org.joda.time.DateTime
+import org.joda.time.Duration
+import org.joda.time.Interval
+import shogi.Mode
+import shogi.Speed
+import shogi.format.forsyth.Sfen
+
 import lila.common.Animal
+import lila.common.ThreadLocalRandom
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User

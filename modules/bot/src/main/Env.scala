@@ -1,6 +1,7 @@
 package lila.bot
 
 import com.softwaremill.macwire._
+
 import lila.socket.IsOnline
 
 @Module

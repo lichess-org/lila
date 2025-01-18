@@ -1,31 +1,44 @@
 package lila.round
 
-import org.joda.time.DateTime
-import ornicar.scalalib.Zero
-import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.concurrent.duration._
 import scala.util.chaining._
 
-import actorApi._, round._
-import shogi.{ Centis, Color, Gote, Sente }
-import lila.game.Game.{ FullId, PlayerId }
-import lila.game.{ Event, Game, GameRepo, Player => GamePlayer, Pov, Progress }
-import lila.hub.actorApi.round.{
-  Abort,
-  BotPlay,
-  FishnetPlay,
-  IsOnGame,
-  PostGameStudy,
-  RematchNo,
-  RematchYes,
-  Resign
-}
+import play.api.libs.json._
+
+import org.joda.time.DateTime
+import ornicar.scalalib.Zero
+import shogi.Centis
+import shogi.Color
+import shogi.Gote
+import shogi.Sente
+
+import lila.game.Event
+import lila.game.Game
+import lila.game.Game.FullId
+import lila.game.Game.PlayerId
+import lila.game.GameRepo
+import lila.game.Pov
+import lila.game.Progress
+import lila.game.{Player => GamePlayer}
 import lila.hub.Duct
+import lila.hub.actorApi.round.Abort
+import lila.hub.actorApi.round.BotPlay
+import lila.hub.actorApi.round.FishnetPlay
+import lila.hub.actorApi.round.IsOnGame
+import lila.hub.actorApi.round.PostGameStudy
+import lila.hub.actorApi.round.RematchNo
+import lila.hub.actorApi.round.RematchYes
+import lila.hub.actorApi.round.Resign
 import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
+import lila.socket.Socket.GetVersion
+import lila.socket.Socket.SocketVersion
+import lila.socket.Socket.makeMessage
 import lila.socket.UserLagCache
 import lila.user.User
+
+import actorApi._
+import round._
 
 final private[round] class RoundDuct(
     dependencies: RoundDuct.Dependencies,

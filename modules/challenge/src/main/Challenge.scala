@@ -1,9 +1,11 @@
 package lila.challenge
 
+import org.joda.time.DateTime
+import shogi.Color
+import shogi.Mode
+import shogi.Speed
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import shogi.{ Color, Mode, Speed }
-import org.joda.time.DateTime
 
 import lila.game.PerfPicker
 import lila.rating.PerfType

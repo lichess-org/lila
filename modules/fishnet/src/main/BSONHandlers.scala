@@ -1,9 +1,9 @@
 package lila.fishnet
 
-import lila.db.dsl._
 import reactivemongo.api.bson._
-
 import shogi.variant.Variant
+
+import lila.db.dsl._
 
 private object BSONHandlers {
 

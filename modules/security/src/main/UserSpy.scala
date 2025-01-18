@@ -1,14 +1,16 @@
 package lila.security
 
 import org.joda.time.DateTime
+import org.uaparser.scala.Client
+import org.uaparser.scala.{ Parser => UAParser }
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
-import org.uaparser.scala.{ Parser => UAParser }
-import org.uaparser.scala.Client
 
-import lila.common.{ EmailAddress, IpAddress }
+import lila.common.EmailAddress
+import lila.common.IpAddress
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.user.UserRepo
 
 case class UserSpy(
     ips: List[UserSpy.IPData],

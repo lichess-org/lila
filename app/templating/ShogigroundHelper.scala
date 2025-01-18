@@ -1,10 +1,13 @@
 package lila.app
 package templating
 
-import shogi.{ Color, Hand, Pos, Situation }
+import shogi.Color
+import shogi.Hand
+import shogi.Pos
+import shogi.Situation
 import shogi.variant.Variant
-import lila.api.Context
 
+import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.Pov
 

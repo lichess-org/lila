@@ -1,15 +1,16 @@
 package views.html.analyse
 
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Pov }
+import lila.game.Game
+import lila.game.Pov
 
-import controllers.routes
+import bits.dataPanel
 
 object replay {
 

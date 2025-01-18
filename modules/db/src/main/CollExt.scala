@@ -1,7 +1,7 @@
 package lila.db
 
-import scala.collection.Factory
 import scala.annotation.nowarn
+import scala.collection.Factory
 
 import reactivemongo.api._
 import reactivemongo.api.bson._

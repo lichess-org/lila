@@ -1,8 +1,9 @@
 package lila.round
 
-import akka.actor.Scheduler
 import java.util.concurrent.atomic.AtomicReference
 import scala.concurrent.duration._
+
+import akka.actor.Scheduler
 
 private object MoveLatMonitor {
 

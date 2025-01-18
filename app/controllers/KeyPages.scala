@@ -1,12 +1,13 @@
 package controllers
 
 import play.api.mvc._
+import views._
+
 import scalatags.Text.all.Frag
 
 import lila.api.Context
 import lila.app._
 import lila.memo.CacheApi._
-import views._
 
 final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 

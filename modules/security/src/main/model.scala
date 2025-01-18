@@ -1,9 +1,11 @@
 package lila.security
 
-import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 
-import lila.common.{ EmailAddress, IpAddress }
+import org.joda.time.DateTime
+
+import lila.common.EmailAddress
+import lila.common.IpAddress
 import lila.user.User
 
 case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {

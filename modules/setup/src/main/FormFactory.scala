@@ -1,12 +1,15 @@
 package lila.setup
 
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 
 import shogi.format.forsyth.Sfen
-import shogi.variant.{ Standard, Variant }
+import shogi.variant.Standard
+import shogi.variant.Variant
+
 import lila.rating.RatingRange
-import lila.user.{ User, UserContext }
+import lila.user.User
+import lila.user.UserContext
 
 final class FormFactory {
 

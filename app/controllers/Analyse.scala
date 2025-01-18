@@ -1,14 +1,16 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import shogi.format.forsyth.Sfen
+
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.game.{ NotationDump, Pov }
+import lila.game.NotationDump
+import lila.game.Pov
 import lila.round.JsonView.WithFlags
-import views._
 
 final class Analyse(
     env: Env,

@@ -1,14 +1,17 @@
 package lila.challenge
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
+
+import org.joda.time.DateTime
 
 import lila.common.Bus
 import lila.common.config.Max
-import lila.game.{ Game, Pov }
+import lila.game.Game
+import lila.game.Pov
 import lila.hub.actorApi.socket.SendTo
-import lila.user.{ User, UserRepo }
 import lila.memo.CacheApi._
+import lila.user.User
+import lila.user.UserRepo
 
 final class ChallengeApi(
     repo: ChallengeRepo,

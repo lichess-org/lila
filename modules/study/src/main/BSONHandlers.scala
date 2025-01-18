@@ -1,22 +1,37 @@
 package lila.study
 
-import shogi.format.{ Glyph, Glyphs, Tag, Tags }
-import shogi.format.usi.{ UciToUsi, Usi, UsiCharPair }
-import shogi.format.forsyth.{ Sfen, SfenUtils }
-import shogi.variant.{ Standard, Variant }
-import shogi.{ Centis, Piece, Pos }
+import scala.util.Success
+
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.Success
+import shogi.Centis
+import shogi.Piece
+import shogi.Pos
+import shogi.Status
+import shogi.format.Glyph
+import shogi.format.Glyphs
+import shogi.format.Tag
+import shogi.format.Tags
+import shogi.format.forsyth.Sfen
+import shogi.format.forsyth.SfenUtils
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
+import shogi.variant.Standard
+import shogi.variant.Variant
 
 import lila.common.Iso
 import lila.db.BSON
-import lila.db.BSON.{ Reader, Writer }
+import lila.db.BSON.Reader
+import lila.db.BSON.Writer
 import lila.db.dsl._
 import lila.tree.Eval
 import lila.tree.Eval.Score
-import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import shogi.Status
+import lila.tree.Node.Comment
+import lila.tree.Node.Comments
+import lila.tree.Node.Gamebook
+import lila.tree.Node.Shape
+import lila.tree.Node.Shapes
 
 object BSONHandlers {
 

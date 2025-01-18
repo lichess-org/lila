@@ -1,10 +1,10 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
+
 import lila.common.IpAddress
 
 sealed trait Work {

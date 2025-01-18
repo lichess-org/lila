@@ -1,11 +1,12 @@
 package lila.simul
 
-import shogi.variant.Variant
-import shogi.format.forsyth.Sfen
+import org.joda.time.DateTime
 import shogi.Speed
+import shogi.format.forsyth.Sfen
+import shogi.variant.Variant
+
 import lila.rating.PerfType
 import lila.user.User
-import org.joda.time.DateTime
 
 case class Simul(
     _id: Simul.ID,

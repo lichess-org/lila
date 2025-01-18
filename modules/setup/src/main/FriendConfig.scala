@@ -2,9 +2,10 @@ package lila.setup
 
 import shogi.Mode
 import shogi.format.forsyth.Sfen
+
+import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
-import lila.game.PerfPicker
 
 case class FriendConfig(
     variant: shogi.variant.Variant,

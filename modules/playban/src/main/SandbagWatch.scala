@@ -1,12 +1,15 @@
 package lila.playban
 
-import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
+import com.github.blemale.scaffeine.Cache
 import shogi.Color
+
 import lila.game.Game
-import lila.msg.{ MsgApi, MsgPreset }
-import lila.user.{ User, UserRepo }
+import lila.msg.MsgApi
+import lila.msg.MsgPreset
+import lila.user.User
+import lila.user.UserRepo
 
 final private class SandbagWatch(
     userRepo: UserRepo,

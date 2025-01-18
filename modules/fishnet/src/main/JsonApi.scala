@@ -1,18 +1,21 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 
+import org.joda.time.DateTime
 import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ UciToUsi, Usi }
+import shogi.format.usi.UciToUsi
+import shogi.format.usi.Usi
 import shogi.variant.Variant
 
-import lila.common.{ IpAddress, Maths }
+import lila.common.IpAddress
 import lila.common.Json._
-import lila.game.FairyConversion.Kyoto
+import lila.common.Maths
 import lila.fishnet.{ Work => W }
+import lila.game.FairyConversion.Kyoto
+import lila.tree.Eval.Cp
 import lila.tree.Eval.JsonHandlers._
-import lila.tree.Eval.{ Cp, Mate }
+import lila.tree.Eval.Mate
 
 object JsonApi {
 

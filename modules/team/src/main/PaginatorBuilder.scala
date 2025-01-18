@@ -1,8 +1,8 @@
 package lila.team
 
+import lila.common.LightUser
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
-import lila.common.LightUser
 import lila.db.dsl._
 import lila.db.paginator._
 

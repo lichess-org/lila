@@ -1,11 +1,13 @@
 package lila.evalCache
 
-import org.joda.time.DateTime
-import play.api.libs.json.JsObject
 import scala.concurrent.duration._
 
+import play.api.libs.json.JsObject
+
+import org.joda.time.DateTime
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
+
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.socket.Socket

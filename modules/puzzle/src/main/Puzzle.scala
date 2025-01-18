@@ -4,8 +4,8 @@ import cats.data.NonEmptyList
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
-import lila.rating.Glicko
 import lila.common.Iso
+import lila.rating.Glicko
 
 case class Puzzle(
     id: Puzzle.Id,

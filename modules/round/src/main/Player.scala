@@ -1,14 +1,21 @@
 package lila.round
 
+import cats.data.Validated
+import shogi.Centis
+import shogi.LagMetrics
+import shogi.Status
 import shogi.format.usi.Usi
-import shogi.{ Centis, LagMetrics, Status }
+
+import lila.common.Bus
+import lila.game.Game
+import lila.game.Game.PlayerId
+import lila.game.GameRepo
+import lila.game.Pov
+import lila.game.Progress
+import lila.game.actorApi.MoveGameEvent
+import lila.game.actorApi.PauseGame
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, PauseNo, TakebackNo, TooManyPlies }
-import lila.game.actorApi.{ MoveGameEvent, PauseGame }
-import lila.common.Bus
-import lila.game.{ Game, GameRepo, Pov, Progress }
-import lila.game.Game.PlayerId
-import cats.data.Validated
 
 final private class Player(
     fishnetPlayer: lila.fishnet.Player,

@@ -1,9 +1,13 @@
 package lila.timeline
 
-import org.joda.time.DateTime
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
+
 import play.api.libs.json._
+
+import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.{ Failure, Success, Try }
 
 import lila.common.Json.jodaWrites
 import lila.db.dsl._

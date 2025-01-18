@@ -1,8 +1,8 @@
 package controllers
 
-import lila.app._
-
 import views.html
+
+import lila.app._
 
 final class Insights(env: Env) extends LilaController(env) {
 
