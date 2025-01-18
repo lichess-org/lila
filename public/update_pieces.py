@@ -20,13 +20,14 @@ def get_svg_filename(css_piece_name: str) -> str:
 def get_css_piece_name(svg_filename: str) -> str:
     return pieces[svg_filename.split('/')[-1].split('.svg')[0]]
 
-def update_svg(piece_abbrv: str, vertical_shift: float | int) -> None:
+def update_svg(piece_abbrv: str, shift_amt: float | int, vertical: bool) -> None:
     svg_filename = deduce_svg_filename(piece_abbrv)
     with open(svg_filename, 'r') as f: contents = f.read()
     curr_viewbox_str = contents.split('viewBox="', 1)[1].split('"', 1)[0]
     # Should be in a form like: 0 0 800 800
     new_viewbox_vals = curr_viewbox_str.split()
-    new_viewbox_vals[1] = str(str_to_num(new_viewbox_vals[1]) + vertical_shift)
+    i = int(vertical)
+    new_viewbox_vals[i] = str(str_to_num(new_viewbox_vals[i]) + shift_amt)
     new_viewbox_str = ' '.join(new_viewbox_vals)
     new_contents = contents.replace(f'viewBox="{curr_viewbox_str}"', f'viewBox="{new_viewbox_str}"', 1)
     with open(svg_filename, 'w') as f: f.write(new_contents)
@@ -53,12 +54,12 @@ def human_readable(encoded_str: bytes) -> str:
     return encoded_str.decode("utf-8")
 
 def main() -> None:
-    """Example: `python update_pieces.py *piece style name* *vertical shift amount* *piece abbrvs, like wP or bR*
+    """Example: `python update_pieces.py *piece style name* *shift amount* *piece abbrvs, like wP or bR* *optionally, 'horizontal' to do that instead of vertical*
        To test this script, run it with a vertical shift of 0. Then, no files should be modified.
        This tests that the script works correctly, and that the existing svg and css
        files are in sync."""
     for piece_abbrv in pieces:
-        update_svg(piece_abbrv, str_to_num(sys.argv[2]) if piece_abbrv in sys.argv else 0)
+        update_svg(piece_abbrv, str_to_num(sys.argv[2]) if piece_abbrv in sys.argv else 0, 'horizontal' not in sys.argv)
     update_css()
 
 if __name__ == '__main__':
