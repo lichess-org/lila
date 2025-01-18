@@ -3,7 +3,7 @@ import { defined, prop, type Prop } from 'common';
 import { text as xhrText } from 'common/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import type { AnalyseData } from '../interfaces';
+import type { AnalyseData, NvuiPlugin } from '../interfaces';
 import type { Player } from 'game';
 import {
   type MoveStyle,
@@ -52,7 +52,7 @@ const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export function initModule(ctrl: AnalyseController) {
+export function initModule(ctrl: AnalyseController): NvuiPlugin {
   const notify = new Notify(),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
@@ -72,13 +72,12 @@ export function initModule(ctrl: AnalyseController) {
       notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         style = moveStyle.get();
-      if (!ctrl.chessground)
-        ctrl.chessground = makeChessground(document.createElement('div'), {
-          ...makeCgConfig(ctrl),
-          animation: { enabled: false },
-          drawable: { enabled: false },
-          coordinates: false,
-        });
+      ctrl.chessground = makeChessground(document.createElement('div'), {
+        ...makeCgConfig(ctrl),
+        animation: { enabled: false },
+        drawable: { enabled: false },
+        coordinates: false,
+      });
       return h('main.analyse', [
         h('div.nvui', [
           studyDetails(ctrl),
