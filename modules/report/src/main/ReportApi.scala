@@ -527,6 +527,18 @@ final class ReportApi(
       "atoms.reason" -> reason
     )
 
+  def deleteAllBy(u: User) = for
+    reports <- coll.list[Report]($doc("atoms.by" -> u.id), 500)
+    _ <- reports.traverse: r =>
+      val newAtoms = r.atoms.map: a =>
+        if a.by.is(u)
+        then a.copy(by = UserId.ghost.into(ReporterId))
+        else a
+      coll.update.one($id(r.id), $set("atoms" -> newAtoms))
+    _ <- u.marks.clean.so:
+      coll.update.one($doc("user" -> u.id), $set("user" -> UserId.ghost)).void
+  yield ()
+
   object inquiries:
 
     private val workQueue = scalalib.actor.AsyncActorSequencer(

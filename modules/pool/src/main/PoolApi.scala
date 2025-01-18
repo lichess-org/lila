@@ -31,14 +31,13 @@ final class PoolApi(
     .toMap
 
   def join(poolId: PoolConfigId, joiner: Joiner): Unit =
-    HasCurrentPlayban(joiner.me.id)
-      .foreach:
-        case false =>
-          actors.foreach:
-            case (id, actor) if id == poolId =>
-              rageSitOf(joiner.me.id).foreach(actor ! Join(joiner, _))
-            case (_, actor) => actor ! Leave(joiner.me)
-        case _ =>
+    HasCurrentPlayban(joiner.me.id).foreach:
+      case false =>
+        actors.foreach:
+          case (id, actor) if id == poolId =>
+            rageSitOf(joiner.me.id).foreach(actor ! Join(joiner, _))
+          case (_, actor) => actor ! Leave(joiner.me)
+      case _ =>
 
   def leave(poolId: PoolConfigId, userId: UserId) = sendTo(poolId, Leave(userId))
 

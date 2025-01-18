@@ -111,6 +111,12 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         case _ => funit
       }
 
+    lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+      for
+        ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
+        _   <- deleteByIdsAndUser(ids, del.id)
+      yield ()
+
 object PicfitApi:
 
   val uploadMaxMb = 6

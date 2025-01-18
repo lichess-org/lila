@@ -182,6 +182,11 @@ final class UblogApi(
     _    <- blog.filter(_.visible).so(b => setTier(b.id, UblogRank.Tier.HIDDEN))
   yield ()
 
+  def onAccountDelete(user: User) = for
+    _ <- colls.blog.delete.one($id(UblogBlog.Id.User(user.id)))
+    _ <- colls.post.delete.one($doc("blog" -> UblogBlog.Id.User(user.id)))
+  yield ()
+
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)
 

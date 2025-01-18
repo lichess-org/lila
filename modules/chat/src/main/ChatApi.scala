@@ -260,6 +260,15 @@ final class ChatApi(
           case _ => none
         }
 
+    def removeMessagesBy(gameIds: Seq[GameId], userId: UserId) =
+      val regex  = s"^$userId[" + Line.separatorChars.mkString("") + "]"
+      val update = $pull("l".$regex(regex, "i"))
+      val allIds = for
+        id   <- gameIds
+        both <- List(id.value, s"${id.value}/w")
+      yield both
+      coll.update.one($inIds(allIds), update, multi = true).void
+
   private object Speaker:
     def get(userId: UserId): Fu[Option[Speaker]] = userApi.byIdAs[Speaker](userId.value, Speaker.projection)
     import lila.core.user.BSONFields as F

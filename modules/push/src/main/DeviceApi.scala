@@ -9,6 +9,9 @@ final private class DeviceApi(coll: Coll)(using Executor):
 
   private given BSONDocumentHandler[Device] = Macros.handler
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one($doc("userId" -> del.id)).void
+
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
     coll.find($id(deviceId)).one[Device]
 

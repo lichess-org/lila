@@ -40,6 +40,8 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: sbt
+      - name: Setup sbt
+        uses: sbt/setup-sbt@v1
       - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"%napp.version.message = """%s"""%n' | tee conf/version.conf
       - run: ./lila.sh -Depoll=true "test;stage"
       - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
@@ -61,6 +63,8 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: sbt
+      - name: Setup sbt
+        uses: sbt/setup-sbt@v1
 
       - name: Check Formatting
         run: sbt scalafmtCheckAll

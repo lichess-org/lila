@@ -27,7 +27,7 @@ final class TeamApi(
 
   import BSONHandlers.given
 
-  export teamRepo.filterHideForum
+  export teamRepo.{ filterHideForum, onUserDelete }
 
   def team(id: TeamId) = teamRepo.byId(id)
 

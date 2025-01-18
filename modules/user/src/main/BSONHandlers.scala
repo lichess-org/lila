@@ -28,8 +28,7 @@ object BSONFields:
   val sha512                = "sha512"
   val totpSecret            = "totp"
   val changedCase           = "changedCase"
-  val eraseAt               = "eraseAt"
-  val erasedAt              = "erasedAt"
+  val delete                = "delete"
   val blind                 = "blind"
 
   def withFields[A](f: BSONFields.type => A): A = f(BSONFields)
@@ -74,7 +73,8 @@ object BSONHandlers:
     v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
   )
 
-  given BSONDocumentHandler[AuthData] = Macros.handler[AuthData]
+  given BSONDocumentHandler[AuthData]   = Macros.handler[AuthData]
+  given BSONDocumentHandler[UserDelete] = Macros.handler[UserDelete]
 
   given userHandler: BSONDocumentHandler[User] = new BSON[User]:
 

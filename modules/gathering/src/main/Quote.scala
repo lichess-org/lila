@@ -1374,7 +1374,7 @@ object Quote:
       "Garry Kasparov"
     ),
     Quote(
-      "For me, chess is at the same time a game, a sport, a science and an art. And perhaps even more than that,. There is something hard to explain to those who do not know the game well. One must first learn to play it correctly in order to savor its richness.",
+      "For me, chess is at the same time a game, a sport, a science and an art. And perhaps even more than that. There is something hard to explain to those who do not know the game well. One must first learn to play it correctly in order to savor its richness.",
       "Bent Larsen"
     ),
     Quote(

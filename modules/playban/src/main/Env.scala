@@ -10,6 +10,7 @@ final class Env(
     gameApi: lila.core.game.GameApi,
     noteApi: lila.core.user.NoteApi,
     userApi: lila.core.user.UserApi,
+    userTrustApi: lila.core.security.UserTrustApi,
     lightUser: lila.core.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi

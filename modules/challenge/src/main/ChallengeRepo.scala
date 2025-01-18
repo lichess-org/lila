@@ -58,9 +58,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       .void
 
   private[challenge] def allWithUserId(userId: UserId): Fu[List[Challenge]] =
-    createdByChallengerId()(userId).zip(createdByDestId()(userId)).dmap { case (x, y) =>
-      x ::: y
-    }
+    (createdByChallengerId()(userId), createdByDestId()(userId)).mapN(_ ::: _)
 
   private def sameOrigAndDest(c: Challenge): Fu[Option[Challenge]] =
     ~(for

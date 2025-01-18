@@ -30,6 +30,12 @@ final class NotifyApi(
   import BSONHandlers.given
   import jsonHandlers.*
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    for
+      _ <- colls.pref.delete.one($id(del.id))
+      _ <- colls.notif.delete.one($doc("notifies" -> del.id))
+    yield ()
+
   object prefs:
     import NotificationPref.{ *, given }
 

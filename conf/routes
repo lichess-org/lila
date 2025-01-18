@@ -798,7 +798,10 @@ POST  /account/email                   controllers.Account.emailApply
 GET   /contact/email-confirm/help      controllers.Account.emailConfirmHelp
 GET   /account/email/confirm/:token    controllers.Account.emailConfirm(token)
 GET   /account/close                   controllers.Account.close
-POST  /account/closeConfirm            controllers.Account.closeConfirm
+POST  /account/close                   controllers.Account.closeConfirm
+GET   /account/delete                  controllers.Account.delete
+POST  /account/delete                  controllers.Account.deleteConfirm
+GET   /account/delete/done             controllers.Account.deleteDone
 GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
 GET   /account/username                controllers.Account.username

@@ -9,6 +9,9 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
 
   private given BSONDocumentHandler[Score] = Macros.handler[Score]
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    scoreColl.delete.one($id(del.id)).void
+
   def getScore(userId: UserId): Fu[Score] =
     scoreColl.byId[Score](userId).dmap(_ | Score(userId))
 

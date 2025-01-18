@@ -261,7 +261,7 @@ final class Round(
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     bindForm(env.round.noteApi.form)(
       _ => BadRequest,
-      text => env.round.noteApi.set(gameId, me, text.trim.take(10000)).inject(NoContent)
+      text => env.round.noteApi.set(gameId, me, text.trim.take(10000)).inject(jsonOkResult)
     )
   }
 
