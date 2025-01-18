@@ -54,6 +54,9 @@ def human_readable(encoded_str: bytes) -> str:
     return encoded_str.decode("utf-8")
 
 def main() -> None:
+    """To test this script, run it with a vertical shift of 0. Then, no files should be modified.
+       This tests that the script works correctly, and that the existing svg and css
+       files are in sync."""
     for piece_abbrv in pieces:
         update_svg(piece_abbrv)
     update_css()
