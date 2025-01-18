@@ -8,6 +8,8 @@ import scalatags.Text.RawFrag
 import scala.concurrent.duration.FiniteDuration
 export scalalib.newtypes.{ given, * }
 
+val maxLangs = 128
+
 /* play.api.i18n.Lang is composed of language and country.
  * Let's make new types for those so we don't mix them.
  */
@@ -41,7 +43,7 @@ trait TranslatorFrag:
   def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag
   def plural(key: I18nKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag
 
-case class Translate(translator: Translator, lang: Lang)
+final class Translate(val translator: Translator, val lang: Lang)
 object Translate:
   given (using trans: Translator, lang: Lang): Translate = trans.to(lang)
 

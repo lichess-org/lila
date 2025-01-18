@@ -45,7 +45,7 @@ case class TutorFullReport(
 
 object TutorFullReport:
 
-  val freshness = 1 day
+  val freshness = 1.day
 
   enum Availability:
     case Available(report: TutorFullReport, fresher: Option[TutorQueue.Status])

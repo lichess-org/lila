@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Θα δημιουργηθεί ένα θέμα στο φόρουμ για να σχολιάσουν τα άτομα στη δημοσίευσή σας</string>
   <string name="publishOnYourBlog">Δημοσίευση στο ιστολόγιό σας</string>
   <string name="publishHelp">Εάν επιλεχθεί, τότε η δημοσίευση θα υπάρχει στο ιστολόγιό σας. Εάν όχι, θα είναι ιδιωτική, στις προσχέδιες αναρτήσεις σας</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">Καρφίτσωμα ανάρτησης</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Αν επιλεχθεί, αυτή η ανάρτηση θα εμφανίζεται πρώτη στις πρόσφατες αναρτήσεις του προφίλ σας.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Δημοσιεύθηκε μια ανάρτηση ιστολογίου</item>
     <item quantity="other">Δημοσιεύθηκαν οι αναρτήσεις ιστολογίου του %s</item>
@@ -32,7 +34,7 @@
   <string name="xPublishedY">%1$s δημοσίευσε %2$s</string>
   <string name="thisPostIsPublished">Αυτή η ανάρτηση έχει δημοσιευτεί</string>
   <string name="thisIsADraft">Πρόχειρο</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Περισσότερες δημοσιεύσεις από τον χρήστη %s</string>
+  <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις από τον χρήστη %s</string>
   <string name="noPostsInThisBlogYet">Δεν υπάρχει καμία δημοσίευση σε αυτό το ιστολόγιο ακόμα.</string>
   <string name="noDrafts">Δεν έχετε αποθηκευμένα πρόχειρα.</string>
   <string name="latestBlogPosts">Τελευταίες δημοσιεύσεις ιστολογίου</string>

@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class AdminUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
-  import trans.{ team as trt }
+  import trans.team as trt
   import bits.{ TeamPage, menu }
 
   def leaders(

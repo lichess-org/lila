@@ -11,7 +11,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   import helpers.{ *, given }
-  import trans.{ broadcast as trc }
+  import trans.broadcast as trc
 
   def asRelayPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound] = p.mapResults(identity)
 
@@ -24,8 +24,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map: sel =>
-          card.render(sel, live = _.display.hasStarted, alt = sel.alts.headOption)
-      )
+          card.render(sel, live = _.display.hasStarted, alt = sel.alts.headOption))
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
@@ -38,7 +37,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             nonEmptyTier(_.high),
             nonEmptyTier(_.normal),
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
-            div(cls := "relay-cards relay-cards--past"):
+            div(cls := "relay-cards"):
               past.map: t =>
                 card.render(t, live = _ => false)
             ,
@@ -150,7 +149,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar())),
             dateForm("top"),
-            div(cls := "relay-cards relay-cards--past"):
+            div(cls := "relay-cards"):
               tours.map(card.renderCalendar)
             ,
             (tours.sizeIs > 8).option(dateForm("bottom"))

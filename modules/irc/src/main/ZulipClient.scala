@@ -12,7 +12,7 @@ import lila.core.config.Secret
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor
 ):
-  private val dedupMsg = scalalib.cache.OnceEvery.hashCode[ZulipMessage](15 minutes)
+  private val dedupMsg = scalalib.cache.OnceEvery.hashCode[ZulipMessage](15.minutes)
 
   def apply[C: Show](stream: ZulipClient.stream.Selector, topic: String)(content: C): Funit =
     apply(stream(ZulipClient.stream), topic)(content)

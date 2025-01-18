@@ -31,8 +31,7 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
           .runWith(Sink.fold[Int, Bdoc](0): (counter, doc) =>
             if counter % 500 == 0 then logger.info(s"ClasStudentCache.rebuild $counter")
             doc.string("userId").foreach(nextBloom.add)
-            counter + 1
-          )
+            counter + 1)
           .addEffect: nb =>
             lila.mon.clas.student.bloomFilter.count.update(nb)
             bloomFilter.dispose()

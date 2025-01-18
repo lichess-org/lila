@@ -382,3 +382,12 @@ object Form:
       def unbind(key: String, value: Instant) =
         Map(key -> value.atZone(zone).toLocalDateTime.format(localFormatter))
     val mapping: Mapping[Instant] = of[Instant](format)
+
+  object SingleChange:
+    case class Change[Model, A](field: String, mapping: Mapping[A], update: A => Model => Model):
+      def form: PlayForm[A] = PlayForm(single(field -> mapping))
+
+    def changing[Model, FieldsType, A](field: FieldsType => (String, Mapping[A]))(
+        f: A => Model => Model
+    )(using fieldsType: ValueOf[FieldsType]): Change[Model, A] =
+      Change(field(fieldsType.value)._1, field(fieldsType.value)._2, f)

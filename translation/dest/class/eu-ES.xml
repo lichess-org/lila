@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Ikasleentzat erabiltzaile-izen eta pasahitz seguruak sortu</string>
   <string name="trackStudentProgress">Ikasleen aurrerapenaren berri izan partida eta ariketetan</string>
   <string name="messageAllStudents">Ikasle guztien material berriaren inguruko informazioa bidali</string>
-  <string name="freeForAllForever">%100 doan guztientzat, betiko eta iragarkirik gabe</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">%100 doan guztientzat, betiko eta iragarkirik gabe</string>
   <string name="applyToBeLichessTeacher">Lichess Irakasle izatea eskatu</string>
   <string name="noClassesYet">Ez duzu klaserik.</string>
   <string name="teachersX">Irakasleak: %s</string>
@@ -57,6 +57,8 @@ Hemen dago bertara sartzeko lotura.</string>
     <item quantity="one">Gonbidapen bat zain</item>
     <item quantity="other">%s gonbidapen zain</item>
   </plurals>
+  <string name="pending">Zain</string>
+  <string name="declined">Baztertuta</string>
   <string name="onlyVisibleToTeachers">Klase honen irakasleek bakarrik ikusi dezakete</string>
   <string name="lastActiveDate">Aktibo</string>
   <string name="managed">Kudeatuta</string>
@@ -113,4 +115,6 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="anInvitationHasBeenSentToX">Gonbidapena bidali diozu %s erabiltzaileari</string>
   <string name="xAlreadyHasAPendingInvitation">%s erabiltzaileak onartu gabeko gonbidapen bat du oraindik</string>
   <string name="xIsAKidAccountWarning">%1$s erabiltzaileak haurren kontu bat du eta ezin du zure mezurik jaso. Gonbidapenaren helbidea eskuz eman behar diozu: %2$s</string>
+  <string name="moveToClass">%s-ra mugitu</string>
+  <string name="moveToAnotherClass">Beste klase batera mugitu</string>
 </resources>

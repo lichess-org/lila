@@ -43,7 +43,7 @@ ${trans.common_orPaste.txt()}"""),
   def confirm(token: String): Fu[Option[User]] =
     tokener.read(token).flatMapz(userRepo.enabledById).map(_.filter(Granter.canFullyLogin))
 
-  private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
+  private val tokener = LoginToken.makeTokener(tokenerSecret, 10.minutes)
 
   object rateLimit:
 
@@ -54,19 +54,19 @@ ${trans.common_orPaste.txt()}"""),
 
     private lazy val rateLimitPerIP = RateLimit[IpAddress](
       credits = 5,
-      duration = 1 hour,
+      duration = 1.hour,
       key = "login.magicLink.ip"
     )
 
     private lazy val rateLimitPerUser = RateLimit[UserId](
       credits = 3,
-      duration = 1 hour,
+      duration = 1.hour,
       key = "login.magicLink.user"
     )
 
     private lazy val rateLimitPerEmail = RateLimit[String](
       credits = 3,
-      duration = 1 hour,
+      duration = 1.hour,
       key = "login.magicLink.email"
     )
 

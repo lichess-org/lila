@@ -1,12 +1,12 @@
 %study-list {
   @extend %box-neat;
+  @include prevent-select;
 
   max-height: 18em;
   background: $c-bg-box;
   overflow: hidden;
   overflow-y: auto;
   position: relative;
-  user-select: none;
 
   > div,
   button {

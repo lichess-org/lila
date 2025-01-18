@@ -11,9 +11,9 @@ final private class CreatedOrganizer(
 
   LilaScheduler(
     "Tournament.CreatedOrganizer",
-    _.Every(2 seconds),
-    _.AtMost(20 seconds),
-    _.Delay(18 seconds)
+    _.Every(2.seconds),
+    _.AtMost(20.seconds),
+    _.Delay(18.seconds)
   ) {
     tournamentRepo.shouldStartCursor
       .documentSource()

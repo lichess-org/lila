@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">یک گفتگوی انجمنی برای دیگران ساخته خواهد شد تا دربارهٔ فرسته‌تان نظر دهند</string>
   <string name="publishOnYourBlog">روی وبنوشت‌تان منتشر کنید</string>
   <string name="publishHelp">اگر علامت زنید، نوشته در وبنوشت‌تان قرار می‌گیرد. اگر نه، در نوشته‌های پیش‌نویس‌تان، خصوصی خواهد شد</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">سنجاق کردن نوشته</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">گر علامت زنید،این نوشه در نوشته‌های اخیر رُخ‌نمای شما اول قرار میگیرد.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">یک وبنوشته منتشر کرد</item>
     <item quantity="other">%s وبنوشته منتشر کرد</item>
@@ -32,7 +34,7 @@
   <string name="xPublishedY">%1$s، %2$s را منتشر کرد</string>
   <string name="thisPostIsPublished">این وبنوشته منتشر شد</string>
   <string name="thisIsADraft">این یک پیش‌نویس است</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">وبنوشته‌های بیشتر از %s</string>
+  <string name="moreBlogPostsBy">وبنوشته‌های بیشتر از %s</string>
   <string name="noPostsInThisBlogYet">هنوز، نوشته‌ای در این وبنوشت نیست.</string>
   <string name="noDrafts">پیش‌نویسی برای نمایش وجود ندارد.</string>
   <string name="latestBlogPosts">تازه‌ترین وبنوشته‌ها</string>

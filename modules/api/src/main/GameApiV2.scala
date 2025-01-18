@@ -144,7 +144,7 @@ final class GameApiV2(
                 .take(config.max.fold(Int.MaxValue)(_.value))
 
           gameSource
-            .throttle(config.perSecond.value, 1 second)
+            .throttle(config.perSecond.value, 1.second)
             .via(upgradeOngoingGame)
             .via(preparationFlow(config, realPlayers))
 
@@ -159,7 +159,7 @@ final class GameApiV2(
             batchSize = config.perSecond.value
           )
           .documentSource()
-          .throttle(config.perSecond.value, 1 second)
+          .throttle(config.perSecond.value, 1.second)
           .via(upgradeOngoingGame)
           .via(preparationFlow(config, realPlayers))
       }
@@ -190,7 +190,7 @@ final class GameApiV2(
               }
             }
       .mapConcat(identity)
-      .throttle(config.perSecond.value, 1 second)
+      .throttle(config.perSecond.value, 1.second)
       .mapAsync(4): (game, pairing, teams) =>
         enrich(config.flags)(game).dmap { (_, pairing, teams) }
       .mapAsync(4) { case ((game, fen, analysis), pairing, teams) =>
@@ -222,7 +222,7 @@ final class GameApiV2(
       .grouped(30)
       .mapAsync(1)(gameRepo.gamesTemporarilyFromPrimary)
       .mapConcat(identity)
-      .throttle(config.perSecond.value, 1 second)
+      .throttle(config.perSecond.value, 1.second)
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4): (game, fen, analysis) =>
         config.format match
@@ -235,7 +235,7 @@ final class GameApiV2(
     gameRepo
       .sortedCursor(Query.imported(user.id), Query.importedSort, batchSize = 20)
       .documentSource()
-      .throttle(20, 1 second)
+      .throttle(20, 1.second)
       .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
 
   private val upgradeOngoingGame =

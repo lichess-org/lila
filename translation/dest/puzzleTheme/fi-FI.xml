@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Siirrä nappulasi kahden vastustajan nappulan väliin niin, että yksi tai molemmat vastustajan nappuloista jäävät ilman suojaa, esimerkiksi ratsusi suojattuun ruutuun kahden tornin väliin.</string>
   <string name="intermezzo">Välisiirto</string>
   <string name="intermezzoDescription">Tee odotetun siirron sijaan ensin toinen siirto, jonka synnyttämään välittömään uhkaan vastustajasi täytyy vastata. Tunnetaan myös nimellä \"Zwischenzug\".</string>
+  <string name="killBoxMate">Tapponeliömatti</string>
+  <string name="killBoxMateDescription">Torni on vastustajan kuninkaan vieressä, ja sitä suojelee daami, joka myös vie kuninkaalta pakoruudut. Vastustajan kuningas jää kiinni tornin ja daamin muodostamaan 3x3-ruudun \"tapponeliöön\".</string>
   <string name="knightEndgame">Ratsuloppupeli</string>
   <string name="knightEndgameDescription">Loppupeli, jossa on vain ratsuja ja sotilaita.</string>
   <string name="long">Pitkä tehtävä</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">Nappula uhkaa tai puolustaa ruutua vastustajan nappulan läpi.</string>
   <string name="zugzwang">Siirtopakko</string>
   <string name="zugzwangDescription">Vastustajalla on rajoitettu määrä mahdollisia siirtoja, ja niistä kaikki heikentävät hänen asemaansa.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Terve sekoitus</string>
+  <string name="mix">Terve sekoitus</string>
   <string name="mixDescription">Vähän kaikkea. Et tiedä mitä tuleman pitää, joten olet valmiina mihin tahansa! Aivan kuten oikeissa peleissäkin.</string>
   <string name="playerGames">Pelaajan peleistä</string>
   <string name="playerGamesDescription">Tehtäviä sinun tai jonkun toisen yksittäisen pelaajan peleistä.</string>

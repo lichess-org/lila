@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Kide sinkronizatu guztiak posizio berean jarraitzen dute</string>
   <string name="shareChanges">Aldaketak ikusleekin partekatu eta zerbitzarian gorde</string>
   <string name="playing">Jokatzen</string>
+  <string name="showResults">Emaitzak</string>
   <string name="showEvalBar">Ebaluazio barrak</string>
   <string name="first">Lehenengoa</string>
   <string name="previous">Aurrekoa</string>

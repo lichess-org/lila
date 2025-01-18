@@ -40,10 +40,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
-        showAuthor match
-          case ShowAt.none => emptyFrag
-          case showAt =>
-            userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAt")
+        if showAuthor != ShowAt.none
+        then userIdSpanMini(post.created.by)(cls := s"ublog-post-card__over-image pos-$showAuthor")
+        else if ~post.sticky
+        then span(dataIcon := Icon.Star, cls := "user-link ublog-post-card__over-image pos-top")
+        else emptyFrag
       ),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
@@ -345,8 +346,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
     private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
       frag(
-        tag("id")(post.id),
+        tag("id")(s"$netBaseUrl${urlOfPost(post)}"),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
+        tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
           rel  := "alternate",
           tpe  := "text/html",
@@ -361,11 +363,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         },
         tag("content")(tpe := "html")(
-          thumbnail(post, _.Size.Large),
-          "<br>", // yes, scalatags encodes it.
-          post.intro
+          frag(
+            thumbnail(post, _.Size.Large),
+            br,
+            post.intro
+          ).render // html as escaped string in xml
         ),
-        tag("tag")("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
+        tag("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
         tag("author")(tag("name")(authorName))
       )
 

@@ -76,7 +76,7 @@ object HTTPRequest:
     def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => pattern.matcher(ua.value).find)
 
   def uaMatches(req: RequestHeader, regex: Regex): Boolean =
-    userAgent(req).fold(false)(ua => regex.find(ua.value))
+    userAgent(req).exists(ua => regex.find(ua.value))
 
   def isFishnet(req: RequestHeader) = req.path.startsWith("/fishnet/")
 

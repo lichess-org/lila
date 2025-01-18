@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
   <string name="publishHelp">Se está marcado, o artigo publicarase no teu blog. Se non, será privado, e estará xunto ós teus borradores</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">Fixar a publicación</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Ó activar esta opción, esta entrada será a primeira das túas publicacións recentes do teu perfil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicou un artigo no blog</item>
     <item quantity="other">Publicou %s artigos no blog</item>
@@ -32,7 +34,7 @@
   <string name="xPublishedY">%1$s publicou %2$s</string>
   <string name="thisPostIsPublished">Este artigo está publicado</string>
   <string name="thisIsADraft">Isto é un borrador</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Máis publicacións de %s</string>
+  <string name="moreBlogPostsBy">Máis publicacións de %s</string>
   <string name="noPostsInThisBlogYet">Aínda non hai publicacións neste blog.</string>
   <string name="noDrafts">Non hai borradores que amosar.</string>
   <string name="latestBlogPosts">Últimas publicacións</string>

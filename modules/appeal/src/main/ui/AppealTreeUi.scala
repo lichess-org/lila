@@ -11,7 +11,7 @@ final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
 ):
   import helpers.{ *, given }
 
-  import trans.{ appeal as tap }
+  import trans.appeal as tap
   import lila.ui.navTree.*
   import lila.ui.navTree.Node.*
 

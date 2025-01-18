@@ -147,7 +147,7 @@ object PgnDump:
     val clockOffset = startColor.fold(0, 1)
     def f(san: SanStr, index: Int) = chessPgn.Move(
       san = san,
-      secondsLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)
+      timeLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)
     )
     Tree.buildWithIndex(moves, f)
 

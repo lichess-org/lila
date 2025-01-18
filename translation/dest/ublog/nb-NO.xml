@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Et forumemne blir opprettet, der man kan kommentere innlegget ditt</string>
   <string name="publishOnYourBlog">Publiser på bloggen din</string>
   <string name="publishHelp">Kryss av for å vise innlegget på bloggen din. Ellers er det et utkast, som ikke vises.</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">Fest innlegg</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Kryss av for å vise innlegget først i oversikten over innleggene dine.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Har publisert et blogginnlegg</item>
     <item quantity="other">Har publisert %s blogginnlegg</item>
@@ -32,7 +34,7 @@
   <string name="xPublishedY">%1$s publiserte %2$s</string>
   <string name="thisPostIsPublished">Dette innlegget er publisert</string>
   <string name="thisIsADraft">Dette er et utkast</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Flere blogginnlegg av %s</string>
+  <string name="moreBlogPostsBy">Flere blogginnlegg av %s</string>
   <string name="noPostsInThisBlogYet">Ingen innlegg i denne bloggen så langt.</string>
   <string name="noDrafts">Ingen utkast å vise.</string>
   <string name="latestBlogPosts">Siste blogginnlegg</string>

@@ -22,9 +22,11 @@ export async function initModule(): Promise<void> {
   const escaped = escapeHtml(text);
   const flash = ops > 0 ? `<p class="good">Changes applied</p>` : '';
   const submit = myUserId()
-    ? `<form method="post" action="/diagnostic">
-      <input type="hidden" name="text" value="${escaped}"/>
-      <button type="submit" class="button">send to lichess</button></form>`
+    ? $html`
+      <form method="post" action="/diagnostic">
+        <input type="hidden" name="text" value="${escaped}"/>
+        <button type="submit" class="button">send to lichess</button>
+      </form>`
     : '';
   const clear = logs ? `<button class="button button-empty button-red clear">clear logs</button>` : '';
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
@@ -32,7 +34,7 @@ export async function initModule(): Promise<void> {
     class: 'diagnostic',
     css: [{ hashed: 'bits.diagnosticDialog' }],
     modal: true,
-    htmlText: `
+    htmlText: $html`
       <h2>Diagnostics</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>
       <span class="actions"> ${clear} <div class="spacer"></div> ${copy} ${submit} </span>`,

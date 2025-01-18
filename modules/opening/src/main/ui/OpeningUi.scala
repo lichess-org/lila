@@ -30,7 +30,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           searchAndConfig(page.query.config, "", ""),
           resultsList(Nil),
           boxTop(
-            h1("Chess openings", bits.beta),
+            h1("Chess openings"),
             div(cls := "box__top__actions")(
               a(href := routes.Opening.tree)("Name tree"),
               a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
@@ -96,8 +96,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                           a(href := openingKeyUrl(k))(cls := className)(name)
                         }
                       )
-                ),
-              beta
+                )
             )
           ),
           div(cls := "opening__intro")(
@@ -204,8 +203,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
       val content = frag(
         (if fold then summary else div) (op match
           case (name, None)     => name
-          case (name, Some(op)) => a(href := openingUrl(op))(name)
-        ),
+          case (name, Some(op)) => a(href := openingUrl(op))(name)),
         renderChildren(node, level + 1)
       )
       if fold then details(content) else content

@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Va fi creat un subiect pe forum pentru ca oamenii să comenteze despre postarea dumneavoastră</string>
   <string name="publishOnYourBlog">Publică pe blogul tău</string>
   <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tau. Daca nu, va fi privată, în ciornele tale</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixează postarea</string>
+  <string name="stickyPostHelp">Dacă este bifat, această postare va fi listată înaintea postărilor recente de pe profil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">A publicat o postare pe blog</item>
     <item quantity="few">A publicat %s postări pe blog</item>
@@ -34,7 +36,7 @@
   <string name="xPublishedY">%1$s a publicat %2$s</string>
   <string name="thisPostIsPublished">Această postare este publicată</string>
   <string name="thisIsADraft">Aceasta este o ciornă</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Vezi mai multe postări pe blog scrise de %s</string>
+  <string name="moreBlogPostsBy">Vezi mai multe postări pe blog scrise de %s</string>
   <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
   <string name="noDrafts">Nici o ciornă de afișat.</string>
   <string name="latestBlogPosts">Ultimele postări pe blog</string>

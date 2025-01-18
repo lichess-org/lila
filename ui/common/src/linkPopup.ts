@@ -15,7 +15,7 @@ export const onClick = (a: HTMLLinkElement): boolean => {
   domDialog({
     class: 'link-popup',
     css: [{ hashed: 'bits.linkPopup' }],
-    htmlText: `
+    htmlText: $html`
       <div class="link-popup__content">
         <div class="link-popup__content__title">
           <h2>${i18n.site.youAreLeavingLichess}</h2>

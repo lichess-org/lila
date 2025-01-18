@@ -54,8 +54,7 @@ case class ForumTopic(
   def isOld = updatedAt.isBefore(nowInstant.minusMonths:
     if isUblog then 12 * 5
     else if isTeam then 6
-    else 1
-  )
+    else 1)
 
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value

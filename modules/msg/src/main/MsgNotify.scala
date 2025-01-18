@@ -2,8 +2,6 @@ package lila.msg
 
 import akka.actor.Cancellable
 
-import java.util.concurrent.ConcurrentHashMap
-
 import lila.common.String.shorten
 import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
@@ -15,9 +13,9 @@ final private class MsgNotify(
 
   import BsonHandlers.given
 
-  private val delay = 5 seconds
+  private val delay = 5.seconds
 
-  private val delayed = ConcurrentHashMap[MsgThread.Id, Cancellable](256)
+  private val delayed = scalalib.ConcurrentMap[MsgThread.Id, Cancellable](256)
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
@@ -39,25 +37,23 @@ final private class MsgNotify(
       notifyApi.remove(thread.other(user.id), $doc("content.user" -> user.id)).void
     }
 
-  private def schedule(threadId: MsgThread.Id): Unit = delayed.compute(
-    threadId,
-    (id, canc) =>
-      Option(canc).foreach(_.cancel())
-      scheduler.scheduleOnce(delay):
-        delayed.remove(id)
+  private def schedule(threadId: MsgThread.Id): Unit = delayed.compute(threadId): canc =>
+    canc.foreach(_.cancel())
+    scheduler
+      .scheduleOnce(delay):
+        delayed.remove(threadId)
         doNotify(threadId)
-  )
+      .some
 
   private def cancel(threadId: MsgThread.Id): Boolean =
-    Option(delayed.remove(threadId)).map(_.cancel()).isDefined
+    delayed.remove(threadId).map(_.cancel()).isDefined
 
   private def doNotify(threadId: MsgThread.Id): Funit =
     colls.thread.byId[MsgThread](threadId.value).flatMapz { thread =>
       val msg = thread.lastMsg
-      (!thread.delBy(thread.other(msg.user))).so(
+      (!thread.delBy(thread.other(msg.user))).so:
         notifyApi.notifyOne(
           thread.other(msg.user),
           NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
         )
-      )
     }

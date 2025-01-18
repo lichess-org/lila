@@ -66,8 +66,7 @@ case class MixedChat(
     else
       copy(lines = lines.filter:
         case l: UserLine   => !l.troll
-        case _: PlayerLine => true
-      )
+        case _: PlayerLine => true)
 
   def mapLines(f: Line => Line) = copy(lines = lines.map(f))
 

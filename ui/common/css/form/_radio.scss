@@ -17,13 +17,13 @@ group.radio {
   label,
   .label {
     @extend %metal, %flex-center;
+    @include prevent-select;
 
     justify-content: center;
     padding: 10px;
     height: 100%;
     cursor: pointer;
     border-inline-end: $border;
-    user-select: none;
 
     &:hover {
       @extend %metal-hover;

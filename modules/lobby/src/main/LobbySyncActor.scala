@@ -156,7 +156,7 @@ final private class LobbySyncActor(
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs.register(g)
 
   private object recentlyAbortedUserIdPairs:
-    private val cache = scalalib.cache.ExpireSetMemo[String](1 hour)
+    private val cache = scalalib.cache.ExpireSetMemo[String](1.hour)
     private def makeKey(u1: UserId, u2: UserId) = String:
       if u1.value < u2.value then s"$u1/$u2" else s"$u2/$u1"
 
@@ -196,12 +196,12 @@ private object LobbySyncActor:
   )(makeActor: () => LobbySyncActor)(using ec: Executor, scheduler: Scheduler) =
     val actor = makeActor()
     Bus.subscribe(actor, "lobbyActor")
-    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => actor ! Resync)
+    scheduler.scheduleWithFixedDelay(15.seconds, resyncIdsPeriod)(() => actor ! Resync)
     lila.common.LilaScheduler(
       "LobbySyncActor",
       _.Every(broomPeriod),
-      _.AtMost(10 seconds),
-      _.Delay(7 seconds)
+      _.AtMost(10.seconds),
+      _.Delay(7.seconds)
     ):
       actor.ask[Unit](Tick.apply)
     actor

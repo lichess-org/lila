@@ -21,7 +21,7 @@
   <string name="inGameOnly">Hanya di dalam permainan</string>
   <string name="chessClock">Jam catur</string>
   <string name="tenthsOfSeconds">Sepersepuluh detik</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ketika waktu tersisa &lt; 10 detik</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ketika waktu tersisa &lt; 10 detik</string>
   <string name="horizontalGreenProgressBars">Indikator horisontal perkembangan warna hijau</string>
   <string name="soundWhenTimeGetsCritical">Bersuara ketika waktu hampir habis</string>
   <string name="giveMoreTime">Berikan waktu lebih</string>
@@ -37,7 +37,7 @@
   <string name="explainPromoteToQueenAutomatically">Tahan tombol &lt;ctrl&gt; saat promosi untuk sementara membatalkan promosi otomatis</string>
   <string name="whenPremoving">Ketika pra-langkah</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Langsung Remis pada pengulangan ketiga kali</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Ketika waktu tersisa &lt; 30 detik</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ketika waktu tersisa &lt; 30 detik</string>
   <string name="moveConfirmation">Konfirmasi langkah</string>
   <string name="explainCanThenBeTemporarilyDisabled">Dapat dimatikan selama permainan pada menu papan</string>
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>

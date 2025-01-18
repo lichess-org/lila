@@ -17,7 +17,7 @@ final class SwissFeature(
   import BsonHandlers.given
 
   val onHomepage = cacheApi.unit[Option[Swiss]]:
-    _.refreshAfterWrite(30 seconds)
+    _.refreshAfterWrite(30.seconds)
       .buildAsyncFuture: _ =>
         mongo.swiss
           .find:
@@ -30,7 +30,7 @@ final class SwissFeature(
 
   def get(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     cache.getUnit
-      .zip(getForTeams(teams :+ lichessTeamId distinct))
+      .zip(getForTeams((teams :+ lichessTeamId).distinct))
       .map: (cached, teamed) =>
         FeaturedSwisses(
           created = (teamed.created ::: cached.created).distinctBy(_.id),
@@ -44,12 +44,10 @@ final class SwissFeature(
 
   private def getForTeams(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
     teams
-      .map(swissCache.featuredInTeam.get)
-      .parallel
+      .traverse(swissCache.featuredInTeam.get)
       .dmap(_.flatten)
-      .flatMap { ids =>
+      .flatMap: ids =>
         mongo.swiss.byIds[Swiss, SwissId](ids, _.sec)
-      }
       .map: tours =>
         val (created, started) = tours.filter(_.isNotFinished).partition(_.isCreated)
         FeaturedSwisses(
@@ -58,14 +56,11 @@ final class SwissFeature(
         )
 
   private val cache = cacheApi.unit[FeaturedSwisses]:
-    _.refreshAfterWrite(10 seconds)
-      .buildAsyncFuture: _ =>
-        val now = nowInstant
-        cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1)))
-          .zip(cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)))
-          .map { (created, started) =>
-            FeaturedSwisses(created, started)
-          }
+    _.refreshAfterWrite(10.seconds).buildAsyncFuture: _ =>
+      val now = nowInstant
+      cacheCompute($doc("$gt" -> now, "$lt" -> now.plusHours(1)))
+        .zip(cacheCompute($doc("$gt" -> now.minusHours(3), "$lt" -> now)))
+        .map(FeaturedSwisses.apply)
 
   // causes heavy team reads
   private def cacheCompute(startsAtRange: Bdoc, nb: Int = 5): Fu[List[Swiss]] =

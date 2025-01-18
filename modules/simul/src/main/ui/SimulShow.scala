@@ -74,8 +74,7 @@ final class SimulShow(helpers: Helpers, ui: SimulUi, gathering: GatheringUi):
                 trans.site.hostColorX(sim.color match
                   case Some("white") => trans.site.white()
                   case Some("black") => trans.site.black()
-                  case _             => trans.site.randomColor()
-                ),
+                  case _             => trans.site.randomColor()),
                 sim.position
                   .flatMap(p => lila.gathering.Thematic.byFen(p.opening))
                   .map { pos =>

@@ -23,7 +23,7 @@
   <string name="exceptInGame">Sauf durant la partie</string>
   <string name="chessClock">Pendule</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 10 secondes</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 10 secondes</string>
   <string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>
   <string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
   <string name="giveMoreTime">Donner plus de temps</string>
@@ -39,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Maintenez la touche &lt;ctrl&gt; enfoncée lors de la promotion pour désactiver temporairement l\'auto-promotion</string>
   <string name="whenPremoving">Lors d\'un pré-coup</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 30 secondes</string>
   <string name="moveConfirmation">Confirmation de coup</string>
   <string name="explainCanThenBeTemporarilyDisabled">Peut être désactivé pendant une partie grâce au menu de l\'échiquer</string>
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>

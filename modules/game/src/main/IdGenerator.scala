@@ -43,8 +43,8 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
 
 object IdGenerator:
 
-  private val whiteSuffixChars = ('0' to '4') ++ ('A' to 'Z') mkString
-  private val blackSuffixChars = ('5' to '9') ++ ('a' to 'z') mkString
+  private val whiteSuffixChars = (('0' to '4') ++ ('A' to 'Z')).mkString
+  private val blackSuffixChars = (('5' to '9') ++ ('a' to 'z')).mkString
 
   def player(color: Color): GamePlayerId =
     // Trick to avoid collisions between player ids in the same game.

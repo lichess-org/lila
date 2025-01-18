@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Aurkariaren bi piezaren artean pieza bat jartzea, horrela aurkariaren piezetako bat edo biak defentsarik gabe utziz.</string>
   <string name="intermezzo">Tarteko-jokaldia</string>
   <string name="intermezzoDescription">Esperotako jokaldia egin beharrean, aurkariari mehatxu bat eginez beste jokaldi bat egin aurkaria jokaldi horri erantzutera derrigortuz.</string>
+  <string name="killBoxMate">Hilkutxaren matea</string>
+  <string name="killBoxMateDescription">Gaztelua aurkariaren erregearen ondoan dago damaren laguntzarekin, honek gainera erregearen ihes-laukiak babesten ditu. Gazteluak eta damak erregea 3x3ko \"hilkutxa\" baten harrapatu dezakete.</string>
   <string name="knightEndgame">Zaldunen finala</string>
   <string name="knightEndgameDescription">Zaldunak eta peoiak bakarrik dituen partida bukaera.</string>
   <string name="long">Ariketa luzea</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">Aurkariaren pieza baten artetik, pieza batek lauki bat erasotu edo defendatzen duenean.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Aurkariak jokaldi mugatuak ditu eta jokaldi guztien bere posizioa okertu egiten dute.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Denetik pixkat</string>
+  <string name="mix">Denetik pixkat</string>
   <string name="mixDescription">Denetatik. Ez dakizu zer espero, beraz prestatu zure burua edozertarako! Benetako partidetan bezala.</string>
   <string name="playerGames">Jokalarien partidak</string>
   <string name="playerGamesDescription">Ikusi zure edo beste jokalarien partidetatik sortutako ariketak.</string>

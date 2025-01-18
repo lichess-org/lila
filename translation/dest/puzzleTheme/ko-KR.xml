@@ -57,6 +57,7 @@
   <string name="interferenceDescription">상대의 두 기물 사이에 기물을 집어넣어 그 기물들을 지켜지지 않게 만듭니다. 두 룩 사이의 나이트처럼요.</string>
   <string name="intermezzo">사잇수</string>
   <string name="intermezzoDescription">예상되는 플레이를 하는 대신, 먼저 상대가 즉시 해결해야 하는 또 다른 위협을 끼워 넣습니다. \"Zwischenzug\"나 \"In between\"이라고도 합니다.</string>
+  <string name="killBoxMateDescription">킹 옆에서는 룩이 체크를 넣고, 퀸이 그 룩을 지켜주면서 킹의 도주로를 차단하는 체크메이트 패턴입니다. 룩과 퀸이 3 x 3 \"킬 박스\" 안에서 킹을 공격합니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>
   <string name="knightEndgameDescription">나이트와 폰만 있는 엔드게임</string>
   <string name="long">긴 퍼즐</string>
@@ -119,7 +120,7 @@
   <string name="xRayAttackDescription">기물이 상대 기물 너머의 칸을 공격 또는 방어합니다.</string>
   <string name="zugzwang">추크추방</string>
   <string name="zugzwangDescription">상대가 둘 수 있는 수는 제한되어 있으며, 모든 수가 포지션을 악화시킵니다.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">골고루 섞기</string>
+  <string name="mix">골고루 섞기</string>
   <string name="mixDescription">전부 다. 무엇이 나올지 모르기 때문에 모든 것에 준비되어 있어야 합니다. 마치 진짜 게임처럼요.</string>
   <string name="playerGames">플레이어 게임</string>
   <string name="playerGamesDescription">당신의 게임이나 다른 플레이어의 게임에서 나온 퍼즐을 찾아보세요.</string>

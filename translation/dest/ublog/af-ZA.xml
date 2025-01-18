@@ -18,6 +18,7 @@
   <string name="createBlogDiscussionHelp">\'n Forumgespreksonderwerp sal geskep word sodat ander kommentaar kan lewer op jou plasing</string>
   <string name="publishOnYourBlog">Publiseer op jou webjoernaal</string>
   <string name="publishHelp">As die gemerk is sal dit op jou webjoernaal verskyn. Indien nie so nie, sal dit privaat wees, in jou konsepte</string>
+  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Indien gekies, sal hierdie plasing eerste gelys word in die onlangse plasings in jou profiel.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">\'n Joernaal inskrywing was gepubliseerd</item>
     <item quantity="other">%s joernaal inskrywings was gepubliseerd</item>
@@ -29,7 +30,7 @@
   <string name="xPublishedY">%1$s publiseer %2$s</string>
   <string name="thisPostIsPublished">Hierdie inskrywing is gepubliseerd</string>
   <string name="thisIsADraft">Hierdie is \'n konsep</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Meer webjoernaal inskrywings van %s</string>
+  <string name="moreBlogPostsBy">Meer webjoernaal inskrywings van %s</string>
   <string name="noPostsInThisBlogYet">Nog geen inskrywings in hierdie webjoernal nie.</string>
   <string name="noDrafts">Geen konsepte om te wys nie.</string>
   <string name="latestBlogPosts">Jongste webjoernaal inskrywings</string>

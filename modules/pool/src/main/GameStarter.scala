@@ -15,7 +15,7 @@ final private class GameStarter(
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
-    timeout = 10 seconds,
+    timeout = 10.seconds,
     name = "gameStarter",
     lila.log.asyncActorMonitor.full
   )

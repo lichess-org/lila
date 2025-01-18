@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
+  <string name="showResults">Результаты</string>
   <string name="showEvalBar">Шкалы оценки</string>
   <string name="first">Первая</string>
   <string name="previous">Назад</string>

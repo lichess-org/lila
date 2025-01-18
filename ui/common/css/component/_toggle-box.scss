@@ -7,11 +7,11 @@
 
   legend {
     @extend %box-radius;
+    @include prevent-select;
     background: $c-bg-zebra;
     padding: 0.5em 1.5em;
     text-align: right;
     font-size: 1.2em;
-    user-select: none;
   }
 }
 .toggle-box--toggle {

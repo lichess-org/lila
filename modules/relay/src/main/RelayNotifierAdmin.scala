@@ -15,10 +15,10 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
     private val notifyAfterMisses = 10
 
     private val counter: Cache[StudyChapterId, Int] = scalalib.cache.scaffeineNoScheduler
-      .expireAfterWrite(3 minutes)
+      .expireAfterWrite(3.minutes)
       .build[StudyChapterId, Int]()
 
-    private val once = scalalib.cache.OnceEvery[StudyChapterId](1 hour)
+    private val once = scalalib.cache.OnceEvery[StudyChapterId](1.hour)
 
     def inspectPlan(rt: RelayRound.WithTour, plan: RelayUpdatePlan.Plan): Funit =
       (rt.tour.official && plan.input.games.nonEmpty).so:
@@ -30,22 +30,25 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
           else fuccess(counter.put(chapter.id, count))
 
   object missingFideIds:
-    private val once = scalalib.cache.OnceEvery[RelayRoundId](1 hour)
+    private val once = scalalib.cache.OnceEvery[RelayRoundId](1.hour)
 
     def schedule(id: RelayRoundId) =
       if once(id) then
-        scheduler.scheduleOnce(1 minute):
+        scheduler.scheduleOnce(1.minute):
           api.byIdWithTour(id).flatMapz(checkNow)
 
     private def checkNow(rt: RelayRound.WithTour): Funit =
-      previewApi
-        .dataList(rt.round.studyId)
-        .flatMap: chapters =>
-          val missing: List[(StudyChapterId, String)] = chapters.flatMap: chapter =>
-            chapter.players
-              .so(_.toList)
-              .filter(_.fideId.isEmpty)
-              .map: player =>
-                (chapter.id, player.name.fold("?")(_.value))
-          missing.nonEmpty.so:
-            irc.broadcastMissingFideId(rt.round.id, rt.fullName, missing)
+      if rt.round.sync.upstream.exists(_.isGameIds)
+      then funit
+      else
+        previewApi
+          .dataList(rt.round.studyId)
+          .flatMap: chapters =>
+            val missing: List[(StudyChapterId, String)] = chapters.flatMap: chapter =>
+              chapter.players
+                .so(_.toList)
+                .filter(_.fideId.isEmpty)
+                .map: player =>
+                  (chapter.id, player.name.fold("?")(_.value))
+            missing.nonEmpty.so:
+              irc.broadcastMissingFideId(rt.round.id, rt.fullName, missing)

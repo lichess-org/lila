@@ -17,7 +17,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
       _.find($doc(Puzzle.BSONFields.tagMe -> true))
         .cursor[Puzzle]()
         .documentSource()
-        .throttle(500, 1 second)
+        .throttle(500, 1.second)
         .mapAsyncUnordered(2)(p => openingApi.updateOpening(p).inject(p))
         .mapAsyncUnordered(2)(p => addPhase(p).inject(p))
         .mapAsyncUnordered(2)(checkFirstTheme)
@@ -68,5 +68,6 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
           $id(puzzle.id),
           $addToSet(Puzzle.BSONFields.themes -> PuzzleTheme.checkFirst.key)
         )
-      }) void
+      })
+      .void
   }

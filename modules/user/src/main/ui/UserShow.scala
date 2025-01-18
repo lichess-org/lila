@@ -99,7 +99,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
     )
 
   def newPlayer(u: User)(using Translate) =
-    import trans.{ onboarding as tro }
+    import trans.onboarding as tro
     div(cls := "new-player")(
       h2(tro.welcomeToLichess()),
       p(tro.thisIsYourProfilePage()),

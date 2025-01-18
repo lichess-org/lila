@@ -12,7 +12,7 @@ import lila.team.Team
 
 object show:
 
-  import trans.{ team as trt }
+  import trans.team as trt
 
   def apply(
       t: Team.WithLeaders,
@@ -63,8 +63,7 @@ object show:
               if t.disabled then span(cls := "staff")("CLOSED")
               else
                 canSeeMembers.option(a(href := routes.Team.members(t.slug)):
-                  trt.nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
-                )
+                  trt.nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize)))
           ),
           div(cls := "team-show__content")(
             div(cls := "team-show__content__col1")(

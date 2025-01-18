@@ -10,8 +10,8 @@ final private class StudySequencer(
 
   private val workQueue = AsyncActorSequencers[StudyId](
     maxSize = Max(64),
-    expiration = 1 minute,
-    timeout = 10 seconds,
+    expiration = 1.minute,
+    timeout = 10.seconds,
     name = "study",
     lila.log.asyncActorMonitor.highCardinality
   )

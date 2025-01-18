@@ -7,7 +7,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
-  import trans.{ streamer as trs }
+  import trans.streamer as trs
 
   def create(using Context) =
     postForm(cls := "streamer-new", action := routes.Streamer.create)(

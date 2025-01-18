@@ -22,7 +22,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
   def effective = false
 
   def send(user: User, email: EmailAddress)(using Lang) =
-    userRepo.setEmailConfirmed(user.id) void
+    userRepo.setEmailConfirmed(user.id).void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
@@ -122,19 +122,19 @@ object EmailConfirm:
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 40,
-    duration = 1 hour,
+    duration = 1.hour,
     key = "email.confirms.ip"
   )
 
   private lazy val rateLimitPerUser = RateLimit[UserId](
     credits = 3,
-    duration = 1 hour,
+    duration = 1.hour,
     key = "email.confirms.user"
   )
 
   private lazy val rateLimitPerEmail = RateLimit[String](
     credits = 3,
-    duration = 1 hour,
+    duration = 1.hour,
     key = "email.confirms.email"
   )
 

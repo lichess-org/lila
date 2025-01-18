@@ -47,12 +47,12 @@ final class TournamentStandingApi(
     else compute(tour, page, withScores)
 
   private val first = cacheApi[TourId, JsObject](64, "tournament.page.first"):
-    _.expireAfterWrite(1 second).buildAsyncFuture:
+    _.expireAfterWrite(1.second).buildAsyncFuture:
       compute(_, 1, withScores = true)
 
   // useful for highly anticipated, highly populated tournaments
   private val createdCache = cacheApi[(TourId, Int), JsObject](64, "tournament.page.createdCache"):
-    _.expireAfterWrite(15 second).buildAsyncFuture: (tourId, page) =>
+    _.expireAfterWrite(15.second).buildAsyncFuture: (tourId, page) =>
       compute(tourId, page, withScores = true)
 
   def clearCache(tour: Tournament): Unit =

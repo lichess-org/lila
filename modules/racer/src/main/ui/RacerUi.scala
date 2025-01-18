@@ -10,7 +10,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class RacerUi(helpers: Helpers):
   import helpers.{ *, given }
-  import trans.{ storm as s }
+  import trans.storm as s
 
   def home(using Context) =
     Page("Puzzle Racer")

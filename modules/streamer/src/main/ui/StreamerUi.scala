@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 
 final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: NetDomain):
   import helpers.{ *, given }
-  import trans.{ streamer as trs }
+  import trans.streamer as trs
 
   private val dataDedup = attr("data-dedup")
 
@@ -170,8 +170,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
               bits.header(s),
               div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
               ctx.pref.showRatings.option(a(cls := "ratings", href := routes.User.show(s.user.username)):
-                perfRatings
-              ),
+                perfRatings),
               activities
             )
           )

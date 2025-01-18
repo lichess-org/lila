@@ -71,6 +71,8 @@
   <string name="promoteVariation">Promakni varijaciju</string>
   <string name="makeMainLine">Napravi glavnu liniju</string>
   <string name="deleteFromHere">Obriši s popisa</string>
+  <string name="collapseVariations">Sakrij varijacije</string>
+  <string name="expandVariations">Pokaži varijacije</string>
   <string name="forceVariation">Promakni varijaciju</string>
   <string name="copyVariationPgn">Kopiraj varijaciju PGN-a</string>
   <string name="move">Potez</string>
@@ -133,15 +135,30 @@
     <item quantity="few">%s grube greške</item>
     <item quantity="other">%s grubih grešaka</item>
   </plurals>
+  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Gruba greška</item>
+    <item quantity="few">%s Grube greške</item>
+    <item quantity="other">%s Grubih grešaka</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s greška</item>
     <item quantity="few">%s greške</item>
     <item quantity="other">%s grešaka</item>
   </plurals>
+  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Greška</item>
+    <item quantity="few">%s Greške</item>
+    <item quantity="other">%s Grešaka</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s nepreciznost</item>
     <item quantity="few">%s nepreciznosti</item>
     <item quantity="other">%s nepreciznosti</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Nepreciznost</item>
+    <item quantity="few">%s Nepreciznosti</item>
+    <item quantity="other">%s Nepreciznosti</item>
   </plurals>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
@@ -162,6 +179,11 @@
     <item quantity="few">%s partije</item>
     <item quantity="other">%s partija</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rejting nakon %2$s igre</item>
+    <item quantity="few">%1$s rejting nakon %2$s igre</item>
+    <item quantity="other">%1$s rejting nakon %2$s igri</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s spremljena partija</item>
     <item quantity="few">%s spremljene partije</item>
@@ -180,6 +202,7 @@
   <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
   <string name="friends">Prijatelji</string>
+  <string name="otherPlayers">drugim igračima</string>
   <string name="discussions">Razgovori</string>
   <string name="today">Danas</string>
   <string name="yesterday">Jučer</string>
@@ -222,29 +245,29 @@
   <string name="email">Email</string>
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
-  <string name="error.weakPassword">Ova je lozinka iznimno česta i previše je lako pogoditi.</string>
-  <string name="error.namePassword">Molimo da ne koristiš svoje korisničko ime kao lozinku.</string>
-  <string name="blankedPassword">Koristio si istu lozinku na drugom mjestu, a to je mjesto ugroženo. Kako bismo osigurali sigurnost tvoga Lichess računa, potrebno je da postaviš novu lozinku. Hvala na razumijevanju.</string>
-  <string name="youAreLeavingLichess">Odlazite sa Lichess-a</string>
+  <string name="error.weakPassword">Ova je lozinka iznimno česta i previše ju je lako pogoditi.</string>
+  <string name="error.namePassword">Molimo Vas da ne koristite svoje korisničko ime kao lozinku.</string>
+  <string name="blankedPassword">Koristili ste istu lozinku na drugom mjestu, a to je mjesto ugroženo. Kako bismo osigurali sigurnost Vašeg Lichess računa, potrebno je da postavite novu lozinku. Hvala na razumijevanju.</string>
+  <string name="youAreLeavingLichess">Odlazite s Lichess-a</string>
   <string name="neverTypeYourPassword">Nikada nemojte upisivati svoju Lichess lozinku na drugom mjestu!</string>
-  <string name="proceedToX">Nastavi s %s</string>
-  <string name="passwordSuggestion">Ne postavljaj lozinku koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
-  <string name="emailSuggestion">Ne postavljaj adresu e-pošte koju je predložio netko drugi. Iskoristit će je da ti ukradu račun.</string>
+  <string name="proceedToX">Nastavi do %s</string>
+  <string name="passwordSuggestion">Ne postavljajte lozinku koju je predložio netko drugi. Iskoristit će je da Vam ukradu račun.</string>
+  <string name="emailSuggestion">Ne postavljajte adresu e-pošte koju je predložio netko drugi. Iskoristit će je da Vam ukradu račun.</string>
   <string name="emailConfirmHelp">Pomoć oko potvrde e-pošte</string>
-  <string name="emailConfirmNotReceived">Nisi primo svoju potvrdnu e-poštu nakon prijave?</string>
-  <string name="whatSignupUsername">Koje si korisničko ime koristio za prijavu?</string>
+  <string name="emailConfirmNotReceived">Niste primili svoju potvrdnu e-poštu nakon prijave?</string>
+  <string name="whatSignupUsername">Koje ste korisničko ime koristili za prijavu?</string>
   <string name="usernameNotFound">Nismo mogli pronaći nijednog korisnika pod ovim imenom: %s.</string>
-  <string name="usernameCanBeUsedForNewAccount">Ovo korisničko ime možeš koristiti za stvaranje novog računa</string>
+  <string name="usernameCanBeUsedForNewAccount">Ovo korisničko ime možete koristiti za stvaranje novog računa</string>
   <string name="emailSent">Poslali smo email na %s.</string>
-  <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok stigne.</string>
-  <string name="refreshInboxAfterFiveMinutes">Pričekaj 5 minuta i osvježi stranicu pristigle pošte.</string>
-  <string name="checkSpamFolder">Također provjeri svoju mapu neželjene pošte jer bi mogla i tamo završiti. Ako je tako, označi ju da nije spam.</string>
-  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošalji nam ovu e-poruku:</string>
-  <string name="copyTextToEmail">Kopiraj i zalijepi gornji tekst i pošalji ga %s</string>
-  <string name="waitForSignupHelp">Javit ćemo ti se uskoro kako bismo ti pomogli dovršiti tvoju registraciju.</string>
+  <string name="emailCanTakeSomeTime">Može potrajati neko vrijeme dok ne stigne.</string>
+  <string name="refreshInboxAfterFiveMinutes">Pričekajte 5 minuta i osvježite stranicu pristigle pošte.</string>
+  <string name="checkSpamFolder">Također provjerite svoju mapu neželjene pošte jer bi mogla i tamo završiti. Ako je tako, označite ju da nije neželjena.</string>
+  <string name="emailForSignupHelp">Ako ništa drugo ne uspije, pošaljite nam ovu e-poruku:</string>
+  <string name="copyTextToEmail">Kopirajte i zalijepite gornji tekst te ga pošaljite na %s</string>
+  <string name="waitForSignupHelp">Javit ćemo Vam se uskoro kako bismo Vam pomogli dovršiti Vašu registraciju.</string>
   <string name="accountConfirmed">Korisnik %s je uspješno potvrđen.</string>
-  <string name="accountCanLogin">Možeš se odmah prijaviti kao %s.</string>
-  <string name="accountConfirmationEmailNotNeeded">Nije ti potrebna potvrdna e-pošta.</string>
+  <string name="accountCanLogin">Možete se odmah prijaviti kao %s.</string>
+  <string name="accountConfirmationEmailNotNeeded">Nije Vam potrebna potvrdna e-pošta.</string>
   <string name="accountClosed">Račun %s je zatvoren.</string>
   <string name="accountRegisteredWithoutEmail">Račun %s je registriran bez e-pošte.</string>
   <string name="rank">Rang</string>
@@ -265,6 +288,7 @@
     <item quantity="few">%s odigrane partije s tobom</item>
     <item quantity="other">%s odigranih partija s tobom</item>
   </plurals>
+  <string name="ok">U redu</string>
   <string name="cancel">Odustani</string>
   <string name="whiteTimeOut">Bijelom je isteklo vrijeme</string>
   <string name="blackTimeOut">Crnom je isteklo vrijeme</string>
@@ -284,6 +308,7 @@
   <string name="abortGame">Prekini igru</string>
   <string name="gameAborted">Igra prekinuta</string>
   <string name="standard">Standardno</string>
+  <string name="customPosition">Proizvoljna pozicija</string>
   <string name="unlimited">Neograničeno</string>
   <string name="mode">Način</string>
   <string name="casual">Prijateljska</string>
@@ -365,8 +390,14 @@
     <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanka</item>
+    <item quantity="few">%s simultanke</item>
+    <item quantity="other">%s simultanki</item>
+  </plurals>
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
+  <string name="noDrawBeforeSwissLimit">U švicarskom turniru neriješen rezultat nije moguć prije 30. poteza.</string>
   <string name="thematic">Tematski</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s partije za bodove</item>
@@ -421,6 +452,7 @@
   <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
 računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="importGameCaveat">Varijacije će biti obrisane. Da bi ih sačuvao, uvezi PGN preko studije.</string>
+  <string name="importGameDataPrivacyWarning">Ovaj PGN je javan. Kako bi unijeli privatnu igru, koristite opciju uči.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezene partije</item>
@@ -502,6 +534,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="movesPlayed">Poteza igrano</string>
   <string name="whiteWins">Pobjede bijelog</string>
   <string name="blackWins">Pobjede crnog</string>
+  <string name="drawRate">Postotak neriješenih</string>
   <string name="draws">Remi</string>
   <string name="nextXTournament">Sljedeći %s turnir:</string>
   <string name="averageOpponent">Prosječni protivnik</string>
@@ -521,6 +554,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
   <string name="realName">Puno ime</string>
+  <string name="setFlair">Postavi ikonu uz ime</string>
+  <string name="flair">Značka</string>
+  <string name="youCanHideFlair">Postoji opcija za sakriti značke svih korisnika na stranici.</string>
   <string name="biography">Životopis</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ili regija</string>
   <string name="thankYou">Hvala!</string>
@@ -542,12 +578,15 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
   <string name="puzzles">Problemi</string>
+  <string name="onlineBots">Spojeni botovi.</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Privatni opis</string>
   <string name="descPrivateHelp">Tekst koji će vidjeti samo članovi tima. Ako je postavljen, zamjenjuje javni opis za članove tima.</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
+  <string name="website">Web stranica</string>
+  <string name="mobile">Mobilna aplikacija</string>
   <string name="help">Pomoć:</string>
   <string name="createANewTopic">Kreiraj novu temu</string>
   <string name="topics">Teme</string>
@@ -566,6 +605,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="cheat">Varanje</string>
   <string name="troll">Provokacija</string>
   <string name="other">Ostalo</string>
+  <string name="reportCheatBoostHelp">Kopirajte link na partiju/e u pitanju i objasnite što nije u redu s ponašanjem korisnika kojeg prijavljujete. Nemojte samo reći \"varao je\", nego nam recite kako ste došli do tog zaključka. </string>
+  <string name="reportUsernameHelp">Objasnite što je uvredljivo u ovom nadimku. Nemojte napisati samo \"uvredljivo je/neprimjereno je\",  već nam recite kako ste došli do tog zaključka, pogotovo ako uvreda je prikrivena, nije na engleskom, napisana u nestandardnom jeziku ili se odnosi na povijesne ili kulturološke kontekste. </string>
+  <string name="reportProcessedFasterInEnglish">Vaš podneseni izvještaj će se procesuirati brže ako je napisan na engleskom jeziku.</string>
   <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link igre u kojoj je igrač varao.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvezao %s</string>
@@ -598,6 +640,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="slow">Sporo</string>
   <string name="insideTheBoard">Unutar ploče</string>
   <string name="outsideTheBoard">Izvan ploče</string>
+  <string name="allSquaresOfTheBoard">Sva polja na ploči</string>
   <string name="onSlowGames">U sporim partijama</string>
   <string name="always">Uvijek</string>
   <string name="never">Nikad</string>
@@ -638,7 +681,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="error.email">Ova email adresa je neispravna</string>
   <string name="error.email_acceptable">Ova email adresa nije prihvatljiva. Molimo provjerite ju te pokušajte ponovo.</string>
   <string name="error.email_unique">Email adresa je neispravna ili je već u upotrebi</string>
-  <string name="error.email_different">Već koristiš ovu e-mail adresu</string>
+  <string name="error.email_different">Već koristite ovu e-mail adresu</string>
   <string name="error.minLength">Minimalna dužina je %s</string>
   <string name="error.maxLength">Maksimalna dužina je %s</string>
   <string name="error.min">Mora biti veće ili jednako %s</string>
@@ -674,6 +717,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="simultaneousExhibitions">Simultanke</string>
   <string name="host">Domaćin</string>
   <string name="hostColorX">Boja domaćina: %s</string>
+  <string name="yourPendingSimuls">Vaše simultanke u čekanju</string>
   <string name="createdSimuls">Novokreirane simultanke</string>
   <string name="hostANewSimul">Kreiraj novu simultanku</string>
   <string name="noSimulFound">Simultanka nije pronađena</string>
@@ -685,7 +729,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka završava kada završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Revanši, vraćanje poteza te dodavanje vremena su isključeni.</string>
   <string name="create">Kreiraj</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
+  <string name="whenCreateSimul">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izabereš nekoliko varijanti, svaki igrač je u mogućnosti da izabere koju će igrati.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
@@ -700,10 +744,20 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="keyboardShortcuts">Kratice na tipkovnici</string>
   <string name="keyMoveBackwardOrForward">idi natrag/naprijed</string>
   <string name="keyGoToStartOrEnd">idi na početak/kraj</string>
+  <string name="keyCycleSelectedVariation">Promijeni odabranu varijaciju</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijantu</string>
   <string name="keyRequestComputerAnalysis">Zatraži računalnu analizu, Uči na svojim greškama</string>
   <string name="keyNextLearnFromYourMistakes">Sljedeće (Uči na svojim greškama)</string>
+  <string name="keyNextBlunder">Sljedeća velika pogreška</string>
+  <string name="keyNextMistake">Sljedeća pogreška</string>
+  <string name="keyNextInaccuracy">Sljedeća sitna pogreška</string>
+  <string name="keyPreviousBranch">Prethodna grana</string>
+  <string name="keyNextBranch">Sljedeća grana</string>
+  <string name="toggleVariationArrows">Uključi/Isključi strelice za varijacije</string>
+  <string name="cyclePreviousOrNextVariation">Promijeni na prethodnu/sljedeću varijaciju</string>
+  <string name="toggleGlyphAnnotations">Uključi/Isključi zapisnik poteza</string>
+  <string name="playSelectedMove">odigrajte odabrani potez</string>
   <string name="newTournament">Novi turnir</string>
   <string name="tournamentHomeTitle">Šahovski turniri s različitim vremenima partije i varijantama</string>
   <string name="tournamentHomeDescription">Igraj brze turnire! Pridruži se turniru ili stvori svoj turnir. Bullet, Blitz, Klasični šah, Šah 960 (Fischerov nasumični šah), Kralj na centru, Tri šaha, i još više opcija za neograničenu šahovsku zabavu.</string>
@@ -720,6 +774,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s %2$s igrača.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je bolji od %2$s igrača %3$s šaha.</string>
+  <string name="betterThanPercentPlayers">Bolji ste od %1$s od %2$s igrača</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
   <string name="yourRating">Tvoj rejting</string>
   <string name="cumulative">Kumulativno</string>
@@ -746,6 +801,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="withFriends">S prijateljima</string>
   <string name="withEverybody">Sa svima</string>
   <string name="kidMode">Dječji način</string>
+  <string name="kidModeIsEnabled">Način rada za djecu je upaljen.</string>
   <string name="kidModeExplanation">Ovdje se radi se o sigurnosti. U dječjem načinu, sve komunikacije na stranici su onemogućene. Omogući ovo za svoju djecu i učenike, da ih zaštitiš od drugih internet korisnika.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">U dječjem načinu, logo lichess-a dobiva %s ikonu, tako da znaš da su tvoja djeca sigurna.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Vaš račun je upravljan. Pitajte svog učitelja šaha o uklanjanju načina rada za djecu.</string>
@@ -788,7 +844,10 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="backgroundImageUrl">URL pozadinske slike:</string>
   <string name="board">Ploča</string>
   <string name="size">Veličina</string>
+  <string name="opacity">Neprozirnost</string>
   <string name="brightness">Svjetlina</string>
+  <string name="hue">Nijansa</string>
+  <string name="boardReset">Vratite boje na početne</string>
   <string name="pieceSet">Set figura</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu</string>
   <string name="usernameAlreadyUsed">Ovo korisničko ime je već u uporabi, molimo probaj s drugim.</string>
@@ -863,6 +922,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
     <item quantity="few">i uštedi %s predpoteza</item>
     <item quantity="other">i uštedi %s predpoteza</item>
   </plurals>
+  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Primili ste privatnu poruku od Lichess-a</string>
   <string name="clickHereToReadIt">Klikni ovdje da pročitaš</string>
   <string name="sorry">Oprosti :(</string>
   <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
@@ -885,6 +945,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
   <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
   <string name="edit">Uredi</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasični šah</string>
@@ -917,7 +978,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="youAreNowPartOfTeam">Sad si član tima.</string>
   <string name="youHaveJoinedTeamX">Pridružio si se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Nekome koga si prijavio je zabranjen pristup</string>
-  <string name="congratsYouWon">Čestitamo na pobjedi!</string>
+  <string name="congratsYouWon">Čestitamo, pobijedili ste!</string>
   <string name="gameVsX">Partija protiv %1$s</string>
   <string name="resVsX">%1$s protiv %2$s</string>
   <string name="lostAgainstTOSViolator">Izgubio si od nekoga tko je prekršio Lichess TOS</string>
@@ -981,7 +1042,10 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="switchSides">Promijeni strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
   <string name="ourEventTips">Naši savjeti za organizaciju događaja</string>
+  <string name="instructions">Upute</string>
+  <string name="showMeEverything">Pokaži mi sve</string>
   <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
 Svi operativni troškovi, razvoj i sadržaj financiraju se isključivo donacijama korisnika.</string>
+  <string name="nothingToSeeHere">Trenutno ovdje nema ništa za vidjeti.</string>
   <string name="stats">Statistika</string>
 </resources>

@@ -96,7 +96,7 @@ final class PlaybanApi(
             movetimes    <- gameApi.computeMoveTimes(game, flaggerColor)
             lastMovetime <- movetimes.lastOption
             limit        <- unreasonableTime
-          yield lastMovetime.toSeconds >= limit)
+          yield lastMovetime.roundSeconds >= limit)
         .map: userId =>
           for
             _ <- save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source)
@@ -173,7 +173,7 @@ final class PlaybanApi(
           save(Outcome.Good, userId, RageSit.redeem(game), game.source)
 
   // memorize users without any ban to save DB reads
-  private val cleanUserIds = scalalib.cache.ExpireSetMemo[UserId](30 minutes)
+  private val cleanUserIds = scalalib.cache.ExpireSetMemo[UserId](30.minutes)
 
   def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
     (!cleanUserIds.get(user.id)).so:
@@ -188,7 +188,7 @@ final class PlaybanApi(
         .addEffect: ban =>
           if ban.isEmpty then cleanUserIds.put(user.id)
 
-  val HasCurrentPlayban: lila.core.playban.HasCurrentPlayban = userId => currentBan(userId).map(_.isDefined)
+  val hasCurrentPlayban: lila.core.playban.HasCurrentPlayban = userId => currentBan(userId).map(_.isDefined)
 
   val bansOf: lila.core.playban.BansOf = userIds =>
     coll
@@ -215,7 +215,7 @@ final class PlaybanApi(
   val rageSitOf: lila.core.playban.RageSitOf = userId => rageSitCache.get(userId)
 
   private val rageSitCache = cacheApi[UserId, RageSitCounter](65_536, "playban.ragesit") {
-    _.expireAfterAccess(10 minutes)
+    _.expireAfterAccess(10.minutes)
       .buildAsyncFuture: userId =>
         coll
           .primitiveOne[RageSitCounter]($doc("_id" -> userId, "c".$exists(true)), "c")

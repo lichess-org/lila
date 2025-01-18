@@ -15,13 +15,15 @@
   <string name="pgnLetter">Črke (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen način</string>
   <string name="showPlayerRatings">Pokaži igralčeve ratinge</string>
+  <string name="showFlairs">Prikaži predvajalnik flairs</string>
   <string name="explainShowPlayerRatings">Omogoča skrivanje vseh ratingov na spletnem mestu, da se osredotočite na igro. Igre same so še vedno lahko ratingirane, to je zgolj povezano z videzom.</string>
   <string name="displayBoardResizeHandle">Prikaži ročico za spremembo velikosti šahovnice</string>
   <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
+  <string name="inGameOnly">Samo v igri</string>
   <string name="exceptInGame">Razen v igri</string>
   <string name="chessClock">Šahovska ura</string>
   <string name="tenthsOfSeconds">Desetinke sekunde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Če je preostanek časa pod 10 sekundami</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Če je preostanek časa pod 10 sekundami</string>
   <string name="horizontalGreenProgressBars">Vodoravna zelena prečka</string>
   <string name="soundWhenTimeGetsCritical">Zvočni signal ko čas postane kritičen</string>
   <string name="giveMoreTime">Dajte več časa</string>
@@ -37,8 +39,9 @@
   <string name="explainPromoteToQueenAutomatically">Pridržite ctrl med promocijo, da začasno onemogočite samodejno promocijo</string>
   <string name="whenPremoving">Pri predpremiku poteze</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Avtomatično zahtevaj remi on ponovitvi treh istih pozicij</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Če je preostanek časa manj kot 30 sekund</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Če je preostanek časa manj kot 30 sekund</string>
   <string name="moveConfirmation">Potrditev poteze</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Lahko ga onemogočite med igro z menijem plošče</string>
   <string name="inCorrespondenceGames">V korespondenčnih partijah</string>
   <string name="correspondenceAndUnlimited">Dopisno in neomejeno</string>
   <string name="confirmResignationAndDrawOffers">Potrdi predajo in ponudbo remija</string>

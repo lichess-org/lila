@@ -29,7 +29,7 @@ class BCryptTest extends munit.FunSuite:
     assertEquals(rawHash.size, 23)
   }
 
-  import BCrypt.{ encode_base64 as bc64 }
+  import BCrypt.encode_base64 as bc64
   val bString = "$2a$06$" + bc64(salt) + bc64(rawHash)
   test("raw bytes accept good") {
     assert(BCrypt.checkpw(pass, bString))
