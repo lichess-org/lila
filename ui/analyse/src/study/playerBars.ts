@@ -55,8 +55,11 @@ function renderPlayer(
   showRatings: boolean,
   relayPlayers?: RelayPlayers,
 ): VNode {
-  const isLastPly = ctrl.node.ply == ctrl.tree.lastPly()
-  const showResults: boolean = (ctrl.study?.relay !== undefined && ctrl.study?.multiBoard.showResults !== undefined) ? isLastPly || ctrl.study?.multiBoard.showResults() : true
+  const isLastPly = ctrl.node.ply == ctrl.tree.lastPly();
+  const showResults: boolean =
+    ctrl.study?.relay !== undefined && ctrl.study?.multiBoard.showResults !== undefined
+      ? isLastPly || ctrl.study?.multiBoard.showResults()
+      : true;
   const player = players?.[color],
     fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
@@ -71,13 +74,13 @@ function renderPlayer(
         playerFed(player?.fed),
         player && userTitle(player),
         player &&
-        (relayPlayers
-          ? h(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
-          : h(
-            fideId ? 'a.name' : 'span.name',
-            { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
-            player.name,
-          )),
+          (relayPlayers
+            ? h(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
+            : h(
+                fideId ? 'a.name' : 'span.name',
+                { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
+                player.name,
+              )),
         rating && h('span.elo', `${rating}`),
       ]),
     ]),
