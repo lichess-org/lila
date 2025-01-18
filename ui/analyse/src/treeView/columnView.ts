@@ -20,7 +20,7 @@ import {
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
-  isOnlyHidden? : boolean;
+  isOnlyHidden?: boolean;
 }
 interface Opts extends BaseOpts {
   conceal?: Conceal;
@@ -41,7 +41,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
     ? null
     : opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main);
   if (!ctx.isOnlyHidden && conceal === 'hide') return;
-  const isIndexHidden = ctx.isOnlyHidden && conceal === 'hide'
+  const isIndexHidden = ctx.isOnlyHidden && conceal === 'hide';
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
       commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(
@@ -225,7 +225,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const ctx: Ctx = {
     ...renderingCtx(ctrl),
     concealOf: concealOf ?? emptyConcealOf,
-    isOnlyHidden: ctrl.study?.relay !== undefined ? true : false
+    isOnlyHidden: ctrl.study?.relay !== undefined ? true : false,
   };
   // root path is hardcoded, is there a better way?
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
