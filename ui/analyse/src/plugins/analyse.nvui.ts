@@ -495,13 +495,21 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
         h('h2', 'Current chapter:'),
         h(
           'select',
+          {
+            hook: bind('change', (e: InputEvent) => {
+              const target = e.target as HTMLSelectElement;
+              const selectedOption = target.options[target.selectedIndex];
+              const chapterId = selectedOption.getAttribute('chapterId');
+              study.setChapter(chapterId!);
+            }),
+          },
           study.chapters.list.all().map((ch, i) =>
             h(
               'option',
               {
-                hook: bind('mousedown', () => study.setChapter(ch.id), ctrl.redraw),
                 attrs: {
                   selected: ch.id === study.currentChapter().id,
+                  chapterId: ch.id,
                 },
               },
               `${i + 1}. ${ch.name}`,
