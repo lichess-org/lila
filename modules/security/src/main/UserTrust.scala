@@ -18,9 +18,10 @@ private final class UserTrustApi(
 
   private def computeTrust(id: UserId): Fu[Boolean] =
     userRepo
-      .trustable(id)
-      .flatMap:
-        if _ then fuccess(true)
+      .byId(id)
+      .flatMapz: user =>
+        if hasHistory(user) then fuccess(true)
+        else if looksLikeKnownAbuser(user) then fuccess(false)
         else
           sessionStore
             .openSessions(id, 3)
@@ -37,3 +38,14 @@ private final class UserTrustApi(
                       found.foreach: ip =>
                         logger.info(s"Not trusting user $id because of suspicious IP: $ip")
                       found.isEmpty
+
+  private def hasHistory(user: User): Boolean =
+    user.count.lossH > 10 || user.createdSinceDays(15) || !user.plan.isEmpty || user.hasTitle
+
+  private def looksLikeKnownAbuser(user: User): Boolean = List(
+    user.count.lossH < 2,
+    user.lang.has("tr-TR"),
+    user.profile.flatMap(_.flag).has("TR"),
+    user.flair.isDefined,
+    user.id.value.takeRight(2).forall(_.isDigit)
+  ).count(identity) > 3
