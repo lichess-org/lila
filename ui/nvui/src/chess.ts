@@ -1,26 +1,28 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { type Pieces, files } from 'chessground/types';
-import { invRanks, allKeys } from 'chessground/util';
 import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
-import { type SquareName, RULES, type Rules } from 'chessops/types';
+import { chessgroundDests, lichessRules } from 'chessops/compat';
+import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
-import { charToRole, parseUci, roleToChar } from 'chessops/util';
-import { plyToTurn, type SanToUci, sanWriter } from 'chess';
+import { charToRole, opposite, parseUci, roleToChar } from 'chessops/util';
+import { destsToUcis, plyToTurn, sanToUci, sanToWords, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
-export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
-export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
-export type PrefixStyle = 'letter' | 'name' | 'none';
+const moveStyles = ['uci', 'san', 'literate', 'nato', 'anna'] as const;
+export type MoveStyle = (typeof moveStyles)[number];
+const pieceStyles = ['letter', 'white uppercase letter', 'name', 'white uppercase name'] as const;
+export type PieceStyle = (typeof pieceStyles)[number];
+const prefixStyles = ['letter', 'name', 'none'] as const;
+export type PrefixStyle = (typeof prefixStyles)[number];
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
 
 interface RoundStep {
-  uci: Uci;
+  uci?: Uci;
 }
 
-const nato: { [letter: string]: string } = {
+const nato: { [file in Files]: string } = {
   a: 'alpha',
   b: 'bravo',
   c: 'charlie',
@@ -30,7 +32,7 @@ const nato: { [letter: string]: string } = {
   g: 'golf',
   h: 'hotel',
 };
-const anna: { [letter: string]: string } = {
+const anna: { [file in Files]: string } = {
   a: 'anna',
   b: 'bella',
   c: 'cesar',
@@ -40,7 +42,7 @@ const anna: { [letter: string]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-const skipToFile: { [letter: string]: string } = {
+const skipToFile: { [letter: string]: Files } = {
   '!': 'a',
   '@': 'b',
   '#': 'c',
@@ -51,15 +53,9 @@ const skipToFile: { [letter: string]: string } = {
   '*': 'h',
 };
 
-export function symbolToFile(char: string): string {
-  return skipToFile[char] ?? '';
-}
+const symbolToFile = (char: string): Files => skipToFile[char] ?? '';
 
-export function supportedVariant(key: string): boolean {
-  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(
-    key,
-  );
-}
+export const supportedVariant = (key: VariantKey): boolean => key !== 'crazyhouse';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -72,15 +68,9 @@ export function boardSetting(): Setting<BoardStyle> {
   });
 }
 
-export function styleSetting(): Setting<Style> {
-  return makeSetting<Style>({
-    choices: [
-      ['san', 'SAN: Nxf3'],
-      ['uci', 'UCI: g1f3'],
-      ['literate', 'Literate: knight takes f 3'],
-      ['anna', 'Anna: knight takes felix 3'],
-      ['nato', 'Nato: knight takes foxtrot 3'],
-    ],
+export function styleSetting(): Setting<MoveStyle> {
+  return makeSetting<MoveStyle>({
+    choices: moveStyles.map(s => [s, `${s}: ${renderSan('Nxf3', 'g1f3', s)}`]),
     default: 'anna', // all the rage in OTB blind chess tournaments
     storage: storage.make('nvui.moveNotation'),
   });
@@ -88,12 +78,7 @@ export function styleSetting(): Setting<Style> {
 
 export function pieceSetting(): Setting<PieceStyle> {
   return makeSetting<PieceStyle>({
-    choices: [
-      ['letter', 'Letter: p, p'],
-      ['white uppercase letter', 'White uppercase letter: P, p'],
-      ['name', 'Name: pawn, pawn'],
-      ['white uppercase name', 'White uppercase name: Pawn, pawn'],
-    ],
+    choices: pieceStyles.map(p => [p, `${p}: ${renderPieceStyle('P', p)}`]),
     default: 'letter',
     storage: storage.make('nvui.pieceStyle'),
   });
@@ -101,11 +86,7 @@ export function pieceSetting(): Setting<PieceStyle> {
 
 export function prefixSetting(): Setting<PrefixStyle> {
   return makeSetting<PrefixStyle>({
-    choices: [
-      ['letter', 'Letter: w/b'],
-      ['name', 'Name: white/black'],
-      ['none', 'None'],
-    ],
+    choices: prefixStyles.map(p => [p, `${p}: ${renderPrefixStyle('white', p)}`]),
     default: 'letter',
     storage: storage.make('nvui.prefixStyle'),
   });
@@ -122,40 +103,28 @@ export function positionSetting(): Setting<PositionStyle> {
     storage: storage.make('nvui.positionStyle'),
   });
 }
-const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
-  switch (pieceStyle) {
-    case 'letter':
-      return piece.toLowerCase();
-    case 'white uppercase letter':
-      return piece;
-    case 'name':
-      return charToRole(piece);
-    case 'white uppercase name':
-      return `${piece}${charToRole(piece)?.slice(1)}`;
-  }
-};
-const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
-  switch (prefixStyle) {
-    case 'letter':
-      return color.charAt(0);
-    case 'name':
-      return color + ' ';
-    case 'none':
-      return '';
-  }
-};
+
+const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) =>
+  pieceStyle === 'letter'
+    ? piece.toLowerCase()
+    : pieceStyle === 'white uppercase letter'
+      ? piece
+      : pieceStyle === 'name'
+        ? charToRole(piece)!
+        : `${piece.replace('N', 'K').replace('n', 'k')}${charToRole(piece)!.slice(1)}`;
+
+const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
+  prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
 
 export function lastCaptured(
-  movesGenerator: () => string[],
+  fensteps: () => string[],
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ): string {
-  const moves = movesGenerator();
-  const oldFen = moves[moves.length - 2];
-  const newFen = moves[moves.length - 1];
-  if (!oldFen || !newFen) {
-    return 'none';
-  }
+  const fens = fensteps();
+  const oldFen = fens[fens.length - 2];
+  const newFen = fens[fens.length - 1];
+  if (!oldFen || !newFen) return 'none';
   const oldSplitFen = oldFen.split(' ')[0];
   const newSplitFen = newFen.split(' ')[0];
   for (const p of 'kKqQrRbBnNpP') {
@@ -170,80 +139,68 @@ export function lastCaptured(
   return 'none';
 }
 
-export function renderSan(san: San, uci: Uci | undefined, style: Style): string {
-  if (!san) return '';
-  let move: string;
-  if (san.includes('O-O-O')) move = 'long castling';
-  else if (san.includes('O-O')) move = 'short castling';
-  else if (style === 'san') move = san.replace(/[\+#]/, '');
-  else if (style === 'uci') move = uci || san;
-  else {
-    move = san
-      .replace(/[\+#]/, '')
-      .split('')
-      .map(c => {
-        if (c === 'x') return 'takes';
-        if (c === '+') return 'check';
-        if (c === '#') return 'checkmate';
-        if (c === '=') return 'promotion';
-        const code = c.charCodeAt(0);
-        if (code > 48 && code < 58) return c; // 1-8
-        if (code > 96 && code < 105) return renderFile(c, style); // a-g
-        return charToRole(c) || c;
-      })
-      .join(' ');
-  }
-  if (san.includes('+')) move += ' check';
-  if (san.includes('#')) move += ' checkmate';
-  return move;
-}
+export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
+  !san
+    ? 'Game start'
+    : style === 'uci'
+      ? (uci ?? '')
+      : style === 'san'
+        ? san
+        : sanToWords(san)
+            .split(' ')
+            .map(f =>
+              files.includes(f.toLowerCase() as FileName)
+                ? renderFile(f.toLowerCase() as FileName, style)
+                : f,
+            )
+            .join(' ');
 
-export function renderPieces(pieces: Pieces, style: Style): VNode {
-  return h(
+export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
+  h(
     'div',
-    ['white', 'black'].map(color => {
-      const lists: string[][] = [];
-      ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
-        const keys = [];
-        for (const [key, piece] of pieces) {
-          if (piece.color === color && piece.role === role) keys.push(key);
-        }
-        if (keys.length) lists.push([`${role}${keys.length > 1 ? 's' : ''}`, ...keys]);
-      });
-      return h('div', [
+    COLORS.map(color =>
+      h('div', [
         h('h3', `${color} pieces`),
-        lists
+        ROLES.slice()
+          .reverse()
+          .reduce<{ role: Role; keys: Key[] }[]>(
+            (lists, role) =>
+              lists.concat({
+                role,
+                keys: keysWithPiece(pieces, role, color),
+              }),
+            [],
+          )
+          .filter(l => l.keys.length)
           .map(
             l =>
-              `${l[0]}: ${l
-                .slice(1)
-                .map((k: string) => renderKey(k, style))
-                .join(', ')}`,
+              `${l.role}${l.keys.length > 1 ? 's' : ''}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`,
           )
           .join(', '),
-      ]);
-    }),
+      ]),
+    ),
   );
+
+const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
+  Array.from(pieces).reduce<Key[]>(
+    (keys, [key, p]) => (p.color === color && p.role === role ? keys.concat(key) : keys),
+    [],
+  );
+
+export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
+  const color: Color = p === p.toUpperCase() ? 'white' : 'black';
+  const role = charToRole(p)!;
+  const keys = keysWithPiece(pieces, role, color);
+  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : 'none'}`;
 }
 
-export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
-  const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${charToRole(p)}`;
-  const res: Key[] = [];
-  for (const [k, piece] of pieces) {
-    if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
-  }
-  return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
-}
-
-export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style): string {
-  const res: string[] = [];
-  for (const k of allKeys) {
-    if (k.includes(rankOrFile)) {
-      const piece = pieces.get(k);
-      if (piece) res.push(`${renderKey(k, style)} ${piece.color} ${piece.role}`);
-    }
-  }
-  return res.length ? res.join(', ') : 'blank';
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
+  const renderedKeysWithPiece = Array.from(pieces).reduce<string[]>(
+    (acc, [key, p]) =>
+      key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
+    [],
+  );
+  return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : 'blank';
 }
 
 export function renderBoard(
@@ -254,55 +211,52 @@ export function renderBoard(
   positionStyle: PositionStyle,
   boardStyle: BoardStyle,
 ): VNode {
-  const doRankHeader = (rank: Ranks): VNode => {
-    return h('th', { attrs: { scope: 'row' } }, rank);
-  };
+  const doRankHeader = (rank: Ranks): VNode => h('th', { attrs: { scope: 'row' } }, rank);
+
   const doFileHeaders = (): VNode => {
     const ths = files.map(file => h('th', { attrs: { scope: 'col' } }, file));
-    if (pov === 'black') ths.reverse();
-    return h('tr', [h('td'), ...ths, h('td')]);
+    return h('tr', [h('td'), ...(pov === 'black' ? ths.reverse() : ths), h('td')]);
   };
-  const renderPositionStyle = (rank: Ranks, file: Files, orig: string) => {
-    switch (positionStyle) {
-      case 'before':
-        return file.toUpperCase() + rank + ' ' + orig;
-      case 'after':
-        return orig + ' ' + file.toUpperCase() + rank;
-      case 'none':
-        return orig;
-    }
-  };
+
+  const renderPositionStyle = (rank: Ranks, file: Files, orig: string) =>
+    positionStyle === 'before'
+      ? file.toUpperCase() + rank + ' ' + orig
+      : positionStyle === 'after'
+        ? orig + ' ' + file.toUpperCase() + rank
+        : orig;
+
   const doPieceButton = (
     rank: Ranks,
     file: Files,
     letter: string,
     color: Color | 'none',
     text: string,
-  ): VNode => {
-    return h(
+  ): VNode =>
+    h(
       'button',
       {
         attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color, 'trap-bypass': true },
       },
       text,
     );
-  };
+
   const doPiece = (rank: Ranks, file: Files): VNode => {
-    const key = (file + rank) as Key;
+    const key: Key = `${file}${rank}`;
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
-      const role = roleToChar(piece.role);
-      const pieceText = renderPieceStyle(piece.color === 'white' ? role.toUpperCase() : role, pieceStyle);
+      const roleCh = roleToChar(piece.role);
+      const pieceText = renderPieceStyle(piece.color === 'white' ? roleCh.toUpperCase() : roleCh, pieceStyle);
       const prefix = renderPrefixStyle(piece.color, prefixStyle);
       const text = renderPositionStyle(rank, file, prefix + pieceText);
-      return h(pieceWrapper, doPieceButton(rank, file, role, piece.color, text));
+      return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, text));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
       const text = renderPositionStyle(rank, file, letter);
       return h(pieceWrapper, doPieceButton(rank, file, letter, 'none', text));
     }
   };
+
   const doRank = (pov: Color, rank: Ranks): VNode => {
     const rankElements = [];
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
@@ -311,19 +265,24 @@ export function renderBoard(
     if (pov === 'black') rankElements.reverse();
     return h(boardStyle === 'table' ? 'tr' : 'div', rankElements);
   };
+
   const ranks: VNode[] = [];
   if (boardStyle === 'table') ranks.push(doFileHeaders());
-  ranks.push(...invRanks.map(rank => doRank(pov, rank)));
+  ranks.push(
+    ...RANK_NAMES.slice()
+      .reverse()
+      .map(rank => doRank(pov, rank)),
+  );
   if (boardStyle === 'table') ranks.push(doFileHeaders());
   if (pov === 'black') ranks.reverse();
   return h(boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper', ranks);
 }
 
-export const renderFile = (f: string, style: Style): string =>
+export const renderFile = (f: Files, style: MoveStyle): string =>
   style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
 
-export const renderKey = (key: string, style: Style): string =>
-  style === 'nato' || style === 'anna' ? `${renderFile(key[0], style)} ${key[1]}` : `${key[0]}${key[1]}`;
+export const renderKey = (key: Key, style: MoveStyle): string =>
+  style === 'nato' || style === 'anna' ? `${renderFile(key[0] as Files, style)} ${key[1]}` : key;
 
 export function castlingFlavours(input: string): string {
   switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
@@ -339,191 +298,149 @@ export function castlingFlavours(input: string): string {
 
 /* Listen to interactions on the chessboard */
 export function positionJumpHandler() {
-  return (ev: KeyboardEvent): boolean => {
+  return (ev: KeyboardEvent): void => {
     const $btn = $(ev.target as HTMLElement);
-    const $file = $btn.attr('file') ?? '';
-    const $rank = $btn.attr('rank') ?? '';
-    let $newRank = '';
-    let $newFile = '';
+    const key = keyFromAttrs($btn);
+    if (!key) return;
+    let newRank: string;
+    let newFile: string;
     if (ev.key.match(/^[1-8]$/)) {
-      $newRank = ev.key;
-      $newFile = $file;
+      newRank = ev.key;
+      newFile = key[0];
     } else if (ev.key.match(/^[!@#$%^&*]$/)) {
-      $newRank = $rank;
-      $newFile = symbolToFile(ev.key);
+      newRank = key[1];
+      newFile = symbolToFile(ev.key);
       // if not a valid key for jumping
-    } else {
-      return true;
-    }
-    const newBtn = document.querySelector(
-      '.board-wrapper button[rank="' + $newRank + '"][file="' + $newFile + '"]',
-    ) as HTMLElement;
-    if (newBtn) {
-      newBtn.focus();
-      return false;
-    }
-    return true;
+    } else return;
+    document.querySelector<HTMLElement>(squareSelector(newRank, newFile))?.focus();
   };
 }
 
-export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => void) {
-  return (ev: KeyboardEvent): boolean => {
-    if (!ev.key.match(/^[kqrbnp]$/i)) return true;
+export function pieceJumpingHandler(selectSound: () => void, errorSound: () => void) {
+  return (ev: KeyboardEvent): void => {
+    if (!ev.key.match(/^[kqrbnp]$/i)) return;
     const $currBtn = $(ev.target as HTMLElement);
 
     // TODO: decouple from promotion attribute setting in selectionHandler
     if ($currBtn.attr('promotion') === 'true') {
       const $moveBox = $('input.move');
       const $boardLive = $('.boardstatus');
-      const $promotionPiece = ev.key.toLowerCase();
+      const promotionPiece = ev.key.toLowerCase();
       const $form = $moveBox.parent().parent();
-      if (!$promotionPiece.match(/^[qnrb]$/)) {
+      if (!promotionPiece.match(/^[qnrb]$/)) {
         $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop');
-        return false;
+        return;
       }
-      $moveBox.val($moveBox.val() + $promotionPiece);
+      $moveBox.val($moveBox.val() + promotionPiece);
       $currBtn.removeAttr('promotion');
-      const $sendForm = new Event('submit', {
+      const sendForm = new Event('submit', {
         cancelable: true,
         bubbles: true,
       });
-      $form.trigger($sendForm);
-      return false;
+      $form.trigger(sendForm);
+      return;
     }
 
-    const $myBtnAttrs =
-      '.board-wrapper [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
-    const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
-    const $myPieceIndex = $allPieces.index($myBtnAttrs);
-    const $next = ev.key.toLowerCase() === ev.key;
-    const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex + 1) : $allPieces.slice(0, $myPieceIndex);
-    const $piece = $next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length - 1);
-    if ($piece) {
-      $piece.focus();
-      // if detected any matching piece; one is the piece being clicked on,
-    } else if ($allPieces.length >= 2) {
-      const $wrapPiece = $next ? $allPieces.get(0) : $allPieces.get($allPieces.length - 1);
-      $wrapPiece?.focus();
-      wrapSound();
-    } else {
-      errorSound();
-    }
-    return false;
+    const myBtnAttrs = squareSelector($currBtn.attr('rank') ?? '', $currBtn.attr('file') ?? '');
+    const $allPieces = $(`.board-wrapper [piece="${ev.key.toLowerCase()}"], ${myBtnAttrs}`);
+    const myPieceIndex = $allPieces.index(myBtnAttrs);
+    const next = ev.key.toLowerCase() === ev.key;
+    const $prevNextPieces = next ? $allPieces.slice(myPieceIndex + 1) : $allPieces.slice(0, myPieceIndex);
+    const pieceEl = next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length - 1);
+    if (pieceEl) pieceEl.focus();
+    // if detected any matching piece; one is the piece being clicked on,
+    else if ($allPieces.length >= 2) {
+      const wrapPieceEl = next ? $allPieces.get(0) : $allPieces.get($allPieces.length - 1);
+      wrapPieceEl?.focus();
+      selectSound();
+    } else errorSound();
   };
 }
 
 export function arrowKeyHandler(pov: Color, borderSound: () => void) {
-  return (ev: KeyboardEvent): boolean => {
-    const $currBtn = $(ev.target as HTMLElement);
-    const $isWhite = pov === 'white';
-    let $file = $currBtn.attr('file') ?? ' ';
-    let $rank = Number($currBtn.attr('rank'));
-    if (ev.key === 'ArrowUp') {
-      $rank = $isWhite ? ($rank += 1) : ($rank -= 1);
-    } else if (ev.key === 'ArrowDown') {
-      $rank = $isWhite ? ($rank -= 1) : ($rank += 1);
-    } else if (ev.key === 'ArrowLeft') {
-      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) - 1 : $file.charCodeAt(0) + 1);
-    } else if (ev.key === 'ArrowRight') {
-      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) + 1 : $file.charCodeAt(0) - 1);
-    } else {
-      return true;
-    }
-    const $newSq = document.querySelector(
-      '.board-wrapper [file="' + $file + '"][rank="' + $rank + '"]',
-    ) as HTMLElement;
-    if ($newSq) {
-      $newSq.focus();
-    } else {
-      borderSound();
-    }
+  return (ev: KeyboardEvent): void => {
+    const isWhite = pov === 'white';
+    const key = keyFromAttrs($(ev.target as HTMLElement));
+    if (!key) return;
+    let file = key[0];
+    let rank = Number(key[1]);
+    if (ev.key === 'ArrowUp') rank = isWhite ? (rank += 1) : (rank -= 1);
+    else if (ev.key === 'ArrowDown') rank = isWhite ? (rank -= 1) : (rank += 1);
+    else if (ev.key === 'ArrowLeft')
+      file = String.fromCharCode(isWhite ? file.charCodeAt(0) - 1 : file.charCodeAt(0) + 1);
+    else if (ev.key === 'ArrowRight')
+      file = String.fromCharCode(isWhite ? file.charCodeAt(0) + 1 : file.charCodeAt(0) - 1);
+    else return;
+    const newSqEl = document.querySelector<HTMLElement>(squareSelector(`${rank}`, file));
+    newSqEl ? newSqEl.focus() : borderSound();
     ev.preventDefault();
-    return false;
   };
 }
 
 export function selectionHandler(getOpponentColor: () => Color, selectSound: () => void) {
-  return (ev: MouseEvent): boolean => {
+  return (ev: MouseEvent): void => {
     const opponentColor = getOpponentColor();
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLElement);
-    const $rank = $evBtn.attr('rank');
-    const $pos = ($evBtn.attr('file') ?? '') + $rank;
+    const rank = $evBtn.attr('rank');
+    const pos = ($evBtn.attr('file') ?? '') + rank;
     const $boardLive = $('.boardstatus');
-    const $promotionRank = opponentColor === 'black' ? '8' : '1';
-    const $moveBox = $(document.querySelector('input.move') as HTMLInputElement);
-    if (!$moveBox) return false;
+    const promotionRank = opponentColor === 'black' ? '8' : '1';
+    const $moveBox = $('input.move');
+    if (!$moveBox.length) return;
 
     // if no move in box yet
     if ($moveBox.val() === '') {
       // if user selects another's piece first
-      if ($evBtn.attr('color') === opponentColor) return false;
+      if ($evBtn.attr('color') === opponentColor) return;
       // as long as the user is selecting a piece and not a blank tile
       if ($evBtn.text().match(/^[^\-+]+/g)) {
-        $moveBox.val($pos);
+        $moveBox.val(pos);
         selectSound();
       }
     } else {
       // if user selects their own piece second
-      if ($evBtn.attr('color') === (opponentColor === 'black' ? 'white' : 'black')) return false;
+      if ($evBtn.attr('color') === opposite(opponentColor)) return;
 
-      const $first = $moveBox.val();
-      const $firstPiece = $('.board-wrapper [file="' + $first[0] + '"][rank="' + $first[1] + '"]');
-      $moveBox.val($moveBox.val() + $pos);
+      const first = $moveBox.val();
+      if (typeof first !== 'string' || !isKey(first)) return;
+      const $firstPiece = $(squareSelector(first[1], first[0]));
+      $moveBox.val($moveBox.val() + pos);
       // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently. TODO: make cleaner
       // if pawn promotion
-      if ($rank === $promotionRank && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
+      if (rank === promotionRank && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
         $evBtn.attr('promotion', 'true');
         $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
-        return false;
+        return;
       }
       // this section depends on the form being the grandparent of the input.move box.
       const $form = $moveBox.parent().parent();
-      const $event = new Event('submit', {
+      const event = new Event('submit', {
         cancelable: true,
         bubbles: true,
       });
-      $form.trigger($event);
+      $form.trigger(event);
     }
-    return false;
   };
 }
 
 export function boardCommandsHandler() {
-  return (ev: KeyboardEvent): boolean => {
-    const $currBtn = $(ev.target as HTMLElement);
+  return (ev: KeyboardEvent): void => {
+    const key = keyFromAttrs($(ev.target as HTMLElement));
     const $boardLive = $('.boardstatus');
-    const $position = ($currBtn.attr('file') ?? '') + ($currBtn.attr('rank') ?? '');
-    if (ev.key === 'o') {
-      $boardLive.text();
-      $boardLive.text($position);
-      return false;
-    } else if (ev.key === 'l') {
-      const $lastMove = $('p.lastMove').text();
-      $boardLive.text();
-      $boardLive.text($lastMove);
-      return false;
-    } else if (ev.key === 't') {
-      $boardLive.text();
-      $boardLive.text($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-      return false;
-    }
-    return true;
+    if (ev.key === 'o' && key) $boardLive.text(key);
+    else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
+    else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()}, ${$('.nvui .topc').text()}`);
   };
 }
+
 export function lastCapturedCommandHandler(
-  steps: () => string[],
+  fensteps: () => string[],
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ) {
-  return (ev: KeyboardEvent): boolean => {
-    const $boardLive = $('.boardstatus');
-    if (ev.key === 'c') {
-      $boardLive.text();
-      $boardLive.text(lastCaptured(steps, pieceStyle, prefixStyle));
-      return false;
-    }
-    return true;
+  return (ev: KeyboardEvent): void => {
+    if (ev.key === 'c') $('.boardstatus').text(lastCaptured(fensteps, pieceStyle, prefixStyle));
   };
 }
 
@@ -532,37 +449,26 @@ export function possibleMovesHandler(
   turnColor: () => Color,
   startingFen: () => string,
   piecesFunc: () => Pieces,
-  variant: string,
-  moveable: () => Map<string, Array<string>> | undefined,
+  variant: VariantKey,
+  moveable: () => Dests | undefined,
   steps: () => RoundStep[],
 ) {
-  return (ev: KeyboardEvent): boolean => {
-    if (ev.key !== 'm' && ev.key !== 'M') return true;
+  return (ev: KeyboardEvent): void => {
+    if (ev.key.toLowerCase() !== 'm') return;
     const $boardLive = $('.boardstatus');
     const pieces: Pieces = piecesFunc();
 
-    const $btn = $(ev.target as HTMLElement);
-    const pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
-    const ruleTranslation: { [vari: string]: number } = {
-      standard: 0,
-      antichess: 1,
-      kingOfTheHill: 2,
-      threeCheck: 3,
-      atomic: 4,
-      horde: 5,
-      racingKings: 6,
-      crazyhouse: 7,
-    };
-    const rules: Rules = RULES[ruleTranslation[variant]];
+    const pos = keyFromAttrs($(ev.target as HTMLElement));
+    if (!pos) return;
 
-    let rawMoves;
+    let rawMoves: Dests | undefined;
 
     // possible inefficient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
     // if it is your turn
     if (turnColor() === yourColor) {
       rawMoves = moveable();
     } else {
-      const fromSetup = setupPosition(rules, parseFen(startingFen()).unwrap()).unwrap();
+      const fromSetup = setupPosition(lichessRules(variant), parseFen(startingFen()).unwrap()).unwrap();
       steps().forEach(s => {
         if (s.uci) {
           const move = parseUci(s.uci);
@@ -577,46 +483,24 @@ export function possibleMovesHandler(
     const possibleMoves = rawMoves
       ?.get(pos)
       ?.map(i => {
-        const p = pieces.get(i as Key);
+        const p = pieces.get(i);
         // logic to prevent 'capture rook' on own piece in chess960
         return p && p.color !== yourColor ? `${i} captures ${p.role}` : i;
       })
       ?.filter(i => ev.key === 'm' || i.includes('captures'));
-    if (!possibleMoves) {
-      $boardLive.text('None');
-      // if filters out non-capturing moves
-    } else if (possibleMoves.length === 0) {
-      $boardLive.text('No captures');
-    } else {
-      $boardLive.text(possibleMoves.join(', '));
-    }
-    return false;
+    $boardLive.text(
+      !possibleMoves ? 'None' : !possibleMoves.length ? 'No captures' : possibleMoves.join(', '),
+    );
   };
 }
 
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
-const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qrbn]$/;
-
-function destsToUcis(dests: Dests) {
-  const ucis: string[] = [];
-  for (const [orig, d] of dests) {
-    if (d)
-      d.forEach(function (dest) {
-        ucis.push(orig + dest);
-      });
-  }
-  return ucis;
-}
-
-function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
-  if (san in legalSans) return legalSans[san];
-  const lowered = san.toLowerCase();
-  for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
-  return;
-}
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[kqnbr]$/;
+const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
 
 export function inputToLegalUci(input: string, fen: string, chessground: CgApi): string | undefined {
-  const legalUcis = destsToUcis(chessground.state.movable.dests!),
+  const dests = chessground.state.movable.dests;
+  if (!dests) return;
+  const legalUcis = destsToUcis(dests),
     legalSans = sanWriter(fen, legalUcis);
   let uci = sanToUci(input, legalSans) || input,
     promotion = '';
@@ -634,12 +518,8 @@ export function inputToLegalUci(input: string, fen: string, chessground: CgApi):
   else return;
 }
 
-export function renderMainline(
-  nodes: Tree.Node[],
-  currentPath: Tree.Path,
-  style: Style,
-): Array<string | VNode> {
-  const res: Array<string | VNode> = [];
+export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: MoveStyle): VNodeChildren {
+  const res: VNodeChildren = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {
     if (!node.san || !node.uci) return;
@@ -656,16 +536,23 @@ export function renderMainline(
   return res;
 }
 
-export function renderComments(node: Tree.Node, style: Style): string {
-  if (!node.comments) return '';
-  return (node.comments || []).map(c => renderComment(c, style)).join('. ');
-}
+export const renderComments = (node: Tree.Node, style: MoveStyle): string =>
+  node.comments?.map(c => ` ${augmentLichessComment(c, style)}`).join('.') ?? '';
 
-function renderComment(comment: Tree.Comment, style: Style): string {
-  return comment.by === 'lichess'
+const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string =>
+  comment.by === 'lichess'
     ? comment.text.replace(
-        /Best move was (.+)\./,
-        (_, san) => 'Best move was ' + renderSan(san, undefined, style),
+        /([^\s]+) was best\./,
+        (_, san) => `Best move was ${renderSan(san, undefined, style)}`,
       )
     : comment.text;
-}
+
+const squareSelector = (rank: string, file: string) =>
+  `.board-wrapper button[rank="${rank}"][file="${file}"]`;
+
+const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
+
+const keyFromAttrs = (cash: Cash): Key | undefined => {
+  const maybeKey = `${cash.attr('file') ?? ''}${cash.attr('rank') ?? ''}`;
+  return isKey(maybeKey) ? maybeKey : undefined;
+};
