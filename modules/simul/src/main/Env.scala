@@ -84,5 +84,9 @@ final class Env(
     }
   )
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    repo.anonymizeHost(del.id)
+    repo.anonymizePlayers(del.id)
+
 final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean):
   def apply(simul: Simul) = f(simul)

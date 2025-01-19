@@ -1,6 +1,5 @@
 package lila.memo
 
-import com.softwaremill.tagging.*
 import lila.memo.SettingStore
 import lila.db.dsl.*
 import akka.stream.scaladsl.*

@@ -24,6 +24,11 @@ final class ClasApi(
 
   import BsonHandlers.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    colls.clas.update.one($doc("created.by" -> del.id), $set("created.by" -> UserId.ghost), multi = true)
+    colls.clas.update.one($doc("teachers" -> del.id), $pull("teachers" -> del.id), multi = true)
+    colls.student.delete.one($doc("userId" -> del.id))
+
   object clas:
 
     val coll = colls.clas

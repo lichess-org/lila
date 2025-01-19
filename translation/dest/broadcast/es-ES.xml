@@ -3,8 +3,8 @@
   <string name="broadcasts">Emisiones</string>
   <string name="myBroadcasts">Mis transmisiones</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">%s retransmisión</item>
-    <item quantity="other">%s retransmisiones</item>
+    <item quantity="one">%s transmisión</item>
+    <item quantity="other">%s transmisiones</item>
   </plurals>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
   <string name="broadcastCalendar">Calendario de transmisiones</string>
@@ -17,14 +17,14 @@
   <string name="ongoing">En curso</string>
   <string name="upcoming">Próximamente</string>
   <string name="completed">Completadas</string>
-  <string name="completedHelp">Lichess detecta la terminación de la ronda según las partidas de origen. Usa este interruptor si no hay ninguna.</string>
+  <string name="completedHelp">Lichess detecta la terminación de la ronda, pero puede fallar. Usa esto para configurarla manualmente.</string>
   <string name="roundName">Nombre de la ronda</string>
   <string name="roundNumber">Número de ronda</string>
   <string name="tournamentName">Nombre del torneo</string>
   <string name="tournamentDescription">Breve descripción del torneo</string>
   <string name="fullDescription">Descripción completa del evento</string>
   <string name="fullDescriptionHelp">Descripción larga opcional de la emisión. %1$s está disponible. La longitud debe ser inferior a %2$s caracteres.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL origen del archivo PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Enlace de origen del archivo PGN</string>
   <string name="sourceUrlHelp">URL que Lichess comprobará para obtener actualizaciones PGN. Debe ser públicamente accesible desde Internet.</string>
   <string name="sourceGameIds">Hasta 64 identificadores de partidas de Lichess, separados por espacios.</string>
   <string name="startDateTimeZone">Fecha de inicio en la zona horaria local del torneo: %s</string>
@@ -55,20 +55,20 @@
   <string name="overview">Resumen</string>
   <string name="subscribeTitle">Suscríbete para ser notificado cuando comience cada ronda. Puedes alternar entre notificaciones de campana o de dispositivo para emisiones en las preferencias de tu cuenta.</string>
   <string name="uploadImage">Subir imagen del torneo</string>
-  <string name="noBoardsYet">Aún no hay tableros. Estos aparecerán una vez se suban las partidas.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Los tableros pueden cargarse gracias a una fuente o a través de %s</string>
-  <string name="startsAfter">Comienza en %s</string>
+  <string name="noBoardsYet">Aún no hay tableros. Estos aparecerán una vez que se suban las partidas.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Los tableros pueden cargarse con una fuente o a través de %s</string>
+  <string name="startsAfter">Comienza después de %s</string>
   <string name="startVerySoon">La transmisión comenzará muy pronto.</string>
   <string name="notYetStarted">La transmisión aún no ha comenzado.</string>
   <string name="officialWebsite">Sitio oficial</string>
-  <string name="standings">Clasificación</string>
+  <string name="standings">Clasificaciones</string>
   <string name="officialStandings">Clasificación oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Más opciones en %s</string>
   <string name="webmastersPage">la página del webmaster</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una fuente PGN pública en tiempo real para esta ronda. También ofrecemos %s para una sincronización más rápida y eficiente.</string>
   <string name="embedThisBroadcast">Inserta esta transmisión en tu sitio web</string>
   <string name="embedThisRound">Inserta la %s en tu sitio web</string>
-  <string name="ratingDiff">Diferencia de valoración</string>
+  <string name="ratingDiff">Diferencia de puntuación</string>
   <string name="gamesThisTournament">Partidas en este torneo</string>
   <string name="score">Resultado</string>
   <string name="allTeams">Todos los equipos</string>

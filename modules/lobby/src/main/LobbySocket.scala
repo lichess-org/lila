@@ -2,11 +2,13 @@ package lila.lobby
 
 import play.api.libs.json.*
 import scalalib.actor.SyncActor
+import scalalib.Maths.boxedNormalDistribution
 import chess.IntRating
 
 import lila.common.Json.given
 import lila.core.game.ChangeFeatured
 import lila.core.pool.PoolConfigId
+import lila.core.security.{ UserTrust, UserTrustApi }
 import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*
 import lila.rating.{ Glicko, RatingRange }
@@ -20,7 +22,8 @@ final class LobbySocket(
     socketKit: SocketKit,
     lobby: LobbySyncActor,
     relationApi: lila.core.relation.RelationApi,
-    poolApi: lila.core.pool.PoolApi
+    poolApi: lila.core.pool.PoolApi,
+    userTrustApi: UserTrustApi
 )(using ec: Executor, scheduler: Scheduler)(using lila.core.config.RateLimit):
 
   import LobbySocket.*
@@ -183,7 +186,7 @@ final class LobbySocket(
     case ("idle", o) => actor ! SetIdle(member.sri, ~(o.boolean("d")))
     // entering a pool
     case ("poolIn", o) if !member.bot =>
-      HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
+      HookPoolLimit(member, cost = 1, msg = s"poolIn $o"):
         for
           user     <- member.user
           d        <- o.obj("d")
@@ -193,23 +196,22 @@ final class LobbySocket(
           blocking    = d.get[UserId]("blocking")
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
-          userApi.glicko(user.id, perfType).foreach { glicko =>
-            val pairingGlicko = glicko | Glicko.pairingDefault
+          for
+            glicko <- userApi.glicko(user.id, perfType)
+            trust <-
+              if glicko.exists(_.established) then fuccess(UserTrust.Yes) else userTrustApi.get(user.id)
+          do
             poolApi.join(
               PoolConfigId(id),
               lila.core.pool.Joiner(
                 sri = member.sri,
-                rating = pairingGlicko.establishedIntRating | IntRating(
-                  scalalib.Maths
-                    .boxedNormalDistribution(pairingGlicko.intRating.value, pairingGlicko.intDeviation, 0.3)
-                ),
+                rating = toJoinRating(user, glicko, trust),
+                provisional = glicko.forall(_.provisional.yes),
                 ratingRange = ratingRange,
                 lame = user.lame,
                 blocking = user.blocking.map(_ ++ blocking)
               )(using user.id.into(MyId))
             )
-          }
-      }
     // leaving a pool
     case ("poolOut", o) =>
       HookPoolLimit(member, cost = 1, msg = s"poolOut $o"):
@@ -280,6 +282,13 @@ private object LobbySocket:
     def bot    = user.exists(_.bot)
     def userId = user.map(_.id)
     def isAuth = userId.isDefined
+
+  def toJoinRating(user: LobbyUser, g: Option[chess.rating.glicko.Glicko], trust: UserTrust) =
+    val glicko = g | Glicko.pairingDefault
+    glicko.establishedIntRating | IntRating:
+      if trust.yes
+      then boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
+      else boxedNormalDistribution(glicko.intRating.value - 200, glicko.intDeviation / 2, 0.3)
 
   object Protocol:
     object In:

@@ -21,8 +21,8 @@
   <string name="createBlogDiscussionHelp">Crearase un tema do foro para que a xente comente na túa publicación</string>
   <string name="publishOnYourBlog">Publica no teu blog</string>
   <string name="publishHelp">Se está marcado, o artigo publicarase no teu blog. Se non, será privado, e estará xunto ós teus borradores</string>
-  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky. &quot;Sticky&quot; is used here as a verb.&#10;&#10;When a post is stickied, it will be listed first in the recent posts on that person's profile.&#10;&#10;You can translate this as &quot;Pin post&quot; if it is more natural in your language.">Fixar a publicación</string>
-  <string name="stickyPostHelp" comment="Description explaining what it means to sticky a post.">Ó activar esta opción, esta entrada será a primeira das túas publicacións recentes do teu perfil.</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixar a publicación</string>
+  <string name="stickyPostHelp">Ó activares esta opción, esta entrada será a primeira das túas publicacións recentes no teu perfil e no teu blog.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicou un artigo no blog</item>
     <item quantity="other">Publicou %s artigos no blog</item>

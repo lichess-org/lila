@@ -35,5 +35,5 @@
     <item quantity="one">%s partida encontrada</item>
     <item quantity="other">%s partidas encontradas</item>
   </plurals>
-  <string name="ratingExplanation">La puntuación media de ambos jugadores</string>
+  <string name="ratingExplanation">La puntuación promedio de ambos jugadores</string>
 </resources>

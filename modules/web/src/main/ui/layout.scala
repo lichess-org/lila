@@ -163,7 +163,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def inlineJs(nonce: Nonce, modules: EsmList = Nil): Frag =
     val code =
       (Esm("site").some :: modules)
-        .flatMap(_.flatMap(m => assetHelper.manifest.inlineJs(m.key).map(js => s"(()=>{${js}})()")))
+        .flatMap(_.flatMap(m => assetHelper.manifest.inlineJs(m.key).map(js => s"(function(){${js}})()")))
         .mkString(";")
     embedJsUnsafe(code)(nonce.some)
 

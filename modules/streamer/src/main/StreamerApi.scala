@@ -140,9 +140,9 @@ final class StreamerApi(
     coll
       .find($id(user.id))
       .one[Streamer]
-      .map(_.foreach: s =>
+      .flatMapz: s =>
         s.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, false))
-        coll.delete.one($id(user.id)).void)
+        coll.delete.one($id(user.id)).void
 
   def create(u: User): Funit =
     coll.insert.one(Streamer.make(u)).void.recover(lila.db.ignoreDuplicateKey)
@@ -159,9 +159,8 @@ final class StreamerApi(
   def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
     picfitApi
       .uploadFile(s"streamer:${s.id}", picture, userId = by.id)
-      .flatMap { pic =>
+      .flatMap: pic =>
         coll.update.one($id(s.id), $set("picture" -> pic.id)).void
-      }
 
   // unapprove after 6 weeks if you never streamed (was originally 1 week)
   def autoDemoteFakes: Funit =

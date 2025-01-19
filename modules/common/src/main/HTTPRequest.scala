@@ -86,8 +86,6 @@ object HTTPRequest:
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
-  def weirdUA(req: RequestHeader) = userAgent(req).forall(_.value.lengthIs < 30)
-
   def print(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
