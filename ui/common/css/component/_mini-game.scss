@@ -56,12 +56,12 @@
 
     &.clock--run {
       color: $c-accent;
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 
   &__result {
-    font-weight: bold;
+    font-weight: normal;
     margin: 0 1ch;
   }
 }

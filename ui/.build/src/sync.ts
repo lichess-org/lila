@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { type Sync, globArray, globArrays } from './parse.ts';
-import { updateManifest, current } from './manifest.ts';
+import { updateManifest, manifests } from './manifest.ts';
 import { env, errorMark, colors as c } from './env.ts';
 import { quantize } from './algo.ts';
 
@@ -27,7 +27,10 @@ export async function sync(): Promise<void> {
       }
     }
     if (!env.watch) continue;
-    const sources = await globArrays(pkg.hashGlobs, { cwd: env.outDir });
+    const sources = await globArrays(
+      pkg.hash.map(x => x.glob),
+      { cwd: env.outDir },
+    );
 
     for (const src of sources.filter(isUnmanagedAsset)) {
       if (!watched.has(path.dirname(src))) watched.set(path.dirname(src), []);
@@ -107,30 +110,60 @@ async function syncOne(absSrc: string, absDest: string, pkgName: string) {
 async function hashedManifest(): Promise<void> {
   const newHashLinks = new Map<string, number>();
   const alreadyHashed = new Map<string, string>();
-  const sources: string[] = await globArrays(
-    env.building.flatMap(x => x.hashGlobs),
-    { cwd: env.outDir },
-  );
-  const sourceStats = await Promise.all(sources.map(file => fs.promises.stat(file)));
+  const hashed = (
+    await Promise.all(
+      env.building.flatMap(pkg =>
+        pkg.hash.map(async hash =>
+          (await globArray(hash.glob, { cwd: env.outDir })).map(path => ({
+            path,
+            replace: hash.replace,
+            root: pkg.root,
+          })),
+        ),
+      ),
+    )
+  ).flat();
+
+  const sourceStats = await Promise.all(hashed.map(hash => fs.promises.stat(hash.path)));
 
   for (const [i, stat] of sourceStats.entries()) {
-    const name = sources[i].slice(env.outDir.length + 1);
-
-    if (stat.mtimeMs === current.hashed[name]?.mtime) alreadyHashed.set(name, current.hashed[name].hash!);
+    const name = hashed[i].path.slice(env.outDir.length + 1);
+    if (stat.mtimeMs === manifests.hashed[name]?.mtime) alreadyHashed.set(name, manifests.hashed[name].hash!);
     else newHashLinks.set(name, stat.mtimeMs);
   }
   await Promise.allSettled([...alreadyHashed].map(([name, hash]) => link(name, hash)));
 
-  for (const { name, hash } of await Promise.all([...newHashLinks.keys()].map(hashLink))) {
-    current.hashed[name] = Object.defineProperty({ hash }, 'mtime', { value: newHashLinks.get(name) });
+  for await (const { name, hash } of [...newHashLinks.keys()].map(hashLink)) {
+    manifests.hashed[name] = Object.defineProperty({ hash }, 'mtime', { value: newHashLinks.get(name) });
   }
+  if (newHashLinks.size === 0 && alreadyHashed.size === Object.keys(manifests.hashed).length) return;
 
-  if (newHashLinks.size === 0 && alreadyHashed.size === Object.keys(current.hashed).length) return;
-
-  for (const name of Object.keys(current.hashed)) {
-    if (!sources.some(x => x.endsWith(name))) delete current.hashed[name];
+  for (const key of Object.keys(manifests.hashed)) {
+    if (!hashed.some(x => x.path.endsWith(key))) delete manifests.hashed[key];
+  }
+  // TODO find a better home for all of this
+  const replaceMany: Map<string, { root: string; mapping: Record<string, string> }> = new Map();
+  for (const { root, path, replace } of hashed) {
+    if (!replace) continue;
+    const replaceInOne = replaceMany.get(replace) ?? { root, mapping: {} };
+    const from = path.slice(env.outDir.length + 1);
+    replaceInOne.mapping[from] = asHashed(from, manifests.hashed[from].hash!);
+    replaceMany.set(replace, replaceInOne);
+  }
+  for await (const { name, hash } of [...replaceMany].map(([n, r]) => replaceAllIn(n, r.root, r.mapping))) {
+    manifests.hashed[name] = { hash };
   }
   updateManifest({ dirty: true });
+}
+
+async function replaceAllIn(name: string, root: string, files: Record<string, string>) {
+  const result = Object.entries(files).reduce(
+    (data, [from, to]) => data.replaceAll(from, to),
+    await fs.promises.readFile(path.join(root, name), 'utf8'),
+  );
+  const hash = crypto.createHash('sha256').update(result).digest('hex').slice(0, 8);
+  await fs.promises.writeFile(path.join(env.hashOutDir, asHashed(name, hash)), result);
+  return { name, hash };
 }
 
 async function hashLink(name: string) {
@@ -140,13 +173,13 @@ async function hashLink(name: string) {
     .update(await fs.promises.readFile(src))
     .digest('hex')
     .slice(0, 8);
-  link(name, hash);
+  await link(name, hash);
   return { name, hash };
 }
 
-function link(name: string, hash: string) {
+async function link(name: string, hash: string) {
   const link = path.join(env.hashOutDir, asHashed(name, hash));
-  fs.promises.symlink(path.join('..', name), link).catch(() => {});
+  return fs.promises.symlink(path.join('..', name), link).catch(() => {});
 }
 
 function asHashed(path: string, hash: string) {
