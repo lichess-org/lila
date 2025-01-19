@@ -1,8 +1,9 @@
+const gmailOrProton = ['protonmail.com', 'protonmail.ch', 'pm.me', 'gmail.com', 'googlemail.com'];
+
 function normalize(email) {
   let [name, domain] = email.toLowerCase().split('@');
   [name] = name.split('+');
 
-  const gmailOrProton = ['protonmail.com', 'protonmail.ch', 'pm.me', 'gmail.com', 'googlemail.com'];
   if (gmailOrProton.includes(domain)) {
     return name.replace(/\./g, '') + '@' + domain;
   } else {
