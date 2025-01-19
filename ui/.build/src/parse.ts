@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
-import { env, errorMark, colors as c } from './env.ts';
+import { env, errorMark, c } from './env.ts';
 
 export type Bundle = { module?: string; inline?: string };
 

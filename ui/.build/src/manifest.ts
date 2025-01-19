@@ -2,7 +2,7 @@ import cps from 'node:child_process';
 import path from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { env, colors as c, warnMark } from './env.ts';
+import { env, c, warnMark } from './env.ts';
 import { allSources as allCssSources } from './sass.ts';
 import { jsLogger } from './console.ts';
 import { shallowSort, isEquivalent } from './algo.ts';
@@ -10,27 +10,20 @@ import { shallowSort, isEquivalent } from './algo.ts';
 type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string; mtime?: number };
 export type Manifest = { [key: string]: SplitAsset };
 
-export const manifests: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
-  i18n: {},
-  js: {},
-  css: {},
-  hashed: {},
-  dirty: false,
-};
 let writeTimer: NodeJS.Timeout;
 
 export function stopManifest(): void {
   clearTimeout(writeTimer);
 }
 
-export function updateManifest(update: Partial<typeof manifests> = {}): void {
-  if (update?.dirty) manifests.dirty = true;
-  for (const key of Object.keys(update ?? {}) as (keyof typeof manifests)[]) {
-    if (key === 'dirty' || isEquivalent(manifests[key], update?.[key])) continue;
-    manifests[key] = shallowSort({ ...manifests[key], ...update?.[key] });
-    manifests.dirty = true;
+export function updateManifest(update: Partial<typeof env.manifest> = {}): void {
+  if (update?.dirty) env.manifest.dirty = true;
+  for (const key of Object.keys(update ?? {}) as (keyof typeof env.manifest)[]) {
+    if (key === 'dirty' || isEquivalent(env.manifest[key], update?.[key])) continue;
+    env.manifest[key] = shallowSort({ ...env.manifest[key], ...update?.[key] });
+    env.manifest.dirty = true;
   }
-  if (!manifests.dirty) return;
+  if (!env.manifest.dirty) return;
   clearTimeout(writeTimer);
   writeTimer = setTimeout(writeManifest, 500);
 }
@@ -54,12 +47,12 @@ async function writeManifest() {
   if (env.remoteLog) clientJs.push(jsLogger());
 
   const pairLine = ([name, info]: [string, SplitAsset]) => `'${name.replaceAll("'", "\\'")}':'${info.hash}'`;
-  const jsLines = Object.entries(manifests.js)
+  const jsLines = Object.entries(env.manifest.js)
     .filter(([name, _]) => !/common\.[A-Z0-9]{8}/.test(name))
     .map(pairLine)
     .join(',');
-  const cssLines = Object.entries(manifests.css).map(pairLine).join(',');
-  const hashedLines = Object.entries(manifests.hashed).map(pairLine).join(',');
+  const cssLines = Object.entries(env.manifest.css).map(pairLine).join(',');
+  const hashedLines = Object.entries(env.manifest.hashed).map(pairLine).join(',');
 
   clientJs.push(`window.site.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
 
@@ -72,9 +65,9 @@ async function writeManifest() {
       new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'
     }';\n`;
   const serverManifest = {
-    js: { manifest: { hash }, ...manifests.js, ...manifests.i18n },
-    css: { ...manifests.css },
-    hashed: { ...manifests.hashed },
+    js: { manifest: { hash }, ...env.manifest.js, ...env.manifest.i18n },
+    css: { ...env.manifest.css },
+    hashed: { ...env.manifest.hashed },
   };
 
   await Promise.all([
@@ -84,7 +77,7 @@ async function writeManifest() {
       JSON.stringify(serverManifest, null, env.prod ? undefined : 2),
     ),
   ]);
-  manifests.dirty = false;
+  env.manifest.dirty = false;
   env.log(
     `Manifest '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' -> '${c.cyan(
       `public/compiled/manifest.${hash}.js`,
@@ -96,17 +89,17 @@ async function isComplete() {
   for (const bundle of [...env.packages.values()].map(x => x.bundle ?? []).flat()) {
     if (!bundle.module) continue;
     const name = path.basename(bundle.module, '.ts');
-    if (!manifests.js[name]) {
+    if (!env.manifest.js[name]) {
       env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.ts')}'`);
       return false;
     }
   }
   for (const css of await allCssSources()) {
     const name = path.basename(css, '.scss');
-    if (!manifests.css[name]) {
+    if (!env.manifest.css[name]) {
       env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.scss')}'`);
       return false;
     }
   }
-  return Object.keys(manifests.i18n).length > 0;
+  return Object.keys(env.manifest.i18n).length > 0;
 }
