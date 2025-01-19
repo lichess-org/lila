@@ -47,6 +47,7 @@
     "lint:ts:fix": "biome check --write",
     "lint:scss": "stylelint **/*.scss --cache --ignore-path .gitignore",
     "lint:scss:fix": "stylelint **/*.scss --cache --ignore-path .gitignore --fix; stylelint_exit=$?; prettier **/*.scss --cache --write; exit $stylelint_exit",
+    "lint:i18n": "pnpm -F @bin/utils trans-lint",
     "lint": "pnpm lint:ts && pnpm lint:scss",
     "lint:fix": "pnpm lint:ts:fix && pnpm lint:scss:fix",
     "format": "biome format && prettier --cache --check .",
