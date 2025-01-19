@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 import base64
 import sys
+from pathlib import Path
+
+lila_root_dir = Path(__file__).parents[2]
+
+piece_style = sys.argv[1]
 
 pieces = {'wP': '.pawn.white', 'wN': '.knight.white', 'wB': '.bishop.white',
           'wR': '.rook.white', 'wQ': '.queen.white', 'wK': '.king.white',
@@ -10,16 +15,8 @@ pieces = {'wP': '.pawn.white', 'wN': '.knight.white', 'wB': '.bishop.white',
 def str_to_num(val: str) -> int | float:
     return (float if '.' in val else int)(val)
 
-piece_style = sys.argv[1]
-
 def deduce_svg_filename(piece_abbrv: str) -> str:
-    return f"piece/{piece_style}/{piece_abbrv}.svg"
-
-def get_svg_filename(css_piece_name: str) -> str:
-    return deduce_svg_filename(next(k for k in pieces if pieces[k] == css_piece_name))
-
-def get_css_piece_name(svg_filename: str) -> str:
-    return pieces[svg_filename.split('/')[-1].split('.svg')[0]]
+    return Path.joinpath(lila_root_dir, f"public/piece/{piece_style}/{piece_abbrv}.svg")
 
 def update_svg(piece_abbrv: str, shift_amt: float | int, vertical: bool) -> None:
     svg_filename = deduce_svg_filename(piece_abbrv)
@@ -43,7 +40,8 @@ def update_css() -> None:
             ".is2d " + pieces[piece_abbrv] + " {background-image:url('data:image/svg+xml;base64," +
             svg_encoded + "')}\n"
         )
-    with open(f'piece-css/{piece_style}.css', 'w') as f: f.write(new_css_str)
+    with open(Path.joinpath(lila_root_dir, f"public/piece-css/{piece_style}.css"), 'w') as f:
+        f.write(new_css_str)
 
 def encode_svg(svg: str) -> str:
     return human_readable(base64.b64encode(svg.encode()))
