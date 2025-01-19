@@ -1,4 +1,4 @@
-@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:breakpoint-sass' as breakpoint;
 @use 'pkg:common/abstract/media-queries';
 @use 'pkg:common/abstract/variables';
 

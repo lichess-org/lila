@@ -1,5 +1,5 @@
 @use 'sass:color';
-@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:breakpoint-sass' as breakpoint;
 @use 'pkg:common/abstract/extends';
 @use 'pkg:common/abstract/mixins';
 @use 'pkg:common/theme';

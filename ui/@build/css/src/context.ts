@@ -17,7 +17,7 @@ const sassOptions: sass.Options<'async'> = {
   verbose: true,
 };
 
-const loadPaths = ['ui/@build/css/node_modules', ''];
+const loadPaths = ['']; // for cross package imports...
 
 export function sassContext(): Context {
   let outdir: string;

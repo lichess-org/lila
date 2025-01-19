@@ -28,7 +28,7 @@ catalogs:
       specifier: ^4.33.1
       version: 4.33.1
     breakpoint-sass:
-      specifier: 4.0.0-beta.1
+      specifier: github:WandererXII/breakpoint#4.x
       version: 4.0.0-beta.1
     chart.js:
       specifier: ^4.4.7
@@ -104,10 +104,6 @@ importers:
         version: 0.6.2
 
   ui/@build/css:
-    dependencies:
-      breakpoint-sass:
-        specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
     devDependencies:
       '@build/wrapper':
         specifier: workspace:*
@@ -266,7 +262,7 @@ importers:
         version: 4.33.1(prop-types@15.8.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       ceval:
         specifier: workspace:*
         version: link:../ceval
@@ -315,7 +311,7 @@ importers:
         version: 0.2.13
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -342,7 +338,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -360,7 +356,7 @@ importers:
         version: 3.4.0
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       ceval:
         specifier: workspace:*
         version: link:../ceval
@@ -390,7 +386,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -405,7 +401,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       shogiground:
         specifier: 'catalog:'
         version: 0.10.1
@@ -420,7 +416,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -438,7 +434,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -462,7 +458,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -510,7 +506,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       chart.js:
         specifier: 'catalog:'
         version: 4.4.7
@@ -555,7 +551,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -579,7 +575,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -616,7 +612,7 @@ importers:
         version: 0.1.13(@textcomplete/core@0.1.13)
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -641,7 +637,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -656,7 +652,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -698,7 +694,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -719,7 +715,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       ceval:
         specifier: workspace:*
         version: link:../ceval
@@ -755,7 +751,7 @@ importers:
         version: 0.2.13
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -812,7 +808,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -844,7 +840,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -871,7 +867,7 @@ importers:
         version: 4.33.1(prop-types@15.8.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -896,7 +892,7 @@ importers:
         version: 0.1.13(@textcomplete/core@0.1.13)
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -935,7 +931,7 @@ importers:
     dependencies:
       breakpoint-sass:
         specifier: 'catalog:'
-        version: 4.0.0-beta.1(sass@1.83.4)
+        version: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -1582,8 +1578,9 @@ packages:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
 
-  breakpoint-sass@4.0.0-beta.1:
-    resolution: {integrity: sha512-GrlJjVMMprz71qcY3umYDiG5Xbx76gjYVJMJ+FjvG72RgAAgZR7Zou9ZOaktkRtjIgl83ZsO8+M4S/IeWe6ncw==}
+  breakpoint-sass@https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d:
+    resolution: {tarball: https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d}
+    version: 4.0.0-beta.1
     peerDependencies:
       sass: ^1.83
 
@@ -3353,7 +3350,7 @@ snapshots:
     dependencies:
       fill-range: 7.1.1
 
-  breakpoint-sass@4.0.0-beta.1(sass@1.83.4):
+  breakpoint-sass@https://codeload.github.com/WandererXII/breakpoint/tar.gz/3901b8e2739020c1a08bec38b4b4cdf3e4e3245d(sass@1.83.4):
     dependencies:
       sass: 1.83.4
 

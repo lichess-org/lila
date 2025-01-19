@@ -1,4 +1,4 @@
-@use 'breakpoint-sass/stylesheets/breakpoint';
+@use 'pkg:breakpoint-sass' as breakpoint;
 @use '../abstract/extends';
 @use '../abstract/mixins';
 @use '../abstract/uniboard';
