@@ -76,8 +76,8 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
     return [
       !hideIndex && isWhite && moveView.renderIndex(main.ply, false),
       !main.forceVariation && renderMoveOf(ctx, main, passOpts),
-      isWhite && !main.forceVariation && emptyMove(conceal),
-      h(
+      !hideIndex && isWhite && !main.forceVariation && emptyMove(conceal),
+      !hideIndex && h(
         'interrupt',
         commentTags.concat(
           renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
@@ -89,8 +89,8 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
           }),
         ),
       ),
-      isWhite && mainChildren && moveView.renderIndex(main.ply, false),
-      isWhite && mainChildren && emptyMove(conceal),
+      !hideIndex && isWhite && mainChildren && moveView.renderIndex(main.ply, false),
+      !hideIndex && isWhite && mainChildren && emptyMove(conceal),
       ...(mainChildren || []),
     ];
   }
