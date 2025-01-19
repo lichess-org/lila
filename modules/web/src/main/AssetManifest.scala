@@ -9,8 +9,8 @@ import java.nio.file.Files
 
 import lila.core.config.NetConfig
 
-case class SplitAsset(path: String, imports: List[String], inlineJs: Option[String]):
-  def all = path :: imports
+case class SplitAsset(path: Option[String], imports: List[String], inlineJs: Option[String]):
+  val allModules = path.toList ++ imports
 
 case class AssetMaps(
     js: Map[String, SplitAsset],
