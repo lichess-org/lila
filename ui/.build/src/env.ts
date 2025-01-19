@@ -38,7 +38,7 @@ export const env = new (class {
   exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
   logTime = true;
-  logContext = true;
+  logCtx = true;
   logColor = true;
 
   packages: Map<string, Package> = new Map();
@@ -110,18 +110,13 @@ export const env = new (class {
           ? d.join('\n')
           : JSON.stringify(d);
 
-    if (!this.logColor) text = stripColorEscapes(text);
-
     const prefix = (
-      (this.logTime === false ? '' : prettyTime()) +
-      (!ctx || !this.logContext ? '' : `[${escape(ctx, colorForCtx(ctx))}] `)
+      (this.logTime ? prettyTime() : '') + (ctx && this.logCtx ? `[${escape(ctx, colorForCtx(ctx))}]` : '')
     ).trim();
 
-    lines(text).forEach(line =>
+    lines(this.logColor ? text : stripColorEscapes(text)).forEach(line =>
       console.log(
-        `${prefix ? prefix + ' - ' : ''}${
-          error ? escape(line, codes.error) : warn ? escape(line, codes.warn) : line
-        }`,
+        `${prefix ? prefix + ' - ' : ''}${escape(line, error ? codes.error : warn ? codes.warn : undefined)}`,
       ),
     );
   }
@@ -146,8 +141,8 @@ export const env = new (class {
 
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
 
-const escape = (text: string, code: string): string =>
-  env.logColor ? `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m` : text;
+const escape = (text: string, code?: string): string =>
+  env.logColor && code ? `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m` : text;
 
 const colorLines = (text: string, code: string) =>
   lines(text)
