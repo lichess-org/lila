@@ -20,6 +20,7 @@ export interface ChatOpts {
   noteText?: string;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
+  kidMode: boolean;
 }
 
 export interface ChatPlugin {
