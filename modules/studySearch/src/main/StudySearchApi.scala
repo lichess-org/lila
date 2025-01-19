@@ -126,7 +126,7 @@ final class StudySearchApi(
             case _ =>
               logger.info("Reset study index")
               c.putMapping.await(10.seconds, "studyMapping")
-              parseDate("2011-01-01").get
+              new DateTime(2020, 9, 1, 0, 0).withTimeAtStartOfDay
           }
           logger.info(s"Index to ${c.index.name} since $since")
           val retryLogger = logger.branch("index")

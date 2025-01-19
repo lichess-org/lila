@@ -1,6 +1,6 @@
 package lila.pref
 
-sealed class SoundSet private[pref] (val key: String, val name: String) {
+class SoundSet private[pref] (val key: String, val name: String) {
 
   override def toString = key
 

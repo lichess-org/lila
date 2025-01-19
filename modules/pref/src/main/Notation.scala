@@ -1,6 +1,6 @@
 package lila.pref
 
-sealed class Notation private[pref] (val index: Int) {
+class Notation private[pref] (val index: Int) {
 
   override def toString = index.toString
 

@@ -1,7 +1,7 @@
 package lila.pref
 
 // key is tied to file names and in db, title can be easily changed
-sealed class PieceSet private[pref] (val key: String, val name: String) {
+class PieceSet private[pref] (val key: String, val name: String) {
 
   override def toString = key
 

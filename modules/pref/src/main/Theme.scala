@@ -1,6 +1,6 @@
 package lila.pref
 
-sealed class Theme private[pref] (val key: String, val name: String, val file: Option[String]) {
+class Theme private[pref] (val key: String, val name: String, val file: Option[String]) {
 
   override def toString = key
 

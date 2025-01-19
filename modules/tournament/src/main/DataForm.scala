@@ -189,7 +189,7 @@ private[tournament] case class TournamentSetup(
   def realStartDate = startDate.filter(_ isAfter DateTime.now).getOrElse(DateTime.now)
 
   def realMinutes = finishDate
-    .ifTrue(format != Format.Arena)
+    .ifTrue(realFormat != Format.Arena)
     .map { fd =>
       ((fd.getMillis - realStartDate.getMillis) / 60000).toInt
     }
@@ -208,7 +208,7 @@ private[tournament] case class TournamentSetup(
   def validFinishDate =
     finishDate.fold(realFormat == Format.Arena)(_.minusMinutes(20) isAfter realStartDate)
 
-  def validTimeControl = timeControlSetup.isRealTime || format != Format.Arena
+  def validTimeControl = timeControlSetup.isRealTime || realFormat != Format.Arena
 
   def validRatedVariant =
     realMode == Mode.Casual ||
@@ -222,13 +222,14 @@ private[tournament] case class TournamentSetup(
   def validNotExcessiveDuration =
     realMinutes <= minutesMax
 
-  def validTeamBattleFormat = format == Format.Arena || teamBattleByTeam.isEmpty
+  def validTeamBattleFormat = realFormat == Format.Arena || teamBattleByTeam.isEmpty
 
   def validCandidates = !(~candidatesOnly) || teamBattleByTeam.isEmpty
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 
-  private def minutesMax = if (format == Format.Arena) DataForm.minutes.last else 24 * 60 * 365 / 3
+  private def minutesMax =
+    if (realFormat == Format.Arena) DataForm.minutes.last else 24 * 60 * 365 / 3
 
   private def estimateNumberOfGamesOneCanPlay: Double =
     (realMinutes * 60) / estimatedGameSeconds
