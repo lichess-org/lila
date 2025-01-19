@@ -22,12 +22,12 @@ final class PlanApi(
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     payPalIpnKey: Secret,
-    monthlyGoalApi: MonthlyGoalApi
+    monthlyGoalApi: MonthlyGoalApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
-  import PatronHandlers._
   import ChargeHandlers._
+  import PatronHandlers._
 
   def switch(user: User, cents: Cents): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
@@ -64,7 +64,7 @@ final class PlanApi(
       val charge = Charge.make(
         userId = patronOption.map(_.userId),
         stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
-        cents = stripeCharge.amount
+        cents = stripeCharge.amount,
       )
       addCharge(charge) >> {
         patronOption match {
@@ -77,7 +77,7 @@ final class PlanApi(
               val p2 = patron
                 .copy(
                   stripe = Patron.Stripe(stripeCharge.customer).some,
-                  free = none
+                  free = none,
                 )
                 .levelUpIfPossible
               patronColl.update.one($id(patron.id), p2) >>
@@ -97,7 +97,7 @@ final class PlanApi(
       name: Option[String],
       txnId: Option[String],
       ip: String,
-      key: String
+      key: String,
   ): Funit =
     if (key != payPalIpnKey.value) {
       logger.error(s"Invalid PayPal IPN key $key from $ip $userId $cents")
@@ -114,10 +114,10 @@ final class PlanApi(
             email = email.map(_.value),
             txnId = txnId,
             subId = subId.map(_.value),
-            ip = ip.some
+            ip = ip.some,
           )
           .some,
-        cents = cents
+        cents = cents,
       )
       addCharge(charge) >>
         (userId ?? userRepo.named) flatMap { userOption =>
@@ -129,8 +129,8 @@ final class PlanApi(
                   Patron(
                     _id = Patron.UserId(user.id),
                     payPal = payPal.some,
-                    lastLevelUp = Some(DateTime.now)
-                  ).expireInOneMonth
+                    lastLevelUp = Some(DateTime.now),
+                  ).expireInOneMonth,
                 ) >>
                   setDbUserPlan(user, lila.user.Plan.start) >>
                   notifier.onStart(user)
@@ -138,7 +138,7 @@ final class PlanApi(
                 val p2 = patron
                   .copy(
                     payPal = payPal.some,
-                    free = none
+                    free = none,
                   )
                   .levelUpIfPossible
                   .expireInOneMonth
@@ -186,7 +186,7 @@ final class PlanApi(
           saveStripePatron(
             user,
             completedSession.customer,
-            if (completedSession.mode == "subscription") Freq.Monthly else Freq.Onetime
+            if (completedSession.mode == "subscription") Freq.Monthly else Freq.Onetime,
           )
         }
     }
@@ -207,7 +207,8 @@ final class PlanApi(
           OneTimeCustomerInfo(customer).some
       }
 
-  import PlanApi.SyncResult.{ ReloadUser, Synced }
+  import PlanApi.SyncResult.ReloadUser
+  import PlanApi.SyncResult.Synced
 
   def sync(user: User): Fu[PlanApi.SyncResult] =
     userPatron(user) flatMap {
@@ -226,7 +227,8 @@ final class PlanApi(
               case None =>
                 logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
                 patronColl.update.one($id(patron.id), patron.removeStripe) >> sync(user)
-              case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
+              case Some(customer)
+                  if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
                 logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
                 setDbUserPlan(user, user.plan.enable) inject ReloadUser
               case customer => fuccess(Synced(patron.some, customer))
@@ -265,13 +267,13 @@ final class PlanApi(
       val patron = patronOpt
         .getOrElse(Patron(_id = Patron.UserId(user.id)))
         .copy(
-          patreon = false.some
+          patreon = false.some,
         )
         .expireInOneMonth
       patronColl.update
         .one(
           $id(user.id),
-          patron
+          patron,
         )
         .void >>- lightUserApi.invalidate(user.id)
     }
@@ -279,7 +281,7 @@ final class PlanApi(
   def setPatreon(user: User, amount: Int): Funit = {
     val charge = Charge.make(
       userId = Some(user.id),
-      cents = Cents(amount * 100) // dollars to cents
+      cents = Cents(amount * 100), // dollars to cents
     )
     addCharge(charge)
     userRepo.setPlan(
@@ -287,8 +289,8 @@ final class PlanApi(
       lila.user.Plan(
         months = user.plan.months | 1,
         active = true,
-        since = user.plan.since orElse DateTime.now.some
-      )
+        since = user.plan.since orElse DateTime.now.some,
+      ),
     ) >> patronColl.update
       .one(
         $id(user.id),
@@ -296,9 +298,9 @@ final class PlanApi(
           "lastLevelUp" -> DateTime.now,
           "lifetime"    -> false,
           "patreon"     -> true,
-          "expiresAt"   -> DateTime.now.plusMonths(1).plusDays(1)
+          "expiresAt"   -> DateTime.now.plusMonths(1).plusDays(1),
         ),
-        upsert = true
+        upsert = true,
       )
       .void >>- lightUserApi.invalidate(user.id)
   }
@@ -309,17 +311,17 @@ final class PlanApi(
       lila.user.Plan(
         months = user.plan.months | 1,
         active = true,
-        since = user.plan.since orElse DateTime.now.some
-      )
+        since = user.plan.since orElse DateTime.now.some,
+      ),
     ) >> patronColl.update
       .one(
         $id(user.id),
         $set(
           "lastLevelUp" -> DateTime.now,
           "lifetime"    -> true,
-          "free"        -> Patron.Free(DateTime.now)
+          "free"        -> Patron.Free(DateTime.now),
         ),
-        upsert = true
+        upsert = true,
       )
       .void >>- lightUserApi.invalidate(user.id)
 
@@ -329,8 +331,8 @@ final class PlanApi(
       lila.user.Plan(
         months = user.plan.months | 1,
         active = true,
-        since = user.plan.since orElse DateTime.now.some
-      )
+        since = user.plan.since orElse DateTime.now.some,
+      ),
     ) >> patronColl.update
       .one(
         $id(user.id),
@@ -338,9 +340,9 @@ final class PlanApi(
           "lastLevelUp" -> DateTime.now,
           "lifetime"    -> false,
           "free"        -> Patron.Free(DateTime.now),
-          "expiresAt"   -> DateTime.now.plusMonths(1).plusDays(1)
+          "expiresAt"   -> DateTime.now.plusMonths(1).plusDays(1),
         ),
-        upsert = true
+        upsert = true,
       )
       .void >>- lightUserApi.invalidate(user.id)
 
@@ -352,7 +354,7 @@ final class PlanApi(
           $empty,
           sort = $doc("date" -> -1),
           nb = recentChargeUserIdsNb * 3 / 2,
-          "userId"
+          "userId",
         ) flatMap filterUserIds dmap (_ take recentChargeUserIdsNb)
       }
   }
@@ -365,7 +367,7 @@ final class PlanApi(
   private val topPatronUserIdsNb = 300
   private val topPatronUserIdsCache = mongoCache.unit[List[User.ID]](
     "patron:top",
-    59 minutes
+    59 minutes,
   ) { loader =>
     _.refreshAfterWrite(60 minutes)
       .buildAsyncFuture {
@@ -373,13 +375,13 @@ final class PlanApi(
           chargeColl
             .aggregateList(
               maxDocs = topPatronUserIdsNb * 2,
-              readPreference = ReadPreference.secondaryPreferred
+              readPreference = ReadPreference.secondaryPreferred,
             ) { framework =>
               import framework._
               Match($doc("userId" $exists true)) -> List(
                 GroupField("userId")("total" -> SumField("cents")),
                 Sort(Descending("total")),
-                Limit(topPatronUserIdsNb * 3 / 2)
+                Limit(topPatronUserIdsNb * 3 / 2),
               )
             }
             .dmap {
@@ -407,9 +409,9 @@ final class PlanApi(
             username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
             amount = charge.cents.value,
             percent = m.percent,
-            DateTime.now
+            DateTime.now,
           ),
-          "plan"
+          "plan",
         )
         lila.mon.plan.goal.update(m.goal.value)
         lila.mon.plan.current.update(m.current.value)
@@ -431,7 +433,7 @@ final class PlanApi(
         .getOrElse(Patron(_id = Patron.UserId(user.id)))
         .copy(
           stripe = Patron.Stripe(customerId).some,
-          lastLevelUp = Some(DateTime.now)
+          lastLevelUp = Some(DateTime.now),
         )
         .removePayPal
         .expireInOneMonth(!freq.renew)

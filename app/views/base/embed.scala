@@ -13,7 +13,7 @@ object embed {
       title: String,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
-      variant: shogi.variant.Variant = shogi.variant.Standard
+      variant: shogi.variant.Variant = shogi.variant.Standard,
   )(body: Modifier*)(implicit config: EmbedConfig) =
     frag(
       layout.bits.doctype,
@@ -28,7 +28,7 @@ object embed {
           moreCss,
           embedJsUnsafe(layout.bits.windowLishogi, config.nonce.some),
           vendorJsTag("shogiground", "shogiground.min.js"),
-          moreJs
+          moreJs,
         ),
         st.body(cls := s"base highlight ${config.board}")(
           layout.dataSoundSet     := SoundSet.silent.key,
@@ -38,9 +38,9 @@ object embed {
           layout.dataPieceSet     := config.pieceSet.key,
           layout.dataChuPieceSet  := config.chuPieceSet.key,
           layout.dataKyoPieceSet  := config.kyoPieceSet.key,
-          body
-        )
-      )
+          body,
+        ),
+      ),
     )
 
   def pieceSpriteByVariant(variant: shogi.variant.Variant)(implicit config: EmbedConfig): Frag =

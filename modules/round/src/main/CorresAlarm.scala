@@ -16,19 +16,20 @@ import lila.game.Pov
 final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
-    proxyGame: Game.ID => Fu[Option[Game]]
+    proxyGame: Game.ID => Fu[Option[Game]],
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   private case class Alarm(
       _id: String,       // game id
       ringsAt: DateTime, // when to notify the player
-      expiresAt: DateTime
+      expiresAt: DateTime,
   )
 
-  implicit private val AlarmHandler: BSONDocumentHandler[Alarm] = reactivemongo.api.bson.Macros.handler[Alarm]
+  implicit private val AlarmHandler: BSONDocumentHandler[Alarm] =
+    reactivemongo.api.bson.Macros.handler[Alarm]
 
   private def scheduleNext(): Unit = system.scheduler.scheduleOnce(10 seconds) { run().unit }.unit
 
@@ -56,9 +57,9 @@ final private class CorresAlarm(
                   Alarm(
                     _id = game.id,
                     ringsAt = ringsAt,
-                    expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2)
+                    expiresAt = DateTime.now.plusSeconds(remainingTime.toInt * 2),
                   ),
-                  upsert = true
+                  upsert = true,
                 )
                 .void
             }

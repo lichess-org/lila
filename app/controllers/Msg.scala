@@ -6,7 +6,7 @@ import lila.app._
 import lila.common.LightUser.lightUserWrites
 
 final class Msg(
-    env: Env
+    env: Env,
 ) extends LilaController(env) {
 
   def home =
@@ -15,19 +15,20 @@ final class Msg(
         html = inboxJson(me) map { json =>
           Ok(views.html.msg.home(json))
         },
-        json = inboxJson(me) map { Ok(_) }
+        json = inboxJson(me) map { Ok(_) },
       )
     }
 
   def convo(username: String, before: Option[Long] = None) =
     Auth { implicit ctx => me =>
-      if (username == "new") Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).fuccess
+      if (username == "new")
+        Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_))).fuccess
       else
         ctx.hasInbox ?? env.msg.api.convoWith(me, username, before).flatMap {
           case None =>
             negotiate(
               html = Redirect(routes.Msg.home).fuccess,
-              json = notFoundJson()
+              json = notFoundJson(),
             )
           case Some(c) =>
             def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(c)) }
@@ -35,7 +36,7 @@ final class Msg(
               html = newJson map { json =>
                 Ok(views.html.msg.home(json))
               },
-              json = newJson map { Ok(_) }
+              json = newJson map { Ok(_) },
             )
         }
     }
@@ -75,7 +76,7 @@ final class Msg(
           .bindFromRequest()
           .fold(
             err => jsonFormErrorFor(err, req, me.some),
-            text => env.msg.api.post(me.id, userId, text)
+            text => env.msg.api.post(me.id, userId, text),
           )
       }
     }
@@ -85,7 +86,7 @@ final class Msg(
     env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me) map { threads =>
       Json.obj(
         "me"       -> lightUserWrites.writes(me.light).add("kid" -> me.kid),
-        "contacts" -> threads
+        "contacts" -> threads,
       )
     }
 }

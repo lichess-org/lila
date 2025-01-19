@@ -17,11 +17,11 @@ object finishedList {
           header(t),
           td(cls := "winner")(
             userIdLink(t.winnerId, withOnline = false),
-            br
+            br,
           ),
-          td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
+          td(cls := "text", dataIcon := "r")(t.nbPlayers.localize),
         )
-      }
+      },
     )
 
   def header(t: Tournament)(implicit ctx: Context) =
@@ -36,8 +36,8 @@ object finishedList {
           " - ",
           t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           " - ",
-          t.format.trans
-        )
-      )
+          t.format.trans,
+        ),
+      ),
     )
 }

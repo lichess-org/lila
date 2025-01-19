@@ -12,11 +12,14 @@ import lila.user.User
 
 object ofPlayer {
 
-  def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: Context) =
+  def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit
+      ctx: Context,
+  ) =
     views.html.base.layout(
-      title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
+      title =
+        user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     )(
       main(cls := "page-menu")(
         bits.pageMenu("player"),
@@ -24,7 +27,7 @@ object ofPlayer {
           form(
             action := routes.Puzzle.ofPlayer(),
             method := "get",
-            cls    := "form3 puzzle-of-player__form complete-parent"
+            cls    := "form3 puzzle-of-player__form complete-parent",
           )(
             st.input(
               name         := "name",
@@ -33,16 +36,16 @@ object ofPlayer {
               placeholder  := trans.clas.lishogiUsername.txt(),
               autocomplete := "off",
               dataTag      := "span",
-              autofocus
+              autofocus,
             ),
-            submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
+            submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt()),
           ),
           div(cls := "puzzle-of-player__results")(
             (user, puzzles) match {
               case (Some(u), Some(pager)) =>
                 if (pager.nbResults == 0 && ctx.is(u))
                   p(
-                    "You have no puzzles in the database, but Lishogi still loves you very much."
+                    "You have no puzzles in the database, but Lishogi still loves you very much.",
                   )
                 else
                   frag(
@@ -53,26 +56,26 @@ object ofPlayer {
                           views.html.puzzle.bits.miniTag(
                             sfen = puzzle.sfenAfterInitialMove,
                             color = puzzle.color,
-                            lastUsi = puzzle.lastUsi
+                            lastUsi = puzzle.lastUsi,
                           )(
                             a(
                               cls  := s"puzzle-of-player__puzzle__board",
-                              href := routes.Puzzle.show(puzzle.id.value)
-                            )
+                              href := routes.Puzzle.show(puzzle.id.value),
+                            ),
                           ),
-                          span(cls   := "puzzle-of-player__puzzle__meta")(
+                          span(cls := "puzzle-of-player__puzzle__meta")(
                             span(cls := "puzzle-of-player__puzzle__id", s"#${puzzle.id}"),
-                            span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating)
-                          )
+                            span(cls := "puzzle-of-player__puzzle__rating", puzzle.glicko.intRating),
+                          ),
                         )
                       },
-                      pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}")
-                    )
+                      pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}"),
+                    ),
                   )
               case (_, _) => emptyFrag
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     )
 }

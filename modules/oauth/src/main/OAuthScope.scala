@@ -21,8 +21,9 @@ object OAuthScope {
   }
 
   object Study {
-    case object Read  extends OAuthScope("study:read", "Read private studies and broadcasts")
-    case object Write extends OAuthScope("study:write", "Create, update, delete studies and broadcasts")
+    case object Read extends OAuthScope("study:read", "Read private studies and broadcasts")
+    case object Write
+        extends OAuthScope("study:write", "Create, update, delete studies and broadcasts")
   }
 
   object Tournament {
@@ -34,7 +35,7 @@ object OAuthScope {
   }
 
   object Team {
-    case object Read extends OAuthScope("team:read", "Read private team information")
+    case object Read  extends OAuthScope("team:read", "Read private team information")
     case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
   }
 
@@ -73,7 +74,7 @@ object OAuthScope {
     Msg.Write,
     Board.Play,
     Bot.Play,
-    Web.Login
+    Web.Login,
   )
 
   val allButWeb = all.filterNot(_.key startsWith "web:")
@@ -84,12 +85,14 @@ object OAuthScope {
 
   def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
 
-  def select(selectors: Iterable[OAuthScope.type => OAuthScope]) = selectors.map(_(OAuthScope)).toList
+  def select(selectors: Iterable[OAuthScope.type => OAuthScope]) =
+    selectors.map(_(OAuthScope)).toList
 
   import reactivemongo.api.bson._
+
   import lila.db.dsl._
   implicit private[oauth] val scopeHandler: BSONHandler[OAuthScope] = tryHandler[OAuthScope](
     { case b: BSONString => OAuthScope.byKey.get(b.value) toTry s"No such scope: ${b.value}" },
-    s => BSONString(s.key)
+    s => BSONString(s.key),
   )
 }

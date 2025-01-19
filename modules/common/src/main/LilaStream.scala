@@ -11,7 +11,7 @@ object LilaStream {
 
   def flowRate[T](
       metric: T => Int = (_: T) => 1,
-      outputDelay: FiniteDuration = 1 second
+      outputDelay: FiniteDuration = 1 second,
   ): Flow[T, Double, NotUsed] =
     Flow[T]
       .conflateWithSeed(metric(_)) { case (acc, x) => acc + metric(x) }
@@ -21,12 +21,12 @@ object LilaStream {
   def logRate[T](
       name: String,
       metric: T => Int = (_: T) => 1,
-      outputDelay: FiniteDuration = 1 second
+      outputDelay: FiniteDuration = 1 second,
   )(logger: play.api.LoggerLike): Flow[T, T, NotUsed] =
     Flow[T]
       .alsoTo(
         flowRate[T](metric, outputDelay)
-          .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
+          .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}"))),
       )
 
   @nowarn("msg=comparing values of types")

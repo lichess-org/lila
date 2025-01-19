@@ -10,7 +10,7 @@ case class UserRecord(
     _id: String,
     o: Option[Vector[Outcome]],
     b: Option[Vector[TempBan]],
-    c: Option[RageSit]
+    c: Option[RageSit],
 ) {
 
   def userId                    = _id
@@ -69,7 +69,7 @@ case class UserRecord(
 
 case class TempBan(
     date: DateTime,
-    mins: Int
+    mins: Int,
 ) {
 
   def endsAt = date plusMinutes mins
@@ -89,7 +89,7 @@ object TempBan {
   private def make(minutes: Int) =
     TempBan(
       DateTime.now,
-      minutes atMost 3 * 24 * 60
+      minutes atMost 3 * 24 * 60,
     )
 
   private val baseMinutes = 10
@@ -112,7 +112,7 @@ object TempBan {
 
 sealed abstract class Outcome(
     val id: Int,
-    val name: String
+    val name: String,
 ) {
   val key = s"${toString.head.toLower}${toString.drop(1)}"
 }

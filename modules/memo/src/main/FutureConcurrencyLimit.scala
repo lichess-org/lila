@@ -4,14 +4,13 @@ import scala.concurrent.duration.FiniteDuration
 
 import play.api.mvc.Result
 
-/**
-  * only allow one future at a time per key
+/** only allow one future at a time per key
   */
 final class FutureConcurrencyLimit[K](
     key: String,
     ttl: FiniteDuration,
     maxConcurrency: Int = 1,
-    toString: K => String = (k: K) => k.toString
+    toString: K => String = (k: K) => k.toString,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val storage = lila.memo.CacheApi.scaffeineNoScheduler

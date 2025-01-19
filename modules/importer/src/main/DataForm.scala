@@ -6,6 +6,7 @@ import play.api.data.Forms._
 import play.api.data._
 
 import cats.data.Validated
+
 import shogi.Color
 import shogi.Mode
 import shogi.Replay
@@ -24,8 +25,8 @@ final class DataForm {
   lazy val importForm = Form(
     mapping(
       "notation" -> nonEmptyText.verifying("invalidNotation", p => checkNotation(p).isValid),
-      "analyse"  -> optional(nonEmptyText)
-    )(ImportData.apply)(ImportData.unapply)
+      "analyse"  -> optional(nonEmptyText),
+    )(ImportData.apply)(ImportData.unapply),
   )
 
   def checkNotation(notation: String): Validated[String, Preprocessed] =
@@ -36,7 +37,7 @@ private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
-    parsed: ParsedNotation
+    parsed: ParsedNotation,
 )
 
 case class ImportData(notation: String, analyse: Option[String]) {
@@ -57,15 +58,16 @@ case class ImportData(notation: String, analyse: Option[String]) {
   // csa and kif together
   private def createStatus(termination: String): Status =
     termination match {
-      case "" | "投了" | "TORYO"                                                      => Status.Resign
-      case "詰み" | "TSUMI"                                                           => Status.Mate
-      case "中断" | "CHUDAN"                                                          => Status.Aborted
-      case "持将棋" | "千日手" | "JISHOGI" | "SENNICHITE"                                 => Status.Repetition
-      case "引き分け" | "引分け" | "HIKIWAKE"                                              => Status.Draw
-      case "入玉勝ち" | "KACHI"                                                         => Status.Impasse27
-      case "切れ負け" | "TIME-UP" | "TIME_UP"                                           => Status.Outoftime
-      case "反則勝ち" | "反則負け" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" => Status.UnknownFinish
-      case _                                                                        => Status.UnknownFinish
+      case "" | "投了" | "TORYO"                      => Status.Resign
+      case "詰み" | "TSUMI"                           => Status.Mate
+      case "中断" | "CHUDAN"                          => Status.Aborted
+      case "持将棋" | "千日手" | "JISHOGI" | "SENNICHITE" => Status.Repetition
+      case "引き分け" | "引分け" | "HIKIWAKE"              => Status.Draw
+      case "入玉勝ち" | "KACHI"                         => Status.Impasse27
+      case "切れ負け" | "TIME-UP" | "TIME_UP"           => Status.Outoftime
+      case "反則勝ち" | "反則負け" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" =>
+        Status.UnknownFinish
+      case _ => Status.UnknownFinish
     }
 
   private val isCsa: Boolean = {
@@ -73,7 +75,9 @@ case class ImportData(notation: String, analyse: Option[String]) {
       .map(_.split("#|\\*").headOption.getOrElse("").trim)
       .mkString("\n")
     val lines = augmentString(noKifComments.replace(",", "\n")).linesIterator.toList
-    lines.exists(l => l.startsWith("PI") || l.startsWith("P1") || CsaParser.moveOrDropRegex.matches(l))
+    lines.exists(l =>
+      l.startsWith("PI") || l.startsWith("P1") || CsaParser.moveOrDropRegex.matches(l),
+    )
   }
 
   private def parseNotation: Validated[String, ParsedNotation] =
@@ -86,7 +90,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
     parseNotation map { parsed =>
       Reader.fromParsedNotation(
         parsed,
-        parsedSteps => parsedSteps.copy(value = parsedSteps.value take maxPlies)
+        parsedSteps => parsedSteps.copy(value = parsedSteps.value take maxPlies),
       ) pipe evenIncomplete pipe { case replay @ Replay(init, game) =>
         val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
 
@@ -112,9 +116,9 @@ case class ImportData(notation: String, analyse: Option[String]) {
                 user = user,
                 date = date,
                 kif = !isCsa option notationTrunc,
-                csa = isCsa option notationTrunc
+                csa = isCsa option notationTrunc,
               )
-              .some
+              .some,
           )
           .sloppy
           .copy(loadClockHistory = _ => None)

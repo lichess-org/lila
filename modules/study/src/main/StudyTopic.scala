@@ -25,7 +25,8 @@ object StudyTopic {
       case _                                                       => none
     }
 
-  implicit val topicIso: Iso.StringIso[StudyTopic] = Iso.string[StudyTopic](StudyTopic.apply, _.value)
+  implicit val topicIso: Iso.StringIso[StudyTopic] =
+    Iso.string[StudyTopic](StudyTopic.apply, _.value)
 }
 
 case class StudyTopics(value: List[StudyTopic]) extends AnyVal {
@@ -58,13 +59,17 @@ object StudyTopics {
 final private class StudyTopicRepo(val coll: AsyncColl)
 final private class StudyUserTopicRepo(val coll: AsyncColl)
 
-final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTopicRepo, studyRepo: StudyRepo)(
-    implicit
+final class StudyTopicApi(
+    topicRepo: StudyTopicRepo,
+    userTopicRepo: StudyUserTopicRepo,
+    studyRepo: StudyRepo,
+)(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
-  import BSONHandlers.{ StudyTopicBSONHandler, StudyTopicsBSONHandler }
+  import BSONHandlers.StudyTopicBSONHandler
+  import BSONHandlers.StudyTopicsBSONHandler
 
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll(_.byId[Bdoc](str)) dmap { _ flatMap docTopic }
@@ -111,7 +116,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       _.update.one(
         $id(user.id),
         $set("topics" -> topics),
-        upsert = true
+        upsert = true,
       )
     }.void
   }
@@ -123,7 +128,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           .one(
             $id(userId),
             $addToSet("topics" -> $doc("$each" -> topics)),
-            upsert = true
+            upsert = true,
           )
       }.void
 
@@ -147,13 +152,13 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     maxSize = 1,
     timeout = 61 seconds,
     name = "studyTopicAggregation",
-    logging = false
+    logging = false,
   )
 
   def recompute(): Unit =
     recomputeWorkQueue(Future.makeItLast(60 seconds)(recomputeNow)).recover {
       case _: lila.hub.BoundedDuct.EnqueueException => ()
-      case e: Exception                             => logger.warn("Can't recompute study topics!", e)
+      case e: Exception => logger.warn("Can't recompute study topics!", e)
     }.unit
 
   private def recomputeNow: Funit =
@@ -164,14 +169,14 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           Match(
             $doc(
               "topics" $exists true,
-              "visibility" -> "public"
-            )
+              "visibility" -> "public",
+            ),
           ),
           Project($doc("topics" -> true, "_id" -> false)),
           UnwindField("topics"),
           SortByFieldCount("topics"),
           Project($doc("_id" -> true)),
-          Out(topicRepo.coll.name.value)
+          Out(topicRepo.coll.name.value),
         )
       }.headOption
     }.void

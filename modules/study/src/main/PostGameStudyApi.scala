@@ -3,6 +3,7 @@ package lila.study
 import scala.concurrent.duration._
 
 import cats.data.Validated
+
 import shogi.Color
 
 import lila.common.Bus
@@ -16,9 +17,9 @@ final class PostGameStudyApi(
     chapterRepo: ChapterRepo,
     studyMaker: StudyMaker,
     inviter: StudyInvite,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   private val cache = cacheApi.notLoading[Game.ID, Study.Id](64, "study.postGameStudyApi") {
@@ -38,19 +39,19 @@ final class PostGameStudyApi(
                 Color.Sente,
                 game.userIds.headOption.ifTrue(game.userIds.sizeIs == 1).getOrElse(User.lishogiId),
                 game.userIds,
-                withOpponent = true
+                withOpponent = true,
               )
               .flatMap(scs => insertNewStudy(scs))
               .addEffect { s =>
                 gameRepo.setPostGameStudy(game.id, s.id.value)
                 Bus.publish(
                   TellIfExists(game.id, lila.hub.actorApi.round.PostGameStudy(s.id.value)),
-                  "roundSocket"
+                  "roundSocket",
                 )
-              }
+              },
           )
           .map(_.id)
-      }
+      },
     )
 
   def study(game: Game, orientation: Color, invitedUser: Option[User], user: User): Fu[Study.Id] =
@@ -59,7 +60,7 @@ final class PostGameStudyApi(
         game,
         orientation,
         user.id,
-        List(user.id.some, invitedUser.map(_.id)).flatten
+        List(user.id.some, invitedUser.map(_.id)).flatten,
       )
       .flatMap(scs => insertNewStudy(scs))
       .dmap(_.id)
@@ -70,13 +71,16 @@ final class PostGameStudyApi(
   def getGame(gameId: Game.ID): Fu[Option[Game]] =
     gameRepo.finished(gameId)
 
-  def getInvitedUser(invitedUsername: Option[String], user: User): Fu[Validated[String, Option[User]]] =
+  def getInvitedUser(
+      invitedUsername: Option[String],
+      user: User,
+  ): Fu[Validated[String, Option[User]]] =
     invitedUsername.fold(fuccess(Validated.valid[String, Option[User]](none))) { i =>
       inviter
         .getInvitedUser(user, i)
         .fold(
           e => Validated.invalid[String, Option[User]](e.getMessage),
-          user => Validated.valid[String, Option[User]](user.some)
+          user => Validated.valid[String, Option[User]](user.some),
         )
     }
 

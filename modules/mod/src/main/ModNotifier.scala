@@ -8,7 +8,7 @@ import lila.report.Victim
 
 final private class ModNotifier(
     notifyApi: NotifyApi,
-    reportApi: lila.report.ReportApi
+    reportApi: lila.report.ReportApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def reporters(mod: Mod, sus: Suspect): Funit =
@@ -18,8 +18,8 @@ final private class ModNotifier(
           notifyApi.addNotification(
             Notification.make(
               notifies = Notification.Notifies(reporterId.value),
-              content = lila.notify.ReportedBanned
-            )
+              content = lila.notify.ReportedBanned,
+            ),
           )
         }
         .sequenceFu
@@ -31,7 +31,7 @@ final private class ModNotifier(
       implicit val lang = victim.user.realLang | lila.i18n.defaultLang
       Notification.make(
         notifies = Notification.Notifies(victim.user.id),
-        content = lila.notify.RatingRefund(pt.trans, points)
+        content = lila.notify.RatingRefund(pt.trans, points),
       )
     }
 }

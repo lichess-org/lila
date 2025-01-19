@@ -22,7 +22,7 @@ object perfStat {
       perfType: lila.rating.PerfType,
       percentile: Option[Double],
       stat: PerfStat,
-      ratingChart: Option[String]
+      ratingChart: Option[String],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username} - ${perfStats.txt(perfType.trans)}",
@@ -35,11 +35,12 @@ object perfStat {
             chartTag,
             moduleJsTag(
               "chart.rating-history",
-              Json.obj("data" -> rc, "singlePerfName" -> s"${perfType.trans(lila.i18n.defaultLang)}")
-            )
+              Json
+                .obj("data" -> rc, "singlePerfName" -> s"${perfType.trans(lila.i18n.defaultLang)}"),
+            ),
           )
-        }
-      )
+        },
+      ),
     ) {
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(u, rankMap, perfType.some)),
@@ -47,16 +48,16 @@ object perfStat {
           div(cls := "box__top")(
             h1(
               a(href := routes.User.show(u.username))(u.username),
-              span(perfStats(perfType.trans))
+              span(perfStats(perfType.trans)),
             ),
             div(cls := "box__top__actions")(
               u.perfs(perfType).nb > 0 option a(
                 cls      := "button button-empty text",
                 dataIcon := perfType.iconChar,
-                href     := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}"
+                href     := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}",
               )(viewTheGames()),
-              bits.perfTrophies(u, rankMap.view.filterKeys(perfType.==).toMap)
-            )
+              bits.perfTrophies(u, rankMap.view.filterKeys(perfType.==).toMap),
+            ),
           ),
           ratingChart.isDefined option bits.ratingHistoryContainer,
           div(cls := "box__pad perf-stat__content")(
@@ -66,16 +67,16 @@ object perfStat {
             resultStreak(stat.resultStreak),
             result(stat),
             playStreakNb(stat.playStreak),
-            playStreakTime(stat.playStreak)
-          )
-        )
+            playStreakTime(stat.playStreak),
+          ),
+        ),
       )
     }
 
   private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit
-      ctx: Context
+      ctx: Context,
   ): Frag =
     st.section(cls := "glicko")(
       h2(
@@ -84,26 +85,31 @@ object perfStat {
           " ",
           span(
             title := notEnoughRatedGames.txt(),
-            cls   := "details"
-          )("(", provisional(), ")")
+            cls   := "details",
+          )("(", provisional(), ")"),
         ),
         ". ",
-        percentile.filter(p => math.abs(p) > 1e-9 && !perf.glicko.provisional).map { filteredPercentile =>
-          span(cls := "details")(
-            if (ctx is u) {
-              trans.youAreBetterThanPercentOfPerfTypePlayers(
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(filteredPercentile, "%")),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
-              )
-            } else {
-              trans.userIsBetterThanPercentOfPerfTypePlayers(
-                a(href := routes.User.show(u.username))(u.username),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(filteredPercentile, "%")),
-                a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
-              )
-            }
-          )
-        }
+        percentile.filter(p => math.abs(p) > 1e-9 && !perf.glicko.provisional).map {
+          filteredPercentile =>
+            span(cls := "details")(
+              if (ctx is u) {
+                trans.youAreBetterThanPercentOfPerfTypePlayers(
+                  a(href := routes.Stat.ratingDistribution(perfType.key))(
+                    strong(filteredPercentile, "%"),
+                  ),
+                  a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans),
+                )
+              } else {
+                trans.userIsBetterThanPercentOfPerfTypePlayers(
+                  a(href := routes.User.show(u.username))(u.username),
+                  a(href := routes.Stat.ratingDistribution(perfType.key))(
+                    strong(filteredPercentile, "%"),
+                  ),
+                  a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans),
+                )
+              },
+            )
+        },
       ),
       p(
         progressOverLastXGames(12),
@@ -111,15 +117,15 @@ object perfStat {
         span(cls := "progress")(
           if (perf.progress > 0) tag("green")(dataIcon := "N")(perf.progress)
           else if (perf.progress < 0) tag("red")(dataIcon := "M")(-perf.progress)
-          else "-"
+          else "-",
         ),
         ". ",
         ratingDeviation(
           strong(
-            title := ratingDeviationHelp.txt(lila.rating.Glicko.provisionalDeviation)
-          )(decimal(perf.glicko.deviation).toString)
-        )
-      )
+            title := ratingDeviationHelp.txt(lila.rating.Glicko.provisionalDeviation),
+          )(decimal(perf.glicko.deviation).toString),
+        ),
+      ),
     )
 
   private def pct(num: Int, denom: Int): String = {
@@ -134,29 +140,29 @@ object perfStat {
             tr(
               th(totalGames()),
               td(count.all),
-              td
+              td,
             ),
             tr(cls := "full")(
               th(ratedGames()),
               td(count.rated),
-              td(pct(count.rated, count.all))
+              td(pct(count.rated, count.all)),
             ),
             tr(cls := "full")(
               th(tournamentGames()),
               td(count.tour),
-              td(pct(count.tour, count.all))
+              td(pct(count.tour, count.all)),
             ),
             tr(cls := "full")(
               th(berserkedGames()),
               td(count.berserk),
-              td(pct(count.berserk, count.tour))
+              td(pct(count.berserk, count.tour)),
             ),
             count.seconds > 0 option tr(cls := "full")(
               th(timeSpentPlaying()),
-              td(colspan := "2")(showPeriod(count.period))
-            )
-          )
-        )
+              td(colspan := "2")(showPeriod(count.period)),
+            ),
+          ),
+        ),
       ),
       div(
         table(
@@ -164,41 +170,43 @@ object perfStat {
             tr(
               th(averageOpponent()),
               td(decimal(count.opAvg.avg).toString),
-              td
+              td,
             ),
             tr(cls := "full")(
               th(victories()),
               td(tag("green")(count.win)),
-              td(tag("green")(pct(count.win, count.all)))
+              td(tag("green")(pct(count.win, count.all))),
             ),
             tr(cls := "full")(
               th(trans.draws()),
               td(count.draw),
-              td(pct(count.draw, count.all))
+              td(pct(count.draw, count.all)),
             ),
             tr(cls := "full")(
               th(defeats()),
               td(tag("red")(count.loss)),
-              td(tag("red")(pct(count.loss, count.all)))
+              td(tag("red")(pct(count.loss, count.all))),
             ),
             tr(cls := "full")(
               th(disconnections()),
-              td(if (count.disconnects > count.all * 100 / 15) tag("red") else emptyFrag)(count.disconnects),
-              td(pct(count.disconnects, count.all))
-            )
-          )
-        )
-      )
+              td(if (count.disconnects > count.all * 100 / 15) tag("red") else emptyFrag)(
+                count.disconnects,
+              ),
+              td(pct(count.disconnects, count.all)),
+            ),
+          ),
+        ),
+      ),
     )
 
-  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(implicit
-      lang: Lang
+  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(
+      implicit lang: Lang,
   ): Frag =
     opt match {
       case Some(r) =>
         div(
           h2(title(strong(tag(color)(r.int)))),
-          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "sente"))(absClientDateTime(r.at))
+          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "sente"))(absClientDateTime(r.at)),
         )
       case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
     }
@@ -206,49 +214,53 @@ object perfStat {
   private def highlow(stat: PerfStat)(implicit lang: Lang): Frag =
     st.section(cls := "highlow split")(
       highlowSide(highestRating(_), stat.highest, "green"),
-      highlowSide(lowestRating(_), stat.lowest, "red")
+      highlowSide(lowestRating(_), stat.lowest, "red"),
     )
 
   private def fromTo(s: lila.perfStat.Streak)(implicit lang: Lang): Frag =
     s.from match {
       case Some(from) =>
         fromXToY(
-          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "sente"))(absClientDateTime(from.at)),
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "sente"))(
+            absClientDateTime(from.at),
+          ),
           s.to match {
             case Some(to) =>
-              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "sente"))(absClientDateTime(to.at))
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "sente"))(
+                absClientDateTime(to.at),
+              )
             case None => now()
-          }
+          },
         )
       case None => nbsp
     }
 
-  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(implicit
-      lang: Lang
+  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(
+      implicit lang: Lang,
   ): Frag =
     div(cls := "streak")(
       h3(
         title(
           if (s.v > 0) tag(color)(trans.nbGames.plural(s.v, strong(s.v)))
-          else "-"
-        )
+          else "-",
+        ),
       ),
-      fromTo(s)
+      fromTo(s),
     )
 
   private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(implicit
-      lang: Lang
+      lang: Lang,
   ): Frag =
     div(
       h2(title),
       resultStreakSideStreak(s.max, longestStreak(_), color),
-      resultStreakSideStreak(s.cur, currentStreak(_), color)
+      resultStreakSideStreak(s.cur, currentStreak(_), color),
     )
 
   private def resultStreak(streak: lila.perfStat.ResultStreak)(implicit lang: Lang): Frag =
     st.section(cls := "resultStreak split")(
       resultStreakSide(streak.win, winningStreak(), "green"),
-      resultStreakSide(streak.loss, losingStreak(), "red")
+      resultStreakSide(streak.loss, losingStreak(), "red"),
     )
 
   private def resultTable(results: lila.perfStat.Results, title: Frag)(implicit lang: Lang): Frag =
@@ -256,68 +268,76 @@ object perfStat {
       table(
         thead(
           tr(
-            th(colspan := 2)(h2(title))
-          )
+            th(colspan := 2)(h2(title)),
+          ),
         ),
         tbody(
           results.results map { r =>
             tr(
               td(userIdLink(r.opId.value.some, withOnline = false), " (", r.opInt, ")"),
-              td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "sente"))(absClientDateTime(r.at)))
+              td(
+                a(cls := "glpt", href := routes.Round.watcher(r.gameId, "sente"))(
+                  absClientDateTime(r.at),
+                ),
+              ),
             )
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
 
   private def result(stat: PerfStat)(implicit lang: Lang): Frag =
     st.section(cls := "result split")(
       resultTable(stat.bestWins, bestRated()),
-      resultTable(stat.worstLosses, worstRated())
+      resultTable(stat.worstLosses, worstRated()),
     )
 
-  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =
+  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit
+      lang: Lang,
+  ): Frag =
     div(
       div(cls := "streak")(
         h3(
           title(
             if (s.v > 0) trans.nbGames.plural(s.v, strong(s.v))
-            else "-"
-          )
+            else "-",
+          ),
         ),
-        fromTo(s)
-      )
+        fromTo(s),
+      ),
     )
 
   private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(implicit lang: Lang): Frag =
     div(cls := "split")(
       playStreakNbStreak(streaks.max, longestStreak(_)),
-      playStreakNbStreak(streaks.cur, currentStreak(_))
+      playStreakNbStreak(streaks.cur, currentStreak(_)),
     )
 
   private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(implicit lang: Lang): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := lessThanOneHour.txt())(gamesInARow())),
-      playStreakNbStreaks(playStreak.nb)
+      playStreakNbStreaks(playStreak.nb),
     )
 
-  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =
+  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit
+      lang: Lang,
+  ): Frag =
     div(
       div(cls := "streak")(
         h3(title(showPeriod(s.period))),
-        fromTo(s)
-      )
+        fromTo(s),
+      ),
     )
 
   private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(implicit lang: Lang): Frag =
     div(cls := "split")(
       playStreakTimeStreak(streaks.max, longestStreak(_)),
-      playStreakTimeStreak(streaks.cur, currentStreak(_))
+      playStreakTimeStreak(streaks.cur, currentStreak(_)),
     )
 
   private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(implicit lang: Lang): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := lessThanOneHour.txt())(maxTimePlaying())),
-      playStreakTimeStreaks(playStreak.time)
+      playStreakTimeStreaks(playStreak.time),
     )
 }

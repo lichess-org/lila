@@ -9,7 +9,7 @@ case class Duel(
     gameId: Game.ID,
     p1: Duel.DuelPlayer,
     p2: Duel.DuelPlayer,
-    averageRating: Duel.Rating
+    averageRating: Duel.Rating,
 ) {
 
   def has(u: User) = p1.name.id == u.id || p2.name.id == u.id
@@ -48,7 +48,13 @@ final private class DuelStore {
   def find(tour: Tournament, user: User): Option[Game.ID] =
     get(tour.id) flatMap { _.find(_ has user).map(_.gameId) }
 
-  def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit =
+  def add(
+      tour: Tournament,
+      game: Game,
+      p1: UsernameRating,
+      p2: UsernameRating,
+      ranking: Ranking,
+  ): Unit =
     for {
       p1 <- tbUser(p1, ranking)
       p2 <- tbUser(p2, ranking)
@@ -56,7 +62,7 @@ final private class DuelStore {
         gameId = game.id,
         p1 = p1,
         p2 = p2,
-        averageRating = Rating((p1.rating.value + p2.rating.value) / 2)
+        averageRating = Rating((p1.rating.value + p2.rating.value) / 2),
       )
     } byTourId.put(tour.id, get(tour.id).fold(Vector(tb)) { _ :+ tb })
 

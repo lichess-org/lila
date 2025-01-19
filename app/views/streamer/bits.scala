@@ -16,7 +16,7 @@ object bits extends Context.ToLang {
     views.html.site.message(
       title = becomeStreamer.txt(),
       icon = Some(""),
-      moreCss = cssTag("misc.streamer.form").some
+      moreCss = cssTag("misc.streamer.form").some,
     )(
       postForm(cls := "streamer-new", action := routes.Streamer.create)(
         h2(doYouHaveStream()),
@@ -26,9 +26,9 @@ object bits extends Context.ToLang {
         br,
         br,
         p(style := "text-align: center")(
-          submitButton(cls := "button button-fat text", dataIcon := "")(hereWeGo())
-        )
-      )
+          submitButton(cls := "button button-fat text", dataIcon := "")(hereWeGo()),
+        ),
+      ),
     )
 
   def pic(s: lila.streamer.Streamer, u: User, size: Int = 300) =
@@ -39,7 +39,7 @@ object bits extends Context.ToLang {
           height := size,
           cls    := "picture",
           src    := dbImageUrl(path.value),
-          alt    := s"${u.titleUsername} Lishogi streamer picture"
+          alt    := s"${u.titleUsername} Lishogi streamer picture",
         )
       case _ =>
         img(
@@ -47,7 +47,7 @@ object bits extends Context.ToLang {
           height := size,
           cls    := "default picture",
           src    := staticUrl("images/placeholder.png"),
-          alt    := "Default Lishogi streamer picture"
+          alt    := "Default Lishogi streamer picture",
         )
     }
 
@@ -57,18 +57,21 @@ object bits extends Context.ToLang {
       s.map { st =>
         frag(
           a(cls := active.active("show"), href := routes.Streamer.show(st.streamer.id.value))(
-            st.streamer.name
+            st.streamer.name,
           ),
           (ctx.is(st.user) || isGranted(_.Streamers)) option
-            a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")(
-              editPage()
-            )
+            a(
+              cls  := active.active("edit"),
+              href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}",
+            )(
+              editPage(),
+            ),
         )
       } getOrElse a(href := routes.Streamer.edit)(yourPage()),
       isGranted(_.Streamers) option a(
         cls  := active.active("requests"),
-        href := s"${routes.Streamer.index()}?requests=1"
-      )("Approval requests")
+        href := s"${routes.Streamer.index()}?requests=1",
+      )("Approval requests"),
       /*
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lishogi-streamer-community")(
         "Streamer community"
@@ -84,7 +87,7 @@ object bits extends Context.ToLang {
         a(
           href := routes.Streamer.redirect(username),
           targetBlank,
-          rel := "nofollow"
+          rel := "nofollow",
         )
     }
 
@@ -92,17 +95,17 @@ object bits extends Context.ToLang {
     l.live.streams.map { s =>
       redirectLink(s.streamer.id.value)(
         cls   := "stream highlight",
-        title := s.status
+        title := s.status,
       )(
         strong(cls := "text", dataIcon := "")(l titleName s),
         " ",
-        s.status
+        s.status,
       )
     }
 
   def contextual(userId: User.ID)(implicit lang: Lang): Frag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
-      xIsStreaming(usernameOrId(userId))
+      xIsStreaming(usernameOrId(userId)),
     )
 
   def rules(implicit lang: Lang) =
@@ -111,14 +114,14 @@ object bits extends Context.ToLang {
       ul(
         li(rule1()),
         li(rule2()),
-        li(rule3())
+        li(rule3()),
       ),
       h2(perks()),
       ul(
         li(perk1()),
         li(perk2()),
         li(perk3()),
-        li(perk4())
-      )
+        li(perk4()),
+      ),
     )
 }

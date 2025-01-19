@@ -17,7 +17,7 @@ case class Team(
     createdAt: DateTime,
     createdBy: User.ID,
     leaders: Set[User.ID],
-    chat: Team.ChatFor
+    chat: Team.ChatFor,
 ) {
 
   def id = _id
@@ -77,7 +77,7 @@ object Team {
       location: Option[String],
       description: String,
       open: Boolean,
-      createdBy: User
+      createdBy: User,
   ): Team =
     new Team(
       _id = nameToId(name),
@@ -90,7 +90,7 @@ object Team {
       createdAt = DateTime.now,
       createdBy = createdBy.id,
       leaders = Set(createdBy.id),
-      chat = ChatFor.MEMBERS
+      chat = ChatFor.MEMBERS,
     )
 
   def nameToId(name: String) =

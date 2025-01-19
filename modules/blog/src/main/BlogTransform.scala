@@ -26,7 +26,10 @@ object BlogTransform {
     private val PreRegex = """<pre>markdown(.+)</pre>""".r
 
     private val options = new MutableDataSet()
-    options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()))
+    options.set(
+      Parser.EXTENSIONS,
+      Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()),
+    )
     options.set(HtmlRenderer.SOFT_BREAK, "<br>\n")
     options.set(TablesExtension.CLASS_NAME, "slist")
     private val parser   = Parser.builder(options).build()

@@ -12,7 +12,7 @@ case class Perf(
     glicko: Glicko,
     nb: Int,
     recent: List[Int],
-    latest: Option[DateTime]
+    latest: Option[DateTime],
 ) {
 
   def intRating    = glicko.rating.toInt
@@ -28,7 +28,7 @@ case class Perf(
       glicko = g.cap,
       nb = nb + 1,
       recent = updateRecentWith(g),
-      latest = date.some
+      latest = date.some,
     )
 
   def add(r: Rating, date: DateTime): Option[Perf] = {
@@ -37,7 +37,7 @@ case class Perf(
         .atMost(glicko.rating + Glicko.maxRatingDelta)
         .atLeast(glicko.rating - Glicko.maxRatingDelta),
       deviation = r.getRatingDeviation,
-      volatility = r.getVolatility
+      volatility = r.getVolatility,
     )
     newGlicko.sanityCheck option add(newGlicko, date)
   }
@@ -51,14 +51,14 @@ case class Perf(
 
   def averageGlicko(other: Perf) =
     copy(
-      glicko = glicko average other.glicko
+      glicko = glicko average other.glicko,
     )
 
   def refund(points: Int): Perf = {
     val newGlicko = glicko refund points
     copy(
       glicko = newGlicko,
-      recent = updateRecentWith(newGlicko)
+      recent = updateRecentWith(newGlicko),
     )
   }
 
@@ -74,7 +74,7 @@ case class Perf(
       glicko.deviation,
       glicko.volatility,
       nb,
-      latest.orNull
+      latest.orNull,
     )
 
   def isEmpty  = latest.isEmpty
@@ -135,7 +135,7 @@ case object Perf {
         glicko = r.getO[Glicko]("gl") | Glicko.default,
         nb = r intD "nb",
         latest = r dateO "la",
-        recent = r intsD "re"
+        recent = r intsD "re",
       )
       p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, false)))
     }
@@ -145,10 +145,10 @@ case object Perf {
         "gl" -> o.glicko.copy(deviation = Glicko.liveDeviation(o, true)),
         "nb" -> w.int(o.nb),
         "re" -> w.listO(o.recent),
-        "la" -> o.latest.map(w.date)
+        "la" -> o.latest.map(w.date),
       )
   }
 
-  implicit val stormBSONHandler: BSONDocumentHandler[Storm]    = Macros.handler[Storm]
+  implicit val stormBSONHandler: BSONDocumentHandler[Storm]       = Macros.handler[Storm]
   implicit val aiLevelsBSONHandler: BSONDocumentHandler[AiLevels] = Macros.handler[AiLevels]
 }

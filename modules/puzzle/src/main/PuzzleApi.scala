@@ -3,6 +3,7 @@ package lila.puzzle
 import scala.concurrent.duration._
 
 import cats.implicits._
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
@@ -15,11 +16,15 @@ import lila.user.User
 final class PuzzleApi(
     colls: PuzzleColls,
     trustApi: PuzzleTrustApi,
-    countApi: PuzzleCountApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
+    countApi: PuzzleCountApi,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode,
+) {
 
-  import Puzzle.{ BSONFields => F }
   import BsonHandlers._
+  import Puzzle.{ BSONFields => F }
 
   object puzzle {
 
@@ -45,10 +50,10 @@ final class PuzzleApi(
             collection = coll,
             selector = $doc("users" -> user.id),
             projection = none,
-            sort = $sort desc "glicko.r"
+            sort = $sort desc "glicko.r",
           ),
           page,
-          MaxPerPage(30)
+          MaxPerPage(30),
         )
       }
 
@@ -59,10 +64,10 @@ final class PuzzleApi(
             collection = coll,
             selector = $doc("submittedBy" -> user.id),
             projection = none,
-            sort = $sort desc "plays"
+            sort = $sort desc "plays",
           ),
           page,
-          MaxPerPage(15)
+          MaxPerPage(15),
         )
       }
   }
@@ -79,7 +84,7 @@ final class PuzzleApi(
       val roundDoc = RoundHandler.write(r) ++
         $doc(
           PuzzleRound.BSONFields.user  -> r.id.userId,
-          PuzzleRound.BSONFields.theme -> theme.some.filter(_ != PuzzleTheme.mix.key)
+          PuzzleRound.BSONFields.theme -> theme.some.filter(_ != PuzzleTheme.mix.key),
         )
       colls.round(_.update.one($id(r.id), roundDoc, upsert = true)).void
     }
@@ -92,7 +97,7 @@ final class PuzzleApi(
         maxSize = 16,
         expiration = 5 minutes,
         timeout = 3 seconds,
-        name = "puzzle.vote"
+        name = "puzzle.vote",
       )
 
     def update(id: Puzzle.Id, user: User, vote: Boolean): Funit =
@@ -120,7 +125,7 @@ final class PuzzleApi(
         import Puzzle.{ BSONFields => F }
         coll.one[Bdoc](
           $id(puzzleId.value),
-          $doc(F.voteUp -> true, F.voteDown -> true, F.id -> false)
+          $doc(F.voteUp -> true, F.voteDown -> true, F.id -> false),
         ) flatMap {
           _ ?? { doc =>
             val prevUp   = ~doc.int(F.voteUp)
@@ -133,8 +138,8 @@ final class PuzzleApi(
                 $set(
                   F.voteUp   -> up,
                   F.voteDown -> down,
-                  F.vote     -> ((up - down).toFloat / (up + down))
-                )
+                  F.vote     -> ((up - down).toFloat / (up + down)),
+                ),
               )
               .void
           }
@@ -166,15 +171,15 @@ final class PuzzleApi(
                   case None =>
                     fuccess(
                       $set(
-                        F.themes -> newThemes
-                      ).some
+                        F.themes -> newThemes,
+                      ).some,
                     )
                   case Some(_) =>
                     trustApi.theme(user) map2 { weight =>
                       $set(
                         F.themes -> newThemes,
                         F.puzzle -> id,
-                        F.weight -> weight
+                        F.weight -> weight,
                       )
                     }
                 }
@@ -182,7 +187,9 @@ final class PuzzleApi(
               _ ?? { up =>
                 lila.mon.puzzle.voteTheme(theme.value, vote, round.win).increment()
                 colls.round(_.update.one($id(round.id), up)) zip
-                  colls.puzzle(_.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true)) void
+                  colls.puzzle(
+                    _.updateField($id(round.id.puzzleId), Puzzle.BSONFields.dirty, true),
+                  ) void
               }
             }
           }
@@ -209,19 +216,21 @@ final class PuzzleApi(
         ambProms: List[Int],
         themes: List[String],
         source: Either[Option[String], lila.game.Game.ID],
-        submittedBy: Option[String]
+        submittedBy: Option[String],
     ): Funit =
       (for {
-        validSfen     <- fuccess(sfen.toSituation(shogi.variant.Standard).map(_.toSfen)) orFail "Invalid sfen"
+        validSfen <- fuccess(
+          sfen.toSituation(shogi.variant.Standard).map(_.toSfen),
+        ) orFail "Invalid sfen"
         validLine     <- fuccess(line.toNel) orFail "No moveline"
         alreadyExists <- puzzle.existsBySfen(validSfen)
-        _             <- alreadyExists ?? fufail[Unit]("Puzzle with the same position already present")
+        _ <- alreadyExists ?? fufail[Unit]("Puzzle with the same position already present")
         similarExists <- source.fold(
           _ => fuccess(false),
           gameId =>
             puzzle
               .fromGame(gameId)
-              .map(_.exists(p => Math.abs(~p.sfen.stepNumber - ~validSfen.stepNumber) >= 10))
+              .map(_.exists(p => Math.abs(~p.sfen.stepNumber - ~validSfen.stepNumber) >= 10)),
         )
         _  <- similarExists ?? fufail[Unit](s"Similar puzzle exists (~${source.map(_.toString)})")
         id <- makeId
@@ -237,7 +246,7 @@ final class PuzzleApi(
         themes = themes.flatMap(PuzzleTheme.find).map(_.key).toSet,
         author = source.left.toOption.flatten,
         description = None,
-        submittedBy = submittedBy
+        submittedBy = submittedBy,
       )).flatMap { p =>
         colls.puzzle(_.insert.one(p))
       }.void

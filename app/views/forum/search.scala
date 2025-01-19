@@ -11,21 +11,21 @@ import lila.team.Team
 object search {
 
   def apply(text: String, pager: Paginator[lila.forum.PostView], myTeamIds: Set[Team.ID])(implicit
-      ctx: Context
+      ctx: Context,
   ) = {
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
       moreJs = infiniteScrollTag,
-      moreCss = cssTag("misc.forum")
+      moreCss = cssTag("misc.forum"),
     )(
       main(cls := "box box search")(
         div(cls := "box__top")(
           h1(
             a(href := routes.ForumCateg.index, dataIcon := "I", cls := "text"),
-            title
+            title,
           ),
-          bits.searchForm(text)
+          bits.searchForm(text),
         ),
         strong(cls := "nb-results box__pad")(trans.nbForumPosts.pluralSame(pager.nbResults)),
         table(cls := "slist slist-pad search__results")(
@@ -37,7 +37,7 @@ object search {
                   td(cls := "info")(
                     momentFromNow(view.post.createdAt),
                     br,
-                    authorLink(view.post, modIcon = ~view.post.modIcon)
+                    authorLink(view.post, modIcon = ~view.post.modIcon),
                   )
                 tr(cls := "paginated")(
                   if (view.categ.team.forall(myTeamIds.contains))
@@ -48,22 +48,22 @@ object search {
                           " - ",
                           view.topic.name,
                           "#",
-                          view.post.number
+                          view.post.number,
                         ),
-                        p(shorten(view.post.text, 200))
+                        p(shorten(view.post.text, 200)),
                       ),
-                      info
+                      info,
                     )
                   else
                     frag(
                       td("[You can't access this team forum post]"),
-                      info
-                    )
+                      info,
+                    ),
                 )
-              }
-            )
-        )
-      )
+              },
+            ),
+        ),
+      ),
     )
   }
 }

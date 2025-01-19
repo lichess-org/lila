@@ -26,7 +26,7 @@ final class Signup(
     recaptcha: Recaptcha,
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
-    netConfig: NetConfig
+    netConfig: NetConfig,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed abstract private class MustConfirmEmail(val value: Boolean)
@@ -61,7 +61,7 @@ final class Signup(
   }
 
   def website(
-      blind: Boolean
+      blind: Boolean,
   )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.website
       .bindFromRequest()
@@ -86,7 +86,7 @@ final class Signup(
                       passwordHash,
                       email.acceptable,
                       blind,
-                      mustConfirmEmail = mustConfirm.value
+                      mustConfirmEmail = mustConfirm.value,
                     )
                     .orFail(s"No user could be created for ${data.username}")
                     .addEffect { logSignup(_, email.acceptable, data.fingerPrint, mustConfirm) }
@@ -95,13 +95,13 @@ final class Signup(
                     }
                 }
               }
-          }
+          },
       )
 
   private def confirmOrAllSet(
       email: EmailAddressValidator.Acceptable,
       mustConfirm: MustConfirmEmail,
-      fingerPrint: Option[FingerPrint]
+      fingerPrint: Option[FingerPrint],
   )(user: User)(implicit req: RequestHeader, lang: Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if (mustConfirm.value) {
@@ -133,14 +133,14 @@ final class Signup(
                 passwordHash,
                 email.acceptable,
                 false,
-                mustConfirmEmail = mustConfirm.value
+                mustConfirmEmail = mustConfirm.value,
               )
               .orFail(s"No user could be created for ${data.username}")
               .addEffect { logSignup(_, email.acceptable, none, mustConfirm) }
               .flatMap {
                 confirmOrAllSet(email, mustConfirm, none)
               }
-          }
+          },
       )
 
   private def HasherRateLimit =
@@ -148,16 +148,16 @@ final class Signup(
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
     key = "account.create.ip",
-    enforce = netConfig.rateLimit.value
+    enforce = netConfig.rateLimit.value,
   )(
     ("fast", 10, 10.minutes),
-    ("slow", 150, 1 day)
+    ("slow", 150, 1 day),
   )
 
   private val rateLimitDefault = fuccess(Signup.RateLimited)
 
   private def signupRateLimit(username: String, cost: Int)(
-      f: => Fu[Signup.Result]
+      f: => Fu[Signup.Result],
   )(implicit req: RequestHeader): Fu[Signup.Result] =
     HasherRateLimit(username, req) { _ =>
       signupRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost)(f)(rateLimitDefault)
@@ -167,12 +167,12 @@ final class Signup(
       user: User,
       email: EmailAddress,
       fingerPrint: Option[FingerPrint],
-      mustConfirm: MustConfirmEmail
+      mustConfirm: MustConfirmEmail,
   ) =
     authLog(
       user.username,
       email.value,
-      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)}}"
+      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)}}",
     )
 
   private def signupErrLog(err: Form[_]) =

@@ -17,60 +17,65 @@ object gamesContent {
       nbs: lila.app.mashup.UserInfo.NbGames,
       pager: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
-      filterName: String
+      filterName: String,
   )(implicit ctx: Context) =
     frag(
       div(cls := "number-menu number-menu--tabs menu-box-pop", id := "games")(
         filters.list.map { f =>
           a(
             cls  := s"nm-item to-${f.name}${(filters.current == f) ?? " active"}",
-            href := routes.User.games(u.username, f.name)
+            href := routes.User.games(u.username, f.name),
           )(userGameFilterTitle(u, nbs, f))
-        }
+        },
       ),
       nbs.crosstable.ifTrue(filters.current.name == "me").map {
         views.html.game.crosstable(_, none)
       },
       div(cls := "search__result")(
         if (filterName == "search") {
-          val permalink = a(rel := "nofollow", href := routes.User.games(u.username, filterName))("Permalink")
+          val permalink =
+            a(rel := "nofollow", href := routes.User.games(u.username, filterName))("Permalink")
           if (pager.nbResults > 0)
             frag(
               div(cls := "search__status")(
                 strong(pager.nbResults.localize, " games found"),
                 " - ",
-                permalink
+                permalink,
               ),
               div(cls := "search__rows")(
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(
-                  cls := "none"
+                  cls := "none",
                 ),
-                views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
-              )
+                views.html.game
+                  .widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+              ),
             )
           else
             div(cls := "search__status")(
               strong("No game found"),
               " - ",
-              permalink
+              permalink,
             )
         } else
           div(
             cls := List(
               "games infinitescroll" -> true,
-              "now-playing center"   -> (filterName == "playing" && pager.nbResults > 2)
-            )
+              "now-playing center"   -> (filterName == "playing" && pager.nbResults > 2),
+            ),
           )(
-            pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(cls := "none"),
+            pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(
+              cls := "none",
+            ),
             if (filterName == "playing" && pager.nbResults > 2)
               pager.currentPageResults.flatMap { Pov(_, u) }.map { p =>
                 a(href := gameLink(p), cls := "paginated")(
                   gameSfen(p, withLink = false),
-                  views.html.game.bits.vstext(p)
+                  views.html.game.bits.vstext(p),
                 )
               }
-            else views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
-          )
-      )
+            else
+              views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+          ),
+      ),
     )
 }

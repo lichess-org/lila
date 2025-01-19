@@ -29,7 +29,7 @@ final class JsonView(rematches: Rematches) {
         "startedAtPly"  -> game.shogi.startedAtPly,
         "source"        -> game.source,
         "status"        -> game.status,
-        "createdAt"     -> game.createdAt
+        "createdAt"     -> game.createdAt,
       )
       .add("boosted" -> game.boosted)
       .add("tournamentId" -> game.tournamentId)
@@ -51,7 +51,7 @@ final class JsonView(rematches: Rematches) {
         "status"   -> pov.game.status,
         "variant" -> Json.obj(
           "key"  -> pov.game.variant.key,
-          "name" -> pov.game.variant.name
+          "name" -> pov.game.variant.name,
         ),
         "speed"    -> pov.game.speed.key,
         "perf"     -> lila.game.PerfPicker.key(pov.game),
@@ -61,12 +61,12 @@ final class JsonView(rematches: Rematches) {
           .obj(
             "id" -> pov.opponent.userId,
             "username" -> lila.game.Namer
-              .playerTextBlocking(pov.opponent, withRating = false)(lightUserSync)
+              .playerTextBlocking(pov.opponent, withRating = false)(lightUserSync),
           )
           .add("rating" -> pov.opponent.rating)
           .add("ai" -> pov.opponent.aiLevel)
           .add("aiCode" -> pov.opponent.aiCode),
-        "isMyTurn" -> pov.isMyTurn
+        "isMyTurn" -> pov.isMyTurn,
       )
       .add("secondsLeft" -> pov.remainingSeconds)
       .add("tournamentId" -> pov.game.tournamentId)
@@ -78,22 +78,23 @@ object JsonView {
   implicit val statusWrites: OWrites[shogi.Status] = OWrites { s =>
     Json.obj(
       "id"   -> s.id,
-      "name" -> s.name
+      "name" -> s.name,
     )
   }
 
   implicit val crosstableResultWrites: OWrites[Crosstable.Result] = Json.writes[Crosstable.Result]
 
-  implicit val crosstableUsersWrites: OWrites[Crosstable.Users] = OWrites[Crosstable.Users] { users =>
-    JsObject(users.toList.map { u =>
-      u.id -> JsNumber(u.score / 10d)
-    })
+  implicit val crosstableUsersWrites: OWrites[Crosstable.Users] = OWrites[Crosstable.Users] {
+    users =>
+      JsObject(users.toList.map { u =>
+        u.id -> JsNumber(u.score / 10d)
+      })
   }
 
   implicit val crosstableWrites: OWrites[Crosstable] = OWrites[Crosstable] { c =>
     Json.obj(
       "users"   -> c.users,
-      "nbGames" -> c.nbGames
+      "nbGames" -> c.nbGames,
       // "results" -> c.results
     )
   }
@@ -109,14 +110,14 @@ object JsonView {
   implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>
     Json.obj(
       "nb"   -> blurs.nb,
-      "bits" -> blurs.binaryString
+      "bits" -> blurs.binaryString,
     )
   }
 
   implicit val variantWriter: OWrites[shogi.variant.Variant] = OWrites { v =>
     Json.obj(
       "key"  -> v.key,
-      "name" -> v.name
+      "name" -> v.name,
     )
   }
 
@@ -133,7 +134,7 @@ object JsonView {
       "gPeriods"  -> goteClock.periods,
       "sente"     -> senteClock.time.toSeconds,
       "gote"      -> goteClock.time.toSeconds,
-      "emerg"     -> c.config.emergSeconds
+      "emerg"     -> c.config.emergSeconds,
     )
   }
 
@@ -142,14 +143,14 @@ object JsonView {
       "daysPerTurn" -> c.daysPerTurn,
       "increment"   -> c.increment,
       "sente"       -> c.senteTime,
-      "gote"        -> c.goteTime
+      "gote"        -> c.goteTime,
     )
   }
 
   implicit val divisionWriter: OWrites[shogi.Division] = OWrites { o =>
     Json.obj(
       "middle" -> o.middle,
-      "end"    -> o.end
+      "end"    -> o.end,
     )
   }
 

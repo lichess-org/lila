@@ -2,6 +2,7 @@ package lila.simul
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
+
 import shogi.Status
 import shogi.variant.Variant
 
@@ -9,22 +10,28 @@ import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User
 
-final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private[simul] class SimulRepo(simulColl: Coll)(implicit
+    ec: scala.concurrent.ExecutionContext,
+) {
 
   implicit private val SimulStatusBSONHandler: BSONHandler[SimulStatus] = tryHandler[SimulStatus](
     { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },
-    x => BSONInteger(x.id)
+    x => BSONInteger(x.id),
   )
-  implicit private val ShogiStatusBSONHandler: BSONHandler[Status] = lila.game.BSONHandlers.StatusBSONHandler
+  implicit private val ShogiStatusBSONHandler: BSONHandler[Status] =
+    lila.game.BSONHandlers.StatusBSONHandler
   implicit private val VariantBSONHandler: BSONHandler[Variant] = quickHandler[Variant](
     { case BSONInteger(v) => Variant.orDefault(v) },
-    x => BSONInteger(x.id)
+    x => BSONInteger(x.id),
   )
   import shogi.Clock.Config
-  implicit private val clockHandler: BSONDocumentHandler[Config]         = Macros.handler[Config]
-  implicit private val ClockBSONHandler: BSONDocumentHandler[SimulClock]     = Macros.handler[SimulClock]
-  implicit private val PlayerBSONHandler: BSONDocumentHandler[SimulPlayer]    = Macros.handler[SimulPlayer]
-  implicit private val ApplicantBSONHandler: BSONDocumentHandler[SimulApplicant] = Macros.handler[SimulApplicant]
+  implicit private val clockHandler: BSONDocumentHandler[Config] = Macros.handler[Config]
+  implicit private val ClockBSONHandler: BSONDocumentHandler[SimulClock] =
+    Macros.handler[SimulClock]
+  implicit private val PlayerBSONHandler: BSONDocumentHandler[SimulPlayer] =
+    Macros.handler[SimulPlayer]
+  implicit private val ApplicantBSONHandler: BSONDocumentHandler[SimulApplicant] =
+    Macros.handler[SimulApplicant]
   implicit private val SimulPairingBSONHandler: BSON[SimulPairing] = new BSON[SimulPairing] {
     def reads(r: BSON.Reader) =
       SimulPairing(
@@ -32,7 +39,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
         gameId = r str "gameId",
         status = r.get[Status]("status"),
         wins = r boolO "wins",
-        hostColor = r.strO("hostColor").flatMap(shogi.Color.fromName) | shogi.Sente
+        hostColor = r.strO("hostColor").flatMap(shogi.Color.fromName) | shogi.Sente,
       )
     def writes(w: BSON.Writer, o: SimulPairing) =
       $doc(
@@ -40,7 +47,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
         "gameId"    -> o.gameId,
         "status"    -> o.status,
         "wins"      -> o.wins,
-        "hostColor" -> o.hostColor.name
+        "hostColor" -> o.hostColor.name,
       )
   }
 
@@ -76,8 +83,8 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
-          "hostSeenAt" $gte DateTime.now.minusSeconds(12)
-        )
+          "hostSeenAt" $gte DateTime.now.minusSeconds(12),
+        ),
       )
       .sort(createdSort)
       .cursor[Simul]()
@@ -85,7 +92,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       _.foldLeft(List.empty[Simul]) {
         case (acc, sim)
             if !acc.exists(_.hostId == sim.hostId) && (sim.popular || sim.createdAt.isAfter(
-              DateTime.now.minusHours(4)
+              DateTime.now.minusHours(4),
             )) =>
           sim :: acc
         case (acc, _) => acc
@@ -122,7 +129,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       .one(
         $id(simul.id),
         $set(SimulBSONHandler writeTry simul get) ++
-          simul.estimatedStartAt.isEmpty ?? ($unset("estimatedStartAt"))
+          simul.estimatedStartAt.isEmpty ?? ($unset("estimatedStartAt")),
       )
       .void
 
@@ -133,7 +140,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     simulColl.update
       .one(
         $id(simul.id),
-        $set("hostGameId" -> gameId)
+        $set("hostGameId" -> gameId),
       )
       .void
 
@@ -141,7 +148,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     simulColl.update
       .one(
         $id(simul.id),
-        $set("hostSeenAt" -> DateTime.now)
+        $set("hostSeenAt" -> DateTime.now),
       )
       .void
 
@@ -149,14 +156,14 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     simulColl.update
       .one(
         $id(simul.id),
-        $set("text" -> text)
+        $set("text" -> text),
       )
       .void
 
   def cleanup =
     simulColl.delete.one(
       createdSelect ++ $doc(
-        "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
-      )
+        "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60)),
+      ),
     )
 }

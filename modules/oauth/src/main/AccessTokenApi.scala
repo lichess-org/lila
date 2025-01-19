@@ -10,10 +10,10 @@ import lila.db.dsl._
 import lila.user.User
 
 final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
-  import OAuthScope.scopeHandler
   import AccessToken.{ BSONFields => F }
+  import OAuthScope.scopeHandler
 
   private def create(token: AccessToken): Fu[AccessToken] = coll.insert.one(token).inject(token)
 
@@ -28,8 +28,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
         createdAt = DateTime.now().some,
         scopes = setup.scopes.flatMap(OAuthScope.byKey.get),
         clientOrigin = None,
-        expires = None
-      )
+        expires = None,
+      ),
     )
   }
 
@@ -44,8 +44,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
         createdAt = DateTime.now().some,
         scopes = granted.scopes,
         clientOrigin = granted.redirectUri.clientOrigin.some,
-        expires = DateTime.now().plusMonths(12).some
-      )
+        expires = DateTime.now().plusMonths(12).some,
+      ),
     )
   }
 
@@ -54,8 +54,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       .find(
         $doc(
           F.userId       -> user.id,
-          F.clientOrigin -> $exists(false)
-        )
+          F.clientOrigin -> $exists(false),
+        ),
       )
       .sort($sort desc F.createdAt)
       .cursor[AccessToken]()
@@ -65,8 +65,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     coll.countSel(
       $doc(
         F.userId       -> user.id,
-        F.clientOrigin -> $exists(false)
-      )
+        F.clientOrigin -> $exists(false),
+      ),
     )
 
   def findCompatiblePersonal(user: User, scopes: Set[OAuthScope]): Fu[Option[AccessToken]] =
@@ -74,8 +74,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       $doc(
         F.userId       -> user.id,
         F.clientOrigin -> $exists(false),
-        F.scopes $all scopes.toSeq
-      )
+        F.scopes $all scopes.toSeq,
+      ),
     )
 
   def listClients(user: User, limit: Int): Fu[List[AccessTokenApi.Client]] =
@@ -84,16 +84,16 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       Match(
         $doc(
           F.userId       -> user.id,
-          F.clientOrigin -> $exists(true)
-        )
+          F.clientOrigin -> $exists(true),
+        ),
       ) -> List(
         Unwind(path = F.scopes, includeArrayIndex = None, preserveNullAndEmptyArrays = Some(true)),
         GroupField(F.clientOrigin)(
           F.usedAt -> MaxField(F.usedAt),
-          F.scopes -> AddFieldToSet(F.scopes)
+          F.scopes -> AddFieldToSet(F.scopes),
         ),
         Sort(Descending(F.usedAt)),
-        Limit(limit)
+        Limit(limit),
       )
     } map { docs =>
       for {
@@ -109,8 +109,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       .one(
         $doc(
           F.id     -> id,
-          F.userId -> user.id
-        )
+          F.userId -> user.id,
+        ),
       )
       .map(_ => invalidateCached(id))
 
@@ -119,9 +119,9 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       .find(
         $doc(
           F.userId       -> user.id,
-          F.clientOrigin -> clientOrigin
+          F.clientOrigin -> clientOrigin,
         ),
-        $doc(F.id -> 1).some
+        $doc(F.id -> 1).some,
       )
       .sort($sort desc F.usedAt)
       .cursor[Bdoc]()
@@ -131,8 +131,8 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
           .one(
             $doc(
               F.userId       -> user.id,
-              F.clientOrigin -> clientOrigin
-            )
+              F.clientOrigin -> clientOrigin,
+            ),
           )
           .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(invalidateCached))
       }
@@ -154,7 +154,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     coll.ext.findAndUpdate[AccessToken.ForAuth](
       selector = $id(id),
       update = $set(F.usedAt -> DateTime.now()),
-      fields = AccessToken.forAuthProjection.some
+      fields = AccessToken.forAuthProjection.some,
     )
 
   private def invalidateCached(id: AccessToken.Id): Unit =
@@ -165,6 +165,6 @@ object AccessTokenApi {
   case class Client(
       origin: String,
       usedAt: Option[DateTime],
-      scopes: List[OAuthScope]
+      scopes: List[OAuthScope],
   )
 }

@@ -19,7 +19,7 @@ object Translator {
         key: MessageKey,
         lang: Lang,
         quantity: I18nQuantity,
-        args: Seq[Any]
+        args: Seq[Any],
     ): RawFrag =
       findTranslation(key, lang) flatMap { translation =>
         val htmlArgs = escapeArgs(args)
@@ -60,7 +60,7 @@ object Translator {
         key: MessageKey,
         lang: Lang,
         quantity: I18nQuantity,
-        args: Seq[Any]
+        args: Seq[Any],
     ): String =
       findTranslation(key, lang) flatMap { translation =>
         try {

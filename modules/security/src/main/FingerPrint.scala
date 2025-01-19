@@ -32,6 +32,8 @@ object FingerHash {
     if (str.size % 2 != 0) s"${str}0" else str
   }
 
-  implicit val fingerHashIso: Iso.StringIso[FingerHash] = Iso.string[FingerHash](FingerHash.apply, _.value)
-  implicit val fpHandler: BSONHandler[FingerHash]     = lila.db.BSON.isoHandler[FingerHash, String](fingerHashIso)
+  implicit val fingerHashIso: Iso.StringIso[FingerHash] =
+    Iso.string[FingerHash](FingerHash.apply, _.value)
+  implicit val fpHandler: BSONHandler[FingerHash] =
+    lila.db.BSON.isoHandler[FingerHash, String](fingerHashIso)
 }

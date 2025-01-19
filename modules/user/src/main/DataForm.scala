@@ -6,8 +6,7 @@ import play.api.data.validation.Constraints
 
 import lila.common.Form.cleanNonEmptyText
 import lila.common.Form.cleanText
-
-import User.ClearPassword
+import lila.user.User.ClearPassword
 
 final class DataForm(authenticator: Authenticator) {
 
@@ -15,8 +14,8 @@ final class DataForm(authenticator: Authenticator) {
     mapping(
       "text" -> cleanText(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
-      "dox"  -> optional(boolean)
-    )(NoteData.apply)(NoteData.unapply)
+      "dox"  -> optional(boolean),
+    )(NoteData.apply)(NoteData.unapply),
   )
 
   case class NoteData(text: String, mod: Boolean, dox: Option[Boolean])
@@ -26,9 +25,9 @@ final class DataForm(authenticator: Authenticator) {
       single(
         "username" -> cleanText.verifying(
           "changeUsernameNotSame",
-          name => name.toLowerCase == user.username.toLowerCase && name != user.username
-        )
-      )
+          name => name.toLowerCase == user.username.toLowerCase && name != user.username,
+        ),
+      ),
     ).fill(user.username)
 
   def usernameOf(user: User) = username(user) fill user.username
@@ -40,8 +39,8 @@ final class DataForm(authenticator: Authenticator) {
       "bio"       -> optional(cleanNonEmptyText(maxLength = 600)),
       "firstName" -> nameField,
       "lastName"  -> nameField,
-      "links"     -> optional(cleanNonEmptyText(maxLength = 3000))
-    )(Profile.apply)(Profile.unapply)
+      "links"     -> optional(cleanNonEmptyText(maxLength = 3000)),
+    )(Profile.apply)(Profile.unapply),
   )
 
   def profileOf(user: User) = profile fill user.profileOrDefault
@@ -51,7 +50,7 @@ final class DataForm(authenticator: Authenticator) {
   case class Passwd(
       oldPasswd: String,
       newPasswd1: String,
-      newPasswd2: String
+      newPasswd2: String,
   ) {
     def samePasswords = newPasswd1 == newPasswd2
   }
@@ -60,10 +59,13 @@ final class DataForm(authenticator: Authenticator) {
     authenticator loginCandidate u map { candidate =>
       Form(
         mapping(
-          "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
+          "oldPasswd" -> nonEmptyText.verifying(
+            "incorrectPassword",
+            p => candidate.check(ClearPassword(p)),
+          ),
           "newPasswd1" -> text(minLength = 2),
-          "newPasswd2" -> text(minLength = 2)
-        )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords)
+          "newPasswd2" -> text(minLength = 2),
+        )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords),
       )
     }
 }
@@ -75,7 +77,7 @@ object DataForm {
   lazy val historicalUsernameConstraints = Seq(
     Constraints minLength 2,
     Constraints maxLength 30,
-    Constraints.pattern(regex = User.historicalUsernameRegex)
+    Constraints.pattern(regex = User.historicalUsernameRegex),
   )
   lazy val historicalUsernameField = text.verifying(historicalUsernameConstraints: _*)
 }

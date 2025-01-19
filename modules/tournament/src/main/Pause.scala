@@ -39,7 +39,7 @@ final private class Pause {
   def add(userId: User.ID): Unit =
     cache.put(
       userId,
-      cache.getIfPresent(userId).fold(newRecord)(_.add)
+      cache.getIfPresent(userId).fold(newRecord)(_.add),
     )
 
   def remainingDelay(userId: User.ID, tour: Tournament): Option[Delay] =
@@ -58,7 +58,7 @@ object Pause {
     def add =
       copy(
         pauses = pauses + 1,
-        pausedAt = DateTime.now
+        pausedAt = DateTime.now,
       )
   }
   val newRecord = Record(1, DateTime.now)

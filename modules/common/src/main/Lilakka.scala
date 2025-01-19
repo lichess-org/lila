@@ -6,8 +6,12 @@ object Lilakka {
 
   val logger = lila.log("shutdown")
 
-  def shutdown(cs: CoordinatedShutdown, makePhase: CoordinatedShutdown.type => String, name: String)(
-      f: () => Funit
+  def shutdown(
+      cs: CoordinatedShutdown,
+      makePhase: CoordinatedShutdown.type => String,
+      name: String,
+  )(
+      f: () => Funit,
   ): Unit = {
     val phase = makePhase(CoordinatedShutdown)
     val msg   = s"$phase $name"

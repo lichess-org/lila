@@ -12,11 +12,10 @@ import lila.common.Every
 import lila.common.config.Max
 import lila.game.Game
 import lila.hub.Trouper
+import lila.lobby.actorApi._
 import lila.socket.Socket.Sri
 import lila.socket.Socket.Sris
 import lila.user.User
-
-import actorApi._
 
 final private class LobbyTrouper(
     seekApi: SeekApi,
@@ -25,7 +24,7 @@ final private class LobbyTrouper(
     gameRepo: lila.game.GameRepo,
     maxPlaying: Max,
     playbanApi: lila.playban.PlaybanApi,
-    onStart: lila.round.OnStart
+    onStart: lila.round.OnStart,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
 
@@ -180,7 +179,7 @@ final private class LobbyTrouper(
       candidates <- seekApi.forUser(seek.user).map(_.filter(_.compatibleWith(seek)))
       currentplyPlaying <- candidates.nonEmpty ?? gameRepo.playingCorresOpponentsOfVariant(
         seek.user.id,
-        seek.realVariant
+        seek.realVariant,
       )
     } yield (candidates.find(c => !currentplyPlaying.contains(c.user.id)))
 
@@ -201,17 +200,19 @@ private object LobbyTrouper {
 
   def start(
       broomPeriod: FiniteDuration,
-      resyncIdsPeriod: FiniteDuration
+      resyncIdsPeriod: FiniteDuration,
   )(
-      makeTrouper: () => LobbyTrouper
+      makeTrouper: () => LobbyTrouper,
   )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyTrouper")
-    system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
+    system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() =>
+      trouper ! actorApi.Resync,
+    )
     lila.common.ResilientScheduler(
       every = Every(broomPeriod),
       atMost = AtMost(10 seconds),
-      initialDelay = 7 seconds
+      initialDelay = 7 seconds,
     ) { trouper.ask[Unit](Tick) }
     trouper
   }

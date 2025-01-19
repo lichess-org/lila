@@ -5,6 +5,7 @@ import scala.util.Try
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
+
 import shogi.Clock
 import shogi.Color
 import shogi.ConsecutiveAttacks
@@ -17,8 +18,8 @@ import shogi.Status
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import shogi.{Game => ShogiGame}
-import shogi.{History => ShogiHistory}
+import shogi.{ Game => ShogiGame }
+import shogi.{ History => ShogiHistory }
 
 import lila.db.BSON
 import lila.db.dsl._
@@ -27,13 +28,14 @@ object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit private[game] val consecutiveAttacksWriter: BSONWriter[ConsecutiveAttacks] = new BSONWriter[ConsecutiveAttacks] {
-    def writeTry(ca: ConsecutiveAttacks) = Success(BSONArray(ca.sente, ca.gote))
-  }
+  implicit private[game] val consecutiveAttacksWriter: BSONWriter[ConsecutiveAttacks] =
+    new BSONWriter[ConsecutiveAttacks] {
+      def writeTry(ca: ConsecutiveAttacks) = Success(BSONArray(ca.sente, ca.gote))
+    }
 
   implicit val StatusBSONHandler: BSONHandler[Status] = quickHandler[Status](
     { case BSONInteger(v) => Status(v).getOrElse(Status.UnknownFinish) },
-    x => BSONInteger(x.id)
+    x => BSONInteger(x.id),
   )
 
   import Player.playerBSONHandler
@@ -53,19 +55,21 @@ object BSONHandlers {
       val initialSfen    = r.getO[Sfen](F.initialSfen)
       val startedAtStep  = initialSfen.flatMap(_.stepNumber) | 1
       val startedAtColor = initialSfen.flatMap(_.color) | Sente
-      val startedAtPly   = startedAtStep - (if ((startedAtStep % 2 == 1) == startedAtColor.sente) 1 else 0)
+      val startedAtPly =
+        startedAtStep - (if ((startedAtStep % 2 == 1) == startedAtColor.sente) 1 else 0)
 
       val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
 
-      val plies    = r int F.plies atMost Game.maxPlies(gameVariant) // unlimited can cause StackOverflowError
-      val plyColor = Color.fromPly(plies)
+      val plies =
+        r int F.plies atMost Game.maxPlies(gameVariant) // unlimited can cause StackOverflowError
+      val plyColor   = Color.fromPly(plies)
       val clockColor = if (light.status == Status.Paused) !plyColor else plyColor
       val createdAt  = r date F.createdAt
 
       val periodEntries = BinaryFormat.periodEntries
         .read(
           r bytesD F.periodsSente,
-          r bytesD F.periodsGote
+          r bytesD F.periodsGote,
         )
         .getOrElse(PeriodEntries.default)
 
@@ -75,8 +79,9 @@ object BSONHandlers {
       val positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty
       val hands          = r.strO(F.hands) flatMap { Sfen.makeHandsFromString(_, gameVariant) }
 
-      val lastLionCapture = if (gameVariant.chushogi) r.strO(F.lastLionCapture).flatMap(Pos.fromKey) else None
-      val counts          = r.intsD(F.consecutiveAttacks)
+      val lastLionCapture =
+        if (gameVariant.chushogi) r.strO(F.lastLionCapture).flatMap(Pos.fromKey) else None
+      val counts = r.intsD(F.consecutiveAttacks)
 
       val shogiGame = ShogiGame(
         situation = shogi.Situation(
@@ -88,17 +93,22 @@ object BSONHandlers {
             lastLionCapture = lastLionCapture,
             consecutiveAttacks = ConsecutiveAttacks(~counts.headOption, ~counts.lastOption),
             positionHashes = positionHashes,
-            initialSfen = initialSfen
+            initialSfen = initialSfen,
           ),
-          variant = gameVariant
+          variant = gameVariant,
         ),
         usis = usis,
         clock = r.getO[Color => Clock](F.clock) {
-          clockBSONReader(createdAt, periodEntries, light.sentePlayer.berserk, light.gotePlayer.berserk)
+          clockBSONReader(
+            createdAt,
+            periodEntries,
+            light.sentePlayer.berserk,
+            light.gotePlayer.berserk,
+          )
         } map (_(clockColor)),
         plies = plies,
         startedAtPly = startedAtPly,
-        startedAtStep = startedAtStep
+        startedAtStep = startedAtStep,
       )
 
       val senteClockHistory = r bytesO F.senteClockHistory
@@ -115,7 +125,13 @@ object BSONHandlers {
             bg <- goteClockHistory
             history <-
               BinaryFormat.clockHistory
-                .read(clk.limit, bs, bg, periodEntries, (light.status == Status.Outoftime).option(plyColor))
+                .read(
+                  clk.limit,
+                  bs,
+                  bg,
+                  periodEntries,
+                  (light.status == Status.Outoftime).option(plyColor),
+                )
             _ = lila.mon.game.loadClockHistory.increment()
           } yield history,
         status = light.status,
@@ -129,13 +145,14 @@ object BSONHandlers {
         movedAt = r.dateD(F.movedAt, createdAt),
         metadata = Metadata(
           source = r intO F.source flatMap Source.apply,
-          notationImport = r.getO[NotationImport](F.notationImport)(NotationImport.notationImportBSONHandler),
+          notationImport =
+            r.getO[NotationImport](F.notationImport)(NotationImport.notationImportBSONHandler),
           tournamentId = r strO F.tournamentId,
           arrangementId = r strO F.arrangementId,
           simulId = r strO F.simulId,
           postGameStudy = r strO F.postGameStudy,
-          analysed = r boolD F.analysed
-        )
+          analysed = r boolD F.analysed,
+        ),
       )
     }
 
@@ -147,12 +164,12 @@ object BSONHandlers {
         F.sentePlayer -> w.docO(
           playerBSONHandler write ((_: Color) =>
             (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.sentePlayer
-          )
+          ),
         ),
         F.gotePlayer -> w.docO(
           playerBSONHandler write ((_: Color) =>
             (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.gotePlayer
-          )
+          ),
         ),
         F.status -> o.status,
         F.plies  -> o.shogi.plies,
@@ -183,7 +200,7 @@ object BSONHandlers {
         F.analysed           -> w.boolO(o.metadata.analysed),
         F.positionHashes     -> o.history.positionHashes,
         F.hands              -> Sfen.handsToString(o.hands, o.variant),
-        F.usis               -> BinaryFormat.usi.write(o.usis, o.variant)
+        F.usis               -> BinaryFormat.usi.write(o.usis, o.variant),
       )
   }
 
@@ -198,10 +215,11 @@ object BSONHandlers {
     }
 
     def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame = {
-      val (senteId, goteId)   = playerIds splitAt 4
-      val winC                = r boolO F.winnerColor map Color.fromSente
-      val uids                = ~r.getO[List[lila.user.User.ID]](F.playerUids)
-      val (senteUid, goteUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
+      val (senteId, goteId) = playerIds splitAt 4
+      val winC              = r boolO F.winnerColor map Color.fromSente
+      val uids              = ~r.getO[List[lila.user.User.ID]](F.playerUids)
+      val (senteUid, goteUid) =
+        (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
       def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {
         val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
         builder(color)(id)(uid)(winC map (_ == color))
@@ -210,7 +228,7 @@ object BSONHandlers {
         id = r str F.id,
         sentePlayer = makePlayer(F.sentePlayer, Sente, senteId, senteUid),
         gotePlayer = makePlayer(F.gotePlayer, Gote, goteId, goteUid),
-        status = r.get[Status](F.status)
+        status = r.get[Status](F.status),
       )
     }
   }
@@ -224,7 +242,7 @@ object BSONHandlers {
       color: Color,
       clockHistory: Option[ClockHistory],
       clock: Option[Clock],
-      flagged: Option[Color]
+      flagged: Option[Color],
   ) =
     for {
       clk     <- clock
@@ -236,7 +254,7 @@ object BSONHandlers {
       since: DateTime,
       periodEntries: PeriodEntries,
       senteBerserk: Boolean,
-      goteBerserk: Boolean
+      goteBerserk: Boolean,
   ) =
     new BSONReader[Color => Clock] {
       def readTry(bson: BSONValue): Try[Color => Clock] =

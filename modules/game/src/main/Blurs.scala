@@ -35,6 +35,6 @@ object Blurs {
       case BSONLong(bits)    => Success(Blurs(bits))
       case v                 => lila.db.BSON.handlerBadValue(s"Invalid blurs bits $v")
     },
-    blurs => blurs.asInt.fold[BSONValue](BSONLong(blurs.bits))(BSONInteger.apply)
+    blurs => blurs.asInt.fold[BSONValue](BSONLong(blurs.bits))(BSONInteger.apply),
   )
 }

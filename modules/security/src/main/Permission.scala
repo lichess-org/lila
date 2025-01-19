@@ -1,6 +1,10 @@
 package lila.security
 
-sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String) {
+sealed abstract class Permission(
+    val key: String,
+    val children: List[Permission] = Nil,
+    val name: String,
+) {
 
   def this(key: String, name: String) = this(key, Nil, name)
 
@@ -20,14 +24,15 @@ object Permission {
   case object UserSpy          extends Permission("USER_SPY", "User profile mod view")
   case object UserEvaluate     extends Permission("USER_EVALUATE", "Request evaluation")
   case object ViewPrivateComms extends Permission("VIEW_PRIVATE_COMS", "View private comms")
-  case object Shadowban        extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
-  case object SetKidMode       extends Permission("SET_KID_MODE", List(UserSpy), "Set Kid Mode")
-  case object MarkEngine       extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
-  case object MarkBooster      extends Permission("ADJUST_BOOSTER", List(UserSpy), "Mark as booster")
-  case object IpBan            extends Permission("IP_BAN", List(UserSpy), "IP ban")
-  case object PrintBan         extends Permission("PRINT_BAN", List(UserSpy), "Print ban")
+  case object Shadowban   extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
+  case object SetKidMode  extends Permission("SET_KID_MODE", List(UserSpy), "Set Kid Mode")
+  case object MarkEngine  extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
+  case object MarkBooster extends Permission("ADJUST_BOOSTER", List(UserSpy), "Mark as booster")
+  case object IpBan       extends Permission("IP_BAN", List(UserSpy), "IP ban")
+  case object PrintBan    extends Permission("PRINT_BAN", List(UserSpy), "Print ban")
   case object DisableTwoFactor extends Permission("DISABLE_2FA", "Disable 2FA")
-  case object CloseAccount     extends Permission("CLOSE_ACCOUNT", List(UserSpy), "Close/reopen account")
+  case object CloseAccount
+      extends Permission("CLOSE_ACCOUNT", List(UserSpy), "Close/reopen account")
   case object SetTitle         extends Permission("SET_TITLE", List(UserSpy), "Set/unset title")
   case object SetEmail         extends Permission("SET_EMAIL", List(UserSpy), "Set email address")
   case object SeeReport        extends Permission("SEE_REPORT", "See reports")
@@ -65,7 +70,7 @@ object Permission {
       extends Permission(
         "LISHOGI_TEAM",
         List(Beta),
-        "Lishogi team"
+        "Lishogi team",
       )
 
   case object Hunter
@@ -85,9 +90,9 @@ object Permission {
           UserSearch,
           RemoveRanking,
           ModMessage,
-          ModNote
+          ModNote,
         ),
-        "Hunter"
+        "Hunter",
       )
 
   case object Shusher
@@ -101,18 +106,18 @@ object Permission {
           ReportBan,
           ModMessage,
           SeeReport,
-          ModLog
+          ModLog,
         ),
-        "Shusher"
+        "Shusher",
       )
 
   case object Doxing
       extends Permission(
         "DOXING",
         List(
-          ViewIpPrint
+          ViewIpPrint,
         ),
-        "Doxing"
+        "Doxing",
       )
 
   case object Admin
@@ -138,9 +143,9 @@ object Permission {
           Streamers,
           DisableTwoFactor,
           ChangePermission,
-          StudyAdmin
+          StudyAdmin,
         ),
-        "Admin"
+        "Admin",
       )
 
   case object SuperAdmin
@@ -151,9 +156,9 @@ object Permission {
           Impersonate,
           PayPal,
           Cli,
-          Settings
+          Settings,
         ),
-        "Super Admin"
+        "Super Admin",
       )
 
   lazy val categorized: List[(String, List[Permission])] = List(
@@ -164,7 +169,7 @@ object Permission {
       ChatTimeout,
       ModerateForum,
       ReportBan,
-      ModMessage
+      ModMessage,
     ),
     "Play mod" -> List(
       SeeInsights,
@@ -172,7 +177,7 @@ object Permission {
       MarkEngine,
       UserEvaluate,
       MarkBooster,
-      RemoveRanking
+      RemoveRanking,
     ),
     "Account mod" -> List(
       UserSpy,
@@ -182,7 +187,7 @@ object Permission {
       DisableTwoFactor,
       CloseAccount,
       SetTitle,
-      SetEmail
+      SetEmail,
     ),
     "Misc mod" -> List(
       SeeReport,
@@ -192,32 +197,32 @@ object Permission {
       ModNote,
       ModLog,
       ManageTeam,
-      Streamers
+      Streamers,
     ),
     "Content" -> List(
       ManageEvent,
       ManageTournament,
       ManageSimul,
       StudyAdmin,
-      PracticeConfig
+      PracticeConfig,
     ),
     "Dev" -> List(
       Cli,
       Settings,
       Impersonate,
       ChangePermission,
-      PayPal
+      PayPal,
     ),
     "Feature" -> List(
       Beta,
       Coach,
       Teacher,
-      ApiHog
+      ApiHog,
     ),
     "Badge" -> List(
       Developer,
       PublicMod,
-      Verified
+      Verified,
     ),
     "Package" -> List(
       LishogiTeam,
@@ -225,8 +230,8 @@ object Permission {
       Shusher,
       Doxing,
       Admin,
-      SuperAdmin
-    )
+      SuperAdmin,
+    ),
   )
 
   lazy val all: Set[Permission] = categorized.flatMap { case (_, perms) =>

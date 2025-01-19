@@ -13,10 +13,10 @@ import lila.user.User
 
 final class PerfStatIndexer(
     gameRepo: GameRepo,
-    storage: PerfStatStorage
+    storage: PerfStatStorage,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   private val workQueue =
@@ -31,7 +31,7 @@ final class PerfStatIndexer(
             Query.pliesGt(2) ++
             Query.variant(PerfType variantOf perfType),
           Query.sortChronological,
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = ReadPreference.secondaryPreferred,
         )
         .fold(PerfStat.init(user.id, perfType)) {
           case (perfStat, game) if game.perfType.contains(perfType) =>

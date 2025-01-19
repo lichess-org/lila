@@ -1,6 +1,7 @@
 package lila.round
 
 import org.goochjs.glicko2._
+
 import shogi.Color
 import shogi.Speed
 
@@ -13,7 +14,7 @@ import lila.rating.Glicko
 import lila.rating.Perf
 import lila.rating.RatingFactors
 import lila.rating.RatingRegulator
-import lila.rating.{PerfType => PT}
+import lila.rating.{ PerfType => PT }
 import lila.user.Perfs
 import lila.user.RankingApi
 import lila.user.User
@@ -25,7 +26,7 @@ final class PerfsUpdater(
     historyApi: HistoryApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
-    ratingFactors: () => RatingFactors
+    ratingFactors: () => RatingFactors,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   // returns rating diffs
@@ -71,7 +72,7 @@ final class PerfsUpdater(
             def intRatingLens(perfs: Perfs) = mainPerf(perfs).glicko.intRating
             val ratingDiffs = Color.Map(
               intRatingLens(perfsW) - intRatingLens(sente.perfs),
-              intRatingLens(perfsB) - intRatingLens(gote.perfs)
+              intRatingLens(perfsB) - intRatingLens(gote.perfs),
             )
             gameRepo.setRatingDiffs(game.id, ratingDiffs) zip
               userRepo.setPerfs(sente, perfsW, sente.perfs) zip
@@ -95,7 +96,7 @@ final class PerfsUpdater(
       blitz: Rating,
       rapid: Rating,
       classical: Rating,
-      correspondence: Rating
+      correspondence: Rating,
   )
 
   private def mkRatings(perfs: Perfs) =
@@ -110,7 +111,7 @@ final class PerfsUpdater(
       blitz = perfs.blitz.toRating,
       rapid = perfs.rapid.toRating,
       classical = perfs.classical.toRating,
-      correspondence = perfs.correspondence.toRating
+      correspondence = perfs.correspondence.toRating,
     )
 
   private def resultOf(game: Game): Glicko.Result =
@@ -153,14 +154,21 @@ final class PerfsUpdater(
           annanshogi = addRatingIf(game.variant.annanshogi, perfs.annanshogi, ratings.annanshogi),
           kyotoshogi = addRatingIf(game.variant.kyotoshogi, perfs.kyotoshogi, ratings.kyotoshogi),
           checkshogi = addRatingIf(game.variant.checkshogi, perfs.checkshogi, ratings.checkshogi),
-          ultraBullet =
-            addRatingIf(isStd && speed == Speed.UltraBullet, perfs.ultraBullet, ratings.ultraBullet),
+          ultraBullet = addRatingIf(
+            isStd && speed == Speed.UltraBullet,
+            perfs.ultraBullet,
+            ratings.ultraBullet,
+          ),
           bullet = addRatingIf(isStd && speed == Speed.Bullet, perfs.bullet, ratings.bullet),
           blitz = addRatingIf(isStd && speed == Speed.Blitz, perfs.blitz, ratings.blitz),
           rapid = addRatingIf(isStd && speed == Speed.Rapid, perfs.rapid, ratings.rapid),
-          classical = addRatingIf(isStd && speed == Speed.Classical, perfs.classical, ratings.classical),
-          correspondence =
-            addRatingIf(isStd && speed == Speed.Correspondence, perfs.correspondence, ratings.correspondence)
+          classical =
+            addRatingIf(isStd && speed == Speed.Classical, perfs.classical, ratings.classical),
+          correspondence = addRatingIf(
+            isStd && speed == Speed.Correspondence,
+            perfs.correspondence,
+            ratings.correspondence,
+          ),
         )
         val r = RatingRegulator(ratingFactors()) _
         val perfs2 = perfs1.copy(
@@ -173,7 +181,7 @@ final class PerfsUpdater(
           blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
           rapid = r(PT.Rapid, perfs.rapid, perfs1.rapid),
           classical = r(PT.Classical, perfs.classical, perfs1.classical),
-          correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
+          correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence),
         )
         if (isStd) perfs2.updateStandard else perfs2
     }

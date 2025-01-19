@@ -24,10 +24,12 @@ object list {
       pag = pag,
       searchFilter = "",
       url = o => routes.Study.all(o),
-      canonicalPath = lila.common.CanonicalPath(routes.Study.allDefault(1)).some
+      canonicalPath = lila.common.CanonicalPath(routes.Study.allDefault(1)).some,
     )
 
-  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) =
+  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit
+      ctx: Context,
+  ) =
     layout(
       title = trans.study.studiesCreatedByX.txt(owner.titleUsername),
       active = "owner",
@@ -35,11 +37,11 @@ object list {
       pag = pag,
       searchFilter = s"owner:${owner.username}",
       url = o => routes.Study.byOwner(owner.username, o),
-      canonicalPath = lila.common.CanonicalPath(routes.Study.byOwnerDefault(owner.username)).some
+      canonicalPath = lila.common.CanonicalPath(routes.Study.byOwnerDefault(owner.username)).some,
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
-      ctx: Context
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(
+      implicit ctx: Context,
   ) =
     layout(
       title = trans.study.myStudies.txt(),
@@ -48,12 +50,12 @@ object list {
       pag = pag,
       searchFilter = s"owner:${me.username}",
       url = o => routes.Study.mine(o),
-      topics = topics.some
+      topics = topics.some,
     )
 
   def mineLikes(
       pag: Paginator[WithChaptersAndLiked],
-      order: Order
+      order: Order,
   )(implicit ctx: Context) =
     layout(
       title = trans.study.myFavoriteStudies.txt(),
@@ -61,12 +63,12 @@ object list {
       order = order,
       pag = pag,
       searchFilter = "",
-      url = o => routes.Study.mineLikes(o)
+      url = o => routes.Study.mineLikes(o),
     )
 
   def minePostGameStudies(
       pag: Paginator[WithChaptersAndLiked],
-      order: Order
+      order: Order,
   )(implicit ctx: Context) =
     layout(
       title = trans.postGameStudies.txt(),
@@ -74,13 +76,13 @@ object list {
       order = order,
       pag = pag,
       searchFilter = "",
-      url = o => routes.Study.minePostGameStudies(o)
+      url = o => routes.Study.minePostGameStudies(o),
     )
 
   def postGameStudiesOf(
       gameId: String,
       pag: Paginator[WithChaptersAndLiked],
-      order: Order
+      order: Order,
   )(implicit ctx: Context) =
     layout(
       title = trans.postGameStudies.txt(),
@@ -89,11 +91,11 @@ object list {
       pag = pag,
       searchFilter = "",
       url = o => routes.Study.postGameStudiesOf(gameId, o),
-      canonicalPath = lila.common.CanonicalPath(routes.Study.postGameStudiesOfDefault(gameId)).some
+      canonicalPath = lila.common.CanonicalPath(routes.Study.postGameStudiesOfDefault(gameId)).some,
     )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
-      ctx: Context
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(
+      implicit ctx: Context,
   ) =
     layout(
       title = trans.study.studiesIContributeTo.txt(),
@@ -102,27 +104,31 @@ object list {
       pag = pag,
       searchFilter = s"member:${me.username}",
       url = o => routes.Study.mineMember(o),
-      topics = topics.some
+      topics = topics.some,
     )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) =
+  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit
+      ctx: Context,
+  ) =
     layout(
       title = trans.study.myPublicStudies.txt(),
       active = "minePublic",
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
-      url = o => routes.Study.minePublic(o)
+      url = o => routes.Study.minePublic(o),
     )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) =
+  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit
+      ctx: Context,
+  ) =
     layout(
       title = trans.study.myPrivateStudies.txt(),
       active = "minePrivate",
       order = order,
       pag = pag,
       searchFilter = s"owner:${me.username}",
-      url = o => routes.Study.minePrivate(o)
+      url = o => routes.Study.minePrivate(o),
     )
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
@@ -130,47 +136,54 @@ object list {
       title = text,
       moreCss = cssTag("analyse.study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     ) {
       main(cls := "page-menu")(
         menu("search", Order.default),
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
             searchForm(trans.search.search.txt(), text),
-            bits.newForm()
+            bits.newForm(),
           ),
-          paginate(pag, routes.Study.search(text))
-        )
+          paginate(pag, routes.Study.search(text)),
+        ),
       )
     }
 
-  private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: Context) =
+  private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit
+      ctx: Context,
+  ) =
     if (pager.currentPageResults.isEmpty)
       div(cls := "nostudies")(
         iconTag("4"),
-        p(trans.study.noneYet())
+        p(trans.study.noneYet()),
       )
     else
       div(cls := "studies list infinitescroll")(
         pager.currentPageResults.map { s =>
           div(cls := "study paginated")(bits.widget(s))
         },
-        pagerNext(pager, np => addQueryParameter(url.url, "page", np))
+        pagerNext(pager, np => addQueryParameter(url.url, "page", np)),
       )
 
   private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(implicit
-      ctx: Context
+      ctx: Context,
   ) = {
     val nonMineOrder = if (order == Order.Mine) Order.Hot else order
     st.aside(cls := "page-menu__menu subnav")(
-      a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
+      a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(
+        trans.study.allStudies(),
+      ),
       ctx.isAuth option bits.authLinks(active, nonMineOrder),
       a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics)("Topics"),
       topics.map { topic =>
-        a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
-          topic.value
+        a(
+          cls  := active.active(s"topic:$topic"),
+          href := routes.Study.byTopic(topic.value, order.key),
+        )(
+          topic.value,
         )
-      }
+      },
       // a(cls := "text", dataIcon := "", href := "https://lishogi.org/blog/V0KrLSkAAMo3hsi4/study-shogi-the-lishogi-way")(
       //  trans.study.whatAreStudies()
       // )
@@ -178,9 +191,9 @@ object list {
   }
 
   private[study] def searchForm(placeholder: String, value: String) =
-    form(cls           := "search", action    := routes.Study.search(), method := "get")(
-      input(name       := "q", st.placeholder := placeholder, st.value         := value),
-      submitButton(cls := "button", dataIcon  := "y")
+    form(cls := "search", action := routes.Study.search(), method := "get")(
+      input(name       := "q", st.placeholder := placeholder, st.value := value),
+      submitButton(cls := "button", dataIcon  := "y"),
     )
 
   private def layout(
@@ -191,14 +204,14 @@ object list {
       url: String => Call,
       searchFilter: String,
       topics: Option[StudyTopics] = None,
-      canonicalPath: Option[lila.common.CanonicalPath] = None
+      canonicalPath: Option[lila.common.CanonicalPath] = None,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("analyse.study.index"),
       wrapClass = "full-screen-force",
       moreJs = infiniteScrollTag,
-      canonicalPath = canonicalPath
+      canonicalPath = canonicalPath,
     ) {
       main(cls := "page-menu")(
         menu(active, order, topics.??(_.value)),
@@ -206,15 +219,15 @@ object list {
           div(cls := "box__top")(
             searchForm(title, s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
             bits.orderSelect(order, active, url),
-            bits.newForm()
+            bits.newForm(),
           ),
           topics map { ts =>
             div(cls := "box__pad")(
-              views.html.study.topic.topicsList(ts, Order.Mine)
+              views.html.study.topic.topicsList(ts, Order.Mine),
             )
           },
-          paginate(pag, url(order.key))
-        )
+          paginate(pag, url(order.key)),
+        ),
       )
     }
 }

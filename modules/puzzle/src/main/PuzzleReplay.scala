@@ -15,7 +15,7 @@ case class PuzzleReplay(
     days: PuzzleDashboard.Days,
     theme: PuzzleTheme.Key,
     nb: Int,
-    remaining: Vector[Puzzle.Id]
+    remaining: Vector[Puzzle.Id],
 ) {
 
   def i = nb - remaining.size
@@ -25,7 +25,7 @@ case class PuzzleReplay(
 
 final class PuzzleReplayApi(
     colls: PuzzleColls,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
@@ -33,17 +33,18 @@ final class PuzzleReplayApi(
   private val maxPuzzles = 100
 
   private val replays = cacheApi.notLoading[User.ID, PuzzleReplay](512, "puzzle.replay")(
-    _.expireAfterWrite(1 hour).buildAsync()
+    _.expireAfterWrite(1 hour).buildAsync(),
   )
 
   def apply(
       user: User,
       maybeDays: Option[PuzzleDashboard.Days],
-      theme: PuzzleTheme.Key
+      theme: PuzzleTheme.Key,
   ): Fu[Option[(Puzzle, PuzzleReplay)]] =
     maybeDays map { days =>
       replays.getFuture(user.id, _ => createReplayFor(user, days, theme)) flatMap { current =>
-        if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
+        if (current.days == days && current.theme == theme && current.remaining.nonEmpty)
+          fuccess(current)
         else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
       } flatMap { replay =>
         replay.remaining.headOption ?? { id =>
@@ -63,7 +64,7 @@ final class PuzzleReplayApi(
   private def createReplayFor(
       user: User,
       days: PuzzleDashboard.Days,
-      theme: PuzzleTheme.Key
+      theme: PuzzleTheme.Key,
   ): Fu[PuzzleReplay] =
     colls
       .round {
@@ -73,8 +74,8 @@ final class PuzzleReplayApi(
             $doc(
               "u" -> user.id,
               "d" $gt DateTime.now.minusDays(days),
-              "w" $ne true
-            )
+              "w" $ne true,
+            ),
           ) -> List(
             Sort(Ascending("d")),
             PipelineOperator(
@@ -83,7 +84,7 @@ final class PuzzleReplayApi(
                   "from" -> colls.puzzle.name.value,
                   "as"   -> "puzzle",
                   "let" -> $doc(
-                    "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
+                    "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1)),
                   ),
                   "pipeline" -> $arr(
                     $doc(
@@ -94,20 +95,20 @@ final class PuzzleReplayApi(
                             $doc(
                               "$and" -> $arr(
                                 $doc("$eq" -> $arr("$_id", "$$pid")),
-                                $doc("$in" -> $arr(theme, "$themes"))
-                              )
+                                $doc("$in" -> $arr(theme, "$themes")),
+                              ),
                             )
-                        }
-                      )
+                        },
+                      ),
                     ),
                     $doc("$limit"   -> maxPuzzles),
-                    $doc("$project" -> $doc("_id" -> true))
-                  )
-                )
-              )
+                    $doc("$project" -> $doc("_id" -> true)),
+                  ),
+                ),
+              ),
             ),
             Unwind("puzzle"),
-            Group(BSONNull)("ids" -> PushField("puzzle._id"))
+            Group(BSONNull)("ids" -> PushField("puzzle._id")),
           )
         }
       }

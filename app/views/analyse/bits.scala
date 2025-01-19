@@ -21,7 +21,7 @@ object bits {
       title: String,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      openGraph: Option[lila.app.ui.OpenGraph] = None,
   )(body: Frag)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
@@ -31,6 +31,6 @@ object bits {
       shogiground = false,
       robots = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withPeer.some
+      csp = defaultCsp.withWebAssembly.withPeer.some,
     )(body)
 }

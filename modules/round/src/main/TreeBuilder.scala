@@ -11,9 +11,8 @@ import shogi.variant.Variant
 import lila.analyse.Advice
 import lila.analyse.Analysis
 import lila.analyse.Info
+import lila.round.JsonView.WithFlags
 import lila.tree._
-
-import JsonView.WithFlags
 
 object TreeBuilder {
 
@@ -23,13 +22,13 @@ object TreeBuilder {
     Eval(
       cp = info.cp,
       mate = info.mate,
-      best = info.best
+      best = info.best,
     )
 
   def apply(
       game: lila.game.Game,
       analysis: Option[Analysis],
-      withFlags: WithFlags
+      withFlags: WithFlags,
   ): Root = {
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
     shogi.Replay.gamesWhileValid(game.usis, game.initialSfen, game.variant) match {
@@ -44,7 +43,7 @@ object TreeBuilder {
             .map { a =>
               a.ply -> a
             }
-            .toMap
+            .toMap,
         )
         val root = Root(
           ply = init.plies,
@@ -53,7 +52,7 @@ object TreeBuilder {
           clock = withFlags.clocks ?? game.clock.map { c =>
             Centis.ofSeconds(c.limitSeconds)
           },
-          eval = infos lift 0 map makeEval
+          eval = infos lift 0 map makeEval,
         )
         def makeBranch(index: Int, g: shogi.Game, usi: Usi) = {
           val sfen   = g.toSfen
@@ -73,10 +72,10 @@ object TreeBuilder {
                 Node.Comment(
                   Node.Comment.Id.make,
                   Node.Comment.Text(text),
-                  Node.Comment.Author.Lishogi
+                  Node.Comment.Author.Lishogi,
                 )
               }
-            }
+            },
           )
           advices.get(g.plies + 1).flatMap { adv =>
             games.lift(index - 1).map { fromGame =>
@@ -98,7 +97,7 @@ object TreeBuilder {
       id: String,
       root: Branch,
       variant: Variant,
-      fromSfen: Sfen
+      fromSfen: Sfen,
   )(info: Info): Branch = {
     def makeBranch(g: shogi.Game, usi: Usi) = {
       val sfen = g.toSfen
@@ -108,7 +107,7 @@ object TreeBuilder {
         usi = usi,
         sfen = sfen,
         check = g.situation.check,
-        eval = none
+        eval = none,
       )
     }
     val variation = info.variation take 20
@@ -130,5 +129,7 @@ object TreeBuilder {
 
   private val logShogiError = (id: String) =>
     (err: String) =>
-      logger.warn(s"round.TreeBuilder https://lishogi.org/$id ${err.linesIterator.toList.headOption}")
+      logger.warn(
+        s"round.TreeBuilder https://lishogi.org/$id ${err.linesIterator.toList.headOption}",
+      )
 }

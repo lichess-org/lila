@@ -36,22 +36,22 @@ object homepageSpotlight {
                   trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
                   " - ",
                   if (tour.isStarted) trans.finishesX(momentFromNow(tour.finishesAt))
-                  else momentFromNow(tour.startsAt)
-                )
-              )
-          )
-        )
+                  else momentFromNow(tour.startsAt),
+                ),
+              ),
+          ),
+        ),
       )
-    } getOrElse a(href                    := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
+    } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
       iconTag(tour.perfType.iconChar)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tour.name()),
         span(cls := "more")(
           trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
           " - ",
-          if (tour.isStarted) trans.eventInProgress() else momentFromNow(tour.startsAt)
-        )
-      )
+          if (tour.isStarted) trans.eventInProgress() else momentFromNow(tour.startsAt),
+        ),
+      ),
     )
   }
 }

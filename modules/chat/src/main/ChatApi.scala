@@ -3,6 +3,7 @@ package lila.chat
 import scala.concurrent.duration._
 
 import reactivemongo.api.ReadPreference
+
 import shogi.Color
 
 import lila.common.Bus
@@ -26,10 +27,11 @@ final class ChatApi(
     modActor: lila.hub.actors.Mod,
     cacheApi: lila.memo.CacheApi,
     maxLinesPerChat: Chat.MaxLines,
-    netDomain: NetDomain
+    netDomain: NetDomain,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Chat.{ chatIdBSONHandler, userChatBSONHandler }
+  import Chat.chatIdBSONHandler
+  import Chat.userChatBSONHandler
 
   object userChat {
 
@@ -66,14 +68,15 @@ final class ChatApi(
     def findAll(chatIds: List[Chat.Id]): Fu[List[UserChat]] =
       coll.byIds[UserChat](chatIds.map(_.value), ReadPreference.secondaryPreferred)
 
-    def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, true)
+    def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] =
+      findMineIf(chatId, me, true)
 
     def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
       me match {
         case Some(user) if cond => findMine(chatId, user)
-        case Some(user)         => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
-        case None if cond       => find(chatId) dmap { UserChat.Mine(_, false) }
-        case None               => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
+        case Some(user)   => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
+        case None if cond => find(chatId) dmap { UserChat.Mine(_, false) }
+        case None         => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
       }
 
     private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
@@ -88,7 +91,7 @@ final class ChatApi(
         userId: User.ID,
         text: String,
         publicSource: Option[PublicSource],
-        busChan: BusChan.Select
+        busChan: BusChan.Select,
     ): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
@@ -101,7 +104,10 @@ final class ChatApi(
               }
             }
             publish(chatId, actorApi.ChatLine(chatId, line), busChan)
-            lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment().unit
+            lila.mon.chat
+              .message(publicSource.fold("player")(_.parentName), line.troll)
+              .increment()
+              .unit
           }
         }
       }
@@ -129,10 +135,11 @@ final class ChatApi(
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
-        busChan: BusChan.Select
+        busChan: BusChan.Select,
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
+        case ((Some(chat), Some(mod)), Some(user))
+            if isMod(mod) || scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, mod, user, reason, scope, text, busChan)
         case _ => funit
       }
@@ -151,14 +158,14 @@ final class ChatApi(
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
-        busChan: BusChan.Select
+        busChan: BusChan.Select,
     ): Funit = {
       val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,
         text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
         troll = false,
-        deleted = false
+        deleted = false,
       )
       val c2   = c.markDeleted(user)
       val chat = line.fold(c2)(c2.add)
@@ -174,9 +181,10 @@ final class ChatApi(
               mod = mod.id,
               user = user.id,
               reason = reason.key,
-              text = text
+              text = text,
             )
-          else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
+          else
+            logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }
     }
 
@@ -195,7 +203,11 @@ final class ChatApi(
         Bus.publish(actorApi.OnReinstate(Chat.Id(r.chat), r.user), BusChan.Global.chan)
       }
 
-    private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
+    private[ChatApi] def makeLine(
+        chatId: Chat.Id,
+        userId: String,
+        t1: String,
+    ): Fu[Option[UserLine]] =
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
           Writer cut t1 flatMap { t2 =>
@@ -205,7 +217,7 @@ final class ChatApi(
                 user.title.map(_.value),
                 Writer preprocessUserInput t2,
                 troll = user.isTroll,
-                deleted = false
+                deleted = false,
               )
             }
           }
@@ -229,7 +241,11 @@ final class ChatApi(
       findOption(chatId) dmap (_ filter (_.nonEmpty))
 
     def optionsByOrderedIds(chatIds: List[Chat.Id]): Fu[List[Option[MixedChat]]] =
-      coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
+      coll.optionsByOrderedIds[MixedChat, Chat.Id](
+        chatIds,
+        none,
+        ReadPreference.secondaryPreferred,
+      )(_.id)
 
     def write(chatId: Chat.Id, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
@@ -263,17 +279,18 @@ final class ChatApi(
           "$push" -> $doc(
             Chat.BSONFields.lines -> $doc(
               "$each"  -> List(line),
-              "$slice" -> -maxLinesPerChat.value
-            )
-          )
+              "$slice" -> -maxLinesPerChat.value,
+            ),
+          ),
         ),
-        upsert = true
+        upsert = true,
       )
       .void
 
   private object Writer {
 
-    import java.util.regex.{ Matcher, Pattern }
+    import java.util.regex.Matcher
+    import java.util.regex.Pattern
 
     def preprocessUserInput(in: String) = multiline(spam.replace(noShouting(noPrivateUrl(in))))
 

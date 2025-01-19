@@ -3,6 +3,7 @@ package lila.fishnet
 import cats.data.Validated
 import cats.data.Validated.valid
 import cats.implicits._
+
 import shogi.Game
 import shogi.Replay
 import shogi.format.usi.UciToUsi
@@ -23,7 +24,7 @@ private object VariationValidation {
       .gamesWhileValid(
         game.usiList,
         game.initialSfen,
-        game.variant
+        game.variant,
       )
       ._1
       .toList
@@ -60,7 +61,7 @@ private object VariationValidation {
       case ((infos, errs), info) =>
         validateUsi(info.ply, info.variation).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
-          usis => (info.copy(variation = usis.map(_.usi)) :: infos, errs)
+          usis => (info.copy(variation = usis.map(_.usi)) :: infos, errs),
         )
     } match {
       case (infos, errors) => analysis.copy(infos = infos.reverse) -> errors

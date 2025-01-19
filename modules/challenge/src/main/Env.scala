@@ -24,11 +24,11 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket,
-    baseUrl: BaseUrl
+    baseUrl: BaseUrl,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
@@ -48,7 +48,7 @@ final class Env(
 
   private lazy val repo = new ChallengeRepo(
     coll = db(CollName("challenge")),
-    maxPerUser = maxPlaying
+    maxPerUser = maxPlaying,
   )
 
   lazy val jsonView = wire[JsonView]

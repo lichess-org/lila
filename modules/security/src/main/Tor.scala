@@ -4,7 +4,9 @@ import play.api.libs.ws.WSClient
 
 import lila.common.IpAddress
 
-final class Tor(ws: WSClient, config: SecurityConfig.Tor)(implicit ec: scala.concurrent.ExecutionContext) {
+final class Tor(ws: WSClient, config: SecurityConfig.Tor)(implicit
+    ec: scala.concurrent.ExecutionContext,
+) {
 
   private var ips = Set.empty[IpAddress]
 

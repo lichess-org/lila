@@ -12,7 +12,7 @@ import com.github.blemale.scaffeine.LoadingCache
  */
 final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: String)(implicit
     system: akka.actor.ActorSystem,
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) extends Trouper {
 
   private var state: State = Idle
@@ -43,7 +43,7 @@ final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: 
       .withTimeout(timeout)
       .addEffects(
         err => this ! Fail(err),
-        res => this ! Done(res)
+        res => this ! Done(res),
       )
 
   private def complete(res: Either[Exception, A]) =
@@ -52,7 +52,7 @@ final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: 
       case Processing(current, next) =>
         res.fold(
           err => current.foreach(_ failure err),
-          res => current.foreach(_ success res)
+          res => current.foreach(_ success res),
         )
         if (next.isEmpty) state = Idle
         else {
@@ -75,11 +75,11 @@ final class AskPipelines[K, R](
     compute: K => Fu[R],
     expiration: FiniteDuration,
     timeout: FiniteDuration,
-    name: String
+    name: String,
 )(implicit
     ec: ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   def apply(key: K): Fu[R] = pipelines.get(key).get

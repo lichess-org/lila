@@ -22,8 +22,8 @@ final class ClasMarkup {
     Arrays.asList(
       TablesExtension.create(),
       StrikethroughExtension.create(),
-      AutolinkExtension.create()
-    )
+      AutolinkExtension.create(),
+    ),
   )
   options.set(HtmlRenderer.SOFT_BREAK, "<br>\n")
   options.set(TablesExtension.CLASS_NAME, "slist")

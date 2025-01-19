@@ -28,7 +28,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def list[D: BSONDocumentReader](
         selector: Bdoc,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPreference: ReadPreference = ReadPreference.primary,
     ): Fu[List[D]] =
       coll.find(selector, none[Bdoc]).cursor[D](readPreference).list(Int.MaxValue)
 
@@ -40,17 +40,18 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = one[D]($id(id), projection)
+    def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] =
+      one[D]($id(id), projection)
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
-        readPreference: ReadPreference
+        readPreference: ReadPreference,
     ): Fu[List[D]] =
       list[D]($inIds(ids), readPreference)
 
     def byIds[D: BSONDocumentReader](
         ids: Iterable[String],
-        readPreference: ReadPreference = ReadPreference.primary
+        readPreference: ReadPreference = ReadPreference.primary,
     ): Fu[List[D]] =
       byIds[D, String](ids, readPreference)
 
@@ -61,7 +62,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
           limit = None,
           skip = 0,
           hint = None,
-          readConcern = ReadConcern.Local
+          readConcern = ReadConcern.Local,
         )
         .dmap(_.toInt)
 
@@ -72,7 +73,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
           limit = None,
           skip = 0,
           hint = None,
-          readConcern = ReadConcern.Local
+          readConcern = ReadConcern.Local,
         )
 
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0 !=)
@@ -80,7 +81,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def byOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPreference: ReadPreference = ReadPreference.primary,
     )(docId: D => I): Fu[List[D]] =
       mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
         ids.view.flatMap(m.get).toList
@@ -89,7 +90,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc] = None,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPreference: ReadPreference = ReadPreference.primary,
     )(docId: D => I): Fu[List[Option[D]]] =
       mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
         ids.view.map(m.get).toList
@@ -98,7 +99,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     private def mapByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
         projection: Option[Bdoc],
-        readPreference: ReadPreference
+        readPreference: ReadPreference,
     )(docId: D => I): Fu[Map[I, D]] =
       projection
         .fold(find($inIds(ids))) { proj =>
@@ -112,7 +113,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def idsMap[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
-        readPreference: ReadPreference = ReadPreference.primary
+        readPreference: ReadPreference = ReadPreference.primary,
     )(docId: D => I): Fu[Map[I, D]] =
       byIds[D, I](ids, readPreference) map { docs =>
         docs.view.map(u => docId(u) -> u).to(Map)
@@ -162,7 +163,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def primitiveMap[I: BSONReader: BSONWriter, V](
         ids: Iterable[I],
         field: String,
-        fieldExtractor: Bdoc => Option[V]
+        fieldExtractor: Bdoc => Option[V],
     ): Fu[Map[I, V]] =
       find($inIds(ids), $doc(field -> true))
         .cursor[Bdoc]()
@@ -179,18 +180,28 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll.update.one(selector, $set(field -> value))
 
     def updateFieldUnchecked[V: BSONWriter](selector: Bdoc, field: String, value: V): Unit =
-      coll.update(false, writeConcern = WriteConcern.Unacknowledged).one(selector, $set(field -> value)).unit
+      coll
+        .update(false, writeConcern = WriteConcern.Unacknowledged)
+        .one(selector, $set(field -> value))
+        .unit
 
     def incField(selector: Bdoc, field: String, value: Int = 1) =
       coll.update.one(selector, $inc(field -> value))
 
     def incFieldUnchecked(selector: Bdoc, field: String, value: Int = 1): Unit =
-      coll.update(false, writeConcern = WriteConcern.Unacknowledged).one(selector, $inc(field -> value)).unit
+      coll
+        .update(false, writeConcern = WriteConcern.Unacknowledged)
+        .one(selector, $inc(field -> value))
+        .unit
 
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update.one(selector, $unset(field), multi = multi)
 
-    def updateOrUnsetField[V: BSONWriter](selector: Bdoc, field: String, value: Option[V]): Fu[Int] =
+    def updateOrUnsetField[V: BSONWriter](
+        selector: Bdoc,
+        field: String,
+        value: Option[V],
+    ): Fu[Int] =
       value match {
         case None    => unsetField(selector, field).dmap(_.n)
         case Some(v) => updateField(selector, field, v).dmap(_.n)
@@ -206,14 +217,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def aggregateList(
         maxDocs: Int,
         readPreference: ReadPreference = ReadPreference.primary,
-        allowDiskUse: Boolean = false
+        allowDiskUse: Boolean = false,
     )(
-        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator]),
     )(implicit cp: CursorProducer[Bdoc]): Fu[List[Bdoc]] =
       coll
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
-          readPreference = readPreference
+          readPreference = readPreference,
         )(agg => {
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
@@ -222,14 +233,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def aggregateOne(
         readPreference: ReadPreference = ReadPreference.primary,
-        allowDiskUse: Boolean = false
+        allowDiskUse: Boolean = false,
     )(
-        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator]),
     )(implicit cp: CursorProducer[Bdoc]): Fu[Option[Bdoc]] =
       coll
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
-          readPreference = readPreference
+          readPreference = readPreference,
         )(agg => {
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
@@ -239,14 +250,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def aggregateExists(
         readPreference: ReadPreference = ReadPreference.primary,
-        allowDiskUse: Boolean = false
+        allowDiskUse: Boolean = false,
     )(
-        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator]),
     )(implicit cp: CursorProducer[Bdoc]): Fu[Boolean] =
       coll
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
-          readPreference = readPreference
+          readPreference = readPreference,
         )(agg => {
           val nonEmpty = f(agg)
           nonEmpty._1 +: nonEmpty._2
@@ -257,10 +268,10 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def distinctEasy[T, M[_] <: Iterable[_]](
         key: String,
         selector: coll.pack.Document,
-        readPreference: ReadPreference = ReadPreference.primary
+        readPreference: ReadPreference = ReadPreference.primary,
     )(implicit
         reader: coll.pack.NarrowValueReader[T],
-        cbf: Factory[T, M[T]]
+        cbf: Factory[T, M[T]],
     ): Fu[M[T]] =
       coll.withReadPreference(readPreference).distinct(key, selector.some, ReadConcern.Local, None)
 
@@ -271,7 +282,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         upsert: Boolean = false,
         sort: Option[coll.pack.Document] = None,
         fields: Option[coll.pack.Document] = None,
-        @nowarn writeConcern: CWC = CWC.Acknowledged
+        @nowarn writeConcern: CWC = CWC.Acknowledged,
     ): Fu[Option[D]] =
       coll.findAndUpdate(
         selector = selector,
@@ -284,7 +295,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         writeConcern = writeConcern,
         maxTime = none,
         collation = none,
-        arrayFilters = Seq.empty
+        arrayFilters = Seq.empty,
       ) map {
         _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
       }
@@ -293,7 +304,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         selector: coll.pack.Document,
         sort: Option[coll.pack.Document] = None,
         fields: Option[coll.pack.Document] = None,
-        @nowarn writeConcern: CWC = CWC.Acknowledged
+        @nowarn writeConcern: CWC = CWC.Acknowledged,
     ): Fu[Option[D]] =
       coll.findAndRemove(
         selector = selector,
@@ -302,7 +313,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         writeConcern = writeConcern,
         maxTime = none,
         collation = none,
-        arrayFilters = Seq.empty
+        arrayFilters = Seq.empty,
       ) map {
         _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
       }

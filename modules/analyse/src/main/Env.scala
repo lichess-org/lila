@@ -7,7 +7,7 @@ import lila.common.config._
 @Module
 final class Env(
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo
+    gameRepo: lila.game.GameRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   lazy val analysisRepo = new AnalysisRepo(db(CollName("analysis3")))

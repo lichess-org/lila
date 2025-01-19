@@ -7,14 +7,13 @@ import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
-
-import Puzzle.{ BSONFields => F }
+import lila.puzzle.Puzzle.{ BSONFields => F }
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
     renderer: lila.hub.actors.Renderer,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -34,7 +33,7 @@ final private[puzzle] class DailyPuzzle(
     } flatMap { _ ?? makeDaily }
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
-    import makeTimeout.short
+    import lila.puzzle.makeTimeout.short
     renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.sfenAfterInitialMove, puzzle.lastUsi) map {
       case html: String => DailyPuzzle.WithHtml(puzzle, html).some
     }
@@ -68,25 +67,25 @@ final private[puzzle] class DailyPuzzle(
                     $doc(
                       "$match" -> $doc(
                         "$expr" -> $doc(
-                          $doc("$eq" -> $arr("$_id", "$$id"))
-                        )
-                      )
+                          $doc("$eq" -> $arr("$_id", "$$id")),
+                        ),
+                      ),
                     ),
                     $doc(
                       "$match" -> $doc(
                         Puzzle.BSONFields.day $exists false,
-                        Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value
-                      )
-                    )
-                  )
-                )
-              )
+                        Puzzle.BSONFields.themes $ne PuzzleTheme.oneMove.key.value,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
             UnwindField("puzzle"),
             ReplaceRootField("puzzle"),
             AddFields($doc("dayScore" -> $doc("$multiply" -> $arr("$plays", "$vote")))),
             Sort(Descending("dayScore")),
-            Limit(1)
+            Limit(1),
           )
         }
       }

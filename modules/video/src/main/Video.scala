@@ -12,7 +12,7 @@ case class Video(
     ads: Boolean,
     startTime: Int, // in seconds
     metadata: Youtube.Metadata,
-    createdAt: DateTime
+    createdAt: DateTime,
 ) {
 
   def id = _id

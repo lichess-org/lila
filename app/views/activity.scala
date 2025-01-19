@@ -35,10 +35,10 @@ object activity {
             a.tours map renderTours,
             a.teams map renderTeams,
             a.stream option renderStream(u),
-            a.signup option renderSignup
-          )
+            a.signup option renderSignup,
+          ),
         )
-      }
+      },
     )
 
   private def subCount(count: Int) = if (count >= maxSubEntries) s"$count+" else s"$count"
@@ -48,8 +48,8 @@ object activity {
       iconTag(""),
       div(
         trans.activity.supportedNbMonths
-          .plural(p.months, p.months, a(href := routes.Plan.index)("Patron")) // patron
-      )
+          .plural(p.months, p.months, a(href := routes.Plan.index)("Patron")), // patron
+      ),
     )
 
   private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(implicit ctx: Context) = {
@@ -61,8 +61,8 @@ object activity {
         ps match {
           case _ :: rest if rest.nonEmpty => subTag(rest map onePractice)
           case _                          => emptyFrag
-        }
-      )
+        },
+      ),
     )
   }
 
@@ -72,7 +72,7 @@ object activity {
         val href = routes.Practice.show("-", study.slug, study.id.value)
         frag(
           trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
-          br
+          br,
         )
     }
 
@@ -82,8 +82,8 @@ object activity {
       scoreFrag(p.score),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
-        p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
-      )
+        p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
+      ),
     )
 
   private def renderStorm(s: Storm)(implicit ctx: Context) =
@@ -92,8 +92,8 @@ object activity {
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
-          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Tsume Storm"))
-      )
+          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Tsume Storm")),
+      ),
     )
 
   private def renderGames(games: Games)(implicit ctx: Context) =
@@ -103,12 +103,14 @@ object activity {
         scoreFrag(score),
         div(
           trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
-          score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
-        )
+          score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
+        ),
       )
     }
 
-  private def renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
+  private def renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit
+      ctx: Context,
+  ) =
     ctx.noKid option entryTag(
       iconTag("d"),
       div(
@@ -119,12 +121,14 @@ object activity {
               .plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
             subTag(
               posts.map { post =>
-                div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
-              }
-            )
+                div(cls := "line")(
+                  a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)),
+                )
+              },
+            ),
           )
-        }
-      )
+        },
+      ),
     )
 
   private def renderCorresMoves(nb: Int, povs: List[lila.game.LightPov])(implicit ctx: Context) =
@@ -139,15 +143,23 @@ object activity {
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))("Game"),
               " vs ",
-              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true),
-              br
+              playerLink(
+                pov.opponent,
+                withRating = true,
+                withDiff = false,
+                withOnline = true,
+                link = true,
+              ),
+              br,
             )
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
 
-  private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(implicit ctx: Context) =
+  private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(implicit
+      ctx: Context,
+  ) =
     entryTag(
       iconTag(";"),
       div(
@@ -162,15 +174,21 @@ object activity {
                   case Some(true)  => trans.victory()
                   case Some(false) => trans.defeat()
                   case _           => trans.draw()
-                }
+                },
               ),
               " vs ",
-              playerLink(pov.opponent, withRating = true, withDiff = false, withOnline = true, link = true),
-              br
+              playerLink(
+                pov.opponent,
+                withRating = true,
+                withDiff = false,
+                withOnline = true,
+                link = true,
+              ),
+              br,
             )
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
 
   private def renderFollows(all: Follows)(implicit ctx: Context) =
@@ -185,11 +203,11 @@ object activity {
               fragList(f.ids.map(id => userIdLink(id.some))),
               f.nb.map { nb =>
                 frag(" and ", nb - maxSubEntries, " more")
-              }
-            )
+              },
+            ),
           )
-        }
-      )
+        },
+      ),
     )
 
   private def renderSimuls(u: User)(simuls: List[lila.simul.Simul])(implicit ctx: Context) =
@@ -206,15 +224,15 @@ object activity {
                   a(href := routes.Simul.show(s.id))(
                     s.name,
                     " simul by ",
-                    userIdLink(s.hostId.some)
+                    userIdLink(s.hostId.some),
                   ),
-                  scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                  scoreFrag(Score(s.wins, s.losses, s.draws, none)),
                 )
-              }
-            )
+              },
+            ),
           )
-        }
-      )
+        },
+      ),
     )
 
   private def renderStudies(studies: List[lila.study.Study.IdName])(implicit ctx: Context) =
@@ -225,9 +243,9 @@ object activity {
         subTag(
           studies.map { s =>
             frag(a(href := routes.Study.show(s.id.value))(s.name.value), br)
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
 
   private def renderTeams(teams: Teams)(implicit ctx: Context) =
@@ -235,8 +253,8 @@ object activity {
       iconTag("f"),
       div(
         trans.activity.joinedNbTeams.pluralSame(teams.value.size),
-        subTag(fragList(teams.value.map(id => teamLink(id))))
-      )
+        subTag(fragList(teams.value.map(id => teamLink(id)))),
+      ),
     )
 
   private def renderTours(tours: lila.activity.ActivityView.Tours)(implicit ctx: Context) =
@@ -250,34 +268,34 @@ object activity {
             div(
               cls := List(
                 "is-gold" -> (t.rank == 1),
-                "text"    -> (t.rank <= 3)
+                "text"    -> (t.rank <= 3),
               ),
-              dataIcon := (t.rank <= 3).option("g")
+              dataIcon := (t.rank <= 3).option("g"),
             )(
               trans.activity.rankedInTournament.plural(
                 t.nbGames,
                 strong(t.rank),
                 (t.rankRatio.value * 100).toInt atLeast 1,
                 t.nbGames,
-                link
+                link,
               ),
-              br
+              br,
             )
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
 
   private def renderStream(u: User)(implicit ctx: Context) =
     ctx.noKid option entryTag(
       iconTag(""),
-      a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
+      a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream()),
     )
 
   private def renderSignup(implicit ctx: Context) =
     entryTag(
       iconTag("s"),
-      div(trans.activity.signedUp())
+      div(trans.activity.signedUp()),
     )
 
   private val entryTag = div(cls := "entry")
@@ -287,17 +305,21 @@ object activity {
 
   private def scoreFrag(s: Score)(implicit ctx: Context) =
     raw {
-      s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
+      s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr(
+          "draw",
+          s.draw,
+          trans.nbDraws,
+        )}${scoreStr(
           "loss",
           s.loss,
-          trans.nbLosses
+          trans.nbLosses,
         )}</score>"""
     }
 
   private def ratingProgFrag(r: RatingProg) =
     ratingTag(
       r.after.value,
-      ratingProgress(r.diff)
+      ratingProgress(r.diff),
     )
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(implicit ctx: Context) =

@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app._
 import lila.game.AnonCookie
 import lila.game.Pov
-import lila.game.{Game => GameModel}
+import lila.game.{ Game => GameModel }
 
 private[controllers] trait TheftPrevention { self: LilaController =>
 
@@ -35,7 +35,7 @@ private[controllers] trait TheftPrevention { self: LilaController =>
             .get(AnonCookie.name)
             .map(_.value)
             .flatMap(game.player)
-            .filterNot(_.hasUser)
+            .filterNot(_.hasUser),
         )(game.playerByUserId)
         .filterNot(_.isAi)
         .map { Pov(game, _) }
@@ -43,7 +43,7 @@ private[controllers] trait TheftPrevention { self: LilaController =>
 
   protected lazy val theftResponse = Unauthorized(
     jsonError(
-      "This game requires authentication"
-    )
+      "This game requires authentication",
+    ),
   ) as JSON
 }

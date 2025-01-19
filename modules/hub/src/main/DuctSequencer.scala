@@ -6,10 +6,14 @@ import scala.concurrent.duration.FiniteDuration
 
 import com.github.blemale.scaffeine.LoadingCache
 
-final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String, logging: Boolean = true)(
-    implicit
+final class DuctSequencer(
+    maxSize: Int,
+    timeout: FiniteDuration,
+    name: String,
+    logging: Boolean = true,
+)(implicit
     system: akka.actor.ActorSystem,
-    ec: ExecutionContext
+    ec: ExecutionContext,
 ) {
 
   import DuctSequencer._
@@ -18,11 +22,12 @@ final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String, l
 
   def run[A](task: Task[A]): Fu[A] = duct.ask[A](TaskWithPromise(task, _))
 
-  private[this] val duct = new BoundedDuct(maxSize, name, logging)({ case TaskWithPromise(task, promise) =>
-    promise.completeWith {
-      task().withTimeout(timeout)
-    }.future
-  })
+  private[this] val duct =
+    new BoundedDuct(maxSize, name, logging)({ case TaskWithPromise(task, promise) =>
+      promise.completeWith {
+        task().withTimeout(timeout)
+      }.future
+    })
 }
 
 // Distributes tasks to many sequencers
@@ -31,11 +36,11 @@ final class DuctSequencers(
     expiration: FiniteDuration,
     timeout: FiniteDuration,
     name: String,
-    logging: Boolean = true
+    logging: Boolean = true,
 )(implicit
     system: akka.actor.ActorSystem,
     ec: ExecutionContext,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   def apply[A](key: String)(task: => Fu[A]): Fu[A] =

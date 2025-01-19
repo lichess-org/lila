@@ -13,9 +13,9 @@ import lila.user.{ User => UserModel }
 // both bot & board APIs
 final class PlayApi(
     env: Env,
-    apiC: => Api
+    apiC: => Api,
 )(implicit
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) extends LilaController(env) {
 
   implicit private def autoReqLang(implicit req: RequestHeader): Lang = reqLang(req)
@@ -79,7 +79,7 @@ final class PlayApi(
       env.bot.player(pov, me, usi, offeringDraw) pipe toResult
 
     def command(me: UserModel, cmd: String)(
-        as: (String, UserModel) => (Pov => Fu[Result]) => Fu[Result]
+        as: (String, UserModel) => (Pov => Fu[Result]) => Fu[Result],
     )(implicit req: Request[_]): Fu[Result] =
       cmd.split('/') match {
         case Array("game", id, "chat") =>
@@ -88,7 +88,7 @@ final class PlayApi(
               .bindFromRequest()
               .fold(
                 jsonFormErrorDefaultLang,
-                res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
+                res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult,
               ) pipe catchClientError
           }
         case Array("game", id, "abort") =>
@@ -141,8 +141,8 @@ final class PlayApi(
       if (me.noBot)
         BadRequest(
           jsonError(
-            "This endpoint can only be used with a Bot account. See https://lishogi.org/api#operation/botAccountUpgrade"
-          )
+            "This endpoint can only be used with a Bot account. See https://lishogi.org/api#operation/botAccountUpgrade",
+          ),
         ).fuccess
       else if (!lila.game.Game.isBotCompatible(pov.game))
         BadRequest(jsonError("This game cannot be played with the Bot API.")).fuccess

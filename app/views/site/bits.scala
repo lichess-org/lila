@@ -24,20 +24,20 @@ object bits {
     <redoc spec-url="//${env.net.assetDomain}/assets/doc/lishogi-api.yaml"></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
   </body>
-</html>"""
+</html>""",
     )
 
   def errorPage(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Internal server error"
+      title = "Internal server error",
     ) {
       main(cls := "page-small box box-pad")(
         h1("Something went wrong on this page"),
         p(
           "If the problem persists, please ",
           a(href := s"${routes.Main.contact}#help-error-page")("report the bug"),
-          "."
-        )
+          ".",
+        ),
       )
     }
 }

@@ -7,7 +7,7 @@ import lila.user.User
 
 // mobile app
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(implicit
-    ec: ExecutionContext
+    ec: ExecutionContext,
 ) {
 
   import BsonHandlers._
@@ -34,7 +34,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
             theme.key,
             tier,
             PuzzleDifficulty.Normal,
-            Set.empty
+            Set.empty,
           ) orFail
             s"No puzzle path for ${user.id} $tier" flatMap { pathId =>
               colls.path {
@@ -50,15 +50,15 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
                           "from"         -> colls.puzzle.name.value,
                           "localField"   -> "puzzleId",
                           "foreignField" -> "_id",
-                          "as"           -> "puzzle"
-                        )
-                      )
+                          "as"           -> "puzzle",
+                        ),
+                      ),
                     ),
                     PipelineOperator(
                       $doc(
-                        "$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0))
-                      )
-                    )
+                        "$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)),
+                      ),
+                    ),
                   )
                 }.map {
                   _.view.flatMap(PuzzleBSONHandler.readOpt).toVector

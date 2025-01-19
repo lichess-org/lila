@@ -1,11 +1,10 @@
 package controllers
 
+import play.api.data.Forms._
 import play.api.data._
 import views._
 
 import lila.app._
-
-import Forms._
 
 final class Dev(env: Env) extends LilaController(env) {
 
@@ -19,7 +18,7 @@ final class Dev(env: Env) extends LilaController(env) {
     env.plan.donationGoalSetting,
     env.apiTimelineSetting,
     env.noDelaySecretSetting,
-    env.featuredTeamsSetting
+    env.featuredTeamsSetting,
   )
 
   def settings =
@@ -35,15 +34,15 @@ final class Dev(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
+            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings),
           )
       }
     }
 
   private val commandForm = Form(
     single(
-      "command" -> nonEmptyText
-    )
+      "command" -> nonEmptyText,
+    ),
   )
 
   def cli =
@@ -61,7 +60,7 @@ final class Dev(env: Env) extends LilaController(env) {
           command =>
             runAs(me.id, command) map { res =>
               Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
-            }
+            },
         )
     }
 

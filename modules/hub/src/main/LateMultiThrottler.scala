@@ -9,7 +9,7 @@ import akka.actor._
   */
 final class LateMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
-    logger: lila.log.Logger
+    logger: lila.log.Logger,
 )(implicit ec: ExecutionContext)
     extends Actor {
 
@@ -25,7 +25,7 @@ final class LateMultiThrottler(
         timeoutOption.orElse(executionTimeout).fold(run()) { timeout =>
           run().withTimeout(
             duration = timeout,
-            error = lila.base.LilaException(s"LateMultiThrottler timed out after $timeout")
+            error = lila.base.LilaException(s"LateMultiThrottler timed out after $timeout"),
           )
         } addEffectAnyway {
           self ! Done(id)
@@ -45,7 +45,7 @@ object LateMultiThrottler {
 
   def apply(
       executionTimeout: Option[FiniteDuration] = None,
-      logger: lila.log.Logger
+      logger: lila.log.Logger,
   )(implicit ec: ExecutionContext, system: ActorSystem) =
     system.actorOf(Props(new LateMultiThrottler(executionTimeout, logger)))
 
@@ -53,7 +53,7 @@ object LateMultiThrottler {
       id: String,
       run: () => Funit,
       delay: Option[FiniteDuration],  // how long to wait before running
-      timeout: Option[FiniteDuration] // how long to wait before timing out
+      timeout: Option[FiniteDuration], // how long to wait before timing out
   )
 
   case class Done(id: String)
@@ -62,7 +62,7 @@ object LateMultiThrottler {
       id: String,
       run: => Funit,
       delay: Option[FiniteDuration] = None,
-      timeout: Option[FiniteDuration] = None
+      timeout: Option[FiniteDuration] = None,
   ) =
     Work(id, () => run, delay, timeout)
 }

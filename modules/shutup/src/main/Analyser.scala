@@ -11,7 +11,7 @@ object Analyser {
       (
         latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
           nonLatinBigRegex.findAllMatchIn(lower).toList
-      ).map(_.toString)
+      ).map(_.toString),
     )
   }
 
@@ -55,7 +55,7 @@ object Analyser {
 
   private val nonLatinBigRegex = {
     """(?iu)""" + bounds.wrap(
-      (Dictionary.ru ++ Dictionary.ja).mkString("(", "|", ")").replace("(", "(?:")
+      (Dictionary.ru ++ Dictionary.ja).mkString("(", "|", ")").replace("(", "(?:"),
     )
   }.r
 

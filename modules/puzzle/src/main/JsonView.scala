@@ -8,18 +8,18 @@ import lila.rating.Perf
 import lila.user.User
 
 final class JsonView(
-    gameJson: GameJson
+    gameJson: GameJson,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
 
-  def apply(puzzle: Puzzle, theme: PuzzleTheme, replay: Option[PuzzleReplay], user: Option[User])(implicit
-      lang: Lang
+  def apply(puzzle: Puzzle, theme: PuzzleTheme, replay: Option[PuzzleReplay], user: Option[User])(
+      implicit lang: Lang,
   ): Fu[JsObject] = {
     puzzle.gameId.fold(fuccess(otherSourcesJson(puzzle))) { gid =>
       gameJson(
         gameId = gid,
-        plies = puzzle.initialPly
+        plies = puzzle.initialPly,
       )
     } map { gameJson =>
       Json
@@ -33,9 +33,9 @@ final class JsonView(
                 if (theme == PuzzleTheme.mix) lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
                 else theme.name.txt()
               },
-              "desc" -> theme.description.txt()
+              "desc" -> theme.description.txt(),
             )
-            .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key))
+            .add("chapter" -> PuzzleTheme.studyChapterIds.get(theme.key)),
         )
         .add("user" -> user.map(userJson))
         .add("replay" -> replay.map(replayJson))
@@ -45,7 +45,7 @@ final class JsonView(
   private def otherSourcesJson(puzzle: Puzzle) =
     Json
       .obj(
-        "sfen" -> puzzle.sfen
+        "sfen" -> puzzle.sfen,
       )
       .add("author" -> puzzle.author)
       .add("description" -> puzzle.description)
@@ -54,10 +54,10 @@ final class JsonView(
     Json
       .obj(
         "id"     -> u.id,
-        "rating" -> u.perfs.puzzle.intRating
+        "rating" -> u.perfs.puzzle.intRating,
       )
       .add(
-        "provisional" -> u.perfs.puzzle.provisional
+        "provisional" -> u.perfs.puzzle.provisional,
       )
 
   private def replayJson(r: PuzzleReplay) =
@@ -67,7 +67,7 @@ final class JsonView(
     Json
       .obj(
         "win"        -> round.win,
-        "ratingDiff" -> (perf.intRating - u.perfs.puzzle.intRating)
+        "ratingDiff" -> (perf.intRating - u.perfs.puzzle.intRating),
       )
       .add("vote" -> round.vote)
       .add("themes" -> round.nonEmptyThemes.map { rt =>
@@ -79,7 +79,7 @@ final class JsonView(
   def roundJsonApi(round: PuzzleRound, ratingDiff: IntRatingDiff) = Json.obj(
     "id"         -> round.id.puzzleId,
     "win"        -> round.win,
-    "ratingDiff" -> ratingDiff.value
+    "ratingDiff" -> ratingDiff.value,
   )
 
   def pref(p: lila.pref.Pref) =
@@ -94,7 +94,7 @@ final class JsonView(
       "highlightCheck"     -> p.highlightCheck,
       "squareOverlay"      -> p.squareOverlay,
       "resizeHandle"       -> p.resizeHandle,
-      "keyboardMove"       -> (p.keyboardMove == lila.pref.Pref.KeyboardMove.YES)
+      "keyboardMove"       -> (p.keyboardMove == lila.pref.Pref.KeyboardMove.YES),
     )
 
   def dashboardJson(dash: PuzzleDashboard, days: Int)(implicit lang: Lang) = Json.obj(
@@ -103,9 +103,9 @@ final class JsonView(
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { case (key, res) =>
       key.value -> Json.obj(
         "theme"   -> PuzzleTheme(key).name.txt(),
-        "results" -> dashboardResults(res)
+        "results" -> dashboardResults(res),
       )
-    })
+    }),
   )
 
   private def dashboardResults(res: PuzzleDashboard.Results) = Json.obj(
@@ -113,7 +113,7 @@ final class JsonView(
     "firstWins"       -> res.wins,
     "replayWins"      -> res.fixed,
     "puzzleRatingAvg" -> res.puzzleRatingAvg,
-    "performance"     -> res.performance
+    "performance"     -> res.performance,
   )
 
   private def puzzleJson(puzzle: Puzzle): JsObject = Json
@@ -127,7 +127,7 @@ final class JsonView(
         if (puzzle.gameId.isDefined) puzzle.line.tail.map(_.usi).toList
         else puzzle.line.map(_.usi).toList
       },
-      "themes" -> simplifyThemes(puzzle.themes)
+      "themes" -> simplifyThemes(puzzle.themes),
     )
     .add("ambPromotions", puzzle.ambiguousPromotions.some.filter(_.nonEmpty))
     .add("initialUsi", puzzle.gameId.isDefined option puzzle.line.head.usi)
@@ -145,7 +145,7 @@ final class JsonView(
     private def mobileSource(puzzle: Puzzle): JsObject =
       Json.obj(
         "gameId" -> puzzle.gameId,
-        "author" -> puzzle.author
+        "author" -> puzzle.author,
       )
 
     private def mobilePuzzleJson(puzzle: Puzzle): JsObject =

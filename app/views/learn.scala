@@ -28,25 +28,25 @@ object index {
               "highlightLastDests" -> pref.highlightLastDests,
               "highlightCheck"     -> pref.highlightCheck,
               "squareOverlay"      -> pref.squareOverlay,
-              "resizeHandle"       -> pref.resizeHandle
-            )
-          )
-        )
+              "resizeHandle"       -> pref.resizeHandle,
+            ),
+          ),
+        ),
       ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${learnShogi.txt()} - ${byPlaying.txt()}",
           description = s"${trans.learn.introBasics.txt()} ${trans.learn.introIntro.txt()}",
-          url = s"$netBaseUrl${routes.Learn.index.url}"
+          url = s"$netBaseUrl${routes.Learn.index.url}",
         )
         .some,
       zoomable = true,
       shogiground = false,
       canonicalPath = lila.common.CanonicalPath(routes.Learn.index).some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
-      main(id   := "learn-app")(
-        div(cls := "learn-app--wrap")
+      main(id := "learn-app")(
+        div(cls := "learn-app--wrap"),
       )
     }
 

@@ -6,11 +6,11 @@ import lila.hub.DuctSequencers
 
 final private class StudySequencer(
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo
+    chapterRepo: ChapterRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private val workQueue =
@@ -24,7 +24,7 @@ final private class StudySequencer(
     }
 
   def sequenceStudyWithChapter(studyId: Study.Id, chapterId: Chapter.Id)(
-      f: Study.WithChapter => Funit
+      f: Study.WithChapter => Funit,
   ): Funit =
     sequenceStudy(studyId) { study =>
       chapterRepo

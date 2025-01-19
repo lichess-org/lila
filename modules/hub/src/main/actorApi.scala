@@ -6,6 +6,7 @@ import scala.concurrent.Promise
 import play.api.libs.json._
 
 import org.joda.time.DateTime
+
 import shogi.format.usi.Usi
 
 // announce something to all clients
@@ -137,7 +138,8 @@ package timeline {
       extends Atom(s"forum:${~topicId}", false) {
     def userIds = List(userId)
   }
-  case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
+  case class TourJoin(userId: String, tourId: String, tourName: String)
+      extends Atom("tournament", true) {
     def userIds = List(userId)
   }
   case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String)
@@ -148,14 +150,16 @@ package timeline {
       extends Atom("simulCreate", true) {
     def userIds = List(userId)
   }
-  case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true) {
+  case class SimulJoin(userId: String, simulId: String, simulName: String)
+      extends Atom("simulJoin", true) {
     def userIds = List(userId)
   }
   case class StudyCreate(userId: String, studyId: String, studyName: String)
       extends Atom("studyCreate", true) {
     def userIds = List(userId)
   }
-  case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true) {
+  case class StudyLike(userId: String, studyId: String, studyName: String)
+      extends Atom("studyLike", true) {
     def userIds = List(userId)
   }
   case class PlanStart(userId: String) extends Atom("planStart", true) {
@@ -223,7 +227,7 @@ package fishnet {
       userId: String,
       gameId: String,
       studyId: String,
-      chapterId: String
+      chapterId: String,
   )
   case class StudyChapterRequest(
       studyId: String,
@@ -231,7 +235,7 @@ package fishnet {
       initialSfen: Option[shogi.format.forsyth.Sfen],
       variant: shogi.variant.Variant,
       moves: List[Usi],
-      userId: String
+      userId: String,
   )
 }
 
@@ -243,14 +247,14 @@ package round {
   case class MoveEvent(
       gameId: String,
       sfen: String,
-      usi: String
+      usi: String,
   )
   case class CorresMoveEvent(
       move: MoveEvent,
       playerUserId: Option[String],
       mobilePushable: Boolean,
       alarmable: Boolean,
-      unlimited: Boolean
+      unlimited: Boolean,
   )
   case class CorresTakebackOfferEvent(gameId: String)
   case class CorresDrawOfferEvent(gameId: String)
@@ -258,7 +262,7 @@ package round {
   case class SimulMoveEvent(
       move: MoveEvent,
       simulId: String,
-      opponentUserId: String
+      opponentUserId: String,
   )
   case class PostGameStudy(studyId: String)
   case class Berserk(gameId: String, userId: String)
@@ -266,7 +270,11 @@ package round {
   case class TourStandingOld(data: JsArray)
   case class TourStanding(tourId: String, data: JsArray)
   case class FishnetPlay(usi: Usi, ply: Int)
-  case class BotPlay(playerId: String, usi: Usi, promise: Option[scala.concurrent.Promise[Unit]] = None)
+  case class BotPlay(
+      playerId: String,
+      usi: Usi,
+      promise: Option[scala.concurrent.Promise[Unit]] = None,
+  )
   case class RematchOffer(gameId: String)
   case class RematchYes(playerId: String)
   case class RematchNo(playerId: String)

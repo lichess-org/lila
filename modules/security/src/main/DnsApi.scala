@@ -14,10 +14,10 @@ import lila.db.dsl._
 final private class DnsApi(
     ws: WSClient,
     config: SecurityConfig.DnsApi,
-    mongoCache: lila.memo.MongoCache.Api
+    mongoCache: lila.memo.MongoCache.Api,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   // only valid email domains that are not whitelisted should make it here
@@ -26,12 +26,13 @@ final private class DnsApi(
       mxCache get domain
     }
 
-  implicit private val DomainBSONHandler: BSONHandler[Domain] = stringAnyValHandler[Domain](_.value, Domain.apply)
+  implicit private val DomainBSONHandler: BSONHandler[Domain] =
+    stringAnyValHandler[Domain](_.value, Domain.apply)
 
   private val mxCache = mongoCache.only[Domain.Lower, List[Domain]](
     "security.mx",
     7 days,
-    _.value
+    _.value,
   ) { domain =>
     fetch(domain, "mx") {
       _ take 20 flatMap { obj =>
@@ -50,8 +51,9 @@ final private class DnsApi(
       .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
       .withHttpHeaders("Accept" -> "application/dns-json")
       .get() withTimeout config.timeout map {
-      case res if res.status == 200 || res.status == 404 => f(~(res.json \ "Answer").asOpt[List[JsObject]])
-      case res                                           => throw LilaException(s"Status ${res.status}")
+      case res if res.status == 200 || res.status == 404 =>
+        f(~(res.json \ "Answer").asOpt[List[JsObject]])
+      case res => throw LilaException(s"Status ${res.status}")
     }
 
   // if the DNS service fails, assume the best

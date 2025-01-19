@@ -1,7 +1,8 @@
 package lila.i18n
 
-import org.specs2.mutable.Specification
 import scala.jdk.CollectionConverters._
+
+import org.specs2.mutable.Specification
 
 class TranslationTest extends Specification {
 

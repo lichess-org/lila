@@ -8,7 +8,7 @@ import lila.user.User
 
 final class ActivityWriteApi(
     coll: Coll,
-    studyApi: lila.study.StudyApi
+    studyApi: lila.study.StudyApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Activity._
@@ -26,10 +26,10 @@ final class ActivityWriteApi(
           a <- getOrCreate(userId)
           setGames = !game.isCorrespondence ?? $doc(
             ActivityFields.games -> a.games.orDefault
-              .add(pt, Score.make(game wonBy player.color, RatingProg make player))
+              .add(pt, Score.make(game wonBy player.color, RatingProg make player)),
           )
           setCorres = game.hasCorrespondenceClock ?? $doc(
-            ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), false, true)
+            ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), false, true),
           )
           setters = setGames ++ setCorres
           _ <-
@@ -49,7 +49,7 @@ final class ActivityWriteApi(
           .one(
             $id(a.id),
             $set(ActivityFields.posts -> (~a.posts + PostId(post.id))),
-            upsert = true
+            upsert = true,
           )
           .void
           .recover(ignoreDuplicateKey)
@@ -64,10 +64,10 @@ final class ActivityWriteApi(
           $set(ActivityFields.puzzles -> {
             ~a.puzzles + Score.make(
               res = res.result.win.some,
-              rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+              rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some,
             )
           }),
-          upsert = true
+          upsert = true,
         )
         .void
         .recover(ignoreDuplicateKey)
@@ -79,7 +79,7 @@ final class ActivityWriteApi(
         .one(
           $id(a.id),
           $set(ActivityFields.storm -> { ~a.storm + score }),
-          upsert = true
+          upsert = true,
         )
         .void
     }
@@ -114,7 +114,7 @@ final class ActivityWriteApi(
   def unfollowAll(from: User, following: Set[User.ID]) =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "f.o.ids",
-      regexId(from.id)
+      regexId(from.id),
     ) flatMap { extra =>
       val all = following ++ extra
       all.nonEmpty.?? {
@@ -123,7 +123,7 @@ final class ActivityWriteApi(
           .map { userId =>
             coll.update.one(
               regexId(userId) ++ $doc("f.i.ids" -> from.id),
-              $pull("f.i.ids" -> from.id)
+              $pull("f.i.ids" -> from.id),
             )
           }
           .sequenceFu

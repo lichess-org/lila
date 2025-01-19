@@ -10,7 +10,7 @@ final class ApiConfig(
     val influxEventEnv: String,
     val isStage: Boolean,
     val prismicApiUrl: String,
-    val accessibility: ApiConfig.Accessibility
+    val accessibility: ApiConfig.Accessibility,
 )
 
 object ApiConfig {
@@ -18,7 +18,7 @@ object ApiConfig {
   final class Accessibility(
       val blindCookieName: String,
       val blindCookieMaxAge: FiniteDuration,
-      blindCookieSalt: Secret
+      blindCookieSalt: Secret,
   ) {
     def hash(implicit ctx: lila.user.UserContext) = {
       import com.roundeights.hasher.Implicits._
@@ -36,7 +36,7 @@ object ApiConfig {
       new Accessibility(
         c.get[String]("accessibility.blind.cookie.name"),
         c.get[FiniteDuration]("accessibility.blind.cookie.max_age"),
-        c.get[Secret]("accessibility.blind.cookie.salt")
-      )
+        c.get[Secret]("accessibility.blind.cookie.salt"),
+      ),
     )
 }

@@ -49,7 +49,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   private def jsAt(filePath: String): Frag =
     script(
       deferAttr,
-      src := assetUrl(filePath)
+      src := assetUrl(filePath),
     )
 
   def jsTag(name: String): Frag =
@@ -67,7 +67,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def moduleJsTag(name: String, data: JsValue, nonceOpt: Option[Nonce]): Frag =
     frag(
       jsTag(name),
-      embedJsUnsafe(s"""window.lishogi.modulesData['${moduleName(name)}']=${safeJsonValue(data)}""", nonceOpt)
+      embedJsUnsafe(
+        s"""window.lishogi.modulesData['${moduleName(name)}']=${safeJsonValue(data)}""",
+        nonceOpt,
+      ),
     )
 
   lazy val chartTag       = jsTag("chart")
@@ -94,7 +97,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       id   := name,
       href := assetUrl(filePath),
       tpe  := "text/css",
-      rel  := "stylesheet"
+      rel  := "stylesheet",
     )
 
   def defaultPieceSprite(implicit ctx: Context): Frag = defaultPieceSprite(ctx.currentPieceSet)
@@ -124,7 +127,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", assets),
-      baseUri = List("'none'")
+      baseUri = List("'none'"),
     )
   }
 

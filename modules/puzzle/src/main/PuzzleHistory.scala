@@ -19,7 +19,7 @@ object PuzzleHistory {
 
   case class PuzzleSession(
       theme: PuzzleTheme.Key,
-      puzzles: NonEmptyList[SessionRound] // chronological order, oldest first
+      puzzles: NonEmptyList[SessionRound], // chronological order, oldest first
   ) {
     // val nb              = puzzles.size
     // val firstWins       = puzzles.toList.count(_.round.firstWin)
@@ -45,7 +45,7 @@ object PuzzleHistory {
               Skip(offset),
               Limit(length),
               PipelineOperator(PuzzleRound puzzleLookup colls),
-              Unwind("puzzle")
+              Unwind("puzzle"),
             )
           }
         }
@@ -53,7 +53,9 @@ object PuzzleHistory {
           for {
             doc   <- r
             round <- doc.asOpt[PuzzleRound]
-            theme = doc.getAsOpt[PuzzleTheme.Key](PuzzleRound.BSONFields.theme) | PuzzleTheme.mix.key
+            theme = doc.getAsOpt[PuzzleTheme.Key](
+              PuzzleRound.BSONFields.theme,
+            ) | PuzzleTheme.mix.key
             puzzle <- doc.getAsOpt[Puzzle]("puzzle")
           } yield SessionRound(round, puzzle, theme)
         }
@@ -76,7 +78,7 @@ object PuzzleHistory {
 }
 
 final class PuzzleHistoryApi(
-    colls: PuzzleColls
+    colls: PuzzleColls,
 )(implicit ec: ExecutionContext) {
 
   import PuzzleHistory._
@@ -85,7 +87,7 @@ final class PuzzleHistoryApi(
     Paginator[PuzzleSession](
       new HistoryAdapter(user, colls),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
 
 }

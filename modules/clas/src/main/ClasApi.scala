@@ -21,7 +21,7 @@ final class ClasApi(
     msgApi: MsgApi,
     authenticator: Authenticator,
     cacheApi: lila.memo.CacheApi,
-    baseUrl: BaseUrl
+    baseUrl: BaseUrl,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -55,7 +55,7 @@ final class ClasApi(
       val clas = data update from
       userRepo.filterByRole(clas.teachers.toList, Permission.Teacher.dbKey) flatMap { filtered =>
         val checked = clas.copy(
-          teachers = clas.teachers.toList.filter(filtered.contains).toNel | from.teachers
+          teachers = clas.teachers.toList.filter(filtered.contains).toNel | from.teachers,
         )
         coll.update.one($id(clas.id), checked) inject checked
       }
@@ -69,7 +69,7 @@ final class ClasApi(
         .findAndUpdate[Clas](
           selector = $id(id) ++ $doc("teachers" -> teacher.id),
           update = $set("viewedAt" -> DateTime.now),
-          fetchNewObject = true
+          fetchNewObject = true,
         )
 
     def teachers(clas: Clas): Fu[List[User]] =
@@ -81,37 +81,38 @@ final class ClasApi(
     def isTeacherOfStudent(teacherId: User.ID, studentId: Student.Id): Fu[Boolean] =
       student.isStudent(studentId.value) >>&
         colls.student
-          .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-            import framework._
-            Match($doc("userId" -> studentId.value)) -> List(
-              Project($doc("clasId" -> true)),
-              PipelineOperator(
-                $doc(
-                  "$lookup" -> $doc(
-                    "from" -> colls.clas.name,
-                    "let"  -> $doc("c" -> "$clasId"),
-                    "pipeline" -> $arr(
-                      $doc(
-                        "$match" -> $doc(
-                          "$expr" -> $doc(
-                            "$and" -> $arr(
-                              $doc("$eq" -> $arr("$_id", "$$c")),
-                              $doc("$in" -> $arr(teacherId, "$teachers"))
-                            )
-                          )
-                        )
+          .aggregateExists(readPreference = ReadPreference.secondaryPreferred) {
+            implicit framework =>
+              import framework._
+              Match($doc("userId" -> studentId.value)) -> List(
+                Project($doc("clasId" -> true)),
+                PipelineOperator(
+                  $doc(
+                    "$lookup" -> $doc(
+                      "from" -> colls.clas.name,
+                      "let"  -> $doc("c" -> "$clasId"),
+                      "pipeline" -> $arr(
+                        $doc(
+                          "$match" -> $doc(
+                            "$expr" -> $doc(
+                              "$and" -> $arr(
+                                $doc("$eq" -> $arr("$_id", "$$c")),
+                                $doc("$in" -> $arr(teacherId, "$teachers")),
+                              ),
+                            ),
+                          ),
+                        ),
+                        $doc("$limit"   -> 1),
+                        $doc("$project" -> $id(true)),
                       ),
-                      $doc("$limit"   -> 1),
-                      $doc("$project" -> $id(true))
+                      "as" -> "clas",
                     ),
-                    "as" -> "clas"
-                  )
-                )
-              ),
-              Match("clas" $ne $arr()),
-              Limit(1),
-              Project($id(true))
-            )
+                  ),
+                ),
+                Match("clas" $ne $arr()),
+                Limit(1),
+                Project($id(true)),
+              )
           }
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
@@ -119,7 +120,7 @@ final class ClasApi(
         .one(
           $id(c.id),
           if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
-          else $unset("archived")
+          else $unset("archived"),
         )
         .void
   }
@@ -152,7 +153,7 @@ final class ClasApi(
     def withUsers(students: List[Student]): Fu[List[Student.WithUser]] =
       userRepo.coll.idsMap[User, User.ID](
         students.map(_.userId),
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       )(_.id) map { users =>
         students.flatMap { s =>
           users.get(s.userId) map { Student.WithUser(s, _) }
@@ -181,7 +182,7 @@ final class ClasApi(
     def create(
         clas: Clas,
         data: ClasForm.NewStudent,
-        teacher: User
+        teacher: User,
     ): Fu[(User, ClearPassword)] = {
       val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lishogi.org")
       val password = Student.password.generate
@@ -193,7 +194,7 @@ final class ClasApi(
           email = email,
           blind = false,
           mustConfirmEmail = false,
-          lang = teacher.lang
+          lang = teacher.lang,
         )
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
@@ -217,7 +218,7 @@ final class ClasApi(
           update =
             if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
             else $unset("archived"),
-          fetchNewObject = true
+          fetchNewObject = true,
         )
 
     def allIds = idsCache.getUnit
@@ -242,7 +243,7 @@ final class ClasApi(
 $baseUrl/class/${clas.id}
 
 ${clas.desc}""",
-          multi = true
+          multi = true,
         )
   }
 
@@ -281,7 +282,8 @@ ${clas.desc}""",
         _ ?? { invite =>
           colls.clas.one[Clas]($id(invite.clasId)) flatMap {
             _ ?? { clas =>
-              val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
+              val stu =
+                Student.make(user, clas, invite.created.by, invite.realName, managed = false)
               colls.student.insert.one(stu) >>
                 colls.invite.updateField($id(id), "accepted", true) >>
                 student.sendWelcomeMessage(invite.created.by, user, clas) inject
@@ -297,7 +299,7 @@ ${clas.desc}""",
       colls.invite.ext
         .findAndUpdate[ClasInvite](
           selector = $id(id),
-          update = $set("accepted" -> false)
+          update = $set("accepted" -> false),
         )
 
     def listPending(clas: Clas): Fu[List[ClasInvite]] =
@@ -314,7 +316,7 @@ ${clas.desc}""",
         teacher: User,
         student: User,
         clas: Clas,
-        invite: ClasInvite
+        invite: ClasInvite,
     ): Fu[ClasInvite.Feedback] = {
       val url = s"$baseUrl/class/invitation/${invite._id}"
       if (student.kid) fuccess(ClasInvite.Feedback.CantMsgKid(url))
@@ -330,7 +332,7 @@ ${clas.desc}""",
 ${clickToViewInvitation.txt()}
 
 $url""",
-            multi = true
+            multi = true,
           ) inject ClasInvite.Feedback.Invited
       }
     }

@@ -17,7 +17,7 @@ object Youtube {
       m => {
         val orig = m group 0
         parseSeconds(m group 1).fold(orig)(seconds => s"$orig&start=$seconds")
-      }
+      },
     )
 
   private def parseSeconds(text: String) =

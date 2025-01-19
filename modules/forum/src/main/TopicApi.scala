@@ -5,13 +5,12 @@ import lila.common.String.noShouting
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
+import lila.forum.actorApi._
 import lila.hub.actorApi.timeline.ForumPost
 import lila.hub.actorApi.timeline.Propagate
 import lila.security.{ Granter => MasterGranter }
 import lila.user.User
 import lila.user.UserContext
-
-import actorApi._
 
 final private[forum] class TopicApi(
     env: Env,
@@ -21,7 +20,7 @@ final private[forum] class TopicApi(
     spam: lila.security.Spam,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: lila.common.DetectLanguage
+    detectLanguage: lila.common.DetectLanguage,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -30,7 +29,7 @@ final private[forum] class TopicApi(
       categSlug: String,
       slug: String,
       page: Int,
-      forUser: Option[User]
+      forUser: Option[User],
   ): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
       data <- env.categRepo bySlug categSlug flatMap {
@@ -49,50 +48,52 @@ final private[forum] class TopicApi(
   def makeTopic(
       categ: Categ,
       data: DataForm.TopicData,
-      me: User
+      me: User,
   )(implicit ctx: UserContext): Fu[Topic] =
-    env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
-      val topic = Topic.make(
-        categId = categ.slug,
-        slug = slug,
-        name = noShouting(data.name),
-        userId = me.id,
-        troll = me.marks.troll,
-        hidden = categ.quiet || data.looksLikeVenting
-      )
-      val post = Post.make(
-        topicId = topic.id,
-        author = none,
-        userId = ctx.me map (_.id),
-        ip = ctx.isAnon option ctx.req.remoteAddress,
-        troll = ctx.troll,
-        hidden = topic.hidden,
-        text = spam.replace(data.post.text),
-        lang = lang map (_.language),
-        number = 1,
-        categId = categ.id,
-        modIcon = (~data.post.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
-      )
-      env.postRepo.coll.insert.one(post) >>
-        env.topicRepo.coll.insert.one(topic withPost post) >>
-        env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
-        (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-        (!categ.quiet ?? env.recent.invalidate()) >>-
-        ctx.userId.?? { userId =>
-          val text = s"${topic.name} ${post.text}"
-          shutup ! {
-            if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text)
-            else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
-          }
-        } >>- {
-          (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-            timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).toFollowersOf(userId)
-          }
-          lila.mon.forum.post.create.increment().unit
-        } >>- {
-          env.mentionNotifier.notifyMentionedUsers(post, topic)
-          Bus.publish(actorApi.CreatePost(post), "forumPost")
-        } inject topic
+    env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
+      case (slug, lang) =>
+        val topic = Topic.make(
+          categId = categ.slug,
+          slug = slug,
+          name = noShouting(data.name),
+          userId = me.id,
+          troll = me.marks.troll,
+          hidden = categ.quiet || data.looksLikeVenting,
+        )
+        val post = Post.make(
+          topicId = topic.id,
+          author = none,
+          userId = ctx.me map (_.id),
+          ip = ctx.isAnon option ctx.req.remoteAddress,
+          troll = ctx.troll,
+          hidden = topic.hidden,
+          text = spam.replace(data.post.text),
+          lang = lang map (_.language),
+          number = 1,
+          categId = categ.id,
+          modIcon = (~data.post.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true),
+        )
+        env.postRepo.coll.insert.one(post) >>
+          env.topicRepo.coll.insert.one(topic withPost post) >>
+          env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
+          (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
+          (!categ.quiet ?? env.recent.invalidate()) >>-
+          ctx.userId.?? { userId =>
+            val text = s"${topic.name} ${post.text}"
+            shutup ! {
+              if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, text)
+              else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
+            }
+          } >>- {
+            (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
+              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id))
+                .toFollowersOf(userId)
+            }
+            lila.mon.forum.post.create.increment().unit
+          } >>- {
+            env.mentionNotifier.notifyMentionedUsers(post, topic)
+            Bus.publish(actorApi.CreatePost(post), "forumPost")
+          } inject topic
     }
 
   def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
@@ -102,7 +103,7 @@ final private[forum] class TopicApi(
       name = name,
       troll = false,
       userId = User.lishogiId,
-      hidden = false
+      hidden = false,
     )
     val post = Post.make(
       topicId = topic.id,
@@ -115,7 +116,7 @@ final private[forum] class TopicApi(
       lang = none,
       number = 1,
       categId = categ.id,
-      modIcon = true.some
+      modIcon = true.some,
     )
     env.postRepo.coll.insert.one(post) >>
       env.topicRepo.coll.insert.one(topic withPost post) >>
@@ -130,13 +131,14 @@ final private[forum] class TopicApi(
       collection = env.topicRepo.coll,
       selector = env.topicRepo.forUser(forUser) byCategNotStickyQuery categ,
       projection = none,
-      sort = $sort.updatedDesc
+      sort = $sort.updatedDesc,
     ) mapFutureList { topics =>
-      env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId forUser))(_.id) map {
-        posts =>
-          topics zip posts map { case (topic, post) =>
-            TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
-          }
+      env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId forUser))(
+        _.id,
+      ) map { posts =>
+        topics zip posts map { case (topic, post) =>
+          TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
+        }
       }
     }
     val cachedAdapter =
@@ -145,7 +147,7 @@ final private[forum] class TopicApi(
     Paginator(
       adapter = cachedAdapter,
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
   }
 
@@ -202,8 +204,8 @@ final private[forum] class TopicApi(
               updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
               nbPostsTroll = nbPostsTroll,
               lastPostIdTroll = lastPostTroll ?? (_.id),
-              updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
-            )
+              updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt),
+            ),
           )
           .void
     } yield ()

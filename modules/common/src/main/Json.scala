@@ -3,6 +3,7 @@ package lila.common
 import play.api.libs.json.{ Json => PlayJson, _ }
 
 import org.joda.time.DateTime
+
 import shogi.Centis
 import shogi.format.forsyth.Sfen
 
@@ -26,7 +27,7 @@ object Json {
       Reads.of[Int] map iso.from,
       Writes { o =>
         JsNumber(iso to o)
-      }
+      },
     )
 
   def stringIsoFormat[O](iso: Iso[String, O]): Format[O] =
@@ -34,7 +35,7 @@ object Json {
       Reads.of[String] map iso.from,
       Writes { o =>
         JsString(iso to o)
-      }
+      },
     )
 
   implicit val centisReads: Reads[Centis] = Reads.of[Int] map Centis.apply

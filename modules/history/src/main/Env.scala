@@ -9,7 +9,7 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
-    db: lila.db.Db
+    db: lila.db.Db,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val coll = db(CollName("history3"))

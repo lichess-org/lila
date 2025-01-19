@@ -5,17 +5,18 @@ import scala.concurrent.duration._
 import play.api.libs.json._
 
 import akka.stream.scaladsl._
+
 import shogi.format.forsyth.Sfen
 
 import lila.common.Bus
 import lila.common.Json.jodaWrites
 import lila.game.Game
+import lila.game.actorApi.FinishGame
+import lila.game.actorApi.StartGame
 import lila.user.User
 
-import actorApi.{ FinishGame, StartGame }
-
 final class GamesByUsersStream()(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s
@@ -61,10 +62,10 @@ final class GamesByUsersStream()(implicit
           p.color.name -> Json
             .obj(
               "userId" -> p.userId,
-              "rating" -> p.rating
+              "rating" -> p.rating,
             )
             .add("provisional" -> p.provisional)
-        })
+        }),
       )
       .add("initialSfen" -> g.initialSfen)
       .add("clock" -> g.clock.map { clock =>
@@ -72,7 +73,7 @@ final class GamesByUsersStream()(implicit
           "initial"   -> clock.limitSeconds,
           "increment" -> clock.incrementSeconds,
           "byoyomi"   -> clock.byoyomiSeconds,
-          "periods"   -> clock.periodsTotal
+          "periods"   -> clock.periodsTotal,
         )
       })
       .add("daysPerTurn" -> g.daysPerTurn)

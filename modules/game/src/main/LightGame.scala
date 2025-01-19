@@ -9,7 +9,7 @@ case class LightGame(
     id: Game.ID,
     sentePlayer: Player,
     gotePlayer: Player,
-    status: Status
+    status: Status,
 ) {
   def playable                                        = status < Status.Aborted
   def player(color: Color): Player                    = color.fold(sentePlayer, gotePlayer)
@@ -31,6 +31,6 @@ object LightGame {
       F.gotePlayer  -> true,
       F.playerUids  -> true,
       F.winnerColor -> true,
-      F.status      -> true
+      F.status      -> true,
     )
 }

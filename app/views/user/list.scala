@@ -16,7 +16,7 @@ object list {
       tourneyWinners: List[lila.tournament.Winner],
       online: List[User],
       leaderboards: lila.user.Perfs.Leaderboards,
-      nbAllTime: List[User.LightCount]
+      nbAllTime: List[User.LightCount],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.players.txt(),
@@ -26,9 +26,9 @@ object list {
         .OpenGraph(
           title = s"${trans.players.txt()} - ${trans.leaderboards.txt()}",
           url = s"$netBaseUrl${routes.User.list.url}",
-          description = trans.bestPlayersInVariousCategories.txt()
+          description = trans.bestPlayersInVariousCategories.txt(),
         )
-        .some
+        .some,
       // todo later - withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "page-menu")(
@@ -39,9 +39,9 @@ object list {
             ol(cls := "user-top")(online map { u =>
               li(
                 userLink(u),
-                showBestPerf(u)
+                showBestPerf(u),
               )
-            })
+            }),
           ),
           div(cls := "community__leaders")(
             h2(trans.leaderboard()),
@@ -58,51 +58,51 @@ object list {
               userTopPerf(leaderboards.chushogi, PerfType.Chushogi),
               userTopPerf(leaderboards.annanshogi, PerfType.Annanshogi),
               userTopPerf(leaderboards.kyotoshogi, PerfType.Kyotoshogi),
-              userTopPerf(leaderboards.checkshogi, PerfType.Checkshogi)
-            )
-          )
-        )
+              userTopPerf(leaderboards.checkshogi, PerfType.Checkshogi),
+            ),
+          ),
+        ),
       )
     }
 
   private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := "g")(
-        a(href := routes.Tournament.leaderboard)(trans.tournament())
+        a(href := routes.Tournament.leaderboard)(trans.tournament()),
       ),
       ol(winners take 10 map { w =>
         li(
           userIdLink(w.userId.some),
           a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
-            scheduledTournamentNameShortHtml(w.tourName)
-          )
+            scheduledTournamentNameShortHtml(w.tourName),
+          ),
         )
-      })
+      }),
     )
 
   private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit lang: Lang) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
-        a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
+        a(href := routes.User.topNb(200, perfType.key))(perfType.trans),
       ),
       ol(users map { l =>
         li(
           lightUserLink(l.user),
-          l.rating
+          l.rating,
         )
-      })
+      }),
     )
 
   private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users map { u =>
         li(
           lightUserLink(u.user),
-          span(title := trans.gamesPlayed.txt())(s"#${u.count.localize}")
+          span(title := trans.gamesPlayed.txt())(s"#${u.count.localize}"),
         )
-      })
+      }),
     )
 }

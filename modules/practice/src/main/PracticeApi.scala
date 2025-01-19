@@ -15,7 +15,7 @@ final class PracticeApi(
     coll: Coll,
     configStore: lila.memo.ConfigStore[PracticeConfig],
     cacheApi: lila.memo.CacheApi,
-    studyApi: lila.study.StudyApi
+    studyApi: lila.study.StudyApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -26,7 +26,10 @@ final class PracticeApi(
       prog   <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
     } yield UserPractice(struct, prog)
 
-  def getStudyWithFirstOngoingChapter(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] =
+  def getStudyWithFirstOngoingChapter(
+      user: Option[User],
+      studyId: Study.Id,
+  ): Fu[Option[UserStudy]] =
     for {
       up       <- get(user)
       chapters <- studyApi.chapterMetadatas(studyId)
@@ -39,7 +42,7 @@ final class PracticeApi(
   def getStudyWithChapter(
       user: Option[User],
       studyId: Study.Id,
-      chapterId: Chapter.Id
+      chapterId: Chapter.Id,
   ): Fu[Option[UserStudy]] =
     for {
       up          <- get(user)
@@ -50,13 +53,13 @@ final class PracticeApi(
   private def makeUserStudy(
       studyOption: Option[Study.WithChapter],
       up: UserPractice,
-      chapters: List[Chapter.Metadata]
+      chapters: List[Chapter.Metadata],
   ) =
     for {
       rawSc <- studyOption
       sc = rawSc.copy(
         study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
-        chapter = rawSc.chapter.withoutChildrenIfPractice
+        chapter = rawSc.chapter.withoutChildrenIfPractice,
       )
       practiceStudy <- up.structure study sc.study.id
       section       <- up.structure findSection sc.study.id
@@ -120,7 +123,7 @@ final class PracticeApi(
       coll
         .aggregateList(
           maxDocs = Int.MaxValue,
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = ReadPreference.secondaryPreferred,
         ) { framework =>
           import framework._
           Match($doc("_id" $in userIds)) -> List(
@@ -128,11 +131,11 @@ final class PracticeApi(
               $doc(
                 "nb" -> $doc(
                   "$size" -> $doc(
-                    "$objectToArray" -> "$chapters"
-                  )
-                )
-              )
-            )
+                    "$objectToArray" -> "$chapters",
+                  ),
+                ),
+              ),
+            ),
           )
         }
         .map {

@@ -15,17 +15,17 @@ import lila.search._
 private class GameSearchConfig(
     @ConfigName("index") val indexName: String,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("actor.name") val actorName: String,
 )
 
 @Module
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    makeClient: Index => ESClient
+    makeClient: Index => ESClient,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)

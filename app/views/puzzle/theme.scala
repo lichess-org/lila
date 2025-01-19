@@ -14,7 +14,7 @@ object theme {
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
       moreCss = cssTag("puzzle.page"),
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     )(
       main(cls := "page-menu")(
         bits.pageMenu("themes"),
@@ -27,8 +27,8 @@ object theme {
                 div(
                   cls := List(
                     "puzzle-themes__list"     -> true,
-                    cat.key.replace(":", "-") -> true
-                  )
+                    cat.key.replace(":", "-") -> true,
+                  ),
                 )(
                   themes.map { pt =>
                     val url =
@@ -38,24 +38,26 @@ object theme {
                       span(
                         h3(
                           pt.theme.name(),
-                          em(pt.count.localize)
+                          em(pt.count.localize),
                         ),
-                        span(pt.theme.description())
-                      )
+                        span(pt.theme.description()),
+                      ),
                     )
                   },
                   cat.key == "puzzle:origin" option
                     a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
                       span(
                         h3("Player games"),
-                        span("Lookup puzzles generated from your games, or from another player's games.")
-                      )
-                    )
-                )
+                        span(
+                          "Lookup puzzles generated from your games, or from another player's games.",
+                        ),
+                      ),
+                    ),
+                ),
               )
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     )
 }

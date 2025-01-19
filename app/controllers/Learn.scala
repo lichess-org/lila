@@ -23,7 +23,7 @@ final class Learn(env: Env) extends LilaController(env) {
           },
         json = ctx.me.fold(BadRequest("Not logged in").fuccess) { me =>
           env.learn.api.get(me) map { Json.toJson(_) } dmap { JsonOk(_) }
-        }
+        },
       )
     }
 
@@ -34,7 +34,7 @@ final class Learn(env: Env) extends LilaController(env) {
         .bindFromRequest()
         .fold(
           jsonFormError,
-          scores => env.learn.api.setScore(me, scores) inject Ok(Json.obj("ok" -> true))
+          scores => env.learn.api.setScore(me, scores) inject Ok(Json.obj("ok" -> true)),
         )
     }
 
@@ -45,7 +45,7 @@ final class Learn(env: Env) extends LilaController(env) {
         .bindFromRequest()
         .fold(
           jsonFormError,
-          scores => env.learn.api.setScores(me, scores) inject Ok(Json.obj("ok" -> true))
+          scores => env.learn.api.setScores(me, scores) inject Ok(Json.obj("ok" -> true)),
         )
     }
 

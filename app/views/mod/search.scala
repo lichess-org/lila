@@ -17,7 +17,7 @@ object search {
   def apply(form: Form[_], users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
-      moreCss = cssTag("user.mod.misc")
+      moreCss = cssTag("user.mod.misc"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -28,12 +28,12 @@ object search {
               name := "q",
               autofocus,
               placeholder := "Search by IP, email, or username",
-              value       := form("q").value
+              value       := form("q").value,
             ),
-            form3.select(form("as"), lila.mod.UserSearch.asChoices)
+            form3.select(form("as"), lila.mod.UserSearch.asChoices),
           ),
-          userTable(users)
-        )
+          userTable(users),
+        ),
       )
     }
 
@@ -41,11 +41,11 @@ object search {
       fh: FingerHash,
       users: List[lila.user.User.WithEmails],
       uas: List[String],
-      blocked: Boolean
+      blocked: Boolean,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Fingerprint",
-      moreCss = cssTag("user.mod.misc")
+      moreCss = cssTag("user.mod.misc"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -56,21 +56,21 @@ object search {
               submitButton(
                 cls := List(
                   "button text" -> true,
-                  "active"      -> blocked
-                )
-              )(if (blocked) "Banned" else "Ban this print")
-            )
+                  "active"      -> blocked,
+                ),
+              )(if (blocked) "Banned" else "Ban this print"),
+            ),
           ),
           div(cls := "box__pad")(
             h2("User agents"),
             ul(uas map { ua =>
               li(ua)
-            })
+            }),
           ),
           br,
           br,
-          userTable(users)
-        )
+          userTable(users),
+        ),
       )
     }
 
@@ -78,36 +78,39 @@ object search {
       address: IpAddress,
       users: List[lila.user.User.WithEmails],
       uas: List[String],
-      blocked: Boolean
+      blocked: Boolean,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "IP address",
-      moreCss = cssTag("user.mod.misc")
+      moreCss = cssTag("user.mod.misc"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
             h1("IP address: ", address.value),
-            postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
+            postForm(
+              cls    := "box__top__actions",
+              action := routes.Mod.singleIpBan(!blocked, address.value),
+            )(
               submitButton(
                 cls := List(
                   "button text" -> true,
-                  "active"      -> blocked
-                )
-              )(if (blocked) "Banned" else "Ban this IP")
-            )
+                  "active"      -> blocked,
+                ),
+              )(if (blocked) "Banned" else "Ban this IP"),
+            ),
           ),
           div(cls := "box__pad")(
             h2("User agents"),
             ul(uas map { ua =>
               li(ua)
-            })
+            }),
           ),
           br,
           br,
-          userTable(users)
-        )
+          userTable(users),
+        ),
       )
     }
 
@@ -120,8 +123,8 @@ object search {
           th("Marks"),
           th("Closed"),
           th("Created"),
-          th("Active")
-        )
+          th("Active"),
+        ),
       ),
       tbody(
         users.map { case lila.user.User.WithEmails(u, emails) =>
@@ -129,20 +132,20 @@ object search {
             td(
               userLink(u, withBestRating = true, params = "?mod"),
               (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
-                email(emails.list.map(_.value).mkString(", "))
+                email(emails.list.map(_.value).mkString(", ")),
             ),
             td(u.count.game.localize),
             td(
               u.marks.alt option mark("ALT"),
               u.marks.engine option mark("ENGINE"),
               u.marks.boost option mark("BOOSTER"),
-              u.marks.troll option mark("SHADOWBAN")
+              u.marks.troll option mark("SHADOWBAN"),
             ),
             td(u.disabled option mark("CLOSED")),
             td(momentFromNow(u.createdAt)),
-            td(u.seenAt.map(momentFromNow(_)))
+            td(u.seenAt.map(momentFromNow(_))),
           )
-        }
-      )
+        },
+      ),
     )
 }

@@ -16,15 +16,15 @@ object newPlayer {
         trans.thisIsProfilePage(),
         u.profile.isEmpty option frag(
           br,
-          a(href := routes.Account.profile)(trans.editProfile())
-        )
+          a(href := routes.Account.profile)(trans.editProfile()),
+        ),
       ),
       p(
         frag(
           trans.whatNow(),
           br,
-          trans.hereAreSuggestions()
-        )
+          trans.hereAreSuggestions(),
+        ),
       ),
       ul(
         li(a(href := routes.Learn.index)(trans.learn.learnShogi())),
@@ -35,7 +35,7 @@ object newPlayer {
         li(a(href := routes.Tournament.home)(trans.tournaments())),
         li(a(href := routes.Study.allDefault(1))(trans.studyMenu())),
         li(a(href := routes.Pref.form("game-display"))(trans.preferences.preferences())),
-        li("Explore the site and have fun :)")
-      )
+        li("Explore the site and have fun :)"),
+      ),
     )
 }

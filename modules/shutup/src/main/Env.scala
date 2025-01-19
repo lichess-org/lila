@@ -12,7 +12,7 @@ import lila.user.UserRepo
 @Module
 private class ShutupConfig(
     @ConfigName("collection.shutup") val shutupColl: CollName,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("actor.name") val actorName: String,
 )
 
 final class Env(
@@ -21,10 +21,10 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    db: lila.db.Db
+    db: lila.db.Db,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[ShutupConfig]("shutup")(AutoConfig.loader)
@@ -50,6 +50,6 @@ final class Env(
           api.publicChat(userId, text, source).unit
       }
     }),
-    name = config.actorName
+    name = config.actorName,
   )
 }

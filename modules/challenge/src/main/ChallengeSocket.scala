@@ -7,10 +7,10 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 
 final private class ChallengeSocket(
     api: ChallengeApi,
-    remoteSocketApi: lila.socket.RemoteSocket
+    remoteSocketApi: lila.socket.RemoteSocket,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   import ChallengeSocket._
@@ -27,7 +27,10 @@ final private class ChallengeSocket(
   }
 
   remoteSocketApi.subscribe("chal-in", Protocol.In.reader)(
-    challengeHandler orElse minRoomHandler(rooms, lila log "challenge") orElse remoteSocketApi.baseHandler
+    challengeHandler orElse minRoomHandler(
+      rooms,
+      lila log "challenge",
+    ) orElse remoteSocketApi.baseHandler,
   )
 
   api registerSocket this

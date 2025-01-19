@@ -9,10 +9,11 @@ import lila.user.User
 
 final class CrosstableApi(
     coll: Coll,
-    matchupColl: Coll
+    matchupColl: Coll,
 )(implicit ec: ExecutionContext) {
 
-  import Crosstable.{ Matchup, Result }
+  import Crosstable.Matchup
+  import Crosstable.Result
   import Crosstable.{ BSONFields => F }
 
   def apply(game: Game): Fu[Option[Crosstable]] =
@@ -43,7 +44,7 @@ final class CrosstableApi(
     coll
       .find(
         select(u1, u2),
-        $doc("s1" -> true, "s2" -> true).some
+        $doc("s1" -> true, "s2" -> true).some,
       )
       .one[Bdoc] dmap { res =>
       ~(for {
@@ -70,24 +71,24 @@ final class CrosstableApi(
           select(u1, u2),
           $inc(
             F.score1 -> inc1,
-            F.score2 -> inc2
+            F.score2 -> inc2,
           ) ++ $push(
             Crosstable.BSONFields.results -> $doc(
               "$each"  -> List(bsonResult),
-              "$slice" -> -Crosstable.maxGames
-            )
-          )
+              "$slice" -> -Crosstable.maxGames,
+            ),
+          ),
         )
         val updateMatchup =
           matchupColl.update.one(
             select(u1, u2),
             $inc(
               F.score1 -> inc1,
-              F.score2 -> inc2
+              F.score2 -> inc2,
             ) ++ $set(
-              F.lastPlayed -> DateTime.now
+              F.lastPlayed -> DateTime.now,
             ),
-            upsert = true
+            upsert = true,
           )
         updateCrosstable zip updateMatchup void
       case _ => funit

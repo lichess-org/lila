@@ -26,7 +26,8 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm {
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang) = userRepo setEmailConfirmed user.id void
+  def send(user: User, email: EmailAddress)(implicit lang: Lang) =
+    userRepo setEmailConfirmed user.id void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 }
@@ -35,7 +36,7 @@ final class EmailConfirmMailgun(
     userRepo: UserRepo,
     mailgun: Mailgun,
     baseUrl: BaseUrl,
-    tokenerSecret: Secret
+    tokenerSecret: Secret,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends EmailConfirm {
 
@@ -70,10 +71,10 @@ ${trans.emailConfirm_ignore.txt("https://lishogi.org")}
             small(
               trans.common_note(Mailgun.html.noteLink),
               " ",
-              trans.emailConfirm_ignore()
-            )
-          )
-        ).some
+              trans.emailConfirm_ignore(),
+            ),
+          ),
+        ).some,
       )
     }
 
@@ -93,7 +94,7 @@ ${trans.emailConfirm_ignore.txt("https://lishogi.org")}
 
   private val tokener = new StringToken[User.ID](
     secret = tokenerSecret,
-    getCurrentValue = id => userRepo email id dmap (_.??(_.value))
+    getCurrentValue = id => userRepo email id dmap (_.??(_.value)),
   )
 }
 
@@ -113,10 +114,12 @@ object EmailConfirm {
     val name        = "email_confirm"
     private val sep = ":"
 
-    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie =
+    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(implicit
+        req: RequestHeader,
+    ): Cookie =
       lilaCookie.session(
         name = name,
-        value = s"${user.username}$sep${email.value}"
+        value = s"${user.username}$sep${email.value}",
       )
 
     def has(req: RequestHeader) = req.session.data contains name
@@ -128,29 +131,34 @@ object EmailConfirm {
   }
 
   import scala.concurrent.duration._
+
   import play.api.mvc.RequestHeader
+
+  import lila.common.HTTPRequest
+  import lila.common.IpAddress
   import lila.memo.RateLimit
-  import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 40,
     duration = 1 hour,
-    key = "email.confirms.ip"
+    key = "email.confirms.ip",
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    key = "email.confirms.user"
+    key = "email.confirms.user",
   )
 
   private lazy val rateLimitPerEmail = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    key = "email.confirms.email"
+    key = "email.confirms.email",
   )
 
-  def rateLimit[A](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
+  def rateLimit[A](userEmail: UserEmail, req: RequestHeader)(
+      run: => Fu[A],
+  )(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(userEmail.username, cost = 1) {
       rateLimitPerEmail(userEmail.email.value, cost = 1) {
         rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
@@ -168,22 +176,22 @@ object EmailConfirm {
     case class NoEmail(name: String)                        extends Status
     case class EmailSent(name: String, email: EmailAddress) extends Status
 
+    import play.api.data.Forms._
     import play.api.data._
     import play.api.data.validation.Constraints
-    import play.api.data.Forms._
 
     val helpForm = Form(
       single(
         "username" -> text.verifying(
           Constraints minLength 2,
           Constraints maxLength 30,
-          Constraints.pattern(regex = User.newUsernameRegex)
-        )
-      )
+          Constraints.pattern(regex = User.newUsernameRegex),
+        ),
+      ),
     )
 
     def getStatus(userRepo: UserRepo, username: String)(implicit
-        ec: scala.concurrent.ExecutionContext
+        ec: scala.concurrent.ExecutionContext,
     ): Fu[Status] =
       userRepo withEmails username flatMap {
         case None => fuccess(NoSuchUser(username))

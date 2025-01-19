@@ -11,14 +11,15 @@ object checkYourEmail {
 
   def apply(
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
-      form: Option[Form[_]] = None
+      form: Option[Form[_]] = None,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.checkYourEmail.txt(),
-      moreCss = cssTag("misc.email-confirm")
+      moreCss = cssTag("misc.email-confirm"),
     ) {
       main(
-        cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}"
+        cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error"
+          else "anim"}",
       )(
         h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
         p(trans.weHaveSentYouAnEmailClickTheLink()),
@@ -37,7 +38,7 @@ object checkYourEmail {
                   required,
                   name    := "email",
                   value   := form.flatMap(_("email").value).getOrElse(email.value),
-                  pattern := s"^((?!^${email.value}$$).)*$$"
+                  pattern := s"^((?!^${email.value}$$).)*$$",
                 ),
                 embedJsUnsafe("""
 var email = document.getElementById("new-email");
@@ -49,14 +50,14 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
                 submitButton(cls := "button")("Change it"),
                 form.map { f =>
                   errMsg(f("email"))
-                }
-              )
+                },
+              ),
             )
           },
           li(
             h3("Wait up to 5 minutes."),
             br,
-            "Depending on your email provider, it can take a while to arrive."
+            "Depending on your email provider, it can take a while to arrive.",
           ),
           li(
             h3("Still not getting it?"),
@@ -67,9 +68,9 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
             br,
             "If so, ",
             a(href := routes.Account.emailConfirmHelp)("proceed to this page to solve the issue"),
-            "."
-          )
-        )
+            ".",
+          ),
+        ),
       )
     }
 }

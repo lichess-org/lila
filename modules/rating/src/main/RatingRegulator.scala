@@ -17,8 +17,8 @@ object RatingRegulator {
       lila.mon.rating.regulator.micropoints(perfType.key).record((extra * 1000 * 1000).toLong)
       after.copy(
         glicko = after.glicko.copy(
-          rating = after.glicko.rating + extra
-        )
+          rating = after.glicko.rating + extra,
+        ),
       )
     } else after
 }

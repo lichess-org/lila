@@ -17,7 +17,7 @@ final class RankingApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
-    lightUser: lila.common.LightUser.Getter
+    lightUser: lila.common.LightUser.Getter,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RankingApi._
@@ -37,9 +37,9 @@ final class RankingApi(
           "rating"    -> perf.intRating,
           "prog"      -> perf.progress,
           "stable"    -> perf.rankable(PerfType variantOf perfType),
-          "expiresAt" -> DateTime.now.plusMonths(1)
+          "expiresAt" -> DateTime.now.plusMonths(1),
         ),
-        upsert = true
+        upsert = true,
       )
       .void
       .recover(lila.db.ignoreDuplicateKey)
@@ -54,8 +54,8 @@ final class RankingApi(
                 .filter { pt =>
                   user.perfs(pt).nonEmpty
                 }
-                .map { makeId(user.id, _) }
-            )
+                .map { makeId(user.id, _) },
+            ),
           )
           .void
       }
@@ -79,7 +79,7 @@ final class RankingApi(
                   user = light,
                   perfKey = perfKey,
                   rating = r.rating,
-                  progress = ~r.prog
+                  progress = ~r.prog,
                 )
               }
             }
@@ -112,7 +112,7 @@ final class RankingApi(
       chushogi = chushogi,
       annanshogi = annanshogi,
       kyotoshogi = kyotoshogi,
-      checkshogi = checkshogi
+      checkshogi = checkshogi,
     )
 
   object weeklyStableRanking {
@@ -141,7 +141,7 @@ final class RankingApi(
       coll.ext
         .find(
           $doc("perf" -> pt.id, "stable" -> true),
-          $doc("_id"  -> true)
+          $doc("_id"  -> true),
         )
         .sort($doc("rating" -> -1))
         .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
@@ -165,7 +165,7 @@ final class RankingApi(
       PerfType.leaderboardable.size,
       "user:rating:distribution",
       179 minutes,
-      _.toString
+      _.toString,
     ) { loader =>
       _.refreshAfterWrite(180 minutes)
         .buildAsyncFuture {
@@ -179,7 +179,7 @@ final class RankingApi(
         coll
           .aggregateList(
             maxDocs = Int.MaxValue,
-            ReadPreference.secondaryPreferred
+            ReadPreference.secondaryPreferred,
           ) { framework =>
             import framework._
             Match($doc("perf" -> perfId)) -> List(
@@ -189,12 +189,12 @@ final class RankingApi(
                   "r" -> $doc(
                     "$subtract" -> $arr(
                       "$rating",
-                      $doc("$mod" -> $arr("$rating", Stat.group))
-                    )
-                  )
-                )
+                      $doc("$mod" -> $arr("$rating", Stat.group)),
+                    ),
+                  ),
+                ),
               ),
-              GroupField("r")("nb" -> SumAll)
+              GroupField("r")("nb" -> SumAll),
             )
           }
           .map { res =>

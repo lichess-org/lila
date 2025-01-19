@@ -20,7 +20,7 @@ object side {
       verdicts: lila.tournament.Condition.All.WithVerdicts,
       streamers: List[lila.user.User.ID],
       shieldOwner: Option[TournamentShield.OwnerId],
-      chat: Boolean
+      chat: Boolean,
   )(implicit ctx: Context) =
     frag(
       div(cls := "tour__meta")(
@@ -30,7 +30,7 @@ object side {
               tour.timeControl.show,
               separator,
               views.html.game.bits.variantLink(tour.variant, tour.perfType.some),
-              tour.position.isDefined ?? s"$separator${trans.thematic.txt()}"
+              tour.position.isDefined ?? s"$separator${trans.thematic.txt()}",
             ),
             tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
             separator,
@@ -38,9 +38,9 @@ object side {
             (isGranted(_.ManageTournament) || (ctx.userId
               .has(tour.createdBy) && !tour.isFinished)) option frag(
               " ",
-              a(href := routes.Tournament.edit(tour.id), title := trans.edit.txt())(iconTag("%"))
-            )
-          )
+              a(href := routes.Tournament.edit(tour.id), title := trans.edit.txt())(iconTag("%")),
+            ),
+          ),
         ),
         tour.teamBattle map teamBattle(tour),
         tour.spotlight map { s =>
@@ -49,9 +49,9 @@ object side {
             shieldOwner map { owner =>
               p(cls := "defender", dataIcon := "5")(
                 "Defender:",
-                userIdLink(owner.value.some)
+                userIdLink(owner.value.some),
               )
-            }
+            },
           )
         },
         tour.description map { d =>
@@ -63,8 +63,8 @@ object side {
           cls := List(
             "conditions" -> true,
             "accepted"   -> (ctx.isAuth && verdicts.accepted),
-            "refused"    -> (ctx.isAuth && !verdicts.accepted)
-          )
+            "refused"    -> (ctx.isAuth && !verdicts.accepted),
+          ),
         )(
           div(
             (verdicts.list.sizeIs < 2) option p(trans.conditionOfEntry()),
@@ -73,48 +73,48 @@ object side {
                 cls := List(
                   "condition text" -> true,
                   "accepted"       -> v.verdict.accepted,
-                  "refused"        -> !v.verdict.accepted
-                )
+                  "refused"        -> !v.verdict.accepted,
+                ),
               )(v.condition match {
                 case lila.tournament.Condition.TeamMember(teamId, teamName) =>
                   trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
                 case c => c.name(tour.perfType)
               })
-            }
-          )
+            },
+          ),
         ),
         tour.isArena && tour.noBerserk option div(cls := "text", dataIcon := "`")(
-          trans.arena.noBerserkAllowed()
+          trans.arena.noBerserkAllowed(),
         ),
         tour.isArena && tour.noStreak option div(cls := "text", dataIcon := "Q")(
-          trans.arena.noArenaStreaks()
+          trans.arena.noArenaStreaks(),
         ),
         !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
         frag(
           absClientDateTime(
-            tour.startsAt
+            tour.startsAt,
           ),
           " - ",
-          absClientDateTime(tour.finishesAt)
+          absClientDateTime(tour.finishesAt),
         ),
         tour.startingPosition.map { pos =>
           p(
             frag(strong(pos.japanese), s" (${pos.english})"),
             separator,
-            views.html.base.bits.sfenAnalysisLink(pos.sfen)
+            views.html.base.bits.sfenAnalysisLink(pos.sfen),
           )
         } orElse tour.position.map { sfen =>
           p(
             trans.fromPosition.txt(),
             separator,
-            views.html.base.bits.sfenAnalysisLink(sfen)
+            views.html.base.bits.sfenAnalysisLink(sfen),
           )
-        }
+        },
       ),
       streamers.nonEmpty option div(cls := "context-streamers")(
-        streamers map views.html.streamer.bits.contextual
+        streamers map views.html.streamer.bits.contextual,
       ),
-      chat option views.html.chat.frag
+      chat option views.html.chat.frag,
     )
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(implicit ctx: Context) =
@@ -122,7 +122,9 @@ object side {
       p(cls := "team-battle__title text", dataIcon := "f")(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
         (ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament)) option
-          a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag("%"))
-      )
+          a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(
+            iconTag("%"),
+          ),
+      ),
     )
 }

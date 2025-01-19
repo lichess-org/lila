@@ -2,7 +2,7 @@ package lila.round
 
 import lila.game.Game
 import lila.hub.actorApi.timeline.Propagate
-import lila.hub.actorApi.timeline.{GameEnd => TLGameEnd}
+import lila.hub.actorApi.timeline.{ GameEnd => TLGameEnd }
 import lila.notify.GameEnd
 import lila.notify.Notification
 import lila.notify.NotifyApi
@@ -11,7 +11,7 @@ import lila.user.User
 final private class RoundNotifier(
     timeline: lila.hub.actors.Timeline,
     isUserPresent: (Game, User.ID) => Fu[Boolean],
-    notifyApi: NotifyApi
+    notifyApi: NotifyApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def gameEnd(game: Game)(color: shogi.Color) =
@@ -22,8 +22,8 @@ final private class RoundNotifier(
             playerId = game fullIdOf color,
             opponent = game.player(!color).userId,
             win = game.winnerColor map (color ==),
-            perf = perfType.key
-          )
+            perf = perfType.key,
+          ),
         ) toUser userId)
       }
       isUserPresent(game, userId) foreach {
@@ -34,9 +34,9 @@ final private class RoundNotifier(
               GameEnd(
                 GameEnd.GameId(game.id),
                 game.opponent(color).userId map GameEnd.OpponentId.apply,
-                game.wonBy(color) map GameEnd.Win.apply
-              )
-            )
+                game.wonBy(color) map GameEnd.Win.apply,
+              ),
+            ),
           )
         case _ =>
       }

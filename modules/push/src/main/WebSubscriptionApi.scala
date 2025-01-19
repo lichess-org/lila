@@ -12,8 +12,8 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
     coll.ext
       .find(
         $doc(
-          "userId" -> userId
-        )
+          "userId" -> userId,
+        ),
       )
       .sort($doc("seenAt" -> -1))
       .cursor[Bdoc]()
@@ -37,9 +37,9 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
           "endpoint" -> subscription.endpoint,
           "auth"     -> subscription.auth,
           "p256dh"   -> subscription.p256dh,
-          "seenAt"   -> DateTime.now
+          "seenAt"   -> DateTime.now,
         ),
-        upsert = true
+        upsert = true,
       )
       .void
       .recover(lila.db.ignoreDuplicateKey)
@@ -57,8 +57,8 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
       .one(
         $doc(
           "userId" -> user.id,
-          "_id"    -> $ne(sessionId)
-        )
+          "_id"    -> $ne(sessionId),
+        ),
       )
       .void
   }

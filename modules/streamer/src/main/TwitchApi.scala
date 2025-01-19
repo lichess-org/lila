@@ -17,28 +17,28 @@ final private class TwitchApi(ws: WSClient, config: TwitchConfig)(implicit ec: E
   def fetchStreams(
       streamers: List[Streamer],
       page: Int,
-      pagination: Option[Twitch.Pagination]
+      pagination: Option[Twitch.Pagination],
   ): Fu[List[Twitch.TwitchStream]] =
     (config.clientId.nonEmpty && config.secret.value.nonEmpty && config.gameId.nonEmpty && page < 10) ?? {
       val query = List(
         "game_id" -> config.gameId,  // shogi-2010
         "game_id" -> config.gameId2, // shogi
-        "first"   -> "100"           // max results per page
+        "first"   -> "100",          // max results per page
       ) ::: List(
-        pagination.flatMap(_.cursor).map { "after" -> _ }
+        pagination.flatMap(_.cursor).map { "after" -> _ },
       ).flatten
       ws.url("https://api.twitch.tv/helix/streams")
         .withQueryStringParameters(query: _*)
         .withHttpHeaders(
           "Client-ID"     -> config.clientId,
-          "Authorization" -> s"Bearer ${tmpToken.value}"
+          "Authorization" -> s"Bearer ${tmpToken.value}",
         )
         .get()
         .flatMap {
           case res if res.status == 200 =>
             res.body[JsValue].validate[Twitch.Result](twitchResultReads) match {
               case JsSuccess(result, _) => fuccess(result)
-              case JsError(err)         => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
+              case JsError(err) => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
             }
           case res if res.status == 401 && res.body.contains("Invalid OAuth token") =>
             logger.warn("Renewing twitch API token")
@@ -62,7 +62,7 @@ final private class TwitchApi(ws: WSClient, config: TwitchConfig)(implicit ec: E
       .withQueryStringParameters(
         "client_id"     -> config.clientId,
         "client_secret" -> config.secret.value,
-        "grant_type"    -> "client_credentials"
+        "grant_type"    -> "client_credentials",
       )
       .post(Map.empty[String, String])
       .flatMap {

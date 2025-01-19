@@ -3,6 +3,7 @@ package lila.game
 import java.security.SecureRandom
 
 import ornicar.scalalib.Random
+
 import shogi.Color
 
 import lila.db.dsl._

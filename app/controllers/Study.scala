@@ -20,11 +20,11 @@ import lila.study.JsonView.JsData
 import lila.study.Order
 import lila.study.Study.WithChapter
 import lila.study.actorApi.Who
-import lila.study.{Study => StudyModel}
+import lila.study.{ Study => StudyModel }
 
 final class Study(
     env: Env,
-    userAnalysisC: => UserAnalysis
+    userAnalysisC: => UserAnalysis,
 ) extends LilaController(env) {
 
   def search(text: String, page: Int) =
@@ -34,14 +34,14 @@ final class Study(
           env.study.pager.all(ctx.me, Order.default, page) flatMap { pag =>
             negotiate(
               html = Ok(html.study.list.all(pag, Order.default)).fuccess,
-              json = apiStudies(pag)
+              json = apiStudies(pag),
             )
           }
         else
           env.studySearch(ctx.me)(text, page) flatMap { pag =>
             negotiate(
               html = Ok(html.study.list.search(pag, text)).fuccess,
-              json = apiStudies(pag)
+              json = apiStudies(pag),
             )
           }
       }
@@ -58,7 +58,7 @@ final class Study(
             env.study.pager.all(ctx.me, order, page) flatMap { pag =>
               negotiate(
                 html = Ok(html.study.list.all(pag, order)).fuccess,
-                json = apiStudies(pag)
+                json = apiStudies(pag),
               )
             }
         }
@@ -74,7 +74,7 @@ final class Study(
           env.study.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
             negotiate(
               html = Ok(html.study.list.byOwner(pag, Order(order), owner)).fuccess,
-              json = apiStudies(pag)
+              json = apiStudies(pag),
             )
           }
         }
@@ -88,7 +88,7 @@ final class Study(
           html = env.study.topicApi.userTopics(me.id) map { topics =>
             Ok(html.study.list.mine(pag, Order(order), me, topics))
           },
-          json = apiStudies(pag)
+          json = apiStudies(pag),
         )
       }
     }
@@ -98,7 +98,7 @@ final class Study(
       env.study.pager.minePublic(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.minePublic(pag, Order(order), me)).fuccess,
-          json = apiStudies(pag)
+          json = apiStudies(pag),
         )
       }
     }
@@ -108,7 +108,7 @@ final class Study(
       env.study.pager.minePrivate(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.minePrivate(pag, Order(order), me)).fuccess,
-          json = apiStudies(pag)
+          json = apiStudies(pag),
         )
       }
     }
@@ -120,7 +120,7 @@ final class Study(
           html = env.study.topicApi.userTopics(me.id) map { topics =>
             Ok(html.study.list.mineMember(pag, Order(order), me, topics))
           },
-          json = apiStudies(pag)
+          json = apiStudies(pag),
         )
       }
     }
@@ -130,7 +130,7 @@ final class Study(
       env.study.pager.mineLikes(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.mineLikes(pag, Order(order))).fuccess,
-          json = apiStudies(pag)
+          json = apiStudies(pag),
         )
       }
     }
@@ -140,19 +140,20 @@ final class Study(
       env.study.pager.minePostGameStudies(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.minePostGameStudies(pag, Order(order))).fuccess,
-          json = apiStudies(pag)
+          json = apiStudies(pag),
         )
       }
     }
 
-  def postGameStudiesOfDefault(gameId: String, page: Int) = postGameStudiesOf(gameId, Order.default.key, page)
+  def postGameStudiesOfDefault(gameId: String, page: Int) =
+    postGameStudiesOf(gameId, Order.default.key, page)
 
   def postGameStudiesOf(gameId: String, order: String, page: Int) =
     Open { implicit ctx =>
       env.study.pager.postGameStudiesOf(gameId.take(8), ctx.me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.postGameStudiesOf(gameId.take(8), pag, Order(order))).fuccess,
-          json = apiStudies(pag)
+          json = apiStudies(pag),
         )
       }
     }
@@ -163,8 +164,9 @@ final class Study(
         case None => notFound
         case Some(topic) =>
           env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
-            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { case (pag, topics) =>
-              Ok(html.study.topic.show(topic, pag, Order(order), topics))
+            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
+              case (pag, topics) =>
+                Ok(html.study.topic.show(topic, pag, Order(order), topics))
             }
       }
     }
@@ -175,8 +177,8 @@ final class Study(
     }
     Ok(
       Json.obj(
-        "paginator" -> PaginatorJson(pager)
-      )
+        "paginator" -> PaginatorJson(pager),
+      ),
     ).fuccess
   }
 
@@ -197,31 +199,37 @@ final class Study(
                   "study" -> data.study.add("chat" -> chatOpt.map { c =>
                     lila.chat.JsonView.mobile(
                       chat = c.chat,
-                      writeable = ctx.userId.??(sc.study.canChat)
+                      writeable = ctx.userId.??(sc.study.canChat),
                     )
                   }),
-                  "analysis" -> data.analysis
-                )
+                  "analysis" -> data.analysis,
+                ),
               )
-            }
+            },
           )
         } yield res
       }
     } dmap (_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(implicit ctx: Context): Fu[(WithChapter, JsData)] =
+  private[controllers] def getJsonData(
+      sc: WithChapter,
+  )(implicit ctx: Context): Fu[(WithChapter, JsData)] =
     for {
       chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
-      _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
-      pov = userAnalysisC.makePov(chapter.root.sfen.some, chapter.setup.variant, chapter.setup.fromNotation)
+      _ = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
+      pov = userAnalysisC.makePov(
+        chapter.root.sfen.some,
+        chapter.setup.variant,
+        chapter.setup.fromNotation,
+      )
       analysis <- chapter.serverEval.exists(_.done) ?? {
         chapter.setup.gameId
           .ifTrue(chapter.isFirstGameRootChapter)
           .fold(
-            env.analyse.analyser.byId(chapter.id.value)
+            env.analyse.analyser.byId(chapter.id.value),
           ) { gameId =>
             env.analyse.analyser
               .byId(gameId)
@@ -235,7 +243,7 @@ final class Study(
         chapter.setup.orientation,
         owner = false,
         me = ctx.me,
-        division = division
+        division = division,
       )
       studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
     } yield WithChapter(study, chapter) -> JsData(
@@ -244,11 +252,11 @@ final class Study(
         .add(
           "treeParts" -> lila.study.JsonView.partitionTreeJsonWriter
             .writes(
-              chapter.root
+              chapter.root,
             )
-            .some
+            .some,
         )
-        .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
+        .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) }),
     )
 
   def show(id: String) =
@@ -299,7 +307,7 @@ final class Study(
               res <-
                 if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
                 else Ok(html.study.create(data, owner, contrib)).fuccess
-            } yield res
+            } yield res,
         )
     }
 
@@ -310,12 +318,12 @@ final class Study(
         .bindFromRequest()
         .fold(
           _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-          data => createStudy(data, me)
+          data => createStudy(data, me),
         )
     }
 
   private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
       _.fold(notFound) { s =>
@@ -328,8 +336,8 @@ final class Study(
       env.study.postGameStudyApi.getGameOfUser(gameId, me) flatMap {
         _.fold(
           BadRequest(
-            jsonError("Game doesn't exist, isn't finished yet or you are not a player in this game")
-          ).fuccess
+            jsonError("Game doesn't exist, isn't finished yet or you are not a player in this game"),
+          ).fuccess,
         ) { g =>
           env.study.postGameStudyApi.studyWithOpponent(g) map { sid =>
             Redirect(routes.Study.show(sid.value))
@@ -341,7 +349,7 @@ final class Study(
   private val PostGameStudyPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 10,
     duration = 30.minute,
-    key = "study.post_game_study.user"
+    key = "study.post_game_study.user",
   )
 
   def postGameStudy =
@@ -357,7 +365,7 @@ final class Study(
                 gameOpt  <- env.study.postGameStudyApi.getGame(data.gameId)
                 invitedV <- env.study.postGameStudyApi.getInvitedUser(data.invitedUsername, me)
                 res <- gameOpt.fold(
-                  BadRequest(jsonError("Game doesn't exists or isn't finished yet")).fuccess
+                  BadRequest(jsonError("Game doesn't exists or isn't finished yet")).fuccess,
                 ) { game =>
                   invitedV.fold(
                     e => BadRequest(jsonError(e.take(64))).fuccess,
@@ -365,11 +373,11 @@ final class Study(
                       env.study.postGameStudyApi
                         .study(game, data.orientation, invited, me)
                         .map(sid =>
-                          Ok(Json.obj("redirect" -> routes.Study.show(sid.value).url))
-                        ) // I want to handle the redirect myself
+                          Ok(Json.obj("redirect" -> routes.Study.show(sid.value).url)),
+                        ), // I want to handle the redirect myself
                   )
                 }
-              } yield (res)
+              } yield (res),
           )
       }(rateLimitedFu)
     }
@@ -400,8 +408,8 @@ final class Study(
               env.study.api.importNotations(
                 StudyModel.Id(id),
                 data.toChapterDatas,
-                sticky = data.sticky
-              )(Who(me.id, lila.socket.Socket.Sri(sri)))
+                sticky = data.sticky,
+              )(Who(me.id, lila.socket.Socket.Sri(sri))),
           )
       }
     }
@@ -420,7 +428,7 @@ final class Study(
             studyJson = env.study.jsonView.embed(
               study,
               chapter,
-              chapters
+              chapters,
             )
             setup       = chapter.setup
             initialSfen = chapter.root.sfen.some
@@ -430,17 +438,17 @@ final class Study(
               lila.pref.Pref.default,
               setup.orientation,
               owner = false,
-              me = none
+              me = none,
             )
             analysis = baseData ++ Json.obj(
               "treeParts" -> lila.study.JsonView.partitionTreeJsonWriter.writes(
-                chapter.root
-              )
+                chapter.root,
+              ),
             )
             data = JsData(study = studyJson, analysis = analysis)
             result <- negotiate(
               html = Ok(html.study.embed(study, chapter, data)).fuccess,
-              json = Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+              json = Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess,
             )
           } yield result
         }
@@ -462,13 +470,13 @@ final class Study(
   private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 10 * 3,
     duration = 24.hour,
-    key = "study.clone.user"
+    key = "study.clone.user",
   )
 
   private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 20 * 3,
     duration = 24.hour,
-    key = "study.clone.ip"
+    key = "study.clone.ip",
   )
 
   def cloneApply(id: String) =
@@ -490,7 +498,7 @@ final class Study(
   private val NotationRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 1.minute,
-    key = "export.study.notation.ip"
+    key = "export.study.notation.ip",
   )
 
   def notation(id: String, csa: Boolean = false) =
@@ -503,7 +511,7 @@ final class Study(
             Ok.chunked(env.study.notationDump(study, flags))
               .withHeaders(
                 noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump filename study}${fileType(flags)}"
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump filename study}${fileType(flags)}",
               )
               .as(notationContentType)
               .fuccess
@@ -518,13 +526,14 @@ final class Study(
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanViewResult(study) {
             lila.mon.notation.studyChapter.increment()
-            val flags          = requestNotationFlags(ctx.req, csa)
-            val content        = env.study.notationDump.ofChapter(study, flags)(chapter).toString
-            val contentEncoded = if (flags.shiftJis) getBytesShiftJis(content) else content.getBytes(UTF_8)
+            val flags   = requestNotationFlags(ctx.req, csa)
+            val content = env.study.notationDump.ofChapter(study, flags)(chapter).toString
+            val contentEncoded =
+              if (flags.shiftJis) getBytesShiftJis(content) else content.getBytes(UTF_8)
             Ok(contentEncoded)
               .withHeaders(
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump
-                    .filename(study, chapter)}${fileType(flags)}"
+                    .filename(study, chapter)}${fileType(flags)}",
               )
               .as(notationContentType)
               .fuccess
@@ -542,7 +551,7 @@ final class Study(
       comments = getBoolOpt("comments", req) | true,
       variations = getBoolOpt("variations", req) | true,
       shiftJis = getBoolOpt("shiftJis", req) | false,
-      clocks = getBoolOpt("clocks", req) | true
+      clocks = getBoolOpt("clocks", req) | true,
     )
 
   def chapterGif(id: String, chapterId: String) =
@@ -555,7 +564,7 @@ final class Study(
                 Ok.chunked(stream)
                   .withHeaders(
                     noProxyBufferHeader,
-                    CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.gif"
+                    CONTENT_DISPOSITION -> s"attachment; filename=${env.study.notationDump.filename(study, chapter)}.gif",
                   ) as "image/gif"
               }
             } else notFound
@@ -605,18 +614,18 @@ final class Study(
           _ => Redirect(routes.Study.topics).fuccess,
           topics =>
             env.study.topicApi.userTopics(me, topics) inject
-              Redirect(routes.Study.topics)
+              Redirect(routes.Study.topics),
         )
     }
 
   private[controllers] def CanViewResult(
-      study: StudyModel
+      study: StudyModel,
   )(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
     else
       negotiate(
         html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
-        json = fuccess(Unauthorized(jsonError("This study is now private")))
+        json = fuccess(Unauthorized(jsonError("This study is now private"))),
       )
 
   private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =
@@ -626,7 +635,7 @@ final class Study(
   implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
 
   private[controllers] def streamsOf(
-      study: StudyModel
+      study: StudyModel,
   )(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
     env.streamer.liveStreamApi.all.flatMap {
       _.streams

@@ -19,7 +19,7 @@ object show {
           image = post.image.some,
           title = post.title,
           url = s"$netBaseUrl${routes.Blog.show(post.id).url}",
-          description = ~post.doc.getText(s"${post.coll}.shortlede")
+          description = ~post.doc.getText(s"${post.coll}.shortlede"),
         )
         .some,
       csp = defaultCsp.withTwitter.some,
@@ -28,10 +28,10 @@ object show {
           .Custom(
             Map(
               "en" -> routes.Blog.show(ids.en).url,
-              "ja" -> routes.Blog.show(ids.ja).url
-            )
+              "ja" -> routes.Blog.show(ids.ja).url,
+            ),
           )
-      }
+      },
     )(
       main(cls := "page-menu page-small")(
         bits.menu(none, false),
@@ -45,7 +45,7 @@ object show {
               .map(lila.blog.Youtube.fixStartTimes)
               .map(lila.blog.BlogTransform.removeProtocol)
               .map(lila.blog.BlogTransform.markdown.apply)
-              .map(raw)
+              .map(raw),
           ),
           ctx.noKid option
             div(cls := "footer")(
@@ -53,13 +53,17 @@ object show {
                 (
                   post.date isAfter org.joda.time.DateTime.now.minusWeeks(2)
                 ) option
-                  a(href := routes.Blog.discuss(post.doc.id), cls := "button text discuss", dataIcon := "d")(
-                    trans.discussBlogForum()
+                  a(
+                    href     := routes.Blog.discuss(post.doc.id),
+                    cls      := "button text discuss",
+                    dataIcon := "d",
+                  )(
+                    trans.discussBlogForum(),
                   )
               } else p("This is a preview."),
-              views.html.base.bits.connectLinks
-            )
-        )
-      )
+              views.html.base.bits.connectLinks,
+            ),
+        ),
+      ),
     )
 }

@@ -9,45 +9,47 @@ import lila.socket.UserLagCache
 final class JsonView(
     baseUrl: lila.common.config.BaseUrl,
     getLightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.socket.IsOnline
+    isOnline: lila.socket.IsOnline,
 ) {
 
-  import lila.game.JsonView._
   import Challenge._
 
-  implicit private val RegisteredWrites: OWrites[Challenger.Registered] = OWrites[Challenger.Registered] { r =>
-    val light = getLightUser(r.id)
-    Json
-      .obj(
-        "id"     -> r.id,
-        "name"   -> light.fold(r.id)(_.name),
-        "title"  -> light.map(_.title),
-        "rating" -> r.rating.int
-      )
-      .add("provisional" -> r.rating.provisional)
-      .add("patron" -> light.??(_.isPatron))
-      .add("online" -> isOnline(r.id))
-      .add("lag" -> UserLagCache.getLagRating(r.id))
-  }
+  import lila.game.JsonView._
+
+  implicit private val RegisteredWrites: OWrites[Challenger.Registered] =
+    OWrites[Challenger.Registered] { r =>
+      val light = getLightUser(r.id)
+      Json
+        .obj(
+          "id"     -> r.id,
+          "name"   -> light.fold(r.id)(_.name),
+          "title"  -> light.map(_.title),
+          "rating" -> r.rating.int,
+        )
+        .add("provisional" -> r.rating.provisional)
+        .add("patron" -> light.??(_.isPatron))
+        .add("online" -> isOnline(r.id))
+        .add("lag" -> UserLagCache.getLagRating(r.id))
+    }
 
   def apply(a: AllChallenges)(implicit lang: Lang): JsObject =
     Json.obj(
       "in"  -> a.in.map(apply(Direction.In.some)),
-      "out" -> a.out.map(apply(Direction.Out.some))
+      "out" -> a.out.map(apply(Direction.Out.some)),
     )
 
-  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(implicit
-      lang: Lang
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(
+      implicit lang: Lang,
   ) =
     Json.obj(
       "challenge"     -> apply(direction)(challenge),
-      "socketVersion" -> socketVersion
+      "socketVersion" -> socketVersion,
     )
 
   def api(
       challenge: Challenge,
       socketVersion: SocketVersion,
-      direction: Option[Direction]
+      direction: Option[Direction],
   )(implicit lang: Lang) =
     (apply(direction)(challenge)) ++ Json.obj("socketVersion" -> socketVersion)
 
@@ -70,20 +72,20 @@ final class JsonView(
               "increment" -> clock.incrementSeconds,
               "byoyomi"   -> clock.byoyomiSeconds,
               "periods"   -> clock.periodsTotal,
-              "show"      -> clock.show
+              "show"      -> clock.show,
             )
           case TimeControl.Correspondence(d) =>
             Json.obj(
               "type"        -> "correspondence",
-              "daysPerTurn" -> d
+              "daysPerTurn" -> d,
             )
           case TimeControl.Unlimited => Json.obj("type" -> "unlimited")
         }),
         "color" -> c.colorChoice.toString.toLowerCase,
         "perf" -> Json.obj(
           "icon" -> iconChar(c).toString,
-          "name" -> c.perfType.trans
-        )
+          "name" -> c.perfType.trans,
+        ),
       )
       .add("direction" -> direction.map(_.name))
       .add("initialSfen" -> c.initialSfen)

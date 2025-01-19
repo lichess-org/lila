@@ -10,10 +10,10 @@ import lila.search._
 
 final class GameSearchApi(
     client: ESClient,
-    gameRepo: GameRepo
+    gameRepo: GameRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -34,7 +34,7 @@ final class GameSearchApi(
           () => client.store(Id(game.id), toDoc(game, analysed)),
           delay = 20.seconds,
           retries = 2,
-          logger.some
+          logger.some,
         )
       }
     }
@@ -67,7 +67,7 @@ final class GameSearchApi(
         Fields.analysed      -> analysed,
         Fields.senteUser     -> game.sentePlayer.userId,
         Fields.goteUser      -> game.gotePlayer.userId,
-        Fields.source        -> game.source.map(_.id)
+        Fields.source        -> game.source.map(_.id),
       )
       .noNull
 }

@@ -18,7 +18,7 @@ final class FormFactory {
   val filter = Form(single("local" -> text))
 
   def aiFilled(sfen: Option[Sfen], variant: Option[Variant])(implicit
-      ctx: UserContext
+      ctx: UserContext,
   ): Form[AiConfig] =
     ai(ctx) fill sfen.foldLeft(AiConfig.default) { case (config, f) =>
       config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
@@ -35,15 +35,15 @@ final class FormFactory {
       "days"      -> days,
       "level"     -> level,
       "color"     -> color,
-      "sfen"      -> sfenField
+      "sfen"      -> sfenField,
     )(AiConfig.from)(_.>>)
       .verifying("invalidSfen", _.validSfen)
       .verifying("Invalid timemode", _.validTimeMode(ctx.isAuth))
-      .verifying("Can't play that time control with this variant", _.timeControlNonStandard)
+      .verifying("Can't play that time control with this variant", _.timeControlNonStandard),
   )
 
   def friendFilled(sfen: Option[Sfen], variant: Option[Variant])(implicit
-      ctx: UserContext
+      ctx: UserContext,
   ): Form[FriendConfig] =
     friend(ctx) fill sfen.foldLeft(FriendConfig.default) { case (config, f) =>
       config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
@@ -61,12 +61,12 @@ final class FormFactory {
         "days"      -> days,
         "mode"      -> mode(withRated = ctx.isAuth),
         "color"     -> color,
-        "sfen"      -> sfenField
+        "sfen"      -> sfenField,
       )(FriendConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
         .verifying("Invalid timemode", _.validTimeMode(ctx.isAuth))
         .verifying("Invalid speed", _.validSpeed(ctx.me.exists(_.isBot)))
-        .verifying("invalidSfen", _.validSfen)
+        .verifying("invalidSfen", _.validSfen),
     )
 
   def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
@@ -84,11 +84,11 @@ final class FormFactory {
         "days"        -> days,
         "mode"        -> mode(ctx.isAuth),
         "ratingRange" -> optional(ratingRange),
-        "color"       -> color
+        "color"       -> color,
       )(HookConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
         .verifying("Invalid timemode", _.validTimeMode(ctx.isAuth))
-        .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
+        .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited),
     )
   }
 
@@ -101,7 +101,7 @@ final class FormFactory {
       "variant"     -> optional(boardApiVariantKeys),
       "rated"       -> optional(boolean),
       "color"       -> optional(color),
-      "ratingRange" -> optional(ratingRange)
+      "ratingRange" -> optional(ratingRange),
     )((t, i, b, p, v, r, c, g) =>
       HookConfig(
         variant = v.flatMap(Variant.apply) | Variant.default,
@@ -113,8 +113,8 @@ final class FormFactory {
         days = 1,
         mode = shogi.Mode(~r),
         color = lila.lobby.Color.orDefault(c),
-        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
-      )
+        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault),
+      ),
     )(_ => none)
       .verifying("Invalid clock", _.validClock)
       .verifying(
@@ -122,8 +122,8 @@ final class FormFactory {
         hook =>
           hook.makeClock ?? {
             lila.game.Game.isBoardCompatible(_, hook.mode)
-          }
-      )
+          },
+      ),
   )
 
   object api {
@@ -133,8 +133,8 @@ final class FormFactory {
         "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
         "increment" -> increment,
         "byoyomi"   -> byoyomi,
-        "periods"   -> periods
-      )(shogi.Clock.Config.apply)(shogi.Clock.Config.unapply)
+        "periods"   -> periods,
+      )(shogi.Clock.Config.apply)(shogi.Clock.Config.unapply),
     )
 
     private lazy val variant =
@@ -148,10 +148,10 @@ final class FormFactory {
         "rated"         -> boolean,
         "color"         -> optional(color),
         "sfen"          -> sfenField,
-        "acceptByToken" -> optional(nonEmptyText)
+        "acceptByToken" -> optional(nonEmptyText),
       )(ApiConfig.from)(_.>>)
         .verifying("invalidSfen", _.validSfen)
-        .verifying("Invalid speed", _ validSpeed from.isBot)
+        .verifying("Invalid speed", _ validSpeed from.isBot),
     )
 
     lazy val ai = Form(
@@ -161,8 +161,8 @@ final class FormFactory {
         clock,
         "days"  -> optional(days),
         "color" -> optional(color),
-        "sfen"  -> sfenField
-      )(ApiAiConfig.from)(_.>>).verifying("invalidSfen", _.validSfen)
+        "sfen"  -> sfenField,
+      )(ApiAiConfig.from)(_.>>).verifying("invalidSfen", _.validSfen),
     )
 
     lazy val open = Form(
@@ -171,10 +171,10 @@ final class FormFactory {
         clock,
         "days"  -> optional(days),
         "rated" -> boolean,
-        "sfen"  -> sfenField
+        "sfen"  -> sfenField,
       )(OpenConfig.from)(_.>>)
         .verifying("invalidSfen", _.validSfen)
-        .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
+        .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated),
     )
   }
 }

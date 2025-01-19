@@ -12,16 +12,16 @@ import lila.search._
 @Module
 private class TeamSearchConfig(
     @ConfigName("index") val indexName: String,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("actor.name") val actorName: String,
 )
 
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
-    teamRepo: lila.team.TeamRepo
+    teamRepo: lila.team.TeamRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[TeamSearchConfig]("teamSearch")(AutoConfig.loader)
@@ -51,6 +51,6 @@ final class Env(
         case RemoveTeam(id)   => client.deleteById(Id(id)).unit
       }
     }),
-    name = config.actorName
+    name = config.actorName,
   )
 }

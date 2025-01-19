@@ -12,7 +12,7 @@ import lila.i18n.defaultLang
 final private class GameJson(
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(gameId: Game.ID, plies: Int): Fu[JsObject] =
@@ -31,7 +31,7 @@ final private class GameJson(
       .buildAsyncFuture(key =>
         readKey(key) match {
           case (id, plies) => generate(id, plies)
-        }
+        },
       )
   }
 
@@ -49,7 +49,7 @@ final private class GameJson(
         "perf"    -> perfJson(game),
         "rated"   -> game.rated,
         "players" -> playersJson(game),
-        "moves"   -> game.shogi.usis.take(plies + 1).map(_.usi).mkString(" ")
+        "moves"   -> game.shogi.usis.take(plies + 1).map(_.usi).mkString(" "),
       )
       .add("clock", game.clock.map(_.config.show))
 
@@ -57,7 +57,7 @@ final private class GameJson(
     val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
     Json.obj(
       "icon" -> perfType.iconChar.toString,
-      "name" -> perfType.trans(defaultLang)
+      "name" -> perfType.trans(defaultLang),
     )
   }
 
@@ -68,7 +68,7 @@ final private class GameJson(
       .obj(
         "userId" -> userId,
         "name"   -> s"${user.name}${p.rating.??(r => s" ($r)")}",
-        "color"  -> p.color.name
+        "color"  -> p.color.name,
       )
       .add("title" -> user.title)
       .add("ai" -> p.aiLevel)

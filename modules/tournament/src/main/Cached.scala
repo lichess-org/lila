@@ -18,9 +18,9 @@ final private[tournament] class Cached(
     arrangementRepo: ArrangementRepo,
     tournamentRepo: TournamentRepo,
     lightUserApi: LightUserApi,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
@@ -31,7 +31,7 @@ final private[tournament] class Cached(
     },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes),
   )
 
   val onHomepage = cacheApi.unit[List[Tournament]] {
@@ -59,11 +59,12 @@ final private[tournament] class Cached(
   }
 
   // only applies to finished tournaments
-  private val finishedRanking = cacheApi[Tournament.ID, Ranking](1024, "tournament.finishedRanking") {
-    _.expireAfterAccess(1 hour)
-      .maximumSize(2048)
-      .buildAsyncFuture(playerRepo.computeRanking)
-  }
+  private val finishedRanking =
+    cacheApi[Tournament.ID, Ranking](1024, "tournament.finishedRanking") {
+      _.expireAfterAccess(1 hour)
+        .maximumSize(2048)
+        .buildAsyncFuture(playerRepo.computeRanking)
+    }
 
   object battle {
 
@@ -86,7 +87,7 @@ final private[tournament] class Cached(
         tourId: Tournament.ID,
         userId: User.ID,
         version: Sheet.Version,
-        streakable: Sheet.Streakable
+        streakable: Sheet.Streakable,
     )
 
     def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
@@ -103,7 +104,7 @@ final private[tournament] class Cached(
         tour.id,
         userId,
         Sheet versionOf tour.startsAt,
-        if (tour.streakable) Sheet.Streaks else Sheet.NoStreaks
+        if (tour.streakable) Sheet.Streaks else Sheet.NoStreaks,
       )
 
     private def compute(key: SheetKey): Fu[Sheet] =
@@ -137,7 +138,7 @@ final private[tournament] class Cached(
         arrangements <- arrangementsCache get tourId
       } yield Json.obj(
         "players"      -> players,
-        "arrangements" -> arrangements
+        "arrangements" -> arrangements,
       )
 
     def invalidatePlayers(tourId: Tournament.ID): Unit =
@@ -152,7 +153,7 @@ final private[tournament] class Cached(
         .flatMap(
           _.sortBy(p => p.order.getOrElse(p.magicScore))
             .map(JsonView.arrangementPlayerJson(lightUserApi, _))
-            .sequenceFu
+            .sequenceFu,
         )
 
     def computeArrangements(tourId: Tournament.ID): Fu[List[JsObject]] =

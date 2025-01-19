@@ -9,11 +9,11 @@ import views.html
 import lila.api.Context
 import lila.app._
 import lila.user.TotpSecret
-import lila.user.{User => UserModel}
+import lila.user.{ User => UserModel }
 
 final class Account(
     env: Env,
-    auth: Auth
+    auth: Auth,
 ) extends LilaController(env) {
 
   def profile =
@@ -46,7 +46,8 @@ final class Account(
         env.user.repo
           .setUsernameCased(me.id, username) inject
           Redirect(routes.User show me.username).flashSuccess recover { case e =>
-            BadRequest(html.account.username(me, env.user.forms.username(me))).flashFailure(e.getMessage)
+            BadRequest(html.account.username(me, env.user.forms.username(me)))
+              .flashFailure(e.getMessage)
           }
       }
     }
@@ -68,13 +69,13 @@ final class Account(
                     "prefs"        -> prefs,
                     "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
                     "nbFollowers"  -> nbFollowers,
-                    "nbChallenges" -> nbChallenges
+                    "nbChallenges" -> nbChallenges,
                   )
                   .add("kid" -> me.kid)
                   .add("troll" -> me.marks.troll)
                   .add("playban" -> playban)
               }.withHeaders(CACHE_CONTROL -> s"max-age=15")
-          }
+          },
       )
     }
 
@@ -82,7 +83,7 @@ final class Account(
     Auth { implicit ctx => me =>
       negotiate(
         html = notFound,
-        json = doNowPlaying(me, ctx.req)
+        json = doNowPlaying(me, ctx.req),
       )
     }
 
@@ -186,7 +187,7 @@ final class Account(
                 if (prevEmail.exists(_.isNoReply))
                   Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
                 else
-                  Some(_ => Redirect(routes.Account.email).flashSuccess)
+                  Some(_ => Redirect(routes.Account.email).flashSuccess),
             )
         }
       }
@@ -209,7 +210,7 @@ final class Account(
               username =>
                 getStatus(env.user.repo, username) map { status =>
                   Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
-                }
+                },
             )
       }
     }
@@ -237,7 +238,8 @@ final class Account(
           } { data =>
             env.user.repo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
               env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
-              env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
+              env.push.webSubscriptionApi
+                .unsubscribeByUserExceptSession(me, currentSessionId) inject
               Redirect(routes.Account.twoFactor).flashSuccess
           }
         }
@@ -308,14 +310,14 @@ final class Account(
               err =>
                 negotiate(
                   html = BadRequest(html.account.kid(me, err, false)).fuccess,
-                  json = BadRequest(errorsAsJson(err)).fuccess
+                  json = BadRequest(errorsAsJson(err)).fuccess,
                 ),
               _ =>
                 env.user.repo.setKid(me, getBool("v")) >>
                   negotiate(
                     html = Redirect(routes.Account.kid).flashSuccess.fuccess,
-                    json = jsonOkResult.fuccess
-                  )
+                    json = jsonOkResult.fuccess,
+                  ),
             )
         }
       }
@@ -343,8 +345,8 @@ final class Account(
             sessions,
             currentSessionId,
             clients,
-            personalAccessTokens
-          )
+            personalAccessTokens,
+          ),
       )
     }
 
@@ -390,10 +392,10 @@ final class Account(
                 auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
                   lila.mon.user.auth.reopenRequest("success").increment()
                   env.security.reopen.send(user, data.realEmail) inject Redirect(
-                    routes.Account.reopenSent(data.realEmail.value)
+                    routes.Account.reopenSent(data.realEmail.value),
                   )
                 }(rateLimitedFu)
-            }
+            },
         )
     }
 

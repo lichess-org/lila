@@ -38,7 +38,7 @@ final class Pref(env: Env) extends LilaController(env) {
         .bindFromRequest()
         .fold(
           err => BadRequest(err.toString).fuccess,
-          data => api.setPref(data(ctx.pref)) inject Ok("saved")
+          data => api.setPref(data(ctx.pref)) inject Ok("saved"),
         )
     }
 
@@ -76,7 +76,7 @@ final class Pref(env: Env) extends LilaController(env) {
           v =>
             api.saveTag(me, _.verifyTitle, if (v) "1" else "0") inject Redirect {
               if (v) routes.Main.contact else routes.User.show(me.username)
-            }
+            },
         )
     }
 
@@ -90,7 +90,7 @@ final class Pref(env: Env) extends LilaController(env) {
     "thickGrid"   -> (forms.thickGrid   -> save("thickGrid") _),
     "bgImg"       -> (forms.bgImg       -> save("bgImg") _),
     "zen"         -> (forms.zen         -> save("zen") _),
-    "notation"    -> (forms.notation    -> save("notation") _)
+    "notation"    -> (forms.notation    -> save("notation") _),
   )
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
@@ -108,7 +108,7 @@ final class Pref(env: Env) extends LilaController(env) {
         ("gridColor"  -> ct.gridColor),
         ("gridWidth"  -> ct.gridWidth.toString),
         ("handsColor" -> ct.handsColor),
-        ("handsImg"   -> ct.handsImg)
-      )
+        ("handsImg"   -> ct.handsImg),
+      ),
     )(ctx.req)
 }

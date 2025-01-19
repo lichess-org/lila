@@ -14,7 +14,7 @@ final class CoachApi(
     coachColl: Coll,
     userRepo: UserRepo,
     photographer: Photographer,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -43,13 +43,17 @@ final class CoachApi(
     Granter(_.Coach)(user) ?? coachColl.exists($id(user.id) ++ $doc("listed" -> true))
 
   def setSeenAt(user: User): Funit =
-    Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> DateTime.now)).void
+    Granter(_.Coach)(user) ?? coachColl.update
+      .one($id(user.id), $set("user.seenAt" -> DateTime.now))
+      .void
 
   def setRating(userPre: User): Funit =
     Granter(_.Coach)(userPre) ?? {
       userRepo.byId(userPre.id) flatMap {
         _ ?? { user =>
-          coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
+          coachColl.update
+            .one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating))
+            .void
         }
       }
     }
@@ -59,14 +63,14 @@ final class CoachApi(
       .one(
         $id(c.coach.id),
         data(c.coach),
-        upsert = true
+        upsert = true,
       )
       .void
 
   private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
     coachColl.update.one(
       $id(User.normalize(username)),
-      $set("approved" -> value)
+      $set("approved" -> value),
     ) dmap { result =>
       if (result.n > 0) "Done!"
       else "No such coach"

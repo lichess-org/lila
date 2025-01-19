@@ -20,13 +20,14 @@ object captcha {
       form3.hidden(form("gameId"), captcha.gameId.some),
       if (ctx.blind) form3.hidden(form("move"), captcha.solutions.head.some)
       else {
-        val url = netBaseUrl + routes.Round.watcher(captcha.gameId, if (captcha.sente) "sente" else "gote")
+        val url =
+          netBaseUrl + routes.Round.watcher(captcha.gameId, if (captcha.sente) "sente" else "gote")
         div(
           cls := List(
             "captcha form-group" -> true,
-            "is-invalid"         -> lila.common.Captcha.isFailed(form)
+            "is-invalid"         -> lila.common.Captcha.isFailed(form),
           ),
-          dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
+          dataCheckUrl := routes.Main.captchaCheck(captcha.gameId),
         )(
           div(cls := "challenge")(
             div(
@@ -37,12 +38,16 @@ object captcha {
               } else {
                 "gote"
               }),
-              dataZ   := encodeSfen(captcha.sfenBoard)
-            )(div(cls := "sg-wrap"))
+              dataZ := encodeSfen(captcha.sfenBoard),
+            )(div(cls := "sg-wrap")),
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(
-              transWithColorName(trans.xCheckmatesInOneMove, shogi.Color.fromSente(captcha.sente), false)
+              transWithColorName(
+                trans.xCheckmatesInOneMove,
+                shogi.Color.fromSente(captcha.sente),
+                false,
+              ),
             ),
             br,
             br,
@@ -53,12 +58,14 @@ object captcha {
             br,
             trans.help(),
             " ",
-            a(title := trans.viewTheSolution.txt(), target := "_blank", href := s"${url}#last")(url),
+            a(title := trans.viewTheSolution.txt(), target := "_blank", href := s"${url}#last")(
+              url,
+            ),
             div(cls := "result success text", dataIcon := "E")(trans.checkmate()),
             div(cls := "result failure text", dataIcon := "k")(trans.notACheckmate()),
-            form3.hidden(form("move"))
-          )
+            form3.hidden(form("move")),
+          ),
         )
-      }
+      },
     )
 }

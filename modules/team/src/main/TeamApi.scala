@@ -22,10 +22,9 @@ import lila.hub.actorApi.timeline.TeamCreate
 import lila.hub.actorApi.timeline.TeamJoin
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
+import lila.team.actorApi._
 import lila.user.User
 import lila.user.UserRepo
-
-import actorApi._
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -36,7 +35,7 @@ final class TeamApi(
     notifier: Notifier,
     timeline: lila.hub.actors.Timeline,
     indexer: lila.hub.actors.TeamSearch,
-    modLog: ModlogApi
+    modLog: ModlogApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -54,14 +53,14 @@ final class TeamApi(
       location = s.location,
       description = s.description,
       open = s.isOpen,
-      createdBy = me
+      createdBy = me,
     )
     teamRepo.coll.insert.one(team) >>
       memberRepo.add(team.id, me.id) >>- {
         cached invalidateTeamIds me.id
         indexer ! InsertTeam(team)
         timeline ! Propagate(
-          TeamCreate(me.id, team.id)
+          TeamCreate(me.id, team.id),
         ).toFollowersOf(me.id)
         Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
       } inject team
@@ -73,7 +72,7 @@ final class TeamApi(
         location = e.location,
         description = e.description,
         open = e.isOpen,
-        chat = e.chat
+        chat = e.chat,
       ) pipe { team =>
         teamRepo.coll.update.one($id(team.id), team).void >>
           !team.leaders(me.id) ?? {
@@ -235,7 +234,9 @@ final class TeamApi(
     } getOrElse Set.empty
     memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
       ids.nonEmpty ?? {
-        if (ids(team.createdBy) || !team.leaders(team.createdBy) || by.id == team.createdBy || byMod) {
+        if (
+          ids(team.createdBy) || !team.leaders(team.createdBy) || by.id == team.createdBy || byMod
+        ) {
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
@@ -279,15 +280,16 @@ final class TeamApi(
     teamRepo.leads(teamId, userId)
 
   def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
-    teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids), ReadPreference.secondaryPreferred)
+    teamRepo.coll
+      .distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids), ReadPreference.secondaryPreferred)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
     teamRepo.coll.ext
       .find(
         $doc(
           "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
-          "enabled" -> true
-        )
+          "enabled" -> true,
+        ),
       )
       .sort($sort desc "nbMembers")
       .cursor[Team](ReadPreference.secondaryPreferred)

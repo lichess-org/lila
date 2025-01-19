@@ -19,7 +19,7 @@ private class UserConfig(
     @ConfigName("collection.trophy") val collectionTrophy: CollName,
     @ConfigName("collection.trophyKind") val collectionTrophyKind: CollName,
     @ConfigName("collection.ranking") val collectionRanking: CollName,
-    @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
+    @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret,
 )
 
 @Module
@@ -29,11 +29,11 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
-    onlineIds: lila.socket.OnlineIds
+    onlineIds: lila.socket.OnlineIds,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    ws: WSClient
+    ws: WSClient,
 ) {
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
@@ -53,7 +53,8 @@ final class Env(
     mk(db(config.collectionNote))
   }
 
-  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
+  lazy val trophyApi =
+    new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
   lazy val rankingApi = {
     def mk = (coll: Coll) => wire[RankingApi]
@@ -65,7 +66,7 @@ final class Env(
   private lazy val passHasher = new PasswordHasher(
     secret = config.passwordBPassSecret,
     logRounds = 10,
-    hashTimer = res => lila.common.Chronometer.syncMon(_.user.auth.hashTime)(res)
+    hashTimer = res => lila.common.Chronometer.syncMon(_.user.auth.hashTime)(res),
   )
 
   lazy val authenticator = wire[Authenticator]
@@ -90,6 +91,6 @@ final class Env(
       repo erase user
       noteApi erase user
       ()
-    }
+    },
   )
 }

@@ -15,6 +15,7 @@ import play.api.data.validation.Constraints
 
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+
 import shogi.format.forsyth.Sfen
 
 import lila.common.base.StringUtils
@@ -88,7 +89,7 @@ object Form {
     (minLength, maxLength) match {
       case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))
       case (0, max)            => cleanText.verifying(Constraints.maxLength(max))
-      case (min, max)          => cleanText.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+      case (min, max) => cleanText.verifying(Constraints.minLength(min), Constraints.maxLength(max))
     }
 
   val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
@@ -136,40 +137,45 @@ object Form {
     import play.api.data.{ validation => V }
     def minLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.minLength", length) { o =>
-        if (from(o).sizeIs >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
+        if (from(o).sizeIs >= length) V.Valid
+        else V.Invalid(V.ValidationError("error.minLength", length))
       }
     def maxLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.maxLength", length) { o =>
-        if (from(o).sizeIs <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
+        if (from(o).sizeIs <= length) V.Valid
+        else V.Invalid(V.ValidationError("error.maxLength", length))
       }
   }
 
   object sfen {
-    implicit private val sfenFormat: Formatter[Sfen] = formatter.stringFormatter[Sfen](_.value, Sfen.clean)
-    def clean                       = of[Sfen](sfenFormat)
+    implicit private val sfenFormat: Formatter[Sfen] =
+      formatter.stringFormatter[Sfen](_.value, Sfen.clean)
+    def clean = of[Sfen](sfenFormat)
   }
 
   def inTheFuture(m: Mapping[DateTime]) =
     m.verifying(
       "The date must be set in the future",
-      DateTime.now.isBefore(_)
+      DateTime.now.isBefore(_),
     )
 
   object UTCDate {
-    val dateTimePattern         = "yyyy-MM-dd HH:mm"
-    val utcDate                 = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat: Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    val dateTimePattern = "yyyy-MM-dd HH:mm"
+    val utcDate         = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    implicit val dateTimeFormat: Formatter[DateTime] =
+      JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODateTime {
-    val dateTimePattern         = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val formatter               = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
-    val isoDateTime             = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat: Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(dateTimePattern)
+    val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    val formatter       = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
+    val isoDateTime     = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    implicit val dateTimeFormat: Formatter[DateTime] =
+      JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODate {
-    val datePattern         = "yyyy-MM-dd"
-    val formatter           = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
-    val isoDateTime         = jodaDate(datePattern, DateTimeZone.UTC)
+    val datePattern = "yyyy-MM-dd"
+    val formatter   = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
+    val isoDateTime = jodaDate(datePattern, DateTimeZone.UTC)
     implicit val dateFormat: Formatter[DateTime] = JodaFormats.jodaDateTimeFormat(datePattern)
   }
   object Timestamp {
@@ -201,7 +207,8 @@ object Form {
     val formatter = new Formatter[org.joda.time.DateTime] {
       def bind(key: String, data: Map[String, String]) =
         ISODateTime.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
-      def unbind(key: String, value: org.joda.time.DateTime) = ISODateTime.formatter.unbind(key, value)
+      def unbind(key: String, value: org.joda.time.DateTime) =
+        ISODateTime.formatter.unbind(key, value)
     }
     val isoDateTimeOrTimestamp = of[org.joda.time.DateTime](formatter)
   }

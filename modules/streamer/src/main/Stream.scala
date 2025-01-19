@@ -37,13 +37,14 @@ object Stream {
     case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]) {
       def liveStreams = (~data).filter(_.isLive)
     }
-    case class Stream(userId: String, status: String, streamer: Streamer) extends lila.streamer.Stream {
+    case class Stream(userId: String, status: String, streamer: Streamer)
+        extends lila.streamer.Stream {
       def serviceName = "twitch"
     }
     object Reads {
       implicit private val twitchStreamReads: Reads[TwitchStream] = Json.reads[TwitchStream]
-      implicit private val paginationReads: Reads[Pagination]   = Json.reads[Pagination]
-      implicit val twitchResultReads: Reads[Result]         = Json.reads[Result]
+      implicit private val paginationReads: Reads[Pagination]     = Json.reads[Pagination]
+      implicit val twitchResultReads: Reads[Result]               = Json.reads[Result]
     }
   }
 
@@ -64,7 +65,7 @@ object Stream {
                 item.snippet.channelId,
                 unescapeHtml(item.snippet.title),
                 item.id.videoId,
-                _
+                _,
               )
             }
           }
@@ -76,9 +77,9 @@ object Stream {
 
     object Reads {
       implicit private val youtubeSnippetReads: Reads[Snippet] = Json.reads[Snippet]
-      implicit private val youtubeIdReads: Reads[Id]      = Json.reads[Id]
-      implicit private val youtubeItemReads: Reads[Item]    = Json.reads[Item]
-      implicit val youtubeResultReads: Reads[Result]          = Json.reads[Result]
+      implicit private val youtubeIdReads: Reads[Id]           = Json.reads[Id]
+      implicit private val youtubeItemReads: Reads[Item]       = Json.reads[Item]
+      implicit val youtubeResultReads: Reads[Result]           = Json.reads[Result]
     }
 
     case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
@@ -88,14 +89,14 @@ object Stream {
     "stream" -> Json.obj(
       "service" -> stream.serviceName,
       "status"  -> stream.status,
-      "lang"    -> stream.lang
+      "lang"    -> stream.lang,
     ),
     "streamer" -> Json
       .obj("name" -> stream.streamer.name.value)
       .add("headline" -> stream.streamer.headline.map(_.value))
       .add("description" -> stream.streamer.description.map(_.value))
       .add("twitch" -> stream.streamer.twitch.map(_.fullUrl))
-      .add("youTube" -> stream.streamer.youTube.map(_.fullUrl))
+      .add("youTube" -> stream.streamer.youTube.map(_.fullUrl)),
   )
 
   private val LangRegex = """\[(\w\w)\]""".r.unanchored

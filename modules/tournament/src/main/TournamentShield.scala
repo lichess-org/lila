@@ -11,11 +11,11 @@ import lila.user.User
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import TournamentShield._
   import BSONHandlers._
+  import TournamentShield._
 
   def active(u: User): Fu[List[Award]] =
     cache.getUnit dmap {
@@ -52,8 +52,8 @@ final class TournamentShieldApi(
           .find(
             $doc(
               "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
-              "status"        -> statusBSONHandler.writeTry(Status.Finished).get
-            )
+              "status"        -> statusBSONHandler.writeTry(Status.Finished).get,
+            ),
           )
           .sort($sort asc "startsAt")
           .cursor[Tournament](ReadPreference.secondaryPreferred)
@@ -66,7 +66,7 @@ final class TournamentShieldApi(
             categ = categ,
             owner = OwnerId(winner),
             date = tour.finishesAt,
-            tourId = tour.id
+            tourId = tour.id,
           )
         } map {
           _.foldLeft(Map.empty[Category, List[Award]]) { case (hist, entry) =>
@@ -85,7 +85,7 @@ object TournamentShield {
       categ: Category,
       owner: OwnerId,
       date: DateTime,
-      tourId: Tournament.ID
+      tourId: Tournament.ID,
   )
   // newer entry first
   case class History(value: Map[Category, List[Award]]) {
@@ -101,7 +101,7 @@ object TournamentShield {
 
     def take(max: Int) =
       copy(
-        value = value.view.mapValues(_ take max).toMap
+        value = value.view.mapValues(_ take max).toMap,
       )
   }
 
@@ -109,7 +109,7 @@ object TournamentShield {
 
   sealed abstract class Category(
       val of: SpeedOrVariant,
-      val iconChar: Char
+      val iconChar: Char,
   ) {
     def key  = of.fold(_.key, _.key)
     def name = of.fold(_.name, _.name)
@@ -126,37 +126,37 @@ object TournamentShield {
     case object Bullet
         extends Category(
           of = Left(Schedule.Speed.Bullet),
-          iconChar = 'T'
+          iconChar = 'T',
         )
 
     case object SuperBlitz
         extends Category(
           of = Left(Schedule.Speed.SuperBlitz),
-          iconChar = ')'
+          iconChar = ')',
         )
 
     case object Blitz
         extends Category(
           of = Left(Schedule.Speed.Blitz),
-          iconChar = ')'
+          iconChar = ')',
         )
 
     case object Rapid
         extends Category(
           of = Left(Schedule.Speed.Rapid),
-          iconChar = '#'
+          iconChar = '#',
         )
 
     case object Classical
         extends Category(
           of = Left(Schedule.Speed.Classical),
-          iconChar = '+'
+          iconChar = '+',
         )
 
     case object Minishogi
         extends Category(
           of = Right(shogi.variant.Minishogi),
-          iconChar = ','
+          iconChar = ',',
         )
 
     // case object Chushogi
@@ -168,19 +168,19 @@ object TournamentShield {
     case object Annanshogi
         extends Category(
           of = Right(shogi.variant.Annanshogi),
-          iconChar = ''
+          iconChar = '',
         )
 
     case object Kyotoshogi
         extends Category(
           of = Right(shogi.variant.Kyotoshogi),
-          iconChar = ''
+          iconChar = '',
         )
 
     case object Checkshogi
         extends Category(
           of = Right(shogi.variant.Checkshogi),
-          iconChar = '>'
+          iconChar = '>',
         )
 
     val all: List[Category] = List(
@@ -193,7 +193,7 @@ object TournamentShield {
       // Chushogi,
       Annanshogi,
       Kyotoshogi,
-      Checkshogi
+      Checkshogi,
     )
 
     def of(t: Tournament): Option[Category] = all.find(_ matches t)
@@ -209,6 +209,6 @@ object TournamentShield {
         s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.
 The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""",
-      homepageHours = 6.some
+      homepageHours = 6.some,
     )
 }

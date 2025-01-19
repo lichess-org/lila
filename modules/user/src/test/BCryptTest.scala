@@ -2,8 +2,8 @@ package lila.user
 
 import java.nio.charset.StandardCharsets.UTF_8
 
-import org.specs2.mutable.Specification
 import org.mindrot.BCrypt
+import org.specs2.mutable.Specification
 
 class BCryptTest extends Specification {
 

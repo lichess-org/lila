@@ -1,8 +1,12 @@
 package lila.game
 
-import shogi.{ Centis, Clock, Sente }
-import org.specs2.mutable._
 import scala.util.chaining._
+
+import org.specs2.mutable._
+
+import shogi.Centis
+import shogi.Clock
+import shogi.Sente
 
 import lila.db.ByteArray
 
@@ -14,7 +18,7 @@ class BinaryClockTest extends Specification {
   def readBytes(
       bytes: ByteArray,
       periodEntries: PeriodEntries = PeriodEntries.default,
-      berserk: Boolean = false
+      berserk: Boolean = false,
   ): Clock =
     (BinaryFormat.clock(since).read(bytes, periodEntries, berserk, false))(Sente)
   def isomorphism(c: Clock): Clock = readBytes(writeBytes(c))
@@ -54,7 +58,7 @@ class BinaryClockTest extends Specification {
             "00000001",
             "11110100",
             _0_,
-            _0_
+            _0_,
           )
         }
       }
@@ -64,10 +68,14 @@ class BinaryClockTest extends Specification {
         read(bits22 ::: List.fill(10)(_0_) ::: bitsA1) must_== {
           clock
         }
-        read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(7)(_0_) ::: bitsA1) must_== {
+        read(
+          bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(7)(_0_) ::: bitsA1,
+        ) must_== {
           clock.giveTime(Sente, Centis(3))
         }
-        read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(7)(_0_) ::: bitsA1) must_== {
+        read(
+          bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(7)(_0_) ::: bitsA1,
+        ) must_== {
           clock.giveTime(Sente, Centis(-3))
         }
       }
@@ -75,10 +83,14 @@ class BinaryClockTest extends Specification {
         read(bits22 ::: List.fill(6)(_0_) ::: bitsA1) must_== {
           clock
         }
-        read(bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(3)(_0_) ::: bitsA1) must_== {
+        read(
+          bits22 ::: List("10000000", "00000000", "00000011") ::: List.fill(3)(_0_) ::: bitsA1,
+        ) must_== {
           clock.giveTime(Sente, Centis(3))
         }
-        read(bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(3)(_0_) ::: bitsA1) must_== {
+        read(
+          bits22 ::: List("00000000", "00000000", "00000011") ::: List.fill(3)(_0_) ::: bitsA1,
+        ) must_== {
           clock.giveTime(Sente, Centis(-3))
         }
       }

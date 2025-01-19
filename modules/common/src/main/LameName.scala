@@ -70,11 +70,11 @@ object LameName {
     "whore",
     "xyula",
     "xyulo",
-    "xyuta"
+    "xyuta",
   )
 
   private val usernameRegex = lameWords(
-    baseWords ::: List("lishogi", "corona", "covid")
+    baseWords ::: List("lishogi", "corona", "covid"),
   )
 
   private val tournamentRegex = lameWords(baseWords)
@@ -89,7 +89,7 @@ object LameName {
       'o' -> "08",
       's' -> "5",
       'u' -> "v",
-      'z' -> "2"
+      'z' -> "2",
     )
 
     val subs = ('a' to 'z' map { c =>

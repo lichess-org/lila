@@ -11,7 +11,7 @@ object show {
 
   def apply(
       us: lila.practice.UserStudy,
-      data: lila.practice.JsonView.JsData
+      data: lila.practice.JsonView.JsData,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = us.practiceStudy.name,
@@ -24,13 +24,13 @@ object show {
             "mode"     -> "practice",
             "practice" -> data.practice,
             "study"    -> data.study,
-            "data"     -> data.analysis
-          )
-        )
+            "data"     -> data.analysis,
+          ),
+        ),
       ),
       csp = defaultCsp.withWebAssembly.some,
       shogiground = false,
-      zoomable = true
+      zoomable = true,
     ) {
       main(cls := "analyse")
     }

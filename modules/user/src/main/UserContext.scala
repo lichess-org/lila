@@ -39,7 +39,7 @@ sealed abstract class BaseUserContext(
     val req: RequestHeader,
     val me: Option[User],
     val impersonatedBy: Option[User],
-    val lang: Lang
+    val lang: Lang,
 ) extends UserContext {
 
   def withLang(newLang: Lang): BaseUserContext
@@ -48,7 +48,7 @@ sealed abstract class BaseUserContext(
     "%s %s %s".format(
       me.fold("Anonymous")(_.username),
       req.remoteAddress,
-      req.headers.get("User-Agent") | "?"
+      req.headers.get("User-Agent") | "?",
     )
 }
 
@@ -78,7 +78,7 @@ object UserContext {
       req: RequestHeader,
       me: Option[User],
       impersonatedBy: Option[User],
-      lang: Lang
+      lang: Lang,
   ): HeaderUserContext =
     new HeaderUserContext(req, me, impersonatedBy, lang)
 
@@ -86,7 +86,7 @@ object UserContext {
       req: Request[A],
       me: Option[User],
       impersonatedBy: Option[User],
-      lang: Lang
+      lang: Lang,
   ): BodyUserContext[A] =
     new BodyUserContext(req, me, impersonatedBy, lang)
 

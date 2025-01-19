@@ -44,7 +44,7 @@ case class Pref(
     moveEvent: Int,
     notation: Int,
     resizeHandle: Int,
-    tags: Map[String, String] = Map.empty
+    tags: Map[String, String] = Map.empty,
 ) {
 
   import Pref._
@@ -150,7 +150,7 @@ object Pref {
     val choices = Seq(
       SENTE,
       RANDOM,
-      GOTE
+      GOTE,
     )
   }
 
@@ -162,7 +162,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       ALWAYS,
-      PREMOVE
+      PREMOVE,
     )
   }
 
@@ -176,7 +176,7 @@ object Pref {
       NEVER,
       CORRESPONDENCE_ONLY,
       CORRESPONDENCE_UNLIMITED,
-      ALWAYS
+      ALWAYS,
     )
   }
 
@@ -194,14 +194,14 @@ object Pref {
     val choices = Seq(
       CLICK,
       DRAG,
-      BOTH
+      BOTH,
     )
   }
 
   object Blindfold extends BooleanPref {
     override val choices = Seq(
       NO,
-      YES
+      YES,
     )
   }
 
@@ -213,7 +213,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       ALWAYS,
-      CASUAL
+      CASUAL,
     )
   }
 
@@ -225,7 +225,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       ALWAYS,
-      CASUAL
+      CASUAL,
     )
   }
 
@@ -237,7 +237,7 @@ object Pref {
     val choices = Seq(
       DEFAULT,
       COMPACT,
-      SMALL
+      SMALL,
     )
   }
 
@@ -251,7 +251,7 @@ object Pref {
       NONE,
       FAST,
       NORMAL,
-      SLOW
+      SLOW,
     )
   }
 
@@ -265,7 +265,7 @@ object Pref {
       NONE,
       INSIDE,
       OUTSIDE,
-      EDGE
+      EDGE,
     )
 
     def cssClassOf(v: Int) =
@@ -285,7 +285,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       SLOW,
-      ALWAYS
+      ALWAYS,
     )
   }
 
@@ -299,7 +299,7 @@ object Pref {
       LANG,
       SENTEJP,
       SENTE,
-      BLACK
+      BLACK,
     )
   }
 
@@ -311,7 +311,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       LOWTIME,
-      ALWAYS
+      ALWAYS,
     )
   }
 
@@ -325,7 +325,7 @@ object Pref {
       NEVER,
       THREE,
       FIVE,
-      TEN
+      TEN,
     )
   }
 
@@ -341,7 +341,7 @@ object Pref {
       NEVER,
       RATING,
       FRIEND,
-      ALWAYS
+      ALWAYS,
     )
   }
 
@@ -353,7 +353,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       FRIEND,
-      ALWAYS
+      ALWAYS,
     )
   }
 
@@ -365,7 +365,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       FRIEND,
-      ALWAYS
+      ALWAYS,
     )
   }
 
@@ -377,7 +377,7 @@ object Pref {
     val choices = Seq(
       NEVER,
       INITIAL,
-      ALWAYS
+      ALWAYS,
     )
   }
 
@@ -429,7 +429,7 @@ object Pref {
     moveEvent = MoveEvent.BOTH,
     notation = Notations.western.index,
     resizeHandle = ResizeHandle.INITIAL,
-    tags = Map.empty
+    tags = Map.empty,
   )
 
   import ornicar.scalalib.Zero

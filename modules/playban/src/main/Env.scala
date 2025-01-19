@@ -14,11 +14,11 @@ final class Env(
     userRepo: lila.user.UserRepo,
     lightUser: lila.common.LightUser.Getter,
     db: lila.db.Db,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val playbanColl = db(
-    CollName(appConfig.get[String]("playban.collection.playban"))
+    CollName(appConfig.get[String]("playban.collection.playban")),
   )
 
   private lazy val feedback = wire[PlaybanFeedback]

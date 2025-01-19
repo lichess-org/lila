@@ -4,15 +4,14 @@ import scala.collection.BuildFrom
 import scala.concurrent.Await
 import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.concurrent.{ExecutionContext => EC}
+import scala.concurrent.{ ExecutionContext => EC }
 import scala.util.Try
 
 import akka.actor.ActorSystem
 import ornicar.scalalib.Zero
 
+import lila.base.LilaTypes._
 import lila.common.Chronometer
-
-import LilaTypes._
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
@@ -59,7 +58,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     addFailureEffect { e =>
       logger.warn(msg(e), e)
     }
-  def logFailure(logger: => lila.log.Logger)(implicit ec: EC): Fu[A] = logFailure(logger, _.toString)
+  def logFailure(logger: => lila.log.Logger)(implicit ec: EC): Fu[A] =
+    logFailure(logger, _.toString)
 
   def addFailureEffect(effect: Throwable => Unit)(implicit ec: EC) = {
     fua.failed.foreach { case e: Throwable =>
@@ -107,7 +107,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def thenPp(implicit ec: EC): Fu[A] = {
     effectFold(
       e => println("[failure] " + e),
-      a => println("[success] " + a)
+      a => println("[success] " + a),
     )
     fua
   }
@@ -115,7 +115,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def thenPp(msg: String)(implicit ec: EC): Fu[A] = {
     effectFold(
       e => println(s"[$msg] [failure] $e"),
-      a => println(s"[$msg] [success] $a")
+      a => println(s"[$msg] [success] $a"),
     )
     fua
   }
@@ -137,21 +137,21 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def withTimeout(
       duration: FiniteDuration,
-      error: => Throwable
+      error: => Throwable,
   )(implicit ec: EC, system: ActorSystem): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
-      akka.pattern.after(duration, system.scheduler)(Future failed error)
+      akka.pattern.after(duration, system.scheduler)(Future failed error),
     )
   }
 
   def withTimeoutDefault(
       duration: FiniteDuration,
-      default: => A
+      default: => A,
   )(implicit ec: EC, system: ActorSystem): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
-      akka.pattern.after(duration, system.scheduler)(Future(default))
+      akka.pattern.after(duration, system.scheduler)(Future(default)),
     )
   }
 
@@ -220,6 +220,7 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
   def dmap2[B](f: A => B): Fu[Option[B]]                 = fua.map(_ map f)(EC.parasitic)
 }
 
-final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
+final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]])
+    extends AnyVal {
   def sequenceFu(implicit bf: BuildFrom[M[Fu[A]], A, M[A]], ec: EC): Fu[M[A]] = Future.sequence(t)
 }

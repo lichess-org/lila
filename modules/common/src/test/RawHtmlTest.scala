@@ -1,9 +1,7 @@
 package lila.base
 
-import org.specs2.mutable.Specification
-// import scalatags.Text.all._
-
 import RawHtml._
+import org.specs2.mutable.Specification
 
 class RawHtmlTest extends Specification {
 
@@ -90,7 +88,7 @@ class RawHtmlTest extends Specification {
 
     "handle multiple links" in {
       addLinks(
-        "@foo blah lishogi.org"
+        "@foo blah lishogi.org",
       ) must_== """<a href="/@/foo">@foo</a> blah <a href="/">lishogi.org</a>"""
       addLinks("b foo.com blah lishogi.org") must_==
         """b <a rel="nofollow noopener noreferrer" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lishogi.org</a>"""
@@ -198,7 +196,7 @@ class RawHtmlTest extends Specification {
       nl2br("abc\r\n\r\n\r\n\r\n") must_== "abc<br><br>"
       nl2br("abc\r\n\r\n\r\n\r\ndef") must_== "abc<br><br>def"
       nl2br(
-        "abc\r\n\r\n\r\n\r\ndef\r\n\r\n\r\n\r\nabc\r\n\r\n\r\n\r\ndef"
+        "abc\r\n\r\n\r\n\r\ndef\r\n\r\n\r\n\r\nabc\r\n\r\n\r\n\r\ndef",
       ) must_== "abc<br><br>def<br><br>abc<br><br>def"
     }
   }

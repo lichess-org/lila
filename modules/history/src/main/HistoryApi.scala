@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 import org.joda.time.Days
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+
 import shogi.Speed
 
 import lila.db.dsl._
@@ -17,7 +18,7 @@ import lila.user.User
 import lila.user.UserRepo
 
 final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   import History._
@@ -28,7 +29,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
       .one(
         $id(user.id),
         $set(s"puzzle.$days" -> $int(perf.intRating)),
-        upsert = true
+        upsert = true,
       )
       .void
   }
@@ -47,7 +48,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
       (isStd && game.speed == Speed.Blitz).option("blitz"                   -> perfs.blitz),
       (isStd && game.speed == Speed.Rapid).option("rapid"                   -> perfs.rapid),
       (isStd && game.speed == Speed.Classical).option("classical"           -> perfs.classical),
-      (isStd && game.speed == Speed.Correspondence).option("correspondence" -> perfs.correspondence)
+      (isStd && game.speed == Speed.Correspondence).option("correspondence" -> perfs.correspondence),
     ).flatten.map { case (k, p) =>
       k -> p.intRating
     }
@@ -58,7 +59,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
         $doc("$set" -> $doc(changes.map { case (perf, rating) =>
           (s"$perf.$days", $int(rating))
         })),
-        upsert = true
+        upsert = true,
       )
       .void
   }
@@ -69,7 +70,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
     coll.update
       .one(
         $id(user.id),
-        $set(s"${perf.key}.$days" -> $int(rating))
+        $set(s"${perf.key}.$days" -> $int(rating)),
       )
       .void
   }
@@ -86,17 +87,18 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
     coll.optionsByOrderedIds[Bdoc, User.ID](
       users.map(_.id),
       $doc(perfType.key -> true).some,
-      ReadPreference.secondaryPreferred
+      ReadPreference.secondaryPreferred,
     )(~_.string("_id")) map { hists =>
       users zip hists map { case (user, doc) =>
         val current      = user.perfs(perfType).intRating
         val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
         val previous =
-          doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
-            hist.foldLeft(hist.headOption.fold(current)(_._2)) {
-              case (_, (d, r)) if d < previousDate => r
-              case (acc, _)                        => acc
-            }
+          doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) {
+            hist =>
+              hist.foldLeft(hist.headOption.fold(current)(_._2)) {
+                case (_, (d, r)) if d < previousDate => r
+                case (acc, _)                        => acc
+              }
           }
         previous -> current
       }

@@ -7,26 +7,25 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 
 import lila.common.config._
+import lila.forumSearch.Query.jsonWriter
 import lila.search._
-
-import Query.jsonWriter
 
 @Module
 private class ForumSearchConfig(
     @ConfigName("index") val indexName: String,
     @ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("actor.name") val actorName: String,
 )
 
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
     postApi: lila.forum.PostApi,
-    postRepo: lila.forum.PostRepo
+    postRepo: lila.forum.PostRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
@@ -56,6 +55,6 @@ final class Env(
         case RemovePosts(ids) => client.deleteByIds(ids.map(Id.apply)).unit
       }
     }),
-    name = config.actorName
+    name = config.actorName,
   )
 }

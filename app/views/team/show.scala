@@ -20,9 +20,9 @@ object show {
       members: Paginator[lila.common.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
-      socketVersion: Option[lila.socket.Socket.SocketVersion]
+      socketVersion: Option[lila.socket.Socket.SocketVersion],
   )(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     bits.layout(
       title = trans.teamNamedX.txt(t.name),
@@ -30,7 +30,7 @@ object show {
         .OpenGraph(
           title = trans.teamNamedX.txt(t.name),
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = shorten(t.description, 152)
+          description = shorten(t.description, 152),
         )
         .some,
       moreJs =
@@ -49,26 +49,26 @@ object show {
                 timeout = chat.timeout,
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-                localMod = ctx.userId exists t.leaders.contains
-              )
-            )
-          )
+                localMod = ctx.userId exists t.leaders.contains,
+              ),
+            ),
+          ),
         ),
-      canonicalPath = lila.common.CanonicalPath(routes.Team.show(t.id)).some
+      canonicalPath = lila.common.CanonicalPath(routes.Team.show(t.id)).some,
     ) {
       val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
       main(
         cls := "team-show box",
         socketVersion.map { v =>
           data("socket-version") := v.value
-        }
+        },
       )(
         div(cls := "box__top")(
           h1(cls := "text", dataIcon := "f")(t.name),
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")
-            else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
-          )
+            else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize)),
+          ),
         ),
         div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
@@ -78,22 +78,22 @@ object show {
                 ": ",
                 fragList(t.leaders.toList.map { l =>
                   userIdLink(l.some)
-                })
-              )
+                }),
+              ),
             ),
             (t.enabled && chatOption.isDefined) option frag(
               views.html.chat.frag,
               div(
                 cls           := "chat__members",
                 aria.live     := "off",
-                aria.relevant := "additions removals text"
+                aria.relevant := "additions removals text",
               )(
                 span(cls := "number")(nbsp),
                 " ",
                 trans.spectators.txt().replace(":", ""),
                 " ",
-                span(cls := "list")
-              )
+                span(cls := "list"),
+              ),
             ),
             div(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
@@ -101,62 +101,66 @@ object show {
                   frag(
                     strong(beingReviewed()),
                     postForm(action := routes.Team.quit(t.id))(
-                      submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
-                    )
+                      submitButton(cls := "button button-red button-empty confirm")(trans.cancel()),
+                    ),
                   )
-                else ctx.isAuth option joinButton(t)
+                else ctx.isAuth option joinButton(t),
               ),
               (t.enabled && info.mine) option {
                 postForm(
                   cls    := "team-show__subscribe form3",
-                  action := routes.Team.subscribe(t.id)
+                  action := routes.Team.subscribe(t.id),
                 )(
                   div(
                     span(form3.cmnToggle("team-subscribe", "subscribe", checked = info.subscribed)),
-                    label(`for` := "team-subscribe")("Subscribe to team messages")
-                  )
+                    label(`for` := "team-subscribe")("Subscribe to team messages"),
+                  ),
                 )
               },
               (info.mine && !info.ledByMe) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
-                  submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
+                  submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt()),
                 ),
               t.enabled && info.ledByMe option frag(
                 a(
                   href     := routes.Tournament.teamBattleForm(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := "g"
+                  dataIcon := "g",
                 )(
                   span(
                     strong(teamBattle()),
-                    em(teamBattleOverview())
-                  )
+                    em(teamBattleOverview()),
+                  ),
                 ),
                 a(
                   href     := s"${routes.Tournament.form}?team=${t.id}",
                   cls      := "button button-empty text",
-                  dataIcon := "g"
+                  dataIcon := "g",
                 )(
                   span(
                     strong(teamTournament()),
-                    em(teamTournamentOverview())
-                  )
+                    em(teamTournamentOverview()),
+                  ),
                 ),
                 a(
                   href     := routes.Team.pmAll(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := "e"
+                  dataIcon := "e",
                 )(
                   span(
                     strong(messageAllMembers()),
-                    em(messageAllMembersOverview())
-                  )
-                )
+                    em(messageAllMembersOverview()),
+                  ),
+                ),
               ),
               (info.ledByMe || isGranted(_.Admin)) option
-                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
-                  trans.settings.settings()
-                )
+                a(
+                  href     := routes.Team.edit(t.id),
+                  cls      := "button button-empty text",
+                  dataIcon := "%",
+                )(
+                  trans.settings.settings(),
+                ),
             ),
             t.enabled option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
@@ -165,10 +169,10 @@ object show {
                   pagerNext(members, np => routes.Team.show(t.id, np).url),
                   members.currentPageResults.map { member =>
                     div(cls := "paginated")(lightUserLink(member))
-                  }
-                )
-              )
-            )
+                  },
+                ),
+              ),
+            ),
           ),
           div(cls := "team-show__content__col2")(
             standardFlash(),
@@ -176,11 +180,11 @@ object show {
               richText(t.description),
               t.location.map { loc =>
                 frag(br, trans.location(), ": ", richText(loc))
-              }
+              },
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
               h2(xJoinRequests.pluralSame(info.requests.size)),
-              views.html.team.request.list(info.requests, t.some)
+              views.html.team.request.list(info.requests, t.some),
             ),
             div(cls := "team-show__tour-forum")(
               t.enabled && info.tours.nonEmpty option frag(
@@ -188,39 +192,42 @@ object show {
                   h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
                   table(cls := "slist")(
                     tournaments.renderList(
-                      info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
-                    )
-                  )
-                )
+                      info.tours.next ::: info.tours.past.take(5 - info.tours.next.size),
+                    ),
+                  ),
+                ),
               ),
               t.enabled && ctx.noKid option
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   info.forumPosts.take(10).map { post =>
-                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
+                    a(
+                      cls  := "team-show__forum__post",
+                      href := routes.ForumPost.redirect(post.postId),
+                    )(
                       div(cls := "meta")(
                         strong(post.topicName),
                         em(
                           post.userId map usernameOrId,
                           " - ",
-                          momentFromNow(post.createdAt)
-                        )
+                          momentFromNow(post.createdAt),
+                        ),
                       ),
-                      p(shorten(post.text, 200))
+                      p(shorten(post.text, 200)),
                     )
                   },
-                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
-                )
-            )
-          )
-        )
+                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »"),
+                ),
+            ),
+          ),
+        ),
       )
     }
 
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =
     postForm(cls := "inline", action := routes.Team.join(t.id))(
-      submitButton(cls := "button button-green")(joinTeam())
+      submitButton(cls := "button button-green")(joinTeam()),
     )
 
 }

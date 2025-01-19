@@ -10,9 +10,9 @@ case class Title(value: String) extends AnyVal with StringValue
 
 object Title {
 
-  implicit val titleIso: Iso.StringIso[Title]         = Iso.string[Title](Title.apply, _.value)
+  implicit val titleIso: Iso.StringIso[Title]       = Iso.string[Title](Title.apply, _.value)
   implicit val titleBsonHandler: BSONHandler[Title] = lila.db.dsl.stringIsoHandler(Title.titleIso)
-  implicit val titleJsonWrites: Writes[Title]  = lila.common.Json.stringIsoWriter(Title.titleIso)
+  implicit val titleJsonWrites: Writes[Title] = lila.common.Json.stringIsoWriter(Title.titleIso)
 
   val LM  = Title("LM")
   val BOT = Title("BOT")
@@ -44,7 +44,7 @@ object Title {
     Title("女流２級") -> "Ladies 2nd kyu",
     Title("女流３級") -> "Ladies 3rd kyu",
     LM            -> "Lishogi Master",
-    BOT           -> "Shogi Robot"
+    BOT           -> "Shogi Robot",
   )
 
   val names          = all.toMap
@@ -60,11 +60,13 @@ object Title {
   object fromUrl {
 
     // https://www.shogi.or.jp/player/pro/93.html
-    private val JSAProProfileUrlRegex   = """(?:https?://)?www\.shogi\.or\.jp/player/pro/(\d+).html""".r
+    private val JSAProProfileUrlRegex =
+      """(?:https?://)?www\.shogi\.or\.jp/player/pro/(\d+).html""".r
     private val JSAProProfileTitleRegex = """(.[段級])""".r.unanchored
 
     // https://www.shogi.or.jp/player/lady/59.html
-    private val JSALadyProfileUrlRegex   = """(?:https?://)?www\.shogi\.or\.jp/player/lady/(\d+).html""".r
+    private val JSALadyProfileUrlRegex =
+      """(?:https?://)?www\.shogi\.or\.jp/player/lady/(\d+).html""".r
     private val JSALadyProfileTitleRegex = """(女流.[段級])""".r.unanchored
 
     import play.api.libs.ws.WSClient

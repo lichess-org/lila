@@ -6,6 +6,7 @@ import play.api.mvc.Result
 
 import akka.stream.scaladsl._
 import akka.util.ByteString
+
 import shogi.Color
 import shogi.format.usi.UciToUsi
 import shogi.format.usi.Usi
@@ -20,12 +21,12 @@ final class Export(env: Env) extends LilaController(env) {
   private val ExportImageRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 600,
     duration = 1.minute,
-    key = "export.image.global"
+    key = "export.image.global",
   )
   private val ExportGifRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 240,
     duration = 1.minute,
-    key = "export.gif.global"
+    key = "export.gif.global",
   )
 
   def gif(id: String, color: String) =
@@ -65,12 +66,12 @@ final class Export(env: Env) extends LilaController(env) {
           env.game.gifExport.thumbnail(
             sfen = puzzle.sfenAfterInitialMove,
             lastUsi = Usi(puzzle.lastUsi).orElse(UciToUsi(puzzle.lastUsi)) map { _.usi },
-            orientation = puzzle.color
+            orientation = puzzle.color,
           ) map { source =>
             Ok.chunked(source)
               .withHeaders(
                 noProxyBufferHeader,
-                CACHE_CONTROL -> "max-age=86400"
+                CACHE_CONTROL -> "max-age=86400",
               ) as "image/gif"
           }
         }

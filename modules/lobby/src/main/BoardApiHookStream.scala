@@ -10,7 +10,7 @@ import akka.stream.scaladsl._
 import lila.common.Bus
 
 final class BoardApiHookStream(
-    trouper: LobbyTrouper
+    trouper: LobbyTrouper,
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private case object SetOnline

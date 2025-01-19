@@ -13,7 +13,7 @@ case class StormHigh(day: Int, week: Int, month: Int, allTime: Int) {
     day = day atLeast score,
     week = week atLeast score,
     month = month atLeast score,
-    allTime = allTime atLeast score
+    allTime = allTime atLeast score,
   )
 }
 
@@ -70,9 +70,9 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: Execution
               "day"     -> List(Limit(1), matchSince(StormDay.Id.today)),
               "week"    -> List(Limit(7), matchSince(StormDay.Id.lastWeek), scoreSort, Limit(1)),
               "month"   -> List(Limit(30), matchSince(StormDay.Id.lastMonth), scoreSort, Limit(1)),
-              "allTime" -> List(scoreSort, Limit(1))
-            )
-          )
+              "allTime" -> List(scoreSort, Limit(1)),
+            ),
+          ),
         )
       }
       .map2 { doc =>
@@ -82,7 +82,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: Execution
           day = readScore(doc, "day"),
           week = readScore(doc, "week"),
           month = readScore(doc, "month"),
-          allTime = readScore(doc, "allTime")
+          allTime = readScore(doc, "allTime"),
         )
       }
       .map(_ | StormHigh.default)

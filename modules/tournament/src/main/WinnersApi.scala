@@ -5,24 +5,25 @@ import scala.concurrent.duration._
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson.BSONDocumentHandler
+
 import shogi.variant.Variant
 
 import lila.db.dsl._
-
-import Schedule.{ Freq, Speed }
+import lila.tournament.Schedule.Freq
+import lila.tournament.Schedule.Speed
 
 case class Winner(
     tourId: String,
     userId: String,
     tourName: String,
-    date: DateTime
+    date: DateTime,
 )
 
 case class FreqWinners(
     yearly: Option[Winner],
     monthly: Option[Winner],
     weekly: Option[Winner],
-    daily: Option[Winner]
+    daily: Option[Winner],
 ) {
 
   lazy val top: Option[Winner] =
@@ -44,7 +45,7 @@ case class AllWinners(
     classical: FreqWinners,
     elite: List[Winner],
     // marathon: List[Winner],
-    variants: Map[String, FreqWinners]
+    variants: Map[String, FreqWinners],
 ) {
 
   lazy val top: List[Winner] = List(
@@ -52,7 +53,7 @@ case class AllWinners(
     List(elite.headOption).flatten,
     WinnersApi.variants.flatMap { v =>
       variants get v.key flatMap (_.top)
-    }
+    },
   ).flatten
 
   def userIds =
@@ -65,13 +66,16 @@ case class AllWinners(
 final class WinnersApi(
     tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Api,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
-  implicit private val WinnerHandler: BSONDocumentHandler[Winner]      = reactivemongo.api.bson.Macros.handler[Winner]
-  implicit private val FreqWinnersHandler: BSONDocumentHandler[FreqWinners] = reactivemongo.api.bson.Macros.handler[FreqWinners]
-  implicit private val AllWinnersHandler: BSONDocumentHandler[AllWinners]  = reactivemongo.api.bson.Macros.handler[AllWinners]
+  implicit private val WinnerHandler: BSONDocumentHandler[Winner] =
+    reactivemongo.api.bson.Macros.handler[Winner]
+  implicit private val FreqWinnersHandler: BSONDocumentHandler[FreqWinners] =
+    reactivemongo.api.bson.Macros.handler[FreqWinners]
+  implicit private val AllWinnersHandler: BSONDocumentHandler[AllWinners] =
+    reactivemongo.api.bson.Macros.handler[AllWinners]
 
   private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] =
     tournamentRepo.coll.ext
@@ -79,8 +83,8 @@ final class WinnersApi(
         $doc(
           "schedule.freq" -> freq.name,
           "startsAt" $gt since.minusHours(12),
-          "winner" $exists true
-        )
+          "winner" $exists true,
+        ),
       )
       .sort($sort desc "startsAt")
       .cursor[Tournament](ReadPreference.secondaryPreferred)
@@ -110,7 +114,7 @@ final class WinnersApi(
           yearly = firstStandardWinner(yearlies, speed),
           monthly = firstStandardWinner(monthlies, speed),
           weekly = firstStandardWinner(weeklies, speed),
-          daily = firstStandardWinner(dailies, speed)
+          daily = firstStandardWinner(dailies, speed),
         )
       AllWinners(
         // hyperbullet = standardFreqWinners(Speed.HyperBullet),
@@ -127,15 +131,15 @@ final class WinnersApi(
             yearly = firstVariantWinner(yearlies, v),
             monthly = firstVariantWinner(monthlies, v),
             weekly = firstVariantWinner(weeklies, v),
-            daily = firstVariantWinner(dailies, v)
+            daily = firstVariantWinner(dailies, v),
           )
-        }.toMap
+        }.toMap,
       )
     }
 
   private val allCache = mongoCache.unit[AllWinners](
     "tournament:winner:all",
-    59 minutes
+    59 minutes,
   ) { loader =>
     _.refreshAfterWrite(1 hour)
       .buildAsyncFuture(loader(_ => fetchAll))

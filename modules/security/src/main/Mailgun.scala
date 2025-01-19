@@ -19,10 +19,10 @@ import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
     ws: WSClient,
-    config: Mailgun.Config
+    config: Mailgun.Config,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   def send(msg: Mailgun.Message): Funit =
@@ -42,10 +42,10 @@ final class Mailgun(
             "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
             "o:tag"      -> msg.tag.toSeq,
             "subject"    -> Seq(msg.subject),
-            "text"       -> Seq(msg.text)
+            "text"       -> Seq(msg.text),
           ) ++ msg.htmlBody.?? { body =>
             Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
-          }
+          },
         )
         .addFailureEffect {
           case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment().unit
@@ -54,7 +54,9 @@ final class Mailgun(
         .flatMap {
           case res if res.status >= 300 =>
             lila.mon.email.send.error(res.status.toString).increment()
-            fufail(s"""Can't send to mailgun: ${res.status} to: "${msg.to.value}" ${res.body take 500}""")
+            fufail(
+              s"""Can't send to mailgun: ${res.status} to: "${msg.to.value}" ${res.body take 500}""",
+            )
           case _ => funit
         }
         .mon(_.email.send.time)
@@ -72,7 +74,7 @@ object Mailgun {
       @ConfigName("api.url") apiUrl: String,
       @ConfigName("api.key") apiKey: Secret,
       sender: String,
-      @ConfigName("reply_to") replyTo: String
+      @ConfigName("reply_to") replyTo: String,
   )
   implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 
@@ -84,7 +86,7 @@ object Mailgun {
       from: Option[String] = none,
       replyTo: Option[String] = none,
       tag: Option[String] = none,
-      retriesLeft: Int = 3
+      retriesLeft: Int = 3,
   )
 
   object txt {
@@ -105,9 +107,10 @@ ${trans.common_contact("https://lishogi.org/contact").render}"""
     val potentialAction =
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
-    val publisher = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
+    val publisher =
+      div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
     val noteContact = a(itemprop := "url", href := "https://lishogi.org/contact")(
-      span(itemprop := "name")("lishogi.org/contact")
+      span(itemprop := "name")("lishogi.org/contact"),
     )
 
     def serviceNote(implicit lang: Lang) =
@@ -115,26 +118,26 @@ ${trans.common_contact("https://lishogi.org/contact").render}"""
         small(
           trans.common_note(Mailgun.html.noteLink),
           " ",
-          trans.common_contact(noteContact)
-        )
+          trans.common_contact(noteContact),
+        ),
       )
 
     def standardEmail(body: String): Frag =
       emailMessage(
         pDesc(nl2brUnsafe(body)),
-        publisher
+        publisher,
       )
 
     val noteLink = a(
       itemprop := "url",
-      href     := "https://lishogi.org/"
+      href     := "https://lishogi.org/",
     )(span(itemprop := "name")("lishogi.org"))
 
     def url(u: String)(implicit lang: Lang) =
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),
-        p(trans.common_orPaste(lang))
+        p(trans.common_orPaste(lang)),
       )
 
     private[Mailgun] def wrap(subject: String, body: Frag): Frag =
@@ -150,7 +153,7 @@ ${trans.common_contact("https://lishogi.org/contact").render}"""
         body,
         raw("""
   </body>
-</html>""")
+</html>"""),
       )
   }
 }

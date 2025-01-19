@@ -10,10 +10,10 @@ import lila.team.TeamRepo
 
 final class TeamSearchApi(
     client: ESClient,
-    teamRepo: TeamRepo
+    teamRepo: TeamRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) extends SearchReadApi[Team, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -30,7 +30,7 @@ final class TeamSearchApi(
       Fields.name        -> team.name,
       Fields.description -> team.description.take(10000),
       Fields.location    -> team.location,
-      Fields.nbMembers   -> team.nbMembers
+      Fields.nbMembers   -> team.nbMembers,
     )
 
   def reset =

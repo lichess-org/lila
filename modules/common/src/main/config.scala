@@ -43,23 +43,23 @@ object config {
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,
       email: EmailAddress,
-      ip: IpAddress
+      ip: IpAddress,
   ) {
     def isProd = domain == prodDomain
   }
 
-  implicit val maxLoader: ConfigLoader[Max]          = intLoader(Max.apply)
-  implicit val maxPerPageLoader: ConfigLoader[MaxPerPage]   = intLoader(MaxPerPage.apply)
+  implicit val maxLoader: ConfigLoader[Max]                   = intLoader(Max.apply)
+  implicit val maxPerPageLoader: ConfigLoader[MaxPerPage]     = intLoader(MaxPerPage.apply)
   implicit val maxPerSecondLoader: ConfigLoader[MaxPerSecond] = intLoader(MaxPerSecond.apply)
-  implicit val collNameLoader: ConfigLoader[CollName]     = strLoader(CollName.apply)
-  implicit val secretLoader: ConfigLoader[Secret]       = strLoader(Secret.apply)
-  implicit val baseUrlLoader: ConfigLoader[BaseUrl]      = strLoader(BaseUrl.apply)
+  implicit val collNameLoader: ConfigLoader[CollName]         = strLoader(CollName.apply)
+  implicit val secretLoader: ConfigLoader[Secret]             = strLoader(Secret.apply)
+  implicit val baseUrlLoader: ConfigLoader[BaseUrl]           = strLoader(BaseUrl.apply)
   implicit val emailAddressLoader: ConfigLoader[EmailAddress] = strLoader(EmailAddress.apply)
-  implicit val netDomainLoader: ConfigLoader[NetDomain]    = strLoader(NetDomain.apply)
-  implicit val assetDomainLoader: ConfigLoader[AssetDomain]  = strLoader(AssetDomain.apply)
-  implicit val ipLoader: ConfigLoader[IpAddress]           = strLoader(IpAddress.apply)
-  implicit val rateLimitLoader: ConfigLoader[RateLimit]    = boolLoader(RateLimit.apply)
-  implicit val netLoader: ConfigLoader[NetConfig]          = AutoConfig.loader[NetConfig]
+  implicit val netDomainLoader: ConfigLoader[NetDomain]       = strLoader(NetDomain.apply)
+  implicit val assetDomainLoader: ConfigLoader[AssetDomain]   = strLoader(AssetDomain.apply)
+  implicit val ipLoader: ConfigLoader[IpAddress]              = strLoader(IpAddress.apply)
+  implicit val rateLimitLoader: ConfigLoader[RateLimit]       = boolLoader(RateLimit.apply)
+  implicit val netLoader: ConfigLoader[NetConfig]             = AutoConfig.loader[NetConfig]
 
   implicit val strListLoader: ConfigLoader[List[String]] = ConfigLoader { c => k =>
     c.getStringList(k).asScala.toList

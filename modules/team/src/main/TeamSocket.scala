@@ -6,10 +6,10 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 final private class TeamSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
-    cached: Cached
+    cached: Cached,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   lazy val rooms = makeRoomMap(send)
@@ -25,12 +25,12 @@ final private class TeamSocket(
       localTimeout = Some { (roomId, modId, suspectId) =>
         cached.isLeader(roomId.value, modId) >>& !cached.isLeader(roomId.value, suspectId)
       },
-      chatBusChan = _.Team
+      chatBusChan = _.Team,
     )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("team-out").apply _
 
   remoteSocketApi.subscribe("team-in", RP.In.reader)(
-    handler orElse remoteSocketApi.baseHandler
+    handler orElse remoteSocketApi.baseHandler,
   ) >>- send(P.Out.boot)
 }

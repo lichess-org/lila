@@ -19,7 +19,7 @@ object page {
       u: User,
       activities: Vector[lila.activity.ActivityView],
       info: UserInfo,
-      social: lila.app.mashup.UserInfo.Social
+      social: lila.app.mashup.UserInfo.Social,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
@@ -29,23 +29,23 @@ object page {
           twitterImage = staticUrl("logo/lishogi-tile.png").some,
           title = u.titleUsernameWithBestRating,
           url = s"$netBaseUrl${routes.User.show(u.username).url}",
-          description = describeUser(u)
+          description = describeUser(u),
         )
         .some,
       moreJs = moreJs(info),
       moreCss = frag(
         cssTag("user.show"),
-        isGranted(_.UserSpy) option cssTag("user.mod.user")
+        isGranted(_.UserSpy) option cssTag("user.mod.user"),
       ),
       robots = u.count.game >= 10,
-      canonicalPath = lila.common.CanonicalPath(routes.User.show(u.username)).some
+      canonicalPath = lila.common.CanonicalPath(routes.User.show(u.username)).some,
     ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
           views.html.user.show.header(u, info, Angle.Activity, social),
-          div(cls := "angle-content")(views.html.activity(u, activities))
-        )
+          div(cls := "angle-content")(views.html.activity(u, activities)),
+        ),
       )
     }
 
@@ -55,27 +55,30 @@ object page {
       games: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[_]],
-      social: lila.app.mashup.UserInfo.Social
+      social: lila.app.mashup.UserInfo.Social,
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title =
-        s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) ""
-          else s" - ${trans.page.txt()} ${games.currentPage.toString}"}",
+      title = s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (
+          games.currentPage == 1
+        ) ""
+        else s" - ${trans.page.txt()} ${games.currentPage.toString}"}",
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
         filters.current.name == "search" option cssTag("user.show.search"),
-        isGranted(_.UserSpy) option cssTag("user.mod.user")
+        isGranted(_.UserSpy) option cssTag("user.mod.user"),
       ),
       robots = u.count.game >= 10,
-      canonicalPath = lila.common.CanonicalPath(routes.User.games(u.username, "all")).some
+      canonicalPath = lila.common.CanonicalPath(routes.User.games(u.username, "all")).some,
     ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
           views.html.user.show.header(u, info, Angle.Games(searchForm), social),
-          div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name))
-        )
+          div(cls := "angle-content")(
+            gamesContent(u, info.nbs, games, filters, filters.current.name),
+          ),
+        ),
       )
     }
 
@@ -86,18 +89,18 @@ object page {
       info.ratingChart.map { rc =>
         frag(
           chartTag,
-          moduleJsTag("chart.rating-history", Json.obj("data" -> rc))
+          moduleJsTag("chart.rating-history", Json.obj("data" -> rc)),
         )
       },
       withSearch option frag(jsTag("misc.search")),
-      isGranted(_.UserSpy) option jsTag("user.mod")
+      isGranted(_.UserSpy) option jsTag("user.mod"),
     )
 
   def disabled(u: User)(implicit ctx: Context) =
     views.html.base.layout(title = u.username, robots = false) {
       main(cls := "box box-pad")(
         h1(u.username),
-        p(trans.settings.thisAccountIsClosed())
+        p(trans.settings.thisAccountIsClosed()),
       )
     }
 

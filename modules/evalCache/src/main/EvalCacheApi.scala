@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 import play.api.libs.json.JsObject
 
 import org.joda.time.DateTime
+
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 
@@ -16,16 +17,16 @@ final class EvalCacheApi(
     coll: Coll,
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import EvalCacheEntry._
   import BSONHandlers._
+  import EvalCacheEntry._
 
   def getEvalJson(variant: Variant, sfen: Sfen, multiPv: Int): Fu[Option[JsObject]] =
     getEval(
       id = Id(variant, SmallSfen.make(sfen)),
-      multiPv = multiPv
+      multiPv = multiPv,
     ) map {
       _.map { JsonHandlers.writeEval(_, sfen) }
     }
@@ -38,7 +39,7 @@ final class EvalCacheApi(
   def getSinglePvEval(variant: Variant, sfen: Sfen): Fu[Option[Eval]] =
     getEval(
       id = Id(variant, SmallSfen.make(sfen)),
-      multiPv = 1
+      multiPv = 1,
     )
 
   private[evalCache] def drop(variant: Variant, sfen: Sfen): Funit = {
@@ -75,7 +76,7 @@ final class EvalCacheApi(
               _id = input.id,
               nbMoves = destSize(input.id.variant, input.sfen),
               evals = List(input.eval),
-              usedAt = DateTime.now
+              usedAt = DateTime.now,
             )
             coll.insert.one(entry).void.recover(lila.db.ignoreDuplicateKey) >>-
               cache.put(input.id, fuccess(entry.some)) >>-

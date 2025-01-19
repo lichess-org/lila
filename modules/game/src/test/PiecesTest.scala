@@ -4,12 +4,15 @@ import org.specs2.mutable._
 
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.variant.{ Chushogi, Standard, Variant }
+import shogi.variant.Chushogi
+import shogi.variant.Standard
+import shogi.variant.Variant
 
 // todo
 class PiecesTest extends Specification {
-  val usis                                                     = Usi.readList(Fixtures.fromProd3).get.toVector
-  def fromUsis(usis: Vector[Usi], variant: Variant = Standard) = BinaryFormat.pieces.read(usis, None, variant)
+  val usis = Usi.readList(Fixtures.fromProd3).get.toVector
+  def fromUsis(usis: Vector[Usi], variant: Variant = Standard) =
+    BinaryFormat.pieces.read(usis, None, variant)
 
   "Piece map reader" should {
 
@@ -71,18 +74,24 @@ class PiecesTest extends Specification {
         "5d5e",
         "7c8b9a",
         "6e6f",
-        "9a10a11b"
+        "9a10a11b",
       )
       val u = Usi.readList(ms).get
       fromUsis(u.toVector, Chushogi) must_== Sfen(
-        "lf2gekgscfl/a+Ob2xot1b1a/mvrhd2dhrvm/1pppN3pppp/p2i3p4/6p1i3/12/3I1P6/PPPPP1P1P1PP/MVRHD1QDH3/A1B1T1XT1B2/LFCSGKEGSCFn w - 30"
+        "lf2gekgscfl/a+Ob2xot1b1a/mvrhd2dhrvm/1pppN3pppp/p2i3p4/6p1i3/12/3I1P6/PPPPP1P1P1PP/MVRHD1QDH3/A1B1T1XT1B2/LFCSGKEGSCFn w - 30",
       ).toSituation(Chushogi).get.board.pieces
     }
 
     "500 production" in {
       Fixtures.fromProd500 forall { uStr =>
         val u = Usi.readList(uStr).get
-        fromUsis(u.toVector) must_== shogi.Replay.situations(u, None, Standard).toOption.get.last.board.pieces
+        fromUsis(u.toVector) must_== shogi.Replay
+          .situations(u, None, Standard)
+          .toOption
+          .get
+          .last
+          .board
+          .pieces
       }
     }
 

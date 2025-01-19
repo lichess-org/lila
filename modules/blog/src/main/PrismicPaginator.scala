@@ -12,6 +12,6 @@ private object PrismicPaginator {
       currentPageResults = response.results,
       nbResults = response.totalResultsSize,
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
 }

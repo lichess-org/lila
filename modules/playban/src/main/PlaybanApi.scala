@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
+
 import shogi.Centis
 import shogi.Color
 import shogi.Status
@@ -27,17 +28,20 @@ final class PlaybanApi(
     feedback: PlaybanFeedback,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    messenger: MsgApi
+    messenger: MsgApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import reactivemongo.api.bson.Macros
   implicit private val OutcomeBSONHandler: BSONHandler[Outcome] = tryHandler[Outcome](
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
-    x => BSONInteger(x.id)
+    x => BSONInteger(x.id),
   )
-  implicit private val RageSitBSONHandler: BSONHandler[RageSit]    = intIsoHandler(Iso.int[RageSit](RageSit.apply, _.counter))
-  implicit private val BanBSONHandler: BSONDocumentHandler[TempBan]        = Macros.handler[TempBan]
-  implicit private val UserRecordBSONHandler: BSONDocumentHandler[UserRecord] = Macros.handler[UserRecord]
+  implicit private val RageSitBSONHandler: BSONHandler[RageSit] = intIsoHandler(
+    Iso.int[RageSit](RageSit.apply, _.counter),
+  )
+  implicit private val BanBSONHandler: BSONDocumentHandler[TempBan] = Macros.handler[TempBan]
+  implicit private val UserRecordBSONHandler: BSONDocumentHandler[UserRecord] =
+    Macros.handler[UserRecord]
 
   private case class Blame(player: Player, outcome: Outcome)
 
@@ -89,7 +93,12 @@ final class PlaybanApi(
         userId <- game.player(flaggerColor).userId
         seconds = nowSeconds - game.movedAt.getSeconds
         if unreasonableTime.exists(seconds >= _)
-      } yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>-
+      } yield save(
+        Outcome.Sitting,
+        userId,
+        RageSit.imbalanceInc(game, flaggerColor),
+        game.source,
+      ) >>-
         feedback.sitting(Pov(game, flaggerColor)) >>
         propagateSitting(game, userId)
 
@@ -134,7 +143,9 @@ final class PlaybanApi(
           loserId <- loser.userId
         } yield {
           if (Status.NoStart is status)
-            save(Outcome.NoPlay, loserId, RageSit.Reset, game.source) >>- feedback.noStart(Pov(game, !w))
+            save(Outcome.NoPlay, loserId, RageSit.Reset, game.source) >>- feedback.noStart(
+              Pov(game, !w),
+            )
           else
             game.clock
               .filter { c =>
@@ -149,7 +160,12 @@ final class PlaybanApi(
               }
               .exists(_ < nowSeconds - game.movedAt.getSeconds)
               .option {
-                save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>-
+                save(
+                  Outcome.SitResign,
+                  loserId,
+                  RageSit.imbalanceInc(game, loser.color),
+                  game.source,
+                ) >>-
                   feedback.sitting(Pov(game, loser.color)) >>
                   propagateSitting(game, loserId)
               }
@@ -177,7 +193,7 @@ final class PlaybanApi(
       coll.ext
         .find(
           $doc("_id" -> userId, "b.0" $exists true),
-          $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
+          $doc("_id" -> false, "b" -> $doc("$slice" -> -1)),
         )
         .one[Bdoc]
         .dmap {
@@ -204,7 +220,7 @@ final class PlaybanApi(
     coll.ext
       .find(
         $inIds(userIds),
-        $doc("b" -> true)
+        $doc("b" -> true),
       )
       .cursor[Bdoc]()
       .list()
@@ -221,7 +237,9 @@ final class PlaybanApi(
   private val rageSitCache = cacheApi[User.ID, RageSit](512, "playban.ragesit") {
     _.expireAfterAccess(20 minutes)
       .buildAsyncFuture { userId =>
-        coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty)
+        coll
+          .primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c")
+          .map(_ | RageSit.empty)
       }
   }
 
@@ -229,7 +247,7 @@ final class PlaybanApi(
       outcome: Outcome,
       userId: User.ID,
       rsUpdate: RageSit.Update,
-      source: Option[Source]
+      source: Option[Source],
   ): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
     coll.ext
@@ -242,10 +260,10 @@ final class PlaybanApi(
               case RageSit.Inc(v) if v != 0 => $inc("c" -> v)
               case _                        => $empty
             }
-          }
+          },
         ),
         fetchNewObject = true,
-        upsert = true
+        upsert = true,
       ) orFail s"can't find newly created record for user $userId" flatMap { record =>
       (outcome != Outcome.Good) ?? {
         userRepo.createdAtById(userId).flatMap { _ ?? { legiferate(record, _, source) } }
@@ -263,10 +281,12 @@ final class PlaybanApi(
           else if (record.rageSit.isVeryBad)
             userRepo byId record.userId flatMap {
               _ ?? { u =>
-                lila.log("ragesit").info(s"https://lishogi.org/@/${u.username} ${record.rageSit.counterView}")
+                lila
+                  .log("ragesit")
+                  .info(s"https://lishogi.org/@/${u.username} ${record.rageSit.counterView}")
                 Bus.publish(
                   lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sittingAuto.name),
-                  "autoWarning"
+                  "autoWarning",
                 )
                 messenger.postPreset(u, MsgPreset.sittingAuto).void
               }
@@ -276,7 +296,11 @@ final class PlaybanApi(
       case _ => funit
     }
 
-  private def legiferate(record: UserRecord, accCreatedAt: DateTime, source: Option[Source]): Funit =
+  private def legiferate(
+      record: UserRecord,
+      accCreatedAt: DateTime,
+      source: Option[Source],
+  ): Funit =
     record.bannable(accCreatedAt) ?? { ban =>
       (!record.banInEffect) ?? {
         lila.mon.playban.ban.count.increment()
@@ -284,7 +308,7 @@ final class PlaybanApi(
         Bus.publish(
           lila.hub.actorApi.playban
             .Playban(record.userId, ban.mins, inTournament = source has Source.Tournament),
-          "playban"
+          "playban",
         )
         coll.update
           .one(
@@ -293,9 +317,9 @@ final class PlaybanApi(
               $push(
                 "b" -> $doc(
                   "$each"  -> List(ban),
-                  "$slice" -> -30
-                )
-              )
+                  "$slice" -> -30,
+                ),
+              ),
           )
           .void >>- cleanUserIds.remove(record.userId)
       }

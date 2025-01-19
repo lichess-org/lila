@@ -11,7 +11,7 @@ import lila.memo.CacheApi._
 
 final class EventApi(
     coll: Coll,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -36,8 +36,8 @@ final class EventApi(
       .find(
         $doc(
           "enabled" -> true,
-          "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
-        )
+          "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1),
+        ),
       )
       .sort($sort asc "startsAt")
       .cursor[Event]()
@@ -70,6 +70,6 @@ final class EventApi(
   def clone(old: Event) =
     old.copy(
       title = s"${old.title} (clone)",
-      startsAt = DateTime.now plusDays 7
+      startsAt = DateTime.now plusDays 7,
     )
 }

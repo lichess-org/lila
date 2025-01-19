@@ -7,7 +7,7 @@ import lila.user.User
 
 case class TeamBattle(
     teams: Set[TeamID],
-    nbLeaders: Int
+    nbLeaders: Int,
 ) {
   def hasEnoughTeams     = teams.sizeIs > 1
   lazy val sortedTeamIds = teams.toList.sorted
@@ -28,7 +28,7 @@ object TeamBattle {
       val rank: Int,
       val teamId: TeamID,
       val leaders: List[TeamLeader],
-      val score: Int
+      val score: Int,
   ) extends Ordered[RankedTeam] {
     private def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
     def this(rank: Int, teamId: TeamID, leaders: List[TeamLeader]) =
@@ -51,7 +51,7 @@ object TeamBattle {
       avgRating: Int,
       avgPerf: Int,
       avgScore: Int,
-      topPlayers: List[Player]
+      topPlayers: List[Player],
   )
 
   object DataForm {
@@ -59,12 +59,12 @@ object TeamBattle {
 
     val fields = mapping(
       "teams"     -> nonEmptyText,
-      "nbLeaders" -> number(min = 1, max = 20)
+      "nbLeaders" -> number(min = 1, max = 20),
     )(Setup.apply)(Setup.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.sizeIs > 1)
       .verifying(
         s"In this version of team battles, no more than $maxTeams teams can be allowed.",
-        s => s.potentialTeamIds.sizeIs <= maxTeams
+        s => s.potentialTeamIds.sizeIs <= maxTeams,
       )
 
     def edit(teams: List[String], nbLeaders: Int) =
@@ -75,7 +75,7 @@ object TeamBattle {
 
     case class Setup(
         teams: String,
-        nbLeaders: Int
+        nbLeaders: Int,
     ) {
       def potentialTeamIds: Set[TeamID] =
         teams.linesIterator.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet

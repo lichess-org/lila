@@ -15,7 +15,7 @@ import lila.user.User
 case class ClasProgress(
     perfType: PerfType,
     days: Int,
-    students: Map[User.ID, StudentProgress]
+    students: Map[User.ID, StudentProgress],
 ) {
   def apply(user: User) =
     students.getOrElse(
@@ -24,8 +24,8 @@ case class ClasProgress(
         nb = 0,
         rating = (user.perfs(perfType).intRating, user.perfs(perfType).intRating),
         wins = 0,
-        millis = 0
-      )
+        millis = 0,
+      ),
     )
 
   def isPuzzle = perfType == PerfType.Puzzle
@@ -35,7 +35,7 @@ case class StudentProgress(
     nb: Int,
     wins: Int,
     millis: Long,
-    rating: (Int, Int)
+    rating: (Int, Int),
 ) {
   def ratingProgress = rating._2 - rating._1
   def winRate        = if (nb > 0) wins * 100 / nb else 0
@@ -46,7 +46,7 @@ final class ClasProgressApi(
     gameRepo: GameRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
-    getStudentIds: () => Fu[Set[User.ID]]
+    getStudentIds: () => Fu[Set[User.ID]],
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   case class PlayStats(nb: Int, wins: Int, millis: Long)
@@ -71,9 +71,9 @@ final class ClasProgressApi(
             nb = playStat.??(_.nb),
             rating = rating,
             wins = playStat.??(_.wins),
-            millis = playStat.??(_.millis)
+            millis = playStat.??(_.millis),
           )
-        } toMap
+        } toMap,
       )
     }
   }
@@ -82,23 +82,23 @@ final class ClasProgressApi(
     puzzleColls.round {
       _.aggregateList(
         maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       ) { framework =>
         import framework._
         Match(
           $doc(
             PuzzleRound.BSONFields.user $in userIds,
-            PuzzleRound.BSONFields.date $gt DateTime.now.minusDays(days)
-          )
+            PuzzleRound.BSONFields.date $gt DateTime.now.minusDays(days),
+          ),
         ) -> List(
           GroupField("u")(
             "nb" -> SumAll,
             "win" -> Sum(
               $doc(
-                "$cond" -> $arr("$w", 1, 0)
-              )
-            )
-          )
+                "$cond" -> $arr("$w", 1, 0),
+              ),
+            ),
+          ),
         )
       }.map {
         _.flatMap { obj =>
@@ -106,7 +106,7 @@ final class ClasProgressApi(
             id -> PlayStats(
               nb = ~obj.int("nb"),
               wins = ~obj.int("win"),
-              millis = 0
+              millis = 0,
             )
           }
         }.toMap
@@ -116,30 +116,30 @@ final class ClasProgressApi(
   private def getGameStats(
       perfType: PerfType,
       userIds: List[User.ID],
-      days: Int
+      days: Int,
   ): Fu[Map[User.ID, PlayStats]] = {
     import Game.{ BSONFields => F }
     import lila.game.Query
     gameRepo.coll
       .aggregateList(
         maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       ) { framework =>
         import framework._
         Match(
           $doc(
             F.playerUids $in userIds,
             Query.createdSince(DateTime.now minusDays days),
-            F.perfType -> perfType.id
-          )
+            F.perfType -> perfType.id,
+          ),
         ) -> List(
           Project(
             $doc(
               F.playerUids -> true,
               F.winnerId   -> true,
               "ms"         -> $doc("$subtract" -> $arr(s"$$${F.movedAt}", s"$$${F.createdAt}")),
-              F.id         -> false
-            )
+              F.id         -> false,
+            ),
           ),
           UnwindField(F.playerUids),
           Match($doc(F.playerUids $in userIds)),
@@ -147,11 +147,11 @@ final class ClasProgressApi(
             "nb" -> SumAll,
             "win" -> Sum(
               $doc(
-                "$cond" -> $arr($doc("$eq" -> $arr("$us", "$wid")), 1, 0)
-              )
+                "$cond" -> $arr($doc("$eq" -> $arr("$us", "$wid")), 1, 0),
+              ),
             ),
-            "ms" -> SumField("ms")
-          )
+            "ms" -> SumField("ms"),
+          ),
         )
       }
       .map {
@@ -160,7 +160,7 @@ final class ClasProgressApi(
             id -> PlayStats(
               nb = ~obj.int("nb"),
               wins = ~obj.int("win"),
-              millis = ~obj.long("ms")
+              millis = ~obj.long("ms"),
             )
           }
         }.toMap

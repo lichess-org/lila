@@ -12,20 +12,20 @@ object indexStripe {
 
   private val dataForm = attr("data-form")
 
-  def apply(me: lila.user.User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(implicit
-      ctx: Context
+  def apply(me: lila.user.User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(
+      implicit ctx: Context,
   ) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("misc.plan"),
-      moreJs = jsTag("misc.plan")
+      moreJs = jsTag("misc.plan"),
     ) {
       main(cls := "box box-pad plan")(
         h1(
           userLink(me),
           " - ",
           if (patron.isLifetime) strong(lifetimePatron())
-          else patronForMonths(me.plan.months)
+          else patronForMonths(me.plan.months),
         ),
         table(cls := "all")(
           tbody(
@@ -33,28 +33,28 @@ object indexStripe {
               th(currentStatus()),
               td(
                 youSupportWith(strong(info.subscription.plan.usd.toString)),
-                span(cls := "thanks")(tyvm())
-              )
+                span(cls := "thanks")(tyvm()),
+              ),
             ),
             tr(
               th(nextPayment()),
               td(
                 youWillBeChargedXOnY(
                   strong(info.nextInvoice.usd.toString),
-                  showDate(info.nextInvoice.dateTime)
+                  showDate(info.nextInvoice.dateTime),
                 ),
                 br,
-                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
-              )
+                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation()),
+              ),
             ),
             tr(
               th(update()),
               td(cls := "change")(
                 xOrY(
                   a(dataForm := "switch")(
-                    changeMonthlyAmount(info.subscription.plan.usd.toString)
+                    changeMonthlyAmount(info.subscription.plan.usd.toString),
                   ),
-                  a(dataForm := "cancel")(cancelSupport())
+                  a(dataForm := "cancel")(cancelSupport()),
                 ),
                 postForm(cls := "switch", action := routes.Plan.switch)(
                   p(decideHowMuch()),
@@ -65,17 +65,17 @@ object indexStripe {
                     max   := 100000,
                     step  := "0.01",
                     name  := "usd",
-                    value := info.subscription.plan.usd.toString
+                    value := info.subscription.plan.usd.toString,
                   ),
                   submitButton(cls := "button")(trans.apply()),
-                  a(dataForm := "switch")(trans.cancel())
+                  a(dataForm := "switch")(trans.cancel()),
                 ),
                 postForm(cls := "cancel", action := routes.Plan.cancel)(
                   p(stopPayments()),
                   submitButton(cls := "button button-red")(noLongerSupport()),
-                  a(dataForm := "cancel")(trans.cancel())
-                )
-              )
+                  a(dataForm := "cancel")(trans.cancel()),
+                ),
+              ),
             ),
             tr(
               th(paymentHistory()),
@@ -86,8 +86,8 @@ object indexStripe {
                       th,
                       th("ID"),
                       th(date()),
-                      th(amount())
-                    )
+                      th(amount()),
+                    ),
                   ),
                   tbody(
                     info.pastInvoices.map { in =>
@@ -95,19 +95,19 @@ object indexStripe {
                         td(in.paid option span(dataIcon := "E", cls := "is-green text")(paid())),
                         td(cls := "id")(in.id),
                         td(showDate(in.dateTime)),
-                        td(in.usd.toString)
+                        td(in.usd.toString),
                       )
-                    }
-                  )
-                )
-              )
+                    },
+                  ),
+                ),
+              ),
             ),
             tr(
               th,
-              td(a(href := routes.Plan.list)(viewOthers()))
-            )
-          )
-        )
+              td(a(href := routes.Plan.list)(viewOthers())),
+            ),
+          ),
+        ),
       )
     }
 }

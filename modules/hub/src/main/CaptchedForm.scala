@@ -7,12 +7,11 @@ import play.api.data._
 import akka.pattern.ask
 
 import lila.common.Captcha
-
-import actorApi.captcha._
+import lila.hub.actorApi.captcha._
 
 trait CaptchedForm {
 
-  import makeTimeout.large
+  import lila.hub.makeTimeout.large
 
   type CaptchedData = {
     def gameId: String
@@ -27,7 +26,9 @@ trait CaptchedForm {
   def getCaptcha(id: String): Fu[Captcha] =
     (captcher.actor ? GetCaptcha(id)).mapTo[Captcha]
 
-  def withCaptcha[A](form: Form[A])(implicit ec: scala.concurrent.ExecutionContext): Fu[(Form[A], Captcha)] =
+  def withCaptcha[A](form: Form[A])(implicit
+      ec: scala.concurrent.ExecutionContext,
+  ): Fu[(Form[A], Captcha)] =
     anyCaptcha map (form -> _)
 
   import scala.language.reflectiveCalls

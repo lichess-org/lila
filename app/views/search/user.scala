@@ -19,7 +19,7 @@ object user {
       rel    := "nofollow",
       cls    := "search__form",
       action := routes.User.games(u.username, "search"),
-      method := "GET"
+      method := "GET",
     )(dataReqs)(
       table(
         date,
@@ -31,17 +31,17 @@ object user {
         clockByoyomi,
         source,
         perf,
-        mode
+        mode,
       ),
       table(
         hasAi,
         aiLevel,
         tr(cls := "opponentName")(
           th(label(`for` := form3.id(form("players")("b")))(opponentName())),
-          td(cls                                  := "usernames")(
+          td(cls := "usernames")(
             st.input(tpe                          := "hidden", value := u.id, name := "players.a"),
-            form3.input(form("players")("b"))(tpe := "text")
-          )
+            form3.input(form("players")("b"))(tpe := "text"),
+          ),
         ),
         winner(hide = false),
         loser(hide = false),
@@ -52,9 +52,9 @@ object user {
         analysed,
         tr(cls := "action")(
           th,
-          td(button(cls := "button")(search()))
-        )
-      )
+          td(button(cls := "button")(search())),
+        ),
+      ),
     )
   }
 }

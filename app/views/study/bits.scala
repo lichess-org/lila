@@ -22,13 +22,17 @@ object bits {
       span(order.name()),
       orders map { o =>
         a(href := url(o.key), cls := (order == o).option("current"))(o.name())
-      }
+      },
     )
   }
 
   def newForm()(implicit ctx: Context) =
-    postForm(cls       := "new-study", action             := routes.Study.create)(
-      submitButton(cls := "button button-green", dataIcon := "O", title := trans.study.createStudy.txt())
+    postForm(cls := "new-study", action := routes.Study.create)(
+      submitButton(
+        cls      := "button button-green",
+        dataIcon := "O",
+        title    := trans.study.createStudy.txt(),
+      ),
     )
 
   def authLinks(active: String, order: lila.study.Order)(implicit ctx: Context) = {
@@ -36,16 +40,20 @@ object bits {
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
       a(activeCls("mineMember"), href := routes.Study.mineMember(order.key))(
-        trans.study.studiesIContributeTo()
+        trans.study.studiesIContributeTo(),
       ),
-      a(activeCls("minePublic"), href := routes.Study.minePublic(order.key))(trans.study.myPublicStudies()),
+      a(activeCls("minePublic"), href := routes.Study.minePublic(order.key))(
+        trans.study.myPublicStudies(),
+      ),
       a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))(
-        trans.study.myPrivateStudies()
+        trans.study.myPrivateStudies(),
       ),
-      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies()),
+      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(
+        trans.study.myFavoriteStudies(),
+      ),
       a(activeCls("postGameStudies"), href := routes.Study.minePostGameStudies(order.key))(
-        trans.postGameStudies()
-      )
+        trans.postGameStudies(),
+      ),
     )
   }
 
@@ -58,7 +66,7 @@ object bits {
           span(
             !s.study.isPublic option frag(
               iconTag("a")(cls := "private", ariaTitle(trans.study.`private`.txt())),
-              " "
+              " ",
             ),
             iconTag(if (s.liked) "" else ""),
             " ",
@@ -66,15 +74,15 @@ object bits {
             " - ",
             usernameOrId(s.study.ownerId),
             " - ",
-            momentFromNow(s.study.createdAt)
-          )
-        )
+            momentFromNow(s.study.createdAt),
+          ),
+        ),
       ),
       div(cls := "body")(
         ol(cls := "chapters")(
           s.chapters.map { name =>
             li(cls := "text", dataIcon := "K")(name.value)
-          }
+          },
         ),
         ol(cls := "members")(
           s.study.members.members.values
@@ -82,16 +90,16 @@ object bits {
             .map { m =>
               li(cls := "text", dataIcon := (if (m.canContribute) "" else "v"))(usernameOrId(m.id))
             }
-            .toList
-        )
-      )
+            .toList,
+        ),
+      ),
     )
 
   def streamers(streams: List[lila.streamer.Stream])(implicit lang: Lang) =
     streams.nonEmpty option div(cls := "streamers none")(
       streams.map { s =>
         views.html.streamer.bits.contextual(s.streamer.userId)
-      }
+      },
     )
 
   def home(studies: List[lila.study.Study.MiniStudy]) =
@@ -100,12 +108,12 @@ object bits {
         tr(
           td(cls := "name")(
             a(cls := "text", href := routes.Study.show(s.id.value))(
-              s.name
-            )
+              s.name,
+            ),
           ),
           td(momentFromNow(s.createdAt)),
-          td(dataIcon := "", cls := "text")(s.likes.value)
+          td(dataIcon := "", cls := "text")(s.likes.value),
         )
-      }
+      },
     )
 }

@@ -10,7 +10,7 @@ object Socket extends Socket {
 
   case class Sri(value: String) extends AnyVal with StringValue
 
-  val sriIso             = lila.common.Iso.string[Sri](Sri.apply, _.value)
+  val sriIso                          = lila.common.Iso.string[Sri](Sri.apply, _.value)
   implicit val sriFormat: Format[Sri] = lila.common.Json.stringIsoFormat(sriIso)
 
   case class Sris(sris: Set[Sri])
@@ -20,9 +20,11 @@ object Socket extends Socket {
     def inc                           = SocketVersion(value + 1)
   }
 
-  val socketVersionIso             = lila.common.Iso.int[SocketVersion](SocketVersion.apply, _.value)
-  implicit val socketVersionFormat: Format[SocketVersion] = lila.common.Json.intIsoFormat(socketVersionIso)
-  implicit val socketVersionZero: Zero[SocketVersion]   = Zero.instance[SocketVersion](SocketVersion(0))
+  val socketVersionIso = lila.common.Iso.int[SocketVersion](SocketVersion.apply, _.value)
+  implicit val socketVersionFormat: Format[SocketVersion] =
+    lila.common.Json.intIsoFormat(socketVersionIso)
+  implicit val socketVersionZero: Zero[SocketVersion] =
+    Zero.instance[SocketVersion](SocketVersion(0))
 
   case class GetVersion(promise: Promise[SocketVersion])
 
@@ -32,7 +34,7 @@ object Socket extends Socket {
 private[socket] trait Socket {
 
   def makeMessage[A](t: String, data: A)(implicit writes: Writes[A]): JsObject = JsObject(
-    new Map.Map2("t", JsString(t), "d", writes.writes(data))
+    new Map.Map2("t", JsString(t), "d", writes.writes(data)),
   )
   def makeMessage(t: String): JsObject = JsObject(new Map.Map1("t", JsString(t)))
 }

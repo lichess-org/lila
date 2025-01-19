@@ -28,7 +28,7 @@ object model {
         win = win + s.win,
         loss = loss + s.loss,
         draw = draw + s.draw,
-        rp = RatingProg.add(rp, s.rp)
+        rp = RatingProg.add(rp, s.rp),
       )
     def size = win + loss + draw
   }
@@ -38,14 +38,14 @@ object model {
         win = res.has(true) ?? 1,
         loss = res.has(false) ?? 1,
         draw = res.isEmpty ?? 1,
-        rp = rp
+        rp = rp,
       )
     def make(povs: List[lila.game.LightPov]): Score =
       povs.foldLeft(ScoreZero.zero) {
         case (score, pov) if pov.game.finished =>
           score add make(
             res = pov.game.wonBy(pov.color),
-            rp = RatingProg.make(pov.player)
+            rp = RatingProg.make(pov.player),
           )
         case (score, _) => score
       }

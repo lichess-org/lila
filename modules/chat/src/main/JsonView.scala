@@ -21,13 +21,13 @@ object JsonView {
 
   def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
     lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
-      "history" -> u.history
+      "history" -> u.history,
     )
 
   def mobile(chat: AnyChat, writeable: Boolean = true) =
     Json.obj(
       "lines"     -> apply(chat),
-      "writeable" -> writeable
+      "writeable" -> writeable,
     )
 
   def boardApi(chat: UserChat) = JsArray {
@@ -41,18 +41,19 @@ object JsonView {
 
     implicit val chatIdWrites: Writes[Chat.Id] = stringIsoWriter(Chat.chatIdIso)
 
-    implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
-      Json.obj("key" -> r.key, "name" -> r.name)
+    implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] {
+      r =>
+        Json.obj("key" -> r.key, "name" -> r.name)
     }
 
     implicit def timeoutEntryWriter(implicit
-        lightUser: LightUser.GetterSync
+        lightUser: LightUser.GetterSync,
     ): OWrites[ChatTimeout.UserEntry] =
       OWrites[ChatTimeout.UserEntry] { e =>
         Json.obj(
           "reason" -> e.reason.key,
           "mod"    -> lightUser(e.mod).fold("?")(_.name),
-          "date"   -> e.createdAt
+          "date"   -> e.createdAt,
         )
       }
 
@@ -73,7 +74,7 @@ object JsonView {
       Json
         .obj(
           "u" -> l.username,
-          "t" -> l.text
+          "t" -> l.text,
         )
         .add("r" -> l.troll)
         .add("d" -> l.deleted)
@@ -83,7 +84,7 @@ object JsonView {
     implicit private val playerLineWriter: OWrites[PlayerLine] = OWrites[PlayerLine] { l =>
       Json.obj(
         "c" -> l.color.name,
-        "t" -> l.text
+        "t" -> l.text,
       )
     }
   }

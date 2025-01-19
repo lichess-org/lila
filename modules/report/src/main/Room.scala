@@ -23,7 +23,8 @@ object Room {
     (v.key, v)
   } toMap
 
-  implicit val roomIso: Iso[String,Room] = lila.common.Iso[String, Room](k => byKey.getOrElse(k, Other), _.key)
+  implicit val roomIso: Iso[String, Room] =
+    lila.common.Iso[String, Room](k => byKey.getOrElse(k, Other), _.key)
 
   def apply(key: String): Option[Room] = byKey get key
 

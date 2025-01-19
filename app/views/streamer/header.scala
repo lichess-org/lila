@@ -16,11 +16,13 @@ object header {
       div(cls := "overview")(
         h1(dataIcon := "")(
           titleTag(s.user.title),
-          s.streamer.name
+          s.streamer.name,
         ),
         s.streamer.headline.map(_.value).map { d =>
-          p(cls := s"headline ${if (d.sizeIs < 60) "small" else if (d.sizeIs < 120) "medium" else "large"}")(
-            d
+          p(cls := s"headline ${if (d.sizeIs < 60) "small"
+            else if (d.sizeIs < 120) "medium"
+            else "large"}")(
+            d,
           )
         },
         ul(cls := "services")(
@@ -29,10 +31,10 @@ object header {
               a(
                 cls := List(
                   "service twitch" -> true,
-                  "live"           -> s.stream.exists(_.twitch)
+                  "live"           -> s.stream.exists(_.twitch),
                 ),
-                href := twitch.fullUrl
-              )(twitch.minUrl)
+                href := twitch.fullUrl,
+              )(twitch.minUrl),
             )
           },
           s.streamer.youTube.map { youTube =>
@@ -40,18 +42,18 @@ object header {
               a(
                 cls := List(
                   "service youTube" -> true,
-                  "live"            -> s.stream.exists(_.youTube)
+                  "live"            -> s.stream.exists(_.youTube),
                 ),
-                href := youTube.fullUrl
-              )(youTube.minUrl)
+                href := youTube.fullUrl,
+              )(youTube.minUrl),
             )
           },
           li(
             a(cls := "service lishogi ulpt", href := routes.User.show(s.user.username))(
               netDomain,
-              routes.User.show(s.user.username).url
-            )
-          )
+              routes.User.show(s.user.username).url,
+            ),
+          ),
         ),
         div(cls := "ats")(
           s.stream.map { s =>
@@ -60,9 +62,9 @@ object header {
             p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
             s.streamer.liveAt.map { liveAt =>
               p(cls := "at")(lastStream(momentFromNow(liveAt)))
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     )
 }

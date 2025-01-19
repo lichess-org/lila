@@ -13,9 +13,9 @@ final class Env(
     db: lila.db.Db,
     colls: lila.puzzle.PuzzleColls,
     cacheApi: lila.memo.CacheApi,
-    userRepo: UserRepo
+    userRepo: UserRepo,
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   private lazy val dayColl = db(CollName("storm_day"))
@@ -37,6 +37,6 @@ final class Env(
   lila.common.Bus.subscribeFuns(
     "gdprErase" -> { case lila.user.User.GDPRErase(user) =>
       dayApi.eraseAllFor(user).unit
-    }
+    },
   )
 }

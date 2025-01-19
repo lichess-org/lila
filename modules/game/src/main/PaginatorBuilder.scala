@@ -9,7 +9,7 @@ import lila.db.paginator._
 
 final class PaginatorBuilder(
     gameRepo: GameRepo,
-    maxPerPage: MaxPerPage
+    maxPerPage: MaxPerPage,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers.gameBSONHandler
@@ -28,7 +28,7 @@ final class PaginatorBuilder(
   private def cacheAdapter(selector: Bdoc, sort: Bdoc, nbResults: Fu[Int]): AdapterLike[Game] =
     new CachedAdapter(
       adapter = noCacheAdapter(selector, sort),
-      nbResults = nbResults
+      nbResults = nbResults,
     )
 
   private def noCacheAdapter(selector: Bdoc, sort: Bdoc): AdapterLike[Game] =
@@ -37,7 +37,7 @@ final class PaginatorBuilder(
       selector = selector,
       projection = none,
       sort = sort,
-      readPreference = ReadPreference.secondaryPreferred
+      readPreference = ReadPreference.secondaryPreferred,
     )
 
   private def paginator(adapter: AdapterLike[Game], page: Int): Fu[Paginator[Game]] =

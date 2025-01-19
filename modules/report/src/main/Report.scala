@@ -15,12 +15,14 @@ case class Report(
     score: Report.Score,
     inquiry: Option[Report.Inquiry],
     open: Boolean,
-    processedBy: Option[User.ID]
+    processedBy: Option[User.ID],
 ) extends Reason.WithReason {
 
-  import Report.{ Atom, Score }
+  import Report.Atom
+  import Report.Score
 
-  implicit private val ordering: Ordering.Double.TotalOrdering.type = scala.math.Ordering.Double.TotalOrdering
+  implicit private val ordering: Ordering.Double.TotalOrdering.type =
+    scala.math.Ordering.Double.TotalOrdering
 
   def id   = _id
   def slug = _id
@@ -38,16 +40,16 @@ case class Report(
               existing.copy(
                 at = atom.at,
                 score = atom.score,
-                text = s"${existing.text}\n\n${atom.text}"
+                text = s"${existing.text}\n\n${atom.text}",
               ) :: atoms.toList.filterNot(_.by == atom.by)
-            }.toNel | atoms
+            }.toNel | atoms,
           )
       }
       .recomputeScore
 
   def recomputeScore =
     copy(
-      score = atoms.toList.foldLeft(Score(0))(_ + _.score)
+      score = atoms.toList.foldLeft(Score(0))(_ + _.score),
     )
 
   def recentAtom: Atom = atoms.head
@@ -68,7 +70,7 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      processedBy = by.id.some
+      processedBy = by.id.some,
     )
 
   def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
@@ -105,7 +107,7 @@ object Report {
       by: ReporterId,
       text: String,
       score: Score,
-      at: DateTime
+      at: DateTime,
   ) {
     def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
@@ -132,7 +134,7 @@ object Report {
       reporter: Reporter,
       suspect: Suspect,
       reason: Reason,
-      text: String
+      text: String,
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic          = reporter.id == ReporterId.lishogi
@@ -148,7 +150,7 @@ object Report {
           by = candidate.reporter.id,
           text = candidate.text,
           score = score,
-          at = DateTime.now
+          at = DateTime.now,
         )
     }
   }
@@ -169,12 +171,13 @@ object Report {
             score = score,
             inquiry = none,
             open = true,
-            processedBy = none
-          )
+            processedBy = none,
+          ),
         )(_ add c.atom)
     }
 
-  private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
+  private val farmWithRegex =
+    s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
   private val sandbagWithRegex =
     s""". winning player @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
 }

@@ -8,19 +8,19 @@ case class MoveOpts(
     write: Boolean,
     sticky: Boolean,
     promoteToMainline: Boolean,
-    clock: Option[Centis]
+    clock: Option[Centis],
 )
 
 object MoveOpts {
 
-  import play.api.libs.json._
   import play.api.libs.functional.syntax._
+  import play.api.libs.json._
 
   private val default = MoveOpts(
     write = true,
     sticky = true,
     promoteToMainline = false,
-    clock = none
+    clock = none,
   )
 
   def parse(o: JsObject): MoveOpts = (o \ "d").asOpt[MoveOpts] | default
@@ -41,8 +41,9 @@ object MoveOpts {
 
   def readCentis(str: String): Option[Centis] =
     str match {
-      case clockHourMinuteRegex(hours, minutes)                => readCentis(hours, minutes, "0")
-      case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+      case clockHourMinuteRegex(hours, minutes) => readCentis(hours, minutes, "0")
+      case clockHourMinuteSecondRegex(hours, minutes, seconds) =>
+        readCentis(hours, minutes, seconds)
       case clockHourMinuteFractionalSecondRegex(hours, minutes, seconds) =>
         readCentis(hours, minutes, seconds)
       case _ => none

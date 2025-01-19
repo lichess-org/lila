@@ -29,7 +29,7 @@ object actors {
 @Module
 final class Env(
     appConfig: Configuration,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   import actors._

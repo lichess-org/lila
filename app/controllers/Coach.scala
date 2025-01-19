@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app._
 import lila.coach.CoachPager
 import lila.coach.CoachProfileForm
-import lila.coach.{Coach => CoachModel}
+import lila.coach.{ Coach => CoachModel }
 
 final class Coach(env: Env) extends LilaController(env) {
 
@@ -61,7 +61,7 @@ final class Coach(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             _ => fuccess(BadRequest),
-            data => api.update(c, data) inject Ok
+            data => api.update(c, data) inject Ok,
           )
       }
     }

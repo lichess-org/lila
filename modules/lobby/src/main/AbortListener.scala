@@ -6,7 +6,7 @@ import lila.game.Source
 final private class AbortListener(
     userRepo: lila.user.UserRepo,
     seekApi: SeekApi,
-    lobbyTrouper: LobbyTrouper
+    lobbyTrouper: LobbyTrouper,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(pov: Pov): Funit =

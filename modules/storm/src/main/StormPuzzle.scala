@@ -1,6 +1,7 @@
 package lila.storm
 
 import cats.data.NonEmptyList
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
@@ -11,7 +12,7 @@ case class StormPuzzle(
     id: Puzzle.Id,
     sfen: Sfen,
     line: NonEmptyList[Usi],
-    rating: Int
+    rating: Int,
 ) {
   // ply after "initial move" when we start solving
   def initialPly: Int =

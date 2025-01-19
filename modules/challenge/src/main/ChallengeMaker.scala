@@ -1,14 +1,13 @@
 package lila.challenge
 
+import lila.challenge.Challenge.TimeControl
 import lila.game.Game
 import lila.game.Pov
 import lila.user.User
 
-import Challenge.TimeControl
-
 final class ChallengeMaker(
     userRepo: lila.user.UserRepo,
-    gameRepo: lila.game.GameRepo
+    gameRepo: lila.game.GameRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def makeRematchFor(gameId: Game.ID, dest: User): Fu[Option[Challenge]] =
@@ -48,7 +47,7 @@ final class ChallengeMaker(
       color = (!pov.color).name,
       challenger = Challenge.toRegistered(pov.game.variant, timeControl)(challenger),
       destUser = dest.some,
-      rematchOf = pov.gameId.some
+      rematchOf = pov.gameId.some,
     )
   }
 }

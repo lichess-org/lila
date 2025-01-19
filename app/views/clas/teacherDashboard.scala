@@ -15,12 +15,13 @@ import lila.user.User
 
 object teacherDashboard {
 
-  import bits.{ dataSort, sortNumberTh }
+  import bits.dataSort
+  import bits.sortNumberTh
 
   private[clas] def layout(
       c: Clas,
       students: List[Student.WithUser],
-      active: String
+      active: String,
   )(modifiers: Modifier*)(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
@@ -31,29 +32,29 @@ object teacherDashboard {
           a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))("News"),
           a(
             cls  := active.active("progress"),
-            href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
+            href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7),
           )(trans.clas.progress()),
           a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.edit()),
           a(cls := active.active("students"), href := routes.Clas.students(c.id.value))(
-            "Students"
-          )
-        )
+            "Students",
+          ),
+        ),
       ),
       standardFlash(),
       c.archived map { archived =>
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),
-          postForm(action                                      := routes.Clas.archive(c.id.value, false))(
-            form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
-          )
+          postForm(action := routes.Clas.archive(c.id.value, false))(
+            form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty"),
+          ),
         )
       },
-      modifiers
+      modifiers,
     )
 
   def overview(
       c: Clas,
-      students: List[Student.WithUser]
+      students: List[Student.WithUser],
   )(implicit ctx: Context) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
@@ -63,20 +64,20 @@ object teacherDashboard {
           a(
             href     := routes.Clas.studentForm(c.id.value),
             cls      := "button button-clas text",
-            dataIcon := "O"
-          )(trans.clas.addStudent())
-        )
+            dataIcon := "O",
+          )(trans.clas.addStudent()),
+        ),
       ),
       if (students.isEmpty)
         p(cls := "box__pad students__empty")(trans.clas.noStudents())
       else
-        studentList(c, students)
+        studentList(c, students),
     )
 
   def students(
       c: Clas,
       all: List[Student.WithUser],
-      invites: List[ClasInvite]
+      invites: List[ClasInvite],
   )(implicit ctx: Context) =
     layout(c, all.filter(_.student.isActive), "students") {
       val archived = all.filter(_.student.isArchived)
@@ -93,18 +94,18 @@ object teacherDashboard {
                     td(userIdLink(i.userId.some)),
                     td(i.realName),
                     td(
-                      if (i.accepted has false) "Declined" else "Pending"
+                      if (i.accepted has false) "Declined" else "Pending",
                     ),
                     td(momentFromNow(i.created.at)),
                     td(
                       postForm(action := routes.Clas.invitationRevoke(i._id.value))(
-                        submitButton(cls := "button button-red button-empty")("Revoke")
-                      )
-                    )
+                        submitButton(cls := "button button-red button-empty")("Revoke"),
+                      ),
+                    ),
                   )
-                }
-              )
-            )
+                },
+              ),
+            ),
           )
       val archivedBox =
         if (archived.isEmpty)
@@ -112,31 +113,33 @@ object teacherDashboard {
         else
           div(cls := "box__pad")(
             h2(trans.clas.removedStudents()),
-            studentList(c, archived)
+            studentList(c, archived),
           )
       frag(inviteBox, archivedBox)
     }
 
-  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(implicit ctx: Context) =
+  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(implicit
+      ctx: Context,
+  ) =
     layout(c, students, active)(
       div(cls := "box__pad students__empty")(
         p(
           "This feature is only available for classes of ",
           lila.clas.Clas.maxStudents,
-          " or fewer students."
+          " or fewer students.",
         ),
         p(
           "This class has ",
           students.size,
-          " students. You could maybe create more classes to split the students."
-        )
-      )
+          " students. You could maybe create more classes to split the students.",
+        ),
+      ),
     )
 
   def progress(
       c: Clas,
       students: List[Student.WithUser],
-      progress: ClasProgress
+      progress: ClasProgress,
   )(implicit ctx: Context) =
     layout(c, students, "progress")(
       progressHeader(c, progress.some),
@@ -146,13 +149,16 @@ object teacherDashboard {
             tr(
               th(attr("data-sort-default") := "1")(
                 trans.clas
-                  .variantXOverLastY(progress.perfType.trans, trans.nbDays.pluralSameTxt(progress.days)),
+                  .variantXOverLastY(
+                    progress.perfType.trans,
+                    trans.nbDays.pluralSameTxt(progress.days),
+                  ),
                 sortNumberTh(trans.rating()),
                 sortNumberTh(trans.clas.progress()),
                 sortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
                 if (progress.isPuzzle) sortNumberTh(trans.clas.winrate())
-                else sortNumberTh(trans.clas.timePlaying())
-              )
+                else sortNumberTh(trans.clas.timePlaying()),
+              ),
             ),
             tbody(
               students.sortBy(_.user.username).map { case s @ Student.WithUser(_, user) =>
@@ -160,20 +166,20 @@ object teacherDashboard {
                 tr(
                   studentTd(c, s),
                   td(dataSort := user.perfs(progress.perfType).intRating, cls := "rating")(
-                    user.perfs(progress.perfType).showRatingProvisional
+                    user.perfs(progress.perfType).showRatingProvisional,
                   ),
                   td(dataSort := prog.ratingProgress)(
-                    ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
+                    ratingProgress(prog.ratingProgress) | trans.clas.na.txt(),
                   ),
                   td(prog.nb),
                   if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
-                  else td(dataSort := prog.millis)(showPeriod(prog.period))
+                  else td(dataSort := prog.millis)(showPeriod(prog.period)),
                 )
-              }
-            )
-          )
-        )
-      )
+              },
+            ),
+          ),
+        ),
+      ),
     )
 
   def learn(
@@ -181,7 +187,7 @@ object teacherDashboard {
       students: List[Student.WithUser],
       basicCompletion: Map[User.ID, Int],
       practiceCompletion: Map[User.ID, Int],
-      coordScores: Map[User.ID, shogi.Color.Map[Int]]
+      coordScores: Map[User.ID, shogi.Color.Map[Int]],
   )(implicit ctx: Context) =
     layout(c, students, "progress")(
       progressHeader(c, none),
@@ -193,8 +199,8 @@ object teacherDashboard {
                 trans.clas.nbStudents.pluralSame(students.size),
                 sortNumberTh(trans.shogiBasics()),
                 sortNumberTh(trans.practice()),
-                sortNumberTh(trans.coordinates.coordinates())
-              )
+                sortNumberTh(trans.coordinates.coordinates()),
+              ),
             ),
             tbody(
               students.sortBy(_.user.username).map { case s @ Student.WithUser(_, user) =>
@@ -203,22 +209,22 @@ object teacherDashboard {
                   studentTd(c, s),
                   td(dataSort := basicCompletion.getOrElse(user.id, 0))(
                     basicCompletion.getOrElse(user.id, 0).toString,
-                    "%"
+                    "%",
                   ),
                   td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
                     practiceCompletion.getOrElse(user.id, 0).toString,
-                    "%"
+                    "%",
                   ),
                   td(dataSort := coord.sente, cls := "coords")(
                     i(cls := "color-icon is sente")(coord.sente),
-                    i(cls := "color-icon is gote")(coord.gote)
-                  )
+                    i(cls := "color-icon is gote")(coord.gote),
+                  ),
                 )
-              }
-            )
-          )
-        )
-      )
+              },
+            ),
+          ),
+        ),
+      ),
     )
 
   private def progressHeader(c: Clas, progress: Option[ClasProgress])(implicit ctx: Context) =
@@ -232,17 +238,17 @@ object teacherDashboard {
             PerfType.Rapid,
             PerfType.Classical,
             PerfType.Correspondence,
-            PerfType.Puzzle
+            PerfType.Puzzle,
           ).map { pt =>
             a(
               cls  := progress.map(_.perfType.key.active(pt.key)),
-              href := routes.Clas.progress(c.id.value, pt.key, progress.fold(7)(_.days))
+              href := routes.Clas.progress(c.id.value, pt.key, progress.fold(7)(_.days)),
             )(pt.trans)
           },
           a(cls := progress.isEmpty.option("active"), href := routes.Clas.learn(c.id.value))(
-            trans.learnMenu()
-          )
-        )
+            trans.learnMenu(),
+          ),
+        ),
       ),
       progress.map { p =>
         div(cls := "progress-days")(
@@ -251,12 +257,12 @@ object teacherDashboard {
             List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
               a(
                 cls  := p.days.toString.active(days.toString),
-                href := routes.Clas.progress(c.id.value, p.perfType.key, days)
+                href := routes.Clas.progress(c.id.value, p.perfType.key, days),
               )(days)
-            }
-          )
+            },
+          ),
         )
-      }
+      },
     )
 
   private def studentList(c: Clas, students: List[Student.WithUser])(implicit ctx: Context) =
@@ -269,8 +275,8 @@ object teacherDashboard {
             sortNumberTh(trans.games()),
             sortNumberTh(trans.puzzles()),
             sortNumberTh(trans.clas.lastActiveDate()),
-            th(iconTag("5")(title := trans.clas.managed.txt()))
-          )
+            th(iconTag("5")(title := trans.clas.managed.txt())),
+          ),
         ),
         tbody(
           students.sortBy(_.user.username).map { case s @ Student.WithUser(student, user) =>
@@ -281,15 +287,17 @@ object teacherDashboard {
               }),
               td(user.count.game.localize),
               td(user.perfs.puzzle.nb),
-              td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
+              td(dataSort := user.seenAt.map(_.getMillis.toString))(
+                user.seenAt.map(momentFromNowOnce),
+              ),
               td(
                 dataSort := (if (student.managed) 1 else 0),
-                student.managed option iconTag("5")(title := trans.clas.managed.txt())
-              )
+                student.managed option iconTag("5")(title := trans.clas.managed.txt()),
+              ),
             )
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
 
   private def studentTd(c: Clas, s: Student.WithUser)(implicit ctx: Context) =
@@ -299,10 +307,10 @@ object teacherDashboard {
           s.user,
           name = span(
             s.user.username,
-            em(s.student.realName)
+            em(s.student.realName),
           ).some,
-          withTitle = false
-        )
-      )
+          withTitle = false,
+        ),
+      ),
     )
 }

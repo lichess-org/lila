@@ -11,7 +11,7 @@ case class FullPost(
     image: String,
     author: String,
     category: String,
-    allLangIds: Option[BlogLang.Ids] // only when translated, hacky but whatevs
+    allLangIds: Option[BlogLang.Ids], // only when translated, hacky but whatevs
 ) {
   def isJapanese = allLangIds.exists(_.ja == id)
 }
@@ -19,7 +19,7 @@ case class FullPost(
 object FullPost {
 
   def fromDocument(coll: String)(
-      doc: io.prismic.Document
+      doc: io.prismic.Document,
   ): Option[FullPost] =
     for {
       title    <- doc getText s"$coll.title"
@@ -39,7 +39,7 @@ object FullPost {
       allLangIds = doc
         .getText(s"$coll.alllangids")
         .flatMap(BlogLang.Ids.apply)
-        .filter(ids => doc.id == ids.en || doc.id == ids.ja)
+        .filter(ids => doc.id == ids.en || doc.id == ids.ja),
     )
 
 }

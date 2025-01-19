@@ -11,7 +11,7 @@ import lila.user.User
 final private[tournament] class ApiActor(
     api: TournamentApi,
     leaderboard: LeaderboardApi,
-    tournamentRepo: TournamentRepo
+    tournamentRepo: TournamentRepo,
 ) extends Actor {
 
   implicit def ec: ExecutionContextExecutor = context.dispatcher
@@ -22,7 +22,7 @@ final private[tournament] class ApiActor(
     "adjustCheater",
     "adjustBooster",
     "playban",
-    "teamKick"
+    "teamKick",
   )
 
   def receive = {
@@ -44,7 +44,8 @@ final private[tournament] class ApiActor(
 
     case lila.hub.actorApi.playban.Playban(userId, _, true) => api.pausePlaybanned(userId).unit
 
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) =>
+      api.kickFromTeam(teamId, userId).unit
   }
 
   private def ejectLameFromEnterable(userId: User.ID) =

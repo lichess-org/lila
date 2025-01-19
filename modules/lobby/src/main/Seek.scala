@@ -3,6 +3,7 @@ package lila.lobby
 import play.api.libs.json._
 
 import org.joda.time.DateTime
+
 import shogi.Mode
 import shogi.Speed
 
@@ -19,7 +20,7 @@ case class Seek(
     color: String,
     user: LobbyUser,
     ratingRange: String,
-    createdAt: DateTime
+    createdAt: DateTime,
 ) {
 
   def id = _id
@@ -55,11 +56,11 @@ case class Seek(
         "id"       -> _id,
         "username" -> user.username,
         "rating"   -> rating,
-        "mode"     -> realMode.id
+        "mode"     -> realMode.id,
       )
       .add(
         "color",
-        shogi.Color.fromName(color).map(_.name)
+        shogi.Color.fromName(color).map(_.name),
       )
       .add("days", daysPerTurn)
       .add("rr" -> (ratingRange != RatingRange.default.toString).option(ratingRange))
@@ -81,7 +82,7 @@ object Seek {
       color: String,
       user: User,
       ratingRange: RatingRange,
-      blocking: Set[String]
+      blocking: Set[String],
   ): Seek =
     new Seek(
       _id = lila.common.ThreadLocalRandom nextString idSize,
@@ -91,7 +92,7 @@ object Seek {
       color = color,
       user = LobbyUser.make(user, blocking),
       ratingRange = ratingRange.toString,
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
     )
 
   def renew(seek: Seek) =
@@ -103,16 +104,18 @@ object Seek {
       color = seek.color,
       user = seek.user,
       ratingRange = seek.ratingRange,
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
     )
 
   import reactivemongo.api.bson._
+
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler: BSONHandler[LobbyPerf] =
     BSONIntegerHandler.as[LobbyPerf](
       b => LobbyPerf(b.abs, b < 0),
-      x => x.rating * (if (x.provisional) -1 else 1)
+      x => x.rating * (if (x.provisional) -1 else 1),
     )
-  implicit private[lobby] val lobbyUserBSONHandler: BSONDocumentHandler[LobbyUser] = Macros.handler[LobbyUser]
-  implicit private[lobby] val seekBSONHandler: BSONDocumentHandler[Seek]      = Macros.handler[Seek]
+  implicit private[lobby] val lobbyUserBSONHandler: BSONDocumentHandler[LobbyUser] =
+    Macros.handler[LobbyUser]
+  implicit private[lobby] val seekBSONHandler: BSONDocumentHandler[Seek] = Macros.handler[Seek]
 }

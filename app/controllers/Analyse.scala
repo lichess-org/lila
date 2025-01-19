@@ -15,7 +15,7 @@ import lila.round.JsonView.WithFlags
 final class Analyse(
     env: Env,
     gameC: => Game,
-    roundC: => Round
+    roundC: => Round,
 ) extends LilaController(env) {
 
   def requestAnalysis(id: String) =
@@ -28,8 +28,8 @@ final class Analyse(
             postGameStudy = none,
             ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
             mod = isGranted(_.Hunter),
-            system = false
-          )
+            system = false,
+          ),
         ) map {
           case true  => NoContent
           case false => Unauthorized
@@ -50,9 +50,12 @@ final class Analyse(
           env.api.notationDump(
             pov.game,
             analysis = none,
-            NotationDump.WithFlags(clocks = false)
+            NotationDump.WithFlags(clocks = false),
           ) flatMap {
-            case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), kif) =>
+            case (
+                  (((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked),
+                  kif,
+                ) =>
               env.api.roundApi.review(
                 pov,
                 tv = userTv.map { u =>
@@ -62,8 +65,8 @@ final class Analyse(
                 withFlags = WithFlags(
                   movetimes = true,
                   clocks = true,
-                  division = true
-                )
+                  division = true,
+                ),
               ) map { data =>
                 Ok(
                   html.analyse.replay(
@@ -76,8 +79,8 @@ final class Analyse(
                     crosstable,
                     userTv,
                     chat,
-                    bookmarked = bookmarked
-                  )
+                    bookmarked = bookmarked,
+                  ),
                 ).enableSharedArrayBuffer
               }
           }
@@ -90,7 +93,7 @@ final class Analyse(
           val pov = Pov(game, shogi.Color.fromSente(color == "sente"))
           env.api.roundApi.embed(
             pov,
-            withFlags = WithFlags()
+            withFlags = WithFlags(),
           ) map { data =>
             Ok(html.analyse.embed(pov, data)).enableSharedArrayBuffer
           }
@@ -109,7 +112,7 @@ final class Analyse(
               lila.log("analyse").info(s"RedirectAtSfen: ${pov.gameId} $atSfen $err")
               Redirect(url)
             },
-            ply => Redirect(s"$url#$ply")
+            ply => Redirect(s"$url#$ply"),
           )
       }
     }
@@ -125,7 +128,7 @@ final class Analyse(
         pov,
         kif.render,
         simul,
-        crosstable
-      )
+        crosstable,
+      ),
     )
 }

@@ -29,7 +29,11 @@ abstract class Trouper(implicit ec: ExecutionContext) extends lila.common.Tellab
   }
 
   def !(msg: Any): Unit =
-    if (isAlive && stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty)
+    if (
+      isAlive && stateRef
+        .getAndUpdate(state => Some(state.fold(Queue.empty[Any])(_ enqueue msg)))
+        .isEmpty
+    )
       run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {

@@ -3,6 +3,7 @@ package lila.evalCache
 import play.api.libs.json._
 
 import cats.implicits._
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.UciToUsi
 import shogi.format.usi.Usi
@@ -13,8 +14,8 @@ import lila.tree.Eval._
 
 object JsonHandlers {
 
-  implicit private val cpWriter: Writes[Cp]     = intAnyValWriter[Cp](_.value)
-  implicit private val mateWriter: Writes[Mate]   = intAnyValWriter[Mate](_.value)
+  implicit private val cpWriter: Writes[Cp]         = intAnyValWriter[Cp](_.value)
+  implicit private val mateWriter: Writes[Mate]     = intAnyValWriter[Mate](_.value)
   implicit private val knodesWriter: Writes[Knodes] = intAnyValWriter[Knodes](_.value)
 
   def writeEval(e: Eval, sfen: Sfen) =
@@ -22,13 +23,13 @@ object JsonHandlers {
       "sfen"   -> sfen,
       "knodes" -> e.knodes,
       "depth"  -> e.depth,
-      "pvs"    -> e.pvs.toList.map(writePv)
+      "pvs"    -> e.pvs.toList.map(writePv),
     )
 
   private def writePv(pv: Pv) =
     Json
       .obj(
-        "moves" -> pv.moves.value.toList.map(_.usi).mkString(" ")
+        "moves" -> pv.moves.value.toList.map(_.usi).mkString(" "),
       )
       .add("cp", pv.score.cp)
       .add("mate", pv.score.mate)
@@ -36,7 +37,10 @@ object JsonHandlers {
   private[evalCache] def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] =
     o obj "d" flatMap { readPutData(trustedUser, _) }
 
-  private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] =
+  private[evalCache] def readPutData(
+      trustedUser: TrustedUser,
+      d: JsObject,
+  ): Option[Input.Candidate] =
     for {
       sfen   <- d str "sfen"
       knodes <- d int "knodes"
@@ -52,8 +56,8 @@ object JsonHandlers {
         knodes = Knodes(knodes),
         depth = depth,
         by = trustedUser.user.id,
-        trust = trustedUser.trust
-      )
+        trust = trustedUser.trust,
+      ),
     )
 
   private def parsePv(d: JsObject): Option[Pv] =

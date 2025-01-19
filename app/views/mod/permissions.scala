@@ -15,8 +15,8 @@ object permissions {
       title = s"${u.username} permissions",
       moreCss = frag(
         cssTag("user.mod.permission"),
-        cssTag("misc.form3")
-      )
+        cssTag("misc.form3"),
+      ),
     ) {
       val userPerms = Permission(u.roles)
       main(cls := "mod-permissions page-small box box-pad")(
@@ -40,27 +40,27 @@ object permissions {
                           Permission.findGranterPackage(userPerms, perm).map { p =>
                             s"Granted by package: $p"
                           }
-                        }
+                        },
                       )(
                         span(
                           form3.cmnToggle(
                             id,
                             "permissions[]",
                             checked = u.roles.contains(perm.dbKey),
-                            value = perm.dbKey
-                          )
+                            value = perm.dbKey,
+                          ),
                         ),
-                        label(`for` := id)(perm.name)
+                        label(`for` := id)(perm.name),
                       )
-                    }
+                    },
                 )
-              }
+              },
           ),
           form3.actions(
             a(href := routes.User.show(u.username))(trans.cancel()),
-            submitButton(cls := "button")(trans.save())
-          )
-        )
+            submitButton(cls := "button")(trans.save()),
+          ),
+        ),
       )
     }
 }

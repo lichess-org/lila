@@ -123,14 +123,14 @@ Unfortunately we had to reject your title verification. You are free to make ano
       """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
 Losing rated games on purpose is called "sandbagging", and is not allowed on Lishogi.
 
-Thank you for your understanding."""
+Thank you for your understanding.""",
   )
 
   lazy val sittingAuto = MsgPreset(
     name = "Warning: leaving games / stalling on time",
     text =
       """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
-This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
+This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.""",
   )
 
   def maxFollow(username: String, max: Int) =
@@ -139,7 +139,7 @@ This can be very annoying for your opponents. If this behavior continues to happ
       text = s"""Sorry, you can't follow more than $max players on Lishogi.
 To follow new players, you must first unfollow some on https://lishogi.org/@/$username/following.
 
-Thank you for your understanding."""
+Thank you for your understanding.""",
     )
 
   lazy val asJson = play.api.libs.json.Json.toJson {

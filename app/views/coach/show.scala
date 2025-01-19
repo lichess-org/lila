@@ -16,13 +16,13 @@ object show {
     text.map { t =>
       st.section(
         h2(title),
-        div(cls := "content")(richText(t.value))
+        div(cls := "content")(richText(t.value)),
       )
     }
 
   def apply(
       c: lila.coach.Coach.WithUser,
-      studies: Seq[lila.study.Study.WithChaptersAndLiked]
+      studies: Seq[lila.study.Study.WithChaptersAndLiked],
   )(implicit ctx: Context) = {
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}"
@@ -36,27 +36,27 @@ object show {
           description = shorten(~(c.coach.profile.headline), 152),
           url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
           `type` = "profile",
-          image = c.coach.picturePath.map(p => dbImageUrl(p.value))
+          image = c.coach.picturePath.map(p => dbImageUrl(p.value)),
         )
-        .some
+        .some,
     ) {
       main(cls := "coach-show coach-full-page")(
         st.aside(cls := "coach-show__side coach-side")(
           a(cls := "button button-empty", href := routes.User.show(c.user.username))(
-            viewXProfile(c.user.username)
+            viewXProfile(c.user.username),
           ),
           if (ctx.me.exists(c.coach.is))
             frag(
               if (c.coach.isListed) p("This page is now public.")
               else "This page is not public yet. ",
-              a(href := routes.Coach.edit, cls := "text", dataIcon := "m")("Edit my coach profile")
+              a(href := routes.Coach.edit, cls := "text", dataIcon := "m")("Edit my coach profile"),
             )
           else
             a(
               cls      := "text button button-empty",
               dataIcon := "c",
-              href     := s"${routes.Msg.convo(c.user.username)}"
-            )(sendPM())
+              href     := s"${routes.Msg.convo(c.user.username)}",
+            )(sendPM()),
         ),
         div(cls := "coach-show__main coach-main box")(
           div(cls := "coach-widget")(widget(c, link = false)),
@@ -66,21 +66,21 @@ object show {
             section(teachingExperience(), profile.teachingExperience),
             section(otherExperiences(), profile.otherExperience),
             section(bestSkills(), profile.skills),
-            section(teachingMethod(), profile.methodology)
+            section(teachingMethod(), profile.methodology),
           ),
           studies.nonEmpty option st.section(cls := "coach-show__studies")(
             h2(publicStudies()),
             div(cls := "studies")(
               studies.map { s =>
                 st.article(cls := "study")(study.bits.widget(s, h3))
-              }
-            )
+              },
+            ),
           ),
           profile.youtubeUrls.nonEmpty option st.section(cls := "coach-show__youtube")(
             h2(
               profile.youtubeChannel.map { url =>
                 a(href := url, target := "_blank", rel := "nofollow noopener")(youtubeVideos())
-              } getOrElse youtubeVideos()
+              } getOrElse youtubeVideos(),
             ),
             div(cls := "list")(
               profile.youtubeUrls.map { url =>
@@ -89,12 +89,12 @@ object show {
                   height              := "192",
                   src                 := url.value,
                   attr("frameborder") := "0",
-                  frame.allowfullscreen
+                  frame.allowfullscreen,
                 )
-              }
-            )
-          )
-        )
+              },
+            ),
+          ),
+        ),
       )
     }
   }

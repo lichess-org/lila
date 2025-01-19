@@ -25,7 +25,7 @@ case class Post(
     updatedAt: Option[DateTime] = None,
     erasedAt: Option[DateTime] = None,
     modIcon: Option[Boolean],
-    reactions: Option[Post.Reactions] = None
+    reactions: Option[Post.Reactions] = None,
 ) {
 
   private val permitEditsFor  = 4 hours
@@ -95,7 +95,7 @@ object Post {
       lang: Option[String],
       troll: Boolean,
       hidden: Boolean,
-      modIcon: Option[Boolean]
+      modIcon: Option[Boolean],
   ): Post = {
 
     Post(
@@ -111,7 +111,7 @@ object Post {
       hidden = hidden,
       createdAt = DateTime.now,
       categId = categId,
-      modIcon = modIcon
+      modIcon = modIcon,
     )
   }
 }

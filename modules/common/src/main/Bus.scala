@@ -19,9 +19,11 @@ object Bus {
 
   def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable.Actor(ref), to)
 
-  def subscribe(subscriber: Tellable, to: Channel*)   = to foreach { bus.subscribe(subscriber, _) }
-  def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
-  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
+  def subscribe(subscriber: Tellable, to: Channel*) = to foreach { bus.subscribe(subscriber, _) }
+  def subscribe(ref: ActorRef, to: Channel*) = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
+  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach {
+    bus.subscribe(Tellable.Actor(ref), _)
+  }
 
   def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable = {
     val t = lila.common.Tellable(f)
@@ -46,9 +48,11 @@ object Bus {
       bus.unsubscribe(Tellable.Actor(ref), _)
     }
 
-  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(implicit
+  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(
+      makeMsg: Promise[A] => Any,
+  )(implicit
       ec: scala.concurrent.ExecutionContext,
-      system: ActorSystem
+      system: ActorSystem,
   ): Fu[A] = {
     val promise = Promise[A]()
     val msg     = makeMsg(promise)
@@ -56,14 +60,14 @@ object Bus {
     promise.future
       .withTimeout(
         timeout,
-        Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
+        Bus.AskTimeout(s"Bus.ask timeout: $channel $msg"),
       )
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
   }
 
   private val bus = new EventBus[Any, Channel, Tellable](
     initialCapacity = 4096,
-    publish = (tellable, event) => tellable ! event
+    publish = (tellable, event) => tellable ! event,
   )
 
   def keys      = bus.keys
@@ -75,7 +79,7 @@ object Bus {
 
 final private class EventBus[Event, Channel, Subscriber](
     initialCapacity: Int,
-    publish: (Subscriber, Event) => Unit
+    publish: (Subscriber, Event) => Unit,
 ) {
 
   import java.util.concurrent.ConcurrentHashMap
@@ -90,7 +94,7 @@ final private class EventBus[Event, Channel, Subscriber](
           channel,
           (_: Channel, subs: Set[Subscriber]) => {
             Option(subs).fold(Set(subscriber))(_ + subscriber)
-          }
+          },
         )
         .unit
 
@@ -103,7 +107,7 @@ final private class EventBus[Event, Channel, Subscriber](
             val newSubs = subs - subscriber
             if (newSubs.isEmpty) null
             else newSubs
-          }
+          },
         )
         .unit
 

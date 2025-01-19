@@ -10,18 +10,20 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.game.Game
+import lila.tournament.BSONHandlers._
 import lila.user.User
 
-import BSONHandlers._
-
-final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext, mat: Materializer) {
+final class PairingRepo(coll: Coll)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: Materializer,
+) {
 
   def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   def selectUser(userId: User.ID)       = $doc("u" -> userId)
   private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
     $doc(
       "tid" -> tourId,
-      "u"   -> userId
+      "u"   -> userId,
     )
   private val selectPlaying  = $doc("s" $lt shogi.Status.Mate.id)
   private val selectFinished = $doc("s" $gte shogi.Status.Mate.id)
@@ -33,14 +35,14 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   private[tournament] def lastOpponents(
       tourId: Tournament.ID,
       userIds: Set[User.ID],
-      max: Int
+      max: Int,
   ): Fu[Pairing.LastOpponents] =
     userIds.nonEmpty.?? {
       val nbUsers = userIds.size
       coll
         .find(
           selectTour(tourId) ++ $doc("u" $in userIds),
-          $doc("_id" -> false, "u" -> true).some
+          $doc("_id" -> false, "u" -> true).some,
         )
         .sort(recentSort)
         .batchSize(20)
@@ -57,7 +59,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         }
         .takeWhile(
           r => r.sizeIs < nbUsers,
-          true
+          true,
         )
         .toMat(Sink.lastOption)(Keep.right)
         .run()
@@ -68,7 +70,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
     coll
       .find(
         selectTourUser(tourId, userId),
-        $doc("_id" -> false, "u" -> true).some
+        $doc("_id" -> false, "u" -> true).some,
       )
       .cursor[Bdoc]()
       .list()
@@ -84,7 +86,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
     coll
       .find(
         selectTourUser(tourId, userId),
-        $doc("_id" -> true).some
+        $doc("_id" -> true).some,
       )
       .sort(recentSort)
       .cursor[Bdoc]()
@@ -97,7 +99,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
     coll
       .find(
         selectTourUser(tourId, userId) ++ selectPlaying,
-        $doc("_id" -> true).some
+        $doc("_id" -> true).some,
       )
       .sort(recentSort)
       .one[Bdoc]
@@ -116,8 +118,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
             coll.update.one(
               $id(p.id),
               $set(
-                "w" -> p.colorOf(userId).map(_.gote)
-              )
+                "w" -> p.colorOf(userId).map(_.gote),
+              ),
             )
           }
           .sequenceFu
@@ -137,7 +139,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
           UnwindField("u"),
           GroupField("u")("nb" -> SumAll),
           Sort(Descending("nb")),
-          Limit(max)
+          Limit(max),
         )
       }
       .map {
@@ -151,7 +153,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       }
   }
 
-  def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
+  def removePlaying(tourId: Tournament.ID) =
+    coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
   def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
     coll.ext.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
@@ -161,11 +164,11 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
 
   private[tournament] def finishedByPlayerChronological(
       tourId: Tournament.ID,
-      userId: User.ID
+      userId: User.ID,
   ): Fu[Pairings] =
     coll.ext
       .find(
-        selectTourUser(tourId, userId) ++ selectFinished
+        selectTourUser(tourId, userId) ++ selectFinished,
       )
       .sort(chronoSort)
       .cursor[Pairing]()
@@ -185,8 +188,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
           $set(
             "s" -> g.status.id,
             "w" -> g.winnerColor.map(_.sente),
-            "t" -> g.plies
-          )
+            "t" -> g.plies,
+          ),
         )
         .void
 
@@ -198,7 +201,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
     coll.update
       .one(
         $id(pairing.id),
-        $set(field -> true)
+        $set(field -> true),
       )
       .void
   }
@@ -206,7 +209,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   def sortedCursor(
       tournamentId: Tournament.ID,
       batchSize: Int = 0,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Pairing] =
     coll.ext
       .find(selectTour(tournamentId))
@@ -224,15 +227,15 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
             "w"   -> true,
             "t"   -> true,
             "b1"  -> $doc("$cond" -> $arr("$b1", 1, 0)),
-            "b2"  -> $doc("$cond" -> $arr("$b2", 1, 0))
-          )
+            "b2"  -> $doc("$cond" -> $arr("$b2", 1, 0)),
+          ),
         ),
         GroupField("w")(
           "games" -> SumAll,
           "moves" -> SumField("t"),
           "b1"    -> SumField("b1"),
-          "b2"    -> SumField("b2")
-        )
+          "b2"    -> SumField("b2"),
+        ),
       )
     }
   }

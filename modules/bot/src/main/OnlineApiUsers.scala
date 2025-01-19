@@ -9,13 +9,13 @@ import lila.socket.IsOnline
 
 final class OnlineApiUsers(
     isOnline: IsOnline,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache = new ExpireCallbackMemo(
     scheduler,
     10.seconds,
-    userId => publish(userId, isOnline = false)
+    userId => publish(userId, isOnline = false),
   )
 
   def setOnline(userId: lila.user.User.ID): Unit = {

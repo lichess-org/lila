@@ -14,7 +14,7 @@ case class EmbedConfig(
     kyoPieceSet: lila.pref.PieceSet,
     lang: Lang,
     req: RequestHeader,
-    nonce: Nonce
+    nonce: Nonce,
 )
 
 object EmbedConfig {
@@ -32,9 +32,10 @@ object EmbedConfig {
       pieceSet = lila.pref.PieceSet(~pieceSet),
       chuPieceSet = lila.pref.ChuPieceSet(get("chuPieceSet", req) | ~pieceSet),
       kyoPieceSet = lila.pref.KyoPieceSet(get("kyoPieceSet", req) | ~pieceSet),
-      lang = get("lang", req).flatMap(lila.i18n.I18nLangPicker.byQuery) | lila.i18n.I18nLangPicker(req, none),
+      lang = get("lang", req)
+        .flatMap(lila.i18n.I18nLangPicker.byQuery) | lila.i18n.I18nLangPicker(req, none),
       req = req,
-      nonce = Nonce.random
+      nonce = Nonce.random,
     )
   }
 

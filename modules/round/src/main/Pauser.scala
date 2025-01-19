@@ -14,12 +14,12 @@ import lila.game.GameRepo
 import lila.game.Pov
 import lila.game.Progress
 import lila.i18n.defaultLang
-import lila.i18n.{I18nKeys => trans}
+import lila.i18n.{ I18nKeys => trans }
 import lila.memo.CacheApi
 
 final private[round] class Pauser(
     messenger: Messenger,
-    gameRepo: GameRepo
+    gameRepo: GameRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang: Lang = defaultLang
@@ -27,7 +27,7 @@ final private[round] class Pauser(
   private val rateLimit = new lila.memo.RateLimit[String](
     credits = 2,
     duration = 15 minute,
-    key = "round.pauser"
+    key = "round.pauser",
   )
 
   private val dateTimeStyle     = "MS"
@@ -39,7 +39,7 @@ final private[round] class Pauser(
         proxy.save {
           messenger.system(
             g,
-            timestampMessage(trans.adjournmentOfferAccepted.txt(), g.plies)
+            timestampMessage(trans.adjournmentOfferAccepted.txt(), g.plies),
           )
           Progress(g, g.updatePlayers(_.offerPause))
         } inject List(Event.PauseOffer(by = color.some))
@@ -47,7 +47,7 @@ final private[round] class Pauser(
         proxy.save {
           messenger.system(
             g,
-            timestampMessage(trans.xOffersAdjournment.txt(color.toString), g.plies)
+            timestampMessage(trans.xOffersAdjournment.txt(color.toString), g.plies),
           )
           Progress(g, g.updatePlayer(color, _.offerPause))
         } inject List(Event.PauseOffer(by = color.some))
@@ -83,7 +83,7 @@ final private[round] class Pauser(
     isOfferingResume(pov.gameId, pov.color)
 
   def resumeYes(
-      pov: Pov
+      pov: Pov,
   )(implicit proxy: GameProxy): Fu[Either[Events, (shogi.format.usi.Usi, Progress)]] =
     pov match {
       case Pov(g, color) if g.paused =>
@@ -92,7 +92,11 @@ final private[round] class Pauser(
           messenger.system(g, trans.gameResumed.txt())
           val prog = Progress(g, g.resume, List(Event.Reload))
           proxy.save(prog) >>
-            gameRepo.resume(prog.game.id, prog.game.pausedSeconds, prog.game.userIds.distinct) inject (
+            gameRepo.resume(
+              prog.game.id,
+              prog.game.pausedSeconds,
+              prog.game.userIds.distinct,
+            ) inject (
               prog.game.usis.lastOption
                 .filter(usi => Some(usi) == g.sealedUsi && g.plies < prog.game.plies)
                 .fold {

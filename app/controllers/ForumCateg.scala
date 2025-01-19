@@ -26,7 +26,9 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
             for {
               canWrite    <- isGrantedWrite(categ.slug)
               stickyPosts <- (page == 1) ?? env.forum.topicApi.getSticky(categ, ctx.me)
-              _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
+              _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(
+                _.lastPostUserId,
+              )
             } yield html.forum.categ.show(categ, topics, canWrite, stickyPosts)
           }
         }

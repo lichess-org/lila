@@ -2,6 +2,7 @@ package controllers
 
 import scala.annotation.nowarn
 
+import play.api.data.Forms._
 import play.api.data._
 import play.api.libs.json._
 import play.api.mvc._
@@ -10,22 +11,20 @@ import views._
 import akka.pattern.ask
 
 import lila.app._
+import lila.app.makeTimeout.large
 import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 
-import Forms._
-import makeTimeout.large
-
 final class Main(
     env: Env,
-    assetsC: ExternalAssets
+    assetsC: ExternalAssets,
 ) extends LilaController(env) {
 
   private lazy val blindForm = Form(
     tuple(
       "enable"   -> nonEmptyText,
-      "redirect" -> nonEmptyText
-    )
+      "redirect" -> nonEmptyText,
+    ),
   )
 
   def toggleBlindMode =
@@ -41,9 +40,9 @@ final class Main(
                 env.api.config.accessibility.blindCookieName,
                 if (enable == "0") "" else env.api.config.accessibility.hash,
                 maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
-                httpOnly = true.some
+                httpOnly = true.some,
               )
-            }
+            },
           )
       }
     }
@@ -79,7 +78,7 @@ final class Main(
         userId = ctx.userId,
         ip = HTTPRequest lastRemoteAddress ctx.req,
         fullId = lila.game.Game.FullId(id),
-        name = get("n", ctx.req) | "?"
+        name = get("n", ctx.req) | "?",
       )
       NoContent.fuccess
     }
@@ -101,7 +100,7 @@ final class Main(
           case Some(image) =>
             lila.mon.http.imageBytes.record(image.size.toLong)
             Ok(image.data).withHeaders(
-              CONTENT_DISPOSITION -> image.name
+              CONTENT_DISPOSITION -> image.name,
             ) as image.contentType.getOrElse("image/jpeg")
         }
     }
@@ -137,9 +136,9 @@ Allow: /
             Json.obj(
               "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lishogi-favicon-$size.png",
               "sizes" -> s"${size}x${size}",
-              "type"  -> "image/png"
+              "type"  -> "image/png",
             )
-          }
+          },
         )
       } as JSON withHeaders (CACHE_CONTROL -> "max-age=1209600")
     }

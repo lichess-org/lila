@@ -23,7 +23,7 @@ case class StormDay(
     combo: Int,
     time: Int,
     highest: Int,
-    runs: Int
+    runs: Int,
 ) {
 
   def add(run: StormForm.RunData) = {
@@ -34,7 +34,7 @@ case class StormDay(
         errors = run.errors,
         combo = run.combo,
         time = run.time,
-        highest = run.highest
+        highest = run.highest,
       )
     else this
   }.copy(runs = runs + 1)
@@ -55,12 +55,12 @@ object StormDay {
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, 0, 0)
 }
 
-final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(implicit
-    ctx: ExecutionContext
+final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, sign: StormSign)(
+    implicit ctx: ExecutionContext,
 ) {
 
-  import StormDay._
   import StormBsonHandlers._
+  import StormDay._
 
   def addRun(data: StormForm.RunData, user: Option[User]): Fu[Option[StormHigh.NewHigh]] = {
     lila.mon.storm.run.score(user.isDefined).record(data.score)
@@ -79,7 +79,10 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
             }
             .flatMap { _ =>
               val (high, newHigh) = highApi.update(u.id, prevHigh, data.score)
-              userRepo.addStormRun(u.id, high.allTime.some.filter(prevHigh.allTime <)) inject newHigh
+              userRepo.addStormRun(
+                u.id,
+                high.allTime.some.filter(prevHigh.allTime <),
+              ) inject newHigh
             }
         }
       } else {
@@ -105,10 +108,10 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userRepo: UserRepo, s
         collection = coll,
         selector = idRegexFor(userId),
         projection = none,
-        sort = $sort desc "_id"
+        sort = $sort desc "_id",
       ),
       page,
-      MaxPerPage(30)
+      MaxPerPage(30),
     )
 
   def eraseAllFor(user: User) =

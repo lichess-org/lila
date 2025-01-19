@@ -22,7 +22,7 @@ import lila.study.JsonView.tagsWrites
 
 final class UserAnalysis(
     env: Env,
-    gameC: => Game
+    gameC: => Game,
 ) extends LilaController(env)
     with TheftPrevention {
 
@@ -45,8 +45,8 @@ final class UserAnalysis(
         .decodeUriPath(urlSfen)
         .filter(_.trim.nonEmpty)
         .orElse(get("sfen")) map Sfen.clean
-      val usis        = get("moves").flatMap(ms => Usi.readList(ms.split('_').toList.take(300)))
-      val pov         = usis.fold(makePov(decodedSfen, variant))(makePovWithUsis(decodedSfen, variant, _))
+      val usis = get("moves").flatMap(ms => Usi.readList(ms.split('_').toList.take(300)))
+      val pov  = usis.fold(makePov(decodedSfen, variant))(makePovWithUsis(decodedSfen, variant, _))
       val orientation = get("color").flatMap(shogi.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(
@@ -54,13 +54,17 @@ final class UserAnalysis(
           ctx.pref,
           orientation,
           owner = false,
-          me = ctx.me
+          me = ctx.me,
         ) map { data =>
         Ok(html.board.userAnalysis(data, pov)).enableSharedArrayBuffer
       }
     }
 
-  private[controllers] def makePov(sfen: Option[Sfen], variant: Variant, imported: Boolean = false): Pov = {
+  private[controllers] def makePov(
+      sfen: Option[Sfen],
+      variant: Variant,
+      imported: Boolean = false,
+  ): Pov = {
     val g = shogi.Game(sfen, variant)
     makePovWithShogi(g, g.toSfen.some, imported)
   }
@@ -69,22 +73,26 @@ final class UserAnalysis(
       sfen: Option[Sfen],
       variant: Variant,
       usis: List[Usi],
-      imported: Boolean = false
+      imported: Boolean = false,
   ): Pov =
     makePovWithShogi(
       shogi.Replay(
         usis = usis,
         initialSfen = sfen,
-        variant = variant
+        variant = variant,
       ) match {
         case Reader.Result.Complete(replay)      => replay.state
         case Reader.Result.Incomplete(replay, _) => replay.state
       },
       sfen.flatMap(sf => sf.toSituationPlus(variant).map(_.toSfen)),
-      imported
+      imported,
     )
 
-  private def makePovWithShogi(shogiGame: shogi.Game, initialSfen: Option[Sfen], imported: Boolean): Pov =
+  private def makePovWithShogi(
+      shogiGame: shogi.Game,
+      initialSfen: Option[Sfen],
+      imported: Boolean,
+  ): Pov =
     Pov(
       lila.game.Game
         .make(
@@ -94,10 +102,10 @@ final class UserAnalysis(
           gotePlayer = lila.game.Player.make(shogi.Gote),
           mode = shogi.Mode.Casual,
           source = if (imported) lila.game.Source.Import else lila.game.Source.Api,
-          notationImport = None
+          notationImport = None,
         )
         .withId("synthetic"),
-      initialSfen.flatMap(_.color) | shogi.Color.Sente
+      initialSfen.flatMap(_.color) | shogi.Color.Sente,
     )
 
   def game(id: String, color: String) =
@@ -119,18 +127,18 @@ final class UserAnalysis(
                     .userAnalysis(
                       data,
                       pov,
-                      withForecast = owner && !pov.game.synthetic && pov.game.playable
-                    )
+                      withForecast = owner && !pov.game.synthetic && pov.game.playable,
+                    ),
                 ).noCache
               },
-            json = mobileAnalysis(pov)
+            json = mobileAnalysis(pov),
           )
         }
       }
     }
 
   private def mobileAnalysis(pov: Pov)(implicit
-      ctx: Context
+      ctx: Context,
   ): Fu[Result] =
     gameC.preloadUsers(pov.game) zip
       env.analyse.analyser.get(pov.game) zip
@@ -140,7 +148,7 @@ final class UserAnalysis(
           pov,
           tv = none,
           analysis,
-          withFlags = WithFlags(division = true, clocks = true, movetimes = true)
+          withFlags = WithFlags(division = true, clocks = true, movetimes = true),
         ) map { data =>
           Ok(data.add("crosstable", crosstable))
         }
@@ -167,18 +175,18 @@ final class UserAnalysis(
                       ctx.pref,
                       pov.color,
                       owner = false,
-                      me = ctx.me
+                      me = ctx.me,
                     )
                   Ok(
                     baseData ++ Json.obj(
                       "treeParts" -> lila.study.JsonView.partitionTreeJsonWriter.writes(
-                        root
+                        root,
                       ),
-                      "tags" -> tags
-                    )
+                      "tags" -> tags,
+                    ),
                   ).fuccess
-                }
-              )
+                },
+              ),
         )
         .map(_ as JSON)
     }
@@ -200,7 +208,7 @@ final class UserAnalysis(
                     case Some(fc) => Ok(Json toJson fc) as JSON
                   } recover { case Forecast.OutOfSync =>
                     Ok(Json.obj("reload" -> true))
-                  }
+                  },
             )
       }
     }
@@ -220,7 +228,7 @@ final class UserAnalysis(
                 env.round.forecastApi.playAndSave(pov, usi, forecasts) >>
                   lila.common.Future.sleep(wait.millis) inject
                   Ok(Json.obj("reload" -> true))
-              }
+              },
             )
       }
     }

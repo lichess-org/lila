@@ -20,33 +20,33 @@ object storm {
         "storm",
         Json.obj(
           "data" -> data,
-          "pref" -> pref
-        )
+          "pref" -> pref,
+        ),
       ),
       title = "Tsume Storm",
       zoomable = true,
       shogiground = false,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(
-        div(cls   := "storm storm-app storm--play")(
+        div(cls := "storm storm-app storm--play")(
           div(cls := "storm__board main-board"),
-          div(cls := "storm__side")
+          div(cls := "storm__side"),
         ),
         high map { h =>
           frag(
             div(cls := "storm-play-scores")(
               span(trans.storm.highscores()),
-              a(href := routes.Storm.dashboard())(trans.storm.viewBestRuns(), " »")
+              a(href := routes.Storm.dashboard())(trans.storm.viewBestRuns(), " »"),
             ),
             div(cls := "storm-dashboard__high__periods")(
-              renderHigh(h)
-            )
+              renderHigh(h),
+            ),
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Page.storm)("About Tsume Storm")
-        )
+          a(href := routes.Page.storm)("About Tsume Storm"),
+        ),
       )
     }
 
@@ -56,13 +56,13 @@ object storm {
         (high.allTime, "All-time"),
         (high.month, "This month"),
         (high.week, "This week"),
-        (high.day, "Today")
+        (high.day, "Today"),
       ).map { case (value, name) =>
         div(cls := "storm-dashboard__high__period")(
           strong(value),
-          span(name)
+          span(name),
         )
-      }
+      },
     )
 
   private val numberTag = tag("number")
@@ -71,21 +71,21 @@ object storm {
     views.html.base.layout(
       title = s"${user.username} Tsume Storm",
       moreCss = frag(cssTag("storm.dashboard")),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(
           h1(
             !ctx.is(user) option frag(
               userLink(user),
-              " - "
+              " - ",
             ),
             "Tsume Storm - ",
-            trans.storm.highscores()
+            trans.storm.highscores(),
           ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(
-            renderHigh(high)
-          )
+            renderHigh(high),
+          ),
         ),
         a(cls := "storm-play-again button", href := routes.Storm.home)(trans.storm.playAgain()),
         div(cls := "storm-dashboard__history box")(
@@ -99,8 +99,8 @@ object storm {
                 th(trans.storm.combo()),
                 th(trans.storm.time()),
                 th(trans.storm.highestSolved()),
-                th(trans.storm.runs())
-              )
+                th(trans.storm.runs()),
+              ),
             ),
             tbody(cls := "infinite-scroll")(
               history.currentPageResults.map { day =>
@@ -112,7 +112,7 @@ object storm {
                   td(numberTag(day.combo)),
                   td(numberTag(day.time), "s"),
                   td(numberTag(day.highest)),
-                  td(numberTag(day.runs))
+                  td(numberTag(day.runs)),
                 )
               },
               pagerNextTable(
@@ -122,13 +122,13 @@ object storm {
                     if (ctx is user) routes.Storm.dashboard().url
                     else routes.Storm.dashboardOf(user.username).url,
                     "page",
-                    np
-                  )
-              )
-            )
-          )
-        )
-      )
+                    np,
+                  ),
+              ),
+            ),
+          ),
+        ),
+      ),
     )
 
 }

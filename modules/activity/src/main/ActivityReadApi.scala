@@ -16,13 +16,14 @@ final class ActivityReadApi(
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
-    tourLeaderApi: lila.tournament.LeaderboardApi
+    tourLeaderApi: lila.tournament.LeaderboardApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   import model._
 
-  implicit private val ordering: Ordering.Double.TotalOrdering.type = scala.math.Ordering.Double.TotalOrdering
+  implicit private val ordering: Ordering.Double.TotalOrdering.type =
+    scala.math.Ordering.Double.TotalOrdering
 
   private val recentNb = 7
 
@@ -96,7 +97,7 @@ final class ActivityReadApi(
           .dmap { entries =>
             entries.nonEmpty option ActivityView.Tours(
               nb = entries.size,
-              best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
+              best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries),
             )
           }
           .mon(_.user segment "activity.tours")
@@ -116,7 +117,7 @@ final class ActivityReadApi(
       studies = studies,
       teams = a.teams,
       tours = tours,
-      stream = a.stream
+      stream = a.stream,
     )
 
   private def addSignup(at: DateTime, recent: Vector[ActivityView]) = {
@@ -127,7 +128,7 @@ final class ActivityReadApi(
     if (!found && views.sizeIs < recentNb && DateTime.now.minusDays(8).isBefore(at))
       views :+ ActivityView(
         interval = new Interval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
-        signup = true
+        signup = true,
       )
     else views
   }

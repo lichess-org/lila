@@ -16,13 +16,13 @@ final private class StudyInvite(
     userRepo: lila.user.UserRepo,
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.relation.RelationApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
     credits = 500,
     duration = 1 day,
-    key = "study.invite.user"
+    key = "study.invite.user",
   )
 
   private val maxMembers = 30
@@ -32,14 +32,16 @@ final private class StudyInvite(
       study: Study,
       invitedUsername: String,
       getIsPresent: User.ID => Fu[Boolean],
-      role: StudyMember.Role = StudyMember.Role.Read
+      role: StudyMember.Role = StudyMember.Role.Read,
   ): Fu[User] =
     for {
       _ <- !(study.isOwner(byUserId) ||
         study.isPostGameStudyWithOpponentPlayer(byUserId)) ?? fufail[Unit](
-        "Only study owner or study creators can invite"
+        "Only study owner or study creators can invite",
       )
-      _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
+      _ <- (study.nbMembers >= maxMembers) ?? fufail[Unit](
+        s"Max study members reached: $maxMembers",
+      )
       inviter <- userRepo.named(byUserId) orFail "No such inviter"
       invited <-
         userRepo
@@ -72,7 +74,7 @@ final private class StudyInvite(
         val notificationContent = InvitedToStudy(
           InvitedToStudy.InvitedBy(inviter.id),
           InvitedToStudy.StudyName(study.name.value),
-          InvitedToStudy.StudyId(study.id.value)
+          InvitedToStudy.StudyId(study.id.value),
         )
         val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
         notifyApi.addNotification(notification)
@@ -102,7 +104,7 @@ final private class StudyInvite(
       val notificationContent = InvitedToStudy(
         InvitedToStudy.InvitedBy(study.ownerId),
         InvitedToStudy.StudyName(study.name.value),
-        InvitedToStudy.StudyId(study.id.value)
+        InvitedToStudy.StudyId(study.id.value),
       )
       val notification = Notification.make(Notification.Notifies(invitedId), notificationContent)
       notifyApi.addNotification(notification)
@@ -114,7 +116,7 @@ final private class StudyInvite(
         .one(
           $id(study.id.value),
           $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
-            $addToSet("uids"         -> user.id)
+            $addToSet("uids" -> user.id),
         )
     }.void
 }

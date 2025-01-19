@@ -13,7 +13,7 @@ import lila.hub.actors
 private class RelationConfig(
     @ConfigName("collection.relation") val collection: CollName,
     @ConfigName("limit.follow") val maxFollow: Max,
-    @ConfigName("limit.block") val maxBlock: Max
+    @ConfigName("limit.block") val maxBlock: Max,
 )
 
 @Module
@@ -23,10 +23,10 @@ final class Env(
     timeline: actors.Timeline,
     userRepo: lila.user.UserRepo,
     prefApi: lila.pref.PrefApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)

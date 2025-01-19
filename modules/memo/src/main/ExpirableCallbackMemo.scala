@@ -12,7 +12,7 @@ final class ExpireCallbackMemo(
     scheduler: Scheduler,
     ttl: FiniteDuration,
     callback: String => Unit,
-    initialCapacity: Int = 4096
+    initialCapacity: Int = 4096,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val timeouts = new ConcurrentHashMap[String, Cancellable](initialCapacity)
@@ -28,7 +28,7 @@ final class ExpireCallbackMemo(
           remove(key)
           callback(key)
         }
-      }
+      },
     )
     .unit
 

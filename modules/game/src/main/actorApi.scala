@@ -8,7 +8,7 @@ case class StartGame(game: Game)
 case class FinishGame(
     game: Game,
     sente: Option[User],
-    gote: Option[User]
+    gote: Option[User],
 ) {
   def isVsSelf = sente.isDefined && sente == gote
 }
@@ -26,7 +26,7 @@ private[game] case object NewCaptcha
 case class MoveGameEvent(
     game: Game,
     sfen: String,
-    move: String
+    move: String,
 )
 object MoveGameEvent {
   def makeChan(gameId: Game.ID) = s"moveEvent:$gameId"

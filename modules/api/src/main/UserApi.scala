@@ -18,7 +18,7 @@ final private[api] class UserApi(
     prefApi: lila.pref.PrefApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
     gameProxyRepo: lila.round.GameProxyRepo,
-    net: NetConfig
+    net: NetConfig,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def pagerJson(pag: Paginator[User]): JsObject =
@@ -38,7 +38,7 @@ final private[api] class UserApi(
       Json.obj(
         "id"       -> u.id,
         "username" -> u.username,
-        "closed"   -> true
+        "closed"   -> true,
       )
     }
     else {
@@ -86,8 +86,8 @@ final private[api] class UserApi(
                     "playing"  -> nbPlaying,
                     "paused"   -> nbPaused,
                     "import"   -> nbImported,
-                    "me"       -> nbGamesWithMe
-                  )
+                    "me"       -> nbGamesWithMe,
+                  ),
                 )
                 .add("streaming", liveStreamApi.isStreaming(u.id)) ++
                 as.isDefined.??(
@@ -95,8 +95,8 @@ final private[api] class UserApi(
                     "followable" -> followable,
                     "following"  -> relation.has(true),
                     "blocking"   -> relation.has(false),
-                    "followsYou" -> isFollowed
-                  )
+                    "followsYou" -> isFollowed,
+                  ),
                 )
             }.noNull
         }

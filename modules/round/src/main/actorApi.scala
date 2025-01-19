@@ -18,7 +18,7 @@ case class SocketStatus(
     senteOnGame: Boolean,
     senteIsGone: Boolean,
     goteOnGame: Boolean,
-    goteIsGone: Boolean
+    goteIsGone: Boolean,
 ) {
   def onGame(color: Color)     = color.fold(senteOnGame, goteOnGame)
   def isGone(color: Color)     = color.fold(senteIsGone, goteIsGone)
@@ -34,7 +34,7 @@ package round {
       usi: Usi,
       blur: Boolean,
       lagMetrics: LagMetrics = LagMetrics(),
-      promise: Option[Promise[Unit]] = None
+      promise: Option[Promise[Unit]] = None,
   )
 
   case class PlayResult(events: Events, sfen: String, lastUsi: Option[String])

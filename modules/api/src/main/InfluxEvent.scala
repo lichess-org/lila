@@ -5,7 +5,7 @@ import play.api.libs.ws.WSClient
 final class InfluxEvent(
     ws: WSClient,
     endpoint: String,
-    env: String
+    env: String,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val seed = lila.common.ThreadLocalRandom.nextString(6)
@@ -18,6 +18,6 @@ final class InfluxEvent(
         .post(s"""event,program=lila,env=$env,title=$key text="$text"""")
         .effectFold(
           err => lila.log("influxEvent").error(endpoint, err),
-          res => if (res.status != 204) lila.log("influxEvent").error(s"$endpoint ${res.status}")
+          res => if (res.status != 204) lila.log("influxEvent").error(s"$endpoint ${res.status}"),
         )
 }

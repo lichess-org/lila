@@ -12,21 +12,21 @@ trait FlashHelper { self: I18nHelper =>
   def successFlash(modifiers: Seq[Modifier])(implicit ctx: Context): Option[Frag] =
     ctx.flash("success").map { msg =>
       flashMessage(modifiers ++ Seq(cls := "flash-success"))(
-        if (msg.isEmpty) trans.success() else msg
+        if (msg.isEmpty) trans.success() else msg,
       )
     }
 
   def warningFlash(modifiers: Seq[Modifier])(implicit ctx: Context): Option[Frag] =
     ctx.flash("warning").map { msg =>
       flashMessage(modifiers ++ Seq(cls := "flash-warning"))(
-        if (msg.isEmpty) "Warning" else msg
+        if (msg.isEmpty) "Warning" else msg,
       )
     }
 
   def failureFlash(modifiers: Seq[Modifier])(implicit ctx: Context): Option[Frag] =
     ctx.flash("failure").map { msg =>
       flashMessage(modifiers ++ Seq(cls := "flash-failure"))(
-        if (msg.isEmpty) "Failure" else msg
+        if (msg.isEmpty) "Failure" else msg,
       )
     }
 
@@ -35,6 +35,6 @@ trait FlashHelper { self: I18nHelper =>
 
   def flashMessage(modifiers: Modifier*)(contentModifiers: Modifier*): Frag =
     div(modifiers)(cls := "flash")(
-      div(cls := "flash__content")(contentModifiers)
+      div(cls := "flash__content")(contentModifiers),
     )
 }

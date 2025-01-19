@@ -9,7 +9,9 @@ import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 
-final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
+final class StudyRepo(private[study] val coll: AsyncColl)(implicit
+    ec: scala.concurrent.ExecutionContext,
+) {
 
   import BSONHandlers._
 
@@ -27,13 +29,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
     F.uids   -> false,
     F.likers -> false,
     F.views  -> false,
-    F.rank   -> false
+    F.rank   -> false,
   )
 
   private[study] val lightProjection = $doc(
     "_id"        -> false,
     "visibility" -> true,
-    "members"    -> true
+    "members"    -> true,
   )
 
   def byId(id: Study.Id) = coll(_.find($id(id), projection.some).one[Study])
@@ -46,7 +48,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
   def sortedCursor(
       selector: Bdoc,
       sort: Bdoc,
-      readPreference: ReadPreference = readPref
+      readPreference: ReadPreference = readPref,
   ): Fu[AkkaStreamCursor[Study]] =
     coll.map(_.find(selector).sort(sort).cursor[Study](readPreference))
 
@@ -55,7 +57,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
   private[study] def selectOwnerId(ownerId: User.ID)   = $doc("ownerId" -> ownerId)
   private[study] def selectMemberId(memberId: User.ID) = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc(
-    "visibility" -> VisibilityHandler.writeTry(Study.Visibility.Public).get
+    "visibility" -> VisibilityHandler.writeTry(Study.Visibility.Public).get,
   )
   private[study] val selectPrivateOrUnlisted = "visibility" $ne VisibilityHandler
     .writeTry(Study.Visibility.Public)
@@ -74,8 +76,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
     coll(
       _.find(
         $doc("postGameStudy.withOpponent" -> true) ++ $doc("postGameStudy.gameId" -> gameId),
-        projection.some
-      ).one[Study]
+        projection.some,
+      ).one[Study],
     )
 
   def insert(s: Study): Funit =
@@ -84,7 +86,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
         StudyBSONHandler.writeTry(s).get ++ $doc(
           F.uids   -> s.members.ids,
           F.likers -> List(s.ownerId),
-          F.rank   -> Study.Rank.compute(s.likes, s.createdAt)
+          F.rank   -> Study.Rank.compute(s.likes, s.createdAt),
         )
       }
     }.void
@@ -100,8 +102,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
             "settings"    -> s.settings,
             "visibility"  -> s.visibility,
             "description" -> ~s.description,
-            "updatedAt"   -> DateTime.now
-          )
+            "updatedAt"   -> DateTime.now,
+          ),
         )
     }.void
 
@@ -110,7 +112,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
       _.update
         .one(
           $id(s.id),
-          $set("topics" -> s.topics, "updatedAt" -> DateTime.now)
+          $set("topics" -> s.topics, "updatedAt" -> DateTime.now),
         )
     }.void
 
@@ -128,9 +130,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
           $id(studyId),
           $set(
             "position"  -> position,
-            "updatedAt" -> DateTime.now
-          )
-        )
+            "updatedAt" -> DateTime.now,
+          ),
+        ),
     ).void
 
   def incViews(study: Study) = coll.map(_.incFieldUnchecked($id(study.id), F.views))
@@ -143,7 +145,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
       _.update
         .one(
           $id(study.id),
-          $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
+          $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id),
         )
     }.void
 
@@ -152,7 +154,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
       _.update
         .one(
           $id(study.id),
-          $unset(s"members.$userId") ++ $pull(F.uids -> userId)
+          $unset(s"members.$userId") ++ $pull(F.uids -> userId),
         )
     }.void
 
@@ -161,7 +163,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
       _.update
         .one(
           $id(study.id),
-          $set(s"members.$userId.role" -> role)
+          $set(s"members.$userId.role" -> role),
         )
     }.void
 
@@ -197,7 +199,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
     "name"      -> true,
     "ownerId"   -> true,
     "likes"     -> true,
-    "createdAt" -> true
+    "createdAt" -> true,
   )
   def hot(nb: Int) =
     coll {
@@ -217,7 +219,10 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
 
   def like(studyId: Study.Id, userId: User.ID, v: Boolean): Fu[Study.Likes] =
     coll { c =>
-      c.update.one($id(studyId), if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)) >> {
+      c.update.one(
+        $id(studyId),
+        if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId),
+      ) >> {
         countLikes(studyId).flatMap {
           case None                     => fuccess(Study.Likes(0))
           case Some((likes, createdAt)) =>
@@ -227,7 +232,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
             // query will set the precisely correct value.
             c.update.one(
               $id(studyId),
-              $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
+              $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt)),
             ) inject likes
         }
       }
@@ -244,7 +249,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
     coll {
       _.find(
         $empty,
-        $doc(F.likes -> true, F.createdAt -> true).some
+        $doc(F.likes -> true, F.createdAt -> true).some,
       )
         .cursor[Bdoc]()
         .foldWhileM(0) { (count, doc) =>
@@ -256,7 +261,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
             _.update
               .one(
                 $id(id),
-                $set(F.rank -> Study.Rank.compute(likes, createdAt))
+                $set(F.rank -> Study.Rank.compute(likes, createdAt)),
               )
           }.void) inject Cursor.Cont(count + 1)
         }
@@ -275,9 +280,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
             $doc(
               "_id"       -> false,
               F.likes     -> $doc("$size" -> s"$$${F.likers}"),
-              F.createdAt -> true
-            )
-          )
+              F.createdAt -> true,
+            ),
+          ),
         )
       }.headOption
     }.map { docOption =>

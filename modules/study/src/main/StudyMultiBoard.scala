@@ -6,6 +6,7 @@ import play.api.libs.json._
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import reactivemongo.api.bson._
+
 import shogi.Color
 import shogi.format.Tags
 import shogi.format.forsyth.Sfen
@@ -18,13 +19,12 @@ import lila.common.paginator.AdapterLike
 import lila.common.paginator.Paginator
 import lila.common.paginator.PaginatorJson
 import lila.db.dsl._
-
-import BSONHandlers._
-import JsonView._
+import lila.study.BSONHandlers._
+import lila.study.JsonView._
 
 final class StudyMultiBoard(
     chapterRepo: ChapterRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val maxPerPage = MaxPerPage(9)
@@ -49,7 +49,7 @@ final class StudyMultiBoard(
     Paginator[ChapterPreview](
       new ChapterPreviewAdapter(studyId, playing),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
 
   final private class ChapterPreviewAdapter(studyId: Study.Id, playing: Boolean)
@@ -76,15 +76,15 @@ final class StudyMultiBoard(
                       "lang" -> "js",
                       "args" -> $arr("$root"),
                       "body" -> """function(root) {
-                    |return root['ÿ'] !== undefined ? {sfen:root['ÿ'].f} : {sfen:root['þ'].is}; }""".stripMargin
-                    )
+                    |return root['ÿ'] !== undefined ? {sfen:root['ÿ'].f} : {sfen:root['þ'].is}; }""".stripMargin,
+                    ),
                   ),
                   "tags"        -> "$tags",
                   "orientation" -> "$setup.orientation",
                   "variant"     -> "$setup.variant",
-                  "name"        -> true
-                )
-              )
+                  "name"        -> true,
+                ),
+              ),
             )
           }
         }
@@ -106,24 +106,25 @@ final class StudyMultiBoard(
             orientation = doc.getAsOpt[Color]("orientation") | Color.Sente,
             sfen = sfen,
             lastUsi = lastUsi,
-            playing = lastUsi.isDefined && tags.flatMap(_(_.Result)).has("*")
+            playing = lastUsi.isDefined && tags.flatMap(_(_.Result)).has("*"),
           )
         }
   }
 
   private object handlers {
 
-    implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
-      Json
-        .obj("name" -> p.name)
-        .add("title" -> p.title)
-        .add("rating" -> p.rating)
-    }
+    implicit val previewPlayerWriter: Writes[ChapterPreview.Player] =
+      Writes[ChapterPreview.Player] { p =>
+        Json
+          .obj("name" -> p.name)
+          .add("title" -> p.title)
+          .add("rating" -> p.rating)
+      }
 
-    implicit val previewPlayersWriter: Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] {
-      players =>
+    implicit val previewPlayersWriter: Writes[ChapterPreview.Players] =
+      Writes[ChapterPreview.Players] { players =>
         Json.obj("sente" -> players.sente, "gote" -> players.gote)
-    }
+      }
 
     implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
   }
@@ -139,7 +140,7 @@ object StudyMultiBoard {
       orientation: Color,
       sfen: Sfen,
       lastUsi: Option[Usi],
-      playing: Boolean
+      playing: Boolean,
   )
 
   object ChapterPreview {
@@ -154,7 +155,7 @@ object StudyMultiBoard {
         gName <- tags(_.Gote)
       } yield Color.Map(
         sente = Player(sName, tags(_.SenteTitle), tags(_.SenteElo) flatMap (_.toIntOption)),
-        gote = Player(gName, tags(_.GoteTitle), tags(_.GoteElo) flatMap (_.toIntOption))
+        gote = Player(gName, tags(_.GoteTitle), tags(_.GoteElo) flatMap (_.toIntOption)),
       )
   }
 }

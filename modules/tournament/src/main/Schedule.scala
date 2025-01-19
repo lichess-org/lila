@@ -3,6 +3,7 @@ package lila.tournament
 import play.api.i18n.Lang
 
 import org.joda.time.DateTime
+
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 
@@ -15,7 +16,7 @@ case class Schedule(
     variant: Variant,
     position: Option[Sfen],
     at: DateTime,
-    conditions: Condition.All = Condition.All.empty
+    conditions: Condition.All = Condition.All.empty,
 ) {
 
   def name(full: Boolean = true)(implicit lang: Lang): String = {
@@ -145,7 +146,7 @@ object Schedule {
 
     def map(f: Tournament => Tournament) =
       copy(
-        buildFunc = buildFunc.fold(f)(f.compose).some
+        buildFunc = buildFunc.fold(f)(f.compose).some,
       )
   }
 
@@ -184,7 +185,7 @@ object Schedule {
       Marathon,
       ExperimentalMarathon,
       Yearly,
-      Unique
+      Unique,
     )
     def apply(name: String) = all.find(_.name == name)
     def byId(id: Int)       = all.find(_.id == id)
@@ -205,10 +206,21 @@ object Schedule {
     case object Classical      extends Speed(60)
     case object Correspondence extends Speed(80)
     val all: List[Speed] =
-      List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, HyperRapid, Rapid, Classical, Correspondence)
+      List(
+        UltraBullet,
+        HyperBullet,
+        Bullet,
+        SuperBlitz,
+        Blitz,
+        HyperRapid,
+        Rapid,
+        Classical,
+        Correspondence,
+      )
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
-    def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
-    def byId(id: Int)      = all find (_.id == id)
+    def apply(key: String) =
+      all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
+    def byId(id: Int) = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match {
         // Similar speed tournaments should not be simultaneously scheduled
@@ -371,7 +383,7 @@ object Schedule {
         },
         maxRating = none,
         titled = none,
-        teamMember = none
+        teamMember = none,
       )
     }
 }

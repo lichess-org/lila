@@ -26,8 +26,8 @@ object inquiry {
             case _            => s"/${m.group(1)}/$id"
           }
           Regex.quoteReplacement(s"$netBaseUrl$path ${m.group(3)}")
-        }
-      )
+        },
+      ),
     )
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
@@ -41,17 +41,17 @@ object inquiry {
               " for ",
               strong(r.reason.name),
               " ",
-              momentFromNow(atom.at)
+              momentFromNow(atom.at),
             ),
-            p(renderAtomText(atom))
+            p(renderAtomText(atom)),
           )
-        }
+        },
       )
 
     def renderNote(r: lila.user.Note) =
       (!r.dox || isGranted(_.Doxing)) option div(cls := "doc note")(
         h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
-        p(richText(r.text))
+        p(richText(r.text)),
       )
 
     def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
@@ -60,28 +60,28 @@ object inquiry {
       submitButton(
         cls := List(
           "fbt icon" -> true,
-          "active"   -> active
-        )
+          "active"   -> active,
+        ),
       )
 
-    div(id    := "inquiry")(
+    div(id := "inquiry")(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user, withBestRating = true, params = "?mod"),
         div(cls := "docs reports")(
           div(cls := "expendable")(
-            in.allReports.map(renderReport)
-          )
+            in.allReports.map(renderReport),
+          ),
         ),
         isGranted(_.ModLog) option div(
           cls := List(
             "dropper counter history" -> true,
-            "empty"                   -> in.history.isEmpty
-          )
+            "empty"                   -> in.history.isEmpty,
+          ),
         )(
           span(
             countTag(in.history.size),
-            "Mod log"
+            "Mod log",
           ),
           in.history.nonEmpty option div(
             ul(
@@ -93,50 +93,54 @@ object inquiry {
                   " ",
                   e.details,
                   " ",
-                  momentFromNow(e.date)
+                  momentFromNow(e.date),
                 )
-              }
-            )
-          )
+              },
+            ),
+          ),
         ),
         div(
           cls := List(
             "dropper counter notes" -> true,
-            "empty"                 -> in.notes.isEmpty
-          )
+            "empty"                 -> in.notes.isEmpty,
+          ),
         )(
           span(
             countTag(in.notes.size),
-            "Notes"
+            "Notes",
           ),
           div(
-            postForm(cls    := "note", action      := s"${routes.User.writeNote(in.user.username)}?note")(
+            postForm(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note")(
               textarea(name := "text", placeholder := "Write a mod note"),
               input(tpe     := "hidden", name      := "mod", value := "true"),
               div(cls := "submission")(
-                submitButton(cls := "button thin")("SEND")
-              )
+                submitButton(cls := "button thin")("SEND"),
+              ),
             ),
-            in.notes.map(renderNote)
-          )
-        )
+            in.notes.map(renderNote),
+          ),
+        ),
       ),
       div(cls := "links")(
         in.report.boostWith
           .map { userId =>
-            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${userId}")("View", br, "Games")
+            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${userId}")(
+              "View",
+              br,
+              "Games",
+            )
           }
           .getOrElse {
             in.report.bestAtomByHuman.map { atom =>
               a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${atom.by.value}")(
                 "View",
                 br,
-                "Games"
+                "Games",
               )
             }
           },
         isGranted(_.Shadowban) option
-          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms")
+          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms"),
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
@@ -145,19 +149,19 @@ object inquiry {
             lila.msg.MsgPreset.all.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
                 submitButton(cls := "fbt")(preset.name),
-                autoNextInput
+                autoNextInput,
               )
-            }
-          )
+            },
+          ),
         ),
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
-            postForm(action                             := url, title := "Mark as cheat")(
+            postForm(action := url, title := "Mark as cheat")(
               markButton(in.user.marks.engine)(dataIcon := "n"),
-              autoNextInput
+              autoNextInput,
             ),
-            thenForms(url, markButton(false))
+            thenForms(url, markButton(false)),
           )
         },
         isGranted(_.MarkBooster) option {
@@ -165,9 +169,9 @@ object inquiry {
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
               markButton(in.user.marks.boost)(dataIcon := "9"),
-              autoNextInput
+              autoNextInput,
             ),
-            thenForms(url, markButton(false))
+            thenForms(url, markButton(false)),
           )
         },
         isGranted(_.Shadowban) option {
@@ -176,12 +180,12 @@ object inquiry {
             postForm(
               action := url,
               title  := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
-              cls    := "main"
+              cls    := "main",
             )(
               markButton(in.user.marks.troll)(dataIcon := "c"),
-              autoNextInput
+              autoNextInput,
             ),
-            thenForms(url, markButton(false))
+            thenForms(url, markButton(false)),
           )
         },
         isGranted(_.CloseAccount) option {
@@ -189,45 +193,47 @@ object inquiry {
           div(cls := "dropper alt buttons")(
             postForm(action := url, cls := "main", title := "Close alt account")(
               markButton(in.user.marks.alt)(i("A")),
-              autoNextInput
+              autoNextInput,
             ),
-            thenForms(url, markButton(false))
+            thenForms(url, markButton(false)),
           )
         },
         div(cls := "dropper more buttons")(
           iconTag("u"),
           div(
             postForm(action := routes.Report.xfiles(in.report.id))(
-              submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
-                "Move to X-Files"
+              submitButton(
+                cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")),
+              )(
+                "Move to X-Files",
               ),
-              autoNextInput
-            )
-          )
-        )
+              autoNextInput,
+            ),
+          ),
+        ),
       ),
       div(cls := "actions close")(
         span(cls := "switcher", title := "Automatically open next report")(
           span(cls := "switch")(
-            form3.cmnToggle("auto-next", "auto-next", true)
-          )
+            form3.cmnToggle("auto-next", "auto-next", true),
+          ),
         ),
         postForm(
           action := routes.Report.process(in.report.id),
           title  := "Dismiss this report as processed.",
-          cls    := "process"
+          cls    := "process",
         )(
           submitButton(dataIcon := "E", cls := "fbt"),
-          autoNextInput
+          autoNextInput,
         ),
         postForm(
           action := routes.Report.inquiry(in.report.id),
           title  := "Cancel the inquiry, re-instore the report",
-          cls    := "cancel"
+          cls    := "cancel",
         )(
-          submitButton(dataIcon := "L", cls := "fbt")
-        )
-      )
+          submitButton(dataIcon := "L", cls := "fbt"),
+        ),
+      ),
     )
   }
 
@@ -237,12 +243,12 @@ object inquiry {
       postForm(
         action := url,
         button("And stay on this report"),
-        thenInput("back")
+        thenInput("back"),
       ),
       postForm(
         action := url,
         button("Then open profile"),
-        thenInput("profile")
-      )
+        thenInput("profile"),
+      ),
     )
 }

@@ -16,8 +16,8 @@ final class Storm(env: Env) extends LilaController(env) {
               views.html.storm.home(
                 env.storm.json(puzzles, ctx.me),
                 env.storm.json.pref(ctx.pref),
-                high
-              )
+                high,
+              ),
             ).noCache
           }
         }
@@ -32,7 +32,7 @@ final class Storm(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             _ => fuccess(none),
-            data => env.storm.dayApi.addRun(data, ctx.me)
+            data => env.storm.dayApi.addRun(data, ctx.me),
           ) map env.storm.json.newHigh map { json =>
           Ok(json) as JSON
         }
@@ -53,7 +53,9 @@ final class Storm(env: Env) extends LilaController(env) {
       }
     }
 
-  private def renderDashboardOf(user: lila.user.User, page: Int)(implicit ctx: Context): Fu[Result] =
+  private def renderDashboardOf(user: lila.user.User, page: Int)(implicit
+      ctx: Context,
+  ): Fu[Result] =
     env.storm.dayApi.history(user.id, page) flatMap { history =>
       env.storm.highApi.get(user.id) map { high =>
         Ok(views.html.storm.dashboard(user, history, high))
@@ -65,9 +67,10 @@ final class Storm(env: Env) extends LilaController(env) {
       val userId = lila.user.User normalize username
       if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
       else
-        ((days > 0) ?? env.storm.dayApi.apiHistory(userId, days)) zip env.storm.highApi.get(userId) map {
-          case (history, high) =>
-            Ok(env.storm.json.apiDashboard(high, history))
+        ((days > 0) ?? env.storm.dayApi.apiHistory(userId, days)) zip env.storm.highApi.get(
+          userId,
+        ) map { case (history, high) =>
+          Ok(env.storm.json.apiDashboard(high, history))
         }
 
     }

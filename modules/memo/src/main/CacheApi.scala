@@ -10,7 +10,7 @@ import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine._
 
 final class CacheApi(
-    mode: Mode
+    mode: Mode,
 )(implicit ec: ExecutionContext, system: ActorSystem) {
 
   import CacheApi._
@@ -19,7 +19,7 @@ final class CacheApi(
 
   // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(
-      build: Builder => AsyncLoadingCache[K, V]
+      build: Builder => AsyncLoadingCache[K, V],
   ): AsyncLoadingCache[K, V] = {
     val cache = build {
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
@@ -40,7 +40,7 @@ final class CacheApi(
       compute: K => Fu[V],
       default: K => V,
       strategy: Syncache.Strategy,
-      expireAfter: Syncache.ExpireAfter
+      expireAfter: Syncache.ExpireAfter,
   ): Syncache[K, V] = {
     val actualCapacity =
       if (mode != Mode.Prod) math.sqrt(initialCapacity.toDouble).toInt atLeast 1
@@ -51,7 +51,7 @@ final class CacheApi(
   }
 
   def notLoading[K, V](initialCapacity: Int, name: String)(
-      build: Builder => AsyncCache[K, V]
+      build: Builder => AsyncCache[K, V],
   ): AsyncCache[K, V] = {
     val cache = build {
       scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
@@ -82,19 +82,24 @@ object CacheApi {
 
   def scaffeineNoScheduler: Builder = Scaffeine()
 
-  implicit def beafedAsync[K, V](cache: AsyncCache[K, V]): BeafedAsync[K,V]     = new BeafedAsync[K, V](cache)
-  implicit def beafedAsyncUnit[V](cache: AsyncCache[Unit, V]): BeafedAsyncUnit[V] = new BeafedAsyncUnit[V](cache)
-  implicit def beafedAsyncLoadingUnit[V](cache: AsyncLoadingCache[Unit, V]): BeafedAsyncLoadingUnit[V] =
+  implicit def beafedAsync[K, V](cache: AsyncCache[K, V]): BeafedAsync[K, V] =
+    new BeafedAsync[K, V](cache)
+  implicit def beafedAsyncUnit[V](cache: AsyncCache[Unit, V]): BeafedAsyncUnit[V] =
+    new BeafedAsyncUnit[V](cache)
+  implicit def beafedAsyncLoadingUnit[V](
+      cache: AsyncLoadingCache[Unit, V],
+  ): BeafedAsyncLoadingUnit[V] =
     new BeafedAsyncLoadingUnit[V](cache)
 
   private[memo] def startMonitor(
       name: String,
-      cache: caffeine.cache.Cache[_, _]
+      cache: caffeine.cache.Cache[_, _],
   )(implicit ec: ExecutionContext, system: ActorSystem): Unit =
-    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-      lila.mon.caffeineStats(cache, name)
-    }
-    .unit
+    system.scheduler
+      .scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+        lila.mon.caffeineStats(cache, name)
+      }
+      .unit
 }
 
 final class BeafedAsync[K, V](val cache: AsyncCache[K, V]) extends AnyVal {

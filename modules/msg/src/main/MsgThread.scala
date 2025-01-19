@@ -8,7 +8,7 @@ case class MsgThread(
     user1: User.ID,
     user2: User.ID,
     lastMsg: Msg.Last,
-    del: Option[List[User.ID]] = None
+    del: Option[List[User.ID]] = None,
 ) {
 
   def users = List(user1, user2)
@@ -50,7 +50,7 @@ object MsgThread {
           id = id(user1, user2),
           user1 = user1,
           user2 = user2,
-          lastMsg = msg.asLast
+          lastMsg = msg.asLast,
         )
     }
 

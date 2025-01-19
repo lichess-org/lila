@@ -25,10 +25,10 @@ import lila.user.User
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
     gameRepo: GameRepo,
-    isOfferingRematch: lila.round.IsOfferingRematch
+    isOfferingRematch: lila.round.IsOfferingRematch,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))

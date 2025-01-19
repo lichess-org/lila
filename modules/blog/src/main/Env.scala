@@ -10,17 +10,17 @@ import io.methvin.play.autoconfig._
 private class BlogConfig(
     @ConfigName("prismic.api_url") val apiUrl: String,
     val collection: String,
-    @ConfigName("last_post_cache.ttl") val lastPostTtl: FiniteDuration
+    @ConfigName("last_post_cache.ttl") val lastPostTtl: FiniteDuration,
 )
 
 @Module
 final class Env(
     appConfig: Configuration,
     timelineApi: lila.timeline.EntryApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    ws: play.api.libs.ws.WSClient
+    ws: play.api.libs.ws.WSClient,
 ) {
 
   private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)

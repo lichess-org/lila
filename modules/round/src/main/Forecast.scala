@@ -3,6 +3,7 @@ package lila.round
 import play.api.libs.json._
 
 import org.joda.time.DateTime
+
 import shogi.format.usi.UciToUsi
 import shogi.format.usi.Usi
 
@@ -12,7 +13,7 @@ import lila.game.Game
 case class Forecast(
     _id: String, // player full id
     steps: Forecast.Steps,
-    date: DateTime
+    date: DateTime,
 ) {
 
   def apply(g: Game, lastUsi: Usi): Option[(Forecast, Usi)] =
@@ -23,7 +24,7 @@ case class Forecast(
               if rest.nonEmpty && g.plies == fst.ply && fst.is(lastUsi) && snd.is(usi) =>
             rest
         },
-        date = DateTime.now
+        date = DateTime.now,
       ) -> usi
     }
   // accept up to 30 lines of 30 moves each
@@ -46,7 +47,7 @@ object Forecast {
       ply: Int,
       usi: String,
       sfen: String,
-      check: Option[Boolean]
+      check: Option[Boolean],
   ) {
 
     def is(move: Usi) = move.usi == usi

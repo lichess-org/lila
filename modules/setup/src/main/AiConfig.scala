@@ -22,7 +22,7 @@ case class AiConfig(
     days: Int,
     level: Int,
     color: Color,
-    sfen: Option[Sfen] = None
+    sfen: Option[Sfen] = None,
 ) extends Config
     with Positional {
 
@@ -38,7 +38,7 @@ case class AiConfig(
     days,
     level,
     color.name,
-    sfen.map(_.value)
+    sfen.map(_.value),
   ).some
 
   def game(user: Option[User]) = {
@@ -46,7 +46,7 @@ case class AiConfig(
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         shogi.Speed(shogiGame.clock.map(_.config)),
         shogiGame.variant,
-        makeDaysPerTurn
+        makeDaysPerTurn,
       )
       Game
         .make(
@@ -54,16 +54,17 @@ case class AiConfig(
           initialSfen = sfen,
           sentePlayer = creatorColor.fold(
             Player.make(shogi.Sente, user, perfPicker),
-            Player.make(shogi.Sente, EngineConfig(sfen, shogiGame.variant, level).some)
+            Player.make(shogi.Sente, EngineConfig(sfen, shogiGame.variant, level).some),
           ),
           gotePlayer = creatorColor.fold(
             Player.make(shogi.Gote, EngineConfig(sfen, shogiGame.variant, level).some),
-            Player.make(shogi.Gote, user, perfPicker)
+            Player.make(shogi.Gote, user, perfPicker),
           ),
           mode = shogi.Mode.Casual,
-          source = if (sfen.filterNot(_.initialOf(variant)).isDefined) Source.Position else Source.Ai,
+          source =
+            if (sfen.filterNot(_.initialOf(variant)).isDefined) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
-          notationImport = None
+          notationImport = None,
         )
         .sloppy
     } start
@@ -87,7 +88,7 @@ object AiConfig extends BaseConfig {
       d: Int,
       level: Int,
       c: String,
-      sfen: Option[String]
+      sfen: Option[String],
   ) =
     new AiConfig(
       variant = shogi.variant.Variant(v) err "Invalid game variant " + v,
@@ -99,7 +100,7 @@ object AiConfig extends BaseConfig {
       days = d,
       level = level,
       color = Color(c) err "Invalid color " + c,
-      sfen = sfen map Sfen.apply
+      sfen = sfen map Sfen.apply,
     )
 
   val default = AiConfig(
@@ -111,7 +112,7 @@ object AiConfig extends BaseConfig {
     periods = 1,
     days = 2,
     level = 1,
-    color = Color.default
+    color = Color.default,
   )
 
   val levels = (1 to 8).toList
@@ -136,7 +137,7 @@ object AiConfig extends BaseConfig {
         days = r int "d",
         level = r int "l",
         color = Color.Sente,
-        sfen = r.getO[Sfen]("f").filter(_.value.nonEmpty)
+        sfen = r.getO[Sfen]("f").filter(_.value.nonEmpty),
       )
 
     def writes(w: BSON.Writer, o: AiConfig) =
@@ -149,7 +150,7 @@ object AiConfig extends BaseConfig {
         "p"  -> o.periods,
         "d"  -> o.days,
         "l"  -> o.level,
-        "f"  -> o.sfen
+        "f"  -> o.sfen,
       )
   }
 }

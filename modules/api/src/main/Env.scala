@@ -46,10 +46,10 @@ final class Env(
     timelineEnv: lila.timeline.Env,
     cacheApi: lila.memo.CacheApi,
     ws: WSClient,
-    val mode: Mode
+    val mode: Mode,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   val config = ApiConfig loadFrom appConfig
@@ -81,7 +81,7 @@ final class Env(
   lazy val influxEvent = new InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,
-    env = config.influxEventEnv
+    env = config.influxEventEnv,
   )
   // if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 

@@ -15,8 +15,8 @@ object lag {
       moreCss = cssTag("chart.lag"),
       moreJs = frag(
         chartTag,
-        jsTag("chart.lag")
-      )
+        jsTag("chart.lag"),
+      ),
     ) {
       main(cls := "box box-pad lag")(
         h1(
@@ -25,39 +25,39 @@ object lag {
             span(cls := "waiting")(measurementInProgressThreeDot()),
             span(cls := "nope-nope none")(noAndYourNetworkIsGood()),
             span(cls := "nope-yep none")(noAndYourNetworkIsBad()),
-            span(cls := "yep none")(yesItWillBeFixedSoon())
-          )
+            span(cls := "yep none")(yesItWillBeFixedSoon()),
+          ),
         ),
         div(cls := "answer long")(
-          andNowTheLongAnswerLagComposedOfTwoValues()
+          andNowTheLongAnswerLagComposedOfTwoValues(),
         ),
         div(cls := "sections")(
           st.section(cls := "server")(
             h2(lishogiServerLatency()),
             div(cls := "meter")(
-              canvas
+              canvas,
             ),
             p(
-              lishogiServerLatencyExplanation()
-            )
+              lishogiServerLatencyExplanation(),
+            ),
           ),
           st.section(cls := "network")(
             h2(networkBetweenLishogiAndYou()),
             div(cls := "meter")(
-              canvas
+              canvas,
             ),
             p(
-              networkBetweenLishogiAndYouExplanation()
-            )
-          )
+              networkBetweenLishogiAndYouExplanation(),
+            ),
+          ),
         ),
         div(cls := "last-word")(
           p(youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername()),
           h2(lagCompensation()),
           p(
-            lagCompensationExplanation()
-          )
-        )
+            lagCompensationExplanation(),
+          ),
+        ),
       )
     }
 }

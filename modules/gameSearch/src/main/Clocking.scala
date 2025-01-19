@@ -6,7 +6,7 @@ case class Clocking(
     incMin: Option[Int] = None,
     incMax: Option[Int] = None,
     byoMin: Option[Int] = None,
-    byoMax: Option[Int] = None
+    byoMax: Option[Int] = None,
 ) {
 
   def nonEmpty =

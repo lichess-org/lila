@@ -18,73 +18,74 @@ object features {
         .OpenGraph(
           title = trans.features.txt(),
           url = s"$netBaseUrl${routes.Plan.features.url}",
-          description = trans.everybodyGetsAllFeaturesForFree.txt()
+          description = trans.everybodyGetsAllFeaturesForFree.txt(),
         )
         .some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(cls := "box box-pad features")(
         table(
           header(h1(dataIcon := "")("Website")),
           tbody(
             tr(check)(
-              a(href := routes.Tournament.home)(trans.tournaments())
+              a(href := routes.Tournament.home)(trans.tournaments()),
             ),
             tr(check)(
-              a(href := routes.Simul.home)(trans.simultaneousExhibitions())
+              a(href := routes.Simul.home)(trans.simultaneousExhibitions()),
             ),
             tr(check)(
-              trans.correspondenceShogi()
+              trans.correspondenceShogi(),
             ),
             tr(check)(
-              a(href := routes.Page.variantHome)(trans.variants())
+              a(href := routes.Page.variantHome)(trans.variants()),
             ),
             tr(check)(
-              s"${trans.localAnalysis.txt()} - YaneuraOu & Fairy-Stockfish"
+              s"${trans.localAnalysis.txt()} - YaneuraOu & Fairy-Stockfish",
             ),
             tr(check)(
-              s"${trans.cloudAnalysis.txt()} - YaneuraOu & Fairy-Stockfish"
+              s"${trans.cloudAnalysis.txt()} - YaneuraOu & Fairy-Stockfish",
             ),
             tr(check)(
               a(href := "https://lishogi.org/study")(
-                trans.studyMenu()
-              )
+                trans.studyMenu(),
+              ),
             ),
             tr(check)(
               a(href := "https://lishogi.org/blog/post/ZBxnNBAAACIA599h")(
-                trans.postGameStudies()
-              )
+                trans.postGameStudies(),
+              ),
             ),
             tr(check)(
-              a(href := routes.Learn.index)(trans.shogiBasics())
+              a(href := routes.Learn.index)(trans.shogiBasics()),
             ),
             tr(check)(
-              a(href := routes.Puzzle.home)(trans.puzzles())
+              a(href := routes.Puzzle.home)(trans.puzzles()),
             ),
             tr(check)(
               a(href := routes.Importer.importGame)(
                 trans.importKif(),
                 " & ",
-                trans.importCsa()
-              )
+                trans.importCsa(),
+              ),
             ),
             tr(check)(
               a(href := routes.Search.index(1))(trans.search.advancedSearch()),
               " - ",
-              trans.search.searchInXGames.pluralSameTxt(2_000_000)
+              trans.search.searchInXGames.pluralSameTxt(2_000_000),
             ),
             tr(check)(
-              a(href := routes.ForumCateg.index)(trans.forum())
+              a(href := routes.ForumCateg.index)(trans.forum()),
             ),
             tr(check)(
-              a(href := routes.Team.all())(trans.team.teams())
+              a(href := routes.Team.all())(trans.team.teams()),
             ),
             tr(check)(
-              trans.availableInNbLanguages.plural(38, a(href := "https://crowdin.com/project/lishogi")("38"))
+              trans.availableInNbLanguages
+                .plural(38, a(href := "https://crowdin.com/project/lishogi")("38")),
             ),
             tr(check)(
-              strong(trans.patron.noAdsNoSubs())
-            )
+              strong(trans.patron.noAdsNoSubs()),
+            ),
           ),
           // header(h1(dataIcon := "")("Mobile")),
           // tbody(
@@ -123,9 +124,9 @@ object features {
             st.tr(cls := "price")(
               th,
               td(cls := "green")("$0"),
-              td(a(href := routes.Plan.index, cls := "green button")(trans.patron.donate()))
-            )
-          )
+              td(a(href := routes.Plan.index, cls := "green button")(trans.patron.donate())),
+            ),
+          ),
         ),
         p(cls := "explanation")(
           strong(trans.everybodyGetsAllFeaturesForFree()),
@@ -137,8 +138,8 @@ object features {
           br,
           if (ctx.isAuth) trans.patron.weRelyOnSupport()
           else trans.patron.donationSupport(),
-          a(cls := "button", href := routes.Plan.index)(trans.directlySupportLishogi())
-        )
+          a(cls := "button", href := routes.Plan.index)(trans.directlySupportLishogi()),
+        ),
       )
     }
 
@@ -148,9 +149,9 @@ object features {
         th(name),
         th(trans.patron.freeAccount()),
         th(
-          span(dataIcon := patronIconChar, cls := "is text header")(trans.patron.lishogiPatron())
-        )
-      )
+          span(dataIcon := patronIconChar, cls := "is text header")(trans.patron.lishogiPatron()),
+        ),
+      ),
     )
 
   private def check(implicit lang: Lang) =

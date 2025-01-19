@@ -17,17 +17,17 @@ object communication {
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],
       history: List[lila.mod.Modlog],
-      priv: Boolean
+      priv: Boolean,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(
         cssTag("user.mod.communication"),
-        isGranted(_.UserSpy) option cssTag("user.mod.user")
+        isGranted(_.UserSpy) option cssTag("user.mod.user"),
       ),
       moreJs = frag(
-        isGranted(_.UserSpy) option jsTag("user.mod")
-      )
+        isGranted(_.UserSpy) option jsTag("user.mod"),
+      ),
     ) {
       main(id := "communication", cls := "box box-pad")(
         h1(
@@ -37,19 +37,21 @@ object communication {
               cls  := "button button-empty mod-zone-toggle",
               href := routes.User.mod(u.username),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := ""
+              dataIcon := "",
             ),
             isGranted(_.ViewPrivateComms) option {
               if (priv)
-                a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
+                a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))(
+                  "PMs",
+                )
               else
                 a(
                   cls   := "priv button",
                   href  := routes.Mod.communicationPrivate(u.username),
-                  title := "View private messages. This will be logged in #commlog"
+                  title := "View private messages. This will be logged in #commlog",
                 )("PMs")
-            }
-          )
+            },
+          ),
         ),
         isGranted(_.UserSpy) option div(cls := "mod-zone none"),
         history.nonEmpty option frag(
@@ -65,19 +67,25 @@ object communication {
                 " ",
                 e.details,
                 " ",
-                momentFromNowOnce(e.date)
+                momentFromNowOnce(e.date),
               )
-            }
-          )
+            },
+          ),
         ),
         notes.nonEmpty option frag(
           h2("Notes from other users"),
           div(cls := "notes")(
             notes.map { note =>
               (isGranted(_.Doxing) || !note.dox) option
-                div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
-            }
-          )
+                div(
+                  userIdLink(note.from.some),
+                  " ",
+                  momentFromNowOnce(note.date),
+                  ": ",
+                  richText(note.text),
+                )
+            },
+          ),
         ),
         h2("Dubious public chats"),
         if (publicLines.isEmpty) strong("None!")
@@ -91,14 +99,15 @@ object communication {
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
-                  case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "sente"))("Game #", id)
-                  case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
+                  case PublicSource.Watcher(id) =>
+                    a(href := routes.Round.watcher(id, "sente"))("Game #", id)
+                  case PublicSource.Study(id) => a(href := routes.Study.show(id))("Study #", id)
                   case PublicSource.Unknown(source) => div(s"Unknown: $source")
                 },
                 " ",
-                line.text
+                line.text,
               )
-            }
+            },
           ),
         priv option frag(
           h2("Recent private chats"),
@@ -109,30 +118,34 @@ object communication {
                   href := routes.Round.player(pov.fullId),
                   cls := List(
                     "title"        -> true,
-                    "friend_title" -> pov.game.fromFriend
+                    "friend_title" -> pov.game.fromFriend,
                   ),
-                  title := pov.game.fromFriend.option("Friend game")
+                  title := pov.game.fromFriend.option("Friend game"),
                 )(
                   usernameOrAnon(pov.opponent.userId),
                   " – ",
-                  momentFromNowOnce(pov.game.movedAt)
+                  momentFromNowOnce(pov.game.movedAt),
                 ),
                 div(cls := "chat")(
                   chat.lines.map { line =>
                     div(
                       cls := List(
                         "line"   -> true,
-                        "author" -> (line.author.toLowerCase == u.id)
-                      )
+                        "author" -> (line.author.toLowerCase == u.id),
+                      ),
                     )(
-                      userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                      userIdLink(
+                        line.author.toLowerCase.some,
+                        withOnline = false,
+                        withTitle = false,
+                      ),
                       nbsp,
-                      richText(line.text)
+                      richText(line.text),
                     )
-                  }
-                )
+                  },
+                ),
               )
-            }
+            },
           ),
           div(cls := "threads")(
             h2("Recent inbox messages"),
@@ -146,15 +159,15 @@ object communication {
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
                         td(strong(if (author) u.username else convo.contact.name)),
-                        td(richText(msg.text))
+                        td(richText(msg.text)),
                       )
-                    }
-                  )
-                )
+                    },
+                  ),
+                ),
               )
-            }
-          )
-        )
+            },
+          ),
+        ),
       )
     }
 }

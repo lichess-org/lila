@@ -4,7 +4,7 @@ import scala.util.Success
 
 case class Crosstable(
     users: Crosstable.Users,
-    results: List[Crosstable.Result] // chronological order, oldest to most recent
+    results: List[Crosstable.Result], // chronological order, oldest to most recent
 ) {
 
   def user1 = users.user1
@@ -30,7 +30,7 @@ object Crosstable {
   def empty(u1: lila.user.User.ID, u2: lila.user.User.ID) =
     Crosstable(
       Users(User(u1, 0), User(u2, 0)),
-      Nil
+      Nil,
     )
 
   case class User(id: String, score: Int) // score is x10
@@ -79,13 +79,15 @@ object Crosstable {
     def fromPov(userId: String) =
       copy(
         crosstable fromPov userId,
-        matchup map (_ fromPov userId)
+        matchup map (_ fromPov userId),
       )
   }
 
-  private[game] def makeKey(u1: String, u2: String): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
+  private[game] def makeKey(u1: String, u2: String): String =
+    if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
 
   import reactivemongo.api.bson._
+
   import lila.db.BSON
   import lila.db.dsl._
 
@@ -113,7 +115,7 @@ object Crosstable {
                 case "=" => Result(r take 8, none)
                 case _   => sys error s"Invalid result string $r"
               }
-            }
+            },
           )
         case x => sys error s"Invalid crosstable id $x"
       }
@@ -132,21 +134,22 @@ object Crosstable {
         id      -> makeKey(o.user1.id, o.user2.id),
         score1  -> o.user1.score,
         score2  -> o.user2.score,
-        results -> o.results.map { writeResult(_, o.user1.id) }
+        results -> o.results.map { writeResult(_, o.user1.id) },
       )
   }
 
-  implicit private[game] val MatchupBSONReader: BSONDocumentReader[Matchup] = new BSONDocumentReader[Matchup] {
-    import BSONFields._
-    def readDocument(doc: Bdoc) = {
-      val r = new BSON.Reader(doc)
-      r str id split '/' match {
-        case Array(u1Id, u2Id) =>
-          Success {
-            Matchup(Users(User(u1Id, r intD score1), User(u2Id, r intD score2)))
-          }
-        case x => lila.db.BSON.handlerBadValue(s"Invalid crosstable id $x")
+  implicit private[game] val MatchupBSONReader: BSONDocumentReader[Matchup] =
+    new BSONDocumentReader[Matchup] {
+      import BSONFields._
+      def readDocument(doc: Bdoc) = {
+        val r = new BSON.Reader(doc)
+        r str id split '/' match {
+          case Array(u1Id, u2Id) =>
+            Success {
+              Matchup(Users(User(u1Id, r intD score1), User(u2Id, r intD score2)))
+            }
+          case x => lila.db.BSON.handlerBadValue(s"Invalid crosstable id $x")
+        }
       }
     }
-  }
 }

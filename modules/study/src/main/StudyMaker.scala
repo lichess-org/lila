@@ -12,7 +12,7 @@ final private class StudyMaker(
     lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker,
-    notationDump: lila.game.NotationDump
+    notationDump: lila.game.NotationDump,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(data: StudyMaker.ImportGame, user: User): Fu[Study.WithActualChapters] =
@@ -29,13 +29,13 @@ final private class StudyMaker(
       orientation: Color,
       ownerId: User.ID,
       users: List[User.ID] = Nil,
-      withOpponent: Boolean = false
+      withOpponent: Boolean = false,
   ): Fu[Study.WithActualChapters] = {
     val pgs = Study.PostGameStudy(
       gameId = game.id,
       withOpponent = withOpponent,
       sentePlayer = Study.GamePlayer.fromGamePlayer(game.sentePlayer),
-      gotePlayer = Study.GamePlayer.fromGamePlayer(game.gotePlayer)
+      gotePlayer = Study.GamePlayer.fromGamePlayer(game.gotePlayer),
     )
     val members = users.map(uid => StudyMember(uid, StudyMember.Role.Write))
     val study = Study.make(
@@ -43,7 +43,7 @@ final private class StudyMaker(
       ownerId = ownerId,
       from = Study.From.Game(pgs.gameId),
       members = Option(members).filter(_.nonEmpty),
-      postGameStudy = pgs.some
+      postGameStudy = pgs.some,
     )
     val pov = Pov(game, orientation)
     createPovChapters(pov, study.id, ownerId).map { chapters =>
@@ -51,13 +51,16 @@ final private class StudyMaker(
     }
   }
 
-  private def createFromScratch(data: StudyMaker.ImportGame, user: User): Fu[Study.WithActualChapters] = {
+  private def createFromScratch(
+      data: StudyMaker.ImportGame,
+      user: User,
+  ): Fu[Study.WithActualChapters] = {
     val study = Study.make(
       name = data.name | Study.Name(s"${user.username}'s Study"),
       ownerId = user.id,
       from = Study.From.Scratch,
       id = data.id,
-      settings = data.settings
+      settings = data.settings,
     )
     chapterMaker.fromSfenOrNotationOrBlank(
       study,
@@ -69,10 +72,10 @@ final private class StudyMaker(
         notation = data.form.notationStr,
         orientation = data.form.orientation.name,
         mode = ChapterMaker.Mode.Normal.key,
-        initial = true
+        initial = true,
       ),
       order = 1,
-      userId = user.id
+      userId = user.id,
     ) map { chapter =>
       Study.WithActualChapters(study withChapter chapter, List(chapter))
     }
@@ -81,13 +84,13 @@ final private class StudyMaker(
   private def createFromPov(
       data: StudyMaker.ImportGame,
       pov: Pov,
-      user: User
+      user: User,
   ): Fu[Study.WithActualChapters] = {
     val study = Study.make(
       name = Study.Name("Game study"),
       ownerId = user.id,
       from = Study.From.Game(pov.gameId),
-      id = data.id
+      id = data.id,
     )
     createPovChapters(pov, study.id, user.id).map { chapters =>
       Study.WithActualChapters(chapters.headOption.fold(study)(study withChapter _), chapters)
@@ -97,12 +100,12 @@ final private class StudyMaker(
   private def createPovChapters(
       pov: Pov,
       studyId: Study.Id,
-      ownerId: User.ID
+      ownerId: User.ID,
   ): Fu[List[Chapter]] =
     for {
       tags <- notationDump.tags(
         pov.game,
-        shogi.format.Tag(_.TimeControl, pov.game.clock.fold("")(_.config.show))
+        shogi.format.Tag(_.TimeControl, pov.game.clock.fold("")(_.config.show)),
       )
       name <- Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async)
       roots = makeRoots(pov)
@@ -115,8 +118,8 @@ final private class StudyMaker(
             gameId = pov.gameId.some,
             variant = pov.game.variant,
             orientation = pov.color,
-            endStatus =
-              ((roots.size - 1) == i) option Chapter.EndStatus(pov.game.status, pov.game.winnerColor)
+            endStatus = ((roots.size - 1) == i) option Chapter
+              .EndStatus(pov.game.status, pov.game.winnerColor),
           ),
           root = r,
           tags = StudyTags(tags),
@@ -124,7 +127,7 @@ final private class StudyMaker(
           ownerId = ownerId,
           practice = false,
           gamebook = false,
-          conceal = None
+          conceal = None,
         )
       }
     } yield chapters
@@ -157,7 +160,7 @@ final private class StudyMaker(
           variant = pov.game.variant,
           usis = cur,
           initialSfen = acc.headOption.map(_.lastMainlineNode.sfen).orElse(pov.game.initialSfen),
-          clocks = clocks.flatMap(_.lift(acc.size))
+          clocks = clocks.flatMap(_.lift(acc.size)),
         )
         GameRootCache(gm) :: acc
       }
@@ -172,6 +175,6 @@ object StudyMaker {
       id: Option[Study.Id] = None,
       name: Option[Study.Name] = None,
       settings: Option[Settings] = None,
-      from: Option[Study.From] = None
+      from: Option[Study.From] = None,
   )
 }

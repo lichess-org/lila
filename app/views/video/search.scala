@@ -9,11 +9,13 @@ import lila.common.paginator.Paginator
 
 object search {
 
-  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context) =
+  def apply(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit
+      ctx: Context,
+  ) =
     layout(title = s"${control.query.getOrElse("Search")} - Free Shogi Videos", control = control)(
       div(cls := "box__top")(
         h1(pluralize("video", videos.nbResults), " found"),
-        bits.searchForm(control.query)
+        bits.searchForm(control.query),
       ),
       div(cls := "list infinitescroll box__pad")(
         videos.currentPageResults.map { bits.card(_, control) },
@@ -23,9 +25,9 @@ object search {
           s""""${~control.query}"""",
           br,
           br,
-          a(href := routes.Video.index, cls := "button")("Clear search")
+          a(href := routes.Video.index, cls := "button")("Clear search"),
         ),
-        pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
-      )
+        pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np"),
+      ),
     )
 }

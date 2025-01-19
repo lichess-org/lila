@@ -16,7 +16,7 @@ object table {
 
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("user.mod.misc")
+      moreCss = cssTag("user.mod.misc"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("mods"),
@@ -27,8 +27,8 @@ object table {
               tr(
                 th("Mod"),
                 th("Permissions"),
-                th("Last seen at")
-              )
+                th("Last seen at"),
+              ),
             ),
             tbody(
               users.map { user =>
@@ -36,15 +36,17 @@ object table {
                   td(userLink(user)),
                   td(
                     a(href := routes.Mod.permissions(user.username))(
-                      lila.security.Permission(user.roles).map(_.name) mkString ", "
-                    )
+                      lila.security.Permission(user.roles).map(_.name) mkString ", ",
+                    ),
                   ),
-                  td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
+                  td(dataSort := user.seenAt.map(_.getMillis.toString))(
+                    user.seenAt.map(momentFromNowOnce),
+                  ),
                 )
-              }
-            )
-          )
-        )
+              },
+            ),
+          ),
+        ),
       )
     }
   }

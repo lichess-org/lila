@@ -16,7 +16,7 @@ import lila.game.{ Game => GameModel }
 
 final class Game(
     env: Env,
-    apiC: => Api
+    apiC: => Api,
 ) extends LilaController(env) {
 
   def delete(gameId: String) =
@@ -43,11 +43,12 @@ final class Game(
       case Some(game) =>
         lila.mon.notation.game.increment()
         val config = GameApiV2.OneConfig(
-          format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.NOTATION,
+          format =
+            if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.NOTATION,
           imported = getBool("imported", req),
           flags = requestNotationFlags(req, extended = true),
           noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains),
-          playerFile = get("players", req)
+          playerFile = get("players", req),
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config) map { filename =>
@@ -55,10 +56,10 @@ final class Game(
               if (config.flags.shiftJis) getBytesShiftJis(content) else content.getBytes(UTF_8)
             Ok(contentEncoded)
               .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+                CONTENT_DISPOSITION -> s"attachment; filename=$filename",
               )
               .withHeaders(
-                lila.app.http.ResponseHeaders.headersForApiOrApp(req): _*
+                lila.app.http.ResponseHeaders.headersForApiOrApp(req): _*,
               ) as gameContentType(config)
           }
         }
@@ -67,16 +68,21 @@ final class Game(
   def exportByUser(username: String) =
     OpenOrScoped()(
       open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
-      scoped = req => me => handleExport(username, me.some, req, oauth = true)
+      scoped = req => me => handleExport(username, me.some, req, oauth = true),
     )
 
   def apiExportByUser(username: String) =
     AnonOrScoped()(
       anon = req => handleExport(username, none, req, oauth = false),
-      scoped = req => me => handleExport(username, me.some, req, oauth = true)
+      scoped = req => me => handleExport(username, me.some, req, oauth = true),
     )
 
-  private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
+  private def handleExport(
+      username: String,
+      me: Option[lila.user.User],
+      req: RequestHeader,
+      oauth: Boolean,
+  ) =
     env.user.repo named username flatMap {
       _ ?? { user =>
         val format = GameApiV2.Format byRequest req
@@ -99,18 +105,19 @@ final class Game(
               case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
               case _                       => 20
             }),
-            playerFile = get("players", req)
+            playerFile = get("players", req),
           )
           val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
           apiC
-            .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
-              source =>
-                Ok.chunked(source)
-                  .withHeaders(
-                    noProxyBufferHeader,
-                    CONTENT_DISPOSITION -> s"attachment; filename=lishogi_${user.username}_$date.${format.toString.toLowerCase}"
-                  )
-                  .as(gameContentType(config))
+            .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(
+              env.api.gameApiV2.exportByUser(config),
+            ) { source =>
+              Ok.chunked(source)
+                .withHeaders(
+                  noProxyBufferHeader,
+                  CONTENT_DISPOSITION -> s"attachment; filename=lishogi_${user.username}_$date.${format.toString.toLowerCase}",
+                )
+                .as(gameContentType(config))
             }
             .fuccess
         }
@@ -124,11 +131,11 @@ final class Game(
         format = GameApiV2.Format byRequest req,
         flags = requestNotationFlags(req, extended = false),
         perSecond = MaxPerSecond(20),
-        playerFile = get("players", req)
+        playerFile = get("players", req),
       )
       apiC
         .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
-          env.api.gameApiV2.exportByIds(config)
+          env.api.gameApiV2.exportByIds(config),
         ) { source =>
           noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
         }
@@ -154,7 +161,7 @@ final class Game(
       evals = getBoolOpt("evals", req) | extended,
       literate = getBoolOpt("literate", req) | false,
       shiftJis = getBoolOpt("shiftJis", req) | false,
-      notationInJson = getBoolOpt("notationInJson", req) | false
+      notationInJson = getBoolOpt("notationInJson", req) | false,
     )
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =

@@ -12,7 +12,7 @@ case class Student(
     notes: String,
     managed: Boolean, // created for the class by the teacher
     created: Clas.Recorded,
-    archived: Option[Clas.Recorded]
+    archived: Option[Clas.Recorded],
 ) {
 
   def id = _id
@@ -37,7 +37,7 @@ object Student {
       notes = "",
       managed = managed,
       created = Clas.Recorded(teacherId, DateTime.now),
-      archived = none
+      archived = none,
     )
 
   case class Id(value: String) extends AnyVal with StringValue

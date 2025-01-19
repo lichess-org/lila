@@ -1,7 +1,6 @@
-import com.typesafe.sbt.packager.Keys.scriptClasspath
-
 import BuildSettings._
 import Dependencies._
+import com.typesafe.sbt.packager.Keys.scriptClasspath
 
 lazy val root = Project("lila", file("."))
   .enablePlugins(PlayScala, if (useEpoll) PlayNettyServer else PlayAkkaHttpServer)
@@ -21,7 +20,7 @@ Assets / resourceDirectory := baseDirectory.value / "public-nothanks"
 PlayKeys.generateAssetsJar := false
 // who needs JS routes right?
 routesGenerator := LilaRoutesGenerator
-maintainer := "contact@lishogi.org"
+maintainer      := "contact@lishogi.org"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ Seq(

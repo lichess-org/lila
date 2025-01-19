@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
+
 import shogi.Replay
 
 import lila.analyse.Analysis
@@ -22,7 +23,7 @@ private object PuzzleFinder {
         .gamesWhileValid(
           work.game.usiList,
           work.game.initialSfen,
-          work.game.variant
+          work.game.variant,
         )
         ._1
         .toList
@@ -47,22 +48,22 @@ private object PuzzleFinder {
               initialSfen = game.toSfen.some,
               studyId = none,
               variant = game.variant,
-              moves = ~work.game.usiList.lift(index).map(_.usi)
+              moves = ~work.game.usiList.lift(index).map(_.usi),
             ),
             engine = lila.game.EngineConfig.Engine.YaneuraOu.name,
             source = Work.Puzzle.Source(
               game = Work.Puzzle.Source
                 .FromGame(
-                  id = work.game.id
+                  id = work.game.id,
                 )
                 .some,
-              user = none
+              user = none,
             ),
             tries = 0,
             lastTryByKey = none,
             acquired = none,
             createdAt = DateTime.now,
-            verifiable = false
+            verifiable = false,
           )
         }
       }

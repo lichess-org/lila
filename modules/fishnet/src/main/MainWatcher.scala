@@ -6,7 +6,7 @@ import lila.common.Bus
 import lila.memo.ExpireSetMemo
 
 final private class MainWatcher(
-    repo: FishnetRepo
+    repo: FishnetRepo,
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val alerted = new ExpireSetMemo(12 hour)
@@ -16,13 +16,19 @@ final private class MainWatcher(
   private def alert(client: Client) =
     if (!isAlerted(client)) {
       alerted put client.key.value
-      Bus.publish(lila.hub.actorApi.mod.Alert(s"Shoginet server ${client.userId} might be down!"), "alert")
+      Bus.publish(
+        lila.hub.actorApi.mod.Alert(s"Shoginet server ${client.userId} might be down!"),
+        "alert",
+      )
     }
 
   private def unalert(client: Client) =
     if (isAlerted(client)) {
       alerted remove client.key.value
-      Bus.publish(lila.hub.actorApi.mod.Alert(s"Shoginet server ${client.userId} is back!"), "alert")
+      Bus.publish(
+        lila.hub.actorApi.mod.Alert(s"Shoginet server ${client.userId} is back!"),
+        "alert",
+      )
     }
 
   private def watch: Funit =

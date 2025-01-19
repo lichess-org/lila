@@ -22,7 +22,7 @@ trait TeamHelper { self: HasEnv =>
     a(
       href     := routes.Team.show(id),
       dataIcon := withIcon.option("f"),
-      cls      := withIcon option "text"
+      cls      := withIcon option "text",
     )(name)
 
   def teamForumUrl(id: String) = routes.ForumCateg.show("team-" + id)

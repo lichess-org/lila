@@ -6,10 +6,12 @@ import lila.app.ui.ScalatagsTemplate._
 
 object mobile {
 
-  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
+      ctx: Context,
+  ) =
     views.html.base.layout(
       title = "Mobile",
-      moreCss = cssTag("misc.mobile")
+      moreCss = cssTag("misc.mobile"),
     ) {
       main(
         div(cls := "mobile page-small box box-pad")(
@@ -18,17 +20,17 @@ object mobile {
             div(cls := "left-side")(
               div(cls := "stores")(
                 googlePlayButton,
-                appleStoreButton
+                appleStoreButton,
               ),
               div(cls := "apk")(
-                raw(~apkDoc.getHtml("doc.content", resolver))
+                raw(~apkDoc.getHtml("doc.content", resolver)),
               ),
               h2(trans.asFreeAsLishogi()),
               ul(cls := "block")(
                 li(trans.builtForTheLoveOfShogiNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
                 li(trans.zeroAdvertisement()),
-                li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
+                li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source")),
               ),
               h2(trans.fullFeatured()),
               ul(cls := "block")(
@@ -42,8 +44,8 @@ object mobile {
                 li(trans.boardEditor()),
                 li("Lishogi TV"),
                 li(trans.followAndChallengeFriends()),
-                li(trans.availableInNbLanguages.pluralSame(80))
-              )
+                li(trans.availableInNbLanguages.pluralSame(80)),
+              ),
             ),
             div(cls := "right-side")(
               img(
@@ -51,18 +53,18 @@ object mobile {
                 width  := "268",
                 height := "513",
                 src    := staticUrl("images/mobile/nexus5-playing.png"),
-                alt    := "Lishogi mobile on nexus 5"
+                alt    := "Lishogi mobile on nexus 5",
               ),
               img(
                 cls    := "qrcode",
                 width  := "200",
                 height := "200",
                 src    := staticUrl("images/mobile/dynamic-qrcode.png"),
-                alt    := "Download QR code"
-              )
-            )
-          )
-        )
+                alt    := "Download QR code",
+              ),
+            ),
+          ),
+        ),
       )
     }
 
@@ -75,7 +77,7 @@ object mobile {
   height="50"
   src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" />
 </a>
-"""
+""",
   )
 
   lazy val googlePlayButton = raw(
@@ -87,6 +89,6 @@ object mobile {
   height="74"
   src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
 </a>
-"""
+""",
   )
 }

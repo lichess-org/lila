@@ -11,7 +11,7 @@ final class LastPostCache(
     api: BlogApi,
     config: BlogConfig,
     timelineApi: EntryApi,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache = cacheApi.sync[BlogLang.Code, List[MiniPost]](
@@ -20,7 +20,7 @@ final class LastPostCache(
     compute = langCode => fetch(BlogLang.fromLangCode(langCode)),
     default = _ => Nil,
     expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),
-    strategy = Syncache.NeverWait
+    strategy = Syncache.NeverWait,
   )
 
   private def fetch(lang: BlogLang): Fu[List[MiniPost]] = {

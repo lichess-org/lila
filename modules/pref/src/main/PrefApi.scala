@@ -12,7 +12,7 @@ import lila.user.User
 
 final class PrefApi(
     coll: Coll,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PrefHandlers._
@@ -29,7 +29,7 @@ final class PrefApi(
       .one(
         $id(user.id),
         $set(s"tags.${tag(Pref.Tag)}" -> value),
-        upsert = true
+        upsert = true,
       )
       .void
       .recover(lila.db.ignoreDuplicateKey) >>- { cache invalidate user.id }
@@ -53,7 +53,7 @@ final class PrefApi(
   def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "_id",
-      ($inIds(userIds) ++ $doc("follow" -> false))
+      ($inIds(userIds) ++ $doc("follow" -> false)),
     )
 
   def followableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
@@ -85,8 +85,8 @@ final class PrefApi(
         p.copy(
           takeback = Pref.Takeback.NEVER,
           moretime = Pref.Moretime.NEVER,
-          insightsShare = true
-        )
+          insightsShare = true,
+        ),
     )
 
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit = {

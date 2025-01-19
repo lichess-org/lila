@@ -6,7 +6,7 @@ import lila.db.dsl._
 import lila.user.User
 
 final class AppealApi(
-    coll: Coll
+    coll: Coll,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -27,12 +27,12 @@ final class AppealApi(
               AppealMsg(
                 by = me.id,
                 text = text,
-                at = DateTime.now
-              )
+                at = DateTime.now,
+              ),
             ),
             status = Appeal.Status.Unread,
             createdAt = DateTime.now,
-            updatedAt = DateTime.now
+            updatedAt = DateTime.now,
           )
         coll.insert.one(appeal) inject appeal
       case Some(prev) =>

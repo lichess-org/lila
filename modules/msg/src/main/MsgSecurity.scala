@@ -20,10 +20,10 @@ final private class MsgSecurity(
     userRepo: lila.user.UserRepo,
     relationApi: lila.relation.RelationApi,
     spam: lila.security.Spam,
-    chatPanic: lila.chat.ChatPanic
+    chatPanic: lila.chat.ChatPanic,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   import BsonHandlers._
@@ -46,13 +46,13 @@ final private class MsgSecurity(
   private val CreateLimitPerUser = new RateLimit[User.ID](
     credits = 20 * limitCost.normal,
     duration = 24 hour,
-    key = "msg_create.user"
+    key = "msg_create.user",
   )
 
   private val ReplyLimitPerUser = new RateLimit[User.ID](
     credits = 20 * limitCost.normal,
     duration = 1 minute,
-    key = "msg_reply.user"
+    key = "msg_reply.user",
   )
 
   object can {
@@ -61,7 +61,7 @@ final private class MsgSecurity(
         contacts: User.Contacts,
         rawText: String,
         isNew: Boolean,
-        unlimited: Boolean = false
+        unlimited: Boolean = false,
     ): Fu[Verdict] = {
       val text = rawText.trim
       if (text.isEmpty) fuccess(Invalid)
@@ -84,7 +84,7 @@ final private class MsgSecurity(
           case Dirt =>
             Bus.publish(
               AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
-              "autoFlag"
+              "autoFlag",
             )
           case Spam =>
             logger.warn(s"PM spam from ${contacts.orig.id}: ${text}")
@@ -92,18 +92,26 @@ final private class MsgSecurity(
         }
     }
 
-    private def isLimited(contacts: User.Contacts, isNew: Boolean, unlimited: Boolean): Fu[Option[Verdict]] =
+    private def isLimited(
+        contacts: User.Contacts,
+        isNew: Boolean,
+        unlimited: Boolean,
+    ): Fu[Option[Verdict]] =
       if (unlimited) fuccess(none)
       else if (isNew) {
         isLeaderOf(contacts) >>| isTeacherOf(contacts)
       } map {
         case true => none
         case _ =>
-          CreateLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
+          CreateLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(
+            Limit.some,
+          )
       }
       else
         fuccess {
-          ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
+          ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(
+            Limit.some,
+          )
         }
 
     private def isSpam(text: String): Fu[Option[Verdict]] =
@@ -136,8 +144,9 @@ final private class MsgSecurity(
 
     private def create(contacts: User.Contacts): Fu[Boolean] =
       prefApi.getPref(contacts.dest.id, _.message) flatMap {
-        case lila.pref.Pref.Message.NEVER  => fuccess(false)
-        case lila.pref.Pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
+        case lila.pref.Pref.Message.NEVER => fuccess(false)
+        case lila.pref.Pref.Message.FRIEND =>
+          relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
         case lila.pref.Pref.Message.ALWAYS => fuccess(true)
       }
 
@@ -150,9 +159,9 @@ final private class MsgSecurity(
           "del" $ne contacts.dest.id,
           $doc(
             "lastMsg.user" -> contacts.dest.id,
-            "lastMsg.date" $gt DateTime.now.minusDays(3)
-          )
-        )
+            "lastMsg.date" $gt DateTime.now.minusDays(3),
+          ),
+        ),
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =

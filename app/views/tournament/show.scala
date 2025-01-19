@@ -18,7 +18,7 @@ object show {
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       streamers: List[User.ID],
-      shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
+      shieldOwner: Option[lila.tournament.TournamentShield.OwnerId],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
@@ -34,11 +34,11 @@ object show {
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
                 public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}")
+                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
               )
-            }
-          )
-        )
+            },
+          ),
+        ),
       ),
       moreCss = cssTag {
         if (tour.isTeamBattle) "tournament.show.team-battle"
@@ -55,21 +55,23 @@ object show {
             s"${trans.duration.txt().toLowerCase}: ${tour.minutes}m. " +
             tour.winnerId.fold(trans.winnerIsNotYetDecided.txt()) { winnerId =>
               trans.xWon.txt(usernameOrId(winnerId))
-            } // Jun 19, 2023 - SuperBlitz Arena - 377 players, duration: 57m. Winner is not yet decided.
+            }, // Jun 19, 2023 - SuperBlitz Arena - 377 players, duration: 57m. Winner is not yet decided.
         )
-        .some
+        .some,
     )(
       main(cls := s"tour${tour.schedule
           .?? { sched =>
             s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
           }}")(
         st.aside(cls := "tour__side")(
-          tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)
+          tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined),
         ),
         div(cls := "tour__main")(div(cls := "box")),
-        (tour.isCreated || (tour.hasArrangements && !tour.isFinished)) option div(cls := "tour__faq")(
-          faq(tour.format, tour.mode.rated.some, tour.isPrivate.option(tour.id))
-        )
-      )
+        (tour.isCreated || (tour.hasArrangements && !tour.isFinished)) option div(
+          cls := "tour__faq",
+        )(
+          faq(tour.format, tour.mode.rated.some, tour.isPrivate.option(tour.id)),
+        ),
+      ),
     )
 }

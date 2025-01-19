@@ -11,7 +11,7 @@ case class Note(
     text: String,
     mod: Boolean,
     dox: Boolean,
-    date: DateTime
+    date: DateTime,
 ) {
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id == from
@@ -21,10 +21,10 @@ case class UserNotes(user: User, notes: List[Note])
 
 final class NoteApi(
     userRepo: UserRepo,
-    coll: Coll
+    coll: Coll,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    ws: play.api.libs.ws.WSClient
+    ws: play.api.libs.ws.WSClient,
 ) {
 
   import reactivemongo.api.bson._
@@ -37,10 +37,10 @@ final class NoteApi(
           if (isMod)
             $or(
               $doc("from" -> me.id),
-              $doc("mod"  -> true)
+              $doc("mod"  -> true),
             )
           else $doc("from" -> me.id)
-        }
+        },
       )
       .sort($sort desc "date")
       .cursor[Note]()
@@ -69,7 +69,7 @@ final class NoteApi(
       text = text,
       mod = modOnly,
       dox = modOnly && (dox || Title.fromUrl.toJSAId(text).isDefined),
-      date = DateTime.now
+      date = DateTime.now,
     )
 
     coll.insert.one(note) >>-
@@ -78,9 +78,9 @@ final class NoteApi(
           from = from.username,
           to = to.username,
           text = note.text,
-          mod = modOnly
+          mod = modOnly,
         ),
-        "userNote"
+        "userNote",
       )
   } >> {
     modOnly ?? Title.fromUrl(text) flatMap {

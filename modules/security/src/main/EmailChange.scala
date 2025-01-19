@@ -12,7 +12,7 @@ final class EmailChange(
     userRepo: UserRepo,
     mailgun: Mailgun,
     baseUrl: BaseUrl,
-    tokenerSecret: Secret
+    tokenerSecret: Secret,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
@@ -40,8 +40,8 @@ ${Mailgun.txt.serviceNote}
           pDesc(trans.emailChange_intro()),
           p(trans.emailChange_click()),
           potentialAction(metaName("Change email address"), Mailgun.html.url(url)),
-          serviceNote
-        ).some
+          serviceNote,
+        ).some,
       )
     }
 
@@ -58,24 +58,25 @@ ${Mailgun.txt.serviceNote}
 
   case class TokenPayload(userId: User.ID, email: EmailAddress)
 
-  implicit final private val payloadSerializable: StringToken.Serializable[Option[TokenPayload]] = new StringToken.Serializable[Option[TokenPayload]] {
-    private val sep = ' '
-    def read(str: String) =
-      str.split(sep) match {
-        case Array(id, email) => EmailAddress from email map { TokenPayload(id, _) }
-        case _                => none
-      }
-    def write(a: Option[TokenPayload]) =
-      a ?? { case TokenPayload(userId, EmailAddress(email)) =>
-        s"$userId$sep$email"
-      }
-  }
+  implicit final private val payloadSerializable: StringToken.Serializable[Option[TokenPayload]] =
+    new StringToken.Serializable[Option[TokenPayload]] {
+      private val sep = ' '
+      def read(str: String) =
+        str.split(sep) match {
+          case Array(id, email) => EmailAddress from email map { TokenPayload(id, _) }
+          case _                => none
+        }
+      def write(a: Option[TokenPayload]) =
+        a ?? { case TokenPayload(userId, EmailAddress(email)) =>
+          s"$userId$sep$email"
+        }
+    }
 
   private val tokener = new StringToken[Option[TokenPayload]](
     secret = tokenerSecret,
     getCurrentValue = p =>
       p ?? { case TokenPayload(userId, _) =>
         userRepo email userId dmap (_.??(_.value))
-      }
+      },
   )
 }

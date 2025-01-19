@@ -8,8 +8,7 @@ import org.mindrot.BCrypt
 
 import lila.common.String.base64
 import lila.common.config.Secret
-
-import StringToken.ValueChecker
+import lila.security.StringToken.ValueChecker
 
 final class StringToken[A](
     secret: Secret,
@@ -17,10 +16,10 @@ final class StringToken[A](
     valueChecker: ValueChecker = ValueChecker.Same,
     fullHashSize: Int = 14,
     currentValueHashSize: Option[Int] = Some(6), // won't hash if None
-    separator: Char = '|'
+    separator: Char = '|',
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    serializer: StringToken.Serializable[A]
+    serializer: StringToken.Serializable[A],
 ) {
 
   def make(payload: A) =
@@ -37,7 +36,7 @@ final class StringToken[A](
         case Array(payloadStr, hashed, checksum) =>
           BCrypt.bytesEqualSecure(
             makeHash(signPayload(payloadStr, hashed)).getBytes(UTF_8),
-            checksum.getBytes(UTF_8)
+            checksum.getBytes(UTF_8),
           ) ?? {
             val payload = serializer read payloadStr
             (valueChecker match {
@@ -56,7 +55,8 @@ final class StringToken[A](
       currentValueHashSize.fold(v)(makeHash(v) take _)
     }
 
-  private def signPayload(payloadStr: String, hashedValue: String) = s"$payloadStr$separator$hashedValue"
+  private def signPayload(payloadStr: String, hashedValue: String) =
+    s"$payloadStr$separator$hashedValue"
 }
 
 object StringToken {

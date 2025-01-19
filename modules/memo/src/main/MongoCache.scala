@@ -7,18 +7,16 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
+import lila.memo.CacheApi._
 
-import CacheApi._
-
-/**
-  * To avoid recomputing very expensive values after deploy
+/** To avoid recomputing very expensive values after deploy
   */
 final class MongoCache[K, V: BSONHandler] private (
     name: String,
     dbTtl: FiniteDuration,
     keyToString: K => String,
     build: MongoCache.LoaderWrapper[K, V] => AsyncLoadingCache[K, V],
-    val coll: Coll
+    val coll: Coll,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private case class Entry(_id: String, v: V, e: DateTime)
@@ -35,7 +33,7 @@ final class MongoCache[K, V: BSONHandler] private (
             coll.update.one(
               $id(dbKey),
               Entry(dbKey, v, DateTime.now.plusSeconds(dbTtl.toSeconds.toInt)),
-              upsert = true
+              upsert = true,
             ) inject v
           }
           .mon(_.mongoCache.compute(name))
@@ -63,7 +61,7 @@ object MongoCache {
       db: lila.db.Db,
       config: MemoConfig,
       cacheApi: CacheApi,
-      mode: play.api.Mode
+      mode: play.api.Mode,
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     private val coll = db(config.cacheColl)
@@ -73,9 +71,9 @@ object MongoCache {
         initialCapacity: Int,
         name: String,
         dbTtl: FiniteDuration,
-        keyToString: K => String
+        keyToString: K => String,
     )(
-        build: LoaderWrapper[K, V] => Builder => AsyncLoadingCache[K, V]
+        build: LoaderWrapper[K, V] => Builder => AsyncLoadingCache[K, V],
     ): MongoCache[K, V] = {
       val cache = new MongoCache(
         name,
@@ -83,9 +81,9 @@ object MongoCache {
         keyToString,
         (wrapper: LoaderWrapper[K, V]) =>
           build(wrapper)(
-            scaffeine(mode).recordStats().initialCapacity(cacheApi.actualCapacity(initialCapacity))
+            scaffeine(mode).recordStats().initialCapacity(cacheApi.actualCapacity(initialCapacity)),
           ),
-        coll
+        coll,
       )
       cacheApi.monitor(name, cache.cache)
       cache
@@ -94,23 +92,23 @@ object MongoCache {
     // AsyncLoadingCache for single entry with DB persistence
     def unit[V: BSONHandler](
         name: String,
-        dbTtl: FiniteDuration
+        dbTtl: FiniteDuration,
     )(
-        build: LoaderWrapper[Unit, V] => Builder => AsyncLoadingCache[Unit, V]
+        build: LoaderWrapper[Unit, V] => Builder => AsyncLoadingCache[Unit, V],
     ): MongoCache[Unit, V] =
       new MongoCache(
         name,
         dbTtl,
         _ => "",
         wrapper => build(wrapper)(scaffeine(mode).initialCapacity(1)),
-        coll
+        coll,
       )
 
     // no in-heap cache
     def only[K, V: BSONHandler](
         name: String,
         dbTtl: FiniteDuration,
-        keyToString: K => String
+        keyToString: K => String,
     )(f: K => Fu[V]): MongoCache[K, V] =
       apply[K, V](8, name, dbTtl, keyToString) { loader =>
         _.expireAfterWrite(1 second)

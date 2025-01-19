@@ -8,8 +8,7 @@ import play.api.mvc.Results.TooManyRequests
 
 import akka.stream.scaladsl._
 
-/**
-  * only allow one stream at a time per key
+/** only allow one stream at a time per key
   */
 final class ConcurrencyLimit[K](
     name: String,
@@ -17,7 +16,7 @@ final class ConcurrencyLimit[K](
     ttl: FiniteDuration,
     maxConcurrency: Int = 1,
     limitedDefault: Int => Result = ConcurrencyLimit.limitedDefault _,
-    toString: K => String = (k: K) => k.toString
+    toString: K => String = (k: K) => k.toString,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val storage = lila.memo.CacheApi.scaffeineNoScheduler
@@ -47,14 +46,15 @@ final class ConcurrencyLimit[K](
     }
 
   def apply[T](k: K, msg: => String = "")(
-      makeSource: => Source[T, _]
+      makeSource: => Source[T, _],
   )(makeResult: Source[T, _] => Result): Result =
     compose[T](k, msg).fold(limitedDefault(maxConcurrency)) { watch =>
       makeResult(watch(makeSource))
     }
 
   private def get(k: K) = ~storage.getIfPresent(toString(k))
-  private def inc(k: K) = concurrentMap.compute(toString(k), (_, c) => (~Option(c) + 1) atMost maxConcurrency)
+  private def inc(k: K) =
+    concurrentMap.compute(toString(k), (_, c) => (~Option(c) + 1) atMost maxConcurrency)
   private def dec(k: K) = concurrentMap.computeIfPresent(toString(k), (_, c) => (c - 1) atLeast 0)
 }
 

@@ -13,10 +13,10 @@ final private class Cleaner(
     repo: FishnetRepo,
     moveDb: MoveDB,
     colls: FishnetColls,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
   import BSONHandlers._
@@ -35,9 +35,9 @@ final private class Cleaner(
           $doc("verifiable" -> false),
           $or(
             $doc("acquired.date" $lt durationAgo(puzzleTimeout)),
-            $doc("tries" $gte Work.maxTries)
-          )
-        )
+            $doc("tries" $gte Work.maxTries),
+          ),
+        ),
       )
       .sort($sort desc "acquired.date")
       .cursor[Work.Puzzle]()
@@ -59,8 +59,8 @@ final private class Cleaner(
       .find(
         $or(
           $doc("acquired.date" $lt durationAgo(analysisTimeoutBase)),
-          $doc("tries" $gte Work.maxTries)
-        )
+          $doc("tries" $gte Work.maxTries),
+        ),
       )
       .sort($sort desc "acquired.date")
       .cursor[Work.Analysis]()

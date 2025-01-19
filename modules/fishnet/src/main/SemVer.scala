@@ -21,7 +21,7 @@ object SemVer {
             val e = extras.reverse ::: bits.drop(3).toList
             if (e.isEmpty) None else Some(e.mkString("-"))
           },
-          version
+          version,
         )
       case x :: y :: Nil =>
         SemVer(
@@ -31,7 +31,7 @@ object SemVer {
             val e = extras.reverse ::: bits.drop(2).toList
             if (e.isEmpty) None else Some(e.mkString("-"))
           },
-          version
+          version,
         )
       case x :: Nil =>
         SemVer(
@@ -41,7 +41,7 @@ object SemVer {
             val e = extras.reverse ::: bits.drop(1).toList
             if (e.isEmpty) None else Some(e.mkString("-"))
           },
-          version
+          version,
         )
       case _ =>
         sys.error("Cannot parse version: [%s]".format(version))
@@ -89,8 +89,10 @@ case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], 
           1 // Number prefixes compared
         case (Some(ths), Some(_), Some(tht), Some(_)) =>
           ths.compareTo(tht) // Number prefixes same: Compare lexicographically
-        case (Some(_), Some(_), Some(_), None) => 0 // One starts with number the other doesn't: Can't decide
-        case (Some(_), None, Some(_), Some(_)) => 0 // One starts with number the other doesn't: Can't decide
+        case (Some(_), Some(_), Some(_), None) =>
+          0 // One starts with number the other doesn't: Can't decide
+        case (Some(_), None, Some(_), Some(_)) =>
+          0 // One starts with number the other doesn't: Can't decide
         case (Some(ths), None, Some(tht), None) =>
           ths.compareTo(tht) // No number prefixes: Compare lexicographically
         case (Some(_), _, None, _) => -1 // One has extra, the other doesn't

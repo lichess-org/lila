@@ -18,18 +18,18 @@ object post {
           a(
             cls   := "post_link",
             href  := routes.ForumPost.redirect(p.postId),
-            title := p.topicName
+            title := p.topicName,
           )(
             p.isTeam option span(
               cls      := "text",
-              dataIcon := "f"
+              dataIcon := "f",
             ),
             span(cls := "post_topic")(shorten(p.topicName, 30)),
-            span(cls := "post_text")(shorten(p.text, 70))
+            span(cls := "post_text")(shorten(p.text, 70)),
           ),
-          userIdLink(p.userId, withOnline = false)
+          userIdLink(p.userId, withOnline = false),
         )
-      }
+      },
     )
 
   def show(
@@ -38,7 +38,7 @@ object post {
       post: lila.forum.Post,
       url: String,
       canModCateg: Boolean,
-      canReact: Boolean
+      canReact: Boolean,
   )(implicit ctx: Context) = {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
@@ -46,19 +46,19 @@ object post {
           authorLink(
             post = post,
             cssClass = s"author${(topic.userId == post.userId) ?? " author--op"}".some,
-            modIcon = ~post.modIcon
+            modIcon = ~post.modIcon,
           ),
           a(href := url)(
             post.updatedAt
               .map { updatedAt =>
                 frag(
                   span(cls := "post-edited")("edited "),
-                  momentFromNow(updatedAt)
+                  momentFromNow(updatedAt),
                 )
               }
               .getOrElse {
                 momentFromNow(post.createdAt)
-              }
+              },
           ),
           isGranted(_.IpBan) option span(cls := "mod postip")(post.ip),
           ctx.userId.fold(false)(post.shouldShowEditForm(_)) option
@@ -67,14 +67,14 @@ object post {
             cls      := "mod delete button button-empty button-red",
             href     := routes.ForumPost.delete(categ.slug, post.id),
             dataIcon := "q",
-            title    := "Delete"
-          )
+            title    := "Delete",
+          ),
         ),
-        a(cls := "anchor", href := url)(s"#${post.number}")
+        a(cls := "anchor", href := url)(s"#${post.number}"),
       ),
       p(cls := "forum-post__message expand-text")(
         if (post.erased) "<erased>"
-        else richText(post.text)
+        else richText(post.text),
       ),
       reactions(post, canReact),
       ctx.userId.exists(post.shouldShowEditForm(_)) option
@@ -84,19 +84,19 @@ object post {
             name           := "changes",
             cls            := "post-text-area edit-post-box",
             minlength      := 3,
-            required
+            required,
           )(post.text),
           div(cls := "edit-buttons")(
             a(
               cls   := "edit-post-cancel",
               href  := routes.ForumPost.redirect(post.id),
-              style := "margin-left:20px"
+              style := "margin-left:20px",
             )(
-              trans.cancel()
+              trans.cancel(),
             ),
-            submitButton(cls := "button")(trans.apply())
-          )
-        )
+            submitButton(cls := "button")(trans.apply()),
+          ),
+        ),
     )
   }
 
@@ -107,8 +107,10 @@ object post {
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
-          dataHref := (ctx.isAuth && canReact) option routes.ForumPost.react(post.id, r, !mine(r)).url,
-          cls      := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          dataHref := (ctx.isAuth && canReact) option routes.ForumPost
+            .react(post.id, r, !mine(r))
+            .url,
+          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {
               val who =
@@ -116,12 +118,12 @@ object post {
                 else users mkString ", "
               s"$who reacted with $r"
             } else r
-          }
+          },
         )(
           img(src := assetUrl(s"images/emoji/$r.png"), alt := r),
-          size > 0 option size
+          size > 0 option size,
         )
-      }
+      },
     )
   }
 }

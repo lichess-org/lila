@@ -60,14 +60,14 @@ object Proverb {
     new Proverb("Take two for one, even if there is a pawn in it.", "二枚換えは歩ともせよ"),
     new Proverb("Early escape is worth eight moves.", "玉の早逃げ八手の得あり"),
     // lishogi
-    new Proverb("A thousand games on Lishogi, one step closer to mastery.", "Lishogiで千局、名人へ一歩")
+    new Proverb("A thousand games on Lishogi, one step closer to mastery.", "Lishogiで千局、名人へ一歩"),
   )
 
   implicit def proverbWriter: OWrites[Proverb] =
     OWrites { q =>
       Json.obj(
         "english"  -> q.english,
-        "japanese" -> q.japanese
+        "japanese" -> q.japanese,
       )
     }
 }

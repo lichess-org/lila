@@ -16,7 +16,7 @@ import lila.user.UserRepo
 final class MentionNotifier(
     userRepo: UserRepo,
     notifyApi: NotifyApi,
-    relationApi: RelationApi
+    relationApi: RelationApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val forbidden = Set("lishogi", "thibault")
@@ -30,10 +30,13 @@ final class MentionNotifier(
       }
     }
 
-  /** Checks the database to make sure that the users mentioned exist, and removes any users that do not exist
-    * or block the mentioner from the returned list.
+  /** Checks the database to make sure that the users mentioned exist, and removes any users that do
+    * not exist or block the mentioner from the returned list.
     */
-  private def filterValidUsers(users: Set[User.ID], mentionedBy: User.ID): Fu[List[Notification.Notifies]] = {
+  private def filterValidUsers(
+      users: Set[User.ID],
+      mentionedBy: User.ID,
+  ): Fu[List[Notification.Notifies]] = {
     for {
       validUsers <-
         userRepo
@@ -46,7 +49,7 @@ final class MentionNotifier(
 
   private def filterNotBlockedByUsers(
       usersMentioned: List[User.ID],
-      mentionedBy: User.ID
+      mentionedBy: User.ID,
   ): Fu[List[User.ID]] =
     Future.filterNot(usersMentioned) { relationApi.fetchBlocks(_, mentionedBy) }
 
@@ -54,14 +57,14 @@ final class MentionNotifier(
       post: Post,
       topic: Topic,
       mentionedUser: Notification.Notifies,
-      mentionedBy: MentionedInThread.MentionedBy
+      mentionedBy: MentionedInThread.MentionedBy,
   ): Notification = {
     val notificationContent = MentionedInThread(
       mentionedBy,
       MentionedInThread.Topic(topic.name),
       MentionedInThread.TopicId(topic.id),
       MentionedInThread.Category(post.categId),
-      MentionedInThread.PostId(post.id)
+      MentionedInThread.PostId(post.id),
     )
 
     Notification.make(mentionedUser, notificationContent)

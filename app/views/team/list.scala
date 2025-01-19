@@ -16,14 +16,14 @@ object list {
       name = s"""${trans.search.search.txt()} "$text"""",
       teams = teams,
       nextPageUrl = n => routes.Team.search(text, n).url,
-      search = text
+      search = text,
     )
 
   def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) =
     list(
       name = trans.team.teams.txt(),
       teams = teams,
-      nextPageUrl = n => routes.Team.all(n).url
+      nextPageUrl = n => routes.Team.all(n).url,
     )
 
   def mine(teams: List[lila.team.Team])(implicit ctx: Context) =
@@ -35,9 +35,9 @@ object list {
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
-            else noTeam()
-          )
-        )
+            else noTeam(),
+          ),
+        ),
       )
     }
 
@@ -50,9 +50,9 @@ object list {
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
-            else noTeam()
-          )
-        )
+            else noTeam(),
+          ),
+        ),
       )
     }
 
@@ -61,16 +61,16 @@ object list {
       tr(
         td(colspan := "2")(
           br,
-          noTeamFound()
-        )
-      )
+          noTeamFound(),
+        ),
+      ),
     )
 
   private def list(
       name: String,
       teams: Paginator[lila.team.Team],
       nextPageUrl: Int => String,
-      search: String = ""
+      search: String = "",
   )(implicit ctx: Context) =
     bits.layout(title = s"$name - ${trans.page.txt().toLowerCase} ${teams.currentPage}") {
       main(cls := "team-list page-menu")(
@@ -79,21 +79,21 @@ object list {
           div(cls := "box__top")(
             h1(name),
             div(cls := "box__top__actions")(
-              st.form(cls     := "search", action := routes.Team.search())(
-                input(st.name := "text", value    := search, placeholder := trans.search.search.txt())
-              )
-            )
+              st.form(cls := "search", action := routes.Team.search())(
+                input(st.name := "text", value := search, placeholder := trans.search.search.txt()),
+              ),
+            ),
           ),
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.nbResults > 0)
               tbody(cls := "infinitescroll")(
                 pagerNextTable(teams, nextPageUrl),
-                teams.currentPageResults map { bits.teamTr(_) }
+                teams.currentPageResults map { bits.teamTr(_) },
               )
-            else noTeam()
-          )
-        )
+            else noTeam(),
+          ),
+        ),
       )
     }
 }

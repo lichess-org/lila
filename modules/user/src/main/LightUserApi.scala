@@ -9,12 +9,11 @@ import lila.common.LightUser
 import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.memo.Syncache
-
-import User.{ BSONFields => F }
+import lila.user.User.{ BSONFields => F }
 
 final class LightUserApi(
     repo: UserRepo,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import LightUserApi._
@@ -43,24 +42,25 @@ final class LightUserApi(
     compute = id => repo.coll.find($id(id), projection).one[LightUser],
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(8 millis),
-    expireAfter = Syncache.ExpireAfterWrite(20 minutes)
+    expireAfter = Syncache.ExpireAfterWrite(20 minutes),
   )
 }
 
 private object LightUserApi {
 
-  implicit val lightUserBSONReader: BSONDocumentReader[LightUser] = new BSONDocumentReader[LightUser] {
+  implicit val lightUserBSONReader: BSONDocumentReader[LightUser] =
+    new BSONDocumentReader[LightUser] {
 
-    def readDocument(doc: BSONDocument) =
-      Success(
-        LightUser(
-          id = doc.string(F.id) err "LightUser id missing",
-          name = doc.string(F.username) err "LightUser username missing",
-          title = doc.string(F.title),
-          isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
+      def readDocument(doc: BSONDocument) =
+        Success(
+          LightUser(
+            id = doc.string(F.id) err "LightUser id missing",
+            name = doc.string(F.username) err "LightUser username missing",
+            title = doc.string(F.title),
+            isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active")),
+          ),
         )
-      )
-  }
+    }
 
   val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
 }

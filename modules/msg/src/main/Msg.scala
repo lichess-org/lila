@@ -7,7 +7,7 @@ import lila.user.User
 case class Msg(
     text: String,
     user: User.ID,
-    date: DateTime
+    date: DateTime,
 ) {
 
   def asLast =
@@ -15,7 +15,7 @@ case class Msg(
       text = text take 60,
       user = user,
       date = date,
-      read = false
+      read = false,
     )
 }
 
@@ -27,7 +27,7 @@ object Msg {
       text: String,
       user: User.ID,
       date: DateTime,
-      read: Boolean
+      read: Boolean,
   ) {
     def unreadBy(userId: User.ID) = !read && user != userId
   }
@@ -37,7 +37,7 @@ object Msg {
     cleanText.nonEmpty option Msg(
       text = cleanText take 10_000,
       user = user,
-      date = DateTime.now
+      date = DateTime.now,
     )
   }
 }

@@ -22,10 +22,10 @@ import lila.round.actorApi.round.QuietFlag
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
-    jsonView: BotJsonView
+    jsonView: BotJsonView,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private case object SetOnline
@@ -35,7 +35,7 @@ final class GameStateStream(
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
   def apply(game: Game, as: shogi.Color, u: lila.user.User)(implicit
-      lang: Lang
+      lang: Lang,
   ): Source[Option[JsObject], _] = {
 
     // kill previous one if any
@@ -44,7 +44,7 @@ final class GameStateStream(
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
         Props(mkActor(game, as, User(u.id, u.isBot), queue)),
-        name = s"GameStateStream:${game.id}:${lila.common.ThreadLocalRandom nextString 8}"
+        name = s"GameStateStream:${game.id}:${lila.common.ThreadLocalRandom nextString 8}",
       )
       queue.watchCompletion().foreach { _ =>
         actor ! PoisonPill
@@ -58,7 +58,7 @@ final class GameStateStream(
       game: Game,
       as: shogi.Color,
       user: User,
-      queue: SourceQueueWithComplete[Option[JsObject]]
+      queue: SourceQueueWithComplete[Option[JsObject]],
   )(implicit lang: Lang) =
     new Actor {
 
@@ -73,7 +73,7 @@ final class GameStateStream(
         "finishGame",
         "abortGame",
         uniqChan(game pov as),
-        Chat chanOf Chat.Id(id)
+        Chat chanOf Chat.Id(id),
       ) :::
         user.isBot.option(Chat chanOf Chat.Id(s"$id/w")).toList
 

@@ -6,7 +6,7 @@ final class IpTrust(
     @scala.annotation.unused proxyApi: Ip2Proxy,
     geoApi: GeoIP,
     torApi: Tor,
-    firewallApi: Firewall
+    firewallApi: Firewall,
 ) {
 
   def isSuspicious(ip: IpAddress): Fu[Boolean] =

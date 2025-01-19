@@ -18,14 +18,14 @@ object index {
       pager: Paginator[lila.coach.Coach.WithUser],
       lang: Option[Lang],
       order: lila.coach.CoachPager.Order,
-      langCodes: Set[String]
+      langCodes: Set[String],
   )(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     views.html.base.layout(
       title = lishogiCoaches.txt(),
       moreCss = cssTag("misc.coach"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
       // maybe someday - withHrefLangs = lila.i18n.LangList.All.some
     ) {
       val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
@@ -38,8 +38,8 @@ object index {
           p(
             becomeACoach(),
             br,
-            sendApplication(contactEmailLink)
-          )
+            sendApplication(contactEmailLink),
+          ),
         ),
         div(cls := "coach-list__main coach-main box")(
           div(cls := "box__top")(
@@ -52,9 +52,9 @@ object index {
                   .map { case (code, name) =>
                     a(
                       href := routes.Coach.search(code, order.key),
-                      cls  := (code == lang.fold("all")(_.code)).option("current")
+                      cls  := (code == lang.fold("all")(_.code)).option("current"),
                     )(name)
-                  }
+                  },
               ),
               views.html.base.bits.mselect(
                 "coach-sort",
@@ -62,29 +62,33 @@ object index {
                 lila.coach.CoachPager.Order.all map { o =>
                   a(
                     href := routes.Coach.search(lang.fold("all")(_.code), o.key),
-                    cls  := (order == o).option("current")
+                    cls  := (order == o).option("current"),
                   )(
-                    o.name
+                    o.name,
                   )
-                }
-              )
-            )
+                },
+              ),
+            ),
           ),
           div(cls := "list infinitescroll")(
             pager.currentPageResults.map { c =>
               st.article(cls := "coach-widget paginated", attr("data-dedup") := c.coach.id.value)(
-                widget(c, link = true)
+                widget(c, link = true),
               )
             },
             pagerNext(
               pager,
               np =>
-                addQueryParameter(routes.Coach.search(lang.fold("all")(_.code), order.key).url, "page", np)
+                addQueryParameter(
+                  routes.Coach.search(lang.fold("all")(_.code), order.key).url,
+                  "page",
+                  np,
+                ),
             ).map {
               frag(_, div(cls := "none")) // don't break the even/odd CSS flow
-            }
-          )
-        )
+            },
+          ),
+        ),
       )
     }
 }

@@ -16,19 +16,22 @@ case class Related(
     user: lila.user.User,
     nbGames: Option[Int],
     followable: Boolean,
-    relation: Option[Relation]
+    relation: Option[Relation],
 )
 
 case class Relations(
     in: Option[Relation],
-    out: Option[Relation]
+    out: Option[Relation],
 )
 
 object BSONHandlers {
 
   import reactivemongo.api.bson._
 
-  implicit private[relation] val followerBSONHandler: BSONDocumentHandler[Follower] = Macros.handler[Follower]
-  implicit private[relation] val followedBSONHandler: BSONDocumentHandler[Followed] = Macros.handler[Followed]
-  implicit private[relation] val blockedBSONHandler: BSONDocumentHandler[Blocked]  = Macros.handler[Blocked]
+  implicit private[relation] val followerBSONHandler: BSONDocumentHandler[Follower] =
+    Macros.handler[Follower]
+  implicit private[relation] val followedBSONHandler: BSONDocumentHandler[Followed] =
+    Macros.handler[Followed]
+  implicit private[relation] val blockedBSONHandler: BSONDocumentHandler[Blocked] =
+    Macros.handler[Blocked]
 }

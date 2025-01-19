@@ -9,8 +9,10 @@ import scala.concurrent.Promise
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(process: Duct.ReceiveAsync)(
-    implicit ec: scala.concurrent.ExecutionContext
+final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(
+    process: Duct.ReceiveAsync,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   import BoundedDuct._

@@ -32,12 +32,14 @@ object RatingFactor {
 
   private val ratingFactorsIso = lila.common.Iso[String, RatingFactors](
     str => read(str),
-    rf => write(rf)
+    rf => write(rf),
   )
 
   object implicits {
-    implicit val ratingFactorsBsonHandler: BSONHandler[RatingFactors] = lila.db.dsl.isoHandler(ratingFactorsIso)
-    implicit val ratingFactorsStringReader: StringReader[RatingFactors] = StringReader.fromIso(ratingFactorsIso)
+    implicit val ratingFactorsBsonHandler: BSONHandler[RatingFactors] =
+      lila.db.dsl.isoHandler(ratingFactorsIso)
+    implicit val ratingFactorsStringReader: StringReader[RatingFactors] =
+      StringReader.fromIso(ratingFactorsIso)
     implicit val ratingFactorsFormable: Formable[lila.rating.RatingFactors] =
       new Formable[RatingFactors](rfs => Form(single("v" -> text)) fill write(rfs))
   }

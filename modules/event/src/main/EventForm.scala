@@ -27,8 +27,8 @@ object EventForm {
       "hostedBy" -> optional {
         lila.user.DataForm.historicalUsernameField
           .transform[User.ID](_.toLowerCase, identity)
-      }
-    )(Data.apply)(Data.unapply)
+      },
+    )(Data.apply)(Data.unapply),
   ) fill Data(
     title = "",
     headline = "",
@@ -38,7 +38,7 @@ object EventForm {
     lang = lila.i18n.enLang.code,
     enabled = true,
     startsAt = DateTime.now,
-    finishesAt = DateTime.now
+    finishesAt = DateTime.now,
   )
 
   case class Data(
@@ -51,7 +51,7 @@ object EventForm {
       enabled: Boolean,
       startsAt: DateTime,
       finishesAt: DateTime,
-      hostedBy: Option[User.ID] = None
+      hostedBy: Option[User.ID] = None,
   ) {
 
     def update(event: Event) =
@@ -65,7 +65,7 @@ object EventForm {
         enabled = enabled,
         startsAt = startsAt,
         finishesAt = finishesAt,
-        hostedBy = hostedBy
+        hostedBy = hostedBy,
       )
 
     def make(userId: String) =
@@ -82,7 +82,7 @@ object EventForm {
         finishesAt = finishesAt,
         createdBy = Event.UserId(userId),
         createdAt = DateTime.now,
-        hostedBy = hostedBy
+        hostedBy = hostedBy,
       )
   }
 
@@ -99,7 +99,7 @@ object EventForm {
         enabled = event.enabled,
         startsAt = event.startsAt,
         finishesAt = event.finishesAt,
-        hostedBy = event.hostedBy
+        hostedBy = event.hostedBy,
       )
   }
 }

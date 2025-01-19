@@ -12,10 +12,10 @@ import lila.common.IpAddress
 final class Ip2Proxy(
     ws: WSClient,
     cacheApi: lila.memo.CacheApi,
-    checkUrl: String
+    checkUrl: String,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   def apply(ip: IpAddress): Fu[Boolean] =
@@ -40,7 +40,7 @@ final class Ip2Proxy(
       }
 
   private def batch(@scala.annotation.unused ips: Seq[IpAddress]): Fu[Seq[Boolean]] = fuccess(
-    Seq.empty[Boolean]
+    Seq.empty[Boolean],
   )
   // ips.take(50) match { // 50 * ipv6 length < max url length
   //   case Nil      => fuccess(Seq.empty[Boolean])

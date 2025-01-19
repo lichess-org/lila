@@ -16,12 +16,13 @@ object show {
       data: JsObject,
       pref: JsObject,
       themeView: Boolean,
-      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None
+      difficulty: Option[lila.puzzle.PuzzleDifficulty] = None,
   )(implicit
-      ctx: Context
+      ctx: Context,
   ) = {
     val defaultTheme = theme == lila.puzzle.PuzzleTheme.mix
-    val urlPath      = if (defaultTheme) routes.Puzzle.home.url else routes.Puzzle.show(theme.key.value).url
+    val urlPath =
+      if (defaultTheme) routes.Puzzle.home.url else routes.Puzzle.show(theme.key.value).url
     views.html.base.layout(
       title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
@@ -32,11 +33,11 @@ object show {
           Json
             .obj(
               "data" -> data,
-              "pref" -> pref
+              "pref" -> pref,
             )
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
-            .add("difficulty" -> difficulty.map(_.key))
-        )
+            .add("difficulty" -> difficulty.map(_.key)),
+        ),
       ),
       csp = defaultCsp.withWebAssembly.some,
       shogiground = false,
@@ -46,7 +47,7 @@ object show {
             .OpenGraph(
               title = trans.puzzleDesc.txt() + (!defaultTheme ?? s" - ${theme.name.txt()}"),
               url = s"$netBaseUrl$urlPath",
-              description = s"${trans.puzzleDesc.txt()}: ${theme.description.txt()}"
+              description = s"${trans.puzzleDesc.txt()}: ${theme.description.txt()}",
             )
             .some
         else
@@ -57,23 +58,23 @@ object show {
               url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
               description = s"${trans.puzzleDesc.txt()}: " +
                 transWithColorName(trans.puzzle.findTheBestMoveForX, puzzle.color, false) +
-                s" ${trans.puzzle.playedXTimes.pluralSameTxt(puzzle.plays)}"
+                s" ${trans.puzzle.playedXTimes.pluralSameTxt(puzzle.plays)}",
             )
             .some,
       zoomable = true,
       playing = true,
       canonicalPath = lila.common.CanonicalPath(urlPath).some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(cls := "puzzle")(
         st.aside(cls := "puzzle__side")(
-          div(cls    := "puzzle__side__metas")
+          div(cls := "puzzle__side__metas"),
         ),
         div(cls := "puzzle__board main-board")(
-          shogigroundEmpty(shogi.variant.Standard, puzzle.color)
+          shogigroundEmpty(shogi.variant.Standard, puzzle.color),
         ),
         div(cls := "puzzle__tools"),
-        div(cls := "puzzle__controls")
+        div(cls := "puzzle__controls"),
       )
     }
   }

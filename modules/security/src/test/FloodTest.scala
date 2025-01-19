@@ -1,7 +1,7 @@
 package lila.security
 
-import org.specs2.mutable.Specification
 import org.joda.time.Instant
+import org.specs2.mutable.Specification
 
 class FloodTest extends Specification {
 

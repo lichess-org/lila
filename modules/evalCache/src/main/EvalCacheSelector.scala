@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import EvalCacheEntry._
+import lila.evalCache.EvalCacheEntry._
 
 /** selects the evals to store for a given position
   */

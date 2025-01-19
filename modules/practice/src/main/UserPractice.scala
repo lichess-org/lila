@@ -5,14 +5,14 @@ import lila.study.Study
 
 case class UserPractice(
     structure: PracticeStructure,
-    progress: PracticeProgress
+    progress: PracticeProgress,
 ) {
 
   def progressOn(studyId: Study.Id) = {
     val chapterIds = structure.study(studyId).??(_.chapterIds)
     Completion(
       done = progress countDone chapterIds,
-      total = chapterIds.size
+      total = chapterIds.size,
     )
   }
 
@@ -26,7 +26,7 @@ case class UserStudy(
     practiceStudy: PracticeStudy,
     chapters: List[Chapter.Metadata],
     study: Study.WithChapter,
-    section: PracticeSection
+    section: PracticeSection,
 ) {
 
   def url = s"/practice/${section.id}/${practiceStudy.slug}/${study.study.id}"

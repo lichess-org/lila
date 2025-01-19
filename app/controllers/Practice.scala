@@ -13,11 +13,11 @@ import lila.practice.PracticeStudy
 import lila.practice.UserStudy
 import lila.study.Chapter
 import lila.study.Study.WithChapter
-import lila.study.{Study => StudyModel}
+import lila.study.{ Study => StudyModel }
 
 final class Practice(
     env: Env,
-    userAnalysisC: => UserAnalysis
+    userAnalysisC: => UserAnalysis,
 ) extends LilaController(env) {
 
   private val api = env.practice.api
@@ -33,7 +33,7 @@ final class Practice(
   def show(
       @nowarn("cat=unused") sectionId: String,
       @nowarn("cat=unused") studySlug: String,
-      studyId: String
+      studyId: String,
   ) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
@@ -43,7 +43,7 @@ final class Practice(
       @nowarn("cat=unused") sectionId: String,
       @nowarn("cat=unused") studySlug: String,
       studyId: String,
-      chapterId: String
+      chapterId: String,
   ) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
@@ -61,7 +61,7 @@ final class Practice(
         struct.sections.find(_.id == sectionId).fold(notFound) { section =>
           select(section) ?? { study =>
             Redirect(
-              routes.Practice.show(section.id, study.slug, study.id.value)
+              routes.Practice.show(section.id, study.slug, study.id.value),
             ).fuccess
           }
         }
@@ -76,9 +76,9 @@ final class Practice(
           lila.practice.JsonView.JsData(
             study = studyJson,
             analysis = analysisJson,
-            practice = lila.practice.JsonView(us)
-          )
-        )
+            practice = lila.practice.JsonView(us),
+          ),
+        ),
       ).noCache.enableSharedArrayBuffer
     }
 
@@ -89,8 +89,8 @@ final class Practice(
           Ok(
             Json.obj(
               "study"    -> studyJson,
-              "analysis" -> analysisJson
-            )
+              "analysis" -> analysisJson,
+            ),
           ).noCache
         }
       }
@@ -108,13 +108,13 @@ final class Practice(
               ctx.pref,
               chapter.setup.orientation,
               owner = false,
-              me = ctx.me
+              me = ctx.me,
             )
           val analysis = baseData ++ Json.obj(
             "treeParts" -> lila.study.JsonView.partitionTreeJsonWriter.writes(
-              chapter.root
+              chapter.root,
             ),
-            "practiceGoal" -> lila.practice.PracticeGoal(chapter)
+            "practiceGoal" -> lila.practice.PracticeGoal(chapter),
           )
           (analysis, studyJson)
         }

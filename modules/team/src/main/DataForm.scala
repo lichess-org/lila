@@ -12,7 +12,7 @@ import lila.db.dsl._
 final private[team] class DataForm(
     teamRepo: TeamRepo,
     lightUserApi: lila.user.LightUserApi,
-    val captcher: lila.hub.actors.Captcher
+    val captcher: lila.hub.actors.Captcher,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
 
@@ -33,10 +33,10 @@ final private[team] class DataForm(
       Fields.description,
       Fields.open,
       Fields.gameId,
-      Fields.move
+      Fields.move,
     )(TeamSetup.apply)(TeamSetup.unapply)
       .verifying("This team already exists", d => !teamExists(d).await(2 seconds, "teamExists"))
-      .verifying(captchaFailMessage, validateCaptcha _)
+      .verifying(captchaFailMessage, validateCaptcha _),
   )
 
   def edit(team: Team) =
@@ -45,26 +45,26 @@ final private[team] class DataForm(
         Fields.location,
         Fields.description,
         Fields.open,
-        Fields.chat
-      )(TeamEdit.apply)(TeamEdit.unapply)
+        Fields.chat,
+      )(TeamEdit.apply)(TeamEdit.unapply),
     ) fill TeamEdit(
       location = team.location,
       description = team.description,
       open = if (team.open) 1 else 0,
-      chat = team.chat
+      chat = team.chat,
     )
 
   val request = Form(
     mapping(
       "message" -> cleanText(minLength = 30, maxLength = 2000),
       Fields.gameId,
-      Fields.move
+      Fields.move,
     )(RequestSetup.apply)(RequestSetup.unapply)
-      .verifying(captchaFailMessage, validateCaptcha _)
+      .verifying(captchaFailMessage, validateCaptcha _),
   ) fill RequestSetup(
     message = "Hello, I would like to join the team!",
     gameId = "",
-    move = ""
+    move = "",
   )
 
   val apiRequest = Form(single("message" -> optional(cleanText(minLength = 30, maxLength = 2000))))
@@ -72,20 +72,20 @@ final private[team] class DataForm(
   val processRequest = Form(
     tuple(
       "process" -> nonEmptyText,
-      "url"     -> nonEmptyText
-    )
+      "url"     -> nonEmptyText,
+    ),
   )
 
   val selectMember = Form(
     single(
-      "userId" -> lila.user.DataForm.historicalUsernameField
-    )
+      "userId" -> lila.user.DataForm.historicalUsernameField,
+    ),
   )
 
   def createWithCaptcha = withCaptcha(create)
 
   val pmAll = Form(
-    single("message" -> cleanText(minLength = 3, maxLength = 9000))
+    single("message" -> cleanText(minLength = 3, maxLength = 9000)),
   )
 
   def leaders(t: Team) =
@@ -104,7 +104,7 @@ private[team] case class TeamSetup(
     description: String,
     open: Int,
     gameId: String,
-    move: String
+    move: String,
 ) {
 
   def isOpen = open == 1
@@ -113,7 +113,7 @@ private[team] case class TeamSetup(
     copy(
       name = name.trim,
       location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim
+      description = description.trim,
     )
 }
 
@@ -121,7 +121,7 @@ private[team] case class TeamEdit(
     location: Option[String],
     description: String,
     open: Int,
-    chat: Team.ChatFor
+    chat: Team.ChatFor,
 ) {
 
   def isOpen = open == 1
@@ -129,12 +129,12 @@ private[team] case class TeamEdit(
   def trim =
     copy(
       location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim
+      description = description.trim,
     )
 }
 
 private[team] case class RequestSetup(
     message: String,
     gameId: String,
-    move: String
+    move: String,
 )

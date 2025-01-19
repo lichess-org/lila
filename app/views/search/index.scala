@@ -12,8 +12,8 @@ object index {
 
   import trans.search._
 
-  def apply(form: Form[_], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(implicit
-      ctx: Context
+  def apply(form: Form[_], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(
+      implicit ctx: Context,
   ) = {
     val commons = bits of form
     import commons._
@@ -22,8 +22,8 @@ object index {
       moreCss = cssTag("misc.search"),
       moreJs = frag(
         jsTag("misc.search"),
-        infiniteScrollTag
-      )
+        infiniteScrollTag,
+      ),
     ) {
       main(cls := "box page-small search")(
         h1(advancedSearch()),
@@ -31,7 +31,7 @@ object index {
           rel    := "nofollow",
           cls    := "box__pad search__form",
           action := s"${routes.Search.index()}#results",
-          method := "GET"
+          method := "GET",
         )(dataReqs)(
           globalError(form),
           table(
@@ -39,7 +39,7 @@ object index {
               th(label(trans.players())),
               td(cls := "usernames")(List("a", "b").map { p =>
                 div(cls := "half")(form3.input(form("players")(p))(tpe := "text"))
-              })
+              }),
             ),
             colors(hide = true),
             winner(hide = true),
@@ -66,11 +66,11 @@ object index {
                 submitButton(cls := "button")(trans.search.search()),
                 div(cls := "wait")(
                   spinner,
-                  searchInXGames(nbGames.localize)
-                )
-              )
-            )
-          )
+                  searchInXGames(nbGames.localize),
+                ),
+              ),
+            ),
+          ),
         ),
         div(cls := "search__result", id := "results")(
           paginator.map { pager =>
@@ -81,21 +81,21 @@ object index {
                 div(cls := "search__status box__pad")(
                   strong(xGamesFound(pager.nbResults.localize, pager.nbResults)),
                   " - ",
-                  permalink
+                  permalink,
                 ),
                 div(cls := "search__rows")(
                   pagerNext(pager, np => routes.Search.index(np).url),
-                  views.html.game.widgets(pager.currentPageResults)
-                )
+                  views.html.game.widgets(pager.currentPageResults),
+                ),
               )
             else
               div(cls := "search__status box__pad")(
                 strong(xGamesFound(0)),
                 " - ",
-                permalink
+                permalink,
               )
-          }
-        )
+          },
+        ),
       )
     }
   }

@@ -54,7 +54,7 @@ object Condition {
   case class MaxRating(rating: Int) extends Condition {
 
     def apply(
-        getMaxRating: GetMaxRating
+        getMaxRating: GetMaxRating,
     )(user: User, pt: PerfType)(implicit ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
       if (user.perfs(pt).provisional) fuccess(Refused { implicit lang =>
         trans.yourPerfRatingIsProvisional.txt(pt.trans)
@@ -95,7 +95,7 @@ object Condition {
   case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition {
     def name(pt: PerfType)(implicit lang: Lang) = trans.mustBeInTeam.txt(teamName)
     def apply(user: User, getUserTeamIds: User.ID => Fu[List[TeamID]])(implicit
-        ec: scala.concurrent.ExecutionContext
+        ec: scala.concurrent.ExecutionContext,
     ) =
       getUserTeamIds(user.id) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
@@ -111,10 +111,11 @@ object Condition {
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
       titled: Option[Titled.type],
-      teamMember: Option[TeamMember]
+      teamMember: Option[TeamMember],
   ) {
 
-    lazy val list: List[Condition] = List(nbRatedGame, maxRating, minRating, titled, teamMember).flatten
+    lazy val list: List[Condition] =
+      List(nbRatedGame, maxRating, minRating, titled, teamMember).flatten
 
     def relevant = list.nonEmpty
 
@@ -122,9 +123,9 @@ object Condition {
 
     def withVerdicts(
         getMaxRating: GetMaxRating,
-        getUserTeamIds: User.ID => Fu[List[TeamID]]
+        getUserTeamIds: User.ID => Fu[List[TeamID]],
     )(user: User, perfType: PerfType)(implicit
-        ec: scala.concurrent.ExecutionContext
+        ec: scala.concurrent.ExecutionContext,
     ): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating  => c(getMaxRating)(user, perfType) map c.withVerdict
@@ -138,7 +139,8 @@ object Condition {
     def sameMinRating(other: All) = minRating.map(_.rating) == other.minRating.map(_.rating)
     def sameRatings(other: All)   = sameMaxRating(other) && sameMinRating(other)
 
-    def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
+    def similar(other: All) =
+      sameRatings(other) && titled == other.titled && teamMember == other.teamMember
 
     def isRatingLimited = maxRating.isDefined || minRating.isDefined
   }
@@ -149,7 +151,7 @@ object Condition {
       maxRating = none,
       minRating = none,
       titled = none,
-      teamMember = none
+      teamMember = none,
     )
 
     case class WithVerdicts(list: List[WithVerdict]) extends AnyVal {
@@ -159,30 +161,40 @@ object Condition {
   }
 
   final class Verify(historyApi: lila.history.HistoryApi) {
-    def apply(all: All, user: User, perfType: PerfType, getUserTeamIds: User.ID => Fu[List[TeamID]])(implicit
-        ec: scala.concurrent.ExecutionContext
+    def apply(
+        all: All,
+        user: User,
+        perfType: PerfType,
+        getUserTeamIds: User.ID => Fu[List[TeamID]],
+    )(implicit
+        ec: scala.concurrent.ExecutionContext,
     ): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating, getUserTeamIds)(user, perfType)
     }
     def canEnter(user: User, perfType: PerfType, getUserTeamIds: User.ID => Fu[List[TeamID]])(
-        tour: Tournament
+        tour: Tournament,
     )(implicit ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
       apply(tour.conditions, user, perfType, getUserTeamIds).dmap(_.accepted)
   }
 
   object BSONHandlers {
     import reactivemongo.api.bson._
+
     import lila.db.dsl._
-    implicit private val NbRatedGameHandler: BSONDocumentHandler[NbRatedGame] = Macros.handler[NbRatedGame]
-    implicit private val MaxRatingHandler: BSONDocumentHandler[MaxRating]   = Macros.handler[MaxRating]
-    implicit private val MinRatingHandler: BSONDocumentHandler[MinRating]   = Macros.handler[MinRating]
+    implicit private val NbRatedGameHandler: BSONDocumentHandler[NbRatedGame] =
+      Macros.handler[NbRatedGame]
+    implicit private val MaxRatingHandler: BSONDocumentHandler[MaxRating] =
+      Macros.handler[MaxRating]
+    implicit private val MinRatingHandler: BSONDocumentHandler[MinRating] =
+      Macros.handler[MinRating]
     implicit private val TitledHandler: BSONHandler[Titled.type] = quickHandler[Titled.type](
       { case _: BSONValue => Titled },
-      _ => BSONBoolean(true)
+      _ => BSONBoolean(true),
     )
-    implicit private val TeamMemberHandler: BSONDocumentHandler[TeamMember] = Macros.handler[TeamMember]
-    implicit val AllBSONHandler: BSONDocumentHandler[All]            = Macros.handler[All]
+    implicit private val TeamMemberHandler: BSONDocumentHandler[TeamMember] =
+      Macros.handler[TeamMember]
+    implicit val AllBSONHandler: BSONDocumentHandler[All] = Macros.handler[All]
   }
 
   object JSONHandlers {
@@ -196,15 +208,16 @@ object Condition {
             "verdict" -> (verd match {
               case Refused(reason) => reason(lang)
               case Accepted        => JsString("ok")
-            })
+            }),
           )
         },
-        "accepted" -> verdicts.accepted
+        "accepted" -> verdicts.accepted,
       )
   }
 
   object DataForm {
     import play.api.data.Forms._
+
     import lila.common.Form._
 
     val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
@@ -213,7 +226,7 @@ object Condition {
       case x      => x
     }
     val nbRatedGame = mapping(
-      "nb" -> numberIn(nbRatedGameChoices)
+      "nb" -> numberIn(nbRatedGameChoices),
     )(NbRatedGame.apply)(_.nb.some)
 
     val maxRatings =
@@ -221,19 +234,19 @@ object Condition {
     val maxRatingChoices = ("", "No restriction") ::
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
-      "rating" -> numberIn(maxRatings)
+      "rating" -> numberIn(maxRatings),
     )(MaxRating.apply)(_.rating.some)
 
-    val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300,
-      2400, 2500, 2600)
+    val minRatings = List(1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100,
+      2200, 2300, 2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
-      "rating" -> numberIn(minRatings)
+      "rating" -> numberIn(minRatings),
     )(MinRating.apply)(_.rating.some)
 
     val teamMember = mapping(
-      "teamId" -> optional(text)
+      "teamId" -> optional(text),
     )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
     case class TeamMemberSetup(teamId: Option[TeamID]) {
       def convert(teams: Map[TeamID, TeamName]): Option[TeamMember] =
@@ -245,14 +258,15 @@ object Condition {
       def apply(x: TeamMember): TeamMemberSetup = TeamMemberSetup(x.teamId.some)
     }
     val all = mapping(
-      "nbRatedGame" -> optional(nbRatedGame).transform[Option[lila.tournament.Condition.NbRatedGame]](
-        _.filter(_.nb > 0),
-        identity
-      ),
+      "nbRatedGame" -> optional(nbRatedGame)
+        .transform[Option[lila.tournament.Condition.NbRatedGame]](
+          _.filter(_.nb > 0),
+          identity,
+        ),
       "maxRating"  -> optional(maxRating),
       "minRating"  -> optional(minRating),
       "titled"     -> optional(boolean),
-      "teamMember" -> optional(teamMember)
+      "teamMember" -> optional(teamMember),
     )(AllSetup.apply)(AllSetup.unapply)
       .verifying("Invalid ratings", _.validRatings)
 
@@ -261,7 +275,7 @@ object Condition {
         maxRating: Option[MaxRating],
         minRating: Option[MinRating],
         titled: Option[Boolean],
-        teamMember: Option[TeamMemberSetup]
+        teamMember: Option[TeamMemberSetup],
     ) {
 
       def validRatings =
@@ -276,7 +290,7 @@ object Condition {
           maxRating,
           minRating,
           ~titled option Titled,
-          teamMember.flatMap(_ convert teams)
+          teamMember.flatMap(_ convert teams),
         )
     }
     object AllSetup {
@@ -285,7 +299,7 @@ object Condition {
         maxRating = none,
         minRating = none,
         titled = none,
-        teamMember = none
+        teamMember = none,
       )
       def apply(all: All): AllSetup =
         AllSetup(
@@ -293,7 +307,7 @@ object Condition {
           maxRating = all.maxRating,
           minRating = all.minRating,
           titled = all.titled has Titled option true,
-          teamMember = all.teamMember.map(TeamMemberSetup.apply)
+          teamMember = all.teamMember.map(TeamMemberSetup.apply),
         )
     }
   }

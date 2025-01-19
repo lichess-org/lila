@@ -57,7 +57,7 @@ object Animal {
     ("Turtle", "Turtle"),
     ("Whale", "Whale"),
     ("Wolf", "Wolf"),
-    ("Wolverine", "Wolverine")
+    ("Wolverine", "Wolverine"),
   )
 
   private val size = all.size

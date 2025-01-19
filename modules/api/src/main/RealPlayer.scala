@@ -12,7 +12,7 @@ import lila.user.User
 
 final class RealPlayerApi(
     cacheApi: lila.memo.CacheApi,
-    ws: WSClient
+    ws: WSClient,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(url: String): Fu[Option[RealPlayers]] = cache get url
@@ -37,8 +37,9 @@ final class RealPlayerApi(
                   line.split(';').map(_.trim) match {
                     case Array(id, name, rating) =>
                       Some(id -> RealPlayer(name.some.filter(_.nonEmpty), rating.toIntOption))
-                    case Array(id, name) => Some(id -> RealPlayer(name.some.filter(_.nonEmpty), none))
-                    case _               => none
+                    case Array(id, name) =>
+                      Some(id -> RealPlayer(name.some.filter(_.nonEmpty), none))
+                    case _ => none
                   }
                 }
                 .toMap
@@ -60,7 +61,9 @@ case class RealPlayers(players: Map[User.ID, RealPlayer]) {
           player.userId.flatMap(players.get) ?? { rp =>
             List(
               rp.name.map { name => Tag(player.color.fold(Tag.Sente, Tag.Gote), name) },
-              rp.rating.map { rating => Tag(player.color.fold(Tag.SenteElo, Tag.GoteElo), rating.toString) }
+              rp.rating.map { rating =>
+                Tag(player.color.fold(Tag.SenteElo, Tag.GoteElo), rating.toString)
+              },
             ).flatten
           }
         }

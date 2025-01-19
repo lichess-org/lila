@@ -4,6 +4,7 @@ import scala.math.sqrt
 
 import cats.implicits._
 import org.joda.time.DateTime
+
 import shogi.Color
 
 import lila.user.User
@@ -25,7 +26,7 @@ case class PlayerAssessment(
     hold: Boolean,
     blurStreak: Option[Int],
     mtStreak: Option[Boolean],
-    tcFactor: Option[Double]
+    tcFactor: Option[Double],
 ) {
 
   val color = Color.fromSente(sente)
@@ -33,11 +34,12 @@ case class PlayerAssessment(
 
 case class PlayerAggregateAssessment(
     user: User,
-    playerAssessments: List[PlayerAssessment]
+    playerAssessments: List[PlayerAssessment],
 ) {
-  import Statistics._
   import AccountAction._
-  import GameAssessment.{ Cheating, LikelyCheating }
+  import GameAssessment.Cheating
+  import GameAssessment.LikelyCheating
+  import Statistics._
 
   def action: AccountAction = {
 
@@ -64,7 +66,7 @@ case class PlayerAggregateAssessment(
     val difs = List(
       (sfAvgBlurs, sfAvgNoBlurs),
       (sfAvgLowVar, sfAvgHighVar),
-      (sfAvgHold, sfAvgNoHold)
+      (sfAvgHold, sfAvgNoHold),
     )
 
     val actionable: Boolean = {
@@ -155,7 +157,9 @@ case class PlayerAggregateAssessment(
 object PlayerAggregateAssessment {
 
   case class WithGames(pag: PlayerAggregateAssessment, games: List[lila.game.Game]) {
-    def pov(pa: PlayerAssessment) = games find (_.id == pa.gameId) map { lila.game.Pov(_, pa.color) }
+    def pov(pa: PlayerAssessment) = games find (_.id == pa.gameId) map {
+      lila.game.Pov(_, pa.color)
+    }
   }
 }
 
@@ -167,12 +171,13 @@ case class PlayerFlags(
     highlyConsistentMoveTimes: Boolean,
     moderatelyConsistentMoveTimes: Boolean,
     noFastMoves: Boolean,
-    suspiciousHoldAlert: Boolean
+    suspiciousHoldAlert: Boolean,
 )
 
 object PlayerFlags {
 
   import reactivemongo.api.bson._
+
   import lila.db.BSON
 
   implicit val playerFlagsBSONHandler: BSON[PlayerFlags] = new BSON[PlayerFlags] {
@@ -186,7 +191,7 @@ object PlayerFlags {
         highlyConsistentMoveTimes = r boolD "hcmt",
         moderatelyConsistentMoveTimes = r boolD "cmt",
         noFastMoves = r boolD "nfm",
-        suspiciousHoldAlert = r boolD "sha"
+        suspiciousHoldAlert = r boolD "sha",
       )
 
     def writes(w: BSON.Writer, o: PlayerFlags) =
@@ -198,7 +203,7 @@ object PlayerFlags {
         "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
         "cmt"  -> w.boolO(o.moderatelyConsistentMoveTimes),
         "nfm"  -> w.boolO(o.noFastMoves),
-        "sha"  -> w.boolO(o.suspiciousHoldAlert)
+        "sha"  -> w.boolO(o.suspiciousHoldAlert),
       )
   }
 }

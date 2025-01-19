@@ -17,7 +17,7 @@ object widget {
       c.user.title.map { t =>
         s"$t "
       },
-      c.user.realNameOrUsername
+      c.user.realNameOrUsername,
     )
 
   def pic(c: lila.coach.Coach.WithUser, size: Int) =
@@ -28,7 +28,7 @@ object widget {
           height := size,
           cls    := "picture",
           src    := dbImageUrl(path.value),
-          alt    := s"${c.user.titleUsername} Lishogi coach picture"
+          alt    := s"${c.user.titleUsername} Lishogi coach picture",
         )
       }
       .getOrElse {
@@ -37,7 +37,7 @@ object widget {
           height := size,
           cls    := "default picture",
           src    := staticUrl("images/placeholder.png"),
-          alt    := "Default Lishogi coach picture"
+          alt    := "Default Lishogi coach picture",
         )
       }
 
@@ -51,7 +51,9 @@ object widget {
         c.coach.profile.headline
           .map { h =>
             p(
-              cls := s"headline ${if (h.sizeIs < 60) "small" else if (h.sizeIs < 120) "medium" else "large"}"
+              cls := s"headline ${if (h.sizeIs < 60) "small"
+                else if (h.sizeIs < 120) "medium"
+                else "large"}",
             )(h)
           },
         table(
@@ -64,18 +66,18 @@ object widget {
                 },
                 profile.countryInfo.map { country =>
                   frag(
-                    span(cls  := "country")(
+                    span(cls := "country")(
                       img(cls := "flag", src := staticUrl(s"images/flags/${country.code}.png")),
                       " ",
-                      country.name
-                    )
+                      country.name,
+                    ),
                   )
-                }
-              )
+                },
+              ),
             ),
             tr(cls := "languages")(
               th(languages()),
-              td(c.coach.languages.map(LangList.name) mkString ", ")
+              td(c.coach.languages.map(LangList.name) mkString ", "),
             ),
             tr(cls := "rating")(
               th(rating()),
@@ -83,32 +85,32 @@ object widget {
                 a(href := routes.User.show(c.user.username))(
                   c.user.best8Perfs.take(6).filter(c.user.hasEstablishedRating).map {
                     showPerfRating(c.user, _)
-                  }
-                )
-              )
+                  },
+                ),
+              ),
             ),
             c.coach.profile.hourlyRate.map { r =>
               tr(cls := "rate")(
                 th(hourlyRate()),
-                td(r)
+                td(r),
               )
             },
             tr(cls := "available")(
               th(availability()),
               td(
                 if (c.coach.available.value) span(cls := "text", dataIcon := "E")(accepting())
-                else span(cls := "text", dataIcon := "L")(notAccepting())
-              )
+                else span(cls := "text", dataIcon := "L")(notAccepting()),
+              ),
             ),
             c.user.seenAt.map { seen =>
               tr(cls := "seen")(
                 th,
-                td(trans.lastSeenActive(momentFromNow(seen)))
+                td(trans.lastSeenActive(momentFromNow(seen))),
               )
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     )
   }
 }

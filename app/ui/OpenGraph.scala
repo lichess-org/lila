@@ -12,7 +12,7 @@ case class OpenGraph(
     `type`: String = "website",
     image: Option[String] = None,
     twitterImage: Option[String] = None,
-    more: List[(String, String)] = Nil
+    more: List[(String, String)] = Nil,
 ) {
 
   def frags(implicit lang: Lang): List[Frag] = og.frags ::: twitter.frags
@@ -24,7 +24,7 @@ case class OpenGraph(
     private def tag(name: String, value: String) =
       meta(
         property := s"og:$name",
-        content  := value
+        content  := value,
       )
 
     private val tupledTag = (tag _).tupled
@@ -36,7 +36,7 @@ case class OpenGraph(
         "url"         -> url,
         "type"        -> `type`,
         "locale"      -> lang.language,
-        "site_name"   -> "lishogi.org"
+        "site_name"   -> "lishogi.org",
       ).map(tupledTag) :::
         image.map { tag("image", _) }.toList :::
         more.map(tupledTag)
@@ -47,7 +47,7 @@ case class OpenGraph(
     private def tag(name: String, value: String) =
       meta(
         st.name := s"twitter:$name",
-        content := value
+        content := value,
       )
 
     private val tupledTag = (tag _).tupled
@@ -56,7 +56,7 @@ case class OpenGraph(
       List(
         "card"        -> "summary",
         "title"       -> title,
-        "description" -> description
+        "description" -> description,
       ).map(tupledTag) :::
         (twitterImage orElse image).map { tag("image", _) }.toList :::
         more.map(tupledTag)

@@ -13,7 +13,7 @@ final class Env(
     gameProxyRepo: lila.round.GameProxyRepo,
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,
-    rematches: lila.game.Rematches
+    rematches: lila.game.Rematches,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val tvTrouper = wire[TvTrouper]

@@ -8,7 +8,7 @@ import lila.user.User
 final class PaginatorBuilder(
     coll: Coll,
     gameRepo: GameRepo,
-    maxPerPage: lila.common.config.MaxPerPage
+    maxPerPage: lila.common.config.MaxPerPage,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def byUser(user: User, page: Int): Fu[Paginator[Bookmark]] =
@@ -18,7 +18,7 @@ final class PaginatorBuilder(
     Paginator(
       adapter,
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
 
   final class UserAdapter(user: User) extends AdapterLike[Bookmark] {

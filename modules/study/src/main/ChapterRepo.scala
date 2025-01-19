@@ -8,10 +8,10 @@ import lila.db.AsyncColl
 import lila.db.dsl._
 
 final class ChapterRepo(
-    val coll: AsyncColl
+    val coll: AsyncColl,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
   import BSONHandlers._
@@ -26,7 +26,9 @@ final class ChapterRepo(
 
   def deleteByStudy(s: Study): Funit = coll(_.delete.one($studyId(s.id))).void
 
-  def deleteByStudyIds(ids: List[Study.Id]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
+  def deleteByStudyIds(ids: List[Study.Id]): Funit = coll(
+    _.delete.one($doc("studyId" $in ids)),
+  ).void
 
   def byIdAndStudy(id: Chapter.Id, studyId: Study.Id): Fu[Option[Chapter]] =
     coll(_.byId[Chapter, Chapter.Id](id)).dmap { _.filter(_.studyId == studyId) }
@@ -79,8 +81,8 @@ final class ChapterRepo(
       _.primitiveOne[Int](
         $studyId(studyId),
         $sort desc "order",
-        "order"
-      )
+        "order",
+      ),
     ) dmap { order =>
       ~order + 1
     }
@@ -103,18 +105,25 @@ final class ChapterRepo(
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
     setNodeValue(Node.BsonFields.gamebook, gamebook.nonEmpty option gamebook) _
 
-  def setGlyphs(glyphs: shogi.format.Glyphs) = setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty) _
+  def setGlyphs(glyphs: shogi.format.Glyphs) =
+    setNodeValue(Node.BsonFields.glyphs, glyphs.nonEmpty) _
 
   def setClock(clock: Option[shogi.Centis]) = setNodeValue(Node.BsonFields.clock, clock) _
 
-  def forceVariation(force: Boolean) = setNodeValue(Node.BsonFields.forceVariation, force option true) _
+  def forceVariation(force: Boolean) =
+    setNodeValue(Node.BsonFields.forceVariation, force option true) _
 
   // insert node and its children
   // and sets the parent order field
-  def addSubTree(subTree: Node, newParent: RootOrNode, parentPath: Path)(chapter: Chapter): Funit = {
+  def addSubTree(
+      subTree: Node,
+      newParent: RootOrNode,
+      parentPath: Path,
+  )(chapter: Chapter): Funit = {
     val set = $doc(subTreeToBsonElements(chapter.root, parentPath, subTree)) ++ {
       (newParent.children.nodes.sizeIs > 1) ?? $doc(
-        pathToField(chapter.root, parentPath, Node.BsonFields.order) -> newParent.children.nodes.map(_.id)
+        pathToField(chapter.root, parentPath, Node.BsonFields.order) -> newParent.children.nodes
+          .map(_.id),
       )
     }
     coll(_.update.one($id(chapter.id), $set(set))).void
@@ -123,7 +132,7 @@ final class ChapterRepo(
   private def subTreeToBsonElements(
       root: Node.Root,
       parentPath: Path,
-      subTree: Node
+      subTree: Node,
   ): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ?? {
       val path = parentPath + subTree
@@ -137,7 +146,7 @@ final class ChapterRepo(
 
     val set: Bdoc = {
       (children.nodes.sizeIs > 1) ?? $doc(
-        pathToField(chapter.root, path, Node.BsonFields.order) -> children.nodes.map(_.id)
+        pathToField(chapter.root, path, Node.BsonFields.order) -> children.nodes.map(_.id),
       )
     } ++ $doc(childrenTreeToBsonElements(chapter.root, path, children))
 
@@ -147,32 +156,34 @@ final class ChapterRepo(
   private def childrenTreeToBsonElements(
       root: Node.Root,
       parentPath: Path,
-      children: Node.Children
+      children: Node.Children,
   ): Vector[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) ??
       children.nodes.flatMap { node =>
         val path = parentPath + node
-        childrenTreeToBsonElements(root, path, node.children) appended (path.toDbField(root) -> writeNode(
-          node
+        childrenTreeToBsonElements(root, path, node.children) appended (path.toDbField(
+          root,
+        ) -> writeNode(
+          node,
         ))
       }
 
   private def setNodeValue[A: BSONWriter](
       field: String,
-      value: Option[A]
+      value: Option[A],
   )(chapter: Chapter, path: Path): Funit =
     coll {
       _.updateOrUnsetField(
         $id(chapter.id) ++ pathExists(chapter.root, path),
         pathToField(chapter.root, path, field),
-        value
+        value,
       ).void
     }
 
   private[study] def setNodeValues(
       chapter: Chapter,
       path: Path,
-      values: List[(String, Option[BSONValue])]
+      values: List[(String, Option[BSONValue])],
   ): Funit =
     values.collect { case (field, Some(v)) =>
       pathToField(chapter.root, path, field) -> v
@@ -183,7 +194,7 @@ final class ChapterRepo(
           _.update
             .one(
               $id(chapter.id) ++ pathExists(chapter.root, path),
-              $set($doc(sets))
+              $set($doc(sets)),
             )
             .void
         }
@@ -191,7 +202,7 @@ final class ChapterRepo(
 
   private def pathExists(root: Node.Root, path: Path) =
     !(root.isGameRoot && root.gameMainlinePath.exists(path isOnPathOf _)) ?? ($doc(
-      path.toDbField(root) $exists true
+      path.toDbField(root) $exists true,
     ))
 
   // root.path.subField
@@ -200,16 +211,16 @@ final class ChapterRepo(
 
   private[study] def idNamesByStudyIds(
       studyIds: Seq[Study.Id],
-      nbChaptersPerStudy: Int
+      nbChaptersPerStudy: Int,
   ): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     studyIds.nonEmpty ?? coll(
       _.find(
         $doc("studyId" $in studyIds),
-        $doc("studyId" -> true, "_id" -> true, "name" -> true).some
+        $doc("studyId" -> true, "_id" -> true, "name" -> true).some,
       )
         .sort($sort asc "order")
         .cursor[Bdoc]()
-        .list(nbChaptersPerStudy * studyIds.size)
+        .list(nbChaptersPerStudy * studyIds.size),
     )
       .map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) { case (hash, doc) =>
@@ -228,7 +239,7 @@ final class ChapterRepo(
     coll {
       _.find(
         $studyId(studyId),
-        $doc("_id" -> true, "name" -> true).some
+        $doc("_id" -> true, "name" -> true).some,
       )
         .sort($sort asc "order")
         .cursor[Bdoc](readPref)
@@ -248,8 +259,8 @@ final class ChapterRepo(
         $id(chapter.id),
         "serverEval",
         Chapter.ServerEval(
-          done = false
-        )
+          done = false,
+        ),
       )
     }.void
 

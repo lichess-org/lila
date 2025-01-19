@@ -3,6 +3,7 @@ package lila.lobby
 import play.api.libs.json._
 
 import org.joda.time.DateTime
+
 import shogi.Clock
 import shogi.Mode
 import shogi.Speed
@@ -24,7 +25,7 @@ case class Hook(
     user: Option[LobbyUser],
     ratingRange: String,
     createdAt: DateTime,
-    boardApi: Boolean
+    boardApi: Boolean,
 ) {
 
   val realColor = Color orDefault color
@@ -72,7 +73,7 @@ case class Hook(
         "s"     -> speed.id,
         "i"     -> (if (clock.incrementSeconds > 0) 1 else 0),
         "b"     -> (if (clock.byoyomiSeconds > 0) 1 else 0),
-        "p"     -> (if (clock.periodsTotal > 1) 1 else 0)
+        "p"     -> (if (clock.periodsTotal > 1) 1 else 0),
       )
       .add("prov" -> perf.map(_.provisional).filter(identity))
       .add("u" -> user.map(_.username))
@@ -100,7 +101,7 @@ object Hook {
       sid: Option[String],
       ratingRange: RatingRange,
       blocking: Set[String],
-      boardApi: Boolean = false
+      boardApi: Boolean = false,
   ): Hook =
     new Hook(
       id = lila.common.ThreadLocalRandom nextString idSize,
@@ -113,6 +114,6 @@ object Hook {
       sid = sid,
       ratingRange = ratingRange.toString,
       createdAt = DateTime.now,
-      boardApi = boardApi
+      boardApi = boardApi,
     )
 }

@@ -12,7 +12,7 @@ import lila.common.Lilakka
 
 final class Env(
     appConfig: Configuration,
-    shutdown: CoordinatedShutdown
+    shutdown: CoordinatedShutdown,
 )(implicit ec: ExecutionContext) {
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
@@ -21,14 +21,14 @@ final class Env(
     new AsyncDb(
       name = name,
       uri = uri,
-      driver = driver
+      driver = driver,
     )
 
   def blockingDb(name: String, uri: String) =
     new Db(
       name = name,
       uri = uri,
-      driver = driver
+      driver = driver,
     )
 
   Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Closing mongodb driver") { () =>

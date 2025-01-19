@@ -14,7 +14,7 @@ final class PasswordReset(
     mailgun: Mailgun,
     userRepo: UserRepo,
     baseUrl: BaseUrl,
-    tokenerSecret: Secret
+    tokenerSecret: Secret,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
@@ -41,8 +41,8 @@ ${Mailgun.txt.serviceNote}
           pDesc(trans.passwordReset_intro()),
           p(trans.passwordReset_clickOrIgnore()),
           potentialAction(metaName("Reset password"), Mailgun.html.url(url)),
-          serviceNote
-        ).some
+          serviceNote,
+        ).some,
       )
     }
 
@@ -51,6 +51,6 @@ ${Mailgun.txt.serviceNote}
 
   private val tokener = new StringToken[User.ID](
     secret = tokenerSecret,
-    getCurrentValue = id => userRepo getPasswordHash id dmap (~_)
+    getCurrentValue = id => userRepo getPasswordHash id dmap (~_),
   )
 }

@@ -12,7 +12,7 @@ import lila.app._
 
 final class Clas(
     env: Env,
-    authC: Auth
+    authC: Auth,
 ) extends LilaController(env) {
 
   def index =
@@ -57,7 +57,7 @@ final class Clas(
           data =>
             env.clas.api.clas.create(data, me) map { clas =>
               Redirect(routes.Clas.show(clas.id.value))
-            }
+            },
         )
     }
 
@@ -78,13 +78,13 @@ final class Clas(
             preloadStudentUsers(students)
             val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
             Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
-          }
+          },
       )
     }
 
   private def WithClassAny(id: String, me: lila.user.User)(
       forTeacher: => Fu[Result],
-      forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result]
+      forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
   )(implicit ctx: Context): Fu[Result] =
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
       case true => forTeacher
@@ -107,7 +107,7 @@ final class Clas(
             views.html.clas.wall.show(clas, wall, students)
           }
         },
-        forStudent = (clas, _) => Redirect(routes.Clas.show(clas.id.value)).fuccess
+        forStudent = (clas, _) => Redirect(routes.Clas.show(clas.id.value)).fuccess,
       )
     }
 
@@ -132,7 +132,7 @@ final class Clas(
               },
             text =>
               env.clas.api.clas.updateWall(clas, text) inject
-                Redirect(routes.Clas.wall(clas.id.value)).flashSuccess
+                Redirect(routes.Clas.wall(clas.id.value)).flashSuccess,
           )
       }
     }
@@ -166,7 +166,7 @@ final class Clas(
                   env.msg.api.multiPost(me, Source(students.map(_.user.id)), full) inject
                     Redirect(routes.Clas.show(clas.id.value)).flashSuccess
                 }
-              }
+              },
           )
       }
     }
@@ -236,7 +236,7 @@ final class Clas(
             data =>
               env.clas.api.clas.update(clas, data) map { c =>
                 Redirect(routes.Clas.show(c.id.value)).flashSuccess
-              }
+              },
           )
       }
     }
@@ -273,8 +273,8 @@ final class Clas(
               env.clas.forms.student.invite(clas),
               createForm,
               nbStudents,
-              created
-            )
+              created,
+            ),
           )
         }
     }
@@ -295,15 +295,15 @@ final class Clas(
                         students,
                         env.clas.forms.student.invite(clas),
                         err,
-                        nbStudents
-                      )
+                        nbStudents,
+                      ),
                     )
                   },
                 data =>
                   env.clas.api.student.create(clas, data, me) map { case (user, password) =>
                     Redirect(routes.Clas.studentForm(clas.id.value))
                       .flashing("created" -> s"${user.id} ${password.value}")
-                  }
+                  },
               )
           }
         }
@@ -325,8 +325,8 @@ final class Clas(
                     students,
                     err,
                     env.clas.forms.student.create,
-                    nbStudents
-                  )
+                    nbStudents,
+                  ),
                 )
               },
             data =>
@@ -336,16 +336,19 @@ final class Clas(
                   env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
                     Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
                       feedback match {
-                        case F.Already => "success" -> s"${user.username} is now a student of the class"
-                        case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
-                        case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                        case F.Already =>
+                          "success" -> s"${user.username} is now a student of the class"
+                        case F.Invited =>
+                          "success" -> s"An invitation has been sent to ${user.username}"
+                        case F.Found =>
+                          "warning" -> s"${user.username} already has a pending invitation"
                         case F.CantMsgKid(url) =>
                           "warning" -> s"${user.username} is a kid account and can't receive your message. You must give them the invitation URL manually: $url"
                       }
                     }
                   }
                 }
-              }
+              },
           )
       }
     }
@@ -365,7 +368,9 @@ final class Clas(
     Secure(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
-          Ok(views.html.clas.student.edit(clas, students, s, env.clas.forms.student edit s.student)).fuccess
+          Ok(
+            views.html.clas.student.edit(clas, students, s, env.clas.forms.student edit s.student),
+          ).fuccess
         }
       }
     }
@@ -382,7 +387,7 @@ final class Clas(
               data =>
                 env.clas.api.student.update(s.student, data) map { _ =>
                   Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess
-                }
+                },
             )
         }
       }
@@ -426,7 +431,9 @@ final class Clas(
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
           if (s.student.managed)
-            Ok(views.html.clas.student.release(clas, students, s, env.clas.forms.student.release)).fuccess
+            Ok(
+              views.html.clas.student.release(clas, students, s, env.clas.forms.student.release),
+            ).fuccess
           else
             Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).fuccess
         }
@@ -438,21 +445,24 @@ final class Clas(
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
           if (s.student.managed)
-            env.security.forms.preloadEmailDns(ctx.body, formBinding) >> env.clas.forms.student.release
+            env.security.forms
+              .preloadEmailDns(ctx.body, formBinding) >> env.clas.forms.student.release
               .bindFromRequest()(ctx.body, formBinding)
               .fold(
                 err => BadRequest(html.clas.student.release(clas, students, s, err)).fuccess,
                 data => {
                   val email = env.security.emailAddressValidator
                     .validate(lila.common.EmailAddress(data)) err s"Invalid email $data"
-                  val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email.acceptable)
+                  val newUserEmail =
+                    lila.security.EmailConfirm.UserEmail(s.user.username, email.acceptable)
                   authC.EmailConfirmRateLimit(newUserEmail, ctx.req) {
                     env.security.emailChange.send(s.user, newUserEmail.email) inject
-                      Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess {
-                        s"A confirmation email was sent to ${email.acceptable.value}. ${s.student.realName} must click the link in the email to release the account."
-                      }
+                      Redirect(routes.Clas.studentShow(clas.id.value, s.user.username))
+                        .flashSuccess {
+                          s"A confirmation email was sent to ${email.acceptable.value}. ${s.student.realName} must click the link in the email to release the account."
+                        }
                   }(rateLimitedFu)
-                }
+                },
               )
           else
             Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).fuccess
@@ -491,7 +501,7 @@ final class Clas(
             else
               env.clas.api.invite.decline(inviteId) inject
                 Redirect(routes.Clas.invitation(id))
-          }
+          },
         )
     }
 
@@ -500,32 +510,38 @@ final class Clas(
       env.clas.api.invite.get(lila.clas.ClasInvite.Id(id)) flatMap {
         _ ?? { invite =>
           WithClass(me, invite.clasId.value) { clas =>
-            env.clas.api.invite.delete(invite._id) inject Redirect(routes.Clas.students(clas.id.value))
+            env.clas.api.invite.delete(invite._id) inject Redirect(
+              routes.Clas.students(clas.id.value),
+            )
           }
         }
       }
     }
 
-  private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
-      f: => Fu[Result]
+  private def Reasonable(
+      clas: lila.clas.Clas,
+      students: List[lila.clas.Student.WithUser],
+      active: String,
+  )(
+      f: => Fu[Result],
   )(implicit ctx: Context): Fu[Result] =
     if (students.sizeIs <= lila.clas.Clas.maxStudents) f
     else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active)).fuccess
 
   private def WithClass(me: lila.user.User, clasId: String)(
-      f: lila.clas.Clas => Fu[Result]
+      f: lila.clas.Clas => Fu[Result],
   ): Fu[Result] =
     env.clas.api.clas.getAndView(lila.clas.Clas.Id(clasId), me) flatMap { _ ?? f }
 
   private def WithClassAndStudents(me: lila.user.User, clasId: String)(
-      f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
+      f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result],
   ): Fu[Result] =
     WithClass(me, clasId) { c =>
       env.clas.api.student.activeOf(c) flatMap { f(c, _) }
     }
 
   private def WithStudent(clas: lila.clas.Clas, username: String)(
-      f: lila.clas.Student.WithUser => Fu[Result]
+      f: lila.clas.Student.WithUser => Fu[Result],
   ): Fu[Result] =
     env.user.repo named username flatMap {
       _ ?? { user =>

@@ -4,6 +4,7 @@ import play.api.data.Forms._
 import play.api.data._
 
 import org.joda.time.DateTime
+
 import shogi.Mode
 
 import lila.common.Form._
@@ -19,7 +20,7 @@ final private[gameSearch] class DataForm {
         "winner" -> optional(nonEmptyText),
         "loser"  -> optional(nonEmptyText),
         "sente"  -> optional(nonEmptyText),
-        "gote"   -> optional(nonEmptyText)
+        "gote"   -> optional(nonEmptyText),
       )(SearchPlayer.apply)(SearchPlayer.unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
       "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
@@ -40,7 +41,7 @@ final private[gameSearch] class DataForm {
         "incMin"  -> optional(numberIn(Query.clockIncs)),
         "incMax"  -> optional(numberIn(Query.clockIncs)),
         "byoMin"  -> optional(numberIn(Query.clockByos)),
-        "byoMax"  -> optional(numberIn(Query.clockByos))
+        "byoMax"  -> optional(numberIn(Query.clockByos)),
       )(SearchClock.apply)(SearchClock.unapply),
       "dateMin"  -> DataForm.dateField,
       "dateMax"  -> DataForm.dateField,
@@ -49,10 +50,10 @@ final private[gameSearch] class DataForm {
       "sort" -> optional(
         mapping(
           "field" -> stringIn(Sorting.fields),
-          "order" -> stringIn(Sorting.orders)
-        )(SearchSort.apply)(SearchSort.unapply)
-      )
-    )(SearchData.apply)(SearchData.unapply)
+          "order" -> stringIn(Sorting.orders),
+        )(SearchSort.apply)(SearchSort.unapply),
+      ),
+    )(SearchData.apply)(SearchData.unapply),
   ) fill SearchData()
 }
 
@@ -80,7 +81,7 @@ private[gameSearch] case class SearchData(
     dateMax: Option[DateTime] = None,
     status: Option[Int] = None,
     analysed: Option[Int] = None,
-    sort: Option[SearchSort] = None
+    sort: Option[SearchSort] = None,
 ) {
 
   def sortOrDefault = sort | SearchSort()
@@ -100,13 +101,20 @@ private[gameSearch] case class SearchData(
       hasAi = hasAi map (_ == 1),
       aiLevel = Range(aiLevelMin, aiLevelMax),
       duration = Range(durationMin, durationMax),
-      clock = Clocking(clock.initMin, clock.initMax, clock.incMin, clock.incMax, clock.byoMin, clock.byoMax),
+      clock = Clocking(
+        clock.initMin,
+        clock.initMax,
+        clock.incMin,
+        clock.incMax,
+        clock.byoMin,
+        clock.byoMax,
+      ),
       date = Range(dateMin, dateMax),
       status = status,
       analysed = analysed map (_ == 1),
       senteUser = players.cleanSente,
       goteUser = players.cleanGote,
-      sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
+      sorting = Sorting(sortOrDefault.field, sortOrDefault.order),
     )
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
@@ -118,7 +126,7 @@ private[gameSearch] case class SearchPlayer(
     winner: Option[String] = None,
     loser: Option[String] = None,
     sente: Option[String] = None,
-    gote: Option[String] = None
+    gote: Option[String] = None,
 ) {
 
   lazy val cleanA = clean(a)
@@ -134,7 +142,7 @@ private[gameSearch] case class SearchPlayer(
 
 private[gameSearch] case class SearchSort(
     field: String = Sorting.default.f,
-    order: String = Sorting.default.order
+    order: String = Sorting.default.order,
 )
 
 private[gameSearch] case class SearchClock(
@@ -143,5 +151,5 @@ private[gameSearch] case class SearchClock(
     incMin: Option[Int] = None,
     incMax: Option[Int] = None,
     byoMin: Option[Int] = None,
-    byoMax: Option[Int] = None
+    byoMax: Option[Int] = None,
 )

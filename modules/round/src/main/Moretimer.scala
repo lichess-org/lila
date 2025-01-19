@@ -12,7 +12,7 @@ import lila.pref.PrefApi
 final private class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi,
-    duration: MoretimeDuration
+    duration: MoretimeDuration,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   // pov of the player giving more time

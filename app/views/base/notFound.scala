@@ -14,12 +14,12 @@ object notFound {
       title = trans.pageNotFound.txt(),
       moreCss = frag(
         cssTag("misc.not-found"),
-        vendorCssTag("sliding-puzzles", "hakoirimusume.css")
+        vendorCssTag("sliding-puzzles", "hakoirimusume.css"),
       ),
       moreJs = frag(
         vendorJsTag("sliding-puzzles", "sliding-puzzles.min.js"),
-        jsTag("misc.hakoirimusume")
-      )
+        jsTag("misc.hakoirimusume"),
+      ),
     ) {
       main(cls := "not-found page-small box box-pad")(
         header(
@@ -29,31 +29,31 @@ object notFound {
             p(
               "Return to ",
               a(href := routes.Lobby.home)("the homepage"),
-              span(cls := "or-play")(" or play this mini-game")
-            )
-          )
+              span(cls := "or-play")(" or play this mini-game"),
+            ),
+          ),
         ),
         div(cls := "game-wrap")(
           p(
-            cls := "objective"
+            cls := "objective",
           )(
-            "Your objective is to help the king escape through the bottom hole in the board."
+            "Your objective is to help the king escape through the bottom hole in the board.",
           ),
           div(id := "game"),
           div(cls := "game-help")(
             div(
               span(id := "move-cnt"),
-              "moves"
+              "moves",
             ),
-            button(id := "reset", "RESET")
+            button(id := "reset", "RESET"),
           ),
           p(cls := "credits")(
             a(
               href   := "https://github.com/WandererXII/sliding-puzzles",
-              target := "_blank"
-            )("Sliding puzzles")
-          )
-        )
+              target := "_blank",
+            )("Sliding puzzles"),
+          ),
+        ),
       )
     }
 }

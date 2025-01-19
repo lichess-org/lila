@@ -18,7 +18,7 @@ object player {
       cross: Option[lila.game.Crosstable.WithMatchup],
       playing: List[Pov],
       chatOption: Option[lila.chat.Chat.GameOrEvent],
-      bookmarked: Boolean
+      bookmarked: Boolean,
   )(implicit ctx: Context) = {
 
     val chatJson = chatOption.map(_.either).map {
@@ -30,7 +30,7 @@ object player {
           withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
           public = false,
           resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-          palantir = ctx.me.exists(_.canPalantir)
+          palantir = ctx.me.exists(_.canPalantir),
         )
       case Right((c, res)) =>
         chat.json(
@@ -38,7 +38,7 @@ object player {
           name = trans.chatRoom.txt(),
           timeout = c.timeout,
           public = true,
-          resourceId = res
+          resourceId = res,
         )
     }
 
@@ -53,18 +53,18 @@ object player {
             .obj(
               "data"   -> data,
               "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-        )
+              "chat"   -> chatJson,
+            ),
+        ),
       ),
       openGraph = povOpenGraph(pov).some,
       shogiground = false,
-      playing = true
+      playing = true,
     )(
       main(cls := s"round ${mainVariantClass(pov.game.variant)}")(
         st.aside(cls := "round__side")(
           bits.side(pov, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
-          chatOption.map(_ => chat.frag)
+          chatOption.map(_ => chat.frag),
         ),
         bits.roundAppPreload(pov, true),
         div(cls := "round__underboard")(
@@ -73,12 +73,12 @@ object player {
             div(
               cls := List(
                 "round__now-playing" -> true,
-                "blindfold"          -> ctx.pref.isBlindfold
-              )
-            )(bits.others(playing, simul))
+                "blindfold"          -> ctx.pref.isBlindfold,
+              ),
+            )(bits.others(playing, simul)),
         ),
-        div(cls := "round__underchat")(bits underchat pov.game)
-      )
+        div(cls := "round__underchat")(bits underchat pov.game),
+      ),
     )
   }
 }

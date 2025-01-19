@@ -1,6 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
+
 import shogi.Color
 
 case class Arrangement(
@@ -19,7 +20,7 @@ case class Arrangement(
     scheduledAt: Option[DateTime] = none,
     allowGameBefore: Option[Int] = none, // minutes
     lockedScheduledAt: Boolean = false,
-    history: Arrangement.History = Arrangement.History.empty
+    history: Arrangement.History = Arrangement.History.empty,
 ) {
 
   def users = List(user1, user2)
@@ -58,8 +59,9 @@ case class Arrangement(
     userScheduledAt.fold {
       updated.copy(
         scheduledAt = none,
-        history =
-          prevScheduledAt.fold(history)(psa => history.add(userId.some, psa.some, Arrangement.History.remove))
+        history = prevScheduledAt.fold(history)(psa =>
+          history.add(userId.some, psa.some, Arrangement.History.remove),
+        ),
       )
     } { usa =>
       opponentScheduledAt
@@ -67,12 +69,12 @@ case class Arrangement(
         .fold {
           updated.copy(
             scheduledAt = none,
-            history = history.add(userId.some, usa.some, Arrangement.History.propose)
+            history = history.add(userId.some, usa.some, Arrangement.History.propose),
           )
         } { osa =>
           updated.copy(
             scheduledAt = opponentScheduledAt,
-            history = history.add(userId.some, osa.some, Arrangement.History.accept)
+            history = history.add(userId.some, osa.some, Arrangement.History.accept),
           )
         }
     }
@@ -87,13 +89,13 @@ case class Arrangement(
         history =
           if (prevReadyAt.isDefined)
             history.add(userId.some, userReadyAt, Arrangement.History.notReady)
-          else history
+          else history,
       )
     } { ura =>
       updated.copy(history =
         if (prevReadyAt.exists(isWithinTolerance(_, ura, 25)))
           history
-        else history.add(userId.some, userReadyAt, Arrangement.History.ready)
+        else history.add(userId.some, userReadyAt, Arrangement.History.ready),
       )
     }
   }
@@ -106,7 +108,7 @@ case class Arrangement(
       gameId = gid.some,
       startedAt = now.some,
       color = color.some,
-      history = history.add(none, now.some, Arrangement.History.starts)
+      history = history.add(none, now.some, Arrangement.History.starts),
     )
   }
 
@@ -117,12 +119,13 @@ case class Arrangement(
       points = settings.points,
       scheduledAt = settings.scheduledAt,
       allowGameBefore = settings.allowGameBefore,
-      lockedScheduledAt = settings.scheduledAt.isDefined
+      lockedScheduledAt = settings.scheduledAt.isDefined,
     )
 
   def opponentIsReady(userId: lila.user.User.ID, maxSeconds: Int): Boolean = {
     val oppReady =
-      ((user1.id == userId).option(user2) orElse (user2.id == userId).option(user1)).flatMap(_.readyAt)
+      ((user1.id == userId).option(user2) orElse (user2.id == userId).option(user1))
+        .flatMap(_.readyAt)
     val cutoff = DateTime.now.minusSeconds(maxSeconds)
     oppReady.exists(_ isAfter cutoff)
   }
@@ -141,7 +144,7 @@ object Arrangement {
   case class User(
       id: lila.user.User.ID,
       readyAt: Option[DateTime],
-      scheduledAt: Option[DateTime]
+      scheduledAt: Option[DateTime],
   ) {
     def clearall = copy(scheduledAt = none, readyAt = none)
   }
@@ -151,7 +154,7 @@ object Arrangement {
       color: Option[Color],
       points: Option[Points],
       scheduledAt: Option[DateTime],
-      allowGameBefore: Option[Int]
+      allowGameBefore: Option[Int],
   )
 
   case class Points(loss: Int, draw: Int, win: Int)
@@ -176,7 +179,7 @@ object Arrangement {
     def add(userId: Option[lila.user.User.ID], dateTime: Option[DateTime], action: History.Action) =
       History(
         (s"${~userId}${History.separator}${dateTime.fold("")(_.getSeconds.toString)}${History.separator}$action"
-          .take(100) :: list).take(History.max)
+          .take(100) :: list).take(History.max),
       )
 
   }
@@ -199,14 +202,14 @@ object Arrangement {
   case class Lookup(
       id: Option[ID], // Arrangements are created when needed, so ID might not exist at the time
       tourId: Tournament.ID,
-      users: (lila.user.User.ID, lila.user.User.ID)
+      users: (lila.user.User.ID, lila.user.User.ID),
   ) {
     def userList = List(users._1, users._2)
   }
 
   private[tournament] def make(
       tourId: Tournament.ID,
-      users: (lila.user.User.ID, lila.user.User.ID)
+      users: (lila.user.User.ID, lila.user.User.ID),
   ): Arrangement =
     Arrangement(
       id = lila.common.ThreadLocalRandom.nextString(8),
@@ -214,12 +217,12 @@ object Arrangement {
       user1 = Arrangement.User(
         id = users._1,
         readyAt = none,
-        scheduledAt = none
+        scheduledAt = none,
       ),
       user2 = Arrangement.User(
         id = users._2,
         readyAt = none,
-        scheduledAt = none
-      )
+        scheduledAt = none,
+      ),
     )
 }

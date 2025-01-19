@@ -11,7 +11,7 @@ object bits {
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.tournamentNotFound.txt()
+      title = trans.tournamentNotFound.txt(),
     ) {
       main(cls := "page-small box box-pad")(
         h1(trans.tournamentNotFound()),
@@ -19,7 +19,7 @@ object bits {
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage())
+        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage()),
       )
     }
 
@@ -28,24 +28,28 @@ object bits {
       tours map { tour =>
         tr(
           td(cls := "name")(
-            a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(
-              tour.name
-            )
+            a(
+              cls      := "text",
+              dataIcon := tournamentIconChar(tour),
+              href     := routes.Tournament.show(tour.id),
+            )(
+              tour.name,
+            ),
           ),
           // td(tour.format.trans),
           tour.schedule.fold(td) { s =>
             td(momentFromNow(s.at))
           },
-          td(dataIcon := "r", cls := "text")(tour.nbPlayers)
+          td(dataIcon := "r", cls := "text")(tour.nbPlayers),
         )
-      }
+      },
     )
 
   def userPrizeDisclaimer =
     div(cls := "tour__prize")(
       "This tournament is NOT organized by Lishogi.",
       br,
-      "If it has prizes, Lishogi is NOT responsible for paying them."
+      "If it has prizes, Lishogi is NOT responsible for paying them.",
     )
 
 }

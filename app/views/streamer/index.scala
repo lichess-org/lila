@@ -16,7 +16,7 @@ object index {
   def apply(
       live: List[lila.streamer.Streamer.WithUserAndStream],
       pager: Paginator[lila.streamer.Streamer.WithUser],
-      requests: Boolean
+      requests: Boolean,
   )(implicit ctx: Context) = {
 
     val title = if (requests) "Streamer approval requests" else lishogiStreamers.txt()
@@ -32,7 +32,9 @@ object index {
           h2(dataIcon := "")(titleTag(s.user.title), stringValueFrag(s.streamer.name)),
           s.streamer.headline.map(_.value).map { d =>
             p(
-              cls := s"headline ${if (d.sizeIs < 60) "small" else if (d.sizeIs < 120) "medium" else "large"}"
+              cls := s"headline ${if (d.sizeIs < 60) "small"
+                else if (d.sizeIs < 120) "medium"
+                else "large"}",
             )(d)
           },
           div(cls := "services")(
@@ -41,41 +43,43 @@ object index {
             },
             s.streamer.youTube.map { youTube =>
               div(cls := "service youTube")(youTube.minUrl)
-            }
+            },
           ),
           div(cls := "ats")(
             stream.map { s =>
               p(cls := "at")(
-                currentlyStreaming(strong(s.status))
+                currentlyStreaming(strong(s.status)),
               )
             } getOrElse frag(
               p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
               s.streamer.liveAt.map { liveAt =>
                 p(cls := "at")(lastStream(momentFromNow(liveAt)))
-              }
-            )
-          )
-        )
+              },
+            ),
+          ),
+        ),
       )
 
     views.html.base.layout(
       title = title,
       moreCss = cssTag("misc.streamer.list"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     ) {
-      main(cls                                                          := "page-menu")(
+      main(cls := "page-menu")(
         bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
           h1(dataIcon := "", cls := "text")(title),
           !requests option div(cls := "list live")(
             live.map { s =>
               st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
-            }
+            },
           ),
           div(cls := "list infinitescroll")(
             (live.size % 2 != 0) option div(cls := "none"),
             pager.currentPageResults.map { s =>
-              st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
+              st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(
+                widget(s, none),
+              )
             },
             pagerNext(
               pager,
@@ -83,13 +87,13 @@ object index {
                 addQueryParameter(
                   addQueryParameter(routes.Streamer.index().url, "page", np),
                   "requests",
-                  if (requests) 1 else 0
-                )
+                  if (requests) 1 else 0,
+                ),
             ).map {
               frag(_, div(cls := "none")) // don't break the even/odd CSS flow
-            }
-          )
-        )
+            },
+          ),
+        ),
       )
     }
   }

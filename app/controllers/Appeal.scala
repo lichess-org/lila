@@ -26,7 +26,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
             env.appeal.api.mine(me) map { appeal =>
               BadRequest(html.appeal2.home(appeal, err))
             },
-          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess
+          text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home).flashSuccess,
         )
     }
 
@@ -63,7 +63,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
               for {
                 _ <- env.appeal.api.reply(text, appeal, me)
                 _ <- env.security.automaticEmail.onAppealReply(suspect.user)
-              } yield Redirect(routes.Appeal.show(username)).flashSuccess
+              } yield Redirect(routes.Appeal.show(username)).flashSuccess,
           )
       }
     }
@@ -82,7 +82,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     }
 
   private def asMod(
-      username: String
+      username: String,
   )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.user.repo named username flatMap {
       _ ?? { user =>

@@ -10,9 +10,9 @@ object chat {
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
-      div(cls := "mchat__tab")(nbsp)
+      div(cls := "mchat__tab")(nbsp),
     ),
-    div(cls := "mchat__content")
+    div(cls := "mchat__content"),
   )
 
   import lila.chat.JsonView.writers.chatIdWrites
@@ -26,7 +26,7 @@ object chat {
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       localMod: Boolean = false,
-      palantir: Boolean = false
+      palantir: Boolean = false,
   )(implicit ctx: Context) =
     json(
       chat.chat,
@@ -38,7 +38,7 @@ object chat {
       resourceId = resourceId,
       restricted = chat.restricted,
       localMod = localMod,
-      palantir = palantir
+      palantir = palantir,
     )
 
   def json(
@@ -51,7 +51,7 @@ object chat {
       writeable: Boolean = true,
       restricted: Boolean = false,
       localMod: Boolean = false,
-      palantir: Boolean = false
+      palantir: Boolean = false,
   )(implicit ctx: Context) =
     Json
       .obj(
@@ -61,7 +61,7 @@ object chat {
             "name"       -> name,
             "lines"      -> lila.chat.JsonView(chat),
             "userId"     -> ctx.userId,
-            "resourceId" -> resourceId.value
+            "resourceId" -> resourceId.value,
           )
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
@@ -71,7 +71,7 @@ object chat {
         "permissions" -> Json
           .obj("local" -> localMod)
           .add("timeout" -> isGranted(_.ChatTimeout))
-          .add("shadowban" -> isGranted(_.Shadowban))
+          .add("shadowban" -> isGranted(_.Shadowban)),
       )
       .add("kobold" -> ctx.troll)
       .add("blind" -> ctx.blind)

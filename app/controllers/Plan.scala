@@ -54,7 +54,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     }
 
   private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(implicit
-      ctx: Context
+      ctx: Context,
   ): Fu[Result] =
     for {
       recentIds <- env.plan.api.recentChargeUserIds
@@ -65,12 +65,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         email = email,
         patron = patron,
         recentIds = recentIds,
-        bestIds = bestIds
-      )
+        bestIds = bestIds,
+      ),
     )
 
-  private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit
-      ctx: Context
+  private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(
+      implicit ctx: Context,
   ) =
     env.plan.api.customerInfo(me, customer) flatMap {
       case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
@@ -97,7 +97,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         .bindFromRequest()
         .fold(
           _ => funit,
-          data => env.plan.api.switch(me, data.cents)
+          data => env.plan.api.switch(me, data.cents),
         ) inject Redirect(routes.Plan.index)
     }
 
@@ -149,8 +149,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               name = ipn.name,
               txnId = ipn.txnId,
               ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
-              key = get("key", req) | "N/A"
-            ) inject Ok
+              key = get("key", req) | "N/A",
+            ) inject Ok,
         )
     }
 }

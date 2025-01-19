@@ -15,13 +15,13 @@ private class StreamerConfig(
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("streaming.keyword") val keyword: Stream.Keyword,
     @ConfigName("streaming.google.api_key") val googleApiKey: Secret,
-    @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig
+    @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig,
 )
 private class TwitchConfig(
     @ConfigName("client_id") val clientId: String,
     val secret: Secret,
     @ConfigName("game_id") val gameId: String,
-    @ConfigName("game_id2") val gameId2: String
+    @ConfigName("game_id2") val gameId2: String,
 )
 
 @Module
@@ -35,15 +35,15 @@ final class Env(
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
     db: lila.db.Db,
-    imageRepo: lila.db.ImageRepo
+    imageRepo: lila.db.ImageRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
-  implicit private val twitchLoader: ConfigLoader[TwitchConfig]  = AutoConfig.loader[TwitchConfig]
+  implicit private val twitchLoader: ConfigLoader[TwitchConfig]    = AutoConfig.loader[TwitchConfig]
   implicit private val keywordLoader: ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)
-  private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
+  private val config = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)
 
@@ -56,7 +56,7 @@ final class Env(
       "streamerAlwaysFeatured",
       default = Strings(Nil),
       text =
-        "Twitch streamers who get featured without the keyword - lishogi usernames separated by a comma".some
+        "Twitch streamers who get featured without the keyword - lishogi usernames separated by a comma".some,
     )
   }
 
@@ -64,7 +64,7 @@ final class Env(
     settingStore[Int](
       "streamerHomepageMax",
       default = 6,
-      text = "Max streamers on homepage".some
+      text = "Max streamers on homepage".some,
     )
 
   lazy val api: StreamerApi = wire[StreamerApi]
@@ -83,15 +83,16 @@ final class Env(
         keyword = config.keyword,
         alwaysFeatured = alwaysFeaturedSetting.get _,
         googleApiKey = config.googleApiKey,
-        twitchApi = twitchApi
-      )
-    )
+        twitchApi = twitchApi,
+      ),
+    ),
   )
 
   lazy val liveStreamApi = wire[LiveStreamApi]
 
-  lila.common.Bus.subscribeFun("adjustCheater") { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-    api.demote(userId).unit
+  lila.common.Bus.subscribeFun("adjustCheater") {
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      api.demote(userId).unit
   }
 
 }

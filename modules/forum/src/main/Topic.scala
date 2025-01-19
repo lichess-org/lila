@@ -23,14 +23,15 @@ case class Topic(
     closed: Boolean,
     hidden: Boolean,
     sticky: Option[Boolean],
-    userId: Option[String] = None // only since SB mutes
+    userId: Option[String] = None, // only since SB mutes
 ) {
 
   def id = _id
 
   def updatedAt(forUser: Option[User]): DateTime =
     if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt
-  def nbPosts(forUser: Option[User]): Int   = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
+  def nbPosts(forUser: Option[User]): Int =
+    if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
   def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
   def lastPostId(forUser: Option[User]): String =
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
@@ -47,7 +48,7 @@ case class Topic(
       updatedAt = if (post.troll) updatedAt else post.createdAt,
       nbPostsTroll = nbPostsTroll + 1,
       lastPostIdTroll = post.id,
-      updatedAtTroll = post.createdAt
+      updatedAtTroll = post.createdAt,
     )
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
@@ -73,7 +74,7 @@ object Topic {
       name: String,
       userId: User.ID,
       troll: Boolean,
-      hidden: Boolean
+      hidden: Boolean,
   ): Topic =
     Topic(
       _id = ThreadLocalRandom nextString idSize,
@@ -91,6 +92,6 @@ object Topic {
       userId = userId.some,
       closed = false,
       hidden = hidden,
-      sticky = None
+      sticky = None,
     )
 }

@@ -12,7 +12,7 @@ import lila.user.User
 
 case class PuzzleDashboard(
     global: PuzzleDashboard.Results,
-    byTheme: Map[PuzzleTheme.Key, PuzzleDashboard.Results]
+    byTheme: Map[PuzzleTheme.Key, PuzzleDashboard.Results],
 ) {
 
   import PuzzleDashboard._
@@ -80,7 +80,7 @@ object PuzzleDashboard {
     PuzzleTheme.advantage,
     PuzzleTheme.crushing,
     PuzzleTheme.lishogiGames,
-    PuzzleTheme.otherSources
+    PuzzleTheme.otherSources,
   ).map(_.key)
 
   val relevantThemes = PuzzleTheme.all collect {
@@ -90,7 +90,7 @@ object PuzzleDashboard {
 
 final class PuzzleDashboardApi(
     colls: PuzzleColls,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit ec: ExecutionContext) {
 
   import PuzzleDashboard._
@@ -112,7 +112,7 @@ final class PuzzleDashboardApi(
           "nb"     -> SumAll,
           "wins"   -> Sum(countField("w")),
           "fixes"  -> Sum(countField("f")),
-          "rating" -> AvgField("puzzle.rating")
+          "rating" -> AvgField("puzzle.rating"),
         )
         Match($doc("u" -> userId, "d" $gt DateTime.now.minusDays(days))) -> List(
           Sort(Descending("d")),
@@ -120,8 +120,8 @@ final class PuzzleDashboardApi(
           PipelineOperator(
             PuzzleRound.puzzleLookup(
               colls,
-              List($doc("$project" -> $doc("themes" -> true, "rating" -> "$glicko.r")))
-            )
+              List($doc("$project" -> $doc("themes" -> true, "rating" -> "$glicko.r"))),
+            ),
           ),
           Unwind("puzzle"),
           Facet(
@@ -130,10 +130,10 @@ final class PuzzleDashboardApi(
               "byTheme" -> List(
                 Unwind("puzzle.themes"),
                 Match(relevantThemesSelect),
-                GroupField("puzzle.themes")(resultsGroup: _*)
-              )
-            )
-          )
+                GroupField("puzzle.themes")(resultsGroup: _*),
+              ),
+            ),
+          ),
         )
       }
         .map { r =>
@@ -151,7 +151,7 @@ final class PuzzleDashboardApi(
             } yield theme.key -> results
           } yield PuzzleDashboard(
             global = global,
-            byTheme = byTheme.toMap
+            byTheme = byTheme.toMap,
           )
         }
         .dmap(_.filter(_.global.nb > 0))
@@ -167,6 +167,6 @@ final class PuzzleDashboardApi(
   } yield Results(nb, wins, fixes, rating.toInt)
 
   val relevantThemesSelect = $doc(
-    "puzzle.themes" $nin irrelevantThemes.map(_.value)
+    "puzzle.themes" $nin irrelevantThemes.map(_.value),
   )
 }

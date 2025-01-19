@@ -11,7 +11,7 @@ final class PuzzleAnon(
     colls: PuzzleColls,
     cacheApi: CacheApi,
     pathApi: PuzzlePathApi,
-    countApi: PuzzleCountApi
+    countApi: PuzzleCountApi,
 )(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
@@ -23,7 +23,9 @@ final class PuzzleAnon(
       .mon(_.puzzle.selector.anon.time(theme.value))
       .addEffect {
         _ foreach { puzzle =>
-          lila.mon.puzzle.selector.anon.vote(theme.value).record(100 + math.round(puzzle.vote * 100))
+          lila.mon.puzzle.selector.anon
+            .vote(theme.value)
+            .record(100 + math.round(puzzle.vote * 100))
         }
       }
 
@@ -65,15 +67,15 @@ final class PuzzleAnon(
                         "from"         -> colls.puzzle.name.value,
                         "localField"   -> "puzzleId",
                         "foreignField" -> "_id",
-                        "as"           -> "puzzle"
-                      )
-                    )
+                        "as"           -> "puzzle",
+                      ),
+                    ),
                   ),
                   PipelineOperator(
                     $doc(
-                      "$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0))
-                    )
-                  )
+                      "$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)),
+                    ),
+                  ),
                 )
               }.map {
                 _.view.flatMap(PuzzleBSONHandler.readOpt).toVector

@@ -8,6 +8,7 @@ import play.api.libs.json._
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
+
 import shogi.Centis
 import shogi.Color
 import shogi.Gote
@@ -20,7 +21,7 @@ import lila.game.Game.PlayerId
 import lila.game.GameRepo
 import lila.game.Pov
 import lila.game.Progress
-import lila.game.{Player => GamePlayer}
+import lila.game.{ Player => GamePlayer }
 import lila.hub.Duct
 import lila.hub.actorApi.round.Abort
 import lila.hub.actorApi.round.BotPlay
@@ -31,26 +32,25 @@ import lila.hub.actorApi.round.RematchNo
 import lila.hub.actorApi.round.RematchYes
 import lila.hub.actorApi.round.Resign
 import lila.room.RoomSocket.{ Protocol => RP, _ }
+import lila.round.actorApi._
+import lila.round.actorApi.round._
 import lila.socket.Socket.GetVersion
 import lila.socket.Socket.SocketVersion
 import lila.socket.Socket.makeMessage
 import lila.socket.UserLagCache
 import lila.user.User
 
-import actorApi._
-import round._
-
 final private[round] class RoundDuct(
     dependencies: RoundDuct.Dependencies,
     gameId: Game.ID,
-    socketSend: String => Unit
+    socketSend: String => Unit,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    proxy: GameProxy
+    proxy: GameProxy,
 ) extends Duct {
 
-  import RoundSocket.Protocol
   import RoundDuct._
+  import RoundSocket.Protocol
   import dependencies._
 
   private var takebackSituation: Option[TakebackSituation] = None
@@ -171,7 +171,7 @@ final private[round] class RoundDuct(
           senteOnGame = sentePlayer.isOnline,
           senteIsGone = senteIsGone,
           goteOnGame = gotePlayer.isOnline,
-          goteIsGone = goteIsGone
+          goteIsGone = goteIsGone,
         )
       }
 
@@ -199,10 +199,12 @@ final private[round] class RoundDuct(
             lila
               .log("cheat")
               .info(
-                s"hold alert $ip https://lishogi.org/${pov.gameId}/${pov.color.name}#${pov.game.plies} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+                s"hold alert $ip https://lishogi.org/${pov.gameId}/${pov.color.name}#${pov.game.plies} ${pov.player.userId | "anon"} mean: $mean SD: $sd",
               )
             lila.mon.cheat.holdAlert.increment()
-            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.plies, mean = mean, sd = sd)).void
+            gameRepo
+              .setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.plies, mean = mean, sd = sd))
+              .void
         } inject Nil
       }
 
@@ -219,12 +221,12 @@ final private[round] class RoundDuct(
                   TreeBuilder(
                     a.game,
                     a.analysis.some,
-                    JsonView.WithFlags()
+                    JsonView.WithFlags(),
                   )
-                }
-              )
-            )
-          )
+                },
+              ),
+            ),
+          ),
         )
       }
 
@@ -237,9 +239,9 @@ final private[round] class RoundDuct(
             roomId,
             makeMessage(
               "postGameStudy",
-              studyId
-            )
-          )
+              studyId,
+            ),
+          ),
         )
       }
 
@@ -263,7 +265,7 @@ final private[round] class RoundDuct(
           p.promise.foreach(_ success {})
           lila.mon.round.move.time.record(lap.nanos)
           MoveLatMonitor record lap.micros
-        }
+        },
       )
 
     case p: BotPlay =>
@@ -314,7 +316,7 @@ final private[round] class RoundDuct(
             case true =>
               finisher.rageQuit(
                 pov.game,
-                Some(pov.color)
+                Some(pov.color),
               )
             case _ => fuccess(List(Event.Reload))
           }
@@ -470,9 +472,11 @@ final private[round] class RoundDuct(
                 _ ?? { millis =>
                   if (millis <= 0) notifyGone(c, true)
                   else
-                    g.clock.exists(_.currentClockFor(c).time.millis > millis + 3000) ?? notifyGoneIn(
+                    g.clock.exists(
+                      _.currentClockFor(c).time.millis > millis + 3000,
+                    ) ?? notifyGoneIn(
                       c,
-                      millis
+                      millis,
                     )
                 }
               }
@@ -597,6 +601,6 @@ object RoundDuct {
       val drawer: Drawer,
       val pauser: Pauser,
       val forecastApi: ForecastApi,
-      val isSimulHost: IsSimulHost
+      val isSimulHost: IsSimulHost,
   )
 }

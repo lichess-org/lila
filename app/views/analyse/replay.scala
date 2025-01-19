@@ -3,14 +3,13 @@ package views.html.analyse
 import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
+import views.html.analyse.bits.dataPanel
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.Game
 import lila.game.Pov
-
-import bits.dataPanel
 
 object replay {
 
@@ -27,7 +26,7 @@ object replay {
       cross: Option[lila.game.Crosstable.WithMatchup],
       userTv: Option[lila.user.User],
       chatOption: Option[lila.chat.UserChat.Mine],
-      bookmarked: Boolean
+      bookmarked: Boolean,
   )(implicit ctx: Context) = {
 
     import pov._
@@ -40,7 +39,7 @@ object replay {
         withNoteAge = ctx.isAuth option game.secondsSinceCreation,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-        palantir = ctx.me.exists(_.canPalantir)
+        palantir = ctx.me.exists(_.canPalantir),
       )
     }
     val exportLinks = div(
@@ -49,66 +48,70 @@ object replay {
           dataIcon := "$",
           cls      := "text",
           target   := "_blank",
-          href     := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
+          href     := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url),
         )(
-          "GIF"
+          "GIF",
         ),
         a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
-          trans.embedInYourWebsite()
-        )
-      )
+          trans.embedInYourWebsite(),
+        ),
+      ),
     )
     val kifLinks = div(
       span(
         a(
           dataIcon := "x",
           cls      := "text",
-          href     := s"${routes.Game.exportOne(game.id)}?clocks=0&evals=0"
+          href     := s"${routes.Game.exportOne(game.id)}?clocks=0&evals=0",
         )(
-          trans.downloadRaw()
+          trans.downloadRaw(),
         ),
         a(
           dataIcon := "x",
           cls      := "text jis",
-          href     := s"${routes.Game.exportOne(game.id)}?clocks=0&evals=0&shiftJis=1"
+          href     := s"${routes.Game.exportOne(game.id)}?clocks=0&evals=0&shiftJis=1",
         )(
-          "Shift-JIS"
-        )
+          "Shift-JIS",
+        ),
       ),
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
-        trans.downloadAnnotated()
+        trans.downloadAnnotated(),
       ),
       game.isKifImport option a(
         dataIcon := "x",
         cls      := "text",
-        href     := s"${routes.Game.exportOne(game.id)}?imported=1"
+        href     := s"${routes.Game.exportOne(game.id)}?imported=1",
       )(
-        trans.downloadImported()
-      )
+        trans.downloadImported(),
+      ),
     )
     val csaLinks = pov.game.variant.standard option div(
       a(
         dataIcon := "x",
         cls      := "text",
-        href     := s"${routes.Game.exportOne(game.id)}?csa=1&clocks=0"
+        href     := s"${routes.Game.exportOne(game.id)}?csa=1&clocks=0",
       )(
-        trans.downloadRaw()
+        trans.downloadRaw(),
       ),
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1&csa=1")(
-        trans.downloadAnnotated()
+      a(
+        dataIcon := "x",
+        cls      := "text",
+        href     := s"${routes.Game.exportOne(game.id)}?literate=1&csa=1",
+      )(
+        trans.downloadAnnotated(),
       ),
       game.isCsaImport option a(
         dataIcon := "x",
         cls      := "text",
-        href     := s"${routes.Game.exportOne(game.id)}?imported=1&csa=1"
-      )(trans.downloadImported())
+        href     := s"${routes.Game.exportOne(game.id)}?imported=1&csa=1",
+      )(trans.downloadImported()),
     )
 
     bits.layout(
       title = titleOf(pov),
       moreCss = frag(
         cssTag("analyse.round"),
-        ctx.blind option cssTag("round.nvui")
+        ctx.blind option cssTag("round.nvui"),
       ),
       moreJs = frag(
         ctx.blind option analyseNvuiTag,
@@ -119,11 +122,11 @@ object replay {
             "data"   -> data,
             "userId" -> ctx.userId,
             "chat"   -> chatJson,
-            "hunter" -> isGranted(_.Hunter)
-          )
-        )
+            "hunter" -> isGranted(_.Hunter),
+          ),
+        ),
       ),
-      openGraph = povOpenGraph(pov).some
+      openGraph = povOpenGraph(pov).some,
     )(
       frag(
         main(cls := s"analyse ${mainVariantClass(pov.game.variant)}")(
@@ -134,12 +137,12 @@ object replay {
                 none,
                 simul = simul,
                 userTv = userTv,
-                bookmarked = bookmarked
-              )
+                bookmarked = bookmarked,
+              ),
           ),
           chatOption.map(_ => views.html.chat.frag),
           div(cls := s"analyse__board main-board ${variantClass(pov.game.variant)}")(
-            shogigroundEmpty(pov.game.variant, pov.color)
+            shogigroundEmpty(pov.game.variant, pov.color),
           ),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
@@ -152,17 +155,19 @@ object replay {
                   else
                     postForm(
                       cls    := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
-                      action := routes.Analyse.requestAnalysis(gameId)
+                      action := routes.Analyse.requestAnalysis(gameId),
                     )(
                       submitButton(cls := "button text")(
-                        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
-                      )
-                    )
+                        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis()),
+                      ),
+                    ),
                 ),
                 div(cls := "move-times")(
-                  (game.plies > 1 && !game.isNotationImport) option div(id := "movetimes-chart-container")(
-                    canvas(id                                              := "movetimes-chart")
-                  )
+                  (game.plies > 1 && !game.isNotationImport) option div(
+                    id := "movetimes-chart-container",
+                  )(
+                    canvas(id := "movetimes-chart"),
+                  ),
                 ),
                 div(cls := "sfen-notation")(
                   div(
@@ -170,30 +175,31 @@ object replay {
                     input(
                       readonly,
                       spellcheck := false,
-                      cls        := "copyable autoselect analyse__underboard__sfen"
-                    )
+                      cls        := "copyable autoselect analyse__underboard__sfen",
+                    ),
                   ),
                   div(cls := "notation-options")(
                     strong("KIF"),
-                    kifLinks
+                    kifLinks,
                   ),
                   csaLinks map { csa =>
                     div(cls := "notation-options")(
                       strong("CSA"),
-                      csa
+                      csa,
                     )
                   },
                   div(cls := "notation-options")(
                     strong(trans.export()),
-                    exportLinks
+                    exportLinks,
                   ),
-                  div(cls := "kif")(kif)
+                  div(cls := "kif")(kif),
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(
-                    views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                    views.html.game
+                      .crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some),
                   )
-                }
+                },
               ),
               div(cls := "analyse__underboard__menu")(
                 game.analysable option
@@ -202,27 +208,27 @@ object replay {
                     dataPanel := "computer-analysis",
                     title := analysis.map { a =>
                       s"Provided by ${usernameOrId(a.providedBy)}"
-                    }
+                    },
                   )(trans.computerAnalysis()),
                 !game.isNotationImport option frag(
                   (game.plies > 1 && !game.isCorrespondence) option span(dataPanel := "move-times")(
-                    trans.moveTimes()
+                    trans.moveTimes(),
                   ),
-                  cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
+                  cross.isDefined option span(dataPanel := "ctable")(trans.crosstable()),
                 ),
-                span(dataPanel := "sfen-notation")(trans.export())
-              )
-            )
+                span(dataPanel := "sfen-notation")(trans.export()),
+              ),
+            ),
           ),
-          div(cls := "analyse__acpl")
+          div(cls := "analyse__acpl"),
         ),
         if (ctx.blind)
           div(cls := "blind-content none")(
             h2("KIF/CSA"),
             kifLinks,
-            csaLinks
-          )
-      )
+            csaLinks,
+          ),
+      ),
     )
   }
 }

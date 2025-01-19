@@ -16,7 +16,7 @@ final private[tv] class TvTrouper(
     lightUserApi: lila.user.LightUserApi,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
-    rematches: lila.game.Rematches
+    rematches: lila.game.Rematches,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
 
@@ -77,13 +77,13 @@ final private[tv] class TvTrouper(
           Json.obj(
             "name"   -> u.name,
             "title"  -> u.title,
-            "rating" -> player.rating
+            "rating" -> player.rating,
           )
-        }
+        },
       )
       Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
       if (channel == Tv.Channel.Standard) {
-        implicit def timeout = makeTimeout(100 millis)
+        implicit def timeout = lila.tv.makeTimeout(100 millis)
         actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach { case html: String =>
           val event = lila.hub.actorApi.game.ChangeFeatured(
             game.id,
@@ -92,9 +92,9 @@ final private[tv] class TvTrouper(
               Json.obj(
                 "html"  -> html,
                 "color" -> game.firstColor.name,
-                "id"    -> game.id
-              )
-            )
+                "id"    -> game.id,
+              ),
+            ),
           )
           Bus.publish(event, "changeFeaturedGame")
         }
@@ -107,7 +107,10 @@ private[tv] object TvTrouper {
   case class GetGameId(channel: Tv.Channel, promise: Promise[Option[Game.ID]])
   case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[Game.ID]])
 
-  case class GetGameIdAndHistory(channel: Tv.Channel, promise: Promise[ChannelTrouper.GameIdAndHistory])
+  case class GetGameIdAndHistory(
+      channel: Tv.Channel,
+      promise: Promise[ChannelTrouper.GameIdAndHistory],
+  )
 
   case object Select
   case class Selected(channel: Tv.Channel, game: Game)

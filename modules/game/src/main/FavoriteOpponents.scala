@@ -8,7 +8,7 @@ import lila.user.UserRepo
 final class FavoriteOpponents(
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val userIdsCache = cacheApi[User.ID, List[(User.ID, Int)]](64, "favoriteOpponents") {

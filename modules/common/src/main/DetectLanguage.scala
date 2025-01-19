@@ -14,7 +14,7 @@ import lila.common.config.Secret
 // http://detectlanguage.com
 final class DetectLanguage(
     ws: WSClient,
-    config: DetectLanguage.Config
+    config: DetectLanguage.Config,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import DetectLanguage.Detection
@@ -32,8 +32,8 @@ final class DetectLanguage(
         .post(
           Map(
             "key" -> config.key.value,
-            "q"   -> message.take(messageMaxLength)
-          )
+            "q"   -> message.take(messageMaxLength),
+          ),
         ) map { response =>
         (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
           case None =>
@@ -59,6 +59,6 @@ object DetectLanguage {
   final private case class Detection(
       language: String,
       confidence: Float,
-      isReliable: Boolean
+      isReliable: Boolean,
   )
 }

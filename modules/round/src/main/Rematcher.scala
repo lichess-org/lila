@@ -5,9 +5,12 @@ import scala.concurrent.duration._
 import play.api.i18n.Lang
 
 import com.github.blemale.scaffeine.Cache
+
 import shogi.Clock
-import shogi.{Color => ShogiColor}
-import shogi.{Game => ShogiGame}
+import shogi.Color.Gote
+import shogi.Color.Sente
+import shogi.{ Color => ShogiColor }
+import shogi.{ Game => ShogiGame }
 
 import lila.common.Bus
 import lila.game.AnonCookie
@@ -19,12 +22,10 @@ import lila.game.Pov
 import lila.game.Rematches
 import lila.game.Source
 import lila.i18n.defaultLang
-import lila.i18n.{I18nKeys => trans}
+import lila.i18n.{ I18nKeys => trans }
 import lila.memo.CacheApi
 import lila.user.User
 import lila.user.UserRepo
-
-import ShogiColor.{ Gote, Sente }
 
 final private class Rematcher(
     gameRepo: GameRepo,
@@ -32,7 +33,7 @@ final private class Rematcher(
     idGenerator: lila.game.IdGenerator,
     messenger: Messenger,
     onStart: OnStart,
-    rematches: Rematches
+    rematches: Rematches,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang: Lang = defaultLang
@@ -42,7 +43,7 @@ final private class Rematcher(
   private val rateLimit = new lila.memo.RateLimit[String](
     credits = 2,
     duration = 1 minute,
-    key = "round.rematch"
+    key = "round.rematch",
   )
 
   import Rematcher.Offers
@@ -139,7 +140,7 @@ final private class Rematcher(
         mode = if (users.exists(_.lame)) shogi.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
-        notationImport = None
+        notationImport = None,
       ) withUniqueId idGenerator
     } yield game
 
@@ -152,7 +153,7 @@ final private class Rematcher(
           game.opponent(color).userId.flatMap { id =>
             users.find(_.id == id)
           },
-          PerfPicker.mainOrDefault(game)
+          PerfPicker.mainOrDefault(game),
         )
     }
 
@@ -160,10 +161,18 @@ final private class Rematcher(
     val senteId = game fullIdOf Sente
     val goteId  = game fullIdOf Gote
     List(
-      Event.RedirectOwner(if (game.isHandicap) Gote else Sente, goteId, AnonCookie.json(game pov Gote)),
-      Event.RedirectOwner(if (game.isHandicap) Sente else Gote, senteId, AnonCookie.json(game pov Sente)),
+      Event.RedirectOwner(
+        if (game.isHandicap) Gote else Sente,
+        goteId,
+        AnonCookie.json(game pov Gote),
+      ),
+      Event.RedirectOwner(
+        if (game.isHandicap) Sente else Gote,
+        senteId,
+        AnonCookie.json(game pov Sente),
+      ),
       // tell spectators about the rematch
-      Event.RematchTaken(game.id)
+      Event.RematchTaken(game.id),
     )
   }
 

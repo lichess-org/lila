@@ -23,7 +23,7 @@ object Notations {
     japanese,
     kif,
     usi,
-    yorozuya
+    yorozuya,
   )
   val allToString = all.map(_.toString)
 

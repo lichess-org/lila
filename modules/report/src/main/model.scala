@@ -30,8 +30,9 @@ case class Reporter(user: User) extends AnyVal {
 case class ReporterId(value: User.ID) extends AnyVal
 
 object ReporterId {
-  def lishogi                = ReporterId(lila.user.User.lishogiId)
-  implicit val reporterIdIso: Iso.StringIso[ReporterId] = lila.common.Iso.string[ReporterId](ReporterId.apply, _.value)
+  def lishogi = ReporterId(lila.user.User.lishogiId)
+  implicit val reporterIdIso: Iso.StringIso[ReporterId] =
+    lila.common.Iso.string[ReporterId](ReporterId.apply, _.value)
 }
 
 case class Accuracy(value: Int) extends AnyVal

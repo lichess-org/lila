@@ -15,7 +15,7 @@ object shields {
     views.html.base.layout(
       title = trans.tournamentShields.txt(),
       moreCss = cssTag("tournament.leaderboard"),
-      wrapClass = "full-screen-force"
+      wrapClass = "full-screen-force",
     ) {
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("shield"),
@@ -28,27 +28,29 @@ object shields {
                   h2(
                     a(href := routes.Tournament.categShields(categ.key))(
                       span(cls := "shield-trophy")(categ.iconChar.toString),
-                      categ.name
-                    )
+                      categ.name,
+                    ),
                   ),
                   ol(awards.map { aw =>
                     li(
                       userIdLink(aw.owner.value.some),
-                      a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
+                      a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date)),
                     )
-                  })
+                  }),
                 )
               }
-            }
-          )
-        )
+            },
+          ),
+        ),
       )
     }
 
-  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: Context) =
+  def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit
+      ctx: Context,
+  ) =
     views.html.base.layout(
       title = trans.tournamentShields.txt(),
-      moreCss = frag(cssTag("tournament.leaderboard"), cssTag("misc.slist"))
+      moreCss = frag(cssTag("tournament.leaderboard"), cssTag("misc.slist")),
     ) {
       main(cls := "page-menu page-small tournament-categ-shields")(
         views.html.user.bits.communityMenu("shield"),
@@ -56,16 +58,16 @@ object shields {
           h1(
             a(href := routes.Tournament.shields, dataIcon := "I", cls := "text"),
             categ.name,
-            " shields"
+            " shields",
           ),
           ol(awards.map { aw =>
             li(
               span(cls := "shield-trophy")(categ.iconChar.toString),
               userIdLink(aw.owner.value.some),
-              a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
+              a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date)),
             )
-          })
-        )
+          }),
+        ),
       )
     }
 }

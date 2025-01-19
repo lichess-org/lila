@@ -12,7 +12,7 @@ object ResilientScheduler {
   def apply(
       every: Every,
       atMost: AtMost,
-      initialDelay: FiniteDuration
+      initialDelay: FiniteDuration,
   )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem): Unit = {
     val run = () => f
     def runAndScheduleNext(): Unit =

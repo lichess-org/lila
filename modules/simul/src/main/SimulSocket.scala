@@ -12,10 +12,10 @@ final private class SimulSocket(
     repo: SimulRepo,
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi
+    chat: lila.chat.ChatApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   def hostIsOn(simulId: Simul.ID, gameId: Game.ID): Unit =
@@ -61,12 +61,12 @@ final private class SimulSocket(
       chatBusChan = _.Simul,
       localTimeout = Some { (roomId, modId, _) =>
         repo.hostId(roomId.value).map(_ has modId)
-      }
+      },
     )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply _
 
   remoteSocketApi.subscribe("simul-in", RP.In.reader)(
-    handler orElse remoteSocketApi.baseHandler
+    handler orElse remoteSocketApi.baseHandler,
   ) >>- send(P.Out.boot)
 }

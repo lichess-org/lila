@@ -11,7 +11,7 @@ object JsonView {
         "patron"     -> r.user.isPatron,
         "nbGames"    -> r.nbGames,
         "followable" -> r.followable,
-        "relation"   -> r.relation
+        "relation"   -> r.relation,
       )
     }
 }

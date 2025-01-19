@@ -10,7 +10,7 @@ case class Modlog(
     user: Option[String],
     action: String,
     details: Option[String] = None,
-    date: DateTime = DateTime.now
+    date: DateTime = DateTime.now,
 ) {
 
   def isLishogi = mod == lila.user.User.lishogiId
@@ -77,7 +77,7 @@ object Modlog {
       mod = mod.user.id,
       user = sus.user.id.some,
       action = action,
-      details = details
+      details = details,
     )
 
   val alt                 = "alt"

@@ -1,6 +1,7 @@
 package lila.challenge
 
 import org.joda.time.DateTime
+
 import shogi.Color
 import shogi.Mode
 import shogi.Speed
@@ -26,7 +27,7 @@ case class Challenge(
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
-    open: Option[Boolean] = None
+    open: Option[Boolean] = None,
 ) {
 
   import Challenge._
@@ -77,11 +78,11 @@ case class Challenge(
   def setChallenger(u: Option[User], secret: Option[String]) =
     copy(
       challenger = u.map(toRegistered(variant, timeControl)) orElse
-        secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
+        secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open,
     )
   def setDestUser(u: User) =
     copy(
-      destUser = toRegistered(variant, timeControl)(u).some
+      destUser = toRegistered(variant, timeControl)(u).some,
     )
 
   def speed = speedOf(timeControl)
@@ -126,8 +127,8 @@ object Challenge {
   object TimeControl {
     def make(clock: Option[shogi.Clock.Config], days: Option[Int]) =
       clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
-    case object Unlimited                        extends TimeControl
-    case class Correspondence(days: Int)         extends TimeControl
+    case object Unlimited                extends TimeControl
+    case class Correspondence(days: Int) extends TimeControl
     case class Clock(config: shogi.Clock.Config) extends TimeControl {
       // All durations are expressed in seconds
       def limit     = config.limit
@@ -160,7 +161,7 @@ object Challenge {
         timeControl match {
           case TimeControl.Correspondence(d) => d.some
           case _                             => none
-        }
+        },
       )
       .|(PerfType.Correspondence)
 
@@ -182,7 +183,7 @@ object Challenge {
       challenger: Challenger,
       destUser: Option[User],
       rematchOf: Option[String],
-      isOpen: Boolean = false
+      isOpen: Boolean = false,
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "sente" => ColorChoice.Sente  -> shogi.Sente
@@ -190,7 +191,8 @@ object Challenge {
       case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(initialSfen, clock.some, variant) =>
+      case TimeControl.Clock(clock)
+          if !lila.game.Game.allowRated(initialSfen, clock.some, variant) =>
         Mode.Casual
       case _ => mode
     }
@@ -209,7 +211,7 @@ object Challenge {
       createdAt = DateTime.now,
       seenAt = !isOpen option DateTime.now,
       expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
-      open = isOpen option true
+      open = isOpen option true,
     )
   }
 }

@@ -12,7 +12,7 @@ object side {
   def channels(
       channel: lila.tv.Tv.Channel,
       champions: lila.tv.Tv.Champions,
-      baseUrl: String
+      baseUrl: String,
   )(implicit lang: Lang): Frag =
     div(cls := "tv-channels subnav")(
       lila.tv.Tv.Channel.all.map { c =>
@@ -21,8 +21,8 @@ object side {
           cls := List(
             "tv-channel" -> true,
             c.key        -> true,
-            "active"     -> (c == channel)
-          )
+            "active"     -> (c == channel),
+          ),
         )(
           span(dataIcon := c.icon)(
             span(
@@ -32,14 +32,14 @@ object side {
                   frag(
                     p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
                     " ",
-                    p.rating
+                    p.rating,
                   )
-                }
-              )
-            )
-          )
+                },
+              ),
+            ),
+          ),
         )
-      }
+      },
     )
 
   private val separator = " - "
@@ -55,35 +55,35 @@ object side {
               separator,
               (if (game.rated) trans.rated else trans.casual).txt(),
               separator,
-              views.html.game.bits.variantLink(game.variant, game.perfType)
-            )
-          )
+              views.html.game.bits.variantLink(game.variant, game.perfType),
+            ),
+          ),
         ),
         div(cls := "game__meta__players")(
           game.players.map { p =>
             div(cls := s"player color-icon is ${p.color.name} text")(
-              playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
+              playerLink(p, withOnline = false, withDiff = true, withBerserk = true),
             )
-          }
-        )
+          },
+        ),
       ),
       game.tournamentId map { tourId =>
         st.section(cls := "game__tournament-link")(
           a(href := routes.Tournament.show(tourId), dataIcon := "g", cls := "text")(
-            tournamentIdToName(tourId)
-          )
+            tournamentIdToName(tourId),
+          ),
         )
-      }
+      },
     )
   }
 
   def sides(
       pov: lila.game.Pov,
-      cross: Option[lila.game.Crosstable.WithMatchup]
+      cross: Option[lila.game.Crosstable.WithMatchup],
   )(implicit ctx: Context) =
     div(cls := "sides")(
       cross.map {
         views.html.game.crosstable(_, pov.gameId.some)
-      }
+      },
     )
 }

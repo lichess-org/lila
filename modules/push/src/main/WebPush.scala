@@ -12,7 +12,7 @@ import lila.user.User
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
     config: WebPush.Config,
-    ws: WSClient
+    ws: WSClient,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(userId: User.ID, data: => PushApi.Data): Funit =
@@ -32,8 +32,8 @@ final private class WebPush(
                 "endpoint" -> sub.endpoint,
                 "keys" -> Json.obj(
                   "p256dh" -> sub.p256dh,
-                  "auth"   -> sub.auth
-                )
+                  "auth"   -> sub.auth,
+                ),
               )
             }.toList),
             "payload" -> Json
@@ -41,11 +41,11 @@ final private class WebPush(
                 "title"   -> data.title,
                 "body"    -> data.body,
                 "tag"     -> data.stacking.key,
-                "payload" -> data.payload
+                "payload" -> data.payload,
               )
               .toString,
-            "ttl" -> 43200
-          )
+            "ttl" -> 43200,
+          ),
         ) flatMap {
         case res if res.status == 200 => funit
         case res                      => fufail(s"[push] web: ${res.status} ${res.body}")
@@ -56,7 +56,7 @@ private object WebPush {
 
   final class Config(
       val url: String,
-      @ConfigName("vapid_public_key") val vapidPublicKey: String
+      @ConfigName("vapid_public_key") val vapidPublicKey: String,
   )
   implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }

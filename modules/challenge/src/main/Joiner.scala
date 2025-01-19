@@ -12,7 +12,7 @@ import lila.user.User
 final private class Joiner(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    onStart: lila.round.OnStart
+    onStart: lila.round.OnStart,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(c: Challenge, destUser: Option[User], color: Option[Color]): Fu[Option[Pov]] =
@@ -31,16 +31,21 @@ final private class Joiner(
             .make(
               shogi = shogiGame,
               initialSfen = c.initialSfen,
-              sentePlayer = Player.make(shogi.Sente, c.finalColor.fold(challengerUser, destUser), perfPicker),
-              gotePlayer = Player.make(shogi.Gote, c.finalColor.fold(destUser, challengerUser), perfPicker),
+              sentePlayer =
+                Player.make(shogi.Sente, c.finalColor.fold(challengerUser, destUser), perfPicker),
+              gotePlayer =
+                Player.make(shogi.Gote, c.finalColor.fold(destUser, challengerUser), perfPicker),
               mode = if (c.initialSfen.isDefined) Mode.Casual else c.mode,
               source = Source.Friend,
               daysPerTurn = c.daysPerTurn,
-              notationImport = None
+              notationImport = None,
             )
             .withId(c.id)
             .start
-          (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
+          (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(
+            game,
+            !c.finalColor,
+          ).some
         }
     }
 

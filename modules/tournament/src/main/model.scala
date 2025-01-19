@@ -12,7 +12,7 @@ case class TournamentTop(value: List[Player]) extends AnyVal
 case class TourMiniView(
     tour: Tournament,
     top: Option[TournamentTop],
-    teamVs: Option[TeamBattle.TeamVs]
+    teamVs: Option[TeamBattle.TeamVs],
 ) {
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
 }
@@ -23,12 +23,17 @@ case class GameView(
     tour: Tournament,
     teamVs: Option[TeamBattle.TeamVs],
     ranks: Option[GameRanks],
-    top: Option[TournamentTop]
+    top: Option[TournamentTop],
 ) {
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
 }
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID], teamId: Option[TeamID]) {
+case class MyInfo(
+    rank: Int,
+    withdraw: Boolean,
+    gameId: Option[lila.game.Game.ID],
+    teamId: Option[TeamID],
+) {
   def page = {
     math.floor((rank - 1) / 10) + 1
   }.toInt
@@ -37,7 +42,7 @@ case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID
 case class VisibleTournaments(
     created: List[Tournament],
     started: List[Tournament],
-    finished: List[Tournament]
+    finished: List[Tournament],
 ) {
 
   def unfinished = created ::: started
@@ -47,14 +52,14 @@ case class VisibleTournaments(
   def add(tours: List[Tournament]) =
     copy(
       created = tours.filter(_.isCreated) ++ created,
-      started = tours.filter(_.isStarted) ++ started
+      started = tours.filter(_.isStarted) ++ started,
     )
 }
 
 case class PlayerInfoExt(
     userId: User.ID,
     player: Player,
-    recentPovs: List[lila.game.LightPov]
+    recentPovs: List[lila.game.LightPov],
 )
 
 case class GameRanks(senteRank: Int, goteRank: Int)
@@ -94,7 +99,7 @@ object RankedPlayer {
 case class FeaturedGame(
     game: lila.game.Game,
     sente: RankedPlayer,
-    gote: RankedPlayer
+    gote: RankedPlayer,
 )
 
 final class GetTourName(f: (Tournament.ID, Lang) => Option[String])

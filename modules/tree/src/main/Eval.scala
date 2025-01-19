@@ -5,7 +5,7 @@ import shogi.format.usi.Usi
 case class Eval(
     cp: Option[Eval.Cp],
     mate: Option[Eval.Mate],
-    best: Option[Usi]
+    best: Option[Usi],
 ) {
 
   def isEmpty = cp.isEmpty && mate.isEmpty
@@ -97,14 +97,14 @@ object Eval {
       Reads.of[Int] map Cp.apply,
       Writes { cp =>
         JsNumber(cp.value)
-      }
+      },
     )
 
     implicit val mateFormat: Format[Mate] = Format[Mate](
       Reads.of[Int] map Mate.apply,
       Writes { mate =>
         JsNumber(mate.value)
-      }
+      },
     )
 
     implicit val evalWrites: OWrites[Eval] = Json.writes[Eval]

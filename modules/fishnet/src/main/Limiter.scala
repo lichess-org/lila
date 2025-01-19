@@ -9,7 +9,7 @@ import lila.db.dsl._
 
 final private class Limiter(
     analysisColl: Coll,
-    requesterApi: lila.analyse.RequesterApi
+    requesterApi: lila.analyse.RequesterApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
@@ -21,7 +21,7 @@ final private class Limiter(
   private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 20 hours,
-    key = "request_analysis.ip"
+    key = "request_analysis.ip",
   )
 
   private def concurrentCheck(sender: Work.Sender) =
@@ -31,14 +31,14 @@ final private class Limiter(
         !analysisColl.exists(
           $doc(
             "sender.userId" -> userId,
-            "game.variant"  -> shogi.variant.Standard.id
-          )
+            "game.variant"  -> shogi.variant.Standard.id,
+          ),
         )
       case Work.Sender(_, _, Some(ip), _, _) =>
         !analysisColl.exists(
           $doc(
-            "sender.ip" -> ip
-          )
+            "sender.ip" -> ip,
+          ),
         )
       case _ => fuFalse
     }
@@ -48,7 +48,8 @@ final private class Limiter(
   private def perDayCheck(sender: Work.Sender) =
     sender match {
       case Work.Sender(_, _, _, mod, system) if mod || system => fuTrue
-      case Work.Sender(Some(userId), _, _, _, _) => requesterApi.countToday(userId) map (_ < maxPerDay)
+      case Work.Sender(Some(userId), _, _, _, _) =>
+        requesterApi.countToday(userId) map (_ < maxPerDay)
       case Work.Sender(_, _, Some(ip), _, _) =>
         fuccess {
           RequestLimitPerIP(ip, cost = 1)(true)(false)

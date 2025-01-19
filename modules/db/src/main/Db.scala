@@ -12,7 +12,7 @@ import lila.db.dsl.Coll
 final class AsyncDb(
     name: String,
     uri: String,
-    driver: AsyncDriver
+    driver: AsyncDriver,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val connection =
@@ -31,7 +31,7 @@ final class AsyncDb(
 final class Db(
     name: String,
     uri: String,
-    driver: AsyncDriver
+    driver: AsyncDriver,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val logger = lila.db.logger branch name
@@ -44,7 +44,7 @@ final class Db(
           .connect(parsedUri, name.some)
           .flatMap(_ database parsedUri.db.getOrElse("lishogi"))
       }
-      .await(5.seconds, s"db:$name")
+      .await(5.seconds, s"db:$name"),
   ) { lap =>
     logger.info(s"MongoDB connected to $uri in ${lap.showDuration}")
   }

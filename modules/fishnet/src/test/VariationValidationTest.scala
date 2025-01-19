@@ -2,7 +2,8 @@ package lila.fishnet
 
 import org.specs2.mutable._
 
-import lila.analyse.{ Analysis, Info }
+import lila.analyse.Analysis
+import lila.analyse.Info
 import lila.tree.Eval
 import lila.tree.Eval._
 
@@ -22,14 +23,14 @@ final class VariationValidationTest extends Specification {
           Info(
             3,
             Eval(Some(Cp(22)), None, None),
-            List("7g7f")
+            List("7g7f"),
           ),
           Info(4, Eval(Some(Cp(-30)), None, None), List()),
           Info(5, Eval(Some(Cp(-48)), None, None), List()),
           Info(
             6,
             Eval(Some(Cp(-80)), None, None),
-            List()
+            List(),
           ),
           Info(7, Eval(Some(Cp(-22)), None, None), List()),
           Info(8, Eval(Some(Cp(-64)), None, None), List()),
@@ -47,42 +48,42 @@ final class VariationValidationTest extends Specification {
           Info(
             20,
             Eval(Some(Cp(-113)), None, None),
-            List()
+            List(),
           ),
           Info(
             21,
             Eval(Some(Cp(-42)), None, None),
-            List()
+            List(),
           ),
           Info(
             22,
             Eval(Some(Cp(-535)), None, None),
-            List()
+            List(),
           ),
           Info(
             23,
             Eval(Some(Cp(-296)), None, None),
-            List()
+            List(),
           ),
           Info(24, Eval(None, Some(Mate(3)), None), List()),
           Info(
             25,
             Eval(Some(Cp(-935)), None, None),
-            List()
+            List(),
           ),
           Info(26, Eval(Some(Cp(-2165)), None, None), List()),
           Info(
             27,
             Eval(Some(Cp(-2731)), None, None),
-            List()
+            List(),
           ),
           Info(28, Eval(None, Some(Mate(2)), None), List()),
-          Info(29, Eval(None, Some(Mate(-2)), None), List())
+          Info(29, Eval(None, Some(Mate(-2)), None), List()),
         ),
         0,
         None,
         None,
-        now
+        now,
       )
 
       val usi =
@@ -92,7 +93,7 @@ final class VariationValidationTest extends Specification {
         initialSfen = None,
         studyId = None,
         variant = shogi.variant.Standard,
-        moves = usi
+        moves = usi,
       )
       VariationValidation(work, usiAnalysis) match {
         case (_, errs) => errs must beEmpty

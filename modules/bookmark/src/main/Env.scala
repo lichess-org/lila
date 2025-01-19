@@ -13,17 +13,17 @@ import lila.hub.actorApi.bookmark._
 final private class BookmarkConfig(
     @ConfigName("collection.bookmark") val bookmarkCollName: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("actor.name") val actorName: String,
 )
 
 @Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo
+    gameRepo: lila.game.GameRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[BookmarkConfig]("bookmark")(AutoConfig.loader)
@@ -41,6 +41,6 @@ final class Env(
         case Remove(gameId)         => api.removeByGameId(gameId).unit
       }
     }),
-    name = config.actorName
+    name = config.actorName,
   )
 }

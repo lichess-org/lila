@@ -16,7 +16,7 @@ final class Reopen(
     mailgun: Mailgun,
     userRepo: UserRepo,
     baseUrl: BaseUrl,
-    tokenerSecret: Secret
+    tokenerSecret: Secret,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
@@ -24,7 +24,7 @@ final class Reopen(
   def prepare(
       username: String,
       email: EmailAddress,
-      hasModClose: User.ID => Fu[Boolean]
+      hasModClose: User.ID => Fu[Boolean],
   ): Fu[Either[(String, String), User]] =
     userRepo.enabledWithEmail(email.normalize) flatMap {
       case Some(_) =>
@@ -40,7 +40,9 @@ final class Reopen(
             userRepo.prevEmail(user.id) flatMap {
               case None =>
                 fuccess(
-                  Left("noEmail" -> "That account doesn't have any associated email, and cannot be reopened.")
+                  Left(
+                    "noEmail" -> "That account doesn't have any associated email, and cannot be reopened.",
+                  ),
                 )
               case Some(prevEmail) if !email.similarTo(prevEmail) =>
                 fuccess(Left("differentEmail" -> "That account has a different email address."))
@@ -72,8 +74,8 @@ ${Mailgun.txt.serviceNote}
         htmlBody = emailMessage(
           p(trans.passwordReset_clickOrIgnore()),
           potentialAction(metaName("Log in"), Mailgun.html.url(url)),
-          serviceNote
-        ).some
+          serviceNote,
+        ).some,
       )
     }
 

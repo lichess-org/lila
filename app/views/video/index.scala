@@ -9,8 +9,8 @@ import lila.common.paginator.Paginator
 
 object index {
 
-  def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(implicit
-      ctx: Context
+  def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(
+      implicit ctx: Context,
   ) = {
 
     val tagString =
@@ -24,17 +24,17 @@ object index {
           description =
             s"${videos.nbResults} curated shogi videos${if (tagString.nonEmpty) " matching the tags " + tagString
               else " - "}free for all",
-          url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
+          url = s"$netBaseUrl${routes.Video.index}?${control.queryString}",
         )
         .some,
-      control = control
+      control = control,
     )(
       div(cls := "box__top")(
         h1(
           if (control.filter.tags.nonEmpty) frag(pluralize("video", videos.nbResults), " found")
-          else "Shogi videos"
+          else "Shogi videos",
         ),
-        bits.searchForm(control.query)
+        bits.searchForm(control.query),
       ),
       control.filter.tags.isEmpty option p(cls := "explain box__pad")(
         "All videos are free for everyone.",
@@ -43,7 +43,7 @@ object index {
         br,
         "We have carefully selected ",
         strong(count),
-        " videos so far!"
+        " videos so far!",
       ),
       div(cls := "list box__pad infinitescroll")(
         videos.currentPageResults.map { bits.card(_, control) },
@@ -51,14 +51,16 @@ object index {
           if (videos.currentPageResults.isEmpty) "No videos for these tags:"
           else "That's all we got for these tags:",
           control.filter.tags.map { tag =>
-            a(cls := "tag", dataIcon := "o", href := s"${routes.Video.index}?tags=$tag")(tag.capitalize)
+            a(cls := "tag", dataIcon := "o", href := s"${routes.Video.index}?tags=$tag")(
+              tag.capitalize,
+            )
           },
           br,
           br,
-          a(href := routes.Video.index, cls := "button")("Clear search")
+          a(href := routes.Video.index, cls := "button")("Clear search"),
         ),
-        pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
-      )
+        pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np"),
+      ),
     )
   }
 }

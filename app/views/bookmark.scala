@@ -13,18 +13,18 @@ object bookmark {
       a(
         cls := List(
           "bookmark"   -> true,
-          "bookmarked" -> bookmarked
+          "bookmarked" -> bookmarked,
         ),
         href  := routes.Bookmark.toggle(g.id),
-        title := trans.bookmarkThisGame.txt()
+        title := trans.bookmarkThisGame.txt(),
       )(
         iconTag("t")(cls := "on is3"),
         iconTag("s")(cls := "off is3"),
-        span(g.showBookmarks)
+        span(g.showBookmarks),
       )
     else if (g.hasBookmarks)
       span(cls := "bookmark")(
-        span(dataIcon := "s", cls := "is3")(g.showBookmarks)
+        span(dataIcon := "s", cls := "is3")(g.showBookmarks),
       )
     else emptyFrag
 }

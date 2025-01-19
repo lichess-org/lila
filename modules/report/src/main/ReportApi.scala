@@ -21,10 +21,10 @@ final class ReportApi(
     playbanApi: lila.playban.PlaybanApi,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
-    thresholds: Thresholds
+    thresholds: Thresholds,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   import BSONHandlers._
@@ -43,8 +43,8 @@ final class ReportApi(
               reporter,
               suspect,
               reason,
-              data.text
-            )
+              data.text,
+            ),
           )
         }
       }
@@ -58,8 +58,8 @@ final class ReportApi(
             $doc(
               "user"   -> candidate.suspect.user.id,
               "reason" -> candidate.reason,
-              "open"   -> true
-            )
+              "open"   -> true,
+            ),
           )
           .flatMap { prev =>
             val report = Report.make(scored, prev)
@@ -67,7 +67,10 @@ final class ReportApi(
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate) >>- {
                 if (report.isCheat)
-                  Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
+                  Bus.publish(
+                    lila.hub.actorApi.report.CheatReportCreated(report.user),
+                    "cheatReport",
+                  )
               }
           } >>-
           nbOpenCache.invalidateUnit()
@@ -80,8 +83,8 @@ final class ReportApi(
         reporter,
         suspect,
         Reason.Comm,
-        s"${Reason.Comm.flagText} $resource ${text take 140}"
-      )
+        s"${Reason.Comm.flagText} $resource ${text take 140}",
+      ),
     )
 
   def autoCommFlag(suspectId: SuspectId, resource: String, text: String) =
@@ -93,8 +96,8 @@ final class ReportApi(
               reporter,
               suspect,
               Reason.Comm,
-              s"${Reason.Comm.flagText} $resource ${text take 140}"
-            )
+              s"${Reason.Comm.flagText} $resource ${text take 140}",
+            ),
           )
         }
       }
@@ -121,8 +124,8 @@ final class ReportApi(
     coll.exists(
       $doc(
         "user"   -> userId,
-        "reason" -> Reason.CheatPrint.key
-      )
+        "reason" -> Reason.CheatPrint.key,
+      ),
     ) flatMap {
       case true => funit // only report once
       case _ =>
@@ -133,8 +136,8 @@ final class ReportApi(
                 reporter = reporter,
                 suspect = suspect,
                 reason = Reason.CheatPrint,
-                text = "Shares print with known cheaters"
-              )
+                text = "Shares print with known cheaters",
+              ),
             )
           case _ => funit
         }
@@ -143,7 +146,8 @@ final class ReportApi(
   def autoCheatReport(userId: String, text: String): Funit =
     getSuspect(userId) zip
       getLishogiReporter zip
-      findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
+      findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat))
+        .map(_.flatMap(_.atoms.toList)) flatMap {
         case ((Some(suspect), reporter), atoms) if atoms.forall(_.byHuman) =>
           lila.mon.cheat.autoReport.increment()
           create(
@@ -151,8 +155,8 @@ final class ReportApi(
               reporter = reporter,
               suspect = suspect,
               reason = Reason.Cheat,
-              text = text
-            )
+              text = text,
+            ),
           )
         case _ => funit
       }
@@ -165,8 +169,8 @@ final class ReportApi(
             reporter = reporter,
             suspect = suspect,
             reason = Reason.Cheat,
-            text = s"""$name bot detected on ${referer | "?"}"""
-          )
+            text = s"""$name bot detected on ${referer | "?"}""",
+          ),
         )
       case _ => funit
     }
@@ -184,8 +188,9 @@ final class ReportApi(
                     reporter = reporter,
                     suspect = Suspect(abuser),
                     reason = Reason.Playbans,
-                    text = s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
-                  )
+                    text =
+                      s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match.",
+                  ),
                 )
               case _ => funit
             }
@@ -209,7 +214,7 @@ final class ReportApi(
           .one(
             $inIds(closed.map(_.id)),
             $set("open" -> true) ++ $unset("processedBy"),
-            multi = true
+            multi = true,
           )
           .void
     } yield ()
@@ -225,8 +230,9 @@ final class ReportApi(
               reason = Reason.Boost,
               text =
                 if (isSame) s"Farms rating points from @${loser.username} (same IP or print)"
-                else s"Sandbagging - the winning player @${winner.username} has different IPs & prints"
-            )
+                else
+                  s"Sandbagging - the winning player @${winner.username} has different IPs & prints",
+            ),
           )
         case _ => funit
       }
@@ -249,7 +255,7 @@ final class ReportApi(
         val relatedSelector = $doc(
           "user" -> sus.user.id,
           "room" $in rooms,
-          "open" -> true
+          "open" -> true,
         )
         val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
           $or($id(id), relatedSelector)
@@ -266,9 +272,9 @@ final class ReportApi(
         selector,
         $set(
           "open"        -> false,
-          "processedBy" -> by.value
+          "processedBy" -> by.value,
         ) ++ $unset("inquiry"),
-        multi = true
+        multi = true,
       )
       .void
 
@@ -280,9 +286,9 @@ final class ReportApi(
             reporter = reporter,
             suspect = suspect,
             reason = Reason.Comm,
-            text = text
+            text = text,
           ),
-          score => if (major) Report.Score(score.value atLeast thresholds.score()) else score
+          score => if (major) Report.Score(score.value atLeast thresholds.score()) else score,
         )
       case _ => funit
     }
@@ -291,7 +297,7 @@ final class ReportApi(
     coll.update
       .one(
         $id(id),
-        $set("room" -> Room.Xfiles.key) ++ $unset("inquiry")
+        $set("room" -> Room.Xfiles.key) ++ $unset("inquiry"),
       )
       .void
 
@@ -324,7 +330,7 @@ final class ReportApi(
   def recent(
       suspect: Suspect,
       nb: Int,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): Fu[List[Report]] =
     coll.ext
       .find($doc("user" -> suspect.id.value))
@@ -344,7 +350,7 @@ final class ReportApi(
       by <-
         coll.ext
           .find(
-            $doc("atoms.by" -> user.id)
+            $doc("atoms.by" -> user.id),
           )
           .sort(sortLastAtomAt)
           .cursor[Report](ReadPreference.secondaryPreferred)
@@ -357,9 +363,9 @@ final class ReportApi(
       $doc(
         "user" -> suspect.user.id,
         "room" -> Room.Cheat.key,
-        "open" -> true
+        "open" -> true,
       ),
-      "score"
+      "score",
     )
 
   def currentCheatReport(suspect: Suspect): Fu[Option[Report]] =
@@ -367,8 +373,8 @@ final class ReportApi(
       $doc(
         "user" -> suspect.user.id,
         "room" -> Room.Cheat.key,
-        "open" -> true
-      )
+        "open" -> true,
+      ),
     )
 
   def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
@@ -376,9 +382,9 @@ final class ReportApi(
       "atoms.by",
       $doc(
         "user" -> sus.user.id,
-        "atoms.0.at" $gt DateTime.now.minusDays(3)
+        "atoms.0.at" $gt DateTime.now.minusDays(3),
       ),
-      ReadPreference.secondaryPreferred
+      ReadPreference.secondaryPreferred,
     ) dmap (_ filterNot ReporterId.lishogi.==)
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] =
@@ -416,8 +422,8 @@ final class ReportApi(
                 $doc(
                   "atoms.by" -> reporterId,
                   "room"     -> Room.Cheat.key,
-                  "open"     -> false
-                )
+                  "open"     -> false,
+                ),
               )
               .sort(sortLastAtomAt)
               .cursor[Report](ReadPreference.secondaryPreferred)
@@ -455,7 +461,7 @@ final class ReportApi(
       .aggregateList(maxDocs = 100) { framework =>
         import framework._
         Match(selectOpenAvailableInRoom(none)) -> List(
-          GroupField("room")("nb" -> SumAll)
+          GroupField("room")("nb" -> SumAll),
         )
       }
       .map { docs =>
@@ -480,7 +486,7 @@ final class ReportApi(
     $doc(
       "atoms.0.at" $gt DateTime.now.minusDays(7),
       "user"   -> suspect.value,
-      "reason" -> reason
+      "reason" -> reason,
     )
 
   object inquiries {
@@ -489,7 +495,7 @@ final class ReportApi(
       new lila.hub.DuctSequencer(
         maxSize = 32,
         timeout = 20 seconds,
-        name = "report.inquiries"
+        name = "report.inquiries",
       )
 
     def allBySuspect: Fu[Map[User.ID, Report.Inquiry]] =
@@ -506,7 +512,10 @@ final class ReportApi(
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))
 
     def ofSuspectId(suspectId: User.ID): Fu[Option[Report.Inquiry]] =
-      coll.primitiveOne[Report.Inquiry]($doc("inquiry.mod" $exists true, "user" -> suspectId), "inquiry")
+      coll.primitiveOne[Report.Inquiry](
+        $doc("inquiry.mod" $exists true, "user" -> suspectId),
+        "inquiry",
+      )
 
     /*
      * If the mod has no current inquiry, just start this one.
@@ -521,7 +530,7 @@ final class ReportApi(
     private def doToggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
       for {
         report <- coll.byId[Report](id) orElse coll.one[Report](
-          $doc("user" -> id, "inquiry.mod" $exists true)
+          $doc("user" -> id, "inquiry.mod" $exists true),
         ) orFail s"No report $id found"
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
@@ -530,7 +539,7 @@ final class ReportApi(
             .updateField(
               $id(report.id),
               "inquiry",
-              Report.Inquiry(mod.user.id, DateTime.now)
+              Report.Inquiry(mod.user.id, DateTime.now),
             )
             .void
       } yield report.inquiry.isEmpty option report
@@ -551,7 +560,7 @@ final class ReportApi(
         coll.update
           .one(
             $id(report.id),
-            $unset("inquiry", "processedBy") ++ $set("open" -> true)
+            $unset("inquiry", "processedBy") ++ $set("open" -> true),
           )
           .void
 
@@ -570,9 +579,9 @@ final class ReportApi(
                 Reporter(mod.user),
                 sus,
                 Reason.Other,
-                name
+                name,
               ) scored Report.Score(0),
-              none
+              none,
             )
             .copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
           coll.insert.one(report) inject report
@@ -583,7 +592,7 @@ final class ReportApi(
       workQueue {
         val selector = $doc(
           "inquiry.mod" $exists true,
-          "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
+          "inquiry.seenAt" $lt DateTime.now.minusMinutes(20),
         )
         coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
           coll.update.one(selector, $unset("inquiry"), multi = true).void

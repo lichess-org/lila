@@ -2,8 +2,8 @@ package lila.user
 
 import java.nio.charset.StandardCharsets.UTF_8
 
-import org.specs2.mutable.Specification
 import User.TotpToken
+import org.specs2.mutable.Specification
 
 class TotpTest extends Specification {
 

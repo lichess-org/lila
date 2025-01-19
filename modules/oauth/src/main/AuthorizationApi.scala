@@ -8,7 +8,9 @@ import lila.db.dsl._
 import lila.user.User
 
 final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
-  import AuthorizationApi.{ BSONFields => F, PendingAuthorization, PendingAuthorizationBSONHandler }
+  import AuthorizationApi.PendingAuthorization
+  import AuthorizationApi.PendingAuthorizationBSONHandler
+  import AuthorizationApi.{ BSONFields => F }
 
   def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] = {
     val code = Protocol.AuthorizationCode.random()
@@ -20,13 +22,13 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
         request.redirectUri,
         request.codeChallenge,
         request.scopes,
-        DateTime.now().plusSeconds(120)
-      )
+        DateTime.now().plusSeconds(120),
+      ),
     ) inject code
   }
 
   def consume(
-      request: AccessTokenRequest.Prepared
+      request: AccessTokenRequest.Prepared,
   ): Fu[Validated[Protocol.Error, AccessTokenRequest.Granted]] =
     coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier) map {
       _.result[PendingAuthorization]
@@ -35,7 +37,7 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
         .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
         .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
         .ensure(Protocol.Error.MismatchingCodeVerifier(request.codeVerifier))(
-          _.codeChallenge.matches(request.codeVerifier)
+          _.codeChallenge.matches(request.codeVerifier),
         )
         .map { pending =>
           AccessTokenRequest.Granted(pending.userId, pending.scopes, pending.redirectUri)
@@ -61,13 +63,13 @@ private object AuthorizationApi {
       redirectUri: Protocol.RedirectUri,
       codeChallenge: Protocol.CodeChallenge,
       scopes: List[OAuthScope],
-      expires: DateTime
+      expires: DateTime,
   )
+
+  import AuthorizationApi.{ BSONFields => F }
 
   import lila.db.BSON
   import lila.db.dsl._
-  import BSON.BSONJodaDateTimeHandler
-  import AuthorizationApi.{ BSONFields => F }
 
   implicit object PendingAuthorizationBSONHandler extends BSON[PendingAuthorization] {
     def reads(r: BSON.Reader): PendingAuthorization =
@@ -78,7 +80,7 @@ private object AuthorizationApi {
         redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
         codeChallenge = Protocol.CodeChallenge(r.str(F.codeChallenge)),
         scopes = r.get[List[OAuthScope]](F.scopes),
-        expires = r.get[DateTime](F.expires)
+        expires = r.get[DateTime](F.expires),
       )
 
     def writes(w: BSON.Writer, o: PendingAuthorization) =
@@ -89,7 +91,7 @@ private object AuthorizationApi {
         F.redirectUri   -> o.redirectUri.value.toString,
         F.codeChallenge -> o.codeChallenge.value,
         F.scopes        -> o.scopes,
-        F.expires       -> o.expires
+        F.expires       -> o.expires,
       )
   }
 }

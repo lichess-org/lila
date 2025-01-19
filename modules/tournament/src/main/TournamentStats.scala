@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import reactivemongo.api.bson.BSONDocumentHandler
 import reactivemongo.api.bson.Macros
+
 import shogi.Color
 
 import lila.db.dsl._
@@ -12,19 +13,20 @@ final class TournamentStatsApi(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     arrangementRepo: ArrangementRepo,
-    mongoCache: lila.memo.MongoCache.Api
+    mongoCache: lila.memo.MongoCache.Api,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
     tournament.isFinished ?? cache.get(TournamentStats.makeKey(tournament)).dmap(some)
 
-  implicit private val statsBSONHandler: BSONDocumentHandler[TournamentStats] = Macros.handler[TournamentStats]
+  implicit private val statsBSONHandler: BSONDocumentHandler[TournamentStats] =
+    Macros.handler[TournamentStats]
 
   private val cache = mongoCache[TournamentStats.Key, TournamentStats](
     64,
     "tournament:stats",
     60 days,
-    identity
+    identity,
   ) { loader =>
     _.expireAfterAccess(10 minutes)
       .maximumSize(256)
@@ -36,7 +38,8 @@ final class TournamentStatsApi(
     for {
       rating <- playerRepo.averageRating(tourId)
       rawStats <-
-        (if (format == Format.Arena) pairingRepo.rawStats(tourId) else arrangementRepo.rawStats(tourId))
+        (if (format == Format.Arena) pairingRepo.rawStats(tourId)
+         else arrangementRepo.rawStats(tourId))
     } yield TournamentStats.readAggregation(rating)(rawStats)
   }
 }
@@ -48,7 +51,7 @@ case class TournamentStats(
     goteWins: Int,
     draws: Int,
     berserks: Int,
-    averageRating: Int
+    averageRating: Int,
 )
 
 private object TournamentStats {
@@ -76,7 +79,7 @@ private object TournamentStats {
           ~doc.int("games"),
           ~doc.int("moves"),
           ~doc.int("b1"),
-          ~doc.int("b2")
+          ~doc.int("b2"),
         )
     }.toMap
     TournamentStats(
@@ -86,7 +89,7 @@ private object TournamentStats {
       goteWins = colorStats.get(Color.Gote.some).??(_.games),
       draws = colorStats.get(none).??(_.games),
       berserks = colorStats.foldLeft(0)(_ + _._2.berserks),
-      averageRating = rating
+      averageRating = rating,
     )
   }
 }

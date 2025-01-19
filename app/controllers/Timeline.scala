@@ -27,11 +27,11 @@ final class Timeline(env: Env) extends LilaController(env) {
           entries <- env.timeline.entryApi
             .moreUserEntries(
               me.id,
-              Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get()
+              Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get(),
             )
           users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
           userMap = users.view.map { u => u.id -> u }.toMap
-        } yield Ok(Json.obj("entries" -> entries, "users" -> userMap))
+        } yield Ok(Json.obj("entries" -> entries, "users" -> userMap)),
       )
     }
 

@@ -8,7 +8,7 @@ import lila.user.User
 final class Recent(
     postApi: PostApi,
     postRepo: PostRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type GetTeamIds = String => Fu[List[String]]

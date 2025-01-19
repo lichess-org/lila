@@ -9,7 +9,7 @@ import lila.user.User
 
 final class RatingChartApi(
     historyApi: HistoryApi,
-    mongoCache: lila.memo.MongoCache.Api
+    mongoCache: lila.memo.MongoCache.Api,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(user: User): Fu[Option[String]] =
@@ -26,7 +26,7 @@ final class RatingChartApi(
     1024,
     "history:rating",
     60 minutes,
-    _.id
+    _.id,
   ) { loader =>
     _.expireAfterAccess(10 minutes)
       .maximumSize(2048)
@@ -60,11 +60,11 @@ final class RatingChartApi(
             Kyotoshogi,
             Checkshogi,
             Puzzle,
-            UltraBullet
+            UltraBullet,
           ) map { pt =>
             Json.obj(
               "name"   -> pt.trans(lila.i18n.defaultLang),
-              "points" -> ratingsMapToJson(user, history(pt))
+              "points" -> ratingsMapToJson(user, history(pt)),
             )
           }
         }

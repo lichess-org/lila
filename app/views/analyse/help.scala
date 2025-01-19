@@ -9,13 +9,13 @@ object help {
   private def header(text: String) =
     tr(
       th(colspan := 2)(
-        p(text)
-      )
+        p(text),
+      ),
     )
   private def row(keys: Frag, desc: Frag) =
     tr(
       td(cls := "keys")(keys),
-      td(cls := "desc")(desc)
+      td(cls := "desc")(desc),
     )
   private val or             = raw("""<or>/</or>""")
   private def k(str: String) = raw(s"""<kbd>$str</kbd>""")
@@ -46,18 +46,18 @@ object help {
           isStudy option frag(
             header("Study actions"),
             row(frag(k("d")), trans.study.commentThisPosition()),
-            row(frag(k("g")), trans.study.annotateWithGlyphs())
+            row(frag(k("g")), trans.study.annotateWithGlyphs()),
           ),
           header("Mouse tricks"),
           tr(
             td(cls := "mouse", colspan := 2)(
               ul(
                 li(trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
-                li(trans.analysisShapesHowTo())
-              )
-            )
-          )
-        )
-      )
+                li(trans.analysisShapesHowTo()),
+              ),
+            ),
+          ),
+        ),
+      ),
     )
 }

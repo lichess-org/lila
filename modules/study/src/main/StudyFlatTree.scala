@@ -4,9 +4,10 @@ import shogi.format.usi.UsiCharPair
 
 import lila.common.Chronometer
 import lila.db.dsl._
-
-import BSONHandlers._
-import Node.{ Children, GameMainlineExtension, Root }
+import lila.study.BSONHandlers._
+import lila.study.Node.Children
+import lila.study.Node.GameMainlineExtension
+import lila.study.Node.Root
 
 private object StudyFlatTree {
 
@@ -17,7 +18,7 @@ private object StudyFlatTree {
       toUsiCharPair(key)
         .flatMap { ucp =>
           readNode(data, ucp).map(
-            _.copy(children = children | Node.emptyChildren)
+            _.copy(children = children | Node.emptyChildren),
           )
         }
   }
@@ -40,7 +41,7 @@ private object StudyFlatTree {
 
     def mergeGameRoot(root: Root, flatTree: Bdoc): Root = {
       val variations = rootVariations(flatTree)
-      val gmes       = flatTree.getAsOpt[Bdoc](Path.gameMainlineExtensionDbKey) ?? gameMainlineExtensions
+      val gmes = flatTree.getAsOpt[Bdoc](Path.gameMainlineExtensionDbKey) ?? gameMainlineExtensions
 
       def appendVariations(c: Children, ply: Int): Children =
         variations.get(ply).fold(c)(v => Children(c.nodes ++ v.nodes))
@@ -50,7 +51,7 @@ private object StudyFlatTree {
           .get(node.ply)
           .fold(node)(_.merge(node))
           .copy(
-            children = appendVariations(node.children, node.ply)
+            children = appendVariations(node.children, node.ply),
           )
       }
 
@@ -58,7 +59,7 @@ private object StudyFlatTree {
         .get(root.ply)
         .fold(root)(_.merge(root))
         .copy(
-          children = appendVariations(newChildren, root.ply)
+          children = appendVariations(newChildren, root.ply),
         )
     }
 
@@ -140,7 +141,7 @@ private object StudyFlatTree {
     private def traverseVariations(
         node: Node,
         parentPath: Path,
-        mainline: Path
+        mainline: Path,
     ): Vector[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES) ?? {
         val path = parentPath + node.id
@@ -151,7 +152,7 @@ private object StudyFlatTree {
         else {
           val intersection = path.intersect(mainline)
           rest appended (s"${intersection.depth}${Path.gameMainlineSep}${path.drop(intersection.depth)}" -> writeNode(
-            node
+            node,
           ))
         }
       }

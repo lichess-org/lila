@@ -1,6 +1,7 @@
 package lila.study
 
 import cats.data.Validated
+
 import shogi.format.Glyphs
 import shogi.format.ParsedNotation
 import shogi.format.ParsedStep
@@ -21,7 +22,7 @@ object NotationImport {
       root: Node.Root,
       variant: shogi.variant.Variant,
       tags: Tags,
-      endStatus: Option[Chapter.EndStatus]
+      endStatus: Option[Chapter.EndStatus],
   )
 
   def apply(notation: String, contributors: List[LightUser]): Validated[String, Result] =
@@ -40,25 +41,27 @@ object NotationImport {
               clock = parsedNotation.tags.clockConfig.map(_.limit),
               gameMainline = none,
               children = Node.Children {
-                val variations = makeVariations(parsedNotation.parsedSteps.value, replay.setup, annotator)
+                val variations =
+                  makeVariations(parsedNotation.parsedSteps.value, replay.setup, annotator)
                 makeNode(
                   prev = replay.setup,
                   parsedSteps = parsedNotation.parsedSteps.value,
-                  annotator = annotator
+                  annotator = annotator,
                 ).fold(variations)(_ :: variations).toVector
-              }
+              },
             )
-            val endStatus: Option[Chapter.EndStatus] = (game.finished option game.status).map { status =>
-              Chapter.EndStatus(
-                status = status,
-                winner = game.winnerColor
-              )
+            val endStatus: Option[Chapter.EndStatus] = (game.finished option game.status).map {
+              status =>
+                Chapter.EndStatus(
+                  status = status,
+                  winner = game.winnerColor,
+                )
             }
             Result(
               root = root,
               variant = game.variant,
               tags = StudyTags(parsedNotation.tags), // tags in studies are kif format even for CSA
-              endStatus = endStatus
+              endStatus = endStatus,
             )
         }
     }
@@ -79,19 +82,23 @@ object NotationImport {
               clock = parsedNotation.tags.clockConfig.map(_.limit),
               gameMainline = none,
               children = Node.Children {
-                val variations = makeVariations(parsedNotation.parsedSteps.value, replay.setup, annotator)
+                val variations =
+                  makeVariations(parsedNotation.parsedSteps.value, replay.setup, annotator)
                 makeNode(
                   prev = replay.setup,
                   parsedSteps = parsedNotation.parsedSteps.value,
-                  annotator = annotator
+                  annotator = annotator,
                 ).fold(variations)(_ :: variations).toVector
-              }
+              },
             )
             (game withId "synthetic", root, parsedNotation.tags)
         }
     }
 
-  private def findAnnotator(notation: ParsedNotation, contributors: List[LightUser]): Option[Comment.Author] =
+  private def findAnnotator(
+      notation: ParsedNotation,
+      contributors: List[LightUser],
+  ): Option[Comment.Author] =
     notation tags "annotator" map { a =>
       val lowered = a.toLowerCase
       contributors.find { c =>
@@ -104,7 +111,7 @@ object NotationImport {
   private def makeVariations(
       parsedSteps: List[ParsedStep],
       game: shogi.Game,
-      annotator: Option[Comment.Author]
+      annotator: Option[Comment.Author],
   ) =
     parsedSteps.headOption.?? {
       _.metas.variations.flatMap { variation =>
@@ -114,7 +121,7 @@ object NotationImport {
 
   private def parseComments(
       comments: List[String],
-      annotator: Option[Comment.Author]
+      annotator: Option[Comment.Author],
   ): (Shapes, Comments) =
     comments.reverse.foldLeft((Shapes(Nil), Comments(Nil))) { case ((shapes, comments), txt) =>
       CommentParser(txt) match {
@@ -124,8 +131,12 @@ object NotationImport {
             (str.trim match {
               case "" => comments
               case com =>
-                comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Unknown)
-            })
+                comments + Comment(
+                  Comment.Id.make,
+                  Comment.Text(com),
+                  annotator | Comment.Author.Unknown,
+                )
+            }),
           )
       }
     }
@@ -133,7 +144,7 @@ object NotationImport {
   private def makeNode(
       prev: shogi.Game,
       parsedSteps: List[ParsedStep],
-      annotator: Option[Comment.Author]
+      annotator: Option[Comment.Author],
   ): Option[Node] =
     try {
       parsedSteps match {
@@ -164,10 +175,10 @@ object NotationImport {
                           makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
                         }
                       },
-                      forceVariation = false
+                      forceVariation = false,
                     ).some
                 }
-              }
+              },
           )
       }
     } catch {

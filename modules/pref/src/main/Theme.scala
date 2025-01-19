@@ -26,7 +26,7 @@ object Theme {
     new Theme("kinkaku", "Kinkaku-ji", "kinkaku.jpg".some),
     new Theme("space", "Space", "space.png".some),
     new Theme("doubutsu", "Doubutsu", "doubutsu.png".some),
-    new Theme("custom", "Custom", None)
+    new Theme("custom", "Custom", None),
   )
 
   lazy val allByKey = all map { c =>
@@ -44,7 +44,7 @@ case class CustomTheme(
     gridColor: String,
     gridWidth: Int,
     handsColor: String,
-    handsImg: String
+    handsImg: String,
 )
 
 object CustomTheme {
@@ -54,6 +54,6 @@ object CustomTheme {
     gridColor = "initial",
     gridWidth = 1,
     handsColor = "initial",
-    handsImg = ""
+    handsImg = "",
   )
 }

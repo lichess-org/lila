@@ -15,7 +15,7 @@ private class PlanConfig(
     @ConfigName("collection.patron") val patronColl: CollName,
     @ConfigName("collection.charge") val chargeColl: CollName,
     val stripe: StripeClient.Config,
-    @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret
+    @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret,
 )
 
 final class Env(
@@ -28,10 +28,10 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
-    settingStore: lila.memo.SettingStore.Builder
+    settingStore: lila.memo.SettingStore.Builder,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   import StripeClient.configLoader
@@ -46,13 +46,13 @@ final class Env(
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
     getGoal = () => Usd(donationGoalSetting.get()),
-    chargeColl = chargeColl
+    chargeColl = chargeColl,
   )
 
   val donationGoalSetting = settingStore[Int](
     "donationGoal",
     default = 100,
-    text = "Monthly donation goal in USD from https://lishogi.org/costs".some
+    text = "Monthly donation goal in USD from https://lishogi.org/costs".some,
   )
 
   lazy val api = new PlanApi(
@@ -65,7 +65,7 @@ final class Env(
     cacheApi = cacheApi,
     mongoCache = mongoCache,
     payPalIpnKey = config.payPalIpnKey,
-    monthlyGoalApi = monthlyGoalApi
+    monthlyGoalApi = monthlyGoalApi,
   )
 
   private lazy val webhookHandler = new WebhookHandler(api)
@@ -73,7 +73,7 @@ final class Env(
   private lazy val expiration = new Expiration(
     userRepo,
     patronColl,
-    notifier
+    notifier,
   )
 
   system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>

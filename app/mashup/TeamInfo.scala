@@ -17,7 +17,7 @@ case class TeamInfo(
     subscribed: Boolean,
     requests: List[RequestWithUser],
     forumPosts: List[MiniForumPost],
-    tours: TeamInfo.PastAndNext
+    tours: TeamInfo.PastAndNext,
 ) {
 
   def hasRequests = requests.nonEmpty
@@ -35,14 +35,16 @@ final class TeamInfoApi(
     api: TeamApi,
     forumRecent: lila.forum.Recent,
     tourApi: TournamentApi,
-    requestRepo: RequestRepo
+    requestRepo: RequestRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import TeamInfo._
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] =
     for {
-      requests      <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
+      requests <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(
+        team,
+      )
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       subscribed    <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
@@ -55,7 +57,7 @@ final class TeamInfoApi(
       subscribed = subscribed,
       requests = requests,
       forumPosts = forumPosts,
-      tours = tours
+      tours = tours,
     )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
@@ -66,7 +68,7 @@ final class TeamInfoApi(
         }.sortBy(-_.startsAt.getSeconds),
         next = {
           tours.next
-        }.sortBy(_.startsAt.getSeconds)
+        }.sortBy(_.startsAt.getSeconds),
       )
     }
 }

@@ -11,7 +11,7 @@ object AnonCookie {
     !pov.player.userId.isDefined option Json.obj(
       "name"   -> name,
       "maxAge" -> maxAge,
-      "value"  -> pov.playerId
+      "value"  -> pov.playerId,
     )
   }
 }

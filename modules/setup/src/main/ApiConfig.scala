@@ -15,18 +15,20 @@ final case class ApiConfig(
     rated: Boolean,
     color: Color,
     sfen: Option[Sfen] = None,
-    acceptByToken: Option[String] = None
+    acceptByToken: Option[String] = None,
 ) {
 
   val strictSfen = false
 
-  def >> = (variant.key.some, clock, days, rated, color.name.some, sfen.map(_.value), acceptByToken).some
+  def >> =
+    (variant.key.some, clock, days, rated, color.name.some, sfen.map(_.value), acceptByToken).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(clock), variant, days)
 
   def validSfen =
     sfen.fold(true) { sf =>
-      sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
+      sf.toSituationPlus(variant)
+        .exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }
 
   def validSpeed(isBot: Boolean) =
@@ -40,7 +42,8 @@ final case class ApiConfig(
 
 object ApiConfig extends BaseHumanConfig {
 
-  lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
+  lazy val clockLimitSeconds: Set[Int] =
+    Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
 
   def from(
       v: Option[String],
@@ -49,7 +52,7 @@ object ApiConfig extends BaseHumanConfig {
       r: Boolean,
       c: Option[String],
       sf: Option[String],
-      tok: Option[String]
+      tok: Option[String],
   ) =
     new ApiConfig(
       variant = shogi.variant.Variant.orDefault(~v),
@@ -58,6 +61,6 @@ object ApiConfig extends BaseHumanConfig {
       rated = r,
       color = Color.orDefault(~c),
       sfen = sf map Sfen.apply,
-      acceptByToken = tok
+      acceptByToken = tok,
     )
 }

@@ -25,7 +25,7 @@ final private class RatingRefund(
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     logApi: ModlogApi,
-    perfStat: lila.perfStat.Env
+    perfStat: lila.perfStat.Env,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RatingRefund._
@@ -40,7 +40,7 @@ final private class RatingRefund(
           gameRepo.coll.ext
             .find(
               Query.user(sus.user.id) ++ Query.rated ++ Query
-                .createdSince(DateTime.now minusDays 3) ++ Query.finished
+                .createdSince(DateTime.now minusDays 3) ++ Query.finished,
             )
             .sort(Query.sortCreated)
             .cursor[Game](ReadPreference.secondaryPreferred)
@@ -79,7 +79,7 @@ final private class RatingRefund(
                 val points = pointsToRefund(
                   ref,
                   curRating = user.perfs(ref.perf).intRating,
-                  perfs = perfs
+                  perfs = perfs,
                 )
                 (points > 0) ?? {
                   logger.info(s"Refunding $ref -> $points")

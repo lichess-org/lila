@@ -12,11 +12,11 @@ object invite {
 
   def show(
       c: Clas,
-      invite: ClasInvite
+      invite: ClasInvite,
   )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("misc.clas"),
-      title = c.name
+      title = c.name,
     ) {
       main(cls := "page-small box box-pad page clas-invitation")(
         h1(c.name),
@@ -38,16 +38,16 @@ object invite {
                   trans.decline(),
                   nameValue = ("v" -> false.toString).some,
                   klass = "button-red button-fat",
-                  icon = "L".some
+                  icon = "L".some,
                 )
               else p,
               form3.submit(
                 trans.accept(),
                 klass = "button-green button-fat",
-                nameValue = ("v" -> true.toString).some
-              )
-            )
-          )
+                nameValue = ("v" -> true.toString).some,
+              ),
+            ),
+          ),
       )
     }
 }

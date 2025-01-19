@@ -1,6 +1,7 @@
 package lila.gameSearch
 
 import org.joda.time.DateTime
+
 import shogi.Mode
 import shogi.Status
 
@@ -28,7 +29,7 @@ case class Query(
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
     senteUser: Option[String] = None,
-    goteUser: Option[String] = None
+    goteUser: Option[String] = None,
 ) {
 
   def nonEmpty =
@@ -53,20 +54,21 @@ case class Query(
 
 object Query {
 
-  import lila.common.Form._
   import play.api.libs.json._
 
   import Range.rangeJsonWriter
-  implicit private val sortingJsonWriter: OWrites[Sorting]  = Json.writes[Sorting]
+
+  import lila.common.Form._
+  implicit private val sortingJsonWriter: OWrites[Sorting]   = Json.writes[Sorting]
   implicit private val clockingJsonWriter: OWrites[Clocking] = Json.writes[Clocking]
-  implicit val jsonWriter: OWrites[Query]                 = Json.writes[Query]
+  implicit val jsonWriter: OWrites[Query]                    = Json.writes[Query]
 
   val durations: List[(Int, String)] =
     ((30, "30 seconds") ::
       options(
         List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30),
         _ / 60,
-        "%d minute{s}"
+        "%d minute{s}",
       ).toList) :+
       (60 * 60 * 1 -> "One hour") :+
       (60 * 60 * 2 -> "Two hours") :+
@@ -75,7 +77,7 @@ object Query {
   val clockInits = List(
     (0, "0 seconds"),
     (30, "30 seconds"),
-    (45, "45 seconds")
+    (45, "45 seconds"),
   ) ::: options(
     List(
       60 * 1,
@@ -91,10 +93,10 @@ object Query {
       60 * 90,
       60 * 120,
       60 * 150,
-      60 * 180
+      60 * 180,
     ),
     _ / 60,
-    "%d minute{s}"
+    "%d minute{s}",
   ).toList
 
   val clockIncs =
@@ -115,7 +117,7 @@ object Query {
 
   val plies = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
-    "%d move{s}"
+    "%d move{s}",
   )
 
   val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e =>

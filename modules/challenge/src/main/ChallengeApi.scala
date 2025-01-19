@@ -21,10 +21,10 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Max,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   import Challenge._
@@ -68,8 +68,9 @@ final class ChallengeApi(
   private[challenge] def ping(id: Challenge.ID): Funit =
     repo statusById id flatMap {
       case Some(Status.Created) => repo setSeen id
-      case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
-      case _                    => fuccess(socketReload(id))
+      case Some(Status.Offline) =>
+        (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
+      case _ => fuccess(socketReload(id))
     }
 
   def decline(c: Challenge) = repo.decline(c) >>- {
@@ -77,13 +78,14 @@ final class ChallengeApi(
     Bus.publish(Event.Decline(c), "challenge")
   }
 
-  private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
+  private val acceptQueue =
+    new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
 
   def accept(
       c: Challenge,
       user: Option[User],
       sid: Option[String],
-      color: Option[shogi.Color] = None
+      color: Option[shogi.Color] = None,
   ): Fu[Option[Pov]] =
     acceptQueue {
       if (c.challengerIsOpen)
@@ -157,7 +159,7 @@ final class ChallengeApi(
       }
     } yield Bus.publish(
       SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
-      "socketUsers"
+      "socketUsers",
     )
 
   // work around circular dependency

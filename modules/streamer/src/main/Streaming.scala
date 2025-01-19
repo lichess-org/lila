@@ -22,7 +22,7 @@ final private class Streaming(
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.Strings,
     googleApiKey: Secret,
-    twitchApi: TwitchApi
+    twitchApi: TwitchApi,
 ) extends Actor {
 
   import Stream._
@@ -41,7 +41,8 @@ final private class Streaming(
     case Tick => updateStreams.addEffectAnyway(scheduleTick()).unit
   }
 
-  private def scheduleTick(): Unit = context.system.scheduler.scheduleOnce(60 seconds, self, Tick).unit
+  private def scheduleTick(): Unit =
+    context.system.scheduler.scheduleOnce(60 seconds, self, Tick).unit
 
   self ! Tick
 
@@ -78,11 +79,13 @@ final private class Streaming(
       } foreach { s =>
         timeline ! {
           import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
-          Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
+          Propagate(
+            StreamStart(s.streamer.userId, s.streamer.name.value),
+          ) toFollowersOf s.streamer.userId
         }
         Bus.publish(
           lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
-          "streamStart"
+          "streamStart",
         )
       }
     }
@@ -117,7 +120,7 @@ final private class Streaming(
               "type"      -> "video",
               "eventType" -> "live",
               "q"         -> keyword.value,
-              "key"       -> googleApiKey.value
+              "key"       -> googleApiKey.value,
             )
             .get()
             .flatMap { res =>
@@ -144,8 +147,10 @@ final private class Streaming(
   def dedupStreamers(streams: List[Stream]): List[Stream] =
     streams
       .foldLeft((Set.empty[Streamer.Id], List.empty[Stream])) {
-        case ((streamerIds, streams), stream) if streamerIds(stream.streamer.id) => (streamerIds, streams)
-        case ((streamerIds, streams), stream) => (streamerIds + stream.streamer.id, stream :: streams)
+        case ((streamerIds, streams), stream) if streamerIds(stream.streamer.id) =>
+          (streamerIds, streams)
+        case ((streamerIds, streams), stream) =>
+          (streamerIds + stream.streamer.id, stream :: streams)
       }
       ._2
 }

@@ -31,13 +31,13 @@ object menu {
       isGranted(_.Shadowban) option
         a(cls := active.active("panic"), href := routes.Mod.chatPanic)(
           "Chat Panic: ",
-          strong(if (isChatPanicEnabled) "ON" else "OFF")
+          strong(if (isChatPanicEnabled) "ON" else "OFF"),
         ),
       isGranted(_.Admin) option
         a(cls := active.active("mods"), href := routes.Mod.table)("Mods"),
       isGranted(_.Settings) option
         a(cls := active.active("setting"), href := routes.Dev.settings)("Settings"),
       isGranted(_.Cli) option
-        a(cls := active.active("cli"), href := routes.Dev.cli)("CLI")
+        a(cls := active.active("cli"), href := routes.Dev.cli)("CLI"),
     )
 }

@@ -16,24 +16,24 @@ object embed {
     views.html.base.embed(
       title = s"lishogi.org - ${trans.puzzles.txt()}",
       moreCss = cssTag("embed.puzzle"),
-      moreJs = jsTag("embed.puzzle")
+      moreJs = jsTag("embed.puzzle"),
     )(
       dailyLink(daily)(config.lang)(
         targetBlank,
         id  := "daily-puzzle",
-        cls := "embedded"
-      )
+        cls := "embedded",
+      ),
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(
     href  := routes.Puzzle.daily,
-    title := trans.puzzle.clickToSolve.txt()
+    title := trans.puzzle.clickToSolve.txt(),
   )(
     raw(daily.html),
     div(cls := "vstext")(
       trans.puzzle.puzzleOfTheDay(),
       br,
-      trans.xPlays(daily.puzzle.color.fold(trans.sente, trans.gote)())
-    )
+      trans.xPlays(daily.puzzle.color.fold(trans.sente, trans.gote)()),
+    ),
   )
 }

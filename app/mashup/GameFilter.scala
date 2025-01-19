@@ -30,7 +30,7 @@ object GameFilter {
 
 case class GameFilterMenu(
     all: NonEmptyList[GameFilter],
-    current: GameFilter
+    current: GameFilter,
 ) {
 
   def list = all.toList
@@ -57,8 +57,8 @@ object GameFilterMenu {
         (nbs.paused > 0) option Paused,
         (nbs.bookmark > 0) option Bookmark,
         (nbs.imported > 0) option Imported,
-        (user.count.game > 0) option Search
-      ).flatten
+        (user.count.game > 0) option Search,
+      ).flatten,
     )
 
     val current = currentOf(filters, currentName)
@@ -72,7 +72,7 @@ object GameFilterMenu {
   private def cachedNbOf(
       user: User,
       nbs: Option[UserInfo.NbGames],
-      filter: GameFilter
+      filter: GameFilter,
   ): Option[Int] =
     filter match {
       case Bookmark => nbs.map(_.bookmark)
@@ -94,7 +94,7 @@ object GameFilterMenu {
       pagBuilder: lila.game.PaginatorBuilder,
       gameRepo: lila.game.GameRepo,
       gameProxyRepo: lila.round.GameProxyRepo,
-      bookmarkApi: lila.bookmark.BookmarkApi
+      bookmarkApi: lila.bookmark.BookmarkApi,
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     def apply(
@@ -102,7 +102,7 @@ object GameFilterMenu {
         nbs: Option[UserInfo.NbGames],
         filter: GameFilter,
         me: Option[User],
-        page: Int
+        page: Int,
     )(implicit req: Request[_], formBinding: FormBinding): Fu[Paginator[Game]] = {
       val nb               = cachedNbOf(user, nbs, filter)
       def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
@@ -112,7 +112,7 @@ object GameFilterMenu {
           pagBuilder(
             selector = Query imported user.id,
             sort = $sort desc "pgni.ca",
-            nb = nb
+            nb = nb,
           )(page)
         case All =>
           std(Query started user.id) flatMap {
@@ -127,7 +127,7 @@ object GameFilterMenu {
           pagBuilder(
             selector = Query nowPlaying user.id,
             sort = $empty,
-            nb = nb
+            nb = nb,
           )(page)
             .flatMap {
               _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
@@ -143,7 +143,7 @@ object GameFilterMenu {
 
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
-      filter: GameFilter
+      filter: GameFilter,
   )(implicit req: Request[_], formBinding: FormBinding): play.api.data.Form[_] =
     filter match {
       case Search => userGameSearch.requestForm

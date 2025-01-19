@@ -1,24 +1,31 @@
 package lila.game
 
 import org.specs2.mutable._
+
+import shogi._
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi._
 
 final class FairyConversionTest extends Specification {
   import FairyConversion._
   "sfen" in {
-    Kyoto.makeFairySfen(shogi.variant.Kyotoshogi.initialSfen) must_== Sfen("p+nks+l/5/5/5/+LSK+NP b -")
-    Kyoto.makeFairySfen(Sfen("pgkst/5/5/LB1NR/TSKGP b -")) must_== Sfen("p+nks+l/5/5/L+S1N+P/+LSK+NP b -")
-    Kyoto.makeFairySfen(Sfen("pgkst/5/5/LB1NR/TSKGP w -")) must_== Sfen("p+nks+l/5/5/L+S1N+P/+LSK+NP w -")
+    Kyoto.makeFairySfen(shogi.variant.Kyotoshogi.initialSfen) must_== Sfen(
+      "p+nks+l/5/5/5/+LSK+NP b -",
+    )
+    Kyoto.makeFairySfen(Sfen("pgkst/5/5/LB1NR/TSKGP b -")) must_== Sfen(
+      "p+nks+l/5/5/L+S1N+P/+LSK+NP b -",
+    )
+    Kyoto.makeFairySfen(Sfen("pgkst/5/5/LB1NR/TSKGP w -")) must_== Sfen(
+      "p+nks+l/5/5/L+S1N+P/+LSK+NP w -",
+    )
     Kyoto.makeFairySfen(Sfen("pgkst/5/5/LB1NR/TSKGP b PGTS")) must_== Sfen(
-      "p+nks+l/5/5/L+S1N+P/+LSK+NP b PNLS"
+      "p+nks+l/5/5/L+S1N+P/+LSK+NP b PNLS",
     )
     Kyoto.makeFairySfen(Sfen("pgkst/5/5/LB1NR/TSKGP b pgts")) must_== Sfen(
-      "p+nks+l/5/5/L+S1N+P/+LSK+NP b pnls"
+      "p+nks+l/5/5/L+S1N+P/+LSK+NP b pnls",
     )
     Kyoto.makeFairySfen(Sfen("pgkst/5/5/LB1NR/TSKGP b P2GTSpgts")) must_== Sfen(
-      "p+nks+l/5/5/L+S1N+P/+LSK+NP b P2NLSpnls"
+      "p+nks+l/5/5/L+S1N+P/+LSK+NP b P2NLSpnls",
     )
   }
 
@@ -63,7 +70,7 @@ final class FairyConversionTest extends Specification {
     Kyoto
       .makeFairyUsiList(
         Usi.readList("4e5d+ 2a1b+ 5e4d+ 3a2b 2e3d+ 2b3a 1e1d+").get,
-        None
+        None,
       )
       .mkString(" ") must_== "4e5d+ 2a1b+ 5e4d- 3a2b 2e3d- 2b3a 1e1d+"
   }

@@ -10,7 +10,7 @@ object RequestPref {
     queryParam(req, "bg").fold(pref) { bg =>
       pref.copy(
         dark = bg != "light",
-        transp = bg == "transp"
+        transp = bg == "transp",
       )
     }
 
@@ -23,9 +23,10 @@ object RequestPref {
       boardColor = paramOrSession("boardColor") | CustomTheme.default.boardColor,
       boardImg = paramOrSession("boardImg") | CustomTheme.default.boardImg,
       gridColor = paramOrSession("gridColor") | CustomTheme.default.gridColor,
-      gridWidth = paramOrSession("gridWidth").flatMap(_.toIntOption) | CustomTheme.default.gridWidth,
+      gridWidth =
+        paramOrSession("gridWidth").flatMap(_.toIntOption) | CustomTheme.default.gridWidth,
       handsColor = paramOrSession("handsColor") | CustomTheme.default.handsColor,
-      handsImg = paramOrSession("handsImg") | CustomTheme.default.handsImg
+      handsImg = paramOrSession("handsImg") | CustomTheme.default.handsImg,
     ).some.filterNot(_ == CustomTheme.default)
     val bg       = paramOrSession("bg") | "dark"
     val theme    = paramOrSession("theme") | default.theme
@@ -40,9 +41,10 @@ object RequestPref {
       kyoPieceSet = paramOrSession("kyoPieceSet") | default.kyoPieceSet,
       soundSet = paramOrSession("soundSet") | default.soundSet,
       bgImg = paramOrSession("bgImg"),
-      notation = paramOrSession("notation").flatMap(_.toIntOption) | defaultNotation(req, languageNotation),
+      notation =
+        paramOrSession("notation").flatMap(_.toIntOption) | defaultNotation(req, languageNotation),
       thickGrid = paramOrSession("thickGrid").flatMap(_.toIntOption) | default.thickGrid,
-      customTheme = customTheme
+      customTheme = customTheme,
     )
   }
 

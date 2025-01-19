@@ -17,7 +17,7 @@ private class ModConfig(
     @ConfigName("collection.gaming_history") val gamingHistoryColl: CollName,
     @ConfigName("actor.name") val actorName: String,
     @ConfigName("boosting.nb_games_to_mark") val boostingNbGamesToMark: Int,
-    @ConfigName("boosting.ratio_games_to_mark") val boostingRatioToMark: Int
+    @ConfigName("boosting.ratio_games_to_mark") val boostingRatioToMark: Int,
 )
 
 @Module
@@ -40,10 +40,10 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[ModConfig]("mod")(AutoConfig.loader)
@@ -70,7 +70,7 @@ final class Env(
     modApi = api,
     collBoosting = db(config.boostingColl),
     nbGamesToMark = config.boostingNbGamesToMark,
-    ratioGamesToMark = config.boostingRatioToMark
+    ratioGamesToMark = config.boostingRatioToMark,
   )
 
   lazy val assessApi = wire[AssessApi]
@@ -90,7 +90,8 @@ final class Env(
         def receive = {
           case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
             assessApi.onAnalysisReady(game, analysis).unit
-          case lila.game.actorApi.FinishGame(game, senteUserOption, goteUserOption) if !game.aborted =>
+          case lila.game.actorApi.FinishGame(game, senteUserOption, goteUserOption)
+              if !game.aborted =>
             import cats.implicits._
             (senteUserOption, goteUserOption) mapN { (senteUser, goteUser) =>
               boosting.check(game, senteUser, goteUser) >>
@@ -116,13 +117,13 @@ final class Env(
             logApi.alert(msg).unit
         }
       }),
-      name = config.actorName
+      name = config.actorName,
     ),
     "finishGame",
     "analysisReady",
     "garbageCollect",
     "playban",
     "autoWarning",
-    "alert"
+    "alert",
   )
 }

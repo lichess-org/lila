@@ -10,7 +10,7 @@ import lila.user.UserRepo
 
 final class UserSearch(
     securityApi: lila.security.SecurityApi,
-    userRepo: UserRepo
+    userRepo: UserRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(query: UserSearch.Query): Fu[List[User.WithEmails]] =
@@ -37,7 +37,7 @@ final class UserSearch(
 object UserSearch {
 
   val asChoices = List(
-    "exact" -> "Exact match over all users"
+    "exact" -> "Exact match over all users",
   )
   val asValues = asChoices.map(_._1)
 
@@ -48,7 +48,7 @@ object UserSearch {
   val form = Form(
     mapping(
       "q"  -> nonEmptyText,
-      "as" -> optional(nonEmptyText.verifying(asValues contains _))
-    )(Query.apply)(Query.unapply)
+      "as" -> optional(nonEmptyText.verifying(asValues contains _)),
+    )(Query.apply)(Query.unapply),
   )
 }

@@ -10,7 +10,7 @@ case class ClasInvite(
     realName: String,
     clasId: Clas.Id,
     created: Clas.Recorded,
-    accepted: Option[Boolean] = None
+    accepted: Option[Boolean] = None,
 )
 
 object ClasInvite {
@@ -23,7 +23,7 @@ object ClasInvite {
       userId = user.id,
       realName = realName,
       clasId = clas.id,
-      created = Clas.Recorded(by = teacher.id, at = DateTime.now)
+      created = Clas.Recorded(by = teacher.id, at = DateTime.now),
     )
 
   sealed trait Feedback

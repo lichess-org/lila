@@ -21,7 +21,7 @@ final class OAuthToken(env: Env) extends LilaController(env) {
     Auth { implicit ctx => me =>
       val form = OAuthTokenForm.create fill OAuthTokenForm.Data(
         description = ~get("description"),
-        scopes = (~ctx.req.queryString.get("scopes[]")).toList
+        scopes = (~ctx.req.queryString.get("scopes[]")).toList,
       )
       Ok(html.oAuth.token.create(form, me)).fuccess
     }
@@ -35,12 +35,14 @@ final class OAuthToken(env: Env) extends LilaController(env) {
           err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
           setup =>
             tokenApi.create(setup, me) inject
-              Redirect(routes.OAuthToken.index).flashSuccess
+              Redirect(routes.OAuthToken.index).flashSuccess,
         )
     }
 
   def delete(id: String) =
     Auth { _ => me =>
-      tokenApi.revokeById(AccessToken.Id(id), me) inject Redirect(routes.OAuthToken.index).flashSuccess
+      tokenApi.revokeById(AccessToken.Id(id), me) inject Redirect(
+        routes.OAuthToken.index,
+      ).flashSuccess
     }
 }

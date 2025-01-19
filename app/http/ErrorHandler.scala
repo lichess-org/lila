@@ -20,7 +20,7 @@ final class ErrorHandler(
     sourceMapper: Option[SourceMapper],
     router: => Router,
     mainC: => controllers.Main,
-    lobbyC: => controllers.Lobby
+    lobbyC: => controllers.Lobby,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends DefaultHttpErrorHandler(environment, config, sourceMapper, router.some) {
 
@@ -35,7 +35,7 @@ final class ErrorHandler(
           lila.api.Context.error(
             req,
             lila.i18n.defaultLang,
-            HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random
+            HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random,
           )
         })
       else InternalServerError("Sorry, something went wrong.")

@@ -11,7 +11,7 @@ import lila.memo._
 final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
@@ -25,7 +25,7 @@ final class TrophyApi(
       },
     default = _ => TrophyKind.Unknown,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(1 hour)
+    expireAfter = Syncache.ExpireAfterWrite(1 hour),
   )
 
   implicit private val trophyKindStringBSONHandler: BSONHandler[TrophyKind] =
@@ -36,29 +36,34 @@ final class TrophyApi(
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.ext.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
-  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): List[Trophy] =
+  def roleBasedTrophies(
+      user: User,
+      isPublicMod: Boolean,
+      isDev: Boolean,
+      isVerified: Boolean,
+  ): List[Trophy] =
     List(
       isPublicMod option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.moderator,
         date = org.joda.time.DateTime.now,
-        url = none
+        url = none,
       ),
       isDev option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.developer,
         date = org.joda.time.DateTime.now,
-        url = none
+        url = none,
       ),
       isVerified option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.verified,
         date = org.joda.time.DateTime.now,
-        url = none
-      )
+        url = none,
+      ),
     ).flatten
 
   def award(trophyUrl: String, userId: String, kindKey: String): Funit =
@@ -69,7 +74,7 @@ final class TrophyApi(
           "user" -> userId,
           "kind" -> kindKey,
           "url"  -> trophyUrl,
-          "date" -> DateTime.now
-        )
+          "date" -> DateTime.now,
+        ),
       ) void
 }

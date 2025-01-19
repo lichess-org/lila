@@ -1,6 +1,7 @@
 package lila.game
 
 import org.joda.time.DateTime
+
 import shogi.Centis
 import shogi.Clock
 import shogi.Color
@@ -13,7 +14,7 @@ import shogi.Status
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
-import shogi.{Game => ShogiGame}
+import shogi.{ Game => ShogiGame }
 
 import lila.common.Sequence
 import lila.db.ByteArray
@@ -36,7 +37,7 @@ case class Game(
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
     movedAt: DateTime = DateTime.now,
-    metadata: Metadata
+    metadata: Metadata,
 ) {
   lazy val clockHistory = shogi.clock flatMap loadClockHistory
 
@@ -77,9 +78,10 @@ case class Game(
 
   // View handicap games from the handicap receiver's perspective
   // View other games from the dominant (title/rating) player's perspective
-  lazy val firstColor = if (isHandicap) !startColor else Color.fromSente(sentePlayer before gotePlayer)
-  def firstPlayer     = player(firstColor)
-  def secondPlayer    = player(!firstColor)
+  lazy val firstColor =
+    if (isHandicap) !startColor else Color.fromSente(sentePlayer before gotePlayer)
+  def firstPlayer  = player(firstColor)
+  def secondPlayer = player(!firstColor)
 
   def turnColor = shogi.color
 
@@ -118,8 +120,9 @@ case class Game(
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
     (movedAt.getSeconds - createdAt.getSeconds - ~pausedSeconds) match {
-      case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
-      case seconds                           => (seconds.toInt atLeast 0).some
+      case seconds if seconds > 60 * 60 * 12 =>
+        none // no way it lasted more than 12 hours, come on.
+      case seconds => (seconds.toInt atLeast 0).some
     }
 
   private def everyOther[A](l: List[A]): List[A] =
@@ -208,7 +211,7 @@ case class Game(
         status = Status.Started,
         sealedUsi = none,
         pausedSeconds = pausedSeconds.map(_ + pSeconds).orElse(pSeconds.some),
-        movedAt = DateTime.now
+        movedAt = DateTime.now,
       )
 
       if (shogiAfterSealedUsi.isDefined) resumed
@@ -221,22 +224,23 @@ case class Game(
           loadClockHistory = _ =>
             clockHistory.map { ch =>
               (ch.update(newShogi.color, _.dropRight(1)))
-            }
+            },
         )
     }
 
   def pauseAndSealUsi(
       usi: Usi,
       newShogi: ShogiGame, // new shogi position
-      blur: Boolean
+      blur: Boolean,
   ) =
     applyGame(newShogi, blur, true).map { g =>
       g.copy(
         sentePlayer = g.sentePlayer.removePauseOffer,
         gotePlayer = g.gotePlayer.removePauseOffer,
-        shogi = shogi.copy(clock = newShogi.clock.map(_.stop)), // use old shogi position but new clock
+        shogi =
+          shogi.copy(clock = newShogi.clock.map(_.stop)), // use old shogi position but new clock
         sealedUsi = usi.some,
-        status = Status.Paused
+        status = Status.Paused,
       )
     }
 
@@ -244,7 +248,7 @@ case class Game(
   def applyGame(
       newShogi: ShogiGame, // new shogi position
       blur: Boolean,
-      reload: Boolean = false
+      reload: Boolean = false,
   ): Progress = {
     def copyPlayer(player: Player) =
       if (blur && turnColor == player.color)
@@ -272,7 +276,7 @@ case class Game(
       },
       loadClockHistory = _ => newClockHistory,
       status = newShogi.situation.status | status,
-      movedAt = DateTime.now
+      movedAt = DateTime.now,
     )
 
     val event = newShogi.usis.lastOption.ifFalse(reload).fold[Event](Event.Reload) { usi =>
@@ -283,11 +287,11 @@ case class Game(
           color = newShogi.situation.color,
           plies = newShogi.plies,
           status = (status != updated.status) option updated.status,
-          winner = newShogi.situation.winner
+          winner = newShogi.situation.winner,
         ),
         clock = updated.shogi.clock map Event.Clock.apply orElse {
           updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
-        }
+        },
       )
     }
 
@@ -300,13 +304,13 @@ case class Game(
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
       copy(sentePlayer = f(sentePlayer)),
-      copy(gotePlayer = f(gotePlayer))
+      copy(gotePlayer = f(gotePlayer)),
     )
 
   def updatePlayers(f: Player => Player) =
     copy(
       sentePlayer = f(sentePlayer),
-      gotePlayer = f(gotePlayer)
+      gotePlayer = f(gotePlayer),
     )
 
   def start =
@@ -314,17 +318,18 @@ case class Game(
     else
       copy(
         status = Status.Started,
-        mode = Mode(mode.rated && userIds.distinct.sizeIs == 2)
+        mode = Mode(mode.rated && userIds.distinct.sizeIs == 2),
       )
 
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
-      val increment   = days * 24 * 60 * 60
-      val secondsLeft = if (paused) increment else (movedAt.getSeconds + increment - nowSeconds).toInt max 0
+      val increment = days * 24 * 60 * 60
+      val secondsLeft =
+        if (paused) increment else (movedAt.getSeconds + increment - nowSeconds).toInt max 0
       CorrespondenceClock(
         increment = increment,
         senteTime = turnColor.fold(secondsLeft, increment).toFloat,
-        goteTime = turnColor.fold(increment, secondsLeft).toFloat
+        goteTime = turnColor.fold(increment, secondsLeft).toFloat,
       )
     }
 
@@ -381,7 +386,7 @@ case class Game(
   def mapPlayers(f: Player => Player) =
     copy(
       sentePlayer = f(sentePlayer),
-      gotePlayer = f(gotePlayer)
+      gotePlayer = f(gotePlayer),
     )
 
   def playerCanOfferDraw(color: Color) =
@@ -401,7 +406,7 @@ case class Game(
       plies >= 20 && players.forall(_.hasUser) &&
       !player(color).isOfferingPause &&
       clock.exists(c =>
-        c.config.limitSeconds >= 60 * 15 || c.config.byoyomiSeconds >= 30
+        c.config.limitSeconds >= 60 * 15 || c.config.byoyomiSeconds >= 30,
       ) // only real time - for now
 
   def playerCouldRematch =
@@ -439,13 +444,13 @@ case class Game(
             clockHistory.map(history => {
               if (history(color).isEmpty && history.periodEntries(color).isEmpty) history
               else history.reset(color).record(color, newClock, shogi.fullTurnNumber)
-            })
-        ).updatePlayer(color, _.goBerserk)
+            }),
+        ).updatePlayer(color, _.goBerserk),
       ) ++
         List(
           Event.ClockInc(color, -c.config.berserkPenalty),
           Event.Clock(newClock), // BC
-          Event.Berserk(color)
+          Event.Berserk(color),
         )
     }
 
@@ -471,7 +476,7 @@ case class Game(
             history
               .record(turnColor, clk, shogi.fullTurnNumber)
           else history
-        }
+        },
     )
 
   def rated  = mode.rated
@@ -573,9 +578,10 @@ case class Game(
     }
 
   def expirable =
-    !bothPlayersHaveMoved && source.exists(Source.expirable.contains) && playable && nonAi && clock.exists(
-      !_.isRunning
-    )
+    !bothPlayersHaveMoved && source.exists(Source.expirable.contains) && playable && nonAi && clock
+      .exists(
+        !_.isRunning,
+      )
 
   def timeBeforeExpiration: Option[Centis] =
     expirable option {
@@ -673,7 +679,8 @@ case class Game(
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 
-  def setPostGameStudy(studyId: String) = copy(metadata = metadata.copy(postGameStudy = studyId.some))
+  def setPostGameStudy(studyId: String) =
+    copy(metadata = metadata.copy(postGameStudy = studyId.some))
 
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
@@ -704,17 +711,17 @@ object Game {
   val analysableVariants: Set[Variant] = Set(
     shogi.variant.Standard,
     shogi.variant.Minishogi,
-    shogi.variant.Kyotoshogi
+    shogi.variant.Kyotoshogi,
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
   val drawableVariants: Set[Variant] = Set(
-    shogi.variant.Chushogi
+    shogi.variant.Chushogi,
   )
 
   val pausableVariants: Set[Variant] = Set(
-    shogi.variant.Chushogi
+    shogi.variant.Chushogi,
   )
 
   val blindModeVariants: Set[Variant] = Set(
@@ -722,7 +729,7 @@ object Game {
     shogi.variant.Minishogi,
     shogi.variant.Annanshogi,
     shogi.variant.Kyotoshogi,
-    shogi.variant.Checkshogi
+    shogi.variant.Checkshogi,
   )
 
   val gifVariants: Set[Variant] =
@@ -781,7 +788,7 @@ object Game {
       mode: Mode,
       source: Source,
       notationImport: Option[NotationImport],
-      daysPerTurn: Option[Int] = None
+      daysPerTurn: Option[Int] = None,
   ): NewGame = {
     val createdAt = DateTime.now
     val shogiWithInitialSfen =
@@ -804,11 +811,11 @@ object Game {
           arrangementId = none,
           simulId = none,
           postGameStudy = none,
-          analysed = false
+          analysed = false,
         ),
         createdAt = createdAt,
-        movedAt = createdAt
-      )
+        movedAt = createdAt,
+      ),
     )
   }
 
@@ -820,7 +827,7 @@ object Game {
       arrangementId = none,
       simulId = none,
       postGameStudy = none,
-      analysed = false
+      analysed = false,
     )
 
   object BSONFields {
@@ -871,7 +878,7 @@ object Game {
 // At what turns we entered a new period
 case class PeriodEntries(
     sente: Vector[Int],
-    gote: Vector[Int]
+    gote: Vector[Int],
 ) {
 
   def apply(c: Color) =
@@ -890,7 +897,7 @@ object PeriodEntries {
 case class ClockHistory(
     sente: Vector[Centis] = Vector.empty,
     gote: Vector[Centis] = Vector.empty,
-    periodEntries: PeriodEntries = PeriodEntries.default
+    periodEntries: PeriodEntries = PeriodEntries.default,
 ) {
 
   def apply(color: Color): Vector[Centis] = color.fold(sente, gote)
@@ -911,7 +918,8 @@ case class ClockHistory(
     update(color, _ :+ timeToStore)
       .updatePeriods(
         color,
-        _.padTo(initiatePeriods ?? 1, 0).padTo(curClock.periods atMost PeriodEntries.maxPeriods, turn)
+        _.padTo(initiatePeriods ?? 1, 0)
+          .padTo(curClock.periods atMost PeriodEntries.maxPeriods, turn),
       )
   }
 
@@ -941,7 +949,7 @@ case class ClockHistory(
     val goteTimes  = padWithByo(Gote, byo)
     Sequence.interleave(
       firstMoveBy.fold(senteTimes, goteTimes),
-      firstMoveBy.fold(goteTimes, senteTimes)
+      firstMoveBy.fold(goteTimes, senteTimes),
     )
   }
 }

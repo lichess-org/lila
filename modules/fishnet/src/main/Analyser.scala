@@ -14,15 +14,16 @@ final class Analyser(
     analysisRepo: AnalysisRepo,
     gameRepo: lila.game.GameRepo,
     evalCache: FishnetEvalCache,
-    limiter: Limiter
+    limiter: Limiter,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   val maxPlies = 225
 
-  private val workQueue = new lila.hub.DuctSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
+  private val workQueue =
+    new lila.hub.DuctSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
@@ -64,8 +65,11 @@ final class Analyser(
             sender.postGameStudy foreach { pgs =>
               Bus.publish(
                 lila.analyse.actorApi
-                  .StudyAnalysisProgress(analysis.copy(id = pgs.chapterId, studyId = pgs.studyId.some), true),
-                "studyAnalysisProgress"
+                  .StudyAnalysisProgress(
+                    analysis.copy(id = pgs.chapterId, studyId = pgs.studyId.some),
+                    true,
+                  ),
+                "studyAnalysisProgress",
               )
             }
             fuTrue
@@ -81,7 +85,8 @@ final class Analyser(
         import req._
         val sender = Work.Sender(req.userId.some, none, none, false, system = false)
         limiter(sender, ignoreConcurrentCheck = true) flatMap { accepted =>
-          if (!accepted) logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
+          if (!accepted)
+            logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           accepted ?? {
             val work = makeWork(
               game = Work.Game(
@@ -89,12 +94,12 @@ final class Analyser(
                 initialSfen = initialSfen,
                 studyId = studyId.some,
                 variant = variant,
-                moves = moves take maxPlies map (_.usi) mkString " "
+                moves = moves take maxPlies map (_.usi) mkString " ",
               ),
               puzzleWorthy = false,
               // if gote moves first, use 1 as startPly so the analysis doesn't get reversed
               startPly = initialSfen.flatMap(_.color).??(_.fold(0, 1)),
-              sender = sender
+              sender = sender,
             )
             workQueue {
               repo getSimilarAnalysis work flatMap {
@@ -112,22 +117,30 @@ final class Analyser(
       }
     }
 
-  private def updateAnalysis(analysis: Work.Analysis, sender: Work.Sender): Option[Work.Analysis] = {
+  private def updateAnalysis(
+      analysis: Work.Analysis,
+      sender: Work.Sender,
+  ): Option[Work.Analysis] = {
     val senderUpdate = updateAnalysisSender(analysis, sender)
     val pgsUpdates =
-      sender.postGameStudy.flatMap(updateAnalysisPostGameStudies(senderUpdate.getOrElse(analysis), _))
+      sender.postGameStudy.flatMap(
+        updateAnalysisPostGameStudies(senderUpdate.getOrElse(analysis), _),
+      )
 
     pgsUpdates.orElse(senderUpdate)
   }
 
-  private def updateAnalysisSender(analysis: Work.Analysis, sender: Work.Sender): Option[Work.Analysis] =
+  private def updateAnalysisSender(
+      analysis: Work.Analysis,
+      sender: Work.Sender,
+  ): Option[Work.Analysis] =
     if (analysis.isAcquired || !analysis.sender.system || sender.system)
       none
     else analysis.copy(sender = sender).some
 
   private def updateAnalysisPostGameStudies(
       analysis: Work.Analysis,
-      postGameStudy: lila.analyse.Analysis.PostGameStudy
+      postGameStudy: lila.analyse.Analysis.PostGameStudy,
   ): Option[Work.Analysis] =
     if (analysis.postGameStudies.contains(postGameStudy)) none
     else analysis.copy(postGameStudies = analysis.postGameStudies + postGameStudy).some
@@ -139,18 +152,18 @@ final class Analyser(
         initialSfen = game.initialSfen,
         studyId = none,
         variant = game.variant,
-        moves = game.usis.take(maxPlies).map(_.usi).mkString(" ")
+        moves = game.usis.take(maxPlies).map(_.usi).mkString(" "),
       ),
       startPly = game.shogi.startedAtPly,
       puzzleWorthy = game.userRatings.exists(_ > 1600),
-      sender = sender
+      sender = sender,
     )
 
   private def makeWork(
       game: Work.Game,
       startPly: Int,
       puzzleWorthy: Boolean,
-      sender: Work.Sender
+      sender: Work.Sender,
   ): Work.Analysis =
     Work.Analysis(
       _id = Work.makeId,
@@ -164,6 +177,6 @@ final class Analyser(
       skipPositions = Nil,
       postGameStudies = sender.postGameStudy.toSet,
       puzzleWorthy = puzzleWorthy,
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
     )
 }

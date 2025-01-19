@@ -18,7 +18,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
             topicPost map { case (topic, post) =>
               (topic, post, env.postApi lastPageOf topic)
             },
-            forUser
+            forUser,
           )
         }
       }).sequenceFu
@@ -37,7 +37,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         lastPostId = "",
         nbTopicsTroll = 0,
         nbPostsTroll = 0,
-        lastPostIdTroll = ""
+        lastPostIdTroll = "",
       )
       val topic = Topic.make(
         categId = categ.slug,
@@ -45,7 +45,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         name = name + " forum",
         userId = User.lishogiId,
         troll = false,
-        hidden = false
+        hidden = false,
       )
       val post = Post.make(
         topicId = topic.id,
@@ -59,7 +59,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         hidden = topic.hidden,
         lang = "en".some,
         categId = categ.id,
-        modIcon = None
+        modIcon = None,
       )
       env.categRepo.coll.insert.one(categ).void >>
         env.postRepo.coll.insert.one(post).void >>
@@ -67,7 +67,11 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         env.categRepo.coll.update.one($id(categ.id), categ withTopic post).void
     }
 
-  def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
+  def show(
+      slug: String,
+      page: Int,
+      forUser: Option[User],
+  ): Fu[Option[(Categ, Paginator[TopicView])]] =
     env.categRepo bySlug slug flatMap {
       _ ?? { categ =>
         env.topicApi.paginator(categ, page, forUser) dmap { (categ, _).some }
@@ -92,8 +96,8 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
               lastPostId = lastPost ?? (_.id),
               nbTopicsTroll = nbTopicsTroll,
               nbPostsTroll = nbPostsTroll,
-              lastPostIdTroll = lastPostTroll ?? (_.id)
-            )
+              lastPostIdTroll = lastPostTroll ?? (_.id),
+            ),
           )
           .void
     } yield ()

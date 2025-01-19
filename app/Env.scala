@@ -83,11 +83,11 @@ final class Env(
     val rating: lila.rating.Env,
     val storm: lila.storm.Env,
     val lilaCookie: lila.common.LilaCookie,
-    val controllerComponents: ControllerComponents
+    val controllerComponents: ControllerComponents,
 )(implicit
     val system: ActorSystem,
     val executionContext: ExecutionContext,
-    val mode: play.api.Mode
+    val mode: play.api.Mode,
 ) {
 
   def net = common.netConfig
@@ -102,18 +102,18 @@ final class Env(
   lazy val apiTimelineSetting = memo.settingStore[Int](
     "apiTimelineEntries",
     default = 10,
-    text = "API timeline entries to serve".some
+    text = "API timeline entries to serve".some,
   )
   lazy val noDelaySecretSetting = memo.settingStore[Strings](
     "noDelaySecrets",
     default = Strings(Nil),
     text =
-      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
+      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some,
   )
   lazy val featuredTeamsSetting = memo.settingStore[Strings](
     "featuredTeams",
     default = Strings(Nil),
-    text = "Team IDs that always get their tournaments visible on /tournament".some
+    text = "Team IDs that always get their tournaments visible on /tournament".some,
   )
 
   lazy val preloader     = wire[mashup.Preload]
@@ -176,17 +176,17 @@ final class EnvBoot(
     environment: Environment,
     controllerComponents: ControllerComponents,
     cookieBacker: SessionCookieBaker,
-    shutdown: CoordinatedShutdown
+    shutdown: CoordinatedShutdown,
 )(implicit
     ec: ExecutionContext,
     system: ActorSystem,
-    ws: WSClient
+    ws: WSClient,
 ) {
 
-  implicit def scheduler: Scheduler   = system.scheduler
-  implicit def mode: Mode        = environment.mode
-  def appPath              = AppPath(environment.rootPath)
-  def baseUrl              = common.netConfig.baseUrl
+  implicit def scheduler: Scheduler     = system.scheduler
+  implicit def mode: Mode               = environment.mode
+  def appPath                           = AppPath(environment.rootPath)
+  def baseUrl                           = common.netConfig.baseUrl
   implicit def idGenerator: IdGenerator = game.idGenerator
 
   lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))

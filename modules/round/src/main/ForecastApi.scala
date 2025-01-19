@@ -4,6 +4,7 @@ import scala.concurrent.Promise
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
+
 import shogi.format.usi.UciToUsi
 import shogi.format.usi.Usi
 
@@ -11,12 +12,13 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.game.Game.PlayerId
 import lila.game.Pov
+import lila.round.Forecast.Step
 
-import Forecast.Step
+final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit
+    ec: scala.concurrent.ExecutionContext,
+) {
 
-final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.concurrent.ExecutionContext) {
-
-  implicit private val stepBSONHandler: BSONDocumentHandler[Step]     = Macros.handler[Step]
+  implicit private val stepBSONHandler: BSONDocumentHandler[Step]         = Macros.handler[Step]
   implicit private val forecastBSONHandler: BSONDocumentHandler[Forecast] = Macros.handler[Forecast]
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
@@ -27,9 +29,9 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
         Forecast(
           _id = pov.fullId,
           steps = steps,
-          date = DateTime.now
+          date = DateTime.now,
         ).truncate,
-        upsert = true
+        upsert = true,
       )
       .void
   }
@@ -44,22 +46,23 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
   def playAndSave(
       pov: Pov,
       usiMove: String,
-      steps: Forecast.Steps
+      steps: Forecast.Steps,
   ): Funit =
     if (!pov.isMyTurn) funit
     else
-      Usi(usiMove).orElse(UciToUsi(usiMove)).fold[Funit](fufail(s"Invalid move $usiMove on $pov")) { usi =>
-        val promise = Promise[Unit]()
-        tellRound(
-          pov.gameId,
-          actorApi.round.HumanPlay(
-            playerId = PlayerId(pov.playerId),
-            usi = usi,
-            blur = true,
-            promise = promise.some
+      Usi(usiMove).orElse(UciToUsi(usiMove)).fold[Funit](fufail(s"Invalid move $usiMove on $pov")) {
+        usi =>
+          val promise = Promise[Unit]()
+          tellRound(
+            pov.gameId,
+            actorApi.round.HumanPlay(
+              playerId = PlayerId(pov.playerId),
+              usi = usi,
+              blur = true,
+              promise = promise.some,
+            ),
           )
-        )
-        saveSteps(pov, steps) >> promise.future
+          saveSteps(pov, steps) >> promise.future
       }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =

@@ -21,15 +21,15 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
           $doc(
             "sente" -> BSONDocument(
               "$each"  -> (sente ?? List(BSONInteger(hits))),
-              "$slice" -> -20
+              "$slice" -> -20,
             ),
             "gote" -> BSONDocument(
               "$each"  -> (!sente ?? List(BSONInteger(hits))),
-              "$slice" -> -20
-            )
-          )
+              "$slice" -> -20,
+            ),
+          ),
         ),
-        upsert = true
+        upsert = true,
       )
       .void
 
@@ -37,16 +37,16 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
     scoreColl
       .aggregateList(
         maxDocs = Int.MaxValue,
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = ReadPreference.secondaryPreferred,
       ) { framework =>
         import framework._
         Match($doc("_id" $in userIds)) -> List(
           Project(
             $doc(
               "sente" -> $doc("$max" -> "$sente"),
-              "gote"  -> $doc("$max" -> "$gote")
-            )
-          )
+              "gote"  -> $doc("$max" -> "$gote"),
+            ),
+          ),
         )
       }
       .map {
@@ -54,7 +54,7 @@ final class CoordinateApi(scoreColl: Coll)(implicit ec: scala.concurrent.Executi
           doc.string("_id") map {
             _ -> shogi.Color.Map(
               ~doc.int("sente"),
-              ~doc.int("gote")
+              ~doc.int("gote"),
             )
           }
         }.toMap

@@ -8,7 +8,7 @@ import lila.user.UserRepo
 final private class Expiration(
     userRepo: UserRepo,
     patronColl: Coll,
-    notifier: PlanNotifier
+    notifier: PlanNotifier,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -36,8 +36,8 @@ final private class Expiration(
       $doc(
         "expiresAt" $lt DateTime.now,
         "lifetime" $ne true,
-        "patreon" $ne true
+        "patreon" $ne true,
       ),
-      50
+      50,
     )
 }

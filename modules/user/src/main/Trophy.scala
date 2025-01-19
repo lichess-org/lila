@@ -7,7 +7,7 @@ case class Trophy(
     user: String,
     kind: TrophyKind,
     date: DateTime,
-    url: Option[String]
+    url: Option[String],
 ) extends Ordered[Trophy] {
 
   def timestamp = date.getMillis
@@ -24,7 +24,7 @@ case class TrophyKind(
     url: Option[String],
     klass: Option[String],
     order: Int,
-    withCustomImage: Boolean
+    withCustomImage: Boolean,
 )
 
 object TrophyKind {
@@ -46,6 +46,6 @@ object TrophyKind {
         url = none,
         icon = none,
         klass = none,
-        withCustomImage = false
+        withCustomImage = false,
       )
 }

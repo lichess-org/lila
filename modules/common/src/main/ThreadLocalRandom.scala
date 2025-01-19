@@ -21,7 +21,9 @@ object ThreadLocalRandom {
     else if (i < 52) i + 71
     else i - 4
   }.toChar
-  def shuffle[T, C](xs: IterableOnce[T])(implicit bf: scala.collection.BuildFrom[xs.type, T, C]): C =
+  def shuffle[T, C](xs: IterableOnce[T])(implicit
+      bf: scala.collection.BuildFrom[xs.type, T, C],
+  ): C =
     new scala.util.Random(current).shuffle(xs)
   def nextString(len: Int): String = {
     val sb = new StringBuilder(len)

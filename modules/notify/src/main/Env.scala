@@ -11,7 +11,7 @@ import lila.common.config._
 
 private class NotifyConfig(
     @ConfigName("collection.notify") val notifyColl: CollName,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("actor.name") val actorName: String,
 )
 
 @Module
@@ -21,10 +21,10 @@ final class Env(
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     getLightUserSync: lila.common.LightUser.GetterSync,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[NotifyConfig]("notify")(AutoConfig.loader)
@@ -53,15 +53,15 @@ final class Env(
                   Notification.Notifies(userId),
                   CorresAlarm(
                     gameId = pov.gameId,
-                    opponent = opponent
-                  )
+                    opponent = opponent,
+                  ),
                 )
               }
             }
         }
       }),
-      name = config.actorName
+      name = config.actorName,
     ),
-    "corresAlarm"
+    "corresAlarm",
   )
 }

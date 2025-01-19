@@ -3,7 +3,7 @@ package lila.security
 import lila.common.constants.bannedYoutubeIds
 
 final class Spam(
-    spamKeywords: () => lila.common.Strings
+    spamKeywords: () => lila.common.Strings,
 ) {
 
   def detect(text: String) =
@@ -18,7 +18,7 @@ final class Spam(
       "chess24.com?ref=",
       "chess.com/register?refId=",
       "chess.com/register?ref_id=",
-      "decodechess.com/ref/"
+      "decodechess.com/ref/",
     )
 
   private lazy val staticBlacklist = List("chess-bot.com") ::: bannedYoutubeIds ::: referBlacklist
@@ -33,7 +33,7 @@ final class Spam(
     """chess24.com\?ref=\w+""".r           -> "chess24.com",
     """chess.com/register\?refId=\w+""".r  -> "chess.com",
     """chess.com/register\?ref_id=\w+""".r -> "chess.com",
-    """\bchess-bot(\.com)?[^\s]*""".r      -> "[redacted]"
+    """\bchess-bot(\.com)?[^\s]*""".r      -> "[redacted]",
   ) ::: bannedYoutubeIds.map { id =>
     id.r -> "7orFjhLkcxA"
   }

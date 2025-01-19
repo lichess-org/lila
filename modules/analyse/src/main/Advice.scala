@@ -51,13 +51,14 @@ object Advice {
     val all = List(Inaccuracy, Mistake, Blunder)
   }
 
-  def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info) orElse MateAdvice(prev, info)
+  def apply(prev: Info, info: Info): Option[Advice] =
+    CpAdvice(prev, info) orElse MateAdvice(prev, info)
 }
 
 private[analyse] case class CpAdvice(
     judgment: Advice.Judgement,
     info: Info,
-    prev: Info
+    prev: Info,
 ) extends Advice
 
 private[analyse] object CpAdvice {
@@ -67,7 +68,7 @@ private[analyse] object CpAdvice {
   private val winningChanceJudgements = List(
     .3 -> Advice.Judgement.Blunder,
     .2 -> Advice.Judgement.Mistake,
-    .1 -> Advice.Judgement.Inaccuracy
+    .1 -> Advice.Judgement.Inaccuracy,
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] =
@@ -86,15 +87,15 @@ private[analyse] object CpAdvice {
 sealed abstract private[analyse] class MateSequence(val desc: String)
 private[analyse] case object MateCreated
     extends MateSequence(
-      desc = "Checkmate is now unavoidable"
+      desc = "Checkmate is now unavoidable",
     )
 private[analyse] case object MateDelayed
     extends MateSequence(
-      desc = "Not the best checkmate sequence"
+      desc = "Not the best checkmate sequence",
     )
 private[analyse] case object MateLost
     extends MateSequence(
-      desc = "Lost forced checkmate sequence"
+      desc = "Lost forced checkmate sequence",
     )
 
 private[analyse] object MateSequence {
@@ -109,7 +110,7 @@ private[analyse] case class MateAdvice(
     sequence: MateSequence,
     judgment: Advice.Judgement,
     info: Info,
-    prev: Info
+    prev: Info,
 ) extends Advice
 private[analyse] object MateAdvice {
 

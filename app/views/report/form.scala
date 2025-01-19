@@ -11,18 +11,18 @@ import lila.user.User
 object form {
 
   def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     views.html.base.layout(
       title = trans.reportAUser.txt(),
       moreCss = cssTag("misc.form3-captcha"),
-      moreJs = captchaTag
+      moreJs = captchaTag,
     ) {
       main(cls := "page-small box box-pad report")(
         h1(trans.reportAUser()),
         postForm(
           cls    := "form3",
-          action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}"
+          action := s"${routes.Report.create}${reqUser.??(u => "?username=" + u.username)}",
         )(
           form3.globalError(form),
           form3.group(form("username"), trans.user(), klass = "field_to") { f =>
@@ -38,14 +38,14 @@ object form {
             form3.select(f, translatedReasonChoices, trans.whatIsIheMatter.txt().some)
           },
           form3.group(form("text"), trans.description(), help = trans.reportDescriptionHelp().some)(
-            form3.textarea(_)(rows := 8)
+            form3.textarea(_)(rows := 8),
           ),
           views.html.base.captcha(form, captcha),
           form3.actions(
             a(href := routes.Lobby.home)(trans.cancel()),
-            form3.submit(trans.send())
-          )
-        )
+            form3.submit(trans.send()),
+          ),
+        ),
       )
     }
 
@@ -57,7 +57,7 @@ object form {
       submitButton(
         cls      := "button button-empty button-red confirm",
         dataIcon := "j",
-        title    := "Report spam or offensive language"
-      )
+        title    := "Report spam or offensive language",
+      ),
     )
 }

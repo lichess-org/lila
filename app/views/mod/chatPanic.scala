@@ -12,7 +12,7 @@ object chatPanic {
     val title = "Chat Panic"
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("user.mod.misc")
+      moreCss = cssTag("user.mod.misc"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("panic"),
@@ -21,7 +21,7 @@ object chatPanic {
           p(
             "When Chat Panic is enabled, restrictions apply to public chats (tournament, simul) and PM",
             br,
-            "Only players 24h old, and with 10 games played, can write messages."
+            "Only players 24h old, and with 10 games played, can write messages.",
           ),
           p(
             "Current state: ",
@@ -29,28 +29,30 @@ object chatPanic {
               frag(
                 goodTag(cls := "text", dataIcon := "E")(strong("ENABLED")),
                 ". Expires ",
-                momentFromNow(s)
+                momentFromNow(s),
               )
-            } getOrElse badTag(cls := "text", dataIcon := "L")(strong("DISABLED"))
+            } getOrElse badTag(cls := "text", dataIcon := "L")(strong("DISABLED")),
           ),
           div(cls := "forms")(
             if (state.isDefined)
               frag(
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=0")(
-                  submitButton(cls := "button button-fat button-red text", dataIcon := "L")("Disable")
+                  submitButton(cls := "button button-fat button-red text", dataIcon := "L")(
+                    "Disable",
+                  ),
                 ),
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
                   submitButton(cls := "button button-fat button-green text", dataIcon := "E")(
-                    "Renew for two hours"
-                  )
-                )
+                    "Renew for two hours",
+                  ),
+                ),
               )
             else
               postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
-                submitButton(cls := "button button-fat text", dataIcon := "E")("Enable")
-              )
-          )
-        )
+                submitButton(cls := "button button-fat text", dataIcon := "E")("Enable"),
+              ),
+          ),
+        ),
       )
     }
   }

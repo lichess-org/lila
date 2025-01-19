@@ -5,6 +5,7 @@ import scala.util.Success
 
 import akka.actor.Cancellable
 import akka.actor.Scheduler
+
 import shogi.Color
 
 import lila.game.Game
@@ -15,7 +16,7 @@ import lila.game.Progress
 // NOT thread safe
 final private class GameProxy(
     id: Game.ID,
-    dependencies: GameProxy.Dependencies
+    dependencies: GameProxy.Dependencies,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import GameProxy._
@@ -109,7 +110,7 @@ private object GameProxy {
 
   class Dependencies(
       val gameRepo: GameRepo,
-      val scheduler: Scheduler
+      val scheduler: Scheduler,
   )
 
   // must be way under the round duct termination delay (60s)

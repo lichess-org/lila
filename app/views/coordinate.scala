@@ -25,32 +25,32 @@ object coordinate {
             "points" -> scoreOption.map(s => {
               Json.obj(
                 "sente" -> s.sente,
-                "gote"  -> s.gote
+                "gote"  -> s.gote,
               )
-            })
-          )
-        )
+            }),
+          ),
+        ),
       ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = trans.coordinates.coordinateTraining.txt(),
           url = s"$netBaseUrl${routes.Coordinate.home.url}",
-          description = trans.coordinates.aSquareNameAppears.txt()
+          description = trans.coordinates.aSquareNameAppears.txt(),
         )
         .some,
       zoomable = true,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     )(
       main(
         id  := "trainer",
-        cls := "coord-trainer training init"
+        cls := "coord-trainer training init",
       )(
         div(cls := "coord-trainer__side")(
           div(cls := "box")(
             h1(trans.coordinates.coordinates()),
             if (ctx.isAuth) scoreOption.map { score =>
               div(cls := "scores")(scoreCharts(score))
-            }
+            },
           ),
           form(cls := "color buttons", action := routes.Coordinate.color, method := "post")(
             st.group(cls := "radio")(
@@ -61,18 +61,21 @@ object coordinate {
                     st.id := s"coord_color_$id",
                     name  := "color",
                     value := id,
-                    (id == ctx.pref.coordColor) option checked
+                    (id == ctx.pref.coordColor) option checked,
                   ),
-                  label(`for` := s"coord_color_$id", cls := s"color color_$id")(i)
+                  label(`for` := s"coord_color_$id", cls := s"color color_$id")(i),
                 )
-              }
-            )
-          )
+              },
+            ),
+          ),
         ),
-        div(cls   := "coord-trainer__board main-board")(
+        div(cls := "coord-trainer__board main-board")(
           div(cls := "next_coord", id := "next_coord0"),
           div(cls := "next_coord", id := "next_coord1"),
-          shogigroundEmpty(shogi.variant.Standard, shogi.Color.fromSente(ctx.pref.coordColor != Color.GOTE))
+          shogigroundEmpty(
+            shogi.variant.Standard,
+            shogi.Color.fromSente(ctx.pref.coordColor != Color.GOTE),
+          ),
         ),
         div(cls := "coord-trainer__table")(
           div(cls := "explanation")(
@@ -80,46 +83,46 @@ object coordinate {
             ul(
               li(trans.coordinates.mostShogiCourses()),
               li(trans.coordinates.talkToYourShogiFriends()),
-              li(trans.coordinates.youCanAnalyseAGameMoreEffectively())
+              li(trans.coordinates.youCanAnalyseAGameMoreEffectively()),
             ),
-            p(trans.coordinates.aSquareNameAppears())
+            p(trans.coordinates.aSquareNameAppears()),
           ),
           div(cls := "box current-status")(
             h2(trans.storm.score()),
-            div(cls := "coord-trainer__score")(0)
+            div(cls := "coord-trainer__score")(0),
           ),
           div(cls := "box current-status")(
             h2(trans.time()),
-            div(cls := "coord-trainer__timer")(30.0)
-          )
+            div(cls := "coord-trainer__timer")(30.0),
+          ),
         ),
         div(cls := "coord-trainer__button")(
           div(cls := "coord-start")(
-            button(cls := "start button button-fat")(trans.coordinates.startTraining())
+            button(cls := "start button button-fat")(trans.coordinates.startTraining()),
           ),
-          div(cls := "current-color")
+          div(cls := "current-color"),
         ),
-        div(cls := "coord-trainer__progress")(div(cls := "progress_bar"))
-      )
+        div(cls := "coord-trainer__progress")(div(cls := "progress_bar")),
+      ),
     )
 
   def scoreCharts(score: lila.coordinate.Score)(implicit ctx: Context) =
     frag(
       List(
         (shogi.Color.Sente, score.sente),
-        (shogi.Color.Gote, score.gote)
+        (shogi.Color.Gote, score.gote),
       ).map { case (c, s) =>
         div(cls := "chart_container")(
           s.nonEmpty option frag(
             p(
               trans.coordinates.averageScoreAsXY(
                 standardColorName(c).toUpperCase,
-                raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>""")
-              )
+                raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""),
+              ),
             ),
-            canvas(cls := "user_chart")
-          )
+            canvas(cls := "user_chart"),
+          ),
         )
-      }
+      },
     )
 }

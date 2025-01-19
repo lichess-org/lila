@@ -8,7 +8,7 @@ import shogi.variant.Variant
 
 case class EngineConfig(
     level: Int,
-    engine: EngineConfig.Engine
+    engine: EngineConfig.Engine,
 )
 
 object EngineConfig {
@@ -51,7 +51,7 @@ object EngineConfig {
   def apply(sfen: Option[Sfen], variant: Variant, level: Int): EngineConfig =
     EngineConfig(
       level = level,
-      engine = Engine(sfen, variant, level.some)
+      engine = Engine(sfen, variant, level.some),
     )
 
   def isStandardMaterial(sfen: Sfen): Boolean =
@@ -62,7 +62,8 @@ object EngineConfig {
       sit.playable(strict = true, withImpasse = true) &&
       Standard.allRoles.filterNot(r => Standard.unpromote(r).isDefined).forall { r =>
         default
-          .count(_ == r) >= (sit.board.count(r) + ~Standard.promote(r).map(sit.board.count) + countHands(r))
+          .count(_ == r) >= (sit.board
+          .count(r) + ~Standard.promote(r).map(sit.board.count) + countHands(r))
       }
     }
 }

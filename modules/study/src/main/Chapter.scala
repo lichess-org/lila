@@ -1,6 +1,7 @@
 package lila.study
 
 import org.joda.time.DateTime
+
 import shogi.Centis
 import shogi.Color
 import shogi.Status
@@ -28,7 +29,7 @@ case class Chapter(
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
     serverEval: Option[Chapter.ServerEval] = None,
-    createdAt: DateTime
+    createdAt: DateTime,
 ) extends Chapter.Like {
 
   def updateRoot(f: Node.Root => Option[Node.Root]) =
@@ -69,7 +70,7 @@ case class Chapter(
       _id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
     )
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
@@ -119,7 +120,7 @@ object Chapter {
       orientation: Color, // post-game study - overriden for players to their color
       endStatus: Option[EndStatus] = None,
       fromSfen: Boolean = false,
-      fromNotation: Boolean = false
+      fromNotation: Boolean = false,
   ) {}
 
   case class ServerEval(done: Boolean)
@@ -127,7 +128,7 @@ object Chapter {
   case class Metadata(
       _id: Id,
       name: Name,
-      setup: Setup
+      setup: Setup,
   ) extends Like
 
   case class IdName(id: Id, name: Name)
@@ -157,7 +158,7 @@ object Chapter {
       ownerId: User.ID,
       practice: Boolean,
       gamebook: Boolean,
-      conceal: Option[Ply]
+      conceal: Option[Ply],
   ) =
     Chapter(
       _id = makeId,
@@ -171,6 +172,6 @@ object Chapter {
       practice = practice option true,
       gamebook = gamebook option true,
       conceal = conceal,
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
     )
 }

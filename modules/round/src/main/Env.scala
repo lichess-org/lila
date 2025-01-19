@@ -19,16 +19,16 @@ import lila.hub.actorApi.round.Abort
 import lila.hub.actorApi.round.Resign
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
+import lila.round.actorApi.GetSocketStatus
+import lila.round.actorApi.SocketStatus
 import lila.user.User
-
-import actorApi.{ GetSocketStatus, SocketStatus }
 
 @Module
 private class RoundConfig(
     @ConfigName("collection.note") val noteColl: CollName,
     @ConfigName("collection.forecast") val forecastColl: CollName,
     @ConfigName("collection.alarm") val alarmColl: CollName,
-    @ConfigName("moretime") val moretimeDuration: MoretimeDuration
+    @ConfigName("moretime") val moretimeDuration: MoretimeDuration,
 )
 
 @Module
@@ -57,17 +57,19 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     lightUserApi: lila.user.LightUserApi,
     ratingFactors: () => lila.rating.RatingFactors,
-    shutdown: akka.actor.CoordinatedShutdown
+    shutdown: akka.actor.CoordinatedShutdown,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
 ) {
 
   import lightUserApi._
 
-  implicit private val moretimeLoader: ConfigLoader[MoretimeDuration] = durationLoader(MoretimeDuration.apply)
-  private val config                  = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  implicit private val moretimeLoader: ConfigLoader[MoretimeDuration] = durationLoader(
+    MoretimeDuration.apply,
+  )
+  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
@@ -79,7 +81,7 @@ final class Env(
         game.gotePlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
   private val isSimulHost = new IsSimulHost(userId =>
-    Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds).dmap(_ contains userId)
+    Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds).dmap(_ contains userId),
   )
 
   private val scheduleExpiration = new ScheduleExpiration(game => {
@@ -109,12 +111,11 @@ final class Env(
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name).unit
-    }
+    },
   )
 
-  lazy val tellRound: TellRound = new TellRound((gameId: Game.ID, msg: Any) =>
-    roundSocket.rounds.tell(gameId, msg)
-  )
+  lazy val tellRound: TellRound =
+    new TellRound((gameId: Game.ID, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
   lazy val onStart: OnStart = new OnStart((gameId: Game.ID) =>
     proxyRepo game gameId foreach {
@@ -127,7 +128,7 @@ final class Env(
           }
         }
       }
-    }
+    },
   )
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
@@ -142,13 +143,13 @@ final class Env(
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(config.forecastColl),
-    tellRound = tellRound
+    tellRound = tellRound,
   )
 
   private lazy val notifier = new RoundNotifier(
     timeline = timeline,
     isUserPresent = isUserPresent,
-    notifyApi = notifyApi
+    notifyApi = notifyApi,
   )
 
   private lazy val finisher = wire[Finisher]
@@ -167,7 +168,8 @@ final class Env(
 
   lazy val messenger = wire[Messenger]
 
-  lazy val getSocketStatus = (game: Game) => roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
+  lazy val getSocketStatus = (game: Game) =>
+    roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
     roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundDuct.HasUserId(userId, _))

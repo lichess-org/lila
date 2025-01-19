@@ -9,7 +9,7 @@ case class Step(
     ply: Int,
     usi: Option[Usi],
     sfen: Sfen,
-    check: Boolean
+    check: Boolean,
 ) {
 
   // who's color plays next
@@ -27,7 +27,7 @@ object Step {
       .obj(
         "ply"  -> ply,
         "usi"  -> usi.map(_.usi),
-        "sfen" -> sfen
+        "sfen" -> sfen,
       )
       .add("check", check)
   }

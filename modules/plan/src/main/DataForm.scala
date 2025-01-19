@@ -7,7 +7,8 @@ import cats.implicits._
 
 object DataForm {
 
-  private val txnTypes = Set("express_checkout", "web_accept", "recurring_payment", "subscr_payment")
+  private val txnTypes =
+    Set("express_checkout", "web_accept", "recurring_payment", "subscr_payment")
   // ignored types = subscr_cancel, ...
 
   val ipn = Form(
@@ -20,8 +21,8 @@ object DataForm {
       "custom"      -> optional(text),
       "payer_email" -> optional(nonEmptyText),
       "first_name"  -> optional(text),
-      "last_name"   -> optional(text)
-    )(Ipn.apply)(Ipn.unapply)
+      "last_name"   -> optional(text),
+    )(Ipn.apply)(Ipn.unapply),
   )
 
   case class Ipn(
@@ -33,7 +34,7 @@ object DataForm {
       userId: Option[String],
       email: Option[String],
       firstName: Option[String],
-      lastName: Option[String]
+      lastName: Option[String],
   ) {
 
     def name = (firstName, lastName) mapN { _ + " " + _ }

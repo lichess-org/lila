@@ -21,7 +21,8 @@ object CountResponse {
 }
 
 object Date {
-  import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
+  import org.joda.time.format.DateTimeFormat
+  import org.joda.time.format.DateTimeFormatter
   val format                       = "yyyy-MM-dd HH:mm:ss"
   val formatter: DateTimeFormatter = DateTimeFormat forPattern format
 }

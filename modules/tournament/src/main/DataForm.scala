@@ -10,6 +10,7 @@ import play.api.data.validation.Constraints
 
 import cats.implicits._
 import org.joda.time.DateTime
+
 import shogi.Mode
 import shogi.format.forsyth.Sfen
 
@@ -40,7 +41,7 @@ final class DataForm {
       berserkable = true.some,
       streakable = true.some,
       description = none,
-      hasChat = true.some
+      hasChat = true.some,
     )
 
   def edit(user: User, tour: Tournament) =
@@ -62,7 +63,7 @@ final class DataForm {
       berserkable = tour.berserkable.some,
       streakable = tour.streakable.some,
       description = tour.description,
-      hasChat = tour.hasChat.some
+      hasChat = tour.hasChat.some,
     )
 
   private val nameType = cleanText.verifying(
@@ -70,13 +71,13 @@ final class DataForm {
     Constraints maxLength 30,
     Constraints.pattern(
       regex = """[\p{L}\p{N}-\s:,;]+""".r,
-      error = "error.unknown"
+      error = "error.unknown",
     ),
     Constraint[String] { (t: String) =>
       if (t.toLowerCase contains "lishogi")
         validation.Invalid(validation.ValidationError("Must not contain \"lishogi\""))
       else validation.Valid
-    }
+    },
   )
 
   private def form(user: User, prev: Option[Tournament]) =
@@ -86,19 +87,19 @@ final class DataForm {
           m
             .verifying(
               "Can't change variant after players have joined",
-              _.realVariant == tour.variant || tour.nbPlayers == 0
+              _.realVariant == tour.variant || tour.nbPlayers == 0,
             )
             .verifying(
               "Can't change time control after players have joined",
-              _.speed == tour.speed || tour.nbPlayers == 0
+              _.speed == tour.speed || tour.nbPlayers == 0,
             )
             .verifying(
               "Can't change format after tournament is created",
-              _.realFormat == tour.format
+              _.realFormat == tour.format,
             )
             .verifying(
               "Can't change tournament from 'candidates only' to open, if candidates list is not empty",
-              ~_.candidatesOnly == tour.candidatesOnly || !tour.candidatesOnly || tour.candidates.isEmpty
+              ~_.candidatesOnly == tour.candidatesOnly || !tour.candidatesOnly || tour.candidates.isEmpty,
             )
         }
       }
@@ -113,20 +114,20 @@ final class DataForm {
         if (lila.security.Granter(_.ManageTournament)(user)) number
         else numberIn(minutes)
       },
-      "startDate"      -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
-      "finishDate"     -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-      "variant"        -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"       -> optional(lila.common.Form.sfen.clean),
-      "mode"           -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
-      "rated"          -> optional(boolean),
-      "password"       -> optional(nonEmptyText),
-      "candidatesOnly" -> optional(boolean),
-      "conditions"     -> Condition.DataForm.all,
+      "startDate"  -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
+      "finishDate" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+      "variant"    -> optional(text.verifying(v => guessVariant(v).isDefined)),
+      "position"   -> optional(lila.common.Form.sfen.clean),
+      "mode"  -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
+      "rated" -> optional(boolean),
+      "password"         -> optional(nonEmptyText),
+      "candidatesOnly"   -> optional(boolean),
+      "conditions"       -> Condition.DataForm.all,
       "teamBattleByTeam" -> optional(nonEmptyText),
       "berserkable"      -> optional(boolean),
       "streakable"       -> optional(boolean),
       "description"      -> optional(cleanNonEmptyText),
-      "hasChat"          -> optional(boolean)
+      "hasChat"          -> optional(boolean),
     )(TournamentSetup.apply)(TournamentSetup.unapply)
       .verifying("Invalid starting position", _.validPosition)
       .verifying("Provide valid duration", _.validMinutes)
@@ -143,7 +144,8 @@ object DataForm {
 
   import shogi.variant._
 
-  val minutes        = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
+  val minutes =
+    (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
   val minutesDefault = 60
 
   val validVariants =
@@ -173,7 +175,7 @@ private[tournament] case class TournamentSetup(
     berserkable: Option[Boolean],
     streakable: Option[Boolean],
     description: Option[String],
-    hasChat: Option[Boolean]
+    hasChat: Option[Boolean],
 ) {
 
   def realMode =
@@ -194,7 +196,8 @@ private[tournament] case class TournamentSetup(
     .orElse(minutes)
     .getOrElse(DataForm.minutesDefault)
 
-  def speed = timeControlSetup.clock.fold[shogi.Speed](shogi.Speed.Correspondence)(shogi.Speed.apply)
+  def speed =
+    timeControlSetup.clock.fold[shogi.Speed](shogi.Speed.Correspondence)(shogi.Speed.apply)
 
   def validPosition = position.fold(true) { sfen =>
     sfen.toSituation(realVariant).exists(_.playable(strict = true, withImpasse = true))
@@ -202,7 +205,8 @@ private[tournament] case class TournamentSetup(
 
   def validMinutes = minutes.isDefined || realFormat != Format.Arena
 
-  def validFinishDate = finishDate.fold(realFormat == Format.Arena)(_.minusMinutes(20) isAfter realStartDate)
+  def validFinishDate =
+    finishDate.fold(realFormat == Format.Arena)(_.minusMinutes(20) isAfter realStartDate)
 
   def validTimeControl = timeControlSetup.isRealTime || format != Format.Arena
 

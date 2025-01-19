@@ -14,7 +14,7 @@ object StormForm {
       time: Int,
       highest: Int,
       notAnExploit: String,
-      signed: Option[String]
+      signed: Option[String],
   )
 
   val run = Form(
@@ -27,8 +27,8 @@ object StormForm {
       "time"         -> number(min = 1, max = 900),
       "highest"      -> number(min = lila.rating.Glicko.minRating, max = 4000),
       "notAnExploit" -> nonEmptyText.verifying(_ == notAnExploit),
-      "signed"       -> optional(nonEmptyText)
-    )(RunData.apply)(RunData.unapply)
+      "signed"       -> optional(nonEmptyText),
+    )(RunData.apply)(RunData.unapply),
   )
 
   val notAnExploit =

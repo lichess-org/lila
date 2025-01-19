@@ -9,7 +9,7 @@ import lila.hub.actorApi.shutup.{ PublicSource => Source }
 case class PublicLine(
     text: String,
     from: Option[Source],
-    date: Option[DateTime]
+    date: Option[DateTime],
 )
 
 object PublicLine {
@@ -18,6 +18,7 @@ object PublicLine {
     PublicLine(text, from.some, DateTime.now.some)
 
   import reactivemongo.api.bson._
+
   import lila.db.dsl._
   implicit private val SourceHandler: BSONHandler[Source] = lila.db.dsl.quickHandler[Source](
     { case BSONString(v) =>
@@ -39,7 +40,7 @@ object PublicLine {
         case Source.Watcher(gameId) => s"w:$gameId"
         case Source.Team(id)        => s"e:$id"
         case Source.Unknown(source) => s"i:$source"
-      })
+      }),
   )
 
   private val objectHandler = Macros.handler[PublicLine]
@@ -50,6 +51,6 @@ object PublicLine {
       case BSONString(text)  => Success(PublicLine(text, none, none))
       case a                 => lila.db.BSON.handlerBadValue(s"Invalid PublicLine $a")
     },
-    x => if (x.from.isDefined) objectHandler.writeTry(x).get else BSONString(x.text)
+    x => if (x.from.isDefined) objectHandler.writeTry(x).get else BSONString(x.text),
   )
 }

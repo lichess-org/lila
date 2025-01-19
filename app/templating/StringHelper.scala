@@ -3,13 +3,14 @@ package templating
 
 import play.api.i18n.Lang
 
-import ui.ScalatagsTemplate._
+import lila.app.ui.ScalatagsTemplate._
 
 trait StringHelper { self: NumberHelper =>
 
   val slugify = lila.common.String.slugify _
 
-  def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
+  def shorten(text: String, length: Int, sep: String = "…") =
+    lila.common.String.shorten(text, length, sep)
 
   def pluralize(s: String, n: Int) = s"$n $s${if (n > 1) "s" else ""}"
 
@@ -27,13 +28,13 @@ trait StringHelper { self: NumberHelper =>
         frag(
           strong((~number.toIntOption).localize),
           br,
-          raw(html)
+          raw(html),
         )
       case NumberLastRegex(n) if rendered.lengthIs > n.length + 1 =>
         frag(
           raw(rendered.dropRight(n.length + 1)),
           br,
-          strong((~n.toIntOption).localize)
+          strong((~n.toIntOption).localize),
         )
       case h => raw(h.replaceIf('\n', "<br>"))
     }
@@ -50,7 +51,7 @@ trait StringHelper { self: NumberHelper =>
       case one :: Nil => one
       case first :: rest =>
         RawFrag(
-          frag(first :: rest.map { frag(separator, _) }).render
+          frag(first :: rest.map { frag(separator, _) }).render,
         )
     }
 

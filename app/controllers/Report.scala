@@ -10,14 +10,14 @@ import lila.common.HTTPRequest
 import lila.report.Reporter
 import lila.report.Room
 import lila.report.Suspect
-import lila.report.{Mod => AsMod}
-import lila.report.{Report => ReportModel}
+import lila.report.{ Mod => AsMod }
+import lila.report.{ Report => ReportModel }
 import lila.user.{ User => UserModel }
 
 final class Report(
     env: Env,
     userC: => User,
-    modC: => Mod
+    modC: => Mod,
 ) extends LilaController(env) {
 
   private def api = env.report.api
@@ -62,7 +62,7 @@ final class Report(
       inquiry: Option[ReportModel],
       me: UserModel,
       goTo: Option[Suspect],
-      force: Boolean = false
+      force: Boolean = false,
   )(implicit ctx: BodyContext[_]) = {
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
       case Some(suspect) => userC.renderModZoneActions(suspect.user.username)
@@ -149,7 +149,7 @@ final class Report(
             if (data.user.id == me.id) notFound
             else
               api.create(data, Reporter(me)) inject
-                Redirect(routes.Report.thanks(data.user.name))
+                Redirect(routes.Report.thanks(data.user.name)),
         )
     }
 
@@ -166,7 +166,7 @@ final class Report(
                 if (user == me) BadRequest.fuccess
                 else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
               }
-            }
+            },
         )
     }
 

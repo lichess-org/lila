@@ -1,8 +1,7 @@
 package lila.common
 
-import scalatags.Text.all._
-
 import org.specs2.mutable.Specification
+import scalatags.Text.all._
 
 class StringTest extends Specification {
 

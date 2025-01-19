@@ -17,7 +17,7 @@ case class FriendConfig(
     days: Int,
     mode: Mode,
     color: Color,
-    sfen: Option[Sfen] = None
+    sfen: Option[Sfen] = None,
 ) extends HumanConfig
     with Positional {
 
@@ -33,12 +33,13 @@ case class FriendConfig(
     days,
     mode.id.some,
     color.name,
-    sfen.map(_.value)
+    sfen.map(_.value),
   ).some
 
   def isPersistent = timeMode == TimeMode.Unlimited || timeMode == TimeMode.Correspondence
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(shogi.Speed(makeClock), variant, makeDaysPerTurn)
+  def perfType: Option[PerfType] =
+    PerfPicker.perfType(shogi.Speed(makeClock), variant, makeDaysPerTurn)
 }
 
 object FriendConfig extends BaseHumanConfig {
@@ -53,7 +54,7 @@ object FriendConfig extends BaseHumanConfig {
       d: Int,
       m: Option[Int],
       c: String,
-      sfen: Option[String]
+      sfen: Option[String],
   ) =
     new FriendConfig(
       variant = shogi.variant.Variant(v) err "Invalid game variant " + v,
@@ -65,7 +66,7 @@ object FriendConfig extends BaseHumanConfig {
       days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
       color = Color(c) err "Invalid color " + c,
-      sfen = sfen map Sfen.apply
+      sfen = sfen map Sfen.apply,
     )
 
   val default = FriendConfig(
@@ -77,7 +78,7 @@ object FriendConfig extends BaseHumanConfig {
     periods = 1,
     days = 2,
     mode = Mode.default,
-    color = Color.default
+    color = Color.default,
   )
 
   import lila.db.BSON
@@ -96,7 +97,7 @@ object FriendConfig extends BaseHumanConfig {
         days = r int "d",
         mode = Mode orDefault (r int "m"),
         color = Color.Sente,
-        sfen = r.getO[Sfen]("f") filter (_.value.nonEmpty)
+        sfen = r.getO[Sfen]("f") filter (_.value.nonEmpty),
       )
 
     def writes(w: BSON.Writer, o: FriendConfig) =
@@ -109,7 +110,7 @@ object FriendConfig extends BaseHumanConfig {
         "p"  -> o.periods,
         "d"  -> o.days,
         "m"  -> o.mode.id,
-        "f"  -> o.sfen
+        "f"  -> o.sfen,
       )
   }
 }

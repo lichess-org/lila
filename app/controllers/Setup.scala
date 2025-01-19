@@ -21,7 +21,7 @@ import lila.socket.Socket.Sri
 final class Setup(
     env: Env,
     challengeC: => Challenge,
-    apiC: => Api
+    apiC: => Api,
 ) extends LilaController(env)
     with TheftPrevention {
 
@@ -32,13 +32,13 @@ final class Setup(
     5,
     1.minute,
     key = "setup.post",
-    enforce = env.net.rateLimit.value
+    enforce = env.net.rateLimit.value,
   )
 
   private[controllers] val BotAiRateLimit = new lila.memo.RateLimit[lila.user.User.ID](
     50,
     1.day,
-    key = "setup.post.bot.ai"
+    key = "setup.post.bot.ai",
   )
 
   def ai = OpenBody { implicit ctx =>
@@ -52,7 +52,7 @@ final class Setup(
             err =>
               negotiate(
                 html = keyPages.home(Results.BadRequest),
-                json = jsonFormError(err)
+                json = jsonFormError(err),
               ),
             config =>
               processor.ai(config)(ctx) flatMap { pov =>
@@ -64,9 +64,9 @@ final class Setup(
                     else
                       env.api.roundApi.player(pov, none) map { data =>
                         Created(data) as JSON
-                      }
+                      },
                 )
-              }
+              },
           )
       }(rateLimitedFu)
     }(rateLimitedFu)
@@ -76,7 +76,7 @@ final class Setup(
     Json
       .obj(
         "id"  -> pov.fullId,
-        "url" -> s"/${pov.fullId}"
+        "url" -> s"/${pov.fullId}",
       )
       .add("cookie" -> lila.game.AnonCookie.json(pov))
 
@@ -91,7 +91,7 @@ final class Setup(
             err =>
               negotiate(
                 html = keyPages.home(Results.BadRequest),
-                json = jsonFormError(err)
+                json = jsonFormError(err),
               ),
             config =>
               userId ?? env.user.repo.enabledById flatMap { destUser =>
@@ -100,7 +100,7 @@ final class Setup(
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
                       html = BadRequest(html.site.message.challengeDenied(message)).fuccess,
-                      json = BadRequest(jsonError(message)).fuccess
+                      json = BadRequest(jsonError(message)).fuccess,
                     )
                   case None =>
                     import lila.challenge.Challenge._
@@ -121,22 +121,22 @@ final class Setup(
                         case _               => Challenger.Open
                       },
                       destUser = destUser,
-                      rematchOf = none
+                      rematchOf = none,
                     )
                     (env.challenge.api create challenge) flatMap {
                       case true =>
                         negotiate(
                           html = fuccess(Redirect(routes.Round.watcher(challenge.id, "sente"))),
-                          json = challengeC showChallenge challenge
+                          json = challengeC showChallenge challenge,
                         )
                       case false =>
                         negotiate(
                           html = fuccess(Redirect(routes.Lobby.home)),
-                          json = fuccess(BadRequest(jsonError("Challenge not created")))
+                          json = fuccess(BadRequest(jsonError("Challenge not created"))),
                         )
                     }
                 }
-              }
+              },
           )
       }(rateLimitedFu)
     }
@@ -147,8 +147,8 @@ final class Setup(
         Ok(
           Json.obj(
             "ok"   -> true,
-            "hook" -> Json.obj("id" -> id)
-          )
+            "hook" -> Json.obj("id" -> id),
+          ),
         ) as JSON
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
     }
@@ -170,9 +170,9 @@ final class Setup(
                       userConfig withinLimits ctx.me,
                       Sri(sri),
                       HTTPRequest sid req,
-                      blocking
+                      blocking,
                     ) map hookResponse
-                  }
+                  },
               )
           }
         }(rateLimitedFu)
@@ -188,7 +188,9 @@ final class Setup(
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig    = lila.setup.HookConfig.default withRatingRange get("rr") updateFrom game
+                  hookConfig = lila.setup.HookConfig.default withRatingRange get(
+                    "rr",
+                  ) updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor
@@ -196,7 +198,7 @@ final class Setup(
                         hookConfig,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking ++ sameOpponents
+                        blocking ++ sameOpponents,
                       )
                 } yield hookResponse(hookResult)
               }
@@ -210,7 +212,7 @@ final class Setup(
     name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
     ttl = 10.minutes,
-    maxConcurrency = 1
+    maxConcurrency = 1,
   )
   def boardApiHook =
     ScopedBody(_.Board.Play) { implicit req => me =>
@@ -228,12 +230,12 @@ final class Setup(
                   case Left(hook) =>
                     PostRateLimit(HTTPRequest lastRemoteAddress req) {
                       BoardApiHookConcurrencyLimitPerUser(me.id)(
-                        env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                        env.lobby.boardApiHookStream(hook.copy(boardApi = true)),
                       )(apiC.sourceToNdJsonOption).fuccess
                     }(rateLimitedFu)
                   case _ => BadRequest(jsonError("Invalid board API seek")).fuccess
                 }
-              }
+              },
           )
     }
 
@@ -249,8 +251,9 @@ final class Setup(
         sfen    <- get("sfen") map Sfen.clean orElse variant.initialSfen.some
         valid   <- ValidSfen.apply(getBool("strict"), variant)(sfen)
       } yield valid) match {
-        case None    => BadRequest.fuccess
-        case Some(v) => Ok(html.game.bits.miniBoard(v.sfen, v.situation.color, v.situation.variant)).fuccess
+        case None => BadRequest.fuccess
+        case Some(v) =>
+          Ok(html.game.bits.miniBoard(v.sfen, v.situation.color, v.situation.variant)).fuccess
       }
     }
 
@@ -266,7 +269,7 @@ final class Setup(
               config =>
                 processor.apiAi(config, me) map { pov =>
                   Created(env.game.jsonView(pov.game)) as JSON
-                }
+                },
             )
         }(rateLimitedFu)
       }(rateLimitedFu)
@@ -280,7 +283,7 @@ final class Setup(
         AnonCookie.name,
         pov.playerId,
         maxAge = AnonCookie.maxAge.some,
-        httpOnly = false.some
+        httpOnly = false.some,
       )
   }
 }

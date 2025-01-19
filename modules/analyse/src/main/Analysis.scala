@@ -1,6 +1,7 @@
 package lila.analyse
 
 import org.joda.time.DateTime
+
 import shogi.Color
 
 case class Analysis(
@@ -11,7 +12,7 @@ case class Analysis(
     startPly: Int,
     uid: Option[String], // requester lishogi ID
     by: Option[String],  // analyser lishogi ID
-    date: DateTime
+    date: DateTime,
 ) {
 
   def requestedBy = uid | "lishogi"
@@ -47,8 +48,9 @@ case class Analysis(
 
 object Analysis {
 
-  import lila.db.BSON
   import reactivemongo.api.bson._
+
+  import lila.db.BSON
 
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
@@ -56,7 +58,8 @@ object Analysis {
 
   type ID = String
 
-  implicit private[analyse] val postGameStudyBSONHandler: BSONDocumentHandler[PostGameStudy] = Macros.handler[PostGameStudy]
+  implicit private[analyse] val postGameStudyBSONHandler: BSONDocumentHandler[PostGameStudy] =
+    Macros.handler[PostGameStudy]
 
   implicit private[analyse] val analysisBSONHandler: BSON[Analysis] = new BSON[Analysis] {
     def reads(r: BSON.Reader) = {
@@ -70,7 +73,7 @@ object Analysis {
         startPly = startPly,
         uid = r strO "uid",
         by = r strO "by",
-        date = r date "date"
+        date = r date "date",
       )
     }
     def writes(w: BSON.Writer, o: Analysis) =
@@ -82,7 +85,7 @@ object Analysis {
         "ply"     -> w.intO(o.startPly),
         "uid"     -> o.uid,
         "by"      -> o.by,
-        "date"    -> w.date(o.date)
+        "date"    -> w.date(o.date),
       )
   }
 }

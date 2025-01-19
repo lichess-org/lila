@@ -11,11 +11,11 @@ object thanks {
   import trans.patron._
 
   def apply(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     views.html.base.layout(
       moreCss = cssTag("misc.page"),
-      title = thankYou.txt()
+      title = thankYou.txt(),
     ) {
       main(cls := "page-small page box box-pad")(
         h1(cls := "text", dataIcon := patronIconChar)(thankYou()),
@@ -23,12 +23,13 @@ object thanks {
           p(tyvm()),
           p(transactionCompleted()),
           patron.map { pat =>
-            if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) { me =>
-              p(
-                permanentPatron(),
-                br,
-                a(href := routes.User.show(me.username))(checkOutProfile())
-              )
+            if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) {
+              me =>
+                p(
+                  permanentPatron(),
+                  br,
+                  a(href := routes.User.show(me.username))(checkOutProfile()),
+                )
             }
             else {
               frag(
@@ -38,7 +39,7 @@ object thanks {
                     br,
                     ctx.me.map { me =>
                       a(href := routes.User.show(me.username))(checkOutProfile())
-                    }
+                    },
                   )
                 else
                   frag(
@@ -47,14 +48,14 @@ object thanks {
                       br,
                       ctx.me.map { me =>
                         a(href := routes.User.show(me.username))(checkOutProfile())
-                      }
+                      },
                     ),
-                    p(downgradeNextMonth())
-                  )
+                    p(downgradeNextMonth()),
+                  ),
               )
             }
-          }
-        )
+          },
+        ),
       )
     }
 }

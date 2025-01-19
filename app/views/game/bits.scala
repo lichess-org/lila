@@ -17,25 +17,25 @@ object bits {
   def featuredJs(pov: Pov): Frag =
     frag(
       gameSfenNoCtx(pov, tv = true),
-      vstext(pov)(lila.i18n.defaultLang)
+      vstext(pov)(lila.i18n.defaultLang),
     )
 
   def mini(pov: Pov)(implicit ctx: Context): Frag =
     a(href := gameLink(pov))(
       gameSfen(pov, withLink = false),
-      vstext(pov)
+      vstext(pov),
     )
 
   def miniBoard(
       sfen: shogi.format.forsyth.Sfen,
       color: shogi.Color = shogi.Sente,
-      variant: shogi.variant.Variant = shogi.variant.Standard
+      variant: shogi.variant.Variant = shogi.variant.Standard,
   ): Frag =
     div(
       cls         := s"mini-board parse-sfen ${variantClass(variant)}",
       dataColor   := color.name,
       dataSfen    := sfen.value,
-      dataVariant := variant.key
+      dataVariant := variant.key,
     )(shogigroundEmpty(variant, color))
 
   def gameIcon(game: Game): Char =
@@ -54,36 +54,36 @@ object bits {
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
-      bookmarked: Boolean
+      bookmarked: Boolean,
   )(implicit ctx: Context) =
     div(
       side.meta(pov, tour, simul, userTv, bookmarked = bookmarked),
       cross.map { c =>
         div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
-      }
+      },
     )
 
   def variantLink(
       variant: shogi.variant.Variant,
-      perfType: Option[lila.rating.PerfType] = None
+      perfType: Option[lila.rating.PerfType] = None,
   )(implicit lang: Lang): Frag = {
     def link(
         href: String,
         title: String,
-        name: String
+        name: String,
     ) = a(
       cls      := "variant-link",
       st.href  := href,
       rel      := "nofollow",
       target   := "_blank",
-      st.title := title
+      st.title := title,
     )(name)
 
     if (!variant.standard)
       link(
         href = routes.Page.variant(variant.key).url,
         title = variantDescription(variant),
-        name = variantName(variant)
+        name = variantName(variant),
       )
     else
       perfType match {
@@ -91,7 +91,7 @@ object bits {
           link(
             href = s"${routes.Main.faq}#correspondence",
             title = Correspondence.desc,
-            name = Correspondence.trans
+            name = Correspondence.trans,
           )
         case Some(pt) => span(title := pt.desc)(pt.trans)
         case _        => variantName(variant)
@@ -112,14 +112,14 @@ object bits {
           frag(t, " ")
         },
         pov.player.rating.map(_.toString).orElse(pov.player.engineConfig.map(engineLevel)),
-        pov.player.provisional option "?"
+        pov.player.provisional option "?",
       ),
       pov.game.clock map { c =>
         span(cls := "vstext__clock")(shortClockName(c.config))
       } orElse {
         pov.game.daysPerTurn map { days =>
           span(cls := "vstext__clock")(
-            if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
+            if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days),
           )
         }
       },
@@ -130,7 +130,7 @@ object bits {
         pov.opponent.provisional option "?",
         playerTitle(pov.opponent) map { t =>
           frag(" ", t)
-        }
-      )
+        },
+      ),
     )
 }

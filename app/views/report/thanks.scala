@@ -23,16 +23,16 @@ object thanks {
           submitButton(
             attr("data-action") := routes.Relation.block(userId),
             cls                 := "report-block button",
-            st.title            := trans.block.txt()
+            st.title            := trans.block.txt(),
           )(
-            span(cls := "text", dataIcon := "k")("Block ", usernameOrId(userId))
-          )
+            span(cls := "text", dataIcon := "k")("Block ", usernameOrId(userId)),
+          ),
         ),
         br,
         br,
         p(
-          a(href := routes.Lobby.home)("Return to Lishogi homepage")
-        )
+          a(href := routes.Lobby.home)("Return to Lishogi homepage"),
+        ),
       )
 
     }

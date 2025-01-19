@@ -19,7 +19,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
     val data = Json.obj(
       "tournament" -> Json.obj("id" -> tour.id),
-      "version"    -> version
+      "version"    -> version,
     )
     Json stringify {
       user.fold(data) { u =>
@@ -32,14 +32,14 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     a(
       dataIcon := "g",
       cls      := (if (tour.isScheduled) "text is-gold" else "text"),
-      href     := routes.Tournament.show(tour.id).url
+      href     := routes.Tournament.show(tour.id).url,
     )(tour.name())
 
   def tournamentLink(tourId: String)(implicit lang: Lang): Frag =
     a(
       dataIcon := "g",
       cls      := "text",
-      href     := routes.Tournament.show(tourId).url
+      href     := routes.Tournament.show(tourId).url,
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: String)(implicit lang: Lang) =
@@ -52,7 +52,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
       "Marathon"    -> icon('\\'),
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
       "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}",
-      "HyperRapid"  -> s"S${icon(PerfType.Rapid.iconChar)}"
+      "HyperRapid"  -> s"S${icon(PerfType.Rapid.iconChar)}",
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
       pt.trans(lila.i18n.defaultLang) -> icon(pt.iconChar)
     }

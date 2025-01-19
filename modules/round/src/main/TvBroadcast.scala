@@ -55,8 +55,8 @@ final private class TvBroadcast extends Actor {
         "sfen",
         Json.obj(
           "sfen" -> sfen,
-          "lm"   -> move
-        )
+          "lm"   -> move,
+        ),
       )
       queues.foreach(_ offer msg)
   }

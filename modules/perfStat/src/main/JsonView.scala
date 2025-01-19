@@ -21,32 +21,32 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     Json.obj(
       "id"    -> u.value,
       "name"  -> light.fold(u.value)(_.name),
-      "title" -> light.flatMap(_.title)
+      "title" -> light.flatMap(_.title),
     )
   }
 
   implicit val ratingAtWrites: OWrites[RatingAt]                      = Json.writes[RatingAt]
-  implicit val resultWrites: OWrites[Result]                        = Json.writes[Result]
-  implicit val resultsWrites: OWrites[Results]                       = Json.writes[Results]
-  implicit val streakWrites: OWrites[Streak]                        = Json.writes[Streak]
-  implicit val streaksWrites: OWrites[Streaks]                       = Json.writes[Streaks]
-  implicit val playStreakWrites: OWrites[PlayStreak]                    = Json.writes[PlayStreak]
-  implicit val resultStreakWrites: OWrites[ResultStreak]                  = Json.writes[ResultStreak]
-  implicit val countWrites: OWrites[Count]                         = Json.writes[Count]
+  implicit val resultWrites: OWrites[Result]                          = Json.writes[Result]
+  implicit val resultsWrites: OWrites[Results]                        = Json.writes[Results]
+  implicit val streakWrites: OWrites[Streak]                          = Json.writes[Streak]
+  implicit val streaksWrites: OWrites[Streaks]                        = Json.writes[Streaks]
+  implicit val playStreakWrites: OWrites[PlayStreak]                  = Json.writes[PlayStreak]
+  implicit val resultStreakWrites: OWrites[ResultStreak]              = Json.writes[ResultStreak]
+  implicit val countWrites: OWrites[Count]                            = Json.writes[Count]
   implicit def perfStatWrites(implicit lang: Lang): OWrites[PerfStat] = Json.writes[PerfStat]
 
   def apply(
       user: User,
       stat: PerfStat,
       rank: Option[Int],
-      percentile: Option[Double]
+      percentile: Option[Double],
   )(implicit lang: Lang) =
     Json.obj(
       "user"       -> user,
       "perf"       -> user.perfs(stat.perfType),
       "rank"       -> rank,
       "percentile" -> percentile,
-      "stat"       -> stat
+      "stat"       -> stat,
     )
 }
 
@@ -65,7 +65,7 @@ object JsonView {
     Json.obj(
       "rating"      -> round(p.rating),
       "deviation"   -> round(p.deviation),
-      "provisional" -> p.provisional
+      "provisional" -> p.provisional,
     )
   }
   implicit val perfWriter: OWrites[Perf] = OWrites { p =>
@@ -78,7 +78,7 @@ object JsonView {
     OWrites { pt =>
       Json.obj(
         "key"  -> pt.key,
-        "name" -> pt.trans
+        "name" -> pt.trans,
       )
     }
 }

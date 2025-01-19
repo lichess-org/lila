@@ -16,7 +16,7 @@ case class UserSpy(
     ips: List[UserSpy.IPData],
     prints: List[UserSpy.FPData],
     uas: List[Dated[UserSpy.UaAndClient]],
-    otherUsers: List[UserSpy.OtherUser]
+    otherUsers: List[UserSpy.OtherUser],
 ) {
 
   import UserSpy.OtherUser
@@ -40,7 +40,7 @@ final class UserSpyApi(
     userRepo: UserRepo,
     geoIP: GeoIP,
     ip2proxy: Ip2Proxy,
-    printBan: PrintBan
+    printBan: PrintBan,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import UserSpy._
@@ -51,15 +51,17 @@ final class UserSpyApi(
       val fps = distinctRecent(infos.flatMap(_.datedFp))
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
         ip2proxy.keepProxies(ips.map(_.value).toList) map { case (otherUsers, proxies) =>
-          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { case (acc, other) =>
-            other.ips.foldLeft(acc) { case (acc, ip) =>
-              acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
-            }
+          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) {
+            case (acc, other) =>
+              other.ips.foldLeft(acc) { case (acc, ip) =>
+                acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
+              }
           }
-          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) { case (acc, other) =>
-            other.fps.foldLeft(acc) { case (acc, fp) =>
-              acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
-            }
+          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) {
+            case (acc, other) =>
+              other.fps.foldLeft(acc) { case (acc, fp) =>
+                acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
+              }
           }
           UserSpy(
             ips = ips.map { ip =>
@@ -68,20 +70,20 @@ final class UserSpyApi(
                 firewall blocksIp ip.value,
                 geoIP orUnknown ip.value,
                 proxies(ip.value),
-                Alts(othersByIp.getOrElse(ip.value, Set.empty))
+                Alts(othersByIp.getOrElse(ip.value, Set.empty)),
               )
             }.toList,
             prints = fps.map { fp =>
               FPData(
                 fp,
                 printBan blocks fp.value,
-                Alts(othersByFp.getOrElse(fp.value, Set.empty))
+                Alts(othersByFp.getOrElse(fp.value, Set.empty)),
               )
             }.toList,
             uas = distinctRecent(infos.map(_.datedUa map { ua =>
               UaAndClient(ua, parseUa(ua))
             })).toList,
-            otherUsers = otherUsers
+            otherUsers = otherUsers,
           )
         }
     }
@@ -95,53 +97,54 @@ final class UserSpyApi(
       user: User,
       ipSet: Set[IpAddress],
       fpSet: Set[FingerHash],
-      max: Int
+      max: Int,
   ): Fu[List[OtherUser]] =
     ipSet.nonEmpty ?? store.coll
-      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
-        import FingerHash.fpHandler
-        Match(
-          $doc(
-            $or(
-              "ip" $in ipSet,
-              "fp" $in fpSet
+      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) {
+        implicit framework =>
+          import framework._
+          import FingerHash.fpHandler
+          Match(
+            $doc(
+              $or(
+                "ip" $in ipSet,
+                "fp" $in fpSet,
+              ),
+              "user" $ne user.id,
+              "date" $gt DateTime.now.minusYears(1),
             ),
-            "user" $ne user.id,
-            "date" $gt DateTime.now.minusYears(1)
+          ) -> List(
+            GroupField("user")(
+              "ips" -> AddFieldToSet("ip"),
+              "fps" -> AddFieldToSet("fp"),
+            ),
+            AddFields(
+              $doc(
+                "nbIps" -> $doc("$size" -> "$ips"),
+                "nbFps" -> $doc("$size" -> "$fps"),
+              ),
+            ),
+            AddFields(
+              $doc(
+                "score" -> $doc(
+                  "$add" -> $arr("$nbIps", "$nbFps", $doc("$multiply" -> $arr("$nbIps", "$nbFps"))),
+                ),
+              ),
+            ),
+            Sort(Descending("score")),
+            Limit(max),
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from"         -> userRepo.coll.name,
+                  "localField"   -> "_id",
+                  "foreignField" -> "_id",
+                  "as"           -> "user",
+                ),
+              ),
+            ),
+            UnwindField("user"),
           )
-        ) -> List(
-          GroupField("user")(
-            "ips" -> AddFieldToSet("ip"),
-            "fps" -> AddFieldToSet("fp")
-          ),
-          AddFields(
-            $doc(
-              "nbIps" -> $doc("$size" -> "$ips"),
-              "nbFps" -> $doc("$size" -> "$fps")
-            )
-          ),
-          AddFields(
-            $doc(
-              "score" -> $doc(
-                "$add" -> $arr("$nbIps", "$nbFps", $doc("$multiply" -> $arr("$nbIps", "$nbFps")))
-              )
-            )
-          ),
-          Sort(Descending("score")),
-          Limit(max),
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from"         -> userRepo.coll.name,
-                "localField"   -> "_id",
-                "foreignField" -> "_id",
-                "as"           -> "user"
-              )
-            )
-          ),
-          UnwindField("user")
-        )
       }
       .map { docs =>
         import lila.user.User.userBSONHandler
@@ -156,14 +159,15 @@ final class UserSpyApi(
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
     for {
       (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
-      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
-        "user",
-        $doc(
-          "ip" $in ips,
-          "fp" $in fps,
-          "user" $ne userId
+      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred
+        .distinctEasy[User.ID, Set](
+          "user",
+          $doc(
+            "ip" $in ips,
+            "fp" $in fps,
+            "user" $ne userId,
+          ),
         )
-      )
     } yield users
 
   private def nextValues(field: String, userId: User.ID): Fu[Set[String]] =
@@ -208,7 +212,7 @@ object UserSpy {
       blocked: Boolean,
       location: Location,
       proxy: Boolean,
-      alts: Alts
+      alts: Alts,
   ) {
     def datedLocation = Dated(location, ip.date)
   }
@@ -216,7 +220,7 @@ object UserSpy {
   case class FPData(
       fp: Dated[FingerHash],
       banned: Boolean,
-      alts: Alts
+      alts: Alts,
   )
 
   case class UaAndClient(ua: String, client: Client) {
@@ -231,12 +235,12 @@ object UserSpy {
   def withMeSortedWithEmails(
       userRepo: UserRepo,
       me: User,
-      spy: UserSpy
+      spy: UserSpy,
   )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
     userRepo.emailMap(me.id :: spy.otherUsers.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
         (OtherUser(me, spy.rawIps.toSet, spy.rawFps.toSet) :: spy.otherUsers),
-        emailMap
+        emailMap,
       )
     }
 }

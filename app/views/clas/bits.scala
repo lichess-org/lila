@@ -13,18 +13,18 @@ object bits {
   def layout(
       title: String,
       active: Either[Clas.WithStudents, String],
-      student: Option[Student] = none
+      student: Option[Student] = none,
   )(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("misc.clas"),
-      moreJs = jsTag("misc.clas")
+      moreJs = jsTag("misc.clas"),
     )(
       if (isGranted(_.Teacher))
         main(cls := "page-menu")(
           st.nav(cls := "page-menu__menu subnav")(
             a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(
-              trans.clas.lishogiClasses()
+              trans.clas.lishogiClasses(),
             ),
             active.left.toOption.map { clas =>
               frag(
@@ -32,29 +32,29 @@ object bits {
                 clas.students.map { s =>
                   a(
                     cls  := List("student" -> true, "active" -> student.exists(s.is)),
-                    href := routes.Clas.studentShow(clas.clas.id.value, s.userId)
+                    href := routes.Clas.studentShow(clas.clas.id.value, s.userId),
                   )(
                     usernameOrId(s.userId),
-                    em(s.realName)
+                    em(s.realName),
                   )
-                }
+                },
               )
             } | {
               a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)(
-                trans.clas.newClass()
+                trans.clas.newClass(),
               )
-            }
+            },
           ),
-          div(cls := "page-menu__content box")(body)
+          div(cls := "page-menu__content box")(body),
         )
-      else main(cls := "page-small box")(body)
+      else main(cls := "page-small box")(body),
     )
 
   def showArchived(archived: Clas.Recorded)(implicit ctx: Context) =
     div(
       trans.clas.closedByX(userIdLink(archived.by.some)),
       " ",
-      momentFromNowOnce(archived.at)
+      momentFromNowOnce(archived.at),
     )
 
   val sortNumberTh = th(attr("data-sort-method") := "number")

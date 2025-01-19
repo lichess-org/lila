@@ -9,7 +9,7 @@ object GameToRoot {
 
   def apply(
       game: Game,
-      withClocks: Boolean
+      withClocks: Boolean,
   ): Node.Root = {
     val clocks = withClocks ?? (
       for {
@@ -25,13 +25,13 @@ object GameToRoot {
         variant = game.variant,
         usis = game.usis,
         initialSfen = game.initialSfen,
-        clocks = clocks
-      )
+        clocks = clocks,
+      ),
     )
   }
 
   def apply(
-      gm: Node.GameMainline
+      gm: Node.GameMainline,
   ): Node.Root = {
     val usis = gm.usis.take(Node.MAX_PLIES)
     shogi.Replay.gamesWhileValid(usis, gm.initialSfen, gm.variant) match {
@@ -45,7 +45,7 @@ object GameToRoot {
           check = init.situation.check,
           clock = gm.clocks.flatMap(_.headOption),
           gameMainline = gm.some,
-          children = Node.emptyChildren
+          children = Node.emptyChildren,
         )
         def makeNode(g: shogi.Game, usi: Usi) =
           Node(
@@ -56,7 +56,7 @@ object GameToRoot {
             check = g.situation.check,
             clock = gm.clocks flatMap (_ lift (g.plies - init.plies)),
             forceVariation = false,
-            children = Node.emptyChildren
+            children = Node.emptyChildren,
           )
 
         games.zip(usis).reverse match {
@@ -71,6 +71,8 @@ object GameToRoot {
 
   private val logShogiError = (id: String) =>
     (err: String) =>
-      logger.warn(s"study.GameToRoot https://lishogi.org/$id ${err.linesIterator.toList.headOption}")
+      logger.warn(
+        s"study.GameToRoot https://lishogi.org/$id ${err.linesIterator.toList.headOption}",
+      )
 
 }

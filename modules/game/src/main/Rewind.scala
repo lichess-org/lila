@@ -2,6 +2,7 @@ package lila.game
 
 import cats.data.Validated
 import org.joda.time.DateTime
+
 import shogi.format.Reader
 import shogi.format.Tags
 
@@ -13,7 +14,7 @@ object Rewind {
         usis = game.usis.dropRight(1),
         initialSfen = game.initialSfen,
         variant = game.variant,
-        tags = Tags.empty
+        tags = Tags.empty,
       )
       .valid
       .map { replay =>
@@ -40,7 +41,7 @@ object Rewind {
             rewindedGame
               .copy(clock = newClock)
               .withHistory(
-                rewindedGame.situation.history.withInitialSfen(sfen)
+                rewindedGame.situation.history.withInitialSfen(sfen),
               )
           },
           binaryMoveTimes = game.binaryMoveTimes.map { binary =>
@@ -51,7 +52,7 @@ object Rewind {
             game.clockHistory.map { ch =>
               (ch.update(!color, _.dropRight(1))).refundSpentPeriods(!color, turn)
             },
-          movedAt = DateTime.now
+          movedAt = DateTime.now,
         )
         Progress(game, newGame)
       }

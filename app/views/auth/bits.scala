@@ -12,66 +12,67 @@ import lila.user.User
 
 object bits {
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit
-      ctx: Context
+  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(
+      implicit ctx: Context,
   ) =
     frag(
       form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
         frag(
           form3.input(f)(autofocus, required, autocomplete := "username"),
-          p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
+          p(cls := "error username-exists none")(trans.usernameAlreadyUsed()),
         )
       },
       form3.passwordModified(password, trans.password())(
-        autocomplete := (if (register) "new-password" else "current-password")
+        autocomplete := (if (register) "new-password" else "current-password"),
       ),
       emailOption.map { email =>
-        form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
-          form3.input(_, typ = "email")(required)
-        )
-      }
+        form3
+          .group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
+            form3.input(_, typ = "email")(required),
+          )
+      },
     )
 
-  def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
-      ctx: Context
+  def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(
+      implicit ctx: Context,
   ) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("user.auth"),
-      moreJs = captchaTag
+      moreJs = captchaTag,
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
           ok.map { r =>
             span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
           },
-          trans.passwordReset()
+          trans.passwordReset(),
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
           form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
           views.html.base.captcha(form, captcha),
-          form3.action(form3.submit(trans.emailMeALink()))
-        )
+          form3.action(form3.submit(trans.emailMeALink())),
+        ),
       )
     }
 
   def passwordResetSent(email: String)(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.passwordReset.txt()
+      title = trans.passwordReset.txt(),
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
         p(trans.weHaveSentYouAnEmailTo(email)),
-        p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
+        p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces()),
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit
-      ctx: Context
+  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(
+      implicit ctx: Context,
   ) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
-      moreCss = cssTag("misc.form3")
+      moreCss = cssTag("misc.form3"),
     ) {
       main(cls := "page-small box box-pad")(
         (ok match {
@@ -81,57 +82,57 @@ object bits {
         })(
           userLink(u, withOnline = false),
           " - ",
-          trans.changePassword()
+          trans.changePassword(),
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token))(
           form3.hidden(form("token")),
           form3.passwordModified(form("newPasswd1"), trans.newPassword())(
             autofocus,
-            autocomplete := "new-password"
+            autocomplete := "new-password",
           ),
           form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(
-            autocomplete := "new-password"
+            autocomplete := "new-password",
           ),
           form3.globalError(form),
-          form3.action(form3.submit(trans.changePassword()))
-        )
+          form3.action(form3.submit(trans.changePassword())),
+        ),
       )
     }
 
   def magicLink(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     views.html.base.layout(
       title = trans.loginByEmail.txt(),
       moreCss = cssTag("user.auth"),
-      moreJs = captchaTag
+      moreJs = captchaTag,
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
           ok.map { r =>
             span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
           },
-          trans.loginByEmail()
+          trans.loginByEmail(),
         ),
         p("We will send you an email containing a link to log you in."),
         postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
           form3.group(form("email"), trans.email())(
-            form3.input(_, typ = "email")(autofocus, autocomplete := "email")
+            form3.input(_, typ = "email")(autofocus, autocomplete := "email"),
           ),
           views.html.base.captcha(form, captcha),
-          form3.action(form3.submit(trans.emailMeALink()))
-        )
+          form3.action(form3.submit(trans.emailMeALink())),
+        ),
       )
     }
 
   def magicLinkSent(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.loginByEmail.txt()
+      title = trans.loginByEmail.txt(),
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
         p("We've sent you an email with a link."),
-        p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
+        p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces()),
       )
     }
 
@@ -164,18 +165,18 @@ body { margin-top: 45px; }
 """),
       div(id := "email-confirm")(
         s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
-        a(href := routes.Auth.checkYourEmail)("Click here for help")
-      )
+        a(href := routes.Auth.checkYourEmail)("Click here for help"),
+      ),
     )
 
   def tor()(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Tor exit node"
+      title = "Tor exit node",
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "text", dataIcon := "2")("Ooops"),
         p("Sorry, you can't signup to Lishogi through Tor!"),
-        p("You can play, train and use almost all Lishogi features as an anonymous user.")
+        p("You can play, train and use almost all Lishogi features as an anonymous user."),
       )
     }
 }

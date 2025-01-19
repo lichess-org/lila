@@ -18,7 +18,7 @@ final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $inc("total" -> 1) ++
           $inc(today -> 1) ++
           $set("last" -> analysis.id),
-        upsert = true
+        upsert = true,
       )
       .void
 

@@ -7,16 +7,16 @@ import views._
 import lila.app._
 
 final class Lobby(
-    env: Env
+    env: Env,
 ) extends LilaController(env) {
 
   private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
-      "version" -> 0
+      "version" -> 0,
     ),
     "assets" -> Json.obj(
-      "domain" -> env.net.assetDomain.value
-    )
+      "domain" -> env.net.assetDomain.value,
+    ),
   )
 
   def home =
@@ -28,7 +28,7 @@ final class Lobby(
             Ok(html).noCache
           }
         } dmap env.lilaCookie.ensure(ctx.req),
-        json = fuccess(Ok(lobbyJson))
+        json = fuccess(Ok(lobbyJson)),
       )
     }
 
@@ -43,7 +43,7 @@ final class Lobby(
         html = fuccess(NotFound),
         json = ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
           Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
-        }
+        },
       )
     }
 

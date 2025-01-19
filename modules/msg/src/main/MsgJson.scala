@@ -9,7 +9,7 @@ import lila.user.User
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
-    isOnline: lila.socket.IsOnline
+    isOnline: lila.socket.IsOnline,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val lastMsgWrites: OWrites[Msg.Last]    = Json.writes[Msg.Last]
@@ -25,7 +25,7 @@ final class MsgJson(
       "user"      -> renderContact(c.contact),
       "msgs"      -> c.msgs.map(renderMsg),
       "relations" -> c.relations,
-      "postable"  -> c.postable
+      "postable"  -> c.postable,
     )
 
   def renderMsg(msg: Msg): JsObject =
@@ -33,7 +33,7 @@ final class MsgJson(
       .obj(
         "text" -> msg.text,
         "user" -> msg.user,
-        "date" -> msg.date
+        "date" -> msg.date,
       )
 
   def searchResult(me: User)(res: MsgSearch.Result): Fu[JsObject] =
@@ -41,7 +41,7 @@ final class MsgJson(
       Json.obj(
         "contacts" -> threads.map(renderThread),
         "friends"  -> res.friends,
-        "users"    -> res.users
+        "users"    -> res.users,
       )
     }
 
@@ -56,7 +56,7 @@ final class MsgJson(
     Json
       .obj(
         "user"    -> renderContact(t.contact),
-        "lastMsg" -> t.thread.lastMsg
+        "lastMsg" -> t.thread.lastMsg,
       )
 
   private def renderContact(user: LightUser): JsObject =

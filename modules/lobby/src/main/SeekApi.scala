@@ -13,7 +13,7 @@ final class SeekApi(
     config: SeekApi.Config,
     biter: Biter,
     relationApi: lila.relation.RelationApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
   import config._
 
@@ -25,8 +25,8 @@ final class SeekApi(
     coll.ext
       .find(
         $doc(
-          "createdAt" $gt DateTime.now.minusDays(14) // expire index in db for older entries
-        )
+          "createdAt" $gt DateTime.now.minusDays(14), // expire index in db for older entries
+        ),
       )
       .sort($sort desc "createdAt")
       .cursor[Seek]()
@@ -65,7 +65,13 @@ final class SeekApi(
         case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
         case ((res, h), seek) =>
           val seekH =
-            List[Any](seek.variant, seek.daysPerTurn, seek.mode, seek.color, seek.user.id) mkString ","
+            List[Any](
+              seek.variant,
+              seek.daysPerTurn,
+              seek.mode,
+              seek.color,
+              seek.user.id,
+            ) mkString ","
           if (h contains seekH) (res, h)
           else (seek :: res, h + seekH)
       }
@@ -78,7 +84,7 @@ final class SeekApi(
   def insert(seek: Seek) =
     coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
       case seeks if seeks.sizeIs <= maxPerUser.value => funit
-      case seeks                                     => seeks.drop(maxPerUser.value).map(remove).sequenceFu
+      case seeks => seeks.drop(maxPerUser.value).map(remove).sequenceFu
     }.void >>- cacheClear()
 
   def findByUser(userId: String): Fu[List[Seek]] =
@@ -94,7 +100,7 @@ final class SeekApi(
   def archive(seek: Seek, gameId: String) = {
     val archiveDoc = Seek.seekBSONHandler.writeTry(seek).get ++ $doc(
       "gameId"     -> gameId,
-      "archivedAt" -> DateTime.now
+      "archivedAt" -> DateTime.now,
     )
     coll.delete.one($doc("_id" -> seek.id)).void >>-
       cacheClear() >>
@@ -109,8 +115,8 @@ final class SeekApi(
       .one(
         $doc(
           "_id"     -> seekId,
-          "user.id" -> userId
-        )
+          "user.id" -> userId,
+        ),
       )
       .void >>- cacheClear()
 
@@ -125,6 +131,6 @@ private object SeekApi {
       val archiveColl: Coll,
       val maxPerPage: MaxPerPage,
       val maxPerUser: Max,
-      val maxHard: Max
+      val maxHard: Max,
   )
 }

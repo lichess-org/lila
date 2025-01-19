@@ -14,7 +14,7 @@ object JsonView {
     Json.obj(
       "id"   -> ps.id,
       "name" -> ps.name,
-      "desc" -> ps.desc
+      "desc" -> ps.desc,
     )
   }
   import PracticeGoal._
@@ -46,10 +46,10 @@ object JsonView {
             Json.obj(
               "id"   -> stu.id,
               "slug" -> stu.slug,
-              "name" -> stu.name
+              "name" -> stu.name,
             )
-          }
+          },
         )
-      }
+      },
     )
 }

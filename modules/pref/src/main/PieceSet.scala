@@ -59,7 +59,7 @@ object PieceSet extends PieceSetBase {
     new PieceSet("simple_kanji", "Simple Kanji"),
     new PieceSet("doubutsu", "Doubutsu"),
     new PieceSet("Logy_Games", "Logy Games"),
-    new PieceSet("western", "Western")
+    new PieceSet("western", "Western"),
   )
 
 }
@@ -74,7 +74,7 @@ object ChuPieceSet extends PieceSetBase {
     new PieceSet("Chu_Intl", "International"),
     new PieceSet("Chu_FCZ", "Czech"),
     new PieceSet("Chu_Intl_BnW", "International - black and white"),
-    new PieceSet("Chu_Mnemonic", "Mnemonic")
+    new PieceSet("Chu_Mnemonic", "Mnemonic"),
   )
 
 }
@@ -92,7 +92,7 @@ object KyoPieceSet extends PieceSetBase {
     new PieceSet("Kyo_simple_kanji", "Simple Kanji"),
     new PieceSet("Kyo_doubutsu", "Doubutsu"),
     new PieceSet("Kyo_joyful", "Joyful"),
-    new PieceSet("Kyo_Logy_Games", "Logy Games")
+    new PieceSet("Kyo_Logy_Games", "Logy Games"),
   )
 
 }

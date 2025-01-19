@@ -53,7 +53,7 @@ object StudyTags {
       Publication,
       Collection,
       Length,
-      Prize
+      Prize,
     )
   }
 

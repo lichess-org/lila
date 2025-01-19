@@ -23,7 +23,7 @@ object Granter {
       apply(_.Admin)(user) && {
         apply(permission)(user) || Set[Permission](
           Permission.MonitoredMod,
-          Permission.PublicMod
+          Permission.PublicMod,
         )(permission)
       }
     }

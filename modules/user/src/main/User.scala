@@ -30,7 +30,7 @@ case class User(
     lang: Option[String],
     plan: Plan,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty
+    marks: UserMarks = UserMarks.empty,
 ) extends Ordered[User] {
 
   override def equals(other: Any) =
@@ -186,7 +186,12 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
-  case class Speaker(username: String, title: Option[Title], enabled: Boolean, marks: Option[UserMarks]) {
+  case class Speaker(
+      username: String,
+      title: Option[Title],
+      enabled: Boolean,
+      marks: Option[UserMarks],
+  ) {
     def isBot   = title has Title.BOT
     def isTroll = marks.exists(_.troll)
   }
@@ -196,7 +201,7 @@ object User {
       kid: Option[Boolean],
       marks: Option[UserMarks],
       roles: Option[List[String]],
-      createdAt: DateTime
+      createdAt: DateTime,
   ) {
     def id                     = _id
     def isKid                  = ~kid
@@ -214,7 +219,8 @@ object User {
     def tvPeriod         = new Period(tv * 1000L)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
   }
-  implicit def playTimeHandler: BSONDocumentHandler[PlayTime] = reactivemongo.api.bson.Macros.handler[PlayTime]
+  implicit def playTimeHandler: BSONDocumentHandler[PlayTime] =
+    reactivemongo.api.bson.Macros.handler[PlayTime]
 
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
@@ -264,14 +270,16 @@ object User {
   implicit val userBSONHandler: BSON[User] = new BSON[User] {
 
     import BSONFields._
-    import reactivemongo.api.bson.{ BSONDocument, BSONHandler }
-    import UserMarks.marksBsonHandler
     import Title.titleBsonHandler
-    implicit private def countHandler: BSON[Count] = Count.countBSONHandler
+    import UserMarks.marksBsonHandler
+    import reactivemongo.api.bson.BSONDocument
+    import reactivemongo.api.bson.BSONHandler
+    implicit private def countHandler: BSON[Count]                    = Count.countBSONHandler
     implicit private def profileHandler: BSONDocumentHandler[Profile] = Profile.profileBSONHandler
-    implicit private def perfsHandler: BSON[Perfs] = Perfs.perfsBSONHandler
-    implicit private def planHandler: BSONDocumentHandler[Plan] = Plan.planBSONHandler
-    implicit private def totpSecretHandler: BSONHandler[TotpSecret] = TotpSecret.totpSecretBSONHandler
+    implicit private def perfsHandler: BSON[Perfs]                    = Perfs.perfsBSONHandler
+    implicit private def planHandler: BSONDocumentHandler[Plan]       = Plan.planBSONHandler
+    implicit private def totpSecretHandler: BSONHandler[TotpSecret] =
+      TotpSecret.totpSecretBSONHandler
 
     def reads(r: BSON.Reader): User = {
       val userTitle = r.getO[Title](title)
@@ -295,7 +303,7 @@ object User {
         title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
-        marks = r.getO[UserMarks](marks) | UserMarks.empty
+        marks = r.getO[UserMarks](marks) | UserMarks.empty,
       )
     }
 
@@ -317,21 +325,29 @@ object User {
         title      -> o.title,
         plan       -> o.plan.nonEmpty,
         totpSecret -> o.totpSecret,
-        marks      -> o.marks.nonEmpty
+        marks      -> o.marks.nonEmpty,
       )
   }
 
-  implicit val speakerHandler: BSONDocumentHandler[Speaker] = reactivemongo.api.bson.Macros.handler[Speaker]
-  implicit val contactHandler: BSONDocumentHandler[Contact] = reactivemongo.api.bson.Macros.handler[Contact]
+  implicit val speakerHandler: BSONDocumentHandler[Speaker] =
+    reactivemongo.api.bson.Macros.handler[Speaker]
+  implicit val contactHandler: BSONDocumentHandler[Contact] =
+    reactivemongo.api.bson.Macros.handler[Contact]
 
   private val firstRow: List[PerfType] =
-    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
+    List(
+      PerfType.Bullet,
+      PerfType.Blitz,
+      PerfType.Rapid,
+      PerfType.Classical,
+      PerfType.Correspondence,
+    )
   private val secondRow: List[PerfType] = List(
     PerfType.UltraBullet,
     PerfType.Minishogi,
     PerfType.Chushogi,
     PerfType.Annanshogi,
     PerfType.Kyotoshogi,
-    PerfType.Checkshogi
+    PerfType.Checkshogi,
   )
 }

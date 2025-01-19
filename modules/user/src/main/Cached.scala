@@ -9,23 +9,26 @@ import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.rating.Perf
 import lila.rating.PerfType
-
-import User.{ LightCount, LightPerf }
+import lila.user.User.LightCount
+import lila.user.User.LightPerf
 
 final class Cached(
     userRepo: UserRepo,
     onlineUserIds: () => Set[User.ID],
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
-    rankingApi: RankingApi
+    rankingApi: RankingApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
-  implicit private val LightUserBSONHandler: BSONDocumentHandler[LightUser]  = Macros.handler[LightUser]
-  implicit private val LightPerfBSONHandler: BSONDocumentHandler[LightPerf]  = Macros.handler[LightPerf]
-  implicit private val LightCountBSONHandler: BSONDocumentHandler[LightCount] = Macros.handler[LightCount]
+  implicit private val LightUserBSONHandler: BSONDocumentHandler[LightUser] =
+    Macros.handler[LightUser]
+  implicit private val LightPerfBSONHandler: BSONDocumentHandler[LightPerf] =
+    Macros.handler[LightPerf]
+  implicit private val LightCountBSONHandler: BSONDocumentHandler[LightCount] =
+    Macros.handler[LightCount]
 
   val top10 = cacheApi.unit[Perfs.Leaderboards] {
     _.refreshAfterWrite(2 minutes)
@@ -41,7 +44,7 @@ final class Cached(
     PerfType.leaderboardable.size,
     "user:top200:perf",
     19 minutes,
-    _.toString
+    _.toString,
   ) { loader =>
     _.refreshAfterWrite(20 minutes)
       .buildAsyncFuture {
@@ -53,7 +56,7 @@ final class Cached(
 
   private val topWeekCache = mongoCache.unit[List[User.LightPerf]](
     "user:top:week",
-    9 minutes
+    9 minutes,
   ) { loader =>
     _.refreshAfterWrite(10 minutes)
       .buildAsyncFuture {
@@ -72,7 +75,7 @@ final class Cached(
 
   val top10NbGame = mongoCache.unit[List[User.LightCount]](
     "user:top:nbGame",
-    74 minutes
+    74 minutes,
   ) { loader =>
     _.refreshAfterWrite(75 minutes)
       .buildAsyncFuture {

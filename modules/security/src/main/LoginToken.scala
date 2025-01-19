@@ -8,7 +8,9 @@ import lila.common.config.Secret
 import lila.user.User
 import lila.user.UserRepo
 
-final class LoginToken(secret: Secret, userRepo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext) {
+final class LoginToken(secret: Secret, userRepo: UserRepo)(implicit
+    ec: scala.concurrent.ExecutionContext,
+) {
 
   def generate(user: User): Fu[String] = tokener make user.id
 
@@ -22,7 +24,9 @@ private object LoginToken {
 
   import StringToken.DateStr
 
-  def makeTokener(secret: Secret, lifetime: FiniteDuration)(implicit ec: scala.concurrent.ExecutionContext) =
+  def makeTokener(secret: Secret, lifetime: FiniteDuration)(implicit
+      ec: scala.concurrent.ExecutionContext,
+  ) =
     new StringToken[User.ID](
       secret = secret,
       getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
@@ -30,7 +34,7 @@ private object LoginToken {
       valueChecker = StringToken.ValueChecker.Custom(v =>
         fuccess {
           DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
-        }
-      )
+        },
+      ),
     )
 }

@@ -18,10 +18,10 @@ final class TournamentStandingApi(
     playerRepo: PlayerRepo,
     cached: Cached,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
   private val perPage = 10
@@ -30,7 +30,7 @@ final class TournamentStandingApi(
     buffer = 256,
     timeout = 5 seconds,
     name = "tournamentStandingApi",
-    parallelism = 6
+    parallelism = 6,
   )
 
   def apply(tour: Tournament, forPage: Int): Fu[JsObject] = {
@@ -47,12 +47,13 @@ final class TournamentStandingApi(
       .buildAsyncFuture { compute(_, 1) }
   }
 
-  private val createdCache = cacheApi[(Tournament.ID, Int), JsObject](4, "tournament.page.createdCache") {
-    _.expireAfterWrite(15 second)
-      .buildAsyncFuture { case (tourId, page) =>
-        computeMaybe(tourId, page)
-      }
-  }
+  private val createdCache =
+    cacheApi[(Tournament.ID, Int), JsObject](4, "tournament.page.createdCache") {
+      _.expireAfterWrite(15 second)
+        .buildAsyncFuture { case (tourId, page) =>
+          computeMaybe(tourId, page)
+        }
+    }
 
   def clearCache(tour: Tournament): Unit = {
     first invalidate tour.id
@@ -67,7 +68,7 @@ final class TournamentStandingApi(
       Json.obj(
         "failed"  -> true,
         "page"    -> page,
-        "players" -> JsArray()
+        "players" -> JsArray(),
       )
     }
 
@@ -84,9 +85,11 @@ final class TournamentStandingApi(
           }
           .sequenceFu
           .dmap(_.toMap)
-      players <- rankedPlayers.map(JsonView.arenaPlayerJson(lightUserApi, sheets, tour.streakable)).sequenceFu
+      players <- rankedPlayers
+        .map(JsonView.arenaPlayerJson(lightUserApi, sheets, tour.streakable))
+        .sequenceFu
     } yield Json.obj(
       "page"    -> page,
-      "players" -> players
+      "players" -> players,
     )
 }

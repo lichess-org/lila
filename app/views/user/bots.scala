@@ -18,7 +18,7 @@ object bots {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("misc.slist"), cssTag("user.list")),
-      wrapClass = "full-screen-force"
+      wrapClass = "full-screen-force",
     )(
       main(cls := "page-menu bots")(
         user.bits.communityMenu("bots"),
@@ -44,15 +44,15 @@ object bots {
                       p(
                         cls      := "text",
                         dataIcon := "'",
-                        st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod))
+                        st.title := trans.tpTimeSpentPlaying.txt(showPeriod(playTime.totalPeriod)),
                       )(showPeriod(playTime.totalPeriod)),
                       playTime.nonEmptyTvPeriod.map { tvPeriod =>
                         p(
                           cls      := "text",
                           dataIcon := "1",
-                          st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod))
+                          st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod)),
                         )(showPeriod(tvPeriod))
-                      }
+                      },
                     )
                   },
                   if (ctx is u) td
@@ -62,16 +62,16 @@ object bots {
                         dataIcon := "U",
                         cls      := List("button button-empty text" -> true),
                         st.title := trans.challengeToPlay.txt(),
-                        href     := s"${routes.Lobby.home}?user=${u.username}#friend"
-                      )(trans.play())
+                        href     := s"${routes.Lobby.home}?user=${u.username}#friend",
+                      )(trans.play()),
                     )
-                  }
+                  },
                 )
-              }
-            )
-          )
-        )
-      )
+              },
+            ),
+          ),
+        ),
+      ),
     )
   }
 

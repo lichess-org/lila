@@ -47,7 +47,7 @@ object JsonView {
       "thickGrid"          -> p.thickGrid,
       "keyboardMove"       -> p.keyboardMove,
       "zen"                -> p.zen,
-      "moveEvent"          -> p.moveEvent
+      "moveEvent"          -> p.moveEvent,
     )
   }
 }

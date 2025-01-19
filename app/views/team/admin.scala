@@ -16,25 +16,25 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("misc.tagify")),
-      moreJs = frag(tagifyTag, jsTag("team.admin"))
+      moreJs = frag(tagifyTag, jsTag("team.admin")),
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
           p(
-            "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team."
+            "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team.",
           ),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
             form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(
-              form3.textarea(_)(rows := 2)
+              form3.textarea(_)(rows := 2),
             ),
             form3.actions(
               a(href := routes.Team.show(t.id))(trans.cancel()),
-              form3.submit(trans.save())
-            )
-          )
-        )
+              form3.submit(trans.save()),
+            ),
+          ),
+        ),
       )
     }
   }
@@ -53,18 +53,22 @@ object admin {
           br,
           postForm(cls := "kick", action := routes.Team.kick(t.id))(
             userIds.toList.sorted.map { userId =>
-              button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
-                usernameOrId(userId)
+              button(
+                name  := "userId",
+                cls   := "button button-empty button-no-upper confirm",
+                value := userId,
+              )(
+                usernameOrId(userId),
               )
-            }
-          )
-        )
+            },
+          ),
+        ),
       )
     }
   }
 
   def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(implicit
-      ctx: Context
+      ctx: Context,
   ) = {
 
     val title = s"${t.name} - ${messageAllMembers.txt()}"
@@ -76,14 +80,14 @@ object admin {
            |$('.copy-url-button').on('click', function(e) {
            |$('#form3-message').val(function(i, x) {return x + $(e.target).data('copyurl') + '\n'})
            |})
-           |""".stripMargin)
+           |""".stripMargin),
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
           p(
-            messageAllMembersLongDescription()
+            messageAllMembersLongDescription(),
           ),
           tours.nonEmpty option div(cls := "tournaments")(
             p(youWayWantToLinkOneOfTheseTournaments()),
@@ -98,22 +102,22 @@ object admin {
                     a(
                       dataIcon     := "z",
                       cls          := "text copy-url-button",
-                      data.copyurl := s"${netDomain}${routes.Tournament.show(t.id).url}"
-                    )
+                      data.copyurl := s"${netDomain}${routes.Tournament.show(t.id).url}",
+                    ),
                   )
-                }
-              )
+                },
+              ),
             ),
-            br
+            br,
           ),
           postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
             form3.group(form("message"), trans.message())(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
-              form3.submit(trans.send())
-            )
-          )
-        )
+              form3.submit(trans.send()),
+            ),
+          ),
+        ),
       )
     }
   }

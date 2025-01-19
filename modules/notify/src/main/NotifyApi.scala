@@ -16,10 +16,11 @@ final class NotifyApi(
     repo: NotificationRepo,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    maxPerPage: MaxPerPage
+    maxPerPage: MaxPerPage,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers.{ NotificationBSONHandler, NotifiesHandler }
+  import BSONHandlers.NotificationBSONHandler
+  import BSONHandlers.NotifiesHandler
   import jsonHandlers._
 
   def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] =
@@ -28,14 +29,19 @@ final class NotifyApi(
         collection = repo.coll,
         selector = repo.userNotificationsQuery(userId),
         projection = none,
-        sort = repo.recentSort
+        sort = repo.recentSort,
       ),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
 
-  def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
-    getNotifications(userId, page) zip unreadCount(userId) dmap (Notification.AndUnread.apply _).tupled
+  def getNotificationsAndCount(
+      userId: Notification.Notifies,
+      page: Int,
+  ): Fu[Notification.AndUnread] =
+    getNotifications(userId, page) zip unreadCount(
+      userId,
+    ) dmap (Notification.AndUnread.apply _).tupled
 
   def markAllRead(userId: Notification.Notifies) =
     repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
@@ -45,10 +51,11 @@ final class NotifyApi(
       unreadCountCache.put(_, fuccess(0))
     }
 
-  private val unreadCountCache = cacheApi[Notification.Notifies, Int](8192, "notify.unreadCountCache") {
-    _.expireAfterAccess(20 minutes)
-      .buildAsyncFuture(repo.unreadNotificationsCount)
-  }
+  private val unreadCountCache =
+    cacheApi[Notification.Notifies, Int](8192, "notify.unreadCountCache") {
+      _.expireAfterAccess(20 minutes)
+        .buildAsyncFuture(repo.unreadNotificationsCount)
+    }
 
   def unreadCount(userId: Notification.Notifies): Fu[Notification.UnreadCount] =
     unreadCountCache get userId dmap Notification.UnreadCount.apply
@@ -81,9 +88,11 @@ final class NotifyApi(
       notification.content match {
         case MentionedInThread(_, _, topicId, _, _) =>
           repo.hasRecentNotificationsInThread(notification.notifies, topicId)
-        case InvitedToStudy(_, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
-        case PrivateMessage(sender, _)     => repo.hasRecentPrivateMessageFrom(notification.notifies, sender)
-        case _                             => fuFalse
+        case InvitedToStudy(_, _, studyId) =>
+          repo.hasRecentStudyInvitation(notification.notifies, studyId)
+        case PrivateMessage(sender, _) =>
+          repo.hasRecentPrivateMessageFrom(notification.notifies, sender)
+        case _ => fuFalse
       }
     }
 

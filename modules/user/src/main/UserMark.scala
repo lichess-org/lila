@@ -18,8 +18,9 @@ object UserMark {
   val indexed: Map[String, UserMark] = all.view.map { m =>
     m.key -> m
   }.toMap
-  val bannable: Set[UserMark]  = Set(Boost, Engine, Troll, Alt)
-  implicit val markBsonHandler: BSONHandler[UserMark] = stringAnyValHandler[UserMark](_.key, indexed.apply)
+  val bannable: Set[UserMark] = Set(Boost, Engine, Troll, Alt)
+  implicit val markBsonHandler: BSONHandler[UserMark] =
+    stringAnyValHandler[UserMark](_.key, indexed.apply)
 }
 
 case class UserMarks(value: List[UserMark]) extends AnyVal {

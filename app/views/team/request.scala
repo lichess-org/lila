@@ -12,14 +12,16 @@ object request {
 
   import trans.team._
 
-  def requestForm(t: lila.team.Team, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) = {
+  def requestForm(t: lila.team.Team, form: Form[_], captcha: lila.common.Captcha)(implicit
+      ctx: Context,
+  ) = {
 
     val title = s"${joinTeam.txt()} ${t.name}"
 
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      moreJs = captchaTag
+      moreJs = captchaTag,
     ) {
       main(cls := "page-menu page-small")(
         bits.menu("requests".some),
@@ -32,10 +34,10 @@ object request {
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
-              form3.submit(joinTeam())
-            )
-          )
-        )
+              form3.submit(joinTeam()),
+            ),
+          ),
+        ),
       )
     }
   }
@@ -47,14 +49,14 @@ object request {
         bits.menu("requests".some),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          list(requests, none)
-        )
+          list(requests, none),
+        ),
       )
     }
   }
 
-  private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(implicit
-      ctx: Context
+  private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(
+      implicit ctx: Context,
   ) =
     table(cls := "slist requests @if(t.isEmpty){all}else{for-team} datatable")(
       tbody(
@@ -69,16 +71,22 @@ object request {
                 input(
                   tpe   := "hidden",
                   name  := "url",
-                  value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id))
+                  value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id)),
                 ),
-                button(name := "process", cls := "button button-empty button-red", value := "decline")(
-                  trans.decline()
+                button(
+                  name  := "process",
+                  cls   := "button button-empty button-red",
+                  value := "decline",
+                )(
+                  trans.decline(),
                 ),
-                button(name := "process", cls := "button button-green", value := "accept")(trans.accept())
-              )
-            )
+                button(name := "process", cls := "button button-green", value := "accept")(
+                  trans.accept(),
+                ),
+              ),
+            ),
           )
-        }
-      )
+        },
+      ),
     )
 }

@@ -11,7 +11,7 @@ private object Validator {
           .situations(
             pv.moves.value.toList,
             in.sfen.some,
-            in.id.variant
+            in.id.variant,
           )
           .fold(err => Error(err.toString).some, _ => none)
       case (error, _) => error

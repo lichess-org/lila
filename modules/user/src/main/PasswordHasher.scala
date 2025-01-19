@@ -32,7 +32,8 @@ final private class Aes(secret: Secret) {
     c.doFinal(b)
   }
 
-  import Cipher.{ DECRYPT_MODE, ENCRYPT_MODE }
+  import Cipher.DECRYPT_MODE
+  import Cipher.ENCRYPT_MODE
   def encrypt(iv: Aes.InitVector, b: Array[Byte]) = run(ENCRYPT_MODE, iv, b)
   def decrypt(iv: Aes.InitVector, b: Array[Byte]) = run(DECRYPT_MODE, iv, b)
 }
@@ -50,10 +51,10 @@ case class HashedPassword(bytes: Array[Byte]) extends AnyVal {
 final private class PasswordHasher(
     secret: Secret,
     logRounds: Int,
-    hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
+    hashTimer: (=> Array[Byte]) => Array[Byte] = x => x,
 ) {
-  import org.mindrot.BCrypt
   import User.ClearPassword
+  import org.mindrot.BCrypt
 
   private val prng = new SecureRandom()
   private val aes  = new Aes(secret)
@@ -76,31 +77,36 @@ final private class PasswordHasher(
 object PasswordHasher {
 
   import scala.concurrent.duration._
+
   import play.api.mvc.RequestHeader
+
+  import lila.common.HTTPRequest
+  import lila.common.IpAddress
   import lila.memo.RateLimit
-  import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 30 * 2, // double cost in case of hash check failure
     duration = 8 minutes,
-    key = "password.hashes.ip"
+    key = "password.hashes.ip",
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 10,
     duration = 1.hour,
-    key = "password.hashes.user"
+    key = "password.hashes.user",
   )
 
   private lazy val rateLimitGlobal = new RateLimit[String](
     credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
     duration = 1 minute,
-    key = "password.hashes.global"
+    key = "password.hashes.global",
   )
 
   def rateLimit[A](
-      enforce: lila.common.config.RateLimit
-  )(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
+      enforce: lila.common.config.RateLimit,
+  )(username: String, req: RequestHeader)(
+      run: RateLimit.Charge => Fu[A],
+  )(default: => Fu[A]): Fu[A] =
     if (enforce.value) {
       val cost = 1
       val ip   = HTTPRequest lastRemoteAddress req

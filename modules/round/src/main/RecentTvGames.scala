@@ -6,7 +6,7 @@ import lila.game.Game
 import lila.game.GameRepo
 
 final class RecentTvGames(
-    gameRepo: GameRepo
+    gameRepo: GameRepo,
 ) {
   private val fast = new lila.memo.ExpireSetMemo(7 minutes)
   private val slow = new lila.memo.ExpireSetMemo(2 hours)

@@ -12,14 +12,14 @@ final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,
     arrangementRepo: ArrangementRepo,
     playerRepo: PlayerRepo,
-    leaderboardRepo: LeaderboardRepo
+    leaderboardRepo: LeaderboardRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
-  import LeaderboardApi._
   import BSONHandlers._
+  import LeaderboardApi._
 
   def generateAll: Funit =
     leaderboardRepo.coll.delete.one($empty) >>
@@ -45,7 +45,7 @@ final private class LeaderboardIndexer(
   private def saveEntries(entries: Seq[Entry]): Funit =
     entries.nonEmpty ?? leaderboardRepo.coll.insert
       .many(
-        entries.flatMap(BSONHandlers.leaderboardEntryHandler.writeOpt)
+        entries.flatMap(BSONHandlers.leaderboardEntryHandler.writeOpt),
       )
       .void
 
@@ -68,7 +68,7 @@ final private class LeaderboardIndexer(
           freq = tour.schedule.map(_.freq),
           speed = tour.schedule.map(_.speed),
           perf = tour.perfType,
-          date = tour.startsAt
+          date = tour.startsAt,
         )
       }
     }

@@ -21,10 +21,12 @@ object bits {
           " ",
           amp,
           " ",
-          a(href := routes.Relation.following(u.username))(trans.nbFollowing.pluralSame(nbFollowing))
-        )
+          a(href := routes.Relation.following(u.username))(
+            trans.nbFollowing.pluralSame(nbFollowing),
+          ),
+        ),
       ),
-      pagTable(pag, routes.Relation.followers(u.username))
+      pagTable(pag, routes.Relation.followers(u.username)),
     )
 
   def following(u: User, pag: Paginator[Related], nbFollowers: Int)(implicit ctx: Context) =
@@ -36,10 +38,12 @@ object bits {
           " ",
           amp,
           " ",
-          a(href := routes.Relation.followers(u.username))(trans.nbFollowers.pluralSame(nbFollowers))
-        )
+          a(href := routes.Relation.followers(u.username))(
+            trans.nbFollowers.pluralSame(nbFollowers),
+          ),
+        ),
       ),
-      pagTable(pag, routes.Relation.following(u.username))
+      pagTable(pag, routes.Relation.following(u.username)),
     )
 
   def blocks(u: User, pag: Paginator[Related])(implicit ctx: Context) =
@@ -47,17 +51,17 @@ object bits {
       div(cls := "box__top")(
         h1(userLink(u, withOnline = false)),
         div(cls := "actions")(
-          trans.blocks.pluralSame(pag.nbResults)
-        )
+          trans.blocks.pluralSame(pag.nbResults),
+        ),
       ),
-      pagTable(pag, routes.Relation.blocks())
+      pagTable(pag, routes.Relation.blocks()),
     )
 
   def layout(title: String)(content: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("user.relation"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     ) {
       main(cls := "box page-small")(content)
     }
@@ -72,10 +76,17 @@ object bits {
               td(userLink(r.user)),
               td(showBestPerf(r.user)),
               td(trans.nbGames.pluralSame(r.user.count.game)),
-              td(actions(r.user.id, relation = r.relation, followable = r.followable, blocked = false))
+              td(
+                actions(
+                  r.user.id,
+                  relation = r.relation,
+                  followable = r.followable,
+                  blocked = false,
+                ),
+              ),
             )
-          }
+          },
         )
-      else tbody(tr(td(colspan := 2)("None found.", br)))
+      else tbody(tr(td(colspan := 2)("None found.", br))),
     )
 }

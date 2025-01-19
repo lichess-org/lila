@@ -7,7 +7,7 @@ import shogi.Color
 // All durations are expressed in seconds
 case class SimulClock(
     config: Clock.Config,
-    hostExtraTime: Int
+    hostExtraTime: Int,
 ) {
 
   def shogiClockOf(hostColor: Color) =

@@ -15,10 +15,10 @@ import lila.search._
 final class ForumSearchApi(
     client: ESClient,
     postApi: PostApi,
-    postRepo: PostRepo
+    postRepo: PostRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) extends SearchReadApi[PostView, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -43,7 +43,7 @@ final class ForumSearchApi(
       Fields.author  -> ~(view.post.userId orElse view.post.author map (_.toLowerCase)),
       Fields.topicId -> view.topic.id,
       Fields.troll   -> view.post.troll,
-      Fields.date    -> view.post.createdAt
+      Fields.date    -> view.post.createdAt,
     )
 
   def reset =

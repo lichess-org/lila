@@ -20,7 +20,7 @@ private class VideoConfig(
     @ConfigName("youtube.url") val youtubeUrl: String,
     @ConfigName("youtube.api_key") val youtubeApiKey: Secret,
     @ConfigName("youtube.max") val youtubeMax: Max,
-    @ConfigName("youtube.delay") val youtubeDelay: FiniteDuration
+    @ConfigName("youtube.delay") val youtubeDelay: FiniteDuration,
 )
 
 final class Env(
@@ -29,7 +29,7 @@ final class Env(
     scheduler: akka.actor.Scheduler,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
-    mode: Mode
+    mode: Mode,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[VideoConfig]("video")(AutoConfig.loader)
@@ -37,7 +37,7 @@ final class Env(
   lazy val api = new VideoApi(
     cacheApi = cacheApi,
     videoColl = db(config.videoColl),
-    viewColl = db(config.viewColl)
+    viewColl = db(config.viewColl),
   )
 
   private lazy val sheet = new VideoSheet(ws, config.sheetUrl, api)
@@ -47,7 +47,7 @@ final class Env(
     url = config.youtubeUrl,
     apiKey = config.youtubeApiKey,
     max = config.youtubeMax,
-    api = api
+    api = api,
   )
 
   if (mode == Mode.Prod) {

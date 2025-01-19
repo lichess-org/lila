@@ -7,11 +7,11 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.streamer.StreamerForm
-import lila.streamer.{Streamer => StreamerModel}
+import lila.streamer.{ Streamer => StreamerModel }
 
 final class Streamer(
     env: Env,
-    apiC: => Api
+    apiC: => Api,
 ) extends LilaController(env) {
 
   private def api = env.streamer.api
@@ -39,7 +39,7 @@ final class Streamer(
             Json.obj(
               "url"               -> routes.Streamer.redirect(s.streamer.id.value).absoluteURL(),
               "usernameWithTitle" -> featured.titleName(s),
-              "status"            -> s.status
+              "status"            -> s.status,
             )
           }
         }
@@ -128,8 +128,12 @@ final class Streamer(
               data =>
                 api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
                   if (change.decline) env.mod.logApi.streamerDecline(lila.report.Mod(me), s.user.id)
-                  change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
-                  change.tier foreach { env.mod.logApi.streamerTier(lila.report.Mod(me), s.user.id, _) }
+                  change.list foreach {
+                    env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _)
+                  }
+                  change.tier foreach {
+                    env.mod.logApi.streamerTier(lila.report.Mod(me), s.user.id, _)
+                  }
                   if (data.approval.flatMap(_.quick).isDefined)
                     env.streamer.pager.nextRequestId map { nextId =>
                       Redirect {
@@ -142,7 +146,7 @@ final class Streamer(
                     val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
                     Redirect(s"${routes.Streamer.edit.url}${next}").fuccess
                   }
-                }
+                },
             )
         }
       }
@@ -190,8 +194,8 @@ final class Streamer(
       else
         Ok(
           html.site.message("Too soon")(
-            scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
-          )
+            scalatags.Text.all.raw("You are not yet allowed to create a streamer profile."),
+          ),
         ).fuccess
     }
 

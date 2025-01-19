@@ -7,9 +7,8 @@ import akka.pattern.ask
 import ornicar.scalalib.Zero
 
 import lila.memo.CacheApi._
+import lila.streamer.makeTimeout.short
 import lila.user.User
-
-import makeTimeout.short
 
 case class LiveStreams(streams: List[Stream]) {
 
@@ -44,31 +43,33 @@ case class LiveStreams(streams: List[Stream]) {
         .flatMap { userId =>
           lightUser.sync(userId).flatMap(_.title) map (userId ->)
         }
-        .toMap
+        .toMap,
     )
 
   def excludeUsers(userIds: List[User.ID]) =
     copy(
-      streams = streams.filterNot(s => userIds contains s.streamer.userId)
+      streams = streams.filterNot(s => userIds contains s.streamer.userId),
     )
 }
 
 object LiveStreams {
 
   case class WithTitles(live: LiveStreams, titles: Map[User.ID, String]) {
-    def titleName(s: Stream) = s"${titles.get(s.streamer.userId).fold("")(_ + " ")}${s.streamer.name}"
+    def titleName(s: Stream) =
+      s"${titles.get(s.streamer.userId).fold("")(_ + " ")}${s.streamer.name}"
     def excludeUsers(userIds: List[User.ID]) =
       copy(
-        live = live excludeUsers userIds
+        live = live excludeUsers userIds,
       )
   }
 
-  implicit val zero: Zero[WithTitles] = ornicar.scalalib.Zero.instance(WithTitles(LiveStreams(Nil), Map.empty))
+  implicit val zero: Zero[WithTitles] =
+    ornicar.scalalib.Zero.instance(WithTitles(LiveStreams(Nil), Map.empty))
 }
 
 final class LiveStreamApi(
     cacheApi: lila.memo.CacheApi,
-    streamingActor: ActorRef
+    streamingActor: ActorRef,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache = cacheApi.unit[LiveStreams] {
@@ -123,8 +124,9 @@ final class LiveStreamApi(
     all.map { live =>
       Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
     }
-  def userIds                                       = userIdsCache
-  def isStreaming(userId: User.ID)                  = userIdsCache contains userId
-  def one(userId: User.ID): Fu[Option[Stream]]      = all.map(_.streams.find(_ is userId))
-  def many(userIds: Seq[User.ID]): Fu[List[Stream]] = all.map(_.streams.filter(s => userIds.exists(s.is)))
+  def userIds                                  = userIdsCache
+  def isStreaming(userId: User.ID)             = userIdsCache contains userId
+  def one(userId: User.ID): Fu[Option[Stream]] = all.map(_.streams.find(_ is userId))
+  def many(userIds: Seq[User.ID]): Fu[List[Stream]] =
+    all.map(_.streams.filter(s => userIds.exists(s.is)))
 }

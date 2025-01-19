@@ -6,7 +6,7 @@ case class Captcha(
     gameId: String,
     sfenBoard: String,
     sente: Boolean,
-    solutions: Captcha.Solutions
+    solutions: Captcha.Solutions,
 ) {
 
   def valid(solution: String) = solutions.toList contains solution
@@ -22,7 +22,7 @@ object Captcha {
     gameId = "00000000",
     sfenBoard = "4k/4p/3R1/GG3/KG1R1",
     sente = true,
-    solutions = NonEmptyList.one("2c2a")
+    solutions = NonEmptyList.one("2c2a"),
   )
 
   val failMessage = "captcha.fail"

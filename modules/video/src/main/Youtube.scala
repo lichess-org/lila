@@ -14,15 +14,15 @@ final private[video] class Youtube(
     url: String,
     apiKey: Secret,
     max: Max,
-    api: VideoApi
+    api: VideoApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Youtube._
 
-  implicit private val readSnippet: Reads[Snippet]        = Json.reads[Snippet]
-  implicit private val readStatistics: Reads[Statistics]     = Json.reads[Statistics]
+  implicit private val readSnippet: Reads[Snippet]               = Json.reads[Snippet]
+  implicit private val readStatistics: Reads[Statistics]         = Json.reads[Statistics]
   implicit private val readContentDetails: Reads[ContentDetails] = Json.reads[ContentDetails]
-  implicit private val readEntry: Reads[Entry]          = Json.reads[Entry]
+  implicit private val readEntry: Reads[Entry]                   = Json.reads[Entry]
   implicit private val readEntries: Reads[Seq[Entry]] =
     (__ \ "items").read(Reads seq readEntry)
 
@@ -40,8 +40,8 @@ final private[video] class Youtube(
                 duration = Some(entry.contentDetails.seconds),
                 publishedAt = entry.snippet.publishedAt.flatMap { at =>
                   scala.util.Try { new DateTime(at) }.toOption
-                }
-              )
+                },
+              ),
             )
             .recover { case e: Exception =>
               logger.warn("update all youtube", e)
@@ -56,7 +56,7 @@ final private[video] class Youtube(
         .withQueryStringParameters(
           "id"   -> lila.common.ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
-          "key"  -> apiKey.value
+          "key"  -> apiKey.value,
         )
         .get() flatMap {
         case res if res.status == 200 =>
@@ -79,24 +79,24 @@ object Youtube {
       likes: Int,
       description: Option[String],
       duration: Option[Int], // in seconds
-      publishedAt: Option[DateTime]
+      publishedAt: Option[DateTime],
   )
 
   private[video] case class Entry(
       id: String,
       snippet: Snippet,
       statistics: Statistics,
-      contentDetails: ContentDetails
+      contentDetails: ContentDetails,
   )
 
   private[video] case class Snippet(
       description: Option[String],
-      publishedAt: Option[String]
+      publishedAt: Option[String],
   )
 
   private[video] case class Statistics(
       viewCount: String,
-      likeCount: String
+      likeCount: String,
   )
 
   private val iso8601Formatter = org.joda.time.format.ISOPeriodFormat.standard()

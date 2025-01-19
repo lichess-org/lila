@@ -22,7 +22,7 @@ case class UserSession(
     _id: String,
     ip: IpAddress,
     ua: String,
-    date: Option[DateTime]
+    date: Option[DateTime],
 ) {
 
   def id = _id
@@ -42,5 +42,5 @@ case class UserSignup(
     email: EmailAddress,
     req: RequestHeader,
     fingerPrint: Option[FingerHash],
-    suspIp: Boolean
+    suspIp: Boolean,
 )

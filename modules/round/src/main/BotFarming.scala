@@ -6,7 +6,7 @@ import lila.game.GameRepo
 
 final private class BotFarming(
     gameRepo: GameRepo,
-    crosstableApi: CrosstableApi
+    crosstableApi: CrosstableApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   val SAME_PLIES = 20

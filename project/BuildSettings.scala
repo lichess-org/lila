@@ -1,5 +1,7 @@
 import play.sbt.PlayImport._
-import sbt._, Keys._
+
+import sbt.Keys._
+import sbt._
 
 object BuildSettings {
 
@@ -13,13 +15,12 @@ object BuildSettings {
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
-      version := lilaVersion,
+      version      := lilaVersion,
       organization := "org.lishogi",
       scalaVersion := globalScalaVersion,
       resolvers ++= Dependencies.Resolvers.commons,
       scalacOptions ++= compilerOptions,
-      // disable publishing doc and sources
-      Compile / doc / sources := Seq.empty,
+      Compile / doc / sources                := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false,
       Compile / run / fork                   := true,
@@ -36,26 +37,27 @@ object BuildSettings {
       ws,
       macwire.macros,
       macwire.util,
-      autoconfig
+      autoconfig,
     )
 
   def module(
       name: String,
       deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
-      libs: Seq[ModuleID]
+      libs: Seq[ModuleID],
   ) =
     Project(
       name,
-      file("modules/" + name)
+      file("modules/" + name),
     ).dependsOn(deps: _*)
       .settings(
         libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,
-        srcMain
+        srcMain,
       )
 
   val compilerOptions = Seq(
-    "-encoding", "utf-8",
+    "-encoding",
+    "utf-8",
     "-explaintypes",
     "-feature",
     "-language:higherKinds",
@@ -90,12 +92,12 @@ object BuildSettings {
     "-Wunused:implicits",
     "-Wmacros:after",
     "-Wvalue-discard",
-    "-Werror"
+    "-Werror",
   )
 
   val srcMain = Seq(
     Compile / scalaSource := (Compile / sourceDirectory).value,
-    Test / scalaSource := (Test / sourceDirectory).value
+    Test / scalaSource    := (Test / sourceDirectory).value,
   )
 
   def projectToRef(p: Project): ProjectReference = LocalProject(p.id)

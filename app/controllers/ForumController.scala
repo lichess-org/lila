@@ -22,7 +22,7 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
     env.team.api.leads(teamId, userId)
 
   protected def CategGrantWrite[A <: Result](
-      categSlug: String
+      categSlug: String,
   )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     isGrantedWrite(categSlug) flatMap { granted =>
       if (granted) a
@@ -30,7 +30,7 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
     }
 
   protected def CategGrantMod[A <: Result](
-      categSlug: String
+      categSlug: String,
   )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     isGrantedMod(categSlug) flatMap { granted =>
       if (granted | isGranted(_.ModerateForum)) a

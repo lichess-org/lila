@@ -21,7 +21,7 @@ private object PuzzlePath {
 }
 
 final private class PuzzlePathApi(
-    colls: PuzzleColls
+    colls: PuzzleColls,
 )(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
@@ -32,7 +32,7 @@ final private class PuzzlePathApi(
       tier: PuzzleTier,
       difficulty: PuzzleDifficulty,
       previousPaths: Set[PuzzlePath.Id],
-      compromise: Int = 0
+      compromise: Int = 0,
   ): Fu[Option[PuzzlePath.Id]] = {
     val actualTier =
       if (tier == PuzzleTier.Top && PuzzleDifficulty.isExtreme(difficulty)) PuzzleTier.Good
@@ -45,10 +45,10 @@ final private class PuzzlePathApi(
           val ratingFlex = (100 + math.abs(1500 - rating) / 4) * compromise.atMost(4)
           Match(
             select(theme, actualTier, (rating - ratingFlex) to (rating + ratingFlex)) ++
-              ((compromise != 5 && previousPaths.nonEmpty) ?? $doc("_id" $nin previousPaths))
+              ((compromise != 5 && previousPaths.nonEmpty) ?? $doc("_id" $nin previousPaths)),
           ) -> List(
             Sample(1),
-            Project($id(true))
+            Project($id(true)),
           )
         }.dmap(_.flatMap(_.getAsOpt[PuzzlePath.Id]("_id")))
       }
@@ -62,10 +62,12 @@ final private class PuzzlePathApi(
           nextFor(user, theme, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)
       }
-  }.mon(_.puzzle.path.nextFor(theme.value, tier.key, difficulty.key, previousPaths.size, compromise))
+  }.mon(
+    _.puzzle.path.nextFor(theme.value, tier.key, difficulty.key, previousPaths.size, compromise),
+  )
 
   def select(theme: PuzzleTheme.Key, tier: PuzzleTier, rating: Range) = $doc(
     "min" $lte f"${theme}_${tier}_${rating.max}%04d",
-    "max" $gte f"${theme}_${tier}_${rating.min}%04d"
+    "max" $gte f"${theme}_${tier}_${rating.min}%04d",
   )
 }

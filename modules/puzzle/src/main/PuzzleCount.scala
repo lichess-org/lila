@@ -7,7 +7,7 @@ import lila.memo.CacheApi
 
 final private class PuzzleCountApi(
     colls: PuzzleColls,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
@@ -26,7 +26,7 @@ final private class PuzzleCountApi(
               import framework._
               Project($doc(themes -> true)) -> List(
                 Unwind(themes),
-                GroupField(themes)("nb" -> SumAll)
+                GroupField(themes)("nb" -> SumAll),
               )
             }.map {
               _.flatMap { obj =>

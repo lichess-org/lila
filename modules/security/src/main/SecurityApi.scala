@@ -7,7 +7,7 @@ import play.api.data._
 import play.api.data.validation.Constraint
 import play.api.data.validation.Invalid
 import play.api.data.validation.ValidationError
-import play.api.data.validation.{Valid => FormValid}
+import play.api.data.validation.{ Valid => FormValid }
 import play.api.mvc.RequestHeader
 
 import org.joda.time.DateTime
@@ -22,9 +22,8 @@ import lila.db.dsl._
 import lila.oauth.OAuthScope
 import lila.oauth.OAuthServer
 import lila.user.User
+import lila.user.User.LoginCandidate
 import lila.user.UserRepo
-
-import User.LoginCandidate
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -34,22 +33,22 @@ final class SecurityApi(
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     oAuthServer: OAuthServer,
-    tor: Tor
+    tor: Tor,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   val AccessUri = "access_uri"
 
   lazy val usernameOrEmailForm = Form(
     single(
-      "username" -> nonEmptyText
-    )
+      "username" -> nonEmptyText,
+    ),
   )
 
   lazy val loginForm = Form(
     tuple(
       "username" -> nonEmptyText, // can also be an email
-      "password" -> nonEmptyText
-    )
+      "password" -> nonEmptyText,
+    ),
   )
 
   private def loadedLoginForm(candidate: Option[LoginCandidate]) =
@@ -57,7 +56,7 @@ final class SecurityApi(
       mapping(
         "username" -> nonEmptyText, // can also be an email
         "password" -> nonEmptyText,
-        "token"    -> optional(nonEmptyText)
+        "token"    -> optional(nonEmptyText),
       )(authenticateCandidate(candidate)) {
         case LoginCandidate.Success(user) => (user.username, "", none).some
         case _                            => none
@@ -68,7 +67,7 @@ final class SecurityApi(
             Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
           case err => Invalid(Seq(ValidationError(err.toString)))
         }
-      })
+      }),
     )
 
   def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
@@ -84,14 +83,14 @@ final class SecurityApi(
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       _username: String,
       password: String,
-      token: Option[String]
+      token: Option[String],
   ): LoginCandidate.Result =
     candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
       _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
     }
 
   def saveAuthentication(userId: User.ID)(implicit
-      req: RequestHeader
+      req: RequestHeader,
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
@@ -102,7 +101,7 @@ final class SecurityApi(
     }
 
   def saveSignup(userId: User.ID, fp: Option[FingerPrint])(implicit
-      req: RequestHeader
+      req: RequestHeader,
   ): Funit = {
     val sessionId = lila.common.ThreadLocalRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, up = false, fp = fp)
@@ -119,7 +118,7 @@ final class SecurityApi(
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: List[lila.oauth.OAuthScope]
+      scopes: List[lila.oauth.OAuthScope],
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
     oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
 
@@ -129,7 +128,8 @@ final class SecurityApi(
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
-  private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
+  private def stripRolesOfUser(user: User) =
+    user.copy(roles = user.roles.filter(nonModRoles.contains))
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
@@ -164,19 +164,21 @@ final class SecurityApi(
     }
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
+    store.coll
+      .distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), ReadPreference.secondaryPreferred)
+    store.coll
+      .distinctEasy[String, List]("ua", $doc("fp" -> fh.value), ReadPreference.secondaryPreferred)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
     store.coll.distinctEasy[User.ID, List](
       "user",
       $doc(
         field -> value,
-        "date" $gt DateTime.now.minusYears(1)
+        "date" $gt DateTime.now.minusYears(1),
       ),
-      ReadPreference.secondaryPreferred
+      ReadPreference.secondaryPreferred,
     )
 }
 

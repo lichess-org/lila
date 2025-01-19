@@ -4,6 +4,7 @@ import scala.util.Try
 
 import org.joda.time.DateTime
 import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
+
 import shogi.Centis
 import shogi.Clock
 import shogi.ClockPlayer
@@ -46,16 +47,22 @@ object BinaryFormat {
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
-    def read(start: Centis, bs: ByteArray, bg: ByteArray, pe: PeriodEntries, flagged: Option[Color]) =
+    def read(
+        start: Centis,
+        bs: ByteArray,
+        bg: ByteArray,
+        pe: PeriodEntries,
+        flagged: Option[Color],
+    ) =
       Try {
         ClockHistory(
           readSide(start, bs, flagged has Sente),
           readSide(start, bg, flagged has Gote),
-          pe
+          pe,
         )
       }.fold(
         e => { logger.warn(s"Exception decoding history", e); none },
-        some
+        some,
       )
   }
 
@@ -106,7 +113,7 @@ object BinaryFormat {
         writeSignedInt24(legacyElapsed(clock, Gote).centis) ++
         clock.timer.fold(Array.empty[Byte])(writeTimer) ++ Array(
           clock.byoyomiSeconds.toByte,
-          clock.periodsTotal.toByte
+          clock.periodsTotal.toByte,
         )
     }
 
@@ -114,7 +121,7 @@ object BinaryFormat {
         ba: ByteArray,
         periodEntries: PeriodEntries,
         senteBerserk: Boolean,
-        goteBerserk: Boolean
+        goteBerserk: Boolean,
     ): Color => Clock =
       color => {
         val ia   = ba.value map toInt
@@ -158,9 +165,9 @@ object BinaryFormat {
                   .withConfig(config)
                   .copy(berserk = goteBerserk)
                   .setRemaining(computeRemaining(config, legacyGote))
-                  .setPeriods(periodEntries(Gote).size atLeast config.initPeriod)
+                  .setPeriods(periodEntries(Gote).size atLeast config.initPeriod),
               ),
-              timer = timer
+              timer = timer,
             )
           }
           case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
@@ -223,7 +230,7 @@ object BinaryFormat {
         PeriodEntries(readSide(bs), readSide(bg))
       }.fold(
         e => { logger.warn(s"Exception decoding period entries", e); none },
-        some
+        some,
       )
   }
 
@@ -231,7 +238,7 @@ object BinaryFormat {
     def read(
         usis: Usis,
         initialSfen: Option[Sfen],
-        variant: Variant
+        variant: Variant,
     ): PieceMap = {
       val init = initialSfen.flatMap { sfen =>
         sfen.toSituation(variant)
@@ -290,7 +297,7 @@ object BinaryFormat {
       (i >>> 24).toByte,
       (i >>> 16).toByte,
       (i >>> 8).toByte,
-      i.toByte
+      i.toByte,
     )
 
   def readInt(b1: Int, b2: Int, b3: Int, b4: Int) = {

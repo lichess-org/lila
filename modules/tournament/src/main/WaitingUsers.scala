@@ -9,7 +9,7 @@ import lila.user.User
 private[tournament] case class WaitingUsers(
     hash: Map[User.ID, DateTime],
     estimateTotalSeconds: Int,
-    date: DateTime
+    date: DateTime,
 ) {
 
   private val waitSeconds: Int =
@@ -41,7 +41,7 @@ private[tournament] case class WaitingUsers(
       hash = {
         hash.view.filterKeys(us.contains) ++
           us.filterNot(hash.contains).map { _ -> newDate }
-      }.toMap
+      }.toMap,
     )
   }
 

@@ -15,14 +15,16 @@ final class Gamify(
     logRepo: ModlogRepo,
     reportApi: lila.report.ReportApi,
     cacheApi: lila.memo.CacheApi,
-    historyRepo: HistoryRepo
+    historyRepo: HistoryRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Gamify._
+
   import lila.report.BSONHandlers.RoomBSONHandler
 
-  implicit private val modMixedBSONHandler: BSONDocumentHandler[ModMixed]     = Macros.handler[ModMixed]
-  implicit private val historyMonthBSONHandler: BSONDocumentHandler[HistoryMonth] = Macros.handler[HistoryMonth]
+  implicit private val modMixedBSONHandler: BSONDocumentHandler[ModMixed] = Macros.handler[ModMixed]
+  implicit private val historyMonthBSONHandler: BSONDocumentHandler[HistoryMonth] =
+    Macros.handler[HistoryMonth]
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until  = DateTime.now minusMonths 1 withDayOfMonth 1
@@ -32,16 +34,16 @@ final class Gamify(
       .sort(
         $doc(
           "year"  -> -1,
-          "month" -> -1
-        )
+          "month" -> -1,
+        ),
       )
       .cursor[HistoryMonth]()
       .list() flatMap { months =>
       months.headOption match {
         case Some(m) if m._id == lastId => fuccess(months)
         case _ if !orCompute            => fuccess(months)
-        case Some(m)                    => buildHistoryAfter(m.year, m.month, until) >> history(false)
-        case _                          => buildHistoryAfter(2020, 9, until) >> history(false)
+        case Some(m) => buildHistoryAfter(m.year, m.month, until) >> history(false)
+        case _       => buildHistoryAfter(2020, 9, until) >> history(false)
       }
     }
   }
@@ -52,8 +54,8 @@ final class Gamify(
         ((if (year == afterYear) afterMonth + 1 else 1) to
           (if (year == until.getYear) until.getMonthOfYear else 12)).map { month =>
           mixedLeaderboard(
-            after = new DateTime(year, month, 1, 0, 0).pp("compute mod history"),
-            before = new DateTime(year, month, 1, 0, 0).plusMonths(1).some
+            after = new DateTime(year, month, 1, 0, 0),
+            before = new DateTime(year, month, 1, 0, 0).plusMonths(1).some,
           ).map {
             _.headOption.map { champ =>
               HistoryMonth(HistoryMonth.makeId(year, month), year, month, champ)
@@ -78,21 +80,23 @@ final class Gamify(
       .buildAsyncFuture { _ =>
         mixedLeaderboard(DateTime.now minusDays 1, none) zip
           mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
-          mixedLeaderboard(DateTime.now minusMonths 1, none) map { case ((daily, weekly), monthly) =>
-            Leaderboards(daily, weekly, monthly)
+          mixedLeaderboard(DateTime.now minusMonths 1, none) map {
+            case ((daily, weekly), monthly) =>
+              Leaderboards(daily, weekly, monthly)
           }
       }
   }
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
-    actionLeaderboard(after, before) zip reportLeaderboard(after, before) map { case (actions, reports) =>
-      actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
-        ModMixed(
-          modId,
-          action = actions.find(_.modId == modId) ?? (_.count),
-          report = reports.find(_.modId == modId) ?? (_.count)
-        )
-      } sortBy (-_.score)
+    actionLeaderboard(after, before) zip reportLeaderboard(after, before) map {
+      case (actions, reports) =>
+        actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
+          ModMixed(
+            modId,
+            action = actions.find(_.modId == modId) ?? (_.count),
+            report = reports.find(_.modId == modId) ?? (_.count),
+          )
+        } sortBy (-_.score)
     }
 
   private def dateRange(from: DateTime, toOption: Option[DateTime]) =
@@ -104,18 +108,19 @@ final class Gamify(
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logRepo.coll
-      .aggregateList(maxDocs = 100, readPreference = ReadPreference.secondaryPreferred) { framework =>
-        import framework._
-        Match(
-          $doc(
-            "date" -> dateRange(after, before),
-            "mod"  -> notLishogi
+      .aggregateList(maxDocs = 100, readPreference = ReadPreference.secondaryPreferred) {
+        framework =>
+          import framework._
+          Match(
+            $doc(
+              "date" -> dateRange(after, before),
+              "mod"  -> notLishogi,
+            ),
+          ) -> List(
+            GroupField("mod")("nb" -> SumAll),
+            Sort(Descending("nb")),
+            Limit(100),
           )
-        ) -> List(
-          GroupField("mod")("nb" -> SumAll),
-          Sort(Descending("nb")),
-          Limit(100)
-        )
       }
       .map {
         _.flatMap { obj =>
@@ -128,24 +133,24 @@ final class Gamify(
     reportApi.coll
       .aggregateList(
         maxDocs = Int.MaxValue,
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = ReadPreference.secondaryPreferred,
       ) { framework =>
         import framework._
         Match(
           $doc(
             "atoms.0.at" -> dateRange(after, before),
             "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
-            "processedBy" -> notLishogi
-          )
+            "processedBy" -> notLishogi,
+          ),
         ) -> List(
           GroupField("processedBy")(
             "nb" -> Sum(
               $doc(
-                "$cond" -> $arr($doc("$eq" -> $arr("room", Room.Cheat.key)), 3, 1)
-              )
-            )
+                "$cond" -> $arr($doc("$eq" -> $arr("room", Room.Cheat.key)), 3, 1),
+              ),
+            ),
           ),
-          Sort(Descending("nb"))
+          Sort(Descending("nb")),
         )
       }
       .map {

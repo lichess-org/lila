@@ -19,7 +19,7 @@ case class Study(
     description: Option[String] = None,
     topics: Option[StudyTopics] = None,
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
 ) {
 
   import Study._
@@ -31,7 +31,9 @@ case class Study(
   def isOwner(id: User.ID) = ownerId == id
 
   def isPostGameStudyWithOpponentPlayer(id: User.ID) =
-    isOwner(User.lishogiId) && postGameStudy.exists(pgs => pgs.withOpponent && pgs.findPlayer(id).isDefined)
+    isOwner(User.lishogiId) && postGameStudy.exists(pgs =>
+      pgs.withOpponent && pgs.findPlayer(id).isDefined,
+    )
 
   def isMember(id: User.ID) = members contains id
 
@@ -65,7 +67,7 @@ case class Study(
       from = Study.From.Study(id),
       likes = Likes(1),
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
     )
   }
 
@@ -79,7 +81,7 @@ case class Study(
 
   def addTopics(ts: StudyTopics) =
     copy(
-      topics = topics.fold(ts)(_ ++ ts).some
+      topics = topics.fold(ts)(_ ++ ts).some,
     )
 }
 
@@ -140,7 +142,7 @@ object Study {
       gameId: lila.game.Game.ID,
       withOpponent: Boolean,
       sentePlayer: GamePlayer,
-      gotePlayer: GamePlayer
+      gotePlayer: GamePlayer,
   ) {
     def players = List(sentePlayer, gotePlayer)
     def findPlayer(userId: User.ID): Option[GamePlayer] =
@@ -162,7 +164,7 @@ object Study {
       cloneable: String,
       chat: String,
       sticky: String,
-      description: String
+      description: String,
   ) {
     import Settings._
     def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
@@ -199,10 +201,10 @@ object Study {
       id: Option[Study.Id] = None,
       settings: Option[Settings] = None,
       members: Option[List[StudyMember]] = None,
-      postGameStudy: Option[PostGameStudy] = None
+      postGameStudy: Option[PostGameStudy] = None,
   ) = {
     val membersMap = members.fold(
-      Map(ownerId -> StudyMember(id = ownerId, role = StudyMember.Role.Write))
+      Map(ownerId -> StudyMember(id = ownerId, role = StudyMember.Role.Write)),
     )(_.map(m => (m.id -> m)).toMap)
     Study(
       _id = id | makeId,
@@ -216,7 +218,7 @@ object Study {
       postGameStudy = postGameStudy,
       likes = Likes(1),
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
     )
   }
 }

@@ -13,7 +13,7 @@ private class TimelineConfig(
     @ConfigName("collection.entry") val entryColl: CollName,
     @ConfigName("collection.unsub") val unsubColl: CollName,
     @ConfigName("user.display_max") val userDisplayMax: Max,
-    @ConfigName("user.actor.name") val userActorName: String
+    @ConfigName("user.actor.name") val userActorName: String,
 )
 
 @Module
@@ -22,10 +22,10 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     relationApi: lila.relation.RelationApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
@@ -33,7 +33,7 @@ final class Env(
   lazy val entryApi = new EntryApi(
     coll = db(config.entryColl),
     cacheApi = cacheApi,
-    userMax = config.userDisplayMax
+    userMax = config.userDisplayMax,
   )
 
   lazy val unsubApi = new UnsubApi(db(config.unsubColl))
@@ -61,7 +61,7 @@ final class Env(
     new lila.common.Cli {
       def process = { case "broadcast" :: msgWords =>
         entryApi.broadcast.insert(
-          lila.hub.actorApi.timeline.SystemNotification(msgWords mkString " ")
+          lila.hub.actorApi.timeline.SystemNotification(msgWords mkString " "),
         ) inject "done!"
       }
     }

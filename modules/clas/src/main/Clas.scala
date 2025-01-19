@@ -13,7 +13,7 @@ case class Clas(
     teachers: NonEmptyList[User.ID], // first is owner
     created: Clas.Recorded,
     viewedAt: DateTime,
-    archived: Option[Clas.Recorded]
+    archived: Option[Clas.Recorded],
 ) {
 
   def id = _id
@@ -36,7 +36,7 @@ object Clas {
       teachers = NonEmptyList.one(teacher.id),
       created = Recorded(teacher.id, DateTime.now),
       viewedAt = DateTime.now,
-      archived = none
+      archived = none,
     )
 
   case class WithOwner(clas: Clas, teacher: Teacher)

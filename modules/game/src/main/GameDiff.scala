@@ -3,6 +3,7 @@ package lila.game
 import scala.util.Try
 
 import reactivemongo.api.bson._
+
 import shogi.Centis
 import shogi.Clock
 import shogi.Color
@@ -15,8 +16,7 @@ import shogi.Sente
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
 import lila.db.ByteArray.ByteArrayBSONHandler
-
-import Game.BSONFields._
+import lila.game.Game.BSONFields._
 
 object GameDiff {
 
@@ -40,7 +40,7 @@ object GameDiff {
       val vb = getter(b)
       if (getter(a) != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
-        else setBuilder += name                                         -> toBson(vb)
+        else setBuilder += name -> toBson(vb)
       }
     }
 
@@ -51,7 +51,7 @@ object GameDiff {
         else
           toBson(vb) match {
             case None    => unsetBuilder += (name -> bTrue)
-            case Some(x) => setBuilder += name    -> x
+            case Some(x) => setBuilder += name -> x
           }
       }
     }
@@ -63,7 +63,7 @@ object GameDiff {
       for {
         clk     <- g.clock
         history <- g.clockHistory
-        times    = history(color)
+        times = history(color)
       } yield (clk.limit, times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) =
@@ -84,26 +84,34 @@ object GameDiff {
     d(
       usis,
       _.usis,
-      (usis: Usis) => w.bytes(BinaryFormat.usi.write(usis, a.variant).value)
+      (usis: Usis) => w.bytes(BinaryFormat.usi.write(usis, a.variant).value),
     )
     d(positionHashes, _.history.positionHashes, w.bytes)
     d(
       hands,
       _.hands,
-      (hs: Hands) => w.str(shogi.format.forsyth.Sfen.handsToString(hs, a.variant))
+      (hs: Hands) => w.str(shogi.format.forsyth.Sfen.handsToString(hs, a.variant)),
     )
     d(plies, _.plies, w.int)
-    dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)
+    dOpt(
+      moveTimes,
+      _.binaryMoveTimes,
+      (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt,
+    )
     dOpt(senteClockHistory, getClockHistory(Sente), clockHistoryToBytes)
     dOpt(goteClockHistory, getClockHistory(Gote), clockHistoryToBytes)
     dOpt(periodsSente, getPeriodEntries(Sente), periodEntriesToBytes)
     dOpt(periodsGote, getPeriodEntries(Gote), periodEntriesToBytes)
-    dOpt(lastLionCapture, _.history.lastLionCapture, (op: Option[Pos]) => op map { p => w.str(p.key) })
+    dOpt(
+      lastLionCapture,
+      _.history.lastLionCapture,
+      (op: Option[Pos]) => op map { p => w.str(p.key) },
+    )
     dOpt(
       consecutiveAttacks,
       _.history.consecutiveAttacks,
       (ca: ConsecutiveAttacks) =>
-        (ca.sente > 0 || ca.gote > 0) ?? { BSONHandlers.consecutiveAttacksWriter writeOpt ca }
+        (ca.sente > 0 || ca.gote > 0) ?? { BSONHandlers.consecutiveAttacksWriter writeOpt ca },
     )
     dOpt(
       clock,
@@ -111,7 +119,7 @@ object GameDiff {
       (o: Option[Clock]) =>
         o flatMap { c =>
           BSONHandlers.clockBSONWrite(a.createdAt, c).toOption
-        }
+        },
     )
     for (i <- 0 to 1) {
       import Player.BSONFields._

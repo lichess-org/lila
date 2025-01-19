@@ -8,13 +8,12 @@ import shogi.Situation
 import shogi.Status
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
-import shogi.{Clock => ShogiClock}
+import shogi.{ Clock => ShogiClock }
 
 import lila.chat.PlayerLine
 import lila.chat.UserLine
 import lila.common.Json._
-
-import JsonView._
+import lila.game.JsonView._
 
 sealed trait Event {
   def typ: String
@@ -41,14 +40,14 @@ object Event {
       sfen: Sfen,
       check: Boolean,
       state: State,
-      clock: Option[ClockEvent]
+      clock: Option[ClockEvent],
   ) extends Event {
     def typ = "usi"
     def data = Json
       .obj(
         "usi"  -> usi.usi,
         "sfen" -> sfen,
-        "ply"  -> state.plies
+        "ply"  -> state.plies,
       )
       .add("clock" -> clock.map(_.data))
       .add("status" -> state.status)
@@ -63,28 +62,28 @@ object Event {
         usi: Usi,
         situation: Situation,
         state: State,
-        clock: Option[ClockEvent]
+        clock: Option[ClockEvent],
     ): UsiEvent =
       UsiEvent(
         usi = usi,
         sfen = situation.toSfen,
         check = situation.check,
         state = state,
-        clock = clock
+        clock = clock,
       )
   }
 
   case class RedirectOwner(
       color: Color,
       id: String,
-      cookie: Option[JsObject]
+      cookie: Option[JsObject],
   ) extends Event {
     def typ = "redirect"
     def data =
       Json
         .obj(
           "id"  -> id,
-          "url" -> s"/$id"
+          "url" -> s"/$id",
         )
         .add("cookie" -> cookie)
     override def only = Some(color)
@@ -111,7 +110,7 @@ object Event {
       Json
         .obj(
           "winner" -> game.winnerColor,
-          "status" -> game.status
+          "status" -> game.status,
         )
         .add("clock" -> game.clock.map { c =>
           val senteClock = c currentClockFor Color.Sente
@@ -120,13 +119,13 @@ object Event {
             "sc" -> senteClock.time.centis,
             "gc" -> goteClock.time.centis,
             "sp" -> senteClock.periods,
-            "gp" -> goteClock.periods
+            "gp" -> goteClock.periods,
           )
         })
         .add("ratingDiff" -> ratingDiff.map { rds =>
           Json.obj(
             Color.Sente.name -> rds.sente,
-            Color.Gote.name  -> rds.gote
+            Color.Gote.name  -> rds.gote,
           )
         })
         .add("boosted" -> game.boosted)
@@ -166,7 +165,7 @@ object Event {
     def data =
       Json.obj(
         "color" -> color,
-        "time"  -> time.centis
+        "time"  -> time.centis,
       )
   }
 
@@ -177,7 +176,7 @@ object Event {
       gote: Centis,
       sPer: Int = 0,
       gPer: Int = 0,
-      nextLagComp: Option[Centis] = None
+      nextLagComp: Option[Centis] = None,
   ) extends ClockEvent {
     def typ = "clock"
     def data =
@@ -186,7 +185,7 @@ object Event {
           "sente" -> sente.toSeconds,
           "gote"  -> gote.toSeconds,
           "sPer"  -> sPer,
-          "gPer"  -> gPer
+          "gPer"  -> gPer,
         )
         .add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
@@ -199,7 +198,7 @@ object Event {
         gote = goteClock.time,
         sPer = senteClock.periods,
         gPer = goteClock.periods,
-        nextLagComp = clock lagCompEstimate clock.color
+        nextLagComp = clock lagCompEstimate clock.color,
       )
     }
   }
@@ -222,14 +221,14 @@ object Event {
       color: Color,
       plies: Int,
       status: Option[Status],
-      winner: Option[Color]
+      winner: Option[Color],
   ) extends Event {
     def typ = "state"
     def data =
       Json
         .obj(
           "color" -> color,
-          "plies" -> plies
+          "plies" -> plies,
         )
         .add("status" -> status)
         .add("winner" -> winner)
@@ -237,7 +236,7 @@ object Event {
 
   case class TakebackOffers(
       sente: Boolean,
-      gote: Boolean
+      gote: Boolean,
   ) extends Event {
     def typ = "takebackOffers"
     def data =
@@ -263,14 +262,14 @@ object Event {
   case class Crowd(
       sente: Boolean,
       gote: Boolean,
-      watchers: Option[JsValue]
+      watchers: Option[JsValue],
   ) extends Event {
     def typ = "crowd"
     def data =
       Json
         .obj(
           "sente" -> sente,
-          "gote"  -> gote
+          "gote"  -> gote,
         )
         .add("watchers" -> watchers)
   }

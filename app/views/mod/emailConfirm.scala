@@ -8,8 +8,8 @@ import lila.app.ui.ScalatagsTemplate._
 
 object emailConfirm {
 
-  def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(implicit
-      ctx: Context
+  def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(
+      implicit ctx: Context,
   ) =
     views.html.base.layout(
       title = "Email confirmation",
@@ -18,7 +18,7 @@ object emailConfirm {
 setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
 }).each(function() {
 this.setSelectionRange(this.value.length, this.value.length);
-});""")
+});"""),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("email"),
@@ -28,10 +28,15 @@ this.setSelectionRange(this.value.length, this.value.length);
             "If you provide an email, it will confirm the corresponding account, if any.",
             br,
             "If you provide an email and a username, it will set the email to that user, ",
-            "but only if the user has not yet confirmed their email."
+            "but only if the user has not yet confirmed their email.",
           ),
-          st.form(cls  := "search", action := routes.Mod.emailConfirm, method        := "GET")(
-            input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
+          st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
+            input(
+              name        := "q",
+              placeholder := "<email> <username (optional)>",
+              value       := query,
+              autofocus,
+            ),
           ),
           user.map { u =>
             table(cls := "slist")(
@@ -43,8 +48,8 @@ this.setSelectionRange(this.value.length, this.value.length);
                   th("Marks"),
                   th("Created"),
                   th("Active"),
-                  th("Confirmed")
-                )
+                  th("Confirmed"),
+                ),
               ),
               tbody(
                 tr(
@@ -55,19 +60,19 @@ this.setSelectionRange(this.value.length, this.value.length);
                     u.marks.engine option "ENGINE",
                     u.marks.boost option "BOOSTER",
                     u.marks.troll option "SHADOWBAN",
-                    u.disabled option "CLOSED"
+                    u.disabled option "CLOSED",
                   ),
                   td(momentFromNow(u.createdAt)),
                   td(u.seenAt.map(momentFromNow(_))),
                   td(style := "font-size:2em")(
                     if (!u.everLoggedIn) iconTag("E")(cls := "is-green")
-                    else iconTag("L")(cls                 := "is-red")
-                  )
-                )
-              )
+                    else iconTag("L")(cls                 := "is-red"),
+                  ),
+                ),
+              ),
             )
-          }
-        )
+          },
+        ),
       )
     }
 }

@@ -21,9 +21,9 @@ object top {
         .OpenGraph(
           title = s"${trans.leaderboard.txt()} - ${perfType.trans}",
           url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
-          description = trans.topXPlayersInY.txt("200", perfType.trans)
+          description = trans.topXPlayersInY.txt("200", perfType.trans),
         )
-        .some
+        .some,
     )(
       main(cls := "page-small box")(
         h1(a(href := routes.User.list, dataIcon := "I"), title),
@@ -34,12 +34,12 @@ object top {
                 td(i + 1),
                 td(lightUserLink(u.user)),
                 td(u.rating),
-                td(ratingProgress(u.progress))
+                td(ratingProgress(u.progress)),
               )
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     )
   }
 

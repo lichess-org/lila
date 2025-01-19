@@ -29,7 +29,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   private val periodType = PeriodType forFields Array(
     DurationFieldType.days,
     DurationFieldType.hours,
-    DurationFieldType.minutes
+    DurationFieldType.minutes,
   )
 
   private val isoFormatter = ISODateTimeFormat.dateTime
@@ -41,13 +41,13 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   private def dateTimeFormatter(implicit lang: Lang): DateTimeFormatter =
     dateTimeFormatters.computeIfAbsent(
       lang.code,
-      _ => DateTimeFormat forStyle dateTimeStyle withLocale lang.toLocale
+      _ => DateTimeFormat forStyle dateTimeStyle withLocale lang.toLocale,
     )
 
   private def dateFormatter(implicit lang: Lang): DateTimeFormatter =
     dateFormatters.computeIfAbsent(
       lang.code,
-      _ => DateTimeFormat forStyle dateStyle withLocale lang.toLocale
+      _ => DateTimeFormat forStyle dateStyle withLocale lang.toLocale,
     )
 
   private def periodFormatter(implicit lang: Lang): PeriodFormatter =
@@ -56,7 +56,7 @@ trait DateHelper { self: I18nHelper with StringHelper =>
       _ => {
         Locale setDefault Locale.ENGLISH
         PeriodFormat wordBased lang.toLocale
-      }
+      },
     )
 
   def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit lang: Lang): String =
@@ -88,7 +88,11 @@ trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
-  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Frag = {
+  def momentFromNow(
+      date: DateTime,
+      alwaysRelative: Boolean = false,
+      once: Boolean = false,
+  ): Frag = {
     if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
     else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDate(date))(nbsp)
   }

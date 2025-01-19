@@ -19,15 +19,15 @@ object JsonView {
           Json
             .obj(
               "name"    -> a.judgment.name,
-              "comment" -> a.makeComment(false, true)
+              "comment" -> a.makeComment(false, true),
             )
             .add(
               "glyph" -> withGlyph.option(
                 Json.obj(
                   "name"   -> a.judgment.glyph.name,
-                  "symbol" -> a.judgment.glyph.symbol
-                )
-              )
+                  "symbol" -> a.judgment.glyph.symbol,
+                ),
+              ),
             )
         })
     })
@@ -41,26 +41,26 @@ object JsonView {
       .map(s =>
         JsObject(s map { case (nag, nb) =>
           nag.toString.toLowerCase -> JsNumber(nb)
-        }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis))
+        }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis)),
       )
 
   def bothPlayers(game: Game, analysis: Analysis) =
     Json.obj(
       "id"    -> analysis.id,
       "sente" -> player(game.sentePov)(analysis),
-      "gote"  -> player(game.gotePov)(analysis)
+      "gote"  -> player(game.gotePov)(analysis),
     )
 
   def bothPlayers(pov: Accuracy.PovLike, analysis: Analysis) =
     Json.obj(
       "id"    -> analysis.id,
       "sente" -> player(pov.copy(color = shogi.Sente))(analysis),
-      "gote"  -> player(pov.copy(color = shogi.Gote))(analysis)
+      "gote"  -> player(pov.copy(color = shogi.Gote))(analysis),
     )
 
   def mobile(game: Game, analysis: Analysis) =
     Json.obj(
       "summary" -> bothPlayers(game, analysis),
-      "moves"   -> moves(analysis)
+      "moves"   -> moves(analysis),
     )
 }

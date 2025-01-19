@@ -9,11 +9,11 @@ import lila.hub.Trouper
 final class Tv(
     gameRepo: GameRepo,
     trouper: Trouper,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxyRepo: lila.round.GameProxyRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Tv._
   import ChannelTrouper._
+  import Tv._
 
   private def roundProxyGame = gameProxyRepo.game _
 
@@ -56,6 +56,7 @@ final class Tv(
 
 object Tv {
   import shogi.{ variant => V }
+
   import lila.rating.{ PerfType => P }
 
   case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
@@ -66,7 +67,7 @@ object Tv {
   sealed abstract class Channel(
       val key: String,
       val icon: String,
-      filters: Seq[Game => Boolean]
+      filters: Seq[Game => Boolean],
   ) {
 
     def filter(g: Game): Boolean = filters.forall { _(g) }
@@ -79,43 +80,43 @@ object Tv {
         extends Channel(
           key = V.Standard.key,
           icon = "C",
-          filters = Seq(variant(V.Standard), someHuman)
+          filters = Seq(variant(V.Standard), someHuman),
         )
     case object Minishogi
         extends Channel(
           key = V.Minishogi.key,
           icon = P.Minishogi.iconChar.toString,
-          filters = Seq(variant(V.Minishogi), someHuman)
+          filters = Seq(variant(V.Minishogi), someHuman),
         )
     case object Chushogi
         extends Channel(
           key = V.Chushogi.key,
           icon = P.Chushogi.iconChar.toString,
-          filters = Seq(variant(V.Chushogi), someHuman)
+          filters = Seq(variant(V.Chushogi), someHuman),
         )
     case object Annanshogi
         extends Channel(
           key = V.Annanshogi.key,
           icon = P.Annanshogi.iconChar.toString,
-          filters = Seq(variant(V.Annanshogi), someHuman)
+          filters = Seq(variant(V.Annanshogi), someHuman),
         )
     case object Kyotoshogi
         extends Channel(
           key = V.Kyotoshogi.key,
           icon = P.Kyotoshogi.iconChar.toString,
-          filters = Seq(variant(V.Kyotoshogi), someHuman)
+          filters = Seq(variant(V.Kyotoshogi), someHuman),
         )
     case object Checkshogi
         extends Channel(
           key = V.Checkshogi.key,
           icon = P.Checkshogi.iconChar.toString,
-          filters = Seq(variant(V.Checkshogi), someHuman)
+          filters = Seq(variant(V.Checkshogi), someHuman),
         )
     case object Computer
         extends Channel(
           key = "computer",
           icon = "n",
-          filters = Seq(someComputer)
+          filters = Seq(someComputer),
         )
 
     val all = List(
@@ -125,7 +126,7 @@ object Tv {
       Annanshogi,
       Kyotoshogi,
       Checkshogi,
-      Computer
+      Computer,
     )
     val byKey = all.map { c =>
       c.key -> c

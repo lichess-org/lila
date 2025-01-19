@@ -7,7 +7,7 @@ import lila.user.User
 case class Teacher(
     _id: Teacher.Id, // user ID
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
 ) {
 
   def id = _id
@@ -23,7 +23,7 @@ object Teacher {
     Teacher(
       _id = Id(user.id),
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
     )
 
   case class Id(value: String) extends AnyVal with StringValue

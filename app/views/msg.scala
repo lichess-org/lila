@@ -16,11 +16,11 @@ object msg {
         moduleJsTag(
           "msg",
           Json.obj(
-            "data" -> json
-          )
-        )
+            "data" -> json,
+          ),
+        ),
       ),
-      title = s"Lishogi ${trans.inbox.txt()}"
+      title = s"Lishogi ${trans.inbox.txt()}",
     ) {
       main(cls := "box msg-app")
     }

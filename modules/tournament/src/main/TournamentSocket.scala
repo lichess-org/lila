@@ -19,16 +19,17 @@ import lila.user.User
 final private class TournamentSocket(
     api: TournamentApi,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi
+    chat: lila.chat.ChatApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
-  private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
+  private val reloadThrottler =
+    LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
 
   def reload(tourId: Tournament.ID): Unit =
     reloadThrottler ! LateMultiThrottler.work(
@@ -36,7 +37,7 @@ final private class TournamentSocket(
       run = fuccess {
         send(RP.Out.tellRoom(RoomId(tourId), makeMessage("reload")))
       },
-      delay = 1.seconds.some
+      delay = 1.seconds.some,
     )
 
   def reloadUsers(tourId: Tournament.ID, users: List[User.ID]): Unit =
@@ -47,7 +48,13 @@ final private class TournamentSocket(
   def startGame(tourId: Tournament.ID, game: Game): Unit = {
     game.players foreach { player =>
       player.userId foreach { userId =>
-        send(RP.Out.tellRoomUser(RoomId(tourId), userId, makeMessage("redirect", game fullIdOf player.color)))
+        send(
+          RP.Out.tellRoomUser(
+            RoomId(tourId),
+            userId,
+            makeMessage("redirect", game fullIdOf player.color),
+          ),
+        )
       }
     }
     reload(tourId)
@@ -59,8 +66,8 @@ final private class TournamentSocket(
         RP.Out.tellRoomUser(
           RoomId(arrangement.tourId),
           userId,
-          makeMessage("arrangement", JsonView.arrangement(arrangement))
-        )
+          makeMessage("arrangement", JsonView.arrangement(arrangement)),
+        ),
       )
     }
     reload(arrangement.tourId)
@@ -74,7 +81,7 @@ final private class TournamentSocket(
       (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
         Option(cur)
           .getOrElse(WaitingUsers.emptyWithNext(tour.timeControl.estimateTotalSeconds))
-          .copy(next = promise.some)
+          .copy(next = promise.some),
     )
     promise.future.withTimeout(5.seconds, lila.base.LilaException("getWaitingUsers timeout"))
   }
@@ -92,7 +99,13 @@ final private class TournamentSocket(
   subscribeChat(rooms, _.Tournament)
 
   private lazy val handler: Handler =
-    roomHandler(rooms, chat, logger, roomId => _.Tournament(roomId.value).some, chatBusChan = _.Tournament)
+    roomHandler(
+      rooms,
+      chat,
+      logger,
+      roomId => _.Tournament(roomId.value).some,
+      chatBusChan = _.Tournament,
+    )
 
   private lazy val tourHandler: Handler = {
     case Protocol.In.WaitingUsers(roomId, users) =>
@@ -103,7 +116,7 @@ final private class TournamentSocket(
             val newWaiting = cur.waiting.update(users)
             cur.next.foreach(_ success newWaiting)
             WaitingUsers.WithNext(newWaiting, none)
-          }
+          },
         )
         .unit
     case RP.In.TellRoomSri(tourId, P.In.TellSri(_, userIdOpt, tpe, o)) =>
@@ -135,7 +148,7 @@ final private class TournamentSocket(
               .filterNot(_ == Arrangement.Points.default)
             scheduledAt     = d.long("scheduled") map { new DateTime(_) }
             allowGameBefore = d.int("allowGameBefore")
-            settings        = Arrangement.Settings(name, color, points, scheduledAt, allowGameBefore)
+            settings = Arrangement.Settings(name, color, points, scheduledAt, allowGameBefore)
           } api.arrangementOrganizerSet(lookup, userId, settings)
         case "arrangement-delete" =>
           for {
@@ -168,7 +181,7 @@ final private class TournamentSocket(
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply _
 
   remoteSocketApi.subscribe("tour-in", Protocol.In.reader)(
-    tourHandler orElse handler orElse remoteSocketApi.baseHandler
+    tourHandler orElse handler orElse remoteSocketApi.baseHandler,
   ) >>- send(P.Out.boot)
 
   api.registerSocket(this)

@@ -21,8 +21,12 @@ final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
-    colls: PuzzleColls
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
+    colls: PuzzleColls,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode,
+) {
 
   import BsonHandlers._
 
@@ -31,12 +35,12 @@ final private[puzzle] class PuzzleFinisher(
       maxSize = 64,
       expiration = 5 minutes,
       timeout = 5 seconds,
-      name = "puzzle.finish"
+      name = "puzzle.finish",
     )
 
   def batch(
       user: User,
-      solutions: List[PuzzleForm.mobile.Solution]
+      solutions: List[PuzzleForm.mobile.Solution],
   ): Fu[List[(PuzzleRound, IntRatingDiff)]] =
     solutions.foldM((user.perfs.puzzle, List.empty[(PuzzleRound, IntRatingDiff)])) {
       case ((perf, rounds), sol) =>
@@ -53,14 +57,14 @@ final private[puzzle] class PuzzleFinisher(
       id: Puzzle.Id,
       theme: PuzzleTheme.Key,
       user: User,
-      result: Result
+      result: Result,
   ): Fu[Option[(PuzzleRound, Perf)]] =
     if (api.casual(user, id)) fuccess {
       PuzzleRound(
         id = PuzzleRound.Id(user.id, id),
         win = result.win,
         fixedAt = none,
-        date = DateTime.now
+        date = DateTime.now,
       ) -> user.perfs.puzzle
     } dmap some
     else
@@ -76,7 +80,7 @@ final private[puzzle] class PuzzleFinisher(
                   (
                     prev.updateWithWin(result.win),
                     none,
-                    user.perfs.puzzle
+                    user.perfs.puzzle,
                   )
                 case None =>
                   val userRating = user.perfs.puzzle.toRating
@@ -85,7 +89,7 @@ final private[puzzle] class PuzzleFinisher(
                     puzzle.glicko.deviation,
                     puzzle.glicko.volatility,
                     puzzle.plays,
-                    null
+                    null,
                   )
                   updateRatings(userRating, puzzleRating, result.glicko)
                   val newPuzzleGlicko = ponder
@@ -97,9 +101,9 @@ final private[puzzle] class PuzzleFinisher(
                           .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
                           .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
                         deviation = puzzleRating.getRatingDeviation,
-                        volatility = puzzleRating.getVolatility
+                        volatility = puzzleRating.getVolatility,
                       ).cap,
-                      player = user.perfs.puzzle.glicko
+                      player = user.perfs.puzzle.glicko,
                     )
                     .some
                     .filter(puzzle.glicko !=)
@@ -109,13 +113,21 @@ final private[puzzle] class PuzzleFinisher(
                       id = PuzzleRound.Id(user.id, puzzle.id),
                       win = result.win,
                       fixedAt = none,
-                      date = DateTime.now
+                      date = DateTime.now,
                     )
                   val userPerf =
                     user.perfs.puzzle
-                      .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe { p =>
+                      .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(
+                        userRating,
+                        now,
+                      ) pipe { p =>
                       p.copy(glicko =
-                        ponder.player(theme, result, user.perfs.puzzle.glicko -> p.glicko, puzzle.glicko)
+                        ponder.player(
+                          theme,
+                          result,
+                          user.perfs.puzzle.glicko -> p.glicko,
+                          puzzle.glicko,
+                        ),
                       )
                     }
                   (round, newPuzzleGlicko, userPerf)
@@ -127,7 +139,7 @@ final private[puzzle] class PuzzleFinisher(
                       $id(puzzle.id),
                       $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.?? { glicko =>
                         $set(Puzzle.BSONFields.glicko -> Glicko.glickoBSONHandler.write(glicko))
-                      }
+                      },
                     )
                     .void
                 } zip
@@ -137,8 +149,13 @@ final private[puzzle] class PuzzleFinisher(
                 } >>- {
                   if (prevRound.isEmpty)
                     Bus.publish(
-                      Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
-                      "finishPuzzle"
+                      Puzzle.UserResult(
+                        puzzle.id,
+                        user.id,
+                        result,
+                        formerUserRating -> userPerf.intRating,
+                      ),
+                      "finishPuzzle",
                     )
                 } inject (round -> userPerf).some
             }
@@ -155,14 +172,14 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.endgame,
       PuzzleTheme.tsume, // ?
       PuzzleTheme.lishogiGames,
-      PuzzleTheme.otherSources
+      PuzzleTheme.otherSources,
     ).map(_.key)
 
     private def isHinting(theme: PuzzleTheme.Key) = !nonHintingThemes(theme)
 
     // themes that make the solution very obvious
     private val isObvious: Set[PuzzleTheme.Key] = Set(
-      PuzzleTheme.mateIn1
+      PuzzleTheme.mateIn1,
     ).map(_.key)
 
     private def weightOf(theme: PuzzleTheme.Key, result: Result) =

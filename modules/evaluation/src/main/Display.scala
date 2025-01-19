@@ -11,7 +11,11 @@ object Display {
     }
 
   def moveTimeSig(pa: PlayerAssessment): Int =
-    (pa.flags.highlyConsistentMoveTimes, pa.flags.moderatelyConsistentMoveTimes, pa.flags.noFastMoves) match {
+    (
+      pa.flags.highlyConsistentMoveTimes,
+      pa.flags.moderatelyConsistentMoveTimes,
+      pa.flags.noFastMoves,
+    ) match {
       case (true, _, _)         => 5
       case (false, true, true)  => 4
       case (false, true, false) => 3

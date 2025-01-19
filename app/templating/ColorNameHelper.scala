@@ -10,12 +10,12 @@ trait ColorNameHelper { self: I18nHelper =>
 
   // maybe locale might be needed for some langauges?
   def transWithColorName(i18nKey: I18nKey, color: shogi.Color, isHandicap: Boolean)(implicit
-      ctx: Context
+      ctx: Context,
   ): String =
     i18nKey
       .txt(
         if (isHandicap) handicapColorName(color)
-        else standardColorName(color)
+        else standardColorName(color),
       )
       .toLowerCase
       .capitalize

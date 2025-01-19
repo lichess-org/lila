@@ -11,7 +11,8 @@ private object BsonHandlers {
   import Msg.Last
   implicit val msgContentHandler: BSONDocumentHandler[Last] = Macros.handler[Last]
 
-  implicit val threadIdHandler: BSONHandler[MsgThread.Id] = stringAnyValHandler[MsgThread.Id](_.value, MsgThread.Id.apply)
+  implicit val threadIdHandler: BSONHandler[MsgThread.Id] =
+    stringAnyValHandler[MsgThread.Id](_.value, MsgThread.Id.apply)
 
   implicit val threadHandler: BSON[MsgThread] = new BSON[MsgThread] {
     def reads(r: BSON.Reader) =
@@ -21,7 +22,7 @@ private object BsonHandlers {
             id = r.get[MsgThread.Id]("_id"),
             user1 = u1,
             user2 = u2,
-            lastMsg = r.get[Last]("lastMsg")
+            lastMsg = r.get[Last]("lastMsg"),
           )
         case x => sys error s"Invalid MsgThread users: $x"
       }
@@ -29,17 +30,18 @@ private object BsonHandlers {
       $doc(
         "_id"     -> t.id,
         "users"   -> t.users.sorted,
-        "lastMsg" -> t.lastMsg
+        "lastMsg" -> t.lastMsg,
       )
   }
 
-  implicit val msgIdHandler: BSONHandler[Msg.Id] = stringAnyValHandler[Msg.Id](_.value, Msg.Id.apply)
-  implicit val msgHandler: BSONDocumentHandler[Msg]   = Macros.handler[Msg]
+  implicit val msgIdHandler: BSONHandler[Msg.Id] =
+    stringAnyValHandler[Msg.Id](_.value, Msg.Id.apply)
+  implicit val msgHandler: BSONDocumentHandler[Msg] = Macros.handler[Msg]
 
   def writeMsg(msg: Msg, threadId: MsgThread.Id): Bdoc =
     msgHandler.writeTry(msg).get ++ $doc(
       "_id" -> lila.common.ThreadLocalRandom.nextString(10),
-      "tid" -> threadId
+      "tid" -> threadId,
     )
 
   def writeThread(thread: MsgThread, delBy: List[User.ID]): Bdoc =

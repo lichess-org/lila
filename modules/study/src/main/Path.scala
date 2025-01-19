@@ -82,8 +82,9 @@ object Path {
   // mongodb objects don't support '.' and '$' in keys
   def encodeDbKey(path: Path): String        = encodeDbKey(path.ids.mkString)
   def encodeDbKey(pair: UsiCharPair): String = encodeDbKey(pair.toString)
-  def encodeDbKey(pathStr: String): String   = pathStr.replace('.', 251.toChar).replace('$', 252.toChar)
-  def decodeDbKey(key: String): String       = key.replace(251.toChar, '.').replace(252.toChar, '$')
+  def encodeDbKey(pathStr: String): String =
+    pathStr.replace('.', 251.toChar).replace('$', 252.toChar)
+  def decodeDbKey(key: String): String = key.replace(251.toChar, '.').replace(252.toChar, '$')
 
   def isMainline(node: RootOrNode, path: Path): Boolean =
     path.split.fold(true) { case (id, rest) =>

@@ -23,10 +23,10 @@ final private class PushApi(
     webPush: WebPush,
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
-    proxyRepo: lila.round.GameProxyRepo
+    proxyRepo: lila.round.GameProxyRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   def finish(game: Game): Funit =
@@ -53,10 +53,10 @@ final private class PushApi(
                       "userData" -> Json.obj(
                         "type"   -> "gameFinish",
                         "gameId" -> game.id,
-                        "fullId" -> pov.fullId
-                      )
-                    )
-                  )
+                        "fullId" -> pov.fullId,
+                      ),
+                    ),
+                  ),
                 )
               }
             }
@@ -83,9 +83,9 @@ final private class PushApi(
                       stacking = Stacking.GameMove,
                       payload = Json.obj(
                         "userId"   -> userId,
-                        "userData" -> corresGameJson(pov, "gameMove")
-                      )
-                    )
+                        "userData" -> corresGameJson(pov, "gameMove"),
+                      ),
+                    ),
                   )
                 }
               }
@@ -114,9 +114,9 @@ final private class PushApi(
                       stacking = Stacking.GameTakebackOffer,
                       payload = Json.obj(
                         "userId"   -> userId,
-                        "userData" -> corresGameJson(pov, "gameTakebackOffer")
-                      )
-                    )
+                        "userData" -> corresGameJson(pov, "gameTakebackOffer"),
+                      ),
+                    ),
                   )
                 }
               }
@@ -145,9 +145,9 @@ final private class PushApi(
                       stacking = Stacking.GameDrawOffer,
                       payload = Json.obj(
                         "userId"   -> userId,
-                        "userData" -> corresGameJson(pov, "gameDrawOffer")
-                      )
-                    )
+                        "userData" -> corresGameJson(pov, "gameDrawOffer"),
+                      ),
+                    ),
                   )
                 }
               }
@@ -169,9 +169,9 @@ final private class PushApi(
             stacking = Stacking.GameMove,
             payload = Json.obj(
               "userId"   -> userId,
-              "userData" -> corresGameJson(pov, "corresAlarm")
-            )
-          )
+              "userData" -> corresGameJson(pov, "corresAlarm"),
+            ),
+          ),
         )
       }
     }
@@ -180,7 +180,7 @@ final private class PushApi(
     Json.obj(
       "type"   -> typ,
       "gameId" -> pov.gameId,
-      "fullId" -> pov.fullId
+      "fullId" -> pov.fullId,
     )
 
   def newMsg(t: lila.msg.MsgThread): Funit =
@@ -199,10 +199,10 @@ final private class PushApi(
                   "userId" -> t.other(sender),
                   "userData" -> Json.obj(
                     "type"     -> "newMessage",
-                    "threadId" -> sender.id
-                  )
-                )
-              )
+                    "threadId" -> sender.id,
+                  ),
+                ),
+              ),
             )
           }
         }
@@ -225,10 +225,10 @@ final private class PushApi(
                   "userId" -> dest.id,
                   "userData" -> Json.obj(
                     "type"        -> "challengeCreate",
-                    "challengeId" -> c.id
-                  )
-                )
-              )
+                    "challengeId" -> c.id,
+                  ),
+                ),
+              ),
             )
           }
         }
@@ -249,10 +249,10 @@ final private class PushApi(
               "userId" -> challenger.id,
               "userData" -> Json.obj(
                 "type"        -> "challengeAccept",
-                "challengeId" -> c.id
-              )
-            )
-          )
+                "challengeId" -> c.id,
+              ),
+            ),
+          ),
         )
       }
     }
@@ -276,7 +276,7 @@ final private class PushApi(
         case Correspondence(d) => s"$d days"
         case c: Clock          => c.show
       },
-      c.variant.name
+      c.variant.name,
     ) mkString " - "
   }
 
@@ -297,6 +297,6 @@ private object PushApi {
       title: String,
       body: String,
       stacking: Stacking,
-      payload: JsObject
+      payload: JsObject,
   )
 }

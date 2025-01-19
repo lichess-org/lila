@@ -6,7 +6,7 @@ import play.api.data._
 import lila.common.Form.cleanText
 
 final private[forum] class DataForm(
-    val captcher: lila.hub.actors.Captcher
+    val captcher: lila.hub.actors.Captcher,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
 
@@ -16,7 +16,7 @@ final private[forum] class DataForm(
     "text"    -> cleanText(minLength = 3),
     "gameId"  -> text,
     "move"    -> text,
-    "modIcon" -> optional(boolean)
+    "modIcon" -> optional(boolean),
   )(PostData.apply)(PostData.unapply)
     .verifying(captchaFailMessage, validateCaptcha _)
 
@@ -29,8 +29,8 @@ final private[forum] class DataForm(
   val topic = Form(
     mapping(
       "name" -> cleanText(minLength = 3, maxLength = 100),
-      "post" -> postMapping
-    )(TopicData.apply)(TopicData.unapply)
+      "post" -> postMapping,
+    )(TopicData.apply)(TopicData.unapply),
   )
 }
 
@@ -40,12 +40,12 @@ object DataForm {
       text: String,
       gameId: String,
       move: String,
-      modIcon: Option[Boolean]
+      modIcon: Option[Boolean],
   )
 
   case class TopicData(
       name: String,
-      post: PostData
+      post: PostData,
   ) {
 
     def looksLikeVenting =

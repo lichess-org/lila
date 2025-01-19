@@ -10,7 +10,7 @@ final private class StartedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
-    socket: TournamentSocket
+    socket: TournamentSocket,
 )(implicit mat: akka.stream.Materializer)
     extends Actor {
 
@@ -68,7 +68,10 @@ final private class StartedOrganizer(
     } else startPairing(tour)
 
   // returns number of users actively awaiting a pairing
-  private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Fu[Int] =
+  private def startPairing(
+      tour: Tournament,
+      smallTourNbActivePlayers: Option[Int] = None,
+  ): Fu[Int] =
     !tour.pairingsClosed ??
       socket
         .getWaitingUsers(tour)

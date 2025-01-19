@@ -14,7 +14,7 @@ object side {
   def apply(
       u: User,
       rankMap: lila.rating.UserRankMap,
-      active: Option[lila.rating.PerfType]
+      active: Option[lila.rating.PerfType],
   )(implicit ctx: Context) = {
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
@@ -28,7 +28,7 @@ object side {
         cls := List(
           "perf-item" -> true,
           "empty"     -> perf.isEmpty,
-          "active"    -> active.has(perfType)
+          "active"    -> active.has(perfType),
         ),
         href := {
           if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
@@ -39,23 +39,23 @@ object side {
           st.rating(
             strong(
               perf.glicko.intRating,
-              perf.provisional option "?"
+              perf.provisional option "?",
             ),
             " ",
             ratingProgress(perf.progress),
             " ",
             span(
               if (perfType.key == "puzzle") trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
-              else trans.nbGames.plural(perf.nb, perf.nb.localize)
-            )
+              else trans.nbGames.plural(perf.nb, perf.nb.localize),
+            ),
           ),
           rankMap get perfType map { rank =>
             span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
-              trans.rankX(rank.localize)
+              trans.rankX(rank.localize),
             )
-          }
+          },
         ),
-        !isPuzzle option iconTag("G")
+        !isPuzzle option iconTag("G"),
       )
     }
 
@@ -79,8 +79,8 @@ object side {
         u.noBot option br,
         u.perfs.aiLevels.standard.ifTrue(u.noBot).map(l => aiLevel(l, shogi.variant.Standard)),
         u.perfs.aiLevels.minishogi.ifTrue(u.noBot).map(l => aiLevel(l, shogi.variant.Minishogi)),
-        u.perfs.aiLevels.kyotoshogi.ifTrue(u.noBot).map(l => aiLevel(l, shogi.variant.Kyotoshogi))
-      )
+        u.perfs.aiLevels.kyotoshogi.ifTrue(u.noBot).map(l => aiLevel(l, shogi.variant.Kyotoshogi)),
+      ),
     )
   }
 
@@ -89,7 +89,7 @@ object side {
       dataIcon := '.',
       cls := List(
         "perf-item" -> true,
-        "empty"     -> !storm.nonEmpty
+        "empty"     -> !storm.nonEmpty,
       ),
       href := routes.Storm.dashboardOf(user.username),
       span(
@@ -98,11 +98,11 @@ object side {
           strong(storm.score),
           storm.nonEmpty option frag(
             " ",
-            span(trans.storm.xRuns.plural(storm.runs, storm.runs.localize))
-          )
-        )
+            span(trans.storm.xRuns.plural(storm.runs, storm.runs.localize)),
+          ),
+        ),
       ),
-      iconTag("G")
+      iconTag("G"),
     )
 
   private def aiLevel(level: Int, variant: shogi.variant.Variant)(implicit lang: Lang) =
@@ -112,8 +112,8 @@ object side {
       span(
         h3(variantName(variant)),
         div(cls := "ai-level")(
-          trans.defeatedAiNameAiLevel.txt("AI", level)
-        )
-      )
+          trans.defeatedAiNameAiLevel.txt("AI", level),
+        ),
+      ),
     )
 }

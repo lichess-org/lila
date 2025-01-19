@@ -17,16 +17,17 @@ final class Env(
     studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
-    makeClient: Index => ESClient
+    makeClient: Index => ESClient,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
   private val client = makeClient(Index("study"))
 
-  private val indexThrottler = LateMultiThrottler(executionTimeout = 3.seconds.some, logger = logger)
+  private val indexThrottler =
+    LateMultiThrottler(executionTimeout = 3.seconds.some, logger = logger)
 
   val api: StudySearchApi = wire[StudySearchApi]
 
@@ -38,7 +39,7 @@ final class Env(
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       } mapFutureList pager.withChaptersAndLiking(me),
       currentPage = page,
-      maxPerPage = pager.maxPerPage
+      maxPerPage = pager.maxPerPage,
     )
 
   def cli =

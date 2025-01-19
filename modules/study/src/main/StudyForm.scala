@@ -13,12 +13,12 @@ object StudyForm {
 
     lazy val form = Form(
       mapping(
-        "notation" -> nonEmptyText
-      )(Data.apply)(Data.unapply)
+        "notation" -> nonEmptyText,
+      )(Data.apply)(Data.unapply),
     )
 
     case class Data(
-        notation: String
+        notation: String,
     )
 
   }
@@ -29,14 +29,14 @@ object StudyForm {
       mapping(
         "gameId"      -> nonEmptyText,
         "orientation" -> optional(nonEmptyText),
-        "invited"     -> optional(nonEmptyText)
-      )(Data.apply)(Data.unapply)
+        "invited"     -> optional(nonEmptyText),
+      )(Data.apply)(Data.unapply),
     )
 
     case class Data(
         gameId: String,
         orientationStr: Option[String],
-        invitedUsername: Option[String]
+        invitedUsername: Option[String],
     ) {
       def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
     }
@@ -52,9 +52,9 @@ object StudyForm {
         "sfen"        -> optional(lila.common.Form.sfen.clean),
         "notation"    -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
-        "as"          -> optional(nonEmptyText)
+        "as"          -> optional(nonEmptyText),
       )(Data.apply)(Data.unapply)
-        .verifying("Invalid SFEN", _.validSfen)
+        .verifying("Invalid SFEN", _.validSfen),
     )
 
     case class Data(
@@ -63,7 +63,7 @@ object StudyForm {
         sfen: Option[Sfen] = None,
         notationStr: Option[String] = None,
         variantStr: Option[String] = None,
-        asStr: Option[String] = None
+        asStr: Option[String] = None,
     ) {
 
       def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
@@ -90,7 +90,7 @@ object StudyForm {
           notation = notationStr,
           orientation = orientation.name,
           mode = ChapterMaker.Mode.Normal.key,
-          initial = false
+          initial = false,
         )
     }
 
@@ -109,8 +109,8 @@ object StudyForm {
         "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
         "initial"     -> boolean,
         "sticky"      -> boolean,
-        "notation"    -> nonEmptyText
-      )(Data.apply)(Data.unapply)
+        "notation"    -> nonEmptyText,
+      )(Data.apply)(Data.unapply),
     )
 
     case class Data(
@@ -120,22 +120,23 @@ object StudyForm {
         mode: String,
         initial: Boolean,
         sticky: Boolean,
-        notation: String
+        notation: String,
     ) {
 
       def orientation = orientationStr.flatMap(shogi.Color.fromName) | shogi.Sente
 
       def toChapterDatas =
-        MultiNotation.split(notation, max = 20).value.zipWithIndex map { case (oneNotation, index) =>
-          ChapterMaker.Data(
-            // only the first chapter can be named
-            name = Chapter.Name((index == 0) ?? name),
-            variant = variantStr,
-            notation = oneNotation.some,
-            orientation = orientation.name,
-            mode = mode,
-            initial = initial && index == 0
-          )
+        MultiNotation.split(notation, max = 20).value.zipWithIndex map {
+          case (oneNotation, index) =>
+            ChapterMaker.Data(
+              // only the first chapter can be named
+              name = Chapter.Name((index == 0) ?? name),
+              variant = variantStr,
+              notation = oneNotation.some,
+              orientation = orientation.name,
+              mode = mode,
+              initial = initial && index == 0,
+            )
         }
     }
   }

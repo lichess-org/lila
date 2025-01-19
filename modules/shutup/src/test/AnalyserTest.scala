@@ -23,7 +23,7 @@ class AnalyserTest extends Specification {
       find("") must_== Nil
       find("hello there") must_== Nil
       find(
-        "A sonnet is a poetic form which originated in Italy; Giacomo Da Lentini is credited with its invention."
+        "A sonnet is a poetic form which originated in Italy; Giacomo Da Lentini is credited with its invention.",
       ) must_== Nil
       find("computer analysis") must_== Nil
     }
@@ -42,7 +42,7 @@ class AnalyserTest extends Specification {
         "cunts",
         "kunts",
         "cuntings",
-        "kuntings"
+        "kuntings",
       )
     }
     "find phrases" in {
@@ -50,7 +50,13 @@ class AnalyserTest extends Specification {
       find("you should suck my") must_== List("suck my")
     }
     "50 shades of fuck" in {
-      find("fuck fffuuk fektard feak fak phuk") must_== List("fuck", "fffuuk", "fektard", "fak", "phuk")
+      find("fuck fffuuk fektard feak fak phuk") must_== List(
+        "fuck",
+        "fffuuk",
+        "fektard",
+        "fak",
+        "phuk",
+      )
     }
     "compute ratio" in {
       ratio("fuck that shit") must_== 2d / 3
@@ -83,7 +89,7 @@ class AnalyserTest extends Specification {
   "dirty" should {
     "prod msg" in {
       dirty(
-        """Hello fucking arab. It's morning here I am getting ready to fuck your smelly mom and sister together today. Just wanna inform you ;)"""
+        """Hello fucking arab. It's morning here I am getting ready to fuck your smelly mom and sister together today. Just wanna inform you ;)""",
       ) must beTrue
       dirty("fuck") must beTrue
     }

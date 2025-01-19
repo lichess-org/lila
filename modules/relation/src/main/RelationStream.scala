@@ -13,7 +13,7 @@ import lila.user.UserRepo
 
 final class RelationStream(
     coll: Coll,
-    userRepo: UserRepo
+    userRepo: UserRepo,
 )(implicit mat: akka.stream.Materializer) {
 
   import RelationStream._
@@ -22,7 +22,7 @@ final class RelationStream(
     coll
       .find(
         $doc(selectField(direction) -> user.id, "r" -> Follow),
-        $doc(projectField(direction) -> true, "_id" -> false).some
+        $doc(projectField(direction) -> true, "_id" -> false).some,
       )
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPreference.secondaryPreferred)

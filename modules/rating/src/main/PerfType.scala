@@ -12,7 +12,7 @@ sealed abstract class PerfType(
     val key: Perf.Key,
     private val name: String,
     private val title: String,
-    val iconChar: Char
+    val iconChar: Char,
 ) {
 
   def iconString = iconChar.toString
@@ -30,7 +30,7 @@ object PerfType {
         key = "ultraBullet",
         name = Speed.UltraBullet.name,
         title = Speed.UltraBullet.title,
-        iconChar = '{'
+        iconChar = '{',
       )
 
   case object Bullet
@@ -39,7 +39,7 @@ object PerfType {
         key = "bullet",
         name = Speed.Bullet.name,
         title = Speed.Bullet.title,
-        iconChar = 'T'
+        iconChar = 'T',
       )
 
   case object Blitz
@@ -48,7 +48,7 @@ object PerfType {
         key = "blitz",
         name = Speed.Blitz.name,
         title = Speed.Blitz.title,
-        iconChar = ')'
+        iconChar = ')',
       )
 
   case object Rapid
@@ -57,7 +57,7 @@ object PerfType {
         key = "rapid",
         name = Speed.Rapid.name,
         title = Speed.Rapid.title,
-        iconChar = '#'
+        iconChar = '#',
       )
 
   case object Classical
@@ -66,7 +66,7 @@ object PerfType {
         key = "classical",
         name = Speed.Classical.name,
         title = Speed.Classical.title,
-        iconChar = '+'
+        iconChar = '+',
       )
 
   case object Correspondence
@@ -75,7 +75,7 @@ object PerfType {
         key = "correspondence",
         name = "Correspondence",
         title = Speed.Correspondence.title,
-        iconChar = ';'
+        iconChar = ';',
       )
 
   case object Standard
@@ -84,7 +84,7 @@ object PerfType {
         key = "standard",
         name = shogi.variant.Standard.name,
         title = "Standard rules of shogi",
-        iconChar = '8'
+        iconChar = '8',
       )
 
   case object Minishogi
@@ -93,7 +93,7 @@ object PerfType {
         key = "minishogi",
         name = shogi.variant.Minishogi.name,
         title = "Standard rules of shogi, but smaller board",
-        iconChar = ','
+        iconChar = ',',
       )
 
   case object Chushogi
@@ -102,7 +102,7 @@ object PerfType {
         key = "chushogi",
         name = shogi.variant.Chushogi.name,
         title = "Most popular large board shogi variant",
-        iconChar = '('
+        iconChar = '(',
       )
 
   case object Annanshogi
@@ -111,7 +111,7 @@ object PerfType {
         key = "annanshogi",
         name = shogi.variant.Annanshogi.name,
         title = shogi.variant.Annanshogi.title,
-        iconChar = ''
+        iconChar = '',
       )
 
   case object Kyotoshogi
@@ -120,7 +120,7 @@ object PerfType {
         key = "kyotoshogi",
         name = shogi.variant.Kyotoshogi.name,
         title = shogi.variant.Kyotoshogi.title,
-        iconChar = ''
+        iconChar = '',
       )
 
   case object Checkshogi
@@ -129,7 +129,7 @@ object PerfType {
         key = "checkshogi",
         name = shogi.variant.Checkshogi.name,
         title = shogi.variant.Checkshogi.title,
-        iconChar = '>'
+        iconChar = '>',
       )
 
   case object Puzzle
@@ -138,7 +138,7 @@ object PerfType {
         key = "puzzle",
         name = "Training",
         title = "Shogi tactics trainer",
-        iconChar = '-'
+        iconChar = '-',
       )
 
   val all: List[PerfType] = List(
@@ -154,7 +154,7 @@ object PerfType {
     Annanshogi,
     Kyotoshogi,
     Checkshogi,
-    Puzzle
+    Puzzle,
   )
   val byKey = all map { p =>
     (p.key, p)
@@ -185,7 +185,7 @@ object PerfType {
     Chushogi,
     Annanshogi,
     Kyotoshogi,
-    Checkshogi
+    Checkshogi,
   )
   val leaderboardable: List[PerfType] = List(
     Bullet,
@@ -198,7 +198,7 @@ object PerfType {
     Chushogi,
     Annanshogi,
     Kyotoshogi,
-    Checkshogi
+    Checkshogi,
   )
   val variants: List[PerfType] = List(Minishogi, Chushogi, Annanshogi, Kyotoshogi)
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
@@ -268,7 +268,17 @@ object PerfType {
     }
 
   val translated: Set[PerfType] =
-    Set(Rapid, Classical, Correspondence, Puzzle, Minishogi, Chushogi, Annanshogi, Kyotoshogi, Checkshogi)
+    Set(
+      Rapid,
+      Classical,
+      Correspondence,
+      Puzzle,
+      Minishogi,
+      Chushogi,
+      Annanshogi,
+      Kyotoshogi,
+      Checkshogi,
+    )
 
   def desc(pt: PerfType)(implicit lang: Lang): String =
     pt match {

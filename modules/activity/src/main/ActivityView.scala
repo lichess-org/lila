@@ -2,14 +2,13 @@ package lila.activity
 
 import org.joda.time.Interval
 
+import lila.activity.activities._
+import lila.activity.model._
 import lila.game.LightPov
 import lila.practice.PracticeStudy
 import lila.simul.Simul
 import lila.study.Study
 import lila.tournament.LeaderboardApi.{ Entry => TourEntry }
-
-import activities._
-import model._
 
 case class ActivityView(
     interval: Interval,
@@ -27,13 +26,13 @@ case class ActivityView(
     teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
     stream: Boolean = false,
-    signup: Boolean = false
+    signup: Boolean = false,
 )
 
 object ActivityView {
 
   case class Tours(
       nb: Int,
-      best: List[TourEntry]
+      best: List[TourEntry],
   )
 }

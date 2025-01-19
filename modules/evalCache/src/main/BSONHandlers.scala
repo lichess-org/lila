@@ -5,6 +5,7 @@ import scala.util.Try
 
 import cats.data.NonEmptyList
 import reactivemongo.api.bson._
+
 import shogi.format.usi.Usi
 
 import lila.db.dsl._
@@ -14,8 +15,10 @@ private object BSONHandlers {
 
   import EvalCacheEntry._
 
-  implicit private val TrustBSONHandler: BSONHandler[Trust]  = doubleAnyValHandler[Trust](_.value, Trust.apply)
-  implicit private val KnodesBSONHandler: BSONHandler[Knodes] = intAnyValHandler[Knodes](_.value, Knodes.apply)
+  implicit private val TrustBSONHandler: BSONHandler[Trust] =
+    doubleAnyValHandler[Trust](_.value, Trust.apply)
+  implicit private val KnodesBSONHandler: BSONHandler[Knodes] =
+    intAnyValHandler[Knodes](_.value, Knodes.apply)
 
   implicit val PvsHandler: BSONHandler[NonEmptyList[Pv]] = new BSONHandler[NonEmptyList[Pv]] {
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
@@ -42,7 +45,7 @@ private object BSONHandlers {
                 case Array(score, moves) =>
                   Pv(
                     scoreRead(score) err s"Invalid score $score",
-                    movesRead(moves) err s"Invalid moves $moves"
+                    movesRead(moves) err s"Invalid moves $moves",
                   )
                 case x => sys error s"Invalid PV $pvStr: ${x.toList} (in ${value})"
               }
@@ -68,8 +71,8 @@ private object BSONHandlers {
           Success(
             Id(
               shogi.variant.Variant.orDefault(~variantId.toIntOption),
-              SmallSfen raw sfen
-            )
+              SmallSfen raw sfen,
+            ),
           )
         case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id ${value}")
       }
@@ -78,9 +81,9 @@ private object BSONHandlers {
       BSONString {
         if (x.variant.standard) x.smallSfen.value
         else s"${x.variant.id}:${x.smallSfen.value}"
-      }
+      },
   )
 
-  implicit val evalHandler: BSONDocumentHandler[Eval]  = Macros.handler[Eval]
+  implicit val evalHandler: BSONDocumentHandler[Eval]            = Macros.handler[Eval]
   implicit val entryHandler: BSONDocumentHandler[EvalCacheEntry] = Macros.handler[EvalCacheEntry]
 }

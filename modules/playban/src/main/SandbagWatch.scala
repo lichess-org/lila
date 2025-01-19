@@ -3,6 +3,7 @@ package lila.playban
 import scala.concurrent.duration._
 
 import com.github.blemale.scaffeine.Cache
+
 import shogi.Color
 
 import lila.game.Game
@@ -13,7 +14,7 @@ import lila.user.UserRepo
 
 final private class SandbagWatch(
     userRepo: UserRepo,
-    messenger: MsgApi
+    messenger: MsgApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SandbagWatch._
@@ -36,7 +37,10 @@ final private class SandbagWatch(
     userRepo byId userId flatMap {
       _ ?? { u =>
         lila.common.Bus
-          .publish(lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sandbagAuto.name), "autoWarning")
+          .publish(
+            lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sandbagAuto.name),
+            "autoWarning",
+          )
         messenger.postPreset(u, MsgPreset.sandbagAuto).void
       }
     }

@@ -27,7 +27,7 @@ import akka.stream.scaladsl._
  */
 final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int)(implicit
     ec: ExecutionContext,
-    mat: Materializer
+    mat: Materializer,
 ) {
 
   type Task[A]                    = () => Fu[A]

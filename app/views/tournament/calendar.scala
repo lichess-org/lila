@@ -15,15 +15,15 @@ object calendar {
         moduleJsTag(
           "tournament.calendar",
           Json.obj(
-            "data" -> json
-          )
-        )
+            "data" -> json,
+          ),
+        ),
       ),
-      moreCss = cssTag("tournament.calendar")
+      moreCss = cssTag("tournament.calendar"),
     ) {
       main(cls := "box")(
         h1(trans.tournamentCalendar()),
-        div(id := "tournament-calendar")
+        div(id := "tournament-calendar"),
       )
     }
 }

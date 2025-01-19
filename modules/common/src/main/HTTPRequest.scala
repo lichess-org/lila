@@ -11,7 +11,8 @@ object HTTPRequest {
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req)
 
-  def isSafe(req: RequestHeader)   = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
+  def isSafe(req: RequestHeader) =
+    req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
@@ -23,7 +24,7 @@ object HTTPRequest {
     "http://192.168.1.154",
     "http://localhost:8080", // local dev
     "http://localhost:8100", // local dev
-    "file://"                // old app
+    "file://",               // old app
   )
 
   def appOrigin(req: RequestHeader) = origin(req) filter appOrigins

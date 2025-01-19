@@ -12,12 +12,12 @@ private case class PuzzleSession(
     difficulty: PuzzleDifficulty,
     path: PuzzlePath.Id,
     positionInPath: Int,
-    previousPaths: Set[PuzzlePath.Id] = Set.empty
+    previousPaths: Set[PuzzlePath.Id] = Set.empty,
 ) {
   def switchTo(pathId: PuzzlePath.Id) = copy(
     path = pathId,
     previousPaths = previousPaths + pathId,
-    positionInPath = 0
+    positionInPath = 0,
   )
   def next = copy(positionInPath = positionInPath + 1)
 
@@ -27,7 +27,7 @@ private case class PuzzleSession(
 final class PuzzleSessionApi(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
 )(implicit ec: ExecutionContext) {
 
   import BsonHandlers._
@@ -91,12 +91,14 @@ final class PuzzleSessionApi(
           import framework._
           Match($id(session.path)) -> List(
             // get the puzzle ID from session position
-            Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath)))),
+            Project(
+              $doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", session.positionInPath))),
+            ),
             Project(
               $doc(
                 "puzzleId" -> true,
-                "roundId"  -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId"))
-              )
+                "roundId" -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId")),
+              ),
             ),
             // fetch the puzzle
             PipelineOperator(
@@ -105,9 +107,9 @@ final class PuzzleSessionApi(
                   "from"         -> colls.puzzle.name.value,
                   "localField"   -> "puzzleId",
                   "foreignField" -> "_id",
-                  "as"           -> "puzzle"
-                )
-              )
+                  "as"           -> "puzzle",
+                ),
+              ),
             ),
             // look for existing round
             PipelineOperator(
@@ -116,10 +118,10 @@ final class PuzzleSessionApi(
                   "from"         -> colls.round.name.value,
                   "localField"   -> "roundId",
                   "foreignField" -> "_id",
-                  "as"           -> "round"
-                )
-              )
-            )
+                  "as"           -> "round",
+                ),
+              ),
+            ),
           )
         }
       }
@@ -131,7 +133,8 @@ final class PuzzleSessionApi(
               .getAsOpt[List[Puzzle]]("puzzle")
               .flatMap(_.headOption)
               .fold[NextPuzzleResult](PuzzleMissing(puzzleId)) { puzzle =>
-                if (doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty)) PuzzleAlreadyPlayed(puzzle)
+                if (doc.getAsOpt[List[Bdoc]]("round").exists(_.nonEmpty))
+                  PuzzleAlreadyPlayed(puzzle)
                 else PuzzleFound(puzzle)
               }
           }
@@ -141,7 +144,7 @@ final class PuzzleSessionApi(
         _.puzzle.selector.nextPuzzleResult(
           theme = session.path.theme.value,
           difficulty = session.difficulty.key,
-          result = result.name
+          result = result.name,
         )
       }
 
@@ -161,17 +164,19 @@ final class PuzzleSessionApi(
       .fold[Fu[PuzzleDifficulty]](fuccess(PuzzleDifficulty.default))(_.dmap(_.difficulty))
 
   def setDifficulty(user: User, difficulty: PuzzleDifficulty): Funit =
-    sessions.getIfPresent(user.id).fold(fuccess(PuzzleTheme.mix.key))(_.dmap(_.path.theme)) flatMap { theme =>
+    sessions
+      .getIfPresent(user.id)
+      .fold(fuccess(PuzzleTheme.mix.key))(_.dmap(_.path.theme)) flatMap { theme =>
       createSessionFor(user, theme, difficulty).tap { sessions.put(user.id, _) }.void
     }
 
   private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](16384, "puzzle.session")(
-    _.expireAfterWrite(1 hour).buildAsync()
+    _.expireAfterWrite(1 hour).buildAsync(),
   )
 
   private[puzzle] def continueOrCreateSessionFor(
       user: User,
-      theme: PuzzleTheme.Key
+      theme: PuzzleTheme.Key,
   ): Fu[PuzzleSession] =
     sessions.getFuture(user.id, _ => createSessionFor(user, theme)) flatMap { current =>
       if (current.path.theme == theme) fuccess(current)
@@ -181,7 +186,7 @@ final class PuzzleSessionApi(
   private def createSessionFor(
       user: User,
       theme: PuzzleTheme.Key,
-      difficulty: PuzzleDifficulty = PuzzleDifficulty.default
+      difficulty: PuzzleDifficulty = PuzzleDifficulty.default,
   ): Fu[PuzzleSession] =
     pathApi
       .nextFor(user, theme, PuzzleTier.Top, difficulty, Set.empty)

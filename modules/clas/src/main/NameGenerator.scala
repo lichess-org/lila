@@ -18,7 +18,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
     vec(lila.common.ThreadLocalRandom.nextInt(vec.size))
 
   lazy val combinations = Vector(
-    List(adjectives, nouns)
+    List(adjectives, nouns),
   )
 
   val adjectives = colors ++ positiveAdjectives
@@ -49,7 +49,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Pink",
       "Black",
       "White",
-      "Gray"
+      "Gray",
     )
 
   def pieces =
@@ -60,7 +60,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "General",
       "Bishop",
       "Rook",
-      "King"
+      "King",
     )
 
   def animals =
@@ -211,7 +211,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Worm",
       "Yak",
       "Yellowjacket",
-      "Zebra"
+      "Zebra",
     )
 
   def positiveAdjectives =
@@ -1169,6 +1169,6 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Zesty",
       "Zingy",
       "Zippy",
-      "Zooty"
+      "Zooty",
     )
 }

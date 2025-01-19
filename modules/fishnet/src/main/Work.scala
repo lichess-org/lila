@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
@@ -39,7 +40,7 @@ object Work {
   case class Acquired(
       clientKey: Client.Key,
       userId: Client.UserId,
-      date: DateTime
+      date: DateTime,
   ) {
 
     def ageInMillis = nowMillis - date.getMillis
@@ -52,7 +53,7 @@ object Work {
       initialSfen: Option[Sfen],
       studyId: Option[String],
       variant: Variant,
-      moves: String
+      moves: String,
   ) {
     def sfen               = initialSfen.getOrElse(variant.initialSfen)
     def usiList: List[Usi] = ~(Usi readList moves)
@@ -63,7 +64,7 @@ object Work {
       postGameStudy: Option[lila.analyse.Analysis.PostGameStudy],
       ip: Option[IpAddress],
       mod: Boolean,
-      system: Boolean
+      system: Boolean,
   ) {
 
     override def toString =
@@ -85,7 +86,7 @@ object Work {
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
       delayMillis: Option[Int],
-      createdAt: DateTime
+      createdAt: DateTime,
   ) extends Work {
     def skill = Client.Skill.Move
 
@@ -96,10 +97,10 @@ object Work {
         acquired = Acquired(
           clientKey = client.key,
           userId = client.userId,
-          date = DateTime.now
+          date = DateTime.now,
         ).some,
         lastTryByKey = client.key.some,
-        tries = tries + 1
+        tries = tries + 1,
       )
 
     def timeout = copy(acquired = none)
@@ -111,8 +112,8 @@ object Work {
     def sfenOnly = copy(
       game = game.copy(
         initialSfen = currentSfen.some,
-        moves = ""
-      )
+        moves = "",
+      ),
     )
 
     def similar(to: Move) = game.id == to.game.id && ply == to.ply
@@ -133,7 +134,7 @@ object Work {
       postGameStudies: Set[lila.analyse.Analysis.PostGameStudy], // set of studies to inform
       skipPositions: List[Int],
       puzzleWorthy: Boolean,
-      createdAt: DateTime
+      createdAt: DateTime,
   ) extends Work {
 
     def skill = Client.Skill.Analysis
@@ -145,10 +146,10 @@ object Work {
         acquired = Acquired(
           clientKey = client.key,
           userId = client.userId,
-          date = DateTime.now
+          date = DateTime.now,
         ).some,
         lastTryByKey = client.key.some,
-        tries = tries + 1
+        tries = tries + 1,
       )
 
     def timeout = copy(acquired = none)
@@ -160,7 +161,8 @@ object Work {
 
     def nbMoves = game.moves.count(' ' ==) + 1
 
-    override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
+    override def toString =
+      s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
   case class Puzzle(
@@ -172,7 +174,7 @@ object Work {
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
       createdAt: DateTime,
-      verifiable: Boolean
+      verifiable: Boolean,
   ) extends Work {
 
     def skill = Client.Skill.Puzzle
@@ -184,10 +186,10 @@ object Work {
         acquired = Acquired(
           clientKey = client.key,
           userId = client.userId,
-          date = DateTime.now
+          date = DateTime.now,
         ).some,
         lastTryByKey = client.key.some,
-        tries = tries + 1
+        tries = tries + 1,
       )
 
     def prepareToVerify = copy(verifiable = true, tries = 0)
@@ -202,15 +204,15 @@ object Work {
   object Puzzle {
     case class Source(
         game: Option[Source.FromGame],
-        user: Option[Source.FromUser]
+        user: Option[Source.FromUser],
     )
     object Source {
       case class FromGame(
-          id: String
+          id: String,
       )
       case class FromUser(
           submittedBy: String,
-          author: Option[String]
+          author: Option[String],
       )
     }
   }

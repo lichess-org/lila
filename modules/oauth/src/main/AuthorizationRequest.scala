@@ -14,7 +14,7 @@ object AuthorizationRequest {
       responseType: Option[String],
       codeChallenge: Option[String],
       codeChallengeMethod: Option[String],
-      scope: Option[String]
+      scope: Option[String],
   ) {
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
@@ -30,7 +30,7 @@ object AuthorizationRequest {
             responseType = responseType,
             codeChallenge = codeChallenge,
             codeChallengeMethod = codeChallengeMethod,
-            scope = scope
+            scope = scope,
           )
         }
     }
@@ -43,7 +43,7 @@ object AuthorizationRequest {
       responseType: Option[String],
       codeChallenge: Option[String],
       codeChallengeMethod: Option[String],
-      scope: Option[String]
+      scope: Option[String],
   ) {
     def errorUrl(error: Error) = redirectUri.error(error, state)
 
@@ -53,10 +53,11 @@ object AuthorizationRequest {
       (~scope)
         .split(" ")
         .filter(_ != "")
-        .foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) { case (acc, key) =>
-          acc.andThen { valid =>
-            OAuthScope.byKey.get(key).toValid(Error.InvalidScope(key)).map(_ :: valid)
-          }
+        .foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) {
+          case (acc, key) =>
+            acc.andThen { valid =>
+              OAuthScope.byKey.get(key).toValid(Error.InvalidScope(key)).map(_ :: valid)
+            }
         }
 
     def maybeScopes: List[OAuthScope] = validScopes.getOrElse(Nil)
@@ -66,7 +67,7 @@ object AuthorizationRequest {
         clientId      <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
         scopes        <- validScopes
         codeChallenge <- codeChallenge.map(CodeChallenge.apply).toValid(Error.CodeChallengeRequired)
-        _  <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+        _             <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
         codeChallengeMethod <- codeChallengeMethod
           .toValid(Error.CodeChallengeMethodRequired)
           .andThen(CodeChallengeMethod.from)
@@ -77,7 +78,7 @@ object AuthorizationRequest {
         codeChallenge,
         codeChallengeMethod,
         user.id,
-        scopes
+        scopes,
       )
     }
   }
@@ -89,7 +90,7 @@ object AuthorizationRequest {
       codeChallenge: CodeChallenge,
       codeChallengeMethod: CodeChallengeMethod,
       user: User.ID,
-      scopes: List[OAuthScope]
+      scopes: List[OAuthScope],
   ) {
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
   }

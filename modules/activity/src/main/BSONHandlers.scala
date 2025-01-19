@@ -30,11 +30,12 @@ private object BSONHandlers {
           case _                     => handlerBadValue(s"Invalid activity id $v")
         }
       },
-      id => BSONString(s"${id.userId}$sep${id.day.value}")
+      id => BSONString(s"${id.userId}$sep${id.day.value}"),
     )
   }
 
-  implicit private lazy val ratingHandler: BSONHandler[Rating] = BSONIntegerHandler.as[Rating](Rating.apply, _.value)
+  implicit private lazy val ratingHandler: BSONHandler[Rating] =
+    BSONIntegerHandler.as[Rating](Rating.apply, _.value)
   implicit private lazy val ratingProgHandler: BSONHandler[RatingProg] = tryHandler[RatingProg](
     { case v: BSONArray =>
       for {
@@ -42,7 +43,7 @@ private object BSONHandlers {
         after  <- v.getAsTry[Rating](1)
       } yield RatingProg(before, after)
     },
-    o => BSONArray(o.before, o.after)
+    o => BSONArray(o.before, o.after),
   )
 
   implicit private lazy val scoreHandler: lila.db.BSON[Score] = new lila.db.BSON[Score] {
@@ -56,7 +57,7 @@ private object BSONHandlers {
         win = r.intD(win),
         loss = r.intD(loss),
         draw = r.intD(draw),
-        rp = r.getO[RatingProg](rp)
+        rp = r.getO[RatingProg](rp),
       )
 
     def writes(w: lila.db.BSON.Writer, o: Score) =
@@ -64,7 +65,7 @@ private object BSONHandlers {
         win  -> w.intO(o.win),
         loss -> w.intO(o.loss),
         draw -> w.intO(o.draw),
-        rp   -> o.rp
+        rp   -> o.rp,
       )
   }
 
@@ -72,12 +73,16 @@ private object BSONHandlers {
     typedMapHandler[PerfType, Score](perfTypeKeyIso)
       .as[Games](Games.apply, _.value)
 
-  implicit private lazy val gameIdHandler: BSONHandler[GameId] = BSONStringHandler.as[GameId](GameId.apply, _.value)
+  implicit private lazy val gameIdHandler: BSONHandler[GameId] =
+    BSONStringHandler.as[GameId](GameId.apply, _.value)
 
-  implicit private lazy val postIdHandler: BSONHandler[PostId] = BSONStringHandler.as[PostId](PostId.apply, _.value)
-  implicit lazy val postsHandler: BSONHandler[Posts] = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
+  implicit private lazy val postIdHandler: BSONHandler[PostId] =
+    BSONStringHandler.as[PostId](PostId.apply, _.value)
+  implicit lazy val postsHandler: BSONHandler[Posts] =
+    isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
 
-  implicit lazy val puzzlesHandler: BSONHandler[Puzzles] = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
+  implicit lazy val puzzlesHandler: BSONHandler[Puzzles] =
+    isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
 
   implicit lazy val stormHandler: lila.db.BSON[Storm] = new lila.db.BSON[Storm] {
     def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))
@@ -88,25 +93,28 @@ private object BSONHandlers {
     typedMapHandler[Study.Id, Int](Iso.string[Study.Id](Study.Id.apply, _.value))
       .as[Practice](Practice.apply, _.value)
 
-  implicit private lazy val simulIdHandler: BSONHandler[SimulId] = BSONStringHandler.as[SimulId](SimulId.apply, _.value)
+  implicit private lazy val simulIdHandler: BSONHandler[SimulId] =
+    BSONStringHandler.as[SimulId](SimulId.apply, _.value)
   implicit private lazy val simulsHandler: BSONHandler[Simuls] =
     isoHandler[Simuls, List[SimulId]]((s: Simuls) => s.value, Simuls.apply _)
 
-  implicit lazy val corresHandler: BSONDocumentHandler[Corres]         = Macros.handler[Corres]
-  implicit private lazy val patronHandler: BSONHandler[Patron] = BSONIntegerHandler.as[Patron](Patron.apply, _.months)
+  implicit lazy val corresHandler: BSONDocumentHandler[Corres] = Macros.handler[Corres]
+  implicit private lazy val patronHandler: BSONHandler[Patron] =
+    BSONIntegerHandler.as[Patron](Patron.apply, _.months)
 
-  implicit private lazy val followListHandler: BSONDocumentHandler[FollowList] = Macros.handler[FollowList]
+  implicit private lazy val followListHandler: BSONDocumentHandler[FollowList] =
+    Macros.handler[FollowList]
 
   implicit private lazy val followsHandler: lila.db.BSON[Follows] = new lila.db.BSON[Follows] {
     def reads(r: lila.db.BSON.Reader) =
       Follows(
         in = r.getO[FollowList]("i").filterNot(_.isEmpty),
-        out = r.getO[FollowList]("o").filterNot(_.isEmpty)
+        out = r.getO[FollowList]("o").filterNot(_.isEmpty),
       )
     def writes(w: lila.db.BSON.Writer, o: Follows) =
       BSONDocument(
         "i" -> o.in,
-        "o" -> o.out
+        "o" -> o.out,
       )
   }
 
@@ -149,7 +157,7 @@ private object BSONHandlers {
         follows = r.getO[Follows](follows).filterNot(_.isEmpty),
         studies = r.getO[Studies](studies),
         teams = r.getO[Teams](teams),
-        stream = r.getD[Boolean](stream)
+        stream = r.getD[Boolean](stream),
       )
 
     def writes(w: lila.db.BSON.Writer, o: Activity) =
@@ -166,7 +174,7 @@ private object BSONHandlers {
         follows  -> o.follows,
         studies  -> o.studies,
         teams    -> o.teams,
-        stream   -> o.stream.option(true)
+        stream   -> o.stream.option(true),
       )
   }
 }

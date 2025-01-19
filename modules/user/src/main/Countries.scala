@@ -5,13 +5,14 @@ import scala._
 final class Country(
     val code: String,
     val name: String,
-    val shortName: String
+    val shortName: String,
 )
 
 object Countries {
 
-  @inline private def C(code: String, name: String)                    = new Country(code, name, name)
-  @inline private def C(code: String, name: String, shortName: String) = new Country(code, name, shortName)
+  @inline private def C(code: String, name: String) = new Country(code, name, name)
+  @inline private def C(code: String, name: String, shortName: String) =
+    new Country(code, name, shortName)
 
   val all = List(
     C("AD", "Andorra"),
@@ -267,7 +268,7 @@ object Countries {
     C("YT", "Mayotte"),
     C("ZA", "South Africa"),
     C("ZM", "Zambia"),
-    C("ZW", "Zimbabwe")
+    C("ZW", "Zimbabwe"),
   ).sortBy(_.name) ::: List(
     // whatever
     C("EU", "European Union"),
@@ -275,7 +276,7 @@ object Countries {
     C("_rainbow", "Rainbow"),
     C("_pirate", "Pirate"),
     C("_earth", "Earth"),
-    C("_lishogi", "Lishogi")
+    C("_lishogi", "Lishogi"),
   )
 
   val allPairs = all map { c =>

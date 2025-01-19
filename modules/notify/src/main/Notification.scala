@@ -12,7 +12,7 @@ case class Notification(
     notifies: Notification.Notifies,
     content: NotificationContent,
     read: Notification.NotificationRead,
-    createdAt: DateTime
+    createdAt: DateTime,
 ) {
   def id = _id
 
@@ -46,7 +46,7 @@ case class MentionedInThread(
     topic: MentionedInThread.Topic,
     topidId: MentionedInThread.TopicId,
     category: MentionedInThread.Category,
-    postId: PostId
+    postId: PostId,
 ) extends NotificationContent("mention")
 
 object MentionedInThread {
@@ -60,7 +60,7 @@ object MentionedInThread {
 case class InvitedToStudy(
     invitedBy: InvitedToStudy.InvitedBy,
     studyName: InvitedToStudy.StudyName,
-    studyId: InvitedToStudy.StudyId
+    studyId: InvitedToStudy.StudyId,
 ) extends NotificationContent("invitedStudy")
 
 object InvitedToStudy {
@@ -71,7 +71,7 @@ object InvitedToStudy {
 
 case class PrivateMessage(
     user: PrivateMessage.Sender,
-    text: PrivateMessage.Text
+    text: PrivateMessage.Text,
 ) extends NotificationContent("privateMessage")
 
 object PrivateMessage {
@@ -81,7 +81,7 @@ object PrivateMessage {
 
 case class TeamJoined(
     id: TeamJoined.Id,
-    name: TeamJoined.Name
+    name: TeamJoined.Name,
 ) extends NotificationContent("teamJoined")
 
 object TeamJoined {
@@ -91,13 +91,13 @@ object TeamJoined {
 
 case class TitledTournamentInvitation(
     id: String,
-    text: String
+    text: String,
 ) extends NotificationContent("titledTourney")
 
 case class GameEnd(
     gameId: GameEnd.GameId,
     opponentId: Option[GameEnd.OpponentId],
-    win: Option[GameEnd.Win]
+    win: Option[GameEnd.Win],
 ) extends NotificationContent("gameEnd")
 
 object GameEnd {
@@ -108,7 +108,7 @@ object GameEnd {
 
 case class PausedGame(
     gameId: PausedGame.GameId,
-    opponentId: Option[PausedGame.OpponentId]
+    opponentId: Option[PausedGame.OpponentId],
 ) extends NotificationContent("pausedGame")
 
 object PausedGame {
@@ -125,12 +125,12 @@ case class PlanExpire(userId: String) extends NotificationContent("planExpire")
 
 case class CorresAlarm(
     gameId: lila.game.Game.ID,
-    opponent: String
+    opponent: String,
 ) extends NotificationContent("corresAlarm")
 
 case class GenericLink(
     url: String,
     title: Option[String],
     text: Option[String],
-    icon: String
+    icon: String,
 ) extends NotificationContent("genericLink")

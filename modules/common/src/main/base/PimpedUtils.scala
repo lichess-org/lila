@@ -11,7 +11,7 @@ import org.joda.time.DateTime
 import org.joda.time.Duration
 import ornicar.scalalib.Zero
 
-import LilaTypes._
+import lila.base.LilaTypes._
 
 final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 

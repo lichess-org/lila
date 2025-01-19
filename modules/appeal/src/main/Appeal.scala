@@ -9,7 +9,7 @@ case class Appeal(
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
 ) {
   def id                       = _id
   def isOpen                   = status != Appeal.Status.Closed
@@ -20,7 +20,7 @@ case class Appeal(
     val msg = AppealMsg(
       by = by.id,
       text = text,
-      at = DateTime.now
+      at = DateTime.now,
     )
     copy(
       msgs = msgs :+ msg,
@@ -28,7 +28,7 @@ case class Appeal(
       status =
         if (isByMod(msg) && status == Appeal.Status.Unread) Appeal.Status.Read
         else if (!isByMod(msg) && status == Appeal.Status.Read) Appeal.Status.Unread
-        else status
+        else status,
     )
   }
 
@@ -58,5 +58,5 @@ object Appeal {
 case class AppealMsg(
     by: User.ID,
     text: String,
-    at: DateTime
+    at: DateTime,
 )

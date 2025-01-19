@@ -9,7 +9,7 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
 final class BlogApi(
-    config: BlogConfig
+    config: BlogConfig,
 )(implicit ec: scala.concurrent.ExecutionContext, ws: WSClient) {
 
   private def collection = config.collection
@@ -19,7 +19,7 @@ final class BlogApi(
       page: Int,
       maxPerPage: MaxPerPage,
       lang: BlogLang,
-      ref: Option[String]
+      ref: Option[String],
   ): Fu[Option[Paginator[Document]]] =
     api
       .forms(collection)
@@ -36,7 +36,7 @@ final class BlogApi(
       prismic: BlogApi.Context,
       page: Int,
       maxPerPage: MaxPerPage,
-      lang: BlogLang
+      lang: BlogLang,
   ): Fu[Option[Paginator[Document]]] =
     recent(prismic.api, page, maxPerPage, lang, prismic.ref.some)
 
@@ -48,7 +48,8 @@ final class BlogApi(
       .ref(ref | api.master.ref)
       .submit() map (_.results.flatMap(doc => FullPost.fromDocument(collection)(doc)).headOption)
 
-  def one(prismic: BlogApi.Context, id: String): Fu[Option[FullPost]] = one(prismic.api, prismic.ref.some, id)
+  def one(prismic: BlogApi.Context, id: String): Fu[Option[FullPost]] =
+    one(prismic.api, prismic.ref.some, id)
 
   def latest(prismic: BlogApi.Context, lang: BlogLang): Fu[Option[FullPost]] =
     prismic.api
@@ -71,7 +72,7 @@ final class BlogApi(
       .fold(_ => Nil, _.results flatMap MiniPost.fromDocument(collection, "wide"))
 
   def context(
-      req: RequestHeader
+      req: RequestHeader,
   )(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
     prismicApi map { api =>
       val ref = resolveRef(api) {
@@ -84,7 +85,7 @@ final class BlogApi(
     }
 
   def masterContext(implicit
-      linkResolver: (Api, Option[String]) => DocumentLinkResolver
+      linkResolver: (Api, Option[String]) => DocumentLinkResolver,
   ): Fu[BlogApi.Context] =
     prismicApi map { api =>
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))

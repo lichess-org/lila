@@ -4,6 +4,7 @@ import scala.util.Success
 import scala.util.Try
 
 import reactivemongo.api.bson._
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.UciToUsi
 import shogi.format.usi.Usi
@@ -40,7 +41,7 @@ object BsonHandlers {
         gameId = r.getO[Game.ID](F.gameId),
         author = r.strO(F.author),
         description = r.strO(F.description),
-        submittedBy = r.strO(F.submittedBy)
+        submittedBy = r.strO(F.submittedBy),
       )
     }
 
@@ -57,31 +58,34 @@ object BsonHandlers {
         F.gameId              -> p.gameId,
         F.author              -> p.author,
         F.description         -> p.description,
-        F.submittedBy         -> p.submittedBy
+        F.submittedBy         -> p.submittedBy,
       )
 
   }
 
-  implicit private[puzzle] val RoundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
-    { case BSONString(v) =>
-      v split PuzzleRound.idSep match {
-        case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, Puzzle.Id(puzzleId)))
-        case _                       => handlerBadValue(s"Invalid puzzle round id $v")
-      }
-    },
-    id => BSONString(id.toString)
-  )
-
-  implicit private[puzzle] val RoundThemeHandler: BSONHandler[PuzzleRound.Theme] = tryHandler[PuzzleRound.Theme](
-    { case BSONString(v) =>
-      PuzzleTheme
-        .find(v.drop(1))
-        .fold[Try[PuzzleRound.Theme]](handlerBadValue(s"Invalid puzzle round theme $v")) { theme =>
-          Success(PuzzleRound.Theme(theme.key, v.head == '+'))
+  implicit private[puzzle] val RoundIdHandler: BSONHandler[PuzzleRound.Id] =
+    tryHandler[PuzzleRound.Id](
+      { case BSONString(v) =>
+        v split PuzzleRound.idSep match {
+          case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, Puzzle.Id(puzzleId)))
+          case _                       => handlerBadValue(s"Invalid puzzle round id $v")
         }
-    },
-    rt => BSONString(s"${if (rt.vote) "+" else "-"}${rt.theme}")
-  )
+      },
+      id => BSONString(id.toString),
+    )
+
+  implicit private[puzzle] val RoundThemeHandler: BSONHandler[PuzzleRound.Theme] =
+    tryHandler[PuzzleRound.Theme](
+      { case BSONString(v) =>
+        PuzzleTheme
+          .find(v.drop(1))
+          .fold[Try[PuzzleRound.Theme]](handlerBadValue(s"Invalid puzzle round theme $v")) {
+            theme =>
+              Success(PuzzleRound.Theme(theme.key, v.head == '+'))
+          }
+      },
+      rt => BSONString(s"${if (rt.vote) "+" else "-"}${rt.theme}"),
+    )
 
   implicit private[puzzle] val RoundHandler: BSON[PuzzleRound] = new BSON[PuzzleRound] {
     import PuzzleRound.BSONFields._
@@ -91,7 +95,7 @@ object BsonHandlers {
       fixedAt = r.dateO(fixedAt),
       date = r.date(date),
       vote = r.intO(vote),
-      themes = r.getsD[PuzzleRound.Theme](themes)
+      themes = r.getsD[PuzzleRound.Theme](themes),
     )
     def writes(w: BSON.Writer, r: PuzzleRound) =
       $doc(
@@ -100,15 +104,15 @@ object BsonHandlers {
         fixedAt -> r.fixedAt,
         date    -> r.date,
         vote    -> r.vote,
-        themes  -> w.listO(r.themes)
+        themes  -> w.listO(r.themes),
       )
   }
 
   implicit private[puzzle] val PathIdBSONHandler: BSONHandler[PuzzlePath.Id] = stringIsoHandler(
-    PuzzlePath.pathIdIso
+    PuzzlePath.pathIdIso,
   )
 
   implicit private[puzzle] val ThemeKeyBSONHandler: BSONHandler[PuzzleTheme.Key] = stringIsoHandler(
-    PuzzleTheme.keyIso
+    PuzzleTheme.keyIso,
   )
 }

@@ -1,6 +1,7 @@
 package lila.game
 
 import org.joda.time.DateTime
+
 import shogi.Centis
 import shogi.Color
 import shogi.Replay
@@ -17,7 +18,7 @@ import lila.common.config.BaseUrl
 
 final class NotationDump(
     baseUrl: BaseUrl,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import NotationDump._
@@ -25,7 +26,7 @@ final class NotationDump(
   def apply(
       game: Game,
       flags: WithFlags,
-      teams: Option[Color.Map[String]] = None
+      teams: Option[Color.Map[String]] = None,
   ): Fu[Notation] = {
     val tagsFuture =
       if (flags.tags)
@@ -35,7 +36,7 @@ final class NotationDump(
             Tag.timeControlCsa(game.clock.map(_.config))
           else
             Tag.timeControlKif(game.clock.map(_.config)),
-          teams = teams
+          teams = teams,
         )
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
@@ -45,20 +46,20 @@ final class NotationDump(
           if (movetimes.forall(_ == Centis(0))) Vector[Centis]() else movetimes
         }
         val clocksTotal = clocksSpent.foldLeft(Vector[Centis]())((acc, cur) =>
-          acc :+ (acc.takeRight(2).headOption.getOrElse(Centis(0)) + cur)
+          acc :+ (acc.takeRight(2).headOption.getOrElse(Centis(0)) + cur),
         )
         val clockOffset = game.startColor.fold(0, 1)
         val extendedMoves = Replay.usiWithRoleWhilePossible(
           game.usis,
           game.initialSfen,
-          game.variant
+          game.variant,
         )
         makeMoveList(
           flags keepDelayIf game.playable applyDelay extendedMoves,
           game.shogi.startedAtStep,
           clockOffset,
           clocksSpent,
-          clocksTotal
+          clocksTotal,
         )
       }
       val terminationMove =
@@ -66,7 +67,7 @@ final class NotationDump(
           Csa.createTerminationStep(
             game.status,
             game.winnerColor.fold(false)(_ == game.turnColor),
-            game.winnerColor
+            game.winnerColor,
           )
         else if (game.drawn && game.variant.chushogi) "引き分け".some
         else
@@ -78,8 +79,10 @@ final class NotationDump(
       if (game.finished) {
         terminationMove.fold(
           notation.updateLastPly(
-            _.copy(comments = List(lila.game.StatusText(game.status, game.winnerColor, game.variant)))
-          )
+            _.copy(comments =
+              List(lila.game.StatusText(game.status, game.winnerColor, game.variant)),
+            ),
+          ),
         ) { t =>
           notation.updateLastPly(_.copy(result = t.some))
         }
@@ -94,7 +97,7 @@ final class NotationDump(
 
   def player(p: Player, u: Option[LightUser]) =
     p.engineConfig.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))(ec =>
-      s"${ec.engine.fullName} level ${ec.level}"
+      s"${ec.engine.fullName} level ${ec.level}",
     )
 
   private def eventOf(game: Game) = {
@@ -114,7 +117,7 @@ final class NotationDump(
   def tags(
       game: Game,
       timeControlTag: Tag,
-      @scala.annotation.unused teams: Option[Color.Map[String]] = None
+      @scala.annotation.unused teams: Option[Color.Map[String]] = None,
   ): Fu[Tags] =
     gameLightUsers(game) map { case (sente, gote) =>
       Tags {
@@ -126,8 +129,8 @@ final class NotationDump(
           Tag(_.Gote, player(game.gotePlayer, gote)),
           Tag(
             _.Event,
-            imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }
-          )
+            imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) },
+          ),
         ) ::: {
           imported map { p =>
             List(
@@ -135,13 +138,13 @@ final class NotationDump(
               p.tags.value.find(_.name == Tag.End),
               p.tags.value.find(_.name == Tag.TimeControl),
               p.tags.value.find(_.name == Tag.Byoyomi), // not used in CSA
-              p.tags.value.find(_.name == Tag.Opening)
+              p.tags.value.find(_.name == Tag.Opening),
             ).flatten
           } getOrElse {
             List(
               Tag(_.Start, dateAndTime(game.createdAt)),
               Tag(_.End, dateAndTime(game.movedAt)),
-              timeControlTag
+              timeControlTag,
             )
           }
         }
@@ -153,13 +156,13 @@ final class NotationDump(
       startedAtStep: Int,
       clockOffset: Int,
       clocksSpent: Vector[Centis],
-      clocksTotal: Vector[Centis]
+      clocksTotal: Vector[Centis],
   ): List[NotationStep] = extendedMoves.zipWithIndex.map { case (usiWithRole, index) =>
     NotationStep(
       stepNumber = index + startedAtStep,
       usiWithRole = usiWithRole,
       secondsSpent = clocksSpent lift (index - clockOffset) map (_.roundSeconds),
-      secondsTotal = clocksTotal lift (index - clockOffset) map (_.roundSeconds)
+      secondsTotal = clocksTotal lift (index - clockOffset) map (_.roundSeconds),
     )
   }
 }
@@ -178,7 +181,7 @@ object NotationDump {
       literate: Boolean = false,
       shiftJis: Boolean = false,
       notationInJson: Boolean = false,
-      delayMoves: Boolean = false
+      delayMoves: Boolean = false,
   ) {
     def applyDelay[M](moves: List[M]): List[M] =
       if (!delayMoves) moves

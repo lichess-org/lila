@@ -17,7 +17,7 @@ private[tournament] case class Player(
     score: Int = 0,
     fire: Boolean = false,
     performance: Int = 0,
-    team: Option[TeamID] = None
+    team: Option[TeamID] = None,
 ) {
 
   def id = _id
@@ -46,7 +46,7 @@ private[tournament] object Player {
       user: User,
       perfType: PerfType,
       team: Option[TeamID],
-      order: Option[Int]
+      order: Option[Int],
   ): Player =
     Player(
       _id = lila.common.ThreadLocalRandom.nextString(8),
@@ -55,6 +55,6 @@ private[tournament] object Player {
       order = order,
       rating = user.perfs(perfType).intRating,
       provisional = user.perfs(perfType).provisional,
-      team = team
+      team = team,
     )
 }

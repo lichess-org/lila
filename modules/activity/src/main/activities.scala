@@ -2,11 +2,10 @@ package lila.activity
 
 import ornicar.scalalib.Zero
 
+import lila.activity.model._
 import lila.rating.PerfType
 import lila.study.Study
 import lila.user.User
-
-import model._
 
 object activities {
 
@@ -15,7 +14,7 @@ object activities {
   case class Games(value: Map[PerfType, Score]) extends AnyVal {
     def add(pt: PerfType, score: Score) =
       copy(
-        value = value + (pt -> value.get(pt).fold(score)(_ add score))
+        value = value + (pt -> value.get(pt).fold(score)(_ add score)),
       )
     def hasNonCorres = value.exists(_._1 != PerfType.Correspondence)
   }
@@ -40,7 +39,7 @@ object activities {
   case class Practice(value: Map[Study.Id, Int]) {
     def +(studyId: Study.Id) =
       copy(
-        value = value + (studyId -> value.get(studyId).fold(1)(1 +))
+        value = value + (studyId -> value.get(studyId).fold(1)(1 +)),
       )
   }
   implicit val PracticeZero: Zero[Practice] = Zero.instance(Practice(Map.empty))
@@ -56,7 +55,7 @@ object activities {
       Corres(
         moves = moves + (moved ?? 1),
         movesIn = if (moved) (gameId :: movesIn).distinct.take(maxSubEntries) else movesIn,
-        end = if (ended) (gameId :: end).take(maxSubEntries) else end
+        end = if (ended) (gameId :: end).take(maxSubEntries) else end,
       )
   }
   implicit val CorresZero: Zero[Corres] = Zero.instance(Corres(0, Nil, Nil))
@@ -76,13 +75,13 @@ object activities {
         val newIds = (id :: ids).distinct
         copy(
           ids = newIds take maxSubEntries,
-          nb = nb.map(1 +).orElse(newIds.sizeIs > maxSubEntries option newIds.size)
+          nb = nb.map(1 +).orElse(newIds.sizeIs > maxSubEntries option newIds.size),
         )
       }
     def isEmpty = ids.isEmpty
   }
   implicit val FollowListZero: Zero[FollowList] = Zero.instance(FollowList(Nil, None))
-  implicit val FollowsZero: Zero[Follows]    = Zero.instance(Follows(None, None))
+  implicit val FollowsZero: Zero[Follows]       = Zero.instance(Follows(None, None))
 
   case class Studies(value: List[Study.Id]) extends AnyVal {
     def +(s: Study.Id) = copy(value = (s :: value) take maxSubEntries)

@@ -12,10 +12,10 @@ import lila.user.User
 
 final private[plan] class PlanNotifier(
     notifyApi: NotifyApi,
-    timeline: lila.hub.actors.Timeline
+    timeline: lila.hub.actors.Timeline,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   def onStart(user: User) =
@@ -25,8 +25,8 @@ final private[plan] class PlanNotifier(
           .addNotification(
             Notification.make(
               Notifies(user.id),
-              lila.notify.PlanStart(user.id)
-            )
+              lila.notify.PlanStart(user.id),
+            ),
           )
           .unit
       }
@@ -38,7 +38,7 @@ final private[plan] class PlanNotifier(
     notifyApi.addNotification(
       Notification.make(
         Notifies(user.id),
-        lila.notify.PlanExpire(user.id)
-      )
+        lila.notify.PlanExpire(user.id),
+      ),
     )
 }

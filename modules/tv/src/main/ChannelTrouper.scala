@@ -12,7 +12,7 @@ final private[tv] class ChannelTrouper(
     channel: Tv.Channel,
     onSelect: TvTrouper.Selected => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
-    rematchOf: Game.ID => Option[Game.ID]
+    rematchOf: Game.ID => Option[Game.ID],
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
 
@@ -50,7 +50,7 @@ final private[tv] class ChannelTrouper(
             .collect {
               case Some(g) if isActive(g) => g
             }
-            .toList
+            .toList,
         )
         .foreach { candidates =>
           oneId ?? proxyGame foreach {
@@ -98,7 +98,7 @@ final private[tv] class ChannelTrouper(
     ratingHeuristic(Color.Sente),
     ratingHeuristic(Color.Gote),
     speedHeuristic,
-    sourceHeuristic
+    sourceHeuristic,
   )
 
   private def ratingHeuristic(color: Color): Heuristic =
@@ -106,7 +106,9 @@ final private[tv] class ChannelTrouper(
 
   // prefer faster games - better for watching
   private def speedHeuristic: Heuristic =
-    game => ~game.estimateClockTotalTime.map(ct => ((1000 - ct) / 5) atLeast 0) + (!game.olderThan(60) ?? 750)
+    game =>
+      ~game.estimateClockTotalTime
+        .map(ct => ((1000 - ct) / 5) atLeast 0) + (!game.olderThan(60) ?? 750)
 
   private def sourceHeuristic: Heuristic =
     game => {

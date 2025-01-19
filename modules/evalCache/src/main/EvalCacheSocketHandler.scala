@@ -11,13 +11,13 @@ import lila.user.User
 final private class EvalCacheSocketHandler(
     api: EvalCacheApi,
     truster: EvalCacheTruster,
-    upgrade: EvalCacheUpgrade
+    upgrade: EvalCacheUpgrade,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def evalGet(
       sri: Socket.Sri,
       d: JsObject,
-      push: JsObject => Unit
+      push: JsObject => Unit,
   ): Unit =
     for {
       sfen <- d str "sfen" map Sfen.apply

@@ -22,10 +22,10 @@ object ratingDistribution {
           "chart.rating-distribution",
           Json.obj(
             "freq"     -> data,
-            "myRating" -> ctx.me.map(_.perfs(perfType).intRating)
-          )
-        )
-      )
+            "myRating" -> ctx.me.map(_.perfs(perfType).intRating),
+          ),
+        ),
+      ),
     ) {
       main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),
@@ -39,11 +39,11 @@ object ratingDistribution {
                   a(
                     dataIcon := pt.iconChar,
                     cls      := (perfType == pt).option("current"),
-                    href     := routes.Stat.ratingDistribution(pt.key)
+                    href     := routes.Stat.ratingDistribution(pt.key),
                   )(pt.trans)
-                }
-              )
-            )
+                },
+              ),
+            ),
           ),
           div(cls := "desc", dataIcon := perfType.iconChar)(
             ctx.me.flatMap(_.perfs(perfType).glicko.establishedIntRating).map { rating =>
@@ -57,24 +57,24 @@ object ratingDistribution {
                     br,
                     trans.youAreBetterThanPercentOfPerfTypePlayers(
                       strong((under * 100.0 / sum).round, "%"),
-                      perfType.trans
-                    )
+                      perfType.trans,
+                    ),
                   )
               }
             } getOrElse div(
               trans.nbPerfTypePlayersThisMonth
                 .plural(data.sum, strong(data.sum.localize), perfType.trans),
               br,
-              trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
-            )
+              trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans),
+            ),
           ),
           div(id := "rating_distribution")(
             canvas(
               id := "rating_distribution_chart",
-              ariaTitle(trans.monthlyPerfTypeRatingDistribution.txt(perfType.trans))
-            )(spinner)
-          )
-        )
+              ariaTitle(trans.monthlyPerfTypeRatingDistribution.txt(perfType.trans)),
+            )(spinner),
+          ),
+        ),
       )
     }
 

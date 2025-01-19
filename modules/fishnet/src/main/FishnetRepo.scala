@@ -10,7 +10,7 @@ import lila.memo.CacheApi._
 
 final private class FishnetRepo(
     colls: FishnetColls,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -28,7 +28,8 @@ final private class FishnetRepo(
 
   def getClient(key: Client.Key)        = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
-  def getOfflineClient: Fu[Client] = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
+  def getOfflineClient: Fu[Client] =
+    getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClient(client: Client): Funit =
     clientColl.update.one(selectClient(client.key), client, upsert = true).void >>-
       clientCache.invalidate(client.key)
@@ -36,40 +37,46 @@ final private class FishnetRepo(
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
       updateClient(updated) inject updated
     }
-  def addClient(client: Client)     = clientColl.insert.one(client)
-  def deleteClient(key: Client.Key) = clientColl.delete.one(selectClient(key)) >>- clientCache.invalidate(key)
+  def addClient(client: Client) = clientColl.insert.one(client)
+  def deleteClient(key: Client.Key) =
+    clientColl.delete.one(selectClient(key)) >>- clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update.one(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
+    clientColl.update.one(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(
+      key,
+    )
   def allRecentClients =
     clientColl.list[Client](
       $doc(
-        "instance.seenAt" $gt Client.Instance.recentSince
-      )
+        "instance.seenAt" $gt Client.Instance.recentSince,
+      ),
     )
 
   def lishogiClients =
     clientColl.list[Client](
       $doc(
         "enabled" -> true,
-        "userId" $startsWith "lishogi-"
-      )
+        "userId" $startsWith "lishogi-",
+      ),
     )
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id)           = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
-  def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
+  def giveUpAnalysis(ana: Work.Analysis) =
+    deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
   def updateOrGiveUpAnalysis(ana: Work.Analysis) =
     if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
 
   def addPuzzle(puzzle: Work.Puzzle)         = puzzleColl.insert.one(puzzle).void
   def addPuzzles(puzzles: List[Work.Puzzle]) = puzzleColl.insert.many(puzzles).void
   def getPuzzle(id: Work.Id)                 = puzzleColl.find(selectWork(id)).one[Work.Puzzle]
-  def countUserPuzzles(userId: String)       = puzzleColl.countSel($doc("source.user.submittedBy" -> userId))
-  def updatePuzzle(puzzle: Work.Puzzle)      = puzzleColl.update.one(selectWork(puzzle.id), puzzle).void
-  def deletePuzzle(puzzle: Work.Puzzle)      = puzzleColl.delete.one(selectWork(puzzle.id)).void
-  def giveUpPuzzle(puzzle: Work.Puzzle) = deletePuzzle(puzzle) >>- logger.warn(s"Give up on puzzle $puzzle")
+  def countUserPuzzles(userId: String) =
+    puzzleColl.countSel($doc("source.user.submittedBy" -> userId))
+  def updatePuzzle(puzzle: Work.Puzzle) = puzzleColl.update.one(selectWork(puzzle.id), puzzle).void
+  def deletePuzzle(puzzle: Work.Puzzle) = puzzleColl.delete.one(selectWork(puzzle.id)).void
+  def giveUpPuzzle(puzzle: Work.Puzzle) =
+    deletePuzzle(puzzle) >>- logger.warn(s"Give up on puzzle $puzzle")
   def updateOrGiveUpPuzzle(puzzle: Work.Puzzle) =
     if (puzzle.isOutOfTries) giveUpPuzzle(puzzle) else updatePuzzle(puzzle)
 
@@ -99,8 +106,9 @@ final private class FishnetRepo(
         puzzleCandidates <- puzzleColl.countSel($doc("verifiable" -> false))
       } yield Monitor.Status(
         user = Monitor.StatusFor(acquired = userAcquired, queued = userQueued, oldest = userOldest),
-        system = Monitor.StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest),
-        puzzles = Monitor.StatusPuzzle(verifiable = puzzleVerifiable, candidates = puzzleCandidates)
+        system = Monitor
+          .StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest),
+        puzzles = Monitor.StatusPuzzle(verifiable = puzzleVerifiable, candidates = puzzleCandidates),
       )
   }
 
@@ -116,8 +124,8 @@ final private class FishnetRepo(
     clientColl.primitiveOne[String](
       $or(
         "_id" $eq keyOrUser,
-        "userId" $eq lila.user.User.normalize(keyOrUser)
+        "userId" $eq lila.user.User.normalize(keyOrUser),
       ),
-      "_id"
+      "_id",
     ) orFail "client not found" map Client.Key.apply
 }

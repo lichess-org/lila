@@ -8,7 +8,7 @@ import shogi.Clock
 import shogi.Color
 import shogi.Mode
 import shogi.variant.Variant
-import shogi.{Status => S}
+import shogi.{ Status => S }
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
@@ -17,7 +17,7 @@ import lila.game.Namer
 import lila.game.Player
 import lila.game.Pov
 import lila.i18n.defaultLang
-import lila.i18n.{I18nKeys => trans}
+import lila.i18n.{ I18nKeys => trans }
 import lila.user.Title
 import lila.user.User
 
@@ -34,11 +34,13 @@ trait GameHelper {
       image = gameThumbnail(pov),
       title = titleGame(pov.game),
       url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
-      description = describePov(pov)
+      description = describePov(pov),
     )
 
   def gameThumbnail(p: Pov) =
-    Game.gifVariants.contains(p.game.variant) option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
+    Game.gifVariants.contains(p.game.variant) option cdnUrl(
+      routes.Export.gameThumbnail(p.gameId).url,
+    )
 
   // Rapid Shogi - Dalliard vs Smith
   // Chushogi - PeterFile vs FilePeter
@@ -63,7 +65,7 @@ trait GameHelper {
           modeName(game.mode),
           game.perfType ?? (_.trans),
           game.variant.standard ?? trans.shogi.txt(),
-          game.clock.map(_.config) ?? { clock => s"(${clock.show})" }
+          game.clock.map(_.config) ?? { clock => s"(${clock.show})" },
         ).filter(_.nonEmpty).mkString(" ")
     val result = game.winner.map(w => trans.xWon.txt(playerText(w))) getOrElse {
       if (game.finishedOrAborted) trans.gameWasDraw.txt() else trans.winnerIsNotYetDecided.txt()
@@ -125,12 +127,14 @@ trait GameHelper {
   def engineLevel(ec: lila.game.EngineConfig)(implicit lang: Lang): String =
     trans.levelX.txt(ec.level)
 
-  def engineText(ec: lila.game.EngineConfig, withLevel: Boolean = true)(implicit lang: Lang): String =
+  def engineText(ec: lila.game.EngineConfig, withLevel: Boolean = true)(implicit
+      lang: Lang,
+  ): String =
     if (withLevel) s"${engineName(ec)} (${engineLevel(ec).toLowerCase})"
     else engineName(ec)
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit
-      lang: Lang
+      lang: Lang,
   ): Frag =
     player.engineConfig.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](lila.user.User.anonymous) { user =>
@@ -139,14 +143,14 @@ trait GameHelper {
             span(
               cls := "title",
               (Title(t) == Title.BOT) option dataBotAttr,
-              st.title := Title titleName Title(t)
+              st.title := Title titleName Title(t),
             )(t),
-            " "
+            " ",
           )
         }
         if (withRating) frag(title, user.name, " ", "(", lila.game.Namer ratingString player, ")")
         else frag(title, user.name)
-      }
+      },
     ) { ec =>
       if (withRating) frag(engineName(ec), " ", "(", engineLevel(ec).toLowerCase, ")")
       else engineName(ec)
@@ -154,7 +158,7 @@ trait GameHelper {
 
   def playerText(player: Player, withRating: Boolean = false)(implicit lang: Lang) =
     player.engineConfig.fold(
-      Namer.playerTextBlocking(player, withRating)(lightUser)
+      Namer.playerTextBlocking(player, withRating)(lightUser),
     )(ec => engineText(ec, withRating))
 
   def gameVsText(game: Game, withRatings: Boolean = false): String =
@@ -171,7 +175,7 @@ trait GameHelper {
       engine: Boolean = false,
       withBerserk: Boolean = false,
       mod: Boolean = false,
-      link: Boolean = true
+      link: Boolean = true,
   )(implicit lang: Lang): Frag = {
     val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match {
@@ -183,13 +187,13 @@ trait GameHelper {
             case (_, Some(name)) => name
             case _               => User.anonymous
           },
-          statusIcon
+          statusIcon,
         )
       case Some(user) =>
         frag(
           (if (link) a else span) (
             cls  := userClass(user.id, cssClass, withOnline),
-            href := s"${routes.User show user.name}${if (mod) "?mod" else ""}"
+            href := s"${routes.User show user.name}${if (mod) "?mod" else ""}",
           )(
             withOnline option frag(lineIcon(user), " "),
             playerUsername(player, withRating),
@@ -198,10 +202,10 @@ trait GameHelper {
             },
             engine option span(
               cls   := "tos_violation",
-              title := trans.thisAccountViolatedTos.txt()
-            )
+              title := trans.thisAccountViolatedTos.txt(),
+            ),
           ),
-          statusIcon
+          statusIcon,
         )
     }
   }
@@ -226,7 +230,7 @@ trait GameHelper {
         game.loserColor
           .map(l => transWithColorName(trans.xLeftTheGame, l, game.isHandicap))
           .getOrElse(
-            trans.draw.txt()
+            trans.draw.txt(),
           )
       case S.Repetition => trans.repetition.txt()
       case S.Draw       => trans.draw.txt()
@@ -254,7 +258,7 @@ trait GameHelper {
       game: Game,
       color: Color,
       ownerLink: Boolean = false,
-      tv: Boolean = false
+      tv: Boolean = false,
   )(implicit ctx: Context): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
     if (tv) routes.Tv.index
@@ -275,7 +279,7 @@ trait GameHelper {
       tv: Boolean = false,
       withTitle: Boolean = true,
       withLink: Boolean = true,
-      withLive: Boolean = true
+      withLive: Boolean = true,
   )(implicit ctx: Context): Frag = {
     val game    = pov.game
     val isLive  = withLive && game.isBeingPlayed
@@ -289,7 +293,7 @@ trait GameHelper {
       dataColor   := pov.color.name,
       dataSfen    := game.situation.toSfen.value,
       dataLastUsi := ~game.lastUsiStr,
-      dataVariant := variant.key
+      dataVariant := variant.key,
     )(shogigroundEmpty(variant, pov.color))
   }
 
@@ -297,15 +301,15 @@ trait GameHelper {
     val isLive  = pov.game.isBeingPlayed
     val variant = pov.game.variant
     a(
-      href        := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
-      title       := gameTitle(pov.game, pov.color)(defaultLang),
-      cls         := miniBoardCls(pov.gameId, variant, isLive),
-      dataLive    := isLive.option(pov.gameId),
-      dataColor   := pov.color.name,
-      dataSfen    := pov.game.situation.toSfen.value,
+      href      := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
+      title     := gameTitle(pov.game, pov.color)(defaultLang),
+      cls       := miniBoardCls(pov.gameId, variant, isLive),
+      dataLive  := isLive.option(pov.gameId),
+      dataColor := pov.color.name,
+      dataSfen  := pov.game.situation.toSfen.value,
       dataLastUsi := ~pov.game.lastUsiStr,
       dataVariant := variant.key,
-      target      := blank.option("_blank")
+      target      := blank.option("_blank"),
     )(shogigroundEmpty(variant, pov.color))
   }
 
@@ -331,6 +335,6 @@ trait GameHelper {
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, shogi.Sente.name).url}",
-      description = trans.challengeDescription.txt()
+      description = trans.challengeDescription.txt(),
     )
 }

@@ -8,7 +8,7 @@ import lila.tree.Eval
 case class Info(
     ply: Int,
     eval: Eval,
-    variation: List[String] = Nil
+    variation: List[String] = Nil,
 ) {
 
   def cp   = eval.cp
@@ -24,7 +24,7 @@ case class Info(
       best ?? (_.usi),
       variation take Info.LineMaxPlies mkString " ",
       mate ?? (_.value.toString),
-      cp ?? (_.value.toString)
+      cp ?? (_.value.toString),
     ).dropWhile(_.isEmpty).reverse mkString Info.separator
 
   def hasVariation  = variation.nonEmpty
@@ -54,7 +54,8 @@ case class Info(
 
 object Info {
 
-  import Eval.{ Cp, Mate }
+  import Eval.Cp
+  import Eval.Mate
 
   val LineMaxPlies = 12
 

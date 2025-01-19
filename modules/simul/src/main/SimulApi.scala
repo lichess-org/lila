@@ -24,11 +24,11 @@ final class SimulApi(
     socket: SimulSocket,
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private val workQueue =
@@ -36,7 +36,7 @@ final class SimulApi(
       maxSize = 128,
       expiration = 10 minutes,
       timeout = 10 seconds,
-      name = "simulApi"
+      name = "simulApi",
     )
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get {}
@@ -61,7 +61,7 @@ final class SimulApi(
       color = setup.color,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
-      team = setup.team
+      team = setup.team,
     )
     repo.create(simul, me.hasGames) >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
@@ -77,7 +77,7 @@ final class SimulApi(
       color = setup.color.some,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
-      team = setup.team
+      team = setup.team,
     )
     repo.update(simul) inject simul
   }
@@ -95,9 +95,9 @@ final class SimulApi(
               PerfPicker.mainOrDefault(
                 speed = shogi.Speed(simul.clock.config.some),
                 variant = variant,
-                daysPerTurn = none
-              )(user.perfs)
-            )
+                daysPerTurn = none,
+              )(user.perfs),
+            ),
           )
         }
       }
@@ -167,7 +167,7 @@ final class SimulApi(
           _ ?? { simul =>
             val simul2 = simul.updatePairing(
               game.id,
-              _.finish(game.status, game.winnerUserId)
+              _.finish(game.status, game.winnerUserId),
             )
             update(simul2) >>- {
               if (simul2.isFinished) onComplete(simul2)
@@ -186,11 +186,11 @@ final class SimulApi(
           "simulEnd",
           Json.obj(
             "id"   -> simul.id,
-            "name" -> simul.name
-          )
-        )
+            "name" -> simul.name,
+          ),
+        ),
       ),
-      "socketUsers"
+      "socketUsers",
     )
   }
 
@@ -213,7 +213,7 @@ final class SimulApi(
     repo find id dmap2 { _.fullName }
 
   private def makeGame(simul: Simul, host: User)(
-      pairingAndNumber: (SimulPairing, Int)
+      pairingAndNumber: (SimulPairing, Int),
   ): Fu[(Game, shogi.Color)] =
     pairingAndNumber match {
       case (pairing, number) =>
@@ -224,12 +224,16 @@ final class SimulApi(
           goteUser  = hostColor.fold(user, host)
           clock     = simul.clock.shogiClockOf(hostColor)
           perfPicker =
-            lila.game.PerfPicker.mainOrDefault(shogi.Speed(clock.config), pairing.player.variant, none)
+            lila.game.PerfPicker.mainOrDefault(
+              shogi.Speed(clock.config),
+              pairing.player.variant,
+              none,
+            )
           game1 = Game.make(
             shogi = shogi
               .Game(
                 simul.position,
-                pairing.player.variant
+                pairing.player.variant,
               )
               .copy(clock = clock.start.some),
             initialSfen = simul.position,
@@ -237,7 +241,7 @@ final class SimulApi(
             gotePlayer = lila.game.Player.make(shogi.Gote, goteUser.some, perfPicker),
             mode = shogi.Mode.Casual,
             source = lila.game.Source.Simul,
-            notationImport = None
+            notationImport = None,
           )
           game2 =
             game1
@@ -256,7 +260,7 @@ final class SimulApi(
 
   private def WithSimul(
       finding: Simul.ID => Fu[Option[Simul]],
-      simulId: Simul.ID
+      simulId: Simul.ID,
   )(updating: Simul => Simul): Funit = {
     workQueue(simulId) {
       finding(simulId) flatMap {

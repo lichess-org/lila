@@ -16,7 +16,7 @@ private object PrefHandlers {
         gridColor = r str "gc",
         gridWidth = r int "gw",
         handsColor = r str "hc",
-        handsImg = r str "hi"
+        handsImg = r str "hi",
       )
 
     def writes(w: BSON.Writer, o: CustomTheme) =
@@ -26,7 +26,7 @@ private object PrefHandlers {
         "gc" -> w.str(o.gridColor),
         "gw" -> w.int(o.gridWidth),
         "hc" -> w.str(o.handsColor),
-        "hi" -> w.str(o.handsImg)
+        "hi" -> w.str(o.handsImg),
       )
   }
 
@@ -77,7 +77,7 @@ private object PrefHandlers {
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         squareOverlay = r.getD("squareOverlay", Pref.default.squareOverlay),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
-        tags = r.getD("tags", Pref.default.tags)
+        tags = r.getD("tags", Pref.default.tags),
       )
 
     def writes(w: BSON.Writer, o: Pref) =
@@ -125,7 +125,7 @@ private object PrefHandlers {
         "moveEvent"          -> o.moveEvent,
         "notation"           -> o.notation,
         "resizeHandle"       -> o.resizeHandle,
-        "tags"               -> o.tags
+        "tags"               -> o.tags,
       )
   }
 }

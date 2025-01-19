@@ -7,7 +7,7 @@ import lila.common.Domain
 final class DisposableEmailDomain(
     ws: WSClient,
     providerUrl: String,
-    checkMailBlocked: () => Fu[List[String]]
+    checkMailBlocked: () => Fu[List[String]],
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)
@@ -16,9 +16,10 @@ final class DisposableEmailDomain(
 
   private[security] def refresh(): Unit =
     for {
-      blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover { case e: Exception =>
-        logger.warn("DisposableEmailDomain.refresh", e)
-        Iterator.empty
+      blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover {
+        case e: Exception =>
+          logger.warn("DisposableEmailDomain.refresh", e)
+          Iterator.empty
       }
       checked <- checkMailBlocked()
     } {
@@ -28,7 +29,8 @@ final class DisposableEmailDomain(
       regex = finalizeRegex(s"$staticRegex|$regexStr")
     }
 
-  private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
+  private def toRegexStr(domains: Iterator[String]) =
+    domains.map(l => l.replace(".", "\\.")).mkString("|")
 
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
@@ -54,7 +56,7 @@ private object DisposableEmailDomain {
     "gmil.com",
     "gamail.com",
     "gnail.com",
-    "hotamil.com"
+    "hotamil.com",
   )
 
   private val whitelist = Set(
@@ -232,6 +234,6 @@ private object DisposableEmailDomain {
     "startmail.com",
     "palaciodegranda.com",
     "laudepalaciogranda.com",
-    "mozmail.com" // Mozilla Firefox Relay Domain
+    "mozmail.com", // Mozilla Firefox Relay Domain
   )
 }

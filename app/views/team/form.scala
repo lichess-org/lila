@@ -16,7 +16,7 @@ object form {
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
-      moreJs = frag(infiniteScrollTag, captchaTag)
+      moreJs = frag(infiniteScrollTag, captchaTag),
     ) {
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
@@ -28,7 +28,7 @@ object form {
             form3.group(form("open"), joiningPolicy()) { _ =>
               form3.select(
                 form("open"),
-                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
+                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt()),
               )
             },
             form3.group(form("location"), trans.location())(form3.input(_)),
@@ -36,10 +36,10 @@ object form {
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.Team.home(1))(trans.cancel()),
-              form3.submit(newTeam())
-            )
-          )
-        )
+              form3.submit(newTeam()),
+            ),
+          ),
+        ),
       )
     }
 
@@ -53,12 +53,12 @@ object form {
           t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
               a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
-              a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone())
+              a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone()),
             ),
             form3.group(form("open"), joiningPolicy()) { f =>
               form3.select(
                 f,
-                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
+                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt()),
               )
             },
             form3.group(form("location"), trans.location())(form3.input(_)),
@@ -69,14 +69,14 @@ object form {
                 Seq(
                   Team.ChatFor.NONE    -> "No chat",
                   Team.ChatFor.LEADERS -> "Team leaders",
-                  Team.ChatFor.MEMBERS -> "Team members"
-                )
+                  Team.ChatFor.MEMBERS -> "Team members",
+                ),
               )
             },
             form3.actions(
               a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
-              form3.submit(trans.apply())
-            )
+              form3.submit(trans.apply()),
+            ),
           ),
           ctx.userId.exists(t.leaders) || isGranted(_.ManageTeam) option frag(
             hr,
@@ -84,19 +84,19 @@ object form {
               submitButton(
                 dataIcon := "L",
                 cls      := "text button button-empty button-red confirm",
-                st.title := "Closes the team forever." // can actually be reverted
-              )(trans.close())
+                st.title := "Closes the team forever.", // can actually be reverted
+              )(trans.close()),
             ),
             isGranted(_.ManageTeam) option
               postForm(cls := "inline", action := routes.Team.close(t.id))(
                 submitButton(
                   dataIcon := "q",
                   cls      := "text button button-empty button-red confirm",
-                  st.title := "Deletes the team and its memberships. Cannot be reverted!"
-                )(trans.delete())
-              )
-          )
-        )
+                  st.title := "Deletes the team and its memberships. Cannot be reverted!",
+                )(trans.delete()),
+              ),
+          ),
+        ),
       )
     }
   }

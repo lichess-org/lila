@@ -11,7 +11,7 @@ case class StageProgress(scores: Vector[StageProgress.Score]) extends AnyVal {
           scores.lift(i) | Score(0)
         }
         .updated(level - 1, s)
-        .toVector
+        .toVector,
     )
 }
 

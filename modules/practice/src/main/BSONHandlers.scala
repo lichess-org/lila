@@ -9,7 +9,8 @@ import lila.study.Chapter
 
 object BSONHandlers {
 
-  import PracticeProgress.{ ChapterNbMoves, NbMoves }
+  import PracticeProgress.ChapterNbMoves
+  import PracticeProgress.NbMoves
 
   implicit private val nbMovesHandler: BSONHandler[NbMoves] =
     isoHandler(PracticeProgress.nbMovesIso)
@@ -18,5 +19,6 @@ object BSONHandlers {
 
   implicit val practiceProgressIdHandler: BSONHandler[PracticeProgress.Id] =
     stringAnyValHandler[PracticeProgress.Id](_.value, PracticeProgress.Id.apply)
-  implicit val practiceProgressHandler: BSONDocumentHandler[PracticeProgress] = Macros.handler[PracticeProgress]
+  implicit val practiceProgressHandler: BSONDocumentHandler[PracticeProgress] =
+    Macros.handler[PracticeProgress]
 }

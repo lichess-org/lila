@@ -22,7 +22,7 @@ object SoundSet {
     new SoundSet("music", "Pentatonic"),
     new SoundSet("shogialt", "Shogi Alternative"),
     default,
-    new SoundSet("speech", "Speech")
+    new SoundSet("speech", "Speech"),
   )
 
   lazy val allByKey = list map { c =>

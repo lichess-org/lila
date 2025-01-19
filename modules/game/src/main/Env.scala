@@ -18,7 +18,7 @@ final private class GameConfig(
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
-    val gifUrl: String
+    val gifUrl: String,
 )
 
 @Module
@@ -30,11 +30,11 @@ final class Env(
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: Scheduler
+    scheduler: Scheduler,
 ) {
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
@@ -56,7 +56,7 @@ final class Env(
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(config.crosstableColl),
-    matchupColl = db(config.matchupColl)
+    matchupColl = db(config.matchupColl),
   )
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]
@@ -66,7 +66,7 @@ final class Env(
   lazy val rematches = Rematches(
     lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterWrite(1 hour)
-      .build[Game.ID, Game.ID]()
+      .build[Game.ID, Game.ID](),
   )
 
   lazy val jsonView = wire[JsonView]

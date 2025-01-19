@@ -9,7 +9,7 @@ case class Spotlight(
     description: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start
     iconFont: Option[String] = None,
-    iconImg: Option[String] = None
+    iconImg: Option[String] = None,
 )
 
 object Spotlight {
@@ -27,9 +27,9 @@ object Spotlight {
   private def filter(tours: List[Tournament], user: Option[User]) =
     tours.filter { t =>
       !t.isFinished && user.fold(true)(validVariant(t, _)) && t.spotlight.fold(
-        automatically(t, user.isDefined)
+        automatically(t, user.isDefined),
       )(
-        manually(t, _)
+        manually(t, _),
       )
     }
 

@@ -10,7 +10,7 @@ import ornicar.scalalib.Zero
 
 final class DuctConcMap[D <: Duct](
     mkDuct: String => D,
-    initialCapacity: Int
+    initialCapacity: Int,
 ) extends TellMap {
 
   def getOrMake(id: String): D = ducts.computeIfAbsent(id, loadFunction)
@@ -56,7 +56,7 @@ final class DuctConcMap[D <: Duct](
         (_, d) => {
           lastWill(d)
           nullD
-        }
+        },
       )
       .unit
 

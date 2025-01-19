@@ -40,7 +40,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                   topicApi.makeTopic(categ, data, me) map { topic =>
                     Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                   }
-                }(rateLimitedFu)
+                }(rateLimitedFu),
             )
         }
       }
@@ -57,7 +57,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               (!posts.hasNextPage && canWrite && topic.open && !topic.isOld) ?? forms.postWithCaptcha
                 .map(_.some)
             canModCateg <- isGrantedMod(categ.slug)
-            _           <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
+            _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
           } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
         }
       }

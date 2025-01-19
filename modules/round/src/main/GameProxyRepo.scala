@@ -6,7 +6,7 @@ import lila.game.Pov
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
-    roundSocket: RoundSocket
+    roundSocket: RoundSocket,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)

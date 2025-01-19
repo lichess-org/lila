@@ -1,11 +1,13 @@
 package lila.user
 
-import org.specs2.mutable.Specification
 import java.util.Base64
+import scala.concurrent.ExecutionContext.Implicits.global
+
 import Authenticator.AuthData
 import User.{ ClearPassword => P }
+import org.specs2.mutable.Specification
+
 import lila.common.config.Secret
-import scala.concurrent.ExecutionContext.Implicits.global
 
 class AuthTest extends Specification {
 
@@ -13,7 +15,7 @@ class AuthTest extends Specification {
   final def getAuth(passHasher: PasswordHasher) =
     new Authenticator(
       passHasher = passHasher,
-      userRepo = null
+      userRepo = null,
     )
 
   val auth = getAuth(new PasswordHasher(secret, 2))
@@ -23,9 +25,9 @@ class AuthTest extends Specification {
       "",
       bpass = HashedPassword(
         Base64.getDecoder.decode(
-          "+p7ysDb8OU9yMQ/LuFxFNgJ0HBKH7iJy8tkowG65NWjPC3Y6CzYV"
-        )
-      )
+          "+p7ysDb8OU9yMQ/LuFxFNgJ0HBKH7iJy8tkowG65NWjPC3Y6CzYV",
+        ),
+      ),
     )
     "correct" >> auth.compare(bCryptUser, P("password"))
     "wrong pass" >> !auth.compare(bCryptUser, P(""))
@@ -34,7 +36,7 @@ class AuthTest extends Specification {
     "wrong secret" >> ! {
       getAuth(new PasswordHasher(Secret((new Array[Byte](32)).toBase64), 2)).compare(
         bCryptUser,
-        P("password")
+        P("password"),
       )
     }
 
@@ -60,7 +62,7 @@ class AuthTest extends Specification {
       "",
       salt = Some("7IzdmPSe0iZnGc1ChY32fVsfrZBLdIlN"),
       // Sha hash extracted from mongo
-      bpass = auth.passEnc(P("1c4b2f9a0605c1af73d0ac66ab67c89a6bc76efa"))
+      bpass = auth.passEnc(P("1c4b2f9a0605c1af73d0ac66ab67c89a6bc76efa")),
     )
 
     "correct" >> auth.compare(shaToBcrypt, P("password"))

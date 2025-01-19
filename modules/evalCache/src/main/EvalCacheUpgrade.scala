@@ -17,7 +17,7 @@ import lila.socket.Socket
  * and listening to new evals stored.
  */
 final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
   import EvalCacheUpgrade._
 
@@ -29,7 +29,7 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
   private val upgradeMon = lila.mon.evalCache.upgrade
 
   def register(sri: Socket.Sri, variant: Variant, sfen: Sfen, multiPv: Int, path: String)(
-      push: Push
+      push: Push,
   ): Unit = {
     members get sri.value foreach { wm =>
       unregisterEval(wm.setupId, sri)

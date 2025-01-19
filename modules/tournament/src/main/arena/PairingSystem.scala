@@ -9,13 +9,14 @@ import lila.user.UserRepo
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
-    userRepo: UserRepo
+    userRepo: UserRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    idGenerator: lila.game.IdGenerator
+    idGenerator: lila.game.IdGenerator,
 ) {
 
   import PairingSystem._
+
   import lila.tournament.Tournament.tournamentUrl
 
   // if waiting users can make pairings
@@ -24,7 +25,7 @@ final private[tournament] class PairingSystem(
       tour: Tournament,
       users: WaitingUsers,
       ranking: Ranking,
-      smallTourNbActivePlayers: Option[Int]
+      smallTourNbActivePlayers: Option[Int],
   ): Fu[Pairings] = {
     for {
       lastOpponents <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
@@ -101,7 +102,7 @@ private object PairingSystem {
       tour: Tournament,
       lastOpponents: Pairing.LastOpponents,
       ranking: Map[User.ID, Int],
-      onlyTwoActivePlayers: Boolean
+      onlyTwoActivePlayers: Boolean,
   )
 
   /* Was previously static 1000.

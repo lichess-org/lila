@@ -21,17 +21,17 @@ object topnav {
           langHref("/"),
           frag(
             span(cls := "play")(trans.play()),
-            span(cls := "home")("lishogi.org")
-          )
+            span(cls := "home")("lishogi.org"),
+          ),
         ),
         div(role := "group")(
           if (ctx.noBot) a(href := s"${langHref("/?any")}#hook")(trans.createAGame())
           else a(href := s"${langHref("/?any")}#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
             a(href := langHref(routes.Tournament.home))(trans.tournaments()),
-            a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions())
-          )
-        )
+            a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
+          ),
+        ),
       ),
       ctx.noBot option st.section {
         val puzzleUrl = langHref(routes.Puzzle.home)
@@ -40,9 +40,9 @@ object topnav {
           div(role := "group")(
             a(href := puzzleUrl)(trans.puzzles()),
             a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
-            a(href := langHref(routes.Puzzle.show("tsume")))(trans.puzzleTheme.tsume())
+            a(href := langHref(routes.Puzzle.show("tsume")))(trans.puzzleTheme.tsume()),
             // a(cls := "new-feature")(href := langHref(routes.Storm.home))("Tsume Storm")
-          )
+          ),
         )
       },
       st.section {
@@ -56,8 +56,8 @@ object topnav {
             a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
             // ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
             canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lishogiClasses()),
-            a(href := routes.Page.variantHome)(trans.variants())
-          )
+            a(href := routes.Page.variantHome)(trans.variants()),
+          ),
         )
       },
       st.section {
@@ -67,9 +67,9 @@ object topnav {
           div(role := "group")(
             a(href := tvUrl)("Lishogi TV"),
             a(href := langHref(routes.Tv.games))(trans.currentGames()),
-            ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu())
+            ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu()),
             // ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
-          )
+          ),
         )
       },
       st.section {
@@ -82,8 +82,9 @@ object topnav {
             a(href := routes.Team.home())(trans.team.teams()),
             ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
             a(href := routes.Blog.index())(trans.blog()),
-            ctx.me.exists(!_.kid) option a(href := langHref(routes.Plan.index))(trans.patron.donate())
-          )
+            ctx.me
+              .exists(!_.kid) option a(href := langHref(routes.Plan.index))(trans.patron.donate()),
+          ),
         )
       },
       st.section {
@@ -94,9 +95,9 @@ object topnav {
             a(href := analysisUrl)(trans.analysis()),
             a(href := langHref(routes.Editor.index))(trans.boardEditor()),
             a(href := langHref(routes.Importer.importGame))(trans.importGame()),
-            a(href := routes.Search.index())(trans.search.advancedSearch())
-          )
+            a(href := routes.Search.index())(trans.search.advancedSearch()),
+          ),
         )
-      }
+      },
     )
 }

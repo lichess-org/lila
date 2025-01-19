@@ -6,7 +6,7 @@ import reactivemongo.api.bson.BSONNull
 import lila.db.dsl._
 
 final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   def get: Fu[MonthlyGoal] =
@@ -20,7 +20,7 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implici
         import framework._
         List(
           Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)),
-          Group(BSONNull)("cents" -> SumField("cents"))
+          Group(BSONNull)("cents" -> SumField("cents")),
         )
       }
       .headOption

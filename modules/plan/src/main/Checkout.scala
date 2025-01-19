@@ -6,14 +6,14 @@ import play.api.data._
 case class Checkout(
     email: Option[String],
     amount: Cents,
-    freq: Freq
+    freq: Freq,
 ) {
 
   def cents = amount
 
   def toFormData =
     Some(
-      (email, amount.value, freq.toString.toLowerCase)
+      (email, amount.value, freq.toString.toLowerCase),
     )
 }
 
@@ -22,20 +22,20 @@ object Checkout {
   def make(
       email: Option[String],
       amount: Int,
-      freq: String
+      freq: String,
   ) =
     Checkout(
       email,
       Cents(amount),
-      if (freq == "monthly") Freq.Monthly else Freq.Onetime
+      if (freq == "monthly") Freq.Monthly else Freq.Onetime,
     )
 
   val form = Form[Checkout](
     mapping(
       "email"  -> optional(email),
       "amount" -> number(min = 100, max = 100 * 100000),
-      "freq"   -> nonEmptyText
-    )(Checkout.make)(_.toFormData)
+      "freq"   -> nonEmptyText,
+    )(Checkout.make)(_.toFormData),
   )
 }
 
@@ -50,7 +50,7 @@ object Switch {
     mapping(
       "usd" -> bigDecimal(precision = 10, scale = 2)
         .verifying(_ >= 1)
-        .verifying(_ <= 100000)
-    )(Switch.apply)(Switch.unapply)
+        .verifying(_ <= 100000),
+    )(Switch.apply)(Switch.unapply),
   )
 }

@@ -32,7 +32,7 @@ object Iso {
   def strings(sep: String): StringIso[Strings] =
     Iso[String, Strings](
       str => Strings(str.split(sep).iterator.map(_.trim).to(List)),
-      strs => strs.value mkString sep
+      strs => strs.value mkString sep,
     )
 
   implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A] _, identity[A] _)
@@ -41,7 +41,8 @@ object Iso {
 
   implicit val ipAddressIso: StringIso[IpAddress] = string[IpAddress](IpAddress.apply, _.value)
 
-  implicit val emailAddressIso: StringIso[EmailAddress] = string[EmailAddress](EmailAddress.apply, _.value)
+  implicit val emailAddressIso: StringIso[EmailAddress] =
+    string[EmailAddress](EmailAddress.apply, _.value)
 
   implicit val normalizedEmailAddressIso: StringIso[NormalizedEmailAddress] =
     string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)

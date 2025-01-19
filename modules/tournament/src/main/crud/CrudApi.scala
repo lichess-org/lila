@@ -6,9 +6,8 @@ import org.joda.time.DateTime
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
+import lila.tournament.BSONHandlers._
 import lila.user.User
-
-import BSONHandlers._
 
 final class CrudApi(tournamentRepo: TournamentRepo) {
 
@@ -30,7 +29,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       description = tour.spotlight.??(_.description),
       conditions = Condition.DataForm.AllSetup(tour.conditions),
       berserkable = !tour.noBerserk,
-      teamBattle = tour.isTeamBattle
+      teamBattle = tour.isTeamBattle,
     )
 
   def update(old: Tournament, data: CrudForm.Data) =
@@ -46,7 +45,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
   def clone(old: Tournament) =
     old.copy(
       name = s"${old.name} (clone)",
-      startsAt = DateTime.now plusDays 7
+      startsAt = DateTime.now plusDays 7,
     )
 
   def paginator(page: Int)(implicit ec: scala.concurrent.ExecutionContext) =
@@ -55,9 +54,9 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         collection = tournamentRepo.coll,
         selector = tournamentRepo.selectUnique,
         projection = none,
-        sort = $doc("startsAt" -> -1)
+        sort = $doc("startsAt" -> -1),
       ),
-      currentPage = page
+      currentPage = page,
     )
 
   private def empty =
@@ -77,7 +76,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       streakable = true,
       teamBattle = none,
       description = none,
-      hasChat = true
+      hasChat = true,
     )
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
@@ -91,21 +90,23 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       schedule = Schedule(
         format = Format.Arena,
         freq = Schedule.Freq.Unique,
-        speed = timeControlSetup.clock.map(Schedule.Speed.fromClock).getOrElse(Schedule.Speed.Correspondence),
+        speed = timeControlSetup.clock
+          .map(Schedule.Speed.fromClock)
+          .getOrElse(Schedule.Speed.Correspondence),
         variant = realVariant,
         position = position,
-        at = date
+        at = date,
       ).some,
       spotlight = Spotlight(
         headline = headline,
         description = description,
         homepageHours = homepageHours.some.filterNot(0 ==),
         iconFont = none,
-        iconImg = image.some.filter(_.nonEmpty)
+        iconImg = image.some.filter(_.nonEmpty),
       ).some,
       position = data.position,
       noBerserk = !data.berserkable,
-      teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
+      teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
     )
   }
 }

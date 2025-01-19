@@ -14,15 +14,15 @@ import lila.db.dsl._
 import lila.user.User
 
 final class PuzzleActivity(
-    colls: PuzzleColls
+    colls: PuzzleColls,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
-  import PuzzleActivity._
   import BsonHandlers._
   import JsonView._
+  import PuzzleActivity._
 
   def stream(config: Config): Source[String, _] =
     Source futureSource {
@@ -47,7 +47,7 @@ final class PuzzleActivity(
       _.primitiveMap[Puzzle.Id, Double](
         ids = rounds.map(_.id.puzzleId),
         field = s"${Puzzle.BSONFields.glicko}.r",
-        fieldExtractor = _.child("glicko").flatMap(_ double "r")
+        fieldExtractor = _.child("glicko").flatMap(_ double "r"),
       ) map { ratings =>
         rounds flatMap { round =>
           ratings get round.id.puzzleId map { puzzleRating =>
@@ -55,7 +55,7 @@ final class PuzzleActivity(
               "id"           -> round.id.puzzleId,
               "date"         -> round.date,
               "win"          -> round.win,
-              "puzzleRating" -> puzzleRating.toInt
+              "puzzleRating" -> puzzleRating.toInt,
             )
           }
         }
@@ -68,6 +68,6 @@ object PuzzleActivity {
   case class Config(
       user: User,
       max: Option[Int] = None,
-      perSecond: MaxPerSecond
+      perSecond: MaxPerSecond,
   )
 }

@@ -5,6 +5,7 @@ import play.api.data.Forms._
 import play.api.data._
 
 import org.joda.time.DateTime
+
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 
@@ -30,11 +31,11 @@ object CrudForm {
       "description"      -> text(minLength = 10, maxLength = 400),
       "conditions"       -> Condition.DataForm.all,
       "berserkable"      -> boolean,
-      "teamBattle"       -> boolean
+      "teamBattle"       -> boolean,
     )(CrudForm.Data.apply)(CrudForm.Data.unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
-      .verifying("Custom position is not valid", _.isCustomPositionValid)
+      .verifying("Custom position is not valid", _.isCustomPositionValid),
   ) fill CrudForm.Data(
     name = "",
     homepageHours = 0,
@@ -48,7 +49,7 @@ object CrudForm {
     description = "",
     conditions = Condition.DataForm.AllSetup.default,
     berserkable = true,
-    teamBattle = false
+    teamBattle = false,
   )
 
   case class Data(
@@ -64,7 +65,7 @@ object CrudForm {
       description: String,
       conditions: Condition.DataForm.AllSetup,
       berserkable: Boolean,
-      teamBattle: Boolean
+      teamBattle: Boolean,
   ) {
 
     def realVariant = Variant orDefault variant
@@ -88,7 +89,7 @@ object CrudForm {
 
   val imageChoices = List(
     ""                  -> "Lishogi",
-    "bougyoku.logo.png" -> "Bougyoku"
+    "bougyoku.logo.png" -> "Bougyoku",
   )
   val imageDefault = ""
 }

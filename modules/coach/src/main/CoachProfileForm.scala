@@ -30,14 +30,14 @@ object CoachProfileForm {
           "methodology"        -> optional(richText),
           "youtubeVideos"      -> optional(nonEmptyText),
           "youtubeChannel"     -> optional(nonEmptyText),
-          "publicStudies"      -> optional(nonEmptyText)
-        )(CoachProfile.apply)(CoachProfile.unapply)
-      )(Data.apply)(Data.unapply)
+          "publicStudies"      -> optional(nonEmptyText),
+        )(CoachProfile.apply)(CoachProfile.unapply),
+      )(Data.apply)(Data.unapply),
     ) fill Data(
       listed = coach.listed.value,
       available = coach.available.value,
       languages = "",
-      profile = coach.profile
+      profile = coach.profile,
     )
 
   private case class TagifyLang(code: String)
@@ -47,7 +47,7 @@ object CoachProfileForm {
       listed: Boolean,
       available: Boolean,
       languages: String,
-      profile: CoachProfile
+      profile: CoachProfile,
   ) {
 
     def apply(coach: Coach) =
@@ -56,10 +56,11 @@ object CoachProfileForm {
         available = Coach.Available(available),
         profile = profile,
         languages = Json.parse(languages).validate[List[TagifyLang]] match {
-          case JsSuccess(langs, _) => langs.take(10).toList.map(_.code).flatMap(Lang.get).map(_.code).distinct
-          case _                   => Nil
+          case JsSuccess(langs, _) =>
+            langs.take(10).toList.map(_.code).flatMap(Lang.get).map(_.code).distinct
+          case _ => Nil
         },
-        updatedAt = DateTime.now
+        updatedAt = DateTime.now,
       )
   }
 

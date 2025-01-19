@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 
 import reactivemongo.api.bson.BSONDocumentHandler
+
 import shogi.format.ParsedNotation
 import shogi.format.csa.CsaParser
 import shogi.format.kif.KifParser
@@ -17,7 +18,7 @@ private[game] case class Metadata(
     arrangementId: Option[String],
     simulId: Option[String],
     postGameStudy: Option[String],
-    analysed: Boolean
+    analysed: Boolean,
 ) {
 
   def isEmpty = this == Metadata.empty
@@ -34,7 +35,7 @@ case class NotationImport(
     kif: Option[String],
     csa: Option[String],
     // hashed Kif for DB unicity
-    h: Option[ByteArray]
+    h: Option[ByteArray],
 ) {
   def isCsa = csa.isDefined
   def isKif = kif.isDefined
@@ -66,17 +67,18 @@ object NotationImport {
       user: Option[String],
       date: Option[String],
       kif: Option[String],
-      csa: Option[String]
+      csa: Option[String],
   ) =
     NotationImport(
       user = user,
       date = date,
       kif = kif,
       csa = csa,
-      h = hash(~(kif.orElse(csa))).some
+      h = hash(~(kif.orElse(csa))).some,
     )
 
-  import reactivemongo.api.bson.Macros
   import ByteArray.ByteArrayBSONHandler
-  implicit val notationImportBSONHandler: BSONDocumentHandler[NotationImport] = Macros.handler[NotationImport]
+  import reactivemongo.api.bson.Macros
+  implicit val notationImportBSONHandler: BSONDocumentHandler[NotationImport] =
+    Macros.handler[NotationImport]
 }

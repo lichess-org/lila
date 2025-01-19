@@ -7,9 +7,12 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
 
-import dsl._
+import lila.db.dsl._
 
-abstract class BSON[T] extends BSONReadOnly[T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
+abstract class BSON[T]
+    extends BSONReadOnly[T]
+    with BSONDocumentReader[T]
+    with BSONDocumentWriter[T] {
 
   import BSON._
 

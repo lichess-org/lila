@@ -21,10 +21,10 @@ object importGame {
         .OpenGraph(
           title = trans.importGame.txt(),
           url = s"$netBaseUrl${routes.Importer.importGame.url}",
-          description = trans.importGameKifCsaExplanation.txt()
+          description = trans.importGameKifCsaExplanation.txt(),
         )
         .some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
@@ -32,20 +32,21 @@ object importGame {
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(
           div(cls := "import-top")(
             div(cls := "left")(
-              form3.group(form("notation"), trans.pasteTheKifCsaStringHere())(form3.textarea(_)())
+              form3.group(form("notation"), trans.pasteTheKifCsaStringHere())(form3.textarea(_)()),
             ),
             div(cls := "right")(
-              form3.group(form("notationFile"), raw("Or upload a KIF/CSA file"), klass = "upload") { f =>
-                form3.file.notation(f)
+              form3.group(form("notationFile"), raw("Or upload a KIF/CSA file"), klass = "upload") {
+                f =>
+                  form3.file.notation(f)
               },
               form3.checkbox(
                 form("analyse"),
                 trans.requestAComputerAnalysis(),
                 help = Some(analyseHelp),
-                disabled = ctx.isAnon
+                disabled = ctx.isAnon,
               ),
-              form3.action(form3.submit(trans.importGame(), "/".some))
-            )
+              form3.action(form3.submit(trans.importGame(), "/".some)),
+            ),
           ),
           form("notation").value.filterNot(_.isEmpty) flatMap { notation =>
             lila.importer
@@ -56,12 +57,12 @@ object importGame {
                   frag(
                     pre(cls := "error")(err),
                     br,
-                    br
+                    br,
                   ).some,
-                _ => none
+                _ => none,
               )
-          }
-        )
+          },
+        ),
       )
     }
 }

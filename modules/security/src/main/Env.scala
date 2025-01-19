@@ -29,21 +29,22 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
-    db: lila.db.Db
+    db: lila.db.Db,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: Scheduler
+    scheduler: Scheduler,
 ) {
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
-  import net.{ baseUrl, domain }
+  import net.baseUrl
+  import net.domain
 
   val recaptchaPublicConfig = config.recaptcha.public
 
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
-    scheduler = scheduler
+    scheduler = scheduler,
   )
 
   lazy val flood = wire[Flood]
@@ -68,7 +69,7 @@ final class Env(
   lazy val ugcArmedSetting = settingStore[Boolean](
     "ugcArmed",
     default = true,
-    text = "Enable the user garbage collector".some
+    text = "Enable the user garbage collector".some,
   )
 
   lazy val printBan = new PrintBan(db(config.collection.printBan))
@@ -86,7 +87,7 @@ final class Env(
         userRepo = userRepo,
         mailgun = mailgun,
         baseUrl = baseUrl,
-        tokenerSecret = config.emailConfirm.secret
+        tokenerSecret = config.emailConfirm.secret,
       )
     else wire[EmailConfirmSkip]
 
@@ -125,7 +126,7 @@ final class Env(
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     ws = ws,
     providerUrl = config.disposableEmail.providerUrl,
-    checkMailBlocked = () => checkMail.fetchAllBlocked
+    checkMailBlocked = () => checkMail.fetchAllBlocked,
   )
 
   // import reactivemongo.api.bson._
@@ -133,7 +134,7 @@ final class Env(
   lazy val spamKeywordsSetting = settingStore[Strings](
     "spamKeywords",
     default = Strings(Nil),
-    text = "Spam keywords separated by a comma".some
+    text = "Spam keywords separated by a comma".some,
   )
 
   lazy val spam = new Spam(spamKeywordsSetting.get _)
@@ -141,7 +142,7 @@ final class Env(
   scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh())
   scheduler.scheduleWithFixedDelay(
     config.disposableEmail.refreshDelay,
-    config.disposableEmail.refreshDelay
+    config.disposableEmail.refreshDelay,
   ) { () =>
     disposableEmailDomain.refresh()
   }

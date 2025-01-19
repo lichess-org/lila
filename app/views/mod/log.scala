@@ -12,7 +12,7 @@ object log {
 
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("user.mod.misc")
+      moreCss = cssTag("user.mod.misc"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("log"),
@@ -23,8 +23,8 @@ object log {
               tr(
                 th("Mod"),
                 th("Action"),
-                th("Details")
-              )
+                th("Details"),
+              ),
             ),
             tbody(
               logs.map { log =>
@@ -35,14 +35,14 @@ object log {
                     " ",
                     log.user.map { u =>
                       userIdLink(u.some, params = "?mod")
-                    }
+                    },
                   ),
-                  td(log.details)
+                  td(log.details),
                 )
-              }
-            )
-          )
-        )
+              },
+            ),
+          ),
+        ),
       )
     }
   }

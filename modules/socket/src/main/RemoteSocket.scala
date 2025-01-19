@@ -13,6 +13,7 @@ import akka.actor.ActorSystem
 import akka.actor.CoordinatedShutdown
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
+
 import shogi.Centis
 
 import lila.common.Bus
@@ -28,19 +29,19 @@ import lila.hub.actorApi.socket.SendTos
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.socket.remote.TellSriOut
 import lila.hub.actorApi.socket.remote.TellUserIn
-
-import Socket.Sri
+import lila.socket.Socket.Sri
 
 final class RemoteSocket(
     redisClient: RedisClient,
     notification: lila.hub.actors.Notification,
-    shutdown: CoordinatedShutdown
+    shutdown: CoordinatedShutdown,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
-  import RemoteSocket._, Protocol._
+  import RemoteSocket.Protocol._
+  import RemoteSocket._
 
   private var stopping = false
 
@@ -82,7 +83,7 @@ final class RemoteSocket(
           (_: Int, promise: Promise[String]) => {
             promise success response
             null // remove from promises
-          }
+          },
         )
         .unit
   }
@@ -97,7 +98,7 @@ final class RemoteSocket(
     "shadowban",
     "impersonate",
     "relation",
-    "onlineApiUsers"
+    "onlineApiUsers",
   ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
@@ -130,7 +131,8 @@ final class RemoteSocket(
     def apply(msg: String): Unit = if (!stopping) conn.async.publish(channel, msg).unit
   }
 
-  def makeSender(channel: Channel): Sender = new StoppableSender(redisClient.connectPubSub(), channel)
+  def makeSender(channel: Channel): Sender =
+    new StoppableSender(redisClient.connectPubSub(), channel)
 
   private val send: Send = makeSender("site-out").apply _
 
@@ -153,7 +155,7 @@ final class RemoteSocket(
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping") { () =>
     request[Unit](
       id => send(Protocol.Out.stop(id)),
-      res => logger.info(s"lila-ws says: $res")
+      res => logger.info(s"lila-ws says: $res"),
     ).withTimeout(1 second)
       .addFailureEffect(e => logger.error("lila-ws stop", e))
       .nevermind
@@ -248,11 +250,12 @@ object RemoteSocket {
           case _      => none
         }
 
-      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
-        for {
-          obj <- Json.parse(payload).asOpt[JsObject]
-          typ <- obj str "t"
-        } yield TellSri(Sri(sri), optional(user), typ, obj)
+      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = {
+        case Array(sri, user, payload) =>
+          for {
+            obj <- Json.parse(payload).asOpt[JsObject]
+            typ <- obj str "t"
+          } yield TellSri(Sri(sri), optional(user), typ, obj)
       }
 
       def commas(str: String): Array[String]    = if (str == "-") Array.empty else str split ','

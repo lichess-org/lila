@@ -21,7 +21,7 @@ final class Photographer(repo: ImageRepo, prefix: String) {
         contentType = uploaded.contentType,
         path = uploaded.ref.path,
         size = uploaded.fileSize.toInt,
-        createdBy = createdBy
+        createdBy = createdBy,
       )
 
       repo save image inject image

@@ -14,7 +14,7 @@ final class EmailAddressValidator(
     userRepo: UserRepo,
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
-    checkMail: CheckMail
+    checkMail: CheckMail,
 ) {
 
   private def isAcceptable(email: EmailAddress): Boolean =
@@ -27,8 +27,8 @@ final class EmailAddressValidator(
     * @param email
     *   The E-mail address to be checked
     * @param forUser
-    *   Optionally, the user the E-mail address field is to be assigned to. If they already have it assigned,
-    *   returns false.
+    *   Optionally, the user the E-mail address field is to be assigned to. If they already have it
+    *   assigned, returns false.
     * @return
     */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
@@ -55,7 +55,8 @@ final class EmailAddressValidator(
     Constraint[String]("constraint.email_unique") { e =>
       val email = EmailAddress(e)
       val (taken, reused) =
-        (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
+        (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email))
+          .await(2 seconds, "emailUnique")
       if (taken || reused) Invalid(ValidationError("error.email_unique"))
       else Valid
     }
@@ -86,10 +87,10 @@ final class EmailAddressValidator(
       90.millis,
       "dns", {
         logger.warn(
-          s"EmailAddressValidator.withAcceptableDns timeout! ${e} records should have been preloaded"
+          s"EmailAddressValidator.withAcceptableDns timeout! ${e} records should have been preloaded",
         )
         false
-      }
+      },
     )
     if (ok) Valid
     else Invalid(ValidationError("error.email_acceptable"))

@@ -3,9 +3,8 @@ package arena
 
 import lila.common.Chronometer
 import lila.common.WMMatching
+import lila.tournament.arena.PairingSystem.Data
 import lila.user.User
-
-import PairingSystem.Data
 
 private object AntmaPairing {
 
@@ -34,7 +33,7 @@ private object AntmaPairing {
         WMMatching(
           players.toArray,
           if (data.onlyTwoActivePlayers) duelScore
-          else pairScore
+          else pairScore,
         ).fold(
           err => {
             logger.error("WMMatching", err)
@@ -42,7 +41,7 @@ private object AntmaPairing {
           },
           _ map { case (a, b) =>
             Pairing.prep(tour, a.player, b.player)
-          }
+          },
         )
       }
     }

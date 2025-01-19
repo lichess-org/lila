@@ -20,7 +20,7 @@ final class ModApi(
     reporter: lila.hub.actors.Report,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
-    refunder: RatingRefund
+    refunder: RatingRefund,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =
@@ -156,7 +156,7 @@ final class ModApi(
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >> {
         Bus.publish(
           lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.dbKey).toList),
-          "setPermissions"
+          "setPermissions",
         )
         logApi.setPermissions(mod, user.id, permissions.toList)
       }

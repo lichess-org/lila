@@ -13,10 +13,10 @@ import lila.user.UserRepo
 
 final class TeamMemberStream(
     memberRepo: MemberRepo,
-    userRepo: UserRepo
+    userRepo: UserRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
   def apply(team: Team, perSecond: MaxPerSecond): Source[User, _] =
@@ -31,7 +31,7 @@ final class TeamMemberStream(
   private def idsBatches(
       team: Team,
       perSecond: MaxPerSecond,
-      selector: Bdoc = $empty
+      selector: Bdoc = $empty,
   ): Source[Seq[User.ID], _] =
     memberRepo.coll.ext
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true))

@@ -28,7 +28,7 @@ final class MoveDB(implicit system: ActorSystem) {
   def postResult(
       workId: Work.Id,
       client: Client,
-      data: JsonApi.Request.PostMove
+      data: JsonApi.Request.PostMove,
   ): Unit = {
     actor ! PostResult(workId, client, data)
   }
@@ -41,7 +41,7 @@ final class MoveDB(implicit system: ActorSystem) {
   private case class PostResult(
       moveId: Work.Id,
       client: Client,
-      data: JsonApi.Request.PostMove
+      data: JsonApi.Request.PostMove,
   )
 
   private val actor = system.actorOf(Props(new Actor {
@@ -66,7 +66,7 @@ final class MoveDB(implicit system: ActorSystem) {
               (client.skill != Client.Skill.MoveStd || m.isStandard) &&
               m.delayMillis.fold(true) { millis =>
                 now.isAfter(m.createdAt.plusMillis(millis))
-              }
+              },
           )
           .minByOption(_.createdAt)
           .map { m =>

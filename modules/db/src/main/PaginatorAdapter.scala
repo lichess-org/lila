@@ -7,12 +7,11 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import lila.common.paginator.AdapterLike
-
-import dsl._
+import lila.db.dsl._
 
 final class CachedAdapter[A](
     adapter: AdapterLike[A],
-    val nbResults: Fu[Int]
+    val nbResults: Fu[Int],
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends AdapterLike[A] {
 
@@ -26,7 +25,7 @@ final class Adapter[A: BSONDocumentReader](
     projection: Option[Bdoc],
     sort: Bdoc,
     readPreference: ReadPreference = ReadPreference.primary,
-    hint: Option[Bdoc] = None
+    hint: Option[Bdoc] = None,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends AdapterLike[A] {
 

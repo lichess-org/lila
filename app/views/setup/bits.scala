@@ -13,12 +13,12 @@ private object bits {
   val prefix = "sf_"
 
   def sfenInput(form: Form[_], strict: Boolean, validSfen: Option[lila.setup.ValidSfen])(implicit
-      ctx: Context
+      ctx: Context,
   ) = {
     val positionChoices: List[SelectChoice] =
       List(
         ("default", trans.default.txt(), None),
-        ("fromPosition", trans.fromPosition.txt(), None)
+        ("fromPosition", trans.fromPosition.txt(), None),
       )
     val variant = form("variant").value.flatMap(shogi.variant.Variant(_)) | shogi.variant.Standard
     val url = form("sfen").value
@@ -27,10 +27,10 @@ private object bits {
     if (ctx.blind)
       div(
         cls             := "sfen_form",
-        dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}"""
+        dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}""",
       )(
         renderLabel(form("sfen"), "SFEN"),
-        renderSfenInput(form("sfen"))(st.placeholder := trans.default.txt())
+        renderSfenInput(form("sfen"))(st.placeholder := trans.default.txt()),
       )
     else
       div(cls := "sfen_position optional_config")(
@@ -44,16 +44,21 @@ private object bits {
               dataIcon := "",
               title    := trans.handicap.txt(),
               target   := "_blank",
-              href     := "https://en.wikipedia.org/wiki/Handicap_(shogi)"
-            )
+              href     := "https://en.wikipedia.org/wiki/Handicap_(shogi)",
+            ),
           ),
           div(
             cls             := "sfen_form",
-            dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}"""
+            dataValidateUrl := s"""${routes.Setup.validateSfen}${strict.??("?strict=1")}""",
           )(
             renderLabel(form("sfen"), "SFEN"),
             renderSfenInput(form("sfen"))(st.placeholder := trans.pasteTheSfenStringHere.txt()),
-            a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
+            a(
+              cls      := "button button-empty",
+              dataIcon := "m",
+              title    := trans.boardEditor.txt(),
+              href     := url,
+            ),
           ),
           a(cls := "board_editor", href := url)(
             span(cls := "preview")(
@@ -63,12 +68,12 @@ private object bits {
                   dataColor     := vf.color.name,
                   dataSfen      := vf.sfen.value,
                   dataVariant   := vf.situation.variant.key,
-                  dataResizable := "1"
-                )(div(cls       := "sg-wrap"))
-              }
-            )
-          )
-        )
+                  dataResizable := "1",
+                )(div(cls := "sg-wrap"))
+              },
+            ),
+          ),
+        ),
       )
   }
 
@@ -77,7 +82,7 @@ private object bits {
       `type`  := "text",
       cls     := "form-control",
       id      := s"$prefix${field.id}",
-      st.name := field.name
+      st.name := field.name,
     )
 
   def renderVariant(form: Form[_], variants: List[SelectChoice])(implicit ctx: Context) =
@@ -87,23 +92,23 @@ private object bits {
         form("variant"),
         variants.filter { case (id, _, _) =>
           ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
-        }
-      )
+        },
+      ),
     )
 
   def renderSelect(
       field: Field,
       options: Seq[SelectChoice],
-      compare: (String, String) => Boolean = (a, b) => a == b
+      compare: (String, String) => Boolean = (a, b) => a == b,
   ) =
     select(id := s"$prefix${field.id}", name := field.name)(
       options.map { case (value, name, title) =>
         option(
           st.value := value,
           st.title := title,
-          field.value.exists(v => compare(v, value)) option selected
+          field.value.exists(v => compare(v, value)) option selected,
         )(name)
-      }
+      },
     )
 
   def renderRadios(field: Field, options: Seq[SelectChoice]) =
@@ -115,15 +120,15 @@ private object bits {
             id      := s"$prefix${field.id}_${key}",
             st.name := field.name,
             value   := key,
-            field.value.has(key) option checked
+            field.value.has(key) option checked,
           ),
           label(
             cls   := "required",
             title := hint,
-            `for` := s"$prefix${field.id}_$key"
-          )(name)
+            `for` := s"$prefix${field.id}_$key",
+          )(name),
         )
-      }
+      },
     )
 
   def renderInput(field: Field) =
@@ -138,27 +143,27 @@ private object bits {
         renderLabel(form("timeMode"), trans.timeControl()),
         renderSelect(
           form("timeMode"),
-          if (ctx.isAuth) translatedTimeModeChoices else anonTranslatedTimeModeChoices
-        )
+          if (ctx.isAuth) translatedTimeModeChoices else anonTranslatedTimeModeChoices,
+        ),
       ),
       if (ctx.blind)
         frag(
           div(cls := "time_choice")(
             renderLabel(form("time"), trans.minutesPerSide()),
-            renderSelect(form("time"), clockTimeChoices, (a, b) => a.replace(".0", "") == b)
+            renderSelect(form("time"), clockTimeChoices, (a, b) => a.replace(".0", "") == b),
           ),
           div(cls := "byoyomi_choice")(
             renderLabel(form("byoyomi"), trans.byoyomiInSeconds()),
-            renderSelect(form("byoyomi"), clockByoyomiChoices)
+            renderSelect(form("byoyomi"), clockByoyomiChoices),
           ),
           div(cls := "periods")(
             renderLabel(form("periods"), trans.periods()),
-            renderSelect(form("periods"), periodsChoices)
+            renderSelect(form("periods"), periodsChoices),
           ),
           div(cls := "increment_choice")(
             renderLabel(form("increment"), trans.incrementInSeconds()),
-            renderSelect(form("increment"), clockIncrementChoices)
-          )
+            renderSelect(form("increment"), clockIncrementChoices),
+          ),
         )
       else
         frag(
@@ -166,46 +171,48 @@ private object bits {
             trans.minutesPerSide(),
             ": ",
             span(
-              shogi.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0, 0, 1).limitString
+              shogi.Clock
+                .Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0, 0, 1)
+                .limitString,
             ),
-            renderInput(form("time"))
+            renderInput(form("time")),
           ),
           div(cls := "byoyomi_choice slider")(
             trans.byoyomiInSeconds(),
             ": ",
             span(form("byoyomi").value),
-            renderInput(form("byoyomi"))
+            renderInput(form("byoyomi")),
           ),
           div(cls := "advanced_toggle"),
           div(cls := "advanced_setup")(
             div(cls := "periods buttons")(
               trans.periods(),
               div(id := "config_periods")(
-                renderRadios(form("periods"), periodsChoices)
-              )
+                renderRadios(form("periods"), periodsChoices),
+              ),
             ),
             div(cls := "increment_choice slider")(
               trans.incrementInSeconds(),
               ": ",
               span(form("increment").value),
-              renderInput(form("increment"))
-            )
-          )
+              renderInput(form("increment")),
+            ),
+          ),
         ),
       div(cls := "correspondence")(
         if (ctx.blind)
           div(cls := "days_choice")(
             renderLabel(form("days"), trans.daysPerTurn()),
-            renderSelect(form("days"), translatedCorresDaysChoices)
+            renderSelect(form("days"), translatedCorresDaysChoices),
           )
         else
           div(cls := "days_choice slider")(
             trans.daysPerTurn(),
             ": ",
             span(form("days").value),
-            renderInput(form("days"))
-          )
-      )
+            renderInput(form("days")),
+          ),
+      ),
     )
 
   val dataAnon        = attr("data-anon")

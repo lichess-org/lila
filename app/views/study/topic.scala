@@ -14,12 +14,14 @@ import lila.study.StudyTopics
 
 object topic {
 
-  def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[_]])(implicit ctx: Context) =
+  def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[_]])(implicit
+      ctx: Context,
+  ) =
     views.html.base.layout(
       title = trans.study.studyTopics.txt(),
       moreCss = frag(cssTag("analyse.study.index"), cssTag("misc.form3"), cssTag("misc.tagify")),
       moreJs = frag(tagifyTag, jsTag("analyse.study-topic-form")),
-      wrapClass = "full-screen-force"
+      wrapClass = "full-screen-force",
     ) {
       main(cls := "page-menu")(
         views.html.study.list.menu("topic", Order.Mine, mine.??(_.value)),
@@ -28,20 +30,20 @@ object topic {
           myForm.map { form =>
             postForm(cls := "form3", action := routes.Study.topics)(
               form3.group(form("topics"), trans.study.topicsDescription())(
-                form3.textarea(_)(rows := 10)
+                form3.textarea(_)(rows := 10),
               ),
-              form3.submit(trans.save())
+              form3.submit(trans.save()),
             )
           },
           mine.filter(_.value.nonEmpty) map { topics =>
             frag(
               h2(trans.study.myTopics()),
-              topicsList(topics, Order.Mine)
+              topicsList(topics, Order.Mine),
             )
           },
           h2(trans.study.popularTopics()),
-          topicsList(popular)
-        )
+          topicsList(popular),
+        ),
       )
     }
 
@@ -49,13 +51,13 @@ object topic {
       topic: StudyTopic,
       pag: Paginator[WithChaptersAndLiked],
       order: Order,
-      myTopics: Option[StudyTopics]
+      myTopics: Option[StudyTopics],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = topic.value,
       moreCss = cssTag("analyse.study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     ) {
       val active = s"topic:$topic"
       val url    = (o: String) => routes.Study.byTopic(topic.value, o)
@@ -65,15 +67,15 @@ object topic {
           div(cls := "box__top")(
             h1(topic.value),
             bits.orderSelect(order, active, url),
-            bits.newForm()
+            bits.newForm(),
           ),
           myTopics.ifTrue(order == Order.Mine) map { ts =>
             div(cls := "box__pad")(
-              topicsList(ts, Order.Mine)
+              topicsList(ts, Order.Mine),
             )
           },
-          views.html.study.list.paginate(pag, url(order.key))
-        )
+          views.html.study.list.paginate(pag, url(order.key)),
+        ),
       )
     }
 
@@ -81,6 +83,6 @@ object topic {
     div(cls := "topic-list")(
       topics.value.map { t =>
         a(href := routes.Study.byTopic(t.value, order.key))(t.value)
-      }
+      },
     )
 }

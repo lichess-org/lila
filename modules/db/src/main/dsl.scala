@@ -192,9 +192,9 @@ trait dsl {
     $doc(
       "$push" -> $doc(
         field -> $doc(
-          "$each" -> values
-        )
-      )
+          "$each" -> values,
+        ),
+      ),
     )
 
   def $pull(item: ElementProducer): Bdoc =
@@ -206,8 +206,8 @@ trait dsl {
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//
 
-  /** Represents the initial state of the expression which has only the name of the field. It does not know
-    * the value of the expression.
+  /** Represents the initial state of the expression which has only the name of the field. It does
+    * not know the value of the expression.
     */
   trait ElementBuilder {
     def field: String

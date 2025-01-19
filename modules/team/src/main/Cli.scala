@@ -4,7 +4,7 @@ import lila.db.dsl._
 
 final private[team] class Cli(
     teamRepo: TeamRepo,
-    api: TeamApi
+    api: TeamApi,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
 

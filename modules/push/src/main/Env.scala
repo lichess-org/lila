@@ -13,15 +13,14 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 
 import lila.common.config._
-
-import FirebasePush.configLoader
+import lila.push.FirebasePush.configLoader
 
 @Module
 final private class PushConfig(
     @ConfigName("collection.device") val deviceColl: CollName,
     @ConfigName("collection.subscription") val subscriptionColl: CollName,
     val web: WebPush.Config,
-    val firebase: FirebasePush.Config
+    val firebase: FirebasePush.Config,
 )
 
 final class Env(
@@ -30,10 +29,10 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
-    proxyRepo: lila.round.GameProxyRepo
+    proxyRepo: lila.round.GameProxyRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
@@ -77,7 +76,7 @@ final class Env(
     "msgUnread",
     "challenge",
     "corresAlarm",
-    "offerEventCorres"
+    "offerEventCorres",
   ) {
     case lila.game.actorApi.FinishGame(game, _, _) =>
       logUnit { pushApi finish game }

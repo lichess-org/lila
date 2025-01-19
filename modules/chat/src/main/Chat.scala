@@ -27,7 +27,7 @@ sealed trait Chat[L <: Line] extends AnyChat {
 
 case class UserChat(
     id: Chat.Id,
-    lines: List[UserLine]
+    lines: List[UserLine],
 ) extends Chat[UserLine] {
 
   val loginRequired = true
@@ -40,7 +40,7 @@ case class UserChat(
     copy(
       lines = lines.map { l =>
         if (l.userId == u.id) l.delete else l
-      }
+      },
     )
 
   def hasLinesOf(u: User) = lines.exists(_.userId == u.id)
@@ -64,7 +64,7 @@ object UserChat {
 
 case class MixedChat(
     id: Chat.Id,
-    lines: List[Line]
+    lines: List[Line],
 ) extends Chat[Line] {
 
   val loginRequired = false
@@ -120,23 +120,24 @@ object Chat {
   }
 
   import BSONFields._
+  import Line.lineBSONHandler
+  import Line.userLineBSONHandler
   import reactivemongo.api.bson.BSONDocument
-  import Line.{ lineBSONHandler, userLineBSONHandler }
 
-  implicit val chatIdIso: Iso.StringIso[Id]         = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val chatIdIso: Iso.StringIso[Id]       = lila.common.Iso.string[Id](Id.apply, _.value)
   implicit val chatIdBSONHandler: BSONHandler[Id] = lila.db.BSON.stringIsoHandler(chatIdIso)
 
   implicit val mixedChatBSONHandler: BSON[MixedChat] = new BSON[MixedChat] {
     def reads(r: BSON.Reader): MixedChat = {
       MixedChat(
         id = r.get[Id](id),
-        lines = r.get[List[Line]](lines)
+        lines = r.get[List[Line]](lines),
       )
     }
     def writes(w: BSON.Writer, o: MixedChat) =
       BSONDocument(
         id    -> o.id,
-        lines -> o.lines
+        lines -> o.lines,
       )
   }
 
@@ -144,13 +145,13 @@ object Chat {
     def reads(r: BSON.Reader): UserChat = {
       UserChat(
         id = r.get[Id](id),
-        lines = r.get[List[UserLine]](lines)
+        lines = r.get[List[UserLine]](lines),
       )
     }
     def writes(w: BSON.Writer, o: UserChat) =
       BSONDocument(
         id    -> o.id,
-        lines -> o.lines
+        lines -> o.lines,
       )
   }
 }

@@ -15,7 +15,7 @@ import lila.user.User
 final class EntryApi(
     coll: Coll,
     userMax: Max,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Entry._
@@ -33,9 +33,9 @@ final class EntryApi(
       .find(
         $doc(
           "users" -> userId,
-          "date" $gt DateTime.now.minusWeeks(2)
+          "date" $gt DateTime.now.minusWeeks(2),
         ),
-        projection.some
+        projection.some,
       )
       .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
@@ -45,7 +45,7 @@ final class EntryApi(
     coll
       .find(
         $doc("typ" -> typ, "date" $gt since),
-        projection.some
+        projection.some,
       )
       .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
@@ -56,8 +56,8 @@ final class EntryApi(
       $doc(
         "users" -> userId,
         "chan"  -> channel,
-        "date" $gt DateTime.now.minusDays(7)
-      )
+        "date" $gt DateTime.now.minusDays(7),
+      ),
     ) map (0 !=)
 
   def insert(e: Entry.ForUsers) =
@@ -70,7 +70,7 @@ final class EntryApi(
       .one(
         $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),
         $set("date" -> DateTime.now().minusDays(365)),
-        multi = true
+        multi = true,
       )
       .void
 
@@ -88,8 +88,8 @@ final class EntryApi(
         .find(
           $doc(
             "users" $exists false,
-            "date" $gt DateTime.now.minusWeeks(2)
-          )
+            "date" $gt DateTime.now.minusWeeks(2),
+          ),
         )
         .sort($sort desc "date")
         .cursor[Entry](ReadPreference.primary) // must be on primary for cache refresh to work

@@ -14,7 +14,7 @@ final class NotationDump(
     val dumper: lila.game.NotationDump,
     annotator: Annotator,
     simulApi: lila.simul.SimulApi,
-    getTournamentName: lila.tournament.GetTourName
+    getTournamentName: lila.tournament.GetTourName,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val lang: Lang = lila.i18n.defaultLang
@@ -24,7 +24,7 @@ final class NotationDump(
       analysis: Option[Analysis],
       flags: WithFlags,
       teams: Option[GameTeams] = None,
-      realPlayers: Option[RealPlayers] = None
+      realPlayers: Option[RealPlayers] = None,
   ): Fu[Notation] =
     dumper(game, flags, teams) flatMap { notation =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
@@ -50,9 +50,9 @@ final class NotationDump(
             .map(_.pawns.toString)
             .orElse(info.mate.map(m => s"mate${m.value}"))
           move.copy(
-            comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
+            comments = comment.map(c => s"[%eval $c]").toList ::: move.comments,
           )
-        }
+        },
       )
     }
 
@@ -61,7 +61,7 @@ final class NotationDump(
         game: Game,
         analysis: Option[Analysis],
         teams: Option[GameTeams],
-        realPlayers: Option[RealPlayers]
+        realPlayers: Option[RealPlayers],
     ) => apply(game, analysis, flags, teams, realPlayers) dmap toNotationString
 
   def toNotationString(notation: Notation) = {

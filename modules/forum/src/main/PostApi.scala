@@ -9,14 +9,13 @@ import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
+import lila.forum.actorApi._
 import lila.hub.actorApi.timeline.ForumPost
 import lila.hub.actorApi.timeline.Propagate
 import lila.mod.ModlogApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.User
 import lila.user.UserContext
-
-import actorApi._
 
 final class PostApi(
     env: Env,
@@ -26,7 +25,7 @@ final class PostApi(
     spam: lila.security.Spam,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: lila.common.DetectLanguage
+    detectLanguage: lila.common.DetectLanguage,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -34,47 +33,50 @@ final class PostApi(
   def makePost(
       categ: Categ,
       topic: Topic,
-      data: DataForm.PostData
+      data: DataForm.PostData,
   )(implicit ctx: UserContext): Fu[Post] =
     lastNumberOf(topic) flatMap { number =>
-      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap { case (lang, topicUserIds) =>
-        val post = Post.make(
-          topicId = topic.id,
-          author = none,
-          userId = ctx.me.map(_.id),
-          ip = ctx.req.remoteAddress.some,
-          text = spam.replace(data.text),
-          number = number + 1,
-          lang = lang.map(_.language),
-          troll = ctx.troll,
-          hidden = topic.hidden,
-          categId = categ.id,
-          modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
-        )
-        env.postRepo findDuplicate post flatMap {
-          case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-          case _ =>
-            env.postRepo.coll.insert.one(post) >>
-              env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
-              env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
-              (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-              (!categ.quiet ?? env.recent.invalidate()) >>-
-              ctx.userId.?? { userId =>
-                shutup ! {
-                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
-                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
-                }
-              } >>- {
-                (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).pipe {
-                    _ toFollowersOf userId toUsers topicUserIds exceptUser userId
+      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap {
+        case (lang, topicUserIds) =>
+          val post = Post.make(
+            topicId = topic.id,
+            author = none,
+            userId = ctx.me.map(_.id),
+            ip = ctx.req.remoteAddress.some,
+            text = spam.replace(data.text),
+            number = number + 1,
+            lang = lang.map(_.language),
+            troll = ctx.troll,
+            hidden = topic.hidden,
+            categId = categ.id,
+            modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true),
+          )
+          env.postRepo findDuplicate post flatMap {
+            case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+            case _ =>
+              env.postRepo.coll.insert.one(post) >>
+                env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
+                env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
+                (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
+                (!categ.quiet ?? env.recent.invalidate()) >>-
+                ctx.userId.?? { userId =>
+                  shutup ! {
+                    if (post.isTeam)
+                      lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
+                    else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
                   }
-                }
-                lila.mon.forum.post.create.increment()
-                env.mentionNotifier.notifyMentionedUsers(post, topic)
-                Bus.publish(actorApi.CreatePost(post), "forumPost")
-              } inject post
-        }
+                } >>- {
+                  (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
+                    timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id))
+                      .pipe {
+                        _ toFollowersOf userId toUsers topicUserIds exceptUser userId
+                      }
+                  }
+                  lila.mon.forum.post.create.increment()
+                  env.mentionNotifier.notifyMentionedUsers(post, topic)
+                  Bus.publish(actorApi.CreatePost(post), "forumPost")
+                } inject post
+          }
       }
     }
 
@@ -119,7 +121,7 @@ final class PostApi(
             if (v) $addToSet(s"reactions.$reaction" -> me.id)
             else $pull(s"reactions.$reaction"       -> me.id)
           },
-          fetchNewObject = true
+          fetchNewObject = true,
         )
     }
 
@@ -162,7 +164,7 @@ final class PostApi(
             topicName = topic.name,
             userId = post.userId,
             text = post.text take 200,
-            createdAt = post.createdAt
+            createdAt = post.createdAt,
           )
         }
       }
@@ -180,10 +182,10 @@ final class PostApi(
         collection = env.postRepo.coll,
         selector = env.postRepo.forUser(me) selectTopic topic.id,
         projection = none,
-        sort = env.postRepo.sortQuery
+        sort = env.postRepo.sortQuery,
       ),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
@@ -206,7 +208,7 @@ final class PostApi(
                 post.userId,
                 post.author,
                 post.ip,
-                text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
+                text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text),
               )
             } yield ())
           }
@@ -225,9 +227,9 @@ final class PostApi(
         $doc(
           "topicId" -> topic.id,
           "number" $gt (newPostNumber - 10),
-          "createdAt" $gt DateTime.now.minusDays(5)
+          "createdAt" $gt DateTime.now.minusDays(5),
         ),
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       )
 
   def erase(user: User): Funit =
@@ -236,7 +238,7 @@ final class PostApi(
         $doc("userId" -> user.id),
         $unset("userId", "editHistory", "lang", "ip") ++
           $set("text" -> "", "erasedAt" -> DateTime.now),
-        multi = true
+        multi = true,
       )
       .void
 }

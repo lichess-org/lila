@@ -11,7 +11,7 @@ object Links {
       case UrlRegex(domain) =>
         Link(
           site = Link.Site.allKnown find (_ matches domain) getOrElse Link.Site.Other(domain),
-          url = if (line startsWith "http") line else s"https://$line"
+          url = if (line startsWith "http") line else s"https://$line",
         ).some
       case _ => none
     }
@@ -44,7 +44,7 @@ object Link {
       YouTube,
       Twitch,
       GitHub,
-      VKontakte
+      VKontakte,
     )
   }
 }

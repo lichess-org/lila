@@ -23,10 +23,10 @@ final class MsgApi(
     notifier: MsgNotify,
     security: MsgSecurity,
     shutup: lila.hub.actors.Shutup,
-    spam: lila.security.Spam
+    spam: lila.security.Spam,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) {
 
   val msgsPerPage = MaxPerPage(100)
@@ -47,7 +47,11 @@ final class MsgApi(
       case Some(found) => found :: threads.filterNot(_.isPriority)
     }
 
-  def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] = {
+  def convoWith(
+      me: User,
+      username: String,
+      beforeMillis: Option[Long] = None,
+  ): Fu[Option[MsgConvo]] = {
     val userId   = User.normalize(username)
     val threadId = MsgThread.id(me.id, userId)
     val before = beforeMillis flatMap { millis =>
@@ -78,7 +82,7 @@ final class MsgApi(
       orig: User.ID,
       dest: User.ID,
       text: String,
-      multi: Boolean = false
+      multi: Boolean = false,
   ): Funit =
     Msg.make(text, orig) ?? { msgPre =>
       val threadId = MsgThread.id(orig, dest)
@@ -90,7 +94,8 @@ final class MsgApi(
           case _: MsgSecurity.Reject => funit
           case send: MsgSecurity.Send =>
             val msg =
-              if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
+              if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text))
+              else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
             val threadWrite =
               if (isNew)
@@ -99,8 +104,8 @@ final class MsgApi(
                     MsgThread.make(orig, dest, msg),
                     delBy = List(
                       multi option orig,
-                      send.mute option dest
-                    ).flatten
+                      send.mute option dest,
+                    ).flatten,
                   )
                 }.void
               else
@@ -112,9 +117,9 @@ final class MsgApi(
                       else
                         $pull(
                           // unset "deleted by receiver" unless the message is muted
-                          "del" $in (orig :: (!send.mute).option(dest).toList)
+                          "del" $in (orig :: (!send.mute).option(dest).toList),
                         )
-                    }
+                    },
                   )
                   .void
             (msgWrite zip threadWrite).void >>- {
@@ -123,9 +128,9 @@ final class MsgApi(
                 Bus.publish(
                   lila.hub.actorApi.socket.SendTo(
                     dest,
-                    lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
+                    lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg)),
                   ),
-                  "socketUsers"
+                  "socketUsers",
                 )
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
               }
@@ -141,7 +146,7 @@ final class MsgApi(
       .updateField(
         $id(threadId) ++ $doc("lastMsg.user" -> contactId),
         "lastMsg.read",
-        true
+        true,
       )
       .flatMap { res =>
         (res.nModified > 0) ?? notifier.onRead(threadId, userId, contactId)
@@ -189,7 +194,7 @@ final class MsgApi(
                   contact | LightUser.fallback(thread other user),
                   msgs,
                   lila.relation.Relations(none, none),
-                  false
+                  false,
                 )
               }
             }
@@ -208,19 +213,25 @@ final class MsgApi(
   private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
     _.expireAfterWrite(10 seconds)
       .buildAsyncFuture[User.ID, Int] { userId =>
-        colls.thread.countSel($doc("users" -> userId, "lastMsg.read" -> false, "lastMsg.user" $ne userId))
+        colls.thread.countSel(
+          $doc("users" -> userId, "lastMsg.read" -> false, "lastMsg.user" $ne userId),
+        )
       }
   }
 
   private val msgProjection = $doc("_id" -> false, "tid" -> false)
 
-  private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
+  private def threadMsgsFor(
+      threadId: MsgThread.Id,
+      me: User,
+      before: Option[DateTime],
+  ): Fu[List[Msg]] =
     colls.msg.ext
       .find(
         $doc("tid" -> threadId, "del" $ne me.id) ++ before.?? { b =>
           $doc("date" $lt b)
         },
-        msgProjection
+        msgProjection,
       )
       .sort($sort desc "date")
       .cursor[Msg]()
@@ -230,10 +241,10 @@ final class MsgApi(
     colls.thread.updateField(
       $id(threadId) ++ $doc(
         "lastMsg.user" $ne me.id,
-        "lastMsg.read" -> false
+        "lastMsg.read" -> false,
       ),
       "lastMsg.read",
-      true
+      true,
     ) flatMap { res =>
       (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }

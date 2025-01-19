@@ -64,8 +64,8 @@ object String {
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
 
   object base64 {
-    import java.util.Base64
     import java.nio.charset.StandardCharsets.UTF_8
+    import java.util.Base64
     def encode(txt: String) =
       Base64.getEncoder.encodeToString(txt getBytes UTF_8)
     def decode(txt: String): Option[String] =

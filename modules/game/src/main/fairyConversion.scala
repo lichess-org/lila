@@ -12,8 +12,8 @@ object FairyConversion {
         List(
           sfen.boardString.fold("") { _.flatMap(c => kyotoBoardMap.getOrElse(c, c.toString)) },
           sfen.color.map(_.letter.toString) | "b",
-          sfen.handsString.fold("-") { _.map(c => kyotoHandsMap.getOrElse(c, c)) }
-        ).mkString(" ")
+          sfen.handsString.fold("-") { _.map(c => kyotoHandsMap.getOrElse(c, c)) },
+        ).mkString(" "),
       )
 
     def readFairyUsi(usiStr: String): Option[Usi] =
@@ -27,7 +27,7 @@ object FairyConversion {
         .usiWithRoleWhilePossible(
           usiList,
           initialSfen,
-          shogi.variant.Kyotoshogi
+          shogi.variant.Kyotoshogi,
         )
         .map(uwr => usiWithRoleToFairy(uwr))
 
@@ -60,13 +60,13 @@ object FairyConversion {
       'b' -> "+s",
       'B' -> "+S",
       'r' -> "+p",
-      'R' -> "+P"
+      'R' -> "+P",
     )
     private val kyotoHandsMap: Map[Char, Char] = Map(
       'g' -> 'n',
       'G' -> 'N',
       't' -> 'l',
-      'T' -> 'L'
+      'T' -> 'L',
     )
     private val dropRoles: Map[String, Char] = kyotoBoardMap.map { case (k, v) => (v, k) } toMap
 

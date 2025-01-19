@@ -2,6 +2,7 @@ package lila.study
 
 import akka.stream.scaladsl._
 import org.joda.time.format.DateTimeFormat
+
 import shogi.Piece
 import shogi.Pos
 import shogi.Role
@@ -24,7 +25,7 @@ import lila.tree.Node.Shapes
 final class NotationDump(
     chapterRepo: ChapterRepo,
     lightUserApi: lila.user.LightUserApi,
-    net: lila.common.config.NetConfig
+    net: lila.common.config.NetConfig,
 ) {
 
   import NotationDump._
@@ -41,9 +42,12 @@ final class NotationDump(
     val tags    = makeTags(study, chapter)
     val moves   = toMoves(chapter.root, variant)(flags).toList
     val initial = Initial(
-      renderComments(chapter.root.comments, chapter.root.hasMultipleCommentAuthors) ::: shapeComment(
-        chapter.root.shapes
-      ).toList
+      renderComments(
+        chapter.root.comments,
+        chapter.root.hasMultipleCommentAuthors,
+      ) ::: shapeComment(
+        chapter.root.shapes,
+      ).toList,
     )
     if (flags.csa && variant.standard) Csa(moves, chapter.root.sfen.some, initial, tags)
     else Kif(moves, chapter.root.sfen.some, variant, initial, tags)
@@ -58,9 +62,9 @@ final class NotationDump(
     java.net.URLEncoder.encode(
       fileR.replaceAllIn(
         s"lishogi_study_${slugify(study.name.value)}_by_${ownerName(study)}_${date}",
-        ""
+        "",
       ),
-      "UTF-8"
+      "UTF-8",
     )
   }
 
@@ -69,9 +73,9 @@ final class NotationDump(
     java.net.URLEncoder.encode(
       fileR.replaceAllIn(
         s"lishogi_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_${date}",
-        ""
+        "",
       ),
-      "UTF-8"
+      "UTF-8",
     )
   }
 
@@ -85,7 +89,7 @@ final class NotationDump(
       List(
         Tag(_.Event, s"${study.name} - ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.Annotator, ownerName(study))
+        Tag(_.Annotator, ownerName(study)),
       ).foldLeft(chapter.tags.value.reverse) { case (tags, tag) =>
         if (tags.exists(t => tag.name == t.name)) tags
         else tag :: tags
@@ -100,7 +104,7 @@ object NotationDump {
       comments: Boolean,
       variations: Boolean,
       shiftJis: Boolean,
-      clocks: Boolean
+      clocks: Boolean,
   )
 
   private type Variations = Vector[Node]
@@ -167,7 +171,7 @@ object NotationDump {
       root.sfen,
       variant,
       root.children.variations,
-      root.hasMultipleCommentAuthors
+      root.hasMultipleCommentAuthors,
     )
 
   def toMoves(
@@ -175,7 +179,7 @@ object NotationDump {
       initialSfen: Sfen,
       variant: Variant,
       variations: Variations,
-      showAuthors: Boolean
+      showAuthors: Boolean,
   )(implicit flags: WithFlags): Vector[NotationStep] = {
     val enriched = shogi.Replay.usiWithRoleWhilePossible(line.map(_.usi), initialSfen.some, variant)
     line
@@ -200,11 +204,11 @@ object NotationDump {
                   parentNode.fold(initialSfen)(_.sfen),
                   variant,
                   noVariations,
-                  showAuthors
+                  showAuthors,
                 ).toList
               }
               .toList
-          }
+          },
         ) +: moves
       }
       .reverse

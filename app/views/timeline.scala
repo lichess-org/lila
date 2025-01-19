@@ -13,13 +13,13 @@ object timeline {
     div(cls := "entries")(
       filterEntries(entries) map { entry =>
         div(cls := "entry")(timeline.entry(entry))
-      }
+      },
     )
 
   def more(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.timeline.txt(),
-      moreCss = cssTag("misc.slist")
+      moreCss = cssTag("misc.slist"),
     )(
       main(cls := "timeline page-small box")(
         h1(trans.timeline()),
@@ -27,10 +27,10 @@ object timeline {
           tbody(
             filterEntries(entries) map { e =>
               tr(td(entry(e)))
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     )
 
   private def filterEntries(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
@@ -43,34 +43,40 @@ object timeline {
         case Follow(u1, u2) =>
           trans.xStartedFollowingY(
             userIdLink(u1.some, withOnline = false),
-            userIdLink(u2.some, withOnline = false)
+            userIdLink(u2.some, withOnline = false),
           )
         case TeamJoin(userId, teamId) =>
-          trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
+          trans.xJoinedTeamY(
+            userIdLink(userId.some, withOnline = false),
+            teamLink(teamId, withIcon = false),
+          )
         case TeamCreate(userId, teamId) =>
-          trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
+          trans.xCreatedTeamY(
+            userIdLink(userId.some, withOnline = false),
+            teamLink(teamId, withIcon = false),
+          )
         case ForumPost(userId, _, topicName, postId) =>
           trans.xPostedInForumY(
             userIdLink(userId.some, withOnline = false),
             a(
               href  := routes.ForumPost.redirect(postId),
-              title := topicName
-            )(shorten(topicName, 30))
+              title := topicName,
+            )(shorten(topicName, 30)),
           )
         case TourJoin(userId, tourId, tourName) =>
           trans.xCompetesInY(
             userIdLink(userId.some, withOnline = false),
-            a(href := routes.Tournament.show(tourId))(tourName)
+            a(href := routes.Tournament.show(tourId))(tourName),
           )
         case SimulCreate(userId, simulId, simulName) =>
           trans.xHostsY(
             userIdLink(userId.some, withOnline = false),
-            a(href := routes.Simul.show(simulId))(simulName)
+            a(href := routes.Simul.show(simulId))(simulName),
           )
         case SimulJoin(userId, simulId, simulName) =>
           trans.xJoinsY(
             userIdLink(userId.some, withOnline = false),
-            a(href := routes.Simul.show(simulId))(simulName)
+            a(href := routes.Simul.show(simulId))(simulName),
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
           lila.rating.PerfType(perfKey) map { perf =>
@@ -82,29 +88,29 @@ object timeline {
               a(
                 href     := routes.Round.player(playerId),
                 dataIcon := perf.iconChar,
-                cls      := "text glpt"
+                cls      := "text glpt",
               )(win match {
                 case Some(true)  => trans.victory()
                 case Some(false) => trans.defeat()
                 case None        => trans.draw()
               }),
               userIdLink(opponent, withOnline = false),
-              perf.trans
+              perf.trans,
             )
           }
         case StudyCreate(userId, studyId, studyName) =>
           trans.xCreatesStudyY(
             userIdLink(userId.some, withOnline = false),
-            a(href := routes.Study.show(studyId))(studyName)
+            a(href := routes.Study.show(studyId))(studyName),
           )
         case StudyLike(userId, studyId, studyName) =>
           trans.xLikesY(
             userIdLink(userId.some, withOnline = false),
-            a(href := routes.Study.show(studyId))(studyName)
+            a(href := routes.Study.show(studyId))(studyName),
           )
         case PlanStart(userId) =>
           a(href := routes.Plan.index)(
-            trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true))
+            trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true)),
           )
         case BlogPost(_) =>
           a(cls := "text", dataIcon := "6", href := routes.Blog.latest())(trans.officialBlog())
@@ -115,6 +121,6 @@ object timeline {
           div(cls := "text system-notification", dataIcon := "n")(text)
       },
       " ",
-      momentFromNow(e.date)
+      momentFromNow(e.date),
     )
 }

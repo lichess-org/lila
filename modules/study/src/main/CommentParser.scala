@@ -21,7 +21,7 @@ private[study] object CommentParser {
 
   case class ParsedComment(
       shapes: Shapes,
-      comment: String
+      comment: String,
   )
 
   def apply(comment: String): ParsedComment =

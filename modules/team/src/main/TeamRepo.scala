@@ -39,7 +39,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .primitive[Team.ID](
         $doc("leaders" -> userId) ++ enabledSelect,
         sortPopular,
-        "_id"
+        "_id",
       )
 
   def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
@@ -61,13 +61,14 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.countSel(
       $doc(
         "createdAt" $gt DateTime.now.minus(duration),
-        "createdBy" -> userId
-      )
+        "createdBy" -> userId,
+      ),
     )
 
   def filterEnabled(teamIds: List[Team.ID]): Fu[List[Team.ID]] =
-    coll.distinctEasy[Team.ID, Set]("_id", $inIds(teamIds) ++ $doc("enabled" -> false)) map { disabledIds =>
-      teamIds.filterNot(disabledIds.contains)
+    coll.distinctEasy[Team.ID, Set]("_id", $inIds(teamIds) ++ $doc("enabled" -> false)) map {
+      disabledIds =>
+        teamIds.filterNot(disabledIds.contains)
     }
 
   def incMembers(teamId: Team.ID, by: Int): Funit =
@@ -83,7 +84,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.update
       .one(
         $id(teamId) ++ $doc("requests.user" $ne request.user),
-        $push("requests" -> request.user)
+        $push("requests" -> request.user),
       )
       .void
 
@@ -103,13 +104,13 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
                 "from"         -> requestColl.name,
                 "localField"   -> "_id",
                 "foreignField" -> "team",
-                "as"           -> "requests"
-              )
-            )
+                "as"           -> "requests",
+              ),
+            ),
           ),
           Group(BSONNull)(
-            "nb" -> Sum($doc("$size" -> "$requests"))
-          )
+            "nb" -> Sum($doc("$size" -> "$requests")),
+          ),
         )
       }
       .map(~_.flatMap(_.int("nb")))

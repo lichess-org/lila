@@ -14,15 +14,15 @@ import lila.common.HTTPRequest
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
 import lila.tournament.VisibleTournaments
-import lila.tournament.{Tournament => Tour}
+import lila.tournament.{ Tournament => Tour }
 import lila.user.{ User => UserModel }
 
 final class Tournament(
     env: Env,
     teamC: => Team,
-    apiC: => Api
+    apiC: => Api,
 )(implicit
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) extends LilaController(env) {
 
   private def repo     = env.tournament.tournamentRepo
@@ -32,15 +32,16 @@ final class Tournament(
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
-  private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
-    _.refreshAfterWrite(3.seconds)
-      .buildAsyncFuture { _ =>
-        for {
-          visible   <- api.fetchVisibleTournaments
-          scheduled <- repo.allScheduledDedup
-        } yield (visible, scheduled)
-      }
-  }
+  private[controllers] val upcomingCache =
+    env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
+      _.refreshAfterWrite(3.seconds)
+        .buildAsyncFuture { _ =>
+          for {
+            visible   <- api.fetchVisibleTournaments
+            scheduled <- repo.allScheduledDedup
+          } yield (visible, scheduled)
+        }
+    }
 
   def home =
     Open { implicit ctx =>
@@ -60,7 +61,7 @@ final class Tournament(
         json = for {
           (visible, _) <- upcomingCache.getUnit
           scheduleJson <- env.tournament apiJsonView visible
-        } yield Ok(scheduleJson)
+        } yield Ok(scheduleJson),
       )
     }
 
@@ -77,12 +78,16 @@ final class Tournament(
       } yield Ok(html.tournament.leaderboard(winners))
     }
 
-  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit
+      ctx: Context,
+  ): Boolean =
     tour.hasChat && !ctx.kid && // no public chats for kids
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
-          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(tour.createdBy) || isGranted(
-            _.ChatTimeout
+          (!tour.isPrivate || json.fold(true)(jsonHasMe) || ctx.userId.has(
+            tour.createdBy,
+          ) || isGranted(
+            _.ChatTimeout,
           )) && // private tournament that I joined or has ChatTimeout
           env.chat.panic.allowed(u)
       }
@@ -107,7 +112,7 @@ final class Tournament(
                   getTeamName = env.team.getTeamName,
                   playerInfoExt = none,
                   socketVersion = version.some,
-                  partial = false
+                  partial = false,
                 )
                 chat <-
                   canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
@@ -121,7 +126,9 @@ final class Tournament(
                 }
                 streamers   <- streamerCache get tour.id
                 shieldOwner <- env.tournament.shieldApi currentOwner tour
-              } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)).noCache)
+              } yield Ok(
+                html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner),
+              ).noCache)
             }
             .monSuccess(_.tournament.apiShowPartial(false, HTTPRequest clientName ctx.req)),
           json = tourOption
@@ -137,11 +144,13 @@ final class Tournament(
                       getTeamName = env.team.getTeamName,
                       playerInfoExt = playerInfoExt,
                       socketVersion = socketVersion,
-                      partial = getBool("partial")
+                      partial = getBool("partial"),
                     )
                 } dmap { Ok(_).noCache }
             }
-            .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
+            .monSuccess(
+              _.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req),
+            ),
         )
       }
     }
@@ -173,7 +182,7 @@ final class Tournament(
       repo byId tourId flatMap {
         _ ?? { tour =>
           JsonOk {
-            api.playerInfo(tour, userId.pp("playerInfo")) flatMap {
+            api.playerInfo(tour, userId) flatMap {
               _ ?? { jsonView.playerInfoExtended(tour, _) }
             }
           }
@@ -212,14 +221,15 @@ final class Tournament(
               env.team.cached.isLeader(_, me.id)
             }
             .flatMap { isLeader =>
-              api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
-                negotiate(
-                  html = Redirect(routes.Tournament.show(id)).fuccess,
-                  json = fuccess {
-                    if (result) jsonOkResult
-                    else BadRequest(Json.obj("joined" -> false))
-                  }
-                )
+              api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap {
+                result =>
+                  negotiate(
+                    html = Redirect(routes.Tournament.show(id)).fuccess,
+                    json = fuccess {
+                      if (result) jsonOkResult
+                      else BadRequest(Json.obj("joined" -> false))
+                    },
+                  )
               }
             }
         }
@@ -258,19 +268,19 @@ final class Tournament(
   private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 240,
     duration = 24.hour,
-    key = "tournament.user"
+    key = "tournament.user",
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
     credits = 400,
     duration = 24.hour,
-    key = "tournament.ip"
+    key = "tournament.ip",
   )
 
   private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home))
 
   private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
-      create: => Fu[Result]
+      create: => Fu[Result],
   ): Fu[Result] = {
     val cost =
       if (
@@ -306,16 +316,16 @@ final class Tournament(
                       me,
                       teams,
                       getLeaderTeamIds,
-                      andJoin = setup.realFormat == lila.tournament.Format.Arena
+                      andJoin = setup.realFormat == lila.tournament.Format.Arena,
                     ) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
                         else routes.Tournament.show(tour.id)
                       }.flashSuccess
                     }
-                  }
+                  },
               ),
-            json = doApiCreate(me)
+            json = doApiCreate(me),
           )
         }
       }
@@ -336,20 +346,21 @@ final class Tournament(
         setup =>
           rateLimitCreation(me, setup.isPrivate, req) {
             teamC.teamsIBelongTo(me) flatMap { teams =>
-              api.createTournament(setup, me, teams, getLeaderTeamIds, andJoin = false) flatMap { tour =>
-                jsonView(
-                  tour,
-                  none,
-                  none,
-                  getLeaderTeamIds,
-                  env.team.getTeamName,
-                  none,
-                  none,
-                  partial = false
-                )(reqLang) map { Ok(_) }
+              api.createTournament(setup, me, teams, getLeaderTeamIds, andJoin = false) flatMap {
+                tour =>
+                  jsonView(
+                    tour,
+                    none,
+                    none,
+                    getLeaderTeamIds,
+                    env.team.getTeamName,
+                    none,
+                    none,
+                    partial = false,
+                  )(reqLang) map { Ok(_) }
               }
             }
-          }
+          },
       )
 
   def teamBattleEdit(id: String) =
@@ -366,7 +377,7 @@ final class Tournament(
                           .sync(t.createdBy)
                           .fold(t.createdBy)(_.name)}"""
                     },
-                    battle.nbLeaders
+                    battle.nbLeaders,
                   )
                   Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
                 }
@@ -381,7 +392,8 @@ final class Tournament(
     AuthBody { implicit ctx => me =>
       repo byId id flatMap {
         _ ?? {
-          case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
+          case tour
+              if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
             implicit val req = ctx.body
             lila.tournament.TeamBattle.DataForm.empty
               .bindFromRequest()
@@ -389,7 +401,7 @@ final class Tournament(
                 err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
                 res =>
                   api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
-                    Redirect(routes.Tournament.show(tour.id))
+                    Redirect(routes.Tournament.show(tour.id)),
               )
           case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
         }
@@ -402,7 +414,7 @@ final class Tournament(
         html = notFound,
         json = env.tournament.cached.onHomepage.getUnit.nevermind map {
           lila.tournament.Spotlight.select(_, ctx.me, 4)
-        } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
+        } flatMap env.tournament.apiJsonView.featured map { Ok(_) },
       )
     }
 
@@ -449,7 +461,10 @@ final class Tournament(
             .bindFromRequest()
             .fold(
               err => BadRequest(html.tournament.form.edit(tour, err, teams)).fuccess,
-              data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
+              data =>
+                api.update(tour, data, teams) inject Redirect(
+                  routes.Tournament.show(id),
+                ).flashSuccess,
             )
         }
       }
@@ -491,7 +506,7 @@ final class Tournament(
     }
 
   private def WithEditableTournament(id: String, me: UserModel)(
-      f: Tour => Fu[Result]
+      f: Tour => Fu[Result],
   )(implicit ctx: Context): Fu[Result] =
     repo byId id flatMap {
       case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
@@ -500,24 +515,27 @@ final class Tournament(
       case _       => notFound
     }
 
-  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
-    _.refreshAfterWrite(60.seconds)
-      .maximumSize(64)
-      .buildAsyncFuture { tourId =>
-        repo.isUnfinished(tourId) flatMap {
-          _ ?? {
-            env.streamer.liveStreamApi.all.flatMap {
-              _.streams
-                .map { stream =>
-                  env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
-                }
-                .sequenceFu
-                .dmap(_.flatten)
+  private val streamerCache =
+    env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
+      _.refreshAfterWrite(60.seconds)
+        .maximumSize(64)
+        .buildAsyncFuture { tourId =>
+          repo.isUnfinished(tourId) flatMap {
+            _ ?? {
+              env.streamer.liveStreamApi.all.flatMap {
+                _.streams
+                  .map { stream =>
+                    env.tournament
+                      .hasUser(tourId, stream.streamer.userId)
+                      .dmap(_ option stream.streamer.userId)
+                  }
+                  .sequenceFu
+                  .dmap(_.flatten)
+              }
             }
           }
         }
-      }
-  }
+    }
 
   private def getUserTeamIds(userId: lila.user.User.ID): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(userId)

@@ -6,7 +6,9 @@ import org.joda.time.Days
 import lila.db.dsl._
 import lila.user.User
 
-final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class PuzzleTrustApi(colls: PuzzleColls)(implicit
+    ec: scala.concurrent.ExecutionContext,
+) {
 
   def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] = {
     val w = base(user) + {
@@ -17,7 +19,9 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
     (w > 0) ?? {
       user.perfs.puzzle.glicko.establishedIntRating.fold(fuccess(-2)) { userRating =>
         colls
-          .puzzle(_.primitiveOne[Float]($id(round.id.puzzleId.value), s"${Puzzle.BSONFields.glicko}.r"))
+          .puzzle(
+            _.primitiveOne[Float]($id(round.id.puzzleId.value), s"${Puzzle.BSONFields.glicko}.r"),
+          )
           .map {
             _.fold(-2) { puzzleRating =>
               (math.abs(puzzleRating - userRating) > 300) ?? -4
@@ -53,8 +57,9 @@ final private class PuzzleTrustApi(colls: PuzzleColls)(implicit ec: scala.concur
   // 1500 = 0
   // 1800 = 1
   // 3000 = 5
-  private def ratingBonus(user: User) = user.perfs.standard.glicko.establishedIntRating.?? { rating =>
-    (rating - 1500) / 300
+  private def ratingBonus(user: User) = user.perfs.standard.glicko.establishedIntRating.?? {
+    rating =>
+      (rating - 1500) / 300
   } atLeast 0
 
   private def patronBonus(user: User) = (~user.planMonths * 5) atMost 20

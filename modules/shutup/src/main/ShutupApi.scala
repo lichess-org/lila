@@ -13,10 +13,11 @@ final class ShutupApi(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     relationApi: lila.relation.RelationApi,
-    reporter: lila.hub.actors.Report
+    reporter: lila.hub.actors.Report,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val UserRecordBSONHandler: BSONDocumentHandler[UserRecord] = Macros.handler[UserRecord]
+  implicit private val UserRecordBSONHandler: BSONDocumentHandler[UserRecord] =
+    Macros.handler[UserRecord]
   import PublicLine.PublicLineBSONHandler
 
   def getPublicLines(userId: User.ID): Fu[List[PublicLine]] =
@@ -27,8 +28,10 @@ final class ShutupApi(
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
 
-  def publicForumMessage(userId: User.ID, text: String) = record(userId, text, TextType.PublicForumMessage)
-  def teamForumMessage(userId: User.ID, text: String)   = record(userId, text, TextType.TeamForumMessage)
+  def publicForumMessage(userId: User.ID, text: String) =
+    record(userId, text, TextType.PublicForumMessage)
+  def teamForumMessage(userId: User.ID, text: String) =
+    record(userId, text, TextType.TeamForumMessage)
   def publicChat(userId: User.ID, text: String, source: PublicSource) =
     record(userId, text, TextType.PublicChat, source.some)
 
@@ -48,7 +51,7 @@ final class ShutupApi(
       textType: TextType,
       source: Option[PublicSource] = None,
       toUserId: Option[User.ID] = None,
-      major: Boolean = false
+      major: Boolean = false,
   ): Funit =
     userRepo isTroll userId flatMap {
       case true => funit
@@ -61,22 +64,22 @@ final class ShutupApi(
               $doc(
                 "pub" -> $doc(
                   "$each"  -> List(PublicLine.make(text, source)),
-                  "$slice" -> -20
-                )
+                  "$slice" -> -20,
+                ),
               )
             }
             val push = $doc(
               textType.key -> $doc(
                 "$each"  -> List(BSONDouble(analysed.ratio)),
-                "$slice" -> -textType.rotation
-              )
+                "$slice" -> -textType.rotation,
+              ),
             ) ++ pushPublicLine
             coll.ext
               .findAndUpdate[UserRecord](
                 selector = $id(userId),
                 update = $push(push),
                 fetchNewObject = true,
-                upsert = true
+                upsert = true,
               )
               .flatMap {
                 case None             => fufail(s"can't find user record for $userId")
@@ -98,8 +101,8 @@ final class ShutupApi(
           TextType.TeamForumMessage.key,
           TextType.PrivateMessage.key,
           TextType.PrivateChat.key,
-          TextType.PublicChat.key
-        )
+          TextType.PublicChat.key,
+        ),
       )
       .void
   }

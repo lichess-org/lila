@@ -13,7 +13,7 @@ case class RatingRange(min: Int, max: Int) {
   def withinLimits(rating: Int, delta: Int, multipleOf: Int) =
     copy(
       min = closestMultipleOf(multipleOf, min.atMost(rating + delta)),
-      max = closestMultipleOf(multipleOf, max.atLeast(rating - delta))
+      max = closestMultipleOf(multipleOf, max.atLeast(rating - delta)),
     )
 
   override def toString = s"$min-$max"

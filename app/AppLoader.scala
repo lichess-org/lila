@@ -48,7 +48,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
     new DefaultRequestFactory(
       new DefaultCookieHeaderEncoding(httpConfiguration.cookies),
       cookieBaker,
-      new LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
+      new LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner),
     )
   }
 
@@ -61,7 +61,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
       sourceMapper = devContext.map(_.sourceMapper),
       router = router,
       mainC = main,
-      lobbyC = lobby
+      lobbyC = lobby,
     )
 
   override lazy val httpRequestHandler: HttpRequestHandler =
@@ -72,15 +72,15 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
       httpErrorHandler,
       httpConfiguration,
       httpFilters,
-      controllerComponents
+      controllerComponents,
     )
 
   implicit def system: ActorSystem = actorSystem
-  implicit def ws: WSClient     = wsClient
+  implicit def ws: WSClient        = wsClient
 
   // dev assets
-  implicit def mimeTypes: FileMimeTypes       = fileMimeTypes
-  lazy val devAssetsController = wire[ExternalAssets]
+  implicit def mimeTypes: FileMimeTypes = fileMimeTypes
+  lazy val devAssetsController          = wire[ExternalAssets]
 
   lazy val shutdown = CoordinatedShutdown(system)
 

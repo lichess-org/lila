@@ -13,8 +13,8 @@ final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCon
       .find(
         $or(
           "team" $exists false,
-          $doc("team" $in teams)
-        )
+          $doc("team" $in teams),
+        ),
       )
       .sort($sort asc "pos")
       .cursor[Categ]()

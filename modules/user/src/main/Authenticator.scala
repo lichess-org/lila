@@ -7,11 +7,11 @@ import lila.common.NormalizedEmailAddress
 import lila.db.dsl._
 import lila.user.User.ClearPassword
 import lila.user.User.PasswordAndToken
-import lila.user.User.{BSONFields => F}
+import lila.user.User.{ BSONFields => F }
 
 final class Authenticator(
     passHasher: PasswordHasher,
-    userRepo: UserRepo
+    userRepo: UserRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
   import Authenticator._
 
@@ -30,7 +30,7 @@ final class Authenticator(
 
   def authenticateByEmail(
       email: NormalizedEmailAddress,
-      passwordAndToken: PasswordAndToken
+      passwordAndToken: PasswordAndToken,
   ): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
 
@@ -47,7 +47,7 @@ final class Authenticator(
     userRepo.coll.update
       .one(
         $id(id),
-        $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
+        $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512),
       )
       .void
 
@@ -73,7 +73,7 @@ object Authenticator {
       _id: User.ID,
       bpass: HashedPassword,
       salt: Option[String] = None,
-      sha512: Option[Boolean] = None
+      sha512: Option[Boolean] = None,
   ) {
 
     def hashToken: String = bpass.bytes.sha512.hex
@@ -82,13 +82,14 @@ object Authenticator {
   val authProjection = $doc(
     F.bpass  -> true,
     F.salt   -> true,
-    F.sha512 -> true
+    F.sha512 -> true,
   )
 
-  implicit private[user] val HashedPasswordBsonHandler: BSONHandler[HashedPassword] = quickHandler[HashedPassword](
-    { case v: BSONBinary => HashedPassword(v.byteArray) },
-    v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
-  )
+  implicit private[user] val HashedPasswordBsonHandler: BSONHandler[HashedPassword] =
+    quickHandler[HashedPassword](
+      { case v: BSONBinary => HashedPassword(v.byteArray) },
+      v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype),
+    )
 
   implicit val AuthDataBSONHandler: BSONDocumentHandler[AuthData] = Macros.handler[AuthData]
 }

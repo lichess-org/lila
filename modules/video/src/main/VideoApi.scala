@@ -14,7 +14,7 @@ import lila.user.User
 final private[video] class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import reactivemongo.api.bson.Macros
@@ -56,14 +56,14 @@ final private[video] class VideoApi(
         adapter = new Adapter[Video](
           collection = videoColl,
           selector = $doc(
-            "$text" -> $doc("$search" -> q)
+            "$text" -> $doc("$search" -> q),
           ),
           projection = textScore.some,
           sort = textScore,
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = ReadPreference.secondaryPreferred,
         ) mapFutureList videoViews(user),
         currentPage = page,
-        maxPerPage = maxPerPage
+        maxPerPage = maxPerPage,
       )
     }
 
@@ -72,7 +72,7 @@ final private[video] class VideoApi(
         .one(
           $id(video.id),
           $doc("$set" -> video),
-          upsert = true
+          upsert = true,
         )
         .void
 
@@ -84,7 +84,7 @@ final private[video] class VideoApi(
         .one(
           $id(id),
           $doc("$set" -> $doc("metadata" -> metadata)),
-          upsert = false
+          upsert = false,
         )
         .void
 
@@ -98,10 +98,10 @@ final private[video] class VideoApi(
           selector = $empty,
           projection = none,
           sort = $doc("metadata.likes" -> -1),
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = ReadPreference.secondaryPreferred,
         ) mapFutureList videoViews(user),
         currentPage = page,
-        maxPerPage = maxPerPage
+        maxPerPage = maxPerPage,
       )
 
     def byTags(user: Option[User], tags: List[Tag], page: Int): Fu[Paginator[VideoView]] =
@@ -113,10 +113,10 @@ final private[video] class VideoApi(
             selector = $doc("tags" $all tags),
             projection = none,
             sort = $doc("metadata.likes" -> -1),
-            readPreference = ReadPreference.secondaryPreferred
+            readPreference = ReadPreference.secondaryPreferred,
           ) mapFutureList videoViews(user),
           currentPage = page,
-          maxPerPage = maxPerPage
+          maxPerPage = maxPerPage,
         )
 
     def byAuthor(user: Option[User], author: String, page: Int): Fu[Paginator[VideoView]] =
@@ -126,39 +126,39 @@ final private[video] class VideoApi(
           selector = $doc("author" -> author),
           projection = none,
           sort = $doc("metadata.likes" -> -1),
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = ReadPreference.secondaryPreferred,
         ) mapFutureList videoViews(user),
         currentPage = page,
-        maxPerPage = maxPerPage
+        maxPerPage = maxPerPage,
       )
 
     def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
       videoColl
         .aggregateList(
           maxDocs = max,
-          ReadPreference.secondaryPreferred
+          ReadPreference.secondaryPreferred,
         ) { framework =>
           import framework._
           Match(
             $doc(
               "tags" $in video.tags,
-              "_id" $ne video.id
-            )
+              "_id" $ne video.id,
+            ),
           ) -> List(
             AddFields(
               $doc(
                 "int" -> $doc(
                   "$size" -> $doc(
-                    "$setIntersection" -> $arr("$tags", video.tags)
-                  )
-                )
-              )
+                    "$setIntersection" -> $arr("$tags", video.tags),
+                  ),
+                ),
+              ),
             ),
             Sort(
               Descending("int"),
-              Descending("metadata.likes")
+              Descending("metadata.likes"),
             ),
-            Limit(max)
+            Limit(max),
           )
         }
         .map(_.flatMap(_.asOpt[Video])) flatMap videoViews(user)
@@ -180,8 +180,8 @@ final private[video] class VideoApi(
       viewColl.ext
         .find(
           $doc(
-            View.BSONFields.id -> View.makeId(videoId, userId)
-          )
+            View.BSONFields.id -> View.makeId(videoId, userId),
+          ),
         )
         .one[View]
 
@@ -192,8 +192,8 @@ final private[video] class VideoApi(
     def hasSeen(user: User, video: Video): Fu[Boolean] =
       viewColl.countSel(
         $doc(
-          View.BSONFields.id -> View.makeId(video.id, user.id)
-        )
+          View.BSONFields.id -> View.makeId(video.id, user.id),
+        ),
       ) map (0 !=)
 
     def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
@@ -202,7 +202,7 @@ final private[video] class VideoApi(
         $inIds(videos.map { v =>
           View.makeId(v.id, user.id)
         }),
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       )
   }
 
@@ -225,13 +225,13 @@ final private[video] class VideoApi(
               videoColl
                 .aggregateList(
                   maxDocs = Int.MaxValue,
-                  ReadPreference.secondaryPreferred
+                  ReadPreference.secondaryPreferred,
                 ) { framework =>
                   import framework._
                   Match($doc("tags" $all filterTags)) -> List(
                     Project($doc("tags" -> true)),
                     UnwindField("tags"),
-                    GroupField("tags")("nb" -> SumAll)
+                    GroupField("tags")("nb" -> SumAll),
                   )
                 }
                 .dmap { _.flatMap(_.asOpt[TagNb]) }
@@ -260,13 +260,13 @@ final private[video] class VideoApi(
           videoColl
             .aggregateList(
               maxDocs = Int.MaxValue,
-              readPreference = ReadPreference.secondaryPreferred
+              readPreference = ReadPreference.secondaryPreferred,
             ) { framework =>
               import framework._
               Project($doc("tags" -> true)) -> List(
                 UnwindField("tags"),
                 GroupField("tags")("nb" -> SumAll),
-                Sort(Descending("nb"))
+                Sort(Descending("nb")),
               )
             }
             .dmap {

@@ -11,7 +11,7 @@ final case class OpenConfig(
     clock: Option[Clock.Config],
     days: Option[Int],
     rated: Boolean,
-    sfen: Option[Sfen] = None
+    sfen: Option[Sfen] = None,
 ) {
 
   val strictSfen = false
@@ -22,7 +22,8 @@ final case class OpenConfig(
 
   def validSfen =
     sfen.fold(true) { sf =>
-      sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
+      sf.toSituationPlus(variant)
+        .exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }
 
 }
@@ -34,13 +35,13 @@ object OpenConfig {
       cl: Option[Clock.Config],
       days: Option[Int],
       rated: Boolean,
-      sf: Option[String]
+      sf: Option[String],
   ) =
     new OpenConfig(
       variant = shogi.variant.Variant.orDefault(~v),
       clock = cl.filter(c => c.limitSeconds > 0 || c.hasIncrement || c.hasByoyomi),
       days = days,
       rated = rated,
-      sfen = sf map Sfen.clean
+      sfen = sf map Sfen.clean,
     )
 }

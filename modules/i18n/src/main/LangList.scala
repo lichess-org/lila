@@ -96,7 +96,7 @@ object LangList {
     Lang("vi", "VN") -> "Tiếng Việt",
     // Lang("yo", "NG")  -> "Yorùbá",
     Lang("zh", "CN") -> "中文",
-    Lang("zh", "TW") -> "繁體中文"
+    Lang("zh", "TW") -> "繁體中文",
     // Lang("zu", "ZA")  -> "isiZulu"
   )
 
@@ -144,7 +144,7 @@ object LangList {
         "tk-TM",
         "tl-PH",
         "fa-IR",
-        "lt-LT"
+        "lt-LT",
       )
         .flatMap(Lang.get)
         .zipWithIndex
@@ -169,7 +169,7 @@ object LangList {
       "ru-RU",
       "es-ES",
       "tr-TR",
-      "vi-VN"
+      "vi-VN",
     )
 
   sealed trait AlternativeLangs

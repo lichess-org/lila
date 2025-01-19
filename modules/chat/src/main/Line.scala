@@ -19,7 +19,7 @@ case class UserLine(
     title: Option[String],
     text: String,
     troll: Boolean,
-    deleted: Boolean
+    deleted: Boolean,
 ) extends Line {
 
   def author = username
@@ -32,7 +32,7 @@ case class UserLine(
 }
 case class PlayerLine(
     color: Color,
-    text: String
+    text: String,
 ) extends Line {
   def deleted = false
   def author  = color.name
@@ -48,14 +48,15 @@ object Line {
 
   private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
-  implicit private[chat] val userLineBSONHandler: BSONHandler[UserLine] = BSONStringHandler.as[UserLine](
-    v => strToUserLine(v) getOrElse invalidLine,
-    userLineToStr
-  )
+  implicit private[chat] val userLineBSONHandler: BSONHandler[UserLine] =
+    BSONStringHandler.as[UserLine](
+      v => strToUserLine(v) getOrElse invalidLine,
+      userLineToStr,
+    )
 
   implicit private[chat] val lineBSONHandler: BSONHandler[Line] = BSONStringHandler.as[Line](
     v => strToLine(v) getOrElse invalidLine,
-    lineToStr
+    lineToStr,
   )
 
   private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
@@ -65,8 +66,9 @@ object Line {
         val troll   = sep == "!"
         val deleted = sep == "?"
         username split titleSep match {
-          case Array(title, name) => UserLine(name, Some(title), text, troll = troll, deleted = deleted).some
-          case _                  => UserLine(username, None, text, troll = troll, deleted = deleted).some
+          case Array(title, name) =>
+            UserLine(name, Some(title), text, troll = troll, deleted = deleted).some
+          case _ => UserLine(username, None, text, troll = troll, deleted = deleted).some
         }
       case _ => none
     }

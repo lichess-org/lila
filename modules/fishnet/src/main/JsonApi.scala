@@ -3,6 +3,7 @@ package lila.fishnet
 import play.api.libs.json._
 
 import org.joda.time.DateTime
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.UciToUsi
 import shogi.format.usi.Usi
@@ -30,10 +31,10 @@ object JsonApi {
         shoginet.python | Client.Python(""),
         Client.Engines(
           yaneuraou = Client.Engine(yaneuraou.name),
-          fairy = Client.Engine(fairy.name)
+          fairy = Client.Engine(fairy.name),
         ),
         ip,
-        DateTime.now
+        DateTime.now,
       )
   }
 
@@ -44,7 +45,7 @@ object JsonApi {
     case class Fishnet(
         version: Client.Version,
         python: Option[Client.Python],
-        apikey: Client.Key
+        apikey: Client.Key,
     )
 
     sealed trait Engine {
@@ -55,12 +56,12 @@ object JsonApi {
 
     case class FullEngine(
         name: String,
-        options: EngineOptions
+        options: EngineOptions,
     ) extends Engine
 
     case class EngineOptions(
         threads: Option[String],
-        hash: Option[String]
+        hash: Option[String],
     ) {
       def threadsInt = threads flatMap (_.toIntOption)
       def hashInt    = hash flatMap (_.toIntOption)
@@ -69,14 +70,14 @@ object JsonApi {
     case class Acquire(
         shoginet: Fishnet,
         yaneuraou: BaseEngine,
-        fairy: BaseEngine
+        fairy: BaseEngine,
     ) extends Request
 
     case class PostMove(
         shoginet: Fishnet,
         yaneuraou: FullEngine,
         fairy: FullEngine,
-        move: MoveResult
+        move: MoveResult,
     ) extends Request
         with Result {}
 
@@ -91,7 +92,7 @@ object JsonApi {
         shoginet: Fishnet,
         yaneuraou: FullEngine,
         fairy: FullEngine,
-        analysis: List[Option[Evaluation.OrSkipped]]
+        analysis: List[Option[Evaluation.OrSkipped]],
     ) extends Request
         with Result {
 
@@ -105,7 +106,7 @@ object JsonApi {
         shoginet: Fishnet,
         yaneuraou: FullEngine,
         fairy: FullEngine,
-        analysis: List[Evaluation.OrSkipped]
+        analysis: List[Evaluation.OrSkipped],
     ) {
 
       def evaluations = analysis.collect { case Right(e) => e }
@@ -124,7 +125,7 @@ object JsonApi {
         shoginet: Fishnet,
         yaneuraou: FullEngine,
         fairy: FullEngine,
-        analysis: List[Option[Evaluation.OrSkipped]]
+        analysis: List[Option[Evaluation.OrSkipped]],
     )
 
     case class Evaluation(
@@ -133,7 +134,7 @@ object JsonApi {
         time: Option[Int],
         nodes: Option[Int],
         nps: Option[Int],
-        depth: Option[Int]
+        depth: Option[Int],
     ) {
       val cappedNps = nps.map(_ min Evaluation.npsCeil)
 
@@ -163,7 +164,7 @@ object JsonApi {
         shoginet: Fishnet,
         yaneuraou: FullEngine,
         fairy: FullEngine,
-        result: Boolean
+        result: Boolean,
     ) extends Request
         with Result {}
 
@@ -171,7 +172,7 @@ object JsonApi {
         shoginet: Fishnet,
         yaneuraou: FullEngine,
         fairy: FullEngine,
-        result: Option[CompletedPuzzle]
+        result: Option[CompletedPuzzle],
     ) extends Request
         with Result {}
 
@@ -179,7 +180,7 @@ object JsonApi {
         sfen: Sfen,
         line: List[Usi],
         ambiguousPromotions: List[Int],
-        themes: List[String]
+        themes: List[String],
     )
   }
 
@@ -187,7 +188,7 @@ object JsonApi {
       game_id: String,
       position: Sfen,
       variant: Variant,
-      moves: String
+      moves: String,
   )
 
   def fromGame(g: W.Game) =
@@ -197,7 +198,7 @@ object JsonApi {
         game_id = if (g.studyId.isDefined) "" else g.id,
         position = g.initialSfen | g.variant.initialSfen,
         variant = g.variant,
-        moves = g.moves
+        moves = g.moves,
       )
 
   private def kyotoFromGame(g: W.Game) =
@@ -205,7 +206,7 @@ object JsonApi {
       game_id = if (g.studyId.isDefined) "" else g.id,
       position = Kyoto.makeFairySfen(g.initialSfen | g.variant.initialSfen),
       variant = g.variant,
-      moves = Kyoto.makeFairyUsiList(g.usiList, g.initialSfen).mkString(" ")
+      moves = Kyoto.makeFairyUsiList(g.usiList, g.initialSfen).mkString(" "),
     )
 
   sealed trait Work {
@@ -219,7 +220,7 @@ object JsonApi {
       level: Int,
       game: Game,
       engine: String,
-      clock: Option[Work.Clock]
+      clock: Option[Work.Clock],
   ) extends Work
 
   def moveFromWork(m: Work.Move) =
@@ -228,7 +229,7 @@ object JsonApi {
       level = m.level,
       game = fromGame(m.game),
       engine = m.engine,
-      clock = m.clock
+      clock = m.clock,
     )
 
   case class Analysis(
@@ -236,7 +237,7 @@ object JsonApi {
       game: Game,
       engine: String,
       nodes: Int,
-      skipPositions: List[Int]
+      skipPositions: List[Int],
   ) extends Work
 
   def analysisFromWork(nodes: Int)(a: Work.Analysis) =
@@ -245,35 +246,38 @@ object JsonApi {
       game = fromGame(a.game),
       engine = a.engine,
       nodes = nodes,
-      skipPositions = a.skipPositions
+      skipPositions = a.skipPositions,
     )
 
   case class Puzzle(
       id: String,
       game: Game,
-      engine: String
+      engine: String,
   ) extends Work
 
   def puzzleFromWork(p: Work.Puzzle) =
     Puzzle(
       id = p.id.value,
       game = fromGame(p.game),
-      engine = p.engine
+      engine = p.engine,
     )
 
   object readers {
     import play.api.libs.functional.syntax._
-    implicit val ClientVersionReads: Reads[Client.Version] = Reads.of[String].map(new Client.Version(_))
-    implicit val ClientPythonReads: Reads[Client.Python]  = Reads.of[String].map(new Client.Python(_))
-    implicit val ClientKeyReads: Reads[Client.Key]     = Reads.of[String].map(new Client.Key(_))
-    implicit val EngineOptionsReads: Reads[Request.EngineOptions] = Json.reads[Request.EngineOptions]
-    implicit val BaseEngineReads: Reads[Request.BaseEngine]    = Json.reads[Request.BaseEngine]
-    implicit val FullEngineReads: Reads[Request.FullEngine]    = Json.reads[Request.FullEngine]
-    implicit val FishnetReads: Reads[Request.Fishnet]       = Json.reads[Request.Fishnet]
-    implicit val AcquireReads: Reads[Request.Acquire]       = Json.reads[Request.Acquire]
-    implicit val MoveResultReads: Reads[Request.MoveResult]    = Json.reads[Request.MoveResult]
+    implicit val ClientVersionReads: Reads[Client.Version] =
+      Reads.of[String].map(new Client.Version(_))
+    implicit val ClientPythonReads: Reads[Client.Python] =
+      Reads.of[String].map(new Client.Python(_))
+    implicit val ClientKeyReads: Reads[Client.Key] = Reads.of[String].map(new Client.Key(_))
+    implicit val EngineOptionsReads: Reads[Request.EngineOptions] =
+      Json.reads[Request.EngineOptions]
+    implicit val BaseEngineReads: Reads[Request.BaseEngine]  = Json.reads[Request.BaseEngine]
+    implicit val FullEngineReads: Reads[Request.FullEngine]  = Json.reads[Request.FullEngine]
+    implicit val FishnetReads: Reads[Request.Fishnet]        = Json.reads[Request.Fishnet]
+    implicit val AcquireReads: Reads[Request.Acquire]        = Json.reads[Request.Acquire]
+    implicit val MoveResultReads: Reads[Request.MoveResult]  = Json.reads[Request.MoveResult]
     implicit val PostMoveReads: Reads[Request.PostMove]      = Json.reads[Request.PostMove]
-    implicit val ScoreReads: Reads[Request.Evaluation.Score]         = Json.reads[Request.Evaluation.Score]
+    implicit val ScoreReads: Reads[Request.Evaluation.Score] = Json.reads[Request.Evaluation.Score]
     implicit val usiListReads: Reads[List[Usi]] = Reads.of[String] map { str =>
       ~(Usi.readList(str).orElse(UciToUsi.readList(str)).orElse(Kyoto.readFairyUsiList(str)))
     }
@@ -286,16 +290,18 @@ object JsonApi {
         (__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)) and
         (__ \ "depth").readNullable[Int]
     )(Request.Evaluation.apply _)
-    implicit val EvaluationOptionReads: Reads[Option[Request.Evaluation.OrSkipped]] = Reads[Option[Request.Evaluation.OrSkipped]] {
-      case JsNull => JsSuccess(None)
-      case obj =>
-        if (~(obj boolean "skipped")) JsSuccess(Left(Request.Evaluation.Skipped).some)
-        else EvaluationReads reads obj map Right.apply map some
-    }
+    implicit val EvaluationOptionReads: Reads[Option[Request.Evaluation.OrSkipped]] =
+      Reads[Option[Request.Evaluation.OrSkipped]] {
+        case JsNull => JsSuccess(None)
+        case obj =>
+          if (~(obj boolean "skipped")) JsSuccess(Left(Request.Evaluation.Skipped).some)
+          else EvaluationReads reads obj map Right.apply map some
+      }
     implicit val PostAnalysisReads: Reads[Request.PostAnalysis] = Json.reads[Request.PostAnalysis]
     implicit val PostPuzzleReads: Reads[Request.PostPuzzle]     = Json.reads[Request.PostPuzzle]
 
-    implicit val CompletedPuzzleReads: Reads[Request.CompletedPuzzle] = Json.reads[Request.CompletedPuzzle]
+    implicit val CompletedPuzzleReads: Reads[Request.CompletedPuzzle] =
+      Json.reads[Request.CompletedPuzzle]
     implicit val PostPuzzleVerified: Reads[Request.PostPuzzleVerified] =
       Json.reads[Request.PostPuzzleVerified]
   }
@@ -317,10 +323,10 @@ object JsonApi {
             "work" -> Json.obj(
               "type"   -> "analysis",
               "id"     -> a.id,
-              "flavor" -> a.engine
+              "flavor" -> a.engine,
             ),
             "nodes"         -> a.nodes,
-            "skipPositions" -> a.skipPositions
+            "skipPositions" -> a.skipPositions,
           )
         case m: Move =>
           Json.obj(
@@ -329,16 +335,16 @@ object JsonApi {
               "id"     -> m.id,
               "level"  -> m.level,
               "clock"  -> m.clock,
-              "flavor" -> m.engine
-            )
+              "flavor" -> m.engine,
+            ),
           )
         case p: Puzzle =>
           Json.obj(
             "work" -> Json.obj(
               "type"   -> "puzzle",
               "id"     -> p.id,
-              "flavor" -> p.engine
-            )
+              "flavor" -> p.engine,
+            ),
           )
       }) ++ Json.toJson(work.game).as[JsObject]
     }

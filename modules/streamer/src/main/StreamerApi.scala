@@ -16,7 +16,7 @@ final class StreamerApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     photographer: Photographer,
-    notifyApi: lila.notify.NotifyApi
+    notifyApi: lila.notify.NotifyApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -64,14 +64,20 @@ final class StreamerApi(
         if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
       }
 
-  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
+  def update(
+      prev: Streamer,
+      data: StreamerForm.UserData,
+      asMod: Boolean,
+  ): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
       cache.listedIds.invalidateUnit() inject {
         val modChange = Streamer.ModChange(
-          list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
+          list =
+            prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
           tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier,
-          decline = !streamer.approval.granted && !streamer.approval.requested && prev.approval.requested
+          decline =
+            !streamer.approval.granted && !streamer.approval.requested && prev.approval.requested,
         )
         import lila.notify.Notification.Notifies
         import lila.notify.Notification
@@ -83,9 +89,9 @@ final class StreamerApi(
                 url = "/streamer/edit",
                 title = "Listed on /streamer".some,
                 text = "Your streamer page is public".some,
-                icon = ""
-              )
-            )
+                icon = "",
+              ),
+            ),
           ) >>- cache.candidateIds.invalidateUnit()
         }
         modChange
@@ -98,8 +104,8 @@ final class StreamerApi(
         $id(userId),
         $set(
           "approval.requested" -> false,
-          "approval.granted"   -> false
-        )
+          "approval.granted"   -> false,
+        ),
       )
       .void
 
@@ -136,8 +142,8 @@ final class StreamerApi(
       coll.countSel(
         $doc(
           "approval.requested" -> true,
-          "approval.ignored"   -> false
-        )
+          "approval.ignored"   -> false,
+        ),
       )
   }
 
@@ -151,10 +157,10 @@ final class StreamerApi(
             },
             streamer.youTube.map(_.channelId).map { t =>
               $doc("youTube.channelId" -> t)
-            }
+            },
           ).flatten,
-          "_id" $ne streamer.userId
-        )
+          "_id" $ne streamer.userId,
+        ),
       )
       .sort($sort desc "createdAt")
       .cursor[Streamer](readPreference = ReadPreference.secondaryPreferred)
@@ -165,7 +171,7 @@ final class StreamerApi(
     private def selectListedApproved =
       $doc(
         "listed"           -> true,
-        "approval.granted" -> true
+        "approval.granted" -> true,
       )
 
     val listedIds = cacheApi.unit[Set[Streamer.Id]] {
@@ -173,7 +179,7 @@ final class StreamerApi(
         .buildAsyncFuture { _ =>
           coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
             "_id",
-            selectListedApproved
+            selectListedApproved,
           )
         }
     }
@@ -183,7 +189,7 @@ final class StreamerApi(
         .buildAsyncFuture { _ =>
           coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
             "_id",
-            selectListedApproved ++ $doc("liveAt" $exists false)
+            selectListedApproved ++ $doc("liveAt" $exists false),
           )
         }
     }

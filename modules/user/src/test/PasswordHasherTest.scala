@@ -1,8 +1,9 @@
 package lila.user
 
-import lila.common.config.Secret
-import org.specs2.mutable.Specification
 import User.{ ClearPassword => P }
+import org.specs2.mutable.Specification
+
+import lila.common.config.Secret
 
 class PasswordHasherTest extends Specification {
 

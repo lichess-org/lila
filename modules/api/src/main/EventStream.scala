@@ -24,10 +24,10 @@ final class EventStream(
     onlineApiUsers: lila.bot.OnlineApiUsers,
     userRepo: UserRepo,
     gameJsonView: lila.game.JsonView,
-    lightUserApi: LightUserApi
+    lightUserApi: LightUserApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private case object SetOnline
@@ -38,7 +38,7 @@ final class EventStream(
   def apply(
       me: User,
       gamesInProgress: List[Game],
-      challenges: List[Challenge]
+      challenges: List[Challenge],
   ): Source[Option[JsObject], _] = {
 
     // kill previous one if any
@@ -64,7 +64,7 @@ final class EventStream(
         s"userFinishGame:${me.id}",
         s"rematchFor:${me.id}",
         s"eventStreamFor:${me.id}",
-        "challenge"
+        "challenge",
       )
 
       var lastSetSeenAt = me.seenAt | me.createdAt
@@ -143,18 +143,18 @@ final class EventStream(
             .ownerPreview(pov)(lightUserApi.sync)
             .add("source" -> game.source.map(_.name)) ++ compatJson(
             bot = me.isBot && Game.isBotCompatible(game),
-            board = Game.isBoardCompatible(game)
+            board = Game.isBoardCompatible(game),
           ) ++ Json.obj(
-            "id" -> game.id // API BC
+            "id" -> game.id, // API BC
           )
-        }
+        },
       )
     }
 
   private def challengeJson(tpe: String)(c: Challenge) =
     Json.obj(
       "type"      -> tpe,
-      "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
+      "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang),
     )
 
   private def compatJson(bot: Boolean, board: Boolean) =

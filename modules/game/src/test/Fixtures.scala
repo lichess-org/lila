@@ -509,6 +509,6 @@ object Fixtures {
     "1g1f 3c3d 5i6h 2b7g+ 6h7g 7c7d 7g6h 8c8d 8h1a+ 3a2b 1a2a 4a3a 2a4c 6a5b 4c3d 7a7b 7i7h 7b8c B*7a 8b7b N*4d 5b4c 3d4c 5a4a 1f1e 3a4b 4c2a 7b7c 7a6b+ 4b5b 2a3b",
     "1g1f 1c1d 1f1e 9c9d 7g7f 1d1e 2g2f 1e1f 2h1h 4a3b 1h1f 1a1f 1i1f R*1i 8h3c 2b3c 7f7e 1i1f+ 2f2e 3c9i+ 7i7h 9i8h",
     "7g7f 8c8d 6i7h 8d8e 8h7g 7a7b 9g9f 3c3d 8i9g 4a4b 4i5h 9c9d 9g8e 8b8e 8g8f 8e8b 2g2f N*7d 7h8g 7d8f 5h6h 8f9h+ 6h7h 9h9i 8g9g 9i8i 7i6h 8a9c P*8f 2a3c 3i4h 7b8c 2f2e 3c2e 2h2e L*2d 2e6e 8c7d 6e4e 2d2i+ 1i1h N*8e 7g2b+ 3a2b 8f8e 7d8e 7f7e 8e8f 9g9h 9c8e B*5e B*5d 4e2e 5d9h+ 2e2i 9h8h 5e7c+ 8b6b 7h7i 8i7i N*7d G*3h 2i2g G*6i 5i5h 6i6h 5h6h 8h7h 6h5h 7h6i",
-    "7g7f 4a3b 8h6f 7a7b 9g9f 5a4a 9i9g 1c1d 5g5f 9c9d 2h9h 8c8d 9f9e 3c3d 6f7g 2b7g+ 8i7g B*3c 7i6h 9d9e 9g9e P*9b P*9d 7c7d 9h7h 3a4b 7h7i 8d8e 4i5h 8e8f 8g8f 8b8f B*9h P*8g 6i7h 8g8h+ 7h8h 8f8h+ 7i8i"
+    "7g7f 4a3b 8h6f 7a7b 9g9f 5a4a 9i9g 1c1d 5g5f 9c9d 2h9h 8c8d 9f9e 3c3d 6f7g 2b7g+ 8i7g B*3c 7i6h 9d9e 9g9e P*9b P*9d 7c7d 9h7h 3a4b 7h7i 8d8e 4i5h 8e8f 8g8f 8b8f B*9h P*8g 6i7h 8g8h+ 7h8h 8f8h+ 7i8i",
   )
 }

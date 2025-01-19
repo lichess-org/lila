@@ -30,7 +30,12 @@ object CSVParser {
   final private val QuoteEnd    = 5
   final private val QuotedField = 6
 
-  def apply(input: String, escapeChar: Char, delimiter: Char, quoteChar: Char): Option[List[String]] = {
+  def apply(
+      input: String,
+      escapeChar: Char,
+      delimiter: Char,
+      quoteChar: Char,
+  ): Option[List[String]] = {
     val buf: Array[Char]       = input.toCharArray
     var fields: Vector[String] = Vector()
     var field                  = new StringBuilder

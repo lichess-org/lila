@@ -15,7 +15,7 @@ import lila.relation.RelationApi
 @Module
 final private class ForumConfig(
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
-    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage
+    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
 )
 
 @Module
@@ -32,7 +32,7 @@ final class Env(
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     userRepo: lila.user.UserRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)

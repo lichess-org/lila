@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.analyse.Analysis
-import lila.analyse.{JsonView => analysisJson}
+import lila.analyse.{ JsonView => analysisJson }
 import lila.game.Game
 import lila.game.Pov
 import lila.pref.Pref
@@ -24,11 +24,11 @@ final private[api] class RoundApi(
     tourApi: lila.tournament.TournamentApi,
     simulApi: lila.simul.SimulApi,
     getTeamName: lila.team.GetTeamName,
-    getLightUser: lila.common.LightUser.GetterSync
+    getLightUser: lila.common.LightUser.GetterSync,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def player(pov: Pov, tour: Option[TourView])(implicit
-      ctx: Context
+      ctx: Context,
   ): Fu[JsObject] = {
     implicit val lang = ctx.lang
     jsonView.playerJson(
@@ -36,7 +36,7 @@ final private[api] class RoundApi(
       ctx.pref,
       ctx.me,
       withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
-      nvui = ctx.blind
+      nvui = ctx.blind,
     ) zip
       (pov.game.simulId ?? simulApi.find) zip
       forecastApi.loadForDisplay(pov) zip
@@ -55,7 +55,7 @@ final private[api] class RoundApi(
   def watcher(
       pov: Pov,
       tour: Option[TourView],
-      tv: Option[lila.round.OnTv]
+      tv: Option[lila.round.OnTv],
   )(implicit ctx: Context): Fu[JsObject] = {
     implicit val lang = ctx.lang
     jsonView.watcherJson(
@@ -63,7 +63,7 @@ final private[api] class RoundApi(
       ctx.pref,
       ctx.me,
       tv,
-      withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))
+      withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
     ) zip
       (pov.game.simulId ?? simulApi.find) zip
       bookmarkApi.exists(pov.game, ctx.me) map { case ((json, simul), bookmarked) =>
@@ -81,7 +81,7 @@ final private[api] class RoundApi(
       pov: Pov,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
-      withFlags: WithFlags
+      withFlags: WithFlags,
   )(implicit ctx: Context): Fu[JsObject] = {
     implicit val lang = ctx.lang
     jsonView.watcherJson(
@@ -89,7 +89,7 @@ final private[api] class RoundApi(
       ctx.pref,
       ctx.me,
       tv,
-      withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
+      withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs)),
     ) zip
       tourApi.gameView.analysis(pov.game) zip
       (pov.game.simulId ?? simulApi.find) zip
@@ -108,14 +108,14 @@ final private[api] class RoundApi(
   def embed(
       pov: Pov,
       analysis: Option[Analysis] = None,
-      withFlags: WithFlags
+      withFlags: WithFlags,
   ): Fu[JsObject] = {
     jsonView.watcherJson(
       pov,
       Pref.default,
       none,
       none,
-      withFlags = withFlags
+      withFlags = withFlags,
     ) map { json =>
       (
         withTree(pov, analysis, withFlags) _ compose
@@ -130,7 +130,7 @@ final private[api] class RoundApi(
       pref: Pref,
       orientation: shogi.Color,
       owner: Boolean,
-      me: Option[User]
+      me: Option[User],
   ) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
@@ -144,17 +144,17 @@ final private[api] class RoundApi(
       pov: Pov,
       pref: Pref,
       orientation: shogi.Color,
-      me: Option[User]
+      me: Option[User],
   ) =
     withTree(pov, analysis = none, WithFlags())(
-      jsonView.userAnalysisJson(pov, pref, orientation, owner = false, me = me)
+      jsonView.userAnalysisJson(pov, pref, orientation, owner = false, me = me),
     )
 
   private def withTree(pov: Pov, analysis: Option[Analysis], withFlags: WithFlags)(
-      obj: JsObject
+      obj: JsObject,
   ) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
-      lila.round.TreeBuilder(pov.game, analysis, withFlags)
+      lila.round.TreeBuilder(pov.game, analysis, withFlags),
     ))
 
   private def withSteps(pov: Pov)(obj: JsObject) =
@@ -162,7 +162,7 @@ final private[api] class RoundApi(
       id = pov.gameId,
       usis = pov.game.usis,
       variant = pov.game.variant,
-      initialSfen = pov.game.initialSfen
+      initialSfen = pov.game.initialSfen,
     ))
 
   private def withBookmark(v: Boolean)(json: JsObject) =
@@ -191,7 +191,7 @@ final private[api] class RoundApi(
       "analysis",
       o.map { a =>
         analysisJson.bothPlayers(g, a)
-      }
+      },
     )
 
   def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(implicit lang: Lang) =
@@ -201,7 +201,7 @@ final private[api] class RoundApi(
           "id"      -> v.tour.id,
           "name"    -> v.tour.name(false),
           "format"  -> v.tour.format.key,
-          "running" -> v.tour.isStarted
+          "running" -> v.tour.isStarted,
         )
         .add("secondsToFinish" -> v.tour.isStarted.option(v.tour.secondsToFinish))
         .add("berserkable" -> v.tour.isStarted.option(v.tour.berserkable))
@@ -212,20 +212,20 @@ final private[api] class RoundApi(
         .add("ranks" -> v.ranks.map { r =>
           Json.obj(
             "sente" -> r.senteRank,
-            "gote"  -> r.goteRank
+            "gote"  -> r.goteRank,
           )
         })
         .add(
           "top",
           v.top.map {
             lila.tournament.JsonView.top(_, getLightUser)
-          }
+          },
         )
         .add(
           "team",
           v.teamVs.map(_.teams(pov.color)) map { id =>
             Json.obj("name" -> getTeamName(id))
-          }
+          },
         )
     })
 
@@ -237,8 +237,8 @@ final private[api] class RoundApi(
           "id"        -> simul.id,
           "hostId"    -> simul.hostId,
           "name"      -> simul.name,
-          "nbPlaying" -> simul.playingPairings.size
+          "nbPlaying" -> simul.playingPairings.size,
         )
-      }
+      },
     )
 }

@@ -9,7 +9,7 @@ final class Cached(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   val nameCache = cacheApi.sync[String, Option[String]](
@@ -18,7 +18,7 @@ final class Cached(
     compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes),
   )
 
   def blockingTeamName(id: Team.ID) = nameCache sync id
@@ -35,7 +35,7 @@ final class Cached(
       } yield Team.IdsStr(enabled),
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(1 hour)
+    expireAfter = Syncache.ExpireAfterWrite(1 hour),
   )
 
   def syncTeamIds                  = teamIdsCache sync _

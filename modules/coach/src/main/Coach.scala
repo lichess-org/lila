@@ -13,7 +13,7 @@ case class Coach(
     user: Coach.User,
     languages: List[String],
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
 ) {
 
   def id = _id
@@ -40,7 +40,7 @@ object Coach {
       user = User(user.perfs.bestStandardRating, user.seenAt | user.createdAt),
       languages = user.lang.toList,
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
     )
 
   case class WithUser(coach: Coach, user: lila.user.User)

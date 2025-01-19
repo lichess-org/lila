@@ -26,7 +26,7 @@ final class UnsubApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
   def filterUnsub(channel: String, userIds: List[User.ID]): Fu[List[String]] =
     canUnsub(channel) ?? coll.distinctEasy[String, List](
       "_id",
-      $inIds(userIds.map { makeId(channel, _) })
+      $inIds(userIds.map { makeId(channel, _) }),
     ) dmap { unsubs =>
       userIds diff unsubs.map(_ takeWhile ('@' !=))
     }

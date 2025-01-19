@@ -9,11 +9,9 @@ import com.github.benmanes.caffeine.cache._
 
 import lila.common.Uptime
 
-/**
-  * A synchronous cache from asynchronous computations.
-  * It will attempt to serve cached responses synchronously.
-  * If none is available, it starts an async computation,
-  * and either waits for the result or serves a default value.
+/** A synchronous cache from asynchronous computations. It will attempt to serve cached responses
+  * synchronously. If none is available, it starts an async computation, and either waits for the
+  * result or serves a default value.
   */
 final private[memo] class Syncache[K, V](
     name: String,
@@ -21,7 +19,7 @@ final private[memo] class Syncache[K, V](
     compute: K => Fu[V],
     default: K => V,
     strategy: Syncache.Strategy,
-    expireAfter: Syncache.ExpireAfter
+    expireAfter: Syncache.ExpireAfter,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Syncache._
@@ -34,8 +32,10 @@ final private[memo] class Syncache[K, V](
       .initialCapacity(initialCapacity)
       .pipe { c =>
         expireAfter match {
-          case ExpireAfterAccess(duration) => c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
-          case ExpireAfterWrite(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+          case ExpireAfterAccess(duration) =>
+            c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
+          case ExpireAfterWrite(duration) =>
+            c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
         }
       }
       .recordStats
@@ -43,11 +43,10 @@ final private[memo] class Syncache[K, V](
         def load(k: K) =
           compute(k)
             .mon(_ => recCompute) // monitoring: record async time
-            .recover {
-              case e: Exception =>
-                logger.branch(s"syncache $name").warn(s"key=$k", e)
-                cache invalidate k
-                default(k)
+            .recover { case e: Exception =>
+              logger.branch(s"syncache $name").warn(s"key=$k", e)
+              cache invalidate k
+              default(k)
             }
       })
 
@@ -65,7 +64,7 @@ final private[memo] class Syncache[K, V](
       case _ =>
         incMiss()
         strategy match {
-          case NeverWait            => default(k)
+          case NeverWait => default(k)
           case WaitAfterUptime(duration, uptime) =>
             if (Uptime startedSinceSeconds uptime) waitForResult(k, future, duration)
             else default(k)

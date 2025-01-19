@@ -13,13 +13,13 @@ object leaderboard {
   private def freqWinner(w: lila.tournament.Winner, freq: String)(implicit lang: Lang) =
     li(
       userIdLink(w.userId.some),
-      a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq)
+      a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq),
     )
 
   private val section = st.section(cls := "tournament-leaderboards__item")
 
-  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(implicit
-      lang: Lang
+  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(
+      implicit lang: Lang,
   ) =
     section(
       h2(cls := "text", dataIcon := perfType.iconChar)(name),
@@ -35,15 +35,15 @@ object leaderboard {
         },
         fws.daily.map { w =>
           freqWinner(w, "Daily")
-        }
-      )
+        },
+      ),
     )
 
   def apply(winners: lila.tournament.AllWinners)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournamentLeaderboard.txt(),
       moreCss = cssTag("tournament.leaderboard"),
-      wrapClass = "full-screen-force"
+      wrapClass = "full-screen-force",
     ) {
       def eliteWinners =
         section(
@@ -52,10 +52,10 @@ object leaderboard {
             winners.elite.map { w =>
               li(
                 userIdLink(w.userId.some),
-                a(title := w.tourName, href := routes.Tournament.show(w.tourId))(showDate(w.date))
+                a(title := w.tourName, href := routes.Tournament.show(w.tourId))(showDate(w.date)),
               )
-            }
-          )
+            },
+          ),
         )
 
       // def marathonWinners =
@@ -92,9 +92,9 @@ object leaderboard {
                   freqWinners(w, pt, v.name)
                 }
               }
-            }
-          )
-        )
+            },
+          ),
+        ),
       )
     }
 }

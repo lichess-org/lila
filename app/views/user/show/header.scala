@@ -18,7 +18,7 @@ object header {
       u: User,
       info: lila.app.mashup.UserInfo,
       angle: lila.app.mashup.UserInfo.Angle,
-      social: lila.app.mashup.UserInfo.Social
+      social: lila.app.mashup.UserInfo.Social,
   )(implicit ctx: Context) =
     frag(
       div(cls := "box__top user-show__header")(
@@ -26,15 +26,15 @@ object header {
           if (u.isPatron)
             frag(
               a(href := routes.Plan.index)(patronIcon),
-              userSpan(u, withPowerTip = false, withOnline = false)
+              userSpan(u, withPowerTip = false, withOnline = false),
             )
-          else userSpan(u, withPowerTip = false)
+          else userSpan(u, withPowerTip = false),
         ),
         div(
           cls := List(
             "trophies" -> true,
-            "packed"   -> (info.countTrophiesAndPerfCups > 7)
-          )
+            "packed"   -> (info.countTrophiesAndPerfCups > 7),
+          ),
         )(
           views.html.user.bits.perfTrophies(u, info.ranks),
           otherTrophies(info),
@@ -42,15 +42,15 @@ object header {
             a(
               href := routes.Plan.index,
               cls  := "trophy award patron icon3d",
-              ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
-            )(patronIconChar)
+              ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}"),
+            )(patronIconChar),
         ),
-        u.disabled option span(cls := "closed")("CLOSED")
+        u.disabled option span(cls := "closed")("CLOSED"),
       ),
       div(cls := "user-show__social")(
         div(cls := "number-menu")(
           a(cls := "nm-item", href := routes.Relation.followers(u.username))(
-            splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers))
+            splitNumber(trans.nbFollowers.pluralSame(info.nbFollowers)),
           ),
           info.nbBlockers.map { nb =>
             a(cls := "nm-item")(splitNumber(s"$nb Blockers"))
@@ -58,21 +58,21 @@ object header {
           u.noBot option a(
             href       := routes.UserTournament.path(u.username, "recent"),
             cls        := "nm-item tournament_stats",
-            dataToints := u.toints
+            dataToints := u.toints,
           )(
-            splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
+            splitNumber(trans.nbTournamentPoints.pluralSame(u.toints)),
           ),
           a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-            splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
+            splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies)),
           ),
           a(
             cls  := "nm-item",
-            href := ctx.noKid option routes.ForumPost.search("user:" + u.username, 1).url
+            href := ctx.noKid option routes.ForumPost.search("user:" + u.username, 1).url,
           )(
-            splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))
+            splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts)),
           ),
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option
-            a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes"))
+            a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes")),
         ),
         div(cls := "user-actions btn-rack")(
           (ctx is u) option frag(
@@ -80,74 +80,74 @@ object header {
               cls  := "btn-rack__btn",
               href := routes.Account.profile,
               titleOrText(trans.editProfile.txt()),
-              dataIcon := "%"
+              dataIcon := "%",
             ),
             a(
               cls  := "btn-rack__btn",
               href := routes.Relation.blocks(),
               titleOrText(trans.listBlockedPlayers.txt()),
-              dataIcon := "k"
-            )
+              dataIcon := "k",
+            ),
           ),
           isGranted(_.UserSpy) option
             a(
               cls  := "btn-rack__btn mod-zone-toggle",
               href := routes.User.mod(u.username),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := ""
+              dataIcon := "",
             ),
           a(
             cls  := "btn-rack__btn",
             href := routes.User.tv(u.username),
             titleOrText(trans.watchGames.txt()),
-            dataIcon := "1"
+            dataIcon := "1",
           ),
           (ctx.isAuth && !ctx.is(u)) option
             views.html.relation.actions(
               u.id,
               relation = social.relation,
               followable = social.followable,
-              blocked = social.blocked
+              blocked = social.blocked,
             ),
           if (ctx is u)
             a(
               cls  := "btn-rack__btn",
               href := routes.Game.exportByUser(u.username),
               titleOrText(trans.exportGames.txt()),
-              dataIcon := "x"
+              dataIcon := "x",
             )
           else
             (ctx.isAuth && ctx.noKid) option a(
               titleOrText(trans.reportXToModerators.txt(u.username)),
               cls      := "btn-rack__btn",
               href     := s"${routes.Report.form}?username=${u.username}",
-              dataIcon := "!"
-            )
-        )
+              dataIcon := "!",
+            ),
+        ),
       ),
       (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
         postForm(action := s"${routes.User.writeNote(u.username)}?note")(
           textarea(
             name        := "text",
-            placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
+            placeholder := trans.writeAPrivateNoteAboutThisUser.txt(),
           ),
           if (isGranted(_.ModNote))
             div(cls := "mod-note")(
               submitButton(cls := "button")(trans.send()),
               div(
                 div(form3.cmnToggle("note-mod", "mod", true)),
-                label(`for` := "note-mod")("For moderators only")
+                label(`for` := "note-mod")("For moderators only"),
               ),
               isGranted(_.Doxing) option div(
                 div(form3.cmnToggle("note-dox", "dox", false)),
-                label(`for` := "note-dox")("Doxing info")
-              )
+                label(`for` := "note-dox")("Doxing info"),
+              ),
             )
           else
             frag(
               input(tpe := "hidden", name := "mod", value := "false"),
-              submitButton(cls := "button")(trans.send())
-            )
+              submitButton(cls := "button")(trans.send()),
+            ),
         ),
         social.notes.isEmpty option div(trans.noNoteYet()),
         social.notes
@@ -170,13 +170,13 @@ object header {
                     submitButton(
                       cls      := "button-empty button-red confirm button text",
                       style    := "float:right",
-                      dataIcon := "q"
-                    )(trans.delete())
-                  )
-                )
-              )
+                      dataIcon := "q",
+                    )(trans.delete()),
+                  ),
+                ),
+              ),
             )
-          }
+          },
       ),
       ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !u.isBot && !ctx.pref.hasSeenVerifyTitle) option
         views.html.user.bits.claimTitle,
@@ -195,14 +195,14 @@ object header {
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
                   u.lame option div(cls := "warning tos_warning")(
-                    span(dataIcon       := "j", cls := "is4"),
-                    trans.thisAccountViolatedTos()
-                  )
+                    span(dataIcon := "j", cls := "is4"),
+                    trans.thisAccountViolatedTos(),
+                  ),
                 ),
                 (ctx.noKid && (!u.marks.troll || ctx.is(u))) option frag(
                   profile.countryInfo.map { c =>
-                    span(cls  := "country")(
-                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png"))
+                    span(cls := "country")(
+                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
                     )
                   },
                   profile.nonEmptyRealName map { name =>
@@ -210,7 +210,7 @@ object header {
                   },
                   profile.nonEmptyBio map { bio =>
                     p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
-                  }
+                  },
                 ),
                 div(cls := "stats")(
                   profile.nonEmptyLocation.ifTrue(ctx.noKid).map { l =>
@@ -225,40 +225,44 @@ object header {
                   },
                   (ctx is u) option frag(
                     a(href := routes.Account.profile, title := trans.editProfile.txt())(
-                      trans.profileCompletion(s"${profile.completionPercent}%")
+                      trans.profileCompletion(s"${profile.completionPercent}%"),
                     ),
                     br,
-                    a(href := routes.User.opponents)(trans.favoriteOpponents())
+                    a(href := routes.User.opponents)(trans.favoriteOpponents()),
                   ),
                   u.playTime.map { playTime =>
                     frag(
                       p(trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))),
                       playTime.nonEmptyTvPeriod.map { tvPeriod =>
                         p(trans.tpTimeSpentOnTV(showPeriod(tvPeriod)))
-                      }
+                      },
                     )
                   },
                   (!u.marks.troll || ctx.is(u)) option div(cls := "social_links col2")(
                     profile.actualLinks.map { link =>
-                      a(href := link.url, target := "_blank", rel := "nofollow noopener noreferrer")(
-                        link.site.name
+                      a(
+                        href   := link.url,
+                        target := "_blank",
+                        rel    := "nofollow noopener noreferrer",
+                      )(
+                        link.site.name,
                       )
-                    }
+                    },
                   ),
                   div(cls := "teams col2")(
                     info.teamIds.sorted.map { t =>
                       teamLink(t, withIcon = false)
-                    }
-                  )
-                )
+                    },
+                  ),
+                ),
               ),
               (info.insightsVisible || isGranted(_.SeeInsights)) option
                 a(cls := "insights", href := routes.Insights.user(u.username, ""), dataIcon := "7")(
                   span(
-                    strong(trans.insights.insights())
-                  )
-                )
-            )
+                    strong(trans.insights.insights()),
+                  ),
+                ),
+            ),
           )
       },
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
@@ -266,27 +270,27 @@ object header {
           dataTab := "activity",
           cls := List(
             "nm-item to-activity" -> true,
-            "active"              -> (angle == Angle.Activity)
+            "active"              -> (angle == Angle.Activity),
           ),
-          href := routes.User.show(u.username)
+          href := routes.User.show(u.username),
         )(trans.activity.activity()),
         a(
           dataTab := "games",
           cls := List(
             "nm-item to-games" -> true,
-            "active"           -> (angle.key == "games")
+            "active"           -> (angle.key == "games"),
           ),
-          href := routes.User.gamesAll(u.username)
+          href := routes.User.gamesAll(u.username),
         )(
           trans.nbGames.plural(info.user.count.game, info.user.count.game.localize),
           info.nbs.playing > 0 option
             span(
               cls   := "unread",
-              title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
+              title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize),
             )(
-              info.nbs.playing
-            )
-        )
-      )
+              info.nbs.playing,
+            ),
+        ),
+      ),
     )
 }

@@ -18,7 +18,7 @@ object history {
     views.html.base.layout(
       title = trans.puzzle.history.txt(),
       moreCss = cssTag("puzzle.dashboard"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     )(
       main(cls := "page-menu")(
         bits.pageMenu("history"),
@@ -27,33 +27,37 @@ object history {
           div(cls := "puzzle-history")(
             div(cls := "infinite-scroll")(
               pager.currentPageResults map renderSession,
-              pagerNext(pager, np => s"${routes.Puzzle.history(np).url}${!ctx.is(user) ?? s"&u=${user.id}"}")
-            )
-          )
-        )
-      )
+              pagerNext(
+                pager,
+                np => s"${routes.Puzzle.history(np).url}${!ctx.is(user) ?? s"&u=${user.id}"}",
+              ),
+            ),
+          ),
+        ),
+      ),
     )
 
   private def renderSession(session: PuzzleSession)(implicit ctx: Context) =
     div(cls := "puzzle-history__session")(
       h2(cls := "puzzle-history__session__title")(
         strong(PuzzleTheme(session.theme).name()),
-        momentFromNow(session.puzzles.head.round.date)
+        momentFromNow(session.puzzles.head.round.date),
       ),
-      div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse map renderRound)
+      div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse map renderRound),
     )
 
   private def renderRound(r: SessionRound)(implicit ctx: Context) =
     a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id.value))(
-      views.html.puzzle.bits.miniTag(r.puzzle.sfenAfterInitialMove, r.puzzle.color, r.puzzle.lastUsi)(
-        span(cls := "puzzle-history__round__puzzle")
-      ),
+      views.html.puzzle.bits
+        .miniTag(r.puzzle.sfenAfterInitialMove, r.puzzle.color, r.puzzle.lastUsi)(
+          span(cls := "puzzle-history__round__puzzle"),
+        ),
       span(cls := "puzzle-history__round__meta")(
         span(cls := "puzzle-history__round__result")(
           if (r.round.win) goodTag(trans.puzzle.solved())
-          else badTag(trans.puzzle.failed())
+          else badTag(trans.puzzle.failed()),
         ),
-        span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id.value}")
-      )
+        span(cls := "puzzle-history__round__id")(s"#${r.puzzle.id.value}"),
+      ),
     )
 }

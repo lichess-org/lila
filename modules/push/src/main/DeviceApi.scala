@@ -13,13 +13,15 @@ final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.Executio
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
     coll.ext.find($id(deviceId)).one[Device]
 
-  private[push] def findLastManyByUserId(platform: String, max: Int)(userId: String): Fu[List[Device]] =
+  private[push] def findLastManyByUserId(platform: String, max: Int)(
+      userId: String,
+  ): Fu[List[Device]] =
     coll.ext
       .find(
         $doc(
           "platform" -> platform,
-          "userId"   -> userId
-        )
+          "userId"   -> userId,
+        ),
       )
       .sort($doc("seenAt" -> -1))
       .cursor[Device]()
@@ -37,9 +39,9 @@ final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.Executio
           _id = deviceId,
           platform = platform,
           userId = user.id,
-          seenAt = DateTime.now
+          seenAt = DateTime.now,
         ),
-        upsert = true
+        upsert = true,
       )
       .void
   }

@@ -11,10 +11,11 @@ import lila.user.UserRepo
 
 final private class EvalCacheTruster(
     cacheApi: lila.memo.CacheApi,
-    userRepo: UserRepo
+    userRepo: UserRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import EvalCacheEntry.{ Trust, TrustedUser }
+  import EvalCacheEntry.Trust
+  import EvalCacheEntry.TrustedUser
 
   private val LOWER  = Trust(-9999)
   private val HIGHER = Trust(9999)
@@ -31,12 +32,13 @@ final private class EvalCacheTruster(
       }
   }
 
-  private val userIdCache = cacheApi[User.ID, Option[TrustedUser]](256, "evalCache.userIdTrustCache") {
-    _.expireAfterWrite(10 minutes)
-      .buildAsyncFuture { userId =>
-        userRepo named userId map2 makeTrusted
-      }
-  }
+  private val userIdCache =
+    cacheApi[User.ID, Option[TrustedUser]](256, "evalCache.userIdTrustCache") {
+      _.expireAfterWrite(10 minutes)
+        .buildAsyncFuture { userId =>
+          userRepo named userId map2 makeTrusted
+        }
+    }
 
   def cachedTrusted(userId: User.ID): Fu[Option[TrustedUser]] = userIdCache get userId
 

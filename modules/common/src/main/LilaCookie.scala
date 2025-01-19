@@ -10,7 +10,8 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
 
   private val cookieDomain = domain.value.split(":").head
 
-  def makeSessionId(implicit req: RequestHeader) = session(LilaCookie.sessionId, Random secureString 22)
+  def makeSessionId(implicit req: RequestHeader) =
+    session(LilaCookie.sessionId, Random secureString 22)
 
   def session(name: String, value: String)(implicit req: RequestHeader): Cookie =
     withSession { s =>
@@ -26,11 +27,16 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
   def withSession(op: Session => Session)(implicit req: RequestHeader): Cookie =
     cookie(
       baker.COOKIE_NAME,
-      baker.encode(baker.serialize(op(req.session)))
+      baker.encode(baker.serialize(op(req.session))),
     )
 
-  def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(
-      implicit req: RequestHeader
+  def cookie(
+      name: String,
+      value: String,
+      maxAge: Option[Int] = None,
+      httpOnly: Option[Boolean] = None,
+  )(implicit
+      req: RequestHeader,
   ): Cookie = {
     Cookie(
       name,
@@ -39,7 +45,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
       "/",
       cookieDomain.some,
       baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
-      httpOnly | baker.httpOnly
+      httpOnly | baker.httpOnly,
     )
   }
 

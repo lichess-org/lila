@@ -14,8 +14,8 @@ object OAuthTokenForm {
   def create = Form(
     mapping(
       "description" -> descriptionField,
-      "scopes"      -> scopesField
-    )(Data.apply)(Data.unapply)
+      "scopes"      -> scopesField,
+    )(Data.apply)(Data.unapply),
   )
 
   case class Data(description: String, scopes: List[String])

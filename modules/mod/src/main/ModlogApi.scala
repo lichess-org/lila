@@ -11,12 +11,13 @@ import lila.security.Permission
 import lila.user.User
 
 final class ModlogApi(repo: ModlogRepo)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   private def coll = repo.coll
 
-  implicit private val ModlogBSONHandler: BSONDocumentHandler[Modlog] = reactivemongo.api.bson.Macros.handler[Modlog]
+  implicit private val ModlogBSONHandler: BSONDocumentHandler[Modlog] =
+    reactivemongo.api.bson.Macros.handler[Modlog]
 
   def streamerDecline(mod: Mod, streamerId: User.ID) =
     add {
@@ -33,7 +34,11 @@ final class ModlogApi(repo: ModlogRepo)(implicit
   // BC
   def streamerFeature(mod: Mod, streamerId: User.ID, v: Boolean) =
     add {
-      Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerFeature else Modlog.streamerUnfeature)
+      Modlog(
+        mod.user.id,
+        streamerId.some,
+        if (v) Modlog.streamerFeature else Modlog.streamerUnfeature,
+      )
     }
 
   def practiceConfig(mod: User.ID) =
@@ -82,7 +87,8 @@ final class ModlogApi(repo: ModlogRepo)(implicit
         ModId.lishogi.value,
         user.some,
         Modlog.selfCloseAccount,
-        details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
+        details =
+          openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty),
       )
     }
 
@@ -114,7 +120,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit
       user: Option[User.ID],
       author: Option[User.ID],
       ip: Option[String],
-      text: String
+      text: String,
   ) =
     add {
       Modlog(
@@ -122,8 +128,8 @@ final class ModlogApi(repo: ModlogRepo)(implicit
         user,
         Modlog.deletePost,
         details = Some(
-          author.??(_ + " ") + ip.??(_ + " ") + text.take(400)
-        )
+          author.??(_ + " ") + ip.??(_ + " ") + text.take(400),
+        ),
       )
     }
 
@@ -133,7 +139,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit
         mod,
         none,
         if (closed) Modlog.closeTopic else Modlog.openTopic,
-        details = s"$categ/$topic".some
+        details = s"$categ/$topic".some,
       )
     }
 
@@ -143,7 +149,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit
         mod,
         none,
         if (hidden) Modlog.hideTopic else Modlog.showTopic,
-        details = s"$categ/$topic".some
+        details = s"$categ/$topic".some,
       )
     }
 
@@ -153,7 +159,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit
         mod,
         none,
         if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
-        details = s"$categ/$topic".some
+        details = s"$categ/$topic".some,
       )
     }
 
@@ -232,8 +238,8 @@ final class ModlogApi(repo: ModlogRepo)(implicit
       .find(
         $or(
           $doc("mod"    -> $ne("lishogi")),
-          $doc("action" -> $nin("selfCloseAccount", "modMessage"))
-        )
+          $doc("action" -> $nin("selfCloseAccount", "modMessage")),
+        ),
       )
       .sort($sort naturalDesc)
       .cursor[Modlog]()
@@ -243,16 +249,16 @@ final class ModlogApi(repo: ModlogRepo)(implicit
     coll.exists(
       $doc(
         "user"   -> sus.user.id,
-        "action" -> Modlog.unengine
-      )
+        "action" -> Modlog.unengine,
+      ),
     )
 
   def wasUnbooster(userId: User.ID) =
     coll.exists(
       $doc(
         "user"   -> userId,
-        "action" -> Modlog.unbooster
-      )
+        "action" -> Modlog.unbooster,
+      ),
     )
 
   def userHistory(userId: User.ID): Fu[List[Modlog]] =

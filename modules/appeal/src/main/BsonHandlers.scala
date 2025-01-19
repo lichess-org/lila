@@ -13,9 +13,9 @@ private[appeal] object BsonHandlers {
       case BSONString(v) => Status(v) | Status.Closed
       case _             => Status.Closed
     },
-    s => BSONString(s.key)
+    s => BSONString(s.key),
   )
 
   implicit val appealMsgHandler: BSONDocumentHandler[AppealMsg] = Macros.handler[AppealMsg]
-  implicit val appealHandler: BSONDocumentHandler[Appeal]    = Macros.handler[Appeal]
+  implicit val appealHandler: BSONDocumentHandler[Appeal]       = Macros.handler[Appeal]
 }

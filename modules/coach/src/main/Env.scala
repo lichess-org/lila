@@ -10,7 +10,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
-    imageRepo: lila.db.ImageRepo
+    imageRepo: lila.db.ImageRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val coachColl = db(CollName("coach"))
@@ -21,7 +21,7 @@ final class Env(
     coachColl = coachColl,
     userRepo = userRepo,
     photographer = photographer,
-    cacheApi = cacheApi
+    cacheApi = cacheApi,
   )
 
   lazy val pager = wire[CoachPager]

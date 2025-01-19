@@ -10,7 +10,7 @@ import lila.user.User
 
 final class ChatTimeout(
     coll: Coll,
-    duration: FiniteDuration
+    duration: FiniteDuration,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import ChatTimeout._
@@ -31,8 +31,8 @@ final class ChatTimeout(
               "user"      -> user.id,
               "reason"    -> reason,
               "createdAt" -> DateTime.now,
-              "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt)
-            )
+              "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt),
+            ),
           )
           .void
     }
@@ -42,8 +42,8 @@ final class ChatTimeout(
       $doc(
         "chat" -> chatId,
         "user" -> userId,
-        "expiresAt" $exists true
-      )
+        "expiresAt" $exists true,
+      ),
     )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
@@ -52,8 +52,8 @@ final class ChatTimeout(
   def checkExpired: Fu[List[Reinstate]] =
     coll.list[Reinstate](
       $doc(
-        "expiresAt" $lt DateTime.now
-      )
+        "expiresAt" $lt DateTime.now,
+      ),
     ) flatMap {
       case Nil => fuccess(Nil)
       case objs =>
@@ -70,16 +70,17 @@ object ChatTimeout {
   sealed abstract class Reason(val key: String, val name: String)
 
   object Reason {
-    case object PublicShaming extends Reason("shaming", "public shaming; please use lishogi.org/report")
-    case object Insult        extends Reason("insult", "disrespecting other players")
-    case object Spam          extends Reason("spam", "spamming the chat")
-    case object Other         extends Reason("other", "inappropriate behavior")
+    case object PublicShaming
+        extends Reason("shaming", "public shaming; please use lishogi.org/report")
+    case object Insult extends Reason("insult", "disrespecting other players")
+    case object Spam   extends Reason("spam", "spamming the chat")
+    case object Other  extends Reason("other", "inappropriate behavior")
     val all: List[Reason]  = List(PublicShaming, Insult, Spam, Other)
     def apply(key: String) = all.find(_.key == key)
   }
   implicit val ReasonBSONHandler: BSONHandler[Reason] = tryHandler[Reason](
     { case BSONString(value) => Reason(value) toTry s"Invalid reason ${value}" },
-    x => BSONString(x.key)
+    x => BSONString(x.key),
   )
 
   case class Reinstate(_id: String, chat: String, user: String)

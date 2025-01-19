@@ -16,7 +16,7 @@ object StepBuilder {
       id: String,
       usis: Vector[Usi],
       variant: Variant,
-      initialSfen: Option[Sfen]
+      initialSfen: Option[Sfen],
   ): JsArray = {
     shogi.Replay.gamesWhileValid(usis, initialSfen, variant) match {
       case (games, error) =>
@@ -27,14 +27,14 @@ object StepBuilder {
             ply = init.plies,
             usi = none,
             sfen = init.toSfen,
-            check = init.situation.check
+            check = init.situation.check,
           )
           val moveSteps = games.tail.zip(usis).map { case (g, u) =>
             Step(
               ply = g.plies,
               usi = u.some,
               sfen = g.toSfen,
-              check = g.situation.check
+              check = g.situation.check,
             )
           }
           (initStep :: moveSteps).map(_.toJson)

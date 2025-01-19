@@ -17,13 +17,13 @@ object embed {
       title = s"lishogi.org ${trans.shogi.txt()} TV",
       moreCss = cssTag("embed.tv"),
       moreJs = jsTag("embed.tv"),
-      variant = pov.game.variant
+      variant = pov.game.variant,
     )(
       dataStreamUrl := routes.Tv.feed,
       div(id := "featured-game", cls := "embedded", title := "lishogi.org TV")(
         gameSfenNoCtx(pov, tv = true, blank = true),
-        views.html.game.bits.vstext(pov)(config.lang)
-      )
+        views.html.game.bits.vstext(pov)(config.lang),
+      ),
     )
 
 }

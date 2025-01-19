@@ -16,9 +16,9 @@ final class Env(
     userRepo: lila.user.UserRepo,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   private lazy val coll = db(appConfig.get[CollName]("evalCache.collection.evalCache"))
@@ -35,7 +35,11 @@ final class Env(
   Bus.subscribeFun("remoteSocketIn:evalGet") { case TellSriIn(sri, _, msg) =>
     msg obj "d" foreach { d =>
       // TODO send once, let lila-ws distribute
-      socketHandler.evalGet(Sri(sri), d, res => Bus.publish(TellSriOut(sri, res), "remoteSocketOut"))
+      socketHandler.evalGet(
+        Sri(sri),
+        d,
+        res => Bus.publish(TellSriOut(sri, res), "remoteSocketOut"),
+      )
     }
   }
   Bus.subscribeFun("remoteSocketIn:evalPut") { case TellSriIn(sri, Some(userId), msg) =>
@@ -48,7 +52,10 @@ final class Env(
   def cli =
     new lila.common.Cli {
       def process = { case "eval-cache" :: "drop" :: sfenParts =>
-        api.drop(shogi.variant.Standard, shogi.format.forsyth.Sfen(sfenParts mkString " ")) inject "done!"
+        api.drop(
+          shogi.variant.Standard,
+          shogi.format.forsyth.Sfen(sfenParts mkString " "),
+        ) inject "done!"
       }
     }
 }

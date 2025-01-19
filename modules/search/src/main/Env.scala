@@ -10,13 +10,13 @@ import io.methvin.play.autoconfig._
 private class SearchConfig(
     val enabled: Boolean,
     val writeable: Boolean,
-    val endpoint: String
+    val endpoint: String,
 )
 
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: WSClient
+    ws: WSClient,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)

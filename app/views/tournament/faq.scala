@@ -14,34 +14,38 @@ object faq {
   def page(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournamentFAQ.txt(),
-      moreCss = cssTag("misc.page")
+      moreCss = cssTag("misc.page"),
     ) {
       main(cls := "page-small box box-pad page")(
         h1(
           a(href := routes.Tournament.home, dataIcon := "I", cls := "text"),
-          trans.tournamentFAQ()
+          trans.tournamentFAQ(),
         ),
         div(cls := "body")(
           div(cls := "arena")(
-            apply(lila.tournament.Format.Arena)
+            apply(lila.tournament.Format.Arena),
           ),
           div(cls := "robin")(
-            apply(lila.tournament.Format.Robin)
-          )
-        )
+            apply(lila.tournament.Format.Robin),
+          ),
+        ),
       )
     }
 
 // TODO
-  def apply(format: lila.tournament.Format, rated: Option[Boolean] = None, privateId: Option[String] = None)(
-      implicit ctx: Context
+  def apply(
+      format: lila.tournament.Format,
+      rated: Option[Boolean] = None,
+      privateId: Option[String] = None,
+  )(implicit
+      ctx: Context,
   ) =
     if (format == lila.tournament.Format.Robin)
       frag(
         privateId.map { id =>
           frag(
             h2(trans.arena.thisIsPrivate()),
-            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}")) // XXX
+            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}")), // XXX
           )
         },
         h2(trans.arena.isItRated()),
@@ -49,14 +53,14 @@ object faq {
           case Some(true)  => p(trans.arena.isRated())
           case Some(false) => p(trans.arena.isNotRated())
           case None        => p(trans.arena.someRated())
-        }
+        },
       )
     else
       frag(
         privateId.map { id =>
           frag(
             h2(trans.arena.thisIsPrivate()),
-            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}")) // XXX
+            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}")), // XXX
           )
         },
         p(trans.arena.willBeNotified()),
@@ -79,6 +83,6 @@ object faq {
         h2(otherRules()),
         p(thereIsACountdown()),
         p(drawingWithinNbMoves.pluralSame(10)),
-        p(drawStreak(30))
+        p(drawStreak(30)),
       )
 }

@@ -13,10 +13,10 @@ import lila.user.User
 
 final private class MsgNotify(
     colls: MsgColls,
-    notifyApi: lila.notify.NotifyApi
+    notifyApi: lila.notify.NotifyApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
 ) {
 
   import BsonHandlers._
@@ -34,8 +34,8 @@ final private class MsgNotify(
           lila.notify.Notification.Notifies(userId),
           $doc(
             "content.type" -> "privateMessage",
-            "content.user" -> contactId
-          )
+            "content.user" -> contactId,
+          ),
         )
         .void
   }
@@ -47,7 +47,7 @@ final private class MsgNotify(
         notifyApi
           .remove(
             lila.notify.Notification.Notifies(thread other user),
-            $doc("content.user" -> user.id)
+            $doc("content.user" -> user.id),
           )
           .void
       }
@@ -64,7 +64,7 @@ final private class MsgNotify(
             delayed remove id
             doNotify(threadId).unit
           }
-        }
+        },
       )
       .unit
 
@@ -82,8 +82,8 @@ final private class MsgNotify(
             Notification.Notifies(dest),
             PrivateMessage(
               PrivateMessage.Sender(msg.user),
-              PrivateMessage.Text(shorten(msg.text, 40))
-            )
+              PrivateMessage.Text(shorten(msg.text, 40)),
+            ),
           )
         }
       }

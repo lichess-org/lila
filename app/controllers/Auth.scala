@@ -16,13 +16,12 @@ import lila.common.HTTPRequest
 import lila.security.FingerPrint
 import lila.security.Signup
 import lila.user.PasswordHasher
-import lila.user.{User => UserModel}
-
-import UserModel.ClearPassword
+import lila.user.User.ClearPassword
+import lila.user.{ User => UserModel }
 
 final class Auth(
     env: Env,
-    accountC: => Account
+    accountC: => Account,
 ) extends LilaController(env) {
 
   private def api   = env.security.api
@@ -35,15 +34,15 @@ final class Auth(
         Json.obj(
           "session" -> Json.obj(
             "sessionId" -> sessionId,
-            "username"  -> u.username
+            "username"  -> u.username,
           ),
-          "prefs" -> prefs
+          "prefs" -> prefs,
         )
       }
     }
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
-      ctx: Context
+      ctx: Context,
   ): Fu[Result] =
     api.saveAuthentication(u.id) flatMap { sessionId =>
       negotiate(
@@ -53,7 +52,7 @@ final class Auth(
             routes.Lobby.home.url
           result.fold(Redirect(redirectTo))(_(redirectTo))
         },
-        json = mobileUserOk(u, sessionId)
+        json = mobileUserOk(u, sessionId),
       ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
 
@@ -61,7 +60,7 @@ final class Auth(
     result.withCookies(
       env.lilaCookie.withSession {
         _ + (lila.common.HTTPRequest.userSessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
-      }
+      },
     )
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
@@ -95,7 +94,8 @@ final class Auth(
             err =>
               negotiate(
                 html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
-                json = Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                json =
+                  Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess,
               ),
             usernameOrEmail =>
               HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
@@ -112,8 +112,9 @@ final class Auth(
                               case _ => Unauthorized(html.auth.login(err, referrer))
                             }
                           },
-                          json =
-                            Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                          json = Unauthorized(
+                            ridiculousBackwardCompatibleJsonError(errorsAsJson(err)),
+                          ).fuccess,
                         )
                       },
                       result =>
@@ -122,17 +123,17 @@ final class Auth(
                           case Some(u) if u.disabled =>
                             negotiate(
                               html = redirectTo(routes.Account.reopen.url).fuccess,
-                              json = Unauthorized(jsonError("This account is closed.")).fuccess
+                              json = Unauthorized(jsonError("This account is closed.")).fuccess,
                             )
                           case Some(u) =>
                             env.user.repo.email(u.id) foreach {
                               _ foreach { garbageCollect(u, _) }
                             }
                             authenticateUser(u, Some(redirectTo))
-                        }
+                        },
                     )
                 }
-              }(rateLimitedFu)
+              }(rateLimitedFu),
           )
       }
     }
@@ -144,7 +145,7 @@ final class Auth(
         env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
         negotiate(
           html = Redirect(routes.Auth.login).fuccess,
-          json = Ok(Json.obj("ok" -> true)).fuccess
+          json = Ok(Json.obj("ok" -> true)).fuccess,
         ).dmap(_.withCookies(env.lilaCookie.newSession))
     }
 
@@ -156,7 +157,7 @@ final class Auth(
         json = {
           ctxReq.session get lila.common.HTTPRequest.userSessionIdKey foreach env.security.store.delete
           Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).fuccess
-        }
+        },
       )
     }
 
@@ -198,14 +199,14 @@ final class Auth(
                 case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).fuccess
                 case Signup.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user)
-              }
+              },
           )
         }
       }
     }
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(implicit
-      ctx: Context
+      ctx: Context,
   ): Funit = {
     garbageCollect(user, email)
     if (sendWelcomeEmail) env.security.automaticEmail.welcome(user, email)
@@ -222,8 +223,9 @@ final class Auth(
           case None => Ok(accountC.renderCheckYourEmail).fuccess
           case Some(userEmail) =>
             env.user.repo nameExists userEmail.username map {
-              case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(ctx.req)
-              case true  => Ok(accountC.renderCheckYourEmail)
+              case false =>
+                Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(ctx.req)
+              case true => Ok(accountC.renderCheckYourEmail)
             }
         }
       }
@@ -257,7 +259,7 @@ final class Auth(
                       }(rateLimitedFu)
                   }
                 }
-              }
+              },
           )
       }
     }
@@ -288,7 +290,7 @@ final class Auth(
     api.saveAuthentication(user.id) flatMap { sessionId =>
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
-        json = mobileUserOk(user, sessionId)
+        json = mobileUserOk(user, sessionId),
       ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
   }
@@ -301,8 +303,9 @@ final class Auth(
           !me.lame ?? (for {
             otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
             _ <- (otherIds.sizeIs >= 2) ?? env.user.repo.countEngines(otherIds).flatMap {
-              case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoCheatPrintReport(me.id)
-              case _                                        => funit
+              case nb if nb >= 2 && nb >= otherIds.size / 2 =>
+                env.report.api.autoCheatPrintReport(me.id)
+              case _ => funit
             }
           } yield ())
         }
@@ -331,7 +334,7 @@ final class Auth(
               case Some((user, storedEmail)) => {
                 lila.mon.user.auth.passwordResetRequest("success").increment()
                 env.security.passwordReset.send(user, storedEmail) inject Redirect(
-                  routes.Auth.passwordResetSent(storedEmail.conceal)
+                  routes.Auth.passwordResetSent(storedEmail.conceal),
                 )
               }
               case _ => {
@@ -339,7 +342,7 @@ final class Auth(
                 fuccess(Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)))
               }
             }
-          }
+          },
         )
     }
 
@@ -415,7 +418,7 @@ final class Auth(
                 MagicLinkRateLimit(user, storedEmail, ctx.req) {
                   lila.mon.user.auth.magicLinkRequest("success").increment()
                   env.security.magicLink.send(user, storedEmail) inject Redirect(
-                    routes.Auth.magicLinkSent(storedEmail.value)
+                    routes.Auth.magicLinkSent(storedEmail.value),
                   )
                 }(rateLimitedFu)
               }
@@ -425,7 +428,7 @@ final class Auth(
                   BadRequest(html.auth.bits.magicLink(form, captcha, false.some))
                 }
               }
-            }
+            },
         )
     }
 
@@ -455,7 +458,7 @@ final class Auth(
     env.security.loginToken generate me map { token =>
       Json.obj(
         "userId" -> me.id,
-        "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}"
+        "url"    -> s"${env.net.baseUrl}${routes.Auth.loginWithToken(token).url}",
       )
     }
   }
@@ -482,7 +485,9 @@ final class Auth(
 
   private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result] _
 
-  private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private[controllers] def RedirectToProfileIfLoggedIn(
+      f: => Fu[Result],
+  )(implicit ctx: Context): Fu[Result] =
     ctx.me match {
       case Some(me) => Redirect(routes.User.show(me.username)).fuccess
       case None     => f

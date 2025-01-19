@@ -6,6 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.WriteConcern
 import reactivemongo.api.commands.WriteResult
+
 import shogi.Color
 import shogi.Status
 
@@ -17,12 +18,14 @@ import lila.user.User
 final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
-  import Game.{ BSONFields => F, ID }
+  import Game.ID
+  import Game.{ BSONFields => F }
   import Player.holdAlertBSONHandler
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
-  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, ID](gameIds)(_.id)
+  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] =
+    coll.byOrderedIds[Game, ID](gameIds)(_.id)
 
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
     coll.byOrderedIds[Game, ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
@@ -48,7 +51,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       coll.byOrderedIds[LightGame, ID](
         gameIds,
         projection = LightGame.projection.some,
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = ReadPreference.secondaryPreferred,
       )(_.id)
   }
 
@@ -86,7 +89,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def userPovsByGameIds(
       gameIds: List[String],
       user: User,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): Fu[List[Pov]] =
     coll.byOrderedIds[Game, ID](gameIds, readPreference = readPreference)(_.id) dmap {
       _.flatMap(g => Pov(g, user))
@@ -108,7 +111,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           ++ Query.user(userId)
           ++ Query.analysed(true)
           ++ Query.pliesGt(20)
-          ++ Query.clockHistory(true)
+          ++ Query.clockHistory(true),
       )
       .sort($sort asc F.createdAt)
       .cursor[Game](ReadPreference.secondaryPreferred)
@@ -116,13 +119,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def cursor(
       selector: Bdoc,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Game] =
     coll.ext.find(selector).cursor[Game](readPreference)
 
   def docCursor(
       selector: Bdoc,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Bdoc] =
     coll.ext.find(selector).cursor[Bdoc](readPreference)
 
@@ -130,7 +133,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       selector: Bdoc,
       sort: Bdoc,
       batchSize: Int = 0,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Game] =
     coll.ext.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
 
@@ -139,8 +142,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .one(
         $id(pov.gameId),
         $set(
-          s"${pov.color.fold(F.sentePlayer, F.gotePlayer)}.${Player.BSONFields.berserk}" -> true
-        )
+          s"${pov.color.fold(F.sentePlayer, F.gotePlayer)}.${Player.BSONFields.berserk}" -> true,
+        ),
       )
       .void
 
@@ -154,7 +157,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         coll.update
           .one(
             $id(origin.id),
-            nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+            nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets)),
           )
           .void
     }
@@ -167,8 +170,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $id(id),
       $set(
         s"${F.sentePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.sente,
-        s"${F.gotePlayer}.${Player.BSONFields.ratingDiff}"  -> diffs.gote
-      )
+        s"${F.gotePlayer}.${Player.BSONFields.ratingDiff}"  -> diffs.gote,
+      ),
     )
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
@@ -181,20 +184,27 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.distinctEasy[Game.ID, List](
       F.id,
       Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true),
-      ReadPreference.secondaryPreferred
+      ReadPreference.secondaryPreferred,
     )
 
-  def playingCorresOpponentsOfVariant(userId: User.ID, variant: shogi.variant.Variant): Fu[List[User.ID]] =
+  def playingCorresOpponentsOfVariant(
+      userId: User.ID,
+      variant: shogi.variant.Variant,
+  ): Fu[List[User.ID]] =
     coll
       .find(
         Query.nowPlaying(userId) ++ Query.variant(variant) ++ Query.clock(false) ++ Query.noAi,
-        $doc(F.playingUids -> true)
+        $doc(F.playingUids -> true),
       )
       .cursor[Bdoc]()
       .list(200)
       .map {
         _.foldLeft[List[String]](List.empty) { case (acc, doc) =>
-          doc.getAsOpt[List[String]](F.playingUids).getOrElse(Nil).find(_ != userId).fold(acc)(_ :: acc)
+          doc
+            .getAsOpt[List[String]](F.playingUids)
+            .getOrElse(Nil)
+            .find(_ != userId)
+            .fold(acc)(_ :: acc)
         }
       }
 
@@ -234,7 +244,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           Query.rated ++
           Query.finished ++
           Query.pliesGt(2) ++
-          Query.notFromPosition
+          Query.notFromPosition,
       )
       .sort(Query.sortAntiChronological)
       .one[Game]
@@ -262,7 +272,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .updateField(
         $id(pov.gameId),
         holdAlertField(pov.color),
-        alert
+        alert,
       )
       .void
 
@@ -274,21 +284,21 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         F.id -> game.id,
         $or(
           holdAlertField(shogi.Sente) $exists true,
-          holdAlertField(shogi.Gote) $exists true
-        )
+          holdAlertField(shogi.Gote) $exists true,
+        ),
       ),
       $doc(
         F.id                        -> false,
         holdAlertField(shogi.Sente) -> true,
-        holdAlertField(shogi.Gote)  -> true
-      )
+        holdAlertField(shogi.Gote)  -> true,
+      ),
     ) map {
       _.fold(Player.HoldAlert.emptyMap) { doc =>
         def holdAlertOf(playerField: String) =
           doc.child(playerField).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
         Color.Map(
           sente = holdAlertOf("p0"),
-          gote = holdAlertOf("p1")
+          gote = holdAlertOf("p1"),
         )
       }
     }
@@ -297,8 +307,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.exists(
       $doc(
         $id(pov.gameId),
-        holdAlertField(pov.color) $exists true
-      )
+        holdAlertField(pov.color) $exists true,
+      ),
     )
 
   private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${Player.BSONFields.holdAlert}"
@@ -311,13 +321,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(
           F.status    -> Status.Paused.id,
           F.sealedUsi -> sealedUsi.usi,
-          F.checkAt   -> DateTime.now.plusDays(14)
-        )
+          F.checkAt   -> DateTime.now.plusDays(14),
+        ),
       ) ++ $doc(
         "$unset" -> $doc(
-          F.playingUids -> true
-        )
-      )
+          F.playingUids -> true,
+        ),
+      ),
     )
 
   def resume(id: ID, pausedSeconds: Option[Int], userIds: List[User.ID]) =
@@ -329,13 +339,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           F.status        -> Status.Started.id,
           F.checkAt       -> DateTime.now.plusHours(1),
           F.playingUids   -> (userIds.nonEmpty).option(userIds),
-          F.pausedSeconds -> pausedSeconds
-        )
+          F.pausedSeconds -> pausedSeconds,
+        ),
       ) ++ $doc(
         "$unset" -> $doc(
-          F.sealedUsi -> true
-        )
-      )
+          F.sealedUsi -> true,
+        ),
+      ),
     )
 
   private val finishUnsets = $doc(
@@ -350,14 +360,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     ("p0." + Player.BSONFields.isOfferingPause)   -> true,
     ("p1." + Player.BSONFields.isOfferingPause)   -> true,
     ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-    ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+    ("p1." + Player.BSONFields.proposeTakebackAt) -> true,
   )
 
   def finish(
       id: ID,
       winnerColor: Option[Color],
       winnerId: Option[String],
-      status: Status
+      status: Status,
   ) =
     coll.update.one(
       $id(id),
@@ -366,21 +376,21 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(
           F.winnerId    -> winnerId,
           F.winnerColor -> winnerColor.map(_.sente),
-          F.status      -> status
-        )
+          F.status      -> status,
+        ),
       ) ++ $doc(
         "$unset" -> finishUnsets.++ {
           // keep the checkAt field when game is aborted,
           // so it gets deleted in 24h
           (status >= Status.Mate) ?? $doc(F.checkAt -> true)
-        }
-      )
+        },
+      ),
     )
 
   def findRandomMinishogiCheckmate(distribution: Int): Fu[Option[Game]] =
     coll.ext
       .find(
-        Query.mate ++ Query.variantMinishogi ++ Query.notFromPosition
+        Query.mate ++ Query.variantMinishogi ++ Query.notFromPosition,
       )
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom nextInt distribution)
@@ -392,7 +402,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         g.rated && (g.userIds.distinct.sizeIs != 2 || !Game.allowRated(
           g.initialSfen,
           g.clock.map(_.config),
-          g.variant
+          g.variant,
         ))
       )
         g.copy(mode = shogi.Mode.Casual)
@@ -405,7 +415,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       else (24 * 10).some
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.checkAt     -> checkInHours.map(DateTime.now.plusHours),
-      F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
+      F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds),
     )
     coll.insert.one(bson) addFailureEffect {
       case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment().unit
@@ -415,7 +425,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def removeRecentChallengesOf(userId: String) =
     coll.delete.one(
       Query.created ++ Query.friend ++ Query.user(userId) ++
-        Query.createdSince(DateTime.now minusHours 1)
+        Query.createdSince(DateTime.now minusHours 1),
     )
 
   def setCheckAt(g: Game, at: DateTime) =
@@ -436,12 +446,12 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   private[game] def favoriteOpponents(
       userId: String,
       opponentLimit: Int,
-      gameLimit: Int
+      gameLimit: Int,
   ): Fu[List[(User.ID, Int)]] = {
     coll
       .aggregateList(
         maxDocs = opponentLimit,
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       ) { framework =>
         import framework._
         Match($doc(F.playerUids -> userId)) -> List(
@@ -451,14 +461,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           Project(
             $doc(
               F.playerUids -> true,
-              F.id         -> false
-            )
+              F.id         -> false,
+            ),
           ),
           UnwindField(F.playerUids),
           Match($doc(F.playerUids $ne userId)),
           GroupField(F.playerUids)("gs" -> SumAll),
           Sort(Descending("gs")),
-          Limit(opponentLimit)
+          Limit(opponentLimit),
         )
       }
       .map(_.flatMap { obj =>
@@ -477,7 +487,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def findNotationImport(notation: String): Fu[Option[Game]] =
     coll.one[Game](
-      $doc(s"${F.notationImport}.h" -> NotationImport.hash(notation))
+      $doc(s"${F.notationImport}.h" -> NotationImport.hash(notation)),
     )
 
   def getOptionUsis(id: ID): Fu[Option[Usis]] = game(id) dmap2 { _.usis }
@@ -486,8 +496,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.one[Game](
       $doc(
         F.playerUids $all List(u1, u2),
-        F.createdAt $gt since
-      )
+        F.createdAt $gt since,
+      ),
     )
 
   def lastGamesBetween(u1: User, u2: User, since: DateTime, nb: Int): Fu[List[Game]] =
@@ -495,9 +505,9 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       coll.secondaryPreferred.list[Game](
         $doc(
           F.playerUids $all List(u1.id, u2.id),
-          F.createdAt $gt since
+          F.createdAt $gt since,
         ),
-        nb
+        nb,
       )
 
   def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
@@ -513,7 +523,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         Query.finished
           ++ Query.rated
           ++ Query.user(userId)
-          ++ Query.pliesGt(20)
+          ++ Query.pliesGt(20),
       )
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)

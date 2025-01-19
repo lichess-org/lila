@@ -3,6 +3,7 @@ package lila.mod
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+
 import shogi.Color
 
 import lila.analyse.Analysis
@@ -31,14 +32,16 @@ final class AssessApi(
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
-    analysisRepo: AnalysisRepo
+    analysisRepo: AnalysisRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
+  private def bottomDate =
+    DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
 
   import PlayerFlags.playerFlagsBSONHandler
 
-  implicit private val playerAssessmentBSONhandler: BSONDocumentHandler[PlayerAssessment] = Macros.handler[PlayerAssessment]
+  implicit private val playerAssessmentBSONhandler: BSONDocumentHandler[PlayerAssessment] =
+    Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
@@ -64,7 +67,7 @@ final class AssessApi(
 
   private def getPlayerAggregateAssessment(
       userId: String,
-      nb: Int = 100
+      nb: Int = 100,
   ): Fu[Option[PlayerAggregateAssessment]] =
     userRepo byId userId flatMap {
       _.filter(_.noBot) ?? { user =>
@@ -81,7 +84,7 @@ final class AssessApi(
 
   def getPlayerAggregateAssessmentWithGames(
       userId: String,
-      nb: Int = 100
+      nb: Int = 100,
   ): Fu[Option[PlayerAggregateAssessment.WithGames]] =
     getPlayerAggregateAssessment(userId, nb) flatMap {
       case None      => fuccess(none)
@@ -131,12 +134,14 @@ final class AssessApi(
               case None => modApi.autoMark(SuspectId(userId))
               case Some(_) =>
                 fuccess {
-                  reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+                  reporter ! lila.hub.actorApi.report
+                    .Cheater(userId, playerAggregateAssessment.reportText(3))
                 }
             }
           case AccountAction.Report(_) =>
             fuccess {
-              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+              reporter ! lila.hub.actorApi.report
+                .Cheater(userId, playerAggregateAssessment.reportText(3))
             }
           case AccountAction.Nothing =>
             // reporter ! lila.hub.actorApi.report.Clean(userId)
@@ -165,7 +170,9 @@ final class AssessApi(
     }
 
     def noFastCoefVariation(player: Player): Option[Float] =
-      Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(Pov(game, player))
+      Statistics.noFastMoves(Pov(game, player)) ?? Statistics.moveTimeCoefVariation(
+        Pov(game, player),
+      )
 
     def winnerUserOption = game.winnerColor.map(_.fold(sente, gote))
     def winnerNbGames =

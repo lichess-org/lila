@@ -8,8 +8,7 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 
 import lila.common.config._
-
-import SecurityConfig._
+import lila.security.SecurityConfig._
 
 @Module
 final private class SecurityConfig(
@@ -27,7 +26,7 @@ final private class SecurityConfig(
     val recaptcha: Recaptcha.Config,
     val mailgun: Mailgun.Config,
     @ConfigName("ip2proxy.url") val ip2ProxyUrl: String,
-    @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
+    @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck,
 )
 
 private object SecurityConfig {
@@ -35,38 +34,38 @@ private object SecurityConfig {
   case class Collection(
       security: CollName,
       @ConfigName("print_ban") printBan: CollName,
-      firewall: CollName
+      firewall: CollName,
   )
   implicit val collectionLoader: ConfigLoader[Collection] = AutoConfig.loader[Collection]
 
   case class EmailConfirm(
       enabled: Boolean,
       secret: Secret,
-      cookie: String
+      cookie: String,
   )
   implicit val emailConfirmLoader: ConfigLoader[EmailConfirm] = AutoConfig.loader[EmailConfirm]
 
   case class Tor(
       @ConfigName("provider_url") providerUrl: String,
-      @ConfigName("refresh_delay") refreshDelay: FiniteDuration
+      @ConfigName("refresh_delay") refreshDelay: FiniteDuration,
   )
   implicit val torLoader: ConfigLoader[Tor] = AutoConfig.loader[Tor]
 
   case class DisposableEmail(
       @ConfigName("provider_url") providerUrl: String,
-      @ConfigName("refresh_delay") refreshDelay: FiniteDuration
+      @ConfigName("refresh_delay") refreshDelay: FiniteDuration,
   )
   implicit val disposableLoader: ConfigLoader[DisposableEmail] = AutoConfig.loader[DisposableEmail]
 
   case class DnsApi(
       url: String,
-      timeout: FiniteDuration
+      timeout: FiniteDuration,
   )
   implicit val dnsLoader: ConfigLoader[DnsApi] = AutoConfig.loader[DnsApi]
 
   case class CheckMail(
       url: String,
-      key: Secret
+      key: Secret,
   )
   implicit val checkMailLoader: ConfigLoader[CheckMail] = AutoConfig.loader[CheckMail]
 

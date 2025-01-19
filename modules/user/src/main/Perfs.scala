@@ -1,6 +1,7 @@
 package lila.user
 
 import org.joda.time.DateTime
+
 import shogi.Speed
 
 import lila.db.BSON
@@ -23,7 +24,7 @@ case class Perfs(
     correspondence: Perf,
     puzzle: Perf,
     storm: Perf.Storm,
-    aiLevels: Perf.AiLevels
+    aiLevels: Perf.AiLevels,
 ) {
 
   def perfs =
@@ -40,7 +41,7 @@ case class Perfs(
       "rapid"          -> rapid,
       "classical"      -> classical,
       "correspondence" -> correspondence,
-      "puzzle"         -> puzzle
+      "puzzle"         -> puzzle,
     )
 
   def bestPerf: Option[(PerfType, Perf)] = {
@@ -112,7 +113,7 @@ case class Perfs(
     "rapid"          -> rapid,
     "classical"      -> classical,
     "correspondence" -> correspondence,
-    "puzzle"         -> puzzle
+    "puzzle"         -> puzzle,
   )
 
   def ratingMap: Map[String, Int] = perfsMap.view.mapValues(_.intRating).toMap
@@ -152,16 +153,16 @@ case class Perfs(
           val glicko = Glicko(
             rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
             deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
-            volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
+            volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum,
           )
           Perf(
             glicko = glicko,
             nb = nb,
             recent = Nil,
-            latest = date.some
+            latest = date.some,
           )
         }
-      }
+      },
     )
 
   def latest: Option[DateTime] =
@@ -189,7 +190,7 @@ case object Perfs {
       rapid = managed,
       classical = managed,
       correspondence = managed,
-      puzzle = managedPuzzle
+      puzzle = managedPuzzle,
     )
   }
 
@@ -235,7 +236,7 @@ case object Perfs {
         correspondence = perf("correspondence"),
         puzzle = perf("puzzle"),
         storm = r.getO[Perf.Storm]("storm") getOrElse Perf.Storm.default,
-        aiLevels = r.getO[Perf.AiLevels]("ai") getOrElse Perf.AiLevels.default
+        aiLevels = r.getO[Perf.AiLevels]("ai") getOrElse Perf.AiLevels.default,
       )
     }
 
@@ -257,7 +258,7 @@ case object Perfs {
         "correspondence" -> notNew(o.correspondence),
         "puzzle"         -> notNew(o.puzzle),
         "storm"          -> (o.storm.nonEmpty option o.storm),
-        "ai"             -> (o.aiLevels.nonEmpty option o.aiLevels)
+        "ai"             -> (o.aiLevels.nonEmpty option o.aiLevels),
       )
   }
 
@@ -272,7 +273,7 @@ case object Perfs {
       chushogi: List[User.LightPerf],
       annanshogi: List[User.LightPerf],
       kyotoshogi: List[User.LightPerf],
-      checkshogi: List[User.LightPerf]
+      checkshogi: List[User.LightPerf],
   )
 
   val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)

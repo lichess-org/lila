@@ -10,8 +10,7 @@ import reactivemongo.api.bson._
 
 import lila.common.IpAddress
 import lila.db.dsl._
-
-import Client.Skill
+import lila.fishnet.Client.Skill
 
 final class FishnetApi(
     repo: FishnetRepo,
@@ -22,17 +21,19 @@ final class FishnetApi(
     sink: lila.analyse.Analyser,
     puzzles: lila.puzzle.PuzzleApi,
     socketExists: String => Fu[Boolean],
-    config: FishnetApi.Config
+    config: FishnetApi.Config,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
-  import FishnetApi._
-  import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
   import BSONHandlers._
+  import FishnetApi._
+  import JsonApi.Request.CompleteAnalysis
+  import JsonApi.Request.PartialAnalysis
 
-  private val workQueue = new lila.hub.DuctSequencer(maxSize = 256, timeout = 5 seconds, name = "fishnetApi")
+  private val workQueue =
+    new lila.hub.DuctSequencer(maxSize = 256, timeout = 5 seconds, name = "fishnetApi")
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
@@ -40,7 +41,7 @@ final class FishnetApi(
     if (config.offlineMode && req.shoginet.apikey.value.isEmpty) repo.getOfflineClient map some
     else repo.getEnabledClient(req.shoginet.apikey)
   } map {
-    case None         => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
+    case None => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
     case Some(client) => config.clientVersion accept req.shoginet.version map (_ => client)
   } flatMap {
     case Success(client) => repo.updateClientInstance(client, req instance ip) map Success.apply
@@ -56,7 +57,7 @@ final class FishnetApi(
       case Skill.All =>
         acquireMove(client) orElse acquireAnalysis(client, slow) orElse acquirePuzzle(
           client,
-          verifiable = false
+          verifiable = false,
         )
     }).monSuccess(_.fishnet.acquire)
       .recover { case e: Exception =>
@@ -75,13 +76,13 @@ final class FishnetApi(
             $doc("lastTryByKey" $ne client.key) // client alternation
           } ++ {
             slow ?? $doc("sender.system" -> true)
-          }
+          },
         )
         .sort(
           $doc(
             "sender.system" -> 1, // user requests first, then lishogi auto analysis
-            "createdAt"     -> 1  // oldest requests first
-          )
+            "createdAt"     -> 1, // oldest requests first
+          ),
         )
         .one[Work.Analysis]
         .flatMap {
@@ -98,12 +99,12 @@ final class FishnetApi(
           $doc("acquired" $exists false) ++
             $doc("verifiable" -> verifiable) ++ {
               $doc("lastTryByKey" $ne client.key) // client alternation
-            }
+            },
         )
         .sort(
           $doc(
-            "createdAt" -> 1 // oldest requests first
-          )
+            "createdAt" -> 1, // oldest requests first
+          ),
         )
         .one[Work.Puzzle]
         .flatMap {
@@ -121,7 +122,7 @@ final class FishnetApi(
   def postAnalysis(
       workId: Work.Id,
       client: Client,
-      data: JsonApi.Request.PostAnalysis
+      data: JsonApi.Request.PostAnalysis,
   ): Fu[PostAnalysisResult] =
     repo
       .getAnalysis(workId)
@@ -186,14 +187,14 @@ final class FishnetApi(
     colls.analysis.exists(
       $doc(
         "game.id"       -> gameId,
-        "sender.system" -> false
-      )
+        "sender.system" -> false,
+      ),
     )
 
   def postPuzzle(
       workId: Work.Id,
       client: Client,
-      data: JsonApi.Request.PostPuzzle
+      data: JsonApi.Request.PostPuzzle,
   ): Funit =
     repo
       .getPuzzle(workId)
@@ -213,7 +214,7 @@ final class FishnetApi(
   def postVerifiedPuzzle(
       workId: Work.Id,
       client: Client,
-      data: JsonApi.Request.PostPuzzleVerified
+      data: JsonApi.Request.PostPuzzleVerified,
   ): Funit =
     repo
       .getPuzzle(workId)
@@ -225,8 +226,8 @@ final class FishnetApi(
           repo.deletePuzzle(work) >> data.result.fold {
             fuccess(
               logger.info(
-                s"Couldn't verify ${work._id} with sfen: ${work.game.initialSfen.getOrElse("Initial")}, ${work.game.moves}"
-              )
+                s"Couldn't verify ${work._id} with sfen: ${work.game.initialSfen.getOrElse("Initial")}, ${work.game.moves}",
+              ),
             )
           } { res =>
             puzzles.submissions.addNew(
@@ -235,7 +236,7 @@ final class FishnetApi(
               ambProms = res.ambiguousPromotions,
               themes = res.themes,
               source = work.source.game.map(_.id).toRight(work.source.user.flatMap(_.author)),
-              submittedBy = work.source.user.map(_.submittedBy)
+              submittedBy = work.source.user.map(_.submittedBy),
             )
           }
         case Some(work) =>
@@ -250,29 +251,29 @@ final class FishnetApi(
         Json.obj(
           "acquired" -> s.acquired,
           "queued"   -> s.queued,
-          "oldest"   -> s.oldest
+          "oldest"   -> s.oldest,
         )
       Json.obj(
         "analysis" -> Json.obj(
           "user"   -> statusFor(c.user),
-          "system" -> statusFor(c.system)
+          "system" -> statusFor(c.system),
         ),
         "puzzles" -> Json.obj(
           "verifiable" -> c.puzzles.verifiable,
-          "candidates" -> c.puzzles.candidates
-        )
+          "candidates" -> c.puzzles.candidates,
+        ),
       )
     }
 
   def addPuzzles(
       sfens: List[shogi.format.forsyth.Sfen],
       source: Option[String],
-      submittedBy: String
+      submittedBy: String,
   ): Funit = {
     val puzs = sfens
       .flatMap(sfen => sfen.toSituation(shogi.variant.Standard))
       .withFilter(
-        _.playable(true, true)
+        _.playable(true, true),
       )
       .map { sit =>
         Work.Puzzle(
@@ -282,7 +283,7 @@ final class FishnetApi(
             initialSfen = sit.toSfen.some,
             studyId = none,
             variant = sit.variant,
-            moves = ""
+            moves = "",
           ),
           engine =
             if (forYaneuraOu(sit)) lila.game.EngineConfig.Engine.YaneuraOu.name
@@ -292,15 +293,15 @@ final class FishnetApi(
             user = Work.Puzzle.Source
               .FromUser(
                 submittedBy = submittedBy,
-                author = source
+                author = source,
               )
-              .some
+              .some,
           ),
           tries = 0,
           lastTryByKey = none,
           acquired = none,
           createdAt = DateTime.now,
-          verifiable = false
+          verifiable = false,
         )
       }
     repo.addPuzzles(puzs)
@@ -310,7 +311,7 @@ final class FishnetApi(
   private def forYaneuraOu(sit: shogi.Situation): Boolean =
     sit.variant.handRoles.forall { r =>
       sit.board.count(r) + sit.hands.sente(r) + sit.hands.gote(r) <= initialSit.board.count(
-        r
+        r,
       ) + initialSit.hands.sente(r) + initialSit.hands.gote(r)
     } && sit.variant.allRoles.diff(sit.variant.handRoles).forall { r =>
       sit.board.count(r) <= initialSit.board.count(r)
@@ -326,7 +327,7 @@ final class FishnetApi(
       skill = Skill.Analysis,
       instance = None,
       enabled = true,
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
     )
     repo addClient client inject client
   }
@@ -339,7 +340,7 @@ object FishnetApi {
   case class Config(
       offlineMode: Boolean,
       analysisNodes: Int,
-      clientVersion: Client.ClientVersion
+      clientVersion: Client.ClientVersion,
   )
 
   case object WorkNotFound extends LilaException {
@@ -356,8 +357,9 @@ object FishnetApi {
 
   sealed trait PostAnalysisResult
   object PostAnalysisResult {
-    case class Complete(work: Work.Analysis, analysis: lila.analyse.Analysis) extends PostAnalysisResult
-    case class Partial(analysis: lila.analyse.Analysis)                       extends PostAnalysisResult
-    case object UnusedPartial                                                 extends PostAnalysisResult
+    case class Complete(work: Work.Analysis, analysis: lila.analyse.Analysis)
+        extends PostAnalysisResult
+    case class Partial(analysis: lila.analyse.Analysis) extends PostAnalysisResult
+    case object UnusedPartial                           extends PostAnalysisResult
   }
 }

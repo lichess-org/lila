@@ -25,7 +25,7 @@ final private class Finisher(
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
-    recentTvGames: RecentTvGames
+    recentTvGames: RecentTvGames,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
@@ -44,7 +44,8 @@ final private class Finisher(
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     if (
-      !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
+      !game.isCorrespondence && !Uptime
+        .startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
     ) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
@@ -69,7 +70,7 @@ final private class Finisher(
       game: Game,
       status: Status.type => Status,
       winner: Option[Color],
-      message: Option[String] = None
+      message: Option[String] = None,
   )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner).unit
 
@@ -108,7 +109,7 @@ final private class Finisher(
       prev: Game,
       makeStatus: Status.type => Status,
       winnerC: Option[Color],
-      message: Option[String] = None
+      message: Option[String] = None,
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
     val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
@@ -120,7 +121,7 @@ final private class Finisher(
         source = game.source.fold("unknown")(_.name),
         speed = game.speed.name,
         mode = game.mode.name,
-        status = status.name
+        status = status.name,
       )
       .increment()
     recordLagStats(game)
@@ -129,12 +130,12 @@ final private class Finisher(
         id = game.id,
         winnerColor = winnerC,
         winnerId = winnerC map (game.player(_).userId | ""),
-        status = prog.game.status
+        status = prog.game.status,
       ) >>
       userRepo
         .pair(
           game.sentePlayer.userId,
-          game.gotePlayer.userId
+          game.gotePlayer.userId,
         )
         .flatMap {
           case (senteO, goteO) => {
@@ -175,12 +176,20 @@ final private class Finisher(
         else 0
       if (result == 1) updateAiLevels(game, user)
       userRepo
-        .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
+        .incNbGames(
+          user.id,
+          game.rated,
+          game.hasAi,
+          result = result,
+          totalTime = totalTime,
+          tvTime = tvTime,
+        )
         .void
     }
 
   private def updateAiLevels(game: Game, user: User): Funit =
-    (game.aiLevel.filter(level => user.perfs.aiLevels(game.variant).fold(true)(_ < level))) ?? { level =>
-      userRepo.setPerfAiLevel(user.id, game.variant, level).void
+    (game.aiLevel.filter(level => user.perfs.aiLevels(game.variant).fold(true)(_ < level))) ?? {
+      level =>
+        userRepo.setPerfAiLevel(user.id, game.variant, level).void
     }
 }

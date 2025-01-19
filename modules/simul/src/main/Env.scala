@@ -16,7 +16,7 @@ import lila.socket.Socket.SocketVersion
 @Module
 private class SimulConfig(
     @ConfigName("collection.simul") val simulColl: CollName,
-    @ConfigName("feature.views") val featureViews: Max
+    @ConfigName("feature.views") val featureViews: Max,
 )
 
 @Module
@@ -31,11 +31,11 @@ final class Env(
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
-    proxyRepo: lila.round.GameProxyRepo
+    proxyRepo: lila.round.GameProxyRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
@@ -58,14 +58,14 @@ final class Env(
   }
 
   val featurable = new SimulIsFeaturable((simul: Simul) =>
-    simul.veryPopular || featureLimiter(simul.hostId)(true)(false)
+    simul.veryPopular || featureLimiter(simul.hostId)(true)(false),
   )
 
   private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
     credits = config.featureViews.value,
     duration = 24 hours,
     key = "simul.feature",
-    log = false
+    log = false,
   )
 
   def version(simulId: Simul.ID) =
@@ -87,11 +87,11 @@ final class Env(
       Bus.publish(
         lila.hub.actorApi.socket.SendTo(
           opponentUserId,
-          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId),
         ),
-        "socketUsers"
+        "socketUsers",
       )
-    }
+    },
   )
 }
 

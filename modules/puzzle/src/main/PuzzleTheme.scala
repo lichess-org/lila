@@ -3,7 +3,7 @@ package lila.puzzle
 import lila.common.Iso
 import lila.i18n.I18nKey
 import lila.i18n.I18nKeys.{ puzzleTheme => i }
-import lila.i18n.{I18nKeys => trans}
+import lila.i18n.{ I18nKeys => trans }
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
 
@@ -48,12 +48,12 @@ object PuzzleTheme {
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
     trans.puzzle.recommended -> List(
-      mix
+      mix,
     ),
     trans.puzzle.phases -> List(
       opening,
       middlegame,
-      endgame
+      endgame,
     ),
     trans.puzzle.motifs -> List(
       tsume,
@@ -62,7 +62,7 @@ object PuzzleTheme {
       sacrifice,
       strikingPawn,
       joiningPawn,
-      edgeAttack
+      edgeAttack,
     ),
     trans.puzzle.mates -> List(
       mate,
@@ -70,24 +70,24 @@ object PuzzleTheme {
       mateIn3,
       mateIn5,
       mateIn7,
-      mateIn9
+      mateIn9,
     ),
     trans.puzzle.goals -> List(
       equality,
       advantage,
       crushing,
-      mate
+      mate,
     ),
     trans.puzzle.lengths -> List(
       oneMove,
       short,
       long,
-      veryLong
+      veryLong,
     ),
     trans.puzzle.origin -> List(
       lishogiGames,
-      otherSources
-    )
+      otherSources,
+    ),
   )
 
   lazy val all: List[PuzzleTheme] = categorized.flatMap(_._2)
@@ -124,7 +124,7 @@ object PuzzleTheme {
     endgame,
     tsume,
     otherSources,
-    lishogiGames
+    lishogiGames,
   ).map(_.key)
 
   val studyChapterIds: Map[PuzzleTheme.Key, String] = List(
@@ -133,7 +133,7 @@ object PuzzleTheme {
     sacrifice    -> "ezFdOVtv",
     strikingPawn -> "addthiss",
     joiningPawn  -> "addthiss",
-    edgeAttack   -> "addthiss"
+    edgeAttack   -> "addthiss",
   ).view.map { case (theme, id) =>
     theme.key -> id
   }.toMap

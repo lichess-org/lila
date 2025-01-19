@@ -31,12 +31,12 @@ final class Env(
     mongo: lila.db.Env,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi,
-    isOfferingRematch: lila.round.IsOfferingRematch
+    isOfferingRematch: lila.round.IsOfferingRematch,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))

@@ -15,7 +15,7 @@ object actions {
       relation: Option[lila.relation.Relation],
       followable: Boolean,
       blocked: Boolean,
-      signup: Boolean = false
+      signup: Boolean = false,
   )(implicit ctx: Context) =
     div(cls := "relation-actions btn-rack")(
       ctx.userId map { myId =>
@@ -25,14 +25,14 @@ object actions {
               titleOrText(trans.challengeToPlay.txt()),
               href     := s"${routes.Lobby.home}?user=$userId#friend",
               cls      := "btn-rack__btn",
-              dataIcon := "U"
+              dataIcon := "U",
             ),
             a(
               titleOrText(trans.composeMessage.txt()),
               href     := routes.Msg.convo(userId),
               cls      := "btn-rack__btn",
-              dataIcon := "c"
-            )
+              dataIcon := "c",
+            ),
           ),
           relation match {
             case None =>
@@ -41,14 +41,14 @@ object actions {
                   cls  := "btn-rack__btn relation-button",
                   href := routes.Relation.follow(userId),
                   titleOrText(trans.follow.txt()),
-                  dataIcon := "h"
+                  dataIcon := "h",
                 ),
                 a(
                   cls  := "btn-rack__btn relation-button",
                   href := routes.Relation.block(userId),
                   titleOrText(trans.block.txt()),
-                  dataIcon := "k"
-                )
+                  dataIcon := "k",
+                ),
               )
             case Some(true) =>
               a(
@@ -56,7 +56,7 @@ object actions {
                 cls      := "btn-rack__btn relation-button text hover-text",
                 href     := routes.Relation.unfollow(userId),
                 titleOrText(trans.following.txt()),
-                dataHoverText := trans.unfollow.txt()
+                dataHoverText := trans.unfollow.txt(),
               )
             case Some(false) =>
               a(
@@ -64,15 +64,15 @@ object actions {
                 cls      := "btn-rack__btn relation-button text hover-text",
                 href     := routes.Relation.unblock(userId),
                 titleOrText(trans.blocked.txt()),
-                dataHoverText := trans.unblock.txt()
+                dataHoverText := trans.unblock.txt(),
               )
-          }
+          },
         )
       } getOrElse {
         signup option frag(
           trans.youNeedAnAccountToDoThat(),
-          a(href := routes.Auth.login, cls := "signup")(trans.signUp())
+          a(href := routes.Auth.login, cls := "signup")(trans.signUp()),
         )
-      }
+      },
     )
 }

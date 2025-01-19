@@ -12,7 +12,7 @@ case class CoachProfile(
     methodology: Option[CoachProfile.RichText] = None,
     youtubeVideos: Option[String] = None,
     youtubeChannel: Option[String] = None,
-    publicStudies: Option[String] = None
+    publicStudies: Option[String] = None,
 ) {
 
   lazy val youtubeUrls = youtubeVideos ?? UrlList.youtube.apply

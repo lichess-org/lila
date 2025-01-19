@@ -5,6 +5,7 @@ import scala.util.Success
 import akka.actor._
 import akka.pattern.pipe
 import cats.data.NonEmptyList
+
 import shogi.format.Reader
 import shogi.format.Tags
 import shogi.{ Game => ShogiGame }
@@ -100,12 +101,13 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
           moves.dropRight(1),
           none,
           shogi.variant.Minishogi,
-          Tags.empty
+          Tags.empty,
         )
         .valid
         .map(_.state)
         .toOption
 
-    private def sfen(game: ShogiGame): String = game.situation.toSfen.value.split(' ').take(1).mkString(" ")
+    private def sfen(game: ShogiGame): String =
+      game.situation.toSfen.value.split(' ').take(1).mkString(" ")
   }
 }

@@ -47,13 +47,13 @@ object StripePlan {
         StripePlan(
           id = s"monthly_${cents.value}",
           name = s"Monthly ${cents.usd}",
-          amount = cents
+          amount = cents,
         )
       case Freq.Onetime =>
         StripePlan(
           id = s"onetime_${cents.value}",
           name = s"One-time ${cents.usd}",
-          amount = cents
+          amount = cents,
         )
     }
 
@@ -65,7 +65,7 @@ case class CreateStripeSession(
     success_url: String,
     cancel_url: String,
     customer_id: CustomerId,
-    checkout: Checkout
+    checkout: Checkout,
 )
 
 case class StripeSubscription(
@@ -73,7 +73,7 @@ case class StripeSubscription(
     plan: StripePlan,
     customer: CustomerId,
     cancel_at_period_end: Boolean,
-    status: String
+    status: String,
 ) {
   def renew    = !cancel_at_period_end
   def isActive = status == "active"
@@ -82,7 +82,7 @@ case class StripeSubscription(
 case class StripeCustomer(
     id: CustomerId,
     email: Option[String],
-    subscriptions: StripeSubscriptions
+    subscriptions: StripeSubscriptions,
 ) {
 
   def firstSubscription = subscriptions.data.headOption
@@ -100,7 +100,7 @@ case class StripeInvoice(
     id: Option[String],
     amount_due: Int,
     date: Long,
-    paid: Boolean
+    paid: Boolean,
 ) {
   def cents    = Cents(amount_due)
   def usd      = cents.usd
@@ -110,5 +110,5 @@ case class StripeInvoice(
 case class StripeCompletedSession(
     customer: CustomerId,
     mode: String,
-    subscription: Option[SubscriptionId]
+    subscription: Option[SubscriptionId],
 )

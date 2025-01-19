@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
+
 import shogi.variant.Variant
 
 import lila.db.dsl._
@@ -12,11 +13,11 @@ import lila.user.User
 
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Revolution._
   import BSONHandlers._
+  import Revolution._
 
   def active(u: User): Fu[List[Award]] = cache.getUnit dmap { ~_.get(u.id) }
 
@@ -31,9 +32,9 @@ final class RevolutionApi(
               "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Unique).get,
               "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
               "name" $regex Revolution.namePattern,
-              "status" -> statusBSONHandler.writeTry(Status.Finished).get
+              "status" -> statusBSONHandler.writeTry(Status.Finished).get,
             ),
-            $doc("winner" -> true, "variant" -> true)
+            $doc("winner" -> true, "variant" -> true),
           )
           .cursor[Bdoc](ReadPreference.secondaryPreferred)
           .list() map { docOpt =>
@@ -46,7 +47,7 @@ final class RevolutionApi(
             } yield Award(
               owner = winner,
               variant = variant,
-              tourId = id
+              tourId = id,
             )
           awards.groupBy(_.owner)
         }
@@ -64,7 +65,7 @@ object Revolution {
   case class Award(
       owner: User.ID,
       variant: Variant,
-      tourId: Tournament.ID
+      tourId: Tournament.ID,
   ) {
     val iconChar = lila.rating.PerfType iconByVariant variant
   }

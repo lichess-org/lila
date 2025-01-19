@@ -19,7 +19,7 @@ object watcher {
       cross: Option[lila.game.Crosstable.WithMatchup],
       userTv: Option[lila.user.User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
-      bookmarked: Boolean
+      bookmarked: Boolean,
   )(implicit ctx: Context) = {
 
     val chatJson = chatOption map { c =>
@@ -30,7 +30,7 @@ object watcher {
         withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-        palantir = ctx.me.exists(_.canPalantir)
+        palantir = ctx.me.exists(_.canPalantir),
       )
     }
 
@@ -43,33 +43,33 @@ object watcher {
           "round",
           Json.obj(
             "data" -> data,
-            "chat" -> chatJson
-          )
-        )
+            "chat" -> chatJson,
+          ),
+        ),
       ),
       openGraph = povOpenGraph(pov).some,
-      shogiground = false
+      shogiground = false,
     )(
       main(cls := s"round ${mainVariantClass(pov.game.variant)}")(
         st.aside(cls := "round__side")(
           bits.side(pov, tour, simul, userTv, bookmarked),
-          chatOption.map(_ => chat.frag)
+          chatOption.map(_ => chat.frag),
         ),
         bits.roundAppPreload(pov, false),
         div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
-        div(cls := "round__underchat")(bits underchat pov.game)
-      )
+        div(cls := "round__underchat")(bits underchat pov.game),
+      ),
     )
   }
 
   def crawler(pov: Pov, kif: shogi.format.Notation)(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     bits.layout(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
-      shogiground = false
+      shogiground = false,
     )(
       frag(
         main(cls := s"round ${mainVariantClass(pov.game.variant)}")(
@@ -78,11 +78,11 @@ object watcher {
             div(cls := "for-crawler")(
               h1(titleGame(pov.game)),
               p(describePov(pov)),
-              div(cls := "kif")(kif.render)
-            )
+              div(cls := "kif")(kif.render),
+            ),
           ),
-          div(cls := s"round__board main-board ${variantClass(pov.game.variant)}")(shogiground(pov))
-        )
-      )
+          div(cls := s"round__board main-board ${variantClass(pov.game.variant)}")(shogiground(pov)),
+        ),
+      ),
     )
 }

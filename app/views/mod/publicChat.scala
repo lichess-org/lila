@@ -11,12 +11,12 @@ object publicChat {
 
   def apply(
       tourChats: List[(lila.tournament.Tournament, lila.chat.UserChat)],
-      simulChats: List[(lila.simul.Simul, lila.chat.UserChat)]
+      simulChats: List[(lila.simul.Simul, lila.chat.UserChat)],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Public Chats",
       moreCss = cssTag("user.mod.communication"),
-      moreJs = jsTag("user.public-chat")
+      moreJs = jsTag("user.public-chat"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("public-chat"),
@@ -30,14 +30,18 @@ object publicChat {
                   div(cls := "chat")(
                     chat.lines.filter(_.isVisible).map { line =>
                       div(cls := "line")(
-                        userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                        userIdLink(
+                          line.author.toLowerCase.some,
+                          withOnline = false,
+                          withTitle = false,
+                        ),
                         " ",
-                        richText(line.text)
+                        richText(line.text),
                       )
-                    }
-                  )
+                    },
+                  ),
                 )
-              }
+              },
             ),
             div(
               h2("Simul Chats"),
@@ -48,18 +52,22 @@ object publicChat {
                     div(cls := "chat")(
                       chat.lines.filter(_.isVisible).map { line =>
                         div(cls := "line")(
-                          userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                          userIdLink(
+                            line.author.toLowerCase.some,
+                            withOnline = false,
+                            withTitle = false,
+                          ),
                           " ",
-                          richText(line.text)
+                          richText(line.text),
                         )
-                      }
-                    )
+                      },
+                    ),
                   )
-                }
-              )
-            )
-          )
-        )
+                },
+              ),
+            ),
+          ),
+        ),
       )
     }
 }

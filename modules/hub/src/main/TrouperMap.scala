@@ -12,7 +12,7 @@ import ornicar.scalalib.Zero
 
 final class TrouperMap[T <: Trouper](
     mkTrouper: String => T,
-    accessTimeout: FiniteDuration
+    accessTimeout: FiniteDuration,
 )(implicit mode: Mode) {
 
   def getOrMake(id: String): T = troupers get id

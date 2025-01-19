@@ -14,11 +14,11 @@ object bits {
       input(
         tpe   := "checkbox",
         cls   := "mselect__toggle fullscreen-toggle",
-        st.id := s"mselect-$id"
+        st.id := s"mselect-$id",
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
-      st.nav(cls := "mselect__list")(items)
+      st.nav(cls := "mselect__list")(items),
     )
 
   lazy val stage = a(
@@ -32,15 +32,15 @@ left: 0;
 padding: .5em 1em;
 border-top-right-radius: 3px;
 z-index: 99;
-"""
+""",
   )(
-    "This is an empty Lishogi preview website, go to lishogi.org instead"
+    "This is an empty Lishogi preview website, go to lishogi.org instead",
   )
 
   val connectLinks =
     div(cls := "connect-links")(
       a(href := "https://twitter.com/lishogi", rel := "nofollow")("Twitter"),
-      a(href := "https://discord.gg/YFtpMGg3rR", rel := "nofollow")("Discord")
+      a(href := "https://discord.gg/YFtpMGg3rR", rel := "nofollow")("Discord"),
     )
 
   def sfenAnalysisLink(sfen: Sfen)(implicit lang: Lang) =

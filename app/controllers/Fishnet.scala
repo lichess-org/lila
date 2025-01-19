@@ -20,7 +20,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
 
   def notSupported = Action {
     Unauthorized(
-      "Your shoginet version is no longer supported. Please restart shoginet to upgrade. (git pull)"
+      "Your shoginet version is no longer supported. Please restart shoginet to upgrade. (git pull)",
     )
   }
 
@@ -58,7 +58,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
               onComplete
             case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
             case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
-          }
+          },
         )
     }
 
@@ -93,7 +93,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
     }
 
   private def ClientAction[A <: JsonApi.Request](
-      f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]]
+      f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]],
   )(implicit reads: Reads[A]) =
     Action.async(parse.tolerantJson) { req =>
       req.body
@@ -112,7 +112,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
                   case Right(None)       => NoContent
                   case Left(result)      => result
                 }
-            }
+            },
         )
     }
 }

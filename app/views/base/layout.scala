@@ -17,12 +17,13 @@ import lila.common.base.StringUtils.escapeHtmlRaw
 object layout {
 
   object bits {
-    val doctype                            = raw("<!DOCTYPE html>")
-    def htmlTag(lang: Lang, theme: String) = html(st.lang := lila.i18n.languageCode(lang), cls := theme)
+    val doctype = raw("<!DOCTYPE html>")
+    def htmlTag(lang: Lang, theme: String) =
+      html(st.lang := lila.i18n.languageCode(lang), cls := theme)
     val topComment = raw("""<!-- Lishogi is open source! See https://lishogi.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
-      """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
+      """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">""",
     )
     def metaCsp(csp: ContentSecurityPolicy): Frag =
       raw {
@@ -43,12 +44,12 @@ object layout {
 
   private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
     raw(s"""<link rel="preload" href="$href" as="$as" ${tpe.??(t =>
-        s"""type="$t" """
+        s"""type="$t" """,
       )}${crossorigin ?? "crossorigin"}>""")
 
   private val fontPreload = frag(
     preload(assetUrl("font/lishogi.woff2"), "font", crossorigin = true, "font/woff2".some),
-    preload(assetUrl("font/lishogi.shogi.woff2"), "font", crossorigin = true, "font/woff2".some)
+    preload(assetUrl("font/lishogi.shogi.woff2"), "font", crossorigin = true, "font/woff2".some),
   )
 
   private def boardPreload(implicit ctx: Context) =
@@ -57,7 +58,7 @@ object layout {
     }
 
   private val manifests = raw(
-    """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lishogi">"""
+    """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lishogi">""",
   )
 
   private val jsLicense = raw("""<link rel="jslicense" href="/source">""")
@@ -66,15 +67,15 @@ object layout {
     List(512, 256, 192, 128, 64)
       .map { px =>
         s"""<link rel="icon" type="image/png" href="${staticUrl(
-            s"logo/lishogi-favicon-$px.png"
+            s"logo/lishogi-favicon-$px.png",
           )}" sizes="${px}x${px}">"""
       }
       .mkString(
         "",
         "",
         s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
-            "logo/lishogi-favicon-32.png"
-          )}" sizes="32x32">"""
+            "logo/lishogi-favicon-32.png",
+          )}" sizes="32x32">""",
       )
   }
   private def blindModeForm(implicit ctx: Context) =
@@ -88,10 +89,12 @@ object layout {
       )
         "Disable"
       else "Enable"} blind mode</button></form>""")
-  private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
+  private val zenToggle = raw(
+    """<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""",
+  )
   private def dasher(me: lila.user.User) =
     raw(
-      s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>"""
+      s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""",
     )
 
   private def allNotifications(implicit ctx: Context) =
@@ -118,7 +121,7 @@ object layout {
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
 <a href="${langHref(
-        s"${routes.Auth.login.url}?referrer=${ctx.req.path}"
+        s"${routes.Auth.login.url}?referrer=${ctx.req.path}",
       )}" class="signin button button-empty">${trans.signIn
         .txt()}</a>""")
 
@@ -132,8 +135,8 @@ object layout {
         spellcheck   := "false",
         autocomplete := ctx.blind.toString,
         aria.label   := trans.search.search.txt(),
-        placeholder  := trans.search.search.txt()
-      )
+        placeholder  := trans.search.search.txt(),
+      ),
     )
 
   private def switchLanguage(implicit ctx: Context) =
@@ -147,7 +150,7 @@ object layout {
     src   := staticUrl("images/icons/bot.png"),
     title := "Robot shogi",
     style :=
-      "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
+      "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top",
   )
 
   private def canonical(canonicalPath: CanonicalPath)(implicit ctx: Context) = raw {
@@ -167,22 +170,24 @@ object layout {
   private def defaultWithEnHrefLang(path: String) =
     hrefLang("x-default", path) + hrefLang("en", path)
 
-  private def hrefLangs(altLangs: lila.i18n.LangList.AlternativeLangs)(implicit ctx: Context) = raw {
-    val path = ctx.req.path
-    altLangs match {
-      case lila.i18n.LangList.EnglishJapanese =>
-        defaultWithEnHrefLang(path) + hrefLang("ja", s"$path?lang=ja")
-      case lila.i18n.LangList.All =>
-        defaultWithEnHrefLang(path) + (lila.i18n.LangList.alternativeHrefLangCodes.map { langCode =>
-          hrefLang(langCode, s"$path?lang=$langCode")
-        }).mkString
-      case lila.i18n.LangList.Custom(langPathMap) =>
-        (langPathMap.map { case (langCode, path) =>
-          if (langCode == "en") defaultWithEnHrefLang(path)
-          else hrefLang(langCode, path)
-        }).mkString
+  private def hrefLangs(altLangs: lila.i18n.LangList.AlternativeLangs)(implicit ctx: Context) =
+    raw {
+      val path = ctx.req.path
+      altLangs match {
+        case lila.i18n.LangList.EnglishJapanese =>
+          defaultWithEnHrefLang(path) + hrefLang("ja", s"$path?lang=ja")
+        case lila.i18n.LangList.All =>
+          defaultWithEnHrefLang(path) + (lila.i18n.LangList.alternativeHrefLangCodes.map {
+            langCode =>
+              hrefLang(langCode, s"$path?lang=$langCode")
+          }).mkString
+        case lila.i18n.LangList.Custom(langPathMap) =>
+          (langPathMap.map { case (langCode, path) =>
+            if (langCode == "en") defaultWithEnHrefLang(path)
+            else hrefLang(langCode, path)
+          }).mkString
+      }
     }
-  }
 
   private def cssBackgroundImageValue(url: String): String =
     if (url.isEmpty) "none" else s"url(${escapeHtmlRaw(url).replace("&amp;", "&")})"
@@ -198,7 +203,7 @@ object layout {
         s"--c-board-url:${cssBackgroundImageValue(ct.boardImg)};",
         s"--c-grid-color:${ct.gridColor};",
         s"--c-hands-color:${ct.handsColor};",
-        s"--c-hands-url:${cssBackgroundImageValue(ct.handsImg)};"
+        s"--c-hands-url:${cssBackgroundImageValue(ct.handsImg)};",
       ).mkString("")
     }
     (zoom ++ customBg ++ customTheme).reduceLeftOption(_ + _)
@@ -207,7 +212,7 @@ object layout {
   private val vendorSiteJs = frag(
     jQueryTag,
     howlerTag,
-    powertipTag
+    powertipTag,
   )
 
   private val spaceRegex              = """\s{2,}+""".r
@@ -244,7 +249,7 @@ object layout {
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       canonicalPath: Option[CanonicalPath] = None,
-      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None
+      withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None,
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,
@@ -269,7 +274,7 @@ object layout {
           defaultPieceSprite,
           meta(
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
-            name    := "description"
+            name    := "description",
           ),
           link(rel := "mask-icon", href := staticUrl("logo/lishogi.svg"), attr("color") := "black"),
           favicons,
@@ -280,7 +285,7 @@ object layout {
             href     := routes.Blog.atom,
             `type`   := "application/atom+xml",
             rel      := "alternate",
-            st.title := trans.blog.txt()
+            st.title := trans.blog.txt(),
           ),
           fontPreload,
           boardPreload,
@@ -301,7 +306,7 @@ object layout {
           jsTag("site"),
           translationJsTag("core"),
           moreJs,
-          ctx.pageData.inquiry.isDefined option jsTag("misc.inquiry")
+          ctx.pageData.inquiry.isDefined option jsTag("misc.inquiry"),
         ),
         st.body(
           cls := List(
@@ -315,7 +320,7 @@ object layout {
             "blind-mode"                                             -> ctx.blind,
             "kid"                                                    -> ctx.kid,
             "mobile"                                                 -> ctx.isMobileBrowser,
-            "playing"                                                -> playing
+            "playing"                                                -> playing,
           ),
           dataDev           := (!isProd).option("true"),
           dataVapid         := vapidPublicKey,
@@ -334,32 +339,36 @@ object layout {
           dataAnnounce      := AnnounceStore.get.map(a => safeJsonValue(a.json)),
           dataNotation      := ctx.pref.notation.toString,
           dataColorName     := ctx.pref.colorName.toString,
-          style             := cssVariables(zoomable)
+          style             := cssVariables(zoomable),
         )(
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
-          ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
+          ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map {
+            views.html.mod.impersonate(_)
+          },
           isStage option views.html.base.bits.stage,
-          lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
+          lila.security.EmailConfirm.cookie
+            .get(ctx.req)
+            .map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
           siteHeader(playing),
           div(
             id := "main-wrap",
             cls := List(
-              wrapClass -> wrapClass.nonEmpty
-            )
+              wrapClass -> wrapClass.nonEmpty,
+            ),
           )(body),
           ctx.isAuth option div(
-            id := "friend_box"
+            id := "friend_box",
           )(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
-            div(cls   := "content_wrap none")(
-              div(cls := "content list")
-            )
+            div(cls := "content_wrap none")(
+              div(cls := "content list"),
+            ),
           ),
-          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting())
-        )
-      )
+          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
+        ),
+      ),
     )
 
   object siteHeader {
@@ -368,7 +377,7 @@ object layout {
       """
 <input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" aria-label="Navigation">
 <label for="tn-tg" class="fullscreen-mask"></label>
-<label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
+<label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>""",
     )
 
     private def reports(implicit ctx: Context) =
@@ -378,7 +387,7 @@ object layout {
           title     := "Moderation",
           href      := routes.Report.list,
           dataCount := blockingReportNbOpen,
-          dataIcon  := ""
+          dataIcon  := "",
         )
 
     private def teamRequests(implicit ctx: Context) =
@@ -388,7 +397,7 @@ object layout {
           href      := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
           dataIcon  := "f",
-          title     := trans.team.teams.txt()
+          title     := trans.team.teams.txt(),
         )
 
     // For Japanese let's force lang param - to build backlinks for SEO - for now
@@ -408,11 +417,11 @@ object layout {
             a(href := siteUrl)(
               "lishogi",
               span(if (isProd) ".org" else ".dev"),
-              span(cls := "site-beta")("beta")
-            )
+              span(cls := "site-beta")("beta"),
+            ),
           ),
           ctx.blind option h2("Navigation"),
-          topnav()
+          topnav(),
         ),
         div(cls := "site-buttons")(
           (ctx.isAnon && ctx.req.path == "/") option switchLanguage,
@@ -421,8 +430,8 @@ object layout {
           teamRequests,
           ctx.me map { me =>
             frag(allNotifications, dasher(me))
-          } getOrElse { !ctx.pageData.error option anonDasher(playing) }
-        )
+          } getOrElse { !ctx.pageData.error option anonDasher(playing) },
+        ),
       )
   }
 

@@ -7,21 +7,21 @@ import shogi.Sente
 import lila.game.Game
 import lila.game.GameRepo
 import lila.game.Source
-import lila.game.{Player => GamePlayer}
+import lila.game.{ Player => GamePlayer }
 import lila.user.User
 
 final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
-    onStart: Game.ID => Unit
+    onStart: Game.ID => Unit,
 )(implicit ec: scala.concurrent.ExecutionContext, idGenerator: lila.game.IdGenerator) {
 
   def apply(
       tour: Tournament,
       pairing: Pairing,
       playersMap: Map[User.ID, Player],
-      ranking: Ranking
+      ranking: Ranking,
   ): Fu[Game] = {
     val player1 = playersMap get pairing.user1 err s"Missing pairing player1 $pairing"
     val player2 = playersMap get pairing.user2 err s"Missing pairing player2 $pairing"
@@ -31,7 +31,7 @@ final class AutoPairing(
         shogi = shogi
           .Game(
             tour.position,
-            tour.variant
+            tour.variant,
           )
           .copy(clock = clock),
         daysPerTurn = tour.timeControl.days,
@@ -40,7 +40,7 @@ final class AutoPairing(
         gotePlayer = makePlayer(Gote, player2),
         mode = tour.mode,
         source = Source.Tournament,
-        notationImport = None
+        notationImport = None,
       )
       .withId(pairing.gameId)
       .withTournamentId(tour.id)
@@ -52,7 +52,7 @@ final class AutoPairing(
         game = game,
         p1 = (usernameOf(pairing.user1) -> ~game.sentePlayer.rating),
         p2 = (usernameOf(pairing.user2) -> ~game.gotePlayer.rating),
-        ranking = ranking
+        ranking = ranking,
       )
     } inject game
   }
@@ -60,19 +60,22 @@ final class AutoPairing(
   def apply(
       tour: Tournament,
       arrangement: Arrangement,
-      playersMap: Map[User.ID, Player]
+      playersMap: Map[User.ID, Player],
   ): Fu[Game] = {
-    val player1        = playersMap get arrangement.user1.id err s"Missing arrangement player1 $arrangement"
-    val player2        = playersMap get arrangement.user2.id err s"Missing arrangement player2 $arrangement"
-    val player1IsSente = ~arrangement.color.map(_.sente) || lila.common.ThreadLocalRandom.nextBoolean()
-    val clock          = tour.timeControl.clock.map(_.toClock)
+    val player1 =
+      playersMap get arrangement.user1.id err s"Missing arrangement player1 $arrangement"
+    val player2 =
+      playersMap get arrangement.user2.id err s"Missing arrangement player2 $arrangement"
+    val player1IsSente =
+      ~arrangement.color.map(_.sente) || lila.common.ThreadLocalRandom.nextBoolean()
+    val clock = tour.timeControl.clock.map(_.toClock)
     idGenerator.game flatMap { gid =>
       val game = Game
         .make(
           shogi = shogi
             .Game(
               tour.position,
-              tour.variant
+              tour.variant,
             )
             .copy(clock = clock),
           daysPerTurn = tour.timeControl.days,
@@ -81,7 +84,7 @@ final class AutoPairing(
           gotePlayer = makePlayer(Gote, if (player1IsSente) player2 else player1),
           mode = tour.mode,
           source = Source.Tournament,
-          notationImport = None
+          notationImport = None,
         )
         .withId(gid)
         .withTournamentId(tour.id)
@@ -94,7 +97,14 @@ final class AutoPairing(
   }
 
   private def makePlayer(color: Color, player: Player) =
-    GamePlayer.make(color, player.userId, player.rating, provisional = player.provisional, isBot = false, hasTitle = false)
+    GamePlayer.make(
+      color,
+      player.userId,
+      player.rating,
+      provisional = player.provisional,
+      isBot = false,
+      hasTitle = false,
+    )
 
   private def usernameOf(userId: User.ID) =
     lightUserApi.sync(userId).fold(userId)(_.name)

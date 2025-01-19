@@ -38,7 +38,7 @@ object Sheet {
   case class Score(
       res: Result,
       flag: Flag,
-      berserk: Berserk
+      berserk: Berserk,
   ) {
 
     def isBerserk = berserk != NoBerserk
@@ -82,7 +82,7 @@ object Sheet {
               if (streaks && isOnFire(scores)) Double
               else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
               else Normal,
-              berserk
+              berserk,
             )
           case Some(w) if userId == w =>
             Score(
@@ -96,7 +96,7 @@ object Sheet {
                   case Some(s) if s.winner.contains(userId) => StreakStarter
                   case _                                    => Normal
                 },
-              berserk
+              berserk,
             )
           case _ => Score(ResLoss, Normal, berserk)
         }) :: scores

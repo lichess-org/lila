@@ -9,7 +9,7 @@ import lila.hub.actorApi.map.TellIfExists
 final class Analyser(
     gameRepo: GameRepo,
     analysisRepo: AnalysisRepo,
-    requesterApi: RequesterApi
+    requesterApi: RequesterApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def get(game: Game): Fu[Option[Analysis]] =
@@ -43,7 +43,10 @@ final class Analyser(
     analysis.studyId match {
       case None => {
         if (analysis.postGameStudies.nonEmpty)
-          Bus.publish(actorApi.PostGameStudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
+          Bus.publish(
+            actorApi.PostGameStudyAnalysisProgress(analysis, complete),
+            "studyAnalysisProgress",
+          )
         gameRepo game analysis.id map {
           _ ?? { game =>
             Bus.publish(
@@ -52,10 +55,10 @@ final class Analyser(
                 actorApi.AnalysisProgress(
                   game = game,
                   variant = game.variant,
-                  analysis = analysis
-                )
+                  analysis = analysis,
+                ),
               ),
-              "roundSocket"
+              "roundSocket",
             )
           }
         }

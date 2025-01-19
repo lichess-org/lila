@@ -47,7 +47,7 @@ case class Node(
     score: Option[Score] = None,
     clock: Option[Centis],
     children: Node.Children,
-    forceVariation: Boolean
+    forceVariation: Boolean,
 ) extends RootOrNode {
 
   import Node.Children
@@ -85,7 +85,7 @@ case class Node(
       comments = Comments(Nil),
       shapes = Shapes(Nil),
       glyphs = Glyphs.empty,
-      score = none
+      score = none,
     )
 
   def merge(n: Node): Node =
@@ -99,7 +99,7 @@ case class Node(
       children = n.children.nodes.foldLeft(children) { case (cs, c) =>
         cs addNode c
       },
-      forceVariation = n.forceVariation || forceVariation
+      forceVariation = n.forceVariation || forceVariation,
     )
 
   def usiOption = usi.some
@@ -247,14 +247,14 @@ object Node {
       variant: Variant,
       usis: Vector[Usi],
       initialSfen: Option[Sfen],
-      clocks: Option[Vector[Centis]]
+      clocks: Option[Vector[Centis]],
   )
 
   case class GameMainlineExtension(
       shapes: Shapes = Shapes(Nil),
       comments: Comments = Comments(Nil),
       glyphs: Glyphs = Glyphs.empty,
-      score: Option[Score] = None
+      score: Option[Score] = None,
   ) {
 
     def merge(n: Node): Node =
@@ -262,7 +262,7 @@ object Node {
         shapes = n.shapes ++ shapes,
         comments = n.comments ++ comments,
         glyphs = n.glyphs merge glyphs,
-        score = score
+        score = score,
       )
 
     def merge(r: Node.Root): Node.Root =
@@ -270,14 +270,14 @@ object Node {
         shapes = r.shapes ++ shapes,
         comments = r.comments ++ comments,
         glyphs = r.glyphs merge glyphs,
-        score = score
+        score = score,
       )
 
   }
 
   case class GameRootHelper(
       gameMainlineExtensions: Option[Map[Int, GameMainlineExtension]],
-      variations: Option[Map[Int, Children]]
+      variations: Option[Map[Int, Children]],
   )
 
   case class Root(
@@ -291,7 +291,7 @@ object Node {
       score: Option[Score] = None,
       clock: Option[Centis] = None,
       gameMainline: Option[GameMainline],
-      children: Children
+      children: Children,
   ) extends RootOrNode {
 
     def withChildren(f: Children => Option[Children]) =
@@ -366,7 +366,8 @@ object Node {
     def gameMainlinePath: Option[Path] =
       gameMainline.map(gm => mainlinePath.take(gm.usis.size))
 
-    def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.sizeIs > 1
+    def hasMultipleCommentAuthors: Boolean =
+      (comments.authors ::: children.commentAuthors).toSet.sizeIs > 1
 
     def usiOption      = none
     def idOption       = none
@@ -383,7 +384,7 @@ object Node {
         sfen = variant.initialSfen,
         check = false,
         gameMainline = none,
-        children = emptyChildren
+        children = emptyChildren,
       )
 
   }

@@ -10,10 +10,10 @@ import io.lettuce.core._
 final class Env(
     appConfig: Configuration,
     shutdown: CoordinatedShutdown,
-    notification: lila.hub.actors.Notification
+    notification: lila.hub.actors.Notification,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    akka: ActorSystem
+    akka: ActorSystem,
 ) {
 
   private val RedisUri = appConfig.get[String]("socket.redis.uri")

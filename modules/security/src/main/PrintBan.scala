@@ -18,7 +18,7 @@ final class PrintBan(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
         .one(
           $id(hash.value),
           $doc("_id" -> hash.value, "date" -> DateTime.now),
-          upsert = true
+          upsert = true,
         )
         .void
     else coll.delete.one($id(hash.value)).void

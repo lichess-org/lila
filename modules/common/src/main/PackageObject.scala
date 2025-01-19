@@ -10,8 +10,9 @@ trait PackageObject extends Lilaisms {
 
   object makeTimeout {
 
-    import akka.util.Timeout
     import scala.concurrent.duration._
+
+    import akka.util.Timeout
 
     implicit val short: Timeout     = seconds(1)
     implicit val large: Timeout     = seconds(5)

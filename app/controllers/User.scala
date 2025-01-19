@@ -23,7 +23,7 @@ import lila.common.HTTPRequest
 import lila.common.IpAddress
 import lila.common.paginator.Paginator
 import lila.game.Pov
-import lila.game.{Game => GameModel}
+import lila.game.{ Game => GameModel }
 import lila.rating.PerfType
 import lila.socket.UserLagCache
 import lila.user.{ User => UserModel }
@@ -32,7 +32,7 @@ final class User(
     env: Env,
     roundC: => Round,
     gameC: => Game,
-    modC: => Mod
+    modC: => Mod,
 ) extends LilaController(env) {
 
   private def relationApi    = env.relation.api
@@ -70,7 +70,7 @@ final class User(
       EnabledUser(username) { u =>
         negotiate(
           html = renderShow(u),
-          json = apiGames(u, GameFilter.All.name, 1)
+          json = apiGames(u, GameFilter.All.name, 1),
         )
       }
     }
@@ -106,7 +106,7 @@ final class User(
                 nbs = nbs.some,
                 filter = filters.current,
                 me = ctx.me,
-                page = page
+                page = page,
               )(ctx.body, formBinding)
               _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
               _ <- env.tournament.cached.nameCache preloadMany {
@@ -119,17 +119,20 @@ final class User(
                   social <- env.socialInfo(u, ctx)
                   searchForm =
                     (filters.current == GameFilter.Search) option
-                      GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body, formBinding)
+                      GameFilterMenu
+                        .searchForm(userGameSearch, filters.current)(ctx.body, formBinding)
                 } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
                 else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
             } yield res,
-            json = apiGames(u, filter, page)
+            json = apiGames(u, filter, page),
           )
         }
       }
     }
 
-  private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def EnabledUser(
+      username: String,
+  )(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.user.repo named username flatMap {
       case None if isGranted(_.UserSpy)                 => modC.searchTerm(username.trim)
       case None                                         => notFound
@@ -140,7 +143,7 @@ final class User(
             if (erased.value) notFound
             else NotFound(html.user.show.page.disabled(u)).fuccess
           },
-          json = fuccess(NotFound(jsonError("No such user, or account closed")))
+          json = fuccess(NotFound(jsonError("No such user, or account closed"))),
         )
     }
 
@@ -165,11 +168,11 @@ final class User(
                       Ok(
                         Json.obj(
                           "crosstable" -> crosstable,
-                          "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
-                        )
-                      )
+                          "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs),
+                        ),
+                      ),
                     )
-                  }
+                  },
                 )
             }
         else fuccess(Ok(html.user.bits.miniClosed(user)))
@@ -186,10 +189,10 @@ final class User(
             Json.toJson(
               users
                 .take(getInt("nb", req).fold(10)(_ min max))
-                .map(env.user.jsonView(_))
-            )
+                .map(env.user.jsonView(_)),
+            ),
           )
-        }
+        },
       )
     }
 
@@ -218,15 +221,19 @@ final class User(
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10.minutes,
-    key = "user_games.web.ip"
+    key = "user_games.web.ip",
   )
 
   private def userGames(
       u: UserModel,
       filterName: String,
-      page: Int
+      page: Int,
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
-    UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
+    UserGamesRateLimitPerIP(
+      HTTPRequest lastRemoteAddress ctx.req,
+      cost = page,
+      msg = s"on ${u.username}",
+    ) {
       lila.mon.http.userGamesCost.increment(page.toLong)
       for {
         pagFromDb <- env.gamePaginator(
@@ -234,7 +241,7 @@ final class User(
           nbs = none,
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
-          page = page
+          page = page,
         )(ctx.body, formBinding)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany {
@@ -260,11 +267,12 @@ final class User(
                 tourneyWinners = tourneyWinners,
                 online = topOnline,
                 leaderboards = leaderboards,
-                nbAllTime = nbAllTime
-              )
+                nbAllTime = nbAllTime,
+              ),
             ),
           json = fuccess {
-            implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+            implicit val lpWrites =
+              OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
             Ok(
               Json.obj(
                 "bullet"         -> leaderboards.bullet,
@@ -277,10 +285,10 @@ final class User(
                 "chushogi"       -> leaderboards.chushogi,
                 "annanshogi"     -> leaderboards.annanshogi,
                 "kyotoshogi"     -> leaderboards.kyotoshogi,
-                "checkshogi"     -> leaderboards.checkshogi
-              )
+                "checkshogi"     -> leaderboards.checkshogi,
+              ),
             )
-          }
+          },
         )
       }
     }
@@ -288,15 +296,17 @@ final class User(
   def topNb(nb: Int, perfKey: String) =
     Open { implicit ctx =>
       PerfType(perfKey) ?? { perfType =>
-        env.user.cached.top200Perf get perfType.id dmap { _ take (nb atLeast 1 atMost 200) } flatMap {
-          users =>
-            negotiate(
-              html = Ok(html.user.top(perfType, users)).fuccess,
-              json = fuccess {
-                implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
-                Ok(Json.obj("users" -> users))
-              }
-            )
+        env.user.cached.top200Perf get perfType.id dmap {
+          _ take (nb atLeast 1 atMost 200)
+        } flatMap { users =>
+          negotiate(
+            html = Ok(html.user.top(perfType, users)).fuccess,
+            json = fuccess {
+              implicit val lpWrites =
+                OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+              Ok(Json.obj("users" -> users))
+            },
+          )
         }
       }
     }
@@ -307,7 +317,7 @@ final class User(
         html = notFound,
         json = env.user.cached.topWeek.map { users =>
           Ok(Json toJson users.map(env.user.jsonView.lightPerfIsOnline))
-        }
+        },
       )
     }
 
@@ -316,7 +326,9 @@ final class User(
       modZoneOrRedirect(username)
     }
 
-  protected[controllers] def modZoneOrRedirect(username: String)(implicit ctx: Context): Fu[Result] =
+  protected[controllers] def modZoneOrRedirect(
+      username: String,
+  )(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isEventSource ctx.req) renderModZone(username)
     else fuccess(modC.redirect(username))
 
@@ -362,7 +374,9 @@ final class User(
           (isGranted(_.ModNote) ?? env.user.noteApi
             .forMod(familyUserIds)
             .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
-            env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
+            env.playban.api
+              .bans(familyUserIds)
+              .logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy) map {
               case ((notes, bans), othersWithEmail) =>
                 html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
@@ -407,7 +421,7 @@ final class User(
     AuthBody { implicit ctx => me =>
       doWriteNote(username, me)(
         err = _ => user => renderShow(user, Results.BadRequest),
-        suc = Redirect(routes.User.show(username).url + "?note").flashSuccess
+        suc = Redirect(routes.User.show(username).url + "?note").flashSuccess,
       )(ctx.body)
     }
 
@@ -415,13 +429,13 @@ final class User(
     ScopedBody() { implicit req => me =>
       doWriteNote(username, me)(
         err = err => _ => jsonFormErrorDefaultLang(err),
-        suc = jsonOkResult
+        suc = jsonOkResult,
       )
     }
 
   private def doWriteNote(
       username: String,
-      me: UserModel
+      me: UserModel,
   )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
@@ -433,7 +447,7 @@ final class User(
               {
                 val isMod = data.mod && isGranted(_.ModNote, me)
                 env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-              } inject suc
+              } inject suc,
           )
       }
     }
@@ -483,9 +497,11 @@ final class User(
                 }
               }
               ratingChart <- env.history.ratingChartApi(u)
-              _           <- env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
+              _ <- env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
               response <- negotiate(
-                html = Ok(html.user.perfStat(u, ranks, perfType, percentile, perfStat, ratingChart)).fuccess,
+                html = Ok(
+                  html.user.perfStat(u, ranks, perfType, percentile, perfStat, ratingChart),
+                ).fuccess,
                 json = getBool("graph").?? {
                   env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
                 } map {
@@ -493,7 +509,7 @@ final class User(
                   _.fold(data) { graph =>
                     data + ("graph" -> graph)
                   }
-                } map { Ok(_) }
+                } map { Ok(_) },
               )
             } yield response
           }
@@ -531,8 +547,10 @@ final class User(
             else if (getBool("object")) env.user.lightUserApi.asyncMany(userIds) map { users =>
               Json.obj(
                 "result" -> JsArray(users.flatten.map { u =>
-                  lila.common.LightUser.lightUserWrites.writes(u).add("online" -> env.socket.isOnline(u.id))
-                })
+                  lila.common.LightUser.lightUserWrites
+                    .writes(u)
+                    .add("online" -> env.socket.isOnline(u.id))
+                }),
               )
             }
             else fuccess(Json toJson userIds)

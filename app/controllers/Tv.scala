@@ -12,7 +12,7 @@ import lila.game.Pov
 final class Tv(
     env: Env,
     apiC: => Api,
-    gameC: => Game
+    gameC: => Game,
 ) extends LilaController(env) {
 
   def index = onChannel(lila.tv.Tv.Channel.Standard.key)
@@ -55,7 +55,7 @@ final class Tv(
               Ok(html.tv.index(channel, champions, pov, data, cross, history)).noCache
             }
         },
-        json = env.api.roundApi.watcher(pov, none, tv = onTv.some) dmap { Ok(_) }
+        json = env.api.roundApi.watcher(pov, none, tv = onTv.some) dmap { Ok(_) },
       )
     }
   }
@@ -80,16 +80,17 @@ final class Tv(
               ids = gameIds,
               format = lila.api.GameApiV2.Format byRequest req,
               flags = gameC.requestNotationFlags(req, extended = false).copy(delayMoves = false),
-              perSecond = lila.common.config.MaxPerSecond(20)
+              perSecond = lila.common.config.MaxPerSecond(20),
             )
-          noProxyBuffer(Ok.chunked(env.api.gameApiV2.exportByIds(config))).as(gameC.gameContentType(config))
+          noProxyBuffer(Ok.chunked(env.api.gameApiV2.exportByIds(config)))
+            .as(gameC.gameContentType(config))
         }
       }
     }
 
   def feed =
     Action.async {
-      import makeTimeout.short
+      import lila.app.makeTimeout.short
       import akka.pattern.ask
       import lila.round.TvBroadcast
       import play.api.libs.EventSource

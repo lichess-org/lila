@@ -5,13 +5,13 @@ import play.api.libs.json._
 import lila.common.Json.jodaWrites
 import lila.rating.Perf
 import lila.rating.PerfType
-
-import User.{ LightPerf, PlayTime }
+import lila.user.User.LightPerf
+import lila.user.User.PlayTime
 
 final class JsonView(isOnline: lila.socket.IsOnline) {
 
   import JsonView._
-  implicit private val profileWrites: OWrites[Profile]  = Json.writes[Profile]
+  implicit private val profileWrites: OWrites[Profile]   = Json.writes[Profile]
   implicit private val playTimeWrites: OWrites[PlayTime] = Json.writes[PlayTime]
 
   def apply(u: User, onlyPerf: Option[PerfType] = None): JsObject =
@@ -21,7 +21,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
         "username"  -> u.username,
         "online"    -> isOnline(u.id),
         "perfs"     -> perfs(u, onlyPerf),
-        "createdAt" -> u.createdAt
+        "createdAt" -> u.createdAt,
       )
       .add("disabled" -> u.disabled)
       .add("tosViolation" -> u.lame)
@@ -38,7 +38,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
         "id"       -> u.id,
         "username" -> u.username,
         "online"   -> isOnline(u.id),
-        "perfs"    -> perfs(u, onlyPerf)
+        "perfs"    -> perfs(u, onlyPerf),
       )
       .add("title" -> u.title)
       .add("disabled" -> u.disabled)
@@ -67,8 +67,8 @@ object JsonView {
         "id"       -> l.user.id,
         "username" -> l.user.name,
         "perfs" -> Json.obj(
-          l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
-        )
+          l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress),
+        ),
       )
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
@@ -80,7 +80,7 @@ object JsonView {
         "id"       -> u.id,
         "username" -> u.username,
         "title"    -> u.title,
-        "games"    -> u.count.game
+        "games"    -> u.count.game,
       )
       .add("tos" -> u.marks.dirty)
       .add("title" -> u.title)
@@ -92,7 +92,7 @@ object JsonView {
         "games"  -> o.nb,
         "rating" -> o.glicko.rating.toInt,
         "rd"     -> o.glicko.deviation.toInt,
-        "prog"   -> o.progress
+        "prog"   -> o.progress,
       )
       .add("prov" -> o.glicko.provisional)
   }

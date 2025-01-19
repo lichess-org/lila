@@ -13,7 +13,7 @@ case class Bookmark(game: lila.game.Game, user: lila.user.User)
 final class BookmarkApi(
     coll: Coll,
     gameRepo: GameRepo,
-    paginator: PaginatorBuilder
+    paginator: PaginatorBuilder,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private def exists(gameId: Game.ID, userId: User.ID): Fu[Boolean] =
@@ -40,7 +40,8 @@ final class BookmarkApi(
   def removeByGameIds(gameIds: List[Game.ID]): Funit =
     coll.delete.one($doc("g" $in gameIds)).void
 
-  def remove(gameId: Game.ID, userId: User.ID): Funit = coll.delete.one(selectId(gameId, userId)).void
+  def remove(gameId: Game.ID, userId: User.ID): Funit =
+    coll.delete.one(selectId(gameId, userId)).void
   // def remove(selector: Bdoc): Funit = coll.remove(selector).void
 
   def toggle(gameId: Game.ID, userId: User.ID): Funit =
@@ -62,8 +63,8 @@ final class BookmarkApi(
           "_id" -> makeId(gameId, userId),
           "g"   -> gameId,
           "u"   -> userId,
-          "d"   -> date
-        )
+          "d"   -> date,
+        ),
       )
       .void
 

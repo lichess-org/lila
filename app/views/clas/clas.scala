@@ -17,9 +17,9 @@ object clas {
     views.html.base.layout(
       moreCss = frag(
         cssTag("misc.page"),
-        cssTag("misc.clas")
+        cssTag("misc.clas"),
       ),
-      title = trans.clas.lishogiClasses.txt()
+      title = trans.clas.lishogiClasses.txt(),
     ) {
       main(cls := "page-small box box-pad page clas-home")(
         h1(trans.clas.lishogiClasses()),
@@ -30,14 +30,14 @@ object clas {
             li(trans.clas.quicklyGenerateSafeUsernames()),
             li(trans.clas.trackStudentProgress()),
             li(trans.clas.messageAllStudents()),
-            li(trans.clas.freeForAllForever())
-          )
+            li(trans.clas.freeForAllForever()),
+          ),
         ),
         div(cls := "clas-home__onboard")(
           postForm(action := routes.Clas.becomeTeacher)(
-            submitButton(cls := "button button-fat")(trans.clas.applyToBeLishogiTeacher())
-          )
-        )
+            submitButton(cls := "button button-fat")(trans.clas.applyToBeLishogiTeacher()),
+          ),
+        ),
       )
     }
 
@@ -50,20 +50,20 @@ object clas {
           href     := routes.Clas.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
-          dataIcon := "O"
-        )
+          dataIcon := "O",
+        ),
       ),
       if (classes.isEmpty)
         frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
       else
-        renderClasses(classes)
+        renderClasses(classes),
     )
 
   def studentIndex(classes: List[Clas])(implicit ctx: Context) =
     bits.layout(trans.clas.lishogiClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(h1(trans.clas.lishogiClasses())),
-      renderClasses(classes)
+      renderClasses(classes),
     )
 
   private def renderClasses(classes: List[Clas]) =
@@ -71,77 +71,84 @@ object clas {
       classes.map { clas =>
         div(
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
-          dataIcon := "f"
+          dataIcon := "f",
         )(
           a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
           div(
             h3(clas.name),
-            p(clas.desc)
-          )
+            p(clas.desc),
+          ),
         )
-      }
+      },
     )
 
   def teachers(clas: Clas)(implicit lang: Lang) =
     div(cls := "clas-teachers")(
       trans.clas.teachersX(
-        fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
-      )
+        fragList(clas.teachers.toList.map(t => userIdLink(t.some))),
+      ),
     )
 
   def create(form: Form[ClasData])(implicit ctx: Context) =
     bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
       cls := "box-pad",
       h1(trans.clas.newClass()),
-      innerForm(form, none)
+      innerForm(form, none),
     )
 
-  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(implicit ctx: Context) =
+  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(implicit
+      ctx: Context,
+  ) =
     teacherDashboard.layout(c, students, "edit")(
       div(cls := "box-pad")(
         innerForm(form, c.some),
         hr,
         c.isActive option postForm(
           action := routes.Clas.archive(c.id.value, true),
-          cls    := "clas-edit__archive"
+          cls    := "clas-edit__archive",
         )(
           form3.submit(trans.clas.closeClass(), icon = none)(
-            cls := "confirm button-red button-empty"
-          )
-        )
-      )
+            cls := "confirm button-red button-empty",
+          ),
+        ),
+      ),
     )
 
-  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[_])(implicit ctx: Context) =
+  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[_])(implicit
+      ctx: Context,
+  ) =
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
           strong(trans.clas.sendAMessage()),
           br,
-          trans.clas.aLinkToTheClassWillBeAdded()
+          trans.clas.aLinkToTheClassWillBeAdded(),
         ),
         postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
           form3.globalError(form),
           form3.group(
             form("text"),
-            frag(trans.message())
+            frag(trans.message()),
           )(form3.textarea(_)(rows := 3)),
           form3.actions(
             a(href := routes.Clas.wall(c.id.value))(trans.cancel()),
-            form3.submit(trans.send())
-          )
-        )
-      )
+            form3.submit(trans.send()),
+          ),
+        ),
+      ),
     )
 
   private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
-    postForm(cls := "form3", action := clas.fold(routes.Clas.create)(c => routes.Clas.update(c.id.value)))(
+    postForm(
+      cls    := "form3",
+      action := clas.fold(routes.Clas.create)(c => routes.Clas.update(c.id.value)),
+    )(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
       form3.group(
         form("desc"),
         frag(trans.clas.classDescription()),
-        help = trans.clas.visibleByBothStudentsAndTeachers().some
+        help = trans.clas.visibleByBothStudentsAndTeachers().some,
       )(form3.textarea(_)(rows := 5)),
       clas match {
         case None => form3.hidden(form("teachers"), ctx.userId)
@@ -152,13 +159,13 @@ object clas {
             help = frag(
               trans.clas.addLishogiUsernames(),
               br,
-              trans.clas.theyMustFirstApply()
-            ).some
+              trans.clas.theyMustFirstApply(),
+            ).some,
           )(form3.textarea(_)(rows := 4))
       },
       form3.actions(
         a(href := clas.fold(routes.Clas.index)(c => routes.Clas.show(c.id.value)))(trans.cancel()),
-        form3.submit(trans.apply())
-      )
+        form3.submit(trans.apply()),
+      ),
     )
 }

@@ -8,7 +8,7 @@ import akka.stream.scaladsl._
 
 final private class StartedNonArenaOrganizer(
     api: TournamentApi,
-    tournamentRepo: TournamentRepo
+    tournamentRepo: TournamentRepo,
 )(implicit mat: akka.stream.Materializer)
     extends Actor {
 

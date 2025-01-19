@@ -9,7 +9,7 @@ trait CursorExt { self: dsl =>
 
   // Can be refactor as CursorProducer
   implicit final class ExtendCursor[A: BSONDocumentReader](val c: Cursor[A])(implicit
-      ec: scala.concurrent.ExecutionContext
+      ec: scala.concurrent.ExecutionContext,
   ) {
 
     // like collect, but with stopOnError defaulting to false
@@ -26,7 +26,7 @@ trait CursorExt { self: dsl =>
     def uno: Fu[Option[A]] =
       c.collect[Iterable](
         1,
-        Cursor.ContOnError[Iterable[A]]()
+        Cursor.ContOnError[Iterable[A]](),
       ).map(_.headOption)
   }
 }

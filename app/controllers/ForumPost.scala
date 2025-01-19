@@ -43,14 +43,21 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                     canModCateg <- isGrantedMod(categ.slug)
                   } yield BadRequest(
                     html.forum.topic
-                      .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
+                      .show(
+                        categ,
+                        topic,
+                        posts,
+                        Some(err -> captcha),
+                        unsub,
+                        canModCateg = canModCateg,
+                      ),
                   ),
                 data =>
                   CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
                     postApi.makePost(categ, topic, data) map { post =>
                       Redirect(routes.ForumPost.redirect(post.id))
                     }
-                  }(rateLimitedFu)
+                  }(rateLimitedFu),
               )
         }
       }
@@ -68,7 +75,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               postApi.editPost(postId, data.changes, me).map { post =>
                 Redirect(routes.ForumPost.redirect(post.id))
               }
-            }(rateLimitedFu)
+            }(rateLimitedFu),
         )
     }
 
@@ -90,8 +97,9 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def redirect(id: String) =
     Open { implicit ctx =>
-      OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
-        Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
+      OptionResult(postApi.urlData(id, ctx.me)) {
+        case lila.forum.PostUrlData(categ, topic, page, number) =>
+          Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
       }
     }
 }

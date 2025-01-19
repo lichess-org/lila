@@ -14,23 +14,23 @@ object index {
       email: Option[lila.common.EmailAddress],
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
-      bestIds: List[String]
+      bestIds: List[String],
   )(implicit ctx: Context) = {
 
     views.html.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("misc.plan"),
       moreJs = frag(
-        jsTag("misc.checkout")
+        jsTag("misc.checkout"),
       ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
           url = s"$netBaseUrl${routes.Plan.index.url}",
-          description = freeShogi.txt()
+          description = freeShogi.txt(),
         )
         .some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(cls := "page-menu plan")(
         st.aside(cls := "page-menu__menu recent-patrons")(
@@ -38,8 +38,8 @@ object index {
           div(cls := "list")(
             recentIds.map { userId =>
               div(userIdLink(userId.some))
-            }
-          )
+            },
+          ),
         ),
         div(cls := "page-menu__content box")(
           patron.ifTrue(ctx.me.??(_.isPatron)).map { p =>
@@ -53,31 +53,31 @@ object index {
                     frag(
                       patronUntil(showDate(expires)),
                       br,
-                      ifNotRenewed()
+                      ifNotRenewed(),
                     )
-                  }
+                  },
               ),
-              iconTag(patronIconChar)
+              iconTag(patronIconChar),
             )
           } getOrElse div(cls := "banner moto")(
             iconTag(patronIconChar),
             div(
               h1(freeShogi()),
-              p(noAdsNoSubs())
+              p(noAdsNoSubs()),
             ),
-            iconTag(patronIconChar)
+            iconTag(patronIconChar),
           ),
           div(cls := "box__pad")(
             div(cls := "wrapper")(
               div(cls := "text")(
-                p(if (ctx.isAuth) weRelyOnSupport() else donationSupport())
+                p(if (ctx.isAuth) weRelyOnSupport() else donationSupport()),
               ),
               div(cls := "content")(
                 div(
                   cls                         := "plan_checkout",
                   attr("data-email")          := email.map(_.value),
                   attr("data-lifetime-usd")   := lila.plan.Cents.lifetime.usd.toString,
-                  attr("data-lifetime-cents") := lila.plan.Cents.lifetime.value
+                  attr("data-lifetime-cents") := lila.plan.Cents.lifetime.value,
                 )(
                   raw(s"""
 <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -132,8 +132,8 @@ object index {
                   st.group(
                     cls := List(
                       "radio buttons freq" -> true,
-                      "anon"               -> ctx.isAnon
-                    )
+                      "anon"               -> ctx.isAnon,
+                    ),
                   )(
                     div(
                       st.title := payLifetimeOnce.txt(lila.plan.Cents.lifetime.usd),
@@ -143,9 +143,9 @@ object index {
                         name := "freq",
                         id   := "freq_lifetime",
                         patron.exists(_.isLifetime) option disabled,
-                        value := "lifetime"
+                        value := "lifetime",
                       ),
-                      label(`for` := "freq_lifetime")(lifetime())
+                      label(`for` := "freq_lifetime")(lifetime()),
                     ),
                     div(
                       st.title := recurringBilling.txt(),
@@ -154,9 +154,9 @@ object index {
                         name := "freq",
                         id   := "freq_monthly",
                         checked,
-                        value := "monthly"
+                        value := "monthly",
                       ),
-                      label(`for` := "freq_monthly")(monthly())
+                      label(`for` := "freq_monthly")(monthly()),
                     ),
                     div(
                       st.title := singleDonation.txt(),
@@ -165,10 +165,10 @@ object index {
                         name := "freq",
                         id   := "freq_onetime",
                         checked,
-                        value := "onetime"
+                        value := "onetime",
                       ),
-                      label(`for` := "freq_onetime")(onetime())
-                    )
+                      label(`for` := "freq_onetime")(onetime()),
+                    ),
                   ),
                   div(cls := "amount_choice")(
                     st.group(cls := "radio buttons amount")(
@@ -182,54 +182,54 @@ object index {
                             cents.usd.value == 10 option checked,
                             value               := cents.value,
                             attr("data-usd")    := cents.usd.toString,
-                            attr("data-amount") := cents.value
+                            attr("data-amount") := cents.value,
                           ),
-                          label(`for` := id)(cents.usd.toString)
+                          label(`for` := id)(cents.usd.toString),
                         )
                       },
-                      div(cls     := "other")(
+                      div(cls := "other")(
                         input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
                         label(
                           `for`                    := "plan_other",
                           title                    := pleaseEnterAmount.txt(),
-                          attr("data-trans-other") := otherAmount.txt()
-                        )(otherAmount())
-                      )
-                    )
+                          attr("data-trans-other") := otherAmount.txt(),
+                        )(otherAmount()),
+                      ),
+                    ),
                   ),
                   div(cls := "amount_fixed none")(
                     st.group(cls := "radio buttons amount")(
                       div {
                         val cents = lila.plan.Cents.lifetime
                         label(`for` := s"plan_${cents.value}")(cents.usd.toString)
-                      }
-                    )
+                      },
+                    ),
                   ),
                   div(cls := "service")(
                     button(
                       cls := List(
                         "paypal button" -> true,
-                        "disabled"      -> ctx.isAnon
-                      )
-                    )(withPaypal())
+                        "disabled"      -> ctx.isAnon,
+                      ),
+                    )(withPaypal()),
                   ),
                   ctx.isAnon option div(cls := "confirm-policy")(
                     label(
                       frag(
                         input(
                           tpe := "checkbox",
-                          cls := "regular-checkbox"
+                          cls := "regular-checkbox",
                         ),
                         trans.agreeWithX(
                           a(href := routes.Page.donations, target := "_blank")(
-                            donationPolicy()
-                          )
-                        )
-                      )
-                    )
-                  )
-                )
-              )
+                            donationPolicy(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
             p(id := "error")(),
             ctx.isAuth option p(cls := "small_team")(weAreSmallTeam()),
@@ -239,11 +239,11 @@ object index {
               div(cls := "list")(
                 bestIds.map { userId =>
                   div(userIdLink(userId.some))
-                }
-              )
-            )
-          )
-        )
+                },
+              ),
+            ),
+          ),
+        ),
       )
     }
   }
@@ -253,27 +253,27 @@ object index {
       ctx.isAuth option dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
-        )
+          changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport())),
+        ),
       ),
       dl(
         dt(otherMethods()),
         dd(
           frag(trans.yes(), " - "),
           a(cls := "patreon", href := "https://www.patreon.com/lishogi", target := "_blank")(
-            "Patreon"
+            "Patreon",
           ),
           ".",
-          ctx.isAuth option " Donations through Patreon will be handled manually within few days."
-        )
+          ctx.isAuth option " Donations through Patreon will be handled manually within few days.",
+        ),
       ),
       dl(
         dt(patronFeatures()),
         dd(
           if (ctx.isAuth) frag(noPatronFeatures(), br) else frag(trans.no(), ". "),
           a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
-          "."
-        )
-      )
+          ".",
+        ),
+      ),
     )
 }

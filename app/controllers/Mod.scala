@@ -18,16 +18,16 @@ import lila.common.HTTPRequest
 import lila.common.IpAddress
 import lila.mod.UserSearch
 import lila.report.Suspect
-import lila.report.{Mod => AsMod}
+import lila.report.{ Mod => AsMod }
 import lila.security.FingerHash
 import lila.security.Permission
 import lila.user.Title
-import lila.user.{User => UserModel}
+import lila.user.{ User => UserModel }
 
 final class Mod(
     env: Env,
     reportC: => Report,
-    userC: => User
+    userC: => User,
 ) extends LilaController(env) {
 
   private def modApi    = env.mod.api
@@ -46,7 +46,7 @@ final class Mod(
     }(ctx =>
       me => { case (inquiry, suspect) =>
         reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
-      }
+      },
     )
 
   def engine(username: String, v: Boolean) =
@@ -60,7 +60,7 @@ final class Mod(
     }(ctx =>
       me => { case (inquiry, suspect) =>
         reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
-      }
+      },
     )
 
   def publicChat =
@@ -81,7 +81,7 @@ final class Mod(
     }(ctx =>
       me => { case (inquiry, suspect) =>
         reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
-      }
+      },
     )
 
   def troll(username: String, v: Boolean) =
@@ -95,7 +95,7 @@ final class Mod(
     }(ctx =>
       me => { case (inquiry, suspect) =>
         reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
-      }
+      },
     )
 
   def warn(username: String, subject: String) =
@@ -113,7 +113,7 @@ final class Mod(
     }(ctx =>
       me => { case (inquiry, suspect) =>
         reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
-      }
+      },
     )
 
   def kid(username: String) =
@@ -188,7 +188,7 @@ final class Mod(
             modApi.setTitle(me.id, username, title map Title.apply) >>
               env.security.automaticEmail.onTitleSet(username) >>-
               env.user.lightUserApi.invalidate(UserModel normalize username) inject
-              redirect(username, mod = false)
+              redirect(username, mod = false),
         )
     }
 
@@ -204,8 +204,11 @@ final class Mod(
             rawEmail => {
               val email = env.security.emailAddressValidator
                 .validate(EmailAddress(rawEmail)) err s"Invalid email ${rawEmail}"
-              modApi.setEmail(me.id, user.id, email.acceptable) inject redirect(user.username, mod = true)
-            }
+              modApi.setEmail(me.id, user.id, email.acceptable) inject redirect(
+                user.username,
+                mod = true,
+              )
+            },
           )
       }
     }
@@ -257,7 +260,7 @@ final class Mod(
                     publicLines,
                     notes,
                     history,
-                    priv
+                    priv,
                   )
               }
           }
@@ -319,7 +322,7 @@ final class Mod(
       f.bindFromRequest()
         .fold(
           err => BadRequest(html.mod.search(err, Nil)).fuccess,
-          query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
+          query => env.mod.search(query) map { html.mod.search(f.fill(query), _) },
         )
     }
 
@@ -355,7 +358,9 @@ final class Mod(
         users      <- env.user.repo usersFromSecondary uids.reverse
         withEmails <- env.user.repo withEmailsU users
         uas        <- env.security.api.ipUas(address)
-      } yield Ok(html.mod.search.ip(address, withEmails, uas, env.security.firewall blocksIp address))
+      } yield Ok(
+        html.mod.search.ip(address, withEmails, uas, env.security.firewall blocksIp address),
+      )
     }
 
   def singleIpBan(v: Boolean, ip: String) =
@@ -388,7 +393,7 @@ final class Mod(
       import lila.security.Permission
       OptionFuResult(env.user.repo named username) { user =>
         Form(
-          single("permissions" -> list(text.verifying(Permission.allByDbKey.contains _)))
+          single("permissions" -> list(text.verifying(Permission.allByDbKey.contains _))),
         ).bindFromRequest()
           .fold(
             _ => BadRequest(html.mod.permissions(user, me)).fuccess,
@@ -397,9 +402,10 @@ final class Mod(
               modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
                 newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
               } >> {
-                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
+                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api
+                  .setLifetime(user)
               } inject Redirect(routes.Mod.permissions(username)).flashSuccess
-            }
+            },
           )
       }
     }
@@ -455,8 +461,10 @@ final class Mod(
       _ ?? f
     }
 
-  private def OAuthMod[A](perm: Permission.Selector)(f: RequestHeader => UserModel => Fu[Option[A]])(
-      secure: Context => UserModel => A => Fu[Result]
+  private def OAuthMod[A](
+      perm: Permission.Selector,
+  )(f: RequestHeader => UserModel => Fu[Option[A]])(
+      secure: Context => UserModel => A => Fu[Result],
   ): Action[Unit] =
     SecureOrScoped(perm)(
       secure = ctx => me => f(ctx.req)(me) flatMap { _ ?? secure(ctx)(me) },
@@ -464,10 +472,10 @@ final class Mod(
         me =>
           f(req)(me) flatMap { res =>
             res.isDefined ?? fuccess(jsonOkResult)
-          }
+          },
     )
   private def OAuthModBody[A](perm: Permission.Selector)(f: UserModel => Fu[Option[A]])(
-      secure: BodyContext[_] => UserModel => A => Fu[Result]
+      secure: BodyContext[_] => UserModel => A => Fu[Result],
   ): Action[AnyContent] =
     SecureOrScopedBody(perm)(
       secure = ctx => me => f(me) flatMap { _ ?? secure(ctx)(me) },
@@ -475,11 +483,11 @@ final class Mod(
         me =>
           f(me) flatMap { res =>
             res.isDefined ?? fuccess(jsonOkResult)
-          }
+          },
     )
 
   private def actionResult(
-      username: String
+      username: String,
   )(ctx: Context)(@nowarn("cat=unused") user: UserModel)(@nowarn("cat=unused") res: Any) =
     if (HTTPRequest isSynchronousHttp ctx.req) fuccess(redirect(username))
     else userC.renderModZoneActions(username)(ctx)

@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 final private class VideoSheet(
     ws: WSClient,
     url: String,
-    api: VideoApi
+    api: VideoApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import VideoSheet._
@@ -29,7 +29,7 @@ final private class VideoSheet(
                   tags = entry.tags,
                   lang = entry.lang,
                   ads = entry.ads,
-                  startTime = entry.startTime
+                  startTime = entry.startTime,
                 )
                 (video != updated) ?? {
                   logger.info(s"sheet update $updated")
@@ -46,7 +46,7 @@ final private class VideoSheet(
                   ads = entry.ads,
                   startTime = entry.startTime,
                   metadata = Youtube.empty,
-                  createdAt = DateTime.now
+                  createdAt = DateTime.now,
                 )
                 logger.info(s"sheet insert $video")
                 api.video.save(video)
@@ -72,7 +72,7 @@ final private class VideoSheet(
                 input = line,
                 escapeChar = '"',
                 delimiter = ',',
-                quoteChar = '"'
+                quoteChar = '"',
               )
             }
             .flatMap { parsed =>
@@ -94,7 +94,7 @@ final private class VideoSheet(
                       lang = lang.trim,
                       include = include.trim == "yes",
                       startTime = ~start.trim.toIntOption,
-                      ads = ads.trim == "yes"
+                      ads = ads.trim == "yes",
                     ).some
                   case _ => none
                 }
@@ -119,6 +119,6 @@ object VideoSheet {
       lang: String,
       include: Boolean,
       startTime: Int,
-      ads: Boolean
+      ads: Boolean,
   )
 }

@@ -1,10 +1,12 @@
 package lila.study
 
-import shogi.format.forsyth.Sfen
-import shogi.format.usi.{ Usi, UsiCharPair }
-import shogi.variant
 import Node._
 import org.specs2.mutable._
+
+import shogi.format.forsyth.Sfen
+import shogi.format.usi.Usi
+import shogi.format.usi.UsiCharPair
+import shogi.variant
 
 class NotationDumpTest extends Specification {
 
@@ -13,7 +15,7 @@ class NotationDumpTest extends Specification {
     comments = true,
     variations = true,
     shiftJis = false,
-    clocks = true
+    clocks = true,
   )
 
   val P = NotationDump
@@ -27,7 +29,7 @@ class NotationDumpTest extends Specification {
       check = false,
       clock = None,
       children = children,
-      forceVariation = false
+      forceVariation = false,
     )
 
   def children(nodes: Node*) = Children(nodes.toVector)
@@ -49,8 +51,8 @@ class NotationDumpTest extends Specification {
       val tree = root.copy(children =
         children(
           node(1, "5g5f"),
-          node(1, "7i6h")
-        )
+          node(1, "7i6h"),
+        ),
       )
       P.toMoves(tree, variant.Standard) must beLike { case Vector(move) =>
         move.usiWithRole.usi.usi must_== "5g5f"
@@ -67,11 +69,11 @@ class NotationDumpTest extends Specification {
             1,
             "5g5f",
             children(
-              node(2, "3c3d")
-            )
+              node(2, "3c3d"),
+            ),
           ),
-          node(1, "7i6h")
-        )
+          node(1, "7i6h"),
+        ),
       )
       P.toMoves(tree, variant.Standard) must beLike { case Vector(sente, gote) =>
         sente.usiWithRole.usi.usi must_== "5g5f"
@@ -91,11 +93,11 @@ class NotationDumpTest extends Specification {
             "5g5f",
             children(
               node(2, "3c3d"),
-              node(2, "5c5d")
-            )
+              node(2, "5c5d"),
+            ),
           ),
-          node(1, "7i6h")
-        )
+          node(1, "7i6h"),
+        ),
       )
 
       P.toMoves(tree, variant.Standard) must beLike { case Vector(sente, gote) =>
@@ -123,17 +125,17 @@ class NotationDumpTest extends Specification {
                 "3c3d",
                 children(
                   node(3, "9g9f"),
-                  node(3, "8g8f")
-                )
+                  node(3, "8g8f"),
+                ),
               ),
               node(
                 2,
                 "5c5d",
                 children(
-                  node(3, "2h5h")
-                )
-              )
-            )
+                  node(3, "2h5h"),
+                ),
+              ),
+            ),
           ),
           node(
             1,
@@ -144,12 +146,12 @@ class NotationDumpTest extends Specification {
                 2,
                 "8c8d",
                 children(
-                  node(3, "7g7f")
-                )
-              )
-            )
-          )
-        )
+                  node(3, "7g7f"),
+                ),
+              ),
+            ),
+          ),
+        ),
       )
 
       P.toMoves(tree, variant.Standard) must beLike { case Vector(s1, g1, s2) =>

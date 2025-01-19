@@ -13,20 +13,23 @@ object message {
       title: String,
       back: Option[String] = None,
       icon: Option[String] = None,
-      moreCss: Option[Frag] = None
+      moreCss: Option[Frag] = None,
   )(message: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = ~moreCss
+      moreCss = ~moreCss,
     ) {
       main(cls := "box box-pad")(
-        h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(
+        h1(
+          dataIcon := icon ifTrue back.isEmpty,
+          cls      := List("text" -> (icon.isDefined && back.isEmpty)),
+        )(
           back map { url =>
             a(href := url, dataIcon := "I", cls := "text")
           },
-          title
+          title,
         ),
-        p(message)
+        p(message),
       )
     }
 
@@ -53,26 +56,26 @@ object message {
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(
       title = s"${usernameOrId(study.ownerId)}'s study",
-      back = routes.Study.allDefault(1).url.some
+      back = routes.Study.allDefault(1).url.some,
     )(
       "Sorry! This study is private, you cannot access it.",
       isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id.value))(
-        submitButton("View as admin")(cls            := "button button-red")
-      )
+        submitButton("View as admin")(cls := "button button-red"),
+      ),
     )
 
   def streamingMod(implicit ctx: Context) =
     apply("Disabled while streaming") {
       frag(
         "This moderation feature is disabled while streaming, ",
-        "to avoid leaking sensible information."
+        "to avoid leaking sensible information.",
       )
     }
 
   def challengeDenied(msg: String)(implicit ctx: Context) =
     apply(
       title = trans.challengeToPlay.txt(),
-      back = routes.Lobby.home.url.some
+      back = routes.Lobby.home.url.some,
     )(msg)
 
   def teamCreateLimit(implicit ctx: Context) =
@@ -92,6 +95,6 @@ object message {
 
   def temporarilyDisabled(implicit ctx: Context) =
     apply("Temporarily disabled")(
-      "Sorry, his feature is temporarily disabled while we figure out a way to bring it back."
+      "Sorry, his feature is temporarily disabled while we figure out a way to bring it back.",
     )
 }

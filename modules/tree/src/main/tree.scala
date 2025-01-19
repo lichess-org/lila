@@ -51,7 +51,7 @@ case class Root(
     gamebook: Option[Node.Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
     children: List[Branch] = Nil,
-    clock: Option[Centis] = None // clock state at game start, assumed same for both players
+    clock: Option[Centis] = None, // clock state at game start, assumed same for both players
 ) extends Node {
 
   def idOption       = None
@@ -61,7 +61,7 @@ case class Root(
 
   def addChild(branch: Branch)     = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild               = copy(children = if (children.isEmpty) children else children.tail)
+  def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
 }
 
 case class Branch(
@@ -78,15 +78,15 @@ case class Branch(
     children: List[Branch] = Nil,
     comp: Boolean = false,
     clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
-    forceVariation: Boolean = false // cannot be mainline
+    forceVariation: Boolean = false, // cannot be mainline
 ) extends Node {
 
-  def idOption   = Some(id)
-  def usiOption  = Some(usi)
+  def idOption  = Some(id)
+  def usiOption = Some(usi)
 
   def addChild(branch: Branch)     = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild               = copy(children = if (children.isEmpty) children else children.tail)
+  def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
 
   def setComp = copy(comp = true)
 }
@@ -95,12 +95,12 @@ object Node {
 
   sealed trait Shape
   object Shape {
-    type ID    = String
-    type Brush = String
+    type ID         = String
+    type Brush      = String
     type PosOrPiece = Either[Pos, Piece]
 
     case class Circle(brush: Brush, pos: PosOrPiece, piece: Option[Piece]) extends Shape
-    case class Arrow(brush: Brush, orig: PosOrPiece, dest: PosOrPiece) extends Shape
+    case class Arrow(brush: Brush, orig: PosOrPiece, dest: PosOrPiece)     extends Shape
   }
   case class Shapes(value: List[Shape]) extends AnyVal {
     def list = value
@@ -168,7 +168,7 @@ object Node {
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
 
     def hasLishogiComment = value.exists(_.by == Comment.Author.Lishogi)
-    def authors = value.filterNot(_.by == Comment.Author.Lishogi).map(_.by)
+    def authors           = value.filterNot(_.by == Comment.Author.Lishogi).map(_.by)
   }
   object Comments {
     val empty = Comments(Nil)
@@ -179,7 +179,7 @@ object Node {
     def cleanUp =
       copy(
         deviation = trimOrNone(deviation),
-        hint = trimOrNone(hint)
+        hint = trimOrNone(hint),
       )
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
   }
@@ -190,11 +190,11 @@ object Node {
   implicit private val pieceWrites: Writes[Piece] = Writes[Piece] { p =>
     Json.obj(
       "role"  -> p.role.name,
-      "color" -> p.color.name
+      "color" -> p.color.name,
     )
   }
   implicit private val shapePieceOrPosWrites: Writes[Shape.PosOrPiece] = Writes[Shape.PosOrPiece] {
-    case Left(pos) => posWrites.writes(pos)
+    case Left(pos)    => posWrites.writes(pos)
     case Right(piece) => pieceWrites.writes(piece)
   }
   implicit private val shapeCircleWrites: Writes[Shape.Circle] = Writes { c =>
@@ -202,10 +202,10 @@ object Node {
       "brush" -> c.brush,
       "orig"  -> c.pos,
       "dest"  -> c.pos,
-      "piece" -> c.piece
+      "piece" -> c.piece,
     )
   }
-  implicit private val shapeArrowWrites: OWrites[Shape.Arrow]  = Json.writes[Shape.Arrow]
+  implicit private val shapeArrowWrites: OWrites[Shape.Arrow] = Json.writes[Shape.Arrow]
   implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
     case s: Shape.Arrow  => shapeArrowWrites writes s
@@ -233,11 +233,12 @@ object Node {
     case Comment.Author.Lishogi        => JsString("lishogi")
     case Comment.Author.Unknown        => JsNull
   }
-  implicit val commentWriter: OWrites[Comment]  = Json.writes[Node.Comment]
+  implicit val commentWriter: OWrites[Comment]   = Json.writes[Node.Comment]
   implicit val gamebookWriter: OWrites[Gamebook] = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
-  @inline implicit private def toPimpedJsObject(jo: JsObject): PimpedJsObject = new lila.base.PimpedJsObject(jo)
+  @inline implicit private def toPimpedJsObject(jo: JsObject): PimpedJsObject =
+    new lila.base.PimpedJsObject(jo)
 
   implicit val defaultNodeJsonWriter: Writes[Node] =
     makeNodeJsonWriter(alwaysChildren = true)
@@ -259,7 +260,7 @@ object Node {
         Json
           .obj(
             "ply"  -> ply,
-            "sfen" -> sfen
+            "sfen" -> sfen,
           )
           .add("id", idOption.map(_.toString))
           .add("usi", usiOption.map(_.usi))
@@ -276,7 +277,7 @@ object Node {
             if (alwaysChildren || children.nonEmpty) Some {
               nodeListJsonWriter(true) writes children
             }
-            else None
+            else None,
           )
           .add("forceVariation", forceVariation)
       } catch {

@@ -7,10 +7,10 @@ import akka.stream.scaladsl._
 
 final private class CreatedOrganizer(
     api: TournamentApi,
-    tournamentRepo: TournamentRepo
+    tournamentRepo: TournamentRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) extends Actor {
 
   override def preStart(): Unit = {

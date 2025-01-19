@@ -5,7 +5,7 @@ import lila.blog.BlogLang
 
 final class Page(
     env: Env,
-    prismicC: Prismic
+    prismicC: Prismic,
 ) extends LilaController(env) {
 
   val thanks    = helpDocument("thanks")
@@ -78,9 +78,9 @@ final class Page(
           Json.obj(
             "id"   -> v.id,
             "key"  -> v.key,
-            "name" -> v.name
+            "name" -> v.name,
           )
-        })).fuccess
+        })).fuccess,
       )
     }
 

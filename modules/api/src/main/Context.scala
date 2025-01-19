@@ -20,7 +20,7 @@ case class PageData(
     hasClas: Boolean,
     inquiry: Option[lila.mod.Inquiry],
     nonce: Option[Nonce],
-    error: Boolean = false
+    error: Boolean = false,
 )
 
 object PageData {
@@ -35,7 +35,7 @@ object PageData {
       hasFingerprint = false,
       hasClas = false,
       inquiry = none,
-      nonce = nonce
+      nonce = nonce,
     )
 
   def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
@@ -88,12 +88,12 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
 sealed abstract class BaseContext(
     val userContext: lila.user.UserContext,
-    val pageData: PageData
+    val pageData: PageData,
 ) extends Context
 
 final class BodyContext[A](
     val bodyContext: BodyUserContext[A],
-    data: PageData
+    data: PageData,
 ) extends BaseContext(bodyContext, data) {
 
   def body = bodyContext.body
@@ -103,7 +103,7 @@ final class BodyContext[A](
 
 final class HeaderContext(
     headerContext: HeaderUserContext,
-    data: PageData
+    data: PageData,
 ) extends BaseContext(headerContext, data) {
 
   def withLang(l: Lang) = new HeaderContext(headerContext withLang l, data)

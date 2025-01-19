@@ -11,50 +11,57 @@ import lila.user.User
 
 object bits {
 
-  def best(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context) =
+  def best(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit
+      ctx: Context,
+  ) =
     layout(
       u,
       title = s"${u.username} best tournaments",
       path = "best",
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     ) {
       views.html.userTournament.list(u, "best", pager, "BEST")
     }
 
-  def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context) =
+  def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit
+      ctx: Context,
+  ) =
     layout(
       u,
       title = s"${u.username} recent tournaments",
       path = "recent",
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     ) {
       views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
     }
 
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(
-      body: Frag
+      body: Frag,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("user.tournament"),
-      moreJs = moreJs
+      moreJs = moreJs,
     ) {
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
-          a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
-            "Created"
+          a(
+            cls  := path.active("created"),
+            href := routes.UserTournament.path(u.username, "created"),
+          )(
+            "Created",
           ),
           a(cls := path.active("recent"), href := routes.UserTournament.path(u.username, "recent"))(
-            "Recently played"
+            "Recently played",
           ),
           a(cls := path.active("best"), href := routes.UserTournament.path(u.username, "best"))(
-            "Best results"
+            "Best results",
           ),
           a(cls := path.active("chart"), href := routes.UserTournament.path(u.username, "chart"))(
-            "Stats"
-          )
+            "Stats",
+          ),
         ),
-        div(cls := "page-menu__content box")(body)
+        div(cls := "page-menu__content box")(body),
       )
     }
 }

@@ -36,13 +36,15 @@ class CommentParserTest extends Specification {
       C("Hello there") must_== C.ParsedComment(Shapes(Nil), "Hello there")
     }
     "at start" in {
-      C("[%csl G4b,Y5d,R6f] Hello there") must beLike { case C.ParsedComment(shapes, "Hello there") =>
-        shapes.value must haveSize(3)
+      C("[%csl G4b,Y5d,R6f] Hello there") must beLike {
+        case C.ParsedComment(shapes, "Hello there") =>
+          shapes.value must haveSize(3)
       }
     }
     "at end" in {
-      C("Hello there [%csl G4b,Y5d,R6f]") must beLike { case C.ParsedComment(shapes, "Hello there") =>
-        shapes.value must haveSize(3)
+      C("Hello there [%csl G4b,Y5d,R6f]") must beLike {
+        case C.ParsedComment(shapes, "Hello there") =>
+          shapes.value must haveSize(3)
       }
     }
     "multiple" in {
@@ -51,8 +53,9 @@ class CommentParserTest extends Specification {
       }
     }
     "new lines" in {
-      C("Hello there [%csl\nG4b,Y5d,R6f]") must beLike { case C.ParsedComment(shapes, "Hello there") =>
-        shapes.value must haveSize(3)
+      C("Hello there [%csl\nG4b,Y5d,R6f]") must beLike {
+        case C.ParsedComment(shapes, "Hello there") =>
+          shapes.value must haveSize(3)
       }
     }
     "multiple, one new line" in {

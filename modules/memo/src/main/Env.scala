@@ -9,14 +9,14 @@ import lila.common.config._
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,
-    @ConfigName("collection.config") val configColl: CollName
+    @ConfigName("collection.config") val configColl: CollName,
 )
 
 @Module
 final class Env(
     appConfig: Configuration,
     mode: play.api.Mode,
-    db: lila.db.Db
+    db: lila.db.Db,
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)

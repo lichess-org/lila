@@ -17,7 +17,7 @@ final class MsgCompat(
     api: MsgApi,
     security: MsgSecurity,
     isOnline: lila.socket.IsOnline,
-    lightUserApi: LightUserApi
+    lightUserApi: LightUserApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val maxPerPage = MaxPerPage(25)
@@ -33,7 +33,7 @@ final class MsgCompat(
               currentPageResults = threads,
               nbResults = allThreads.size,
               currentPage = page,
-              maxPerPage = maxPerPage
+              maxPerPage = maxPerPage,
             )
             .mapResults { t =>
               val user = lightUserApi.sync(t other me) | LightUser.fallback(t other me)
@@ -42,7 +42,7 @@ final class MsgCompat(
                 "author"    -> user.titleName,
                 "name"      -> t.lastMsg.text,
                 "updatedAt" -> t.lastMsg.date,
-                "isUnread"  -> t.lastMsg.unreadBy(me.id)
+                "isUnread"  -> t.lastMsg.unreadBy(me.id),
               )
             }
         }
@@ -58,13 +58,13 @@ final class MsgCompat(
           "sender"    -> renderUser(if (msg.user == c.contact.id) c.contact else me.light),
           "receiver"  -> renderUser(if (msg.user != c.contact.id) c.contact else me.light),
           "text"      -> msg.text,
-          "createdAt" -> msg.date
+          "createdAt" -> msg.date,
         )
-      }
+      },
     )
 
   def create(
-      me: User
+      me: User,
   )(implicit req: play.api.mvc.Request[_], formBinding: FormBinding): Either[Form[_], Fu[User.ID]] =
     Form(
       mapping(
@@ -76,29 +76,29 @@ final class MsgCompat(
               security.may
                 .post(me.id, User normalize name, isNew = true)
                 .await(2 seconds, "pmAccept") // damn you blocking API
-            }
+            },
           ),
         "subject" -> text(minLength = 3, maxLength = 100),
-        "text"    -> text(minLength = 3, maxLength = 8000)
-      )(ThreadData.apply)(ThreadData.unapply)
+        "text"    -> text(minLength = 3, maxLength = 8000),
+      )(ThreadData.apply)(ThreadData.unapply),
     ).bindFromRequest()
       .fold(
         err => Left(err),
         data => {
           val userId = User normalize data.user
           Right(api.post(me.id, userId, s"${data.subject}\n${data.text}") inject userId)
-        }
+        },
       )
 
   def reply(me: User, userId: User.ID)(implicit
       req: play.api.mvc.Request[_],
-      formBinding: FormBinding
+      formBinding: FormBinding,
   ): Either[Form[_], Funit] =
     Form(single("text" -> text(minLength = 3)))
       .bindFromRequest()
       .fold(
         err => Left(err),
-        text => Right(api.post(me.id, userId, text))
+        text => Right(api.post(me.id, userId, text)),
       )
 
   private def blockingFetchUser(username: String) =
@@ -109,6 +109,6 @@ final class MsgCompat(
   private def renderUser(user: LightUser) =
     LightUser.lightUserWrites.writes(user) ++ Json.obj(
       "online"   -> isOnline(user.id),
-      "username" -> user.name // for mobile app BC
+      "username" -> user.name, // for mobile app BC
     )
 }

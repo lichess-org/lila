@@ -5,12 +5,11 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
+import lila.forum.Filter._
 import lila.user.User
 
-import Filter._
-
 final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   def forUser(user: Option[User]) =
@@ -38,7 +37,9 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
-    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") dmap { _ contains postId }
+    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") dmap {
+      _ contains postId
+    }
 
   def countByTopic(topic: Topic): Fu[Int] =
     coll.countSel(selectTopic(topic.id))
@@ -52,7 +53,7 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
     coll.ext
       .find(
-        selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
+        selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden,
       )
       .sort($sort.createdDesc)
       .cursor[Post]()
@@ -76,7 +77,7 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
       .one(
         selectTopic(topicId),
         $set("hidden" -> value),
-        multi = true
+        multi = true,
       )
       .void
 
@@ -96,17 +97,25 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
       $doc(
         "createdAt" $gt DateTime.now.minusHours(1),
         "userId" -> ~post.userId,
-        "text"   -> post.text
-      )
+        "text"   -> post.text,
+      ),
     )
 
   def sortQuery = $sort.createdAsc
 
   def idsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+    coll.distinctEasy[String, List](
+      "_id",
+      $doc("topicId" -> topicId),
+      ReadPreference.secondaryPreferred,
+    )
 
   def allUserIdsByTopicId(topicId: String): Fu[List[User.ID]] =
-    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+    coll.distinctEasy[User.ID, List](
+      "userId",
+      $doc("topicId" -> topicId),
+      ReadPreference.secondaryPreferred,
+    )
 
   def cursor =
     coll.ext

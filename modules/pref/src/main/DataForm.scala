@@ -30,7 +30,7 @@ object DataForm {
         "colorName"          -> checkedNumber(Pref.ColorName.choices),
         "zen"                -> optional(booleanNumber),
         "resizeHandle"       -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"          -> checkedNumber(Pref.Blindfold.choices)
+        "blindfold"          -> checkedNumber(Pref.Blindfold.choices),
       )(DisplayData.apply)(DisplayData.unapply),
       "behavior" -> mapping(
         "moveEvent"     -> optional(checkedNumber(Pref.MoveEvent.choices)),
@@ -38,20 +38,20 @@ object DataForm {
         "takeback"      -> checkedNumber(Pref.Takeback.choices),
         "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
-        "keyboardMove"  -> optional(booleanNumber)
+        "keyboardMove"  -> optional(booleanNumber),
       )(BehaviorData.apply)(BehaviorData.unapply),
       "clock" -> mapping(
         "tenths"    -> checkedNumber(Pref.ClockTenths.choices),
         "countdown" -> checkedNumber(Pref.ClockCountdown.choices),
         "sound"     -> booleanNumber,
-        "moretime"  -> checkedNumber(Pref.Moretime.choices)
+        "moretime"  -> checkedNumber(Pref.Moretime.choices),
       )(ClockData.apply)(ClockData.unapply),
       "follow"        -> booleanNumber,
       "challenge"     -> checkedNumber(Pref.Challenge.choices),
       "message"       -> checkedNumber(Pref.Message.choices),
       "studyInvite"   -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "insightsShare" -> booleanNumber
-    )(PrefData.apply)(PrefData.unapply)
+      "insightsShare" -> booleanNumber,
+    )(PrefData.apply)(PrefData.unapply),
   )
 
   case class DisplayData(
@@ -69,7 +69,7 @@ object DataForm {
       colorName: Int,
       zen: Option[Int],
       resizeHandle: Option[Int],
-      blindfold: Int
+      blindfold: Int,
   )
 
   case class BehaviorData(
@@ -78,14 +78,14 @@ object DataForm {
       takeback: Int,
       submitMove: Int,
       confirmResign: Int,
-      keyboardMove: Option[Int]
+      keyboardMove: Option[Int],
   )
 
   case class ClockData(
       tenths: Int,
       countdown: Int,
       sound: Int,
-      moretime: Int
+      moretime: Int,
   )
 
   case class PrefData(
@@ -96,7 +96,7 @@ object DataForm {
       challenge: Int,
       message: Int,
       studyInvite: Option[Int],
-      insightsShare: Int
+      insightsShare: Int,
   ) {
 
     def apply(pref: Pref) =
@@ -130,7 +130,7 @@ object DataForm {
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
-        moveEvent = behavior.moveEvent | pref.moveEvent
+        moveEvent = behavior.moveEvent | pref.moveEvent,
       )
   }
 
@@ -152,7 +152,7 @@ object DataForm {
           colorName = pref.colorName,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
-          resizeHandle = pref.resizeHandle.some
+          resizeHandle = pref.resizeHandle.some,
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,
@@ -160,19 +160,19 @@ object DataForm {
           takeback = pref.takeback,
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
-          keyboardMove = pref.keyboardMove.some
+          keyboardMove = pref.keyboardMove.some,
         ),
         clock = ClockData(
           tenths = pref.clockTenths,
           countdown = pref.clockCountdown,
           sound = if (pref.clockSound) 1 else 0,
-          moretime = pref.moretime
+          moretime = pref.moretime,
         ),
         follow = if (pref.follow) 1 else 0,
         challenge = pref.challenge,
         message = pref.message,
         studyInvite = pref.studyInvite.some,
-        insightsShare = if (pref.insightsShare) 1 else 0
+        insightsShare = if (pref.insightsShare) 1 else 0,
       )
   }
 
@@ -180,85 +180,88 @@ object DataForm {
 
   val theme = Form(
     single(
-      "theme" -> text.verifying(Theme contains _)
-    )
+      "theme" -> text.verifying(Theme contains _),
+    ),
   )
 
   val pieceSet = Form(
     single(
-      "set" -> text.verifying(PieceSet contains _)
-    )
+      "set" -> text.verifying(PieceSet contains _),
+    ),
   )
 
   val chuPieceSet = Form(
     single(
-      "set" -> text.verifying(ChuPieceSet contains _)
-    )
+      "set" -> text.verifying(ChuPieceSet contains _),
+    ),
   )
 
   val kyoPieceSet = Form(
     single(
-      "set" -> text.verifying(KyoPieceSet contains _)
-    )
+      "set" -> text.verifying(KyoPieceSet contains _),
+    ),
   )
 
   val soundSet = Form(
     single(
-      "set" -> text.verifying(SoundSet contains _)
-    )
+      "set" -> text.verifying(SoundSet contains _),
+    ),
   )
 
   val bg = Form(
     single(
-      "bg" -> text.verifying(List("light", "dark", "transp") contains _)
-    )
+      "bg" -> text.verifying(List("light", "dark", "transp") contains _),
+    ),
   )
 
   val bgImg = Form(
     single(
       "bgImg" -> text.verifying { url =>
-        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
-          "//"
-        ))
-      }
-    )
+        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url
+          .startsWith(
+            "//",
+          ))
+      },
+    ),
   )
 
   val thickGrid = Form(
     single(
-      "thickGrid" -> text.verifying(Set("0", "1") contains _)
-    )
+      "thickGrid" -> text.verifying(Set("0", "1") contains _),
+    ),
   )
 
   val zen = Form(
     single(
-      "zen" -> text.verifying(Set("0", "1") contains _)
-    )
+      "zen" -> text.verifying(Set("0", "1") contains _),
+    ),
   )
 
   val notation = Form(
     single(
-      "notation" -> text.verifying(Notations.allToString contains _)
-    )
+      "notation" -> text.verifying(Notations.allToString contains _),
+    ),
   )
 
   val customTheme = Form(
     mapping(
       "boardColor" -> text(maxLength = 30),
       "boardImg" -> text.verifying { url =>
-        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
-          "//"
-        ))
+        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url
+          .startsWith(
+            "//",
+          ))
       },
       "gridColor"  -> text(maxLength = 30),
       "gridWidth"  -> number.verifying(Set(0, 1, 2, 3) contains _),
       "handsColor" -> text(maxLength = 30),
       "handsImg" -> text.verifying { url =>
-        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url.startsWith(
-          "//"
-        ))
-      }
-    )(CustomTheme.apply)(CustomTheme.unapply)
+        url.getBytes(UTF_8).sizeIs < 400 && (url.isEmpty || url.startsWith("https://") || url
+          .startsWith(
+            "//",
+          ))
+      },
+    )(CustomTheme.apply)(CustomTheme.unapply),
   )
 
 }

@@ -128,8 +128,8 @@ private object I18nQuantity {
   private val langMap: Map[Language, Selector] = LangList.all.map { case (lang, _) =>
     lang.language -> (lang.language match {
 
-      case "fr" | "ff" | "kab" | "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" |
-          "ti" | "wa" =>
+      case "fr" | "ff" | "kab" | "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" |
+          "nso" | "ti" | "wa" =>
         french _
 
       case "cs" | "sk" => czech _
@@ -156,9 +156,9 @@ private object I18nQuantity {
 
       case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
 
-      case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
-          "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
-          "tp" | "io" | "ia" =>
+      case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" |
+          "to" | "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" |
+          "ms" | "th" | "tp" | "io" | "ia" =>
         selectors.none _
 
       case _ => default _

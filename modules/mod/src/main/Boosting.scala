@@ -1,6 +1,7 @@
 package lila.mod
 
 import reactivemongo.api.bson._
+
 import shogi.Color
 import shogi.variant
 
@@ -12,11 +13,12 @@ final class BoostingApi(
     modApi: ModApi,
     collBoosting: Coll,
     nbGamesToMark: Int,
-    ratioGamesToMark: Double
+    ratioGamesToMark: Double,
 )(implicit ec: scala.concurrent.ExecutionContext) {
   import BoostingApi._
 
-  implicit private val boostingRecordBSONHandler: BSONDocumentHandler[BoostingRecord] = Macros.handler[BoostingRecord]
+  implicit private val boostingRecordBSONHandler: BSONDocumentHandler[BoostingRecord] =
+    Macros.handler[BoostingRecord]
 
   private val variants = Set[variant.Variant](
     variant.Standard,
@@ -24,7 +26,7 @@ final class BoostingApi(
     variant.Chushogi,
     variant.Annanshogi,
     variant.Kyotoshogi,
-    variant.Checkshogi
+    variant.Checkshogi,
   )
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =
@@ -36,9 +38,15 @@ final class BoostingApi(
   def determineBoosting(record: BoostingRecord, winner: User, loser: User): Funit =
     (record.games >= nbGamesToMark) ?? {
       {
-        (record.games >= (winner.count.rated * ratioGamesToMark)) ?? modApi.autoBoost(winner.id, loser.id)
+        (record.games >= (winner.count.rated * ratioGamesToMark)) ?? modApi.autoBoost(
+          winner.id,
+          loser.id,
+        )
       } >> {
-        (record.games >= (loser.count.rated * ratioGamesToMark)) ?? modApi.autoBoost(winner.id, loser.id)
+        (record.games >= (loser.count.rated * ratioGamesToMark)) ?? modApi.autoBoost(
+          winner.id,
+          loser.id,
+        )
       }
     }
 
@@ -66,15 +74,19 @@ final class BoostingApi(
             case Some(record) =>
               val newRecord = BoostingRecord(
                 _id = id,
-                games = record.games + 1
+                games = record.games + 1,
               )
-              createBoostRecord(newRecord) >> determineBoosting(newRecord, result.winner, result.loser)
+              createBoostRecord(newRecord) >> determineBoosting(
+                newRecord,
+                result.winner,
+                result.loser,
+              )
             case None =>
               createBoostRecord(
                 BoostingRecord(
                   _id = id,
-                  games = 1
-                )
+                  games = 1,
+                ),
               )
           }
         }
@@ -95,6 +107,6 @@ object BoostingApi {
 
   case class GameResult(
       winner: User,
-      loser: User
+      loser: User,
   )
 }

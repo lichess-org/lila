@@ -7,7 +7,7 @@ import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
 
 import lila.analyse.Analysis
-import lila.analyse.{JsonView => analysisJson}
+import lila.analyse.{ JsonView => analysisJson }
 import lila.common.Json.jodaWrites
 import lila.common.config._
 import lila.common.paginator.Paginator
@@ -29,7 +29,7 @@ final private[api] class GameApi(
     gameRepo: lila.game.GameRepo,
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,
-    crosstableApi: CrosstableApi
+    crosstableApi: CrosstableApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import GameApi.WithFlags
@@ -41,7 +41,7 @@ final private[api] class GameApi(
       analysed: Option[Boolean],
       withFlags: WithFlags,
       nb: MaxPerPage,
-      page: Int
+      page: Int,
   ): Fu[JsObject] =
     Paginator(
       adapter = new CachedAdapter(
@@ -56,17 +56,17 @@ final private[api] class GameApi(
                 G.analysed -> analysed.map[BSONValue] {
                   case true => BSONBoolean(true)
                   case _    => $doc("$exists" -> false)
-                }
+                },
               )
           } ++ $doc(
             G.rated -> rated.map[BSONValue] {
               case true => BSONBoolean(true)
               case _    => $doc("$exists" -> false)
-            }
+            },
           ),
           projection = none,
           sort = $doc(G.createdAt -> -1),
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = ReadPreference.secondaryPreferred,
         ),
         nbResults =
           if (~playing) gameCache.nbPlaying(user.id)
@@ -76,10 +76,10 @@ final private[api] class GameApi(
                 case true => user.count.rated
                 case _    => user.count.casual
               }
-            }
+            },
       ),
       currentPage = page,
-      maxPerPage = nb
+      maxPerPage = nb,
     ) flatMap { pag =>
       gamesJson(withFlags = withFlags)(pag.currentPageResults) map { games =>
         PaginatorJson(pag withCurrentPageResults games)
@@ -100,7 +100,7 @@ final private[api] class GameApi(
       analysed: Option[Boolean],
       withFlags: WithFlags,
       nb: MaxPerPage,
-      page: Int
+      page: Int,
   ): Fu[JsObject] =
     Paginator(
       adapter = new CachedAdapter(
@@ -114,24 +114,24 @@ final private[api] class GameApi(
                 G.analysed -> analysed.map[BSONValue] {
                   case true => BSONBoolean(true)
                   case _    => $doc("$exists" -> false)
-                }
+                },
               )
           } ++ $doc(
             G.rated -> rated.map[BSONValue] {
               case true => BSONBoolean(true)
               case _    => $doc("$exists" -> false)
-            }
+            },
           ),
           projection = none,
           sort = $doc(G.createdAt -> -1),
-          readPreference = ReadPreference.secondaryPreferred
+          readPreference = ReadPreference.secondaryPreferred,
         ),
         nbResults =
           if (~playing) gameCache.nbPlaying(users._1.id)
-          else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
+          else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames),
       ),
       currentPage = page,
-      maxPerPage = nb
+      maxPerPage = nb,
     ) flatMap { pag =>
       gamesJson(withFlags.copy(sfens = false))(pag.currentPageResults) map { games =>
         PaginatorJson(pag withCurrentPageResults games)
@@ -146,7 +146,7 @@ final private[api] class GameApi(
       withFlags: WithFlags,
       since: DateTime,
       nb: MaxPerPage,
-      page: Int
+      page: Int,
   ): Fu[JsObject] =
     Paginator(
       adapter = new Adapter[Game](
@@ -159,21 +159,21 @@ final private[api] class GameApi(
               G.analysed -> analysed.map[BSONValue] {
                 case true => BSONBoolean(true)
                 case _    => $doc("$exists" -> false)
-              }
+              },
             )
         } ++ $doc(
           G.rated -> rated.map[BSONValue] {
             case true => BSONBoolean(true)
             case _    => $doc("$exists" -> false)
           },
-          G.createdAt $gte since
+          G.createdAt $gte since,
         ),
         projection = none,
         sort = $doc(G.createdAt -> -1),
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = ReadPreference.secondaryPreferred,
       ),
       currentPage = page,
-      maxPerPage = nb
+      maxPerPage = nb,
     ) flatMap { pag =>
       gamesJson(withFlags.copy(sfens = false))(pag.currentPageResults) map { games =>
         PaginatorJson(pag withCurrentPageResults games)
@@ -198,7 +198,7 @@ final private[api] class GameApi(
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      withFlags: WithFlags
+      withFlags: WithFlags,
   ) =
     Json
       .obj(
@@ -219,7 +219,7 @@ final private[api] class GameApi(
             "increment" -> clock.incrementSeconds,
             "byoyomi"   -> clock.byoyomiSeconds,
             "periods"   -> clock.periodsTotal,
-            "totalTime" -> clock.estimateTotalSeconds
+            "totalTime" -> clock.estimateTotalSeconds,
           )
         },
         "daysPerTurn" -> g.daysPerTurn,
@@ -228,7 +228,7 @@ final private[api] class GameApi(
             .obj(
               "userId"     -> p.userId,
               "rating"     -> p.rating,
-              "ratingDiff" -> p.ratingDiff
+              "ratingDiff" -> p.ratingDiff,
             )
             .add("name", p.name)
             .add("provisional" -> p.provisional)
@@ -243,14 +243,14 @@ final private[api] class GameApi(
             .situations(
               usis = g.usis,
               initialSfen = g.initialSfen,
-              variant = g.variant
+              variant = g.variant,
             )
             .toOption map { sits =>
             JsArray(sits.toList.map(_.toSfen.value) map JsString.apply)
           }
         },
         "winner" -> g.winnerColor.map(_.name),
-        "url"    -> makeUrl(g)
+        "url"    -> makeUrl(g),
       )
       .noNull
 }
@@ -263,12 +263,12 @@ object GameApi {
       sfens: Boolean = false,
       moveTimes: Boolean = false,
       blurs: Boolean = false,
-      token: Option[String] = none
+      token: Option[String] = none,
   ) {
 
     def applyToken(validToken: String) =
       copy(
-        blurs = token has validToken
+        blurs = token has validToken,
       )
   }
 }

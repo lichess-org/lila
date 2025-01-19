@@ -16,7 +16,7 @@ case class PerfStat(
     worstLosses: Results,
     count: Count,
     resultStreak: ResultStreak,
-    playStreak: PlayStreak
+    playStreak: PlayStreak,
 ) {
 
   def id = _id
@@ -32,7 +32,7 @@ case class PerfStat(
         worstLosses = if (thisYear && ~pov.loss) worstLosses.agg(pov, 1) else worstLosses,
         count = count(pov),
         resultStreak = resultStreak agg pov,
-        playStreak = playStreak agg pov
+        playStreak = playStreak agg pov,
       )
     }
 
@@ -56,7 +56,7 @@ object PerfStat {
       worstLosses = Results(Nil),
       count = Count.init,
       resultStreak = ResultStreak(win = Streaks.init, loss = Streaks.init),
-      playStreak = PlayStreak(nb = Streaks.init, time = Streaks.init, lastDate = none)
+      playStreak = PlayStreak(nb = Streaks.init, time = Streaks.init, lastDate = none),
     )
 }
 
@@ -64,7 +64,7 @@ case class ResultStreak(win: Streaks, loss: Streaks) {
   def agg(pov: Pov) =
     copy(
       win = win(~pov.win, pov)(1),
-      loss = loss(~pov.loss, pov)(1)
+      loss = loss(~pov.loss, pov)(1),
     )
 }
 
@@ -75,7 +75,7 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[DateTime]) {
       copy(
         nb = nb(cont, pov)(1),
         time = time(cont, pov)(seconds),
-        lastDate = pov.game.movedAt.some
+        lastDate = pov.game.movedAt.some,
       )
     }
   def checkCurrent =
@@ -93,7 +93,7 @@ object PlayStreak {
 case class Streaks(cur: Streak, max: Streak) {
   def apply(cont: Boolean, pov: Pov)(v: Int) =
     copy(
-      cur = cur(cont, pov)(v)
+      cur = cur(cont, pov)(v),
     ).setMax
   def reset          = copy(cur = Streak.init)
   private def setMax = copy(max = if (cur.v >= max.v) cur else max)
@@ -107,7 +107,7 @@ case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
     copy(
       v = v + by,
       from = from orElse pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
-      to = pov.player.ratingAfter.map { RatingAt(_, pov.game.movedAt, pov.gameId) }
+      to = pov.player.ratingAfter.map { RatingAt(_, pov.game.movedAt, pov.gameId) },
     )
   def period = new Period(v * 1000L)
 }
@@ -127,7 +127,7 @@ case class Count(
     berserk: Int,
     opAvg: Avg,
     seconds: Int,
-    disconnects: Int
+    disconnects: Int,
 ) {
   def apply(pov: Pov) =
     copy(
@@ -145,7 +145,7 @@ case class Count(
       }),
       disconnects = disconnects + {
         if (~pov.loss && pov.game.status == shogi.Status.Timeout) 1 else 0
-      }
+      },
     )
   def period = new Period(seconds * 1000L)
 }
@@ -160,7 +160,7 @@ object Count {
     berserk = 0,
     opAvg = Avg(0, 0),
     seconds = 0,
-    disconnects = 0
+    disconnects = 0,
   )
 }
 
@@ -168,7 +168,7 @@ case class Avg(avg: Double, pop: Int) {
   def agg(v: Int) =
     copy(
       avg = ((avg * pop) + v) / (pop + 1),
-      pop = pop + 1
+      pop = pop + 1,
     )
 }
 
@@ -199,8 +199,8 @@ case class Results(results: List[Result]) extends AnyVal {
             opInt,
             UserId(~pov.opponent.userId),
             pov.game.movedAt,
-            pov.gameId
-          ) :: results).sortBy(_.opInt * comp) take Results.nb
+            pov.gameId,
+          ) :: results).sortBy(_.opInt * comp) take Results.nb,
         )
       }
   def userIds = results.map(_.opId)

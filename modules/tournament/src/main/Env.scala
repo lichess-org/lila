@@ -20,7 +20,7 @@ private class TournamentConfig(
     @ConfigName("collection.pairing") val pairingColl: CollName,
     @ConfigName("collection.arrangement") val arrangementColl: CollName,
     @ConfigName("collection.leaderboard") val leaderboardColl: CollName,
-    @ConfigName("api_actor.name") val apiActorName: String
+    @ConfigName("api_actor.name") val apiActorName: String,
 )
 
 @Module
@@ -41,13 +41,13 @@ final class Env(
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
-    remoteSocketApi: lila.socket.RemoteSocket
+    remoteSocketApi: lila.socket.RemoteSocket,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private val config = appConfig.get[TournamentConfig]("tournament")(AutoConfig.loader)
@@ -56,10 +56,10 @@ final class Env(
 
   lazy val forms = wire[DataForm]
 
-  lazy val tournamentRepo          = new TournamentRepo(db(config.tournamentColl), config.playerColl)
-  lazy val pairingRepo             = new PairingRepo(db(config.pairingColl))
-  lazy val arrangementRepo         = new ArrangementRepo(db(config.arrangementColl))
-  lazy val playerRepo              = new PlayerRepo(db(config.playerColl))
+  lazy val tournamentRepo  = new TournamentRepo(db(config.tournamentColl), config.playerColl)
+  lazy val pairingRepo     = new PairingRepo(db(config.pairingColl))
+  lazy val arrangementRepo = new ArrangementRepo(db(config.arrangementColl))
+  lazy val playerRepo      = new PlayerRepo(db(config.playerColl))
   private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
 
   lazy val cached: Cached = wire[Cached]
@@ -88,9 +88,10 @@ final class Env(
     clearTrophyCache = tour =>
       {
         if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
-        else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }.unit
+        else if (Revolution is tour)
+          scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }.unit
       }.unit,
-    indexLeaderboard = leaderboardIndexer.indexOne _
+    indexLeaderboard = leaderboardIndexer.indexOne _,
   )
 
   lazy val api: TournamentApi = wire[TournamentApi]
@@ -134,7 +135,10 @@ final class Env(
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId) >>| arrangementRepo
+    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(
+      tourId,
+      userId,
+    ) >>| arrangementRepo
       .isPlaying(tourId, userId)
 
   def cli =

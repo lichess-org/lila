@@ -18,10 +18,10 @@ final class GarbageCollector(
     userSpy: UserSpyApi,
     ipTrust: IpTrust,
     noteApi: lila.user.NoteApi,
-    isArmed: () => Boolean
+    isArmed: () => Boolean,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   private val logger = lila.security.logger.branch("GarbageCollector")
@@ -45,7 +45,7 @@ final class GarbageCollector(
               () => ensurePrintAvailable(applyData),
               delay = 10 seconds,
               retries = 5,
-              logger = none
+              logger = none,
             )
             .nevermind >> apply(applyData)
           ()
@@ -70,7 +70,7 @@ final class GarbageCollector(
             logger.debug(s"apply ${data.user.username} print=$printOpt")
             Bus.publish(
               lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
-              "userSignup"
+              "userSignup",
             )
             printOpt.filter(_.banned).map(_.fp.value) match {
               case Some(print) => collect(user, email, msg = s"Print ban: ${print.value}")
@@ -83,7 +83,7 @@ final class GarbageCollector(
                       _ ?? collect(
                         user,
                         email,
-                        msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
+                        msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}",
                       )
                     }
                 }
@@ -97,7 +97,9 @@ final class GarbageCollector(
       .sortBy(-_.createdAt.getSeconds)
       .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 10))
       .take(4)
-    (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
+    (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(
+      _.disabled,
+    )) option others
   }
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
@@ -119,19 +121,19 @@ final class GarbageCollector(
               doCollect(user)
             }
             .unit
-        }
+        },
       )
     }
 
   private def doInitialSb(user: User): Unit =
     Bus.publish(
       lila.hub.actorApi.security.GCImmediateSb(user.id),
-      "garbageCollect"
+      "garbageCollect",
     )
 
   private def doCollect(user: User): Unit =
     Bus.publish(
       lila.hub.actorApi.security.GarbageCollect(user.id),
-      "garbageCollect"
+      "garbageCollect",
     )
 }

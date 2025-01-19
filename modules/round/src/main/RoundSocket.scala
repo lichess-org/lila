@@ -9,6 +9,7 @@ import akka.actor.ActorSystem
 import akka.actor.Cancellable
 import akka.actor.CoordinatedShutdown
 import akka.actor.Scheduler
+
 import shogi.Centis
 import shogi.Color
 import shogi.Gote
@@ -43,13 +44,12 @@ import lila.hub.actorApi.round.TourStanding
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.tv.TvSelect
 import lila.room.RoomSocket.{ Protocol => RP, _ }
+import lila.round.actorApi._
+import lila.round.actorApi.round._
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.SocketVersion
 import lila.socket.Socket.makeMessage
 import lila.user.User
-
-import actorApi._
-import actorApi.round._
 
 final class RoundSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -59,10 +59,10 @@ final class RoundSocket(
     tournamentActor: lila.hub.actors.TournamentApi,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
-    shutdown: CoordinatedShutdown
+    shutdown: CoordinatedShutdown,
 )(implicit
     ec: ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   import RoundSocket._
@@ -103,7 +103,7 @@ final class RoundSocket(
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id,
-        socketSend = send
+        socketSend = send,
       )(ec, proxy)
       terminationDelay schedule Game.Id(id)
       duct.getGame dforeach {
@@ -116,7 +116,7 @@ final class RoundSocket(
       }
       duct
     },
-    initialCapacity = 8192
+    initialCapacity = 8192,
   )
 
   private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
@@ -145,7 +145,8 @@ final class RoundSocket(
         case "outoftime"    => tellRound(id.gameId, QuietFlag) // mobile app BC
         case t              => logger.warn(s"Unhandled round socket message: $t")
       }
-    case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
+    case Protocol.In.Flag(gameId, color, fromPlayerId) =>
+      tellRound(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
       messenger.owner(id, color, msg).unit
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
@@ -190,7 +191,7 @@ final class RoundSocket(
   private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out").apply _
 
   remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
-    roundHandler orElse remoteSocketApi.baseHandler
+    roundHandler orElse remoteSocketApi.baseHandler,
   ) >>- send(P.Out.boot)
 
   Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame") {
@@ -223,7 +224,9 @@ final class RoundSocket(
       case OnTimeout(Chat.Id(id), userId) =>
         send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), makeMessage("chat_timeout", userId)))
       case OnReinstate(Chat.Id(id), userId) =>
-        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), makeMessage("chat_reinstate", userId)))
+        send(
+          RP.Out.tellRoom(RoomId(id take Game.gameIdSize), makeMessage("chat_reinstate", userId)),
+        )
     }
   }
 
@@ -269,12 +272,13 @@ object RoundSocket {
       case class PlayerMove(fullId: FullId, usi: Usi, blur: Boolean, lag: LagMetrics) extends P.In
       case class PlayerChatSay(gameId: Game.Id, userIdOrColor: Either[User.ID, Color], msg: String)
           extends P.In
-      case class WatcherChatSay(gameId: Game.Id, userId: User.ID, msg: String)                    extends P.In
-      case class Bye(fullId: FullId)                                                              extends P.In
-      case class HoldAlert(fullId: FullId, ip: IpAddress, mean: Int, sd: Int)                     extends P.In
-      case class Flag(gameId: Game.Id, color: Color, fromPlayerId: Option[PlayerId])              extends P.In
-      case class Berserk(gameId: Game.Id, userId: User.ID)                                        extends P.In
-      case class SelfReport(fullId: FullId, ip: IpAddress, userId: Option[User.ID], name: String) extends P.In
+      case class WatcherChatSay(gameId: Game.Id, userId: User.ID, msg: String)       extends P.In
+      case class Bye(fullId: FullId)                                                 extends P.In
+      case class HoldAlert(fullId: FullId, ip: IpAddress, mean: Int, sd: Int)        extends P.In
+      case class Flag(gameId: Game.Id, color: Color, fromPlayerId: Option[PlayerId]) extends P.In
+      case class Berserk(gameId: Game.Id, userId: User.ID)                           extends P.In
+      case class SelfReport(fullId: FullId, ip: IpAddress, userId: Option[User.ID], name: String)
+          extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match {
@@ -285,7 +289,7 @@ object RoundSocket {
                   case (gameId, cs) =>
                     (
                       Game.Id(gameId),
-                      if (cs.isEmpty) None else Some(RoomCrowd(cs(0) == '+', cs(1) == '+'))
+                      if (cs.isEmpty) None else Some(RoomCrowd(cs(0) == '+', cs(1) == '+')),
                     )
                 }
               }
@@ -300,7 +304,12 @@ object RoundSocket {
           case "r/move" =>
             raw.get(5) { case Array(fullId, usiS, blurS, lagS, mtS) =>
               Usi(usiS).orElse(UciToUsi(usiS)) map { usi =>
-                PlayerMove(FullId(fullId), usi, P.In.boolean(blurS), LagMetrics(centis(lagS), centis(mtS)))
+                PlayerMove(
+                  FullId(fullId),
+                  usi,
+                  P.In.boolean(blurS),
+                  LagMetrics(centis(lagS), centis(mtS)),
+                )
               }
             }
           case "chat/say" =>
@@ -385,7 +394,7 @@ object RoundSocket {
   final private class TerminationDelay(
       scheduler: Scheduler,
       duration: FiniteDuration,
-      terminate: Game.Id => Unit
+      terminate: Game.Id => Unit,
   )(implicit ec: scala.concurrent.ExecutionContext) {
     import java.util.concurrent.ConcurrentHashMap
 
@@ -401,7 +410,7 @@ object RoundSocket {
               terminations remove id
               terminate(Game.Id(id))
             }
-          }
+          },
         )
         .unit
 

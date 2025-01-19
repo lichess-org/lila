@@ -10,7 +10,7 @@ case class PuzzleRound(
     fixedAt: Option[DateTime], // date of first-replaying lost puzzle and winning it
     date: DateTime,            // date of first playing the puzzle
     vote: Option[Int] = None,
-    themes: List[PuzzleRound.Theme] = Nil
+    themes: List[PuzzleRound.Theme] = Nil,
 ) {
 
   def userId = id.userId
@@ -37,7 +37,7 @@ case class PuzzleRound(
 
   def updateWithWin(win: Boolean) = copy(
     win = win,
-    fixedAt = fixedAt orElse win.option(DateTime.now)
+    fixedAt = fixedAt orElse win.option(DateTime.now),
   )
 
   def firstWin = win && fixedAt.isEmpty
@@ -78,17 +78,17 @@ object PuzzleRound {
         "from" -> colls.puzzle.name.value,
         "as"   -> "puzzle",
         "let" -> $doc(
-          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
+          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1)),
         ),
         "pipeline" -> {
           $doc(
             "$match" -> $doc(
               "$expr" -> $doc(
-                $doc("$eq" -> $arr("$_id", "$$pid"))
-              )
-            )
+                $doc("$eq" -> $arr("$_id", "$$pid")),
+              ),
+            ),
           ) :: pipeline
-        }
-      )
+        },
+      ),
     )
 }

@@ -20,11 +20,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic,
-    shutup: lila.hub.actors.Shutup
+    shutup: lila.hub.actors.Shutup,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    scheduler: akka.actor.Scheduler
+    scheduler: akka.actor.Scheduler,
 ) {
 
   private val colls = wire[MsgColls]
@@ -61,7 +61,7 @@ final class Env(
         dest <- obj str "dest" map User.normalize
         text <- obj str "text"
       } api.post(userId, dest, text)
-    }
+    },
   )
 }
 

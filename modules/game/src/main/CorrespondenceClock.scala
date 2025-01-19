@@ -6,7 +6,7 @@ import shogi.Color
 case class CorrespondenceClock(
     increment: Int,
     senteTime: Float,
-    goteTime: Float
+    goteTime: Float,
 ) {
 
   import CorrespondenceClock._
@@ -22,7 +22,7 @@ case class CorrespondenceClock(
   def giveTime(c: Color) =
     c.fold(
       copy(senteTime = senteTime + daySeconds),
-      copy(goteTime = goteTime + daySeconds)
+      copy(goteTime = goteTime + daySeconds),
     )
 
   // in seconds

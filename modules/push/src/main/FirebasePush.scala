@@ -19,10 +19,10 @@ final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
     deviceApi: DeviceApi,
     ws: WSClient,
-    config: FirebasePush.Config
+    config: FirebasePush.Config,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   private val workQueue =
@@ -56,7 +56,7 @@ final private class FirebasePush(
       .withHttpHeaders(
         "Authorization" -> s"Bearer ${token.getTokenValue}",
         "Accept"        -> "application/json",
-        "Content-type"  -> "application/json; UTF-8"
+        "Content-type"  -> "application/json; UTF-8",
       )
       .post(
         Json.obj(
@@ -67,10 +67,10 @@ final private class FirebasePush(
             "data" -> (data.payload \ "userData").asOpt[JsObject].map(transform(_)),
             "notification" -> Json.obj(
               "body"  -> data.body,
-              "title" -> data.title
-            )
-          )
-        )
+              "title" -> data.title,
+            ),
+          ),
+        ),
       ) flatMap {
       case res if res.status == 200 => funit
       case res if res.status == 404 =>
@@ -92,7 +92,7 @@ private object FirebasePush {
 
   final class Config(
       val url: String,
-      val json: lila.common.config.Secret
+      val json: lila.common.config.Secret,
   )
   implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }

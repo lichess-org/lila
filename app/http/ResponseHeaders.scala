@@ -17,14 +17,14 @@ object ResponseHeaders {
           "Origin",
           "Authorization",
           "If-Modified-Since",
-          "Cache-Control"
+          "Cache-Control",
         ) ::: appOrigin.isDefined.??(List("X-Requested-With", "sessionId", "Content-Type"))
       }.mkString(", "),
-      "Vary" -> "Origin"
+      "Vary" -> "Origin",
     ) ::: appOrigin.isDefined.??(
       List(
-        "Access-Control-Allow-Credentials" -> "true"
-      )
+        "Access-Control-Allow-Credentials" -> "true",
+      ),
     )
   }
 

@@ -13,7 +13,7 @@ object embed {
   def apply(
       s: lila.study.Study,
       chapter: lila.study.Chapter,
-      data: lila.study.JsonView.JsData
+      data: lila.study.JsonView.JsData,
   )(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = s"${s.name} ${chapter.name}",
@@ -24,25 +24,25 @@ object embed {
           "embed.analyse",
           Json.obj(
             "study" -> data.study,
-            "data"  -> data.analysis
+            "data"  -> data.analysis,
           ),
-          config.nonce.some
-        )
+          config.nonce.some,
+        ),
       ),
-      variant = chapter.setup.variant
+      variant = chapter.setup.variant,
     )(
-      div(main(cls := "analyse"))
+      div(main(cls := "analyse")),
     )
 
   def notFound(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = s"404 - ${trans.study.studyNotFound.txt()}",
-      moreCss = cssTag("embed.analyse")
+      moreCss = cssTag("embed.analyse"),
     )(
       body(cls := "dark")(
         div(cls := "not-found")(
-          h1(trans.study.studyNotFound())
-        )
-      )
+          h1(trans.study.studyNotFound()),
+        ),
+      ),
     )
 }

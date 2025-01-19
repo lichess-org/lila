@@ -16,10 +16,10 @@ import lila.db.dsl._
 final private class CheckMail(
     ws: WSClient,
     config: SecurityConfig.CheckMail,
-    mongoCache: lila.memo.MongoCache.Api
+    mongoCache: lila.memo.MongoCache.Api,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
@@ -40,9 +40,9 @@ final private class CheckMail(
         "_id",
         $doc(
           "_id" $regex s"^$prefix:",
-          "v" -> false
+          "v" -> false,
         ),
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       ) map { ids =>
       val dropSize = prefix.size + 1
       ids.map(_ drop dropSize)
@@ -54,7 +54,7 @@ final private class CheckMail(
     512,
     prefix,
     1000 days,
-    _.toString
+    _.toString,
   ) { loader =>
     _.maximumSize(512)
       .buildAsyncFuture(loader(fetch))
@@ -74,7 +74,9 @@ final private class CheckMail(
           val disposable = readBool("disposable")
           val reason     = ~(res.json \ "reason").asOpt[String]
           val ok         = valid && !block && !disposable
-          logger.info(s"CheckMail $domain = $ok ($reason) {valid:$valid,block:$block,disposable:$disposable}")
+          logger.info(
+            s"CheckMail $domain = $ok ($reason) {valid:$valid,block:$block,disposable:$disposable}",
+          )
           ok
         case res =>
           throw lila.base.LilaException(s"${config.url} $domain ${res.status} ${res.body take 200}")

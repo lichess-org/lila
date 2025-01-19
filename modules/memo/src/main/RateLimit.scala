@@ -2,15 +2,14 @@ package lila.memo
 
 import scala.concurrent.duration.FiniteDuration
 
-/**
-  * side effect throttler that allows X ops per Y unit of time
+/** side effect throttler that allows X ops per Y unit of time
   */
 final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
     key: String,
     enforce: Boolean = true,
-    log: Boolean = true
+    log: Boolean = true,
 ) extends RateLimit.RateLimiter[K] {
   import RateLimit._
 
@@ -24,7 +23,7 @@ final class RateLimit[K](
   private lazy val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
-      op: Charge => A
+      op: Charge => A,
   )(default: => A): A =
     apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
 
@@ -65,18 +64,17 @@ object RateLimit {
   def composite[K](
       key: String,
       enforce: Boolean = true,
-      log: Boolean = true
+      log: Boolean = true,
   )(rules: (String, Int, FiniteDuration)*): RateLimiter[K] = {
 
-    val limiters: Seq[RateLimit[K]] = rules.map {
-      case (subKey, credits, duration) =>
-        new RateLimit[K](
-          credits = credits,
-          duration = duration,
-          key = s"$key.$subKey",
-          enforce = enforce,
-          log = log
-        )
+    val limiters: Seq[RateLimit[K]] = rules.map { case (subKey, credits, duration) =>
+      new RateLimit[K](
+        credits = credits,
+        duration = duration,
+        key = s"$key.$subKey",
+        enforce = enforce,
+        log = log,
+      )
     }
 
     new RateLimiter[K] {
@@ -89,7 +87,9 @@ object RateLimit {
         if (accepted) op else default
       }
 
-      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(default: => A): A = {
+      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
+          op: Charge => A,
+      )(default: => A): A = {
         apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
       }
     }

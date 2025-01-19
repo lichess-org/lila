@@ -30,14 +30,15 @@ final class Editor(env: Env) extends LilaController(env) {
         .decodeUriPath(urlSfen)
         .filter(_.trim.nonEmpty)
         .orElse(get("sfen")) map Sfen.clean
-      val color = ctx.req.getQueryString("orientation").flatMap(shogi.Color.fromName).getOrElse(shogi.Sente)
+      val color =
+        ctx.req.getQueryString("orientation").flatMap(shogi.Color.fromName).getOrElse(shogi.Sente)
       fuccess {
         val situation = readSfen(decodedSfen, variant.some)
         Ok(
           html.board.editor(
             situation,
-            color
-          )
+            color,
+          ),
         )
       }
     }
@@ -50,7 +51,7 @@ final class Editor(env: Env) extends LilaController(env) {
         val sit         = readSfen(sfen, variant)
         val orientation = get("orientation").flatMap(shogi.Color.fromName).getOrElse(shogi.Sente)
         Ok(
-          html.board.editor.jsData(sit, orientation)
+          html.board.editor.jsData(sit, orientation),
         ) as JSON
       }
     }
@@ -65,7 +66,10 @@ final class Editor(env: Env) extends LilaController(env) {
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playableEvenPaused) routes.Round.watcher(game.id, "sente")
-          else routes.Editor.parseArg(s"${game.variant.key}/${get("sfen") | (game.shogi.toSfen).value}")
+          else
+            routes.Editor.parseArg(
+              s"${game.variant.key}/${get("sfen") | (game.shogi.toSfen).value}",
+            )
         }
       }
     }

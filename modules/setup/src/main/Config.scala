@@ -4,7 +4,7 @@ import shogi.Clock
 import shogi.Speed
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import shogi.{Game => ShogiGame}
+import shogi.{ Game => ShogiGame }
 
 import lila.lobby.Color
 
@@ -56,7 +56,7 @@ private[setup] trait Config {
     (time * 60).toInt,
     if (clockHasTime) increment else 0,
     if (clockHasTime) byoyomi else 10,
-    periods
+    periods,
   )
   def makeDaysPerTurn: Option[Int] =
     (timeMode == TimeMode.Correspondence) option days
@@ -70,7 +70,8 @@ trait Positional { self: Config =>
 
   lazy val validSfen =
     sfen.fold(true) { sf =>
-      sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
+      sf.toSituationPlus(variant)
+        .exists(_.situation.playable(strict = strictSfen, withImpasse = true))
     }
 
   def makeGame = ShogiGame(sfen, variant).withClock(makeClock.map(_.toClock))
@@ -87,7 +88,7 @@ trait BaseConfig {
     shogi.variant.Chushogi.id,
     shogi.variant.Annanshogi.id,
     shogi.variant.Kyotoshogi.id,
-    shogi.variant.Checkshogi.id
+    shogi.variant.Checkshogi.id,
   )
   val aiVariants =
     List(shogi.variant.Standard.id, shogi.variant.Minishogi.id, shogi.variant.Kyotoshogi.id)

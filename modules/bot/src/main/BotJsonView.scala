@@ -11,13 +11,13 @@ import lila.game.Pov
 
 final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,
-    rematches: lila.game.Rematches
+    rematches: lila.game.Rematches,
 ) {
 
   def gameFull(game: Game)(implicit lang: Lang): JsObject =
     gameImmutable(game) ++ Json.obj(
       "type"  -> "gameFull",
-      "state" -> gameState(game)
+      "state" -> gameState(game),
     )
 
   // Everything marked backwards will be removed soon
@@ -38,12 +38,11 @@ final class BotJsonView(
         "gote"        -> playerJson(game.gotePov),
         "black"       -> playerJson(game.gotePov),                  // backwards support
         "initialSfen" -> game.initialSfen.fold("startpos")(_.value),
-        "initialFen"  -> game.initialSfen.fold("startpos")(_.value) // backwards support
+        "initialFen"  -> game.initialSfen.fold("startpos")(_.value), // backwards support
       )
       .add(
-        "fairyInitialSfen" -> (game.variant.kyotoshogi option game.initialSfen.fold("startpos")(sfen =>
-          Kyoto.makeFairySfen(sfen).value
-        ))
+        "fairyInitialSfen" -> (game.variant.kyotoshogi option game.initialSfen
+          .fold("startpos")(sfen => Kyoto.makeFairySfen(sfen).value)),
       )
       .add("tournamentId" -> game.tournamentId)
   }
@@ -60,12 +59,12 @@ final class BotJsonView(
         "byo"    -> game.clock.??(_.config.byoyomi.millis),
         "sdraw"  -> game.sentePlayer.isOfferingDraw,
         "gdraw"  -> game.gotePlayer.isOfferingDraw,
-        "status" -> game.status.name
+        "status" -> game.status.name,
       )
       .add(
         "fairyMoves" -> (game.variant.kyotoshogi option Kyoto
           .makeFairyUsiList(game.usis, game.initialSfen)
-          .mkString(" "))
+          .mkString(" ")),
       )
       .add("winner" -> game.winnerColor)
       .add("rematch" -> rematches.of(game.id))
@@ -76,7 +75,7 @@ final class BotJsonView(
       "type"     -> "chatLine",
       "room"     -> (if (player) "player" else "spectator"),
       "username" -> username,
-      "text"     -> text
+      "text"     -> text,
     )
 
   private def playerJson(pov: Pov) = {
@@ -102,7 +101,7 @@ final class BotJsonView(
       "initial"   -> c.limit.millis,
       "increment" -> c.increment.millis,
       "byoyomi"   -> c.byoyomi.millis,
-      "periods"   -> c.periodsTotal
+      "periods"   -> c.periodsTotal,
     )
   }
 }

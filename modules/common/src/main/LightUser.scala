@@ -6,7 +6,7 @@ case class LightUser(
     id: String,
     name: String,
     title: Option[String],
-    isPatron: Boolean
+    isPatron: Boolean,
 ) {
 
   def titleName = title.fold(name)(_ + " " + name)
@@ -33,7 +33,7 @@ object LightUser {
       id = name.toLowerCase,
       name = name,
       title = None,
-      isPatron = false
+      isPatron = false,
     )
 
   final class Getter(f: UserID => Fu[Option[LightUser]]) extends (UserID => Fu[Option[LightUser]]) {

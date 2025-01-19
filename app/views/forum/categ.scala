@@ -18,21 +18,21 @@ object categ {
         .OpenGraph(
           title = trans.forum.txt(),
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
-          description = trans.forumDescription.txt()
+          description = trans.forumDescription.txt(),
         )
-        .some
+        .some,
     ) {
       main(cls := "forum index box")(
         div(cls := "box__top")(
           h1(dataIcon := "d", cls := "text")(s"Lishogi ${trans.forum.txt()}"),
-          bits.searchForm()
+          bits.searchForm(),
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
         if (categs.exists(_.categ.isTeam))
           frag(
             h1(trans.yourTeamBoards()),
-            showCategs(categs.filter(_.categ.isTeam))
-          )
+            showCategs(categs.filter(_.categ.isTeam)),
+          ),
       )
     }
 
@@ -40,34 +40,36 @@ object categ {
       categ: lila.forum.Categ,
       topics: Paginator[lila.forum.TopicView],
       canWrite: Boolean,
-      stickyPosts: List[lila.forum.TopicView]
+      stickyPosts: List[lila.forum.TopicView],
   )(implicit ctx: Context) = {
 
     val newTopicButton = canWrite option
       a(
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
-        dataIcon := "m"
+        dataIcon := "m",
       )(
-        trans.createANewTopic()
+        trans.createANewTopic(),
       )
     def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) =
       tr(cls := List("sticky" -> sticky))(
         td(cls := "subject")(
-          a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name)
+          a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name),
         ),
         td(cls := "right")(topic.nbReplies.localize),
         td(
           topic.lastPost.map { post =>
             frag(
-              a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}")(
-                momentFromNow(post.createdAt)
+              a(
+                href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}",
+              )(
+                momentFromNow(post.createdAt),
               ),
               br,
-              authorLink(post, modIcon = ~post.modIcon)
+              authorLink(post, modIcon = ~post.modIcon),
             )
-          }
-        )
+          },
+        ),
       )
 
     views.html.base.layout(
@@ -77,9 +79,9 @@ object categ {
         .OpenGraph(
           title = s"${trans.forum.txt()}: ${categ.translatedName}",
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
-          description = categ.desc
+          description = categ.desc,
         )
-        .some
+        .some,
     ) {
       main(cls := "forum forum-categ box")(
         div(cls := "bar-top")(
@@ -87,26 +89,26 @@ object categ {
             a(
               href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
               dataIcon := "I",
-              cls      := "text"
+              cls      := "text",
             ),
-            categ.team.fold(frag(categ.translatedName))(teamIdToName)
+            categ.team.fold(frag(categ.translatedName))(teamIdToName),
           ),
-          newTopicButton
+          newTopicButton,
         ),
         table(cls := "topics slist slist-pad")(
           thead(
             tr(
               th,
               th(cls := "right")(trans.replies()),
-              th(trans.lastPost())
-            )
+              th(trans.lastPost()),
+            ),
           ),
           tbody(
             stickyPosts map showTopic(true),
-            topics.currentPageResults map showTopic(false)
-          )
+            topics.currentPageResults map showTopic(false),
+          ),
         ),
-        bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false)
+        bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
       )
     }
   }
@@ -118,31 +120,33 @@ object categ {
           th,
           th(cls := "right")(trans.topics()),
           th(cls := "right")(trans.posts()),
-          th(trans.lastPost())
-        )
+          th(trans.lastPost()),
+        ),
       ),
       tbody(
         categs.map { categ =>
           tr(
             td(cls := "subject")(
               h2(a(href := routes.ForumCateg.show(categ.slug))(categ.translatedName)),
-              p(categ.desc)
+              p(categ.desc),
             ),
             td(cls := "right")(categ.nbTopics.localize),
             td(cls := "right")(categ.nbPosts.localize),
             td(
               categ.lastPost.map { case (topic, post, page) =>
                 frag(
-                  a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page)}#${post.number}")(
-                    momentFromNow(post.createdAt)
+                  a(
+                    href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page)}#${post.number}",
+                  )(
+                    momentFromNow(post.createdAt),
                   ),
                   br,
-                  trans.by(authorName(post))
+                  trans.by(authorName(post)),
                 )
-              }
-            )
+              },
+            ),
           )
-        }
-      )
+        },
+      ),
     )
 }

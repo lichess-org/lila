@@ -3,6 +3,7 @@ package lila.game
 import scala.concurrent.duration._
 
 import com.github.blemale.scaffeine.Cache
+
 import shogi.Division
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
@@ -26,10 +27,10 @@ final class Divider {
             .situations(
               usis = usis,
               initialSfen = initialSfen,
-              variant = variant
+              variant = variant,
             )
             .toOption
             .map(_.toList)
-            .fold(Division.empty)(shogi.Divider.apply)
+            .fold(Division.empty)(shogi.Divider.apply),
       )
 }

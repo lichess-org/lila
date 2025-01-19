@@ -18,7 +18,7 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
       result.withHeaders(
         "Service-Worker-Allowed"       -> "/",
-        "Cross-Origin-Embedder-Policy" -> "require-corp"
+        "Cross-Origin-Embedder-Policy" -> "require-corp",
       )
     }
     else {
@@ -38,7 +38,9 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     val client     = HTTPRequest clientName req
     if (env.isDev) {
       if (logRequests)
-        logger.info(s"$statusCode ${client.padTo(7, ' ')} $req ${req.method} $actionName ${reqTime}ms")
+        logger.info(
+          s"$statusCode ${client.padTo(7, ' ')} $req ${req.method} $actionName ${reqTime}ms",
+        )
     } else httpMon.time(actionName, client, req.method, statusCode).record(reqTime)
   }
 
@@ -49,7 +51,9 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
         !HTTPRequest.isProgrammatic(req) &&
         // asset request going through the CDN, don't redirect
         !(req.host == net.assetDomain.value && HTTPRequest.hasFileExtension(req))
-    ) option Results.MovedPermanently(s"http${if (req.secure) "s" else ""}://${net.domain}${req.uri}")
+    ) option Results.MovedPermanently(
+      s"http${if (req.secure) "s" else ""}://${net.domain}${req.uri}",
+    )
 
   private def finalizeResponse(req: RequestHeader)(result: Result) =
     if (HTTPRequest.isApiOrApp(req))

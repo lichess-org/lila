@@ -10,8 +10,13 @@ import lila.challenge.Challenge
 
 object bits {
 
-  def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean, color: Option[shogi.Color] = None)(
-      implicit ctx: Context
+  def js(
+      c: Challenge,
+      json: play.api.libs.json.JsObject,
+      owner: Boolean,
+      color: Option[shogi.Color] = None,
+  )(implicit
+      ctx: Context,
   ) =
     frag(
       moduleJsTag(
@@ -20,14 +25,17 @@ object bits {
           "socketUrl" -> s"/challenge/${c.id}/socket/v5",
           "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
           "owner"     -> owner,
-          "data"      -> json
-        )
-      )
+          "data"      -> json,
+        ),
+      ),
     )
 
   def details(c: Challenge, mine: Boolean)(implicit ctx: Context) =
     div(cls := "details")(
-      div(cls := "variant", dataIcon := (if (c.initialSfen.isDefined) '*' else c.perfType.iconChar))(
+      div(
+        cls      := "variant",
+        dataIcon := (if (c.initialSfen.isDefined) '*' else c.perfType.iconChar),
+      )(
         div(
           views.html.game.bits.variantLink(c.variant, c.perfType.some),
           br,
@@ -35,20 +43,25 @@ object bits {
             c.daysPerTurn map { days =>
               if (days == 1) trans.oneDay()
               else trans.nbDays.pluralSame(days)
-            } getOrElse shortClockName(c.clock.map(_.config))
-          )
-        )
+            } getOrElse shortClockName(c.clock.map(_.config)),
+          ),
+        ),
       ),
       div(cls := "game-color") {
         val handicap = c.initialSfen.fold(false)(sfen => shogi.Handicap.isHandicap(sfen, c.variant))
         frag(
-          shogi.Color.fromName(c.colorChoice.toString.toLowerCase).fold(trans.randomColor.txt()) { color =>
-            transWithColorName(trans.youPlayAsX, if (mine) color else !color, handicap)
+          shogi.Color.fromName(c.colorChoice.toString.toLowerCase).fold(trans.randomColor.txt()) {
+            color =>
+              transWithColorName(trans.youPlayAsX, if (mine) color else !color, handicap)
           },
           " - ",
-          transWithColorName(trans.xPlays, c.initialSfen.flatMap(_.color).getOrElse(shogi.Sente), handicap)
+          transWithColorName(
+            trans.xPlays,
+            c.initialSfen.flatMap(_.color).getOrElse(shogi.Sente),
+            handicap,
+          ),
         )
       },
-      div(cls := "mode")(modeName(c.mode))
+      div(cls := "mode")(modeName(c.mode)),
     )
 }

@@ -8,11 +8,11 @@ import lila.game.Game
 import lila.game.Pov
 import lila.game.Progress
 import lila.i18n.defaultLang
-import lila.i18n.{I18nKeys => trans}
+import lila.i18n.{ I18nKeys => trans }
 
 final private[round] class Drawer(
     messenger: Messenger,
-    finisher: Finisher
+    finisher: Finisher,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang: Lang = defaultLang
@@ -54,20 +54,25 @@ final private[round] class Drawer(
   }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    (pov.game.playable && pov.game.history.fourfoldRepetition) ?? finisher.other(pov.game, _.Draw, None)
+    (pov.game.playable && pov.game.history.fourfoldRepetition) ?? finisher.other(
+      pov.game,
+      _.Draw,
+      None,
+    )
 
-  def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
+  def force(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+    finisher.other(game, _.Draw, None, None)
 
   private def publishDrawOffer(game: Game): Unit = if (game.nonAi) {
     if (game.isCorrespondence)
       Bus.publish(
         lila.hub.actorApi.round.CorresDrawOfferEvent(game.id),
-        "offerEventCorres"
+        "offerEventCorres",
       )
     if (lila.game.Game.isBoardOrBotCompatible(game))
       Bus.publish(
         lila.game.actorApi.BoardDrawOffer(game),
-        lila.game.actorApi.BoardDrawOffer makeChan game.id
+        lila.game.actorApi.BoardDrawOffer makeChan game.id,
       )
   }
 }

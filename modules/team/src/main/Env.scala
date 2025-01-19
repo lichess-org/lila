@@ -21,11 +21,11 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
-    db: lila.db.Db
+    db: lila.db.Db,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   lazy val teamRepo    = new TeamRepo(db(CollName("team")))

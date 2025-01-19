@@ -16,7 +16,7 @@ case class Categ(
     nbTopicsTroll: Int,
     nbPostsTroll: Int,
     lastPostIdTroll: String,
-    quiet: Boolean = false
+    quiet: Boolean = false,
 ) {
 
   def id = _id
@@ -24,8 +24,10 @@ case class Categ(
   def translatedName(implicit lang: Lang): String =
     publicCategIdsTranslated.get(id).map(_.txt()).getOrElse(name)
 
-  def nbTopics(forUser: Option[User]): Int = if (forUser.exists(_.marks.troll)) nbTopicsTroll else nbTopics
-  def nbPosts(forUser: Option[User]): Int  = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
+  def nbTopics(forUser: Option[User]): Int =
+    if (forUser.exists(_.marks.troll)) nbTopicsTroll else nbTopics
+  def nbPosts(forUser: Option[User]): Int =
+    if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
   def lastPostId(forUser: Option[User]): String =
     if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
@@ -38,7 +40,7 @@ case class Categ(
       lastPostId = if (post.troll) lastPostId else post.id,
       nbTopicsTroll = nbTopicsTroll + 1,
       nbPostsTroll = nbPostsTroll + 1,
-      lastPostIdTroll = post.id
+      lastPostIdTroll = post.id,
     )
 
   def slug = id

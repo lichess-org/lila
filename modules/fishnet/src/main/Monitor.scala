@@ -5,10 +5,10 @@ import scala.concurrent.duration._
 final private class Monitor(
     repo: FishnetRepo,
     @scala.annotation.unused moveDb: MoveDB,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   val statusCache = cacheApi.unit[Monitor.Status] {
@@ -28,7 +28,7 @@ final private class Monitor(
   private[fishnet] def analysis(
       work: Work.Analysis,
       client: Client,
-      result: JsonApi.Request.CompleteAnalysis
+      result: JsonApi.Request.CompleteAnalysis,
   ) = {
     Monitor.success(work, client)
 
@@ -79,14 +79,16 @@ final private class Monitor(
 
       val instances = clients.flatMap(_.instance)
 
-      instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach { case (v, nb) =>
-        version(v).update(nb)
+      instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach {
+        case (v, nb) =>
+          version(v).update(nb)
       }
       instances.map(_.engines.yaneuraou.name).groupBy(identity).view.mapValues(_.size) foreach {
         case (s, nb) => stockfish(s).update(nb)
       }
-      instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach { case (s, nb) =>
-        python(s).update(nb)
+      instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach {
+        case (s, nb) =>
+          python(s).update(nb)
       }
     }
 
@@ -134,7 +136,10 @@ object Monitor {
   }
 
   private[fishnet] def failure(work: Work, client: Client, e: Exception) = {
-    logger.warn(s"Received invalid ${work.name} ${work.id} for ${work.game.id} by ${client.fullId}", e)
+    logger.warn(
+      s"Received invalid ${work.name} ${work.id} for ${work.game.id} by ${client.fullId}",
+      e,
+    )
     monResult.failure(client.userId.value).increment()
   }
 
@@ -151,7 +156,7 @@ object Monitor {
 
   private[fishnet] def notAcquired(work: Work, client: Client) = {
     logger.info(
-      s"Received unacquired ${work.name} ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}"
+      s"Received unacquired ${work.name} ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}",
     )
     monResult.notAcquired(client.userId.value).increment()
   }

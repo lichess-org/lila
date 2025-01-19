@@ -14,7 +14,7 @@ final class StormJson(sign: StormSign) {
   def apply(puzzles: List[StormPuzzle], user: Option[User]): JsObject = Json
     .obj(
       "puzzles"      -> puzzles,
-      "notAnExploit" -> StormForm.notAnExploit
+      "notAnExploit" -> StormForm.notAnExploit,
     )
     .add("key" -> user.map(sign.getPrev))
 
@@ -27,7 +27,7 @@ final class StormJson(sign: StormSign) {
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"     -> p.highlightCheck,
       "squareOverlay"      -> p.squareOverlay,
-      "resizeHandle"       -> p.resizeHandle
+      "resizeHandle"       -> p.resizeHandle,
     )
 
   def newHigh(n: Option[StormHigh.NewHigh]) =
@@ -36,13 +36,13 @@ final class StormJson(sign: StormSign) {
       .add("newHigh" -> n.map { nh =>
         Json.obj(
           "key"  -> nh.key,
-          "prev" -> nh.previous
+          "prev" -> nh.previous,
         )
       })
 
   def apiDashboard(high: StormHigh, days: List[StormDay]) = Json.obj(
     "high" -> high,
-    "days" -> days
+    "days" -> days,
   )
 
 }
@@ -65,7 +65,7 @@ object StormJson {
       "id"     -> p.id,
       "sfen"   -> p.sfen,
       "line"   -> p.line.toList.map(_.usi).mkString(" "),
-      "rating" -> p.rating
+      "rating" -> p.rating,
     )
   }
 }

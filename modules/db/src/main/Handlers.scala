@@ -8,6 +8,7 @@ import cats.data.NonEmptyList
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
+
 import shogi.Color
 import shogi.format.forsyth.Sfen
 
@@ -21,7 +22,7 @@ trait Handlers {
 
   implicit val BSONJodaDateTimeHandler: BSONHandler[DateTime] = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
-    v => BSONDateTime(v.getMillis)
+    v => BSONDateTime(v.getMillis),
   )
 
   def isoHandler[A, B](iso: Iso[B, A])(implicit handler: BSONHandler[B]): BSONHandler[A] =
@@ -37,8 +38,11 @@ trait Handlers {
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
     stringIsoHandler(Iso(from, to))
 
-  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A] = BSONIntegerHandler.as[A](iso.from, iso.to)
-  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = intIsoHandler(Iso(from, to))
+  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A] =
+    BSONIntegerHandler.as[A](iso.from, iso.to)
+  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = intIsoHandler(
+    Iso(from, to),
+  )
 
   def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[A] =
     BSONBooleanHandler.as[A](iso.from, iso.to)
@@ -65,17 +69,20 @@ trait Handlers {
           .andThen(Success(_))
           .applyOrElse(
             bson,
-            (b: BSONValue) => handlerBadType(b)
+            (b: BSONValue) => handlerBadType(b),
           )
       def writeTry(t: T) = Success(write(t))
     }
 
-  def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] =
+  def tryHandler[T](
+      read: PartialFunction[BSONValue, Try[T]],
+      write: T => BSONValue,
+  ): BSONHandler[T] =
     new BSONHandler[T] {
       def readTry(bson: BSONValue) =
         read.applyOrElse(
           bson,
-          (b: BSONValue) => handlerBadType(b)
+          (b: BSONValue) => handlerBadType(b),
         )
       def writeTry(t: T) = Success(write(t))
     }
@@ -88,7 +95,7 @@ trait Handlers {
 
   def stringMapHandler[V](implicit
       reader: BSONReader[Map[String, V]],
-      writer: BSONWriter[Map[String, V]]
+      writer: BSONWriter[Map[String, V]],
   ) =
     new BSONHandler[Map[String, V]] {
       def readTry(bson: BSONValue)    = reader readTry bson
@@ -98,10 +105,12 @@ trait Handlers {
   def typedMapHandler[K, V: BSONReader: BSONWriter](keyIso: StringIso[K]) =
     stringMapHandler[V].as[Map[K, V]](
       _.map { case (k, v) => keyIso.from(k) -> v },
-      _.map { case (k, v) => keyIso.to(k) -> v }
+      _.map { case (k, v) => keyIso.to(k) -> v },
     )
 
-  implicit def bsonArrayToNonEmptyListHandler[T](implicit handler: BSONHandler[T]): BSONHandler[NonEmptyList[T]] = {
+  implicit def bsonArrayToNonEmptyListHandler[T](implicit
+      handler: BSONHandler[T],
+  ): BSONHandler[NonEmptyList[T]] = {
     def listWriter = collectionWriter[T, List[T]]
     def listReader = collectionReader[List, T]
     tryHandler[NonEmptyList[T]](
@@ -110,18 +119,21 @@ trait Handlers {
           _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
         }
       },
-      nel => listWriter.writeTry(nel.toList).get
+      nel => listWriter.writeTry(nel.toList).get,
     )
   }
 
-  implicit val ipAddressHandler: BSONHandler[IpAddress] = isoHandler[IpAddress, String](ipAddressIso)
+  implicit val ipAddressHandler: BSONHandler[IpAddress] =
+    isoHandler[IpAddress, String](ipAddressIso)
 
-  implicit val emailAddressHandler: BSONHandler[EmailAddress] = isoHandler[EmailAddress, String](emailAddressIso)
+  implicit val emailAddressHandler: BSONHandler[EmailAddress] =
+    isoHandler[EmailAddress, String](emailAddressIso)
 
   implicit val normalizedEmailAddressHandler: BSONHandler[NormalizedEmailAddress] =
     isoHandler[NormalizedEmailAddress, String](normalizedEmailAddressIso)
 
-  implicit val colorBoolHandler: BSONHandler[Color] = BSONBooleanHandler.as[shogi.Color](shogi.Color.fromSente, _.sente)
+  implicit val colorBoolHandler: BSONHandler[Color] =
+    BSONBooleanHandler.as[shogi.Color](shogi.Color.fromSente, _.sente)
 
   implicit val SfenHandler: BSONHandler[Sfen] = stringAnyValHandler[Sfen](_.value, Sfen.apply)
 }

@@ -26,7 +26,7 @@ final class Importer(env: Env) extends LilaController(env) {
           failure =>
             negotiate(
               html = Ok(html.game.importGame(failure)).fuccess,
-              json = BadRequest(Json.obj("error" -> "Invalid notation")).fuccess
+              json = BadRequest(Json.obj("error" -> "Invalid notation")).fuccess,
             ),
           data =>
             env.importer.importer(data, ctx.userId) flatMap { game =>
@@ -39,8 +39,8 @@ final class Importer(env: Env) extends LilaController(env) {
                       postGameStudy = none,
                       ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
                       mod = isGranted(_.Hunter),
-                      system = false
-                    )
+                      system = false,
+                    ),
                   )
                 } inject Redirect(routes.Round.watcher(game.id, "sente"))
             } recover { case e =>
@@ -48,10 +48,10 @@ final class Importer(env: Env) extends LilaController(env) {
                 .log("importer")
                 .warn(
                   s"Imported game validates but can't be replayed:\n${data.notation}",
-                  e
+                  e,
                 )
               Redirect(routes.Importer.importGame)
-            }
+            },
         )
     }
 }

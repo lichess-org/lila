@@ -10,18 +10,18 @@ import lila.user.User
 
 final private class StripeClient(
     ws: WSClient,
-    config: StripeClient.Config
+    config: StripeClient.Config,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import StripeClient._
   import JsonHandlers._
+  import StripeClient._
 
   def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
     List(
       "payment_method_types[]" -> "card",
       "success_url"            -> data.success_url,
       "cancel_url"             -> data.cancel_url,
-      "customer"               -> data.customer_id.value
+      "customer"               -> data.customer_id.value,
     )
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
@@ -35,7 +35,7 @@ final private class StripeClient(
           s"Lifetime Patron status on lishogi.org. <3 Your support makes a huge difference!"
         else
           s"One month of Patron status on lishogi.org. <3 Your support makes a huge difference!"
-      }
+      },
     )
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
@@ -49,7 +49,7 @@ final private class StripeClient(
     postOne[StripeCustomer](
       "customers",
       "email"       -> data.email,
-      "description" -> user.username
+      "description" -> user.username,
     )
 
   def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
@@ -57,7 +57,7 @@ final private class StripeClient(
       "customers",
       "plan"        -> plan.id,
       "email"       -> data.email,
-      "description" -> "Anonymous"
+      "description" -> "Anonymous",
     )
 
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
@@ -65,18 +65,18 @@ final private class StripeClient(
 
   def updateSubscription(
       sub: StripeSubscription,
-      plan: StripePlan
+      plan: StripePlan,
   ): Fu[StripeSubscription] =
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
       "plan"    -> plan.id,
-      "prorate" -> false
+      "prorate" -> false,
     )
 
   def cancelSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
     deleteOne[StripeSubscription](
       s"subscriptions/${sub.id}",
-      "at_period_end" -> false
+      "at_period_end" -> false,
     )
 
   def getEvent(id: String): Fu[Option[JsObject]] =
@@ -98,7 +98,7 @@ final private class StripeClient(
       "amount"   -> cents.value,
       "currency" -> "usd",
       "interval" -> "month",
-      "name"     -> StripePlan.make(cents, freq).name
+      "name"     -> StripePlan.make(cents, freq).name,
     )
 
   //   def chargeAnonCard(data: Checkout): Funit =
@@ -118,7 +118,7 @@ final private class StripeClient(
       "amount"        -> amount.value,
       "currency"      -> "usd",
       "description"   -> "Monthly customer adds a one-time",
-      "receipt_email" -> customer.email
+      "receipt_email" -> customer.email,
     ).void
 
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
@@ -154,7 +154,8 @@ final private class StripeClient(
   }
 
   private def request(url: String) =
-    ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
+    ws.url(s"${config.endpoint}/$url")
+      .withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
 
   private def response[A: Reads](res: WSResponse): Fu[A] =
     res.status match {
@@ -166,7 +167,7 @@ final private class StripeClient(
                 new DeletedException(s"[stripe] Upstream resource was deleted: ${res.json}")
               else new Exception(s"[stripe] Can't parse ${res.json} --- $errs")
             },
-          fuccess
+          fuccess,
         )
       case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
       case x if x >= 400 && x < 500 =>
@@ -207,7 +208,7 @@ object StripeClient {
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
-      @ConfigName("keys.secret") secretKey: Secret
+      @ConfigName("keys.secret") secretKey: Secret,
   )
   implicit private[plan] val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }

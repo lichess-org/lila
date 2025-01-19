@@ -13,11 +13,12 @@ import lila.user.User
 final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     lightUser: lila.user.LightUserApi,
-    getTournamentName: lila.tournament.GetTourName
+    getTournamentName: lila.tournament.GetTourName,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import lila.game.JsonView._
   import LightUser.lightUserWrites
+
+  import lila.game.JsonView._
 
   def jsPaginator(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
     for {
@@ -28,7 +29,7 @@ final class UserGameApi(
         write(g, bookmarkedIds(g.id), ctx.me)(ctx.lang)
       }
       Json.obj(
-        "paginator" -> lila.common.paginator.PaginatorJson(pag)
+        "paginator" -> lila.common.paginator.PaginatorJson(pag),
       )
     }
 
@@ -49,7 +50,7 @@ final class UserGameApi(
             .obj(
               "user"   -> p.userId.flatMap(lightUser.sync),
               "userId" -> p.userId, // for BC
-              "name"   -> p.name
+              "name"   -> p.name,
             )
             .add("id" -> as.exists(p.isUser).option(p.id))
             .add("aiLevel" -> p.aiLevel)
@@ -58,7 +59,7 @@ final class UserGameApi(
         }),
         "sfen"      -> g.situation.toSfen,
         "winner"    -> g.winnerColor.map(_.name),
-        "bookmarks" -> g.bookmarks
+        "bookmarks" -> g.bookmarks,
       )
       .add("bookmarked" -> bookmarked)
       .add("analysed" -> g.metadata.analysed)

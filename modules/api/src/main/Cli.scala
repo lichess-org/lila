@@ -17,7 +17,7 @@ final private[api] class Cli(
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
     msg: lila.msg.Env,
-    timeline: lila.timeline.Env
+    timeline: lila.timeline.Env,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
 
@@ -59,7 +59,7 @@ final private[api] class Cli(
           fuccess(announce.json.toString)
         case None =>
           fuccess(
-            "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
+            "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it",
           )
       }
     case "bus" :: "dump" :: Nil =>

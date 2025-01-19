@@ -14,7 +14,7 @@ import lila.common.config._
 private class ReportConfig(
     @ConfigName("collection.report") val reportColl: CollName,
     @ConfigName("score.threshold") val scoreThreshold: Int,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("actor.name") val actorName: String,
 )
 
 private case class Thresholds(score: () => Int)
@@ -34,10 +34,10 @@ final class Env(
     captcher: lila.hub.actors.Captcher,
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)
@@ -47,11 +47,11 @@ final class Env(
   lazy val scoreThresholdSetting = settingStore[Int](
     "reportScoreThreshold",
     default = config.scoreThreshold,
-    text = "Report score threshold. Reports with lower scores are concealed to moderators".some
+    text = "Report score threshold. Reports with lower scores are concealed to moderators".some,
   )
 
   private val thresholds = Thresholds(
-    score = scoreThresholdSetting.get _
+    score = scoreThresholdSetting.get _,
   )
 
   lazy val forms = wire[DataForm]
@@ -74,7 +74,7 @@ final class Env(
           api.autoBoostReport(winnerId, loserId).unit
       }
     }),
-    name = config.actorName
+    name = config.actorName,
   )
 
   lila.common.Bus.subscribeFun("playban", "autoFlag") {

@@ -6,11 +6,11 @@ final class Annotator {
 
   def apply(
       n: Notation,
-      analysis: Option[Analysis]
+      analysis: Option[Analysis],
   ): Notation =
     annotateMoves(
       n,
-      analysis ?? (_.advices)
+      analysis ?? (_.advices),
     )
 
   private def annotateMoves(n: Notation, advices: List[Advice]): Notation =
@@ -19,9 +19,9 @@ final class Annotator {
         advice.ply,
         move =>
           move.copy(
-            comments = advice.makeComment(true, true) :: move.comments
+            comments = advice.makeComment(true, true) :: move.comments,
             // variations = makeVariation(advice.ply, advice) :: Nil
-          )
+          ),
       )
     }
 }

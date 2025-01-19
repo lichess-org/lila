@@ -6,14 +6,17 @@ import lila.app._
 import lila.blog.BlogLang
 
 final class Prismic(
-    env: Env
+    env: Env,
 )(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
 
   private val logger = lila.log("prismic")
 
   private def prismicApi = env.blog.api.prismicApi
 
-  implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None): DocumentLinkResolver =
+  implicit def makeLinkResolver(
+      prismicApi: PrismicApi,
+      ref: Option[String] = None,
+  ): DocumentLinkResolver =
     DocumentLinkResolver(prismicApi) {
       case (link, _) => routes.Blog.show(link.id, ref).url
       case _         => routes.Lobby.home.url

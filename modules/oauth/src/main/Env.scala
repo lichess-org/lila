@@ -8,7 +8,7 @@ import lila.common.config.CollName
 final class Env(
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
-    db: lila.db.Db
+    db: lila.db.Db,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   lazy val authorizationApi = new AuthorizationApi(db(CollName("oauth2_authorization")))

@@ -27,7 +27,13 @@ final class Messenger(api: ChatApi) {
     api.userChat.system(chatId, message, _.Round).unit
 
   def watcher(gameId: Game.Id, userId: User.ID, text: String) =
-    api.userChat.write(watcherId(gameId), userId, text, PublicSource.Watcher(gameId.value).some, _.Round)
+    api.userChat.write(
+      watcherId(gameId),
+      userId,
+      text,
+      PublicSource.Watcher(gameId.value).some,
+      _.Round,
+    )
 
   private val whisperCommands = List("/whisper ", "/w ")
 
@@ -44,7 +50,13 @@ final class Messenger(api: ChatApi) {
   def owner(gameId: Game.Id, anonColor: shogi.Color, text: String): Funit =
     api.playerChat.write(Chat.Id(gameId.value), anonColor, text, _.Round)
 
-  def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String, text: String): Funit =
+  def timeout(
+      chatId: Chat.Id,
+      modId: User.ID,
+      suspect: User.ID,
+      reason: String,
+      text: String,
+  ): Funit =
     ChatTimeout.Reason(reason) ?? { r =>
       api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
     }

@@ -9,10 +9,10 @@ import lila.game.GameRepo
 
 final class AutoAnalysis(
     gameRepo: GameRepo,
-    fishnet: lila.hub.actors.Fishnet
+    fishnet: lila.hub.actors.Fishnet,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 ) {
 
   def apply(candidate: Report.Candidate): Funit =
@@ -27,7 +27,9 @@ final class AutoAnalysis(
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate) map { games =>
       if (games.nonEmpty)
-        logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
+        logger.info(
+          s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}",
+        )
       games foreach { game =>
         lila.mon.cheat.autoAnalysis("Report").increment()
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
@@ -40,7 +42,7 @@ final class AutoAnalysis(
         candidate.suspect.user,
         candidate.reporter.user,
         DateTime.now.minusHours(2),
-        10
+        10,
       ) dmap { as ++ _ }
     }
   }.map {

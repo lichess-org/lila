@@ -58,20 +58,20 @@ trait FormHelper { self: I18nHelper =>
         labelContent: Frag,
         klass: String = "",
         half: Boolean = false,
-        help: Option[Frag] = None
+        help: Option[Frag] = None,
     )(content: Field => Frag)(implicit ctx: Context): Frag =
       div(
         cls := List(
           "form-group" -> true,
           "is-invalid" -> field.hasErrors,
           "form-half"  -> half,
-          klass        -> klass.nonEmpty
-        )
+          klass        -> klass.nonEmpty,
+        ),
       )(
         groupLabel(field)(labelContent),
         content(field),
         errors(field),
-        help map { helper(_) }
+        help map { helper(_) },
       )
 
     def input(field: Field, typ: String = "", klass: String = ""): BaseTagType =
@@ -80,7 +80,7 @@ trait FormHelper { self: I18nHelper =>
         name  := field.name,
         value := field.value,
         tpe   := typ.nonEmpty.option(typ),
-        cls   := List("form-control" -> true, klass -> klass.nonEmpty)
+        cls   := List("form-control" -> true, klass -> klass.nonEmpty),
       )(validationModifiers(field))
 
     def checkbox(
@@ -88,21 +88,21 @@ trait FormHelper { self: I18nHelper =>
         labelContent: Frag,
         half: Boolean = false,
         help: Option[Frag] = None,
-        disabled: Boolean = false
+        disabled: Boolean = false,
     ): Frag =
       div(
         cls := List(
           "form-check form-group" -> true,
-          "form-half"             -> half
-        )
+          "form-half"             -> half,
+        ),
       )(
         div(
           span(cls := "form-check-input")(
-            cmnToggle(id(field), field.name, field.value.has("true"), disabled)
+            cmnToggle(id(field), field.name, field.value.has("true"), disabled),
           ),
-          groupLabel(field)(labelContent)
+          groupLabel(field)(labelContent),
         ),
-        help map { helper(_) }
+        help map { helper(_) },
       )
 
     def cmnToggle(
@@ -110,7 +110,7 @@ trait FormHelper { self: I18nHelper =>
         fieldName: String,
         checked: Boolean,
         disabled: Boolean = false,
-        value: String = "true"
+        value: String = "true",
     ) =
       frag(
         st.input(
@@ -120,42 +120,42 @@ trait FormHelper { self: I18nHelper =>
           tpe      := "checkbox",
           cls      := "form-control cmn-toggle",
           checked option st.checked,
-          disabled option st.disabled
+          disabled option st.disabled,
         ),
-        label(`for` := fieldId)
+        label(`for` := fieldId),
       )
 
     def select(
         field: Field,
         options: Iterable[(Any, String)],
         default: Option[String] = None,
-        disabled: Boolean = false
+        disabled: Boolean = false,
     ): Frag =
       frag(
         st.select(
           st.id := id(field),
           name  := field.name,
-          cls   := "form-control"
+          cls   := "form-control",
         )(disabled option (st.disabled := true))(validationModifiers(field))(
           default map { option(value := "")(_) },
           options.toSeq map { case (value, name) =>
             option(
               st.value := value.toString,
-              field.value.has(value.toString) option selected
+              field.value.has(value.toString) option selected,
             )(name)
-          }
+          },
         ),
-        disabled option hidden(field)
+        disabled option hidden(field),
       )
 
     def textarea(
         field: Field,
-        klass: String = ""
+        klass: String = "",
     )(modifiers: Modifier*): Frag =
       st.textarea(
         st.id := id(field),
         name  := field.name,
-        cls   := List("form-control" -> true, klass -> klass.nonEmpty)
+        cls   := List("form-control" -> true, klass -> klass.nonEmpty),
       )(validationModifiers(field))(modifiers)(~field.value)
 
     val actions = div(cls := "form-actions")
@@ -166,7 +166,7 @@ trait FormHelper { self: I18nHelper =>
         icon: Option[String] = Some("E"),
         nameValue: Option[(String, String)] = None,
         klass: String = "",
-        confirm: Option[String] = None
+        confirm: Option[String] = None,
     ): Tag =
       submitButton(
         dataIcon := icon,
@@ -176,9 +176,9 @@ trait FormHelper { self: I18nHelper =>
           "submit button" -> true,
           "text"          -> icon.isDefined,
           "confirm"       -> confirm.nonEmpty,
-          klass           -> klass.nonEmpty
+          klass           -> klass.nonEmpty,
         ),
-        title := confirm
+        title := confirm,
       )(content)
 
     // allows disabling of a field that defaults to true
@@ -191,10 +191,12 @@ trait FormHelper { self: I18nHelper =>
       st.input(
         st.name  := name,
         st.value := value,
-        tpe      := "hidden"
+        tpe      := "hidden",
       )
 
-    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
+    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit
+        ctx: Context,
+    ): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
 
     def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
@@ -202,8 +204,8 @@ trait FormHelper { self: I18nHelper =>
         cls := List(
           "form-fieldset"             -> true,
           "form-fieldset--toggle"     -> toggle.isDefined,
-          "form-fieldset--toggle-off" -> toggle.has(false)
-        )
+          "form-fieldset--toggle-off" -> toggle.has(false),
+        ),
       )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
     def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
@@ -217,7 +219,12 @@ trait FormHelper { self: I18nHelper =>
     object file {
       def image(name: String): Frag = st.input(tpe := "file", st.name := name, accept := "image/*")
       def notation(field: Field): Frag =
-        st.input(tpe := "file", st.id := id(field), st.name := field.name, accept := ".kif, .kifu, .csa")
+        st.input(
+          tpe     := "file",
+          st.id   := id(field),
+          st.name := field.name,
+          accept  := ".kif, .kifu, .csa",
+        )
     }
   }
 }

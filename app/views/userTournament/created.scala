@@ -18,7 +18,7 @@ object created {
       u = u,
       title = s"${u.username} recent tournaments",
       path = path,
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
     ) {
       if (pager.nbResults == 0)
         div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
@@ -30,15 +30,17 @@ object created {
                 th(cls := "count")(pager.nbResults),
                 th(colspan := 2)(h1(userLink(u, withOnline = true), " tournaments")),
                 th(trans.winner()),
-                th(trans.players())
-              )
+                th(trans.players()),
+              ),
             ),
             tbody(cls := "infinitescroll")(
               pager.nextPage.map { np =>
                 tr(
                   th(cls := "pager none")(
-                    a(rel := "next", href := routes.UserTournament.path(u.username, path, np))("Next")
-                  )
+                    a(rel := "next", href := routes.UserTournament.path(u.username, path, np))(
+                      "Next",
+                    ),
+                  ),
                 )
               },
               pager.currentPageResults.map { t =>
@@ -47,13 +49,13 @@ object created {
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "winner")(
-                    t.winnerId.isDefined option userIdLink(t.winnerId, withOnline = false)
+                    t.winnerId.isDefined option userIdLink(t.winnerId, withOnline = false),
                   ),
-                  td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := "r")(t.nbPlayers.localize),
                 )
-              }
-            )
-          )
+              },
+            ),
+          ),
         )
     }
 }

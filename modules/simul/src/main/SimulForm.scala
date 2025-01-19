@@ -6,6 +6,7 @@ import play.api.data.validation.Constraint
 import play.api.data.validation.Constraints
 
 import org.joda.time.DateTime
+
 import shogi.format.forsyth.Sfen
 
 import lila.common.Form._
@@ -17,7 +18,8 @@ object SimulForm {
   val clockTimeDefault = 20
   val clockTimeChoices = options(clockTimes, "%d minute{s}")
 
-  val clockIncrements = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockIncrements =
+    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
@@ -25,7 +27,8 @@ object SimulForm {
   val clockExtraChoices = options(clockExtras, "%d minute{s}")
   val clockExtraDefault = 0
 
-  val clockByoyomi = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
+  val clockByoyomi =
+    (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10) ++ (90 to 180 by 30)
   val clockByoyomiDefault = 0
   val clockByoyomiChoices = options(clockByoyomi, "%d second{s}")
 
@@ -42,7 +45,7 @@ object SimulForm {
       Constraints maxLength 40,
       Constraints.pattern(
         regex = """[\p{L}\p{N}-\s:,;]+""".r,
-        error = "Invalid characters"
+        error = "Invalid characters",
       ),
       Constraint[String] { (t: String) =>
         if (t.toLowerCase contains "lishogi")
@@ -61,7 +64,7 @@ object SimulForm {
         )
           validation.Invalid(validation.ValidationError("Must not contain a title"))
         else validation.Valid
-      }
+      },
     )
 
   def create(host: User) =
@@ -77,7 +80,7 @@ object SimulForm {
       color = colorDefault,
       text = "",
       estimatedStartAt = none,
-      team = none
+      team = none,
     )
   def edit(host: User, simul: Simul) =
     baseForm(host) fill Setup(
@@ -92,7 +95,7 @@ object SimulForm {
       color = simul.color | "random",
       text = simul.text,
       estimatedStartAt = simul.estimatedStartAt,
-      team = simul.team
+      team = simul.team,
     )
 
   private def baseForm(host: User) =
@@ -112,18 +115,18 @@ object SimulForm {
               shogi.variant.Chushogi.id,
               shogi.variant.Annanshogi.id,
               shogi.variant.Kyotoshogi.id,
-              shogi.variant.Checkshogi.id
-            ) contains _
+              shogi.variant.Checkshogi.id,
+            ) contains _,
           )
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.sfen.clean),
         "color"            -> stringIn(colors.toSet),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "team"             -> optional(nonEmptyText)
+        "team"             -> optional(nonEmptyText),
       )(Setup.apply)(Setup.unapply)
         .verifying("Custom position allowed only with one variant", _.canHaveCustomPosition)
-        .verifying("Custom position is not valid", _.isCustomPositionValid)
+        .verifying("Custom position is not valid", _.isCustomPositionValid),
     )
 
   def setText = Form(single("text" -> text))
@@ -140,12 +143,12 @@ object SimulForm {
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime] = None,
-      team: Option[String]
+      team: Option[String],
   ) {
     def clock =
       SimulClock(
         config = shogi.Clock.Config(clockTime * 60, clockIncrement, clockByoyomi, periods),
-        hostExtraTime = clockExtra * 60
+        hostExtraTime = clockExtra * 60,
       )
 
     def canHaveCustomPosition =

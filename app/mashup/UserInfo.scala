@@ -30,7 +30,7 @@ case class UserInfo(
     isStreamer: Boolean,
     isCoach: Boolean,
     insightsVisible: Boolean,
-    completionRate: Option[Double]
+    completionRate: Option[Double],
 ) {
 
   def crosstable = nbs.crosstable
@@ -56,13 +56,13 @@ object UserInfo {
       relation: Option[lila.relation.Relation],
       notes: List[lila.user.Note],
       followable: Boolean,
-      blocked: Boolean
+      blocked: Boolean,
   )
 
   final class SocialApi(
       relationApi: RelationApi,
       noteApi: lila.user.NoteApi,
-      prefApi: lila.pref.PrefApi
+      prefApi: lila.pref.PrefApi,
   ) {
     def apply(u: User, ctx: Context): Fu[Social] =
       ctx.userId.?? {
@@ -88,7 +88,7 @@ object UserInfo {
       playing: Int,
       paused: Int,
       imported: Int,
-      bookmark: Int
+      bookmark: Int,
   ) {
     def withMe: Option[Int] = crosstable.map(_.crosstable.nbGames)
   }
@@ -96,7 +96,7 @@ object UserInfo {
   final class NbGamesApi(
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
-      crosstableApi: lila.game.CrosstableApi
+      crosstableApi: lila.game.CrosstableApi,
   ) {
     def apply(u: User, ctx: Context, withCrosstable: Boolean): Fu[NbGames] =
       (withCrosstable ?? ctx.me.filter(u.!=) ?? { me =>
@@ -112,7 +112,7 @@ object UserInfo {
               playing = playing,
               paused = paused,
               imported = imported,
-              bookmark = bookmark
+              bookmark = bookmark,
             )
         }
   }
@@ -131,7 +131,7 @@ object UserInfo {
       teamCached: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
       prefApi: lila.pref.PrefApi,
-      playbanApi: lila.playban.PlaybanApi
+      playbanApi: lila.playban.PlaybanApi,
   )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
       (ctx.noBlind ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
@@ -147,7 +147,9 @@ object UserInfo {
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.game >= 10)
-          .??(prefApi.getPref(user.id, pref => (pref.insightsShare || Granter(_.SeeInsights)(user)))) zip
+          .??(
+            prefApi.getPref(user.id, pref => (pref.insightsShare || Granter(_.SeeInsights)(user))),
+          ) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
         userCached.rankingsOf(user.id) map {
@@ -168,7 +170,7 @@ object UserInfo {
                 user,
                 Granter(_.PublicMod)(user),
                 Granter(_.Developer)(user),
-                Granter(_.Verified)(user)
+                Granter(_.Verified)(user),
               ),
               shields = shields,
               revolutions = revols,
@@ -176,7 +178,7 @@ object UserInfo {
               isStreamer = isStreamer,
               isCoach = isCoach,
               insightsVisible = insightsVisible,
-              completionRate = completionRate
+              completionRate = completionRate,
             )
         }
   }

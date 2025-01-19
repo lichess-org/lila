@@ -14,13 +14,13 @@ object theirs {
       c: Challenge,
       json: play.api.libs.json.JsObject,
       user: Option[lila.user.User],
-      color: Option[shogi.Color]
+      color: Option[shogi.Color],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
       moreJs = bits.js(c, json, false, color),
-      moreCss = cssTag("challenge.page")
+      moreCss = cssTag("challenge.page"),
     ) {
       main(cls := "page-small challenge-page challenge-theirs box box-pad")(
         c.status match {
@@ -34,29 +34,34 @@ object theirs {
                       userLink(u),
                       " (",
                       u.perfs(c.perfType).glicko.display,
-                      ")"
-                    )
-                  )
+                      ")",
+                    ),
+                  ),
               ),
               bits.details(c, false),
               c.initialSfen.map { sfen =>
                 div(
                   cls := "board-preview",
-                  views.html.game.bits.miniBoard(sfen, color = !c.finalColor, variant = c.variant)
+                  views.html.game.bits.miniBoard(sfen, color = !c.finalColor, variant = c.variant),
                 )
               },
               if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
                 badTag(
                   // very rare message, don't translate
-                  s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined."
+                  s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined.",
                 )
               else if ((!c.mode.rated && c.hasClock) || ctx.isAuth) {
                 frag(
                   (c.mode.rated && c.unlimited) option
                     badTag(trans.bewareTheGameIsRatedButHasNoClock()),
-                  postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
-                    submitButton(cls := "text button button-fat", dataIcon := "G")(trans.joinTheGame())
-                  )
+                  postForm(
+                    cls    := "accept",
+                    action := routes.Challenge.accept(c.id, color.map(_.name)),
+                  )(
+                    submitButton(cls := "text button button-fat", dataIcon := "G")(
+                      trans.joinTheGame(),
+                    ),
+                  ),
                 )
               } else
                 frag(
@@ -66,18 +71,18 @@ object theirs {
                     !c.hasClock option p(trans.correspondence.txt()),
                     p(
                       a(
-                        cls  := "button",
-                        href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "sente")}"
-                      )(trans.signIn())
-                    )
-                  )
-                )
+                        cls := "button",
+                        href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "sente")}",
+                      )(trans.signIn()),
+                    ),
+                  ),
+                ),
             )
           case Status.Declined =>
             div(cls := "follow-up")(
               h1(trans.challengeDeclined()),
               bits.details(c, false),
-              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent()),
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
@@ -86,18 +91,18 @@ object theirs {
               a(
                 id   := "challenge-redirect",
                 href := routes.Round.watcher(c.id, "sente"),
-                cls  := "button button-fat"
+                cls  := "button button-fat",
               )(
-                trans.joinTheGame()
-              )
+                trans.joinTheGame(),
+              ),
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
               h1(trans.challengeCanceled()),
               bits.details(c, false),
-              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent()),
             )
-        }
+        },
       )
     }
 }

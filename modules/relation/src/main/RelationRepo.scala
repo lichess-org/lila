@@ -8,7 +8,7 @@ import lila.db.dsl._
 import lila.user.User
 
 final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   import RelationRepo._
@@ -34,21 +34,21 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
                       "$expr" -> $doc(
                         "$and" -> $arr(
                           $doc("$eq" -> $arr("$_id", "$$uid")),
-                          $doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(10)))
-                        )
-                      )
-                    )
+                          $doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(10))),
+                        ),
+                      ),
+                    ),
                   ),
-                  $doc("$project" -> $id(true))
+                  $doc("$project" -> $id(true)),
                 ),
-                "as" -> "follower"
-              )
-            )
+                "as" -> "follower",
+              ),
+            ),
           ),
           Match("follower" $ne $arr()),
           Group(BSONNull)(
-            "ids" -> PushField("u1")
-          )
+            "ids" -> PushField("u1"),
+          ),
         )
       }
       .map(~_.flatMap(_.getAsOpt[List[User.ID]]("ids")))
@@ -60,24 +60,24 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
         $doc(
           "u1" -> userId,
           "u2" $startsWith term.toLowerCase,
-          "r" -> Follow
-        )
+          "r" -> Follow,
+        ),
       )
     }
 
   private def relaters(
       userId: ID,
       relation: Relation,
-      rp: ReadPreference = ReadPreference.primary
+      rp: ReadPreference = ReadPreference.primary,
   ): Fu[Set[ID]] =
     coll
       .distinctEasy[ID, Set](
         "u1",
         $doc(
           "u2" -> userId,
-          "r"  -> relation
+          "r"  -> relation,
         ),
-        rp
+        rp,
       )
 
   private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
@@ -85,8 +85,8 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
       "u2",
       $doc(
         "u1" -> userId,
-        "r"  -> relation
-      )
+        "r"  -> relation,
+      ),
     )
 
   def follow(u1: ID, u2: ID): Funit   = save(u1, u2, Follow)
@@ -104,7 +104,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
       .one(
         $id(makeId(u1, u2)),
         $doc("u1" -> u1, "u2" -> u2, "r" -> relation),
-        upsert = true
+        upsert = true,
       )
       .void
       .recover(lila.db.ignoreDuplicateKey)
@@ -115,7 +115,7 @@ final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(impli
     coll
       .find(
         $doc("u1" -> userId, "r" -> relation),
-        $doc("_id" -> true).some
+        $doc("_id" -> true).some,
       )
       .cursor[Bdoc]()
       .list(nb)

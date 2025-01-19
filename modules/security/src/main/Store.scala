@@ -19,7 +19,7 @@ import lila.db.dsl._
 import lila.user.User
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddress)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   import Store._
@@ -42,7 +42,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   def authInfo(sessionId: String) = authCache get sessionId
 
-  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private val authInfoProjection =
+    $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: User.ID): Funit =
@@ -60,7 +61,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       userId: User.ID,
       req: RequestHeader,
       up: Boolean,
-      fp: Option[FingerPrint]
+      fp: Option[FingerPrint],
   ): Funit =
     coll.insert
       .one(
@@ -77,8 +78,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
           "date" -> DateTime.now,
           "up"   -> up,
-          "fp"   -> fp.flatMap(FingerHash.apply).flatMap(fingerHashBSONHandler.writeOpt)
-        )
+          "fp"   -> fp.flatMap(FingerHash.apply).flatMap(fingerHashBSONHandler.writeOpt),
+        ),
       )
       .void
 
@@ -86,7 +87,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     coll.update
       .one(
         $id(sessionId),
-        $set("up" -> false)
+        $set("up" -> false),
       )
       .void >>- uncache(sessionId)
 
@@ -94,7 +95,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     coll.update
       .one(
         $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
-        $set("up"   -> false)
+        $set("up"   -> false),
       )
       .void >>- uncache(sessionId)
 
@@ -103,7 +104,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       .one(
         $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
         $set("up"   -> false),
-        multi = true
+        multi = true,
       )
       .void >> uncacheAllOf(userId)
 
@@ -112,15 +113,16 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       .one(
         $doc("user" -> userId, "up" -> true),
         $set("up"   -> false),
-        multi = true
+        multi = true,
       )
       .void >> uncacheAllOf(userId)
 
-  implicit private val UserSessionBSONHandler: BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
+  implicit private val UserSessionBSONHandler: BSONDocumentHandler[UserSession] =
+    Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
     coll.ext
       .find(
-        $doc("user" -> userId, "up" -> true)
+        $doc("user" -> userId, "up" -> true),
       )
       .sort($doc("date" -> -1))
       .cursor[UserSession]()
@@ -144,9 +146,9 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       .find(
         $doc(
           "user" -> user.id,
-          "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1))
+          "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1)),
         ),
-        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
+        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true),
       )
       .sort($sort desc "date")
       .cursor[Info]()(InfoReader, implicitly[CursorProducer[Info]])
@@ -166,8 +168,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       .find(
         $doc(
           "user" -> userId,
-          "up"   -> true
-        )
+          "up"   -> true,
+        ),
       )
       .sort($doc("date" -> -1))
       .cursor[DedupInfo]()
@@ -194,13 +196,13 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.secondaryPreferred.exists(
-      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7))
+      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)),
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     FingerHash(fp) ?? { hash =>
       coll.secondaryPreferred.exists(
-        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7))
+        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7)),
       )
     }
 }
@@ -214,5 +216,5 @@ object Store {
   }
 
   implicit val fingerHashBSONHandler: BSONHandler[FingerHash] = stringIsoHandler[FingerHash]
-  implicit val InfoReader: BSONDocumentReader[Info]                                     = Macros.reader[Info]
+  implicit val InfoReader: BSONDocumentReader[Info]           = Macros.reader[Info]
 }

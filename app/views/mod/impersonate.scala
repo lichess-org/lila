@@ -12,12 +12,12 @@ object impersonate {
     div(id := "impersonate")(
       div(cls := "meat")(
         "You are impersonating ",
-        userLink(user, withOnline = false)
+        userLink(user, withOnline = false),
       ),
       div(cls := "actions")(
         postForm(action := routes.Mod.impersonate("-"))(
-          submitButton(cls := "button button-empty")("Quit")
-        )
-      )
+          submitButton(cls := "button button-empty")("Quit"),
+        ),
+      ),
     )
 }

@@ -14,7 +14,7 @@ object list {
       filter: String,
       counts: lila.report.Room.Counts,
       streamers: Int,
-      appeals: Int
+      appeals: Int,
   )(implicit ctx: Context) =
     layout(filter, counts, streamers, appeals)(
       table(cls := "slist slist-pad see")(
@@ -22,8 +22,8 @@ object list {
           tr(
             th("Report"),
             th("By"),
-            th
-          )
+            th,
+          ),
         ),
         tbody(
           reports.map {
@@ -36,7 +36,7 @@ object list {
                   userLink(sus.user, params = "?mod"),
                   br,
                   p(cls := "perfs")(showBestPerfs(sus.user, 2)),
-                  views.html.user.mod.userMarks(sus.user, none)
+                  views.html.user.mod.userMarks(sus.user, none),
                 ),
                 td(cls := "atoms")(
                   r.bestAtoms(3).map { atom =>
@@ -46,17 +46,17 @@ object list {
                         " ",
                         userIdLink(atom.by.value.some),
                         " ",
-                        momentFromNowOnce(atom.at)
+                        momentFromNowOnce(atom.at),
                       ),
                       p(
                         cls := List(
                           "text"  -> true,
-                          "large" -> (atom.text.size > 100 || atom.text.linesIterator.size > 3)
-                        )
-                      )(shorten(atom.text, 200))
+                          "large" -> (atom.text.size > 100 || atom.text.linesIterator.size > 3),
+                        ),
+                      )(shorten(atom.text, 200)),
                     )
                   },
-                  r.atoms.size > 3 option i(cls := "more")("And ", (r.atoms.size - 3), " more")
+                  r.atoms.size > 3 option i(cls := "more")("And ", (r.atoms.size - 3), " more"),
                 ),
                 td(
                   r.inquiry match {
@@ -64,36 +64,38 @@ object list {
                       frag(
                         if (r.processedBy.isDefined)
                           postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
-                            submitButton(dataIcon := "G", cls := "text button button-metal")("Reopen")
+                            submitButton(dataIcon := "G", cls := "text button button-metal")(
+                              "Reopen",
+                            ),
                           )
                         else
                           postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
-                            submitButton(dataIcon := "G", cls := "button button-metal")
+                            submitButton(dataIcon := "G", cls := "button button-metal"),
                           ),
                         postForm(action := routes.Report.process(r.id), cls := "cancel")(
-                          submitButton(cls := "button button-thin button-empty")("Dismiss")
-                        )
+                          submitButton(cls := "button button-thin button-empty")("Dismiss"),
+                        ),
                       )
                     case Some(inquiry) =>
                       frag(
                         "Open by ",
-                        userIdLink(inquiry.mod.some)
+                        userIdLink(inquiry.mod.some),
                       )
-                  }
-                )
+                  },
+                ),
               )
             case _ => emptyFrag
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
 
   def layout(filter: String, counts: lila.report.Room.Counts, streamers: Int, appeals: Int)(
-      body: Frag
+      body: Frag,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Reports",
-      moreCss = cssTag("user.mod.report")
+      moreCss = cssTag("user.mod.report"),
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("report"),
@@ -103,10 +105,10 @@ object list {
             span(cls := "tabs")(
               a(
                 href := routes.Report.listWithFilter("all"),
-                cls  := List("new" -> (counts.sum > 0), "active" -> (filter == "all"))
+                cls  := List("new" -> (counts.sum > 0), "active" -> (filter == "all")),
               )(
                 countTag(counts.sum > 0 option counts.sum),
-                "All"
+                "All",
               ),
               lila.report.Room.all.map { room =>
                 a(
@@ -114,32 +116,32 @@ object list {
                   cls := List(
                     "new"               -> counts.value.contains(room),
                     "active"            -> (filter == room.key),
-                    s"room-${room.key}" -> true
-                  )
+                    s"room-${room.key}" -> true,
+                  ),
                 )(
                   countTag(counts.get(room)),
-                  room.name
+                  room.name,
                 )
               },
               (appeals > 0 && isGranted(_.Appeals)) option a(
                 href := routes.Appeal.queue,
                 cls := List(
                   "new"    -> true,
-                  "active" -> (filter == "appeal")
-                )
+                  "active" -> (filter == "appeal"),
+                ),
               )(
                 countTag(appeals),
-                "Appeals"
+                "Appeals",
               ),
               streamers > 0 option
                 a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
                   countTag(streamers),
-                  "Streamers"
-                )
-            )
+                  "Streamers",
+                ),
+            ),
           ),
-          body
-        )
+          body,
+        ),
       )
     }
 }

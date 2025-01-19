@@ -12,13 +12,12 @@ import lila.hub.Trouper
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
+import lila.lobby.actorApi._
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.Sri
 import lila.socket.Socket.Sris
 import lila.socket.Socket.makeMessage
 import lila.user.User
-
-import actorApi._
 
 case class LobbyCounters(members: Int, rounds: Int)
 
@@ -28,11 +27,12 @@ final class LobbySocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     lobby: LobbyTrouper,
     relationApi: lila.relation.RelationApi,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  import LobbySocket.Protocol._
   import LobbySocket._
-  import Protocol._
+
   type SocketController = PartialFunction[(String, JsObject), Unit]
 
   private var lastCounters = LobbyCounters(0, 0)
@@ -76,8 +76,8 @@ final class LobbySocket(
             hookSubscriberSris diff idleSris filter { sri =>
               members get sri exists { biter.showHookTo(hook, _) }
             } map Sri.apply,
-            makeMessage("had", hook.render)
-          )
+            makeMessage("had", hook.render),
+          ),
         )
 
       case RemoveHook(hookId) => removedHookIds.append(hookId).unit
@@ -111,7 +111,7 @@ final class LobbySocket(
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
         send(
-          P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
+          P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render))),
         )
         hookSubscriberSris += member.sri.value
     }
@@ -131,9 +131,9 @@ final class LobbySocket(
         Json
           .obj(
             "id"  -> pov.fullId,
-            "url" -> s"/${pov.fullId}"
+            "url" -> s"/${pov.fullId}",
           )
-          .add("cookie" -> lila.game.AnonCookie.json(pov))
+          .add("cookie" -> lila.game.AnonCookie.json(pov)),
       )
     }
 
@@ -150,7 +150,7 @@ final class LobbySocket(
   private val hookLimitPerSri = new lila.memo.RateLimit[SriStr](
     credits = 25,
     duration = 1 minute,
-    key = "lobby.hook.member"
+    key = "lobby.hook.member",
   )
 
   private def HookLimit(member: Member, cost: Int, msg: => String)(op: => Unit) =
@@ -226,7 +226,7 @@ final class LobbySocket(
           tpe -> msg,
           { case _ =>
             logger.warn(s"Can't handle $tpe")
-          }: SocketController
+          }: SocketController,
         )
       }
   }

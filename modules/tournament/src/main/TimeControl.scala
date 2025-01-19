@@ -38,7 +38,7 @@ object TimeControl {
   object DataForm {
     val timeControls = Seq(
       RealTime.id,
-      Correspondence.id
+      Correspondence.id,
     )
     val timeControlDefault = RealTime.id
 
@@ -60,7 +60,7 @@ object TimeControl {
       (clockTimeDefault * 60).toInt,
       clockIncrementDefault,
       clockByoyomiDefault,
-      periodsDefault
+      periodsDefault,
     )
 
     val daysPerTurn        = 1 to 5
@@ -72,7 +72,7 @@ object TimeControl {
       "clockIncrement" -> numberIn(clockIncrements),
       "clockByoyomi"   -> numberIn(clockByoyomi),
       "periods"        -> numberIn(periods),
-      "daysPerTurn"    -> numberIn(daysPerTurn)
+      "daysPerTurn"    -> numberIn(daysPerTurn),
     )(Setup.apply)(Setup.unapply)
       .verifying("Invalid clock setup", _.validClock)
 
@@ -82,7 +82,7 @@ object TimeControl {
         clockIncrement: Int,
         clockByoyomi: Int,
         periods: Int,
-        daysPerTurn: Int
+        daysPerTurn: Int,
     ) {
 
       def isCorrespondence = timeControl == Correspondence.id
@@ -91,7 +91,10 @@ object TimeControl {
       def convert: TimeControl =
         if (isCorrespondence)
           Correspondence(daysPerTurn)
-        else RealTime(shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods))
+        else
+          RealTime(
+            shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods),
+          )
 
       def clock = convert.clock
       def days  = convert.days
@@ -111,7 +114,7 @@ object TimeControl {
         clockIncrement = clockIncrementDefault,
         clockByoyomi = clockByoyomiDefault,
         periods = periodsDefault,
-        daysPerTurn = daysPerTurnDefault
+        daysPerTurn = daysPerTurnDefault,
       )
 
       def apply(tc: TimeControl): Setup =
@@ -121,7 +124,7 @@ object TimeControl {
           clockIncrement = tc.clock.map(_.incrementSeconds) | clockIncrementDefault,
           clockByoyomi = tc.clock.map(_.byoyomiSeconds) | clockByoyomiDefault,
           periods = tc.clock.map(_.periodsTotal) | periodsDefault,
-          daysPerTurn = tc.days | daysPerTurnDefault
+          daysPerTurn = tc.days | daysPerTurnDefault,
         )
     }
   }

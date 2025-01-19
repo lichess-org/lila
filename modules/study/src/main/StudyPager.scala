@@ -5,27 +5,25 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.db.paginator.CachedAdapter
 import lila.i18n.I18nKey
-import lila.i18n.{I18nKeys => trans}
+import lila.i18n.{ I18nKeys => trans }
 import lila.user.User
 
 final class StudyPager(
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo
+    chapterRepo: ChapterRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   val maxPerPage                = lila.common.config.MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers._
-  import studyRepo.{
-    postGameStudy,
-    selectLiker,
-    selectMemberId,
-    selectOwnerId,
-    selectPrivateOrUnlisted,
-    selectPublic,
-    selectTopic
-  }
+  import studyRepo.postGameStudy
+  import studyRepo.selectLiker
+  import studyRepo.selectMemberId
+  import studyRepo.selectOwnerId
+  import studyRepo.selectPrivateOrUnlisted
+  import studyRepo.selectPublic
+  import studyRepo.selectTopic
 
   def all(me: Option[User], order: Order, page: Int) =
     paginator(
@@ -33,7 +31,7 @@ final class StudyPager(
       me,
       order,
       page,
-      fuccess(9999).some
+      fuccess(9999).some,
     )
 
   def byOwner(owner: User, me: Option[User], order: Order, page: Int) =
@@ -41,7 +39,7 @@ final class StudyPager(
       postGameStudy(false) ++ selectOwnerId(owner.id) ++ accessSelect(me),
       me,
       order,
-      page
+      page,
     )
 
   def mine(me: User, order: Order, page: Int) =
@@ -49,7 +47,7 @@ final class StudyPager(
       postGameStudy(false) ++ selectOwnerId(me.id),
       me.some,
       order,
-      page
+      page,
     )
 
   def minePublic(me: User, order: Order, page: Int) =
@@ -57,7 +55,7 @@ final class StudyPager(
       postGameStudy(false) ++ selectOwnerId(me.id) ++ selectPublic,
       me.some,
       order,
-      page
+      page,
     )
 
   def minePrivate(me: User, order: Order, page: Int) =
@@ -65,7 +63,7 @@ final class StudyPager(
       postGameStudy(false) ++ selectOwnerId(me.id) ++ selectPrivateOrUnlisted,
       me.some,
       order,
-      page
+      page,
     )
 
   def mineMember(me: User, order: Order, page: Int) =
@@ -73,15 +71,17 @@ final class StudyPager(
       postGameStudy(false) ++ selectMemberId(me.id) ++ $doc("ownerId" $ne me.id),
       me.some,
       order,
-      page
+      page,
     )
 
   def mineLikes(me: User, order: Order, page: Int) =
     paginator(
-      postGameStudy(false) ++ selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id),
+      postGameStudy(false) ++ selectLiker(me.id) ++ accessSelect(me.some) ++ $doc(
+        "ownerId" $ne me.id,
+      ),
       me.some,
       order,
-      page
+      page,
     )
 
   def minePostGameStudies(me: User, order: Order, page: Int) =
@@ -89,7 +89,7 @@ final class StudyPager(
       postGameStudy(true) ++ selectMemberId(me.id),
       me.some,
       order,
-      page
+      page,
     )
 
   def postGameStudiesOf(gameId: String, me: Option[User], order: Order, page: Int) =
@@ -97,7 +97,7 @@ final class StudyPager(
       postGameStudy(true) ++ $doc("postGameStudy.gameId" $eq s"$gameId"),
       me,
       order,
-      page
+      page,
     )
 
   def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) = {
@@ -107,7 +107,7 @@ final class StudyPager(
       me,
       order,
       page,
-      hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1)
+      hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1),
     )
   }
 
@@ -122,7 +122,7 @@ final class StudyPager(
       order: Order,
       page: Int,
       nbResults: Option[Fu[Int]] = none,
-      hint: Option[Bdoc] = none
+      hint: Option[Bdoc] = none,
   ): Fu[Paginator[Study.WithChaptersAndLiked]] = studyRepo.coll { coll =>
     val adapter = new Adapter[Study](
       collection = coll,
@@ -137,26 +137,26 @@ final class StudyPager(
         // mine filter for topic view
         case Order.Mine => $sort desc "rank"
       },
-      hint = hint
+      hint = hint,
     ) mapFutureList withChaptersAndLiking(me)
     Paginator(
       adapter = nbResults.fold(adapter) { nb =>
         new CachedAdapter(adapter, nb)
       },
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
   }
 
   def withChaptersAndLiking(
       me: Option[User],
-      nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
+      nbChaptersPerStudy: Int = defaultNbChaptersPerStudy,
   )(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
     withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
 
   private def withChapters(
       studies: Seq[Study],
-      nbChaptersPerStudy: Int
+      nbChaptersPerStudy: Int,
   ): Fu[Seq[Study.WithChapters]] =
     chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy) map { chapters =>
       studies.map { study =>
@@ -165,7 +165,7 @@ final class StudyPager(
     }
 
   private def withLiking(
-      me: Option[User]
+      me: Option[User],
   )(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
     me.?? { u =>
       studyRepo.filterLiked(u, studies.map(_.study.id))

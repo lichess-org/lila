@@ -13,7 +13,7 @@ final private[setup] class Processor(
     gameRepo: lila.game.GameRepo,
     maxPlaying: Max,
     fishnetPlayer: lila.fishnet.Player,
-    onStart: lila.round.OnStart
+    onStart: lila.round.OnStart,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
@@ -36,7 +36,7 @@ final private[setup] class Processor(
       configBase: HookConfig,
       sri: lila.socket.Socket.Sri,
       sid: Option[String],
-      blocking: Set[String]
+      blocking: Set[String],
   )(implicit ctx: UserContext): Fu[Processor.HookResult] = {
     import Processor.HookResult._
     configBase.hook(sri, ctx.me, sid, blocking) match {

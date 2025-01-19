@@ -7,6 +7,7 @@ import play.api.i18n.Lang
 import org.joda.time.DateTime
 import org.joda.time.Duration
 import org.joda.time.Interval
+
 import shogi.Mode
 import shogi.Speed
 import shogi.format.forsyth.Sfen
@@ -45,7 +46,7 @@ case class Tournament(
     featuredId: Option[String] = None,
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
-    hasChat: Boolean = true
+    hasChat: Boolean = true,
 ) {
 
   def isCreated   = status == Status.Created
@@ -149,7 +150,7 @@ case class Tournament(
         tourId = id,
         userId = userId,
         tourName = name,
-        date = finishesAt
+        date = finishesAt,
       )
     }
 
@@ -187,7 +188,7 @@ object Tournament {
       streakable: Boolean,
       teamBattle: Option[TeamBattle],
       description: Option[String],
-      hasChat: Boolean
+      hasChat: Boolean,
   ) =
     Tournament(
       id = makeId,
@@ -214,7 +215,7 @@ object Tournament {
       schedule = None,
       startsAt = startDate,
       description = description,
-      hasChat = hasChat
+      hasChat = hasChat,
     )
 
   def scheduleAs(sched: Schedule, minutes: Int) =
@@ -233,7 +234,7 @@ object Tournament {
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = Some(sched),
-      startsAt = sched.at
+      startsAt = sched.at,
     )
 
   def tournamentUrl(tourId: String): String = s"https://lishogi.org/tournament/$tourId"

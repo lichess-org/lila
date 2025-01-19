@@ -7,7 +7,7 @@ final case class SimulPairing(
     gameId: String,
     status: shogi.Status,
     wins: Option[Boolean],
-    hostColor: shogi.Color
+    hostColor: shogi.Color,
 ) {
 
   def finished = status >= shogi.Status.Aborted
@@ -19,7 +19,7 @@ final case class SimulPairing(
   def finish(s: shogi.Status, w: Option[String]) =
     copy(
       status = s,
-      wins = w map player.is
+      wins = w map player.is,
     )
 
   def winnerColor =
@@ -36,6 +36,6 @@ private[simul] object SimulPairing {
       gameId = IdGenerator.uncheckedGame,
       status = shogi.Status.Created,
       wins = none,
-      hostColor = shogi.Sente
+      hostColor = shogi.Sente,
     )
 }

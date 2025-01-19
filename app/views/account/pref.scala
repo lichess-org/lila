@@ -18,7 +18,11 @@ object pref {
   private def setting(name: Frag, body: Frag) =
     st.section(h2(name), body)
 
-  private def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
+  private def radios(
+      field: play.api.data.Field,
+      options: Iterable[(Any, String)],
+      prefix: String = "ir",
+  ) =
     st.group(cls := "radio")(
       options.map { v =>
         val id      = s"${field.id}_${v._1}"
@@ -30,19 +34,19 @@ object pref {
             cls    := checked option "active",
             `type` := "radio",
             value  := v._1.toString,
-            name   := field.name
+            name   := field.name,
           ),
-          label(`for` := s"$prefix$id")(v._2)
+          label(`for` := s"$prefix$id")(v._2),
         )
-      }.toList
+      }.toList,
     )
 
   def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
-      active = categ.slug
+      active = categ.slug,
     ) {
       val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
       div(cls := "account box box-pad")(
@@ -51,137 +55,137 @@ object pref {
           categFieldset(PrefCateg.GameDisplay, categ)(
             setting(
               pieceAnimation(),
-              radios(form("display.animation"), translatedAnimationChoices)
+              radios(form("display.animation"), translatedAnimationChoices),
             ),
             setting(
               boardCoordinates(),
-              radios(form("display.coords"), translatedBoardCoordinateChoices)
+              radios(form("display.coords"), translatedBoardCoordinateChoices),
             ),
             setting(
               clearHands(),
-              radios(form("display.clearHands"), booleanChoices)
+              radios(form("display.clearHands"), booleanChoices),
             ),
             setting(
               handsBackground(),
-              radios(form("display.handsBackground"), booleanChoices)
+              radios(form("display.handsBackground"), booleanChoices),
             ),
             setting(
               boardLayout(),
-              radios(form("display.boardLayout"), translatedBoardLayoutChoices)
+              radios(form("display.boardLayout"), translatedBoardLayoutChoices),
             ),
             setting(
               boardHighlightsLastDests(),
-              radios(form("display.highlightLastDests"), booleanChoices)
+              radios(form("display.highlightLastDests"), booleanChoices),
             ),
             setting(
               boardHighlightsCheck(),
-              radios(form("display.highlightCheck"), booleanChoices)
+              radios(form("display.highlightCheck"), booleanChoices),
             ),
             setting(
               displayTouchSquareOverlay(),
-              radios(form("display.squareOverlay"), booleanChoices)
+              radios(form("display.squareOverlay"), booleanChoices),
             ),
             setting(
               pieceDestinations(),
-              radios(form("display.destination"), booleanChoices)
+              radios(form("display.destination"), booleanChoices),
             ),
             setting(
               dropDestinations(),
-              radios(form("display.dropDestination"), booleanChoices)
+              radios(form("display.dropDestination"), booleanChoices),
             ),
             setting(
               moveListWhilePlaying(),
-              radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
+              radios(form("display.replay"), translatedMoveListWhilePlayingChoices),
             ),
             setting(
               colorName(),
-              radios(form("display.colorName"), translatedColorNameChoices)
+              radios(form("display.colorName"), translatedColorNameChoices),
             ),
             setting(
               zenMode(),
-              radios(form("display.zen"), booleanChoices)
+              radios(form("display.zen"), booleanChoices),
             ),
             setting(
               displayBoardResizeHandle(),
-              radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
+              radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices),
             ),
             setting(
               blindfoldShogi(),
-              radios(form("display.blindfold"), translatedBlindfoldChoices)
-            )
+              radios(form("display.blindfold"), translatedBlindfoldChoices),
+            ),
           ),
           categFieldset(PrefCateg.ShogiClock, categ)(
             setting(
               tenthsOfSeconds(),
-              radios(form("clock.tenths"), translatedClockTenthsChoices)
+              radios(form("clock.tenths"), translatedClockTenthsChoices),
             ),
             setting(
               clockTickingStart(),
-              radios(form("clock.countdown"), translatedClockCountdownChoices)
+              radios(form("clock.countdown"), translatedClockCountdownChoices),
             ),
             setting(
               soundWhenTimeGetsCritical(),
-              radios(form("clock.sound"), booleanChoices)
+              radios(form("clock.sound"), booleanChoices),
             ),
             setting(
               giveMoreTime(),
-              radios(form("clock.moretime"), translatedMoretimeChoices)
-            )
+              radios(form("clock.moretime"), translatedMoretimeChoices),
+            ),
           ),
           categFieldset(PrefCateg.GameBehavior, categ)(
             setting(
               howDoYouMovePieces(),
-              radios(form("behavior.moveEvent"), translatedMoveEventChoices)
+              radios(form("behavior.moveEvent"), translatedMoveEventChoices),
             ),
             setting(
               premovesPlayingDuringOpponentTurn(),
-              radios(form("behavior.premove"), booleanChoices)
+              radios(form("behavior.premove"), booleanChoices),
             ),
             setting(
               takebacksWithOpponentApproval(),
-              radios(form("behavior.takeback"), translatedTakebackChoices)
+              radios(form("behavior.takeback"), translatedTakebackChoices),
             ),
             setting(
               moveConfirmation(),
-              radios(form("behavior.submitMove"), submitMoveChoices)
+              radios(form("behavior.submitMove"), submitMoveChoices),
             ),
             setting(
               confirmResignationAndDrawOffers(),
-              radios(form("behavior.confirmResign"), confirmResignChoices)
+              radios(form("behavior.confirmResign"), confirmResignChoices),
             ),
             setting(
               inputMovesWithTheKeyboard(),
-              radios(form("behavior.keyboardMove"), booleanChoices)
+              radios(form("behavior.keyboardMove"), booleanChoices),
             ),
             setting(
               scrollOnTheBoardToReplayMoves(),
-              radios(form("behavior.scrollMoves"), booleanChoices)
-            )
+              radios(form("behavior.scrollMoves"), booleanChoices),
+            ),
           ),
           categFieldset(PrefCateg.Privacy, categ)(
             setting(
               trans.letOtherPlayersFollowYou(),
-              radios(form("follow"), booleanChoices)
+              radios(form("follow"), booleanChoices),
             ),
             setting(
               trans.letOtherPlayersChallengeYou(),
-              radios(form("challenge"), translatedChallengeChoices)
+              radios(form("challenge"), translatedChallengeChoices),
             ),
             setting(
               trans.letOtherPlayersMessageYou(),
-              radios(form("message"), translatedMessageChoices)
+              radios(form("message"), translatedMessageChoices),
             ),
             setting(
               trans.letOtherPlayersInviteYouToStudy(),
-              radios(form("studyInvite"), translatedStudyInviteChoices)
+              radios(form("studyInvite"), translatedStudyInviteChoices),
             ),
             setting(
               trans.shareYourInsightsData(),
-              radios(form("insightsShare"), booleanChoices)
-            )
+              radios(form("insightsShare"), booleanChoices),
+            ),
           ),
-          p(cls := "saved text none", dataIcon := "E")(yourPreferencesHaveBeenSaved())
-        )
+          p(cls := "saved text none", dataIcon := "E")(yourPreferencesHaveBeenSaved()),
+        ),
       )
     }
 }

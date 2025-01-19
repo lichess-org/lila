@@ -9,7 +9,10 @@ import lila.app.ui.ScalatagsTemplate._
 
 object create {
 
-  def apply(form: Form[lila.oauth.OAuthTokenForm.Data], me: lila.user.User)(implicit ctx: Context) = {
+  def apply(
+      form: Form[lila.oauth.OAuthTokenForm.Data],
+      me: lila.user.User,
+  )(implicit ctx: Context) = {
 
     val title = "New personal API access token"
 
@@ -19,12 +22,12 @@ object create {
         postForm(cls := "form3", action := routes.OAuthToken.create)(
           div(cls := "form-group")(
             "Personal access tokens function like ordinary Lishogi OAuth access tokens. ",
-            "They can be used to authenticate to the API over Basic Authentication."
+            "They can be used to authenticate to the API over Basic Authentication.",
           ),
           form3.group(
             form("description"),
             raw("Token description"),
-            help = raw("For you to remember what this token is for").some
+            help = raw("For you to remember what this token is for").some,
           )(form3.input(_)),
           br,
           br,
@@ -44,16 +47,18 @@ object create {
                     s"${form("scopes").name}[]",
                     value = scope.key,
                     checked = form.value.exists(_.scopes.contains(scope.key)),
-                    disabled = disabled
-                  )
+                    disabled = disabled,
+                  ),
                 ),
-                label(`for` := id, st.title := disabled.option("You already have played games!"))(scope.name)
+                label(`for` := id, st.title := disabled.option("You already have played games!"))(
+                  scope.name,
+                ),
               )
-            }
+            },
           ),
           form3.actions(
             a(href := routes.OAuthToken.index)("Cancel"),
-            form3.submit(trans.apply())
+            form3.submit(trans.apply()),
           ),
           br,
           div {
@@ -71,12 +76,12 @@ object create {
                 br,
                 "The permission codes can be found in the HTML code of the form.",
                 br,
-                "Giving these pre-filled URLs to your users will help them get the right token permissions."
-              )
+                "Giving these pre-filled URLs to your users will help them get the right token permissions.",
+              ),
             )
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
   }
 }

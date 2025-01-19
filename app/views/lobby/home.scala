@@ -26,11 +26,11 @@ object home {
             "playban" -> playban.map { pb =>
               Json.obj(
                 "minutes"          -> pb.mins,
-                "remainingSeconds" -> (pb.remainingSeconds + 3)
+                "remainingSeconds" -> (pb.remainingSeconds + 3),
               )
-            }
-          )
-        )
+            },
+          ),
+        ),
       ),
       moreCss = cssTag("lobby"),
       shogiground = false,
@@ -40,17 +40,17 @@ object home {
           twitterImage = staticUrl("logo/lishogi-tile.png").some,
           title = trans.freeOnlineShogi.txt(),
           url = netBaseUrl,
-          description = trans.siteDescription.txt()
+          description = trans.siteDescription.txt(),
         )
         .some,
       canonicalPath = lila.common.CanonicalPath("/").some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(
         cls := List(
           "lobby"      -> true,
-          "lobby-nope" -> (playban.isDefined || currentGame.isDefined)
-        )
+          "lobby-nope" -> (playban.isDefined || currentGame.isDefined),
+        ),
       )(
         div(cls := "lobby__table")(
           div(cls := "lobby__start")(
@@ -58,46 +58,46 @@ object home {
             button(
               cls := List(
                 "button button-metal config_hook" -> true,
-                "disabled"                        -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
+                "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot),
               ),
-              trans.createAGame()
+              trans.createAGame(),
             ),
             button(
               cls := List(
                 "button button-metal config_friend" -> true,
-                "disabled"                          -> currentGame.isDefined
+                "disabled"                          -> currentGame.isDefined,
               ),
-              trans.playWithAFriend()
+              trans.playWithAFriend(),
             ),
             button(
               cls := List(
                 "button button-metal config_ai" -> true,
-                "disabled"                      -> currentGame.isDefined
+                "disabled"                      -> currentGame.isDefined,
               ),
-              trans.playWithTheMachine()
-            )
+              trans.playWithTheMachine(),
+            ),
           ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(
               id   := "nb_connected_players",
-              href := ctx.noBlind.option(routes.User.list.url)
+              href := ctx.noBlind.option(routes.User.list.url),
             )(
               trans.nbPlayers.plural(
                 homepage.counters.members,
-                strong(dataCount := homepage.counters.members)(homepage.counters.members.localize)
-              )
+                strong(dataCount := homepage.counters.members)(homepage.counters.members.localize),
+              ),
             ),
             a(
               id   := "nb_games_in_play",
-              href := ctx.noBlind.option(langHref(routes.Tv.games))
+              href := ctx.noBlind.option(langHref(routes.Tv.games)),
             )(
               trans.nbGamesInPlay.plural(
                 homepage.counters.rounds,
-                strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
-              )
-            )
-          )
+                strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize),
+              ),
+            ),
+          ),
         ),
         currentGame.map(bits.currentGameInfo) orElse
           playban.map(bits.playbanInfo) getOrElse {
@@ -110,8 +110,8 @@ object home {
             views.html.streamer.bits liveStreams streams,
             streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
               trans.streamersMenu(),
-              " »"
-            )
+              " »",
+            ),
           ),
           div(cls := "lobby__spotlights")(bits.spotlights(events, simuls, tours)),
           (if (ctx.isAuth)
@@ -120,16 +120,16 @@ object home {
                views.html.timeline entries userTimeline,
                userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
                  trans.more(),
-                 " »"
-               )
+                 " »",
+               ),
              )
            else
              div(cls := "about-side")(
                ctx.blind option h2("About"),
                trans.xIsAFreeYLibreOpenSourceShogiServer(
                  "Lishogi",
-                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
-               )
+                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt()),
+               ),
              )),
           div(cls := "lobby__support")(
             a(href := langHref(routes.Plan.index))(
@@ -138,21 +138,21 @@ object home {
                 if (ctx.me.exists(_.isPatron))
                   frag(
                     strong(trans.patron.lishogiPatron()),
-                    span(trans.patron.thankYou())
+                    span(trans.patron.thankYou()),
                   )
                 else
                   frag(
                     strong(trans.patron.donate()),
-                    ctx.isAuth option span(trans.patron.becomePatron())
-                  )
-              )
-            )
-          )
+                    ctx.isAuth option span(trans.patron.becomePatron()),
+                  ),
+              ),
+            ),
+          ),
         ),
         featured map { g =>
           a(cls := "lobby__tv", href := routes.Tv.index)(
             gameSfen(Pov first g, withLink = false, tv = true),
-            views.html.game.bits.vstext(Pov first g)
+            views.html.game.bits.vstext(Pov first g),
           )
         },
         puzzle map { p =>
@@ -175,8 +175,8 @@ object home {
           a(href := routes.Page.privacy)(trans.privacy()),
           a(href := routes.Plan.index)(trans.patron.donate()),
           a(href := routes.Page.source)(trans.sourceCode()),
-          views.html.base.bits.connectLinks
-        )
+          views.html.base.bits.connectLinks,
+        ),
       )
     }
   }

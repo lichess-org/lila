@@ -15,36 +15,41 @@ import lila.puzzle.PuzzleDifficulty
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.PuzzleReplay
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{Puzzle => Puz}
+import lila.puzzle.{ Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
-    apiC: => Api
+    apiC: => Api,
 ) extends LilaController(env) {
 
   private def renderJson(
       puzzle: Puz,
       theme: PuzzleTheme,
       replay: Option[PuzzleReplay] = None,
-      newUser: Option[lila.user.User] = None
+      newUser: Option[lila.user.User] = None,
   )(implicit
-      ctx: Context
+      ctx: Context,
   ): Fu[JsObject] =
-    env.puzzle.jsonView(puzzle = puzzle, theme = theme, replay = replay, user = newUser orElse ctx.me)
+    env.puzzle.jsonView(
+      puzzle = puzzle,
+      theme = theme,
+      replay = replay,
+      user = newUser orElse ctx.me,
+    )
 
   private def renderShow(
       puzzle: Puz,
       theme: PuzzleTheme,
       themeView: Boolean = true, // not tied to a single puzzle
-      replay: Option[PuzzleReplay] = None
+      replay: Option[PuzzleReplay] = None,
   )(implicit
-      ctx: Context
+      ctx: Context,
   ) =
     renderJson(puzzle, theme, replay) zip
       ctx.me.??(u => env.puzzle.session.getDifficulty(u) dmap some) map { case (json, difficulty) =>
         Ok(
           views.html.puzzle
-            .show(puzzle, theme, json, env.puzzle.jsonView.pref(ctx.pref), themeView, difficulty)
+            .show(puzzle, theme, json, env.puzzle.jsonView.pref(ctx.pref), themeView, difficulty),
         ).enableSharedArrayBuffer
       }
 
@@ -54,7 +59,7 @@ final class Puzzle(
         OptionFuResult(env.puzzle.daily.get) { daily =>
           negotiate(
             html = renderShow(daily.puzzle, PuzzleTheme.mix),
-            json = renderJson(daily.puzzle, PuzzleTheme.mix) dmap { Ok(_) }
+            json = renderJson(daily.puzzle, PuzzleTheme.mix) dmap { Ok(_) },
           ) dmap (_.noCache)
         }
       }
@@ -105,7 +110,7 @@ final class Puzzle(
     }
 
   private def onComplete[A](form: Form[RoundData])(id: Puz.Id, theme: PuzzleTheme)(implicit
-      ctx: BodyContext[A]
+      ctx: BodyContext[A],
   ) = {
     implicit val req = ctx.body
     lila.mon.puzzle.round.attempt(ctx.isAuth, theme.key.value).increment()
@@ -129,7 +134,7 @@ final class Puzzle(
                             nextJson <- renderJson(next, theme, none, newUser.some)
                           } yield Json.obj(
                             "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
-                            "next"  -> nextJson
+                            "next"  -> nextJson,
                           )
                         case Some(replayDays) =>
                           for {
@@ -141,7 +146,7 @@ final class Puzzle(
                                 renderJson(puzzle, theme, replay.some) map { nextJson =>
                                   Json.obj(
                                     "round" -> env.puzzle.jsonView.roundJson(me, round, perf),
-                                    "next"  -> nextJson
+                                    "next"  -> nextJson,
                                   )
                                 }
                             }
@@ -158,7 +163,7 @@ final class Puzzle(
                   Json.obj("next" -> json)
                 }
             }
-          } dmap { json => Ok(json) as JSON }
+          } dmap { json => Ok(json) as JSON },
       )
   }
 
@@ -170,7 +175,7 @@ final class Puzzle(
           .bindFromRequest()
           .fold(
             jsonFormError,
-            vote => env.puzzle.api.vote.update(Puz.Id(id), me, vote) inject jsonOkResult
+            vote => env.puzzle.api.vote.update(Puz.Id(id), me, vote) inject jsonOkResult,
           )
       }
     }
@@ -184,7 +189,7 @@ final class Puzzle(
             .bindFromRequest()
             .fold(
               jsonFormError,
-              vote => env.puzzle.api.theme.vote(me, Puz.Id(id), theme.key, vote) inject jsonOkResult
+              vote => env.puzzle.api.theme.vote(me, Puz.Id(id), theme.key, vote) inject jsonOkResult,
             )
         }
       }
@@ -200,7 +205,7 @@ final class Puzzle(
             jsonFormError,
             diff =>
               PuzzleDifficulty.find(diff) ?? { env.puzzle.session.setDifficulty(me, _) } inject
-                Redirect(routes.Puzzle.show(theme))
+                Redirect(routes.Puzzle.show(theme)),
           )
       }
     }
@@ -255,12 +260,13 @@ final class Puzzle(
       val config = lila.puzzle.PuzzleActivity.Config(
         user = me,
         max = getInt("max", req) map (_ atLeast 1),
-        perSecond = MaxPerSecond(20)
+        perSecond = MaxPerSecond(20),
       )
       apiC
-        .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some)(env.puzzle.activity.stream(config)) {
-          source =>
-            Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
+        .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some)(
+          env.puzzle.activity.stream(config),
+        ) { source =>
+          Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
         }
         .fuccess
     }
@@ -330,11 +336,12 @@ final class Puzzle(
         .fold(
           _ => BadRequest.fuccess,
           { case (sfensStr, source) =>
-            val sfens = augmentString(sfensStr).linesIterator.map(shogi.format.forsyth.Sfen.clean).toList
+            val sfens =
+              augmentString(sfensStr).linesIterator.map(shogi.format.forsyth.Sfen.clean).toList
             env.fishnet.api.addPuzzles(sfens.take(5), source, me.id) inject Redirect(
-              routes.Puzzle.submitted()
+              routes.Puzzle.submitted(),
             )
-          }
+          },
         )
     }
 
@@ -343,7 +350,9 @@ final class Puzzle(
       val fixed = name.map(_.trim).filter(_.nonEmpty)
       fixed.??(env.user.repo.enabledNamed) orElse fuccess(ctx.me) flatMap { userOpt =>
         userOpt ?? { u =>
-          (env.puzzle.api.puzzle.submitted(u, page) zip env.fishnet.api.queuedPuzzles(u.id)) dmap some
+          (env.puzzle.api.puzzle.submitted(u, page) zip env.fishnet.api.queuedPuzzles(
+            u.id,
+          )) dmap some
         } map { case res =>
           Ok(views.html.puzzle.submitted(~fixed, userOpt, res.map(_._1), res.map(_._2)))
         }
@@ -366,7 +375,7 @@ final class Puzzle(
               } >> Ok(env.puzzle.jsonView.mobile(Seq(puz), PuzzleTheme.mix, ctx.me)).fuccess
             }
           case themeOpt => batch(themeOpt.getOrElse(PuzzleTheme.mix)) dmap { Ok(_) }
-        }
+        },
       )
     }
 
@@ -386,16 +395,16 @@ final class Puzzle(
                 case Some(me) =>
                   env.puzzle.finisher.batch(
                     me,
-                    solutions.take(maxOfflineBatch)
+                    solutions.take(maxOfflineBatch),
                   ) map {
                     _.map { case (round, rDiff) => env.puzzle.jsonView.roundJsonApi(round, rDiff) }
                   } dmap { JsonOk(_) }
                 case None =>
                   env.puzzle.finisher.batchIncPuzzlePlays(
-                    solutions.take(maxOfflineBatch).flatMap(sol => Puz.toId(sol.id))
+                    solutions.take(maxOfflineBatch).flatMap(sol => Puz.toId(sol.id)),
                   ) inject { jsonOkResult }
-              }
-          )
+              },
+          ),
       )
     }
 

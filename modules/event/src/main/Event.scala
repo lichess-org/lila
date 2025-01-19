@@ -19,7 +19,7 @@ case class Event(
     createdAt: DateTime,
     startsAt: DateTime,
     finishesAt: DateTime,
-    hostedBy: Option[User.ID] = None
+    hostedBy: Option[User.ID] = None,
 ) {
 
   def willStartLater = startsAt.isAfterNow

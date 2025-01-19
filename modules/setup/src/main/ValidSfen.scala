@@ -4,7 +4,7 @@ import shogi.format.forsyth.Sfen
 
 case class ValidSfen(
     sfen: Sfen,
-    situation: shogi.Situation
+    situation: shogi.Situation,
 ) {
 
   def color = situation.color

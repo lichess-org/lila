@@ -8,7 +8,7 @@ import javax.crypto.spec.SecretKeySpec
 import org.apache.commons.codec.binary.Base32
 import reactivemongo.api.bson._
 
-import User.TotpToken
+import lila.user.User.TotpToken
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
   import TotpSecret._
@@ -59,6 +59,6 @@ object TotpSecret {
 
   private[user] val totpSecretBSONHandler = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => TotpSecret(v.byteArray) },
-    v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
+    v => BSONBinary(v.secret, Subtype.GenericBinarySubtype),
   )
 }

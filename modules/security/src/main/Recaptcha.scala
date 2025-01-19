@@ -21,7 +21,7 @@ private object Recaptcha {
       endpoint: String,
       @ConfigName("public_key") publicKey: String,
       @ConfigName("private_key") privateKey: Secret,
-      enabled: Boolean
+      enabled: Boolean,
   ) {
     def public = RecaptchaPublicConfig(publicKey, enabled)
   }
@@ -37,13 +37,13 @@ object RecaptchaSkip extends Recaptcha {
 final class RecaptchaGoogle(
     ws: WSClient,
     netDomain: NetDomain,
-    config: Recaptcha.Config
+    config: Recaptcha.Config,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Recaptcha {
 
   private case class Response(
       success: Boolean,
-      hostname: String
+      hostname: String,
   )
 
   implicit private val responseReader: Reads[Response] = Json.reads[Response]
@@ -54,8 +54,8 @@ final class RecaptchaGoogle(
         Map(
           "secret"   -> config.privateKey.value,
           "response" -> response,
-          "remoteip" -> HTTPRequest.lastRemoteAddress(req).value
-        )
+          "remoteip" -> HTTPRequest.lastRemoteAddress(req).value,
+        ),
       ) flatMap {
       case res if res.status == 200 =>
         res.json.validate[Response] match {

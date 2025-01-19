@@ -10,7 +10,7 @@ final class MsgSearch(
     colls: MsgColls,
     userCache: lila.user.Cached,
     lightUserApi: lila.user.LightUserApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.relation.RelationApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -22,7 +22,7 @@ final class MsgSearch(
           .Result(
             threads,
             friends.filterNot(f => threads.exists(_.other(me) == f.id)) take 10,
-            users.filterNot(u => u.id == me.id || friends.exists(_.id == u.id)) take 10
+            users.filterNot(u => u.id == me.id || friends.exists(_.id == u.id)) take 10,
           )
     }
 
@@ -34,10 +34,10 @@ final class MsgSearch(
         $doc(
           "users" -> $doc(
             $eq(me.id),
-            "$regex" -> BSONRegex(s"^$q", "")
+            "$regex" -> BSONRegex(s"^$q", ""),
           ),
-          "del" $ne me.id
-        )
+          "del" $ne me.id,
+        ),
       )
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
@@ -59,6 +59,6 @@ object MsgSearch {
   case class Result(
       threads: List[MsgThread],
       friends: List[LightUser],
-      users: List[LightUser]
+      users: List[LightUser],
   )
 }

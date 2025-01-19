@@ -8,6 +8,7 @@ import akka.actor._
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+
 import shogi.format.Tag
 
 import lila.hub.LateMultiThrottler
@@ -23,11 +24,11 @@ final class StudySearchApi(
     client: ESClient,
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo
+    chapterRepo: ChapterRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
 ) extends SearchReadApi[Study, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -42,7 +43,7 @@ final class StudySearchApi(
       indexThrottler ! LateMultiThrottler.work(
         id = study.id.value,
         run = studyRepo byId study.id flatMap { _ ?? doStore },
-        delay = 30.seconds.some
+        delay = 30.seconds.some,
       )
     }
 
@@ -69,7 +70,7 @@ final class StudySearchApi(
       // Fields.createdAt -> study.createdAt)
       // Fields.updatedAt -> study.updatedAt,
       Fields.likes  -> s.study.likes.value,
-      Fields.public -> s.study.isPublic
+      Fields.public -> s.study.isPublic,
     )
 
   private val relevantStudyTags: Set[shogi.format.TagType] = Set(
@@ -81,7 +82,7 @@ final class StudySearchApi(
     Tag.Composer,
     Tag.ProblemName,
     Tag.Collection,
-    Tag.Publication
+    Tag.Publication,
   )
 
   private def chapterText(c: Chapter): List[String] = {
@@ -96,7 +97,7 @@ final class StudySearchApi(
       c.isConceal option "conceal puzzle",
       c.isGamebook option "lesson",
       !c.setup.variant.standard option c.setup.variant.name,
-      c.description
+      c.description,
     ).flatten
 
   private def nodeText(n: RootOrNode): String =
@@ -135,7 +136,7 @@ final class StudySearchApi(
               studyRepo
                 .sortedCursor(
                   $doc("createdAt" $gte since),
-                  sort = $sort asc "createdAt"
+                  sort = $sort asc "createdAt",
                 )
                 .map(_.documentSource())
             }

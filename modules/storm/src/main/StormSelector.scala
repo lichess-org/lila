@@ -33,7 +33,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
       2050 -> 15,
       2200 -> 17,
       2350 -> 19,
-      2500 -> 20
+      2500 -> 20,
     )
   private val poolSize = ratingBuckets.foldLeft(0) { case (acc, (_, nb)) =>
     acc + nb
@@ -52,8 +52,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Match(
                       $doc(
                         "min" $lte f"${theme}_${tier}_${rating}%04d",
-                        "max" $gte f"${theme}_${tier}_${rating}%04d"
-                      )
+                        "max" $gte f"${theme}_${tier}_${rating}%04d",
+                      ),
                     ),
                     Sample(1),
                     Project($doc("_id" -> false, "ids" -> true)),
@@ -72,33 +72,33 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                                 "$expr" -> $doc(
                                   "$and" -> $arr(
                                     $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation))
-                                  )
-                                )
-                              )
+                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
+                                  ),
+                                ),
+                              ),
                             ),
                             $doc(
                               "$project" -> $doc(
                                 "sfen"   -> true,
                                 "line"   -> true,
-                                "rating" -> $doc("$toInt" -> "$glicko.r")
-                              )
-                            )
-                          )
-                        )
-                      )
+                                "rating" -> $doc("$toInt" -> "$glicko.r"),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                     UnwindField("puzzle"),
                     Sample(nbPuzzles),
-                    ReplaceRootField("puzzle")
+                    ReplaceRootField("puzzle"),
                   )
-                }
+                },
               ) -> List(
                 Project($doc("all" -> $doc("$setUnion" -> ratingBuckets.map(r => s"$$${r._1}")))),
                 UnwindField("all"),
                 ReplaceRootField("all"),
                 Sort(Ascending("rating")),
-                Limit(poolSize)
+                Limit(poolSize),
               )
             }.map {
               _.flatMap(StormPuzzleBSONReader.readOpt)
@@ -131,7 +131,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
         _.update.one(
           $inIds(puzzles.map(_.id.value)),
           $inc("storm" -> 1),
-          multi = true
+          multi = true,
         )
       }.unit
     }

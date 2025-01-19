@@ -13,7 +13,7 @@ trait NumberHelper { self: I18nHelper =>
   private def formatter(implicit lang: Lang): NumberFormat =
     formatters.computeIfAbsent(
       lang.language,
-      _ => NumberFormat.getInstance(lang.toLocale)
+      _ => NumberFormat.getInstance(lang.toLocale),
     )
 
   def showMillis(millis: Int)(implicit lang: Lang) = formatter.format((millis / 100).toDouble / 10)

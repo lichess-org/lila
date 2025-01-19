@@ -13,7 +13,7 @@ object home {
       pendings: List[lila.simul.Simul],
       opens: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
-      finisheds: List[lila.simul.Simul]
+      finisheds: List[lila.simul.Simul],
   )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("simul.list"),
@@ -23,10 +23,10 @@ object home {
         .OpenGraph(
           title = trans.simultaneousExhibitions.txt(),
           url = s"$netBaseUrl${routes.Simul.home}",
-          description = trans.aboutSimul.txt()
+          description = trans.aboutSimul.txt(),
         )
         .some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(
@@ -35,12 +35,12 @@ object home {
             em("[1964] ", trans.aboutSimulImage()),
             p(trans.aboutSimulRealLife()),
             p(trans.aboutSimulRules()),
-            p(trans.aboutSimulSettings())
-          )
+            p(trans.aboutSimulSettings()),
+          ),
         ),
         div(cls := "page-menu__content simul-list__content")(
-          homeInner(pendings, opens, starteds, finisheds)
-        )
+          homeInner(pendings, opens, starteds, finisheds),
+        ),
       )
     }
 }

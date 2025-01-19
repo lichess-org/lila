@@ -9,12 +9,11 @@ import shogi.Clock
 import lila.game.Game
 import lila.game.JsonView._
 import lila.game.Pov
-import lila.game.{Player => GamePlayer}
+import lila.game.{ Player => GamePlayer }
 import lila.pref.Pref
+import lila.round.actorApi.SocketStatus
 import lila.user.User
 import lila.user.UserRepo
-
-import actorApi.SocketStatus
 
 final class JsonView(
     userRepo: UserRepo,
@@ -27,17 +26,22 @@ final class JsonView(
     evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: IsOfferingRematch,
     isOfferingResume: IsOfferingResume,
-    moretime: MoretimeDuration
+    moretime: MoretimeDuration,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
 
   private val moretimeSeconds = moretime.value.toSeconds.toInt
 
-  private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
+  private def commonPlayerJson(
+      g: Game,
+      p: GamePlayer,
+      user: Option[User],
+      withFlags: WithFlags,
+  ): JsObject =
     Json
       .obj(
-        "color" -> p.color.name
+        "color" -> p.color.name,
       )
       .add("user" -> user.map { userJsonView.minimal(_, g.perfType) })
       .add("rating" -> p.rating)
@@ -56,83 +60,89 @@ final class JsonView(
       pref: Pref,
       playerUser: Option[User],
       withFlags: WithFlags,
-      nvui: Boolean
+      nvui: Boolean,
   ): Fu[JsObject] =
     getSocketStatus(pov.game) zip
       (pov.opponent.userId ?? userRepo.byId) zip
       takebacker.isAllowedIn(pov.game) zip
-      moretimer.isAllowedIn(pov.game) map { case (((socket, opponentUser), takebackable), moretimeable) =>
-        import pov._
-        Json
-          .obj(
-            "game" -> gameJsonView(game),
-            "player" -> {
-              commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
-                "id"      -> playerId,
-                "version" -> socket.version.value
-              )
-            }
-              .add("onGame" -> (player.isAi || socket.onGame(player.color)))
-              .add(
-                "sealedUsi" -> (pov.game.paused && player.color == pov.game.turnColor) ?? pov.game.sealedUsi
-                  .map(_.usi)
-              ),
-            "opponent" -> {
-              commonPlayerJson(game, opponent, opponentUser, withFlags) ++ Json.obj(
-                "color" -> opponent.color.name,
-                "ai"    -> opponent.aiLevel
-              )
-            }.add("aiCode", opponent.aiCode)
-              .add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
-              .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
-            "pref" -> Json
-              .obj(
-                "animationDuration" -> animationMillis(pov, pref),
-                "coords"            -> pref.coords,
-                "resizeHandle"      -> pref.resizeHandle,
-                "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths,
-                "clockCountdown"    -> pref.clockCountdown,
-                "moveEvent"         -> pref.moveEvent
-              )
-              .add("clockSound" -> pref.clockSound)
-              .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
-              .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
-              .add("blindfold" -> pref.isBlindfold)
-              .add("highlightLastDests" -> pref.highlightLastDests)
-              .add("highlightCheck" -> pref.highlightCheck)
-              .add("squareOverlay" -> pref.squareOverlay)
-              .add("destination" -> (pref.destination && !pref.isBlindfold))
-              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
-              .add("enablePremove" -> pref.premove)
-              .add("submitMove" -> {
-                import Pref.SubmitMove._
-                pref.submitMove match {
-                  case _ if game.hasAi || nvui                            => false
-                  case ALWAYS                                             => true
-                  case CORRESPONDENCE_UNLIMITED if game.isCorrespondence  => true
-                  case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
-                  case _                                                  => false
-                }
-              })
-          )
-          .add("clock" -> game.clock.map(clockJson))
-          .add("correspondence" -> game.correspondenceClock)
-          .add("takebackable" -> takebackable)
-          .add("moretimeable" -> moretimeable)
-          .add("expiration" -> game.expirable.option {
-            Json.obj(
-              "idleMillis"   -> (nowMillis - game.movedAt.getMillis),
-              "millisToMove" -> game.timeForFirstMove.millis
+      moretimer.isAllowedIn(pov.game) map {
+        case (((socket, opponentUser), takebackable), moretimeable) =>
+          import pov._
+          Json
+            .obj(
+              "game" -> gameJsonView(game),
+              "player" -> {
+                commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
+                  "id"      -> playerId,
+                  "version" -> socket.version.value,
+                )
+              }
+                .add("onGame" -> (player.isAi || socket.onGame(player.color)))
+                .add(
+                  "sealedUsi" -> (pov.game.paused && player.color == pov.game.turnColor) ?? pov.game.sealedUsi
+                    .map(_.usi),
+                ),
+              "opponent" -> {
+                commonPlayerJson(game, opponent, opponentUser, withFlags) ++ Json.obj(
+                  "color" -> opponent.color.name,
+                  "ai"    -> opponent.aiLevel,
+                )
+              }.add("aiCode", opponent.aiCode)
+                .add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
+                .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
+              "pref" -> Json
+                .obj(
+                  "animationDuration" -> animationMillis(pov, pref),
+                  "coords"            -> pref.coords,
+                  "resizeHandle"      -> pref.resizeHandle,
+                  "replay"            -> pref.replay,
+                  "clockTenths"       -> pref.clockTenths,
+                  "clockCountdown"    -> pref.clockCountdown,
+                  "moveEvent"         -> pref.moveEvent,
+                )
+                .add("clockSound" -> pref.clockSound)
+                .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
+                .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
+                .add("blindfold" -> pref.isBlindfold)
+                .add("highlightLastDests" -> pref.highlightLastDests)
+                .add("highlightCheck" -> pref.highlightCheck)
+                .add("squareOverlay" -> pref.squareOverlay)
+                .add("destination" -> (pref.destination && !pref.isBlindfold))
+                .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold))
+                .add("enablePremove" -> pref.premove)
+                .add("submitMove" -> {
+                  import Pref.SubmitMove._
+                  pref.submitMove match {
+                    case _ if game.hasAi || nvui                            => false
+                    case ALWAYS                                             => true
+                    case CORRESPONDENCE_UNLIMITED if game.isCorrespondence  => true
+                    case CORRESPONDENCE_ONLY if game.hasCorrespondenceClock => true
+                    case _                                                  => false
+                  }
+                }),
             )
-          })
+            .add("clock" -> game.clock.map(clockJson))
+            .add("correspondence" -> game.correspondenceClock)
+            .add("takebackable" -> takebackable)
+            .add("moretimeable" -> moretimeable)
+            .add("expiration" -> game.expirable.option {
+              Json.obj(
+                "idleMillis"   -> (nowMillis - game.movedAt.getMillis),
+                "millisToMove" -> game.timeForFirstMove.millis,
+              )
+            })
       }
 
-  private def commonWatcherJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
+  private def commonWatcherJson(
+      g: Game,
+      p: GamePlayer,
+      user: Option[User],
+      withFlags: WithFlags,
+  ): JsObject =
     Json
       .obj(
         "color" -> p.color.name,
-        "name"  -> p.name
+        "name"  -> p.name,
       )
       .add("user" -> user.map { userJsonView.minimal(_, g.perfType) })
       .add("ai" -> p.aiLevel)
@@ -148,53 +158,54 @@ final class JsonView(
       pref: Pref,
       me: Option[User],
       tv: Option[OnTv],
-      withFlags: WithFlags
+      withFlags: WithFlags,
   ) =
     getSocketStatus(pov.game) zip
-      userRepo.pair(pov.player.userId, pov.opponent.userId) map { case (socket, (playerUser, opponentUser)) =>
-        import pov._
-        Json
-          .obj(
-            "game" -> gameJsonView(game)
-              .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
-              .add("division" -> withFlags.division.option(divider(game)))
-              .add("importedBy" -> game.notationImport.flatMap(_.user)),
-            "clock"          -> game.clock.map(clockJson),
-            "correspondence" -> game.correspondenceClock,
-            "player" -> {
-              commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
-                "version"   -> socket.version.value,
-                "spectator" -> true
-              )
-            }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
-            "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add(
-              "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
-            ),
-            "orientation" -> pov.color.name,
-            "pref" -> Json
-              .obj(
-                "animationDuration" -> animationMillis(pov, pref),
-                "coords"            -> pref.coords,
-                "resizeHandle"      -> pref.resizeHandle,
-                "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths,
-                "clockCountdown"    -> pref.clockCountdown,
-                "moveEvent"         -> pref.moveEvent
-              )
-              .add("highlightLastDests" -> pref.highlightLastDests)
-              .add("highlightCheck" -> pref.highlightCheck)
-              .add("squareOverlay" -> pref.squareOverlay)
-              .add("destination" -> (pref.destination && !pref.isBlindfold))
-              .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
-            "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
-          )
-          .add("evalPut" -> me.??(evalCache.shouldPut))
-          .add("tv" -> tv.collect { case OnLishogiTv(channel, flip) =>
-            Json.obj("channel" -> channel, "flip" -> flip)
-          })
-          .add("userTv" -> tv.collect { case OnUserTv(userId) =>
-            Json.obj("id" -> userId)
-          })
+      userRepo.pair(pov.player.userId, pov.opponent.userId) map {
+        case (socket, (playerUser, opponentUser)) =>
+          import pov._
+          Json
+            .obj(
+              "game" -> gameJsonView(game)
+                .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
+                .add("division" -> withFlags.division.option(divider(game)))
+                .add("importedBy" -> game.notationImport.flatMap(_.user)),
+              "clock"          -> game.clock.map(clockJson),
+              "correspondence" -> game.correspondenceClock,
+              "player" -> {
+                commonWatcherJson(game, player, playerUser, withFlags) ++ Json.obj(
+                  "version"   -> socket.version.value,
+                  "spectator" -> true,
+                )
+              }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
+              "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add(
+                "onGame" -> (opponent.isAi || socket.onGame(opponent.color)),
+              ),
+              "orientation" -> pov.color.name,
+              "pref" -> Json
+                .obj(
+                  "animationDuration" -> animationMillis(pov, pref),
+                  "coords"            -> pref.coords,
+                  "resizeHandle"      -> pref.resizeHandle,
+                  "replay"            -> pref.replay,
+                  "clockTenths"       -> pref.clockTenths,
+                  "clockCountdown"    -> pref.clockCountdown,
+                  "moveEvent"         -> pref.moveEvent,
+                )
+                .add("highlightLastDests" -> pref.highlightLastDests)
+                .add("highlightCheck" -> pref.highlightCheck)
+                .add("squareOverlay" -> pref.squareOverlay)
+                .add("destination" -> (pref.destination && !pref.isBlindfold))
+                .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
+              "evalPut" -> JsBoolean(me.??(evalCache.shouldPut)),
+            )
+            .add("evalPut" -> me.??(evalCache.shouldPut))
+            .add("tv" -> tv.collect { case OnLishogiTv(channel, flip) =>
+              Json.obj("channel" -> channel, "flip" -> flip)
+            })
+            .add("userTv" -> tv.collect { case OnUserTv(userId) =>
+              Json.obj("id" -> userId)
+            })
 
       }
 
@@ -204,7 +215,7 @@ final class JsonView(
       orientation: shogi.Color,
       owner: Boolean,
       me: Option[User],
-      division: Option[shogi.Division] = none
+      division: Option[shogi.Division] = none,
   ) = {
     import pov._
     Json
@@ -220,20 +231,20 @@ final class JsonView(
             "status"        -> game.status,
             "source"        -> game.source,
             "startedAtStep" -> game.shogi.startedAtStep,
-            "startedAtPly"  -> game.shogi.startedAtPly
+            "startedAtPly"  -> game.shogi.startedAtPly,
           )
           .add("division", division)
           .add("winner", game.winner.map(_.color.name)),
         "player" -> Json.obj(
           "id"    -> owner.option(pov.playerId),
           "color" -> color.name,
-          "name"  -> player.name
+          "name"  -> player.name,
         ),
         "opponent" -> Json
           .obj(
             "color" -> opponent.color.name,
             "ai"    -> opponent.aiLevel,
-            "name"  -> opponent.name
+            "name"  -> opponent.name,
           )
           .add("aiCode", opponent.aiCode),
         "orientation" -> orientation.name,
@@ -242,7 +253,7 @@ final class JsonView(
             "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
-            "resizeHandle"      -> pref.resizeHandle
+            "resizeHandle"      -> pref.resizeHandle,
           )
           .add("highlightLastDests" -> pref.highlightLastDests)
           .add("highlightCheck" -> pref.highlightCheck)
@@ -250,7 +261,7 @@ final class JsonView(
           .add("destination" -> (pref.destination && !pref.isBlindfold))
           .add("dropDestination" -> (pref.dropDestination && !pref.isBlindfold)),
         "path"         -> pov.game.plies,
-        "userAnalysis" -> true
+        "userAnalysis" -> true,
       )
       .add("evalPut" -> me.??(evalCache.shouldPut))
   }
@@ -277,6 +288,6 @@ object JsonView {
       movetimes: Boolean = false,
       division: Boolean = false,
       clocks: Boolean = false,
-      blurs: Boolean = false
+      blurs: Boolean = false,
   )
 }

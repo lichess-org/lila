@@ -31,7 +31,7 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
       post: Post,
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
-      modIcon: Boolean = false
+      modIcon: Boolean = false,
   )(implicit lang: Lang): Frag =
     if (post.erased) span(cls := "author")("<erased>")
     else

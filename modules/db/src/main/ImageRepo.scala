@@ -1,8 +1,7 @@
 package lila.db
 
+import lila.db.DbImage.DbImageBSONHandler
 import lila.db.dsl._
-
-import DbImage.DbImageBSONHandler
 
 final class ImageRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 

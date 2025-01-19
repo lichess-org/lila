@@ -15,7 +15,7 @@ object show {
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
-      team: Option[lila.team.Team]
+      team: Option[lila.team.Team],
   )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("simul.show"),
@@ -34,12 +34,12 @@ object show {
                 timeout = c.timeout,
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                localMod = ctx.userId has sim.hostId
+                localMod = ctx.userId has sim.hostId,
               )
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     ) {
       val handicap = (for {
         variant  <- sim.variants.headOption.ifFalse(sim.variantRich)
@@ -49,8 +49,8 @@ object show {
       main(
         cls := List(
           "simul"         -> true,
-          "simul-created" -> sim.isCreated
-        )
+          "simul-created" -> sim.isCreated,
+        ),
       )(
         st.aside(cls := "simul__side")(
           div(cls := "simul__meta")(
@@ -63,12 +63,13 @@ object show {
                     sim.variants.map(v => variantName(v)).mkString(", "),
                     " - ",
                     trans.casual(),
-                    (isGranted(_.ManageSimul) || ctx.userId.has(sim.hostId)) && sim.isCreated option frag(
+                    (isGranted(_.ManageSimul) || ctx.userId
+                      .has(sim.hostId)) && sim.isCreated option frag(
                       " - ",
-                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%"))
-                    )
-                  )
-                )
+                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%")),
+                    ),
+                  ),
+                ),
               ),
               trans.simulHostExtraTime(),
               ": ",
@@ -88,37 +89,37 @@ object show {
                   " ",
                   h.english,
                   " - ",
-                  views.html.base.bits.sfenAnalysisLink(h.sfen)
+                  views.html.base.bits.sfenAnalysisLink(h.sfen),
                 )
               } orElse sim.position.map { sfen =>
                 frag(
                   br,
                   trans.fromPosition(),
                   " - ",
-                  views.html.base.bits.sfenAnalysisLink(sfen)
+                  views.html.base.bits.sfenAnalysisLink(sfen),
                 )
-              }
+              },
             ),
             trans.by(userIdLink(sim.hostId.some)),
             team map { t =>
               frag(
                 br,
-                trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
+                trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name)),
               )
             },
             sim.estimatedStartAt map { d =>
               frag(
                 br,
-                absClientDateTime(d)
+                absClientDateTime(d),
               )
-            }
+            },
           ),
           stream.map { s =>
             views.html.streamer.bits.contextual(s.streamer.userId)
           },
-          chatOption.isDefined option views.html.chat.frag
+          chatOption.isDefined option views.html.chat.frag,
         ),
-        div(cls := "simul__main box")(spinner)
+        div(cls := "simul__main box")(spinner),
       )
     }
 }

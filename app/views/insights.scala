@@ -24,20 +24,20 @@ object insights {
             "usernameHash" -> MessageDigest
               .getInstance("MD5")
               .digest(
-                (insightsSecret + user.id).getBytes(UTF_8)
+                (insightsSecret + user.id).getBytes(UTF_8),
               )
               .map("%02x".format(_))
               .mkString,
             "isBot"    -> user.isBot,
             "path"     -> path,
-            "endpoint" -> insightsEndpoint
-          )
-        )
+            "endpoint" -> insightsEndpoint,
+          ),
+        ),
       ),
-      robots = false
+      robots = false,
     ) {
-      main(id   := "insights-app")(
-        div(cls := "insights-app--wrap")
+      main(id := "insights-app")(
+        div(cls := "insights-app--wrap"),
       )
     }
 
@@ -45,13 +45,13 @@ object insights {
     views.html.base.layout(
       title = s"${user.username} - ${trans.insights.insights.txt()}",
       moreCss = cssTag("insights"),
-      robots = false
+      robots = false,
     ) {
-      main(id   := "insights-app")(
+      main(id := "insights-app")(
         div(cls := "page-menu__menu"),
         div(cls := "page-menu__content")(
-          h1(cls := "text")(trans.isPrivate.txt())
-        )
+          h1(cls := "text")(trans.isPrivate.txt()),
+        ),
       )
     }
 }

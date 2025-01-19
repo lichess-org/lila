@@ -7,9 +7,10 @@ import com.typesafe.config.ConfigFactory
 
 import lila.db.dsl._
 
-final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(implicit
+final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(
+    implicit
     ec: scala.concurrent.ExecutionContext,
-    loader: ConfigLoader[A]
+    loader: ConfigLoader[A],
 ) {
 
   private val mongoDocKey = "config"
@@ -23,10 +24,10 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
               errs foreach { logger.warn(_) }
               none
             },
-            res => res.some
+            res => res.some,
           )
         }
-      }
+      },
     )
   }
 
@@ -57,8 +58,8 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
             case Left(errs) => Invalid(ValidationError(errs mkString ","))
             case _          => Valid
           }
-        })
-      )
+        }),
+      ),
     )
     rawText map {
       _.fold(form)(form.fill)
@@ -69,7 +70,7 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
 object ConfigStore {
 
   final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(implicit
-      ec: scala.concurrent.ExecutionContext
+      ec: scala.concurrent.ExecutionContext,
   ) {
     private val coll = db(config.configColl)
 

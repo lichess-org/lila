@@ -4,18 +4,18 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.AkkaStreamCursor
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
+
 import shogi.variant.Variant
 
 import lila.common.config.CollName
 import lila.db.dsl._
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
+import lila.tournament.BSONHandlers._
 import lila.user.User
 
-import BSONHandlers._
-
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   private val enterableSelect                  = $doc("status" $lt Status.Finished.id)
@@ -41,8 +41,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.list[Tournament]($inIds(ids))
 
   def byOrderedIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
-    coll.byOrderedIds[Tournament, Tournament.ID](ids, readPreference = ReadPreference.secondaryPreferred)(
-      _.id
+    coll.byOrderedIds[Tournament, Tournament.ID](
+      ids,
+      readPreference = ReadPreference.secondaryPreferred,
+    )(
+      _.id,
     )
 
   def arenaById(id: Tournament.ID): Fu[Option[Tournament]] =
@@ -75,7 +78,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
   private[tournament] def startedArenaCursor =
-    coll.ext.find(startedSelect ++ arena).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
+    coll.ext
+      .find(startedSelect ++ arena)
+      .sort($doc("createdAt" -> -1))
+      .batchSize(1)
+      .cursor[Tournament]()
 
   def startedIds: Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
@@ -93,7 +100,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       selector = $doc("createdBy" -> owner.id),
       projection = none,
       sort = $sort desc "startsAt",
-      readPreference = ReadPreference.secondaryPreferred
+      readPreference = ReadPreference.secondaryPreferred,
     )
 
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
@@ -109,8 +116,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     (nb > 0) ?? coll.ext
       .find(
         forTeamSelect(teamId) ++ enterableSelect ++ $doc(
-          "startsAt" $gt DateTime.now.minusDays(1)
-        )
+          "startsAt" $gt DateTime.now.minusDays(1),
+        ),
       )
       .sort($sort asc "startsAt")
       .cursor[Tournament]()
@@ -129,36 +136,39 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private[tournament] def withdrawableIds(
       userId: User.ID,
       teamId: Option[TeamID] = None,
-      onlyArena: Boolean = false
+      onlyArena: Boolean = false,
   ): Fu[List[Tournament.ID]] =
     coll
-      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
-        Match(enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect) ++ onlyArena.??(arena)) -> List(
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from" -> playerCollName.value,
-                "let"  -> $doc("t" -> "$_id"),
-                "pipeline" -> $arr(
-                  $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc(
-                        "$and" -> $arr(
-                          $doc("$eq" -> $arr("$uid", userId)),
-                          $doc("$eq" -> $arr("$tid", "$$t"))
-                        )
-                      )
-                    )
-                  )
+      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) {
+        implicit framework =>
+          import framework._
+          Match(
+            enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect) ++ onlyArena.??(arena),
+          ) -> List(
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from" -> playerCollName.value,
+                  "let"  -> $doc("t" -> "$_id"),
+                  "pipeline" -> $arr(
+                    $doc(
+                      "$match" -> $doc(
+                        "$expr" -> $doc(
+                          "$and" -> $arr(
+                            $doc("$eq" -> $arr("$uid", userId)),
+                            $doc("$eq" -> $arr("$tid", "$$t")),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  "as" -> "player",
                 ),
-                "as" -> "player"
-              )
-            )
-          ),
-          Match("player" $ne $arr()),
-          Project($id(true))
-        )
+              ),
+            ),
+            Match("player" $ne $arr()),
+            Project($id(true)),
+          )
       }
       .map(_.flatMap(_.string("_id")))
 
@@ -179,8 +189,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .one(
         $id(tourId),
         $unset(
-          "candidates"
-        )
+          "candidates",
+        ),
       )
       .void
 
@@ -191,7 +201,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       tourId: Tournament.ID,
       candidates: List[User.ID],
       denied: List[User.ID],
-      nb: Int
+      nb: Int,
   ) =
     coll.update
       .one(
@@ -199,8 +209,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
         $set(
           "candidates" -> candidates,
           "denied"     -> denied,
-          "nbPlayers"  -> nb
-        )
+          "nbPlayers"  -> nb,
+        ),
       )
       .void
 
@@ -234,11 +244,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def visibleForTeams(teamIds: Seq[TeamID], aheadMinutes: Int) =
     coll.list[Tournament](
       startingSoonSelect(aheadMinutes) ++ forTeamsSelect(teamIds),
-      ReadPreference.secondaryPreferred
+      ReadPreference.secondaryPreferred,
     ) zip
       coll
-        .list[Tournament](startedSelect ++ forTeamsSelect(teamIds), ReadPreference.secondaryPreferred) dmap {
-        case (created, started) => created ::: started
+        .list[Tournament](
+          startedSelect ++ forTeamsSelect(teamIds),
+          ReadPreference.secondaryPreferred,
+        ) dmap { case (created, started) =>
+        created ::: started
       }
 
   private[tournament] def shouldStartCursor =
@@ -303,7 +316,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
               case Schedule.Freq.Daily   => Schedule.Freq.Eastern.some
               case Schedule.Freq.Eastern => Schedule.Freq.Daily.some
               case _                     => skip
-            }
+            },
           )
       }._1
         .reverse
@@ -314,8 +327,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .find(
         finishedSelect ++ sinceSelect(since) ++ variantSelect(shogi.variant.Standard) ++ $doc(
           "schedule.freq" -> freq.name,
-          "schedule.speed" $in Schedule.Speed.mostPopular.map(_.key)
-        )
+          "schedule.speed" $in Schedule.Speed.mostPopular.map(_.key),
+        ),
       )
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
@@ -325,7 +338,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.ext
       .find(
         finishedSelect ++ sinceSelect(DateTime.now minusDays 1) ++ variantSelect(variant) ++
-          $doc("schedule.freq" -> Schedule.Freq.Daily.name)
+          $doc("schedule.freq" -> Schedule.Freq.Daily.name),
       )
       .sort($sort desc "startsAt")
       .one[Tournament]
@@ -343,9 +356,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
           tour.password.isEmpty option "password",
           tour.conditions.list.isEmpty option "conditions",
           tour.position.isEmpty option "sfen",
-          tour.variant.standard option "variant"
-        ).flatten
-      )
+          tour.variant.standard option "variant",
+        ).flatten,
+      ),
     )
 
   def insert(tour: Tournament) = coll.insert.one(tour)
@@ -362,8 +375,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .find(
         $doc(
           "startsAt" $gte from $lte to,
-          "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter)
-        )
+          "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter),
+        ),
       )
       .sort($sort asc "startsAt")
       .cursor[Tournament](ReadPreference.secondaryPreferred)
@@ -372,7 +385,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private[tournament] def sortedCursor(
       owner: lila.user.User,
       batchSize: Int,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Tournament] =
     coll.ext
       .find($doc("createdBy" -> owner.id))

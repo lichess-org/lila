@@ -40,7 +40,7 @@ final class GeoIP(config: GeoIP.Config) {
 object GeoIP {
   case class Config(
       file: String,
-      @ConfigName("cache_ttl") cacheTtl: FiniteDuration
+      @ConfigName("cache_ttl") cacheTtl: FiniteDuration,
   )
   implicit val configLoader: ConfigLoader[Config] = AutoConfig.loader[Config]
 }
@@ -48,7 +48,7 @@ object GeoIP {
 case class Location(
     country: String,
     region: Option[String],
-    city: Option[String]
+    city: Option[String],
 ) {
 
   def shortCountry: String = ~country.split(',').headOption

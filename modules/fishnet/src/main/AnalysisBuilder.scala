@@ -1,16 +1,16 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
+
 import shogi.format.usi.Usi
 
 import lila.analyse.Analysis
 import lila.analyse.Info
+import lila.fishnet.JsonApi.Request.Evaluation
 import lila.tree.Eval
 
-import JsonApi.Request.Evaluation
-
 final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
@@ -20,7 +20,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
       client: Client,
       work: Work.Analysis,
       evals: List[Option[Evaluation.OrSkipped]],
-      isPartial: Boolean = true
+      isPartial: Boolean = true,
   ): Fu[Analysis] =
     evalCache.evals(work) flatMap { cachedFull =>
       // remove first eval in partial analysis
@@ -34,12 +34,13 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
           id = work.game.id,
           studyId = work.game.studyId,
           postGameStudies = work.postGameStudies,
-          infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.usiList, work.startPly),
+          infos =
+            makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.usiList, work.startPly),
           startPly = work.startPly,
           uid = work.sender.userId,
           by = !client.lishogi option client.userId.value,
-          date = DateTime.now
-        )
+          date = DateTime.now,
+        ),
       ) match {
         case (analysis, errors) =>
           errors foreach { e =>
@@ -48,7 +49,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
           if (analysis.valid) {
             if (!isPartial && analysis.emptyRatio >= 1d / 10)
               fufail(
-                s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}"
+                s"${work.game.variant.key} analysis $debug has ${analysis.nbEmptyInfos} empty infos out of ${analysis.infos.size}",
               )
             else fuccess(analysis)
           } else fufail(s"${work.game.variant.key} analysis $debug is empty")
@@ -58,7 +59,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
   private def mergeEvalsAndCached(
       work: Work.Analysis,
       evals: List[Option[Evaluation.OrSkipped]],
-      cached: Map[Int, Evaluation]
+      cached: Map[Int, Evaluation],
   ): List[Option[Evaluation]] =
     evals.zipWithIndex.map {
       case (None, i)              => cached get i
@@ -70,7 +71,11 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
         }
     }
 
-  private def makeInfos(evals: List[Option[Evaluation]], moves: List[Usi], startedAtPly: Int): List[Info] =
+  private def makeInfos(
+      evals: List[Option[Evaluation]],
+      moves: List[Usi],
+      startedAtPly: Int,
+  ): List[Info] =
     (evals filterNot (_ ?? (_.isCheckmate)) sliding 2).toList.zip(moves).zipWithIndex map {
       case ((List(Some(before), Some(after)), move), index) => {
         val variation = before.cappedPv match {
@@ -83,9 +88,9 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
           eval = Eval(
             after.score.cp,
             after.score.mate,
-            best
+            best,
           ),
-          variation = variation.map(_.usi)
+          variation = variation.map(_.usi),
         )
         if (info.ply % 2 == 1) info.invert else info
       }

@@ -43,8 +43,8 @@ trait LilaTypes {
     }
 
   implicit val durationZero: Zero[Duration] = Zero.instance(Duration.Zero)
-  implicit val jsObjectZero: Zero[JsObject]                 = Zero.instance(JsObject(Seq.empty))
-  implicit val jsResultZero: Zero[JsError]                 = Zero.instance(JsError(Seq.empty))
+  implicit val jsObjectZero: Zero[JsObject] = Zero.instance(JsObject(Seq.empty))
+  implicit val jsResultZero: Zero[JsError]  = Zero.instance(JsError(Seq.empty))
 
   implicit val dateTimeOrdering: Ordering[DateTime] = Ordering.fromLessThan(_ isBefore _)
 }

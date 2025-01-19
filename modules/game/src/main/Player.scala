@@ -4,6 +4,7 @@ import scala.util.chaining._
 
 import cats.implicits._
 import reactivemongo.api.bson.BSONDocumentHandler
+
 import shogi.Color
 
 import lila.user.User
@@ -27,7 +28,7 @@ case class Player(
     provisional: Boolean = false,
     blurs: Blurs = Blurs.blursZero.zero,
     berserk: Boolean = false,
-    name: Option[String] = None
+    name: Option[String] = None,
 ) {
 
   def playerUser =
@@ -62,7 +63,7 @@ case class Player(
   def offerDraw(turn: Int) =
     copy(
       isOfferingDraw = true,
-      lastDrawOffer = Some(turn)
+      lastDrawOffer = Some(turn),
     )
   def removeDrawOffer = copy(isOfferingDraw = false)
 
@@ -84,9 +85,12 @@ case class Player(
     }
 
   def before(other: Player) =
-    ((isHuman, hasTitle, rating, id), (other.isHuman, other.hasTitle, other.rating, other.id)) match {
-      case ((a, _, _, _), (b, _, _, _))             if a != b => a > b
-      case ((_, a, _, _), (_, b, _, _))             if a != b => a > b
+    (
+      (isHuman, hasTitle, rating, id),
+      (other.isHuman, other.hasTitle, other.rating, other.id),
+    ) match {
+      case ((a, _, _, _), (b, _, _, _)) if a != b             => a > b
+      case ((_, a, _, _), (_, b, _, _)) if a != b             => a > b
       case ((_, _, Some(a), _), (_, _, Some(b), _)) if a != b => a > b
       case ((_, _, Some(_), _), (_, _, None, _))              => true
       case ((_, _, None, _), (_, _, Some(_), _))              => false
@@ -100,7 +104,7 @@ case class Player(
   def stableRatingAfter = stableRating map (_ + ~ratingDiff)
 
   def addBlurs(move: Int) = copy(
-    blurs = blurs.add(move)
+    blurs = blurs.add(move),
   )
 }
 
@@ -110,12 +114,12 @@ object Player {
 
   def make(
       color: Color,
-      engineConfig: Option[EngineConfig] = none
+      engineConfig: Option[EngineConfig] = none,
   ): Player =
     Player(
       id = IdGenerator.player(color),
       color = color,
-      engineConfig = engineConfig
+      engineConfig = engineConfig,
     )
 
   def make(
@@ -124,7 +128,7 @@ object Player {
       rating: Int,
       provisional: Boolean,
       isBot: Boolean,
-      hasTitle: Boolean
+      hasTitle: Boolean,
   ): Player =
     Player(
       id = IdGenerator.player(color),
@@ -134,13 +138,13 @@ object Player {
       rating = rating.some,
       provisional = provisional,
       isBot = isBot,
-      hasTitle = hasTitle
+      hasTitle = hasTitle,
     )
 
   def make(
       color: Color,
       user: Option[User],
-      perfPicker: lila.user.Perfs => lila.rating.Perf
+      perfPicker: lila.user.Perfs => lila.rating.Perf,
   ): Player =
     user.fold(make(color)) { u =>
       val perf = perfPicker(u.perfs)
@@ -150,7 +154,7 @@ object Player {
         rating = perf.intRating,
         provisional = perf.glicko.provisional,
         isBot = u.isBot,
-        hasTitle = u.hasTitle
+        hasTitle = u.hasTitle,
       )
     }
 
@@ -189,6 +193,7 @@ object Player {
   }
 
   import reactivemongo.api.bson._
+
   import lila.db.BSON
 
   type ID      = String
@@ -226,8 +231,8 @@ object Player {
                       _,
                       r.strO(aiEngine)
                         .flatMap(EngineConfig.Engine.getByCode)
-                        .getOrElse(EngineConfig.Engine.default)
-                    )
+                        .getOrElse(EngineConfig.Engine.default),
+                    ),
                   ),
                 isBot = r boolD isBot,
                 hasTitle = r boolD hasTitle,
@@ -242,7 +247,7 @@ object Player {
                 provisional = r boolD provisional,
                 blurs = r.getD[Blurs](blursBits, blursZero.zero),
                 berserk = r boolD berserk,
-                name = r strO name
+                name = r strO name,
               )
 
     def writes(w: BSON.Writer, o: Builder) =
@@ -260,7 +265,7 @@ object Player {
           ratingDiff        -> p.ratingDiff,
           provisional       -> w.boolO(p.provisional),
           blursBits         -> p.blurs.nonEmpty.??(BlursBSONHandler writeOpt p.blurs),
-          name              -> p.name
+          name              -> p.name,
         )
       }
   }

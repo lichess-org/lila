@@ -18,7 +18,7 @@ case class HookConfig(
     days: Int,
     mode: Mode,
     color: Color,
-    ratingRange: RatingRange
+    ratingRange: RatingRange,
 ) extends HumanConfig {
 
   def withinLimits(user: Option[User]): HookConfig =
@@ -29,8 +29,8 @@ case class HookConfig(
       ratingRange = ratingRange.withinLimits(
         rating = me.perfs(pt).intRating,
         delta = 400,
-        multipleOf = 50
-      )
+        multipleOf = 50,
+      ),
     )) | this
 
   private def perfType = lila.game.PerfPicker.perfType(makeSpeed, variant, makeDaysPerTurn)
@@ -48,7 +48,7 @@ case class HookConfig(
       days,
       mode.id.some,
       ratingRange.toString.some,
-      color.name
+      color.name,
     ).some
 
   def withTimeModeString(tc: Option[String]) =
@@ -63,7 +63,7 @@ case class HookConfig(
       sri: lila.socket.Socket.Sri,
       user: Option[User],
       sid: Option[String],
-      blocking: Set[String]
+      blocking: Set[String],
   ): Either[Hook, Option[Seek]] =
     timeMode match {
       case TimeMode.RealTime =>
@@ -78,8 +78,8 @@ case class HookConfig(
             user = user,
             blocking = blocking,
             sid = sid,
-            ratingRange = ratingRange
-          )
+            ratingRange = ratingRange,
+          ),
         )
       case _ =>
         Right(user map { u =>
@@ -90,7 +90,7 @@ case class HookConfig(
             color = color.name,
             user = u,
             blocking = blocking,
-            ratingRange = ratingRange
+            ratingRange = ratingRange,
           )
         })
     }
@@ -106,7 +106,7 @@ case class HookConfig(
       byoyomi = game.clock.map(_.byoyomiSeconds) | byoyomi,
       periods = game.clock.map(_.periodsTotal) | periods,
       days = game.daysPerTurn | days,
-      mode = game.mode
+      mode = game.mode,
     )
 
   def withRatingRange(str: Option[String]) = copy(ratingRange = RatingRange orDefault str)
@@ -124,7 +124,7 @@ object HookConfig extends BaseHumanConfig {
       d: Int,
       m: Option[Int],
       e: Option[String],
-      c: String
+      c: String,
   ) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
@@ -137,7 +137,7 @@ object HookConfig extends BaseHumanConfig {
       days = d,
       mode = realMode,
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
-      color = Color(c) err s"Invalid color $c"
+      color = Color(c) err s"Invalid color $c",
     )
   }
 
@@ -151,7 +151,7 @@ object HookConfig extends BaseHumanConfig {
     days = 2,
     mode = Mode.default,
     ratingRange = RatingRange.default,
-    color = Color.default
+    color = Color.default,
   )
 
   import lila.db.BSON
@@ -170,7 +170,7 @@ object HookConfig extends BaseHumanConfig {
         days = r int "d",
         mode = Mode orDefault (r int "m"),
         color = Color.Random,
-        ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
+        ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default,
       )
 
     def writes(w: BSON.Writer, o: HookConfig) =
@@ -183,7 +183,7 @@ object HookConfig extends BaseHumanConfig {
         "p"  -> o.periods,
         "d"  -> o.days,
         "m"  -> o.mode.id,
-        "e"  -> o.ratingRange.toString
+        "e"  -> o.ratingRange.toString,
       )
   }
 }

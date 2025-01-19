@@ -11,7 +11,7 @@ case class PracticeProgress(
     _id: PracticeProgress.Id,
     chapters: PracticeProgress.ChapterNbMoves,
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
 ) {
 
   import PracticeProgress.NbMoves
@@ -26,7 +26,7 @@ case class PracticeProgress(
       chapters = chapters - chapterId + {
         chapterId -> NbMoves(math.min(chapters.get(chapterId).fold(999)(_.value), nbMoves.value))
       },
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
     )
 
   def countDone(chapterIds: List[Chapter.Id]): Int =
@@ -45,7 +45,8 @@ object PracticeProgress {
   case class Id(value: String) extends AnyVal
 
   case class NbMoves(value: Int) extends AnyVal
-  implicit val nbMovesIso: Iso.IntIso[NbMoves] = lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
+  implicit val nbMovesIso: Iso.IntIso[NbMoves] =
+    lila.common.Iso.int[NbMoves](NbMoves.apply, _.value)
 
   case class OnComplete(userId: User.ID, studyId: Study.Id, chapterId: Chapter.Id)
 
@@ -56,7 +57,7 @@ object PracticeProgress {
       _id = id,
       chapters = Map.empty,
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
     )
 
   def anon = empty(Id("anon"))

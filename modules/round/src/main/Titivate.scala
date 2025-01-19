@@ -27,7 +27,7 @@ final private[round] class Titivate(
     gameRepo: GameRepo,
     bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
-    notifyApi: NotifyApi
+    notifyApi: NotifyApi,
 )(implicit mat: akka.stream.Materializer)
     extends Actor {
 
@@ -41,7 +41,7 @@ final private[round] class Titivate(
   }
 
   implicit def ec: ExecutionContextExecutor = context.system.dispatcher
-  def scheduler   = context.system.scheduler
+  def scheduler                             = context.system.scheduler
 
   def scheduleNext(): Unit = scheduler.scheduleOnce(10 seconds, self, Run).unit
 
@@ -80,7 +80,7 @@ final private[round] class Titivate(
       .readDocument(doc)
       .fold[GameOrFail](
         err => Left(~doc.string("_id") -> err),
-        Right.apply
+        Right.apply,
       )
   }
 
@@ -101,10 +101,10 @@ final private[round] class Titivate(
                 Notification.Notifies(userId),
                 PausedGame(
                   PausedGame.GameId(game.id),
-                  game.userIds.find(_ != userId).map(PausedGame.OpponentId)
-                )
+                  game.userIds.find(_ != userId).map(PausedGame.OpponentId),
+                ),
               )
-            }
+            },
           )
 
         case game if game.finished || game.isNotationImport || game.playedThenAborted =>
@@ -139,7 +139,7 @@ final private[round] class Titivate(
             case None =>
               val hours = game.daysPerTurn.fold(
                 if (game.hasAi) Game.aiAbandonedHours
-                else Game.abandonedDays * 24
+                else Game.abandonedDays * 24,
               )(_ * 24)
               gameRepo.setCheckAt(game, DateTime.now plusHours hours).void
           }

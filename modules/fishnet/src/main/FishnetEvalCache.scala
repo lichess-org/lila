@@ -1,9 +1,9 @@
 package lila.fishnet
 
-import JsonApi.Request.Evaluation
+import lila.fishnet.JsonApi.Request.Evaluation
 
 final private class FishnetEvalCache(
-    evalCacheApi: lila.evalCache.EvalCacheApi
+    evalCacheApi: lila.evalCache.EvalCacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   val maxPlies = 15
@@ -21,13 +21,13 @@ final private class FishnetEvalCache(
           score = Evaluation
             .Score(
               cp = pv.score.cp,
-              mate = pv.score.mate
+              mate = pv.score.mate,
             )
             .invertIf((i + work.startPly) % 2 == 1), // fishnet evals are from POV
           time = none,
           nodes = eval.knodes.intNodes.some,
           nps = none,
-          depth = eval.depth.some
+          depth = eval.depth.some,
         )
       }.toMap
     }
@@ -37,7 +37,7 @@ final private class FishnetEvalCache(
       .situations(
         game.usiList.take(maxPlies - 1),
         game.initialSfen,
-        game.variant
+        game.variant,
       )
       .fold(
         _ => fuccess(Nil),
@@ -46,6 +46,6 @@ final private class FishnetEvalCache(
             evalCacheApi.getSinglePvEval(game.variant, sit.toSfen) dmap2 { index -> _ }
           }
           .sequenceFu
-          .map(_.flatten)
+          .map(_.flatten),
       )
 }

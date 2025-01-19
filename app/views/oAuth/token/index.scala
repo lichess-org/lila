@@ -16,9 +16,9 @@ object index {
       div(cls := "account oauth box")(
         div(cls := "box__top")(
           h1(title),
-          st.form(cls        := "box-top__actions", action   := routes.OAuthToken.create)(
-            submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "O")
-          )
+          st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
+            submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "O"),
+          ),
         ),
         standardFlash(cls := "box__pad"),
         p(cls := "box__pad")(
@@ -37,23 +37,23 @@ object index {
           br,
           "Here's a ",
           a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")(
-            "personal token app example"
+            "personal token app example",
           ),
           " and the ",
           a(href := routes.Api.index)("API documentation (WIP)"),
-          "."
+          ".",
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
-          div(cls            := "box__pad brand")(
+          div(cls := "box__pad brand")(
             iconTag("E")(cls := "is-green"),
             div(
               p(
                 "Make sure to copy your new personal access token now.",
                 br,
-                "You won’t be able to see it again!"
+                "You won’t be able to see it again!",
               ),
-              code(token.plain.secret)
-            )
+              code(token.plain.secret),
+            ),
           )
         },
         table(cls := "slist slist-pad")(
@@ -62,7 +62,7 @@ object index {
               td(
                 strong(t.description | "Unnamed"),
                 br,
-                em(t.scopes.map(_.name).mkString(", "))
+                em(t.scopes.map(_.name).mkString(", ")),
               ),
               td(cls := "date")(
                 t.createdAt.map { created =>
@@ -70,20 +70,20 @@ object index {
                 },
                 t.usedAt.map { used =>
                   frag("Last used ", momentFromNow(used))
-                }
+                },
               ),
               td(cls := "action")(
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
                     cls      := "button button-red button-empty confirm",
-                    st.title := "Delete this access token"
-                  )("Delete")
-                )
-              )
+                    st.title := "Delete this access token",
+                  )("Delete"),
+                ),
+              ),
             )
-          }
-        )
-      )
+          },
+        ),
+      ),
     )
   }
 }

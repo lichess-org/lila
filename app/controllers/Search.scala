@@ -15,12 +15,12 @@ final class Search(env: Env) extends LilaController(env) {
   private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5.minutes,
-    key = "search.games.ip"
+    key = "search.games.ip",
   )
   private val SearchConcurrencyLimitPerIP = new lila.memo.FutureConcurrencyLimit[IpAddress](
     key = "search.games.concurrency.ip",
     ttl = 10.minutes,
-    maxConcurrency = 1
+    maxConcurrency = 1,
   )
 
   def index(p: Int) =
@@ -38,7 +38,7 @@ final class Search(env: Env) extends LilaController(env) {
                   .bindFromRequest()
                   .withError(
                     key = "",
-                    message = "Please only send one request at a time per IP address"
+                    message = "Please only send one request at a time per IP address",
                   )
                 TooManyRequests(html.search.index(form, none, nbGames))
               }
@@ -56,7 +56,7 @@ final class Search(env: Env) extends LilaController(env) {
                           Ok(html.search.index(searchForm fill data, pager, nbGames))
                         } recover { _ =>
                           InternalServerError("Sorry, we can't process that query at the moment")
-                        }
+                        },
                     ),
                   json = searchForm
                     .bindFromRequest()
@@ -76,9 +76,11 @@ final class Search(env: Env) extends LilaController(env) {
                           case None =>
                             BadRequest(jsonError("Could not process search query")).fuccess
                         } recover { _ =>
-                          InternalServerError(jsonError("Sorry, we can't process that query at the moment"))
-                        }
-                    )
+                          InternalServerError(
+                            jsonError("Sorry, we can't process that query at the moment"),
+                          )
+                        },
+                    ),
                 )
               }
             }(rateLimitedFu)

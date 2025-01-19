@@ -3,6 +3,7 @@ package lila.study
 import play.api.libs.json._
 
 import cats.data.Validated
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.format.usi.UsiCharPair
@@ -13,7 +14,7 @@ case class AnaUsi(
     sfen: Sfen,
     variant: Variant,
     path: String,
-    chapterId: Option[String]
+    chapterId: Option[String],
 ) {
 
   def node: Validated[String, Node] = {
@@ -26,7 +27,7 @@ case class AnaUsi(
         check = game.situation.check,
         clock = none,
         children = Node.emptyChildren,
-        forceVariation = false
+        forceVariation = false,
       )
     }
   }
@@ -47,7 +48,7 @@ object AnaUsi {
       variant = shogi.variant.Variant orDefault ~d.str("variant"),
       sfen = sfen,
       path = path,
-      chapterId = d str "ch"
+      chapterId = d str "ch",
     )
   }
 }

@@ -14,11 +14,11 @@ import lila.user.User
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,
-    tournamentRepo: TournamentRepo
+    tournamentRepo: TournamentRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import LeaderboardApi._
   import BSONHandlers._
+  import LeaderboardApi._
 
   private val maxPerPage = MaxPerPage(15)
 
@@ -31,8 +31,8 @@ final class LeaderboardApi(
       .find(
         $doc(
           "u" -> userId,
-          "d" $gt range._1 $lt range._2
-        )
+          "d" $gt range._1 $lt range._2,
+        ),
       )
       .sort($sort desc "d")
       .cursor[Entry]()
@@ -42,11 +42,11 @@ final class LeaderboardApi(
     repo.coll
       .aggregateList(
         maxDocs = Int.MaxValue,
-        ReadPreference.secondaryPreferred
+        ReadPreference.secondaryPreferred,
       ) { framework =>
         import framework._
         Match($doc("u" -> user.id)) -> List(
-          GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
+          GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w")),
         )
       }
       .map {
@@ -60,7 +60,7 @@ final class LeaderboardApi(
                 _ -> ChartData.PerfResult(
                   nb = agg.nb,
                   points = ChartData.Ints(agg.points),
-                  rank = ChartData.Ints(agg.ratios)
+                  rank = ChartData.Ints(agg.ratios),
                 )
               }
             }
@@ -73,10 +73,12 @@ final class LeaderboardApi(
     repo.coll.list[Entry](
       $doc(
         "u" -> userId,
-        "d" $gt since
-      )
+        "d" $gt since,
+      ),
     ) flatMap { entries =>
-      (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
+      (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(
+        _.tourId,
+      )
     }
 
   private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] =
@@ -86,10 +88,10 @@ final class LeaderboardApi(
         selector = $doc("u" -> user.id),
         projection = none,
         sort = sort,
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = ReadPreference.secondaryPreferred,
       ) mapFutureList withTournaments,
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
     )
 
   private def withTournaments(entries: Seq[Entry]): Fu[Seq[TourEntry]] =
@@ -119,7 +121,7 @@ object LeaderboardApi {
       freq: Option[Schedule.Freq],
       speed: Option[Schedule.Speed],
       perf: PerfType,
-      date: DateTime
+      date: DateTime,
   )
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]) {
@@ -130,7 +132,7 @@ object LeaderboardApi {
           PerfResult(
             nb = acc.nb + res.nb,
             points = res.points ::: acc.points,
-            rank = res.rank ::: acc.rank
+            rank = res.rank ::: acc.rank,
           )
         }
       case Nil => PerfResult(0, Ints(Nil), Ints(Nil))

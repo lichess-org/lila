@@ -17,7 +17,7 @@ case class Streamer(
     seenAt: DateTime,         // last seen online
     liveAt: Option[DateTime], // last seen streaming
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
 ) {
 
   def id = _id
@@ -47,7 +47,7 @@ object Streamer {
         ignored = false,
         tier = 0,
         chatEnabled = true,
-        lastGrantedAt = none
+        lastGrantedAt = none,
       ),
       picturePath = none,
       name = Name(user.realNameOrUsername),
@@ -58,7 +58,7 @@ object Streamer {
       seenAt = DateTime.now,
       liveAt = none,
       createdAt = DateTime.now,
-      updatedAt = DateTime.now
+      updatedAt = DateTime.now,
     )
 
   case class Id(value: User.ID)     extends AnyVal with StringValue
@@ -69,7 +69,7 @@ object Streamer {
       ignored: Boolean,     // further requests are ignored
       tier: Int,            // homepage featuring tier
       chatEnabled: Boolean, // embed chat inside lishogi
-      lastGrantedAt: Option[DateTime]
+      lastGrantedAt: Option[DateTime],
   )
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String)        extends AnyVal with StringValue

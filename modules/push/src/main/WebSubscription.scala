@@ -3,14 +3,14 @@ package lila.push
 final case class WebSubscription(
     endpoint: String,
     auth: String,
-    p256dh: String
+    p256dh: String,
 )
 
 object WebSubscription {
 
   object readers {
-    import play.api.libs.json._
     import play.api.libs.functional.syntax._
+    import play.api.libs.json._
 
     implicit val WebSubscriptionReads: Reads[WebSubscription] = (
       (__ \ "endpoint").read[String] and

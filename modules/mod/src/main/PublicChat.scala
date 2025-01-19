@@ -9,7 +9,7 @@ import lila.tournament.Tournament
 final class PublicChat(
     chatApi: lila.chat.ChatApi,
     tournamentApi: lila.tournament.TournamentApi,
-    simulEnv: lila.simul.Env
+    simulEnv: lila.simul.Env,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def all: Fu[(List[(Tournament, UserChat)], List[(Simul, UserChat)])] =

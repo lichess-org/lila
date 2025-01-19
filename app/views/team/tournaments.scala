@@ -14,30 +14,30 @@ object tournaments {
     views.html.base.layout(
       title = s"${t.name} - ${trans.tournaments.txt()}",
       moreCss = cssTag("team"),
-      wrapClass = "full-screen-force"
+      wrapClass = "full-screen-force",
     ) {
       main(
         div(cls := "box")(
           h1(
             views.html.team.bits.link(t),
             " - ",
-            trans.tournaments()
+            trans.tournaments(),
           ),
           div(cls := "team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
               h2(trans.team.upcomingTourns()),
               table(cls := "slist slist-pad slist-invert")(
-                renderList(tours.next)
-              )
+                renderList(tours.next),
+              ),
             ),
             div(cls := "team-tournaments__past")(
               h2(trans.team.completedTourns()),
               table(cls := "slist slist-pad")(
-                renderList(tours.past)
-              )
-            )
-          )
-        )
+                renderList(tours.past),
+              ),
+            ),
+          ),
+        ),
       )
     }
   }
@@ -48,8 +48,8 @@ object tournaments {
         tr(
           cls := List(
             "enterable" -> tour.isEnterable,
-            "soon"      -> tour.isNowOrSoon
-          )
+            "soon"      -> tour.isNowOrSoon,
+          ),
         )(
           td(cls := "icon")(iconTag(tournamentIconChar(tour))),
           td(cls := "header")(
@@ -61,9 +61,9 @@ object tournaments {
                 if (!tour.variant.standard) variantName(tour.variant) else tour.perfType.trans,
                 tour.position.isDefined option frag(" - ", trans.thematic()),
                 " - ",
-                tour.mode.fold(trans.casualTournament, trans.ratedTournament)()
-              )
-            )
+                tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+              ),
+            ),
           ),
           td(cls := "infos")(
             frag(
@@ -71,12 +71,12 @@ object tournaments {
                 frag(battle.teams.size, " teams battle")
               } getOrElse "Inner team",
               br,
-              renderStartsAt(tour)
-            )
+              renderStartsAt(tour),
+            ),
           ),
-          td(cls := "text", dataIcon := "r")(tour.nbPlayers.localize)
+          td(cls := "text", dataIcon := "r")(tour.nbPlayers.localize),
         )
-      }
+      },
     )
 
   private def renderStartsAt(tour: lila.tournament.Tournament)(implicit lang: Lang): Frag =

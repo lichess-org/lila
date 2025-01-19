@@ -25,21 +25,24 @@ final class OAuth(env: Env) extends LilaController(env) {
       state = get("state", req),
       codeChallenge = get("code_challenge", req),
       codeChallengeMethod = get("code_challenge_method", req),
-      scope = get("scope", req)
+      scope = get("scope", req),
     )
 
   private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(implicit ctx: Context) =
     reqToAuthorizationRequest(ctx.req).prompt match {
       case Validated.Valid(prompt) => f(prompt)
       case Validated.Invalid(error) =>
-        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).fuccess
+        BadRequest(
+          html.site.message("Bad authorization request")(stringFrag(error.description)),
+        ).fuccess
     }
 
   def authorize =
     Open { implicit ctx =>
       withPrompt { prompt =>
-        fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
-          Ok(html.oAuth.authorize(prompt, me))
+        fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) {
+          me =>
+            Ok(html.oAuth.authorize(prompt, me))
         })
       }
     }
@@ -52,7 +55,8 @@ final class OAuth(env: Env) extends LilaController(env) {
             env.oAuth.authorizationApi.create(authorized) map { code =>
               Redirect(authorized.redirectUrl(code))
             }
-          case Validated.Invalid(error) => Redirect(prompt.redirectUri.error(error, prompt.state)).fuccess
+          case Validated.Invalid(error) =>
+            Redirect(prompt.redirectUri.error(error, prompt.state)).fuccess
         }
       }
     }
@@ -63,8 +67,8 @@ final class OAuth(env: Env) extends LilaController(env) {
       "code"          -> optional(text),
       "code_verifier" -> optional(text),
       "redirect_uri"  -> optional(text),
-      "client_id"     -> optional(text)
-    )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
+      "client_id"     -> optional(text),
+    )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply),
   )
 
   def tokenApply =
@@ -78,9 +82,9 @@ final class OAuth(env: Env) extends LilaController(env) {
                   Json
                     .obj(
                       "token_type"   -> "Bearer",
-                      "access_token" -> token.plain.secret
+                      "access_token" -> token.plain.secret,
                     )
-                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
+                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds)),
                 )
               }
             case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
@@ -105,7 +109,7 @@ final class OAuth(env: Env) extends LilaController(env) {
         .bindFromRequest()
         .fold(
           _ => BadRequest.fuccess,
-          origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
+          origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent,
         )
     }
 }

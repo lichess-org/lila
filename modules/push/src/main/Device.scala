@@ -6,7 +6,7 @@ final private case class Device(
     _id: String,      // Firebase token
     platform: String, // cordova platform (android, ios, firebase)
     userId: String,
-    seenAt: DateTime
+    seenAt: DateTime,
 ) {
 
   def deviceId =

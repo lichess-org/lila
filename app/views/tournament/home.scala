@@ -14,7 +14,7 @@ object home {
       scheduled: List[Tournament],
       finished: List[Tournament],
       winners: lila.tournament.AllWinners,
-      json: play.api.libs.json.JsObject
+      json: play.api.libs.json.JsObject,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournaments.txt(),
@@ -25,44 +25,46 @@ object home {
         moduleJsTag(
           "tournament.schedule",
           Json.obj(
-            "data" -> json
-          )
-        )
+            "data" -> json,
+          ),
+        ),
       ),
       openGraph = lila.app.ui
         .OpenGraph(
           url = s"$netBaseUrl${routes.Tournament.home.url}",
           title = trans.tournamentHomeTitle.txt(),
-          description = trans.tournamentHomeDescription.txt()
+          description = trans.tournamentHomeDescription.txt(),
         )
         .some,
-      withHrefLangs = lila.i18n.LangList.All.some
+      withHrefLangs = lila.i18n.LangList.All.some,
     ) {
       main(cls := "tour-home")(
         st.aside(cls := "tour-home__side")(
           h2(
-            a(href := routes.Tournament.leaderboard)(trans.leaderboard())
+            a(href := routes.Tournament.leaderboard)(trans.leaderboard()),
           ),
           ul(cls := "leaderboard")(
             winners.top.map { w =>
               li(
                 userIdLink(w.userId.some),
                 a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
-                  scheduledTournamentNameShortHtml(w.tourName)
-                )
+                  scheduledTournamentNameShortHtml(w.tourName),
+                ),
               )
-            }
+            },
           ),
           p(cls := "tour__links")(
             ctx.me map { me =>
               frag(
-                a(href := routes.UserTournament.path(me.username, "created"))(trans.myTournaments()),
-                br
+                a(href := routes.UserTournament.path(me.username, "created"))(
+                  trans.myTournaments(),
+                ),
+                br,
               )
             },
             a(href := routes.Tournament.calendar)(trans.tournamentCalendar()),
             br,
-            a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
+            a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ()),
           ),
           h2(trans.lishogiTournaments()),
           div(cls := "scheduled")(
@@ -70,11 +72,11 @@ object home {
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
                 a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
                   strong(tour.name(false)),
-                  momentFromNow(s.at)
+                  momentFromNow(s.at),
                 )
               }
-            }
-          )
+            },
+          ),
         ),
         st.section(cls := "tour-home__schedule box")(
           div(cls := "box__top")(
@@ -83,11 +85,11 @@ object home {
               a(
                 href     := routes.Tournament.form,
                 cls      := "button button-green text",
-                dataIcon := "O"
-              )(trans.createANewTournament())
-            )
+                dataIcon := "O",
+              )(trans.createANewTournament()),
+            ),
           ),
-          div(cls := "tour-chart")
+          div(cls := "tour-chart"),
         ),
         div(cls := "tour-home__list box")(
           table(cls := "slist")(
@@ -95,12 +97,12 @@ object home {
               tr(
                 th(colspan := 2, cls := "large")(trans.finished()),
                 th(trans.winner()),
-                th(trans.players())
-              )
+                th(trans.players()),
+              ),
             ),
-            finishedList(finished)
-          )
-        )
+            finishedList(finished),
+          ),
+        ),
       )
     }
 }

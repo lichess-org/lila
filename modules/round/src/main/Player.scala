@@ -1,6 +1,7 @@
 package lila.round
 
 import cats.data.Validated
+
 import shogi.Centis
 import shogi.LagMetrics
 import shogi.Status
@@ -14,14 +15,18 @@ import lila.game.Pov
 import lila.game.Progress
 import lila.game.actorApi.MoveGameEvent
 import lila.game.actorApi.PauseGame
-
-import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, PauseNo, TakebackNo, TooManyPlies }
+import lila.round.actorApi.round.DrawNo
+import lila.round.actorApi.round.ForecastPlay
+import lila.round.actorApi.round.HumanPlay
+import lila.round.actorApi.round.PauseNo
+import lila.round.actorApi.round.TakebackNo
+import lila.round.actorApi.round.TooManyPlies
 
 final private class Player(
     fishnetPlayer: lila.fishnet.Player,
     gameRepo: GameRepo,
     finisher: Finisher,
-    scheduleExpiration: ScheduleExpiration
+    scheduleExpiration: ScheduleExpiration,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed private trait UsiResult
@@ -29,7 +34,7 @@ final private class Player(
   private case class UsiApplied(progress: Progress) extends UsiResult
 
   private[round] def human(play: HumanPlay, round: RoundDuct)(
-      pov: Pov
+      pov: Pov,
   )(implicit proxy: GameProxy): Fu[Events] =
     play match {
       case HumanPlay(_, usi, blur, lag, _) =>
@@ -47,15 +52,17 @@ final private class Player(
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, usi)
               }
-          case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
-          case Pov(game, _) if game.paused             => fufail(ClientError(s"$pov game is paused"))
-          case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
+          case Pov(game, _) if game.finished => fufail(ClientError(s"$pov game is finished"))
+          case Pov(game, _) if game.paused   => fufail(ClientError(s"$pov game is paused"))
+          case Pov(game, _) if game.aborted  => fufail(ClientError(s"$pov game is aborted"))
           case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
           case _ => fufail(ClientError(s"$pov move refused for some reason"))
         }
     }
 
-  private[round] def bot(usi: Usi, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def bot(usi: Usi, round: RoundDuct)(
+      pov: Pov,
+  )(implicit proxy: GameProxy): Fu[Events] =
     pov match {
       case Pov(game, _) if game.playedPlies > Game.maxPlies(game.variant) =>
         round ! TooManyPlies
@@ -78,7 +85,7 @@ final private class Player(
       round: RoundDuct,
       pov: Pov,
       progress: Progress,
-      usi: Usi
+      usi: Usi,
   )(implicit proxy: GameProxy): Fu[Events] = {
     if (progress.game.paused) notifyOfPausedGame(usi, progress.game)
     else notifyUsi(usi, progress.game)
@@ -95,7 +102,9 @@ final private class Player(
     }
   }
 
-  private[round] def fishnet(game: Game, ply: Int, usi: Usi)(implicit proxy: GameProxy): Fu[Events] = {
+  private[round] def fishnet(game: Game, ply: Int, usi: Usi)(implicit
+      proxy: GameProxy,
+  ): Fu[Events] = {
     if (game.playable && game.player.isAi && game.plies == ply) {
       applyUsi(game, usi, blur = false, metrics = fishnetLag)
         .fold(errs => fufail(ClientError(errs.toString)), fuccess)
@@ -112,8 +121,8 @@ final private class Player(
     } else
       fufail(
         FishnetError(
-          s"Not AI turn move: ${usi} id: ${game.id} playable: ${game.playable} player: ${game.player} plies: ${game.playedPlies}, $ply"
-        )
+          s"Not AI turn move: ${usi} id: ${game.id} playable: ${game.playable} player: ${game.player} plies: ${game.playedPlies}, $ply",
+        ),
       )
   }
 
@@ -130,7 +139,7 @@ final private class Player(
       game: Game,
       usi: Usi,
       blur: Boolean,
-      metrics: LagMetrics
+      metrics: LagMetrics,
   ): Validated[String, UsiResult] =
     game.shogi(usi, metrics) map { nsg =>
       if (nsg.clock.exists(_.outOfTime(game.turnColor, withGrace = false))) Flagged
@@ -149,7 +158,7 @@ final private class Player(
     val moveEvent = MoveEvent(
       gameId = game.id,
       sfen = game.situation.toSfen.value,
-      usi = usi.usi
+      usi = usi.usi,
     )
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
@@ -165,9 +174,9 @@ final private class Player(
           playerUserId = game.player(color).userId,
           mobilePushable = game.mobilePushable,
           alarmable = game.alarmable,
-          unlimited = game.isUnlimited
+          unlimited = game.isUnlimited,
         ),
-        "moveEventCorres"
+        "moveEventCorres",
       )
 
     // publish simul moves
@@ -176,22 +185,23 @@ final private class Player(
       opponentUserId <- game.player(!color).userId
     } Bus.publish(
       SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId),
-      "moveEventSimul"
+      "moveEventSimul",
     )
   }
 
   private def usiFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     game.status match {
-      case Status.Mate              => finisher.other(game, _.Mate, game.situation.winner)
-      case Status.Stalemate         => finisher.other(game, _.Stalemate, game.situation.winner)
-      case Status.Impasse27         => finisher.other(game, _.Impasse27, game.situation.winner)
-      case Status.Repetition        => finisher.other(game, _.Repetition, game.situation.winner)
-      case Status.PerpetualCheck    => finisher.other(game, _.PerpetualCheck, game.situation.winner)
-      case Status.RoyalsLost        => finisher.other(game, _.RoyalsLost, game.situation.winner)
-      case Status.BareKing          => finisher.other(game, _.BareKing, game.situation.winner)
-      case Status.SpecialVariantEnd => finisher.other(game, _.SpecialVariantEnd, game.situation.winner)
-      case Status.Draw              => finisher.other(game, _.Draw, None)
-      case _                        => fuccess(Nil)
+      case Status.Mate           => finisher.other(game, _.Mate, game.situation.winner)
+      case Status.Stalemate      => finisher.other(game, _.Stalemate, game.situation.winner)
+      case Status.Impasse27      => finisher.other(game, _.Impasse27, game.situation.winner)
+      case Status.Repetition     => finisher.other(game, _.Repetition, game.situation.winner)
+      case Status.PerpetualCheck => finisher.other(game, _.PerpetualCheck, game.situation.winner)
+      case Status.RoyalsLost     => finisher.other(game, _.RoyalsLost, game.situation.winner)
+      case Status.BareKing       => finisher.other(game, _.BareKing, game.situation.winner)
+      case Status.SpecialVariantEnd =>
+        finisher.other(game, _.SpecialVariantEnd, game.situation.winner)
+      case Status.Draw => finisher.other(game, _.Draw, None)
+      case _           => fuccess(Nil)
     }
   }
 }

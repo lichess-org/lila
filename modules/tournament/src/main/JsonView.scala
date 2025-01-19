@@ -8,6 +8,7 @@ import play.api.libs.json._
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
+
 import shogi.format.forsyth.Sfen
 
 import lila.common.Animal
@@ -37,17 +38,18 @@ final class JsonView(
     verify: Condition.Verify,
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
-    pause: Pause
+    pause: Pause,
 )(implicit ec: ExecutionContext) {
 
   import JsonView._
+
   import lila.common.LightUser.lightUserWrites
 
   private case class CachableData(
       duels: JsArray,
       duelTeams: Option[JsObject],
       featured: Option[JsObject],
-      podium: Option[JsArray]
+      podium: Option[JsArray],
   )
 
   def apply(
@@ -58,7 +60,7 @@ final class JsonView(
       getTeamName: TeamID => Option[String],
       playerInfoExt: Option[PlayerInfoExt],
       socketVersion: Option[SocketVersion],
-      partial: Boolean
+      partial: Boolean,
   )(implicit lang: Lang): Fu[JsObject] =
     for {
       data   <- cachableData get tour.id
@@ -106,7 +108,7 @@ final class JsonView(
       .obj(
         "nbPlayers" -> tour.nbPlayers,
         "duels"     -> data.duels,
-        "standing"  -> stand
+        "standing"  -> stand,
       )
       .add("isStarted" -> tour.isStarted)
       .add("isFinished" -> tour.isFinished)
@@ -143,12 +145,16 @@ final class JsonView(
             "perf"      -> full.option(tour.perfType),
             "clock"     -> full.option(tour.timeControl),
             "variant"   -> full.option(tour.variant.key),
-            "rated"     -> tour.isRated
+            "rated"     -> tour.isRated,
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
-          .add("position" -> tour.position.ifTrue(full).map(sfen => positionJson(sfen, tour.variant)))
-          .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, tour.perfType, lang)))
+          .add(
+            "position" -> tour.position.ifTrue(full).map(sfen => positionJson(sfen, tour.variant)),
+          )
+          .add(
+            "verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, tour.perfType, lang)),
+          )
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
           .add("proverb" -> tour.isCreated.option(lila.common.Proverb.one(tour.id)))
@@ -161,7 +167,7 @@ final class JsonView(
               .obj(
                 "teams" -> JsObject(battle.sortedTeamIds.map { id =>
                   id -> JsString(getTeamName(id).getOrElse(id))
-                })
+                }),
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted))
           })
@@ -220,7 +226,7 @@ final class JsonView(
               "rating" -> player.rating,
               "score"  -> player.score,
               "fire"   -> player.fire,
-              "nb"     -> sheetNbs(sheet)
+              "nb"     -> sheetNbs(sheet),
             )
             .add("title" -> user.title)
             .add("performance" -> player.performanceOption)
@@ -237,10 +243,10 @@ final class JsonView(
                 "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
                 "win"    -> score.flatMap(_.isWin),
                 "status" -> pov.game.status.id,
-                "score"  -> score.map(sheetScoreJson)
+                "score"  -> score.map(sheetScoreJson),
               )
               .add("berserk" -> pov.player.berserk)
-          }
+          },
         )
     }
 
@@ -261,8 +267,8 @@ final class JsonView(
               "fire"   -> player.fire,
               "nb" -> Json.obj(
                 "game" -> arrs.size,
-                "win"  -> arrs.count(_.winner.exists(_ == user.id))
-              )
+                "win"  -> arrs.count(_.winner.exists(_ == user.id)),
+              ),
             )
             .add("title" -> user.title)
             .add("performance" -> player.performanceOption)
@@ -288,10 +294,10 @@ final class JsonView(
                   "op"     -> gameUserJson(pov.opponent.userId, pov.opponent.rating),
                   "win"    -> pov.win,
                   "status" -> pov.game.status.id,
-                  "score"  -> score
+                  "score"  -> score,
                 )
             }
-          }
+          },
         )
     }
 
@@ -304,13 +310,14 @@ final class JsonView(
     tour.featuredId.ifTrue(tour.isStarted) ?? proxyRepo.game flatMap {
       _ ?? { game =>
         cached ranking tour flatMap { ranking =>
-          (game.twoUserIds ?? { uids => playerRepo.pairByTourAndUserIds(tour.id, uids._1, uids._2) }) map {
-            pairOption =>
-              for {
-                (p1, p2) <- pairOption
-                rp1      <- RankedPlayer(ranking)(p1)
-                rp2      <- RankedPlayer(ranking)(p2)
-              } yield FeaturedGame(game, rp1, rp2)
+          (game.twoUserIds ?? { uids =>
+            playerRepo.pairByTourAndUserIds(tour.id, uids._1, uids._2)
+          }) map { pairOption =>
+            for {
+              (p1, p2) <- pairOption
+              rp1      <- RankedPlayer(ranking)(p1)
+              rp2      <- RankedPlayer(ranking)(p2)
+            } yield FeaturedGame(game, rp1, rp2)
           }
         }
       }
@@ -320,7 +327,7 @@ final class JsonView(
     Json.obj(
       "game"    -> s.scores.size,
       "berserk" -> s.scores.count(_.isBerserk),
-      "win"     -> s.scores.count(_.res == arena.Sheet.ResWin)
+      "win"     -> s.scores.count(_.res == arena.Sheet.ResWin),
     )
 
   private val cachableData = cacheApi[Tournament.ID, CachableData](16, "tournament.json.cachable") {
@@ -331,7 +338,10 @@ final class JsonView(
           duels = duelStore.bestRated(id, 6)
           jsonDuels <- duels.map(duelJson).sequenceFu
           duelTeams <- tour.exists(_.isTeamBattle) ?? {
-            playerRepo.teamsOfPlayers(id, duels.foldLeft(List.empty[User.ID])(_ ::: _.userIds)) map { teams =>
+            playerRepo.teamsOfPlayers(
+              id,
+              duels.foldLeft(List.empty[User.ID])(_ ::: _.userIds),
+            ) map { teams =>
               JsObject(teams map { case (userId, teamId) =>
                 (userId, JsString(teamId))
               }).some
@@ -343,7 +353,7 @@ final class JsonView(
           duels = JsArray(jsonDuels),
           duelTeams = duelTeams,
           featured = featured map featuredJson,
-          podium = podium
+          podium = podium,
         )
       }
   }
@@ -356,7 +366,7 @@ final class JsonView(
         .obj(
           "rank"   -> rp.rank,
           "name"   -> light.fold(rp.player.userId)(_.name),
-          "rating" -> rp.player.rating
+          "rating" -> rp.player.rating,
         )
         .add("title" -> light.flatMap(_.title))
         .add("berserk" -> p.berserk)
@@ -368,7 +378,7 @@ final class JsonView(
       "lastMove" -> ~game.lastUsiStr,
       "variant"  -> game.variant.key,
       "sente"    -> ofPlayer(featured.sente, game player shogi.Sente),
-      "gote"     -> ofPlayer(featured.gote, game player shogi.Gote)
+      "gote"     -> ofPlayer(featured.gote, game player shogi.Gote),
     )
   }
 
@@ -378,7 +388,7 @@ final class JsonView(
         "rank"     -> i.rank,
         "withdraw" -> i.withdraw,
         "gameId"   -> i.gameId,
-        "username" -> u.map(_.titleUsername)
+        "username" -> u.map(_.titleUsername),
       )
       .add("pauseDelay", delay.map(_.seconds))
 
@@ -390,34 +400,37 @@ final class JsonView(
       .add("title" -> light.flatMap(_.title))
   }
 
-  private val podiumJsonCache = cacheApi[Tournament.ID, Option[JsArray]](32, "tournament.podiumJson") {
-    _.expireAfterAccess(10 seconds)
-      .maximumSize(256)
-      .buildAsyncFuture { id =>
-        tournamentRepo finishedById id flatMap {
-          _ ?? { tour =>
-            playerRepo.bestByTourWithRank(id, 3).flatMap { top3 =>
-              // check that the winner is still correctly denormalized
-              top3.headOption.map(_.player.userId).filter(w => tour.winnerId.fold(true)(w !=)) foreach {
-                tournamentRepo.setWinnerId(tour.id, _)
+  private val podiumJsonCache =
+    cacheApi[Tournament.ID, Option[JsArray]](32, "tournament.podiumJson") {
+      _.expireAfterAccess(10 seconds)
+        .maximumSize(256)
+        .buildAsyncFuture { id =>
+          tournamentRepo finishedById id flatMap {
+            _ ?? { tour =>
+              playerRepo.bestByTourWithRank(id, 3).flatMap { top3 =>
+                // check that the winner is still correctly denormalized
+                top3.headOption
+                  .map(_.player.userId)
+                  .filter(w => tour.winnerId.fold(true)(w !=)) foreach {
+                  tournamentRepo.setWinnerId(tour.id, _)
+                }
+                top3.map { case rp @ RankedPlayer(_, player) =>
+                  for {
+                    sheet <- cached.sheet(tour, player.userId)
+                    json  <- arenaPlayerJson(lightUserApi, sheet.some, rp, tour.streakable)
+                  } yield json ++ Json
+                    .obj(
+                      "nb" -> sheetNbs(sheet),
+                    )
+                    .add("performance" -> player.performanceOption)
+                }.sequenceFu
+              } map { l =>
+                JsArray(l).some
               }
-              top3.map { case rp @ RankedPlayer(_, player) =>
-                for {
-                  sheet <- cached.sheet(tour, player.userId)
-                  json  <- arenaPlayerJson(lightUserApi, sheet.some, rp, tour.streakable)
-                } yield json ++ Json
-                  .obj(
-                    "nb" -> sheetNbs(sheet)
-                  )
-                  .add("performance" -> player.performanceOption)
-              }.sequenceFu
-            } map { l =>
-              JsArray(l).some
             }
           }
         }
-      }
-  }
+    }
 
   private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
     lightUserApi.async(p.name.id) map { u =>
@@ -425,7 +438,7 @@ final class JsonView(
         .obj(
           "n" -> u.fold(p.name.value)(_.name),
           "r" -> p.rating.value,
-          "k" -> p.rank.value
+          "k" -> p.rank.value,
         )
         .add("t" -> u.flatMap(_.title))
     }
@@ -436,7 +449,7 @@ final class JsonView(
       u2 <- duelPlayerJson(d.p2)
     } yield Json.obj(
       "id" -> d.gameId,
-      "p"  -> Json.arr(u1, u2)
+      "p"  -> Json.arr(u1, u2),
     )
 
   def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
@@ -448,15 +461,17 @@ final class JsonView(
       else teamStandingJsonCache get tour.id dmap some
     }
 
-  private val teamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding") {
-    _.expireAfterWrite(1 second)
-      .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.displayTeams))
-  }
+  private val teamStandingJsonCache =
+    cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding") {
+      _.expireAfterWrite(1 second)
+        .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.displayTeams))
+    }
 
-  private val bigTeamStandingJsonCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding.big") {
-    _.expireAfterWrite(2 seconds)
-      .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
-  }
+  private val bigTeamStandingJsonCache =
+    cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding.big") {
+      _.expireAfterWrite(2 seconds)
+        .buildAsyncFuture(fetchAndRenderTeamStandingJson(TeamBattle.maxTeams))
+    }
 
   private def fetchAndRenderTeamStandingJson(max: Int)(id: Tournament.ID) =
     cached.battle.teamStanding.get(id) map { ranked =>
@@ -471,9 +486,9 @@ final class JsonView(
       "players" -> rt.leaders.map { p =>
         Json.obj(
           "user"  -> lightUserApi.sync(p.userId),
-          "score" -> p.score
+          "score" -> p.score,
         )
-      }
+      },
     )
   }
 
@@ -503,12 +518,12 @@ final class JsonView(
                         .obj(
                           "name"   -> user.name,
                           "rating" -> p.rating,
-                          "score"  -> p.score
+                          "score"  -> p.score,
                         )
                         .add("fire" -> p.fire)
                         .add("title" -> user.title)
                     }
-                  }
+                  },
                 )
                 .some
             }
@@ -531,7 +546,7 @@ object JsonView {
         Json
           .obj(
             "n" -> light.fold(p.userId)(_.name),
-            "s" -> p.score
+            "s" -> p.score,
           )
           .add("t" -> light.flatMap(_.title))
           .add("f" -> p.fire)
@@ -546,7 +561,7 @@ object JsonView {
           "rank"     -> rank,
           "score"    -> player.score,
           "rating"   -> player.rating,
-          "username" -> user.name
+          "username" -> user.name,
         )
         .add("title" -> user.title)
         .add("performance" -> player.performanceOption)
@@ -556,7 +571,7 @@ object JsonView {
   def arenaPlayerJson(
       lightUserApi: LightUserApi,
       sheets: Map[String, arena.Sheet],
-      streakable: Boolean
+      streakable: Boolean,
   )(rankedPlayer: RankedPlayer)(implicit ec: ExecutionContext): Fu[JsObject] =
     arenaPlayerJson(lightUserApi, sheets get rankedPlayer.player.userId, rankedPlayer, streakable)
 
@@ -564,7 +579,7 @@ object JsonView {
       lightUserApi: LightUserApi,
       sheet: Option[arena.Sheet],
       rankedPlayer: RankedPlayer,
-      streakable: Boolean
+      streakable: Boolean,
   )(implicit ec: ExecutionContext): Fu[JsObject] = {
     val p = rankedPlayer.player
     lightUserApi async p.userId map { light =>
@@ -574,7 +589,7 @@ object JsonView {
           "rank"   -> rankedPlayer.rank,
           "rating" -> p.rating,
           "score"  -> p.score,
-          "sheet"  -> sheet.map(sheetJson(streakable))
+          "sheet"  -> sheet.map(sheetJson(streakable)),
         )
         .add("title" -> light.flatMap(_.title))
         .add("provisional" -> p.provisional)
@@ -588,7 +603,7 @@ object JsonView {
     Json
       .obj(
         "scores" -> s.scores.reverse.map(sheetScoreJson),
-        "total"  -> s.total
+        "total"  -> s.total,
       )
       .add("fire" -> (streakable && s.onFire))
 
@@ -598,7 +613,7 @@ object JsonView {
 
   private[tournament] def arrangementPlayerJson(
       lightUserApi: LightUserApi,
-      player: Player
+      player: Player,
   )(implicit ec: ExecutionContext): Fu[JsObject] =
     lightUserApi asyncFallback player.userId map { light =>
       Json
@@ -607,7 +622,7 @@ object JsonView {
           "name"   -> light.name,
           "order"  -> ~player.order,
           "rating" -> player.rating,
-          "score"  -> player.score
+          "score"  -> player.score,
         )
         .add("title" -> light.title)
         .add("provisional" -> player.provisional)
@@ -619,7 +634,7 @@ object JsonView {
     Json
       .obj(
         "user1" -> arrangementUser(a.user1),
-        "user2" -> arrangementUser(a.user2)
+        "user2" -> arrangementUser(a.user2),
       )
       .add("name", a.name)
       .add("color", a.color.map(_.name))
@@ -635,7 +650,7 @@ object JsonView {
   private def arrangementUser(u: Arrangement.User): JsObject =
     Json
       .obj(
-        "id" -> u.id
+        "id" -> u.id,
       )
       .add("readyAt", u.readyAt)
       .add("scheduledAt", u.scheduledAt)
@@ -647,13 +662,13 @@ object JsonView {
       .obj(
         "w" -> pts.win,
         "d" -> pts.draw,
-        "l" -> pts.loss
+        "l" -> pts.loss,
       )
 
   private[tournament] def scheduleJson(s: Schedule) =
     Json.obj(
       "freq"  -> s.freq.name,
-      "speed" -> s.speed.key
+      "speed" -> s.speed.key,
     )
 
   implicit val clockWrites: OWrites[TimeControl] = OWrites {
@@ -661,11 +676,11 @@ object JsonView {
       Json.obj(
         "limit"     -> c.limitSeconds,
         "increment" -> c.incrementSeconds,
-        "byoyomi"   -> c.byoyomiSeconds
+        "byoyomi"   -> c.byoyomiSeconds,
       )
     case TimeControl.Correspondence(d) =>
       Json.obj(
-        "days" -> d
+        "days" -> d,
       )
   }
 
@@ -676,23 +691,24 @@ object JsonView {
           .obj(
             "japanese" -> pos.japanese,
             "english"  -> pos.english,
-            "sfen"     -> pos.sfen
+            "sfen"     -> pos.sfen,
           )
       case None =>
         Json
           .obj(
             "name" -> "Custom position",
-            "sfen" -> sfen
+            "sfen" -> sfen,
           )
     }
 
-  implicit val lightUserSeqWrites: Writes[Seq[lila.common.LightUser]] = Writes.seq[lila.common.LightUser]
+  implicit val lightUserSeqWrites: Writes[Seq[lila.common.LightUser]] =
+    Writes.seq[lila.common.LightUser]
 
   implicit private[tournament] val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json
       .obj(
         "headline"    -> s.headline,
-        "description" -> s.description
+        "description" -> s.description,
       )
       .add("iconImg" -> s.iconImg)
       .add("iconFont" -> s.iconFont)
@@ -702,9 +718,10 @@ object JsonView {
     OWrites { pt =>
       Json.obj(
         "icon" -> pt.iconChar.toString,
-        "name" -> pt.trans
+        "name" -> pt.trans,
       )
     }
 
-  implicit private[tournament] val statsWrites: Writes[TournamentStats] = Json.writes[TournamentStats]
+  implicit private[tournament] val statsWrites: Writes[TournamentStats] =
+    Json.writes[TournamentStats]
 }

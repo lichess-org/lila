@@ -20,7 +20,7 @@ final case class ApiAiConfig(
     daysO: Option[Int],
     color: Color,
     level: Int,
-    sfen: Option[Sfen] = None
+    sfen: Option[Sfen] = None,
 ) extends Config
     with Positional {
 
@@ -43,7 +43,7 @@ final case class ApiAiConfig(
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         shogi.Speed(shogiGame.clock.map(_.config)),
         shogiGame.variant,
-        makeDaysPerTurn
+        makeDaysPerTurn,
       )
       Game
         .make(
@@ -51,16 +51,17 @@ final case class ApiAiConfig(
           initialSfen = sfen,
           sentePlayer = creatorColor.fold(
             Player.make(shogi.Sente, user, perfPicker),
-            Player.make(shogi.Sente, EngineConfig(sfen, shogiGame.variant, level).some)
+            Player.make(shogi.Sente, EngineConfig(sfen, shogiGame.variant, level).some),
           ),
           gotePlayer = creatorColor.fold(
             Player.make(shogi.Gote, EngineConfig(sfen, shogiGame.variant, level).some),
-            Player.make(shogi.Gote, user, perfPicker)
+            Player.make(shogi.Gote, user, perfPicker),
           ),
           mode = shogi.Mode.Casual,
-          source = if (sfen.filterNot(_.initialOf(variant)).isDefined) Source.Position else Source.Ai,
+          source =
+            if (sfen.filterNot(_.initialOf(variant)).isDefined) Source.Position else Source.Ai,
           daysPerTurn = makeDaysPerTurn,
-          notationImport = None
+          notationImport = None,
         )
         .sloppy
     } start
@@ -77,7 +78,7 @@ object ApiAiConfig extends BaseConfig {
       cl: Option[Clock.Config],
       d: Option[Int],
       c: Option[String],
-      sf: Option[String]
+      sf: Option[String],
   ) =
     new ApiAiConfig(
       variant = shogi.variant.Variant.orDefault(~v),
@@ -85,6 +86,6 @@ object ApiAiConfig extends BaseConfig {
       daysO = d,
       color = Color.orDefault(~c),
       level = l,
-      sfen = sf map Sfen.clean
+      sfen = sf map Sfen.clean,
     )
 }

@@ -2,6 +2,7 @@ package lila.evalCache
 
 import cats.data.NonEmptyList
 import org.joda.time.DateTime
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
@@ -13,7 +14,7 @@ case class EvalCacheEntry(
     _id: EvalCacheEntry.Id,
     nbMoves: Int, // multipv cannot be greater than number of legal moves
     evals: List[EvalCacheEntry.Eval],
-    usedAt: DateTime
+    usedAt: DateTime,
 ) {
 
   import EvalCacheEntry._
@@ -23,7 +24,7 @@ case class EvalCacheEntry(
   def add(eval: Eval) =
     copy(
       evals = EvalCacheSelector(eval :: evals),
-      usedAt = DateTime.now
+      usedAt = DateTime.now,
     )
 
   // finds the best eval with at least multiPv pvs,
@@ -50,7 +51,7 @@ object EvalCacheEntry {
       knodes: Knodes,
       depth: Int,
       by: User.ID,
-      trust: Trust
+      trust: Trust,
   ) {
 
     def multiPv = pvs.size
@@ -68,7 +69,7 @@ object EvalCacheEntry {
 
     def takePvs(multiPv: Int) =
       copy(
-        pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv - 1))
+        pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv - 1)),
       )
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0

@@ -3,6 +3,7 @@ package lila.socket
 import scala.concurrent.duration._
 
 import com.github.blemale.scaffeine.Cache
+
 import shogi.Centis
 
 object UserLagCache {
@@ -17,7 +18,7 @@ object UserLagCache {
         userId,
         cache.getIfPresent(userId).fold(lag) {
           _ avg lag
-        }
+        },
       )
 
   def get(userId: String): Option[Centis] = cache.getIfPresent(userId)

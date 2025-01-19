@@ -77,7 +77,7 @@ trait ScalatagsSnippets extends Cap {
       href   := "https://time.is/UTC",
       target := "_blank",
       rel    := "noopener",
-      title  := "Coordinated Universal Time"
+      title  := "Coordinated Universal Time",
     )("UTC")
 }
 
@@ -143,12 +143,13 @@ trait ScalatagsExtensions {
   }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
-  implicit val classesAttr: AttrValue[List[(String, Boolean)]] = new AttrValue[List[(String, Boolean)]] {
-    def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {
-      val cls = m collect { case (s, true) => s } mkString " "
-      if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
+  implicit val classesAttr: AttrValue[List[(String, Boolean)]] =
+    new AttrValue[List[(String, Boolean)]] {
+      def apply(t: scalatags.text.Builder, a: Attr, m: List[(String, Boolean)]): Unit = {
+        val cls = m collect { case (s, true) => s } mkString " "
+        if (cls.nonEmpty) t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(cls))
+      }
     }
-  }
 
   val emptyFrag: Frag                   = new RawFrag("")
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)

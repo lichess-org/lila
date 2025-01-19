@@ -16,7 +16,7 @@ final class Env(
     securityForms: lila.security.DataForm,
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
-    baseUrl: BaseUrl
+    baseUrl: BaseUrl,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   lazy val nameGenerator = wire[NameGenerator]
@@ -39,7 +39,7 @@ final class Env(
     },
     "clas" -> { case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
       promise completeWith api.clas.isTeacherOfStudent(teacher, Student.Id(student))
-    }
+    },
   )
 }
 

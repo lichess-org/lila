@@ -4,11 +4,11 @@ import scala.concurrent.duration._
 
 import akka.actor._
 
-/** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran as early as
-  * possible. Also saves work and runs it after cooldown.
+/** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran
+  * as early as possible. Also saves work and runs it after cooldown.
   */
 final class EarlyMultiThrottler(
-    logger: lila.log.Logger
+    logger: lila.log.Logger,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Actor {
 
@@ -49,7 +49,7 @@ object EarlyMultiThrottler {
   case class Work(
       id: String,
       run: () => Funit,
-      cooldown: FiniteDuration // how long to wait after running, before next run
+      cooldown: FiniteDuration, // how long to wait after running, before next run
   )
 
   private case class Done(id: String)

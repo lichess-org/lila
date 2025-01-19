@@ -1,19 +1,16 @@
 package lila.tournament
 
-// import akka.stream.Materializer
-// import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.game.Game
+import lila.tournament.BSONHandlers._
 import lila.user.User
 
-import BSONHandlers._
-
 final class ArrangementRepo(coll: Coll)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   private def selectTour(tourId: Tournament.ID) = $doc("t" -> tourId)
@@ -22,18 +19,18 @@ final class ArrangementRepo(coll: Coll)(implicit
   private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
     $doc(
       "t" -> tourId,
-      "u" -> userId
+      "u" -> userId,
     )
   private def selectTourUsers(tourId: Tournament.ID, user1Id: User.ID, user2Id: User.ID) =
     $doc(
       "t" -> tourId,
-      "u" $all List(user1Id, user2Id)
+      "u" $all List(user1Id, user2Id),
     )
   // to hit tour index
   private def selectTourGame(tourId: Tournament.ID, gameId: Game.ID) =
     $doc(
       "t" -> tourId,
-      "g" -> gameId
+      "g" -> gameId,
     )
 
   private val selectPlaying  = $doc("s" $lt shogi.Status.Mate.id)
@@ -59,7 +56,8 @@ final class ArrangementRepo(coll: Coll)(implicit
   def havePlayedTogether(tourId: Tournament.ID, user1Id: User.ID, user2Id: User.ID): Fu[Boolean] =
     coll.exists(selectTourUsers(tourId, user1Id, user2Id))
 
-  def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
+  def removePlaying(tourId: Tournament.ID) =
+    coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
   def find(tourId: Tournament.ID, userId: User.ID): Fu[List[Arrangement]] =
     coll.list[Arrangement](selectTourUser(tourId, userId))
@@ -84,7 +82,7 @@ final class ArrangementRepo(coll: Coll)(implicit
       coll.update
         .one(
           $id(arr.id),
-          $unset("g", "st")
+          $unset("g", "st"),
         )
         .void
     else
@@ -94,8 +92,8 @@ final class ArrangementRepo(coll: Coll)(implicit
           $set(
             "s" -> g.status.id,
             "w" -> g.winnerUserId.map(_ == arr.user1.id),
-            "p" -> g.plies
-          ) ++ $unset("l")
+            "p" -> g.plies,
+          ) ++ $unset("l"),
         )
         .void
 
@@ -104,21 +102,25 @@ final class ArrangementRepo(coll: Coll)(implicit
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 
   private[tournament] def allUpcomingByUserIdChronological(
-      userId: User.ID
+      userId: User.ID,
   ): Fu[List[Arrangement]] =
     coll.ext
       .find(
-        selectUser(userId) ++ afterNow
+        selectUser(userId) ++ afterNow,
       )
       .sort(chronoSort)
       .cursor[Arrangement]()
       .list()
 
-  def recentGameIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[Tournament.ID]] =
+  def recentGameIdsByTourAndUserId(
+      tourId: Tournament.ID,
+      userId: User.ID,
+      nb: Int,
+  ): Fu[List[Tournament.ID]] =
     coll
       .find(
         selectTourUser(tourId, userId),
-        $doc("g" -> true).some
+        $doc("g" -> true).some,
       )
       .sort(recentSort)
       .cursor[Bdoc]()
@@ -137,7 +139,7 @@ final class ArrangementRepo(coll: Coll)(implicit
           UnwindField("u"),
           GroupField("u")("nb" -> SumAll),
           Sort(Descending("nb")),
-          Limit(max)
+          Limit(max),
         )
       }
       .map {
@@ -159,13 +161,13 @@ final class ArrangementRepo(coll: Coll)(implicit
           $doc(
             "_id" -> false,
             "w"   -> true,
-            "p"   -> true
-          )
+            "p"   -> true,
+          ),
         ),
         GroupField("w")(
           "games" -> SumAll,
-          "moves" -> SumField("p")
-        )
+          "moves" -> SumField("p"),
+        ),
       )
     }
   }

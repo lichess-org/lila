@@ -1,6 +1,7 @@
 package lila.simul
 
 import org.joda.time.DateTime
+
 import shogi.Speed
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
@@ -27,7 +28,7 @@ case class Simul(
     hostSeenAt: Option[DateTime],
     color: Option[String],
     text: String,
-    team: Option[String]
+    team: Option[String],
 ) {
   def id = _id
 
@@ -51,7 +52,7 @@ case class Simul(
     Created {
       if (
         !hasApplicant(applicant.player.user) && !isHost(applicant.player.user) && variants.has(
-          applicant.player.variant
+          applicant.player.variant,
         )
       )
         copy(applicants = applicants :+ applicant)
@@ -90,7 +91,7 @@ case class Simul(
       pairings = applicants collect {
         case a if a.accepted => SimulPairing(a.player)
       },
-      hostSeenAt = none
+      hostSeenAt = none,
     )
 
   def updatePairing(gameId: String, f: SimulPairing => SimulPairing) =
@@ -98,7 +99,7 @@ case class Simul(
       pairings = pairings collect {
         case p if p.gameId == gameId => f(p)
         case p                       => p
-      }
+      },
     ).finishIfDone
 
   def ejectCheater(userId: String): Option[Simul] =
@@ -109,7 +110,7 @@ case class Simul(
       copy(
         status = SimulStatus.Finished,
         finishedAt = DateTime.now.some,
-        hostGameId = none
+        hostGameId = none,
       )
     else this
 
@@ -120,7 +121,7 @@ case class Simul(
       lila.game.PerfPicker.perfType(
         speed = Speed(clock.config.some),
         variant = variant,
-        daysPerTurn = none
+        daysPerTurn = none,
       )
     }
 
@@ -162,7 +163,7 @@ object Simul {
       color: String,
       text: String,
       estimatedStartAt: Option[DateTime],
-      team: Option[String]
+      team: Option[String],
   ): Simul =
     Simul(
       _id = lila.common.ThreadLocalRandom nextString 8,
@@ -175,7 +176,7 @@ object Simul {
           lila.game.PerfPicker.perfType(
             speed = Speed(clock.config.some),
             variant = variant,
-            daysPerTurn = none
+            daysPerTurn = none,
           )
         } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
       },
@@ -191,7 +192,7 @@ object Simul {
       hostSeenAt = DateTime.now.some,
       color = color.some,
       text = text,
-      team = team
+      team = team,
     )
 
 }

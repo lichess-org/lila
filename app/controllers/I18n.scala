@@ -34,7 +34,8 @@ final class I18n(env: Env) extends LilaController(env) {
                       val pageUrl = new java.net.URI(str).parseServerAuthority().toURL()
                       val path    = pageUrl.getPath
                       val query   = pageUrl.getQuery
-                      if (query == null || query.startsWith("lang=") || query.contains("&lang=")) path
+                      if (query == null || query.startsWith("lang=") || query.contains("&lang="))
+                        path
                       else path + "?" + query
                     } catch {
                       case _: Exception => routes.Lobby.home.url
@@ -44,9 +45,9 @@ final class I18n(env: Env) extends LilaController(env) {
                 if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
                 else redir
               }.fuccess,
-              json = Ok(Json.obj("lang" -> lang.code)).fuccess
+              json = Ok(Json.obj("lang" -> lang.code)).fuccess,
             )
-          }
+          },
         )
     }
 }

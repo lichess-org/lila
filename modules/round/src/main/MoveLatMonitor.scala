@@ -17,7 +17,7 @@ private object MoveLatMonitor {
     scheduler.scheduleWithFixedDelay(10 second, 2 second) { () =>
       lila.common.Bus.publish(
         lila.hub.actorApi.round.Mlat(latency.getAndSet(Latency()).average),
-        "mlat"
+        "mlat",
       )
     }
 

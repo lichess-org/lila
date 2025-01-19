@@ -15,7 +15,7 @@ final class NoteApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) 
       coll.update.one(
         $id(makeId(gameId, userId)),
         $set("t" -> text),
-        upsert = true
+        upsert = true,
       )
   }.void
 

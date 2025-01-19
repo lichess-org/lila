@@ -10,7 +10,7 @@ import lila.common.config.MaxPerPage
 
 final class Blog(
     env: Env,
-    prismicC: Prismic
+    prismicC: Prismic,
 ) extends LilaController(env) {
 
   import prismicC._
@@ -30,7 +30,8 @@ final class Blog(
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
       blogApi.one(prismic, id) flatMap {
-        case Some(post) if (post.isJapanese && ctx.isAnon && ctx.req.session.get("lang").isEmpty) => {
+        case Some(post)
+            if (post.isJapanese && ctx.isAnon && ctx.req.session.get("lang").isEmpty) => {
           val langCtx = ctx withLang lila.i18n.I18nLangPicker.byStr("ja-JP").getOrElse(ctx.lang)
           fuccess(Ok(views.html.blog.show(post)(langCtx, prismic)))
         }
@@ -58,6 +59,7 @@ final class Blog(
     }
 
   import scala.concurrent.duration._
+
   import lila.memo.CacheApi._
   private val atomCache = env.memo.cacheApi.unit[String] {
     _.refreshAfterWrite(60.minutes)
@@ -131,7 +133,7 @@ final class Blog(
                     categ = categ,
                     slug = topicSlug,
                     name = post.title,
-                    url = s"${env.net.baseUrl}${routes.Blog.show(post.id)}"
+                    url = s"${env.net.baseUrl}${routes.Blog.show(post.id)}",
                   )
                 }
               } inject redirect

@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random.approximately
+
 import shogi.Clock
 import shogi.Gote
 import shogi.Sente
@@ -12,9 +13,9 @@ import lila.game.Game
 
 final class Player(
     moveDb: MoveDB,
-    val maxPlies: Int
+    val maxPlies: Int,
 )(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   def apply(game: Game): Funit =
@@ -57,7 +58,7 @@ final class Player(
               initialSfen = game.initialSfen,
               studyId = none,
               variant = game.variant,
-              moves = game.usis.map(_.usi) mkString " "
+              moves = game.usis.map(_.usi) mkString " ",
             ),
             currentSfen = game.shogi.toSfen,
             level = ec.level,
@@ -67,15 +68,15 @@ final class Player(
                 btime = clk.currentClockFor(Sente).time.centis,
                 wtime = clk.currentClockFor(Gote).time.centis,
                 inc = clk.incrementSeconds,
-                byo = clk.byoyomiSeconds
+                byo = clk.byoyomiSeconds,
               )
             },
             tries = 0,
             lastTryByKey = none,
             acquired = none,
             delayMillis = delayFor(game).map(_.toMillis.toInt),
-            createdAt = DateTime.now
-          )
+            createdAt = DateTime.now,
+          ),
         )
       else fufail(s"[fishnet] Too many moves (${game.plies}), won't play ${game.id}")
     else fufail(s"[fishnet] invalid position on ${game.id}")

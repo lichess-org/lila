@@ -2,7 +2,7 @@ package lila.base
 
 import java.lang.Character.isLetterOrDigit
 import java.lang.Math
-import java.lang.{StringBuilder => jStringBuilder}
+import java.lang.{ StringBuilder => jStringBuilder }
 import scala.annotation.switch
 import scala.annotation.tailrec
 
@@ -91,7 +91,7 @@ object RawHtml {
             pathS match {
               case -1 => end
               case _  => pathS
-            }
+            },
           )
 
           val isTldInternal = DOMAIN == domain
@@ -121,8 +121,8 @@ object RawHtml {
             }
             sb.append(
               imgHtml.getOrElse(
-                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
-              )
+                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>""",
+              ),
             )
           }
           lastAppendIdx = end
@@ -155,15 +155,15 @@ object RawHtml {
               case '(' => 1
               case ')' => -1
               case _   => 0
-            })
+            }),
           )
       var parenCnt = pCnter(start, -1)
       while (
         (sArr(last): @switch) match {
           case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
           case '('                                                        => { parenCnt -= 1; true }
-          case ')'                                                        => { parenCnt += 1; parenCnt <= 0 }
-          case _                                                          => false
+          case ')' => { parenCnt += 1; parenCnt <= 0 }
+          case _   => false
         }
       ) { last -= 1 }
     }
@@ -173,7 +173,8 @@ object RawHtml {
   private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w++)(?:\.jpe?g|\.png|\.gif)?""".r
   private[this] val giphyRegex =
     """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*+)(\w+)(?:/giphy\.gif)?""".r
-  private[this] val postimgRegex = """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
+  private[this] val postimgRegex =
+    """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
 
   private[this] def imgUrl(url: String): Option[String] =
     (url match {

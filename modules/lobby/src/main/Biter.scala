@@ -1,22 +1,22 @@
 package lila.lobby
 
 import shogi.Situation
-import shogi.{Game => ShogiGame}
+import shogi.{ Game => ShogiGame }
 
 import lila.game.Game
 import lila.game.PerfPicker
 import lila.game.Player
+import lila.lobby.actorApi.JoinHook
+import lila.lobby.actorApi.JoinSeek
 import lila.socket.Socket.Sri
 import lila.user.User
 
-import actorApi.{ JoinHook, JoinSeek }
-
 final private class Biter(
     userRepo: lila.user.UserRepo,
-    gameRepo: lila.game.GameRepo
+    gameRepo: lila.game.GameRepo,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    idGenerator: lila.game.IdGenerator
+    idGenerator: lila.game.IdGenerator,
 ) {
 
   def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
@@ -35,7 +35,7 @@ final private class Biter(
       game <- makeGame(
         hook,
         senteUser = creatorColor.fold(ownerOption, userOption),
-        goteUser = creatorColor.fold(userOption, ownerOption)
+        goteUser = creatorColor.fold(userOption, ownerOption),
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
     } yield {
@@ -51,7 +51,7 @@ final private class Biter(
       game <- makeGame(
         seek,
         senteUser = creatorColor.fold(owner.some, user.some),
-        goteUser = creatorColor.fold(user.some, owner.some)
+        goteUser = creatorColor.fold(user.some, owner.some),
       ).withUniqueId
       _ <- gameRepo insertDenormalized game
     } yield JoinSeek(user.id, seek, game, creatorColor)
@@ -59,11 +59,14 @@ final private class Biter(
   private def assignCreatorColor(
       creatorUser: Option[User],
       joinerUser: Option[User],
-      color: Color
+      color: Color,
   ): Fu[shogi.Color] =
     color match {
       case Color.Random =>
-        userRepo.firstGetsSente(creatorUser.map(_.id), joinerUser.map(_.id)) map shogi.Color.fromSente
+        userRepo.firstGetsSente(
+          creatorUser.map(_.id),
+          joinerUser.map(_.id),
+        ) map shogi.Color.fromSente
       case Color.Sente => fuccess(shogi.Sente)
       case Color.Gote  => fuccess(shogi.Gote)
     }
@@ -75,14 +78,14 @@ final private class Biter(
       .make(
         shogi = ShogiGame(
           situation = Situation(hook.realVariant),
-          clock = clock.some
+          clock = clock.some,
         ),
         initialSfen = None,
         sentePlayer = Player.make(shogi.Sente, senteUser, perfPicker),
         gotePlayer = Player.make(shogi.Gote, goteUser, perfPicker),
         mode = hook.realMode,
         source = lila.game.Source.Lobby,
-        notationImport = None
+        notationImport = None,
       )
       .start
   }
@@ -93,7 +96,7 @@ final private class Biter(
       .make(
         shogi = ShogiGame(
           situation = Situation(seek.realVariant),
-          clock = none
+          clock = none,
         ),
         initialSfen = None,
         sentePlayer = Player.make(shogi.Sente, senteUser, perfPicker),
@@ -101,7 +104,7 @@ final private class Biter(
         mode = seek.realMode,
         source = lila.game.Source.Lobby,
         daysPerTurn = seek.daysPerTurn,
-        notationImport = None
+        notationImport = None,
       )
       .start
   }

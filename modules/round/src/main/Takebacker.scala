@@ -11,21 +11,20 @@ import lila.game.Pov
 import lila.game.Progress
 import lila.game.Rewind
 import lila.i18n.defaultLang
-import lila.i18n.{I18nKeys => trans}
+import lila.i18n.{ I18nKeys => trans }
 import lila.pref.Pref
 import lila.pref.PrefApi
-
-import RoundDuct.TakebackSituation
+import lila.round.RoundDuct.TakebackSituation
 
 final private class Takebacker(
     messenger: Messenger,
-    prefApi: PrefApi
+    prefApi: PrefApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang: Lang = defaultLang
 
   def yes(
-      situation: TakebackSituation
+      situation: TakebackSituation,
   )(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     IfAllowed(pov.game) {
       pov match {
@@ -39,7 +38,8 @@ final private class Takebacker(
           } >>- publishTakeback(pov) dmap (_ -> situation.reset)
         case Pov(game, _) if pov.game.playableByAi =>
           single(game) >>- publishTakeback(pov) dmap (_ -> situation)
-        case Pov(game, _) if pov.opponent.isAi => double(game) >>- publishTakeback(pov) dmap (_ -> situation)
+        case Pov(game, _) if pov.opponent.isAi =>
+          double(game) >>- publishTakeback(pov) dmap (_ -> situation)
         case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable =>
           {
             messenger.system(game, trans.takebackPropositionSent.txt())
@@ -53,7 +53,9 @@ final private class Takebacker(
       }
     }
 
-  def no(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
+  def no(
+      situation: TakebackSituation,
+  )(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     pov match {
       case Pov(game, color) if pov.player.isProposingTakeback =>
         proxy.save {
@@ -95,7 +97,7 @@ final private class Takebacker(
     if (pov.game.isCorrespondence && pov.game.nonAi && pov.player.hasUser)
       Bus.publish(
         lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
-        "offerEventCorres"
+        "offerEventCorres",
       )
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
@@ -135,8 +137,8 @@ final private class Takebacker(
           fuccess(
             Bus.publish(
               lila.game.actorApi.BoardTakeback(p.game),
-              lila.game.actorApi.BoardTakeback makeChan pov.gameId
-            )
+              lila.game.actorApi.BoardTakeback makeChan pov.gameId,
+            ),
           )
         }
         .unit

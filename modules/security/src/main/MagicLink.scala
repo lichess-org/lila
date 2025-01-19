@@ -14,7 +14,7 @@ final class MagicLink(
     mailgun: Mailgun,
     userRepo: UserRepo,
     baseUrl: BaseUrl,
-    tokenerSecret: Secret
+    tokenerSecret: Secret,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
@@ -39,8 +39,8 @@ ${Mailgun.txt.serviceNote}
         htmlBody = emailMessage(
           p(trans.passwordReset_clickOrIgnore()),
           potentialAction(metaName("Log in"), Mailgun.html.url(url)),
-          serviceNote
-        ).some
+          serviceNote,
+        ).some,
       )
     }
 
@@ -53,30 +53,33 @@ ${Mailgun.txt.serviceNote}
 object MagicLink {
 
   import scala.concurrent.duration._
+
   import play.api.mvc.RequestHeader
+
+  import lila.common.HTTPRequest
+  import lila.common.IpAddress
   import lila.memo.RateLimit
-  import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 5,
     duration = 1 hour,
-    key = "email.confirms.ip"
+    key = "email.confirms.ip",
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    key = "email.confirms.user"
+    key = "email.confirms.user",
   )
 
   private lazy val rateLimitPerEmail = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    key = "email.confirms.email"
+    key = "email.confirms.email",
   )
 
   def rateLimit[A](user: User, email: EmailAddress, req: RequestHeader)(
-      run: => Fu[A]
+      run: => Fu[A],
   )(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(user.id, cost = 1) {
       rateLimitPerEmail(email.value, cost = 1) {

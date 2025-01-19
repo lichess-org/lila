@@ -1,11 +1,12 @@
 package lila.evaluation
 
 import reactivemongo.api.bson.BSONHandler
+
 import shogi.Color
 
 case class PlayerAssessments(
     sente: Option[PlayerAssessment],
-    gote: Option[PlayerAssessment]
+    gote: Option[PlayerAssessment],
 ) {
   def color(c: Color) =
     c match {
@@ -48,7 +49,8 @@ object GameAssessment {
     val emoticon: String    = ":D"
     val id                  = 1
   }
-  val all: List[GameAssessment] = List(NotCheating, UnlikelyCheating, Unclear, LikelyCheating, Cheating)
+  val all: List[GameAssessment] =
+    List(NotCheating, UnlikelyCheating, Unclear, LikelyCheating, Cheating)
   val byId: Map[Int, GameAssessment] = all.map { a =>
     a.id -> a
   }.toMap

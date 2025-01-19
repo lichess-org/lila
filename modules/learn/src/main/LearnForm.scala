@@ -9,8 +9,8 @@ object LearnForm {
     mapping(
       "stage" -> nonEmptyText,
       "level" -> number,
-      "score" -> number
-    )(ScoreEntry.apply)(ScoreEntry.unapply)
+      "score" -> number,
+    )(ScoreEntry.apply)(ScoreEntry.unapply),
   )
 
   val scoresForm = Form(
@@ -19,10 +19,10 @@ object LearnForm {
         mapping(
           "stage" -> nonEmptyText,
           "level" -> number,
-          "score" -> number
-        )(ScoreEntry.apply)(ScoreEntry.unapply)
-      )
-    )(identity)(Some(_))
+          "score" -> number,
+        )(ScoreEntry.apply)(ScoreEntry.unapply),
+      ),
+    )(identity)(Some(_)),
   )
 
 }

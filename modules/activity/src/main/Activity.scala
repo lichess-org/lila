@@ -2,10 +2,9 @@ package lila.activity
 
 import org.joda.time.Interval
 
+import lila.activity.activities._
 import lila.common.Day
 import lila.user.User
-
-import activities._
 
 case class Activity(
     id: Activity.Id,
@@ -20,7 +19,7 @@ case class Activity(
     follows: Option[Follows] = None,
     studies: Option[Studies] = None,
     teams: Option[Teams] = None,
-    stream: Boolean = false
+    stream: Boolean = false,
 ) {
 
   def date = id.day.toDate
@@ -39,7 +38,7 @@ case class Activity(
       patron,
       follows,
       studies,
-      teams
+      teams,
     )
       .forall(_.isEmpty)
 }

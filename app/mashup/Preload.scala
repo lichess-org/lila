@@ -34,7 +34,7 @@ final class Preload(
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
-    lastPostCache: lila.blog.LastPostCache
+    lastPostCache: lila.blog.LastPostCache,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
@@ -45,7 +45,7 @@ final class Preload(
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]],
       studies: Fu[List[MiniStudy]],
-      streamerSpots: Int
+      streamerSpots: Int,
   )(implicit ctx: Context): Fu[Homepage] =
     lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
       posts.mon(_.lobby segment "posts") zip
@@ -70,7 +70,8 @@ final class Preload(
             .mon(_.lobby segment "currentGame") zip
             lightUserApi
               .preloadMany {
-                tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
+                tWinners
+                  .map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
               }
               .mon(_.lobby segment "lightUsers") map { case (currentGame, _) =>
               Homepage(
@@ -91,7 +92,7 @@ final class Preload(
                 currentGame,
                 simulIsFeaturable,
                 blindGames,
-                lobbySocket.counters
+                lobbySocket.counters,
               )
             }
       }
@@ -104,7 +105,7 @@ final class Preload(
     }
 
   private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(
-      user: User
+      user: User,
   ): Fu[Option[CurrentGame]] =
     ~povs.collectFirst {
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
@@ -116,8 +117,8 @@ final class Preload(
             json = Json.obj(
               "id"       -> pov.gameId,
               "color"    -> pov.color.name,
-              "opponent" -> opponent
-            )
+              "opponent" -> opponent,
+            ),
           ).some
         }
     }
@@ -143,7 +144,7 @@ object Preload {
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
-      counters: lila.lobby.LobbyCounters
+      counters: lila.lobby.LobbyCounters,
   )
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)

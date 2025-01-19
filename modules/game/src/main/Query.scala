@@ -2,6 +2,7 @@ package lila.game
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
+
 import shogi.Status
 
 import lila.db.dsl._
@@ -54,7 +55,7 @@ object Query {
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,
-    "p1.ai" $exists false
+    "p1.ai" $exists false,
   )
 
   def nowPlaying(u: String) = $doc(F.playingUids -> u)
@@ -68,7 +69,7 @@ object Query {
     $doc(
       F.playingUids $in userIds, // as to use the index
       s"${F.playingUids}.0" $in userIds,
-      s"${F.playingUids}.1" $in userIds
+      s"${F.playingUids}.1" $in userIds,
     )
 
   // use the us index
@@ -78,8 +79,8 @@ object Query {
     user(u) ++ $doc(
       F.winnerId -> $doc(
         "$exists" -> true,
-        "$ne"     -> u
-      )
+        "$ne"     -> u,
+      ),
     )
 
   def opponents(u1: User, u2: User) =
@@ -89,12 +90,12 @@ object Query {
     $doc(
       F.playerUids $in userIds, // as to use the index
       s"${F.playerUids}.0" $in userIds,
-      s"${F.playerUids}.1" $in userIds
+      s"${F.playerUids}.1" $in userIds,
     )
 
   val noProvisional: Bdoc = $doc(
     "p0.p" $exists false,
-    "p1.p" $exists false
+    "p1.p" $exists false,
   )
 
   def bothRatingsGreaterThan(v: Int) = $doc("p0.e" $gt v, "p1.e" $gt v)

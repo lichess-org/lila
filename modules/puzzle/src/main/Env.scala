@@ -13,13 +13,13 @@ private class PuzzleConfig(
     @ConfigName("mongodb.uri") val mongoUri: String,
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
-    @ConfigName("collection.path") val pathColl: CollName
+    @ConfigName("collection.path") val pathColl: CollName,
 )
 
 case class PuzzleColls(
     puzzle: AsyncColl,
     round: AsyncColl,
-    path: AsyncColl
+    path: AsyncColl,
 )
 
 @Module
@@ -31,11 +31,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    mongo: lila.db.Env
+    mongo: lila.db.Env,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    mode: play.api.Mode,
 ) {
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
@@ -45,7 +45,7 @@ final class Env(
   lazy val colls = PuzzleColls(
     puzzle = db(config.puzzleColl),
     round = db(config.roundColl),
-    path = db(config.pathColl)
+    path = db(config.pathColl),
   )
 
   private lazy val gameJson: GameJson = wire[GameJson]

@@ -12,7 +12,7 @@ import lila.user.User
 final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm,
-    nameGenerator: NameGenerator
+    nameGenerator: NameGenerator,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import ClasForm._
@@ -30,9 +30,9 @@ final class ClasForm(
             ids.nonEmpty && ids.sizeIs <= 10 && ids.forall { id =>
               blockingFetchUser(id).isDefined
             }
-          }
-        )
-      )(ClasData.apply)(ClasData.unapply)
+          },
+        ),
+      )(ClasData.apply)(ClasData.unapply),
     )
 
     def create = form
@@ -41,7 +41,7 @@ final class ClasForm(
       form fill ClasData(
         name = c.name,
         desc = c.desc,
-        teachers = c.teachers.toList mkString "\n"
+        teachers = c.teachers.toList mkString "\n",
       )
 
     def wall = Form(single("wall" -> text))
@@ -55,8 +55,8 @@ final class ClasForm(
       Form(
         mapping(
           "create-username" -> securityForms.signup.username,
-          "create-realName" -> cleanNonEmptyText(maxLength = 100)
-        )(NewStudent.apply)(NewStudent.unapply)
+          "create-realName" -> cleanNonEmptyText(maxLength = 100),
+        )(NewStudent.apply)(NewStudent.unapply),
       )
 
     def generate: Fu[Form[NewStudent]] =
@@ -64,7 +64,7 @@ final class ClasForm(
         create fill
           NewStudent(
             username = ~username,
-            realName = ""
+            realName = "",
           )
       }
 
@@ -74,23 +74,23 @@ final class ClasForm(
           "username" -> lila.user.DataForm.historicalUsernameField
             .verifying("Unknown username", { blockingFetchUser(_).isDefined })
             .verifying("This is a teacher", u => !c.teachers.toList.exists(_ == u.toLowerCase)),
-          "realName" -> cleanNonEmptyText
-        )(NewStudent.apply)(NewStudent.unapply)
+          "realName" -> cleanNonEmptyText,
+        )(NewStudent.apply)(NewStudent.unapply),
       )
 
     def edit(s: Student) =
       Form(
         mapping(
           "realName" -> cleanNonEmptyText,
-          "notes"    -> text(maxLength = 20000)
-        )(StudentData.apply)(StudentData.unapply)
+          "notes"    -> text(maxLength = 20000),
+        )(StudentData.apply)(StudentData.unapply),
       ) fill StudentData(s.realName, s.notes)
 
     def release =
       Form(
         single(
-          "email" -> securityForms.signup.emailField
-        )
+          "email" -> securityForms.signup.emailField,
+        ),
       )
   }
 
@@ -103,13 +103,13 @@ object ClasForm {
   case class ClasData(
       name: String,
       desc: String,
-      teachers: String
+      teachers: String,
   ) {
     def update(c: Clas) =
       c.copy(
         name = name,
         desc = desc,
-        teachers = teacherIds.toNel | c.teachers
+        teachers = teacherIds.toNel | c.teachers,
       )
 
     def teacherIds = readTeacherIds(teachers)
@@ -120,17 +120,17 @@ object ClasForm {
 
   case class NewStudent(
       username: String,
-      realName: String
+      realName: String,
   )
 
   case class StudentData(
       realName: String,
-      notes: String
+      notes: String,
   ) {
     def update(c: Student) =
       c.copy(
         realName = realName,
-        notes = notes
+        notes = notes,
       )
   }
 }

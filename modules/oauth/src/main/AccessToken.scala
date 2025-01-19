@@ -16,7 +16,7 @@ case class AccessToken(
     usedAt: Option[DateTime] = None,
     scopes: List[OAuthScope],
     clientOrigin: Option[String],
-    expires: Option[DateTime]
+    expires: Option[DateTime],
 ) {
   def isBrandNew = createdAt.exists(DateTime.now.minusSeconds(5).isBefore)
 }
@@ -27,7 +27,6 @@ object AccessToken {
   object Id {
     def from(bearer: Bearer) = Id(Algo.sha256(bearer.secret).hex)
   }
-
 
   case class ForAuth(userId: User.ID, scopes: List[OAuthScope], clientOrigin: Option[String])
 
@@ -43,19 +42,21 @@ object AccessToken {
     val expires      = "expires"
   }
 
+  import OAuthScope.scopeHandler
+
   import lila.db.BSON
   import lila.db.dsl._
-  import BSON.BSONJodaDateTimeHandler
-  import OAuthScope.scopeHandler
 
   private[oauth] val forAuthProjection = $doc(
     BSONFields.userId       -> true,
     BSONFields.scopes       -> true,
-    BSONFields.clientOrigin -> true
+    BSONFields.clientOrigin -> true,
   )
 
-  implicit private[oauth] val idHandler: BSONHandler[Id]     = stringAnyValHandler[Id](_.value, Id.apply)
-  implicit private[oauth] val bearerHandler: BSONHandler[Bearer] = stringAnyValHandler[Bearer](_.secret, Bearer.apply)
+  implicit private[oauth] val idHandler: BSONHandler[Id] =
+    stringAnyValHandler[Id](_.value, Id.apply)
+  implicit private[oauth] val bearerHandler: BSONHandler[Bearer] =
+    stringAnyValHandler[Bearer](_.secret, Bearer.apply)
 
   implicit val ForAuthBSONReader: BSONDocumentReader[ForAuth] = new BSONDocumentReader[ForAuth] {
     def readDocument(doc: BSONDocument) =
@@ -80,7 +81,7 @@ object AccessToken {
         usedAt = r.getO[DateTime](usedAt),
         scopes = r.get[List[OAuthScope]](scopes),
         clientOrigin = r strO clientOrigin,
-        expires = r.getO[DateTime](expires)
+        expires = r.getO[DateTime](expires),
       )
 
     def writes(w: BSON.Writer, o: AccessToken) =
@@ -93,7 +94,7 @@ object AccessToken {
         usedAt       -> o.usedAt,
         scopes       -> o.scopes,
         clientOrigin -> o.clientOrigin,
-        expires      -> o.expires
+        expires      -> o.expires,
       )
   }
 }

@@ -14,7 +14,7 @@ import lila.user.UserRepo
 final class AutomaticEmail(
     userRepo: UserRepo,
     mailgun: Mailgun,
-    baseUrl: BaseUrl
+    baseUrl: BaseUrl,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
@@ -35,8 +35,8 @@ ${trans.welcome_text.txt(profileUrl, editUrl)}
 ${Mailgun.txt.serviceNote}
 """,
       htmlBody = standardEmail(
-        trans.welcome_text.txt(profileUrl, editUrl)
-      ).some
+        trans.welcome_text.txt(profileUrl, editUrl),
+      ).some,
     )
   }
 
@@ -67,7 +67,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-          htmlBody = standardEmail(body).some
+          htmlBody = standardEmail(body).some,
         )
       }
     } yield ()
@@ -94,7 +94,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-          htmlBody = standardEmail(body).some
+          htmlBody = standardEmail(body).some,
         )
       }
     }
@@ -129,7 +129,7 @@ $body
 
 ${Mailgun.txt.serviceNote}
 """,
-          htmlBody = standardEmail(body).some
+          htmlBody = standardEmail(body).some,
         )
       }
     } yield ()

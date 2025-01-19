@@ -15,7 +15,7 @@ import lila.common.String.urlencode
 
 object Protocol {
   case class AuthorizationCode(secret: String) extends AnyVal {
-    def hashed = Algo.sha256(secret).hex
+    def hashed            = Algo.sha256(secret).hex
     override def toString = "AuthorizationCode(***)"
   }
 
@@ -42,7 +42,7 @@ object Protocol {
 
   case class CodeVerifier(value: String) extends AnyVal {
     def challenge = CodeChallenge(
-      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes)
+      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes),
     )
   }
 
@@ -82,13 +82,13 @@ object Protocol {
 
     def error(error: Error, state: Option[State]): String = value
       .withQuery(
-        s"error=${urlencode(error.error)}&error_description=${urlencode(error.description)}&state=${urlencode(~state.map(_.value))}"
+        s"error=${urlencode(error.error)}&error_description=${urlencode(error.description)}&state=${urlencode(~state.map(_.value))}",
       )
       .toString
 
     def code(code: AuthorizationCode, state: Option[State]): String = value
       .withQuery(
-        s"code=${urlencode(code.secret)}&state=${urlencode(~state.map(_.value))}"
+        s"code=${urlencode(code.secret)}&state=${urlencode(~state.map(_.value))}",
       )
       .toString
 
@@ -97,11 +97,14 @@ object Protocol {
   object RedirectUri {
     def from(redirectUri: String): Validated[Error, RedirectUri] =
       Try {
-        URL.parse(URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance), redirectUri)
+        URL.parse(
+          URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance),
+          redirectUri,
+        )
       }.toOption
         .toValid(Error.RedirectUriInvalid)
         .ensure(Error.RedirectSchemeNotAllowed)(url =>
-          List("http", "https", "ionic", "capacitor").has(url.scheme)
+          List("http", "https", "ionic", "capacitor").has(url.scheme),
         )
         .map(RedirectUri.apply)
 
@@ -114,7 +117,7 @@ object Protocol {
     def description: String
     def toJson = Json.obj(
       "error"             -> error,
-      "error_description" -> description
+      "error_description" -> description,
     )
   }
   object Error {
@@ -129,9 +132,9 @@ object Protocol {
     }
 
     abstract class InvalidRequest(val description: String) extends Error("invalid_request")
-    case object ClientIdRequired                           extends InvalidRequest("client_id required")
-    case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
-    case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
+    case object ClientIdRequired    extends InvalidRequest("client_id required")
+    case object RedirectUriRequired extends InvalidRequest("redirect_uri required")
+    case object RedirectUriInvalid  extends InvalidRequest("redirect_uri invalid")
     case object RedirectSchemeNotAllowed
         extends InvalidRequest("contact us to get exotic redirect_uri schemes whitelisted")
     case object ResponseTypeRequired        extends InvalidRequest("response_type required")
@@ -159,7 +162,8 @@ object Protocol {
     case object MismatchingClient
         extends InvalidGrant("authorization code was issued for a different client_Id")
     case class MismatchingCodeVerifier(val verifier: CodeVerifier) extends Error("invalid_grant") {
-      def description = s"hash '${verifier.challenge.value}' of code_verifier does not match code_challenge"
+      def description =
+        s"hash '${verifier.challenge.value}' of code_verifier does not match code_challenge"
     }
   }
 }

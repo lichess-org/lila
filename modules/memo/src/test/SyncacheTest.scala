@@ -1,12 +1,14 @@
 package lila.memo
 
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
 import akka.actor.ActorSystem
-import akka.testkit.{ ImplicitSender, TestKit }
+import akka.testkit.ImplicitSender
+import akka.testkit.TestKit
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
-import scala.concurrent.duration._
-import scala.concurrent.Future
 
 class MySpec()
     extends TestKit(ActorSystem())
@@ -37,7 +39,7 @@ class MySpec()
         strategy = Syncache.AlwaysWait(1 second),
         expireAfter = Syncache.ExpireAfterWrite(10 seconds),
         logger = lila.log("syncache"),
-        resultTimeout = 5 seconds
+        resultTimeout = 5 seconds,
       )
       val threads = 20
       val keys    = 50

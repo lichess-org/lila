@@ -6,7 +6,7 @@ case class Profile(
     bio: Option[String] = None,
     firstName: Option[String] = None,
     lastName: Option[String] = None,
-    links: Option[String] = None
+    links: Option[String] = None,
 ) {
 
   def nonEmptyRealName =

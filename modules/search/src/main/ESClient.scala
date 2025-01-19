@@ -23,7 +23,7 @@ sealed trait ESClient {
 final class ESClientHttp(
     ws: WSClient,
     config: SearchConfig,
-    val index: Index
+    val index: Index,
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends ESClient {
 
@@ -58,7 +58,7 @@ final class ESClientHttp(
       s"store/bulk/${index.name}",
       JsObject(docs map { case (Id(id), doc) =>
         id -> JsString(Json.stringify(doc))
-      })
+      }),
     )
 
   def refresh =

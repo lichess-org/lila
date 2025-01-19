@@ -27,7 +27,7 @@ object ByteArray {
 
   implicit val ByteArrayBSONHandler: BSONHandler[ByteArray] = dsl.quickHandler[ByteArray](
     { case v: BSONBinary => ByteArray(v.byteArray) },
-    v => BSONBinary(v.value, subtype)
+    v => BSONBinary(v.value, subtype),
   )
 
   implicit def fromBytes(value: Array[Byte]): ByteArray = new ByteArray(value)

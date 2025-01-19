@@ -20,14 +20,14 @@ final class LilaHttpRequestHandler(
     errorHandler: HttpErrorHandler,
     configuration: HttpConfiguration,
     filters: Seq[EssentialFilter],
-    controllerComponents: ControllerComponents
+    controllerComponents: ControllerComponents,
 ) extends DefaultHttpRequestHandler(
       webCommands,
       devContext,
       () => router,
       errorHandler,
       configuration,
-      filters
+      filters,
     ) {
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
@@ -39,7 +39,7 @@ final class LilaHttpRequestHandler(
       if (lila.common.HTTPRequest.isApiOrApp(req))
         Results.NoContent.withHeaders(
           "Allow"                  -> ResponseHeaders.allowMethods,
-          "Access-Control-Max-Age" -> "86400"
+          "Access-Control-Max-Age" -> "86400",
         )
       else Results.NotFound
     }

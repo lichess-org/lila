@@ -12,7 +12,12 @@ import lila.common.Form.formatter
 
 object StreamerForm {
 
-  import Streamer.{ Description, Headline, Listed, Name, Twitch, YouTube }
+  import Streamer.Description
+  import Streamer.Headline
+  import Streamer.Listed
+  import Streamer.Name
+  import Streamer.Twitch
+  import Streamer.YouTube
 
   lazy val emptyUserForm = Form(
     mapping(
@@ -23,12 +28,12 @@ object StreamerForm {
         text
           .verifying(
             Constraints.minLength(2),
-            Constraints.maxLength(47)
+            Constraints.maxLength(47),
           )
-          .verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)
+          .verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined),
       ),
       "youTube" -> optional(
-        text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)
+        text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined),
       ),
       "listed" -> boolean,
       "approval" -> optional(
@@ -38,10 +43,10 @@ object StreamerForm {
           "requested" -> boolean,
           "ignored"   -> boolean,
           "chat"      -> boolean,
-          "quick"     -> optional(nonEmptyText)
-        )(ApprovalData.apply)(ApprovalData.unapply)
-      )
-    )(UserData.apply)(UserData.unapply)
+          "quick"     -> optional(nonEmptyText),
+        )(ApprovalData.apply)(ApprovalData.unapply),
+      ),
+    )(UserData.apply)(UserData.unapply),
   )
 
   def userForm(streamer: Streamer) =
@@ -57,8 +62,8 @@ object StreamerForm {
         tier = streamer.approval.tier.some,
         requested = streamer.approval.requested,
         ignored = streamer.approval.ignored,
-        chat = streamer.approval.chatEnabled
-      ).some
+        chat = streamer.approval.chatEnabled,
+      ).some,
     )
 
   case class UserData(
@@ -68,7 +73,7 @@ object StreamerForm {
       twitch: Option[String],
       youTube: Option[String],
       listed: Boolean,
-      approval: Option[ApprovalData]
+      approval: Option[ApprovalData],
   ) {
 
     def apply(streamer: Streamer, asMod: Boolean) = {
@@ -79,7 +84,7 @@ object StreamerForm {
         twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
         youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply),
         listed = Listed(listed),
-        updatedAt = DateTime.now
+        updatedAt = DateTime.now,
       )
       newStreamer.copy(
         approval = approval.map(_.resolve) match {
@@ -93,10 +98,10 @@ object StreamerForm {
               },
               ignored = m.ignored && !m.granted,
               chatEnabled = m.chat,
-              lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt
+              lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt,
             )
           case _ => streamer.approval
-        }
+        },
       )
     }
   }
@@ -107,7 +112,7 @@ object StreamerForm {
       requested: Boolean,
       ignored: Boolean,
       chat: Boolean,
-      quick: Option[String] = None
+      quick: Option[String] = None,
   ) {
     def resolve =
       quick.fold(this) {
@@ -116,14 +121,18 @@ object StreamerForm {
       }
   }
 
-  implicit private val headlineFormat: Formatter[Headline] = formatter.stringFormatter[Headline](_.value, Headline.apply)
-  private def headlineField           = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
-  implicit private val descriptionFormat: Formatter[Description] = formatter.stringFormatter[Description](_.value, Description.apply)
-  private def descriptionField = of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
-  implicit private val nameFormat: Formatter[Name] = formatter.stringFormatter[Name](_.value, Name.apply)
+  implicit private val headlineFormat: Formatter[Headline] =
+    formatter.stringFormatter[Headline](_.value, Headline.apply)
+  private def headlineField = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
+  implicit private val descriptionFormat: Formatter[Description] =
+    formatter.stringFormatter[Description](_.value, Description.apply)
+  private def descriptionField =
+    of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
+  implicit private val nameFormat: Formatter[Name] =
+    formatter.stringFormatter[Name](_.value, Name.apply)
   private def nameField =
     of[Name].verifying(
       constraint.minLength[Name](_.value)(3),
-      constraint.maxLength[Name](_.value)(25)
+      constraint.maxLength[Name](_.value)(25),
     )
 }

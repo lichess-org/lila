@@ -12,7 +12,7 @@ import lila.user.User
 final class Cached(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
-    mongoCache: MongoCache.Api
+    mongoCache: MongoCache.Api,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache.get(userId)
@@ -24,7 +24,8 @@ final class Cached(
 
   def nbPaused = nbPausedCache.get _
 
-  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] = lastPlayedPlayingIdCache get userId
+  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =
+    lastPlayedPlayingIdCache get userId
 
   private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[Game.ID]]] =
     CacheApi.scaffeineNoScheduler
@@ -53,7 +54,7 @@ final class Cached(
     1024,
     "game:imported",
     30 days,
-    _.toString
+    _.toString,
   ) { loader =>
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture {
@@ -65,7 +66,7 @@ final class Cached(
 
   private val nbTotalCache = mongoCache.unit[Long](
     "game:total",
-    29 minutes
+    29 minutes,
   ) { loader =>
     _.refreshAfterWrite(30 minutes)
       .buildAsyncFuture {

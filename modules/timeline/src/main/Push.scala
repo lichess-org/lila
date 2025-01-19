@@ -18,7 +18,7 @@ final private[timeline] class Push(
     relationApi: lila.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
-    unsubApi: UnsubApi
+    unsubApi: UnsubApi,
 ) extends Actor {
 
   implicit def ec: ExecutionContextExecutor = context.dispatcher
@@ -59,13 +59,14 @@ final private[timeline] class Push(
       Permission.ModNote,
       Permission.Doxing,
       Permission.Admin,
-      Permission.SuperAdmin
+      Permission.SuperAdmin,
     )
 
   private def makeEntry(users: List[User.ID], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)
     entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, Max(1000)) flatMap { entries =>
-      if (entries.exists(_ similarTo entry)) fufail[Entry]("[timeline] a similar entry already exists")
+      if (entries.exists(_ similarTo entry))
+        fufail[Entry]("[timeline] a similar entry already exists")
       else entryApi insert Entry.ForUsers(entry, users) inject entry
     }
   }

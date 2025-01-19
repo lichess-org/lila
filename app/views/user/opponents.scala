@@ -17,7 +17,7 @@ object opponents {
         trans.favoriteOpponents(),
         " (",
         trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
-        ")"
+        ")",
       ),
       table(cls := "slist")(
         tbody(
@@ -27,16 +27,20 @@ object opponents {
               td(showBestPerf(r.user)),
               td(
                 r.nbGames.filter(_ > 0).map { nbGames =>
-                  a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}")(
-                    trans.nbGames.pluralSame(nbGames)
+                  a(
+                    href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}",
+                  )(
+                    trans.nbGames.pluralSame(nbGames),
                   )
-                }
+                },
               ),
-              td(relation.actions(r.user.id, r.relation, followable = r.followable, blocked = false))
+              td(
+                relation.actions(r.user.id, r.relation, followable = r.followable, blocked = false),
+              ),
             )
           }
-          else tr(td(trans.none()))
-        )
-      )
+          else tr(td(trans.none())),
+        ),
+      ),
     )
 }

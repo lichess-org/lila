@@ -14,17 +14,17 @@ object faq {
   private def question(id: String, title: String, answer: Frag*) =
     div(
       st.id := id,
-      cls   := "question"
+      cls   := "question",
     )(
       h3(a(href := s"#$id")(title)),
-      div(cls := "answer")(answer)
+      div(cls := "answer")(answer),
     )
 
   def apply()(implicit ctx: Context) =
     help.layout(
       title = trans.faq.frequentlyAskedQuestions.txt(),
       active = "faq",
-      moreCss = cssTag("misc.faq")
+      moreCss = cssTag("misc.faq"),
     ) {
       main(cls := "faq small-page box box-pad")(
         h1(cls := "lishogi_title")(frequentlyAskedQuestions()),
@@ -34,86 +34,86 @@ object faq {
           howCanIContributeToLishogi.txt(),
           p(lishogiPoweredByDonationsAndVolunteers()),
           p(
-            a(href := routes.Plan.index)(beingAPatron())
+            a(href := routes.Plan.index)(beingAPatron()),
           ),
           p(
-            a(href := routes.Page.help)(otherWaysToContribute())
-          )
+            a(href := routes.Page.help)(otherWaysToContribute()),
+          ),
         ),
         h2(fairPlay()),
         question(
           "marks",
           whyFlaggedRatingManipulationOrCheater.txt(),
           p(
-            cheatDetectionMethods(contactEmail)
-          )
+            cheatDetectionMethods(contactEmail),
+          ),
         ),
         question(
           "rating-refund",
           whenAmIEligibleRatinRefund.txt(),
           p(
-            ratingRefundExplanation()
-          )
+            ratingRefundExplanation(),
+          ),
         ),
         question(
           "leaving",
           preventLeavingGameWithoutResigning.txt(),
           p(
-            leavingGameWithoutResigningExplanation()
-          )
+            leavingGameWithoutResigningExplanation(),
+          ),
         ),
         question(
           "mod-application",
           howCanIBecomeModerator.txt(),
           p(
-            youCannotApply()
-          )
+            youCannotApply(),
+          ),
         ),
         question(
           "correspondence",
           isCorrespondenceDifferent.txt(),
           p(
-            youCanUseOpeningBookNoEngine()
-          )
+            youCanUseOpeningBookNoEngine(),
+          ),
         ),
         h2(gameplay()),
         question(
           "time-controls",
           howBulletBlitzEtcDecided.txt(),
           p(
-            basedOnGameDuration(strong(formulaOfDuration()))
+            basedOnGameDuration(strong(formulaOfDuration())),
           ),
           ul(
             li(inferiorThanXsEqualYtimeControl(60, trans.ultrabullet())),
             li(inferiorThanXsEqualYtimeControl(300, trans.bullet())),
             li(inferiorThanXsEqualYtimeControl(600, trans.blitz())),
             li(inferiorThanXsEqualYtimeControl(1500, trans.rapid())),
-            li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
-          )
+            li(superiorThanXsEqualYtimeControl(1500, trans.classical())),
+          ),
         ),
         h2(accounts()),
         question(
           "lm",
           canIbecomeLM.txt(),
           p(strong(noUpperCaseDot())),
-          p(lMtitleComesToYouDoNotRequestIt())
+          p(lMtitleComesToYouDoNotRequestIt()),
         ),
         question(
           "usernames",
           whatUsernameCanIchoose.txt(),
           p(
             usernamesNotOffensive(
-              a(href := "https://github.com/lichess-org/lila/wiki/Username-policy")(guidelines())
-            )
-          )
+              a(href := "https://github.com/lichess-org/lila/wiki/Username-policy")(guidelines()),
+            ),
+          ),
         ),
         h2(lishogiRatings()),
         question(
           "ratings",
           whichRatingSystemUsedByLishogi.txt(),
           p(
-            ratingSystemUsedByLishogi()
-          )
+            ratingSystemUsedByLishogi(),
+          ),
         ),
         question(
           "provisional",
@@ -122,24 +122,24 @@ object faq {
           ul(
             li(
               notPlayedEnoughRatedGamesAgainstX(
-                em(similarOpponents())
-              )
+                em(similarOpponents()),
+              ),
             ),
             li(
-              notPlayedRecently()
-            )
+              notPlayedRecently(),
+            ),
           ),
           p(
-            ratingDeviationMorethanOneHundredTen()
-          )
+            ratingDeviationMorethanOneHundredTen(),
+          ),
         ),
         question(
           "leaderboards",
           howDoLeaderoardsWork.txt(),
           p(
             inOrderToAppearsYouMust(
-              a(href := routes.User.list)(ratingLeaderboards())
-            )
+              a(href := routes.User.list)(ratingLeaderboards()),
+            ),
           ),
           ol(
             li(havePlayedMoreThanThirtyGamesInThatRating()),
@@ -147,21 +147,21 @@ object faq {
             li(
               ratingDeviationLowerThanXinShogiYinVariants(
                 lila.rating.Glicko.standardRankableDeviation,
-                lila.rating.Glicko.variantRankableDeviation
-              )
+                lila.rating.Glicko.variantRankableDeviation,
+              ),
             ),
-            li(beInTopTen())
+            li(beInTopTen()),
           ),
           p(
-            secondRequirementToStopOldPlayersTrustingLeaderboards()
-          )
+            secondRequirementToStopOldPlayersTrustingLeaderboards(),
+          ),
         ),
         question(
           "high-ratings",
           whyAreRatingHigher.txt(),
           p(
-            whyAreRatingHigherExplanation()
-          )
+            whyAreRatingHigherExplanation(),
+          ),
         ),
         question(
           "hide-ratings",
@@ -169,26 +169,31 @@ object faq {
           p(
             enableZenMode(
               a(href := routes.Pref.form("game-display"))(displayPreferences()),
-              em("z")
-            )
-          )
+              em("z"),
+            ),
+          ),
         ),
         question(
           "disconnection-loss",
           connexionLostCanIGetMyRatingBack.txt(),
           p(
-            weCannotDoThatEvenIfItIsServerSideButThatsRare()
-          )
+            weCannotDoThatEvenIfItIsServerSideButThatsRare(),
+          ),
         ),
         h2(howToThreeDots()),
         question(
           "browser-notifications",
           enableDisableNotificationPopUps.txt(),
-          p(img(src := assetUrl("images/connection-info.png"), alt := viewSiteInformationPopUp.txt())),
           p(
-            lishogiCanOptionnalySendPopUps()
-          )
-        )
+            img(
+              src := assetUrl("images/connection-info.png"),
+              alt := viewSiteInformationPopUp.txt(),
+            ),
+          ),
+          p(
+            lishogiCanOptionnalySendPopUps(),
+          ),
+        ),
       )
     }
 }

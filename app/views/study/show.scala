@@ -14,7 +14,7 @@ object show {
       data: lila.study.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: lila.socket.Socket.SocketVersion,
-      streams: List[lila.streamer.Stream]
+      streams: List[lila.streamer.Stream],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = sc.study.name.value,
@@ -38,13 +38,13 @@ object show {
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
                 palantir = ctx.userId exists sc.study.isMember,
-                localMod = ctx.userId exists sc.study.canContribute
+                localMod = ctx.userId exists sc.study.canContribute,
               )
             },
             "socketUrl"     -> socketUrl(sc.study.id.value),
-            "socketVersion" -> socketVersion.value
-          )
-        )
+            "socketVersion" -> socketVersion.value,
+          ),
+        ),
       ),
       robots = sc.study.isPublic,
       shogiground = false,
@@ -54,16 +54,16 @@ object show {
         .OpenGraph(
           title = sc.study.name.value,
           url = s"$netBaseUrl${routes.Study.show(sc.study.id.value).url}",
-          description = trans.study.studyByX.txt(usernameOrId(sc.study.ownerId))
+          description = trans.study.studyByX.txt(usernameOrId(sc.study.ownerId)),
         )
         .some,
       canonicalPath =
-        lila.common.CanonicalPath(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).some
+        lila.common.CanonicalPath(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).some,
     )(
       frag(
         main(cls := "analyse"),
-        bits.streamers(streams)
-      )
+        bits.streamers(streams),
+      ),
     )
 
   def socketUrl(id: String) = s"/study/$id/socket/v5"

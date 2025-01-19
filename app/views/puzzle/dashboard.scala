@@ -47,23 +47,25 @@ object dashboard {
                       "label" -> "Performance",
                       "data" -> mostPlayed.map { case (_, results) =>
                         results.performance
-                      }
-                    )
-                  )
-                )
-              )
-          )
+                      },
+                    ),
+                  ),
+                ),
+              ),
+          ),
         )
-      }
+      },
     ) { dash =>
       dash.mostPlayed.sizeIs > 2 option
         div(cls := s"${baseClass}__global")(
           metricsOf(days, PuzzleTheme.mix.key, dash.global),
-          canvas(cls := s"${baseClass}__radar")
+          canvas(cls := s"${baseClass}__radar"),
         )
     }
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit
+      ctx: Context,
+  ) =
     dashboardLayout(
       user = user,
       days = days,
@@ -72,7 +74,7 @@ object dashboard {
         if (ctx is user) trans.puzzle.improvementAreas.txt()
         else s"${user.username} - ${trans.puzzle.improvementAreas.txt()}",
       subtitle = trans.puzzle.improvementAreasSubtitle.txt(),
-      dashOpt = dashOpt
+      dashOpt = dashOpt,
     ) { dash =>
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
@@ -86,7 +88,7 @@ object dashboard {
         if (ctx is user) trans.puzzle.strengths.txt()
         else s"${user.username} - ${trans.puzzle.strengths.txt()}",
       subtitle = trans.puzzle.strengthsSubtitle.txt(),
-      dashOpt = dashOpt
+      dashOpt = dashOpt,
     ) { dash =>
       dash.strongThemes.nonEmpty option themeSelection(days, dash.strongThemes)
     }
@@ -98,14 +100,14 @@ object dashboard {
       title: String,
       subtitle: String,
       dashOpt: Option[PuzzleDashboard],
-      moreJs: Frag = emptyFrag
+      moreJs: Frag = emptyFrag,
   )(
-      body: PuzzleDashboard => Option[Frag]
+      body: PuzzleDashboard => Option[Frag],
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
-      moreJs = moreJs
+      moreJs = moreJs,
     )(
       main(cls := "page-menu")(
         bits.pageMenu(path),
@@ -114,70 +116,70 @@ object dashboard {
             // iconTag('-'),
             h1(
               title,
-              strong(subtitle)
+              strong(subtitle),
             ),
             views.html.base.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
               span(trans.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices map { d =>
                 a(
-                  cls  := (d == days).option("current"),
-                  href := s"${routes.Puzzle.dashboard(d, path)}${!(ctx is user) ?? s"?u=${user.username}"}"
+                  cls := (d == days).option("current"),
+                  href := s"${routes.Puzzle.dashboard(d, path)}${!(ctx is user) ?? s"?u=${user.username}"}",
                 )(trans.nbDays.pluralSame(d))
-              }
-            )
+              },
+            ),
           ),
           dashOpt.flatMap(body) |
             div(cls := s"${baseClass}__empty")(
-              a(href := routes.Puzzle.home)("Nothing to show, go play some puzzles first!")
-            )
-        )
-      )
+              a(href := routes.Puzzle.home)("Nothing to show, go play some puzzles first!"),
+            ),
+        ),
+      ),
     )
 
-  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(implicit
-      lang: Lang
+  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(
+      implicit lang: Lang,
   ) =
     themes.map { case (key, results) =>
       div(cls := themeClass)(
         div(cls := s"${themeClass}__meta")(
           h3(cls := s"${themeClass}__name")(
-            a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name())
+            a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name()),
           ),
-          p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
+          p(cls := s"${themeClass}__description")(PuzzleTheme(key).description()),
         ),
-        metricsOf(days, key, results)
+        metricsOf(days, key, results),
       )
     }
 
-  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(implicit
-      lang: Lang
+  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(
+      implicit lang: Lang,
   ) =
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
         strong(results.nb.localize),
-        span("played")
+        span("played"),
       ),
       div(cls := s"$metricClass $metricClass--perf")(
         strong(results.performance, results.unclear ?? "?"),
-        span("performance")
+        span("performance"),
       ),
       div(
         cls   := s"$metricClass $metricClass--win",
-        style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
+        style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%",
       )(
         strong(s"${results.winPercent}%"),
-        span("solved")
+        span("solved"),
       ),
       a(
         cls  := s"$metricClass $metricClass--fix",
-        href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
+        href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url),
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           strong(results.unfixed),
-          span("to replay")
+          span("to replay"),
         ),
-        iconTag(if (results.canReplay) 'G' else 'E')
-      )
+        iconTag(if (results.canReplay) 'G' else 'E'),
+      ),
     )
 }

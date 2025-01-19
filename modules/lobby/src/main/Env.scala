@@ -19,11 +19,11 @@ final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
-    remoteSocketApi: lila.socket.RemoteSocket
+    remoteSocketApi: lila.socket.RemoteSocket,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    idGenerator: lila.game.IdGenerator
+    idGenerator: lila.game.IdGenerator,
 ) {
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
@@ -33,7 +33,7 @@ final class Env(
     archiveColl = db(CollName("seek_archive")),
     maxPerPage = MaxPerPage(13),
     maxPerUser = Max(5),
-    maxHard = Max(150)
+    maxHard = Max(150),
   )
 
   lazy val seekApi = wire[SeekApi]
@@ -42,7 +42,7 @@ final class Env(
 
   private lazy val lobbyTrouper = LobbyTrouper.start(
     broomPeriod = 2 seconds,
-    resyncIdsPeriod = 25 seconds
+    resyncIdsPeriod = 25 seconds,
   ) { () =>
     wire[LobbyTrouper]
   }

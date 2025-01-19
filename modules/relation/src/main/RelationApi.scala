@@ -10,12 +10,11 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.Propagate
-import lila.hub.actorApi.timeline.{Follow => FollowUser}
+import lila.hub.actorApi.timeline.{ Follow => FollowUser }
 import lila.hub.actors
 import lila.memo.CacheApi._
+import lila.relation.BSONHandlers._
 import lila.user.User
-
-import BSONHandlers._
 
 final class RelationApi(
     coll: Coll,
@@ -24,7 +23,7 @@ final class RelationApi(
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
-    config: RelationConfig
+    config: RelationConfig,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RelationRepo.makeId
@@ -47,21 +46,21 @@ final class RelationApi(
   def fetchFriends(userId: ID) =
     coll
       .aggregateWith[Bdoc](
-        readPreference = ReadPreference.secondaryPreferred
+        readPreference = ReadPreference.secondaryPreferred,
       ) { framework =>
         import framework._
         List(
           Match(
             $doc(
               "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
-              "r"   -> Follow
-            )
+              "r"   -> Follow,
+            ),
           ),
           Group(BSONNull)(
             "u1" -> AddFieldToSet("u1"),
-            "u2" -> AddFieldToSet("u2")
+            "u2" -> AddFieldToSet("u2"),
           ),
-          Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
+          Project($id($doc("$setIntersection" -> $arr("$u1", "$u2")))),
         )
       }
       .headOption
@@ -92,7 +91,8 @@ final class RelationApi(
 
   def countFollowing(userId: ID) = countFollowingCache get userId
 
-  def reachedMaxFollowing(userId: ID): Fu[Boolean] = countFollowingCache get userId map (config.maxFollow <=)
+  def reachedMaxFollowing(userId: ID): Fu[Boolean] =
+    countFollowingCache get userId map (config.maxFollow <=)
 
   private val countFollowersCache = cacheApi[ID, Int](4096, "relation.count.followers") {
     _.expireAfterAccess(10 minutes)
@@ -116,9 +116,9 @@ final class RelationApi(
         collection = coll,
         selector = $doc("u1" -> userId, "r" -> Follow),
         projection = $doc("u2" -> true, "_id" -> false).some,
-        sort = $empty
+        sort = $empty,
       ),
-      nbResults = countFollowing(userId)
+      nbResults = countFollowing(userId),
     ).map(_.userId)
 
   def followersPaginatorAdapter(userId: ID) =
@@ -127,9 +127,9 @@ final class RelationApi(
         collection = coll,
         selector = $doc("u2" -> userId, "r" -> Follow),
         projection = $doc("u1" -> true, "_id" -> false).some,
-        sort = $empty
+        sort = $empty,
       ),
-      nbResults = countFollowers(userId)
+      nbResults = countFollowers(userId),
     ).map(_.userId)
 
   def blockingPaginatorAdapter(userId: ID) =
@@ -137,7 +137,7 @@ final class RelationApi(
       collection = coll,
       selector = $doc("u1" -> userId, "r" -> Block),
       projection = $doc("u2" -> true, "_id" -> false).some,
-      sort = $empty
+      sort = $empty,
     ).map(_.userId)
 
   def follow(u1: ID, u2: ID): Funit =
@@ -161,7 +161,7 @@ final class RelationApi(
   private val limitFollowRateLimiter = new lila.memo.RateLimit[ID](
     credits = 1,
     duration = 1 hour,
-    key = "follow.limit.cleanup"
+    key = "follow.limit.cleanup",
   )
 
   private def limitFollow(u: ID) =
@@ -192,7 +192,7 @@ final class RelationApi(
             Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
             Bus.publish(
               lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
-              "socketUsers"
+              "socketUsers",
             )
             lila.mon.relation.block.increment().unit
           }
@@ -222,8 +222,9 @@ final class RelationApi(
           repo.unblock(u1, u2) >>- {
             Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
             Bus.publish(
-              lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
-              "socketUsers"
+              lila.hub.actorApi.socket
+                .SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
+              "socketUsers",
             )
             lila.mon.relation.unblock.increment().unit
           }

@@ -6,7 +6,7 @@ import lila.common.config.Max
 import lila.db.dsl._
 
 final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
-    ec: scala.concurrent.ExecutionContext
+    ec: scala.concurrent.ExecutionContext,
 ) {
 
   import BSONHandlers._
@@ -49,7 +49,7 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
         $id(c.id),
         $set($doc("challenger" -> c.challenger) ++ color.?? { c =>
           $doc("colorChoice" -> Challenge.ColorChoice(c), "finalColor" -> c)
-        })
+        }),
       )
       .void
 
@@ -65,8 +65,8 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
     } yield coll.one[Challenge](
       selectCreated ++ $doc(
         "challenger.id" -> challengerId,
-        "destUser.id"   -> destUserId
-      )
+        "destUser.id"   -> destUserId,
+      ),
     ))
 
   def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
@@ -83,7 +83,7 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
     val selector = $doc(
       "seenAt" $lt date,
       "status" -> Status.Created.id,
-      "timeControl.l" $exists true // only realtime games
+      "timeControl.l" $exists true, // only realtime games
     )
     coll
       .find(selector)
@@ -106,9 +106,9 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
           "$set" -> $doc(
             "status"    -> Status.Created.id,
             "seenAt"    -> DateTime.now,
-            "expiresAt" -> inTwoWeeks
-          )
-        )
+            "expiresAt" -> inTwoWeeks,
+          ),
+        ),
       )
       .void
 
@@ -125,7 +125,7 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   private def setStatus(
       challenge: Challenge,
       status: Status,
-      expiresAt: Option[DateTime => DateTime]
+      expiresAt: Option[DateTime => DateTime],
   ) =
     coll.update
       .one(
@@ -133,9 +133,9 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
         $doc(
           "$set" -> $doc(
             "status"    -> status.id,
-            "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(DateTime.now) }
-          )
-        )
+            "expiresAt" -> expiresAt.fold(inTwoWeeks) { _(DateTime.now) },
+          ),
+        ),
       )
       .void
 

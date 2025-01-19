@@ -9,7 +9,7 @@ import lila.user.User
 case class CategView(
     categ: Categ,
     lastPost: Option[(Topic, Post, Int)],
-    forUser: Option[User]
+    forUser: Option[User],
 ) {
 
   def nbTopics       = categ nbTopics forUser
@@ -28,7 +28,7 @@ case class TopicView(
     topic: Topic,
     lastPost: Option[Post],
     lastPage: Int,
-    forUser: Option[User]
+    forUser: Option[User],
 ) {
 
   def updatedAt      = topic updatedAt forUser
@@ -47,7 +47,7 @@ case class PostView(
     post: Post,
     topic: Topic,
     categ: Categ,
-    topicLastPage: Int
+    topicLastPage: Int,
 ) {
 
   def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
@@ -61,7 +61,7 @@ case class MiniForumPost(
     topicName: String,
     userId: Option[String],
     text: String,
-    createdAt: DateTime
+    createdAt: DateTime,
 )
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)

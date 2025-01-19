@@ -9,7 +9,7 @@ import lila.db.BSON
 case class Glicko(
     rating: Double,
     deviation: Double,
-    volatility: Double
+    volatility: Double,
 ) {
 
   def intRating           = rating.toInt
@@ -47,7 +47,7 @@ case class Glicko(
     copy(
       rating = rating atLeast Glicko.minRating,
       deviation = deviation atLeast Glicko.minDeviation atMost Glicko.maxDeviation,
-      volatility = volatility atMost Glicko.maxVolatility
+      volatility = volatility atMost Glicko.maxVolatility,
     )
 
   def average(other: Glicko, weight: Float = 0.5f) =
@@ -57,7 +57,7 @@ case class Glicko(
       Glicko(
         rating = rating * (1 - weight) + other.rating * weight,
         deviation = deviation * (1 - weight) + other.deviation * weight,
-        volatility = volatility * (1 - weight) + other.volatility * weight
+        volatility = volatility * (1 - weight) + other.volatility * weight,
       )
 
   def display = s"$intRating${provisional ?? "?"}"
@@ -100,7 +100,7 @@ case object Glicko {
   def range(rating: Double, deviation: Double) =
     (
       rating - (deviation * 2),
-      rating + (deviation * 2)
+      rating + (deviation * 2),
     )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
@@ -113,14 +113,14 @@ case object Glicko {
       Glicko(
         rating = r double "r",
         deviation = r double "d",
-        volatility = r double "v"
+        volatility = r double "v",
       )
 
     def writes(w: BSON.Writer, o: Glicko) =
       BSONDocument(
         "r" -> w.double(o.rating),
         "d" -> w.double(o.deviation),
-        "v" -> w.double(o.volatility)
+        "v" -> w.double(o.volatility),
       )
   }
 

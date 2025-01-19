@@ -20,7 +20,7 @@ object ServerEval {
 
   final class Requester(
       fishnet: lila.hub.actors.Fishnet,
-      chapterRepo: ChapterRepo
+      chapterRepo: ChapterRepo,
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     private val onceEvery = lila.memo.OnceEvery(5 minutes)
@@ -39,14 +39,14 @@ object ServerEval {
                 initialSfen = chapter.root.sfen.some,
                 variant = chapter.setup.variant,
                 moves = chapter.root.mainline.map(_.usi).toList,
-                userId = userId
+                userId = userId,
               )
             } { gameId =>
               fishnet ! PostGameStudyRequest(
                 userId = userId,
                 gameId = gameId,
                 studyId = study.id.value,
-                chapterId = chapter.id.value
+                chapterId = chapter.id.value,
               )
             }
         }
@@ -57,7 +57,7 @@ object ServerEval {
       sequencer: StudySequencer,
       socket: StudySocket,
       chapterRepo: ChapterRepo,
-      divider: lila.game.Divider
+      divider: lila.game.Divider,
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     def apply(analysis: Analysis, complete: Boolean): Funit =
@@ -86,15 +86,19 @@ object ServerEval {
                               F.score -> info.eval.score
                                 .ifTrue {
                                   node.score.isEmpty ||
-                                  advOpt.isDefined && node.comments.findBy(Comment.Author.Lishogi).isEmpty
+                                  advOpt.isDefined && node.comments
+                                    .findBy(Comment.Author.Lishogi)
+                                    .isEmpty
                                 }
                                 .flatMap(EvalScoreBSONHandler.writeOpt),
                               F.comments -> advOpt
                                 .map { adv =>
                                   node.comments + Comment(
                                     Comment.Id.make,
-                                    Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
-                                    Comment.Author.Lishogi
+                                    Comment.Text(
+                                      adv.makeComment(withEval = false, withBestMove = true),
+                                    ),
+                                    Comment.Author.Lishogi,
                                   )
                                 }
                                 .flatMap(CommentsBSONHandler.writeOpt),
@@ -102,8 +106,8 @@ object ServerEval {
                                 .map { adv =>
                                   node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
                                 }
-                                .flatMap(GlyphsBSONHandler.writeOpt)
-                            )
+                                .flatMap(GlyphsBSONHandler.writeOpt),
+                            ),
                           )
                     } inject path + node
                 } void
@@ -116,8 +120,8 @@ object ServerEval {
                       chapterId = chapter.id,
                       root = chapter.root,
                       analysis = toJson(chapter, analysis),
-                      division = divisionOf(chapter)
-                    )
+                      division = divisionOf(chapter),
+                    ),
                   )
                 }
               }
@@ -135,10 +139,14 @@ object ServerEval {
         id = chapter.id.value,
         usis = chapter.root.mainline.map(_.usi).toVector,
         variant = chapter.setup.variant,
-        initialSfen = chapter.root.sfen.some
+        initialSfen = chapter.root.sfen.some,
       )
 
-    private def analysisLine(root: RootOrNode, variant: shogi.variant.Variant, info: Info): Option[Node] = {
+    private def analysisLine(
+        root: RootOrNode,
+        variant: shogi.variant.Variant,
+        info: Info,
+    ): Option[Node] = {
       val variation = info.variation take 15
       val usis      = ~Usi.readList(variation).orElse(UciToUsi.readList(variation))
       shogi.Replay.gamesWhileValid(usis, root.sfen.some, variant) match {
@@ -164,15 +172,20 @@ object ServerEval {
         check = g.situation.check,
         clock = none,
         children = Node.emptyChildren,
-        forceVariation = false
+        forceVariation = false,
       )
   }
 
-  case class Progress(chapterId: Chapter.Id, root: Node.Root, analysis: JsObject, division: shogi.Division)
+  case class Progress(
+      chapterId: Chapter.Id,
+      root: Node.Root,
+      analysis: JsObject,
+      division: shogi.Division,
+  )
 
   def toJson(chapter: Chapter, analysis: Analysis) =
     lila.analyse.JsonView.bothPlayers(
       lila.analyse.Accuracy.PovLike(shogi.Sente, chapter.root.color, chapter.root.ply),
-      analysis
+      analysis,
     )
 }

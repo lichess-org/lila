@@ -6,7 +6,7 @@ import java.nio.file.Path
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
-import dsl._
+import lila.db.dsl._
 
 case class DbImage(
     _id: String,
@@ -16,7 +16,7 @@ case class DbImage(
     contentType: Option[String],
     size: Int, // in bytes
     createdAt: DateTime,
-    createdBy: Option[String]
+    createdBy: Option[String],
 ) {
 
   def id = _id
@@ -32,7 +32,7 @@ object DbImage {
       contentType: Option[String],
       path: Path,
       size: Int,
-      createdBy: String
+      createdBy: String,
   ) = {
     import com.roundeights.hasher.Implicits._
     val data = Files.readAllBytes(path)
@@ -44,7 +44,7 @@ object DbImage {
       contentType = contentType,
       size = size,
       createdAt = DateTime.now,
-      createdBy = createdBy.some
+      createdBy = createdBy.some,
     )
   }
 

@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
+
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
@@ -19,7 +20,7 @@ case class Puzzle(
     themes: Set[PuzzleTheme.Key],
     author: Option[String] = None,
     description: Option[String] = None,
-    submittedBy: Option[String] = None
+    submittedBy: Option[String] = None,
 ) {
   // ply after "initial move" when we start solving
   def initialPly: Int =
@@ -66,7 +67,7 @@ object Puzzle {
       puzzleId: Id,
       userId: lila.user.User.ID,
       result: Result,
-      rating: (Int, Int)
+      rating: (Int, Int),
   )
 
   object BSONFields {

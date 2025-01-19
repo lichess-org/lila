@@ -9,7 +9,7 @@ import lila.db.paginator._
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
   private val maxPerPage     = MaxPerPage(15)
   private val maxUserPerPage = MaxPerPage(30)
@@ -22,17 +22,17 @@ final private[team] class PaginatorBuilder(
         collection = teamRepo.coll,
         selector = teamRepo.enabledSelect,
         projection = none,
-        sort = teamRepo.sortPopular
+        sort = teamRepo.sortPopular,
       ),
       page,
-      maxPerPage
+      maxPerPage,
     )
 
   def teamMembers(team: Team, page: Int): Fu[Paginator[LightUser]] =
     Paginator(
       adapter = new TeamAdapter(team),
       page,
-      maxUserPerPage
+      maxUserPerPage,
     )
 
   final private class TeamAdapter(team: Team) extends AdapterLike[LightUser] {

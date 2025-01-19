@@ -9,7 +9,7 @@ final class SelfReport(
     tellRound: TellRound,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    proxyRepo: GameProxyRepo
+    proxyRepo: GameProxyRepo,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val whitelist = Set("treehugger")
@@ -18,7 +18,7 @@ final class SelfReport(
       userId: Option[User.ID],
       ip: IpAddress,
       fullId: Game.FullId,
-      name: String
+      name: String,
   ): Funit =
     !userId.exists(whitelist.contains) ?? {
       userId.??(userRepo.named) flatMap { user =>
@@ -33,7 +33,7 @@ final class SelfReport(
               .log("cheat")
               .branch("jslog")
               .info(
-                s"$ip https://lishogi.org/$fullId ${user.fold("anon")(_.id)} $name"
+                s"$ip https://lishogi.org/$fullId ${user.fold("anon")(_.id)} $name",
               )
           }
         if (fullId.value == "________") fuccess(doLog())
@@ -44,7 +44,7 @@ final class SelfReport(
               if (Set("ceval", "rcb", "ccs")(name)) fuccess {
                 tellRound(
                   pov.gameId,
-                  lila.round.actorApi.round.Cheat(pov.color)
+                  lila.round.actorApi.round.Cheat(pov.color),
                 )
               }
               else gameRepo.setBorderAlert(pov).void

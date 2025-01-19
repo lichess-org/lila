@@ -20,13 +20,13 @@ private class FishnetConfig(
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
-    @ConfigName("client_min_version") val clientMinVersion: String
+    @ConfigName("client_min_version") val clientMinVersion: String,
 )
 
 case class FishnetColls(
     analysis: Coll,
     puzzle: Coll,
-    client: Coll
+    client: Coll,
 )
 
 @Module
@@ -39,10 +39,10 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     sink: lila.analyse.Analyser,
-    puzzle: lila.puzzle.PuzzleApi
+    puzzle: lila.puzzle.PuzzleApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
 ) {
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
@@ -52,12 +52,12 @@ final class Env(
   private lazy val colls = FishnetColls(
     analysis = analysisColl,
     puzzle = db(config.puzzleColl),
-    client = db(config.clientColl)
+    client = db(config.clientColl),
   )
 
   private lazy val repo = new FishnetRepo(
     colls = colls,
-    cacheApi = cacheApi
+    cacheApi = cacheApi,
   )
 
   private lazy val moveDb: MoveDB = wire[MoveDB]
@@ -71,7 +71,7 @@ final class Env(
   private lazy val apiConfig = FishnetApi.Config(
     offlineMode = config.offlineMode,
     analysisNodes = config.analysisNodes,
-    clientVersion = new Client.ClientVersion(config.clientMinVersion)
+    clientVersion = new Client.ClientVersion(config.clientMinVersion),
   )
 
   private lazy val socketExists: Game.ID => Fu[Boolean] = id =>
@@ -99,7 +99,7 @@ final class Env(
         case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
           analyser(
             gameId,
-            Work.Sender(userId = none, postGameStudy = none, ip = none, mod = false, system = true)
+            Work.Sender(userId = none, postGameStudy = none, ip = none, mod = false, system = true),
           ).unit
         case lila.hub.actorApi.fishnet.PostGameStudyRequest(userId, gameId, studyId, chapterId) =>
           analyser
@@ -110,14 +110,14 @@ final class Env(
                 postGameStudy = lila.analyse.Analysis.PostGameStudy(studyId, chapterId).some,
                 ip = none,
                 mod = false,
-                system = false
-              )
+                system = false,
+              ),
             )
             .unit
         case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit
       }
     }),
-    name = config.actorName
+    name = config.actorName,
   )
 
   private def disable(username: String) =
