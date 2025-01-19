@@ -15,12 +15,12 @@ pieces = {'wP': '.pawn.white', 'wN': '.knight.white', 'wB': '.bishop.white',
 def str_to_num(val: str) -> int | float:
     return (float if '.' in val else int)(val)
 
-def deduce_svg_filename(piece_abbrv: str) -> str:
+def deduce_svg_filepath(piece_abbrv: str) -> Path:
     return Path.joinpath(lila_root_dir, f"public/piece/{piece_style}/{piece_abbrv}.svg")
 
 def update_svg(piece_abbrv: str, shift_amt: float | int, vertical: bool) -> None:
-    svg_filename = deduce_svg_filename(piece_abbrv)
-    with open(svg_filename, 'r') as f: contents = f.read()
+    svg_filepath = deduce_svg_filepath(piece_abbrv)
+    with open(svg_filepath, 'r') as f: contents = f.read()
     curr_viewbox_str = contents.split('viewBox="', 1)[1].split('"', 1)[0]
     # Should be in a form like: 0 0 800 800
     new_viewbox_vals = curr_viewbox_str.split()
@@ -28,12 +28,12 @@ def update_svg(piece_abbrv: str, shift_amt: float | int, vertical: bool) -> None
     new_viewbox_vals[i] = str(str_to_num(new_viewbox_vals[i]) + shift_amt)
     new_viewbox_str = ' '.join(new_viewbox_vals)
     new_contents = contents.replace(f'viewBox="{curr_viewbox_str}"', f'viewBox="{new_viewbox_str}"', 1)
-    with open(svg_filename, 'w') as f: f.write(new_contents)
+    with open(svg_filepath, 'w') as f: f.write(new_contents)
 
 def update_css() -> None:
     new_css_str = ''
     for piece_abbrv in pieces:
-        with open(deduce_svg_filename(piece_abbrv), 'r') as f: svg_contents = f.read()
+        with open(deduce_svg_filepath(piece_abbrv), 'r') as f: svg_contents = f.read()
         svg_encoded = encode_svg(svg_contents)
         assert svg_contents == decode_svg(svg_encoded)
         new_css_str += (
