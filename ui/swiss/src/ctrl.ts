@@ -3,7 +3,7 @@ import xhr from './xhr';
 import { throttlePromiseDelay } from 'common/timing';
 import { maxPerPage, myPage, players } from './pagination';
 import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
-import { storage } from 'common/storage';
+import { storage, tempStorage } from 'common/storage';
 
 export default class SwissCtrl {
   data: SwissData;
@@ -64,6 +64,8 @@ export default class SwissCtrl {
   redirectFirst = (gameId: string, rightNow?: boolean) => {
     const delay = rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
     setTimeout(() => {
+      tempStorage.make('newGame.id').set(gameId);
+      tempStorage.make('competition.id').set(this.data.id);
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
         site.redirect('/' + gameId, true);
