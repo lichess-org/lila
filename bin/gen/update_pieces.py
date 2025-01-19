@@ -33,24 +33,14 @@ def update_svg(piece_abbrv: str, shift_amt: float | int, vertical: bool) -> None
 def update_css() -> None:
     new_css_str = ''
     for piece_abbrv in pieces:
-        with open(deduce_svg_filepath(piece_abbrv), 'r') as f: svg_contents = f.read()
-        svg_encoded = encode_svg(svg_contents)
-        assert svg_contents == decode_svg(svg_encoded)
+        with open(deduce_svg_filepath(piece_abbrv), 'r') as f:
+            svg_encoded = base64.b64encode(f.read().encode()).decode()
         new_css_str += (
             ".is2d " + pieces[piece_abbrv] + " {background-image:url('data:image/svg+xml;base64," +
             svg_encoded + "')}\n"
         )
     with open(Path.joinpath(lila_root_dir, f"public/piece-css/{piece_style}.css"), 'w') as f:
         f.write(new_css_str)
-
-def encode_svg(svg: str) -> str:
-    return human_readable(base64.b64encode(svg.encode()))
-
-def decode_svg(svg: str) -> str:
-    return human_readable(base64.b64decode(svg))
-
-def human_readable(encoded_str: bytes) -> str:
-    return encoded_str.decode("utf-8")
 
 def main() -> None:
     """Example: `python update_pieces.py *piece style name* *shift amount* *piece abbrvs, like wP or bR* *optionally, 'horizontal' to do that instead of vertical*
