@@ -5,8 +5,8 @@
   <string name="likedBlogs">Curtidas em postagens de blogs</string>
   <string name="blogTopics">Tópicos de blog</string>
   <plurals name="blogPosts">
-    <item quantity="one">%s publicação de blog</item>
-    <item quantity="other">%s publicações de blog</item>
+    <item quantity="one">%s postagem de blog</item>
+    <item quantity="other">%s postagens de blog</item>
   </plurals>
   <string name="lichessOfficialBlog">Blog oficial do Lichess</string>
   <string name="continueReadingPost">Continuar lendo a postagem</string>
