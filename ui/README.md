@@ -127,14 +127,12 @@ Web asset distribution involves the caching of URLs, and hashes provide a repeat
 
 ui/build calculates and writes all hashes used to determine asset URLs to a manifest.\*.json file. This file is used by the lila server to tell browsers what they need. Javascript and css assets built from lichess sources are hashed automatically, but the "build" / "hash" section within package.json describes assets that must be hashed separately. These include images, fonts, and packages of js & css from the npmjs repository that we don't compile but must be exposed through our content distribution strategy.
 
-Because these unmanaged assets originate in or are copied to the /public folder during the build process, all paths within the "hash" property resolve relative to /public.
+"build" / "hash" may contain a single entry or an array of entries. an entry may be a bare string glob or filename relative to /public. It may also be an object with a "glob" property (relative to /public) and an optional "update" filename property relative to /ui/\<package>. More on this below.
 
-ui/build computes a sha256 checksum of each matched asset's content, using a portion of that checksum to make a hash, then creates a symlink with that hash in the name pointing back to the original file. All links are created within /public/hashed. When a source file's content changes on the filesystem, its corresponding symlink will get a new name. This changes the object's URL and forces our CDN to create a fresh cache entry that will propagate through their edge server caches in distribution. Once again, lila is kept informed by ui/build through entries it writes to manifest.\*.json.
+ui/build computes a sha256 checksum of each matched asset's content and creates a symlink named with a hash from that checksum within /public/hashed. The symlink points back to the original file (somewhere in /public). When an asset's content changes on the filesystem, its corresponding symlink will get a new name. This changes the object's URL and forces our CDN to create a fresh cache entry that will propagate through their edge server caches in distribution. Once again, lila is kept informed by ui/build through entries it writes to manifest.\*.json.
 
 ```json
     "hash": [
-      "font/lichess.woff",
-      "font/lichess.woff2",
       "lifat/background/montage*.webp",
       "npm/*",
       "javascripts/**",
@@ -142,11 +140,18 @@ ui/build computes a sha256 checksum of each matched asset's content, using a por
     ]
 ```
 
-Above we see the hash property in [/ui/site/package.json](./site/package.json) where we match the listed web fonts as well as files in lifat/background that start with montage and end with .webp. The npm/\* glob requests hashes for all top level files in public/npm, and at this point it's helpful to note that matched assets are hashed during manifest creation AFTER "sync" operations have completed for all packages.
+Note that matched assets are hashed during manifest creation AFTER "sync" operations have completed for all packages. In the ceval/package.json example we saw where stockfish wasms are synced to /public/npm. Here in site/package.json, those synced stockfish wasms are subsequently matched by the npm/* glob and symlinked in /public/hashed for efficient distribution. 
 
-In the ceval/package.json example we saw where stockfish wasms are synced to /public/npm. Here in site/package.json, those synced stockfish wasms are subsequently matched by globs at their copy destinations and symlinked in /public/hashed for efficient distribution. [/ui/site/package.json](./site/package.json) is where we hash unmanaged assets that don't really fit anywhere else.
+"build" / "hash" entires that provide a filename for the "update" property will first process the "glob" property, creating symlinks in /public/hashed (same as before). Afterwards, the "update" file is transformed with all occurrence of globbed sources replaced by their hashed symlinks. The updated file is then itself content-hashed, written to /public/hashed, and remapped from its original path in manifest.json. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. For example: [/ui/common/css/theme/font-face.css](./common/css/theme/font-face.css) is transformed via this hash entry from [/ui/common/package.json](./common/package.json):
 
-The double asterisk in the javascripts/\*\* glob match everything inside its folder hierarchy.
+```json
+    "hash": [
+      {
+        "glob": "font/*.woff2",
+        "update": "css/theme/font-face.css"
+      }
+    ]
+```
 
 And that's about it for package.json. The nodejs sources for ui/build script are in the [/ui/.build](./.build) folder. Have a glance if something goes wrong or you have questions beyond the scope of this readme.
 
