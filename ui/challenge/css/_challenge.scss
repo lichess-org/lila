@@ -1,6 +1,7 @@
 #challenge-app {
   @extend %box-radius-left, %dropdown-shadow;
-  overflow: hidden;
+  overflow: hidden scroll;
+  max-height: 90vh;
   width: 300px;
   text-align: center;
 
@@ -33,6 +34,7 @@
     .buttons {
       @extend %flex-between-nowrap;
       align-items: stretch;
+
       @media (hover: hover) {
         display: none;
       }
@@ -43,13 +45,14 @@
       display: flex;
     }
 
-    .buttons > * {
+    .buttons>* {
       width: 33%;
     }
 
     a.view {
       font-size: 1.5rem;
       color: $c-primary;
+
       &:hover {
         background: $c-primary;
         color: $c-over;
@@ -82,6 +85,7 @@
     }
 
     @media (hover: hover) {
+
       .owner .view,
       .owner:hover .waiting {
         display: none;
