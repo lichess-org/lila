@@ -94,10 +94,10 @@ if (['--tsc', '--sass', '--esbuild', '--sync', '--i18n'].filter(x => argv.includ
   env.i18n = argv.includes('--i18n');
   env.sync = argv.includes('--sync');
 }
-if (argv.includes('--no-color')) env.color = undefined;
 
 env.logTime = !argv.includes('--no-time');
-env.logContext = !argv.includes('--no-context');
+env.logCtx = !argv.includes('--no-context');
+env.logColor = !argv.includes('--no-color');
 env.watch = argv.includes('--watch') || oneDashArgs.includes('w');
 env.prod = argv.includes('--prod') || oneDashArgs.includes('p');
 env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
