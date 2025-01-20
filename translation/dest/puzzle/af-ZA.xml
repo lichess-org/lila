@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Raaisels</string>
-  <string name="puzzleThemes">Raaisel temas</string>
-  <string name="recommended">Aanbeveeldede</string>
+  <string name="puzzleThemes">Raaisel Temas</string>
+  <string name="recommended">Aanbeveelde</string>
   <string name="phases">Fases</string>
   <string name="motifs">Redes</string>
   <string name="advanced">Gevorderd</string>
@@ -60,11 +60,11 @@
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog \'n tema by</string>
   <string name="nextPuzzle">Volgende raaisel</string>
-  <string name="jumpToNextPuzzleImmediately">Spring onmiddellik na die volgende kopkrapper</string>
-  <string name="puzzleDashboard">Kopkrapper paneelbord</string>
+  <string name="jumpToNextPuzzleImmediately">Spring onmiddellik na die volgende raaisel</string>
+  <string name="puzzleDashboard">Raaisel Paneelbord</string>
   <string name="improvementAreas">Areas van verbetering</string>
   <string name="strengths">Sterkpunte</string>
-  <string name="history">Kopkrapper geskiedenis</string>
+  <string name="history">Raaisel geskiedenis</string>
   <string name="solved">opgelos</string>
   <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">gefaal</string>
   <string name="streakDescription">Los toenemend moeiliker raaisels op en bou \'n wen reeks. Daar is nie \'n tydsfaktor nie, so vat dit rustig. Een verkeerde skuif en dit stuit! Maar jy kan \'n skuif per sessie oorslaan.</string>
