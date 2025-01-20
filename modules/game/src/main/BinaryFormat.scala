@@ -3,7 +3,6 @@ package lila.game
 import scala.util.Try
 
 import org.joda.time.DateTime
-import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
 
 import shogi.Centis
 import shogi.Clock
@@ -19,6 +18,7 @@ import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 
+import lila.compression.clock.{ Encoder => ClockEncoder }
 import lila.db.ByteArray
 
 object BinaryFormat {

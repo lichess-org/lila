@@ -1,4 +1,4 @@
-package org.lishogi.compression;
+package lila.compression;
 
 public class VarIntEncoder {
     public static void writeSigned(int[] values, BitWriter writer) {

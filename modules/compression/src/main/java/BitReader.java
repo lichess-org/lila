@@ -1,4 +1,4 @@
-package org.lishogi.compression;
+package lila.compression;
 
 import java.nio.ByteBuffer;
 

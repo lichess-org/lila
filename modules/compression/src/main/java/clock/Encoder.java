@@ -1,10 +1,10 @@
-package org.lishogi.compression.clock;
+package lila.compression.clock;
 
 import java.util.Arrays;
 
-import org.lishogi.compression.BitReader;
-import org.lishogi.compression.BitWriter;
-import org.lishogi.compression.VarIntEncoder;
+import lila.compression.BitReader;
+import lila.compression.BitWriter;
+import lila.compression.VarIntEncoder;
 
 /*
  * startTime is the initial clock time in centiseconds

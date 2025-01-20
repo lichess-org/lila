@@ -1,4 +1,4 @@
-package org.lishogi.compression;
+package lila.compression;
 
 class BitOps {
     static int[] getBitMasks() {

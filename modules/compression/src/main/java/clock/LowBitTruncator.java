@@ -1,7 +1,7 @@
-package org.lishogi.compression.clock;
+package lila.compression.clock;
 
-import org.lishogi.compression.BitReader;
-import org.lishogi.compression.BitWriter;
+import lila.compression.BitReader;
+import lila.compression.BitWriter;
 
 public class LowBitTruncator {
     // Truncate 3 bits from centisecs, but preserve precision for low values.

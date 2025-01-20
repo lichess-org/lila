@@ -35,7 +35,7 @@ libraryDependencies ++= akka.bundle ++ Seq(
 }
 
 lazy val modules = Seq(
-  common, tree, hub, db, i18n, memo, socket, chat, room,
+  common, compression, tree, hub, db, i18n, memo, socket, chat, room,
   rating, user, oauth, security, game, history,
   msg, notifyModule, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,

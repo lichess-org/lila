@@ -1,4 +1,4 @@
-package org.lishogi.compression.clock;
+package lila.compression.clock;
 
 public class LinearEstimator {
 
