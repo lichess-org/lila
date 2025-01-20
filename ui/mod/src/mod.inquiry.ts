@@ -3,11 +3,12 @@ import { formToXhr } from 'common/xhr';
 import { expandMentions } from 'common/richText';
 import { storage } from 'common/storage';
 import { alert } from 'common/dialog';
+import { highlightSearchTerm } from 'common/highlight';
 
 site.load.then(() => {
   const noteStore = storage.make('inquiry-note');
   const usernameNoteStore = storage.make('inquiry-note-user');
-  const username = $('#inquiry .meat > .user-link').text().split(' ')[0];
+  const username = $('#inquiry').data('username');
   if (username !== usernameNoteStore.get()) noteStore.remove();
   usernameNoteStore.set(username);
   const noteTextArea = $('#inquiry .notes').find('textarea')[0] as HTMLTextAreaElement;
@@ -114,4 +115,6 @@ site.load.then(() => {
     const username = $(this).parents('tr').find('td:first-child .user-link').text().split(' ')[0];
     addToNote(`Alt: @${username}`);
   });
+
+  setTimeout(() => highlightSearchTerm(username, '#main-wrap .user-link'), 500);
 });

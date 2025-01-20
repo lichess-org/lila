@@ -22,6 +22,11 @@ body.no-inquiry {
   }
 }
 
+*::highlight(lichess-highlight) {
+  background-color: yellow;
+  color: black;
+}
+
 #inquiry {
   height: 48px;
   background: #484541;
