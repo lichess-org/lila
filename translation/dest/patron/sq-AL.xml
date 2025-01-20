@@ -3,6 +3,7 @@
   <string name="donate">Dhuroni</string>
   <string name="donateAsX">Dhuroni si %s</string>
   <string name="lichessPatron">Bamirës Lichess-i</string>
+  <string name="patronSince" comment="string is a date">Bamirës që prej %s</string>
   <string name="freeAccount">Llogari falas</string>
   <string name="becomePatron">Bëhuni një Bamirës Lichess-i</string>
   <string name="xBecamePatron">%s u bë Bamirës Lichess-i</string>

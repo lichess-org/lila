@@ -4,6 +4,12 @@
   <string name="friendBlogs">Блоги друзей</string>
   <string name="likedBlogs">Понравившиеся публикации блогов</string>
   <string name="blogTopics">Темы блогов</string>
+  <plurals name="blogPosts">
+    <item quantity="one">Запись в блоге %s</item>
+    <item quantity="few">Записи в блоге %s</item>
+    <item quantity="many">Записи в блоге %s</item>
+    <item quantity="other">Записи в блоге %s</item>
+  </plurals>
   <string name="lichessOfficialBlog">Официальный блог Lichess</string>
   <string name="continueReadingPost">Продолжить чтение этой публикации</string>
   <string name="lichessBlogPostsFromXYear">Записи в блоге Lichess за %s</string>

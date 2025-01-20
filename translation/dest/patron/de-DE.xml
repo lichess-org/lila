@@ -3,6 +3,7 @@
   <string name="donate">Spenden</string>
   <string name="donateAsX">Spende als %s</string>
   <string name="lichessPatron">Lichess Patron</string>
+  <string name="patronSince" comment="string is a date">Patron seit %s</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Werde Lichess Patron</string>
   <string name="xBecamePatron">%s wurde Lichess Patron</string>
