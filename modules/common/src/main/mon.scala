@@ -354,6 +354,8 @@ object mon:
       counter("security.githubSecretScanning.hit").withTags(
         tags("type" -> tokenType, "source" -> source, "hit" -> hit)
       )
+    def userTrust(trust: Boolean, cause: String) =
+      counter("security.userTrust").withTags(tags("trust" -> trust, "cause" -> cause)).increment()
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:

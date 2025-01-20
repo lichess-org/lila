@@ -7,6 +7,7 @@
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Bordredigeerder en analisebord met %s</string>
   <string name="chessInsights">Skaakinsigte (detailanalise van jou spel)</string>
   <string name="allChessBasicsLessons">Alle basiese skaaklesse</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktiese raaisels vanuit gebruikerspelle</string>
   <string name="personalOpeningExplorerX">%1$s (wek ook op %2$s)</string>
   <string name="endgameTablebase">7-stuk eindspel-tablebase</string>
   <string name="downloadOrUploadAnyGameAsPgn">Oplaai/Aflaai van enige spel as PGN</string>
