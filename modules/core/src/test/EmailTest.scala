@@ -14,6 +14,16 @@ class EmailTest extends munit.FunSuite:
       NormalizedEmailAddress("foobar@googlemail.com")
     )
 
+  test("normalize other"):
+    assertEquals(
+      EmailAddress("Hello.World+suffix1+suffix2@yandex.ru").normalize,
+      NormalizedEmailAddress("hello.world@yandex.ru")
+    )
+    assertEquals(
+      EmailAddress("foo.bar@outlook.com").normalize,
+      NormalizedEmailAddress("foo.bar@outlook.com")
+    )
+
   test("not similar emails"):
     assert(!EmailAddress("test@mail.com").similarTo(EmailAddress("test@duck.com")))
     assert(!EmailAddress("test@mail.com").similarTo(EmailAddress("different@mail.com")))
