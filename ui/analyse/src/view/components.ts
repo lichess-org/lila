@@ -406,6 +406,16 @@ export function makeChatEl(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => voi
 }
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
+  if (ctrl.study?.relay !== undefined && ctrl.study && ctrl.study.multiBoard.showResults !== undefined) {
+    if (!ctrl.study.multiBoard.showResults()) {
+      return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {
+        if (isMainline && ctrl.node.ply >= node.ply) return null;
+        if (treePath.contains(ctrl.path, path)) return null;
+        return 'hide';
+      };
+    } else return undefined;
+  }
+
   const conceal =
     ctrl.study && ctrl.study.data.chapter.conceal !== undefined
       ? {
