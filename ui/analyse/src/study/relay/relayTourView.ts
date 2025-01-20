@@ -279,7 +279,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                 h(
                   'tbody',
                   {
-                    hook: bind('click', (e: MouseEvent) => {
+                    hook: bind('click', e => {
                       const target = e.target as HTMLElement;
                       if (target.tagName !== 'A')
                         site.redirect($(target).parents('tr').find('a').attr('href')!);

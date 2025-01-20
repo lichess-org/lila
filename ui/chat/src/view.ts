@@ -82,7 +82,7 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
                 type: 'checkbox',
                 checked: ctrl.vm.enabled,
               },
-              hook: bind('change', (e: Event) => {
+              hook: bind('change', e => {
                 ctrl.setEnabled((e.target as HTMLInputElement).checked);
               }),
             }),
