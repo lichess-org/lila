@@ -26,7 +26,7 @@
   <string name="publishOnYourBlog">Veröffentliche in deinem Blog</string>
   <string name="publishHelp">Wenn aktiviert, wird der Beitrag in deinem Blog aufgelistet. Wenn nicht, wird er privat sein, in deinen Entwürfen</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Beitrag anheften</string>
-  <string name="stickyPostHelp">Falls ausgewählt, wird dieser Beitrag ganz oben auf deinem Profil bei den kürzlichen Veröffentlichungen angezeigt.</string>
+  <string name="stickyPostHelp">Falls ausgewählt, wird dieser Beitrag ganz oben auf deinem Profil bei den kürzlichen Veröffentlichungen und auf deinem Blog angezeigt.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Hat einen Blog-Beitrag veröffentlicht</item>
     <item quantity="other">Hat %s Blog-Beiträge veröffentlicht</item>
