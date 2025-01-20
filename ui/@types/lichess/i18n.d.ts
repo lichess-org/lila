@@ -233,6 +233,8 @@ interface I18n {
     allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
+    /** Back to live move */
+    backToLiveMove: string;
     /** Boards */
     boards: string;
     /** Boards can be loaded with a source or via the %s */
