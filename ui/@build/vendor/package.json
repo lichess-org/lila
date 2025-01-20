@@ -22,6 +22,6 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "start": "tsx ./src/index.ts"
+    "build": "tsx ./src/index.ts"
   }
 }
