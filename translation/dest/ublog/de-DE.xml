@@ -4,6 +4,10 @@
   <string name="friendBlogs">Blogs von Freunden</string>
   <string name="likedBlogs">Gelikte Blogbeiträge</string>
   <string name="blogTopics">Blog-Themen</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s Blog-Beitrag</item>
+    <item quantity="other">%s Blog-Beiträge</item>
+  </plurals>
   <string name="lichessOfficialBlog">Offizieller Lichess-Blog</string>
   <string name="continueReadingPost">Diesen Beitrag weiterlesen</string>
   <string name="lichessBlogPostsFromXYear">Blogbeiträge von Lichess in %s</string>
