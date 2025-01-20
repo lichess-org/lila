@@ -9,8 +9,9 @@ import java.nio.file.Files
 
 import lila.core.config.NetConfig
 
-case class SplitAsset(name: String, imports: List[String], inlineJs: Option[String]):
-  def all = name :: imports
+case class SplitAsset(path: Option[String], imports: List[String], inlineJs: Option[String]):
+  val allModules = path.toList ++ imports
+
 case class AssetMaps(
     js: Map[String, SplitAsset],
     css: Map[String, String],
@@ -18,7 +19,7 @@ case class AssetMaps(
     modified: Instant
 )
 
-final class AssetManifest(environment: Environment, net: NetConfig)(using ws: StandaloneWSClient)(using
+final class AssetManifest(environment: Environment, net: NetConfig, ws: StandaloneWSClient)(using
     Executor
 ):
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
@@ -29,7 +30,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def css(key: String): String             = maps.css.getOrElse(key, key)
   def hashed(path: String): Option[String] = maps.hashed.get(path)
   def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
-    maps.js.get(key).so(_.all)
+    maps.js.get(key).so(_.allModules)
   }.distinct
   def inlineJs(key: String): Option[String] = maps.js.get(key).flatMap(_.inlineJs)
   def lastUpdate: Instant                   = maps.modified
@@ -49,22 +50,20 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         case e: Throwable =>
           logger.warn(s"Error reading $pathname")
 
-  private val keyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
-  private def keyOf(fullName: String): String =
-    fullName match
-      case keyRe(k, _) => k
-      case _           => fullName
+  private val jsKeyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.js""".r
 
   private def closure(
-      name: String,
+      path: String,
       jsMap: Map[String, SplitAsset],
       visited: Set[String] = Set.empty
   ): List[String] =
-    val k = keyOf(name)
+    val k = path match
+      case jsKeyRe(k, _) => k
+      case _             => path
     jsMap.get(k) match
       case Some(asset) if !visited.contains(k) =>
         asset.imports.flatMap: importName =>
-          importName :: closure(importName, jsMap, visited + name)
+          importName :: closure(importName, jsMap, visited + path)
       case _ => Nil
 
   // throws an Exception if JsValue is not as expected
@@ -74,22 +73,19 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .as[JsObject]
       .value
       .map:
-        case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js", Nil, None))
+        case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js".some, Nil, None))
         case (k, value) =>
           val path = (value \ "hash")
             .asOpt[String]
             .map(h => s"$k.$h.js")
             .orElse((value \ "path").asOpt[String])
-            .getOrElse(s"$k.js")
           val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
           val inlineJs = (value \ "inline").asOpt[String]
           (k, SplitAsset(path, imports, inlineJs))
       .toMap
 
-    val js = splits.view.mapValues: asset =>
-      if asset.imports.nonEmpty
-      then asset.copy(imports = closure(asset.name, splits).distinct)
-      else asset
+    val js: Map[String, SplitAsset] = splits.map: (key, asset) =>
+      key -> asset.path.fold(asset)(path => asset.copy(imports = closure(path, splits).distinct))
 
     val css = (manifest \ "css")
       .as[JsObject]
@@ -113,7 +109,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       }
       .toMap
 
-    AssetMaps(js.toMap, css, hashed, nowInstant)
+    AssetMaps(js, css, hashed, nowInstant)
 
   private def fetchManifestJson(filename: String) =
     val resource = s"${net.assetBaseUrlInternal}/assets/compiled/$filename"

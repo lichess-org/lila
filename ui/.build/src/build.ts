@@ -7,8 +7,9 @@ import { tsc, stopTscWatch } from './tsc.ts';
 import { sass, stopSass } from './sass.ts';
 import { esbuild, stopEsbuildWatch } from './esbuild.ts';
 import { sync, stopSync } from './sync.ts';
+import { hash } from './hash.ts';
 import { stopManifest } from './manifest.ts';
-import { env, errorMark, colors as c } from './env.ts';
+import { env, errorMark, c } from './env.ts';
 import { i18n, stopI18nWatch } from './i18n.ts';
 import { unique } from './algo.ts';
 import { clean } from './clean.ts';
@@ -37,7 +38,7 @@ export async function build(pkgs: string[]): Promise<void> {
     fs.promises.mkdir(env.buildTempDir),
   ]);
 
-  await Promise.all([sass(), sync(), i18n()]);
+  await Promise.all([sass(), sync().then(hash), i18n()]);
   await Promise.all([tsc(), esbuild(), monitor(pkgs)]);
 }
 

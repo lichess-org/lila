@@ -980,14 +980,31 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="toggleLocalAnalysis">Activar y desactivar análisis per ordenador local</string>
   <string name="toggleAllAnalysis">Activar y desactivar tolos analises por ordenador</string>
   <string name="playComputerMove">Xugar el meyor movimientu por ordenador</string>
+  <string name="analysisOptions">Opciones d\'análisis</string>
+  <string name="focusChat">Enfocar chat</string>
+  <string name="showHelpDialog">Amosar esti cuadru de diálogu d\'ayuda</string>
+  <string name="reopenYourAccount">Reactivar la to cuenta</string>
+  <string name="closedAccountChangedMind">Si cerrasti la to cuenta y camudasti d\'opinión, entá tienes una oportunidá de recuperala.</string>
+  <string name="onlyWorksOnce">Esto solo pue faese una vez.</string>
+  <string name="cantDoThisTwice">Si vuelves cerrar la to cuenta, nun vas poder recuperala.</string>
+  <string name="emailAssociatedToaccount">Dirección de corréu electrónicu asociada a la cuenta</string>
+  <string name="sentEmailWithLink">Te unviemos un corréu electrónicu con un enllaz.</string>
+  <string name="tournamentEntryCode">Códigu d\'accesu al tornéu</string>
+  <string name="hangOn">¡Espera!</string>
+  <string name="gameInProgress">Tas xugando una partida con %s.</string>
   <string name="abortTheGame">Albortar partida</string>
   <string name="resignTheGame">Abandonar partida</string>
   <string name="youCantStartNewGame">Nun pues empezar una partida teniendo otra en xuegu.</string>
   <string name="since">Dende</string>
   <string name="until">Hasta</string>
+  <string name="lichessDbExplanation">Partíes por puntos de tolos xugadores de Lichess</string>
   <string name="switchSides">Camudar color</string>
+  <string name="closingAccountWithdrawAppeal">Cerrar la to cuenta va retirar la to apelación</string>
+  <string name="ourEventTips">Los nuesos conseyos pa entamar eventos</string>
   <string name="instructions">Instrucciones</string>
+  <string name="showMeEverything">Amosame tou</string>
   <string name="lichessPatronInfo">Lichess ye una organización benéfica y un software de códigu abiertu totalmente llibre.
 Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puramente con donaciones de los usuarios.</string>
+  <string name="nothingToSeeHere">Na que ver equí por agora.</string>
   <string name="stats">Estadístiques</string>
 </resources>
