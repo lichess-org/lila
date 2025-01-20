@@ -20,10 +20,14 @@ private final class UserTrustApi(
     userRepo
       .byId(id)
       .flatMapz: user =>
-        if hasHistory(user) then fuccess(true)
+        if hasHistory(user)
+        then
+          lila.mon.security.userTrust(true, "history")
+          fuccess(true)
         else if looksLikeKnownAbuser(user)
         then
           logger.info(s"Not trusting user $id because of suspicious metadata")
+          lila.mon.security.userTrust(false, "metadata")
           fuccess(false)
         else
           sessionStore
@@ -32,15 +36,20 @@ private final class UserTrustApi(
               sessions.map(_.ua).find(UserAgentParser.trust.isSuspicious) match
                 case Some(ua) =>
                   logger.info(s"Not trusting user $id because of suspicious user agent: $ua")
+                  lila.mon.security.userTrust(false, "ua")
                   fuccess(false)
                 case None =>
                   sessions
                     .map(_.ip)
                     .findM(ipTrust.isSuspicious)
-                    .map: found =>
-                      found.foreach: ip =>
+                    .map:
+                      case Some(ip) =>
                         logger.info(s"Not trusting user $id because of suspicious IP: $ip")
-                      found.isEmpty
+                        lila.mon.security.userTrust(false, "ip")
+                        false
+                      case None =>
+                        lila.mon.security.userTrust(true, "new")
+                        true
 
   private def hasHistory(user: User): Boolean =
     user.count.lossH > 10 || user.createdSinceDays(15) || !user.plan.isEmpty || user.hasTitle
