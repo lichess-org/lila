@@ -11,33 +11,36 @@ final class Env(
     val config: Configuration,
     val controllerComponents: ControllerComponents,
     environment: Environment,
-    shutdown: akka.actor.CoordinatedShutdown
+    shutdown: akka.actor.CoordinatedShutdown,
+    cookieBaker: SessionCookieBaker
 )(using val system: akka.actor.ActorSystem, val executor: Executor)(using
     StandaloneWSClient,
-    akka.stream.Materializer,
-    SessionCookieBaker
+    akka.stream.Materializer
 ):
   val net: NetConfig = config.get[NetConfig]("net")
 
-  export net.{ domain, baseUrl, assetBaseUrlInternal }
+  export net.{ baseUrl, assetBaseUrlInternal }
 
   given mode: Mode                            = environment.mode
   given translator: lila.core.i18n.Translator = lila.i18n.Translator
   given scheduler: Scheduler                  = system.scheduler
-  given lila.core.config.RateLimit            = net.rateLimit
+  given RateLimit                             = net.rateLimit
+  given NetDomain                             = net.domain
 
   // wire all the lila modules in the right order
-  val i18n: lila.i18n.Env.type          = lila.i18n.Env
-  val mongo: lila.db.Env                = wire[lila.db.Env]
-  val memo: lila.memo.Env               = wire[lila.memo.Env]
-  val socket: lila.socket.Env           = wire[lila.socket.Env]
-  val user: lila.user.Env               = wire[lila.user.Env]
-  val mailer: lila.mailer.Env           = wire[lila.mailer.Env]
-  val oAuth: lila.oauth.Env             = wire[lila.oauth.Env]
-  val security: lila.security.Env       = wire[lila.security.Env]
-  val pref: lila.pref.Env               = wire[lila.pref.Env]
-  val relation: lila.relation.Env       = wire[lila.relation.Env]
-  val game: lila.game.Env               = wire[lila.game.Env]
+  val i18n: lila.i18n.Env.type = lila.i18n.Env
+  val mongo: lila.db.Env       = wire[lila.db.Env]
+  val memo: lila.memo.Env      = wire[lila.memo.Env]
+  val socket: lila.socket.Env  = wire[lila.socket.Env]
+  val user: lila.user.Env      = wire[lila.user.Env]
+  import user.flairApi.given
+  val mailer: lila.mailer.Env     = wire[lila.mailer.Env]
+  val oAuth: lila.oauth.Env       = wire[lila.oauth.Env]
+  val security: lila.security.Env = wire[lila.security.Env]
+  val pref: lila.pref.Env         = wire[lila.pref.Env]
+  val relation: lila.relation.Env = wire[lila.relation.Env]
+  val game: lila.game.Env         = wire[lila.game.Env]
+  import game.given
   val notifyM: lila.notify.Env          = wire[lila.notify.Env]
   val irc: lila.irc.Env                 = wire[lila.irc.Env]
   val report: lila.report.Env           = wire[lila.report.Env]
@@ -62,6 +65,7 @@ final class Env(
   val forum: lila.forum.Env             = wire[lila.forum.Env]
   val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   val pool: lila.pool.Env               = wire[lila.pool.Env]
+  import pool.isClockCompatible
   val lobby: lila.lobby.Env             = wire[lila.lobby.Env]
   val setup: lila.setup.Env             = wire[lila.setup.Env]
   val simul: lila.simul.Env             = wire[lila.simul.Env]

@@ -29,7 +29,7 @@ object PoolList:
 
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
 
-  val isClockCompatible: IsClockCompatible = IsClockCompatible: clock =>
+  given isClockCompatible: IsClockCompatible = IsClockCompatible: clock =>
     clockStringSet contains clock.show
 
   def json(using lila.core.i18n.Translator) = Json.toJson(all)
