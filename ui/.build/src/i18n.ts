@@ -2,7 +2,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import { XMLParser } from 'fast-xml-parser';
-import { env, colors as c } from './env.ts';
+import { env, c } from './env.ts';
 import { globArray, readable } from './parse.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { quantize, zip } from './algo.ts';
