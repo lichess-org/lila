@@ -4,6 +4,7 @@ import { expandMentions } from 'common/richText';
 import { storage } from 'common/storage';
 import { alert } from 'common/dialog';
 import { highlightSearchTerm } from 'common/highlight';
+import { pubsub } from 'common/pubsub';
 
 site.load.then(() => {
   const noteStore = storage.make('inquiry-note');
@@ -116,5 +117,7 @@ site.load.then(() => {
     addToNote(`Alt: @${username}`);
   });
 
-  setTimeout(() => highlightSearchTerm(username, '#main-wrap .user-link'), 500);
+  const highlightUsername = () => highlightSearchTerm(username, '#main-wrap .user-link');
+  setTimeout(highlightUsername, 300);
+  pubsub.on('content-loaded', highlightUsername);
 });
