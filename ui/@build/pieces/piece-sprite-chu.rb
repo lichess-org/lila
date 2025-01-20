@@ -11,6 +11,7 @@ dest_dir = lila_dir + '/public/piece-css/'
 bidirectional = [
   ['Chu_Mnemonic', 'svg'],
   ['Chu_Intl_BnW', 'svg'],
+  ['Chu_Firi', 'svg'],
 ]
 
 themes = [

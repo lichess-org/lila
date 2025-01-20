@@ -55,7 +55,9 @@ object PieceSet extends PieceSetBase {
     new PieceSet("Intl_Wooden_3D", "International Wooden 3D"),
     new PieceSet("Intl_Portella", "International Portella"),
     new PieceSet("international", "International"),
+    new PieceSet("Firi", "Firi"),
     new PieceSet("joyful", "Joyful"),
+    new PieceSet("pencil", "Pencil"),
     new PieceSet("simple_kanji", "Simple Kanji"),
     new PieceSet("doubutsu", "Doubutsu"),
     new PieceSet("Logy_Games", "Logy Games"),
@@ -74,6 +76,7 @@ object ChuPieceSet extends PieceSetBase {
     new PieceSet("Chu_Intl", "International"),
     new PieceSet("Chu_FCZ", "Czech"),
     new PieceSet("Chu_Intl_BnW", "International - black and white"),
+    new PieceSet("Chu_Firi", "Firi"),
     new PieceSet("Chu_Mnemonic", "Mnemonic"),
   )
 
