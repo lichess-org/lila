@@ -1,5 +1,6 @@
 package lila.memo
 
+import scala.concurrent.Await
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
@@ -10,7 +11,7 @@ import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 
-class MySpec()
+class SyncacheTest()
     extends TestKit(ActorSystem())
     with ImplicitSender
     with AnyWordSpecLike
@@ -22,6 +23,8 @@ class MySpec()
   }
 
   implicit def ec = system.dispatcher
+
+  lila.mon.start(false)
 
   "syncache" must {
 
@@ -37,13 +40,11 @@ class MySpec()
           },
         default = s => s"default $s",
         strategy = Syncache.AlwaysWait(1 second),
-        expireAfter = Syncache.ExpireAfterWrite(10 seconds),
-        logger = lila.log("syncache"),
-        resultTimeout = 5 seconds,
+        expireAfter = Syncache.ExpireAfterWrite(20 seconds),
       )
       val threads = 20
       val keys    = 50
-      (1 to threads) foreach { _ =>
+      val fs = (1 to threads).map { _ =>
         Future {
           (1 to 5) foreach { _ =>
             (1 to keys) foreach { i =>
@@ -52,7 +53,7 @@ class MySpec()
           }
         }
       }
-      Thread sleep 500
+      Await.result(Future.sequence(fs), 20.seconds)
       computeCount should be(keys)
     }
 
