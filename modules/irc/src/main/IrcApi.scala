@@ -8,8 +8,9 @@ import lila.core.study.data.StudyChapterName
 
 final class IrcApi(
     zulip: ZulipClient,
-    noteApi: lila.core.user.NoteApi
-)(using lightUser: LightUser.Getter, ec: Executor)
+    noteApi: lila.core.user.NoteApi,
+    lightUser: LightUser.Getter
+)(using Executor)
     extends lila.core.irc.IrcApi:
 
   import IrcApi.*

@@ -9,7 +9,7 @@ import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 
-final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
+final class TitleApi(coll: Coll, picfitApi: PicfitApi, baseUrl: BaseUrl)(using Executor):
 
   import TitleRequest.*
 
@@ -94,7 +94,7 @@ Here is the feedback provided:
 
 $feedback
 
-${summon[BaseUrl]}/verify-title
+$baseUrl/verify-title
 """
     lila.common.Bus.publish(SystemMsg(to, pm), "msgSystemSend")
 
