@@ -80,4 +80,5 @@
   <string name="optionalDetails">Detalls opcionals</string>
   <string name="pastBroadcasts">Retransmissions finalitzades</string>
   <string name="allBroadcastsByMonth">Veure totes les retransmissions per més</string>
+  <string name="backToLiveMove">Torna al moviment en directe</string>
 </resources>
