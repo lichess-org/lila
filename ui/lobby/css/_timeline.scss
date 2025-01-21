@@ -11,6 +11,7 @@
 
     a {
       @extend %base-font, %page-font;
+      font-weight: normal;
     }
 
     &:hover a {

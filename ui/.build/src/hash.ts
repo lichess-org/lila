@@ -14,7 +14,7 @@ export async function hash(): Promise<void> {
         pkg.hash.map(async hash =>
           (await globArray(hash.glob, { cwd: env.outDir })).map(path => ({
             path,
-            replace: hash.replace,
+            update: hash.update,
             root: pkg.root,
           })),
         ),
@@ -40,22 +40,22 @@ export async function hash(): Promise<void> {
   for (const key of Object.keys(env.manifest.hashed)) {
     if (!hashed.some(x => x.path.endsWith(key))) delete env.manifest.hashed[key];
   }
-  // TODO find a better home for all of this
-  const replaceMany: Map<string, { root: string; mapping: Record<string, string> }> = new Map();
-  for (const { root, path, replace } of hashed) {
-    if (!replace) continue;
-    const replaceInOne = replaceMany.get(replace) ?? { root, mapping: {} };
+
+  const updates: Map<string, { root: string; mapping: Record<string, string> }> = new Map();
+  for (const { root, path, update } of hashed) {
+    if (!update) continue;
+    const updateFile = updates.get(update) ?? { root, mapping: {} };
     const from = path.slice(env.outDir.length + 1);
-    replaceInOne.mapping[from] = asHashed(from, env.manifest.hashed[from].hash!);
-    replaceMany.set(replace, replaceInOne);
+    updateFile.mapping[from] = asHashed(from, env.manifest.hashed[from].hash!);
+    updates.set(update, updateFile);
   }
-  for await (const { name, hash } of [...replaceMany].map(([n, r]) => replaceAllIn(n, r.root, r.mapping))) {
+  for await (const { name, hash } of [...updates].map(([n, r]) => update(n, r.root, r.mapping))) {
     env.manifest.hashed[name] = { hash };
   }
   updateManifest({ dirty: true });
 }
 
-async function replaceAllIn(name: string, root: string, files: Record<string, string>) {
+async function update(name: string, root: string, files: Record<string, string>) {
   const result = Object.entries(files).reduce(
     (data, [from, to]) => data.replaceAll(from, to),
     await fs.promises.readFile(path.join(root, name), 'utf8'),
