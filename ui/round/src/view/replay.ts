@@ -210,11 +210,13 @@ export function render(ctrl: RoundController): LooseVNode {
               }
             });
             ctrl.autoScroll = () => autoScroll(el, ctrl);
-            ctrl.autoScroll();
-            if (isCol1()) ctrl.autoScroll();
-            /* On a phone, the first `autoScroll()` sometimes doesn't fully show the current move. It's possible this
+            if (ctrl.ply > 2) {
+              ctrl.autoScroll();
+              if (isCol1()) ctrl.autoScroll();
+              /* On a phone, the first `autoScroll()` sometimes doesn't fully show the current move. It's possible this
                is due to some needed data not loading in time. The second `autoScroll()` fixes the issue, since the throttle
                ensures a min wait of 100ms. */
+            }
           }),
         },
         renderMoves(ctrl),
