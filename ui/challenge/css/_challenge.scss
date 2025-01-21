@@ -45,7 +45,7 @@
       display: flex;
     }
 
-    .buttons>* {
+    .buttons > * {
       width: 33%;
     }
 
@@ -85,7 +85,6 @@
     }
 
     @media (hover: hover) {
-
       .owner .view,
       .owner:hover .waiting {
         display: none;
