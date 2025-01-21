@@ -57,6 +57,7 @@
   <string name="interferenceDescription">Μετακίνηση κομματιού ανάμεσα σε δύο αντίπαλα κομμάτια για να αφήσει ένα ή και τα δύο αντίπαλα κομμάτια ανυπεράσπιστα, όπως ένας ίππος σε υπερασπιζόμενο τετράγωνο ανάμεσα σε δύο πύργους.</string>
   <string name="intermezzo">Ενδιάμεση κίνηση</string>
   <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζουμε πρώτα μια άλλη κίνηση η οποία δημιουργεί μια άμεση απειλή και που ο αντίπαλος πρέπει να απαντήσει. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
+  <string name="vukovicMate">Ματ του Vukovic</string>
   <string name="knightEndgame">Φινάλε Ίππων</string>
   <string name="knightEndgameDescription">Ένα τέλος παρτίδας μόνο με ίππους και πιόνια.</string>
   <string name="long">Μεγάλος γρίφος</string>
