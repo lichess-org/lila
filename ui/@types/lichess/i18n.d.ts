@@ -417,8 +417,6 @@ interface I18n {
     declineVariant: string;
     /** Or invite a Lichess user: */
     inviteLichessUser: string;
-    /** No challenges. */
-    noChallenges: string;
     /** Please register to send challenges to this user. */
     registerToSendChallenges: string;
     /** %s does not accept challenges. */
