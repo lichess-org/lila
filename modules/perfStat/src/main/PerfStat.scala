@@ -134,8 +134,7 @@ case class Count(
       opAvg = pov.opponent.stableRating.fold(opAvg)(r => opAvg.agg(r.value)),
       seconds = seconds + (pov.game.durationSeconds match
         case Some(s) if s <= 3 * 60 * 60 => s
-        case _                           => 0
-      ),
+        case _                           => 0),
       disconnects = disconnects + {
         if ~pov.loss && pov.game.status == chess.Status.Timeout then 1 else 0
       }

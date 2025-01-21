@@ -22,8 +22,7 @@ export default function (ctrl: RunCtrl) {
     {
       hook: bind(
         'click',
-        (e: MouseEvent) =>
-          (e.target as HTMLElement).classList?.contains('learn__screen-overlay') && hashNavigate(),
+        e => (e.target as HTMLElement).classList?.contains('learn__screen-overlay') && hashNavigate(),
       ),
     },
     h('div.learn__screen', [

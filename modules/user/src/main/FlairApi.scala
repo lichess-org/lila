@@ -50,7 +50,7 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
       logger.info(s"Updated flair db with ${db.size} flairs")
     finally source.close()
 
-  scheduler.scheduleOnce(11 seconds)(refresh())
+  scheduler.scheduleOnce(11.seconds)(refresh())
 
   lila.common.Bus.subscribeFun("assetVersion"):
     case lila.core.net.AssetVersion.Changed(_) => refresh()

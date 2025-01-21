@@ -278,7 +278,7 @@ final class Auth(
         lila.mon.user.register.confirmEmailResult(true).increment()
         env.user.repo.email(user.id).flatMap {
           _.so: email =>
-            authLog(user.username, email.some, s"Confirmed email ${email.value}")
+            authLog(user.username, email.some, s"Confirmed email")
             welcome(user, email, sendWelcomeEmail = false)
         } >> redirectNewUser(user)
     }
@@ -417,9 +417,7 @@ final class Auth(
                         lila.mon.user.auth.magicLinkRequest("success").increment()
                         env.security.magicLink
                           .send(user, storedEmail)
-                          .inject(Redirect:
-                            routes.Auth.magicLinkSent
-                          )
+                          .inject(Redirect(routes.Auth.magicLinkSent))
                     case _ =>
                       lila.mon.user.auth.magicLinkRequest("no_email").increment()
                       Redirect(routes.Auth.magicLinkSent)

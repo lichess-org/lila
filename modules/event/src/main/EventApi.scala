@@ -14,7 +14,7 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
       .take(3)
 
   private val promotable = cacheApi.unit[List[Event]]:
-    _.refreshAfterWrite(5 minutes)
+    _.refreshAfterWrite(5.minutes)
       .buildAsyncFuture(_ => fetchPromotable)
 
   def fetchPromotable: Fu[List[Event]] =

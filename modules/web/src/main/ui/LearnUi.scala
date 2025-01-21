@@ -9,7 +9,7 @@ import ScalatagsTemplate.*
 
 final class LearnUi(helpers: Helpers):
   import helpers.{ *, given }
-  import trans.{ learn as trl }
+  import trans.learn as trl
 
   def apply(data: Option[play.api.libs.json.JsValue])(using ctx: Context) =
     Page(s"${trl.learnChess.txt()} - ${trl.byPlaying.txt()}")

@@ -23,7 +23,7 @@ final class SeekApi(
       .cursor[Seek]()
 
   private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list") {
-    _.refreshAfterWrite(3 seconds)
+    _.refreshAfterWrite(3.seconds)
       .buildAsyncFuture {
         if _ then allCursor.list(500)
         else allCursor.list(maxPerPage.value)

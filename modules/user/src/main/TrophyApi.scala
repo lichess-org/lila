@@ -22,12 +22,15 @@ final class TrophyApi(
       kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
     ,
     default = _ => TrophyKind.Unknown,
-    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfter.Write(1 hour)
+    strategy = Syncache.Strategy.WaitAfterUptime(20.millis),
+    expireAfter = Syncache.ExpireAfter.Write(1.hour)
   )
 
   private given BSONHandler[TrophyKind]     = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
   private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]
+
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one($doc("user" -> del.id))
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))

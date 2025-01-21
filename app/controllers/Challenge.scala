@@ -113,8 +113,7 @@ final class Challenge(env: Env) extends LilaController(env):
                 Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
                 notFoundJson(invalid match
                   case Left(err) => err
-                  case _         => "The challenge has already been accepted"
-                )
+                  case _         => "The challenge has already been accepted")
               )
       )
 

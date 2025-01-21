@@ -35,7 +35,7 @@ final class ChatApi(
     object cached:
 
       private val cache = cacheApi[ChatId, UserChat](1024, "chat.user"):
-        _.expireAfterWrite(1 minute).buildAsyncFuture(find)
+        _.expireAfterWrite(1.minute).buildAsyncFuture(find)
 
       def invalidate = cache.invalidate
 
@@ -260,9 +260,18 @@ final class ChatApi(
           case _ => none
         }
 
+    def removeMessagesBy(gameIds: Seq[GameId], userId: UserId) =
+      val regex  = s"^$userId[" + Line.separatorChars.mkString("") + "]"
+      val update = $pull("l".$regex(regex, "i"))
+      val allIds = for
+        id   <- gameIds
+        both <- List(id.value, s"${id.value}/w")
+      yield both
+      coll.update.one($inIds(allIds), update, multi = true).void
+
   private object Speaker:
     def get(userId: UserId): Fu[Option[Speaker]] = userApi.byIdAs[Speaker](userId.value, Speaker.projection)
-    import lila.core.user.{ BSONFields as F }
+    import lila.core.user.BSONFields as F
     val projection = lila.db.dsl.$doc(
       F.username -> true,
       F.title    -> true,

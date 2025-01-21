@@ -11,11 +11,11 @@ import lila.core.misc.plan.ChargeEvent
 @Module
 final class Env(
     appConfig: Configuration,
-    getLightUser: lila.core.LightUser.Getter,
     noteApi: lila.core.user.NoteApi,
     ws: StandaloneWSClient,
     shutdown: akka.actor.CoordinatedShutdown,
-    mode: Mode
+    mode: Mode,
+    getLightUser: lila.core.LightUser.Getter
 )(using Executor):
 
   import ZulipClient.given

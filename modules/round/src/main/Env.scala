@@ -29,7 +29,6 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     gameRepo: GameRepo,
-    idGenerator: lila.game.IdGenerator,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     chatApi: lila.chat.ChatApi,
@@ -56,7 +55,8 @@ final class Env(
     Executor,
     akka.stream.Materializer,
     lila.core.i18n.Translator,
-    lila.core.config.RateLimit
+    lila.core.config.RateLimit,
+    lila.game.IdGenerator
 ):
 
   private val (botSync, async) = (lightUserApi.isBotSync, lightUserApi.async)
@@ -91,12 +91,6 @@ final class Env(
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
-  private def resignAllGamesOf(userId: UserId) =
-    gameRepo
-      .allPlaying(userId)
-      .foreach:
-        _.foreach { pov => roundApi.tell(pov.gameId, Resign(pov.playerId)) }
-
   lazy val ratingFactorsSetting: SettingStore[RatingFactor.ByKey] =
     import play.api.data.Form
     import play.api.data.Forms.{ single, text }
@@ -113,9 +107,6 @@ final class Env(
   private val getFactors: () => Map[PerfKey, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
-    "accountClose" -> { case lila.core.security.CloseAccount(userId) =>
-      resignAllGamesOf(userId)
-    },
     "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
       onStart.exec(gameId)
     },
@@ -123,7 +114,7 @@ final class Env(
       selfReport(userId, ip, fullId, name)
     },
     "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
-      resignAllGamesOf(userId)
+      roundApi.resignAllGamesOf(userId)
     }
   )
 
@@ -144,7 +135,7 @@ final class Env(
 
   private lazy val correspondenceEmail = wire[CorrespondenceEmail]
 
-  scheduler.scheduleAtFixedRate(10 minute, 10 minute): () =>
+  scheduler.scheduleAtFixedRate(10.minute, 10.minute): () =>
     correspondenceEmail.tick()
 
   import SettingStore.Regex.given
@@ -209,9 +200,16 @@ final class Env(
     export proxyRepo.{ game, updateIfPresent, flushIfPresent, upgradeIfPresent }
   val roundJson: lila.core.round.RoundJson = new:
     export mobile.offline as mobileOffline
+
   val roundApi: lila.core.round.RoundApi = new:
     export roundSocket.rounds.{ tell, ask }
     export roundSocket.getGames
+    def resignAllGamesOf(userId: UserId) =
+      gameRepo
+        .allPlaying(userId)
+        .map:
+          _.foreach { pov => roundApi.tell(pov.gameId, Resign(pov.playerId)) }
+
   val onTvGame: lila.game.core.OnTvGame = recentTvGames.put
 
   MoveLatMonitor.start(scheduler)

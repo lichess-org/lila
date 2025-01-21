@@ -19,7 +19,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   import FingerHash.given
 
   private val authCache = cacheApi[String, Option[AuthInfo]](65_536, "security.authCache"):
-    _.expireAfterAccess(5 minutes).buildAsyncFuture[String, Option[AuthInfo]]: id =>
+    _.expireAfterAccess(5.minutes).buildAsyncFuture[String, Option[AuthInfo]]: id =>
       coll
         .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
         .one[Bdoc]
@@ -140,6 +140,10 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
         $set("up"   -> false),
         multi = true
       )
+    yield uncacheAllOf(userId)
+
+  def deleteAllSessionsOf(userId: UserId): Funit =
+    for _ <- coll.delete.one($doc("user" -> userId))
     yield uncacheAllOf(userId)
 
   private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]

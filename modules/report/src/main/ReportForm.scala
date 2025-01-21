@@ -49,7 +49,7 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
     )(ReportFlag.apply)(unapply)
 
   private def blockingFetchUser(username: UserStr) =
-    lightUserAsync(username.id).await(1 second, "reportUser")
+    lightUserAsync(username.id).await(1.second, "reportUser")
 
 object ReportForm:
   private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r

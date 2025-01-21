@@ -105,7 +105,10 @@ db.user4.createIndex({ title: 1 }, { sparse: true });
 db.user4.createIndex({ email: 1 }, { unique: true, sparse: 1 });
 db.user4.createIndex({ roles: 1 }, { background: 1, partialFilterExpression: { roles: { $exists: 1 } } });
 db.user4.createIndex({ prevEmail: 1 }, { sparse: 1, background: 1 });
-db.user4.createIndex({ eraseAt: 1 }, { partialFilterExpression: { eraseAt: { $exists: true } } });
+db.user4.createIndex(
+  { 'delete.scheduled': 1 },
+  { partialFilterExpression: { 'delete.scheduled': { $exists: 1 }, 'delete.done': false } },
+);
 db.f_topic.createIndex({ categId: 1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, updatedAt: -1, troll: 1 });
 db.f_topic.createIndex({ categId: 1, slug: 1 });

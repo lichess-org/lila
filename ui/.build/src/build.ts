@@ -7,8 +7,9 @@ import { tsc, stopTscWatch } from './tsc.ts';
 import { sass, stopSass } from './sass.ts';
 import { esbuild, stopEsbuildWatch } from './esbuild.ts';
 import { sync, stopSync } from './sync.ts';
+import { hash } from './hash.ts';
 import { stopManifest } from './manifest.ts';
-import { env, errorMark, colors as c } from './env.ts';
+import { env, errorMark, c } from './env.ts';
 import { i18n, stopI18nWatch } from './i18n.ts';
 import { unique } from './algo.ts';
 import { clean } from './clean.ts';
@@ -37,9 +38,8 @@ export async function build(pkgs: string[]): Promise<void> {
     fs.promises.mkdir(env.buildTempDir),
   ]);
 
-  await Promise.all([sass(), sync(), i18n()]);
-  await Promise.all([tsc(), esbuild()]);
-  if (env.watch) monitor(pkgs);
+  await Promise.all([sass(), sync().then(hash), i18n()]);
+  await Promise.all([tsc(), esbuild(), monitor(pkgs)]);
 }
 
 export async function stopBuildWatch(): Promise<void> {
@@ -61,6 +61,7 @@ let packageTimeout: NodeJS.Timeout | undefined;
 let tscTimeout: NodeJS.Timeout | undefined;
 
 async function monitor(pkgs: string[]): Promise<void> {
+  if (!env.watch) return;
   const [typePkgs, typings] = await Promise.all([
     globArray('*/package.json', { cwd: env.typesDir }),
     globArray('*/*.d.ts', { cwd: env.typesDir }),

@@ -94,8 +94,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
                 th("National federation"),
                 td(req.data.federationUrl match
                   case Some(url) => a(href := url.toString, targetBlank)(url.toString)
-                  case None      => "None"
-                )
+                  case None      => "None")
               ),
               pictureIfGranted(req.idDocument).map: idPic =>
                 tr(

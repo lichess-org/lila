@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 
 object Query:
 
-  import Game.{ BSONFields as F }
+  import Game.BSONFields as F
 
   val rated: Bdoc = F.rated.$eq(true)
 
@@ -57,6 +57,11 @@ object Query:
   val noAi: Bdoc = $doc(
     "p0.ai".$exists(false),
     "p1.ai".$exists(false)
+  )
+
+  val hasAi: Bdoc = $or(
+    "p0.ai".$exists(true),
+    "p1.ai".$exists(true)
   )
 
   def nowPlaying[U: UserIdOf](u: U) = $doc(F.playingUids -> u.id)

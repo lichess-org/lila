@@ -18,6 +18,7 @@ final class PlaybanApi(
     userApi: lila.core.user.UserApi,
     noteApi: lila.core.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
+    userTrustApi: lila.core.security.UserTrustApi,
     messenger: MsgApi
 )(using ec: Executor, mode: play.api.Mode):
 
@@ -27,6 +28,9 @@ final class PlaybanApi(
   )
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
+
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one($id(del.id)).void
 
   private def blameableSource(game: Game): Boolean = game.source.exists: s =>
     s == Source.Lobby || s == Source.Pool || s == Source.Arena
@@ -173,7 +177,7 @@ final class PlaybanApi(
           save(Outcome.Good, userId, RageSit.redeem(game), game.source)
 
   // memorize users without any ban to save DB reads
-  private val cleanUserIds = scalalib.cache.ExpireSetMemo[UserId](30 minutes)
+  private val cleanUserIds = scalalib.cache.ExpireSetMemo[UserId](30.minutes)
 
   def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
     (!cleanUserIds.get(user.id)).so:
@@ -215,7 +219,7 @@ final class PlaybanApi(
   val rageSitOf: lila.core.playban.RageSitOf = userId => rageSitCache.get(userId)
 
   private val rageSitCache = cacheApi[UserId, RageSitCounter](65_536, "playban.ragesit") {
-    _.expireAfterAccess(10 minutes)
+    _.expireAfterAccess(10.minutes)
       .buildAsyncFuture: userId =>
         coll
           .primitiveOne[RageSitCounter]($doc("_id" -> userId, "c".$exists(true)), "c")
@@ -257,8 +261,9 @@ final class PlaybanApi(
   }.void.logFailure(lila.log("playban"))
 
   private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
+    trust <- userTrustApi.get(record.userId)
     newRec <- record
-      .bannable(age)
+      .bannable(age, trust)
       .ifFalse(record.banInEffect)
       .so: ban =>
         lila.mon.playban.ban.count.increment()

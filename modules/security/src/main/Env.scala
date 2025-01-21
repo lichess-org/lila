@@ -142,10 +142,12 @@ final class Env(
   lazy val promotion = wire[PromotionApi]
 
   if config.disposableEmail.enabled then
-    scheduler.scheduleWithFixedDelay(42 seconds, 1 hour): () =>
+    scheduler.scheduleWithFixedDelay(42.seconds, 1.hour): () =>
       disposableEmailDomain.refresh()
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
+
+  lazy val userTrust: UserTrustApi = wire[UserTrustApi]
 
   lazy val pwned: Pwned = Pwned(ws, config.pwnedRangeUrl)
 

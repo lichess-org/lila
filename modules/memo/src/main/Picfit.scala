@@ -111,6 +111,12 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         case _ => funit
       }
 
+    lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+      for
+        ids <- coll.primitive[ImageId]($doc("user" -> del.id), "_id")
+        _   <- deleteByIdsAndUser(ids, del.id)
+      yield ()
+
 object PicfitApi:
 
   val uploadMaxMb = 6
@@ -175,7 +181,7 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
     private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
-        .expireAfterWrite(10 minutes)
+        .expireAfterWrite(10.minutes)
         .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
 
     def apply(qs: String) = s"$qs&sig=${cache.get(qs)}"

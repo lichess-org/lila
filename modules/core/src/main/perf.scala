@@ -2,7 +2,7 @@ package lila.core
 
 import _root_.chess.variant.Variant
 import _root_.chess.{ Speed, IntRating, variant as ChessVariant }
-import _root_.chess.rating.{ IntRatingDiff }
+import _root_.chess.rating.IntRatingDiff
 import _root_.chess.rating.glicko.Glicko
 import monocle.syntax.all.*
 import monocle.syntax.AppliedPLens
@@ -73,6 +73,7 @@ object perf:
 
     given Show[PerfKey]                = _.value
     given SameRuntime[PerfKey, String] = _.value
+    given Eq[PerfKey]                  = Eq.by(_.value)
 
     def apply(key: String): Option[PerfKey]            = Option.when(all.contains(key))(key)
     def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)

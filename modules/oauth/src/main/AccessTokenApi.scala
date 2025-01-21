@@ -2,6 +2,8 @@ package lila.oauth
 
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+import reactivemongo.akkastream.cursorProducer
+import akka.stream.scaladsl.*
 
 import lila.common.Json.given
 import lila.core.misc.oauth.TokenRevoke
@@ -12,7 +14,7 @@ final class AccessTokenApi(
     coll: Coll,
     cacheApi: lila.memo.CacheApi,
     userApi: lila.core.user.UserApi
-)(using Executor):
+)(using Executor, akka.stream.Materializer):
 
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }
@@ -168,6 +170,15 @@ final class AccessTokenApi(
     for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
     yield onRevoke(id)
 
+  def revokeAllByUser(user: User): Funit =
+    coll
+      .find($doc(F.userId -> user.id))
+      .cursor[AccessToken]()
+      .documentSource()
+      .mapAsyncUnordered(4)(token => revokeById(token.id)(using Me(user)))
+      .runWith(Sink.ignore)
+      .void
+
   def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
     coll
       .find(
@@ -223,7 +234,7 @@ final class AccessTokenApi(
 
   private val accessTokenCache =
     cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):
-      _.expireAfterWrite(5 minutes).buildAsyncFuture(fetchAccessToken)
+      _.expireAfterWrite(5.minutes).buildAsyncFuture(fetchAccessToken)
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     coll.findAndUpdateSimplified[AccessToken.ForAuth](

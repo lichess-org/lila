@@ -69,19 +69,19 @@ final class LeaderboardApi(
   yield entries.map(_.tourId)
 
   def byPlayerStream(
-      user: User,
+      userId: UserId,
       withPerformance: Boolean,
       perSecond: MaxPerSecond,
       nb: Int
   ): Source[TourEntry, ?] =
     repo.coll
       .aggregateWith[Bdoc](): fw =>
-        aggregateByPlayer(user, fw, fw.Descending("d"), withPerformance, nb, offset = 0).toList
+        aggregateByPlayer(userId, fw, fw.Descending("d"), withPerformance, nb, offset = 0).toList
       .documentSource()
       .mapConcat(readTourEntry)
 
   private def aggregateByPlayer(
-      user: User,
+      userId: UserId,
       framework: repo.coll.AggregationFramework.type,
       sort: framework.SortOrder,
       withPerformance: Boolean,
@@ -91,7 +91,7 @@ final class LeaderboardApi(
     import framework.*
     NonEmptyList
       .of(
-        Match($doc("u" -> user.id)),
+        Match($doc("u" -> userId)),
         Sort(sort),
         Skip(offset),
         Limit(nb),
@@ -132,7 +132,7 @@ final class LeaderboardApi(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               val sort = if sortBest then framework.Ascending("w") else framework.Descending("d")
-              val pipe = aggregateByPlayer(user, framework, sort, false, length, offset)
+              val pipe = aggregateByPlayer(user.id, framework, sort, false, length, offset)
               pipe.head -> pipe.tail
             .map(_.flatMap(readTourEntry))
     )

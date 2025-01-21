@@ -9,7 +9,7 @@ import lila.core.userId.UserIdOf
 
 case class Pov(game: Game, color: Color):
 
-  export game.{ id as gameId }
+  export game.id as gameId
 
   def player = game.player(color)
 

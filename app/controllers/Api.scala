@@ -343,7 +343,7 @@ final class Api(
 
   def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
-      .data(username, perfKey)
+      .data(username, perfKey, computeIfNeeded = true)
       .map:
         _.fold[ApiResult](ApiResult.NoData) { data => ApiResult.Data(env.perfStat.jsonView(data)) }
 
@@ -383,6 +383,12 @@ final class Api(
       key = "api.ip.events",
       ttl = 1.hour,
       maxConcurrency = 4
+    )
+    val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
+      name = "API verified events concurrency per IP",
+      key = "api.ip.events.verified",
+      ttl = 1.hour,
+      maxConcurrency = 12
     )
     val download = lila.web.ConcurrencyLimit[IpAddress](
       name = "API download concurrency per IP",

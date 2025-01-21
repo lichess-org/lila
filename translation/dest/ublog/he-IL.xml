@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">יווצר נושא בפורום כדי שאנשים יוכלו להגיב על הפוסט שלך</string>
   <string name="publishOnYourBlog">פרסם בבלוג שלך</string>
   <string name="publishHelp">אם הפוסט נבדק, הוא יפורסם לבלוג שלך. אם לא, הוא יישאר בטיוטות שלך</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">רשומה מוצמדת</string>
+  <string name="stickyPostHelp">אם תבחרו בכך, הפוסט הזה יהיה מוצג בפרופיל ובבלוג שלכם, ברשימת ״הפרסומים האחרונים״.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">פרסם/ה פוסט</item>
     <item quantity="two">פרסם/ה %s פוסטים</item>
@@ -36,7 +38,7 @@
   <string name="xPublishedY">%1$s פרסם/ה את הפוסט: \"%2$s\"</string>
   <string name="thisPostIsPublished">הפוסט פורסם</string>
   <string name="thisIsADraft">זוהי טיוטה</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">עוד פוסטים מאת %s</string>
+  <string name="moreBlogPostsBy">עוד פוסטים מאת %s</string>
   <string name="noPostsInThisBlogYet">אין פוסטים בבלוג זה, לעת עתה...</string>
   <string name="noDrafts">אין טיוטות להצגה.</string>
   <string name="latestBlogPosts">פוסטים אחרונים</string>

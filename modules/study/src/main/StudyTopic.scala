@@ -97,6 +97,9 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       )
     })
 
+  def userTopicsDelete(userId: UserId) =
+    userTopicRepo.coll(_.delete.one($id(userId)))
+
   def popular(nb: Int): Fu[StudyTopics] =
     StudyTopics.from(
       topicRepo
@@ -114,13 +117,13 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   private val recomputeWorkQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(1),
-    timeout = 61 seconds,
+    timeout = 61.seconds,
     name = "studyTopicAggregation",
     lila.log.asyncActorMonitor.unhandled
   )
 
   def recompute(): Unit =
-    recomputeWorkQueue(LilaFuture.makeItLast(60 seconds)(recomputeNow)).recover:
+    recomputeWorkQueue(LilaFuture.makeItLast(60.seconds)(recomputeNow)).recover:
       case _: scalalib.actor.AsyncActorBounded.EnqueueException => ()
       case e: Exception => logger.warn("Can't recompute study topics!", e)
 

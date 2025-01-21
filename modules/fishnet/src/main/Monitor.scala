@@ -10,7 +10,7 @@ final private class Monitor(
 )(using ec: Executor, scheduler: Scheduler):
 
   val statusCache = cacheApi.unit[Monitor.Status]:
-    _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
       repo.status.compute
 
   private val monBy = lila.mon.fishnet.analysis.by
@@ -87,7 +87,7 @@ final private class Monitor(
       ()
     }
 
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+  scheduler.scheduleWithFixedDelay(1.minute, 1.minute) { () =>
     monitorClients() >> monitorStatus()
     ()
   }

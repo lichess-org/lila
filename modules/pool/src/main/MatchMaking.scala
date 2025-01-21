@@ -21,9 +21,9 @@ object MatchMaking:
     members
       .sortBy(_.rating)(using intOrdering[IntRating].reverse)
       .grouped(2)
-      .collect { case Vector(p1, p2) =>
-        Couple(p1, p2)
-      } toVector
+      .collect:
+        case Vector(p1, p2) => Couple(p1, p2)
+      .toVector
 
   private object wmMatching:
 
@@ -54,6 +54,7 @@ object MatchMaking:
             - missBonus(a).atMost(missBonus(b))
             - rangeBonus(a, b)
             - ragesitBonus(a, b)
+            - provisionalBonus(a, b)
         score.some.filter(_ <= ratingToMaxScore(a.rating.atMost(b.rating)))
 
     // score bonus based on how many waves the member missed
@@ -85,6 +86,9 @@ object MatchMaking:
       else if a.rageSitCounter <= -12 && b.rageSitCounter <= -12 then 60 // very bad players
       else if a.rageSitCounter <= -5 && b.rageSitCounter <= -5 then 30   // bad players
       else (abs(a.rageSitCounter - b.rageSitCounter).atMost(10)) * -20   // match of good and bad player
+
+    private def provisionalBonus(a: PoolMember, b: PoolMember) =
+      if a.provisional && b.provisional then 30 else 0
 
     def apply(members: Vector[PoolMember]): Option[Vector[Couple]] =
       WMMatching(members.toArray, pairScore).fold(

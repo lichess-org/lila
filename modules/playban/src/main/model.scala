@@ -5,6 +5,7 @@ import scalalib.model.Days
 
 import lila.common.Json.given
 import lila.core.playban.RageSit as RageSitCounter
+import lila.core.security.UserTrust
 
 case class UserRecord(
     _id: UserId,
@@ -31,12 +32,14 @@ case class UserRecord(
       case Outcome.Sandbag                => .7f
       case Outcome.NoPlay | Outcome.Abort => .8f
       case o if o != Outcome.Good         => 1
-    } sum
+    }.sum
 
-  def badOutcomeTolerance(age: Days): Float =
-    if age <= 1 then 0.3f
-    else if bans.sizeIs < 3 then 0.4f
-    else 0.3f
+  def badOutcomeTolerance(age: Days, trust: UserTrust): Float =
+    val base =
+      if age <= 1 then 0.3f
+      else if bans.sizeIs < 3 then 0.4f
+      else 0.3f
+    base - trust.no.so(0.5f)
 
   def minBadOutcomes: Int =
     bansThisWeek match
@@ -52,11 +55,11 @@ case class UserRecord(
     else if bans.size < 10 then 4
     else 3
 
-  def bannable(age: Days): Option[TempBan] = {
+  def bannable(age: Days, trust: UserTrust): Option[TempBan] = {
     rageSitRecidive || {
       outcomes.lastOption.exists(_ != Outcome.Good) && {
         // too many bad overall
-        val toleranceRatio = badOutcomeTolerance(age)
+        val toleranceRatio = badOutcomeTolerance(age, trust)
         badOutcomeScore >= ((toleranceRatio * nbOutcomes).atLeast(minBadOutcomes.toFloat)) || {
           // bad result streak
           val streakSize = badOutcomesStreakSize(age)
@@ -64,14 +67,14 @@ case class UserRecord(
           outcomes.takeRight(streakSize).forall(Outcome.Good !=)
         } || {
           // last 2 games
-          age < 1 &&
+          (age < 1 || trust.no) &&
           outcomes.sizeIs < 9 &&
           outcomes.sizeIs > 1 &&
           outcomes.reverse.take(2).forall(Outcome.Good !=)
         }
       }
     }
-  }.option(TempBan.make(bans, age))
+  }.option(TempBan.make(bans, age, trust))
 
   def rageSitRecidive =
     outcomes.lastOption.exists(Outcome.rageSitLike.contains) && {
@@ -109,7 +112,7 @@ object TempBan:
     *   - 0 - 3 days: linear scale from 3x to 1x
     *   - >3 days quick drop off Account less than 3 days old --> 2x the usual time
     */
-  def make(bans: Vector[TempBan], age: Days): TempBan =
+  def make(bans: Vector[TempBan], age: Days, trust: UserTrust): TempBan =
     make {
       val base = bans.lastOption
         .so: prev =>
@@ -117,8 +120,9 @@ object TempBan:
             case h if h < 72 => prev.mins * (132 - h) / 60
             case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
         .atLeast(baseMinutes)
-      val multiplier = if age == Days(0) then 3 else if age <= 3 then 2 else 1
-      base * multiplier
+      val multiplier      = if age == Days(0) then 3 else if age <= 3 then 2 else 1
+      val trustMultiplier = if trust.yes then 1 else 2
+      base * multiplier * trustMultiplier
     }
 
 enum Outcome(val id: Int, val name: String):

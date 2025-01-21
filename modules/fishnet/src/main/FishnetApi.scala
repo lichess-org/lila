@@ -28,7 +28,7 @@ final class FishnetApi(
 
   private val workQueue = AsyncActorSequencer(
     maxSize = Max(256),
-    timeout = 5 seconds,
+    timeout = 5.seconds,
     name = "fishnetApi",
     lila.log.asyncActorMonitor.full
   )

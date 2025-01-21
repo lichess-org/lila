@@ -17,8 +17,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
   private val helper                   = small(cls := "form-help")
 
+  def errors(field: Field)(using Translate): Frag                 = errors(field.errors)
   private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
-  private def errors(field: Field)(using Translate): Frag         = errors(field.errors)
   private def error(err: FormError)(using Translate): Frag =
     p(cls := "error")(transKey(trans(err.message), err.args))
 
@@ -197,10 +197,10 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   // allows disabling of a field that defaults to true
   def hiddenFalse(field: Field): Tag = hidden(field, "false".some)
 
-  def passwordModified(field: Field, content: Frag, reveal: Boolean = true)(
+  def passwordModified(field: Field, content: Frag, reveal: Boolean = true, half: Boolean = false)(
       modifiers: Modifier*
   )(using Translate): Frag =
-    group(field, content): f =>
+    group(field, content, half = half): f =>
       div(cls := "password-wrapper")(
         input(f, typ = "password")(required)(modifiers),
         reveal.option(button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye))

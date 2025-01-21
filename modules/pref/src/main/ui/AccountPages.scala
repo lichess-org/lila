@@ -9,8 +9,16 @@ import ScalatagsTemplate.{ *, given }
 
 final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.user.FlagApi):
   import helpers.{ *, given }
-  import trans.{ settings as trs }
+  import trans.settings as trs
   import ui.AccountPage
+
+  private def myUsernamePasswordFields(form: Form[?])(using Context) =
+    form3.split(
+      form3.group(form("username"), trans.site.username(), half = true)(
+        form3.input(_)(required, autocomplete := "off")
+      ),
+      form3.passwordModified(form("passwd"), trans.site.password(), half = true)()
+    )
 
   def close(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
     AccountPage(s"${me.username} - ${trans.settings.closeAccount.txt()}", "close"):
@@ -19,9 +27,10 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
+            div(cls := "form-group")(h2("We're sorry to see you go.")),
             div(cls := "form-group")(trs.closeAccountExplanation()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
-            form3.passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
+            myUsernamePasswordFields(form),
             form3.actions(
               frag(
                 a(href := routes.User.show(me.username))(trs.changedMindDoNotCloseAccount()),
@@ -29,6 +38,41 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                   trs.closeAccount(),
                   icon = Icon.CautionCircle.some,
                   confirm = trs.closingIsDefinitive.txt().some
+                )(cls := "button-red")
+              )
+            )
+          )
+      )
+
+  def delete(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
+    AccountPage(s"${me.username} - Delete your account", "delete"):
+      div(cls := "box box-pad")(
+        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)("Delete your account")),
+        if managed then p(trs.managedAccountCannotBeClosed())
+        else
+          postForm(cls := "form3", action := routes.Account.deleteConfirm)(
+            div(cls := "form-group")(h2("We're sorry to see you go.")),
+            div(cls := "form-group")(
+              "Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you."
+            ),
+            div(cls := "form-group")(
+              "The username will NOT be available for registration again."
+            ),
+            div(cls := "form-group")(
+              "Would you like to ",
+              a(href := routes.Account.close)("close your account"),
+              " instead?"
+            ),
+            myUsernamePasswordFields(form),
+            form3.checkbox(form("understand"), "I understand that deleted accounts aren't recoverable"),
+            form3.errors(form("understand")),
+            form3.actions(
+              frag(
+                a(href := routes.User.show(me.username))(trans.site.cancel()),
+                form3.submit(
+                  "Delete my account",
+                  icon = Icon.CautionCircle.some,
+                  confirm = "Deleting is definitive, there is no going back. Are you sure?".some
                 )(cls := "button-red")
               )
             )
@@ -192,9 +236,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             form("username"),
             trans.site.username(),
             help = trans.site.changeUsernameDescription().some
-          )(
-            form3.input(_)(autofocus, required, autocomplete := "username")
-          ),
+          )(form3.input(_)(autofocus, required, autocomplete := "username")),
           form3.action(form3.submit(trans.site.apply()))
         )
       )

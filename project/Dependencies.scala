@@ -16,16 +16,16 @@ object Dependencies {
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.12.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.12.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val compression = "org.lichess"                  %% "compression"                     % "1.10"
+  val compression = "org.lichess"                  %% "compression"                     % "3.0"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
+  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.30.1"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.2.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.116.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.117.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.4" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.18.0"
@@ -70,7 +70,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.6.4"
+    val version = "2.6.5"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"

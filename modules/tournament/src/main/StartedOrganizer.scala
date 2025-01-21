@@ -13,7 +13,7 @@ final private class StartedOrganizer(
 
   var runCounter = 0
 
-  LilaScheduler("Tournament.StartedOrganizer", _.Every(1 seconds), _.AtMost(30 seconds), _.Delay(26 seconds)):
+  LilaScheduler("Tournament.StartedOrganizer", _.Every(1.seconds), _.AtMost(30.seconds), _.Delay(26.seconds)):
 
     val doAllTournaments = runCounter % 15 == 0
 

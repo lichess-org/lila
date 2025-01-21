@@ -32,6 +32,12 @@ final class PlanApi(
   import BsonHandlers.PatronHandlers.given
   import BsonHandlers.ChargeHandlers.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    for
+      _ <- mongo.patron.delete.one($id(del.id))
+      _ <- mongo.charge.update.one($doc("userId" -> del.id), $set("userId" -> UserId.ghost), multi = true)
+    yield ()
+
   def switch(user: User, money: Money): Fu[StripeSubscription] =
     stripe.userCustomer(user).flatMap {
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
@@ -181,7 +187,8 @@ final class PlanApi(
       stripeClient.getSession(sessionId).flatMapz { session =>
         stripeClient
           .setCustomerPaymentMethod(sub.customer, session.setup_intent.payment_method)
-          .zip(stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method)) void
+          .zip(stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method))
+          .void
       }
 
     def canUse(ip: IpAddress, freq: Freq)(using me: Me): Fu[StripeCanUse] = ip2proxy(ip).flatMap { proxy =>
@@ -569,7 +576,7 @@ final class PlanApi(
 
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[UserId]]:
-    _.refreshAfterWrite(30 minutes).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(30.minutes).buildAsyncFuture: _ =>
       mongo.charge
         .primitive[UserId](
           $doc("date" -> $gt(nowInstant.minusWeeks(1))),
@@ -652,7 +659,8 @@ final class PlanApi(
         .map {
           case 1 => lila.mon.plan.charge.first(charge.serviceName).increment()
           case _ =>
-        } void
+        }
+        .void
     } >>
       monthlyGoalApi.get
         .map: m =>

@@ -27,7 +27,7 @@ final class User(
     modC: => Mod
 ) extends LilaController(env):
 
-  import env.relation.{ api as relationApi }
+  import env.relation.api as relationApi
   import env.gameSearch.userGameSearch
   import env.user.lightUserApi
 
@@ -54,7 +54,7 @@ final class User(
     }
 
   private[controllers] val userShowRateLimit =
-    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(3))
+    env.security.ipTrust.rateLimit(8_000, 1.day, "user.show.ip", _.proxyMultiplier(4))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -333,9 +333,9 @@ final class User(
           .so(
             env.user.noteApi
               .byUsersForMod(familyUserIds)
-              .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)
+              .logTimeIfGt(s"${user.username} noteApi.forMod", 2.seconds)
           ))
-          .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds))
+          .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2.seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
       otherUsers <- env.mod.logApi.addModlog(otherUsers)
@@ -350,7 +350,7 @@ final class User(
       .ofModId(me)
       .zip(env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username"))
       .flatMap { case (inquiry, WithPerfsAndEmails(user, emails)) =>
-        import views.mod.{ user as ui }
+        import views.mod.user as ui
         import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 
@@ -396,8 +396,8 @@ final class User(
             .map(ui.showRageSitAndPlaybans)
         )
 
-        val actions = env.user.repo.isErased(user).map { erased =>
-          ui.actions(user, emails, erased, env.mod.presets.getPmPresets)
+        val actions = env.user.repo.isDeleted(user).map { deleted =>
+          ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
         }
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
@@ -458,12 +458,12 @@ final class User(
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
       case WithPerfsAndEmails(user, emails) =>
-        env.user.repo.isErased(user).flatMap { erased =>
+        env.user.repo.isDeleted(user).flatMap { deleted =>
           Ok.snip:
             views.mod.user.actions(
               user,
               emails,
-              erased,
+              deleted,
               env.mod.presets.getPmPresetsOpt
             )
         }
@@ -553,7 +553,7 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey)): data =>
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = HTTPRequest.isCrawler(req).no)): data =>
       negotiate(
         Ok.async:
           env.history

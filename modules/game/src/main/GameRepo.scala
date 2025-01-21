@@ -19,7 +19,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   export BSONHandlers.{ statusHandler, gameHandler }
   import BSONHandlers.given
-  import lila.game.Game.{ BSONFields as F }
+  import lila.game.Game.BSONFields as F
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
@@ -141,9 +141,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def docCursor(
       selector: Bdoc,
+      project: Option[Bdoc] = none,
       readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Bdoc] =
-    coll.find(selector).cursor[Bdoc](readPref)
+    coll.find(selector, project).cursor[Bdoc](readPref)
 
   def sortedCursor(
       selector: Bdoc,
@@ -418,7 +419,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .one(bson)
       .addFailureEffect {
         case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment()
-      } void
+      }
+      .void
 
   def removeRecentChallengesOf(userId: UserId) =
     coll.delete.one:
@@ -555,3 +557,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.sec)
       .list(nb)
+
+  def deleteAllSinglePlayerOf(id: UserId): Fu[List[GameId]] = for
+    aiIds     <- coll.primitive[GameId](Query.user(id) ++ Query.hasAi, "_id")
+    importIds <- coll.primitive[GameId](Query.imported(id), "_id")
+    allIds = aiIds ::: importIds
+    _ <- coll.delete.one($inIds(allIds))
+  yield allIds

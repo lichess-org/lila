@@ -14,11 +14,11 @@ final class DisposableEmailAttempt(
 
   private val byIp =
     cacheApi.notLoadingSync[IpAddress, Set[Attempt]](512, "security.disposableEmailAttempt.ip"):
-      _.expireAfterWrite(1 day).build()
+      _.expireAfterWrite(1.day).build()
 
   private val byId =
     cacheApi.notLoadingSync[UserId, Set[Attempt]](512, "security.disposableEmailAttempt.id"):
-      _.expireAfterWrite(1 day).build()
+      _.expireAfterWrite(1.day).build()
 
   def onFail(form: Form[?], ip: IpAddress): Unit = for
     email <- form("email").value.flatMap(EmailAddress.from)

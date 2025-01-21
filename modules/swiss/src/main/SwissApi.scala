@@ -38,8 +38,8 @@ final class SwissApi(
 
   private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
-    expiration = 20 minutes,
-    timeout = 10 seconds,
+    expiration = 20.minutes,
+    timeout = 10.seconds,
     name = "swiss.api",
     lila.log.asyncActorMonitor.full
   )
@@ -186,7 +186,8 @@ final class SwissApi(
                 _ <- ok.so:
                   mongo.player.insert
                     .one(SwissPlayer.make(swiss.id, user))
-                    .zip(mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1))) void
+                    .zip(mongo.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)))
+                    .void
               yield
                 cache.swissCache.clear(swiss.id)
                 ok
@@ -475,7 +476,7 @@ final class SwissApi(
     cache.swissCache.clear(swiss.id)
     socket.reload(swiss.id)
     scheduler
-      .scheduleOnce(10 seconds):
+      .scheduleOnce(10.seconds):
         // we're delaying this to make sure the ranking has been recomputed
         // since doFinish is called by finishGame before that
         rankingApi(swiss).foreach: ranking =>
@@ -672,7 +673,7 @@ final class SwissApi(
         .batchSize(perSecond.value)
         .cursor[SwissPlayer](ReadPref.priTemp)
         .documentSource(nb)
-        .throttle(perSecond.value, 1 second)
+        .throttle(perSecond.value, 1.second)
         .zipWithIndex
         .map: (player, index) =>
           SwissPlayer.WithRank(player, index.toInt + 1)
@@ -681,6 +682,25 @@ final class SwissApi(
 
   def idNames(ids: List[SwissId]): Fu[List[IdName]] =
     mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[IdName]().listAll()
+
+  // very expensive, misses several indexes
+  def onUserErase(u: UserId) = for
+    _ <- mongo.swiss.update.one(
+      $doc("winnerId" -> u),
+      $set("winnerId" -> UserId.ghost),
+      multi = true
+    ) // no index!!!
+    players <- mongo.player.list[SwissPlayer]($doc("u" -> u), _.priTemp) // no index!!!
+    swissIds = players.map(_.swissId).distinct
+    // here we use a single ghost ID for all swiss players and pairings,
+    // because the mapping of swiss player to swiss pairings must be preserved
+    ghostId = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")
+    newPlayers = players.map: p =>
+      p.copy(id = SwissPlayer.makeId(p.swissId, ghostId), userId = ghostId)
+    _ <- mongo.player.delete.one($inIds(players.map(_.id)))
+    _ <- mongo.player.insert.many(newPlayers)
+    _ <- mongo.pairing.update.one($inIds(swissIds) ++ $doc("p" -> u), $set("p.$" -> ghostId), multi = true)
+  yield ()
 
   private def Sequencing[A <: Matchable: alleycats.Zero](
       id: SwissId

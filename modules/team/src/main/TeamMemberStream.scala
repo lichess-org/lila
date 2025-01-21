@@ -42,4 +42,4 @@ final class TeamMemberStream(
       .documentSource()
       .grouped(perSecond.value)
       .map(_.flatMap(u => u.getAsOpt[UserId]("user").zip(u.getAsOpt[Instant]("date"))))
-      .throttle(1, 1 second)
+      .throttle(1, 1.second)

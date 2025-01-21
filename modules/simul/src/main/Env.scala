@@ -48,14 +48,14 @@ final class Env(
   private val simulSocket = wire[SimulSocket]
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]]:
-    _.refreshAfterWrite(3 seconds).buildAsyncFuture(_ => repo.allCreatedFeaturable)
+    _.refreshAfterWrite(3.seconds).buildAsyncFuture(_ => repo.allCreatedFeaturable)
 
   val featurable = SimulIsFeaturable: simul =>
     simul.conditions.teamMember.isEmpty && featureLimiter.zero(simul.hostId)(true)
 
   private val featureLimiter = lila.memo.RateLimit[UserId](
     credits = config.featureViews.value,
-    duration = 24 hours,
+    duration = 24.hours,
     key = "simul.feature",
     log = false
   )
@@ -83,6 +83,10 @@ final class Env(
       )
     }
   )
+
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    repo.anonymizeHost(del.id)
+    repo.anonymizePlayers(del.id)
 
 final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean):
   def apply(simul: Simul) = f(simul)

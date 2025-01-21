@@ -126,9 +126,9 @@ final class WinnersApi(
 
   private val allCache = mongoCache.unit[AllWinners](
     "tournament:winner:all",
-    59 minutes
+    59.minutes
   ): loader =>
-    _.refreshAfterWrite(1 hour).buildAsyncFuture(loader(_ => fetchAll))
+    _.refreshAfterWrite(1.hour).buildAsyncFuture(loader(_ => fetchAll))
 
   def all: Fu[AllWinners] = allCache.get {}
 

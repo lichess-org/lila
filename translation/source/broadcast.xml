@@ -80,4 +80,5 @@
   <string name="optionalDetails">Optional details</string>
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
+  <string name="backToLiveMove">Back to live move</string>
 </resources>

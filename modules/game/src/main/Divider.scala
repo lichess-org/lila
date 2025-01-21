@@ -9,7 +9,7 @@ import com.github.blemale.scaffeine.Cache
 final class Divider(using Executor) extends lila.core.game.Divider:
 
   private val cache: Cache[GameId, Division] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(5 minutes)
+    .expireAfterAccess(5.minutes)
     .build[GameId, Division]()
 
   def apply(game: CoreGame, initialFen: Option[Fen.Full]): Division =

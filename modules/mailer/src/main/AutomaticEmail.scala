@@ -87,7 +87,8 @@ $regards
   def onFishnetKey(userId: UserId, key: String): Funit =
     sendAsPrivateMessageAndEmail(userId)(
       subject = _ => "Your private fishnet key",
-      body = _ => s"""Hello,
+      body = _ =>
+        s"""Hello,
 
 This message contains your private fishnet key. Please treat it like a password. You can use the same key on multiple machines (even at the same time), but you should not share it with anyone.
 
@@ -112,11 +113,31 @@ $regards
 """
     )
 
+  def delete(user: User): Funit =
+    val body =
+      s"""Hello,
+
+Following your request, the Lichess account "${user.username}" will be deleted in 7 days from now.
+
+$regards
+"""
+    userApi.emailOrPrevious(user.id).flatMapz { email =>
+      given Lang = userLang(user)
+      mailer.send(
+        Mailer.Message(
+          to = email,
+          subject = "lichess.org account deletion",
+          text = Mailer.txt.addServiceNote(body),
+          htmlBody = standardEmail(body).some
+        )
+      )
+    }
+
   def gdprErase(user: User): Funit =
     val body =
       s"""Hello,
 
-Following your request, the Lichess account "${user.username}" will be fully erased in 24h from now.
+Following your request, the Lichess account "${user.username}" will be fully erased in 7 days from now.
 
 $regards
 """
@@ -136,7 +157,8 @@ $regards
     userApi.byId(userId).map {
       _.foreach: user =>
         alsoSendAsPrivateMessage(user)(
-          body = _ => s"""Thank you for supporting Lichess!
+          body = _ =>
+            s"""Thank you for supporting Lichess!
 
 Thank you for your donation to Lichess - your patronage directly goes to keeping the site running and new features coming.
 Lichess is entirely funded by user's donations like yours, and we truly appreciate the help we're getting.
@@ -148,7 +170,8 @@ As a small token of our thanks, your account now has the awesome Patron wings!""
     userApi.byId(userId).map {
       _.foreach: user =>
         alsoSendAsPrivateMessage(user)(
-          body = _ => s"""End of Lichess Patron subscription
+          body = _ =>
+            s"""End of Lichess Patron subscription
 
 Thank you for your support over the last month.
 We appreciate all donations, being a small team relying entirely on generous donors like you!

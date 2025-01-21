@@ -70,7 +70,7 @@ final class HcaptchaReal(
   private given Reads[BadResponse] = Json.reads[BadResponse]
 
   private object skipIp:
-    private val memo = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24 hours)
+    private val memo = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24.hours)
     def get(using req: RequestHeader): Fu[Boolean] =
       val ip = HTTPRequest.ipAddress(req)
       (!memo.get(ip)).so:

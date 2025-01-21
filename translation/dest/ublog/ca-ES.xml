@@ -21,6 +21,8 @@
   <string name="createBlogDiscussionHelp">Es crearà una nova entrada al fòrum on els usuaris puguin comentar la vostra publicació</string>
   <string name="publishOnYourBlog">Publica al teu blog</string>
   <string name="publishHelp">Si marques la casella, es publicarà al teu blog. Si no, serà privada i només es mostrarà als teus esborranys</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixa la publicació</string>
+  <string name="stickyPostHelp">Si es marca, l\'entrada es mostrarà primera en la llista de publicacions recents del teu perfil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Ha publicat una entrada nova</item>
     <item quantity="other">Ha publicat %s entrades noves</item>
@@ -32,7 +34,7 @@
   <string name="xPublishedY">%1$s ha publicat %2$s</string>
   <string name="thisPostIsPublished">Aquesta entrada està publicada</string>
   <string name="thisIsADraft">Això és un esborrany</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Més publicacions de %s</string>
+  <string name="moreBlogPostsBy">Més publicacions de %s</string>
   <string name="noPostsInThisBlogYet">Encara no hi ha publicacions en aquest blog.</string>
   <string name="noDrafts">Cap esborrany a mostrar.</string>
   <string name="latestBlogPosts">Últimes publicacions al blog</string>

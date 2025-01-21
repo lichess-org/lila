@@ -1,4 +1,4 @@
-import { type Redraw, type VNode, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
+import { type Redraw, type VNode, bind, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
 import { json as xhrJson } from 'common/xhr';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
@@ -342,14 +342,12 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
       return h(
         'tr',
         {
-          hook: onInsert(el =>
-            el.addEventListener('click', (e: Event) => {
-              let tr = e.target as HTMLLinkElement;
-              while (tr && tr.tagName !== 'TR') tr = tr.parentNode as HTMLLinkElement;
-              const href = tr.querySelector('a')?.href;
-              if (href) location.href = href;
-            }),
-          ),
+          hook: bind('click', e => {
+            let tr = e.target as HTMLLinkElement;
+            while (tr && tr.tagName !== 'TR') tr = tr.parentNode as HTMLLinkElement;
+            const href = tr.querySelector('a')?.href;
+            if (href) location.href = href;
+          }),
         },
         [
           h('td', `${i + 1}`),

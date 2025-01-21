@@ -22,8 +22,9 @@ final private class PushApi(
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
     notifyAllows: lila.core.notify.GetNotifyAllows,
-    postApi: lila.core.forum.ForumPostApi
-)(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
+    postApi: lila.core.forum.ForumPostApi,
+    lightUser: lila.core.LightUser.GetterFallback
+)(using Executor, Scheduler):
 
   import PushApi.*
   import PushApi.Data.payload
@@ -79,7 +80,7 @@ final private class PushApi(
       }
 
   def move(move: MoveEvent): Funit =
-    LilaFuture.delay(2 seconds):
+    LilaFuture.delay(2.seconds):
       gameProxy
         .game(move.gameId)
         .flatMap:
@@ -112,7 +113,7 @@ final private class PushApi(
                   yield ()
 
   def takebackOffer(gameId: GameId): Funit =
-    LilaFuture.delay(1 seconds):
+    LilaFuture.delay(1.seconds):
       gameProxy
         .game(gameId)
         .flatMap:
@@ -141,7 +142,7 @@ final private class PushApi(
               }
 
   def drawOffer(gameId: GameId): Funit =
-    LilaFuture.delay(1 seconds):
+    LilaFuture.delay(1.seconds):
       gameProxy
         .game(gameId)
         .flatMap:

@@ -30,6 +30,12 @@ final class NotifyApi(
   import BSONHandlers.given
   import jsonHandlers.*
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    for
+      _ <- colls.pref.delete.one($id(del.id))
+      _ <- colls.notif.delete.one($doc("notifies" -> del.id))
+    yield ()
+
   object prefs:
     import NotificationPref.{ *, given }
 
@@ -66,7 +72,7 @@ final class NotifyApi(
             customAllows ::: defaultAllows.toList
 
   private val unreadCountCache = cacheApi[UserId, UnreadCount](65_536, "notify.unreadCountCache"):
-    _.expireAfterAccess(15 minutes).buildAsyncFuture(repo.expireAndCount)
+    _.expireAfterAccess(15.minutes).buildAsyncFuture(repo.expireAndCount)
 
   def getNotifications(userId: UserId, page: Int): Fu[Paginator[Notification]] =
     Paginator(

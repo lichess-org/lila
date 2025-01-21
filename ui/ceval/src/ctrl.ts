@@ -292,6 +292,9 @@ export default class CevalCtrl {
   engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
     showEngineError(this.engines.active?.name ?? 'Engine', msg);
+    //this.toggle();
+    this.worker?.destroy();
+    this.worker = undefined;
   }
 
   private lastEmitFen: string | null = null;

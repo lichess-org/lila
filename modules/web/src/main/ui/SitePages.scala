@@ -204,7 +204,7 @@ final class SitePages(helpers: Helpers):
         )
 
   def lag(using Context) =
-    import trans.{ lag as trl }
+    import trans.lag as trl
     SitePage(title = "Is Lichess lagging?", active = "lag")
       .css("bits.lag")
       .js(esmInit("chart.lag")):

@@ -225,13 +225,13 @@ final class RoundSocket(
       send:
         RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_reinstate", userId))
 
-  scheduler.scheduleWithFixedDelay(25 seconds, tickInterval): () =>
+  scheduler.scheduleWithFixedDelay(25.seconds, tickInterval): () =>
     rounds.tellAll(RoundAsyncActor.Tick)
 
-  scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds): () =>
+  scheduler.scheduleWithFixedDelay(60.seconds, 60.seconds): () =>
     lila.mon.round.asyncActorCount.update(rounds.size)
 
-  private val terminationDelay = TerminationDelay(scheduler, 1 minute, finishRound)
+  private val terminationDelay = TerminationDelay(scheduler, 1.minute, finishRound)
 
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries

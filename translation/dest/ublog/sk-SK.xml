@@ -4,6 +4,12 @@
   <string name="friendBlogs">Blogy priateľov</string>
   <string name="likedBlogs">Blogové príspevky, ktoré sa Vám páčia</string>
   <string name="blogTopics">Témy blogov</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s blogový príspevok</item>
+    <item quantity="few">%s blogové príspevky</item>
+    <item quantity="many">%s blogových príspevkov</item>
+    <item quantity="other">%s blogových príspevkov</item>
+  </plurals>
   <string name="lichessOfficialBlog">Oficiálny blog Lichessu</string>
   <string name="continueReadingPost">Pokračovať čítaním tohto blogu</string>
   <string name="lichessBlogPostsFromXYear">Blogové príspevky na Lichesse v %s</string>
@@ -21,6 +27,8 @@
   <string name="createBlogDiscussionHelp">Na fóre sa vytvorí téma, v ktorej budú ľudia môcť komentovať Váš príspevok</string>
   <string name="publishOnYourBlog">Zverejnené na tvojom blogu</string>
   <string name="publishHelp">Ak je toto pole začiarknuté, príspevok bude uvedený na vašom blogu. Ak nie je, bude príspevok uvedený ako súkromný vo forme konceptu</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Prilepiť príspevok</string>
+  <string name="stickyPostHelp">Ak zapnuté, tento príspevok bude uvedený ako prvý v posledných príspevkoch vo Vašom profile.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Zverejnil jeden príspevok na blogu</item>
     <item quantity="few">Zverejnil %s príspevky na blogu</item>
@@ -36,7 +44,7 @@
   <string name="xPublishedY">Používateľ %1$s uverejnil blog s názvom %2$s</string>
   <string name="thisPostIsPublished">Tento príspevok je zverejnený</string>
   <string name="thisIsADraft">Toto je koncept</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Viac príspevkov na blogu od používateľa %s</string>
+  <string name="moreBlogPostsBy">Viac príspevkov na blogu od používateľa %s</string>
   <string name="noPostsInThisBlogYet">V tomto blogu zatiaľ nie sú žiadne príspevky.</string>
   <string name="noDrafts">Žiadne koncepty na zobrazenie.</string>
   <string name="latestBlogPosts">Najnovšie príspevky na blogu</string>

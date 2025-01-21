@@ -112,8 +112,7 @@ final class Round(
           case None =>
             Redirect(currentGame.simulId match
               case Some(simulId) => routes.Simul.show(simulId)
-              case None          => routes.Round.watcher(gameId, Color.white)
-            )
+              case None          => routes.Round.watcher(gameId, Color.white))
   }
 
   def watcher(gameId: GameId, color: Color) = Open:
@@ -262,7 +261,7 @@ final class Round(
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     bindForm(env.round.noteApi.form)(
       _ => BadRequest,
-      text => env.round.noteApi.set(gameId, me, text.trim.take(10000)).inject(NoContent)
+      text => env.round.noteApi.set(gameId, me, text.trim.take(10000)).inject(jsonOkResult)
     )
   }
 
