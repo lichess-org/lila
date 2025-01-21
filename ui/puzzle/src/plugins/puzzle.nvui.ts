@@ -19,18 +19,19 @@ import {
   renderPieces,
   renderSan,
   selectionHandler,
-  Style,
   styleSetting,
+  type MoveStyle,
 } from 'nvui/chess';
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands } from 'nvui/command';
+import { commands, boardCommands } from 'nvui/command';
 import { next as controlNext } from '../control';
 import { bind, onInsert } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
+import { opposite } from 'chessops';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -62,11 +63,10 @@ export function initModule() {
           ctrl.streak ? '.puzzle--streak' : ''
         }`,
         h('div.nvui', [
-          h('h1', `Puzzle: ${ctrl.pov} to play.`),
           h('h2', 'Puzzle info'),
           puzzleBox(ctrl),
           theme(ctrl),
-          !ctrl.streak ? userBox(ctrl) : null,
+          !ctrl.streak && userBox(ctrl),
           h('h2', 'Moves'),
           h(
             'p.moves',
@@ -81,8 +81,8 @@ export function initModule() {
             { attrs: { role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' } },
             renderStatus(ctrl),
           ),
-          h('div.replay', renderReplay(ctrl)),
-          ...(ctrl.streak ? renderStreak(ctrl) : []),
+          ctrl.data.replay && h('div.replay', renderReplay(ctrl)),
+          ctrl.streak && renderStreak(ctrl),
           h('h2', 'Last move'),
           h(
             'p.lastMove',
@@ -96,13 +96,15 @@ export function initModule() {
               hook: onInsert(el => {
                 const $form = $(el),
                   $input = $form.find('.move').val('');
-                $input[0]!.focus();
+                $input[0]?.focus();
                 $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input, ground));
               }),
             },
             [
               h('label', [
-                ctrl.mode === 'view' ? 'Command input' : `Find the best move for ${ctrl.pov}.`,
+                ctrl.mode === 'view'
+                  ? 'Command input'
+                  : `${i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']}`,
                 h('input.move.mousetrap', {
                   attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
                 }),
@@ -119,10 +121,9 @@ export function initModule() {
               hook: onInsert(el => {
                 const $board = $(el);
                 const $buttons = $board.find('button');
-                const steps = () => ctrl.tree.getNodeList(ctrl.path);
-                const uciSteps = () => steps().filter(hasUci);
-                const fenSteps = () => steps().map(step => step.fen);
-                const opponentColor = ctrl.pov === 'white' ? 'black' : 'white';
+                const steps = ctrl.tree.getNodeList(ctrl.path);
+                const fenSteps = () => steps.map(step => step.fen);
+                const opponentColor = opposite(ctrl.pov);
                 $board.on(
                   'click',
                   selectionHandler(() => opponentColor, selectSound),
@@ -142,7 +143,7 @@ export function initModule() {
                     () => ground.state.pieces,
                     'standard',
                     () => ground.state.movable.dests,
-                    uciSteps,
+                    () => steps,
                   ),
                 );
                 $buttons.on('keypress', positionJumpHandler());
@@ -169,17 +170,17 @@ export function initModule() {
           ...(!ctrl.data.replay && !ctrl.streak
             ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
             : []),
-          h('h2', 'Keyboard shortcuts'),
+          h('h2', i18n.site.keyboardShortcuts),
           h('p', [
-            'Left and right arrow keys or k and j: Navigate to the previous or next move.',
+            `Left and right arrow keys: ${i18n.site.keyMoveBackwardOrForward}`,
             h('br'),
-            'Up and down arrow keys, or 0 and $, or home and end: Jump to the first or last move.',
+            `Up and down arrow keys, or 0 and $, or home and end: ${i18n.site.keyGoToStartOrEnd}`,
           ]),
           h('h2', 'Commands'),
           h('p', [
             'Type these commands in the move input.',
             h('br'),
-            'v: View the solution.',
+            `v: ${i18n.site.viewTheSolution}`,
             h('br'),
             'l: Read last move.',
             h('br'),
@@ -188,31 +189,7 @@ export function initModule() {
             commands.scan.help,
             h('br'),
           ]),
-          h('h2', 'Board mode commands'),
-          h('p', [
-            'Use these commands when focused on the board itself.',
-            h('br'),
-            'o: announce current position.',
-            h('br'),
-            "c: announce last move's captured piece.",
-            h('br'),
-            'l: announce last move.',
-            h('br'),
-            't: announce clocks.',
-            h('br'),
-            'm: announce possible moves for the selected piece.',
-            h('br'),
-            'shift+m: announce possible moves for the selected pieces which capture..',
-            h('br'),
-            'arrow keys: move left, right, up or down.',
-            h('br'),
-            'kqrbnp/KQRBNP: move forward/backward to a piece.',
-            h('br'),
-            '1-8: move to rank 1-8.',
-            h('br'),
-            'Shift+1-8: move to file a-h.',
-            h('br'),
-          ]),
+          ...boardCommands(),
           h('h2', 'Promotion'),
           h('p', [
             'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
@@ -225,29 +202,23 @@ export function initModule() {
   };
 }
 
-interface StepWithUci extends Tree.Node {
-  uci: Uci;
-}
-
-function hasUci(step: Tree.Node): step is StepWithUci {
-  return step.uci !== undefined;
-}
-
-function lastMove(ctrl: PuzzleCtrl, style: Style): string {
+function lastMove(ctrl: PuzzleCtrl, style: MoveStyle): string {
   const node = ctrl.node;
-  if (node.ply === 0) return 'Initial position';
-  // make sure consecutive moves are different so that they get re-read
-  return renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : ' ');
+  return node.ply === 0
+    ? 'Initial position'
+    : // make sure consecutive moves are different so that they get re-read
+      renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : ' ');
 }
 
 function onSubmit(
   ctrl: PuzzleCtrl,
   notify: (txt: string) => void,
-  style: () => Style,
+  style: () => MoveStyle,
   $input: Cash,
   ground: CgApi,
-): () => false {
-  return () => {
+): (ev: SubmitEvent) => void {
+  return (ev: SubmitEvent) => {
+    ev.preventDefault();
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -255,41 +226,27 @@ function onSubmit(
       const uci = inputToLegalUci(input, ctrl.node.fen, ground);
       if (uci) {
         ctrl.playUci(uci);
-        switch (ctrl.lastFeedback) {
-          case 'fail':
-            notify(i18n.puzzle.notTheMove);
-            break;
-          case 'good':
-            notify(i18n.puzzle.bestMove);
-            break;
-          case 'win':
-            notify(i18n.puzzle.puzzleSuccess);
-        }
-      } else {
-        notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
-      }
+        const fback = ctrl.lastFeedback;
+        if (fback === 'fail') notify(i18n.puzzle.notTheMove);
+        else if (fback === 'good') notify(i18n.puzzle.bestMove);
+        else if (fback === 'win') notify(i18n.puzzle.puzzleSuccess);
+      } else notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
     }
     $input.val('');
-    return false;
   };
 }
 
-function isYourMove(ctrl: PuzzleCtrl) {
-  return ctrl.node.children.length === 0 || ctrl.node.children[0].puzzle === 'fail';
-}
+const isYourMove = (ctrl: PuzzleCtrl): boolean =>
+  ctrl.node.children.length === 0 || ctrl.node.children[0].puzzle === 'fail';
 
-function browseHint(ctrl: PuzzleCtrl): string[] {
-  if (ctrl.mode !== 'view' && !isYourMove(ctrl)) return ['You browsed away from the latest position.'];
-  else return [];
-}
+const browseHint = (ctrl: PuzzleCtrl): string[] =>
+  ctrl.mode !== 'view' && !isYourMove(ctrl) ? [i18n.site.youBrowsedAway] : [];
 
 const shortCommands = ['l', 'last', 'p', 's', 'v'];
 
-function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0].toLowerCase());
-}
+const isShortCommand = (input: string): boolean => shortCommands.includes(input.split(' ')[0].toLowerCase());
 
-function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: Style): void {
+function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: MoveStyle): void {
   const lowered = c.toLowerCase();
   const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
@@ -310,35 +267,27 @@ function viewOrAdvanceSolution(ctrl: PuzzleCtrl, notify: (txt: string) => void):
     if (isInSolution(next) || (isInSolution(node) && isInSolution(nextNext))) {
       controlNext(ctrl);
       ctrl.redraw();
-    } else if (isInSolution(node)) {
-      notify('Puzzle complete!');
-    } else {
-      ctrl.viewSolution();
-    }
-  } else {
-    ctrl.viewSolution();
-  }
+    } else if (isInSolution(node)) notify(i18n.puzzle.puzzleComplete);
+    else ctrl.viewSolution();
+  } else ctrl.viewSolution();
 }
 
-function isInSolution(node?: Tree.Node): boolean {
-  return !!node && (node.puzzle === 'good' || node.puzzle === 'win');
-}
+const isInSolution = (node?: Tree.Node): boolean =>
+  !!node && (node.puzzle === 'good' || node.puzzle === 'win');
 
-function nextNode(node?: Tree.Node): Tree.Node | undefined {
-  if (node?.children?.length) return node.children[0];
-  else return;
-}
+const nextNode = (node?: Tree.Node): Tree.Node | undefined =>
+  node?.children?.length ? node.children[0] : undefined;
 
-function renderStreak(ctrl: PuzzleCtrl): VNode[] {
-  if (!ctrl.streak) return [];
-  return [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || i18n.puzzle.streakDescription)];
-}
+const renderStreak = (ctrl: PuzzleCtrl): VNode[] =>
+  !ctrl.streak
+    ? []
+    : [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || i18n.puzzle.streakDescription)];
 
 function renderStatus(ctrl: PuzzleCtrl): string {
   if (ctrl.mode !== 'view') return 'Solving';
-  else if (ctrl.streak) return `GAME OVER. Your streak: ${ctrl.streak.data.index}`;
-  else if (ctrl.lastFeedback === 'win') return 'Puzzle solved!';
-  else return 'Puzzle complete.';
+  else if (ctrl.streak) return `GAME OVER. ${i18n.puzzle.yourStreakX(ctrl.streak.data.index)}`;
+  else if (ctrl.lastFeedback === 'win') return i18n.puzzle.puzzleSuccess;
+  else return i18n.puzzle.puzzleComplete;
 }
 
 function renderReplay(ctrl: PuzzleCtrl): string {
@@ -349,44 +298,36 @@ function renderReplay(ctrl: PuzzleCtrl): string {
   return `Replaying ${text} puzzles: ${i} of ${replay.of}`;
 }
 
-function playActions(ctrl: PuzzleCtrl): VNode {
-  if (ctrl.streak)
-    return button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip);
-  else return h('div.actions_play', button('View the solution', ctrl.viewSolution));
-}
+const playActions = (ctrl: PuzzleCtrl): VNode =>
+  ctrl.streak
+    ? button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip)
+    : h('div.actions_play', button(i18n.site.viewTheSolution, ctrl.viewSolution));
 
-function afterActions(ctrl: PuzzleCtrl): VNode {
-  const win = ctrl.lastFeedback === 'win';
-  return h(
+const afterActions = (ctrl: PuzzleCtrl): VNode =>
+  h(
     'div.actions_after',
-    ctrl.streak && !win
-      ? anchor(i18n.puzzle.newStreak, '/streak')
-      : [...renderVote(ctrl), button('Continue training', ctrl.nextPuzzle)],
+    ctrl.streak && ctrl.lastFeedback === 'win'
+      ? h('a', { attrs: { href: '/streak' } }, i18n.puzzle.newStreak)
+      : [...renderVote(ctrl), button(i18n.puzzle.continueTraining, ctrl.nextPuzzle)],
   );
-}
 
 const renderVoteTutorial = (ctrl: PuzzleCtrl): VNode[] =>
   ctrl.session.isNew() && ctrl.data.user?.provisional
     ? [h('p', i18n.puzzle.didYouLikeThisPuzzle), h('p', i18n.puzzle.voteToLoadNextOne)]
     : [];
 
-function renderVote(ctrl: PuzzleCtrl): VNode[] {
-  if (!ctrl.data.user || ctrl.autoNexting()) return [];
-  return [
-    ...renderVoteTutorial(ctrl),
-    button('Thumbs up', () => ctrl.vote(true), undefined, ctrl.voteDisabled),
-    button('Thumbs down', () => ctrl.vote(false), undefined, ctrl.voteDisabled),
-  ];
-}
+const renderVote = (ctrl: PuzzleCtrl): VNode[] =>
+  !ctrl.data.user || ctrl.autoNexting()
+    ? []
+    : [
+        ...renderVoteTutorial(ctrl),
+        button(i18n.puzzle.upVote, () => ctrl.vote(true), undefined, ctrl.voteDisabled),
+        button(i18n.puzzle.downVote, () => ctrl.vote(false), undefined, ctrl.voteDisabled),
+      ];
 
-function anchor(text: string, href: string): VNode {
-  return h('a', { attrs: { href } }, text);
-}
-
-function button(text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode {
-  return h(
+const button = (text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode =>
+  h(
     'button',
     { hook: bind('click', action), attrs: { ...(title ? { title } : {}), disabled: !!disabled } },
     text,
   );
-}
