@@ -39,8 +39,12 @@
     <item quantity="other">%1$s %2$s கடித கேம்கள் முடிந்தது</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">%s பிளேயரைப் பின்தொடரத் தொடங்கியது</item>
+    <item quantity="one">%s ஆட்டக்காரரைப் பின்தொடரத் தொடங்கியது</item>
     <item quantity="other">%s வீரர்களைப் பின்தொடரத் தொடங்கியது</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s புதிய பின்பற்றுபவர் பெறப்பட்டது</item>
+    <item quantity="other">%s புதிய பின்பற்றுபவர்கள் பெறப்பட்டது</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s ஒரே நேரத்தில் கண்காட்சி நடத்தப்பட்டது</item>
@@ -49,6 +53,10 @@
   <plurals name="joinedNbSimuls">
     <item quantity="one">%s ஒரே நேரத்தில் நடந்த கண்காட்சியில் பங்கேற்றார்</item>
     <item quantity="other">%s ஒரே நேரத்தில் நடந்த கண்காட்சியில் பங்கேற்றார்</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s புதிய கற்கையை உருவாக்கப்பட்டது</item>
+    <item quantity="other">%s புதிய கற்கைகள் உருவாக்கப்பட்டது</item>
   </plurals>
   <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">%s அரினா போட்டியில் போட்டியிட்டார்</item>
@@ -62,7 +70,7 @@
     <item quantity="one">%s சுவிஸ் போட்டியில் போட்டியிட்டார்</item>
     <item quantity="other">%s சுவிஸ் போட்டிகளில் போட்டியிட்டார்</item>
   </plurals>
-  <string name="rankedInSwissTournament">%2$s இல் #%1$s தரவரிசை</string>
+  <string name="rankedInSwissTournament">%2$s இல் #%1$s ஆம் தரவரிசை</string>
   <string name="signedUp">Lichess.org இல் பதிவு செய்துள்ளார்</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s குழுவில் சேர்ந்தார்</item>
