@@ -24,7 +24,7 @@
   <string name="tournamentDescription">பந்தயத்தின் குறுகிய விளக்கம்</string>
   <string name="fullDescription">பந்தயத்தின் முழு விளக்கம்</string>
   <string name="fullDescriptionHelp">பந்தயத்தின் நீண்ட விளக்கம் கட்டாயமற்றது. %1$s கிடைக்கிறது. நீளம் %2$s எழுத்துகளுக்குக் குறைவாக இருக்க வேண்டும்.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN ஆதார URL</string>
+  <string name="sourceSingleUrl">PGN ஆதார URL</string>
   <string name="sourceUrlHelp">PGN புதுப்பிப்புகளைப் பெற லிசெஸ் சரிபார்க்கும் URL. இது இணையத்திலிருந்து பொதுவில் அணுகக்கூடியதாக இருக்க வேண்டும்.</string>
   <string name="sourceGameIds">64 லிசெஸ் ஆட்ட அடையாளங்கள் வரை, இடைவெளிகளால் பிரிக்கப்பட்டது.</string>
   <string name="startDateTimeZone">பந்தயம் உள்ளூர் நேர மண்டலத்தில் துவங்கும் தேதி: %s</string>
@@ -38,7 +38,7 @@
   <string name="editRoundStudy">சுற்று ஆய்வைத் திருத்து</string>
   <string name="deleteTournament">இப்பந்தயத்தை நீக்கு</string>
   <string name="definitivelyDeleteTournament">முழு பந்தயத்தையும், அதன் அனைத்து சுற்றுகளையும் அதன் அனைத்து ஆட்டங்களையும் கண்டிப்பாக நீக்கவும்.</string>
-  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">விளையாட்டு முடிவுகளின் அடிப்படையில் வீரர்களின் மதிப்பெண்களைக் காட்டு</string>
+  <string name="showScores">விளையாட்டு முடிவுகளின் அடிப்படையில் வீரர்களின் மதிப்பெண்களைக் காட்டு</string>
   <string name="replacePlayerTags">கட்டாயமற்றது: வீரர்களின் பெயர்கள், மதிப்பீடுகள் மற்றும் தலைப்புகளை மாற்றவும்</string>
   <string name="fideFederations">FIDE பேரவை</string>
   <string name="top10Rating">சிறந்த 10 மதிப்பீடு</string>
@@ -47,9 +47,9 @@
   <string name="fideProfile">FIDE சுயவிவரம்</string>
   <string name="federation">கூட்டமைப்பு</string>
   <string name="ageThisYear">இந்த ஆண்டு அகவை</string>
-  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">மதிப்பிடப்படாதது</string>
+  <string name="unrated">மதிப்பிடப்படாதது</string>
   <string name="recentTournaments">சமீபத்திய பந்தயங்கள்</string>
-  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">லிசெஸ் இல் திறக்கவும்</string>
+  <string name="openLichess">லிசெஸ் இல் திறக்கவும்</string>
   <string name="teams">கூட்டணி</string>
   <string name="boards">பலகைகள்</string>
   <string name="overview">மேலோட்டம்</string>
