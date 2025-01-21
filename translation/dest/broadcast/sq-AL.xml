@@ -76,4 +76,5 @@
   <string name="optionalDetails">Hollësi opsionale</string>
   <string name="pastBroadcasts">Transmetime të kaluara</string>
   <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
+  <string name="backToLiveMove">Mbrapsht te lëvizja “live”</string>
 </resources>
