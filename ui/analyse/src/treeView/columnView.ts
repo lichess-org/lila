@@ -1,4 +1,4 @@
-import { isEmpty } from 'common';
+import { defined, isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { type VNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
@@ -20,7 +20,6 @@ import {
 
 interface Ctx extends BaseCtx {
   concealOf: ConcealOf;
-  onlyHide?: boolean;
 }
 interface Opts extends BaseOpts {
   conceal?: Conceal;
@@ -40,8 +39,9 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
   const conceal = opts.noConceal
     ? null
     : opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main);
-  if (!ctx.onlyHide && conceal === 'hide') return;
-  const hideIndex = ctx.onlyHide && conceal === 'hide';
+  const isRelay = defined(ctx.ctrl.study?.relay);
+  if (!isRelay && conceal === 'hide') return;
+  const hideIndex = isRelay && conceal === 'hide';
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
       commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(
@@ -226,7 +226,6 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const ctx: Ctx = {
     ...renderingCtx(ctrl),
     concealOf: concealOf ?? emptyConcealOf,
-    onlyHide: ctrl.study?.relay !== undefined ? true : false,
   };
   // root path is hardcoded, is there a better way?
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');
