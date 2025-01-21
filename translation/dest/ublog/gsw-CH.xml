@@ -4,6 +4,10 @@
   <string name="friendBlogs">Tagebüecher vu Fründe</string>
   <string name="likedBlogs">Bevorzugti Tagebuech Biträg</string>
   <string name="blogTopics">Tagebuech Theme</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s Tagebuech-Bitrag</item>
+    <item quantity="other">%s Tagebuech-Biträg</item>
+  </plurals>
   <string name="lichessOfficialBlog">Offiziells Lichess Tagebuech</string>
   <string name="continueReadingPost">De Bitrag witer läse</string>
   <string name="lichessBlogPostsFromXYear">Lichess Tagebuech-Biträg in %s</string>
