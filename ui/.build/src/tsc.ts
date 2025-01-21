@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import ts from 'typescript';
 import { Worker } from 'node:worker_threads';
-import { env, colors as c, errorMark } from './env.ts';
+import { env, c, errorMark } from './env.ts';
 import { globArray, folderSize, readable } from './parse.ts';
 import { clamp } from './algo.ts';
 import type { WorkerData, Message } from './tscWorker.ts';

@@ -28,8 +28,6 @@
       "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "public/npm"
     },
     "hash": [
-      "font/lichess.woff",
-      "font/*.woff2",
       "lifat/background/montage*.webp",
       "npm/*",
       "javascripts/**",

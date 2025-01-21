@@ -1,7 +1,7 @@
 import path from 'node:path';
 import es from 'esbuild';
 import fs from 'node:fs';
-import { env, errorMark, colors as c } from './env.ts';
+import { env, errorMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { trimAndConsolidateWhitespace, readable } from './parse.ts';
 

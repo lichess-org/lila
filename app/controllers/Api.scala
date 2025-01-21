@@ -384,6 +384,12 @@ final class Api(
       ttl = 1.hour,
       maxConcurrency = 4
     )
+    val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
+      name = "API verified events concurrency per IP",
+      key = "api.ip.events.verified",
+      ttl = 1.hour,
+      maxConcurrency = 12
+    )
     val download = lila.web.ConcurrencyLimit[IpAddress](
       name = "API download concurrency per IP",
       key = "api.ip.download",

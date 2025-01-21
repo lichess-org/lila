@@ -1,9 +1,10 @@
 .button {
-  @extend %roboto-fat, %button-shadow, %box-radius;
+  @extend %roboto, %button-shadow, %box-radius;
 
   @include prevent-select;
   @include transition;
 
+  font-weight: 500;
   background: $c-primary;
   text-transform: uppercase;
   padding: 0.8em 1em;

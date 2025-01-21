@@ -283,6 +283,7 @@ object Flags extends lila.core.user.FlagApi:
     C("_adygea", "Adygea"),
     C("_belarus-wrw", "Belarus White-red-white"),
     C("_east-turkestan", "East Turkestan"),
+    C("_kurdistan", "Kurdistan"),
     C("_russia-wbw", "Russia White-blue-white"),
     C("_united-nations", "United Nations"),
     C("_earth", "Earth")

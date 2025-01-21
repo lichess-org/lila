@@ -210,7 +210,8 @@ final class Setup(
           doubleJsonFormError,
           config =>
             processor.apiAi(config).map { pov =>
-              Created(env.game.jsonView.baseWithChessDenorm(pov.game, config.fen)).as(JSON)
+              val json = env.game.jsonView.apiAiNewGame(pov, config.fen)
+              Created(json).as(JSON)
             }
         )
   }

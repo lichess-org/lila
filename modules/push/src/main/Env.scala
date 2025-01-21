@@ -21,13 +21,13 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
-    getLightUser: lila.core.LightUser.GetterFallback,
     gameProxy: lila.core.game.GameProxy,
     roundJson: lila.core.round.RoundJson,
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
     notifyAllows: lila.core.notify.GetNotifyAllows,
-    postApi: lila.core.forum.ForumPostApi
+    postApi: lila.core.forum.ForumPostApi,
+    getLightUser: lila.core.LightUser.GetterFallback
 )(using Executor, Scheduler):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)

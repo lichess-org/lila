@@ -1,7 +1,7 @@
 import path from 'node:path';
 import type { Package } from './parse.ts';
 import { unique, isEquivalent } from './algo.ts';
-import { updateManifest } from './manifest.ts';
+import { type Manifest, updateManifest } from './manifest.ts';
 
 // state, logging, and exit code logic
 
@@ -25,10 +25,6 @@ export const env = new (class {
   readonly i18nDestDir = path.join(this.rootDir, 'translation', 'dest');
   readonly i18nJsDir = path.join(this.rootDir, 'translation', 'js');
 
-  packages: Map<string, Package> = new Map();
-  workspaceDeps: Map<string, string[]> = new Map();
-  building: Package[] = [];
-
   watch = false;
   clean = false;
   prod = false;
@@ -42,12 +38,18 @@ export const env = new (class {
   exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
   logTime = true;
-  logContext = true;
-  color: any = {
-    build: 'green',
-    sass: 'magenta',
-    tsc: 'yellow',
-    esbuild: 'blue',
+  logCtx = true;
+  logColor = true;
+
+  packages: Map<string, Package> = new Map();
+  workspaceDeps: Map<string, string[]> = new Map();
+  building: Package[] = [];
+  manifest: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
+    i18n: {},
+    js: {},
+    css: {},
+    hashed: {},
+    dirty: false,
   };
 
   get sass(): boolean {
@@ -97,7 +99,7 @@ export const env = new (class {
   }
 
   good(ctx = 'build'): void {
-    this.log(colors.good('No errors') + this.watch ? ` - ${colors.grey('Watching')}...` : '', { ctx: ctx });
+    this.log(c.good('No errors') + this.watch ? ` - ${c.grey('Watching')}...` : '', { ctx: ctx });
   }
 
   log(d: any, { ctx = 'build', error = false, warn = false }: any = {}): void {
@@ -108,20 +110,13 @@ export const env = new (class {
           ? d.join('\n')
           : JSON.stringify(d);
 
-    const esc = this.color ? escape : (text: string, _: any) => text;
-
-    if (!this.color) text = stripColorEscapes(text);
-
     const prefix = (
-      (this.logTime === false ? '' : prettyTime()) +
-      (!ctx || !this.logContext ? '' : `[${esc(ctx, colorForCtx(ctx, this.color))}] `)
+      (this.logTime ? prettyTime() : '') + (ctx && this.logCtx ? `[${escape(ctx, colorForCtx(ctx))}]` : '')
     ).trim();
 
-    lines(text).forEach(line =>
+    lines(this.logColor ? text : stripColorEscapes(text)).forEach(line =>
       console.log(
-        `${prefix ? prefix + ' - ' : ''}${
-          error ? esc(line, codes.error) : warn ? esc(line, codes.warn) : line
-        }`,
+        `${prefix ? prefix + ' - ' : ''}${escape(line, error ? codes.error : warn ? codes.warn : undefined)}`,
       ),
     );
   }
@@ -132,13 +127,11 @@ export const env = new (class {
     const allDone = this.exitCode.size === 3;
     if (ctx !== 'tsc' || code === 0)
       this.log(
-        `${code === 0 ? 'Done' : colors.red('Failed')}` +
-          (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
+        `${code === 0 ? 'Done' : c.red('Failed')}` + (this.watch ? ` - ${c.grey('Watching')}...` : ''),
         { ctx },
       );
     if (allDone) {
-      if (this.startTime && !err)
-        this.log(`Done in ${colors.green((Date.now() - this.startTime) / 1000 + '')}s`);
+      if (this.startTime && !err) this.log(`Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`);
       this.startTime = undefined; // it's pointless to time subsequent builds, they are too fast
     }
     if (!this.watch && err) process.exitCode = err;
@@ -148,11 +141,12 @@ export const env = new (class {
 
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
 
-const escape = (text: string, code: string): string => `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m`;
+const escape = (text: string, code?: string): string =>
+  env.logColor && code ? `\x1b[${code}m${stripColorEscapes(text)}\x1b[0m` : text;
 
 const colorLines = (text: string, code: string) =>
   lines(text)
-    .map(t => (env.color ? escape(t, code) : t))
+    .map(t => escape(t, code))
     .join('\n');
 
 const codes: Record<string, string> = {
@@ -168,7 +162,7 @@ const codes: Record<string, string> = {
   warn: '33',
 };
 
-export const colors: Record<string, (text: string) => string> = {
+export const c: Record<string, (text: string) => string> = {
   red: (text: string): string => colorLines(text, codes.red),
   green: (text: string): string => colorLines(text, codes.green),
   yellow: (text: string): string => colorLines(text, codes.yellow),
@@ -183,11 +177,16 @@ export const colors: Record<string, (text: string) => string> = {
   cyanBold: (text: string): string => colorLines(text, codes.cyan + ';1'),
 };
 
-export const errorMark: string = colors.red('✘ ') + colors.error('[ERROR]');
-export const warnMark: string = colors.yellow('⚠ ') + colors.warn('[WARNING]');
+export const errorMark: string = c.red('✘ ') + c.error('[ERROR]');
+export const warnMark: string = c.yellow('⚠ ') + c.warn('[WARNING]');
 
-const colorForCtx = (ctx: string, color: any): string =>
-  color && ctx in color && color[ctx] in codes ? codes[color[ctx]] : codes.grey;
+const colorForCtx = (ctx: string): string =>
+  ({
+    build: codes.green,
+    sass: codes.magenta,
+    tsc: codes.yellow,
+    esbuild: codes.blue,
+  })[ctx] ?? codes.grey;
 
 const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 

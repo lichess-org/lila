@@ -21,9 +21,8 @@ final class ReportApi(
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
-    thresholds: Thresholds,
-    domain: lila.core.config.NetDomain
-)(using Executor, Scheduler)
+    thresholds: Thresholds
+)(using Executor, Scheduler, lila.core.config.NetDomain)
     extends lila.core.report.ReportApi:
 
   import BSONHandlers.given
