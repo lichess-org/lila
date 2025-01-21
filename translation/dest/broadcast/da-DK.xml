@@ -80,4 +80,5 @@
   <string name="optionalDetails">Valgfri detaljer</string>
   <string name="pastBroadcasts">Tidligere udsendelser</string>
   <string name="allBroadcastsByMonth">Vis alle udsendelser efter måned</string>
+  <string name="backToLiveMove">Tilbage til live træk</string>
 </resources>
