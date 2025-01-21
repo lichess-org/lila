@@ -3,6 +3,7 @@
   <string name="donate">Lahjoita</string>
   <string name="donateAsX">Lahjoita käyttäjänä %s</string>
   <string name="lichessPatron">Lichessin tukija</string>
+  <string name="patronSince" comment="string is a date">Tukija %s lähtien</string>
   <string name="freeAccount">Ilmainen tunnus</string>
   <string name="becomePatron">Ryhdy Lichessin tukijaksi</string>
   <string name="xBecamePatron">%s ryhtyi Lichessin tukijaksi</string>

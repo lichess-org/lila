@@ -19,7 +19,7 @@ case class AssetMaps(
     modified: Instant
 )
 
-final class AssetManifest(environment: Environment, net: NetConfig)(using ws: StandaloneWSClient)(using
+final class AssetManifest(environment: Environment, net: NetConfig, ws: StandaloneWSClient)(using
     Executor
 ):
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)

@@ -16,10 +16,11 @@ final class PracticeUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
 
-  def show(us: UserStudy, data: JsonView.JsData)(using Context) =
+  def show(us: UserStudy, data: JsonView.JsData)(using ctx: Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
       .i18n(_.puzzle, _.study)
+      .i18nOpt(ctx.blind, _.keyboardMove)
       .js(analyseNvuiTag)
       .js(
         PageModule(

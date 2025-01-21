@@ -12,25 +12,26 @@ import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyCha
 import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
 import { h } from 'snabbdom';
-import { storage, storedBooleanProp, StoredProp } from 'common/storage';
+import { storage, storedBooleanProp } from 'common/storage';
 import { Chessground as makeChessground } from 'chessground';
 import { EMPTY_BOARD_FEN } from 'chessops/fen';
 
 export class MultiBoardCtrl {
   playing: Toggle;
-  showResults: StoredProp<boolean>;
+  showResults: Prop<boolean>;
   teamSelect: Prop<string> = prop('');
   page: number = 1;
   maxPerPageStorage = storage.make('study.multiBoard.maxPerPage');
 
   constructor(
     readonly chapters: StudyChapters,
+    readonly isRelay: boolean,
     readonly multiCloudEval: MultiCloudEval | undefined,
     private readonly initialTeamSelect: ChapterId | undefined,
     readonly redraw: () => void,
   ) {
     this.playing = toggle(false, this.redraw);
-    this.showResults = storedBooleanProp('study.showResults', true);
+    this.showResults = this.isRelay ? storedBooleanProp('study.showResults', true) : toggle(true);
     if (this.initialTeamSelect) this.onChapterChange(this.initialTeamSelect);
   }
 
@@ -104,8 +105,8 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       h('div.study__multiboard__options', [
         ctrl.multiCloudEval &&
           h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), i18n.study.showEvalBar]),
-        renderPlayingToggle(ctrl),
-        renderShowResultsToggle(ctrl),
+        ctrl.isRelay ? renderPlayingToggle(ctrl) : undefined,
+        ctrl.isRelay ? renderShowResultsToggle(ctrl) : undefined,
       ]),
     ]),
     !ctrl.showResults()
@@ -141,7 +142,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',
-      { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
+      { hook: bind('change', e => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
       [4, 6, 8, 10, 12, 16, 20, 24, 32].map(nb =>
         h('option', { attrs: { value: nb, selected: nb === max } }, i18n.study.perPage(nb)),
       ),

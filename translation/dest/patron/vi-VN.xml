@@ -3,6 +3,7 @@
   <string name="donate">Ủng hộ</string>
   <string name="donateAsX">Ủng hộ bằng tài khoản %s</string>
   <string name="lichessPatron">Người bảo trợ Lichess</string>
+  <string name="patronSince" comment="%s is a date">Người bảo trợ từ khi %s</string>
   <string name="freeAccount">Tài khoản miễn phí</string>
   <string name="becomePatron">Trở thành một Người bảo trợ Lichess</string>
   <string name="xBecamePatron">%s đã trở thành một Người bảo trợ Lichess</string>

@@ -16,7 +16,7 @@ object Dependencies {
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.12.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.12.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val compression = "org.lichess"                  %% "compression"                     % "1.10"
+  val compression = "org.lichess"                  %% "compression"                     % "3.0"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
@@ -70,7 +70,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.6.4"
+    val version = "2.6.5"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"

@@ -33,7 +33,7 @@ object header:
             a(
               href := routes.Plan.index(),
               cls  := "trophy award patron icon3d",
-              ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
+              ariaTitle(trans.patron.patronSince.txt(showDate(u.plan.sinceDate)))
             )(patronIconChar)
           )
         ),
@@ -82,7 +82,7 @@ object header:
               cls  := "nm-item",
               href := routes.Ublog.index(u.username)
             )(
-              splitNumber(s"${info.ublog.so(_.nbPosts)} blog posts")
+              splitNumber(trans.ublog.blogPosts.pluralSame(info.ublog.so(_.nbPosts)))
             )
           ),
           (ctx.isAuth && ctx.isnt(u))

@@ -233,6 +233,8 @@ interface I18n {
     allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
+    /** Back to live move */
+    backToLiveMove: string;
     /** Boards */
     boards: string;
     /** Boards can be loaded with a source or via the %s */
@@ -1949,6 +1951,8 @@ interface I18n {
     patronFeatures: string;
     /** Lichess Patron for %s months */
     patronForMonths: I18nPlural;
+    /** Patron since %s */
+    patronSince: I18nFormat;
     /** You have a Patron account until %s. */
     patronUntil: I18nFormat;
     /** Pay %s once. Be a Lichess Patron forever! */
@@ -5385,6 +5389,8 @@ interface I18n {
     yearlyXArena: I18nFormat;
   };
   ublog: {
+    /** %s blog posts */
+    blogPosts: I18nPlural;
     /** Our simple tips to write great blog posts */
     blogTips: string;
     /** Blog topics */

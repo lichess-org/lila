@@ -20,7 +20,7 @@ object inquiry:
     )
 
   def apply(in: lila.mod.Inquiry)(using ctx: Context) =
-    div(id := "inquiry")(
+    div(id := "inquiry", data("username") := in.user.user.username)(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
         userLink(in.user.user, withPerfRating = in.user.perfs.some, params = "?mod"),

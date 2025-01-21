@@ -32,23 +32,24 @@ final class Study(
 
   def search(text: String, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
     Reasonable(page):
-      if text.trim.isEmpty then
-        for
-          pag <- env.study.pager.all(Orders.default, page)
-          _   <- preloadMembers(pag)
-          res <- negotiate(
-            Ok.page(views.study.list.all(pag, Orders.default)),
-            apiStudies(pag)
-          )
-        yield res
-      else
-        env
-          .studySearch(ctx.me)(text.take(100), page)
-          .flatMap: pag =>
-            negotiate(
-              Ok.page(views.study.list.search(pag, text)),
+      text.trim.some.filter(_.nonEmpty).filter(_.sizeIs > 2).filter(_.sizeIs < 200) match
+        case None =>
+          for
+            pag <- env.study.pager.all(Orders.default, page)
+            _   <- preloadMembers(pag)
+            res <- negotiate(
+              Ok.page(views.study.list.all(pag, Orders.default)),
               apiStudies(pag)
             )
+          yield res
+        case Some(clean) =>
+          env
+            .studySearch(ctx.me)(clean.take(100), page)
+            .flatMap: pag =>
+              negotiate(
+                Ok.page(views.study.list.search(pag, text)),
+                apiStudies(pag)
+              )
 
   def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.hot, 1))
 
