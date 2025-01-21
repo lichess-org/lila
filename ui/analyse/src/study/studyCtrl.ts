@@ -175,6 +175,7 @@ export default class StudyCtrl {
       );
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
+      defined(this.relay),
       this.multiCloudEval,
       this.relay?.tourShow() ? undefined : this.data.chapter.id,
       this.redraw,
