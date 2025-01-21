@@ -80,4 +80,5 @@
   <string name="optionalDetails">Detalles opcionais</string>
   <string name="pastBroadcasts">Emisións finalizadas</string>
   <string name="allBroadcastsByMonth">Ver todas as emisións por mes</string>
+  <string name="backToLiveMove">Voltar á xogada en directo</string>
 </resources>
