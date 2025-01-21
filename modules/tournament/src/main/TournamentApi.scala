@@ -702,6 +702,21 @@ final class TournamentApi(
       }
     else tournamentRepo.setSchedule(tourId, none)
 
+  def onUserDelete(u: UserId) =
+    leaderboard
+      .byPlayerStream(u, withPerformance = false, perSecond = MaxPerSecond(100), nb = Int.MaxValue)
+      .mapAsync(1): result =>
+        import result.tour
+        for
+          _ <- tournamentRepo.anonymize(tour, u)
+          // here we use a single ghost ID for all arena players and pairings,
+          // because the mapping of arena player to arena pairings must be preserved
+          ghostId = UserId(s"!${scalalib.ThreadLocalRandom.nextString(8)}")
+          _ <- playerRepo.anonymize(tour.id, u)(ghostId)
+          _ <- pairingRepo.anonymize(tour.id, u)(ghostId)
+        yield ()
+      .runWith(Sink.ignore)
+
   private def playerPovs(tour: Tournament, userId: UserId, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb).flatMap(gameRepo.light.gamesFromPrimary).map {
       _.flatMap { LightPov(_, userId) }

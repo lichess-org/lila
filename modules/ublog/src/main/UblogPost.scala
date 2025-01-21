@@ -63,6 +63,7 @@ object UblogPost:
     val created: Recorded
     val updated: Option[Recorded]
     val lived: Option[Recorded]
+    val sticky: Option[Boolean]
     def slug      = UblogPost.slug(title)
     def isLichess = created.by.is(UserId.lichess)
 

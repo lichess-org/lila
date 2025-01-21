@@ -79,7 +79,7 @@ final class UblogApi(
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
-      .sort($doc("sticky" -> -1, "lived.at" -> -1))
+      .sort(userLiveSort)
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
 
@@ -175,6 +175,11 @@ final class UblogApi(
   def onAccountClose(user: User) = for
     blog <- getBlog(UblogBlog.Id.User(user.id))
     _    <- blog.filter(_.visible).so(b => setTier(b.id, UblogRank.Tier.HIDDEN))
+  yield ()
+
+  def onAccountDelete(user: User) = for
+    _ <- colls.blog.delete.one($id(UblogBlog.Id.User(user.id)))
+    _ <- colls.post.delete.one($doc("blog" -> UblogBlog.Id.User(user.id)))
   yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =

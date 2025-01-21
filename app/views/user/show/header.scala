@@ -33,7 +33,7 @@ object header:
             a(
               href := routes.Plan.index(),
               cls  := "trophy award patron icon3d",
-              ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
+              ariaTitle(trans.patron.patronSince.txt(showDate(u.plan.sinceDate)))
             )(patronIconChar)
           )
         ),
@@ -82,7 +82,7 @@ object header:
               cls  := "nm-item",
               href := routes.Ublog.index(u.username)
             )(
-              splitNumber(s"${info.ublog.so(_.nbPosts)} blog posts")
+              splitNumber(trans.ublog.blogPosts.pluralSame(info.ublog.so(_.nbPosts)))
             )
           ),
           (ctx.isAuth && ctx.isnt(u))
@@ -256,7 +256,7 @@ object header:
       ,
       (ctx.kid.no && info.ublog.so(_.latests).nonEmpty).option(
         div(cls := "user-show__blog ublog-post-cards")(
-          info.ublog.so(_.latests).map(p => views.ublog.ui.card(p, showSticky = ~p.sticky))
+          info.ublog.so(_.latests).map(views.ublog.ui.card(_))
         )
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(

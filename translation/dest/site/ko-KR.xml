@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">친구와 게임하기</string>
-  <string name="playWithTheMachine">체스 엔진과 붙기</string>
+  <string name="playWithAFriend">친구와 체스 두기</string>
+  <string name="playWithTheMachine">컴퓨터와 체스 두기</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
-  <string name="gameOver">게임 오버</string>
+  <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
-  <string name="orLetYourOpponentScanQrCode">또는 상대방에게 이 QR 코드를 스캔하게 하세요</string>
+  <string name="orLetYourOpponentScanQrCode">상대방에게 이 QR 코드를 스캔하라고 하셔도 됩니다.</string>
   <string name="waiting">기다리는 중</string>
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
@@ -13,7 +13,7 @@
   <string name="strength">난이도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="chat">채팅</string>
-  <string name="resign">기권</string>
+  <string name="resign">기권하기</string>
   <string name="checkmate">체크메이트</string>
   <string name="stalemate">스테일메이트</string>
   <string name="white">백</string>
@@ -21,18 +21,18 @@
   <string name="asWhite">백일때</string>
   <string name="asBlack">흑일때</string>
   <string name="randomColor">무작위</string>
-  <string name="createAGame">새 게임 만들기</string>
+  <string name="createAGame">새로운 대국 만들기</string>
   <string name="whiteIsVictorious">백 승리</string>
   <string name="blackIsVictorious">흑 승리</string>
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
   <string name="cheatDetected">부정행위 감지됨</string>
-  <string name="kingInTheCenter">킹이 중앙에 도달함</string>
+  <string name="kingInTheCenter">킹이 중앙에 도달</string>
   <string name="threeChecks">세 번의 체크</string>
   <string name="raceFinished">킹이 보드 끝에 도달함</string>
-  <string name="variantEnding">변형 게임 엔딩</string>
-  <string name="newOpponent">새 상대</string>
+  <string name="variantEnding">변형 체스 규칙으로 종료</string>
+  <string name="newOpponent">새로운 상대</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">상대가 재대결을 원합니다</string>
   <string name="joinTheGame">대국 참가</string>
   <string name="whitePlays">백 차례</string>
@@ -96,7 +96,7 @@
   <string name="dtzWithRounding">다음 포획 혹은 폰 수까지 남은 반수를 반올림후 나타낸 DTZ50\" 수치</string>
   <string name="noGameFound">게임을 찾을 수 없습니다</string>
   <string name="maxDepthReached">최대 깊이 도달!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 대국을 포함하세요.</string>
   <string name="openings">오프닝</string>
   <string name="openingExplorer">오프닝 탐색기</string>
   <string name="openingEndgameExplorer">오프닝/엔드게임 탐색기</string>
@@ -129,19 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
-  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s 실수</item>
   </plurals>
-  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="other">%s 실수</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s 부정확한 수</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="other">%s 부정확한 수</item>
   </plurals>
   <string name="moveTimes">이동 시간</string>
@@ -155,12 +155,12 @@
   </plurals>
   <string name="drawByMutualAgreement">상호 동의에 의한 무승부</string>
   <string name="fiftyMovesWithoutProgress">진전 없이 50수 소모</string>
-  <string name="currentGames">진행 중인 게임들</string>
+  <string name="currentGames">진행 중인 대국들</string>
   <plurals name="nbGames">
     <item quantity="other">게임 %s개</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="other">%2$s게임간의 %1$s 레이팅</item>
+    <item quantity="other">%1$s 점수 (대국 %2$s 회)</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s개의 즐겨찾기</item>
@@ -171,8 +171,8 @@
   <string name="rememberMe">로그인 유지</string>
   <string name="youNeedAnAccountToDoThat">회원이어야 가능합니다</string>
   <string name="signUp">회원 가입</string>
-  <string name="computersAreNotAllowedToPlay">컴퓨터나 컴퓨터 지원을 받는 플레이어들은 게임 참가가 금지되어 있습니다. 게임 중 체스 엔진이나, 데이터베이스나, 주변 플레이어들로부터 도움을 받지 마십시오. 이와 더불어 다중 계정 소유는 권장하지 않으며 지나치게 많은 계정들을 사용할 시 계정들이 차단될 수 있습니다.</string>
-  <string name="games">게임</string>
+  <string name="computersAreNotAllowedToPlay">컴퓨터나 컴퓨터를 사용하는 플레이어들은 대국이 금지되어 있습니다. 대국 중 체스 엔진이나, 데이터베이스나, 다른 사람들로부터 도움을 받지 마십시오. 이와 더불어 다중 계정 소유는 최대한 사용을 지양하여 주시고 지나치게 많은 계정들을 사용할 시 계정들이 차단될 수 있습니다.</string>
+  <string name="games">대국</string>
   <string name="forum">포럼</string>
   <string name="xPostedInForumY">%1$s(이)가 %2$s 주제에 글을 씀</string>
   <string name="latestForumPosts">최근 포럼 글</string>
@@ -248,7 +248,7 @@
   <plurals name="nbPuzzles">
     <item quantity="other">퍼즐 %s개</item>
   </plurals>
-  <string name="gamesPlayed">게임</string>
+  <string name="gamesPlayed">대국 횟수</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">나와 %s번 대국 함</item>
   </plurals>
@@ -269,8 +269,8 @@
   <string name="playingRightNow">지금 대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료됨</string>
-  <string name="abortGame">게임 중단</string>
-  <string name="gameAborted">게임 중단됨</string>
+  <string name="abortGame">대국 취소</string>
+  <string name="gameAborted">대국 취소됨</string>
   <string name="standard">스탠다드</string>
   <string name="customPosition">커스텀 포지션</string>
   <string name="unlimited">무제한</string>
@@ -300,7 +300,7 @@
   <string name="incrementInSeconds">수 당 추가 시간(초)</string>
   <string name="freeOnlineChess">무료 온라인 체스</string>
   <plurals name="nbRated">
-    <item quantity="other">%s번의 레이팅 게임</item>
+    <item quantity="other">공식 대국 %s 회</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s번 승리</item>
@@ -312,9 +312,9 @@
     <item quantity="other">%s번 비김</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="other">플레이 중인 게임 %s개</item>
+    <item quantity="other">현재 두고 있는 대국 %s개</item>
   </plurals>
-  <string name="exportGames">게임 내보내기</string>
+  <string name="exportGames">대국 저장하기</string>
   <string name="ratingRange">레이팅 범위</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s초 더 주기</item>
@@ -328,7 +328,7 @@
   <string name="takebackPropositionAccepted">무르기 요청 승낙됨</string>
   <string name="takebackPropositionCanceled">무르기 요청 취소됨</string>
   <string name="yourOpponentProposesATakeback">상대가 무르기를 요청합니다</string>
-  <string name="bookmarkThisGame">이 게임을 즐겨찾기에 추가하기</string>
+  <string name="bookmarkThisGame">이 대국을 즐겨찾기에 추가하기</string>
   <string name="tournament">토너먼트</string>
   <string name="tournaments">토너먼트</string>
   <string name="tournamentPoints">토너먼트 점수</string>
@@ -352,10 +352,10 @@
     <item quantity="other">%2$s 레이팅전 %1$s 국 이상</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">%2$s 랭크 게임을 %1$s회 더 플레이해야합니다.</item>
+    <item quantity="other">%2$s 공식 대국을 %1$s회 더 두어야 합니다.</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">랭크 게임을 %s회 더 플레이하셔야 합니다.</item>
+    <item quantity="other">공식 대국을 %s회 더 두어야 합니다.</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">사용자의 임시 등급 %s는 임시적입니다.</string>
   <string name="yourPerfRatingIsTooHigh">귀하의 %1$s 레이팅(%2$s)은 너무 높습니다.</string>
@@ -365,8 +365,8 @@
   <string name="ratedLessThanInPerf">%2$s 레이팅 %1$s 이하</string>
   <string name="mustBeInTeam">팀 %s 의 멤버에 한정</string>
   <string name="youAreNotInTeam">팀 %s 에 소속되지 않았습니다.</string>
-  <string name="backToGame">게임으로 돌아가기</string>
-  <string name="siteDescription">회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
+  <string name="backToGame">대국으로 돌아가기</string>
+  <string name="siteDescription">회원 가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
   <string name="xJoinedTeamY">%1$s(이)가 팀 %2$s에 가입했습니다.</string>
   <string name="xCreatedTeamY">%1$s(이)가 팀 %2$s(을)를 만들었습니다.</string>
   <string name="startedStreaming">스트리밍 시작</string>
@@ -386,12 +386,12 @@
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
   <string name="toStudy">연구</string>
-  <string name="importGame">게임 불러오기</string>
-  <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
+  <string name="importGame">대국 불러오기</string>
+  <string name="importGameExplanation">체스 대국의 PGN 을 붙여 넣으면, 복기와 컴퓨터 분석을 진행할 수 있고, 채팅을 칠 수도 있으며, 대국을 공유할 수 있는 URL 링크도 생성할 수 있습니다.</string>
   <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 연구를 통해 PGN을 가져오세요.</string>
-  <string name="importGameDataPrivacyWarning">이 PGN은 모두가 볼 수 있게 됩니다. 비공개로 게임을 불러오려면, 연구 기능을 이용하세요.</string>
+  <string name="importGameDataPrivacyWarning">이 PGN은 모두가 볼 수 있게 됩니다. 비공개로 대국을 불러오려면, 연구 기능을 이용하세요.</string>
   <plurals name="nbImportedGames">
-    <item quantity="other">불러온 게임 %s개</item>
+    <item quantity="other">불러온 대국 %s개</item>
   </plurals>
   <string name="thisIsAChessCaptcha">자동 기입을 방지하기 위한 체스 퀴즈입니다.</string>
   <string name="clickOnTheBoardToMakeYourMove">보드를 클릭해서 체스 퍼즐을 풀고 당신이 사람임을 알려주세요.</string>
@@ -496,12 +496,12 @@
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">조심하세요, 레이팅 게임이며 시간 제한이 없습니다!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">주의하세요, 공식 대국이지만 시간 제한이 없습니다!</string>
   <string name="success">성공!</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="other">%s개의 게임 플레이 중</item>
+    <item quantity="other">%s개의 대국 진행 중</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">수를 둔 다음에 자동으로 다음 게임에 이동</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">수를 둔 다음에 자동으로 다음 대국으로 이동</string>
   <string name="autoSwitch">자동 전환</string>
   <string name="puzzles">퍼즐</string>
   <string name="onlineBots">온라인 봇</string>
@@ -531,10 +531,10 @@
   <string name="cheat">부정행위</string>
   <string name="troll">분란 조장</string>
   <string name="other">기타</string>
-  <string name="reportCheatBoostHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
+  <string name="reportCheatBoostHelp">대국 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
   <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
   <string name="reportProcessedFasterInEnglish">귀하의 신고가 영어로 적혀있을 경우 빠르게 처리될 것입니다.</string>
-  <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
+  <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 대국의 링크를 제공해주세요.</string>
   <string name="by">작성: %s</string>
   <string name="importedByX">%s가 불러옴</string>
   <string name="thisTopicIsNowClosed">이 주제는 닫혔습니다.</string>
@@ -567,7 +567,7 @@
   <string name="insideTheBoard">보드 안쪽에</string>
   <string name="outsideTheBoard">보드 바깥쪽에</string>
   <string name="allSquaresOfTheBoard">보드의 모든 칸</string>
-  <string name="onSlowGames">느린 게임에서만</string>
+  <string name="onSlowGames">느린 대국에서만</string>
   <string name="always">항상</string>
   <string name="never">안 함</string>
   <string name="xCompetesInY">%1$s가 %2$s에 참가했습니다.</string>
@@ -579,7 +579,7 @@
   <string name="timeline">타임라인</string>
   <string name="starting">시작합니다:</string>
   <string name="allInformationIsPublicAndOptional">모든 정보는 공개되며 선택 사항입니다.</string>
-  <string name="biographyDescription">자신을 알려주세요. 왜 체스를 좋아하는지, 좋아하는 오프닝, 게임, 선수 등등...</string>
+  <string name="biographyDescription">자신을 알려주세요. 왜 체스를 좋아하는지, 좋아하는 오프닝, 대국, 선수 등등...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">최대 %s자.</item>
   </plurals>
@@ -650,7 +650,7 @@
   <string name="aboutSimulRules">다면기가 시작되면, 모든 플레이어가 주최자와 대국을 합니다. 다면기는 모든 플레이어와 게임이 끝나면 종료됩니다.</string>
   <string name="aboutSimulSettings">다면기는 항상 캐주얼전입니다. 재대결, 무르기, 시간추가를 할 수 없습니다.</string>
   <string name="create">생성</string>
-  <string name="whenCreateSimul">동시대국을 생성하면 한 번에 여러 명의 플레이어와 게임하게 됩니다.</string>
+  <string name="whenCreateSimul">다면기를 생성하면 한 번에 여러 명의 플레이어와 게임하게 됩니다.</string>
   <string name="simulVariantsHint">복수의 게임방식을 선택할 경우, 상대방 측에서 게임 방식을 선택하게 됩니다.</string>
   <string name="simulClockHint">피셔 방식 제한시간 설정: 여러 명의 사람들과 둔다면 더 많은 시간이 필요할 것입니다.</string>
   <string name="simulAddExtraTime">동시대국을 위하여 당신에게만 여분의 시간을 더할 수 있습니다.</string>
@@ -835,7 +835,7 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
-  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Lichess로부터 비공개 메시지를 받았습니다.</string>
+  <string name="showUnreadLichessMessage">Lichess로부터 비공개 메시지를 받았습니다.</string>
   <string name="clickHereToReadIt">클릭하여 읽기</string>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>

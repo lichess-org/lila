@@ -51,13 +51,16 @@ object Line:
       lineToStr
     )
 
+  private val baseChar        = " "
   private val trollChar       = "!"
   private val deletedChar     = "?"
   private val patronChar      = "&"
   private val flairChar       = ":"
   private val patronFlairChar = ";"
+  private[chat] val separatorChars =
+    List(baseChar, trollChar, deletedChar, patronChar, flairChar, patronFlairChar)
   private val UserLineRegex = {
-    """(?s)([\w-~]{2,}+)([ """ + s"$trollChar$deletedChar$patronChar$flairChar$patronFlairChar" + """])(.++)"""
+    """(?s)([\w-~]{2,}+)([""" + separatorChars.mkString("") + """])(.++)"""
   }.r
   private[chat] def strToUserLine(str: String): Option[UserLine] = str match
     case UserLineRegex(username, sep, text) =>

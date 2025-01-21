@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Imate 30 sekundi da tačno mapirate što je više moguće polja!</string>
   <string name="goAsLongAsYouWant">Igrajte koliko god želite, nema vremenskog ograničenja!</string>
   <string name="showCoordinates">Prikaži koordinate</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Kordinate na svakom polju</string>
   <string name="showPieces">Prikaži figure</string>
   <string name="startTraining">Pokrenite trening</string>
   <string name="findSquare">Nađite polje</string>

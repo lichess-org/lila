@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="communityBlogs">കൂട്ടായ്മ ബ്ലോഗുകൾ</string>
+  <string name="friendBlogs">കൂട്ടുകാരുടെ ബ്ലോഗുകൾ</string>
+  <string name="likedBlogs">ഇഷ്ടപ്പെട്ട ബ്ലോഗുലേഖനങ്ങൾ</string>
+  <string name="blogTopics">ബ്ലോഗുവിഷയങ്ങൾ</string>
+  <string name="previousBlogPosts">കഴിഞ്ഞ ബ്ലോഗുലേഖനങ്ങൾ</string>
+  <string name="xBlog">%s-ന്റെ ബ്ലോഗു്</string>
+  <string name="newPost">പുതിയ പ്രേഷണം</string>
+  <string name="editYourBlogPost">ബ്ലോഗു് ലേഖണം തിരുത്തുക</string>
+  <string name="postTitle">പ്രേഷണ തലക്കെട്ടു്</string>
+  <string name="postIntro">പ്രേഷണ ആമുഖം</string>
+  <string name="drafts">ആലേഖ്യങ്ങൾ</string>
+  <string name="published">വെളിപ്പെടുത്തിയ</string>
+</resources>

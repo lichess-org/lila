@@ -53,6 +53,9 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
   import StormDay.*
   import StormBsonHandlers.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one(idRegexFor(del.id))
+
   def addRun(
       data: StormForm.RunData,
       user: Option[User],

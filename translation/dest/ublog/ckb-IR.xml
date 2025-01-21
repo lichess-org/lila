@@ -13,6 +13,7 @@
   <string name="createBlogDiscussionHelp">مەکۆیەک بۆ بابەتەکەت درووستدەکرێت بۆ ئەوەی خەڵک سەرنج لەسەر پەیامەکەت بدەن</string>
   <string name="publishOnYourBlog">بڵاوکردنەوە لە پەڕەی کەسیدا</string>
   <string name="publishHelp">ئەگەر پشکنین کرا، پۆستەکە لە بلۆگەکەتدا دەخرێتە لیستی پۆستەکەوە. ئەگەر نا، تایبەت دەبێت، لە ڕەشنووسی پۆستەکانتاندا</string>
+  <string name="stickyPostHelp">ئەگەر بێنە ناو پرۆفایلت، ئەو پۆستە لە سەرەتای پۆستەکانت دەردەکەوێت.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">پەیامەکانی بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
     <item quantity="other">پەیامەکانی%s بڵاوکراونەتەوە لە پەڕەی کەسیدا</item>
@@ -24,7 +25,7 @@
   <string name="xPublishedY">%1$s،%2$sبڵاوکردەوە</string>
   <string name="thisPostIsPublished">ئەم پەیامە بڵاوکرایەوە</string>
   <string name="thisIsADraft">ئەمە ڕەشنووسە</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">پەیامی زیاتر لەلایەن %s</string>
+  <string name="moreBlogPostsBy">پەیامی زیاتر لەلایەن %s</string>
   <string name="noPostsInThisBlogYet">هیچ پەیامێک نییە لەم پەڕە کەسییەدا، لە ئێستادا.</string>
   <string name="noDrafts">هیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
   <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>

@@ -42,7 +42,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   def actions(
       u: User,
       emails: lila.core.user.Emails,
-      erased: lila.user.Erased,
+      deleted: Boolean,
       pmPresets: ModPresets
   )(using Context): Frag =
     mzSection("actions")(
@@ -57,9 +57,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             action := routes.Mod.refreshUserAssess(u.username),
             title  := "Collect data and ask irwin and Kaladin",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := "btn-rack__btn")("Evaluate")
-          )
         },
         Granter.opt(_.GamesModView).option {
           a(
@@ -82,27 +81,24 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             action := routes.Mod.alt(u.username, !u.marks.alt),
             title  := "Preemptively close unauthorized alt.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.alt))("Alt")
-          )
         },
         Granter.opt(_.MarkEngine).option {
           postForm(
             action := routes.Mod.engine(u.username, !u.marks.engine),
             title  := "This user is clearly cheating.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.engine))("Engine")
-          )
         },
         Granter.opt(_.MarkBooster).option {
           postForm(
             action := routes.Mod.booster(u.username, !u.marks.boost),
             title  := "Marks the user as a booster or sandbagger.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.boost))("Booster")
-          )
         },
         Granter
           .opt(_.Shadowban)
@@ -121,9 +117,9 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                     action := routes.Mod.deletePmsAndChats(u.username),
                     title  := "Delete all PMs and public chat messages",
                     cls    := "xhr"
-                  )(
+                  ):
                     submitButton(cls := "btn-rack__btn yes-no-confirm")("Clear PMs & chats")
-                  ),
+                  ,
                   postForm(
                     action := routes.Mod.isolate(u.username, !u.marks.isolate),
                     title  := "Isolate user by preventing all PMs, follows and challenges",
@@ -131,9 +127,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                   )(
                     submitButton(
                       cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.marks.isolate)
-                    )(
-                      "Isolate"
-                    )
+                    )("Isolate")
                   )
                 )
             )
@@ -143,45 +137,40 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             action := routes.Mod.kid(u.username),
             title  := "Activate kid mode if not already the case",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.option("active"))("Kid")
-          )
         },
         Granter.opt(_.RemoveRanking).option {
           postForm(
             action := routes.Mod.rankban(u.username, !u.marks.rankban),
             title  := "Include/exclude this user from the rankings.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban))("Rankban")
-          )
         },
         Granter.opt(_.ArenaBan).option {
           postForm(
             action := routes.Mod.arenaBan(u.username, !u.marks.arenaBan),
             title  := "Enable/disable this user from joining all arenas.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.arenaBan))("Arena ban")
-          )
         },
         Granter.opt(_.PrizeBan).option {
           postForm(
             action := routes.Mod.prizeban(u.username, !u.marks.prizeban),
             title  := "Enable/disable this user from joining prized tournaments.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.prizeban))("Prizeban")
-          )
         },
         Granter.opt(_.ReportBan).option {
           postForm(
             action := routes.Mod.reportban(u.username, !u.marks.reportban),
             title  := "Enable/disable the report feature for this user.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban))("Reportban")
-          )
         }
       ),
       Granter
@@ -196,7 +185,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               )(
                 submitButton(cls := "btn-rack__btn")("Close")
               )
-            else if erased.value then "Erased"
+            else if deleted then "Deleted"
             else
               frag(
                 postForm(
@@ -214,14 +203,12 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             action := routes.Mod.disableTwoFactor(u.username),
             title  := "Disables two-factor authentication for this account.",
             cls    := "xhr"
-          )(
+          ):
             submitButton(cls := "btn-rack__btn yes-no-confirm")("Disable 2FA")
-          )
         },
         (Granter.opt(_.Impersonate) || (Granter.opt(_.Admin) && u.id == UserId.lichess)).option {
-          postForm(action := routes.Mod.impersonate(u.username.value))(
+          postForm(action := routes.Mod.impersonate(u.username.value)):
             submitButton(cls := "btn-rack__btn")("Impersonate")
-          )
         }
       ),
       Granter
@@ -230,9 +217,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           postForm(action := routes.Mod.warn(u.username, ""), cls := "pm-preset")(
             st.select(
               st.option(value := "")("Send PM"),
-              pmPresets.value.map { preset =>
+              pmPresets.value.map: preset =>
                 st.option(st.value := preset.name, title := preset.text)(preset.name)
-              }
             )
           )
         ),
@@ -259,9 +245,8 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               ),
               submitButton(cls := "button", dataIcon := Icon.Checkmark)
             ),
-            emails.previous.map { email =>
+            emails.previous.map: email =>
               s"Previously $email"
-            }
           )
         )
     )
@@ -323,7 +308,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         "Moderation history",
         history.isEmpty.option(": nothing to show")
       ),
-      history.nonEmpty.so(
+      history.nonEmpty.so:
         frag(
           ul:
             history.map: e =>
@@ -343,7 +328,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           ,
           br
         )
-      )
     )
 
   def reportLog(u: User, reports: List[Report])(using Translate): Frag =

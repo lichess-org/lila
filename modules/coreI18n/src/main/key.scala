@@ -204,6 +204,7 @@ object I18nKey:
     val `optionalDetails`: I18nKey = "broadcast:optionalDetails"
     val `pastBroadcasts`: I18nKey = "broadcast:pastBroadcasts"
     val `allBroadcastsByMonth`: I18nKey = "broadcast:allBroadcastsByMonth"
+    val `backToLiveMove`: I18nKey = "broadcast:backToLiveMove"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:
@@ -964,6 +965,7 @@ object I18nKey:
     val `donate`: I18nKey = "patron:donate"
     val `donateAsX`: I18nKey = "patron:donateAsX"
     val `lichessPatron`: I18nKey = "patron:lichessPatron"
+    val `patronSince`: I18nKey = "patron:patronSince"
     val `freeAccount`: I18nKey = "patron:freeAccount"
     val `becomePatron`: I18nKey = "patron:becomePatron"
     val `xBecamePatron`: I18nKey = "patron:xBecamePatron"
@@ -2783,6 +2785,7 @@ object I18nKey:
     val `blogTips`: I18nKey = "ublog:blogTips"
     val `discussThisBlogPostInTheForum`: I18nKey = "ublog:discussThisBlogPostInTheForum"
     val `youBlockedByBlogAuthor`: I18nKey = "ublog:youBlockedByBlogAuthor"
+    val `blogPosts`: I18nKey = "ublog:blogPosts"
     val `publishedNbBlogPosts`: I18nKey = "ublog:publishedNbBlogPosts"
     val `nbViews`: I18nKey = "ublog:nbViews"
     val `viewAllNbPosts`: I18nKey = "ublog:viewAllNbPosts"

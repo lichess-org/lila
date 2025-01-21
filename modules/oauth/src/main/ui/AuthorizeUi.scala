@@ -16,7 +16,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
   )
 
   private def buttonClass(prompt: AuthorizationRequest.Prompt) =
-    s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")}"
+    s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")} disabled"
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using
       Context
@@ -25,8 +25,8 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     Page("Authorization")
       .css("bits.oauth")
-      .js(esmInitBit("oauth", "danger" -> prompt.isDanger))
-      .csp(_.withLegacyCompatibility):
+      .js(Esm("bits.oauth"))
+      .csp(_.withUnsafeInlineScripts):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(
             ringsImage,
@@ -59,7 +59,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
                   )
                 case None =>
                   submitButton(
-                    cls      := s"${buttonClass(prompt)} disabled",
+                    cls      := buttonClass(prompt),
                     dataIcon := isDanger.option(Icon.CautionTriangle),
                     disabled := true,
                     id       := "oauth-authorize",

@@ -22,6 +22,7 @@ object PoolMember:
       sri = joiner.sri,
       lame = joiner.lame,
       rating = joiner.rating,
+      provisional = joiner.provisional,
       ratingRange = joiner.ratingRange,
       blocking = joiner.blocking,
       rageSitCounter = rageSit.counterView

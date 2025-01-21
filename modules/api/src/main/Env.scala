@@ -58,7 +58,8 @@ final class Env(
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,
     bookmarkExists: lila.core.bookmark.BookmarkExists,
-    manifest: lila.web.AssetManifest
+    manifest: lila.web.AssetManifest,
+    tokenApi: lila.oauth.AccessTokenApi
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,
@@ -87,7 +88,7 @@ final class Env(
 
   lazy val personalDataExport = wire[PersonalDataExport]
 
-  lazy val accountClosure = wire[AccountClosure]
+  lazy val accountTermination = wire[AccountTermination]
 
   lazy val anySearch = wire[AnySearch]
 

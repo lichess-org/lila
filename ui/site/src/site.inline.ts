@@ -3,6 +3,8 @@
 
 if (!window.site) window.site = {} as Site;
 if (!window.site.load)
-  window.site.load = new Promise<void>(resolve =>
-    document.addEventListener('DOMContentLoaded', () => resolve()),
-  );
+  window.site.load = new Promise<void>(function (resolve) {
+    document.addEventListener('DOMContentLoaded', function () {
+      resolve();
+    });
+  });

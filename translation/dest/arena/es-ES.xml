@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arena">Arena</string>
+  <string name="arena">Torneo</string>
   <string name="arenaTournaments">Torneos</string>
   <string name="isItRated">¿Es por puntos?</string>
   <string name="willBeNotified">Se te avisará cuando empiece el torneo. Puedes jugar tranquilamente en otra pestaña mientras esperas.</string>
@@ -45,10 +45,10 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="minimumGameLength">Duración mínima de la partida</string>
   <string name="history">Historial de torneos</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">Ver el equipo</item>
-    <item quantity="other">Ver todos los %s equipos</item>
+    <item quantity="one">Ver equipo</item>
+    <item quantity="other">Ver los %s equipos</item>
   </plurals>
-  <string name="newTeamBattle">Nueva batalla de equipo</string>
+  <string name="newTeamBattle">Nueva batalla por equipos</string>
   <string name="customStartDate">Fecha de inicio personalizada</string>
   <string name="customStartDateHelp">En tu zona horaria. Esto reemplazará la configuración de \"Tiempo antes de que comience el torneo\"</string>
   <string name="allowBerserk">Permitir Berserk</string>
@@ -57,12 +57,12 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="arenaStreaks">Racha de victorias</string>
   <string name="arenaStreaksHelp">Después de ganar 2 partidas seguidas, cada victoria consecutiva concede 4 puntos en lugar de 2.</string>
   <string name="noBerserkAllowed">No permitir Berserk</string>
-  <string name="noArenaStreaks">Sin rachas de victorias</string>
+  <string name="noArenaStreaks">Sin racha de victorias</string>
   <string name="averagePerformance">Rendimiento promedio</string>
-  <string name="averageScore">Puntuación promedia</string>
+  <string name="averageScore">Puntuación promedio</string>
   <string name="myTournaments">Mis torneos</string>
   <string name="editTournament">Editar torneo</string>
-  <string name="editTeamBattle">Editar batalla de equipo</string>
+  <string name="editTeamBattle">Editar batalla por equipos</string>
   <string name="defender">Defensor</string>
   <string name="pickYourTeam">Elige tu equipo</string>
   <string name="whichTeamWillYouRepresentInThisBattle">¿A qué equipo representarás en esta batalla?</string>

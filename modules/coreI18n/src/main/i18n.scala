@@ -43,7 +43,7 @@ trait TranslatorFrag:
   def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag
   def plural(key: I18nKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag
 
-case class Translate(translator: Translator, lang: Lang)
+final class Translate(val translator: Translator, val lang: Lang)
 object Translate:
   given (using trans: Translator, lang: Lang): Translate = trans.to(lang)
 

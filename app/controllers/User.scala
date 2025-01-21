@@ -396,8 +396,8 @@ final class User(
             .map(ui.showRageSitAndPlaybans)
         )
 
-        val actions = env.user.repo.isErased(user).map { erased =>
-          ui.actions(user, emails, erased, env.mod.presets.getPmPresets)
+        val actions = env.user.repo.isDeleted(user).map { deleted =>
+          ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
         }
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
@@ -458,12 +458,12 @@ final class User(
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
       case WithPerfsAndEmails(user, emails) =>
-        env.user.repo.isErased(user).flatMap { erased =>
+        env.user.repo.isDeleted(user).flatMap { deleted =>
           Ok.snip:
             views.mod.user.actions(
               user,
               emails,
-              erased,
+              deleted,
               env.mod.presets.getPmPresetsOpt
             )
         }
@@ -553,7 +553,7 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey)): data =>
+    Found(env.perfStat.api.data(username, perfKey, computeIfNeeded = HTTPRequest.isCrawler(req).no)): data =>
       negotiate(
         Ok.async:
           env.history

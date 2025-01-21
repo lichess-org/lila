@@ -59,6 +59,11 @@ object Query:
     "p1.ai".$exists(false)
   )
 
+  val hasAi: Bdoc = $or(
+    "p0.ai".$exists(true),
+    "p1.ai".$exists(true)
+  )
+
   def nowPlaying[U: UserIdOf](u: U) = $doc(F.playingUids -> u.id)
 
   def recentlyPlaying(u: UserId) =

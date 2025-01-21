@@ -73,6 +73,7 @@ object perf:
 
     given Show[PerfKey]                = _.value
     given SameRuntime[PerfKey, String] = _.value
+    given Eq[PerfKey]                  = Eq.by(_.value)
 
     def apply(key: String): Option[PerfKey]            = Option.when(all.contains(key))(key)
     def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)

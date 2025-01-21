@@ -28,6 +28,9 @@ final class AssessApi(
   import lila.evaluation.EvaluationBsonHandlers.given
   import lila.analyse.AnalyseBsonHandlers.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    assessRepo.coll.delete.one($id(del.id))
+
   private def createPlayerAssessment(assessed: PlayerAssessment) =
     assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
 

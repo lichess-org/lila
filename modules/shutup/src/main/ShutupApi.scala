@@ -17,9 +17,12 @@ final class ShutupApi(
   private given BSONDocumentHandler[UserRecord] = Macros.handler
   import PublicLine.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one($id(del.id))
+
   def getPublicLines(userId: UserId): Fu[List[PublicLine]] =
     coll
-      .find($doc("_id" -> userId), $doc("pub" -> 1).some)
+      .find($id(userId), $doc("pub" -> 1).some)
       .one[Bdoc]
       .map:
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))

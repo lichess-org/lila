@@ -4,6 +4,10 @@
   <string name="friendBlogs">Friends blogs</string>
   <string name="likedBlogs">Liked blog posts</string>
   <string name="blogTopics">Blog topics</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s blog post</item>
+    <item quantity="other">%s blog posts</item>
+  </plurals>
   <string name="lichessOfficialBlog">Lichess Official Blog</string>
   <string name="continueReadingPost">Continue reading this post</string>
   <string name="lichessBlogPostsFromXYear">Lichess blog posts in %s</string>
@@ -22,7 +26,7 @@
   <string name="publishOnYourBlog">Publish on your blog</string>
   <string name="publishHelp">If checked, the post will be listed on your blog. If not, it will be private, in your draft posts</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Sticky post</string>
-  <string name="stickyPostHelp">If checked, this post will be listed first in your profile recent posts.</string>
+  <string name="stickyPostHelp">If checked, this post will be listed first in your profile recent posts and on your blog.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Published a blog post</item>
     <item quantity="other">Published %s blog posts</item>

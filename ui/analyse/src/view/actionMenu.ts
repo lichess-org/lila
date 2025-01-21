@@ -91,7 +91,14 @@ export function view(ctrl: AnalyseCtrl): VNode {
     h('div.action-menu__tools', [
       h(
         'a',
-        { hook: bind('click', ctrl.flip), attrs: { 'data-icon': licon.ChasingArrows, title: 'Hotkey: f' } },
+        {
+          hook: bind('click', () => {
+            ctrl.flip();
+            ctrl.actionMenu.toggle();
+            ctrl.redraw();
+          }),
+          attrs: { 'data-icon': licon.ChasingArrows, title: 'Hotkey: f' },
+        },
         i18n.site.flipBoard,
       ),
       !ctrl.ongoing &&

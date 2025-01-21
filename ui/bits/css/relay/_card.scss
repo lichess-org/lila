@@ -77,7 +77,7 @@
   &__title {
     @include line-clamp(2);
     margin: 0.2em 0 0.3em 0;
-    font-weight: bold;
+    font-weight: normal;
     color: $c-font-clearer;
     font-size: 1.3em;
     .relay-cards--tier-best & {

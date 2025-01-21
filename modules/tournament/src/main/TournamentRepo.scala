@@ -325,6 +325,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .cursor[Tournament](ReadPref.sec)
       .list(500)
 
+  def anonymize(tour: Tournament, u: UserId) = for
+    _ <- tour.winnerId.has(u).so(coll.updateField($id(tour.id), "winner", UserId.ghost).void)
+    _ <- tour.createdBy.is(u).so(coll.updateField($id(tour.id), "createdBy", UserId.ghost).void)
+  yield ()
+
   private[tournament] def sortedCursor(
       owner: User,
       status: List[Status],

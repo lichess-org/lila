@@ -88,7 +88,7 @@ object page:
         h1(cls := "box__top")("No such player"),
         div(
           p("This username doesn't match any Lichess player."),
-          (!canCreate).option(p("It cannot be used to create a new account."))
+          canCreate.not.option(p("It cannot be used to create a new account."))
         )
       )
 

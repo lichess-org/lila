@@ -39,9 +39,9 @@ final class Env(
 ):
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
-  val gameRepo = new GameRepo(db(config.gameColl))
+  val gameRepo = GameRepo(db(config.gameColl))
 
-  val idGenerator = wire[IdGenerator]
+  given idGenerator: IdGenerator = wire[IdGenerator]
 
   val divider = wire[Divider]
 
@@ -82,7 +82,7 @@ final class Env(
     export AnonCookie.json as anonCookieJson
     export AnonCookie.name as anonCookieName
 
-  lazy val newPlayer: lila.core.game.NewPlayer = new:
+  given newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply
     export Player.makeAnon as anon
 

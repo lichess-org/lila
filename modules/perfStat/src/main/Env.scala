@@ -31,3 +31,6 @@ final class Env(
       indexer.addGame(game).addFailureEffect { e =>
         lila.log("perfStat").error(s"index game ${game.id}", e)
       }
+
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    storage.deleteAllFor(del.id)

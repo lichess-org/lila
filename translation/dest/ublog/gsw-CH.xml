@@ -4,6 +4,10 @@
   <string name="friendBlogs">Tagebüecher vu Fründe</string>
   <string name="likedBlogs">Bevorzugti Tagebuech Biträg</string>
   <string name="blogTopics">Tagebuech Theme</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s Tagebuech-Bitrag</item>
+    <item quantity="other">%s Tagebuech-Biträg</item>
+  </plurals>
   <string name="lichessOfficialBlog">Offiziells Lichess Tagebuech</string>
   <string name="continueReadingPost">De Bitrag witer läse</string>
   <string name="lichessBlogPostsFromXYear">Lichess Tagebuech-Biträg in %s</string>
@@ -21,6 +25,8 @@
   <string name="createBlogDiscussionHelp">Es Forum - Thema erschtelle, für Lüt wo din Bitrag wänd kommentiere</string>
   <string name="publishOnYourBlog">Machs im Tagebuech öffentlich</string>
   <string name="publishHelp">Isch er aktiviert, wird de Bitrag i dim Tagebuech zeigt. Wänn nöd, wird er i dine Entwürf, privat blibe</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Post-Chläber</string>
+  <string name="stickyPostHelp">Wänn das aktiviert isch, chunnt de Post im Profil als Erschte vu de neuschte Biträg.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Hät en Tagebuech-Bitrag veröffentlicht</item>
     <item quantity="other">Hät %s Tagebuech-Biträg veröffentlicht</item>
@@ -32,7 +38,7 @@
   <string name="xPublishedY">%1$s hät %2$s veröffentlicht</string>
   <string name="thisPostIsPublished">De Bitrag isch veröffentlicht worde</string>
   <string name="thisIsADraft">Das isch en Entwurf</string>
-  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Meh Tagebuech-Biträg vu %s</string>
+  <string name="moreBlogPostsBy">Meh Tagebuech-Biträg vu %s</string>
   <string name="noPostsInThisBlogYet">No kei Biträg i dem Tagebuech.</string>
   <string name="noDrafts">Kei Entwürf zum zeige.</string>
   <string name="latestBlogPosts">Neuschti Tagebuech-Biträg</string>

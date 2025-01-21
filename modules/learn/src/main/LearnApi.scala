@@ -6,6 +6,9 @@ final class LearnApi(coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    reset(del.id)
+
   def get(user: UserId): Fu[LearnProgress] =
     coll.one[LearnProgress]($id(user)).dmap { _ | LearnProgress.empty(user.id) }
 

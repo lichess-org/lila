@@ -1,7 +1,7 @@
 import path from 'node:path';
 import es from 'esbuild';
 import fs from 'node:fs';
-import { env, errorMark, colors as c } from './env.ts';
+import { env, errorMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { trimAndConsolidateWhitespace, readable } from './parse.ts';
 
@@ -109,7 +109,7 @@ async function jsManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
 
   const newJsManifest: Manifest = {};
   for (const [filename, info] of Object.entries(meta.outputs)) {
-    const out = parsePath(filename);
+    const out = splitPath(filename);
     if (!out) continue;
     if (out.name === 'common') {
       out.name = `common.${out.hash}`;
@@ -118,7 +118,7 @@ async function jsManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
     const imports: string[] = [];
     for (const imp of info.imports) {
       if (imp.kind === 'import-statement') {
-        const path = parsePath(imp.path);
+        const path = splitPath(imp.path);
         if (path) imports.push(`${path.name}.${path.hash}.js`);
       }
     }
@@ -133,12 +133,11 @@ async function inlineManifest(js: Manifest) {
   for (const pkg of env.building) {
     for (const bundle of pkg.bundle ?? []) {
       if (!bundle.inline) continue;
-
       const inlineSrc = path.join(pkg.root, bundle.inline);
       const moduleName = bundle.module
         ? path.basename(bundle.module, '.ts')
         : path.basename(bundle.inline, '.inline.ts');
-      const packageError = `${errorMark} - Package error ${c.blue(JSON.stringify(bundle))}`;
+      const packageError = `[${c.grey(pkg.name)}] - ${errorMark} - Package error ${c.blue(JSON.stringify(bundle))}`;
 
       if (!(await readable(inlineSrc))) {
         env.log(packageError);
@@ -173,7 +172,7 @@ async function inlineManifest(js: Manifest) {
   if (success) updateManifest({ js });
 }
 
-function parsePath(path: string) {
+function splitPath(path: string) {
   const match = path.match(/\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/);
   return match ? { name: match[1], hash: match[2] } : undefined;
 }

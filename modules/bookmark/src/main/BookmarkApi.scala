@@ -68,3 +68,6 @@ final class BookmarkApi(coll: Coll, gameApi: GameApi, paginator: PaginatorBuilde
   private def userIdQuery(userId: UserId)              = $doc("u" -> userId)
   private def makeId(gameId: GameId, userId: UserId)   = s"$gameId$userId"
   private def selectId(gameId: GameId, userId: UserId) = $id(makeId(gameId, userId))
+
+  lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
+    coll.delete.one(userIdQuery(del.id)).void
