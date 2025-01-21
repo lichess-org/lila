@@ -208,7 +208,6 @@ object I18nKey:
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:
-    val `noChallenges`: I18nKey = "challenge:noChallenges"
     val `challengesX`: I18nKey = "challenge:challengesX"
     val `challengeToPlay`: I18nKey = "challenge:challengeToPlay"
     val `challengeDeclined`: I18nKey = "challenge:challengeDeclined"
@@ -2007,6 +2006,7 @@ object I18nKey:
     val `onlineAndOfflinePlay`: I18nKey = "onlineAndOfflinePlay"
     val `viewTheSolution`: I18nKey = "viewTheSolution"
     val `followAndChallengeFriends`: I18nKey = "followAndChallengeFriends"
+    val `noChallenges`: I18nKey = "noChallenges"
     val `gameAnalysis`: I18nKey = "gameAnalysis"
     val `xHostsY`: I18nKey = "xHostsY"
     val `xJoinsY`: I18nKey = "xJoinsY"
