@@ -204,6 +204,7 @@ object I18nKey:
     val `optionalDetails`: I18nKey = "broadcast:optionalDetails"
     val `pastBroadcasts`: I18nKey = "broadcast:pastBroadcasts"
     val `allBroadcastsByMonth`: I18nKey = "broadcast:allBroadcastsByMonth"
+    val `backToLiveMove`: I18nKey = "broadcast:backToLiveMove"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:
