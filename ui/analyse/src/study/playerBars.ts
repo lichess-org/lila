@@ -57,10 +57,9 @@ function renderPlayer(
   relayPlayers?: RelayPlayers,
 ): VNode {
   const isLastPly = ctrl.node.ply == ctrl.tree.lastPly();
-  const showResults: boolean =
-    defined(ctrl.study?.relay) && ctrl.study?.multiBoard.showResults !== undefined
-      ? isLastPly || ctrl.study?.multiBoard.showResults()
-      : true;
+  const showResults: boolean = defined(ctrl.study?.relay)
+    ? isLastPly || ctrl.study?.multiBoard.showResults()
+    : true;
   const player = players?.[color],
     fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
