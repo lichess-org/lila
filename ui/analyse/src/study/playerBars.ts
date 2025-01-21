@@ -56,19 +56,19 @@ function renderPlayer(
   showRatings: boolean,
   relayPlayers?: RelayPlayers,
 ): VNode {
-  const isLastPly = ctrl.node.ply == ctrl.tree.lastPly();
-  const showResults: boolean = defined(ctrl.study?.relay)
-    ? isLastPly || ctrl.study?.multiBoard.showResults()
-    : true;
+  const showResult: boolean =
+    !defined(ctrl.study?.relay) ||
+    ctrl.study?.multiBoard.showResults() ||
+    ctrl.node.ply == ctrl.tree.lastPly();
   const player = players?.[color],
     fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
     rating = showRatings && player?.rating,
-    result = resultOf(tags, color === 'white'),
+    result = showResult && resultOf(tags, color === 'white'),
     top = ctrl.bottomColor() !== color;
   return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     h('div.left', [
-      showResults && result && h('span.result', result),
+      result && h('span.result', result),
       h('span.info', [
         team ? h('span.team', team) : undefined,
         playerFed(player?.fed),
