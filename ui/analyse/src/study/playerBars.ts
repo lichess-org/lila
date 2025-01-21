@@ -9,6 +9,7 @@ import { userTitle } from 'common/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
 import { intersection } from 'tree/path';
+import { defined } from 'common';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -57,7 +58,7 @@ function renderPlayer(
 ): VNode {
   const isLastPly = ctrl.node.ply == ctrl.tree.lastPly();
   const showResults: boolean =
-    ctrl.study?.relay !== undefined && ctrl.study?.multiBoard.showResults !== undefined
+    defined(ctrl.study?.relay) && ctrl.study?.multiBoard.showResults !== undefined
       ? isLastPly || ctrl.study?.multiBoard.showResults()
       : true;
   const player = players?.[color],
