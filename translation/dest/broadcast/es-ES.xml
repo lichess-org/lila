@@ -80,4 +80,5 @@
   <string name="optionalDetails">Detalles opcionales</string>
   <string name="pastBroadcasts">Transmisiones pasadas</string>
   <string name="allBroadcastsByMonth">Ver todas las transmisiones por mes</string>
+  <string name="backToLiveMove">Volver al movimiento en directo</string>
 </resources>
