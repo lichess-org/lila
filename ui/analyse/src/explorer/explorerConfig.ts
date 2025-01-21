@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { myUserId, type Prop, prop } from 'common';
 import * as licon from 'common/licon';
-import { snabDialog } from 'common/dialog';
+import { type Dialog, snabDialog } from 'common/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
@@ -46,6 +46,7 @@ export class ExplorerConfigCtrl {
   allDbs: ExplorerDb[] = ['lichess', 'player'];
   myName?: string;
   participants: (string | undefined)[];
+  modal?: Dialog;
 
   constructor(
     readonly root: AnalyseCtrl,
@@ -100,7 +101,6 @@ export class ExplorerConfigCtrl {
     }
     this.data.db('player');
     this.data.playerName.value(name);
-    this.data.playerName.open(false);
   };
 
   removePlayer = (name?: string) => {
@@ -313,9 +313,10 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
+  let dlg: Dialog;
   const onSelect = (name: string | undefined) => {
     ctrl.selectPlayer(name);
-    ctrl.root.redraw();
+    dlg.close();
   };
   const nameToOptionalColor = (name: string | undefined) => {
     if (!name) {
@@ -333,6 +334,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
+    onInsert: dialog => (dlg = dialog).show(),
     modal: true,
     vnodes: [
       h('h2', 'Personal opening explorer'),
