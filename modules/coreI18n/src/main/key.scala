@@ -208,6 +208,7 @@ object I18nKey:
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:
+    val `noChallenges`: I18nKey = "challenge:noChallenges"
     val `challengesX`: I18nKey = "challenge:challengesX"
     val `challengeToPlay`: I18nKey = "challenge:challengeToPlay"
     val `challengeDeclined`: I18nKey = "challenge:challengeDeclined"

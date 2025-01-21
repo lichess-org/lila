@@ -417,6 +417,8 @@ interface I18n {
     declineVariant: string;
     /** Or invite a Lichess user: */
     inviteLichessUser: string;
+    /** No challenges. */
+    noChallenges: string;
     /** Please register to send challenges to this user. */
     registerToSendChallenges: string;
     /** %s does not accept challenges. */
@@ -3597,6 +3599,8 @@ interface I18n {
     nextXTournament: I18nFormat;
     /** No */
     no: string;
+    /** No challenges. */
+    noChallenges: string;
     /** No chat */
     noChat: string;
     /** No conditional premoves */
