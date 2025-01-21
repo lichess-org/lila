@@ -10,7 +10,7 @@ export interface Package {
   name: string; // dirname of package root
   pkg: any; // the entire package.json object
   bundle: { module?: string; inline?: string }[]; // TODO doc
-  hash: { glob: string; replace?: string }[]; // TODO doc
+  hash: { glob: string; update?: string }[]; // TODO doc
   sync: Sync[]; // pre-bundle filesystem copies from package json
 }
 

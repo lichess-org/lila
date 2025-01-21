@@ -10,7 +10,6 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-      destroy: _ => ctrl.chessground.destroy(),
     },
   });
 
