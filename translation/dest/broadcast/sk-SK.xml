@@ -82,4 +82,5 @@
   <string name="optionalDetails">Nepovinné údaje</string>
   <string name="pastBroadcasts">Predchádzajúce vysielania</string>
   <string name="allBroadcastsByMonth">Zobraziť všetky vysielania podľa mesiacov</string>
+  <string name="backToLiveMove">Späť na aktuálny ťah</string>
 </resources>
