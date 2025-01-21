@@ -80,4 +80,5 @@
   <string name="optionalDetails">Mahdolliset lisätiedot</string>
   <string name="pastBroadcasts">Menneet lähetykset</string>
   <string name="allBroadcastsByMonth">Näytä kaikki lähetykset kuukausikohtaisesti</string>
+  <string name="backToLiveMove">Takaisin siirtojen reaaliaikaiseen seurantaan</string>
 </resources>
