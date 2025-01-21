@@ -29,7 +29,6 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     gameRepo: GameRepo,
-    idGenerator: lila.game.IdGenerator,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     chatApi: lila.chat.ChatApi,
@@ -56,7 +55,8 @@ final class Env(
     Executor,
     akka.stream.Materializer,
     lila.core.i18n.Translator,
-    lila.core.config.RateLimit
+    lila.core.config.RateLimit,
+    lila.game.IdGenerator
 ):
 
   private val (botSync, async) = (lightUserApi.isBotSync, lightUserApi.async)

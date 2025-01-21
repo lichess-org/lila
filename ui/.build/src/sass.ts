@@ -4,7 +4,7 @@ import ps from 'node:process';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import clr from 'tinycolor2';
-import { env, colors as c, lines, errorMark } from './env.ts';
+import { env, c, lines, errorMark } from './env.ts';
 import { globArray, readable } from './parse.ts';
 import { updateManifest } from './manifest.ts';
 import { clamp } from './algo.ts';

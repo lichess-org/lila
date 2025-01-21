@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
-import { env } from './env.ts';
+import { env, errorMark, c } from './env.ts';
 
 export type Bundle = { module?: string; inline?: string };
 
@@ -10,7 +10,7 @@ export interface Package {
   name: string; // dirname of package root
   pkg: any; // the entire package.json object
   bundle: { module?: string; inline?: string }[]; // TODO doc
-  hashGlobs: string[]; // TODO doc
+  hash: { glob: string; update?: string }[]; // TODO doc
   sync: Sync[]; // pre-bundle filesystem copies from package json
 }
 
@@ -80,25 +80,27 @@ async function parsePackage(packageDir: string): Promise<Package> {
     root: packageDir,
     bundle: [],
     sync: [],
-    hashGlobs: [],
+    hash: [],
   };
   if (!('build' in pkgInfo.pkg)) return pkgInfo;
   const build = pkgInfo.pkg.build;
 
-  if ('hash' in build) pkgInfo.hashGlobs = [].concat(build.hash);
+  if ('hash' in build)
+    pkgInfo.hash = [].concat(build.hash).map(glob => (typeof glob === 'string' ? { glob } : glob));
 
   if ('bundle' in build) {
     for (const one of [].concat(build.bundle).map<Bundle>(b => (typeof b === 'string' ? { module: b } : b))) {
-      if (!one.module) continue;
+      const src = one.module ?? one.inline;
+      if (!src) continue;
 
-      if (await readable(path.join(pkgInfo.root, one.module))) pkgInfo.bundle.push(one);
-      else
+      if (await readable(path.join(pkgInfo.root, src))) pkgInfo.bundle.push(one);
+      else if (one.module)
         pkgInfo.bundle.push(
-          ...(await globArray(one.module, { cwd: pkgInfo.root, absolute: false })).map(module => ({
-            ...one,
-            module,
-          })),
+          ...(await globArray(one.module, { cwd: pkgInfo.root, absolute: false }))
+            .filter(m => !m.endsWith('.inline.ts')) // no globbed inline sources
+            .map(module => ({ ...one, module })),
         );
+      else env.log(`[${c.grey(pkgInfo.name)}] - ${errorMark} - Bundle error ${c.blue(JSON.stringify(one))}`);
     }
   }
   if ('sync' in build) {

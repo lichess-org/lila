@@ -90,7 +90,7 @@ def main():
 
         gen_sources(codes)
 
-        print('Generated:\n  public/font/lichess.woff\n  public/font/lichess.woff2\n  public/font/lichess.ttf')
+        print('Generated:\n  public/font/lichess.woff2\n  public/font/lichess.ttf\n  public/oops/font.html')
         print('  modules/ui/src/main/Icon.scala\n  ui/common/src/licon.ts')
         print('  ui/common/css/abstract/_licon.scss\n')
         print("Don't forget to install lichess.ttf in your code editor\n")
@@ -158,7 +158,6 @@ def gen_fonts():
     [f, name] = tempfile.mkstemp(suffix='.pe', dir='.')
     os.write(f, textwrap.dedent(f"""
         Open('lichess.sfd')
-        Generate('lichess.woff')
         Generate('lichess.woff2')
         Generate('lichess.ttf')
         Quit()
