@@ -4,6 +4,10 @@
   <string name="friendBlogs">Blogs van vrienden</string>
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
   <string name="blogTopics">Blog onderwerpen</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s Deze blogpost</item>
+    <item quantity="other">%s Deze blogposts</item>
+  </plurals>
   <string name="lichessOfficialBlog">Officiële blog van Lichess</string>
   <string name="continueReadingPost">Doorgaan met lezen van dit bericht</string>
   <string name="lichessBlogPostsFromXYear">Lichess blog berichten uit %s</string>

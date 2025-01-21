@@ -49,7 +49,7 @@ export const backToLiveView = (ctrl: AnalyseCtrl) =>
             ctrl.redraw,
           ),
         },
-        'Back to live move',
+        i18n.broadcast.backToLiveMove,
       )
     : undefined;
 

@@ -4,6 +4,10 @@
   <string name="friendBlogs">Bloggane til vener</string>
   <string name="likedBlogs">Likte blogginnlegg</string>
   <string name="blogTopics">Bloggemner</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s blogginnlegg</item>
+    <item quantity="other">%s blogginnlegg</item>
+  </plurals>
   <string name="lichessOfficialBlog">Lichess sin offisielle blogg</string>
   <string name="continueReadingPost">Hald fram med å lesa dette innlegget</string>
   <string name="lichessBlogPostsFromXYear">Lichess-blogginlegg i %s</string>
