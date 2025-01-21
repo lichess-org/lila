@@ -321,11 +321,12 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
 };
 
 const boardPlayer = (preview: ChapterPreview, color: Color, showResults?: boolean) => {
-  const outcome = preview.status && preview.status !== '*' ? preview.status : undefined;
-  const player = preview.players?.[color],
-    score = outcome?.split('-')[color === 'white' ? 0 : 1];
+  const outcome = preview.status && preview.status !== '*' ? preview.status : undefined,
+    player = preview.players?.[color],
+    score = outcome?.split('-')[color === 'white' ? 0 : 1],
+    tag = score === '1' ? 'good' : score === '0' ? 'bad' : 'status';
   return h('span.mini-game__player', [
     player && renderUser(player),
-    showResults ? (score ? h('span.mini-game__result', score) : renderClock(preview, color)) : undefined,
+    showResults ? (score ? h(`${tag}.mini-game__result`, score) : renderClock(preview, color)) : undefined,
   ]);
 };
