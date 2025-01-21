@@ -138,11 +138,11 @@
     <item quantity="many">%s грубих помилок</item>
     <item quantity="other">%s грубих помилок</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
-    <item quantity="one">%s груба помилка</item>
-    <item quantity="few">%s грубі помилки</item>
-    <item quantity="many">%s грубих помилок</item>
-    <item quantity="other">%s грубих помилок</item>
+  <plurals name="numberBlunders">
+    <item quantity="one">%s Груба помилка</item>
+    <item quantity="few">%s Грубі помилки</item>
+    <item quantity="many">%s Грубих помилок</item>
+    <item quantity="other">%s Грубих помилок</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s помилка</item>
@@ -150,11 +150,11 @@
     <item quantity="many">%s помилок</item>
     <item quantity="other">%s помилок</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
-    <item quantity="one">%s помилка</item>
-    <item quantity="few">%s помилки</item>
-    <item quantity="many">%s помилок</item>
-    <item quantity="other">%s помилок</item>
+  <plurals name="numberMistakes">
+    <item quantity="one">%s Помилка</item>
+    <item quantity="few">%s Помилки</item>
+    <item quantity="many">%s Помилок</item>
+    <item quantity="other">%s Помилок</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточність</item>
@@ -162,11 +162,11 @@
     <item quantity="many">%s неточностей</item>
     <item quantity="other">%s неточностей</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
-    <item quantity="one">%s неточність</item>
-    <item quantity="few">%s неточності</item>
-    <item quantity="many">%s неточностей</item>
-    <item quantity="other">%s неточностей</item>
+  <plurals name="numberInaccuracies">
+    <item quantity="one">%s Неточність</item>
+    <item quantity="few">%s Неточності</item>
+    <item quantity="many">%s Неточностей</item>
+    <item quantity="other">%s Неточностей</item>
   </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
