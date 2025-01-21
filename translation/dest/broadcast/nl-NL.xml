@@ -79,4 +79,5 @@
   <string name="optionalDetails">Optionele info</string>
   <string name="pastBroadcasts">Afgelopen uitzendingen</string>
   <string name="allBroadcastsByMonth">Alle uitzendingen per maand weergeven</string>
+  <string name="backToLiveMove">Terug naar de actuele stelling</string>
 </resources>
