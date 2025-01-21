@@ -58,6 +58,7 @@
   <string name="intermezzo">Ενδιάμεση κίνηση</string>
   <string name="intermezzoDescription">Αντί για την αναμενόμενη κίνηση παίζουμε πρώτα μια άλλη κίνηση η οποία δημιουργεί μια άμεση απειλή και που ο αντίπαλος πρέπει να απαντήσει. Επίσης γνωστό ως \"Zwischenzug\" ή \"Intermezzo\".</string>
   <string name="vukovicMate">Ματ του Vukovic</string>
+  <string name="vukovicMateDescription">Ένας πύργος και ένας ίππος συνδυάζονται για ματ στην άκρη της σκακιέρας. Ο πύργος κάνει ματ υποστηριζόμενος από κάποιο άλλο κομμάτι, ενώ ο ίππος ελέγχει τα υπόλοιπα διαθέσιμα τετράγωνα γύρω από τον βασιλιά.</string>
   <string name="knightEndgame">Φινάλε Ίππων</string>
   <string name="knightEndgameDescription">Ένα τέλος παρτίδας μόνο με ίππους και πιόνια.</string>
   <string name="long">Μεγάλος γρίφος</string>
