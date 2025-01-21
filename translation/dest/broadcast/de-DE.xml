@@ -80,4 +80,5 @@
   <string name="optionalDetails">Optionale Details</string>
   <string name="pastBroadcasts">Vergangene Übertragungen</string>
   <string name="allBroadcastsByMonth">Alle Übertragungen nach Monat anzeigen</string>
+  <string name="backToLiveMove">Zurück zum aktuellen Zug</string>
 </resources>
