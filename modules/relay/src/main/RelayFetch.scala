@@ -166,11 +166,10 @@ final private class RelayFetch(
           )
 
   private def reportBroadcastFailure(r: RelayRound.WithTour): Unit =
-    if r.round.sync.log.alwaysFails then
+    if r.round.sync.log.alwaysFails && r.tour.official && r.round.shouldHaveStarted then
       r.round.sync.log.events.lastOption
         .filterNot(_.isTimeout)
         .flatMap(_.error)
-        .ifTrue(r.tour.official && r.round.shouldHaveStarted)
         .filterNot(_.contains("Cannot parse move"))
         .filterNot(_.contains("Cannot parse pgn"))
         .filterNot(_.contains("Found an empty PGN"))
