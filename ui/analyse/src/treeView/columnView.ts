@@ -1,4 +1,4 @@
-import { defined, isEmpty } from 'common';
+import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { type VNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
@@ -39,9 +39,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
   const conceal = opts.noConceal
     ? null
     : opts.conceal || ctx.concealOf(true)(opts.parentPath + main.id, main);
-  const isRelay = defined(ctx.ctrl.study?.relay);
-  if (!isRelay && conceal === 'hide') return;
-  const hideIndex = isRelay && conceal === 'hide';
+  if (conceal === 'hide') return;
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
       commentTags = renderMainlineCommentsOf(ctx, main, conceal, true, opts.parentPath + main.id).filter(
@@ -49,7 +47,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
       );
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return [
-        !hideIndex && isWhite && moveView.renderIndex(main.ply, false),
+        isWhite && moveView.renderIndex(main.ply, false),
         ...renderMoveAndChildrenOf(ctx, main, {
           parentPath: opts.parentPath,
           isMainline: true,
@@ -74,24 +72,23 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
     };
 
     return [
-      !hideIndex && isWhite && moveView.renderIndex(main.ply, false),
+      isWhite && moveView.renderIndex(main.ply, false),
       !main.forceVariation && renderMoveOf(ctx, main, passOpts),
-      !hideIndex && isWhite && !main.forceVariation && emptyMove(conceal),
-      !hideIndex &&
-        h(
-          'interrupt',
-          commentTags.concat(
-            renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
-              parentPath: opts.parentPath,
-              isMainline: passOpts.isMainline,
-              depth: opts.depth,
-              conceal,
-              noConceal: !conceal,
-            }),
-          ),
+      isWhite && !main.forceVariation && emptyMove(conceal),
+      h(
+        'interrupt',
+        commentTags.concat(
+          renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
+            parentPath: opts.parentPath,
+            isMainline: passOpts.isMainline,
+            depth: opts.depth,
+            conceal,
+            noConceal: !conceal,
+          }),
         ),
-      !hideIndex && isWhite && mainChildren && moveView.renderIndex(main.ply, false),
-      !hideIndex && isWhite && mainChildren && emptyMove(conceal),
+      ),
+      isWhite && mainChildren && moveView.renderIndex(main.ply, false),
+      isWhite && mainChildren && emptyMove(conceal),
       ...(mainChildren || []),
     ];
   }
