@@ -46,7 +46,6 @@ export class ExplorerConfigCtrl {
   allDbs: ExplorerDb[] = ['lichess', 'player'];
   myName?: string;
   participants: (string | undefined)[];
-  modal?: Dialog;
 
   constructor(
     readonly root: AnalyseCtrl,
