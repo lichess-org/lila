@@ -77,18 +77,19 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
       !hideIndex && isWhite && moveView.renderIndex(main.ply, false),
       !main.forceVariation && renderMoveOf(ctx, main, passOpts),
       !hideIndex && isWhite && !main.forceVariation && emptyMove(conceal),
-      !hideIndex && h(
-        'interrupt',
-        commentTags.concat(
-          renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
-            parentPath: opts.parentPath,
-            isMainline: passOpts.isMainline,
-            depth: opts.depth,
-            conceal,
-            noConceal: !conceal,
-          }),
+      !hideIndex &&
+        h(
+          'interrupt',
+          commentTags.concat(
+            renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
+              parentPath: opts.parentPath,
+              isMainline: passOpts.isMainline,
+              depth: opts.depth,
+              conceal,
+              noConceal: !conceal,
+            }),
+          ),
         ),
-      ),
       !hideIndex && isWhite && mainChildren && moveView.renderIndex(main.ply, false),
       !hideIndex && isWhite && mainChildren && emptyMove(conceal),
       ...(mainChildren || []),
