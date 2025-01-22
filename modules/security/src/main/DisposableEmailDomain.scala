@@ -4,6 +4,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.net.Domain
+import lila.core.net.Domain.Lower
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
@@ -38,20 +39,22 @@ final class DisposableEmailDomain(
     !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.lower.value)
 
   def asMxRecord(domain: Domain): Boolean =
-    apply(domain) && !mxRecordPasslist(domain.withoutSubdomain | domain)
+    apply(domain) && !mxRecordPasslist(domain.withoutSubdomain)
 
 private object DisposableEmailDomain:
 
   extension (a: Domain)
     // heuristic to remove user controlled subdomain tails:
     // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
-    def withoutSubdomain: Option[Domain] =
+    def withoutSubdomainOpt: Option[Domain] =
       a.value.split('.').toList.reverse match
         case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
         case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
         case _                                            => none
+    def withoutSubdomain: Domain = withoutSubdomainOpt | a
 
-  def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.|(domain).lower)
+  def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.lower)
+  def isOutlook(domain: Domain)   = outlookDomains.contains(domain.withoutSubdomain.lower)
 
   private val mxRecordPasslist =
     Set(Domain("simplelogin.co"), Domain("simplelogin.com"), Domain("anonaddy.me"), Domain("iljmail.com"))
@@ -67,7 +70,10 @@ private object DisposableEmailDomain:
     "hotamil.com"
   )
 
-  private val whitelist = Domain.Lower.from(
+  private val outlookDomains: Set[Domain.Lower] = Domain.Lower.from:
+    Set("outlook.com", "outlook.es", "outlook.com.au")
+
+  private val whitelist: Set[Domain.Lower] = outlookDomains ++ Domain.Lower.from:
     Set(
       /* Default domains included */
       "aol.com",
@@ -111,8 +117,6 @@ private object DisposableEmailDomain:
       "inbox.com",
       "lavabit.com",
       "love.com" /* AOL */,
-      "outlook.com",
-      "outlook.com.au",
       "pobox.com",
       "rocketmail.com" /* Yahoo */,
       "safe-mail.net",
@@ -243,4 +247,3 @@ private object DisposableEmailDomain:
       "laudepalaciogranda.com",
       "mozmail.com" // Mozilla Firefox Relay Domain
     )
-  )
