@@ -3,7 +3,6 @@
   <string name="advancedPawn">மேம்பட்ட  பணயம்</string>
   <string name="advancedPawnDescription">உங்கள் பணயங்களில் ஒன்று எதிராளியின் நிலைமையில் ஆழமாக உள்ளது, ஒருவேளை பதவி உயர்வுக்கு அச்சுறுத்தலாக இருக்கலாம்.</string>
   <string name="advantage">ஆதாயம்</string>
-  <string name="advantageDescription">ஒரு தீர்க்கமான ஆதாயத்தைப் பெறுவதற்கான உங்கள் வாய்ப்பைப் பயன்படுத்திக் கொள்ளுங்கள். (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">அனசுதேசியாவின் முற்று</string>
   <string name="anastasiaMateDescription">ஒரு குதிரை மற்றும் யானை அல்லது அரசியும் இணைந்து எதிரணி அரசரை பலகையின் பக்கத்திற்கும் நட்பு துண்டுகளுக்கும் இடையில் சிக்க வைக்கிறார்கள்.</string>
   <string name="arabianMate">அரேபிய முற்று</string>
@@ -19,14 +18,12 @@
   <string name="bodenMate">போடனின் துணை</string>
   <string name="bodenMateDescription">குறுக்காகக் கடக்கும் மூலைவிட்டங்களில் இரண்டு தாக்குதல் நடத்தும் ஆயர்கள், நட்புத் துண்டுகளால் தடுக்கப்பட்ட ஒரு ராஜாவுக்கு துணையை வழங்குகிறார்கள்.</string>
   <string name="castling">நடிப்பு</string>
-  <string name="castlingDescription">ராஜாவைப் பாதுகாப்பாகக் கொண்டு வாருங்கள், தாக்குதலுக்கு யானையைப் பயன்படுத்துங்கள்.</string>
+  <string name="castlingDescription">அரசரைப் பாதுகாப்பிற்குள் கொண்டு வாருங்கள், மற்றும் தாக்குதலுக்கு யானையைக் குவியுங்கள்.</string>
   <string name="capturingDefender">பாதுகாவலரைப் பிடிக்கவும்</string>
   <string name="capturingDefenderDescription">மற்றொரு காயின் பாதுகாப்பிற்கு முக்கியமான ஒரு காயை அகற்றுதல், தற்போது பாதுகாக்கப்படாத காயை அடுத்த நகர்வில் கைப்பற்ற அனுமதிக்கிறது.</string>
   <string name="crushing">நசுக்குதல்</string>
-  <string name="crushingDescription">எதிராளியின் தவறைக் கண்டுபிடித்து, ஒரு நசுக்கும் நன்மையைப் பெறுங்கள். (சமநிலை ≥ 600cp)</string>
   <string name="doubleBishopMate">இரட்டை பிஷப் துணை</string>
-  <string name="doubleBishopMateDescription">அடுத்தடுத்த மூலைவிட்டங்களில் இரண்டு தாக்குதல் ஆயர்கள், நட்பு துண்டுகளால் தடுக்கப்பட்ட ஒரு ராஜாவுக்கு துணையை வழங்குகிறார்கள்.</string>
-  <string name="dovetailMate">புறாவால் துணை</string>
+  <string name="dovetailMate">நட்பு துண்டுகளால் தடுக்கப்பட்ட ஒரு அரசரை, அடுத்தடுத்த மூலைவிட்டங்களில் தாக்குதல் நடத்தும் இரு நெடுங்கோணிகள், முற்றுகையிடுகிறார்கள்</string>
   <string name="dovetailMateDescription">ஒரு ராணி பக்கத்து ராஜாவுக்கு துணையை வழங்குகிறாள், அவனுடைய இரண்டு தப்பிக்கும் சதுரங்கள் மட்டுமே நட்பு துண்டுகளால் தடுக்கப்படுகின்றன.</string>
   <string name="equality">சமத்துவம்</string>
   <string name="equalityDescription">தோல்வியடைந்த நிலையில் இருந்து திரும்பி வந்து, ஒரு சமநிலை அல்லது சமநிலை நிலையைப் பெறுங்கள். (சமநிலை ≤ 200cp)</string>
@@ -40,11 +37,10 @@
   <string name="deflectionDescription">எதிராளியின் காயை அது செய்யும் மற்றொரு கடமையிலிருந்து திசைதிருப்பும் ஒரு நகர்வு, எடுத்துக்காட்டாக ஒரு முக்கிய சதுரத்தைப் பாதுகாப்பது. சில நேரங்களில் \"ஓவர்லோடிங்\" என்றும் அழைக்கப்படுகிறது.</string>
   <string name="discoveredAttack">கண்டுபிடிக்கப்பட்ட தாக்குதல்</string>
   <string name="discoveredAttackDescription">நீண்ட தூர காயின் (கரும்பு போன்ற) தாக்குதலைத் தடுத்த ஒரு காயை (ஒரு குதிரை போன்ற) அந்தக் காயின் வழியிலிருந்து நகர்த்துதல்.</string>
-  <string name="doubleCheck">இருமுறை சரிபார்த்தல்</string>
+  <string name="doubleCheck">இரட்டை அடக்கு</string>
   <string name="doubleCheckDescription">ஒரே நேரத்தில் இரண்டு காய்களைக் கொண்டு சோதனை செய்தல், நகரும் காய் மற்றும் திறக்கப்படாத காய் இரண்டும் எதிராளியின் ராஜாவைத் தாக்கும் ஒரு கண்டுபிடிக்கப்பட்ட தாக்குதலின் விளைவாக.</string>
   <string name="endgame">எண்ட்கேம்</string>
   <string name="endgameDescription">ஆட்டத்தின் கடைசி கட்டத்தில் ஒரு தந்திரோபாயம்.</string>
-  <string name="enPassantDescription">ஒரு சிப்பாய், தனது ஆரம்ப இரண்டு சதுர நகர்வைப் பயன்படுத்தி, தன்னைத் தவிர்த்துச் சென்ற எதிராளி சிப்பாயைப் பிடிக்கக்கூடிய என் பாஸன்ட் விதியை உள்ளடக்கிய ஒரு தந்திரோபாயம்.</string>
   <string name="exposedKing">அம்பலப்படுத்தப்பட்ட ராஜா</string>
   <string name="exposedKingDescription">ஒரு ராஜாவைச் சுற்றி சில பாதுகாவலர்கள் இருப்பது போன்ற ஒரு தந்திரோபாயம், இது பெரும்பாலும் செக்மேட்டுக்கு வழிவகுக்கிறது.</string>
   <string name="fork">முள் கரண்டி</string>
