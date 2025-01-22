@@ -130,7 +130,7 @@
     <item quantity="one">%s  ब्लण्डर</item>
     <item quantity="other">%s  ब्लण्डरहरू</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s  ब्लण्डर</item>
     <item quantity="other">%s  ब्लण्डरहरू</item>
   </plurals>
