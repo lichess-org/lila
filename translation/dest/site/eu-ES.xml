@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Online zein offline jokatu</string>
   <string name="viewTheSolution">Erantzuna ikusi</string>
   <string name="followAndChallengeFriends">Jarraitu eta desafio egin lagunei</string>
+  <string name="noChallenges">Erronkarik ez.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s hizkuntzatan eskuragarri!</item>
     <item quantity="other">%s hizkuntzatan eskuragarri!</item>
