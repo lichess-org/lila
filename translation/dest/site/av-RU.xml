@@ -127,7 +127,7 @@
     <item quantity="one">%s кӀудияб гъалатӀ</item>
     <item quantity="other">%s кӀудияб гъалатӀ</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s КӀудияб гъалатӀ</item>
     <item quantity="other">%s КӀудияб гъалатӀ</item>
   </plurals>
@@ -135,7 +135,7 @@
     <item quantity="one">%s гъалатӀ</item>
     <item quantity="other">%s гъалатӀ</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s ГъалатӀ</item>
     <item quantity="other">%s ГъалатӀ</item>
   </plurals>
@@ -143,7 +143,7 @@
     <item quantity="one">%s гьитӀинаб гъалатӀ</item>
     <item quantity="other">%s гьитӀинаб гъалатӀ</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s ГьитӀинаб гъалатӀ</item>
     <item quantity="other">%s ГьитӀинаб гъалатӀ</item>
   </plurals>
