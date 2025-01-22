@@ -71,7 +71,38 @@ private object DisposableEmailDomain:
   )
 
   private val outlookDomains: Set[Domain.Lower] = Domain.Lower.from:
-    Set("outlook.com", "outlook.es", "outlook.com.au")
+    Set(
+      "outlook.com",
+      "outlook.es",
+      "outlook.com.au",
+      "outlook.com.vn",
+      "outlook.com.br",
+      "outlook.pt",
+      /* Hotmail (old name)*/
+      "hotmail.com",
+      "hotmail.co.uk",
+      "hotmail.fr",
+      "hotmail.de",
+      "hotmail.be",
+      "hotmail.com.ar",
+      "hotmail.es",
+      "hotmail.com.br",
+      "hotmail.nl",
+      /* Live mail */
+      "live.com",
+      "live.com.mx",
+      "live.com.ar",
+      "live.com.au",
+      "live.co.uk",
+      "live.fr",
+      "live.com.my",
+      "live.com.pt",
+      "live.com.sg",
+      "live.de",
+      "live.be",
+      "live.ca",
+      "live.nl"
+    )
 
   private val whitelist: Set[Domain.Lower] = outlookDomains ++ Domain.Lower.from:
     Set(
@@ -83,21 +114,11 @@ private object DisposableEmailDomain:
       "gmx.com",
       "googlemail.com",
       "google.com",
-      "hotmail.com",
-      "hotmail.co.uk",
       "ikmail.com",
       "mac.com",
       "me.com",
       "mail.com",
       "msn.com",
-      "live.com",
-      "live.com.mx",
-      "live.com.ar",
-      "live.com.au",
-      "live.com.br",
-      "live.com.my",
-      "live.com.pt",
-      "live.com.sg",
       "live.com.org",
       "sbcglobal.net",
       "verizon.net",
@@ -144,7 +165,6 @@ private object DisposableEmailDomain:
       "virginmedia.com",
       "blueyonder.co.uk",
       "freeserve.co.uk",
-      "live.co.uk",
       "ntlworld.com",
       "o2.co.uk",
       "orange.net",
@@ -168,8 +188,6 @@ private object DisposableEmailDomain:
       "yahoo.com.sg",
       "yahoo.com.ph",
       /* French ISP domains */
-      "hotmail.fr",
-      "live.fr",
       "laposte.net",
       "yahoo.fr",
       "wanadoo.fr",
@@ -181,8 +199,6 @@ private object DisposableEmailDomain:
       /* German ISP domains */
       "aikq.de",
       "gmx.de",
-      "hotmail.de",
-      "live.de",
       "online.de",
       "t-online.de" /* T-Mobile */,
       "web.de",
@@ -194,31 +210,23 @@ private object DisposableEmailDomain:
       "ya.ru",
       "list.ru",
       /* Belgian ISP domains */
-      "hotmail.be",
-      "live.be",
       "skynet.be",
       "voo.be",
       "tvcablenet.be",
       "telenet.be",
       /* Argentinian ISP domains */
-      "hotmail.com.ar",
       "yahoo.com.ar",
       "fibertel.com.ar",
       "speedy.com.ar",
       "arnet.com.ar",
       /* Domains used in Vietnam */
-      "outlook.com.vn",
       "yahoo.com.vn",
       "vnnic.vn",
       /* Domains used in Mexico */
       "yahoo.com.mx",
-      "hotmail.es",
-      "hotmail.com.mx",
       "prodigy.net.mx",
       /* Domains used in Brazil */
       "yahoo.com.br",
-      "hotmail.com.br",
-      "outlook.com.br",
       "uol.com.br",
       "bol.com.br",
       "terra.com.br",
@@ -231,17 +239,13 @@ private object DisposableEmailDomain:
       "oi.com.br",
       /* Domains used in Portugal */
       "sapo.pt",
-      "outlook.pt",
       /* Domains without an A record */
       "cabletv.on.ca",
-      "live.ca",
       "unitybox.de",
       "volki.at",
       /* others */
       "skole.hr",
       "freeshell.org",
-      "hotmail.nl",
-      "live.nl",
       "startmail.com",
       "palaciodegranda.com",
       "laudepalaciogranda.com",
