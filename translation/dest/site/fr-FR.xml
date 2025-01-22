@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Jouez en ligne ou hors-ligne</string>
   <string name="viewTheSolution">Regarder la solution</string>
   <string name="followAndChallengeFriends">Suivez et défiez vos amis !</string>
+  <string name="noChallenges">Pas de défis.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponible en %s langue !</item>
     <item quantity="other">Disponible en %s langues !</item>
