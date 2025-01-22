@@ -4,16 +4,16 @@
   <string name="puzzleThemes">புதிர் கருப்பொருள்கள்</string>
   <string name="recommended">பரிந்துரைக்கப்படுகிறது</string>
   <string name="phases">கட்டங்கள்</string>
-  <string name="motifs">கருக்கள்</string>
+  <string name="motifs">மையக்கருக்கள்</string>
   <string name="advanced">மேம்படுத்தபட்ட</string>
   <string name="lengths">நீளங்கள்</string>
-  <string name="mates">முழுத்தடைகள்</string>
+  <string name="mates">முற்றுகைகள்</string>
   <string name="goals">இலக்குகள்</string>
   <string name="origin">தோற்றம்</string>
   <string name="specialMoves">சிறப்பு நகர்வுகள்</string>
-  <string name="didYouLikeThisPuzzle">இந்தப் புதிர் நீங்கள் விரும்பினீர்களா?</string>
+  <string name="didYouLikeThisPuzzle">இந்தப் புதிர் நீங்கள் விரும்புகிறீர்களா?</string>
   <string name="voteToLoadNextOne">அடுத்ததை ஏற்றுவதற்கு வாக்களியுங்கள்!</string>
-  <string name="upVote">வரை வாக்குப் புதிர்</string>
+  <string name="upVote">மேல் வாக்குப் புதிர்</string>
   <string name="downVote">கீழ் வாக்குப் புதிர்</string>
   <string name="yourPuzzleRatingWillNotChange">உங்கள் புதிர் மதிப்பீடு மாறாது. புதிர்கள் போட்டிகள் அல்ல என்பதை நினைவிற் கொள்க. உங்களின் மதிப்பீடு உங்களிற்கு உகந்த புதிரைத் தேர்ந்தெடுக்க உதவுகின்றது.</string>
   <string name="findTheBestMoveForWhite">வெள்ளைக்கு சிறந்த நகர்த்தலை கண்டறியுங்கள்.</string>
@@ -41,7 +41,7 @@
     <item quantity="one">%s முறை விளையாடப்பட்டுள்ளது</item>
     <item quantity="other">%s முறை விளையாடப்பட்டுள்ளது</item>
   </plurals>
-  <string name="fromGameLink">%s விளையாட்டில் இருந்து</string>
+  <string name="fromGameLink">%s விளையாட்டிலிருந்து</string>
   <string name="continueTraining">பயிற்சியைத் தொடர்</string>
   <string name="difficultyLevel">கடின நிலை</string>
   <string name="normal">இயல்பு</string>
@@ -57,7 +57,7 @@
     <item quantity="one">உங்கள் புதிர் மதிப்பீட்டைவிட ஒரு புள்ளி மேலே</item>
     <item quantity="other">உங்கள் புதிர் மதிப்பீட்டைவிட %s புள்ளிகள் அதிகம்</item>
   </plurals>
-  <string name="example">எடுத்துக்காட்டு</string>
+  <string name="example">உதாரனம்</string>
   <string name="addAnotherTheme">வேறொரு வார்ப்புருவைச் சேர்</string>
   <string name="nextPuzzle">அடுத்த புதிர்</string>
   <string name="jumpToNextPuzzleImmediately">உடனடியாக அடுத்த புதிருக்கு</string>
