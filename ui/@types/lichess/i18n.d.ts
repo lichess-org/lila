@@ -3597,6 +3597,8 @@ interface I18n {
     nextXTournament: I18nFormat;
     /** No */
     no: string;
+    /** No challenges. */
+    noChallenges: string;
     /** No chat */
     noChat: string;
     /** No conditional premoves */
