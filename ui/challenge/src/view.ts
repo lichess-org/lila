@@ -145,7 +145,7 @@ const renderLag = (u?: ChallengeUser) =>
   u && h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('i', { class: { off: u.lag! < i } })));
 
 const empty = (): VNode =>
-  h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, 'No challenges.');
+  h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.site.noChallenges);
 
 const onClick = (f: (e: Event) => void) => ({
   insert: (vnode: VNode) => {

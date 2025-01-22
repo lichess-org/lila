@@ -2609,6 +2609,10 @@ interface I18n {
     veryLong: string;
     /** Four moves or more to win. */
     veryLongDescription: string;
+    /** Vukovic mate */
+    vukovicMate: string;
+    /** A rook and knight team up to mate the king. The rook delivers mate while supported by a third piece, and the knight is used to block the king's escape squares. */
+    vukovicMateDescription: string;
     /** X-Ray attack */
     xRayAttack: string;
     /** A piece attacks or defends a square, through an enemy piece. */
@@ -3597,6 +3601,8 @@ interface I18n {
     nextXTournament: I18nFormat;
     /** No */
     no: string;
+    /** No challenges. */
+    noChallenges: string;
     /** No chat */
     noChat: string;
     /** No conditional premoves */

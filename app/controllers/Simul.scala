@@ -99,7 +99,7 @@ final class Simul(env: Env) extends LilaController(env):
     NoLameOrBot:
       Ok.async:
         env.team.api
-          .lightsByTourLeader(me)
+          .lightsOf(me)
           .map: teams =>
             views.simul.form.create(forms.create(teams), teams)
   }
@@ -107,7 +107,7 @@ final class Simul(env: Env) extends LilaController(env):
   def create = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       env.team.api
-        .lightsByTourLeader(me)
+        .lightsOf(me)
         .flatMap: teams =>
           bindForm(forms.create(teams))(
             err => BadRequest.page(views.simul.form.create(err, teams)),
@@ -138,7 +138,7 @@ final class Simul(env: Env) extends LilaController(env):
   def edit(id: SimulId) = Auth { ctx ?=> me ?=>
     AsHost(id): simul =>
       Ok.async:
-        env.team.api.lightsByTourLeader(me).map { teams =>
+        env.team.api.lightsOf(me).map { teams =>
           views.simul.form.edit(forms.edit(teams, simul), teams, simul)
         }
   }
@@ -146,7 +146,7 @@ final class Simul(env: Env) extends LilaController(env):
   def update(id: SimulId) = AuthBody { ctx ?=> me ?=>
     AsHost(id): simul =>
       env.team.api
-        .lightsByTourLeader(me)
+        .lightsOf(me)
         .flatMap: teams =>
           def errPage(err: lila.simul.SimulForm.EitherForm) =
             BadRequest.page(views.simul.form.edit(err, teams, simul))
