@@ -866,6 +866,7 @@
   <string name="onlineAndOfflinePlay">Hra online i offline</string>
   <string name="viewTheSolution">Pozrite riešenie</string>
   <string name="followAndChallengeFriends">Sledovať a vyzvať priateľov</string>
+  <string name="noChallenges">Žiadne výzvy.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostupné v %s jazyku!</item>
     <item quantity="few">Dostupné v %s jazykoch!</item>
