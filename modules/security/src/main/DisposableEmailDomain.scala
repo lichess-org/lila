@@ -101,7 +101,7 @@ private object DisposableEmailDomain:
       "live.de",
       "live.be",
       "live.ca",
-      "live.nl",
+      "live.nl"
     )
 
   private val whitelist: Set[Domain.Lower] = outlookDomains ++ Domain.Lower.from:
