@@ -138,7 +138,7 @@
     <item quantity="many">%s šiurkščios klaidos</item>
     <item quantity="other">%s šiurkščių klaidų</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Šiurkšti klaida</item>
     <item quantity="few">%s Šiurkščios klaidos</item>
     <item quantity="many">%s Šiurkščių klaidų</item>
@@ -150,7 +150,7 @@
     <item quantity="many">%s klaidos</item>
     <item quantity="other">%s klaidų</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Klaida</item>
     <item quantity="few">%s Klaidos</item>
     <item quantity="many">%s Klaidų</item>
@@ -162,7 +162,7 @@
     <item quantity="many">%s netikslumo</item>
     <item quantity="other">%s netikslumų</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Netikslumas</item>
     <item quantity="few">%s Netikslumai</item>
     <item quantity="many">%s Netikslumo</item>
