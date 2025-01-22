@@ -10,6 +10,7 @@ import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
 import { intersection } from 'tree/path';
 import { defined } from 'common';
+import { resultTag } from './studyView';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -65,11 +66,10 @@ function renderPlayer(
     team = findTag(tags, `${color}team`),
     rating = showRatings && player?.rating,
     result = showResult && resultOf(tags, color === 'white'),
-    top = ctrl.bottomColor() !== color,
-    tag = result === '1' ? 'good' : result === '0' ? 'bad' : 'status';
+    top = ctrl.bottomColor() !== color;
   return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     h('div.left', [
-      result && h(`${tag}.result`, result),
+      result && h(`${resultTag(result)}.result`, result),
       h('span.info', [
         team ? h('span.team', team) : undefined,
         playerFed(player?.fed),
