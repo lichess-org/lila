@@ -208,30 +208,37 @@ final private class RelayFetch(
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
-      case Sync.Upstream.Ids(ids) => fetchFromGameIds(rt.tour, ids)
-      case Sync.Upstream.Url(url) => delayer(url, rt.round, fetchFromUpstream(rt))
+      case Sync.Upstream.Ids(ids)     => fetchFromGameIds(rt.tour, ids)
+      case Sync.Upstream.Users(users) => fetchFromUsers(rt.tour, users)
+      case Sync.Upstream.Url(url)     => delayer(url, rt.round, fetchFromUpstream(rt))
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
             delayer(url, rt.round, fetchFromUpstreamWithRecovery(rt))
           .map(_.flatten)
 
+  private def fetchFromUsers(tour: RelayTour, users: List[UserStr]): Fu[RelayGames] =
+    val ids = users.map(_.id).toSet
+    (ids.sizeIs > 1).so:
+      gameRepo.ongoingByUserIdsCursor(ids).collect[List](ids.size).flatMap(fromLichessGames(tour))
+
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
     gameRepo
       .gamesFromSecondary(ids)
-      .flatMap(gameProxy.upgradeIfPresent)
-      .flatMap(gameRepo.withInitialFens)
       .flatMap: games =>
-        if games.sizeIs == ids.size then
-          val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-          games
-            .sequentially: (game, fen) =>
-              pgnDump(game, fen, pgnFlags).dmap(_.render)
-            .dmap(MultiPgn.apply)
+        if games.sizeIs == ids.size then fromLichessGames(tour)(games)
         else
-          throw LilaInvalid:
-            s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
-      .flatMap(multiPgnToGames.future)
+          fufail:
+            LilaInvalid:
+              s"Invalid game IDs: ${ids.filter(id => !games.exists(_.id == id)).mkString(", ")}"
+
+  private def fromLichessGames(tour: RelayTour)(dbGames: List[lila.core.game.Game]): Fu[RelayGames] = for
+    upgraded <- gameProxy.upgradeIfPresent(dbGames)
+    withFen  <- gameRepo.withInitialFens(upgraded)
+    pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
+    pgn   <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render.pp))
+    games <- multiPgnToGames.future(MultiPgn(pgn))
+  yield games
 
   private object lccCache:
     import DgtJson.GameJson

@@ -144,9 +144,10 @@ object RelayRound:
     import url.*
 
     enum Upstream:
-      case Url(url: URL)          extends Upstream
-      case Urls(urls: List[URL])  extends Upstream
-      case Ids(ids: List[GameId]) extends Upstream
+      case Url(url: URL)               extends Upstream
+      case Urls(urls: List[URL])       extends Upstream
+      case Ids(ids: List[GameId])      extends Upstream
+      case Users(users: List[UserStr]) extends Upstream
       def asUrl: Option[URL] = this match
         case Url(url) => url.some
         case _        => none

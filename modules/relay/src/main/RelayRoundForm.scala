@@ -43,6 +43,17 @@ final class RelayRoundForm(using mode: Mode):
       .map(Upstream.Ids.apply),
     _.ids.mkString(" ")
   )
+  private given Formatter[Upstream.Users] = formatter.stringTryFormatter(
+    _.split(' ').toList
+      .map(_.trim)
+      .traverse: i =>
+        UserStr.read(i).toRight(s"Invalid username: $i")
+      .filterOrElse(_.sizeIs > 1, s"Min users: 2")
+      .filterOrElse(_.sizeIs <= 100, s"Max users: 100")
+      .map(_.distinct)
+      .map(Upstream.Users.apply),
+    _.users.mkString(" ")
+  )
 
   def roundMapping(tour: RelayTour)(using Me): Mapping[Data] =
     mapping(
@@ -52,6 +63,7 @@ final class RelayRoundForm(using mode: Mode):
       "syncUrl"             -> optional(of[Upstream.Url]),
       "syncUrls"            -> optional(of[Upstream.Urls]),
       "syncIds"             -> optional(of[Upstream.Ids]),
+      "syncUsers"           -> optional(of[Upstream.Users]),
       "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
       "startsAfterPrevious" -> optional(boolean),
       "finished"            -> optional(boolean),
@@ -81,10 +93,11 @@ final class RelayRoundForm(using mode: Mode):
 object RelayRoundForm:
 
   val sourceTypes = List(
-    "push" -> "Broadcaster App",
-    "url"  -> "Single PGN URL",
-    "urls" -> "Combine several PGN URLs",
-    "ids"  -> "Lichess game IDs"
+    "push"  -> "Broadcaster App",
+    "url"   -> "Single PGN URL",
+    "urls"  -> "Combine several PGN URLs",
+    "ids"   -> "Lichess game IDs",
+    "users" -> "Lichess usernames"
   )
 
   private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r
@@ -191,6 +204,7 @@ object RelayRoundForm:
       syncUrl: Option[Upstream.Url] = None,
       syncUrls: Option[Upstream.Urls] = None,
       syncIds: Option[Upstream.Ids] = None,
+      syncUsers: Option[Upstream.Users] = None,
       startsAt: Option[Instant] = None,
       startsAfterPrevious: Option[Boolean] = None,
       finished: Option[Boolean] = None,
@@ -200,11 +214,12 @@ object RelayRoundForm:
       slices: Option[List[RelayGame.Slice]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
-      case None         => syncUrl.orElse(syncUrls).orElse(syncIds)
-      case Some("url")  => syncUrl
-      case Some("urls") => syncUrls
-      case Some("ids")  => syncIds
-      case _            => None
+      case None          => syncUrl.orElse(syncUrls).orElse(syncIds).orElse(syncUsers)
+      case Some("url")   => syncUrl
+      case Some("urls")  => syncUrls
+      case Some("ids")   => syncIds
+      case Some("users") => syncUsers
+      case _             => None
 
     private def relayStartsAt: Option[RelayRound.Starts] = startsAt
       .map(RelayRound.Starts.At(_))
@@ -254,9 +269,10 @@ object RelayRoundForm:
         caption = relay.caption,
         syncSource = relay.sync.upstream
           .fold("push"):
-            case _: Upstream.Url  => "url"
-            case _: Upstream.Urls => "urls"
-            case _: Upstream.Ids  => "ids"
+            case _: Upstream.Url   => "url"
+            case _: Upstream.Urls  => "urls"
+            case _: Upstream.Ids   => "ids"
+            case _: Upstream.Users => "users"
           .some,
         syncUrl = relay.sync.upstream.collect:
           case url: Upstream.Url => url,
@@ -265,6 +281,8 @@ object RelayRoundForm:
           case urls: Upstream.Urls => urls,
         syncIds = relay.sync.upstream.collect:
           case ids: Upstream.Ids => ids,
+        syncUsers = relay.sync.upstream.collect:
+          case users: Upstream.Users => users,
         startsAt = relay.startsAtTime,
         startsAfterPrevious = relay.startsAfterPrevious.option(true),
         finished = relay.isFinished.option(true),

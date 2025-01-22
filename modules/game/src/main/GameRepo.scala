@@ -99,6 +99,19 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.priTemp)
 
+  def ongoingByUserIdsCursor(userIds: Set[UserId]) =
+    coll
+      .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
+        import framework.*
+        List(
+          Match($doc(lila.game.Game.BSONFields.playingUids -> $doc("$in" -> userIds, "$size" -> 2))),
+          AddFields:
+            $doc:
+              "both" -> $doc("$setIsSubset" -> $arr("$" + lila.core.game.BSONFields.playingUids, userIds))
+          ,
+          Match($doc("both" -> true))
+        )
+
   def gamesForAssessment(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
       .find(
