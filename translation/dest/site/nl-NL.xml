@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Online en offline spelen</string>
   <string name="viewTheSolution">Bekijk de oplossing</string>
   <string name="followAndChallengeFriends">Volg vrienden en daag ze uit</string>
+  <string name="noChallenges">Geen uitdagingen.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beschikbaar in %s taal!</item>
     <item quantity="other">Beschikbaar in %s talen!</item>
