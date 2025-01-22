@@ -57,7 +57,7 @@
     <item quantity="one">உங்கள் புதிர் மதிப்பீட்டைவிட ஒரு புள்ளி மேலே</item>
     <item quantity="other">உங்கள் புதிர் மதிப்பீட்டைவிட %s புள்ளிகள் அதிகம்</item>
   </plurals>
-  <string name="example">உதாரனம்</string>
+  <string name="example">எடுத்துக்காட்டு</string>
   <string name="addAnotherTheme">வேறொரு வார்ப்புருவைச் சேர்</string>
   <string name="nextPuzzle">அடுத்த புதிர்</string>
   <string name="jumpToNextPuzzleImmediately">உடனடியாக அடுத்த புதிருக்கு</string>
