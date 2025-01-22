@@ -113,7 +113,8 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
   def eraseAllBy(id: UserId) =
     coll.update.one(
       $doc("userId" -> id),
-      $set($doc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant))
+      $set($doc("userId" -> UserId.ghost, "text" -> "", "erasedAt" -> nowInstant)),
+      multi = true
     )
 
   private[forum] def nonGhostCursor(since: Option[Instant]): AkkaStreamCursor[ForumPostMini] =
