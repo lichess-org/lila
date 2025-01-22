@@ -25,15 +25,15 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
 
-  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
+  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.sec)(_.id)
 
   // #TODO FIXME
   // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-  def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] =
+  def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.priTemp)(_.id)
 
-  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
+  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] = gameIds.nonEmpty.so:
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.priTemp)(_.id)
 
   val light: lila.core.game.GameLightRepo = new:

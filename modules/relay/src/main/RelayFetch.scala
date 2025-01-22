@@ -217,11 +217,6 @@ final private class RelayFetch(
             delayer(url, rt.round, fetchFromUpstreamWithRecovery(rt))
           .map(_.flatten)
 
-  private def fetchFromUsers(tour: RelayTour, users: List[UserStr]): Fu[RelayGames] =
-    val ids = users.map(_.id).toSet
-    (ids.sizeIs > 1).so:
-      gameRepo.ongoingByUserIdsCursor(ids).collect[List](ids.size).flatMap(fromLichessGames(tour))
-
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
     gameRepo
       .gamesFromSecondary(ids)
@@ -232,11 +227,30 @@ final private class RelayFetch(
             LilaInvalid:
               s"Invalid game IDs: ${ids.filter(id => !games.exists(_.id == id)).mkString(", ")}"
 
+  // remembers previously ongoing games so they can be fetched one last time when finished
+  private val ongoingUserGameIdsCache =
+    cacheApi.notLoadingSync[RelayTourId, Set[GameId]](16, "relay.fetch.ongoingUserGameIds"):
+      _.expireAfterWrite(15.minutes).build()
+
+  private def fetchFromUsers(tour: RelayTour, users: List[UserStr]): Fu[RelayGames] =
+    val ids = users.map(_.id).toSet
+    (ids.sizeIs > 1).so:
+      for
+        ongoingGames <- gameRepo.ongoingByUserIdsCursor(ids).collect[List](ids.size)
+        ongoingIds          = ongoingGames.map(_.id).toSet
+        prevGameIds         = ~ongoingUserGameIdsCache.getIfPresent(tour.id)
+        recentlyFinishedIds = prevGameIds.diff(ongoingIds)
+        recentlyFinished <- gameRepo.gamesFromSecondary(recentlyFinishedIds.toSeq)
+        allGames = recentlyFinished ++ ongoingGames
+        _        = ongoingUserGameIdsCache.put(tour.id, ongoingIds)
+        games <- fromLichessGames(tour)(allGames)
+      yield games
+
   private def fromLichessGames(tour: RelayTour)(dbGames: List[lila.core.game.Game]): Fu[RelayGames] = for
     upgraded <- gameProxy.upgradeIfPresent(dbGames)
     withFen  <- gameRepo.withInitialFens(upgraded)
     pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-    pgn   <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render.pp))
+    pgn   <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render))
     games <- multiPgnToGames.future(MultiPgn(pgn))
   yield games
 
