@@ -46,6 +46,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       _.aggregateOne(): framework =>
         import framework.*
         Match($id(id)) -> List(
+          Project(projection),
           PipelineOperator(
             $lookup.pipeline(
               from = chapterColl,
@@ -64,7 +65,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           study   <- doc.asOpt[Study]
         yield Study.WithChapter(study, chapter)
 
-  def byOrderedIds(ids: Seq[StudyId]) = coll(_.byOrderedIds[Study, StudyId](ids)(_.id))
+  def byOrderedIds(ids: Seq[StudyId]) = coll(_.byOrderedIds[Study, StudyId](ids, projection.some)(_.id))
 
   def lightById(id: StudyId): Fu[Option[Study.LightStudy]] =
     coll(_.find($id(id), lightProjection.some).one[Study.LightStudy])
@@ -74,7 +75,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       sort: Bdoc,
       readPref: ReadPref = _.pri
   ): Fu[AkkaStreamCursor[Study]] =
-    coll.map(_.find(selector).sort(sort).cursor[Study](readPref))
+    coll.map(_.find(selector, projection.some).sort(sort).cursor[Study](readPref))
 
   def exists(id: StudyId) = coll(_.exists($id(id)))
 
@@ -100,7 +101,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def sourceByOwner(ownerId: UserId, isMe: Boolean): Source[Study, ?] =
     Source.futureSource:
       coll.map:
-        _.find(selectOwnerId(ownerId) ++ (!isMe).so(selectPublic))
+        _.find(selectOwnerId(ownerId) ++ (!isMe).so(selectPublic), projection.some)
           .sort($sort.desc("updatedAt"))
           .cursor[Study]()
           .documentSource()
@@ -108,7 +109,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def sourceByMember(memberId: UserId, isMe: Boolean, select: Bdoc = $empty): Source[Study, ?] =
     Source.futureSource:
       coll.map:
-        _.find(selectMemberId(memberId) ++ select ++ (!isMe).so(selectPublic))
+        _.find(selectMemberId(memberId) ++ select ++ (!isMe).so(selectPublic), projection.some)
           .sort($sort.desc("rank"))
           .cursor[Study]()
           .documentSource()
@@ -162,14 +163,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def setPosition(studyId: StudyId, position: Position.Ref): Funit =
     coll:
-      _.update
-        .one(
-          $id(studyId),
-          $set(
-            "position"  -> position,
-            "updatedAt" -> nowInstant
-          )
+      _.update.one(
+        $id(studyId),
+        $set(
+          "position"  -> position,
+          "updatedAt" -> nowInstant
         )
+      )
     .void
 
   def updateNow(s: Study): Funit =
@@ -180,29 +180,26 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def addMember(study: Study, member: StudyMember): Funit =
     coll:
-      _.update
-        .one(
-          $id(study.id),
-          $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
-        )
+      _.update.one(
+        $id(study.id),
+        $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
+      )
     .void
 
   def removeMember(study: Study, userId: UserId): Funit =
     coll:
-      _.update
-        .one(
-          $id(study.id),
-          $unset(s"members.$userId") ++ $pull(F.uids -> userId)
-        )
+      _.update.one(
+        $id(study.id),
+        $unset(s"members.$userId") ++ $pull(F.uids -> userId)
+      )
     .void
 
   def setRole(study: Study, userId: UserId, role: StudyMember.Role): Funit =
     coll:
-      _.update
-        .one(
-          $id(study.id),
-          $set(s"members.$userId.role" -> role)
-        )
+      _.update.one(
+        $id(study.id),
+        $set(s"members.$userId.role" -> role)
+      )
     .void
 
   def membersDoc(id: StudyId): Fu[Option[Bdoc]] =
@@ -237,7 +234,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   private def findRecentStudyWithChapterCount(query: UserId => BSONDocument)(
       chapterColl: AsyncColl
-  )(userId: UserId, nb: Int) =
+  )(userId: UserId, nb: Int): Future[List[(hub.IdName, Int)]] =
     coll:
       _.aggregateList(nb): framework =>
         import framework.*
