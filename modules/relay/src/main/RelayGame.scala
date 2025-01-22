@@ -21,9 +21,14 @@ case class RelayGame(
   // We don't use tags.boardNumber.
   // Organizers change it at any time while reordering the boards.
   def isSameGame(otherTags: Tags): Boolean =
-    allSame(otherTags, RelayGame.eventTags) &&
+    isSameLichessGame(otherTags) || {
+      allSame(otherTags, RelayGame.eventTags) &&
       otherTags.roundNumber == tags.roundNumber &&
       playerTagsMatch(otherTags)
+    }
+
+  private def isSameLichessGame(otherTags: Tags) =
+    ~(tags(_.GameId), otherTags(_.GameId)).mapN(_ == _)
 
   private def playerTagsMatch(otherTags: Tags): Boolean =
     val bothHaveFideIds = List(otherTags, tags).forall: ts =>
