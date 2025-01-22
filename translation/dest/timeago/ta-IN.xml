@@ -2,8 +2,8 @@
 <resources>
   <string name="justNow">சற்று முன்பு</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">%s வினாடியில்</item>
-    <item quantity="other">%s வினாடிகளில்</item>
+    <item quantity="one">%s நொடியில்</item>
+    <item quantity="other">%s நொடிகளில்</item>
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">%s மணித்துளியில்</item>
@@ -27,7 +27,7 @@
   </plurals>
   <plurals name="inNbYears">
     <item quantity="one">%s ஆண்டில்</item>
-    <item quantity="other">%s வருடங்களில்</item>
+    <item quantity="other">%s ஆண்டுகளில்</item>
   </plurals>
   <string name="rightNow">இக்கணம்</string>
   <plurals name="nbMinutesAgo">
