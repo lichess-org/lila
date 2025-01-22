@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">கேளிருடன் விளையாடு</string>
+  <string name="playWithAFriend">தோழருடன் விளையாடு</string>
   <string name="playWithTheMachine">கணினியுடன் விளையாடு</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URL ளை கொடு</string>
-  <string name="gameOver">ஆட்டம் முடிந்தது</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URL ளைக்கொடு</string>
+  <string name="gameOver">ஆட்டம் முற்றிற்று</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
   <string name="orLetYourOpponentScanQrCode">அல்லது உங்கள் எதிராளியை இந்த QR குறியீட்டை மேவ அனுமதிக்கவும்</string>
   <string name="waiting">காத்திருக்கின்றது</string>
@@ -41,7 +41,7 @@
     <item quantity="one">உங்கள் எதிராளி ஆட்டத்தை விட்டு அகன்றுள்ளார். இன்னும் %s நொடியில் நீங்கள் வெற்றியை உரிமைகோரலாம்.</item>
     <item quantity="other">உங்கள் எதிராளி ஆட்டத்தை விட்டு அகன்றுள்ளார். இன்னும் %s நொடிகளில் நீங்கள் வெற்றியை உரிமைகோரலாம்.</item>
   </plurals>
-  <string name="opponentLeftChoices">உங்கள் எதிராளி ஆட்டத்திலிருந்து அகன்றுள்ளார். நீங்கள் வெற்றியை உரிமைகோரலாம் அல்லது இழுபறிக்கலாம் அல்லது காத்திருக்கலாம் .</string>
+  <string name="opponentLeftChoices">உங்கள் எதிராளி ஆட்டத்திலிருந்து அகன்றுள்ளார். நீங்கள் வெற்றியை உரிமைகோரலாம் அல்லது இழுபறிக்கலாம் அல்லது காத்திருக்கலாம்.</string>
   <string name="forceResignation">வெற்றியைப் உரிமைகோரு</string>
   <string name="forceDraw">இழுபறிக்க கோரு</string>
   <string name="talkInChat">உரையாடலில் தன்மையாக உரையாடு!</string>
@@ -63,13 +63,13 @@
   <string name="calculatingMoves">நகர்வுகளைக் கணக்கிடுகிறது...</string>
   <string name="engineFailed">இயந்திரத்தை ஏற்றுவதில் பிழை</string>
   <string name="cloudAnalysis">மேகப்பகுப்பாய்வு</string>
-  <string name="goDeeper">ஆழமாக செல்லுங்கள்</string>
-  <string name="showThreat">அச்சுறுத்தல்களைக் காண்பி</string>
+  <string name="goDeeper">ஆழமாகச் செல்லுங்கள்</string>
+  <string name="showThreat">அச்சுறுத்தலைக் காண்பி</string>
   <string name="inLocalBrowser">உங்கள் உலாவியில்</string>
   <string name="toggleLocalEvaluation">கணினி மதிப்பாய்வு</string>
   <string name="promoteVariation">பிறழ்வை ஊக்குவித்தல்</string>
   <string name="makeMainLine">முதன்மை வரியாக்கு</string>
-  <string name="deleteFromHere">இங்கிருந்து நீக்கு</string>
+  <string name="deleteFromHere">இங்கிருந்து நீக்க</string>
   <string name="collapseVariations">பிறழ்வுகளைச் சுருக்கு</string>
   <string name="expandVariations">பிறழ்வுகளை விரிவாக்கு</string>
   <string name="forceVariation">பிறழ்வுகளை கட்டாயப்படுத்து</string>
@@ -84,12 +84,12 @@
   <string name="winning">வெற்றியாகிறது</string>
   <string name="losing">இழக்கிறது</string>
   <string name="drawn">இழுபறியானது</string>
-  <string name="unknown">தெரியவில்லை</string>
-  <string name="database">தரவுத்தளம்</string>
+  <string name="unknown">அறியவில்லை</string>
+  <string name="database">தரவுத் தளம்</string>
   <string name="whiteDrawBlack">வெள்ளை / இழுபறி / கருப்பு</string>
   <string name="averageRatingX">சராசரி தரமதிப்பு: %s</string>
-  <string name="recentGames">சமீபத்திய ஆட்டங்கள்</string>
-  <string name="topGames">சிறந்த ஆட்டங்கள்</string>
+  <string name="recentGames">அண்மை ஆட்டங்கள்</string>
+  <string name="topGames">தலைசிறந்த ஆட்டங்கள்</string>
   <string name="masterDbExplanation">FIDE மதிப்பீடு %2$s முதல் %3$s வரை உள்ள %1$s+ வீரர்களின் இரண்டு மில்லியன் OTB ஆட்டங்கள்</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s ல் பாதி நகத்தலில் முற்றுகை</item>
@@ -98,25 +98,25 @@
   <string name="dtzWithRounding">DTZ50\" சுற்றுகளுடன், அடுத்த பிடிபாடு அல்லது பணயம் நகரும் வரை பாதி நகர்வுகளின் எண்ணிக்கையின் அடிப்படையில்</string>
   <string name="noGameFound">எந்த ஆட்டங்களும் அறியப்படவில்லை</string>
   <string name="maxDepthReached">அதிகப்படியான ஆழம் எட்டியது!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள்?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தைக் காட்டுவதற்காக விருப்பத்தேர்வை மாற்றுங்கள்?</string>
   <string name="openings">துவக்கம்</string>
   <string name="openingExplorer">துவக்க ஆய்வுலாளர்</string>
   <string name="openingEndgameExplorer">துவக்க/கடையாட்ட ஆய்வுலாளர்</string>
   <string name="xOpeningExplorer">%s துவக்க திறப்பு ஆராய்ச்சி</string>
   <string name="playFirstOpeningEndgameExplorerMove">முதலில் தொடக்க/கடையாட்ட ஆய்வுலாளர் நகர்வுகளை விளையாடவும்</string>
-  <string name="winPreventedBy50MoveRule">ஐம்பது நகர்த்தல் விதியின்படி வெற்றி தடுக்கப்பட்டது</string>
-  <string name="lossSavedBy50MoveRule">ஐமபது நகர்த்தல் விதியின்படி தோல்வி தடுக்கப்பட்டது</string>
+  <string name="winPreventedBy50MoveRule">50 நகர்த்தல் விதியின்படி வெற்றி தடுக்கப்பட்டது</string>
+  <string name="lossSavedBy50MoveRule">50 நகர்த்தல் விதியின்படி தோல்வி தடுக்கப்பட்டது</string>
   <string name="winOr50MovesByPriorMistake">வெற்றி அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
   <string name="lossOr50MovesByPriorMistake">இழப்பு அல்லது 50 நகர்வுகள் முன் தவறுதலாக</string>
   <string name="unknownDueToRounding">Syzygy டேபிள்பேஸ்களில் DTZ மதிப்புகளின் சாத்தியமான ரவுண்டிங் காரணமாக, சிப்பாய் நகர்வைக் கைப்பற்றியதிலிருந்து பரிந்துரைக்கப்பட்ட டேபிள்பேஸ் லைன் பின்பற்றப்பட்டிருந்தால் மட்டுமே வெற்றி/தோல்வி உத்தரவாதம்.</string>
   <string name="allSet">எல்லாம் அமைக்கப்பட்டது!</string>
   <string name="importPgn">PGN இறக்குமதி</string>
-  <string name="delete">நீக்கு</string>
+  <string name="delete">நீக்க</string>
   <string name="deleteThisImportedGame">இந்த இறக்குமதி செய்யப்பட்ட விளையாட்டு நீக்க வேண்டுமா?</string>
   <string name="replayMode">மறுஇயக்க முறை</string>
   <string name="realtimeReplay">நிகழ்காலம்</string>
   <string name="byCPL">சி.பி.எல் முறை</string>
-  <string name="enable">இயக்கு</string>
+  <string name="enable">இயக்க</string>
   <string name="bestMoveArrow">சிறந்த நகர்த்தலுக்கான அம்புக்குறி</string>
   <string name="showVariationArrows">பிறழ்வுகளின் அம்புக்குறிகளைக் காட்டு</string>
   <string name="evaluationGauge">மதிப்பாய்வு அளவு</string>
@@ -125,48 +125,48 @@
   <string name="memory">நினைவகம்</string>
   <string name="infiniteAnalysis">எல்லையற்ற கூறாய்வு</string>
   <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் வரம்பை நீக்குவது. உங்கள் கணினியை சூடாக வைக்கும்</string>
-  <string name="blunder">பிழை</string>
-  <string name="mistake">பிசகு</string>
+  <string name="blunder">பெருந்தவறு</string>
+  <string name="mistake">தவறு</string>
   <string name="inaccuracy">செவ்வைப்பிழை</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s பெரிய தவறு</item>
-    <item quantity="other">%s பெரிய தவறுகள்</item>
+    <item quantity="one">%s பெருந்தவறு</item>
+    <item quantity="other">%s பெருந்தவறுகள்</item>
   </plurals>
   <plurals name="numberBlunders">
-    <item quantity="one">%s பெரிய தவறு</item>
-    <item quantity="other">%s பெரிய தவறுகள்</item>
+    <item quantity="one">%s பெருந்தவறு</item>
+    <item quantity="other">%s பெருந்தவறுகள்</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">%s பிசகு</item>
+    <item quantity="one">%s தவறு</item>
     <item quantity="other">%s தவறுகள்</item>
   </plurals>
   <plurals name="numberMistakes">
-    <item quantity="one">%s பிசகு</item>
+    <item quantity="one">%s தவறு</item>
     <item quantity="other">%s தவறுகள்</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s துல்லியமின்மை</item>
-    <item quantity="other">%s கச்சிதப்பிழைகள்</item>
+    <item quantity="one">%s செவ்வைப்பிழை</item>
+    <item quantity="other">%s செவ்வைப்பிழைகள்</item>
   </plurals>
   <plurals name="numberInaccuracies">
-    <item quantity="one">%s துல்லியமின்மை</item>
-    <item quantity="other">%s கச்சிதப்பிழைகள்</item>
+    <item quantity="one">%s செவ்வைப்பிழை</item>
+    <item quantity="other">%s செவ்வைப்பிழைகள்</item>
   </plurals>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
-  <string name="threefoldRepetition">மும்மடி மடக்கு</string>
-  <string name="claimADraw">சமநிலை பெறு</string>
+  <string name="threefoldRepetition">மும்மடி மீள்நிகழ்வு</string>
+  <string name="claimADraw">இழுபறி பெறு</string>
   <string name="offerDraw">இழுபறி அளித்திடுக</string>
   <string name="draw">சமநிலை</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s விளையாடி</item>
+    <item quantity="one">%s ஆட்டக்காரர்</item>
     <item quantity="other">%s விளையாடிகள்</item>
   </plurals>
-  <string name="drawByMutualAgreement">இருதரப்பு ஒத்துழைப்புடன் சமநிலை</string>
+  <string name="drawByMutualAgreement">இருதரப்பு ஒத்துழைப்புடன் இழுபறி</string>
   <string name="fiftyMovesWithoutProgress">முன்னேற்றம் இல்லாமல் ஐம்பது நகர்வுகள்</string>
-  <string name="currentGames">இப்பொழுதைய ஆட்டங்கள்</string>
+  <string name="currentGames">தற்பொழுதைய ஆட்டங்கள்</string>
   <plurals name="nbGames">
-    <item quantity="one">%s ஆட்டங்கள்</item>
+    <item quantity="one">%s ஆட்டம்</item>
     <item quantity="other">%s ஆட்டங்கள்</item>
   </plurals>
   <plurals name="ratingXOverYGames">
@@ -188,38 +188,38 @@
   <string name="forum">மன்றம்</string>
   <string name="xPostedInForumY">%1$s இடுகைகள் %2$s என்ற மன்றத்தில்</string>
   <string name="latestForumPosts">சமீபத்திய மன்ற பதிவுகள்</string>
-  <string name="players">சதுரங்க விளையாடிகள்</string>
-  <string name="friends">நண்பர்கள்</string>
+  <string name="players">ஆட்டக்காரர்கள்</string>
+  <string name="friends">தோழர்கள்</string>
   <string name="otherPlayers">ஏனய வீரர்கள்</string>
   <string name="discussions">உரையாடல்கள்</string>
   <string name="today">இன்று</string>
   <string name="yesterday">நேற்று</string>
-  <string name="minutesPerSide">ஒவ்வொரு கட்சிக்குமான நிமிடங்கள்</string>
+  <string name="minutesPerSide">ஒவ்வொரு கட்சிக்குமான மணித்துளிகள்</string>
   <string name="variant">ஆட்ட வகை</string>
-  <string name="variants">வகைகள்</string>
-  <string name="timeControl">நேர வரம்பு</string>
-  <string name="realTime">உண்மை நேரம்</string>
-  <string name="correspondence">ஒத்திசைவு</string>
+  <string name="variants">திரிபுருக்கள்</string>
+  <string name="timeControl">கால வரம்பு</string>
+  <string name="realTime">நிகழ்காலம்</string>
+  <string name="correspondence">இசைவு</string>
   <string name="daysPerTurn">ஒரு முறைக்கு எத்தனை நாட்கள்</string>
   <string name="oneDay">ஒரு நாள்</string>
   <plurals name="nbDays">
-    <item quantity="one">%s நாட்கள்</item>
+    <item quantity="one">%s நாள்</item>
     <item quantity="other">%s நாட்கள்</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s மணி நேரம்</item>
-    <item quantity="other">%s மணி நேரம்</item>
+    <item quantity="one">%s மணித்தியாலம்</item>
+    <item quantity="other">%s மணித்தியாலங்கள்</item>
   </plurals>
   <plurals name="nbMinutes">
-    <item quantity="one">%s நிமிடம்</item>
-    <item quantity="other">%s நிமிடங்கல்</item>
+    <item quantity="one">%s மணித்துளி</item>
+    <item quantity="other">%s மணித்துளிகள்</item>
   </plurals>
-  <string name="time">நேரம்</string>
+  <string name="time">காலம்</string>
   <string name="rating">மதிப்பீடு</string>
   <string name="ratingStats">மதிப்பீடு புள்ளிவிவரங்கள்</string>
   <string name="username">பயனர்பெயர்</string>
   <string name="usernameOrEmail">பயனர்பெயர் அல்லது மின்னஞ்சல்</string>
-  <string name="changeUsername">பேர் மாற்றுதல்</string>
+  <string name="changeUsername">பயனர் பெயரை மாற்றவும்</string>
   <string name="changeUsernameNotSame">எழுத்துக்களின் உயரம் மட்டும்தான் மாறலாம். உதாரணமாக: \"johndoe\" இலிருந்து \"JohnDoe\".</string>
   <string name="changeUsernameDescription">உங்கள் பேரை மாற்றுங்கள். எழுத்துக்களின் உயரம் மட்டும்தான் மாறலாம்.</string>
   <string name="signupUsernameHint">குடும்ப-நட்புறவான பயனர் பெயரைத் தேர்ந்தெடுப்பதை உறுதிப்படுத்துங்கள். இந்தப் பெயரைப் பின்னர் மாற்ற முடியாது என்பதுடன் பொருத்தமில்லாத பயனர்பெயர்கள் நீக்கப்படும்!</string>
@@ -255,7 +255,7 @@
   <string name="accountConfirmationEmailNotNeeded">உங்களுக்கு உறுதிப்படுத்தல் மின்னஞ்சல் தேவையில்லை.</string>
   <string name="accountClosed">%s கணக்கு மூடப்பட்டுள்ளது.</string>
   <string name="accountRegisteredWithoutEmail">%s கணக்கு மின்னஞ்சல் இல்லாமல் பதிவு செய்யப்பட்டது.</string>
-  <string name="rank">வரிசை</string>
+  <string name="rank">தரவரிசை</string>
   <string name="rankX">மதிப்பீடு: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">தரவரிசைகள் ஒரு நிமிடத்திற்கு ஒரு முறை மாறும்</item>
@@ -265,7 +265,7 @@
     <item quantity="one">%s புதிர்</item>
     <item quantity="other">%s புதிர்கள்</item>
   </plurals>
-  <string name="gamesPlayed">ஆடின ஆட்டங்கள்</string>
+  <string name="gamesPlayed">விளையாடின ஆட்டங்கள்</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s ஆட்டங்கள் நும்மோடு</item>
     <item quantity="other">%s ஆட்டங்கள் நும்மோடு</item>
@@ -274,22 +274,22 @@
   <string name="cancel">இரத்து செய்</string>
   <string name="whiteTimeOut">வெள்ளை நேரம் முடிந்தது</string>
   <string name="blackTimeOut">கருப்பு நேரம் முடிந்தது</string>
-  <string name="drawOfferSent">சமநிலை முன்வரவு தெரிவிப்பு</string>
-  <string name="drawOfferAccepted">சமநிலை முன்வரவு ஏற்கப்பட்டது</string>
-  <string name="drawOfferCanceled">சமநிலை முன்வரவு நிராகரிக்கப்பட்டது</string>
-  <string name="whiteOffersDraw">வெள்ளை சமநிலை வாய்ப்பளிக்கிறது</string>
-  <string name="blackOffersDraw">கருப்பு சமநிலை வாய்ப்பளிக்கிறது</string>
-  <string name="whiteDeclinesDraw">வெள்ளை சமநிலை வாய்ப்பை ஏற்கவில்லை</string>
-  <string name="blackDeclinesDraw">கருப்பு சமநிலை வாய்ப்பை ஏற்கவில்லை</string>
+  <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
+  <string name="drawOfferAccepted">இழுபறி முன்வரவு ஏற்கப்பட்டது</string>
+  <string name="drawOfferCanceled">இழுபறி முன்வரவு நிராகரிக்கப்பட்டது</string>
+  <string name="whiteOffersDraw">வெள்ளை இழுபறி வாய்ப்பளிக்கிறது</string>
+  <string name="blackOffersDraw">கருப்பு இழுபறி வாய்ப்பளிக்கிறது</string>
+  <string name="whiteDeclinesDraw">வெள்ளை இழுபறியை நிராகரித்தார்</string>
+  <string name="blackDeclinesDraw">கருப்பு இழுபறியை நிராகரித்தார்</string>
   <string name="yourOpponentOffersADraw">நும் எதிராளி இழுபறிக்கு முன்வருகின்றார்</string>
   <string name="accept">ஏல்</string>
   <string name="decline">மறு</string>
-  <string name="playingRightNow">இப்பொழுது ஆடுகின்றது</string>
-  <string name="eventInProgress">இப்பொழுது விளையாடுவோர்</string>
-  <string name="finished">முடிந்தது</string>
+  <string name="playingRightNow">இக்கணம் விளையாடுகிறார்</string>
+  <string name="eventInProgress">இக்கணம் விளையாடுவோர்</string>
+  <string name="finished">முற்றிற்று</string>
   <string name="abortGame">ஆட்டத்தைக் கலை</string>
   <string name="gameAborted">ஆட்டம் கலைந்தது</string>
-  <string name="standard">மரபு</string>
+  <string name="standard">செந்தரம்</string>
   <string name="customPosition">விருப்ப நிலை</string>
   <string name="unlimited">வரம்பில்லை</string>
   <string name="mode">மதிப்பீட்டுநிலை</string>
@@ -307,44 +307,44 @@
   <string name="viewRematch">மறுவாட்டங்களைக் காண்</string>
   <string name="confirmMove">நகர்த்தலை உறுதிசெய்</string>
   <string name="play">விளையாடு</string>
-  <string name="inbox">உள்வரத்து</string>
+  <string name="inbox">மடல்</string>
   <string name="chatRoom">உரையாடலறை</string>
   <string name="loginToChat">உரையாடுவதற்காக லீசஸ்ஸில் சேருங்கள்</string>
   <string name="youHaveBeenTimedOut">உரையாடுவதிலிருந்து நீங்கள் தடை செய்யப்பட்டுள்ளன.</string>
   <string name="spectatorRoom">பார்வையாளர் அறை</string>
-  <string name="composeMessage">செய்தி இயற்று</string>
+  <string name="composeMessage">தூது எழுது</string>
   <string name="subject">தலைப்பு</string>
   <string name="send">அனுப்பு</string>
   <string name="incrementInSeconds">கூட்டளவு நொடிகள்</string>
   <string name="freeOnlineChess">இலவச இணையச் சதுரங்கம்</string>
   <plurals name="nbRated">
-    <item quantity="one">%s முக்கியமான விளையாட்டுகள்</item>
-    <item quantity="other">%s முக்கியமான விளையாட்டுகள்</item>
+    <item quantity="one">%s மதிப்பிடப்பட்டது</item>
+    <item quantity="other">%s மதிப்பிடப்பட்டது</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s வெற்றிகள்</item>
+    <item quantity="one">%s வெற்றி</item>
     <item quantity="other">%s வெற்றிகள்</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s தோல்விகள்</item>
+    <item quantity="one">%s தோல்வி</item>
     <item quantity="other">%s தோல்விகள்</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s இழுபறிகள்</item>
+    <item quantity="one">%s இழுபறி</item>
     <item quantity="other">%s இழுபறிகள்</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s விளையாடிக்கொண்டிருப்பது</item>
-    <item quantity="other">%s விளையாடிண்டிருக்கிறார்கள்</item>
+    <item quantity="one">%s விளையாடிக்கொண்டிருக்கிறார்</item>
+    <item quantity="other">%s விளையாடிக்கொண்டிருக்கிறார்</item>
   </plurals>
   <string name="exportGames">ஆட்டங்களை வெளியேற்று</string>
-  <string name="ratingRange">ஏலோ (Elo) அளவு</string>
+  <string name="ratingRange">மதிப்பீட்டு வரம்பு</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">%s நொடிகள் அளி</item>
-    <item quantity="other">%s நொடிகள் அளி</item>
+    <item quantity="one">%s நொடி வழங்கு</item>
+    <item quantity="other">%s நொடிகள் வழங்கு</item>
   </plurals>
-  <string name="thisAccountViolatedTos">இந்த கணக்கு Lichess சேவை விதிமுறைகள் மீறியது</string>
-  <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையை திறக்கிறது</string>
+  <string name="thisAccountViolatedTos">இந்தக் கணக்கு Lichess சேவை விதிமுறைகள் மீறியது</string>
+  <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையைத் திறக்கிறது</string>
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
   <string name="takebackPropositionSent">மீட்சிக் கோரிக்கை அனுப்பியுள்ளது</string>
@@ -353,23 +353,23 @@
   <string name="takebackPropositionCanceled">மீட்சிக் கோரிக்கை  கழிப்பு</string>
   <string name="yourOpponentProposesATakeback">நும் எதிராளி மீட்சி கோருகிறார்</string>
   <string name="bookmarkThisGame">இந்த ஆட்டத்துக்கு நினைவுக்குறிப்பு உண்டாக்கு</string>
-  <string name="tournament">போட்டி</string>
-  <string name="tournaments">போட்டிகள்</string>
-  <string name="tournamentPoints">போட்டிப் புள்ளிகள்</string>
+  <string name="tournament">பந்தயம்</string>
+  <string name="tournaments">பந்தயங்கள்</string>
+  <string name="tournamentPoints">பந்தயப் புள்ளிகள்</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s போட்டி மதிப்பெண்</item>
-    <item quantity="other">%s போட்டி மதிப்பெண்கள்</item>
+    <item quantity="one">%s பந்தய மதிப்பெண்</item>
+    <item quantity="other">%s பந்தய மதிப்பெண்கள்</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s ஆராய்ச்சி கோல்</item>
-    <item quantity="other">%s ஆராய்ச்சி கோல்கள்</item>
+    <item quantity="one">%s கற்கை</item>
+    <item quantity="other">%s கற்கைகள்</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s ஒரே நேரத்தில்</item>
-    <item quantity="other">%s ஒரே நேரத்தில்</item>
+    <item quantity="one">%s ஒருங்கமை</item>
+    <item quantity="other">%s ஒருங்கமைகள்</item>
   </plurals>
-  <string name="viewTournament">போட்டியைக் காண்க</string>
-  <string name="backToTournament">போட்டிக்குத் திரும்பு</string>
+  <string name="viewTournament">பந்தயத்தைக் காண்க</string>
+  <string name="backToTournament">பந்தயத்திற்குத் திரும்பு</string>
   <string name="noDrawBeforeSwissLimit">சுவிஸ் விளையாட்டுப்போட்டிகளில் 30 நகர்த்தல்களுக்கு முன் ஆட்டத்தைச் சமநிலை கோர முடியாது.</string>
   <string name="thematic">மாற்று ஆரம்பம்</string>
   <plurals name="moreThanNbRatedGames">
