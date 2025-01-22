@@ -79,8 +79,6 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def exists(id: StudyId) = coll(_.exists($id(id)))
 
-  def lookup(local: String) = $lookup.simple(coll, "study", local, "_id")
-
   private[study] def selectOwnerId(ownerId: UserId) = $doc("ownerId" -> ownerId)
   def selectMemberId(memberId: UserId)              = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc:
