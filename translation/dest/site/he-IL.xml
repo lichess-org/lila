@@ -866,6 +866,7 @@
   <string name="onlineAndOfflinePlay">שחקו עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
   <string name="followAndChallengeFriends">עקבו אחר חברים והזמינו אותם למשחק</string>
+  <string name="noChallenges">אין הזמנות למשחק.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">זמין בשפה %s!</item>
     <item quantity="two">זמין ב%s שפות!</item>
