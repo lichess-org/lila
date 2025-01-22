@@ -17,7 +17,7 @@
   <string name="ongoing">தொடரும்</string>
   <string name="upcoming">எதிர்வரும்</string>
   <string name="completed">முற்றிற்று</string>
-  <string name="completedHelp">லிசெஸ் சுற்று நிறைவைக் கண்டறிகிறது, ஆனால் அதை தவறாகப் புரிந்து கொள்ளலாம். கைமுறையாக அமைக்க இதைப் பயன்படுத்தவும்.</string>
+  <string name="completedHelp">லிசெஸ் சுற்று நிறைவைக் கண்டறிகிறது, ஆனால் அதைத் தவறாகப் புரிந்து கொள்ளலாம். கைமுறையாக அமைக்க இதைப் பயன்படுத்தவும்.</string>
   <string name="roundName">சுற்றுப் பெயர்</string>
   <string name="roundNumber">சுற்று எண்</string>
   <string name="tournamentName">பந்தயப் பெயர்</string>
@@ -26,24 +26,24 @@
   <string name="fullDescriptionHelp">பந்தயத்தின் நீண்ட விளக்கம் கட்டாயமற்றது. %1$s கிடைக்கிறது. நீளம் %2$s எழுத்துகளுக்குக் குறைவாக இருக்க வேண்டும்.</string>
   <string name="sourceSingleUrl">PGN ஆதார URL</string>
   <string name="sourceUrlHelp">PGN புதுப்பிப்புகளைப் பெற லிசெஸ் சரிபார்க்கும் URL. இது இணையத்திலிருந்து பொதுவில் அணுகக்கூடியதாக இருக்க வேண்டும்.</string>
-  <string name="sourceGameIds">64 லிசெஸ் ஆட்ட அடையாளங்கள் வரை, இடைவெளிகளால் பிரிக்கப்பட்டது.</string>
+  <string name="sourceGameIds">64 லிசெஸ் ஆட்ட அடையாளங்கள் முடிய, இடைவெளிகளால் பிரிக்கப்பட்டது.</string>
   <string name="startDateTimeZone">பந்தயம் உள்ளூர் நேர மண்டலத்தில் துவங்கும் தேதி: %s</string>
   <string name="startDateHelp">நிகழ்வு எப்போது துவங்கும் என்பது உங்களுக்குத் தெரிந்தால், கட்டாயமற்றது</string>
   <string name="currentGameUrl">தற்போதைய ஆட்ட URL</string>
   <string name="downloadAllRounds">அனைத்து சுற்றுகளையும் பதிவிறக்கவும்</string>
-  <string name="resetRound">இந்த சுற்றை மீட்டமைக்கவும்</string>
-  <string name="deleteRound">இந்த சுற்றை நீக்கு</string>
+  <string name="resetRound">இச்சுற்றை மீட்டமைக்கவும்</string>
+  <string name="deleteRound">இச்சுற்றை நீக்கு</string>
   <string name="definitivelyDeleteRound">சுற்று மற்றும் அதன் அனைத்து ஆட்டங்களையும் கண்டிப்பாக நீக்கவும்.</string>
-  <string name="deleteAllGamesOfThisRound">இந்த சுற்றின் அனைத்து ஆட்டங்களையும் நீக்கு. அவற்றை மீண்டும் உருவாக்க, ஆதாரமானது செயற்பாட்டில் இருக்க வேண்டும்.</string>
-  <string name="editRoundStudy">சுற்று ஆய்வைத் திருத்து</string>
+  <string name="deleteAllGamesOfThisRound">இச்ச்சுற்றின் அனைத்து ஆட்டங்களையும் நீக்கு. அவற்றை மீண்டும் உருவாக்க, ஆதாரமானது செயற்பாட்டில் இருக்க வேண்டும்.</string>
+  <string name="editRoundStudy">சுற்று கற்கையைத் திருத்து</string>
   <string name="deleteTournament">இப்பந்தயத்தை நீக்கு</string>
   <string name="definitivelyDeleteTournament">முழு பந்தயத்தையும், அதன் அனைத்து சுற்றுகளையும் அதன் அனைத்து ஆட்டங்களையும் கண்டிப்பாக நீக்கவும்.</string>
   <string name="showScores">விளையாட்டு முடிவுகளின் அடிப்படையில் வீரர்களின் மதிப்பெண்களைக் காட்டு</string>
   <string name="replacePlayerTags">கட்டாயமற்றது: வீரர்களின் பெயர்கள், மதிப்பீடுகள் மற்றும் தலைப்புகளை மாற்றவும்</string>
   <string name="fideFederations">FIDE பேரவை</string>
   <string name="top10Rating">சிறந்த 10 மதிப்பீடு</string>
-  <string name="fidePlayers">FIDE வீரர்கள்</string>
-  <string name="fidePlayerNotFound">FIDE வீரர்கள் கிடைக்கவில்லை</string>
+  <string name="fidePlayers">FIDE ஆட்டக்காரர்கள்</string>
+  <string name="fidePlayerNotFound">FIDE ஆட்டக்காரர் கிடைக்கவில்லை</string>
   <string name="fideProfile">FIDE சுயவிவரம்</string>
   <string name="federation">கூட்டமைப்பு</string>
   <string name="ageThisYear">இந்த ஆண்டு அகவை</string>
@@ -80,4 +80,5 @@
   <string name="optionalDetails">விருப்ப விவரங்கள்</string>
   <string name="pastBroadcasts">கடந்த ஒளிபரப்புகள்</string>
   <string name="allBroadcastsByMonth">மாதம்தோறும் அனைத்து ஒளிபரப்புகளையும் பார்க்க</string>
+  <string name="backToLiveMove">நேரலை நகர்வுக்குத் திரும்பு</string>
 </resources>
