@@ -16,7 +16,7 @@ private class StreamerConfig(
     @ConfigName("streaming.google.api_key") val googleApiKey: Secret,
     @ConfigName("streaming.twitch") val twitchConfig: TwitchConfig
 )
-private class TwitchConfig(@ConfigName("client_id") val clientId: String, val secret: Secret)
+private class TwitchConfig(val endpoint: String, @ConfigName("client_id") val clientId: String, val secret: Secret)
 
 @Module
 final class Env(
