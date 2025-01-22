@@ -79,4 +79,5 @@
   <string name="optionalDetails">その他詳細（オプション）</string>
   <string name="pastBroadcasts">過去の中継</string>
   <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
+  <string name="backToLiveMove">実際の手に戻る</string>
 </resources>
