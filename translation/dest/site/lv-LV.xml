@@ -135,7 +135,7 @@
     <item quantity="one">%s rupja kļūda</item>
     <item quantity="other">%s rupjas kļūdas</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="zero">%s Rupjas kļūdas</item>
     <item quantity="one">%s Rupja kļūda</item>
     <item quantity="other">%s Rupjas kļūdas</item>
@@ -145,7 +145,7 @@
     <item quantity="one">%s kļūda</item>
     <item quantity="other">%s kļūdas</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="zero">%s Kļūdas</item>
     <item quantity="one">%s Kļūda</item>
     <item quantity="other">%s Kļūdas</item>
@@ -155,7 +155,7 @@
     <item quantity="one">%s neprecizitāte</item>
     <item quantity="other">%s neprecizitātes</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="zero">%s Neprecizitātes</item>
     <item quantity="one">%s Neprecizitāte</item>
     <item quantity="other">%s Neprecizitātes</item>
