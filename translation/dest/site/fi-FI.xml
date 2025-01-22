@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
   <string name="followAndChallengeFriends">Seuraa ja haasta kavereitasi</string>
+  <string name="noChallenges">Ei haasteita.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saatavilla %s eri kielellä!</item>
     <item quantity="other">Saatavilla %s eri kielellä!</item>
