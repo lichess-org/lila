@@ -80,4 +80,5 @@
   <string name="optionalDetails">Hautazko xehetasunak</string>
   <string name="pastBroadcasts">Pasatutako zuzenekoak</string>
   <string name="allBroadcastsByMonth">Ikusi zuzeneko guztiak hilabeteka</string>
+  <string name="backToLiveMove">Zuzeneko jokaldi-modura itzuli</string>
 </resources>
