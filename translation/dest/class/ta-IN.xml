@@ -109,7 +109,7 @@
   <string name="createMultipleAccounts">ஒரே நேரத்தில் பல Lichess கணக்குகளை உருவாக்கவும்</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">மாணவர் பெயர்களின் பட்டியலிலிருந்து பல Lichess கணக்குகளை உருவாக்க நீங்கள் %s ஐயும் செய்யலாம்.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">இந்தப் படிவத்தைப் பயன்படுத்தவும்</string>
-  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">ஒரு வகுப்பில் %1$s மாணவர்கள் வரை இருக்கலாம் என்பதை நினைவில் கொள்ளவும். அதிகமான மாணவர்களை நிர்வகிக்க, %2$s.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">ஒரு வகுப்பில் %1$s மாணவர்கள்வரை இருக்கலாம் என்பதை நினைவில் கொள்ளவும். அதிகமான மாணவர்களை நிர்வகிக்க, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">மேலும் வகுப்புகளை உருவாக்குங்கள்</string>
   <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">மாணவர்களின் உண்மையான பெயர்கள், வரிக்கு ஒன்று</string>
   <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">%s இப்போது வகுப்பின் மாணவர்</string>
