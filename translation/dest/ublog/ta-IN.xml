@@ -4,6 +4,10 @@
   <string name="friendBlogs">நண்பர்களின் வலைப்பதிவுகள்</string>
   <string name="likedBlogs">வலைப்பதிவு இடுகைகளை விரும்பியுள்ளார்</string>
   <string name="blogTopics">வலைப்பதிவின் தலைப்புகள்</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s வலைப்பதிவு இடுகை</item>
+    <item quantity="other">%s வலைப்பதிவு இடுகைகள்</item>
+  </plurals>
   <string name="lichessOfficialBlog">Lichess-ன் அதிகாரப்பூர்வ வலைப்பதிவு</string>
   <string name="continueReadingPost">இந்த இடுகையைத் தொடர்ந்து படிக்கவும்</string>
   <string name="lichessBlogPostsFromXYear">%s ஆண்டின் Lichess வலைப்பதிவுகள்</string>
@@ -21,6 +25,8 @@
   <string name="createBlogDiscussionHelp">உங்கள் இடுகையில் கருத்து தெரிவிப்பதற்காக ஒரு மன்றத் தலைப்பு உருவாக்கப்படும்</string>
   <string name="publishOnYourBlog">உங்கள் வலைப்பதிவில் வெளியிடவும்</string>
   <string name="publishHelp">சரிபார்க்கப்பட்டால், இடுகை உங்கள் வலைப்பதிவில் பட்டியலிடப்படும். இல்லையெனில், அது உங்கள் வரைவு இடுகைகளில் தனிப்பட்டதாக இருக்கும்</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">ஒட்டு இடுகை</string>
+  <string name="stickyPostHelp">சரிபார்க்கப்பட்டால், இந்த இடுகை உங்கள் சுயவிவரத்தின் அண்மை இடுகைகளிலும் உங்கள் வலைப்பதிவிலும் முதலில் பட்டியலிடப்படும்.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">வலைப்பதிவு இடுகையை வெளியிட்டது</item>
     <item quantity="other">%s வலைப்பதிவு இடுகைகள் வெளியிடப்பட்டன</item>
