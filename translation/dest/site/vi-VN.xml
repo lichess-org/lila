@@ -744,6 +744,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
   <string name="viewTheSolution">Xem đáp án</string>
   <string name="followAndChallengeFriends">Theo dõi và thách đấu bạn bè</string>
+  <string name="noChallenges">Không có lời thách đấu nào.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
   </plurals>
