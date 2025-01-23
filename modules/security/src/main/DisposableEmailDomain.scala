@@ -68,6 +68,7 @@ private object DisposableEmailDomain:
     "gamil.com",
     "gmeil.com",
     "gmali.com",
+    "gmial.com",
     "gmil.com",
     "gamail.com",
     "gnail.com",
