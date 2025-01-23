@@ -67,7 +67,6 @@ Allow: /
     "github"   -> "https://github.com/lichess-org",
     "discord"  -> "https://discord.gg/lichess",
     "bluesky"  -> "https://bsky.app/profile/lichess.org",
-    "twitter"  -> "https://twitter.com/lichess",
     "youtube"  -> "https://youtube.com/c/LichessDotOrg",
     "twitch"   -> "https://www.twitch.tv/lichessdotorg"
   )
