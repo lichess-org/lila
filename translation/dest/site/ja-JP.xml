@@ -744,6 +744,7 @@
   <string name="onlineAndOfflinePlay">オンラインでもオフラインでも</string>
   <string name="viewTheSolution">解答を見る</string>
   <string name="followAndChallengeFriends">友達をフォローして対局しよう</string>
+  <string name="noChallenges">チャレンジはありません。</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s言語で利用可能</item>
   </plurals>
