@@ -132,7 +132,7 @@
     <item quantity="one">%s brøler</item>
     <item quantity="other">%s brølere</item>
   </plurals>
-  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s brøler</item>
     <item quantity="other">%s brølere</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s fejl</item>
     <item quantity="other">%s fejl</item>
   </plurals>
-  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s fejl</item>
     <item quantity="other">%s fejl</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s unøjagtighed</item>
     <item quantity="other">%s unøjagtigheder</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s unøjagtighed</item>
     <item quantity="other">%s unøjagtigheder</item>
   </plurals>
@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Online og offline spil</string>
   <string name="viewTheSolution">Se løsningen</string>
   <string name="followAndChallengeFriends">Følg og udfordre dine venner</string>
+  <string name="noChallenges">Ingen udfordringer.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgængelig på %s sprog!</item>
     <item quantity="other">Tilgængelig på %s sprog!</item>
@@ -880,7 +881,7 @@
     <item quantity="one">og gem %s serie af forhåndstræk</item>
     <item quantity="other">og gem %s serier af forhåndstræk</item>
   </plurals>
-  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Du har modtaget en privat besked fra Lichess.</string>
+  <string name="showUnreadLichessMessage">Du har modtaget en privat besked fra Lichess.</string>
   <string name="clickHereToReadIt">Klik her for at læse den</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>

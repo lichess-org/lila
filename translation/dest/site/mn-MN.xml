@@ -124,7 +124,7 @@
     <item quantity="one">%s-ийн оновчгүй нүүдэл</item>
     <item quantity="other">%s-ийн оновчгүй нүүдэл</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s-Ийн оновчгүй нүүдэл</item>
     <item quantity="other">%s-Ийн оновчгүй нүүдэл</item>
   </plurals>

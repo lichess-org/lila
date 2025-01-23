@@ -779,6 +779,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="onlineAndOfflinePlay">Aanlyn en aflyn speel</string>
   <string name="viewTheSolution">Kyk na die oplossing</string>
   <string name="followAndChallengeFriends">Volg en daag vriende uit</string>
+  <string name="noChallenges">Geen uitdagings nie.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beskikbaar in %s taal!</item>
     <item quantity="other">Beskikbaar in %s tale!</item>

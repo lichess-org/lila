@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">Esperotako jokaldia egin beharrean, aurkariari mehatxu bat eginez beste jokaldi bat egin aurkaria jokaldi horri erantzutera derrigortuz.</string>
   <string name="killBoxMate">Hilkutxaren matea</string>
   <string name="killBoxMateDescription">Gaztelua aurkariaren erregearen ondoan dago damaren laguntzarekin, honek gainera erregearen ihes-laukiak babesten ditu. Gazteluak eta damak erregea 3x3ko \"hilkutxa\" baten harrapatu dezakete.</string>
+  <string name="vukovicMate">Vukovicen matea</string>
+  <string name="vukovicMateDescription">Gaztelu eta zaldunak batera lan egiten dute matea emateko. Gazteluak mate ematen du hirugaren piezak lagundurik, zaldunak erregearen ihes-laukiak babesten dituen artean.</string>
   <string name="knightEndgame">Zaldunen finala</string>
   <string name="knightEndgameDescription">Zaldunak eta peoiak bakarrik dituen partida bukaera.</string>
   <string name="long">Ariketa luzea</string>

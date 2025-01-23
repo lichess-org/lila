@@ -132,7 +132,7 @@
     <item quantity="one">Hanka-sartze %s</item>
     <item quantity="other">%s hanka-sartze</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">Hanka-sartze %s</item>
     <item quantity="other">%s Hanka-sartze</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">Akats %s</item>
     <item quantity="other">%s akats</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">Akats %s</item>
     <item quantity="other">%s Akats</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">Akats txiki %s</item>
     <item quantity="other">%s akats txiki</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">Akats txiki %s</item>
     <item quantity="other">%s Akats txiki</item>
   </plurals>
@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Online zein offline jokatu</string>
   <string name="viewTheSolution">Erantzuna ikusi</string>
   <string name="followAndChallengeFriends">Jarraitu eta desafio egin lagunei</string>
+  <string name="noChallenges">Erronkarik ez.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s hizkuntzatan eskuragarri!</item>
     <item quantity="other">%s hizkuntzatan eskuragarri!</item>

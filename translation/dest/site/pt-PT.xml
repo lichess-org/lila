@@ -132,7 +132,7 @@
     <item quantity="one">%s erro grave</item>
     <item quantity="other">%s erros graves</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Erro grave</item>
     <item quantity="other">%s Erros graves</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s erro</item>
     <item quantity="other">%s erros</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Erro</item>
     <item quantity="other">%s Erros</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s imprecisão</item>
     <item quantity="other">%s imprecisões</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisão</item>
     <item quantity="other">%s Imprecisões</item>
   </plurals>
@@ -785,6 +785,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="onlineAndOfflinePlay">Jogar online e offline</string>
   <string name="viewTheSolution">Ver a solução</string>
   <string name="followAndChallengeFriends">Joga e desafia amigos</string>
+  <string name="noChallenges">Sem desafios.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s língua!</item>
     <item quantity="other">Disponível em %s línguas!</item>
