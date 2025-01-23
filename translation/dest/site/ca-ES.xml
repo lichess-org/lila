@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Jugar en línia i desconectat</string>
   <string name="viewTheSolution">Veure la solució</string>
   <string name="followAndChallengeFriends">Seguiu i desafieu amics</string>
+  <string name="noChallenges">Sense desafiaments.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponible en %s idiomes</item>
     <item quantity="other">Disponible en %s idiomes</item>
