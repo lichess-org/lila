@@ -195,7 +195,7 @@ final class SecurityForm(
     ).fill(old)
 
   def modEmail(user: User) = Form(
-    single("email" -> anyEmail.verifying(emailValidator.uniqueConstraint(user.some)))
+    single("email" -> optional(anyEmail.verifying(emailValidator.uniqueConstraint(user.some))))
   )
 
   private def passwordProtected(using Me) =

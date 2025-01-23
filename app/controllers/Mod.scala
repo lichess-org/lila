@@ -482,7 +482,7 @@ final class Mod(
               for
                 _ <- (!user.everLoggedIn).so {
                   lila.mon.user.register.modConfirmEmail.increment()
-                  api.setEmail(user.id, setEmail)
+                  api.setEmail(user.id, setEmail.some)
                 }
                 email <- env.user.repo.email(user.id)
                 page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
