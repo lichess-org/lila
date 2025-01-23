@@ -10,9 +10,9 @@
   <string name="allStudies">எல்லாக் கற்கைகளும்</string>
   <string name="studiesCreatedByX">%s ஆல் உருவாக்கப்பட்ட கற்கை</string>
   <string name="noneYet">எதுவும் இல்லை.</string>
-  <string name="hot">பிரபலமானவை</string>
-  <string name="dateAddedNewest">நேரப்படி சேர்க்கப்பட்டவை (புதிதாக)</string>
-  <string name="dateAddedOldest">நேரப்படி சேர்க்கப்பட்டவை (பழயவை)</string>
+  <string name="hot">தீவிரமானவை</string>
+  <string name="dateAddedNewest">நாட்படி சேர்க்கப்பட்டவை (புதிதாக)</string>
+  <string name="dateAddedOldest">நாட்படி சேர்க்கப்பட்டவை (பழயவை)</string>
   <string name="recentlyUpdated">அண்மையில் புதுப்பிக்கப்பட்டவை</string>
   <string name="mostPopular">மிகவும் பிரபலமானவை</string>
   <string name="alphabetical">அகரவரிசைப்படி</string>
@@ -35,14 +35,14 @@
   <string name="searchByUsername">பயனர்பெயரில் தேட</string>
   <string name="spectator">பார்வையாளர்</string>
   <string name="contributor">பங்களிப்பாளர்</string>
-  <string name="kick">நீங்கவும்</string>
+  <string name="kick">உதற்று</string>
   <string name="leaveTheStudy">கற்கையிலிருந்து வெளியேற</string>
   <string name="youAreNowAContributor">நீங்கள் இப்போது ஓர் பங்களிப்பாளர்</string>
   <string name="youAreNowASpectator">நீங்கள் இப்போது ஓர் பார்வையாளர்</string>
-  <string name="pgnTags">PGN ஒட்டுக்கள்</string>
+  <string name="pgnTags">PGN மேற்கோள்</string>
   <string name="like">விரும்பு</string>
   <string name="unlike">விரும்பவில்லை</string>
-  <string name="newTag">புதிய ஒட்டு</string>
+  <string name="newTag">புதிய மேற்கோள்</string>
   <string name="commentThisPosition">இந்த நிலைகுறித்த கருத்து</string>
   <string name="commentThisMove">இந்த நகர்வுபற்றிய கருத்து</string>
   <string name="annotateWithGlyphs">காய்களின் குறியீட்டுடன் சிறுகுறிப்புக்கள்</string>
@@ -53,7 +53,8 @@
   <string name="allSyncMembersRemainOnTheSamePosition">அனைத்து SYNC உறுப்பினர்களும் ஒரே நிலையில் உள்ளனர்</string>
   <string name="shareChanges">பார்வையாளர்களுடன் மாற்றங்களைப் பகிர்ந்து அவற்றைச் சேவையகத்தில் சேமிக்கவும்</string>
   <string name="playing">விளையாடுகிறார்</string>
-  <string name="showEvalBar">மதிப்பீட்டு பட்டிகள்</string>
+  <string name="showResults">முடிவுகள்</string>
+  <string name="showEvalBar">கணிப்பு பட்டிகள்</string>
   <string name="first">முதலாவது</string>
   <string name="previous">முந்தைய</string>
   <string name="next">அடுத்து</string>
@@ -109,8 +110,8 @@
   <string name="urlOfTheGame">ஆட்டங்களின் URL, ஒரு வரிக்கு ஒன்று</string>
   <string name="loadAGameFromXOrY">%1$s அல்லது %2$s இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
   <string name="createChapter">அத்தியாயத்தை உருவாக்கவும்</string>
-  <string name="createStudy">படிப்பை உருவாக்குங்கள்</string>
-  <string name="editStudy">படிப்பைத் திருத்தவும்</string>
+  <string name="createStudy">கற்கையை உருவாக்குங்கள்</string>
+  <string name="editStudy">கற்கையத் திருத்தவும்</string>
   <string name="visibility">தெரிவுநிலை</string>
   <string name="public">பொது</string>
   <string name="unlisted">பட்டியலிடப்படாதது</string>
@@ -125,23 +126,23 @@
   <string name="yesKeepEveryoneOnTheSamePosition">ஆம்: அனைவரையும் ஒரே நிலையில் வைத்திருங்கள்</string>
   <string name="noLetPeopleBrowseFreely">இல்லை: மக்கள் சுதந்திரமாக உலாவ அனுமதிக்கவும்</string>
   <string name="pinnedStudyComment">பொருத்தப்பட்ட ஆய்வுக் கருத்து</string>
-  <string name="start">தொடங்கு</string>
+  <string name="start">துவங்கு</string>
   <string name="save">சேமி</string>
   <string name="clearChat">கருத்துரைகளை நீக்க</string>
-  <string name="deleteTheStudyChatHistory">ஆய்வு அரட்டை வரலாற்றை நீக்கவா? திரும்பிப் போவதில்லை!</string>
+  <string name="deleteTheStudyChatHistory">கற்கை அரட்டை வரலாற்றை நீக்கவா? திரும்பிப் போவதிற்கில்லை!</string>
   <string name="deleteStudy">கற்கையை அழிக்க</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">முழு ஆய்வையும் நீக்கவா? திரும்பிப் போவதில்லை! உறுதிப்படுத்த ஆய்வின் பெயரை உள்ளிடவும்: %s</string>
-  <string name="whereDoYouWantToStudyThat">நீங்கள் அதை எங்கே படிக்க விரும்புகிறீர்கள்?</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">முழு கற்கையையும் நீக்கவா? திரும்பிப் போவதிற்கில்லை! உறுதிப்படுத்த கற்கையின் பெயரை உள்ளிடவும்: %s</string>
+  <string name="whereDoYouWantToStudyThat">நீங்கள் அதை எங்கே கற்க விரும்புகிறீர்கள்?</string>
   <string name="goodMove">சிறந்த நகர்வு</string>
   <string name="mistake">தவறு</string>
-  <string name="brilliantMove">சிறப்பான நகர்வு</string>
+  <string name="brilliantMove">புகழ்சான்ற நகர்வு</string>
   <string name="blunder">பெருந்தவறு</string>
   <string name="interestingMove">ஆர்வமூட்டும் நகர்வு</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ஐயத்திற்கிடமான நகர்வு</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ஒரேயொரு சாத்தியமான நகர்வு</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">இக்கட்டான நகர்வு</string>
   <string name="equalPosition">சமநிலை</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">வெற்றி தோல்வி தீர்மானிக்க இயலாத நிலை</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">தெளிவற்ற நிலை</string>
   <string name="whiteIsSlightlyBetter">வெள்ளை ஓரளவு சிறப்பாகவுள்ளது</string>
   <string name="blackIsSlightlyBetter">கறுப்பு ஓரளவு சிறப்பாகவுள்ளது</string>
   <string name="whiteIsBetter">வெள்ளை சிறப்பாகவுள்ளது</string>
@@ -149,7 +150,7 @@
   <string name="whiteIsWinning">வெள்ளை வெல்கின்றது</string>
   <string name="blackIsWinning">கறுப்பு வெல்கின்றது</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">புதுமை</string>
-  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">அபிவிருத்தி</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">முன்னேற்றம்</string>
   <string name="initiative">முயற்சி</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">தாக்கு</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">எதிர்விளையாட்டு</string>
