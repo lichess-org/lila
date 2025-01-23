@@ -866,6 +866,7 @@
   <string name="onlineAndOfflinePlay">Гра онлайн та офлайн</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Спостерігайте і кидайте виклик друзям</string>
+  <string name="noChallenges">Немає викликів.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно %s мовою!</item>
     <item quantity="few">Доступно %s мовами!</item>
