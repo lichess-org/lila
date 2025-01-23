@@ -59,6 +59,7 @@
   <string name="intermezzoDescription">Thay vì chơi nước đi dự kiến, trước tiên hãy xen vào một nước đi khác gây ra mối đe dọa ngay lập tức mà đối thủ phải đáp trả. Còn được gọi là \"Zwischenzug\" hoặc \"Ở giữa\".</string>
   <string name="killBoxMate">Hộp chết chiếu hết</string>
   <string name="killBoxMateDescription">Một quân xe ở cạnh vua địch và được hỗ trợ bởi quân hậu cũng chặn các ô trốn thoát của vua địch. Xe và hậu bắt vua địch trong ô \"kill box\" chết chóc 3 x 3.</string>
+  <string name="vukovicMate">Chiếu hết kiểu Vukovic</string>
   <string name="vukovicMateDescription">Một quân xe và hiệp sĩ hợp tác với vua. Quân xe giao quân trong khi được hỗ trợ bởi quân thứ ba, và quân mã được sử dụng để chặn các ô thoát hiểm của vua.</string>
   <string name="knightEndgame">Tàn cuộc Mã</string>
   <string name="knightEndgameDescription">Một thế cờ tàn chỉ có mã và tốt.</string>
