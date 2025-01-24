@@ -180,12 +180,12 @@ final private class RelayFetch(
       case RelayTour.Tier.best | RelayTour.Tier.`private` => true
       case _                                              => false
     val base =
-      if upstream.hasLcc then 4
+      if upstream.isInternal then 1
+      else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
       if highPriorityTier then 1
-      else if tour.tier.has(RelayTour.Tier.`private`) then 1
       else if tour.official then 2
       else 3
     } * {

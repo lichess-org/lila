@@ -38,7 +38,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
           api.byIdWithTour(id).flatMapz(checkNow)
 
     private def checkNow(rt: RelayRound.WithTour): Funit =
-      if rt.round.sync.upstream.exists(_.isGameIds)
+      if rt.round.sync.upstream.exists(_.isInternal)
       then funit
       else
         previewApi
