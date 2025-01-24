@@ -972,9 +972,6 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="focusChat">Vëmendjen te fjalosja</string>
   <string name="showHelpDialog">Shfaq këtë dialog ndihme</string>
   <string name="reopenYourAccount">Rihapni llogarinë tuaj</string>
-  <string name="closedAccountChangedMind">Nëse e mbyllët llogarinë tuaj, por prej atëherë keni ndërruar mendje, mund t’ju jepet një shans për të rimarrë llogarinë tuaj.</string>
-  <string name="onlyWorksOnce">Kjo do të funksionojë vetëm një herë.</string>
-  <string name="cantDoThisTwice">Nëse e mbyllni llogarinë tuaj për herë të dytë, s’do të ketë mënyrë për ta rimarrë.</string>
   <string name="emailAssociatedToaccount">Adresë email përshoqëruar llogarisë</string>
   <string name="sentEmailWithLink">Ju dërguam një email me një lidhje.</string>
   <string name="tournamentEntryCode">Kod hyrjeje në turne</string>
