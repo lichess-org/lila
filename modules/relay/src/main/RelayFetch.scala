@@ -88,6 +88,8 @@ final private class RelayFetch(
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
+        _ <- (sliced.sizeCompare(limited) != 0)
+          .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
