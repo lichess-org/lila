@@ -1073,6 +1073,7 @@
   <string name="focusChat">Обрати вікно чату</string>
   <string name="showHelpDialog">Показати це діалогове вікно довідки</string>
   <string name="reopenYourAccount">Відновити ваш обліковий запис</string>
+  <string name="reopenYourAccountDescription">Якщо ви закрили свій обліковий запис, а потім змінили свою думку, у вас є шанс відновити його.</string>
   <string name="emailAssociatedToaccount">Адреса електронної пошти, пов\'язана з обліковим записом</string>
   <string name="sentEmailWithLink">Ми надіслали вам електронний лист із посиланням.</string>
   <string name="tournamentEntryCode">Код входу до турніру</string>
