@@ -4,5 +4,7 @@
   <string name="closeAccount">Mbyll llogarinë</string>
   <string name="managedAccountCannotBeClosed">Llogaria juaj administrohet dhe nuk mund të mbyllet.</string>
   <string name="cantOpenSimilarAccount">S’do të lejoheni të hapni një llogari të re me të njëjtin emër, edhe nëse ndryshohet një nga shkronjat.</string>
+  <string name="cancelKeepAccount">Anuloje dhe mbaje llogarinë time</string>
+  <string name="closeAccountAreYouSure">Jeni i sigurt se doni të mbyllet llogarina juaj?</string>
   <string name="thisAccountIsClosed">Kjo llogari është e mbyllur</string>
 </resources>
