@@ -8,20 +8,28 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.MultiPgn
 
+private sealed abstract class RelaySource[Source, CacheKey](val source: Source, val cacheKey: CacheKey)
+private final class UrlSource(url: URL) extends RelaySource(url, url)
+private final class GamesSource(games: List[GameId], roundId: RelayRoundId)
+    extends RelaySource(games, roundId)
+
 final private class RelayDelay(colls: RelayColls)(using Executor):
 
   import RelayDelay.*
 
-  def apply(
-      url: URL,
+  def fromSource[Source, CacheKey](
+      source: RelaySource[Source, CacheKey],
       round: RelayRound,
-      doFetchUrl: URL => Fu[RelayGames]
+      doFetch: Source => Fu[RelayGames]
   ): Fu[RelayGames] =
-    dedupCache(url, round, () => doFetchUrl(url))
+    dupCache(source, round, () => doFetch(source.source))
       .flatMap: latest =>
         round.sync.delayMinusLag match
-          case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
+          case Some(delay) if delay > 0 => store.get(source, delay).map(_ | latest.map(_.resetToSetup))
           case _                        => fuccess(latest)
+
+  def fromGames(round: RelayRound, doFetchGames: => Fu[RelayGames]): Fu[RelayGames] =
+    doFetchGames
 
   // makes sure that an upstream used by several broadcasts
   // is only pulled from as many times as necessary, and not more.
@@ -30,25 +38,25 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
     private val cache = CacheApi.scaffeineNoScheduler
       .initialCapacity(8)
       .maximumSize(256)
-      .build[String, GamesSeenBy]()
+      .build[RelaySource, GamesSeenBy]()
       .underlying
 
-    def apply(url: URL, round: RelayRound, doFetch: () => Fu[RelayGames]) =
+    def apply(source: RelaySource, round: RelayRound, doFetch: () => Fu[RelayGames]) =
       cache.asMap
         .compute(
-          url.toString,
+          source,
           (_, v) =>
             Option(v) match
               case Some(GamesSeenBy(games, seenBy)) if !seenBy(round.id) =>
                 lila.mon.relay.dedup.increment()
-                logger.debug(s"Relay dedup cache hit ${round.id} ${round.name} ${url.toString}")
+                logger.debug(s"Relay dedup cache hit ${round.id} ${round.name} $source")
                 GamesSeenBy(games, seenBy + round.id)
               case _ =>
                 GamesSeenBy(doFetch(), Set(round.id))
         )
         .games
         .addEffect: games =>
-          if round.sync.delayMinusLag.isDefined then store.putIfNew(url, games)
+          if round.sync.delayMinusLag.isDefined then store.putIfNew(source, games)
 
   private object store:
 
@@ -75,9 +83,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
     private def getPgn(url: URL, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
         _.find(
-          $doc(
-            "_id".$gt(idOf(url, longPast)).$lte(idOf(url, nowInstant.minusSeconds(delay.value)))
-          ),
+          $doc("_id".$gt(idOf(url, longPast)).$lte(idOf(url, nowInstant.minusSeconds(delay.value)))),
           $doc("pgn" -> true).some
         ).sort($sort.desc("_id"))
           .one[Bdoc]

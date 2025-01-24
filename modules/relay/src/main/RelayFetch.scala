@@ -208,13 +208,13 @@ final private class RelayFetch(
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
-      case Sync.Upstream.Ids(ids)     => fetchFromGameIds(rt.tour, ids)
+      case Sync.Upstream.Ids(ids)     => delayer.fromGames(rt.round, fetchFromGameIds(rt.tour, ids))
       case Sync.Upstream.Users(users) => fetchFromUsers(rt.tour, users)
-      case Sync.Upstream.Url(url)     => delayer(url, rt.round, fetchFromUpstream(rt))
+      case Sync.Upstream.Url(url)     => delayer.fromUrl(url, rt.round, fetchFromUpstream(rt))
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
-            delayer(url, rt.round, fetchFromUpstreamWithRecovery(rt))
+            delayer.fromUrl(url, rt.round, fetchFromUpstreamWithRecovery(rt))
           .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
