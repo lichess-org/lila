@@ -30,28 +30,32 @@ final class RelayRoundForm(using mode: Mode):
       .map(Upstream.Urls.apply),
     _.urls.mkString("\n")
   )
-  private given Formatter[Upstream.Ids] = formatter.stringTryFormatter(
-    _.split(' ').toList
+
+  private def toIdList[Id](s: String, f: String => Option[Id]): Either[String, List[Id]] =
+    s.replace(",", " ")
+      .split(' ')
+      .toList
       .map(_.trim)
-      .traverse: i =>
-        GameId.from(i.trim).toRight(s"Invalid game ID: $i")
-      .filterOrElse(
-        _.sizeIs <= RelayFetch.maxChaptersToShow.value,
-        s"Max games: ${RelayFetch.maxChaptersToShow}"
-      )
-      .map(_.distinct)
-      .map(Upstream.Ids.apply),
+      .filter(_.nonEmpty)
+      .distinct
+      .traverse(i => f(i).toRight(s"Invalid: $i"))
+
+  private given Formatter[Upstream.Ids] = formatter.stringTryFormatter(
+    s =>
+      toIdList(s, GameId.from)
+        .filterOrElse(
+          _.sizeIs <= RelayFetch.maxChaptersToShow.value,
+          s"Max games: ${RelayFetch.maxChaptersToShow}"
+        )
+        .map(Upstream.Ids.apply),
     _.ids.mkString(" ")
   )
   private given Formatter[Upstream.Users] = formatter.stringTryFormatter(
-    _.split(' ').toList
-      .map(_.trim)
-      .traverse: i =>
-        UserStr.read(i).toRight(s"Invalid username: $i")
-      .filterOrElse(_.sizeIs > 1, s"Min users: 2")
-      .filterOrElse(_.sizeIs <= 100, s"Max users: 100")
-      .map(_.distinct)
-      .map(Upstream.Users.apply),
+    s =>
+      toIdList(s, UserStr.read)
+        .filterOrElse(_.sizeIs > 1, s"Min users: 2")
+        .filterOrElse(_.sizeIs <= 100, s"Max users: 100")
+        .map(Upstream.Users.apply),
     _.users.mkString(" ")
   )
 
