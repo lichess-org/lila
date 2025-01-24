@@ -3101,6 +3101,7 @@ symbols.eight-pointed-star
 symbols.eight-spoked-asterisk
 symbols.eject-button
 symbols.elevator
+symbols.emacs-logo
 symbols.end-arrow
 symbols.esperanto-flag
 symbols.esperanto
