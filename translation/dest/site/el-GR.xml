@@ -985,6 +985,7 @@
   <string name="focusChat">Εστίαση στο chat</string>
   <string name="showHelpDialog">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
   <string name="reopenYourAccount">Ξανανοίξτε τον λογαριασμό σας</string>
+  <string name="reopenYourAccountDescription">Αν κλείσατε τον λογαριασμό σας, αλλά έκτοτε έχετε αλλάξει γνώμη, έχετε την δυνατότητα να ανακτήσετε τον λογαριασμό σας.</string>
   <string name="emailAssociatedToaccount">Διεύθυνση ηλεκτρονικού ταχυδρομείου αυτού του λογαριασμού</string>
   <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
   <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>
