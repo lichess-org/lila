@@ -564,7 +564,7 @@
   <string name="reportAUser">ஒரு பயனர் புகார்</string>
   <string name="user">பயனர்</string>
   <string name="reason">காரணம்</string>
-  <string name="whatIsIheMatter">என்ன விஷயம்?</string>
+  <string name="whatIsIheMatter">என்ன காரியம்?</string>
   <string name="cheat">வஞ்சகன்</string>
   <string name="troll">அக்கிரமி</string>
   <string name="other">வேறு</string>
@@ -626,7 +626,7 @@
     <item quantity="other">%s தடைகள்</item>
   </plurals>
   <string name="listBlockedPlayers">நீங்கள் தடுத்த வீரர்களைப் பட்டியலிடுங்கள்</string>
-  <string name="human">மனித</string>
+  <string name="human">மனிதன்</string>
   <string name="computer">கணினி</string>
   <string name="side">பக்கம்</string>
   <string name="clock">கடிகாரம்</string>

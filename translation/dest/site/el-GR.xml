@@ -785,6 +785,7 @@
   <string name="onlineAndOfflinePlay">Παιχνίδια διαδικτυακώς και εκτός σύνδεσης</string>
   <string name="viewTheSolution">Δείτε τη λύση</string>
   <string name="followAndChallengeFriends">Ακολουθήστε και προκαλέστε φίλους</string>
+  <string name="noChallenges">Δεν έχετε προκλήσεις.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Διαθέσιμο σε %s γλώσσες!</item>
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>

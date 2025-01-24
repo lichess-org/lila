@@ -365,8 +365,8 @@
     <item quantity="other">%s مطالعه</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s سیمولتانه</item>
-    <item quantity="other">%s سیمولتانه</item>
+    <item quantity="one">%s همزمان</item>
+    <item quantity="other">%s همزمان</item>
   </plurals>
   <string name="viewTournament">دیدن مسابقات</string>
   <string name="backToTournament">بازگشت به مسابقات</string>
@@ -515,8 +515,8 @@
   <string name="profileCompletion">میزان تکمیل رُخ‌نما: %s</string>
   <string name="xRating">درجه‌‏بندی %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
-  <string name="profile">نمایه</string>
-  <string name="editProfile">ویرایش نمایه</string>
+  <string name="profile">رُخ‌نما</string>
+  <string name="editProfile">ویرایش رُخ‌نما</string>
   <string name="realName">نام راستین</string>
   <string name="setFlair">تعیین شکلک</string>
   <string name="flair">شکلک</string>
