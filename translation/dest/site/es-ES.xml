@@ -984,9 +984,6 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="focusChat">Enfocar chat</string>
   <string name="showHelpDialog">Mostrar este cuadro de diálogo de ayuda</string>
   <string name="reopenYourAccount">Reactivar tu cuenta</string>
-  <string name="closedAccountChangedMind">Si cerraste tu cuenta y has cambiado de opinión, aún tienes una oportunidad de recuperarla.</string>
-  <string name="onlyWorksOnce">Esto solo se puede hacer una vez.</string>
-  <string name="cantDoThisTwice">Si vuelves a cerrar tu cuenta, no podrás recuperarla.</string>
   <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada a la cuenta</string>
   <string name="sentEmailWithLink">Te hemos enviado un correo electrónico con un enlace.</string>
   <string name="tournamentEntryCode">Código de acceso al torneo</string>
