@@ -939,9 +939,6 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="focusChat">Tiêu điểm trò chuyện</string>
   <string name="showHelpDialog">Hiển thị thông điệp trợ giúp này</string>
   <string name="reopenYourAccount">Mở lại tài khoản</string>
-  <string name="closedAccountChangedMind">Nếu bạn đóng tài khoản, song thay đổi ý định, bạn có đúng một cơ hội để mở lại tài khoản.</string>
-  <string name="onlyWorksOnce">Chỉ làm được một lần.</string>
-  <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể lấy lại được nữa.</string>
   <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
   <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với một đường dẫn.</string>
   <string name="tournamentEntryCode">Mã tham gia giải đấu</string>
