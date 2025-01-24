@@ -793,6 +793,7 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="onlineAndOfflinePlay">Online und offline schpille</string>
   <string name="viewTheSolution">Lueg d\'Lösig a</string>
   <string name="followAndChallengeFriends">Folg Fründe und forder sie zum Schpil</string>
+  <string name="noChallenges">Kei Useforderige.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfüegbar i %s Schprach!</item>
     <item quantity="other">Verfüegbar i %s Schprache!</item>
