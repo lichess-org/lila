@@ -4,5 +4,7 @@
   <string name="closeAccount">Zapri račun</string>
   <string name="managedAccountCannotBeClosed">Vaš račun je upravljan in ga ni mogoče zapreti.</string>
   <string name="cantOpenSimilarAccount">Računa z enakim imenom ne boste mogli odpreti, tudi če z drugačnimi velikostmi črk.</string>
+  <string name="cancelKeepAccount">Prekliči in obdrži moj račun</string>
+  <string name="closeAccountAreYouSure">Ali ste prepričani, da želite zapreti ta račun?</string>
   <string name="thisAccountIsClosed">Račun je zaprt.</string>
 </resources>
