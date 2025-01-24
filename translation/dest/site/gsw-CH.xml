@@ -994,6 +994,7 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="focusChat">Chat fokussiere</string>
   <string name="showHelpDialog">Zeig de Hilfsdialog</string>
   <string name="reopenYourAccount">Konto wider eröffne</string>
+  <string name="reopenYourAccountDescription">Häsch dis Konto gschlosse und bereusch es, dänn chasch es jetzt wider aktiviere.</string>
   <string name="emailAssociatedToaccount">Mit dim Konto verbundeni E-Mail-Adrässe</string>
   <string name="sentEmailWithLink">Mir hän dir e E-Mail mit eme Link gschickt.</string>
   <string name="tournamentEntryCode">Turnier-Bitrittscode</string>
