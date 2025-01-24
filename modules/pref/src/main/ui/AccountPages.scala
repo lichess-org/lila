@@ -62,9 +62,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(
               "Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you."
             ),
-            div(cls := "form-group")(
-              "The username will NOT be available for registration again."
-            ),
+            div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             div(cls := "form-group")(
               "Would you like to ",
               a(href := routes.Account.close)("close your account"),

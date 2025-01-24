@@ -2681,7 +2681,7 @@ interface I18n {
   settings: {
     /** Cancel and keep my account */
     cancelKeepAccount: string;
-    /** You will not be allowed to open a new account with the same name, even if the case is different. */
+    /** The username will NOT be available for registration again. */
     cantOpenSimilarAccount: string;
     /** Close account */
     closeAccount: string;
