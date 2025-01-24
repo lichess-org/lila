@@ -126,8 +126,7 @@ final class AccountTermination(
     timeout = _.AtMost(1.minute),
     initialDelay = _.Delay(111.seconds)
   ):
-    userRepo.delete
-      .findNextScheduled(7.days)
+    userRepo.delete.findNextScheduled
       .flatMapz: (user, del) =>
         if user.enabled.yes
         then userRepo.delete.schedule(user.id, none).inject(none)

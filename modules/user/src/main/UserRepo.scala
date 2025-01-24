@@ -387,14 +387,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       )
     yield ()
 
-    def findNextScheduled(delay: FiniteDuration): Fu[Option[(User, UserDelete)]] =
+    def findNextScheduled: Fu[Option[(User, UserDelete)]] =
+      val requestedAt = nowInstant.minusDays(lila.core.user.UserDelete.delay.value)
       coll
         .find:
-          $doc( // hits the delete.scheduled_1 index
-            s"${F.delete}.scheduled".$lt(nowInstant.minusMillis(delay.toMillis)),
+          $doc( // hits the delete.requested_1 index
+            s"${F.delete}.requested".$lt(requestedAt),
             s"${F.delete}.done" -> false
           )
-        .sort($doc(s"${F.delete}.scheduled" -> 1))
+        .sort($doc(s"${F.delete}.requested" -> 1))
         .one[User]
         .flatMapz: user =>
           coll.primitiveOne[UserDelete]($id(user.id), F.delete).mapz(delete => (user -> delete).some)
