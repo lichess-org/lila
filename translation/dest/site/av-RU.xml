@@ -932,9 +932,6 @@
   <string name="focusChat">Чат рагьизе</string>
   <string name="showHelpDialog">Квербакъиялъул хъвай-хъвагӀай бихьзабизе</string>
   <string name="reopenYourAccount">Дур аккаунт цӀидасан рагье</string>
-  <string name="closedAccountChangedMind">Дуца дур аккаунт къаралдаса хадуб пикру хисун батани, дуе цо рес щола аккаунт тӀадбуссинабизе.</string>
-  <string name="onlyWorksOnce">Гьеб цо нухалъ хӀалтӀизе буго.</string>
-  <string name="cantDoThisTwice">Дуца дур аккаунт кӀиабилеб нухалъ къани, гъоркь букӀахъе гьабизе рес букӀине гьечӀо.</string>
   <string name="emailAssociatedToaccount">Аккаунталда бухьараб почалъул адресс</string>
   <string name="sentEmailWithLink">Нижеца духъе бухьенгун кагъат битӀана.</string>
   <string name="tournamentEntryCode">Турниралде лъугьине код</string>
