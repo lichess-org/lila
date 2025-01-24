@@ -4,5 +4,7 @@
   <string name="closeAccount">Pechar conta</string>
   <string name="managedAccountCannotBeClosed">A túa conta é xestionada e non pode pecharse.</string>
   <string name="cantOpenSimilarAccount">Non se che permitirá abrir outra conta co mesmo nome, nin sequera cambiando maiúsculas e minúsculas.</string>
+  <string name="cancelKeepAccount">Cancelar e manter a miña conta</string>
+  <string name="closeAccountAreYouSure">Estás seguro/a que queres pechar a túa conta?</string>
   <string name="thisAccountIsClosed">Esta conta foi pechada.</string>
 </resources>
