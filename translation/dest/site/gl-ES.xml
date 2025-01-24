@@ -983,6 +983,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="focusChat">Poñer o cursor na sala de conversa</string>
   <string name="showHelpDialog">Amosa este diálogo de axuda</string>
   <string name="reopenYourAccount">Abre de novo a túa conta</string>
+  <string name="reopenYourAccountDescription">Se pechaches a túa conta pero mudaches de idea, tes a posibilidade de recuperala.</string>
   <string name="emailAssociatedToaccount">Enderezo de correo electrónico asociado á conta</string>
   <string name="sentEmailWithLink">Enviámosche un correo electrónico cunha ligazón.</string>
   <string name="tournamentEntryCode">Código de participación no torneo</string>
