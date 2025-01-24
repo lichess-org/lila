@@ -921,9 +921,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="focusChat">Fokuseeri vestlus</string>
   <string name="showHelpDialog">Näita seda abiakent</string>
   <string name="reopenYourAccount">Ava oma konto uuesti</string>
-  <string name="closedAccountChangedMind">Kui sulgesid oma konto, kuid oled vahepeal ümber mõelnud, on sul üks võimalus oma konto tagasi saada.</string>
-  <string name="onlyWorksOnce">See töötab ainult ühe korra.</string>
-  <string name="cantDoThisTwice">Kui sa sulged oma konto teist korda, ei ole seda võimalik taastada.</string>
   <string name="emailAssociatedToaccount">Kontoga seotud e-posti aadress</string>
   <string name="sentEmailWithLink">Saatsime teile lingiga e-kirja.</string>
   <string name="tournamentEntryCode">Turniiri osavõtukood</string>
