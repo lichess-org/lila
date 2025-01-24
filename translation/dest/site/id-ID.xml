@@ -915,9 +915,6 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="focusChat">Fokus pada kotak obroloan</string>
   <string name="showHelpDialog">Tampilkan halaman bantuan ini</string>
   <string name="reopenYourAccount">Buka kembali akun Anda</string>
-  <string name="closedAccountChangedMind">Jika Anda telah menutup akun, Anda dapat satu kesempatan untuk mengembalikan akun anda.</string>
-  <string name="onlyWorksOnce">Ini hanya dapat dilakukan sekali.</string>
-  <string name="cantDoThisTwice">Jika Anda menutup akun untuk yang kedua kalinya, akun tersebut tidak dapat dikembalikan lagi.</string>
   <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
   <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
   <string name="tournamentEntryCode">Kode masuk turnamen</string>
