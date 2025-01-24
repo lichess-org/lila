@@ -4,5 +4,7 @@
   <string name="closeAccount">Închide contul</string>
   <string name="managedAccountCannotBeClosed">Contul tău este gestionat și nu poate fi închis.</string>
   <string name="cantOpenSimilarAccount">Nu îți va fi permis să creezi un cont nou cu același nume, indiferent dacă literele sunt minuscule sau majuscule.</string>
+  <string name="cancelKeepAccount">Anulează și păstrează contul</string>
+  <string name="closeAccountAreYouSure">Ești sigur că vrei să închizi contul?</string>
   <string name="thisAccountIsClosed">Contul este închis.</string>
 </resources>
