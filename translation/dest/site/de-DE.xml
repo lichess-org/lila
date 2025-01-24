@@ -984,9 +984,6 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="focusChat">Chat-Eingabefeld fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
   <string name="reopenYourAccount">Wiedereröffnung deines Kontos</string>
-  <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen, aber danach deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzuerhalten.</string>
-  <string name="onlyWorksOnce">Das funktioniert nur einmal.</string>
-  <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
   <string name="emailAssociatedToaccount">E-Mail-Adresse deines Kontos</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
   <string name="tournamentEntryCode">Turnierbeitrittscode</string>
