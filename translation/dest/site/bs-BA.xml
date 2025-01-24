@@ -987,9 +987,6 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="focusChat">Usredsredi razgovor</string>
   <string name="showHelpDialog">Prikaži ovaj pomoćni dijalog</string>
   <string name="reopenYourAccount">Iznova otvorite vaš račun</string>
-  <string name="closedAccountChangedMind">Ako ste zatvorili svoj račun, a predomislili ste se, imate jednu šansu da vratite svoj račun.</string>
-  <string name="onlyWorksOnce">Ovo će samo jednom uspjeti.</string>
-  <string name="cantDoThisTwice">Ako drugi put zatvorite svoj račun, nećete ga ni moći oporaviti.</string>
   <string name="emailAssociatedToaccount">Mejl adresa povezana s računom</string>
   <string name="sentEmailWithLink">Poslali smo vam mejl s vezom.</string>
   <string name="tournamentEntryCode">Lozinka za ulaz u turnir</string>
