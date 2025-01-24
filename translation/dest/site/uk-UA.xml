@@ -1073,9 +1073,6 @@
   <string name="focusChat">Обрати вікно чату</string>
   <string name="showHelpDialog">Показати це діалогове вікно довідки</string>
   <string name="reopenYourAccount">Відновити ваш обліковий запис</string>
-  <string name="closedAccountChangedMind">Якщо ви закрили свій обліковий запис та змінили свою думку, у вас є один шанс відновити свій профіль.</string>
-  <string name="onlyWorksOnce">Це можна зробити лише один раз.</string>
-  <string name="cantDoThisTwice">Якщо ви закриєте обліковий запис в другий раз, відновити його буде вже неможливо.</string>
   <string name="emailAssociatedToaccount">Адреса електронної пошти, пов\'язана з обліковим записом</string>
   <string name="sentEmailWithLink">Ми надіслали вам електронний лист із посиланням.</string>
   <string name="tournamentEntryCode">Код входу до турніру</string>
