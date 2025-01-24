@@ -99,16 +99,17 @@ private object RelayGame:
   )
 
   def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
-    val fixedTags = Tags:
-      // remove wrong ongoing result tag if the board has a mate on it
-      if res.ending.isDefined && res.tags(_.Result).has("*") then
-        res.tags.value.filter(_ != Tag(_.Result, "*"))
-      // normalize result tag (e.g. 0.5-0 ->  1/2-0)
-      else
-        res.tags.value.map: tag =>
-          if tag.name == Tag.Result
-          then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
-          else tag
+    val fixedTags = removeBrokenPlayerNames:
+      Tags:
+        // remove wrong ongoing result tag if the board has a mate on it
+        if res.ending.isDefined && res.tags(_.Result).has("*") then
+          res.tags.value.filter(_ != Tag(_.Result, "*"))
+        // normalize result tag (e.g. 0.5-0 ->  1/2-0)
+        else
+          res.tags.value.map: tag =>
+            if tag.name == Tag.Result
+            then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
+            else tag
     RelayGame(
       tags = fixedTags,
       variant = res.variant,
@@ -118,6 +119,14 @@ private object RelayGame:
       ),
       points = res.ending.map(_.points)
     ).applyTagClocksToLastMoves
+
+  private def removeBrokenPlayerNames(tags: Tags) = tags.copy(
+    value = tags.value.filter: tag =>
+      (tag.name != Tag.White && tag.name != Tag.Black) || {
+        val n = tag.value.toLowerCase
+        n.size > 1 && n != "bye" && n != "unknown"
+      }
+  )
 
   import scalalib.Iso
   import chess.format.pgn.InitialComments
