@@ -958,9 +958,6 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="focusChat">o nasin tawa toki jan</string>
   <string name="showHelpDialog">o pana lukin e lipu sona ni</string>
   <string name="reopenYourAccount">o open sin e lipu jan sama sina</string>
-  <string name="closedAccountChangedMind">sina pakala e lipu jan sina la, sina ken open sin e ona lon tenpo wan taso.</string>
-  <string name="onlyWorksOnce">ni li ken lon tenpo wan taso.</string>
-  <string name="cantDoThisTwice">sina pakala e lipu jan sina lon tenpo nanpa tu la, sina ken ala open sin e ona.</string>
   <string name="emailAssociatedToaccount">poki sitelen \"e-mail\" pi lipu jan</string>
   <string name="sentEmailWithLink">mi pana e sitelen \"e-mail\" tawa sina. ona li jo e nimi nasin.</string>
   <string name="tournamentEntryCode">nimi awen pi utala musi</string>
