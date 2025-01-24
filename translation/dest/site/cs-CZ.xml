@@ -1072,9 +1072,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="focusChat">Vybrat chat</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
   <string name="reopenYourAccount">Znovu otevřít svůj účet</string>
-  <string name="closedAccountChangedMind">Pokud jste uzavřel svůj účet, ale od té doby jste změnili názor, dostanete jednu šanci získat svůj účet zpět.</string>
-  <string name="onlyWorksOnce">Toto je možné provést pouze jednou.</string>
-  <string name="cantDoThisTwice">Pokud svůj účet zrušíte podruhé, nebude ho už možné obnovit.</string>
   <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
   <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
   <string name="tournamentEntryCode">Kód pro vstup do turnaje</string>
