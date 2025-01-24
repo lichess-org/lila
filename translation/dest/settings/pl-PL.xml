@@ -4,5 +4,7 @@
   <string name="closeAccount">Zamknij konto</string>
   <string name="managedAccountCannotBeClosed">Twoim kontem zarządza nauczyciel, nie możesz go zamknąć.</string>
   <string name="cantOpenSimilarAccount">Nie będzie można otworzyć nowego konta z tą samą nazwą, nawet jeśli wielkość liter będzie inna.</string>
+  <string name="cancelKeepAccount">Anuluj i zachowaj moje konto</string>
+  <string name="closeAccountAreYouSure">Czy na pewno chcesz zamknąć swoje konto?</string>
   <string name="thisAccountIsClosed">Konto zostało zamknięte.</string>
 </resources>
