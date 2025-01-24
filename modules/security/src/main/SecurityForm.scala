@@ -207,8 +207,9 @@ final class SecurityForm(
       Form:
         mapping(
           "username" -> myUsernameField,
-          "passwd"   -> passwordMapping(candidate)
-        )((_, _) => ())(_ => None)
+          "passwd"   -> passwordMapping(candidate),
+          "forever"  -> boolean
+        )((_, _, forever) => forever)(_ => None)
 
   def toggleKid(using Me) = passwordProtected
 

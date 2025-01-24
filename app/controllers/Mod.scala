@@ -30,7 +30,7 @@ final class Mod(
     withSuspect(username): sus =>
       for
         _ <- api.setAlt(sus, v)
-        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user))
+        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
         _ <- (!v && sus.user.enabled.no).so(api.reopenAccount(sus.user.id))
       yield sus.some
   }(reportC.onModAction)
@@ -40,7 +40,9 @@ final class Mod(
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
         withSuspect(username): sus =>
-          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(env.api.accountTermination.disable(sus.user)))
+          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(
+            env.api.accountTermination.disable(sus.user, forever = false)
+          ))
       .runWith(Sink.ignore)
       .void
       .inject(NoContent)
@@ -114,7 +116,7 @@ final class Mod(
 
   def closeAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
     meOrFetch(username).flatMapz: user =>
-      env.api.accountTermination.disable(user).map(some)
+      env.api.accountTermination.disable(user, forever = false).map(some)
   }(actionResult(username))
 
   def reopenAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>

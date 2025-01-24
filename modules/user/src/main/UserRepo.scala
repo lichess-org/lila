@@ -338,14 +338,15 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
 
-  def disable(user: User, keepEmail: Boolean): Funit =
+  def disable(user: User, keepEmail: Boolean, forever: Boolean): Funit =
+    val sets   = $doc(F.enabled -> false).++(forever.so($doc(F.foreverClosed -> true)))
+    val unsets = List(F.roles.some, keepEmail.option(F.mustConfirmEmail)).flatten
     coll.update
       .one(
         $id(user.id),
-        $set(F.enabled -> false) ++ $unset(F.roles) ++ {
-          if keepEmail then $unset(F.mustConfirmEmail)
-          else $doc("$rename" -> $doc(F.email -> F.prevEmail))
-        }
+        $doc("$set" -> sets) ++
+          $unset(unsets) ++
+          keepEmail.not.so($doc("$rename" -> $doc(F.email -> F.prevEmail)))
       )
       .void
 
@@ -368,7 +369,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         salt,
         bpass,
         "mustConfirmEmail",
-        colorIt
+        colorIt,
+        F.foreverClosed
       )
       coll.update.one(
         $id(user.id),
@@ -543,6 +545,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def isDeleted(user: User): Fu[Boolean] =
     user.enabled.no.so:
       coll.exists($id(user.id) ++ $doc(s"${F.delete}.done" -> true))
+
+  def isForeverClosed(user: User): Fu[Boolean] =
+    user.enabled.no.so:
+      coll.exists($id(user.id) ++ $doc(F.foreverClosed -> true))
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](F.id, $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)), _.sec)
