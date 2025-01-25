@@ -84,9 +84,9 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           h('h1', 'Textual representation'),
           h('h2', 'Game info'),
           ...['white', 'black'].map((color: Color) =>
-            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
+            h('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
           ),
-          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf || d.game.variant.name}`),
+          h('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
           h('h2', 'Moves'),
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
@@ -199,7 +199,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          h('h2', 'Keyboard shortcuts'),
+          h('h2', i18n.site.keyboardShortcuts),
           h('p', [
             'Use arrow keys to navigate in the game.',
             h('br'),

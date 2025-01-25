@@ -88,7 +88,7 @@ export function initModule(): NvuiPlugin {
         ...['white', 'black'].map((color: Color) =>
           h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', `${d.game.rated ? i18n.site.rated : i18n.site.casual} ${d.game.perf}`),
+        h('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf}`),
         d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
         h('h2', 'Moves'),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
@@ -350,14 +350,14 @@ function playerHtml(ctrl: RoundController, player: Player) {
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,
       ])
-    : 'Anonymous';
+    : i18n.site.anonymous;
 }
 
 function playerText(ctrl: RoundController, player: Player) {
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const user = player.user,
-    rating = player?.rating ?? user?.perfs[ctrl.data.game.perf]?.rating ?? 'unknown';
-  return !user ? 'Anonymous' : `${user.title || ''} ${user.username} rated ${rating}`;
+    rating = player?.rating ?? user?.perfs[ctrl.data.game.perf]?.rating ?? i18n.site.unknown;
+  return !user ? i18n.site.anonymous : `${user.title || ''} ${user.username}. ${i18n.site.rating} ${rating}`;
 }
 
 function gameText(ctrl: RoundController) {
