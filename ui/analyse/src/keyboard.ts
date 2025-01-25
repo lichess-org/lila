@@ -72,7 +72,9 @@ export const bind = (ctrl: AnalyseCtrl) => {
       if (ctrl.keyboardHelp) pubsub.emit('analysis.closeAll');
       ctrl.redraw();
     })
-    .bind('l', ctrl.toggleCeval)
+    .bind('l', () => {
+      if (ctrl.ceval.analysable) ctrl.toggleCeval();
+    })
     .bind('z', () => {
       ctrl.toggleComputer();
       ctrl.redraw();
