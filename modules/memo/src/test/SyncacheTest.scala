@@ -1,33 +1,24 @@
 package lila.memo
 
 import scala.concurrent.Await
+import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
 import akka.actor.ActorSystem
-import akka.testkit.ImplicitSender
 import akka.testkit.TestKit
-import org.scalatest.BeforeAndAfterAll
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpecLike
+import org.specs2.mutable.SpecificationLike
+import org.specs2.specification.AfterAll
 
-class SyncacheTest()
-    extends TestKit(ActorSystem())
-    with ImplicitSender
-    with AnyWordSpecLike
-    with Matchers
-    with BeforeAndAfterAll {
+class SyncacheTest extends TestKit(ActorSystem()) with SpecificationLike with AfterAll {
 
-  override def afterAll: Unit = {
-    TestKit.shutdownActorSystem(system)
-  }
+  override def afterAll(): Unit = TestKit.shutdownActorSystem(system)
 
-  implicit def ec: scala.concurrent.ExecutionContextExecutor = system.dispatcher
+  implicit val ec: ExecutionContext = system.dispatcher
 
   lila.mon.start(false)
 
-  "syncache" must {
-
+  "Syncache" should {
     "be thread safe" in {
       var computeCount = 0
       val cache = new Syncache[Int, String](
@@ -54,8 +45,7 @@ class SyncacheTest()
         }
       }
       Await.result(Future.sequence(fs), 20.seconds)
-      computeCount should be(keys)
+      computeCount must beEqualTo(keys)
     }
-
   }
 }
