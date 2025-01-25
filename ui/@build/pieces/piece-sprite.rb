@@ -8,11 +8,13 @@ lila_dir = File.dirname(`pnpm root -w`.strip)
 source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
+Dir.mkdir(dest_dir) unless Dir.exist?(dest_dir)
+
 bidirectional = [
   ['shogi_BnW', 'svg'],
   ['Engraved_cz_BnW', 'svg'],
   ['joyful', 'png'],
-  ['pencil', 'png'],
+  ['characters', 'png'],
   ['Firi', 'svg'],
 ]
 

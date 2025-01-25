@@ -57,7 +57,7 @@ object PieceSet extends PieceSetBase {
     new PieceSet("international", "International"),
     new PieceSet("Firi", "Firi"),
     new PieceSet("joyful", "Joyful"),
-    new PieceSet("pencil", "Pencil"),
+    new PieceSet("characters", "Characters"),
     new PieceSet("simple_kanji", "Simple Kanji"),
     new PieceSet("doubutsu", "Doubutsu"),
     new PieceSet("Logy_Games", "Logy Games"),
