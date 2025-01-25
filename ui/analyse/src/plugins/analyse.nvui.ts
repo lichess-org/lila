@@ -449,6 +449,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     rating = player.rating ? player.rating : perf && perf.rating,
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+  const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? h('span', [
         h(
@@ -459,7 +460,29 @@ function userHtml(ctrl: AnalyseController, player: Player) {
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,
       ])
-    : 'Anonymous';
+    : studyPlayers || h('span', i18n.site.anonymous);
+}
+
+function renderStudyPlayer(ctrl: AnalyseController, color: Color): VNode | undefined {
+  const player = ctrl.study?.currentChapter().players?.[color];
+  const keys = [
+    ['name', i18n.site.name],
+    ['title', 'title'],
+    ['rating', i18n.site.rating],
+    ['fed', i18n.broadcast.federation],
+    ['team', 'team'],
+  ] as const;
+  return (
+    player &&
+    h(
+      'span',
+      keys
+        .reduce<
+          string[]
+        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${player[key]}`) : strs), [])
+        .join(' '),
+    )
+  );
 }
 
 const playerByColor = (d: AnalyseData, color: Color): Player =>
