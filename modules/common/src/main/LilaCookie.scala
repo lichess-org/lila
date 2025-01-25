@@ -2,8 +2,7 @@ package lila.common
 
 import play.api.mvc._
 
-import ornicar.scalalib.Random
-
+import lila.common.Random
 import lila.common.config.NetDomain
 
 final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {

@@ -7,8 +7,8 @@ import scala.jdk.CollectionConverters._
 
 import play.api.Mode
 
+import alleycats.Zero
 import com.github.benmanes.caffeine.cache._
-import ornicar.scalalib.Zero
 
 final class TrouperMap[T <: Trouper](
     mkTrouper: String => T,

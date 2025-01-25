@@ -22,7 +22,7 @@ class SyncacheTest()
     TestKit.shutdownActorSystem(system)
   }
 
-  implicit def ec = system.dispatcher
+  implicit def ec: scala.concurrent.ExecutionContextExecutor = system.dispatcher
 
   lila.mon.start(false)
 

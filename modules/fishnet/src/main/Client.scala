@@ -6,9 +6,9 @@ import scala.util.Try
 
 import com.gilt.gfc.semver.SemVer
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 import lila.common.IpAddress
+import lila.common.Random
 
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis

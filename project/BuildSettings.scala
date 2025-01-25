@@ -31,7 +31,7 @@ object BuildSettings {
     akka.bundle ++ Seq(
       play.api,
       cats,
-      scalalib,
+      alleycats,
       shogi,
       jodaTime,
       ws,

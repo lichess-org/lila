@@ -6,7 +6,7 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Promise
 import scala.jdk.CollectionConverters._
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 
 final class DuctConcMap[D <: Duct](
     mkDuct: String => D,

@@ -3,7 +3,7 @@ package ui
 
 import play.api.mvc.Call
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scalatags.Text
 import scalatags.Text.Aggregate
 import scalatags.Text.Cap
@@ -152,7 +152,7 @@ trait ScalatagsExtensions {
     }
 
   val emptyFrag: Frag                   = new RawFrag("")
-  implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
+  implicit val LilaFragZero: Zero[Frag] = Zero(emptyFrag)
 
   val emptyModifier: Modifier = new Modifier {
     def applyTo(t: Builder) = {}

@@ -4,12 +4,13 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.Future
 import scala.concurrent.duration._
 import scala.util.Try
+import scala.util.matching.Regex
 
+import alleycats.Zero
 import cats.data.Validated
 import com.typesafe.config.Config
 import org.joda.time.DateTime
 import org.joda.time.Duration
-import ornicar.scalalib.Zero
 
 import lila.base.LilaTypes._
 
@@ -29,6 +30,16 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
   def ifNone(n: => Unit): Unit = if (self.isEmpty) n
 
   def has(a: A) = self contains a
+
+  def ??[B: Zero](f: A => B): B = self.fold(Zero[B].zero)(f)
+
+  def ifTrue(b: Boolean): Option[A]  = self filter (_ => b)
+  def ifFalse(b: Boolean): Option[A] = self filter (_ => !b)
+
+  // typesafe getOrElse
+  def |(default: => A): A = self getOrElse default
+
+  def unary_~(implicit z: Zero[A]): A = self getOrElse z.zero
 }
 
 final class PimpedString(private val s: String) extends AnyVal {
@@ -99,7 +110,28 @@ final class PimpedFiniteDuration(private val d: FiniteDuration) extends AnyVal {
   def abs = if (d.length < 0) -d else d
 }
 
+final class PimpedRegex(private val r: Regex) extends AnyVal {
+
+  def find(s: String): Boolean =
+    r.pattern.matcher(s).find
+
+  def matches(s: String): Boolean =
+    r.pattern.matcher(s).matches
+}
+
 final class RichValidated[E, A](private val v: Validated[E, A]) extends AnyVal {
 
   def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
+
+  def flatMap[EE >: E, B](f: A => Validated[EE, B]): Validated[EE, B] = v.andThen(f)
+}
+
+final class AddKcombinator[A](private val any: A) extends AnyVal {
+  def kCombinator(sideEffect: A => Unit): A = {
+    sideEffect(any)
+    any
+  }
+  def ~(sideEffect: A => Unit): A = kCombinator(sideEffect)
+  def pp: A                       = kCombinator(println)
+  def pp(msg: String): A          = kCombinator(a => println(s"[$msg] $a"))
 }

@@ -3,8 +3,8 @@ package lila.db
 import scala.util.Success
 import scala.util.Try
 
+import alleycats.Zero
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
 
 import lila.db.dsl._

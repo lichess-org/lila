@@ -432,6 +432,6 @@ object Pref {
     tags = Map.empty,
   )
 
-  import ornicar.scalalib.Zero
-  implicit def PrefZero: Zero[Pref] = Zero.instance(default)
+  import alleycats.Zero
+  implicit def PrefZero: Zero[Pref] = Zero(default)
 }

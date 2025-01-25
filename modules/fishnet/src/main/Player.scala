@@ -3,12 +3,12 @@ package lila.fishnet
 import scala.concurrent.duration._
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random.approximately
 
 import shogi.Clock
 import shogi.Gote
 import shogi.Sente
 
+import lila.common.Random.approximately
 import lila.game.Game
 
 final class Player(

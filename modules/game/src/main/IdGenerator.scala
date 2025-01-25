@@ -2,10 +2,9 @@ package lila.game
 
 import java.security.SecureRandom
 
-import ornicar.scalalib.Random
-
 import shogi.Color
 
+import lila.common.Random
 import lila.db.dsl._
 
 final class IdGenerator(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {

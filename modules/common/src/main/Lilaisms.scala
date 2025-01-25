@@ -2,6 +2,7 @@ package lila
 
 import scala.concurrent.duration._
 import scala.util.Try
+import scala.util.matching.Regex
 
 import play.api.libs.json.JsObject
 import play.api.libs.json.JsValue
@@ -9,22 +10,20 @@ import play.api.libs.json.JsValue
 import cats.data.Validated
 import com.typesafe.config.Config
 import org.joda.time.DateTime
-import ornicar.scalalib
 
 import lila.base._
 
 trait Lilaisms
     extends LilaTypes
-    with scalalib.Common
-    with scalalib.OrnicarOption
-    with scalalib.Regex
-    with scalalib.Zeros
-    with scalalib.Zero.Syntax
+    with Zeros
     with cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax {
 
   type StringValue = lila.base.LilaTypes.StringValue
   type IntValue    = lila.base.LilaTypes.IntValue
+
+  @inline implicit final def toAddKcombinator[A](any: A): AddKcombinator[A] =
+    new AddKcombinator(any)
 
   @inline implicit def toPimpedFuture[A](f: Fu[A]): PimpedFuture[A] = new PimpedFuture(f)
   @inline implicit def toPimpedFutureBoolean(f: Fu[Boolean]): PimpedFutureBoolean =
@@ -61,6 +60,7 @@ trait Lilaisms
   )
   @inline implicit def toPimpedFiniteDuration(d: FiniteDuration): PimpedFiniteDuration =
     new PimpedFiniteDuration(d)
+  @inline implicit def toOrnicarRegex(r: Regex): PimpedRegex = new PimpedRegex(r)
 
   @inline implicit def toRichValidated[E, A](v: Validated[E, A]): RichValidated[E, A] =
     new RichValidated(v)

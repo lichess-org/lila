@@ -53,7 +53,7 @@ final class PlaybanApi(
       else !userRepo.containsEngine(game.userIds)
     }
 
-  private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
+  private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
     Uptime.startedSinceMinutes(10) ?? {
       blameable(game) flatMap { _ ?? f }
     }

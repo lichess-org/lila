@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.ask
-import ornicar.scalalib.Zero
+import alleycats.Zero
 
 import lila.memo.CacheApi._
 import lila.streamer.makeTimeout.short
@@ -64,7 +64,7 @@ object LiveStreams {
   }
 
   implicit val zero: Zero[WithTitles] =
-    ornicar.scalalib.Zero.instance(WithTitles(LiveStreams(Nil), Map.empty))
+    Zero(WithTitles(LiveStreams(Nil), Map.empty))
 }
 
 final class LiveStreamApi(

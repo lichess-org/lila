@@ -7,7 +7,7 @@ import play.api.data._
 import play.api.mvc._
 import views._
 
-import ornicar.scalalib.Zero
+import alleycats.Zero
 
 import lila.api.BodyContext
 import lila.api.Context

@@ -6,8 +6,8 @@ import scala.util.chaining._
 
 import play.api.libs.json._
 
+import alleycats.Zero
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
 
 import shogi.Centis
 import shogi.Color
@@ -588,7 +588,7 @@ object RoundDuct {
   }
 
   implicit private[round] val takebackSituationZero: Zero[TakebackSituation] =
-    Zero.instance(TakebackSituation(0, none))
+    Zero(TakebackSituation(0, none))
 
   private[round] class Dependencies(
       val gameRepo: GameRepo,

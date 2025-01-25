@@ -8,7 +8,7 @@ import scala.concurrent.{ ExecutionContext => EC }
 import scala.util.Try
 
 import akka.actor.ActorSystem
-import ornicar.scalalib.Zero
+import alleycats.Zero
 
 import lila.base.LilaTypes._
 import lila.common.Chronometer

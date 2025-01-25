@@ -11,13 +11,13 @@ import play.api.data.validation.{ Valid => FormValid }
 import play.api.mvc.RequestHeader
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
 
 import lila.common.EmailAddress
 import lila.common.HTTPRequest
 import lila.common.IpAddress
+import lila.common.Random
 import lila.db.dsl._
 import lila.oauth.OAuthScope
 import lila.oauth.OAuthServer

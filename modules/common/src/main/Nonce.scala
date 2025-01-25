@@ -1,6 +1,6 @@
 package lila.common
 
-import ornicar.scalalib.Random
+import lila.common.Random
 
 case class Nonce(value: String) extends AnyVal with StringValue {
   def scriptSrc = s"'nonce-$value'"

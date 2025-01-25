@@ -15,7 +15,7 @@ import play.api.libs.json.Writes
 import play.api.mvc._
 
 import akka.actor.Scheduler
-import ornicar.scalalib.Zero
+import alleycats.Zero
 import scalatags.Text.Frag
 
 import lila.api.BodyContext
@@ -46,7 +46,7 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def executionContext: ExecutionContext = env.executionContext
   implicit def scheduler: Scheduler               = env.scheduler
 
-  implicit protected val LilaResultZero: Zero[Result] = Zero.instance[Result](Results.NotFound)
+  implicit protected val LilaResultZero: Zero[Result] = Zero[Result](Results.NotFound)
 
   implicit final protected class LilaPimpedResult(result: Result) {
     def fuccess                           = scala.concurrent.Future successful result
