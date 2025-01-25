@@ -153,7 +153,7 @@ final class Challenge(env: Env) extends LilaController(env):
         }
       }
       .map { cookieOption =>
-        cookieOption.foldLeft(res)(_ withCookies _)
+        cookieOption.foldLeft(res)(_.withCookies(_))
       }
 
   def decline(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
