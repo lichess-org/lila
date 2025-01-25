@@ -939,9 +939,6 @@
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
   <string name="showHelpDialog">Ցույց տալ օգնությունը</string>
   <string name="reopenYourAccount">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
-  <string name="closedAccountChangedMind">Եթե Դուք փակել եք Ձեր մասնակցային հաշիվը, բայց մտափոխվել եք, մեկ անգամ այն վերականգնելու հնարավորություն ունեք։</string>
-  <string name="onlyWorksOnce">Սա կաշխատի միայն մեկ անգամ։</string>
-  <string name="cantDoThisTwice">Եթե Դուք ևս մեկ անգամ փակեք Ձեր մասնակցային հաշիվը, այն վերաբացելու հնարավորություն այլևս չեք ունենա։</string>
   <string name="emailAssociatedToaccount">Այս մասնակցային հաշվին կցված էլ. փոստի հասցեն։</string>
   <string name="sentEmailWithLink">Ձեզ ուղարկել ենք հղումով նամակ։</string>
   <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>

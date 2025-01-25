@@ -950,9 +950,6 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="focusChat">Fokusli suhbat</string>
   <string name="showHelpDialog">Ushbu yordamchi dialogni namoyish etish</string>
   <string name="reopenYourAccount">Sizning akkountingizni qayta ochish</string>
-  <string name="closedAccountChangedMind">Agar siz akkountingizni yopgan bo‘lsangiz va fikringizdan qaytgan bo‘lsangiz u holda sizda akkountingizni qayta tiklash uchun bitta imkoniyat bor.</string>
-  <string name="onlyWorksOnce">Bu faqat bir marta ishlaydi.</string>
-  <string name="cantDoThisTwice">Agar siz akkountingizni ikkinchi bor yopsangiz uni ortga qaytarish imkoni yo‘q.</string>
   <string name="emailAssociatedToaccount">Email manzil akkountga bog‘landi</string>
   <string name="sentEmailWithLink">Biz sizga email va link jo‘natamiz.</string>
   <string name="tournamentEntryCode">Turnirda ishtirok etish kodi</string>

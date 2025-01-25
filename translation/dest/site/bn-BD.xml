@@ -967,9 +967,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="focusChat">ফোকাস চ্যাট</string>
   <string name="showHelpDialog">এই হেল্প ডায়ালগ দেখান</string>
   <string name="reopenYourAccount">আপনার একাউন্ট পুনরায় খুলুন</string>
-  <string name="closedAccountChangedMind">আপনি যদি আপনার একাউন্ট বন্ধ করে থাকেন, কিন্তু পরবর্তীতে মন পরিবর্তন করেন, সেক্ষেত্রে একাউন্ট ফেরত পাওয়ার জন্য আপনাকে একবার সুযোগ দেয়া হবে।</string>
-  <string name="onlyWorksOnce">এটি শুধুমাত্র একবার কাজ করবে।</string>
-  <string name="cantDoThisTwice">আপনি যদি দ্বিতীয়বারের মত একাউন্ট বন্ধ করেন, তাহলে তা আর পুনরুদ্ধার করা যাবে না।</string>
   <string name="emailAssociatedToaccount">এই একাউন্টের সঙ্গে সংশ্লিষ্ট ই-মেইল অ্যাড্রেস হচ্ছে</string>
   <string name="sentEmailWithLink">আমরা আপনাকে একটি লিঙ্ক সহ ই-মেইল পাঠিয়েছি।</string>
   <string name="tournamentEntryCode">টুর্নামেন্টে প্রবেশের কোড</string>

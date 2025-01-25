@@ -944,9 +944,6 @@
   <string name="focusChat">ფოკუსირება ჩატზე</string>
   <string name="showHelpDialog">დახმარების დიალოგის ჩვენება</string>
   <string name="reopenYourAccount">ხელახლა გახსენით თქვენი ექაუნთი</string>
-  <string name="closedAccountChangedMind">თუ დახურეთ თქვენი ექაუნთი, მაგრამ მას შემდეგ გადაიფიქრეთ, გექნებათ თქვენი ექაუნთის დაბრუნების ერთი შანსი.</string>
-  <string name="onlyWorksOnce">ეს მხოლოდ ერთხელ იმუშავებს.</string>
-  <string name="cantDoThisTwice">მეორედ თუ დახურავთ თქვენს ექაუნთს, აღდგენის შანსი აღარ გექნებათ.</string>
   <string name="emailAssociatedToaccount">ელფოსტის მისამართი, ასოცირებული ექაუნთთან</string>
   <string name="sentEmailWithLink">გამოგიგზავნეთ ელფოსტა ლინკით.</string>
   <string name="tournamentEntryCode">ტურნირში შესასვლელი კოდი</string>

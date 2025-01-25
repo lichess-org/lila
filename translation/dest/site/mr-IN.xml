@@ -954,9 +954,6 @@
   <string name="focusChat">chat वर लक्ष्य केंद्रित करा</string>
   <string name="showHelpDialog">येथील मदत पर्याय दाखवा</string>
   <string name="reopenYourAccount">आपले खाते पुन्हा उघडा</string>
-  <string name="closedAccountChangedMind">जर आपण आपले खाते बंद केले, पण त्यानंतर आपले मन बदलले असेल, तर आपल्याला आपले खाते परत मिळवण्यासाठी अजून एक संधी आहे.</string>
-  <string name="onlyWorksOnce">ही प्रक्रिया एकदा कामी येईल.</string>
-  <string name="cantDoThisTwice">जर आपण आपले खाते दुसऱ्यांदा बंद केले, तर ते परत मिळवता येणार नाही.</string>
   <string name="emailAssociatedToaccount">खात्याशी संबंधित ईमेल अॅड्रेस</string>
   <string name="sentEmailWithLink">आम्ही आपल्याला लिंक सहित एक ईमेल पाठवला आहे.</string>
   <string name="tournamentEntryCode">स्पर्धेचा प्रवेश संकेतशब्द</string>

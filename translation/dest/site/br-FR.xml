@@ -1025,9 +1025,6 @@
   <string name="analysisOptions">Optionoù dielfennañ</string>
   <string name="focusChat">Ar flap da gentañ</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
-  <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
-  <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>
-  <string name="cantDoThisTwice">Ma serrit ho kont un eil gwech, ne vo ket tu deoc\'h adtapout anezhañ.</string>
   <string name="emailAssociatedToaccount">Postel liammet ouzh ar gont</string>
   <string name="sentEmailWithLink">Ur postel gant ul liamm \'zo bet kaset deoc\'h.</string>
   <string name="tournamentEntryCode">Kod mont e-barzh an tournamant</string>

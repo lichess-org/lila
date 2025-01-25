@@ -983,9 +983,6 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="focusChat">Eraman fokua txatera</string>
   <string name="showHelpDialog">Erakutsi laguntza leiho hau</string>
   <string name="reopenYourAccount">Berreskuratu zure kontua</string>
-  <string name="closedAccountChangedMind">Zure kontua itxi bazenuen baina berreskuratu nahi baduzu, aukera bakarra duzu hori egiteko.</string>
-  <string name="onlyWorksOnce">Honek behin bakarrik funtzionatuko du.</string>
-  <string name="cantDoThisTwice">Zure kontua bigarren aldiz ixten baduzu ezingo duzu berriz berreskuratu.</string>
   <string name="emailAssociatedToaccount">Posta elektronikoa ondo lotu da zure kontura</string>
   <string name="sentEmailWithLink">Posta elektroniko bat bidali dizugu lotura batekin.</string>
   <string name="tournamentEntryCode">Txapelketara sartzeko kodea</string>

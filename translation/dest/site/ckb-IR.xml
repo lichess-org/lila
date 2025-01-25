@@ -958,9 +958,6 @@
   <string name="focusChat">وردبینی</string>
   <string name="showHelpDialog">ئەو نامەی یارمەتییە پیشان بدە</string>
   <string name="reopenYourAccount">هەژمارەکەت جارێکیدیکە بکەوە</string>
-  <string name="closedAccountChangedMind">ئەگەر ئەکاونتەکەت داخست، بەڵامبەشێوەیەک لە شێوەکان بیرۆکەکەت گۆڕیوە، ئەوا یەک چانسی وەرگرتنەوەی ئەکاونتەکەت بۆ دەگەڕێتەوە.</string>
-  <string name="onlyWorksOnce">ئەوە یەکجار کار دەکات.</string>
-  <string name="cantDoThisTwice">ئەگەر بۆ جاری دووەم ئەکاونتەکەت دابخەیت، هیچ ڕێگەیەک بۆ وەرگرتنەوەی نامێنێت.</string>
   <string name="emailAssociatedToaccount">ناونیشانی ئیمەیڵی پەیوەست بە ئەکاونتەکەوە</string>
   <string name="sentEmailWithLink">ئێمە ئیمێڵێکمان بۆ ناردووی لەگەڵ بەستەرێک.</string>
   <string name="tournamentEntryCode">کۆدی بەشداری پاڵەوانیەتی</string>

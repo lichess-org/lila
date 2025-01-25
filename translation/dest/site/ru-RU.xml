@@ -672,9 +672,9 @@
   <string name="letOtherPlayersInviteYouToStudy">Разрешить другим игрокам приглашать вас в студию</string>
   <string name="sound">Звук</string>
   <string name="none">Нет</string>
-  <string name="fast">Быстро</string>
+  <string name="fast">Быстрая</string>
   <string name="normal">Нормальная</string>
-  <string name="slow">Медленно</string>
+  <string name="slow">Медленная</string>
   <string name="insideTheBoard">Внутри доски</string>
   <string name="outsideTheBoard">Вне доски</string>
   <string name="allSquaresOfTheBoard">Все поля на доске</string>
@@ -1074,9 +1074,7 @@
   <string name="focusChat">Переключиться в окно чата</string>
   <string name="showHelpDialog">Показать справку</string>
   <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
-  <string name="closedAccountChangedMind">Если вы закрыли свой аккаунт, но с тех пор передумали, то у вас есть однократная возможность восстановить его.</string>
-  <string name="onlyWorksOnce">Это сработает только один раз.</string>
-  <string name="cantDoThisTwice">Если вы закроете свой аккаунт ещё раз, вы уже не сможете открыть его.</string>
+  <string name="reopenYourAccountDescription">Если вы закрыли свою учётную запись, но потом передумали, у вас есть шанс отменить своё решение.</string>
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
   <string name="tournamentEntryCode">Код для участия в турнире</string>

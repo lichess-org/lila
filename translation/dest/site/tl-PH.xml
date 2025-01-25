@@ -878,9 +878,6 @@ Mag-iwan ng walang laman upang magsimula ng mga laro mula sa normal na paunang p
   <string name="focusChat">Pusa ng pokus</string>
   <string name="showHelpDialog">Ipakita ang dayalogo sa tulong na ito</string>
   <string name="reopenYourAccount">Muling buksan ang iyong account</string>
-  <string name="closedAccountChangedMind">Kung isinara mo ang iyong account, ngunit mula nang nagbago ang iyong isip, makakakuha ka ng isang pagkakataon na maibalik ang iyong account.</string>
-  <string name="onlyWorksOnce">Minsan lang ito gagana.</string>
-  <string name="cantDoThisTwice">Kung isara mo ang iyong account sa pangalawang pagkakataon, walang paraan upang mabawi ito.</string>
   <string name="emailAssociatedToaccount">Ang email address na nauugnay sa account</string>
   <string name="sentEmailWithLink">Nagpadala kami sa iyo ng isang email na may isang link.</string>
   <string name="tournamentEntryCode">Code ng Entry ng Tournament</string>
