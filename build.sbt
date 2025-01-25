@@ -97,7 +97,7 @@ lazy val common = module("common",
   Seq(core),
   Seq(
     kamon.core, scaffeine, apacheText, chess.playJson
-  ) ++ tests.bundle ++ flexmark.bundle
+  ) ++ flexmark.bundle
 )
 
 lazy val db = module("db",

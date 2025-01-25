@@ -1074,9 +1074,7 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="focusChat">Zamerať sa na daný rozhovor</string>
   <string name="showHelpDialog">Zobrazenie tohto dialógového okna s nápovedou</string>
   <string name="reopenYourAccount">Opätovné otvorenie účtu</string>
-  <string name="closedAccountChangedMind">Ak ste váš účet zatvorili, ale potom ste si to nakoniec rozmysleli, dostali ste poslednú šancu vrátiť sa späť k vášmu účtu.</string>
-  <string name="onlyWorksOnce">Toto bude fungovať iba raz.</string>
-  <string name="cantDoThisTwice">Ak účet zatvoríte druhýkrát, nebude už možné ho obnoviť.</string>
+  <string name="reopenYourAccountDescription">Ak ste Váš účet zrušili, ale potom ste si to rozmysleli, máte šancu získať svoj účet späť.</string>
   <string name="emailAssociatedToaccount">E-mailová adresa priradená k účtu</string>
   <string name="sentEmailWithLink">Poslali sme vám e-mail s prepojením.</string>
   <string name="tournamentEntryCode">Vstupný kód do turnaja</string>

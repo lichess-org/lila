@@ -1166,9 +1166,6 @@ https://lichess. org/report.</string>
   <string name="focusChat">تركيز</string>
   <string name="showHelpDialog">إظهار رسالة المساعدة هذه</string>
   <string name="reopenYourAccount">اعادة فتح حسابك</string>
-  <string name="closedAccountChangedMind">إذا كنت قد أغلقت حسابك، و أبدلت رأيك، لديك فرصة واحدة لاستعادة الحساب.</string>
-  <string name="onlyWorksOnce">سيعمل هذا لمرة واحدة فقط</string>
-  <string name="cantDoThisTwice">إذا أغلقت حسابك مرة ثانية فليس من الممكن استعادة حسابك مرة أخرى.</string>
   <string name="emailAssociatedToaccount">البريد الالكتروني مربوط بالحساب</string>
   <string name="sentEmailWithLink">أرسالنا لك ايميل يحتوي على رابط.</string>
   <string name="tournamentEntryCode">رمز دخول البطولة</string>

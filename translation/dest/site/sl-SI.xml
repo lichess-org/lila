@@ -1074,9 +1074,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="focusChat">Fokus klepet</string>
   <string name="showHelpDialog">Show this help dialog</string>
   <string name="reopenYourAccount">Znova odprite svoj račun</string>
-  <string name="closedAccountChangedMind">Če ste si premislili po zaprtju računa, imate eno možnost, da svoj račun pridobite nazaj.</string>
-  <string name="onlyWorksOnce">To bo delovalo samo enkrat.</string>
-  <string name="cantDoThisTwice">Če boste račun zaprli še drugič, ga ne boste mogli obnoviti.</string>
+  <string name="reopenYourAccountDescription">Če ste si premislili po zaprtju računa, imate možnost, da svoj račun pridobite nazaj.</string>
   <string name="emailAssociatedToaccount">E-naslov, povezan z računom</string>
   <string name="sentEmailWithLink">Poslali smo vam e-poštno sporočilo s povezavo.</string>
   <string name="tournamentEntryCode">Koda za vstop na turnir</string>

@@ -962,9 +962,6 @@
   <string name="focusChat">Пређи на чет</string>
   <string name="showHelpDialog">Прикажи овај прозор за помоћ</string>
   <string name="reopenYourAccount">Поново отвори свој налог</string>
-  <string name="closedAccountChangedMind">Ако си затворио налог, али си се после предомислио, имаш једну прилику да повратиш свој налог.</string>
-  <string name="onlyWorksOnce">Ово ће радити само једном.</string>
-  <string name="cantDoThisTwice">Ако си затворио налог по други пут, не постоји начин да га повратиш.</string>
   <string name="emailAssociatedToaccount">Мејл адреса повезана са налогом</string>
   <string name="sentEmailWithLink">Послали смо ти мејл са линком.</string>
   <string name="tournamentEntryCode">Код за приступ турниру</string>

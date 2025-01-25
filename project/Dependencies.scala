@@ -20,7 +20,7 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.30.1"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.31.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.2.RELEASE"
@@ -35,7 +35,7 @@ object Dependencies {
   val kittens     = "org.typelevel"              %% "kittens"       % "3.4.0"
 
   val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
-  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0"  % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.1.0"  % Test
 
   object tests {
     val bundle = Seq(munit)

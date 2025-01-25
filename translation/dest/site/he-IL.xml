@@ -1075,9 +1075,6 @@
   <string name="focusChat">הגדלת הצ\'אט</string>
   <string name="showHelpDialog">הצגת מסך עזרה זה</string>
   <string name="reopenYourAccount">פתח/י את חשבונך מחדש</string>
-  <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתוח אותו.</string>
-  <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>
-  <string name="cantDoThisTwice">עם סגירת החשבון בשנית לא תתאפשר עוד פתיחתו לעולם.</string>
   <string name="emailAssociatedToaccount">כתובת האימייל שמקושרת למשתמש</string>
   <string name="sentEmailWithLink">שלחנו לך דוא״ל עם קישור.</string>
   <string name="tournamentEntryCode">קוד כניסה לטורניר</string>

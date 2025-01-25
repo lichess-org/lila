@@ -635,9 +635,6 @@
   <string name="focusChat">Перейти у чет</string>
   <string name="showHelpDialog">Указати оболок помочи</string>
   <string name="reopenYourAccount">Переодкрыти свуй акаунт</string>
-  <string name="closedAccountChangedMind">Кідь сьте закрыли свуй акаунт, а з того часу сьте передумали, є у вас лем єдна можность го вернути.</string>
-  <string name="onlyWorksOnce">Се мож учинити лем раз.</string>
-  <string name="cantDoThisTwice">Кідь другый раз закрыєте акаунт, уже го не вернете.</string>
   <string name="emailAssociatedToaccount">Адрес почты, приязаный од сьому акаунтови</string>
   <string name="sentEmailWithLink">Мы загнали вам письмо из одкликованьом.</string>
   <string name="tournamentEntryCode">Код турніра</string>

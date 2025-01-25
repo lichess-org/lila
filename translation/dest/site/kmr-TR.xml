@@ -879,8 +879,6 @@
   <string name="timeAlmostUp">Dem heme hema qedîya!</string>
   <string name="clickToRevealEmailAddress">[Ji bo nîşandana adresa epeyamê bitikîne]</string>
   <string name="download">Daxîne</string>
-  <string name="onlyWorksOnce">Ev wê tenê carekê bixebite.</string>
-  <string name="cantDoThisTwice">Ger tu hesabê xwe cara duyem bigirî, wê ti rêyeke xilaskirinê nîn be.</string>
   <string name="emailAssociatedToaccount">Adresa epeyamê yê girêdayî hesabê</string>
   <string name="sentEmailWithLink">Me ji te re epeyamekê şand tevî lînkê.</string>
   <string name="tournamentEntryCode">Koda têketinê yê turnuvayê</string>

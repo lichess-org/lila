@@ -374,7 +374,7 @@ final class Mod(
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
-    bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, Nil)), searchTerm)
+    bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm)
   }
 
   def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
@@ -393,8 +393,8 @@ final class Mod(
       case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
       case None =>
         for
-          users <- env.mod.search(query)
-          page  <- renderPage(views.mod.search(ModUserSearch.form.fill(query), users))
+          res  <- env.mod.search(query)
+          page <- renderPage(views.mod.search(ModUserSearch.form.fill(query), res.some))
         yield Ok(page)
 
   def print(fh: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
@@ -479,7 +479,7 @@ final class Mod(
         val email    = query.headOption.flatMap(EmailAddress.from)
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-          env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
+          env.mod.search(q).map(_.users.filter(_.user.enabled.yes)).flatMap {
             case List(lila.user.WithPerfsAndEmails(user, _)) =>
               for
                 _ <- (!user.everLoggedIn).so {

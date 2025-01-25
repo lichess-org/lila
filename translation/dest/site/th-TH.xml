@@ -936,9 +936,6 @@
   <string name="focusChat">โฟกัสที่แชท</string>
   <string name="showHelpDialog">แสดงกรอบช่วยเหลือนี้</string>
   <string name="reopenYourAccount">เปิดบัญชีของคุณอีกครั้ง</string>
-  <string name="closedAccountChangedMind">ถ้าคุณได้ปิดบัญชีแล้ว แต่เกิดเปลี่ยนใจ คุณมีโอกาสอีกครั้งเดียวในการเรียกบัญชีของคุณคืนมา</string>
-  <string name="onlyWorksOnce">นี่จะทำได้เพียงครั้งเดียว</string>
-  <string name="cantDoThisTwice">ถ้าคุณปิดบัญชีเป็นครั้งที่สอง จะไม่มีโอกาสเรียกมันกลับมาได้อีก</string>
   <string name="emailAssociatedToaccount">ที่อยู่อีเมลถูกผูกกับบัญชี</string>
   <string name="sentEmailWithLink">เราได้ส่งอีเมลให้คุณพร้อมลิงก์แล้ว</string>
   <string name="tournamentEntryCode">รหัสการเข้าทัวร์นาเมนต์</string>

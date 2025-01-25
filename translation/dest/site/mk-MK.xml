@@ -934,9 +934,6 @@
   <string name="focusChat">Фокусирај разговор</string>
   <string name="showHelpDialog">Покажи прозорец за помош</string>
   <string name="reopenYourAccount">Повторно отвори ја твојата сметка</string>
-  <string name="closedAccountChangedMind">Ако сте ја затвориле вашата сметка, но сте се предомислиле, имате една шанса да си ја вратите сметката.</string>
-  <string name="onlyWorksOnce">Ова ќе работи само еднаш.</string>
-  <string name="cantDoThisTwice">Ако во вторпат ја затворите вашата сметка, нема да можете да ја повратите.</string>
   <string name="emailAssociatedToaccount">Е-пошта поврзана со сметката</string>
   <string name="sentEmailWithLink">Ви испративме е-мајл со линк.</string>
   <string name="tournamentEntryCode">Лозинка за влез на турнир</string>

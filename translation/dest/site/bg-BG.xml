@@ -966,9 +966,6 @@
   <string name="focusChat">Фокусирай текста</string>
   <string name="showHelpDialog">Показване на този диалогов прозорец за помощ</string>
   <string name="reopenYourAccount">Отворете отново акаунта Ви</string>
-  <string name="closedAccountChangedMind">Ако сте затворили акаунта Ви, но си промените решението, получавате един шанс да си върнете акаунта.</string>
-  <string name="onlyWorksOnce">Това ще работи само един път.</string>
-  <string name="cantDoThisTwice">Ако затворите акаунта Ви за втори път, няма как да го възстановите.</string>
   <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
   <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>
   <string name="tournamentEntryCode">Код за участие в турнира</string>
