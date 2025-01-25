@@ -144,7 +144,6 @@ final class GameApiV2(
                 .take(config.max.fold(Int.MaxValue)(_.value))
 
           gameSource
-            .throttle(config.perSecond.value, 1.second)
             .via(upgradeOngoingGame)
             .via(preparationFlow(config, realPlayers))
 
@@ -159,7 +158,6 @@ final class GameApiV2(
             batchSize = config.perSecond.value
           )
           .documentSource()
-          .throttle(config.perSecond.value, 1.second)
           .via(upgradeOngoingGame)
           .via(preparationFlow(config, realPlayers))
       }
@@ -222,14 +220,7 @@ final class GameApiV2(
       .grouped(30)
       .mapAsync(1)(gameRepo.gamesTemporarilyFromPrimary)
       .mapConcat(identity)
-      .throttle(config.perSecond.value, 1.second)
-      .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4): (game, fen, analysis) =>
-        config.format match
-          case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
-          case Format.JSON =>
-            toJson(game, fen, analysis, config, None).dmap: json =>
-              s"${Json.stringify(json)}\n"
+      .via(preparationFlow(config))
 
   def exportUserImportedGames(user: User): Source[PgnStr, ?] =
     gameRepo
@@ -241,8 +232,9 @@ final class GameApiV2(
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
 
-  private def preparationFlow(config: Config, realPlayers: Option[RealPlayers])(using Translate) =
+  private def preparationFlow(config: Config, realPlayers: Option[RealPlayers] = none)(using Translate) =
     Flow[Game]
+      .throttle(config.perSecond.value, 1.second)
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4): (game, fen, analysis) =>
         formatterFor(config)(game, fen, analysis, None, realPlayers)
@@ -354,6 +346,7 @@ object GameApiV2:
     val format: Format
     val flags: WithFlags
     val by: Option[Me]
+    val perSecond: MaxPerSecond
 
   enum GameSort(val bson: Bdoc):
     case DateAsc  extends GameSort(Query.sortChronological)
@@ -365,7 +358,8 @@ object GameApiV2:
       flags: WithFlags,
       playerFile: Option[String]
   )(using val by: Option[Me])
-      extends Config
+      extends Config:
+    val perSecond = MaxPerSecond(1)
 
   case class ByUserConfig(
       user: User,
