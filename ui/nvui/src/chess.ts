@@ -273,15 +273,8 @@ export const renderKey = (key: Key, style: MoveStyle): string =>
   style === 'nato' || style === 'anna' ? `${renderFile(key[0] as Files, style)} ${key[1]}` : key;
 
 export function castlingFlavours(input: string): string {
-  switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
-    case 'oo':
-    case '00':
-      return 'o-o';
-    case 'ooo':
-    case '000':
-      return 'o-o-o';
-  }
-  return input;
+  const oos = input.split(/o|0/).length - 1;
+  return oos == 2 ? 'o-o' : oos == 3 ? 'o-o-o' : input;
 }
 
 /* Listen to interactions on the chessboard */
