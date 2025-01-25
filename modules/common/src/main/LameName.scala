@@ -9,8 +9,6 @@ object LameName:
 
   def hasTitle(name: String): Boolean = containsTitleRegex.matches(name)
 
-  def tournament(name: String): Boolean = tournamentRegex.find(name)
-
   def explain(name: UserName): Option[String] =
     if hasTitle(name.value) then "Contains a title".some
     else
@@ -90,8 +88,6 @@ object LameName:
   private val usernameRegex = lameWords(usernameWords).r
 
   private lazy val usernameExplainRegex = ("(" + lameWords(usernameWords) + ")").r.unanchored
-
-  private val tournamentRegex = lameWords(baseWords).r
 
   private def lameWords(list: List[String]): String =
     val extras = Map(
