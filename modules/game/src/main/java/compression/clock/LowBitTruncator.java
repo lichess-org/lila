@@ -1,7 +1,7 @@
-package lila.compression.clock;
+package lila.game.compression.clock;
 
-import lila.compression.BitReader;
-import lila.compression.BitWriter;
+import lila.game.compression.BitReader;
+import lila.game.compression.BitWriter;
 
 public class LowBitTruncator {
     // Truncate 3 bits from centisecs, but preserve precision for low values.

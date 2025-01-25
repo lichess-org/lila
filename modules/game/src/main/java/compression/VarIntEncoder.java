@@ -1,4 +1,4 @@
-package lila.compression;
+package lila.game.compression;
 
 public class VarIntEncoder {
     public static void writeSigned(int[] values, BitWriter writer) {

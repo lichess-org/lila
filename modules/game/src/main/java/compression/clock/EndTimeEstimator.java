@@ -1,4 +1,4 @@
-package lila.compression.clock;
+package lila.game.compression.clock;
 
 public class EndTimeEstimator {
     public static void encode(int[] vals, int startTime) {

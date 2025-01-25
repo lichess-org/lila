@@ -1,10 +1,10 @@
-package lila.compression.clock;
+package lila.game.compression.clock;
 
 import java.util.Arrays;
 
-import lila.compression.BitReader;
-import lila.compression.BitWriter;
-import lila.compression.VarIntEncoder;
+import lila.game.compression.BitReader;
+import lila.game.compression.BitWriter;
+import lila.game.compression.VarIntEncoder;
 
 /*
  * startTime is the initial clock time in centiseconds

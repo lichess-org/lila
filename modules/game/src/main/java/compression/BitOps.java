@@ -1,4 +1,4 @@
-package lila.compression;
+package lila.game.compression;
 
 class BitOps {
     static int[] getBitMasks() {

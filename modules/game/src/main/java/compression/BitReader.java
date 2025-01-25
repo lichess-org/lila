@@ -1,4 +1,4 @@
-package lila.compression;
+package lila.game.compression;
 
 import java.nio.ByteBuffer;
 

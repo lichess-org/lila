@@ -18,8 +18,8 @@ import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 import shogi.variant.Variant
 
-import lila.compression.clock.{ Encoder => ClockEncoder }
 import lila.db.ByteArray
+import lila.game.compression.clock.{ Encoder => ClockEncoder }
 
 object BinaryFormat {
   object usi {
