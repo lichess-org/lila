@@ -282,13 +282,10 @@ export function positionJumpHandler() {
   return (ev: KeyboardEvent): void => {
     const $btn = $(ev.target as HTMLElement);
     const key = keyFromAttrs($btn);
-    if (!key) return;
-    let newRank: string;
-    let newFile: string;
     const digitMatch = ev.code.match(/^Digit([1-8])$/);
-    if (!digitMatch) return;
-    newRank = ev.shiftKey ? key[1] : digitMatch[1];
-    newFile = ev.shiftKey ? files[Number(digitMatch[1]) - 1] : key[0];
+    if (!digitMatch || !key) return;
+    const newRank = ev.shiftKey ? key[1] : digitMatch[1];
+    const newFile = ev.shiftKey ? files[Number(digitMatch[1]) - 1] : key[0];
     document.querySelector<HTMLElement>(squareSelector(newRank, newFile))?.focus();
   };
 }
