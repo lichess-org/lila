@@ -984,6 +984,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="focusChat">Priorité au salon de discussion</string>
   <string name="showHelpDialog">Afficher cette boîte de dialogue</string>
   <string name="reopenYourAccount">Rouvrir votre compte</string>
+  <string name="reopenYourAccountDescription">Vous avez fermé votre compte, mais vous avez changé d\'idée? Vous avez une chance de le récupérer.</string>
   <string name="emailAssociatedToaccount">Adresse courriel associée à votre compte</string>
   <string name="sentEmailWithLink">Nous vous avons envoyé un courriel avec un lien.</string>
   <string name="tournamentEntryCode">Code d\'entrée du tournoi</string>
