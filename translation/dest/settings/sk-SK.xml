@@ -4,5 +4,7 @@
   <string name="closeAccount">Zrušiť účet</string>
   <string name="managedAccountCannotBeClosed">Váš účet je spravovaný niekým iným a nemožno ho zrušiť.</string>
   <string name="cantOpenSimilarAccount">Nebudete si môcť založiť nový účet s rovnakým menom, ani keď sa bude líšiť veľkosť písmen.</string>
+  <string name="cancelKeepAccount">Zrušiť a ponechať si účet</string>
+  <string name="closeAccountAreYouSure">Ste si istí, že chcete zrušiť svoj účet?</string>
   <string name="thisAccountIsClosed">Účet zrušený.</string>
 </resources>
