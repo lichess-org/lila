@@ -2,50 +2,61 @@ package lila.common
 
 class LameNameTest extends munit.FunSuite:
 
-  def isLame(str: String) = LameName.username(UserName(str))
+  def isLame(str: String)  = LameName.username(UserName(str))
+  def explain(str: String) = LameName.explain(UserName(str))
 
-  test("disallow separated titles") {
-    assertEquals(isLame("fm-foo"), true)
-    assertEquals(isLame("fm_foo"), true)
-    assertEquals(isLame("wgm-foo"), true)
-    assertEquals(isLame("wcm_foo"), true)
-    assertEquals(isLame("gmFoobar"), true)
-    assertEquals(isLame("gm007"), true)
-    assertEquals(isLame("GmFoo"), true)
-    assertEquals(isLame("nm_brianmatthews"), true)
-    assertEquals(isLame("the_nm_brianmatthews"), true)
-  }
-  test("disallow uppercase titles") {
-    assertEquals(isLame("GMfoo"), true)
-    assertEquals(isLame("IMfoo"), true)
-    assertEquals(isLame("WFMfoo"), true)
-    assertEquals(isLame("WIMfoo"), true)
-    assertEquals(isLame("1Mfoo"), true)
-    assertEquals(isLame("BriaNMatthews"), true)
-    assertEquals(isLame("NMBrianMatthews"), true)
-    assertEquals(isLame("BrianMatthews_NM"), true)
-    assertEquals(isLame("BrianMatthewsNM"), true)
-    assertEquals(isLame("TheGMBrianMatthews"), true)
-  }
-  test("disallow gross") {
-    assertEquals(isLame("douchebag"), true)
-    assertEquals(isLame("d0uchebag"), true)
-    assertEquals(isLame("urcunt-blah"), true)
-    assertEquals(isLame("urcuntblah"), true)
-    assertEquals(isLame("fuckster"), true)
-    assertEquals(isLame("fuuckster"), true)
-  }
-  test("allow good stuff") {
-    assertEquals(isLame("joey"), false)
-    assertEquals(isLame("gmfoo"), false)
-    assertEquals(isLame("g-foo"), false)
-    assertEquals(isLame("g_foo"), false)
-    assertEquals(isLame("g-foo"), false)
-    assertEquals(isLame("agm-foo"), false)
-    assertEquals(isLame("atf90"), false)
-    assertEquals(isLame("a_b"), false)
-    assertEquals(isLame("BRIANMATTHEWS"), false)
-    assertEquals(isLame("BrianMatthews"), false)
-    assertEquals(isLame("BrianMatthewsnm"), false)
-    assertEquals(isLame("TheGMBRianMatthews"), false)
-  }
+  test("disallow separated titles"):
+    assert(isLame("fm-foo"))
+    assert(isLame("fm_foo"))
+    assert(isLame("wgm-foo"))
+    assert(isLame("wcm_foo"))
+    assert(isLame("gmFoobar"))
+    assert(isLame("gm007"))
+    assert(isLame("GmFoo"))
+    assert(isLame("nm_brianmatthews"))
+    assert(isLame("the_nm_brianmatthews"))
+
+  test("disallow uppercase titles"):
+    assert(isLame("GMfoo"))
+    assert(isLame("IMfoo"))
+    assert(isLame("WFMfoo"))
+    assert(isLame("WIMfoo"))
+    assert(isLame("WIM-foo"))
+    assert(isLame("WIM_foo"))
+    assert(isLame("1Mfoo"))
+    assert(isLame("BriaNMatthews"))
+    assert(isLame("NMBrianMatthews"))
+    assert(isLame("BrianMatthews_NM"))
+    assert(isLame("BrianMatthewsNM"))
+    assert(isLame("TheGMBrianMatthews"))
+
+  test("disallow gross"):
+    assert(isLame("douchebag"))
+    assert(isLame("d0uchebag"))
+    assert(isLame("urcunt-blah"))
+    assert(isLame("urcuntblah"))
+    assert(isLame("fuckster"))
+    assert(isLame("fuuckster"))
+
+  test("allow good stuff"):
+    assert(!isLame("joey"))
+    assert(!isLame("gmfoo"))
+    assert(!isLame("g-foo"))
+    assert(!isLame("g_foo"))
+    assert(!isLame("g-foo"))
+    assert(!isLame("agm-foo"))
+    assert(!isLame("atf90"))
+    assert(!isLame("a_b"))
+    assert(!isLame("BRIANMATTHEWS"))
+    assert(!isLame("BrianMatthews"))
+    assert(!isLame("BrianMatthewsnm"))
+    assert(!isLame("TheGMBRianMatthews"))
+
+  test("explain"):
+    assertEquals(explain("cammy"), None)
+    assertEquals(explain("FM-cammy"), Some("Contains a title"))
+    assertEquals(explain("cammyGM"), Some("Contains a title"))
+    assertEquals(explain("moderator"), Some("Lame username: moderator"))
+    assertEquals(explain("iam_moderator_yay"), Some("Lame username: mmoderator"))
+    assertEquals(explain("d0uchebag"), Some("Lame username: d0uche"))
+    assertEquals(explain("FOOurcunt-blah"), Some("Lame username: cunt"))

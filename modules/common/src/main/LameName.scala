@@ -5,11 +5,20 @@ import scala.util.matching.Regex
 object LameName:
 
   def username(name: UserName): Boolean =
-    usernameRegex.find(name.value.replaceIf('_', "")) || hasTitle(name.value)
+    usernameRegex.find(simplify(name)) || hasTitle(name.value)
 
   def hasTitle(name: String): Boolean = containsTitleRegex.matches(name)
 
   def tournament(name: String): Boolean = tournamentRegex.find(name)
+
+  def explain(name: UserName): Option[String] =
+    if hasTitle(name.value) then "Contains a title".some
+    else
+      simplify(name) match
+        case usernameExplainRegex(found) => s"""Lame username: "$found"""".some
+        case _                           => None
+
+  private def simplify(name: UserName): String = name.value.toLowerCase.replaceIf('_', "")
 
   private val titlePattern = "W*(?:[NCFI1L]|I?G)"
   private val containsTitleRegex = (
@@ -76,13 +85,15 @@ object LameName:
     "xyuta"
   )
 
-  private val usernameRegex = lameWords(
-    baseWords ::: List("lichess", "corona", "covid")
-  )
+  private def usernameWords = baseWords ::: List("lichess", "corona", "covid")
 
-  private val tournamentRegex = lameWords(baseWords)
+  private val usernameRegex = lameWords(usernameWords).r
 
-  private def lameWords(list: List[String]): Regex =
+  private lazy val usernameExplainRegex = ("(" + lameWords(usernameWords) + ")").r.unanchored
+
+  private val tournamentRegex = lameWords(baseWords).r
+
+  private def lameWords(list: List[String]): String =
     val extras = Map(
       'a' -> "4",
       'e' -> "38",
@@ -102,8 +113,6 @@ object LameName:
     }.toMap
 
     list
-      .map {
+      .map:
         _.map(l => subs.getOrElse(l, l)).iterator.map(l => s"$l+").mkString
-      }
       .mkString("|")
-      .r
