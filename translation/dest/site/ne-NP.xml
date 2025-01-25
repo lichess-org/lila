@@ -130,7 +130,7 @@
     <item quantity="one">%s  ब्लण्डर</item>
     <item quantity="other">%s  ब्लण्डरहरू</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s  ब्लण्डर</item>
     <item quantity="other">%s  ब्लण्डरहरू</item>
   </plurals>
@@ -814,7 +814,6 @@
   <string name="teamNamedX">%1$s टोली</string>
   <string name="refundXpointsTimeControlY">%2$s विधामा %1$s रेटिङ् अङ्क फिर्ता । </string>
   <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
-  <string name="closedAccountChangedMind">यदि तापाईँले आफ्नो खाता बन्द गर्नु भयो तर त्यस पछि तपाईको मन फेरीयो भने तपाईँलाई आफ्नो खाता फिर्ता पाउन एक अन्तिम मौका दिइनेछ ।</string>
   <string name="until">सम्म</string>
   <string name="lichessDbExplanation">लिचेसमा खेलिएका रेटेड खेलहरू</string>
 </resources>

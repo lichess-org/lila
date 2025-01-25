@@ -129,19 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s พลาดมหันต์</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="other">%s พลาดมหันต์</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s พลาด</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="other">%s พลาด</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s ไม่แม่นยำ</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="other">%s ไม่แม่นยำ</item>
   </plurals>
   <string name="moveTimes">เวลาที่ใช้ในการเดิน</string>
@@ -936,9 +936,6 @@
   <string name="focusChat">โฟกัสที่แชท</string>
   <string name="showHelpDialog">แสดงกรอบช่วยเหลือนี้</string>
   <string name="reopenYourAccount">เปิดบัญชีของคุณอีกครั้ง</string>
-  <string name="closedAccountChangedMind">ถ้าคุณได้ปิดบัญชีแล้ว แต่เกิดเปลี่ยนใจ คุณมีโอกาสอีกครั้งเดียวในการเรียกบัญชีของคุณคืนมา</string>
-  <string name="onlyWorksOnce">นี่จะทำได้เพียงครั้งเดียว</string>
-  <string name="cantDoThisTwice">ถ้าคุณปิดบัญชีเป็นครั้งที่สอง จะไม่มีโอกาสเรียกมันกลับมาได้อีก</string>
   <string name="emailAssociatedToaccount">ที่อยู่อีเมลถูกผูกกับบัญชี</string>
   <string name="sentEmailWithLink">เราได้ส่งอีเมลให้คุณพร้อมลิงก์แล้ว</string>
   <string name="tournamentEntryCode">รหัสการเข้าทัวร์นาเมนต์</string>

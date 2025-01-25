@@ -134,10 +134,11 @@ $regards
     }
 
   def gdprErase(user: User): Funit =
+    val days = lila.core.user.UserDelete.delay
     val body =
       s"""Hello,
 
-Following your request, the Lichess account "${user.username}" will be fully erased in 7 days from now.
+Following your request, the Lichess account "${user.username}" will be fully erased in $days days from now.
 
 $regards
 """

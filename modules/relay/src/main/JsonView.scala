@@ -191,6 +191,7 @@ object JsonView:
       .add("slices" -> s.slices.map(RelayGame.Slices.show))
       .add("delay" -> s.delay) ++
       s.upstream.so:
-        case Sync.Upstream.Url(url)   => Json.obj("url" -> url)
-        case Sync.Upstream.Urls(urls) => Json.obj("urls" -> urls)
-        case Sync.Upstream.Ids(ids)   => Json.obj("ids" -> ids)
+        case Sync.Upstream.Url(url)     => Json.obj("url" -> url)
+        case Sync.Upstream.Urls(urls)   => Json.obj("urls" -> urls)
+        case Sync.Upstream.Ids(ids)     => Json.obj("ids" -> ids)
+        case Sync.Upstream.Users(users) => Json.obj("users" -> users)

@@ -138,7 +138,7 @@
     <item quantity="many">%s hrubých chyb</item>
     <item quantity="other">%s hrubých chyb</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Hrubá chyba</item>
     <item quantity="few">%s Hrubé chyby</item>
     <item quantity="many">%s Hrubých chyb</item>
@@ -150,7 +150,7 @@
     <item quantity="many">%s chyb</item>
     <item quantity="other">%s chyb</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Chyba</item>
     <item quantity="few">%s Chyby</item>
     <item quantity="many">%s Chyb</item>
@@ -162,7 +162,7 @@
     <item quantity="many">%s nepřesností</item>
     <item quantity="other">%s nepřesností</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Nepřesnost</item>
     <item quantity="few">%s Nepřesnosti</item>
     <item quantity="many">%s Nepřesností</item>
@@ -1072,9 +1072,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="focusChat">Vybrat chat</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
   <string name="reopenYourAccount">Znovu otevřít svůj účet</string>
-  <string name="closedAccountChangedMind">Pokud jste uzavřel svůj účet, ale od té doby jste změnili názor, dostanete jednu šanci získat svůj účet zpět.</string>
-  <string name="onlyWorksOnce">Toto je možné provést pouze jednou.</string>
-  <string name="cantDoThisTwice">Pokud svůj účet zrušíte podruhé, nebude ho už možné obnovit.</string>
   <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
   <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
   <string name="tournamentEntryCode">Kód pro vstup do turnaje</string>

@@ -135,7 +135,7 @@
     <item quantity="few">%s gafe</item>
     <item quantity="other">%s de gafe</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Gafă</item>
     <item quantity="few">%s Gafe</item>
     <item quantity="other">%s De gafe</item>
@@ -145,7 +145,7 @@
     <item quantity="few">%s greșeli</item>
     <item quantity="other">%s de greșeli</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Greșeală</item>
     <item quantity="few">%s Greșeli</item>
     <item quantity="other">%s De greșeli</item>
@@ -155,7 +155,7 @@
     <item quantity="few">%s inexactități</item>
     <item quantity="other">%s de inexactități</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Inexactitate</item>
     <item quantity="few">%s Inexactități</item>
     <item quantity="other">%s De inexactități</item>
@@ -825,6 +825,7 @@
   <string name="onlineAndOfflinePlay">Joc online și offline</string>
   <string name="viewTheSolution">Vezi soluția</string>
   <string name="followAndChallengeFriends">Urmărește și provoacă-ți prietenii</string>
+  <string name="noChallenges">Nicio provocare.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibil într-o limbă!</item>
     <item quantity="few">Disponibil în %s limbi!</item>
@@ -1028,9 +1029,7 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="focusChat">Focalizează conversația</string>
   <string name="showHelpDialog">Arată acest dialog de ajutor</string>
   <string name="reopenYourAccount">Redeschide contul tău</string>
-  <string name="closedAccountChangedMind">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
-  <string name="onlyWorksOnce">Acest lucru va funcţiona o singură dată.</string>
-  <string name="cantDoThisTwice">Dacă închideți contul de a doua oară, nu va mai exista nicio modalitate de recuperare a acestuia.</string>
+  <string name="reopenYourAccountDescription">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
   <string name="emailAssociatedToaccount">Adresa de e-mail asociată contului</string>
   <string name="sentEmailWithLink">Ți-am trimis un e-mail cu un link.</string>
   <string name="tournamentEntryCode">Cod de intrare în turneu</string>

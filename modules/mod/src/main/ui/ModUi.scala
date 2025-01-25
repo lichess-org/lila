@@ -362,3 +362,19 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
         .option(a(cls := active.active("setting"), href := routes.Dev.settings)("Settings")),
       Granter.opt(_.Cli).option(a(cls := active.active("cli"), href := routes.Dev.cli)("CLI"))
     )
+
+  def modUserSearchResult(r: ModUserSearchResult) =
+    div(cls := "box__pad")(
+      p(
+        if r.regexMatch then frag("✅ Correctly formed username")
+        else frag("❌ Incorrectly formed username")
+      ),
+      p(
+        if r.exists then frag("❌ Not available: already exists in the user database")
+        else frag("✅ Available, doesn't exist in the user database")
+      ),
+      p(
+        r.lameNameMatch
+          .fold(frag("✅ Doesn't seem too lame of a name"))(lame => frag("❌ ", lame))
+      )
+    )

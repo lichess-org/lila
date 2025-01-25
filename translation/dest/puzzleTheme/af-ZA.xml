@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">In plaas daarvan om die verwagte skuif te speel, moet u eers \'n ander stap inbring wat \'n onmiddellike bedreiging inhou wat die opponent moet beantwoord. Ook bekend as \"Zwischenzug\" of \"Tussenin\".</string>
+  <string name="vukovicMate">Vucovic-mat</string>
+  <string name="vukovicMateDescription">\'n Toring en \'n ruiter werk saam om die koning te mat. Die toring verkry die mat gesteun deur \'n derde stuk, en die ruiter blok die koning se ontsnappingsblokkies.</string>
   <string name="knightEndgame">Ridder eindspel</string>
   <string name="knightEndgameDescription">\'N Eindspel met net ridders en pionne.</string>
   <string name="long">Lang legkaart</string>

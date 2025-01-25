@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">I stedet for at spille det forventede træk foretages først et andet træk, som udgør en umiddelbar trussel, som modstanderen må besvare. Også kendt som \"Zwischenzug\" eller \"In between\".</string>
   <string name="killBoxMate">Kill box-mat</string>
   <string name="killBoxMateDescription">Et tårn står ved siden af fjendens konge og støttes af en dronning, som også blokerer kongens flugtfelter. Tårnet og dronningen fanger fjendens konge i en 3 x 3 \"kill box\".</string>
+  <string name="vukovicMate">Vukovics mat</string>
+  <string name="vukovicMateDescription">Et tårn og en springer går sammen om at sætte kongen mat. Tårnet leverer mat, mens det støttes af en tredje brik, og springeren bruges til at blokere kongens flugtfelter.</string>
   <string name="knightEndgame">Springerslutspil</string>
   <string name="knightEndgameDescription">Et slutspil med kun springere og bønder.</string>
   <string name="long">Lang opgave</string>

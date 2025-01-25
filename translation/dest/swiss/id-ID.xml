@@ -7,7 +7,7 @@
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s babak</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
     <item quantity="other">%s ronde Swiss</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
@@ -29,7 +29,10 @@
   <string name="numberOfRounds">Jumlah babak</string>
   <string name="numberOfRoundsHelp">Sebuah babak yang ganjil mengizinkan keseimbangan warna yang optimal.</string>
   <string name="roundInterval">Jarak antar ronde</string>
+  <string name="forbiddenPairings">Pasangan yang tidak diperbolehkan</string>
   <string name="newSwiss">Turnamen Swiss baru</string>
+  <string name="swissVsArenaQ">Kapan sebaiknya memilih turnamen sistem Swiss daripada sistem arena?</string>
+  <string name="swissVsArenaA">Pada turnamen Swiss, setiap peserta akan bertanding dalam jumlah babak yang sama, dan hanya dapat saling berhadapan satu kali saja. Sistem ini cocok untuk klub dan turnamen resmi.</string>
   <string name="pointsCalculationQ">Bagaimana skor dihitung?</string>
   <string name="tiebreaksCalculationQ">Bagaimana cara menghitung tie-break?</string>
   <string name="sonnebornBergerScore">penilaian Sonneborn–Berger</string>
@@ -37,6 +40,7 @@
   <string name="lateJoinQ">Dapatkah pemain telat bergabung?</string>
   <string name="lateJoinA">Ya, sampai lebih dari setengah putaran dimulai; misalnya dalam 11 ronde swiss, pemain dapat bergabung sebelum ronde 6 dimulai dan dalam 12 ronde, sebelum ronde 7 dimulai.
 Peserta yang terlambat mendapatkan satu \"bye\", bahkan jika mereka melewatkan beberapa ronde.</string>
+  <string name="swissDescription">Di turnamen sistem Swiss %1$s, tidak semua peserta akan saling bertemu dan bertanding. Peserta bertanding satu lawan satu di tiap ronde dan dipasangkan berdasarkan serangkaian aturan tertentu yang bertujuan agar setiap peserta menghadapi lawan dengan perolehan skor sementara yang setara, dan tidak berhadapan kembali dengan lawan yang sama. Pemenangnya adalah peserta dengan akumulasi poin tertinggi yang diperoleh di sepanjang ronde. Seluruh peserta bertanding di setiap ronde, kecuali jika jumlah pesertanya ganjil.</string>
   <string name="joinOrCreateTeam">Bergabung atau membuat sebuah tim</string>
   <string name="nowPlaying">Sedang berlangsung</string>
   <string name="startingSoon">Segera dimulai</string>

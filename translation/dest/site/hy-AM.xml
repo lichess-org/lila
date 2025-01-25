@@ -128,7 +128,7 @@
     <item quantity="one">%s վրիպում</item>
     <item quantity="other">%s վրիպում</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Վրիպում</item>
     <item quantity="other">%s Վրիպում</item>
   </plurals>
@@ -136,7 +136,7 @@
     <item quantity="one">%s սխալ</item>
     <item quantity="other">%s սխալ</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Սխալ</item>
     <item quantity="other">%s Սխալ</item>
   </plurals>
@@ -144,7 +144,7 @@
     <item quantity="one">%s անճշտություն</item>
     <item quantity="other">%s անճշտություն</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Անճշտություն</item>
     <item quantity="other">%s Անճշտություն</item>
   </plurals>
@@ -939,9 +939,6 @@
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
   <string name="showHelpDialog">Ցույց տալ օգնությունը</string>
   <string name="reopenYourAccount">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
-  <string name="closedAccountChangedMind">Եթե Դուք փակել եք Ձեր մասնակցային հաշիվը, բայց մտափոխվել եք, մեկ անգամ այն վերականգնելու հնարավորություն ունեք։</string>
-  <string name="onlyWorksOnce">Սա կաշխատի միայն մեկ անգամ։</string>
-  <string name="cantDoThisTwice">Եթե Դուք ևս մեկ անգամ փակեք Ձեր մասնակցային հաշիվը, այն վերաբացելու հնարավորություն այլևս չեք ունենա։</string>
   <string name="emailAssociatedToaccount">Այս մասնակցային հաշվին կցված էլ. փոստի հասցեն։</string>
   <string name="sentEmailWithLink">Ձեզ ուղարկել ենք հղումով նամակ։</string>
   <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>

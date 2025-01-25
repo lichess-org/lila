@@ -135,7 +135,7 @@
     <item quantity="many">%s botún</item>
     <item quantity="other">%s botún</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Botún</item>
     <item quantity="two">%s Bhotún</item>
     <item quantity="few">%s Mbotún</item>
@@ -149,7 +149,7 @@
     <item quantity="many">%s botún</item>
     <item quantity="other">%s botún</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Botún</item>
     <item quantity="two">%s Bhotún</item>
     <item quantity="few">%s Mbotún</item>
@@ -163,7 +163,7 @@
     <item quantity="many">%s míchruinneas</item>
     <item quantity="other">%s míchruinneas</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Míchruinneas</item>
     <item quantity="two">%s Mhíchruinneas</item>
     <item quantity="few">%s Míchruinneas</item>
@@ -1052,9 +1052,6 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="focusChat">Comhrá spriocghrúpa</string>
   <string name="showHelpDialog">Taispeáin an dialóg cabhrach seo</string>
   <string name="reopenYourAccount">Athoscailt do chuntas</string>
-  <string name="closedAccountChangedMind">Má dhún tú do chuntas, ach d’athraigh tú d’intinn, gheobhaidh tú seans amháin do chuntas a fháil ar ais.</string>
-  <string name="onlyWorksOnce">Ní oibreoidh sé seo ach uair amháin.</string>
-  <string name="cantDoThisTwice">Má dhúnann tú do chuntas an dara huair, ní bheidh aon bhealach ann é a athshlánú.</string>
   <string name="emailAssociatedToaccount">Seoladh ríomhphoist a bhaineann leis an gcuntas</string>
   <string name="sentEmailWithLink">Tá ríomhphost seolta againn le nasc.</string>
   <string name="tournamentEntryCode">Cód iontrála an chomórtais</string>

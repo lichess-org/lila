@@ -29,6 +29,7 @@ object BSONFields:
   val totpSecret            = "totp"
   val changedCase           = "changedCase"
   val delete                = "delete"
+  val foreverClosed         = "foreverClosed"
   val blind                 = "blind"
 
   def withFields[A](f: BSONFields.type => A): A = f(BSONFields)

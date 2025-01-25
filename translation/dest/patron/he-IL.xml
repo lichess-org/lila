@@ -3,6 +3,7 @@
   <string name="donate">תרמו</string>
   <string name="donateAsX">תרומה כ־%s</string>
   <string name="lichessPatron">תומך/ת ליצ\'ס</string>
+  <string name="patronSince" comment="%s is a date">תומך מאז %s</string>
   <string name="freeAccount">חשבון חינמי</string>
   <string name="becomePatron">הפכו לתומך/ת של ליצ\'ס</string>
   <string name="xBecamePatron">%s הפך/ה לתומך של ליצ\'ס</string>

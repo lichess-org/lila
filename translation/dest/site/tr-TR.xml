@@ -132,7 +132,7 @@
     <item quantity="one">%s vahim hata</item>
     <item quantity="other">%s vahim hata</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Vahim hata</item>
     <item quantity="other">%s Vahim hata</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s hata</item>
     <item quantity="other">%s hata</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Hata</item>
     <item quantity="other">%s Hata</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s kusurlu hamle</item>
     <item quantity="other">%s kusurlu hamle</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Kusurlu hamle</item>
     <item quantity="other">%s Kusurlu hamle</item>
   </plurals>
@@ -982,9 +982,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="focusChat">Sohbete odaklan</string>
   <string name="showHelpDialog">Bu yardım iletisini göster</string>
   <string name="reopenYourAccount">Hesabı aktifleştir</string>
-  <string name="closedAccountChangedMind">Hesabınızı kapatıp sonradan fikrinizi değiştirdiyseniz bir kereliğine mahsus olmak üzere hesabı tekrar açabilirsiniz.</string>
-  <string name="onlyWorksOnce">Bu işlemi yalnızca bir kez yapabilirsiniz.</string>
-  <string name="cantDoThisTwice">Hesabınızı ikinci kez kapatırsanız tekrar aktifleştiremezsiniz.</string>
   <string name="emailAssociatedToaccount">Hesabın bağlı olduğu e-posta adresi</string>
   <string name="sentEmailWithLink">Size içinde ilgili bağlantı bulunan bir e-posta gönderdik.</string>
   <string name="tournamentEntryCode">Turnuva giriş kodu</string>

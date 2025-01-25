@@ -132,7 +132,7 @@
     <item quantity="one">%s ભૂલ</item>
     <item quantity="other">%s ભૂલો</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s ભૂલ</item>
     <item quantity="other">%s ભૂલો</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s અચોક્સાઈ</item>
     <item quantity="other">%s અચોક્સાઈઓ</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s અચોક્સાઈ</item>
     <item quantity="other">%s અચોક્સાઈઓ</item>
   </plurals>

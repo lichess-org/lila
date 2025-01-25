@@ -125,7 +125,7 @@
     <item quantity="one">%s prohmakas</item>
     <item quantity="other">%s prohmakat</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Prohmakas</item>
     <item quantity="other">%s Prohmakat</item>
   </plurals>
@@ -133,7 +133,7 @@
     <item quantity="one">%s viga</item>
     <item quantity="other">%s viga</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Viga</item>
     <item quantity="other">%s Viga</item>
   </plurals>
@@ -141,7 +141,7 @@
     <item quantity="one">%s ebatäpsus</item>
     <item quantity="other">%s ebatäpsust</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Ebatäpsus</item>
     <item quantity="other">%s Ebatäpsust</item>
   </plurals>
@@ -921,9 +921,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="focusChat">Fokuseeri vestlus</string>
   <string name="showHelpDialog">Näita seda abiakent</string>
   <string name="reopenYourAccount">Ava oma konto uuesti</string>
-  <string name="closedAccountChangedMind">Kui sulgesid oma konto, kuid oled vahepeal ümber mõelnud, on sul üks võimalus oma konto tagasi saada.</string>
-  <string name="onlyWorksOnce">See töötab ainult ühe korra.</string>
-  <string name="cantDoThisTwice">Kui sa sulged oma konto teist korda, ei ole seda võimalik taastada.</string>
   <string name="emailAssociatedToaccount">Kontoga seotud e-posti aadress</string>
   <string name="sentEmailWithLink">Saatsime teile lingiga e-kirja.</string>
   <string name="tournamentEntryCode">Turniiri osavõtukood</string>
