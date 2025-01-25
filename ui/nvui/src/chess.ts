@@ -42,18 +42,6 @@ const anna: { [file in Files]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-const skipToFile: { [letter: string]: Files } = {
-  '!': 'a',
-  '@': 'b',
-  '#': 'c',
-  $: 'd',
-  '%': 'e',
-  '^': 'f',
-  '&': 'g',
-  '*': 'h',
-};
-
-const symbolToFile = (char: string): Files => skipToFile[char] ?? '';
 
 export const supportedVariant = (key: VariantKey): boolean => key !== 'crazyhouse';
 
@@ -304,14 +292,10 @@ export function positionJumpHandler() {
     if (!key) return;
     let newRank: string;
     let newFile: string;
-    if (ev.key.match(/^[1-8]$/)) {
-      newRank = ev.key;
-      newFile = key[0];
-    } else if (ev.key.match(/^[!@#$%^&*]$/)) {
-      newRank = key[1];
-      newFile = symbolToFile(ev.key);
-      // if not a valid key for jumping
-    } else return;
+    const digitMatch = ev.code.match(/^Digit([1-8])$/);
+    if (!digitMatch) return;
+    newRank = ev.shiftKey ? key[1] : digitMatch[1];
+    newFile = ev.shiftKey ? files[Number(digitMatch[1]) - 1] : key[0];
     document.querySelector<HTMLElement>(squareSelector(newRank, newFile))?.focus();
   };
 }
