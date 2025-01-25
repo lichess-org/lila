@@ -1,5 +1,3 @@
-import play.sbt.PlayImport._
-
 import sbt.Keys._
 import sbt._
 
@@ -30,46 +28,18 @@ object Dependencies {
   val lettuce     = "io.lettuce"         % "lettuce-core"                    % "6.5.2.RELEASE"
   val epoll =
     "io.netty" % "netty-transport-native-epoll" % "4.1.116.Final" classifier "linux-x86_64"
-  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.2"  % "provided"
-  val scalatest  = "org.scalatest"   %% "scalatest"         % "3.2.19" % Test
+  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.2" % "provided"
   val uaparser   = "org.uaparser"    %% "uap-scala"         % "0.17.0"
 
-  object flexmark {
-    val version = "0.50.50"
-    val bundle =
-      ("com.vladsch.flexmark" % "flexmark" % version) ::
-        List("formatter", "ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
-          "com.vladsch.flexmark" % s"flexmark-$ext" % version
-        }
-  }
-
-  object macwire {
-    val version = "2.6.4"
-    val macros  = "com.softwaremill.macwire" %% "macros" % version % "provided"
-    val util    = "com.softwaremill.macwire" %% "util"   % version % "provided"
-  }
-
-  object reactivemongo {
-    val version = "1.0.10"
-
-    val driver = "org.reactivemongo" %% "reactivemongo"               % version
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
-    val epoll  = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
-    def bundle = Seq(driver, stream)
-  }
-
   object play {
-    val version = "2.9.6"
-    val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.10.6"
+    import _root_.play.sbt.PlayImport
+    val core      = PlayImport.playCore
+    val ws        = PlayImport.ws
+    val jodaForms = PlayImport.jodaForms
+    val specs2    = PlayImport.specs2
+    val json      = "com.typesafe.play" %% "play-json" % "2.10.6"
   }
-  object kamon {
-    val version    = "2.2.3"
-    val core       = "io.kamon" %% "kamon-core"           % version
-    val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
-    val metrics    = "io.kamon" %% "kamon-system-metrics" % version
-    val prometheus = "io.kamon" %% "kamon-prometheus"     % version
-  }
+
   object akka {
     val version    = "2.6.21"
     val akka       = "com.typesafe.akka" %% "akka-actor"       % version
@@ -77,6 +47,39 @@ object Dependencies {
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
     val akkaSlf4j  = "com.typesafe.akka" %% "akka-slf4j"       % version
     val testkit    = "com.typesafe.akka" %% "akka-testkit"     % version % Test
-    def bundle     = List(akka, akkaTyped, akkaStream, akkaSlf4j)
+    def bundle     = Seq(akka, akkaTyped, akkaStream, akkaSlf4j)
   }
+
+  object macwire {
+    val version = "2.6.5"
+    val macros  = "com.softwaremill.macwire" %% "macros" % version % "provided"
+    val util    = "com.softwaremill.macwire" %% "util"   % version % "provided"
+    def bundle  = Seq(macros, util)
+  }
+
+  object reactivemongo {
+    val version = "1.0.10"
+    val driver  = "org.reactivemongo" %% "reactivemongo"               % version
+    val stream  = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
+    val epoll   = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
+    def bundle  = Seq(driver, stream)
+  }
+
+  object kamon {
+    val version    = "2.2.3"
+    val core       = "io.kamon" %% "kamon-core"           % version
+    val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
+    val metrics    = "io.kamon" %% "kamon-system-metrics" % version
+    val prometheus = "io.kamon" %% "kamon-prometheus"     % version
+  }
+
+  object flexmark {
+    val version = "0.64.8"
+    val bundle =
+      ("com.vladsch.flexmark" % "flexmark" % version) ::
+        List("ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
+          "com.vladsch.flexmark" % s"flexmark-$ext" % version
+        }
+  }
+
 }

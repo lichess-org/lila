@@ -11,6 +11,7 @@
   },
   "scripts": {
     "trans-dump": "tsx ./scripts/trans.ts",
-    "trans-lint": "./scripts/trans-lint.py ../translation/dest/*/*.xml"
+    "trans-lint": "./scripts/trans-lint.py ../translation/dest/*/*.xml",
+    "module-deps": "./scripts/module-deps.py"
   }
 }

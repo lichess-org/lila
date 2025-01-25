@@ -1,5 +1,3 @@
-import play.sbt.PlayImport._
-
 import sbt.Keys._
 import sbt._
 
@@ -27,30 +25,45 @@ object BuildSettings {
       javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
     )
 
-  def defaultLibs: Seq[ModuleID] =
-    akka.bundle ++ Seq(
-      play.api,
-      cats,
-      alleycats,
-      shogi,
-      jodaTime,
-      ws,
-      macwire.macros,
-      macwire.util,
-      autoconfig,
-    )
+  def baseLibs: Seq[ModuleID] = akka.bundle ++ macwire.bundle ++ reactivemongo.bundle ++ Seq(
+    play.core,
+    play.ws,
+    play.json,
+    play.jodaForms,
+    play.specs2,
+    scalatags,
+    cats,
+    alleycats,
+    shogi,
+    jodaTime,
+    scaffeine,
+    autoconfig,
+    kamon.core,
+  )
+
+  lazy val moduleDepsMap = Map(
+    "api"      -> Seq(hasher, kamon.influxdb),
+    "common"   -> flexmark.bundle,
+    "blog"     -> Seq(prismic),
+    "db"       -> Seq(hasher, scrimage),
+    "memo"     -> Seq(akka.testkit),
+    "oauth"    -> Seq(galimatias, hasher),
+    "push"     -> Seq(googleOAuth),
+    "security" -> Seq(maxmind, hasher, uaparser),
+    "socket"   -> Seq(lettuce),
+    "user"     -> Seq(hasher),
+  )
 
   def module(
       name: String,
       deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
-      libs: Seq[ModuleID],
   ) =
     Project(
       name,
       file("modules/" + name),
     ).dependsOn(deps: _*)
       .settings(
-        libraryDependencies ++= defaultLibs ++ libs,
+        libraryDependencies ++= baseLibs ++ moduleDepsMap.getOrElse(name, Seq.empty),
         buildSettings,
         srcMain,
       )
@@ -100,5 +113,4 @@ object BuildSettings {
     Test / scalaSource    := (Test / sourceDirectory).value,
   )
 
-  def projectToRef(p: Project): ProjectReference = LocalProject(p.id)
 }

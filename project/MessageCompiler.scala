@@ -8,7 +8,7 @@ import sbt._
 
 object MessageCompiler {
 
-  def apply(sourceDir: File, destDir: File, dbs: List[String], compileTo: File): Seq[File] = {
+  def apply(sourceDir: File, destDir: File, dbs: Seq[String], compileTo: File): Seq[File] = {
     compileTo.mkdirs()
     val locales: List[String] = "en-GB" ::
       (destDir / "site").list.toList.map { _.takeWhile('.' !=) }.sorted
@@ -25,7 +25,7 @@ object MessageCompiler {
       sourceDir: File,
       destDir: File,
       compileTo: File,
-      dbs: List[String],
+      dbs: Seq[String],
   ): File = {
     val scalaFile = compileTo / s"$locale.scala"
     val xmlFiles =
