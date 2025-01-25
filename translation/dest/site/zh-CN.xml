@@ -938,6 +938,7 @@
   <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">显示此帮助对话框</string>
   <string name="reopenYourAccount">恢复你的账户</string>
+  <string name="reopenYourAccountDescription">如果您关闭了账户，但此后又改变了主意，您可以获得一次恢复账户的机会。</string>
   <string name="emailAssociatedToaccount">与账户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向你发送了一封带有链接的电子邮件。</string>
   <string name="tournamentEntryCode">比赛入场码</string>
