@@ -129,19 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s 大悪手</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="other">%s 大悪手</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s 悪手</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="other">%s 悪手</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s 緩手</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="other">%s 緩手</item>
   </plurals>
   <string name="moveTimes">消費時間</string>
@@ -744,6 +744,7 @@
   <string name="onlineAndOfflinePlay">オンラインでもオフラインでも</string>
   <string name="viewTheSolution">解答を見る</string>
   <string name="followAndChallengeFriends">友達をフォローして対局しよう</string>
+  <string name="noChallenges">チャレンジはありません。</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s言語で利用可能</item>
   </plurals>
@@ -939,9 +940,6 @@
   <string name="focusChat">チャットにフォーカス</string>
   <string name="showHelpDialog">このヘルプダイアログを表示</string>
   <string name="reopenYourAccount">アカウントを再開する</string>
-  <string name="closedAccountChangedMind">アカウントを閉鎖して、後で気が変わった場合、一度だけアカウントを再開することができます。</string>
-  <string name="onlyWorksOnce">再開は一回限りです。</string>
-  <string name="cantDoThisTwice">二度目にアカウントを閉鎖した場合、アカウントを復元する方法はありません。</string>
   <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
   <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>
   <string name="tournamentEntryCode">トーナメント参加コード</string>

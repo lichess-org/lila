@@ -66,7 +66,8 @@ object PgnTags:
       Round,
       Board,
       Annotator,
-      FEN
+      FEN,
+      GameId
     )
 
   val typesToString = sortedTypes.mkString(",")
@@ -76,8 +77,6 @@ object PgnTags:
   private val typePositions: Map[TagType, Int] = sortedTypes.zipWithIndex.toMap
 
   private def sort(tags: Tags) =
-    Tags {
-      tags.value.sortBy { t =>
+    Tags:
+      tags.value.sortBy: t =>
         typePositions.getOrElse(t.name, Int.MaxValue)
-      }
-    }

@@ -88,6 +88,8 @@ final private class RelayFetch(
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
+        _ <- (sliced.sizeCompare(limited) != 0)
+          .so(notifyAdmin.tooManyGames(rt, sliced.size, RelayFetch.maxChaptersToShow))
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
@@ -166,11 +168,10 @@ final private class RelayFetch(
           )
 
   private def reportBroadcastFailure(r: RelayRound.WithTour): Unit =
-    if r.round.sync.log.alwaysFails then
+    if r.round.sync.log.alwaysFails && r.tour.official && r.round.shouldHaveStarted then
       r.round.sync.log.events.lastOption
         .filterNot(_.isTimeout)
         .flatMap(_.error)
-        .ifTrue(r.tour.official && r.round.shouldHaveStarted)
         .filterNot(_.contains("Cannot parse move"))
         .filterNot(_.contains("Cannot parse pgn"))
         .filterNot(_.contains("Found an empty PGN"))
@@ -181,12 +182,12 @@ final private class RelayFetch(
       case RelayTour.Tier.best | RelayTour.Tier.`private` => true
       case _                                              => false
     val base =
-      if upstream.hasLcc then 4
+      if upstream.isInternal then 1
+      else if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
       if highPriorityTier then 1
-      else if tour.tier.has(RelayTour.Tier.`private`) then 1
       else if tour.official then 2
       else 3
     } * {
@@ -209,30 +210,51 @@ final private class RelayFetch(
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
-      case Sync.Upstream.Ids(ids) => fetchFromGameIds(rt.tour, ids)
-      case Sync.Upstream.Url(url) => delayer(url, rt.round, fetchFromUpstream(rt))
+      case Sync.Upstream.Ids(ids)     => delayer.internalSource(rt.round, fetchFromGameIds(rt.tour, ids))
+      case Sync.Upstream.Users(users) => delayer.internalSource(rt.round, fetchFromUsers(rt.tour, users))
+      case Sync.Upstream.Url(url)     => delayer.urlSource(url, rt.round, fetchFromUpstream(rt))
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
-            delayer(url, rt.round, fetchFromUpstreamWithRecovery(rt))
+            delayer.urlSource(url, rt.round, fetchFromUpstreamWithRecovery(rt))
           .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
     gameRepo
       .gamesFromSecondary(ids)
-      .flatMap(gameProxy.upgradeIfPresent)
-      .flatMap(gameRepo.withInitialFens)
       .flatMap: games =>
-        if games.sizeIs == ids.size then
-          val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-          games
-            .sequentially: (game, fen) =>
-              pgnDump(game, fen, pgnFlags).dmap(_.render)
-            .dmap(MultiPgn.apply)
+        if games.sizeIs == ids.size then fromLichessGames(tour)(games)
         else
-          throw LilaInvalid:
-            s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
-      .flatMap(multiPgnToGames.future)
+          fufail:
+            LilaInvalid:
+              s"Invalid game IDs: ${ids.filter(id => !games.exists(_.id == id)).mkString(", ")}"
+
+  // remembers previously ongoing games so they can be fetched one last time when finished
+  private val ongoingUserGameIdsCache =
+    cacheApi.notLoadingSync[RelayTourId, Set[GameId]](16, "relay.fetch.ongoingUserGameIds"):
+      _.expireAfterWrite(15.minutes).build()
+
+  private def fetchFromUsers(tour: RelayTour, users: List[UserStr]): Fu[RelayGames] =
+    val ids = users.map(_.id).toSet
+    (ids.sizeIs > 1).so:
+      for
+        ongoingGames <- gameRepo.ongoingByUserIdsCursor(ids).collect[List](ids.size)
+        ongoingIds          = ongoingGames.map(_.id).toSet
+        prevGameIds         = ~ongoingUserGameIdsCache.getIfPresent(tour.id)
+        recentlyFinishedIds = prevGameIds.diff(ongoingIds)
+        recentlyFinished <- gameRepo.gamesFromSecondary(recentlyFinishedIds.toSeq)
+        allGames = recentlyFinished ++ ongoingGames
+        _        = ongoingUserGameIdsCache.put(tour.id, ongoingIds)
+        games <- fromLichessGames(tour)(allGames)
+      yield games
+
+  private def fromLichessGames(tour: RelayTour)(dbGames: List[lila.core.game.Game]): Fu[RelayGames] = for
+    upgraded <- gameProxy.upgradeIfPresent(dbGames)
+    withFen  <- gameRepo.withInitialFens(upgraded)
+    pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
+    pgn   <- withFen.sequentially((game, fen) => pgnDump(game, fen, pgnFlags).map(_.render))
+    games <- multiPgnToGames.future(MultiPgn(pgn))
+  yield games
 
   private object lccCache:
     import DgtJson.GameJson

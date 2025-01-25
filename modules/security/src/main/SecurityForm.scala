@@ -195,7 +195,7 @@ final class SecurityForm(
     ).fill(old)
 
   def modEmail(user: User) = Form(
-    single("email" -> anyEmail.verifying(emailValidator.uniqueConstraint(user.some)))
+    single("email" -> optional(anyEmail.verifying(emailValidator.uniqueConstraint(user.some))))
   )
 
   private def passwordProtected(using Me) =
@@ -207,8 +207,9 @@ final class SecurityForm(
       Form:
         mapping(
           "username" -> myUsernameField,
-          "passwd"   -> passwordMapping(candidate)
-        )((_, _) => ())(_ => None)
+          "passwd"   -> passwordMapping(candidate),
+          "forever"  -> boolean
+        )((_, _, forever) => forever)(_ => None)
 
   def toggleKid(using Me) = passwordProtected
 

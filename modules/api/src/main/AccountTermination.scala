@@ -72,13 +72,13 @@ final class AccountTermination(
     "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessDisable(userId) }
   )
 
-  def disable(u: User)(using me: Me): Funit = for
+  def disable(u: User, forever: Boolean)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)
     selfClose    = me.is(u)
     teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
     modClose     = !selfClose && Granter(_.CloseAccount)
     tos          = u.marks.dirty || modClose || playbanned
-    _       <- userRepo.disable(u, keepEmail = tos)
+    _       <- userRepo.disable(u, keepEmail = tos, forever = forever)
     _       <- roundApi.resignAllGamesOf(u.id)
     _       <- relationApi.unfollowAll(u.id)
     _       <- relationApi.removeAllFollowers(u.id)
@@ -106,19 +106,21 @@ final class AccountTermination(
   yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
   def scheduleDelete(u: User)(using Me): Funit = for
-    _ <- disable(u)
+    _ <- disable(u, forever = false)
     _ <- email.delete(u)
     _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant, erase = false).some)
   yield ()
 
   def scheduleErase(u: User)(using Me): Funit = for
-    _ <- disable(u)
+    _ <- disable(u, forever = false)
     _ <- email.gdprErase(u)
     _ <- userRepo.delete.schedule(u.id, UserDelete(nowInstant, erase = true).some)
   yield ()
 
   private def lichessDisable(userId: UserId) =
-    userRepo.lichessAnd(userId).flatMapz { (lichess, user) => disable(user)(using Me(lichess)) }
+    userRepo.lichessAnd(userId).flatMapz { (lichess, user) =>
+      disable(user, forever = false)(using Me(lichess))
+    }
 
   lila.common.LilaScheduler.variableDelay(
     "accountTermination.delete",
@@ -126,8 +128,7 @@ final class AccountTermination(
     timeout = _.AtMost(1.minute),
     initialDelay = _.Delay(111.seconds)
   ):
-    userRepo.delete
-      .findNextScheduled(7.days)
+    userRepo.delete.findNextScheduled
       .flatMapz: (user, del) =>
         if user.enabled.yes
         then userRepo.delete.schedule(user.id, none).inject(none)

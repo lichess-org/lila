@@ -2,10 +2,7 @@
 <resources>
   <string name="settings">Nastavení</string>
   <string name="closeAccount">Zrušit účet</string>
-  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Váš účet je spravován a nemůže být zrušen.</string>
-  <string name="closingIsDefinitive">Zrušení účtu je trvalé. Tato akce je nevratná. Jste si jisti, že chcete svůj účet uzavřít?</string>
+  <string name="managedAccountCannotBeClosed">Váš účet je spravován a nemůže být zrušen.</string>
   <string name="cantOpenSimilarAccount">Nebudete moci založit nový účet se stejným jménem, a to ani když se bude lišit velikost písmen.</string>
-  <string name="changedMindDoNotCloseAccount">Změnil jsem názor, nechci zrušit svůj účet</string>
-  <string name="closeAccountExplanation">Jste si jisti, že chcete uzavřít svůj účet? Uzavření účtu je trvalé rozhodnutí. Již NIKDY SE ZNOVU nebudete moci přihlásit.</string>
   <string name="thisAccountIsClosed">Tento účet je zrušen.</string>
 </resources>

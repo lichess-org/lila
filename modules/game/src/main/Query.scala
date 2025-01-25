@@ -134,11 +134,7 @@ object Query:
     F.createdAt.$gte(d)
 
   def createdBetween(since: Option[Instant], until: Option[Instant]): Bdoc =
-    (since, until) match
-      case (Some(since), None)        => createdSince(since)
-      case (None, Some(until))        => F.createdAt.$lt(until)
-      case (Some(since), Some(until)) => F.createdAt.$gte(since).$lt(until)
-      case _                          => $empty
+    dateBetween(F.createdAt, since, until)
 
   val notSimul = F.simulId.$exists(false)
 

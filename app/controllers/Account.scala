@@ -250,11 +250,9 @@ final class Account(
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): _ =>
-            env.api.accountTermination
-              .disable(me.value)
-              .inject:
-                Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
+          FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): forever =>
+            for _ <- env.api.accountTermination.disable(me.value, forever = forever)
+            yield Redirect(routes.Lobby.home).withCookies(env.security.lilaCookie.newSession)
   }
 
   def delete = Auth { _ ?=> me ?=>

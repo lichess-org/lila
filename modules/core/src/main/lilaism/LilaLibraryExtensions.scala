@@ -104,8 +104,6 @@ trait LilaLibraryExtensions extends CoreExports:
       list.iterator
         .foldLeft(fuccess(()))((fr, fa) => fr.zipWith(fa)((_, _) => ()))
 
-  extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
-
   extension [A](fua: Fu[A])
 
     infix def >>[B](fub: => Fu[B])(using Executor): Fu[B] =

@@ -28,16 +28,23 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
             div(cls := "form-group")(h2("We're sorry to see you go.")),
-            div(cls := "form-group")(trs.closeAccountExplanation()),
+            div(cls := "form-group")(trs.closeAccountAreYouSure()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             myUsernamePasswordFields(form),
+            form3.checkbox(
+              form("forever"),
+              raw("Forever close: make it impossible to reopen"),
+              help = raw(
+                "Prevent reopening the account later. If you check this box, even administrators will be unable to reopen your account at your request."
+              ).some
+            ),
             form3.actions(
               frag(
-                a(href := routes.User.show(me.username))(trs.changedMindDoNotCloseAccount()),
+                a(href := routes.User.show(me.username))(trs.cancelKeepAccount()),
                 form3.submit(
                   trs.closeAccount(),
                   icon = Icon.CautionCircle.some,
-                  confirm = trs.closingIsDefinitive.txt().some
+                  confirm = trs.closeAccountAreYouSure.txt().some
                 )(cls := "button-red")
               )
             )
@@ -55,9 +62,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             div(cls := "form-group")(
               "Once you delete your account, it’s removed from Lichess and our administrators won’t be able to bring it back for you."
             ),
-            div(cls := "form-group")(
-              "The username will NOT be available for registration again."
-            ),
+            div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             div(cls := "form-group")(
               "Would you like to ",
               a(href := routes.Account.close)("close your account"),
@@ -68,7 +73,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             form3.errors(form("understand")),
             form3.actions(
               frag(
-                a(href := routes.User.show(me.username))(trans.site.cancel()),
+                a(href := routes.User.show(me.username))(trs.cancelKeepAccount()),
                 form3.submit(
                   "Delete my account",
                   icon = Icon.CautionCircle.some,
@@ -273,9 +278,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         .csp(_.withHcaptcha):
           main(cls := "page-small box box-pad")(
             h1(cls := "box__top")(trans.site.reopenYourAccount()),
-            p(trans.site.closedAccountChangedMind()),
-            p(strong(trans.site.onlyWorksOnce())),
-            p(trans.site.cantDoThisTwice()),
+            p(trans.site.reopenYourAccountDescription()),
             hr,
             postForm(cls := "form3", action := routes.Account.reopenApply)(
               error.map: err =>

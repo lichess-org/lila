@@ -288,7 +288,7 @@ private object LobbySocket:
     glicko.establishedIntRating | IntRating:
       if trust.yes
       then boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
-      else boxedNormalDistribution(glicko.intRating.value - 200, glicko.intDeviation / 2, 0.3)
+      else boxedNormalDistribution(glicko.intRating.value - 100, glicko.intDeviation / 2, 0.3)
 
   object Protocol:
     object In:

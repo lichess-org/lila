@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Pješak napreduje</string>
-  <string name="advancedPawnDescription">Pješak u postupku ili prijetnji promaknućem je ključan za taktiku.</string>
+  <string name="advancedPawn">Napredan pješak</string>
+  <string name="advancedPawnDescription">Jedan od tvojih pješaka je duboko u protivničkoj poziciji, možda prijeti promocijom.</string>
   <string name="advantage">Prednost</string>
-  <string name="advantageDescription">Iskoristi priliku i pridobij odlučujuču prednost. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Iskoristi priliku i pridobij odlučujuću prednost. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastazijin mat</string>
   <string name="anastasiaMateDescription">Skakač i top ili dama udružuju se kako bi uhvatili protivničkog kralja u zamku između ruba ploče s jedne i njegove figure s druge strane.</string>
   <string name="arabianMate">Arapski mat</string>
-  <string name="arabianMateDescription">Skakač i top udružuju snage kako bi zarobili suparničkog kralja u uglu igraće ploče.</string>
-  <string name="attackingF2F7">Napad na f2 ili f7 polje</string>
+  <string name="arabianMateDescription">Skakač i top udružuju snage kako bi zarobili protivničkog kralja u uglu igraće ploče.</string>
+  <string name="attackingF2F7">Napad na f2 ili f7</string>
   <string name="attackingF2F7Description">Napad na f2 ili f7 pješaka kao što je napad lovcem popularno nazvan \"fried liver opening\".</string>
   <string name="attraction">Privlačenje</string>
-  <string name="attractionDescription">Razmjena ili žrtva koja potiče ili forsira protivničke figure u poziciju koja omogućuje taktičke poteze koji donose prednost.</string>
+  <string name="attractionDescription">Razmjena ili žrtva koja potiče ili prisiljava protivničke figure u poziciju koja omogućuje taktičke poteze koji donose prednost.</string>
   <string name="backRankMate">Mat na zadnjem redu</string>
   <string name="backRankMateDescription">Top ili dama matiraju kralja koji se nalazi na njegovom prvom redu (odnosno osmom iz perspektive protivnika) te je zagrađen svojim figurama.</string>
   <string name="bishopEndgame">Lovčeva završnica</string>
@@ -45,7 +45,7 @@
   <string name="endgame">Završnica</string>
   <string name="endgameDescription">Taktički potezi u završnici.</string>
   <string name="enPassantDescription">Taktika koja uključuje pravilo \"en passant\" po kojem pješak uzima protivničkog pješaka koji ga preskače koristeći inicijalno otvaranje pješaka za dva polja.</string>
-  <string name="exposedKing">Golišavi kralj</string>
+  <string name="exposedKing">Izloženi kralj</string>
   <string name="exposedKingDescription">Taktika koja uključuje kralja okruženim nekolicinom obrambenih figura što često rezultira matom.</string>
   <string name="fork">Rašlje</string>
   <string name="forkDescription">Situacija u šahovskoj partiji kad jedna figura napadne dvije ili više protivničkih.</string>
@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Pomicanje figure između dvije protivničke figure pritom ih napadajući. Kao rezultat protivnik nije u mogućnosti obraniti obe figure.</string>
   <string name="intermezzo">Međupotez</string>
   <string name="intermezzoDescription">Potez koji se igra prije očekivanog poteza koji predstavlja direktnu prijetnju na koju protivnik mora odgovoriti.</string>
+  <string name="killBoxMate">Mat u mreži</string>
+  <string name="killBoxMateDescription">Top je pored protivničkog kralja i podržan je kraljicom koja također blokira kraljeva polja za bijeg. Top i kraljica zarobljavaju protivničkog kralja u 3 sa 3 matnoj mreži.</string>
+  <string name="vukovicMate">Vukovic mat</string>
+  <string name="vukovicMateDescription">Top i skakač se udruže da matiraju kralja. Top matira podržan trećom figurom, i skakač se koristi da blokira kraljeva polja za bijeg.</string>
   <string name="knightEndgame">Skakačeva završnica</string>
   <string name="knightEndgameDescription">Završnica u kojoj sudjeluju samo skakači i pješaci.</string>
   <string name="long">Dugi zadatak</string>

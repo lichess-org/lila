@@ -954,9 +954,6 @@
   <string name="focusChat">Нысаналы сұхбат</string>
   <string name="showHelpDialog">Осы көмекші терезені көрсету</string>
   <string name="reopenYourAccount">Тіркелгіні қайта ашу</string>
-  <string name="closedAccountChangedMind">Егер сіз тіркелгіні жапқан соң, ойыңыздан қайтсаңыз, сізде тіркелгіні қайтаруға бір мүмкіндік бар.</string>
-  <string name="onlyWorksOnce">Бұл амал бір рет қана жарамды.</string>
-  <string name="cantDoThisTwice">Егер тіркелгіңізді екінші рет жапсаңыз, оны қайтару еш мүмкіндік болмайды.</string>
   <string name="emailAssociatedToaccount">Тіркелгіге байлаулы поштаңыз</string>
   <string name="sentEmailWithLink">Біз сілтемесі бар хат жібереміз.</string>
   <string name="tournamentEntryCode">Жарысқа кіру құпиясөзі</string>

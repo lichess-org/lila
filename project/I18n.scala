@@ -8,14 +8,14 @@ object I18n {
       sourceDir: File,
       destDir: File,
       dbs: List[String],
-      outputFile: File
+      outputDir: File
   ): Seq[File] = {
     val locales = "en-GB" :: (destDir / "site").listFiles.map(_.getName.takeWhile(_ != '.')).sorted.toList
 
-    outputFile.getParentFile.mkdirs()
+    outputDir.mkdirs()
 
     val files = locales.map { locale =>
-      val file         = new File(outputFile.getParentFile, s"i18n.$locale.ser")
+      val file         = new File(outputDir, s"i18n.$locale.ser")
       val translations = makeMap(locale, sourceDir, destDir, dbs.asJava)
       val out          = new ObjectOutputStream(new FileOutputStream(file))
       out.writeObject(translations)

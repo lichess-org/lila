@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between".</string>
   <string name="killBoxMate">Kill box mate</string>
   <string name="killBoxMateDescription">A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box".</string>
+  <string name="vukovicMate">Vukovic mate</string>
+  <string name="vukovicMateDescription">A rook and knight team up to mate the king. The rook delivers mate while supported by a third piece, and the knight is used to block the king's escape squares.</string>
   <string name="knightEndgame">Knight endgame</string>
   <string name="knightEndgameDescription">An endgame with only knights and pawns.</string>
   <string name="long">Long puzzle</string>

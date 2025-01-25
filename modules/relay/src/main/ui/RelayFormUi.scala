@@ -256,6 +256,11 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             trb.sourceGameIds(),
             half = false
           )(form3.input(_))(cls := "relay-form__sync relay-form__sync-ids none"),
+          form3.group(
+            form("syncUsers"),
+            "Up to 100 Lichess usernames, separated by spaces",
+            half = false
+          )(form3.input(_))(cls := "relay-form__sync relay-form__sync-users none"),
           div(cls := "form-group relay-form__sync relay-form__sync-push none")(
             contactUsForOfficial,
             p(

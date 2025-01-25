@@ -40,7 +40,8 @@ object email:
         e.normalize.eliminateDomainAlias == other.normalize.eliminateDomainAlias
 
       def isNoReply  = e.startsWith("noreply.") && e.endsWith("@lichess.org")
-      def isSendable = !e.isNoReply
+      def isBlank    = e.startsWith("noreply.blanked.")
+      def isSendable = !e.isNoReply && !e.isBlank
 
       def looksLikeFakeEmail =
         e.domain.map(_.lower).exists(EmailAddress.gmailDomains.contains) &&

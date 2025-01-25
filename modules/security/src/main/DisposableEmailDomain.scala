@@ -4,6 +4,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.net.Domain
+import lila.core.net.Domain.Lower
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
@@ -38,20 +39,26 @@ final class DisposableEmailDomain(
     !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.lower.value)
 
   def asMxRecord(domain: Domain): Boolean =
-    apply(domain) && !mxRecordPasslist(domain.withoutSubdomain | domain)
+    apply(domain) && !mxRecordPasslist(domain.withoutSubdomain)
+
+  def mightBeTypo(domain: Domain): Boolean =
+    // gmail.com is very often misspelled
+    domain.value.startsWith("g") && scalalib.Levenshtein.isDistanceLessThan(domain.value, "gmail.com", 2)
 
 private object DisposableEmailDomain:
 
   extension (a: Domain)
     // heuristic to remove user controlled subdomain tails:
     // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
-    def withoutSubdomain: Option[Domain] =
+    def withoutSubdomainOpt: Option[Domain] =
       a.value.split('.').toList.reverse match
         case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
         case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
         case _                                            => none
+    def withoutSubdomain: Domain = withoutSubdomainOpt | a
 
-  def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.|(domain).lower)
+  def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.lower)
+  def isOutlook(domain: Domain)   = outlookDomains.contains(domain.withoutSubdomain.lower)
 
   private val mxRecordPasslist =
     Set(Domain("simplelogin.co"), Domain("simplelogin.com"), Domain("anonaddy.me"), Domain("iljmail.com"))
@@ -61,13 +68,48 @@ private object DisposableEmailDomain:
     "gamil.com",
     "gmeil.com",
     "gmali.com",
+    "gmial.com",
     "gmil.com",
     "gamail.com",
     "gnail.com",
     "hotamil.com"
   )
 
-  private val whitelist = Domain.Lower.from(
+  private val outlookDomains: Set[Domain.Lower] = Domain.Lower.from:
+    Set(
+      "outlook.com",
+      "outlook.es",
+      "outlook.com.au",
+      "outlook.com.vn",
+      "outlook.com.br",
+      "outlook.pt",
+      /* Hotmail (old name)*/
+      "hotmail.com",
+      "hotmail.co.uk",
+      "hotmail.fr",
+      "hotmail.de",
+      "hotmail.be",
+      "hotmail.com.ar",
+      "hotmail.es",
+      "hotmail.com.br",
+      "hotmail.nl",
+      /* Live mail */
+      "live.com",
+      "live.com.mx",
+      "live.com.ar",
+      "live.com.au",
+      "live.co.uk",
+      "live.fr",
+      "live.com.my",
+      "live.com.pt",
+      "live.com.sg",
+      "live.de",
+      "live.be",
+      "live.ca",
+      "live.nl"
+    )
+
+  private val whitelist: Set[Domain.Lower] = outlookDomains ++ Domain.Lower.from:
     Set(
       /* Default domains included */
       "aol.com",
@@ -77,21 +119,11 @@ private object DisposableEmailDomain:
       "gmx.com",
       "googlemail.com",
       "google.com",
-      "hotmail.com",
-      "hotmail.co.uk",
       "ikmail.com",
       "mac.com",
       "me.com",
       "mail.com",
       "msn.com",
-      "live.com",
-      "live.com.mx",
-      "live.com.ar",
-      "live.com.au",
-      "live.com.br",
-      "live.com.my",
-      "live.com.pt",
-      "live.com.sg",
       "live.com.org",
       "sbcglobal.net",
       "verizon.net",
@@ -111,8 +143,6 @@ private object DisposableEmailDomain:
       "inbox.com",
       "lavabit.com",
       "love.com" /* AOL */,
-      "outlook.com",
-      "outlook.com.au",
       "pobox.com",
       "rocketmail.com" /* Yahoo */,
       "safe-mail.net",
@@ -140,7 +170,6 @@ private object DisposableEmailDomain:
       "virginmedia.com",
       "blueyonder.co.uk",
       "freeserve.co.uk",
-      "live.co.uk",
       "ntlworld.com",
       "o2.co.uk",
       "orange.net",
@@ -164,8 +193,6 @@ private object DisposableEmailDomain:
       "yahoo.com.sg",
       "yahoo.com.ph",
       /* French ISP domains */
-      "hotmail.fr",
-      "live.fr",
       "laposte.net",
       "yahoo.fr",
       "wanadoo.fr",
@@ -177,8 +204,6 @@ private object DisposableEmailDomain:
       /* German ISP domains */
       "aikq.de",
       "gmx.de",
-      "hotmail.de",
-      "live.de",
       "online.de",
       "t-online.de" /* T-Mobile */,
       "web.de",
@@ -190,31 +215,23 @@ private object DisposableEmailDomain:
       "ya.ru",
       "list.ru",
       /* Belgian ISP domains */
-      "hotmail.be",
-      "live.be",
       "skynet.be",
       "voo.be",
       "tvcablenet.be",
       "telenet.be",
       /* Argentinian ISP domains */
-      "hotmail.com.ar",
       "yahoo.com.ar",
       "fibertel.com.ar",
       "speedy.com.ar",
       "arnet.com.ar",
       /* Domains used in Vietnam */
-      "outlook.com.vn",
       "yahoo.com.vn",
       "vnnic.vn",
       /* Domains used in Mexico */
       "yahoo.com.mx",
-      "hotmail.es",
-      "hotmail.com.mx",
       "prodigy.net.mx",
       /* Domains used in Brazil */
       "yahoo.com.br",
-      "hotmail.com.br",
-      "outlook.com.br",
       "uol.com.br",
       "bol.com.br",
       "terra.com.br",
@@ -227,20 +244,15 @@ private object DisposableEmailDomain:
       "oi.com.br",
       /* Domains used in Portugal */
       "sapo.pt",
-      "outlook.pt",
       /* Domains without an A record */
       "cabletv.on.ca",
-      "live.ca",
       "unitybox.de",
       "volki.at",
       /* others */
       "skole.hr",
       "freeshell.org",
-      "hotmail.nl",
-      "live.nl",
       "startmail.com",
       "palaciodegranda.com",
       "laudepalaciogranda.com",
       "mozmail.com" // Mozilla Firefox Relay Domain
     )
-  )

@@ -131,7 +131,7 @@
     <item quantity="one">%s തെറ്റ്</item>
     <item quantity="other">%s തെറ്റുകള്‍</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s തെറ്റ്</item>
     <item quantity="other">%s തെറ്റുകള്‍</item>
   </plurals>
@@ -139,7 +139,7 @@
     <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
     <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s ചെറിയ തെറ്റുകള്‍</item>
     <item quantity="other">%s ചെറിയ തെറ്റുകള്‍</item>
   </plurals>
@@ -147,7 +147,7 @@
     <item quantity="one">%s കൃത്യത കുറവ്</item>
     <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s കൃത്യത കുറവ്</item>
     <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
   </plurals>
@@ -966,9 +966,6 @@
   <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
   <string name="showHelpDialog">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
-  <string name="closedAccountChangedMind">താങ്ങൾ അക്കൗണ്ടു് അവസാനിച്ചിട്ടു് പിന്നെയും തുറക്കാൻ ആഗ്രഹം ഉണ്ടെങ്കിൽ താങ്ങൾക്കു് ഇതു് ഒരു വട്ടം ചെയ്യാം.</string>
-  <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
-  <string name="cantDoThisTwice">താങ്ങൾ രണ്ടാം തവണ അവസാനിച്ചാൽ പിന്നെ വീണ്ടെടുപ്പു് ഒക്കത്തില്ല.</string>
   <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
   <string name="sentEmailWithLink">ഞങ്ങൾ താങ്ങളേ ഒരു കണ്ണിയുള്ള ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</string>
   <string name="tournamentEntryCode">മത്സരം പ്രവേശന സങ്കേതം</string>

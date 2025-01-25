@@ -258,8 +258,7 @@ case class Game(
   yield w -> b
 
   def averageUsersRating: Option[IntRating] = players.flatMap(_.rating) match
-    // case a :: b :: Nil => Some((a + b).map(_ / 2))
-    case a :: b :: Nil => Some((a + b))
+    case a :: b :: Nil => Some((a + b).map(_ / 2))
     case a :: Nil      => Some((a + IntRating(1500)).map(_ / 2))
     case _             => None
 

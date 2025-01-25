@@ -29,6 +29,14 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
             irc.broadcastOrphanBoard(rt.round.id, rt.fullName, chapter.id, chapter.name)
           else fuccess(counter.put(chapter.id, count))
 
+  object tooManyGames:
+
+    private val once = scalalib.cache.OnceEvery[RelayRoundId](1.hour)
+
+    def apply(rt: RelayRound.WithTour, games: Int, max: Max): Funit =
+      once(rt.round.id).so:
+        irc.broadcastError(rt.round.id, rt.fullName, s"Too many games from source: $games. Max is $max")
+
   object missingFideIds:
     private val once = scalalib.cache.OnceEvery[RelayRoundId](1.hour)
 
@@ -38,7 +46,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
           api.byIdWithTour(id).flatMapz(checkNow)
 
     private def checkNow(rt: RelayRound.WithTour): Funit =
-      if rt.round.sync.upstream.exists(_.isGameIds)
+      if rt.round.sync.upstream.exists(_.isInternal)
       then funit
       else
         previewApi
