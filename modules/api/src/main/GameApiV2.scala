@@ -5,6 +5,7 @@ import chess.ByColor
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tag }
 import play.api.libs.json.*
+import reactivemongo.akkastream.cursorProducer
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.HTTPRequest
@@ -35,7 +36,7 @@ final class GameApiV2(
     realPlayerApi: RealPlayerApi,
     gameProxy: GameProxyRepo,
     division: Divider,
-    bookmarkExists: lila.core.bookmark.BookmarkExists,
+    bookmarkApi: lila.bookmark.BookmarkApi,
     gameSearch: GameSearchApi
 )(using Executor, akka.actor.ActorSystem):
 
@@ -229,6 +230,22 @@ final class GameApiV2(
       .throttle(20, 1.second)
       .mapConcat(_.pgnImport.map(_.pgn.map(_ + "\n\n\n")).toList)
 
+  def exportUserBookmarks(config: BookmarkConfig)(using Translate): Source[String, ?] =
+    import lila.game.BSONHandlers.gameHandler
+    bookmarkApi.coll
+      .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
+        import framework.*
+        List(
+          Match(bookmarkApi.userIdQuery(config.user) ++ dateBetween("d", config.since, config.until)),
+          Sort(if config.sort == GameSort.DateDesc then Descending("d") else Ascending("d")),
+          Limit(config.max.fold(5000)(_.value)),
+          PipelineOperator($lookup.simple(gameRepo.coll, "game", "g", "_id")),
+          Unwind("game"),
+          ReplaceRootField("game")
+        )
+      .documentSource()
+      .via(preparationFlow(config))
+
   private val upgradeOngoingGame =
     Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
 
@@ -280,7 +297,7 @@ final class GameApiV2(
           .apply(g, initialFen, analysisOption, config.flags, realPlayers = realPlayers)
           .dmap(annotator.toPgnString)
       )
-    bookmarked <- config.flags.bookmark.so(bookmarkExists(g, config.by.map(_.userId)))
+    bookmarked <- config.flags.bookmark.so(bookmarkApi.exists(g, config.by.map(_.userId)))
     accuracy = analysisOption
       .ifTrue(flags.accuracy)
       .flatMap:
@@ -340,7 +357,10 @@ object GameApiV2:
   enum Format:
     case PGN, JSON
   object Format:
-    def byRequest(req: play.api.mvc.RequestHeader) = if HTTPRequest.acceptsNdJson(req) then JSON else PGN
+    def byRequest(using req: play.api.mvc.RequestHeader) =
+      if HTTPRequest.acceptsNdJson(req) || HTTPRequest.acceptsJson(req)
+      then JSON
+      else PGN
 
   sealed trait Config:
     val format: Format
@@ -429,5 +449,17 @@ object GameApiV2:
       flags: WithFlags,
       perSecond: MaxPerSecond,
       player: Option[UserId]
+  )(using val by: Option[Me])
+      extends Config
+
+  case class BookmarkConfig(
+      user: UserId,
+      format: Format,
+      since: Option[Instant] = None,
+      until: Option[Instant] = None,
+      max: Option[Max] = None,
+      flags: WithFlags,
+      sort: GameSort,
+      perSecond: MaxPerSecond
   )(using val by: Option[Me])
       extends Config

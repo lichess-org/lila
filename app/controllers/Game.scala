@@ -35,7 +35,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
     Found(env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId))): game =>
       val config = GameApiV2.OneConfig(
-        format = if HTTPRequest.acceptsJson(req) then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+        format = GameApiV2.Format.byRequest,
         imported = getBool("imported"),
         flags = requestPgnFlags(extended = true),
         playerFile = get("players")
@@ -54,7 +54,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private def handleExport(username: UserStr)(using ctx: Context) =
     meOrFetch(username).flatMap:
       _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)).so: user =>
-        val format = GameApiV2.Format.byRequest(req)
+        val format = GameApiV2.Format.byRequest
         WithVs: vs =>
           env.security.ipTrust
             .throttle(MaxPerSecond:
@@ -110,11 +110,35 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         .as(pgnContentType)
   }
 
+  def apiExportByUserBookmarks() = Scoped() { ctx ?=> me ?=>
+    val config = GameApiV2.BookmarkConfig(
+      user = me.userId,
+      format = GameApiV2.Format.byRequest,
+      since = getTimestamp("since"),
+      until = getTimestamp("until"),
+      max = getIntAs[Max]("max").map(_.atLeast(1)),
+      flags = requestPgnFlags(extended = false),
+      sort =
+        if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
+        else GameApiV2.GameSort.DateDesc,
+      perSecond = MaxPerSecond(30)
+    )
+    apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
+      env.api.gameApiV2.exportUserBookmarks(config)
+    ): source =>
+      Ok.chunked(source)
+        .pipe:
+          asAttachmentStream(
+            s"lichess_${me.username}_$fileDate.bookmarks.${config.format.toString.toLowerCase}"
+          )
+        .as(gameContentType(config))
+  }
+
   def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
     val config = GameApiV2.ByIdsConfig(
       ids = GameId.from(ctx.body.body.split(',').view.take(limit).toSeq),
-      format = GameApiV2.Format.byRequest(req),
+      format = GameApiV2.Format.byRequest,
       flags = requestPgnFlags(extended = false),
       perSecond = MaxPerSecond(perSec),
       playerFile = get("players")
