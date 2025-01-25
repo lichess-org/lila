@@ -113,6 +113,7 @@ object page:
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
           dataUser     := ctx.userId,
+          dataUsername := ctx.username,
           dataSoundSet := pref.currentSoundSet.toString,
           attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
                                           else netConfig.socketDomains).mkString(","),
