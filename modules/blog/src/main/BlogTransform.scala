@@ -1,15 +1,9 @@
 package lila.blog
 
-import java.util.Arrays
 import scala.concurrent.duration._
 import scala.util.matching.Regex
 
 import com.github.blemale.scaffeine.LoadingCache
-import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.vladsch.flexmark.ext.tables.TablesExtension
-import com.vladsch.flexmark.html.HtmlRenderer
-import com.vladsch.flexmark.parser.Parser
-import com.vladsch.flexmark.util.data.MutableDataSet
 
 object BlogTransform {
 
@@ -23,22 +17,14 @@ object BlogTransform {
     private type Text = String
     private type Html = String
 
-    private val PreRegex = """<pre>markdown(.+)</pre>""".r
-
-    private val options = new MutableDataSet()
-    options.set(
-      Parser.EXTENSIONS,
-      Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()),
-    )
-    options.set(HtmlRenderer.SOFT_BREAK, "<br>\n")
-    options.set(TablesExtension.CLASS_NAME, "slist")
-    private val parser   = Parser.builder(options).build()
-    private val renderer = HtmlRenderer.builder(options).build()
+    private val renderer = new lila.common.Markdown
 
     private val cache: LoadingCache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterAccess(15 minutes)
+      .expireAfterWrite(15 minutes)
       .maximumSize(32)
-      .build((text: Text) => renderer.render(parser.parse(text.replace("<br>", "\n"))))
+      .build((text: Text) => renderer(text.replace("<br>", "\n")))
+
+    private val PreRegex = """<pre>markdown(.+)</pre>""".r
 
     def apply(html: Html): Html =
       PreRegex.replaceAllIn(html, m => Regex.quoteReplacement(cache get m.group(1)))
