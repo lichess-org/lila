@@ -17,6 +17,9 @@ function normalize(email) {
   return name + '@' + domain;
 }
 
+let nbUpdates = 0;
+let nbDups = 0;
+
 db.user4.find({ email: /^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, username: 1 }).forEach(user => {
   const normalized = normalize(user.email);
   const verbatim = user.verbatimEmail || user.email;
@@ -27,11 +30,19 @@ db.user4.find({ email: /^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, usernam
   if (verbatim != user.email) updates.verbatimEmail = verbatim;
 
   if (!dry && Object.keys(updates).length) {
-    db.user4.updateOne({ _id: user._id }, { $set: updates });
-    db.user_email_backup.update(
-      { _id: user._id },
-      { $set: { email: user.email, verbatimEmail: user.verbatimEmail } },
-      { upsert: true },
-    );
+    try {
+      db.user4.updateOne({ _id: user._id }, { $set: updates });
+      db.user_email_backup.update(
+        { _id: user._id },
+        { $set: { email: user.email, verbatimEmail: user.verbatimEmail } },
+        { upsert: true },
+      );
+      nbUpdates++;
+    } catch (e) {
+      if (e.code == 11000) nbDups++;
+    }
   }
 });
+
+print('updated:', nbUpdates);
+print('skiped duplicates:', nbDups);
