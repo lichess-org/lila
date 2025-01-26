@@ -17,13 +17,9 @@ db.user4
     const verbatim = user.verbatimEmail || user.email;
     print(user.username, ': ', verbatim, '->', normalized);
 
-    if (!dry && user.email != normalized) db.user4.update(
-      { _id: user._id },
-      {
-        $set: {
-          email: normalized,
-          verbatimEmail: verbatim,
-        },
-      },
-    );
+    const updates = {};
+    if (normalized != user.email) updates.email = normalized;
+    if (verbatim != user.email) updates.verbatimEmail = verbatim;
+
+    if (!dry && Object.keys(updates).length) db.user4.update({ _id: user._id }, { $set: updates });
   });
