@@ -469,7 +469,7 @@ function renderStudyPlayer(ctrl: AnalyseController, color: Color): VNode | undef
     ['name', i18n.site.name],
     ['title', 'title'],
     ['rating', i18n.site.rating],
-    ['fed', i18n.broadcast.federation],
+    ['fed', 'fed'],
     ['team', 'team'],
   ] as const;
   return (
@@ -479,7 +479,7 @@ function renderStudyPlayer(ctrl: AnalyseController, color: Color): VNode | undef
       keys
         .reduce<
           string[]
-        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${player[key]}`) : strs), [])
+        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player?.fed?.name : player[key]}`) : strs), [])
         .join(' '),
     )
   );
