@@ -38,8 +38,7 @@ function renderLog(ctrl: RelayCtrl) {
     .reverse()
     .map(e => {
       const err =
-        e.error &&
-        h('a', url ? { attrs: { href: url, target: '_blank', rel: 'noopener nofollow' } } : {}, e.error);
+        e.error && h('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
       return h(
         'div' + (err ? '.err' : ''),
         { key: e.at, attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark) },

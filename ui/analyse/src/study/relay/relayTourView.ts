@@ -127,11 +127,7 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
         h('div.relay-tour__info__' + key, [
           icon && h('img', { attrs: { src: site.asset.flairSrc(icon) } }),
           linkName
-            ? h(
-                'a',
-                { attrs: { href: value, target: '_blank', rel: 'nofollow noopener noreferrer' } },
-                linkName,
-              )
+            ? h('a', { attrs: { href: value, target: '_blank', rel: 'nofollow noreferrer' } }, linkName)
             : value,
         ]),
     )

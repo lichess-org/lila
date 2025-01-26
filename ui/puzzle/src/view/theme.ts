@@ -30,7 +30,7 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
                 angle.chapter &&
                   h(
                     'a.puzzle__side__theme__chapter.text',
-                    { attrs: { href: `${studyUrl}/${angle.chapter}`, target: '_blank', rel: 'noopener' } },
+                    { attrs: { href: `${studyUrl}/${angle.chapter}`, target: '_blank' } },
                     [' ', i18n.puzzle.example],
                   ),
               ]),
@@ -122,7 +122,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
           ),
           h(
             'a.puzzle__themes__study.text',
-            { attrs: { 'data-icon': licon.InfoCircle, href: studyUrl, target: '_blank', rel: 'noopener' } },
+            { attrs: { 'data-icon': licon.InfoCircle, href: studyUrl, target: '_blank' } },
             'About puzzle themes',
           ),
         ]

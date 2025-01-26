@@ -15,7 +15,7 @@ class MarkdownTest extends munit.FunSuite:
     assertEquals(
       render(md),
       Html(
-        """<p><a href="https://example.com" target="_blank" rel="nofollow noopener noreferrer">https://example.com</a></p>
+        """<p><a href="https://example.com" target="_blank" rel="nofollow noreferrer">https://example.com</a></p>
 """
       )
     )
@@ -25,7 +25,7 @@ class MarkdownTest extends munit.FunSuite:
     assertEquals(
       render(md),
       Html(
-        """<p><a href="https://example.com" target="_blank" rel="nofollow noopener noreferrer">Example</a></p>
+        """<p><a href="https://example.com" target="_blank" rel="nofollow noreferrer">Example</a></p>
 """
       )
     )
@@ -81,7 +81,7 @@ class MarkdownTest extends munit.FunSuite:
     assertEquals(
       render(Markdown("![image](https://evil.com/image.png)")),
       Html(
-        """<p><a href="https://evil.com/image.png" target="_blank" rel="nofollow noopener noreferrer">image</a></p>
+        """<p><a href="https://evil.com/image.png" target="_blank" rel="nofollow noreferrer">image</a></p>
 """
       )
     )

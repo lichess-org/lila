@@ -33,7 +33,7 @@ interface OptsWithI18n extends Opts {
     const text = lpv.game.initial.comments[0] || 'Start';
     lpv.div?.insertAdjacentHTML(
       'beforeend',
-      `<a href="${opts.gamebook.url}" target="_blank" rel="noopener" class="button button-no-upper lpv__gamebook">${text}</a>`,
+      `<a href="${opts.gamebook.url}" target="_blank" class="button button-no-upper lpv__gamebook">${text}</a>`,
     );
   }
 };
