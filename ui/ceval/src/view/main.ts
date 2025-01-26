@@ -233,7 +233,7 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
         h('help', [
           ...engineName(ceval),
           h('br'),
-          ceval.analysable ? i18n.site.inLocalBrowser : 'Engine cannot analyse this game',
+          ceval.analysable ? i18n.site.inLocalBrowser : i18n.site.engineCannotAnalyse,
         ]),
       ];
 
