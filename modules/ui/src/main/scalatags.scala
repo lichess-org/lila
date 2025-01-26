@@ -152,13 +152,7 @@ trait ScalatagsExtensions:
     def empty: Frag                     = emptyFrag
     def combine(x: Frag, y: Frag): Frag = frag(x, y)
 
-  val targetBlank: Modifier = (t: Builder) =>
-    // Prevent tab nabbing when opening untrusted links. Apply also to trusted
-    // links, because there can be a small performance advantage and lila does
-    // not use window.opener anywhere. Will not be overwritten by additional
-    // rels.
-    t.setAttr("rel", Builder.GenericAttrValueSource("noopener"))
-    t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
+  val targetBlank: Modifier = (t: Builder) => t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
 
   val noFollow = rel := "nofollow"
   val relMe    = rel := "me"

@@ -57,7 +57,7 @@ export function asText(n: Notification): string | undefined {
 function notificationDenied(): VNode {
   return h(
     'a.browser-notification.denied',
-    { attrs: { href: '/faq#browser-notifications', target: '_blank', rel: 'noopener' } },
+    { attrs: { href: '/faq#browser-notifications', target: '_blank' } },
     'Notification popups disabled by browser setting',
   );
 }

@@ -160,7 +160,7 @@ function session(ctrl: PuzzleCtrl) {
           class: { current: current === round.id },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
-            ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
+            ...(ctrl.streak ? { target: '_blank' } : {}),
           },
         },
         rd,

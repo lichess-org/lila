@@ -37,7 +37,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
                 {
                   attrs: {
                     href: withLang(`/training/${puzzle.id}`),
-                    ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
+                    ...(ctrl.streak ? { target: '_blank' } : {}),
                   },
                 },
                 '#' + puzzle.id,

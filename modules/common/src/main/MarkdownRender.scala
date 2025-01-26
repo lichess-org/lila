@@ -112,7 +112,7 @@ object MarkdownRender:
 
   case class PgnSourceExpand(domain: NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
 
-  private val rel = "nofollow noopener noreferrer"
+  private val rel = "nofollow noreferrer"
 
   private object WhitelistedImage:
 
