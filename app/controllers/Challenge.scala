@@ -140,21 +140,17 @@ final class Challenge(env: Env) extends LilaController(env):
       res: Result
   )(using Context): Fu[Result] =
     cond
-      .so {
-        env.game.gameRepo.game(c.id.into(GameId)).map {
-          _.map { game =>
-            env.security.lilaCookie.cookie(
-              AnonCookie.name,
-              game.player(if owner then c.finalColor else !c.finalColor).id.value,
-              maxAge = AnonCookie.maxAge.some,
-              httpOnly = false.some
-            )
-          }
+      .so:
+        env.game.gameRepo.game(c.id.into(GameId)).map2 { game =>
+          env.security.lilaCookie.cookie(
+            AnonCookie.name,
+            game.player(if owner then c.finalColor else !c.finalColor).id.value,
+            maxAge = AnonCookie.maxAge.some,
+            httpOnly = false.some
+          )
         }
-      }
-      .map { cookieOption =>
-        cookieOption.foldLeft(res)(_.withCookies(_))
-      }
+      .map:
+        _.foldLeft(res)(_.withCookies(_))
 
   def decline(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
