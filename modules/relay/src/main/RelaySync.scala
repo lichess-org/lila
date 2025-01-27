@@ -35,9 +35,11 @@ final private class RelaySync(
     // When a single game comes from the source, the initial chapter
     // is updated instead of created. The client might be confused.
     // So, send them all the chapter preview with `reloadChapters`
-    _ = if plan.isJustInitialChapterUpdate then
+    reloadChapters = updates.exists(_.newEnd) || plan.isJustInitialChapterUpdate
+    _ = if reloadChapters then
       preview.invalidate(study.id)
       studyApi.reloadChapters(study)
+      players.invalidate(rt.tour.id)
   yield result
 
   private def updateChapter(
@@ -46,11 +48,11 @@ final private class RelaySync(
       game: RelayGame,
       chapter: Chapter
   ): Fu[SyncResult.ChapterResult] = for
-    chapter   <- updateInitialPosition(study.id, chapter, game)
-    tagUpdate <- updateChapterTags(rt.tour, study, chapter, game)
-    nbMoves   <- updateChapterTree(study, chapter, game)(using rt.tour)
-    _         <- (nbMoves > 0).so(notifier.roundBegin(rt))
-  yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
+    chapter             <- updateInitialPosition(study.id, chapter, game)
+    (tagUpdate, newEnd) <- updateChapterTags(rt.tour, study, chapter, game)
+    nbMoves             <- updateChapterTree(study, chapter, game)(using rt.tour)
+    _                   <- (nbMoves > 0).so(notifier.roundBegin(rt))
+  yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves, newEnd)
 
   private def createChapter(
       rt: RelayRound.WithTour,
@@ -62,7 +64,7 @@ final private class RelaySync(
       .flatMap: nb =>
         (RelayFetch.maxChaptersToShow > nb).so:
           createChapter(study, game)(using rt.tour).map: chapter =>
-            SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
+            SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size, false).some
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
     if chapter.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen
@@ -146,7 +148,7 @@ final private class RelaySync(
       study: Study,
       chapter: Chapter,
       game: RelayGame
-  ): Fu[Boolean] =
+  ): Fu[(Boolean, Boolean)] = // (newTags, newEnd)
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
@@ -158,7 +160,8 @@ final private class RelaySync(
     val tags = newEndTag.fold(gameTags)(gameTags + _)
     val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
-    (chapterNewTags != chapter.tags).so {
+    if chapterNewTags == chapter.tags then fuccess(false -> false)
+    else
       if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
       val newName = Chapter.nameFromPlayerTags(game.tags)
@@ -171,8 +174,7 @@ final private class RelaySync(
         )(who(chapter.ownerId))
         newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         _ <- newEnd.so(onChapterEnd(tour, study, chapter))
-      yield true
-    }
+      yield (true, newEnd)
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit = for
     _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
@@ -183,10 +185,7 @@ final private class RelaySync(
         userId = study.ownerId,
         official = true
       )
-  yield
-    preview.invalidate(study.id)
-    studyApi.reloadChapters(study)
-    players.invalidate(tour.id)
+  yield ()
 
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
     Chapter.Relay(
@@ -243,6 +242,6 @@ object SyncResult:
   case class Error(msg: String) extends SyncResult:
     val reportKey = "error"
 
-  case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int)
+  case class ChapterResult(id: StudyChapterId, tagUpdate: Boolean, newMoves: Int, newEnd: Boolean)
 
   def busChannel(roundId: RelayRoundId) = s"relaySyncResult:$roundId"
