@@ -30,6 +30,14 @@ final private class RelaySync(
     result = SyncResult.Ok(updates ::: appends.flatten, plan)
     _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
+    // because studies always have a chapter,
+    // broadcasts without game have an empty initial chapter.
+    // When a single game comes from the source, the initial chapter
+    // is updated instead of created. The client might be confused.
+    // So, send them all the chapter preview with `reloadChapters`
+    _ = if plan.isJustInitialChapterUpdate then
+      preview.invalidate(study.id)
+      studyApi.reloadChapters(study)
   yield result
 
   private def updateChapter(
