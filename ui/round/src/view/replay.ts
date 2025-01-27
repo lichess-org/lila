@@ -210,6 +210,7 @@ export function render(ctrl: RoundController): LooseVNode {
               }
             });
             ctrl.autoScroll = () => autoScroll(el, ctrl);
+            window.addEventListener('resize', () => ctrl.autoScroll());
             if (ctrl.ply > 2) {
               ctrl.autoScroll();
               if (isCol1()) ctrl.autoScroll();
