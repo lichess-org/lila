@@ -117,6 +117,7 @@ object Schedule:
       else if time < 60 then HyperBullet
       else if time < 120 then Bullet
       else if time < 180 then HippoBullet
+      else if time < 300 then SuperBlitz
       else if time < 480 then Blitz
       else if time < 1500 then Rapid
       else Classical
