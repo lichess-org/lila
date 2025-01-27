@@ -20,7 +20,6 @@ final class PuzzleApi(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode,
 ) {
 
   import BsonHandlers._

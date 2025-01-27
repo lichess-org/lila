@@ -10,7 +10,6 @@ final private class ChallengeSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode,
 ) {
 
   import ChallengeSocket._

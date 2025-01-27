@@ -25,7 +25,6 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mode: play.api.Mode,
 ) {
 
   lazy val teamRepo    = new TeamRepo(db(CollName("team")))

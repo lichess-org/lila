@@ -54,7 +54,6 @@ object RoomSocket {
 
   def makeRoomMap(send: Send)(implicit
       ec: ExecutionContext,
-      mode: play.api.Mode,
   ) =
     new TrouperMap(
       mkTrouper = roomId =>

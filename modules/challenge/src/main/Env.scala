@@ -28,7 +28,6 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode,
 ) {
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")

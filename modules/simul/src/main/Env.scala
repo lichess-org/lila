@@ -35,7 +35,6 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mode: play.api.Mode,
 ) {
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)

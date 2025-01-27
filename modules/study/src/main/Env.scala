@@ -36,7 +36,6 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer,
-    mode: play.api.Mode,
 ) {
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))

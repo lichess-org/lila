@@ -10,7 +10,6 @@ final private class StudySequencer(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode,
 ) {
 
   private val workQueue =

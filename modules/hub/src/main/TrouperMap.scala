@@ -5,15 +5,13 @@ import scala.concurrent.Promise
 import scala.concurrent.duration.FiniteDuration
 import scala.jdk.CollectionConverters._
 
-import play.api.Mode
-
 import alleycats.Zero
 import com.github.benmanes.caffeine.cache._
 
 final class TrouperMap[T <: Trouper](
     mkTrouper: String => T,
     accessTimeout: FiniteDuration,
-)(implicit mode: Mode) {
+) {
 
   def getOrMake(id: String): T = troupers get id
 
@@ -50,9 +48,7 @@ final class TrouperMap[T <: Trouper](
   def touchOrMake(id: String): Unit = troupers.get(id).unit
 
   private[this] val troupers: LoadingCache[String, T] =
-    lila.common.LilaCache
-      .caffeine(mode)
-      .recordStats
+    lila.common.LilaCache.caffeine.recordStats
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {
         def onRemoval(id: String, trouper: T, cause: RemovalCause): Unit =

@@ -28,7 +28,6 @@ final private class StudySocket(
     chatApi: lila.chat.ChatApi,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode,
 ) {
 
   import StudySocket._

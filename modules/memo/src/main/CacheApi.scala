@@ -15,7 +15,7 @@ final class CacheApi(
 
   import CacheApi._
 
-  def scaffeine: Builder = CacheApi.scaffeine(mode)
+  def scaffeine: Builder = CacheApi.scaffeine
 
   // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(
@@ -78,7 +78,7 @@ object CacheApi {
 
   private[memo] type Builder = Scaffeine[Any, Any]
 
-  def scaffeine(mode: Mode): Builder = lila.common.LilaCache scaffeine mode
+  def scaffeine: Builder = lila.common.LilaCache.scaffeine
 
   def scaffeineNoScheduler: Builder = Scaffeine()
 

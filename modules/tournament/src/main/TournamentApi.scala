@@ -57,7 +57,6 @@ final class TournamentApi(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mode: play.api.Mode,
 ) {
 
   private val workQueue =

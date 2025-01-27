@@ -15,7 +15,6 @@ import akka.actor._
 import com.softwaremill.macwire._
 
 import lila.common.Bus
-import lila.common.Lilakka
 import lila.common.Strings
 import lila.common.config._
 import lila.game.IdGenerator
@@ -262,13 +261,4 @@ final class EnvBoot(
 
   templating.Environment setEnv env
 
-  // free memory for reload workflow
-  if (env.isDev)
-    Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Freeing dev memory") { () =>
-      Future {
-        templating.Environment.destroy()
-        lila.common.Bus.destroy()
-        lila.mon.destroy()
-      }
-    }
 }

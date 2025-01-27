@@ -25,7 +25,6 @@ final private[puzzle] class PuzzleFinisher(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mode: play.api.Mode,
 ) {
 
   import BsonHandlers._

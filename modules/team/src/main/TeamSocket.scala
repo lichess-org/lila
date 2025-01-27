@@ -9,7 +9,6 @@ final private class TeamSocket(
     cached: Cached,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode,
 ) {
 
   lazy val rooms = makeRoomMap(send)

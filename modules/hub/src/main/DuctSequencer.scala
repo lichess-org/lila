@@ -40,15 +40,13 @@ final class DuctSequencers(
 )(implicit
     system: akka.actor.ActorSystem,
     ec: ExecutionContext,
-    mode: play.api.Mode,
 ) {
 
   def apply[A](key: String)(task: => Fu[A]): Fu[A] =
     sequencers.get(key).run(() => task)
 
   private val sequencers: LoadingCache[String, DuctSequencer] =
-    lila.common.LilaCache
-      .scaffeine(mode)
+    lila.common.LilaCache.scaffeine
       .expireAfterAccess(expiration)
       .build(key => new DuctSequencer(maxSize, timeout, s"$name:$key", logging))
 }

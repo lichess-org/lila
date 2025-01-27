@@ -16,7 +16,7 @@ object home {
     views.html.base.layout(
       title = "",
       fullTitle = Some {
-        s"lishogi.${if (isProd && !isStage) "org" else "dev"} - ${trans.freeOnlineShogi.txt()}"
+        s"lishogi.${if (isProd) "org" else "dev"} - ${trans.freeOnlineShogi.txt()}"
       },
       moreJs = frag(
         moduleJsTag(
