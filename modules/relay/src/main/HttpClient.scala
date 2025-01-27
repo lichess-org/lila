@@ -43,10 +43,17 @@ private final class HttpClient(
   ): Fu[(Option[Body], Option[Etag])] =
     val req = etag.foldLeft(toRequest(url))((req, etag) => req.addHttpHeaders("If-None-Match" -> etag))
     fetchResponse(req).map: res =>
-      val newEtag = res.header("Etag")
+      val newEtag = extractEtagValue(res)
       if res.status == 304
       then none                         -> newEtag.orElse(etag)
       else decodeResponseBody(res).some -> newEtag
+
+  // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag#w
+  private def extractEtagValue(res: StandaloneWSResponse): Option[Etag] =
+    res
+      .header("Etag")
+      .map: etag =>
+        if etag.startsWith("W/\"") then etag.drop(3).dropRight(1) else etag
 
   private def fetchResponse(req: StandaloneWSRequest): Fu[StandaloneWSResponse] =
     Future
