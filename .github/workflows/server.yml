@@ -37,4 +37,4 @@ jobs:
           java-version: 17
           cache: sbt
       - uses: sbt/setup-sbt@v1
-      - run: ./lila.sh -Depoll=true "compile;test;scalafmtCheck;"
+      - run: ./lila.sh "compile;test;scalafmtCheck;"

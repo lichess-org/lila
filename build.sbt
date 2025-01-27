@@ -1,5 +1,4 @@
 import BuildSettings._
-import Dependencies._
 
 PlayKeys.playDefaultPort                       := 9663
 PlayKeys.externalizeResources                  := false
@@ -10,21 +9,11 @@ routesGenerator                                := LilaRoutesGenerator
 maintainer                                     := "contact@lishogi.org"
 
 lazy val root = Project("lila", file("."))
-  .enablePlugins(PlayScala, if (useEpoll) PlayNettyServer else PlayAkkaHttpServer)
-  .disablePlugins(if (useEpoll) PlayAkkaHttpServer else PlayNettyServer)
+  .enablePlugins(PlayScala)
   .dependsOn(moduleCPDeps: _*)
   .aggregate(moduleRefs: _*)
   .settings(
-    libraryDependencies ++= baseLibs ++ Seq(
-      reactivemongo.driver,
-      prismic,
-      kamon.influxdb,
-      kamon.metrics,
-      kamon.prometheus,
-    ) ++ {
-      if (useEpoll) Seq(epoll, reactivemongo.epoll)
-      else Seq.empty
-    },
+    libraryDependencies ++= rootLibs,
     buildSettings,
   )
 

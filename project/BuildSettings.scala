@@ -5,16 +5,14 @@ object BuildSettings {
 
   import Dependencies._
 
-  val lilaVersion        = "3.0"
+  val globalLilaVersion  = "3.0"
+  val globalOrganization = "org.lishogi"
   val globalScalaVersion = "2.13.16"
-
-  val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
-  if (useEpoll) println("--- epoll build ---")
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
-      version      := lilaVersion,
-      organization := "org.lishogi",
+      version      := globalLilaVersion,
+      organization := globalOrganization,
       scalaVersion := globalScalaVersion,
       resolvers ++= Dependencies.Resolvers.commons,
       scalacOptions ++= compilerOptions,
@@ -22,37 +20,50 @@ object BuildSettings {
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false,
       Compile / run / fork                   := true,
-      javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
+      Compile / run / javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
     )
 
-  def baseLibs: Seq[ModuleID] = akka.bundle ++ macwire.bundle ++ reactivemongo.bundle ++ Seq(
+  def baseLibs: Seq[ModuleID] = Seq(
+    akka.actor,
+    akka.typed,
+    akka.stream,
+    akka.slf4j,
     play.core,
     play.ws,
     play.json,
-    play.jodaForms,
     play.specs2,
-    scalatags,
-    cats,
-    alleycats,
-    shogi,
+    reactivemongo.driver,
+    reactivemongo.stream,
+    cats.core,
+    cats.alleycats,
+    macwire.macros,
+    macwire.util,
     jodaTime,
+    apacheText,
+    shogi,
     scaffeine,
     autoconfig,
-    kamon.core,
   )
 
-  lazy val moduleDepsMap = Map(
-    "api"      -> Seq(hasher, kamon.influxdb),
-    "common"   -> flexmark.bundle,
-    "blog"     -> Seq(prismic),
-    "db"       -> Seq(hasher, scrimage),
-    "memo"     -> Seq(akka.testkit),
-    "oauth"    -> Seq(galimatias, hasher),
-    "push"     -> Seq(googleOAuth),
-    "security" -> Seq(maxmind, hasher, uaparser),
-    "socket"   -> Seq(lettuce),
-    "user"     -> Seq(hasher),
-  )
+  def extraLibs(name: String) =
+    name match {
+      case "api" => Seq(hasher, galimatias)
+      case "common" => {
+        Seq(play.jodaForms, scalatags, kamon.core) ++ flexmark.bundle
+      }
+      case "blog"     => Seq(prismic)
+      case "db"       => Seq(hasher, scrimage)
+      case "i18n"     => Seq(scalatags)
+      case "memo"     => Seq(akka.testkit)
+      case "oauth"    => Seq(galimatias, hasher)
+      case "push"     => Seq(googleOAuth)
+      case "security" => Seq(hasher, maxmind, uaparser, scalatags)
+      case "socket"   => Seq(lettuce)
+      case "user"     => Seq(hasher)
+      case _          => Seq.empty
+    }
+
+  def rootLibs = baseLibs ++ Seq(scalatags, prismic, kamon.influxdb, kamon.metrics, kamon.prometheus)
 
   def module(
       name: String,
@@ -63,10 +74,15 @@ object BuildSettings {
       file("modules/" + name),
     ).dependsOn(deps: _*)
       .settings(
-        libraryDependencies ++= baseLibs ++ moduleDepsMap.getOrElse(name, Seq.empty),
+        libraryDependencies ++= baseLibs ++ extraLibs(name),
         buildSettings,
         srcMain,
       )
+
+  val srcMain = Seq(
+    Compile / scalaSource := (Compile / sourceDirectory).value,
+    Test / scalaSource    := (Test / sourceDirectory).value,
+  )
 
   val compilerOptions = Seq(
     "-encoding",
@@ -106,11 +122,6 @@ object BuildSettings {
     "-Wmacros:after",
     "-Wvalue-discard",
     "-Werror",
-  )
-
-  val srcMain = Seq(
-    Compile / scalaSource := (Compile / sourceDirectory).value,
-    Test / scalaSource    := (Test / sourceDirectory).value,
   )
 
 }

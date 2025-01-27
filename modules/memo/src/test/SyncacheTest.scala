@@ -16,9 +16,7 @@ class SyncacheTest extends TestKit(ActorSystem()) with SpecificationLike with Af
 
   implicit val ec: ExecutionContext = system.dispatcher
 
-  lila.mon.start(false)
-
-  "Syncache" should {
+  "syncache" should {
     "be thread safe" in {
       var computeCount = 0
       val cache = new Syncache[Int, String](

@@ -35,8 +35,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
     s"lila / java ${java}, memory: ${mem}MB"
   }
 
-  lila.mon.start(configuration.get[Boolean]("kamon.enabled"))
-
   import _root_.controllers._
 
   // we want to use the legacy session cookie baker
@@ -155,6 +153,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
 
   if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")
-    kamon.Kamon.loadModules()
+    kamon.Kamon.init()
   }
 }
