@@ -984,6 +984,7 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="focusChat">Fokus på samtale</string>
   <string name="showHelpDialog">Vis denne hjelpedialogen</string>
   <string name="reopenYourAccount">Gjenopprett kontoen din</string>
+  <string name="reopenYourAccountDescription">Hvis du angrer på at du har avsluttet kontoen din, kan du gjenopprette den.</string>
   <string name="emailAssociatedToaccount">E-postadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg en e-post med en lenke.</string>
   <string name="tournamentEntryCode">Turneringsadgangskode</string>
