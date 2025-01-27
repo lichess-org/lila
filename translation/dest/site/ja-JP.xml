@@ -940,6 +940,7 @@
   <string name="focusChat">チャットにフォーカス</string>
   <string name="showHelpDialog">このヘルプダイアログを表示</string>
   <string name="reopenYourAccount">アカウントを再開する</string>
+  <string name="reopenYourAccountDescription">アカウントを閉鎖して、後で気が変わった場合、一度だけアカウントを再開することができます。</string>
   <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
   <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>
   <string name="tournamentEntryCode">トーナメント参加コード</string>

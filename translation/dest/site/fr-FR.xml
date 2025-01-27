@@ -945,8 +945,8 @@
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
   <string name="clickToRevealEmailAddress">[Cliquer pour révéler l\'adresse courriel]</string>
   <string name="download">Télécharger</string>
-  <string name="coachManager">Configuration des paramètres Coach</string>
-  <string name="streamerManager">Configuration des paramètres Streamer</string>
+  <string name="coachManager">Config. param. coach</string>
+  <string name="streamerManager">Config. param. streamer</string>
   <string name="cancelTournament">Annuler le tournoi</string>
   <string name="tournDescription">Description du tournoi</string>
   <string name="tournDescriptionHelp">Quelque chose de spécial à dire aux participants ? Soyez bref. Des liens Markdown sont disponibles : [name](https://url)</string>
@@ -984,6 +984,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="focusChat">Priorité au salon de discussion</string>
   <string name="showHelpDialog">Afficher cette boîte de dialogue</string>
   <string name="reopenYourAccount">Rouvrir votre compte</string>
+  <string name="reopenYourAccountDescription">Vous avez fermé votre compte, mais vous avez changé d\'idée? Vous avez une chance de le récupérer.</string>
   <string name="emailAssociatedToaccount">Adresse courriel associée à votre compte</string>
   <string name="sentEmailWithLink">Nous vous avons envoyé un courriel avec un lien.</string>
   <string name="tournamentEntryCode">Code d\'entrée du tournoi</string>

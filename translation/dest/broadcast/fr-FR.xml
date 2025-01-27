@@ -80,4 +80,5 @@
   <string name="optionalDetails">Informations facultatives</string>
   <string name="pastBroadcasts">Diffusions passées</string>
   <string name="allBroadcastsByMonth">Voir les diffusions par mois</string>
+  <string name="backToLiveMove">Retour au coup en direct</string>
 </resources>
