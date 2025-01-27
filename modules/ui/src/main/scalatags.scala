@@ -24,6 +24,7 @@ trait ScalatagsAttrs:
   val novalidate             = attr("novalidate").empty
   val dataBotAttr            = attr("data-bot").empty
   val dataUser               = attr("data-user")
+  val dataUsername           = attr("data-username")
   val deferAttr              = attr("defer").empty
   val downloadAttr           = attr("download").empty
   val viewBoxAttr            = attr("viewBox")

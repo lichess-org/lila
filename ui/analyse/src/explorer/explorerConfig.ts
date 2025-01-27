@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { myUserId, type Prop, prop } from 'common';
+import { myUsername, type Prop, prop } from 'common';
 import * as licon from 'common/licon';
 import { type Dialog, snabDialog } from 'common/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
@@ -53,7 +53,7 @@ export class ExplorerConfigCtrl {
     readonly onClose: () => void,
     previous?: ExplorerConfigCtrl,
   ) {
-    this.myName = myUserId();
+    this.myName = myUsername();
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
       name => name && name !== this.myName,
     );
@@ -93,6 +93,18 @@ export class ExplorerConfigCtrl {
   selectPlayer = (name?: string) => {
     name = name === 'me' ? this.myName : name;
     if (!name) return;
+    if (name === name.toLowerCase()) {
+      /* If the user provides a lowercase version of a username that already
+         exists in the personal opening explorer, don't make a new button and instead
+         just use the existing one. */
+      name =
+        [
+          ...this.data.playerName.previous(),
+          this.data.playerName.value(),
+          this.myName,
+          ...this.participants,
+        ].find(x => x?.toLowerCase() === name!.toLowerCase()) ?? name;
+    }
     if (name !== this.myName && !this.participants.includes(name)) {
       const previous = this.data.playerName.previous().filter(n => n !== name);
       previous.unshift(name);
