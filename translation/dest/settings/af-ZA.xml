@@ -4,5 +4,7 @@
   <string name="closeAccount">Sluit rekening</string>
   <string name="managedAccountCannotBeClosed">Jou rekening word bestuur en kan nie gesluit word nie.</string>
   <string name="cantOpenSimilarAccount">Jy sal nie toegelaat word om \'n nuwe rekening met dieselfde naam te open nie, selfs al is die hoof- en kleinletters verskillend.</string>
+  <string name="cancelKeepAccount">Kanselleer en hou my rekening</string>
+  <string name="closeAccountAreYouSure">Is jy seker jy wil jou rekening sluit?</string>
   <string name="thisAccountIsClosed">Hierdie rekening is gesluit.</string>
 </resources>
