@@ -240,7 +240,7 @@ object RelayRoundForm:
         nextAt = none,
         period = if Granter(_.StudyAdmin) then period else prev.flatMap(_.period),
         delay = delay,
-        onlyRound = onlyRound,
+        onlyRound = onlyRound.ifFalse(upstream.exists(_.isInternal)),
         slices = slices,
         log = SyncLog.empty
       )

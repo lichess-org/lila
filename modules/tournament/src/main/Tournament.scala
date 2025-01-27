@@ -24,7 +24,7 @@ case class Tournament(
     teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
     noStreak: Boolean = false,
-    schedule: Option[Schedule],
+    schedule: Option[Scheduled],
     nbPlayers: Int,
     createdAt: Instant,
     createdBy: UserId,
@@ -50,19 +50,15 @@ case class Tournament(
     if isMarathon || isUnique then name
     else if isTeamBattle && full then lila.core.i18n.I18nKey.tourname.xTeamBattle.txt(name)
     else if isTeamBattle then name
-    else schedule.fold(if full then s"$name Arena" else name)(_.name(full))
+    else TournamentName(this, full)
 
-  def isMarathon =
-    schedule.map(_.freq).exists {
-      case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
-      case _                                                           => false
-    }
+  def scheduleFreq: Option[Schedule.Freq]   = schedule.map(_.freq)
+  def scheduleSpeed: Option[Schedule.Speed] = schedule.isDefined.option(Schedule.Speed.fromClock(clock))
+  def scheduleData: Option[(Schedule.Freq, Schedule.Speed)] = (scheduleFreq, scheduleSpeed).tupled
 
-  def isShield = schedule.map(_.freq).has(Schedule.Freq.Shield)
-
-  def isUnique = schedule.map(_.freq).has(Schedule.Freq.Unique)
-
-  def isMarathonOrUnique = isMarathon || isUnique
+  def isMarathon = scheduleFreq.has(Schedule.Freq.Marathon)
+  def isShield   = scheduleFreq.has(Schedule.Freq.Shield)
+  def isUnique   = scheduleFreq.has(Schedule.Freq.Unique)
 
   def isScheduled = schedule.isDefined
 
@@ -86,10 +82,9 @@ case class Tournament(
 
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
-  def isStillWorthEntering =
-    isMarathonOrUnique || {
-      secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
-    }
+  def isStillWorthEntering = isMarathon || isUnique || {
+    secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
+  }
 
   def finishedSinceSeconds: Option[Long] = isFinished.option(nowSeconds - finishesAt.toSeconds)
 
@@ -107,10 +102,9 @@ case class Tournament(
 
   def overlaps(other: Tournament) = interval.overlaps(other.interval)
 
-  def similarTo(other: Tournament) =
-    (schedule, other.schedule) match
-      case (Some(s1), Some(s2)) if s1.similarTo(s2) => true
-      case _                                        => false
+  def similarSchedule(other: Tournament) =
+    schedule.isDefined && variant == other.variant && conditions == other.conditions &&
+      scheduleFreq == other.scheduleFreq && scheduleSpeed == other.scheduleSpeed
 
   def sameNameAndTeam(other: Tournament) =
     name == other.name && conditions.teamMember == other.conditions.teamMember
@@ -196,7 +190,7 @@ object Tournament:
   def scheduleAs(sched: Schedule, startsAt: Instant, minutes: Int)(using Translate) =
     Tournament(
       id = makeId,
-      name = sched.name(full = false),
+      name = TournamentName(sched, full = false),
       status = Status.Created,
       clock = Schedule.clockFor(sched),
       minutes = minutes,
@@ -207,7 +201,7 @@ object Tournament:
       position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
-      schedule = sched.some,
+      schedule = Scheduled(sched.freq, sched.at).some,
       startsAt = startsAt
     )
 

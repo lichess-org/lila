@@ -4,5 +4,7 @@
   <string name="closeAccount">Sulje tili</string>
   <string name="managedAccountCannotBeClosed">Käyttäjätunnuksesi on hallinnassa, eikä sitä voi sulkea.</string>
   <string name="cantOpenSimilarAccount">Et voi luoda uutta käyttäjätunnusta samalla nimellä, et vaikka muuttaisit isoja kirjaimia pieniksi tai päinvastoin.</string>
+  <string name="cancelKeepAccount">Peruuta ja säilytä tunnukseni</string>
+  <string name="closeAccountAreYouSure">Oletko varma, että haluat sulkea käyttäjätunnuksesi?</string>
   <string name="thisAccountIsClosed">Tämä tunnus on suljettu.</string>
 </resources>

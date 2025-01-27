@@ -984,6 +984,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="focusChat">Kohdista keskusteluun</string>
   <string name="showHelpDialog">Näytä tämä ohjevalintaikkuna</string>
   <string name="reopenYourAccount">Avaa käyttäjätunnuksesi uudelleen</string>
+  <string name="reopenYourAccountDescription">Jos olet sulkenut käyttäjätunnuksesi mutta sen jälkeen muuttanut mieltäsi, saat mahdollisuuden palauttaa tunnuksesi.</string>
   <string name="emailAssociatedToaccount">Tunnukseen kuuluva sähköpostiosoite</string>
   <string name="sentEmailWithLink">Olemme lähettäneet sinulle sähköpostin, jossa on linkki.</string>
   <string name="tournamentEntryCode">Turnauksen sisäänpääsykoodi</string>

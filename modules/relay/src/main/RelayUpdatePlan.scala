@@ -15,6 +15,11 @@ object RelayUpdatePlan:
       append: RelayGames,
       orphans: List[Chapter] // existing chapters that don't match any of the input games
   ):
+    def isJustInitialChapterUpdate =
+      input.chapters.sizeIs == 1 &&
+        input.chapters.headOption.forall(_.isEmptyInitial) &&
+        update.sizeIs == 1 && append.isEmpty && orphans.isEmpty
+
     override def toString: String =
       s"Output(reorder = $reorder, update = ${update.map(_._1.name)}, append = ${append.map(_.tags.names)})"
 
