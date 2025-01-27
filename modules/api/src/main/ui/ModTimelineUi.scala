@@ -65,12 +65,13 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def renderEventBody(t: ModTimeline)(e: Event)(using Translate): Frag =
     e match
-      case e: Modlog        => renderModlog(t.user)(e)
-      case e: AppealMsg     => renderAppeal(t)(e)
-      case e: Note          => renderNote(e)
-      case e: ReportNewAtom => renderReportNew(e)
-      case e: PlayBans      => renderPlayBans(e)
-      case e: PublicLine    => renderPublicLine(e)
+      case e: Modlog           => renderModlog(t.user)(e)
+      case e: AppealMsg        => renderAppeal(t)(e)
+      case e: Note             => renderNote(e)
+      case e: ReportNewAtom    => renderReportNew(e)
+      case e: PlayBans         => renderPlayBans(e)
+      case e: PublicLine       => renderPublicLine(e)
+      case AccountCreation(at) => renderAccountCreation(t.user, at)
 
   private def renderMod(userId: ModId)(using Translate) =
     if userId.is(UserId.lichess) then span(iconFlair(Flair("smileys.robot")), "Lichess")
@@ -167,4 +168,10 @@ final class ModTimelineUi(helpers: Helpers)(
       renderMod(n.from.into(ModId)),
       div(cls := "mod-timeline__text"):
         richText(n.text)
+    )
+
+  private def renderAccountCreation(user: User, at: Instant)(using Translate) =
+    frag(
+      renderUser(user.id),
+      "signs up"
     )

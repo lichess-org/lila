@@ -26,8 +26,9 @@ case class ModTimeline(
       a.msgs.toList.takeWhile: msg =>
         a.mutedSince.fold(true)(msg.at.isBefore)
     val playBans: List[Event] = playbanRecord.so(_.bans.toList).map(pb => PlayBans(NonEmptyList.one(pb)))
+    val accountCreation: List[Event] = List(AccountCreation(user.createdAt))
     val concat: List[Event] =
-      modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: flaggedPublicLines
+      modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: flaggedPublicLines ::: accountCreation
     // latest first
     concat.sorted(using Ordering.by(at).reverse)
 
@@ -36,8 +37,9 @@ object ModTimeline:
   case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom]):
     def like(r: Report): Boolean = report.room == r.room
   case class PlayBans(list: NonEmptyList[TempBan])
+  case class AccountCreation(at: Instant)
 
-  type Event = Modlog | AppealMsg | Note | ReportNewAtom | PlayBans | PublicLine
+  type Event = Modlog | AppealMsg | Note | ReportNewAtom | PlayBans | PublicLine | AccountCreation
 
   def aggregateEvents(events: List[Event]): List[Event] =
     events.foldLeft(List.empty[Event])(mergeMany)
@@ -70,12 +72,13 @@ object ModTimeline:
 
   extension (e: Event)
     def key: String = e match
-      case _: Modlog        => "modlog"
-      case _: AppealMsg     => "appeal"
-      case _: Note          => "note"
-      case _: ReportNewAtom => "report-new"
-      case _: PlayBans      => "playban"
-      case _: PublicLine    => "flagged-line"
+      case _: Modlog          => "modlog"
+      case _: AppealMsg       => "appeal"
+      case _: Note            => "note"
+      case _: ReportNewAtom   => "report-new"
+      case _: PlayBans        => "playban"
+      case _: PublicLine      => "flagged-line"
+      case _: AccountCreation => "account-creation"
     def flair: Flair = Flair:
       e match
         case e: Modlog =>
@@ -88,11 +91,12 @@ object ModTimeline:
           else if Modlog.isSentence(e.action) then "objects.hammer"
           else if Modlog.isUndo(e.action) then "symbols.recycling-symbol"
           else "objects.wrench"
-        case _: AppealMsg     => "symbols.left-speech-bubble"
-        case _: Note          => "objects.label"
-        case _: ReportNewAtom => "symbols.exclamation-mark"
-        case _: PlayBans      => "objects.hourglass-not-done"
-        case _: PublicLine    => "symbols.exclamation-mark"
+        case _: AppealMsg       => "symbols.left-speech-bubble"
+        case _: Note            => "objects.label"
+        case _: ReportNewAtom   => "symbols.exclamation-mark"
+        case _: PlayBans        => "objects.hourglass-not-done"
+        case _: PublicLine      => "symbols.exclamation-mark"
+        case _: AccountCreation => "food-drink.egg" // how is egg in "food" instead of "animal"
     def at: Instant = e match
       case e: Modlog               => e.date
       case e: AppealMsg            => e.at
@@ -100,6 +104,7 @@ object ModTimeline:
       case ReportNewAtom(_, atoms) => atoms.head.at
       case e: PlayBans             => e.list.head.date
       case e: PublicLine           => e.date
+      case AccountCreation(at)     => at
     def url(u: User): String = e match
       case _: AppealMsg => routes.Appeal.show(u.username).url
       case _: Note      => s"${routes.User.show(u.username)}?notes=1"
