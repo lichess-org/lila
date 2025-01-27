@@ -68,4 +68,5 @@
   <string name="notifyWeb">Браузър</string>
   <string name="notifyDevice">Устройство</string>
   <string name="bellNotificationSound">Мелодия за известия</string>
+  <string name="blindfold" comment="As in Blindfold chess">Блинд</string>
 </resources>
