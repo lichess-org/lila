@@ -16,9 +16,6 @@ Disallow: /games/export/
 Disallow: /api/
 Disallow: /opening/config/
 Allow: /game/export/gif/thumbnail/
-
-User-agent: Twitterbot
-Allow: /
 """
 
   def manifest(net: NetConfig) =
