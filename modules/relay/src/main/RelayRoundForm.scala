@@ -285,7 +285,7 @@ object RelayRoundForm:
         startsAfterPrevious = relay.startsAfterPrevious.option(true),
         finished = relay.isFinished.option(true),
         period = relay.sync.period,
-        onlyRound = relay.sync.onlyRound,
+        onlyRound = relay.sync.onlyRound.ifFalse(relay.sync.upstream.exists(_.isInternal)),
         slices = relay.sync.slices,
         delay = relay.sync.delay
       )
