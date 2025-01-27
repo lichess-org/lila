@@ -81,4 +81,5 @@
   <string name="optionalDetails">Detalii opționale</string>
   <string name="pastBroadcasts">Transmisii anterioare</string>
   <string name="allBroadcastsByMonth">Vezi toate transmisiunile pe fiecare lună</string>
+  <string name="backToLiveMove">Înapoi la mutarea live</string>
 </resources>

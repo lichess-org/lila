@@ -4,5 +4,7 @@
   <string name="closeAccount">アカウント停止</string>
   <string name="managedAccountCannotBeClosed">あなたのアカウントは別の人が管理しており、自分では停止できません。</string>
   <string name="cantOpenSimilarAccount">同じ名前（大文字・小文字が違っていても）で別のアカウントを作ることもできません。</string>
+  <string name="cancelKeepAccount">キャンセルしてアカウントを保持する</string>
+  <string name="closeAccountAreYouSure">ほんとうにアカウントを閉鎖しますか？</string>
   <string name="thisAccountIsClosed">このアカウントは停止されました</string>
 </resources>
