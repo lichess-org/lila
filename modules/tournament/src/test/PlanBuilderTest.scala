@@ -79,6 +79,17 @@ class PlanBuilderTest extends munit.FunSuite:
     // Try building against with existing tourney. Nothing new should be created.
     assert(clue(PlanBuilder.getNewTourneys(t1, List(p1, p2))).isEmpty)
 
+  test("Plan overlap, superblitz"):
+    val dt1 = LocalDateTime.of(2024, 9, 30, 12, 0)
+    val p1  = Schedule(Daily, SuperBlitz, Standard, None, dt1).plan
+    val p2  = Schedule(Hourly, SuperBlitz, Standard, None, dt1).plan
+    val t1  = PlanBuilder.getNewTourneys(Nil, List(p1, p2))
+    assertEquals(t1.length, 1, "Expected exactly one tourney!")
+    assert(clue(t1.head.schedule.get).freq.isDaily)
+
+    // Try building against with existing tourney. Nothing new should be created.
+    assert(clue(PlanBuilder.getNewTourneys(t1, List(p1, p2))).isEmpty)
+
   test("Overlap from stagger"):
     val dt1         = LocalDateTime.of(2024, 9, 30, 12, 0)
     val p1          = Schedule(Daily, Bullet, Standard, None, dt1).plan
