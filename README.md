@@ -3,7 +3,8 @@
 [![Build server](https://github.com/lichess-org/lila/actions/workflows/server.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/server.yml)
 [![Build assets](https://github.com/lichess-org/lila/actions/workflows/assets.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/assets.yml)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
-[![Twitter](https://img.shields.io/badge/Twitter-%40lichess-blue.svg)](https://twitter.com/lichess)
+[![Mastodon](https://img.shields.io/mastodon/follow/109298525492334687)](https://mastodon.online/@lichess)
+[![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff)](https://bsky.app/profile/lichess.org)
 [![Discord](https://img.shields.io/discord/280713822073913354?label=Discord&logo=discord&style=flat)](https://discord.gg/lichess)
 
 <img src="https://raw.githubusercontent.com/lichess-org/lila/master/public/images/home-bicolor.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
