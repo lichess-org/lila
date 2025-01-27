@@ -50,17 +50,17 @@ final class TournamentFeaturing(
             }
 
     private def canShowOnHomepage(tour: Tournament): Boolean =
-      tour.schedule.exists: schedule =>
+      tour.schedule.exists: freq =>
         tour.startsAt.isBefore(nowInstant.plusMinutes:
           import Schedule.Freq.*
-          val base = schedule.freq match
+          val base = freq match
             case Unique => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)((_: Int) * 60)
             case Unique | Yearly | Marathon => 24 * 60
             case Monthly | Shield           => 6 * 60
             case Weekly | Weekend           => 3 * 45
             case Daily                      => 1 * 30
             case _                          => 20
-          if tour.variant.exotic && schedule.freq != Unique then base / 3 else base)
+          if tour.variant.exotic && freq != Unique then base / 3 else base)
 
   private def visibleForTeams(teamIds: List[TeamId], aheadMinutes: Int, page: String): Fu[List[Tournament]] =
     teamIds.nonEmpty.so:

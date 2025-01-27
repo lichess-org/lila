@@ -119,7 +119,7 @@ final class JsonView(
           .add("noStreak" -> tour.noStreak)
           .add("position" -> tour.position.ifTrue(full).map(position))
           .add("verdicts" -> verdicts.map(verdictsFor(_, tour.perfType)))
-          .add("schedule" -> tour.schedule.map(scheduleJson))
+          .add("schedule" -> tour.scheduleData.map(scheduleJson))
           .add("private" -> tour.isPrivate)
           .add("quote" -> tour.isCreated.option(lila.quote.Quote.one(tour.id.value)))
           .add("defender" -> shieldOwner)
@@ -549,10 +549,10 @@ object JsonView:
       .add("scores", withScores.option(s.scoresToString))
       .add("fire", streakFire && s.isOnFire)
 
-  private[tournament] def scheduleJson(s: Schedule) =
+  private[tournament] def scheduleJson(freq: Schedule.Freq, speed: Schedule.Speed) =
     Json.obj(
-      "freq"  -> s.freq.name,
-      "speed" -> s.speed.key
+      "freq"  -> freq.name,
+      "speed" -> speed.key
     )
 
   given OWrites[chess.Clock.Config] = OWrites: clock =>

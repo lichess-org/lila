@@ -24,8 +24,8 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
       chat: Option[(Frag, JsObject)],
       streamers: Frag
   )(using ctx: Context) =
-    val extraCls = tour.schedule.so: sched =>
-      s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
+    val extraCls = tour.scheduleData.so: (freq, speed) =>
+      s" tour-sched tour-sched-${freq.name} tour-speed-${speed.name} tour-variant-${tour.variant.key} tour-id-${tour.id}"
     Page(s"${tour.name()} #${tour.id}")
       .i18n(_.study, _.swiss)
       .i18nOpt(tour.isTeamBattle, _.team)

@@ -52,8 +52,7 @@ final private class LeaderboardIndexer(
           score = player.score,
           rank = rank,
           rankRatio = Ratio(if tour.nbPlayers > 0 then rank.value.toDouble / tour.nbPlayers else 0),
-          freq = tour.schedule.map(_.freq),
-          speed = tour.schedule.map(_.speed),
+          freq = tour.schedule,
           perf = tour.perfType,
           date = tour.startsAt
         )

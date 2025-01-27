@@ -251,11 +251,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         _.flatMap { tour =>
           tour.schedule.map(tour -> _)
         }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
-          case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
-          case ((tours, skip), (tour, sched)) =>
+          case ((tours, skip), (_, freq)) if skip.has(freq) => (tours, skip)
+          case ((tours, skip), (tour, freq)) =>
             (
               tour :: tours,
-              sched.freq match
+              freq match
                 case Schedule.Freq.Daily   => Schedule.Freq.Eastern.some
                 case Schedule.Freq.Eastern => Schedule.Freq.Daily.some
                 case _                     => skip

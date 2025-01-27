@@ -84,7 +84,7 @@ final class WinnersApi(
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours
       .find: t =>
-        t.variant.standard && t.schedule.exists(_.speed == speed)
+        t.variant.standard && t.scheduleSpeed.has(speed)
       .flatMap(_.winner)
 
   private def firstVariantWinner(tours: List[Tournament], variant: Variant): Option[Winner] =
@@ -134,7 +134,7 @@ final class WinnersApi(
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament): Unit =
-    if tour.schedule.exists(_.freq.isDailyOrBetter) then
+    if tour.schedule.exists(_.isDailyOrBetter) then
       scheduler.scheduleOnce(5.seconds) { allCache.invalidate {} }
 
   private[tournament] def clearAfterMarking(userId: UserId): Funit = all.map: winners =>

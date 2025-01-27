@@ -21,7 +21,6 @@ class PlanBuilderTest extends munit.FunSuite:
     val plan2    = plan1.copy(startsAt = instant2)
     val tourney  = plan2.build
     assertEquals(tourney.startsAt, instant2)
-    assertEquals(tourney.schedule.get.at, dt1)
 
     val tourneyBsonHandler = BSONHandlers.tourHandler
     val bsonEncoded        = tourneyBsonHandler.write(tourney)
@@ -30,7 +29,6 @@ class PlanBuilderTest extends munit.FunSuite:
     // Test that serialized & deserialized tourney maintains a startAt based on the plan, and
     // maintains a schedule.at based on the original schedule.
     assertEquals(tourney2.startsAt, instant2)
-    assertEquals(tourney2.schedule.get.at, dt1)
 
   test("plansWithStagger & getNewTourneys"):
     val dt = LocalDateTime.of(2024, 9, 30, 12, 0)
@@ -63,8 +61,8 @@ class PlanBuilderTest extends munit.FunSuite:
       "tourneys are not staggered as expected!"
     )
     assertEquals(
-      tourneys.map(_.schedule.get.at),
-      List(dt, dt, dt),
+      tourneys.map(_.startsAt),
+      List(plannedStart, plannedStart, plannedStart),
       "tourneys do not maintain original schedule.at!"
     )
 
@@ -74,7 +72,7 @@ class PlanBuilderTest extends munit.FunSuite:
     val p2  = Schedule(Hourly, Bullet, Standard, None, dt1).plan
     val t1  = PlanBuilder.getNewTourneys(Nil, List(p1, p2))
     assertEquals(t1.length, 1, "Expected exactly one tourney!")
-    assert(clue(t1.head.schedule.get).freq.isDaily)
+    assert(clue(t1.head.schedule.get).isDaily)
 
     // Try building against with existing tourney. Nothing new should be created.
     assert(clue(PlanBuilder.getNewTourneys(t1, List(p1, p2))).isEmpty)
@@ -97,7 +95,7 @@ class PlanBuilderTest extends munit.FunSuite:
 
     // Ensure that new tourney is created even if the stagger conflicts.
     PlanBuilder.getNewTourneys(List(t1), List(p2)) match
-      case List(t2) if t2.schedule.so { _.freq == Hourly } =>
+      case List(t2) if t2.schedule.has(Hourly) =>
         assert(
           clue(t2.startsAt).isBefore(clue(t1.finishesAt)),
           "Tourney schedules should conflict, but do not!"
