@@ -44,13 +44,13 @@ final class TournamentFeaturing(
                 .sortBy(_.startsAt.toSeconds)
                 .foldLeft(List.empty[Tournament]): (acc, tour) =>
                   if !canShowOnHomepage(tour) then acc
-                  else if acc.exists(_.similarTo(tour)) then acc
+                  else if acc.exists(_.similarSchedule(tour)) then acc
                   else tour :: acc
                 .reverse
             }
 
     private def canShowOnHomepage(tour: Tournament): Boolean =
-      tour.schedule.exists: freq =>
+      tour.scheduleFreq.exists: freq =>
         tour.startsAt.isBefore(nowInstant.plusMinutes:
           import Schedule.Freq.*
           val base = freq match

@@ -697,7 +697,7 @@ final class TournamentApi(
   def toggleFeaturing(tourId: TourId, v: Boolean): Funit =
     if v then
       tournamentRepo.byId(tourId).flatMapz { tour =>
-        tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour).some)
+        tournamentRepo.setSchedule(tour.id, Scheduled(Schedule.Freq.Unique, tour.startsAt.dateTime).some)
       }
     else tournamentRepo.setSchedule(tourId, none)
 

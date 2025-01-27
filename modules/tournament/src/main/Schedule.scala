@@ -9,6 +9,8 @@ import chess.IntRating
 import lila.core.i18n.{ I18nKey, Translate }
 import lila.gathering.Condition
 
+case class Scheduled(freq: Schedule.Freq, at: LocalDateTime)
+
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
@@ -22,27 +24,12 @@ case class Schedule(
 
   def sameSpeed(other: Schedule) = speed == other.speed
 
-  def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
-
-  def sameVariant(other: Schedule) = variant.id == other.variant.id
-
-  def sameVariantAndSpeed(other: Schedule) = sameVariant(other) && sameSpeed(other)
-
-  def sameFreq(other: Schedule) = freq == other.freq
-
-  def sameConditions(other: Schedule) = conditions == other.conditions
-
   def sameMaxRating(other: Schedule) = conditions.sameMaxRating(other.conditions)
-
-  def similarConditions(other: Schedule) = conditions.similar(other.conditions)
 
   def sameDay(other: Schedule) = day == other.day
   private def day              = at.withTimeAtStartOfDay
 
   def hasMaxRating = conditions.maxRating.isDefined
-
-  def similarTo(other: Schedule) =
-    similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
 
   def perfKey: PerfKey = PerfKey.byVariant(variant) | Schedule.Speed.toPerfKey(speed)
 
@@ -54,15 +41,6 @@ case class Schedule(
     s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions $initial"
 
 object Schedule:
-
-  def uniqueFor(tour: Tournament) =
-    Schedule(
-      freq = Freq.Unique,
-      speed = Speed.fromClock(tour.clock),
-      variant = tour.variant,
-      position = tour.position,
-      at = tour.startsAt.dateTime
-    )
 
   case class Plan(schedule: Schedule, startsAt: Instant, buildFunc: Option[Tournament => Tournament])
       extends PlanBuilder.ScheduleWithInterval:

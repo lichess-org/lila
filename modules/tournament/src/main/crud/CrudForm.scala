@@ -77,7 +77,7 @@ object CrudForm:
 
     private def withCrud(tour: Tournament) =
       tour.copy(
-        schedule = Schedule.Freq.Unique.some,
+        schedule = Scheduled(freq = Schedule.Freq.Unique, at = tour.startsAt.dateTime).some,
         spotlight = Spotlight(
           headline = headline,
           homepageHours = homepageHours.some.filterNot(0 ==),

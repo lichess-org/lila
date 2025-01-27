@@ -134,7 +134,7 @@ final class WinnersApi(
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament): Unit =
-    if tour.schedule.exists(_.isDailyOrBetter) then
+    if tour.scheduleFreq.exists(_.isDailyOrBetter) then
       scheduler.scheduleOnce(5.seconds) { allCache.invalidate {} }
 
   private[tournament] def clearAfterMarking(userId: UserId): Funit = all.map: winners =>

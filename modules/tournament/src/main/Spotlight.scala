@@ -18,9 +18,9 @@ object Spotlight:
   import Schedule.Freq.*
 
   private given Ordering[Tournament] = Ordering.by[Tournament, (Int, Int)]: tour =>
-    tour.schedule match
-      case Some(schedule) => (schedule.importance, -tour.secondsToStart)
-      case None           => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart)
+    tour.scheduleFreq match
+      case Some(freq) => (freq.importance, -tour.secondsToStart)
+      case None       => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart)
 
   def select(tours: List[Tournament], max: Int)(using me: Option[UserWithPerfs]): List[Tournament] =
     me.foldUse(select(tours))(selectForMe(tours)).topN(max)
@@ -41,9 +41,9 @@ object Spotlight:
       tour.startsAt.minusHours(hours).isBeforeNow
 
   private def automatically(tour: Tournament)(using me: UserWithPerfs): Boolean =
-    tour.isTeamRelated || tour.schedule.so: sched =>
+    tour.isTeamRelated || tour.scheduleFreq.so: freq =>
       def playedSinceWeeks(weeks: Int) = me.perfs(tour.perfType).latest.so(_.plusWeeks(weeks).isAfterNow)
-      sched match
+      freq match
         case Hourly                               => canMaybeJoinLimited(tour) && playedSinceWeeks(2)
         case Daily | Eastern                      => playedSinceWeeks(2)
         case Weekly | Weekend                     => playedSinceWeeks(4)

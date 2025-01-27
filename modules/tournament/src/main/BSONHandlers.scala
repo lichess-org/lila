@@ -23,17 +23,7 @@ object BSONHandlers:
     x => BSONString(x.name)
   )
 
-  private[tournament] given BSONHandler[Schedule.Speed] = tryHandler(
-    { case BSONString(v) => Schedule.Speed(v).toTry(s"No such speed: $v") },
-    x => BSONString(x.key)
-  )
-
-  given BSONWriter[Schedule] = BSONWriter: s =>
-    $doc(
-      "freq"  -> s.freq,
-      "speed" -> s.speed,
-      "at"    -> s.at
-    )
+  given BSONWriter[Scheduled] = Macros.handler
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
@@ -73,7 +63,11 @@ object BSONHandlers:
         teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r.boolD("noBerserk"),
         noStreak = r.boolD("noStreak"),
-        schedule = r.getO[Schedule.Freq]("schedule"),
+        schedule = for
+          doc  <- r.getO[Bdoc]("schedule")
+          freq <- doc.getAsOpt[Schedule.Freq]("freq")
+          at = doc.getAsOpt[LocalDateTime]("at") | startsAt.dateTime
+        yield Scheduled(freq, at),
         nbPlayers = r.int("nbPlayers"),
         createdAt = r.date("createdAt"),
         createdBy = r.getO[UserId]("createdBy") | UserId.lichess,

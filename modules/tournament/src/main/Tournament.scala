@@ -24,7 +24,7 @@ case class Tournament(
     teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
     noStreak: Boolean = false,
-    schedule: Option[Schedule.Freq],
+    schedule: Option[Scheduled],
     nbPlayers: Int,
     createdAt: Instant,
     createdBy: UserId,
@@ -52,19 +52,13 @@ case class Tournament(
     else if isTeamBattle then name
     else TournamentName(this, full)
 
-  def rebuildSchedule: Option[Schedule] = schedule.map: freq =>
-    val speed = Schedule.Speed.fromClock(clock)
-    Schedule(freq, speed, variant, position, startsAt.dateTime, conditions)
-
+  def scheduleFreq: Option[Schedule.Freq]   = schedule.map(_.freq)
   def scheduleSpeed: Option[Schedule.Speed] = schedule.isDefined.option(Schedule.Speed.fromClock(clock))
-  def scheduleData: Option[(Schedule.Freq, Schedule.Speed)] = for
-    freq <- schedule
-    speed = Schedule.Speed.fromClock(clock)
-  yield (freq, speed)
+  def scheduleData: Option[(Schedule.Freq, Schedule.Speed)] = (scheduleFreq, scheduleSpeed).tupled
 
-  def isMarathon = schedule.has(Schedule.Freq.Marathon)
-  def isShield   = schedule.has(Schedule.Freq.Shield)
-  def isUnique   = schedule.has(Schedule.Freq.Unique)
+  def isMarathon = scheduleFreq.has(Schedule.Freq.Marathon)
+  def isShield   = scheduleFreq.has(Schedule.Freq.Shield)
+  def isUnique   = scheduleFreq.has(Schedule.Freq.Unique)
 
   def isScheduled = schedule.isDefined
 
@@ -108,10 +102,9 @@ case class Tournament(
 
   def overlaps(other: Tournament) = interval.overlaps(other.interval)
 
-  def similarTo(other: Tournament) =
-    (rebuildSchedule, other.rebuildSchedule) match
-      case (Some(s1), Some(s2)) if s1.similarTo(s2) => true
-      case _                                        => false
+  def similarSchedule(other: Tournament) =
+    schedule.isDefined && variant == other.variant && conditions == other.conditions &&
+      scheduleFreq == other.scheduleFreq && scheduleSpeed == other.scheduleSpeed
 
   def sameNameAndTeam(other: Tournament) =
     name == other.name && conditions.teamMember == other.conditions.teamMember
@@ -208,7 +201,7 @@ object Tournament:
       position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
-      schedule = sched.freq.some,
+      schedule = Scheduled(sched.freq, sched.at).some,
       startsAt = startsAt
     )
 
