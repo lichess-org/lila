@@ -73,7 +73,8 @@ final class ModTimelineUi(helpers: Helpers)(
       case e: PublicLine    => renderPublicLine(e)
 
   private def renderMod(userId: ModId)(using Translate) =
-    userIdLink(userId.some, withTitle = false, modIcon = true)
+    if userId.is(UserId.lichess) then span(iconFlair(Flair("smileys.robot")), "Lichess")
+    else userIdLink(userId.some, withTitle = false, modIcon = true)
   private def renderUser(userId: UserId)(using Translate) =
     userIdLink(userId.some, withTitle = false)
 
