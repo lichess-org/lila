@@ -502,12 +502,18 @@ const onInsertHandler = (callback: () => void, el: HTMLElement) => {
 
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;
+  const relayGroups = study?.relay?.data.group;
   return (
     study &&
     h('div.study-details', [
       h('h2', 'Study details'),
       h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
+      relayGroups &&
+        h('div.relayGroups', [
+          h('h2', 'Relay groups'),
+          ...relayGroups.tours.map(tour => h('a', { attrs: { href: `/broadcast/-/${tour.id}` } }, tour.name)),
+        ]),
       h('label.chapters', [
         h('h2', 'Current chapter:'),
         h(
