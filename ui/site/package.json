@@ -16,22 +16,20 @@
   },
   "build": {
     "bundle": [
-      "src/site.lpvEmbed.ts",
-      "src/site.puzzleEmbed.ts",
-      "src/site.tvEmbed.ts",
+      "src/site.*Embed.ts",
       {
         "module": "src/site.ts",
         "inline": "src/site.inline.ts"
       }
     ],
     "sync": {
-      "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "public/npm"
+      "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "/public/npm"
     },
     "hash": [
-      "lifat/background/montage*.webp",
-      "npm/*",
-      "javascripts/**",
-      "piece-css/*"
+      "/public/lifat/background/montage*.webp",
+      "/public/npm/*",
+      "/public/javascripts/**",
+      "/public/piece-css/*"
     ]
   }
 }

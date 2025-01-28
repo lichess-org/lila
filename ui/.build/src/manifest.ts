@@ -1,36 +1,59 @@
 import cps from 'node:child_process';
-import path from 'node:path';
+import p from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { env, c, warnMark } from './env.ts';
-import { allSources as allCssSources } from './sass.ts';
 import { jsLogger } from './console.ts';
-import { shallowSort, isEquivalent } from './algo.ts';
+import { glob } from './parse.ts';
+import { taskOk } from './task.ts';
+import { shallowSort, isEquivalent, isContained } from './algo.ts';
 
-type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string; mtime?: number };
-export type Manifest = { [key: string]: SplitAsset };
-
+const manifest: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
+  i18n: {},
+  js: {},
+  css: {},
+  hashed: {},
+  dirty: false,
+};
 let writeTimer: NodeJS.Timeout;
 
-export function stopManifest(): void {
+type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string };
+
+export type Manifest = { [key: string]: SplitAsset };
+export type ManifestUpdate = Partial<typeof manifest> & { merge?: boolean };
+
+export function stopManifest(clear = false): void {
   clearTimeout(writeTimer);
+  if (clear) {
+    manifest.i18n = manifest.js = manifest.css = manifest.hashed = {};
+    manifest.dirty = false;
+  }
 }
 
-export function updateManifest(update: Partial<typeof env.manifest> = {}): void {
-  if (update?.dirty) env.manifest.dirty = true;
-  for (const key of Object.keys(update ?? {}) as (keyof typeof env.manifest)[]) {
-    if (key === 'dirty' || isEquivalent(env.manifest[key], update?.[key])) continue;
-    env.manifest[key] = shallowSort({ ...env.manifest[key], ...update?.[key] });
-    env.manifest.dirty = true;
+export function updateManifest(update: ManifestUpdate = {}): void {
+  if (update.dirty) manifest.dirty = true;
+
+  for (const key of Object.keys(update) as (keyof ManifestUpdate)[]) {
+    if (key === 'dirty' || key === 'merge') continue;
+    else if (update.merge && !isContained(manifest[key], update[key]))
+      for (const [k, v] of Object.entries(structuredClone(update[key]!))) {
+        manifest[key][k] = shallowSort({ ...manifest[key][k], ...v });
+      }
+    else if (!update.merge && !isEquivalent(manifest[key], update[key]))
+      manifest[key] = structuredClone(update[key])!;
+    else continue;
+
+    manifest[key] = shallowSort(manifest[key]);
+    manifest.dirty = true;
   }
-  if (!env.manifest.dirty) return;
-  clearTimeout(writeTimer);
-  writeTimer = setTimeout(writeManifest, 500);
+  if (manifest.dirty) {
+    clearTimeout(writeTimer);
+    writeTimer = setTimeout(writeManifest, 500);
+  }
 }
 
 async function writeManifest() {
-  if (!env.manifestOk || !(await isComplete())) return;
-
+  if (!(env.manifest && taskOk() && (await isComplete()))) return;
   const commitMessage = cps
     .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
     .trim()
@@ -47,59 +70,57 @@ async function writeManifest() {
   if (env.remoteLog) clientJs.push(jsLogger());
 
   const pairLine = ([name, info]: [string, SplitAsset]) => `'${name.replaceAll("'", "\\'")}':'${info.hash}'`;
-  const jsLines = Object.entries(env.manifest.js)
+  const jsLines = Object.entries(manifest.js)
     .filter(([name, _]) => !/common\.[A-Z0-9]{8}/.test(name))
     .map(pairLine)
     .join(',');
-  const cssLines = Object.entries(env.manifest.css).map(pairLine).join(',');
-  const hashedLines = Object.entries(env.manifest.hashed).map(pairLine).join(',');
+  const cssLines = Object.entries(manifest.css).map(pairLine).join(',');
+  const hashedLines = Object.entries(manifest.hashed).map(pairLine).join(',');
 
   clientJs.push(`window.site.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
 
   const hashable = clientJs.join('\n');
   const hash = crypto.createHash('sha256').update(hashable).digest('hex').slice(0, 8);
-  // add the date after hashing
+
   const clientManifest =
     hashable +
     `\nwindow.site.info.date='${
       new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'
     }';\n`;
-  const serverManifest = {
-    js: { manifest: { hash }, ...env.manifest.js, ...env.manifest.i18n },
-    css: { ...env.manifest.css },
-    hashed: { ...env.manifest.hashed },
-  };
-
+  const serverManifest = JSON.stringify(
+    {
+      js: { manifest: { hash }, ...manifest.js, ...manifest.i18n },
+      css: { ...manifest.css },
+      hashed: { ...manifest.hashed },
+    },
+    null,
+    env.prod ? undefined : 2,
+  );
   await Promise.all([
-    fs.promises.writeFile(path.join(env.jsOutDir, `manifest.${hash}.js`), clientManifest),
-    fs.promises.writeFile(
-      path.join(env.jsOutDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`),
-      JSON.stringify(serverManifest, null, env.prod ? undefined : 2),
-    ),
+    fs.promises.writeFile(p.join(env.jsOutDir, `manifest.${hash}.js`), clientManifest),
+    fs.promises.writeFile(p.join(env.jsOutDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`), serverManifest),
   ]);
-  env.manifest.dirty = false;
+  manifest.dirty = false;
+  const serverHash = crypto.createHash('sha256').update(serverManifest).digest('hex').slice(0, 8);
+  env.log(`Client '${c.cyan(`public/compiled/manifest.${hash}.js`)}'`, 'manifest');
   env.log(
-    `Manifest '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' -> '${c.cyan(
-      `public/compiled/manifest.${hash}.js`,
-    )}'`,
+    `Server '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' hash ${c.grey(serverHash)}`,
+    'manifest',
   );
 }
 
 async function isComplete() {
-  for (const bundle of [...env.packages.values()].map(x => x.bundle ?? []).flat()) {
-    if (!bundle.module) continue;
-    const name = path.basename(bundle.module, '.ts');
-    if (!env.manifest.js[name]) {
-      env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.ts')}'`);
-      return false;
+  if (env.building.length < env.packages.size) return false;
+
+  for (const pkg of env.building) {
+    const globs = pkg.bundle.map(b => b.module).filter((x): x is string => Boolean(x));
+    for (const file of await glob(globs, { cwd: pkg.root })) {
+      const name = p.basename(file, '.ts');
+      if (!manifest.js[name]) {
+        env.log(`${warnMark} - No entry for '${c.cyan(name + '.ts')}'`, 'manifest');
+        return false;
+      }
     }
   }
-  for (const css of await allCssSources()) {
-    const name = path.basename(css, '.scss');
-    if (!env.manifest.css[name]) {
-      env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.scss')}'`);
-      return false;
-    }
-  }
-  return Object.keys(env.manifest.i18n).length > 0;
+  return Object.keys(manifest.i18n).length > 0;
 }
