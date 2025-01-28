@@ -2,10 +2,9 @@
 <resources>
   <string name="settings">Налаштування</string>
   <string name="closeAccount">Закрити обліковий запис</string>
-  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Ваш обліковий запис керований і не може бути закритим.</string>
-  <string name="closingIsDefinitive">Видалення облікового запису остаточне. Цей процес незворотній. Ви впевнені?</string>
+  <string name="managedAccountCannotBeClosed">Ваш обліковий запис керований і не може бути закритим.</string>
   <string name="cantOpenSimilarAccount">Ви не зможете створити новий обліковий запис з такою ж назвою, навіть зі зміною регістру.</string>
-  <string name="changedMindDoNotCloseAccount">Я передумав, не закривайте мій обліковий запис</string>
-  <string name="closeAccountExplanation">Ви впевнені, що хочете закрити свій обліковий запис? Закриття вашого облікового запису є незмінним рішенням. Ви НІКОЛИ не зможете знову увійти в цей обліковий запис.</string>
+  <string name="cancelKeepAccount">Скасувати і зберегти мій обліковий запис</string>
+  <string name="closeAccountAreYouSure">Ви впевнені, що хочете закрити свій обліковий запис?</string>
   <string name="thisAccountIsClosed">Цей обліковий запис видалено.</string>
 </resources>

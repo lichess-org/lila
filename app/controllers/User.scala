@@ -164,6 +164,7 @@ final class User(
               case None                                => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
         case u                                                       => notFound(u.isEmpty)
+
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
       ctx.userId

@@ -98,11 +98,8 @@ object TournamentShield:
     def key  = of.fold(_.key, _.key.value)
     def name = of.fold(_.name, _.name)
     def matches(tour: Tournament) =
-      if tour.variant.standard then
-        ~(for
-          tourSpeed  <- tour.schedule.map(_.speed)
-          categSpeed <- of.left.toOption
-        yield tourSpeed == categSpeed)
+      if tour.variant.standard
+      then ~(of.left.toOption, tour.scheduleSpeed).mapN(_ == _)
       else of.toOption.has(tour.variant)
 
     case Bullet        extends Category(Left(Schedule.Speed.Bullet), Icon.Bullet)

@@ -13,7 +13,6 @@ case class OpenGraph(
     url: String,
     `type`: String = "website",
     image: Option[String] = None,
-    twitterImage: Option[String] = None,
     siteName: String = "lichess.org"
 )
 

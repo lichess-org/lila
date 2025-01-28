@@ -199,9 +199,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]] =
     withEmails(List(user)).dmap(_.headOption)
 
-  def withPerfsAndEmails[U: UserIdOf](
-      users: List[U]
-  ): Fu[List[WithPerfsAndEmails]] = for
+  def withPerfsAndEmails[U: UserIdOf](users: List[U]): Fu[List[WithPerfsAndEmails]] = for
     perfs <- perfsRepo.idsMap(users, _.sec)
     users <- userRepo.coll
       .list[Bdoc]($inIds(users.map(_.id)), _.priTemp)

@@ -131,9 +131,6 @@ trait dsl:
   def $nin[T: BSONWriter](values: T*) = $doc("$nin" -> values)
   def $exists(value: Boolean)         = $doc("$exists" -> value)
 
-  trait CurrentDateValueProducer[T]:
-    def produce: BSONValue
-
   // End of Top Level Field Update Operators
   // **********************************************************************************************//
 
@@ -266,6 +263,12 @@ trait dsl:
       SimpleExpression(field, $doc("$elemMatch" -> $doc(query*)))
 
     def $size(s: Int): SimpleExpression[Bdoc] = SimpleExpression(field, $doc("$size" -> s))
+
+  def dateBetween(field: String, since: Option[Instant], until: Option[Instant]): Bdoc = (since, until) match
+    case (Some(since), None)        => field.$gte(since)
+    case (None, Some(until))        => field.$lt(until)
+    case (Some(since), Some(until)) => field.$gte(since).$lt(until)
+    case _                          => $empty
 
   object $sort:
 
@@ -595,8 +598,8 @@ object dsl extends dsl with Handlers:
           allowDiskUse = allowDiskUse,
           readPreference = readPref
         ): agg =>
-          val nonEmpty = f(agg)
-          nonEmpty._1 +: nonEmpty._2
+          val (head, tail) = f(agg)
+          head :: tail
         .collect[List](maxDocs = maxDocs)
 
     def aggregateOne(

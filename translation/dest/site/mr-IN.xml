@@ -132,7 +132,7 @@
     <item quantity="one">%s घोडचूक</item>
     <item quantity="other">%s घोडचूका</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s घोडचूक</item>
     <item quantity="other">%s घोडचूका</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s चुक</item>
     <item quantity="other">%s चुका</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s चुक</item>
     <item quantity="other">%s चुका</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s अयोग्य चाल</item>
     <item quantity="other">%s अयोग्य चाली</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s अयोग्य चाल</item>
     <item quantity="other">%s अयोग्य चाली</item>
   </plurals>
@@ -954,9 +954,6 @@
   <string name="focusChat">chat वर लक्ष्य केंद्रित करा</string>
   <string name="showHelpDialog">येथील मदत पर्याय दाखवा</string>
   <string name="reopenYourAccount">आपले खाते पुन्हा उघडा</string>
-  <string name="closedAccountChangedMind">जर आपण आपले खाते बंद केले, पण त्यानंतर आपले मन बदलले असेल, तर आपल्याला आपले खाते परत मिळवण्यासाठी अजून एक संधी आहे.</string>
-  <string name="onlyWorksOnce">ही प्रक्रिया एकदा कामी येईल.</string>
-  <string name="cantDoThisTwice">जर आपण आपले खाते दुसऱ्यांदा बंद केले, तर ते परत मिळवता येणार नाही.</string>
   <string name="emailAssociatedToaccount">खात्याशी संबंधित ईमेल अॅड्रेस</string>
   <string name="sentEmailWithLink">आम्ही आपल्याला लिंक सहित एक ईमेल पाठवला आहे.</string>
   <string name="tournamentEntryCode">स्पर्धेचा प्रवेश संकेतशब्द</string>

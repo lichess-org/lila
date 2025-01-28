@@ -160,7 +160,6 @@ object LeaderboardApi:
       rank: Rank,
       rankRatio: Ratio, // ratio * rankRatioMultiplier. function of rank and tour.nbPlayers. less is better.
       freq: Option[Schedule.Freq],
-      speed: Option[Schedule.Speed],
       perf: PerfType,
       date: Instant
   ) extends lila.core.tournament.leaderboard.Entry

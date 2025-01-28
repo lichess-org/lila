@@ -270,3 +270,5 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   }
   return [notifView(study.notif), descView(study, true), descView(study, false), buttons(ctrl), panel];
 }
+
+export const resultTag = (s: any) => (s === '1' ? 'good' : s === '0' ? 'bad' : 'status');

@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">En troques de facer a xogada agardada, interpoñer un movemento que xera unha ameaza inmediata que forza unha resposta do opoñente. Tamén se di \"Zwischenzug\" ou \"Intermezzo\".</string>
   <string name="killBoxMate">Mate da caixa</string>
   <string name="killBoxMateDescription">Unha torre canda o rei do adversario, defendida por unha dama que tamén bloquea as casas de escape do rei. A torre e a dama apreixan ao rei nun curruncho de 3 por 3.</string>
+  <string name="vukovicMate">Mate de Vuković</string>
+  <string name="vukovicMateDescription">Unha torre e un cabalo xúntanse para darlle mate ao rei. A torre dá o mate apoiada por unha terceira peza e o cabalo é usado para bloquear as casas de escape do rei.</string>
   <string name="knightEndgame">Final de cabalos</string>
   <string name="knightEndgameDescription">Un final no que só hai cabalos e peóns.</string>
   <string name="long">Exercicio longo</string>

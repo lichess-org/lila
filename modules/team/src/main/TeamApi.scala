@@ -38,6 +38,9 @@ final class TeamApi(
   def lightsByTourLeader[U: UserIdOf](leader: U): Fu[List[LightTeam]] =
     memberRepo.teamsLedBy(leader, Some(_.Tour)).flatMap(teamRepo.lightsByIds)
 
+  def lightsOf[U: UserIdOf](member: U): Fu[List[LightTeam]] =
+    cached.teamIdsList(member).flatMap(teamRepo.lightsByIds)
+
   def forumAccessOf(id: TeamId) = cached.forumAccess.get(id)
 
   def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)

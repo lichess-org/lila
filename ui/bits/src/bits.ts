@@ -209,7 +209,7 @@ function setAssetInfo() {
   $('#asset-version-commit')
     .attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit)
     .find('pre')
-    .text(site.info.commit.substr(0, 7));
+    .text(site.info.commit.slice(0, 7));
   $('#asset-version-upcoming')
     .attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master')
     .find('pre')

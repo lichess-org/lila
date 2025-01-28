@@ -57,6 +57,7 @@
   <string name="interferenceDescription">Mutarea unei piese între două piese adversare pentru a lăsa una sau ambele piese adversare neprotejate, cum ar fi un cal pe un pătrat protejat dintre două ture.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">În loc să faci mutarea așteptată, mai întâi intervii cu o altă mutare care e o amenințare imediată, căreia adversarul trebuie să-i răspundă. Cunoscut și ca \"Zwischenzug\" sau \"In between\".</string>
+  <string name="vukovicMateDescription">O tură și un cal fac echipă pentru a da șah mat regelui. Tura dă mat fiind apărată de o a treia piesă iar calul blochează toate căile de scăpare ale regelui.</string>
   <string name="knightEndgame">Final cu cai</string>
   <string name="knightEndgameDescription">Un final de partidă doar cu pioni și cai.</string>
   <string name="long">Puzzle lung</string>

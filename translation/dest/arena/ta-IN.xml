@@ -3,7 +3,7 @@
   <string name="arena">களம்</string>
   <string name="arenaTournaments">களப் பந்தயங்கள்</string>
   <string name="isItRated">அது மதிப்பிடப்படுமா?</string>
-  <string name="willBeNotified">பந்தயம் துவங்கும்போது உங்களுக்குத் தெரிவிக்கப்படும், எனவே காத்திருக்கும்போது மற்றொரு தாவலில் விளையாடுவது பாதுகாப்பானது.</string>
+  <string name="willBeNotified">போட்டி தொடங்கும்போது உங்களுக்குத் தெரிவிக்கப்படும், எனவே காத்திருக்கும்போது மற்றொரு தாவலில் விளையாடுவது பாதுகாப்பானது.</string>
   <string name="isRated">இப்பந்தயம் மதிப்பிடப்பட்டது. உங்கள் மதிப்பீட்டில் தாக்கத்தை ஏற்படுத்தலாம்.</string>
   <string name="isNotRated">இப்பந்தயம் மதிப்பிடப்படாதது. உங்கள் மதிப்பீட்டில் தாக்கத்தை ஏற்படுத்தாது.</string>
   <string name="someRated">சில பந்தயங்கள் மதிப்பிடப்பட்டுள்ளது. உங்கள் மதிப்பீட்டில் தாக்கத்தை ஏற்படுத்தலாம்.</string>
@@ -35,23 +35,23 @@
   <string name="otherRules">மற்ற முகமையான விதிகள்</string>
   <string name="thereIsACountdown">உங்கள் முதல் நகர்த்தலுக்கான இறங்குமுக எண்ணல்லுள்ளது. அந்நேரத்திற்குள் நகர்த்தத் தவறினால், உங்கள் எதிராளரிடம் விளையாட்டை இழக்க நேரிடும்.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">முதல் %s நகர்த்தலுக்குள் விளையாட்டை இழுபறி செய்வதால் எப்புள்ளிகளையும் எவ்வீரரும் பெறமுடியாது.</item>
-    <item quantity="other">முதல் %s நகர்த்தல்களுக்குள் விளையாட்டை இழுபறி செய்வதால் எப்புள்ளிகளையும் எவ்வீரரும் பெறமுடியாது.</item>
+    <item quantity="one">முதல் %s நகர்த்தலுக்குள் விளையாட்டை இழுபறி செய்வதால் எப்புள்ளிகளையும் எவ்வீரரும் பெற முடியாது.</item>
+    <item quantity="other">முதல் %s நகர்த்தல்களுக்குள் விளையாட்டை இழுபறி செய்வதால் எப்புள்ளிகளையும் எவ்வீரரும் பெற முடியாது.</item>
   </plurals>
   <string name="thisIsPrivate">இது ஒரு தனியார்ப்பட்ட பந்தயம்</string>
   <string name="shareUrl">மக்கள் சேர இந்த URL ஐப் பகிரவும்: %s</string>
   <string name="drawStreakStandard">இழுபறி தொடர்கள்: ஒரு ஆட்டக்காரர் ஒரு களத்தில் தொடர்ச்சியாகச் இழுபறிகளைப் பெற்றால், செந்தர விளையாட்டுகளில் %s நகர்வுகளுக்கு மேல் நீடிக்கும் இழுபறிக்கு அல்லது முதல் இழுபறிக்கு மட்டுமே புள்ளிகள் வழங்கப்படும். இழுபறித்தொடரை ஒரு வெற்றியால் மட்டுமே உடைக்க முடியும், தோல்வி அல்லது இழுபறியால் அல்ல.</string>
-  <string name="drawStreakVariants">புள்ளிகளைப் பெற இழுபறி ஆட்டங்களுக்கு குறைந்தபட்ச விளையாட்டு நீளம் திரிபுருவின் அடிப்படையில் வேறுபடும். கீழே உள்ள அட்டவணை ஒவ்வொரு திரிபுரு வரம்பையும் பட்டியலிடுகிறது.</string>
+  <string name="drawStreakVariants">புள்ளிகளைப் பெற இழுபறி ஆட்டங்களுக்குக் குறைந்தபட்ச விளையாட்டு நீளம் திரிபுருவின் அடிப்படையில் வேறுபடும். கீழே உள்ள அட்டவணை ஒவ்வொரு திரிபுரு வரம்பையும் பட்டியலிடுகிறது.</string>
   <string name="variant">திரிபுரு</string>
   <string name="minimumGameLength">குறைந்தபட்ச விளையாட்டு நீளம்</string>
   <string name="history">கள வரலாறு</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">கூட்டணியை காண்க</item>
+    <item quantity="one">கூட்டணியைக் காண்க</item>
     <item quantity="other">அனைத்து %s கூட்டணிகளையும் காண்க</item>
   </plurals>
-  <string name="newTeamBattle">புதிய கூட்டணிப் போர்</string>
+  <string name="newTeamBattle">புதிய கூட்டணி யுத்தம்</string>
   <string name="customStartDate">விருப்பமான துவக்க தேதி</string>
-  <string name="customStartDateHelp">உங்கள் சொந்த உள்ளூர் நேர மண்டலத்தில். இது \"பந்தயம் துவங்குவதற்கு முந்தைய நேரம்\" அமைப்பு கட்டுப்பாட்டை ரத்துசெய்கிறது</string>
+  <string name="customStartDateHelp">உங்கள் சொந்த உள்ளூர் நேர மண்டலத்தில். இது \"பந்தயம் துவங்குவதற்கு முந்தைய நேரம்\" அமைப்புக் கட்டுப்பாட்டை ரத்துசெய்கிறது</string>
   <string name="allowBerserk">வெறித்தனத்தை அனுமதிக்க</string>
   <string name="allowBerserkHelp">கூடுதல் புள்ளியைப் பெற வீரர்கள் தங்கள் கடிகார நேரத்தைப் பாதியாகக் குறைக்க விடு</string>
   <string name="allowChatHelp">வீரர்கள் அளவளாவு அறையில் கலந்தாலோசிக்க விடு</string>
@@ -62,14 +62,14 @@
   <string name="averagePerformance">சராசரி செயல்திறன்</string>
   <string name="averageScore">சராசரி மதிப்பெண்</string>
   <string name="myTournaments">எனது பந்தயங்கள்</string>
-  <string name="editTournament">பந்தயத்தை திருத்தியமை</string>
-  <string name="editTeamBattle">கூட்டணிச் சமர் திருத்தியமை</string>
+  <string name="editTournament">பந்தயத்தைத் திருத்தியமை</string>
+  <string name="editTeamBattle">கூட்டணி யுத்தம் திருத்தியமை</string>
   <string name="defender">பாதுகாப்பாளர்</string>
-  <string name="pickYourTeam">உங்கள் கூட்டணியை தேர்ந்தெடு</string>
-  <string name="whichTeamWillYouRepresentInThisBattle">இந்த சமரில் நீங்கள் எக்கூட்டணியின் சார்பாளராக உள்ளீர்கள்?</string>
+  <string name="pickYourTeam">உங்கள் கூட்டணியைத் தேர்ந்தெடு</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">இந்த யுத்தத்தில் நீங்கள் எக்கூட்டணியின் சார்பாளராக உள்ளீர்கள்?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">பங்கேற்க இக்கூட்டணிகளில் ஒன்றில் நீங்கள் இணைந்துகொள்ள வேண்டும்!</string>
   <string name="created">உருவாக்கப்பட்டது</string>
-  <string name="recentlyPlayed">சமீபத்தில் விளையாடப்பட்டது</string>
+  <string name="recentlyPlayed">அண்மையில் விளையாடப்பட்டது</string>
   <string name="bestResults">சிறந்த முடிவுகள்</string>
   <string name="tournamentStats">பந்தய விபரம்</string>
   <string name="rankAvgHelp">தரவரிசை சராசரி என்பது உங்கள் தரவரிசையின் சதவிகிதமாகும். குறைவாக இருத்தல் சிறந்தது
@@ -84,5 +84,5 @@
   <string name="tournamentWinners">பந்தயத்தின் வெற்றியாளர்கள்</string>
   <string name="tournamentShields">பந்தயக் கேடயப்பரிசு</string>
   <string name="onlyTitled">தலைப்பு ஆட்டக்காரர்கள் மட்டும்</string>
-  <string name="onlyTitledHelp">இப்பந்தயத்தில் கலந்துகொள்ள அதிகாரபூர்வ தலைப்பு தேவை</string>
+  <string name="onlyTitledHelp">இப்பந்தயத்தில் கலந்துகொள்ள அதிகாரபூர்வ தலைப்புத் தேவை</string>
 </resources>

@@ -42,10 +42,7 @@ export default function (ctrl: SwissCtrl): VNode {
     h(
       'h1',
       greatPlayer
-        ? [
-            h('a', { attrs: { href: greatPlayer.url, target: '_blank', rel: 'noopener' } }, greatPlayer.name),
-            ' Tournament',
-          ]
+        ? [h('a', { attrs: { href: greatPlayer.url, target: '_blank' } }, greatPlayer.name), ' Tournament']
         : [ctrl.data.name],
     ),
     ctrl.data.status === 'finished' ? undefined : clock(ctrl) || ongoing(ctrl),

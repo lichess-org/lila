@@ -4,7 +4,7 @@ import chess.Centis
 
 import lila.tree.Node.Shapes
 
-class CommentParserTest extends lila.common.LilaTest:
+class CommentParserTest extends LilaTest:
 
   import chess.format.pgn.Comment
   import scala.language.implicitConversions

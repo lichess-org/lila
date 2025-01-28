@@ -9,3 +9,6 @@ object extensions:
     Some(Tuple.fromProductTyped(p))
 
 export extensions.*
+
+trait Cli:
+  def process: PartialFunction[List[String], Fu[String]]

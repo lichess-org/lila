@@ -149,11 +149,16 @@ final class ModApi(
             yield lightUserApi.invalidate(user.id)
           }
 
-  def setEmail(username: UserStr, email: EmailAddress)(using Me): Funit =
+  def setEmail(username: UserStr, emailOpt: Option[EmailAddress])(using Me): Funit =
     withUser(username): user =>
-      userRepo.setEmail(user.id, email) >>
-        userRepo.setEmailConfirmed(user.id) >>
-        logApi.setEmail(user.id)
+      for
+        prev <- userRepo.emailOrPrevious(user.id)
+        email = emailOpt | EmailAddress:
+          s"noreply.blanked.${username.id}${prev.fold("@nope.nope")("." + _)}"
+        _ <- userRepo.setEmail(user.id, email)
+        _ <- userRepo.setEmailConfirmed(user.id)
+        _ <- logApi.setEmail(user.id)
+      yield ()
 
   def setPermissions(username: UserStr, permissions: Set[Permission])(using Me): Funit =
     withUser(username): user =>
@@ -171,25 +176,21 @@ final class ModApi(
   }.toMap
 
   def setReportban(sus: Suspect, v: Boolean)(using MyId): Funit =
-    (sus.user.marks.reportban != v).so {
+    (sus.user.marks.reportban != v).so:
       userRepo.setReportban(sus.user.id, v) >> logApi.reportban(sus, v)
-    }
 
   def setRankban(sus: Suspect, v: Boolean)(using MyId): Funit =
-    (sus.user.marks.rankban != v).so {
+    (sus.user.marks.rankban != v).so:
       if v then Bus.publish(lila.core.mod.KickFromRankings(sus.user.id), "kickFromRankings")
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
-    }
 
   def setArenaBan(sus: Suspect, v: Boolean)(using MyId): Funit =
-    (sus.user.marks.arenaBan != v).so {
+    (sus.user.marks.arenaBan != v).so:
       userRepo.setArenaBan(sus.user.id, v) >> logApi.arenaBan(sus, v)
-    }
 
   def setPrizeban(sus: Suspect, v: Boolean)(using MyId): Funit =
-    (sus.user.marks.prizeban != v).so {
+    (sus.user.marks.prizeban != v).so:
       userRepo.setPrizeban(sus.user.id, v) >> logApi.prizeban(sus, v)
-    }
 
   def allMods =
     def timeNoSee(u: User): Duration = (nowMillis - (u.seenAt | u.createdAt).toMillis).millis

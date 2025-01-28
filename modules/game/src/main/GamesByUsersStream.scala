@@ -1,54 +1,41 @@
 package lila.game
 
 import akka.stream.scaladsl.*
+import reactivemongo.akkastream.cursorProducer
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.given
 import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
-import lila.db.dsl.given
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
   private val chans = List("startGame", "finishGame")
 
   def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
-    val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
-    val startStream =
-      Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
-        def matches(game: Game) = game.userIds match
-          case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
-          case _                        => false
-        val sub = Bus.subscribeFun(chans*):
-          case StartGame(game) if matches(game)     => queue.offer(game)
-          case FinishGame(game, _) if matches(game) => queue.offer(game)
-        queue
-          .watchCompletion()
-          .addEffectAnyway:
-            Bus.unsubscribe(sub, chans)
-      }
-    initialGames
-      .concat(startStream)
-      .mapAsync(1)(gameRepo.withInitialFen)
-      .map(GameStream.gameWithInitialFenWriter.writes)
+    if userIds.sizeIs < 2 then Source.empty
+    else
+      val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
+      val startStream =
+        Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
+          def matches(game: Game) = game.userIds match
+            case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
+            case _                        => false
+          val sub = Bus.subscribeFun(chans*):
+            case StartGame(game) if matches(game)     => queue.offer(game)
+            case FinishGame(game, _) if matches(game) => queue.offer(game)
+          queue
+            .watchCompletion()
+            .addEffectAnyway:
+              Bus.unsubscribe(sub, chans)
+        }
+      initialGames
+        .concat(startStream)
+        .mapAsync(1)(gameRepo.withInitialFen)
+        .map(GameStream.gameWithInitialFenWriter.writes)
 
   private def currentGamesSource(userIds: Set[UserId]): Source[Game, ?] =
-    import lila.db.dsl.*
-    import BSONHandlers.given
-    import reactivemongo.akkastream.cursorProducer
-    gameRepo.coll
-      .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
-        import framework.*
-        List(
-          Match($doc(lila.game.Game.BSONFields.playingUids.$in(userIds))),
-          AddFields:
-            $doc:
-              "both" -> $doc("$setIsSubset" -> $arr("$" + lila.core.game.BSONFields.playingUids, userIds))
-          ,
-          Match($doc("both" -> true))
-        )
-      .documentSource()
-      .throttle(30, 1.second)
+    gameRepo.ongoingByUserIdsCursor(userIds).documentSource().throttle(30, 1.second)
 
 private object GameStream:
 

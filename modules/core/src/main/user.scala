@@ -163,7 +163,8 @@ object user:
 
   case class UserDelete(user: User, erase: Boolean):
     export user.id
-  object UserDelete extends bus.GivenChannel[UserDelete]("userDelete")
+  object UserDelete extends bus.GivenChannel[UserDelete]("userDelete"):
+    val delay = scalalib.model.Days(7)
 
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]

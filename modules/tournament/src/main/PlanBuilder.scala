@@ -43,10 +43,10 @@ object PlanBuilder:
           startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(si2.endsAt)
         else
           (
-            s1.variant.exotic ||  // overlapping exotic variant
-              s1.hasMaxRating ||  // overlapping same rating limit
-              s1.similarSpeed(s2) // overlapping similar
-          ) && s1.similarConditions(s2) && overlaps(si2)
+            s1.variant.exotic ||                         // overlapping exotic variant
+              s1.hasMaxRating ||                         // overlapping same rating limit
+              Schedule.Speed.similar(s1.speed, s2.speed) // overlapping similar
+          ) && s1.conditions.similar(s2.conditions) && overlaps(si2)
       )
 
     /** Kept in sync with [[conflictsWithFailOnUsurp]].
@@ -67,20 +67,23 @@ object PlanBuilder:
       conflicts.nonEmpty
 
   private final case class ConcreteSchedule(
-      val schedule: Schedule,
-      val startsAt: Instant,
-      val duration: java.time.Duration
+      schedule: Schedule,
+      startsAt: Instant,
+      duration: java.time.Duration
   ) extends ScheduleWithInterval
+
+  private def rebuildSchedule(t: Tournament) =
+    t.schedule.map: s =>
+      Schedule(s.freq, Schedule.Speed.fromClock(t.clock), t.variant, t.position, s.at, t.conditions)
 
   private[tournament] def getNewTourneys(
       existingTourneys: Iterable[Tournament],
       plans: Iterable[Plan]
   )(using Translate): List[Tournament] =
     // Prune plans using the unstaggered scheduled start time.
-    val existingWithScheduledStart = existingTourneys.flatMap { t =>
+    val existingWithScheduledStart = existingTourneys.flatMap: t =>
       // Ignore tournaments with schedule=None - they never conflict.
-      t.schedule.map { s => ConcreteSchedule(s, s.atInstant, t.duration) }
-    }
+      rebuildSchedule(t).map { s => ConcreteSchedule(s, s.atInstant, t.duration) }
 
     val prunedPlans = pruneConflicts(existingWithScheduledStart, plans)
 

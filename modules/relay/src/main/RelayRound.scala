@@ -144,9 +144,10 @@ object RelayRound:
     import url.*
 
     enum Upstream:
-      case Url(url: URL)          extends Upstream
-      case Urls(urls: List[URL])  extends Upstream
-      case Ids(ids: List[GameId]) extends Upstream
+      case Url(url: URL)               extends Upstream
+      case Urls(urls: List[URL])       extends Upstream
+      case Ids(ids: List[GameId])      extends Upstream
+      case Users(users: List[UserStr]) extends Upstream
       def asUrl: Option[URL] = this match
         case Url(url) => url.some
         case _        => none
@@ -173,9 +174,10 @@ object RelayRound:
         case url: Url   => url.roundId.toList
         case Urls(urls) => urls.map(Url.apply).flatMap(_.roundId)
         case _          => Nil
-      def isGameIds = this match
-        case Ids(_) => true
-        case _      => false
+      def isInternal = this match
+        case Ids(_)   => true
+        case Users(_) => true
+        case _        => false
 
     case class Lcc(id: String, round: Int):
       def pageUrl         = URL.parse(s"https://view.livechesscloud.com/#$id/$round")

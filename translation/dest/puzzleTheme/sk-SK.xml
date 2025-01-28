@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">Namiesto očakávaného ťahu, zahranie ťahu znamenajúceho okamžitú hrozbu, na ktorú musí protihráč reagovať. Nazývaný tiež \"Zwischenzug\".</string>
   <string name="killBoxMate">Mat na poli smrti</string>
   <string name="killBoxMateDescription">Veža je vedľa súperovho kráľa a podporuje ju dáma, ktorá zároveň blokuje kráľove únikové polia. Veža a dáma chytia súperovho kráľa do pasce na 3 x 3 „poli smrti“.</string>
+  <string name="vukovicMate">Vukovičov mat</string>
+  <string name="vukovicMateDescription">Veža a jazdec sa spoja, aby zmatovali kráľa. Veža je tá, ktorá dáva mat, pričom je podporovaná treťou figúrkou. Jazdec sa využíva na blokovanie kráľových únikových polí.</string>
   <string name="knightEndgame">Jazdcová koncovka</string>
   <string name="knightEndgameDescription">Koncovka iba s jazdcami a pešiakmi.</string>
   <string name="long">Troj-ťahové úlohy</string>

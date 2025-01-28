@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 
 case class Bookmark(game: Game, user: User)
 
-final class BookmarkApi(coll: Coll, gameApi: GameApi, paginator: PaginatorBuilder)(using Executor):
+final class BookmarkApi(val coll: Coll, gameApi: GameApi, paginator: PaginatorBuilder)(using Executor):
 
   private def exists(gameId: GameId, userId: UserId): Fu[Boolean] =
     coll.exists(selectId(gameId, userId))
@@ -65,7 +65,7 @@ final class BookmarkApi(coll: Coll, gameApi: GameApi, paginator: PaginatorBuilde
         )
       .void
 
-  private def userIdQuery(userId: UserId)              = $doc("u" -> userId)
+  def userIdQuery(userId: UserId)                      = $doc("u" -> userId)
   private def makeId(gameId: GameId, userId: UserId)   = s"$gameId$userId"
   private def selectId(gameId: GameId, userId: UserId) = $id(makeId(gameId, userId))
 

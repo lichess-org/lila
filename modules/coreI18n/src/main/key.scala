@@ -1381,10 +1381,9 @@ object I18nKey:
     val `settings`: I18nKey = "settings:settings"
     val `closeAccount`: I18nKey = "settings:closeAccount"
     val `managedAccountCannotBeClosed`: I18nKey = "settings:managedAccountCannotBeClosed"
-    val `closingIsDefinitive`: I18nKey = "settings:closingIsDefinitive"
     val `cantOpenSimilarAccount`: I18nKey = "settings:cantOpenSimilarAccount"
-    val `changedMindDoNotCloseAccount`: I18nKey = "settings:changedMindDoNotCloseAccount"
-    val `closeAccountExplanation`: I18nKey = "settings:closeAccountExplanation"
+    val `cancelKeepAccount`: I18nKey = "settings:cancelKeepAccount"
+    val `closeAccountAreYouSure`: I18nKey = "settings:closeAccountAreYouSure"
     val `thisAccountIsClosed`: I18nKey = "settings:thisAccountIsClosed"
 
   object site:
@@ -2188,9 +2187,7 @@ object I18nKey:
     val `focusChat`: I18nKey = "focusChat"
     val `showHelpDialog`: I18nKey = "showHelpDialog"
     val `reopenYourAccount`: I18nKey = "reopenYourAccount"
-    val `closedAccountChangedMind`: I18nKey = "closedAccountChangedMind"
-    val `onlyWorksOnce`: I18nKey = "onlyWorksOnce"
-    val `cantDoThisTwice`: I18nKey = "cantDoThisTwice"
+    val `reopenYourAccountDescription`: I18nKey = "reopenYourAccountDescription"
     val `emailAssociatedToaccount`: I18nKey = "emailAssociatedToaccount"
     val `sentEmailWithLink`: I18nKey = "sentEmailWithLink"
     val `tournamentEntryCode`: I18nKey = "tournamentEntryCode"

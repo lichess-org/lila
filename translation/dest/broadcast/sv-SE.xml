@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Kort beskrivning av turneringen</string>
   <string name="fullDescription">Fullständig beskrivning</string>
   <string name="fullDescriptionHelp">Valfri längre beskrivning av sändningen. %1$s är tillgänglig. Längden måste vara mindre än %2$s tecken.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PNG-källans URL</string>
+  <string name="sourceSingleUrl">PNG-källans URL</string>
   <string name="sourceUrlHelp">URL som Lichess kan använda för att få PGN-uppdateringar. Den måste vara publikt tillgänglig från Internet.</string>
   <string name="sourceGameIds">Upp till 64 Lichess-partiers ID, separerade med mellanslag.</string>
   <string name="startDateTimeZone">Startdatum i turneringens lokala tidszon: %s</string>

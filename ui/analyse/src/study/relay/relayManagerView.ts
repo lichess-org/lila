@@ -17,7 +17,9 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
                 h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
                 h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
               ]),
-              sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : statePush(),
+              sync?.url || sync?.ids || sync?.urls || sync?.users
+                ? (sync.ongoing ? stateOn : stateOff)(ctrl)
+                : statePush(),
               renderLog(ctrl),
             ])
           : undefined,
@@ -36,8 +38,7 @@ function renderLog(ctrl: RelayCtrl) {
     .reverse()
     .map(e => {
       const err =
-        e.error &&
-        h('a', url ? { attrs: { href: url, target: '_blank', rel: 'noopener nofollow' } } : {}, e.error);
+        e.error && h('a', url ? { attrs: { href: url, target: '_blank', rel: 'nofollow' } } : {}, e.error);
       return h(
         'div' + (err ? '.err' : ''),
         { key: e.at, attrs: dataIcon(err ? licon.CautionCircle : licon.Checkmark) },
@@ -63,9 +64,15 @@ function stateOn(ctrl: RelayCtrl) {
                 ? ['to source', h('br'), sync.url.replace(/https?:\/\//, '')]
                 : sync.ids
                   ? ['to', h('br'), sync.ids.length, ' game(s)']
-                  : sync.urls
-                    ? ['to', h('br'), sync.urls.length, ' sources']
-                    : []),
+                  : sync.users
+                    ? [
+                        'to',
+                        h('br'),
+                        sync.users.length > 4 ? `${sync.users.length} users` : sync.users.join(' '),
+                      ]
+                    : sync.urls
+                      ? ['to', h('br'), sync.urls.length, ' sources']
+                      : []),
               sync.filter ? ` (round ${sync.filter})` : null,
               sync.slices ? ` (slice ${sync.slices})` : null,
             ]
