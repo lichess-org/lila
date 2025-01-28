@@ -79,6 +79,7 @@ private object DisposableEmailDomain:
     Set(
       "outlook.com",
       "outlook.es",
+      "outlook.de",
       "outlook.com.au",
       "outlook.com.vn",
       "outlook.com.br",
