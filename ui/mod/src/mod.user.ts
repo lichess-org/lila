@@ -222,6 +222,7 @@ site.load.then(() => {
       .find('.mod-timeline__event__flair img[datetime]')
       .each(function (this: HTMLImageElement) {
         this.title += ' ' + commonDateFormat(toDate(this.getAttribute('datetime')!));
+        this.removeAttribute('datetime');
       });
   timelineFlairDateToLocal();
   pubsub.on('content-loaded', timelineFlairDateToLocal);
