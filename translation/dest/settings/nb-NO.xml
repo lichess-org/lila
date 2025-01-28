@@ -4,5 +4,7 @@
   <string name="closeAccount">Avslutt konto</string>
   <string name="managedAccountCannotBeClosed">Kontoen din er forvaltet og kan ikke avsluttes.</string>
   <string name="cantOpenSimilarAccount">Du har ikke mulighet til å opprette en ny konto med samme brukernavn, selv om du endrer små bokstaver til STORE, eller STORE bokstaver til små.</string>
+  <string name="cancelKeepAccount">Avbryt og behold kontoen min</string>
+  <string name="closeAccountAreYouSure">Er du sikker på at du vil avslutte kontoen din?</string>
   <string name="thisAccountIsClosed">Denne kontoen er avsluttet.</string>
 </resources>
