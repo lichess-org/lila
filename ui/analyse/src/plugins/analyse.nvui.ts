@@ -46,6 +46,7 @@ import { pubsub } from 'common/pubsub';
 import { renderResult } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
+import renderClocks from '../view/clocks';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -78,6 +79,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
         drawable: { enabled: false },
         coordinates: false,
       });
+      const clocks = renderClocks(ctrl, ctrl.path);
       return h('main.analyse', [
         h('div.nvui', [
           studyDetails(ctrl),
@@ -113,6 +115,11 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             // make sure consecutive positions are different so that they get re-read
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
+          clocks &&
+            h('div.clocks', [
+              h('h2', `${i18n.site.clock}`),
+              h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
+            ]),
           h('h2', 'Move form'),
           h(
             'form',
