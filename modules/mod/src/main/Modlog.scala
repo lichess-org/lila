@@ -103,7 +103,7 @@ object Modlog:
       details = details
     )
 
-  def isWarning(e: Modlog) = e.action == Modlog.modMessage && e.details.exists(_.startsWith("Warning"))
+  def isWarning(e: Modlog) = e.action == Modlog.modMessage && e.details.exists(_.contains("Warning:"))
 
   val isSentence: Set[String] = Set(
     "alt",

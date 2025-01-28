@@ -390,12 +390,11 @@ final class User(
         val appeal = isGranted(_.Appeals).so:
           env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
 
-        val rageSit = isGranted(_.CheatHunter).so(
+        val rageSit = isGranted(_.CheatHunter).so:
           env.playban.api
             .rageSitOf(user.id)
             .zip(env.playban.api.bans(user.id))
             .map(ui.showRageSitAndPlaybans)
-        )
 
         val actions = env.user.repo.isDeleted(user).map { deleted =>
           ui.actions(user, emails, deleted, env.mod.presets.getPmPresets)
