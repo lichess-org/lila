@@ -30,7 +30,10 @@ async function app(opts: RoundOpts): Promise<RoundController> {
 
   let vnode = patch(el, blueprint);
 
-  window.addEventListener('resize', redraw); // col1 / col2+ transition
+  window.addEventListener('resize', () => {
+    redraw(); // col1 / col2+ transition
+    ctrl.autoScroll();
+  });
 
   if (ctrl.isPlaying()) menuHover();
 
