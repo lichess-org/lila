@@ -138,11 +138,11 @@
     <item quantity="many">%s błędów</item>
     <item quantity="other">%s błędów</item>
   </plurals>
-  <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
-    <item quantity="one">%s błąd</item>
-    <item quantity="few">%s błędy</item>
-    <item quantity="many">%s błędów</item>
-    <item quantity="other">%s błędów</item>
+  <plurals name="numberBlunders">
+    <item quantity="one">%s Błąd</item>
+    <item quantity="few">%s Błędy</item>
+    <item quantity="many">%s Błędów</item>
+    <item quantity="other">%s Błędów</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s pomyłka</item>
@@ -150,7 +150,7 @@
     <item quantity="many">%s pomyłek</item>
     <item quantity="other">%s pomyłek</item>
   </plurals>
-  <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s pomyłka</item>
     <item quantity="few">%s pomyłki</item>
     <item quantity="many">%s pomyłek</item>
@@ -162,7 +162,7 @@
     <item quantity="many">%s niedokładności</item>
     <item quantity="other">%s niedokładności</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s niedokładność</item>
     <item quantity="few">%s niedokładności</item>
     <item quantity="many">%s niedokładności</item>
@@ -866,6 +866,7 @@
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
   <string name="followAndChallengeFriends">Obserwowanie i gra ze znajomymi</string>
+  <string name="noChallenges">Brak wyzwań.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostępna w %s języku!</item>
     <item quantity="few">Dostępna w %s językach!</item>
@@ -970,7 +971,7 @@
     <item quantity="many">i zapisz %s wariantów warunkowych</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
-  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Otrzymałeś prywatną wiadomość od Lichess.</string>
+  <string name="showUnreadLichessMessage">Otrzymałeś prywatną wiadomość od Lichess.</string>
   <string name="clickHereToReadIt">Kliknij tutaj, aby ją odczytać</string>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
@@ -1073,9 +1074,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="focusChat">Aktywuj czat</string>
   <string name="showHelpDialog">Pokaż okno pomocy</string>
   <string name="reopenYourAccount">Otwórz ponownie swoje konto</string>
-  <string name="closedAccountChangedMind">Jeśli zamknąłeś/aś swoje konto, ale zmieniłeś/aś zdanie, otrzymasz jedną szansę na jego odzyskanie.</string>
-  <string name="onlyWorksOnce">To zadziała tylko raz.</string>
-  <string name="cantDoThisTwice">Jeśli zamkniesz swoje konto po raz drugi, nie będzie możliwości jego odzyskania.</string>
+  <string name="reopenYourAccountDescription">Jeśli zamkniesz swoje konto, ale kiedyś zmienisz zdanie, będziesz miał szansę je odzyskać.</string>
   <string name="emailAssociatedToaccount">Adres e-mail powiązany z kontem</string>
   <string name="sentEmailWithLink">Wysłaliśmy Ci wiadomość e-mail z linkiem.</string>
   <string name="tournamentEntryCode">Kod dostępu do turnieju</string>

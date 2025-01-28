@@ -22,12 +22,12 @@
   <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo một ván cờ</string>
-  <string name="whiteIsVictorious">Bên trắng thắng</string>
-  <string name="blackIsVictorious">Bên đen thắng</string>
+  <string name="whiteIsVictorious">Bên Trắng thắng</string>
+  <string name="blackIsVictorious">Bên Đen thắng</string>
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
   <string name="youPlayTheBlackPieces">Bạn chơi quân đen</string>
   <string name="itsYourTurn">Đến lượt bạn!</string>
-  <string name="cheatDetected">Phát hiện Gian lận</string>
+  <string name="cheatDetected">Phát hiện gian lận</string>
   <string name="kingInTheCenter">Vua ở trung tâm</string>
   <string name="threeChecks">Ba lần chiếu</string>
   <string name="raceFinished">Cuộc đua kết thúc</string>
@@ -129,19 +129,19 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s sai lầm nghiêm trọng</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="other">%s Sai lầm nghiêm trọng</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s sai lầm</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="other">%s Sai lầm</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s không chính xác</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="other">%s Không chính xác</item>
   </plurals>
   <string name="moveTimes">Thời gian nghĩ nước đi</string>
@@ -744,6 +744,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
   <string name="viewTheSolution">Xem đáp án</string>
   <string name="followAndChallengeFriends">Theo dõi và thách đấu bạn bè</string>
+  <string name="noChallenges">Không có lời thách đấu nào.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
   </plurals>
@@ -938,9 +939,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="focusChat">Tiêu điểm trò chuyện</string>
   <string name="showHelpDialog">Hiển thị thông điệp trợ giúp này</string>
   <string name="reopenYourAccount">Mở lại tài khoản</string>
-  <string name="closedAccountChangedMind">Nếu bạn đóng tài khoản, song thay đổi ý định, bạn có đúng một cơ hội để mở lại tài khoản.</string>
-  <string name="onlyWorksOnce">Chỉ làm được một lần.</string>
-  <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể lấy lại được nữa.</string>
+  <string name="reopenYourAccountDescription">Nếu bạn đã đóng tài khoản của mình nhưng sau đó thay đổi quyết định, bạn vẫn còn một cơ hội lấy lại được tài khoản của mình.</string>
   <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
   <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với một đường dẫn.</string>
   <string name="tournamentEntryCode">Mã tham gia giải đấu</string>

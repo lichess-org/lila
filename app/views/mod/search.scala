@@ -9,10 +9,11 @@ import lila.core.security.FingerHash
 import lila.mod.IpRender.RenderIp
 import lila.security.IpTrust
 import lila.user.WithPerfsAndEmails
+import lila.mod.ModUserSearchResult
 
 object search:
 
-  def apply(form: Form[?], users: List[WithPerfsAndEmails])(using Context, Me) =
+  def apply(form: Form[?], res: Option[ModUserSearchResult])(using Context, Me) =
     Page("Search users")
       .css("mod.misc")
       .js(Esm("mod.search")):
@@ -28,7 +29,11 @@ object search:
                 value       := form("q").value
               )
             ),
-            userTable(users, showUsernames = true, eraseButton = isGranted(_.GdprErase))
+            res.map: r =>
+              frag(
+                ui.modUserSearchResult(r),
+                userTable(r.users, showUsernames = true, eraseButton = isGranted(_.GdprErase))
+              )
           )
         )
 

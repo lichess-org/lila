@@ -36,7 +36,6 @@ z-index: 99;
       )("GitHub"),
       a(href := routes.Main.externalLink("discord"), targetBlank, noFollow)("Discord"),
       a(href := routes.Main.externalLink("bluesky"), targetBlank, noFollow)("Bluesky"),
-      a(href := routes.Main.externalLink("twitter"), targetBlank, noFollow)("x"),
       a(
         href := routes.Main.externalLink("youtube"),
         targetBlank,

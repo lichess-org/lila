@@ -126,8 +126,13 @@ export function $as<T>(cashOrHtml: Cash | string): T {
   return (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 }
 
+// The username with all characters lowercase
 export function myUserId(): string | undefined {
   return document.body.dataset.user;
+}
+
+export function myUsername(): string | undefined {
+  return document.body.dataset.username;
 }
 
 export function repeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {

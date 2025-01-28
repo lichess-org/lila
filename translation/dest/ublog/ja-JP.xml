@@ -4,6 +4,9 @@
   <string name="friendBlogs">友達のブログ</string>
   <string name="likedBlogs">いいねを押したブログ投稿</string>
   <string name="blogTopics">ブログのトピック</string>
+  <plurals name="blogPosts">
+    <item quantity="other">%s ブログ投稿</item>
+  </plurals>
   <string name="lichessOfficialBlog">Lichess 公式ブログ</string>
   <string name="continueReadingPost">続きを読む</string>
   <string name="lichessBlogPostsFromXYear">%s 年の Lichess ブログ投稿</string>

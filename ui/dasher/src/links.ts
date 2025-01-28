@@ -56,7 +56,7 @@ export class LinksCtrl extends PaneCtrl {
             linkCfg(
               '/account/profile',
               licon.Gear,
-              this.root.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined,
+              this.root.opts.playing ? { target: '_blank' } : undefined,
             ),
             i18n.preferences.preferences,
           ),

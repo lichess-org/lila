@@ -53,7 +53,7 @@ final class LilaComponents(
     import play.api.libs.ws.WSConfigParser
     import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
     new StandaloneAhcWSClient(
-      DefaultAsyncHttpClient:
+      DefaultAsyncHttpClient(
         AhcConfigBuilder(
           AhcWSClientConfigParser(
             WSConfigParser(configuration.underlying, environment.classLoader).parse(),
@@ -61,6 +61,7 @@ final class LilaComponents(
             environment.classLoader
           ).parse()
         ).modifyUnderlying(_.setIoThreadsCount(8)).build()
+      )
     )
 
   val env: lila.app.Env =

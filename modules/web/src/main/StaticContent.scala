@@ -16,9 +16,6 @@ Disallow: /games/export/
 Disallow: /api/
 Disallow: /opening/config/
 Allow: /game/export/gif/thumbnail/
-
-User-agent: Twitterbot
-Allow: /
 """
 
   def manifest(net: NetConfig) =
@@ -67,8 +64,7 @@ Allow: /
     "github"   -> "https://github.com/lichess-org",
     "discord"  -> "https://discord.gg/lichess",
     "bluesky"  -> "https://bsky.app/profile/lichess.org",
-    "twitter"  -> "https://twitter.com/lichess",
-    "youtube"  -> "https://youtube.com/c/LichessDotOrg",
+    "youtube"  -> "https://youtube.com/@LichessDotOrg",
     "twitch"   -> "https://www.twitch.tv/lichessdotorg"
   )
 

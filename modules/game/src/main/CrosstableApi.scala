@@ -14,7 +14,7 @@ final class CrosstableApi(
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     matchupColl:
-      _.delete.one($doc("_id".$regex(s"^${del.id}/"))).void
+      _.delete.one($doc("_id".$startsWith(s"${del.id}/"))).void
 
   def apply(game: Game): Fu[Option[Crosstable]] =
     game.twoUserIds.soFu(apply.tupled)

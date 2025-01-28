@@ -32,7 +32,6 @@ object home:
       .graph(
         OpenGraph(
           image = staticAssetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = staticAssetUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl.value,
           description = trans.site.siteDescription.txt()

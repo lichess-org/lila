@@ -61,6 +61,9 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
     table(cls := "tournaments")(
       tours.map: tour =>
         val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)
+        val timeTag =
+          if tour.isStarted then timeRemaining(tour.finishesAt)
+          else momentFromNow(tour.startsAt)
         tr(
           td(
             a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
@@ -68,11 +71,8 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
           ),
           td(cls := "progress-td")(
             span(cls := "progress")(
-              (
-                if tour.isStarted then timeRemaining(tour.finishesAt)
-                else momentFromNow(tour.schedule.fold(tour.startsAt)(_.atInstant))
-              ) (cls   := "progress__text"),
-              span(cls := "progress__bar", st.style := s"width:${tour.progressPercent}%")
+              timeTag(cls := "progress__text"),
+              span(cls    := "progress__bar", st.style := s"width:${tour.progressPercent}%")
             )
           ),
           td(tour.durationString),
@@ -122,6 +122,5 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         case (n, (from, to)) => n.replace(from, to)
 
   def tournamentIcon(tour: Tournament): Icon =
-    tour.schedule.map(_.freq) match
-      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => Icon.Globe
-      case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon
+    if tour.isMarathon then Icon.Globe
+    else tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon

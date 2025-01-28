@@ -15,6 +15,7 @@ import { h } from 'snabbdom';
 import { storage, storedBooleanProp } from 'common/storage';
 import { Chessground as makeChessground } from 'chessground';
 import { EMPTY_BOARD_FEN } from 'chessops/fen';
+import { resultTag } from './studyView';
 
 export class MultiBoardCtrl {
   playing: Toggle;
@@ -321,11 +322,15 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
 };
 
 const boardPlayer = (preview: ChapterPreview, color: Color, showResults?: boolean) => {
-  const outcome = preview.status && preview.status !== '*' ? preview.status : undefined;
-  const player = preview.players?.[color],
+  const outcome = preview.status && preview.status !== '*' ? preview.status : undefined,
+    player = preview.players?.[color],
     score = outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
     player && renderUser(player),
-    showResults ? (score ? h('span.mini-game__result', score) : renderClock(preview, color)) : undefined,
+    showResults
+      ? score
+        ? h(`${resultTag(score)}.mini-game__result`, score)
+        : renderClock(preview, color)
+      : undefined,
   ]);
 };

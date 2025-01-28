@@ -62,7 +62,8 @@ export interface RelaySync {
   ongoing: boolean;
   url?: string;
   urls?: [{ url: string }];
-  ids?: string;
+  ids?: string[];
+  users?: string[];
   log: LogEvent[];
   delay?: number;
   filter?: number;

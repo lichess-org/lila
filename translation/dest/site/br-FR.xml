@@ -129,7 +129,7 @@
     <item quantity="many">%s bourd</item>
     <item quantity="other">%s bourd</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Bourd</item>
     <item quantity="two">%s Vourd</item>
     <item quantity="few">%s Bourd</item>
@@ -143,7 +143,7 @@
     <item quantity="many">%s fazi</item>
     <item quantity="other">%s fazi</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Fazi</item>
     <item quantity="two">%s Fazi</item>
     <item quantity="few">%s Fazi</item>
@@ -157,7 +157,7 @@
     <item quantity="many">%s diresisted</item>
     <item quantity="other">%s diresisted</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Diresisted</item>
     <item quantity="two">%s Ziresisted</item>
     <item quantity="few">%s Diresisted</item>
@@ -1025,9 +1025,6 @@
   <string name="analysisOptions">Optionoù dielfennañ</string>
   <string name="focusChat">Ar flap da gentañ</string>
   <string name="reopenYourAccount">Addigeriñ ho kont</string>
-  <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
-  <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>
-  <string name="cantDoThisTwice">Ma serrit ho kont un eil gwech, ne vo ket tu deoc\'h adtapout anezhañ.</string>
   <string name="emailAssociatedToaccount">Postel liammet ouzh ar gont</string>
   <string name="sentEmailWithLink">Ur postel gant ul liamm \'zo bet kaset deoc\'h.</string>
   <string name="tournamentEntryCode">Kod mont e-barzh an tournamant</string>

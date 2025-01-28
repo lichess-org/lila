@@ -779,6 +779,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="onlineAndOfflinePlay">Aanlyn en aflyn speel</string>
   <string name="viewTheSolution">Kyk na die oplossing</string>
   <string name="followAndChallengeFriends">Volg en daag vriende uit</string>
+  <string name="noChallenges">Geen uitdagings nie.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beskikbaar in %s taal!</item>
     <item quantity="other">Beskikbaar in %s tale!</item>
@@ -974,9 +975,6 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="focusChat">Lê fokus klets</string>
   <string name="showHelpDialog">Wys hierdie hulp dialoog</string>
   <string name="reopenYourAccount">Herstel jou rekening</string>
-  <string name="closedAccountChangedMind">As jou rekening gesluit het, maar het intussen van plan verander, kry jy sleg een kans om jou rekening terug te kry.</string>
-  <string name="onlyWorksOnce">Dié sal slegs een keer werk.</string>
-  <string name="cantDoThisTwice">In die jy jou rekening \'n tweede keer sluit, sal daar nie \'n manier wees om dit te herstel nie.</string>
   <string name="emailAssociatedToaccount">E-pos adress geassosieer met die rekening</string>
   <string name="sentEmailWithLink">Ons het vir jou \'n e-pos met n skakel gestuur.</string>
   <string name="tournamentEntryCode">Toernooi ingangskode</string>

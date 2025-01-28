@@ -7,6 +7,7 @@ import type { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs } from '../studyChapters';
 import { playerFed } from '../playerBars';
 import { h } from 'snabbdom';
+import { resultTag } from '../studyView';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
@@ -59,7 +60,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             playerFed(p.fed),
                             h('span.name', [userTitle(p), p.name]),
                           ]),
-                          showResults ? h(s === '1' ? 'good' : s === '0' ? 'bad' : 'status', [s]) : null,
+                          showResults ? h(resultTag(s), [s]) : null,
                         ]
                       : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
                   );

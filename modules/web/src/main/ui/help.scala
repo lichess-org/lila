@@ -64,7 +64,6 @@ object help:
           header(trans.site.other()),
           flip,
           zen,
-          row(frag(kbd("shift"), kbd("B")), "Toggle blindfold mode"),
           helpDialog
         )
       )

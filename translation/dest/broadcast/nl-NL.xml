@@ -23,7 +23,7 @@
   <string name="tournamentDescription">Korte toernooibeschrijving</string>
   <string name="fullDescription">Volledige beschrijving evenement</string>
   <string name="fullDescriptionHelp">Optionele lange beschrijving van de uitzending. %1$s is beschikbaar. Totale lengte moet minder zijn dan %2$s tekens.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL van PGN-bron</string>
+  <string name="sourceSingleUrl">URL van PGN-bron</string>
   <string name="sourceUrlHelp">Link die Lichess gebruikt om PGN updates te krijgen. Deze moet openbaar toegankelijk zijn via internet.</string>
   <string name="sourceGameIds">Tot 64 Lichess partij-ID\'\'s, gescheiden door spaties.</string>
   <string name="startDateTimeZone">Startdatum in de lokale tijdzone van het tornooi: %s</string>
@@ -37,7 +37,7 @@
   <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
   <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
-  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Toon scores van spelers op basis van partij-uitslagen</string>
+  <string name="showScores">Toon scores van spelers op basis van partij-uitslagen</string>
   <string name="replacePlayerTags">Optioneel: vervang spelersnamen, beoordelingen en titels</string>
   <string name="fideFederations">FIDE-federaties</string>
   <string name="top10Rating">Top 10-rating</string>
@@ -46,9 +46,9 @@
   <string name="fideProfile">FIDE-profiel</string>
   <string name="federation">Federatie</string>
   <string name="ageThisYear">Leeftijd dit jaar</string>
-  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Zonder rating</string>
+  <string name="unrated">Zonder rating</string>
   <string name="recentTournaments">Recente toernooien</string>
-  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Openen in Lichess</string>
+  <string name="openLichess">Openen in Lichess</string>
   <string name="teams">Teams</string>
   <string name="boards">Borden</string>
   <string name="overview">Overzicht</string>
@@ -79,4 +79,5 @@
   <string name="optionalDetails">Optionele info</string>
   <string name="pastBroadcasts">Afgelopen uitzendingen</string>
   <string name="allBroadcastsByMonth">Alle uitzendingen per maand weergeven</string>
+  <string name="backToLiveMove">Terug naar de actuele stelling</string>
 </resources>

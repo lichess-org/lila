@@ -132,7 +132,7 @@
     <item quantity="one">%s bukk</item>
     <item quantity="other">%s bukkar</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Bukk</item>
     <item quantity="other">%s Bukkar</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s feil</item>
     <item quantity="other">%s feil</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Feil</item>
     <item quantity="other">%s Feil</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s upresist trekk</item>
     <item quantity="other">%s upresise trekk</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Upresist trekk</item>
     <item quantity="other">%s Upresise trekk</item>
   </plurals>
@@ -984,9 +984,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="focusChat">Fokusér prateromet</string>
   <string name="showHelpDialog">Vis denne hjelpedialogen</string>
   <string name="reopenYourAccount">Opne kontoen din på ny</string>
-  <string name="closedAccountChangedMind">Om du har stengd kontoen din, men ynskjer å ta den attende, får du eitt høve til å opna den på ny.</string>
-  <string name="onlyWorksOnce">Dette kan du berre gjera ein einaste gong.</string>
-  <string name="cantDoThisTwice">Om du stengde kontoen ein andre gong, er det ikkje lengre mogleg å opna den att.</string>
   <string name="emailAssociatedToaccount">E-postadressa som er tilknytt kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg ein e-post med ei lenke.</string>
   <string name="tournamentEntryCode">Tilgangskode til turnering</string>

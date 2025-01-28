@@ -52,5 +52,5 @@ function toGamebook(lpv: PgnViewer) {
   const href = lpv.game.metadata.externalLink;
   $(lpv.div)
     .addClass('lpv--gamebook')
-    .append($(`<a href="${href}" target="_blank" rel="noopener" class="button lpv__gamebook">Start</a>`));
+    .append($(`<a href="${href}" target="_blank" class="button lpv__gamebook">Start</a>`));
 }

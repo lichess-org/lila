@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengesX">சவால்கள்: %1$s</string>
-  <string name="challengeToPlay">ஆட அழை</string>
+  <string name="challengeToPlay">விளையாட அழை</string>
   <string name="challengeDeclined">சவால் மறுக்கப்பட்டது.</string>
-  <string name="challengeAccepted">சவால் ஏற்றுக்கொள்ளப்பட்டது!</string>
-  <string name="challengeCanceled">சவால் ரத்து செய்யப்பட்டது.</string>
+  <string name="challengeAccepted">சவால் ஏற்றுக் கொள்ளப்பட்டது!</string>
+  <string name="challengeCanceled">சவால் இரத்து செய்யப்பட்டது.</string>
   <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">சவால்களை அனுப்ப பதிவு செய்யுங்கள்.</string>
-  <string name="youCannotChallengeX">நீங்கள் சவால் செய்ய முடியாது %s.</string>
+  <string name="youCannotChallengeX">நீங்கள் சவாலிட முடியாது %s.</string>
   <string name="xDoesNotAcceptChallenges">%s சவால்களை ஏற்கவில்லை.</string>
-  <string name="yourXRatingIsTooFarFromY">உங்கள் %1$s மதிப்பீடு வெகு தொலைவில் உள்ளது %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">தற்காலிக %s மதிப்பீடு காரணமாக சவால் செய்ய முடியாது.</string>
+  <string name="yourXRatingIsTooFarFromY">உங்கள் %1$s மதிப்பீடு வெகுட் தொலைவில் உள்ளது %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">தற்காலிக %s மதிப்பீடு காரணமாகச் சவால் செய்ய முடியாது.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s நண்பர்களிடமிருந்து வரும் சவால்களை மட்டுமே ஏற்றுக்கொள்கிறது.</string>
   <string name="declineGeneric">நான் தற்போது சவால்களை ஏற்கவில்லை.</string>
   <string name="declineLater">இது எனக்கு சரியான நேரம் அல்ல, தயவுசெய்து பின்னர் மீண்டும் கேளுங்கள்.</string>

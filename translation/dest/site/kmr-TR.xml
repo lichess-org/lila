@@ -132,7 +132,7 @@
     <item quantity="one">%s şelipan</item>
     <item quantity="other">%s şelipan</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Şelipan</item>
     <item quantity="other">%s Şelipan</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s çewtî</item>
     <item quantity="other">%s çewtî</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Çewtî</item>
     <item quantity="other">%s Çewtî</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s nerastî</item>
     <item quantity="other">%s nerastî</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Nerastî</item>
     <item quantity="other">%s Nerastî</item>
   </plurals>
@@ -879,8 +879,6 @@
   <string name="timeAlmostUp">Dem heme hema qedîya!</string>
   <string name="clickToRevealEmailAddress">[Ji bo nîşandana adresa epeyamê bitikîne]</string>
   <string name="download">Daxîne</string>
-  <string name="onlyWorksOnce">Ev wê tenê carekê bixebite.</string>
-  <string name="cantDoThisTwice">Ger tu hesabê xwe cara duyem bigirî, wê ti rêyeke xilaskirinê nîn be.</string>
   <string name="emailAssociatedToaccount">Adresa epeyamê yê girêdayî hesabê</string>
   <string name="sentEmailWithLink">Me ji te re epeyamekê şand tevî lînkê.</string>
   <string name="tournamentEntryCode">Koda têketinê yê turnuvayê</string>

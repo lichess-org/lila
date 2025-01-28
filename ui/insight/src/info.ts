@@ -24,7 +24,6 @@ export default function (ctrl: Ctrl) {
                 attrs: {
                   href: '/account/preferences/privacy#shareYourInsightsData',
                   target: '_blank',
-                  rel: 'noopener',
                 },
               },
               shareText,

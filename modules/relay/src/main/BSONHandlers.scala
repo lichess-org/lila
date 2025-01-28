@@ -14,20 +14,24 @@ object BSONHandlers:
 
   import RelayRound.Sync
   import Sync.Upstream
-  given upstreamUrlHandler: BSONDocumentHandler[Upstream.Url]   = Macros.handler
-  given upstreamUrlsHandler: BSONDocumentHandler[Upstream.Urls] = Macros.handler
-  given upstreamIdsHandler: BSONDocumentHandler[Upstream.Ids]   = Macros.handler
+  given upstreamUrlHandler: BSONDocumentHandler[Upstream.Url]     = Macros.handler
+  given upstreamUrlsHandler: BSONDocumentHandler[Upstream.Urls]   = Macros.handler
+  given upstreamIdsHandler: BSONDocumentHandler[Upstream.Ids]     = Macros.handler
+  given upstreamUsersHandler: BSONDocumentHandler[Upstream.Users] = Macros.handler
 
   given BSONHandler[Upstream] = new BSON[Upstream]:
     def reads(r: BSON.Reader): Upstream =
       if r.contains("url") then upstreamUrlHandler.readTry(r.doc).get
       else if r.contains("urls") then upstreamUrlsHandler.readTry(r.doc).get
-      else upstreamIdsHandler.readTry(r.doc).get
+      else if r.contains("ids") then upstreamIdsHandler.readTry(r.doc).get
+      else if r.contains("users") then upstreamUsersHandler.readTry(r.doc).get
+      else sys.error("Invalid Upstream BSON")
     def writes(w: BSON.Writer, up: Upstream) =
       val doc = up match
-        case url: Upstream.Url   => upstreamUrlHandler.writeTry(url).get
-        case urls: Upstream.Urls => upstreamUrlsHandler.writeTry(urls).get
-        case ids: Upstream.Ids   => upstreamIdsHandler.writeTry(ids).get
+        case url: Upstream.Url     => upstreamUrlHandler.writeTry(url).get
+        case urls: Upstream.Urls   => upstreamUrlsHandler.writeTry(urls).get
+        case ids: Upstream.Ids     => upstreamIdsHandler.writeTry(ids).get
+        case users: Upstream.Users => upstreamUsersHandler.writeTry(users).get
       doc ++ up.roundIds.some.filter(_.nonEmpty).so(ids => $doc("roundIds" -> ids))
 
   import SyncLog.Event

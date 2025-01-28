@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">Em vez de jogar o movimento esperado, primeiro realiza outro movimento criando uma ameaça imediata a que o oponente deve responder. Também conhecido como \"Zwischenzug\" ou \"In between\".</string>
   <string name="killBoxMate">Mate de torre e dama</string>
   <string name="killBoxMateDescription">Uma torre fica perto do rei inimigo e é defendida por uma dama que também bloqueia as casas de fuga. A torre e a dama capturam o rei inimigo em uma \"caixa mortal\" de 3 por 3.</string>
+  <string name="vukovicMate">Mate de Vukovic</string>
+  <string name="vukovicMateDescription">Uma torre e um cavalo colocam o rei em xeque. A torre dá xeque-mate protegida por outra peça, e o cavalo bloqueia as casas de fuga do rei.</string>
   <string name="knightEndgame">Finais de Cavalo</string>
   <string name="knightEndgameDescription">Um final jogado apenas com cavalos e peões.</string>
   <string name="long">Quebra-cabeças longo</string>

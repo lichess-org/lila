@@ -55,7 +55,6 @@ export default function (ctrl: PuzzleCtrl): VNode {
                 href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
                 title: i18n.site.playWithTheMachine,
                 target: '_blank',
-                rel: 'noopener',
               },
             }),
             data.user &&
