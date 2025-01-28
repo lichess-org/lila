@@ -35,6 +35,7 @@ import { commands, boardCommands } from 'nvui/command';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 import { plyToTurn } from 'chess';
+import { next, prev } from '../keyboard';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -155,16 +156,15 @@ export function initModule(): NvuiPlugin {
           {
             hook: onInsert(el => {
               const $board = $(el);
-              // NOTE: This is the only line different from analysis board listener setup
+              $board.on('keydown', jumpOrCommand(ctrl));
               const $buttons = $board.find('button');
               $buttons.on(
                 'click',
                 selectionHandler(() => ctrl.data.opponent.color, selectSound),
               );
               $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
-              $buttons.on('keypress', boardCommandsHandler());
               $buttons.on(
-                'keypress',
+                'keydown',
                 lastCapturedCommandHandler(
                   () => ctrl.data.steps.map(step => step.fen),
                   pieceStyle.get(),
@@ -172,7 +172,7 @@ export function initModule(): NvuiPlugin {
                 ),
               );
               $buttons.on(
-                'keypress',
+                'keydown',
                 possibleMovesHandler(
                   ctrl.data.player.color,
                   () => ctrl.chessground.state.turnColor,
@@ -183,8 +183,8 @@ export function initModule(): NvuiPlugin {
                   () => ctrl.data.steps,
                 ),
               );
-              $buttons.on('keypress', positionJumpHandler());
-              $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
+              $buttons.on('keydown', positionJumpHandler());
+              $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
             }),
           },
           renderBoard(
@@ -375,4 +375,18 @@ function gameText(ctrl: RoundController) {
     d.game.perf,
     i18n.site.gameVsX(playerText(ctrl, ctrl.data.opponent)),
   ].join(' ');
+}
+
+function doAndRedraw(ctrl: RoundController, f: (ctrl: RoundController) => void) {
+  f(ctrl);
+  ctrl.redraw();
+}
+
+function jumpOrCommand(ctrl: RoundController) {
+  return (e: KeyboardEvent) => {
+    if (e.shiftKey) {
+      if (e.key === 'A') doAndRedraw(ctrl, prev);
+      else if (e.key === 'D') doAndRedraw(ctrl, next);
+    } else boardCommandsHandler()(e);
+  };
 }

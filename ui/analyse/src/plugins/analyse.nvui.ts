@@ -147,7 +147,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               hook: {
                 insert: el => {
                   const $board = $(el.elm as HTMLElement);
-                  $board.on('keypress', boardCommandsHandler());
+                  $board.on('keydown', jumpOrCommand(ctrl));
                   const $buttons = $board.find('button');
                   const steps = () => ctrl.tree.getNodeList(ctrl.path);
                   const fenSteps = () => steps().map(step => step.fen);
@@ -155,11 +155,11 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                   $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                   $buttons.on(
-                    'keypress',
+                    'keydown',
                     lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                   );
-                  $buttons.on('keypress', positionJumpHandler());
-                  $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
+                  $buttons.on('keydown', positionJumpHandler());
+                  $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
                 },
               },
             },
@@ -332,14 +332,10 @@ const isShortCommand = (input: string) =>
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
-  const doAndRedraw = (fn: (ctrl: AnalyseController) => void): void => {
-    fn(ctrl);
-    ctrl.redraw();
-  };
-  if (lowered === 'next') doAndRedraw(next);
-  else if (lowered === 'prev') doAndRedraw(prev);
-  else if (lowered === 'next line') doAndRedraw(jumpNextLine);
-  else if (lowered === 'prev line') doAndRedraw(jumpPrevLine);
+  if (lowered === 'next') doAndRedraw(ctrl, next);
+  else if (lowered === 'prev') doAndRedraw(ctrl, prev);
+  else if (lowered === 'next line') doAndRedraw(ctrl, jumpPrevLine);
+  else if (lowered === 'prev line') doAndRedraw(ctrl, jumpNextLine);
   else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
   else if (lowered === 'best') notify(renderBestMove(ctrl, style));
   else {
@@ -479,7 +475,7 @@ function renderStudyPlayer(ctrl: AnalyseController, color: Color): VNode | undef
       keys
         .reduce<
           string[]
-        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player?.fed?.name : player[key]}`) : strs), [])
+        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].name : player[key]}`) : strs), [])
         .join(' '),
     )
   );
@@ -500,14 +496,13 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
 }
+const onInsertHandler = (callback: () => void, el: HTMLElement) => {
+  el.addEventListener('click', callback);
+  el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
+};
 
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;
-  const onInsertHandler = (callback: () => void, el: HTMLElement) => {
-    el.addEventListener('click', callback);
-    el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
-  };
-
   return (
     study &&
     h('div.study-details', [
@@ -578,4 +573,18 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
       ]),
     ])
   );
+}
+
+const doAndRedraw = (ctrl: AnalyseController, fn: (ctrl: AnalyseController) => void): void => {
+  fn(ctrl);
+  ctrl.redraw();
+};
+
+function jumpOrCommand(ctrl: AnalyseController) {
+  return (e: KeyboardEvent) => {
+    if (e.shiftKey || e.altKey) {
+      if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
+      else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
+    } else boardCommandsHandler()(e);
+  };
 }
