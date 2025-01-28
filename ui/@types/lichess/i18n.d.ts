@@ -761,6 +761,8 @@ interface I18n {
     howToReportBug: string;
     /** I can't log in */
     iCantLogIn: string;
+    /** If you have closed your account forever, you will not be able to reopen it. */
+    ifClosedForever: string;
     /** If your appeal is legitimate, we will lift the ban ASAP. */
     ifLegit: string;
     /** Illegal or impossible castling */

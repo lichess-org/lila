@@ -386,6 +386,7 @@ object I18nKey:
     val `doNotAskByEmail`: I18nKey = "contact:doNotAskByEmail"
     val `wantReopen`: I18nKey = "contact:wantReopen"
     val `reopenOnThisPage`: I18nKey = "contact:reopenOnThisPage"
+    val `ifClosedForever`: I18nKey = "contact:ifClosedForever"
     val `doNotAskByEmailToReopen`: I18nKey = "contact:doNotAskByEmailToReopen"
     val `wantChangeUsername`: I18nKey = "contact:wantChangeUsername"
     val `changeUsernameCase`: I18nKey = "contact:changeUsernameCase"

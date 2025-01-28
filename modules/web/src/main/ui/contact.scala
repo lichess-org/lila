@@ -28,6 +28,7 @@ object contact:
       wantReopen(),
       frag(
         p(a(href := routes.Account.reopen)(reopenOnThisPage())),
+        p(ifClosedForever()),
         p(doNotAskByEmailToReopen())
       )
     )
