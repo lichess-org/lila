@@ -139,11 +139,12 @@ final class ModTimelineUi(helpers: Helpers)(
       author,
       span(
         cls := List(
-          "mod-timeline__event__action"               -> true,
-          s"mod-timeline__event__action--${e.action}" -> true,
-          "mod-timeline__event__action--warning"      -> Modlog.isWarning(e),
-          "mod-timeline__event__action--sentence"     -> Modlog.isSentence(e.action),
-          "mod-timeline__event__action--undo"         -> Modlog.isUndo(e.action)
+          "mod-timeline__event__action"                   -> true,
+          s"mod-timeline__event__action--${e.action}"     -> true,
+          "mod-timeline__event__action--warning"          -> Modlog.isWarning(e),
+          "mod-timeline__event__action--sentence"         -> Modlog.isSentence(e.action),
+          "mod-timeline__event__action--account-sentence" -> Modlog.isAccountSentence(e.action),
+          "mod-timeline__event__action--undo"             -> Modlog.isUndo(e.action)
         )
       ):
         if Modlog.isWarning(e) then strong("sends warning")

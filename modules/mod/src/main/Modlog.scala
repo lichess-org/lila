@@ -129,6 +129,19 @@ object Modlog:
     "teamKick"
   )
 
+  val isAccountSentence: Set[String] = Set(
+    "alt",
+    "engine",
+    "booster",
+    "troll",
+    "isolate",
+    "closeAccount",
+    "reportban",
+    "rankban",
+    "arenaBan",
+    "prizeban"
+  )
+
   val isUndo: Set[String] =
     Set(
       "unalt",
