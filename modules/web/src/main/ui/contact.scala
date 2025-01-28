@@ -265,7 +265,7 @@ object contact:
                 p("You may request the deletion of your Lichess account."),
                 p(
                   "First, ",
-                  a(href := routes.Account.close)("close your account"),
+                  a(href := routes.Account.delete)("delete your account"),
                   "."
                 ),
                 p(
