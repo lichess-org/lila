@@ -651,6 +651,9 @@
   <string name="light">Albens</string>
   <string name="dark">Niger</string>
   <string name="transparent">Perlucidus</string>
+  <string name="board">Scaccarium</string>
+  <string name="size">Magnitudo</string>
+  <string name="hue">Color</string>
   <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>
@@ -688,5 +691,7 @@
   <string name="sorry">Paenitet :(</string>
   <string name="why">Cur?</string>
   <string name="playEveryGame">Lude vos satus omnis ludum.</string>
+  <string name="rapid">Rapidus</string>
+  <string name="classical">Classicus</string>
   <string name="hangOn">Expecta!</string>
 </resources>

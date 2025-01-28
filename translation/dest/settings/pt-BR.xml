@@ -5,6 +5,6 @@
   <string name="managedAccountCannotBeClosed">Sua conta é gerenciada, e não pode ser encerrada.</string>
   <string name="cantOpenSimilarAccount">Você não poderá abrir uma nova conta com o mesmo nome, mesmo que alterne entre maiúsculas e minúsculas.</string>
   <string name="cancelKeepAccount">Cancelar e manter minha conta</string>
-  <string name="closeAccountAreYouSure">Tem certeza de que deseja encerrar a conta?</string>
+  <string name="closeAccountAreYouSure">Você tem certeza de que deseja encerrar sua conta?</string>
   <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>
 </resources>
