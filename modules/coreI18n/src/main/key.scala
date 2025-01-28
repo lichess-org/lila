@@ -1450,7 +1450,6 @@ object I18nKey:
     val `showThreat`: I18nKey = "showThreat"
     val `inLocalBrowser`: I18nKey = "inLocalBrowser"
     val `toggleLocalEvaluation`: I18nKey = "toggleLocalEvaluation"
-    val `engineCannotAnalyse`: I18nKey = "engineCannotAnalyse"
     val `promoteVariation`: I18nKey = "promoteVariation"
     val `makeMainLine`: I18nKey = "makeMainLine"
     val `deleteFromHere`: I18nKey = "deleteFromHere"

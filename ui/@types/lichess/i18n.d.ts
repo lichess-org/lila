@@ -3137,8 +3137,6 @@ interface I18n {
     endgame: string;
     /** Endgame positions */
     endgamePositions: string;
-    /** Engine cannot analyse this game */
-    engineCannotAnalyse: string;
     /** Error loading engine */
     engineFailed: string;
     /** This email address is invalid */
