@@ -58,7 +58,7 @@ final class ModTimelineUi(helpers: Helpers)(
       )
     )(
       a(cls := "mod-timeline__event__flair", href := e.url(t.user)):
-        img(src := flairSrc(e.flair), title := s"${e.key} ${showInstant(e.at)}")
+        img(src := flairSrc(e.flair), title := e.key, datetimeAttr := isoDateTime(e.at))
       ,
       div(cls := "mod-timeline__event__body")(renderEventBody(t)(e))
     )
