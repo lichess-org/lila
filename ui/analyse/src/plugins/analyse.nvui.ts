@@ -28,7 +28,7 @@ import {
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands, boardCommands } from 'nvui/command';
+import { commands, boardCommands, addBreaks } from 'nvui/command';
 import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
@@ -200,41 +200,33 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
           h('h2', i18n.site.keyboardShortcuts),
-          h('p', [
-            'Use arrow keys to navigate in the game.',
-            h('br'),
-            `l: ${i18n.site.toggleLocalAnalysis}`,
-            h('br'),
-            `z: ${i18n.site.toggleAllAnalysis}`,
-            h('br'),
-            `space: ${i18n.site.playComputerMove}`,
-            h('br'),
-            'c: announce computer evaluation',
-            h('br'),
-            `x: ${i18n.site.showThreat}`,
-            h('br'),
-          ]),
+          h(
+            'p',
+            [
+              'Use arrow keys to navigate in the game.',
+              `l: ${i18n.site.toggleLocalAnalysis}`,
+              `z: ${i18n.site.toggleAllAnalysis}`,
+              `space: ${i18n.site.playComputerMove}`,
+              'c: announce computer evaluation',
+              `x: ${i18n.site.showThreat}`,
+            ].reduce(addBreaks, []),
+          ),
           ...boardCommands(),
           h('h2', 'Commands'),
-          h('p', [
-            'Type these commands in the command input.',
-            h('br'),
-            commands.piece.help,
-            h('br'),
-            commands.scan.help,
-            h('br'),
-            "eval: announce last move's computer evaluation",
-            h('br'),
-            'best: announce the top engine move',
-            h('br'),
-            'prev: return to the previous move',
-            h('br'),
-            'next: go to the next move',
-            h('br'),
-            'prev line: switch to the previous variation',
-            h('br'),
-            'next line: switch to the next variation',
-          ]),
+          h(
+            'p',
+            [
+              'Type these commands in the command input.',
+              commands.piece.help,
+              commands.scan.help,
+              "eval: announce last move's computer evaluation",
+              'best: announce the top engine move',
+              'prev: return to the previous move',
+              'next: go to the next move',
+              'prev line: switch to the previous variation',
+              'next line: switch to the next variation',
+            ].reduce(addBreaks, []),
+          ),
         ]),
       ]);
     },

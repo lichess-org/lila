@@ -40,6 +40,8 @@ export const boardCommands = (): VNode[] => [
       'Shift+1-8: move to file a-h.',
       `Shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
       `Alt+Shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
-    ].reduce<VNodeChildren[]>((acc, help) => acc.concat([h('br'), help]), []),
+    ].reduce(addBreaks, []),
   ),
 ];
+
+export const addBreaks = (acc: VNodeChildren[], str: string): VNodeChildren[] => acc.concat([h('br'), str]);

@@ -25,7 +25,7 @@ import {
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands, boardCommands } from 'nvui/command';
+import { commands, boardCommands, addBreaks } from 'nvui/command';
 import { next as controlNext, prev } from '../control';
 import { bind, onInsert } from 'common/snabbdom';
 import { throttle } from 'common/timing';
@@ -177,18 +177,16 @@ export function initModule() {
             `Up and down arrow keys, or 0 and $, or home and end: ${i18n.site.keyGoToStartOrEnd}`,
           ]),
           h('h2', 'Commands'),
-          h('p', [
-            'Type these commands in the move input.',
-            h('br'),
-            `v: ${i18n.site.viewTheSolution}`,
-            h('br'),
-            'l: Read last move.',
-            h('br'),
-            commands.piece.help,
-            h('br'),
-            commands.scan.help,
-            h('br'),
-          ]),
+          h(
+            'p',
+            [
+              'Type these commands in the move input.',
+              `v: ${i18n.site.viewTheSolution}`,
+              'l: Read last move.',
+              commands.piece.help,
+              commands.scan.help,
+            ].reduce(addBreaks, []),
+          ),
           ...boardCommands(),
           h('h2', 'Promotion'),
           h('p', [

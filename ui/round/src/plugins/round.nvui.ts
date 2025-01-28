@@ -31,7 +31,7 @@ import {
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands, boardCommands } from 'nvui/command';
+import { commands, boardCommands, addBreaks } from 'nvui/command';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 import { plyToTurn } from 'chess';
@@ -205,28 +205,21 @@ export function initModule(): NvuiPlugin {
         h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
         h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
         h('h2', `${i18n.keyboardMove.keyboardInputCommands}`),
-        h('p', [
-          'Type these commands in the move input.',
-          h('br'),
-          `c: ${i18n.keyboardMove.readOutClocks}`,
-          h('br'),
-          'l: Read last move.',
-          h('br'),
-          `o: ${i18n.keyboardMove.readOutOpponentName}`,
-          h('br'),
-          commands.piece.help,
-          h('br'),
-          commands.scan.help,
-          h('br'),
-          `abort: ${i18n.site.abortGame}`,
-          h('br'),
-          `resign: ${i18n.site.resign}`,
-          h('br'),
-          `draw: ${i18n.keyboardMove.offerOrAcceptDraw}`,
-          h('br'),
-          `takeback: ${i18n.site.proposeATakeback}`,
-          h('br'),
-        ]),
+        h(
+          'p',
+          [
+            'Type these commands in the move input.',
+            `c: ${i18n.keyboardMove.readOutClocks}`,
+            'l: Read last move.',
+            `o: ${i18n.keyboardMove.readOutOpponentName}`,
+            commands.piece.help,
+            commands.scan.help,
+            `abort: ${i18n.site.abortGame}`,
+            `resign: ${i18n.site.resign}`,
+            `draw: ${i18n.keyboardMove.offerOrAcceptDraw}`,
+            `takeback: ${i18n.site.proposeATakeback}`,
+          ].reduce(addBreaks, []),
+        ),
         ...boardCommands(),
         h('h2', 'Promotion'),
         h('p', [
