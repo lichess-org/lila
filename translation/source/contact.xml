@@ -16,7 +16,7 @@
   <string name="visitTitleConfirmation">To show your title on your Lichess profile, and participate in Titled Arenas, visit the title confirmation page</string>
   <string name="wantCloseAccount">I want to close my account</string>
   <string name="closeYourAccount">You can close your account on this page</string>
-  <string name="canCloseForever">You can close your account forever, preventing future reopenings.</string>
+  <string name="canCloseForever">If you want to close your account permanently, enable the "Forever close" option, but no one will be able to reopen your account.</string>
   <string name="doNotAskByEmail">Do not ask us by email to close an account, we won't do it.</string>
   <string name="wantReopen">I want to reopen my account</string>
   <string name="reopenOnThisPage">You can reopen your account on this page. It only works once.</string>
