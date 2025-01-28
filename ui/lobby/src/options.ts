@@ -59,87 +59,26 @@ export const keyToId = (key: string, items: { id: number; key: string }[]): numb
   items.find(item => item.key === key)!.id;
 
 export const sliderTimes = [
-  0,
-  1 / 4,
-  1 / 2,
-  3 / 4,
-  1,
+  ...Array.from(Array(5).keys()).map(x => x / 4),
   3 / 2,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  25,
-  30,
-  35,
-  40,
-  45,
-  60,
-  75,
-  90,
-  105,
-  120,
-  135,
-  150,
-  165,
-  180,
+  ...Array.from(Array(19).keys()).map(x => x + 2),
+  ...Array.from(Array(4).keys()).map(x => x * 5 + 25),
+  ...Array.from(Array(10).keys()).map(x => x * 15 + 45),
 ];
 
 export const timeVToTime = (v: InputValue): RealValue => (v < sliderTimes.length ? sliderTimes[v] : 180);
 
 export const incrementVToIncrement = (v: InputValue): RealValue => {
   if (v <= 20) return v;
-  switch (v) {
-    case 21:
-      return 25;
-    case 22:
-      return 30;
-    case 23:
-      return 35;
-    case 24:
-      return 40;
-    case 25:
-      return 45;
-    case 26:
-      return 60;
-    case 27:
-      return 90;
-    case 28:
-      return 120;
-    case 29:
-      return 150;
-    default:
-      return 180;
-  }
+  if ([21, 22, 23, 24, 25].includes(v)) return 5 * (v - 16);
+  if ([26, 27, 28, 29].includes(v)) return 30 * (v - 24);
+  return 180;
 };
 
 export const daysVToDays = (v: InputValue): RealValue => {
   if (v <= 3) return v;
-  switch (v) {
-    case 4:
-      return 5;
-    case 5:
-      return 7;
-    case 6:
-      return 10;
-    default:
-      return 14;
-  }
+  if ([4, 5, 6].includes(v)) return v + 2 ** (v - 4);
+  return 14;
 };
 
 // When we store timeV, incrementV, and daysV in local storage, we save the actual time, increment,
