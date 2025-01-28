@@ -254,7 +254,7 @@ export default class CoordinateTrainerCtrl {
 
   advanceCoordinates = () => {
     this.currentKey = this.nextKey;
-    if (this.selectionEnabled() === true)
+    if (this.selectionEnabled() )
       this.nextKey = newKey(this.nextKey, this.selectedFiles, this.selectedRanks);
     else this.nextKey = newKey(this.nextKey);
 
