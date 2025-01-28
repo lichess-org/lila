@@ -146,7 +146,7 @@ final class ModTimelineUi(helpers: Helpers)(
           "mod-timeline__event__action--undo"         -> Modlog.isUndo(e.action)
         )
       ):
-        if Modlog.isWarning(e) then "sends warning"
+        if Modlog.isWarning(e) then strong("sends warning")
         else e.showAction
       ,
       div(cls := "mod-timeline__text"):

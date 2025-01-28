@@ -105,6 +105,9 @@
     font-weight: bold;
   }
 }
+.mod-timeline__event__action--warning strong {
+  color: $c-brag;
+}
 
 @media (max-width: at-most($large)) {
   .mod-timeline {
