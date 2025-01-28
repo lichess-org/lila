@@ -975,6 +975,7 @@ Laat dit leeg om elke spel vanaf die normale posisie te begin.</string>
   <string name="focusChat">Lê fokus klets</string>
   <string name="showHelpDialog">Wys hierdie hulp dialoog</string>
   <string name="reopenYourAccount">Herstel jou rekening</string>
+  <string name="reopenYourAccountDescription">Indien jy jou rekening gesluit het maar intussen anders besluit het, kry jy \'n kans om jou rekening terug te kry.</string>
   <string name="emailAssociatedToaccount">E-pos adress geassosieer met die rekening</string>
   <string name="sentEmailWithLink">Ons het vir jou \'n e-pos met n skakel gestuur.</string>
   <string name="tournamentEntryCode">Toernooi ingangskode</string>

@@ -46,7 +46,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
         {
           hook: bind('click', e => {
             const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
-            if (href) window.open(href, '_blank', 'noopener');
+            if (href) window.open(href, '_blank');
           }),
         },
         data.sheet.map((p, i) => {

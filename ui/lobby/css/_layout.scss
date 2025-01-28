@@ -34,18 +34,18 @@
 
   @include mq-at-least-col3 {
     ---cols: 3; // ui/lobby/src/main.ts
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 34% 1fr;
     grid-template-rows:
       12em fit-content(0) min-content auto fit-content(15em) repeat(2, fit-content(0))
       minmax(0, 1fr);
     grid-template-areas:
-      'table  app     app'
-      'side   app     app'
-      'tv     blog    blog'
-      'tv     support support'
-      'puzzle feed    feed'
-      'tours  tours   tours'
-      'about  about   about';
+      'table  app'
+      'side   app'
+      'tv     blog'
+      'tv     support'
+      'puzzle feed'
+      'tours  tours'
+      'about  about';
 
     &__start {
       margin: 2em 0 0 0;

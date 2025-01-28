@@ -63,14 +63,7 @@ function title(ctrl: TournamentController) {
   return h(
     'h1',
     (d.greatPlayer
-      ? [
-          h(
-            'a',
-            { attrs: { href: d.greatPlayer.url, target: '_blank', rel: 'noopener' } },
-            d.greatPlayer.name,
-          ),
-          ' Arena',
-        ]
+      ? [h('a', { attrs: { href: d.greatPlayer.url, target: '_blank' } }, d.greatPlayer.name), ' Arena']
       : [d.fullName]
     ).concat(d.private ? [' ', h('span', { attrs: dataIcon(licon.Padlock) })] : []),
   );

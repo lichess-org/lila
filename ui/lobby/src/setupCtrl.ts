@@ -225,8 +225,8 @@ export default class SetupController {
   ratedModeDisabled = (): boolean =>
     // anonymous games cannot be rated
     !this.root.me ||
-    // unlimited games cannot be rated
     this.timeMode() === 'unlimited' ||
+    this.variant() === 'fromPosition' ||
     // variants with very low time cannot be rated
     (this.variant() !== 'standard' &&
       (this.timeMode() !== 'realTime' ||

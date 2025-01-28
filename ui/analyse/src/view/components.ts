@@ -294,7 +294,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
           else if (action === 'practice') ctrl.togglePractice();
           else if (action === 'menu') ctrl.actionMenu.toggle();
           else if (action === 'analysis' && ctrl.studyPractice)
-            window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
+            window.open(ctrl.studyPractice.analysisUrl(), '_blank');
         }, ctrl.redraw),
       ),
     },

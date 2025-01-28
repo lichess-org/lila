@@ -9,6 +9,8 @@ import chess.IntRating
 import lila.core.i18n.{ I18nKey, Translate }
 import lila.gathering.Condition
 
+case class Scheduled(freq: Schedule.Freq, at: LocalDateTime)
+
 case class Schedule(
     freq: Schedule.Freq,
     speed: Schedule.Speed,
@@ -17,114 +19,17 @@ case class Schedule(
     at: LocalDateTime,
     conditions: TournamentCondition.All = TournamentCondition.All.empty
 ):
-
-  def name(full: Boolean = true)(using Translate): String =
-    import Schedule.Freq.*
-    import Schedule.Speed.*
-    import lila.core.i18n.I18nKey.tourname.*
-    if variant.standard && position.isEmpty then
-      (conditions.minRating, conditions.maxRating) match
-        case (None, None) =>
-          (freq, speed) match
-            case (Hourly, Rapid) if full      => hourlyRapidArena.txt()
-            case (Hourly, Rapid)              => hourlyRapid.txt()
-            case (Hourly, speed) if full      => hourlyXArena.txt(speed.trans)
-            case (Hourly, speed)              => hourlyX.txt(speed.trans)
-            case (Daily, Rapid) if full       => dailyRapidArena.txt()
-            case (Daily, Rapid)               => dailyRapid.txt()
-            case (Daily, Classical) if full   => dailyClassicalArena.txt()
-            case (Daily, Classical)           => dailyClassical.txt()
-            case (Daily, speed) if full       => dailyXArena.txt(speed.trans)
-            case (Daily, speed)               => dailyX.txt(speed.trans)
-            case (Eastern, Rapid) if full     => easternRapidArena.txt()
-            case (Eastern, Rapid)             => easternRapid.txt()
-            case (Eastern, Classical) if full => easternClassicalArena.txt()
-            case (Eastern, Classical)         => easternClassical.txt()
-            case (Eastern, speed) if full     => easternXArena.txt(speed.trans)
-            case (Eastern, speed)             => easternX.txt(speed.trans)
-            case (Weekly, Rapid) if full      => weeklyRapidArena.txt()
-            case (Weekly, Rapid)              => weeklyRapid.txt()
-            case (Weekly, Classical) if full  => weeklyClassicalArena.txt()
-            case (Weekly, Classical)          => weeklyClassical.txt()
-            case (Weekly, speed) if full      => weeklyXArena.txt(speed.trans)
-            case (Weekly, speed)              => weeklyX.txt(speed.trans)
-            case (Monthly, Rapid) if full     => monthlyRapidArena.txt()
-            case (Monthly, Rapid)             => monthlyRapid.txt()
-            case (Monthly, Classical) if full => monthlyClassicalArena.txt()
-            case (Monthly, Classical)         => monthlyClassical.txt()
-            case (Monthly, speed) if full     => monthlyXArena.txt(speed.trans)
-            case (Monthly, speed)             => monthlyX.txt(speed.trans)
-            case (Yearly, Rapid) if full      => yearlyRapidArena.txt()
-            case (Yearly, Rapid)              => yearlyRapid.txt()
-            case (Yearly, Classical) if full  => yearlyClassicalArena.txt()
-            case (Yearly, Classical)          => yearlyClassical.txt()
-            case (Yearly, speed) if full      => yearlyXArena.txt(speed.trans)
-            case (Yearly, speed)              => yearlyX.txt(speed.trans)
-            case (Shield, Rapid) if full      => rapidShieldArena.txt()
-            case (Shield, Rapid)              => rapidShield.txt()
-            case (Shield, Classical) if full  => classicalShieldArena.txt()
-            case (Shield, Classical)          => classicalShield.txt()
-            case (Shield, speed) if full      => xShieldArena.txt(speed.trans)
-            case (Shield, speed)              => xShield.txt(speed.trans)
-            case _ if full                    => xArena.txt(s"${freq.toString} ${speed.trans}")
-            case _                            => s"${freq.toString} ${speed.trans}"
-        case (Some(_), _) if full   => eliteXArena.txt(speed.trans)
-        case (Some(_), _)           => eliteX.txt(speed.trans)
-        case (_, Some(max)) if full => s"≤${max.rating} ${xArena.txt(speed.trans)}"
-        case (_, Some(max))         => s"≤${max.rating} ${speed.trans}"
-    else if variant.standard then
-      val n = position.flatMap(lila.gathering.Thematic.byFen).fold(speed.trans) { pos =>
-        s"${pos.family.name} ${speed.trans}"
-      }
-      if full then xArena.txt(n) else n
-    else
-      freq match
-        case Hourly if full  => hourlyXArena.txt(variant.name)
-        case Hourly          => hourlyX.txt(variant.name)
-        case Daily if full   => dailyXArena.txt(variant.name)
-        case Daily           => dailyX.txt(variant.name)
-        case Eastern if full => easternXArena.txt(variant.name)
-        case Eastern         => easternX.txt(variant.name)
-        case Weekly if full  => weeklyXArena.txt(variant.name)
-        case Weekly          => weeklyX.txt(variant.name)
-        case Monthly if full => monthlyXArena.txt(variant.name)
-        case Monthly         => monthlyX.txt(variant.name)
-        case Yearly if full  => yearlyXArena.txt(variant.name)
-        case Yearly          => yearlyX.txt(variant.name)
-        case Shield if full  => xShieldArena.txt(variant.name)
-        case Shield          => xShield.txt(variant.name)
-        case _ =>
-          val n = s"${freq.name} ${variant.name}"
-          if full then xArena.txt(n) else n
-
-  def day = at.withTimeAtStartOfDay
-
-  /** Absolute start time of the schedule.
-    */
+  /** Absolute start time of the schedule. */
   def atInstant = at.instant
 
   def sameSpeed(other: Schedule) = speed == other.speed
 
-  def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
-
-  def sameVariant(other: Schedule) = variant.id == other.variant.id
-
-  def sameVariantAndSpeed(other: Schedule) = sameVariant(other) && sameSpeed(other)
-
-  def sameFreq(other: Schedule) = freq == other.freq
-
-  def sameConditions(other: Schedule) = conditions == other.conditions
-
   def sameMaxRating(other: Schedule) = conditions.sameMaxRating(other.conditions)
 
-  def similarConditions(other: Schedule) = conditions.similar(other.conditions)
-
   def sameDay(other: Schedule) = day == other.day
+  private def day              = at.withTimeAtStartOfDay
 
   def hasMaxRating = conditions.maxRating.isDefined
-
-  def similarTo(other: Schedule) =
-    similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
 
   def perfKey: PerfKey = PerfKey.byVariant(variant) | Schedule.Speed.toPerfKey(speed)
 
@@ -136,15 +41,6 @@ case class Schedule(
     s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions $initial"
 
 object Schedule:
-
-  def uniqueFor(tour: Tournament) =
-    Schedule(
-      freq = Freq.Unique,
-      speed = Speed.fromClock(tour.clock),
-      variant = tour.variant,
-      position = tour.position,
-      at = tour.startsAt.dateTime
-    )
 
   case class Plan(schedule: Schedule, startsAt: Instant, buildFunc: Option[Tournament => Tournament])
       extends PlanBuilder.ScheduleWithInterval:
@@ -187,7 +83,7 @@ object Schedule:
     val byName           = values.mapBy(_.name)
     val byId             = values.mapBy(_.id)
 
-  enum Speed(val id: Int):
+  enum Speed(val id: Int) derives Eq:
     val name = Speed.this.toString
     val key  = lila.common.String.lcfirst(name)
     def trans(using Translate): String = this match
@@ -221,6 +117,7 @@ object Schedule:
       else if time < 60 then HyperBullet
       else if time < 120 then Bullet
       else if time < 180 then HippoBullet
+      else if time < 300 then SuperBlitz
       else if time < 480 then Blitz
       else if time < 1500 then Rapid
       else Classical

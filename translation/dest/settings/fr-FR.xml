@@ -4,5 +4,7 @@
   <string name="closeAccount">Fermer votre compte</string>
   <string name="managedAccountCannotBeClosed">Votre compte est géré et ne peut pas être fermé.</string>
   <string name="cantOpenSimilarAccount">Vous ne serez pas autorisé à ouvrir un nouveau compte avec le même nom, même si la casse est différente.</string>
+  <string name="cancelKeepAccount">Annuler l\'opération et conserver mon compte</string>
+  <string name="closeAccountAreYouSure">Êtes-vous sûr de vouloir fermer votre compte?</string>
   <string name="thisAccountIsClosed">Ce compte a été fermé.</string>
 </resources>
