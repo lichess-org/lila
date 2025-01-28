@@ -109,6 +109,7 @@ object contact:
               wantCloseAccount(),
               frag(
                 p(a(href := routes.Account.close)(closeYourAccount()), "."),
+                p(canCloseForever()),
                 p(doNotAskByEmail())
               )
             ),

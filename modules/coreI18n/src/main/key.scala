@@ -382,6 +382,7 @@ object I18nKey:
     val `visitTitleConfirmation`: I18nKey = "contact:visitTitleConfirmation"
     val `wantCloseAccount`: I18nKey = "contact:wantCloseAccount"
     val `closeYourAccount`: I18nKey = "contact:closeYourAccount"
+    val `canCloseForever`: I18nKey = "contact:canCloseForever"
     val `doNotAskByEmail`: I18nKey = "contact:doNotAskByEmail"
     val `wantReopen`: I18nKey = "contact:wantReopen"
     val `reopenOnThisPage`: I18nKey = "contact:reopenOnThisPage"

@@ -705,6 +705,8 @@ interface I18n {
     buyingLichess: string;
     /** It is called "en passant" and is one of the rules of chess. */
     calledEnPassant: string;
+    /** You can close your account forever, preventing future reopenings. */
+    canCloseForever: string;
     /** We can't change more than the case. For technical reasons, it's downright impossible. */
     cantChangeMore: string;
     /** It's not possible to clear your game history, puzzle history, or ratings. */
