@@ -789,7 +789,7 @@ interface I18n {
     otherRestriction: string;
     /** Make sure you played a rated game. Casual games do not affect the players ratings. */
     ratedGame: string;
-    /** You can reopen your account on this page. It only works once. */
+    /** You can reopen your account on this page. */
     reopenOnThisPage: string;
     /** In the Lichess Discord server */
     reportBugInDiscord: string;
