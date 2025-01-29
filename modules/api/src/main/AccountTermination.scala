@@ -135,9 +135,8 @@ final class AccountTermination(
         else doDeleteNow(user, del).inject(user.some)
 
   private def doDeleteNow(u: User, del: UserDelete): Funit = for
-    playbanned  <- playbanApi.hasCurrentPlayban(u.id)
-    closedByMod <- modLogApi.closedByMod(u)
-    tos = u.marks.dirty || closedByMod || playbanned
+    playbanned <- playbanApi.hasCurrentPlayban(u.id)
+    tos = u.marks.dirty || playbanned
     _   = logger.info(s"Deleting user ${u.username} tos=$tos erase=${del.erase}")
     _                   <- if tos then userRepo.delete.nowWithTosViolation(u) else userRepo.delete.nowFully(u)
     _                   <- activityWrite.deleteAll(u)
