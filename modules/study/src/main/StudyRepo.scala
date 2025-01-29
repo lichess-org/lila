@@ -319,10 +319,14 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     privateSelector = selectOwnerId(u) ++ selectPrivateOrUnlisted
     ids <- c.distinctEasy[StudyId, List]("_id", privateSelector)
     _   <- c.delete.one(privateSelector)
-    _   <- c.update.one(selectOwnerId(u), $set("ownerId" -> UserId.ghost), multi = true)
-    _   <- c.update.one($doc(F.likers -> u), $pull(F.likers -> u))
-    _   <- c.update.one($doc(F.uids -> u), $pull(F.uids -> u) ++ $unset(s"members.$u"))
   yield ids
+
+  private[study] def anonymizeAllOf(u: UserId): Funit = for
+    c <- coll.get
+    _ <- c.update.one(selectOwnerId(u), $set("ownerId" -> UserId.ghost), multi = true)
+    _ <- c.update.one($doc(F.likers -> u), $pull(F.likers -> u), multi = true)
+    _ <- c.update.one($doc(F.uids -> u), $pull(F.uids -> u) ++ $unset(s"members.$u"), multi = true)
+  yield ()
 
   private def countLikes(studyId: StudyId): Fu[Option[(Study.Likes, Instant)]] =
     coll:
