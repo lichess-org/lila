@@ -114,5 +114,6 @@ final class Env(
     for
       studyIds <- studyRepo.deletePrivateByOwner(del.id)
       _        <- chapterRepo.deleteByStudyIds(studyIds)
+      _        <- studyRepo.anonymizeAllOf(del.id)
       _        <- topicApi.userTopicsDelete(del.id)
     yield ()
