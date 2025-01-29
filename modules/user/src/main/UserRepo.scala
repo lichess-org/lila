@@ -370,11 +370,12 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         bpass,
         "mustConfirmEmail",
         colorIt,
-        F.foreverClosed
+        F.foreverClosed,
+        F.delete
       )
       coll.update.one(
         $id(user.id),
-        $unset(fields) ++ $set(s"${F.delete}.done" -> true)
+        $unset(fields) ++ $set("deletedAt" -> nowInstant)
       )
 
     def nowFully(user: User) = for
@@ -382,9 +383,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       _ <- coll.update.one(
         $id(user.id),
         $doc(
-          "prevEmail"         -> lockEmail,
-          "createdAt"         -> user.createdAt,
-          s"${F.delete}.done" -> true
+          "prevEmail" -> lockEmail,
+          "createdAt" -> user.createdAt,
+          "deletedAt" -> nowInstant
         )
       )
     yield ()
