@@ -144,7 +144,8 @@ final class AccountTermination(
     _                   <- analysisRepo.remove(singlePlayerGameIds)
     _                   <- deleteAllGameChats(u)
     _                   <- streamerApi.delete(u)
-    _                   <- del.erase.so(swissApi.onUserErase(u.id))
+    swissIds            <- gameRepo.swissIdsOf(u.id)
+    _                   <- swissIds.nonEmpty.so(swissApi.onUserDelete(u.id, swissIds))
     _                   <- teamApi.onUserDelete(u.id)
     _                   <- ublogApi.onAccountDelete(u)
     _ <- u.marks.clean.so:
