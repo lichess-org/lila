@@ -260,19 +260,10 @@ object contact:
           List(
             Leaf(
               "gdpr",
-              "GDPR",
-              frag(
-                p("You may request the deletion of your Lichess account."),
-                p(
-                  "First, ",
-                  a(href := routes.Account.delete)("delete your account"),
-                  "."
-                ),
-                p(
-                  "Then send us an email at ",
-                  contactEmailLink(contactEmail.value),
-                  " to request the definitive erasure of all data linked to the account."
-                )
+              "GDPR erasure",
+              p(
+                "You may request the ",
+                a(href := routes.Account.delete)("complete deletion of your Lichess account.")
               )
             ),
             Leaf(
