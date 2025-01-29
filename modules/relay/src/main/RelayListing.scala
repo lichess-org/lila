@@ -182,7 +182,7 @@ private object RelayListing:
         .headOption
         .match
           case None => trs.rounds.headOption
-          case Some((_, last)) =>
+          case Some(_, last) =>
             trs.rounds.find(!_.isFinished) match
               case None => last.some
               case Some(next) =>

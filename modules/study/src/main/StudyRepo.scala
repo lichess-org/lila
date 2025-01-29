@@ -268,8 +268,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     _ <- c.update.one($id(studyId), if v then $addToSet(F.likers -> userId) else $pull(F.likers -> userId))
     likes <- countLikes(studyId)
     updated <- likes match
-      case None                     => fuccess(Study.Likes(0))
-      case Some((likes, createdAt)) =>
+      case None                   => fuccess(Study.Likes(0))
+      case Some(likes, createdAt) =>
         // Multiple updates may race to set denormalized likes and rank,
         // but values should be approximately correct, match a real like
         // count (though perhaps not the latest one), and any uncontended

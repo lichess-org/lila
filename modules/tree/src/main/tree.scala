@@ -65,7 +65,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def promoteToMainlineAt(path: UciPath): Option[Branches] =
     path.split match
       case None => this.some
-      case Some((head, tail)) =>
+      case Some(head, tail) =>
         get(head).flatMap: node =>
           node.withChildren(_.promoteToMainlineAt(tail)).map { promoted =>
             Branches(promoted :: nodes.filterNot(node ==))
@@ -74,7 +74,7 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def promoteUpAt(path: UciPath): Option[(Branches, Boolean)] =
     path.split match
       case None => Some(this -> false)
-      case Some((head, tail)) =>
+      case Some(head, tail) =>
         for
           node                  <- get(head)
           mainlineNode          <- this.first
