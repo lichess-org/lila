@@ -65,10 +65,7 @@ db.irwin_request.createIndex({ createdAt: 1 }, { expireAfterSeconds: 1296000 });
 db.tournament2.createIndex({ status: 1 });
 db.tournament2.createIndex({ startsAt: 1 });
 db.tournament2.createIndex({ 'schedule.freq': 1, startsAt: -1 });
-db.tournament2.createIndex(
-  { status: 1, startsAt: 1 },
-  { partialFilterExpression: { status: 10 } },
-);
+db.tournament2.createIndex({ status: 1, startsAt: 1 }, { partialFilterExpression: { status: 10 } });
 db.tournament2.createIndex(
   { forTeams: 1, startsAt: -1 },
   { partialFilterExpression: { forTeams: { $exists: 1 } } },
@@ -89,7 +86,7 @@ db.fide_player.createIndex(
   { weights: { token: 1 }, default_language: 'english', language_override: 'language', textIndexVersion: 3 },
 );
 db.note.createIndex({ to: 1, date: -1 });
-db.note.createIndex({ from: 1 }, { partialFilterExpression: { mod: false } })
+db.note.createIndex({ from: 1 }, { partialFilterExpression: { mod: false } });
 db.note.createIndex(
   { _fts: 'text', _ftsx: 1, dox: 1, date: -1 },
   {
@@ -137,8 +134,8 @@ db.player_assessment.createIndex({ date: 1 }, { expireAfterSeconds: 15552000 });
 db.fishnet_analysis.createIndex({ 'sender.system': 1, createdAt: 1 });
 db.fishnet_analysis.createIndex({ 'game.id': 1 });
 db.fishnet_analysis.createIndex({ 'sender.userId': 1 });
-db.fishnet_analysis.createIndex({ 'sender.ip': 1 },);
-db.fishnet_analysis.createIndex({ 'sender.system': 1 },);
+db.fishnet_analysis.createIndex({ 'sender.ip': 1 });
+db.fishnet_analysis.createIndex({ 'sender.system': 1 });
 db.fishnet_analysis.createIndex(
   { acquired: 1 },
   { partialFilterExpression: { acquired: { $exists: true } } },
@@ -149,11 +146,11 @@ db.bookmark.createIndex({ u: 1, d: -1 });
 db.f_categ.createIndex({ team: 1 });
 db.relay_group.createIndex({ tours: 1 });
 db.seek.createIndex({ createdAt: -1 }, { expireAfterSeconds: 86400 });
-db.msg_msg.createIndex({ tid: 1, date: -1 },);
+db.msg_msg.createIndex({ tid: 1, date: -1 });
 db.team.createIndex({ enabled: 1, nbMembers: -1 });
 db.team.createIndex({ createdAt: -1 });
 db.team.createIndex({ createdBy: 1 });
-db.team.createIndex({ leaders: 1 },);
+db.team.createIndex({ leaders: 1 });
 db.swiss.createIndex({ teamId: 1, startsAt: 1 });
 db.swiss.createIndex({ nextRoundAt: 1 }, { partialFilterExpression: { nextRoundAt: { $exists: true } } });
 db.swiss.createIndex(
@@ -185,7 +182,7 @@ db.chat_timeout.createIndex(
   { chat: 1, expiresAt: -1 },
   { partialFilterExpression: { expiresAt: { $exists: 1 } } },
 );
-db.chat_timeout.createIndex({ user: 1, createdAt: -1 },);
+db.chat_timeout.createIndex({ user: 1, createdAt: -1 });
 db.daily_feed.createIndex({ at: -1 });
 db.tournament_leaderboard.createIndex({ t: 1 });
 db.tournament_leaderboard.createIndex({ u: 1, d: -1 });
@@ -214,11 +211,8 @@ db.oauth2_access_token.createIndex({ userId: 1 });
 db.oauth2_access_token.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
 db.cache.createIndex({ e: 1 }, { expireAfterSeconds: 0 });
 db.forecast.createIndex({ date: 1 }, { expireAfterSeconds: 1296000 });
-db.msg_thread.createIndex({ users: 1, 'lastMsg.date': -1 },);
-db.msg_thread.createIndex(
-  { users: 1 },
-  { partialFilterExpression: { 'lastMsg.read': false } },
-);
+db.msg_thread.createIndex({ users: 1, 'lastMsg.date': -1 });
+db.msg_thread.createIndex({ users: 1 }, { partialFilterExpression: { 'lastMsg.read': false } });
 db.msg_thread.createIndex({ users: 1, 'maskWith.date': -1 });
 db.video.createIndex({ 'metadata.likes': -1 });
 db.video.createIndex({ tags: 1, 'metadata.likes': -1 });
@@ -253,8 +247,8 @@ db.plan_charge.createIndex(
 db.f_post.createIndex({ topicId: 1, troll: 1 });
 db.f_post.createIndex({ createdAt: -1, troll: 1 });
 db.f_post.createIndex({ userId: 1 });
-db.f_post.createIndex({ categId: 1, createdAt: -1 },);
-db.f_post.createIndex({ topicId: 1, createdAt: -1 },);
+db.f_post.createIndex({ categId: 1, createdAt: -1 });
+db.f_post.createIndex({ topicId: 1, createdAt: -1 });
 db.external_engine.createIndex({ userId: 1 });
 db.external_engine.createIndex({ oauthToken: 1 });
 db.tutor_queue.createIndex({ requestedAt: 1 });
@@ -269,9 +263,9 @@ db.challenge_bulk.createIndex({ by: 1, pairAt: -1 });
 db.push_subscription.createIndex({ userId: 1 });
 db.team_member.createIndex({ team: 1 });
 db.team_member.createIndex({ user: 1 });
-db.team_member.createIndex({ team: 1, date: -1 },);
+db.team_member.createIndex({ team: 1, date: -1 });
 db.team_member.createIndex({ team: 1, perms: 1 }, { partialFilterExpression: { perms: { $exists: 1 } } });
-db.email_domains.createIndex({ nb: -1 },);
+db.email_domains.createIndex({ nb: -1 });
 db.game5.createIndex({ ca: -1 });
 db.game5.createIndex({ us: 1, ca: -1 });
 db.game5.createIndex({ 'pgni.user': 1, 'pgni.ca': -1 }, { sparse: 1 });
@@ -289,27 +283,12 @@ db.study.createIndex({ rank: -1 });
 db.study.createIndex({ createdAt: -1 });
 db.study.createIndex({ updatedAt: -1 });
 db.study.createIndex({ likers: 1 });
-db.study.createIndex({ uids: 1 },);
-db.study.createIndex(
-  { topics: 1, rank: -1 },
-  { partialFilterExpression: { topics: { $exists: 1 } } },
-);
-db.study.createIndex(
-  { topics: 1, createdAt: -1 },
-  { partialFilterExpression: { topics: { $exists: 1 } } },
-);
-db.study.createIndex(
-  { topics: 1, updatedAt: -1 },
-  { partialFilterExpression: { topics: { $exists: 1 } } },
-);
-db.study.createIndex(
-  { topics: 1, likes: -1 },
-  { partialFilterExpression: { topics: { $exists: 1 } } },
-);
-db.study.createIndex(
-  { uids: 1, rank: -1 },
-  { partialFilterExpression: { topics: { $exists: 1 } } },
-);
+db.study.createIndex({ uids: 1 });
+db.study.createIndex({ topics: 1, rank: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
+db.study.createIndex({ topics: 1, createdAt: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
+db.study.createIndex({ topics: 1, updatedAt: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
+db.study.createIndex({ topics: 1, likes: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
+db.study.createIndex({ uids: 1, rank: -1 }, { partialFilterExpression: { topics: { $exists: 1 } } });
 db.study_chapter_flat.createIndex({ studyId: 1, order: 1 });
 db.study_chapter_flat.createIndex(
   { 'relay.fideIds': 1 },
