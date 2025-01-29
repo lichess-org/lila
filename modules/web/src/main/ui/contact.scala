@@ -28,7 +28,6 @@ object contact:
       wantReopen(),
       frag(
         p(a(href := routes.Account.reopen)(reopenOnThisPage())),
-        p(ifClosedForever()),
         p(doNotAskByEmailToReopen())
       )
     )
@@ -110,7 +109,6 @@ object contact:
               wantCloseAccount(),
               frag(
                 p(a(href := routes.Account.close)(closeYourAccount()), "."),
-                p(canCloseForever()),
                 p(doNotAskByEmail())
               )
             ),

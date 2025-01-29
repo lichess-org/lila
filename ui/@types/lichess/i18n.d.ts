@@ -705,8 +705,6 @@ interface I18n {
     buyingLichess: string;
     /** It is called "en passant" and is one of the rules of chess. */
     calledEnPassant: string;
-    /** If you want to close your account permanently, enable the "Forever close" option, but no one will be able to reopen your account. */
-    canCloseForever: string;
     /** We can't change more than the case. For technical reasons, it's downright impossible. */
     cantChangeMore: string;
     /** It's not possible to clear your game history, puzzle history, or ratings. */
@@ -761,8 +759,6 @@ interface I18n {
     howToReportBug: string;
     /** I can't log in */
     iCantLogIn: string;
-    /** If you have closed your account forever, you will not be able to reopen it. */
-    ifClosedForever: string;
     /** If your appeal is legitimate, we will lift the ban ASAP. */
     ifLegit: string;
     /** Illegal or impossible castling */
@@ -793,7 +789,7 @@ interface I18n {
     otherRestriction: string;
     /** Make sure you played a rated game. Casual games do not affect the players ratings. */
     ratedGame: string;
-    /** You can reopen your account on this page. It only works once. */
+    /** You can reopen your account on this page. */
     reopenOnThisPage: string;
     /** In the Lichess Discord server */
     reportBugInDiscord: string;
