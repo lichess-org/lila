@@ -89,6 +89,7 @@ db.fide_player.createIndex(
   { weights: { token: 1 }, default_language: 'english', language_override: 'language', textIndexVersion: 3 },
 );
 db.note.createIndex({ to: 1, date: -1 }, { background: 1 });
+db.note.createIndex({ from: 1 });
 db.note.createIndex(
   { _fts: 'text', _ftsx: 1, dox: 1, date: -1 },
   {
