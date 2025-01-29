@@ -508,6 +508,7 @@
   <string name="endgamePositions">Endgame positions</string>
   <string name="chess960StartPosition">Chess960 start position: %s</string>
   <string name="startPosition">Starting position</string>
+  <string name="startPosFEN">rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</string>
   <string name="clearBoard">Clear board</string>
   <string name="loadPosition">Load position</string>
   <string name="isPrivate">Private</string>

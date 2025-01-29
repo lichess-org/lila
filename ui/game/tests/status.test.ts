@@ -3,7 +3,7 @@ import { bishopOnColor, expandFen, insufficientMaterial } from '../src/view/stat
 
 describe('expand fen', () => {
   test('starting position', () =>
-    expect(expandFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')).toBe(
+    expect(expandFen(i18n.site.startPosFEN)).toBe(
       'rnbqkbnrpppppppp11111111111111111111111111111111PPPPPPPPRNBQKBNR',
     ));
   test('middlegame position', () =>
@@ -48,11 +48,7 @@ describe('should not be insufficient material', () => {
     ['atomic'],
     ['antichess'],
     ['threeCheck'],
-  ])('variant %s', variant =>
-    expect(insufficientMaterial(variant, 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')).toBe(
-      false,
-    ),
-  );
+  ])('variant %s', variant => expect(insufficientMaterial(variant, i18n.site.startPosFEN)).toBe(false));
 
   test('pawn is never insufficient material', () =>
     expect(insufficientMaterial('standard', '4k3/8/8/8/8/8/7P/4K3 w - - 0 1')).toBe(false));

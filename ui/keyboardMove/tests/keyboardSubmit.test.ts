@@ -10,7 +10,7 @@ import { destsToUcis, sanWriter } from 'chess';
 // - use https://lichess.org/editor to create positions and get their FENs
 // - use https://lichess.org/editor/<FEN> to check what FENs look like
 
-const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+const startingFen = i18n.site.startPosFEN;
 const toDestsMap = (obj: object) => new Map(Object.entries(obj)) as Dests;
 const fenDestsToSans = (fen: string, dests: Record<string, string[]>) =>
   sanWriter(fen, destsToUcis(toDestsMap(dests)));

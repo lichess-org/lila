@@ -226,7 +226,7 @@ export default class SetupController {
     // anonymous games cannot be rated
     !this.root.me ||
     this.timeMode() === 'unlimited' ||
-    this.variant() === 'fromPosition' ||
+    (this.variant() === 'fromPosition' && this.fen() !== i18n.site.startPosFEN) ||
     // variants with very low time cannot be rated
     (this.variant() !== 'standard' &&
       (this.timeMode() !== 'realTime' ||
