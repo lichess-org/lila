@@ -4015,8 +4015,6 @@ interface I18n {
     startedStreaming: string;
     /** Starting: */
     starting: string;
-    /** rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 */
-    startPosFEN: string;
     /** Starting position */
     startPosition: string;
     /** Stats */
