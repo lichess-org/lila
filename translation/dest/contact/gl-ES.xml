@@ -18,7 +18,7 @@
   <string name="closeYourAccount">Podes pechar a túa conta nesta páxina</string>
   <string name="doNotAskByEmail">Non nos solicites o peche da túa conta por correo electrónico. Non o faremos.</string>
   <string name="wantReopen">Quero reabrir miña conta</string>
-  <string name="reopenOnThisPage">Podes reabrir a túa conta nesta páxina. Só funcionará unha vez.</string>
+  <string name="reopenOnThisPage">Podes reabrir a túa conta nesta páxina.</string>
   <string name="doNotAskByEmailToReopen">Non nos solicites reabrir unha conta por correo electrónico. Non o faremos.</string>
   <string name="wantChangeUsername">Quero mudar o meu nome de usuario</string>
   <string name="changeUsernameCase">Visita esta páxina para cambiar as maiúsculas/minúsculas do teu nome de usuario</string>
