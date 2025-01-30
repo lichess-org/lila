@@ -110,16 +110,16 @@
   <string name="cpus">Calculatoris</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analysis infinitum</string>
-  <string name="blunder">Peccatus</string>
+  <string name="blunder">Mendum</string>
   <string name="mistake">Erratum</string>
-  <string name="inaccuracy">Menda</string>
+  <string name="inaccuracy">Indiligentia</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s erratum grave</item>
-    <item quantity="other">%s errata gravia</item>
+    <item quantity="one">%s mendum</item>
+    <item quantity="other">%s menda</item>
   </plurals>
   <plurals name="numberBlunders">
-    <item quantity="one">%s Erratum grave</item>
-    <item quantity="other">%s Errata gravia</item>
+    <item quantity="one">%s Mendum</item>
+    <item quantity="other">%s Menda</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erratum</item>
@@ -130,8 +130,8 @@
     <item quantity="other">%s Errata</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s menda</item>
-    <item quantity="other">%s mendae</item>
+    <item quantity="one">%s indiligentia</item>
+    <item quantity="other">%s indiligentiae</item>
   </plurals>
   <plurals name="numberInaccuracies">
     <item quantity="one">%s Menda</item>
@@ -307,8 +307,8 @@
     <item quantity="other">%s certaminis puncta</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s notus</item>
-    <item quantity="other">%s noti</item>
+    <item quantity="one">%s studium</item>
+    <item quantity="other">%s studia</item>
   </plurals>
   <string name="viewTournament">Certamen videre</string>
   <string name="backToTournament">Referre ad torneamento</string>
@@ -434,6 +434,7 @@
   <string name="profile">Codex</string>
   <string name="editProfile">Mutare codicem</string>
   <string name="biography">Biographia</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Patria aut regio</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
   <string name="onlinePlayers">Lusores presentes</string>
@@ -576,11 +577,16 @@
   <string name="tournamentFAQ">Certaminis FAQ</string>
   <string name="timeBeforeTournamentStarts">Tempus ante principio certaminis</string>
   <string name="averageCentipawnLoss">Medius casus centipeditum</string>
+  <string name="accuracy">Subtilitas</string>
   <string name="keyboardShortcuts">Compendiaria claviatura</string>
   <string name="keyMoveBackwardOrForward">movere prorsum/retrorsum</string>
   <string name="keyGoToStartOrEnd">ire initium/finem</string>
   <string name="keyShowOrHideComments">aperire/operire commentarios</string>
   <string name="keyEnterOrExitVariation">inire/exire variationem</string>
+  <string name="keyNextLearnFromYourMistakes">Proximus (Disce ex errata tua)</string>
+  <string name="keyNextBlunder">Mendum proximum</string>
+  <string name="keyNextMistake">Erratum proximum</string>
+  <string name="keyNextInaccuracy">Indiligentia proxima</string>
   <string name="newTournament">Certamen novum</string>
   <string name="tournamentHomeTitle">Certamen latruncularium moderaminibus temporalibus et variationibus ornatum</string>
   <string name="tournamentHomeDescription">Ludere certamina velocia latruncularia! Iungere certaminibus officialibus, aut unum tibi creare. Bullet, Blitz, Classical,   Scacci960, Rex Collis, Tres scacci, atque varationes plures sunt!</string>
@@ -672,7 +678,7 @@
   <string name="whiteWinsGame">Albus vincit</string>
   <string name="blackWinsGame">Niger vincit</string>
   <string name="learnFromYourMistakes">Disce ex errata tua</string>
-  <string name="next">Posterus</string>
+  <string name="next">Proximus</string>
   <string name="findBetterMoveForWhite">Inveni motus melius albo</string>
   <string name="findBetterMoveForBlack">Inveni motus melius nigro</string>
   <string name="youCanDoBetter">Melius agere potes</string>
