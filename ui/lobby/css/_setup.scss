@@ -99,6 +99,10 @@
         flex: 1;
       }
     }
+
+    .setup-position-board .v-chushogi .sg-wrap {
+      margin: 1vmin 0;
+    }
   }
 
   .setup-time-mode {
@@ -155,6 +159,14 @@
     }
   }
 
+  .setup-error {
+    @extend %nowrap-ellipsis;
+
+    width: 75%;
+    margin: auto;
+    color: theme.$c-bad;
+  }
+
   .setup-submits {
     display: flex;
     align-items: flex-end;
@@ -198,6 +210,16 @@
 
     .button-title {
       margin-top: 0.25rem;
+    }
+
+    .button-wrap.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      position: absolute;
+      top: 1rem;
     }
   }
 

@@ -32,7 +32,7 @@ export const maxRatingChoices: number[] = Array.from(Array(16), (_, i) => i * 50
 export const minRatingChoices: number[] = Array.from(Array(16), (_, i) => 750 - i * 50);
 
 export const TimeMode = {
-  Unlimited: 0, // not offered
+  Unlimited: 0,
   RealTime: 1,
   Corres: 2,
 };
@@ -42,6 +42,7 @@ export const timeModeChoices: number[] = [TimeMode.RealTime, TimeMode.Corres];
 export const timeModeChoicesTranslated: [number, string][] = [
   [TimeMode.RealTime, i18n('realTime')],
   [TimeMode.Corres, i18n('correspondence')],
+  // [TimeMode.Unlimited, i18n('unlimited')],
 ];
 
 export const Mode = {

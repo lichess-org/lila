@@ -3,6 +3,7 @@ import { initOneWithState, update } from 'common/mini-board';
 import { modal } from 'common/modal';
 import { getPerfIcon } from 'common/perf-icons';
 import { type MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
+import spinner from 'common/spinner';
 import { i18n } from 'i18n';
 import { i18nPerf } from 'i18n/perf';
 import { colorName } from 'shogi/color-name';
@@ -50,6 +51,7 @@ function innerModal(ctrl: SetupCtrl): MaybeVNodes {
     timeControl(ctrl),
     ctrl.key !== 'ai' ? mode(ctrl) : undefined,
     ctrl.key === 'ai' ? levels(ctrl) : undefined,
+    ctrl.error ? h('div.setup-error', ctrl.error) : undefined,
     submitButtons(ctrl),
     rating(ctrl),
   ];
@@ -84,7 +86,7 @@ function positionInput(ctrl: SetupCtrl): VNode {
       h('a.info', {
         attrs: { href: handicapLink, target: '_blank', 'data-icon': '', title: i18n('variants') },
       }),
-      h('label', { attrs: { for: 'handicap' } }, `${i18n('handicap')}?:`),
+      h('label', { attrs: { for: 'ls-handicap' } }, `${i18n('handicap')}?:`),
       select(
         ctrl,
         'handicap',
@@ -103,21 +105,23 @@ function positionInput(ctrl: SetupCtrl): VNode {
     ]),
     h(
       'div.setup-position-board',
-      h(`div.sg-wrap.mini-board.v-${ctrl.variantKey()}${!ctrl.data.sfen ? '.none' : ''}`, {
-        key: ctrl.data.sfen,
-        hook: {
-          insert: vnode => {
-            initOneWithState(vnode.elm as HTMLElement, {
-              sfen: ctrl.data.sfen,
-              orientation: isHandicap({ sfen: ctrl.data.sfen }) ? 'gote' : 'sente',
-              variant: ctrl.variantKey(),
-            });
-          },
-          update: vnode => {
-            update(vnode.elm as HTMLElement, ctrl.data.sfen);
-          },
-        },
-      }),
+      ctrl.data.sfen
+        ? h(`div.mini-board.v-${ctrl.variantKey()}`, {
+            key: ctrl.data.sfen,
+            hook: {
+              insert: vnode => {
+                initOneWithState(vnode.elm as HTMLElement, {
+                  sfen: ctrl.data.sfen,
+                  orientation: isHandicap({ sfen: ctrl.data.sfen }) ? 'gote' : 'sente',
+                  variant: ctrl.variantKey(),
+                });
+              },
+              update: vnode => {
+                update(vnode.elm as HTMLElement, ctrl.data.sfen);
+              },
+            },
+          })
+        : null,
     ),
   ]);
 }
@@ -231,22 +235,24 @@ function submitButtons(ctrl: SetupCtrl): VNode {
   const allDisabled = !ctrl.canSubmit();
   return h(
     'div.setup-submits.section',
-    colorChoices.map(color => {
-      const name = color === 'random' ? i18n('randomColor') : colorName(color, ctrl.isHandicap());
-      const disabled = allDisabled || (color !== 'random' && !ctrl.canChooseColor());
-      return h('div.button-wrap', [
-        h(`button.button.button-metal.color-icon.${color}${disabled ? '.disabled' : ''}`, {
-          attrs: {
-            title: name,
-            disabled,
-          },
-          hook: bind('click', () => {
-            ctrl.submit(color);
+    colorChoices
+      .map(color => {
+        const name = color === 'random' ? i18n('randomColor') : colorName(color, ctrl.isHandicap());
+        const disabled = allDisabled || (color !== 'random' && !ctrl.canChooseColor());
+        return h(`div.button-wrap${ctrl.submitted ? '.hidden' : ''}`, [
+          h(`button.button.button-metal.color-icon.${color}${disabled ? '.disabled' : ''}`, {
+            attrs: {
+              title: name,
+              disabled,
+            },
+            hook: bind('click', () => {
+              ctrl.submit(color);
+            }),
           }),
-        }),
-        h('div.button-title', name),
-      ]);
-    }),
+          h('div.button-title', name),
+        ]);
+      })
+      .concat(ctrl.submitted ? spinner() : []),
   );
 }
 

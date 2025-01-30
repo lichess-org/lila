@@ -35,8 +35,10 @@ export default class SetupCtrl {
 
   isOpen: boolean;
   isExtraOpen: boolean;
+  submitted: boolean;
 
   invalidSfen: boolean;
+  error: string | undefined;
 
   nvui: boolean;
 
@@ -87,11 +89,15 @@ export default class SetupCtrl {
   }
 
   isHandicap(): boolean {
-    return this.data.sfen ? isHandicap({ sfen: this.data.sfen, rules: this.variantKey() }) : false;
+    return this.data.position === Position.fromPosition && this.data.sfen
+      ? isHandicap({ sfen: this.data.sfen, rules: this.variantKey() })
+      : false;
   }
 
   validateSfen(): void {
-    this.invalidSfen = parseSfen(this.variantKey(), this.data.sfen, true).isErr;
+    this.invalidSfen =
+      this.data.position !== Position.fromPosition ||
+      parseSfen(this.variantKey(), this.data.sfen, true).isErr;
   }
 
   variantKey(): VariantKey {
@@ -139,7 +145,7 @@ export default class SetupCtrl {
       this.data.byoyomi >= 10 ||
       this.data.increment >= 5;
 
-    return !this.invalidSfen && timeOk && ratedOk && aiOk;
+    return !this.submitted && !this.invalidSfen && timeOk && ratedOk && aiOk;
   }
 
   engineName(): string {
@@ -187,7 +193,7 @@ export default class SetupCtrl {
     const getNumber = (k: keyof SetupData, options: number[]): number => {
       const extra = extraData?.[k] ? Number.parseInt(extraData[k]) : undefined;
       const saved = extra ?? Number.parseInt(store[k]);
-      if (saved !== null && saved !== undefined && !Number.isNaN(saved) && options.includes(saved))
+      if (saved !== null && saved !== undefined && !isNaN(saved) && options.includes(saved))
         return saved;
       else return SetupCtrl.defaultData[k] as number;
     };
@@ -225,7 +231,7 @@ export default class SetupCtrl {
         mode: getNumber('mode', modeChoices),
       };
     } catch (e) {
-      console.error(e);
+      console.error('Failed to parse saved form data', e);
       this.data = SetupCtrl.defaultData;
     }
 
@@ -244,6 +250,8 @@ export default class SetupCtrl {
     this.initData(key, extraData);
 
     this.isOpen = true;
+    this.error = undefined;
+    this.submitted = false;
     this.redraw();
   }
 
@@ -281,7 +289,7 @@ export default class SetupCtrl {
       increment: this.data.increment,
       periods: this.data.periods,
       days: this.data.days,
-      sfen: this.data.sfen,
+      sfen: this.data.position === Position.fromPosition ? this.data.sfen : '',
       level: this.data.level,
       mode: this.data.mode,
       ratingRange: this.ratingRange(),
@@ -291,16 +299,25 @@ export default class SetupCtrl {
       rating ? `${rating - this.data.ratingMin}-${rating + this.data.ratingMin}` : undefined,
     );
 
+    this.error = undefined;
+    this.submitted = false;
+    this.redraw();
+
     let url = `/setup/${this.key}`;
     if (this.key === 'hook') url += `/${window.lishogi.sri}`;
 
     window.lishogi.xhr
       .text('POST', url, { formData: postData })
-      .catch(e => alert(`Failed to create game - ${e}`));
-
-    if (this.key === 'hook') this.root.setTab(this.isCorres() ? 'seeks' : 'real_time');
-
-    this.close();
+      .then(() => {
+        if (this.key === 'hook') this.root.setTab(this.isCorres() ? 'seeks' : 'real_time');
+        this.close();
+      })
+      .catch(e => {
+        this.submitted = false;
+        this.error = e;
+        console.error(`Failed to create game - ${e}`);
+        this.redraw();
+      });
   };
 
   static defaultData: SetupData = {
