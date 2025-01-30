@@ -81,7 +81,7 @@ final class RelationApi(
   def fetchAreFriends(u1: ID, u2: ID): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
-  private val countFollowingCache = cacheApi[ID, Int](2048, "relation.count.following") {
+  private val countFollowingCache = cacheApi[ID, Int](1024, "relation.count.following") {
     _.expireAfterAccess(10 minutes)
       .maximumSize(16384)
       .buildAsyncFuture { userId =>
@@ -94,7 +94,7 @@ final class RelationApi(
   def reachedMaxFollowing(userId: ID): Fu[Boolean] =
     countFollowingCache get userId map (config.maxFollow <=)
 
-  private val countFollowersCache = cacheApi[ID, Int](4096, "relation.count.followers") {
+  private val countFollowersCache = cacheApi[ID, Int](2048, "relation.count.followers") {
     _.expireAfterAccess(10 minutes)
       .maximumSize(16384)
       .buildAsyncFuture { userId =>

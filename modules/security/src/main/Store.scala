@@ -24,7 +24,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   import Store._
 
-  private val authCache = cacheApi[String, Option[AuthInfo]](4096, "security.authCache") {
+  private val authCache = cacheApi[String, Option[AuthInfo]](2048, "security.authCache") {
     _.expireAfterAccess(5 minutes)
       .buildAsyncFuture[String, Option[AuthInfo]] { id =>
         coll

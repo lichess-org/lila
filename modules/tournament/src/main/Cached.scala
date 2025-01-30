@@ -25,7 +25,7 @@ final private[tournament] class Cached(
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
-    initialCapacity = 4096,
+    initialCapacity = 1024,
     compute = { case (id, lang) =>
       tournamentRepo byId id dmap2 { _.name()(lang) }
     },
@@ -112,7 +112,7 @@ final private[tournament] class Cached(
         arena.Sheet(key.userId, _, key.version, key.streakable)
       }
 
-    private val cache = cacheApi[SheetKey, Sheet](4096, "tournament.sheet") {
+    private val cache = cacheApi[SheetKey, Sheet](2048, "tournament.sheet") {
       _.expireAfterAccess(3 minutes)
         .maximumSize(32768)
         .buildAsyncFuture(compute)
