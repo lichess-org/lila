@@ -26,7 +26,7 @@
   <string name="publishOnYourBlog">Publicar no teu blog</string>
   <string name="publishHelp">Se for marcada, a publicação será listada no teu blog. Se não, ficará privada, nos teus rascunhos de publicações</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixar publicação</string>
-  <string name="stickyPostHelp">Se selecionado, esta publicação será listada em primeiro no teu perfil de publicações recentes.</string>
+  <string name="stickyPostHelp">Se selecionado, esta publicação será listada em primeiro lugar nas publicações recentes do teu perfil e no teu blog.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Fez uma publicação no blog</item>
     <item quantity="other">Fez %s publicações no blog</item>
