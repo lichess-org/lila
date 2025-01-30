@@ -254,11 +254,9 @@ function createSubmitHandler(
     if (!input) return;
 
     // commands may be submitted with or without a leading /
-    if (isShortCommand(input)) input = '/' + input;
-    if (input[0] === '/') {
-      onCommand(ctrl, notify, input.slice(1), style());
-      $input.val('');
-    } else {
+    const command = isShortCommand(input) || isShortCommand(input.slice(1));
+    if (command) onCommand(ctrl, notify, command, style(), input);
+    else {
       const uci = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
       if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
       else if (ctrl.data.player.color !== ctrl.data.game.player) {
@@ -266,8 +264,8 @@ function createSubmitHandler(
         nvui.premoveInput = input;
         notify(`Will attempt to premove: ${input}. Enter to cancel`);
       } else notify(`Invalid move: ${input}`);
-      $input.val('');
     }
+    $input.val('');
   };
 }
 
@@ -284,30 +282,31 @@ const shortCommands = [
   's',
   'o',
   'opponent',
-];
+] as const;
+type ShortCommand = (typeof shortCommands)[number];
 
-function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0].toLowerCase());
-}
+const isShortCommand = (input: string): ShortCommand | undefined =>
+  shortCommands.find(c => c === input.split(' ')[0].toLowerCase());
 
-function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: MoveStyle) {
-  const lowered = c.toLowerCase();
-  if (lowered === 'c' || lowered === 'clock')
-    notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-  else if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
-  else if (lowered === 'abort') $('.nvui button.abort').trigger('click');
-  else if (lowered === 'resign') $('.nvui button.resign').trigger('click');
-  else if (lowered === 'draw') $('.nvui button.draw-yes').trigger('click');
-  else if (lowered === 'takeback') $('.nvui button.takeback-yes').trigger('click');
-  else if (lowered === 'o' || lowered === 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
-  else {
-    const pieces = ctrl.chessground.state.pieces;
+function onCommand(
+  ctrl: RoundController,
+  notify: (txt: string) => void,
+  c: ShortCommand,
+  style: MoveStyle,
+  rawInput: string,
+) {
+  if (c === 'c' || c === 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+  else if (c === 'l' || c === 'last') notify($('.lastMove').text());
+  else if (c === 'abort') $('.nvui button.abort').trigger('click');
+  else if (c === 'resign') $('.nvui button.resign').trigger('click');
+  else if (c === 'draw') $('.nvui button.draw-yes').trigger('click');
+  else if (c === 'takeback') $('.nvui button.takeback-yes').trigger('click');
+  else if (c === 'o' || c === 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
+  else
     notify(
-      commands.piece.apply(c, pieces, style) ||
-        commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`,
+      (c === 'p' ? commands.piece : commands.scan).apply(rawInput, ctrl.chessground.state.pieces, style) ??
+        `Invalid command: ${rawInput}`,
     );
-  }
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
