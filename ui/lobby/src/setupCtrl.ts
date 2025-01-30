@@ -217,12 +217,12 @@ export default class SetupController {
     this.openModal(gameType, undefined, friendUser, false);
     this.variant = propWithEffect(friendOptions.variant, this.onDropdownChange);
     this.fen = this.propWithApply(friendOptions?.fen || '');
-    this.timeMode = propWithEffect(friendOptions?.timeMode || 0, this.onDropdownChange);
+    this.timeMode = propWithEffect(friendOptions?.timeMode || '', this.onDropdownChange);
     this.timeV = this.propWithApply(sliderInitVal(friendOptions?.time || 0, timeVToTime, this.maxTimeV)!);
     this.incrementV = this.propWithApply(
       sliderInitVal(friendOptions?.increment || 0, incrementVToIncrement, this.maxIncrementV)!,
     );
-    this.daysV = this.propWithApply(sliderInitVal(friendOptions?.days || 0, daysVToDays, this.maxDaysV)!);
+    this.daysV = this.propWithApply(sliderInitVal(friendOptions?.days || 1, daysVToDays, this.maxDaysV)!);
     this.gameMode = this.propWithApply(friendOptions.gameMode);
     this.ratingMin = this.propWithApply(0);
     this.ratingMax = this.propWithApply(0);
