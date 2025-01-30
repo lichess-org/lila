@@ -9,8 +9,8 @@ import type { Comment, PracticeCtrl, Verdict } from './practice-ctrl';
 
 function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best
-    ? i18nVdom(
-        c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
+    ? verdictVdomI18n(
+        c.verdict,
         h(
           'move',
           {
@@ -30,9 +30,14 @@ function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
     : [];
 }
 
+function verdictVdomI18n(verdict: Verdict, node: VNode): string[] {
+  if (verdict === 'goodMove') return i18nVdom('anotherWasX', node);
+  else return i18nVdom('bestWasX', node);
+}
+
 function renderOffTrack(ctrl: PracticeCtrl): VNode {
   return h('div.player.off', [
-    h('div.icon.off', '!'),
+    h('div.icon.off', { attrs: { 'data-icon': '!' } }),
     h('div.instruction', [
       h('strong', i18n('youBrowsedAway')),
       h('div.choices', [
@@ -45,7 +50,9 @@ function renderOffTrack(ctrl: PracticeCtrl): VNode {
 function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
   const color = end.winner || root.turnColor();
   return h('div.player', [
-    color ? h('div.no-square', h(`piece.king.${color}`)) : h('div.icon.off', '!'),
+    color
+      ? h('div.no-square', h(`piece.king.${color}`))
+      : h('div.icon.off', { attrs: { 'data-icon': '!' } }),
     h('div.instruction', [
       h('strong', end.winner ? i18n('checkmate') : i18n('draw')),
       end.winner

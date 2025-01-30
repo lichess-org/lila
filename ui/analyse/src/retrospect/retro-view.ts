@@ -97,7 +97,7 @@ const feedback = {
   offTrack(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
-        h('div.icon.off', '!'),
+        h('div.icon.off', { attrs: { 'data-icon': '!' } }),
         h('div.instruction', [
           h('strong', i18n('youBrowsedAway')),
           h('div.choices.off', [
@@ -116,7 +116,7 @@ const feedback = {
   fail(ctrl: RetroCtrl): VNode[] {
     return [
       h('div.player', [
-        h('div.icon', '✗'),
+        h('div.icon.bad', { attrs: { 'data-icon': 'L' } }),
         h('div.instruction', [
           h('strong', i18n('youCanDoBetter')),
           h(
@@ -135,7 +135,10 @@ const feedback = {
     return [
       h(
         'div.half.top',
-        h('div.player', [h('div.icon', 'O'), h('div.instruction', h('strong', i18n('goodMove')))]),
+        h('div.player', [
+          h('div.icon', { attrs: { 'data-icon': 'K' } }),
+          h('div.instruction', h('strong', i18n('goodMove'))),
+        ]),
       ),
       jumpToNext(ctrl),
     ];
@@ -145,7 +148,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-          h('div.icon', 'O'),
+          h('div.icon', { attrs: { 'data-icon': 'K' } }),
           h('div.instruction', [
             h('strong', i18n('solution')),
             h(

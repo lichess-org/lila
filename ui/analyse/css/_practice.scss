@@ -59,33 +59,38 @@
 
   &.goodMove .verdict {
     color: theme.$c-good;
-  }
 
-  &.goodMove .verdict::before {
-    background: theme.$c-good;
-    font-family: lishogi;
-    content: 'K';
-    font-size: 1.7em;
+    &::before {
+      background: theme.$c-good;
+      content: '!';
+    }
   }
 
   &.inaccuracy .verdict {
-    color: theme.$c-brag;
+    color: theme.$c-inaccuracy;
+
+    &::before {
+      background: theme.$c-inaccuracy;
+      content: '?!';
+    }
   }
 
-  &.inaccuracy .verdict::before {
-    background: theme.$c-brag;
-    content: '?';
+  &.mistake .verdict {
+    color: theme.$c-mistake;
+
+    &::before {
+      background: theme.$c-mistake;
+      content: '?';
+    }
   }
 
-  &.mistake .verdict,
   &.blunder .verdict {
     color: theme.$c-bad;
-  }
 
-  &.mistake .verdict::before,
-  &.blunder .verdict::before {
-    background: theme.$c-bad;
-    content: '✗';
+    &::before {
+      background: theme.$c-bad;
+      content: '??';
+    }
   }
 
   .comment move {

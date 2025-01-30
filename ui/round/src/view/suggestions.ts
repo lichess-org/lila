@@ -25,7 +25,10 @@ export function impasse(ctrl: RoundController): MaybeVNode {
       h(
         'div.color-icon.sente',
         h('ul.impasse-list', [
-          h('li', [`${i18n('enteringKing')}: `, i.sente.king ? h('span.good', 'O') : '✗']),
+          h('li', [
+            `${i18n('enteringKing')}: `,
+            h('span', { attrs: { 'data-icon': i.sente.king ? 'K' : 'L' } }),
+          ]),
           h('li', [`${i18n('invadingPieces')}: `, `${i.sente.nbOfPieces}/10`]),
           h('li', [`${i18n('totalImpasseValue')}: `, `${i.sente.pieceValue}/28`]),
         ]),
@@ -33,7 +36,10 @@ export function impasse(ctrl: RoundController): MaybeVNode {
       h(
         'div.color-icon.gote',
         h('ul.impasse-list', [
-          h('li', [`${i18n('enteringKing')}: `, i.gote.king ? h('span.good', 'O') : '✗']),
+          h('li', [
+            `${i18n('enteringKing')}: `,
+            h('span.good', { attrs: { 'data-icon': i.gote.king ? 'K' : 'L' } }),
+          ]),
           h('li', [`${i18n('invadingPieces')}: `, `${i.gote.nbOfPieces}/10`]),
           h('li', [`${i18n('totalImpasseValue')}: `, `${i.gote.pieceValue}/27`]),
         ]),

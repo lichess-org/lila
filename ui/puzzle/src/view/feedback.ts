@@ -38,7 +38,7 @@ function initial(ctrl: Controller): VNode {
 function good(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.good', [
     h('div.player', [
-      h('div.icon', 'O'), // todo
+      h('div.icon', { attrs: { 'data-icon': 'K' } }),
       h('div.instruction', [
         h('strong', i18n('puzzle:bestMove')),
         h('em', i18n('puzzle:keepGoing')),
@@ -51,7 +51,7 @@ function good(ctrl: Controller): VNode {
 function fail(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.fail', [
     h('div.player', [
-      h('div.icon', '✗'),
+      h('div.icon', { attrs: { 'data-icon': 'L' } }),
       h('div.instruction', [
         h('strong', i18n('puzzle:notTheMove')),
         h('em', i18n('puzzle:trySomethingElse')),

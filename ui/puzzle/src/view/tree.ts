@@ -118,13 +118,9 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
 function renderGlyph(glyph: Glyph): VNode {
   return h(
     'span.glyphs',
-    h(
-      'glyph',
-      {
-        attrs: { title: glyph.name },
-      },
-      glyph.symbol,
-    ),
+    h('glyph', {
+      attrs: { title: glyph.name, 'data-icon': glyph.symbol },
+    }),
   );
 }
 
@@ -134,12 +130,12 @@ function puzzleGlyph(node: Tree.Node): MaybeVNode {
     case 'win':
       return renderGlyph({
         name: i18n('bestMove'),
-        symbol: 'O', // todo
+        symbol: 'K',
       });
     case 'fail':
       return renderGlyph({
         name: i18n('mistake'),
-        symbol: '✗',
+        symbol: 'L',
       });
     default:
       return;
