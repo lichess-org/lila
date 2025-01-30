@@ -123,6 +123,7 @@ function isPngPiece(key: PieceSetKey): boolean {
     'pixel',
     'Chu_Eigetsu_Gyoryu',
     'Kyo_joyful',
+    'characters',
   ].includes(key);
 }
 

@@ -180,6 +180,10 @@ bidirectional.map { |theme|
     classes.append("piece { image-rendering: pixelated; }")
     classes.append(".v-chushogi piece, .v-kyotoshogi piece { image-rendering: unset; }")
   end
+  if name == 'characters'
+    classes.append("piece { background-size: contain; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { background-size: cover; }")
+  end
   if ext == 'png'
     classes.append("piece { will-change: transform; background-repeat: unset; }")
     classes.append(".v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }")
@@ -227,6 +231,10 @@ bidirectional.map { |theme|
   if name == 'pixel'
     classes.append("piece { image-rendering: pixelated; }")
     classes.append(".v-chushogi piece, .v-kyotoshogi piece { image-rendering: unset; }")
+  end
+  if name == 'characters'
+    classes.append("piece { background-size: contain; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { background-size: cover; }")
   end
   if ext == 'png'
     classes.append("piece { will-change: transform; background-repeat: unset; }")
