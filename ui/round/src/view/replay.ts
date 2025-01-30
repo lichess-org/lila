@@ -144,7 +144,7 @@ function renderButtons(ctrl: RoundController) {
         e => {
           const target = e.target as HTMLElement;
           const ply = Number.parseInt(target.getAttribute('data-ply') || '');
-          if (!Number.isNaN(ply)) ctrl.userJump(ply);
+          if (!isNaN(ply)) ctrl.userJump(ply);
           else {
             const action =
               target.getAttribute('data-act') ||

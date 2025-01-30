@@ -20,7 +20,8 @@
       },
       "suspicious": {
         "noExplicitAny": "off",
-        "noDoubleEquals": "off"
+        "noDoubleEquals": "off",
+        "noGlobalIsNan": "off"
       },
       "complexity": {
         "noForEach": "off"

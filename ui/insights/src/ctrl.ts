@@ -91,7 +91,7 @@ export default class InsightCtrl {
           val = val
             .split('')
             .map((n: string) => Number.parseInt(n))
-            .filter((n: number) => !Number.isNaN(n));
+            .filter((n: number) => !isNaN(n));
         val = val || flt[key] || df[key];
         if (key !== 'custom') {
           const opt = filterOptions(key);

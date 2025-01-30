@@ -67,7 +67,7 @@ export default function (opts: Opts): DrawShape[] {
         n.ceval.pvs.forEach((pv, i) => {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color as Color, n.ceval!.pvs[0], pv);
-          if (shift > 0.2 || Number.isNaN(shift) || shift < 0) return;
+          if (shift > 0.2 || isNaN(shift) || shift < 0) return;
           shapes = shapes.concat(
             makeAutoShapesFromUsi(pv.moves[0], turnColor, i > 0 ? 'engineAlt' : 'engine'),
           );
@@ -82,7 +82,7 @@ export default function (opts: Opts): DrawShape[] {
       );
       n.threat.pvs.slice(1).forEach(pv => {
         const shift = winningChances.povDiff(opposite(color as Color), pv, n.threat!.pvs[0]);
-        if (shift > 0.2 || Number.isNaN(shift) || shift < 0) return;
+        if (shift > 0.2 || isNaN(shift) || shift < 0) return;
         shapes = shapes.concat(makeAutoShapesFromUsi(pv.moves[0], turnColor, 'engineThreatAlt'));
       });
     } else

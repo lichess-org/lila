@@ -155,8 +155,8 @@ const onScroll = () =>
     a = Number.parseFloat(a);
     b = Number.parseFloat(b);
 
-    a = Number.isNaN(a) ? 0 : a;
-    b = Number.isNaN(b) ? 0 : b;
+    a = isNaN(a) ? 0 : a;
+    b = isNaN(b) ? 0 : b;
 
     return a - b;
   };
