@@ -308,6 +308,18 @@ export default class SetupController {
       color,
     });
 
+  friendSetupOptionsToFormData = (color: Color | 'random'): FormData =>
+    xhr.form({
+      variant: this.variant(),
+      fen: this.fen(),
+      timeMode: this.timeMode(),
+      time: this.time(),
+      increment: this.increment(),
+      days: this.days(),
+      gameMode: this.gameMode(),
+      color: color,
+    });
+
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
   validTime = (): boolean => this.timeMode() !== 'realTime' || this.time() > 0 || this.increment() > 0;
   validAiTime = (): boolean =>
@@ -329,14 +341,19 @@ export default class SetupController {
     this.loading = true;
     this.root.redraw();
 
-    let urlPath = `/setup/${this.gameType}`;
+    let urlPath =
+      this.root.me?.username === this.friendUser ? '/challenge/update-preference' : `/setup/${this.gameType}`;
+    let formData =
+      this.root.me?.username === this.friendUser
+        ? this.friendSetupOptionsToFormData(color)
+        : this.propsToFormData(color);
     if (this.gameType === 'hook') urlPath += `/${site.sri}`;
     const urlParams = { user: this.friendUser || undefined };
     let response;
     try {
       response = await xhr.textRaw(xhr.url(urlPath, urlParams), {
         method: 'post',
-        body: this.propsToFormData(color),
+        body: formData,
       });
     } catch (_) {
       this.loading = false;

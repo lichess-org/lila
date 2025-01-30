@@ -63,6 +63,8 @@ final class Env(
 
   lazy val bulk = wire[ChallengeBulkApi]
 
+  lazy val challengePrefApi = wire[ChallengePrefApi]
+
   lazy val msg = wire[ChallengeMsg]
 
   lazy val keepAliveStream = wire[ChallengeKeepAliveStream]
@@ -79,5 +81,6 @@ final class Env(
     case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
 
 private class ChallengeColls(db: lila.db.Db):
-  val challenge = db(CollName("challenge"))
-  val bulk      = db(CollName("challenge_bulk"))
+  val challenge     = db(CollName("challenge"))
+  val bulk          = db(CollName("challenge_bulk"))
+  val challengePref = db(CollName("challenge_pref"))

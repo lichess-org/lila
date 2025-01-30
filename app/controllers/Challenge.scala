@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.app.{ *, given }
-import lila.challenge.{ Challenge as ChallengeModel, Direction }
+import lila.challenge.{ Challenge as ChallengeModel, Direction, challengePref }
 import lila.core.id.ChallengeId
 import lila.core.net.Bearer
 import lila.core.socket.SocketVersion
@@ -13,7 +13,21 @@ import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 
 final class Challenge(env: Env) extends LilaController(env):
-  def api = env.challenge.api
+  def api              = env.challenge.api
+  def challengePrefApi = env.challenge.challengePrefApi
+
+  def updatePreference = AuthBody { ctx ?=> me ?=>
+    challengePref
+      .bindFromRequest()
+      .fold(
+        err => 
+          Redirect(routes.Pref.form("privacy")).flashFailure(err.toString),
+        data =>
+          challengePrefApi
+            .upsertChallengePref(data, me.username.toString())
+            .inject(Redirect(routes.Pref.form("privacy")).flashSuccess)
+      )
+  }
 
   def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:

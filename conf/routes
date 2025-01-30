@@ -498,6 +498,7 @@ POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: Challen
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: ChallengeId)
 POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: ChallengeId)
 POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.offerRematchForGame(id: GameId)
+POST  /challenge/update-preference     controllers.Challenge.updatePreference
 
 # Notify
 GET  /notify                           controllers.Notify.recent(page: Int ?= 1)
