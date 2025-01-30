@@ -94,7 +94,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
       cls      := "flag",
       st.title := title.getOrElse(id.value),
-      src      := assetUrl(s"images/fide-fed/${id}.svg")
+      src      := assetUrl(s"images/fide-fed-webp/img/${id}.webp")
     )
 
     private def card(name: Frag, value: Frag) =
