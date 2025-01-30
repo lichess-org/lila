@@ -69,9 +69,7 @@ export function initModule(): NvuiPlugin {
         nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        variantNope =
-          !supportedVariant(d.game.variant.key) &&
-          'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
+        clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
       if (!ctrl.chessground) {
         ctrl.setChessground(
           makeChessground(document.createElement('div'), {
@@ -138,11 +136,13 @@ export function initModule(): NvuiPlugin {
               ]),
             ],
           ),
-
-        h('h2', 'Your clock'),
-        h('div.botc', anyClock(ctrl, 'bottom')),
-        h('h2', 'Opponent clock'),
-        h('div.topc', anyClock(ctrl, 'top')),
+        clocks.some(c => !!c) &&
+          h('div.clocks', [
+            h('h2', 'Your clock'),
+            h('div.botc', clocks[0]),
+            h('h2', 'Opponent clock'),
+            h('div.topc', clocks[1]),
+          ]),
         notify.render(),
         h('h2', 'Actions'),
         ...(ctrl.data.player.spectator
@@ -309,7 +309,7 @@ function onCommand(
     );
 }
 
-function anyClock(ctrl: RoundController, position: Position) {
+function anyClock(ctrl: RoundController, position: Position): VNode | undefined {
   const d = ctrl.data,
     player = ctrl.playerAt(position);
   return (
@@ -357,12 +357,10 @@ function gameText(ctrl: RoundController) {
   return [
     d.game.status.name === 'started'
       ? ctrl.isPlaying()
-        ? ctrl.data.player.color === 'white'
-          ? i18n.site.youPlayTheWhitePieces
-          : i18n.site.youPlayTheBlackPieces
+        ? i18n.site[ctrl.data.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']
         : 'Spectating.'
       : i18n.site.gameOver,
-    d.game.rated ? i18n.site.rated : i18n.site.casual,
+    i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
     d.game.perf,
     i18n.site.gameVsX(playerText(ctrl, ctrl.data.opponent)),
