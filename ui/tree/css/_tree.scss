@@ -186,9 +186,9 @@
 
   &-column > move .glyphs {
     flex: 0 1 auto;
+    margin-right: auto;
 
     glyph {
-      margin-right: auto;
       text-align: center;
       overflow: hidden;
       font-size: 0.82em;

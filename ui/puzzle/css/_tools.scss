@@ -30,15 +30,15 @@
 
   .tview2 > move {
     justify-content: space-between;
-
-    glyph {
-      font-size: 1.6em;
-    }
   }
 
   move {
     glyph {
       vertical-align: middle;
+
+      &::before {
+        opacity: 1;
+      }
     }
 
     &.fail glyph {
@@ -77,6 +77,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
   }
 
   piece {
@@ -87,12 +88,14 @@
   }
 
   .icon {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 64px;
     height: 64px;
     font-size: 50px;
     line-height: 64px;
-    text-align: center;
+    margin-right: 4px;
   }
 
   &.good .icon,
