@@ -152,6 +152,7 @@ $col2-panel-height: 240px;
   width: 100%;
   height: var(--panel-height);
   overflow: hidden;
+  will-change: transform;
 }
 
 #acpl-chart-container-loader {
