@@ -3,12 +3,12 @@ import { spinnerHtml } from 'common/spinner';
 
 export function loadInfiniteScroll(sel: string): void {
   document.querySelectorAll(sel).forEach(el => {
+    if (!el.querySelector('.pager a')) return;
+
     const statusDiv = document.createElement('div');
     statusDiv.className = 'page-load-status';
     statusDiv.innerHTML = `<div id="infscr-loading" class="infinite-scroll-request">${spinnerHtml}</div>`;
     el.append(statusDiv);
-
-    if (!el.querySelector('.pager a')) return;
 
     const infScroll = new window.InfiniteScroll(el, {
       path: '.pager a',
