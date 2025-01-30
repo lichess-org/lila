@@ -242,6 +242,8 @@ export default class AnalyseCtrl {
         ? undefined
         : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
+
+    window.lishogi.sound.preloadGameSounds();
   }
 
   setOrientation = (): void => {

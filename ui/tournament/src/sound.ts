@@ -40,7 +40,9 @@ export function end(data: TournamentData): void {
   else if (data.me.rank < 11) soundKey = '2nd';
   else if (data.me.rank < 21) soundKey = '3rd';
 
-  li.sound.play(`tournament${soundKey}`);
+  const soundName = `tournament${soundKey}`;
+  li.sound.loadStandard(soundName);
+  li.sound.play(soundName);
 }
 
 export function countDown(data: TournamentData): void {
@@ -56,8 +58,6 @@ export function countDown(data: TournamentData): void {
     doCountDown(performance.now() + 1000 * data.secondsToStart - 100),
     900,
   ); // wait 900ms before starting countdown.
-
-  setTimeout(li.sound.warmup, (data.secondsToStart - 15) * 1000);
 
   // Preload countdown sounds.
   for (let i = 10; i >= 0; i--) li.sound.loadStandard(`countDown${i}`);

@@ -128,6 +128,7 @@ declare global {
   }
 
   interface SoundI {
+    preloadGameSounds: (clock?: boolean) => void;
     play: (name: string, volume?: number) => void;
     throttlePlay: (name: string, delay?: number, volume?: number) => () => void;
     setVolume: (value: number) => void;
@@ -140,7 +141,6 @@ declare global {
     changeSet: (s: string) => void;
     set: () => string;
     loadStandard: (name: string) => void;
-    warmup: () => void;
   }
 
   interface LishogiSpeech {

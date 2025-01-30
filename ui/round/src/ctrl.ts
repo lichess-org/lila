@@ -179,6 +179,8 @@ export default class RoundController {
         xhr.setZen(zen);
       }
     });
+
+    window.lishogi.sound.preloadGameSounds(!!d.clock);
   }
 
   private initNotation = (): void => {

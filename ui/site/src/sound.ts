@@ -8,6 +8,8 @@ type Name = string;
 type Path = string;
 
 export function createSound(): typeof window.lishogi.sound {
+  window.Howler.autoSuspend = false;
+
   const state = {
     sounds: new Map<Name, Howl>(),
     soundSet: document.body.dataset.soundSet!,
@@ -34,6 +36,15 @@ export function createSound(): typeof window.lishogi.sound {
     loadOggOrMp3(name, `${state.baseUrl}/${soundSet || state.soundSet}/${path}`);
   }
 
+  function preloadGameSounds(clock = false) {
+    if (state.soundSet !== 'music') {
+      ['move', 'capture', 'check', 'genericNotify'].forEach(s => loadStandard(s));
+      if (clock) {
+        setTimeout(() => ['tick', 'lowtime', 'period'].forEach(s => loadStandard(s)), 1000 * 5);
+      }
+    }
+  }
+
   function play(name: string, volume?: number) {
     if (!enabled()) return;
     let set = state.soundSet;
@@ -46,8 +57,7 @@ export function createSound(): typeof window.lishogi.sound {
       loadStandard(name, set);
       s = state.sounds.get(name);
     }
-    console.log(s);
-    Howler.volume(getVolume());
+    window.Howler.volume(getVolume());
 
     const doPlay = () => {
       s!.volume(getVolume() * (volume || 1));
@@ -85,17 +95,22 @@ export function createSound(): typeof window.lishogi.sound {
   }
 
   function say(texts: { en?: string; jp?: string }, cut = false, force = false) {
-    if (!state.speechStorage.get() && !force) return false;
-    const useJp = !!texts.jp && document.documentElement.lang === 'ja';
-    const text = useJp ? texts.jp : texts.en;
-    const lang = useJp ? 'ja-JP' : 'en-US';
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.volume = getVolume();
-    msg.lang = lang;
-    if (cut) speechSynthesis.cancel();
-    speechSynthesis.speak(msg);
-    console.log(`%c${msg.text}`, 'color: blue');
-    return true;
+    try {
+      if (!state.speechStorage.get() && !force) return false;
+      const useJp = !!texts.jp && document.documentElement.lang === 'ja';
+      const text = useJp ? texts.jp : texts.en;
+      const lang = useJp ? 'ja-JP' : 'en-US';
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.volume = getVolume();
+      msg.lang = lang;
+      if (cut) speechSynthesis.cancel();
+      speechSynthesis.speak(msg);
+      console.log(`%c${msg.text}`, 'color: blue');
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   function sayOrPlay(name: string, texts: { en?: string; jp?: string }): boolean {
@@ -116,15 +131,8 @@ export function createSound(): typeof window.lishogi.sound {
     return state.soundSet;
   }
 
-  function warmup() {
-    if (enabled()) {
-      // See goldfire/howler.js#715
-      (window.Howler as any)._autoResume(); // This resumes sound if suspended.
-      (window.Howler as any)._autoSuspend(); // This starts the 30s timer to suspend.
-    }
-  }
-
   return {
+    preloadGameSounds,
     play,
     throttlePlay,
     setVolume,
@@ -137,6 +145,5 @@ export function createSound(): typeof window.lishogi.sound {
     changeSet,
     set: getSet,
     loadStandard,
-    warmup,
   };
 }
