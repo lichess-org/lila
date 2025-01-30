@@ -1,4 +1,4 @@
-import { type VNode, attributesModule, classModule, init } from 'snabbdom';
+import { attributesModule, classModule, init } from 'snabbdom';
 import view from '../schedule/view';
 
 const patch = init([classModule, attributesModule]);
@@ -7,15 +7,15 @@ function main(env: any) {
   window.lishogi.socket = new window.lishogi.StrongSocket('/socket/v5', false, {
     params: { flag: 'tournament' },
   });
-  env.element = document.querySelector('tour-chart') as HTMLElement;
+  env.element = document.querySelector('.tour-chart') as HTMLElement;
 
   const ctrl = {
     data: () => env.data,
   };
-  let vnode: VNode;
+  let vnode = patch(env.element, view(ctrl));
 
   function redraw() {
-    vnode = patch(vnode || env.element, view(ctrl));
+    vnode = patch(vnode, view(ctrl));
   }
 
   redraw();
