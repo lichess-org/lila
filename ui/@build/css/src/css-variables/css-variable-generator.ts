@@ -44,6 +44,7 @@ ${theme !== defaultTheme ? `@use '../${theme}' as *` : ''};
 }
 
 function cssVariable(name: string, value: string): string {
+  if (value.startsWith('"') || value.startsWith("'")) return `  --${name}: ${value};\n`;
   return `  --${name}: #{${value}};\n`;
 }
 
