@@ -140,3 +140,13 @@ export interface ForceSetupOptions {
   time?: number;
   increment?: number;
 }
+
+export interface FriendSetupOptions {
+  variant: VariantKey;
+  timeMode: TimeMode;
+  gameMode: GameMode;
+  time?: number;
+  increment?: number;
+  days?: number;
+  fen?: string;
+}

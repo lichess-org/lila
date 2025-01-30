@@ -17,6 +17,7 @@ import type {
   PoolMember,
   GameType,
   ForceSetupOptions,
+  FriendSetupOptions,
   LobbyMe,
 } from './interfaces';
 import LobbySocket from './socket';
@@ -76,6 +77,10 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
+      const friendOptionsEncoded = urlParams.get('preset') ?? undefined;
+      const friendOptions = !!friendOptionsEncoded
+        ? (JSON.parse(decodeURIComponent(friendOptionsEncoded)) as FriendSetupOptions)
+        : undefined;
       const minutesPerSide = urlParams.get('minutesPerSide');
       const increment = urlParams.get('increment');
       const variant = urlParams.get('variant');
@@ -105,7 +110,13 @@ export default class LobbyController {
       }
 
       pubsub.after('dialog.polyfill').then(() => {
-        this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
+        if (friendUser && friendOptions)
+          this.setupCtrl.openModalWithFriendOptions(
+            locationHash as Exclude<GameType, 'local'>,
+            friendOptions,
+            friendUser,
+          );
+        else this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
       });
       history.replaceState(null, '', '/');

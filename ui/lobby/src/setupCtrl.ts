@@ -8,6 +8,7 @@ import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {
   ForceSetupOptions,
+  FriendSetupOptions,
   GameMode,
   GameType,
   InputValue,
@@ -58,6 +59,9 @@ export default class SetupController {
   timeV: Prop<InputValue>;
   incrementV: Prop<InputValue>;
   daysV: Prop<InputValue>;
+  readonly maxTimeV = 100;
+  readonly maxIncrementV = 100;
+  readonly maxDaysV = 20;
 
   time: () => RealValue = () => timeVToTime(this.timeV());
   increment: () => RealValue = () => incrementVToIncrement(this.incrementV());
@@ -97,11 +101,17 @@ export default class SetupController {
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange);
-    this.timeV = this.propWithApply(sliderInitVal(forceOptions?.time || storeProps.time, timeVToTime, 100)!);
-    this.incrementV = this.propWithApply(
-      sliderInitVal(forceOptions?.increment || storeProps.increment, incrementVToIncrement, 100)!,
+    this.timeV = this.propWithApply(
+      sliderInitVal(forceOptions?.time || storeProps.time, timeVToTime, this.maxTimeV)!,
     );
-    this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
+    this.incrementV = this.propWithApply(
+      sliderInitVal(
+        forceOptions?.increment || storeProps.increment,
+        incrementVToIncrement,
+        this.maxIncrementV,
+      )!,
+    );
+    this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, this.maxDaysV)!);
     this.gameMode = this.propWithApply(storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
     this.ratingMax = this.propWithApply(storeProps.ratingMax);
@@ -188,6 +198,7 @@ export default class SetupController {
     gameType: Exclude<GameType, 'local'>,
     forceOptions?: ForceSetupOptions,
     friendUser?: string,
+    loadProps = true,
   ) => {
     this.root.leavePool();
     this.gameType = gameType;
@@ -195,7 +206,27 @@ export default class SetupController {
     this.fenError = false;
     this.lastValidFen = '';
     this.friendUser = friendUser || '';
-    this.loadPropsFromStore(forceOptions);
+    if (loadProps) this.loadPropsFromStore(forceOptions);
+  };
+
+  openModalWithFriendOptions = (
+    gameType: Exclude<GameType, 'local'>,
+    friendOptions: FriendSetupOptions,
+    friendUser: string,
+  ) => {
+    this.openModal(gameType, undefined, friendUser, false);
+    this.variant = propWithEffect(friendOptions.variant, this.onDropdownChange);
+    this.fen = this.propWithApply(friendOptions?.fen || '');
+    this.timeMode = propWithEffect(friendOptions?.timeMode || 0, this.onDropdownChange);
+    this.timeV = this.propWithApply(sliderInitVal(friendOptions?.time || 0, timeVToTime, this.maxTimeV)!);
+    this.incrementV = this.propWithApply(
+      sliderInitVal(friendOptions?.increment || 0, incrementVToIncrement, this.maxIncrementV)!,
+    );
+    this.daysV = this.propWithApply(sliderInitVal(friendOptions?.days || 0, daysVToDays, this.maxDaysV)!);
+    this.gameMode = this.propWithApply(friendOptions.gameMode);
+    this.ratingMin = this.propWithApply(0);
+    this.ratingMax = this.propWithApply(0);
+    this.aiLevel = this.propWithApply(0);
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
