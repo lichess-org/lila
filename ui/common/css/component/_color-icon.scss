@@ -1,8 +1,11 @@
 @use '../theme/gen/theme';
 
 .color-icon {
-  font-family: lishogi;
   text-transform: unset;
+
+  &::before {
+    font-family: lishogi;
+  }
 
   &.sente::before {
     content: theme.$sente-symbol;
