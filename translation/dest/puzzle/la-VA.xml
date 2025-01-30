@@ -4,6 +4,7 @@
   <string name="mates">Matta</string>
   <string name="origin">Origo</string>
   <string name="puzzleId">Compositio %s</string>
+  <string name="puzzleOfTheDay">Compositio cotidiana</string>
   <string name="dailyPuzzle">Compositio Cotidiana</string>
   <string name="goodMove">Bonum spatium</string>
   <string name="bestMove">Optimum spatium!</string>
