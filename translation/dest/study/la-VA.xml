@@ -5,8 +5,10 @@
     <item quantity="one">%s Socius</item>
     <item quantity="other">%s Socii</item>
   </plurals>
-  <string name="next">Posterus</string>
+  <string name="next">Proximus</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
+  <string name="open">Aperire</string>
+  <string name="noPinnedComment">Nullus</string>
   <string name="members">Socii</string>
   <string name="save">Serva</string>
   <string name="goodMove">Bonum spatium</string>
