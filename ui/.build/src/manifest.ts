@@ -53,7 +53,7 @@ export function updateManifest(update: ManifestUpdate = {}): void {
 }
 
 async function writeManifest() {
-  if (!(env.manifest && taskOk() && (await isComplete()))) return;
+  if (!(env.manifest && taskOk())) return;
   const commitMessage = cps
     .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
     .trim()
@@ -107,20 +107,4 @@ async function writeManifest() {
     `Server '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' hash ${c.grey(serverHash)}`,
     'manifest',
   );
-}
-
-async function isComplete() {
-  if (env.building.length < env.packages.size) return false;
-
-  for (const pkg of env.building) {
-    const globs = pkg.bundle.map(b => b.module).filter((x): x is string => Boolean(x));
-    for (const file of await glob(globs, { cwd: pkg.root })) {
-      const name = p.basename(file, '.ts');
-      if (!manifest.js[name]) {
-        env.log(`${warnMark} - No entry for '${c.cyan(name + '.ts')}'`, 'manifest');
-        return false;
-      }
-    }
-  }
-  return Object.keys(manifest.i18n).length > 0;
 }
