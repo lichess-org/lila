@@ -2,8 +2,9 @@ package lila.ui
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
+import scalalib.model.Language
 
-import lila.core.i18n.{ Language, Translate, defaultLanguage }
+import lila.core.i18n.{ toLanguage, Translate, defaultLanguage }
 import lila.core.net.IpAddress
 import lila.core.notify.UnreadCount
 import lila.core.pref.Pref
@@ -33,8 +34,8 @@ trait Context:
   def flash(name: String): Option[String] = req.flash.get(name)
   inline def noBot                        = !isBot
   lazy val acceptLanguages: Set[Language] =
-    req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
-      user.flatMap(_.realLang.map(Language.apply)).toSet
+    req.acceptLanguages.view.map(toLanguage).toSet + defaultLanguage ++
+      user.flatMap(_.realLang.map(toLanguage)).toSet
 
 object Context:
   given ctxMe(using ctx: Context): Option[Me] = ctx.me

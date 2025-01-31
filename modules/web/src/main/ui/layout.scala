@@ -2,8 +2,9 @@ package lila.web
 package ui
 
 import play.api.i18n.Lang
+import scalalib.model.Language
 
-import lila.core.i18n.{ I18nModule, Language }
+import lila.core.i18n.I18nModule
 import lila.core.report.ScoreThresholds
 import lila.ui.*
 

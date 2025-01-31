@@ -2,12 +2,13 @@ package lila.streamer
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.model.Language
 
 import lila.common.Json.given
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
 import lila.core.config.NetDomain
-import lila.core.i18n.Language
+import lila.core.i18n.toLanguage
 
 trait Stream:
   def serviceName: String
@@ -19,7 +20,7 @@ trait Stream:
   def is[U: UserIdOf](u: U): Boolean = streamer.is(u)
   def twitch                         = serviceName == "twitch"
   def youTube                        = serviceName == "youTube"
-  def language                       = Language(lang)
+  def language                       = toLanguage(lang)
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
 

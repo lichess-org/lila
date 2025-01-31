@@ -6,28 +6,20 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalatags.Text.RawFrag
 import scala.concurrent.duration.FiniteDuration
-export scalalib.newtypes.{ given, * }
+export scalalib.model.{ Language, Country }
 
 val maxLangs = 128
 
-/* play.api.i18n.Lang is composed of language and country.
- * Let's make new types for those so we don't mix them.
- */
-opaque type Language = String
-object Language extends OpaqueString[Language]:
-  def apply(lang: Lang): Language = lang.language
-
-opaque type Country = String
-object Country extends OpaqueString[Country]:
-  def apply(lang: Lang): Country = lang.country
-
-val defaultLanguage: Language = "en"
+val defaultLanguage: Language = Language("en")
 val enLang: Lang              = Lang("en", "GB")
 val defaultLang: Lang         = enLang
 
+def toLanguage(lang: Lang): Language = Language(lang.language)
+def toCountry(lang: Lang): Country   = Country(lang.country)
+
 // ffs
 def fixJavaLanguage(lang: Lang): Language =
-  Language(lang).map(l => if l == "in" then "id" else l)
+  toLanguage(lang).map(l => if l == "in" then "id" else l)
 
 type Count = Long
 

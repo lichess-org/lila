@@ -2,8 +2,9 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
+import scalalib.model.Language
 
-import lila.core.i18n.{ Language, defaultLang, defaultLanguage, fixJavaLanguage }
+import lila.core.i18n.{ toLanguage, defaultLang, defaultLanguage, fixJavaLanguage }
 
 object LangPicker extends lila.core.i18n.LangPicker:
 
@@ -36,7 +37,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
     langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
 
   def preferedLanguages(req: RequestHeader, prefLang: Lang): List[Language] = {
-    Language(prefLang) +: req.acceptLanguages.map(Language(_))
+    toLanguage(prefLang) +: req.acceptLanguages.map(toLanguage)
   }.distinct.view.filter(LangList.popularLanguages.contains).toList
 
   def pickBestOf(
@@ -44,11 +45,11 @@ object LangPicker extends lila.core.i18n.LangPicker:
   )(req: RequestHeader, userLang: Option[String] = None): Option[Language] =
     userLang
       .flatMap(Lang.get)
-      .map(Language(_))
+      .map(toLanguage)
       .filter(candidates.contains)
       .orElse:
         req.acceptLanguages
-          .map(Language(_))
+          .map(toLanguage)
           .collectFirst:
             case l if candidates.contains(l) => l
       .orElse(candidates.contains(defaultLanguage).option(defaultLanguage))

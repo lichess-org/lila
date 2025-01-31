@@ -1,8 +1,9 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+import scalalib.model.Language
 
-import lila.core.i18n.{ Language, fixJavaLanguage }
+import lila.core.i18n.{ toLanguage, fixJavaLanguage }
 
 object LangList extends lila.core.i18n.LangList:
 
@@ -138,14 +139,14 @@ object LangList extends lila.core.i18n.LangList:
 
   lazy val languageChoices: List[(Language, String)] = all.view
     .map: (l, name) =>
-      Language(l) -> name
+      toLanguage(l) -> name
     .toList
     .distinctBy(_._1)
     .sortBy(_._1.value)
 
   lazy val popularLanguageChoices: List[(Language, String)] =
     popularNoRegion.flatMap: lang =>
-      all.get(lang).map(Language(lang) -> _)
+      all.get(lang).map(toLanguage(lang) -> _)
 
   lazy val allChoices: List[(String, String)] = all.view
     .map: (l, name) =>

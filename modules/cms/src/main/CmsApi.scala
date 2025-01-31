@@ -1,7 +1,9 @@
 package lila.cms
-import reactivemongo.api.bson.*
 
-import lila.core.i18n.{ LangList, LangPicker, Language, defaultLanguage }
+import reactivemongo.api.bson.*
+import scalalib.model.Language
+
+import lila.core.i18n.{ LangList, LangPicker, defaultLanguage }
 import lila.core.id.{ CmsPageId, CmsPageKey }
 import lila.db.dsl.{ *, given }
 import lila.ui.Context

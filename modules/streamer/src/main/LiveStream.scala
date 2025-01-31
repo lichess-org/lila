@@ -1,5 +1,5 @@
 package lila.streamer
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.core.userId
 import lila.memo.CacheApi.*
 

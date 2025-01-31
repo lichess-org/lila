@@ -4,7 +4,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import io.mola.galimatias.URL
 import java.time.ZoneId
 
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.core.id.ImageId
 import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC

@@ -7,7 +7,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.i18n.LangPicker
