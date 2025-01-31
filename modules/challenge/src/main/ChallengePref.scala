@@ -60,5 +60,5 @@ val challengePref = Form(
 )
 
 given BSONDocumentReader[ChallengePref] = Macros.reader
-
+given BSONDocumentWriter[ChallengePref] = Macros.writer
 

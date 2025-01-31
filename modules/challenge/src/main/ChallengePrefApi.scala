@@ -13,15 +13,7 @@ final class ChallengePrefApi(
     coll.update
       .one(
         $id(userName),
-        $doc(
-          "variant"   -> o.variant,
-          "timeMode"  -> o.timeMode,
-          "gameMode"  -> o.gameMode,
-          "time"      -> o.time,
-          "increment" -> o.increment,
-          "days"      -> o.days,
-          "fen"       -> o.fen
-        ),
+        o,
         upsert = true
       )
       .void
