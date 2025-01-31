@@ -1,8 +1,10 @@
 import ps from 'node:process';
+import fs from 'node:fs';
+import { flockSync, constants } from 'fs-ext';
 import { deepClean } from './clean.ts';
 import { build } from './build.ts';
 import { startConsole } from './console.ts';
-import { env } from './env.ts';
+import { env, errorMark } from './env.ts';
 
 // main entry point
 
@@ -108,7 +110,17 @@ env.test = argv.includes('--test') || oneDashArgs.includes('t');
 if (argv.includes('--help') || oneDashArgs.includes('h')) {
   console.log(usage);
   ps.exit(0);
-} else if (env.clean) {
+}
+
+try {
+  const fd = fs.openSync(env.buildDir, 'r');
+  ps.on('exit', () => fs.closeSync(fd));
+  flockSync(fd, constants.LOCK_EX | constants.LOCK_NB);
+} catch {
+  env.exit(`${errorMark} - Another instance is already running`);
+}
+
+if (env.clean) {
   await deepClean();
   if (argv.includes('--clean-exit')) ps.exit(0);
 }

@@ -79,26 +79,23 @@ export async function sass(): Promise<void> {
 }
 
 // compile an array of concrete scss files, return any that error
-function compile(sources: string[], logAll = true): Promise<string[]> {
-  return new Promise(async resolve => {
+async function compile(sources: string[], logAll = true): Promise<string[]> {
+  const sassBin =
+    process.env.SASS_PATH ??
+    (await fs.promises.realpath(
+      p.join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
+    ));
+  if (!(await readable(sassBin))) env.exit(`Sass executable not found '${c.cyan(sassBin)}'`, 'sass');
+
+  return new Promise(resolve => {
     if (!sources.length) return resolve([]);
-
-    const sassExec =
-      process.env.SASS_PATH ||
-      (await fs.promises.realpath(
-        p.join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
-      ));
-
-    if (!fs.existsSync(sassExec)) {
-      env.exit(`Sass executable not found '${c.cyan(sassExec)}'`, 'sass');
-    }
     if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, 'sass'));
     else env.log('Building', 'sass');
 
     const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
     sassPs?.removeAllListeners();
     sassPs = cps.spawn(
-      sassExec,
+      sassBin,
       sassArgs.concat(
         env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
         sources.map(
