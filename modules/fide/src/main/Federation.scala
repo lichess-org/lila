@@ -68,6 +68,7 @@ object Federation:
     Id("SRB") -> "Serbia",
     Id("CRO") -> "Croatia",
     Id("GRE") -> "Greece",
+    Id("GRL") -> "Greenland",
     Id("IRI") -> "Iran",
     Id("TUR") -> "Turkiye",
     Id("SLO") -> "Slovenia",
@@ -234,6 +235,7 @@ object Federation:
     Id("CHA") -> "Chad",
     Id("GAM") -> "Gambia",
     Id("COD") -> "Democratic Republic of the Congo",
+    Id("CGO") -> "Congo",
     Id("SKN") -> "Saint Kitts and Nevis",
     Id("BHU") -> "Bhutan",
     Id("NIG") -> "Niger",
@@ -247,5 +249,6 @@ object Federation:
     Id("SOL") -> "Solomon Islands",
     Id("TGA") -> "Tonga",
     Id("TLS") -> "Timor-Leste",
-    Id("VAN") -> "Vanuatu"
+    Id("VAN") -> "Vanuatu",
+    Id("NCL") -> "New Caledonia",
   )
