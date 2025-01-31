@@ -4,7 +4,7 @@ import { flockSync, constants } from 'fs-ext';
 import { deepClean } from './clean.ts';
 import { build } from './build.ts';
 import { startConsole } from './console.ts';
-import { env, c, errorMark } from './env.ts';
+import { env, errorMark } from './env.ts';
 
 // main entry point
 

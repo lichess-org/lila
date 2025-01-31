@@ -2,9 +2,8 @@ import cps from 'node:child_process';
 import p from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { env, c, warnMark } from './env.ts';
+import { env, c } from './env.ts';
 import { jsLogger } from './console.ts';
-import { glob } from './parse.ts';
 import { taskOk } from './task.ts';
 import { shallowSort, isEquivalent, isContained } from './algo.ts';
 

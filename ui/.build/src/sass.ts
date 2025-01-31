@@ -80,43 +80,52 @@ export async function sass(): Promise<void> {
 
 // compile an array of concrete scss files, return any that error
 function compile(sources: string[], logAll = true): Promise<string[]> {
-  return new Promise(async resolve => {
-    if (!sources.length) return resolve([]);
+  return new Promise(resolve =>
+    (async () => {
+      if (!sources.length) return resolve([]);
 
-    const sassExec =
-      process.env.SASS_PATH ||
-      (await fs.promises.realpath(
-        p.join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
-      ));
+      const sassExec =
+        process.env.SASS_PATH ||
+        (await fs.promises.realpath(
+          p.join(
+            env.buildDir,
+            'node_modules',
+            `sass-embedded-${ps.platform}-${ps.arch}`,
+            'dart-sass',
+            'sass',
+          ),
+        ));
 
-    if (!fs.existsSync(sassExec)) {
-      env.exit(`Sass executable not found '${c.cyan(sassExec)}'`, 'sass');
-    }
-    if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, 'sass'));
-    else env.log('Building', 'sass');
+      if (!fs.existsSync(sassExec)) {
+        env.exit(`Sass executable not found '${c.cyan(sassExec)}'`, 'sass');
+      }
+      if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, 'sass'));
+      else env.log('Building', 'sass');
 
-    const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
-    sassPs?.removeAllListeners();
-    sassPs = cps.spawn(
-      sassExec,
-      sassArgs.concat(
-        env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
-        sources.map(
-          (src: string) => `${src}:${p.join(env.cssTempDir, p.basename(src).replace(/(.*)scss$/, '$1css'))}`,
+      const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+      sassPs?.removeAllListeners();
+      sassPs = cps.spawn(
+        sassExec,
+        sassArgs.concat(
+          env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
+          sources.map(
+            (src: string) =>
+              `${src}:${p.join(env.cssTempDir, p.basename(src).replace(/(.*)scss$/, '$1css'))}`,
+          ),
         ),
-      ),
-    );
+      );
 
-    sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-    sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-    sassPs.on('close', async (code: number) => {
-      if (code === 0) resolve([]);
-      else
-        failed(sources)
-          .then(resolve)
-          .catch(() => resolve(sources));
-    });
-  });
+      sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
+      sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
+      sassPs.on('close', async (code: number) => {
+        if (code === 0) resolve([]);
+        else
+          failed(sources)
+            .then(resolve)
+            .catch(() => resolve(sources));
+      });
+    })(),
+  );
 }
 
 // recursively parse scss file and its imports to build dependency and color maps
