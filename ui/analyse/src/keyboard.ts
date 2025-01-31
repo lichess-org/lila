@@ -112,8 +112,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
   //First explorer move
   kbd.bind('shift+space', () => {
     const move = document
-      .querySelector('.explorer-box:not(.loading) .moves tbody tr')
-      ?.attributes.getNamedItem('data-uci')?.value;
+      .querySelector('.explorer-box:not(.loading) tbody tr[data-uci]')
+      ?.getAttribute('data-uci');
     if (move) ctrl.explorerMove(move);
   });
 
