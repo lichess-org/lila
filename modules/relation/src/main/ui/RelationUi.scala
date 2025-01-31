@@ -47,14 +47,15 @@ final class RelationUi(helpers: Helpers):
       user: lila.core.LightUser,
       relation: Option[Relation],
       followable: Boolean,
-      blocked: Boolean
+      blocked: Boolean,
+      challengePrefAttr: String = ""
   )(using ctx: Context) =
     val blocks = relation.contains(Relation.Block)
     div(cls := "relation-actions")(
       (ctx.isnt(user) && !blocked && !blocks).option(
         a(
           cls      := "text",
-          href     := s"${routes.Lobby.home}?user=${user.name}#friend",
+          href     := s"${routes.Lobby.home}?user=${user.name}${challengePrefAttr}#friend",
           dataIcon := Icon.Swords
         )(trans.challenge.challengeToPlay.txt())
       ),

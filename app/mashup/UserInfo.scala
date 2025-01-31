@@ -11,6 +11,7 @@ import lila.forum.ForumPostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.ublog.{ UblogApi, UblogPost }
+import lila.challenge.ChallengePref
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
@@ -26,7 +27,8 @@ case class UserInfo(
     teamIds: List[lila.team.TeamId],
     isStreamer: Boolean,
     isCoach: Boolean,
-    insightVisible: Boolean
+    insightVisible: Boolean,
+    challengePref: Option[ChallengePref],
 ):
   export trophies.ranks
   export nbs.crosstable
@@ -98,7 +100,8 @@ object UserInfo:
       teamApi: lila.team.TeamApi,
       teamCache: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
-      insightShare: lila.insight.Share
+      insightShare: lila.insight.Share,
+      challengePrefApi: lila.challenge.ChallengePrefApi
   )(using Executor):
     def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
       (
@@ -116,7 +119,8 @@ object UserInfo:
         teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds")),
         streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(_.user.segment("coach")),
-        (user.count.rated >= 10).so(insightShare.grant(user)(using ctx.me))
-      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
+        (user.count.rated >= 10).so(insightShare.grant(user)(using ctx.me)),
+        challengePrefApi.find(user.username.toString).mon(_.user.segment("challengePref")),
+      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _,_, _))
 
     def preloadTeams(info: UserInfo) = teamCache.lightCache.preloadMany(info.teamIds)

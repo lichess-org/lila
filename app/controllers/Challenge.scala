@@ -20,11 +20,13 @@ final class Challenge(env: Env) extends LilaController(env):
     challengePref
       .bindFromRequest()
       .fold(
-        err => 
-          Redirect(routes.Pref.form("privacy")).flashFailure(err.toString),
+        err => {
+          lila.log("challengePref").error(err.toString)
+          Redirect(routes.Pref.form("privacy")).flashFailure(err.toString)
+        },
         data =>
           challengePrefApi
-            .upsertChallengePref(data, me.username.toString())
+            .upsert(data, me.username.toString())
             .inject(Redirect(routes.Pref.form("privacy")).flashSuccess)
       )
   }

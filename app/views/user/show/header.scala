@@ -6,6 +6,7 @@ import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
 import lila.user.PlayTime.*
 import lila.user.Profile.*
+import lila.challenge.ChallengePref
 
 object header:
 
@@ -128,7 +129,8 @@ object header:
                     u.light,
                     relation = social.relation,
                     followable = social.followable,
-                    blocked = social.blocked
+                    blocked = social.blocked,
+                    ChallengePref.getUrlAttr(info.challengePref)
                   )
                 ),
               a(

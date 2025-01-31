@@ -9,7 +9,7 @@ final class ChallengePrefApi(
 
   private val coll = colls.challengePref
 
-  def upsertChallengePref(o: ChallengePref, userName: String)(using me: Me): Funit =
+  def upsert(o: ChallengePref, userName: String): Funit =
     coll.update
       .one(
         $id(userName),
@@ -25,3 +25,6 @@ final class ChallengePrefApi(
         upsert = true
       )
       .void
+
+  def find(userName: String): Fu[Option[ChallengePref]] = 
+    coll.find($id(userName)).one[ChallengePref]

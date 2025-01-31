@@ -8,6 +8,8 @@ import play.api.libs.json.Json
 import play.api.libs.json.Writes
 import play.api.libs.json.JsValue
 
+import reactivemongo.api.bson.*
+
 case class ChallengePref(
     variant: String,
     timeMode: String,
@@ -34,6 +36,17 @@ object ChallengePref:
     (o.variant, o.timeMode, o.gameMode, o.time, o.increment, o.days, o.fen)
   )
 
+  def getUrlAttr(pref: Option[ChallengePref]): String =
+    pref match {
+      case Some(obj) => {
+        val jsonString = Json.stringify(Json.toJson(obj))
+        val encoded    = URLEncoder.encode(jsonString, "UTF-8")
+        s"&preset=${encoded}"
+      }
+      case None => ""
+    }
+
+
 val challengePref = Form(
   mapping(
     "variant"   -> text,
@@ -45,3 +58,7 @@ val challengePref = Form(
     "fen"       -> text
   )(ChallengePref.apply)(ChallengePref.unapply)
 )
+
+given BSONDocumentReader[ChallengePref] = Macros.reader
+
+
