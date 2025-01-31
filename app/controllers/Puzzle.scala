@@ -173,7 +173,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                                   next <- env.puzzle.replay(me, replayDays.some, theme)
                                   json <- next match
                                     case None => fuccess(Json.obj("replayComplete" -> true))
-                                    case Some((puzzle, replay)) =>
+                                    case Some(puzzle, replay) =>
                                       renderJson(puzzle, angle, replay.some).map { nextJson =>
                                         Json.obj(
                                           "round" -> env.puzzle.jsonView.roundJson.web(round, perf)(using
@@ -411,8 +411,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val theme         = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
     env.puzzle.replay(me, checkedDayOpt, theme.key).flatMap {
-      case None                   => Redirect(routes.Puzzle.dashboard(days, "home", none))
-      case Some((puzzle, replay)) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
+      case None                 => Redirect(routes.Puzzle.dashboard(days, "home", none))
+      case Some(puzzle, replay) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
     }
   }
 
@@ -510,7 +510,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 .map:
                   case None =>
                     Ok(env.puzzle.jsonView.bc.userJson(perf.intRating))
-                  case Some((round, newPerf)) =>
+                  case Some(round, newPerf) =>
                     env.puzzle.session.onComplete(round, PuzzleAngle.mix)
                     Ok(env.puzzle.jsonView.bc.userJson(newPerf.intRating))
         )

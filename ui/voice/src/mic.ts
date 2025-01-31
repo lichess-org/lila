@@ -80,7 +80,7 @@ export class Mic implements Microphone {
       return;
     }
     const recId = also.recId ?? 'default';
-    const rec = new RecNode(words.slice(), also.partial === true);
+    const rec = new RecNode(words.slice(), !!also.partial);
     if (this.vosk?.isLoaded(this.lang)) this.initKaldi(recId, rec);
     this.recs.add(recId, rec);
     if (also.listener) this.addListener(also.listener, { recId, listenerId: also.listenerId });

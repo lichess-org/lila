@@ -985,6 +985,7 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="focusChat">Focar no bate-papo</string>
   <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
   <string name="reopenYourAccount">Reabrir a sua conta</string>
+  <string name="reopenYourAccountDescription">Se fechares a tua conta, mas mudares de ideias, tens uma hipótese de recuperá-la.</string>
   <string name="emailAssociatedToaccount">Endereço de email associado à conta</string>
   <string name="sentEmailWithLink">Enviámos-lhe um e-mail com um link.</string>
   <string name="tournamentEntryCode">Código de entrada do torneio</string>

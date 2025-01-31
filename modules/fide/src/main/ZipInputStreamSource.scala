@@ -191,7 +191,7 @@ final class ZipInputStreamSource private (
         read(arr) match
           case None =>
             eof = true
-          case Some((entry, readBytes)) =>
+          case Some(entry, readBytes) =>
             readBytesTotal += readBytes
             val entryData = ZipEntryData(entry.getName, entry.getTime)
             val chunk =

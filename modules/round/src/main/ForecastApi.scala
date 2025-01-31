@@ -77,10 +77,10 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
         case None => fuccess(none)
         case Some(fc) =>
           fc(g, last) match
-            case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
+            case Some(newFc, uciMove) if newFc.steps.nonEmpty =>
               coll.update.one($id(fc._id), newFc).inject(uciMove.some)
-            case Some((_, uciMove)) => clearPov(pov).inject(uciMove.some)
-            case _                  => clearPov(pov).inject(none)
+            case Some(_, uciMove) => clearPov(pov).inject(uciMove.some)
+            case _                => clearPov(pov).inject(none)
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 

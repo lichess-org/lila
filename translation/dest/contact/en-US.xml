@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">What can we help you with?</string>
   <string name="visitThisPage">Visit this page to solve the issue</string>
   <string name="iCantLogIn">I can\'t log in</string>
-  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">I didn\'t receive my confirmation email</string>
+  <string name="noConfirmationEmail">I didn\'t receive my confirmation email</string>
   <string name="forgotPassword">I forgot my password</string>
   <string name="forgotUsername">I forgot my username</string>
   <string name="youCanLoginWithEmail">You can login with the email address you signed up with</string>
