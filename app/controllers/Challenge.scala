@@ -21,7 +21,6 @@ final class Challenge(env: Env) extends LilaController(env):
       .bindFromRequest()
       .fold(
         err => {
-          lila.log("challengePref").error(err.toString)
           Redirect(routes.Pref.form("privacy")).flashFailure(err.toString)
         },
         data =>

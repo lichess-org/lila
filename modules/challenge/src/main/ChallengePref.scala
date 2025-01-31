@@ -36,12 +36,12 @@ object ChallengePref:
     (o.variant, o.timeMode, o.gameMode, o.time, o.increment, o.days, o.fen)
   )
 
-  def getUrlAttr(pref: Option[ChallengePref]): String =
+  def asEncodedUrlLAttr(pref: Option[ChallengePref]): String =
     pref match {
       case Some(obj) => {
         val jsonString = Json.stringify(Json.toJson(obj))
         val encoded    = URLEncoder.encode(jsonString, "UTF-8")
-        s"&preset=${encoded}"
+        s"&challenge-pref=${encoded}"
       }
       case None => ""
     }

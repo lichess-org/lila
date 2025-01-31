@@ -77,7 +77,7 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
-      const friendOptionsEncoded = urlParams.get('preset') ?? undefined;
+      const friendOptionsEncoded = urlParams.get('challenge-pref') ?? undefined;
       const friendOptions = !!friendOptionsEncoded
         ? (JSON.parse(decodeURIComponent(friendOptionsEncoded)) as FriendSetupOptions)
         : undefined;

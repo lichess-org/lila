@@ -130,7 +130,7 @@ object header:
                     relation = social.relation,
                     followable = social.followable,
                     blocked = social.blocked,
-                    ChallengePref.getUrlAttr(info.challengePref)
+                    ChallengePref.asEncodedUrlLAttr(info.challengePref)
                   )
                 ),
               a(
