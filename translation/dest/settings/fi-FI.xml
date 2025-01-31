@@ -2,10 +2,9 @@
 <resources>
   <string name="settings">Asetukset</string>
   <string name="closeAccount">Sulje tili</string>
-  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Käyttäjätunnuksesi on hallinnassa, eikä sitä voi sulkea.</string>
-  <string name="closingIsDefinitive">Tunnuksen sulku on lopullinen. Et voi myöhemmin peruuttaa sitä. Oletko varma?</string>
+  <string name="managedAccountCannotBeClosed">Käyttäjätunnuksesi on hallinnassa, eikä sitä voi sulkea.</string>
   <string name="cantOpenSimilarAccount">Et voi luoda uutta käyttäjätunnusta samalla nimellä, et vaikka muuttaisit isoja kirjaimia pieniksi tai päinvastoin.</string>
-  <string name="changedMindDoNotCloseAccount">Muutin mieleni, älä sulje tunnustani</string>
-  <string name="closeAccountExplanation">Haluatko varmasti sulkea tilisi? Sulkeminen on pysyvä päätös. Et voi ENÄÄ KOSKAAN kirjautua sisään.</string>
+  <string name="cancelKeepAccount">Peruuta ja säilytä tunnukseni</string>
+  <string name="closeAccountAreYouSure">Oletko varma, että haluat sulkea käyttäjätunnuksesi?</string>
   <string name="thisAccountIsClosed">Tämä tunnus on suljettu.</string>
 </resources>

@@ -57,6 +57,7 @@
   <string name="interferenceDescription">Хід фігурою між двома фігурами суперника, що перешкоджає одній або двом фігурам суперника і робить їх незахищеними, наприклад, кінь на захищеному полі між двома турами.</string>
   <string name="intermezzo">Проміжний хід</string>
   <string name="intermezzoDescription">Замість очікуваного ходу, спочатку робиться інший хід з безпосередньою атакою, на яку суперник має відповісти. Також відомий як \"Zwischenzug\" або \"In between\".</string>
+  <string name="vukovicMate">Мат Вуковіча</string>
   <string name="knightEndgame">Коньовий ендшпіль</string>
   <string name="knightEndgameDescription">Ендшпіль лише з конями та пішаками.</string>
   <string name="long">Багатоходова задача</string>

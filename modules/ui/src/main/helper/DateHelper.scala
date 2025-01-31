@@ -12,7 +12,7 @@ import scalalib.model.Seconds
 trait DateHelper:
   self: StringHelper =>
 
-  private val datetimeAttr = attr("datetime")
+  val datetimeAttr = attr("datetime")
 
   private val dateTimeFormatters = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)
   private val dateFormatters     = scalalib.ConcurrentMap[String, DateTimeFormatter](maxLangs)

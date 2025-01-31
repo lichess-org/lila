@@ -131,7 +131,7 @@
     <item quantity="one">pakala suli wan</item>
     <item quantity="other">pakala suli %s</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">Pakala suli wan</item>
     <item quantity="other">Pakala suli %s</item>
   </plurals>
@@ -139,7 +139,7 @@
     <item quantity="one">pakala wan</item>
     <item quantity="other">pakala %s</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">Pakala wan</item>
     <item quantity="other">Pakala %s</item>
   </plurals>
@@ -147,7 +147,7 @@
     <item quantity="one">pakala lili wan</item>
     <item quantity="other">pakala lili %s</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">Pakala lili wan</item>
     <item quantity="other">Pakala lili %s</item>
   </plurals>
@@ -958,9 +958,6 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="focusChat">o nasin tawa toki jan</string>
   <string name="showHelpDialog">o pana lukin e lipu sona ni</string>
   <string name="reopenYourAccount">o open sin e lipu jan sama sina</string>
-  <string name="closedAccountChangedMind">sina pakala e lipu jan sina la, sina ken open sin e ona lon tenpo wan taso.</string>
-  <string name="onlyWorksOnce">ni li ken lon tenpo wan taso.</string>
-  <string name="cantDoThisTwice">sina pakala e lipu jan sina lon tenpo nanpa tu la, sina ken ala open sin e ona.</string>
   <string name="emailAssociatedToaccount">poki sitelen \"e-mail\" pi lipu jan</string>
   <string name="sentEmailWithLink">mi pana e sitelen \"e-mail\" tawa sina. ona li jo e nimi nasin.</string>
   <string name="tournamentEntryCode">nimi awen pi utala musi</string>

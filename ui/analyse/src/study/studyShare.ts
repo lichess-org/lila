@@ -240,7 +240,6 @@ export function view(ctrl: StudyShare): VNode {
                         attrs: {
                           href: '/developers#embed-study',
                           target: '_blank',
-                          rel: 'noopener',
                           ...dataIcon(licon.InfoCircle),
                         },
                       },

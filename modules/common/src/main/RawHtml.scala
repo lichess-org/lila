@@ -123,7 +123,7 @@ object RawHtml:
                 if (end < sArr.length && sArr(end) == '"') || !expandImg then None
                 else imgUrl(url)
               }.getOrElse {
-                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
+                s"""<a rel="nofollow noreferrer" href="$url" target="_blank">$text</a>"""
               }
           }
 

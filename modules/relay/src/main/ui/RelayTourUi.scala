@@ -147,7 +147,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         main(cls := "relay-calendar page-menu")(
           pageMenu("calendar"),
           div(cls := "page-menu__content box box-pad")(
-            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar())),
+            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar()), searchForm("")),
             dateForm("top"),
             div(cls := "relay-cards"):
               tours.map(card.renderCalendar)

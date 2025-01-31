@@ -132,7 +132,7 @@
     <item quantity="one">%s vakava virhe</item>
     <item quantity="other">%s vakavaa virhettä</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Vakava virhe</item>
     <item quantity="other">%s Vakavaa virhettä</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s virhe</item>
     <item quantity="other">%s virhettä</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Virhe</item>
     <item quantity="other">%s Virhettä</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s epätarkkuus</item>
     <item quantity="other">%s epätarkkuutta</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Epätarkkuus</item>
     <item quantity="other">%s Epätarkkuutta</item>
   </plurals>
@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
   <string name="followAndChallengeFriends">Seuraa ja haasta kavereitasi</string>
+  <string name="noChallenges">Ei haasteita.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saatavilla %s eri kielellä!</item>
     <item quantity="other">Saatavilla %s eri kielellä!</item>
@@ -983,9 +984,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="focusChat">Kohdista keskusteluun</string>
   <string name="showHelpDialog">Näytä tämä ohjevalintaikkuna</string>
   <string name="reopenYourAccount">Avaa käyttäjätunnuksesi uudelleen</string>
-  <string name="closedAccountChangedMind">Jos olet sulkenut käyttäjätunnuksesi mutta sen jälkeen muuttanut mieltäsi, saat yhden mahdollisuuden palauttaa tunnuksesi.</string>
-  <string name="onlyWorksOnce">Tämä toimii vain kerran.</string>
-  <string name="cantDoThisTwice">Jos suljet tunnuksesi toisen kerran, sitä ei voi palauttaa enää millään tavalla.</string>
+  <string name="reopenYourAccountDescription">Jos olet sulkenut käyttäjätunnuksesi mutta sen jälkeen muuttanut mieltäsi, saat mahdollisuuden palauttaa tunnuksesi.</string>
   <string name="emailAssociatedToaccount">Tunnukseen kuuluva sähköpostiosoite</string>
   <string name="sentEmailWithLink">Olemme lähettäneet sinulle sähköpostin, jossa on linkki.</string>
   <string name="tournamentEntryCode">Turnauksen sisäänpääsykoodi</string>

@@ -132,7 +132,7 @@
     <item quantity="one">%s qo\'pol xato</item>
     <item quantity="other">%s qo\'pol xatolar</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Qo\'pol xato</item>
     <item quantity="other">%s Qo\'pol xatolar</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s xato</item>
     <item quantity="other">%s xatolar</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Xato</item>
     <item quantity="other">%s Xatolar</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s noaniqlik</item>
     <item quantity="other">%s noaniqliklar</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Noaniqlik</item>
     <item quantity="other">%s Noaniqliklar</item>
   </plurals>
@@ -950,9 +950,6 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="focusChat">Fokusli suhbat</string>
   <string name="showHelpDialog">Ushbu yordamchi dialogni namoyish etish</string>
   <string name="reopenYourAccount">Sizning akkountingizni qayta ochish</string>
-  <string name="closedAccountChangedMind">Agar siz akkountingizni yopgan bo‘lsangiz va fikringizdan qaytgan bo‘lsangiz u holda sizda akkountingizni qayta tiklash uchun bitta imkoniyat bor.</string>
-  <string name="onlyWorksOnce">Bu faqat bir marta ishlaydi.</string>
-  <string name="cantDoThisTwice">Agar siz akkountingizni ikkinchi bor yopsangiz uni ortga qaytarish imkoni yo‘q.</string>
   <string name="emailAssociatedToaccount">Email manzil akkountga bog‘landi</string>
   <string name="sentEmailWithLink">Biz sizga email va link jo‘natamiz.</string>
   <string name="tournamentEntryCode">Turnirda ishtirok etish kodi</string>

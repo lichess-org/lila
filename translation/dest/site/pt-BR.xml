@@ -132,7 +132,7 @@
     <item quantity="one">%s capivarada</item>
     <item quantity="other">%s capivaradas</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Capivarada</item>
     <item quantity="other">%s Capivaradas</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s erro</item>
     <item quantity="other">%s erros</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Erro</item>
     <item quantity="other">%s Erros</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s imprecisão</item>
     <item quantity="other">%s imprecisões</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisão</item>
     <item quantity="other">%s Imprecisões</item>
   </plurals>
@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Jogue online e offline</string>
   <string name="viewTheSolution">Ver solução</string>
   <string name="followAndChallengeFriends">Siga e desafie amigos</string>
+  <string name="noChallenges">Sem desafios.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s idiomas!</item>
     <item quantity="other">Disponível em %s idiomas!</item>
@@ -983,9 +984,7 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="focusChat">Focar texto</string>
   <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
   <string name="reopenYourAccount">Reabra sua conta</string>
-  <string name="closedAccountChangedMind">Caso você tenha encerrado sua conta, mas mudou de opinião, você tem ainda uma chance de recuperá-la.</string>
-  <string name="onlyWorksOnce">Isso só vai funcionar uma vez.</string>
-  <string name="cantDoThisTwice">Caso você encerre sua conta pela segunda vez, será impossível recuperá-la.</string>
+  <string name="reopenYourAccountDescription">Caso tenha encerrado a conta, mas mudou de ideia, você tem a chance de recuperá-la.</string>
   <string name="emailAssociatedToaccount">Endereço de e-mail associado à conta</string>
   <string name="sentEmailWithLink">Enviamos um e-mail pra você com um link.</string>
   <string name="tournamentEntryCode">Código de entrada do torneio</string>

@@ -105,6 +105,13 @@
     font-weight: bold;
   }
 }
+.mod-timeline__event__action--warning strong {
+  color: $c-brag;
+}
+.mod-timeline__event__action--account-sentence {
+  font-weight: bold;
+  color: $c-brag;
+}
 
 @media (max-width: at-most($large)) {
   .mod-timeline {

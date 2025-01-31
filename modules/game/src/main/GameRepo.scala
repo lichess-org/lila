@@ -25,15 +25,15 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
 
-  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] =
+  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.sec)(_.id)
 
   // #TODO FIXME
   // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-  def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] =
+  def gamesTemporarilyFromPrimary(gameIds: Seq[GameId]): Fu[List[Game]] = gameIds.nonEmpty.so:
     coll.byOrderedIds[Game, GameId](gameIds, readPref = _.priTemp)(_.id)
 
-  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
+  def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] = gameIds.nonEmpty.so:
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.priTemp)(_.id)
 
   val light: lila.core.game.GameLightRepo = new:
@@ -98,6 +98,19 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .find(select)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.priTemp)
+
+  def ongoingByUserIdsCursor(userIds: Set[UserId]) =
+    coll
+      .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
+        import framework.*
+        List(
+          Match($doc(lila.game.Game.BSONFields.playingUids -> $doc("$in" -> userIds, "$size" -> 2))),
+          AddFields:
+            $doc:
+              "both" -> $doc("$setIsSubset" -> $arr("$" + lila.core.game.BSONFields.playingUids, userIds))
+          ,
+          Match($doc("both" -> true))
+        )
 
   def gamesForAssessment(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
@@ -564,3 +577,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     allIds = aiIds ::: importIds
     _ <- coll.delete.one($inIds(allIds))
   yield allIds
+
+  // expensive, enumerates all the player's games
+  def swissIdsOf(id: UserId): Fu[Set[SwissId]] =
+    coll.distinctEasy[SwissId, Set](F.swissId, Query.user(id) ++ F.swissId.$exists(true))

@@ -10,6 +10,7 @@ import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 import lila.core.fide.FideTC
+import lila.core.socket.SocketVersion
 
 final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl)(using Executor):
 
@@ -94,12 +95,14 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       rt: RelayRound.WithTourAndStudy,
       previews: ChapterPreview.AsJsons,
       group: Option[RelayGroup.WithTours],
-      targetRound: Option[RelayRound.WithTour]
+      targetRound: Option[RelayRound.WithTour],
+      socketVersion: Option[SocketVersion]
   )(using Option[Me]): JsObject =
     myRound(rt) ++ Json
       .obj("games" -> previews)
       .add("group" -> group)
       .add("targetRound" -> targetRound.map(withUrl(_, true)))
+      .add("socketVersion" -> socketVersion)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
@@ -191,6 +194,7 @@ object JsonView:
       .add("slices" -> s.slices.map(RelayGame.Slices.show))
       .add("delay" -> s.delay) ++
       s.upstream.so:
-        case Sync.Upstream.Url(url)   => Json.obj("url" -> url)
-        case Sync.Upstream.Urls(urls) => Json.obj("urls" -> urls)
-        case Sync.Upstream.Ids(ids)   => Json.obj("ids" -> ids)
+        case Sync.Upstream.Url(url)     => Json.obj("url" -> url)
+        case Sync.Upstream.Urls(urls)   => Json.obj("urls" -> urls)
+        case Sync.Upstream.Ids(ids)     => Json.obj("ids" -> ids)
+        case Sync.Upstream.Users(users) => Json.obj("users" -> users)

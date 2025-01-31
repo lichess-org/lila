@@ -22,8 +22,9 @@ final private class PushApi(
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
     notifyAllows: lila.core.notify.GetNotifyAllows,
-    postApi: lila.core.forum.ForumPostApi
-)(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
+    postApi: lila.core.forum.ForumPostApi,
+    lightUser: lila.core.LightUser.GetterFallback
+)(using Executor, Scheduler):
 
   import PushApi.*
   import PushApi.Data.payload

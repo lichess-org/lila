@@ -10,7 +10,7 @@
     <item quantity="one">%s சுற்று</item>
     <item quantity="other">%s சுற்றுகள்</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
     <item quantity="one">%s சுற்று சுவிசு</item>
     <item quantity="other">%s சுற்றுகள் சுவிசு</item>
   </plurals>

@@ -59,6 +59,7 @@ object page:
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
           cssTag("common.theme.all"),
+          link(rel := "stylesheet", href := assetUrl("css/theme/font-face.css")),
           cssTag("site"),
           pref.is3d.option(cssTag("common.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
@@ -112,6 +113,7 @@ object page:
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
           dataUser     := ctx.userId,
+          dataUsername := ctx.username,
           dataSoundSet := pref.currentSoundSet.toString,
           attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
                                           else netConfig.socketDomains).mkString(","),

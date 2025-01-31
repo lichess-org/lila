@@ -132,7 +132,7 @@
     <item quantity="one">%s blunder</item>
     <item quantity="other">%s blundrar</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Blunder</item>
     <item quantity="other">%s Blundrar</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s misstag</item>
     <item quantity="other">%s misstag</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Misstag</item>
     <item quantity="other">%s Misstag</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s felaktighet</item>
     <item quantity="other">%s felaktigheter</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Felaktighet</item>
     <item quantity="other">%s Felaktigheter</item>
   </plurals>
@@ -983,9 +983,6 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="focusChat">Fokusera chatten</string>
   <string name="showHelpDialog">Visa denna hjälpdialog</string>
   <string name="reopenYourAccount">Öppna ditt konto igen</string>
-  <string name="closedAccountChangedMind">Om du stängt ditt konto, men sedan dess har ändrat dig, får du en chans att få tillbaka ditt konto.</string>
-  <string name="onlyWorksOnce">Detta fungerar bara en gång.</string>
-  <string name="cantDoThisTwice">Om du stänger ditt konto en andra gång, kommer det inte att finnas något sätt att återställa det.</string>
   <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
   <string name="sentEmailWithLink">Vi har skickat ett e-postmeddelande med en länk.</string>
   <string name="tournamentEntryCode">Inträdeskod till turnering</string>

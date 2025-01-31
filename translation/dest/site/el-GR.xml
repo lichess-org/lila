@@ -132,7 +132,7 @@
     <item quantity="one">%s σοβαρό σφάλμα</item>
     <item quantity="other">%s σοβαρά σφάλματα</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Σοβαρό σφάλμα</item>
     <item quantity="other">%s Σοβαρά σφάλματα</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s λάθος</item>
     <item quantity="other">%s λάθη</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Λάθος</item>
     <item quantity="other">%s Λάθη</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s ανακρίβεια</item>
     <item quantity="other">%s ανακρίβειες</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Ανακρίβεια</item>
     <item quantity="other">%s Ανακρίβειες</item>
   </plurals>
@@ -785,6 +785,7 @@
   <string name="onlineAndOfflinePlay">Παιχνίδια διαδικτυακώς και εκτός σύνδεσης</string>
   <string name="viewTheSolution">Δείτε τη λύση</string>
   <string name="followAndChallengeFriends">Ακολουθήστε και προκαλέστε φίλους</string>
+  <string name="noChallenges">Δεν έχετε προκλήσεις.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Διαθέσιμο σε %s γλώσσες!</item>
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
@@ -984,9 +985,7 @@
   <string name="focusChat">Εστίαση στο chat</string>
   <string name="showHelpDialog">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
   <string name="reopenYourAccount">Ξανανοίξτε τον λογαριασμό σας</string>
-  <string name="closedAccountChangedMind">Αν κλείσατε το λογαριασμό σας, αλλά έχετε αλλάξει γνώμη, μπορείτε να τον ξανανοίξετε.</string>
-  <string name="onlyWorksOnce">Αυτό θα λειτουργήσει μόνο μία φορά.</string>
-  <string name="cantDoThisTwice">Αν κλείσετε το λογαριασμό σας για δεύτερη φορά, δε θα υπάρχει τρόπος να τον ανοίξετε ξανά.</string>
+  <string name="reopenYourAccountDescription">Αν κλείσατε τον λογαριασμό σας, αλλά έκτοτε έχετε αλλάξει γνώμη, έχετε την δυνατότητα να ανακτήσετε τον λογαριασμό σας.</string>
   <string name="emailAssociatedToaccount">Διεύθυνση ηλεκτρονικού ταχυδρομείου αυτού του λογαριασμού</string>
   <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
   <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>

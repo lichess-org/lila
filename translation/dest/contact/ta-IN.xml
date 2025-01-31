@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">நாங்கள் உங்களுக்கு என்ன உதவ முடியும்?</string>
   <string name="visitThisPage">சிக்கலைத் தீர்க்க இந்தப் பக்கத்தைப் பார்வையிடவும்</string>
   <string name="iCantLogIn">என்னால் உள்நுழைய முடியவில்லை</string>
-  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">எனது உறுதிப்படுத்தல் மின்னஞ்சலைப் பெறவில்லை</string>
+  <string name="noConfirmationEmail">எனது உறுதிப்படுத்தல் மின்னஞ்சலைப் பெறவில்லை</string>
   <string name="forgotPassword">என் கடவுச்சொல்லை மறந்துவிட்டேன்</string>
   <string name="forgotUsername">என் பயனர்பெயரை மறந்துவிட்டேன்</string>
   <string name="youCanLoginWithEmail">நீங்கள் பதிவுசெய்த மின்னஞ்சல் முகவரியுடன் உள்நுழையலாம்</string>

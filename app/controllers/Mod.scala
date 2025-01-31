@@ -30,7 +30,7 @@ final class Mod(
     withSuspect(username): sus =>
       for
         _ <- api.setAlt(sus, v)
-        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user))
+        _ <- (v && sus.user.enabled.yes).so(env.api.accountTermination.disable(sus.user, forever = false))
         _ <- (!v && sus.user.enabled.no).so(api.reopenAccount(sus.user.id))
       yield sus.some
   }(reportC.onModAction)
@@ -40,7 +40,9 @@ final class Mod(
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
         withSuspect(username): sus =>
-          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(env.api.accountTermination.disable(sus.user)))
+          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(
+            env.api.accountTermination.disable(sus.user, forever = false)
+          ))
       .runWith(Sink.ignore)
       .void
       .inject(NoContent)
@@ -114,7 +116,7 @@ final class Mod(
 
   def closeAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
     meOrFetch(username).flatMapz: user =>
-      env.api.accountTermination.disable(user).map(some)
+      env.api.accountTermination.disable(user, forever = false).map(some)
   }(actionResult(username))
 
   def reopenAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
@@ -372,7 +374,7 @@ final class Mod(
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
-    bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, Nil)), searchTerm)
+    bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, none)), searchTerm)
   }
 
   def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
@@ -382,7 +384,7 @@ final class Mod(
 
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> _ ?=>
     Found(env.user.repo.byId(username)): user =>
-      for _ <- env.api.accountTermination.scheduleErase(user)
+      for _ <- env.api.accountTermination.scheduleDelete(user)
       yield Redirect(routes.User.show(username)).flashSuccess("Erasure scheduled")
   }
 
@@ -391,8 +393,8 @@ final class Mod(
       case Some(ip) => Redirect(routes.Mod.singleIp(ip.value)).toFuccess
       case None =>
         for
-          users <- env.mod.search(query)
-          page  <- renderPage(views.mod.search(ModUserSearch.form.fill(query), users))
+          res  <- env.mod.search(query)
+          page <- renderPage(views.mod.search(ModUserSearch.form.fill(query), res.some))
         yield Ok(page)
 
   def print(fh: String) = SecureBody(_.ViewPrintNoIP) { ctx ?=> me ?=>
@@ -477,12 +479,12 @@ final class Mod(
         val email    = query.headOption.flatMap(EmailAddress.from)
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-          env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
+          env.mod.search(q).map(_.users.filter(_.user.enabled.yes)).flatMap {
             case List(lila.user.WithPerfsAndEmails(user, _)) =>
               for
                 _ <- (!user.everLoggedIn).so {
                   lila.mon.user.register.modConfirmEmail.increment()
-                  api.setEmail(user.id, setEmail)
+                  api.setEmail(user.id, setEmail.some)
                 }
                 email <- env.user.repo.email(user.id)
                 page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))

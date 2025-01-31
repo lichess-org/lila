@@ -63,13 +63,13 @@ $player-height: 1.6rem;
 
   .analyse__clock {
     @extend %roboto, %flex-center-nowrap;
-
-    height: 100%;
-    font-size: 1.2em;
     @include padding-direction(0, 0.8em, 0, 0.6em);
 
+    height: 100%;
     border-radius: 0 4px 0 0;
     box-shadow: none;
+    font-size: 1.2em;
+    font-weight: normal;
   }
 
   &-bot .analyse__clock {

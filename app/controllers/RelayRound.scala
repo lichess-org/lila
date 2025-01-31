@@ -163,8 +163,9 @@ final class RelayRound(
           group       <- env.relay.api.withTours.get(rt.tour.id)
           previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           targetRound <- env.relay.api.officialTarget(rt.round)
+          sVersion    <- ctx.isMobileOauth.soFu(env.study.version(study.id))
         yield JsonOk:
-          env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound)
+          env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, sVersion)
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -190,10 +191,13 @@ final class RelayRound(
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
     Found(env.relay.api.byIdWithStudy(id)): rs =>
+      val limiter =
+        if ctx.me.exists(_.isVerified)
+        then apiC.GlobalConcurrencyLimitPerIP.eventsForVerifiedUser
+        else apiC.GlobalConcurrencyLimitPerIP.events
       studyC.CanView(rs.study) {
-        apiC.GlobalConcurrencyLimitPerIP
-          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
-            noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
+        limiter(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
+          noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =

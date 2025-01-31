@@ -37,10 +37,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         userLink({
           name: user.username,
           ...user,
-          attrs: {
-            'data-pt-pos': 's',
-            ...(ctrl.isPlaying() ? { target: '_blank', rel: 'noopener' } : {}),
-          },
+          attrs: { 'data-pt-pos': 's', ...(ctrl.isPlaying() ? { target: '_blank' } : {}) },
           online: false,
           line: false,
         }),

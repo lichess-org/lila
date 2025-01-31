@@ -30,7 +30,7 @@
       "src/dev/local.dev.ts"
     ],
     "sync": {
-      "node_modules/zerofish/dist/zerofishEngine.*": "public/npm"
+      "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
     }
   }
 }

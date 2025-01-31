@@ -42,7 +42,7 @@ public/piece/letter | [usolando](https://lichess.org/@/usolando) | AGPLv3+
 public/piece/pirouetti | [pirouetti](https://lichess.org/@/pirouetti) | AGPLv3+
 public/piece/merida | Armando Hernandez Marroquin | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
 public/piece/shapes | [flugsio](https://github.com/flugsio/chess_shapes) | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
-public/piece/pixel | [therealqtpi](https://twitter.com/therealqtpi) | AGPLv3+
+public/piece/pixel | therealqtpi | AGPLv3+
 public/piece/california | [Jerry S.](https://sites.google.com/view/jerrychess/home) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/caliente | [avi](https://github.com/avi-0/caliente) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/maestro | sadsnake1 | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
@@ -68,6 +68,7 @@ public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/lisp | [EdinburghCollective](http://lichess.org/@/EdinburghCollective) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 SVG in ui/learn/src/apple.ts | [Sensa](https://www.svgrepo.com/svg/434273/star) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
+public/flair/img/symbols.neovim-mark.webp | Jason Long | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) (Modified by converting to webp and resizing)
 
 ## Exceptions (non-free)
 

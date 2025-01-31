@@ -4,6 +4,12 @@
   <string name="friendBlogs">בלוגים של חברים</string>
   <string name="likedBlogs">בלוגים שאהבת</string>
   <string name="blogTopics">נושאי הבלוגים</string>
+  <plurals name="blogPosts">
+    <item quantity="one">פוסט %s בבלוג</item>
+    <item quantity="two">%s פוסטים בבלוג</item>
+    <item quantity="many">%s פוסטים בבלוג</item>
+    <item quantity="other">%s פוסטים בבלוג</item>
+  </plurals>
   <string name="lichessOfficialBlog">הבלוג הרשמי של Lichess</string>
   <string name="continueReadingPost">המשך קריאה של הבלוג</string>
   <string name="lichessBlogPostsFromXYear">בלוגים של Lichess ב־%s</string>
@@ -21,6 +27,8 @@
   <string name="createBlogDiscussionHelp">יווצר נושא בפורום כדי שאנשים יוכלו להגיב על הפוסט שלך</string>
   <string name="publishOnYourBlog">פרסם בבלוג שלך</string>
   <string name="publishHelp">אם הפוסט נבדק, הוא יפורסם לבלוג שלך. אם לא, הוא יישאר בטיוטות שלך</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">רשומה מוצמדת</string>
+  <string name="stickyPostHelp">אם תבחרו בכך, הפוסט הזה יהיה מוצג בפרופיל ובבלוג שלכם, ברשימת ״הפרסומים האחרונים״.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">פרסם/ה פוסט</item>
     <item quantity="two">פרסם/ה %s פוסטים</item>

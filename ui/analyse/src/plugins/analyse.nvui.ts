@@ -1,13 +1,12 @@
-import { h, type VNode } from 'snabbdom';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { defined, prop, type Prop } from 'common';
 import { text as xhrText } from 'common/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import type { AnalyseData } from '../interfaces';
+import type { AnalyseData, NvuiPlugin } from '../interfaces';
 import type { Player } from 'game';
-import viewStatus from 'game/view/status';
 import {
-  type Style,
+  type MoveStyle,
   renderSan,
   renderPieces,
   renderBoard,
@@ -29,12 +28,12 @@ import {
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands } from 'nvui/command';
-import { bind, type MaybeVNodes } from 'common/snabbdom';
+import { commands, boardCommands, addBreaks } from 'nvui/command';
+import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
-import { view as cevalView, renderEval } from 'ceval';
+import { view as cevalView, renderEval, type CevalCtrl } from 'ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
@@ -44,13 +43,17 @@ import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from 'chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
+import { renderResult } from '../view/components';
+import { view as chapterNewFormView } from '../study/chapterNewForm';
+import { view as chapterEditFormView } from '../study/chapterEditForm';
+import renderClocks from '../view/clocks';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
 
-export function initModule(ctrl: AnalyseController) {
+export function initModule(ctrl: AnalyseController): NvuiPlugin {
   const notify = new Notify(),
     moveStyle = styleSetting(),
     pieceStyle = pieceSetting(),
@@ -70,21 +73,22 @@ export function initModule(ctrl: AnalyseController) {
       notify.redraw = ctrl.redraw;
       const d = ctrl.data,
         style = moveStyle.get();
-      if (!ctrl.chessground)
-        ctrl.chessground = makeChessground(document.createElement('div'), {
-          ...makeCgConfig(ctrl),
-          animation: { enabled: false },
-          drawable: { enabled: false },
-          coordinates: false,
-        });
+      ctrl.chessground = makeChessground(document.createElement('div'), {
+        ...makeCgConfig(ctrl),
+        animation: { enabled: false },
+        drawable: { enabled: false },
+        coordinates: false,
+      });
+      const clocks = renderClocks(ctrl, ctrl.path);
       return h('main.analyse', [
         h('div.nvui', [
+          studyDetails(ctrl),
           h('h1', 'Textual representation'),
           h('h2', 'Game info'),
           ...['white', 'black'].map((color: Color) =>
-            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
+            h('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
           ),
-          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
+          h('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
           h('h2', 'Moves'),
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
@@ -103,7 +107,7 @@ export function initModule(ctrl: AnalyseController) {
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-          ...renderResult(ctrl),
+          ...renderAriaResult(ctrl),
           h('h2', 'Current position'),
           h(
             'p.position.lastMove',
@@ -111,6 +115,11 @@ export function initModule(ctrl: AnalyseController) {
             // make sure consecutive positions are different so that they get re-read
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
+          clocks &&
+            h('div.clocks', [
+              h('h2', `${i18n.site.clock}`),
+              h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
+            ]),
           h('h2', 'Move form'),
           h(
             'form',
@@ -119,7 +128,7 @@ export function initModule(ctrl: AnalyseController) {
                 insert(vnode) {
                   const $form = $(vnode.elm as HTMLFormElement),
                     $input = $form.find('.move').val('');
-                  $input[0]!.focus();
+                  $input[0]?.focus();
                   $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
                 },
               },
@@ -134,8 +143,6 @@ export function initModule(ctrl: AnalyseController) {
             ],
           ),
           notify.render(),
-          // h('h2', 'Actions'),
-          // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
@@ -147,7 +154,7 @@ export function initModule(ctrl: AnalyseController) {
               hook: {
                 insert: el => {
                   const $board = $(el.elm as HTMLElement);
-                  $board.on('keypress', boardCommandsHandler());
+                  $board.on('keydown', jumpOrCommand(ctrl));
                   const $buttons = $board.find('button');
                   const steps = () => ctrl.tree.getNodeList(ctrl.path);
                   const fenSteps = () => steps().map(step => step.fen);
@@ -155,17 +162,17 @@ export function initModule(ctrl: AnalyseController) {
                   $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                   $buttons.on(
-                    'keypress',
+                    'keydown',
                     lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                   );
-                  $buttons.on('keypress', positionJumpHandler());
-                  $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
+                  $buttons.on('keydown', positionJumpHandler());
+                  $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
                 },
               },
             },
             renderBoard(
               ctrl.chessground.state.pieces,
-              ctrl.data.player.color,
+              ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
@@ -199,115 +206,70 @@ export function initModule(ctrl: AnalyseController) {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          h('h2', 'Keyboard shortcuts'),
-          h('p', [
-            'Use arrow keys to navigate in the game.',
-            h('br'),
-            'l: toggle local computer analysis',
-            h('br'),
-            'z: toggle all computer analysis',
-            h('br'),
-            'space: play best computer move',
-            h('br'),
-            'c: announce computer evaluation',
-            h('br'),
-            'x: show threat',
-            h('br'),
-          ]),
-          h('h2', 'Board mode commands'),
-          h('p', [
-            'Use these commands when focused on the board itself.',
-            h('br'),
-            'o: announce current position.',
-            h('br'),
-            "c: announce last move's captured piece.",
-            h('br'),
-            'l: display last move.',
-            h('br'),
-            't: display clocks.',
-            h('br'),
-            'arrow keys: move left, right, up or down.',
-            h('br'),
-            'kqrbnp/KQRBNP: move forward/backward to a piece.',
-            h('br'),
-            '1-8: move to rank 1-8.',
-            h('br'),
-            'Shift+1-8: move to file a-h.',
-            h('br'),
-            '',
-            h('br'),
-          ]),
+          h('h2', i18n.site.keyboardShortcuts),
+          h(
+            'p',
+            [
+              'Use arrow keys to navigate in the game.',
+              `l: ${i18n.site.toggleLocalAnalysis}`,
+              `z: ${i18n.site.toggleAllAnalysis}`,
+              `space: ${i18n.site.playComputerMove}`,
+              'c: announce computer evaluation',
+              `x: ${i18n.site.showThreat}`,
+            ].reduce(addBreaks, []),
+          ),
+          ...boardCommands(),
           h('h2', 'Commands'),
-          h('p', [
-            'Type these commands in the command input.',
-            h('br'),
-            commands.piece.help,
-            h('br'),
-            commands.scan.help,
-            h('br'),
-            "eval: announce last move's computer evaluation",
-            h('br'),
-            'best: announce the top engine move',
-            h('br'),
-            'prev: return to the previous move',
-            h('br'),
-            'next: go to the next move',
-            h('br'),
-            'prev line: switch to the previous variation',
-            h('br'),
-            'next line: switch to the next variation',
-          ]),
+          h(
+            'p',
+            [
+              'Type these commands in the command input.',
+              commands.piece.help,
+              commands.scan.help,
+              "eval: announce last move's computer evaluation",
+              'best: announce the top engine move',
+              'prev: return to the previous move',
+              'next: go to the next move',
+              'prev line: switch to the previous variation',
+              'next line: switch to the next variation',
+            ].reduce(addBreaks, []),
+          ),
         ]),
       ]);
     },
   };
 }
 
-const NOT_ALLOWED = 'local evaluation not allowed';
-const NOT_POSSIBLE = 'local evaluation not possible';
-const NOT_ENABLED = 'local evaluation not enabled';
-
 function renderEvalAndDepth(ctrl: AnalyseController): string {
-  let evalStr: string, depthStr: string;
-  if (ctrl.threatMode()) {
-    evalStr = evalInfo(ctrl.node.threat);
-    depthStr = depthInfo(ctrl.node.threat, false);
-    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
-  } else {
-    const evs = ctrl.currentEvals(),
-      bestEv = cevalView.getBestEval(evs);
-    evalStr = evalInfo(bestEv);
-    depthStr = depthInfo(evs.client, !!evs.client?.cloud);
-  }
-  if (!evalStr) {
-    if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
-    else if (!ctrl.ceval.possible) return NOT_POSSIBLE;
-    else return NOT_ENABLED;
-  } else {
-    return evalStr + ' ' + depthStr;
-  }
+  if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
+  const evs = ctrl.currentEvals(),
+    bestEv = cevalView.getBestEval(evs);
+  const evalStr = evalInfo(bestEv);
+  return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
-function evalInfo(bestEv: EvalScore | undefined): string {
-  if (bestEv) {
-    if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
-    else if (defined(bestEv.mate))
-      return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
-  }
-  return '';
-}
+const evalInfo = (bestEv: EvalScore | undefined): string =>
+  defined(bestEv?.cp)
+    ? renderEval(bestEv.cp).replace('-', '−')
+    : defined(bestEv?.mate)
+      ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
+      : '';
 
-function depthInfo(clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
-  if (!clientEv) return '';
-  const depth = clientEv.depth || 0;
-  return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';
-}
+const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
+  clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
-function renderBestMove(ctrl: AnalyseController, style: Style): string {
-  const instance = ctrl.getCeval();
-  if (!instance.allowed()) return NOT_ALLOWED;
-  if (!instance.possible) return NOT_POSSIBLE;
-  if (!instance.enabled()) return NOT_ENABLED;
+const noEvalStr = (ctrl: CevalCtrl) =>
+  !ctrl.allowed()
+    ? 'local evaluation not allowed'
+    : !ctrl.possible
+      ? 'local evaluation not possible'
+      : !ctrl.enabled()
+        ? 'local evaluation not enabled'
+        : '';
+
+function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
+  const noEvalMsg = noEvalStr(ctrl.ceval);
+  if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[] = [];
@@ -315,44 +277,26 @@ function renderBestMove(ctrl: AnalyseController, style: Style): string {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;
-  } else if (node.ceval) {
-    pvs = node.ceval.pvs;
-  }
-  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
+  } else if (node.ceval) pvs = node.ceval.pvs;
+  const pos = setupPosition(lichessRules(ctrl.ceval.opts.variant.key), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);
     return renderSan(san, uci, style);
-  } else {
-    return '';
   }
+  return '';
 }
 
-function renderResult(ctrl: AnalyseController): VNode[] {
-  if (ctrl.data.game.status.id >= 30) {
-    let result;
-    switch (ctrl.data.game.winner) {
-      case 'white':
-        result = '1-0';
-        break;
-      case 'black':
-        result = '0-1';
-        break;
-      default:
-        result = '½-½';
-    }
-    return [
-      h('h2', 'Game status'),
-      h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
-        h('div.result', result),
-        h('div.status', viewStatus(ctrl)),
-      ]),
-    ];
-  }
-  return [];
+function renderAriaResult(ctrl: AnalyseController): VNode[] {
+  const result = renderResult(ctrl);
+  const res = result.length ? result : 'No result';
+  return [
+    h('h2', 'Game status'),
+    h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
+  ];
 }
 
-function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNode)[] {
+function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChildren {
   if (ctrl.path.length === 0) {
     return renderMainline(ctrl.mainline, ctrl.path, style);
   } else {
@@ -361,8 +305,14 @@ function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNo
   }
 }
 
-function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
-  return function () {
+function onSubmit(
+  ctrl: AnalyseController,
+  notify: (txt: string) => void,
+  style: () => MoveStyle,
+  $input: Cash,
+) {
+  return (e: SubmitEvent) => {
+    e.preventDefault();
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -373,31 +323,19 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
       else notify('Invalid command');
     }
     $input.val('');
-    return false;
   };
 }
 
-const shortCommands = ['p', 's', 'next', 'prev', 'eval', 'best'];
+const isShortCommand = (input: string) =>
+  ['p', 's', 'next', 'prev', 'eval', 'best'].includes(input.split(' ')[0].toLowerCase());
 
-function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0].toLowerCase());
-}
-
-function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
+function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
-  if (lowered === 'next') {
-    next(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'prev') {
-    prev(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'next line') {
-    jumpNextLine(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'prev line') {
-    jumpPrevLine(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
+  if (lowered === 'next') doAndRedraw(ctrl, next);
+  else if (lowered === 'prev') doAndRedraw(ctrl, prev);
+  else if (lowered === 'next line') doAndRedraw(ctrl, jumpPrevLine);
+  else if (lowered === 'prev line') doAndRedraw(ctrl, jumpNextLine);
+  else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
   else if (lowered === 'best') notify(renderBestMove(ctrl, style));
   else {
     const pieces = ctrl.chessground.state.pieces;
@@ -409,18 +347,14 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
   }
 }
 
-const analysisGlyphs = ['?!', '?', '??'];
-
-function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
-  const anal = ctrl.data.analysis;
+function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
+  const anal = ctrl.data.analysis; // heh
   if (!anal) return undefined;
-  const analysisNodes = ctrl.mainline.filter(n =>
-    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)),
-  );
+  const analysisGlyphs = ['?!', '?', '??'];
+  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
-    const acpl = anal[color].acpl;
-    res.push(h('h3', `${color} player: ${acpl} ACPL`));
+    res.push(h('h3', `${color} player: ${anal[color].acpl} ACPL`));
     res.push(
       h(
         'select',
@@ -448,29 +382,30 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
   return res;
 }
 
-function requestAnalysisButton(
+const requestAnalysisButton = (
   ctrl: AnalyseController,
   inProgress: Prop<boolean>,
   notify: (msg: string) => void,
-) {
-  if (inProgress()) return h('p', 'Server-side analysis in progress');
-  if (ctrl.ongoing || ctrl.synthetic) return undefined;
-  return h(
-    'button',
-    {
-      hook: bind('click', _ =>
-        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-          () => {
-            inProgress(true);
-            notify('Server-side analysis in progress');
+): MaybeVNode =>
+  ctrl.ongoing || ctrl.synthetic
+    ? undefined
+    : inProgress()
+      ? h('p', 'Server-side analysis in progress')
+      : h(
+          'button',
+          {
+            hook: bind('click', _ =>
+              xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+                () => {
+                  inProgress(true);
+                  notify('Server-side analysis in progress');
+                },
+                () => notify('Cannot run server-side analysis'),
+              ),
+            ),
           },
-          () => notify('Cannot run server-side analysis'),
-        ),
-      ),
-    },
-    'Request a computer analysis',
-  );
-}
+          i18n.site.requestAComputerAnalysis,
+        );
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
   if (ctrl.path === treePath.root) return { i: 1, of: 1 };
@@ -486,7 +421,7 @@ function renderLineIndex(ctrl: AnalyseController): string {
   return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
 }
 
-function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
+function renderCurrentNode(ctrl: AnalyseController, style: MoveStyle): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
   return [
@@ -499,9 +434,8 @@ function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
     .trim();
 }
 
-function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
-}
+const renderPlayer = (ctrl: AnalyseController, player: Player): VNodeChildren =>
+  player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 
 function userHtml(ctrl: AnalyseController, player: Player) {
   const d = ctrl.data,
@@ -510,6 +444,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     rating = player.rating ? player.rating : perf && perf.rating,
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+  const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? h('span', [
         h(
@@ -520,12 +455,33 @@ function userHtml(ctrl: AnalyseController, player: Player) {
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,
       ])
-    : 'Anonymous';
+    : studyPlayers || h('span', i18n.site.anonymous);
 }
 
-function playerByColor(d: AnalyseData, color: Color) {
-  return color === d.player.color ? d.player : d.opponent;
+function renderStudyPlayer(ctrl: AnalyseController, color: Color): VNode | undefined {
+  const player = ctrl.study?.currentChapter().players?.[color];
+  const keys = [
+    ['name', i18n.site.name],
+    ['title', 'title'],
+    ['rating', i18n.site.rating],
+    ['fed', 'fed'],
+    ['team', 'team'],
+  ] as const;
+  return (
+    player &&
+    h(
+      'span',
+      keys
+        .reduce<
+          string[]
+        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].name : player[key]}`) : strs), [])
+        .join(' '),
+    )
+  );
 }
+
+const playerByColor = (d: AnalyseData, color: Color): Player =>
+  color === d.player.color ? d.player : d.opponent;
 
 const jumpNextLine = (ctrl: AnalyseController) => jumpLine(ctrl, 1);
 const jumpPrevLine = (ctrl: AnalyseController) => jumpLine(ctrl, -1);
@@ -538,4 +494,102 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
   const prevNode = ctrl.tree.nodeAtPath(prevPath);
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
+}
+const onInsertHandler = (callback: () => void, el: HTMLElement) => {
+  el.addEventListener('click', callback);
+  el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
+};
+
+function studyDetails(ctrl: AnalyseController): MaybeVNode {
+  const study = ctrl.study;
+  const relayGroups = study?.relay?.data.group;
+  return (
+    study &&
+    h('div.study-details', [
+      h('h2', 'Study details'),
+      h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
+      h('br'),
+      relayGroups &&
+        h('div.relayGroups', [
+          h('h2', 'Relay groups'),
+          ...relayGroups.tours.map(tour => h('a', { attrs: { href: `/broadcast/-/${tour.id}` } }, tour.name)),
+        ]),
+      h('label.chapters', [
+        h('h2', 'Current chapter:'),
+        h(
+          'select',
+          {
+            hook: bind('change', (e: InputEvent) => {
+              const target = e.target as HTMLSelectElement;
+              const selectedOption = target.options[target.selectedIndex];
+              const chapterId = selectedOption.getAttribute('chapterId');
+              study.setChapter(chapterId!);
+            }),
+          },
+          study.chapters.list.all().map((ch, i) =>
+            h(
+              'option',
+              {
+                attrs: {
+                  selected: ch.id === study.currentChapter().id,
+                  chapterId: ch.id,
+                },
+              },
+              `${i + 1}. ${ch.name}`,
+            ),
+          ),
+        ),
+        study.members.canContribute()
+          ? h('div.buttons', [
+              h(
+                'button',
+                {
+                  hook: onInsert((el: HTMLButtonElement) => {
+                    const toggle = () => {
+                      study.chapters.editForm.toggle(study.currentChapter());
+                      ctrl.redraw();
+                    };
+                    onInsertHandler(toggle, el);
+                  }),
+                },
+                [
+                  'Edit current chapter',
+                  study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
+                ],
+              ),
+              h(
+                'button',
+                {
+                  hook: onInsert((el: HTMLButtonElement) => {
+                    const toggle = () => {
+                      study.chapters.newForm.toggle();
+                      ctrl.redraw();
+                    };
+                    onInsertHandler(toggle, el);
+                  }),
+                },
+                [
+                  'Add new chapter',
+                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
+                ],
+              ),
+            ])
+          : undefined,
+      ]),
+    ])
+  );
+}
+
+const doAndRedraw = (ctrl: AnalyseController, fn: (ctrl: AnalyseController) => void): void => {
+  fn(ctrl);
+  ctrl.redraw();
+};
+
+function jumpOrCommand(ctrl: AnalyseController) {
+  return (e: KeyboardEvent) => {
+    if (e.shiftKey || e.altKey) {
+      if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
+      else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
+    } else boardCommandsHandler()(e);
+  };
 }

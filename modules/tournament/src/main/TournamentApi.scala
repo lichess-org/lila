@@ -235,7 +235,7 @@ final class TournamentApi(
   private def awardTrophies(tour: Tournament): Funit =
     import lila.core.user.TrophyKind.*
     import lila.tournament.Tournament.tournamentUrl
-    tour.schedule.exists(_.freq == Schedule.Freq.Marathon).so {
+    tour.isMarathon.so:
       playerRepo
         .bestByTourWithRank(tour.id, 500)
         .flatMap:
@@ -249,7 +249,6 @@ final class TournamentApi(
             case rp if rp.rank <= 100 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
             case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
-    }
 
   def getVerdicts(tour: Tournament, playerExists: Boolean)(using
       GetMyTeamIds
@@ -698,7 +697,7 @@ final class TournamentApi(
   def toggleFeaturing(tourId: TourId, v: Boolean): Funit =
     if v then
       tournamentRepo.byId(tourId).flatMapz { tour =>
-        tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour).some)
+        tournamentRepo.setSchedule(tour.id, Scheduled(Schedule.Freq.Unique, tour.startsAt.dateTime).some)
       }
     else tournamentRepo.setSchedule(tourId, none)
 

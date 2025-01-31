@@ -9,6 +9,8 @@ import { userTitle } from 'common/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
 import { intersection } from 'tree/path';
+import { defined } from 'common';
+import { resultTag } from './studyView';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -55,15 +57,19 @@ function renderPlayer(
   showRatings: boolean,
   relayPlayers?: RelayPlayers,
 ): VNode {
-  const player = players?.[color],
+  const showResult: boolean =
+      !defined(ctrl.study?.relay) ||
+      ctrl.study?.multiBoard.showResults() ||
+      ctrl.node.ply == ctrl.tree.lastPly(),
+    player = players?.[color],
     fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
     rating = showRatings && player?.rating,
-    result = resultOf(tags, color === 'white'),
+    result = showResult && resultOf(tags, color === 'white'),
     top = ctrl.bottomColor() !== color;
   return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     h('div.left', [
-      result && h('span.result', result),
+      result && h(`${resultTag(result)}.result`, result),
       h('span.info', [
         team ? h('span.team', team) : undefined,
         playerFed(player?.fed),

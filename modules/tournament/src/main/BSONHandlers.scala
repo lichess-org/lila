@@ -23,17 +23,7 @@ object BSONHandlers:
     x => BSONString(x.name)
   )
 
-  private[tournament] given BSONHandler[Schedule.Speed] = tryHandler(
-    { case BSONString(v) => Schedule.Speed(v).toTry(s"No such speed: $v") },
-    x => BSONString(x.key)
-  )
-
-  given BSONWriter[Schedule] = BSONWriter: s =>
-    $doc(
-      "freq"  -> s.freq,
-      "speed" -> s.speed,
-      "at"    -> s.at
-    )
+  given BSONWriter[Scheduled] = Macros.handler
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
@@ -74,11 +64,10 @@ object BSONHandlers:
         noBerserk = r.boolD("noBerserk"),
         noStreak = r.boolD("noStreak"),
         schedule = for
-          doc   <- r.getO[Bdoc]("schedule")
-          freq  <- doc.getAsOpt[Schedule.Freq]("freq")
-          speed <- doc.getAsOpt[Schedule.Speed]("speed")
-          at = doc.getAsOpt[LocalDateTime]("at").getOrElse(startsAt.dateTime)
-        yield Schedule(freq, speed, variant, position, at, conditions),
+          doc  <- r.getO[Bdoc]("schedule")
+          freq <- doc.getAsOpt[Schedule.Freq]("freq")
+          at = doc.getAsOpt[LocalDateTime]("at") | startsAt.dateTime
+        yield Scheduled(freq, at),
         nbPlayers = r.int("nbPlayers"),
         createdAt = r.date("createdAt"),
         createdBy = r.getO[UserId]("createdBy") | UserId.lichess,
@@ -187,7 +176,6 @@ object BSONHandlers:
         rank = r.get("r"),
         rankRatio = r.get("w"),
         freq = r.intO("f").flatMap(Schedule.Freq.byId.get),
-        speed = r.intO("p").flatMap(Schedule.Speed.byId.get),
         perf = PerfType.byId.get(r.get("v")).err("Invalid leaderboard perf"),
         date = r.date("d")
       )
@@ -202,7 +190,6 @@ object BSONHandlers:
         "r"   -> o.rank,
         "w"   -> o.rankRatio,
         "f"   -> o.freq.map(_.id),
-        "p"   -> o.speed.map(_.id),
         "v"   -> o.perf.id,
         "d"   -> w.date(o.date)
       )

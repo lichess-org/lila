@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
-import { myUserId, type Prop, prop } from 'common';
+import { myUsername, type Prop, prop } from 'common';
 import * as licon from 'common/licon';
-import { snabDialog } from 'common/dialog';
+import { type Dialog, snabDialog } from 'common/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
@@ -53,7 +53,7 @@ export class ExplorerConfigCtrl {
     readonly onClose: () => void,
     previous?: ExplorerConfigCtrl,
   ) {
-    this.myName = myUserId();
+    this.myName = myUsername();
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
       name => name && name !== this.myName,
     );
@@ -93,6 +93,18 @@ export class ExplorerConfigCtrl {
   selectPlayer = (name?: string) => {
     name = name === 'me' ? this.myName : name;
     if (!name) return;
+    if (name === name.toLowerCase()) {
+      /* If the user provides a lowercase version of a username that already
+         exists in the personal opening explorer, don't make a new button and instead
+         just use the existing one. */
+      name =
+        [
+          ...this.data.playerName.previous(),
+          this.data.playerName.value(),
+          this.myName,
+          ...this.participants,
+        ].find(x => x?.toLowerCase() === name!.toLowerCase()) ?? name;
+    }
     if (name !== this.myName && !this.participants.includes(name)) {
       const previous = this.data.playerName.previous().filter(n => n !== name);
       previous.unshift(name);
@@ -100,7 +112,6 @@ export class ExplorerConfigCtrl {
     }
     this.data.db('player');
     this.data.playerName.value(name);
-    this.data.playerName.open(false);
   };
 
   removePlayer = (name?: string) => {
@@ -313,9 +324,10 @@ const monthSection = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const playerModal = (ctrl: ExplorerConfigCtrl) => {
+  let dlg: Dialog;
   const onSelect = (name: string | undefined) => {
     ctrl.selectPlayer(name);
-    ctrl.root.redraw();
+    dlg.close();
   };
   const nameToOptionalColor = (name: string | undefined) => {
     if (!name) {
@@ -333,6 +345,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
+    onInsert: dialog => (dlg = dialog).show(),
     modal: true,
     vnodes: [
       h('h2', 'Personal opening explorer'),

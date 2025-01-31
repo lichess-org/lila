@@ -637,7 +637,7 @@
   <string name="community">Comunidad</string>
   <string name="tools">Herramientas</string>
   <string name="increment">Incremento</string>
-  <string name="error.unknown">Valor no válido</string>
+  <string name="error.unknown">Valor inválido</string>
   <string name="error.required">Este campo es obligatorio</string>
   <string name="error.email">Esta dirección de correo electrónico no es válida</string>
   <string name="error.email_acceptable">Esta dirección de correo electrónico no es aceptable. Por favor, compruébala e intenta de nuevo.</string>
@@ -716,7 +716,7 @@
   <string name="keyPreviousBranch">Rama anterior</string>
   <string name="keyNextBranch">Rama siguiente</string>
   <string name="toggleVariationArrows">Activa o desactiva flechas de variantes</string>
-  <string name="cyclePreviousOrNextVariation">Alterna entre la variante siguiente y la anterior</string>
+  <string name="cyclePreviousOrNextVariation">Alterna entre la siguiente variante y la anterior</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
   <string name="togglePositionAnnotations">Activa o desactiva anotaciones de posición</string>
   <string name="variationArrowsInfo">Las flechas de variantes te permiten navegar sin usar la lista de movimientos.</string>
@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Jugar en línea o sin conexión</string>
   <string name="viewTheSolution">Ver la solución</string>
   <string name="followAndChallengeFriends">Sigue y reta a amigos</string>
+  <string name="noChallenges">Sin desafíos.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">¡Disponible en %s idioma!</item>
     <item quantity="other">¡Disponible en %s idiomas!</item>
@@ -983,9 +984,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="focusChat">Enfocar chat</string>
   <string name="showHelpDialog">Mostrar este cuadro de diálogo de ayuda</string>
   <string name="reopenYourAccount">Reactivar tu cuenta</string>
-  <string name="closedAccountChangedMind">Si cerraste tu cuenta y has cambiado de opinión, aún tienes una oportunidad de recuperarla.</string>
-  <string name="onlyWorksOnce">Esto solo se puede hacer una vez.</string>
-  <string name="cantDoThisTwice">Si vuelves a cerrar tu cuenta, no podrás recuperarla.</string>
+  <string name="reopenYourAccountDescription">Si cerraste tu cuenta y has cambiado de opinión, aún tienes una oportunidad de recuperarla.</string>
   <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada a la cuenta</string>
   <string name="sentEmailWithLink">Te hemos enviado un correo electrónico con un enlace.</string>
   <string name="tournamentEntryCode">Código de acceso al torneo</string>

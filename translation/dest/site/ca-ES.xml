@@ -132,7 +132,7 @@
     <item quantity="one">%s errada greu</item>
     <item quantity="other">%s errades greus</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Errada greu</item>
     <item quantity="other">%s Errades greus</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s errada</item>
     <item quantity="other">%s errades</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Errada</item>
     <item quantity="other">%s Errades</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s imprecisió</item>
     <item quantity="other">%s imprecisions</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisió</item>
     <item quantity="other">%s Imprecisions</item>
   </plurals>
@@ -784,6 +784,7 @@
   <string name="onlineAndOfflinePlay">Jugar en línia i desconectat</string>
   <string name="viewTheSolution">Veure la solució</string>
   <string name="followAndChallengeFriends">Seguiu i desafieu amics</string>
+  <string name="noChallenges">Sense desafiaments.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponible en %s idiomes</item>
     <item quantity="other">Disponible en %s idiomes</item>
@@ -983,9 +984,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="focusChat">Enfocar el xat</string>
   <string name="showHelpDialog">Ensenya aquest missatge d\'ajuda</string>
   <string name="reopenYourAccount">Torna a obrir el teu compte</string>
-  <string name="closedAccountChangedMind">Si has tancat el teu compte, però des de llavors has cambiat d\'opinió, tens una oportunitat per recuperar el teu compte.</string>
-  <string name="onlyWorksOnce">Això només funcionarà un cop.</string>
-  <string name="cantDoThisTwice">Si tanques el teu compte per segon cop, no hi haurà manera de recuperar-ho.</string>
+  <string name="reopenYourAccountDescription">Si has tancat el teu compte, però des de llavors has canviat d\'opinió, tens l\'oportunitat de recuperar el teu compte.</string>
   <string name="emailAssociatedToaccount">Adreça de correu electrònic associat al teu compte</string>
   <string name="sentEmailWithLink">T\'hem enviat un correu amb un enllaç.</string>
   <string name="tournamentEntryCode">Codi per entrar el tornament</string>

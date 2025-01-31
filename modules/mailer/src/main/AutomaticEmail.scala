@@ -133,26 +133,6 @@ $regards
       )
     }
 
-  def gdprErase(user: User): Funit =
-    val body =
-      s"""Hello,
-
-Following your request, the Lichess account "${user.username}" will be fully erased in 7 days from now.
-
-$regards
-"""
-    userApi.emailOrPrevious(user.id).flatMapz { email =>
-      given Lang = userLang(user)
-      mailer.send(
-        Mailer.Message(
-          to = email,
-          subject = "lichess.org account erasure",
-          text = Mailer.txt.addServiceNote(body),
-          htmlBody = standardEmail(body).some
-        )
-      )
-    }
-
   def onPatronNew(userId: UserId): Funit =
     userApi.byId(userId).map {
       _.foreach: user =>

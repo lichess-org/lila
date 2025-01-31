@@ -132,7 +132,7 @@
     <item quantity="one">%s errore grave</item>
     <item quantity="other">%s errori gravi</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Errore grave</item>
     <item quantity="other">%s Errori gravi</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s errore</item>
     <item quantity="other">%s errori</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Errore</item>
     <item quantity="other">%s Errori</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s imprecisione</item>
     <item quantity="other">%s imprecisioni</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Imprecisione</item>
     <item quantity="other">%s Imprecisioni</item>
   </plurals>
@@ -984,9 +984,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="focusChat">Focalizza chat</string>
   <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
   <string name="reopenYourAccount">Riapri il tuo account</string>
-  <string name="closedAccountChangedMind">Se hai chiuso il tuo account, ma da allora hai cambiato idea, ottieni una possibilità di recuperare il tuo account.</string>
-  <string name="onlyWorksOnce">Questo funzionerà una sola volta.</string>
-  <string name="cantDoThisTwice">Se chiudi il tuo account una seconda volta, non ci sarà modo di recuperarlo.</string>
   <string name="emailAssociatedToaccount">Indirizzo email associato all\'account</string>
   <string name="sentEmailWithLink">Ti abbiamo inviato un\'email con un link.</string>
   <string name="tournamentEntryCode">Codice di accesso al torneo</string>

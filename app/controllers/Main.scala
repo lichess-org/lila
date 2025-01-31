@@ -144,5 +144,7 @@ final class Main(
           env.memo.picfitApi.bodyImage
             .upload(rel, image)
             .map(url => JsonOk(Json.obj("imageUrl" -> url)))
+            .recover:
+              case e: Exception => JsonBadRequest(jsonError(e.getMessage))
       case None => JsonBadRequest(jsonError("Image content only"))
   }

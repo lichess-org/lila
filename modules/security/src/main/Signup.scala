@@ -50,7 +50,9 @@ final class Signup(
               .map: printFound =>
                 if printFound then YesBecausePrintExists
                 else if suspIp then YesBecauseIpSusp
-                else if email.domain.exists(DisposableEmailDomain.whitelisted) then Nope
+                else if email.domain.exists: dom =>
+                    DisposableEmailDomain.whitelisted(dom) && !DisposableEmailDomain.isOutlook(dom)
+                then Nope
                 else YesBecauseEmailDomain
       }
 

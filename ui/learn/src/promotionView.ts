@@ -34,7 +34,7 @@ export function promotionView(ctrl: RunCtrl) {
           'square',
           {
             style: { [vertical]: `${i * 12.5}%`, left: `${left}%` },
-            hook: bind('click', (e: Event) => {
+            hook: bind('click', e => {
               e.stopPropagation();
               promotionCtrl.finish(role);
             }),

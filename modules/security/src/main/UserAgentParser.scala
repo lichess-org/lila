@@ -39,10 +39,12 @@ object UserAgentParser:
     def isSuspicious(req: RequestHeader): Boolean = HTTPRequest.userAgent(req).forall(isSuspicious)
 
     def isSuspicious(ua: UA): Boolean =
-      val str = ua.value.take(200).toLowerCase
-      str.lengthIs < 30 || isMacOsEdge(str) || !looksNormal(str)
+      !isLichobile(ua) && !isLM(ua) && {
+        val str = ua.value.take(200).toLowerCase
+        str.lengthIs < 30 || isMacOsEdge(str) || !popularBrowser(str)
+      }
 
-    private def looksNormal(ua: String) =
+    private def popularBrowser(ua: String) =
       val sections = ua.split(' ')
       sections.exists: s =>
         isRecentChrome(s) || isLastWindows8Chrome(s) || isRecentFirefox(s) || isRecentSafari(s)
@@ -62,3 +64,7 @@ object UserAgentParser:
     private def isLastWindows8Chrome(s: String) = s.startsWith("chrome/109.")
 
     private def isMacOsEdge(ua: String) = ua.contains("macintosh") && ua.contains("edg/")
+
+    private def isLichobile(ua: UA) = ua.value.contains("Lichobile/")
+
+    private def isLM(ua: UA) = ua.value.startsWith("LM/0.13.13 Android/1")

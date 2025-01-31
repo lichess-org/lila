@@ -132,7 +132,7 @@
     <item quantity="one">%s blunder</item>
     <item quantity="other">%s blunders</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Blunder</item>
     <item quantity="other">%s Blunders</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s mistake</item>
     <item quantity="other">%s mistakes</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Mistake</item>
     <item quantity="other">%s Mistakes</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s inaccuracy</item>
     <item quantity="other">%s inaccuracies</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Inaccuracy</item>
     <item quantity="other">%s Inaccuracies</item>
   </plurals>
@@ -982,9 +982,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="focusChat">Focus chat</string>
   <string name="showHelpDialog">Show this help dialog</string>
   <string name="reopenYourAccount">Reopen your account</string>
-  <string name="closedAccountChangedMind">If you closed your account, but have since changed your mind, you get one chance of getting your account back.</string>
-  <string name="onlyWorksOnce">This will only work once.</string>
-  <string name="cantDoThisTwice">If you close your account a second time, there will be no way of recovering it.</string>
+  <string name="reopenYourAccountDescription">If you closed your account but have since changed your mind, you may reopen it now.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>
   <string name="sentEmailWithLink">We\'ve sent you an email with a link.</string>
   <string name="tournamentEntryCode">Tournament entry code</string>

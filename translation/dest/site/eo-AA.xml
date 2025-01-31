@@ -132,7 +132,7 @@
     <item quantity="one">%s erarego</item>
     <item quantity="other">%s eraregoj</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Erarego</item>
     <item quantity="other">%s Eraregoj</item>
   </plurals>
@@ -140,7 +140,7 @@
     <item quantity="one">%s eraro</item>
     <item quantity="other">%s eraroj</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Eraro</item>
     <item quantity="other">%s Eraroj</item>
   </plurals>
@@ -148,7 +148,7 @@
     <item quantity="one">%s erareto</item>
     <item quantity="other">%s eraretoj</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Erareto</item>
     <item quantity="other">%s Eraretoj</item>
   </plurals>
@@ -976,9 +976,6 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="focusChat">Babilejo de fokuso</string>
   <string name="showHelpDialog">Montri ĉi tiun help-dialogujon</string>
   <string name="reopenYourAccount">Remalfermi vian konton</string>
-  <string name="closedAccountChangedMind">Se vi fermis vian konton, sed decidis alie poste, vi povas unufoje rehavigi vian konton.</string>
-  <string name="onlyWorksOnce">Ĉi tiu funkcios nur unufoje.</string>
-  <string name="cantDoThisTwice">Se vi fermos vian konton je la dua fojo, ne estos maniero por regajni ĝin.</string>
   <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
   <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
   <string name="tournamentEntryCode">Turnira enirkodo</string>

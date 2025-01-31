@@ -57,14 +57,16 @@
   <string name="interferenceDescription">Om \'n stuk tussen twee teenstanderstukke te skuif om een ​​of albei teenstanderstukke onverdedig te laat, soos \'n ridder op \'n verdedigde vierkant tussen twee toring.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">In plaas daarvan om die verwagte skuif te speel, moet u eers \'n ander stap inbring wat \'n onmiddellike bedreiging inhou wat die opponent moet beantwoord. Ook bekend as \"Zwischenzug\" of \"Tussenin\".</string>
+  <string name="vukovicMate">Vucovic-mat</string>
+  <string name="vukovicMateDescription">\'n Toring en \'n ruiter werk saam om die koning te mat. Die toring verkry die mat gesteun deur \'n derde stuk, en die ruiter blok die koning se ontsnappingsblokkies.</string>
   <string name="knightEndgame">Ridder eindspel</string>
   <string name="knightEndgameDescription">\'N Eindspel met net ridders en pionne.</string>
   <string name="long">Lang legkaart</string>
   <string name="longDescription">Drie skofte om te wen.</string>
   <string name="master">Meester spelle</string>
-  <string name="masterDescription">Kopkrappers uit spelle van getitelde spelers.</string>
+  <string name="masterDescription">Raaisels uit spelle van getitelde spelers.</string>
   <string name="masterVsMaster">Meester vs Meester spelle</string>
-  <string name="masterVsMasterDescription">Kopkrappers uit spelle tussen twee getitelde spelers.</string>
+  <string name="masterVsMasterDescription">Raaisels uit spelle tussen twee getitelde spelers.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Wen die spel met styl.</string>
   <string name="mateIn1">Mat in 1</string>
@@ -108,7 +110,7 @@
   <string name="smotheredMate">Versmoorde mat</string>
   <string name="smotheredMateDescription">\'N Skaakmat wat deur \'n ridder afgelewer word waarin die gepaste koning nie kan beweeg nie omdat dit deur sy eie stukke omring (of versmoor word).</string>
   <string name="superGM">Super GM spelle</string>
-  <string name="superGMDescription">Kopkrappers uit spelle tussen die beste spelers in die wêreld.</string>
+  <string name="superGMDescription">Raaisels uit spelle tussen die beste spelers in die wêreld.</string>
   <string name="trappedPiece">Vasgevang stuk</string>
   <string name="trappedPieceDescription">\'N Stuk kan nie vang om te ontsnap nie, aangesien dit beperkte bewegings het.</string>
   <string name="underPromotion">Onderbevordering</string>
@@ -122,6 +124,6 @@
   <string name="mix">Gesonde mengsel</string>
   <string name="mixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
   <string name="playerGames">Speler se spelle</string>
-  <string name="playerGamesDescription">Beloer kopkrappers wat ontstaan van jou spelle, of van ander se spelle af.</string>
+  <string name="playerGamesDescription">Beloer raaisels wat ontstaan van jou spelle, of van ander se spelle af.</string>
   <string name="puzzleDownloadInformation">Die raaisels is in openbare domain en kan afgelaai word vanaf %s.</string>
 </resources>

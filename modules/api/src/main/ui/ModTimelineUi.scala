@@ -58,22 +58,24 @@ final class ModTimelineUi(helpers: Helpers)(
       )
     )(
       a(cls := "mod-timeline__event__flair", href := e.url(t.user)):
-        img(src := flairSrc(e.flair), title := s"${e.key} ${showInstant(e.at)}")
+        img(src := flairSrc(e.flair), title := e.key, datetimeAttr := isoDateTime(e.at))
       ,
       div(cls := "mod-timeline__event__body")(renderEventBody(t)(e))
     )
 
   private def renderEventBody(t: ModTimeline)(e: Event)(using Translate): Frag =
     e match
-      case e: Modlog        => renderModlog(t.user)(e)
-      case e: AppealMsg     => renderAppeal(t)(e)
-      case e: Note          => renderNote(e)
-      case e: ReportNewAtom => renderReportNew(e)
-      case e: PlayBans      => renderPlayBans(e)
-      case e: PublicLine    => renderPublicLine(e)
+      case e: Modlog           => renderModlog(t.user)(e)
+      case e: AppealMsg        => renderAppeal(t)(e)
+      case e: Note             => renderNote(e)
+      case e: ReportNewAtom    => renderReportNew(e)
+      case e: PlayBans         => renderPlayBans(e)
+      case e: PublicLine       => renderPublicLine(e)
+      case AccountCreation(at) => renderAccountCreation(t.user, at)
 
   private def renderMod(userId: ModId)(using Translate) =
-    userIdLink(userId.some, withTitle = false, modIcon = true)
+    if userId.is(UserId.lichess) then span(iconFlair(Flair("smileys.robot")), "Lichess")
+    else userIdLink(userId.some, withTitle = false, modIcon = true)
   private def renderUser(userId: UserId)(using Translate) =
     userIdLink(userId.some, withTitle = false)
 
@@ -137,14 +139,15 @@ final class ModTimelineUi(helpers: Helpers)(
       author,
       span(
         cls := List(
-          "mod-timeline__event__action"               -> true,
-          s"mod-timeline__event__action--${e.action}" -> true,
-          "mod-timeline__event__action--warning"      -> Modlog.isWarning(e),
-          "mod-timeline__event__action--sentence"     -> Modlog.isSentence(e.action),
-          "mod-timeline__event__action--undo"         -> Modlog.isUndo(e.action)
+          "mod-timeline__event__action"                   -> true,
+          s"mod-timeline__event__action--${e.action}"     -> true,
+          "mod-timeline__event__action--warning"          -> Modlog.isWarning(e),
+          "mod-timeline__event__action--sentence"         -> Modlog.isSentence(e.action),
+          "mod-timeline__event__action--account-sentence" -> Modlog.isAccountSentence(e.action),
+          "mod-timeline__event__action--undo"             -> Modlog.isUndo(e.action)
         )
       ):
-        if Modlog.isWarning(e) then "sends warning"
+        if Modlog.isWarning(e) then strong("sends warning")
         else e.showAction
       ,
       div(cls := "mod-timeline__text"):
@@ -166,4 +169,10 @@ final class ModTimelineUi(helpers: Helpers)(
       renderMod(n.from.into(ModId)),
       div(cls := "mod-timeline__text"):
         richText(n.text)
+    )
+
+  private def renderAccountCreation(user: User, at: Instant)(using Translate) =
+    frag(
+      renderUser(user.id),
+      "signs up"
     )

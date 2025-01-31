@@ -4,6 +4,10 @@
   <string name="friendBlogs">Lagunen blogak</string>
   <string name="likedBlogs">Atsegin dituzun sarrerak</string>
   <string name="blogTopics">Blogeko gaiak</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s blog sarrera</item>
+    <item quantity="other">%s blog sarrera</item>
+  </plurals>
   <string name="lichessOfficialBlog">Lichessen Blog Ofiziala</string>
   <string name="continueReadingPost">Jarraitu sarrera hau irakurtzen</string>
   <string name="lichessBlogPostsFromXYear">%s urteko Lichessen blogeko sarrerak</string>

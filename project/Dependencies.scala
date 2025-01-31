@@ -13,21 +13,21 @@ object Dependencies {
   val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
   val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
-  val cats        = "org.typelevel"                %% "cats-core"                       % "2.12.0"
-  val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.12.0"
+  val cats        = "org.typelevel"                %% "cats-core"                       % "2.13.0"
+  val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.13.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val compression = "org.lichess"                  %% "compression"                     % "1.10"
+  val compression = "org.lichess"                  %% "compression"                     % "3.0"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
+  val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.2.0" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.30.1"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.31.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.2.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.116.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.117.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.4" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.1.0" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.18.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.13.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
@@ -35,14 +35,14 @@ object Dependencies {
   val kittens     = "org.typelevel"              %% "kittens"       % "3.4.0"
 
   val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
-  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0"  % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.1.0"  % Test
 
   object tests {
     val bundle = Seq(munit)
   }
 
   object chess {
-    val version  = "17.2.0"
+    val version  = "17.2.1"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -70,7 +70,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.6.4"
+    val version = "2.6.5"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"
@@ -86,7 +86,7 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.18"
+    val playVersion = "2.8.18-lila_3.20"
     val json        = "org.playframework" %% "play-json"         % "3.0.4"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion

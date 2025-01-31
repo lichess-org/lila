@@ -93,6 +93,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
               }
             ).some,
             Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
+            Tag(_.GameId, game.id).some,
             Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
             imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
             Tag(_.White, player(game.whitePlayer, wu)).some,

@@ -233,6 +233,8 @@ interface I18n {
     allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
+    /** Back to live move */
+    backToLiveMove: string;
     /** Boards */
     boards: string;
     /** Boards can be loaded with a source or via the %s */
@@ -787,7 +789,7 @@ interface I18n {
     otherRestriction: string;
     /** Make sure you played a rated game. Casual games do not affect the players ratings. */
     ratedGame: string;
-    /** You can reopen your account on this page. It only works once. */
+    /** You can reopen your account on this page. */
     reopenOnThisPage: string;
     /** In the Lichess Discord server */
     reportBugInDiscord: string;
@@ -1949,6 +1951,8 @@ interface I18n {
     patronFeatures: string;
     /** Lichess Patron for %s months */
     patronForMonths: I18nPlural;
+    /** Patron since %s */
+    patronSince: I18nFormat;
     /** You have a Patron account until %s. */
     patronUntil: I18nFormat;
     /** Pay %s once. Be a Lichess Patron forever! */
@@ -2605,6 +2609,10 @@ interface I18n {
     veryLong: string;
     /** Four moves or more to win. */
     veryLongDescription: string;
+    /** Vukovic mate */
+    vukovicMate: string;
+    /** A rook and knight team up to mate the king. The rook delivers mate while supported by a third piece, and the knight is used to block the king's escape squares. */
+    vukovicMateDescription: string;
     /** X-Ray attack */
     xRayAttack: string;
     /** A piece attacks or defends a square, through an enemy piece. */
@@ -2671,16 +2679,14 @@ interface I18n {
     xGamesFound: I18nPlural;
   };
   settings: {
-    /** You will not be allowed to open a new account with the same name, even if the case is different. */
+    /** Cancel and keep my account */
+    cancelKeepAccount: string;
+    /** The username will NOT be available for registration again. */
     cantOpenSimilarAccount: string;
-    /** I changed my mind, don't close my account */
-    changedMindDoNotCloseAccount: string;
     /** Close account */
     closeAccount: string;
-    /** Are you sure you want to close your account? Closing your account is a permanent decision. You will NEVER be able to log in EVER AGAIN. */
-    closeAccountExplanation: string;
-    /** Closing is definitive. There is no going back. Are you sure? */
-    closingIsDefinitive: string;
+    /** Are you sure you want to close your account? */
+    closeAccountAreYouSure: string;
     /** Your account is managed, and cannot be closed. */
     managedAccountCannotBeClosed: string;
     /** Settings */
@@ -2883,8 +2889,6 @@ interface I18n {
     cancelSimul: string;
     /** Cancel the tournament */
     cancelTournament: string;
-    /** If you close your account a second time, there will be no way of recovering it. */
-    cantDoThisTwice: string;
     /** Please solve the chess captcha. */
     'captcha.fail': string;
     /** Capture */
@@ -2947,8 +2951,6 @@ interface I18n {
     clockInitialTime: string;
     /** Close */
     close: string;
-    /** If you closed your account, but have since changed your mind, you get one chance of getting your account back. */
-    closedAccountChangedMind: string;
     /** Closing your account will withdraw your appeal */
     closingAccountWithdrawAppeal: string;
     /** Cloud analysis */
@@ -3595,6 +3597,8 @@ interface I18n {
     nextXTournament: I18nFormat;
     /** No */
     no: string;
+    /** No challenges. */
+    noChallenges: string;
     /** No chat */
     noChat: string;
     /** No conditional premoves */
@@ -3661,8 +3665,6 @@ interface I18n {
     onlyTeamLeaders: string;
     /** Only team members */
     onlyTeamMembers: string;
-    /** This will only work once. */
-    onlyWorksOnce: string;
     /** On slow games */
     onSlowGames: string;
     /** Opacity */
@@ -3855,6 +3857,8 @@ interface I18n {
     removesTheDepthLimit: string;
     /** Reopen your account */
     reopenYourAccount: string;
+    /** If you closed your account, but have since changed your mind, you get a chance of getting your account back. */
+    reopenYourAccountDescription: string;
     /** Replay mode */
     replayMode: string;
     /** Replies */
@@ -5387,6 +5391,8 @@ interface I18n {
     yearlyXArena: I18nFormat;
   };
   ublog: {
+    /** %s blog posts */
+    blogPosts: I18nPlural;
     /** Our simple tips to write great blog posts */
     blogTips: string;
     /** Blog topics */

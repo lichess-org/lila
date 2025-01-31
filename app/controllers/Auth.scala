@@ -278,7 +278,7 @@ final class Auth(
         lila.mon.user.register.confirmEmailResult(true).increment()
         env.user.repo.email(user.id).flatMap {
           _.so: email =>
-            authLog(user.username, email.some, s"Confirmed email ${email.value}")
+            authLog(user.username, email.some, s"Confirmed email")
             welcome(user, email, sendWelcomeEmail = false)
         } >> redirectNewUser(user)
     }
@@ -334,7 +334,7 @@ final class Auth(
                   err => renderPasswordReset(err.some, fail = true).map { BadRequest(_) },
                   data =>
                     env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
-                      case Some((user, storedEmail)) =>
+                      case Some(user, storedEmail) =>
                         lila.mon.user.auth.passwordResetRequest("success").increment()
                         env.security.passwordReset
                           .send(user, storedEmail)
@@ -412,7 +412,7 @@ final class Auth(
                 err => BadRequest.async(renderMagicLink(err.some, fail = true)),
                 data =>
                   env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
-                    case Some((user, storedEmail)) =>
+                    case Some(user, storedEmail) =>
                       env.security.magicLink.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
                         lila.mon.user.auth.magicLinkRequest("success").increment()
                         env.security.magicLink

@@ -21,10 +21,10 @@
   "build": {
     "bundle": "src/**/voice.*.ts",
     "sync": {
-      "grammar/**": "public/compiled/grammar"
+      "grammar/**": "/public/compiled/grammar"
     },
     "hash": [
-      "compiled/grammar/*"
+      "/public/compiled/grammar/*"
     ]
   }
 }

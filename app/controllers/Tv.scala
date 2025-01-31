@@ -84,7 +84,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
         val config =
           lila.api.GameApiV2.ByIdsConfig(
             ids = gameIds,
-            format = lila.api.GameApiV2.Format.byRequest(req),
+            format = lila.api.GameApiV2.Format.byRequest,
             flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
             perSecond = MaxPerSecond(30)
           )

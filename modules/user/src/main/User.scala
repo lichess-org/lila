@@ -15,7 +15,7 @@ case class WithPerfsAndEmails(user: UserWithPerfs, emails: Emails)
 
 case class TotpToken(value: String) extends AnyVal
 
-case class UserDelete(requested: Instant, erase: Boolean, done: Boolean = false)
+case class UserDelete(requested: Instant, done: Boolean = false)
 
 object PlayTime:
   extension (p: PlayTime)

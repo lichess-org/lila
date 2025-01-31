@@ -8,7 +8,7 @@
   <string name="boosterMarked">A tua conta está marcada por manipulação de classificação.</string>
   <string name="boosterMarkedInfo">Definimos isto como manipular deliberadamente a classificação ao perder jogos de propósito ou ao jogar contra outra conta que esteja deliberadamente a perder jogos.</string>
   <string name="accountMuted">A tua conta foi silenciada.</string>
-  <string name="accountMutedInfo">Leia as nossas %s. O não cumprimento das diretrizes de comunicação pode resultar no silenciamento das contas.</string>
+  <string name="accountMutedInfo">Lê as nossas %s. O não cumprimento das diretrizes de comunicação pode resultar no silenciamento das contas.</string>
   <string name="excludedFromLeaderboards">A tua conta foi excluída das tabelas de classificação.</string>
   <string name="excludedFromLeaderboardsInfo">Definimos isto como a utilização de qualquer forma injusta para entrar na tabela de liderança.</string>
   <string name="closedByModerators">A tua conta foi encerrada pelos moderadores.</string>

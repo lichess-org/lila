@@ -2,10 +2,9 @@
 <resources>
   <string name="settings">Cài đặt</string>
   <string name="closeAccount">Đóng tài khoản</string>
-  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Tài khoản của bạn đang bị quản lý, hiện không thể đóng.</string>
-  <string name="closingIsDefinitive">Việc đóng tài khoản là vĩnh viễn. Không có cách nào để có thể lấy lại. Bạn vẫn chắc chắn muốn đóng chứ?</string>
+  <string name="managedAccountCannotBeClosed">Tài khoản của bạn đang bị quản lý, hiện không thể đóng.</string>
   <string name="cantOpenSimilarAccount">Bạn không được phép tạo tài khoản trùng tên, kể cả khác chữ hoa, thường.</string>
-  <string name="changedMindDoNotCloseAccount">Tôi đã đổi ý, đừng đóng tài khoản của tôi</string>
-  <string name="closeAccountExplanation">Bạn có chắc muốn đóng tài khoản? Việc đóng tài khoản là quyết định vĩnh viễn. Bạn sẽ KHÔNG BAO GIỜ có thể ĐĂNG NHẬP LẠI.</string>
+  <string name="cancelKeepAccount">Hủy và giữ lại tài khoản của tôi</string>
+  <string name="closeAccountAreYouSure">Bạn chắc chắn là bạn muốn đóng tài khoản của mình?</string>
   <string name="thisAccountIsClosed">Tài khoản này đã bị đóng</string>
 </resources>

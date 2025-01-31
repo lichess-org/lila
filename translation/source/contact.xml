@@ -18,7 +18,7 @@
   <string name="closeYourAccount">You can close your account on this page</string>
   <string name="doNotAskByEmail">Do not ask us by email to close an account, we won't do it.</string>
   <string name="wantReopen">I want to reopen my account</string>
-  <string name="reopenOnThisPage">You can reopen your account on this page. It only works once.</string>
+  <string name="reopenOnThisPage">You can reopen your account on this page.</string>
   <string name="doNotAskByEmailToReopen">Do not ask us by email to reopen an account, we won't do it.</string>
   <string name="wantChangeUsername">I want to change my username</string>
   <string name="changeUsernameCase">Visit this page to change the case of your username</string>

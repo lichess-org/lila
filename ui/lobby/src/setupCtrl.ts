@@ -3,6 +3,8 @@ import { debounce } from 'common/timing';
 import * as xhr from 'common/xhr';
 import { storedJsonProp } from 'common/storage';
 import { clockToSpeed } from 'game';
+import { alert } from 'common/dialog';
+import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {
   ForceSetupOptions,
@@ -23,7 +25,6 @@ import {
   timeVToTime,
   variants,
 } from './options';
-import { alert } from 'common/dialog';
 
 const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf =>
   variant !== 'standard' && variant !== 'fromPosition'
@@ -225,8 +226,8 @@ export default class SetupController {
   ratedModeDisabled = (): boolean =>
     // anonymous games cannot be rated
     !this.root.me ||
-    // unlimited games cannot be rated
     this.timeMode() === 'unlimited' ||
+    (this.variant() === 'fromPosition' && this.fen() !== INITIAL_FEN) ||
     // variants with very low time cannot be rated
     (this.variant() !== 'standard' &&
       (this.timeMode() !== 'realTime' ||

@@ -1,5 +1,5 @@
 import { createServer, IncomingMessage, ServerResponse } from 'node:http';
-import { env, errorMark, warnMark, colors as c } from './env.ts';
+import { env, errorMark, warnMark, c } from './env.ts';
 
 export async function startConsole() {
   if (!env.remoteLog || !env.watch) return;
@@ -25,9 +25,7 @@ export async function startConsole() {
         if (val.length <= 1) val = val[0] ?? '';
         else if (val.every(x => typeof x === 'string')) val = val.join(' ');
 
-        env.log(`${mark}${c.grey(typeof val === 'string' ? val : JSON.stringify(val, undefined, 2))}`, {
-          ctx: 'web',
-        });
+        env.log(`${mark}${c.grey(typeof val === 'string' ? val : JSON.stringify(val, undefined, 2))}`, 'web');
         res
           .writeHead(200, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST' })
           .end();

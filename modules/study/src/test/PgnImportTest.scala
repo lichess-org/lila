@@ -8,7 +8,7 @@ import scala.language.implicitConversions
 import lila.core.LightUser
 import lila.tree.Clock
 
-class PgnImportTest extends lila.common.LilaTest:
+class PgnImportTest extends LilaTest:
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value

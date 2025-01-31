@@ -65,7 +65,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       .add("teamMember", tour.conditions.teamMember.map(_.teamId))
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(position))
-      .add("schedule", tour.schedule.map(scheduleJson))
+      .add("schedule", tour.scheduleData.map(scheduleJson))
       .add(
         "teamBattle",
         tour.teamBattle.map { battle =>

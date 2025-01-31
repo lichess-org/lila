@@ -249,13 +249,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .listAll()
       .map {
         _.flatMap { tour =>
-          tour.schedule.map(tour -> _)
+          tour.scheduleFreq.map(tour -> _)
         }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
-          case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
-          case ((tours, skip), (tour, sched)) =>
+          case ((tours, skip), (_, freq)) if skip.has(freq) => (tours, skip)
+          case ((tours, skip), (tour, freq)) =>
             (
               tour :: tours,
-              sched.freq match
+              freq match
                 case Schedule.Freq.Daily   => Schedule.Freq.Eastern.some
                 case Schedule.Freq.Eastern => Schedule.Freq.Daily.some
                 case _                     => skip
@@ -303,10 +303,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       )
     )
 
-  def setSchedule(tourId: TourId, schedule: Option[Schedule]) =
-    schedule match
-      case None    => coll.unsetField($id(tourId), "schedule").void
-      case Some(s) => coll.updateField($id(tourId), "schedule", s).void
+  def setSchedule(tourId: TourId, schedule: Option[Scheduled]) =
+    coll.updateOrUnsetField($id(tourId), "schedule", schedule).void
 
   def insert(tour: Tournament) = coll.insert.one(tour)
 

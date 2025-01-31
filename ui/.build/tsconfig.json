@@ -10,10 +10,10 @@
     "strict": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "moduleResolution": "Node",
-    "module": "ES2022",
-    "target": "ES2022",
-    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "module": "es2022",
+    "target": "es2023",
+    "lib": ["es2023"],
     "types": ["node"]
   }
 }

@@ -135,7 +135,7 @@
     <item quantity="many">%s позехаў</item>
     <item quantity="other">%s позехаў</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+  <plurals name="numberBlunders">
     <item quantity="one">%s Позех</item>
     <item quantity="few">%s Позеха</item>
     <item quantity="many">%s Позехаў</item>
@@ -147,7 +147,7 @@
     <item quantity="many">%s памылак</item>
     <item quantity="other">%s памылак</item>
   </plurals>
-  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+  <plurals name="numberMistakes">
     <item quantity="one">%s Памылка</item>
     <item quantity="few">%s Памылкі</item>
     <item quantity="many">%s Памылак</item>
@@ -159,7 +159,7 @@
     <item quantity="many">%s недакладнасцяў</item>
     <item quantity="other">%s недакладнасцяў</item>
   </plurals>
-  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+  <plurals name="numberInaccuracies">
     <item quantity="one">%s Недакладнасць</item>
     <item quantity="few">%s Недакладнасці</item>
     <item quantity="many">%s Недакладнасцяў</item>
@@ -1025,9 +1025,6 @@
   <string name="focusChat">Сфакусавацца на чаце</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
   <string name="reopenYourAccount">Пераадкрыць уліковы запіс</string>
-  <string name="closedAccountChangedMind">Калі пасля закрыцця ўліковага запісу, вы перадумалі, у вас ёсць адзін шанец аднавіць яго.</string>
-  <string name="onlyWorksOnce">Гэта спрацуе толькі адзін раз.</string>
-  <string name="cantDoThisTwice">Калі вы зачыніце яго ў другі раз, то ўжо не будзе шляху назад.</string>
   <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з уліковым запісам</string>
   <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
   <string name="tournamentEntryCode">Код далучэння да турніру</string>

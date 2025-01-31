@@ -167,22 +167,21 @@ final class Api(
       }
       .map(toApiResult)
 
-  def tournamentGames(id: TourId) =
-    AnonOrScoped(): ctx ?=>
-      env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-        val onlyUserId = getUserStr("player").map(_.id)
-        val config = GameApiV2.ByTournamentConfig(
-          tour = tour,
-          format = GameApiV2.Format.byRequest(ctx.req),
-          flags = gameC.requestPgnFlags(extended = false),
-          perSecond = gamesPerSecond(ctx.me)
-        )
-        GlobalConcurrencyLimitPerIP
-          .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
-            Ok.chunked(source)
-              .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
-              .as(gameC.gameContentType(config))
-      }
+  def tournamentGames(id: TourId) = AnonOrScoped(): ctx ?=>
+    env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
+      val onlyUserId = getUserStr("player").map(_.id)
+      val config = GameApiV2.ByTournamentConfig(
+        tour = tour,
+        format = GameApiV2.Format.byRequest,
+        flags = gameC.requestPgnFlags(extended = false),
+        perSecond = gamesPerSecond(ctx.me)
+      )
+      GlobalConcurrencyLimitPerIP
+        .download(ctx.req.ipAddress)(env.api.gameApiV2.exportByTournament(config, onlyUserId)): source =>
+          Ok.chunked(source)
+            .pipe(asAttachmentStream(env.api.gameApiV2.filename(tour, config.format)))
+            .as(gameC.gameContentType(config))
+    }
 
   def tournamentResults(id: TourId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
@@ -220,7 +219,7 @@ final class Api(
     Found(env.swiss.cache.swissCache.byId(id)): swiss =>
       val config = GameApiV2.BySwissConfig(
         swissId = swiss.id,
-        format = GameApiV2.Format.byRequest(req),
+        format = GameApiV2.Format.byRequest,
         flags = gameC.requestPgnFlags(extended = false),
         perSecond = gamesPerSecond(ctx.me),
         player = getUserStr("player").map(_.id)
@@ -383,6 +382,12 @@ final class Api(
       key = "api.ip.events",
       ttl = 1.hour,
       maxConcurrency = 4
+    )
+    val eventsForVerifiedUser = lila.web.ConcurrencyLimit[IpAddress](
+      name = "API verified events concurrency per IP",
+      key = "api.ip.events.verified",
+      ttl = 1.hour,
+      maxConcurrency = 12
     )
     val download = lila.web.ConcurrencyLimit[IpAddress](
       name = "API download concurrency per IP",

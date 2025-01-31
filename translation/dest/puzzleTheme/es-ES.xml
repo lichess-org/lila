@@ -58,7 +58,9 @@
   <string name="intermezzo">Jugada intermedia</string>
   <string name="intermezzoDescription">En lugar de jugar el movimiento esperado, se realiza antes otro movimiento que plantea una amenaza inmediata a la que el oponente debe responder. También conocido como \"Zwischenzug\" o \"Intermezzo\".</string>
   <string name="killBoxMate">Mate del recuadro mortal</string>
-  <string name="killBoxMateDescription">Una torre está cerca del rey enemigo apoyada por una reina que también bloquea las casillas de escape del rey. La torre y la reina capturan al rey enemigo en un recuadro mortal de 3 por 3.</string>
+  <string name="killBoxMateDescription">Una torre está cerca del rey enemigo apoyada por una dama que también bloquea las casillas de escape del rey. La torre y la dama capturan al rey enemigo en un recuadro mortal de 3 por 3.</string>
+  <string name="vukovicMate">Mate de Vukovic</string>
+  <string name="vukovicMateDescription">Una torre y un caballo se unen para dar mate al rey. La torre da mate apoyada por una tercera pieza y el caballo se utiliza para bloquear las casillas de escape del rey.</string>
   <string name="knightEndgame">Final de caballos</string>
   <string name="knightEndgameDescription">Un final solo con caballos y peones.</string>
   <string name="long">Ejercicio largo</string>
