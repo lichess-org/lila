@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">എല്ലാ sync ചെയ്ത അംഗങ്ങളും ഒരേ പൊസിഷനിൽ സ്ഥിതി ചെയ്യുക</string>
   <string name="shareChanges">മാറ്റങ്ങൾ സെർവറിൽ സേവ് ചെയ്ത് അവ കാണികൾക്ക് പങ്കുവെക്കുക</string>
   <string name="playing">കളിക്കുന്നു</string>
+  <string name="showResults">ഫലങ്ങൾ</string>
   <string name="showEvalBar">വിലയിരുത്തൽ വരികൾ</string>
   <string name="first">ഒന്നാമത്തെ</string>
   <string name="previous">മുൻപുള്ള</string>
@@ -69,6 +70,8 @@
   <string name="currentChapterUrl">നിലവിലുള്ള പാഠത്തിന്റെ URL</string>
   <string name="startAtInitialPosition">ആദ്യ പൊസിഷനില്‍ തുടങ്ങുക</string>
   <string name="startAtX">%s-ൽ തുടങ്ങുക</string>
+  <string name="embedInYourWebsite">വെബ്സ്ഥാനത്തിൽ ഉൾപ്പെടുത്തുക</string>
+  <string name="readMoreAboutEmbedding">ഉൾപ്പെടുത്തൽപറ്റി കൂടുതൽ വായിക്കുക</string>
   <string name="open">തുറക്കുക</string>
   <string name="xBroughtToYouByY">%1$s നിങ്ങള്ക്ക് കൊണ്ടു വന്നത് %2$s</string>
   <string name="studyNotFound">പാഠം കണ്ടെത്തിയില്ല</string>
@@ -80,6 +83,7 @@
   <string name="pinnedChapterComment">അധ്യായത്തിലെ കമന്റ് പിൻ ചെയ്യുക</string>
   <string name="saveChapter">അദ്ധ്യായം സംരക്ഷിക്കുക</string>
   <string name="clearAnnotations">അനോടേഷൻ ഇല്ലാതാക്കുക</string>
+  <string name="clearVariations">വ്യതിയാനകളെ മായ്ക്കുക</string>
   <string name="deleteChapter">അധ്യായം നീക്കം ചെയ്യുക</string>
   <string name="deleteThisChapter">ഈ അധ്യായം നീക്കം ചെയ്യണോ? പിന്നെ തിരിച്ചു പോകാൻ പറ്റില്ല ട്ടോ!</string>
   <string name="clearAllCommentsInThisChapter">ഈ അധ്യായത്തിലെ എല്ലാ കമന്റുകളും രൂപങ്ങളും നീക്കം ചെയ്യണോ?</string>
@@ -136,6 +140,8 @@
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ഒറ്റ നീക്കം</string>
   <string name="equalPosition">ഒരുപോലെയുള്ള കരുനില</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">അവ്യക്തമായ കരുനില</string>
+  <string name="whiteIsBetter">വെള്ളയ്ക്കാണു് കൂടുതൽ നല്ല നില</string>
+  <string name="blackIsBetter">കറുപ്പിനാണു് കൂടുതൽ നല്ല നില</string>
   <string name="whiteIsWinning">വെള്ള കളിക്കാരൻ ജയിക്കുന്നു</string>
   <string name="blackIsWinning">കറുത്ത കളിക്കാരൻ ജയിക്കുന്നു</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">പുതുമ</string>
@@ -154,4 +160,5 @@
   <string name="playAgain">പിന്നേയും കളിക്കുക</string>
   <string name="whatWouldYouPlay">താങ്ങൾ ഈ കരുനിലയിൽ എന്ത് ചെയ്യും?</string>
   <string name="youCompletedThisLesson">അഭിനന്ദനങ്ങൾ! താങ്ങൾ ഈ പാഠം പൂർത്തീകരിച്ചിരിക്കുന്നു.</string>
+  <string name="perPage">ഒരോ താളിൽ %s</string>
 </resources>
