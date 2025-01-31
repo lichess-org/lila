@@ -69,6 +69,8 @@
   <string name="promoteVariation">Variasi promosi</string>
   <string name="makeMainLine">Buat jalur utama</string>
   <string name="deleteFromHere">Hapus dari sini</string>
+  <string name="collapseVariations">Tutup variasi</string>
+  <string name="expandVariations">Buka variasi</string>
   <string name="forceVariation">Paksakan variasi</string>
   <string name="copyVariationPgn">Salin Variasi dalam PGN</string>
   <string name="move">Langkah</string>
@@ -914,7 +916,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="analysisOptions">Setelan analisa</string>
   <string name="focusChat">Fokus pada kotak obroloan</string>
   <string name="showHelpDialog">Tampilkan halaman bantuan ini</string>
-  <string name="reopenYourAccount">Buka kembali akun Anda</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Buka kembali akun Anda</string>
   <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
   <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
   <string name="tournamentEntryCode">Kode masuk turnamen</string>
