@@ -157,7 +157,7 @@ export default class ExplorerCtrl {
     pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.ceval.possible;
 
   setNode = () => {
-    if (!this.enabled()) return;
+    if (!this.enabled() || !!this.root.study?.isGamebookPlay()) return;
     this.gameMenu(null);
     const node = this.root.node;
     if (node.ply >= MAX_DEPTH && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
