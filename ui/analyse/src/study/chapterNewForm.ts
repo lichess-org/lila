@@ -15,6 +15,7 @@ import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'common/pubsub';
 import { lichessRules } from 'chessops/compat';
+import { opposite } from 'chessground/util';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -51,6 +52,11 @@ export class StudyChapterNewForm {
   ) {
     pubsub.on('analysis.closeAll', () => this.isOpen(false));
     this.orientation = root.bottomColor();
+    site.mousetrap.bind('f', () => {
+      if (this.isOpen() && this.editor)
+        this.orientation = (document.getElementById('chapter-orientation') as HTMLInputElement).value =
+          opposite(this.orientation as Color);
+    });
   }
 
   open = () => {

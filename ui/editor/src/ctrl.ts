@@ -18,6 +18,7 @@ import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'che
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, type Prop } from 'common';
 import { prompt } from 'common/dialog';
+import { opposite } from 'chessground/util';
 
 export default class EditorCtrl {
   options: Options;
@@ -51,6 +52,7 @@ export default class EditorCtrl {
 
     site.mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
+      if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
       this.onChange();
     });
 
