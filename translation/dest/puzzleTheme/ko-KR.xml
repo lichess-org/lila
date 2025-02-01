@@ -57,6 +57,7 @@
   <string name="interferenceDescription">상대의 두 기물 사이에 기물을 집어넣어 그 기물들을 지켜지지 않게 만듭니다. 두 룩 사이의 나이트처럼요.</string>
   <string name="intermezzo">사잇수</string>
   <string name="intermezzoDescription">예상되는 플레이를 하는 대신, 먼저 상대가 즉시 해결해야 하는 또 다른 위협을 끼워 넣습니다. \"Zwischenzug\"나 \"In between\"이라고도 합니다.</string>
+  <string name="killBoxMate">킬 박스 체크메이트</string>
   <string name="killBoxMateDescription">킹 옆에서는 룩이 체크를 넣고, 퀸이 그 룩을 지켜주면서 킹의 도주로를 차단하는 체크메이트 패턴입니다. 룩과 퀸이 3 x 3 \"킬 박스\" 안에서 킹을 공격합니다.</string>
   <string name="knightEndgame">나이트 엔딩</string>
   <string name="knightEndgameDescription">나이트와 폰만 있는 엔드게임</string>
