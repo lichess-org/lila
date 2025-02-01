@@ -17,11 +17,13 @@ const fetchWrap = (
   init: RequestInit,
 ): Promise<Response> => {
   const fullUrl = content?.url ? urlWithParams(url, content.url) : url;
-  const body = content?.json
-    ? JSON.stringify(content.json)
-    : content?.formData
-      ? formData(content.formData)
-      : undefined;
+  const body =
+    init.body ||
+    (content?.json
+      ? JSON.stringify(content.json)
+      : content?.formData
+        ? formData(content.formData)
+        : undefined);
 
   return fetch(fullUrl, {
     ...defaultInit,
