@@ -1,5 +1,4 @@
 import ps from 'node:process';
-import fs from 'node:fs';
 import { deepClean } from './clean.ts';
 import { build } from './build.ts';
 import { startConsole } from './console.ts';
@@ -112,7 +111,7 @@ if (argv.includes('--help') || oneDashArgs.includes('h')) {
   ps.exit(0);
 }
 
-instanceLock();
+if (!env.instanceLock()) env.exit(`${errorMark} - Another instance is already running`);
 
 if (env.clean) {
   await deepClean();
@@ -120,24 +119,5 @@ if (env.clean) {
 }
 
 startConsole();
-build(argv.filter(x => !x.startsWith('-')));
 
-function instanceLock(checkStale = true) {
-  try {
-    const fd = fs.openSync(env.lockFile, 'wx');
-    fs.writeFileSync(fd, String(ps.pid), { flag: 'w' });
-    fs.closeSync(fd);
-    ps.on('exit', () => fs.unlinkSync(env.lockFile));
-  } catch {
-    const pid = parseInt(fs.readFileSync(env.lockFile, 'utf8'), 10);
-    if (!isNaN(pid) && pid > 0 && ps.platform !== 'win32') {
-      try {
-        ps.kill(pid, 0);
-        env.exit(`${errorMark} - Another instance is already running`);
-      } catch {
-        fs.unlinkSync(env.lockFile); // it's a craplet
-        if (checkStale) return instanceLock(false);
-      }
-    }
-  }
-}
+build(argv.filter(x => !x.startsWith('-')));
