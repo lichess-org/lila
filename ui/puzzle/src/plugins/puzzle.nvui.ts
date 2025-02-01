@@ -222,7 +222,7 @@ function onSubmit(
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const uci = inputToLegalUci(input, ctrl.node.fen, ground);
-      if (uci) {
+      if (uci && typeof uci === 'string') {
         ctrl.playUci(uci);
         const fback = ctrl.lastFeedback;
         if (fback === 'fail') notify(i18n.puzzle.notTheMove);

@@ -43,8 +43,6 @@ const anna: { [file in Files]: string } = {
   h: 'hector',
 };
 
-export const supportedVariant = (key: VariantKey): boolean => key !== 'crazyhouse';
-
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
     choices: [
@@ -168,6 +166,15 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
       ]),
     ),
   );
+
+type CrazyPocket = { [role in Role]?: number };
+export const renderPockets = (pockets: [CrazyPocket, CrazyPocket]): VNode[] =>
+  COLORS.map((color, i) => h('h2', `${color} pocket: ${pocketsStr(pockets[i])}`));
+
+export const pocketsStr = (pocket: CrazyPocket): string =>
+  Object.entries(pocket)
+    .map(([role, count]) => `${role}: ${count}`)
+    .join(', ');
 
 const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
   Array.from(pieces).reduce<Key[]>(
@@ -476,8 +483,10 @@ export function possibleMovesHandler(
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[kqnbr]$/;
 const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
+const dropRegex = /^([qrnb])@([a-h][1-8])|p?@([a-h][2-7])$/;
+export type DropMove = { role: Role; key: Key };
 
-export function inputToLegalUci(input: string, fen: string, chessground: CgApi): string | undefined {
+export function inputToLegalUci(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
   const dests = chessground.state.movable.dests;
   if (!dests) return;
   const legalUcis = destsToUcis(dests),
@@ -485,6 +494,8 @@ export function inputToLegalUci(input: string, fen: string, chessground: CgApi):
   let uci = sanToUci(input, legalSans) || input,
     promotion = '';
 
+  const drop = input.match(dropRegex);
+  if (drop) return { role: charToRole(input[0]) || 'pawn', key: input.split('@')[1] as Key };
   if (input.match(promotionRegex)) {
     uci = sanToUci(input.slice(0, -2), legalSans) || input;
     promotion = input.slice(-1).toLowerCase();
@@ -494,8 +505,7 @@ export function inputToLegalUci(input: string, fen: string, chessground: CgApi):
   } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role === 'pawn')
     promotion = 'q';
 
-  if (legalUcis.includes(uci.toLowerCase())) return uci + promotion;
-  else return;
+  return legalUcis.includes(uci.toLowerCase()) ? `${uci}${promotion}` : undefined;
 }
 
 export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: MoveStyle): VNodeChildren {

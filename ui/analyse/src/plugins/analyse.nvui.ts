@@ -25,6 +25,7 @@ import {
   castlingFlavours,
   inputToLegalUci,
   lastCapturedCommandHandler,
+  type DropMove,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -317,10 +318,8 @@ function onSubmit(
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
-      const uci = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
-      if (uci)
-        ctrl.sendMove(uci.slice(0, 2) as Key, uci.slice(2, 4) as Key, undefined, charToRole(uci.slice(4)));
-      else notify('Invalid command');
+      const uciOrDrop = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
+      uciOrDrop ? sendMove(uciOrDrop, ctrl) : notify('Invalid command');
     }
     $input.val('');
   };
@@ -328,6 +327,17 @@ function onSubmit(
 
 const isShortCommand = (input: string) =>
   ['p', 's', 'next', 'prev', 'eval', 'best'].includes(input.split(' ')[0].toLowerCase());
+
+function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
+  if (typeof uciOrDrop === 'string')
+    ctrl.sendMove(
+      uciOrDrop.slice(0, 2) as Key,
+      uciOrDrop.slice(2, 4) as Key,
+      undefined,
+      charToRole(uciOrDrop.slice(4)),
+    );
+  else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
+}
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
@@ -354,7 +364,7 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
   const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
-    res.push(h('h3', `${color} player: ${anal[color].acpl} ACPL`));
+    res.push(h('h3', `${color} player: ${anal[color].acpl} ${i18n.site.averageCentipawnLoss}`));
     res.push(
       h(
         'select',

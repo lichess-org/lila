@@ -26,8 +26,9 @@ import {
   positionJumpHandler,
   pieceJumpingHandler,
   castlingFlavours,
-  supportedVariant,
   inputToLegalUci,
+  renderPockets,
+  type DropMove,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -69,6 +70,7 @@ export function initModule(): NvuiPlugin {
         nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
+        pockets = ctrl.data.crazyhouse?.pockets,
         clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
       if (!ctrl.chessground) {
         ctrl.setChessground(
@@ -79,7 +81,6 @@ export function initModule(): NvuiPlugin {
             coordinates: false,
           }),
         );
-        if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
       }
       return h('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
         h('h1', gameText(ctrl)),
@@ -93,6 +94,7 @@ export function initModule(): NvuiPlugin {
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
         h('h2', 'Pieces'),
         h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+        pockets && h('div.pockets', renderPockets(pockets)),
         h('h2', 'Game status'),
         h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
           ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
@@ -129,8 +131,6 @@ export function initModule(): NvuiPlugin {
                     type: 'text',
                     autocomplete: 'off',
                     autofocus: true,
-                    disabled: !!variantNope,
-                    title: variantNope,
                   },
                 }),
               ]),
@@ -250,15 +250,17 @@ function createSubmitHandler(
       } else notify('Invalid move');
     }
 
-    let input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
+    let input = submitStoredPremove
+      ? nvui.premoveInput
+      : castlingFlavours(($input.val() as string).trim().toLowerCase());
     if (!input) return;
 
     // commands may be submitted with or without a leading /
     const command = isShortCommand(input) || isShortCommand(input.slice(1));
     if (command) onCommand(ctrl, notify, command, style(), input);
     else {
-      const uci = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
-      if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
+      const uciOrDrop = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
+      if (uciOrDrop) sendMove(uciOrDrop, ctrl, !!nvui.premoveInput);
       else if (ctrl.data.player.color !== ctrl.data.game.player) {
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
@@ -287,6 +289,12 @@ type ShortCommand = (typeof shortCommands)[number];
 
 const isShortCommand = (input: string): ShortCommand | undefined =>
   shortCommands.find(c => c === input.split(' ')[0].toLowerCase());
+
+function sendMove(uciOrDrop: string | DropMove, ctrl: RoundController, premove: boolean): void {
+  if (typeof uciOrDrop === 'string') ctrl.socket.send('move', { u: uciOrDrop }, { ackable: true });
+  else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key))
+    ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key, premove);
+}
 
 function onCommand(
   ctrl: RoundController,
