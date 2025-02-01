@@ -47,6 +47,9 @@ case class RelayTour(
   def giveOfficialToBroadcasterIf(cond: Boolean) =
     if cond && official && !isOwnedBy(UserId.broadcaster)
     then copy(ownerIds = ownerIds.append(UserId.broadcaster))
+    else if cond && !official && isOwnedBy(UserId.broadcaster)
+    then
+      copy(ownerIds = NonEmptyList.fromList(ownerIds.filterNot(_ == UserId.broadcaster)).getOrElse(ownerIds))
     else this
 
   def path: String = s"/broadcast/$slug/$id"
