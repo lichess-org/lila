@@ -55,7 +55,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     coll.byOrderedIds[IdName, RelayTourId](ids, $doc("name" -> true).some)(_.id)
 
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
-    coll.exists($doc($inIds(ids), "ownerId".$ne(u))).not
+    coll.exists($doc($inIds(ids), "ownerIds".$ne(u))).not
 
   def info(tourId: RelayTourId): Fu[Option[RelayTour.Info]] =
     coll.primitiveOne[RelayTour.Info]($id(tourId), "info")
@@ -140,7 +140,7 @@ private object RelayTourRepo:
     val officialPublic          = $doc("tier".$gte(RelayTour.Tier.normal))
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)
-    def ownerId(u: UserId)      = $doc("ownerId" -> u)
+    def ownerId(u: UserId)      = $doc("ownerIds" -> u)
     def subscriberId(u: UserId) = $doc("subscribers" -> u)
     val officialActive          = officialPublic ++ active
     val officialInactive        = officialPublic ++ inactive

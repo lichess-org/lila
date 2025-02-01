@@ -68,7 +68,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
             div(cls := "scheduled")(
               scheduled.map: tour =>
                 tour.schedule
-                  .filter(_ != Freq.Hourly)
+                  .filter(_.freq != Freq.Hourly)
                   .map: s =>
                     a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
                       strong(tour.name(full = false)),

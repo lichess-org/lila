@@ -37,10 +37,10 @@ final class RateLimit[K](
         case None =>
           storage.put(k, cost -> makeClearAt)
           op
-        case Some((a, clearAt)) if a < credits =>
+        case Some(a, clearAt) if a < credits =>
           storage.put(k, (a + cost) -> clearAt)
           op
-        case Some((_, clearAt)) if nowMillis > clearAt =>
+        case Some(_, clearAt) if nowMillis > clearAt =>
           storage.put(k, cost -> makeClearAt)
           op
         case _ if enforce.yes =>

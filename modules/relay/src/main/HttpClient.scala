@@ -30,7 +30,7 @@ private final class HttpClient(
       .match
         case None =>
           fetchBodyAndEtag(url, none)
-        case Some((prevBody, prevEtag)) =>
+        case Some(prevBody, prevEtag) =>
           fetchBodyAndEtag(url, prevEtag.some).map: (newBody, newEtag) =>
             val body = if newBody.isEmpty && newEtag.has(prevEtag) then prevBody.some else newBody
             (body, newEtag)

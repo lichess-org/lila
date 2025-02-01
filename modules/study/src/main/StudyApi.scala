@@ -546,7 +546,7 @@ final class StudyApi(
               case None =>
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid explorerGame insert $studyId $data")
-              case Some((chapter, path)) =>
+              case Some(chapter, path) =>
                 studyRepo.updateNow(study)
                 chapter.root.nodeAt(path).so { parent =>
                   for _ <- chapterRepo.setChildren(parent.children)(chapter, path)

@@ -268,8 +268,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     _ <- c.update.one($id(studyId), if v then $addToSet(F.likers -> userId) else $pull(F.likers -> userId))
     likes <- countLikes(studyId)
     updated <- likes match
-      case None                     => fuccess(Study.Likes(0))
-      case Some((likes, createdAt)) =>
+      case None                   => fuccess(Study.Likes(0))
+      case Some(likes, createdAt) =>
         // Multiple updates may race to set denormalized likes and rank,
         // but values should be approximately correct, match a real like
         // count (though perhaps not the latest one), and any uncontended
@@ -319,10 +319,14 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     privateSelector = selectOwnerId(u) ++ selectPrivateOrUnlisted
     ids <- c.distinctEasy[StudyId, List]("_id", privateSelector)
     _   <- c.delete.one(privateSelector)
-    _   <- c.update.one(selectOwnerId(u), $set("ownerId" -> UserId.ghost), multi = true)
-    _   <- c.update.one($doc(F.likers -> u), $pull(F.likers -> u))
-    _   <- c.update.one($doc(F.uids -> u), $pull(F.uids -> u) ++ $unset(s"members.$u"))
   yield ids
+
+  private[study] def anonymizeAllOf(u: UserId): Funit = for
+    c <- coll.get
+    _ <- c.update.one(selectOwnerId(u), $set("ownerId" -> UserId.ghost), multi = true)
+    _ <- c.update.one($doc(F.likers -> u), $pull(F.likers -> u), multi = true)
+    _ <- c.update.one($doc(F.uids -> u), $pull(F.uids -> u) ++ $unset(s"members.$u"), multi = true)
+  yield ()
 
   private def countLikes(studyId: StudyId): Fu[Option[(Study.Likes, Instant)]] =
     coll:

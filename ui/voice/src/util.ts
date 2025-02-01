@@ -33,7 +33,7 @@ export function findTransforms(
 function validOps(h: string, x: string, pos: number) {
   const validOps: { hnext: string; op: Transform | 'skip' }[] = [];
   if (h[pos] === x[pos]) validOps.push({ hnext: h, op: 'skip' });
-  const minSlice = mode.del !== true || validOps.length > 0 ? 1 : 0;
+  const minSlice = !mode.del || validOps.length > 0 ? 1 : 0;
   let slen = Math.min(mode.sub ?? 0, x.length - pos);
   while (slen >= minSlice) {
     const slice = x.slice(pos, pos + slen);
