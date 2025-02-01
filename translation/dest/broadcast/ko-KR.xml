@@ -79,4 +79,5 @@
   <string name="optionalDetails">선택적 세부 정보</string>
   <string name="pastBroadcasts">과거 방송들</string>
   <string name="allBroadcastsByMonth">월별 방송들 모두 보기</string>
+  <string name="backToLiveMove">실시간 수로 돌아가기</string>
 </resources>
