@@ -112,8 +112,8 @@ export const env = new (class {
     this.status[ctx] = code;
     if (this.manifest && taskOk()) {
       if (this.startTime) this.log(`Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`);
-      this.startTime = undefined;
       updateManifest();
+      this.startTime = undefined;
     }
     if (!this.watch && code) process.exit(code);
   }

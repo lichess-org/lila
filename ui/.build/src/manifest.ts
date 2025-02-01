@@ -47,7 +47,7 @@ export function updateManifest(update: ManifestUpdate = {}): void {
   }
   if (manifest.dirty) {
     clearTimeout(writeTimer);
-    writeTimer = setTimeout(writeManifest, 500);
+    writeTimer = setTimeout(writeManifest, env.watch && !env.startTime ? 750 : 0);
   }
 }
 
@@ -101,9 +101,8 @@ async function writeManifest() {
   ]);
   manifest.dirty = false;
   const serverHash = crypto.createHash('sha256').update(serverManifest).digest('hex').slice(0, 8);
-  env.log(`Client '${c.cyan(`public/compiled/manifest.${hash}.js`)}'`, 'manifest');
   env.log(
-    `Server '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' hash ${c.grey(serverHash)}`,
+    `'${c.cyan(`public/compiled/manifest.${hash}.js`)}', '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' ${c.grey(serverHash)}`,
     'manifest',
   );
 }
