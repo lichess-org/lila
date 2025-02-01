@@ -132,6 +132,12 @@ interface AssetUrlOpts {
   version?: false | string;
 }
 
+interface Dictionary<T> {
+  [key: string]: T | undefined;
+}
+
+type SocketHandlers = Dictionary<(d: any) => void>;
+
 type Timeout = ReturnType<typeof setTimeout>;
 
 type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
@@ -217,7 +223,6 @@ type Perf = Exclude<VariantKey, 'standard'> | Speed;
 
 type Uci = string;
 type San = string;
-type AlmostSan = string;
 type Ply = number;
 type Seconds = number;
 type Centis = number;
@@ -285,12 +290,6 @@ declare namespace PowerTip {
     closeEvents?: string[];
   }
 }
-
-interface Dictionary<T> {
-  [key: string]: T | undefined;
-}
-
-type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const site: Site;
 declare const fipr: Fipr;

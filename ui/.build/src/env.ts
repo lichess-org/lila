@@ -16,6 +16,7 @@ export const env = new (class {
   readonly themeDir = p.join(this.uiDir, 'common', 'css', 'theme');
   readonly themeGenDir = p.join(this.themeDir, 'gen');
   readonly buildDir = p.join(this.uiDir, '.build');
+  readonly lockFile = p.join(this.buildDir, 'instance.lock');
   readonly cssTempDir = p.join(this.buildDir, 'build', 'css');
   readonly buildSrcDir = p.join(this.uiDir, '.build', 'src');
   readonly buildTempDir = p.join(this.buildDir, 'build');

@@ -198,3 +198,20 @@ export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
 }
+
+export interface LocalSetup {
+  white?: string;
+  black?: string;
+  initialFen?: FEN;
+  initial?: Seconds;
+  increment?: Seconds;
+}
+
+export interface RoundStep {
+  ply: Ply;
+  fen: FEN;
+  san: San;
+  uci: Uci;
+  check?: boolean;
+  crazy?: Record<string, any>;
+}
