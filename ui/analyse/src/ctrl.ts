@@ -265,6 +265,7 @@ export default class AnalyseCtrl {
   };
 
   flip = () => {
+    if (this.study?.chapters.newForm.isOpen()) return;
     this.flipped = !this.flipped;
     this.study?.onFlip();
     this.chessground?.set({
