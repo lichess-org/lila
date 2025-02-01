@@ -24,10 +24,10 @@
       "src/move/voice.move.ts"
     ],
     "sync": {
-      "grammar/**": "public/compiled/grammar"
+      "grammar/**": "/public/compiled/grammar"
     },
     "hash": [
-      "compiled/grammar/*"
+      "/public/compiled/grammar/*"
     ]
   }
 }

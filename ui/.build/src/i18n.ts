@@ -1,9 +1,11 @@
-import path from 'node:path';
+import p from 'node:path';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import fg from 'fast-glob';
 import { XMLParser } from 'fast-xml-parser';
-import { env, c } from './env.ts';
-import { globArray, readable } from './parse.ts';
+import { env } from './env.ts';
+import { readable } from './parse.ts';
+import { task } from './task.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { quantize, zip } from './algo.ts';
 import { transform } from 'esbuild';
@@ -11,59 +13,52 @@ import { transform } from 'esbuild';
 type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
 type Dict = Map<string, string | Plural>;
 
-let dicts: Map<string, Dict> = new Map();
-let locales: string[], cats: string[];
-let watchTimeout: NodeJS.Timeout | undefined;
-const i18nWatch: fs.FSWatcher[] = [];
 const formatStringRe = /%(?:[\d]\$)?s/;
 
+let dicts: Map<string, Dict> = new Map();
+let locales: string[];
+let cats: string[];
+
 export async function i18n(): Promise<void> {
-  if (!env.i18n) return;
-  if (!watchTimeout) env.log(`Building ${c.grey('i18n')}`);
+  if (!env.begin('i18n')) return;
 
-  [locales, cats] = (
-    await Promise.all([
-      globArray('*.xml', { cwd: path.join(env.i18nDestDir, 'site'), absolute: false }),
-      globArray('*.xml', { cwd: env.i18nSrcDir, absolute: false }),
-    ])
-  ).map(list => list.map(x => x.split('.')[0]));
-
-  await compileTypings();
-  compileJavascripts(!watchTimeout); // !watchTimeout means first time run
-
-  if (i18nWatch.length || !env.watch) return;
-
-  const onChange = () => {
-    clearTimeout(watchTimeout);
-    watchTimeout = setTimeout(() => i18n(), 2000);
-  };
-  i18nWatch.push(fs.watch(env.i18nSrcDir, onChange));
-  for (const d of cats) {
-    await fs.promises.mkdir(path.join(env.i18nDestDir, d)).catch(() => {});
-    i18nWatch.push(fs.watch(path.join(env.i18nDestDir, d), onChange));
-  }
-}
-
-export function stopI18nWatch(): void {
-  clearTimeout(watchTimeout);
-  for (const watcher of i18nWatch) watcher.close();
-  i18nWatch.length = 0;
+  return task({
+    glob: [
+      { cwd: env.i18nSrcDir, path: '*.xml' },
+      { cwd: p.join(env.i18nDestDir, 'site'), path: '*.xml' },
+    ],
+    ctx: 'i18n',
+    debounce: 500,
+    execute: async () => {
+      env.log(`Building`, 'i18n');
+      [locales, cats] = (
+        await Promise.all([
+          fg.glob('*.xml', { cwd: p.join(env.i18nDestDir, 'site') }),
+          fg.glob('*.xml', { cwd: env.i18nSrcDir }),
+        ])
+      ).map(list => list.map(x => x.split('.')[0]));
+      await Promise.allSettled(cats.map(async cat => fs.promises.mkdir(p.join(env.i18nDestDir, cat))));
+      await compileTypings();
+      await compileJavascripts();
+      await i18nManifest();
+    },
+  });
 }
 
 async function compileTypings(): Promise<void> {
-  const typingsPathname = path.join(env.typesDir, 'lichess', `i18n.d.ts`);
-  const [tstat] = await Promise.all([
+  const typingsPathname = p.join(env.typesDir, 'lichess', `i18n.d.ts`);
+  const [tstat, catStats] = await Promise.all([
     fs.promises.stat(typingsPathname).catch(() => undefined),
+    Promise.all(cats.map(cat => updated(cat))),
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
-  const catStats = await Promise.all(cats.map(d => updated(d)));
 
   if (!tstat || catStats.some(x => x)) {
     dicts = new Map(
       zip(
         cats,
         await Promise.all(
-          cats.map(d => fs.promises.readFile(path.join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
+          cats.map(d => fs.promises.readFile(p.join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
         ),
       ),
     );
@@ -96,40 +91,26 @@ async function compileTypings(): Promise<void> {
   }
 }
 
-async function compileJavascripts(withManifest: boolean = false): Promise<void> {
-  const reportOnce = () => {
-    if (!withManifest) env.log(`Building ${c.grey('i18n')}`);
-    withManifest = true;
-  };
-  for (const cat of cats) {
-    const u = await updated(cat);
-    if (u) {
-      reportOnce();
-      await writeJavascript(cat, undefined, u);
-    }
-    await Promise.all(
-      locales.map(locale =>
-        updated(cat, locale).then(xstat => {
-          if (!u && !xstat) return;
-          reportOnce();
-          return writeJavascript(cat, locale, xstat);
-        }),
-      ),
-    );
-  }
-  if (withManifest) i18nManifest();
+function compileJavascripts(): Promise<any> {
+  return Promise.all(
+    cats.map(async cat => {
+      const u = await updated(cat);
+      if (u) await writeJavascript(cat, undefined, u);
+      for (const locale of locales) {
+        const xstat = await updated(cat, locale);
+        if (u || xstat) await writeJavascript(cat, locale, xstat);
+      }
+    }),
+  );
 }
 
 async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | false = false) {
   if (!dicts.has(cat))
-    dicts.set(
-      cat,
-      await fs.promises.readFile(path.join(env.i18nSrcDir, `${cat}.xml`), 'utf8').then(parseXml),
-    );
+    dicts.set(cat, await fs.promises.readFile(p.join(env.i18nSrcDir, `${cat}.xml`), 'utf8').then(parseXml));
 
   const localeSpecific = locale
     ? await fs.promises
-        .readFile(path.join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
+        .readFile(p.join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
         .catch(() => '')
         .then(parseXml)
     : new Map<String, String | Plural>();
@@ -161,7 +142,7 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
       .join(';') +
     '})()';
 
-  const filename = path.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
+  const filename = p.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
   await fs.promises.writeFile(filename, code);
 
   if (!xstat) return;
@@ -170,14 +151,14 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
 
 async function updated(cat: string, locale?: string): Promise<fs.Stats | false> {
   const xmlPath = locale
-    ? path.join(env.i18nDestDir, cat, `${locale}.xml`)
-    : path.join(env.i18nSrcDir, `${cat}.xml`);
-  const jsPath = path.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
+    ? p.join(env.i18nDestDir, cat, `${locale}.xml`)
+    : p.join(env.i18nSrcDir, `${cat}.xml`);
+  const jsPath = p.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
   const [xml, js] = await Promise.allSettled([fs.promises.stat(xmlPath), fs.promises.stat(jsPath)]);
   return xml.status === 'rejected' ||
     (js.status !== 'rejected' && quantize(xml.value.mtimeMs, 2000) <= quantize(js.value.mtimeMs, 2000))
     ? false
-    : xml.value;
+    : xml.value.size > 64 && xml.value;
 }
 
 function parseXml(xmlData: string): Map<string, string | Plural> {
@@ -203,28 +184,28 @@ async function min(js: string): Promise<string> {
 }
 
 export async function i18nManifest(): Promise<void> {
-  const i18nManifest: Manifest = {};
-  fs.mkdirSync(path.join(env.jsOutDir, 'i18n'), { recursive: true });
+  const i18n: Manifest = {};
+  fs.mkdirSync(p.join(env.jsOutDir, 'i18n'), { recursive: true });
 
   await Promise.all(
-    (await globArray('*.js', { cwd: env.i18nJsDir })).map(async file => {
-      const name = `i18n/${path.basename(file, '.js')}`;
+    (await fg.glob('*.js', { cwd: env.i18nJsDir, absolute: true })).map(async file => {
+      const name = `i18n/${p.basename(file, '.js')}`;
       const content = await fs.promises.readFile(file, 'utf-8');
       const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
-      const destPath = path.join(env.jsOutDir, `${name}.${hash}.js`);
+      const destPath = p.join(env.jsOutDir, `${name}.${hash}.js`);
 
-      i18nManifest[name] = { hash };
+      i18n[name] = { hash };
 
       if (!(await readable(destPath))) await fs.promises.writeFile(destPath, content);
     }),
   );
   await Promise.all(
     cats.map(cat => {
-      const path = `i18n/${cat}.en-GB.${i18nManifest[`i18n/${cat}.en-GB`].hash}.js`;
-      return Promise.all(locales.map(locale => (i18nManifest[`i18n/${cat}.${locale}`] ??= { path })));
+      const path = `i18n/${cat}.en-GB.${i18n[`i18n/${cat}.en-GB`].hash}.js`;
+      return Promise.all(locales.map(locale => (i18n[`i18n/${cat}.${locale}`] ??= { path })));
     }),
   );
-  updateManifest({ i18n: i18nManifest });
+  updateManifest({ i18n });
 }
 
 const tsPrelude = `// Generated
