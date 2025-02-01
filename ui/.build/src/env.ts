@@ -1,5 +1,7 @@
 import p from 'node:path';
 import type { Package } from './parse.ts';
+import fs from 'node:fs';
+import ps from 'node:process';
 import { unique, isEquivalent, trimLines } from './algo.ts';
 import { updateManifest } from './manifest.ts';
 import { taskOk } from './task.ts';
@@ -114,6 +116,27 @@ export const env = new (class {
       updateManifest();
     }
     if (!this.watch && code) process.exit(code);
+  }
+
+  instanceLock(checkStale = true): boolean {
+    try {
+      const fd = fs.openSync(env.lockFile, 'wx');
+      fs.writeFileSync(fd, String(ps.pid), { flag: 'w' });
+      fs.closeSync(fd);
+      ps.on('exit', () => fs.unlinkSync(env.lockFile));
+    } catch {
+      const pid = parseInt(fs.readFileSync(env.lockFile, 'utf8'), 10);
+      if (!isNaN(pid) && pid > 0 && ps.platform !== 'win32') {
+        try {
+          ps.kill(pid, 0);
+          return false;
+        } catch {
+          fs.unlinkSync(env.lockFile); // it's a craplet
+          if (checkStale) return this.instanceLock(false);
+        }
+      }
+    }
+    return true;
   }
 })();
 

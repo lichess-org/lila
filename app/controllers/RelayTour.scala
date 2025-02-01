@@ -189,7 +189,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow)
 
   private def emptyBroadcastPage(tour: TourModel)(using Context) = for
-    owner <- env.user.lightUser(tour.ownerId)
+    owner <- env.user.lightUser(tour.ownerIds.head)
     markup = tour.markup.map(env.relay.markup(tour))
     page <- Ok.page(views.relay.tour.showEmpty(tour, owner, markup))
   yield page
