@@ -45,9 +45,13 @@ case class RelayTour(
   def isOwnedBy[U: UserIdOf](u: U): Boolean = ownerIds.toList.contains(u.id)
 
   def giveOfficialToBroadcasterIf(cond: Boolean) =
-    if cond && official && !isOwnedBy(UserId.broadcaster)
-    then copy(ownerIds = ownerIds.append(UserId.broadcaster))
-    else this
+    if !cond || official == isOwnedBy(UserId.broadcaster) then this
+    else
+      copy(
+        ownerIds =
+          if official then ownerIds.append(UserId.broadcaster)
+          else ownerIds.filterNot(_ == UserId.broadcaster).toNel | ownerIds
+      )
 
   def path = routes.RelayTour.show(slug, id).url
 
