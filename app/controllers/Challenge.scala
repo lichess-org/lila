@@ -16,18 +16,28 @@ final class Challenge(env: Env) extends LilaController(env):
   def api              = env.challenge.api
   def challengePrefApi = env.challenge.challengePrefApi
 
+  def showPreference = AuthBody { ctx ?=> me ?=>
+    Ok.async:
+      challengePrefApi.find(me.username.toString).map(views.challengePref.show(_, me.username.toString()))
+  }
+
   def updatePreference = AuthBody { ctx ?=> me ?=>
     challengePref
       .bindFromRequest()
       .fold(
-        err => {
-          Redirect(routes.Pref.form("privacy")).flashFailure(err.toString)
-        },
+        err => Redirect(routes.Challenge.showPreference).flashFailure(err.toString),
         data =>
           challengePrefApi
             .upsert(data, me.username.toString())
-            .inject(Redirect(routes.Pref.form("privacy")).flashSuccess)
+            .inject(Redirect(routes.Challenge.showPreference).flashSuccess)
       )
+  }
+
+  def deletePreference = AuthBody { ctx ?=> me ?=>
+    challengePrefApi
+      .remove(me.username.toString())
+      .inject(Redirect(routes.Challenge.showPreference).flashSuccess)
+
   }
 
   def all = Auth { ctx ?=> me ?=>

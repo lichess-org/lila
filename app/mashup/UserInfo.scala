@@ -28,7 +28,7 @@ case class UserInfo(
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean,
-    challengePref: Option[ChallengePref],
+    challengePref: Option[ChallengePref]
 ):
   export trophies.ranks
   export nbs.crosstable
@@ -120,7 +120,7 @@ object UserInfo:
         streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(_.user.segment("coach")),
         (user.count.rated >= 10).so(insightShare.grant(user)(using ctx.me)),
-        challengePrefApi.find(user.username.toString).mon(_.user.segment("challengePref")),
-      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _,_, _))
+        challengePrefApi.find(user.username.toString).mon(_.user.segment("challengePref"))
+      ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.lightCache.preloadMany(info.teamIds)

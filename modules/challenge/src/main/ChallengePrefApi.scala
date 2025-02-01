@@ -18,5 +18,8 @@ final class ChallengePrefApi(
       )
       .void
 
-  def find(userName: String): Fu[Option[ChallengePref]] = 
+  def find(userName: String): Fu[Option[ChallengePref]] =
     coll.find($id(userName)).one[ChallengePref]
+
+  def remove(userName: String): Funit =
+    coll.delete.one($id(userName)).void

@@ -85,6 +85,9 @@ final class AccountUi(helpers: Helpers):
             a(activeCls(categ.slug), href := routes.Pref.form(categ.slug))(
               categName(categ)
             ),
+          a(activeCls("challenge"), href := routes.Challenge.showPreference)(
+            RawFrag("Challenge")
+          ),
           a(activeCls("notification"), href := routes.Pref.form("notification"))(
             trans.site.notifications()
           ),

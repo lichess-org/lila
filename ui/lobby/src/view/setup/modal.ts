@@ -44,7 +44,12 @@ const views = {
     ]),
   ],
   friend: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2', i18n.site.playWithAFriend),
+    h(
+      'h2',
+      ctrl.setupCtrl.root.me?.username === ctrl.setupCtrl.friendUser
+        ? 'Your preferred challenge'
+        : i18n.site.playWithAFriend,
+    ),
     h('div.setup-content', [
       ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
       variantPicker(ctrl),

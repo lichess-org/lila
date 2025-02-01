@@ -36,21 +36,18 @@ object ChallengePref:
     (o.variant, o.timeMode, o.gameMode, o.time, o.increment, o.days, o.fen)
   )
 
-  def asEncodedUrlLAttr(pref: Option[ChallengePref]): String =
-    pref match {
-      case Some(obj) => {
+  def asEncodedUrlAttr(pref: Option[ChallengePref]): String =
+    pref match
+      case Some(obj) =>
         val jsonString = Json.stringify(Json.toJson(obj))
         val encoded    = URLEncoder.encode(jsonString, "UTF-8")
         s"&challenge-pref=${encoded}"
-      }
       case None => ""
-    }
-
 
 val challengePref = Form(
   mapping(
     "variant"   -> text,
-    "timeMode"   -> text,
+    "timeMode"  -> text,
     "gameMode"  -> text,
     "time"      -> number,
     "increment" -> number,
@@ -61,4 +58,3 @@ val challengePref = Form(
 
 given BSONDocumentReader[ChallengePref] = Macros.reader
 given BSONDocumentWriter[ChallengePref] = Macros.writer
-
