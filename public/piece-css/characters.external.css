@@ -208,6 +208,8 @@ piece.horse.gote,
       .sg-wrap.orientation-sente piece.horse.gote,
       .hand-top piece.horse.gote,
       .spare-top piece.horse.gote {background-image:url('/assets/piece/characters/1UM.png')}
+piece { background-size: contain; }
+.v-chushogi piece, .v-kyotoshogi piece { background-size: cover; }
 piece { will-change: transform; background-repeat: unset; }
 .v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }
 .v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } 
