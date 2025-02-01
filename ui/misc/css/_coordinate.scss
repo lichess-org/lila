@@ -1,13 +1,12 @@
 @use 'pkg:breakpoint-sass' as breakpoint;
 @use 'pkg:common/abstract/extends';
-@use 'pkg:common/abstract/media-queries';
 @use 'pkg:common/abstract/uniboard';
 @use 'pkg:common/abstract/variables';
 @use 'pkg:common/theme';
 
-$mq-col1: media-queries.$mq-not-medium;
-$mq-col2: media-queries.$mq-medium;
-$mq-col3: media-queries.$mq-x-large;
+$mq-col1: uniboard.$mq-col1-uniboard;
+$mq-col2: uniboard.$mq-col2-uniboard;
+$mq-col3: uniboard.$mq-col3-uniboard;
 
 #main-wrap {
   --main-max-width: calc(
@@ -37,6 +36,16 @@ $mq-col3: media-queries.$mq-x-large;
 
   &__side {
     grid-area: side;
+
+    .scores {
+      padding: 0 1rem;
+
+      canvas {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+      }
+    }
   }
 
   &__board {
@@ -75,6 +84,17 @@ $mq-col3: media-queries.$mq-x-large;
 
   .hurry {
     color: theme.$c-bad !important;
+  }
+
+  @include breakpoint.breakpoint($mq-col1) {
+    .main-board {
+      padding-bottom: calc(100% / 11 * 12);
+
+      .sg-wrap {
+        grid-template-rows: 0 9fr 0;
+        gap: 0;
+      }
+    }
   }
 
   @include breakpoint.breakpoint($mq-col2) {
@@ -126,25 +146,16 @@ $mq-col3: media-queries.$mq-x-large;
   form.color {
     margin-top: variables.$block-gap;
 
-    .color i {
-      display: block;
-      width: 30px;
-      height: 30px;
-      background-size: 30px 30px;
-      background-repeat: no-repeat;
-      padding: 0;
-    }
+    .color-icon {
+      @extend %flex-center;
 
-    .color_1 i {
-      background-image: url('../images/blackPiece.svg');
-    }
+      text-align: center;
+      justify-content: center;
+      font-size: 2rem;
 
-    .color_2 i {
-      background-image: url('../images/bwPiece.svg');
-    }
-
-    .color_3 i {
-      background-image: url('../images/whitePiece.svg');
+      &.random {
+        font-size: 2.5rem;
+      }
     }
   }
 
@@ -202,18 +213,22 @@ $mq-col3: media-queries.$mq-x-large;
     display: block;
   }
 
-  &.play.sente .coord-trainer__button .current-color {
-    width: 64px;
-    height: 64px;
-    background-image: url('../images/blackPiece.svg');
-    background-repeat: no-repeat;
+  &.play .coord-trainer__button .current-color {
+    font-size: 3rem;
+
+    &::before {
+      font-family: lishogi;
+      margin-right: 2rem;
+      vertical-align: middle;
+    }
   }
 
-  &.play.gote .coord-trainer__button .current-color {
-    width: 64px;
-    height: 64px;
-    background-image: url('../images/whitePiece.svg');
-    background-repeat: no-repeat;
+  &.play.sente .coord-trainer__button .current-color::before {
+    content: theme.$sente-symbol;
+  }
+
+  &.play.gote .coord-trainer__button .current-color::before {
+    content: theme.$gote-symbol;
   }
 
   &.init {

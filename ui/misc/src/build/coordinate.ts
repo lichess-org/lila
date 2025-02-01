@@ -1,3 +1,6 @@
+import { capitalize } from 'common/string';
+import { colorName } from 'shogi/color-name';
+
 interface CoordinatesOpts {
   colorPref: 'random' | Color;
   scoreUrl: string;
@@ -16,6 +19,7 @@ function main(opts: CoordinatesOpts): void {
   const $side = $('.coord-trainer__side');
   const $right = $('.coord-trainer__table');
   const $button = $('.coord-trainer__button');
+  const $currentColor = $button.find('.current-color');
   const $bar = $trainer.find('.progress_bar');
   const $coords = [$('#next_coord0'), $('#next_coord1')];
   const $start = $button.find('.start');
@@ -57,6 +61,7 @@ function main(opts: CoordinatesOpts): void {
       );
     else if (color !== ground.state.orientation) ground.toggleOrientation();
     $trainer.removeClass('sente gote').addClass(color);
+    $currentColor.text(capitalize(colorName(color, false)));
   };
   showColor();
 
@@ -128,6 +133,7 @@ function main(opts: CoordinatesOpts): void {
     $trainer.removeClass('play');
     centerRight();
     $trainer.removeClass('wrong');
+    $currentColor.text('');
     ground.set({
       events: {
         select: undefined,
@@ -182,6 +188,17 @@ function main(opts: CoordinatesOpts): void {
       8: 'h',
       9: 'i',
     };
+    const rankMap3: Record<string, string> = {
+      1: '子',
+      2: '丑',
+      3: '寅',
+      4: '卯',
+      5: '辰',
+      6: '巳',
+      7: '午',
+      8: '未',
+      9: '申',
+    };
     switch (notationPref) {
       // 11
       case 0:
@@ -190,6 +207,8 @@ function main(opts: CoordinatesOpts): void {
       // 1一
       case 2:
         return key[0] + rankMap1[key[1]];
+      case 6:
+        return rankMap3[key[0]] + rankMap1[key[1]];
       default:
         return key[0] + rankMap2[key[1]];
     }

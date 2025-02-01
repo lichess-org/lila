@@ -55,6 +55,9 @@ object coordinate {
           form(cls := "color buttons", action := routes.Coordinate.color, method := "post")(
             st.group(cls := "radio")(
               List(Color.SENTE, Color.RANDOM, Color.GOTE).map { id =>
+                val colorName = Color.name(id)
+                val translated =
+                  shogi.Color.fromName(colorName).fold(trans.randomColor.txt())(standardColorName)
                 div(
                   input(
                     tpe   := "radio",
@@ -63,7 +66,9 @@ object coordinate {
                     value := id,
                     (id == ctx.pref.coordColor) option checked,
                   ),
-                  label(`for` := s"coord_color_$id", cls := s"color color_$id")(i),
+                  label(`for` := s"coord_color_$id", cls := s"color", title := translated)(
+                    div(cls := s"color-icon ${colorName}"),
+                  ),
                 )
               },
             ),

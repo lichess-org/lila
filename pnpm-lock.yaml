@@ -622,6 +622,9 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
+      shogi:
+        specifier: workspace:*
+        version: link:../shogi
       shogiops:
         specifier: 'catalog:'
         version: 0.18.0

@@ -12,7 +12,7 @@ function main(canvas: HTMLCanvasElement, data: number[], color: Color): Chart {
           data: data,
           borderColor: blueLineColor,
           borderWidth: 1,
-          backgroundColor: isSente ? 'white' : 'black',
+          backgroundColor: isSente ? 'black' : 'white',
           fill: true,
           pointHitRadius: 200,
           pointHoverBorderColor: '#3893e8',
