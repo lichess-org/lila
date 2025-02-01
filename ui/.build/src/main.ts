@@ -127,7 +127,6 @@ function instanceLock(checkStale = true) {
     const fd = fs.openSync(env.lockFile, 'wx');
     fs.writeFileSync(fd, String(ps.pid), { flag: 'w' });
     fs.closeSync(fd);
-    console.log('ooya');
     ps.on('exit', () => fs.unlinkSync(env.lockFile));
   } catch {
     const pid = parseInt(fs.readFileSync(env.lockFile, 'utf8'), 10);
