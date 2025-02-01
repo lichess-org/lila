@@ -51,8 +51,10 @@ export default class EditorCtrl {
       cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
 
     site.mousetrap.bind('f', () => {
-      if (this.chessground) this.chessground.toggleOrientation();
-      if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
+      if (this.chessground) {
+        this.chessground.toggleOrientation();
+        if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
+      }
       this.onChange();
     });
 
