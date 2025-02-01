@@ -30,7 +30,9 @@ object bits:
     )
 
   def fenAnalysisLink(fen: Fen.Full)(using Translate) =
-    a(href := s"/analysis/${ChessHelper.underscoreFen(fen)}")(lila.core.i18n.I18nKey.site.analysis())
+    a(href := routes.UserAnalysis.parseArg(ChessHelper.underscoreFen(fen)))(
+      lila.core.i18n.I18nKey.site.analysis()
+    )
 
   private val dataSitekey = attr("data-sitekey")
 

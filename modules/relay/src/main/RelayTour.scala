@@ -49,7 +49,7 @@ case class RelayTour(
     then copy(ownerIds = ownerIds.append(UserId.broadcaster))
     else this
 
-  def path: String = s"/broadcast/$slug/$id"
+  def path = routes.RelayTour.show(slug, id).url
 
   def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 

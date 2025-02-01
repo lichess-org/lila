@@ -54,7 +54,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
         div(cls := "daily-feed__update")(
           marker(update.flair),
           div(
-            a(cls := "daily-feed__update__day", href := s"/feed#${update.id}"):
+            a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
               momentFromNow(update.at)
             ,
             rawHtml(update.rendered)
@@ -63,7 +63,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       div(cls := "daily-feed__update")(
         marker(),
         div:
-          a(cls := "daily-feed__update__day", href := "/feed"):
+          a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
             "All updates »"
       )
     )

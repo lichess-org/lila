@@ -98,7 +98,7 @@ final class Main(
     path match
       case "keyboard-move" => Ok.snip(lila.web.ui.help.keyboardMove)
       case "voice/move"    => Ok.snip(lila.web.ui.help.voiceMove)
-      case "master"        => Redirect("/verify-title")
+      case "master"        => Redirect(routes.TitleVerify.index.url)
       case _               => notFound
 
   def movedPermanently(to: String) = Anon:
