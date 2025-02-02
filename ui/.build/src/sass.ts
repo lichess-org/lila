@@ -74,7 +74,6 @@ export async function sass(): Promise<void> {
           css: Object.fromEntries(
             await Promise.all((await glob(p.join(env.cssTempDir, '*.css'))).map(hashMoveCss)),
           ),
-          merge: true,
         });
     },
   });

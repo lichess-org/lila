@@ -55,7 +55,7 @@ export async function hash(): Promise<void> {
                 'hash',
               );
           }
-          updateManifest({ hashed, merge: true });
+          updateManifest({ hashed });
         },
       }),
     ),
