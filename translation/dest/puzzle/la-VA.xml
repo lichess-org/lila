@@ -6,8 +6,8 @@
   <string name="puzzleId">Compositio %s</string>
   <string name="puzzleOfTheDay">Compositio cotidiana</string>
   <string name="dailyPuzzle">Compositio Cotidiana</string>
-  <string name="goodMove">Bonus motus</string>
-  <string name="bestMove">Motus optimus!</string>
+  <string name="goodMove">Bonum spatium</string>
+  <string name="bestMove">Optimum spatium!</string>
   <string name="byOpenings">Initiis</string>
   <string name="puzzlesByOpenings">Problemae Initiis</string>
   <string name="hidden">conditus</string>
