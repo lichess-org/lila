@@ -210,6 +210,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                         orientation: ctrl.orientation,
                         onChange: ctrl.editorFen,
                         coordinates: true,
+                        bindHotkeys: false,
                       };
                       ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
