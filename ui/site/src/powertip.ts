@@ -63,8 +63,12 @@ const imagePowertip = (el: HTMLElement) =>
       placement: 's',
     });
 
-function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void,
-                      allow_mobile_powertip: boolean = false) {
+function powerTipWith(
+  el: HTMLElement,
+  ev: Event,
+  f: (el: HTMLElement) => void,
+  allow_mobile_powertip: boolean = false,
+) {
   if ('ontouchstart' in window && !allow_mobile_powertip) return;
   f(el);
   $.powerTip.show(el, ev);
@@ -81,7 +85,8 @@ const powertip: LichessPowertip = {
   watchMouse() {
     document.body.addEventListener('mouseover', e => {
       const t = e.target as HTMLElement;
-      if (t.classList.contains('ulpt')) powerTipWith(t, e, userPowertip, t.classList.contains('mobile-powertip'));
+      if (t.classList.contains('ulpt'))
+        powerTipWith(t, e, userPowertip, t.classList.contains('mobile-powertip'));
       else if (t.classList.contains('glpt')) powerTipWith(t, e, gamePowertip);
       else if (t.classList.contains('image-powertip')) powerTipWith(t, e, imagePowertip);
     });
