@@ -50,13 +50,14 @@ export default class EditorCtrl {
     if (cfg.endgamePositions)
       cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
 
-    site.mousetrap.bind('f', () => {
-      if (this.chessground) {
-        this.chessground.toggleOrientation();
-        if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
-      }
-      this.onChange();
-    });
+    if (this.options.bindHotkeys !== false)
+      site.mousetrap.bind('f', () => {
+        if (this.chessground) {
+          this.chessground.toggleOrientation();
+          if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
+        }
+        this.onChange();
+      });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
