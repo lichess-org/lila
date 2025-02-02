@@ -219,11 +219,15 @@ export default class SetupController {
     this.variant = propWithEffect(challengePrefOptions.variant, this.onDropdownChange);
     this.fen = this.propWithApply(challengePrefOptions?.fen || '');
     this.timeMode = propWithEffect(challengePrefOptions?.timeMode || '', this.onDropdownChange);
-    this.timeV = this.propWithApply(sliderInitVal(challengePrefOptions?.time || 0, timeVToTime, this.maxTimeV)!);
+    this.timeV = this.propWithApply(
+      sliderInitVal(challengePrefOptions?.time || 0, timeVToTime, this.maxTimeV)!,
+    );
     this.incrementV = this.propWithApply(
       sliderInitVal(challengePrefOptions?.increment || 0, incrementVToIncrement, this.maxIncrementV)!,
     );
-    this.daysV = this.propWithApply(sliderInitVal(challengePrefOptions?.days || 1, daysVToDays, this.maxDaysV)!);
+    this.daysV = this.propWithApply(
+      sliderInitVal(challengePrefOptions?.days || 1, daysVToDays, this.maxDaysV)!,
+    );
     this.gameMode = this.propWithApply(challengePrefOptions.gameMode);
     this.ratingMin = this.propWithApply(-300);
     this.ratingMax = this.propWithApply(300);
@@ -322,7 +326,7 @@ export default class SetupController {
       color: color,
       aiLevel: this.aiLevel(),
       ratingMin: this.ratingMin(),
-      ratingMax : this.ratingMax(),
+      ratingMax: this.ratingMax(),
     });
 
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
@@ -346,12 +350,10 @@ export default class SetupController {
     this.loading = true;
     this.root.redraw();
 
-    let urlPath =
-      this.isEditingPreference ? '/challenge/update-preference' : `/setup/${this.gameType}`;
-    let formData =
-      this.isEditingPreference
-        ? this.challengePrefSetupOptionsToFormData(color)
-        : this.propsToFormData(color);
+    let urlPath = this.isEditingPreference ? '/challenge/update-preference' : `/setup/${this.gameType}`;
+    let formData = this.isEditingPreference
+      ? this.challengePrefSetupOptionsToFormData(color)
+      : this.propsToFormData(color);
     if (this.gameType === 'hook') urlPath += `/${site.sri}`;
     const urlParams = { user: this.friendUser || undefined };
     let response;

@@ -22,7 +22,7 @@ case class ChallengePref(
     color: String,
     ratingMin: Int,
     ratingMax: Int,
-    aiLevel: Int,
+    aiLevel: Int
 )
 
 object ChallengePref:
@@ -37,8 +37,23 @@ object ChallengePref:
       "fen"       -> o.fen
     )
 
-  def unapply(o: ChallengePref): Option[(String, String, String, String, Int, Int, Int, String, String, Int, Int, Int)] = Some(
-    (o.gameType, o.variant, o.timeMode, o.gameMode, o.time, o.increment, o.days, o.fen, o.color, o.ratingMin, o.ratingMax, o.aiLevel)
+  def unapply(
+      o: ChallengePref
+  ): Option[(String, String, String, String, Int, Int, Int, String, String, Int, Int, Int)] = Some(
+    (
+      o.gameType,
+      o.variant,
+      o.timeMode,
+      o.gameMode,
+      o.time,
+      o.increment,
+      o.days,
+      o.fen,
+      o.color,
+      o.ratingMin,
+      o.ratingMax,
+      o.aiLevel
+    )
   )
 
   def asEncodedUrlAttr(pref: Option[ChallengePref]): String =
@@ -62,7 +77,7 @@ val challengePref = Form(
     "color"     -> text,
     "ratingMin" -> number,
     "ratingMax" -> number,
-    "aiLevel" -> number,
+    "aiLevel"   -> number
   )(ChallengePref.apply)(ChallengePref.unapply)
 )
 

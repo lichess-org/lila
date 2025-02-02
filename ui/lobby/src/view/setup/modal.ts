@@ -20,7 +20,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
     class: 'game-setup',
     css: [{ hashed: 'lobby.setup' }],
     onClose: () => {
-      if (ctrl.setupCtrl.isEditingPreference) window.location.replace('/challenge/preference') 
+      if (ctrl.setupCtrl.isEditingPreference) window.location.replace('/challenge/preference');
       setupCtrl.closeModal = undefined;
       setupCtrl.gameType = null;
       setupCtrl.root.redraw();

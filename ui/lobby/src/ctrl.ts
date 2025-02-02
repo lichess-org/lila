@@ -115,7 +115,7 @@ export default class LobbyController {
           this.setupCtrl.openModalWithchallengePrefOptions(
             locationHash as Exclude<GameType, 'local'>,
             challengePrefOptions,
-            friendUser
+            friendUser,
           );
         else this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
