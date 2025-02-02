@@ -63,6 +63,8 @@ export async function sass(): Promise<void> {
       if (!isEquivalent(oldMixes, Object.fromEntries(colorMixMap))) {
         await buildColorMixes();
         await buildColorWrap();
+        remaining.add('ui/common/css/build/common.theme.all.scss');
+        remaining.add('ui/common/css/build/common.theme.embed.scss');
       }
 
       remaining = new Set(await compile([...remaining], remaining.size < concreteAll.size));
@@ -72,7 +74,6 @@ export async function sass(): Promise<void> {
           css: Object.fromEntries(
             await Promise.all((await glob(p.join(env.cssTempDir, '*.css'))).map(hashMoveCss)),
           ),
-          merge: true,
         });
     },
   });

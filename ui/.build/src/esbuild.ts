@@ -99,7 +99,7 @@ function inlineTask() {
             throw '';
           }
         }),
-      ).then(() => updateManifest({ js, merge: true })),
+      ).then(() => updateManifest({ js })),
   });
 }
 
@@ -121,7 +121,7 @@ function bundleManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
     }
     js[out.name].imports = imports;
   }
-  updateManifest({ js, merge: true });
+  updateManifest({ js });
 }
 
 function esbuildLog(msgs: es.Message[], error = false): void {
@@ -171,7 +171,7 @@ const plugins = [
         esbuildLog(result.errors, true);
         esbuildLog(result.warnings);
         env.begin('esbuild');
-        env.done('esbuild', result.errors.length);
+        env.done('esbuild', result.errors.length > 0 ? -3 : 0);
         if (result.errors.length === 0) bundleManifest(result.metafile!);
       });
     },

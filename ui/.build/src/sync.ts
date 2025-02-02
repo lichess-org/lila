@@ -34,6 +34,7 @@ export async function sync(): Promise<any> {
 }
 
 async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
+  // TODO are these stats unnecessary now?
   const [src, dest] = (
     await Promise.allSettled([
       fs.promises.stat(absSrc),

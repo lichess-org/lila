@@ -5,13 +5,13 @@ import crypto from 'node:crypto';
 import { env, c } from './env.ts';
 import { jsLogger } from './console.ts';
 import { taskOk } from './task.ts';
-import { shallowSort, isEquivalent, isContained } from './algo.ts';
+import { shallowSort, isContained } from './algo.ts';
 
-const manifest: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
-  i18n: {},
-  js: {},
-  css: {},
-  hashed: {},
+const manifest = {
+  i18n: {} as Manifest,
+  js: {} as Manifest,
+  css: {} as Manifest,
+  hashed: {} as Manifest,
   dirty: false,
 };
 let writeTimer: NodeJS.Timeout;
@@ -19,35 +19,32 @@ let writeTimer: NodeJS.Timeout;
 type SplitAsset = { hash?: string; path?: string; imports?: string[]; inline?: string };
 
 export type Manifest = { [key: string]: SplitAsset };
-export type ManifestUpdate = Partial<typeof manifest> & { merge?: boolean };
+export type ManifestUpdate = Partial<Omit<typeof manifest, 'dirty'>>;
 
 export function stopManifest(clear = false): void {
   clearTimeout(writeTimer);
   if (clear) {
-    manifest.i18n = manifest.js = manifest.css = manifest.hashed = {};
+    manifest.i18n = {};
+    manifest.js = {};
+    manifest.css = {};
+    manifest.hashed = {};
     manifest.dirty = false;
   }
 }
 
 export function updateManifest(update: ManifestUpdate = {}): void {
-  if (update.dirty) manifest.dirty = true;
-
-  for (const key of Object.keys(update) as (keyof ManifestUpdate)[]) {
-    if (key === 'dirty' || key === 'merge') continue;
-    else if (update.merge && !isContained(manifest[key], update[key]))
-      for (const [k, v] of Object.entries(structuredClone(update[key]!))) {
-        manifest[key][k] = shallowSort({ ...manifest[key][k], ...v });
-      }
-    else if (!update.merge && !isEquivalent(manifest[key], update[key]))
-      manifest[key] = structuredClone(update[key])!;
-    else continue;
-
-    manifest[key] = shallowSort(manifest[key]);
+  for (const [key, partial] of Object.entries(update) as [keyof ManifestUpdate, Manifest][]) {
+    const full = manifest[key];
+    if (isContained(full, partial)) continue;
+    for (const [name, entry] of Object.entries(partial)) {
+      full[name] = shallowSort({ ...full[name], ...entry });
+    }
+    manifest[key] = shallowSort(full);
     manifest.dirty = true;
   }
   if (manifest.dirty) {
     clearTimeout(writeTimer);
-    writeTimer = setTimeout(writeManifest, 500);
+    writeTimer = setTimeout(writeManifest, env.watch && !env.startTime ? 750 : 0);
   }
 }
 
@@ -56,8 +53,8 @@ async function writeManifest() {
   const commitMessage = cps
     .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
     .trim()
-    .replace(/'/g, '&#39;')
-    .replace(/"/g, '&quot;');
+    .replaceAll("'", '&#39;')
+    .replaceAll('"', '&quot;');
 
   const clientJs: string[] = [
     'if (!window.site) window.site={};',
@@ -101,9 +98,8 @@ async function writeManifest() {
   ]);
   manifest.dirty = false;
   const serverHash = crypto.createHash('sha256').update(serverManifest).digest('hex').slice(0, 8);
-  env.log(`Client '${c.cyan(`public/compiled/manifest.${hash}.js`)}'`, 'manifest');
   env.log(
-    `Server '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' hash ${c.grey(serverHash)}`,
+    `'${c.cyan(`public/compiled/manifest.${hash}.js`)}', '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}' ${c.grey(serverHash)}`,
     'manifest',
   );
 }

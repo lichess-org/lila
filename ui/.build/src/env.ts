@@ -1,5 +1,7 @@
 import p from 'node:path';
 import type { Package } from './parse.ts';
+import fs from 'node:fs';
+import ps from 'node:process';
 import { unique, isEquivalent, trimLines } from './algo.ts';
 import { updateManifest } from './manifest.ts';
 import { taskOk } from './task.ts';
@@ -16,9 +18,10 @@ export const env = new (class {
   readonly themeDir = p.join(this.uiDir, 'common', 'css', 'theme');
   readonly themeGenDir = p.join(this.themeDir, 'gen');
   readonly buildDir = p.join(this.uiDir, '.build');
-  readonly cssTempDir = p.join(this.buildDir, 'build', 'css');
-  readonly buildSrcDir = p.join(this.uiDir, '.build', 'src');
+  readonly lockFile = p.join(this.buildDir, 'instance.lock');
   readonly buildTempDir = p.join(this.buildDir, 'build');
+  readonly cssTempDir = p.join(this.buildTempDir, 'css');
+  readonly buildSrcDir = p.join(this.buildDir, 'src');
   readonly typesDir = p.join(this.uiDir, '@types');
   readonly i18nSrcDir = p.join(this.rootDir, 'translation', 'source');
   readonly i18nDestDir = p.join(this.rootDir, 'translation', 'dest');
@@ -35,7 +38,7 @@ export const env = new (class {
   logCtx = true;
   logColor = true;
   remoteLog: string | boolean = false;
-  startTime: number | undefined = Date.now();
+  startTime: number | undefined;
 
   packages: Map<string, Package> = new Map();
   workspaceDeps: Map<string, string[]> = new Map();
@@ -109,10 +112,31 @@ export const env = new (class {
     this.status[ctx] = code;
     if (this.manifest && taskOk()) {
       if (this.startTime) this.log(`Done in ${c.green((Date.now() - this.startTime) / 1000 + '')}s`);
-      this.startTime = undefined;
       updateManifest();
+      this.startTime = undefined;
     }
     if (!this.watch && code) process.exit(code);
+  }
+
+  instanceLock(checkStale = true): boolean {
+    try {
+      const fd = fs.openSync(env.lockFile, 'wx');
+      fs.writeFileSync(fd, String(ps.pid), { flag: 'w' });
+      fs.closeSync(fd);
+      ps.on('exit', () => fs.unlinkSync(env.lockFile));
+    } catch {
+      const pid = parseInt(fs.readFileSync(env.lockFile, 'utf8'), 10);
+      if (!isNaN(pid) && pid > 0 && ps.platform !== 'win32') {
+        try {
+          ps.kill(pid, 0);
+          return false;
+        } catch {
+          fs.unlinkSync(env.lockFile); // it's a craplet
+          if (checkStale) return this.instanceLock(false);
+        }
+      }
+    }
+    return true;
   }
 })();
 

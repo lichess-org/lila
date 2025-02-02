@@ -1,12 +1,11 @@
 import ps from 'node:process';
-import fs from 'node:fs';
-import { flockSync, constants } from 'fs-ext';
 import { deepClean } from './clean.ts';
 import { build } from './build.ts';
 import { startConsole } from './console.ts';
 import { env, errorMark } from './env.ts';
 
 // main entry point
+['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(sig => ps.on(sig, () => ps.exit(2)));
 
 const args: Record<string, string> = {
   '--tsc': '',
@@ -49,20 +48,20 @@ Options:
   --no-corepack       don't use corepack to install pnpm (protect or restricted system node installs)
 
 Exclusive Options:    (any of these will disable other functions)
-  --clean-exit        clean all build artifacts and exit
   --tsc               run tsc on {package}/tsconfig.json and dependencies
   --sass              run sass on {package}/css/build/*.scss and dependencies
   --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
   --i18n              build @types/lichess/i18n.d.ts and translation/js files
+  --clean-exit        clean all build artifacts and exit
 
 Recommended:
-  ui/build -cdw       # clean, build debug, and watch for changes with clean rebuilds
+  ui/build -w         # clean and watch for changes
 
 Other Examples:
   ./build -np         # no pnpm install, build minified
   ./build --tsc -w    # watch mode but type checking only
-  ./build -dwl=/x     # build debug, watch. patch console methods in emitted js to POST log statements
-                        to \${location.origin}/x. ui/build watch process displays messages received
+  ./build -dwl=/xyz   # build debug, watch. patch console methods in emitted js to POST log statements
+                        to \${location.origin}/xyz. ui/build watch process displays messages received
                         via http(s) on this endpoint as 'web' in build logs
 `;
 
@@ -112,17 +111,13 @@ if (argv.includes('--help') || oneDashArgs.includes('h')) {
   ps.exit(0);
 }
 
-try {
-  const fd = fs.openSync(env.buildDir, 'r');
-  ps.on('exit', () => fs.closeSync(fd));
-  flockSync(fd, constants.LOCK_EX | constants.LOCK_NB);
-} catch {
-  env.exit(`${errorMark} - Another instance is already running`);
-}
+if (!env.instanceLock()) env.exit(`${errorMark} - Another instance is already running`);
 
 if (env.clean) {
   await deepClean();
   if (argv.includes('--clean-exit')) ps.exit(0);
 }
+
 startConsole();
+
 build(argv.filter(x => !x.startsWith('-')));
