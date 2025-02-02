@@ -64,10 +64,9 @@ const imagePowertip = (el: HTMLElement) =>
     });
 
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
-  if (!('ontouchstart' in window)) {
-    f(el);
-    $.powerTip.show(el, ev);
-  }
+  if ('ontouchstart' in window && !el.classList.contains('mobile-powertip')) return;
+  f(el);
+  $.powerTip.show(el, ev);
 }
 
 function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => void) {
