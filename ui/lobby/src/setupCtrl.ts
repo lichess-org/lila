@@ -224,9 +224,9 @@ export default class SetupController {
     );
     this.daysV = this.propWithApply(sliderInitVal(friendOptions?.days || 1, daysVToDays, this.maxDaysV)!);
     this.gameMode = this.propWithApply(friendOptions.gameMode);
-    this.ratingMin = this.propWithApply(0);
-    this.ratingMax = this.propWithApply(0);
-    this.aiLevel = this.propWithApply(0);
+    this.ratingMin = this.propWithApply(1);
+    this.ratingMax = this.propWithApply(-300);
+    this.aiLevel = this.propWithApply(+300);
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
