@@ -28,14 +28,13 @@ export class GameCtrl {
     const game = id ? await this.store.get(id) : undefined;
     this.live = new LocalGame({ game, setup: this.opts.setup ?? {} });
     this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
-    console.log(this.live);
     env.bot.setUids(this.live);
     env.assets.preload();
     pubsub.on('ply', this.jump);
     pubsub.on('flip', env.redraw);
     this.resetClock();
     this.proxy = new RoundProxy();
-    this.triggerStart();
+    this.triggerStart(game && Number.isFinite(game.initial) && this.live.ply > 0);
   }
 
   reset(params?: LocalSetup): void {
@@ -63,6 +62,7 @@ export class GameCtrl {
     if (this.isStopped) return;
     this.stopped = true;
     this.resolveThink?.();
+    env.redraw();
   }
 
   flag(): void {
@@ -97,7 +97,7 @@ export class GameCtrl {
     return this.history === undefined && !this.isStopped;
   }
 
-  get orientationForReal(): Color {
+  get screenOrientation(): Color {
     return env.round?.flip ? co.opposite(this.orientation) : this.orientation;
   }
 
@@ -204,7 +204,7 @@ export class GameCtrl {
 
   private updateClockUi(): void {
     if (!this.clock) return;
-    this.clock.running = this.isLive && this.live.ply > 0;
+    this.clock.running = this.isLive && this.live.ply > 0 && !this.isStopped;
     env.round.clock?.setClock(this.proxy.data, this.clock.white, this.clock.black);
     if (this.isStopped || !this.isLive) env.round.clock?.stopClock();
   }
@@ -232,9 +232,18 @@ export class GameCtrl {
     if (boardSoundVolume) site.sound.move({ ...moveCtx, volume: boardSoundVolume });
   }
 
-  private triggerStart(): void {
+  private triggerStart(inProgress = false): void {
     ['white', 'black'].forEach(c => env.bot.playSound(c as Color, ['greeting']));
-    setTimeout(() => !env.dev && env.bot[this.live.turn] && this.start(), 500);
+    if (env.dev || !env.bot[this.live.turn] || !inProgress) return;
+    document.querySelector<HTMLElement>('#main-wrap')!.classList.add('paused');
+    setTimeout(() => {
+      const onclick = () => {
+        document.querySelector<HTMLElement>('#main-wrap')?.classList.remove('paused');
+        this.start();
+        document.querySelector<HTMLElement>('cg-container')?.removeEventListener('click', onclick);
+      };
+      document.querySelector<HTMLElement>('cg-container')?.addEventListener('click', onclick);
+    }, 200);
   }
 
   private resetClock(): void {
@@ -243,8 +252,8 @@ export class GameCtrl {
       ? {
           initial: initial,
           increment: this.live.increment ?? 0,
-          white: initial,
-          black: initial,
+          white: this.live.clock?.white ?? initial,
+          black: this.live.clock?.black ?? initial,
           emerg: 0,
           showTenths: this.opts.pref.clockTenths,
           showBar: true,

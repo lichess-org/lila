@@ -22,6 +22,25 @@
   }
 }
 
+#main-wrap.paused cg-container::after {
+  content: 'BEGIN';
+  cursor: pointer;
+  z-index: 12;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 4em;
+  background-color: $m-dark--fade-30;
+  color: $c-paper;
+  //text-shadow: 0 0 1em $c-font-clearer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 #bot-content .fancy-bot {
   &:nth-child(odd) {
     background: $c-bg-box;

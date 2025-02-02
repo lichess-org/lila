@@ -26,7 +26,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
 
   env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
-  if (!opts.setup?.go || location.hash === '#new') {
+  if (location.hash === '#new' || (!opts.setup?.go && !localStorage.getItem(`local.${env.user}.gameId`))) {
     showSetupDialog(opts.setup);
     return;
   }

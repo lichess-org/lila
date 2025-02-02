@@ -13,7 +13,6 @@ export interface GameStatus {
 }
 
 export interface GameContext extends GameStatus {
-  //justPlayed: Color;
   uci: Uci;
   san: San;
   move?: co.NormalMove;
@@ -23,7 +22,6 @@ export interface GameContext extends GameStatus {
   threefold: boolean;
   check: boolean;
   fiftyMoves: boolean;
-  winner?: Color;
   silent?: boolean;
 }
 

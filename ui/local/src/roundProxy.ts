@@ -2,7 +2,7 @@ import * as co from 'chessops';
 import { looseH as h, VNode } from 'common/snabbdom';
 import { showSetupDialog } from './setupDialog';
 import { LocalGame } from 'game/localGame';
-import { clockToSpeed, type Player } from 'game';
+import { type Player, type Game, clockToSpeed } from 'game';
 import type { RoundProxy as IRoundProxy, RoundData, RoundOpts, Position } from 'round';
 import { analyse } from './analyse';
 import { env } from './localEnv';
@@ -31,6 +31,7 @@ export class RoundProxy implements IRoundProxy {
         status: { id: 20, name: 'started' },
         player: 'white',
       },
+
       player: player('white'),
       opponent: player('black'),
       pref: { ...env.game.opts.pref, submitMove: 0 },
@@ -82,11 +83,12 @@ export class RoundProxy implements IRoundProxy {
     this.data.game.fen = env.game.initialFen;
     this.data.game.turns = env.game.live.ply;
     this.data.game.status = { id: 20, name: 'started' };
+    this.data.game.speed = this.data.game.perf = clockToSpeed(env.game.initial, env.game.increment);
+    this.data.game.player = (env.game.history ?? env.game.live).turn;
     this.data.steps = env.game.live.roundSteps;
     this.data.possibleMoves = env.game.live.dests;
     this.data.player = player(bottom);
     this.data.opponent = player(top);
-    this.data.game.speed = this.data.game.perf = clockToSpeed(env.game.initial, env.game.increment);
     this.data.clock = env.game.clock;
     if (!env.round) return;
     env.round.chessground?.set({ movable: { dests: env.game.live.cgDests } });

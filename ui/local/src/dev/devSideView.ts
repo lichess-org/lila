@@ -16,10 +16,10 @@ import { env } from '../localEnv';
 
 export function renderDevSide(): VNode {
   return h('div.dev-side.dev-view', [
-    h('div', player(co.opposite(env.game.orientationForReal))),
+    h('div', player(co.opposite(env.game.screenOrientation))),
     dashboard(),
     progress(),
-    h('div', player(env.game.orientationForReal)),
+    h('div', player(env.game.screenOrientation)),
   ]);
 }
 

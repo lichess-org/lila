@@ -97,7 +97,7 @@ export class ClockController {
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0): void => {
-    const isClockRunning = playable(d) && (playedTurns(d) > 1 || d.clock!.running),
+    const isClockRunning = playable(d) && (d.clock?.running ?? playedTurns(d) > 1),
       delayMs = delay * 10;
 
     this.times = {
