@@ -174,5 +174,5 @@ function tscError({ code, text, file, line, col }: ErrorMessage['data']): void {
     tscLog(`${prelude}${location}${message}`);
   }
   spamGuard.set(key, performance.now() + 1000);
-  env.done('tsc', code);
+  env.done('tsc', -2);
 }
