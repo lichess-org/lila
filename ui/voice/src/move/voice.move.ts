@@ -112,7 +112,7 @@ export function initModule({
 
   function initDefaultRec() {
     const excludeTag = root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
-    const words = tagWords().filter(x => byWord.get(x)?.tags?.includes(excludeTag) !== true);
+    const words = tagWords().filter(x => !byWord.get(x)?.tags?.includes(excludeTag));
     voice.mic.initRecognizer(words, { listener: listen });
   }
 

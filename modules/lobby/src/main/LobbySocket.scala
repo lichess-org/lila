@@ -185,7 +185,9 @@ final class LobbySocket(
       }
     case ("idle", o) => actor ! SetIdle(member.sri, ~(o.boolean("d")))
     // entering a pool
-    case ("poolIn", o) if !member.bot =>
+    case ("poolIn", o) if member.bot =>
+      logger.warn(s"Bot ${member.user.so(_.username.value)} can't enter a pool")
+    case ("poolIn", o) =>
       HookPoolLimit(member, cost = 1, msg = s"poolIn $o"):
         for
           user     <- member.user
@@ -243,22 +245,18 @@ final class LobbySocket(
 
   private val handler: SocketHandler =
 
-    case P.In.ConnectSris(cons) =>
-      cons.foreach { case (sri, userId) =>
-        getOrConnect(sri, userId)
-      }
+    case P.In.ConnectSris(cons) => cons.foreach(getOrConnect)
 
     case P.In.DisconnectSris(sris) => actor ! LeaveBatch(sris)
 
     case P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
-      getOrConnect(sri, user).foreach { member =>
+      getOrConnect(sri, user).foreach: member =>
         controller(member).applyOrElse(
           tpe -> msg,
           { case _ =>
             logger.warn(s"Can't handle $tpe")
           }: SocketController
         )
-      }
 
     case In.Counters(m, r) => lastCounters = LobbyCounters(m, r)
 

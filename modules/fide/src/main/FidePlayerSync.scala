@@ -135,6 +135,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
       def rating(start: Int)           = Elo.from(number(start, start + 4).filter(_ >= 1400))
       def kFactor(start: Int)          = KFactor.from(number(start, start + 2).filter(_ > 0))
+      val nowYear                      = nowDateTime.getYear
       for
         id    <- number(0, 15)
         name1 <- string(15, 76)
@@ -142,7 +143,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         if name.sizeIs > 2
         title  = string(84, 89).flatMap(PlayerTitle.get)
         wTitle = string(89, 105).flatMap(PlayerTitle.get)
-        year   = number(152, 156).filter(_ > 1000)
+        year   = number(152, 156).filter(_ > 1000).filter(_ < nowYear)
         flags  = string(158, 160)
         token  = FidePlayer.tokenize(name)
         if token.sizeIs > 2

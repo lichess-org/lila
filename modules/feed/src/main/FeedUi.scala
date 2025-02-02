@@ -54,7 +54,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
         div(cls := "daily-feed__update")(
           marker(update.flair),
           div(
-            a(cls := "daily-feed__update__day", href := s"/feed#${update.id}"):
+            a(cls := "daily-feed__update__day", href := s"${routes.Feed.index(1)}#${update.id}"):
               momentFromNow(update.at)
             ,
             rawHtml(update.rendered)
@@ -63,7 +63,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       div(cls := "daily-feed__update")(
         marker(),
         div:
-          a(cls := "daily-feed__update__day", href := "/feed"):
+          a(cls := "daily-feed__update__day", href := routes.Feed.index(1)):
             "All updates »"
       )
     )
@@ -110,13 +110,16 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       title = "Lichess updates feed",
       updated = ups.headOption.map(_.at)
     ): up =>
+      val url = s"$netBaseUrl${routes.Feed.index(1)}#${up.id}"
       frag(
-        tag("id")(up.id),
+        tag("id")(url),
+        tag("author")(tag("name")("Lichess")),
         tag("published")(atomUi.atomDate(up.at)),
+        tag("updated")(atomUi.atomDate(up.at)),
         link(
           rel  := "alternate",
           tpe  := "text/html",
-          href := s"$netBaseUrl${routes.Feed.index(1)}#${up.id}"
+          href := url
         ),
         tag("title")(up.title),
         tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered))
