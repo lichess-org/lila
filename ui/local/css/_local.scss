@@ -23,7 +23,7 @@
 }
 
 #main-wrap.paused cg-container::after {
-  content: 'BEGIN';
+  content: 'PAUSED';
   cursor: pointer;
   z-index: 12;
   position: absolute;
@@ -31,10 +31,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  font-size: 4em;
-  background-color: $m-dark--fade-30;
+  font-size: 6em;
+  font-weight: 800;
+  background-color: $m-dark--fade-40;
   color: $c-paper;
-  //text-shadow: 0 0 1em $c-font-clearer;
   display: flex;
   align-items: center;
   justify-content: center;

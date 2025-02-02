@@ -237,6 +237,7 @@ export class GameCtrl {
     if (env.dev || !env.bot[this.live.turn] || !inProgress) return;
     document.querySelector<HTMLElement>('#main-wrap')!.classList.add('paused');
     setTimeout(() => {
+      // TODO fix
       const onclick = () => {
         document.querySelector<HTMLElement>('#main-wrap')?.classList.remove('paused');
         this.start();

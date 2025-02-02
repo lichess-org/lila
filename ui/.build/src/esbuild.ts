@@ -99,7 +99,7 @@ function inlineTask() {
             throw '';
           }
         }),
-      ).then(() => updateManifest({ js, merge: true })),
+      ).then(() => updateManifest({ js })),
   });
 }
 
@@ -121,7 +121,7 @@ function bundleManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
     }
     js[out.name].imports = imports;
   }
-  updateManifest({ js, merge: true });
+  updateManifest({ js });
 }
 
 function esbuildLog(msgs: es.Message[], error = false): void {

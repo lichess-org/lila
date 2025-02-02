@@ -16,9 +16,9 @@ const allGlobs = [
   'ui/*/dist',
   'ui/*/tsconfig.tsbuildinfo',
   'public/compiled',
+  'public/npm',
   'public/css',
   'public/hashed',
-  'public/npm',
 ];
 
 export async function clean(globs?: string[]): Promise<void> {

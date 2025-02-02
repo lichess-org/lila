@@ -15,7 +15,7 @@ import { unique } from './algo.ts';
 import { clean } from './clean.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
-  env.startTime ??= Date.now();
+  env.startTime = Date.now();
 
   chdir(env.rootDir);
 
