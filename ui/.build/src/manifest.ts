@@ -24,7 +24,10 @@ export type ManifestUpdate = Partial<Omit<typeof manifest, 'dirty'>>;
 export function stopManifest(clear = false): void {
   clearTimeout(writeTimer);
   if (clear) {
-    manifest.i18n = manifest.js = manifest.css = manifest.hashed = {};
+    manifest.i18n = {};
+    manifest.js = {};
+    manifest.css = {};
+    manifest.hashed = {};
     manifest.dirty = false;
   }
 }
