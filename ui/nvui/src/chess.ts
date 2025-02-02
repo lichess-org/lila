@@ -42,18 +42,6 @@ const anna: { [file in Files]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-const skipToFile: { [letter: string]: Files } = {
-  '!': 'a',
-  '@': 'b',
-  '#': 'c',
-  $: 'd',
-  '%': 'e',
-  '^': 'f',
-  '&': 'g',
-  '*': 'h',
-};
-
-const symbolToFile = (char: string): Files => skipToFile[char] ?? '';
 
 export const supportedVariant = (key: VariantKey): boolean => key !== 'crazyhouse';
 
@@ -299,19 +287,11 @@ export function castlingFlavours(input: string): string {
 /* Listen to interactions on the chessboard */
 export function positionJumpHandler() {
   return (ev: KeyboardEvent): void => {
-    const $btn = $(ev.target as HTMLElement);
-    const key = keyFromAttrs($btn);
-    if (!key) return;
-    let newRank: string;
-    let newFile: string;
-    if (ev.key.match(/^[1-8]$/)) {
-      newRank = ev.key;
-      newFile = key[0];
-    } else if (ev.key.match(/^[!@#$%^&*]$/)) {
-      newRank = key[1];
-      newFile = symbolToFile(ev.key);
-      // if not a valid key for jumping
-    } else return;
+    const key = keyFromAttrs(ev.target as HTMLElement);
+    const digitMatch = ev.code.match(/^Digit([1-8])$/);
+    if (!digitMatch || !key) return;
+    const newRank = ev.shiftKey ? key[1] : digitMatch[1];
+    const newFile = ev.shiftKey ? files[Number(digitMatch[1]) - 1] : key[0];
     document.querySelector<HTMLElement>(squareSelector(newRank, newFile))?.focus();
   };
 }
@@ -360,7 +340,7 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
 export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   return (ev: KeyboardEvent): void => {
     const isWhite = pov === 'white';
-    const key = keyFromAttrs($(ev.target as HTMLElement));
+    const key = keyFromAttrs(ev.target as HTMLElement);
     if (!key) return;
     let file = key[0];
     let rank = Number(key[1]);
@@ -426,7 +406,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
 
 export function boardCommandsHandler() {
   return (ev: KeyboardEvent): void => {
-    const key = keyFromAttrs($(ev.target as HTMLElement));
+    const key = keyFromAttrs(ev.target as HTMLElement);
     const $boardLive = $('.boardstatus');
     if (ev.key === 'o' && key) $boardLive.text(key);
     else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
@@ -458,7 +438,7 @@ export function possibleMovesHandler(
     const $boardLive = $('.boardstatus');
     const pieces: Pieces = piecesFunc();
 
-    const pos = keyFromAttrs($(ev.target as HTMLElement));
+    const pos = keyFromAttrs(ev.target as HTMLElement);
     if (!pos) return;
 
     let rawMoves: Dests | undefined;
@@ -552,7 +532,7 @@ const squareSelector = (rank: string, file: string) =>
 
 const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
 
-const keyFromAttrs = (cash: Cash): Key | undefined => {
-  const maybeKey = `${cash.attr('file') ?? ''}${cash.attr('rank') ?? ''}`;
+const keyFromAttrs = (el: HTMLElement): Key | undefined => {
+  const maybeKey = `${el.getAttribute('file') ?? ''}${el.getAttribute('rank') ?? ''}`;
   return isKey(maybeKey) ? maybeKey : undefined;
 };

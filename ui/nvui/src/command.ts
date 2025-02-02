@@ -1,4 +1,4 @@
-import { type VNode, h } from 'snabbdom';
+import { type VNode, type VNodeChildren, h } from 'snabbdom';
 import { renderPieceKeys, renderPiecesOn, type MoveStyle } from './chess';
 import type { Pieces } from 'chessground/types';
 
@@ -24,28 +24,24 @@ function tryC<A>(c: string, regex: RegExp, f: (arg: string) => A | undefined): A
 
 export const boardCommands = (): VNode[] => [
   h('h2', 'Board mode commands'),
-  h('p', [
-    'Use these commands when focused on the board itself.',
-    h('br'),
-    'o: announce current position.',
-    h('br'),
-    "c: announce last move's captured piece.",
-    h('br'),
-    'l: announce last move.',
-    h('br'),
-    `t: ${i18n.keyboardMove.readOutClocks}`,
-    h('br'),
-    'm: announce possible moves for the selected piece.',
-    h('br'),
-    'shift+m: announce possible moves for the selected pieces which capture..',
-    h('br'),
-    'arrow keys: move left, right, up or down.',
-    h('br'),
-    'kqrbnp/KQRBNP: move forward/backward to a piece.',
-    h('br'),
-    '1-8: move to rank 1-8.',
-    h('br'),
-    'Shift+1-8: move to file a-h.',
-    h('br'),
-  ]),
+  h(
+    'p',
+    [
+      'Use these commands when focused on the board itself.',
+      'o: announce current position.',
+      "c: announce last move's captured piece.",
+      'l: announce last move.',
+      `t: ${i18n.keyboardMove.readOutClocks}`,
+      'm: announce possible moves for the selected piece.',
+      'shift+m: announce possible moves for the selected pieces which capture..',
+      'arrow keys: move left, right, up or down.',
+      'kqrbnp/KQRBNP: move forward/backward to a piece.',
+      '1-8: move to rank 1-8.',
+      'Shift+1-8: move to file a-h.',
+      `Shift+a/d: ${i18n.site.keyMoveBackwardOrForward}`,
+      `Alt+Shift+a/d: ${i18n.site.cyclePreviousOrNextVariation}`,
+    ].reduce(addBreaks, []),
+  ),
 ];
+
+export const addBreaks = (acc: VNodeChildren[], str: string): VNodeChildren[] => acc.concat([h('br'), str]);

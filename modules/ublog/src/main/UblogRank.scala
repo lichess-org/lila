@@ -122,7 +122,7 @@ final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materialize
             yield (id, likes, liveAt, tier, language, title, hasImage, adjust)
           .flatMap:
             case None => fuccess(UblogPost.Likes(0))
-            case Some((id, likes, liveAt, tier, language, title, hasImage, adjust)) =>
+            case Some(id, likes, liveAt, tier, language, title, hasImage, adjust) =>
               // Multiple updates may race to set denormalized likes and rank,
               // but values should be approximately correct, match a real like
               // count (though perhaps not the latest one), and any uncontended

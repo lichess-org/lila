@@ -384,7 +384,7 @@ final class Mod(
 
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> _ ?=>
     Found(env.user.repo.byId(username)): user =>
-      for _ <- env.api.accountTermination.scheduleErase(user)
+      for _ <- env.api.accountTermination.scheduleDelete(user)
       yield Redirect(routes.User.show(username)).flashSuccess("Erasure scheduled")
   }
 

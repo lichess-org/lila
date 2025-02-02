@@ -4,7 +4,7 @@
   <string name="closeAccount">Benutzerkonto schließen</string>
   <string name="managedAccountCannotBeClosed">Dein Konto wird verwaltet und kann nicht geschlossen werden.</string>
   <string name="cantOpenSimilarAccount">Du darfst kein neues Benutzerkonto mit dem gleichen Namen eröffnen, selbst wenn die Groß-/Kleinschreibung unterschiedlich ist.</string>
-  <string name="cancelKeepAccount">Abbrechen und mein Konto behalten</string>
-  <string name="closeAccountAreYouSure">Bist Du sicher, dass Du Dein Benutzerkonto schließen möchtest?</string>
+  <string name="cancelKeepAccount">Abbrechen und meinen Account behalten</string>
+  <string name="closeAccountAreYouSure">Bist du sicher, dass du deinen Account schließen möchtest?</string>
   <string name="thisAccountIsClosed">Dieses Benutzerkonto ist geschlossen.</string>
 </resources>

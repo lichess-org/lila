@@ -94,8 +94,8 @@ final class ForumPostApi(
 
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId).flatMap:
-      case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
-      case Some((topic, post)) =>
+      case Some(_, post) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
+      case Some(topic, post) =>
         postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number).dmap { nb =>
           val page = nb / config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.number).some

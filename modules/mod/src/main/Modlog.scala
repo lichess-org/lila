@@ -103,7 +103,7 @@ object Modlog:
       details = details
     )
 
-  def isWarning(e: Modlog) = e.action == Modlog.modMessage && e.details.exists(_.startsWith("Warning"))
+  def isWarning(e: Modlog) = e.action == Modlog.modMessage && e.details.exists(_.contains("Warning:"))
 
   val isSentence: Set[String] = Set(
     "alt",
@@ -127,6 +127,19 @@ object Modlog:
     "cheatDetected",
     "garbageCollect",
     "teamKick"
+  )
+
+  val isAccountSentence: Set[String] = Set(
+    "alt",
+    "engine",
+    "booster",
+    "troll",
+    "isolate",
+    "closeAccount",
+    "reportban",
+    "rankban",
+    "arenaBan",
+    "prizeban"
   )
 
   val isUndo: Set[String] =

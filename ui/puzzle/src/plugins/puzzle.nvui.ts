@@ -25,8 +25,8 @@ import {
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands, boardCommands } from 'nvui/command';
-import { next as controlNext } from '../control';
+import { commands, boardCommands, addBreaks } from 'nvui/command';
+import { next as controlNext, prev } from '../control';
 import { bind, onInsert } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import type PuzzleCtrl from '../ctrl';
@@ -120,6 +120,7 @@ export function initModule() {
             {
               hook: onInsert(el => {
                 const $board = $(el);
+                $board.on('keydown', jumpOrCommand(ctrl));
                 const $buttons = $board.find('button');
                 const steps = ctrl.tree.getNodeList(ctrl.path);
                 const fenSteps = () => steps.map(step => step.fen);
@@ -129,13 +130,12 @@ export function initModule() {
                   selectionHandler(() => opponentColor, selectSound),
                 );
                 $board.on('keydown', arrowKeyHandler(ctrl.pov, borderSound));
-                $board.on('keypress', boardCommandsHandler());
                 $buttons.on(
-                  'keypress',
+                  'keydown',
                   lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                 );
                 $buttons.on(
-                  'keypress',
+                  'keydown',
                   possibleMovesHandler(
                     ctrl.pov,
                     () => ground.state.turnColor,
@@ -146,8 +146,8 @@ export function initModule() {
                     () => steps,
                   ),
                 );
-                $buttons.on('keypress', positionJumpHandler());
-                $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
+                $buttons.on('keydown', positionJumpHandler());
+                $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
               }),
             },
             renderBoard(
@@ -177,18 +177,16 @@ export function initModule() {
             `Up and down arrow keys, or 0 and $, or home and end: ${i18n.site.keyGoToStartOrEnd}`,
           ]),
           h('h2', 'Commands'),
-          h('p', [
-            'Type these commands in the move input.',
-            h('br'),
-            `v: ${i18n.site.viewTheSolution}`,
-            h('br'),
-            'l: Read last move.',
-            h('br'),
-            commands.piece.help,
-            h('br'),
-            commands.scan.help,
-            h('br'),
-          ]),
+          h(
+            'p',
+            [
+              'Type these commands in the move input.',
+              `v: ${i18n.site.viewTheSolution}`,
+              'l: Read last move.',
+              commands.piece.help,
+              commands.scan.help,
+            ].reduce(addBreaks, []),
+          ),
           ...boardCommands(),
           h('h2', 'Promotion'),
           h('p', [
@@ -331,3 +329,17 @@ const button = (text: string, action: (e: Event) => void, title?: string, disabl
     { hook: bind('click', action), attrs: { ...(title ? { title } : {}), disabled: !!disabled } },
     text,
   );
+
+function jumpOrCommand(ctrl: PuzzleCtrl) {
+  return (e: KeyboardEvent) => {
+    if (e.shiftKey) {
+      if (e.key === 'A') doAndRedraw(ctrl, prev);
+      else if (e.key === 'D') doAndRedraw(ctrl, controlNext);
+    } else boardCommandsHandler()(e);
+  };
+}
+
+const doAndRedraw = (ctrl: PuzzleCtrl, fn: (ctrl: PuzzleCtrl) => void): void => {
+  fn(ctrl);
+  ctrl.redraw();
+};

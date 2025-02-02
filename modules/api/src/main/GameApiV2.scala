@@ -127,7 +127,7 @@ final class GameApiV2(
               gameSearch
                 .idStream(
                   config.toGameQuery,
-                  Size(config.max.fold(5_000)(_.value)),
+                  Size(config.max.fold(500_000)(_.value)),
                   config.perSecond.into(MaxPerPage)
                 )
                 .mapAsync(1)(gameRepo.gamesFromSecondary)

@@ -72,7 +72,9 @@ export const bind = (ctrl: AnalyseCtrl) => {
       if (ctrl.keyboardHelp) pubsub.emit('analysis.closeAll');
       ctrl.redraw();
     })
-    .bind('l', ctrl.toggleCeval)
+    .bind('l', () => {
+      if (ctrl.ceval.analysable) ctrl.toggleCeval();
+    })
     .bind('z', () => {
       ctrl.toggleComputer();
       ctrl.redraw();
@@ -110,8 +112,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
   //First explorer move
   kbd.bind('shift+space', () => {
     const move = document
-      .querySelector('.explorer-box:not(.loading) .moves tbody tr')
-      ?.attributes.getNamedItem('data-uci')?.value;
+      .querySelector('.explorer-box:not(.loading) tbody tr[data-uci]')
+      ?.getAttribute('data-uci');
     if (move) ctrl.explorerMove(move);
   });
 

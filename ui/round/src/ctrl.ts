@@ -777,7 +777,7 @@ export default class RoundController implements MoveRootCtrl {
 
   rematch(accept?: boolean): boolean {
     if (accept === undefined)
-      return this.data.opponent.offeringRematch === true || this.data.player.offeringRematch === true;
+      return !!this.data.opponent.offeringRematch || !!this.data.player.offeringRematch;
     else if (accept) {
       if (this.data.game.rematch) location.href = gameRoute(this.data.game.rematch, this.data.opponent.color);
       if (!game.rematchable(this.data)) return false;

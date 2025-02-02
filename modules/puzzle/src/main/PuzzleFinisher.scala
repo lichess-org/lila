@@ -38,7 +38,7 @@ final private[puzzle] class PuzzleFinisher(
       .foldM((perf, List.empty[(PuzzleRound, IntRatingDiff)])):
         case ((perf, rounds), sol) =>
           apply(sol.id, angle, sol.win, sol.mode)(using me, perf).map:
-            case Some((round, newPerf)) =>
+            case Some(round, newPerf) =>
               val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
               (newPerf, (round, rDiff) :: rounds)
             case None => (perf, rounds)

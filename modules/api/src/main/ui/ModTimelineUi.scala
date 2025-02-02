@@ -58,7 +58,7 @@ final class ModTimelineUi(helpers: Helpers)(
       )
     )(
       a(cls := "mod-timeline__event__flair", href := e.url(t.user)):
-        img(src := flairSrc(e.flair), title := s"${e.key} ${showInstant(e.at)}")
+        img(src := flairSrc(e.flair), title := e.key, datetimeAttr := isoDateTime(e.at))
       ,
       div(cls := "mod-timeline__event__body")(renderEventBody(t)(e))
     )
@@ -139,14 +139,15 @@ final class ModTimelineUi(helpers: Helpers)(
       author,
       span(
         cls := List(
-          "mod-timeline__event__action"               -> true,
-          s"mod-timeline__event__action--${e.action}" -> true,
-          "mod-timeline__event__action--warning"      -> Modlog.isWarning(e),
-          "mod-timeline__event__action--sentence"     -> Modlog.isSentence(e.action),
-          "mod-timeline__event__action--undo"         -> Modlog.isUndo(e.action)
+          "mod-timeline__event__action"                   -> true,
+          s"mod-timeline__event__action--${e.action}"     -> true,
+          "mod-timeline__event__action--warning"          -> Modlog.isWarning(e),
+          "mod-timeline__event__action--sentence"         -> Modlog.isSentence(e.action),
+          "mod-timeline__event__action--account-sentence" -> Modlog.isAccountSentence(e.action),
+          "mod-timeline__event__action--undo"             -> Modlog.isUndo(e.action)
         )
       ):
-        if Modlog.isWarning(e) then "sends warning"
+        if Modlog.isWarning(e) then strong("sends warning")
         else e.showAction
       ,
       div(cls := "mod-timeline__text"):

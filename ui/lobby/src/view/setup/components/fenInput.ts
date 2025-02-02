@@ -13,7 +13,7 @@ export const fenInput = (ctrl: LobbyController) => {
         attrs: { placeholder: i18n.site.pasteTheFenStringHere, value: fen },
         on: {
           input: (e: InputEvent) => {
-            setupCtrl.fen((e.target as HTMLInputElement).value.trim());
+            setupCtrl.fen((e.target as HTMLInputElement).value.replace(/_/g, ' ').trim());
             setupCtrl.validateFen();
           },
         },
@@ -24,13 +24,13 @@ export const fenInput = (ctrl: LobbyController) => {
         attrs: {
           'data-icon': licon.Pencil,
           title: i18n.site.boardEditor,
-          href: '/editor' + (fen && !setupCtrl.fenError ? `/${fen.replace(' ', '_')}` : ''),
+          href: '/editor' + (fen && !setupCtrl.fenError ? `/${fen.replace(/ /g, '_')}` : ''),
         },
       }),
     ]),
     h(
       'a.fen__board',
-      { attrs: { href: `/editor/${setupCtrl.lastValidFen.replace(' ', '_')}` } },
+      { attrs: { href: `/editor/${setupCtrl.lastValidFen.replace(/ /g, '_')}` } },
       !setupCtrl.lastValidFen || !setupCtrl.validFen()
         ? null
         : h(

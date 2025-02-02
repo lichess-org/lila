@@ -7,6 +7,7 @@ import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBo
 import { spinnerHtml } from 'common/spinner';
 import { confirm } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
+import { commonDateFormat, toDate } from 'common/i18n';
 
 site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
@@ -215,4 +216,14 @@ site.load.then(() => {
 
   const $other = $('#communication,main.appeal');
   if ($other.length) userMod($other);
+
+  const timelineFlairDateToLocal = (el?: HTMLElement | undefined) =>
+    $(el || document.body)
+      .find('.mod-timeline__event__flair img[datetime]')
+      .each(function (this: HTMLImageElement) {
+        this.title += ' ' + commonDateFormat(toDate(this.getAttribute('datetime')!));
+        this.removeAttribute('datetime');
+      });
+  timelineFlairDateToLocal();
+  pubsub.on('content-loaded', timelineFlairDateToLocal);
 });

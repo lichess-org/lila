@@ -28,7 +28,7 @@ import {
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands, boardCommands } from 'nvui/command';
+import { commands, boardCommands, addBreaks } from 'nvui/command';
 import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
@@ -46,6 +46,7 @@ import { pubsub } from 'common/pubsub';
 import { renderResult } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';
+import renderClocks from '../view/clocks';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -78,15 +79,16 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
         drawable: { enabled: false },
         coordinates: false,
       });
+      const clocks = renderClocks(ctrl, ctrl.path);
       return h('main.analyse', [
         h('div.nvui', [
           studyDetails(ctrl),
           h('h1', 'Textual representation'),
           h('h2', 'Game info'),
           ...['white', 'black'].map((color: Color) =>
-            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
+            h('p', [`${i18n.site[color]}: `, renderPlayer(ctrl, playerByColor(d, color))]),
           ),
-          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf || d.game.variant.name}`),
+          h('p', `${i18n.site[d.game.rated ? 'rated' : 'casual']} ${d.game.perf || d.game.variant.name}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
           h('h2', 'Moves'),
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
@@ -113,6 +115,11 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             // make sure consecutive positions are different so that they get re-read
             renderCurrentNode(ctrl, style) + (ctrl.node.ply % 2 === 0 ? '' : ' '),
           ),
+          clocks &&
+            h('div.clocks', [
+              h('h2', `${i18n.site.clock}`),
+              h('div.clocks', [h('div.topc', clocks[0]), h('div.botc', clocks[1])]),
+            ]),
           h('h2', 'Move form'),
           h(
             'form',
@@ -147,7 +154,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
               hook: {
                 insert: el => {
                   const $board = $(el.elm as HTMLElement);
-                  $board.on('keypress', boardCommandsHandler());
+                  $board.on('keydown', jumpOrCommand(ctrl));
                   const $buttons = $board.find('button');
                   const steps = () => ctrl.tree.getNodeList(ctrl.path);
                   const fenSteps = () => steps().map(step => step.fen);
@@ -155,11 +162,11 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                   $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                   $buttons.on(
-                    'keypress',
+                    'keydown',
                     lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                   );
-                  $buttons.on('keypress', positionJumpHandler());
-                  $buttons.on('keypress', pieceJumpingHandler(selectSound, errorSound));
+                  $buttons.on('keydown', positionJumpHandler());
+                  $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
                 },
               },
             },
@@ -199,42 +206,34 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
           h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
           h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
           h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
-          h('h2', 'Keyboard shortcuts'),
-          h('p', [
-            'Use arrow keys to navigate in the game.',
-            h('br'),
-            `l: ${i18n.site.toggleLocalAnalysis}`,
-            h('br'),
-            `z: ${i18n.site.toggleAllAnalysis}`,
-            h('br'),
-            `space: ${i18n.site.playComputerMove}`,
-            h('br'),
-            'c: announce computer evaluation',
-            h('br'),
-            `x: ${i18n.site.showThreat}`,
-            h('br'),
-          ]),
+          h('h2', i18n.site.keyboardShortcuts),
+          h(
+            'p',
+            [
+              'Use arrow keys to navigate in the game.',
+              `l: ${i18n.site.toggleLocalAnalysis}`,
+              `z: ${i18n.site.toggleAllAnalysis}`,
+              `space: ${i18n.site.playComputerMove}`,
+              'c: announce computer evaluation',
+              `x: ${i18n.site.showThreat}`,
+            ].reduce(addBreaks, []),
+          ),
           ...boardCommands(),
           h('h2', 'Commands'),
-          h('p', [
-            'Type these commands in the command input.',
-            h('br'),
-            commands.piece.help,
-            h('br'),
-            commands.scan.help,
-            h('br'),
-            "eval: announce last move's computer evaluation",
-            h('br'),
-            'best: announce the top engine move',
-            h('br'),
-            'prev: return to the previous move',
-            h('br'),
-            'next: go to the next move',
-            h('br'),
-            'prev line: switch to the previous variation',
-            h('br'),
-            'next line: switch to the next variation',
-          ]),
+          h(
+            'p',
+            [
+              'Type these commands in the command input.',
+              commands.piece.help,
+              commands.scan.help,
+              "eval: announce last move's computer evaluation",
+              'best: announce the top engine move',
+              'prev: return to the previous move',
+              'next: go to the next move',
+              'prev line: switch to the previous variation',
+              'next line: switch to the next variation',
+            ].reduce(addBreaks, []),
+          ),
         ]),
       ]);
     },
@@ -332,14 +331,10 @@ const isShortCommand = (input: string) =>
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
-  const doAndRedraw = (fn: (ctrl: AnalyseController) => void): void => {
-    fn(ctrl);
-    ctrl.redraw();
-  };
-  if (lowered === 'next') doAndRedraw(next);
-  else if (lowered === 'prev') doAndRedraw(prev);
-  else if (lowered === 'next line') doAndRedraw(jumpNextLine);
-  else if (lowered === 'prev line') doAndRedraw(jumpPrevLine);
+  if (lowered === 'next') doAndRedraw(ctrl, next);
+  else if (lowered === 'prev') doAndRedraw(ctrl, prev);
+  else if (lowered === 'next line') doAndRedraw(ctrl, jumpPrevLine);
+  else if (lowered === 'prev line') doAndRedraw(ctrl, jumpNextLine);
   else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
   else if (lowered === 'best') notify(renderBestMove(ctrl, style));
   else {
@@ -449,6 +444,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     rating = player.rating ? player.rating : perf && perf.rating,
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+  const studyPlayers = ctrl.study && renderStudyPlayer(ctrl, player.color);
   return user
     ? h('span', [
         h(
@@ -459,7 +455,29 @@ function userHtml(ctrl: AnalyseController, player: Player) {
         rating ? ` ${rating}` : ``,
         ' ' + ratingDiff,
       ])
-    : 'Anonymous';
+    : studyPlayers || h('span', i18n.site.anonymous);
+}
+
+function renderStudyPlayer(ctrl: AnalyseController, color: Color): VNode | undefined {
+  const player = ctrl.study?.currentChapter().players?.[color];
+  const keys = [
+    ['name', i18n.site.name],
+    ['title', 'title'],
+    ['rating', i18n.site.rating],
+    ['fed', 'fed'],
+    ['team', 'team'],
+  ] as const;
+  return (
+    player &&
+    h(
+      'span',
+      keys
+        .reduce<
+          string[]
+        >((strs, [key, i18n]) => (player[key] ? strs.concat(`${i18n}: ${key === 'fed' ? player[key].name : player[key]}`) : strs), [])
+        .join(' '),
+    )
+  );
 }
 
 const playerByColor = (d: AnalyseData, color: Color): Player =>
@@ -477,20 +495,25 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
 }
+const onInsertHandler = (callback: () => void, el: HTMLElement) => {
+  el.addEventListener('click', callback);
+  el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
+};
 
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;
-  const onInsertHandler = (callback: () => void, el: HTMLElement) => {
-    el.addEventListener('click', callback);
-    el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
-  };
-
+  const relayGroups = study?.relay?.data.group;
   return (
     study &&
     h('div.study-details', [
       h('h2', 'Study details'),
       h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
       h('br'),
+      relayGroups &&
+        h('div.relayGroups', [
+          h('h2', 'Relay groups'),
+          ...relayGroups.tours.map(tour => h('a', { attrs: { href: `/broadcast/-/${tour.id}` } }, tour.name)),
+        ]),
       h('label.chapters', [
         h('h2', 'Current chapter:'),
         h(
@@ -555,4 +578,18 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
       ]),
     ])
   );
+}
+
+const doAndRedraw = (ctrl: AnalyseController, fn: (ctrl: AnalyseController) => void): void => {
+  fn(ctrl);
+  ctrl.redraw();
+};
+
+function jumpOrCommand(ctrl: AnalyseController) {
+  return (e: KeyboardEvent) => {
+    if (e.shiftKey || e.altKey) {
+      if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
+      else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
+    } else boardCommandsHandler()(e);
+  };
 }
