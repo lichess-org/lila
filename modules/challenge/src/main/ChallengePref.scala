@@ -11,13 +11,18 @@ import play.api.libs.json.JsValue
 import reactivemongo.api.bson.*
 
 case class ChallengePref(
+    gameType: String,
     variant: String,
     timeMode: String,
     gameMode: String,
     time: Int,
     increment: Int,
     days: Int,
-    fen: String
+    fen: String,
+    color: String,
+    ratingMin: Int,
+    ratingMax: Int,
+    aiLevel: Int,
 )
 
 object ChallengePref:
@@ -32,8 +37,8 @@ object ChallengePref:
       "fen"       -> o.fen
     )
 
-  def unapply(o: ChallengePref): Option[(String, String, String, Int, Int, Int, String)] = Some(
-    (o.variant, o.timeMode, o.gameMode, o.time, o.increment, o.days, o.fen)
+  def unapply(o: ChallengePref): Option[(String, String, String, String, Int, Int, Int, String, String, Int, Int, Int)] = Some(
+    (o.gameType, o.variant, o.timeMode, o.gameMode, o.time, o.increment, o.days, o.fen, o.color, o.ratingMin, o.ratingMax, o.aiLevel)
   )
 
   def asEncodedUrlAttr(pref: Option[ChallengePref]): String =
@@ -46,13 +51,18 @@ object ChallengePref:
 
 val challengePref = Form(
   mapping(
+    "gameType"  -> text,
     "variant"   -> text,
     "timeMode"  -> text,
     "gameMode"  -> text,
     "time"      -> number,
     "increment" -> number,
     "days"      -> number,
-    "fen"       -> text
+    "fen"       -> text,
+    "color"     -> text,
+    "ratingMin" -> number,
+    "ratingMax" -> number,
+    "aiLevel" -> number,
   )(ChallengePref.apply)(ChallengePref.unapply)
 )
 

@@ -224,9 +224,9 @@ export default class SetupController {
     );
     this.daysV = this.propWithApply(sliderInitVal(challengePrefOptions?.days || 1, daysVToDays, this.maxDaysV)!);
     this.gameMode = this.propWithApply(challengePrefOptions.gameMode);
-    this.ratingMin = this.propWithApply(1);
-    this.ratingMax = this.propWithApply(-300);
-    this.aiLevel = this.propWithApply(+300);
+    this.ratingMin = this.propWithApply(-300);
+    this.ratingMax = this.propWithApply(300);
+    this.aiLevel = this.propWithApply(1);
   };
 
   closeModal?: () => void; // managed by view/setup/modal.ts
@@ -310,6 +310,7 @@ export default class SetupController {
 
   challengePrefSetupOptionsToFormData = (color: Color | 'random'): FormData =>
     xhr.form({
+      gameType: this.gameType,
       variant: this.variant(),
       fen: this.fen(),
       timeMode: this.timeMode(),
@@ -318,6 +319,9 @@ export default class SetupController {
       days: this.days(),
       gameMode: this.gameMode(),
       color: color,
+      aiLevel: this.aiLevel(),
+      ratingMin: this.ratingMin(),
+      ratingMax : this.ratingMax(),
     });
 
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());

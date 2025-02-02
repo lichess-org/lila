@@ -142,6 +142,7 @@ export interface ForceSetupOptions {
 }
 
 export interface challengePrefSetupOptions {
+  gameType: GameType;
   variant: VariantKey;
   timeMode: TimeMode;
   gameMode: GameMode;
@@ -150,4 +151,7 @@ export interface challengePrefSetupOptions {
   days: number;
   fen: string;
   color: Color;
+  ratingMin: number;
+  ratingMax: number;
+  aiLevel: number;
 }
