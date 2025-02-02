@@ -43,6 +43,7 @@ export default class SetupController {
   friendUser = '';
   loading = false;
   blindModeColor: Prop<Color | 'random'>;
+  isEditingPreference = false;
 
   // Store props
   variant: Prop<VariantKey>;
@@ -212,7 +213,7 @@ export default class SetupController {
   openModalWithchallengePrefOptions = (
     gameType: Exclude<GameType, 'local'>,
     challengePrefOptions: challengePrefSetupOptions,
-    friendUser: string,
+    friendUser?: string,
   ) => {
     this.openModal(gameType, undefined, friendUser, false);
     this.variant = propWithEffect(challengePrefOptions.variant, this.onDropdownChange);
@@ -346,9 +347,9 @@ export default class SetupController {
     this.root.redraw();
 
     let urlPath =
-      this.root.me?.username === this.friendUser ? '/challenge/update-preference' : `/setup/${this.gameType}`;
+      this.isEditingPreference ? '/challenge/update-preference' : `/setup/${this.gameType}`;
     let formData =
-      this.root.me?.username === this.friendUser
+      this.isEditingPreference
         ? this.challengePrefSetupOptionsToFormData(color)
         : this.propsToFormData(color);
     if (this.gameType === 'hook') urlPath += `/${site.sri}`;

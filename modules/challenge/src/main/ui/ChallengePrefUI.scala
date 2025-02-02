@@ -14,7 +14,7 @@ final class ChallengePrefUi(helpers: Helpers)(
   def show(challengePref: Option[ChallengePref], username: String)(using ctx: Context) =
     AccountPage("Challenge", "challenge"):
       val challengePrefAttr = ChallengePref.asEncodedUrlAttr(challengePref)
-      val challengeLink     = s"${routes.Lobby.home}?user=${username}${challengePrefAttr}#friend"
+      val challengeLink     = s"${routes.Lobby.home}?edit=true${challengePrefAttr}#friend"
 
       div(cls := "box box-pad")(
         div(cls := "box__top")(

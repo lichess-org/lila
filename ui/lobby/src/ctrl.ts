@@ -77,6 +77,7 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
+      this.setupCtrl.isEditingPreference = (urlParams.get('edit') ?? undefined) === undefined ? false : true;
       const challengePrefOptionsEncoded = urlParams.get('challenge-pref') ?? undefined;
       const challengePrefOptions = !!challengePrefOptionsEncoded
         ? (JSON.parse(decodeURIComponent(challengePrefOptionsEncoded)) as challengePrefSetupOptions)
@@ -110,11 +111,11 @@ export default class LobbyController {
       }
 
       pubsub.after('dialog.polyfill').then(() => {
-        if (friendUser && challengePrefOptions)
+        if (challengePrefOptions)
           this.setupCtrl.openModalWithchallengePrefOptions(
             locationHash as Exclude<GameType, 'local'>,
             challengePrefOptions,
-            friendUser,
+            friendUser
           );
         else this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();

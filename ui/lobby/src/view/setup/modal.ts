@@ -11,6 +11,7 @@ import { createButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 import { fenInput } from './components/fenInput';
 import { levelButtons } from './components/levelButtons';
+import { isEditingMessage } from './components/isEditingMessage';
 
 export default function setupModal(ctrl: LobbyController): MaybeVNode {
   const { setupCtrl } = ctrl;
@@ -19,12 +20,13 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
     class: 'game-setup',
     css: [{ hashed: 'lobby.setup' }],
     onClose: () => {
+      if (ctrl.setupCtrl.isEditingPreference) window.location.replace('/challenge/preference') 
       setupCtrl.closeModal = undefined;
       setupCtrl.gameType = null;
       setupCtrl.root.redraw();
     },
     modal: true,
-    vnodes: [...views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
+    vnodes: [...views[setupCtrl.gameType](ctrl), isEditingMessage(ctrl), ratingView(ctrl)],
     onInsert: dlg => {
       setupCtrl.closeModal = dlg.close;
       dlg.show();
@@ -44,12 +46,7 @@ const views = {
     ]),
   ],
   friend: (ctrl: LobbyController): MaybeVNodes => [
-    h(
-      'h2',
-      ctrl.setupCtrl.root.me?.username === ctrl.setupCtrl.friendUser
-        ? 'Your preferred challenge'
-        : i18n.site.playWithAFriend,
-    ),
+    h('h2', i18n.site.playWithAFriend),
     h('div.setup-content', [
       ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
       variantPicker(ctrl),
