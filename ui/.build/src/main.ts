@@ -48,20 +48,20 @@ Options:
   --no-corepack       don't use corepack to install pnpm (protect or restricted system node installs)
 
 Exclusive Options:    (any of these will disable other functions)
-  --clean-exit        clean all build artifacts and exit
   --tsc               run tsc on {package}/tsconfig.json and dependencies
   --sass              run sass on {package}/css/build/*.scss and dependencies
   --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
   --i18n              build @types/lichess/i18n.d.ts and translation/js files
+  --clean-exit        clean all build artifacts and exit
 
 Recommended:
-  ui/build -cdw       # clean, build debug, and watch for changes with clean rebuilds
+  ui/build -w         # clean and watch for changes
 
 Other Examples:
   ./build -np         # no pnpm install, build minified
   ./build --tsc -w    # watch mode but type checking only
-  ./build -dwl=/x     # build debug, watch. patch console methods in emitted js to POST log statements
-                        to \${location.origin}/x. ui/build watch process displays messages received
+  ./build -dwl=/xyz   # build debug, watch. patch console methods in emitted js to POST log statements
+                        to \${location.origin}/xyz. ui/build watch process displays messages received
                         via http(s) on this endpoint as 'web' in build logs
 `;
 
