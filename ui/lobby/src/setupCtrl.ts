@@ -8,7 +8,7 @@ import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {
   ForceSetupOptions,
-  FriendSetupOptions,
+  challengePrefSetupOptions,
   GameMode,
   GameType,
   InputValue,
@@ -209,21 +209,21 @@ export default class SetupController {
     if (loadProps) this.loadPropsFromStore(forceOptions);
   };
 
-  openModalWithFriendOptions = (
+  openModalWithchallengePrefOptions = (
     gameType: Exclude<GameType, 'local'>,
-    friendOptions: FriendSetupOptions,
+    challengePrefOptions: challengePrefSetupOptions,
     friendUser: string,
   ) => {
     this.openModal(gameType, undefined, friendUser, false);
-    this.variant = propWithEffect(friendOptions.variant, this.onDropdownChange);
-    this.fen = this.propWithApply(friendOptions?.fen || '');
-    this.timeMode = propWithEffect(friendOptions?.timeMode || '', this.onDropdownChange);
-    this.timeV = this.propWithApply(sliderInitVal(friendOptions?.time || 0, timeVToTime, this.maxTimeV)!);
+    this.variant = propWithEffect(challengePrefOptions.variant, this.onDropdownChange);
+    this.fen = this.propWithApply(challengePrefOptions?.fen || '');
+    this.timeMode = propWithEffect(challengePrefOptions?.timeMode || '', this.onDropdownChange);
+    this.timeV = this.propWithApply(sliderInitVal(challengePrefOptions?.time || 0, timeVToTime, this.maxTimeV)!);
     this.incrementV = this.propWithApply(
-      sliderInitVal(friendOptions?.increment || 0, incrementVToIncrement, this.maxIncrementV)!,
+      sliderInitVal(challengePrefOptions?.increment || 0, incrementVToIncrement, this.maxIncrementV)!,
     );
-    this.daysV = this.propWithApply(sliderInitVal(friendOptions?.days || 1, daysVToDays, this.maxDaysV)!);
-    this.gameMode = this.propWithApply(friendOptions.gameMode);
+    this.daysV = this.propWithApply(sliderInitVal(challengePrefOptions?.days || 1, daysVToDays, this.maxDaysV)!);
+    this.gameMode = this.propWithApply(challengePrefOptions.gameMode);
     this.ratingMin = this.propWithApply(1);
     this.ratingMax = this.propWithApply(-300);
     this.aiLevel = this.propWithApply(+300);
@@ -308,7 +308,7 @@ export default class SetupController {
       color,
     });
 
-  friendSetupOptionsToFormData = (color: Color | 'random'): FormData =>
+  challengePrefSetupOptionsToFormData = (color: Color | 'random'): FormData =>
     xhr.form({
       variant: this.variant(),
       fen: this.fen(),
@@ -345,7 +345,7 @@ export default class SetupController {
       this.root.me?.username === this.friendUser ? '/challenge/update-preference' : `/setup/${this.gameType}`;
     let formData =
       this.root.me?.username === this.friendUser
-        ? this.friendSetupOptionsToFormData(color)
+        ? this.challengePrefSetupOptionsToFormData(color)
         : this.propsToFormData(color);
     if (this.gameType === 'hook') urlPath += `/${site.sri}`;
     const urlParams = { user: this.friendUser || undefined };

@@ -141,7 +141,7 @@ export interface ForceSetupOptions {
   increment?: number;
 }
 
-export interface FriendSetupOptions {
+export interface challengePrefSetupOptions {
   variant: VariantKey;
   timeMode: TimeMode;
   gameMode: GameMode;

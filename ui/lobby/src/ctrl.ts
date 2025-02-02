@@ -17,7 +17,7 @@ import type {
   PoolMember,
   GameType,
   ForceSetupOptions,
-  FriendSetupOptions,
+  challengePrefSetupOptions,
   LobbyMe,
 } from './interfaces';
 import LobbySocket from './socket';
@@ -77,9 +77,9 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
-      const friendOptionsEncoded = urlParams.get('challenge-pref') ?? undefined;
-      const friendOptions = !!friendOptionsEncoded
-        ? (JSON.parse(decodeURIComponent(friendOptionsEncoded)) as FriendSetupOptions)
+      const challengePrefOptionsEncoded = urlParams.get('challenge-pref') ?? undefined;
+      const challengePrefOptions = !!challengePrefOptionsEncoded
+        ? (JSON.parse(decodeURIComponent(challengePrefOptionsEncoded)) as challengePrefSetupOptions)
         : undefined;
       const minutesPerSide = urlParams.get('minutesPerSide');
       const increment = urlParams.get('increment');
@@ -110,10 +110,10 @@ export default class LobbyController {
       }
 
       pubsub.after('dialog.polyfill').then(() => {
-        if (friendUser && friendOptions)
-          this.setupCtrl.openModalWithFriendOptions(
+        if (friendUser && challengePrefOptions)
+          this.setupCtrl.openModalWithchallengePrefOptions(
             locationHash as Exclude<GameType, 'local'>,
-            friendOptions,
+            challengePrefOptions,
             friendUser,
           );
         else this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
