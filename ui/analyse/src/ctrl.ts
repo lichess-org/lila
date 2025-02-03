@@ -683,12 +683,14 @@ export default class AnalyseCtrl {
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
+      const isExternal = this.ceval.engines.active?.tech === 'EXTERNAL';
+
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
         if (!node.threat || isEvalBetter(threat, node.threat)) node.threat = threat;
-      } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
+      } else if ((!node.ceval || isEvalBetter(ev, node.ceval)) && !(isExternal && ev.cloud)) node.ceval = ev;
       else if (!ev.cloud) {
-        if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
+        if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
       if (path === this.path) {
