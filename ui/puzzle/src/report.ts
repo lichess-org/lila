@@ -14,7 +14,7 @@ export default class Report {
   tsHideReportDialog: StoredProp<number>;
 
   // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 7;
+  private version = 8;
 
   constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
@@ -55,7 +55,7 @@ export default class Report {
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
-        winningChances.areSimilarEvals(ctrl.pov, bestEval, secondBestEval)
+        winningChances.hasMultipleSolutions(ctrl.pov, bestEval, secondBestEval)
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
