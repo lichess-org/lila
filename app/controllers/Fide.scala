@@ -34,6 +34,10 @@ final class Fide(env: Env) extends LilaController(env):
               rendered <- renderPage(views.fide.player.show(player, tours))
             yield Ok(rendered)
 
+  def apiShow(id: chess.FideId) = Anon:
+    Found(env.fide.repo.player.fetch(id)): player =>
+      JsonOk(lila.fide.FideJson.player(player))
+
   def federations(page: Int) = Open:
     for
       feds         <- env.fide.paginator.federations(page)
