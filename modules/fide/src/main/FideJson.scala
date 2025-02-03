@@ -8,10 +8,10 @@ object FideJson:
   def player(p: FidePlayer): JsObject =
     Json
       .obj(
-        "id"   -> p.id,
-        "name" -> p.name,
-        "fed"  -> p.fed,
-        "year" -> p.year
+        "id"         -> p.id,
+        "name"       -> p.name,
+        "federation" -> p.fed,
+        "year"       -> p.year
       )
       .add("title" -> p.title)
       .add("inactive" -> p.inactive)
