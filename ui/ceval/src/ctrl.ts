@@ -90,12 +90,7 @@ export default class CevalCtrl {
     if (!this.lastStarted || this.isDeeper() || this.isInfinite || work.threatMode) return;
     const showingNode = this.lastStarted.steps[this.lastStarted.steps.length - 1];
     const byMovetime = 'movetime' in this.search.by && this.search.by.movetime;
-    if (
-      byMovetime &&
-      showingNode.ceval?.cloud &&
-      ev.millis > 500 &&
-      this.engines.active?.tech !== 'EXTERNAL'
-    ) {
+    if (byMovetime && showingNode.ceval?.cloud && ev.millis > 500 && !this.engines.external) {
       const targetNodes = showingNode.ceval.nodes;
       const likelyNodes = Math.round((byMovetime * ev.nodes) / ev.millis);
 
