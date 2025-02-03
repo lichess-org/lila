@@ -9,9 +9,9 @@ import { plyToTurn } from 'chess';
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
-  reported: boolean = false;
+  private reported: boolean = false;
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
-  tsHideReportDialog: StoredProp<number>;
+  private tsHideReportDialog: StoredProp<number>;
 
   // bump when logic is changed, to distinguish cached clients from new ones
   private version = 8;
