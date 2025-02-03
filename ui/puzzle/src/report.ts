@@ -14,7 +14,7 @@ export default class Report {
   tsHideReportDialog: StoredProp<number>;
 
   // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 6;
+  private version = 7;
 
   constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
@@ -22,14 +22,17 @@ export default class Report {
 
   // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
-  checkForMultipleSolutions(ev: Tree.ClientEval, ctrl: PuzzleCtrl): void {
+  checkForMultipleSolutions(ev: Tree.ClientEval, ctrl: PuzzleCtrl, threatMode: boolean): void {
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
     if (
       !ctrl.session.userId ||
       this.reported ||
       ctrl.mode !== 'view' ||
+      // Sometimes there is a race condition where a threat eval is sent, while `ctrl.threatMode()`
+      // is not yet set to true. So we need to check for `threatMode` as well.
       ctrl.threatMode() ||
+      threatMode ||
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // if the user has chosen to hide the dialog less than a week ago
