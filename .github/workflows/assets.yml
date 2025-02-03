@@ -37,7 +37,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Corepack
-        run: pnpm install -g corepack
+        run: pnpm install -g corepack@latest
       - name: Install pnpm dependencies
         run: pnpm install
       - name: Checkout ab (optional)
