@@ -114,6 +114,7 @@ GET   /fide                            controllers.Fide.index(page: Int ?= 1, q:
 GET   /fide/federation                 controllers.Fide.federations(page: Int ?= 1)
 GET   /fide/federation/:name           controllers.Fide.federation(name, page: Int ?= 1)
 GET   /fide/:fideId/:name              controllers.Fide.show(fideId: chess.FideId, name, page: Int ?= 1)
+GET   /api/fide/player/:id             controllers.Fide.apiShow(id: chess.FideId)
 
 GET   /dasher                          controllers.Dasher.get
 
