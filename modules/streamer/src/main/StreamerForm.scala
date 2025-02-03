@@ -4,11 +4,13 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
-import lila.common.Form.{ constraint, given }
+import lila.common.Form.{ constraint, partial, given }
 
 object StreamerForm:
 
   import Streamer.{ Description, Headline, Listed, Name, Twitch, YouTube }
+
+  type QuickDecision = "approve" | "decline"
 
   lazy val emptyUserForm = Form(
     mapping(
@@ -34,8 +36,10 @@ object StreamerForm:
           "requested" -> boolean,
           "ignored"   -> boolean,
           "chat"      -> boolean,
-          "quick"     -> optional(nonEmptyText),
-          "reason"    -> optional(text)
+          "quick" -> optional:
+            text.partial[QuickDecision](_.toString):
+              case ok: QuickDecision => ok,
+          "reason" -> optional(text)
         )(ApprovalData.apply)(unapply)
     )(UserData.apply)(unapply)
       .verifying(
@@ -115,14 +119,12 @@ object StreamerForm:
       requested: Boolean,
       ignored: Boolean,
       chat: Boolean,
-      quick: Option[String] = None,
+      quick: Option[QuickDecision] = None,
       reason: Option[String] = None
   ):
-    def resolve =
-      quick.fold(this) {
-        case "approve" => copy(granted = true, requested = false)
-        case "decline" => copy(granted = false, requested = false)
-      }
+    def resolve = quick.fold(this):
+      case "approve" => copy(granted = true, requested = false)
+      case "decline" => copy(granted = false, requested = false)
 
   private def nameField = of[Name].verifying(
     constraint.minLength[Name](_.value)(3),
