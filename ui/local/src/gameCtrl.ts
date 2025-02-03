@@ -15,7 +15,6 @@ export class GameCtrl {
   proxy: RoundProxy;
   clock?: ClockData & { since?: number };
   orientation: Color;
-  store: ObjectStorage<LocalGame>;
 
   private stopped = true;
   private resolveThink?: () => void;
@@ -23,9 +22,7 @@ export class GameCtrl {
   constructor(readonly opts: LocalPlayOpts) {}
 
   async init(): Promise<void> {
-    this.store = await objectStorage<LocalGame>({ store: 'local.games' });
-    const id = localStorage.getItem(`local.${env.user}.gameId`);
-    const game = id ? await this.store.get(id) : undefined;
+    const game = await env.db.getLast();
     this.live = new LocalGame({ game, setup: this.opts.setup ?? {} });
     this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
     env.bot.setUids(this.live);
@@ -152,7 +149,7 @@ export class GameCtrl {
       );
 
     if (this.live.finished) this.gameOver(moveCtx);
-    this.store.put(this.live.id, structuredClone(this.live));
+    env.db.put(this.live);
     localStorage.setItem(`local.${env.user}.gameId`, this.live.id);
     if (this.clock?.increment) {
       this.clock[this.live.awaiting] += this.clock.increment;

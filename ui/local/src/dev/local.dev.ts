@@ -8,6 +8,7 @@ import { PushCtrl } from './pushCtrl';
 import { env, initEnv } from '../localEnv';
 import { renderGameView } from '../gameView';
 import type { RoundController } from 'round';
+import { LocalDb } from 'game/localDb';
 import type { LocalPlayOpts } from '../types';
 
 const patch = init([classModule, attributesModule]);
@@ -35,12 +36,13 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     assets: new DevAssets(opts.assets),
     dev: new DevCtrl(),
     game: new GameCtrl(opts),
+    db: new LocalDb(),
     user: opts.userId,
     username: opts.username,
     canPost: opts.canPost,
   });
 
-  await Promise.all([env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
+  await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
   await env.game.init();
 
   const el = document.createElement('main');

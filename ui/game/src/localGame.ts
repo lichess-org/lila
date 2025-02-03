@@ -4,6 +4,7 @@ import { statusOf } from './status';
 import type { Status, LocalSetup, RoundStep } from './interfaces';
 import { deepFreeze, randomToken } from 'common/algo';
 import { hashBoard } from 'chess/hash';
+import { myUserId } from 'common';
 
 export interface GameStatus {
   status: Status;
@@ -32,6 +33,8 @@ type LocalMove = {
 
 export class LocalGame implements LocalSetup {
   id: string;
+  createdAt: number;
+  createdBy: string;
   moves: LocalMove[] = [];
   chess: co.Chess;
   initialPly: number = 0;
@@ -47,6 +50,8 @@ export class LocalGame implements LocalSetup {
     Object.assign(this, 'game' in o ? o.game : o.setup);
 
     this.id ??= randomToken();
+    this.createdAt ??= Date.now();
+    this.createdBy ??= myUserId() ?? 'anonymous';
     this.initialFen ??= co.fen.INITIAL_FEN;
     this.chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
     this.initialPly = 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
