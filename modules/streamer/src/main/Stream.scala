@@ -60,11 +60,10 @@ object Stream:
     case class Result(items: List[Item]):
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
         items
-          .withFilter { item =>
+          .withFilter: item =>
             item.snippet.liveBroadcastContent == "live" &&
-            item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
-          }
-          .flatMap { item =>
+              item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
+          .flatMap: item =>
             streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)).map {
               Stream(
                 item.snippet.channelId,
@@ -74,7 +73,6 @@ object Stream:
                 item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
               )
             }
-          }
     case class Stream(
         channelId: String,
         status: Html,

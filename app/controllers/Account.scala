@@ -55,9 +55,8 @@ final class Account(
       env.user.repo
         .setUsernameCased(me, username)
         .inject(Redirect(routes.User.show(me.username)).flashSuccess)
-        .recover { case e =>
+        .recover: e =>
           Redirect(routes.Account.username).flashFailure(e.getMessage)
-        }
   }
 
   def info = Auth { ctx ?=> me ?=>
