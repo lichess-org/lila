@@ -31,6 +31,8 @@ jobs:
           submodules: recursive
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
       - name: Setup node and restore pnpm cache
         uses: actions/setup-node@v4
         with:
