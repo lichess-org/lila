@@ -260,7 +260,9 @@ function createSubmitHandler(
     if (command) onCommand(ctrl, notify, command, style(), input);
     else {
       const uciOrDrop = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
-      if (uciOrDrop) sendMove(uciOrDrop, ctrl, !!nvui.premoveInput);
+      if (uciOrDrop && typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key))
+        notify(`Invalid input: ${input}`);
+      else if (uciOrDrop) sendMove(uciOrDrop, ctrl, !!nvui.premoveInput);
       else if (ctrl.data.player.color !== ctrl.data.game.player) {
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
@@ -290,11 +292,10 @@ type ShortCommand = (typeof shortCommands)[number];
 const isShortCommand = (input: string): ShortCommand | undefined =>
   shortCommands.find(c => c === input.split(' ')[0].toLowerCase());
 
-function sendMove(uciOrDrop: string | DropMove, ctrl: RoundController, premove: boolean): void {
-  if (typeof uciOrDrop === 'string') ctrl.socket.send('move', { u: uciOrDrop }, { ackable: true });
-  else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key))
-    ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key, premove);
-}
+const sendMove = (uciOrDrop: string | DropMove, ctrl: RoundController, premove: boolean): void =>
+  typeof uciOrDrop === 'string'
+    ? ctrl.socket.send('move', { u: uciOrDrop }, { ackable: true })
+    : ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key, premove);
 
 function onCommand(
   ctrl: RoundController,

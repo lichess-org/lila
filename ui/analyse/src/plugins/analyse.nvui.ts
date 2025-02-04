@@ -319,7 +319,9 @@ function onSubmit(
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const uciOrDrop = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
-      uciOrDrop ? sendMove(uciOrDrop, ctrl) : notify('Invalid command');
+      if (!uciOrDrop || (typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)))
+        notify(`Invalid input: ${input}`);
+      else sendMove(uciOrDrop, ctrl);
     }
     $input.val('');
   };

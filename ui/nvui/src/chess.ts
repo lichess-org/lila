@@ -483,25 +483,26 @@ export function possibleMovesHandler(
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[kqnbr]$/;
 const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
-const dropRegex = /^([qrnb])@([a-h][1-8])|p?@([a-h][2-7])$/;
+const dropRegex = /^(([qrnb])@([a-h][1-8])|p?@([a-h][2-7]))$/;
 export type DropMove = { role: Role; key: Key };
 
 export function inputToLegalUci(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
   const dests = chessground.state.movable.dests;
   if (!dests) return;
   const legalUcis = destsToUcis(dests),
-    legalSans = sanWriter(fen, legalUcis);
-  let uci = sanToUci(input, legalSans) || input,
+    legalSans = sanWriter(fen, legalUcis),
+    cleaned = input.replace(/\+|#/g, '');
+  let uci = sanToUci(cleaned, legalSans) || cleaned,
     promotion = '';
 
-  const drop = input.match(dropRegex);
-  if (drop) return { role: charToRole(input[0]) || 'pawn', key: input.split('@')[1] as Key };
-  if (input.match(promotionRegex)) {
-    uci = sanToUci(input.slice(0, -2), legalSans) || input;
-    promotion = input.slice(-1).toLowerCase();
-  } else if (input.match(uciPromotionRegex)) {
-    uci = input.slice(0, -1);
-    promotion = input.slice(-1).toLowerCase();
+  const drop = cleaned.match(dropRegex);
+  if (drop) return { role: charToRole(cleaned[0]) || 'pawn', key: cleaned.split('@')[1].slice(0, 2) as Key };
+  if (cleaned.match(promotionRegex)) {
+    uci = sanToUci(cleaned.slice(0, -2), legalSans) || cleaned;
+    promotion = cleaned.slice(-1).toLowerCase();
+  } else if (cleaned.match(uciPromotionRegex)) {
+    uci = cleaned.slice(0, -1);
+    promotion = cleaned.slice(-1).toLowerCase();
   } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role === 'pawn')
     promotion = 'q';
 
