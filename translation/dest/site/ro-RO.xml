@@ -19,7 +19,7 @@
   <string name="white">Alb</string>
   <string name="black">Negru</string>
   <string name="asWhite">cu albele</string>
-  <string name="asBlack">ca negrul</string>
+  <string name="asBlack">cu negrele</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -38,7 +38,7 @@
   <string name="whitePlays">Albul joacă</string>
   <string name="blackPlays">Negrul joacă</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secundă.</item>
+    <item quantity="one">Adversarul tău a părăsit jocul. Poți revendica victoria peste o secundă.</item>
     <item quantity="few">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secunde.</item>
     <item quantity="other">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secunde.</item>
   </plurals>
@@ -131,32 +131,32 @@
   <string name="mistake">Greșeală</string>
   <string name="inaccuracy">Inexactitate</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s gafă</item>
+    <item quantity="one">o gafă</item>
     <item quantity="few">%s gafe</item>
     <item quantity="other">%s de gafe</item>
   </plurals>
   <plurals name="numberBlunders">
-    <item quantity="one">%s Gafă</item>
+    <item quantity="one">O Gafă</item>
     <item quantity="few">%s Gafe</item>
     <item quantity="other">%s De gafe</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">%s greșeală</item>
+    <item quantity="one">o greșeală</item>
     <item quantity="few">%s greșeli</item>
     <item quantity="other">%s de greșeli</item>
   </plurals>
   <plurals name="numberMistakes">
-    <item quantity="one">%s Greșeală</item>
+    <item quantity="one">O Greșeală</item>
     <item quantity="few">%s Greșeli</item>
     <item quantity="other">%s De greșeli</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s inexactitate</item>
+    <item quantity="one">o inexactitate</item>
     <item quantity="few">%s inexactități</item>
     <item quantity="other">%s de inexactități</item>
   </plurals>
   <plurals name="numberInaccuracies">
-    <item quantity="one">%s Inexactitate</item>
+    <item quantity="one">O Inexactitate</item>
     <item quantity="few">%s Inexactități</item>
     <item quantity="other">%s De inexactități</item>
   </plurals>
@@ -167,7 +167,7 @@
   <string name="offerDraw">Propune remiză</string>
   <string name="draw">Remiză</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jucător</item>
+    <item quantity="one">un jucător</item>
     <item quantity="few">%s jucători</item>
     <item quantity="other">%s de jucători</item>
   </plurals>
@@ -175,7 +175,7 @@
   <string name="fiftyMovesWithoutProgress">Cincizeci de mișcări fără progres</string>
   <string name="currentGames">Partide active</string>
   <plurals name="nbGames">
-    <item quantity="one">%s partidă</item>
+    <item quantity="one">o partidă</item>
     <item quantity="few">%s partide</item>
     <item quantity="other">%s de partide</item>
   </plurals>
@@ -185,11 +185,11 @@
     <item quantity="other">Rating %1$s din %2$s de meciuri</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s marcat</item>
+    <item quantity="one">unul marcat</item>
     <item quantity="few">%s marcate</item>
     <item quantity="other">%s marcate</item>
   </plurals>
-  <string name="viewInFullSize">Vezi la dimensiune completă</string>
+  <string name="viewInFullSize">Vezi la dimensiune maximă</string>
   <string name="logOut">Deconectare</string>
   <string name="signIn">Autentificare</string>
   <string name="rememberMe">Ține-mă minte</string>
@@ -206,7 +206,7 @@
   <string name="discussions">Discuții</string>
   <string name="today">Astăzi</string>
   <string name="yesterday">Ieri</string>
-  <string name="minutesPerSide">Minute pe parte</string>
+  <string name="minutesPerSide">Minute pe fiecare parte</string>
   <string name="variant">Variantă</string>
   <string name="variants">Variante</string>
   <string name="timeControl">Controlul de timp</string>
@@ -215,12 +215,12 @@
   <string name="daysPerTurn">Zile pentru o mutare</string>
   <string name="oneDay">O zi</string>
   <plurals name="nbDays">
-    <item quantity="one">%s zi</item>
+    <item quantity="one">o zi</item>
     <item quantity="few">%s zile</item>
     <item quantity="other">%s de zile</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s oră</item>
+    <item quantity="one">o oră</item>
     <item quantity="few">%s ore</item>
     <item quantity="other">%s de ore</item>
   </plurals>
@@ -235,7 +235,7 @@
   <string name="username">Nume de utilizator</string>
   <string name="usernameOrEmail">Nume de utilizator sau email</string>
   <string name="changeUsername">Schimbă numele de utilizator</string>
-  <string name="changeUsernameNotSame">Se poate interschimba din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
+  <string name="changeUsernameNotSame">Se poate interschimba doar din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
   <string name="changeUsernameDescription">Schimbă-ți numele de utilizator. Această operație poate fi efectuată o singură dată și presupune doar schimbarea literelor din minuscule în majuscule și invers.</string>
   <string name="signupUsernameHint">Asigurați-vă că alegeți un nume de utilizator decent. Nu îl puteți schimba mai târziu și orice cont cu nume de utilizator indecent va fi închis!</string>
   <string name="signupEmailHint">Îl vom folosi doar pentru resetarea parolei.</string>
@@ -262,7 +262,7 @@
   <string name="emailCanTakeSomeTime">Poate dura ceva timp să ajungă.</string>
   <string name="refreshInboxAfterFiveMinutes">Așteptați 5 minute și reîncărcați emailurile primite.</string>
   <string name="checkSpamFolder">De asemenea, verificați folderul de spam, ar putea ajunge acolo. În acel caz, marcați-l ca nefiind spam.</string>
-  <string name="emailForSignupHelp">Dacă niciuna dintre variantele anterioare nu functioneaza, trimiteți-ne acest email:</string>
+  <string name="emailForSignupHelp">Dacă niciuna dintre variantele anterioare nu funcționează, trimiteți-ne acest email:</string>
   <string name="copyTextToEmail">Dați copy-paste la textul de mai sus și trimiteți-l la %s</string>
   <string name="waitForSignupHelp">Vom reveni în curând cu un răspuns pentru a vă ajuta să finalizați înregistrarea.</string>
   <string name="accountConfirmed">Utilizatorul %s a fost confirmat cu succes.</string>
@@ -278,15 +278,15 @@
     <item quantity="other">Locul în clasament este actualizat la fiecare %s minute</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">O poziție</item>
-    <item quantity="few">%s poziții</item>
-    <item quantity="other">%s poziții</item>
+    <item quantity="one">O problemă șah</item>
+    <item quantity="few">%s probleme șah</item>
+    <item quantity="other">%s de probleme șah</item>
   </plurals>
   <string name="gamesPlayed">Partide jucate</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partidă cu tine</item>
+    <item quantity="one">o partidă cu tine</item>
     <item quantity="few">%s partide cu tine</item>
-    <item quantity="other">%s partide cu tine</item>
+    <item quantity="other">%s de partide cu tine</item>
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Anulare</string>
@@ -336,36 +336,36 @@
   <string name="incrementInSeconds">Adaos de timp în secunde</string>
   <string name="freeOnlineChess">Șah Online Gratuit</string>
   <plurals name="nbRated">
-    <item quantity="one">%s evaluat</item>
-    <item quantity="few">%s evaluate</item>
-    <item quantity="other">%s evaluate</item>
+    <item quantity="one">Unul oficial</item>
+    <item quantity="few">%s oficiale</item>
+    <item quantity="other">%s oficiale</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s victorie</item>
+    <item quantity="one">o victorie</item>
     <item quantity="few">%s victorii</item>
     <item quantity="other">%s de victorii</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s înfrângere</item>
+    <item quantity="one">o înfrângere</item>
     <item quantity="few">%s înfrângeri</item>
     <item quantity="other">%s de înfrângeri</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s remiză</item>
+    <item quantity="one">o remiză</item>
     <item quantity="few">%s remize</item>
     <item quantity="other">%s de remize</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s îl joacă</item>
-    <item quantity="few">%s le joacă</item>
-    <item quantity="other">%s le joacă</item>
+    <item quantity="one">Un joc</item>
+    <item quantity="few">%s jocuri</item>
+    <item quantity="other">%s de jocuri</item>
   </plurals>
   <string name="exportGames">Exportă partidele</string>
   <string name="ratingRange">Nivel valoric</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Acordă %s secundă</item>
+    <item quantity="one">Acordă o secundă</item>
     <item quantity="few">Acordă %s secunde</item>
-    <item quantity="other">Acordă %s secunde</item>
+    <item quantity="other">Acordă %s de secunde</item>
   </plurals>
   <string name="thisAccountViolatedTos">Acest cont a încălcat condițiile de utilizare ale site-ului Lichess</string>
   <string name="openingExplorerAndTablebase">Deschide exploratorul &amp; baza de date</string>
@@ -381,9 +381,9 @@
   <string name="tournaments">Turnee</string>
   <string name="tournamentPoints">Puncte de turneu</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s punct de turneu</item>
+    <item quantity="one">Un punct de turneu</item>
     <item quantity="few">%s puncte de turneu</item>
-    <item quantity="other">%s puncte de turneu</item>
+    <item quantity="other">%s de puncte de turneu</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s studiu</item>
@@ -391,23 +391,23 @@
     <item quantity="other">%s de studii</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="one">%s simul</item>
-    <item quantity="few">%s simul</item>
-    <item quantity="other">%s simul</item>
+    <item quantity="one">Un simul</item>
+    <item quantity="few">%s simul-uri</item>
+    <item quantity="other">%s de simul-uri</item>
   </plurals>
   <string name="viewTournament">Vizualizați turneul</string>
   <string name="backToTournament">Înapoi la turneu</string>
   <string name="noDrawBeforeSwissLimit">Nu poți declara remiză înainte ca 30 de mutări să fie jucate într-un turneu elvețian.</string>
   <string name="thematic">Tematică</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">%s meci evaluat</item>
-    <item quantity="few">%s meciuri evaluate</item>
-    <item quantity="other">%s partide evaluate</item>
+    <item quantity="one">≥ o partidă oficială jucată</item>
+    <item quantity="few">≥ %s partide oficiale</item>
+    <item quantity="other">%s de partide oficiale jucate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">%1$s %2$s meci jucat</item>
-    <item quantity="few">%1$s %2$s meciuri jucate</item>
-    <item quantity="other">%1$s %2$s partide jucate</item>
+    <item quantity="one">≥ o partidă %2$s jucată</item>
+    <item quantity="few">≥ %1$s partide oficiale %2$s jucate</item>
+    <item quantity="other">≥ %1$s de partide oficiale %2$s jucate</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Trebuie să joci încă %1$s meci in variantă %2$s</item>
@@ -415,9 +415,9 @@
     <item quantity="other">Trebuie să joci încă %1$s partide %2$s evaluate</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Trebuie să joci încă %s meci evaluat</item>
-    <item quantity="few">Trebuie să joci încă %s meciuri evaluate</item>
-    <item quantity="other">Trebuie să joci încă %s meciuri evaluate</item>
+    <item quantity="one">Trebuie să joci încă o partidă oficială</item>
+    <item quantity="few">Trebuie să joci încă %s partide oficiale</item>
+    <item quantity="other">Trebuie să joci încă %s de partide oficiale</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Scorul tău la %s este provizoriu</string>
   <string name="yourPerfRatingIsTooHigh">Scorul tău la %1$s (%2$s) este prea mare</string>
@@ -432,7 +432,7 @@
   <string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
   <string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
   <string name="startedStreaming">e live</string>
-  <string name="xStartedStreaming">%s a început să facă stream</string>
+  <string name="xStartedStreaming">%s a pornit stream-ul</string>
   <string name="averageElo">Medie rating</string>
   <string name="location">Locaţie</string>
   <string name="filterGames">Filtrați partidele</string>
@@ -449,27 +449,27 @@
   <string name="continueFromHere">Continuați de aici</string>
   <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
-  <string name="importGameExplanation">Copiați o partidă în format PGN pentru a putea apoi sa o rejucati, sa cereti o analiză a computerului, sa folositi functia de chat și sa obtineti un URL pentru distribuire.</string>
+  <string name="importGameExplanation">Lipiți o partidă în format PGN pentru a putea apoi să o rejucați, să cereți o analiză a computerului, să folosiți funcția de chat și să obțineți un URL pentru distribuire.</string>
   <string name="importGameCaveat">Variațiile vor fi șterse. Pentru a le păstra, importați PGN-ul printr-un studiu.</string>
   <string name="importGameDataPrivacyWarning">Acest PGN poate fi accesat public. Pentru a importa un joc în mod privat, folosește un studiu.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s partidă importată</item>
+    <item quantity="one">O partidă importată</item>
     <item quantity="few">%s partide importate</item>
-    <item quantity="other">%s partide importate</item>
+    <item quantity="other">%s de partide importate</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Aceasta este o verificare anti-spam pe baza unei poziții de șah.</string>
   <string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
   <string name="captcha.fail">Vă rugăm să completați acest puzzle.</string>
-  <string name="notACheckmate">Nu este sah mat</string>
+  <string name="notACheckmate">Nu este șah mat</string>
   <string name="whiteCheckmatesInOneMove">Albele să dea șah mat într-o mutare</string>
   <string name="blackCheckmatesInOneMove">Negrele să dea șah mat într-o mutare</string>
   <string name="retry">Mai încercați</string>
   <string name="reconnecting">Se reconectează</string>
   <string name="noNetwork">Deconectat</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s prieten online</item>
+    <item quantity="one">Un prieten online</item>
     <item quantity="few">%s prieteni online</item>
-    <item quantity="other">%s prieteni online</item>
+    <item quantity="other">%s de prieteni online</item>
   </plurals>
   <string name="favoriteOpponents">Adversari preferați</string>
   <string name="follow">Urmăriți</string>
@@ -482,12 +482,12 @@
   <string name="unblock">Deblocare</string>
   <string name="xStartedFollowingY">%1$s a început să vă urmărească %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s urmăritor</item>
+    <item quantity="one">Un urmăritor</item>
     <item quantity="few">%s urmăritori</item>
-    <item quantity="other">%s urmăritori</item>
+    <item quantity="other">%s de urmăritori</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s urmărit</item>
+    <item quantity="one">Unul urmărit</item>
     <item quantity="few">%s urmăriți</item>
     <item quantity="other">%s urmăriți</item>
   </plurals>
@@ -498,9 +498,9 @@
   <string name="list">Listă</string>
   <string name="graph">Grafic</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mai puțin de %s minut</item>
+    <item quantity="one">Mai puțin de un minut</item>
     <item quantity="few">Mai puțin de %s minute</item>
-    <item quantity="other">Mai puțin de %s minute</item>
+    <item quantity="other">Mai puțin de %s de minute</item>
   </plurals>
   <string name="required">Obligatoriu.</string>
   <string name="openTournaments">Turnee deschise</string>
@@ -1028,8 +1028,8 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="analysisOptions">Opțiuni de analiză</string>
   <string name="focusChat">Focalizează conversația</string>
   <string name="showHelpDialog">Arată acest dialog de ajutor</string>
-  <string name="reopenYourAccount">Redeschide contul tău</string>
-  <string name="reopenYourAccountDescription">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Redeschide contul tău</string>
+  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
   <string name="emailAssociatedToaccount">Adresa de e-mail asociată contului</string>
   <string name="sentEmailWithLink">Ți-am trimis un e-mail cu un link.</string>
   <string name="tournamentEntryCode">Cod de intrare în turneu</string>
