@@ -42,3 +42,15 @@ export const povDiff = (color: Color, e1: EvalScore, e2: EvalScore): number =>
 export const areSimilarEvals = (pov: Color, bestEval: EvalScore, secondBestEval: EvalScore): boolean => {
   return povDiff(pov, bestEval, secondBestEval) < 0.14;
 };
+
+// used to report puzzles as faulty
+export const hasMultipleSolutions = (
+  color: Color,
+  bestEval: EvalScore,
+  secondBestEval: EvalScore,
+): boolean => {
+  return (
+    // if secondbest eval equivalent of cp is >= 200
+    povChances(color, secondBestEval) >= 0.3524 || areSimilarEvals(color, bestEval, secondBestEval)
+  );
+};

@@ -9,12 +9,14 @@ import { plyToTurn } from 'chess';
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
-  reported: boolean = false;
+  private reported: boolean = false;
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
-  tsHideReportDialog: StoredProp<number>;
-
+  private tsHideReportDialog: StoredProp<number>;
+  // number of evals that have triggered the `winningChances.hasMultipleSolutions` method
+  // this is used to reduce the number of fps due to fluke eval
+  private evalsWithMultipleSolutions = 0;
   // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 6;
+  private version = 9;
 
   constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
@@ -22,14 +24,17 @@ export default class Report {
 
   // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
-  checkForMultipleSolutions(ev: Tree.ClientEval, ctrl: PuzzleCtrl): void {
+  checkForMultipleSolutions(ev: Tree.ClientEval, ctrl: PuzzleCtrl, threatMode: boolean): void {
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
     if (
       !ctrl.session.userId ||
       this.reported ||
       ctrl.mode !== 'view' ||
+      // Sometimes there is a race condition where a threat eval is sent, while `ctrl.threatMode()`
+      // is not yet set to true. So we need to check for `threatMode` as well.
       ctrl.threatMode() ||
+      threatMode ||
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // if the user has chosen to hide the dialog less than a week ago
@@ -52,13 +57,18 @@ export default class Report {
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
-        winningChances.areSimilarEvals(ctrl.pov, bestEval, secondBestEval)
+        winningChances.hasMultipleSolutions(ctrl.pov, bestEval, secondBestEval)
       ) {
+        this.evalsWithMultipleSolutions += 1;
+      } else {
+        this.evalsWithMultipleSolutions = 0;
+      }
+      if (this.evalsWithMultipleSolutions == 2) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
         const engine = ctrl.ceval.engines.active;
         const engineName = engine?.short || engine.name;
-        const reason = `(v${this.version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${showPv(pv)}`).join(', ')}`;
+        const reason = `(v${this.version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions:\n\n${ev.pvs.map(pv => `${pvEvalToStr(pv)}: ${pv.moves.join(' ')}`).join('\n\n')}`;
         this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }
@@ -116,6 +126,6 @@ const nextMoveInSolution = (before: Tree.Node) => {
   return node && (node.puzzle === 'good' || node.puzzle === 'win');
 };
 
-const showPv = (pv: Tree.PvData): string => {
+const pvEvalToStr = (pv: Tree.PvData): string => {
   return pv.mate ? `#${pv.mate}` : `${pv.cp}`;
 };
