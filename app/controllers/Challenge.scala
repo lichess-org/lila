@@ -232,24 +232,19 @@ final class Challenge(env: Env) extends LilaController(env):
   }
 
   def apiStartClocks(id: GameId) = Anon:
-    val accepted = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-    (Bearer.from(get("token1")), Bearer.from(get("token2")))
-      .mapN:
-        env.oAuth.server.authBoth(accepted, req)
-      .so:
-        _.flatMap:
-          case Left(e) => handleScopedFail(accepted, e)
-          case Right((u1, u2)) =>
-            env.game.gameRepo
-              .game(id)
-              .flatMapz: g =>
-                env.round.proxyRepo
-                  .upgradeIfPresent(g)
-                  .dmap(some)
-                  .dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
-              .orNotFound: game =>
+    Found(env.round.proxyRepo.game(id)): game =>
+      val accepted = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
+      (Bearer.from(get("token1")), Bearer.from(get("token2")))
+        .mapN:
+          env.oAuth.server.authBoth(accepted, req)
+        .so:
+          _.flatMap:
+            case Left(e) => handleScopedFail(accepted, e)
+            case Right((u1, u2)) =>
+              if game.hasUserIds(u1.id, u2.id) then
                 env.round.roundApi.tell(game.id, lila.core.round.StartClock)
                 jsonOkResult
+              else notFoundJson()
 
   def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
