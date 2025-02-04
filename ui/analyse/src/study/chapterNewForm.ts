@@ -27,7 +27,7 @@ export const fieldValue = (e: Event, id: string) =>
   ((e.target as HTMLElement).querySelector('#chapter-' + id) as HTMLInputElement)?.value;
 
 export class StudyChapterNewForm {
-  readonly multiPgnMax = 32;
+  readonly multiPgnMax = 64;
   variants: Variant[] = [];
   isOpen = toggle(false);
   initial = toggle(false);
