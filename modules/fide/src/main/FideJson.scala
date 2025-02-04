@@ -5,7 +5,7 @@ import lila.common.Json.{ *, given }
 
 object FideJson:
 
-  def player(p: FidePlayer): JsObject =
+  given OWrites[FidePlayer] = OWrites: p =>
     Json
       .obj(
         "id"         -> p.id,
