@@ -774,6 +774,7 @@
   <string name="onlineAndOfflinePlay">ഓൺലൈനും ഓഫ്‌ലൈനും കളികൾ</string>
   <string name="viewTheSolution">പരിഹാരം കാണുക</string>
   <string name="followAndChallengeFriends">പിന്തുടരൂ എന്നിട്ടു സുഹൃത്തുക്കളോട് വെല്ലുവിളിക്കൂ</string>
+  <string name="noChallenges">വെല്ലുവിളികളൊന്നുമില്ല.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s ഭാഷകളിൽ ലഭ്യമാണ്!</item>
     <item quantity="other">%s ഭാഷകളിൽ ലഭ്യമാണ്!</item>
@@ -965,7 +966,7 @@
   <string name="analysisOptions">വിശകലനം സാധ്യതകൾ</string>
   <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
   <string name="showHelpDialog">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
-  <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
   <string name="sentEmailWithLink">ഞങ്ങൾ താങ്ങളേ ഒരു കണ്ണിയുള്ള ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</string>
   <string name="tournamentEntryCode">മത്സരം പ്രവേശന സങ്കേതം</string>
