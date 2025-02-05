@@ -1,7 +1,8 @@
 const dryRun = false;
+const skip = 40 * 1000 * 1000;
 const maxPerSecond = 1000;
 const flushEvery = 100;
-const parseLineRegex = /^([\w-~]+)([ !&\?])(.*)(\n|$)/;
+const parseLineRegex = /^([\w-~]+)([ !&\?:;])(.*)(\n|$)/;
 
 const isChatGarbage = chat =>
   chat.l.every(l => {
@@ -10,13 +11,12 @@ const isChatGarbage = chat =>
       return isAuthorGarbage(author) || isFlagGarbage(flag) || isTextGarbage(text.trim().toLowerCase());
     } catch (e) {
       print(`${chat._id} ${e} ${l}`);
-      return false;
+      return true;
     }
   });
 
 // system, anon, bots
-const isAuthorGarbage = author =>
-  author == 'lichess' || author == 'w' || author == 'b' || author.indexOf('BOT~') == 0;
+const isAuthorGarbage = author => author == 'lichess' || author == 'w' || author == 'b' || author.indexOf('BOT~') == 0;
 
 // shadowbanned and deleted
 const isFlagGarbage = flag => flag == '!' || flag == '?';
@@ -33,10 +33,7 @@ const presets = new Set([
 ]);
 
 const isTextGarbage = text =>
-  text.indexOf(' ') < 0 ||
-  text.length < 9 ||
-  presets.has(text) ||
-  text.indexOf("I'm studying this game") == 0;
+  text.indexOf(' ') < 0 || text.length < 9 || presets.has(text) || text.indexOf("I'm studying this game") == 0;
 
 const numberFormat = n => `${Math.round(n / 1000)}k`;
 
@@ -53,21 +50,24 @@ const deleteChat = chat => {
 
 const flushBuffer = () => {
   if (!dryRun) {
-    db.chat.remove({ _id: { $in: idBuffer } }, { writeConcern: { w: 0 } });
+    db.chat.deleteMany({ _id: { $in: idBuffer } }, { writeConcern: { w: 0 } });
     sleep(Math.round((1000 * flushEvery) / maxPerSecond));
   }
   idBuffer = [];
   deleted += flushEvery;
-  if (deleted % 10000 == 0)
+  if (deleted % 100000 == 0)
     print(`${numberFormat(deleted)} / ${numberFormat(read)} - ${Math.round((deleted * 100) / read)}%`);
 };
 
-db.chat.find().forEach(chat => {
-  ++read;
-  if (isChatGarbage(chat)) {
-    deleteChat(chat);
-    if (read % 10000 == 0) printjson(chat);
-  }
-});
+db.chat
+  .find()
+  .skip(skip)
+  .forEach(chat => {
+    ++read;
+    if (isChatGarbage(chat)) {
+      deleteChat(chat);
+      if (read % 10000 == 0) printjson(chat);
+    }
+  });
 
 flushBuffer();
