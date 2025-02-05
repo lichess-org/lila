@@ -36,10 +36,13 @@ export const voteTheme = (puzzleId: string, theme: ThemeKey, vote: boolean | und
     body: defined(vote) ? xhrForm({ vote }) : undefined,
   });
 
+// should be kept in sync with `PuzzleForm.report` in scala
+const maxReportLength = 2000;
+
 export const report = (puzzleId: string, reason: string): Promise<void> =>
   xhrJson(`/training/${puzzleId}/report`, {
     method: 'POST',
-    body: xhrForm({ reason: reason }),
+    body: xhrForm({ reason: reason.slice(0, maxReportLength) }),
   });
 
 export const setZen = throttlePromiseDelay(

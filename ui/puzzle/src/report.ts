@@ -7,6 +7,9 @@ import { type StoredProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 import { plyToTurn } from 'chess';
 
+// bump when logic is changed, to distinguish cached clients from new ones
+const version = 9;
+
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
   private reported: boolean = false;
@@ -15,8 +18,6 @@ export default class Report {
   // number of evals that have triggered the `winningChances.hasMultipleSolutions` method
   // this is used to reduce the number of fps due to fluke eval
   private evalsWithMultipleSolutions = 0;
-  // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 9;
 
   constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
@@ -68,7 +69,7 @@ export default class Report {
         this.reported = true;
         const engine = ctrl.ceval.engines.active;
         const engineName = engine?.short || engine.name;
-        const reason = `(v${this.version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions:\n\n${ev.pvs.map(pv => `${pvEvalToStr(pv)}: ${pv.moves.join(' ')}`).join('\n\n')}`;
+        const reason = `(v${version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions:\n\n${ev.pvs.map(pv => `${pvEvalToStr(pv)}: ${pv.moves.join(' ')}`).join('\n\n')}`;
         this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }
