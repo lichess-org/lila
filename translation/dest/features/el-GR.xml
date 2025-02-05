@@ -10,6 +10,7 @@
   <string name="allChessBasicsLessons">Όλα τα βασικά μαθήματα σκακιού</string>
   <string name="tacticalPuzzlesFromUserGames">Τακτικά παζλ από τις παρτίδες των χρηστών</string>
   <string name="personalOpeningExplorerX">%1$s (επίσης λειτουργεί σε %2$s)</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Λήψη και μεταφόρτωση παιχνιδιών σε μορφή PGN</string>
   <string name="allFeaturesToCome">Όλες οι λειτουργίες που θα έρθουν, για πάντα!</string>
   <string name="everybodyGetsAllFeaturesForFree">Ναι, και οι δύο λογαριασμοί έχουν τα ίδια χαρακτηριστικά!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest">Πιστεύουμε ότι κάθε σκακιστής αξίζει το καλύτερο, και έτσι:</string>
