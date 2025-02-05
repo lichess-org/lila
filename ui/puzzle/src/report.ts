@@ -1,5 +1,6 @@
 import { report as xhrReport } from './xhr';
 import type PuzzleCtrl from './ctrl';
+import { pieceCount } from 'chess';
 import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
@@ -8,7 +9,7 @@ import { domDialog } from 'common/dialog';
 import { plyToTurn } from 'chess';
 
 // bump when logic is changed, to distinguish cached clients from new ones
-const version = 9;
+const version = 10;
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
@@ -38,10 +39,12 @@ export default class Report {
       threatMode ||
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
-      // if the user has chosen to hide the dialog less than a week ago
-      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7 ||
+      // positions with 7 pieces or less can be checked with the tablebase
+      pieceCount(ev.fen) <= 7 ||
       // dynamic import from web worker feature is shared by all stockfish 16+ WASMs
-      !ctrl.ceval.engines.active?.requires?.includes('dynamicImportFromWorker')
+      !ctrl.ceval.engines.active?.requires?.includes('dynamicImportFromWorker') ||
+      // if the user has chosen to hide the dialog less than a week ago
+      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
     )
       return;
     const node = ctrl.node;
