@@ -94,6 +94,7 @@
     @include mq-is-col1 {
       border-radius: 0;
       box-shadow: none;
+      line-height: $col1-player-clock-height + 1;
     }
 
     @include mq-at-least-col2 {
