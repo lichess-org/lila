@@ -61,7 +61,7 @@
 
     .rclock-bottom {
       grid-area: 6 / 1 / 8 / 2;
-      margin-top: $col1-bottom-clock-top-margin;
+      margin-top: -$col1-bottom-clock-shift-up;
     }
 
     cg-board {
