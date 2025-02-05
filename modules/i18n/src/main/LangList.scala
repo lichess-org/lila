@@ -1,7 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import scalalib.model.Language
+import scalalib.model.{ Language, LangTag }
 
 import lila.core.i18n.{ toLanguage, fixJavaLanguage }
 
@@ -132,7 +132,7 @@ object LangList extends lila.core.i18n.LangList:
   lazy val popularAlternateLanguages: List[Language] = allLanguages.drop(1).take(20)
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
-  def name(code: String): String = Lang.get(code).fold(code)(name)
+  def name(tag: LangTag): String = tag.toLang.fold(tag.value)(name)
 
   def nameByStr(str: String): String      = LangPicker.byStr(str).fold(str)(name)
   def nameByLanguage(l: Language): String = nameByStr(l.value)

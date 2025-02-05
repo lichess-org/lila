@@ -17,7 +17,7 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
     Json.toJson(langList.popularNoRegion.map { l =>
       Json.obj(
         "code"  -> l.code,
-        "value" -> langList.name(l.code),
+        "value" -> langList.name(l.toTag),
         "searchBy" -> List(
           l.toLocale.getDisplayLanguage,
           l.toLocale.getDisplayCountry

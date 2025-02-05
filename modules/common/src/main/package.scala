@@ -8,6 +8,11 @@ object extensions:
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
     Some(Tuple.fromProductTyped(p))
 
+  import scalalib.model.LangTag
+  import play.api.i18n.Lang
+  extension (l: LangTag) def toLang: Option[Lang] = Lang.get(l.value)
+  extension (l: Lang) def toTag: LangTag          = LangTag(l.code)
+
 export extensions.*
 
 trait Cli:

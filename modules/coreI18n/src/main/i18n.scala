@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalatags.Text.RawFrag
 import scala.concurrent.duration.FiniteDuration
-export scalalib.model.{ Language, Country }
+export scalalib.model.{ Language, Country, LangTag }
 
 val maxLangs = 128
 
@@ -45,7 +45,8 @@ trait LangList:
   def popularLanguages: List[Language]
   def popularNoRegion: List[Lang]
   def nameByLanguage(l: Language): String
-  def name(code: String): String
+  def name(tag: Lang): String
+  def name(tag: LangTag): String
 
   trait LangForm:
     def choices: List[(Language, String)]

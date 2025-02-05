@@ -2,6 +2,7 @@ package lila.coach
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.IntRating
+import scalalib.model.LangTag
 
 import lila.core.id.ImageId
 import lila.core.perf.UserWithPerfs
@@ -15,7 +16,7 @@ case class Coach(
     picture: Option[ImageId],
     nbReviews: Int,
     user: Coach.User,
-    languages: List[String],
+    languages: List[LangTag],
     createdAt: Instant,
     updatedAt: Instant
 ):

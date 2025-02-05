@@ -2,16 +2,16 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
-import scalalib.model.Language
+import scalalib.model.{ Language, LangTag }
 
 import lila.core.i18n.{ toLanguage, defaultLang, defaultLanguage, fixJavaLanguage }
 
 object LangPicker extends lila.core.i18n.LangPicker:
 
-  def apply(req: RequestHeader, userLang: Option[String] = None): Lang =
+  def apply(req: RequestHeader, userLang: Option[LangTag] = None): Lang =
     userLang
-      .orElse(req.session.get("lang"))
-      .flatMap(Lang.get)
+      .orElse(LangTag.from(req.session.get("lang")))
+      .flatMap(toLang)
       .flatMap(findCloser)
       .orElse(bestFromRequestHeaders(req))
       .getOrElse(defaultLang)
