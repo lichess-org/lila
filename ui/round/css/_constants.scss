@@ -1,10 +1,10 @@
 // layout
 $user-to-clock-size: 3 / 5;
 $col1-player-clock-height: 50px;
-$col1-bottom-clock-shift-up: 3px;
-$col1-bottom-clock-technical-height: $col1-player-clock-height - $col1-bottom-clock-shift-up;
 $col1-user-height: $col1-player-clock-height * $user-to-clock-size;
 $col1-mat-height: $col1-player-clock-height - $col1-user-height;
+$col1-bottom-clock-shift-up: 3px;
+$col1-bottom-clock-technical-height: $col1-player-clock-height - $col1-bottom-clock-shift-up;
 $col1-bottom-user-height: $col1-bottom-clock-technical-height * $user-to-clock-size;
 $col1-bottom-mat-height: $col1-bottom-clock-technical-height - $col1-bottom-user-height;
 $col1-moves-height: 4em;
