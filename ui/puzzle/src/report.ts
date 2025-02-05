@@ -1,12 +1,11 @@
 import { report as xhrReport } from './xhr';
 import type PuzzleCtrl from './ctrl';
-import { pieceCount } from 'chess';
 import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
 import { type StoredProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
-import { plyToTurn } from 'chess';
+import { plyToTurn, pieceCount } from 'chess';
 
 // bump when logic is changed, to distinguish cached clients from new ones
 const version = 10;
