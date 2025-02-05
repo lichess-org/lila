@@ -302,7 +302,10 @@ db.title_request.createIndex({ 'history.0.status.n': 1, 'history.0.at': 1 });
 db.insight.createIndex({ mr: 1, p: 1, c: 1 });
 db.insight.createIndex({ mr: 1, a: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
 db.insight.createIndex({ u: 1, d: -1 });
-db.kaladin_queue.createIndex({ 'response.at': 1, 'response.read': 1 }, { partialFilterExpression: { 'response.at': { $exists: true } } })
+db.kaladin_queue.createIndex(
+  { 'response.at': 1, 'response.read': 1 },
+  { partialFilterExpression: { 'response.at': { $exists: true } } },
+);
 
 // you may want to run these on the puzzle database
 db.puzzle2_round.createIndex({ p: 1 }, { partialFilterExpression: { t: { $exists: true } } });
