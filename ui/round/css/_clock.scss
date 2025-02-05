@@ -94,7 +94,6 @@
     @include mq-is-col1 {
       border-radius: 0;
       box-shadow: none;
-      line-height: $col1-player-clock-height + 1;
     }
 
     @include mq-at-least-col2 {
@@ -119,6 +118,9 @@
 
   &-bottom .time {
     @extend %box-radius-bottom;
+    @include mq-is-col1 {
+      line-height: $col1-player-clock-height + $col1-bottom-clock-shift-up / 2;
+    }
   }
 
   &-correspondence .time {
