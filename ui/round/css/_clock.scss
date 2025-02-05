@@ -73,7 +73,7 @@
   .time {
     @extend %roboto, %box-shadow;
 
-    background: $m-secondary_bg--mix-30;
+    background: $c-bg-box;
     min-width: 3em;
     font-size: 2.8em;
     line-height: $col1-player-clock-height;
