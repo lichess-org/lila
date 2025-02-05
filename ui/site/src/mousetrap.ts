@@ -89,7 +89,8 @@ const SPECIAL_ALIASES: Record<string, string> = {
 
 const keyFromEvent = (e: KeyboardEvent): string => {
   if (e.type === 'keypress') {
-    const character = String.fromCharCode(e.which);
+    // the code property will provide the english letter even if the user's keyboard is not set to english
+    const character = e.code.startsWith('Key') ? e.code.slice(3) : String.fromCharCode(e.which);
     return e.shiftKey ? character : character.toLowerCase(); // ignore caps lock
   }
   return MAP[e.which] || KEYCODE_MAP[e.which] || String.fromCharCode(e.which).toLowerCase();
