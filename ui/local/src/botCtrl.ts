@@ -51,8 +51,8 @@ export class BotCtrl {
 
   async init(serverBots: BotInfo[]): Promise<this> {
     this.zerofish = await makeZerofish({
-      root: site.asset.url('npm', { documentOrigin: true, version: false }),
-      wasm: site.asset.url('npm/zerofishEngine.wasm', { version: false }),
+      root: site.asset.url('npm', { documentOrigin: true }),
+      wasm: site.asset.url('npm/zerofishEngine.wasm'),
       dev: env.isDevPage,
     });
     if (env.isDevPage) {

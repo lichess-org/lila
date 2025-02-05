@@ -19,8 +19,8 @@ let dicts: Map<string, Dict> = new Map();
 let locales: string[];
 let cats: string[];
 
-export async function i18n(): Promise<void> {
-  if (!env.begin('i18n')) return;
+export function i18n(): Promise<void> {
+  if (!env.begin('i18n')) return Promise.resolve();
 
   return task({
     glob: [

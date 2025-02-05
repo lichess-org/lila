@@ -196,6 +196,9 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
+      game:
+        specifier: workspace:*
+        version: link:../game
       lichess-pgn-viewer:
         specifier: ^2.3.0
         version: 2.3.0

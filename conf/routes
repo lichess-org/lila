@@ -349,6 +349,7 @@ POST  /streamer/:username/check        controllers.Streamer.checkOnline(username
 # Private Play
 
 GET   /local                           controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String], go: Option[String])
+GET   /local/$localId<\w{12}>          controllers.Local.game(localId: String)
 GET   /local/bots                      controllers.Local.bots
 GET   /local/assets                    controllers.Local.assetKeys
 GET   /local/dev                       controllers.Local.devIndex

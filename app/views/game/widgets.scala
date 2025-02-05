@@ -10,6 +10,7 @@ object widgets:
 
   private val separator = " • "
 
+  // mirrored html generation in file://../../../ui/bits/src/bits.user.ts
   def apply(
       games: Seq[Game],
       notes: Map[GameId, String] = Map(),

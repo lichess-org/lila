@@ -79,8 +79,10 @@ object page:
           noTranslate,
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,
-          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
-            val url = escapeHtmlRaw(img).replace("&amp;", "&")
+          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { loc =>
+            val url =
+              escapeHtmlRaw(if loc.startsWith("/assets/") then assetUrl(loc.drop(8)) else loc)
+                .replace("&amp;", "&")
             raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
           },
           fontPreload,

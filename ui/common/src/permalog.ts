@@ -35,7 +35,7 @@ export function makeLog(dbInfo: DbInfo, windowSize: number): PermaLog {
     })
     .catch(e => {
       console.error(e);
-      window.indexedDB.deleteDatabase(dbInfo.db!);
+      window.indexedDB.deleteDatabase(dbInfo.db ?? dbInfo.store);
       resolveReady();
     });
 
@@ -44,9 +44,9 @@ export function makeLog(dbInfo: DbInfo, windowSize: number): PermaLog {
   }
 
   const log: PermaLog = (...args: any[]) => {
-    if (dbInfo.db === 'log--db') console.log(...args);
+    if (dbInfo.store === 'log') console.log(...args);
     const msg =
-      (dbInfo.db === 'log--db' && site.info ? `#${site.info.commit.substring(0, 7)} - ` : '') +
+      (dbInfo.store === 'log' && site.info ? `#${site.info.commit.substring(0, 7)} - ` : '') +
       args.map(stringify).join(' ');
     let nextKey = Date.now();
     if (nextKey === lastKey) {
@@ -76,7 +76,7 @@ export function makeLog(dbInfo: DbInfo, windowSize: number): PermaLog {
     } catch (e) {
       console.error(e);
       store.clear();
-      window.indexedDB.deleteDatabase(dbInfo.db!);
+      window.indexedDB.deleteDatabase(dbInfo.db ?? dbInfo.store);
       return '';
     }
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);

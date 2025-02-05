@@ -242,7 +242,7 @@ export class EditDialog {
     const input = frag<HTMLInputElement>(`<input class="invalid" spellcheck="false" type="text" value="#">`);
     domDialog({
       class: 'dev-view',
-      htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p>`,
+      htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p><span></span>`,
       append: [
         { node: input, where: 'span' },
         { node: ok, where: 'span' },

@@ -26,7 +26,8 @@
       "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "/public/npm"
     },
     "hash": [
-      "/public/lifat/background/montage*.webp",
+      "/public/lifat/background/**/*.webp",
+      "/public/images/**/*.svg",
       "/public/npm/*",
       "/public/javascripts/**",
       "/public/piece-css/*"

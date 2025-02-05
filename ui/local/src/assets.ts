@@ -75,8 +75,12 @@ export class Assets {
   }
 }
 
-export function botAssetUrl(type: AssetType, name: string): string {
-  return site.asset.url(`lifat/bots/${type}/${encodeURIComponent(name)}`, { version: false });
+export function botAssetUrl(type: AssetType, path: string): string {
+  return path.startsWith('https:')
+    ? path
+    : path.includes('/')
+      ? `${site.asset.baseUrl()}/assets/${path}`
+      : site.asset.url(`lifat/bots/${type}/${encodeURIComponent(path)}`);
 }
 
 type NetData = {

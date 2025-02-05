@@ -1,6 +1,6 @@
-import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { LocalGame } from './localGame';
-import { LocalSetup, clockToSpeed } from './game';
+import { type ObjectStorage, objectStorage, keys } from 'common/objectStorage';
+import { LocalGame, type GameStatus } from './localGame';
+import { clockToSpeed } from './game';
 import { myUserId } from 'common';
 
 type GameId = string;
@@ -8,24 +8,23 @@ const userId = myUserId() ?? 'anonymous';
 
 export class LocalDb {
   store: ObjectStorage<LocalGame, GameId>;
-  idx: ObjectStorage<LocalGameIdx, GameId>;
+  lite: ObjectStorage<LiteGame, GameId>;
   current?: GameId;
 
   constructor() {}
   async init(): Promise<this> {
-    [this.store, this.idx] = await Promise.all([
+    [this.store, this.lite] = await Promise.all([
       objectStorage<LocalGame, GameId>({
-        db: `local.${userId}.games--db`,
         store: 'local.games',
       }),
-      objectStorage<LocalGameIdx, GameId>({
-        db: `local.${userId}.games--db`,
-        store: 'local.games.idx',
+      objectStorage<LiteGame, GameId>({
+        store: 'local.games.lite',
         indices: [
-          // { name: 'createdAt', keyPath: 'createdAt' },
-          // { name: 'createdBy', keyPath: 'createdBy' },
-          // { name: 'white', keyPath: 'white' },
-          // { name: 'black', keyPath: 'black' },
+          { name: 'createdAt', keyPath: 'createdAt' },
+          { name: 'white', keyPath: 'white' },
+          { name: 'black', keyPath: 'black' },
+          { name: 'status', keyPath: 'finished.status' },
+          { name: 'winner', keyPath: 'finished.winner' },
         ],
       }),
     ]);
@@ -38,77 +37,61 @@ export class LocalDb {
     if (id) localStorage.setItem(`local.${userId}.gameId`, id);
     else localStorage.removeItem(`local.${userId}.gameId`);
   }
-  getLast(): Promise<LocalGame | undefined> {
-    return this.lastId ? this.store.get(this.lastId) : Promise.resolve(undefined);
+  getOne(id: GameId | undefined = this.lastId): Promise<LocalGame | undefined> {
+    return id ? this.store.get(id) : Promise.resolve(undefined);
   }
-  getOne(id: GameId): Promise<LocalGame | undefined> {
-    return this.store.get(id);
-  }
-  async getIdx(ids?: GameId[]): Promise<LocalGameIdx[]> {
-    if (!ids) ids = await this.idx.list();
-    return Promise.all(ids.map(id => this.idx.get(id))).then(games => games.filter(g => g));
+  async infoByDate(lower: number | undefined, upper: number | undefined): Promise<LiteGame[]> {
+    console.log(lower, upper);
+    const games: LiteGame[] = [];
+    await this.lite.readCursor({ index: 'createdAt', keys: keys({ above: lower, below: upper }) }, info =>
+      games.push(info),
+    );
+    return games;
   }
   delete(ids?: GameId[] | GameId): Promise<any> {
-    if (!ids) return Promise.all([this.store.clear(), this.idx.clear()]);
+    if (!ids) return Promise.all([this.store.clear(), this.lite.clear()]);
     else
       return Promise.all(
         [ids].flat().map(id => {
           this.store.remove(id);
-          this.idx.remove(id);
+          this.lite.remove(id);
         }),
       );
   }
   async put(game: LocalGame): Promise<void> {
+    const lite = gameInfo(game);
     game = structuredClone(game);
-    await Promise.all([this.store.put(game.id, game), this.idx.put(game.id, new LocalGameIdx(game))]);
+    await Promise.all([this.store.put(game.id, game), this.lite.put(lite.id, lite)]);
     this.lastId = game.id;
   }
-  async list(): Promise<GameId[]> {
-    return this.store.list();
-  }
-  async listMine(): Promise<GameId[]> {
-    return this.store.cursor({ index: 'createdBy', keys: IDBKeyRange.only(userId) }).then(cursor => {
-      const ids: GameId[] = [];
-      while (cursor?.value) {
-        ids.push(cursor.value.id);
-        cursor.continue();
-      }
-      return ids;
-    });
-  }
+  // async list(): Promise<GameId[]> {
+  //   return this.store.list();
+  // }
 }
 
-class LocalGameIdx implements LocalSetup {
+export interface LiteGame {
   id: string;
-  white: string;
-  black: string;
-  createdBy: string;
+  white?: string;
+  black?: string;
   createdAt: Millis;
   initial: Seconds;
   increment: Seconds;
   speed: Speed;
   initialFen: FEN;
   fen: FEN;
-  finished: boolean;
-  winner?: Color;
-  winnerId?: string;
-  loserId?: string;
-  constructor(game: LocalGame) {
-    this.id = game.id;
-    this.createdAt = game.createdAt;
-    this.createdBy = game.createdBy;
-    this.white = game.white ?? userId;
-    this.black = game.black ?? userId;
-    this.initial = game.initial;
-    this.increment = game.increment;
-    this.speed = game.initial === Infinity ? 'correspondence' : clockToSpeed(game.initial, game.increment);
-    this.initialFen = game.initialFen;
-    this.fen = game.fen;
-    this.winner = game.status.winner;
-    if (this.winner) {
-      this.winnerId = this[this.winner];
-      this.loserId = this[this.winner === 'white' ? 'black' : 'white'];
-    }
-    this.finished = game.status.status.id >= 30;
-  }
+  turn: Color;
+  lastMove: Uci;
+  finished?: GameStatus;
+}
+
+function gameInfo(game: LocalGame): LiteGame {
+  return {
+    ...game,
+    speed: game.initial === Infinity ? 'correspondence' : clockToSpeed(game.initial, game.increment),
+    fen: game.fen,
+    turn: game.turn,
+    lastMove: !game.moves.length ? '' : game.moves[game.moves.length - 1].uci,
+    finished: game.finished,
+    //winner:
+  };
 }

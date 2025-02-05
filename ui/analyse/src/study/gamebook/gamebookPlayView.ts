@@ -21,7 +21,11 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
     h('div.floor', [
       renderFeedback(ctrl, state),
       h('img.mascot', {
-        attrs: { width: 120, height: 120, src: site.asset.url('images/mascot/octopus.svg') },
+        attrs: {
+          width: 120,
+          height: 120,
+          src: site.asset.url('images/mascot/octopus.svg'),
+        },
       }),
     ]),
   ]);

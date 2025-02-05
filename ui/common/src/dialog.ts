@@ -56,7 +56,7 @@ export type Action =
   | { selector?: string; event?: string | string[]; listener: ActionListener }
   | { selector?: string; event?: string | string[]; result: string };
 
-// Safari versions before 15.4 need a polyfill for dialog. this "ready" promise resolves when that's loaded
+// Safari versions before 15.4 need a polyfill for dialog
 site.load.then(async () => {
   window.addEventListener('resize', onResize);
   if (!window.HTMLDialogElement)

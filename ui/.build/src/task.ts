@@ -95,7 +95,13 @@ export async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey):
 async function onFsChange(fsw: FSWatch, event: string, filename: string | null) {
   const fullpath = p.join(fsw.cwd, filename ?? '');
 
-  if (event === 'change') fileTimes.set(fullpath, await cachedFileTime(fullpath, true));
+  if (event === 'change')
+    try {
+      fileTimes.set(fullpath, await cachedFileTime(fullpath, true));
+    } catch {
+      fileTimes.delete(fullpath);
+      event = 'rename';
+    }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
     const fullglobs = watch.glob.map(({ cwd, path }) => p.join(cwd, path));
     if (!mm.isMatch(fullpath, fullglobs)) {

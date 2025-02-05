@@ -72,6 +72,7 @@ export interface LocalPlayOpts {
   pref: any;
   userId: string;
   username: string;
+  localGameId?: string;
   setup?: LocalSetup & { go?: boolean };
   bots: BotInfo[];
   dev?: boolean;

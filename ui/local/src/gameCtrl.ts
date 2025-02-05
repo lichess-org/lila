@@ -22,7 +22,7 @@ export class GameCtrl {
   constructor(readonly opts: LocalPlayOpts) {}
 
   async init(): Promise<void> {
-    const game = await env.db.getLast();
+    const game = await env.db.getOne(this.opts.localGameId);
     this.live = new LocalGame({ game, setup: this.opts.setup ?? {} });
     this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
     env.bot.setUids(this.live);

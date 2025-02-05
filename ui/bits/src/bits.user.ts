@@ -2,8 +2,17 @@ import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
 import { alert } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
+import * as licon from 'common/licon';
+import { frag } from 'common';
+import { type LiteGame, LocalDb } from 'game/localDb';
 
-export function initModule(): void {
+const games = document.querySelector<HTMLElement>('.games');
+const localDb = new LocalDb().init();
+localDb.then(db => renderLocalGames(db));
+if (games) games.style.visibility = 'hidden'; // to reduce FOUC
+
+export async function initModule(): Promise<void> {
+  await localDb;
   makeLinkPopups($('.social_links'));
   makeLinkPopups($('.user-infos .bio'));
 
@@ -48,7 +57,9 @@ export function initModule(): void {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          pubsub.emit('content-loaded', $content[0]);
+          localDb.then(ldb => renderLocalGames(ldb)); //, document.querySelectorAll('.games .pager') ? undefined : 'last');
+
+          pubsub.emit('content-loaded', $content[0]); // TODO don't do this twice
           history.replaceState({}, '', path);
           site.asset.loadEsm('bits.infiniteScroll');
         });
@@ -66,4 +77,102 @@ export function initModule(): void {
       return false;
     });
   });
+  setTimeout(() => {
+    if (games) games.style.visibility = 'visible'; // FOUC
+  });
+}
+
+async function renderLocalGames(localDb: LocalDb, page?: 'first' | 'last') {
+  page;
+  const container = document.querySelector<HTMLElement>('.games');
+  if (!container) return;
+  const games = container.querySelectorAll<HTMLElement>('article:not(.local)');
+  if (!games.length) return;
+  const dates = [...games].map(game => game.querySelector('time[datetime]')?.getAttribute('datetime'));
+  let newContent = false;
+  for (let i = 0; i < dates.length; i++) {
+    if (!dates[i]) continue;
+    const upper = new Date(dates[i]!).getTime();
+    const lower = dates.find((d, j) => d && j > i);
+    const upperDate = upper /*&& page !== 'first'*/ ? new Date(upper).getTime() : undefined;
+    const lowerDate = lower /*&& page !== 'last'*/ ? new Date(lower).getTime() : undefined;
+    const localGames = await localDb.infoByDate(lowerDate, upperDate);
+    console.log(localGames);
+
+    for (const localGame of localGames) {
+      if (document.getElementById(localGame.id)) continue;
+      const gameEl = renderGame(localGame);
+      newContent = true;
+      container.insertBefore(gameEl, games[i + 1] ?? null);
+    }
+  }
+  if (newContent) pubsub.emit('content-loaded', container);
+}
+
+// mirrored html generation in file://../../../app/views/game/widgets.scala
+function renderGame(game: LiteGame) {
+  return frag<HTMLElement>($html`
+    <article id="${game.id}" class="game-row local">
+      <a class="game-row__overlay" href="/local/${game.id}"></a>
+      <div class="game-row__board">
+        <span class="mini-board mini-board--init cg-wrap is2d"
+          data-state="${game.fen},${game.turn},${game.lastMove}">
+        </span>
+      </div>
+      <div class="game-row__infos">
+        <div class="header" data-icon="${gameIcon(game.speed)}">
+          <div class="header__text">
+            <strong>${clockString(game)} • ${game.speed} • CASUAL</strong>
+            <time class="timeago once" datetime="${new Date(game.createdAt)}"></time>
+          </div>
+        </div>
+      <div class="versus">
+        ${playerHtml(game, 'white')}
+        <div class="swords" data-icon="${licon.Swords}"></div>
+        ${playerHtml(game, 'black')}
+      </div>
+      <div class="result">
+        ${resultHtml(game)}
+      </div>
+    </article>    
+  `);
+}
+
+function gameIcon(speed: Speed) {
+  switch (speed) {
+    case 'ultraBullet':
+      return licon.UltraBullet;
+    case 'bullet':
+      return licon.Bullet;
+    case 'blitz':
+      return licon.Fire;
+    case 'rapid':
+      return licon.Rabbit;
+    case 'classical':
+      return licon.Turtle;
+    case 'correspondence':
+      return licon.PaperAirplane;
+  }
+}
+
+function clockString({ initial, increment }: LiteGame) {
+  return initial === Infinity
+    ? '∞'
+    : `${initial === 15 ? '¼' : initial === 30 ? '½' : initial === 45 ? '¾' : initial}+${increment}`;
+}
+
+function playerHtml(game: LiteGame, color: Color) {
+  // TODO fancify
+  return $html`
+    <div class="player ${color}">
+      <span>${game[color]}</span>
+    </div>
+  `;
+}
+
+function resultHtml(game: LiteGame) {
+  if (!game.finished) return i18n.site.playingRightNow;
+  return $html`
+    ${game.finished.winner}
+  `;
 }
