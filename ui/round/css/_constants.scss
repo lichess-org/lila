@@ -1,8 +1,17 @@
 // layout
 $col1-player-clock-height: 50px;
-$col1-clock-margin-top: -3px;
+$bottom-clock-shift-up-percent: 0.06;
+// todo:
+    // use this new percent variable to ideally clean up code a bit.
+    // review your changes, see if they make sense
+    // take screenshots of the clocks, and compare against screenshots of master.
+        // look at positionings of username and material too.
+$col1-bottom-clock-top-margin: -3px;
+$col1-bottom-clock-height: 47px;
 $col1-user-height: $col1-player-clock-height * 3 / 5;
 $col1-mat-height: $col1-player-clock-height * 2 / 5;
+$col1-bottom-user-height: $col1-bottom-clock-height * 3 / 5;
+$col1-bottom-mat-height: $col1-bottom-clock-height * 2 / 5;
 $col1-moves-height: 4em;
 $move-tag: 'kwdb';
 $rmoves-tag: 'rm6';

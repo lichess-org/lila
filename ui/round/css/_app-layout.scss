@@ -47,7 +47,7 @@
   display: grid;
 
   @include mq-is-col1 {
-    grid-template-rows: auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto auto auto auto 0;
+    grid-template-rows: auto $col1-user-height $col1-mat-height auto auto $col1-bottom-mat-height $col1-bottom-user-height auto auto auto auto 0;
     grid-template-areas: 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'moves' 'controls' 'voice' 'kb-move';
 
     // Put clocks and players in the same grid cell.
@@ -61,6 +61,7 @@
 
     .rclock-bottom {
       grid-area: 6 / 1 / 8 / 2;
+      margin-top: $col1-bottom-clock-top-margin;
     }
 
     cg-board {
