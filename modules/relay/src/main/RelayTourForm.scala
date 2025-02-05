@@ -111,7 +111,7 @@ object RelayTourForm:
         name = name,
         info = info,
         markup = markup,
-        ownerId = me,
+        ownerIds = NonEmptyList.one(me),
         tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         live = none,

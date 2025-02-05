@@ -57,10 +57,9 @@ final class OAuthServer(
               else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
           }
       }
-      .dmap(Right.apply)
-      .recover { case e: AuthError =>
-        Left(e)
-      }
+      .dmap(Right(_))
+      .recover:
+        case e: AuthError => Left(e)
 
   def authBoth(scopes: EndpointScopes, req: RequestHeader)(
       token1: Bearer,

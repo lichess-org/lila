@@ -52,15 +52,14 @@ final class LiveStreamApi(
     streaming: Streaming
 )(using Executor):
 
-  private val cache = cacheApi.unit[LiveStreams] {
-    _.refreshAfterWrite(2.seconds)
-      .buildAsyncFuture: _ =>
-        fuccess(streaming.getLiveStreams)
-          .dmap: s =>
-            LiveStreams(s.streams.sortBy(-_.streamer.approval.tier))
-          .addEffect: s =>
-            userIdsCache = s.streams.map(_.streamer.userId).toSet
-  }
+  private val cache = cacheApi.unit[LiveStreams]:
+    _.refreshAfterWrite(2.seconds).buildAsyncFuture: _ =>
+      fuccess(streaming.getLiveStreams)
+        .dmap: s =>
+          LiveStreams(s.streams.sortBy(-_.streamer.approval.tier))
+        .addEffect: s =>
+          userIdsCache = s.streams.map(_.streamer.userId).toSet
+
   private var userIdsCache = Set.empty[UserId]
 
   def all: Fu[LiveStreams] = cache.getUnit

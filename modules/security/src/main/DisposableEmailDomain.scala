@@ -85,6 +85,7 @@ private object DisposableEmailDomain:
       "outlook.com.vn",
       "outlook.com.br",
       "outlook.pt",
+      "outlook.sa",
       /* Hotmail (old name)*/
       "hotmail.com",
       "hotmail.co.uk",

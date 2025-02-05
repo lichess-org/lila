@@ -6,8 +6,6 @@ import play.api.ConfigLoader
 
 import scala.quoted.*
 
-import lila.core.config.ConfigName
-
 // Copied from https://github.com/keynmol/autoconfig-lichess-play-derivation/blob/main/macros.scala
 // Thanks velvetbaldmime :)
 
@@ -28,6 +26,9 @@ given [A, B](using bts: SameRuntime[A, B], loader: ConfigLoader[A]): ConfigLoade
 def optionalConfig[A](using valueLoader: ConfigLoader[A]): ConfigLoader[Option[A]] = (config, path) =>
   if !config.hasPath(path) || config.getIsNull(path) then None
   else Some(valueLoader.load(config, path))
+
+final case class ConfigName(name: String) extends scala.annotation.StaticAnnotation:
+  assert(name != null && name.nonEmpty)
 
 object AutoConfig:
 

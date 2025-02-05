@@ -80,8 +80,7 @@ final class StreamerApi(
       .map: _ =>
         asMod.option:
           cache.listedIds.invalidateUnit()
-          streamer.youTube
-            .foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
+          streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
           modChange(prev, streamer)
 
   def forceCheck(uid: UserId): Funit =

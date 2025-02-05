@@ -12,6 +12,7 @@ import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.tree.Node.minimalNodeJsonWriter
+import scalalib.actor.SyncActorMap
 
 final private class StudySocket(
     api: StudyApi,
@@ -23,7 +24,7 @@ final private class StudySocket(
 
   import StudySocket.{ *, given }
 
-  lazy val rooms = makeRoomMap(send)
+  lazy val rooms: SyncActorMap[RoomId, RoomState] = makeRoomMap(send)
 
   subscribeChat(rooms, _.study)
 

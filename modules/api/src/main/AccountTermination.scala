@@ -6,9 +6,6 @@ import lila.user.UserDelete
 import akka.stream.scaladsl.*
 import lila.db.dsl.{ *, given }
 
-enum Termination:
-  case disable, delete
-
 /* There are 2 flavours of account termination.
 |                           | disable                          | delete                |
 |---------------------------|----------------------------------|-----------------------|
@@ -122,11 +119,10 @@ final class AccountTermination(
     timeout = _.AtMost(1.minute),
     initialDelay = _.Delay(111.seconds)
   ):
-    userRepo.delete.findNextScheduled
-      .flatMapz: (user, del) =>
-        if user.enabled.yes
-        then userRepo.delete.schedule(user.id, none).inject(none)
-        else doDeleteNow(user, del).inject(user.some)
+    userRepo.delete.findNextScheduled.flatMapz: (user, del) =>
+      if user.enabled.yes
+      then userRepo.delete.schedule(user.id, none).inject(none)
+      else doDeleteNow(user, del).inject(user.some)
 
   private def doDeleteNow(u: User, del: UserDelete): Funit = for
     playbanned <- playbanApi.hasCurrentPlayban(u.id)

@@ -534,7 +534,11 @@ export default class StudyCtrl {
     else this.chapters.localPaths[this.vm.chapterId] = this.ctrl.path; // don't remember position on gamebook
     this.practice?.onJump();
   };
-  onFlip = () => this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
+  onFlip = () => {
+    if (this.chapters.newForm.isOpen()) return false;
+    this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
+    return true;
+  };
 
   isClockTicking = (path: Tree.Path) =>
     path !== '' && this.data.chapter.relayPath === path && !isFinished(this.data.chapter);

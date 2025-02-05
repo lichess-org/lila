@@ -265,8 +265,8 @@ export default class AnalyseCtrl {
   };
 
   flip = () => {
+    if (this.study?.onFlip() === false) return;
     this.flipped = !this.flipped;
-    this.study?.onFlip();
     this.chessground?.set({
       orientation: this.bottomColor(),
     });
@@ -683,12 +683,14 @@ export default class AnalyseCtrl {
   private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
+
       if (isThreat) {
         const threat = ev as Tree.LocalEval;
         if (!node.threat || isEvalBetter(threat, node.threat)) node.threat = threat;
-      } else if (!node.ceval || isEvalBetter(ev, node.ceval)) node.ceval = ev;
+      } else if ((!node.ceval || isEvalBetter(ev, node.ceval)) && !(ev.cloud && this.ceval.engines.external))
+        node.ceval = ev;
       else if (!ev.cloud) {
-        if (node.ceval.cloud && this.ceval.isDeeper()) node.ceval = ev;
+        if (node.ceval?.cloud && this.ceval.isDeeper()) node.ceval = ev;
       }
 
       if (path === this.path) {
@@ -946,13 +948,13 @@ export default class AnalyseCtrl {
     this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
       canGet: this.canEvalGet,
-      canPut: () => true,
-      // !!(
-      //   this.ceval?.isCacheable &&
-      //   this.canEvalGet() &&
-      //   // if not in study, only put decent opening moves
-      //   (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
-      // ),
+      canPut: () =>
+        !!(
+          this.ceval?.isCacheable &&
+          this.canEvalGet() &&
+          // if not in study, only put decent opening moves
+          (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
+        ),
       getNode: () => this.node,
       send: this.opts.socketSend,
       receive: this.onNewCeval,

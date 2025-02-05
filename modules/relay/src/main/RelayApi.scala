@@ -192,7 +192,7 @@ final class RelayApi(
           UnwindField("tour"),
           Match($doc("tour.tier".$exists(false))),
           Sort(Ascending("sync.nextAt")),
-          GroupField("tour.ownerId")("relays" -> PushField("$ROOT")),
+          GroupField("tour.ownerIds")("relays" -> PushField("$ROOT")),
           Project:
             $doc(
               "_id"    -> false,
@@ -226,7 +226,7 @@ final class RelayApi(
           "players"         -> tour.players,
           "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
-          "ownerId"         -> tour.ownerId.some,
+          "ownerIds"        -> tour.ownerIds.some,
           "pinnedStream"    -> tour.pinnedStream,
           "note"            -> tour.note
         )
@@ -373,7 +373,7 @@ final class RelayApi(
       yield rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    (tour.ownerId.is(me) || Granter(_.StudyAdmin))
+    (tour.isOwnedBy(me) || Granter(_.StudyAdmin))
       .so:
         for
           _      <- tourRepo.delete(tour)
@@ -383,7 +383,7 @@ final class RelayApi(
         yield true
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
+    fuccess(Granter(_.StudyAdmin) || tour.isOwnedBy(me)) >>|
       roundRepo
         .studyIdsOf(tour.id)
         .flatMap: ids =>
@@ -396,7 +396,7 @@ final class RelayApi(
     val tour = from.copy(
       id = RelayTour.makeId,
       name = RelayTour.Name(s"${from.name} (clone)"),
-      ownerId = me.userId,
+      ownerIds = NonEmptyList.one(me.userId),
       createdAt = nowInstant,
       syncedAt = none,
       tier = from.tier.map(_ => RelayTour.Tier.`private`)

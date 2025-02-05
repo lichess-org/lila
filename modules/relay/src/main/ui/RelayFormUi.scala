@@ -218,7 +218,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 strong(a(href := source.path)(source.fullName)),
                 br,
                 "Owner: ",
-                userIdLink(source.tour.ownerId.some),
+                fragList(source.tour.ownerIds.toList.map(u => userIdLink(u.some))),
                 br,
                 "Delay: ",
                 source.round.sync.delay.fold("0")(_.toString),

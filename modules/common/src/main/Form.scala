@@ -312,6 +312,8 @@ object Form:
   extension [A](m: Mapping[A])
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Mapping[B] =
       m.transform(sr.apply, rs.apply)
+    def partial[B](f2: B => A)(f1: PartialFunction[A, B]): Mapping[B] =
+      m.verifying("Invalid value", f1.isDefinedAt).transform(f1, f2)
 
   extension [A](f: PlayForm[A]) def fillOption(o: Option[A]) = o.fold(f)(f.fill)
 

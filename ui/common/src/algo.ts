@@ -31,7 +31,7 @@ export function deepFreeze<T>(obj: T): T {
   return Object.freeze(obj);
 }
 
-// recursive comparison of enumerable primitives. complex properties get reference equality only
+// comparison of enumerable primitives. complex properties get reference equality only
 export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
@@ -41,10 +41,20 @@ export function isEquivalent(a: any, b: any): boolean {
   if (typeof a !== 'object') return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
   if (aKeys.length !== bKeys.length) return false;
-  for (const key of aKeys) {
-    if (!bKeys.includes(key) || !isEquivalent(a[key], b[key])) return false;
+  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key]));
+}
+
+// true if a merge of sub into o would result in no change to o (structural containment)
+export function isContained(o: any, sub: any): boolean {
+  if (o === sub || sub === undefined) return true;
+  if (typeof o !== typeof sub) return false;
+  if (Array.isArray(o)) {
+    return Array.isArray(sub) && o.length === sub.length && o.every((x, i) => isEquivalent(x, sub[i]));
   }
-  return true;
+  if (typeof o !== 'object') return false;
+  const [aKeys, subKeys] = [Object.keys(o), Object.keys(sub)];
+  if (aKeys.length < subKeys.length) return false;
+  return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
 }
 
 export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
@@ -72,4 +82,12 @@ export function shallowSort(obj: { [key: string]: any }): { [key: string]: any }
   const sorted: { [key: string]: any } = {};
   for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
   return sorted;
+}
+
+export function reduceWhitespace(text: string): string {
+  return text.trim().replace(/\s+/g, ' ');
+}
+
+export function trimLines(s: string): string[] {
+  return s.split(/[\n\r\f]+/).filter(x => x.trim());
 }
