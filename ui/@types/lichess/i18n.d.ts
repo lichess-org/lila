@@ -4827,7 +4827,7 @@ interface I18n {
     open: string;
     /** Orientation */
     orientation: string;
-    /** Paste your PGN text here, up to %s games */
+    /** Paste your PGN text here (one or multiple games). For each game, a new chapter is created. The study can have up to %s chapters. */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
     /** %s per page */
     perPage: I18nFormat;
