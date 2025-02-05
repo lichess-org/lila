@@ -2,8 +2,13 @@
 <resources>
   <string name="communityBlogs">Bloguri comunitare</string>
   <string name="friendBlogs">Bloguri pentru prieteni</string>
-  <string name="likedBlogs">Postari placute pe blog</string>
+  <string name="likedBlogs">Postări plăcute pe blog</string>
   <string name="blogTopics">Topicuri de blog</string>
+  <plurals name="blogPosts">
+    <item quantity="one">O postare blog</item>
+    <item quantity="few">%s postări blog</item>
+    <item quantity="other">%s postări blog</item>
+  </plurals>
   <string name="lichessOfficialBlog">Blog Oficial Lichess</string>
   <string name="continueReadingPost">Continuă să citești această postare</string>
   <string name="lichessBlogPostsFromXYear">Postări pe blog Lichess în %s</string>
@@ -20,7 +25,7 @@
   <string name="createBlogDiscussion">Permite comentarii</string>
   <string name="createBlogDiscussionHelp">Va fi creat un subiect pe forum pentru ca oamenii să comenteze despre postarea dumneavoastră</string>
   <string name="publishOnYourBlog">Publică pe blogul tău</string>
-  <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tau. Daca nu, va fi privată, în ciornele tale</string>
+  <string name="publishHelp">Daca bifezi, postarea va fi listată pe blogul tău. Daca nu, va fi privată, în ciornele tale</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Fixează postarea</string>
   <string name="stickyPostHelp">Dacă este bifat, această postare va fi listată înaintea postărilor recente de pe profil.</string>
   <plurals name="publishedNbBlogPosts">
@@ -47,7 +52,7 @@
   </plurals>
   <string name="uploadAnImageForYourPost">Încarcă o imagine pentru postarea ta</string>
   <string name="imageAlt">Text alternativ imagine</string>
-  <string name="imageCredit">Sursa imagine</string>
+  <string name="imageCredit">Sursa imaginii</string>
   <string name="deleteBlog">Șterge definitiv această postare pe blog</string>
   <string name="safeToUseImages">Este sigur să folosiți imagini de pe următoarele site-uri: </string>
   <string name="selectPostTopics">Selectează subiectele de discuție despre care este vorba</string>
