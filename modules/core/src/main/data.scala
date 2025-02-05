@@ -14,8 +14,6 @@ object data:
   case class UserIds(value: List[UserId]) extends AnyVal
   case class Ints(value: List[Int])       extends AnyVal
 
-  case class Template(value: String) extends AnyVal
-
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 
   opaque type RichText = String
@@ -35,6 +33,9 @@ object data:
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
 
+  opaque type Template = String
+  object Template extends OpaqueString[Template]
+
   case class Preload[A](value: Option[A]) extends AnyVal:
     def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(Future.successful)
   object Preload:
@@ -47,7 +48,7 @@ object data:
   object LazyFu:
     def sync[A](v: => A): LazyFu[A] = LazyFu(() => Future.successful(v))
 
-  case class CircularDep[A](resolve: () => A)
+  final class CircularDep[A](val resolve: () => A)
 
   final class SimpleMemo[A](ttl: Option[FiniteDuration])(compute: () => A):
     private var value: A                     = compute()
