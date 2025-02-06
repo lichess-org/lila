@@ -80,8 +80,7 @@ This excerpt from [/ui/analyse/package.json](./analyse/package.json) matches ana
 
 ```json
   "build": {
-    "bundle": "src/**/analyse.*ts",
-    ...
+    "bundle": "src/**/analyse.*ts"
   }
 ```
 
