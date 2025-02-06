@@ -10,6 +10,7 @@ import lila.core.perm.Permission
 import lila.db.dsl.{ *, given }
 import lila.report.{ Mod, Report, Suspect }
 import lila.user.UserRepo
+import lila.core.chat.TimeoutReason
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -173,8 +174,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def terminateTournament(name: String)(using Me) = add:
     Modlog(none, Modlog.terminateTournament, details = name.some)
 
-  def chatTimeout(user: UserId, reason: String, text: String)(using MyId) = add:
-    Modlog(user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
+  def chatTimeout(user: UserId, reason: TimeoutReason, text: String)(using MyId) = add:
+    Modlog(user.some, Modlog.chatTimeout, details = s"${reason.key}: $text".some)
 
   def setPermissions(user: UserId, permissions: Map[Permission, Boolean])(using Me) = add:
     Modlog(

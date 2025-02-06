@@ -14,7 +14,7 @@ final class ChatTimeout(
 
   import ChatTimeout.{ *, given }
 
-  private val global = new scalalib.cache.ExpireSetMemo[UserId](duration)
+  private val global = scalalib.cache.ExpireSetMemo[UserId](duration)
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
     isActive(chat.id, user.id).flatMap {

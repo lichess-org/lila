@@ -30,7 +30,7 @@ final class Env(
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
   import config.*
 
-  lazy val timeout = new ChatTimeout(
+  lazy val timeout = ChatTimeout(
     coll = db(timeoutColl),
     duration = timeoutDuration
   )
