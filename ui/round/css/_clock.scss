@@ -118,9 +118,6 @@
 
   &-bottom .time {
     @extend %box-radius-bottom;
-    @include mq-is-col1 {
-      line-height: $col1-player-clock-height + $col1-bottom-clock-shift-up / 2;
-    }
   }
 
   &-correspondence .time {
