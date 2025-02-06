@@ -10,7 +10,7 @@ You can start up `ui/build -w` in watch mode to continuously rebuild when change
 
 # About packages
 
-Our client source code is arranged as a pnpm monorepo workspace described by [/pnpm-workspace.yaml](../pnpm-workspace.yaml). A separate package.json file describes source files, dependencies, and build steps for each ui package.
+Our client source code is arranged as a pnpm monorepo workspace described by [/pnpm-workspace.yaml](../pnpm-workspace.yaml). Each individual workspace package in the /ui/ folder has a package.json file that describes source files, dependencies, and build steps.
 
 One workspace package (such as /ui/analyse) may depend on another (such as /ui/common) using a "dependencies" property keyed by the package name with "workspace:\*" as the version. That tells [pnpm](https://pnpm.io) and our build script that the dependency should be resolved by [/pnpm-workspace.yaml](../pnpm-workspace.yaml) (spoiler - it's in ui/common).
 
