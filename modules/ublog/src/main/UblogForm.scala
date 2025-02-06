@@ -2,10 +2,11 @@ package lila.ublog
 
 import play.api.data.*
 import play.api.data.Forms.*
+import scalalib.model.Language
 
 import lila.common.Form.{ cleanNonEmptyText, into, given }
 import lila.core.captcha.{ CaptchaApi, WithCaptcha }
-import lila.core.i18n.{ LangList, Language, defaultLanguage }
+import lila.core.i18n.{ LangList, toLanguage, defaultLanguage }
 
 final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 
@@ -70,7 +71,7 @@ object UblogForm:
         title = title,
         intro = intro,
         markdown = markdown,
-        language = language.orElse(user.realLang.map(Language.apply)) | defaultLanguage,
+        language = language.orElse(user.realLang.map(toLanguage)) | defaultLanguage,
         topics = topics.so(UblogTopic.fromStrList),
         image = none,
         live = false,

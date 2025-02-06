@@ -3,7 +3,7 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }

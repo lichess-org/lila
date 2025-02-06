@@ -3,8 +3,7 @@ package lila.memo
 import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
 
-import lila.common.autoconfig.*
-import lila.common.autoconfig.given
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.given
 import lila.core.config.*
 

@@ -8,7 +8,6 @@ import play.api.ConfigLoader
 import scala.util.Try
 
 import lila.common.autoconfig.*
-import lila.core.config.ConfigName
 import lila.core.net.IpAddress
 import lila.core.security.IsProxy
 

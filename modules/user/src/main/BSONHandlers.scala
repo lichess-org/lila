@@ -1,6 +1,7 @@
 package lila.user
 
 import reactivemongo.api.bson.*
+import scalalib.model.LangTag
 
 import lila.core.security.HashedPassword
 import lila.core.user.{ Count, Plan, PlayTime, Profile, TotpSecret, UserEnabled, UserMarks, RoleDbKey }
@@ -94,7 +95,7 @@ object BSONHandlers:
         createdAt = r.date(createdAt),
         seenAt = r.dateO(seenAt),
         kid = r.boolD(kid),
-        lang = r.strO(lang),
+        lang = r.getO[LangTag](lang),
         title = r.getO[chess.PlayerTitle](title),
         plan = r.getO[Plan](plan) | lila.user.Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
