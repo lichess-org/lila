@@ -23,7 +23,6 @@ final class Env(
     reportApi: lila.core.report.ReportApi,
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.core.security.SpamApi,
-    chatPanicAllowed: lila.core.chat.panic.IsAllowed,
     textAnalyser: lila.core.shutup.TextAnalyser,
     mongoCache: lila.memo.MongoCache.Api
 )(using

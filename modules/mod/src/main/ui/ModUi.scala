@@ -13,7 +13,7 @@ import ScalatagsTemplate.{ *, given }
 
 case class PendingCounts(streamers: Int, appeals: Int, titles: Int)
 
-final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
+final class ModUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def impersonate(user: User)(using Translate) =
@@ -110,48 +110,6 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
           form3.actions(
             a(href := routes.User.show(u.username))(trans.site.cancel()),
             submitButton(cls := "button")(trans.site.save())
-          )
-        )
-      )
-
-  def chatPanic(state: Option[Instant])(using Context) =
-    Page("Chat Panic").css("mod.misc"):
-      main(cls := "page-menu")(
-        menu("panic"),
-        div(id := "chat-panic", cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")("Chat Panic"),
-          p(
-            "When Chat Panic is enabled, restrictions apply to public chats (tournament, simul) and PM",
-            br,
-            "Only players 24h old, and with 10 games played, can write messages."
-          ),
-          p(
-            "Current state: ",
-            state
-              .map: s =>
-                frag(
-                  goodTag(cls := "text", dataIcon := Icon.Checkmark)(strong("ENABLED")),
-                  ". Expires ",
-                  momentFromNow(s)
-                )
-              .getOrElse(badTag(cls := "text", dataIcon := Icon.X)(strong("DISABLED")))
-          ),
-          div(cls := "forms")(
-            if state.isDefined then
-              frag(
-                postForm(action := s"${routes.Mod.chatPanicPost}?v=0")(
-                  submitButton(cls := "button button-fat button-red text", dataIcon := Icon.X)("Disable")
-                ),
-                postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
-                  submitButton(cls := "button button-fat button-green text", dataIcon := Icon.Checkmark)(
-                    "Renew for two hours"
-                  )
-                )
-              )
-            else
-              postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
-                submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Enable")
-              )
           )
         )
       )
@@ -345,14 +303,6 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
       Granter
         .opt(_.MarkEngine)
         .option(a(cls := active.active("kaladin"), href := routes.Irwin.kaladin)("Kaladin dashboard")),
-      Granter
-        .opt(_.Shadowban)
-        .option(
-          a(cls := active.active("panic"), href := routes.Mod.chatPanic)(
-            "Chat Panic: ",
-            strong(if isChatPanic() then "ON" else "OFF")
-          )
-        ),
       Granter.opt(_.Admin).option(a(cls := active.active("mods"), href := routes.Mod.table)("Mods")),
       Granter
         .opt(_.Presets)
