@@ -79,7 +79,7 @@ def main():
         return
 
     lila_chdir('public/font')
-    codes = update_codes(not args.check)
+    codes = parse_codes()
     
     if args.check:
         lila_chdir()
@@ -103,34 +103,28 @@ def lila_chdir(s = '', lila_root = abspath(join(dirname(__file__), '../../'))):
 def dash_camel(s):
     return ''.join([w.title() for w in s.split('-')])
 
-
-def update_codes(write = False):
+def parse_codes():
     unnamed_re = re.compile(r'$|uni[a-f0-9]{4}', re.IGNORECASE)
     codes = {}
     warnings = []
-    corrected = []
-    lines = []
+    used = set()
     with open('lichess.sfd', 'r') as f:
         lines = f.readlines()
         name = None
-        n = 0
         for line in lines:
             if line.startswith('StartChar:'):
                 name = dash_camel(line.split(': ')[1].strip())
             elif line.startswith('Encoding:') and name is not None:
                 code_point = int(line.split(' ')[1])
                 if code_point >= 0xe000 and code_point <= 0xefff:
-                    n += 1
-                    code_point = 57343 + n
-                    line = f'Encoding: {code_point} {code_point} {n}\n'
                     if unnamed_re.match(name):
                         warnings.append(f'  Unnamed glyph "{name}" at code point {code_point}\n')
-                    else:
-                        codes[name] = code_point
-            corrected.append(line)
-    if write and corrected != lines:
-        with open('lichess.sfd', 'w') as f:
-            f.write(''.join(corrected))
+                        continue
+                    if code_point in used:
+                        warnings.append(f'  "{name}" has duplicate code point {code_point}')
+                        continue
+                    used.add(code_point)
+                    codes[name] = code_point
     print('' if not warnings else f'\nWarnings:\n{"".join(warnings)}')
     return dict(sorted(codes.items(), key=lambda x: x[1]))
 
