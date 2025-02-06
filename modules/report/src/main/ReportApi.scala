@@ -283,9 +283,7 @@ final class ReportApi(
     deletedAppeal <- deleteIfAppealInquiry(report)
     _ <- (!deletedAppeal).so:
       doProcessReport($id(report.id), unsetInquiry = true)
-  yield
-    maxScoreCache.invalidateUnit()
-    lila.mon.mod.report.close.increment()
+  yield onReportClose()
 
   def autoProcess(sus: Suspect, rooms: Set[Room])(using MyId): Funit =
     val selector = $doc(
@@ -294,9 +292,23 @@ final class ReportApi(
       "open" -> true
     )
     for _ <- doProcessReport(selector, unsetInquiry = true)
-    yield
-      maxScoreCache.invalidateUnit()
-      lila.mon.mod.report.close.increment()
+    yield onReportClose()
+
+  def autoProcessRecentChatFlags(sus: SuspectId)(using MyId): Funit = for
+    opt <- coll.one[Report]:
+      $doc(
+        "user" -> sus.value,
+        "room" -> Room.Comm,
+        "open" -> true
+      )
+    rep = opt.filter(_.atoms.toList.forall(_.isFlag))
+    _ <- rep.so: r =>
+      doProcessReport($id(r.id), unsetInquiry = true)
+  yield if rep.isDefined then onReportClose()
+
+  private def onReportClose() =
+    maxScoreCache.invalidateUnit()
+    lila.mon.mod.report.close.increment()
 
   private def deleteIfAppealInquiry(report: Report)(using me: MyId): Fu[Boolean] =
     if report.isAppealInquiryByMe
