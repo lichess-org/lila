@@ -83,10 +83,7 @@ async function compileTypings(): Promise<void> {
           .join('') +
         '}\n',
     );
-    const mstat = catStats.reduce(
-      (a, b) => (a && b && quantize(a.mtimeMs, 2000) > quantize(b.mtimeMs, 2000) ? a : b),
-      tstat || false,
-    );
+    const mstat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
     if (mstat) await fs.promises.utimes(typingsPathname, mstat.mtime, mstat.mtime);
   }
 }

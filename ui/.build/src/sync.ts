@@ -3,7 +3,7 @@ import p from 'node:path';
 import { task } from './task.ts';
 import { env, c } from './env.ts';
 import { isGlob, isFolder } from './parse.ts';
-import { quantize, isEquivalent } from './algo.ts';
+import { isEquivalent } from './algo.ts';
 
 export async function sync(): Promise<any> {
   if (!env.begin('sync')) return;
@@ -42,7 +42,7 @@ async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
       fs.promises.mkdir(p.dirname(absDest), { recursive: true }),
     ])
   ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
-  if (src && (!dest || quantize(src.mtimeMs, 300) !== quantize(dest.mtimeMs, 300))) {
+  if (src && (!dest || Math.abs(src.mtimeMs - dest.mtimeMs) > 2)) {
     await fs.promises.copyFile(absSrc, absDest);
     await fs.promises.utimes(absDest, src.atime, src.mtime);
     return true;

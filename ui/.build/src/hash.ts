@@ -90,6 +90,6 @@ async function link(name: string, hash: string) {
 
 function asHashed(path: string, hash: string) {
   const name = path.slice(path.lastIndexOf('/') + 1);
-  const extPos = name.indexOf('.');
-  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+  const extPos = name.lastIndexOf('.');
+  return extPos < 0 ? `${name}.${hash}.none` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
 }
