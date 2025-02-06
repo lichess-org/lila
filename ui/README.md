@@ -8,6 +8,16 @@ ui/build --help
 
 You can start up `ui/build -w` in watch mode to continuously rebuild when changes are detected. Keep an eye on stdout for build errors. On success, reload the browser page for the results.
 
+# Testing
+
+The frontend uses the [Vitest](https://vitest.dev/) testing framework. Please write tests. Trevlar likes tests.
+
+```bash
+pnpm test
+## or
+pnpm test:watch
+```
+
 # About packages
 
 Our client source code is arranged as a pnpm monorepo workspace described by [/pnpm-workspace.yaml](../pnpm-workspace.yaml). Each individual workspace package in the /ui/ folder has a package.json file that describes source files, dependencies, and build steps.
@@ -145,14 +155,6 @@ They may also be `{ "glob": "<pattern>", "update": "<package-relative-path>" }` 
     ]
 ```
 
-Note that "update" files must be package relative. And that's about it for package.json. The nodejs sources for ui/build script are in the [/ui/.build](./.build) folder.
+Note that "update" files must be package relative.
 
-# Testing
-
-The frontend uses the [Vitest](https://vitest.dev/) testing framework. Trevlar likes tests. Please write tests.
-
-```bash
-pnpm test
-## or
-pnpm test:watch
-```
+The nodejs sources for ui/build script are in the [/ui/.build](./.build) folder.
