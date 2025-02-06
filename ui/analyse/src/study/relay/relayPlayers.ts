@@ -162,7 +162,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                   h('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
                     h('img.mini-game__flag', {
                       attrs: {
-                        src: site.asset.url(`images/fide-fed-webp/${p.fed.id}.webp`, { version: true }),
+                        src: site.asset.url(`images/fide-fed-webp/${p.fed.id}.webp`),
                       },
                     }),
                     p.fed.name,

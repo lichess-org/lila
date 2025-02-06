@@ -59,7 +59,7 @@ export default new (class implements SoundI {
   }
 
   url(name: Name): string {
-    return site.asset.url(`sound/${name}`, { version: '_____1' });
+    return site.asset.url(`sound/${name}`, { pathVersion: '_____1' });
   }
 
   async play(name: Name, volume = 1): Promise<void> {

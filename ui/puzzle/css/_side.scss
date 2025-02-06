@@ -145,15 +145,15 @@
         padding: 0;
       }
       .color-white i {
-        background-image: url(../piece/cburnett/wK.svg);
+        background-image: asset-url('piece', 'cburnett/wK.svg');
       }
 
       .color-random i {
-        background-image: url(../images/wbK.svg);
+        background-image: img-url('wbK.svg');
       }
 
       .color-black i {
-        background-image: url(../piece/cburnett/bK.svg);
+        background-image: asset-url('piece', 'cburnett/bK.svg');
       }
       .label.active {
         background: $m-primary_bg--mix-50;

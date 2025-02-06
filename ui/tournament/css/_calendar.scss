@@ -83,7 +83,7 @@
     &.yearly {
       text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
       letter-spacing: 1px;
-      background-image: url(../images/grain.png);
+      background-image: img-url('grain.png');
       animation: animatedBackground 50s linear infinite;
     }
 

@@ -1,5 +1,9 @@
+@function asset-url($category, $path) {
+  @return url('/assets/#{$static-css-asset-version}/#{$category}/#{$path}');
+}
+
 @function img-url($path) {
-  @return url('#{$img-path}/#{$path}');
+  @return asset-url('images', $path);
 }
 
 @function at-least($width) {

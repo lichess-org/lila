@@ -16,7 +16,7 @@
     .list {
       @extend %flex-wrap;
 
-      background: url(../images/darksquares.jpg);
+      background: img-url('darksquares.jpg');
       box-shadow: inset 0 7px 20px 3px #777;
     }
 

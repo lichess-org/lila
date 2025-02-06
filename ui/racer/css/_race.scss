@@ -23,7 +23,7 @@ $c-bg-position-y: 2px;
     z-index: 0;
     width: 130%;
     height: 100%;
-    background-image: url(../images/racer/road1.webp);
+    background-image: img-url('racer/road1.webp');
     background-repeat: repeat;
     background-position-y: 7px;
     .racer--racing & {

@@ -15,7 +15,7 @@ export async function hash(): Promise<void> {
 
   for (const [pkg, { glob, update, ...rest }] of env.tasks('hash')) {
     update ? hashRuns.push({ glob, update, pkg, ...rest }) : pathOnly.glob.push(glob);
-    env.log(`${c.grey(pkg.name)} '${c.cyan(glob)}' -> '${c.cyan('public/hashed')}'`, 'hash');
+    hashLog(glob, '', pkg?.name);
   }
   if (pathOnly.glob.length) hashRuns.push(pathOnly);
 
@@ -35,11 +35,7 @@ export async function hash(): Promise<void> {
             files.map(async src => {
               const { name, hash } = await hashLink(p.relative(env.outDir, src));
               hashed[name] = { hash };
-              if (shouldLog)
-                env.log(
-                  `'${c.cyan(src)}' -> '${c.cyan(p.join('public', 'hashed', asHashed(name, hash)))}'`,
-                  'hash',
-                );
+              if (shouldLog) hashLog(src, asHashed(name, hash), pkg?.name);
             }),
           );
           if (update && pkg?.root) {
@@ -49,11 +45,7 @@ export async function hash(): Promise<void> {
             }
             const { name, hash } = await replaceHash(p.relative(pkg.root, update), pkg.root, updates);
             hashed[name] = { hash };
-            if (shouldLog)
-              env.log(
-                `${c.grey(pkg.name)} '${c.cyan(name)}' -> '${c.cyan(p.join('public', 'hashed', asHashed(name, hash)))}'`,
-                'hash',
-              );
+            if (shouldLog) hashLog(name, asHashed(name, hash), pkg.name);
           }
           updateManifest({ hashed });
         },
@@ -92,4 +84,11 @@ function asHashed(path: string, hash: string) {
   const name = path.slice(path.lastIndexOf('/') + 1);
   const extPos = name.lastIndexOf('.');
   return extPos < 0 ? `${name}.${hash}.none` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+}
+
+function hashLog(src: string, hashName: string, pkgName?: string) {
+  env.log(
+    `${pkgName ? c.grey(pkgName) + ' ' : ''}'${c.cyan(src)}' -> '${c.cyan(p.join('public', 'hashed', hashName))}'`,
+    'hash',
+  );
 }

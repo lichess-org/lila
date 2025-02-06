@@ -7,9 +7,13 @@ const assetVersion = memoize(() => document.body.getAttribute('data-asset-versio
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
   const base = opts.documentOrigin ? window.location.origin : opts.pathOnly ? '' : baseUrl();
-  const version = !opts.version ? '' : opts.version === true ? `_${assetVersion()}/` : `_${opts.version}/`;
-  const hash = !opts.version && site.manifest.hashed[path];
-  return `${base}/assets/${hash ? asHashed(path, hash) : `${version}${path}`}`;
+  const pathVersion = !opts.pathVersion
+    ? ''
+    : opts.pathVersion === true
+      ? `_${assetVersion()}/`
+      : `_${opts.pathVersion}/`;
+  const hash = !pathVersion && site.manifest.hashed[path];
+  return `${base}/assets/${hash ? asHashed(path, hash) : `${pathVersion}${path}`}`;
 };
 
 function asHashed(path: string, hash: string) {
@@ -19,7 +23,7 @@ function asHashed(path: string, hash: string) {
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
-export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
+export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____2' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {

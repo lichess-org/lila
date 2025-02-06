@@ -7,7 +7,7 @@ import { env } from './env.ts';
 import { readable } from './parse.ts';
 import { task } from './task.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
-import { quantize, zip } from './algo.ts';
+import { zip } from './algo.ts';
 import { transform } from 'esbuild';
 
 type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
@@ -83,8 +83,8 @@ async function compileTypings(): Promise<void> {
           .join('') +
         '}\n',
     );
-    const mstat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
-    if (mstat) await fs.promises.utimes(typingsPathname, mstat.mtime, mstat.mtime);
+    const histat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
+    if (histat) await fs.promises.utimes(typingsPathname, histat.mtime, histat.mtime);
   }
 }
 
@@ -153,7 +153,7 @@ async function updated(cat: string, locale?: string): Promise<fs.Stats | false> 
   const jsPath = p.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
   const [xml, js] = await Promise.allSettled([fs.promises.stat(xmlPath), fs.promises.stat(jsPath)]);
   return xml.status === 'rejected' ||
-    (js.status !== 'rejected' && quantize(xml.value.mtimeMs, 2000) <= quantize(js.value.mtimeMs, 2000))
+    (js.status !== 'rejected' && Math.abs(xml.value.mtimeMs - js.value.mtimeMs) < 2)
     ? false
     : xml.value.size > 64 && xml.value;
 }

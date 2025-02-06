@@ -27,7 +27,6 @@
     },
     "hash": [
       "/public/lifat/background/**/*.webp",
-      "/public/images/**/*.svg",
       "/public/npm/*",
       "/public/javascripts/**",
       "/public/piece-css/*"

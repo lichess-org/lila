@@ -129,7 +129,7 @@ interface Cookie {
 interface AssetUrlOpts {
   documentOrigin?: boolean;
   pathOnly?: boolean;
-  version?: true | string;
+  pathVersion?: true | string;
 }
 
 interface Dictionary<T> {

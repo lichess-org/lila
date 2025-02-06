@@ -90,15 +90,15 @@
   }
 
   .color_white i {
-    background-image: url(../piece/cburnett/wK.svg);
+    background-image: asset-url('piece', 'cburnett/wK.svg');
   }
 
   .color_random i {
-    background-image: url(../images/wbK.svg);
+    background-image: img-url('wbK.svg');
   }
 
   .color_black i {
-    background-image: url(../piece/cburnett/bK.svg);
+    background-image: asset-url('piece', 'cburnett/bK.svg');
   }
 
   .scores {
