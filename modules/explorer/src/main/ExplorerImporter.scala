@@ -32,6 +32,8 @@ final class ExplorerImporter(
     }
 
   private def fetchPgn(id: GameId): Fu[Option[PgnStr]] =
+    println("ENDPOINT IN FETCH PGN:")
+    println(s"$endpoint/masters/pgn/$id")
     ws.url(s"$endpoint/masters/pgn/$id").get().map {
       case res if res.status == 200 => PgnStr.from(res.body[String].some)
       case _                        => None

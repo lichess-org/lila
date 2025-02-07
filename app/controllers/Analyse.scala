@@ -3,6 +3,7 @@ package controllers
 import chess.format.Fen
 import play.api.libs.json.JsArray
 import play.api.mvc.*
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -15,7 +16,7 @@ final class Analyse(
     env: Env,
     gameC: => Game,
     roundC: => Round
-) extends LilaController(env):
+)(using ws: StandaloneWSClient) extends LilaController(env):
 
   def requestAnalysis(id: GameId) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     Found(env.game.gameRepo.game(id)): game =>
