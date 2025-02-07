@@ -17,7 +17,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
     Page(title)
       .css("bits.video")
       .js(infiniteScrollEsmInit)
-      .fullScreen
+      .flag(_.fullScreen)
       .wrap: body =>
         main(cls := "video page-menu force-ltr")(
           menu(control),

@@ -14,7 +14,7 @@ object tournaments:
         description = shorten(t.description.value, 152)
       )
       .css("bits.team")
-      .fullScreen:
+      .flag(_.fullScreen):
         main(
           div(cls := "box")(
             boxTop:

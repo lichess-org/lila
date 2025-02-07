@@ -26,7 +26,7 @@ def index(
         s"Sit back, relax, and watch the best ${channel.name.toLowerCase} Lichess players compete on Lichess TV",
       url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
     )
-    .zen
+    .flag(_.zen)
     .hrefLangs(lila.ui.LangPath(routes.Tv.index)):
       main(cls := "round tv-single")(
         st.aside(cls := "round__side")(

@@ -49,7 +49,7 @@ object show:
               ))
         )
       )
-      .robots(t.team.enabled):
+      .flag(_.noRobots, !t.team.enabled):
         val canManage     = asMod && isGranted(_.ManageTeam)
         val canSeeMembers = canManage || (t.enabled && (t.publicMembers || info.mine))
         main(

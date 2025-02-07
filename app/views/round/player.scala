@@ -44,7 +44,7 @@ def player(
   val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
   ui.RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
     .js(roundNvuiTag)
-    .js(
+    .js:
       PageModule(
         "round",
         Json
@@ -55,10 +55,9 @@ def player(
           )
           .add("noab" -> ctx.me.exists(_.marks.engine))
       )
-    )
     .graph(ui.povOpenGraph(pov))
-    .zen
-    .copy(playing = pov.game.playable):
+    .flag(_.zen)
+    .flag(_.playing, pov.game.playable):
       main(cls := "round")(
         st.aside(cls := "round__side")(
           side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),

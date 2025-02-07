@@ -80,8 +80,8 @@ def show(
         ) ++ views.board.explorerAndCevalConfig
       )
     )
-    .robots(s.isPublic)
-    .zoom
+    .flag(_.noRobots, !s.isPublic)
+    .flag(_.zoom)
     .csp(views.analyse.ui.csp.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
       title = s.name.value,

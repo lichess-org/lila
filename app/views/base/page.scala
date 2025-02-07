@@ -3,7 +3,7 @@ import scalalib.StringUtils.escapeHtmlRaw
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
-import lila.ui.RenderedPage
+import lila.ui.{ RenderedPage, PageFlags }
 
 object page:
 
@@ -42,6 +42,8 @@ object page:
     val allModules = p.modules ++
       p.pageModule.so(module => esmPage(module.name)) ++
       ctx.needsFp.so(fingerprintTag)
+    val zenable = p.flags(PageFlags.zen)
+    val playing = p.flags(PageFlags.playing)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -73,7 +75,7 @@ object page:
           ),
           link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          (!p.robots || !netConfig.crawlable).option:
+          (p.flags(PageFlags.noRobots) || !netConfig.crawlable).option:
             raw("""<meta content="noindex, nofollow" name="robots">""")
           ,
           noTranslate,
@@ -101,12 +103,12 @@ object page:
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid.yes,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
-              "playing fixed-scroll" -> p.playing,
-              "no-rating"            -> (!pref.showRatings || (p.playing && pref.hideRatingsInGame)),
+              "playing fixed-scroll" -> playing,
+              "no-rating"            -> (!pref.showRatings || (playing && pref.hideRatingsInGame)),
               "no-flair"             -> !pref.flairs,
-              "zen"                  -> (pref.isZen || (p.playing && pref.isZenAuto)),
-              "zenable"              -> p.zenable,
-              "zen-auto"             -> (p.zenable && pref.isZenAuto)
+              "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
+              "zenable"              -> zenable,
+              "zen-auto"             -> (zenable && pref.isZenAuto)
             )
           },
           dataDev,
@@ -126,7 +128,7 @@ object page:
           dataBoard3d      := pref.currentTheme3d.name,
           dataPieceSet3d   := pref.currentPieceSet3d.name,
           dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
-          style            := boardStyle(p.zoomable)
+          style            := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.mod.inquiry(_) },
@@ -136,9 +138,9 @@ object page:
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
             .map(u => views.auth.checkYourEmailBanner(u.username, u.email)),
-          p.zenable.option(zenZone),
+          zenable.option(zenZone),
           ui.siteHeader(
-            zenable = p.zenable,
+            zenable = zenable,
             isAppealUser = ctx.isAppealUser,
             challenges = ctx.nbChallenges,
             notifications = ctx.nbNotifications.value,
@@ -151,7 +153,7 @@ object page:
           div(
             id := "main-wrap",
             cls := List(
-              "full-screen-force" -> p.fullScreenClass,
+              "full-screen-force" -> p.flags(PageFlags.fullScreen),
               "is2d"              -> pref.is2d,
               "is3d"              -> pref.is3d
             )
