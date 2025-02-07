@@ -30,7 +30,7 @@ final class Env(
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
   import config.*
 
-  lazy val timeout = new ChatTimeout(
+  lazy val timeout = ChatTimeout(
     coll = db(timeoutColl),
     duration = timeoutDuration
   )
@@ -38,10 +38,6 @@ final class Env(
   lazy val coll = db(chatColl)
 
   lazy val api = wire[ChatApi]
-
-  lazy val panic = wire[ChatPanic]
-
-  def allowedDuringPanic: lila.core.chat.panic.IsAllowed = panic.allowed
 
   scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery): () =>
     timeout.checkExpired.foreach(api.userChat.reinstate)

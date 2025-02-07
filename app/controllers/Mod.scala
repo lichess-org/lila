@@ -499,17 +499,6 @@ final class Mod(
           .getOrElse(BadRequest.page(views.mod.ui.emailConfirm(rawQuery, none, none)))
   }
 
-  def chatPanic = Secure(_.Shadowban) { ctx ?=> _ ?=>
-    Ok.page(views.mod.ui.chatPanic(env.chat.panic.get))
-  }
-
-  def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me ?=>
-    val v = getBool("v")
-    env.chat.panic.set(v)
-    env.irc.api.chatPanic(v)
-    fuccess(().some)
-  }(_ => (_, _) ?=> Redirect(routes.Mod.chatPanic))
-
   def presets(group: String) = Secure(_.Presets) { ctx ?=> _ ?=>
     env.mod.presets
       .get(group)

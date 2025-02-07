@@ -281,13 +281,11 @@ final class Study(
       Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
-    ctx.kid.no && ctx.noBot &&               // no public chats for kids and bots
-    ctx.me.forall(env.chat.panic.allowed(_)) // anon can see public chats
-  }.soFu(
+    ctx.kid.no && ctx.noBot // no public chats for kids and bots
+  }.soFu:
     env.chat.api.userChat
       .findMine(study.id.into(ChatId))
       .mon(_.chat.fetch("study"))
-  )
 
   def createAs = AuthBody { ctx ?=> me ?=>
     bindForm(StudyForm.importGame.form)(

@@ -586,8 +586,6 @@ POST  /mod/:username/gdpr-erase        controllers.Mod.gdprErase(username: UserS
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/public-chat/timeout         controllers.Mod.publicChatTimeout
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
-GET   /mod/chat-panic                  controllers.Mod.chatPanic
-POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
 GET   /mod/print/:fh                   controllers.Mod.print(fh)
 POST  /mod/print/ban/:v/:fh            controllers.Mod.printBan(v: Boolean, fh)
 GET   /mod/ip/:ip                      controllers.Mod.singleIp(ip)

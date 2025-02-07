@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="numberOfGames">കളികളുടെ എണ്ണം</string>
+  <string name="numberOfGamesAsManyAsPossible">കൊടുത്തിരിക്കുന്ന നേരത്തിൽ എത്രമാത്രം കളിക്കാൻ പറ്റുന്നതു്</string>
+  <string name="numberOfGamesPreDefined">മുൻകൂട്ടി തീരുമാനിച്ചതു്, എല്ലാവൎക്കും ഒരേപോലെ</string>
+  <string name="playYourGames">താങ്ങളുടെ കളികൾ കളിക്കുക</string>
+</resources>
