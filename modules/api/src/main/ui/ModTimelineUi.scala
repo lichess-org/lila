@@ -89,12 +89,12 @@ final class ModTimelineUi(helpers: Helpers)(
     frag(pluralize("Playban", e.list.size), ": ", e.list.map(_.mins).toList.mkString(", "), " minutes")
 
   private def renderReportLineFlag(r: ReportLineFlag)(using Translate) = frag(
-    if r.report.open
-    then
-      postForm(action := s"${routes.Report.inquiry(r.report.id.value)}?onlyOpen=1")(
-        cls := "mod-timeline__report-form mod-timeline__report-form--open"
-      )(submitButton("Chat flag")(cls := "button button-thin", title := "Open"))
-    else "Chat flag",
+    r.openId match
+      case Some(reportId) =>
+        postForm(action := s"${routes.Report.inquiry(reportId.value)}?onlyOpen=1")(
+          cls := "mod-timeline__report-form mod-timeline__report-form--open"
+        )(submitButton("Chat flag")(cls := "button button-thin", title := "Open"))
+      case _ => "Chat flag",
     publicLineSource(r.line.from),
     div(cls := "mod-timeline__texts")(
       fragList(

@@ -8,6 +8,7 @@ import lila.playban.{ TempBan, PlaybanApi }
 import lila.shutup.{ PublicLine, ShutupApi }
 import lila.core.perm.{ Permission, Granter }
 import lila.core.userId.ModId
+import lila.core.id.ReportId
 
 case class ModTimeline(
     user: User,
@@ -35,9 +36,9 @@ object ModTimeline:
 
   case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom]):
     def like(r: Report): Boolean = report.room == r.room
-  case class ReportLineFlag(report: Report, line: PublicLine):
-    def like(r: Report): Boolean = report.id == r.id
-    def merge(o: ReportLineFlag) = PublicLine.merge(line, o.line).map(l => copy(line = l))
+  case class ReportLineFlag(openId: Option[ReportId], line: PublicLine):
+    def merge(o: ReportLineFlag) = (openId == o.openId).so:
+      PublicLine.merge(line, o.line).map(l => copy(line = l))
   case class PlayBans(list: NonEmptyList[TempBan])
   case class AccountCreation(at: Instant)
 
@@ -51,8 +52,8 @@ object ModTimeline:
     case (head :: rest, n) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
 
   private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
-    case (p: ReportLineFlag, n: ReportLineFlag) if n.like(p.report) => p.merge(n)
-    case (p: PlayBans, n: PlayBans)                                 => PlayBans(n.list ::: p.list).some
+    case (p: ReportLineFlag, n: ReportLineFlag)        => p.merge(n)
+    case (p: PlayBans, n: PlayBans)                    => PlayBans(n.list ::: p.list).some
     case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
     case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) => p.copy(atoms = n.atoms ::: p.atoms).some
     case (p: Modlog, n: Modlog)                                   => mergeModlog(p, n)
@@ -71,7 +72,9 @@ object ModTimeline:
         atoms.head.parseFlag match
           case None => List(ReportNewAtom(report, atoms))
           case Some(flag) =>
-            flag.quotes.map(text => ReportLineFlag(report, PublicLine(text, flag.source, atoms.head.at)))
+            flag.quotes.map(text =>
+              ReportLineFlag(report.open.option(report.id), PublicLine(text, flag.source, atoms.head.at))
+            )
 
   extension (e: Event)
     def key: String = e match
@@ -132,7 +135,7 @@ object ModTimeline:
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true
       case r: ReportNewAtom if r.report.is(_.Comm) => angle != Angle.Play
-      case r: ReportLineFlag                       => r.report.open || angle == Angle.Comm
+      case r: ReportLineFlag                       => r.openId.isDefined || angle == Angle.Comm
       case _                                       => true
 
 final class ModTimelineApi(
