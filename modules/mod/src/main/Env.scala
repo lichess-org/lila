@@ -97,9 +97,8 @@ final class Env(
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis)
     },
-    "deletePublicChats" -> { case d: lila.core.security.DeletePublicChats =>
-      publicChat.deleteAll(d.userId)
-      reportApi.autoProcessRecentChatFlags(SuspectId(d.userId))(using d.me)
+    "deletePublicChats" -> { case lila.core.security.DeletePublicChats(u) =>
+      publicChat.deleteAll(u)
     },
     "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(userId, subject)(using UserId.lichessAsMe)

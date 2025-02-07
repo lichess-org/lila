@@ -294,18 +294,6 @@ final class ReportApi(
     for _ <- doProcessReport(selector, unsetInquiry = true)
     yield onReportClose()
 
-  def autoProcessRecentChatFlags(sus: SuspectId)(using MyId): Funit = for
-    opt <- coll.one[Report]:
-      $doc(
-        "user" -> sus.value,
-        "room" -> Room.Comm,
-        "open" -> true
-      )
-    rep = opt.filter(_.atoms.toList.forall(_.isFlag))
-    _ <- rep.so: r =>
-      doProcessReport($id(r.id), unsetInquiry = true)
-  yield if rep.isDefined then onReportClose()
-
   private def onReportClose() =
     maxScoreCache.invalidateUnit()
     lila.mon.mod.report.close.increment()
