@@ -4,12 +4,13 @@ import { alert } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
 import * as licon from 'common/licon';
 import { frag } from 'common';
-import { type LiteGame, localDb } from 'game/localDb';
+import { type LiteGame, LocalDb } from 'game/localDb';
 
-const games = document.querySelector<HTMLElement>('.games');
-pubsub.after('local.gameDb.ready').then(() => renderLocalGames());
+const localDb = new LocalDb();
+localDb.init().then(() => renderLocalGames());
 
-if (games) games.style.visibility = 'hidden'; // to reduce FOUC
+const gamesAngle = document.querySelector<HTMLElement>('.games');
+if (gamesAngle) gamesAngle.style.visibility = 'hidden'; // FOUC
 
 export async function initModule(): Promise<void> {
   makeLinkPopups($('.social_links'));
@@ -77,16 +78,15 @@ export async function initModule(): Promise<void> {
     });
   });
   setTimeout(() => {
-    if (games) games.style.visibility = 'visible'; // FOUC
+    if (gamesAngle) gamesAngle.style.visibility = 'visible'; // FOUC
   });
 }
 
 async function renderLocalGames(page?: 'first' | 'last') {
   page;
-  const container = document.querySelector<HTMLElement>('.games');
-  const games = container?.querySelectorAll<HTMLElement>('article:not(.local)');
-  if (!(container && games?.length && localDb)) return;
-  //if (!games.length) return;
+  const games = gamesAngle?.querySelectorAll<HTMLElement>('article:not(.local)');
+  if (!(gamesAngle && games?.length && localDb)) return;
+
   const dates = [...games].map(game => game.querySelector('time[datetime]')?.getAttribute('datetime'));
   let newContent = false;
   for (let i = 0; i < dates.length; i++) {
@@ -102,10 +102,10 @@ async function renderLocalGames(page?: 'first' | 'last') {
       if (document.getElementById(localGame.id)) continue;
       const gameEl = renderGame(localGame);
       newContent = true;
-      container.insertBefore(gameEl, games[i + 1] ?? null);
+      gamesAngle.insertBefore(gameEl, games[i + 1] ?? null);
     }
   }
-  if (newContent) pubsub.emit('content-loaded', container);
+  if (newContent) pubsub.emit('content-loaded', gamesAngle);
 }
 
 // mirrored html generation in file://../../../app/views/game/widgets.scala

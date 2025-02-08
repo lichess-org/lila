@@ -25,7 +25,7 @@ import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { wsPingInterval } from 'common/socket';
-import type { LiteGame, LocalDb } from 'game/localDb';
+import { type LiteGame, LocalDb } from 'game/localDb';
 
 export default class LobbyController {
   data: LobbyData;
@@ -43,6 +43,7 @@ export default class LobbyController {
   pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
+  localDb: LocalDb = new LocalDb();
   localGames: LiteGame[] = [];
 
   private poolInStorage: LichessStorage;
@@ -60,7 +61,11 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
-
+    this.localDb.init().then(async db => {
+      this.localGames = await db.ongoing();
+      console.log(this.localGames);
+      this.redraw();
+    });
     hookRepo.initAll(this);
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);

@@ -5,10 +5,11 @@ import { DevAssets, type AssetList } from './devAssets';
 import { renderDevSide } from './devSideView';
 import { BotCtrl } from '../botCtrl';
 import { PushCtrl } from './pushCtrl';
-import { env, initEnv } from '../localEnv';
+import { env, makeEnv } from '../localEnv';
 import { renderGameView } from '../gameView';
-import type { RoundController } from 'round';
+import { pubsub } from 'common/pubsub';
 import { LocalDb } from 'game/localDb';
+import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
 
 const patch = init([classModule, attributesModule]);
@@ -22,27 +23,27 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   if (opts.pgn && opts.name) {
-    initEnv({ bot: new BotCtrl(), assets: new DevAssets() });
+    makeEnv({ bot: new BotCtrl(), assets: new DevAssets() });
     await Promise.all([env.bot.initBots(), env.assets.init()]);
     await env.repo.importPgn(opts.name, new Blob([opts.pgn], { type: 'application/x-chess-pgn' }), 16, true);
     return;
   }
   if (window.screen.width < 1260) return;
 
-  initEnv({
+  makeEnv({
     redraw,
     bot: new BotCtrl(),
     push: new PushCtrl(),
     assets: new DevAssets(opts.assets),
     dev: new DevCtrl(),
-    game: new GameCtrl(opts),
     db: new LocalDb(),
+    game: new GameCtrl(opts),
     user: opts.userId,
     username: opts.username,
     canPost: opts.canPost,
   });
 
-  await Promise.all([env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
+  await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
   await env.game.init();
 
   const el = document.createElement('main');

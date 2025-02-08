@@ -2,36 +2,33 @@ import { type ObjectStorage, objectStorage, keys } from 'common/objectStorage';
 import { LocalGame, type GameStatus } from './localGame';
 import { clockToSpeed } from './game';
 import { myUserId } from 'common';
-import { pubsub } from 'common/pubsub';
-
-export const localDb: LocalDb = (() => new LocalDb())();
 
 export class LocalDb {
   store: ObjectStorage<LocalGame, GameId> | undefined;
   lite: ObjectStorage<LiteGame, GameId> | undefined;
   current?: GameId;
 
-  constructor() {
-    Promise.all([
+  constructor() {}
+
+  async init(): Promise<this> {
+    [this.store, this.lite] = await Promise.all([
       objectStorage<LocalGame, GameId>({
         store: 'local.games',
       }),
       objectStorage<LiteGame, GameId>({
         store: 'local.games.lite',
+        version: 2,
         indices: [
           { name: 'createdAt', keyPath: 'createdAt' },
           { name: 'white', keyPath: 'white' },
           { name: 'black', keyPath: 'black' },
+          { name: 'finished', keyPath: 'finished' },
           { name: 'status', keyPath: 'finished.status' },
           { name: 'winner', keyPath: 'finished.winner' },
         ],
       }),
-    ])
-      .then(([store, lite]) => {
-        this.store = store;
-        this.lite = lite;
-      })
-      .finally(() => pubsub.complete('local.gameDb.ready', this));
+    ]);
+    return this;
   }
 
   get lastId(): GameId | undefined {
@@ -59,7 +56,7 @@ export class LocalDb {
 
   async ongoing(): Promise<LiteGame[]> {
     const games: LiteGame[] = [];
-    await this.lite?.readCursor({ index: 'status', keys: undefined }, info => games.push(info));
+    await this.lite?.readCursor({ index: 'finished', keys: undefined }, info => games.push(info));
     return games;
   }
 

@@ -44,7 +44,7 @@ export class LocalGame implements LocalSetup {
   black?: string;
   increment: Seconds = 0;
   threefoldHashes: Map<bigint, number> = new Map();
-  finished?: GameStatus;
+  finished: GameStatus | undefined = undefined;
 
   constructor(o: { game: LocalGame; ply?: number } | { setup: LocalSetup }) {
     Object.assign(this, 'game' in o ? o.game : o.setup);

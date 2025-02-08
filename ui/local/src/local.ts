@@ -5,21 +5,21 @@ import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
 import { showSetupDialog } from './setupDialog';
-import { env, initEnv } from './localEnv';
+import { env, makeEnv } from './localEnv';
 import { renderGameView } from './gameView';
 import type { LocalPlayOpts } from './types';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
-  initEnv({
+  makeEnv({
     redraw,
     bot: new BotCtrl(),
     assets: new Assets(),
-    game: new GameCtrl(opts),
     db: new LocalDb(),
+    game: new GameCtrl(opts),
   });
-  await Promise.all([env.bot.init(opts.bots), env.assets.init()]);
+  await Promise.all([env.db.init(), env.bot.init(opts.bots), env.assets.init()]);
   await env.game.init();
 
   const el = document.createElement('main');

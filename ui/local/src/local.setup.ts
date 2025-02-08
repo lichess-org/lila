@@ -1,7 +1,7 @@
 import { showSetupDialog } from './setupDialog';
 import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
-import { env, initEnv } from './localEnv';
+import { env, makeEnv } from './localEnv';
 import type { LocalSetup } from 'game';
 
 export default async function initModule(opts: LocalSetup = {}): Promise<void> {
@@ -9,6 +9,6 @@ export default async function initModule(opts: LocalSetup = {}): Promise<void> {
     opts = { ...JSON.parse(localStorage.getItem('local.setup')!), ...opts };
     opts.initial ??= Infinity;
   }
-  initEnv({ redraw: () => {}, bot: await new BotCtrl().initBots(), assets: await new Assets().init() });
+  makeEnv({ redraw: () => {}, bot: await new BotCtrl().initBots(), assets: await new Assets().init() });
   showSetupDialog(opts);
 }
