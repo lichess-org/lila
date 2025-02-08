@@ -68,7 +68,7 @@
 
     height: 100%;
     background: #ccc3; // better
-    background-image: img-url('grain.png');
+    background-image: url(../images/grain.png);
     transform: translateX(-100px);
     animation:
       animatedBackground 50s linear infinite,

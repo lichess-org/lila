@@ -101,7 +101,7 @@ final class AssetManifest(environment: Environment, net: NetConfig, ws: Standalo
       .map { (k, asset) =>
         val hash   = (asset \ "hash").as[String]
         val name   = k.substring(k.lastIndexOf('/') + 1)
-        val extPos = name.indexOf('.')
+        val extPos = name.lastIndexOf('.')
         val hashedName =
           if extPos < 0 then s"${name}.$hash"
           else s"${name.slice(0, extPos)}.$hash${name.substring(extPos)}"

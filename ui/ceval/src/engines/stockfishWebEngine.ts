@@ -33,12 +33,12 @@ export class StockfishWebEngine implements CevalEngine {
   }
 
   async boot(): Promise<void> {
-    const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
-    const makeModule = await import(site.asset.url(`${root}/${js}`, { version, documentOrigin: true }));
+    const [pathVersion, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
+    const makeModule = await import(site.asset.url(`${root}/${js}`, { pathVersion, documentOrigin: true }));
     const module: StockfishWeb = await makeModule.default({
       wasmMemory: sharedWasmMemory(this.info.minMem!),
       onError: (msg: string) => Promise.reject(new Error(msg)),
-      locateFile: (file: string) => site.asset.url(`${root}/${file}`, { version }),
+      locateFile: (file: string) => site.asset.url(`${root}/${file}`, { pathVersion }),
     });
     if (this.info.tech === 'NNUE') {
       if (this.info.variants?.length === 1) {
@@ -69,7 +69,7 @@ export class StockfishWebEngine implements CevalEngine {
         if (storedBuffer && storedBuffer.byteLength > 128 * 1024) return storedBuffer;
         const req = new XMLHttpRequest();
 
-        req.open('get', site.asset.url(`lifat/nnue/${nnueFilename}`, { version: false }), true);
+        req.open('get', site.asset.url(`lifat/nnue/${nnueFilename}`), true);
         req.responseType = 'arraybuffer';
         req.onprogress = e => this.status?.({ download: { bytes: e.loaded, total: e.total } });
 

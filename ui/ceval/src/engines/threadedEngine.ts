@@ -65,7 +65,7 @@ export class ThreadedEngine implements CevalEngine {
   }
 
   private async boot() {
-    const [root, js, wasm, version] = [
+    const [root, js, wasm, pathVersion] = [
         this.info.assets.root,
         this.info.assets.js,
         this.info.assets.wasm,
@@ -78,7 +78,7 @@ export class ThreadedEngine implements CevalEngine {
       const cache = window.indexedDB && new Cache('ceval-wasm-cache');
       try {
         if (cache) {
-          const [found, data] = await cache.get(wasmPath, version!);
+          const [found, data] = await cache.get(wasmPath, pathVersion!);
           if (found) wasmBinary = data;
         }
       } catch (e) {
@@ -87,7 +87,7 @@ export class ThreadedEngine implements CevalEngine {
       if (!wasmBinary) {
         wasmBinary = await new Promise((resolve, reject) => {
           const req = new XMLHttpRequest();
-          req.open('GET', site.asset.url(wasmPath, { version }), true);
+          req.open('GET', site.asset.url(wasmPath, { pathVersion }), true);
           req.responseType = 'arraybuffer';
           req.onerror = event => reject(event);
           req.onprogress = event => this.status?.({ download: { bytes: event.loaded, total: event.total } });
@@ -99,20 +99,20 @@ export class ThreadedEngine implements CevalEngine {
         });
       }
       try {
-        await cache.set(wasmPath, version!, wasmBinary);
+        await cache.set(wasmPath, pathVersion!, wasmBinary);
       } catch (e) {
         console.log('ceval: idb cache store failed:', e);
       }
     }
 
     // Load Emscripten module.
-    await site.asset.loadIife(`${root}/${js}`, { version });
+    await site.asset.loadIife(`${root}/${js}`, { pathVersion });
     const sf = await window[this.info.id === '__sf11mv' ? 'StockfishMv' : 'Stockfish']!({
       wasmBinary,
       printErr: (msg: string) => this.onError(new Error(msg)),
       onError: this.onError,
       locateFile: (path: string) =>
-        site.asset.url(`${root}/${path}`, { version, pathOnly: path.endsWith('.worker.js') }),
+        site.asset.url(`${root}/${path}`, { pathVersion, pathOnly: path.endsWith('.worker.js') }),
       wasmMemory: sharedWasmMemory(this.info.minMem!),
     });
 

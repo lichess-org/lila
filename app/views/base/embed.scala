@@ -21,7 +21,6 @@ object embed:
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
           page.ui.pieceSprite(ctx.pieceSet.name),
           cssTag("common.theme.embed"),
-          link(rel := "stylesheet", href := assetUrl("css/theme/font-face.css")),
           cssKeys.map(cssTag),
           page.ui.scriptsPreload(modules.flatMap(_.map(_.key)))
         ),
@@ -67,7 +66,6 @@ object embed:
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
           page.ui.pieceSprite(ctx.pieceSet.name),
           cssTag("common.theme.embed"),
-          link(rel := "stylesheet", href := assetUrl("css/theme/font-face.css")),
           cssKeys.map(cssTag),
           page.ui.sitePreload(
             List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules,

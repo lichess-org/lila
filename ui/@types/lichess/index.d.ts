@@ -129,7 +129,7 @@ interface Cookie {
 interface AssetUrlOpts {
   documentOrigin?: boolean;
   pathOnly?: boolean;
-  version?: false | string;
+  pathVersion?: true | string;
 }
 
 type Timeout = ReturnType<typeof setTimeout>;
@@ -217,7 +217,6 @@ type Perf = Exclude<VariantKey, 'standard'> | Speed;
 
 type Uci = string;
 type San = string;
-type AlmostSan = string;
 type Ply = number;
 type Seconds = number;
 type Centis = number;
