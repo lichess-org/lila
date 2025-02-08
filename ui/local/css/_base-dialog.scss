@@ -5,8 +5,8 @@ html.transp dialog::before {
 }
 
 .base-view {
-  ---white-image-url: url('/assets/lifat/bots/image/white-torso.webp');
-  ---black-image-url: url('/assets/lifat/bots/image/black-torso.webp');
+  ---white-image-url: url(../lifat/bots/image/white-torso.webp);
+  ---black-image-url: url(../lifat/bots/image/black-torso.webp);
   ---scale-factor: 1; // ---scale-factor adjusted in javascript
 
   @extend %flex-column;

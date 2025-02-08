@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import p from 'node:path';
 import { task } from './task.ts';
 import { env, c } from './env.ts';
-import { isGlob, isFolder } from './parse.ts';
+import { isGlob, isFolder, isClose } from './parse.ts';
 import { isEquivalent } from './algo.ts';
 
 export async function sync(): Promise<any> {
@@ -42,7 +42,7 @@ async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
       fs.promises.mkdir(p.dirname(absDest), { recursive: true }),
     ])
   ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
-  if (src && (!dest || Math.abs(src.mtimeMs - dest.mtimeMs) > 2)) {
+  if (src && !(dest && isClose(src.mtimeMs, dest.mtimeMs))) {
     await fs.promises.copyFile(absSrc, absDest);
     await fs.promises.utimes(absDest, src.atime, src.mtime);
     return true;

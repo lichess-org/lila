@@ -86,10 +86,10 @@
         $file-name: if($name-override, $name-override, $name);
 
         @if $file-name == 'newspaper' {
-          background-image: img-url('board/svg/#{$file-name}.svg');
+          background-image: url(../images/board/svg/#{$file-name}.svg);
           background-size: 256px;
         } @else {
-          background-image: img-url('board/#{$file-name}.thumbnail.#{$file-ext}');
+          background-image: url(../images/board/#{$file-name}.thumbnail.#{$file-ext});
         }
       }
     }
@@ -98,7 +98,7 @@
   &.d3 {
     @each $name in map-keys($board-themes-3d) {
       .#{$name} {
-        background-image: img-url('staunton/board/#{$name}.thumbnail.png');
+        background-image: url(../images/staunton/board/#{$name}.thumbnail.png);
       }
     }
   }

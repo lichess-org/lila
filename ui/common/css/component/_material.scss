@@ -12,27 +12,27 @@
     display: inline-block;
 
     &.pawn {
-      background-image: asset-url('piece', 'mono/P.svg');
+      background-image: url(../piece/mono/P.svg);
     }
 
     &.bishop {
-      background-image: asset-url('piece', 'mono/B.svg');
+      background-image: url(../piece/mono/B.svg);
     }
 
     &.knight {
-      background-image: asset-url('piece', 'mono/N.svg');
+      background-image: url(../piece/mono/N.svg);
     }
 
     &.rook {
-      background-image: asset-url('piece', 'mono/R.svg');
+      background-image: url(../piece/mono/R.svg);
     }
 
     &.queen {
-      background-image: asset-url('piece', 'mono/Q.svg');
+      background-image: url(../piece/mono/Q.svg);
     }
 
     &.king {
-      background-image: asset-url('piece', 'mono/K.svg');
+      background-image: url(../piece/mono/K.svg);
     }
 
     @include if-transp {

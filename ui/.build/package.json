@@ -24,6 +24,11 @@
     "tinycolor2": "1.6.0",
     "typescript": "5.7.3"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "scripts": {
     "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"
   }

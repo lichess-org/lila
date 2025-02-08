@@ -32,7 +32,7 @@ export async function build(pkgs: string[]): Promise<void> {
 
   if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
 
-  await Promise.all([i18n(), sync().then(hash), sass(), tsc(), esbuild()]);
+  await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
   await monitor(pkgs);
 }
 

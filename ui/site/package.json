@@ -26,10 +26,15 @@
       "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "/public/npm"
     },
     "hash": [
-      "/public/lifat/background/**/*.webp",
-      "/public/npm/*",
+      "/public/font/*.woff2",
+      "/public/images/**",
       "/public/javascripts/**",
-      "/public/piece-css/*"
+      "/public/lifat/background/**/*.webp",
+      "/public/logo/**",
+      "/public/npm/*",
+      "/public/piece/**",
+      "/public/piece-css/*",
+      "/public/sound/**/*.mp3"
     ]
   }
 }

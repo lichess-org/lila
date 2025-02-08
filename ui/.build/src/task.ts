@@ -2,7 +2,7 @@ import fg from 'fast-glob';
 import mm from 'micromatch';
 import fs from 'node:fs';
 import p from 'node:path';
-import { glob, isFolder, subfolders } from './parse.ts';
+import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
 import { randomToken } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
 
@@ -13,9 +13,15 @@ const fileTimes = new Map<AbsPath, number>();
 type Path = string;
 type AbsPath = string;
 type CwdPath = { cwd: AbsPath; path: Path };
-type Debounce = { time: number; timeout?: NodeJS.Timeout; rename: boolean; files: Set<AbsPath> };
 type TaskKey = string;
 type FSWatch = { watcher: fs.FSWatcher; cwd: AbsPath; keys: Set<TaskKey> };
+type Debounce = {
+  time: number;
+  timer?: NodeJS.Timeout;
+  rename: boolean;
+  tickle: boolean;
+  files: Set<AbsPath>;
+};
 type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
   glob: CwdPath[];
   key: TaskKey;
@@ -26,38 +32,39 @@ type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
 type TaskOpts = {
   glob: CwdPath | CwdPath[];
   execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
-  key?: TaskKey; // optional key for replace & cancel
-  ctx?: Context; // optional context for logging
-  pkg?: string; // optional package for logging
+  key?: TaskKey; // optional key for overwrite, stop, tickle
+  ctx?: Context; // optional build step context for logging
+  pkg?: Package; // optional package reference
   debounce?: number; // optional number in ms
-  root?: AbsPath; // optional relative root for file lists, otherwise all paths are absolute
+  root?: AbsPath; // default absolute - optional relative root for file lists
   globListOnly?: boolean; // default false - ignore file mods, only execute when glob list changes
   monitorOnly?: boolean; // default false - do not execute on initial traverse, only on future changes
   noEnvStatus?: boolean; // default false - don't inform env.done of task status
+  noFail?: boolean; // default false - exceptions are not logged and won't affect status
 };
 
-export async function task(o: TaskOpts): Promise<void> {
+export async function task(o: TaskOpts): Promise<TaskKey> {
   const { monitorOnly: noInitial, debounce, key: inKey } = o;
   const glob = Array<CwdPath>().concat(o.glob ?? []);
-  if (glob.length === 0) return;
   if (inKey) stopTask(inKey);
   const newWatch: Task = {
     ...o,
     glob,
     key: inKey ?? randomToken(),
     status: noInitial ? 'ok' : undefined,
-    debounce: { time: debounce ?? 0, rename: !noInitial, files: new Set<AbsPath>() },
+    debounce: { time: debounce ?? 0, rename: !noInitial, tickle: false, files: new Set<AbsPath>() },
     fileTimes: noInitial ? await globTimes(glob) : new Map(),
   };
   tasks.set(newWatch.key, newWatch);
   if (env.watch) newWatch.glob.forEach(g => watchGlob(g, newWatch.key));
-  if (!noInitial) return execute(newWatch);
+  if (!noInitial) await execute(newWatch);
+  return newWatch.key;
 }
 
 export function stopTask(keys?: TaskKey | TaskKey[]) {
   const stopKeys = Array<TaskKey>().concat(keys ?? [...tasks.keys()]);
   for (const key of stopKeys) {
-    clearTimeout(tasks.get(key)?.debounce.timeout);
+    clearTimeout(tasks.get(key)?.debounce.timer);
     tasks.delete(key);
     for (const [folder, fw] of fsWatches) {
       if (fw.keys.delete(key) && fw.keys.size === 0) {
@@ -73,7 +80,66 @@ export function taskOk(ctx?: Context): boolean {
   return all.filter(w => !w.monitorOnly).length > 0 && all.every(w => w.status === 'ok');
 }
 
-export async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promise<any> {
+export function tickle(key: TaskKey) {
+  const watch = tasks.get(key);
+  if (!watch) return;
+  clearTimeout(watch.debounce.timer);
+  watch.debounce.tickle = true;
+  watch.debounce.timer = setTimeout(() => execute(watch), watch.debounce.time);
+}
+
+async function execute(t: Task): Promise<void> {
+  const relative = (files: AbsPath[]) => (t.root ? files.map(f => p.relative(t.root!, f)) : files);
+  const debounced = [...t.debounce.files];
+  const modified: AbsPath[] = [];
+  const { tickle, rename } = t.debounce;
+  t.debounce.tickle = t.debounce.rename = false;
+  t.debounce.files.clear();
+
+  if (rename) {
+    const files = await globTimes(t.glob);
+    const keys = [...files.keys()];
+    if (t.globListOnly && !(t.fileTimes.size === files.size && keys.every(f => t.fileTimes.has(f)))) {
+      modified.push(...keys);
+    } else if (!t.globListOnly) {
+      for (const [fullpath, time] of [...files]) {
+        if (!isClose(t.fileTimes.get(fullpath), time)) modified.push(fullpath);
+      }
+    }
+    t.fileTimes = files;
+  } else if (!t.globListOnly) {
+    await Promise.all(
+      debounced.map(async file => {
+        const fileTime = await cachedFileTime(file);
+        if (isClose(t.fileTimes.get(file), fileTime)) return;
+        t.fileTimes.set(file, fileTime);
+        modified.push(file);
+      }),
+    );
+  }
+  if (!tickle && modified.length === 0) return;
+
+  if (t.ctx) env.begin(t.ctx);
+  t.status = undefined;
+  try {
+    await t.execute(relative(modified), relative([...t.fileTimes.keys()]));
+    t.status = 'ok';
+    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx);
+  } catch (e) {
+    if (t.noFail) {
+      t.status = 'ok';
+      return;
+    }
+    t.status = 'error';
+    const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
+    if (!env.watch) env.exit(`${errorMark} ${message}`, t.ctx);
+    else if (e)
+      env.log(`${errorMark} ${t.pkg?.name ? `[${c.grey(t.pkg.name)}] ` : ''}- ${c.grey(message)}`, t.ctx);
+    if (t.ctx && !t.noEnvStatus) env.done(t.ctx, -1);
+  }
+}
+
+async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promise<any> {
   if (!(await isFolder(cwd))) return;
   const [head, ...tail] = globPath.split(p.sep);
   const path = tail.join(p.sep);
@@ -92,12 +158,12 @@ export async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey):
   addFsWatch(cwd, key);
 }
 
-async function onFsChange(fsw: FSWatch, event: string, filename: string | null) {
+async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
   const fullpath = p.join(fsw.cwd, filename ?? '');
 
   if (event === 'change')
     try {
-      fileTimes.set(fullpath, await cachedFileTime(fullpath, true));
+      await cachedFileTime(fullpath, true);
     } catch {
       fileTimes.delete(fullpath);
       event = 'rename';
@@ -119,57 +185,8 @@ async function onFsChange(fsw: FSWatch, event: string, filename: string | null) 
     }
     if (event === 'rename') watch.debounce.rename = true;
     if (event === 'change') watch.debounce.files.add(fullpath);
-    clearTimeout(watch.debounce.timeout);
-    watch.debounce.timeout = setTimeout(() => execute(watch), watch.debounce.time);
-  }
-}
-
-async function execute(watch: Task): Promise<void> {
-  const relative = (files: AbsPath[]) => (watch.root ? files.map(f => p.relative(watch.root!, f)) : files);
-  const debounced = Object.freeze([...watch.debounce.files]);
-  const modified: AbsPath[] = [];
-  watch.debounce.files.clear();
-
-  if (watch.debounce.rename) {
-    watch.debounce.rename = false;
-    const files = await globTimes(watch.glob);
-    const keys = [...files.keys()];
-    if (
-      watch.globListOnly &&
-      (watch.fileTimes.size !== files.size || !keys.every(f => watch.fileTimes.has(f)))
-    ) {
-      modified.push(...keys);
-    } else if (!watch.globListOnly) {
-      for (const [fullpath, time] of [...files]) {
-        if (watch.fileTimes.get(fullpath) !== time) modified.push(fullpath);
-      }
-    }
-    watch.fileTimes = files;
-  } else if (!watch.globListOnly) {
-    await Promise.all(
-      debounced.map(async file => {
-        const fileTime = await cachedFileTime(file);
-        if (watch.fileTimes.get(file) === fileTime) return;
-        watch.fileTimes.set(file, fileTime);
-        modified.push(file);
-      }),
-    );
-  }
-  if (!modified.length) return;
-
-  if (watch.ctx) env.begin(watch.ctx);
-  watch.status = undefined;
-  try {
-    await watch.execute(relative(modified), relative([...watch.fileTimes.keys()]));
-    watch.status = 'ok';
-    if (watch.ctx && !watch.noEnvStatus && taskOk(watch.ctx)) env.done(watch.ctx);
-  } catch (e) {
-    watch.status = 'error';
-    const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
-    if (!env.watch) env.exit(`${errorMark} ${message}`, watch.ctx);
-    else if (e)
-      env.log(`${errorMark} ${watch.pkg ? `[${c.grey(watch.pkg)}] ` : ''}- ${c.grey(message)}`, watch.ctx);
-    if (watch.ctx && !watch.noEnvStatus) env.done(watch.ctx, -1);
+    clearTimeout(watch.debounce.timer);
+    watch.debounce.timer = setTimeout(() => execute(watch), watch.debounce.time);
   }
 }
 
@@ -179,7 +196,7 @@ function addFsWatch(root: AbsPath, key: TaskKey) {
     return;
   }
   const fsWatch = { watcher: fs.watch(root), cwd: root, keys: new Set([key]) };
-  fsWatch.watcher.on('change', (event, f) => onFsChange(fsWatch, event, String(f)));
+  fsWatch.watcher.on('change', (event, f) => onFsEvent(fsWatch, event, String(f)));
   fsWatches.set(root, fsWatch);
 }
 

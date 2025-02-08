@@ -59,7 +59,6 @@ object page:
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
           cssTag("common.theme.all"),
-          link(rel := "stylesheet", href := assetUrl("css/theme/font-face.css")),
           cssTag("site"),
           pref.is3d.option(cssTag("common.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),

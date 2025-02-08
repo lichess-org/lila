@@ -103,7 +103,7 @@ body:has(.base-view.setup-view) {
     &::before {
       content: '';
       display: block;
-      background-image: url('/assets/lifat/bots/image/not-worthy.webp');
+      background-image: url(../lifat/bots/image/not-worthy.webp);
       background-size: contain;
       background-repeat: no-repeat;
       min-width: 320px;

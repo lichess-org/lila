@@ -74,7 +74,7 @@
   @each $role, $r in (pawn: P, knight: N, bishop: B, rook: R, queen: Q) {
     body.cursor-#{$color}-#{$role} * {
       cursor:
-        asset-url('piece', 'cburnett/#{$c}#{$r}.svg') 22 22,
+        url(../piece/cburnett/#{$c}#{$r}.svg) 22 22,
         auto !important;
     }
   }

@@ -89,7 +89,7 @@
     width: 45px;
     height: 45px;
     content: '';
-    background-image: img-url('learn/star.png');
+    background-image: url(../images/learn/star.png);
     background-size: cover;
     filter: saturate(0);
     opacity: 0.2;
@@ -97,7 +97,7 @@
 
   .stars .star {
     display: inline-block;
-    background-image: img-url('learn/star.png');
+    background-image: url(../images/learn/star.png);
     background-size: cover;
     width: 55px;
     height: 55px;

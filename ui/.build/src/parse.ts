@@ -98,6 +98,10 @@ export function isGlob(path: string): boolean {
   return /[*?!{}[\]()]/.test(path);
 }
 
+export function isClose(a: number | undefined, b: number | undefined, epsilon = 2) {
+  return a === b || Math.abs((a ?? NaN) - (b ?? NaN)) < epsilon; // for mtimeMs jitter
+}
+
 async function parsePackage(root: string): Promise<Package> {
   const pkgInfo: Package = {
     pkg: JSON.parse(await fs.promises.readFile(p.join(root, 'package.json'), 'utf8')),

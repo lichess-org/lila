@@ -1,7 +1,6 @@
 /** promisify [indexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) and add nothing
- * @example
  * ### basic usage:
- * ```typescript
+ * ```ts
  *   import { objectStorage } from 'common/objectStorage';
  *
  *   const store = await objectStorage<number>({ store: 'store' });
@@ -9,7 +8,7 @@
  *   await store.put('someOtherKey', value + 1);
  * ```
  * ### cursors/indices:
- * ```typescript
+ * ```ts
  *   import { objectStorage, keyRange } from 'common/objectStorage';
  *
  *   const store = await objectStorage<MyObj>({
@@ -27,7 +26,7 @@
  *   });
  * ```
  * ### upgrade/migration:
- * ```typescript
+ * ```ts
  *   import { objectStorage } from 'common/objectStorage';
  *
  *   const upgradedStore = await objectStorage<MyObj>({
@@ -46,7 +45,7 @@
  *     }
  *   });
  * ```
- * other needs can be met by raw idb calls on the 'txn' function result
+ * other needs can be met by raw idb calls on the `txn` function result
  * @see https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
  */
 export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
@@ -160,9 +159,8 @@ export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
 export interface DbInfo {
   /** name of the object store */
   store: string;
-  /** name of the database. you can have multiple stores within one db but for that, you should
-   * consider using raw idb due to upgrade callback complexity. if you omit the db field it
-   * defaults to the store name. if specified, you should still aim for one store per db */
+  /** defaults to store name. if specified, you should still aim for one store per db to minimize
+   * upgrade callback complexity. otherwise, raw idb is best for multi-store dbs */
   db?: string;
   /** db version (default: 1), compare with e.oldVersion in the upgrade callback */
   version?: number;

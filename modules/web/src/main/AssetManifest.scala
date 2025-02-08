@@ -103,7 +103,7 @@ final class AssetManifest(environment: Environment, net: NetConfig, ws: Standalo
         val name   = k.substring(k.lastIndexOf('/') + 1)
         val extPos = name.lastIndexOf('.')
         val hashedName =
-          if extPos < 0 then s"${name}.$hash.none"
+          if extPos < 0 then s"${name}.$hash"
           else s"${name.slice(0, extPos)}.$hash${name.substring(extPos)}"
         (k, s"hashed/$hashedName")
       }

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import fg from 'fast-glob';
 import { XMLParser } from 'fast-xml-parser';
 import { env } from './env.ts';
-import { readable } from './parse.ts';
+import { readable, isClose } from './parse.ts';
 import { task } from './task.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { zip } from './algo.ts';
@@ -19,7 +19,7 @@ let dicts: Map<string, Dict> = new Map();
 let locales: string[];
 let cats: string[];
 
-export function i18n(): Promise<void> {
+export function i18n(): Promise<any> {
   if (!env.begin('i18n')) return Promise.resolve();
 
   return task({
@@ -153,7 +153,7 @@ async function updated(cat: string, locale?: string): Promise<fs.Stats | false> 
   const jsPath = p.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
   const [xml, js] = await Promise.allSettled([fs.promises.stat(xmlPath), fs.promises.stat(jsPath)]);
   return xml.status === 'rejected' ||
-    (js.status !== 'rejected' && Math.abs(xml.value.mtimeMs - js.value.mtimeMs) < 2)
+    (js.status !== 'rejected' && isClose(xml.value.mtimeMs, js.value.mtimeMs))
     ? false
     : xml.value.size > 64 && xml.value;
 }

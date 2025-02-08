@@ -9,6 +9,7 @@ import { readable, glob } from './parse.ts';
 import { task } from './task.ts';
 import { updateManifest } from './manifest.ts';
 import { clamp, isEquivalent, trimLines } from './algo.ts';
+import { freshSymlinkHashes, hashedBasename } from './hash.ts';
 
 const importMap = new Map<string, Set<string>>();
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
@@ -25,7 +26,7 @@ export function stopSass(): void {
   themeColorMap.clear();
 }
 
-export async function sass(): Promise<void> {
+export async function sass(): Promise<any> {
   if (!env.begin('sass')) return;
 
   await Promise.allSettled([
@@ -38,43 +39,48 @@ export async function sass(): Promise<void> {
 
   return task({
     ctx: 'sass',
-    glob: { cwd: env.uiDir, path: '*/css/**/*.scss' },
+    glob: [
+      { cwd: env.uiDir, path: '*/css/**/*.scss' },
+      { cwd: env.hashOutDir, path: '*' },
+    ],
     debounce: 300,
     root: env.rootDir,
     execute: async (modified, fullList) => {
       const concreteAll = new Set(fullList.filter(isConcrete));
       const partialTouched = modified.filter(isPartial);
-      const transitiveTouched = partialTouched.flatMap(p => [...importersOf(p)]);
+      const urlTouched = await sourcesWithUrls(modified.filter(isUrlTarget));
+      const transitiveTouched = [...partialTouched, ...urlTouched].flatMap(p => [...dependsOn(p)]);
       const concreteTouched = [...new Set([...transitiveTouched, ...modified])].filter(isConcrete);
 
       remaining = remaining
         ? new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)))
         : concreteAll;
 
-      if (modified.some(src => src.startsWith('ui/common/css/theme/_'))) {
+      if (partialTouched.some(src => src.startsWith('ui/common/css/theme/_'))) {
         await parseThemeColorDefs();
       }
 
       const oldMixes = Object.fromEntries(colorMixMap);
-
       const processed = new Set<string>();
       await Promise.all(concreteTouched.map(src => parseScss(src, processed)));
 
       if (!isEquivalent(oldMixes, Object.fromEntries(colorMixMap))) {
         await buildColorMixes();
         await buildColorWrap();
-        remaining.add('ui/common/css/build/common.theme.all.scss');
-        remaining.add('ui/common/css/build/common.theme.embed.scss');
+        for (const src of await glob('common.theme.*.scss', { cwd: 'ui/common/css/build' }))
+          remaining.add(p.relative(env.rootDir, src)); // TODO test me
       }
+      const buildSources = [...remaining];
+      remaining = new Set(await compile(buildSources, remaining.size < concreteAll.size));
 
-      remaining = new Set(await compile([...remaining], remaining.size < concreteAll.size));
+      if (remaining.size) return;
 
-      if (!remaining.size)
-        updateManifest({
-          css: Object.fromEntries(
-            await Promise.all((await glob(p.join(env.cssTempDir, '*.css'))).map(hashMoveCss)),
-          ),
-        });
+      const replacements = urlReplacements();
+      updateManifest({
+        css: Object.fromEntries(
+          await Promise.all(buildSources.map(async scss => hashCss(absTempCss(scss), replacements[scss]))),
+        ),
+      });
     },
   });
 }
@@ -99,9 +105,7 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
       sassBin,
       sassArgs.concat(
         env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
-        sources.map(
-          (src: string) => `${src}:${p.join(env.cssTempDir, p.basename(src).replace(/(.*)scss$/, '$1css'))}`,
-        ),
+        sources.map((src: string) => `${src}:${absTempCss(src)}`),
       ),
     );
 
@@ -110,7 +114,7 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     sassPs.on('close', async (code: number) => {
       if (code === 0) resolve([]);
       else
-        failed(sources)
+        Promise.all(sources.filter(scss => !readable(absTempCss(scss))))
           .then(resolve)
           .catch(() => resolve(sources));
     });
@@ -125,24 +129,34 @@ async function parseScss(src: string, processed: Set<string>) {
 
   const text = await fs.promises.readFile(src, 'utf8');
 
-  for (const match of text.matchAll(/\$m-([-_a-z0-9]+)/g)) {
-    const [str, mix] = [match[1], parseColor(match[1])];
-    if (!mix) {
-      env.log(`${errorMark} Invalid color mix: '${c.magenta(str)}' in '${c.cyan(src)}'`, 'sass');
+  for (const [, mixName] of text.matchAll(/\$m-([-_a-z0-9]+)/g)) {
+    const mixColor = parseColor(mixName);
+    if (!mixColor) {
+      env.log(`${errorMark} Invalid color mix: '${c.magenta(mixName)}' in '${c.cyan(src)}'`, 'sass');
       continue;
     }
-    colorMixMap.set(str, mix);
+    colorMixMap.set(mixName, mixColor);
   }
 
-  for (const match of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
-    if (match.length !== 2) continue;
+  for (const [, scssUrl] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
+    const url = scssUrl.replaceAll(/#\{[^}]+\}/g, '*');
 
-    const absDep = (await readable(p.resolve(p.dirname(src), match[1]) + '.scss'))
-      ? p.resolve(p.dirname(src), match[1] + '.scss')
-      : p.resolve(p.dirname(src), resolvePartial(match[1]));
+    if (url.includes('*')) {
+      for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
+        if (!importMap.get(file)?.add(src)) importMap.set(file, new Set<string>([src]));
+      }
+    } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set<string>([src]));
+  }
+
+  for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
+    if (!cssImport) continue;
+
+    const absDep = (await readable(p.resolve(p.dirname(src), cssImport) + '.scss'))
+      ? p.resolve(p.dirname(src), cssImport + '.scss')
+      : p.resolve(p.dirname(src), resolvePartial(cssImport));
 
     if (/node_modules.*\.css/.test(absDep)) continue;
-    else if (!absDep.startsWith(env.uiDir)) throw `Bad import '${match[1]}`;
+    else if (!absDep.startsWith(env.uiDir)) throw `Bad import '${cssImport}`;
 
     const dep = p.relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
@@ -264,41 +278,59 @@ function parseColor(colorMix: string) {
     : undefined;
 }
 
-async function failed(attempted: string[]): Promise<string[]> {
-  return Promise.all(
-    attempted.filter(src => !readable(p.join(env.cssTempDir, `${p.basename(src, '.scss')}.css`))),
-  );
-}
+async function hashCss(src: string, replacements: Record<string, string> | undefined) {
+  let content = await fs.promises.readFile(src, 'utf-8');
+  let modified = false;
 
-function isConcrete(src: string) {
-  return !p.basename(src).startsWith('_');
-}
-
-function isPartial(src: string) {
-  return p.basename(src).startsWith('_');
-}
-
-function resolvePartial(partial: string): string {
-  const nameBegin = partial.lastIndexOf(p.sep) + 1;
-  return `${partial.slice(0, nameBegin)}_${partial.slice(nameBegin)}.scss`;
-}
-
-function importersOf(srcFile: string, bset = new Set<string>()): Set<string> {
-  if (bset.has(srcFile)) return bset;
-  bset.add(srcFile);
-  for (const dep of importMap.get(srcFile) ?? []) importersOf(dep, bset);
-  return bset;
-}
-
-async function hashMoveCss(src: string) {
-  const content = await fs.promises.readFile(src, 'utf-8');
+  for (const [search, replace] of Object.entries(replacements ?? {})) {
+    content = content.replaceAll(search, replace);
+    modified = true;
+  }
   const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
   const basename = p.basename(src, '.css');
+  const outName = p.join(env.cssOutDir, `${basename}.${hash}.css`);
   await Promise.allSettled([
-    env.prod ? undefined : fs.promises.rename(`${src}.map`, p.join(env.cssOutDir, `${basename}.css.map`)),
-    fs.promises.rename(src, p.join(env.cssOutDir, `${basename}.${hash}.css`)),
+    env.prod ? undefined : fs.promises.rename(`${src}.map`, `${outName}.map`),
+    modified
+      ? fs.promises.writeFile(outName, content).then(() => fs.promises.unlink(src))
+      : fs.promises.rename(src, outName),
   ]);
   return [p.basename(src, '.css'), { hash }];
+}
+
+async function sourcesWithUrls(urls: string[]) {
+  const importers = new Set<string>();
+  for (const [target, hash] of Object.entries(await freshSymlinkHashes(urls))) {
+    const url = p.relative(env.hashOutDir, p.join(env.outDir, target));
+    const depSet = importMap.get(url) ?? new Set<string>();
+    const old = [...depSet].find(f => f.startsWith('public/hashed/'));
+    if (old) depSet.delete(old);
+    depSet.forEach(i => importers.add(i));
+    depSet.add(p.join('public/hashed', hashedBasename(url, hash)));
+    importMap.set(url, depSet);
+  }
+  return [...importers];
+}
+
+function urlReplacements() {
+  const replacements: Record<string, Record<string, string>> = {};
+  for (const [url, depSet] of importMap) {
+    if (!url.startsWith('../')) continue;
+    const hashed = [...depSet].find(f => f.startsWith('public/hashed/'));
+    if (!hashed) continue;
+    for (const src of [...dependsOn(url)].filter(isConcrete)) {
+      replacements[src] ??= {};
+      replacements[src][url] = p.relative(env.cssOutDir, hashed);
+    }
+  }
+  return replacements;
+}
+
+function dependsOn(srcFile: string, bset = new Set<string>()): Set<string> {
+  if (srcFile.startsWith('public/hashed/') || bset.has(srcFile)) return bset;
+  bset.add(srcFile);
+  for (const dep of importMap.get(srcFile) ?? []) dependsOn(dep, bset);
+  return bset;
 }
 
 function sassError(error: string) {
@@ -308,4 +340,25 @@ function sassError(error: string) {
       env.log(`${errorMark} - ${err.slice(7)}`, 'sass');
     } else env.log(err, 'sass');
   }
+}
+
+function resolvePartial(partial: string): string {
+  const nameBegin = partial.lastIndexOf(p.sep) + 1;
+  return `${partial.slice(0, nameBegin)}_${partial.slice(nameBegin)}.scss`;
+}
+
+function absTempCss(scss: string) {
+  return p.join(env.cssTempDir, `${p.basename(scss, '.scss')}.css`);
+}
+
+function isConcrete(src: string) {
+  return src.startsWith('ui/') && !p.basename(src).startsWith('_');
+}
+
+function isPartial(src: string) {
+  return src.startsWith('ui/') && p.basename(src).startsWith('_');
+}
+
+function isUrlTarget(src: string) {
+  return src.startsWith('public/');
 }
