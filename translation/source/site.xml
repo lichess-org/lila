@@ -1004,4 +1004,8 @@ Leave empty to start games from the normal initial position.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
   <string name="stats">Stats</string>
+  <string name="addToGoogleCalendar">Add to Google Calendar</string>
+  <string name="addToOutlook">Add to Outlook</string>
+  <string name="addToYahooCalendar">Add to Yahoo Calendar</string>
+  <string name="downloadICalendar">Download iCalendar file</string>
 </resources>

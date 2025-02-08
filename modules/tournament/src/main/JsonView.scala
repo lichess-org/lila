@@ -103,16 +103,17 @@ final class JsonView(
       full.so:
         Json
           .obj(
-            "id"        -> tour.id,
-            "createdBy" -> tour.createdBy,
-            "startsAt"  -> isoDateTimeFormatter.print(tour.startsAt),
-            "system"    -> "arena", // BC
-            "fullName"  -> tour.name(),
-            "minutes"   -> tour.minutes,
-            "perf"      -> tour.perfType,
-            "clock"     -> tour.clock,
-            "variant"   -> tour.variant.key,
-            "rated"     -> tour.isRated
+            "id"         -> tour.id,
+            "createdBy"  -> tour.createdBy,
+            "startsAt"   -> isoDateTimeFormatter.print(tour.startsAt),
+            "finishesAt" -> isoDateTimeFormatter.print(tour.finishesAt),
+            "system"     -> "arena", // BC
+            "fullName"   -> tour.name(),
+            "minutes"    -> tour.minutes,
+            "perf"       -> tour.perfType,
+            "clock"      -> tour.clock,
+            "variant"    -> tour.variant.key,
+            "rated"      -> tour.isRated
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)

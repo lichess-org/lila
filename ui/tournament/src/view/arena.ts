@@ -5,7 +5,7 @@ import type TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent } from './util';
 import { teamName } from './battle';
 import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
-import { joinWithdraw } from './button';
+import { shareMenuToggleButton, joinWithdraw, shareMenu } from './button';
 import { renderPager } from '../pagination';
 import { userLink } from 'common/userLink';
 
@@ -103,7 +103,11 @@ export function podium(ctrl: TournamentController) {
 }
 
 export function controls(ctrl: TournamentController, pag: Pagination): VNode {
-  return h('div.tour__controls', [h('div.pager', renderPager(ctrl, pag)), joinWithdraw(ctrl)]);
+  return h('div.tour__controls', [
+    h('div.pager', renderPager(ctrl, pag)),
+    h('div', [shareMenuToggleButton(ctrl.shareMenu), joinWithdraw(ctrl)]),
+    shareMenu(ctrl),
+  ]);
 }
 
 export function standing(ctrl: TournamentController, pag: Pagination, klass?: string): VNode {

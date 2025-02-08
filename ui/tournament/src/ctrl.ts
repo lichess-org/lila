@@ -14,6 +14,7 @@ import type {
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { alerts, prompt } from 'common/dialog';
+import { toggle, Toggle } from 'common';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -36,6 +37,7 @@ export default class TournamentController {
   joinWithTeamSelector = false;
   redraw: () => void;
   nbWatchers = 0;
+  shareMenu: Toggle;
 
   private lastStorage = storage.make('last-redirect');
 
@@ -56,6 +58,7 @@ export default class TournamentController {
     pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
     });
+    this.shareMenu = toggle(false, redraw);
   }
 
   askReload = (): void => {

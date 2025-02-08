@@ -2733,6 +2733,12 @@ interface I18n {
     activePlayers: string;
     /** Add current variation */
     addCurrentVariation: string;
+    /** Add to Google Calendar */
+    addToGoogleCalendar: string;
+    /** Add to Outlook */
+    addToOutlook: string;
+    /** Add to Yahoo Calendar */
+    addToYahooCalendar: string;
     /** Advanced settings */
     advancedSettings: string;
     /** Advantage */
@@ -3075,6 +3081,8 @@ interface I18n {
     download: string;
     /** Download annotated */
     downloadAnnotated: string;
+    /** Download iCalendar file */
+    downloadICalendar: string;
     /** Download imported */
     downloadImported: string;
     /** Download raw */

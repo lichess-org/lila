@@ -1,8 +1,10 @@
-import { h, type VNode } from 'snabbdom';
+import { Attrs, h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, MaybeVNode, onInsert } from 'common/snabbdom';
 import type TournamentController from '../ctrl';
+import { bindMobileMousedown, shareIcon } from 'common/device';
+import { onClickAway, Toggle } from 'common';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {
   return ctrl.joinSpinner ? spinner() : f();
@@ -68,4 +70,83 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
     );
   if (!ctrl.data.isFinished) return ctrl.isIn() ? withdraw(ctrl) : join(ctrl);
   return undefined;
+}
+
+export function shareMenuToggleButton(toggle: Toggle): VNode {
+  return h('button.fbt', {
+    class: { active: toggle() },
+    attrs: { 'data-icon': shareIcon() },
+    hook: onInsert(bindMobileMousedown(toggle.toggle)),
+  });
+}
+
+export function shareMenu(ctrl: TournamentController): MaybeVNode {
+  const toggle = ctrl.shareMenu;
+  const d = ctrl.data;
+  const title = encodeURIComponent(d.fullName);
+  const details = encodeURIComponent(`https://lichess.org/tournament/${d.id}`);
+  const startDate = new Date(d.startsAt);
+  const finishDate = new Date(d.finishesAt);
+
+  function formatDateToYYYYMMDDTHHMMSSZ(date: Date): string {
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const hours = String(date.getUTCHours()).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+    return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+  }
+
+  const googleCalendarLink = () => {
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${formatDateToYYYYMMDDTHHMMSSZ(startDate)}/${formatDateToYYYYMMDDTHHMMSSZ(finishDate)}&details=${details}`;
+  };
+
+  const outlookLink = () => {
+    return `https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose&rru=addevent&startdt=${startDate.toISOString()}&enddt=${finishDate.toISOString()}&subject=${title}&body=${details}`;
+  };
+
+  const yahooLink = () => {
+    return `https://calendar.yahoo.com/?v=60&TITLE=${title}&ST=${formatDateToYYYYMMDDTHHMMSSZ(startDate)}&ET=${formatDateToYYYYMMDDTHHMMSSZ(finishDate)}&DESC=${details}`;
+  };
+
+  const icsLink = () => {
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//lichess.org//lichess.org//EN
+BEGIN:VEVENT
+SUMMARY:${d.fullName}
+DESCRIPTION:https://lichess.org/tournament/${d.id}
+DTSTART:${formatDateToYYYYMMDDTHHMMSSZ(startDate)}
+DTEND:${formatDateToYYYYMMDDTHHMMSSZ(finishDate)}
+END:VEVENT
+END:VCALENDAR`;
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const dataURI = URL.createObjectURL(blob);
+    return dataURI;
+  };
+
+  const links = [
+    { text: i18n.site.addToGoogleCalendar, link: googleCalendarLink() },
+    { text: i18n.site.addToOutlook, link: outlookLink() },
+    { text: i18n.site.addToYahooCalendar, link: yahooLink() },
+    { text: i18n.site.downloadICalendar, link: icsLink(), download: 'event.ics' },
+  ];
+
+  return toggle()
+    ? h(
+        'div.share-menu',
+        { hook: onInsert(onClickAway(() => toggle(false))) },
+        links.map(link => {
+          const attrs: Attrs = { target: '_blank' };
+          if (link.link) {
+            attrs.href = link.link;
+          }
+          if (link.download) {
+            attrs.download = link.download;
+          }
+          return h('section', [h('a', { attrs: attrs }, link.text)]);
+        }),
+      )
+    : undefined;
 }

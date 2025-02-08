@@ -1,8 +1,8 @@
-import { init, classModule, attributesModule } from 'snabbdom';
+import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
 import type { TournamentOpts } from './interfaces';
 import { wsConnect } from 'common/socket';
 
-const patch = init([classModule, attributesModule]);
+const patch = init([classModule, attributesModule, eventListenersModule]);
 
 import makeCtrl from './ctrl';
 import view from './view/main';

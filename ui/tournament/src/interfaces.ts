@@ -64,6 +64,7 @@ export interface TournamentData {
   isRecentlyFinished: boolean;
   secondsToFinish?: number;
   startsAt: number;
+  finishesAt: number;
   defender?: string;
   spotlight?: {
     iconImg: string;
