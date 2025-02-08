@@ -15,7 +15,7 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.json.Json
 
 def fetchExportedGame(gameId: GameId, ws: StandaloneWSClient)(implicit ec: ExecutionContext): Future[String] = {
-  val url = s"${routes.Game.exportOne(gameId)}?evals=0&clocks=0"
+  val url = s"http://localhost:9663/game/export/SiaYBGes?evals=0&clocks=0"
   ws.url(url).get().map(_.body)
 }
 
