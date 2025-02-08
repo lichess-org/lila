@@ -19,7 +19,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
     game: new GameCtrl(opts),
     db: new LocalDb(),
   });
-  await Promise.all([env.db.init(), env.bot.init(opts.bots), env.assets.init()]);
+  await Promise.all([env.bot.init(opts.bots), env.assets.init()]);
   await env.game.init();
 
   const el = document.createElement('main');

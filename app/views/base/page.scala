@@ -21,10 +21,10 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    preload(staticAssetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
+    preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d.option(
       preload(
-        staticAssetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
+        assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
         "image",
         crossorigin = false
       )
@@ -82,8 +82,8 @@ object page:
           p.atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { loc =>
             val url =
-              escapeHtmlRaw(if loc.startsWith("/assets/") then assetUrl(loc.drop(8)) else loc)
-                .replace("&amp;", "&")
+              if loc.startsWith("/assets/") then assetUrl(loc.drop(8))
+              else escapeHtmlRaw(loc).replace("&amp;", "&")
             raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
           },
           fontPreload,

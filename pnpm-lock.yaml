@@ -12,13 +12,13 @@ importers:
         specifier: workspace:*
         version: link:ui/@types/lichess
       '@types/web':
-        specifier: ^0.0.200
-        version: 0.0.200
+        specifier: ^0.0.201
+        version: 0.0.201
       '@typescript-eslint/eslint-plugin':
-        specifier: ^8.22.0
+        specifier: ^8.23.0
         version: 8.23.0(@typescript-eslint/parser@8.23.0(eslint@9.20.0)(typescript@5.7.3))(eslint@9.20.0)(typescript@5.7.3)
       '@typescript-eslint/parser':
-        specifier: ^8.22.0
+        specifier: ^8.23.0
         version: 8.23.0(eslint@9.20.0)(typescript@5.7.3)
       ab:
         specifier: github:lichess-org/ab-stub
@@ -30,7 +30,7 @@ importers:
         specifier: ^0.14.2
         version: 0.14.2
       eslint:
-        specifier: ^9.19.0
+        specifier: ^9.20.0
         version: 9.20.0
       lint-staged:
         specifier: ^15.4.3
@@ -1153,8 +1153,8 @@ packages:
   '@types/web@0.0.194':
     resolution: {integrity: sha512-VKseTFF3Y8SNbpZqdVFNWQ677ujwNyrI9LcySEUwZX5iebbcdE235Lq/vqrfCzj1oFsXyVUUBqq4x8enXSakMA==}
 
-  '@types/web@0.0.200':
-    resolution: {integrity: sha512-83EtN8z1w+K9fqIE0bdI87F6Iofm+4h5jN+TbBvumbHnZrdUL/HJRdqtc0qDE18sYp0PxvWVaG0MDx4ahvl3dQ==}
+  '@types/web@0.0.201':
+    resolution: {integrity: sha512-pGg1tHPiGUxPB+T3ROqqvYAf/X52c3doP8IDOOyYlZhwE9XsuK5slPu9BJvZufHWonp4tE4eIILdnyD8dFVpkQ==}
 
   '@types/webrtc@0.0.44':
     resolution: {integrity: sha512-4BJZdzrApNFeuXgucyqs24k69f7oti3wUcGEbFbaV08QBh7yEe3tnRRuYXlyXJNXiumpZujiZqUZZ2/gMSeO0g==}
@@ -2203,6 +2203,46 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
+  vite@6.0.7:
+    resolution: {integrity: sha512-RDt8r/7qx9940f8FcOIAH9PTViRrghKaK2K1jY3RaAURrEUbm9Du1mJ72G+jlhtG3WwodnfzY8ORQZbBavZEAQ==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
+      jiti: '>=1.21.0'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.16.0
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      jiti:
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
+        optional: true
+
   vite@6.1.0:
     resolution: {integrity: sha512-RjjMipCKVoR4hVfPY6GQTgveinjNuyLw+qruksLDvA5ktI1150VmcMBKmQaEWJhg/j6Uaf6dNCNA0AfdzUb/hQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -2626,7 +2666,7 @@ snapshots:
 
   '@types/web@0.0.194': {}
 
-  '@types/web@0.0.200': {}
+  '@types/web@0.0.201': {}
 
   '@types/webrtc@0.0.44': {}
 
@@ -2720,13 +2760,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.0.5(vite@6.1.0(@types/node@22.13.1)(yaml@2.7.0))':
+  '@vitest/mocker@3.0.5(vite@6.0.7(@types/node@22.13.1)(yaml@2.7.0))':
     dependencies:
       '@vitest/spy': 3.0.5
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      vite: 6.1.0(@types/node@22.13.1)(yaml@2.7.0)
+      vite: 6.0.7(@types/node@22.13.1)(yaml@2.7.0)
 
   '@vitest/pretty-format@3.0.5':
     dependencies:
@@ -3697,6 +3737,16 @@ snapshots:
       - tsx
       - yaml
 
+  vite@6.0.7(@types/node@22.13.1)(yaml@2.7.0):
+    dependencies:
+      esbuild: 0.24.2
+      postcss: 8.5.1
+      rollup: 4.34.6
+    optionalDependencies:
+      '@types/node': 22.13.1
+      fsevents: 2.3.3
+      yaml: 2.7.0
+
   vite@6.1.0(@types/node@22.13.1)(yaml@2.7.0):
     dependencies:
       esbuild: 0.24.2
@@ -3710,7 +3760,7 @@ snapshots:
   vitest@3.0.5(@types/node@22.13.1)(yaml@2.7.0):
     dependencies:
       '@vitest/expect': 3.0.5
-      '@vitest/mocker': 3.0.5(vite@6.1.0(@types/node@22.13.1)(yaml@2.7.0))
+      '@vitest/mocker': 3.0.5(vite@6.0.7(@types/node@22.13.1)(yaml@2.7.0))
       '@vitest/pretty-format': 3.0.5
       '@vitest/runner': 3.0.5
       '@vitest/snapshot': 3.0.5
@@ -3726,7 +3776,7 @@ snapshots:
       tinyexec: 0.3.2
       tinypool: 1.0.2
       tinyrainbow: 2.0.0
-      vite: 6.1.0(@types/node@22.13.1)(yaml@2.7.0)
+      vite: 6.0.7(@types/node@22.13.1)(yaml@2.7.0)
       vite-node: 3.0.5(@types/node@22.13.1)(yaml@2.7.0)
       why-is-node-running: 2.3.0
     optionalDependencies:

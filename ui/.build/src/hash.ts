@@ -1,6 +1,6 @@
 import fs from 'node:fs';
-import p from 'node:path';
 import crypto from 'node:crypto';
+import { relative, join, resolve } from 'node:path';
 import { task } from './task.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { env, c } from './env.ts';
@@ -20,7 +20,7 @@ export async function hash(): Promise<void> {
   if (pathOnly.glob.length) hashRuns.push(pathOnly);
 
   await fs.promises.mkdir(env.hashOutDir).catch(() => {});
-  const freshHashes = await freshSymlinkHashes();
+  const symlinkHashes = await symlinkTargetHashes();
   await Promise.all(
     hashRuns.map(({ glob, update, pkg }) =>
       task({
@@ -35,21 +35,21 @@ export async function hash(): Promise<void> {
           const shouldLog = !isEquivalent(files, fullList);
           await Promise.all(
             files.map(async src => {
-              const name = p.relative(env.outDir, src);
+              const name = relative(env.outDir, src);
               const hash =
-                freshHashes[name] && !(await isLinkStale(hashedBasename(name, freshHashes[name])))
-                  ? freshHashes[name]
-                  : await hashLink(name);
+                symlinkHashes[name] && !(await isLinkStale(hashedBasename(name, symlinkHashes[name])))
+                  ? symlinkHashes[name]
+                  : await hashAndLink(name);
               hashed[name] = { hash };
               if (shouldLog) hashLog(src, hashedBasename(name, hash), pkg?.name);
             }),
           );
           if (update && pkg?.root) {
-            const updates: Record<string, string> = {};
-            for (const src of fullList.map(f => p.relative(env.outDir, f))) {
-              updates[src] = hashedBasename(src, hashed[src].hash!);
+            const replacements: Record<string, string> = {};
+            for (const src of fullList.map(f => relative(env.outDir, f))) {
+              replacements[src] = `hashed/${hashedBasename(src, hashed[src].hash!)}`;
             }
-            const { name, hash } = await replaceHash(p.relative(pkg.root, update), pkg.root, updates);
+            const { name, hash } = await replaceAllWithHashUrls(update, replacements);
             hashed[name] = { hash };
             if (shouldLog) hashLog(name, hashedBasename(name, hash), pkg.name);
           }
@@ -60,35 +60,35 @@ export async function hash(): Promise<void> {
   );
 }
 
-export async function freshSymlinkHashes(newLinks?: string[]) {
-  const freshHashes = {} as Record<string, string>;
-  if (newLinks && newLinks.length === 0) return freshHashes;
+export async function symlinkTargetHashes(newLinks?: string[]) {
+  const targetHashes = {} as Record<string, string>;
+  if (newLinks && newLinks.length === 0) return targetHashes;
 
   await fs.promises.readdir(env.hashOutDir).then(files =>
     Promise.all(
       files.map(async symlink => {
         const [, hash] = symlink.match(/^.+\.([0-9a-f]{8})(?:\.[^\.]*)?$/) ?? [];
         if (!hash || (newLinks && !newLinks.some(l => l.endsWith(symlink)))) return;
-        const absSymlink = p.join(env.hashOutDir, symlink);
+        const absSymlink = join(env.hashOutDir, symlink);
         try {
           const [target, stale] = await Promise.all([fs.promises.readlink(absSymlink), isLinkStale(symlink)]);
-          if (!stale) freshHashes[p.relative(env.outDir, p.resolve(env.hashOutDir, target))] = hash;
-        } catch {} // ignore all entries that are not valid symlinks
+          if (!stale) targetHashes[relative(env.outDir, resolve(env.hashOutDir, target))] = hash;
+        } catch {}
       }),
     ),
   );
-  return freshHashes;
+  return targetHashes;
 }
 
 export function hashedBasename(path: string, hash: string) {
-  const name = path.slice(path.lastIndexOf(p.sep) + 1);
+  const name = path.slice(path.lastIndexOf('/') + 1);
   const extPos = name.lastIndexOf('.');
   return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
 }
 
 async function isLinkStale(symlink: string | undefined) {
   if (!symlink) return true;
-  const absSymlink = p.join(env.hashOutDir, symlink);
+  const absSymlink = join(env.hashOutDir, symlink);
   const [{ mtimeMs: linkMs }, { mtimeMs: targetMs }] = await Promise.all([
     fs.promises.lstat(absSymlink),
     fs.promises.stat(absSymlink),
@@ -96,27 +96,27 @@ async function isLinkStale(symlink: string | undefined) {
   return !isClose(linkMs, targetMs);
 }
 
-async function replaceHash(name: string, root: string, files: Record<string, string>) {
+async function replaceAllWithHashUrls(name: string, files: Record<string, string>) {
   const result = Object.entries(files).reduce(
     (data, [from, to]) => data.replaceAll(from, to),
-    await fs.promises.readFile(p.join(root, name), 'utf8'),
+    await fs.promises.readFile(name, 'utf8'),
   );
   const hash = crypto.createHash('sha256').update(result).digest('hex').slice(0, 8);
-  await fs.promises.writeFile(p.join(env.hashOutDir, hashedBasename(name, hash)), result);
-  return { name, hash };
+  await fs.promises.writeFile(join(env.hashOutDir, hashedBasename(name, hash)), result);
+  return { name: relative(env.outDir, name), hash };
 }
 
-async function hashLink(name: string) {
-  const src = p.join(env.outDir, name);
+async function hashAndLink(name: string) {
+  const src = join(env.outDir, name);
   const hash = crypto
     .createHash('sha256')
     .update(await fs.promises.readFile(src))
     .digest('hex')
     .slice(0, 8);
-  const link = p.join(env.hashOutDir, hashedBasename(name, hash));
+  const link = join(env.hashOutDir, hashedBasename(name, hash));
   const [{ mtime }] = await Promise.all([
-    fs.promises.stat(p.join(env.outDir, name)),
-    fs.promises.symlink(p.relative(env.outDir, name), link).catch(() => {}),
+    fs.promises.stat(join(env.outDir, name)),
+    fs.promises.symlink(relative(env.outDir, name), link).catch(() => {}),
   ]);
   await fs.promises.lutimes(link, mtime, mtime);
   return hash;
@@ -124,7 +124,7 @@ async function hashLink(name: string) {
 
 function hashLog(src: string, hashName: string, pkgName?: string) {
   env.log(
-    `${pkgName ? c.grey(pkgName) + ' ' : ''}'${c.cyan(src)}' -> '${c.cyan(p.join('public', 'hashed', hashName))}'`,
+    `${pkgName ? c.grey(pkgName) + ' ' : ''}'${c.cyan(src)}' -> '${c.cyan(join('public', 'hashed', hashName))}'`,
     'hash',
   );
 }

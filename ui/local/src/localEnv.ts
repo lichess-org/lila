@@ -7,10 +7,13 @@ import type { DevAssets } from './dev/devAssets';
 import type { LocalDb } from 'game/localDb';
 import type { RoundController } from 'round';
 import { myUserId } from 'common';
+import { pubsub } from 'common/pubsub';
 
 export let env: LocalEnv;
+let localDb: LocalDb;
+pubsub.after<LocalDb>('local.gameDb.ready').then(db => (localDb = db));
 
-export function initEnv(cfg: Partial<LocalEnv>): LocalEnv {
+export async function initEnv(cfg: Partial<LocalEnv>): Promise<LocalEnv> {
   return (env = new LocalEnv(cfg));
 }
 
@@ -25,7 +28,6 @@ class LocalEnv {
   assets: Assets;
   push: PushCtrl;
   round: RoundController;
-  db: LocalDb;
   redraw: () => void;
 
   constructor(cfg: Partial<LocalEnv>) {
@@ -33,6 +35,10 @@ class LocalEnv {
     this.user ??= myUserId() ?? 'anonymous';
     this.username ??= this.user.charAt(0).toUpperCase() + this.user.slice(1);
     this.canPost = Boolean(this.canPost);
+  }
+
+  get db(): LocalDb {
+    return localDb;
   }
 
   get repo(): DevAssets {

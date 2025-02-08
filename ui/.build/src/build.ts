@@ -15,24 +15,30 @@ import { unique } from './algo.ts';
 import { clean } from './clean.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
-  env.startTime = Date.now();
+  try {
+    env.startTime = Date.now();
 
-  chdir(env.rootDir);
+    chdir(env.rootDir);
 
-  if (env.install) execSync('pnpm install', { stdio: 'inherit' });
-  if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
+    if (env.install) execSync('pnpm install', { stdio: 'inherit' });
+    if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
 
-  await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);
+    await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);
 
-  pkgs
-    .filter(x => !env.packages.has(x))
-    .forEach(x => env.exit(`${errorMark} - unknown package '${c.magenta(x)}'`));
+    pkgs
+      .filter(x => !env.packages.has(x))
+      .forEach(x => env.exit(`${errorMark} - unknown package '${c.magenta(x)}'`));
 
-  env.building = pkgs.length === 0 ? [...env.packages.values()] : unique(pkgs.flatMap(p => env.deps(p)));
+    env.building = pkgs.length === 0 ? [...env.packages.values()] : unique(pkgs.flatMap(p => env.deps(p)));
 
-  if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
+    if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
 
-  await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
+    await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
+  } catch (e) {
+    const errorText = `${errorMark} ${e instanceof Error ? (e.stack ?? e.message) : String(e)}`;
+    if (env.watch) env.log(errorText);
+    else env.exit(errorText);
+  }
   await monitor(pkgs);
 }
 

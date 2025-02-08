@@ -30,7 +30,6 @@
       "/public/images/**",
       "/public/javascripts/**",
       "/public/lifat/background/**/*.webp",
-      "/public/logo/**",
       "/public/npm/*",
       "/public/piece/**",
       "/public/piece-css/*",

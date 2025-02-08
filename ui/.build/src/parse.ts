@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import p from 'node:path';
+import { dirname, join, basename } from 'node:path';
 import fg from 'fast-glob';
 import { env } from './env.ts';
 
@@ -28,7 +28,7 @@ interface Sync {
 }
 
 export async function parsePackages(): Promise<void> {
-  for (const dir of (await glob('ui/[^@.]*/package.json')).map(pkg => p.dirname(pkg))) {
+  for (const dir of (await glob('ui/[^@.]*/package.json')).map(pkg => dirname(pkg))) {
     const pkgInfo = await parsePackage(dir);
     env.packages.set(pkgInfo.name, pkgInfo);
   }
@@ -58,7 +58,7 @@ export async function folderSize(folder: string): Promise<number> {
 
     const sizes = await Promise.all(
       entries.map(async entry => {
-        const fullPath = p.join(dir, entry.name);
+        const fullPath = join(dir, entry.name);
         if (entry.isDirectory()) return getSize(fullPath);
         if (entry.isFile()) return (await fs.promises.stat(fullPath)).size;
         return 0;
@@ -81,7 +81,7 @@ export async function subfolders(folder: string, depth = 1): Promise<string[]> {
   if (depth > 0)
     await Promise.all(
       (await fs.promises.readdir(folder).catch(() => [])).map(f =>
-        fs.promises.stat(p.join(folder, f)).then(s => s.isDirectory() && folders.push(p.join(folder, f))),
+        fs.promises.stat(join(folder, f)).then(s => s.isDirectory() && folders.push(join(folder, f))),
       ),
     );
   return folders;
@@ -104,8 +104,8 @@ export function isClose(a: number | undefined, b: number | undefined, epsilon = 
 
 async function parsePackage(root: string): Promise<Package> {
   const pkgInfo: Package = {
-    pkg: JSON.parse(await fs.promises.readFile(p.join(root, 'package.json'), 'utf8')),
-    name: p.basename(root),
+    pkg: JSON.parse(await fs.promises.readFile(join(root, 'package.json'), 'utf8')),
+    name: basename(root),
     root,
     bundle: [],
     sync: [],
@@ -115,7 +115,7 @@ async function parsePackage(root: string): Promise<Package> {
   const build = pkgInfo.pkg.build;
 
   // 'hash' and 'sync' paths beginning with '/' are repo relative, otherwise they are package relative
-  const normalize = (file: string) => (file[0] === '/' ? file.slice(1) : p.join('ui', pkgInfo.name, file));
+  const normalize = (file: string) => (file[0] === '/' ? file.slice(1) : join('ui', pkgInfo.name, file));
   const normalizeObject = <T extends Record<string, any>>(o: T) =>
     Object.fromEntries(Object.entries(o).map(([k, v]) => [k, typeof v === 'string' ? normalize(v) : v]));
 

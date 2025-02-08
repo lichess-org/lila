@@ -1,15 +1,15 @@
 import cps from 'node:child_process';
 import fs from 'node:fs';
 import ps from 'node:process';
-import p from 'node:path';
 import crypto from 'node:crypto';
+import { join, relative, basename, dirname, resolve } from 'node:path';
 import clr from 'tinycolor2';
 import { env, c, errorMark } from './env.ts';
 import { readable, glob } from './parse.ts';
 import { task } from './task.ts';
 import { updateManifest } from './manifest.ts';
 import { clamp, isEquivalent, trimLines } from './algo.ts';
-import { freshSymlinkHashes, hashedBasename } from './hash.ts';
+import { symlinkTargetHashes, hashedBasename } from './hash.ts';
 
 const importMap = new Map<string, Set<string>>();
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
@@ -32,7 +32,7 @@ export async function sass(): Promise<any> {
   await Promise.allSettled([
     fs.promises.mkdir(env.cssOutDir),
     fs.promises.mkdir(env.themeGenDir),
-    fs.promises.mkdir(p.join(env.buildTempDir, 'css')),
+    fs.promises.mkdir(join(env.buildTempDir, 'css')),
   ]);
 
   let remaining: Set<string>;
@@ -48,8 +48,8 @@ export async function sass(): Promise<any> {
     execute: async (modified, fullList) => {
       const concreteAll = new Set(fullList.filter(isConcrete));
       const partialTouched = modified.filter(isPartial);
-      const urlTouched = await sourcesWithUrls(modified.filter(isUrlTarget));
-      const transitiveTouched = [...partialTouched, ...urlTouched].flatMap(p => [...dependsOn(p)]);
+      const urlTargetTouched = await sourcesWithUrls(modified.filter(isUrlTarget));
+      const transitiveTouched = [...partialTouched, ...urlTargetTouched].flatMap(p => [...dependsOn(p)]);
       const concreteTouched = [...new Set([...transitiveTouched, ...modified])].filter(isConcrete);
 
       remaining = remaining
@@ -68,7 +68,7 @@ export async function sass(): Promise<any> {
         await buildColorMixes();
         await buildColorWrap();
         for (const src of await glob('common.theme.*.scss', { cwd: 'ui/common/css/build' }))
-          remaining.add(p.relative(env.rootDir, src)); // TODO test me
+          remaining.add(relative(env.rootDir, src)); // TODO test me
       }
       const buildSources = [...remaining];
       remaining = new Set(await compile(buildSources, remaining.size < concreteAll.size));
@@ -90,12 +90,12 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
   const sassBin =
     process.env.SASS_PATH ??
     (await fs.promises.realpath(
-      p.join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
+      join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
     ));
   if (!(await readable(sassBin))) env.exit(`Sass executable not found '${c.cyan(sassBin)}'`, 'sass');
 
-  return new Promise(resolve => {
-    if (!sources.length) return resolve([]);
+  return new Promise(resolveWithErrors => {
+    if (!sources.length) return resolveWithErrors([]);
     if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, 'sass'));
     else env.log('Building', 'sass');
 
@@ -112,18 +112,18 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.on('close', async (code: number) => {
-      if (code === 0) resolve([]);
+      if (code === 0) resolveWithErrors([]);
       else
         Promise.all(sources.filter(scss => !readable(absTempCss(scss))))
-          .then(resolve)
-          .catch(() => resolve(sources));
+          .then(resolveWithErrors)
+          .catch(() => resolveWithErrors(sources));
     });
   });
 }
 
 // recursively parse scss file and its imports to build dependency and color maps
 async function parseScss(src: string, processed: Set<string>) {
-  if (p.dirname(src).endsWith('/gen')) return;
+  if (dirname(src).endsWith('/gen')) return;
   if (processed.has(src)) return;
   processed.add(src);
 
@@ -139,26 +139,26 @@ async function parseScss(src: string, processed: Set<string>) {
   }
 
   for (const [, scssUrl] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
-    const url = scssUrl.replaceAll(/#\{[^}]+\}/g, '*');
+    const url = scssUrl.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
 
     if (url.includes('*')) {
       for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
-        if (!importMap.get(file)?.add(src)) importMap.set(file, new Set<string>([src]));
+        if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
       }
-    } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set<string>([src]));
+    } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
   }
 
   for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
     if (!cssImport) continue;
 
-    const absDep = (await readable(p.resolve(p.dirname(src), cssImport) + '.scss'))
-      ? p.resolve(p.dirname(src), cssImport + '.scss')
-      : p.resolve(p.dirname(src), resolvePartial(cssImport));
+    const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
+      ? resolve(dirname(src), cssImport + '.scss')
+      : resolve(dirname(src), resolvePartial(cssImport));
 
     if (/node_modules.*\.css/.test(absDep)) continue;
     else if (!absDep.startsWith(env.uiDir)) throw `Bad import '${cssImport}`;
 
-    const dep = p.relative(env.rootDir, absDep);
+    const dep = relative(env.rootDir, absDep);
     if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
     await parseScss(dep, processed);
   }
@@ -207,7 +207,7 @@ async function parseThemeColorDefs() {
 
 // given color definitions and mix instructions, build mixed color css variables in themed scss mixins
 async function buildColorMixes() {
-  const out = fs.createWriteStream(p.join(env.themeGenDir, '_mix.scss'));
+  const out = fs.createWriteStream(join(env.themeGenDir, '_mix.scss'));
   for (const theme of themeColorMap.keys()) {
     const colorMap = themeColorMap.get(theme)!;
     out.write(`@mixin ${theme}-mix {\n`);
@@ -240,7 +240,7 @@ async function buildColorWrap() {
   const cssVars = new Set<string>();
   for (const color of colorMixMap.keys()) cssVars.add(`m-${color}`);
 
-  for (const file of await glob(p.join(env.themeDir, '_*.scss'))) {
+  for (const file of await glob(join(env.themeDir, '_*.scss'))) {
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
       if (line.indexOf('--') === -1) continue;
       const commentIndex = line.indexOf('//');
@@ -255,8 +255,8 @@ async function buildColorWrap() {
       .map(variable => `$${variable}: var(--${variable});`)
       .join('\n') + '\n';
 
-  const wrapFile = p.join(env.themeDir, 'gen', '_wrap.scss');
-  await fs.promises.mkdir(p.dirname(wrapFile), { recursive: true });
+  const wrapFile = join(env.themeDir, 'gen', '_wrap.scss');
+  await fs.promises.mkdir(dirname(wrapFile), { recursive: true });
   if (await readable(wrapFile)) {
     if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // don't touch wrap if no changes
   }
@@ -287,26 +287,25 @@ async function hashCss(src: string, replacements: Record<string, string> | undef
     modified = true;
   }
   const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
-  const basename = p.basename(src, '.css');
-  const outName = p.join(env.cssOutDir, `${basename}.${hash}.css`);
+  const baseName = basename(src, '.css');
+  const outName = join(env.cssOutDir, `${baseName}.${hash}.css`);
   await Promise.allSettled([
-    env.prod ? undefined : fs.promises.rename(`${src}.map`, `${outName}.map`),
+    env.prod ? undefined : fs.promises.rename(`${src}.map`, `${join(env.cssOutDir, baseName)}.css.map`),
     modified
       ? fs.promises.writeFile(outName, content).then(() => fs.promises.unlink(src))
       : fs.promises.rename(src, outName),
   ]);
-  return [p.basename(src, '.css'), { hash }];
+  return [baseName, { hash }];
 }
 
 async function sourcesWithUrls(urls: string[]) {
   const importers = new Set<string>();
-  for (const [target, hash] of Object.entries(await freshSymlinkHashes(urls))) {
-    const url = p.relative(env.hashOutDir, p.join(env.outDir, target));
+  for (const [target, hash] of Object.entries(await symlinkTargetHashes(urls))) {
+    const url = relative(env.hashOutDir, join(env.outDir, target));
     const depSet = importMap.get(url) ?? new Set<string>();
-    const old = [...depSet].find(f => f.startsWith('public/hashed/'));
-    if (old) depSet.delete(old);
+    depSet.delete([...depSet].find(f => f.startsWith('public/hashed/')) ?? '');
     depSet.forEach(i => importers.add(i));
-    depSet.add(p.join('public/hashed', hashedBasename(url, hash)));
+    depSet.add(join('public/hashed', hashedBasename(url, hash)));
     importMap.set(url, depSet);
   }
   return [...importers];
@@ -320,7 +319,7 @@ function urlReplacements() {
     if (!hashed) continue;
     for (const src of [...dependsOn(url)].filter(isConcrete)) {
       replacements[src] ??= {};
-      replacements[src][url] = p.relative(env.cssOutDir, hashed);
+      replacements[src][url] = relative(env.cssOutDir, hashed);
     }
   }
   return replacements;
@@ -343,20 +342,20 @@ function sassError(error: string) {
 }
 
 function resolvePartial(partial: string): string {
-  const nameBegin = partial.lastIndexOf(p.sep) + 1;
+  const nameBegin = partial.lastIndexOf('/') + 1;
   return `${partial.slice(0, nameBegin)}_${partial.slice(nameBegin)}.scss`;
 }
 
 function absTempCss(scss: string) {
-  return p.join(env.cssTempDir, `${p.basename(scss, '.scss')}.css`);
+  return join(env.cssTempDir, `${basename(scss, '.scss')}.css`);
 }
 
 function isConcrete(src: string) {
-  return src.startsWith('ui/') && !p.basename(src).startsWith('_');
+  return src.startsWith('ui/') && !basename(src).startsWith('_');
 }
 
 function isPartial(src: string) {
-  return src.startsWith('ui/') && p.basename(src).startsWith('_');
+  return src.startsWith('ui/') && basename(src).startsWith('_');
 }
 
 function isUrlTarget(src: string) {

@@ -42,7 +42,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     canPost: opts.canPost,
   });
 
-  await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
+  await Promise.all([env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
   await env.game.init();
 
   const el = document.createElement('main');

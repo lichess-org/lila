@@ -245,7 +245,7 @@ class DialogWrapper implements Dialog {
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
-      if (Date.now() - justThen < 200 || !dialog.isConnected) return;
+      if (Date.now() - justThen < 200) return; // removed isConnected() check. we catch leaks this way
       const r = dialog.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
         this.close('cancel');

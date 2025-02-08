@@ -4,15 +4,14 @@ import { alert } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
 import * as licon from 'common/licon';
 import { frag } from 'common';
-import { type LiteGame, LocalDb } from 'game/localDb';
+import { type LiteGame, localDb } from 'game/localDb';
 
 const games = document.querySelector<HTMLElement>('.games');
-const localDb = new LocalDb().init();
-localDb.then(db => renderLocalGames(db));
+pubsub.after('local.gameDb.ready').then(() => renderLocalGames());
+
 if (games) games.style.visibility = 'hidden'; // to reduce FOUC
 
 export async function initModule(): Promise<void> {
-  await localDb;
   makeLinkPopups($('.social_links'));
   makeLinkPopups($('.user-infos .bio'));
 
@@ -57,7 +56,7 @@ export async function initModule(): Promise<void> {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          localDb.then(ldb => renderLocalGames(ldb)); //, document.querySelectorAll('.games .pager') ? undefined : 'last');
+          renderLocalGames(); //, document.querySelectorAll('.games .pager') ? undefined : 'last');
 
           pubsub.emit('content-loaded', $content[0]); // TODO don't do this twice
           history.replaceState({}, '', path);
@@ -82,12 +81,12 @@ export async function initModule(): Promise<void> {
   });
 }
 
-async function renderLocalGames(localDb: LocalDb, page?: 'first' | 'last') {
+async function renderLocalGames(page?: 'first' | 'last') {
   page;
   const container = document.querySelector<HTMLElement>('.games');
-  if (!container) return;
-  const games = container.querySelectorAll<HTMLElement>('article:not(.local)');
-  if (!games.length) return;
+  const games = container?.querySelectorAll<HTMLElement>('article:not(.local)');
+  if (!(container && games?.length && localDb)) return;
+  //if (!games.length) return;
   const dates = [...games].map(game => game.querySelector('time[datetime]')?.getAttribute('datetime'));
   let newContent = false;
   for (let i = 0; i < dates.length; i++) {

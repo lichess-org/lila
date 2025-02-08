@@ -30,7 +30,7 @@ final class LocalUi(helpers: Helpers):
           url = netBaseUrl.value
         )
       )
-      .zoom
+      .flag(_.zoom)
       .hrefLangs(lila.ui.LangPath("/")) {
         emptyFrag
       }

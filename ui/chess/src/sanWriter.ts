@@ -1,5 +1,7 @@
 import { charToRole, type Square } from 'chessops';
 
+type AlmostSan = string;
+
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: AlmostSan]: Uci };
 
@@ -88,7 +90,6 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
  * but lacks the check/checkmate flag,
  * and probably has incomplete disambiguation.
  * But it's quick. */
-type AlmostSan = string;
 
 export function almostSanOf(board: Board, uci: string): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);

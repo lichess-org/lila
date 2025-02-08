@@ -1,11 +1,3 @@
-// usage:
-//   const janitor = new Janitor();
-//   janitor.addListener(window, 'resize', () => console.log('resized'));
-//   janitor.addListener(document, 'click', () => console.log('clicked'));
-//   janitor.addCleanupTask(() => console.log('cleanup'));
-//   ...
-//   janitor.cleanup();
-
 export class Janitor {
   private cleanupTasks: (() => void)[] = [];
 

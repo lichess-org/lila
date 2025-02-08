@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import p from 'node:path';
+import { join, dirname } from 'node:path';
 import { task } from './task.ts';
 import { env, c } from './env.ts';
 import { isGlob, isFolder, isClose } from './parse.ts';
@@ -20,7 +20,7 @@ export async function sync(): Promise<any> {
             env.log(`${c.grey(pkg.name)} '${c.cyan(sync.src)}' -> '${c.cyan(sync.dest)}'`, 'sync');
           return Promise.all(
             files.map(async f => {
-              if ((await syncOne(f, p.join(env.rootDir, sync.dest, f.slice(root.length)))) && logEvery)
+              if ((await syncOne(f, join(env.rootDir, sync.dest, f.slice(root.length)))) && logEvery)
                 env.log(
                   `${c.grey(pkg.name)} '${c.cyan(f.slice(root.length))}' -> '${c.cyan(sync.dest)}'`,
                   'sync',
@@ -39,7 +39,7 @@ async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
     await Promise.allSettled([
       fs.promises.stat(absSrc),
       fs.promises.stat(absDest),
-      fs.promises.mkdir(p.dirname(absDest), { recursive: true }),
+      fs.promises.mkdir(dirname(absDest), { recursive: true }),
     ])
   ).map(x => (x.status === 'fulfilled' ? (x.value as fs.Stats) : undefined));
   if (src && !(dest && isClose(src.mtimeMs, dest.mtimeMs))) {
@@ -51,8 +51,8 @@ async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
 }
 
 async function syncRoot(cwd: string, path: string): Promise<string> {
-  if (!(isGlob(path) || (await isFolder(p.join(cwd, path))))) return p.join(cwd, p.dirname(path));
-  const [head, ...tail] = path.split(p.sep);
+  if (!(isGlob(path) || (await isFolder(join(cwd, path))))) return join(cwd, dirname(path));
+  const [head, ...tail] = path.split('/');
   if (isGlob(head)) return cwd;
-  return syncRoot(p.join(cwd, head), tail.join(p.sep));
+  return syncRoot(join(cwd, head), tail.join('/'));
 }

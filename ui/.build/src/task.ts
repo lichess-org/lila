@@ -1,7 +1,7 @@
 import fg from 'fast-glob';
 import mm from 'micromatch';
 import fs from 'node:fs';
-import p from 'node:path';
+import { join, relative, basename } from 'node:path';
 import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
 import { randomToken } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
@@ -19,7 +19,6 @@ type Debounce = {
   time: number;
   timer?: NodeJS.Timeout;
   rename: boolean;
-  tickle: boolean;
   files: Set<AbsPath>;
 };
 type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
@@ -32,7 +31,7 @@ type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
 type TaskOpts = {
   glob: CwdPath | CwdPath[];
   execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
-  key?: TaskKey; // optional key for overwrite, stop, tickle
+  key?: TaskKey; // optional key for task overwrite and stopTask
   ctx?: Context; // optional build step context for logging
   pkg?: Package; // optional package reference
   debounce?: number; // optional number in ms
@@ -80,20 +79,12 @@ export function taskOk(ctx?: Context): boolean {
   return all.filter(w => !w.monitorOnly).length > 0 && all.every(w => w.status === 'ok');
 }
 
-export function tickle(key: TaskKey) {
-  const watch = tasks.get(key);
-  if (!watch) return;
-  clearTimeout(watch.debounce.timer);
-  watch.debounce.tickle = true;
-  watch.debounce.timer = setTimeout(() => execute(watch), watch.debounce.time);
-}
-
 async function execute(t: Task): Promise<void> {
-  const relative = (files: AbsPath[]) => (t.root ? files.map(f => p.relative(t.root!, f)) : files);
+  const makeRelative = (files: AbsPath[]) => (t.root ? files.map(f => relative(t.root!, f)) : files);
   const debounced = [...t.debounce.files];
   const modified: AbsPath[] = [];
-  const { tickle, rename } = t.debounce;
-  t.debounce.tickle = t.debounce.rename = false;
+  const { rename } = t.debounce;
+  t.debounce.rename = false;
   t.debounce.files.clear();
 
   if (rename) {
@@ -117,19 +108,15 @@ async function execute(t: Task): Promise<void> {
       }),
     );
   }
-  if (!tickle && modified.length === 0) return;
+  if (modified.length === 0) return;
 
   if (t.ctx) env.begin(t.ctx);
   t.status = undefined;
   try {
-    await t.execute(relative(modified), relative([...t.fileTimes.keys()]));
+    await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
     if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx);
   } catch (e) {
-    if (t.noFail) {
-      t.status = 'ok';
-      return;
-    }
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
     if (!env.watch) env.exit(`${errorMark} ${message}`, t.ctx);
@@ -141,25 +128,25 @@ async function execute(t: Task): Promise<void> {
 
 async function watchGlob({ cwd, path: globPath }: CwdPath, key: TaskKey): Promise<any> {
   if (!(await isFolder(cwd))) return;
-  const [head, ...tail] = globPath.split(p.sep);
-  const path = tail.join(p.sep);
+  const [head, ...tail] = globPath.split('/');
+  const path = tail.join('/');
 
   if (head.includes('**')) {
     await subfolders(cwd, 10).then(folders => folders.forEach(f => addFsWatch(f, key)));
   } else if (/[*?!{}[\]()]/.test(head) && path) {
     await subfolders(cwd, 1).then(folders =>
       Promise.all(
-        folders.filter(f => mm.isMatch(p.basename(f), head)).map(f => watchGlob({ cwd: f, path }, key)),
+        folders.filter(f => mm.isMatch(basename(f), head)).map(f => watchGlob({ cwd: f, path }, key)),
       ),
     );
   } else if (path) {
-    return watchGlob({ cwd: p.join(cwd, head), path }, key);
+    return watchGlob({ cwd: join(cwd, head), path }, key);
   }
   addFsWatch(cwd, key);
 }
 
 async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
-  const fullpath = p.join(fsw.cwd, filename ?? '');
+  const fullpath = join(fsw.cwd, filename ?? '');
 
   if (event === 'change')
     try {
@@ -169,7 +156,7 @@ async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
       event = 'rename';
     }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
-    const fullglobs = watch.glob.map(({ cwd, path }) => p.join(cwd, path));
+    const fullglobs = watch.glob.map(({ cwd, path }) => join(cwd, path));
     if (!mm.isMatch(fullpath, fullglobs)) {
       if (event === 'change') continue;
       try {

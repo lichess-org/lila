@@ -25,6 +25,7 @@ import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { wsPingInterval } from 'common/socket';
+import type { LiteGame, LocalDb } from 'game/localDb';
 
 export default class LobbyController {
   data: LobbyData;
@@ -42,6 +43,7 @@ export default class LobbyController {
   pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
+  localGames: LiteGame[] = [];
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -138,7 +140,10 @@ export default class LobbyController {
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
     });
-
+    pubsub.after<LocalDb>('local.gameDb.ready').then(async db => {
+      this.localGames = await db.ongoing();
+      this.redraw();
+    });
     window.addEventListener('beforeunload', () => this.leavePool());
   }
 

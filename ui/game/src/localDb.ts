@@ -2,18 +2,17 @@ import { type ObjectStorage, objectStorage, keys } from 'common/objectStorage';
 import { LocalGame, type GameStatus } from './localGame';
 import { clockToSpeed } from './game';
 import { myUserId } from 'common';
+import { pubsub } from 'common/pubsub';
 
-type GameId = string;
-const userId = myUserId() ?? 'anonymous';
+export const localDb: LocalDb = (() => new LocalDb())();
 
 export class LocalDb {
-  store: ObjectStorage<LocalGame, GameId>;
-  lite: ObjectStorage<LiteGame, GameId>;
+  store: ObjectStorage<LocalGame, GameId> | undefined;
+  lite: ObjectStorage<LiteGame, GameId> | undefined;
   current?: GameId;
 
-  constructor() {}
-  async init(): Promise<this> {
-    [this.store, this.lite] = await Promise.all([
+  constructor() {
+    Promise.all([
       objectStorage<LocalGame, GameId>({
         store: 'local.games',
       }),
@@ -27,41 +26,58 @@ export class LocalDb {
           { name: 'winner', keyPath: 'finished.winner' },
         ],
       }),
-    ]);
-    return this;
+    ])
+      .then(([store, lite]) => {
+        this.store = store;
+        this.lite = lite;
+      })
+      .finally(() => pubsub.complete('local.gameDb.ready', this));
   }
+
   get lastId(): GameId | undefined {
-    return localStorage.getItem(`local.${userId}.gameId`) || undefined;
+    return localStorage.getItem(`local.${myUserId() ?? 'anonymous'}.gameId`) || undefined;
   }
+
   set lastId(id: GameId | undefined) {
-    if (id) localStorage.setItem(`local.${userId}.gameId`, id);
-    else localStorage.removeItem(`local.${userId}.gameId`);
+    if (id) localStorage.setItem(`local.${myUserId() ?? 'anonymous'}.gameId`, id);
+    else localStorage.removeItem(`local.${myUserId() ?? 'anonymous'}.gameId`);
   }
-  getOne(id: GameId | undefined = this.lastId): Promise<LocalGame | undefined> {
-    return id ? this.store.get(id) : Promise.resolve(undefined);
+
+  async getOne(id: GameId | undefined = this.lastId): Promise<LocalGame | undefined> {
+    // optional chaining in query methods as idb can be undefined in legacy incognito
+    return id ? this.store?.get(id) : Promise.resolve(undefined);
   }
+
   async infoByDate(lower: number | undefined, upper: number | undefined): Promise<LiteGame[]> {
     console.log(lower, upper);
     const games: LiteGame[] = [];
-    await this.lite.readCursor({ index: 'createdAt', keys: keys({ above: lower, below: upper }) }, info =>
+    await this.lite?.readCursor({ index: 'createdAt', keys: keys({ above: lower, below: upper }) }, info =>
       games.push(info),
     );
     return games;
   }
+
+  async ongoing(): Promise<LiteGame[]> {
+    const games: LiteGame[] = [];
+    await this.lite?.readCursor({ index: 'status', keys: undefined }, info => games.push(info));
+    return games;
+  }
+
   delete(ids?: GameId[] | GameId): Promise<any> {
-    if (!ids) return Promise.all([this.store.clear(), this.lite.clear()]);
+    if (!ids) return Promise.all([this.store?.clear(), this.lite?.clear()]);
     else
       return Promise.all(
         [ids].flat().map(id => {
-          this.store.remove(id);
-          this.lite.remove(id);
+          this.store?.remove(id);
+          this.lite?.remove(id);
         }),
       );
   }
+
   async put(game: LocalGame): Promise<void> {
     const lite = gameInfo(game);
     game = structuredClone(game);
-    await Promise.all([this.store.put(game.id, game), this.lite.put(lite.id, lite)]);
+    await Promise.all([this.store?.put(game.id, game), this.lite?.put(lite.id, lite)]);
     this.lastId = game.id;
   }
   // async list(): Promise<GameId[]> {
@@ -95,3 +111,5 @@ function gameInfo(game: LocalGame): LiteGame {
     //winner:
   };
 }
+
+type GameId = string;
