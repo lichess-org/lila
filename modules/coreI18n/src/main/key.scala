@@ -205,6 +205,7 @@ object I18nKey:
     val `pastBroadcasts`: I18nKey = "broadcast:pastBroadcasts"
     val `allBroadcastsByMonth`: I18nKey = "broadcast:allBroadcastsByMonth"
     val `backToLiveMove`: I18nKey = "broadcast:backToLiveMove"
+    val `sinceHideResults`: I18nKey = "broadcast:sinceHideResults"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:

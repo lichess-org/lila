@@ -18,6 +18,7 @@ import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'che
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, type Prop } from 'common';
 import { prompt } from 'common/dialog';
+import { opposite } from 'chessground/util';
 
 export default class EditorCtrl {
   options: Options;
@@ -49,10 +50,14 @@ export default class EditorCtrl {
     if (cfg.endgamePositions)
       cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
 
-    site.mousetrap.bind('f', () => {
-      if (this.chessground) this.chessground.toggleOrientation();
-      this.onChange();
-    });
+    if (this.options.bindHotkeys !== false)
+      site.mousetrap.bind('f', () => {
+        if (this.chessground) {
+          this.chessground.toggleOrientation();
+          if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));
+        }
+        this.onChange();
+      });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);

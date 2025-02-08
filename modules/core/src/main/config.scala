@@ -52,9 +52,6 @@ object config:
       case Array(host, port) => port.toIntOption.map(HostPort(host, _))
       case _                 => none
 
-  final case class ConfigName(name: String) extends scala.annotation.StaticAnnotation:
-    assert(name != null && name.nonEmpty)
-
   case class NetConfig(
       domain: NetDomain,
       prodDomain: NetDomain,

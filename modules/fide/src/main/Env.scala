@@ -6,6 +6,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.core.config.CollName
 import lila.core.fide as hub
 import lila.memo.CacheApi
+import scalalib.paginator.Paginator
 
 @Module
 final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using
@@ -27,6 +28,15 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   def tokenize: hub.Tokenize                    = FidePlayer.tokenize
   def guessPlayer: hub.GuessPlayer              = playerApi.guessPlayer.apply
   def getPlayer: hub.GetPlayer                  = playerApi.get
+
+  def search(q: Option[String], page: Int = 1): Fu[Either[FidePlayer, Paginator[FidePlayer]]] =
+    val query = q.so(_.trim)
+    chess.FideId
+      .from(query.toIntOption)
+      .so(playerApi.fetch)
+      .flatMap:
+        case Some(player) => fuccess(Left(player))
+        case None         => paginator.best(page, query).map(Right(_))
 
   private lazy val fideSync = wire[FidePlayerSync]
 

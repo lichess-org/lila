@@ -5,7 +5,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import chess.IntRating
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.db.dsl.{ *, given }

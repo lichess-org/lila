@@ -44,7 +44,7 @@ trait RequestContext(using Executor):
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
     val lang = LangPicker(req, me.flatMap(_.lang))
-    me.filter(_.lang.forall(_ != lang.code)).foreach { env.user.repo.setLang(_, lang) }
+    me.filter(_.lang.forall(_ != lang.toTag)).foreach { env.user.repo.setLang(_, lang) }
     lang
 
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =

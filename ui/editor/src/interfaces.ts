@@ -40,6 +40,7 @@ export interface Options {
   onChange?: (fen: string) => void;
   inlineCastling?: boolean;
   coordinates?: boolean;
+  bindHotkeys?: boolean; // defaults to true
 }
 
 export interface OpeningPosition {

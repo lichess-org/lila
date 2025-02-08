@@ -2,12 +2,13 @@ package lila.streamer
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.model.Language
 
 import lila.common.Json.given
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
 import lila.core.config.NetDomain
-import lila.core.i18n.Language
+import lila.core.i18n.toLanguage
 
 trait Stream:
   def serviceName: String
@@ -19,7 +20,7 @@ trait Stream:
   def is[U: UserIdOf](u: U): Boolean = streamer.is(u)
   def twitch                         = serviceName == "twitch"
   def youTube                        = serviceName == "youTube"
-  def language                       = Language(lang)
+  def language                       = toLanguage(lang)
 
   lazy val cleanStatus = status.map(s => removeMultibyteSymbols(s).trim)
 
@@ -60,11 +61,10 @@ object Stream:
     case class Result(items: List[Item]):
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
         items
-          .withFilter { item =>
+          .withFilter: item =>
             item.snippet.liveBroadcastContent == "live" &&
-            item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
-          }
-          .flatMap { item =>
+              item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
+          .flatMap: item =>
             streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)).map {
               Stream(
                 item.snippet.channelId,
@@ -74,7 +74,6 @@ object Stream:
                 item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
               )
             }
-          }
     case class Stream(
         channelId: String,
         status: Html,

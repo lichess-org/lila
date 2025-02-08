@@ -33,5 +33,5 @@ final class LearnUi(helpers: Helpers):
         url = s"$netBaseUrl${routes.Learn.index}"
       )
       .hrefLangs(lila.ui.LangPath(routes.Learn.index))
-      .zoom:
+      .flag(_.zoom):
         main(id := "learn-app")

@@ -16,24 +16,23 @@ case class OpenGraph(
     siteName: String = "lichess.org"
 )
 
+enum PageFlags:
+  case noRobots, playing, zoom, zen, fullScreen
+
 case class Page(
     title: String,
     body: Option[Frag] = None,
     fullTitle: Option[String] = None,
-    robots: Boolean = true,
     cssKeys: List[String] = Nil,
     i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences),
     modules: EsmList = Nil,
     jsFrag: Option[WithNonce[Frag]] = None,
     pageModule: Option[PageModule] = None,
-    playing: Boolean = false,
     openGraph: Option[OpenGraph] = None,
-    zoomable: Boolean = false,
-    zenable: Boolean = false,
     csp: Option[Update[ContentSecurityPolicy]] = None,
-    fullScreenClass: Boolean = false,
     atomLinkTag: Option[Tag] = None,
     withHrefLangs: Option[LangPath] = None,
+    flags: Set[PageFlags] = Set.empty,
     transform: Update[Frag] = identity
 ):
   def js(esm: Esm): Page                   = copy(modules = modules :+ esm.some)
@@ -50,16 +49,13 @@ case class Page(
     if cond then copy(i18nModules = i18nModules.appended(mod)) else this
   def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
-  def robots(b: Boolean): Page                                     = copy(robots = b)
-  def css(keys: String*): Page                                     = copy(cssKeys = cssKeys ::: keys.toList)
-  def css(key: Option[String]): Page                               = copy(cssKeys = cssKeys ::: key.toList)
-  def csp(up: Update[ContentSecurityPolicy]): Page                 = copy(csp = csp.fold(up)(up.compose).some)
-  def hrefLangs(path: Option[LangPath]): Page                      = copy(withHrefLangs = path)
-  def hrefLangs(path: LangPath): Page                              = copy(withHrefLangs = path.some)
-  def fullScreen: Page                                             = copy(fullScreenClass = true)
-  def noRobot: Page                                                = robots(false)
-  def zoom                                                         = copy(zoomable = true)
-  def zen                                                          = copy(zenable = true)
+  def flag(f: PageFlags.type => PageFlags, v: Boolean = true): Page =
+    copy(flags = if v then flags + f(PageFlags) else flags - f(PageFlags))
+  def css(keys: String*): Page                     = copy(cssKeys = cssKeys ::: keys.toList)
+  def css(key: Option[String]): Page               = copy(cssKeys = cssKeys ::: key.toList)
+  def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
+  def hrefLangs(path: Option[LangPath]): Page      = copy(withHrefLangs = path)
+  def hrefLangs(path: LangPath): Page              = copy(withHrefLangs = path.some)
 
   // body stuff
   def body(b: Frag): Page              = copy(body = b.some)

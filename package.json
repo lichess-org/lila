@@ -20,12 +20,7 @@
   "packageManager": "pnpm@10.0.0+sha512.b8fef5494bd3fe4cbd4edabd0745df2ee5be3e4b0b8b08fa643aa3e4c6702ccc0f00d68fa8a8c9858a735a0032485a44990ed2810526c875e416f001b17df12b",
   "engines": {
     "node": ">=22.6",
-    "pnpm": "10.0.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
+    "pnpm": "^10"
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
@@ -41,7 +36,7 @@
     "prettier": "^3.4.2",
     "snabbdom": "3.5.1",
     "typescript": "^5.7.3",
-    "vitest": "^3.0.4"
+    "vitest": "^3.0.5"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",

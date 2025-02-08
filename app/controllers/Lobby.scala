@@ -5,7 +5,7 @@ import play.api.mvc.*
 
 import lila.app.*
 import lila.common.Json.given
-import lila.core.i18n.Language
+import scalalib.model.Language
 
 final class Lobby(env: Env) extends LilaController(env):
 

@@ -68,8 +68,8 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         )
       )
       .hrefLangs(langPath)
-      .zoom
-      .zen:
+      .flag(_.zoom)
+      .flag(_.zen):
         bits.show.preload
 
   def themes(all: PuzzleAngle.All)(using ctx: Context) =

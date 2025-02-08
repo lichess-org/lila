@@ -5,8 +5,6 @@ import play.api.{ ConfigLoader, Configuration }
 
 import scala.concurrent.duration.*
 
-import lila.core.config.ConfigName
-
 class AutoConfigTest extends munit.FunSuite:
 
   private def parse(c: String) = Configuration(ConfigFactory.parseString(c.stripMargin))

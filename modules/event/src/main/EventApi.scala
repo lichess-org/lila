@@ -1,5 +1,5 @@
 package lila.event
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 

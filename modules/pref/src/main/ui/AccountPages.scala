@@ -71,17 +71,46 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             myUsernamePasswordFields(form),
             form3.checkbox(form("understand"), "I understand that deleted accounts aren't recoverable"),
             form3.errors(form("understand")),
-            form3.actions(
-              frag(
-                a(href := routes.User.show(me.username))(trs.cancelKeepAccount()),
-                form3.submit(
-                  "Delete my account",
-                  icon = Icon.CautionCircle.some,
-                  confirm = "Deleting is definitive, there is no going back. Are you sure?".some
-                )(cls := "button-red")
+            me.marks.dirty.option:
+              div(cls := "form-group")(
+                h2("Note about GDPR erasure and TOS violations"),
+                p(
+                  "One of the rights GDPR grants to European citizens is the right to erasure of their personal information, also known as the \"right to be forgotten\"."
+                ),
+                p(
+                  "Lichess generally complies with these requests from citizens of any country, because individuals should have control of their data against organisations. However, in certain cases where accounts broke our ",
+                  a(href := routes.Cms.tos)("Terms of Service"),
+                  ", we cannot comply with those requests."
+                ),
+                p(
+                  "That is because the GDPR allows for exceptions in certain cases, and one of those is where an organisation's overriding legitimate interests would be compromised by erasing the data. In short, by deleting your data, it would make it harder for us to keep Lichess safe and secure from people who have broken our rules."
+                ),
+                p(
+                  "When you delete your account, your personal data will be hidden from the public, and only accessible by admins."
+                ),
+                p(
+                  "For more information on the data we process and how we use it, please refer to our ",
+                  a(href := routes.Cms.menuPage(lila.core.id.CmsPageKey("privacy")))("Privacy Policy"),
+                  "."
+                ),
+                p(
+                  "If you continue to disagree with our decision you have the right to make a complaint to ",
+                  a(href := "https://www.cnil.fr/en/contact-cnil")("CNIL"),
+                  ". Your statutory rights are also unaffected by our decision."
+                )
               )
-            )
           )
+        ,
+        form3.actions(
+          frag(
+            a(href := routes.User.show(me.username))(trs.cancelKeepAccount()),
+            form3.submit(
+              "Delete my account",
+              icon = Icon.CautionCircle.some,
+              confirm = "Deleting is definitive, there is no going back. Are you sure?".some
+            )(cls := "button-red")
+          )
+        )
       )
 
   private def linksHelp()(using Translate) = frag(

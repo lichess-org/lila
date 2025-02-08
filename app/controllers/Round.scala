@@ -200,9 +200,8 @@ final class Round(
   private[controllers] def getWatcherChat(
       game: GameModel
   )(using ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
-    (ctx.noBot || ctx.userId.exists(game.userIds.has)) && ctx.me.fold(
-      HTTPRequest.isHuman(ctx.req)
-    )(env.chat.panic.allowed(_)) && {
+    (ctx.noBot || ctx.userId.exists(game.userIds.has)) &&
+    (ctx.isAuth || HTTPRequest.isHuman(ctx.req)) && {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.has)
     }
   }.soFu:

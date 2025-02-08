@@ -3,6 +3,7 @@ package mod
 
 import lila.core.id.{ ForumCategId, ForumPostId }
 import lila.core.userId.*
+import lila.core.chat.TimeoutReason
 
 trait LogApi:
   def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using MyId): Funit
@@ -20,7 +21,7 @@ trait ModApi:
 
 case class MarkCheater(userId: UserId, value: Boolean)
 case class MarkBooster(userId: UserId)
-case class ChatTimeout(mod: UserId, user: UserId, reason: String, text: String)
+case class ChatTimeout(mod: UserId, user: UserId, reason: TimeoutReason, text: String)
 case class Shadowban(user: UserId, value: Boolean)
 case class KickFromRankings(userId: UserId)
 case class AutoWarning(userId: UserId, subject: String)

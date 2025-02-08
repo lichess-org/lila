@@ -8,7 +8,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Json.given
 import lila.common.autoconfig.*
-import lila.core.config.ConfigName
 import lila.core.data.LazyFu
 
 final private class WebPush(

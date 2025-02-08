@@ -162,7 +162,7 @@ private final class RelayPlayerEnrich(
   def enrichAndReportAmbiguous(rt: RelayRound.WithTour)(games: RelayGames): Fu[RelayGames] =
     rt.tour.players.fold(fuccess(games)): txt =>
       val (updated, ambiguous) = txt.parse.update(games)
-      (ambiguous.nonEmpty && once(ambiguous))
+      (ambiguous.nonEmpty && rt.tour.official && once(ambiguous))
         .so:
           val players = ambiguous.map: a =>
             (a.name.value, a.players.map(p => p.name.fold("?")(_.value)))
