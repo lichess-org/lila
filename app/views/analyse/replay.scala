@@ -10,7 +10,7 @@ import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.round.RoundGame.secondsSinceCreation
 
-import scala.concurrent.{Future, ExecutionContext, Await}
+import scala.concurrent.{ Future, ExecutionContext, Await }
 import play.api.libs.ws.StandaloneWSClient
 
 def replay(
@@ -71,7 +71,11 @@ def replay(
 
   def pgnCopyMeLink(params_suffix: String, display_name: RawFrag): Tag =
     val endpointUrl = s"${netBaseUrl}${routes.Game.exportOne(game.id)}?${params_suffix}"
-    copyMeLink(endpointUrl, display_name, Some(Await.result(ws.url(endpointUrl).get().map(_.body), 5.seconds)))
+    copyMeLink(
+      endpointUrl,
+      display_name,
+      Some(Await.result(ws.url(endpointUrl).get().map(_.body), 5.seconds))
+    )
 
   val pgnLinks = frag(
     pgnCopyMeLink("literate=1", trans.site.downloadAnnotated()),

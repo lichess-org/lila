@@ -16,7 +16,8 @@ final class Analyse(
     env: Env,
     gameC: => Game,
     roundC: => Round
-)(using ws: StandaloneWSClient) extends LilaController(env):
+)(using ws: StandaloneWSClient)
+    extends LilaController(env):
 
   def requestAnalysis(id: GameId) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     Found(env.game.gameRepo.game(id)): game =>
