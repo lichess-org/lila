@@ -4,11 +4,14 @@ import { alert } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
 import * as licon from 'common/licon';
 import { frag } from 'common';
-import { type LiteGame, LocalDb } from 'game/localDb';
+import type { LocalEnv, LiteGame } from 'local';
 import { status } from 'game';
 
-const localDb = new LocalDb();
-localDb.init().then(() => renderLocalGames());
+let local: LocalEnv;
+site.asset.loadEsm<LocalEnv>('local.db').then(l => {
+  local = l;
+  renderLocalGames();
+});
 
 const gamesAngle = document.querySelector<HTMLElement>('.games');
 if (gamesAngle) gamesAngle.style.visibility = 'hidden'; // FOUC
@@ -58,7 +61,7 @@ export async function initModule(): Promise<void> {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          renderLocalGames(); //, document.querySelectorAll('.games .pager') ? undefined : 'last');
+          renderLocalGames();
 
           pubsub.emit('content-loaded', $content[0]); // TODO don't do this twice
           history.replaceState({}, '', path);
@@ -86,7 +89,7 @@ export async function initModule(): Promise<void> {
 async function renderLocalGames(page?: 'first' | 'last') {
   page;
   const games = gamesAngle?.querySelectorAll<HTMLElement>('article:not(.local)');
-  if (!(gamesAngle && games?.length && localDb)) return;
+  if (!(gamesAngle && games?.length && local)) return;
 
   const dates = [...games].map(game => game.querySelector('time[datetime]')?.getAttribute('datetime'));
   let newContent = false;
@@ -96,7 +99,7 @@ async function renderLocalGames(page?: 'first' | 'last') {
     const lower = dates.find((d, j) => d && j > i);
     const upperDate = upper /*&& page !== 'first'*/ ? new Date(upper).getTime() : undefined;
     const lowerDate = lower /*&& page !== 'last'*/ ? new Date(lower).getTime() : undefined;
-    const localGames = await localDb.infoByDate(lowerDate, upperDate);
+    const localGames = await local.db.byDate(lowerDate, upperDate);
     console.log(localGames);
 
     for (const localGame of localGames) {
@@ -165,7 +168,7 @@ function playerHtml(game: LiteGame, color: Color) {
   // TODO fancify
   return $html`
     <div class="player ${color}">
-      <span>${game[color]}</span>
+      <span>${local.nameOf(game[color])}</span>
     </div>
   `;
 }
@@ -173,6 +176,6 @@ function playerHtml(game: LiteGame, color: Color) {
 function resultHtml(game: LiteGame) {
   if (game.status === status.started) return i18n.site.playingRightNow;
   return $html`
-    ${game.winner}
+    ${game.winner ?? i18n.site.draw}
   `;
 }

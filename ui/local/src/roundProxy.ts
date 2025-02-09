@@ -1,7 +1,7 @@
 import * as co from 'chessops';
 import { looseH as h, VNode } from 'common/snabbdom';
 import { showSetupDialog } from './setupDialog';
-import { LocalGame } from 'game/localGame';
+import { LocalGame } from './localGame';
 import { type Player, type Game, clockToSpeed } from 'game';
 import type { RoundProxy as IRoundProxy, RoundData, RoundOpts, Position } from 'round';
 import { analyse } from './analyse';

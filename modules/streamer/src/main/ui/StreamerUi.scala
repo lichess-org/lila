@@ -105,7 +105,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
   def show(s: Streamer.WithUserAndStream, perfRatings: Frag, activities: Frag)(using ctx: Context) =
     Page(s"${s.titleName} streams chess")
       .csp(csp)
-      .css("bits.streamer.show")
+      .css("bits.streamer.show", "user.activity")
       .js(esmInitBit("streamerSubscribe"))
       .graph(
         OpenGraph(

@@ -25,7 +25,7 @@ import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { wsPingInterval } from 'common/socket';
-import { type LiteGame, LocalDb } from 'game/localDb';
+import type { LocalEnv, LiteGame } from 'local';
 
 export default class LobbyController {
   data: LobbyData;
@@ -43,7 +43,7 @@ export default class LobbyController {
   pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
-  localDb: LocalDb = new LocalDb();
+  local: LocalEnv;
   localGames: LiteGame[] = [];
 
   private poolInStorage: LichessStorage;
@@ -61,8 +61,9 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
-    this.localDb.init().then(async db => {
-      this.localGames = await db.ongoing();
+    site.asset.loadEsm<LocalEnv>('local.db').then(async local => {
+      this.local = local;
+      this.localGames = await local.db.ongoing();
       console.log(this.localGames);
       this.redraw();
     });
@@ -144,10 +145,6 @@ export default class LobbyController {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
-    });
-    pubsub.after<LocalDb>('local.gameDb.ready').then(async db => {
-      this.localGames = await db.ongoing();
-      this.redraw();
     });
     window.addEventListener('beforeunload', () => this.leavePool());
   }

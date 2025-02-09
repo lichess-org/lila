@@ -3,12 +3,23 @@ import type { CardData } from './handOfCards';
 import type { Chess } from 'chessops';
 import type { LocalSetup } from 'game';
 import type { Filter, FilterFacet, Filters, Point } from './filter';
+import type { LocalEnv } from './localEnv';
+import type { BotCtrl } from './botCtrl';
+import type { LocalGame } from './localGame';
+import type { LocalDb, LiteGame } from './localDb';
 
-export type { CardData, Filter, FilterFacet, Filters, Point };
-
-export interface Quirks {
-  // tbd
-}
+export type {
+  CardData,
+  Filter,
+  FilterFacet,
+  Filters,
+  Point,
+  LocalEnv,
+  BotCtrl,
+  LocalGame,
+  LocalDb,
+  LiteGame,
+};
 
 export type SoundEvent =
   | 'greeting'
@@ -48,7 +59,6 @@ export interface BotInfo {
   readonly filters?: Filters;
   readonly zero?: ZeroSearch;
   readonly fish?: FishSearch;
-  readonly quirks?: Quirks;
 }
 
 export interface MoveSource {

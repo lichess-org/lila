@@ -1,6 +1,6 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import type { RoundController } from 'round';
-import { LocalDb } from 'game/localDb';
+import { LocalDb } from './localDb';
 import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';

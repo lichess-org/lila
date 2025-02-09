@@ -7,8 +7,7 @@ import { BotCtrl } from '../botCtrl';
 import { PushCtrl } from './pushCtrl';
 import { env, makeEnv } from '../localEnv';
 import { renderGameView } from '../gameView';
-import { pubsub } from 'common/pubsub';
-import { LocalDb } from 'game/localDb';
+import { LocalDb } from '../localDb';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
 

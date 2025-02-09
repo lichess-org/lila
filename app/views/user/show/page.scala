@@ -34,7 +34,7 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules())
-      .css("bits.user.show")
+      .css("user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .flag(_.noRobots, !indexable(u)):
         main(cls := "page-menu", ui.dataUsername := u.username)(
@@ -59,7 +59,7 @@ object page:
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
       .js(esModules(filters.current.name == "search"))
-      .css("bits.user.show")
+      .css("user.show")
       .css((filters.current.name == "search").option("bits.user.show.search"))
       .css(isGranted(_.UserModView).option("mod.user"))
       .flag(_.noRobots, !indexable(u)):

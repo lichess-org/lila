@@ -1,7 +1,6 @@
 import * as co from 'chessops';
 import { normalizeMove } from 'chessops/chess';
-import { statusOf } from './status';
-import type { Status, LocalSetup, RoundStep } from './interfaces';
+import { type Status, type LocalSetup, type RoundStep, statusOf } from 'game';
 import { deepFreeze, randomToken } from 'common/algo';
 import { hashBoard } from 'chess/hash';
 import { myUserId } from 'common';

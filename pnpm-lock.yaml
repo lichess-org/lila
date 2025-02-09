@@ -414,6 +414,9 @@ importers:
       game:
         specifier: workspace:*
         version: link:../game
+      local:
+        specifier: workspace:*
+        version: link:../local
 
   ui/local:
     dependencies:
@@ -447,9 +450,6 @@ importers:
       round:
         specifier: workspace:*
         version: link:../round
-      snabbdom:
-        specifier: 3.5.1
-        version: 3.5.1
       zerofish:
         specifier: ^0.0.31
         version: 0.0.31
@@ -726,6 +726,21 @@ importers:
       lichess-pgn-viewer:
         specifier: ^2.3.0
         version: 2.3.0
+
+  ui/user:
+    dependencies:
+      bits:
+        specifier: workspace:*
+        version: link:../bits
+      common:
+        specifier: workspace:*
+        version: link:../common
+      game:
+        specifier: workspace:*
+        version: link:../game
+      local:
+        specifier: workspace:*
+        version: link:../local
 
   ui/voice:
     dependencies:

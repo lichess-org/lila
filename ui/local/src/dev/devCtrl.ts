@@ -5,7 +5,7 @@ import { defined, Prop } from 'common';
 import { shuffle } from 'common/algo';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
-import type { GameStatus, GameContext } from 'game/localGame';
+import type { GameStatus, GameContext } from '../localGame';
 import { env } from '../localEnv';
 import { pubsub } from 'common/pubsub';
 import { type PermaLog, makeLog } from 'common/permalog';
