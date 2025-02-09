@@ -33,13 +33,14 @@ export async function build(pkgs: string[]): Promise<void> {
 
     if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
 
+    monitor(pkgs);
+
     await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
   } catch (e) {
     const errorText = `${errorMark} ${e instanceof Error ? (e.stack ?? e.message) : String(e)}`;
     if (env.watch) env.log(errorText);
     else env.exit(errorText);
   }
-  await monitor(pkgs);
 }
 
 function stopBuild(): Promise<any> {
@@ -67,10 +68,12 @@ function monitor(pkgs: string[]) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
+        else await clean(['ui/.build/build']);
         build(pkgs);
       } else if (files.some(x => x.endsWith('.d.ts') || x.endsWith('tsconfig.json'))) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
+        await clean(['ui/.build/build']);
         tsc();
         esbuild();
       }
