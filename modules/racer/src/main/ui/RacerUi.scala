@@ -36,8 +36,8 @@ final class RacerUi(helpers: Helpers):
       .css("racer")
       .i18n(_.storm)
       .js(PageModule("racer", data))
-      .zoom
-      .zen:
+      .flag(_.zoom)
+      .flag(_.zen):
         main(
           div(cls := "racer racer-app racer--play")(
             div(cls := "racer__board main-board"),

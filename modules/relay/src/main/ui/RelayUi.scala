@@ -32,7 +32,7 @@ final class RelayUi(helpers: Helpers)(
       .i18nOpt(ctx.blind, _.keyboardMove)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
-      .zoom
+      .flag(_.zoom)
       .graph(
         OpenGraph(
           title = rt.fullName,

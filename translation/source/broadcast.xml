@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
   <string name="backToLiveMove">Back to live move</string>
+  <string name="sinceHideResults">Since you chose to hide the results, all the preview boards are empty to avoid spoilers.</string>
 </resources>

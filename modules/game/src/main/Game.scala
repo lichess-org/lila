@@ -75,6 +75,9 @@ object GameExt:
       g.clock.map: c =>
         g.start.withClock(c.start)
 
+    def playerHasOfferedDrawRecently(color: Color) =
+      g.drawOffers.lastBy(color).exists(_ >= g.ply - 20)
+
     def playerCanOfferDraw(color: Color) =
       g.started && g.playable &&
         g.ply >= 2 &&
