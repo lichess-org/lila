@@ -76,7 +76,8 @@ def replay(
   )
   val pgnLinks = frag(
     copyMeLink(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),
-    copyMeLink(Await.result(fetchExportedGame(game.id, ws), 5.seconds), trans.site.downloadRaw()),
+    copyMeLink(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw(),
+               Some(Await.result(fetchExportedGame(game.id, ws), 5.seconds))),
     game.isPgnImport.option:
       copyMeLink(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
   )
