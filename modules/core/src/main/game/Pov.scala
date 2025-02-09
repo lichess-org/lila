@@ -11,8 +11,6 @@ case class Pov(game: Game, color: Color):
 
   export game.id as gameId
 
-  println(game.id)
-
   def player = game.player(color)
 
   def playerId = player.id

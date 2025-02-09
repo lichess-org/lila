@@ -12,12 +12,6 @@ import lila.round.RoundGame.secondsSinceCreation
 
 import scala.concurrent.{Future, ExecutionContext, Await}
 import play.api.libs.ws.StandaloneWSClient
-import play.api.libs.json.Json
-
-def fetchExportedGame(gameId: GameId, ws: StandaloneWSClient)(implicit ec: ExecutionContext): Future[String] = {
-  val url = s"http://localhost:9663/game/export/SiaYBGes?evals=0&clocks=0"
-  ws.url(url).get().map(_.body)
-}
 
 def replay(
     pov: Pov,
@@ -74,12 +68,16 @@ def replay(
     a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
     copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
   )
+
+  def pgnCopyMeLink(params_suffix: String, display_name: RawFrag): Tag =
+    val endpointUrl = s"${netBaseUrl}${routes.Game.exportOne(game.id)}?${params_suffix}"
+    copyMeLink(endpointUrl, display_name, Some(Await.result(ws.url(endpointUrl).get().map(_.body), 5.seconds)))
+
   val pgnLinks = frag(
-    copyMeLink(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),
-    copyMeLink(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw(),
-               Some(Await.result(fetchExportedGame(game.id, ws), 5.seconds))),
+    pgnCopyMeLink("literate=1", trans.site.downloadAnnotated()),
+    pgnCopyMeLink("evals=0&clocks=0", trans.site.downloadRaw()),
     game.isPgnImport.option:
-      copyMeLink(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
+      pgnCopyMeLink("imported=1", trans.site.downloadImported())
   )
 
   bits
