@@ -5,6 +5,7 @@ import { pubsub } from 'common/pubsub';
 import * as licon from 'common/licon';
 import { frag } from 'common';
 import { type LiteGame, LocalDb } from 'game/localDb';
+import { status } from 'game';
 
 const localDb = new LocalDb();
 localDb.init().then(() => renderLocalGames());
@@ -170,8 +171,8 @@ function playerHtml(game: LiteGame, color: Color) {
 }
 
 function resultHtml(game: LiteGame) {
-  if (!game.finished) return i18n.site.playingRightNow;
+  if (game.status === status.started) return i18n.site.playingRightNow;
   return $html`
-    ${game.finished.winner}
+    ${game.winner}
   `;
 }

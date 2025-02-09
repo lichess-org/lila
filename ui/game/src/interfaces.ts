@@ -41,6 +41,8 @@ export interface Status {
   name: StatusName;
 }
 
+export * from './status';
+
 export type StatusName =
   | 'created'
   | 'started'

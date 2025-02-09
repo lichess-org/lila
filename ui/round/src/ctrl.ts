@@ -3,7 +3,6 @@
 import * as ab from 'ab';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
-import { playing } from 'game/status';
 import { boardOrientation, reload as groundReload } from './ground';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
@@ -278,7 +277,7 @@ export default class RoundController implements MoveRootCtrl {
     );
   };
 
-  isLate = (): boolean => this.replaying() && playing(this.data);
+  isLate = (): boolean => this.replaying() && game.playing(this.data);
 
   playerAt = (position: Position): game.Player =>
     this.flip != (position === 'top') ? this.data.opponent : this.data.player;

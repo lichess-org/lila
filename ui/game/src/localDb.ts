@@ -1,6 +1,7 @@
-import { type ObjectStorage, objectStorage, keys } from 'common/objectStorage';
-import { LocalGame, type GameStatus } from './localGame';
-import { clockToSpeed } from './game';
+import { type ObjectStorage, objectStorage, range } from 'common/objectStorage';
+import { LocalGame } from './localGame';
+import { status } from './status';
+import { type StatusId, clockToSpeed } from './game';
 import { myUserId } from 'common';
 
 export class LocalDb {
@@ -22,9 +23,8 @@ export class LocalDb {
           { name: 'createdAt', keyPath: 'createdAt' },
           { name: 'white', keyPath: 'white' },
           { name: 'black', keyPath: 'black' },
-          { name: 'finished', keyPath: 'finished' },
-          { name: 'status', keyPath: 'finished.status' },
-          { name: 'winner', keyPath: 'finished.winner' },
+          { name: 'status', keyPath: 'status' },
+          { name: 'winner', keyPath: 'winner' },
         ],
       }),
     ]);
@@ -48,7 +48,7 @@ export class LocalDb {
   async infoByDate(lower: number | undefined, upper: number | undefined): Promise<LiteGame[]> {
     console.log(lower, upper);
     const games: LiteGame[] = [];
-    await this.lite?.readCursor({ index: 'createdAt', keys: keys({ above: lower, below: upper }) }, info =>
+    await this.lite?.readCursor({ index: 'createdAt', query: range({ above: lower, below: upper }) }, info =>
       games.push(info),
     );
     return games;
@@ -56,7 +56,7 @@ export class LocalDb {
 
   async ongoing(): Promise<LiteGame[]> {
     const games: LiteGame[] = [];
-    await this.lite?.readCursor({ index: 'finished', keys: undefined }, info => games.push(info));
+    await this.lite?.readCursor({ index: 'status', query: status.started }, info => games.push(info));
     return games;
   }
 
@@ -77,9 +77,6 @@ export class LocalDb {
     await Promise.all([this.store?.put(game.id, game), this.lite?.put(lite.id, lite)]);
     this.lastId = game.id;
   }
-  // async list(): Promise<GameId[]> {
-  //   return this.store.list();
-  // }
 }
 
 export interface LiteGame {
@@ -94,7 +91,8 @@ export interface LiteGame {
   fen: FEN;
   turn: Color;
   lastMove: Uci;
-  finished?: GameStatus;
+  status: StatusId;
+  winner?: string;
 }
 
 function gameInfo(game: LocalGame): LiteGame {
@@ -104,8 +102,8 @@ function gameInfo(game: LocalGame): LiteGame {
     fen: game.fen,
     turn: game.turn,
     lastMove: !game.moves.length ? '' : game.moves[game.moves.length - 1].uci,
-    finished: game.finished,
-    //winner:
+    status: game.finished?.status?.id ?? status['started'],
+    winner: game.finished?.winner,
   };
 }
 

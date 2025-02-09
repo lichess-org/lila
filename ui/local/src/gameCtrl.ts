@@ -2,11 +2,10 @@ import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
 import { type GameContext, type GameStatus, LocalGame } from 'game/localGame';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { type LocalSetup, clockToSpeed } from 'game';
+import { type LocalSetup, statusOf, clockToSpeed } from 'game';
 import type { ClockData } from 'round';
 import type { LocalPlayOpts, SoundEvent, LocalSpeed } from './types';
 import { env } from './localEnv';
-import { statusOf } from 'game/status';
 import { pubsub } from 'common/pubsub';
 
 export class GameCtrl {
