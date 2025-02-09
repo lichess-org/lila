@@ -70,7 +70,7 @@ final class ModTimelineUi(helpers: Helpers)(
       case e: Note             => renderNote(e)
       case e: ReportNewAtom    => renderReportNew(e)
       case e: PlayBans         => renderPlayBans(e)
-      case e: PublicLine       => renderPublicLine(e)
+      case e: ReportLineFlag   => renderReportLineFlag(e)
       case AccountCreation(at) => renderAccountCreation(t.user, at)
 
   private def renderMod(userId: ModId)(using Translate) =
@@ -88,12 +88,19 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderPlayBans(e: PlayBans) =
     frag(pluralize("Playban", e.list.size), ": ", e.list.map(_.mins).toList.mkString(", "), " minutes")
 
-  private def renderPublicLine(l: PublicLine)(using Translate) = frag(
-    "Chat flag",
-    publicLineSource(l.from),
+  private def renderReportLineFlag(r: ReportLineFlag)(using Translate) = frag(
+    r.openId match
+      case Some(reportId) =>
+        postForm(action := s"${routes.Report.inquiry(reportId.value)}?onlyOpen=1")(
+          cls := "mod-timeline__report-form mod-timeline__report-form--open"
+        )(submitButton("Chat flag")(cls := "button button-thin", title := "Open"))
+      case _ => "Chat flag",
+    publicLineSource(r.line.from),
     div(cls := "mod-timeline__texts")(
       fragList(
-        PublicLine.merge.split(l.text).map(quote => span(cls := "message")(Analyser.highlightBad(quote))),
+        PublicLine.merge
+          .split(r.line.text)
+          .map(quote => span(cls := "message")(Analyser.highlightBad(quote))),
         " | "
       )
     )

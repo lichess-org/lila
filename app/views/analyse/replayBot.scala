@@ -13,11 +13,11 @@ def replayBot(
     .css("analyse.round")
     .graph(views.round.ui.povOpenGraph(pov))
     .csp(bits.csp)
-    .robots(false):
+    .flag(_.noRobots):
       main(cls := "analyse")(
-        st.aside(cls := "analyse__side")(
+        st.aside(cls := "analyse__side"):
           views.game.side(pov, initialFen, none, simul = simul, bookmarked = false)
-        ),
+        ,
         div(cls := "analyse__board main-board")(chessgroundBoard),
         div(cls := "analyse__tools")(div(cls := "ceval")),
         div(cls := "analyse__controls"),
@@ -31,9 +31,8 @@ def replayBot(
               div(cls := "pgn")(pgn)
             ),
             cross.map: c =>
-              div(cls := "ctable active")(
+              div(cls := "ctable active"):
                 views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
-              )
           )
         )
       )

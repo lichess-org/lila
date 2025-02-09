@@ -333,6 +333,8 @@ interface I18n {
     score: string;
     /** Show players scores based on game results */
     showScores: string;
+    /** Since you chose to hide the results, all the preview boards are empty to avoid spoilers. */
+    sinceHideResults: string;
     /** Up to 64 Lichess game IDs, separated by spaces. */
     sourceGameIds: string;
     /** PGN Source URL */

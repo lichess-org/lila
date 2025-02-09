@@ -40,7 +40,7 @@ def watcher(
       )
     )
     .graph(ui.povOpenGraph(pov))
-    .zen:
+    .flag(_.zen):
       main(cls := "round")(
         st.aside(cls := "round__side")(
           side(pov, data, tour, simul, userTv, bookmarked),

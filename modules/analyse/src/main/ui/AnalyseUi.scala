@@ -30,7 +30,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
         description = "Analyse chess positions and variations on an interactive chess board"
       )
-      .zoom:
+      .flag(_.zoom):
         main(
           cls := List(
             "analyse"       -> true,

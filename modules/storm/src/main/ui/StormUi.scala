@@ -17,8 +17,8 @@ final class StormUi(helpers: Helpers):
       .css("storm")
       .i18n(_.storm)
       .js(PageModule("storm", data))
-      .zoom
-      .zen
+      .flag(_.zoom)
+      .flag(_.zen)
       .hrefLangs(lila.ui.LangPath(routes.Storm.home)):
         main(
           div(cls := "storm storm-app storm--play")(
