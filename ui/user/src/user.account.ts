@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { storage } from 'common/storage';
 import { addPasswordVisibilityToggleListener } from 'common/password';
-import flairPickerLoader from './flairPicker';
+import flairPickerLoader from 'bits/flairPicker';
 import { confirm } from 'common/dialog';
 import { $as } from 'common';
 
@@ -68,6 +68,7 @@ site.load.then(() => {
       confirm(this.title, i18n.site.ok, i18n.site.cancel).then(yes => {
         if (yes) $as<HTMLFormElement>(form).submit();
       });
+      return false;
     });
   });
 
