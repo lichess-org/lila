@@ -37,7 +37,7 @@ export default class TournamentController {
   joinWithTeamSelector = false;
   redraw: () => void;
   nbWatchers = 0;
-  shareMenu: Toggle;
+  calendarMenu: Toggle;
 
   private lastStorage = storage.make('last-redirect');
 
@@ -58,7 +58,7 @@ export default class TournamentController {
     pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
     });
-    this.shareMenu = toggle(false, redraw);
+    this.calendarMenu = toggle(false, redraw);
   }
 
   askReload = (): void => {

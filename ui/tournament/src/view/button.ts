@@ -3,7 +3,7 @@ import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon, MaybeVNode, onInsert } from 'common/snabbdom';
 import type TournamentController from '../ctrl';
-import { bindMobileMousedown, shareIcon } from 'common/device';
+import { bindMobileMousedown } from 'common/device';
 import { onClickAway, Toggle } from 'common';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {
@@ -72,16 +72,16 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
   return undefined;
 }
 
-export function shareMenuToggleButton(toggle: Toggle): VNode {
+export function calendarMenuToggleButton(toggle: Toggle): VNode {
   return h('button.fbt', {
     class: { active: toggle() },
-    attrs: { 'data-icon': shareIcon() },
+    attrs: { 'data-icon': licon.CalendarPlus },
     hook: onInsert(bindMobileMousedown(toggle.toggle)),
   });
 }
 
-export function shareMenu(ctrl: TournamentController): MaybeVNode {
-  const toggle = ctrl.shareMenu;
+export function calendarMenu(ctrl: TournamentController): MaybeVNode {
+  const toggle = ctrl.calendarMenu;
   const d = ctrl.data;
   const title = encodeURIComponent(d.fullName);
   const details = encodeURIComponent(`https://lichess.org/tournament/${d.id}`);
@@ -135,7 +135,7 @@ END:VCALENDAR`;
 
   return toggle()
     ? h(
-        'div.share-menu',
+        'div.calendar-menu',
         { hook: onInsert(onClickAway(() => toggle(false))) },
         links.map(link => {
           const attrs: Attrs = { target: '_blank' };
