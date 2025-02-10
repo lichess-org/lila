@@ -16,8 +16,6 @@
   <string name="addRound">Tilføj en runde</string>
   <string name="ongoing">I gang</string>
   <string name="upcoming">Kommende</string>
-  <string name="completed">Afsluttet</string>
-  <string name="completedHelp">Lichess registrerer rund-færdiggørelse baseret på kildepartierne. Brug denne skifter, hvis der ikke er nogen kilde.</string>
   <string name="roundName">Rundenavn</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnavn</string>
