@@ -16,8 +16,6 @@
   <string name="addRound">Lisää kierros</string>
   <string name="ongoing">Käynnissä</string>
   <string name="upcoming">Tulossa</string>
-  <string name="completed">Päättyneet</string>
-  <string name="completedHelp">Lichess tunnistaa lähteenä olevista peleistä, milloin kierros on viety päätökseen. Lähteen puuttuessa voit käyttää tätä asetusta.</string>
   <string name="roundName">Kierroksen nimi</string>
   <string name="roundNumber">Kierroksen numero</string>
   <string name="tournamentName">Turnauksen nimi</string>
