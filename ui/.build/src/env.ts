@@ -1,7 +1,7 @@
-import p from 'node:path';
 import type { Package } from './parse.ts';
 import fs from 'node:fs';
 import ps from 'node:process';
+import { join, resolve, dirname } from 'node:path';
 import { unique, isEquivalent, trimLines } from './algo.ts';
 import { updateManifest } from './manifest.ts';
 import { taskOk } from './task.ts';
@@ -9,23 +9,23 @@ import { taskOk } from './task.ts';
 // state, logging, status
 
 export const env = new (class {
-  readonly rootDir = p.resolve(p.dirname(new URL(import.meta.url).pathname), '../../..');
-  readonly uiDir = p.join(this.rootDir, 'ui');
-  readonly outDir = p.join(this.rootDir, 'public');
-  readonly cssOutDir = p.join(this.outDir, 'css');
-  readonly jsOutDir = p.join(this.outDir, 'compiled');
-  readonly hashOutDir = p.join(this.outDir, 'hashed');
-  readonly themeDir = p.join(this.uiDir, 'common', 'css', 'theme');
-  readonly themeGenDir = p.join(this.themeDir, 'gen');
-  readonly buildDir = p.join(this.uiDir, '.build');
-  readonly lockFile = p.join(this.buildDir, 'instance.lock');
-  readonly buildTempDir = p.join(this.buildDir, 'build');
-  readonly cssTempDir = p.join(this.buildTempDir, 'css');
-  readonly buildSrcDir = p.join(this.buildDir, 'src');
-  readonly typesDir = p.join(this.uiDir, '@types');
-  readonly i18nSrcDir = p.join(this.rootDir, 'translation', 'source');
-  readonly i18nDestDir = p.join(this.rootDir, 'translation', 'dest');
-  readonly i18nJsDir = p.join(this.rootDir, 'translation', 'js');
+  readonly rootDir = resolve(dirname(new URL(import.meta.url).pathname), '../../..');
+  readonly uiDir = join(this.rootDir, 'ui');
+  readonly outDir = join(this.rootDir, 'public');
+  readonly cssOutDir = join(this.outDir, 'css');
+  readonly jsOutDir = join(this.outDir, 'compiled');
+  readonly hashOutDir = join(this.outDir, 'hashed');
+  readonly themeDir = join(this.uiDir, 'common', 'css', 'theme');
+  readonly themeGenDir = join(this.themeDir, 'gen');
+  readonly buildDir = join(this.uiDir, '.build');
+  readonly lockFile = join(this.buildDir, 'instance.lock');
+  readonly buildTempDir = join(this.buildDir, 'build');
+  readonly cssTempDir = join(this.buildTempDir, 'css');
+  readonly buildSrcDir = join(this.buildDir, 'src');
+  readonly typesDir = join(this.uiDir, '@types');
+  readonly i18nSrcDir = join(this.rootDir, 'translation', 'source');
+  readonly i18nDestDir = join(this.rootDir, 'translation', 'dest');
+  readonly i18nJsDir = join(this.rootDir, 'translation', 'js');
 
   watch = false;
   clean = false;
@@ -54,7 +54,7 @@ export const env = new (class {
   }
 
   get manifestFile(): string {
-    return p.join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
+    return join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
   }
 
   *tasks<T extends 'sync' | 'hash' | 'bundle'>(

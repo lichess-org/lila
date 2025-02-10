@@ -1,6 +1,6 @@
-import p from 'node:path';
 import es from 'esbuild';
 import fs from 'node:fs';
+import { join, basename } from 'node:path';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { task, stopTask } from './task.ts';
@@ -67,9 +67,9 @@ function inlineTask() {
   const inlineToModule: Record<string, string> = {};
   for (const [pkg, bundle] of env.tasks('bundle'))
     if (bundle.inline)
-      inlineToModule[p.join(pkg.root, bundle.inline)] = bundle.module
-        ? p.basename(bundle.module, '.ts')
-        : p.basename(bundle.inline, '.inline.ts');
+      inlineToModule[join(pkg.root, bundle.inline)] = bundle.module
+        ? basename(bundle.module, '.ts')
+        : basename(bundle.inline, '.inline.ts');
   return task({
     key: 'inline',
     ctx: 'esbuild',

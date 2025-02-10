@@ -13,9 +13,9 @@
     flex: 0 0 4em;
     height: 4em;
     padding: 1em 1em;
-    background: center no-repeat url('../logo/lichess-white.svg');
+    background: center no-repeat url(../logo/lichess-white.svg);
     @include if-light {
-      background-image: url('../logo/lichess.svg');
+      background-image: url(../logo/lichess.svg);
     }
     background-size: 2em;
     opacity: 0.5;

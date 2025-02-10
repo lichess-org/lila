@@ -293,7 +293,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Mae eich graddfa %1$s wythnosol (%2$s) yn rhy uchel</string>
   <string name="yourPerfRatingIsTooLow">Mae dy raddfa %1$s (%2$s) yn rhy isel</string>
   <string name="ratedMoreThanInPerf">Graddfa ≥ %1$s yn %2$s</string>
-  <string name="ratedLessThanInPerf">Graddfa %2$s yn ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">Graddfa ≤ %1$s yn %2$s dros yr wythnos ddiwethaf</string>
   <string name="mustBeInTeam">Rhaid fod yn aelod o dîm %s</string>
   <string name="youAreNotInTeam">Nid ydych yn aelod o dîm %s</string>
   <string name="backToGame">Nôl at y gêm</string>

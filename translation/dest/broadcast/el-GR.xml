@@ -80,4 +80,5 @@
   <string name="optionalDetails">Προαιρετικές λεπτομέρειες</string>
   <string name="pastBroadcasts">Προηγούμενες αναμεταδόσεις</string>
   <string name="allBroadcastsByMonth">Προβολή όλων των αναμεταδόσεων ανά μήνα</string>
+  <string name="sinceHideResults">Εφόσον επιλέξατε να κρύψετε τα αποτελέσματα, όλες οι σκακιέρες προεπισκόπησης είναι κενές ώστε να αποφευχθούν σπόιλερς.</string>
 </resources>

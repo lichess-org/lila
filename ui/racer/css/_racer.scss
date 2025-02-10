@@ -45,7 +45,7 @@
   }
 
   .puz-side__top::before {
-    background-image: img-url('racer/checkered-flag.svg');
+    background-image: url(../images/racer/checkered-flag.svg);
   }
 
   .puz-side__start {
@@ -68,7 +68,7 @@
     }
     &::before {
       content: '';
-      background-image: img-url('racer/gear-stick.svg');
+      background-image: url(../images/racer/gear-stick.svg);
       width: 4ch;
       height: 4ch;
       margin-bottom: 0.6ch;
