@@ -18,8 +18,6 @@
   <string name="addRound">Pridėti raundą</string>
   <string name="ongoing">Vykstančios</string>
   <string name="upcoming">Artėjančios</string>
-  <string name="completed">Pasibaigę</string>
-  <string name="completedHelp">Lichess aptiko turo užbaigimą, bet galimai klaidingai. Naudokite tai, norėdami nustatyti rankiniu būdu.</string>
   <string name="roundName">Raundo pavadinimas</string>
   <string name="roundNumber">Raundo numeris</string>
   <string name="tournamentName">Turnyro pavadinimas</string>
