@@ -54,3 +54,6 @@ instance.lock
 
 # eslint cache
 /ui/.eslintcache
+
+# deploy bearer
+.lila-cli
