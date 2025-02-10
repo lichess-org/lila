@@ -162,29 +162,26 @@ export function initModule(): NvuiPlugin {
                 'click',
                 selectionHandler(() => ctrl.data.opponent.color, selectSound),
               );
-              $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
-              $buttons.on(
-                'keydown',
-                lastCapturedCommandHandler(
-                  () => ctrl.data.steps.map(step => step.fen),
-                  pieceStyle.get(),
-                  prefixStyle.get(),
-                ),
-              );
-              $buttons.on(
-                'keydown',
-                possibleMovesHandler(
-                  ctrl.data.player.color,
-                  () => ctrl.chessground.state.turnColor,
-                  ctrl.chessground.getFen,
-                  () => ctrl.chessground.state.pieces,
-                  ctrl.data.game.variant.key,
-                  () => ctrl.chessground.state.movable.dests,
-                  () => ctrl.data.steps,
-                ),
-              );
-              $buttons.on('keydown', positionJumpHandler());
-              $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
+              $buttons.on('keydown', (e: KeyboardEvent) => {
+                if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpOrCommand(ctrl)(e);
+                else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
+                else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+                else if (e.key === 'c')
+                  lastCapturedCommandHandler(
+                    () => ctrl.data.steps.map(step => step.fen),
+                    pieceStyle.get(),
+                    prefixStyle.get(),
+                  )();
+                else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
+                else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
+                else if (e.key.toLowerCase() === 'm')
+                  possibleMovesHandler(
+                    ctrl.data.player.color,
+                    ctrl.chessground,
+                    ctrl.data.game.variant.key,
+                    ctrl.data.steps,
+                  )(e);
+              });
             }),
           },
           renderBoard(
@@ -383,9 +380,7 @@ function doAndRedraw(ctrl: RoundController, f: (ctrl: RoundController) => void) 
 
 function jumpOrCommand(ctrl: RoundController) {
   return (e: KeyboardEvent) => {
-    if (e.shiftKey) {
-      if (e.key === 'A') doAndRedraw(ctrl, prev);
-      else if (e.key === 'D') doAndRedraw(ctrl, next);
-    } else boardCommandsHandler()(e);
+    if (e.key === 'A') doAndRedraw(ctrl, prev);
+    else if (e.key === 'D') doAndRedraw(ctrl, next);
   };
 }

@@ -134,18 +134,7 @@ export function initModule() {
                   'keydown',
                   lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()),
                 );
-                $buttons.on(
-                  'keydown',
-                  possibleMovesHandler(
-                    ctrl.pov,
-                    () => ground.state.turnColor,
-                    ground.getFen,
-                    () => ground.state.pieces,
-                    'standard',
-                    () => ground.state.movable.dests,
-                    () => steps,
-                  ),
-                );
+                $buttons.on('keydown', possibleMovesHandler(ctrl.pov, ground, 'standard', steps));
                 $buttons.on('keydown', positionJumpHandler());
                 $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
               }),

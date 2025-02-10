@@ -20,6 +20,7 @@ export type BoardStyle = 'plain' | 'table';
 
 interface RoundStep {
   uci?: Uci;
+  fen: FEN;
 }
 
 const nato: { [file in Files]: string } = {
@@ -305,7 +306,6 @@ export function positionJumpHandler() {
 
 export function pieceJumpingHandler(selectSound: () => void, errorSound: () => void) {
   return (ev: KeyboardEvent): void => {
-    if (!ev.key.match(/^[kqrbnp]$/i)) return;
     const $currBtn = $(ev.target as HTMLElement);
 
     // TODO: decouple from promotion attribute setting in selectionHandler
@@ -357,7 +357,6 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
       file = String.fromCharCode(isWhite ? file.charCodeAt(0) - 1 : file.charCodeAt(0) + 1);
     else if (ev.key === 'ArrowRight')
       file = String.fromCharCode(isWhite ? file.charCodeAt(0) + 1 : file.charCodeAt(0) - 1);
-    else return;
     const newSqEl = document.querySelector<HTMLElement>(squareSelector(`${rank}`, file));
     newSqEl ? newSqEl.focus() : borderSound();
     ev.preventDefault();
@@ -426,51 +425,38 @@ export function lastCapturedCommandHandler(
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ) {
-  return (ev: KeyboardEvent): void => {
-    if (ev.key === 'c') $('.boardstatus').text(lastCaptured(fensteps, pieceStyle, prefixStyle));
-  };
+  return (): Cash => $('.boardstatus').text(lastCaptured(fensteps, pieceStyle, prefixStyle));
 }
 
-export function possibleMovesHandler(
-  yourColor: Color,
-  turnColor: () => Color,
-  startingFen: () => string,
-  piecesFunc: () => Pieces,
-  variant: VariantKey,
-  moveable: () => Dests | undefined,
-  steps: () => RoundStep[],
-) {
+export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: VariantKey, steps: RoundStep[]) {
   return (ev: KeyboardEvent): void => {
     if (ev.key.toLowerCase() !== 'm') return;
     const $boardLive = $('.boardstatus');
-    const pieces: Pieces = piecesFunc();
 
     const pos = keyFromAttrs(ev.target as HTMLElement);
     if (!pos) return;
 
-    let rawMoves: Dests | undefined;
-
     // possible inefficient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
     // if it is your turn
-    if (turnColor() === yourColor) {
-      rawMoves = moveable();
-    } else {
-      const fromSetup = setupPosition(lichessRules(variant), parseFen(startingFen()).unwrap()).unwrap();
-      steps().forEach(s => {
-        if (s.uci) {
-          const move = parseUci(s.uci);
-          if (move) fromSetup.play(move);
-        }
-      });
-      // important to override whose turn it is so only the users' own turns will show up
-      fromSetup.turn = yourColor;
-      rawMoves = chessgroundDests(fromSetup);
-    }
-
+    const playThroughToFinalDests = () => {
+      {
+        const fromSetup = setupPosition(lichessRules(variant), parseFen(steps[0].fen).unwrap()).unwrap();
+        steps.forEach(s => {
+          if (s.uci) {
+            const move = parseUci(s.uci);
+            if (move) fromSetup.play(move);
+          }
+        });
+        // important to override whose turn it is so only the users' own turns will show up
+        fromSetup.turn = yourColor;
+        return chessgroundDests(fromSetup);
+      }
+    };
+    const rawMoves = cg.state.turnColor === yourColor ? cg.state.movable.dests : playThroughToFinalDests();
     const possibleMoves = rawMoves
       ?.get(pos)
       ?.map(i => {
-        const p = pieces.get(i);
+        const p = cg.state.pieces.get(i);
         // logic to prevent 'capture rook' on own piece in chess960
         return p && p.color !== yourColor ? `${i} captures ${p.role}` : i;
       })
