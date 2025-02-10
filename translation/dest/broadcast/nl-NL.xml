@@ -15,8 +15,6 @@
   <string name="addRound">Ronde toevoegen</string>
   <string name="ongoing">Lopend</string>
   <string name="upcoming">Aankomend</string>
-  <string name="completed">Voltooid</string>
-  <string name="completedHelp">Lichess detecteert voltooiing van de ronde op basis van de bronpartijen. Gebruik deze schakelaar als er geen bron is.</string>
   <string name="roundName">Naam ronde</string>
   <string name="roundNumber">Ronde</string>
   <string name="tournamentName">Naam toernooi</string>
