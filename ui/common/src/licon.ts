@@ -134,3 +134,4 @@ export const Reload = ''; // e078
 export const AccountCircle = ''; // e079
 export const Logo = ''; // e07a
 export const Switch = ''; // e07b
+export const CalendarPlus = ''; // e07c
