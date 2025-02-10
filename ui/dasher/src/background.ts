@@ -86,7 +86,7 @@ export class BackgroundCtrl extends PaneCtrl {
   private get = () => this.data.current;
   private getImage = () => this.data.image;
   private setImage = (i: string) => {
-    this.data.image = i;
+    this.data.image = i.startsWith('/assets/') ? i.slice(8) : i;
     xhrTextRaw('/pref/bgImg', { body: xhrForm({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
       .then(this.reloadAllTheThings, err => err.then(this.announceFail));
@@ -155,7 +155,7 @@ export class BackgroundCtrl extends PaneCtrl {
           'div#images-grid',
           { attrs: { style: `background-image: url(${montageUrl});` } },
           gallery.images.map(img => {
-            const assetUrl = site.asset.url(img, { version: false });
+            const assetUrl = site.asset.url(img);
             const divClass = this.data.image.endsWith(assetUrl) ? '.selected' : '';
             return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
           }),
