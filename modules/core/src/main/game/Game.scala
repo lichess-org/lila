@@ -151,17 +151,8 @@ case class Game(
 
   def aiPov: Option[Pov] = players.findColor(_.isAi).map(pov)
 
-  def mapPlayers(f: Player => Player) = copy(players = players.map(f))
-
   def swissPreventsDraw = isSwiss && playedTurns < 60
   def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedTurns < 60
-
-  def playerHasOfferedDrawRecently(color: Color) =
-    drawOffers.lastBy(color).exists(_ >= ply - 20)
-
-  def offerDraw(color: Color) = copy(
-    metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
-  ).updatePlayer(color, _.copy(isOfferingDraw = true))
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 

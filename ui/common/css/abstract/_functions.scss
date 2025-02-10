@@ -1,7 +1,3 @@
-@function img-url($path) {
-  @return url('#{$img-path}/#{$path}');
-}
-
 @function at-least($width) {
   @return $width - 0.7px;
 }

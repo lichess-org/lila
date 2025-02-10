@@ -8,7 +8,7 @@
       $file-name: if($name-override, $name-override, $name);
       $dir-name: 'board#{if($file-ext == "svg", "/svg", "")}';
       &::before {
-        background-image: img-url('#{$dir-name}/#{$file-name}.#{$file-ext}');
+        background-image: url(../images/#{$dir-name}/#{$file-name}.#{$file-ext});
       }
     }
 

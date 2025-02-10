@@ -142,7 +142,7 @@
   }
 
   &.computing .bar span {
-    background-image: img-url('bar-highlight.png');
+    background-image: url(../images/bar-highlight.png);
     animation: bar-anim 1000s linear infinite;
   }
 }

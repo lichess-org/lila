@@ -37,7 +37,7 @@ cg-board::before {
 @each $name, $board-theme in $board-themes-3d {
   body[data-board3d='#{$name}'] .is3d .main-board {
     cg-board::before {
-      background-image: img-url('staunton/board/#{$name}.png');
+      background-image: url(../images/staunton/board/#{$name}.png);
     }
 
     $coord-color-white: map-get($board-theme, coord-color-white);
@@ -72,7 +72,7 @@ $piece-files: (
     @each $type in 'Pawn', 'Bishop', 'Knight', 'Rook', 'Queen', 'King' {
       body[data-piece-set3d='#{$name}'] .main-board .#{to-lower-case($type)}.#{to-lower-case($color)},
       body[data-piece-set3d='#{$name}'] .no-square .#{to-lower-case($type)}.#{to-lower-case($color)} {
-        background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}.png');
+        background-image: url(../images/staunton/piece/#{$name}/#{$color}-#{$type}.png);
       }
     }
   }
@@ -83,7 +83,7 @@ $piece-files: (
           .main-board
           .orientation-#{$orientation}
           .#{to-lower-case($type)}.#{to-lower-case($color)} {
-          background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png');
+          background-image: url(../images/staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png);
         }
       }
     }

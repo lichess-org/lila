@@ -1,5 +1,7 @@
 import { charToRole, type Square } from 'chessops';
 
+type AlmostSan = string;
+
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: AlmostSan]: Uci };
 
