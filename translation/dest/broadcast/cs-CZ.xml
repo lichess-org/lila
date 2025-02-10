@@ -18,8 +18,6 @@
   <string name="addRound">Přidat kolo</string>
   <string name="ongoing">Probíhající</string>
   <string name="upcoming">Chystané</string>
-  <string name="completed">Dokončené</string>
-  <string name="completedHelp">Lichess detekuje dokončení kola na základě zdrojových her. Tento přepínač použijte, pokud není k dispozici žádný zdroj.</string>
   <string name="roundName">Číslo kola</string>
   <string name="roundNumber">Číslo kola</string>
   <string name="tournamentName">Název turnaje</string>
