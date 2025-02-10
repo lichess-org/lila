@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Retransmissions finalitzades</string>
   <string name="allBroadcastsByMonth">Veure totes les retransmissions per més</string>
   <string name="backToLiveMove">Torna al moviment en directe</string>
+  <string name="sinceHideResults">Ja que heu escollit amagar els resultats, la previsualització de tots els taulers està buida per tal d\'evitar espòilers.</string>
 </resources>

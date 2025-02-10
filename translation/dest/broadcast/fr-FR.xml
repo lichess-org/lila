@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Diffusions passées</string>
   <string name="allBroadcastsByMonth">Voir les diffusions par mois</string>
   <string name="backToLiveMove">Retour au coup en direct</string>
+  <string name="sinceHideResults">Vous avez choisi de masquer les résultats. Les échiquiers de prévisualisation sont donc vides pour ne rien révéler.</string>
 </resources>

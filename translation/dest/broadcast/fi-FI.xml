@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Menneet lähetykset</string>
   <string name="allBroadcastsByMonth">Näytä kaikki lähetykset kuukausikohtaisesti</string>
   <string name="backToLiveMove">Takaisin siirtojen reaaliaikaiseen seurantaan</string>
+  <string name="sinceHideResults">Koska olet päättänyt piilottaa tulokset ja koska vältämme spoilereita, ovat kaikkien lautojen esikatselut tyhjiä.</string>
 </resources>
