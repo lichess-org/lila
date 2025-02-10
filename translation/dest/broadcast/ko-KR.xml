@@ -15,8 +15,6 @@
   <string name="addRound">라운드 추가</string>
   <string name="ongoing">진행중</string>
   <string name="upcoming">방영 예정</string>
-  <string name="completed">종료됨</string>
-  <string name="completedHelp">Lichess는 경기 완료를 감지하지만, 잘못될 때가 있을 수 있습니다. 수동으로 설정하기 위해 이걸 사용하세요.</string>
   <string name="roundName">라운드 이름</string>
   <string name="roundNumber">라운드 숫자</string>
   <string name="tournamentName">토너먼트 이름</string>
