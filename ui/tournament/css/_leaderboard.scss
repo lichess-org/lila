@@ -63,7 +63,7 @@ $user-list-width: 35ch;
   @include inline-start(15px);
   width: 67px;
   height: 80px;
-  background: img-url('trophy/shield-gold.png') no-repeat;
+  background: url(../images/trophy/shield-gold.png) no-repeat;
   background-size: contain;
   font-family: 'lichess' !important;
   font-size: 40px;

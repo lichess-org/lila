@@ -1,7 +1,7 @@
 import cps from 'node:child_process';
-import p from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
+import { join } from 'node:path';
 import { env, c } from './env.ts';
 import { jsLogger } from './console.ts';
 import { taskOk } from './task.ts';
@@ -93,8 +93,8 @@ async function writeManifest() {
     env.prod ? undefined : 2,
   );
   await Promise.all([
-    fs.promises.writeFile(p.join(env.jsOutDir, `manifest.${hash}.js`), clientManifest),
-    fs.promises.writeFile(p.join(env.jsOutDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`), serverManifest),
+    fs.promises.writeFile(join(env.jsOutDir, `manifest.${hash}.js`), clientManifest),
+    fs.promises.writeFile(join(env.jsOutDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`), serverManifest),
   ]);
   manifest.dirty = false;
   const serverHash = crypto.createHash('sha256').update(serverManifest).digest('hex').slice(0, 8);

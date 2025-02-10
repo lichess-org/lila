@@ -82,4 +82,5 @@
   <string name="pastBroadcasts">Transmisii anterioare</string>
   <string name="allBroadcastsByMonth">Vezi toate transmisiunile pe fiecare lună</string>
   <string name="backToLiveMove">Înapoi la mutarea live</string>
+  <string name="sinceHideResults">Din moment ce ai ales să ascunzi rezultatele, toate tablele de previzualizare sunt goale pentru a evita spoilerele.</string>
 </resources>
