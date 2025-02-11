@@ -157,6 +157,8 @@ export default class ChatCtrl {
 
   private instanciateModeration = () => {
     if (this.opts.permissions.timeout || this.opts.permissions.broadcast || this.opts.permissions.local) {
+      this.maxLines = 1000;
+      this.maxLinesDrop = 500;
       this.moderation = moderationCtrl({
         reasons: this.opts.timeoutReasons || [{ key: 'other', name: 'Inappropriate behavior' }],
         permissions: this.opts.permissions,
