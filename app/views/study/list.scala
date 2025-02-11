@@ -22,7 +22,6 @@ object list {
       active = "all",
       order = order,
       pag = pag,
-      searchFilter = "",
       url = o => routes.Study.all(o),
       canonicalPath = lila.common.CanonicalPath(routes.Study.allDefault(1)).some,
     )
@@ -35,7 +34,7 @@ object list {
       active = "owner",
       order = order,
       pag = pag,
-      searchFilter = s"owner:${owner.username}",
+      searchFilter = s"owner:${owner.username}".some,
       url = o => routes.Study.byOwner(owner.username, o),
       canonicalPath = lila.common.CanonicalPath(routes.Study.byOwnerDefault(owner.username)).some,
     )
@@ -48,7 +47,7 @@ object list {
       active = "mine",
       order = order,
       pag = pag,
-      searchFilter = s"owner:${me.username}",
+      searchFilter = s"owner:${me.username}".some,
       url = o => routes.Study.mine(o),
       topics = topics.some,
     )
@@ -62,7 +61,6 @@ object list {
       active = "mineLikes",
       order = order,
       pag = pag,
-      searchFilter = "",
       url = o => routes.Study.mineLikes(o),
     )
 
@@ -75,7 +73,6 @@ object list {
       active = "postGameStudies",
       order = order,
       pag = pag,
-      searchFilter = "",
       url = o => routes.Study.minePostGameStudies(o),
     )
 
@@ -89,7 +86,6 @@ object list {
       active = "postGameStudies",
       order = order,
       pag = pag,
-      searchFilter = "",
       url = o => routes.Study.postGameStudiesOf(gameId, o),
       canonicalPath = lila.common.CanonicalPath(routes.Study.postGameStudiesOfDefault(gameId)).some,
     )
@@ -102,7 +98,7 @@ object list {
       active = "mineMember",
       order = order,
       pag = pag,
-      searchFilter = s"member:${me.username}",
+      searchFilter = s"member:${me.username}".some,
       url = o => routes.Study.mineMember(o),
       topics = topics.some,
     )
@@ -115,7 +111,7 @@ object list {
       active = "minePublic",
       order = order,
       pag = pag,
-      searchFilter = s"owner:${me.username}",
+      searchFilter = s"owner:${me.username}".some,
       url = o => routes.Study.minePublic(o),
     )
 
@@ -127,7 +123,7 @@ object list {
       active = "minePrivate",
       order = order,
       pag = pag,
-      searchFilter = s"owner:${me.username}",
+      searchFilter = s"owner:${me.username}".some,
       url = o => routes.Study.minePrivate(o),
     )
 
@@ -184,9 +180,6 @@ object list {
           topic.value,
         )
       },
-      // a(cls := "text", dataIcon := "", href := "https://lishogi.org/blog/V0KrLSkAAMo3hsi4/study-shogi-the-lishogi-way")(
-      //  trans.study.whatAreStudies()
-      // )
     )
   }
 
@@ -202,7 +195,7 @@ object list {
       order: Order,
       pag: Paginator[WithChaptersAndLiked],
       url: String => Call,
-      searchFilter: String,
+      searchFilter: Option[String] = None,
       topics: Option[StudyTopics] = None,
       canonicalPath: Option[lila.common.CanonicalPath] = None,
   )(implicit ctx: Context) =
@@ -217,7 +210,7 @@ object list {
         menu(active, order, topics.??(_.value)),
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
-            searchForm(title, s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
+            searchForm(searchFilter.isDefined ?? title, searchFilter.fold("") { sf => s"$sf " }),
             bits.orderSelect(order, active, url),
             bits.newForm(),
           ),
