@@ -37,9 +37,9 @@ object BSONHandlers {
   }
 
   implicit private[tournament] val scheduleFreqHandler: BSONHandler[Schedule.Freq] =
-    tryHandler[Schedule.Freq](
-      { case BSONString(v) => Schedule.Freq(v) toTry s"No such freq: $v" },
-      x => BSONString(x.name),
+    quickHandler[Schedule.Freq](
+      { case BSONString(v) => Schedule.Freq(v).getOrElse(Schedule.Freq.Unique) },
+      x => BSONString(x.key),
     )
 
   implicit private[tournament] val scheduleSpeedHandler: BSONHandler[Schedule.Speed] =

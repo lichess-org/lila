@@ -235,11 +235,17 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     createdSelect ++
       $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
 
+  def enterable: Fu[List[Tournament]] =
+    coll.list[Tournament](enterableSelect)
+
   def created(aheadMinutes: Int, limit: Int = Int.MaxValue): Fu[List[Tournament]] =
     coll.list[Tournament](startingSoonSelect(aheadMinutes), limit)
 
   def started: Fu[List[Tournament]] =
     coll.list[Tournament](startedSelect)
+
+  def startedScheduled(limit: Int = Int.MaxValue): Fu[List[Tournament]] =
+    coll.list[Tournament](startedSelect ++ scheduledSelect, limit)
 
   def visibleForTeams(teamIds: Seq[TeamID], aheadMinutes: Int) =
     coll.list[Tournament](
@@ -265,24 +271,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .find($doc("endsAt" $lt DateTime.now) ++ startedSelect) // endsAt set only for non arenas
       .batchSize(1)
       .cursor[Tournament]()
-
-  private def startedStillWorthEntering: Fu[List[Tournament]] =
-    coll.list[Tournament](startedSelect) dmap {
-      _.filter(_.isStillWorthEntering)
-    }
-
-  private[tournament] def onHomepage: Fu[List[Tournament]] =
-    startedStillWorthEntering zip created(crud.CrudForm.maxHomepageHours * 60) map {
-      case (started, created) =>
-        (started ::: created)
-          .sortBy(_.startsAt.getSeconds)
-          .foldLeft(List.empty[Tournament]) {
-            case (acc, tour) if tour.schedule.isEmpty && !tour.popular => acc
-            case (acc, tour) if acc.exists(_ similarTo tour)           => acc
-            case (acc, tour)                                           => tour :: acc
-          }
-          .reverse
-    }
 
   def uniques(max: Int): Fu[List[Tournament]] =
     coll
@@ -326,7 +314,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.ext
       .find(
         finishedSelect ++ sinceSelect(since) ++ variantSelect(shogi.variant.Standard) ++ $doc(
-          "schedule.freq" -> freq.name,
+          "schedule.freq" -> freq.key,
           "schedule.speed" $in Schedule.Speed.mostPopular.map(_.key),
         ),
       )
@@ -338,7 +326,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.ext
       .find(
         finishedSelect ++ sinceSelect(DateTime.now minusDays 1) ++ variantSelect(variant) ++
-          $doc("schedule.freq" -> Schedule.Freq.Daily.name),
+          $doc("schedule.freq" -> Schedule.Freq.Daily.key),
       )
       .sort($sort desc "startsAt")
       .one[Tournament]
@@ -375,12 +363,15 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .find(
         $doc(
           "startsAt" $gte from $lte to,
-          "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter),
+          $or(
+            "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter),
+            "nbPlayers" $gte 15,
+          ),
         ),
       )
       .sort($sort asc "startsAt")
       .cursor[Tournament](ReadPreference.secondaryPreferred)
-      .list()
+      .list(128)
 
   private[tournament] def sortedCursor(
       owner: lila.user.User,

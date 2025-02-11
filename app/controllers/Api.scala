@@ -170,8 +170,8 @@ final class Api(
   def currentTournaments =
     ApiRequest { implicit req =>
       implicit val lang = reqLang
-      env.tournament.api.fetchVisibleTournaments flatMap
-        env.tournament.apiJsonView.apply map Data.apply
+      env.tournament.pager.Featured.get flatMap
+        env.tournament.apiJsonView.featured map Data.apply
     }
 
   def tournament(id: String) =

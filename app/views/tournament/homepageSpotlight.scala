@@ -27,7 +27,7 @@ object homepageSpotlight {
             }
           },
           span(cls := "content")(
-            span(cls := "name")(tour.name()),
+            span(cls := "name")(tournamentName(tour)),
             if (tour.isDistant) span(cls := "more")(momentFromNow(tour.startsAt))
             else
               frag(
@@ -45,7 +45,7 @@ object homepageSpotlight {
     } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
       iconTag(tour.perfType.iconChar)(cls := "img"),
       span(cls := "content")(
-        span(cls := "name")(tour.name()),
+        span(cls := "name")(tournamentName(tour)),
         span(cls := "more")(
           trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
           " - ",

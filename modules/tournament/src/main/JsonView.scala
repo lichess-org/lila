@@ -140,7 +140,7 @@ final class JsonView(
             "createdBy" -> tour.createdBy,
             "startsAt"  -> formatDate(tour.startsAt),
             "system"    -> tour.format.key,
-            "fullName"  -> tour.name(),
+            "fullName"  -> tour.name,
             "minutes"   -> tour.minutes,
             "perf"      -> full.option(tour.perfType),
             "clock"     -> full.option(tour.timeControl),
@@ -150,7 +150,7 @@ final class JsonView(
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
           .add(
-            "position" -> tour.position.ifTrue(full).map(sfen => positionJson(sfen, tour.variant)),
+            "position" -> tour.position.ifTrue(full).map(sfen => positionJson(sfen)),
           )
           .add(
             "verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, tour.perfType, lang)),
@@ -667,7 +667,7 @@ object JsonView {
 
   private[tournament] def scheduleJson(s: Schedule) =
     Json.obj(
-      "freq"  -> s.freq.name,
+      "freq"  -> s.freq.key,
       "speed" -> s.speed.key,
     )
 
@@ -684,22 +684,12 @@ object JsonView {
       )
   }
 
-  private[tournament] def positionJson(sfen: Sfen, variant: shogi.variant.Variant): JsObject =
-    Thematic.bySfen(sfen, variant) match {
-      case Some(pos) =>
-        Json
-          .obj(
-            "japanese" -> pos.japanese,
-            "english"  -> pos.english,
-            "sfen"     -> pos.sfen,
-          )
-      case None =>
-        Json
-          .obj(
-            "name" -> "Custom position",
-            "sfen" -> sfen,
-          )
-    }
+  private[tournament] def positionJson(sfen: Sfen): JsObject =
+    Json
+      .obj(
+        "name" -> "Custom position",
+        "sfen" -> sfen,
+      )
 
   implicit val lightUserSeqWrites: Writes[Seq[lila.common.LightUser]] =
     Writes.seq[lila.common.LightUser]

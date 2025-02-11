@@ -1,6 +1,5 @@
 package lila.api
 
-import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.analyse.Analysis
@@ -30,7 +29,6 @@ final private[api] class RoundApi(
   def player(pov: Pov, tour: Option[TourView])(implicit
       ctx: Context,
   ): Fu[JsObject] = {
-    implicit val lang = ctx.lang
     jsonView.playerJson(
       pov,
       ctx.pref,
@@ -57,7 +55,6 @@ final private[api] class RoundApi(
       tour: Option[TourView],
       tv: Option[lila.round.OnTv],
   )(implicit ctx: Context): Fu[JsObject] = {
-    implicit val lang = ctx.lang
     jsonView.watcherJson(
       pov,
       ctx.pref,
@@ -83,7 +80,6 @@ final private[api] class RoundApi(
       analysis: Option[Analysis] = None,
       withFlags: WithFlags,
   )(implicit ctx: Context): Fu[JsObject] = {
-    implicit val lang = ctx.lang
     jsonView.watcherJson(
       pov,
       ctx.pref,
@@ -194,12 +190,12 @@ final private[api] class RoundApi(
       },
     )
 
-  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(implicit lang: Lang) =
+  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject) =
     json.add("tournament" -> viewO.map { v =>
       Json
         .obj(
           "id"      -> v.tour.id,
-          "name"    -> v.tour.name(false),
+          "name"    -> v.tour.name,
           "format"  -> v.tour.format.key,
           "running" -> v.tour.isStarted,
         )

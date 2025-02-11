@@ -26,11 +26,11 @@ final class PublicChat(
 
   // only auto scheduled
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
-    tournamentApi.fetchVisibleTournaments.flatMap { visibleTournaments =>
-      val ids = visibleTournaments.all.withFilter(_.schedule.isDefined).map(_.id) map Chat.Id.apply
+    tournamentApi.startedScheduled.flatMap { tours =>
+      val ids = tours.map(_.id) map Chat.Id.apply
       chatApi.userChat.findAll(ids).map { chats =>
         chats.map { chat =>
-          visibleTournaments.all.find(_.id == chat.id.value).map(tour => (tour, chat))
+          tours.find(_.id == chat.id.value).map(tour => (tour, chat))
         }.flatten
       } map sortTournamentsByRelevance
     }

@@ -1,5 +1,5 @@
 package views.html
-package userTournament
+package tournament.user
 
 import controllers.routes
 import play.api.i18n.Lang
@@ -38,12 +38,11 @@ object list {
                 td(cls := "icon")(iconTag(tournamentIconChar(e.tour))),
                 td(cls := "header")(
                   a(href := routes.Tournament.show(e.tour.id))(
-                    span(cls := "name")(e.tour.name()),
+                    span(cls := "name")(tournamentName(e.tour)),
                     span(cls := "setup")(
                       e.tour.timeControl.show,
                       " - ",
-                      if (!e.tour.variant.standard) variantName(e.tour.variant)
-                      else e.tour.perfType.trans,
+                      e.tour.perfType.trans,
                       " - ",
                       momentFromNow(e.tour.startsAt),
                     ),

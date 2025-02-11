@@ -42,9 +42,11 @@ object show {
       ),
     ) {
       val handicap = (for {
-        variant  <- sim.variants.headOption.ifFalse(sim.variantRich)
-        sfen     <- sim.position
-        handicap <- lila.tournament.Thematic.bySfen(sfen, variant)
+        variant <- sim.variants.headOption.ifFalse(sim.variantRich)
+        sfen    <- sim.position
+        handicap <- shogi.Handicap.allByVariant
+          .get(variant)
+          .flatMap(hs => hs.find(_.sfen.truncate == sfen.truncate))
       } yield (handicap))
       main(
         cls := List(

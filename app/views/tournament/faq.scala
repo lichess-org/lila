@@ -13,20 +13,20 @@ object faq {
 
   def page(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.tournamentFAQ.txt(),
+      title = trans.faq.faqAbbreviation.txt(),
       moreCss = cssTag("misc.page"),
     ) {
-      main(cls := "page-small box box-pad page")(
-        h1(
-          a(href := routes.Tournament.home, dataIcon := "I", cls := "text"),
-          trans.tournamentFAQ(),
-        ),
-        div(cls := "body")(
-          div(cls := "arena")(
-            apply(lila.tournament.Format.Arena),
-          ),
-          div(cls := "robin")(
-            apply(lila.tournament.Format.Robin),
+      main(cls := "page-menu")(
+        home.menu("faq"),
+        div(cls := "page-menu__content box box-pad")(
+          h1(trans.faq.faqAbbreviation()),
+          div(cls := "body")(
+            div(cls := "arena")(
+              apply(lila.tournament.Format.Arena),
+            ),
+            div(cls := "robin")(
+              apply(lila.tournament.Format.Robin),
+            ),
           ),
         ),
       )

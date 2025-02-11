@@ -1,7 +1,5 @@
 package lila.api
 
-import play.api.i18n.Lang
-
 import shogi.format.Notation
 
 import lila.analyse.Analysis
@@ -14,10 +12,8 @@ final class NotationDump(
     val dumper: lila.game.NotationDump,
     annotator: Annotator,
     simulApi: lila.simul.SimulApi,
-    getTournamentName: lila.tournament.GetTourName,
+    tourApi: lila.tournament.TournamentApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
-
-  implicit private val lang: Lang = lila.i18n.defaultLang
 
   def apply(
       game: Game,
@@ -27,12 +23,11 @@ final class NotationDump(
       realPlayers: Option[RealPlayers] = None,
   ): Fu[Notation] =
     dumper(game, flags, teams) flatMap { notation =>
-      if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
-        simulName
-          .orElse(game.tournamentId flatMap getTournamentName.get)
-          .fold(notation)(notation.withEvent)
-      }
-      else fuccess(notation)
+      if (flags.tags) {
+        val event: Fu[Option[String]] =
+          (game.simulId ?? simulApi.idToName).orElse(game.tournamentId ?? tourApi.idToName)
+        event.map(en => en.fold(notation)(notation.withEvent))
+      } else fuccess(notation)
     } map { notation =>
       val evaled = analysis.ifTrue(flags.evals).fold(notation)(addEvals(notation, _))
       if (flags.literate) annotator(evaled, analysis)

@@ -1,0 +1,107 @@
+@use 'pkg:common/abstract/extends';
+@use 'pkg:common/abstract/mixins';
+@use 'pkg:common/theme';
+
+.tour-winners-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 0.25rem;
+  padding-top: 0.5rem;
+  height: 2rem;
+
+  &:hover {
+    .tour-winners {
+      animation-play-state: paused;
+    }
+  }
+
+  .tour-winners {
+    position: absolute;
+    display: block;
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+    will-change: transform;
+
+    & > div {
+      display: inline;
+    }
+
+    a {
+      color: theme.$c-font;
+    }
+
+    .user-link {
+      color: theme.$c-brag;
+      font-weight: bold;
+      margin: 0 5px 0 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tour-winners {
+      animation: none;
+      width: 100%;
+      overflow-x: auto;
+    }
+  }
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.box__top {
+  @extend %flex-center;
+  $top-height: 3.2rem;
+
+  /* flex gutters, waiting for row-gap to be implemented for flexbox.  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Mastering_Wrapping_of_Flex_Items#Creating_gutters_between_items */
+  margin: 0 0 -1em -1em;
+
+  > * {
+    margin: 0 0 1em 1em;
+  }
+
+  /* end of flex gutter hack */
+
+  h1 {
+    flex: 3 1 auto;
+    margin: 0 0 1rem 0;
+  }
+
+  .mselect {
+    flex: 1 1 auto;
+    font-size: 1.2em;
+    min-width: 10rem;
+
+    &__label::after {
+      margin-left: 0.6em;
+    }
+  }
+
+  .new-study,
+  .mselect {
+    height: $top-height;
+    margin-left: 1rem;
+    white-space: nowrap;
+  }
+
+  .mselect__label {
+    height: 100%;
+  }
+
+  .new-study .button {
+    height: $top-height;
+    padding: 0 1em;
+
+    &::before {
+      font-size: 2em;
+    }
+  }
+}

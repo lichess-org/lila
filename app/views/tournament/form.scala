@@ -36,7 +36,7 @@ object form {
             form3.globalError(form),
             allFieldsets(form, fields, teams = myTeams, tour = none),
             form3.actions(
-              a(href := routes.Tournament.home)(trans.cancel()),
+              a(href := routes.Tournament.homeDefault(1))(trans.cancel()),
               form3.submit(trans.createANewTournament(), icon = "g".some),
             ),
           ),
@@ -49,7 +49,7 @@ object form {
       ctx: Context,
   ) =
     views.html.base.layout(
-      title = tour.name(),
+      title = tournamentName(tour),
       moreCss = cssTag("tournament.form"),
       moreJs = frag(
         flatpickrTag,
@@ -59,7 +59,7 @@ object form {
       val fields = new TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
-          h1("Edit ", tour.name()),
+          h1("Edit ", tournamentName(tour)),
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
             form3.globalError(form),
             allFieldsets(form, fields, teams = myTeams, tour = tour.some),

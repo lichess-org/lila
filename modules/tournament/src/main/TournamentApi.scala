@@ -4,16 +4,12 @@ import scala.concurrent.Promise
 import scala.concurrent.duration._
 import scala.util.chaining._
 
-import play.api.libs.json._
-
 import akka.actor.ActorSystem
 import akka.actor.Props
-import akka.pattern.ask
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 
 import lila.common.Bus
-import lila.common.Debouncer
 import lila.common.LightUser
 import lila.common.config.MaxPerPage
 import lila.common.config.MaxPerSecond
@@ -24,11 +20,8 @@ import lila.game.LightPov
 import lila.game.Pov
 import lila.hub.LightTeam
 import lila.hub.LightTeam._
-import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.round.actorApi.round.AbortForce
 import lila.round.actorApi.round.GoBerserk
-import lila.socket.Socket.SendToFlag
-import lila.tournament.makeTimeout.short
 import lila.user.User
 import lila.user.UserRepo
 
@@ -40,11 +33,9 @@ final class TournamentApi(
     pairingRepo: PairingRepo,
     arrangementRepo: ArrangementRepo,
     tournamentRepo: TournamentRepo,
-    apiJsonView: ApiJsonView,
     autoPairing: AutoPairing,
     pairingSystem: arena.PairingSystem,
     callbacks: TournamentApi.Callbacks,
-    renderer: lila.hub.actors.Renderer,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
     trophyApi: lila.user.TrophyApi,
@@ -68,6 +59,9 @@ final class TournamentApi(
     )
 
   def get(id: Tournament.ID) = tournamentRepo byId id
+
+  def idToName(id: Tournament.ID): Fu[Option[String]] =
+    tournamentRepo.byId(id) dmap2 { _.name }
 
   def createTournament(
       setup: TournamentSetup,
@@ -807,7 +801,9 @@ final class TournamentApi(
           else
             arrangementRepo.findPlaying(tour.id, userId) map { curArrangements =>
               curArrangements foreach { curArrangement =>
-                curArrangement.gameId foreach { tellRound(_, AbortForce) }
+                curArrangement.gameId foreach {
+                  tellRound(_, AbortForce)
+                }
               }
             }
         } else updateNbPlayers(tour.id)
@@ -914,20 +910,7 @@ final class TournamentApi(
 
   def notableFinished = cached.notableFinishedCache.get {}
 
-  private def createdAndStarted =
-    tournamentRepo.created(8 * 60) zip tournamentRepo.started
-
-  // when loading /tournament
-  def fetchVisibleTournaments: Fu[VisibleTournaments] =
-    createdAndStarted zip notableFinished map { case ((created, started), finished) =>
-      VisibleTournaments(created, started, finished)
-    }
-
-  // when updating /tournament
-  def fetchUpdateTournaments: Fu[VisibleTournaments] =
-    createdAndStarted dmap { case (created, started) =>
-      VisibleTournaments(created, started, Nil)
-    }
+  def startedScheduled = tournamentRepo.startedScheduled(8)
 
   def playerInfo(tour: Tournament, userId: User.ID): Fu[Option[PlayerInfoExt]] =
     playerRepo.find(tour.id, userId) flatMap {
@@ -1023,28 +1006,22 @@ final class TournamentApi(
     }
 
   private object publish {
-    private val debouncer = system.actorOf(
-      Props(
-        new Debouncer(
-          15 seconds,
-          { (_: Debouncer.Nothing) =>
-            implicit val lang = lila.i18n.defaultLang
-            fetchUpdateTournaments flatMap apiJsonView.apply foreach { json =>
-              Bus.publish(
-                SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
-                "sendToFlag",
-              )
-            }
-            cached.onHomepage.get {} foreach { tours =>
-              renderer.actor ? Tournament.TournamentTable(tours) map { case view: String =>
-                Bus.publish(ReloadTournaments(view), "lobbySocket")
-              }
-            }
-          },
-        ),
-      ),
-    )
-    def apply(): Unit = { debouncer ! Debouncer.Nothing }
+    // private val debouncer = system.actorOf(
+    //   Props(
+    //     new Debouncer(
+    //       15 seconds,
+    //       { (_: Debouncer.Nothing) =>
+    //         implicit val lang = lila.i18n.defaultLang
+    //         featured.get foreach { tours =>
+    //           renderer.actor ? Tournament.TournamentTable(tours) map { case view: String =>
+    //             Bus.publish(ReloadTournaments(view), "lobbySocket")
+    //           }
+    //         }
+    //       },
+    //     ),
+    //   ),
+    // )
+    def apply(): Unit = { println("PUBLISH") }
   }
 
   private object updateTournamentStanding {

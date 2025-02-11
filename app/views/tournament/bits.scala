@@ -1,13 +1,26 @@
 package views.html.tournament
 
 import controllers.routes
+import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.Tournament
+import lila.tournament.TournamentPager.Order
 
 object bits {
+
+  def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) = {
+    val all = if (active == "finished") Order.allButHot else Order.all
+    views.html.base.bits.mselect(
+      "orders",
+      span(order.name()),
+      all map { o =>
+        a(href := url(o.key), cls := (order == o).option("current"))(o.name())
+      },
+    )
+  }
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
@@ -19,11 +32,11 @@ object bits {
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage()),
+        a(href := routes.Tournament.homeDefault(1))(trans.returnToTournamentsHomepage()),
       )
     }
 
-  def enterable(tours: List[Tournament]) =
+  def enterable(tours: List[Tournament])(implicit ctx: Context) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
@@ -33,7 +46,7 @@ object bits {
               dataIcon := tournamentIconChar(tour),
               href     := routes.Tournament.show(tour.id),
             )(
-              tour.name,
+              tournamentName(tour),
             ),
           ),
           // td(tour.format.trans),

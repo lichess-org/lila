@@ -1,7 +1,5 @@
 package lila.tournament
 
-import play.api.i18n.Lang
-
 import lila.hub.LightTeam.TeamID
 import lila.user.User
 
@@ -37,23 +35,6 @@ case class MyInfo(
   def page = {
     math.floor((rank - 1) / 10) + 1
   }.toInt
-}
-
-case class VisibleTournaments(
-    created: List[Tournament],
-    started: List[Tournament],
-    finished: List[Tournament],
-) {
-
-  def unfinished = created ::: started
-
-  def all = started ::: created ::: finished
-
-  def add(tours: List[Tournament]) =
-    copy(
-      created = tours.filter(_.isCreated) ++ created,
-      started = tours.filter(_.isStarted) ++ started,
-    )
 }
 
 case class PlayerInfoExt(
@@ -101,9 +82,3 @@ case class FeaturedGame(
     sente: RankedPlayer,
     gote: RankedPlayer,
 )
-
-final class GetTourName(f: (Tournament.ID, Lang) => Option[String])
-    extends ((Tournament.ID, Lang) => Option[String]) {
-  def apply(id: Tournament.ID, lang: Lang)        = f(id, lang)
-  def get(id: Tournament.ID)(implicit lang: Lang) = f(id, lang)
-}

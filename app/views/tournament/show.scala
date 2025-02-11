@@ -21,7 +21,7 @@ object show {
       shieldOwner: Option[lila.tournament.TournamentShield.OwnerId],
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${tour.name()} #${tour.id}",
+      title = s"${tournamentName(tour)} #${tour.id}",
       moreJs = frag(
         moduleJsTag(
           "tournament",
@@ -48,9 +48,9 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title =
-            s"${tour.name()}: ${variantName(tour.variant)} ${tour.timeControl.show} ${modeName(tour.mode)} #${tour.id}",
+            s"${tournamentName(tour)}: ${variantName(tour.variant)} ${tour.timeControl.show} ${modeName(tour.mode)} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description = s"${showDate(tour.startsAt)} - ${tour.name()} - ${trans.nbPlayers
+          description = s"${showDate(tour.startsAt)} - ${tournamentName(tour)} - ${trans.nbPlayers
               .pluralSameTxt(tour.nbPlayers)}, " +
             s"${trans.duration.txt().toLowerCase}: ${tour.minutes}m. " +
             tour.winnerId.fold(trans.winnerIsNotYetDecided.txt()) { winnerId =>
@@ -61,7 +61,7 @@ object show {
     )(
       main(cls := s"tour${tour.schedule
           .?? { sched =>
-            s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
+            s" tour-sched tour-sched-${sched.freq.key} tour-speed-${sched.speed.key} tour-variant-${sched.variant.key} tour-id-${tour.id}"
           }}")(
         st.aside(cls := "tour__side")(
           tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined),

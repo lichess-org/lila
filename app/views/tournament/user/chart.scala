@@ -1,5 +1,5 @@
 package views.html
-package userTournament
+package tournament.user
 
 import lila.api.Context
 import lila.app.templating.Environment._

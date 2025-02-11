@@ -14,9 +14,6 @@ final private[app] class Renderer extends Actor {
     case lila.tv.actorApi.RenderFeaturedJs(game) =>
       sender() ! V.game.bits.featuredJs(Pov first game).render
 
-    case lila.tournament.Tournament.TournamentTable(tours) =>
-      sender() ! V.tournament.bits.enterable(tours).render
-
     case lila.puzzle.DailyPuzzle.Render(puzzle, sfen, lastUsi) =>
       sender() ! V.puzzle.bits.daily(puzzle, sfen, lastUsi).render
 

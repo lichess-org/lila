@@ -6,9 +6,31 @@ h1 {
   margin: 0.7em 0;
 }
 
+.tournamen-search {
+  display: flex;
+  padding: 1rem;
+
+  input {
+    margin-right: 1rem;
+  }
+}
+
+.page-menu__content {
+  background: theme.$c-bg-zebra;
+}
+
 .tournament-list {
   .slist {
     white-space: nowrap;
+    background: theme.$c-bg-box;
+
+    thead {
+      background: theme.$c-bg-box;
+
+      th {
+        border-top: 0;
+      }
+    }
 
     .count {
       @extend %roboto;

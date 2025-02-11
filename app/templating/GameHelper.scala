@@ -22,7 +22,7 @@ import lila.user.Title
 import lila.user.User
 
 trait GameHelper {
-  self: I18nHelper with UserHelper with StringHelper with ShogigroundHelper with ColorNameHelper =>
+  self: I18nHelper with UserHelper with StringHelper with ShogigroundHelper with ShogiHelper =>
 
   private val dataLive = attr("data-live")
 
@@ -89,36 +89,6 @@ trait GameHelper {
 
   @inline def mainVariantClass(v: Variant): String =
     s"main-v-${v.key}"
-
-  def variantName(v: shogi.variant.Variant)(implicit lang: Lang): String =
-    v match {
-      case shogi.variant.Minishogi  => trans.minishogi.txt()
-      case shogi.variant.Chushogi   => trans.chushogi.txt()
-      case shogi.variant.Annanshogi => trans.annanshogi.txt()
-      case shogi.variant.Kyotoshogi => trans.kyotoshogi.txt()
-      case shogi.variant.Checkshogi => trans.checkshogi.txt()
-      case _                        => trans.standard.txt()
-    }
-
-  def variantDescription(v: shogi.variant.Variant)(implicit lang: Lang): String =
-    v match {
-      case shogi.variant.Minishogi  => trans.minishogiDescription.txt()
-      case shogi.variant.Chushogi   => trans.chushogiDescription.txt()
-      case shogi.variant.Annanshogi => trans.annanshogiDescription.txt()
-      case shogi.variant.Kyotoshogi => trans.kyotoshogiDescription.txt()
-      case shogi.variant.Checkshogi => trans.checkshogiDescription.txt()
-      case _                        => trans.standardDescription.txt()
-    }
-
-  def variantIcon(v: shogi.variant.Variant): String =
-    v match {
-      case shogi.variant.Minishogi  => ","
-      case shogi.variant.Chushogi   => "("
-      case shogi.variant.Annanshogi => ""
-      case shogi.variant.Kyotoshogi => ""
-      case shogi.variant.Checkshogi => ">"
-      case _                        => "C"
-    }
 
   def engineName(ec: lila.game.EngineConfig)(implicit lang: Lang): String =
     if (lang.language == "ja") ec.engine.jpFullName

@@ -63,11 +63,16 @@ object bits {
           table(
             tbody(
               tournamentWinners take 12 map { w =>
+                val name = winnerTournamentName(w)
                 tr(
                   td(userIdLink(w.userId.some)),
                   td(
-                    a(title := w.tourName, href := langHref(routes.Tournament.show(w.tourId)))(
-                      scheduledTournamentNameShortHtml(w.tourName),
+                    a(
+                      cls   := "tourname",
+                      title := name,
+                      href  := langHref(routes.Tournament.show(w.tourId)),
+                    )(
+                      name,
                     ),
                   ),
                 )
@@ -82,7 +87,7 @@ object bits {
       tours: List[lila.tournament.Tournament],
   )(implicit ctx: Context) =
     div(cls := "lobby__tournaments lobby__box")(
-      a(cls := "lobby__box__top", href := langHref(routes.Tournament.home))(
+      a(cls := "lobby__box__top", href := langHref(routes.Tournament.homeDefault(1)))(
         h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
         span(cls := "more")(trans.more(), " »"),
       ),

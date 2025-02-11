@@ -11,9 +11,9 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
+import lila.common.paginator.PaginatorJson
 import lila.hub.LightTeam._
-import lila.memo.CacheApi._
-import lila.tournament.VisibleTournaments
+import lila.tournament.TournamentPager.Order
 import lila.tournament.{ Tournament => Tour }
 import lila.user.{ User => UserModel }
 
@@ -32,38 +32,42 @@ final class Tournament(
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
-  private[controllers] val upcomingCache =
-    env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
-      _.refreshAfterWrite(3.seconds)
-        .buildAsyncFuture { _ =>
-          for {
-            visible   <- api.fetchVisibleTournaments
-            scheduled <- repo.allScheduledDedup
-          } yield (visible, scheduled)
-        }
-    }
+  def homeDefault(page: Int) = home(Order.Hot.key, page)
 
-  def home =
+  def home(order: String, page: Int) = {
     Open { implicit ctx =>
-      negotiate(
-        html = for {
-          (visible, scheduled) <- upcomingCache.getUnit
-          finished             <- api.notableFinished
-          winners              <- env.tournament.winners.all
-          teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
-          allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
-          teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
-          scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
-        } yield {
-          pageHit
-          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
-        },
-        json = for {
-          (visible, _) <- upcomingCache.getUnit
-          scheduleJson <- env.tournament apiJsonView visible
-        } yield Ok(scheduleJson),
-      )
+      val o = Order(order, Order.Hot)
+      env.tournament.pager.enterable(o, page) flatMap { pag =>
+        negotiate(
+          html = env.tournament.winners.all map { winners =>
+            pageHit
+            Ok(html.tournament.home(pag, o, winners)).noCache
+          },
+          json = Ok(
+            Json.obj(
+              "paginator" -> PaginatorJson(pag.mapResults(env.tournament.apiJsonView.baseJson)),
+            ),
+          ).fuccess,
+        )
+      }
     }
+  }
+
+  def finished(order: String, page: Int) = {
+    Open { implicit ctx =>
+      val o = Order(order, Order.Started)
+      env.tournament.pager.finished(o, page) flatMap { pag =>
+        negotiate(
+          html = fuccess(Ok(html.tournament.home.finished(pag, o)).noCache),
+          json = Ok(
+            Json.obj(
+              "paginator" -> PaginatorJson(pag.mapResults(env.tournament.apiJsonView.baseJson)),
+            ),
+          ).fuccess,
+        )
+      }
+    }
+  }
 
   def help(@nowarn("cat=unused") sysStr: Option[String]) =
     Open { implicit ctx =>
@@ -277,7 +281,7 @@ final class Tournament(
     key = "tournament.ip",
   )
 
-  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home))
+  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.homeDefault(1)))
 
   private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
       create: => Fu[Result],
@@ -412,7 +416,7 @@ final class Tournament(
     Open { implicit ctx =>
       negotiate(
         html = notFound,
-        json = env.tournament.cached.onHomepage.getUnit.nevermind map {
+        json = env.tournament.pager.Featured.get.nevermind map {
           lila.tournament.Spotlight.select(_, ctx.me, 4)
         } flatMap env.tournament.apiJsonView.featured map { Ok(_) },
       )
@@ -474,8 +478,8 @@ final class Tournament(
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
-          env.mod.logApi.terminateTournament(me.id, tour.name())
-          Redirect(routes.Tournament.home)
+          env.mod.logApi.terminateTournament(me.id, tour.name)
+          Redirect(routes.Tournament.homeDefault(1))
         }
       }
     }

@@ -54,11 +54,11 @@ object tournaments {
           td(cls := "icon")(iconTag(tournamentIconChar(tour))),
           td(cls := "header")(
             a(href := routes.Tournament.show(tour.id))(
-              span(cls := "name")(tour.name()),
+              span(cls := "name")(tournamentName(tour)),
               span(cls := "setup")(
                 tour.timeControl.show,
                 " - ",
-                if (!tour.variant.standard) variantName(tour.variant) else tour.perfType.trans,
+                tour.perfType.trans,
                 tour.position.isDefined option frag(" - ", trans.thematic()),
                 " - ",
                 tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),

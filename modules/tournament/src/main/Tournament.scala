@@ -2,8 +2,6 @@ package lila.tournament
 
 import scala.util.chaining._
 
-import play.api.i18n.Lang
-
 import org.joda.time.DateTime
 import org.joda.time.Duration
 import org.joda.time.Interval
@@ -14,7 +12,6 @@ import shogi.format.forsyth.Sfen
 
 import lila.common.Animal
 import lila.common.ThreadLocalRandom
-import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
 
@@ -66,18 +63,10 @@ case class Tournament(
 
   def notFull = nbPlayers < 1000
 
-  def name(full: Boolean = true)(implicit lang: Lang): String = {
-    import lila.i18n.I18nKeys.tourname._
-    if (isMarathon || isUnique) name
-    else if (isTeamBattle && full) xTeamBattle.txt(name)
-    else if (isTeamBattle) name
-    else schedule.fold(if (full) s"$name ${format.trans}" else name)(_.name(full))
-  }
-
   def isMarathon =
     schedule.map(_.freq) exists {
-      case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
-      case _                                                           => false
+      case Schedule.Freq.Marathon => true
+      case _                      => false
     }
 
   def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
@@ -100,11 +89,6 @@ case class Tournament(
     secondsToFinish < math.max(30, math.min(~timeControl.clock.map(_.limitSeconds) / 2, 120))
 
   def candidatesFull = candidates.length > 250
-
-  def isStillWorthEntering =
-    isMarathonOrUnique || {
-      secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
-    }
 
   def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
 
@@ -150,18 +134,17 @@ case class Tournament(
         tourId = id,
         userId = userId,
         tourName = name,
+        schedule = schedule.map(_.nameKeys),
         date = finishesAt,
       )
     }
 
   def nonLishogiCreatedBy = (createdBy != User.lishogiId) option createdBy
 
-  def startingPosition = position.flatMap(sfen => Thematic.bySfen(sfen, variant))
-
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
   override def toString =
-    s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $timeControl, $nbPlayers players"
+    s"$id $startsAt $name $minutes minutes, $timeControl, $nbPlayers players"
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
@@ -192,10 +175,7 @@ object Tournament {
   ) =
     Tournament(
       id = makeId,
-      name = name | (position match {
-        case Some(pos) => Thematic.bySfen(pos, variant).fold("Custom position")(_.fullName)
-        case None      => Animal.randomName
-      }),
+      name = name | Animal.randomName,
       format = format,
       status = Status.Created,
       timeControl = timeControl,
@@ -221,7 +201,7 @@ object Tournament {
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
-      name = sched.name(false)(defaultLang),
+      name = sched.defaultName,
       format = sched.format,
       status = Status.Created,
       timeControl = Schedule clockFor sched,
@@ -240,8 +220,6 @@ object Tournament {
   def tournamentUrl(tourId: String): String = s"https://lishogi.org/tournament/$tourId"
 
   def makeId = ThreadLocalRandom nextString 8
-
-  case class TournamentTable(tours: List[Tournament])
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 }

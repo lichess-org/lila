@@ -13,19 +13,19 @@ final class UserTournament(env: Env) extends LilaController(env) {
           path match {
             case "recent" =>
               env.tournament.leaderboardApi.recentByUser(user, page).map { entries =>
-                Ok(html.userTournament.bits.recent(user, entries))
+                Ok(html.tournament.user.bits.recent(user, entries))
               }
             case "best" =>
               env.tournament.leaderboardApi.bestByUser(user, page).map { entries =>
-                Ok(html.userTournament.bits.best(user, entries))
+                Ok(html.tournament.user.bits.best(user, entries))
               }
             case "chart" =>
               env.tournament.leaderboardApi.chart(user).map { data =>
-                Ok(html.userTournament.chart(user, data))
+                Ok(html.tournament.user.chart(user, data))
               }
             case "created" =>
               env.tournament.api.byOwnerPager(user, page).map { pager =>
-                Ok(html.userTournament.created(user, pager))
+                Ok(html.tournament.user.created(user, pager))
               }
             case _ => notFound
           }

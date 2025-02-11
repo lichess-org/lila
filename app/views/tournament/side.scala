@@ -97,13 +97,7 @@ object side {
           " - ",
           absClientDateTime(tour.finishesAt),
         ),
-        tour.startingPosition.map { pos =>
-          p(
-            frag(strong(pos.japanese), s" (${pos.english})"),
-            separator,
-            views.html.base.bits.sfenAnalysisLink(pos.sfen),
-          )
-        } orElse tour.position.map { sfen =>
+        tour.position.map { sfen =>
           p(
             trans.fromPosition.txt(),
             separator,

@@ -23,7 +23,7 @@ object Environment
     with TournamentHelper
     with FlashHelper
     with ShogigroundHelper
-    with ColorNameHelper {
+    with ShogiHelper {
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = { envVar = Some(e) }

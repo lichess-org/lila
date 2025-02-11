@@ -32,7 +32,6 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     proxyRepo: lila.round.GameProxyRepo,
-    renderer: lila.hub.actors.Renderer,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
@@ -42,6 +41,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
+    mode: play.api.Mode,
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
@@ -62,6 +62,8 @@ final class Env(
   private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
 
   lazy val cached: Cached = wire[Cached]
+
+  lazy val pager: TournamentPager = wire[TournamentPager]
 
   lazy val verify = wire[Condition.Verify]
 
@@ -108,8 +110,6 @@ final class Env(
   private lazy val leaderboardIndexer: LeaderboardIndexer = wire[LeaderboardIndexer]
 
   private lazy val autoPairing = wire[AutoPairing]
-
-  lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
   system.actorOf(Props(wire[ApiActor]), name = config.apiActorName)
 

@@ -32,7 +32,7 @@ object newPlayer {
         li(a(href := s"${routes.Lobby.home}#ai")(trans.playWithTheMachine())),
         li(a(href := s"${routes.Lobby.home}#hook")(trans.playShogiInStyle())),
         li(a(href := routes.User.list)(trans.findFriends())),
-        li(a(href := routes.Tournament.home)(trans.tournaments())),
+        li(a(href := routes.Tournament.homeDefault(1))(trans.tournaments())),
         li(a(href := routes.Study.allDefault(1))(trans.studyMenu())),
         li(a(href := routes.Pref.form("game-display"))(trans.preferences.preferences())),
         li("Explore the site and have fun :)"),

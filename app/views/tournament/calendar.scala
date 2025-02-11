@@ -21,9 +21,14 @@ object calendar {
       ),
       moreCss = cssTag("tournament.calendar"),
     ) {
-      main(cls := "box")(
-        h1(trans.tournamentCalendar()),
-        div(id := "tournament-calendar"),
+      main(cls := "page-menu")(
+        home.menu("calendar"),
+        st.section(cls := "page-menu__content box")(
+          div(cls := "box__top")(
+            h1(trans.tournamentCalendar()),
+          ),
+          div(id := "tournament-calendar"),
+        ),
       )
     }
 }

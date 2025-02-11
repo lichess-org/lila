@@ -13,7 +13,11 @@ object leaderboard {
   private def freqWinner(w: lila.tournament.Winner, freq: String)(implicit lang: Lang) =
     li(
       userIdLink(w.userId.some),
-      a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq),
+      a(
+        cls   := "tourname",
+        title := winnerTournamentName(w),
+        href  := routes.Tournament.show(w.tourId),
+      )(freq),
     )
 
   private val section = st.section(cls := "tournament-leaderboards__item")
@@ -52,7 +56,13 @@ object leaderboard {
             winners.elite.map { w =>
               li(
                 userIdLink(w.userId.some),
-                a(title := w.tourName, href := routes.Tournament.show(w.tourId))(showDate(w.date)),
+                a(
+                  cls   := "tourname",
+                  title := winnerTournamentName(w),
+                  href  := routes.Tournament.show(w.tourId),
+                )(
+                  showDate(w.date),
+                ),
               )
             },
           ),

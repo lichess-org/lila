@@ -8,8 +8,6 @@
 
   .slist {
     td {
-      padding: 1em inherit;
-
       &.duration {
         white-space: nowrap;
       }
@@ -33,6 +31,17 @@
       }
     }
 
+    .winner {
+      color: theme.$c-brag;
+    }
+
+    .players {
+      & > span {
+        display: block;
+        margin: 0.5em 0;
+      }
+    }
+
     a {
       color: theme.$c-font;
 
@@ -49,11 +58,24 @@
         letter-spacing: 3px;
       }
     }
-  }
 
-  .icon i {
-    font-size: 4em;
-    opacity: 0.6;
+    .icon i {
+      padding-left: 1rem;
+      font-size: 4em;
+      opacity: 0.6;
+
+      &.arena {
+        color: theme.$c-brag;
+      }
+
+      &.robin {
+        color: theme.$c-primary-dim;
+      }
+
+      &.organized {
+        color: theme.$c-accent-dim;
+      }
+    }
   }
 
   .tour-scheduled .icon i {
