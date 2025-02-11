@@ -27,6 +27,7 @@ import {
   lastCapturedCommandHandler,
   type DropMove,
   possibleMovesHandler,
+  renderPockets,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -74,14 +75,15 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
     render(): VNode {
       notify.redraw = ctrl.redraw;
       const d = ctrl.data,
-        style = moveStyle.get();
+        style = moveStyle.get(),
+        clocks = renderClocks(ctrl, ctrl.path),
+        pockets = ctrl.node.crazy?.pockets;
       ctrl.chessground = makeChessground(document.createElement('div'), {
         ...makeCgConfig(ctrl),
         animation: { enabled: false },
         drawable: { enabled: false },
         coordinates: false,
       });
-      const clocks = renderClocks(ctrl, ctrl.path);
       return h('main.analyse', [
         h('div.nvui', [
           studyDetails(ctrl),
@@ -109,6 +111,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+          h('div.pockets', pockets && renderPockets(pockets)),
           ...renderAriaResult(ctrl),
           h('h2', 'Current position'),
           h(

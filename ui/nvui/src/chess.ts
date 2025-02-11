@@ -144,9 +144,9 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
 
 export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
-    'div',
+    'div.pieces',
     COLORS.map(color =>
-      h('div', [
+      h(`div.${color}-pieces`, [
         h('h3', `${color} pieces`),
         ROLES.slice()
           .reverse()
