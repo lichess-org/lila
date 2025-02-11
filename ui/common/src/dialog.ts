@@ -9,8 +9,8 @@ import { pubsub } from './pubsub';
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
 export interface Dialog {
-  readonly open: boolean; // is visible?
-  readonly view: HTMLElement; // your content div
+  readonly viewEl: HTMLElement; // your content div
+  readonly dialogEl: HTMLDialogElement; // the dialog element
   readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
   show(): Promise<Dialog>; // promise resolves on close
@@ -44,7 +44,7 @@ export interface DomDialogOpts extends DialogOpts {
 // for snabDialog, show is inferred from !onInsert
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: LooseVNodes; // content, overrides all other content properties
-  onInsert?: (dialog: Dialog) => void; // if provided you must also call show
+  onInsert?: (dialog: Dialog) => void; // if provided you must call show
 }
 
 export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
@@ -136,7 +136,7 @@ export async function prompt(msg: string, def: string = ''): Promise<string | nu
       },
     ],
   });
-  return res.returnValue === 'ok' ? res.view.querySelector('input')!.value : null;
+  return res.returnValue === 'ok' ? res.viewEl.querySelector('input')!.value : null;
 }
 
 // when opts contains 'show', domDialog function's result promise resolves on dialog closure.
@@ -228,7 +228,7 @@ class DialogWrapper implements Dialog {
     for (const m of list)
       if (m.type === 'childList')
         for (const n of m.removedNodes) {
-          if (n === this.dialog) {
+          if (n === this.dialogEl) {
             this.onRemove();
             return;
           }
@@ -236,29 +236,33 @@ class DialogWrapper implements Dialog {
   });
 
   constructor(
-    readonly dialog: HTMLDialogElement,
-    readonly view: HTMLElement,
+    readonly dialogEl: HTMLDialogElement,
+    readonly viewEl: HTMLElement,
     readonly o: DialogOpts,
     readonly isSnab: boolean,
   ) {
-    if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
+    if (dialogPolyfill) dialogPolyfill.registerDialog(dialogEl); // ios < 15.4
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
       if (Date.now() - justThen < 200) return; // removed isConnected() check. we catch leaks this way
-      const r = dialog.getBoundingClientRect();
+      const r = dialogEl.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
         this.close('cancel');
     };
     this.observer.observe(document.body, { childList: true, subtree: true });
-    view.parentElement?.style.setProperty('---viewport-height', `${window.innerHeight}px`);
-    this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
+    viewEl.parentElement?.style.setProperty('---viewport-height', `${window.innerHeight}px`);
+    this.dialogEvents.addListener(viewEl, 'click', e => e.stopPropagation());
 
-    this.dialogEvents.addListener(dialog, 'cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
-    this.dialogEvents.addListener(dialog, 'close', this.onRemove);
+    this.dialogEvents.addListener(
+      dialogEl,
+      'cancel',
+      () => !this.returnValue && (this.returnValue = 'cancel'),
+    );
+    this.dialogEvents.addListener(dialogEl, 'close', this.onRemove);
     if (!o.noCloseButton)
       this.dialogEvents.addListener(
-        dialog.querySelector('.close-button-anchor > .close-button')!,
+        dialogEl.querySelector('.close-button-anchor > .close-button')!,
         'click',
         () => this.close('cancel'),
       );
@@ -266,45 +270,45 @@ class DialogWrapper implements Dialog {
     if (!o.noClickAway)
       setTimeout(() => {
         this.dialogEvents.addListener(document.body, 'click', cancelOnInterval);
-        this.dialogEvents.addListener(dialog, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(dialogEl, 'click', cancelOnInterval);
       });
     for (const app of o.append ?? []) {
-      if (app.node === view) break;
-      const where = (app.where ? view.querySelector(app.where) : view)!;
+      if (app.node === viewEl) break;
+      const where = (app.where ? viewEl.querySelector(app.where) : viewEl)!;
       if (app.how === 'before') where.before(app.node);
       else if (app.how === 'after') where.after(app.node);
       else where.appendChild(app.node);
     }
     this.updateActions();
-    this.dialogEvents.addListener(this.dialog, 'keydown', onKeydown);
+    this.dialogEvents.addListener(this.dialogEl, 'keydown', onKeydown);
   }
 
   get open(): boolean {
-    return this.dialog.open;
+    return this.dialogEl.open;
   }
 
   get returnValue(): string {
-    return this.dialog.returnValue;
+    return this.dialogEl.returnValue;
   }
 
   set returnValue(v: string) {
-    this.dialog.returnValue = v;
+    this.dialogEl.returnValue = v;
   }
 
   show = (): Promise<Dialog> => {
-    if (this.o.modal) this.view.scrollTop = 0;
+    if (this.o.modal) this.viewEl.scrollTop = 0;
     if (this.isSnab) {
-      if (this.dialog.parentElement === this.dialog.closest('.snab-modal-mask'))
-        this.dialog.parentElement?.classList.remove('none');
-      this.dialog.show();
-    } else if (this.o.modal) this.dialog.showModal();
-    else this.dialog.show();
+      if (this.dialogEl.parentElement === this.dialogEl.closest('.snab-modal-mask'))
+        this.dialogEl.parentElement?.classList.remove('none');
+      this.dialogEl.show();
+    } else if (this.o.modal) this.dialogEl.showModal();
+    else this.dialogEl.show();
     this.autoFocus();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   close = (v?: string) => {
-    this.dialog.close(v || this.returnValue || 'ok');
+    this.dialogEl.close(v || this.returnValue || 'ok');
   };
 
   // attach/reattach existing listeners or provide a set of new ones
@@ -313,7 +317,7 @@ class DialogWrapper implements Dialog {
     if (!actions) return;
     for (const a of Array.isArray(actions) ? actions : [actions]) {
       for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
-        for (const el of a.selector ? this.view.querySelectorAll(a.selector) : [this.view]) {
+        for (const el of a.selector ? this.viewEl.querySelectorAll(a.selector) : [this.viewEl]) {
           const listener =
             'listener' in a ? (e: Event) => a.listener(e, this, a) : () => this.close(a.result);
           this.actionEvents.addListener(el, event, listener);
@@ -324,8 +328,9 @@ class DialogWrapper implements Dialog {
 
   private autoFocus() {
     const focus =
-      (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
-      this.view.querySelector(focusQuery);
+      (this.o.focus
+        ? this.viewEl.querySelector(this.o.focus)
+        : this.viewEl.querySelector('input[autofocus]')) ?? this.viewEl.querySelector(focusQuery);
 
     if (!(focus instanceof HTMLElement)) return;
     focus.focus();
@@ -334,11 +339,12 @@ class DialogWrapper implements Dialog {
 
   private onRemove = () => {
     this.observer.disconnect();
-    if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
+    if (!this.dialogEl.returnValue) this.dialogEl.returnValue = 'cancel';
     this.resolve?.(this);
     this.o.onClose?.(this);
-    if (this.dialog.parentElement?.classList.contains('snab-modal-mask')) this.dialog.parentElement.remove();
-    else this.dialog.remove();
+    if (this.dialogEl.parentElement?.classList.contains('snab-modal-mask'))
+      this.dialogEl.parentElement.remove();
+    else this.dialogEl.remove();
     for (const css of this.o.css ?? []) {
       if ('hashed' in css) site.asset.removeCssPath(css.hashed);
       else if ('url' in css) site.asset.removeCss(css.url);

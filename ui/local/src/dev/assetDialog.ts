@@ -68,7 +68,7 @@ export class AssetDialog {
 
   update(type?: AssetType): void {
     if (type && type !== this.type) return;
-    const grid = this.dlg.view.querySelector('.asset-grid') as HTMLElement;
+    const grid = this.dlg.viewEl.querySelector('.asset-grid') as HTMLElement;
     grid.innerHTML = `<div class="asset-item local-only" data-action="add">
         <div class="asset-preview">${this.active.placeholder}</div>
         <div class="asset-label">Add new ${this.type}</div>
@@ -170,7 +170,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
         actions: {
           selector: 'button',
           listener: async (_, dlg) => {
-            const value = (dlg.view.querySelector('input') as HTMLInputElement).value;
+            const value = (dlg.viewEl.querySelector('input') as HTMLInputElement).value;
             if (!this.validName(value)) return;
             dlg.close(value);
           },
@@ -194,7 +194,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     const tab = (e.currentTarget as HTMLElement).closest('.tab')!;
     const type = tab?.textContent?.slice(0, -1) as AssetType;
     if (!tab || type === this.type) return;
-    this.dlg.view.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    this.dlg.viewEl.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     this.type = tab.textContent?.slice(0, -1) as AssetType;
     this.update();
@@ -220,7 +220,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       });
     };
     fileInputEl.addEventListener('change', onchange);
-    this.dlg.view.append(fileInputEl);
+    this.dlg.viewEl.append(fileInputEl);
     fileInputEl.click();
     fileInputEl.remove();
   };
@@ -314,14 +314,14 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
               {
                 selector: '[data-action="import"]',
                 listener: async (_, dlg) => {
-                  const name = (dlg.view.querySelector('.name') as HTMLInputElement).value;
-                  const ply = Number((dlg.view.querySelector('.ply') as HTMLInputElement).value);
+                  const name = (dlg.viewEl.querySelector('.name') as HTMLInputElement).value;
+                  const ply = Number((dlg.viewEl.querySelector('.ply') as HTMLInputElement).value);
                   if (name.length < 4 || name.includes('/') || name.startsWith('.'))
                     alert(`bad name: ${name}`);
                   else if (!Number.isInteger(ply) || ply < 1 || ply > 16) alert(`bad ply: ${ply}`);
                   else {
-                    (dlg.view.querySelector('.options') as HTMLElement).classList.add('none');
-                    const progress = dlg.view.querySelector('.progress') as HTMLElement;
+                    (dlg.viewEl.querySelector('.options') as HTMLElement).classList.add('none');
+                    const progress = dlg.viewEl.querySelector('.progress') as HTMLElement;
                     const bar = progress.querySelector('.bar') as HTMLElement;
                     const text = progress.querySelector('.text') as HTMLElement;
                     progress.classList.remove('none');
@@ -335,7 +335,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
                         processed = Math.round(processed / (1024 * 1024));
                         total = Math.round(total / (1024 * 1024));
                         text.textContent = `processed ${processed} out of ${total} MB`;
-                        return dlg.open;
+                        return dlg.dialogEl.open;
                       },
                     );
                     if (dlg.returnValue !== 'cancel' && key) onSuccess(key);

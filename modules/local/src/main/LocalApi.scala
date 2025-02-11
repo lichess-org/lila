@@ -17,7 +17,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
   @volatile private var cachedAssets: Option[JsObject] = None
 
   def storeAsset(
-      tpe: "image" | "book" | "sound",
+      tpe: AssetType,
       name: String,
       file: MultipartFormData.FilePart[Files.TemporaryFile]
   ): Fu[Either[String, JsObject]] =
@@ -32,7 +32,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
 
   def assetKeys: JsObject = cachedAssets.getOrElse(updateAssets)
 
-  private def listFiles(tpe: String): List[String] =
+  private def listFiles(tpe: String, ext: String): List[String] =
     val path = getFile(s"public/lifat/bots/${tpe}")
     if !path.exists() then
       NioFiles.createDirectories(path.toPath)
@@ -42,14 +42,14 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
         .listFiles()
         .toList
         .map(_.getName)
+        .filter(_.endsWith(s".${ext}"))
 
   def updateAssets: JsObject =
     val newAssets = Json.obj(
-      "image" -> listFiles("image"),
-      "net"   -> listFiles("net"),
-      "sound" -> listFiles("sound"),
-      "book" -> listFiles("book")
-        .filter(_.endsWith(".bin"))
+      "image" -> listFiles("image", "webp"),
+      "net"   -> listFiles("net", "pb"),
+      "sound" -> listFiles("sound", "mp3"),
+      "book" -> listFiles("book", "png")
         .map(_.dropRight(4))
     )
     cachedAssets = newAssets.some

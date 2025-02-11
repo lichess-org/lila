@@ -12,6 +12,6 @@
     "local": "workspace:*"
   },
   "build": {
-    "bundle": "src/user.*.ts"
+    "bundle": "src/user.*ts"
   }
 }

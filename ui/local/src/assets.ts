@@ -1,5 +1,5 @@
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
-import { defined } from 'common';
+import { filterMap } from 'common/algo';
 import { pubsub } from 'common/pubsub';
 import { env } from './localEnv';
 
@@ -27,15 +27,15 @@ export class Assets {
     return this;
   }
 
-  async preload(): Promise<void> {
-    for (const bot of [env.bot.white, env.bot.black].filter(defined)) {
+  async preload(uids: string[]): Promise<void> {
+    for (const bot of filterMap(uids, uid => env.bot.bots[uid])) {
       for (const sounds of Object.values(bot.sounds ?? {})) {
         sounds.forEach(sound => fetch(botAssetUrl('sound', sound.key)));
       }
+      const books = bot?.books?.flatMap(x => x.key) ?? [];
+      [...this.book.keys()].filter(k => !books.includes(k)).forEach(release => this.book.delete(release));
+      books.forEach(book => this.getBook(book));
     }
-    const books = (['white', 'black'] as const).flatMap(c => env.bot[c]?.books?.flatMap(x => x.key) ?? []);
-    [...this.book.keys()].filter(k => !books.includes(k)).forEach(release => this.book.delete(release));
-    books.forEach(book => this.getBook(book));
   }
 
   async getNet(key: string): Promise<Uint8Array> {

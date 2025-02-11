@@ -42,6 +42,14 @@ export class Bot implements BotInfo, MoveSource {
     return Boolean(info.uid && info.name && (info.zero || info.fish)); // TODO moar validate
   }
 
+  static isSame(a: BotInfo | undefined, b: BotInfo | undefined): boolean {
+    if (!closeEnough(a, b, ['filters', 'version'])) return false;
+    const [aFilters, bFilters] = [a, b].map(bot =>
+      Object.entries(bot?.filters ?? {}).filter(([k, v]) => v.move || v.time || v.score),
+    );
+    return closeEnough(aFilters, bFilters);
+  }
+
   static migrate(oldDbVersion: number, oldBot: any): BotInfo {
     const bot = structuredClone(oldBot);
     // example: migrate from version 1
@@ -329,4 +337,36 @@ function getNormal(): number {
 function stringify(obj: any) {
   if (!obj) return '';
   return JSON.stringify(obj, (k, v) => (typeof v === 'number' ? v.toFixed(2) : v));
+}
+
+function closeEnough(a: any, b: any, ignore: string[] = []): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (Array.isArray(a)) {
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => closeEnough(x, b[i], ignore));
+  }
+  if (typeof a !== 'object') return false;
+
+  const [aKeys, bKeys] = [filteredKeys(a, ignore), filteredKeys(b, ignore)];
+  if (aKeys.length !== bKeys.length) return false;
+
+  for (const key of aKeys) {
+    if (!bKeys.includes(key) || !closeEnough(a[key], b[key], ignore)) return false;
+  }
+  return true;
+}
+
+function isEmpty(prop: any): boolean {
+  return Array.isArray(prop)
+    ? false //prop.length === 0
+    : typeof prop === 'object'
+      ? Object.keys(prop).length === 0
+      : false;
+}
+
+function filteredKeys(obj: any, ignore: string[] = []): string[] {
+  if (typeof obj !== 'object') return obj;
+  return Object.entries(obj)
+    .filter(([k, v]) => !ignore.includes(k) && !isEmpty(v))
+    .map(([k]) => k);
 }

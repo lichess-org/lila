@@ -88,7 +88,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   dlg.show();
 
   async function crop() {
-    const view = dlg.view.querySelector('.crop-view') as HTMLElement;
+    const view = dlg.viewEl.querySelector('.crop-view') as HTMLElement;
     view.style.display = 'flex';
     view.style.alignItems = 'center';
     view.innerHTML = spinnerHtml;

@@ -20,7 +20,7 @@ export class FilterPane extends Pane {
     if (this.info.title && this.label) this.label.title = this.info.title;
     this.el.title = '';
     this.input = document.createElement('select');
-    this.input.title = 'function used to combine data from multiple facets (tabs)';
+    this.input.title = 'move / score / time function combinator';
     this.input.append(
       ...filterBys.map(c =>
         frag(`<option ${c === this.paneValue.by ? 'selected ' : ''}value="${c}">${c}</option>`),
@@ -74,7 +74,8 @@ export class FilterPane extends Pane {
       }">${facet}</div>`,
     );
     input.addEventListener('change', () => {
-      this.toggleFacet(facet);
+      if (this.toggleFacet(facet)) this.viewing = facet;
+      else if (this.viewing === facet) this.viewing = undefined;
       super.update();
     });
     input.checked = Boolean(this.paneValue?.[facet]) && !this.host.bot.disabled.has(`${this.id}_${facet}`);

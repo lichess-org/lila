@@ -30,8 +30,13 @@
     "import-assets": "mongoimport --db=lichess --collection=local_assets --drop --jsonArray --file",
     "export-assets": "mongoexport --db=lichess --collection=local_assets --jsonArray --out"
   },
+  "//": [
+    "pnpm import-assets ../../../lila-db-seed/spamdb/data/local.assets.json",
+    "pnpm import-bots ../../../lila-db-seed/spamdb/data/local.bots.json",
+    "the asset json in lila-db-seed map the hashed asset filenames in lifat/bots"
+  ],
   "build": {
-    "bundle": "src/**/local.*.ts",
+    "bundle": "src/**/local.*ts",
     "sync": {
       "node_modules/zerofish/dist/zerofishEngine.*": "/public/npm"
     }

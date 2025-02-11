@@ -29,24 +29,6 @@ export function setObjectProperty({ obj, path, value }: ObjectPath & { value: an
   setObjectProperty({ obj: obj[keys[0]], path: { keys: keys.slice(1) }, value });
 }
 
-// ignores empty objects for BotInfo equivalence.
-export function closeEnough(a: any, b: any): boolean {
-  if (a === b) return true;
-  if (typeof a !== typeof b) return false;
-  if (Array.isArray(a)) {
-    return Array.isArray(b) && a.length === b.length && a.every((x, i) => closeEnough(x, b[i]));
-  }
-  if (typeof a !== 'object') return false;
-
-  const [aKeys, bKeys] = [filteredKeys(a), filteredKeys(b)];
-  if (aKeys.length !== bKeys.length) return false;
-
-  for (const key of aKeys) {
-    if (!bKeys.includes(key) || !closeEnough(a[key], b[key])) return false;
-  }
-  return true;
-}
-
 export function deadStrip(info: BotInfo & { disabled: Set<string> }): BotInfo {
   if (!('disabled' in info)) return info;
 
@@ -106,19 +88,4 @@ function pathToKeys({ path, obj }: ObjectPath): string[] {
   if ('keys' in path) return path.keys;
   const keys = path.id.split('_');
   return keys[0] in obj ? keys : keys.slice(1);
-}
-
-function isEmpty(prop: any): boolean {
-  return Array.isArray(prop)
-    ? false //prop.length === 0
-    : typeof prop === 'object'
-      ? Object.keys(prop).length === 0
-      : false;
-}
-
-function filteredKeys(obj: any): string[] {
-  if (typeof obj !== 'object') return obj;
-  return Object.entries(obj)
-    .filter(([, v]) => !isEmpty(v))
-    .map(([k]) => k);
 }

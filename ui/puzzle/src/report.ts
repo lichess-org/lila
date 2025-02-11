@@ -102,18 +102,18 @@ export default class Report {
         `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
         `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
     }).then(dlg => {
-      $('.switch-report-puzzle', dlg.view).on('click', () => {
+      $('.switch-report-puzzle', dlg.viewEl).on('click', () => {
         const input = hideDialogInput();
         input.checked = !input.checked;
       });
-      $('.reset', dlg.view).on('click', () => {
+      $('.reset', dlg.viewEl).on('click', () => {
         if (hideDialogInput().checked) {
           this.tsHideReportDialog(Date.now());
         }
 
         dlg.close();
       });
-      $('.apply', dlg.view).on('click', () => {
+      $('.apply', dlg.viewEl).on('click', () => {
         xhrReport(puzzleId, reason);
         dlg.close();
       });

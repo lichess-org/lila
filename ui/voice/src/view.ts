@@ -149,8 +149,8 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       html += '</tr>';
     }
     html += '</tbody></table>';
-    dlg.view.innerHTML = html;
-    if (!dlg.open) dlg.show();
+    dlg.viewEl.innerHTML = html;
+    if (!dlg.dialogEl.open) dlg.show();
   };
 
   return snabDialog({
@@ -173,7 +173,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
         grammar.entries.find(
           (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),
         )?.in;
-      $('.val-to-word', dlg.view).each(function (this: HTMLElement) {
+      $('.val-to-word', dlg.viewEl).each(function (this: HTMLElement) {
         const tryPhonetic = (val: string) =>
           (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
         this.innerText = this.innerText
@@ -181,7 +181,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
           .map(v => tryPhonetic(v))
           .join(' ');
       });
-      $('.all-phrases-button', dlg.view).on('click', () => showMoveList(dlg));
+      $('.all-phrases-button', dlg.viewEl).on('click', () => showMoveList(dlg));
       dlg.show();
     },
   });

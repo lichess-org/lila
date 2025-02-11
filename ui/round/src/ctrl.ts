@@ -521,7 +521,7 @@ export default class RoundController implements MoveRootCtrl {
     this.updateClockCtrl();
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (!this.replaying() && !this.opts.local) groundReload(this);
+    if (!this.replaying() /* && !this.opts.local*/) groundReload(this);
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();

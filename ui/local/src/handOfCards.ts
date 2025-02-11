@@ -17,6 +17,7 @@ export interface HandOfCards {
   update(): void;
   resize(): void;
   redraw(): void;
+  events: Janitor;
 }
 
 export function handOfCards(opts: HandOpts): HandOfCards {
@@ -34,13 +35,12 @@ interface HandOpts {
 
   onRemove?: () => void;
 
-  view: HTMLElement;
-  deck?: HTMLElement;
-  autoResize?: boolean; // default false
+  viewEl: HTMLElement;
+  deckEl?: HTMLElement;
   transient?: boolean; // default false
   orientation?: 'bottom' | 'left'; // default bottom
-  opaque?: boolean; // default false. when selected, card is fully opaque over target background
-  center?: number; // default 0.5
+  opaqueSelectedBackground?: boolean; // default false. when true, selected card background is opaque
+  fanoutCenterToWidthRatio?: number; // default 0.5
 }
 
 class HandOfCardsImpl {
@@ -50,7 +50,6 @@ class HandOfCardsImpl {
   originY: number;
   killAnimationTimer = 0;
   animFrame = 0;
-  isAnimationReady = false;
   scaleFactor = 1;
   groups: Set<string | undefined>;
   group: string | undefined;
@@ -63,16 +62,28 @@ class HandOfCardsImpl {
   lastCardData: CardData[];
 
   constructor(readonly opts: HandOpts) {
-    this.container = frag<HTMLElement>(`<div class="card-container">`);
+    this.container = frag<HTMLElement>('<div class="card-container">');
     this.view.append(this.container);
-    if (opts.transient) this.events.addListener(window, 'pointerdown', this.clickToDismiss);
-    if (opts.autoResize) this.events.addListener(window, 'resize', this.resize);
+    if (opts.transient) this.events.addListener(window, 'pointerdown', this.remove);
+    this.events.addListener(window, 'resize', () => {
+      this.resize();
+      this.redraw();
+    });
     this.events.addListener(this.view, 'mousemove', this.mouseMove);
-    this.events.addListener(document, 'visibilitychange', () => this.placeCards(true));
-    this.update();
+    // this.events.addListener(document, 'visibilitychange', () => {
+    //   const transition = !this.container.classList.contains('no-transition');
+    //   this.container.classList.add('no-transition');
+    //   this.placeCards();
+    //   if (transition) setTimeout(() => this.container.classList.remove('no-transition'));
+    // });
     this.group = opts.getGroup?.();
-    setTimeout(this.resize);
+    setTimeout(this.layout);
   }
+
+  layout = (): void => {
+    this.resize();
+    this.update();
+  };
 
   resize: () => void = () => {
     const r = this.view.getBoundingClientRect();
@@ -86,12 +97,6 @@ class HandOfCardsImpl {
     this.originY = this.isLeft
       ? (r.height - h2) * this.center
       : r.height + Math.sqrt(3 / 4) * this.fanRadius - h2;
-    if (this.isAnimationReady) this.redraw();
-    else
-      requestAnimationFrame(() => {
-        this.isAnimationReady = true;
-        this.redraw();
-      });
   };
 
   update(): void {
@@ -100,7 +105,6 @@ class HandOfCardsImpl {
     const fragment = document.createDocumentFragment();
     const cards: HTMLElement[] = [];
     this.lastCardData = data;
-    //let i = data.length;
     this.groups = new Set(data.map(cd => cd.group));
     if (!this.group || !this.groups.has(this.group)) this.group = this.groups.values().next().value;
 
@@ -111,19 +115,22 @@ class HandOfCardsImpl {
       if (cd.group === this.group) fragment.appendChild(card);
       if (cd.imageUrl !== img.src) img.src = cd.imageUrl ?? '';
       if (cd.label !== label.textContent) label.textContent = cd.label;
-      //card.tabIndex = i--;
       card.className = 'card';
       cd.group ? card.setAttribute('data-group', cd.group) : card.removeAttribute('data-group');
       cd.classList.forEach(c => card.classList.add(c));
       cards.push(card);
+      //card.tabIndex = i--;
     }
     for (const removed of this.cards.filter(x => !cards.includes(x))) removed.remove();
-    this.container.appendChild(fragment);
     this.cards = cards;
+    if (this.opts.transient)
+      this.cards.forEach(x => (x.style.transform = `translate(${this.originX}px, ${this.originY}px)`));
+    else this.placeCards();
+    this.container.appendChild(fragment);
     this.redraw();
   }
 
-  remove(): void {
+  remove = (): void => {
     if (!this.cards.length) return;
     const cards = this.cards.slice();
     this.cards = [];
@@ -134,16 +141,16 @@ class HandOfCardsImpl {
       if (this.container) this.container.remove();
       this.opts.onRemove?.();
     }, 300);
-  }
+  };
 
-  redraw(): void {
-    if (this.animFrame === 0) this.animate();
+  redraw = (): void => {
     clearTimeout(this.killAnimationTimer);
     this.killAnimationTimer = setTimeout(() => {
       cancelAnimationFrame(this.animFrame);
       this.animFrame = 0;
     }, 300);
-  }
+    if (this.animFrame === 0) this.animate();
+  };
 
   private createCard(c: CardData) {
     const card = frag<HTMLElement>(`<div id="${c.domId}" class="card">
@@ -160,16 +167,14 @@ class HandOfCardsImpl {
     return card;
   }
 
-  private placeCards(now = false) {
-    this.container.classList.toggle('no-transition', now || this.suppressAnimation); //!!this.dragCard);
-    const hovered = this.view.querySelector('.card.pull');
+  private placeCards() {
+    const hovered = this.cards.find(x => x.classList.contains('pull'));
     const hoverIndex = this.visible.findIndex(x => x == hovered);
     const unplaced = this.visible.filter(x => !this.selectedTransform(x));
     for (const [i, card] of unplaced.entries()) {
-      if (!this.opts.opaque) card.style.backgroundColor = '';
+      if (!this.opts.opaqueSelectedBackground) card.style.backgroundColor = '';
       if (card === this.dragCard) continue;
       if (this.fanout) this.fanoutTransform(card, hoverIndex);
-      else if (this.opts.transient) card.style.transform = `translate(${this.originX}px, ${this.originY}px)`;
       else this.deckTransform(card, i);
     }
   }
@@ -178,10 +183,9 @@ class HandOfCardsImpl {
     if (this.opts.transient || !this.deck) return false;
     const to = this.deck;
     const toSide = Math.min(to.offsetWidth, to.offsetHeight);
-    const cardSide = Math.min(card.offsetWidth, card.offsetHeight);
-    const scale = (0.8 * toSide) / cardSide;
-    const x = to.offsetLeft - card.offsetLeft + (toSide - cardSide) / 2 + i;
-    const y = to.offsetTop - card.offsetTop + (toSide - cardSide) / 2 - i;
+    const scale = (0.8 * toSide) / this.cardSize;
+    const x = to.offsetLeft - card.offsetLeft + (toSide - this.cardSize) / 2 + i;
+    const y = to.offsetTop - card.offsetTop + (toSide - this.cardSize) / 2 - i;
     card.style.transform = `translate(${x}px, ${y}px) rotate(-5deg) scale(${scale})`;
     return true;
   }
@@ -199,7 +203,8 @@ class HandOfCardsImpl {
     let angle = fanArc * (rindex / visibleCards - 0.5);
 
     if (this.isLeft) {
-      if (isAfterHovered) angle -= (Math.PI * 0.666) / visibleCards;
+      if (isAfterHovered) angle -= Math.PI / 32;
+
       cardRotation = angle - (isAfterHovered ? Math.PI / 16 : 0);
 
       const radiusOffset = isAfterHovered ? 0 : isHovered ? this.cardSize / 4 : this.cardSize / 8;
@@ -208,7 +213,9 @@ class HandOfCardsImpl {
       y = this.originY + (this.fanRadius + radiusOffset) * Math.sin(angle);
     } else {
       const hoverFactor = hoverIndex === -1 ? 0 : isAfterHovered ? -1 : 1;
-      angle += (hoverFactor * (Math.PI * this.cardSize)) / (this.fanRadius * visibleCards);
+
+      angle += (hoverFactor * Math.PI) / 96;
+
       cardRotation = angle + (isHovered ? Math.PI / 12 : 0);
 
       const radiusOffset = centerCard / (isHovered ? 2 : 1);
@@ -225,11 +232,12 @@ class HandOfCardsImpl {
     card.classList.toggle('selected', dindex >= 0);
     if (dindex < 0) return false;
     const to = this.drops[dindex].el;
-    const scale = to.offsetHeight / card.offsetHeight;
-    const x = to.offsetLeft - card.offsetLeft + (to.offsetWidth - card.offsetWidth) / 2;
-    const y = to.offsetTop - card.offsetTop + (to.offsetHeight - card.offsetHeight) / 2;
+    const scale = to.offsetHeight / this.cardSize;
+    const x = to.offsetLeft + (to.offsetWidth - this.cardSize) / 2;
+    const y = to.offsetTop + (to.offsetHeight - this.cardSize) / 2;
     card.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    if (!this.opts.opaque) card.style.backgroundColor = window.getComputedStyle(to).backgroundColor;
+    if (!this.opts.opaqueSelectedBackground)
+      card.style.backgroundColor = window.getComputedStyle(to).backgroundColor;
     return true;
   }
 
@@ -340,10 +348,6 @@ class HandOfCardsImpl {
     this.pointerDownTime = undefined;
   };
 
-  private clickToDismiss = () => {
-    this.remove();
-  };
-
   private dropTarget(e: PointerEvent): HTMLElement | undefined {
     for (const drop of this.drops) {
       const r = drop.el.getBoundingClientRect();
@@ -352,14 +356,18 @@ class HandOfCardsImpl {
     }
     return undefined;
   }
-
   private dragStart = (e: DragEvent) => e.preventDefault();
 
   private animate = () => {
-    if (document.contains(this.view)) this.placeCards();
+    if (document.contains(this.view)) {
+      this.container.classList.toggle('no-transition', this.noTransition);
+      this.placeCards();
+    }
     this.animFrame = requestAnimationFrame(this.animate);
   };
-
+  private get noTransition() {
+    return defined(this.dragCard) && defined(this.pointerDownTime) && Date.now() - this.pointerDownTime > 300;
+  }
   private select(drop: HTMLElement | undefined, domId?: DomId) {
     if (this.opts.transient) this.remove();
     return this.opts.select(drop, domId);
@@ -371,10 +379,10 @@ class HandOfCardsImpl {
     return this.opts.getDrops();
   }
   private get view() {
-    return this.opts.view;
+    return this.opts.viewEl;
   }
   private get deck() {
-    return this.opts.deck;
+    return this.opts.deckEl;
   }
   private get visible() {
     return this.cards.filter(card => card.dataset.group === this.group);
@@ -392,13 +400,7 @@ class HandOfCardsImpl {
     return !this.isLeft;
   }
   private get center() {
-    return this.opts.center ?? 0.5;
-  }
-  private get suppressAnimation() {
-    return (
-      !this.isAnimationReady ||
-      (defined(this.dragCard) && defined(this.pointerDownTime) && Date.now() - this.pointerDownTime > 300)
-    );
+    return this.opts.fanoutCenterToWidthRatio ?? 0.5;
   }
 }
 

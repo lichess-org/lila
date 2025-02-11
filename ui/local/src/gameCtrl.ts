@@ -1,55 +1,46 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
-import { type GameContext, type GameStatus, LocalGame } from './localGame';
-import { type LocalSetup, statusOf, clockToSpeed } from 'game';
+import { type GameContext, type GameStatus, type LocalGameData, LocalGame } from './localGame';
+import { statusOf, clockToSpeed } from 'game';
 import type { ClockData } from 'round';
-import type { LocalPlayOpts, SoundEvent, LocalSpeed } from './types';
+import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
 import { env } from './localEnv';
 import { pubsub } from 'common/pubsub';
 
 export class GameCtrl {
   live: LocalGame;
-  history?: LocalGame;
+  rewind?: LocalGame;
   proxy: RoundProxy;
   clock?: ClockData & { since?: number };
-  orientation: Color;
+  orientation: Color = 'white';
 
   private stopped = true;
   private resolveThink?: () => void;
 
-  constructor(readonly opts: LocalPlayOpts) {}
-
-  async init(): Promise<void> {
-    const game = await env.db.getOne(this.opts.localGameId);
-    this.live = new LocalGame({ game, setup: this.opts.setup ?? {} });
-    this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
-    env.bot.setUids(this.live);
-    env.assets.preload();
+  constructor(readonly opts: LocalPlayOpts) {
     pubsub.on('ply', this.jump);
-    pubsub.on('flip', env.redraw);
-    this.resetClock();
-    this.proxy = new RoundProxy();
-    this.triggerStart(game && Number.isFinite(game.initial) && this.live.ply > 0);
+    pubsub.on('flip', () => env.redraw());
+    this.proxy = new RoundProxy(opts.pref);
   }
 
-  reset(params?: LocalSetup): void {
+  load(game: LocalSetup | undefined): void {
     this.stop();
-    this.history = undefined;
-    this.live = new LocalGame({ setup: { ...this.live.setup, ...params } });
-    env.bot.reset();
+    this.rewind = undefined;
+    this.live = new LocalGame({ ...this.live?.setup, ...game });
     env.bot.setUids(this.live);
-    env.assets.preload();
-    this.updateTurn();
+    this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
     this.resetClock();
     this.proxy.reset();
+    console.log('load', this.live, this.proxy.data);
     this.updateClockUi();
-    this.triggerStart();
+    env.round?.redraw();
+    this.triggerStart(this.live.ply > 0 && Number.isFinite(this.initial));
   }
 
   start(): void {
     this.stopped = false;
-    if (this.history) this.live = this.history;
-    this.history = undefined;
+    if (this.rewind) this.live = this.rewind;
+    this.rewind = undefined;
     if (!this.live.finished) this.updateTurn(); // ??
   }
 
@@ -57,7 +48,6 @@ export class GameCtrl {
     if (this.isStopped) return;
     this.stopped = true;
     this.resolveThink?.();
-    env.redraw();
   }
 
   flag(): void {
@@ -89,7 +79,7 @@ export class GameCtrl {
   }
 
   get isLive(): boolean {
-    return this.history === undefined && !this.isStopped;
+    return this.rewind === undefined && !this.isStopped;
   }
 
   get screenOrientation(): Color {
@@ -116,13 +106,13 @@ export class GameCtrl {
     return this.clock?.increment ?? 0;
   }
 
-  get initialFen(): string {
-    return this.live.initialFen; //this.setup.initialFen ?? co.fen.INITIAL_FEN;
-  }
+  // get initialFen(): string {
+  //   return this.live.setupFen; //this.setup.initialFen ?? co.fen.INITIAL_FEN;
+  // }
 
   move(uci: Uci): void {
-    if (this.history) this.live = this.history;
-    this.history = undefined;
+    if (this.rewind) this.live = this.rewind;
+    this.rewind = undefined;
     this.stopped = false;
     env.dev?.beforeMove(uci);
 
@@ -148,28 +138,20 @@ export class GameCtrl {
 
     if (this.live.finished) this.gameOver(moveCtx);
     env.db.put(this.live);
-    localStorage.setItem(`local.${env.user}.gameId`, this.live.id);
     if (this.clock?.increment) {
       this.clock[this.live.awaiting] += this.clock.increment;
-      this.updateClockUi();
     }
+    this.updateClockUi();
     env.redraw();
   }
 
-  private jump = (ply: number): void => {
-    this.history = ply < this.live.moves.length ? new LocalGame({ game: this.live, ply }) : undefined;
-    if (this.clock) this.clock.since = this.history ? undefined : performance.now();
-    this.updateTurn();
-    setTimeout(env.redraw);
-  };
-
-  private async maybeMakeBotMove(): Promise<void> {
+  private async maybeBotMove(): Promise<void> {
     const [bot, game] = [env.bot[this.live.turn], this.live];
     if (!bot || game.finished || this.isStopped || this.resolveThink) return;
     const move = await env.bot.move({
-      pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
+      pos: { fen: game.setupFen, moves: game.moves.map(x => x.uci) },
       chess: this.live.chess,
-      avoid: this.live.threefoldDraws,
+      avoid: this.live.threefoldMoves,
       remaining: this.clock?.[this.live.turn],
       initial: this.clock?.initial,
       increment: this.clock?.increment,
@@ -190,30 +172,37 @@ export class GameCtrl {
     else setTimeout(() => this.updateTurn(), 200);
   }
 
-  private updateTurn(game: LocalGame = this.history ?? this.live): void {
+  private jump = (ply: number) => {
+    this.rewind = ply < this.live.moves.length ? new LocalGame(this.live, ply) : undefined;
+    if (this.clock) this.clock.since = this.rewind ? undefined : performance.now();
+    this.updateTurn();
+    setTimeout(env.redraw);
+  };
+
+  private updateTurn(game: LocalGame = this.rewind ?? this.live) {
     if (this.clock && game !== this.live) this.clock = { ...this.clock, ...game.clock };
-    this.proxy.cg(game, game.ply === 0 ? { lastMove: undefined } : {});
+    this.proxy.updateBoard(game, game.ply === 0 ? { lastMove: undefined } : {});
     this.updateClockUi();
-    if (this.isLive) this.maybeMakeBotMove();
+    if (this.isLive) this.maybeBotMove();
   }
 
-  private updateClockUi(): void {
+  private updateClockUi() {
     if (!this.clock) return;
     this.clock.running = this.isLive && this.live.ply > 0 && !this.isStopped;
-    env.round.clock?.setClock(this.proxy.data, this.clock.white, this.clock.black);
-    if (this.isStopped || !this.isLive) env.round.clock?.stopClock();
+    env.round?.clock?.setClock(this.proxy.data, this.clock.white, this.clock.black);
+    if (this.isStopped || !this.isLive) env.round?.clock?.stopClock();
   }
 
-  private gameOver(final: Omit<GameStatus, 'end' | 'turn'>) {
+  private gameOver(final: GameStatus) {
     this.stop();
     if (this.clock) env.round.clock?.stopClock();
-    if (!env.dev?.onGameOver({ ...final, turn: this.live.turn })) {
-      env.round.endWithData?.({ ...final, boosted: false });
+    if (!env.dev?.onGameOver(final)) {
+      // ?? that check
+      env.round.endWithData?.({ status: final.status, winner: final.winner, boosted: false });
     }
-    env.redraw();
   }
 
-  private playSounds(moveCtx: GameContext): void {
+  private playSounds(moveCtx: GameContext) {
     if (moveCtx.silent) return;
     const justPlayed = this.live.awaiting;
     const { san } = moveCtx;
@@ -227,22 +216,28 @@ export class GameCtrl {
     if (boardSoundVolume) site.sound.move({ ...moveCtx, volume: boardSoundVolume });
   }
 
-  private triggerStart(inProgress = false): void {
+  private triggerStart(inProgress = false) {
     ['white', 'black'].forEach(c => env.bot.playSound(c as Color, ['greeting']));
-    if (env.dev || !env.bot[this.live.turn] || !inProgress) return;
-    document.querySelector<HTMLElement>('#main-wrap')!.classList.add('paused');
+    if (env.dev || !env.bot[this.live.turn]) return;
+    if (!inProgress) {
+      setTimeout(() => this.start(), 200);
+      return;
+    }
+    const main = document.querySelector<HTMLElement>('#main-wrap');
+    main?.classList.add('paused');
     setTimeout(() => {
       // TODO fix
+      const board = main?.querySelector<HTMLElement>('cg-container');
       const onclick = () => {
-        document.querySelector<HTMLElement>('#main-wrap')?.classList.remove('paused');
+        main?.classList.remove('paused');
         this.start();
-        document.querySelector<HTMLElement>('cg-container')?.removeEventListener('click', onclick);
+        board?.removeEventListener('click', onclick);
       };
-      document.querySelector<HTMLElement>('cg-container')?.addEventListener('click', onclick);
+      board?.addEventListener('click', onclick);
     }, 200);
   }
 
-  private resetClock(): void {
+  private resetClock() {
     const initial = this.live.initial as number;
     this.clock = Number.isFinite(initial)
       ? {

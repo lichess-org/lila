@@ -37,7 +37,6 @@ export class PushCtrl {
         body: JSON.stringify(bot),
       });
       if (!res.ok) throw new Error(res.statusText);
-
       await env.bot.setServer(await res.json());
 
       const clearLocals: { type: AssetType; key: string }[] = [];

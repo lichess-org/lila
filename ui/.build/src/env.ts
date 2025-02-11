@@ -31,7 +31,6 @@ export const env = new (class {
   clean = false;
   prod = false;
   debug = false;
-  rgb = false;
   test = false;
   install = true;
   logTime = true;

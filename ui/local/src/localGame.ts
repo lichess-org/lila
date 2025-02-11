@@ -1,13 +1,17 @@
 import * as co from 'chessops';
 import { normalizeMove } from 'chessops/chess';
-import { type Status, type LocalSetup, type RoundStep, statusOf } from 'game';
-import { deepFreeze, randomToken } from 'common/algo';
+import { type Status, type RoundStep, statusOf } from 'game';
+import { deepFreeze, randomId } from 'common/algo';
 import { hashBoard } from 'chess/hash';
-import { myUserId } from 'common';
+import type { LocalSetup } from './types';
+
+type LocalMove = {
+  uci: Uci;
+  clock?: { white: Seconds; black: Seconds };
+};
 
 export interface GameStatus {
   status: Status;
-  turn: Color;
   winner?: Color;
   reason?: string;
 }
@@ -15,6 +19,7 @@ export interface GameStatus {
 export interface GameContext extends GameStatus {
   uci: Uci;
   san: San;
+  turn: Color;
   move?: co.NormalMove;
   fen: string;
   ply: number;
@@ -23,41 +28,47 @@ export interface GameContext extends GameStatus {
   check: boolean;
   fiftyMoves: boolean;
   silent?: boolean;
+  clock?: { white: number; black: number };
 }
 
-type LocalMove = {
-  uci: Uci;
-  clock?: { white: Seconds; black: Seconds };
-};
-
-export class LocalGame implements LocalSetup {
+export class LocalGameData implements LocalSetup {
   id: string;
   createdAt: number;
-  createdBy: string;
-  moves: LocalMove[] = [];
-  chess: co.Chess;
-  initialPly: number = 0;
-  initialFen: FEN;
-  initial: Seconds = Infinity;
+  moves: LocalMove[];
+  setupFen?: FEN;
+  initial: Seconds;
+  increment: Seconds;
   white?: string;
   black?: string;
-  increment: Seconds = 0;
-  threefoldHashes: Map<bigint, number> = new Map();
-  finished: GameStatus | undefined = undefined;
+  finished: GameStatus | undefined;
+}
 
-  constructor(o: { game: LocalGame; ply?: number } | { setup: LocalSetup }) {
-    Object.assign(this, 'game' in o ? o.game : o.setup);
+export class LocalGame extends LocalGameData {
+  private threefoldHashes: Map<bigint, number>;
+  readonly chess: co.Chess;
+  readonly initialPly: number;
 
-    this.id ??= randomToken();
+  constructor(data?: LocalSetup | LocalGameData, ply?: number) {
+    super();
+    Object.assign(this, data);
+    const chess = this.setupFen
+      ? co.Chess.fromSetup(co.fen.parseFen(this.setupFen).unwrap()).unwrap()
+      : co.Chess.default();
+    Object.defineProperties(this, {
+      threefoldHashes: { value: new Map() },
+      chess: { value: chess },
+      initialPly: { value: 2 * (chess.fullmoves - 1) + (chess.turn === 'black' ? 1 : 0) },
+    });
+    this.id ??= randomId();
     this.createdAt ??= Date.now();
-    this.createdBy ??= myUserId() ?? 'anonymous';
-    this.initialFen ??= co.fen.INITIAL_FEN;
-    this.chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
-    this.initialPly = 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
-    if ('game' in o && o.game) {
-      this.moves = [];
-      this.threefoldHashes = new Map();
-      for (const move of o.game.moves.slice(0, o.ply)) this.move(move);
+    this.initial ??= Infinity;
+    this.increment ??= 0;
+    this.moves = [];
+    this.finished = undefined;
+    const initialMoves = data && 'moves' in data ? data.moves : [];
+    console.trace(initialMoves, this.initialFen);
+    for (const move of initialMoves.slice(0, ply)) {
+      this.move(move);
     }
   }
 
@@ -72,17 +83,25 @@ export class LocalGame implements LocalSetup {
     }
     const san = co.san.makeSanAndPlay(this.chess, coMove);
     const boardHash = hashBoard(this.chess.board);
+    const clock = structuredClone(move.clock);
 
     this.threefoldHashes.set(boardHash, (this.threefoldHashes.get(boardHash) ?? 0) + 1);
-    this.moves.push({ uci, clock: structuredClone(move.clock) });
+    this.moves.push({ uci, clock });
 
-    return this.moveResult({ uci, san, move: coMove });
+    return this.moveResult({ uci, san, move: coMove, clock });
   }
 
   finish(finishStatus: Omit<GameStatus, 'end' | 'turn'>): void {
     if (this.finished) return;
     this.finished = { ...this.status, ...finishStatus };
     deepFreeze(this);
+  }
+
+  *observe(): Generator<GameContext> {
+    const chess = new LocalGame(this, 0);
+    for (const move of this.moves) {
+      yield chess.move(move);
+    }
   }
 
   get clock(): { white: number; black: number } | undefined {
@@ -97,7 +116,6 @@ export class LocalGame implements LocalSetup {
     return (
       this.finished ?? {
         winner: this.chess.outcome()?.winner,
-        turn: this.chess.turn,
         ...(this.chess.isCheckmate()
           ? { status: statusOf('mate') }
           : this.chess.isInsufficientMaterial()
@@ -133,6 +151,10 @@ export class LocalGame implements LocalSetup {
     return co.fen.makeFen(this.chess.toSetup());
   }
 
+  get initialFen(): string {
+    return this.setupFen ?? co.fen.INITIAL_FEN;
+  }
+
   get dests(): { [from: string]: string } {
     return Object.fromEntries([...this.cgDests].map(([src, dests]) => [src, dests.join('')]));
   }
@@ -142,9 +164,18 @@ export class LocalGame implements LocalSetup {
   }
 
   get roundSteps(): RoundStep[] {
-    const chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
+    console.log('roundSteps');
+    const chess = this.setupFen
+      ? co.Chess.fromSetup(co.fen.parseFen(this.setupFen).unwrap()).unwrap()
+      : co.Chess.default();
     const steps: RoundStep[] = [
-      { fen: this.initialFen, ply: this.initialPly, uci: '', san: '', check: chess.isCheck() },
+      {
+        fen: this.setupFen ?? co.fen.INITIAL_FEN,
+        ply: this.initialPly,
+        uci: '',
+        san: '',
+        check: chess.isCheck(),
+      },
     ];
     for (const move of this.moves) {
       const { move: coMove } = normalMove(chess, move.uci) ?? {};
@@ -161,7 +192,7 @@ export class LocalGame implements LocalSetup {
     return steps;
   }
 
-  get threefoldDraws(): Uci[] {
+  get threefoldMoves(): Uci[] {
     const draws: Uci[] = [];
     const boardHash = hashBoard(this.chess.board);
     for (const [from, dests] of this.chess.allDests()) {
@@ -178,7 +209,7 @@ export class LocalGame implements LocalSetup {
 
   get setup(): LocalSetup {
     return {
-      initialFen: this.initialFen,
+      setupFen: this.setupFen,
       initial: this.initial,
       increment: this.increment,
       white: this.white,
@@ -190,9 +221,9 @@ export class LocalGame implements LocalSetup {
     const result = {
       uci: '',
       san: '',
+      turn: this.chess.turn,
       fen: this.fen,
       ply: this.ply,
-      //justPlayed: this.awaiting,
       dests: this.dests,
       threefold: this.isThreefold,
       check: this.chess.isCheck(),

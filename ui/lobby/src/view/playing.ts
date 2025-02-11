@@ -43,17 +43,19 @@ export default function (ctrl: LobbyController) {
         ]),
       ]),
     ),
-    ...ctrl.localGames.map(g =>
-      h('a', { key: g.id, attrs: { href: '/local#' + g.id } }, [
-        h('span.mini-board.cg-wrap.is2d', {
-          attrs: { 'data-state': `${g.fen},${g.turn},${g.lastMove}` },
-          hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
-        }),
-        h('span.meta', [
-          g.white && g.black ? `${g.white} vs ${g.black}` : g.white || g.black || myUsername(),
-          h('span.indicator', !g[g.turn] ? [i18n.site.yourTurn] : h('span', '\xa0')),
+    ...ctrl.localGames.map(
+      g =>
+        !(g.white && g.black) &&
+        h('a', { key: g.id, attrs: { href: '/local#id=' + g.id } }, [
+          h('span.mini-board.cg-wrap.is2d', {
+            attrs: { 'data-state': `${g.fen},${g.turn},${g.lastMove}` },
+            hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
+          }),
+          h('span.meta', [
+            g.white ? ctrl.local.nameOf(g.white) : g.black ? ctrl.local.nameOf(g.black) : myUsername(),
+            h('span.indicator', !g[g.turn] ? [i18n.site.yourTurn] : h('span', '\xa0')),
+          ]),
         ]),
-      ]),
     ),
   ]);
 }

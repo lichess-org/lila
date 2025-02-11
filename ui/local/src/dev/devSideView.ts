@@ -10,8 +10,7 @@ import { type Drop, type HandOfCards, handOfCards } from '../handOfCards';
 import { domIdToUid, uidToDomId } from '../botCtrl';
 import { rangeTicks } from '../gameView';
 import { defined } from 'common';
-import type { LocalSpeed } from '../types';
-import type { LocalSetup } from 'game';
+import type { LocalSpeed, LocalSetup } from '../types';
 import { env } from '../localEnv';
 
 export function renderDevSide(): VNode {
@@ -151,7 +150,7 @@ function clockOptions() {
 }
 
 function reset(params: Partial<LocalSetup>): void {
-  env.game.reset(params);
+  env.game.load(params);
   //localStorage.setItem('local.dev.setup', JSON.stringify(env.game.localSetup));
   env.redraw();
 }
@@ -194,7 +193,7 @@ function dashboard() {
       h(`button.board-action.button.button-metal`, {
         attrs: { 'data-icon': licon.Switch },
         hook: bind('click', () => {
-          env.game.reset({ white: env.bot.uids.black, black: env.bot.uids.white });
+          env.game.load({ white: env.bot.uids.black, black: env.bot.uids.white });
           env.redraw();
         }),
       }),
@@ -202,7 +201,7 @@ function dashboard() {
         attrs: { 'data-icon': licon.Reload },
         hook: onInsert(el =>
           el.addEventListener('click', () => {
-            env.game.reset();
+            env.game.load(undefined);
             env.redraw();
           }),
         ),
@@ -235,17 +234,19 @@ function progress() {
 }
 
 function renderPlayPause(): VNode {
-  const boardTurn = env.game.history?.turn ?? env.game.live.turn;
+  const boardTurn = env.game.rewind?.turn ?? env.game.live.turn;
   const disabled = !env.bot[boardTurn];
-  const paused = env.game.isStopped || env.game.history || env.game.live.finished;
+  const paused = env.game.isStopped || env.game.rewind || env.game.live.finished;
   return h(
     `button.play-pause.button.button-metal${disabled ? '.play.disabled' : paused ? '.play' : '.pause'}`,
     {
       hook: onInsert(el =>
         el.addEventListener('click', () => {
           if (env.dev.hasUser && env.game.isStopped) env.game.start();
-          else if (!paused) env.game.stop();
-          else {
+          else if (!paused) {
+            env.game.stop();
+            env.redraw();
+          } else {
             if (env.dev.gameInProgress) env.game.start();
             else {
               const numGamesField = document.querySelector('.num-games') as HTMLInputElement;
@@ -265,7 +266,7 @@ function renderPlayPause(): VNode {
 }
 
 function fen(): VNode {
-  const boardFen = env.game.history?.fen ?? env.game.live.fen;
+  const boardFen = env.game.rewind?.fen ?? env.game.live.fen;
   return h('input.fen', {
     key: boardFen,
     attrs: {
@@ -283,7 +284,7 @@ function fen(): VNode {
         return;
       }
       el.classList.remove('invalid');
-      if (fen) reset({ initialFen: fen });
+      if (fen) reset({ setupFen: fen });
     }),
   });
 }
@@ -308,11 +309,11 @@ function roundRobin() {
       {
         selector: '#start-tournament',
         listener: (_, dlg) => {
-          const participants = Array.from(dlg.view.querySelectorAll('input:checked')).map(
+          const participants = Array.from(dlg.viewEl.querySelectorAll('input:checked')).map(
             (el: HTMLInputElement) => el.value,
           );
           if (participants.length < 2) return;
-          const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
+          const iterationField = dlg.viewEl.querySelector('input[type="number"]') as HTMLInputElement;
           const iterations = Number(iterationField.value);
           env.dev.run(
             {
@@ -363,12 +364,11 @@ function showBotSelector(clickedEl: HTMLElement) {
     drops.push({ el: el as HTMLElement, selected });
   });
   botSelector = handOfCards({
-    view: main,
+    viewEl: main,
     getDrops: () => drops,
     getCardData: () => cardData,
     select: (el, domId) => {
       const color = (el ?? clickedEl).dataset.color as Color;
-      env.game.stop();
       reset({ ...env.bot.uids, [color]: domIdToUid(domId) });
     },
     onRemove: () => {
@@ -377,6 +377,5 @@ function showBotSelector(clickedEl: HTMLElement) {
     },
     orientation: 'left',
     transient: true,
-    autoResize: true,
   });
 }

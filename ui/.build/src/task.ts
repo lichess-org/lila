@@ -3,7 +3,7 @@ import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
-import { randomToken } from './algo.ts';
+import { randomId } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
@@ -49,7 +49,7 @@ export async function task(o: TaskOpts): Promise<TaskKey> {
   const newWatch: Task = {
     ...o,
     glob,
-    key: inKey ?? randomToken(),
+    key: inKey ?? randomId(),
     status: noInitial ? 'ok' : undefined,
     debounce: { time: debounce ?? 0, rename: !noInitial, tickle: false, files: new Set<AbsPath>() },
     fileTimes: noInitial ? await globTimes(glob) : new Map(),

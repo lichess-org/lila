@@ -3,22 +3,22 @@ import { looseH as h, VNode } from 'common/snabbdom';
 import { showSetupDialog } from './setupDialog';
 import { LocalGame } from './localGame';
 import { type Player, type Game, clockToSpeed } from 'game';
-import type { RoundProxy as IRoundProxy, RoundData, RoundOpts, Position } from 'round';
+import type { RoundProxy as RoundProxyType, RoundData, RoundOpts, Position } from 'round';
 import { analyse } from './analyse';
 import { env } from './localEnv';
 
-export class RoundProxy implements IRoundProxy {
-  data: RoundData;
-  handlers: SocketHandlers = {
+export class RoundProxy implements RoundProxyType {
+  readonly data: RoundData;
+  readonly handlers: SocketHandlers = {
     move: (d: any) => env.game.move(d.u),
     resign: () => env.game.resign(),
     'blindfold-no': () => {},
     'blindfold-yes': () => {},
-    'rematch-yes': () => env.game.reset(),
+    'rematch-yes': () => env.game.load(undefined),
     'draw-yes': () => env.game.draw(),
   };
 
-  constructor() {
+  constructor(prefs: any) {
     this.data = {
       game: {
         id: 'synthetic',
@@ -32,14 +32,13 @@ export class RoundProxy implements IRoundProxy {
         player: 'white',
       },
 
-      player: player('white'),
-      opponent: player('black'),
-      pref: { ...env.game.opts.pref, submitMove: 0 },
+      player: {} as Player,
+      opponent: {} as Player,
+      pref: { ...prefs, submitMove: 0 },
       steps: [],
       takebackable: false,
       moretimeable: false,
     };
-    this.reset();
   }
 
   newOpponent = (): void => showSetupDialog(env.game.live.setup);
@@ -62,36 +61,36 @@ export class RoundProxy implements IRoundProxy {
     return true;
   };
 
-  cg(game: LocalGame | undefined, cgOpts?: CgConfig): void {
-    const gameUpdates: CgConfig = {};
+  updateBoard(game: LocalGame | undefined, opts?: CgConfig): void {
+    const updates: CgConfig = {};
     if (game) {
-      gameUpdates.fen = game.fen;
-      gameUpdates.check = game.chess.isCheck();
-      gameUpdates.turnColor = game.turn;
-      if (env.game.history || !env.bot[env.game.live.turn])
-        gameUpdates.movable = {
+      updates.fen = game.fen;
+      updates.check = game.chess.isCheck();
+      updates.turnColor = game.turn;
+      if (env.game.rewind || !env.bot[env.game.live.turn])
+        updates.movable = {
           color: game.turn,
           dests: game.cgDests,
         };
     }
-    env.round.chessground?.set({ ...gameUpdates, ...cgOpts });
+    env.round.chessground?.set({ ...updates, ...opts });
   }
 
   reset(): void {
     const bottom = env.game.orientation;
     const top = co.opposite(bottom);
-    this.data.game.fen = env.game.initialFen;
+    this.data.game.fen = env.game.live.initialFen;
     this.data.game.turns = env.game.live.ply;
-    this.data.game.status = { id: 20, name: 'started' };
+    this.data.game.status = env.game.live.status.status;
     this.data.game.speed = this.data.game.perf = clockToSpeed(env.game.initial, env.game.increment);
-    this.data.game.player = (env.game.history ?? env.game.live).turn;
+    this.data.game.player = (env.game.rewind ?? env.game.live).turn;
     this.data.steps = env.game.live.roundSteps;
     this.data.possibleMoves = env.game.live.dests;
     this.data.player = player(bottom);
     this.data.opponent = player(top);
     this.data.clock = env.game.clock;
     if (!env.round) return;
-    env.round.chessground?.set({ movable: { dests: env.game.live.cgDests } });
+    //env.round.chessground?.set({ movable: { dests: env.game.live.cgDests } });
     env.round.ply = env.game.live.ply;
     env.round.reload(this.data);
   }
@@ -104,7 +103,7 @@ export class RoundProxy implements IRoundProxy {
       noab: false,
       onChange: () => {
         if (env.round.ply === 0)
-          this.cg(undefined, { lastMove: undefined, orientation: env.game.orientation });
+          this.updateBoard(undefined, { lastMove: undefined, orientation: env.game.orientation });
       },
     };
   }

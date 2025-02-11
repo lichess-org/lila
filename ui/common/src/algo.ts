@@ -7,6 +7,13 @@ export const randomToken = (): string => {
   }
 };
 
+export function randomId(len = 8): string {
+  const charSet = 'abcdefghkmnpqrstuvwxyz0123456789';
+  const charSetSize = charSet.length; // 32
+  const buffer = crypto.getRandomValues(new Uint8Array(len));
+  return Array.from(buffer, byte => charSet[byte % charSetSize]).join('');
+}
+
 export function clamp(value: number, bounds: { min?: number; max?: number }): number {
   return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
 }
@@ -72,6 +79,14 @@ export function findMapped<T, U>(arr: T[], callback: (el: T) => U | undefined): 
     if (result) return result;
   }
   return undefined;
+}
+
+export function filterMap<T, U>(arr: T[], fn: (v: T) => U | null | undefined): U[] {
+  return arr.reduce<U[]>((acc, v) => {
+    const result = fn(v);
+    if (result !== null && result !== undefined) acc.push(result);
+    return acc;
+  }, []);
 }
 
 export function unique<T>(items: (T | undefined)[]): T[] {

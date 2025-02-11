@@ -3,7 +3,7 @@ import { handOfCards, type HandOfCards } from '../handOfCards';
 import { defined, frag } from 'common';
 import { deepFreeze } from 'common/algo';
 import { buildFromSchema, Panes } from './panes';
-import { removeObjectProperty, closeEnough, deadStrip } from './devUtil';
+import { removeObjectProperty, deadStrip } from './devUtil';
 import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dialog';
 import type { BotInfo } from '../types';
 import { Bot } from '../bot';
@@ -46,13 +46,13 @@ export class EditDialog {
     if (!env.bot.all.length) env.bot.save(EditDialog.default);
     this.selectBot();
     this.deck = handOfCards({
-      view: this.view,
+      viewEl: this.view,
       getDrops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
-      deck: this.view.querySelector('.placeholder') as HTMLElement,
+      deckEl: this.view.querySelector('.placeholder') as HTMLElement,
       getCardData: () => this.cardData,
       select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
-      opaque: true,
-      center: 1 / 3,
+      opaqueSelectedBackground: true,
+      fanoutCenterToWidthRatio: 1 / 3,
     });
   }
 
@@ -61,15 +61,16 @@ export class EditDialog {
       append: [{ node: this.view }],
       actions: this.actions,
       noClickAway: true,
-      onClose: () => {
-        pubsub.off('local.dev.import.book', this.onBookImported);
-        window.removeEventListener('resize', this.deck.resize);
-        this.janitor.cleanup();
-      },
+      onClose: () => this.janitor.cleanup(),
     });
     pubsub.on('local.dev.import.book', this.onBookImported);
-    window.addEventListener('resize', this.deck.resize);
-    setTimeout(this.deck.resize);
+    this.janitor.addCleanupTask(() => pubsub.off('local.dev.import.book', this.onBookImported));
+    //window.addEventListener('resize', this.deck.resize);
+    // setTimeout(() => {
+    //   this.deck.layout();
+    //   //this.dlg.dialogEl.style.visibility = 'visible';
+    //   setTimeout(() => (this.dlg.dialogEl.style.visibility = 'visible'));
+    // });
     return this.dlg.show();
   }
 
@@ -96,7 +97,7 @@ export class EditDialog {
   };
 
   get bot(): WritableBot {
-    // these getter side effects are lovely and wonderful
+    // getter side effects are lovely and wonderful
     this.scratch[this.uid] ??= Object.defineProperties(structuredClone(this.bots[this.uid]), {
       disabled: { value: new Set<string>() },
       viewing: { value: new Map<string, string>() },
@@ -134,15 +135,16 @@ export class EditDialog {
   }
 
   private isDirty = (other: BotInfo | undefined = env.bot.get(this.uid)): boolean => {
+    console.log(other, other && this.scratch[other.uid] && deadStrip(this.scratch[other.uid]));
     return (
       other !== undefined &&
       this.scratch[other.uid] !== undefined &&
-      !closeEnough(other, deadStrip(this.scratch[other.uid])) // TODO avoid structured cloning for this
+      !Bot.isSame(other, deadStrip(this.scratch[other.uid])) // TODO avoid structured cloning for this
     );
   };
 
   private get localChanges(): boolean {
-    return this.localBot !== undefined && !closeEnough(this.localBot, this.serverBot);
+    return this.localBot !== undefined && !Bot.isSame(this.localBot, this.serverBot);
   }
 
   private get cardData() {
@@ -154,8 +156,9 @@ export class EditDialog {
   }
 
   private async push() {
-    const err = await env.push.pushBot(this.bot);
+    const err = await env.push.pushBot(this.bots[this.uid]);
     if (err) return alert(err);
+    delete this.scratch[this.uid];
     this.update();
   }
 

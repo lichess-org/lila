@@ -6,10 +6,8 @@ import { defined } from 'common';
 import { pubsub } from 'common/pubsub';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
-import type { LocalSetup as GameLocalSetup } from 'game';
+import type { LocalSetup } from './types';
 import { env } from './localEnv';
-
-type LocalSetup = GameLocalSetup & { go?: boolean };
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
   pubsub.after('local.images.ready').then(() => new SetupDialog(setup).show());
@@ -68,7 +66,7 @@ class SetupDialog {
       noClickAway: env.game !== undefined,
     }).then(dlg => {
       this.dialog = dlg;
-      this.view = dlg.view.querySelector('.with-cards')!;
+      this.view = dlg.viewEl.querySelector('.with-cards')!;
       this.setPlayerColor(this.setup.black ? 'white' : this.setup.white ? 'black' : 'white');
       const cardData = env.bot
         .sorted('classical')
@@ -79,11 +77,12 @@ class SetupDialog {
         getDrops: () => [
           { el: this.view.querySelector('.player')!, selected: uidToDomId(this.setup[this.botColor]) },
         ],
-        view: this.view,
+        viewEl: this.view,
         select: this.dropSelect,
         orientation: 'bottom',
       });
       window.addEventListener('resize', this.hand.resize);
+      //window.location.hash = '';
       dlg.show();
       this.select(this.setup[this.botColor]);
       this.hand.resize();
@@ -120,30 +119,34 @@ class SetupDialog {
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot);
-    this.dialog.view.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
-    this.dialog.view.querySelector('.random')!.classList.toggle('disabled', !bot);
+    this.dialog.viewEl.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
+    this.dialog.viewEl.querySelector('.random')!.classList.toggle('disabled', !bot);
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
   }
 
   private updateClock = () => {
     for (const type of ['initial', 'increment'] as const) {
-      const selectEl = this.dialog.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
+      const selectEl = this.dialog.viewEl.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
       this.setup[type] = Number(selectEl?.value);
     }
   };
 
   private fight = () => {
     this.updateClock();
-    this.setup.go = true;
     if (env.game) {
-      env.game.reset(this.setup);
+      console.log(this.setup);
+      env.game.load(this.setup);
       this.dialog.close(this.uid);
       env.redraw();
       return;
     }
+    const fragParams = ['go=true'];
     localStorage.setItem('local.setup', JSON.stringify(this.setup));
-    window.location.href = `/local`;
+    for (const [key, val] of Object.entries(this.setup)) {
+      if (key && val) fragParams.push(`${key}=${encodeURIComponent(val)}`);
+    }
+    site.redirect(`/local${fragParams.length ? `#${fragParams.join('&')}` : ''}`);
   };
 
   private switch = () => {

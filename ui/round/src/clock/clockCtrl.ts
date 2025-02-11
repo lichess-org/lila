@@ -106,12 +106,14 @@ export class ClockController {
       activeColor: isClockRunning ? d.game.player : undefined,
       lastUpdate: performance.now() + delayMs,
     };
+    if (isNaN(this.times.white) || isNaN(this.times.black)) debugger;
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
   };
 
   addTime = (color: Color, time: Centis): void => {
     this.times[color] += time * 10;
+    if (isNaN(this.times[color])) debugger;
   };
 
   stopClock = (): Millis | void => {
@@ -119,6 +121,7 @@ export class ClockController {
     if (color) {
       const curElapse = this.elapsed();
       this.times[color] = Math.max(0, this.times[color] - curElapse);
+      if (isNaN(this.times[color])) debugger;
       this.times.activeColor = undefined;
       return curElapse;
     }

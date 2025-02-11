@@ -5,8 +5,6 @@
     user-select: none;
     cursor: pointer;
     position: absolute;
-    top: 0;
-    left: 0;
     border-radius: 6px;
     background-color: #f0f0f0;
     border: 1px solid gray;
@@ -31,9 +29,9 @@
       top: 50%;
       left: 110%;
     }
-    &.dragging {
-      transition: 0.05s;
-    }
+    // &.dragging {
+    //   transition: 0.05s;
+    // }
     &.selected {
       pointer-events: none;
       border: none;

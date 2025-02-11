@@ -93,13 +93,25 @@ async function renderLocalGames(page?: 'first' | 'last') {
 
   const dates = [...games].map(game => game.querySelector('time[datetime]')?.getAttribute('datetime'));
   let newContent = false;
+  // if (page === 'first' && dates.length) {
+  //   const begin = new Date(dates[0]!).getTime();
+  //   const localGames = await local.db.byDate(undefined, begin);
+  //   const head = games[0];
+  //   for (const localGame of localGames) {
+  //     if (document.getElementById(localGame.id)) continue;
+  //     const gameEl = renderGame(localGame);
+  //     newContent = true;
+  //     gamesAngle.insertBefore(gameEl, head);
+  //   }
+
+  // }
   for (let i = 0; i < dates.length; i++) {
     if (!dates[i]) continue;
-    const upper = new Date(dates[i]!).getTime();
-    const lower = dates.find((d, j) => d && j > i);
-    const upperDate = upper /*&& page !== 'first'*/ ? new Date(upper).getTime() : undefined;
-    const lowerDate = lower /*&& page !== 'last'*/ ? new Date(lower).getTime() : undefined;
-    const localGames = await local.db.byDate(lowerDate, upperDate);
+    const end = new Date(dates[i]!).getTime();
+    const begin = dates.find((d, j) => d && j > i);
+    const endDate = end /*&& page !== 'first'*/ ? new Date(end).getTime() : undefined;
+    const beginDate = begin ? new Date(begin).getTime() : page === 'last' ? undefined : endDate;
+    const localGames = await local.db.byDate(beginDate, endDate);
     console.log(localGames);
 
     for (const localGame of localGames) {
@@ -116,7 +128,7 @@ async function renderLocalGames(page?: 'first' | 'last') {
 function renderGame(game: LiteGame) {
   return frag<HTMLElement>($html`
     <article id="${game.id}" class="game-row local">
-      <a class="game-row__overlay" href="/local/${game.id}"></a>
+      <a class="game-row__overlay" href="/local#id=${game.id}"></a>
       <div class="game-row__board">
         <span class="mini-board mini-board--init cg-wrap is2d"
           data-state="${game.fen},${game.turn},${game.lastMove}">

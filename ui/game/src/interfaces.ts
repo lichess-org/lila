@@ -201,14 +201,6 @@ export interface MaterialDiff {
   black: MaterialDiffSide;
 }
 
-export interface LocalSetup {
-  white?: string;
-  black?: string;
-  initialFen?: FEN;
-  initial?: Seconds;
-  increment?: Seconds;
-}
-
 export interface RoundStep {
   ply: Ply;
   fen: FEN;

@@ -1,23 +1,24 @@
 import { type ObjectStorage, objectStorage, range } from 'common/objectStorage';
-import { LocalGame } from './localGame';
+import { type LocalGame, LocalGameData } from './localGame';
 import { status } from 'game';
 import { type StatusId, clockToSpeed } from 'game';
 import { myUserId } from 'common';
 
 export class LocalDb {
-  store: ObjectStorage<LocalGame> | undefined;
-  lite: ObjectStorage<LiteGame> | undefined;
+  store: ObjectStorage<LocalGameData> | undefined;
+  miniStore: ObjectStorage<MiniGame> | undefined;
 
   constructor() {}
 
   async init(): Promise<this> {
-    [this.store, this.lite] = await Promise.all([
+    [this.store, this.miniStore] = await Promise.all([
       objectStorage<LocalGame>({
         store: 'local.games',
+        version: 1,
       }),
-      objectStorage<LiteGame>({
+      objectStorage<MiniGame>({
         store: 'local.games.lite',
-        version: 3,
+        version: 1,
         indices: [
           { name: 'createdAt', keyPath: 'createdAt' },
           { name: 'white', keyPath: 'white' },
@@ -40,23 +41,31 @@ export class LocalDb {
     else localStorage.removeItem(`local.${myUserId() ?? 'anonymous'}.gameId`);
   }
 
-  async getOne(id: string | undefined = this.lastId): Promise<LocalGame | undefined> {
+  async get(id: string | undefined = this.lastId): Promise<LocalGameData | undefined> {
     // optional chaining in query methods as idb can be undefined in legacy incognito
-    return id ? this.store?.get(id) : Promise.resolve(undefined);
+    return id ? await this.store?.get(id) : Promise.resolve(undefined);
   }
 
-  async byDate(after: number | undefined, until: number | undefined): Promise<LiteGame[]> {
-    const games: LiteGame[] = [];
-    await this.lite?.readCursor({ index: 'createdAt', query: range({ above: after, max: until }) }, info =>
-      games.push(info),
+  async byDate(after: number | undefined, until: number | undefined): Promise<MiniGame[]> {
+    const games: MiniGame[] = [];
+    await this.miniStore?.readCursor(
+      { index: 'createdAt', query: range({ above: after, max: until }) },
+      info => games.push(info),
     );
     return games;
   }
 
-  async ongoing(): Promise<LiteGame[]> {
-    const games: LiteGame[] = [];
-    await this.lite?.readCursor({ index: 'status', query: status.started }, info => games.push(info));
+  async ongoing(): Promise<MiniGame[]> {
+    const games: MiniGame[] = [];
+    await this.miniStore?.readCursor({ index: 'status', query: status.started }, info => games.push(info));
     return games;
+  }
+
+  async put(game: LocalGame): Promise<void> {
+    const lite = makeMini(game);
+    const data = structuredClone(game);
+    await Promise.all([this.store?.put(data.id, data), this.miniStore?.put(lite.id, lite)]);
+    this.lastId = data.id;
   }
 
   // delete(ids?: string[] | string): Promise<any> {
@@ -69,24 +78,10 @@ export class LocalDb {
   //       }),
   //     );
   // }
-
-  async put(game: LocalGame): Promise<void> {
-    const lite = makeLite(game);
-    game = structuredClone(game);
-    await Promise.all([this.store?.put(game.id, game), this.lite?.put(lite.id, lite)]);
-    this.lastId = game.id;
-  }
 }
 
-export interface LiteGame {
-  id: string;
-  white?: string;
-  black?: string;
-  createdAt: Millis;
-  initial: Seconds;
-  increment: Seconds;
+export class MiniGame extends LocalGameData {
   speed: Speed;
-  initialFen: FEN;
   fen: FEN;
   turn: Color;
   lastMove: Uci;
@@ -94,7 +89,7 @@ export interface LiteGame {
   winner?: string;
 }
 
-function makeLite(game: LocalGame): LiteGame {
+function makeMini(game: LocalGame): MiniGame {
   return {
     ...game,
     speed: game.initial === Infinity ? 'correspondence' : clockToSpeed(game.initial, game.increment),

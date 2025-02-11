@@ -6,12 +6,17 @@ import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
 import { showSetupDialog } from './setupDialog';
 import { env, makeEnv } from './localEnv';
+import { LocalGame } from './localGame';
 import { renderGameView } from './gameView';
-import type { LocalPlayOpts } from './types';
+import type { LocalPlayOpts, LocalSetup } from './types';
 
 const patch = init([classModule, attributesModule]);
 
+type SetupOpts = LocalSetup & { id?: string; go?: true };
+
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
+  const setup = setupOpts();
+  console.log('local init', setup);
   makeEnv({
     redraw,
     bot: new BotCtrl(),
@@ -20,7 +25,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
     game: new GameCtrl(opts),
   });
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.assets.init()]);
-  await env.game.init();
+  env.game.load('id' in setup ? await env.db.get(setup.id) : setup);
 
   const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
@@ -28,13 +33,23 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
 
   env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
-  if (!opts.localGameId && (location.hash === '#new' || !opts.setup?.go)) {
-    showSetupDialog(opts.setup);
-    return;
-  }
+
+  if ('go' in setup || 'id' in setup) return;
+
+  const lastSetup = localStorage.getItem('local.setup');
+  showSetupDialog(lastSetup ? JSON.parse(lastSetup) : {});
 
   function redraw() {
     vnode = patch(vnode, renderGameView());
     env.round.redraw();
   }
+}
+
+function setupOpts(): SetupOpts {
+  const params = location.hash
+    .slice(1)
+    .split('&')
+    .map(p => decodeURIComponent(p).split('='))
+    .filter(p => p.length === 2);
+  return Object.fromEntries(params);
 }

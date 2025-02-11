@@ -43,7 +43,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   });
 
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
-  await env.game.init();
+  env.game.load(await env.db.get());
 
   const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);

@@ -2,7 +2,6 @@ import makeZerofish, { type Zerofish, type Position } from 'zerofish';
 import * as co from 'chessops';
 import { Bot, score } from './bot';
 import { RateBot } from './dev/rateBot';
-import { closeEnough } from './dev/devUtil';
 import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { defined } from 'common';
@@ -110,6 +109,7 @@ export class BotCtrl {
   setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
     this.uids.white = white;
     this.uids.black = black;
+    env.assets.preload([white, black].filter(defined));
   }
 
   stop(): void {
@@ -124,13 +124,14 @@ export class BotCtrl {
   save(bot: BotInfo): Promise<any> {
     delete this.localBots[bot.uid];
     this.bots[bot.uid] = new Bot(bot);
-    if (closeEnough(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
+    if (Bot.isSame(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
     this.localBots[bot.uid] = deepFreeze(structuredClone(bot));
     return this.store.put(bot.uid, bot);
   }
 
   async setServer(bot: BotInfo): Promise<void> {
     this.bots[bot.uid] = new Bot(bot);
+    console.log('from server', bot);
     this.serverBots[bot.uid] = deepFreeze(structuredClone(bot));
     delete this.localBots[bot.uid];
     await this.store.remove(bot.uid);
@@ -167,7 +168,7 @@ export class BotCtrl {
     if (isDirty?.(local ?? server)) cd?.classList.push('dirty');
     if (!server) cd?.classList.push('local-only');
     else if (server.version > bot.version) cd?.classList.push('upstream-changes');
-    else if (local && !closeEnough(local, server)) cd?.classList.push('local-changes');
+    else if (local && !Bot.isSame(local, server)) cd?.classList.push('local-changes');
     return cd;
   }
 

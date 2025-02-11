@@ -15,28 +15,10 @@ import lila.security.Permission
 import lila.local.{ GameSetup, AssetType }
 
 final class Local(env: Env) extends LilaController(env):
-  def index(
-      white: Option[String],
-      black: Option[String],
-      fen: Option[String],
-      time: Option[String],
-      go: Option[String]
-  ) = Open:
-    val initial   = time.map(_.toFloat)
-    val increment = time.flatMap(_.split('+').drop(1).headOption.map(_.toFloat))
-    val setup =
-      if white.isDefined || black.isDefined || fen.isDefined || time.isDefined then
-        GameSetup(white, black, fen, initial, increment, optTrue(go)).some
-      else none
+  def index = Open:
     for
       bots <- env.local.repo.getLatestBots()
-      page <- renderPage(indexPage(setup, bots, none))
-    yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
-
-  def game(localId: String) = Open:
-    for
-      bots <- env.local.repo.getLatestBots()
-      page <- renderPage(gamePage(localId, bots))
+      page <- renderPage(indexPage(bots, none))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
   def bots = Open:
@@ -51,12 +33,12 @@ final class Local(env: Env) extends LilaController(env):
   def devIndex = Auth: _ ?=>
     for
       bots   <- env.local.repo.getLatestBots()
-      assets <- getDevAssets
-      page   <- renderPage(indexPage(none, bots, assets.some))
+      assets <- devGetAssets
+      page   <- renderPage(indexPage(bots, assets.some))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
   def devAssets = Auth: ctx ?=>
-    getDevAssets.map(JsonOk)
+    devGetAssets.map(JsonOk)
 
   def devBotHistory(botId: Option[String]) = Auth: _ ?=>
     env.local.repo
@@ -80,12 +62,12 @@ final class Local(env: Env) extends LilaController(env):
   def devNameAsset(key: String, name: String) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .nameAsset(none, key, name, none)
-      .flatMap(_ => getDevAssets.map(JsonOk))
+      .flatMap(_ => devGetAssets.map(JsonOk))
 
   def devDeleteAsset(key: String) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .deleteAsset(key)
-      .flatMap(_ => getDevAssets.map(JsonOk))
+      .flatMap(_ => devGetAssets.map(JsonOk))
 
   def devPostAsset(notAString: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) {
     ctx ?=>
@@ -106,14 +88,13 @@ final class Local(env: Env) extends LilaController(env):
         .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
   }
 
-  private def indexPage(setup: Option[GameSetup], bots: JsArray, devAssets: Option[JsObject] = none)(using
+  private def indexPage(bots: JsArray, devAssets: Option[JsObject] = none)(using
       ctx: Context
   ) =
     given setupFormat: Format[GameSetup] = Json.format[GameSetup]
     views.local.index(
       Json
         .obj("pref" -> pref, "bots" -> bots)
-        .add("setup", setup)
         .add("assets", devAssets)
         .add("userId", ctx.me.map(_.userId))
         .add("username", ctx.me.map(_.username))
@@ -121,21 +102,7 @@ final class Local(env: Env) extends LilaController(env):
       if devAssets.isDefined then "local.dev" else "local"
     )
 
-  private def gamePage(localId: String, bots: JsArray, devAssets: Option[JsObject] = none)(using
-      ctx: Context
-  ) =
-    given setupFormat: Format[GameSetup] = Json.format[GameSetup]
-    views.local.index(
-      Json
-        .obj("pref" -> pref, "bots" -> bots, "localGameId" -> localId)
-        .add("assets", devAssets)
-        .add("userId", ctx.me.map(_.userId))
-        .add("username", ctx.me.map(_.username))
-        .add("canPost", isGrantedOpt(_.BotEditor)),
-      if devAssets.isDefined then "local.dev" else "local"
-    )
-
-  private def getDevAssets =
+  private def devGetAssets =
     env.local.repo.getAssets.map: m =>
       JsObject:
         env.local.api.assetKeys

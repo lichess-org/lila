@@ -64,7 +64,7 @@ export class DevCtrl {
     }
     const game = this.script.games.shift();
     if (!game) return false;
-    env.game.reset({ ...game, initialFen: env.game.initialFen });
+    env.game.load({ ...game, setupFen: env.game.live.setupFen });
     env.redraw();
     env.game.start();
     return true;
@@ -95,7 +95,7 @@ export class DevCtrl {
         JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
       this.trace.push(
         `\n${white} vs ${black} ${env.game.speed} ${env.game.initial ?? ''}` +
-          `${env.game.increment ? `-${env.game.increment}` : ''} ${env.game.initialFen}`,
+          `${env.game.increment ? `-${env.game.increment}` : ''} ${env.game.live.initialFen}`,
       );
       this.trace.push(`\nWhite: '${white}' ${env.bot.white ? stringify(env.bot.white) : ''}`);
       this.trace.push(`Black: '${black}' ${env.bot.black ? stringify(env.bot.black) : ''}`);
@@ -113,13 +113,13 @@ export class DevCtrl {
     if (trace) this.trace.push(trace);
   }
 
-  onGameOver({ winner, turn, reason, status }: GameStatus): boolean {
+  onGameOver({ winner, reason, status }: GameStatus): boolean {
     const last = { winner, white: this.white?.uid, black: this.black?.uid };
     this.log.push(last);
     const matchup = `'${env.game.nameOf('white')}' vs '${env.game.nameOf('black')}'`;
     const error =
       status === statusOf('unknownFinish') &&
-      `${matchup} - ${turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`;
+      `${matchup} - ${env.game.live.turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`;
     const result = `${matchup}:${winner ? ` ${env.game.nameOf(winner)} wins by` : ''} ${status.name} ${reason ?? ''}`;
     this.trace.push(`\n ${error || result}\n`);
     this.trace.push('='.repeat(144));
@@ -165,7 +165,7 @@ export class DevCtrl {
   }
 
   get gameInProgress(): boolean {
-    return !!env.game.history || (env.game.live.ply > 0 && !env.game.live.finished);
+    return !!env.game.rewind || (env.game.live.ply > 0 && !env.game.live.finished);
   }
 
   async clearRatings(): Promise<void> {
