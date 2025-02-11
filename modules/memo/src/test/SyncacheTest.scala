@@ -30,6 +30,7 @@ class SyncacheTest extends TestKit(ActorSystem()) with SpecificationLike with Af
         default = s => s"default $s",
         strategy = Syncache.AlwaysWait(1 second),
         expireAfter = Syncache.ExpireAfterWrite(20 seconds),
+        refreshAfter = Syncache.NoRefresh,
       )
       val threads = 20
       val keys    = 50

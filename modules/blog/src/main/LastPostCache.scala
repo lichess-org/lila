@@ -20,8 +20,8 @@ final class LastPostCache(
     initialCapacity = 2,
     compute = langCode => fetch(BlogLang.fromLangCode(langCode)),
     default = _ => Nil,
-    expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),
     strategy = Syncache.NeverWait,
+    refreshAfter = Syncache.RefreshAfterWrite(config.lastPostTtl),
   )
 
   private def fetch(lang: BlogLang): Fu[List[MiniPost]] = {

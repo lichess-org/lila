@@ -20,6 +20,7 @@ final private[memo] class Syncache[K, V](
     default: K => V,
     strategy: Syncache.Strategy,
     expireAfter: Syncache.ExpireAfter,
+    refreshAfter: Syncache.RefreshAfter,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Syncache._
@@ -36,6 +37,16 @@ final private[memo] class Syncache[K, V](
             c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
           case ExpireAfterWrite(duration) =>
             c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+          case NoExpire =>
+            c
+        }
+      }
+      .pipe { c =>
+        refreshAfter match {
+          case RefreshAfterWrite(duration) =>
+            c.refreshAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+          case NoRefresh =>
+            c
         }
       }
       .recordStats
@@ -113,4 +124,9 @@ object Syncache {
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter
   case class ExpireAfterWrite(duration: FiniteDuration)  extends ExpireAfter
+  case object NoExpire                                   extends ExpireAfter
+
+  sealed trait RefreshAfter
+  case class RefreshAfterWrite(duration: FiniteDuration) extends RefreshAfter
+  case object NoRefresh                                  extends RefreshAfter
 }

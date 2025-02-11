@@ -40,12 +40,14 @@ final class CacheApi(
       compute: K => Fu[V],
       default: K => V,
       strategy: Syncache.Strategy,
-      expireAfter: Syncache.ExpireAfter,
+      expireAfter: Syncache.ExpireAfter = Syncache.NoExpire,
+      refreshAfter: Syncache.RefreshAfter = Syncache.NoRefresh,
   ): Syncache[K, V] = {
     val actualCapacity =
       if (mode != Mode.Prod) math.sqrt(initialCapacity.toDouble).toInt atLeast 1
       else initialCapacity
-    val cache = new Syncache(name, actualCapacity, compute, default, strategy, expireAfter)
+    val cache =
+      new Syncache(name, actualCapacity, compute, default, strategy, expireAfter, refreshAfter)
     monitor(name, cache.cache)
     cache
   }
