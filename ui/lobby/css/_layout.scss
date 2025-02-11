@@ -140,10 +140,12 @@
 
   &__tournaments {
     grid-area: tours;
+    min-height: 10rem;
   }
 
   &__studies {
     grid-area: studies;
+    min-height: 10rem;
   }
 
   &__forum {
