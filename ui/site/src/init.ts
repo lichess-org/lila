@@ -314,57 +314,61 @@ export function init(): void {
   });
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = new URL(
-      assetUrl(compiledScriptPath('service-worker'), {
-        sameDomain: true,
-      }),
-      self.location.href,
-    );
-    workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
-    if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
-    const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
-    navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache }).then(reg => {
-      const pushStorage = storage.make('push-subscribed2');
-      const vapid = document.body.getAttribute('data-vapid');
-      if (vapid && Notification.permission == 'granted') {
-        reg.pushManager.getSubscription().then(sub => {
-          const curKey = sub?.options.applicationServerKey;
-          const isNewKey =
-            curKey && btoa(String.fromCharCode.apply(null, new Uint8Array(curKey))) !== vapid;
-          const resub =
-            isNewKey || Number.parseInt(pushStorage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
-          if (!sub || resub) {
-            const subscribeOptions = {
-              userVisibleOnly: true,
-              applicationServerKey: Uint8Array.from(atob(vapid), c => c.charCodeAt(0)),
-            };
-            (isNewKey
-              ? sub.unsubscribe().then(() => reg.pushManager.subscribe(subscribeOptions))
-              : reg.pushManager.subscribe(subscribeOptions)
-            ).then(
-              sub =>
-                fetch('/push/subscribe', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(sub),
-                }).then(res => {
-                  if (res.ok && !res.redirected) pushStorage.set(`${Date.now()}`);
-                  else sub.unsubscribe();
-                }),
-              err => {
-                console.log('push subscribe failed', err.message);
-                if (sub) sub.unsubscribe();
-              },
-            );
-          }
-        });
-      } else {
-        pushStorage.remove();
-        reg.pushManager.getSubscription().then(sub => sub?.unsubscribe());
-      }
-    });
+    try {
+      const workerUrl = new URL(
+        assetUrl(compiledScriptPath('service-worker'), {
+          sameDomain: true,
+        }),
+        self.location.href,
+      );
+      workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
+      if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
+      const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
+      navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache }).then(reg => {
+        const pushStorage = storage.make('push-subscribed2');
+        const vapid = document.body.getAttribute('data-vapid');
+        if (vapid && Notification.permission == 'granted') {
+          reg.pushManager.getSubscription().then(sub => {
+            const curKey = sub?.options.applicationServerKey;
+            const isNewKey =
+              curKey && btoa(String.fromCharCode.apply(null, new Uint8Array(curKey))) !== vapid;
+            const resub =
+              isNewKey || Number.parseInt(pushStorage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+            if (!sub || resub) {
+              const subscribeOptions = {
+                userVisibleOnly: true,
+                applicationServerKey: Uint8Array.from(atob(vapid), c => c.charCodeAt(0)),
+              };
+              (isNewKey
+                ? sub.unsubscribe().then(() => reg.pushManager.subscribe(subscribeOptions))
+                : reg.pushManager.subscribe(subscribeOptions)
+              ).then(
+                sub =>
+                  fetch('/push/subscribe', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(sub),
+                  }).then(res => {
+                    if (res.ok && !res.redirected) pushStorage.set(`${Date.now()}`);
+                    else sub.unsubscribe();
+                  }),
+                err => {
+                  console.log('push subscribe failed', err.message);
+                  if (sub) sub.unsubscribe();
+                },
+              );
+            }
+          });
+        } else {
+          pushStorage.remove();
+          reg.pushManager.getSubscription().then(sub => sub?.unsubscribe());
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
 
