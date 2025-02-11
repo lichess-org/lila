@@ -79,4 +79,5 @@
   <string name="pastBroadcasts">Pasatutako zuzenekoak</string>
   <string name="allBroadcastsByMonth">Ikusi zuzeneko guztiak hilabeteka</string>
   <string name="backToLiveMove">Zuzeneko jokaldi-modura itzuli</string>
+  <string name="sinceHideResults">Emaitzak ezkutatzea erabaki duzunez, taulen aurreikuspenak hutsik daude.</string>
 </resources>
