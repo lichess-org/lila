@@ -679,6 +679,15 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
 
+  ui/user:
+    dependencies:
+      bits:
+        specifier: workspace:*
+        version: link:../bits
+      common:
+        specifier: workspace:*
+        version: link:../common
+
   ui/voice:
     dependencies:
       chess:
