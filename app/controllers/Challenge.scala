@@ -290,7 +290,7 @@ final class Challenge(env: Env) extends LilaController(env):
                   JsonBadRequest(jsonError("Rules not applicable for bots"))
                 case Some(destUser) =>
                   env.relation.api
-                    .fetchFollows(destUser.id, me.id)
+                    .fetchFollows(destUser.id, me.userId)
                     .flatMap: isFriend =>
                       val cost = if isFriend || me.isApiHog then 0 else if destUser.isBot then 1 else 5
                       limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
