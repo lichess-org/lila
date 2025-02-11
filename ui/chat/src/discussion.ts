@@ -18,7 +18,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   const scrollCb = (vnode: VNode) => {
       const el = vnode.elm as HTMLElement;
       if (ctrl.data.lines.length > 5) {
-        const autoScroll = el.scrollTop > el.scrollHeight - el.clientHeight - 100;
+        const autoScroll = el.scrollTop > el.scrollHeight - el.clientHeight - 50;
         if (autoScroll) {
           el.scrollTop = 999999;
           setTimeout((_: any) => (el.scrollTop = 999999), 300);
