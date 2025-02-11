@@ -16,8 +16,6 @@
   <string name="addRound">Lägg till en omgång</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommande</string>
-  <string name="completed">Slutförda</string>
-  <string name="completedHelp">Lichess upptäcker slutförandet av rundor baserat på källspelen. Använd detta alternativ om det inte finns någon källa.</string>
   <string name="roundName">Omgångens namn</string>
   <string name="roundNumber">Omgångens nummer</string>
   <string name="tournamentName">Turneringens namn</string>

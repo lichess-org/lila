@@ -16,8 +16,6 @@
   <string name="addRound">Eine Runde hinzufügen</string>
   <string name="ongoing">Laufend</string>
   <string name="upcoming">Demnächst</string>
-  <string name="completed">Beendet</string>
-  <string name="completedHelp">Lichess erkennt Rundenabschlüsse basierend auf den Quellspielen. Verwende diesen Schalter, wenn keine Quelle vorhanden ist.</string>
   <string name="roundName">Rundenname</string>
   <string name="roundNumber">Rundennummer</string>
   <string name="tournamentName">Turniername</string>

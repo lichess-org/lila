@@ -16,8 +16,6 @@
   <string name="addRound">Legg til ein runde</string>
   <string name="ongoing">Pågåande</string>
   <string name="upcoming">Kommande</string>
-  <string name="completed">Fullførde</string>
-  <string name="completedHelp">Lichess detekterer ferdigspela rundar basert på kjeldeparita. Bruk denne innstillinga om det ikkje finst ei kjelde.</string>
   <string name="roundName">Rundenamn</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnamn</string>

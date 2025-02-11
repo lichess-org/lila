@@ -16,8 +16,6 @@
   <string name="addRound">E Rundi zuefüege</string>
   <string name="ongoing">Laufend</string>
   <string name="upcoming">Demnächscht</string>
-  <string name="completed">Beändet</string>
-  <string name="completedHelp">Lichess erkännt de Rundeschluss oder au nöd! De Schalter setz das uf \"manuell\".</string>
   <string name="roundName">Runde Name</string>
   <string name="roundNumber">Runde Nummere</string>
   <string name="tournamentName">Turnier Name</string>

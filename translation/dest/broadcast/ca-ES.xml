@@ -16,8 +16,6 @@
   <string name="addRound">Afegir una ronda</string>
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>
-  <string name="completed">Acabada</string>
-  <string name="completedHelp">Lichess detecta el final de la ronda en funció de les partides de l\'origen. Utilitzeu aquesta opció si no hi ha origen.</string>
   <string name="roundName">Nom de ronda</string>
   <string name="roundNumber">Ronda número</string>
   <string name="tournamentName">Nom del torneig</string>

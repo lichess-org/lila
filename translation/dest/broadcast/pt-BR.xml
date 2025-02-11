@@ -16,8 +16,6 @@
   <string name="addRound">Adicionar uma rodada</string>
   <string name="ongoing">Em andamento</string>
   <string name="upcoming">Próximos</string>
-  <string name="completed">Concluído</string>
-  <string name="completedHelp">O Lichess detecta o fim da rodada baseado nos jogos fonte. Use essa opção se não houver fonte.</string>
   <string name="roundName">Nome da rodada</string>
   <string name="roundNumber">Número da rodada</string>
   <string name="tournamentName">Nome do torneio</string>

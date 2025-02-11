@@ -16,8 +16,6 @@
   <string name="addRound">Gehitu txanda bat</string>
   <string name="ongoing">Orain martxan</string>
   <string name="upcoming">Hurrengo emanaldiak</string>
-  <string name="completed">Amaitutako emanaldiak</string>
-  <string name="completedHelp">Txanda amaitu dela jatorrizko partidekin detektatzen du Lichessek. Erabili aukera hau jatorririk ez badago.</string>
   <string name="roundName">Txandaren izena</string>
   <string name="roundNumber">Txanda zenbaki</string>
   <string name="tournamentName">Txapelketaren izena</string>
@@ -81,4 +79,5 @@
   <string name="pastBroadcasts">Pasatutako zuzenekoak</string>
   <string name="allBroadcastsByMonth">Ikusi zuzeneko guztiak hilabeteka</string>
   <string name="backToLiveMove">Zuzeneko jokaldi-modura itzuli</string>
+  <string name="sinceHideResults">Emaitzak ezkutatzea erabaki duzunez, taulen aurreikuspenak hutsik daude.</string>
 </resources>
