@@ -13,7 +13,7 @@ case class MiniPost(
 object MiniPost {
 
   def fromDocument(coll: String, imgSize: String = "icon")(
-      doc: io.prismic.Document,
+      doc: lila.prismic.Document,
   ): Option[MiniPost] =
     for {
       title <- doc getText s"$coll.title"

@@ -10,8 +10,8 @@ import lila.app.ui.ScalatagsTemplate._
 object variant {
 
   def show(
-      doc: io.prismic.Document,
-      resolver: io.prismic.DocumentLinkResolver,
+      doc: lila.prismic.Document,
+      resolver: lila.prismic.DocumentLinkResolver,
       shogiVariant: shogi.variant.Variant,
   )(implicit ctx: Context) =
     layout(
@@ -21,7 +21,7 @@ object variant {
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${variantName(shogiVariant)} - ${trans.variant.txt()}",
-          url = s"$netBaseUrl${routes.Page.variant(shogiVariant.key)}",
+          url = s"$netBaseUrl${routes.Prismic.variant(shogiVariant.key)}",
           description = variantDescription(shogiVariant),
         )
         .some,
@@ -43,7 +43,7 @@ object variant {
         shogi.variant.Variant.all.withFilter(!_.standard) map { v =>
           a(
             cls      := "variant text box__pad",
-            href     := routes.Page.variant(v.key),
+            href     := routes.Prismic.variant(v.key),
             dataIcon := variantIcon(v),
           )(
             span(
@@ -73,7 +73,7 @@ object variant {
           shogi.variant.Variant.all.withFilter(!_.standard) map { v =>
             a(
               cls      := List("text" -> true, "active" -> activeKey.has(v.key)),
-              href     := routes.Page.variant(v.key),
+              href     := routes.Prismic.variant(v.key),
               dataIcon := variantIcon(v),
             )(variantName(v))
           },

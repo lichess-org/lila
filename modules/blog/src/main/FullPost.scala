@@ -3,7 +3,7 @@ package lila.blog
 import org.joda.time.DateTime
 
 case class FullPost(
-    doc: io.prismic.Document,
+    doc: lila.prismic.Document,
     id: String,
     coll: String,
     title: String,
@@ -19,7 +19,7 @@ case class FullPost(
 object FullPost {
 
   def fromDocument(coll: String)(
-      doc: io.prismic.Document,
+      doc: lila.prismic.Document,
   ): Option[FullPost] =
     for {
       title    <- doc getText s"$coll.title"

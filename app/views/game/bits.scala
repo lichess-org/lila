@@ -81,7 +81,7 @@ object bits {
 
     if (!variant.standard)
       link(
-        href = routes.Page.variant(variant.key).url,
+        href = routes.Prismic.variant(variant.key).url,
         title = variantDescription(variant),
         name = variantName(variant),
       )

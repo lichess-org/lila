@@ -8,7 +8,6 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 
 private class BlogConfig(
-    @ConfigName("prismic.api_url") val apiUrl: String,
     val collection: String,
     @ConfigName("last_post_cache.ttl") val lastPostTtl: FiniteDuration,
 )
@@ -16,6 +15,7 @@ private class BlogConfig(
 @Module
 final class Env(
     appConfig: Configuration,
+    prismicApi: lila.prismic.Prismic,
     timelineApi: lila.timeline.EntryApi,
     cacheApi: lila.memo.CacheApi,
 )(implicit

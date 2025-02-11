@@ -23,6 +23,7 @@ import lila.memo.SettingStore.Strings._
 final class Env(
     val config: Configuration,
     val common: lila.common.Env,
+    val prismic: lila.prismic.Env,
     val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
     val user: lila.user.Env,
@@ -195,6 +196,7 @@ final class EnvBoot(
   lazy val common: lila.common.Env           = wire[lila.common.Env]
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
+  lazy val prismic: lila.prismic.Env         = wire[lila.prismic.Env]
   lazy val user: lila.user.Env               = wire[lila.user.Env]
   lazy val security: lila.security.Env       = wire[lila.security.Env]
   lazy val hub: lila.hub.Env                 = wire[lila.hub.Env]

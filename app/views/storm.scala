@@ -45,7 +45,7 @@ object storm {
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Page.storm)("About Tsume Storm"),
+          a(href := routes.Prismic.page("storm"))("About Tsume Storm"),
         ),
       )
     }

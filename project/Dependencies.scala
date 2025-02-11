@@ -17,7 +17,6 @@ object Dependencies {
   val hasher    = "com.roundeights"       %% "hasher"               % "1.2.1"
   val jodaTime  = "joda-time"              % "joda-time"            % "2.13.0"
   val maxmind   = "com.sanoma.cda"        %% "maxmind-geoip2-scala" % "1.3.1-THIB"
-  val prismic   = "io.prismic"            %% "scala-kit"            % "1.2.18-THIB213"
   val scrimage  = "com.sksamuel.scrimage"  % "scrimage-core"        % "4.3.0"
   val scaffeine = "com.github.blemale"    %% "scaffeine"            % "5.3.0" % "compile"
   val googleOAuth = "com.google.auth"    % "google-auth-library-oauth2-http" % "1.30.0"
@@ -34,6 +33,7 @@ object Dependencies {
     val core      = PlayImport.playCore
     val ws        = PlayImport.ws
     val json      = "com.typesafe.play" %% "play-json" % "2.10.6"
+    val jsonJoda  = "com.typesafe.play" %% "play-json-joda" % "2.10.6"
     val jodaForms = PlayImport.jodaForms
     val specs2    = PlayImport.specs2    % Test
   }

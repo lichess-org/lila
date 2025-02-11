@@ -10,23 +10,22 @@ import lila.common.config.MaxPerPage
 
 final class Blog(
     env: Env,
-    prismicC: Prismic,
 ) extends LilaController(env) {
 
-  import prismicC._
+  import controllers.Prismic.documentLinkResolver
 
   private def blogApi = env.blog.api
 
   def index(page: Int) =
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
-      blogApi.recent(prismic, page, MaxPerPage(12), BlogLang.fromLang(ctx.lang)) flatMap {
+      blogApi.recent(prismic.api, page, MaxPerPage(12), BlogLang.fromLang(ctx.lang)) flatMap {
         case Some(response) => fuccess(Ok(views.html.blog.index(response)))
         case _              => notFound
       }
     }
 
-  def show(id: String, @scala.annotation.unused ref: Option[String]) =
+  def show(id: String) =
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
       blogApi.one(prismic, id) flatMap {
@@ -40,20 +39,20 @@ final class Blog(
       }
     }
 
-  def showBc(id: String, slug: String, ref: Option[String]) =
+  def showBc(id: String, slug: String) =
     WithPrismic { implicit ctx => implicit prismic =>
       blogApi.one(prismic, id) flatMap {
         case Some(post) if post.doc.slugs.contains(slug) =>
-          fuccess(MovedPermanently(routes.Blog.show(post.id, ref).url))
+          fuccess(MovedPermanently(routes.Blog.show(post.id).url))
         case _ => notFound
       }
     }
 
-  def latest(ref: Option[String]) =
+  def latest =
     WithPrismic { implicit ctx => implicit prismic =>
       blogApi.latest(prismic, BlogLang.fromLang(ctx.lang)) flatMap {
         case Some(post) =>
-          fuccess(Redirect(routes.Blog.show(post.id, ref)))
+          fuccess(Redirect(routes.Blog.show(post.id)))
         case _ => notFound
       }
     }
@@ -65,7 +64,7 @@ final class Blog(
     _.refreshAfterWrite(60.minutes)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
-          blogApi.recent(prismic.api, 1, MaxPerPage(50), BlogLang.default, none) map {
+          blogApi.recent(prismic.api, 1, MaxPerPage(50), BlogLang.default) map {
             _ ?? { docs =>
               views.html.blog.atom(docs, env.net.baseUrl).render
             }
@@ -125,7 +124,7 @@ final class Blog(
       env.forum.topicRepo.existsByTree(categSlug, topicSlug) flatMap {
         case true => fuccess(redirect)
         case _ =>
-          blogApi.one(prismic.api, none, id) flatMap {
+          blogApi.one(prismic.api, id) flatMap {
             _ ?? { post =>
               env.forum.categRepo.bySlug(categSlug) flatMap {
                 _ ?? { categ =>
@@ -144,7 +143,7 @@ final class Blog(
 
   private def WithPrismic(f: Context => BlogApi.Context => Fu[Result]): Action[Unit] =
     Open { ctx =>
-      blogApi context ctx.req flatMap { prismic =>
+      blogApi.context flatMap { prismic =>
         f(ctx)(prismic)
       }
     }

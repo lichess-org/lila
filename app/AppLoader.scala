@@ -118,7 +118,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val notifyC: Notify                = wire[Notify]
   lazy val oAuth: OAuth                   = wire[OAuth]
   lazy val oAuthToken: OAuthToken         = wire[OAuthToken]
-  lazy val page: Page                     = wire[Page]
   lazy val plan: Plan                     = wire[Plan]
   lazy val practice: Practice             = wire[Practice]
   lazy val pref: Pref                     = wire[Pref]

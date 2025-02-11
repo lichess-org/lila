@@ -1,79 +1,123 @@
 package controllers
 
-import io.prismic.{ Api => PrismicApi, _ }
-
 import lila.app._
 import lila.blog.BlogLang
+import lila.prismic.DocumentLinkResolver
+import lila.prismic.Predicate
 
 final class Prismic(
     env: Env,
-)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
+)(implicit ws: play.api.libs.ws.WSClient)
+    extends LilaController(env) {
 
   private val logger = lila.log("prismic")
 
-  private def prismicApi = env.blog.api.prismicApi
+  private def prismic = env.prismic.prismic
 
-  implicit def makeLinkResolver(
-      prismicApi: PrismicApi,
-      ref: Option[String] = None,
-  ): DocumentLinkResolver =
-    DocumentLinkResolver(prismicApi) {
-      case (link, _) => routes.Blog.show(link.id, ref).url
-      case _         => routes.Lobby.home.url
-    }
+  val thanks    = helpDocument("thanks")
+  val resources = helpDocument("resources")
+  val help      = helpDocument("help")
+  val about     = helpDocument("about")
+  val tos       = helpDocument("tos")
+  val privacy   = helpDocument("privacy")
+  val ads       = helpDocument("ads")
+  val donations = helpDocument("donations")
 
-  private def getDocument(id: String): Fu[Option[Document]] =
-    prismicApi flatMap { api =>
-      api
-        .forms("everything")
-        .query(s"""[[:d = at(document.id, "$id")]]""")
-        .ref(api.master.ref)
-        .submit() dmap {
-        _.results.headOption
+  private def helpDocument(uid: String) =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(getPage("doc", uid)) {
+        case (doc, resolver) => {
+          views.html.site.help.page(uid, doc, resolver)
+        }
       }
     }
 
-  private def getDocumentByUID(form: String, uid: String, lang: BlogLang) =
-    prismicApi flatMap { api =>
-      api
-        .forms("everything")
+  def page(uid: String) =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(getPage("doc", uid, BlogLang.fromLang(ctx.lang))) { case (doc, resolver) =>
+        uid match {
+          case "kif" | "csa" =>
+            views.html.site.notationExplanation(doc)
+          case _ => views.html.site.page(doc, resolver, lila.i18n.LangList.EnglishJapanese.some)
+        }
+      }
+    }
+
+  def bcPage(uid: String) =
+    Action {
+      if (List("storm", "impasse", "tsume", "kif", "csa").contains(uid))
+        MovedPermanently(routes.Prismic.page(uid).url)
+      else NotFound
+    }
+
+  def source =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(getPage("doc", "source")) { case (doc, resolver) =>
+        views.html.site.help.source(doc, resolver)
+      }
+    }
+
+  def variantHome =
+    Open { implicit ctx =>
+      import play.api.libs.json._
+      negotiate(
+        html = Ok(views.html.site.variant.home).fuccess,
+        json = Ok(JsArray(shogi.variant.Variant.all.map { v =>
+          Json.obj(
+            "id"   -> v.id,
+            "key"  -> v.key,
+            "name" -> v.name,
+          )
+        })).fuccess,
+      )
+    }
+
+  def variant(key: String) =
+    Open { implicit ctx =>
+      (for {
+        variant <- shogi.variant.Variant.byKey get key
+      } yield OptionOk(
+        getPage("variant", variant.key, BlogLang.fromLangCode(ctx.lang.code)),
+      ) { case (doc, resolver) =>
+        views.html.site.variant.show(doc, resolver, variant)
+      }) | notFound
+    }
+
+  private def getDocumentByUID(customType: String, uid: String, lang: BlogLang) =
+    prismic.get flatMap { api =>
+      api.search
         .set("lang", lang.code)
-        .query(s"""[[:d = at(my.$form.uid, "$uid")]]""")
+        .query(Predicate.at(s"document.type", customType), Predicate.at(s"my.$customType.uid", uid))
         .ref(api.master.ref)
         .submit() dmap {
         _.results.headOption
       }
     }
 
-  def getPage(form: String, uid: String, lang: BlogLang = BlogLang.default) =
-    prismicApi flatMap { api =>
-      getDocumentByUID(form, uid, lang) map2 { (doc: io.prismic.Document) =>
-        doc -> makeLinkResolver(api)
-      }
+  def getPage(customType: String, uid: String, lang: BlogLang = BlogLang.default) =
+    getDocumentByUID(customType, uid, lang) map2 { (doc: lila.prismic.Document) =>
+      doc -> Prismic.documentLinkResolver
     } recover { case e: Exception =>
       logger.error(s"page:$uid", e)
       none
     }
 
-  def getBookmark(name: String) =
-    prismicApi flatMap { api =>
-      api.bookmarks.get(name) ?? getDocument map2 { (doc: io.prismic.Document) =>
-        doc -> makeLinkResolver(api)
+}
+
+private[controllers] object Prismic {
+  implicit val documentLinkResolver: DocumentLinkResolver =
+    DocumentLinkResolver { link =>
+      link.typ match {
+        case "blog" =>
+          routes.Blog.show(link.id).url
+        case _ =>
+          link.uid.fold(routes.Lobby.home.url) { uid =>
+            routes.Prismic.page(uid).url
+          }
       }
-    } recover { case e: Exception =>
-      logger.error(s"bookmark:$name", e)
-      none
     }
 
-  def getVariant(variant: shogi.variant.Variant, lang: BlogLang) =
-    prismicApi flatMap { api =>
-      api
-        .forms("variant")
-        .set("lang", lang.code)
-        .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
-        .ref(api.master.ref)
-        .submit() map {
-        _.results.headOption map (_ -> makeLinkResolver(api))
-      }
-    }
 }

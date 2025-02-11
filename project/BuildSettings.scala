@@ -51,11 +51,11 @@ object BuildSettings {
       case "common" => {
         Seq(play.jodaForms, scalatags, kamon.core) ++ flexmark.bundle
       }
-      case "blog"     => Seq(prismic)
       case "db"       => Seq(hasher, scrimage)
       case "i18n"     => Seq(scalatags)
       case "memo"     => Seq(akka.testkit)
       case "oauth"    => Seq(galimatias, hasher)
+      case "prismic"  => Seq(play.jsonJoda, galimatias)
       case "push"     => Seq(googleOAuth)
       case "security" => Seq(hasher, maxmind, uaparser, scalatags)
       case "socket"   => Seq(lettuce)
@@ -63,7 +63,7 @@ object BuildSettings {
       case _          => Seq.empty
     }
 
-  def rootLibs = baseLibs ++ Seq(scalatags, prismic, kamon.influxdb, kamon.metrics, kamon.prometheus)
+  def rootLibs = baseLibs ++ Seq(scalatags, kamon.influxdb, kamon.metrics, kamon.prometheus)
 
   def module(
       name: String,

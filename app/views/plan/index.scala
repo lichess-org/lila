@@ -221,7 +221,7 @@ object index {
                           cls := "regular-checkbox",
                         ),
                         trans.agreeWithX(
-                          a(href := routes.Page.donations, target := "_blank")(
+                          a(href := routes.Prismic.donations, target := "_blank")(
                             donationPolicy(),
                           ),
                         ),

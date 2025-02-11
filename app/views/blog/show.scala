@@ -49,18 +49,16 @@ object show {
           ),
           ctx.noKid option
             div(cls := "footer")(
-              if (prismic.maybeRef.isEmpty) {
-                (
-                  post.date isAfter org.joda.time.DateTime.now.minusWeeks(2)
-                ) option
-                  a(
-                    href     := routes.Blog.discuss(post.doc.id),
-                    cls      := "button text discuss",
-                    dataIcon := "d",
-                  )(
-                    trans.discussBlogForum(),
-                  )
-              } else p("This is a preview."),
+              (
+                post.date isAfter org.joda.time.DateTime.now.minusWeeks(4)
+              ) option
+                a(
+                  href     := routes.Blog.discuss(post.doc.id),
+                  cls      := "button text discuss",
+                  dataIcon := "d",
+                )(
+                  trans.discussBlogForum(),
+                ),
               views.html.base.bits.connectLinks,
             ),
         ),

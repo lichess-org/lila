@@ -11,6 +11,7 @@ final class LastPostCache(
     api: BlogApi,
     config: BlogConfig,
     timelineApi: EntryApi,
+    prismic: lila.prismic.Prismic,
     cacheApi: CacheApi,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -24,8 +25,8 @@ final class LastPostCache(
   )
 
   private def fetch(lang: BlogLang): Fu[List[MiniPost]] = {
-    api.prismicApi flatMap { prismic =>
-      api.recent(prismic, page = 1, lila.common.config.MaxPerPage(3), lang, none) map {
+    prismic.get flatMap { prismicApi =>
+      api.recent(prismicApi, page = 1, lila.common.config.MaxPerPage(3), lang) map {
         _ ?? {
           _.currentPageResults.toList flatMap MiniPost.fromDocument(config.collection, "icon")
         }

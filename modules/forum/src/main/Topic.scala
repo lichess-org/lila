@@ -53,7 +53,7 @@ case class Topic(
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 
-  def isOld = updatedAt isBefore DateTime.now.minusMonths(1)
+  def isOld = updatedAt isBefore DateTime.now.minusMonths(2)
 }
 
 object Topic {

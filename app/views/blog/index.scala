@@ -12,7 +12,7 @@ import lila.common.paginator.Paginator
 object index {
 
   def apply(
-      pager: Paginator[io.prismic.Document],
+      pager: Paginator[lila.prismic.Document],
   )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) = {
 
     val primaryPost =
@@ -73,7 +73,7 @@ object index {
   private def latestPost(
       post: FullPost,
   )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) = {
-    val url = routes.Blog.show(post.id, ref = prismic.maybeRef)
+    val url = routes.Blog.show(post.id)
     st.article(
       h2(a(href := url)(post.title)),
       bits.metas(post),

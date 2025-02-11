@@ -28,7 +28,7 @@ object topnav {
           if (ctx.noBot) a(href := s"${langHref("/?any")}#hook")(trans.createAGame())
           else a(href := s"${langHref("/?any")}#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
-            a(href := langHref(routes.Tournament.home))(trans.tournaments()),
+            a(href := langHref(routes.Tournament.homeDefault(1)))(trans.tournaments()),
             a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
           ),
         ),
@@ -56,7 +56,7 @@ object topnav {
             a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
             // ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
             canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lishogiClasses()),
-            a(href := routes.Page.variantHome)(trans.variants()),
+            a(href := routes.Prismic.variantHome)(trans.variants()),
           ),
         )
       },

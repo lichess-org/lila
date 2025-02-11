@@ -7,8 +7,8 @@ import lila.app.ui.ScalatagsTemplate._
 object page {
 
   def apply(
-      doc: io.prismic.Document,
-      resolver: io.prismic.DocumentLinkResolver,
+      doc: lila.prismic.Document,
+      resolver: lila.prismic.DocumentLinkResolver,
       withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None,
   )(implicit ctx: Context) =
     views.html.base.layout(

@@ -6,7 +6,7 @@ import lila.app.ui.ScalatagsTemplate._
 
 object notationExplanation {
 
-  def apply(doc: io.prismic.Document)(implicit ctx: Context) =
+  def apply(doc: lila.prismic.Document)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(
         vendorCssTag("balloon-css", "balloon.min.css"),

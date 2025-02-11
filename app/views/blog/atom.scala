@@ -10,7 +10,7 @@ import lila.common.paginator.Paginator
 object atom {
 
   def apply(
-      pager: Paginator[io.prismic.Document],
+      pager: Paginator[lila.prismic.Document],
       baseUrl: BaseUrl,
   )(implicit prismic: lila.blog.BlogApi.Context) =
     frag(

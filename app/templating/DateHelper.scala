@@ -123,6 +123,6 @@ trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val atomDateFormatter        = ISODateTimeFormat.dateTime
   def atomDate(date: DateTime): String = atomDateFormatter print date
-  def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
+  def atomDate(field: String)(doc: lila.prismic.Document): Option[String] =
     doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate
 }

@@ -28,7 +28,7 @@ object features {
           header(h1(dataIcon := "")("Website")),
           tbody(
             tr(check)(
-              a(href := routes.Tournament.home)(trans.tournaments()),
+              a(href := routes.Tournament.homeDefault(1))(trans.tournaments()),
             ),
             tr(check)(
               a(href := routes.Simul.home)(trans.simultaneousExhibitions()),
@@ -37,7 +37,7 @@ object features {
               trans.correspondenceShogi(),
             ),
             tr(check)(
-              a(href := routes.Page.variantHome)(trans.variants()),
+              a(href := routes.Prismic.variantHome)(trans.variants()),
             ),
             tr(check)(
               s"${trans.localAnalysis.txt()} - YaneuraOu & Fairy-Stockfish",
@@ -96,7 +96,7 @@ object features {
           //    "Bullet, Blitz, Rapid, Classical and Correspondence chess"
           //  ),
           //  tr(check)(
-          //    a(href := routes.Tournament.home)("Arena tournaments")
+          //    a(href := routes.Tournament.homeDefault(1))("Arena tournaments")
           //  ),
           //  tr(check)(
           //    s"Board editor and analysis board with $engineName"

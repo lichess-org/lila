@@ -6,7 +6,7 @@ import lila.app.ui.ScalatagsTemplate._
 
 object mobile {
 
-  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
+  def apply(apkDoc: lila.prismic.Document, resolver: lila.prismic.DocumentLinkResolver)(implicit
       ctx: Context,
   ) =
     views.html.base.layout(

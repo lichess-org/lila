@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 
 object help {
 
-  def page(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(
+  def page(active: String, doc: lila.prismic.Document, resolver: lila.prismic.DocumentLinkResolver)(
       implicit ctx: Context,
   ) = {
     val title = ~doc.getText("doc.title")
@@ -25,7 +25,7 @@ object help {
     )
   }
 
-  def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
+  def source(doc: lila.prismic.Document, resolver: lila.prismic.DocumentLinkResolver)(implicit
       ctx: Context,
   ) = {
     val title = ~doc.getText("doc.title")
@@ -192,17 +192,17 @@ object help {
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
-          a(activeCls("about"), href := routes.Page.about)(trans.aboutX("lishogi.org")),
+          a(activeCls("about"), href := routes.Prismic.about)(trans.aboutX("lishogi.org")),
           a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
-          a(activeCls("resources"), href := routes.Page.resources)(trans.shogiResources()),
-          a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
-          a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
-          // a(activeCls("master"), href := routes.Page.master)("Title verification"),
+          a(activeCls("resources"), href := routes.Prismic.resources)(trans.shogiResources()),
+          a(activeCls("tos"), href := routes.Prismic.tos)(trans.termsOfService()),
+          a(activeCls("privacy"), href := routes.Prismic.privacy)(trans.privacy()),
+          // a(activeCls("master"), href := routes.Prismic.master)("Title verification"),
           sep,
-          a(activeCls("source"), href := routes.Page.source)(trans.sourceCode()),
-          a(activeCls("help"), href := routes.Page.help)(trans.contribute()),
-          a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou()),
+          a(activeCls("source"), href := routes.Prismic.source)(trans.sourceCode()),
+          a(activeCls("help"), href := routes.Prismic.help)(trans.contribute()),
+          a(activeCls("thanks"), href := routes.Prismic.thanks)(trans.thankYou()),
           sep,
           a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
           // a(activeCls("database"), href := "https://database.lishogi.org")(trans.database(), external),

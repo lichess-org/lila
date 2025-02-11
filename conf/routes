@@ -66,9 +66,9 @@ GET   /blog                            controllers.Blog.index(page: Int ?= 1)
 GET   /blog/all                        controllers.Blog.all
 GET   /blog/:year                      controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
-GET   /blog/post/latest                controllers.Blog.latest(ref: Option[String] ?= None)
-GET   /blog/post/:id                   controllers.Blog.show(id: String, ref: Option[String] ?= None)
-GET   /blog/:id/:slug                  controllers.Blog.showBc(id: String, slug: String, ref: Option[String] ?= None)
+GET   /blog/post/latest                controllers.Blog.latest
+GET   /blog/post/:id                   controllers.Blog.show(id: String)
+GET   /blog/:id/:slug                  controllers.Blog.showBc(id: String, slug: String)
 GET   /blog.atom                       controllers.Blog.atom
 GET   /blog.txt                        controllers.Blog.sitemapTxt
 
@@ -662,28 +662,23 @@ POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
-GET   /thanks                          controllers.Page.thanks
-GET   /terms-of-service                controllers.Page.tos
-GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Main.contact
-GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
-GET   /source                          controllers.Page.source
-GET   /contribute                      controllers.Page.help
-GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
-GET   /ads                             controllers.Page.ads
-GET   /donations                       controllers.Page.donations
-GET   /resources                       controllers.Page.resources
-GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: String)
-GET   /explanation/impasse             controllers.Page.impasse
-GET   /explanation/storm               controllers.Page.storm
-GET   /explanation/tsume               controllers.Page.tsume
-GET   /explanation/kif                 controllers.Page.kif
-GET   /explanation/csa                 controllers.Page.csa
+GET   /thanks                          controllers.Prismic.thanks
+GET   /terms-of-service                controllers.Prismic.tos
+GET   /privacy                         controllers.Prismic.privacy
+GET   /about                           controllers.Prismic.about
+GET   /source                          controllers.Prismic.source
+GET   /contribute                      controllers.Prismic.help
+GET   /ads                             controllers.Prismic.ads
+GET   /donations                       controllers.Prismic.donations
+GET   /resources                       controllers.Prismic.resources
+GET   /page/:uid                       controllers.Prismic.page(uid: String)
+GET   /explanation/:uid                controllers.Prismic.bcPage(uid: String)
 
 # Variants
-GET   /variant                         controllers.Page.variantHome
-GET   /variant/:key                    controllers.Page.variant(key)
+GET   /variant                         controllers.Prismic.variantHome
+GET   /variant/:key                    controllers.Prismic.variant(key)
 
 # Help
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
