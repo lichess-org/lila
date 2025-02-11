@@ -982,7 +982,8 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="analysisOptions">Analisiaren aukerak</string>
   <string name="focusChat">Eraman fokua txatera</string>
   <string name="showHelpDialog">Erakutsi laguntza leiho hau</string>
-  <string name="reopenYourAccount">Berreskuratu zure kontua</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Berreskuratu zure kontua</string>
+  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Zure kontua itxi bazenuen baina berreskuratu nahi baduzu, hori egiteko aukera duzu.</string>
   <string name="emailAssociatedToaccount">Posta elektronikoa ondo lotu da zure kontura</string>
   <string name="sentEmailWithLink">Posta elektroniko bat bidali dizugu lotura batekin.</string>
   <string name="tournamentEntryCode">Txapelketara sartzeko kodea</string>
