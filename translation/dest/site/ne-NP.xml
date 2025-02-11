@@ -226,6 +226,7 @@
   <string name="checkSpamFolder">स्पाम (spam) फोल्डर पनि हेर्नुहोस्, त्यता परेको हुन सक्छ । त्यस्तो छ भने स्पाम हैन भनेर मार्क गर्नुहोस् ।</string>
   <string name="emailForSignupHelp">सबै कुरा विफल भए, हामीलाई यो इमेल पठाउनुहोस् । </string>
   <string name="copyTextToEmail">माथि को टेक्स्ट कपि पेस्ट गरेर %s लाई पठाउनुहोस् । </string>
+  <string name="waitForSignupHelp">तपाईंको signup पूरा गर्नमा मद्दत गर्न, हामी चाँडै नै तपाईंलाई सम्पर्क गर्नेछौं।</string>
   <string name="accountCanLogin">अब तपाई %s भएर लगइन गर्न सक्नुहुनेछ ।</string>
   <string name="rank">स्थान</string>
   <string name="rankX">स्थान: %s</string>

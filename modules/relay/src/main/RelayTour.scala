@@ -106,7 +106,7 @@ object RelayTour:
     override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
     lazy val fideTcOrGuess: FideTC     = fideTc | FideTC.standard
     def timeZoneOrDefault: ZoneId      = timeZone | ZoneId.systemDefault
-    def clock: Option[TournamentClock] = tc.flatMap(TournamentClock.parse.apply)
+    def clock: Option[TournamentClock] = tc.flatMap(TournamentClock.parse(false))
 
   case class Dates(start: Instant, end: Option[Instant])
 

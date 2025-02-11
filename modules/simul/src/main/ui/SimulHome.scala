@@ -149,7 +149,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
 
   def hosted(user: User, pager: Paginator[Simul])(using Context) =
     Page(s"${user.username} hosted simuls")
-      .css("user.simul")
+      .css("simul.user.list")
       .js(infiniteScrollEsmInit):
         main(cls := "page-small box simul-list")(
           if pager.nbResults == 0 then

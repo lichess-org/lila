@@ -43,6 +43,9 @@ object ConditionForm:
   val titled: Mapping[Option[Titled.type]] =
     optional(boolean).transform(_.contains(true).option(Titled), _.isDefined.option(true))
 
+  val bots: Mapping[Option[Bots]] =
+    optional(boolean).transform(_.contains(true).option(Bots(true)), _.exists(_.allowed).option(true))
+
   val accountAges = List(1, 3, 7, 14, 30, 60, 90, 180, 365, 365 * 2, 365 * 3)
 
   val accountAgeChoices =

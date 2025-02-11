@@ -18,8 +18,6 @@
   <string name="addRound">Добавить тур</string>
   <string name="ongoing">Текущие</string>
   <string name="upcoming">Предстоящие</string>
-  <string name="completed">Завершённые</string>
-  <string name="completedHelp">Lichess определяет завершение тура на основе источника партий. Используйте этот переключатель, если нет источника.</string>
   <string name="roundName">Название тура</string>
   <string name="roundNumber">Номер тура</string>
   <string name="tournamentName">Название турнира</string>

@@ -21,7 +21,7 @@
  *   });
  *
  *   await store.writeCursor(
- *     { index: 'size', query: range({min: 4, max: 12 }) },
+ *     { index: 'size', query: range({ min: 4, max: 12 }) },
  *     async ({ value, update, delete }) => {
  *       if (value.size < 10) await update({ ...value, size: value.size + 1 });
  *       else await delete();
@@ -110,7 +110,6 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
   }
 }
 
-/** ease the pain of IDBKeyRange */
 export function range<K extends IDBValidKey>(range: {
   min?: K; // closed lower bound
   max?: K; // closed upper bound
@@ -128,7 +127,6 @@ export function range<K extends IDBValidKey>(range: {
   return undefined;
 }
 
-/** check for a non-empty object store */
 export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
   const dbName = info.db ?? info.store;
   if (window.indexedDB.databases) {
@@ -173,7 +171,6 @@ export interface DbInfo {
   upgrade?: (e: IDBVersionChangeEvent, store?: IDBObjectStore) => void;
 }
 
-/** your writeCursor callback receives an object with async update/delete functions */
 export type WriteCursorCallback<V> = {
   (it: {
     /** just the value */
@@ -194,7 +191,6 @@ export interface CursorOpts {
   dir?: IDBCursorDirection;
 }
 
-/**idb backed object store @see {@link objectStorage} */
 export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   /** list all keys in the object store */
   list(): Promise<K[]>;

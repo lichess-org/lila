@@ -16,8 +16,6 @@
   <string name="addRound">E Rundi zuefüege</string>
   <string name="ongoing">Laufend</string>
   <string name="upcoming">Demnächscht</string>
-  <string name="completed">Beändet</string>
-  <string name="completedHelp">Lichess erkännt de Rundeschluss oder au nöd! De Schalter setz das uf \"manuell\".</string>
   <string name="roundName">Runde Name</string>
   <string name="roundNumber">Runde Nummere</string>
   <string name="tournamentName">Turnier Name</string>
@@ -81,4 +79,5 @@
   <string name="pastBroadcasts">G\'machti Überträgige</string>
   <string name="allBroadcastsByMonth">Zeig alli Überträgige im Monet</string>
   <string name="backToLiveMove">Zrugg zum \"Live-Zieh\"</string>
+  <string name="sinceHideResults">Will du entschide häsch, dini Ergäbnis z\'verberge, sind - zum Spoiler verhindere - all Vorschau-Brätter leer.</string>
 </resources>

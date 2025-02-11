@@ -16,8 +16,6 @@
   <string name="addRound">Adicionar uma ronda</string>
   <string name="ongoing">A decorrer</string>
   <string name="upcoming">Brevemente</string>
-  <string name="completed">Concluído</string>
-  <string name="completedHelp">Lichess deteta a conclusão da ronda baseada nos jogos da fonte. Use essa opção se não houver fonte.</string>
   <string name="roundName">Nome da ronda</string>
   <string name="roundNumber">Número da ronda</string>
   <string name="tournamentName">Nome do torneio</string>
@@ -81,4 +79,5 @@
   <string name="pastBroadcasts">Transmissões anteriores</string>
   <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
   <string name="backToLiveMove">Voltar a posição em direto</string>
+  <string name="sinceHideResults">Como optastes por ocultar os resultados, todas as pré-visualizações dos tabuleiros estão vazias para evitar spoilers.</string>
 </resources>

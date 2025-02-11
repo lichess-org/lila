@@ -18,8 +18,6 @@
   <string name="addRound">Pridať kolo</string>
   <string name="ongoing">Prebiehajúci</string>
   <string name="upcoming">Blížiace sa</string>
-  <string name="completed">Ukončené</string>
-  <string name="completedHelp">Lichess rozpozná dokončenie kola, ale môže sa pomýliť. Pomocou tejto funkcie ho môžete nastaviť ručne.</string>
   <string name="roundName">Názov kola</string>
   <string name="roundNumber">Číslo kola</string>
   <string name="tournamentName">Názov turnaja</string>
@@ -83,4 +81,5 @@
   <string name="pastBroadcasts">Predchádzajúce vysielania</string>
   <string name="allBroadcastsByMonth">Zobraziť všetky vysielania podľa mesiacov</string>
   <string name="backToLiveMove">Späť na aktuálny ťah</string>
+  <string name="sinceHideResults">Keďže ste sa rozhodli skryť výsledky, všetky náhľadové šachovnice sú prázdne, aby sme Vám neprezradili priveľa.</string>
 </resources>

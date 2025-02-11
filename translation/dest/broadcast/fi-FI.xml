@@ -16,8 +16,6 @@
   <string name="addRound">Lisää kierros</string>
   <string name="ongoing">Käynnissä</string>
   <string name="upcoming">Tulossa</string>
-  <string name="completed">Päättyneet</string>
-  <string name="completedHelp">Lichess tunnistaa lähteenä olevista peleistä, milloin kierros on viety päätökseen. Lähteen puuttuessa voit käyttää tätä asetusta.</string>
   <string name="roundName">Kierroksen nimi</string>
   <string name="roundNumber">Kierroksen numero</string>
   <string name="tournamentName">Turnauksen nimi</string>
@@ -81,4 +79,5 @@
   <string name="pastBroadcasts">Menneet lähetykset</string>
   <string name="allBroadcastsByMonth">Näytä kaikki lähetykset kuukausikohtaisesti</string>
   <string name="backToLiveMove">Takaisin siirtojen reaaliaikaiseen seurantaan</string>
+  <string name="sinceHideResults">Koska olet päättänyt piilottaa tulokset ja koska vältämme spoilereita, ovat kaikkien lautojen esikatselut tyhjiä.</string>
 </resources>

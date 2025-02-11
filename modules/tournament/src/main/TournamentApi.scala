@@ -337,9 +337,8 @@ final class TournamentApi(
 
   private object updateNbPlayers:
     private val onceEvery = scalalib.cache.OnceEvery[TourId](1.second)
-    def apply(tourId: TourId): Funit = onceEvery(tourId).so {
+    def apply(tourId: TourId): Funit = onceEvery(tourId).so:
       playerRepo.count(tourId).flatMap { tournamentRepo.setNbPlayers(tourId, _) }
-    }
 
   def selfPause(tourId: TourId, userId: UserId): Funit =
     withdraw(tourId, userId, isPause = true, isStalling = false)

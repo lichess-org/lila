@@ -15,8 +15,6 @@
   <string name="addRound">Thêm vòng</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
-  <string name="completed">Đã hoàn thành</string>
-  <string name="completedHelp">Lichess phát hiện việc hoàn thành vòng đấu dựa trên các ván đấu nguồn. Sử dụng nút chuyển đổi này nếu không có nguồn.</string>
   <string name="roundName">Tên vòng</string>
   <string name="roundNumber">Vòng đấu số</string>
   <string name="tournamentName">Tên giải đấu</string>

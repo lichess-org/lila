@@ -30,7 +30,6 @@ final class TournamentForm:
       variant = chess.variant.Standard.id.toString.some,
       position = None,
       password = None,
-      mode = none,
       rated = true.some,
       conditions = TournamentCondition.All.empty,
       teamBattleByTeam = teamBattleId,
@@ -53,7 +52,6 @@ final class TournamentForm:
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
       position = tour.position.map(_.into(Fen.Full)),
-      mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
       conditions = tour.conditions,
@@ -89,14 +87,13 @@ final class TournamentForm:
         if manager then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },
-      "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-      "startDate"   -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
-      "variant"     -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"    -> optional(lila.common.Form.fen.playableStrict),
-      "mode"        -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
-      "rated"       -> optional(boolean),
-      "password"    -> optional(cleanNonEmptyText),
-      "conditions"  -> TournamentCondition.form.all(leaderTeams),
+      "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
+      "startDate"        -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
+      "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
+      "position"         -> optional(lila.common.Form.fen.playableStrict),
+      "rated"            -> optional(boolean),
+      "password"         -> optional(cleanNonEmptyText),
+      "conditions"       -> TournamentCondition.form.all(leaderTeams),
       "teamBattleByTeam" -> optional(of[TeamId].verifying(id => leaderTeams.exists(_.id == id))),
       "berserkable"      -> optional(boolean),
       "streakable"       -> optional(boolean),
@@ -152,7 +149,6 @@ private[tournament] case class TournamentSetup(
     startDate: Option[Instant],
     variant: Option[String],
     position: Option[Fen.Full],
-    mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
     conditions: TournamentCondition.All,
@@ -167,7 +163,7 @@ private[tournament] case class TournamentSetup(
 
   def realMode =
     if realPosition.isDefined && !thematicPosition then Mode.Casual
-    else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
+    else Mode(rated | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 

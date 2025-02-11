@@ -15,8 +15,6 @@
   <string name="addRound">Aldoni raŭndon</string>
   <string name="ongoing">Nun funkcianta</string>
   <string name="upcoming">Baldaŭ</string>
-  <string name="completed">Kompletigita</string>
-  <string name="completedHelp">Lichess detektas raŭndan finiĝon baze sur la fontaj ludoj. Uzu ĉi tiun baskuligo, se ne estas fonto.</string>
   <string name="roundName">Raŭndnomo</string>
   <string name="roundNumber">Rondnumero</string>
   <string name="tournamentName">Nomo de la turniro</string>
