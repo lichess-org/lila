@@ -19,8 +19,6 @@ object BuildSettings {
       Compile / doc / sources                := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false,
-      Compile / run / fork                   := true,
-      Compile / run / javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
     )
 
   def baseLibs: Seq[ModuleID] = Seq(
