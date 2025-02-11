@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Transmissões anteriores</string>
   <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
   <string name="backToLiveMove">Voltar a posição em direto</string>
+  <string name="sinceHideResults">Como optastes por ocultar os resultados, todas as pré-visualizações dos tabuleiros estão vazias para evitar spoilers.</string>
 </resources>

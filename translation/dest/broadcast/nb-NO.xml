@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Tidligere overføringer</string>
   <string name="allBroadcastsByMonth">Vis alle overføringer etter måned</string>
   <string name="backToLiveMove">Tilbake til trekk på direkten</string>
+  <string name="sinceHideResults">Du valgte å skjule resultatene, så alle forhåndsvisningene av brettene er tomme for å unngå å røpe noe.</string>
 </resources>
