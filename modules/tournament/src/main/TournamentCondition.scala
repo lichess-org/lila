@@ -18,8 +18,11 @@ object TournamentCondition:
       titled: Option[Titled.type],
       teamMember: Option[TeamMember],
       accountAge: Option[AccountAge],
-      allowList: Option[AllowList]
-  ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, teamMember, accountAge, allowList)):
+      allowList: Option[AllowList],
+      bots: Option[Bots]
+  ) extends ConditionList(
+        List(nbRatedGame, maxRating, minRating, titled, teamMember, accountAge, allowList, bots)
+      ):
 
     def withVerdicts(perfType: PerfType)(using
         Me,
@@ -60,7 +63,7 @@ object TournamentCondition:
           prev.allowList.so(_.userIds.diff(current))
 
   object All:
-    val empty             = All(none, none, none, none, none, none, none)
+    val empty             = All(none, none, none, none, none, none, none, none)
     given zero: Zero[All] = Zero(empty)
 
   object form:
@@ -74,7 +77,8 @@ object TournamentCondition:
         "titled"      -> titled,
         "teamMember"  -> teamMember(leaderTeams),
         "accountAge"  -> accountAge,
-        "allowList"   -> allowList
+        "allowList"   -> allowList,
+        "bots"        -> bots
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   final class Verify(historyApi: HistoryApi, userApi: UserApi)(using Executor):

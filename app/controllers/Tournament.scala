@@ -148,7 +148,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         )
 
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me ?=>
-    NoLameOrBot:
+    NoLame:
       NoPlayban:
         limit.tourJoin(me, rateLimited):
           val data = TournamentForm.TournamentJoin(
@@ -162,7 +162,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   }
 
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
-    NoLameOrBot:
+    NoLame:
       NoPlayban:
         limit.tourJoin(me, rateLimited):
           val data =

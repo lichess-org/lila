@@ -36,6 +36,13 @@ object Condition:
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
 
+  case class Bots(allowed: Boolean) extends Condition with FlatCond:
+    def name(pt: PerfType)(using Translate) =
+      if allowed then "Bot players are allowed."
+      else "Bot players are not allowed."
+    def apply(pt: PerfType)(using me: Me, perf: Perf) =
+      if me.isBot && !allowed then Refused(name(pt)(using _)) else Accepted
+
   case class NbRatedGame(nb: Int) extends Condition with FlatCond:
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if me.title.isDefined then Accepted
@@ -128,5 +135,4 @@ object Condition:
     def name(pt: PerfType)(using Translate) = "Fixed line-up"
 
   case class WithVerdicts(list: List[WithVerdict]):
-    export list.nonEmpty
     def accepted = list.forall(_.verdict.accepted)
