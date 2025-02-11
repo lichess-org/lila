@@ -56,7 +56,6 @@ final private class TournamentScheduler(
       start.plusDays(15 - start.getDayOfWeek)
     }
 
-    def orTomorrow(date: DateTime) = if (date isBefore rightNow) date plusDays 1 else date
     def orNextWeek(date: DateTime) = if (date isBefore rightNow) date plusWeeks 1 else date
     def orNextYear(date: DateTime) = if (date isBefore rightNow) date plusYears 1 else date
 
@@ -182,13 +181,6 @@ Thank you all, you rock!""",
           Schedule(Format.Arena, Weekly, speed, Standard, none, date pipe orNextWeek).plan
         }
       },
-      // List( // weekly variant tournaments!
-      //   nextMonday -> Minishogi
-      // ).flatMap { case (day, variant) =>
-      //   at(day, 19) map { date =>
-      //     Schedule(Format.Arena, Weekly, SuperBlitz, variant, none, date pipe orNextWeek).plan
-      //   }
-      // },
       List( // week-end elite tournaments!
         nextSaturday -> Blitz,
         nextSunday   -> HyperRapid,
@@ -197,25 +189,6 @@ Thank you all, you rock!""",
           Schedule(Format.Arena, Weekend, speed, Standard, none, date pipe orNextWeek).plan
         }
       },
-      List( // daily tournaments!
-        at(today, 15) map { date =>
-          Schedule(Format.Arena, Daily, HyperRapid, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 21) map { date =>
-          Schedule(Format.Arena, Daily, HyperRapid, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 0) map { date =>
-          Schedule(Format.Arena, Daily, Classical, Standard, none, date pipe orTomorrow).plan
-        },
-      ).flatten,
-      List( // eastern tournaments!
-        at(today, 6) map { date =>
-          Schedule(Format.Arena, Eastern, Blitz, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 12) map { date =>
-          Schedule(Format.Arena, Eastern, Classical, Standard, none, date pipe orTomorrow).plan
-        },
-      ).flatten,
     ).flatten filter { _.schedule.at isAfter rightNow }
   }
 
