@@ -255,6 +255,9 @@ object PerfType {
 
   def trans(pt: PerfType)(implicit lang: Lang): String =
     pt match {
+      case UltraBullet    => I18nKeys.ultrabullet.txt()
+      case Bullet         => I18nKeys.bullet.txt()
+      case Blitz          => I18nKeys.blitz.txt()
       case Rapid          => I18nKeys.rapid.txt()
       case Classical      => I18nKeys.classical.txt()
       case Correspondence => I18nKeys.correspondence.txt()
@@ -269,6 +272,9 @@ object PerfType {
 
   val translated: Set[PerfType] =
     Set(
+      UltraBullet,
+      Bullet,
+      Blitz,
       Rapid,
       Classical,
       Correspondence,
