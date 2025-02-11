@@ -257,7 +257,7 @@ object Game:
       }
 
   def isBotCompatible(game: Game): Boolean = {
-    game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api)
+    game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api) || game.sourceIs(_.Arena)
   } && isBotCompatible(game.speed)
 
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
