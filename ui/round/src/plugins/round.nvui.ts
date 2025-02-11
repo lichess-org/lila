@@ -206,15 +206,7 @@ export function initModule(): NvuiPlugin {
           'p',
           [
             'Type these commands in the move input.',
-            `c: ${i18n.keyboardMove.readOutClocks}`,
-            'l: Read last move.',
-            `o: ${i18n.keyboardMove.readOutOpponentName}`,
-            commands.piece.help,
-            commands.scan.help,
-            `abort: ${i18n.site.abortGame}`,
-            `resign: ${i18n.site.resign}`,
-            `draw: ${i18n.keyboardMove.offerOrAcceptDraw}`,
-            `takeback: ${i18n.site.proposeATakeback}`,
+            ...inputCommands.map(cmd => `${cmd.cmd}${cmd.alt ? ` or ${cmd.alt}` : ''}: ${cmd.help}`),
           ].reduce(addBreaks, []),
         ),
         ...boardCommands(),
@@ -253,8 +245,8 @@ function createSubmitHandler(
     if (!input) return;
 
     // commands may be submitted with or without a leading /
-    const command = isShortCommand(input) || isShortCommand(input.slice(1));
-    if (command) onCommand(ctrl, notify, command, style(), input);
+    const command = isInputCommand(input) || isInputCommand(input.slice(1));
+    if (command) command.cb(notify, ctrl, style(), input);
     else {
       const uciOrDrop = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
       if (uciOrDrop && typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key))
@@ -270,50 +262,71 @@ function createSubmitHandler(
   };
 }
 
-const shortCommands = [
-  'c',
-  'clock',
-  'l',
-  'last',
-  'abort',
-  'resign',
-  'draw',
-  'takeback',
-  'p',
-  's',
-  'o',
-  'opponent',
-] as const;
-type ShortCommand = (typeof shortCommands)[number];
+const inputCommands: {
+  cmd: string;
+  help: string;
+  cb: (notify: (txt: string) => void, ctrl: RoundController, style: MoveStyle, input: string) => void;
+  alt?: string;
+}[] = [
+  {
+    cmd: 'clock',
+    help: i18n.keyboardMove.readOutClocks,
+    cb: notify => notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text()),
+    alt: 'c',
+  },
+  {
+    cmd: 'last',
+    help: 'Read last move.',
+    cb: notify => notify($('.lastMove').text()),
+    alt: 'l',
+  },
+  { cmd: 'abort', help: i18n.site.abortGame, cb: () => $('.nvui button.abort').trigger('click') },
+  { cmd: 'resign', help: i18n.site.resign, cb: () => $('.nvui button.resign').trigger('click') },
+  {
+    cmd: 'draw',
+    help: i18n.keyboardMove.offerOrAcceptDraw,
+    cb: () => $('.nvui button.draw-yes').trigger('click'),
+  },
+  {
+    cmd: 'takeback',
+    help: i18n.site.proposeATakeback,
+    cb: () => $('.nvui button.takeback-yes').trigger('click'),
+  },
+  {
+    cmd: 'p',
+    help: commands.piece.help,
+    cb: (notify, ctrl, style, input) =>
+      notify(
+        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+      ),
+  },
+  {
+    cmd: 's',
+    help: commands.scan.help,
+    cb: (notify, ctrl, style, input) =>
+      notify(
+        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+      ),
+  },
+  {
+    cmd: 'opponent',
+    help: i18n.keyboardMove.readOutOpponentName,
+    cb: (notify, ctrl) => notify(playerText(ctrl)),
+    alt: 'o',
+  },
+];
 
-const isShortCommand = (input: string): ShortCommand | undefined =>
-  shortCommands.find(c => c === input.split(' ')[0].toLowerCase());
+const isInputCommand = (input: string) => {
+  const firstWordLowerCase = input.split(' ')[0].toLowerCase();
+  return inputCommands.find(c => c.cmd === firstWordLowerCase || c?.alt === firstWordLowerCase);
+};
 
 const sendMove = (uciOrDrop: string | DropMove, ctrl: RoundController, premove: boolean): void =>
   typeof uciOrDrop === 'string'
     ? ctrl.socket.send('move', { u: uciOrDrop }, { ackable: true })
     : ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key, premove);
-
-function onCommand(
-  ctrl: RoundController,
-  notify: (txt: string) => void,
-  c: ShortCommand,
-  style: MoveStyle,
-  rawInput: string,
-) {
-  if (c === 'c' || c === 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-  else if (c === 'l' || c === 'last') notify($('.lastMove').text());
-  else if (c === 'abort') $('.nvui button.abort').trigger('click');
-  else if (c === 'resign') $('.nvui button.resign').trigger('click');
-  else if (c === 'draw') $('.nvui button.draw-yes').trigger('click');
-  else if (c === 'takeback') $('.nvui button.takeback-yes').trigger('click');
-  else if (c === 'o' || c === 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
-  else
-    notify(
-      (c === 'p' ? commands.piece : commands.scan).apply(rawInput, ctrl.chessground.state.pieces, style) ??
-        `Invalid command: ${rawInput}`,
-    );
-}
 
 function anyClock(ctrl: RoundController, position: Position): VNode | undefined {
   const d = ctrl.data,
@@ -351,7 +364,8 @@ function playerHtml(ctrl: RoundController, player: Player) {
     : i18n.site.anonymous;
 }
 
-function playerText(ctrl: RoundController, player: Player) {
+function playerText(ctrl: RoundController) {
+  const player = ctrl.data.opponent;
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const user = player.user,
     rating = player?.rating ?? user?.perfs[ctrl.data.game.perf]?.rating ?? i18n.site.unknown;
@@ -369,7 +383,7 @@ function gameText(ctrl: RoundController) {
     i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
     d.game.perf,
-    i18n.site.gameVsX(playerText(ctrl, ctrl.data.opponent)),
+    i18n.site.gameVsX(playerText(ctrl)),
   ].join(' ');
 }
 

@@ -165,7 +165,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
                   $board.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', (e: KeyboardEvent) => {
-                    if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpOrCommand(ctrl)(e);
+                    if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
                     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
                     else if (e.key.startsWith('Arrow'))
                       arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
@@ -238,14 +238,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             'p',
             [
               'Type these commands in the command input.',
-              commands.piece.help,
-              commands.scan.help,
-              "eval: announce last move's computer evaluation",
-              'best: announce the top engine move',
-              'prev: return to the previous move',
-              'next: go to the next move',
-              'prev line: switch to the previous variation',
-              'next line: switch to the next variation',
+              ...inputCommands.map(command => `${command.cmd}: ${command.help}`),
             ].reduce(addBreaks, []),
           ),
         ]),
@@ -328,8 +321,9 @@ function onSubmit(
   return (e: SubmitEvent) => {
     e.preventDefault();
     let input = castlingFlavours(($input.val() as string).trim());
-    if (isShortCommand(input)) input = '/' + input;
-    if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
+    // Allow commands with/without a leading '/'
+    const command = getCommand(input) || getCommand(input.slice(1));
+    if (command) command.cb(ctrl, notify, style(), input);
     else {
       const uciOrDrop = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
       if (!uciOrDrop || (typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)))
@@ -340,8 +334,63 @@ function onSubmit(
   };
 }
 
-const isShortCommand = (input: string) =>
-  ['p', 's', 'next', 'prev', 'eval', 'best'].includes(input.split(' ')[0].toLowerCase());
+const inputCommands: {
+  cmd: string;
+  help: string;
+  cb: (ctrl: AnalyseController, notify: (txt: string) => void, style: MoveStyle, input: string) => void;
+}[] = [
+  {
+    cmd: 'p',
+    help: commands.piece.help,
+    cb: (ctrl, notify, style, input) =>
+      notify(
+        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ||
+          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+      ),
+  },
+  {
+    cmd: 's',
+    help: commands.scan.help,
+    cb: (ctrl, notify, style, input) =>
+      notify(
+        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ||
+          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+      ),
+  },
+  {
+    cmd: 'eval',
+    help: "announce last move's computer evaluation",
+    cb: (ctrl, notify) => notify(renderEvalAndDepth(ctrl)),
+  },
+  {
+    cmd: 'best',
+    help: 'announce the top engine move',
+    cb: (ctrl, notify, style) => notify(renderBestMove(ctrl, style)),
+  },
+  {
+    cmd: 'prev',
+    help: 'return to the previous move',
+    cb: ctrl => doAndRedraw(ctrl, prev),
+  },
+  { cmd: 'next', help: 'go to the next move', cb: ctrl => doAndRedraw(ctrl, next) },
+  {
+    cmd: 'prev line',
+    help: 'switch to the previous variation',
+    cb: ctrl => doAndRedraw(ctrl, jumpPrevLine),
+  },
+  {
+    cmd: 'next line',
+    help: 'switch to the next variation',
+    cb: ctrl => doAndRedraw(ctrl, jumpNextLine),
+  },
+];
+
+const getCommand = (input: string) => {
+  const firstWordLowerCase = input.split(' ')[0].toLowerCase();
+  return inputCommands.find(
+    c => c.cmd === input || (firstWordLowerCase.length === 1 && c.cmd === firstWordLowerCase), // 'next line' should not be interpreted as 'next'
+  );
+};
 
 function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
   if (typeof uciOrDrop === 'string')
@@ -352,24 +401,6 @@ function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
       charToRole(uciOrDrop.slice(4)),
     );
   else if (ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)) ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key);
-}
-
-function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
-  const lowered = c.toLowerCase();
-  if (lowered === 'next') doAndRedraw(ctrl, next);
-  else if (lowered === 'prev') doAndRedraw(ctrl, prev);
-  else if (lowered === 'next line') doAndRedraw(ctrl, jumpPrevLine);
-  else if (lowered === 'prev line') doAndRedraw(ctrl, jumpNextLine);
-  else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
-  else if (lowered === 'best') notify(renderBestMove(ctrl, style));
-  else {
-    const pieces = ctrl.chessground.state.pieces;
-    notify(
-      commands.piece.apply(c, pieces, style) ||
-        commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`,
-    );
-  }
 }
 
 function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
@@ -610,7 +641,7 @@ const doAndRedraw = (ctrl: AnalyseController, fn: (ctrl: AnalyseController) => v
   ctrl.redraw();
 };
 
-function jumpOrCommand(ctrl: AnalyseController) {
+function jumpMoveOrLine(ctrl: AnalyseController) {
   return (e: KeyboardEvent) => {
     if (e.key === 'A') doAndRedraw(ctrl, e.altKey ? jumpPrevLine : prev);
     else if (e.key === 'D') doAndRedraw(ctrl, e.altKey ? jumpNextLine : next);
