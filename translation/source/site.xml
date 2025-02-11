@@ -714,7 +714,6 @@
 	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi tournaments</string>
 	<string name="tournamentShields">Tournament shields</string>
-	<string name="tournamentFAQ">Arena tournament FAQ</string>
 	<string name="tournamentOfficial">Official</string>
 	<string name="timeBeforeTournamentStarts">Time before tournament starts</string>
 	<string name="averageCentipawnLoss">Average centipawn loss</string>
@@ -1000,4 +999,9 @@
 	<string name="managePlayers" comment="Manage players in tournaments - for tournament organizers">Manage players</string>
 	<string name="notReversible" comment="Attached to action (deleting study for example) that cannot be reversed">Not reversible</string>
 	<string name="shareMainlineUrl" comment="Mainline means moves without variations (branches)">Share mainline URL</string>
+	<string name="tourCreated" comment="title - tournaments created by user">Created</string>
+	<string name="tourRecent">Recently played</string>
+	<string name="bestResults" comment="Best tournament/simul results achieved">Best results</string>
+	<string name="stats" comment="Game, tournament or simul stats">Stats</string>
+	<string name="dateStartedNewest">Date started (newest)</string>
 </resources>
