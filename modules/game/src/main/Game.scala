@@ -256,13 +256,16 @@ object Game:
         chess.Speed(c.config) >= Speed.Blitz
       }
 
-  def isBotCompatible(game: Game): Boolean = {
-    game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api)
-  } && isBotCompatible(game.speed)
+  // if source is Arena, we will also need to check if the arena accepts bots!
+  def isBotCompatible(game: Game): Option[Boolean] =
+    if !isBotCompatible(game.speed) then false.some
+    else if game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api) then true.some
+    else if game.sourceIs(_.Arena) then none
+    else false.some
 
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
 
-  def isBoardOrBotCompatible(game: Game) = isBoardCompatible(game) || isBotCompatible(game)
+  def mightBeBoardOrBotCompatible(game: Game) = isBoardCompatible(game) || isBotCompatible(game).|(true)
 
   object BSONFields:
     export lila.core.game.BSONFields.*
