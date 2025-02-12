@@ -48,7 +48,9 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
             .map(Fen.write)
 
           val status = parsed.tags(_.Termination).map(_.toLowerCase) match
-            case Some("normal")                           => game.situation.status | Status.Resign
+            case Some("normal") =>
+              game.situation.status | (if parsed.tags(_.Result).getOrElse("") === "1/2-1/2" then Status.Draw
+                                       else Status.Resign)
             case Some("abandoned")                        => Status.Aborted
             case Some("time forfeit")                     => Status.Outoftime
             case Some("rules infraction")                 => Status.Cheat
