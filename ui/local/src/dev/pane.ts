@@ -1,5 +1,5 @@
 import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
-import { findMapped } from 'common/algo';
+import { findMap } from 'common/algo';
 import { frag } from 'common';
 import { getSchemaDefault, requiresOpRe } from './schema';
 import type { EditDialog } from './editDialog';
@@ -107,7 +107,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   getProperty(from: PropertySource[] = ['scratch']): PropertyValue {
-    return findMapped(from, src =>
+    return findMap(from, src =>
       src === 'schema'
         ? getSchemaDefault(this.id)
         : this.path.reduce(

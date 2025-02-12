@@ -1,5 +1,5 @@
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
-import { filterMap } from 'common/algo';
+import { definedMap } from 'common/algo';
 import { pubsub } from 'common/pubsub';
 import { env } from './localEnv';
 
@@ -28,7 +28,7 @@ export class Assets {
   }
 
   async preload(uids: string[]): Promise<void> {
-    for (const bot of filterMap(uids, uid => env.bot.bots[uid])) {
+    for (const bot of definedMap(uids, uid => env.bot.bots[uid])) {
       for (const sounds of Object.values(bot.sounds ?? {})) {
         sounds.forEach(sound => fetch(botAssetUrl('sound', sound.key)));
       }

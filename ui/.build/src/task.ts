@@ -51,7 +51,7 @@ export async function task(o: TaskOpts): Promise<TaskKey> {
     glob,
     key: inKey ?? randomId(),
     status: noInitial ? 'ok' : undefined,
-    debounce: { time: debounce ?? 0, rename: !noInitial, tickle: false, files: new Set<AbsPath>() },
+    debounce: { time: debounce ?? 0, rename: !noInitial, files: new Set<AbsPath>() },
     fileTimes: noInitial ? await globTimes(glob) : new Map(),
   };
   tasks.set(newWatch.key, newWatch);

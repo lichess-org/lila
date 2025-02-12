@@ -1,7 +1,7 @@
 import * as co from 'chessops';
 import { normalizeMove } from 'chessops/chess';
 import { type Status, type RoundStep, statusOf } from 'game';
-import { deepFreeze, randomId } from 'common/algo';
+import { deepFreeze, randomId, shuffle } from 'common/algo';
 import { hashBoard } from 'chess/hash';
 import type { LocalSetup } from './types';
 
@@ -164,7 +164,6 @@ export class LocalGame extends LocalGameData {
   }
 
   get roundSteps(): RoundStep[] {
-    console.log('roundSteps');
     const chess = this.setupFen
       ? co.Chess.fromSetup(co.fen.parseFen(this.setupFen).unwrap()).unwrap()
       : co.Chess.default();
@@ -189,6 +188,7 @@ export class LocalGame extends LocalGameData {
         ply: steps.length + this.initialPly,
       });
     }
+    console.log('roundSteps', steps);
     return steps;
   }
 

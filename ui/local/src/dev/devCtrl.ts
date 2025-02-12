@@ -190,8 +190,7 @@ export class DevCtrl {
             tourney.push({ white: players[j], black: players[i] });
           }
         }
-        shuffle(tourney);
-        games.push(...tourney);
+        games.push(...shuffle(tourney));
       } else games.push({ white: test.players[it % 2], black: test.players[(it + 1) % 2] });
     }
     return games;

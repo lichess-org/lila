@@ -22,12 +22,13 @@ export function quantize(n: number | undefined, factor: number): number {
   return Math.round((n ?? 0) / factor) * factor;
 }
 
-export function shuffle<T>(array: T[]): T[] {
-  for (let i = array.length - 1; i > 0; i--) {
+export function shuffle<T>(arr: T[]): T[] {
+  const shuffled = arr.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return array;
+  return shuffled;
 }
 
 export function deepFreeze<T>(obj: T): T {
@@ -36,6 +37,36 @@ export function deepFreeze<T>(obj: T): T {
       .filter(v => v !== null && typeof v === 'object')
       .forEach(o => deepFreeze(o));
   return Object.freeze(obj);
+}
+
+export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
+  const length = Math.min(arr1.length, arr2.length);
+  const result: [T, U][] = [];
+  for (let i = 0; i < length; i++) {
+    result.push([arr1[i], arr2[i]]);
+  }
+  return result;
+}
+
+export function findMap<T, U>(arr: T[], fn: (el: T) => U | undefined): U | undefined {
+  for (const el of arr) {
+    const result = fn(el);
+    if (result) return result;
+  }
+  return undefined;
+}
+
+export function definedMap<T, U>(arr: (T | undefined)[], fn: (v: T) => U | undefined): U[] {
+  return arr.reduce<U[]>((acc, v) => {
+    if (v === undefined) return acc;
+    const result = fn(v);
+    if (result !== undefined) acc.push(result);
+    return acc;
+  }, []);
+}
+
+export function definedUnique<T>(items: (T | undefined)[]): T[] {
+  return [...new Set(items.filter((item): item is T => item !== undefined))];
 }
 
 // comparison of enumerable primitives. complex properties get reference equality only
@@ -62,35 +93,6 @@ export function isContained(o: any, sub: any): boolean {
   const [aKeys, subKeys] = [Object.keys(o), Object.keys(sub)];
   if (aKeys.length < subKeys.length) return false;
   return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
-}
-
-export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
-  const length = Math.min(arr1.length, arr2.length);
-  const result: [T, U][] = [];
-  for (let i = 0; i < length; i++) {
-    result.push([arr1[i], arr2[i]]);
-  }
-  return result;
-}
-
-export function findMapped<T, U>(arr: T[], callback: (el: T) => U | undefined): U | undefined {
-  for (const el of arr) {
-    const result = callback(el);
-    if (result) return result;
-  }
-  return undefined;
-}
-
-export function filterMap<T, U>(arr: T[], fn: (v: T) => U | null | undefined): U[] {
-  return arr.reduce<U[]>((acc, v) => {
-    const result = fn(v);
-    if (result !== null && result !== undefined) acc.push(result);
-    return acc;
-  }, []);
-}
-
-export function unique<T>(items: (T | undefined)[]): T[] {
-  return [...new Set(items.filter((item): item is T => item !== undefined))];
 }
 
 export function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
