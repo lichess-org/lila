@@ -785,6 +785,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="onlineAndOfflinePlay">Spel online og offline</string>
   <string name="viewTheSolution">Vis løysinga</string>
   <string name="followAndChallengeFriends">Følg og utfordre vener</string>
+  <string name="noChallenges">Ingen utfordringar.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgjengeleg på %s språk!</item>
     <item quantity="other">Tilgjengeleg på %s språk!</item>
@@ -983,7 +984,8 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="analysisOptions">Analyseval</string>
   <string name="focusChat">Fokusér prateromet</string>
   <string name="showHelpDialog">Vis denne hjelpedialogen</string>
-  <string name="reopenYourAccount">Opne kontoen din på ny</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Opne kontoen din på ny</string>
+  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Om du har stengd kontoen din, men ynskjer å ta den attende, har du høve til å opna den på ny.</string>
   <string name="emailAssociatedToaccount">E-postadressa som er tilknytt kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg ein e-post med ei lenke.</string>
   <string name="tournamentEntryCode">Tilgangskode til turnering</string>
