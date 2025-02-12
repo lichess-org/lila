@@ -1,5 +1,8 @@
 .rcontrols {
   grid-area: controls;
+  @include mq-is-col1 {
+    grid-area: moves;
+  }
 }
 
 .material-top {
@@ -37,6 +40,9 @@
 #{$rmoves-tag},
 .col1-rmoves-preload {
   grid-area: moves;
+  @include mq-is-col1 {
+    grid-area: controls;
+  }
 }
 
 .keyboard-move {
