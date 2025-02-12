@@ -199,7 +199,9 @@ def allowRated(variant: Variant, clock: Option[Clock.Config]) =
       c.limitSeconds > 0 || c.incrementSeconds > 1
 
 def isBoardCompatible(clock: Clock.Config): Boolean = Speed(clock) >= Speed.Rapid
+def isBotCompatible(clock: Clock.Config): Boolean   = Speed(clock) >= Speed.Bullet
 
+// #TODO is it zipAll?
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator
   val iterB   = b.iterator
