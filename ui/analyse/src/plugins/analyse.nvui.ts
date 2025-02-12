@@ -163,7 +163,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                   const steps = () => ctrl.tree.getNodeList(ctrl.path);
                   const fenSteps = () => steps().map(step => step.fen);
                   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
-                  $board.on('click', selectionHandler(opponentColor, selectSound));
+                  $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', (e: KeyboardEvent) => {
                     if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpMoveOrLine(ctrl)(e);
                     else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
