@@ -156,14 +156,13 @@ export function initModule(): NvuiPlugin {
           {
             hook: onInsert(el => {
               const $board = $(el);
-              $board.on('keydown', jumpOrCommand(ctrl));
               const $buttons = $board.find('button');
               $buttons.on(
                 'click',
                 selectionHandler(() => ctrl.data.opponent.color, selectSound),
               );
               $buttons.on('keydown', (e: KeyboardEvent) => {
-                if (e.shiftKey && e.key.match(/^[ad]$/i)) jumpOrCommand(ctrl)(e);
+                if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPev(ctrl)(e);
                 else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
                 else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
                 else if (e.key === 'c')
@@ -392,7 +391,7 @@ function doAndRedraw(ctrl: RoundController, f: (ctrl: RoundController) => void) 
   ctrl.redraw();
 }
 
-function jumpOrCommand(ctrl: RoundController) {
+function nextOrPev(ctrl: RoundController) {
   return (e: KeyboardEvent) => {
     if (e.key === 'A') doAndRedraw(ctrl, prev);
     else if (e.key === 'D') doAndRedraw(ctrl, next);
