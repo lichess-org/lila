@@ -453,6 +453,10 @@ final class TournamentApi(
       _.sequentiallyVoid(playerRepo.withdraw(_, userId))
     }
 
+  def isForBots(tourId: TourId): Fu[Boolean] =
+    for tour <- cached.tourCache.byId(tourId)
+    yield tour.exists(_.conditions.bots.so(_.allowed))
+
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
     tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam").flatMap {
       _.sequentiallyVoid: tourId =>

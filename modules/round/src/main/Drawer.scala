@@ -97,7 +97,7 @@ final private[round] class Drawer(
         lila.core.round.CorresDrawOfferEvent(game.id),
         "offerEventCorres"
       )
-    if lila.game.Game.isBoardOrBotCompatible(game) then
+    if lila.game.Game.mightBeBoardOrBotCompatible(game) then
       Bus.publish(
         lila.game.actorApi.BoardDrawOffer(game),
         lila.game.actorApi.BoardDrawOffer.makeChan(game.id)
