@@ -122,7 +122,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
             nbAll <- repo.player.countAll
           yield
             lila.mon.fideSync.updated.update(nbUpdated)
-            lila.mon.fideSync.players.update(nbAll)
+            lila.mon.fideSync.players.update(nbAll.toDouble)
             logger.info(s"RelayFidePlayerApi.update upserted: $nbUpdated, total: $nbAll")
     yield ()
 
