@@ -133,11 +133,11 @@ final class TournamentApi(
       cached
         .ranking(tour)
         .mon(_.tournament.pairing.createRanking)
-        .flatMap { ranking =>
+        .flatMap: ranking =>
           pairingSystem
             .createPairings(tour, users, ranking, smallTourNbActivePlayers)
             .mon(_.tournament.pairing.createPairings)
-            .flatMap {
+            .flatMap:
               case Nil => funit
               case pairings =>
                 pairingRepo.insert(pairings.map(_.pairing)) >>
@@ -156,8 +156,6 @@ final class TournamentApi(
                       socket.reload(tour.id)
                       hadPairings.put(tour.id)
                       featureOneOf(tour, pairings, ranking.ranking) // do outside of queue
-            }
-        }
         .monSuccess(_.tournament.pairing.create)
         .chronometer
         .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")

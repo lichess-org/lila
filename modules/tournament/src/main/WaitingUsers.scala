@@ -9,7 +9,7 @@ private case class WaitingUsers(
     apiUsers: Option[ExpireSetMemo[UserId]],
     clock: TournamentClock,
     date: Instant
-)(using Executor):
+):
 
   // ultrabullet -> 8
   // hyperbullet -> 10
@@ -52,8 +52,8 @@ private case class WaitingUsers(
 
   def hasUser(userId: UserId) = hash contains userId
 
-  def addApiUser(userId: UserId) =
-    val memo = apiUsers | new ExpireSetMemo[UserId](70.seconds)
+  def addApiUser(userId: UserId)(using Executor) =
+    val memo = apiUsers | ExpireSetMemo[UserId](70.seconds)
     memo.put(userId)
     if apiUsers.isEmpty then copy(apiUsers = memo.some) else this
 
@@ -81,9 +81,8 @@ final private class WaitingUsersApi(using Executor):
     store.computeIfPresent(tourId): cur =>
       cur.copy(waiting = cur.waiting.removePairedUsers(users)).some
 
-  def addApiUser(tour: Tournament, user: User) = updateOrCreate(tour) { w =>
+  def addApiUser(tour: Tournament, user: User) = updateOrCreate(tour): w =>
     w.copy(waiting = w.waiting.addApiUser(user.id))
-  }
 
   def remove(id: TourId) = store.remove(id)
 

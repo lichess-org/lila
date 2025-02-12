@@ -49,11 +49,10 @@ final private class StartedOrganizer(
     else startPairing(tour)
 
   private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Funit =
-    (!tour.pairingsClosed).so(
+    tour.pairingsClosed.not.so:
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
         .flatMap: waiting =>
           lila.mon.tournament.waitingPlayers.record(waiting.size)
           api.makePairings(tour, waiting, smallTourNbActivePlayers)
-    )
