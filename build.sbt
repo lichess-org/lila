@@ -76,8 +76,8 @@ lazy val modules = Seq(
   // and then the smaller ones
   pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
-  practice, evalCache, irwin, bot, racer, cms, i18n,
-  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
+  practice, evalCache, irwin, bot, racer, cms, i18n, local,
+  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch, ask
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -149,6 +149,11 @@ lazy val racer = module("racer",
   Seq()
 )
 
+lazy val local = module("local",
+  Seq(db, memo, ui, pref),
+  Seq()
+)
+
 lazy val video = module("video",
   Seq(memo, ui),
   macwire.bundle
@@ -170,12 +175,12 @@ lazy val coordinate = module("coordinate",
 )
 
 lazy val feed = module("feed",
-  Seq(memo, ui),
+  Seq(memo, ui, ask),
   Seq()
 )
 
 lazy val ublog = module("ublog",
-  Seq(memo, ui),
+  Seq(memo, ui, ask),
   Seq(bloomFilter)
 )
 
@@ -425,8 +430,13 @@ lazy val msg = module("msg",
   Seq()
 )
 
+lazy val ask = module("ask",
+  Seq(memo, ui, security),
+  reactivemongo.bundle
+)
+
 lazy val forum = module("forum",
-  Seq(memo, ui),
+  Seq(memo, ui, ask),
   Seq()
 )
 

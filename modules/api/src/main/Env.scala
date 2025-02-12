@@ -7,6 +7,7 @@ import play.api.Mode
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.core.misc.lpv.*
+import lila.core.config.CollName
 
 @Module
 final class Env(
@@ -59,6 +60,7 @@ final class Env(
     realPlayerApi: lila.web.RealPlayerApi,
     bookmarkExists: lila.core.misc.BookmarkExists,
     manifest: lila.web.AssetManifest,
+    db: lila.db.Db,
     tokenApi: lila.oauth.AccessTokenApi
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
@@ -79,6 +81,8 @@ final class Env(
   lazy val gameApi = wire[GameApi]
 
   lazy val gameApiV2 = wire[GameApiV2]
+
+  lazy val pollColls = PollColls(db)
 
   lazy val roundApi = wire[RoundApi]
 
@@ -120,3 +124,7 @@ final class Env(
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + UserId.lichess)
     userEnv.repo.setSeenAt(UserId.lichess)
+
+private class PollColls(db: lila.db.Db):
+  val boards = db(CollName("boards"))
+  val pieces = db(CollName("pieces"))

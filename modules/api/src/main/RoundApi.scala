@@ -19,6 +19,8 @@ import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.{ ExportOptions, Tree }
+import lila.db.JSON
+import lila.db.dsl.{ *, given }
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -35,7 +37,8 @@ final private[api] class RoundApi(
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     getLightUser: lila.core.LightUser.GetterSync,
-    userLag: lila.socket.UserLagCache
+    userLag: lila.socket.UserLagCache,
+    colls: lila.api.PollColls
 )(using Executor, lila.core.i18n.Translator):
 
   def player(
@@ -166,6 +169,20 @@ final private[api] class RoundApi(
               owner = owner
             )
       .flatMap(externalEngineApi.withExternalEngines)
+      .flatMap: json =>
+        colls.boards
+          .find($doc())
+          .cursor[Bdoc]()
+          .list(Int.MaxValue)
+          .map: docs =>
+            json + ("boards" -> JsArray(docs.map(JSON.jval)))
+      .flatMap: json =>
+        colls.pieces
+          .find($doc())
+          .cursor[Bdoc]()
+          .list(Int.MaxValue)
+          .map: docs =>
+            json + ("pieces" -> JsArray(docs.map(JSON.jval)))
 
   private def withTree(
       pov: Pov,
