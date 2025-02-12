@@ -127,8 +127,6 @@ case class Game(
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     if playable then correspondenceClock else none
 
-  def speed = Speed(chess.clock.map(_.config))
-
   def perfKey: PerfKey = PerfKey(variant, speed)
 
   def ratingVariant: Variant =
@@ -213,7 +211,9 @@ case class Game(
   def isCorrespondence  = speed == Speed.Correspondence
   def isSpeed(s: Speed) = speed == s
 
-  def hasClock = clock.isDefined
+  def hasClock    = clock.isDefined
+  def clockConfig = clock.map(_.config)
+  def speed       = Speed(clockConfig)
 
   def hasCorrespondenceClock = daysPerTurn.isDefined
 

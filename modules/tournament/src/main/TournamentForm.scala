@@ -101,6 +101,7 @@ final class TournamentForm:
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(unapply)
       .verifying("Invalid clock", _.validClock)
+      .verifying("Invalid clock for bot games", _.validClockForBots)
       .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
       .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
@@ -160,6 +161,9 @@ private[tournament] case class TournamentSetup(
 ):
 
   def validClock = (clockTime + clockIncrement.value) > 0
+
+  def validClockForBots = !conditions.bots.exists(_.allowed) ||
+    lila.core.game.isBotCompatible(clockConfig)
 
   def realMode =
     if realPosition.isDefined && !thematicPosition then Mode.Casual
