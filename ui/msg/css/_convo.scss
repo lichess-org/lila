@@ -57,6 +57,11 @@
         }
       }
 
+      bad {
+        @extend %flex-center-nowrap;
+        margin-inline-start: 0.5em;
+      }
+
       &__actions {
         @extend %flex-center-nowrap;
 

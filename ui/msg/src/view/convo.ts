@@ -18,6 +18,8 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           hook: hookMobileMousedown(ctrl.showSide),
         }),
         userLink({ ...user, moderator: user.id === 'lichess' }),
+        convo.modDetails?.kid ? h('bad', 'KID') : undefined,
+        convo.modDetails?.openInbox === false ? h('bad', "doesn't want messages") : undefined,
       ]),
       h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),
     ]),

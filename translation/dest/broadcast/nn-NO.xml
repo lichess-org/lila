@@ -78,4 +78,6 @@
   <string name="optionalDetails">Valfrie detaljar</string>
   <string name="pastBroadcasts">Tidlegare overføringar</string>
   <string name="allBroadcastsByMonth">Vis alle overføringar etter månad</string>
+  <string name="backToLiveMove">Attende til gjeldande trekk</string>
+  <string name="sinceHideResults">Du valde skjula resultatane, så alle forhåndsvisningane av bretta er tome for å unngå å røpa noko.</string>
 </resources>

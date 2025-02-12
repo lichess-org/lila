@@ -34,7 +34,7 @@ final class RoundMobile(
     moretimer: Moretimer,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi,
-    bookmarkExists: lila.core.bookmark.BookmarkExists
+    bookmarkExists: lila.core.misc.BookmarkExists
 )(using Executor, lila.core.user.FlairGetMap):
 
   import RoundMobile.*
