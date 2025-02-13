@@ -9,7 +9,7 @@ private case class WaitingUsers(
     apiUsers: Option[ExpireSetMemo[UserId]],
     clock: TournamentClock,
     date: Instant
-)(using Executor):
+):
 
   // ultrabullet -> 8
   // hyperbullet -> 10
@@ -40,22 +40,25 @@ private case class WaitingUsers(
     }
 
   def update(fromWebSocket: Set[UserId]) =
-    val newDate      = nowInstant
-    val withApiUsers = fromWebSocket ++ apiUsers.so(_.keySet)
+    val newDate = nowInstant
+    val all     = fromWebSocket ++ apiUsers.so(_.keySet)
     copy(
       date = newDate,
       hash = {
-        hash.view.filterKeys(withApiUsers.contains) ++
-          withApiUsers.filterNot(hash.contains).map { _ -> newDate }
+        hash.view.filterKeys(all.contains) ++ // remove gone users
+          all.filterNot(hash.contains).map { _ -> newDate } // add new users
       }.toMap
     )
 
   def hasUser(userId: UserId) = hash contains userId
 
-  def addApiUser(userId: UserId) =
-    val memo = apiUsers | new ExpireSetMemo[UserId](70.seconds)
+  def addApiUser(userId: UserId)(using Executor) =
+    val memo = apiUsers | ExpireSetMemo[UserId](70.seconds)
     memo.put(userId)
     if apiUsers.isEmpty then copy(apiUsers = memo.some) else this
+
+  def addApiUsers(users: Set[UserId])(using Executor) =
+    users.foldLeft(this)(_.addApiUser(_))
 
   def removePairedUsers(us: Set[UserId]) =
     apiUsers.foreach(_.removeAll(us))
@@ -81,9 +84,11 @@ final private class WaitingUsersApi(using Executor):
     store.computeIfPresent(tourId): cur =>
       cur.copy(waiting = cur.waiting.removePairedUsers(users)).some
 
-  def addApiUser(tour: Tournament, user: User) = updateOrCreate(tour) { w =>
+  def addApiUser(tour: Tournament, user: User) = updateOrCreate(tour): w =>
     w.copy(waiting = w.waiting.addApiUser(user.id))
-  }
+
+  def addApiUsers(tour: Tournament, users: Set[UserId]) = updateOrCreate(tour): w =>
+    w.copy(waiting = w.waiting.addApiUsers(users))
 
   def remove(id: TourId) = store.remove(id)
 
