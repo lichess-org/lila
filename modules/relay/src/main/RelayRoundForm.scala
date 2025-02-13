@@ -157,7 +157,8 @@ object RelayRoundForm:
       host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)
       if mode.notProd || !blocklist.exists(subdomain(host, _))
-      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
+      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub") || url.toString
+        .startsWith("https://www.chess.com/events/v1/api")
     yield url
 
   private def validateUpstreamUrl(s: String)(using Me, Mode): Either[String, URL] = for
