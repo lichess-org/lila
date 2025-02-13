@@ -109,7 +109,7 @@ final class GatheringFormUi(helpers: Helpers):
       half = true
     )
 
-  def bots(field: Field)(using Translate) =
+  def bots(field: Field, disabledAfterStart: Boolean)(using Translate) =
     form3.checkbox(
       field,
       "Allow bot accounts",
@@ -118,5 +118,6 @@ final class GatheringFormUi(helpers: Helpers):
         a(href := "/@/lichess/blog/welcome-lichess-bots/WvDNticA")("bots"),
         " join the tournament and play with their engines."
       ).some,
-      half = true
+      half = true,
+      disabled = disabledAfterStart
     )

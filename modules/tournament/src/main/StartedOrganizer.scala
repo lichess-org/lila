@@ -8,6 +8,8 @@ final private class StartedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
+    pairingRepo: PairingRepo,
+    waitingUsersApi: WaitingUsersApi,
     socket: TournamentSocket
 )(using Executor, Scheduler, akka.stream.Materializer):
 
@@ -50,9 +52,18 @@ final private class StartedOrganizer(
 
   private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Funit =
     tour.pairingsClosed.not.so:
-      socket
-        .getWaitingUsers(tour)
-        .monSuccess(_.tournament.startedOrganizer.waitingUsers)
-        .flatMap: waiting =>
-          lila.mon.tournament.waitingPlayers.record(waiting.size)
-          api.makePairings(tour, waiting, smallTourNbActivePlayers)
+      for
+        waitingBots <- fetchWaitingBots(tour)
+        _ = if waitingBots.nonEmpty then waitingUsersApi.addApiUsers(tour, waitingBots)
+        waiting <- socket.getWaitingUsers(tour).monSuccess(_.tournament.startedOrganizer.waitingUsers)
+        _ = waiting.hash
+        _ = lila.mon.tournament.waitingPlayers.record(waiting.size)
+        _ <- api.makePairings(tour, waiting, smallTourNbActivePlayers)
+      yield ()
+
+  private def fetchWaitingBots(tour: Tournament): Fu[Set[UserId]] =
+    tour.conditions.allowsBots.so:
+      for
+        activeBots   <- playerRepo.activeBotIds(tour.id)
+        playingUsers <- activeBots.nonEmpty.so(pairingRepo.playingUserIds(tour.id))
+      yield activeBots.diff(playingUsers)

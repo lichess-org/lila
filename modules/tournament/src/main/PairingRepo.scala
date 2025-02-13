@@ -150,6 +150,9 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
   def isPlaying(tourId: TourId, userId: UserId): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
 
+  def playingUserIds(tourId: TourId): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("u", selectTour(tourId) ++ selectPlaying)
+
   private[tournament] def finishedByPlayerChronological(
       tourId: TourId,
       userId: UserId
