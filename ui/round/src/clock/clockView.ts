@@ -114,7 +114,7 @@ function showBar(ctrl: RoundController, color: Color) {
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis): void {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   // 12/02/2025 Brave 1.74.51 android flickers the bar oninline transforms, even though .bar is display: none
-  if (els.bar && getComputedStyle(els.bar).display === 'block')
+  if (els.bar && window.getComputedStyle(els.bar).display === 'block')
     els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {
     const cl = els.clock.classList;
