@@ -7,6 +7,7 @@ import type { ClockElements, ClockController } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
 import { looseH as h, type VNode, bind } from 'common/snabbdom';
 import type { Position } from '../interfaces';
+import { isAndroid, isCol1 } from 'common/device';
 
 export function renderClock(ctrl: RoundController, player: Player, position: Position): VNode {
   const clock = ctrl.clock!,
@@ -114,8 +115,9 @@ function showBar(ctrl: RoundController, color: Color) {
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis): void {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   // 12/02/2025 Brave 1.74.51 android flickers the bar oninline transforms, even though .bar is display: none
-  if (els.bar && window.getComputedStyle(els.bar).display === 'block')
-    els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
+  if (els.bar)
+    if (!isAndroid() || !isCol1() || window.getComputedStyle(els.bar).display === 'block')
+      els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {
     const cl = els.clock.classList;
     if (millis < clock.emergMs) cl.add('emerg');
