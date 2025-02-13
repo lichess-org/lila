@@ -33,13 +33,12 @@ export const plyToTurn = (ply: number): number => Math.floor((ply - 1) / 2) + 1;
 export const pieceCount = (fen: FEN): number => fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1;
 
 export function fen960(): string {
-  // a bit slower but more compact than array[960]
-  const bishops = [2 * Math.floor(Math.random() * 4), 1 + 2 * Math.floor(Math.random() * 4)];
-  const files = shuffle([0, 1, 2, 3, 4, 5, 6, 7]).filter(f => !bishops.includes(f));
+  const [dark, light] = [2 * Math.floor(Math.random() * 4), 1 + 2 * Math.floor(Math.random() * 4)];
+  const files = shuffle([0, 1, 2, 3, 4, 5, 6, 7].filter(f => f !== dark && f !== light));
   const [leftRook, king, rightRook] = files.slice(0, 3).sort();
   const [queen, knight1, knight2] = files.slice(3);
   const board = Array(8);
-  board[bishops[0]] = board[bishops[1]] = 'b';
+  board[dark] = board[light] = 'b';
   board[leftRook] = board[rightRook] = 'r';
   board[king] = 'k';
   board[queen] = 'q';

@@ -43,7 +43,7 @@ export class EditDialog {
       <div class="base-view dev-view edit-view with-cards">
         <div class="edit-bot"></div>
       </div>`);
-    if (!env.bot.all.length) env.bot.save(EditDialog.default);
+    if (!env.bot.all.length) env.bot.storeBot(EditDialog.default);
     this.selectBot();
     this.deck = handOfCards({
       viewEl: this.view,
@@ -52,7 +52,7 @@ export class EditDialog {
       getCardData: () => this.cardData,
       select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
       opaqueSelectedBackground: true,
-      fanoutCenterToWidthRatio: 1 / 3,
+      fanCenterToWidthRatio: 1 / 3,
     });
   }
 
@@ -150,9 +150,9 @@ export class EditDialog {
   private get cardData() {
     const speed = 'classical'; //env.game.speed;
     return Object.values({ ...this.bots, ...this.scratch })
-      .map(bot => env.bot.classifiedCard(bot, this.isDirty))
+      .map(bot => env.bot.groupedCard(bot, this.isDirty))
       .filter(defined)
-      .sort(env.bot.classifiedSort(speed));
+      .sort(env.bot.groupedSort(speed));
   }
 
   private async push() {
@@ -165,7 +165,7 @@ export class EditDialog {
   private async save() {
     const behaviorScroll = this.view.querySelector('.behavior')!.scrollTop;
     const filtersScroll = this.view.querySelector('.filters')!.scrollTop;
-    await env.bot.save(deadStrip(this.bot));
+    await env.bot.storeBot(deadStrip(this.bot));
     this.update();
     this.view.querySelector('.behavior')!.scrollTop = behaviorScroll ?? 0;
     this.view.querySelector('.filters')!.scrollTop = filtersScroll ?? 0;
@@ -189,7 +189,7 @@ export class EditDialog {
 
     if (!rsp.ok) return;
     delete this.scratch[this.uid];
-    await env.bot.delete(this.uid).then(() => this.selectBot(env.bot.firstUid));
+    await env.bot.deleteStoredBot(this.uid).then(() => this.selectBot(env.bot.firstUid));
     this.update();
   }
 
@@ -279,7 +279,11 @@ export class EditDialog {
           selector: '.ok',
           listener: (_, dlg) => {
             if (!input.dataset.uid) return;
-            env.bot.save({ ...EditDialog.default, uid: input.dataset.uid, name: input.dataset.uid.slice(1) });
+            env.bot.storeBot({
+              ...EditDialog.default,
+              uid: input.dataset.uid,
+              name: input.dataset.uid.slice(1),
+            });
             this.selectBot(input.dataset.uid);
             dlg.close();
           },

@@ -19,9 +19,8 @@ import {
   renderTools,
   renderUnderboard,
 } from './components';
-//import { wikiToggleBox } from '../wiki';
+import { wikiToggleBox } from '../wiki';
 import { watchers } from 'common/watchers';
-import { dasherPolls } from 'dasher';
 
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {
@@ -51,35 +50,35 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
       ? deps?.studyPracticeView.side(study!)
       : h(
           'aside.analyse__side',
-          // {
-          //   hook: onInsert(elm => {
-          //     if (ctrl.opts.$side && ctrl.opts.$side.length) {
-          //       $(elm).replaceWith(ctrl.opts.$side);
-          //       wikiToggleBox();
-          //     }
-          //   }),
-          // },
+          {
+            hook: onInsert(elm => {
+              if (ctrl.opts.$side && ctrl.opts.$side.length) {
+                $(elm).replaceWith(ctrl.opts.$side);
+                wikiToggleBox();
+              }
+            }),
+          },
           ctrl.studyPractice
             ? [deps?.studyPracticeView.side(study!)]
             : study
               ? [deps?.studyView.side(study, true)]
               : [
                   ctrl.forecast && forecastView(ctrl, ctrl.forecast),
-                  !ctrl.synthetic && playable(ctrl.data)
-                    ? h(
-                        'div.back-to-game',
-                        h(
-                          'a.button.button-empty.text',
-                          {
-                            attrs: {
-                              href: router.game(ctrl.data, ctrl.data.player.color),
-                              'data-icon': licon.Back,
-                            },
+                  !ctrl.synthetic &&
+                    playable(ctrl.data) &&
+                    h(
+                      'div.back-to-game',
+                      h(
+                        'a.button.button-empty.text',
+                        {
+                          attrs: {
+                            href: router.game(ctrl.data, ctrl.data.player.color),
+                            'data-icon': licon.Back,
                           },
-                          i18n.site.backToGame,
-                        ),
-                      )
-                    : dasherPolls(ctrl.opts.data.boards, ctrl.opts.data.pieces), //, ctrl.redraw),
+                        },
+                        i18n.site.backToGame,
+                      ),
+                    ),
                 ],
         ),
     h('div.chat__members.none', { hook: onInsert(watchers) }),

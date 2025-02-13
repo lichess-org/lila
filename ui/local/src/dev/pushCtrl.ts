@@ -37,7 +37,7 @@ export class PushCtrl {
         body: JSON.stringify(bot),
       });
       if (!res.ok) throw new Error(res.statusText);
-      await env.bot.setServer(await res.json());
+      await env.bot.setServerBot(await res.json());
 
       const clearLocals: { type: AssetType; key: string }[] = [];
       for (const b of localBlobs.filter(defined)) {
@@ -54,7 +54,7 @@ export class PushCtrl {
 
   async deleteBot(uid: string): Promise<void> {
     if (await fetch(`/local/dev/bot`, { method: 'post', body: `{"uid":"${uid}"}` }).then(rsp => rsp.ok)) {
-      await env.bot.delete(uid);
+      await env.bot.deleteStoredBot(uid);
     }
   }
 

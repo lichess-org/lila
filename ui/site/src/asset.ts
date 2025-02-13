@@ -18,7 +18,7 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 
 function asHashed(path: string, hash: string) {
   const name = path.slice(path.lastIndexOf('/') + 1);
-  const extPos = name.indexOf('.');
+  const extPos = name.lastIndexOf('.');
   return `hashed/${extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`}`;
 }
 

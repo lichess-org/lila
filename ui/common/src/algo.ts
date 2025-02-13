@@ -8,10 +8,9 @@ export const randomToken = (): string => {
 };
 
 export function randomId(len = 8): string {
-  const charSet = 'abcdefghkmnpqrstuvwxyz0123456789';
-  const charSetSize = charSet.length; // 32
-  const buffer = crypto.getRandomValues(new Uint8Array(len));
-  return Array.from(buffer, byte => charSet[byte % charSetSize]).join('');
+  const charSet32 = 'abcdefghkmnpqrstuvwxyz0123456789';
+  const buffer = globalThis.crypto.getRandomValues(new Uint8Array(len));
+  return Array.from(buffer, byte => charSet32[byte % 32]).join('');
 }
 
 export function clamp(value: number, bounds: { min?: number; max?: number }): number {

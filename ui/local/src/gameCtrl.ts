@@ -31,7 +31,6 @@ export class GameCtrl {
     this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
     this.resetClock();
     this.proxy.reset();
-    console.log('load', this.live, this.proxy.data);
     this.updateClockUi();
     env.round?.redraw();
     this.triggerStart(this.live.ply > 0 && Number.isFinite(this.initial));

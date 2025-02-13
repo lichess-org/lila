@@ -52,6 +52,7 @@ export default class EditorCtrl {
 
     if (this.options.bindHotkeys !== false)
       site.mousetrap.bind('f', () => {
+        console.log('hullo');
         if (this.chessground) {
           this.chessground.toggleOrientation();
           if (this.options.orientation) this.setOrientation(opposite(this.options.orientation));

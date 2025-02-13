@@ -19,7 +19,7 @@ export class BotCtrl {
   readonly uids: Record<Color, string | undefined> = { white: undefined, black: undefined };
   private store: ObjectStorage<BotInfo>;
   private busy = false;
-  private bestMove = { uci: 'e2e4', cp: 30 };
+  private bestMove = { uci: '0000', cp: 0 };
 
   constructor() {}
 
@@ -64,7 +64,7 @@ export class BotCtrl {
 
   async initBots(defBots?: BotInfo[]): Promise<this> {
     const [localBots, serverBots] = await Promise.all([
-      this.getSavedBots(),
+      this.storedBots(),
       defBots ??
         fetch('/local/bots')
           .then(res => res.json())
@@ -78,6 +78,8 @@ export class BotCtrl {
     localBots.forEach((b: BotInfo) => (this.localBots[b.uid] = deepFreeze(b)));
     serverBots.forEach((b: BotInfo) => (this.serverBots[b.uid] = deepFreeze(b)));
     pubsub.complete('local.bots.ready');
+    if (this.uids.white && !this.bots[this.uids.white]) this.uids.white = undefined;
+    if (this.uids.black && !this.bots[this.uids.black]) this.uids.black = undefined;
     return this;
   }
 
@@ -112,16 +114,16 @@ export class BotCtrl {
     env.assets.preload([white, black].filter(defined));
   }
 
-  stop(): void {
-    return this.zerofish.stop();
-  }
+  // stop(): void {
+  //   return this.zerofish.stop();
+  // }
 
   reset(): void {
-    this.bestMove = { uci: 'e2e4', cp: 30 };
+    this.bestMove = { uci: '0000', cp: 0 };
     return this.zerofish.reset();
   }
 
-  save(bot: BotInfo): Promise<any> {
+  storeBot(bot: BotInfo): Promise<any> {
     delete this.localBots[bot.uid];
     this.bots[bot.uid] = new Bot(bot);
     if (Bot.isSame(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
@@ -129,20 +131,23 @@ export class BotCtrl {
     return this.store.put(bot.uid, bot);
   }
 
-  async setServer(bot: BotInfo): Promise<void> {
+  async deleteStoredBot(uid: string): Promise<void> {
+    await this.store.remove(uid);
+    delete this.bots[uid];
+    await this.initBots();
+  }
+
+  async clearStoredBots(uids?: string[]): Promise<void> {
+    await (uids ? Promise.all(uids.map(uid => this.store.remove(uid))) : this.store.clear());
+    await this.initBots();
+  }
+
+  async setServerBot(bot: BotInfo): Promise<void> {
     this.bots[bot.uid] = new Bot(bot);
     console.log('from server', bot);
     this.serverBots[bot.uid] = deepFreeze(structuredClone(bot));
     delete this.localBots[bot.uid];
     await this.store.remove(bot.uid);
-  }
-
-  async delete(uid: string): Promise<void> {
-    if (this.uids.white === uid) this.uids.white = undefined;
-    if (this.uids.black === uid) this.uids.black = undefined;
-    await this.store.remove(uid);
-    delete this.bots[uid];
-    await this.initBots();
   }
 
   imageUrl(bot: BotInfo | undefined): string | undefined {
@@ -160,7 +165,7 @@ export class BotCtrl {
     );
   }
 
-  classifiedCard(bot: BotInfo, isDirty?: (b: BotInfo) => boolean): CardData | undefined {
+  groupedCard(bot: BotInfo, isDirty?: (b: BotInfo) => boolean): CardData | undefined {
     const cd = this.card(bot);
     const local = this.localBots[bot.uid];
     const server = this.serverBots[bot.uid];
@@ -172,7 +177,7 @@ export class BotCtrl {
     return cd;
   }
 
-  classifiedSort(speed: LocalSpeed = 'classical'): (a: CardData, b: CardData) => number {
+  groupedSort(speed: LocalSpeed = 'classical'): (a: CardData, b: CardData) => number {
     return (a, b) => {
       for (const c of ['dirty', 'local-only', 'local-changes', 'upstream-changes']) {
         if (a.classList.includes(c) && !b.classList.includes(c)) return -1;
@@ -181,11 +186,6 @@ export class BotCtrl {
       const [ab, bb] = [this.get(domIdToUid(a.domId)), this.get(domIdToUid(b.domId))];
       return (ab?.ratings[speed] ?? 1500) - (bb?.ratings[speed] ?? 1500) || a.label.localeCompare(b.label);
     };
-  }
-
-  async clearStoredBots(uids?: string[]): Promise<void> {
-    await (uids ? Promise.all(uids.map(uid => this.store.remove(uid))) : this.store.clear());
-    await this.initBots();
   }
 
   playSound(c: Color, eventList: SoundEvent[]): number {
@@ -206,7 +206,7 @@ export class BotCtrl {
     return 1;
   }
 
-  private getSavedBots() {
+  private storedBots() {
     return (
       this.store?.getMany() ??
       objectStorage<BotInfo>({ store: 'local.bots', version: 2, upgrade: this.upgrade }).then(s => {

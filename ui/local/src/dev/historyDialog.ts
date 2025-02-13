@@ -119,7 +119,7 @@ class HistoryDialog {
   };
 
   pull = async () => {
-    await env.bot.save(this.selected as BotInfo);
+    await env.bot.storeBot(this.selected as BotInfo);
     await this.updateHistory();
     this.select();
     this.host.update();

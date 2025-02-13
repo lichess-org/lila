@@ -47,24 +47,12 @@ export class Bot implements BotInfo, MoveSource {
     const [aFilters, bFilters] = [a, b].map(bot =>
       Object.entries(bot?.filters ?? {}).filter(([k, v]) => v.move || v.time || v.score),
     );
-    return closeEnough(aFilters, bFilters);
+    return closeEnough(aFilters, bFilters); // allow empty filter craplets to differ
   }
 
   static migrate(oldDbVersion: number, oldBot: any): BotInfo {
-    const bot = structuredClone(oldBot);
-    // example: migrate from version 1
-    //
-    // if (oldDbVersion === 1) {
-    //   bot.filters = {};
-    //   for (const [name, filter] of Object.entries<any>(oldBot.filters)) {
-    //     bot.filters[name] = {
-    //       range: { ...filter.range },
-    //       by: 'max',
-    //     };
-    //     bot.filters[name][filter.by] = structuredClone(filter.data);
-    //   }
-    // }
-    return bot;
+    // ...
+    return oldDbVersion, oldBot;
   }
 
   constructor(info: BotInfo) {
@@ -178,7 +166,7 @@ export class Bot implements BotInfo, MoveSource {
 
   private async bookMove(chess: co.Chess) {
     const books = this.books?.filter(b => !b.color || b.color === chess.turn);
-    // first use book relative weights to choose from the subset of books with moves for  the current position
+    // first use book relative weights to choose from the subset of books with moves for the current position
     if (!books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; book: Book }[] = [];
     let bookChance = 0;
@@ -277,7 +265,7 @@ export class Bot implements BotInfo, MoveSource {
     const cplTarget = Math.abs(mean + stdev * getNormal());
     // folding the normal at zero skews the observed distribution mean a bit further from the target
     const gain = 0.06;
-    const threshold = 80; // we could go with something like clamp(stdev, { min: 50, max: 100 }) here
+    const threshold = 80; // something like clamp(stdev, { min: 50, max: 100 }) here?
     for (const mv of sorted) {
       if (mv.cpl === undefined) continue;
       const distance = Math.abs((mv.cpl ?? 0) - cplTarget);

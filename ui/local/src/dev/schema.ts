@@ -1,7 +1,7 @@
 import type { Schema, InfoKey, PropertyValue } from './devTypes';
 import { deepFreeze } from 'common/algo';
 
-// describe dialog content, define constraints, map to Bot instances
+// describe dialog content, define constraints, maps to Bot instance data
 
 export const infoKeys: InfoKey[] = [
   'type',
@@ -21,7 +21,7 @@ export const infoKeys: InfoKey[] = [
   'toggle',
 ]; // InfoKey in file://./types.ts
 
-export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/;
+export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/; // <<= means startsWith
 
 export const schema: Schema = deepFreeze<Schema>({
   info: {
@@ -127,9 +127,13 @@ export const schema: Schema = deepFreeze<Schema>({
         step: 1,
         toggle: true,
         requires: {
-          some: ['behavior_zero_net <<= e55a', 'behavior_zero_net <<= 2d2e', 'behavior_zero_net <<= d685'],
+          some: [
+            'behavior_zero_net <<= e55a', // tinygyal
+            'behavior_zero_net <<= 2d2e', // evilgyal
+            'behavior_zero_net <<= d685', // goodgyal
+            'behavior_zero_net <<= b5d2', // meangyal
+          ],
         },
-        // '<<=' means startsWith and those hex values are tinygyal, evilgyal, and goodgyal
       },
     },
     fish: {
@@ -253,7 +257,7 @@ export const schema: Schema = deepFreeze<Schema>({
         move quality decay is engine independent and can be used to resolve between
         scored stockfish and unscored lc0 moves.
         it operates on the full list provided by engine behavior and pairs well
-        with the think time tab and a crisp chardonnay.`,
+        with the think time facet and a crisp chardonnay.`,
       ),
     },
   },

@@ -29,9 +29,9 @@
       top: 50%;
       left: 110%;
     }
-    // &.dragging {
-    //   transition: 0.05s;
-    // }
+    &.dragging {
+      transition: 0.05s;
+    }
     &.selected {
       pointer-events: none;
       border: none;

@@ -223,7 +223,7 @@ export class DevAssets extends Assets {
         const existing = bot.books?.find(b => b.key === oldKey);
         if (existing) {
           existing.key = key;
-          promises.push(env.bot.save(bot));
+          promises.push(env.bot.storeBot(bot));
         }
       }
       await Promise.allSettled([...promises, this.idb.book.rm(oldKey), this.idb.bookCover.rm(oldKey)]);
