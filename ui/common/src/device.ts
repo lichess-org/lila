@@ -66,11 +66,9 @@ export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice
 
 export const isMobile = (): boolean => isAndroid() || isIos();
 
-export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
+export const isAndroid: () => boolean = memoize(() => /Android/.test(navigator.userAgent));
 
-export const isIos: () => boolean = memoize<boolean>(
-  () => /iPhone|iPod/.test(navigator.userAgent) || isIPad(),
-);
+export const isIos: () => boolean = memoize(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
 
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);

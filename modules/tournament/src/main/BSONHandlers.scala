@@ -117,7 +117,8 @@ object BSONHandlers:
         score = r.intD("s"),
         fire = r.boolD("f"),
         performance = r.getO[IntRating]("e"),
-        team = r.getO[TeamId]("t")
+        team = r.getO[TeamId]("t"),
+        bot = r.boolD("bot")
       )
     def writes(w: BSON.Writer, o: Player) =
       $doc(
@@ -131,7 +132,8 @@ object BSONHandlers:
         "m"   -> o.magicScore,
         "f"   -> w.boolO(o.fire),
         "e"   -> o.performance,
-        "t"   -> o.team
+        "t"   -> o.team,
+        "bot" -> w.boolO(o.bot)
       )
 
   given pairingHandler: BSON[Pairing] with

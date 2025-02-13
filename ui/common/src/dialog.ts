@@ -255,7 +255,7 @@ class DialogWrapper implements Dialog {
     this.dialogEvents.addListener(viewEl, 'click', e => e.stopPropagation());
 
     this.dialogEvents.addListener(dialogEl, 'cancel', e => {
-      if (o.noClickAway && o.noCloseButton) return e.preventDefault();
+      if (o.noClickAway && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
       if (!this.returnValue) this.returnValue = 'cancel';
     });
     this.dialogEvents.addListener(dialogEl, 'close', this.onRemove);

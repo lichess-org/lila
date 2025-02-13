@@ -24,6 +24,8 @@ object TournamentCondition:
         List(nbRatedGame, maxRating, minRating, titled, teamMember, accountAge, allowList, bots)
       ):
 
+    private def listWithBots = if bots.isDefined then list else Bots(false) :: list
+
     def withVerdicts(perfType: PerfType)(using
         Me,
         Perf,
@@ -32,7 +34,7 @@ object TournamentCondition:
         GetMyTeamIds,
         GetAge
     ): Fu[WithVerdicts] =
-      list
+      listWithBots
         .parallel:
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
@@ -45,7 +47,7 @@ object TournamentCondition:
         ex: Executor,
         getMyTeamIds: GetMyTeamIds
     ): Fu[WithVerdicts] =
-      list
+      listWithBots
         .parallel:
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
           case c             => fuccess(WithVerdict(c, Accepted))
@@ -61,6 +63,8 @@ object TournamentCondition:
         .filter(_.nonEmpty)
         .so: current =>
           prev.allowList.so(_.userIds.diff(current))
+
+    def allowsBots = bots.exists(_.allowed)
 
   object All:
     val empty             = All(none, none, none, none, none, none, none, none)
