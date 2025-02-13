@@ -149,7 +149,7 @@ object TreeBuilderTest:
       def cleanup: NewBranch =
         node
           .focus(_.metas.clock)
-          .set(none)
+          .replace(none)
           .focus(_.metas.comments)
           .modify(_.cleanup)
 
