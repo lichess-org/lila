@@ -245,10 +245,6 @@ class DialogWrapper implements Dialog {
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
-      if (!dialogEl.isConnected) {
-        console.log('what the fubbins?');
-        return;
-      }
       if (Date.now() - justThen < 200) return; // removed isConnected() check. we catch leaks this way
       const r = dialogEl.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
@@ -258,11 +254,10 @@ class DialogWrapper implements Dialog {
     viewEl.parentElement?.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     this.dialogEvents.addListener(viewEl, 'click', e => e.stopPropagation());
 
-    this.dialogEvents.addListener(
-      dialogEl,
-      'cancel',
-      () => !this.returnValue && (this.returnValue = 'cancel'),
-    );
+    this.dialogEvents.addListener(dialogEl, 'cancel', e => {
+      if (o.noClickAway && o.noCloseButton) return e.preventDefault();
+      if (!this.returnValue) this.returnValue = 'cancel';
+    });
     this.dialogEvents.addListener(dialogEl, 'close', this.onRemove);
     if (!o.noCloseButton)
       this.dialogEvents.addListener(
@@ -284,7 +279,7 @@ class DialogWrapper implements Dialog {
       else where.appendChild(app.node);
     }
     this.updateActions();
-    this.dialogEvents.addListener(this.dialogEl, 'keydown', onKeydown);
+    this.dialogEvents.addListener(this.dialogEl, 'keydown', this.onKeydown);
   }
 
   get open(): boolean {
@@ -330,6 +325,23 @@ class DialogWrapper implements Dialog {
     }
   };
 
+  private onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && !(this.o.noCloseButton && this.o.noClickAway)) {
+      this.close('cancel');
+      e.preventDefault();
+    } else if (e.key === 'Tab') {
+      const $focii = $(focusQuery, e.currentTarget as Element),
+        first = $as<HTMLElement>($focii.first()),
+        last = $as<HTMLElement>($focii.last()),
+        focus = document.activeElement as HTMLElement;
+      if (focus === last && !e.shiftKey) first.focus();
+      else if (focus === first && e.shiftKey) last.focus();
+      else return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+  };
+
   private autoFocus() {
     const focus =
       (this.o.focus
@@ -373,21 +385,6 @@ function loadAssets(o: DialogOpts) {
 
 function escapeHtmlAddBreaks(s: string) {
   return escapeHtml(s).replace(/\n/g, '<br>');
-}
-
-function onKeydown(e: KeyboardEvent) {
-  if (e.key === 'Tab') {
-    const $focii = $(focusQuery, e.currentTarget as Element),
-      first = $as<HTMLElement>($focii.first()),
-      last = $as<HTMLElement>($focii.last()),
-      focus = document.activeElement as HTMLElement;
-    $focii.each((_, el) => console.log(el.id));
-    if (focus === last && !e.shiftKey) first.focus();
-    else if (focus === first && e.shiftKey) last.focus();
-    else return;
-    e.preventDefault();
-  }
-  e.stopPropagation();
 }
 
 function onResize() {

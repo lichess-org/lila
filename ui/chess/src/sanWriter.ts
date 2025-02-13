@@ -99,7 +99,6 @@ export function almostSanOf(board: Board, uci: string): AlmostSan {
   const to = square(move[1]);
   const p = board.pieces[from];
   const d = board.pieces[to];
-  console.log(uci, board);
   const pt = board.pieces[from].toLowerCase();
 
   // pawn moves

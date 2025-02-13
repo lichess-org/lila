@@ -222,7 +222,7 @@ class HandOfCardsImpl {
       y = this.originY - (this.fanRadius + radiusOffset) * Math.cos(angle);
     }
     card.style.transform = `translate(${x + centerCard}px, ${y + centerCard}px) rotate(${cardRotation}rad)`;
-    console.log(x, y);
+    //console.log(x, y);
   }
 
   private selectedTransform(card: HTMLElement) {
@@ -371,7 +371,6 @@ class HandOfCardsImpl {
   private animate = () => {
     if (document.contains(this.view)) {
       this.container.classList.toggle('no-transition', this.noTransition);
-      console.log('we animatin');
       this.placeCards();
     }
     this.animFrame = requestAnimationFrame(this.animate);
