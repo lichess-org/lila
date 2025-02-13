@@ -9,7 +9,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
   document.addEventListener('keydown', e => e.key === 'Shift' && (shiftAlone = e.location));
   document.addEventListener('keyup', e => {
-    if (e.key === 'Shift' && e.location === shiftAlone) {
+    if (
+      e.key === 'Shift' &&
+      e.location === shiftAlone &&
+      !document.activeElement?.classList.contains('mchat__say')
+    ) {
+      // hilities confound ddugovic when he fails to capitalize a letter in chat
       if (shiftAlone === 1 && ctrl.fork.prev()) ctrl.setAutoShapes();
       else if (shiftAlone === 2 && ctrl.fork.next()) ctrl.setAutoShapes();
       else if (shiftAlone === 0) return;
