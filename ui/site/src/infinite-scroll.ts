@@ -5,7 +5,7 @@ export function loadInfiniteScroll(sel: string): void {
   document.querySelectorAll(sel).forEach((el: HTMLElement) => {
     if (!el.querySelector('.pager a')) return;
 
-    const parent = getOutOfTable(el);
+    const parent = getOutOfTable(el.parentElement);
 
     if (parent) {
       const statusDiv = document.createElement('div');
