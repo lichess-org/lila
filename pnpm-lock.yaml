@@ -175,7 +175,17 @@ importers:
         specifier: 'catalog:'
         version: 4.19.2
 
-  ui/@build/pieces: {}
+  ui/@build/pieces:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.17.12
+      dedent:
+        specifier: ^1.5.3
+        version: 1.5.3
+      tsx:
+        specifier: 'catalog:'
+        version: 4.19.2
 
   ui/@build/tsconfig: {}
 
@@ -905,9 +915,6 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      dragscroll:
-        specifier: ^0.0.8
-        version: 0.0.8
       game:
         specifier: workspace:*
         version: link:../game
@@ -1774,6 +1781,14 @@ packages:
     resolution: {integrity: sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==}
     engines: {node: '>=0.10.0'}
 
+  dedent@1.5.3:
+    resolution: {integrity: sha512-NHQtfOOW68WD8lgypbLA5oT+Bt0xXJhiYvoR6SmmNXZfpzOGXwdKWmcwG8N7PwVVWV3eF/68nmD9BaJSsTBhyQ==}
+    peerDependencies:
+      babel-plugin-macros: ^3.1.0
+    peerDependenciesMeta:
+      babel-plugin-macros:
+        optional: true
+
   defaults@1.0.4:
     resolution: {integrity: sha512-eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==}
 
@@ -1810,9 +1825,6 @@ packages:
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
-
-  dragscroll@0.0.8:
-    resolution: {integrity: sha512-nMrx/KErHpEkiKZlrghcT/nLWCj8vEJgv6s6TF84gmgn6uROPx2wRvClkcnjSEyvppYY9okOI1DIv573Toql1w==}
 
   easy-table@1.2.0:
     resolution: {integrity: sha512-OFzVOv03YpvtcWGe5AayU5G2hgybsg3iqA6drU8UaoZyB9jLGMTrz9+asnLp/E+6qPh88yEI1gvyZFZ41dmgww==}
@@ -3553,6 +3565,8 @@ snapshots:
 
   decamelize@1.2.0: {}
 
+  dedent@1.5.3: {}
+
   defaults@1.0.4:
     dependencies:
       clone: 1.0.4
@@ -3598,8 +3612,6 @@ snapshots:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
-
-  dragscroll@0.0.8: {}
 
   easy-table@1.2.0:
     dependencies:

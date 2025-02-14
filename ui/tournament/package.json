@@ -10,7 +10,6 @@
     "chat": "workspace:*",
     "common": "workspace:*",
     "date-fns": "^2.30.0",
-    "dragscroll": "^0.0.8",
     "game": "workspace:*",
     "i18n": "workspace:*",
     "shogi": "workspace:*",
