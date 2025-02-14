@@ -2,7 +2,6 @@
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "includeEntryExports": true,
   "ignoreDependencies": ["common", ".*-[css|sass|scss]"],
-  "ignoreBinaries": ["type", "ruby"],
   "ignore": ["**/_*.ts"],
   "workspaces": {
     ".": {
