@@ -32,7 +32,7 @@ object Dependencies {
 
     val core      = PlayImport.playCore
     val ws        = PlayImport.ws
-    val json      = "com.typesafe.play" %% "play-json" % "2.10.6"
+    val json      = "com.typesafe.play" %% "play-json"      % "2.10.6"
     val jsonJoda  = "com.typesafe.play" %% "play-json-joda" % "2.10.6"
     val jodaForms = PlayImport.jodaForms
     val specs2    = PlayImport.specs2    % Test

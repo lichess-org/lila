@@ -215,15 +215,14 @@ final class TournamentApi(
   private[tournament] def start(oldTour: Tournament): Funit =
     Sequencing(oldTour.id)(tournamentRepo.createdById) { tour =>
       tournamentRepo.setStatus(tour.id, Status.Started) >>-
-        socket.foreach(_.reload(tour.id)) >>-
-        publish()
+        socket.foreach(_.reload(tour.id))
     }
 
   private[tournament] def destroy(tour: Tournament): Funit =
     tournamentRepo.remove(tour).void >>
       (if (tour.isArena) pairingRepo.removeByTour(tour.id)
        else arrangementRepo.removeByTour(tour.id)) >>
-      playerRepo.removeByTour(tour.id) >>- publish() >>- socket.foreach(_.reload(tour.id))
+      playerRepo.removeByTour(tour.id) >>- socket.foreach(_.reload(tour.id))
 
   private[tournament] def finish(oldTour: Tournament): Funit =
     Sequencing(oldTour.id)(tournamentRepo.startedById) { tour =>
@@ -243,7 +242,6 @@ final class TournamentApi(
           } yield {
             callbacks.clearJsonViewCache(tour)
             socket.foreach(_.finish(tour.id))
-            publish()
             playerRepo withPoints tour.id foreach {
               _ foreach { p =>
                 userRepo.incToints(p.userId, p.score)
@@ -388,7 +386,6 @@ final class TournamentApi(
                       updateNbPlayers(tour.id) >>- {
                         if (tour.hasArrangements) cached.arrangement.invalidatePlayers(tour.id)
                         socket.foreach(_.reload(tour.id))
-                        publish()
                       } inject true
                   if (tour.candidatesOnly && !playerExists && me.id != tour.createdBy)
                     proceedAsCandidate
@@ -593,7 +590,7 @@ final class TournamentApi(
       case tour if tour.isCreated =>
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socket.foreach(
           _.reload(tour.id),
-        ) >>- publish()
+        )
       case tour if (tour.isStarted && (tour.isArena || isForced)) =>
         for {
           _ <- playerRepo.withdraw(tour.id, userId)
@@ -604,7 +601,6 @@ final class TournamentApi(
         } yield {
           if (pausable) pause.add(userId)
           socket.foreach(_.reload(tour.id))
-          publish()
         }
       case _ => funit
     }
@@ -780,7 +776,6 @@ final class TournamentApi(
           tournamentRepo.setDenied(tour.id, userId :: tour.denied) >>- {
             if (tour.hasArrangements) cached.arrangement.invalidatePlayers(tour.id)
             socket.foreach(_.reload(tour.id))
-            publish()
           }
       }
     }
@@ -807,7 +802,7 @@ final class TournamentApi(
               }
             }
         } else updateNbPlayers(tour.id)
-      } >>- socket.foreach(_.reload(tour.id)) >>- publish()
+      } >>- socket.foreach(_.reload(tour.id))
     }
 
   def ejectLameFromHistory(tourId: Tournament.ID, userId: User.ID): Funit =
@@ -1004,25 +999,6 @@ final class TournamentApi(
           .flatMap(aOpt => aOpt.filter(a => filter(tour, a)) ?? { a => run(tour, a) })
       }
     }
-
-  private object publish {
-    // private val debouncer = system.actorOf(
-    //   Props(
-    //     new Debouncer(
-    //       15 seconds,
-    //       { (_: Debouncer.Nothing) =>
-    //         implicit val lang = lila.i18n.defaultLang
-    //         featured.get foreach { tours =>
-    //           renderer.actor ? Tournament.TournamentTable(tours) map { case view: String =>
-    //             Bus.publish(ReloadTournaments(view), "lobbySocket")
-    //           }
-    //         }
-    //       },
-    //     ),
-    //   ),
-    // )
-    def apply(): Unit = { println("PUBLISH") }
-  }
 
   private object updateTournamentStanding {
 
