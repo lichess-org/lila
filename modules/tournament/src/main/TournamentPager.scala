@@ -64,16 +64,18 @@ final class TournamentPager(
 
   private def selector(order: TournamentPager.Order) =
     order match {
-      case TournamentPager.Order.Created => $doc("schedule" $exists false)
-      case TournamentPager.Order.Started => $doc("startsAt" $lt DateTime.now)
-      case _                             => $empty
+      case TournamentPager.Order.Created | TournamentPager.Order.Started =>
+        $doc("schedule" $exists false)
+      case TournamentPager.Order.Lishogi =>
+        $doc("schedule" $exists true)
+      case _ => $empty
     }
 
   private def sort(order: TournamentPager.Order) =
     order match {
-      case TournamentPager.Order.Started => $sort desc "startsAt"
+      case TournamentPager.Order.Popular => $sort desc "nbPlayers"
       case TournamentPager.Order.Created => $sort desc "createdAt"
-      case _                             => $sort desc "nbPlayers"
+      case _                             => $sort desc "startsAt"
     }
 
   object Featured {
@@ -123,6 +125,7 @@ object TournamentPager {
     case object Started extends Order("started", trans.dateStartedNewest)
     case object Created extends Order("created", trans.study.dateAddedNewest)
     case object Popular extends Order("popular", trans.study.mostPopular)
+    case object Lishogi extends Order("lishogi", trans.lishogiTournaments)
 
     val all       = List(Hot, Started, Created, Popular)
     val allButHot = all.filterNot(_ == Hot)
