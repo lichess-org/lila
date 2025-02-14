@@ -13,6 +13,7 @@ project/target
 # ui stuff
 /public/compiled
 /public/css
+/public/piece-css
 /public/vendors
 /public/translation
 /ui/common/css/theme/gen
