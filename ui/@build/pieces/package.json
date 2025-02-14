@@ -3,7 +3,12 @@
   "private": true,
   "license": "AGPL-3.0-or-later",
   "type": "module",
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "dedent": "^1.5.3",
+    "tsx": "catalog:"
+  },
   "scripts": {
-    "build": "type ruby && ruby ./piece-sprite.rb && ruby ./piece-sprite-kyo.rb && ruby ./piece-sprite-chu.rb"
+    "build": "tsx ./src/main.ts"
   }
 }
