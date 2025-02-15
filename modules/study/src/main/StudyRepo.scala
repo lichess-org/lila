@@ -94,7 +94,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def selectBroadcast                               = selectTopic(StudyTopic.broadcast)
   private[study] def selectNotBroadcast             = $doc(F.topics.$ne(StudyTopic.broadcast))
 
-  def countByOwner(ownerId: UserId) = coll(_.countSel(selectOwnerId(ownerId)))
+  private[study] def hasMemberOrIsPublic(userId: Option[UserId]) = userId match
+    case None    => selectPublic
+    case Some(u) => $or($doc(s"members.${u}".$exists(true)), selectPublic)
+
+  def countByOwner(ownerId: UserId, viewerId: Option[UserId]) = coll(
+    _.countSel(selectOwnerId(ownerId) ++ hasMemberOrIsPublic(viewerId))
+  )
 
   def sourceByOwner(ownerId: UserId, isMe: Boolean): Source[Study, ?] =
     Source.futureSource:
