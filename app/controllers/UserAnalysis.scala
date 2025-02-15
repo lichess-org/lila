@@ -1,7 +1,7 @@
 package controllers
 
 import chess.format.Fen
-import chess.variant.{ FromPosition, Standard, Variant }
+import chess.variant.{ FromPosition, Standard, Variant, Chess960 }
 import chess.{ ByColor, FullMoveNumber, Situation }
 import play.api.libs.json.Json
 import play.api.mvc.*
@@ -31,11 +31,16 @@ final class UserAnalysis(
       case _ => load("", Standard)
 
   def load(urlFen: String, variant: Variant) = Open:
-    val decodedFen: Option[Fen.Full] = lila.common.String
+    val input: Option[String] = lila.common.String
       .decodeUriPath(urlFen)
       .filter(_.trim.nonEmpty)
       .orElse(get("fen"))
-      .map(Fen.Full.clean)
+    val parsed960: Option[Fen.Full] = input
+      .ifTrue(variant.chess960)
+      .orElse(get("position"))
+      .flatMap(_.toIntOption.flatMap(Chess960.positionToFen))
+    val decodedFen: Option[Fen.Full] = parsed960
+      .orElse(input.map(Fen.Full.clean))
     val pov         = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(Color.fromName) | pov.color
     for
@@ -46,7 +51,7 @@ final class UserAnalysis(
         orientation,
         owner = false
       )
-      page <- renderPage(views.board.userAnalysis(data, pov))
+      page <- renderPage(views.board.userAnalysis(data, pov, decodedFen))
     yield Ok(page)
       .withCanonical(routes.UserAnalysis.index)
       .enforceCrossSiteIsolation

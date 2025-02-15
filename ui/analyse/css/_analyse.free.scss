@@ -91,3 +91,14 @@ $label-width: 5ch;
     }
   }
 }
+
+.jump-960 {
+  margin-top: 1em;
+  margin-bottom: 1em; //col1
+  .control-960 {
+    margin-top: 0.7em;
+    button {
+      margin-left: 1em;
+    }
+  }
+}
