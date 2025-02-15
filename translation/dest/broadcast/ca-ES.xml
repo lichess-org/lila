@@ -16,8 +16,6 @@
   <string name="addRound">Afegir una ronda</string>
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>
-  <string name="completed">Acabada</string>
-  <string name="completedHelp">Lichess detecta el final de la ronda en funció de les partides de l\'origen. Utilitzeu aquesta opció si no hi ha origen.</string>
   <string name="roundName">Nom de ronda</string>
   <string name="roundNumber">Ronda número</string>
   <string name="tournamentName">Nom del torneig</string>
@@ -81,4 +79,5 @@
   <string name="pastBroadcasts">Retransmissions finalitzades</string>
   <string name="allBroadcastsByMonth">Veure totes les retransmissions per més</string>
   <string name="backToLiveMove">Torna al moviment en directe</string>
+  <string name="sinceHideResults">Ja que heu escollit amagar els resultats, la previsualització de tots els taulers està buida per tal d\'evitar espòilers.</string>
 </resources>

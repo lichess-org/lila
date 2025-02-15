@@ -128,7 +128,8 @@ trait Handlers:
   def typedMapHandlerIso[K, V: BSONHandler](using keyIso: StringIso[K]): BSONHandler[Map[K, V]] =
     mapHandler[V].as[Map[K, V]](_.mapKeys(keyIso.from), _.mapKeys(keyIso.to))
 
-  def ifPresentHandler[A](a: A) = quickHandler({ case BSONBoolean(true) => a }, _ => BSONBoolean(true))
+  def ifPresentHandler[A](a: A): BSONHandler[A] =
+    quickHandler[A]({ case BSONBoolean(true) => a }, _ => BSONBoolean(true))
 
   given [T: BSONHandler]: BSONHandler[NonEmptyList[T]] =
     def listWriter = BSONWriter.collectionWriter[T, List[T]]

@@ -18,6 +18,8 @@ object ConditionHandlers:
     given BSONHandler[AccountAge]          = Macros.handler
     given BSONDocumentHandler[TeamMember]  = Macros.handler
     given BSONDocumentHandler[AllowList]   = Macros.handler
+    given BSONHandler[Bots] =
+      quickHandler[Bots]({ case BSONBoolean(v) => Bots(v) }, bots => BSONBoolean(bots.allowed))
 
   object JSONHandlers:
     import lila.common.Json.given

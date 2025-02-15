@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
+  "references": [{ "path": "../bits/tsconfig.json" }, { "path": "../common/tsconfig.json" }]
+}

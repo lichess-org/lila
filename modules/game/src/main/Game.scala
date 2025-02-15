@@ -75,6 +75,9 @@ object GameExt:
       g.clock.map: c =>
         g.start.withClock(c.start)
 
+    def playerHasOfferedDrawRecently(color: Color) =
+      g.drawOffers.lastBy(color).exists(_ >= g.ply - 20)
+
     def playerCanOfferDraw(color: Color) =
       g.started && g.playable &&
         g.ply >= 2 &&
@@ -247,19 +250,20 @@ object Game:
   def abandonedDate = nowInstant.minusDays(abandonedDays.value)
 
   def isBoardCompatible(game: Game): Boolean =
-    game.clock.forall: c =>
-      lila.core.game.isBoardCompatible(c.config) || {
+    game.clockConfig.forall: c =>
+      lila.core.game.isBoardCompatible(c) || {
         (game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api)) &&
-        chess.Speed(c.config) >= Speed.Blitz
+        chess.Speed(c) >= Speed.Blitz
       }
 
-  def isBotCompatible(game: Game): Boolean = {
-    game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api)
-  } && isBotCompatible(game.speed)
+  // if source is Arena, we will also need to check if the arena accepts bots!
+  def isBotCompatible(game: Game): Option[Boolean] =
+    if !game.clockConfig.forall(lila.core.game.isBotCompatible) then false.some
+    else if game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api) then true.some
+    else if game.sourceIs(_.Arena) then none
+    else false.some
 
-  def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
-
-  def isBoardOrBotCompatible(game: Game) = isBoardCompatible(game) || isBotCompatible(game)
+  def mightBeBoardOrBotCompatible(game: Game) = isBoardCompatible(game) || isBotCompatible(game).|(true)
 
   object BSONFields:
     export lila.core.game.BSONFields.*

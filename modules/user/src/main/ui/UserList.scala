@@ -18,7 +18,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
       tournamentWinners: Frag
   )(using ctx: Context) =
     Page(trans.site.players.txt())
-      .css("bits.user.list")
+      .css("user.list")
       .flag(_.fullScreen)
       .graph(
         title = "Chess players and leaderboards",
@@ -120,7 +120,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
     val title = s"${users.size} Online bots"
     Page(title)
       .css("bits.slist")
-      .css("bits.bot.list")
+      .css("user.bot.list")
       .flag(_.fullScreen):
         main(cls := "page-menu bots")(
           bits.communityMenu("bots"),

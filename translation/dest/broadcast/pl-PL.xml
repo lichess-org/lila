@@ -18,8 +18,6 @@
   <string name="addRound">Dodaj rundę</string>
   <string name="ongoing">Trwające</string>
   <string name="upcoming">Nadchodzące</string>
-  <string name="completed">Zakończone</string>
-  <string name="completedHelp">Lichess wykrywa ukończenie rundy w oparciu o śledzone partie. Użyj tego przełącznika, jeśli nie ma takich partii.</string>
   <string name="roundName">Nazwa rundy</string>
   <string name="roundNumber">Numer rundy</string>
   <string name="tournamentName">Nazwa turnieju</string>
@@ -83,4 +81,5 @@
   <string name="pastBroadcasts">Poprzednie transmisje</string>
   <string name="allBroadcastsByMonth">Zobacz wszystkie transmisje w danym miesiącu</string>
   <string name="backToLiveMove">Powrót do pozycji na żywo</string>
+  <string name="sinceHideResults">Ponieważ zdecydowałeś się ukryć wyniki, wszystkie podglądy szachownic są puste, aby nie uprzedzać tego, co się stanie.</string>
 </resources>

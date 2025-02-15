@@ -14,8 +14,6 @@
   <string name="addRound">फेरी जोडा</string>
   <string name="ongoing">चालू आहे</string>
   <string name="upcoming">आगामी</string>
-  <string name="completed">पूर्ण</string>
-  <string name="completedHelp">स्रोत खेळाच्या आधारे Lichess फेरीची पूर्णता शोधते. स्रोत नसल्यास हे टॉगल वापरा.</string>
   <string name="roundName">फेरीचे नाव</string>
   <string name="roundNumber">फेरीचा क्रमांक</string>
   <string name="tournamentName">स्पर्धेचे नाव</string>

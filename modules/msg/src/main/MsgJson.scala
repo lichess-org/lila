@@ -5,14 +5,16 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.relation.Relations
+import cats.data.Cont
 
 final class MsgJson(
     lightUserApi: lila.core.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
-  private given lastMsgWrites: OWrites[Msg.Last]    = Json.writes
-  private given relationsWrites: OWrites[Relations] = Json.writes
+  private given lastMsgWrites: OWrites[Msg.Last]                 = Json.writes
+  private given relationsWrites: OWrites[Relations]              = Json.writes
+  private given modDetailsWrites: OWrites[ContactDetailsForMods] = Json.writes
 
   def threads(threads: List[MsgThread])(using me: Me): Fu[JsArray] =
     withContacts(threads).map { threads =>
@@ -20,12 +22,14 @@ final class MsgJson(
     }
 
   def convo(c: MsgConvo): JsObject =
-    Json.obj(
-      "user"      -> renderContact(c.contact),
-      "msgs"      -> c.msgs.map(renderMsg),
-      "relations" -> c.relations,
-      "postable"  -> c.postable
-    )
+    Json
+      .obj(
+        "user"      -> renderContact(c.contact),
+        "msgs"      -> c.msgs.map(renderMsg),
+        "relations" -> c.relations,
+        "postable"  -> c.postable
+      )
+      .add("modDetails" -> c.contactDetailsForMods)
 
   def renderMsg(msg: Msg): JsObject =
     Json.obj(

@@ -18,8 +18,6 @@
   <string name="addRound">Dodajte krog</string>
   <string name="ongoing">V teku</string>
   <string name="upcoming">Prihajajoči</string>
-  <string name="completed">Zaključeno</string>
-  <string name="completedHelp">Lichess zazna zaključek kroga na podlagi izvornih iger. Uporabite ta preklop, če ni vira.</string>
   <string name="roundName">Ime kroga</string>
   <string name="roundNumber">Številka kroga</string>
   <string name="tournamentName">Turnirsko ime</string>
@@ -82,4 +80,5 @@
   <string name="optionalDetails">Neobvezne podrobnosti</string>
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
+  <string name="sinceHideResults">Ker ste se odločili skriti rezultate, so vse table za predogled prazne, da se izognete ploščam.</string>
 </resources>

@@ -22,7 +22,7 @@ final class Analyser(
     analysis.id match
       case Analysis.Id.Game(id) =>
         gameRepo.game(id).flatMapz { prev =>
-          val game = prev.focus(_.metadata.analysed).set(true)
+          val game = prev.focus(_.metadata.analysed).replace(true)
           for
             _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)

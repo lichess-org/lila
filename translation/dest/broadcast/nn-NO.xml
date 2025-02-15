@@ -16,8 +16,6 @@
   <string name="addRound">Legg til ein runde</string>
   <string name="ongoing">Pågåande</string>
   <string name="upcoming">Kommande</string>
-  <string name="completed">Fullførde</string>
-  <string name="completedHelp">Lichess detekterer ferdigspela rundar basert på kjeldeparita. Bruk denne innstillinga om det ikkje finst ei kjelde.</string>
   <string name="roundName">Rundenamn</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnamn</string>
@@ -80,4 +78,6 @@
   <string name="optionalDetails">Valfrie detaljar</string>
   <string name="pastBroadcasts">Tidlegare overføringar</string>
   <string name="allBroadcastsByMonth">Vis alle overføringar etter månad</string>
+  <string name="backToLiveMove">Attende til gjeldande trekk</string>
+  <string name="sinceHideResults">Du valde skjula resultatane, så alle forhåndsvisningane av bretta er tome for å unngå å røpa noko.</string>
 </resources>

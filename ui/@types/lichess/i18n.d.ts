@@ -243,10 +243,6 @@ interface I18n {
     broadcastCalendar: string;
     /** Broadcasts */
     broadcasts: string;
-    /** Completed */
-    completed: string;
-    /** Lichess detects round completion, but can get it wrong. Use this to set it manually. */
-    completedHelp: string;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */

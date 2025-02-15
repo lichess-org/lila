@@ -6,7 +6,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import scalalib.model.Seconds
-import lila.common.Form.{ cleanText, formatter, into, stringIn, LocalDateTimeOrTimestamp }
+import lila.common.Form.{ cleanText, formatter, into, stringIn, LocalDateTimeOrTimestamp, partial }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
@@ -64,10 +64,12 @@ final class RelayRoundForm(using mode: Mode):
       "syncUsers"           -> optional(of[Upstream.Users]),
       "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
       "startsAfterPrevious" -> optional(boolean),
-      "finished"            -> optional(boolean),
-      "period"              -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay"               -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
-      "onlyRound"           -> optional(number(min = 1, max = 999)),
+      "status" -> optional:
+        text.partial[Data.Status](_.toString):
+          case ok: Data.Status => ok,
+      "period"    -> optional(number(min = 2, max = 60).into[Seconds]),
+      "delay"     -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
+      "onlyRound" -> optional(number(min = 1, max = 999)),
       "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
@@ -155,7 +157,8 @@ object RelayRoundForm:
       host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)
       if mode.notProd || !blocklist.exists(subdomain(host, _))
-      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
+      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub") || url.toString
+        .startsWith("https://www.chess.com/events/v1/api")
     yield url
 
   private def validateUpstreamUrl(s: String)(using Me, Mode): Either[String, URL] = for
@@ -205,7 +208,7 @@ object RelayRoundForm:
       syncUsers: Option[Upstream.Users] = None,
       startsAt: Option[Instant] = None,
       startsAfterPrevious: Option[Boolean] = None,
-      finished: Option[Boolean] = None,
+      status: Option[Data.Status] = None,
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None,
       onlyRound: Option[Int] = None,
@@ -230,7 +233,10 @@ object RelayRoundForm:
         caption = if Granter(_.StudyAdmin) then caption else relay.caption,
         sync = if relay.sync.playing then sync.play(official) else sync,
         startsAt = relayStartsAt,
-        finishedAt = finished.orZero.option(relay.finishedAt.|(nowInstant))
+        startedAt = status.fold(relay.startedAt):
+          case "new" => none
+          case _     => relay.startedAt.orElse(nowInstant.some),
+        finishedAt = status.has("finished").option(relay.finishedAt.|(nowInstant))
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -254,12 +260,14 @@ object RelayRoundForm:
         sync = makeSync(none),
         createdAt = nowInstant,
         crowd = none,
-        finishedAt = (~finished).option(nowInstant),
         startsAt = relayStartsAt,
-        startedAt = none
+        startedAt = if status.has("new") then none else nowInstant.some,
+        finishedAt = status.has("finished").option(nowInstant)
       )
 
   object Data:
+
+    type Status = "new" | "started" | "finished"
 
     def make(relay: RelayRound) =
       Data(
@@ -283,7 +291,11 @@ object RelayRoundForm:
           case users: Upstream.Users => users,
         startsAt = relay.startsAtTime,
         startsAfterPrevious = relay.startsAfterPrevious.option(true),
-        finished = relay.isFinished.option(true),
+        status = some:
+          if relay.isFinished then "finished"
+          else if relay.hasStarted then "started"
+          else "new"
+        ,
         period = relay.sync.period,
         onlyRound = relay.sync.onlyRound,
         slices = relay.sync.slices,

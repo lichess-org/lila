@@ -2,10 +2,11 @@ package lila.round
 
 import chess.Centis
 import play.api.i18n.Lang
+import monocle.syntax.all.*
 
 import lila.common.Bus
 import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
-import lila.game.GameExt.playerCanOfferDraw
+import lila.game.GameExt.*
 import lila.game.{ Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 
@@ -51,7 +52,7 @@ final private[round] class Drawer(
           Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some
         )
       case Pov(g, color) if g.playerCanOfferDraw(color) =>
-        val progress = Progress(g).map { _.offerDraw(color) }
+        val progress = Progress(g).map(offerDraw(color))
         messenger.system(g, color.fold(trans.site.whiteOffersDraw, trans.site.blackOffersDraw).txt())
         for
           _ <- proxy.save(progress)
@@ -85,13 +86,18 @@ final private[round] class Drawer(
 
   def force(game: Game)(using GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
+  private def offerDraw(color: Color)(game: Game) = game
+    .updatePlayer(color, _.copy(isOfferingDraw = true))
+    .focus(_.metadata.drawOffers)
+    .modify(_.add(color, game.ply))
+
   private def publishDrawOffer(game: Game): Unit = if game.nonAi then
     if game.isCorrespondence then
       Bus.publish(
         lila.core.round.CorresDrawOfferEvent(game.id),
         "offerEventCorres"
       )
-    if lila.game.Game.isBoardOrBotCompatible(game) then
+    if lila.game.Game.mightBeBoardOrBotCompatible(game) then
       Bus.publish(
         lila.game.actorApi.BoardDrawOffer(game),
         lila.game.actorApi.BoardDrawOffer.makeChan(game.id)

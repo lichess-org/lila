@@ -15,8 +15,6 @@
   <string name="addRound">Ronde toevoegen</string>
   <string name="ongoing">Lopend</string>
   <string name="upcoming">Aankomend</string>
-  <string name="completed">Voltooid</string>
-  <string name="completedHelp">Lichess detecteert voltooiing van de ronde op basis van de bronpartijen. Gebruik deze schakelaar als er geen bron is.</string>
   <string name="roundName">Naam ronde</string>
   <string name="roundNumber">Ronde</string>
   <string name="tournamentName">Naam toernooi</string>
@@ -80,4 +78,5 @@
   <string name="pastBroadcasts">Afgelopen uitzendingen</string>
   <string name="allBroadcastsByMonth">Alle uitzendingen per maand weergeven</string>
   <string name="backToLiveMove">Terug naar de actuele stelling</string>
+  <string name="sinceHideResults">Omdat je ervoor kiest om de resultaten te verbergen, zijn alle borden leeg om spoilers te voorkomen.</string>
 </resources>

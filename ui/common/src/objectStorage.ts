@@ -9,21 +9,24 @@
  * ```
  * ### cursors/indices:
  * ```ts
- *   import { objectStorage, keyRange } from 'common/objectStorage';
+ *   import { objectStorage, range } from 'common/objectStorage';
  *
  *   const store = await objectStorage<MyObj>({
  *     store: 'store',
  *     indices: [{ name: 'size', keyPath: 'size' }]
  *   });
  *
- *   await store.writeCursor({ index: 'size' }, async ({ value, update, delete }) => {
- *     if (value.size < 10) await update({ ...value, size: value.size + 1 });
- *     else await delete();
- *   });
- *
- *   await store.readCursor({ index: 'size', keys: keyRange({ above: 5 }) }, obj => {
+ *   await store.readCursor({ index: 'size', query: range({ above: 5 }) }, obj => {
  *     console.log(obj);
  *   });
+ *
+ *   await store.writeCursor(
+ *     { index: 'size', query: range({ min: 4, max: 12 }) },
+ *     async ({ value, update, delete }) => {
+ *       if (value.size < 10) await update({ ...value, size: value.size + 1 });
+ *       else await delete();
+ *     }
+ *   );
  * ```
  * ### upgrade/migration:
  * ```ts
@@ -32,14 +35,14 @@
  *   const upgradedStore = await objectStorage<MyObj>({
  *     store: 'upgradedStore',
  *     version: 2,
- *     upgrade: (upgradeEvent, store) => {
+ *     upgrade: (e, store) => {
  *       // raw idb needed here
- *       if (upgradeEvent.oldVersion < 2) store.createIndex('color', 'color'); // manual index creation
+ *       if (e.oldVersion < 2) store.createIndex('color', 'color'); // manual index creation
  *       const req = store.openCursor();
  *       req.onsuccess = cursorEvent => {
  *         const cursor = (cursorEvent.target as IDBRequest<IDBCursorWithValue>).result;
  *         if (!cursor) return;
- *         cursor.update(transformYourObject(upgradeEvent.oldVersion, cursor.value));
+ *         cursor.update(transformYourObject(e.oldVersion, cursor.value));
  *         cursor.continue();
  *       };
  *     }
@@ -94,8 +97,8 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
   function cursor(opts: CursorOpts = {}, mode: IDBTransactionMode): AsyncGenerator<IDBCursorWithValue> {
     const store = objectStore(mode);
     const req = opts.index
-      ? store.index(opts.index).openCursor(opts.keys, opts.dir)
-      : store.openCursor(opts.keys, opts.dir);
+      ? store.index(opts.index).openCursor(opts.query, opts.dir)
+      : store.openCursor(opts.query, opts.dir);
     return (async function* () {
       while (true) {
         const cursor = await actionPromise<IDBCursorWithValue | null>(() => req);
@@ -107,25 +110,23 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
   }
 }
 
-/** helper func to ease the pain of IDBKeyRange */
-export function keys<K extends IDBValidKey>(range: {
-  above?: K; // exclusive lower bound
-  min?: K; // inclusive lower bound
-  below?: K; // exclusive upper bound
-  max?: K; // inclusive upper bound
-}): IDBKeyRange {
-  const lowerOpen = range.above !== undefined;
-  const upperOpen = range.below !== undefined;
+export function range<K extends IDBValidKey>(range: {
+  min?: K; // closed lower bound
+  max?: K; // closed upper bound
+  above?: K; // open lower bound
+  below?: K; // open upper bound
+}): IDBKeyRange | undefined {
+  const lowerOpen = 'above' in range;
+  const upperOpen = 'below' in range;
   const lower = range.above ?? range.min;
   const upper = range.below ?? range.max;
   if (lower !== undefined && upper !== undefined)
     return IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen);
   if (lower !== undefined) return IDBKeyRange.lowerBound(lower, lowerOpen);
   if (upper !== undefined) return IDBKeyRange.upperBound(upper, upperOpen);
-  return IDBKeyRange.only(undefined);
+  return undefined;
 }
 
-/** this horrific abomination is how you check for a non-empty object store */
 export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
   const dbName = info.db ?? info.store;
   if (window.indexedDB.databases) {
@@ -159,18 +160,17 @@ export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
 export interface DbInfo {
   /** name of the object store */
   store: string;
-  /** defaults to store name. if specified, you should still aim for one store per db to minimize
-   * upgrade callback complexity. otherwise, raw idb is best for multi-store dbs */
+  /** defaults to store name because you should aim for one store per db to minimize version
+   * upgrade callback complexity. raw idb is best for versioned multi-store dbs */
   db?: string;
-  /** db version (default: 1), compare with e.oldVersion in the upgrade callback */
+  /** db version (default: 1), your upgrade callback receives e.oldVersion */
   version?: number;
-  /** indices for the object store */
+  /** indices for the object store, changes must increment version */
   indices?: { name: string; keyPath: string | string[]; options?: IDBIndexParameters }[];
   /** upgrade function to handle schema changes @see objectStorage */
   upgrade?: (e: IDBVersionChangeEvent, store?: IDBObjectStore) => void;
 }
 
-/** your writeCursor callback receives an object with async update/delete functions */
 export type WriteCursorCallback<V> = {
   (it: {
     /** just the value */
@@ -186,12 +186,11 @@ export interface CursorOpts {
   /** supply an index name to use for the cursor, otherwise iterate the store */
   index?: string;
   /** The key range to filter the cursor results */
-  keys?: IDBKeyRange;
+  query?: IDBKeyRange | IDBValidKey | null;
   /** 'prev', 'prevunique', 'next', or 'nextunique' (default is 'next')*/
   dir?: IDBCursorDirection;
 }
 
-/**idb backed object store @see {@link objectStorage} */
 export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   /** list all keys in the object store */
   list(): Promise<K[]>;

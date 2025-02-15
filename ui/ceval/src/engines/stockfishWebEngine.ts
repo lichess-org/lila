@@ -45,7 +45,7 @@ export class StockfishWebEngine implements CevalEngine {
         const model = this.info.variants[0].toLowerCase(); // set variant first for fairy stockfish
         module.uci(`setoption name UCI_Variant value ${model === 'threecheck' ? '3check' : model}`);
       }
-      this.store = await objectStorage<Uint8Array>({ store: 'nnue' }).catch(() => undefined);
+      this.store = await objectStorage<Uint8Array>({ store: 'nnue', db: 'nnue--db' }).catch(() => undefined);
       module.onError = this.makeErrorHandler(module);
       const nnueFilenames: string[] = this.info.assets.nnue ?? [];
       if (!nnueFilenames.length)

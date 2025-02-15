@@ -15,8 +15,6 @@
   <string name="addRound">新增回合</string>
   <string name="ongoing">進行中</string>
   <string name="upcoming">即將舉行</string>
-  <string name="completed">已結束</string>
-  <string name="completedHelp">Lichess 偵測棋局的結束，但有可能會偵測錯誤。請在這自行設定。</string>
   <string name="roundName">回合名稱</string>
   <string name="roundNumber">回合數</string>
   <string name="tournamentName">錦標賽名稱</string>

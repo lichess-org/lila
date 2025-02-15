@@ -127,8 +127,6 @@ case class Game(
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     if playable then correspondenceClock else none
 
-  def speed = Speed(chess.clock.map(_.config))
-
   def perfKey: PerfKey = PerfKey(variant, speed)
 
   def ratingVariant: Variant =
@@ -151,17 +149,8 @@ case class Game(
 
   def aiPov: Option[Pov] = players.findColor(_.isAi).map(pov)
 
-  def mapPlayers(f: Player => Player) = copy(players = players.map(f))
-
   def swissPreventsDraw = isSwiss && playedTurns < 60
   def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedTurns < 60
-
-  def playerHasOfferedDrawRecently(color: Color) =
-    drawOffers.lastBy(color).exists(_ >= ply - 20)
-
-  def offerDraw(color: Color) = copy(
-    metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
-  ).updatePlayer(color, _.copy(isOfferingDraw = true))
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
@@ -222,7 +211,9 @@ case class Game(
   def isCorrespondence  = speed == Speed.Correspondence
   def isSpeed(s: Speed) = speed == s
 
-  def hasClock = clock.isDefined
+  def hasClock    = clock.isDefined
+  def clockConfig = clock.map(_.config)
+  def speed       = Speed(clockConfig)
 
   def hasCorrespondenceClock = daysPerTurn.isDefined
 

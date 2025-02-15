@@ -164,7 +164,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
 
   private def page(u: User, title: String, path: String)(using ctx: Context) =
     Page(title)
-      .css("bits.user-tournament")
+      .css("tournament.user")
       .wrap: body =>
         main(cls := "page-menu")(
           lila.ui.bits.pageMenuSubnav(

@@ -322,7 +322,13 @@ final class RelayApi(
         round   <- copyRoundSourceSettings(updated)
         _       <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
         setters <- tryBdoc(round).toEither.toFuture
-        unsets = $unsetCompute(from, updated, ("caption", _.caption), ("finishedAt", _.finishedAt))
+        unsets = $unsetCompute(
+          from,
+          updated,
+          ("caption", _.caption),
+          ("startedAt", _.startedAt),
+          ("finishedAt", _.finishedAt)
+        )
         _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
@@ -494,6 +500,7 @@ final class RelayApi(
       .list[RelayRound]:
         RelayRoundRepo.selectors.finished(false) ++
           $doc(
+            "sync.upstream".$exists(true),
             "sync.until".$exists(false),
             "startedAt".$lt(nowInstant.minusHours(3)),
             $or(
