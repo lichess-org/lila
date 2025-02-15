@@ -1,7 +1,7 @@
 import { domIdToUid, uidToDomId } from '../botCtrl';
 import { handOfCards, type HandOfCards } from '../handOfCards';
 import { defined, frag } from 'common';
-import { deepFreeze } from 'common/algo';
+import { deepFreeze, definedMap } from 'common/algo';
 import { buildFromSchema, Panes } from './panes';
 import { removeObjectProperty, deadStrip } from './devUtil';
 import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dialog';
@@ -18,8 +18,8 @@ import * as licon from 'common/licon';
 export class EditDialog {
   static default: BotInfo = deepFreeze<BotInfo>({
     uid: '#default',
-    name: 'Name',
-    description: 'Description',
+    name: '',
+    description: '',
     image: 'gray-torso.webp',
     books: [],
     fish: { multipv: 1, by: { depth: 1 } },
@@ -76,7 +76,7 @@ export class EditDialog {
 
   update(): void {
     this.dlg?.updateActions(this.actions);
-    this.deck?.update();
+    this.deck?.updateCards();
     this.view.querySelector('[data-bot-action="save-one"]')?.classList.toggle('none', !this.isDirty());
     this.view
       .querySelector('[data-bot-action="pull-one"]')
@@ -97,8 +97,11 @@ export class EditDialog {
   };
 
   get bot(): WritableBot {
+    //if (!this.bots[this.uid]) this.uid = env.bot.firstUid ?? '#default';
+    const scratchSource = this.bots[this.uid]; // ?? EditDialog.default;
+    if (!scratchSource) console.trace('i did a bad');
     // getter side effects are lovely and wonderful
-    this.scratch[this.uid] ??= Object.defineProperties(structuredClone(this.bots[this.uid]), {
+    this.scratch[this.uid] ??= Object.defineProperties(structuredClone(scratchSource), {
       disabled: { value: new Set<string>() },
       viewing: { value: new Map<string, string>() },
     }) as WritableBot;
@@ -149,10 +152,9 @@ export class EditDialog {
 
   private get cardData() {
     const speed = 'classical'; //env.game.speed;
-    return Object.values({ ...this.bots, ...this.scratch })
-      .map(bot => env.bot.groupedCard(bot, this.isDirty))
-      .filter(defined)
-      .sort(env.bot.groupedSort(speed));
+    return definedMap(Object.values({ ...this.bots, ...this.scratch }), b =>
+      env.bot.groupedCard(b, this.isDirty),
+    ).sort(env.bot.groupedSort(speed));
   }
 
   private async push() {

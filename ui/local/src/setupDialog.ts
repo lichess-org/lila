@@ -2,8 +2,9 @@ import { handOfCards, HandOfCards } from './handOfCards';
 import * as co from 'chessops';
 import * as licon from 'common/licon';
 import { domDialog, Dialog } from 'common/dialog';
-import { defined } from 'common';
+import { myUsername } from 'common';
 import { pubsub } from 'common/pubsub';
+import { definedMap } from 'common/algo';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
@@ -25,10 +26,8 @@ class SetupDialog {
     this.setup = { ...setup };
   }
 
-  show() {
-    //if (window.screen.width < 1260) return;
-
-    domDialog({
+  async show() {
+    const dlg = await domDialog({
       class: 'game-setup base-view setup-view',
       css: [{ hashed: 'local.setup' }],
       htmlText: `<div class="with-cards">
@@ -37,69 +36,51 @@ class SetupDialog {
             <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
             <div class="placard none" data-color="black">Human Player</div>
           </div>
-          vs
-          <div class="switch" data-color="white">
-            You play as White
-          </div>
         </div>
       </div>
       <div class="chin">
-        <div class="clock">
+        <div class="params">
+          <input type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}" value="${this.setup.setupFen ?? ''}">
           <label>Clock<select data-type="initial">${this.timeOptions('initial')}</select></label>
           <label>Increment<select data-type="increment">${this.timeOptions('increment')}</select></label>
         </div>
         <div class="actions">
-          <button class="button button-empty random disabled" data-icon="${licon.DieSix}"></button>
-          <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
+          <button class="button button-empty white"></button>
+          <button class="button button-empty random"></button>
+          <button class="button button-empty black"></button>
         </div>
       </div>`,
       modal: true,
       actions: [
-        { selector: '.fight', listener: this.fight },
-        { selector: '.switch', listener: this.switch },
-        { selector: '.random', listener: this.random },
+        { selector: '.white', listener: () => this.fight('white') },
+        { selector: '.black', listener: () => this.fight('black') },
+        { selector: '.random', listener: () => this.fight() },
         { selector: '[data-type]', event: 'input', listener: this.updateClock },
         { selector: 'img.z-remove', listener: () => this.select() },
       ],
-      onClose: () => localStorage.setItem('local.setup', JSON.stringify(this.setup)),
+      onClose: () => {
+        localStorage.setItem('local.setup', JSON.stringify(this.setup));
+        window.removeEventListener('resize', this.hand.resize);
+      },
       noCloseButton: env.game !== undefined,
       noClickAway: env.game !== undefined,
-    }).then(dlg => {
-      this.dialog = dlg;
-      this.view = dlg.viewEl.querySelector('.with-cards')!;
-      this.setPlayerColor(this.setup.black ? 'white' : this.setup.white ? 'black' : 'white');
-      const cardData = env.bot
-        .sorted('classical')
-        .map(b => env.bot.card(b))
-        .filter(defined);
-      this.hand = handOfCards({
-        getCardData: () => cardData,
-        getDrops: () => [
-          { el: this.view.querySelector('.player')!, selected: uidToDomId(this.setup[this.botColor]) },
-        ],
-        viewEl: this.view,
-        select: this.dropSelect,
-        orientation: 'bottom',
-      });
-      window.addEventListener('resize', this.hand.resize);
-      //window.location.hash = '';
-      dlg.show();
-      this.select(this.setup[this.botColor]);
-      this.hand.resize();
     });
-  }
-
-  private setPlayerColor(color: Color) {
-    if (this.playerColor === color) return;
-    this.playerColor = color;
-    this.view.querySelectorAll<HTMLElement>('[data-color]').forEach(el => {
-      el.dataset.color = co.opposite(el.dataset.color as Color);
+    this.dialog = dlg;
+    this.view = dlg.viewEl.querySelector('.with-cards')!;
+    const cardData = definedMap(env.bot.sorted('classical'), b => env.bot.card(b));
+    this.hand = handOfCards({
+      getCardData: () => cardData,
+      getDrops: () => [
+        { el: this.view.querySelector('.player')!, selected: uidToDomId(this.setup[this.botColor]) },
+      ],
+      viewEl: this.view,
+      select: this.dropSelect,
+      orientation: 'bottom',
     });
-    this.view.querySelector<HTMLElement>('.switch')!.textContent = `You play as ${
-      this.playerColor[0].toUpperCase() + this.playerColor.slice(1)
-    }`; // i18n
-    this.setup[this.botColor] = this.uid;
-    this.setup[this.playerColor] = undefined;
+    window.addEventListener('resize', this.hand.resize);
+    dlg.show();
+    this.select(this.setup[this.botColor]);
+    this.hand.resize();
   }
 
   private timeOptions(type: 'initial' | 'increment') {
@@ -118,9 +99,9 @@ class SetupDialog {
     const bot = env.bot.get(selection);
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
-    placard.classList.toggle('none', !bot);
+    placard.classList.toggle('none', !bot?.description);
     this.dialog.viewEl.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
-    this.dialog.viewEl.querySelector('.random')!.classList.toggle('disabled', !bot);
+    this.dialog.viewEl.querySelectorAll('.button-empty').forEach(x => x.classList.toggle('disabled', !bot));
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
   }
@@ -132,8 +113,11 @@ class SetupDialog {
     }
   };
 
-  private fight = () => {
+  private fight = (asColor: Color = Math.random() < 0.5 ? 'white' : 'black') => {
     this.updateClock();
+    this.setup.white = this.setup.black = undefined;
+    if (asColor === 'black') this.setup.white = this.uid;
+    else this.setup.black = this.uid;
     if (env.game) {
       console.log(this.setup);
       env.game.load(this.setup);
@@ -149,19 +133,7 @@ class SetupDialog {
     site.redirect(`/local${fragParams.length ? `#${fragParams.join('&')}` : ''}`);
   };
 
-  private switch = () => {
-    this.setPlayerColor(co.opposite(this.playerColor));
-    this.hand.redraw();
-  };
-
-  private random = () => {
-    if (Math.random() < 0.5) {
-      this.switch();
-      setTimeout(this.fight, 300);
-    } else this.fight();
-  };
-
   private get botColor() {
-    return co.opposite(this.playerColor);
+    return 'black' as const;
   }
 }

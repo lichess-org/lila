@@ -105,7 +105,7 @@ final class AssetManifest(environment: Environment, net: NetConfig, ws: Standalo
         val hashedName =
           if extPos < 0 then s"${name}.$hash"
           else s"${name.slice(0, extPos)}.$hash${name.substring(extPos)}"
-        (k, s"hashed/$hashedName").pp
+        (k, s"hashed/$hashedName")
       }
       .toMap
 

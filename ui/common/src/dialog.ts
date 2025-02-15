@@ -68,7 +68,7 @@ site.load.then(async () => {
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {
   await domDialog({
-    htmlText: escapeHtml(msg),
+    htmlText: escapeHtmlAddBreaks(msg),
     class: 'alert',
     modal: true,
     show: true,
@@ -99,11 +99,11 @@ export async function confirm(
         show: true,
         focus: '.yes',
         actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
+          { selector: '.yes', result: 'ok' },
+          { selector: '.no', result: 'cancel' },
         ],
       })
-    ).returnValue === 'yes'
+    ).returnValue === 'ok'
   );
 }
 
@@ -221,9 +221,9 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private resolve?: (dialog: Dialog) => void;
-  private actionEvents = new Janitor();
   private dialogEvents = new Janitor();
+  private actionEvents = new Janitor();
+  private resolve?: (dialog: Dialog) => void;
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -245,7 +245,8 @@ class DialogWrapper implements Dialog {
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
-      if (Date.now() - justThen < 200) return; // removed isConnected() check. we catch leaks this way
+      if (!this.dialogEl.isConnected) console.trace('likely zombie dialog. Always Be Close()ing');
+      if (Date.now() - justThen < 200) return;
       const r = dialogEl.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
         this.close('cancel');

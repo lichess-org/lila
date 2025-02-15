@@ -66,7 +66,7 @@ export class GameCtrl {
 
   nameOf(color: Color): string {
     if (!this[color] && this[co.opposite(color)]) return env.username;
-    return this[color] ? env.bot.get(this[color])!.name : i18n.site[color];
+    return this[color] ? (env.bot.get(this[color])?.name ?? this[color]) : i18n.site[color];
   }
 
   idOf(color: Color): string {

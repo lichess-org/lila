@@ -21,8 +21,8 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
   label?: HTMLLabelElement;
   toggle?: (v?: boolean) => boolean; // TODO use common whatever
-  readonly host: EditDialog;
   readonly info: Info;
+  readonly host: EditDialog;
   readonly el: HTMLElement;
   readonly parent: Pane | undefined;
 
@@ -270,9 +270,10 @@ export class TextSetting extends Pane<TextInfo> {
   constructor(p: PaneArgs) {
     super(p);
     this.init();
+    if (this.info.placeholder) this.input.setAttribute('placeholder', this.info.placeholder);
   }
   get paneValue(): string {
-    return this.input.value;
+    return this.input.value ?? '';
   }
 }
 
@@ -281,10 +282,10 @@ export class TextareaSetting extends Pane<TextareaInfo> {
   constructor(p: PaneArgs) {
     super(p);
     this.init();
-    if (this.info.rows) this.input.rows = this.info.rows;
+    if (this.info.placeholder) this.input.setAttribute('placeholder', this.info.placeholder);
   }
   get paneValue(): string {
-    return this.input.value;
+    return this.input.value ?? '';
   }
 }
 

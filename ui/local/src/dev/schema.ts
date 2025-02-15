@@ -8,6 +8,7 @@ export const infoKeys: InfoKey[] = [
   'id',
   'label',
   'value',
+  'placeholder',
   'assetType',
   'class',
   'choices',
@@ -19,7 +20,7 @@ export const infoKeys: InfoKey[] = [
   'template',
   'requires',
   'toggle',
-]; // InfoKey in file://./types.ts
+]; // InfoKey in file://./devTypes.ts
 
 export const requiresOpRe: RegExp = /==|>=|>|<<=|<=|<|!=/; // <<= means startsWith
 
@@ -29,13 +30,13 @@ export const schema: Schema = deepFreeze<Schema>({
       type: 'textarea',
       rows: 3,
       class: ['placard'],
-      value: 'short description',
+      placeholder: 'short description',
     },
     name: {
       type: 'text',
       label: 'name',
       class: ['setting'],
-      value: 'bot name',
+      placeholder: 'bot name',
     },
     // ratings: {
     //   label: 'advertised',

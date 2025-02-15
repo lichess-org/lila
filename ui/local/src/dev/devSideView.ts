@@ -9,7 +9,7 @@ import { resultsString, playersWithResults } from './devUtil';
 import { type Drop, type HandOfCards, handOfCards } from '../handOfCards';
 import { domIdToUid, uidToDomId } from '../botCtrl';
 import { rangeTicks } from '../gameView';
-import { defined } from 'common';
+import { definedMap } from 'common/algo';
 import type { LocalSpeed, LocalSetup } from '../types';
 import { env } from '../localEnv';
 
@@ -353,7 +353,7 @@ let botSelector: HandOfCards | undefined;
 
 function showBotSelector(clickedEl: HTMLElement) {
   if (botSelector) return;
-  const cardData = [...env.bot.sorted('classical').map(b => env.bot.card(b))].filter(defined);
+  const cardData = definedMap(env.bot.sorted('classical'), b => env.bot.card(b));
   cardData.forEach(c => c.classList.push('left'));
   const main = document.querySelector('main') as HTMLElement;
   const drops: Drop[] = [];

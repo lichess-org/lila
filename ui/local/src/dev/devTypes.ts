@@ -33,6 +33,7 @@ export interface SelectInfo extends PaneInfo {
 export interface TextareaInfo extends PaneInfo {
   type: 'textarea';
   value?: string;
+  placeholder?: string;
   rows?: number;
 }
 
@@ -51,6 +52,7 @@ export interface RangeInfo extends NumberInfo {
 export interface TextInfo extends PaneInfo {
   type: 'text';
   value?: string;
+  placeholder?: string;
 }
 
 export interface BooksInfo extends PaneInfo {
