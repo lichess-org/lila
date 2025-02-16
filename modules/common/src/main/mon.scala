@@ -301,7 +301,7 @@ object mon:
           "user" -> user,
           "client" -> ua
             .filter(_.value.startsWith("Lichess Broadcaster"))
-            .map(_.value.split("as:").dropRight(1).mkString(" ").trim)
+            .map(_.value.split("as:").head.trim)
             .orElse(ua.map(_.value))
             .getOrElse("unknown"),
           "moves"  -> moves.toLong,
