@@ -126,7 +126,8 @@ final class SecurityApi(
       req: RequestHeader
   ): Funit =
     val sessionId = SecureRandom.nextString(22)
-    store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
+    ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
+      store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
