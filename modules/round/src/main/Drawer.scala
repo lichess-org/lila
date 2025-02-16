@@ -52,7 +52,7 @@ final private[round] class Drawer(
           Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some
         )
       case Pov(g, color) if g.playerCanOfferDraw(color) =>
-        if (pov.game.situation.copy(color = color).opponentHasInsufficientMaterial) then
+        if pov.game.situation.copy(color = color).opponentHasInsufficientMaterial then
           finisher.other(pov.game, _.Draw, None)
         else
           val progress = Progress(g).map(offerDraw(color))
