@@ -142,13 +142,12 @@ final class Account(
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
-  private def refreshSessionId(result: Result)(using ctx: Context, me: Me): Fu[Result] =
-    (env.security.store.closeAllSessionsOf(me) >>
-      env.push.webSubscriptionApi.unsubscribeByUser(me) >>
-      env.push.unregisterDevices(me) >>
-      env.security.api.saveAuthentication(me, ctx.mobileApiVersion)).map { sessionId =>
-      result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
-    }
+  private def refreshSessionId(result: Result)(using ctx: Context, me: Me): Fu[Result] = for
+    _         <- env.security.store.closeAllSessionsOf(me)
+    _         <- env.push.webSubscriptionApi.unsubscribeByUser(me)
+    _         <- env.push.unregisterDevices(me)
+    sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion)
+  yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
 
   private def emailForm(using me: Me) =
     env.user.repo.email(me).flatMap(env.security.forms.changeEmail)
@@ -329,8 +328,10 @@ final class Account(
     if sessionId == "all"
     then refreshSessionId(Redirect(routes.Account.security).flashSuccess)
     else
-      (env.security.store.closeUserAndSessionId(me, sessionId) >>
-        env.push.webSubscriptionApi.unsubscribeBySession(sessionId)).inject(NoContent)
+      for
+        _ <- env.security.store.closeUserAndSessionId(me, sessionId)
+        _ <- env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
+      yield NoContent
   }
 
   private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using Context) =
