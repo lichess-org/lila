@@ -150,7 +150,7 @@ object RelayRoundForm:
 
   case class GameIds(ids: List[GameId])
 
-  def cleanUrl(source: String)(using mode: Mode): Option[URL] =
+  private[relay] def cleanUrl(source: String)(using mode: Mode): Option[URL] =
     for
       url <- lila.common.url.parse(source).toOption
       if url.scheme == "http" || url.scheme == "https"
