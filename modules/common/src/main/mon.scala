@@ -6,6 +6,7 @@ import kamon.tag.TagSet
 
 import lila.core.id.*
 import lila.core.net.*
+import lila.core.userId.UserName
 
 object mon:
 
@@ -288,26 +289,15 @@ object mon:
       timer("relay.http.get").withTags:
         tags("code" -> code.toLong, "host" -> host, "etag" -> etag, "proxy" -> proxy.getOrElse("none"))
     val dedup = counter("relay.fetch.dedup").withoutTags()
-    def push(
-        name: String,
-        user: String,
-        ua: Option[UserAgent],
-        moves: Int,
-        errors: Int
-    ) =
-      counter("relay.push").withTags(
+    def push(name: String, user: UserName, client: String, moves: Int, errors: Int) =
+      counter("relay.push").withTags:
         tags(
-          "name" -> name,
-          "user" -> user,
-          "client" -> ua
-            .filter(_.value.startsWith("Lichess Broadcaster"))
-            .map(_.value.split("as:").head.trim)
-            .orElse(ua.map(_.value))
-            .getOrElse("unknown"),
+          "name"   -> name,
+          "user"   -> user,
+          "client" -> client,
           "moves"  -> moves.toLong,
           "errors" -> errors.toLong
         )
-      )
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
