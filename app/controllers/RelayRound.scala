@@ -215,6 +215,13 @@ final class RelayRound(
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
           .map: results =>
+            lila.mon.relay.push(
+              rt.withTour.fullName,
+              me.userId.value,
+              HTTPRequest.userAgent(ctx.req),
+              results.collect { case Right(a) => a.moves }.sum,
+              results.count(_.isLeft)
+            )
             JsonOk:
               Json.obj:
                 "games" -> results.map:
