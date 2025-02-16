@@ -83,4 +83,4 @@ ${trans.common_orPaste.txt()}"""),
       userRepo.reopen(user.id).inject(user.some)
     }
 
-  private val tokener = LoginToken.makeTokener(tokenerSecret, 20.minutes)
+  private val tokener = StringToken.userId(tokenerSecret, 20.minutes)

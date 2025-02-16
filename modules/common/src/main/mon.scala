@@ -234,9 +234,6 @@ object mon:
       def passwordResetRequest(s: String) = counter("user.auth.passwordResetRequest").withTag("type", s)
       def passwordResetConfirm(s: String) = counter("user.auth.passwordResetConfirm").withTag("type", s)
 
-      def magicLinkRequest(s: String) = counter("user.auth.magicLinkRequest").withTag("type", s)
-      def magicLinkConfirm(s: String) = counter("user.auth.magicLinkConfirm").withTag("type", s)
-
       def reopenRequest(s: String) = counter("user.auth.reopenRequest").withTag("type", s)
       def reopenConfirm(s: String) = counter("user.auth.reopenConfirm").withTag("type", s)
     object oauth:

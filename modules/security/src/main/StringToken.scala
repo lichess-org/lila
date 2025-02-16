@@ -18,10 +18,7 @@ final class StringToken[A](
     fullHashSize: Int = 14,
     currentValueHashSize: Option[Int] = Some(6), // won't hash if None
     separator: Char = '|'
-)(using
-    ec: Executor,
-    iso: Iso.StringIso[A]
-):
+)(using Executor)(using iso: Iso.StringIso[A]):
 
   def make(payload: A) =
     hashCurrentValue(payload).map { hashedValue =>
@@ -32,8 +29,8 @@ final class StringToken[A](
     }
 
   def read(token: String): Fu[Option[A]] =
-    (base64
-      .decode(token))
+    base64
+      .decode(token)
       .so:
         _.split(separator) match
           case Array(payloadStr, hashed, checksum) =>
@@ -68,3 +65,12 @@ object StringToken:
   object DateStr:
     def toStr(date: Instant)   = date.toMillis.toString
     def toInstant(str: String) = str.toLongOption.map(millisToInstant)
+
+  def userId(secret: Secret, lifetime: FiniteDuration)(using Executor) = StringToken[UserId](
+    secret = secret,
+    getCurrentValue = _ => fuccess(StringToken.DateStr.toStr(nowInstant)),
+    currentValueHashSize = none,
+    valueChecker = StringToken.ValueChecker.Custom: v =>
+      fuccess:
+        StringToken.DateStr.toInstant(v).exists(nowInstant.minus(lifetime).isBefore)
+  )

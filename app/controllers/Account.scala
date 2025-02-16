@@ -360,7 +360,7 @@ final class Account(
                       lila.mon.user.auth.reopenRequest(code).increment()
                       BadRequest.async(renderReopen(none, msg.some))
                     case Right(user) =>
-                      env.security.magicLink.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                      env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
                         lila.mon.user.auth.reopenRequest("success").increment()
                         env.security.reopen
                           .send(user, data.email)

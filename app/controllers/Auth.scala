@@ -412,14 +412,11 @@ final class Auth(
                 data =>
                   env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
                     case Some(user, storedEmail) =>
-                      env.security.magicLink.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
-                        lila.mon.user.auth.magicLinkRequest("success").increment()
-                        env.security.magicLink
+                      env.security.loginToken.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
+                        env.security.loginToken
                           .send(user, storedEmail)
                           .inject(Redirect(routes.Auth.magicLinkSent))
-                    case _ =>
-                      lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                      Redirect(routes.Auth.magicLinkSent)
+                    case _ => Redirect(routes.Auth.magicLinkSent)
                   }
               )
           }
@@ -429,30 +426,12 @@ final class Auth(
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
 
-  def magicLinkLogin(token: String) = Open:
-    if ctx.isAuth
-    then Redirect(routes.Lobby.home)
-    else
-      Firewall:
-        limit.magicLink(token, rateLimited):
-          env.security.magicLink.confirm(token).flatMap {
-            case None =>
-              lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
-              notFound
-            case Some(user) =>
-              authLog(user.username, none, "Magic link")
-              for
-                result <- authenticateUser(user, remember = true)
-                _ = lila.mon.user.auth.magicLinkConfirm("success").increment()
-              yield result
-          }
-
   def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>
     if ctx.isOAuth
     then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest.printClient(ctx.req)}")
     JsonOk:
       env.security.loginToken
-        .generate(me.value)
+        .generate(me)
         .map: token =>
           Json.obj(
             "userId" -> me.userId,
