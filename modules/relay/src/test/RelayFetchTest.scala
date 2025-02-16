@@ -37,38 +37,41 @@ class RelayFetchTest extends munit.FunSuite:
     )
     assertEquals(in(p2, tc.some), p2)
 
+  given Mode                = Mode.Prod
+  def parseUrl(str: String) = lila.common.url.parse(str).toOption
+
   test("clean source urls"):
     assertEquals(
-      cleanUrl("https://example.com/games.pgn")(using Mode.Prod),
-      lila.common.url.parse("https://example.com/games.pgn").toOption
+      cleanUrl("https://example.com/games.pgn"),
+      parseUrl("https://example.com/games.pgn")
     )
     assertEquals(
-      cleanUrl("http://example.com/games.pgn")(using Mode.Prod),
-      lila.common.url.parse("http://example.com/games.pgn").toOption
+      cleanUrl("http://example.com/games.pgn"),
+      parseUrl("http://example.com/games.pgn")
     )
 
   test("clean source urls: reject non-https/http schemas"):
     assertEquals(
-      cleanUrl("ftp://example.com/games.pgn")(using Mode.Prod),
+      cleanUrl("ftp://example.com/games.pgn"),
       None
     )
 
   test("clean source urls: abide blacklist"):
     assertEquals(
-      cleanUrl("https://google.com/games.pgn")(using Mode.Prod),
+      cleanUrl("https://google.com/games.pgn"),
       None
     )
 
   test("clean source urls: allow chess.com"):
     assertEquals(
-      cleanUrl("https://www.chess.com/events/v1/api/1234.pgn")(using Mode.Prod),
-      lila.common.url.parse("https://www.chess.com/events/v1/api/1234.pgn").toOption
+      cleanUrl("https://www.chess.com/events/v1/api/1234.pgn"),
+      parseUrl("https://www.chess.com/events/v1/api/1234.pgn")
     )
     assertEquals(
-      cleanUrl("https://api.chess.com/pub/1234.pgn")(using Mode.Prod),
-      lila.common.url.parse("https://api.chess.com/pub/1234.pgn").toOption
+      cleanUrl("https://api.chess.com/pub/1234.pgn"),
+      parseUrl("https://api.chess.com/pub/1234.pgn")
     )
     assertEquals(
-      cleanUrl("https://chess.com/events/v1/api/1234.pgn")(using Mode.Prod),
+      cleanUrl("https://chess.com/events/v1/api/1234.pgn"),
       None
     )
