@@ -52,6 +52,7 @@ function watchEvent(err: ts.Diagnostic) {
 }
 
 function diagnostic(err: ts.Diagnostic) {
+  const text = typeof err.messageText === 'string' ? err.messageText : err.messageText.messageText;
   let file, line, col;
   if (err.file) {
     file = err.file.fileName;
@@ -64,6 +65,6 @@ function diagnostic(err: ts.Diagnostic) {
   parentPort?.postMessage({
     type: 'error',
     index,
-    data: { code: err.code, text: err.messageText, file, line, col },
+    data: { code: err.code, text, file, line, col },
   });
 }
