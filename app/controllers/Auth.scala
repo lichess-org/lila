@@ -286,13 +286,12 @@ final class Auth(
   private def redirectNewUser(user: UserModel)(using Context) =
     api
       .saveAuthentication(user.id, ctx.mobileApiVersion)
-      .flatMap { sessionId =>
+      .flatMap: sessionId =>
         negotiate(
           Redirect(getReferrerOption | routes.User.show(user.username).url)
             .flashSuccess("Welcome! Your account is now active."),
           mobileUserOk(user, sessionId)
         ).map(authenticateCookie(sessionId, remember = true))
-      }
       .recoverWith(authRecovery)
 
   def setFingerPrint(fp: String, ms: Int) = Auth { ctx ?=> me ?=>

@@ -180,8 +180,9 @@ final class Account(
 
   def emailConfirm(token: String) = Open:
     Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
-      (prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))) >>
-        auth.authenticateUser(
+      for
+        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
+        res <- auth.authenticateUser(
           user,
           remember = true,
           result =
@@ -189,6 +190,7 @@ final class Account(
             then Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
             else Some(_ => Redirect(routes.Account.email).flashSuccess)
         )
+      yield res
 
   def emailConfirmHelp = OpenBody:
     import lila.security.EmailConfirm.Help.*
