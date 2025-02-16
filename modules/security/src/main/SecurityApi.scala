@@ -113,20 +113,20 @@ final class SecurityApi(
     userRepo.mustConfirmEmail(userId).flatMap {
       if _ then fufail(SecurityApi.MustConfirmEmail(userId))
       else
-        ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
-          val sessionId = SecureRandom.nextString(22)
-          proxy.name.foreach: p =>
-            logger.info(s"Proxy login $p $userId")
-          store
-            .save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
-            .inject(sessionId)
+        for
+          proxy <- ip2proxy(HTTPRequest.ipAddress(req))
+          _ = proxy.name.foreach(p => logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}"))
+          sessionId = SecureRandom.nextString(22)
+          _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
+        yield sessionId
     }
 
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
   ): Funit =
     val sessionId = SecureRandom.nextString(22)
-    store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
+    ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
+      store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =

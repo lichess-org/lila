@@ -15,10 +15,10 @@ const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
-  const scrollCb = (vnode: VNode) => {
+  const scrollCb = (vnode: VNode, insert: boolean) => {
       const el = vnode.elm as HTMLElement;
       if (ctrl.data.lines.length > 5) {
-        const autoScroll = el.scrollTop > el.scrollHeight - el.clientHeight - 50;
+        const autoScroll = insert || el.scrollTop > el.scrollHeight - el.clientHeight - 100;
         if (autoScroll) {
           el.scrollTop = 999999;
           setTimeout((_: any) => (el.scrollTop = 999999), 300);
@@ -44,9 +44,9 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               $el.on('click', '.flag', (e: Event) =>
                 report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement),
               );
-            scrollCb(vnode);
+            scrollCb(vnode, true);
           },
-          postpatch: (_, vnode) => scrollCb(vnode),
+          postpatch: (_, vnode) => scrollCb(vnode, false),
         },
       },
       selectLines(ctrl).map(line => renderLine(ctrl, line)),
