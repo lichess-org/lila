@@ -3,6 +3,8 @@ package lila.relay
 import chess.format.pgn.PgnStr
 import chess.TournamentClock
 import chess.Clock.*
+import play.api.Mode
+import lila.relay.RelayRoundForm.cleanUrl
 
 class RelayFetchTest extends munit.FunSuite:
 
@@ -34,3 +36,39 @@ class RelayFetchTest extends munit.FunSuite:
       PgnStr(s"""[TimeControl "15+10"]\n${p1}""")
     )
     assertEquals(in(p2, tc.some), p2)
+
+  test("clean source urls"):
+    assertEquals(
+      cleanUrl("https://example.com/games.pgn")(using Mode.Prod),
+      lila.common.url.parse("https://example.com/games.pgn").toOption
+    )
+    assertEquals(
+      cleanUrl("http://example.com/games.pgn")(using Mode.Prod),
+      lila.common.url.parse("http://example.com/games.pgn").toOption
+    )
+
+  test("clean source urls: reject non-https/http schemas"):
+    assertEquals(
+      cleanUrl("ftp://example.com/games.pgn")(using Mode.Prod),
+      None
+    )
+
+  test("clean source urls: abide blacklist"):
+    assertEquals(
+      cleanUrl("https://google.com/games.pgn")(using Mode.Prod),
+      None
+    )
+
+  test("clean source urls: allow chess.com"):
+    assertEquals(
+      cleanUrl("https://www.chess.com/events/v1/api/1234.pgn")(using Mode.Prod),
+      lila.common.url.parse("https://www.chess.com/events/v1/api/1234.pgn").toOption
+    )
+    assertEquals(
+      cleanUrl("https://api.chess.com/pub/1234.pgn")(using Mode.Prod),
+      lila.common.url.parse("https://api.chess.com/pub/1234.pgn").toOption
+    )
+    assertEquals(
+      cleanUrl("https://chess.com/events/v1/api/1234.pgn")(using Mode.Prod),
+      None
+    )
