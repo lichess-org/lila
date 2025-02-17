@@ -152,7 +152,7 @@ object RelayRoundForm:
       startsAfterPrevious = prev.exists(_.startsAfterPrevious).option(true),
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
-      onlyRound = prev.flatMap(_.sync.onlyRound).map(_.left.map(_ + 1).fold(_.toString, _.toString)),
+      onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
       slices = prev.flatMap(_.sync.slices)
     )
 
