@@ -34,6 +34,10 @@
     <item quantity="one">%s yozishmali o\'yin yakunlandi</item>
     <item quantity="other">%s yozishmali o\'yinlar yakunlandi</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">%1$s %2$s yozishma oʻyini tugallandi</item>
+    <item quantity="other">%1$s %2$s yozishma oʻyinlari tugallandi</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s o\'yinchini kuzatishga yozilgan</item>
     <item quantity="other">%s o\'yinchilarni kuzatishga yozilgan</item>

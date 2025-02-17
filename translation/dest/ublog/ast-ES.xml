@@ -4,6 +4,10 @@
   <string name="friendBlogs">Blogs de collacios</string>
   <string name="likedBlogs">Entraes de blog preferíos</string>
   <string name="blogTopics">Temes del blog</string>
+  <plurals name="blogPosts">
+    <item quantity="one">%s entrada de blog</item>
+    <item quantity="other">%s publicaciones nel blog</item>
+  </plurals>
   <string name="lichessOfficialBlog">Blog oficial de Lichess</string>
   <string name="continueReadingPost">Siguir la llectura d\'esta entrada</string>
   <string name="lichessBlogPostsFromXYear">Entraes de blog en %s</string>
@@ -21,6 +25,8 @@
   <string name="createBlogDiscussionHelp">Va crease una tema del foru por que la xente comente na to publicación</string>
   <string name="publishOnYourBlog">Publicar nel to blog</string>
   <string name="publishHelp">Si ta marcáu, la entrada va apaecer nel to blogue. Si non, va ser quitada nos tos borradores</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Entrada afitada</string>
+  <string name="stickyPostHelp">Si ta marcáu, esta entrada va apaecer nel primer llugar de les entraes recientes nel to perfil.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Publicó una entrada</item>
     <item quantity="other">Publicó %s entradas</item>

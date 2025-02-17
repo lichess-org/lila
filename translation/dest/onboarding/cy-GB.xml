@@ -3,7 +3,7 @@
   <string name="welcome">Croeso!</string>
   <string name="welcomeToLichess">Croeso i lichess.org!</string>
   <string name="thisIsYourProfilePage">Dyma eich tudalen proffil.</string>
-  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">A fydd plentyn yn defnyddio\'r cyfrif hwn? Efallai yr hoffech chi alluogi %s.</string>
+  <string name="enabledKidModeSuggestion">A fydd plentyn yn defnyddio\'r cyfrif hwn? Efallai yr hoffech chi alluogi %s.</string>
   <string name="whatNowSuggestions">Beth nawr? Dyma sawl awgrym:</string>
   <string name="learnChessRules">Dysgy reolau gwyddbwyll</string>
   <string name="improveWithChessTacticsPuzzles">Gwella gyda phosau tactegau gwyddbwyll.</string>

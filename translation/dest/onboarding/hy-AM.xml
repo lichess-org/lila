@@ -3,7 +3,7 @@
   <string name="welcome">Բարի՛ գալուստ!</string>
   <string name="welcomeToLichess">Բարի՛ գալուստ lichess.org</string>
   <string name="thisIsYourProfilePage">Սա ձեր պրոֆիլի էջն է</string>
-  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Արդյո՞ք երեխա է օգտագործելու այս հաշիվը, դուք կարող եք միացնել %s</string>
+  <string name="enabledKidModeSuggestion">Արդյո՞ք երեխա է օգտագործելու այս հաշիվը, դուք կարող եք միացնել %s</string>
   <string name="whatNowSuggestions">Հիմա ի՞նչ, Ահա մի քանի առաջարկներ․</string>
   <string name="learnChessRules">Սովորել շախմատի հիմունքները։</string>
   <string name="improveWithChessTacticsPuzzles">Բարելավեք ձեր շախմատի մակարդակը վարժությունների միջոցով։</string>
@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Խաղացեք ամբողջ աշխարհի շախմատիստների դեմ։</string>
   <string name="followYourFriendsOnLichess">Հետևեք ձեր ընկերներին Lichess-ում։</string>
   <string name="playInTournaments">Խաղացեք մրցաշարերում։</string>
-  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Սովորեք %1$s-ից և %2$s-ից։</string>
+  <string name="learnFromXAndY">Սովորեք %1$s-ից և %2$s-ից։</string>
   <string name="configureLichess">Ձևափոխեք Lichess-ը ըստ ձեր համարության։</string>
   <string name="exploreTheSiteAndHaveFun">Ուսումնասիրեք կայքը և զվարճացեք :)</string>
 </resources>

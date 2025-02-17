@@ -81,4 +81,5 @@
   <string name="pastBroadcasts">Завершённые трансляции</string>
   <string name="allBroadcastsByMonth">Просмотр всех трансляций за месяц</string>
   <string name="backToLiveMove">Вернуться к текущему ходу</string>
+  <string name="sinceHideResults">Вы выбрали скрыть результаты, поэтому обзор досок пуст, чтобы сохранить интригу.</string>
 </resources>
