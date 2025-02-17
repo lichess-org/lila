@@ -165,6 +165,15 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
+  def signupConfirm(user: User, token: String, referrer: Option[String])(using Context) =
+    Page(trans.site.signUp.txt()).css("bits.form3"):
+      main(cls := "page-small box box-pad", style := "text-align: center")(
+        h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichess()),
+        List.fill(5)(br),
+        postForm(action := routes.Auth.signupConfirmEmailPost(token)):
+          submitButton(cls := "button button-fat")(trans.onboarding.logInAsUsername(user.username))
+      )
+
   def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using Context) =
     Page(trans.site.passwordReset.txt())
       .css("bits.auth")

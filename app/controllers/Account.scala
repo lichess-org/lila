@@ -86,24 +86,23 @@ final class Account(
     negotiateJson(doNowPlaying)
   }
 
-  val apiMe =
-    Scoped() { ctx ?=> me ?=>
-      def limited = rateLimited:
-        "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
-      val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
-      if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
-      else
-        limit.apiMe(me, limited):
-          env.api.userApi
-            .extended(
-              me.value,
-              withFollows = apiC.userWithFollows,
-              withTrophies = false,
-              withCanChallenge = false,
-              forWiki = wikiGranted
-            )
-            .dmap { JsonOk(_) }
-    }
+  val apiMe = Scoped() { ctx ?=> me ?=>
+    def limited = rateLimited:
+      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+    val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
+    if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
+    else
+      limit.apiMe(me, limited):
+        env.api.userApi
+          .extended(
+            me.value,
+            withFollows = apiC.userWithFollows,
+            withTrophies = false,
+            withCanChallenge = false,
+            forWiki = wikiGranted
+          )
+          .dmap { JsonOk(_) }
+  }
 
   def apiNowPlaying = Scoped()(doNowPlaying)
 
@@ -268,10 +267,8 @@ final class Account(
       auth.HasherRateLimit:
         env.security.forms.deleteAccount.flatMap: form =>
           FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
-            env.api.accountTermination
-              .scheduleDelete(me.value)
-              .inject:
-                Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
+            for _ <- env.api.accountTermination.scheduleDelete(me.value)
+            yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
   }
 
   def deleteDone = Open { ctx ?=>
@@ -300,11 +297,13 @@ final class Account(
               BadRequest(errorsAsJson(err))
             ),
           _ =>
-            env.user.repo.setKid(me, getBool("v")) >>
-              negotiate(
+            for
+              _ <- env.user.repo.setKid(me, getBool("v"))
+              res <- negotiate(
                 Redirect(routes.Account.kid).flashSuccess,
                 jsonOkResult
               )
+            yield res
         )
   }
 
