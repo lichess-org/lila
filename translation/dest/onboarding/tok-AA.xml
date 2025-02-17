@@ -3,7 +3,7 @@
   <string name="welcome">o kama pona!</string>
   <string name="welcomeToLichess">o kama pona tawa lipu Lichess!</string>
   <string name="thisIsYourProfilePage">ni li lipu sina</string>
-  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">jan lili li kepeken ala kepeken sijelo ni? kepeken la, ken la sina wile open e %s</string>
+  <string name="enabledKidModeSuggestion">jan lili li kepeken ala kepeken sijelo ni? kepeken la, ken la sina wile open e %s</string>
   <string name="whatNowSuggestions">tenpo ni la seme? ken la sina wile ni:</string>
   <string name="learnChessRules">o kama sona e lawa pi musi ni</string>
   <string name="improveWithChessTacticsPuzzles">o wawa e sona sina kepeken musi lili</string>
@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">o utala e jan ante lon musi ni</string>
   <string name="followYourFriendsOnLichess">o kama tawa poka pi jan pona sina</string>
   <string name="playInTournaments">o musi lon utala suli a</string>
-  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">o kama sona tan %1$s tan %2$s</string>
+  <string name="learnFromXAndY">o kama sona tan %1$s tan %2$s</string>
   <string name="configureLichess">o ante e ilo Lichess tawa wile sina</string>
   <string name="exploreTheSiteAndHaveFun">o musi pona a!</string>
 </resources>
