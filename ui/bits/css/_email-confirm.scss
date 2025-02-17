@@ -122,3 +122,13 @@
     margin-bottom: 1em;
   }
 }
+
+.signup-confirm {
+  text-align: center;
+  form {
+    margin: 6em 0 4em 0;
+    .button-fat {
+      border: 10px solid $m-primary_bg--mix-30;
+    }
+  }
+}

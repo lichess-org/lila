@@ -137,7 +137,9 @@ object page:
           netConfig.stageBanner.option(views.bits.stage),
           ctx.isAnon
             .so(lila.security.EmailConfirm.cookie.get(ctx.req))
-            .map(u => frag(cssTag("email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))),
+            .map(u =>
+              frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
+            ),
           zenable.option(zenZone),
           ui.siteHeader(
             zenable = zenable,
