@@ -161,7 +161,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           }
   }
 
-  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
+  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play) { ctx ?=> me ?=>
     NoLame:
       NoPlayban:
         limit.tourJoin(me, rateLimited):
@@ -186,7 +186,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       else Redirect(routes.Tournament.show(tour.id))
   }
 
-  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
+  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play) { _ ?=> me ?=>
     Found(cachedTour(id)): tour =>
       api.selfPause(tour.id, me).inject(jsonOkResult)
   }
