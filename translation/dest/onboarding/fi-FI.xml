@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Kirjaudu sisään tunnuksella %s</string>
   <string name="welcome">Tervetuloa!</string>
   <string name="welcomeToLichess">Tervetuloa lichess.orgiin!</string>
   <string name="thisIsYourProfilePage">Tämä on profiilisivusi.</string>
