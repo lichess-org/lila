@@ -114,7 +114,6 @@ export function initModule(): NvuiPlugin {
               hook: onInsert(el => {
                 const $form = $(el as HTMLFormElement),
                   $input = $form.find('.move').val('');
-                $input[0]!.focus();
                 nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
                 $form.on('submit', (ev: SubmitEvent) => {
                   ev.preventDefault();

@@ -133,7 +133,6 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
                 insert(vnode) {
                   const $form = $(vnode.elm as HTMLFormElement),
                     $input = $form.find('.move').val('');
-                  $input[0]?.focus();
                   $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
                 },
               },

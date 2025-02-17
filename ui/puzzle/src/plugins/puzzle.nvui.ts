@@ -96,7 +96,6 @@ export function initModule() {
               hook: onInsert(el => {
                 const $form = $(el),
                   $input = $form.find('.move').val('');
-                $input[0]?.focus();
                 $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input, ground));
               }),
             },
