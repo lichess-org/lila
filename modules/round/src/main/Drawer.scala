@@ -52,12 +52,15 @@ final private[round] class Drawer(
           Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some
         )
       case Pov(g, color) if g.playerCanOfferDraw(color) =>
-        val progress = Progress(g).map(offerDraw(color))
-        messenger.system(g, color.fold(trans.site.whiteOffersDraw, trans.site.blackOffersDraw).txt())
-        for
-          _ <- proxy.save(progress)
-          _ = publishDrawOffer(progress.game)
-        yield List(Event.DrawOffer(by = color.some))
+        if pov.game.situation.copy(color = color).opponentHasInsufficientMaterial then
+          finisher.other(pov.game, _.Draw, None)
+        else
+          val progress = Progress(g).map(offerDraw(color))
+          messenger.system(g, color.fold(trans.site.whiteOffersDraw, trans.site.blackOffersDraw).txt())
+          for
+            _ <- proxy.save(progress)
+            _ = publishDrawOffer(progress.game)
+          yield List(Event.DrawOffer(by = color.some))
       case _ => fuccess(List(Event.ReloadOwner))
 
   def no(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
