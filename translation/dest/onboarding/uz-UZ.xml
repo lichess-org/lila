@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s sifatida tizimga kiring</string>
   <string name="welcome">Xush kelibsiz!</string>
   <string name="welcomeToLichess">Lichess.org ga xush kelibsiz!</string>
   <string name="thisIsYourProfilePage">Bu sizning profil sahifangiz.</string>
