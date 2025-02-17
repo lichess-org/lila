@@ -77,7 +77,7 @@ final class TournamentForm:
           )
           .verifying(
             "Can't change bot entry condition after the tournament started",
-            _.conditions.allowsBots == tour.conditions.allowsBots || tour.isCreated
+            d => (d.conditions.allowsBots == tour.conditions.allowsBots) || tour.isCreated
           )
 
   private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =

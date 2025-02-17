@@ -15,6 +15,8 @@ trait EmailConfirm:
 
   def send(user: User, email: EmailAddress)(using Lang): Funit
 
+  def dryTest(token: String): Fu[EmailConfirm.Result]
+
   def confirm(token: String): Fu[EmailConfirm.Result]
 
 final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
@@ -23,6 +25,8 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
 
   def send(user: User, email: EmailAddress)(using Lang) =
     userRepo.setEmailConfirmed(user.id).void
+
+  def dryTest(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
@@ -41,7 +45,7 @@ final class EmailConfirmMailer(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(using Lang): Funit =
-    (!email.looksLikeFakeEmail).so {
+    email.looksLikeFakeEmail.not.so:
       tokener.make(user.id).flatMap { token =>
         lila.mon.email.send.confirmation.increment()
         val url = s"$baseUrl/signup/confirm/$token"
@@ -68,21 +72,23 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
           )
         )
       }
-    }
 
-  import EmailConfirm.Result
+  import EmailConfirm.Result.*
 
-  def confirm(token: String): Fu[Result] =
+  def dryTest(token: String): Fu[EmailConfirm.Result] =
     tokener.read(token).flatMapz(userRepo.enabledById).flatMap {
-      _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
-        userRepo.mustConfirmEmail(user.id).flatMap {
-          if _ then (userRepo.setEmailConfirmed(user.id)).inject(Result.JustConfirmed(user))
-          else fuccess(Result.AlreadyConfirmed(user))
+      _.fold(fuccess(NotFound)): user =>
+        userRepo.mustConfirmEmail(user.id).map {
+          if _ then NeedsConfirm(user) else AlreadyConfirmed(user)
         }
-      }
     }
 
-  private val tokener = new StringToken[UserId](
+  def confirm(token: String): Fu[EmailConfirm.Result] =
+    dryTest(token).flatMap:
+      case NeedsConfirm(user) => userRepo.setEmailConfirmed(user.id).inject(JustConfirmed(user))
+      case other              => fuccess(other)
+
+  private val tokener = StringToken[UserId](
     secret = tokenerSecret,
     getCurrentValue = id => userRepo.email(id).dmap(_.so(_.value))
   )
@@ -90,6 +96,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
 object EmailConfirm:
 
   enum Result:
+    case NeedsConfirm(user: User)
     case JustConfirmed(user: User)
     case AlreadyConfirmed(user: User)
     case NotFound

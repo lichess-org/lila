@@ -18,13 +18,13 @@ final class PerfsUpdater(
     ratingFactors: () => RatingFactor.ByKey
 )(using Executor):
 
-  def save(game: Game, users: ByColor[UserWithPerfs]): Fu[Option[ByColor[IntRatingDiff]]] =
-    farming
-      .botFarming(game)
-      .flatMap:
-        if _ then fuccess(none)
-        else if farming.newAccountBoosting(game, users) then fuccess(none)
-        else calculateRatingAndPerfs(game, users).fold(fuccess(none))(saveRatings(game.id, users))
+  def save(game: Game, users: ByColor[UserWithPerfs]): Fu[Option[ByColor[IntRatingDiff]]] = for
+    isBotFarming <- farming.botFarming(game)
+    result <-
+      isBotFarming.not.so:
+        (!farming.newAccountBoosting(game, users)).so:
+          calculateRatingAndPerfs(game, users).so(saveRatings(game.id, users))
+  yield result
 
   private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]): Option[
     (ByColor[IntRatingDiff], ByColor[UserWithPerfs], PerfKey)
