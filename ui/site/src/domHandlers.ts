@@ -12,13 +12,18 @@ export function attachDomHandlers() {
       $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
       setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
     };
-    $(this.parentElement!.firstElementChild!).each(function (this: any) {
-      try {
-        navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
-      } catch (e) {
-        console.error(e);
-      }
-    });
+    const buttonValue = $(this).attr('value');
+    if (buttonValue) {
+      navigator.clipboard.writeText(buttonValue).then(showCheckmark).catch(console.error);
+    } else {
+      $(this.parentElement!.firstElementChild!).each(function (this: any) {
+        try {
+          navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
+        } catch (e) {
+          console.error(e);
+        }
+      });
+    }
     return false;
   });
 
