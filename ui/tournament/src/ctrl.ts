@@ -11,7 +11,7 @@ import type {
   Standing,
   Player,
 } from './interfaces';
-import { storage } from 'common/storage';
+import { storage, tempStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { alerts, prompt } from 'common/dialog';
 
@@ -93,6 +93,8 @@ export default class TournamentController {
     const delay = rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
+        tempStorage.make('newGame.id').set(gameId);
+        tempStorage.make('competition.id').set(this.data.id);
         this.lastStorage.set(gameId);
         site.redirect('/' + gameId, true);
       }
