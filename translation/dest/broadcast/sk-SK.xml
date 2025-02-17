@@ -18,8 +18,6 @@
   <string name="addRound">Pridať kolo</string>
   <string name="ongoing">Prebiehajúci</string>
   <string name="upcoming">Blížiace sa</string>
-  <string name="completed">Ukončené</string>
-  <string name="completedHelp">Lichess rozpozná dokončenie kola, ale môže sa pomýliť. Pomocou tejto funkcie ho môžete nastaviť ručne.</string>
   <string name="roundName">Názov kola</string>
   <string name="roundNumber">Číslo kola</string>
   <string name="tournamentName">Názov turnaja</string>

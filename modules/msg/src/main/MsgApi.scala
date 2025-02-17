@@ -7,12 +7,14 @@ import lila.common.{ Bus, LilaStream }
 import lila.core.msg.{ PostResult, IdText }
 import lila.core.relation.Relations
 import lila.db.dsl.{ *, given }
+import lila.core.perm.Granter
 
 final class MsgApi(
     colls: MsgColls,
     contactApi: ContactApi,
     userApi: lila.core.user.UserApi,
     userRepo: lila.core.user.UserRepo,
+    prefApi: lila.core.pref.PrefApi,
     lightUserApi: lila.core.user.LightUserApi,
     relationApi: lila.core.relation.RelationApi,
     json: MsgJson,
@@ -77,16 +79,23 @@ final class MsgApi(
     val threadId = MsgThread.id(me, userId)
     val before = beforeMillis.flatMap: millis =>
       util.Try(millisToInstant(millis)).toOption
-    (userId
-      .isnt(me))
-      .so(lightUserApi.async(userId).flatMapz { contact =>
-        for
-          _         <- setReadBy(threadId, me, userId)
-          msgs      <- threadMsgsFor(threadId, me, before)
-          relations <- relationApi.fetchRelations(me, userId)
-          postable  <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
-        yield MsgConvo(contact, msgs, relations, postable).some
-      })
+    userId
+      .isnt(me)
+      .so:
+        lightUserApi.async(userId).flatMapz { contact =>
+          for
+            _         <- setReadBy(threadId, me, userId)
+            msgs      <- threadMsgsFor(threadId, me, before)
+            relations <- relationApi.fetchRelations(me, userId)
+            postable  <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
+            details   <- Granter(_.PublicMod).soFu(fetchContactDetailsForMods(userId))
+          yield MsgConvo(contact, msgs, relations, postable, details).some
+        }
+
+  private def fetchContactDetailsForMods(userId: UserId): Fu[ContactDetailsForMods] = for
+    kid  <- userApi.isKid(userId)
+    pref <- prefApi.getMessage(userId)
+  yield ContactDetailsForMods(kid, pref == lila.core.pref.Message.ALWAYS)
 
   def delete(username: UserStr)(using me: Me): Funit =
     val threadId = MsgThread.id(me, username.id)

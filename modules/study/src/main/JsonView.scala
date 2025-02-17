@@ -30,7 +30,7 @@ final class JsonView(
     for
       liked <- me.so(studyRepo.liked(study, _))
       relayPath = chapter.relay
-        .filter(_.secondsSinceLastMove < 3600 || chapter.tags.outcome.isEmpty)
+        .filter(_.secondsSinceLastMove.exists(_ < 3600) || chapter.tags.outcome.isEmpty)
         .map(_.path)
         .filterNot(_.isEmpty)
       jsStudy =

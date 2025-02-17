@@ -18,8 +18,13 @@ object TournamentCondition:
       titled: Option[Titled.type],
       teamMember: Option[TeamMember],
       accountAge: Option[AccountAge],
-      allowList: Option[AllowList]
-  ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, teamMember, accountAge, allowList)):
+      allowList: Option[AllowList],
+      bots: Option[Bots]
+  ) extends ConditionList(
+        List(nbRatedGame, maxRating, minRating, titled, teamMember, accountAge, allowList, bots)
+      ):
+
+    private def listWithBots = if bots.isDefined then list else Bots(false) :: list
 
     def withVerdicts(perfType: PerfType)(using
         Me,
@@ -29,7 +34,7 @@ object TournamentCondition:
         GetMyTeamIds,
         GetAge
     ): Fu[WithVerdicts] =
-      list
+      listWithBots
         .parallel:
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
@@ -42,7 +47,7 @@ object TournamentCondition:
         ex: Executor,
         getMyTeamIds: GetMyTeamIds
     ): Fu[WithVerdicts] =
-      list
+      listWithBots
         .parallel:
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
           case c             => fuccess(WithVerdict(c, Accepted))
@@ -59,8 +64,10 @@ object TournamentCondition:
         .so: current =>
           prev.allowList.so(_.userIds.diff(current))
 
+    def allowsBots = bots.exists(_.allowed)
+
   object All:
-    val empty             = All(none, none, none, none, none, none, none)
+    val empty             = All(none, none, none, none, none, none, none, none)
     given zero: Zero[All] = Zero(empty)
 
   object form:
@@ -74,7 +81,8 @@ object TournamentCondition:
         "titled"      -> titled,
         "teamMember"  -> teamMember(leaderTeams),
         "accountAge"  -> accountAge,
-        "allowList"   -> allowList
+        "allowList"   -> allowList,
+        "bots"        -> bots
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   final class Verify(historyApi: HistoryApi, userApi: UserApi)(using Executor):

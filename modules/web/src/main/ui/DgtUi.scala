@@ -203,7 +203,7 @@ final class DgtUi(helpers: Helpers):
 
   private def layout(path: String, token: Option[String] = None)(using Context) =
     Page(trd.playWithDgtBoard.txt())
-      .css("bits.dgt")
+      .css("dgt")
       .js(token.fold(esmInit("dgt"))(esmInit("dgt", _)))
       .csp(_.withAnyWs)
       .wrap: body =>

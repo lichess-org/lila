@@ -9,8 +9,8 @@ final class AccountUi(helpers: Helpers):
 
   def AccountPage(title: String, active: String)(using lila.ui.Context) =
     Page(title)
-      .css("bits.account")
-      .js(Esm("bits.account"))
+      .css("user.account")
+      .js(Esm("user.account"))
       .wrap: body =>
         main(cls := "account page-menu")(
           menu(active),

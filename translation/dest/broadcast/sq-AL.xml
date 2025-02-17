@@ -16,8 +16,6 @@
   <string name="addRound">Shtoni një raund</string>
   <string name="ongoing">Në zhvillim</string>
   <string name="upcoming">I ardhshëm</string>
-  <string name="completed">I mbaruar</string>
-  <string name="completedHelp">Lichess-i e pikas plotësimin e raundit bazuar në lojërat burim. Përdoreni këtë buton, nëse s’ka burim.</string>
   <string name="roundName">Emër raundi</string>
   <string name="roundNumber">Numër raundi</string>
   <string name="tournamentName">Emër turneu</string>
@@ -77,4 +75,5 @@
   <string name="pastBroadcasts">Transmetime të kaluara</string>
   <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
   <string name="backToLiveMove">Mbrapsht te lëvizja “live”</string>
+  <string name="sinceHideResults">Meqë zgjodhët të fshihen përfundimet, krejt tabelat e paraparjeve janë të zbrazëta, për të shmangur tregime.</string>
 </resources>

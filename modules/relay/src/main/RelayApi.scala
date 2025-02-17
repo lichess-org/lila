@@ -500,6 +500,7 @@ final class RelayApi(
       .list[RelayRound]:
         RelayRoundRepo.selectors.finished(false) ++
           $doc(
+            "sync.upstream".$exists(true),
             "sync.until".$exists(false),
             "startedAt".$lt(nowInstant.minusHours(3)),
             $or(

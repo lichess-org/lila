@@ -16,8 +16,6 @@
   <string name="addRound">Bir tur ekle</string>
   <string name="ongoing">Devam eden turnuvalar</string>
   <string name="upcoming">Yaklaşan turnuvalar</string>
-  <string name="completed">Tamamlanan turnuvalar</string>
-  <string name="completedHelp">Lichess, tur tamamlanmasını kaynak oyunlara dayanarak algılar. Kaynak yoksa bu anahtarı kullanın.</string>
   <string name="roundName">Tur ismi</string>
   <string name="roundNumber">Tur sayısı</string>
   <string name="tournamentName">Turnuva ismi</string>

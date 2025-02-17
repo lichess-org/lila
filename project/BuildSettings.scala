@@ -57,6 +57,8 @@ object BuildSettings {
     "-language:implicitConversions",
     "-release:21"
     // "-Wunused:all",
+    // "-Yprofile-enabled",
+    // "-Yprofile-trace:compiler.trace"
   )
 
   val srcMain = Seq(

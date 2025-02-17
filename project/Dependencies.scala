@@ -25,7 +25,7 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.3.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.117.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.118.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
   val munit       = "org.scalameta"              %% "munit"         % "1.1.0" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.18.0"
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "17.2.1"
+    val version  = "17.2.2"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -79,7 +79,7 @@ object Dependencies {
 
   object reactivemongo {
     val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC13"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC14"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC15"
     val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC14"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)

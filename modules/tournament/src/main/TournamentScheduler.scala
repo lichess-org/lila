@@ -381,7 +381,8 @@ Thank you all, you rock!""".some,
               titled = none,
               teamMember = none,
               accountAge = none,
-              allowList = none
+              allowList = none,
+              bots = none
             )
             val finalWhen = when.plusHours(hourDelay)
             List(Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan) :::

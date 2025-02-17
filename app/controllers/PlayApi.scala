@@ -3,7 +3,7 @@ package controllers
 import play.api.i18n.Lang
 import play.api.mvc.*
 
-import lila.app.*
+import lila.app.{ *, given }
 import lila.core.id.GameAnyId
 import lila.core.perf.UserWithPerfs
 
@@ -131,9 +131,15 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
         BadRequest:
           jsonError:
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
-      else if !lila.game.Game.isBotCompatible(pov.game) then
-        BadRequest(jsonError("This game cannot be played with the Bot API."))
-      else f(pov)
+      else
+        isReallyBotCompatible(pov.game).flatMap:
+          if _ then f(pov)
+          else BadRequest(jsonError("This game cannot be played with the Bot API."))
+
+  private def isReallyBotCompatible(game: lila.core.game.Game): Fu[Boolean] =
+    lila.game.Game.isBotCompatible(game) match
+      case Some(known) => fuccess(known)
+      case None        => game.tournamentId.so(env.tournament.api.isForBots)
 
   private def WithPovAsBoard(id: GameId)(f: Pov => Fu[Result])(using ctx: Context)(using Me) =
     WithPov(id): pov =>

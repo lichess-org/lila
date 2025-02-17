@@ -15,8 +15,6 @@
   <string name="addRound">ラウンドを追加</string>
   <string name="ongoing">配信中</string>
   <string name="upcoming">予定</string>
-  <string name="completed">終了</string>
-  <string name="completedHelp">Lichess は元になる対局に基づいてラウンド終了を検出します。元になる対局がない時はこのトグルを使ってください。</string>
   <string name="roundName">ラウンド名</string>
   <string name="roundNumber">ラウンド</string>
   <string name="tournamentName">大会名</string>
@@ -80,4 +78,5 @@
   <string name="pastBroadcasts">過去の中継</string>
   <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
   <string name="backToLiveMove">実際の手に戻る</string>
+  <string name="sinceHideResults">結果を非表示にするよう選択したため、結果が見えないようプレビューボードはすべて空白です。</string>
 </resources>

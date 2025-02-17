@@ -21,7 +21,7 @@
     margin: 10px 0;
   }
 
-  @import '../../../common/css/component/chart';
+  @import '../../common/css/component/chart';
 
   .profile-side {
     @extend %flex-column;

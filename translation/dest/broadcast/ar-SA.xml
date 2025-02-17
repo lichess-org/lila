@@ -20,8 +20,6 @@
   <string name="addRound">إضافة جولة</string>
   <string name="ongoing">الجارية</string>
   <string name="upcoming">القادمة</string>
-  <string name="completed">المكتملة</string>
-  <string name="completedHelp">يعرف ليتشيس بانتهاء الجولة استناداً إلى المصدر، استخدم هذا التبديل إذا لم يكن هناك مصدر.</string>
   <string name="roundName">اسم الجولة</string>
   <string name="roundNumber">رقم الجولة (الشوط)</string>
   <string name="tournamentName">اسم البطولة</string>

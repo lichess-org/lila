@@ -30,7 +30,6 @@ final class TournamentForm:
       variant = chess.variant.Standard.id.toString.some,
       position = None,
       password = None,
-      mode = none,
       rated = true.some,
       conditions = TournamentCondition.All.empty,
       teamBattleByTeam = teamBattleId,
@@ -53,7 +52,6 @@ final class TournamentForm:
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
       position = tour.position.map(_.into(Fen.Full)),
-      mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
       conditions = tour.conditions,
@@ -77,6 +75,10 @@ final class TournamentForm:
             "Can't change time control after players have joined",
             _.speed == tour.speed || tour.nbPlayers == 0
           )
+          .verifying(
+            "Can't change bot entry condition after the tournament started",
+            _.conditions.allowsBots == tour.conditions.allowsBots || tour.isCreated
+          )
 
   private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =
     val manager       = Granter(_.ManageTournament)
@@ -89,14 +91,13 @@ final class TournamentForm:
         if manager then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },
-      "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-      "startDate"   -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
-      "variant"     -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"    -> optional(lila.common.Form.fen.playableStrict),
-      "mode"        -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
-      "rated"       -> optional(boolean),
-      "password"    -> optional(cleanNonEmptyText),
-      "conditions"  -> TournamentCondition.form.all(leaderTeams),
+      "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
+      "startDate"        -> optional(inTheFuture(ISOInstantOrTimestamp.mapping)),
+      "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
+      "position"         -> optional(lila.common.Form.fen.playableStrict),
+      "rated"            -> optional(boolean),
+      "password"         -> optional(cleanNonEmptyText),
+      "conditions"       -> TournamentCondition.form.all(leaderTeams),
       "teamBattleByTeam" -> optional(of[TeamId].verifying(id => leaderTeams.exists(_.id == id))),
       "berserkable"      -> optional(boolean),
       "streakable"       -> optional(boolean),
@@ -104,6 +105,7 @@ final class TournamentForm:
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(unapply)
       .verifying("Invalid clock", _.validClock)
+      .verifying("Invalid clock for bot games", _.validClockForBots)
       .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
       .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
@@ -152,7 +154,6 @@ private[tournament] case class TournamentSetup(
     startDate: Option[Instant],
     variant: Option[String],
     position: Option[Fen.Full],
-    mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
     conditions: TournamentCondition.All,
@@ -165,9 +166,11 @@ private[tournament] case class TournamentSetup(
 
   def validClock = (clockTime + clockIncrement.value) > 0
 
+  def validClockForBots = !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
+
   def realMode =
     if realPosition.isDefined && !thematicPosition then Mode.Casual
-    else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
+    else Mode(rated | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 

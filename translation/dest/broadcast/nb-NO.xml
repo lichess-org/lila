@@ -16,8 +16,6 @@
   <string name="addRound">Legg til runde</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommende</string>
-  <string name="completed">Fullført</string>
-  <string name="completedHelp">Lichess oppdager fullførte runder basert på kildepartiene. Bruk denne knappen hvis det ikke finnes noen kilde.</string>
   <string name="roundName">Rundenavn</string>
   <string name="roundNumber">Rundenummer</string>
   <string name="tournamentName">Turneringsnavn</string>
