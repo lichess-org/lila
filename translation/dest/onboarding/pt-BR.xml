@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Entrar como %s</string>
   <string name="welcome">Bem vindo(a)!</string>
   <string name="welcomeToLichess">Bem-vindo(a) ao lichess.org!</string>
   <string name="thisIsYourProfilePage">Esta é sua página de perfil.</string>
