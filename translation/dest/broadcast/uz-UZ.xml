@@ -1,10 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Eshittirishlar</string>
+  <string name="myBroadcasts">Mening eshittirishlarim</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s translyatsiyasi</item>
+    <item quantity="other">%s translyatsiya</item>
+  </plurals>
   <string name="liveBroadcasts">Jonli turnir eshittirishlari</string>
+  <string name="broadcastCalendar">Efir kalendar</string>
   <string name="newBroadcast">Yangi jonli eshittirish</string>
+  <string name="subscribedBroadcasts">Obuna bo\'lgan translyatsiyalar</string>
+  <string name="aboutBroadcasts">Translyatsiyalar haqida</string>
+  <string name="howToUseLichessBroadcasts">Lichess eshittirishlaridan qanday foydalanish kerak.</string>
+  <string name="theNewRoundHelp">Yangi turda avvalgisiga o\'xshash a\'zolar va hissa qo\'shuvchilar bo\'ladi.</string>
+  <string name="addRound">Bir tur qo\'shing</string>
   <string name="ongoing">Joriy</string>
   <string name="upcoming">Yaqinlashayotgan</string>
+  <string name="roundName">Dumaloq nomi</string>
+  <string name="roundNumber">Dumaloq raqam</string>
+  <string name="tournamentName">Turnir nomi</string>
+  <string name="tournamentDescription">Turnirning qisqacha tavsifi</string>
   <string name="fullDescription">Tadbir haqida toʻliq izoh</string>
   <string name="fullDescriptionHelp">Eshittirish tanlanuvchan uzun izohi. %1$s mumkin. Uzunlik %2$s ta belgidan kam boʻlishi kerak.</string>
+  <string name="sourceSingleUrl">PGN manba URL manzili</string>
+  <string name="sourceUrlHelp">PGN yangilanishlarini olish uchun Lichess tekshiradigan URL. U \"Inter\"dan hamma uchun ochiq bo\'lishi kerak</string>
+  <string name="sourceGameIds">Bo\'shliqlar bilan ajratilgan 64 tagacha Lichess o\'yin identifikatorlari.</string>
+  <string name="startDateTimeZone">Turnirning mahalliy vaqt mintaqasida boshlanish sanasi: %s</string>
+  <string name="startDateHelp">Majburiy emas, agar tadbir qachon boshlanishini bilsangiz</string>
+  <string name="currentGameUrl">Joriy oʻyin URL manzili</string>
+  <string name="downloadAllRounds">Barcha turlarni yuklab oling</string>
+  <string name="resetRound">Ushbu turni qayta o\'rnating</string>
+  <string name="deleteRound">Ushbu turni o\'chirib tashlang</string>
+  <string name="definitivelyDeleteRound">Turni va uning barcha o\'yinlarini mutlaqo o\'chirib tashlang.</string>
+  <string name="deleteAllGamesOfThisRound">Ushbu turning barcha o\'yinlarini o\'chirib tashlang. Ularni qayta yaratish uchun manba faol bo\'lishi kerak bo\'ladi</string>
+  <string name="editRoundStudy">Davra o\'rganishni tahrirlash</string>
+  <string name="deleteTournament">Ushbu turnirni o\'chirib tashlang</string>
+  <string name="definitivelyDeleteTournament">Butun turnirni, uning barcha raundlarini va barcha o\'yinlarini mutlaqo o\'chirib tashlang.</string>
+  <string name="showScores">O\'yin natijalari asosida o\'yinchilarning ballarini ko\'rsatish</string>
+  <string name="replacePlayerTags">Majburiy emas: o\'yinchi ismlari, reytinglari va unvonlarini almashtiring</string>
+  <string name="fideFederations">FIDE federatsiyalari</string>
+  <string name="top10Rating">Top 10 reyting</string>
+  <string name="fidePlayers">FIDE o\'yinchilari</string>
+  <string name="fidePlayerNotFound">FIDE o\'yinchisi topilmadi</string>
+  <string name="fideProfile">FIDE profili</string>
+  <string name="federation">Federatsiya</string>
+  <string name="ageThisYear">Bu yil yoshi</string>
+  <string name="unrated">Baholanmagan</string>
+  <string name="recentTournaments">Oxirgi turnirlar</string>
+  <string name="openLichess">Lichessda oching</string>
+  <string name="teams">Jamoalar</string>
+  <string name="boards">Kengashlar</string>
+  <string name="overview">Umumiy koʻrinish</string>
+  <string name="subscribeTitle">Har bir tur boshlanganda xabardor bo\'lish uchun obuna bo\'ling. Hisobingiz sozlamalarida eshittirishlar uchun qo‘ng‘iroq yoki push bildirishnomalarini almashtirishingiz mumkin.</string>
+  <string name="uploadImage">Turnir yuklab olish</string>
+  <string name="noBoardsYet">Hali taxtalar yo\'q. Oʻyinlar yuklangandan keyin paydo boʻladi.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Doskalarni manba yoki %s orqali yuklash mumkin</string>
+  <string name="startsAfter">%s dan keyin boshlanadi</string>
+  <string name="startVerySoon">Efir juda tez orada boshlanadi.</string>
+  <string name="notYetStarted">Efir hali boshlanmagan.</string>
+  <string name="officialWebsite">Official website</string>
+  <string name="standings">Turnir jadvali</string>
 </resources>
