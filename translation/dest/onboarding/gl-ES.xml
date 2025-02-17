@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Inicia sesión coma %s</string>
   <string name="welcome">Benvido!</string>
   <string name="welcomeToLichess">Benvido a lichess.org!</string>
   <string name="thisIsYourProfilePage">Esta é a túa páxina de perfil.</string>
