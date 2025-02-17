@@ -17,26 +17,26 @@
     "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lichess.org",
-  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321",
+  "packageManager": "pnpm@10.2.1+sha512.398035c7bd696d0ba0b10a688ed558285329d27ea994804a52bad9167d8e3a72bcb993f9699585d3ca25779ac64949ef422757a6c31102c12ab932e5cbe5cc92",
   "engines": {
     "node": ">=22.6",
-    "pnpm": "^9"
+    "pnpm": "^10"
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/web": "^0.0.194",
-    "@typescript-eslint/eslint-plugin": "^8.20.0",
-    "@typescript-eslint/parser": "^8.20.0",
+    "@types/web": "^0.0.201",
+    "@typescript-eslint/eslint-plugin": "^8.23.0",
+    "@typescript-eslint/parser": "^8.23.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
     "chessops": "^0.14.2",
-    "eslint": "^9.18.0",
-    "lint-staged": "^15.3.0",
+    "eslint": "^9.20.0",
+    "lint-staged": "^15.4.3",
     "onchange": "^7.1.0",
     "prettier": "^3.4.2",
     "snabbdom": "3.5.1",
     "typescript": "^5.7.3",
-    "vitest": "^3.0.2"
+    "vitest": "^3.0.5"
   },
   "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",

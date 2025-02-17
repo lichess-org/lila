@@ -3,8 +3,8 @@
   <string name="learnChess">ചതുരംഗം പഠിക്കാം</string>
   <string name="byPlaying">കളിച്ചുകൊണ്ട്!</string>
   <string name="menu">മെനു</string>
-  <string name="progressX">പുരോഗതി: %s</string>
-  <string name="resetMyProgress">എന്റെ പുരോഗതി പുനഃക്രമീകരിക്കുക</string>
+  <string name="progressX">മുന്നേറ്റം: %s</string>
+  <string name="resetMyProgress">എന്റെ മുന്നേറ്റങ്ങളെ പുനഃക്രമീകരിക്കുക</string>
   <string name="youWillLoseAllYourProgress">ഇത് ചെയ്താൽ നിങ്ങളുടെ എല്ലാ പുരോഗതിയും നഷ്ടമാകും!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">തുടങ്ങാം!</string>
   <string name="chessPieces">ചതുരംഗം കരുക്കൾ</string>

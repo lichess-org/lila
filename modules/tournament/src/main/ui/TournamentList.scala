@@ -25,14 +25,9 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     Page(trans.site.tournaments.txt())
       .css("tournament.home")
       .js(infiniteScrollEsmInit)
-      .js(
-        PageModule(
-          "tournament.schedule",
-          Json.obj("data" -> json)
-        )
-      )
+      .js(PageModule("tournament.schedule", Json.obj("data" -> json)))
       .hrefLangs(LangPath(routes.Tournament.home))
-      .fullScreen
+      .flag(_.fullScreen)
       .graph(
         url = s"$netBaseUrl${routes.Tournament.home.url}",
         title = trans.site.tournamentHomeTitle.txt(),
@@ -68,7 +63,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
             div(cls := "scheduled")(
               scheduled.map: tour =>
                 tour.schedule
-                  .filter(_ != Freq.Hourly)
+                  .filter(_.freq != Freq.Hourly)
                   .map: s =>
                     a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
                       strong(tour.name(full = false)),
@@ -263,7 +258,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       )
       Page("Tournament leaderboard")
         .css("tournament.leaderboard")
-        .fullScreen:
+        .flag(_.fullScreen):
           main(cls := "page-menu")(
             communityMenu,
             div(cls := "page-menu__content box box-pad")(
@@ -293,7 +288,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     def apply(history: TournamentShield.History)(using Context) =
       Page("Tournament shields")
         .css("tournament.leaderboard")
-        .fullScreen:
+        .flag(_.fullScreen):
           main(cls := "page-menu")(
             shieldMenu,
             div(cls := "page-menu__content box box-pad")(

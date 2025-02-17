@@ -140,8 +140,6 @@ object I18nKey:
     val `addRound`: I18nKey = "broadcast:addRound"
     val `ongoing`: I18nKey = "broadcast:ongoing"
     val `upcoming`: I18nKey = "broadcast:upcoming"
-    val `completed`: I18nKey = "broadcast:completed"
-    val `completedHelp`: I18nKey = "broadcast:completedHelp"
     val `roundName`: I18nKey = "broadcast:roundName"
     val `roundNumber`: I18nKey = "broadcast:roundNumber"
     val `tournamentName`: I18nKey = "broadcast:tournamentName"
@@ -205,6 +203,7 @@ object I18nKey:
     val `pastBroadcasts`: I18nKey = "broadcast:pastBroadcasts"
     val `allBroadcastsByMonth`: I18nKey = "broadcast:allBroadcastsByMonth"
     val `backToLiveMove`: I18nKey = "broadcast:backToLiveMove"
+    val `sinceHideResults`: I18nKey = "broadcast:sinceHideResults"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:

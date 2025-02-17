@@ -7,9 +7,13 @@ const assetVersion = memoize(() => document.body.getAttribute('data-asset-versio
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
   const base = opts.documentOrigin ? window.location.origin : opts.pathOnly ? '' : baseUrl();
-  const version = opts.version === false ? '' : `_${opts.version ?? assetVersion()}/`;
-  const hash = opts.version !== false && site.manifest.hashed[path];
-  return `${base}/assets/${hash ? asHashed(path, hash) : `${version}${path}`}`;
+  const pathVersion = !opts.pathVersion
+    ? ''
+    : opts.pathVersion === true
+      ? `_${assetVersion()}/`
+      : `_${opts.pathVersion}/`;
+  const hash = !pathVersion && site.manifest.hashed[path];
+  return `${base}/assets/${hash ? asHashed(path, hash) : `${pathVersion}${path}`}`;
 };
 
 function asHashed(path: string, hash: string) {
@@ -19,11 +23,11 @@ function asHashed(path: string, hash: string) {
 }
 
 // bump flairs version if a flair is changed only (not added or removed)
-export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
+export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { pathVersion: '_____2' });
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {
-    href = url(href, { version: false });
+    href = href.startsWith('https:') ? href : url(href);
     if (document.head.querySelector(`link[href="${href}"]`)) return resolve();
 
     const el = document.createElement('link');
@@ -58,15 +62,13 @@ export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {
 };
 
 export async function loadEsm<T>(name: string, opts: EsmModuleOpts = {}): Promise<T> {
-  opts = { ...opts, version: opts.version ?? false };
-
   const module = await import(url(opts.npm ? jsModule(name, 'npm/') : jsModule(name), opts));
   const initializer = module.initModule ?? module.default;
   return opts.npm && !opts.init ? initializer : initializer(opts.init);
 }
 
 export const loadEsmPage = async (name: string) => {
-  const modulePromise = import(url(jsModule(name), { version: false }));
+  const modulePromise = import(url(jsModule(name)));
   const dataScript = document.getElementById('page-init-data');
   const opts = dataScript && JSON.parse(dataScript.innerHTML);
   dataScript?.remove();

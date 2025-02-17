@@ -1,5 +1,5 @@
 package lila.event
-import lila.core.i18n.Language
+import scalalib.model.Language
 
 case class Event(
     _id: String,

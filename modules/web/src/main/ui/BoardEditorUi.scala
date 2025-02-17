@@ -25,7 +25,7 @@ final class BoardEditorUi(helpers: Helpers):
         )
       )
       .css("editor")
-      .zoom
+      .flag(_.zoom)
       .graph(
         title = "Chess board editor",
         url = s"$netBaseUrl${routes.Editor.index.url}",

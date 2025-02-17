@@ -126,7 +126,7 @@ export default class PuzzleCtrl implements ParentCtrl {
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === this.path) {
-            this.report.checkForMultipleSolutions(ev, this);
+            this.report.checkForMultipleSolutions(ev, this, work.threatMode);
             this.setAutoShapes();
             this.redraw();
           }

@@ -18,8 +18,6 @@
   <string name="addRound">הוספת סבב</string>
   <string name="ongoing">כרגע</string>
   <string name="upcoming">בקרוב</string>
-  <string name="completed">שהושלמו</string>
-  <string name="completedHelp">Lichess מאתר מתי הושלם הסבב על פי המשחקים שבקישור למהלכים בשידור חי (המקור). הפעילו את האפשרות הזאת אם אין מקור שממנו נשאבים המשחקים.</string>
   <string name="roundName">שם סבב</string>
   <string name="roundNumber">מספר סבב</string>
   <string name="tournamentName">שם הטורניר</string>

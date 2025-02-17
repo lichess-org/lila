@@ -4,10 +4,11 @@ import play.api.i18n.Lang
 import play.api.mvc.Result
 
 import lila.app.{ *, given }
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
+import lila.core.i18n.toLanguage
 
 final class Ublog(env: Env) extends LilaController(env):
 
@@ -251,16 +252,16 @@ final class Ublog(env: Env) extends LilaController(env):
       Reasonable(page, Max(100)):
         pageHit
         Ok.async:
-          val language = l.map(Language.apply)
+          val language = l.map(toLanguage)
           env.ublog.paginator
             .liveByCommunity(language, page)
             .map:
               views.ublog.community(language, _)
 
   def communityAtom(language: Language) = Anon:
-    val found: Option[Lang] = LangList.popularNoRegion.find(l => Language(l) == language)
+    val found: Option[Lang] = LangList.popularNoRegion.find(l => toLanguage(l) == language)
     env.ublog.paginator
-      .liveByCommunity(found.map(Language.apply), page = 1)
+      .liveByCommunity(found.map(toLanguage), page = 1)
       .map: posts =>
         Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
 

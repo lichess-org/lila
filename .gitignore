@@ -31,6 +31,7 @@ dependency-graph.png
 dump.rdb
 
 RUNNING_PID
+instance.lock
 .DS_Store
 
 # Eclipse auto-generated files
@@ -53,3 +54,6 @@ RUNNING_PID
 
 # eslint cache
 /ui/.eslintcache
+
+# deploy bearer
+.lila-cli

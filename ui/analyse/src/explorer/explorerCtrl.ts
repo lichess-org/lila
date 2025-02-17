@@ -1,5 +1,6 @@
 import { type Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
+import { pieceCount } from 'chess';
 import { defer } from 'common/defer';
 import { fenColor } from 'common/miniBoard';
 import { debounce } from 'common/timing';
@@ -14,11 +15,6 @@ import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
 
 export const MAX_DEPTH = 50;
-
-function pieceCount(fen: FEN) {
-  const parts = fen.split(/\s/);
-  return parts[0].split(/[nbrqkp]/i).length - 1;
-}
 
 function tablebasePieces(variant: VariantKey) {
   switch (variant) {

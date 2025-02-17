@@ -25,7 +25,9 @@ export class SearchCtrl {
 
   results = () => {
     const q = this.cleanQuery();
-    return q ? this.chapters.all().filter(this.match(q)) : this.chapters.all();
+    return q
+      ? this.chapters.all().filter((c: ChapterPreview) => c.name.toLowerCase().includes(q))
+      : this.chapters.all();
   };
 
   setChapter = (id: string) => {
@@ -38,11 +40,6 @@ export class SearchCtrl {
     const c = this.results()[0];
     if (c) this.setChapter(c.id);
   };
-
-  private tokenize = (c: ChapterPreview) => c.name.toLowerCase().split(' ');
-
-  private match = (q: string) => (c: ChapterPreview) =>
-    q.includes(' ') ? c.name.toLowerCase().includes(q) : this.tokenize(c).some(t => t.startsWith(q));
 }
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string

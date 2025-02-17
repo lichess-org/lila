@@ -207,14 +207,13 @@ final class ChatApi(
                 lila.core.mod.ChatTimeout(
                   mod = mod.userId,
                   user = user.id,
-                  reason = reason.key,
+                  reason = reason,
                   text = text
                 ),
                 "chatTimeout"
               )
               if isNew then
-                lila.common.Bus
-                  .publish(lila.core.security.DeletePublicChats(user.id), "deletePublicChats")
+                lila.common.Bus.publish(lila.core.security.DeletePublicChats(user.id), "deletePublicChats")
             else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =

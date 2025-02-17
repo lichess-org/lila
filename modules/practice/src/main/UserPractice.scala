@@ -25,7 +25,7 @@ case class UserStudy(
     study: Study.WithChapter,
     section: PracticeSection
 ):
-  def url = s"/practice/${section.id}/${practiceStudy.slug}/${study.study.id}"
+  def url = routes.Practice.show(section.id, practiceStudy.slug, study.study.id).url
 
 case class Completion(done: Int, total: Int):
 

@@ -18,8 +18,8 @@ final class UserList(helpers: Helpers, bits: UserBits):
       tournamentWinners: Frag
   )(using ctx: Context) =
     Page(trans.site.players.txt())
-      .css("bits.user.list")
-      .fullScreen
+      .css("user.list")
+      .flag(_.fullScreen)
       .graph(
         title = "Chess players and leaderboards",
         url = s"$netBaseUrl${routes.User.list.url}",
@@ -120,8 +120,8 @@ final class UserList(helpers: Helpers, bits: UserBits):
     val title = s"${users.size} Online bots"
     Page(title)
       .css("bits.slist")
-      .css("bits.bot.list")
-      .fullScreen:
+      .css("user.bot.list")
+      .flag(_.fullScreen):
         main(cls := "page-menu bots")(
           bits.communityMenu("bots"),
           users.partition(_.isVerified) match

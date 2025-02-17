@@ -1,25 +1,21 @@
 package controllers
 
 import play.api.mvc.*
+import scalalib.paginator.Paginator
 
 import lila.app.{ *, given }
-import lila.fide.Federation
+import lila.fide.{ Federation, FidePlayer }
+import lila.fide.FideJson.given
 
 final class Fide(env: Env) extends LilaController(env):
 
   def index(page: Int, q: Option[String] = None) = Open:
     Reasonable(page):
-      val query = q.so(_.trim)
-      chess.FideId
-        .from(query.toIntOption)
-        .so(env.fide.playerApi.fetch)
+      env.fide
+        .search(q, page)
         .flatMap:
-          case Some(player) => Redirect(routes.Fide.show(player.id, player.slug))
-          case None =>
-            for
-              players      <- env.fide.paginator.best(page, query)
-              renderedPage <- renderPage(views.fide.player.index(players, query))
-            yield Ok(renderedPage)
+          case Left(player) => Redirect(routes.Fide.show(player.id, player.slug))
+          case Right(pager) => renderPage(views.fide.player.index(pager, q.so(_.trim))).map(Ok(_))
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
     env.fide.repo.player
@@ -33,6 +29,12 @@ final class Fide(env: Env) extends LilaController(env):
               tours    <- env.relay.playerTour.playerTours(player, page)
               rendered <- renderPage(views.fide.player.show(player, tours))
             yield Ok(rendered)
+
+  def apiShow(id: chess.FideId) = Anon:
+    Found(env.fide.repo.player.fetch(id))(JsonOk)
+
+  def apiSearch(q: String) = Anon:
+    env.fide.search(q.some, 1).map(_.fold(Seq(_), _.currentPageResults)).map(JsonOk)
 
   def federations(page: Int) = Open:
     for

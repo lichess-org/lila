@@ -579,4 +579,5 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   yield allIds
 
   // expensive, enumerates all the player's games
-  def swissIdsOf(id: UserId): Fu[Set[SwissId]] = coll.distinctEasy[SwissId, Set](F.swissId, Query.user(id))
+  def swissIdsOf(id: UserId): Fu[Set[SwissId]] =
+    coll.distinctEasy[SwissId, Set](F.swissId, Query.user(id) ++ F.swissId.$exists(true))

@@ -3,7 +3,7 @@ package views.mod
 import lila.app.UiEnv.{ *, given }
 import lila.mod.ui.*
 
-lazy val ui         = ModUi(helpers)(() => env.chat.panic.enabled)
+lazy val ui         = ModUi(helpers)
 lazy val userTable  = ModUserTableUi(helpers, ui)
 lazy val user       = ModUserUi(helpers, ui)
 lazy val gamify     = GamifyUi(helpers, ui)

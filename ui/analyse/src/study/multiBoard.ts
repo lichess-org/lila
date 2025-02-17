@@ -114,7 +114,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       ? h(
           'div.empty-boards-note.text',
           { attrs: dataIcon(licon.InfoCircle) },
-          'Since you chose to hide the results, all the preview boards are empty to avoid spoilers.',
+          i18n.broadcast.sinceHideResults,
         )
       : undefined,
     h(

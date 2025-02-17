@@ -18,8 +18,6 @@
   <string name="addRound">Додати раунд</string>
   <string name="ongoing">Поточні</string>
   <string name="upcoming">Майбутні</string>
-  <string name="completed">Завершені</string>
-  <string name="completedHelp">Lichess виявляє завершення раунду на основі ігор. Використовуйте цей перемикач якщо немає джерела.</string>
   <string name="roundName">Назва раунду</string>
   <string name="roundNumber">Номер раунду</string>
   <string name="tournamentName">Назва турніру</string>

@@ -1,245 +1,178 @@
 import cps from 'node:child_process';
 import fs from 'node:fs';
 import ps from 'node:process';
-import path from 'node:path';
 import crypto from 'node:crypto';
+import { join, relative, basename, dirname, resolve } from 'node:path';
 import clr from 'tinycolor2';
-import { env, c, lines, errorMark } from './env.ts';
-import { globArray, readable } from './parse.ts';
+import { env, c, errorMark } from './env.ts';
+import { readable, glob } from './parse.ts';
+import { task } from './task.ts';
 import { updateManifest } from './manifest.ts';
-import { clamp } from './algo.ts';
+import { clamp, isEquivalent, trimLines } from './algo.ts';
+import { symlinkTargetHashes, hashedBasename } from './hash.ts';
 
+const importMap = new Map<string, Set<string>>();
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
 const themeColorMap = new Map<string, Map<string, clr.Instance>>();
-const importMap = new Map<string, Set<string>>();
-const processed = new Set<string>();
+
 let sassPs: cps.ChildProcessWithoutNullStreams | undefined;
-let watcher: SassWatch | undefined;
-let awaitingFullBuild: boolean | undefined = undefined;
 
 export function stopSass(): void {
   sassPs?.removeAllListeners();
   sassPs?.kill();
   sassPs = undefined;
-  watcher?.destroy();
-  watcher = undefined;
   importMap.clear();
-  processed.clear();
   colorMixMap.clear();
   themeColorMap.clear();
 }
 
-export async function sass(): Promise<void> {
-  if (!env.sass) return;
-  env.exitCode.delete('sass');
+export async function sass(): Promise<any> {
+  if (!env.begin('sass')) return;
 
-  await fs.promises.mkdir(path.join(env.buildTempDir, 'css')).catch(() => {});
+  await Promise.allSettled([
+    fs.promises.mkdir(env.cssOutDir),
+    fs.promises.mkdir(env.themeGenDir),
+    fs.promises.mkdir(join(env.buildTempDir, 'css')),
+  ]);
 
-  awaitingFullBuild ??= env.watch && env.building.length === env.packages.size;
+  let remaining: Set<string>;
 
-  const sources = await allSources();
-  await Promise.allSettled([parseThemeColorDefs(), ...sources.map(src => parseScss(src))]);
-  await buildColorMixes().then(buildColorWrap);
+  return task({
+    ctx: 'sass',
+    glob: [
+      { cwd: env.uiDir, path: '*/css/**/*.scss' },
+      { cwd: env.hashOutDir, path: '*' },
+    ],
+    debounce: 300,
+    root: env.rootDir,
+    execute: async (modified, fullList) => {
+      const concreteAll = new Set(fullList.filter(isConcrete));
+      const partialTouched = modified.filter(isPartial);
+      const urlTargetTouched = await sourcesWithUrls(modified.filter(isUrlTarget));
+      const transitiveTouched = [...partialTouched, ...urlTargetTouched].flatMap(p => [...dependsOn(p)]);
+      const concreteTouched = [...new Set([...transitiveTouched, ...modified])].filter(isConcrete);
 
-  if (env.watch) watcher = new SassWatch();
+      remaining = remaining
+        ? new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)))
+        : concreteAll;
 
-  compile(sources, env.building.length !== env.packages.size);
-
-  if (!sources.length) env.done(0, 'sass');
-}
-
-export async function allSources(): Promise<string[]> {
-  return (await globArray('./*/css/**/[^_]*.scss', { absolute: false })).filter(x => !x.includes('/gen/'));
-}
-
-async function unbuiltSources(): Promise<string[]> {
-  return Promise.all(
-    (await allSources()).filter(
-      src => !readable(path.join(env.cssTempDir, `${path.basename(src, '.scss')}.css`)),
-    ),
-  );
-}
-
-class SassWatch {
-  dependencies = new Set<string>();
-  touched = new Set<string>();
-  timeout: NodeJS.Timeout | undefined;
-  watchers: fs.FSWatcher[] = [];
-  watchDirs = new Set<string>();
-  constructor() {
-    this.watch();
-  }
-
-  async watch() {
-    if (!env.watch) return;
-    const watchDirs = new Set<string>([...importMap.keys()].map(path.dirname));
-    (await allSources()).forEach(s => watchDirs.add(path.dirname(s)));
-    if (this.watchDirs.size === watchDirs.size || [...watchDirs].every(d => this.watchDirs.has(d))) return;
-    if (this.watchDirs.size) env.log('Rebuilding watchers...', { ctx: 'sass' });
-    for (const x of this.watchers) x.close();
-    this.watchers.length = 0;
-    this.watchDirs = watchDirs;
-    for (const dir of this.watchDirs) {
-      const fsWatcher = fs.watch(dir);
-      fsWatcher.on('change', (event: string, srcFile: string) => this.onChange(dir, event, srcFile));
-      fsWatcher.on('error', (err: Error) => env.error(err, 'sass'));
-      this.watchers.push(fsWatcher);
-    }
-  }
-
-  destroy() {
-    this.clear();
-    for (const x of this.watchers) x.close();
-    this.watchers.length = 0;
-  }
-
-  clear() {
-    clearTimeout(this.timeout);
-    this.timeout = undefined;
-    this.dependencies.clear();
-    this.touched.clear();
-  }
-
-  add(files: string[]): boolean {
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => this.fire(), 200);
-    if (files.every(f => this.touched.has(f))) return false;
-    files.forEach(src => {
-      this.touched.add(src);
-      if (!/[^_].*\.scss/.test(path.basename(src))) {
-        this.dependencies.add(src);
-      } else importersOf(src).forEach(dest => this.dependencies.add(dest));
-    });
-    return true;
-  }
-
-  onChange(dir: string, event: string, srcFile: string) {
-    if (event === 'change') {
-      if (this.add([path.join(dir, srcFile)])) env.log(`File '${c.cyanBold(srcFile)}' changed`);
-    } else if (event === 'rename') {
-      globArray('*.scss', { cwd: dir, absolute: false }).then(files => {
-        if (this.add(files.map(f => path.join(dir, f)))) {
-          env.log(`Cross your fingers - directory '${c.cyanBold(dir)}' changed`, { ctx: 'sass' });
-        }
-      });
-    }
-  }
-
-  async fire() {
-    const sources = [...this.dependencies].filter(src => /\/[^_][^/]+\.scss$/.test(src));
-    const touched = [...this.touched];
-    this.clear();
-    this.watch(); // experimental
-    let rebuildColors = false;
-
-    for (const src of touched) {
-      processed.delete(src);
-      if (src.includes('common/css/theme/_')) {
-        rebuildColors = true;
+      if (partialTouched.some(src => src.startsWith('ui/common/css/theme/_'))) {
         await parseThemeColorDefs();
       }
-    }
-    const oldMixSet = new Set([...colorMixMap.keys()]);
-    for (const src of touched) await parseScss(src);
-    const newMixSet = new Set([...colorMixMap.keys()]);
-    if ([...newMixSet].some(mix => !oldMixSet.has(mix))) rebuildColors = true;
-    if (rebuildColors) {
-      buildColorMixes()
-        .then(buildColorWrap)
-        .then(() => compile(sources));
-    } else compile(sources);
-  }
+
+      const oldMixes = Object.fromEntries(colorMixMap);
+      const processed = new Set<string>();
+      await Promise.all(concreteTouched.map(src => parseScss(src, processed)));
+
+      if (!isEquivalent(oldMixes, Object.fromEntries(colorMixMap))) {
+        await buildColorMixes();
+        await buildColorWrap();
+        for (const src of await glob('common.theme.*.scss', { cwd: 'ui/common/css/build' }))
+          remaining.add(relative(env.rootDir, src)); // TODO test me
+      }
+      const buildSources = [...remaining];
+      remaining = new Set(await compile(buildSources, remaining.size < concreteAll.size));
+
+      if (remaining.size) return;
+
+      const replacements = urlReplacements();
+      updateManifest({
+        css: Object.fromEntries(
+          await Promise.all(buildSources.map(async scss => hashCss(absTempCss(scss), replacements[scss]))),
+        ),
+      });
+    },
+  });
 }
 
-// compile an array of concrete scss files to ui/.build/dist/css/*.css (css temp dir prior to hashMove)
-function compile(sources: string[], logAll = true) {
-  if (!sources.length) return sources.length;
+// compile an array of concrete scss files, return any that error
+async function compile(sources: string[], logAll = true): Promise<string[]> {
+  const sassBin =
+    process.env.SASS_PATH ??
+    (await fs.promises.realpath(
+      join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
+    ));
+  if (!(await readable(sassBin))) env.exit(`Sass executable not found '${c.cyan(sassBin)}'`, 'sass');
 
-  const sassExec =
-    process.env.SASS_PATH ||
-    fs.realpathSync(
-      path.join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
+  return new Promise(resolveWithErrors => {
+    if (!sources.length) return resolveWithErrors([]);
+    if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, 'sass'));
+    else env.log('Building', 'sass');
+
+    const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+    sassPs?.removeAllListeners();
+    sassPs = cps.spawn(
+      sassBin,
+      sassArgs.concat(
+        env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
+        sources.map((src: string) => `${src}:${absTempCss(src)}`),
+      ),
     );
 
-  if (!fs.existsSync(sassExec)) {
-    env.error(`Sass executable not found '${c.cyan(sassExec)}'`, 'sass');
-    env.done(1, 'sass');
-  }
-  if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, { ctx: 'sass' }));
-  else env.log('Building', { ctx: 'sass' });
-
-  const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
-  sassPs?.removeAllListeners();
-  sassPs = cps.spawn(
-    sassExec,
-    sassArgs.concat(
-      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
-      sources.map(
-        (src: string) =>
-          `${src}:${path.join(env.cssTempDir, path.basename(src).replace(/(.*)scss$/, '$1css'))}`,
-      ),
-    ),
-  );
-
-  sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-  sassPs.stdout?.on('data', (buf: Buffer) => {
-    const txts = lines(buf.toString('utf8'));
-    for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
+    sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
+    sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
+    sassPs.on('close', async (code: number) => {
+      if (code === 0) resolveWithErrors([]);
+      else
+        Promise.all(sources.filter(scss => !readable(absTempCss(scss))))
+          .then(resolveWithErrors)
+          .catch(() => resolveWithErrors(sources));
+    });
   });
-  sassPs.on('close', async (code: number) => {
-    if (code !== 0) return env.done(code, 'sass');
-    if (awaitingFullBuild && compile(await unbuiltSources()) > 0) return;
-    awaitingFullBuild = false; // now we are ready to make manifests
-    cssManifest();
-    env.done(0, 'sass');
-  });
-  return sources.length;
 }
 
 // recursively parse scss file and its imports to build dependency and color maps
-async function parseScss(src: string) {
-  if (path.dirname(src).endsWith('/gen')) return;
+async function parseScss(src: string, processed: Set<string>) {
+  if (dirname(src).endsWith('/gen')) return;
   if (processed.has(src)) return;
   processed.add(src);
-  try {
-    const text = await fs.promises.readFile(src, 'utf8');
-    for (const match of text.matchAll(/\$m-([-_a-z0-9]+)/g)) {
-      const [str, mix] = [match[1], parseColor(match[1])];
-      if (!mix) {
-        env.log(`${errorMark} - invalid color mix: '${c.magenta(str)}' in '${c.cyan(src)}'`, {
-          ctx: 'sass',
-        });
-        continue;
+
+  const text = await fs.promises.readFile(src, 'utf8');
+
+  for (const [, mixName] of text.matchAll(/\$m-([-_a-z0-9]+)/g)) {
+    const mixColor = parseColor(mixName);
+    if (!mixColor) {
+      env.log(`${errorMark} Invalid color mix: '${c.magenta(mixName)}' in '${c.cyan(src)}'`, 'sass');
+      continue;
+    }
+    colorMixMap.set(mixName, mixColor);
+  }
+
+  for (const [, scssUrl] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
+    const url = scssUrl.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
+
+    if (url.includes('*')) {
+      for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
+        if (!importMap.get(file)?.add(src)) importMap.set(file, new Set([src]));
       }
-      colorMixMap.set(str, mix);
-    }
-    for (const match of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
-      if (match.length !== 2) continue;
+    } else if (!importMap.get(url)?.add(src)) importMap.set(url, new Set([src]));
+  }
 
-      const absDep = (await readable(path.resolve(path.dirname(src), match[1]) + '.scss'))
-        ? path.resolve(path.dirname(src), match[1] + '.scss')
-        : path.resolve(path.dirname(src), resolvePartial(match[1]));
+  for (const [, cssImport] of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
+    if (!cssImport) continue;
 
-      if (!absDep.startsWith(env.uiDir) || /node_modules.*\.css/.test(absDep)) continue;
+    const absDep = (await readable(resolve(dirname(src), cssImport + '.scss')))
+      ? resolve(dirname(src), cssImport + '.scss')
+      : resolve(dirname(src), resolvePartial(cssImport));
 
-      const dep = absDep.slice(env.uiDir.length + 1);
-      if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
-      await parseScss(dep);
-    }
-  } catch (e) {
-    env.log(`${errorMark} failed to read ${src} - ${JSON.stringify(e, undefined, 2)}`);
+    if (/node_modules.*\.css/.test(absDep)) continue;
+    else if (!absDep.startsWith(env.uiDir)) throw `Bad import '${cssImport}`;
+
+    const dep = relative(env.rootDir, absDep);
+    if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
+    await parseScss(dep, processed);
   }
 }
 
 // collect mixable scss color definitions from theme files
 async function parseThemeColorDefs() {
-  const themeFiles = await globArray('./common/css/theme/_*.scss', { absolute: false });
+  const themeFiles = await glob('ui/common/css/theme/_*.scss', { absolute: false });
   const themes: string[] = ['dark'];
   const capturedColors = new Map<string, string>();
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
-      env.log(`${errorMark} - invalid theme filename '${c.cyan(themeFile)}'`, { ctx: 'sass' });
+      env.log(`${errorMark} Invalid theme filename '${c.cyan(themeFile)}'`, 'sass');
       continue;
     }
     const text = fs.readFileSync(themeFile, 'utf8');
@@ -274,7 +207,7 @@ async function parseThemeColorDefs() {
 
 // given color definitions and mix instructions, build mixed color css variables in themed scss mixins
 async function buildColorMixes() {
-  const out = fs.createWriteStream(path.join(env.themeGenDir, '_mix.scss'));
+  const out = fs.createWriteStream(join(env.themeGenDir, '_mix.scss'));
   for (const theme of themeColorMap.keys()) {
     const colorMap = themeColorMap.get(theme)!;
     out.write(`@mixin ${theme}-mix {\n`);
@@ -295,7 +228,7 @@ async function buildColorMixes() {
         }
       })();
       if (mixed) colors.push(`  --m-${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};`);
-      else env.log(`${errorMark} - invalid mix op: '${c.magenta(colorMix)}'`, { ctx: 'sass' });
+      else env.log(`${errorMark} Invalid mix op: '${c.magenta(colorMix)}'`, 'sass');
     }
     out.write(colors.sort().join('\n') + '\n}\n\n');
   }
@@ -307,7 +240,7 @@ async function buildColorWrap() {
   const cssVars = new Set<string>();
   for (const color of colorMixMap.keys()) cssVars.add(`m-${color}`);
 
-  for (const file of await globArray(path.join(env.themeDir, '_*.scss'))) {
+  for (const file of await glob(join(env.themeDir, '_*.scss'))) {
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
       if (line.indexOf('--') === -1) continue;
       const commentIndex = line.indexOf('//');
@@ -322,8 +255,8 @@ async function buildColorWrap() {
       .map(variable => `$${variable}: var(--${variable});`)
       .join('\n') + '\n';
 
-  const wrapFile = path.join(env.themeDir, 'gen', '_wrap.scss');
-  await fs.promises.mkdir(path.dirname(wrapFile), { recursive: true });
+  const wrapFile = join(env.themeDir, 'gen', '_wrap.scss');
+  await fs.promises.mkdir(dirname(wrapFile), { recursive: true });
   if (await readable(wrapFile)) {
     if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // don't touch wrap if no changes
   }
@@ -345,39 +278,86 @@ function parseColor(colorMix: string) {
     : undefined;
 }
 
-function resolvePartial(partial: string): string {
-  const nameBegin = partial.lastIndexOf(path.sep) + 1;
-  return `${partial.slice(0, nameBegin)}_${partial.slice(nameBegin)}.scss`;
-}
+async function hashCss(src: string, replacements: Record<string, string> | undefined) {
+  let content = await fs.promises.readFile(src, 'utf-8');
+  let modified = false;
 
-function sassError(error: string) {
-  for (const err of lines(error)) {
-    if (err.startsWith('Error:')) {
-      env.log(c.grey('-'.repeat(75)), { ctx: 'sass' });
-      env.log(`${errorMark} - ${err.slice(7)}`, { ctx: 'sass' });
-    } else env.log(err, { ctx: 'sass' });
+  for (const [search, replace] of Object.entries(replacements ?? {})) {
+    content = content.replaceAll(search, replace);
+    modified = true;
   }
+  const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
+  const baseName = basename(src, '.css');
+  const outName = join(env.cssOutDir, `${baseName}.${hash}.css`);
+  await Promise.allSettled([
+    env.prod ? undefined : fs.promises.rename(`${src}.map`, `${join(env.cssOutDir, baseName)}.css.map`),
+    modified
+      ? fs.promises.writeFile(outName, content).then(() => fs.promises.unlink(src))
+      : fs.promises.rename(src, outName),
+  ]);
+  return [baseName, { hash }];
 }
 
-function importersOf(srcFile: string, bset = new Set<string>()): Set<string> {
-  if (bset.has(srcFile)) return bset;
+async function sourcesWithUrls(urls: string[]) {
+  const importers = new Set<string>();
+  for (const [target, hash] of Object.entries(await symlinkTargetHashes(urls))) {
+    const url = relative(env.hashOutDir, join(env.outDir, target));
+    const depSet = importMap.get(url) ?? new Set<string>();
+    depSet.delete([...depSet].find(f => f.startsWith('public/hashed/')) ?? '');
+    depSet.forEach(i => importers.add(i));
+    depSet.add(join('public/hashed', hashedBasename(url, hash)));
+    importMap.set(url, depSet);
+  }
+  return [...importers];
+}
+
+function urlReplacements() {
+  const replacements: Record<string, Record<string, string>> = {};
+  for (const [url, depSet] of importMap) {
+    if (!url.startsWith('../')) continue;
+    const hashed = [...depSet].find(f => f.startsWith('public/hashed/'));
+    if (!hashed) continue;
+    for (const src of [...dependsOn(url)].filter(isConcrete)) {
+      replacements[src] ??= {};
+      replacements[src][url] = relative(env.cssOutDir, hashed);
+    }
+  }
+  return replacements;
+}
+
+function dependsOn(srcFile: string, bset = new Set<string>()): Set<string> {
+  if (srcFile.startsWith('public/hashed/') || bset.has(srcFile)) return bset;
   bset.add(srcFile);
-  for (const dep of importMap.get(srcFile) ?? []) importersOf(dep, bset);
+  for (const dep of importMap.get(srcFile) ?? []) dependsOn(dep, bset);
   return bset;
 }
 
-export async function cssManifest(): Promise<void> {
-  const files = await globArray(path.join(env.cssTempDir, '*.css'));
-  updateManifest({ css: Object.fromEntries(await Promise.all(files.map(hashMoveCss))) });
+function sassError(error: string) {
+  for (const err of trimLines(error)) {
+    if (err.startsWith('Error:')) {
+      env.log(c.grey('-'.repeat(75)), 'sass');
+      env.log(`${errorMark} - ${err.slice(7)}`, 'sass');
+    } else env.log(err, 'sass');
+  }
 }
 
-async function hashMoveCss(src: string) {
-  const content = await fs.promises.readFile(src, 'utf-8');
-  const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
-  const basename = path.basename(src, '.css');
-  await Promise.allSettled([
-    env.prod ? undefined : fs.promises.rename(`${src}.map`, path.join(env.cssOutDir, `${basename}.css.map`)),
-    fs.promises.rename(src, path.join(env.cssOutDir, `${basename}.${hash}.css`)),
-  ]);
-  return [path.basename(src, '.css'), { hash }];
+function resolvePartial(partial: string): string {
+  const nameBegin = partial.lastIndexOf('/') + 1;
+  return `${partial.slice(0, nameBegin)}_${partial.slice(nameBegin)}.scss`;
+}
+
+function absTempCss(scss: string) {
+  return join(env.cssTempDir, `${basename(scss, '.scss')}.css`);
+}
+
+function isConcrete(src: string) {
+  return src.startsWith('ui/') && !basename(src).startsWith('_');
+}
+
+function isPartial(src: string) {
+  return src.startsWith('ui/') && basename(src).startsWith('_');
+}
+
+function isUrlTarget(src: string) {
+  return src.startsWith('public/');
 }

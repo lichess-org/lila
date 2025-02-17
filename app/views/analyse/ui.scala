@@ -12,7 +12,7 @@ object bits:
   val dataPanel = attr("data-panel")
 
   def page(title: String)(using Context): Page =
-    Page(title).zoom.robots(false).csp(csp)
+    Page(title).flag(_.zoom).flag(_.noRobots).csp(csp)
 
   def csp(using Context): Update[lila.ui.ContentSecurityPolicy] =
     ui.csp.compose(_.withPeer.withInlineIconFont.withChessDbCn)

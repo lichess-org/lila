@@ -4,7 +4,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import io.mola.galimatias.URL
 import java.time.ZoneId
 
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.core.id.ImageId
 import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC
@@ -17,7 +17,7 @@ case class RelayTour(
     name: RelayTour.Name,
     info: RelayTour.Info,
     markup: Option[Markdown] = None,
-    ownerId: UserId,
+    ownerIds: NonEmptyList[UserId],
     createdAt: Instant,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
@@ -42,10 +42,18 @@ case class RelayTour(
 
   def official = tier.isDefined
 
-  def giveOfficialToBroadcasterIf(cond: Boolean) =
-    if cond && official then copy(ownerId = UserId.broadcaster) else this
+  def isOwnedBy[U: UserIdOf](u: U): Boolean = ownerIds.toList.contains(u.id)
 
-  def path: String = s"/broadcast/$slug/$id"
+  def giveOfficialToBroadcasterIf(cond: Boolean) =
+    if !cond || official == isOwnedBy(UserId.broadcaster) then this
+    else
+      copy(
+        ownerIds =
+          if official then ownerIds.append(UserId.broadcaster)
+          else ownerIds.filterNot(_ == UserId.broadcaster).toNel | ownerIds
+      )
+
+  def path = routes.RelayTour.show(slug, id).url
 
   def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 
@@ -98,7 +106,7 @@ object RelayTour:
     override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
     lazy val fideTcOrGuess: FideTC     = fideTc | FideTC.standard
     def timeZoneOrDefault: ZoneId      = timeZone | ZoneId.systemDefault
-    def clock: Option[TournamentClock] = tc.flatMap(TournamentClock.parse.apply)
+    def clock: Option[TournamentClock] = tc.flatMap(TournamentClock.parse(false))
 
   case class Dates(start: Instant, end: Option[Instant])
 

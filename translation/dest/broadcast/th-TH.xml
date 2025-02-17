@@ -10,8 +10,6 @@
   <string name="theNewRoundHelp">รอบใหม่จะมีสมาชิกและผู้มีส่วนร่วมเท่าเดิม</string>
   <string name="ongoing">ดำเนินอยู่</string>
   <string name="upcoming">ใกล้จะถึง</string>
-  <string name="completed">เสร็จแล้ว</string>
-  <string name="completedHelp">Lichess ตรวจจับการจบรอบตามเกมต้นฉบับ ใช้สลับนี้หากไม่มีแหล่งที่มา</string>
   <string name="roundNumber">เลขรอบ</string>
   <string name="tournamentName">ชื่อทัวร์นาเมนต์</string>
   <string name="tournamentDescription">คำบรรยายทัวร์นาเมนต์สั้นๆ</string>

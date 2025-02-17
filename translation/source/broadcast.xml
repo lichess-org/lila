@@ -16,8 +16,6 @@
   <string name="addRound">Add a round</string>
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
-  <string name="completed">Completed</string>
-  <string name="completedHelp">Lichess detects round completion, but can get it wrong. Use this to set it manually.</string>
   <string name="roundName">Round name</string>
   <string name="roundNumber">Round number</string>
   <string name="tournamentName">Tournament name</string>
@@ -81,4 +79,5 @@
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
   <string name="backToLiveMove">Back to live move</string>
+  <string name="sinceHideResults">Since you chose to hide the results, all the preview boards are empty to avoid spoilers.</string>
 </resources>

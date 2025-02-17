@@ -16,8 +16,6 @@
   <string name="addRound">Ajouter une ronde</string>
   <string name="ongoing">En cours</string>
   <string name="upcoming">À venir</string>
-  <string name="completed">Terminé</string>
-  <string name="completedHelp">Lichess détecte la fin des rondes en fonction des parties sources. Utilisez cette option s\'il n\'y a pas de source.</string>
   <string name="roundName">Nom de la ronde</string>
   <string name="roundNumber">Numéro de la ronde</string>
   <string name="tournamentName">Nom du tournoi</string>
@@ -81,4 +79,5 @@
   <string name="pastBroadcasts">Diffusions passées</string>
   <string name="allBroadcastsByMonth">Voir les diffusions par mois</string>
   <string name="backToLiveMove">Retour au coup en direct</string>
+  <string name="sinceHideResults">Vous avez choisi de masquer les résultats. Les échiquiers de prévisualisation sont donc vides pour ne rien révéler.</string>
 </resources>

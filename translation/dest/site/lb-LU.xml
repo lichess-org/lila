@@ -764,6 +764,7 @@
   <string name="onlineAndOfflinePlay">Online an Offline spillen</string>
   <string name="viewTheSolution">Léisung ukucken</string>
   <string name="followAndChallengeFriends">Kolleege followen an erausfuerderen</string>
+  <string name="noChallenges">Keng Erausfuerderungen.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibel an %s Sprooch!</item>
     <item quantity="other">Disponibel an %s Sproochen!</item>
@@ -962,7 +963,7 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="analysisOptions">Analysoptiounen</string>
   <string name="focusChat">Chat fokusséieren</string>
   <string name="showHelpDialog">Dësen Hëllefdialog weisen</string>
-  <string name="reopenYourAccount">Konto nei opmaachen</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Konto nei opmaachen</string>
   <string name="emailAssociatedToaccount">Email Adress associéiert mam Konto</string>
   <string name="sentEmailWithLink">Mir hun dir eng Email mat engem Link geschéckt.</string>
   <string name="tournamentEntryCode">Turnéier Zougangscode</string>

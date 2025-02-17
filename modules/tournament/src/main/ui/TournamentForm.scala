@@ -156,7 +156,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         gatheringFormUi.allowList(form.prefix("conditions.allowList")),
         (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).so {
           gatheringFormUi.titled(form.prefix("conditions.titled"))
-        }
+        },
+        gatheringFormUi.bots(form.prefix("conditions.bots"))
       )
     )
 

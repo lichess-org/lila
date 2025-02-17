@@ -124,8 +124,6 @@ case class Tournament(
     secondsToFinish.pipe: s =>
       "%02d:%02d".format(s / 60, s % 60)
 
-  def schedulePair = schedule.map { this -> _ }
-
   def winner =
     winnerId.map { userId =>
       Winner(

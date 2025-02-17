@@ -5,7 +5,7 @@ import com.roundeights.hasher.Implicits.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scalalib.ThreadLocalRandom
-import scalalib.model.Days
+import scalalib.model.{ Days, LangTag }
 
 import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
@@ -238,7 +238,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       blind: Boolean,
       mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
-      lang: Option[String] = None
+      lang: Option[LangTag] = None
   ): Fu[Option[User]] =
     exists(name).not.flatMapz {
       val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
@@ -563,7 +563,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       blind: Boolean,
       mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
-      lang: Option[String]
+      lang: Option[LangTag]
   ) =
     val normalizedEmail = email.normalize
     val now             = nowInstant

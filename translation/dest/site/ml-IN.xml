@@ -89,7 +89,7 @@
   <string name="whiteDrawBlack">വെള്ള / സമനില / കറുപ്പ്</string>
   <string name="averageRatingX">ശരാശരി റേറ്റിങ് %s</string>
   <string name="recentGames">സമീപകാല ഗെയിമുകൾ</string>
-  <string name="topGames">മികച്ച ഗെയിമുകൾ</string>
+  <string name="topGames">മികച്ച കളികൾ</string>
   <string name="masterDbExplanation">%2$s മുതൽ %3$s വരെയുള്ള %1$s+ ഫിഡെ റേറ്റിംഗുള്ള കളിക്കാരുടെ 2 മില്യൺ OTB ഗെയിമുകൾ</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s പകുതി-നീക്കത്തിനുള്ളിൽ ചെക്ക്മേറ്റ്</item>
@@ -162,7 +162,7 @@
     <item quantity="other">%s കളിക്കാർ</item>
   </plurals>
   <string name="drawByMutualAgreement">പരസ്പര സമ്മതത്തോടുകൂടിയുള്ള സമനില</string>
-  <string name="fiftyMovesWithoutProgress">പുരോഗതിയില്ലാതെ 50 നീക്കങ്ങൾ</string>
+  <string name="fiftyMovesWithoutProgress">മുന്നേറ്റമില്ലാതെ അൻപതു് നീക്കങ്ങൾ</string>
   <string name="currentGames">ഇപ്പോഴത്തെ കളികൾ</string>
   <plurals name="nbGames">
     <item quantity="one">%s കളികൾ</item>
@@ -332,7 +332,7 @@
     <item quantity="one">%s കളിക്കുന്നു</item>
     <item quantity="other">%s കളിക്കുന്നു</item>
   </plurals>
-  <string name="exportGames">മത്സരങ്ങള്‍ ഡൗന്‍ലോഡ് ചെയ്യുക</string>
+  <string name="exportGames">കളികൾ ഇറക്കിവയ്ക്കുക</string>
   <string name="ratingRange">റേറ്റിംഗ് പരിധി</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s നിമിഷങ്ങൾ നൽകുക</item>
@@ -411,7 +411,7 @@
   <string name="fromPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="continueFromHere">ഇവിടെ മുതല്‍ പുനരാരംഭിക്കുക</string>
   <string name="toStudy">പഠനം</string>
-  <string name="importGame">മത്സരം അപ്പ്‌ലോഡ് ചെയ്യുക</string>
+  <string name="importGame">കളി ഇറക്കുമതി ചെയ്യുക</string>
   <string name="importGameExplanation">ഒരു ഗെയിം PGN പേസ്റ്റ് ചെയ്യുമ്പോൾ ബ്രൗസ്‌ ചെയ്യാൻ പറ്റുന്ന റീപ്ലേ, കമ്പ്യൂട്ടർ വിശകലനം, ഗെയിം ചാറ്റ്, ഷെയർ ചെയ്യാൻ പറ്റുന്ന ഒരു URL എന്നിവ ലഭിക്കുന്നു.</string>
   <string name="importGameCaveat">വ്യതിയാനങ്ങൾ മായ്ക്കപ്പെടും. അവയെ വയ്ക്കാനായി PGN ഒരു പഠനം വഴി ഇറക്കുമതിക്കുക.</string>
   <string name="importGameDataPrivacyWarning">ഈ PGN എല്ലാവൎക്കും കാണാം. ഈ കളി സ്വകാര്യമായി ഇറക്കുമതിക്കാൻ ഒരു പഠനം ഉപയോഗിക്കുക.</string>
@@ -568,8 +568,8 @@
   <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>
   <string name="blog">രചന</string>
-  <string name="notes">അറിയിപ്പുകൾ</string>
-  <string name="typePrivateNotesHere">സ്വകാര്യ അറിയിപ്പുകൾ ഇവിടെ ടൈപ്പ് ചെയ്യുക</string>
+  <string name="notes">കുറിപ്പുകൾ</string>
+  <string name="typePrivateNotesHere">സ്വകാര്യ അറിയിപ്പുകൾ ഇവിടെ എഴുതുക</string>
   <string name="writeAPrivateNoteAboutThisUser">ഈ ഉപയോക്താവിനകുറച്ചു് ഒരു സ്വകാര്യകുറിപ്പു് എഴുത്തുക</string>
   <string name="noNoteYet">ഇതുവരെ ഒരു കുറിപ്പുമില്ല</string>
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
@@ -774,6 +774,7 @@
   <string name="onlineAndOfflinePlay">ഓൺലൈനും ഓഫ്‌ലൈനും കളികൾ</string>
   <string name="viewTheSolution">പരിഹാരം കാണുക</string>
   <string name="followAndChallengeFriends">പിന്തുടരൂ എന്നിട്ടു സുഹൃത്തുക്കളോട് വെല്ലുവിളിക്കൂ</string>
+  <string name="noChallenges">വെല്ലുവിളികളൊന്നുമില്ല.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s ഭാഷകളിൽ ലഭ്യമാണ്!</item>
     <item quantity="other">%s ഭാഷകളിൽ ലഭ്യമാണ്!</item>
@@ -916,7 +917,7 @@
   <string name="thisTopicIsArchived">ഈ വിഷയം ത്തിനു മറുപടി കൊടുക്കാൻ കഴിയുകയയില്ല.</string>
   <string name="joinTheTeamXToPost">%1$s ഇൽ ചേരുക, ഫോറത്തിൽ പോസ്റ്റ്‌ ചെയുന്നതിനു</string>
   <string name="teamNamedX">%1$s ടീം</string>
-  <string name="youCannotPostYetPlaySomeGames">ഇപ്പോൾ ഈ ഫോറത്തിൽ നിങ്ങൾക്കു പോസ്റ്റ്‌ ചെയ്യാൻ കഴിയുകയില്ല കുറച്ചു ഗ്യാമുകൾക്കു ശേഷം ശ്രമിക്കുക!</string>
+  <string name="youCannotPostYetPlaySomeGames">ഇപ്പോൾ ഈ ചൎച്ചവേദിയിൽ താങ്ങൾക്കു പ്രേഷണം ചെയ്യാൻ കഴിയുകയില്ല കുറച്ചു കളികൾക്കു് ശേഷം ശ്രമിക്കുക!</string>
   <string name="subscribe">പേരെഴുതുക</string>
   <string name="unsubscribe">പേർമാറ്റുക</string>
   <string name="mentionedYouInX">%1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
@@ -965,7 +966,7 @@
   <string name="analysisOptions">വിശകലനം സാധ്യതകൾ</string>
   <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
   <string name="showHelpDialog">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
-  <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
   <string name="sentEmailWithLink">ഞങ്ങൾ താങ്ങളേ ഒരു കണ്ണിയുള്ള ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</string>
   <string name="tournamentEntryCode">മത്സരം പ്രവേശന സങ്കേതം</string>

@@ -56,8 +56,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
         u => // anon can see public chats, except for private tournaments
           (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
-            isGrantedOpt(_.ChatTimeout)) && // private tournament that I joined or has ChatTimeout
-          (env.chat.panic.allowed(u) || isGrantedOpt(_.ChatTimeout))
+          isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
       }
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
@@ -149,7 +148,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         )
 
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me ?=>
-    NoLameOrBot:
+    NoLame:
       NoPlayban:
         limit.tourJoin(me, rateLimited):
           val data = TournamentForm.TournamentJoin(
@@ -163,7 +162,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   }
 
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
-    NoLameOrBot:
+    NoLame:
       NoPlayban:
         limit.tourJoin(me, rateLimited):
           val data =

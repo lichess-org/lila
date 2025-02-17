@@ -17,7 +17,6 @@ final private class MsgSecurity(
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi,
     spam: lila.core.security.SpamApi,
-    chatPanicAllowed: lila.core.chat.panic.IsAllowed,
     textAnalyser: TextAnalyser
 )(using Executor, Scheduler, lila.core.config.RateLimit):
 
@@ -146,7 +145,6 @@ final private class MsgSecurity(
         fuccess(contacts.orig.isGranted(_.PublicMod)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
-            chatPanicAllowed(contacts.orig.id)(userApi.byId) >>&
             kidCheck(contacts, isNew) >>&
             userCache.getBotIds.map { botIds => !contacts.userIds.exists(botIds.contains) }
         }

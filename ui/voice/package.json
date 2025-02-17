@@ -19,15 +19,12 @@
     "make-grammar": "node --experimental-strip-types --no-warnings makeGrammar.mts"
   },
   "build": {
-    "bundle": [
-      "src/**/voice.*.ts",
-      "src/move/voice.move.ts"
-    ],
+    "bundle": "src/**/voice.*.ts",
     "sync": {
-      "grammar/**": "public/compiled/grammar"
+      "grammar/**": "/public/compiled/grammar"
     },
     "hash": [
-      "compiled/grammar/*"
+      "/public/compiled/grammar/*"
     ]
   }
 }

@@ -1,88 +1,130 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import crypto from 'node:crypto';
-import { globArray } from './parse.ts';
-import { updateManifest } from './manifest.ts';
-import { env } from './env.ts';
+import { relative, join, resolve } from 'node:path';
+import { task } from './task.ts';
+import { type Manifest, updateManifest } from './manifest.ts';
+import { env, c } from './env.ts';
+import { type Package, isClose } from './parse.ts';
+import { isEquivalent } from './algo.ts';
 
 export async function hash(): Promise<void> {
-  const newHashLinks = new Map<string, number>();
-  const alreadyHashed = new Map<string, string>();
-  const hashed = (
-    await Promise.all(
-      env.building.flatMap(pkg =>
-        pkg.hash.map(async hash =>
-          (await globArray(hash.glob, { cwd: env.outDir })).map(path => ({
-            path,
-            update: hash.update,
-            root: pkg.root,
-          })),
-        ),
-      ),
-    )
-  ).flat();
+  if (!env.begin('hash')) return;
+  const hashed: Manifest = {};
+  const pathOnly: { glob: string[] } = { glob: [] };
+  const hashRuns: { glob: string | string[]; update?: string; pkg?: Package }[] = [];
 
-  const sourceStats = await Promise.all(hashed.map(hash => fs.promises.stat(hash.path)));
+  for (const [pkg, { glob, update, ...rest }] of env.tasks('hash')) {
+    update ? hashRuns.push({ glob, update, pkg, ...rest }) : pathOnly.glob.push(glob);
+    hashLog(glob, '', pkg?.name);
+  }
+  if (pathOnly.glob.length) hashRuns.push(pathOnly);
 
-  for (const [i, stat] of sourceStats.entries()) {
-    const name = hashed[i].path.slice(env.outDir.length + 1);
-    if (stat.mtimeMs === env.manifest.hashed[name]?.mtime)
-      alreadyHashed.set(name, env.manifest.hashed[name].hash!);
-    else newHashLinks.set(name, stat.mtimeMs);
-  }
-  await Promise.allSettled([...alreadyHashed].map(([name, hash]) => link(name, hash)));
-
-  for await (const { name, hash } of [...newHashLinks.keys()].map(hashLink)) {
-    env.manifest.hashed[name] = Object.defineProperty({ hash }, 'mtime', { value: newHashLinks.get(name) });
-  }
-  if (newHashLinks.size === 0 && alreadyHashed.size === Object.keys(env.manifest.hashed).length) return;
-
-  for (const key of Object.keys(env.manifest.hashed)) {
-    if (!hashed.some(x => x.path.endsWith(key))) delete env.manifest.hashed[key];
-  }
-
-  const updates: Map<string, { root: string; mapping: Record<string, string> }> = new Map();
-  for (const { root, path, update } of hashed) {
-    if (!update) continue;
-    const updateFile = updates.get(update) ?? { root, mapping: {} };
-    const from = path.slice(env.outDir.length + 1);
-    updateFile.mapping[from] = asHashed(from, env.manifest.hashed[from].hash!);
-    updates.set(update, updateFile);
-  }
-  for await (const { name, hash } of [...updates].map(([n, r]) => update(n, r.root, r.mapping))) {
-    env.manifest.hashed[name] = { hash };
-  }
-  updateManifest({ dirty: true });
+  await fs.promises.mkdir(env.hashOutDir).catch(() => {});
+  const symlinkHashes = await symlinkTargetHashes();
+  await Promise.all(
+    hashRuns.map(({ glob, update, pkg }) =>
+      task({
+        pkg,
+        ctx: 'hash',
+        debounce: 300,
+        root: env.rootDir,
+        glob: Array<string>()
+          .concat(glob)
+          .map(path => ({ cwd: env.rootDir, path })),
+        execute: async (files, fullList) => {
+          const shouldLog = !isEquivalent(files, fullList);
+          await Promise.all(
+            files.map(async src => {
+              const name = relative(env.outDir, src);
+              const hash =
+                symlinkHashes[name] && !(await isLinkStale(hashedBasename(name, symlinkHashes[name])))
+                  ? symlinkHashes[name]
+                  : await hashAndLink(name);
+              hashed[name] = { hash };
+              if (shouldLog) hashLog(src, hashedBasename(name, hash), pkg?.name);
+            }),
+          );
+          if (update && pkg?.root) {
+            const updates: Record<string, string> = {};
+            for (const src of fullList.map(f => relative(env.outDir, f))) {
+              updates[src] = hashedBasename(src, hashed[src].hash!);
+            }
+            const { name, hash } = await replaceHash(relative(pkg.root, update), pkg.root, updates);
+            hashed[name] = { hash };
+            if (shouldLog) hashLog(name, hashedBasename(name, hash), pkg.name);
+          }
+          updateManifest({ hashed });
+        },
+      }),
+    ),
+  );
 }
 
-async function update(name: string, root: string, files: Record<string, string>) {
+export async function symlinkTargetHashes(newLinks?: string[]) {
+  const targetHashes = {} as Record<string, string>;
+  if (newLinks && newLinks.length === 0) return targetHashes;
+
+  await fs.promises.readdir(env.hashOutDir).then(files =>
+    Promise.all(
+      files.map(async symlink => {
+        const [, hash] = symlink.match(/^.+\.([0-9a-f]{8})(?:\.[^\.]*)?$/) ?? [];
+        if (!hash || (newLinks && !newLinks.some(l => l.endsWith(symlink)))) return;
+        const absSymlink = join(env.hashOutDir, symlink);
+        try {
+          const [target, stale] = await Promise.all([fs.promises.readlink(absSymlink), isLinkStale(symlink)]);
+          if (!stale) targetHashes[relative(env.outDir, resolve(env.hashOutDir, target))] = hash;
+        } catch {}
+      }),
+    ),
+  );
+  return targetHashes;
+}
+
+export function hashedBasename(path: string, hash: string) {
+  const name = path.slice(path.lastIndexOf('/') + 1);
+  const extPos = name.lastIndexOf('.');
+  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+}
+
+async function isLinkStale(symlink: string | undefined) {
+  if (!symlink) return true;
+  const absSymlink = join(env.hashOutDir, symlink);
+  const [{ mtimeMs: linkMs }, { mtimeMs: targetMs }] = await Promise.all([
+    fs.promises.lstat(absSymlink),
+    fs.promises.stat(absSymlink),
+  ]);
+  return !isClose(linkMs, targetMs);
+}
+
+async function replaceHash(name: string, root: string, files: Record<string, string>) {
   const result = Object.entries(files).reduce(
     (data, [from, to]) => data.replaceAll(from, to),
-    await fs.promises.readFile(path.join(root, name), 'utf8'),
+    await fs.promises.readFile(join(root, name), 'utf8'),
   );
   const hash = crypto.createHash('sha256').update(result).digest('hex').slice(0, 8);
-  await fs.promises.writeFile(path.join(env.hashOutDir, asHashed(name, hash)), result);
+  await fs.promises.writeFile(join(env.hashOutDir, hashedBasename(name, hash)), result);
   return { name, hash };
 }
 
-async function hashLink(name: string) {
-  const src = path.join(env.outDir, name);
+async function hashAndLink(name: string) {
+  const src = join(env.outDir, name);
   const hash = crypto
     .createHash('sha256')
     .update(await fs.promises.readFile(src))
     .digest('hex')
     .slice(0, 8);
-  await link(name, hash);
-  return { name, hash };
+  const link = join(env.hashOutDir, hashedBasename(name, hash));
+  const [{ mtime }] = await Promise.all([
+    fs.promises.stat(join(env.outDir, name)),
+    fs.promises.symlink(relative(env.outDir, name), link).catch(() => {}),
+  ]);
+  await fs.promises.lutimes(link, mtime, mtime);
+  return hash;
 }
 
-async function link(name: string, hash: string) {
-  const link = path.join(env.hashOutDir, asHashed(name, hash));
-  return fs.promises.symlink(path.join('..', name), link).catch(() => {});
-}
-
-function asHashed(path: string, hash: string) {
-  const name = path.slice(path.lastIndexOf('/') + 1);
-  const extPos = name.indexOf('.');
-  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+function hashLog(src: string, hashName: string, pkgName?: string) {
+  env.log(
+    `${pkgName ? c.grey(pkgName) + ' ' : ''}'${c.cyan(src)}' -> '${c.cyan(join('public', 'hashed', hashName))}'`,
+    'hash',
+  );
 }

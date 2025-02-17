@@ -3,7 +3,7 @@ package lila.ublog
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.data.OpaqueInstant
-import lila.core.i18n.Language
+import scalalib.model.Language
 import lila.core.id.ImageId
 
 case class UblogPost(

@@ -39,7 +39,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
           st.title := trans.ublog.xBlog.txt(user.username)
         ).some
       )
-      .robots(blog.listed && (post.indexable || blog.tier >= UblogRank.Tier.HIGH))
+      .flag(_.noRobots, !blog.listed || !post.indexable || blog.tier < UblogRank.Tier.HIGH)
       .csp(_.withTwitter.withInlineIconFont):
         main(cls := "page-menu page-small")(
           ui.menu(Left(user.id)),

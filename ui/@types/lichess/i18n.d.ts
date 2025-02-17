@@ -243,10 +243,6 @@ interface I18n {
     broadcastCalendar: string;
     /** Broadcasts */
     broadcasts: string;
-    /** Completed */
-    completed: string;
-    /** Lichess detects round completion, but can get it wrong. Use this to set it manually. */
-    completedHelp: string;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */
@@ -333,6 +329,8 @@ interface I18n {
     score: string;
     /** Show players scores based on game results */
     showScores: string;
+    /** Since you chose to hide the results, all the preview boards are empty to avoid spoilers. */
+    sinceHideResults: string;
     /** Up to 64 Lichess game IDs, separated by spaces. */
     sourceGameIds: string;
     /** PGN Source URL */
@@ -4827,7 +4825,7 @@ interface I18n {
     open: string;
     /** Orientation */
     orientation: string;
-    /** Paste your PGN text here, up to %s games */
+    /** Paste games as PGN text here. For each game, a new chapter is created. The study can have up to %s chapters. */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
     /** %s per page */
     perPage: I18nFormat;

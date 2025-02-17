@@ -218,7 +218,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 strong(a(href := source.path)(source.fullName)),
                 br,
                 "Owner: ",
-                userIdLink(source.tour.ownerId.some),
+                fragList(source.tour.ownerIds.toList.map(u => userIdLink(u.some))),
                 br,
                 "Delay: ",
                 source.round.sync.delay.fold("0")(_.toString),
@@ -338,12 +338,15 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               ).some,
               half = true
             )(form3.input(_, typ = "number")),
-            form3.checkbox(
-              form("finished"),
-              trb.completed(),
-              help = trb.completedHelp().some,
+            form3.group(
+              form("status"),
+              "Current status",
+              help = frag(
+                "Lichess can usually detect the round status, but you can also set it manually if needed."
+              ).some,
               half = true
-            )
+            ):
+              form3.select(_, Seq("new" -> "New", "started" -> "Started", "finished" -> "Finished"))
           )
         ),
         Granter

@@ -1,10 +1,12 @@
 package controllers
 
 import play.api.mvc.*
+import play.api.libs.json.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.notify.NotificationPref
+import lila.common.Json.given
 
 final class Pref(env: Env) extends LilaController(env):
 
@@ -14,7 +16,6 @@ final class Pref(env: Env) extends LilaController(env):
   def apiGet = Scoped(_.Preference.Read, _.Web.Mobile) { _ ?=> me ?=>
     env.pref.api.get(me).map { prefs =>
       JsonOk:
-        import play.api.libs.json.*
         Json
           .obj("prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false))
           .add("language" -> me.lang)

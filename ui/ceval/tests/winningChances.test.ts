@@ -1,11 +1,18 @@
 import { describe, expect, test } from 'vitest';
 import * as winningChances from '../src/winningChances';
 
+const toEv = (x: number | string) => {
+  if (typeof x === 'number') return { cp: x, mate: undefined };
+  if (typeof x === 'string' && x.startsWith('#')) return { cp: undefined, mate: parseInt(x.slice(1)) };
+  // error
+};
+
 const similarEvalsCp = (color: Color, bestEval: number, secondBestEval: number): boolean => {
-  const toCp = (x: number) => {
-    return { cp: x, mate: undefined };
-  };
-  return winningChances.areSimilarEvals(color, toCp(bestEval), toCp(secondBestEval));
+  return winningChances.areSimilarEvals(color, toEv(bestEval), toEv(secondBestEval));
+};
+
+const hasMultipleSolutionsCp = (color: Color, bestEval: number, secondBestEval: number): boolean => {
+  return winningChances.hasMultipleSolutions(color, toEv(bestEval), toEv(secondBestEval));
 };
 
 describe('similarEvals', () => {
@@ -41,12 +48,21 @@ describe('similarEvals', () => {
     expect(similarEvalsCp(color, bestEval, secondBestEval)).toBe(false);
   });
 
-  // https://lichess.org/training/ZIRBc
-  // It is unclear if this should be a false positive, but discussing with a few members
-  // seems to be good enough to be considered a fp for now.
   test.each<[Color, EvalScore, EvalScore]>([
     ['black', { cp: undefined, mate: -16 }, { cp: -420, mate: undefined }],
   ])('be different mate/cp', (color, bestEval, secondBestEval) => {
     expect(winningChances.areSimilarEvals(color, bestEval, secondBestEval)).toBe(false);
+  });
+});
+
+describe('hasMultipleSolutions', () => {
+  test.each<[Color, number, number]>([
+    // https://lichess.org/training/ZIRBc
+    // It is unclear if this should not be a false positive
+    // but try to report more puzzles like that for the moment to get more opinions
+    ['black', '#-16', -420],
+    ['white', 100000, 200],
+  ])('be true', (color, bestEval, secondBestEval) => {
+    expect(hasMultipleSolutionsCp(color, bestEval, secondBestEval)).toBe(true);
   });
 });

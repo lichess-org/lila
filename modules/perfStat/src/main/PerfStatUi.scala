@@ -21,15 +21,14 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     import data.{ user, stat }
     import stat.perfType
     Page(s"${user.username} - ${trans.perfStat.perfStats.txt(perfType.trans)}")
-      .robots(false)
-      .js(Esm("bits.user"))
-      .js(ratingChart.map { rc =>
+      .flag(_.noRobots)
+      .js(Esm("user"))
+      .js(ratingChart.map: rc =>
         esmInit(
           "chart.ratingHistory",
           SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
-        )
-      })
-      .css("bits.perf-stat"):
+        ))
+      .css("user.perf.stat"):
         main(cls := s"page-menu")(
           st.aside(cls := "page-menu__menu")(side),
           div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
@@ -373,8 +372,8 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   ) =
     val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
     Page(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
-      .css("bits.user.rating.stats")
-      .fullScreen
+      .css("user.rating.stats")
+      .flag(_.fullScreen)
       .js(
         PageModule(
           "chart.ratingDistribution",

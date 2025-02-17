@@ -68,6 +68,3 @@ trait ChatApi:
       text: String,
       busChan: BusChan.Select
   )(using MyId): Funit
-
-object panic:
-  type IsAllowed = UserId => (UserId => Fu[Option[user.User]]) => Fu[Boolean]
