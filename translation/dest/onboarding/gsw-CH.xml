@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Ilogge als %s</string>
   <string name="welcome">Willkomme!</string>
   <string name="welcomeToLichess">Wilkomme bi Lichess.org!</string>
   <string name="thisIsYourProfilePage">Das isch dini Profil Site.</string>
