@@ -40,6 +40,11 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
             "id"   -> id,
             "text" -> text,
           )
+        case TournamentReminder(id, date) =>
+          Json.obj(
+            "id"   -> id,
+            "date" -> date,
+          )
         case GameEnd(gameId, opponentId, win) =>
           Json.obj(
             "id"       -> gameId.value,

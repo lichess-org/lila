@@ -68,6 +68,8 @@ private object BSONHandlers {
 
   implicit val TitledTournamentInvitationHandler: BSONDocumentHandler[TitledTournamentInvitation] =
     Macros.handler[TitledTournamentInvitation]
+  implicit val TournamentReminderHandler: BSONDocumentHandler[TournamentReminder] =
+    Macros.handler[TournamentReminder]
 
   implicit val PlanStartHandler: BSONDocumentHandler[PlanStart]   = Macros.handler[PlanStart]
   implicit val PlanExpireHandler: BSONDocumentHandler[PlanExpire] = Macros.handler[PlanExpire]
@@ -97,6 +99,7 @@ private object BSONHandlers {
           case p: PrivateMessage             => PrivateMessageHandler.writeTry(p).get
           case t: TeamJoined                 => TeamJoinedHandler.writeTry(t).get
           case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.writeTry(x).get
+          case x: TournamentReminder         => TournamentReminderHandler.writeTry(x).get
           case x: GameEnd                    => GameEndHandler.writeTry(x).get
           case x: PausedGame                 => PausedGameHandler.writeTry(x).get
           case x: PlanStart                  => PlanStartHandler.writeTry(x).get
@@ -128,19 +131,20 @@ private object BSONHandlers {
 
       def reads(reader: Reader): NotificationContent =
         reader.str("type") match {
-          case "mention"        => readMentionedNotification(reader)
-          case "invitedStudy"   => readInvitedStudyNotification(reader)
-          case "privateMessage" => PrivateMessageHandler.readTry(reader.doc).get
-          case "teamJoined"     => TeamJoinedHandler.readTry(reader.doc).get
-          case "titledTourney"  => TitledTournamentInvitationHandler.readTry(reader.doc).get
-          case "gameEnd"        => GameEndHandler.readTry(reader.doc).get
-          case "pausedGame"     => PausedGameHandler.readTry(reader.doc).get
-          case "planStart"      => PlanStartHandler.readTry(reader.doc).get
-          case "planExpire"     => PlanExpireHandler.readTry(reader.doc).get
-          case "ratingRefund"   => RatingRefundHandler.readTry(reader.doc).get
-          case "reportedBanned" => ReportedBanned
-          case "corresAlarm"    => CorresAlarmHandler.readTry(reader.doc).get
-          case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
+          case "mention"            => readMentionedNotification(reader)
+          case "invitedStudy"       => readInvitedStudyNotification(reader)
+          case "privateMessage"     => PrivateMessageHandler.readTry(reader.doc).get
+          case "teamJoined"         => TeamJoinedHandler.readTry(reader.doc).get
+          case "titledTourney"      => TitledTournamentInvitationHandler.readTry(reader.doc).get
+          case "tournamentReminder" => TournamentReminderHandler.readTry(reader.doc).get
+          case "gameEnd"            => GameEndHandler.readTry(reader.doc).get
+          case "pausedGame"         => PausedGameHandler.readTry(reader.doc).get
+          case "planStart"          => PlanStartHandler.readTry(reader.doc).get
+          case "planExpire"         => PlanExpireHandler.readTry(reader.doc).get
+          case "ratingRefund"       => RatingRefundHandler.readTry(reader.doc).get
+          case "reportedBanned"     => ReportedBanned
+          case "corresAlarm"        => CorresAlarmHandler.readTry(reader.doc).get
+          case "genericLink"        => GenericLinkHandler.readTry(reader.doc).get
         }
 
       def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)

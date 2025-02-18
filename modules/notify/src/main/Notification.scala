@@ -94,6 +94,11 @@ case class TitledTournamentInvitation(
     text: String,
 ) extends NotificationContent("titledTourney")
 
+case class TournamentReminder(
+    id: String,
+    date: DateTime,
+) extends NotificationContent("tournamentReminder")
+
 case class GameEnd(
     gameId: GameEnd.GameId,
     opponentId: Option[GameEnd.OpponentId],

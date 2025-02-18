@@ -51,6 +51,14 @@ export const renderers: Renderers = {
       ]),
     text: _ => 'Lishogi Titled Arena',
   },
+  tournamentReminder: {
+    html: n =>
+      generic(n, `/tournament/${n.content.id}`, 'g', [
+        h('span', [h('strong', 'Tournament reminder'), drawTime(n)]),
+        h('span', n.content.days),
+      ]),
+    text: _ => 'Tournament you signed up for is coming up',
+  },
   reportedBanned: {
     html: n =>
       generic(n, undefined, '', [

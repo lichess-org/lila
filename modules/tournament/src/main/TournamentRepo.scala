@@ -223,6 +223,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def setTeamBattle(tourId: Tournament.ID, battle: TeamBattle) =
     coll.updateField($id(tourId), "teamBattle", battle).void
 
+  def setNotifiedTime(tourId: Tournament.ID, date: DateTime) =
+    coll.updateField($id(tourId), "notified", date).void
+
+  def unsetNotifiedTime(tourId: Tournament.ID) =
+    coll.unsetField($id(tourId), "notified").void
+
   def teamBattleOf(tourId: Tournament.ID): Fu[Option[TeamBattle]] =
     coll.primitiveOne[TeamBattle]($id(tourId), "teamBattle")
 
