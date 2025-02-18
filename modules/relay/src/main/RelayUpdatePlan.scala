@@ -32,7 +32,7 @@ object RelayUpdatePlan:
     val tagMatches: List[(RelayGame, Chapter)] =
       games
         .flatMap: game =>
-          chapters.collect:
+          chapters.collectFirst:
             case chapter if game.isSameGame(chapter.tags) => game -> chapter
         .toList
 
