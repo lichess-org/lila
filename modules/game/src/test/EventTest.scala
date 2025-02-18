@@ -1,6 +1,5 @@
 package lila.game
 
-import cats.syntax.all.*
 import chess.*
 import chess.bitboard.Bitboard
 import chess.variant.Crazyhouse

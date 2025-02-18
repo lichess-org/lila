@@ -150,9 +150,10 @@ private object RelayGame:
       mul => RelayFetch.multiPgnToGames.either(mul).fold(e => throw e, identity)
     )
 
-  def filter(onlyRound: Option[Int])(games: RelayGames): RelayGames =
-    onlyRound.fold(games): round =>
-      games.filter(_.tags.roundNumber.has(round))
+  def filter(onlyRound: Option[Either[String, Int]])(games: RelayGames): RelayGames =
+    onlyRound.fold(games):
+      case Left(r)  => games.filter(_.tags(_.Round).has(r))
+      case Right(r) => games.filter(_.tags.roundNumber.has(r))
 
   // 1-indexed, both inclusive
   case class Slice(from: Int, to: Int)

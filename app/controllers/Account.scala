@@ -86,24 +86,23 @@ final class Account(
     negotiateJson(doNowPlaying)
   }
 
-  val apiMe =
-    Scoped() { ctx ?=> me ?=>
-      def limited = rateLimited:
-        "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
-      val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
-      if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
-      else
-        limit.apiMe(me, limited):
-          env.api.userApi
-            .extended(
-              me.value,
-              withFollows = apiC.userWithFollows,
-              withTrophies = false,
-              withCanChallenge = false,
-              forWiki = wikiGranted
-            )
-            .dmap { JsonOk(_) }
-    }
+  val apiMe = Scoped() { ctx ?=> me ?=>
+    def limited = rateLimited:
+      "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
+    val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
+    if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
+    else
+      limit.apiMe(me, limited):
+        env.api.userApi
+          .extended(
+            me.value,
+            withFollows = apiC.userWithFollows,
+            withTrophies = false,
+            withCanChallenge = false,
+            forWiki = wikiGranted
+          )
+          .dmap { JsonOk(_) }
+  }
 
   def apiNowPlaying = Scoped()(doNowPlaying)
 
@@ -142,13 +141,12 @@ final class Account(
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
-  private def refreshSessionId(result: Result)(using ctx: Context, me: Me): Fu[Result] =
-    (env.security.store.closeAllSessionsOf(me) >>
-      env.push.webSubscriptionApi.unsubscribeByUser(me) >>
-      env.push.unregisterDevices(me) >>
-      env.security.api.saveAuthentication(me, ctx.mobileApiVersion)).map { sessionId =>
-      result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
-    }
+  private def refreshSessionId(result: Result)(using ctx: Context, me: Me): Fu[Result] = for
+    _         <- env.security.store.closeAllSessionsOf(me)
+    _         <- env.push.webSubscriptionApi.unsubscribeByUser(me)
+    _         <- env.push.unregisterDevices(me)
+    sessionId <- env.security.api.saveAuthentication(me, ctx.mobileApiVersion)
+  yield result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
 
   private def emailForm(using me: Me) =
     env.user.repo.email(me).flatMap(env.security.forms.changeEmail)
@@ -181,8 +179,9 @@ final class Account(
 
   def emailConfirm(token: String) = Open:
     Found(env.security.emailChange.confirm(token)): (user, prevEmail) =>
-      (prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))) >>
-        auth.authenticateUser(
+      for
+        _ <- prevEmail.exists(_.isNoReply).so(env.clas.api.student.release(user))
+        res <- auth.authenticateUser(
           user,
           remember = true,
           result =
@@ -190,6 +189,7 @@ final class Account(
             then Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
             else Some(_ => Redirect(routes.Account.email).flashSuccess)
         )
+      yield res
 
   def emailConfirmHelp = OpenBody:
     import lila.security.EmailConfirm.Help.*
@@ -267,10 +267,8 @@ final class Account(
       auth.HasherRateLimit:
         env.security.forms.deleteAccount.flatMap: form =>
           FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
-            env.api.accountTermination
-              .scheduleDelete(me.value)
-              .inject:
-                Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
+            for _ <- env.api.accountTermination.scheduleDelete(me.value)
+            yield Redirect(routes.Account.deleteDone).withCookies(env.security.lilaCookie.newSession)
   }
 
   def deleteDone = Open { ctx ?=>
@@ -299,11 +297,13 @@ final class Account(
               BadRequest(errorsAsJson(err))
             ),
           _ =>
-            env.user.repo.setKid(me, getBool("v")) >>
-              negotiate(
+            for
+              _ <- env.user.repo.setKid(me, getBool("v"))
+              res <- negotiate(
                 Redirect(routes.Account.kid).flashSuccess,
                 jsonOkResult
               )
+            yield res
         )
   }
 
@@ -329,8 +329,10 @@ final class Account(
     if sessionId == "all"
     then refreshSessionId(Redirect(routes.Account.security).flashSuccess)
     else
-      (env.security.store.closeUserAndSessionId(me, sessionId) >>
-        env.push.webSubscriptionApi.unsubscribeBySession(sessionId)).inject(NoContent)
+      for
+        _ <- env.security.store.closeUserAndSessionId(me, sessionId)
+        _ <- env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
+      yield NoContent
   }
 
   private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using Context) =
@@ -357,7 +359,7 @@ final class Account(
                       lila.mon.user.auth.reopenRequest(code).increment()
                       BadRequest.async(renderReopen(none, msg.some))
                     case Right(user) =>
-                      env.security.magicLink.rateLimit[Result](user, data.email, ctx.req, rateLimited):
+                      env.security.loginToken.rateLimit[Result](user, data.email, ctx.req, rateLimited):
                         lila.mon.user.auth.reopenRequest("success").increment()
                         env.security.reopen
                           .send(user, data.email)

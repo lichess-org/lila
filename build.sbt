@@ -11,11 +11,11 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
-  .settings(scalacOptions ++= Seq("-unchecked", "-deprecation"))
 
 organization         := "org.lichess"
 Compile / run / fork := true
 javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
+ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation")
 ThisBuild / usePipelining := false
 // shorter prod classpath
 scriptClasspath             := Seq("*")

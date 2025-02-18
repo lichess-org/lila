@@ -42,11 +42,21 @@ private final class HttpClient(
       CanProxy
   ): Fu[(Option[Body], Option[Etag])] =
     val req = etag.foldLeft(toRequest(url))((req, etag) => req.addHttpHeaders("If-None-Match" -> etag))
-    fetchResponse(req).map: res =>
-      val newEtag = extractEtagValue(res)
-      if res.status == 304
-      then none                         -> newEtag.orElse(etag)
-      else decodeResponseBody(res).some -> newEtag
+    fetchResponse(req)
+      .map: res =>
+        val newEtag = extractEtagValue(res)
+        if res.status == 304
+        then none                         -> newEtag.orElse(etag)
+        else decodeResponseBody(res).some -> newEtag
+      .recoverWith:
+        case Status(400, _) if etag.isDefined =>
+          val prevEtag = etag.get // terrible, I wish it could be extracted from the match above
+          fetchBodyAndEtag(url, none)
+            .addEffects: res =>
+              val success = if res.isSuccess then "succeeded" else "failed"
+              logger.info(s"Retrying $url without etag $prevEtag -> $success")
+            .map: (body, etag) =>
+              (body, etag.filter(_ != prevEtag))
 
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag#w
   private def extractEtagValue(res: StandaloneWSResponse): Option[Etag] =

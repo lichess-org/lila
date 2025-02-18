@@ -945,6 +945,7 @@ object I18nKey:
     val `givingPrefilledUrls`: I18nKey = "oauthScope:givingPrefilledUrls"
 
   object onboarding:
+    val `logInAsUsername`: I18nKey = "onboarding:logInAsUsername"
     val `welcome`: I18nKey = "onboarding:welcome"
     val `welcomeToLichess`: I18nKey = "onboarding:welcomeToLichess"
     val `thisIsYourProfilePage`: I18nKey = "onboarding:thisIsYourProfilePage"

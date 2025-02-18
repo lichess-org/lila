@@ -13,9 +13,11 @@ final class ChatFreshness(tourCache: TournamentCache, swissCache: SwissCache)(us
     case _                           => fuTrue
 
   def of(tour: Tournament) =
-    tour.finishedSinceSeconds.forall:
-      _ < (tour.nbPlayers + 120) * 30
+    tour.finishedSinceSeconds match
+      case Some(finishedSinceSeconds) => finishedSinceSeconds < (tour.nbPlayers + 120) * 30
+      case None                       => tour.startsAt.isBefore(nowInstant.plusWeeks(1))
 
   def of(swiss: Swiss) =
-    swiss.finishedSinceSeconds.forall:
-      _ < (swiss.nbPlayers + 60) * 60
+    swiss.finishedSinceSeconds match
+      case Some(finishedSinceSeconds) => finishedSinceSeconds < (swiss.nbPlayers + 60) * 60
+      case None                       => swiss.startsAt.isBefore(nowInstant.plusWeeks(1))
