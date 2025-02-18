@@ -53,6 +53,8 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Barcha SYNC a\'zolari o\'sha joyida saqlanib qoladi</string>
   <string name="shareChanges">O\'zgarishlarni serverda saqlab juzatuvchilar bilan baham ko\'ring</string>
   <string name="playing">O\'ynash</string>
+  <string name="showResults">Natijalar</string>
+  <string name="showEvalBar">Baholash chiziqlari</string>
   <string name="first">Birinchi</string>
   <string name="previous">Oldingi</string>
   <string name="next">Keyingi</string>
@@ -101,12 +103,12 @@
   <string name="loadAPositionFromFen">Boshlang\'ich hiolatni FEN dan yuklab olish</string>
   <string name="loadAGameFromPgn">PGN dan o\'yinni o\'qib olish</string>
   <string name="automatic">Avtomatik</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="%s is the number of games. A study may have up to 64 chapters as of February 2025.&#10;&#10;Appears as a hint in a text box that permits the study creator to paste game(s) in PGN format into their code.&#10;&#10;The text for plurals was extended in February 2025. It is long for a placeholder hint. Because of where it is displayed, we encourage you to keep your translation short.&#10;&#10;&quot;PGN&quot; should not be translated or transliterated into a different alphabet or script.">
     <item quantity="one">%s o\'yinni yuklash uchun PGN matnni shu yerga qo\'ying</item>
     <item quantity="other">%s o\'yinlarni yuklash uchun PGN matnni shu yerga qo\'ying</item>
   </plurals>
   <string name="urlOfTheGame">O\'yin URL i</string>
-  <string name="loadAGameFromXOrY">%1$s yoki %2$s dan o\'yinni yuklash</string>
+  <string name="loadAGameFromXOrY" comment="%1$s is lichess.org %2$s is chessgames.com.&#10;&#10;Users can paste URLs to games from either of these websites and import the games into their studies.">%1$s yoki %2$s dan o\'yinni yuklash</string>
   <string name="createChapter">Bo\'lim yaratish</string>
   <string name="createStudy">Ta\'lim yaratish</string>
   <string name="editStudy">Ta\'limni tahrirlash</string>
@@ -166,4 +168,5 @@
   <string name="playAgain">Qayta o‘ynash</string>
   <string name="whatWouldYouPlay">Ushbu holatda qanday o‘ynagan bo‘lardingiz?</string>
   <string name="youCompletedThisLesson">Tabriklaymiz! Siz bu darsni tugatdingiz.</string>
+  <string name="perPage">Har bir sahifaga %s</string>
 </resources>

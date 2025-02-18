@@ -3,7 +3,7 @@
   <string name="welcome">Vítejte!</string>
   <string name="welcomeToLichess">Vítejte na lichess.org!</string>
   <string name="thisIsYourProfilePage">Toto je vaše profilová stránka.</string>
-  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Bude tento účet používat dítě? Možná budete chtít povolit %s.</string>
+  <string name="enabledKidModeSuggestion">Bude tento účet používat dítě? Možná budete chtít povolit %s.</string>
   <string name="whatNowSuggestions">Co teď? Zde je několik návrhů:</string>
   <string name="learnChessRules">Naučte se pravidla šachu</string>
   <string name="improveWithChessTacticsPuzzles">Zlepšete se pomocí taktických šachových úloh.</string>
@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Zahrajte si se soupeři z celého světa.</string>
   <string name="followYourFriendsOnLichess">Sledujte své přátele na Lichess.</string>
   <string name="playInTournaments">Zahrajte si v turnajích.</string>
-  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Učte se z %1$s a %2$s.</string>
+  <string name="learnFromXAndY">Učte se z %1$s a %2$s.</string>
   <string name="configureLichess">Nakonfigurujte si Lichess podle svých představ.</string>
   <string name="exploreTheSiteAndHaveFun">Prozkoumejte stránku a bavte se :)</string>
 </resources>

@@ -531,11 +531,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def mustConfirmEmail(id: UserId): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)))
 
-  def setEmailConfirmed(id: UserId): Fu[Option[EmailAddress]] =
-    coll.update.one($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail)).flatMap {
-      res =>
-        (res.nModified == 1).so(email(id))
-    }
+  def setEmailConfirmed(id: UserId): Fu[Option[EmailAddress]] = for
+    res   <- coll.update.one($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail))
+    email <- (res.nModified == 1).so(email(id))
+  yield email
 
   def setFlair(user: User, flair: Option[Flair]): Funit =
     coll.updateOrUnsetField($id(user.id), F.flair, flair).void

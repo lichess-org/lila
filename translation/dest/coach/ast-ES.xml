@@ -5,6 +5,7 @@
   <string name="areYouCoach">¿Yes un gran entrenador d\'axedrez con un %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM o títulu FIDE</string>
   <string name="confirmTitle">Confirma\'l to títulu equí y vamos revisar la to solicitú.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">Únvianos un corréu electrónicu a %s y revisaremos la to solicitú.</string>
   <string name="location">Llugar</string>
   <string name="languages">Llingues</string>
   <string name="rating">Rating</string>
@@ -12,9 +13,15 @@
   <string name="availability">Disponibilidá</string>
   <string name="accepting">Acepta estudiantes</string>
   <string name="notAccepting">Nun se acepten estudiantes pol momentu</string>
+  <string name="xCoachesStudents">%s entrena a estudiantes d\'axedrez</string>
+  <string name="viewXProfile">Ver el perfil de Lichess de %s</string>
   <string name="sendPM">Unviar un mensaxe priváu</string>
+  <string name="aboutMe">Sobre mí</string>
   <string name="playingExperience">Esperiencia cómo xugador</string>
+  <string name="teachingExperience">Esperiencia docente</string>
+  <string name="otherExperiences">Otres esperiencies</string>
   <string name="bestSkills">Meyores habilidaes</string>
+  <string name="teachingMethod">Metodoloxía d\'enseñanza</string>
   <string name="publicStudies">Estudios publicaos</string>
   <string name="youtubeVideos">Vídeos de YouTube</string>
 </resources>

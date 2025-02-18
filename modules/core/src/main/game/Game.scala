@@ -255,13 +255,7 @@ case class Game(
 
   def isPgnImport = pgnImport.isDefined
 
-  def hasFewerMovesThanExpected =
-    import _root_.chess.variant.*
-    playedTurns <= variant.match
-      case Standard | Chess960 | Horde            => 20
-      case Antichess | Crazyhouse | KingOfTheHill => 15
-      case ThreeCheck | Atomic | RacingKings      => 10
-      case _                                      => 15 // from position
+  def hasFewerMovesThanExpected = playedTurns <= reasonableMinimumNumberOfMoves(variant)
 
   lazy val opening: Option[Opening.AtPly] =
     if !fromPosition && Variant.list.openingSensibleVariants(variant)
