@@ -2,14 +2,20 @@ package lila.relay
 
 import lila.relay.RelayUpdatePlan.*
 import lila.study.Chapter
+import chess.format.pgn.{ Tag, Tags }
 
 class RelayUpdatePlanTest extends munit.FunSuite:
 
   import RelayPlanUpdateFixtures.*
+  import RelayUpdatePlan.isSameGame
 
-  def output(input: Input)(check: PartialFunction[Plan, Unit]): Unit =
+  def output(input: Input)(check: PartialFunction[Plan, Unit])(using munit.Location): Unit =
     val out = RelayUpdatePlan(input)
     check.applyOrElse(out, _ => fail(s"Unexpected output: $out"))
+
+  test("fixtures"):
+    assertEquals(games.size, 5)
+    assertEquals(chapters.size, 5)
 
   test("add no game to empty relay"):
     val input = Input(Nil, games.take(0))
@@ -90,3 +96,29 @@ class RelayUpdatePlanTest extends munit.FunSuite:
         assertEquals(update, List(chapters(1) -> games(1), chapters(0) -> games(0)))
         assertEquals(reorder, in.chapters.reverse.map(_.id))
         assertEquals(append, Vector(games(2)))
+
+  test("repeated pairings"):
+    import repeatedPairings.{ games, chapters }
+    assertEquals(games.size, 5)
+    output(Input(chapters, games)):
+      case Plan(_, reorder, update, append, orphans) =>
+        assert(reorder.isEmpty)
+        assertEquals(update, chapters.zip(games))
+        assert(append.isEmpty)
+        assert(orphans.isEmpty)
+
+  def mkTags(w: String, b: String) = Tags(List(Tag(_.White, w), Tag(_.Black, b)))
+
+  test("isSameGame based on names only"):
+    assert(isSameGame(mkTags("a", "b"), mkTags("a", "b")), "same names")
+    assert(!isSameGame(mkTags("a", "b"), mkTags("a", "c")), "different names")
+
+  // test("isSameGame based on names and round"):
+  //   assert(
+  //     isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b") + Tag(_.Round, "1.1")),
+  //     "same names and round"
+  //   )
+  //   assert(
+  //     !isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b") + Tag(_.Round, "1.2")),
+  //     "same names and different round"
+  //   )

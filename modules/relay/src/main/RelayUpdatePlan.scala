@@ -1,6 +1,7 @@
 package lila.relay
 
 import lila.study.Chapter
+import chess.format.pgn.Tags
 
 object RelayUpdatePlan:
 
@@ -31,10 +32,13 @@ object RelayUpdatePlan:
 
     val tagMatches: List[(RelayGame, Chapter)] =
       games
-        .flatMap: game =>
-          chapters.collectFirst:
-            case chapter if game.isSameGame(chapter.tags) => game -> chapter
-        .toList
+        .foldLeft(List.empty[(RelayGame, Chapter)]): (matches, game) =>
+          chapters
+            .collectFirst:
+              case chapter if isSameGame(game.tags, chapter.tags) && !matches.exists(_._2 == chapter) =>
+                game -> chapter
+            .fold(matches)(_ :: matches)
+        .reverse
 
     val replaceInitialChapter: Option[(RelayGame, Chapter)] =
       chapters match
@@ -67,3 +71,25 @@ object RelayUpdatePlan:
       append = appends,
       orphans = orphans
     )
+
+  // We don't use tags.boardNumber.
+  // Organizers change it at any time while reordering the boards.
+  private[relay] def isSameGame(gameTags: Tags, chapterTags: Tags): Boolean =
+
+    def isSameLichessGame = ~(gameTags(_.GameId), chapterTags(_.GameId)).mapN(_ == _)
+
+    def playerTagsMatch: Boolean =
+      val bothHaveFideIds = List(gameTags, chapterTags).forall: ts =>
+        RelayGame.fideIdTags.forall(side => ts(side).exists(_ != "0"))
+      if bothHaveFideIds
+      then allSame(RelayGame.fideIdTags)
+      else allSame(RelayGame.nameTags)
+
+    def allSame(tagNames: RelayGame.TagNames) = tagNames.forall: tag =>
+      gameTags(tag) == chapterTags(tag)
+
+    isSameLichessGame || {
+      allSame(RelayGame.eventTags) &&
+      gameTags.roundNumber == chapterTags.roundNumber &&
+      playerTagsMatch
+    }
