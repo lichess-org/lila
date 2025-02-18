@@ -110,10 +110,7 @@ object UserInfo:
           postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
         },
         withUblog.so(ublogApi.userBlogPreviewFor(user, 3)),
-        studyRepo
-          .countByOwner(user.id, ctx.me.map(_.userId))
-          .recoverDefault
-          .mon(_.user.segment("nbStudies")),
+        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user.segment("nbStudies")),
         simulApi.countHostedByUser.get(user.id).mon(_.user.segment("nbSimuls")),
         relayApi.countOwnedByUser.get(user.id).mon(_.user.segment("nbBroadcasts")),
         teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds")),
