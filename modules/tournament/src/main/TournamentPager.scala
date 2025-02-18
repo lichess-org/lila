@@ -127,7 +127,7 @@ object TournamentPager {
     case object Popular extends Order("popular", trans.study.mostPopular)
     case object Lishogi extends Order("lishogi", trans.lishogiTournaments)
 
-    val all       = List(Hot, Started, Created, Popular)
+    val all       = List(Hot, Started, Created, Popular, Lishogi)
     val allButHot = all.filterNot(_ == Hot)
     private val byKey: Map[String, Order] = all.map { o =>
       o.key -> o
