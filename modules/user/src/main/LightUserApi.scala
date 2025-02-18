@@ -39,7 +39,7 @@ final class LightUserApi(
   private val cache = cacheApi.sync[User.ID, Option[LightUser]](
     name = "user.light",
     initialCapacity = 2048,
-    compute = id => repo.coll.find($id(id), projection).one[LightUser],
+    compute = id => repo.coll.one[LightUser]($id(id), projection.some),
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(8 millis),
     expireAfter = Syncache.ExpireAfterWrite(20 minutes),
@@ -62,5 +62,5 @@ private object LightUserApi {
         )
     }
 
-  val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true).some
+  val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true)
 }

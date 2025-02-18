@@ -96,7 +96,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
-    coll.ext
+    coll
       .find(Query user user)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
@@ -104,7 +104,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .map { _.flatMap(g => Pov(g, user)) }
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] =
-    coll.ext
+    coll
       .find(
         Query.finished
           ++ Query.rated
@@ -121,13 +121,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       selector: Bdoc,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Game] =
-    coll.ext.find(selector).cursor[Game](readPreference)
+    coll.find(selector).cursor[Game](readPreference)
 
   def docCursor(
       selector: Bdoc,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Bdoc] =
-    coll.ext.find(selector).cursor[Bdoc](readPreference)
+    coll.find(selector).cursor[Bdoc](readPreference)
 
   def sortedCursor(
       selector: Bdoc,
@@ -135,7 +135,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Game] =
-    coll.ext.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
+    coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
 
   def goBerserk(pov: Pov): Funit =
     coll.update
@@ -194,7 +194,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll
       .find(
         Query.nowPlaying(userId) ++ Query.variant(variant) ++ Query.clock(false) ++ Query.noAi,
-        $doc(F.playingUids -> true),
+        $doc(F.playingUids -> true).some,
       )
       .cursor[Bdoc]()
       .list(200)
@@ -221,7 +221,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .dmap { _ flatMap { Pov.ofUserId(_, userId) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
-    coll.ext
+    coll
       .find(Query user user.id)
       .sort($sort desc F.createdAt)
       .cursor[Game]()
@@ -231,14 +231,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def quickLastPlayedId(userId: User.ID): Fu[Option[Game.ID]] =
-    coll.ext
-      .find(Query user userId, $id(true))
+    coll
+      .find(Query user userId, $id(true).some)
       .sort($sort desc F.createdAt)
       .one[Bdoc]
       .dmap { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
 
   def lastFinishedRatedNotFromPosition(user: User): Fu[Option[Game]] =
-    coll.ext
+    coll
       .find(
         Query.user(user.id) ++
           Query.rated ++
@@ -291,7 +291,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         F.id                        -> false,
         holdAlertField(shogi.Sente) -> true,
         holdAlertField(shogi.Gote)  -> true,
-      ),
+      ).some,
     ) map {
       _.fold(Player.HoldAlert.emptyMap) { doc =>
         def holdAlertOf(playerField: String) =
@@ -388,7 +388,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     )
 
   def findRandomMinishogiCheckmate(distribution: Int): Fu[Option[Game]] =
-    coll.ext
+    coll
       .find(
         Query.mate ++ Query.variantMinishogi ++ Query.notFromPosition,
       )
@@ -479,7 +479,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   }
 
   def randomStandard: Fu[Option[Game]] =
-    coll.ext
+    coll
       .find(Query.variantStandard)
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom nextInt 1000)
@@ -511,14 +511,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
 
   def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
-    coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) dmap {
+    coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true).some) dmap {
       _.fold(none[Source] -> List.empty[User.ID]) { doc =>
         (doc.int(F.source) flatMap Source.apply, ~doc.getAsOpt[List[User.ID]](F.playerUids))
       }
     }
 
   def recentAnalysableGamesByUserId(userId: User.ID, nb: Int) =
-    coll.ext
+    coll
       .find(
         Query.finished
           ++ Query.rated

@@ -45,13 +45,13 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
     coll.countSel(selectTopic(topic.id))
 
   def lastByCateg(categ: Categ): Fu[Option[Post]] =
-    coll.ext.find(selectCateg(categ.id)).sort($sort.createdDesc).one[Post]
+    coll.find(selectCateg(categ.id)).sort($sort.createdDesc).one[Post]
 
   def lastByTopic(topic: Topic): Fu[Option[Post]] =
-    coll.ext.find(selectTopic(topic.id)).sort($sort.createdDesc).one[Post]
+    coll.find(selectTopic(topic.id)).sort($sort.createdDesc).one[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
-    coll.ext
+    coll
       .find(
         selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden,
       )
@@ -60,7 +60,7 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
       .list(nb)
 
   def recentInCateg(categId: String, nb: Int): Fu[List[Post]] =
-    coll.ext
+    coll
       .find(selectCateg(categId))
       .sort($sort.createdDesc)
       .cursor[Post]()
@@ -118,7 +118,7 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
     )
 
   def cursor =
-    coll.ext
+    coll
       .find($empty)
       .cursor[Post](ReadPreference.secondaryPreferred)
 }

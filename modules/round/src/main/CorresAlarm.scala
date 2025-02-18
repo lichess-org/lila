@@ -69,7 +69,7 @@ final private class CorresAlarm(
   }
 
   private def run(): Funit =
-    coll.ext
+    coll
       .find($doc("ringsAt" $lt DateTime.now))
       .cursor[Alarm]()
       .documentSource(200)

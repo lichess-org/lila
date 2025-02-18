@@ -104,7 +104,7 @@ final class ArrangementRepo(coll: Coll)(implicit
   private[tournament] def allUpcomingByUserIdChronological(
       userId: User.ID,
   ): Fu[List[Arrangement]] =
-    coll.ext
+    coll
       .find(
         selectUser(userId) ++ afterNow,
       )

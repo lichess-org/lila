@@ -124,7 +124,7 @@ final class PuzzleApi(
         import Puzzle.{ BSONFields => F }
         coll.one[Bdoc](
           $id(puzzleId.value),
-          $doc(F.voteUp -> true, F.voteDown -> true, F.id -> false),
+          $doc(F.voteUp -> true, F.voteDown -> true, F.id -> false).some,
         ) flatMap {
           _ ?? { doc =>
             val prevUp   = ~doc.int(F.voteUp)

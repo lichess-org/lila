@@ -44,8 +44,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def findCurrent =
     colls.puzzle {
-      _.find($doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15)))
-        .one[Puzzle]
+      _.one[Puzzle]($doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15)))
     }
 
   private def findNew: Fu[Option[Puzzle]] =

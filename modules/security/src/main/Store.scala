@@ -28,8 +28,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     _.expireAfterAccess(5 minutes)
       .buildAsyncFuture[String, Option[AuthInfo]] { id =>
         coll
-          .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
-          .one[Bdoc]
+          .one[Bdoc]($doc("_id" -> id, "up" -> true), authInfoProjection)
           .map {
             _.flatMap { doc =>
               if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore DateTime.now.minusHours(12)))
@@ -43,7 +42,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   def authInfo(sessionId: String) = authCache get sessionId
 
   private val authInfoProjection =
-    $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+    $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false).some
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: User.ID): Funit =
@@ -120,7 +119,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   implicit private val UserSessionBSONHandler: BSONDocumentHandler[UserSession] =
     Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
-    coll.ext
+    coll
       .find(
         $doc("user" -> userId, "up" -> true),
       )
@@ -142,13 +141,13 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     }
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
-    coll.ext
+    coll
       .find(
         $doc(
           "user" -> user.id,
           "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1)),
         ),
-        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true),
+        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some,
       )
       .sort($sort desc "date")
       .cursor[Info]()(InfoReader, implicitly[CursorProducer[Info]])
@@ -164,7 +163,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   implicit private val DedupInfoReader: BSONDocumentReader[DedupInfo] = Macros.reader[DedupInfo]
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
-    coll.ext
+    coll
       .find(
         $doc(
           "user" -> userId,

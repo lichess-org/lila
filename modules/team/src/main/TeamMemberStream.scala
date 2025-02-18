@@ -15,7 +15,6 @@ final class TeamMemberStream(
     memberRepo: MemberRepo,
     userRepo: UserRepo,
 )(implicit
-    ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
 ) {
 
@@ -33,8 +32,8 @@ final class TeamMemberStream(
       perSecond: MaxPerSecond,
       selector: Bdoc = $empty,
   ): Source[Seq[User.ID], _] =
-    memberRepo.coll.ext
-      .find($doc("team" -> team.id) ++ selector, $doc("user" -> true))
+    memberRepo.coll
+      .find($doc("team" -> team.id) ++ selector, $doc("user" -> true).some)
       .sort($sort desc "date")
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPreference.secondaryPreferred)

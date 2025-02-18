@@ -1,6 +1,5 @@
 package lila.db
 
-import scala.annotation.nowarn
 import scala.collection.Factory
 
 import reactivemongo.api._
@@ -14,17 +13,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary          = coll withReadPreference ReadPreference.secondary
 
-    def ext = this
-
-    def find(selector: Bdoc) = coll.find(selector, none[Bdoc])
-
-    def find(selector: Bdoc, proj: Bdoc) = coll.find(selector, proj.some)
-
-    def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
-      coll.find(selector, none[Bdoc]).one[D]
-
-    def one[D: BSONDocumentReader](selector: Bdoc, projection: Bdoc): Fu[Option[D]] =
-      coll.find(selector, projection.some).one[D]
+    def one[D: BSONDocumentReader](
+        selector: Bdoc,
+        projection: Option[Bdoc] = none[Bdoc],
+    ): Fu[Option[D]] =
+      coll.find(selector, projection).one[D]
 
     def list[D: BSONDocumentReader](
         selector: Bdoc,
@@ -41,7 +34,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
 
     def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] =
-      one[D]($id(id), projection)
+      one[D]($id(id), projection.some)
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
@@ -102,8 +95,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         readPreference: ReadPreference,
     )(docId: D => I): Fu[Map[I, D]] =
       projection
-        .fold(find($inIds(ids))) { proj =>
-          find($inIds(ids), proj)
+        .fold(coll.find($inIds(ids))) { proj =>
+          coll.find($inIds(ids), proj.some)
         }
         .cursor[D](readPreference)
         .collect[List](Int.MaxValue)
@@ -120,7 +113,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       }
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .cursor[Bdoc]()
         .list()
         .dmap {
@@ -128,7 +122,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         }
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
         .cursor[Bdoc]()
         .list()
@@ -137,7 +132,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         }
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
-      (nb > 0) ?? find(selector, $doc(field -> true))
+      (nb > 0) ?? coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
         .cursor[Bdoc]()
         .list(nb)
@@ -146,14 +142,16 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         }
 
     def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .one[Bdoc]
         .dmap {
           _ flatMap { _.getAsOpt[V](field) }
         }
 
     def primitiveOne[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
         .one[Bdoc]
         .dmap {
@@ -165,7 +163,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         field: String,
         fieldExtractor: Bdoc => Option[V],
     ): Fu[Map[I, V]] =
-      find($inIds(ids), $doc(field -> true))
+      coll
+        .find($inIds(ids), $doc(field -> true).some)
         .cursor[Bdoc]()
         .list()
         .dmap {
@@ -275,14 +274,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     ): Fu[M[T]] =
       coll.withReadPreference(readPreference).distinct(key, selector.some, ReadConcern.Local, None)
 
-    def findAndUpdate[D: BSONDocumentReader](
+    def findAndUpdateEasy[D: BSONDocumentReader](
         selector: coll.pack.Document,
         update: coll.pack.Document,
         fetchNewObject: Boolean = false,
         upsert: Boolean = false,
         sort: Option[coll.pack.Document] = None,
         fields: Option[coll.pack.Document] = None,
-        @nowarn writeConcern: CWC = CWC.Acknowledged,
+        writeConcern: CWC = CWC.Acknowledged,
     ): Fu[Option[D]] =
       coll.findAndUpdate(
         selector = selector,
@@ -300,22 +299,5 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
       }
 
-    def findAndRemove[D: BSONDocumentReader](
-        selector: coll.pack.Document,
-        sort: Option[coll.pack.Document] = None,
-        fields: Option[coll.pack.Document] = None,
-        @nowarn writeConcern: CWC = CWC.Acknowledged,
-    ): Fu[Option[D]] =
-      coll.findAndRemove(
-        selector = selector,
-        sort = sort,
-        fields = fields,
-        writeConcern = writeConcern,
-        maxTime = none,
-        collation = none,
-        arrayFilters = Seq.empty,
-      ) map {
-        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
-      }
   }
 }

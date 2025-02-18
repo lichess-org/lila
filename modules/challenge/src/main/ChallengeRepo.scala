@@ -12,10 +12,10 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   import BSONHandlers._
   import Challenge._
 
-  def byId(id: Challenge.ID) = coll.ext.find($id(id)).one[Challenge]
+  def byId(id: Challenge.ID) = coll.one[Challenge]($id(id))
 
   def byIdFor(id: Challenge.ID, dest: lila.user.User) =
-    coll.ext.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
+    coll.one[Challenge]($id(id) ++ $doc("destUser.id" -> dest.id))
 
   def exists(id: Challenge.ID) = coll.countSel($id(id)).dmap(0 <)
 
@@ -30,14 +30,14 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
 
   def createdByChallengerId(userId: String): Fu[List[Challenge]] =
-    coll.ext
+    coll
       .find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .cursor[Challenge]()
       .list()
 
   def createdByDestId(userId: String): Fu[List[Challenge]] =
-    coll.ext
+    coll
       .find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .cursor[Challenge]()

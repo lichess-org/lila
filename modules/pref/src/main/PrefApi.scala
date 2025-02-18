@@ -17,7 +17,7 @@ final class PrefApi(
 
   import PrefHandlers._
 
-  private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.ext.find($id(id)).one[Pref]
+  private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.one[Pref]($id(id))
 
   private val cache = cacheApi[User.ID, Option[Pref]](2048, "pref.fetchPref") {
     _.expireAfterAccess(10 minutes)
@@ -46,7 +46,7 @@ final class PrefApi(
     getPref(user) dmap RequestPref.queryParamOverride(req)
 
   def followable(userId: User.ID): Fu[Boolean] =
-    coll.ext.find($id(userId), $doc("follow" -> true)).one[Bdoc] dmap {
+    coll.one[Bdoc]($id(userId), $doc("follow" -> true).some) dmap {
       _ flatMap (_.getAsOpt[Boolean]("follow")) getOrElse Pref.default.follow
     }
 

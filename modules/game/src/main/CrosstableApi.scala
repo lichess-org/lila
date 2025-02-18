@@ -97,7 +97,7 @@ final class CrosstableApi(
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
   private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
-    matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
+    matchupColl.one[Matchup](select(u1, u2), matchupProjection.some)
 
   private def create(u1: User.ID, u2: User.ID): Fu[Crosstable] = {
     val crosstable = Crosstable.empty(u1, u2)

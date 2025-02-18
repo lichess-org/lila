@@ -190,10 +190,10 @@ final class PlaybanApi(
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] =
     !cleanUserIds.get(userId) ?? {
-      coll.ext
+      coll
         .find(
           $doc("_id" -> userId, "b.0" $exists true),
-          $doc("_id" -> false, "b" -> $doc("$slice" -> -1)),
+          $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some,
         )
         .one[Bdoc]
         .dmap {
@@ -217,10 +217,10 @@ final class PlaybanApi(
     }
 
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
-    coll.ext
+    coll
       .find(
         $inIds(userIds),
-        $doc("b" -> true),
+        $doc("b" -> true).some,
       )
       .cursor[Bdoc]()
       .list()
@@ -250,8 +250,8 @@ final class PlaybanApi(
       source: Option[Source],
   ): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
-    coll.ext
-      .findAndUpdate[UserRecord](
+    coll
+      .findAndUpdateEasy[UserRecord](
         selector = $id(userId),
         update = $doc(
           $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {

@@ -12,7 +12,7 @@ import lila.rating.PerfType
 import lila.tournament.BSONHandlers._
 import lila.user.User
 
-final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class PlayerRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
@@ -31,7 +31,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       nb: Int,
       skip: Int = 0,
   ): Fu[List[Player]] =
-    coll.ext.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().list(nb)
+    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().list(nb)
 
   private[tournament] def allByTour(tourId: Tournament.ID): Fu[List[Player]] =
     coll.list[Player](selectTour(tourId))
@@ -169,10 +169,10 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
 
   def teamsOfPlayers(tourId: Tournament.ID, userIds: Seq[User.ID]): Fu[List[(User.ID, TeamID)]] =
-    coll.ext
+    coll
       .find(
         $doc("tid" -> tourId, "uid" $in userIds),
-        $doc("_id" -> false, "uid" -> true, "t" -> true),
+        $doc("_id" -> false, "uid" -> true, "t" -> true).some,
       )
       .cursor[Bdoc]()
       .list()
@@ -217,7 +217,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       .void
 
   def find(tourId: Tournament.ID, userId: User.ID): Fu[Option[Player]] =
-    coll.ext.find(selectTourUser(tourId, userId)).one[Player]
+    coll.one[Player](selectTourUser(tourId, userId))
 
   def findActiveTuple2(
       tourId: Tournament.ID,
@@ -281,7 +281,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     coll.countSel(selectTour(tourId) ++ selectActive)
 
   def winner(tourId: Tournament.ID): Fu[Option[Player]] =
-    coll.ext.find(selectTour(tourId)).sort(bestSort).one[Player]
+    coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: Tournament.ID): Fu[Ranking] =
@@ -386,7 +386,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       batchSize: Int,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred,
   ): AkkaStreamCursor[Player] =
-    coll.ext
+    coll
       .find(selectTour(tournamentId))
       .sort($sort desc "m")
       .batchSize(batchSize)

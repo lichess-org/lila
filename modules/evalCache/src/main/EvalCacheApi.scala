@@ -60,7 +60,7 @@ final class EvalCacheApi(
   private def getEntry(id: Id): Fu[Option[EvalCacheEntry]] = cache get id
 
   private def fetchAndSetAccess(id: Id): Fu[Option[EvalCacheEntry]] =
-    coll.ext.find($id(id)).one[EvalCacheEntry] addEffect { res =>
+    coll.one[EvalCacheEntry]($id(id)) addEffect { res =>
       if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
     }
 

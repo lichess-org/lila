@@ -151,7 +151,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     }
 
   private def fetchAccessToken(id: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
-    coll.ext.findAndUpdate[AccessToken.ForAuth](
+    coll.findAndUpdateEasy[AccessToken.ForAuth](
       selector = $id(id),
       update = $set(F.usedAt -> DateTime.now()),
       fields = AccessToken.forAuthProjection.some,

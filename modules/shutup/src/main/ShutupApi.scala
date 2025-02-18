@@ -22,8 +22,7 @@ final class ShutupApi(
 
   def getPublicLines(userId: User.ID): Fu[List[PublicLine]] =
     coll
-      .find($doc("_id" -> userId), $doc("pub" -> 1).some)
-      .one[Bdoc]
+      .one[Bdoc]($doc("_id" -> userId), $doc("pub" -> 1).some)
       .map {
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
@@ -74,8 +73,8 @@ final class ShutupApi(
                 "$slice" -> -textType.rotation,
               ),
             ) ++ pushPublicLine
-            coll.ext
-              .findAndUpdate[UserRecord](
+            coll
+              .findAndUpdateEasy[UserRecord](
                 selector = $id(userId),
                 update = $push(push),
                 fetchNewObject = true,

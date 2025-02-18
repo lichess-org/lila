@@ -66,7 +66,7 @@ final class RankingApi(
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
-      coll.ext
+      coll
         .find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
         .cursor[Ranking](ReadPreference.secondaryPreferred)
@@ -138,10 +138,10 @@ final class RankingApi(
     }
 
     private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] =
-      coll.ext
+      coll
         .find(
           $doc("perf" -> pt.id, "stable" -> true),
-          $doc("_id"  -> true),
+          $doc("_id" -> true).some,
         )
         .sort($doc("rating" -> -1))
         .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)

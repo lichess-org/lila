@@ -114,8 +114,8 @@ final class PostApi(
   def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
     Post.reactions(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
-      env.postRepo.coll.ext
-        .findAndUpdate[Post](
+      env.postRepo.coll
+        .findAndUpdateEasy[Post](
           selector = $id(postId),
           update = {
             if (v) $addToSet(s"reactions.$reaction" -> me.id)

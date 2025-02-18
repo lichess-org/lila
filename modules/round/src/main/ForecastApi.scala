@@ -66,7 +66,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit
       }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable ?? coll.ext.find($id(pov.fullId)).one[Forecast] flatMap {
+    pov.forecastable ?? coll.one[Forecast]($id(pov.fullId)) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.plies + 1)) clearPov(pov) inject none
@@ -74,7 +74,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable ?? coll.ext.find($id(pov.fullId)).one[Forecast] flatMap {
+    pov.game.forecastable ?? coll.one[Forecast]($id(pov.fullId)) flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.plies)) clearPov(pov) inject none
