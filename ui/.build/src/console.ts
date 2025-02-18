@@ -19,7 +19,9 @@ export async function startConsole() {
     req.on('data', chunk => (body += chunk.toString()));
     req.on('end', () => {
       try {
-        let [[level, val]] = Object.entries<any>(JSON.parse(body));
+        const [levenAndVal] = Object.entries<any>(JSON.parse(body));
+        const [level] = levenAndVal;
+        let val = levenAndVal[1];
         const mark = level === 'error' ? `${errorMark} - ` : level === 'warn' ? `${warnMark} - ` : '';
         if (!Array.isArray(val)) return;
         if (val.length <= 1) val = val[0] ?? '';
