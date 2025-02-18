@@ -127,7 +127,7 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             ]),
           h('h2', 'Move form'),
           h(
-            'form',
+            'form#move-form',
             {
               hook: {
                 insert(vnode) {

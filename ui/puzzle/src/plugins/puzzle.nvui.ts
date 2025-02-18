@@ -91,7 +91,7 @@ export function initModule() {
           ),
           h('h2', 'Move form'),
           h(
-            'form',
+            'form#move-form',
             {
               hook: onInsert(el => {
                 const $form = $(el),

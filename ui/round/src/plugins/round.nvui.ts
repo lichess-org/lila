@@ -109,7 +109,7 @@ export function initModule(): NvuiPlugin {
         ctrl.isPlaying() && h('h2', 'Move form'),
         ctrl.isPlaying() &&
           h(
-            'form',
+            'form#move-form',
             {
               hook: onInsert(el => {
                 const $form = $(el as HTMLFormElement),

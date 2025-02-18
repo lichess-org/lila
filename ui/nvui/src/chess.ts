@@ -313,19 +313,13 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
       const $moveBox = $('input.move');
       const $boardLive = $('.boardstatus');
       const promotionPiece = ev.key.toLowerCase();
-      const $form = $moveBox.parent().parent();
       if (!promotionPiece.match(/^[qnrb]$/)) {
         $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop');
         return;
       }
       $moveBox.val($moveBox.val() + promotionPiece);
       $currBtn.removeAttr('promotion');
-      const sendForm = new Event('submit', {
-        cancelable: true,
-        bubbles: true,
-      });
-      $form.trigger(sendForm);
-      return;
+      $('#move-form').trigger('submit');
     }
 
     const myBtnAttrs = squareSelector($currBtn.attr('rank') ?? '', $currBtn.attr('file') ?? '');
@@ -399,13 +393,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
         $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
         return;
       }
-      // this section depends on the form being the grandparent of the input.move box.
-      const $form = $moveBox.parent().parent();
-      const event = new Event('submit', {
-        cancelable: true,
-        bubbles: true,
-      });
-      $form.trigger(event);
+      $('#move-form').trigger('submit');
     }
   };
 }
