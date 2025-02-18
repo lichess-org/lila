@@ -95,11 +95,7 @@ object admin {
               ul(
                 tours.map { t =>
                   li(
-                    a(
-                      dataIcon := "g",
-                      cls      := (if (t.isScheduled) "text is-gold" else "text"),
-                      href     := routes.Tournament.show(t.id).url,
-                    )(tournamentName(t)),
+                    tournamentLink(t),
                     " ",
                     momentFromNow(t.startsAt),
                     " ",

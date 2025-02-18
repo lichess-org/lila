@@ -2,6 +2,7 @@ package lila.tournament
 
 import scala.concurrent.duration._
 
+import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.api.libs.json.Json
 
@@ -21,6 +22,17 @@ final private[tournament] class Cached(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
 ) {
+
+  val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
+    name = "tournament.name",
+    initialCapacity = 1024,
+    compute = { case (id, lang) =>
+      tournamentRepo byId id dmap2 { _.trans(lang) }
+    },
+    default = _ => none,
+    strategy = Syncache.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes),
+  )
 
   def ranking(tour: Tournament): Fu[Ranking] =
     if (tour.isFinished) finishedRanking get tour.id

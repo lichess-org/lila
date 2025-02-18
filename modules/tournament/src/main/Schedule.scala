@@ -1,10 +1,13 @@
 package lila.tournament
 
+import play.api.i18n.Lang
+
 import org.joda.time.DateTime
 
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
 
+import lila.i18n.I18nKeys
 import lila.rating.PerfType
 
 case class Schedule(
@@ -17,8 +20,18 @@ case class Schedule(
     conditions: Condition.All = Condition.All.empty,
 ) {
 
-  def defaultName =
-    s"${freq.key.capitalize} ${variant.some.filterNot(_.standard).fold(speed.key.capitalize)(_.name)}"
+  def trans(implicit lang: Lang): String = {
+    val perfTypeTrans = PerfType
+      .byVariant(variant)
+      .map(
+        _.trans,
+      ) | s"${Schedule.Speed.specialPrefix(speed)}${Schedule.Speed.toPerfType(speed).trans}"
+    val sched =
+      s"${freq.trans(perfTypeTrans)}"
+    if (format == Format.Arena) I18nKeys.tourname.xArena.txt(sched)
+    else if (format == Format.Robin) I18nKeys.tourname.xRobin.txt(sched)
+    else sched
+  }
 
   def nameKeys = List(format.key, freq.key, speed.key, variant.key).mkString(" ")
 
@@ -90,6 +103,19 @@ object Schedule {
   sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
 
     val key = toString.toLowerCase
+
+    def trans(x: String)(implicit lang: Lang) =
+      this match {
+        case Schedule.Freq.Hourly  => I18nKeys.tourname.hourlyX.txt(x)
+        case Schedule.Freq.Daily   => I18nKeys.tourname.dailyX.txt(x)
+        case Schedule.Freq.Eastern => I18nKeys.tourname.easternX.txt(x)
+        case Schedule.Freq.Weekly  => I18nKeys.tourname.weeklyX.txt(x)
+        case Schedule.Freq.Weekend => I18nKeys.tourname.weekendX.txt(x)
+        case Schedule.Freq.Monthly => I18nKeys.tourname.monthlyX.txt(x)
+        case Schedule.Freq.Yearly  => I18nKeys.tourname.yearlyX.txt(x)
+        case Schedule.Freq.Shield  => I18nKeys.tourname.xShield.txt(x)
+        case _                     => s"$key $x"
+      }
 
     def compare(other: Freq) = Integer.compare(importance, other.importance)
 
@@ -180,6 +206,13 @@ object Schedule {
         case HyperRapid | Rapid   => PerfType.Rapid
         case Classical            => PerfType.Classical
         case Correspondence       => PerfType.Correspondence
+      }
+    def specialPrefix(speed: Speed) =
+      speed match {
+        case UltraBullet              => "U-"
+        case HyperBullet | HyperRapid => "H-"
+        case SuperBlitz               => "S-"
+        case _                        => ""
       }
   }
 

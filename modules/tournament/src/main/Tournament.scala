@@ -2,6 +2,8 @@ package lila.tournament
 
 import scala.util.chaining._
 
+import play.api.i18n.Lang
+
 import org.joda.time.DateTime
 import org.joda.time.Duration
 import org.joda.time.Interval
@@ -54,6 +56,11 @@ case class Tournament(
   def isPrivate = password.isDefined
 
   def isTeamBattle = teamBattle.isDefined
+
+  def trans(implicit lang: Lang) =
+    if (isMarathon || isUnique) name
+    else if (isTeamBattle) lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
+    else schedule.fold(name)(_.trans)
 
   def isArena     = format == Format.Arena
   def isRobin     = format == Format.Robin
@@ -201,7 +208,7 @@ object Tournament {
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
-      name = sched.defaultName,
+      name = sched.trans(lila.i18n.defaultLang),
       format = sched.format,
       status = Status.Created,
       timeControl = Schedule clockFor sched,

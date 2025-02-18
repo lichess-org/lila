@@ -46,7 +46,7 @@ object bits {
               dataIcon := tournamentIconChar(tour),
               href     := routes.Tournament.show(tour.id),
             )(
-              tournamentName(tour),
+              tour.trans,
             ),
           ),
           // td(tour.format.trans),

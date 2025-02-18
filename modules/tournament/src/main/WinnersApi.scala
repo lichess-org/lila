@@ -3,6 +3,7 @@ package lila.tournament
 import scala.concurrent.duration._
 
 import play.api.Mode
+import play.api.i18n.Lang
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
@@ -20,7 +21,10 @@ case class Winner(
     tourName: String,
     schedule: Option[String],
     date: DateTime,
-)
+) {
+  def trans(implicit lang: Lang) =
+    schedule.flatMap(Schedule.fromNameKeys).fold(tourName)(_.trans)
+}
 
 case class FreqWinners(
     yearly: Option[Winner],
@@ -82,7 +86,7 @@ final class WinnersApi(
     reactivemongo.api.bson.Macros.handler[AllWinners]
 
   private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] =
-    tournamentRepo.coll.ext
+    tournamentRepo.coll
       .find(
         $doc(
           "schedule.freq" -> freq.key,

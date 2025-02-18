@@ -38,7 +38,7 @@ object home {
           div(cls := "tour-winners-wrap")(
             div(cls := "tour-winners")(
               winners.top.map { w =>
-                val name = winnerTournamentName(w)
+                val name = w.trans
                 div(
                   userIdLink(w.userId.some),
                   a(cls := "tourname", title := name, href := routes.Tournament.show(w.tourId))(

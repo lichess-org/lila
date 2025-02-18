@@ -12,7 +12,6 @@ import lila.common.Json._
 import lila.game.JsonView.colorWrites
 import lila.game.LightPov
 import lila.game.Player
-import lila.i18n.{ I18nKeys => trans }
 import lila.rating.PerfType
 import lila.simul.Simul
 import lila.study.JsonView.studyIdNameWrites
@@ -21,6 +20,7 @@ import lila.tournament.LeaderboardApi.{ Ratio => TourRatio }
 import lila.user.User
 
 final class JsonView(
+    getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName,
 ) {
 
@@ -51,7 +51,7 @@ final class JsonView(
         Json.obj(
           "tournament" -> Json.obj(
             "id"   -> e.tourId,
-            "name" -> s"${trans.tournament.txt()} #${e.tourId}",
+            "name" -> ~getTourName.get(e.tourId),
           ),
           "nbGames"     -> e.nbGames,
           "score"       -> e.score,

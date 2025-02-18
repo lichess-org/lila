@@ -70,7 +70,7 @@ object side {
       game.tournamentId map { tourId =>
         st.section(cls := "game__tournament-link")(
           a(href := routes.Tournament.show(tourId), dataIcon := "g", cls := "text")(
-            s"${trans.tournament.txt()} #${tourId}",
+            tournamentIdToName(tourId),
           ),
         )
       },

@@ -8,12 +8,12 @@ import lila.common.LightUser
 import lila.common.paginator.Paginator
 import lila.game.Game
 import lila.game.PerfPicker
-import lila.i18n.{ I18nKeys => trans }
 import lila.user.User
 
 final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     lightUser: lila.user.LightUserApi,
+    getTournamentName: lila.tournament.GetTourName,
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import LightUser.lightUserWrites
@@ -69,6 +69,6 @@ final class UserGameApi(
         Json.obj("daysPerTurn" -> d)
       })
       .add("tournament" -> g.tournamentId.map { tid =>
-        Json.obj("id" -> tid, "name" -> s"${trans.tournament.txt()} #${tid}")
+        Json.obj("id" -> tid, "name" -> getTournamentName.get(tid))
       })
 }

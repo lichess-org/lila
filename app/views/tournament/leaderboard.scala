@@ -15,7 +15,7 @@ object leaderboard {
       userIdLink(w.userId.some),
       a(
         cls   := "tourname",
-        title := winnerTournamentName(w),
+        title := w.trans,
         href  := routes.Tournament.show(w.tourId),
       )(freq),
     )
@@ -58,7 +58,7 @@ object leaderboard {
                 userIdLink(w.userId.some),
                 a(
                   cls   := "tourname",
-                  title := winnerTournamentName(w),
+                  title := w.trans,
                   href  := routes.Tournament.show(w.tourId),
                 )(
                   showDate(w.date),

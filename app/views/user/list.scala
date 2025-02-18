@@ -71,7 +71,7 @@ object list {
         a(href := routes.Tournament.leaderboard)(trans.tournament()),
       ),
       ol(winners take 10 map { w =>
-        val name = winnerTournamentName(w)
+        val name = w.trans
         li(
           userIdLink(w.userId.some),
           a(cls := "tourname", title := name, href := routes.Tournament.show(w.tourId))(

@@ -140,7 +140,7 @@ final class JsonView(
             "createdBy" -> tour.createdBy,
             "startsAt"  -> formatDate(tour.startsAt),
             "system"    -> tour.format.key,
-            "fullName"  -> tour.name,
+            "fullName"  -> tour.trans,
             "minutes"   -> tour.minutes,
             "perf"      -> full.option(tour.perfType),
             "clock"     -> full.option(tour.timeControl),
@@ -684,10 +684,10 @@ object JsonView {
       )
   }
 
-  private[tournament] def positionJson(sfen: Sfen): JsObject =
+  private[tournament] def positionJson(sfen: Sfen)(implicit lang: Lang): JsObject =
     Json
       .obj(
-        "name" -> "Custom position",
+        "name" -> lila.i18n.I18nKeys.fromPosition.txt(),
         "sfen" -> sfen,
       )
 

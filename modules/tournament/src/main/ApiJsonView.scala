@@ -34,7 +34,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit
         "minutes"   -> tour.minutes,
         "clock"     -> tour.timeControl,
         "rated"     -> tour.mode.rated,
-        "fullName"  -> tour.name,
+        "fullName"  -> tour.trans,
         "nbPlayers" -> tour.nbPlayers,
         "variant" -> Json.obj(
           "key"  -> tour.variant.key,

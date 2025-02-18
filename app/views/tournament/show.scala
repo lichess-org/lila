@@ -21,7 +21,7 @@ object show {
       shieldOwner: Option[lila.tournament.TournamentShield.OwnerId],
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${tournamentName(tour)} #${tour.id}",
+      title = s"${tour.trans} #${tour.id}",
       moreJs = frag(
         moduleJsTag(
           "tournament",
@@ -48,9 +48,9 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title =
-            s"${tournamentName(tour)}: ${variantName(tour.variant)} ${tour.timeControl.show} ${modeName(tour.mode)} #${tour.id}",
+            s"${tour.trans}: ${variantName(tour.variant)} ${tour.timeControl.show} ${modeName(tour.mode)} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description = s"${showDate(tour.startsAt)} - ${tournamentName(tour)} - ${trans.nbPlayers
+          description = s"${showDate(tour.startsAt)} - ${tour.trans} - ${trans.nbPlayers
               .pluralSameTxt(tour.nbPlayers)}, " +
             s"${trans.duration.txt().toLowerCase}: ${tour.minutes}m. " +
             tour.winnerId.fold(trans.winnerIsNotYetDecided.txt()) { winnerId =>

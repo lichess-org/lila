@@ -49,7 +49,7 @@ object form {
       ctx: Context,
   ) =
     views.html.base.layout(
-      title = tournamentName(tour),
+      title = tour.trans,
       moreCss = cssTag("tournament.form"),
       moreJs = frag(
         flatpickrTag,
@@ -59,7 +59,7 @@ object form {
       val fields = new TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
-          h1("Edit ", tournamentName(tour)),
+          h1(trans.edit.txt(), " ", tour.trans),
           postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
             form3.globalError(form),
             allFieldsets(form, fields, teams = myTeams, tour = tour.some),

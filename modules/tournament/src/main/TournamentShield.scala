@@ -2,11 +2,14 @@ package lila.tournament
 
 import scala.concurrent.duration._
 
+import play.api.i18n.Lang
+
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.rating.PerfType
 import lila.user.User
 
 final class TournamentShieldApi(
@@ -48,7 +51,7 @@ final class TournamentShieldApi(
   private val cache = cacheApi.unit[History] {
     _.refreshAfterWrite(1 day)
       .buildAsyncFuture { _ =>
-        tournamentRepo.coll.ext
+        tournamentRepo.coll
           .find(
             $doc(
               "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
@@ -118,6 +121,10 @@ object TournamentShield {
         categSpeed <- of.left.toOption
       } yield tourSpeed == categSpeed)
       else of.toOption.has(tour.variant)
+    def trans(implicit lang: Lang) = of.fold(
+      s => Schedule.Speed.toPerfType(s).trans,
+      v => PerfType.byVariant(v).map(_.trans).getOrElse(key),
+    )
   }
 
   object Category {

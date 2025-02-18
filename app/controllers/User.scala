@@ -109,6 +109,9 @@ final class User(
                 page = page,
               )(ctx.body, formBinding)
               _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+              _ <- env.tournament.cached.nameCache preloadMany {
+                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+              }
               res <-
                 if (HTTPRequest isSynchronousHttp ctx.req) for {
                   info   <- env.userInfo(u, nbs, ctx)
@@ -241,7 +244,10 @@ final class User(
           page = page,
         )(ctx.body, formBinding)
         pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
-        _   <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+        _ <- env.tournament.cached.nameCache preloadMany {
+          pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
+        }
+        _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       } yield pag
     }(fuccess(Paginator.empty[GameModel]))
   }

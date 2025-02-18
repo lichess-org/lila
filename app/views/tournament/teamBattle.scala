@@ -14,13 +14,13 @@ object teamBattle {
 
   def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
     views.html.base.layout(
-      title = tournamentName(tour),
+      title = tour.trans,
       moreCss = cssTag("tournament.form"),
       moreJs = jsTag("tournament.team-battle-form"),
     )(
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
-          h1(tournamentName(tour)),
+          h1(tour.trans),
           standardFlash(),
           if (tour.isFinished) p("This tournament is over, and the teams can no longer be updated.")
           else p("List the teams that will compete in this battle."),
@@ -56,11 +56,11 @@ object teamBattle {
 
   def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(implicit ctx: Context) =
     views.html.base.layout(
-      title = tournamentName(tour),
+      title = tour.trans,
       moreCss = cssTag("tournament.show.team-battle"),
     )(
       main(cls := "tour__battle-standing box")(
-        h1(a(href := routes.Tournament.show(tour.id))(tournamentName(tour))),
+        h1(a(href := routes.Tournament.show(tour.id))(tour.trans)),
         table(cls := "slist slist-pad tour__team-standing tour__team-standing--full")(
           tbody(
             standing.map { t =>
@@ -91,12 +91,12 @@ object teamBattle {
       ctx: Context,
   ) =
     views.html.base.layout(
-      title = s"${tournamentName(tour)} - ${team.name}",
+      title = s"${tour.trans} - ${team.name}",
       moreCss = cssTag("tournament.show.team-battle"),
     )(
       main(cls := "box")(
         h1(
-          a(href := routes.Tournament.battleTeams(tour.id))(tournamentName(tour)),
+          a(href := routes.Tournament.battleTeams(tour.id))(tour.trans),
           " - ",
           a(href := routes.Team.show(team.id))(team.name),
         ),

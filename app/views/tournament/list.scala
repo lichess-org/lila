@@ -56,7 +56,7 @@ object list {
   def header(t: Tournament)(implicit ctx: Context) =
     td(cls := "header")(
       a(href := routes.Tournament.show(t.id))(
-        span(cls := "name")(tournamentName(t)),
+        span(cls := "name")(t.trans),
         span(cls := "setup")(
           t.timeControl.show,
           " - ",

@@ -63,7 +63,7 @@ object bits {
           table(
             tbody(
               tournamentWinners take 12 map { w =>
-                val name = winnerTournamentName(w)
+                val name = w.trans
                 tr(
                   td(userIdLink(w.userId.some)),
                   td(

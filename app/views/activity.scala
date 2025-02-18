@@ -264,8 +264,7 @@ object activity {
         trans.activity.competedInNbTournaments.pluralSame(tours.nb),
         subTag(
           tours.best.map { t =>
-            val link =
-              a(href := routes.Tournament.show(t.tourId))(s"${trans.tournament.txt()} #${t.tourId}")
+            val link = a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
             div(
               cls := List(
                 "is-gold" -> (t.rank == 1),

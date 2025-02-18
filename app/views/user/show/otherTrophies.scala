@@ -28,7 +28,7 @@ object otherTrophies {
       info.shields.map { shield =>
         a(
           cls := "shield-trophy combo-trophy",
-          ariaTitle(s"${shieldName(shield.categ)} Shield"),
+          ariaTitle(trans.tourname.xShield.txt(shield.categ.trans)),
           href := routes.Tournament.shields,
         )(shield.categ.iconChar.toString)
       },

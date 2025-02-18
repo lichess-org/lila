@@ -28,7 +28,7 @@ object shields {
                   h2(
                     a(href := routes.Tournament.categShields(categ.key))(
                       span(cls := "shield-trophy")(categ.iconChar.toString),
-                      shieldName(categ),
+                      categ.trans,
                     ),
                   ),
                   ol(awards.map { aw =>
@@ -57,7 +57,7 @@ object shields {
         div(cls := "page-menu__content box")(
           h1(
             a(href := routes.Tournament.shields, dataIcon := "I", cls := "text"),
-            shieldName(categ),
+            categ.trans,
             " shields",
           ),
           ol(awards.map { aw =>

@@ -16,6 +16,7 @@ final class Env(
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
+    getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName,
 )(implicit
     ec: scala.concurrent.ExecutionContext,

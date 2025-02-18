@@ -1,5 +1,7 @@
 package lila.tournament
 
+import play.api.i18n.Lang
+
 import lila.hub.LightTeam.TeamID
 import lila.user.User
 
@@ -82,3 +84,9 @@ case class FeaturedGame(
     sente: RankedPlayer,
     gote: RankedPlayer,
 )
+
+final class GetTourName(f: (Tournament.ID, Lang) => Option[String])
+    extends ((Tournament.ID, Lang) => Option[String]) {
+  def apply(id: Tournament.ID, lang: Lang)        = f(id, lang)
+  def get(id: Tournament.ID)(implicit lang: Lang) = f(id, lang)
+}

@@ -30,7 +30,7 @@ final class ActivityReadApi(
   def recent(u: User): Fu[Vector[ActivityView]] =
     for {
       activities <-
-        coll.ext
+        coll
           .find(regexId(u.id))
           .sort($sort desc "_id")
           .cursor[Activity](ReadPreference.secondaryPreferred)

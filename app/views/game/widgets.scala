@@ -1,8 +1,6 @@
 package views.html
 package game
 
-import controllers.routes
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -51,14 +49,7 @@ object widgets {
               ),
               g.notationImport.flatMap(_.date).fold(momentFromNow(g.createdAt))(frag(_)),
               g.tournamentId.map { tourId =>
-                frag(
-                  separator,
-                  a(
-                    dataIcon := "g",
-                    cls      := "text",
-                    href     := routes.Tournament.show(tourId).url,
-                  )(s"${trans.tournament.txt()} #${tourId}"),
-                )
+                frag(separator, tournamentLink(tourId))
               } orElse
                 g.simulId.map { simulId =>
                   frag(separator, views.html.simul.bits.link(simulId))
