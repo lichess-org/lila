@@ -319,7 +319,7 @@ function onSubmit(
 ) {
   return (e: SubmitEvent) => {
     e.preventDefault();
-    let input = castlingFlavours(($input.val() as string).trim());
+    const input = castlingFlavours(($input.val() as string).trim());
     // Allow commands with/without a leading '/'
     const command = getCommand(input) || getCommand(input.slice(1));
     if (command) command.cb(ctrl, notify, style(), input);

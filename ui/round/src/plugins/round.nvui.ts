@@ -237,7 +237,7 @@ function createSubmitHandler(
       } else notify('Invalid move');
     }
 
-    let input = submitStoredPremove
+    const input = submitStoredPremove
       ? nvui.premoveInput
       : castlingFlavours(($input.val() as string).trim().toLowerCase());
     if (!input) return;
