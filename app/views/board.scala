@@ -9,12 +9,12 @@ import lila.ui.Context
 def userAnalysis(
     data: JsObject,
     pov: Pov,
-    initialFen: Option[Fen.Full] = None,
+    chess960PositionNum: Option[Int] = None,
     withForecast: Boolean = false,
     inlinePgn: Option[String] = None
 )(using Context) =
   views.analyse.ui
-    .userAnalysis(data, pov, initialFen, withForecast)
+    .userAnalysis(data, pov, chess960PositionNum, withForecast)
     .js(analyseNvuiTag)
     .js(
       views.analyse.bits.analyseModule(

@@ -31,18 +31,23 @@ final class UserAnalysis(
       case _ => load("", Standard)
 
   def load(urlFen: String, variant: Variant) = Open:
-    val input: Option[String] = lila.common.String
+    val inputFen: Option[Fen.Full] = lila.common.String
       .decodeUriPath(urlFen)
       .filter(_.trim.nonEmpty)
       .orElse(get("fen"))
-    val parsed960: Option[Fen.Full] = input
-      .ifTrue(variant.chess960)
-      .orElse(get("position"))
-      .flatMap(_.toIntOption.flatMap(Chess960.positionToFen))
-    val decodedFen: Option[Fen.Full] = parsed960
-      .orElse(input.map(Fen.Full.clean))
-    val pov         = makePov(decodedFen, variant)
-    val orientation = get("color").flatMap(Color.fromName) | pov.color
+      .map(Fen.Full.clean)
+    val chess960PositionNum: Option[Int] =
+      variant.chess960
+        .so(
+          get("position")
+            .flatMap(_.toIntOption)
+            .orElse(
+              Chess960.positionNumber(inputFen | variant.initialFen)
+            ) // no input fen or num defaults to standard start position
+        )
+    val decodedFen: Option[Fen.Full] = chess960PositionNum.flatMap(Chess960.positionToFen).orElse(inputFen)
+    val pov                          = makePov(decodedFen, variant)
+    val orientation                  = get("color").flatMap(Color.fromName) | pov.color
     for
       data <- env.api.roundApi.userAnalysisJson(
         pov,
@@ -51,7 +56,7 @@ final class UserAnalysis(
         orientation,
         owner = false
       )
-      page <- renderPage(views.board.userAnalysis(data, pov, decodedFen))
+      page <- renderPage(views.board.userAnalysis(data, pov, chess960PositionNum))
     yield Ok(page)
       .withCanonical(routes.UserAnalysis.index)
       .enforceCrossSiteIsolation

@@ -14,7 +14,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
   def userAnalysis(
       data: JsObject,
       pov: Pov,
-      initalFen: Option[chess.format.Fen.Full],
+      chess960PositionNum: Option[Int],
       withForecast: Boolean = false
   )(using ctx: Context) =
     Page(trans.site.analysis.txt())
@@ -32,8 +32,6 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
         description = "Analyse chess positions and variations on an interactive chess board"
       )
       .flag(_.zoom):
-        val positionNum =
-          pov.game.variant.chess960.so(Chess960.positionNumber(initalFen | chess.format.Fen.initial))
         main(
           cls := List(
             "analyse"       -> true,
@@ -56,8 +54,9 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
               ),
               pov.game.variant.chess960.option(
                 div(cls := "jump-960")(
-                  positionNum
-                    .map(pos => label(`for` := "position")(trans.site.chess960StartPosition.txt(pos))),
+                  chess960PositionNum.map(pos =>
+                    label(`for` := "chess960-position")(trans.site.chess960StartPosition.txt(pos))
+                  ),
                   br,
                   form(
                     cls    := "control-960",
@@ -65,12 +64,12 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
                     action := routes.UserAnalysis.parseArg("chess960")
                   )(
                     input(
-                      id     := "position",
+                      id     := "chess960-position",
                       `type` := "number",
                       name   := "position",
                       min    := 0,
                       max    := 959,
-                      value  := positionNum
+                      value  := chess960PositionNum
                     ),
                     form3.submit(trans.site.apply())
                   )
