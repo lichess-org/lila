@@ -113,12 +113,34 @@ class RelayUpdatePlanTest extends munit.FunSuite:
     assert(isSameGame(mkTags("a", "b"), mkTags("a", "b")), "same names")
     assert(!isSameGame(mkTags("a", "b"), mkTags("a", "c")), "different names")
 
-  // test("isSameGame based on names and round"):
-  //   assert(
-  //     isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b") + Tag(_.Round, "1.1")),
-  //     "same names and round"
-  //   )
-  //   assert(
-  //     !isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b") + Tag(_.Round, "1.2")),
-  //     "same names and different round"
-  //   )
+  test("isSameGame based on names and round"):
+    assert(
+      isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b") + Tag(_.Round, "1.1")),
+      "same names and round.board"
+    )
+    assert(
+      isSameGame(mkTags("a", "b") + Tag(_.Round, "1"), mkTags("a", "b") + Tag(_.Round, "1")),
+      "same names and round"
+    )
+    assert(
+      !isSameGame(mkTags("a", "b") + Tag(_.Round, "1.1"), mkTags("a", "b")),
+      "same names and missing round"
+    )
+    assert(
+      !isSameGame(mkTags("a", "b") + Tag(_.Round, "1"), mkTags("a", "b") + Tag(_.Round, "2")),
+      "same names and different round"
+    )
+    assert(
+      !isSameGame(
+        mkTags("a", "b") + Tag(_.Round, "1.1"),
+        mkTags("a", "b") + Tag(_.Round, "1.2")
+      ),
+      "same names and different round.board"
+    )
+    assert(
+      !isSameGame(
+        mkTags("a", "b") + Tag(_.Round, "1") + Tag(_.Board, 1),
+        mkTags("a", "b") + Tag(_.Round, "1") + Tag(_.Board, 2)
+      ),
+      "same names and different board"
+    )

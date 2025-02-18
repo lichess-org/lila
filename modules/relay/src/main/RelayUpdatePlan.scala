@@ -91,5 +91,6 @@ object RelayUpdatePlan:
     isSameLichessGame || {
       allSame(RelayGame.eventTags) &&
       gameTags.roundNumber == chapterTags.roundNumber &&
+      gameTags.boardNumber == chapterTags.boardNumber &&
       playerTagsMatch
     }
