@@ -105,9 +105,7 @@ final class Local(env: Env) extends LilaController(env):
   private def devGetAssets =
     env.local.repo.getAssets.map: m =>
       JsObject:
-        env.local.api.assetKeys
-          .as[JsObject]
-          .fields
+        env.local.api.assetKeys.fields
           .collect:
             case (category, JsArray(keys)) =>
               category -> JsArray:
