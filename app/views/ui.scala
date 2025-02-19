@@ -32,12 +32,15 @@ object oAuth:
 val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)
 val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
 
+val askUi      = lila.ask.ui.AskUi(helpers)(env.ask.api)
+val askAdminUi = lila.ask.ui.AskAdminUi(helpers)(askUi.renderGraph)
+
 val feed =
-  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.ui.SitePage(title, "news", ""))(using
+  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.ui.SitePage(title, "news", ""), askUi.render)(using
     env.executor
   )
 
-val cms = lila.cms.ui.CmsUi(helpers)(mod.ui.menu("cms"))
+val cms = lila.cms.ui.CmsUi(helpers)(mod.ui.menu("cms"), askUi.render)
 
 val event = lila.event.ui.EventUi(helpers)(mod.ui.menu("event"))(using env.executor)
 
@@ -59,12 +62,9 @@ val practice = lila.practice.ui.PracticeUi(helpers)(
 object forum:
   import lila.forum.ui.*
   val bits  = ForumBits(helpers)
-  val post  = PostUi(helpers, bits)
+  val post  = PostUi(helpers, bits)(askUi.render, env.ask.api.unfreeze)
   val categ = CategUi(helpers, bits)
-  val topic = TopicUi(helpers, bits, post)(
-    captcha.apply,
-    lila.msg.MsgPreset.forumDeletion.presets
-  )
+  val topic = TopicUi(helpers, bits, post)(captcha.apply, lila.msg.MsgPreset.forumDeletion.presets)
 
 val timeline = lila.timeline.ui.TimelineUi(helpers)(streamer.bits.redirectLink(_))
 
@@ -86,6 +86,8 @@ val racer = lila.racer.ui.RacerUi(helpers)
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
 val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
+
+val local = lila.local.ui.LocalUi(helpers)
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))
