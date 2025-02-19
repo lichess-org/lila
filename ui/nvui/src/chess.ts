@@ -20,6 +20,7 @@ export type BoardStyle = 'plain' | 'table';
 
 interface RoundStep {
   uci?: Uci;
+  fen: FEN;
 }
 
 const nato: { [file in Files]: string } = {
@@ -42,8 +43,6 @@ const anna: { [file in Files]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-
-export const supportedVariant = (key: VariantKey): boolean => key !== 'crazyhouse';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -145,9 +144,9 @@ export const renderSan = (san: San | undefined, uci: Uci | undefined, style: Mov
 
 export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
-    'div',
+    'div.pieces',
     COLORS.map(color =>
-      h('div', [
+      h(`div.${color}-pieces`, [
         h('h3', `${color} pieces`),
         ROLES.slice()
           .reverse()
@@ -168,6 +167,15 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
       ]),
     ),
   );
+
+type CrazyPocket = { [role in Role]?: number };
+export const renderPockets = (pockets: [CrazyPocket, CrazyPocket]): VNode[] =>
+  COLORS.map((color, i) => h('h2', `${color} pocket: ${pocketsStr(pockets[i])}`));
+
+export const pocketsStr = (pocket: CrazyPocket): string =>
+  Object.entries(pocket)
+    .map(([role, count]) => `${role}: ${count}`)
+    .join(', ');
 
 const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
   Array.from(pieces).reduce<Key[]>(
@@ -298,7 +306,6 @@ export function positionJumpHandler() {
 
 export function pieceJumpingHandler(selectSound: () => void, errorSound: () => void) {
   return (ev: KeyboardEvent): void => {
-    if (!ev.key.match(/^[kqrbnp]$/i)) return;
     const $currBtn = $(ev.target as HTMLElement);
 
     // TODO: decouple from promotion attribute setting in selectionHandler
@@ -306,19 +313,13 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
       const $moveBox = $('input.move');
       const $boardLive = $('.boardstatus');
       const promotionPiece = ev.key.toLowerCase();
-      const $form = $moveBox.parent().parent();
       if (!promotionPiece.match(/^[qnrb]$/)) {
         $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop');
         return;
       }
       $moveBox.val($moveBox.val() + promotionPiece);
       $currBtn.removeAttr('promotion');
-      const sendForm = new Event('submit', {
-        cancelable: true,
-        bubbles: true,
-      });
-      $form.trigger(sendForm);
-      return;
+      $('#move-form').trigger('submit');
     }
 
     const myBtnAttrs = squareSelector($currBtn.attr('rank') ?? '', $currBtn.attr('file') ?? '');
@@ -350,7 +351,6 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
       file = String.fromCharCode(isWhite ? file.charCodeAt(0) - 1 : file.charCodeAt(0) + 1);
     else if (ev.key === 'ArrowRight')
       file = String.fromCharCode(isWhite ? file.charCodeAt(0) + 1 : file.charCodeAt(0) - 1);
-    else return;
     const newSqEl = document.querySelector<HTMLElement>(squareSelector(`${rank}`, file));
     newSqEl ? newSqEl.focus() : borderSound();
     ev.preventDefault();
@@ -393,13 +393,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
         $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
         return;
       }
-      // this section depends on the form being the grandparent of the input.move box.
-      const $form = $moveBox.parent().parent();
-      const event = new Event('submit', {
-        cancelable: true,
-        bubbles: true,
-      });
-      $form.trigger(event);
+      $('#move-form').trigger('submit');
     }
   };
 }
@@ -419,51 +413,38 @@ export function lastCapturedCommandHandler(
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ) {
-  return (ev: KeyboardEvent): void => {
-    if (ev.key === 'c') $('.boardstatus').text(lastCaptured(fensteps, pieceStyle, prefixStyle));
-  };
+  return (): Cash => $('.boardstatus').text(lastCaptured(fensteps, pieceStyle, prefixStyle));
 }
 
-export function possibleMovesHandler(
-  yourColor: Color,
-  turnColor: () => Color,
-  startingFen: () => string,
-  piecesFunc: () => Pieces,
-  variant: VariantKey,
-  moveable: () => Dests | undefined,
-  steps: () => RoundStep[],
-) {
+export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: VariantKey, steps: RoundStep[]) {
   return (ev: KeyboardEvent): void => {
     if (ev.key.toLowerCase() !== 'm') return;
     const $boardLive = $('.boardstatus');
-    const pieces: Pieces = piecesFunc();
 
     const pos = keyFromAttrs(ev.target as HTMLElement);
     if (!pos) return;
 
-    let rawMoves: Dests | undefined;
-
     // possible inefficient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
     // if it is your turn
-    if (turnColor() === yourColor) {
-      rawMoves = moveable();
-    } else {
-      const fromSetup = setupPosition(lichessRules(variant), parseFen(startingFen()).unwrap()).unwrap();
-      steps().forEach(s => {
-        if (s.uci) {
-          const move = parseUci(s.uci);
-          if (move) fromSetup.play(move);
-        }
-      });
-      // important to override whose turn it is so only the users' own turns will show up
-      fromSetup.turn = yourColor;
-      rawMoves = chessgroundDests(fromSetup);
-    }
-
+    const playThroughToFinalDests = () => {
+      {
+        const fromSetup = setupPosition(lichessRules(variant), parseFen(steps[0].fen).unwrap()).unwrap();
+        steps.forEach(s => {
+          if (s.uci) {
+            const move = parseUci(s.uci);
+            if (move) fromSetup.play(move);
+          }
+        });
+        // important to override whose turn it is so only the users' own turns will show up
+        fromSetup.turn = yourColor;
+        return chessgroundDests(fromSetup);
+      }
+    };
+    const rawMoves = cg.state.turnColor === yourColor ? cg.state.movable.dests : playThroughToFinalDests();
     const possibleMoves = rawMoves
       ?.get(pos)
       ?.map(i => {
-        const p = pieces.get(i);
+        const p = cg.state.pieces.get(i);
         // logic to prevent 'capture rook' on own piece in chess960
         return p && p.color !== yourColor ? `${i} captures ${p.role}` : i;
       })
@@ -476,26 +457,30 @@ export function possibleMovesHandler(
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[kqnbr]$/;
 const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
+const dropRegex = /^(([qrnb])@([a-h][1-8])|p?@([a-h][2-7]))$/;
+export type DropMove = { role: Role; key: Key };
 
-export function inputToLegalUci(input: string, fen: string, chessground: CgApi): string | undefined {
+export function inputToLegalUci(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
   const dests = chessground.state.movable.dests;
   if (!dests) return;
   const legalUcis = destsToUcis(dests),
-    legalSans = sanWriter(fen, legalUcis);
-  let uci = sanToUci(input, legalSans) || input,
+    legalSans = sanWriter(fen, legalUcis),
+    cleaned = input.replace(/\+|#/g, '');
+  let uci = sanToUci(cleaned, legalSans) || cleaned,
     promotion = '';
 
-  if (input.match(promotionRegex)) {
-    uci = sanToUci(input.slice(0, -2), legalSans) || input;
-    promotion = input.slice(-1).toLowerCase();
-  } else if (input.match(uciPromotionRegex)) {
-    uci = input.slice(0, -1);
-    promotion = input.slice(-1).toLowerCase();
+  const drop = cleaned.match(dropRegex);
+  if (drop) return { role: charToRole(cleaned[0]) || 'pawn', key: cleaned.split('@')[1].slice(0, 2) as Key };
+  if (cleaned.match(promotionRegex)) {
+    uci = sanToUci(cleaned.slice(0, -2), legalSans) || cleaned;
+    promotion = cleaned.slice(-1).toLowerCase();
+  } else if (cleaned.match(uciPromotionRegex)) {
+    uci = cleaned.slice(0, -1);
+    promotion = cleaned.slice(-1).toLowerCase();
   } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role === 'pawn')
     promotion = 'q';
 
-  if (legalUcis.includes(uci.toLowerCase())) return uci + promotion;
-  else return;
+  return legalUcis.includes(uci.toLowerCase()) ? `${uci}${promotion}` : undefined;
 }
 
 export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: MoveStyle): VNodeChildren {

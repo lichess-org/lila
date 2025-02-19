@@ -26,8 +26,9 @@ import {
   positionJumpHandler,
   pieceJumpingHandler,
   castlingFlavours,
-  supportedVariant,
   inputToLegalUci,
+  renderPockets,
+  type DropMove,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -69,9 +70,8 @@ export function initModule(): NvuiPlugin {
         nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        variantNope =
-          !supportedVariant(d.game.variant.key) &&
-          'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
+        pockets = ctrl.data.crazyhouse?.pockets,
+        clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
       if (!ctrl.chessground) {
         ctrl.setChessground(
           makeChessground(document.createElement('div'), {
@@ -81,7 +81,6 @@ export function initModule(): NvuiPlugin {
             coordinates: false,
           }),
         );
-        if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
       }
       return h('div.nvui', { hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000)) }, [
         h('h1', gameText(ctrl)),
@@ -95,6 +94,7 @@ export function initModule(): NvuiPlugin {
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
         h('h2', 'Pieces'),
         h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+        pockets && h('div.pockets', renderPockets(pockets)),
         h('h2', 'Game status'),
         h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
           ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
@@ -109,12 +109,11 @@ export function initModule(): NvuiPlugin {
         ctrl.isPlaying() && h('h2', 'Move form'),
         ctrl.isPlaying() &&
           h(
-            'form',
+            'form#move-form',
             {
               hook: onInsert(el => {
                 const $form = $(el as HTMLFormElement),
                   $input = $form.find('.move').val('');
-                $input[0]!.focus();
                 nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
                 $form.on('submit', (ev: SubmitEvent) => {
                   ev.preventDefault();
@@ -131,18 +130,18 @@ export function initModule(): NvuiPlugin {
                     type: 'text',
                     autocomplete: 'off',
                     autofocus: true,
-                    disabled: !!variantNope,
-                    title: variantNope,
                   },
                 }),
               ]),
             ],
           ),
-
-        h('h2', 'Your clock'),
-        h('div.botc', anyClock(ctrl, 'bottom')),
-        h('h2', 'Opponent clock'),
-        h('div.topc', anyClock(ctrl, 'top')),
+        clocks.some(c => !!c) &&
+          h('div.clocks', [
+            h('h2', 'Your clock'),
+            h('div.botc', clocks[0]),
+            h('h2', 'Opponent clock'),
+            h('div.topc', clocks[1]),
+          ]),
         notify.render(),
         h('h2', 'Actions'),
         ...(ctrl.data.player.spectator
@@ -156,35 +155,31 @@ export function initModule(): NvuiPlugin {
           {
             hook: onInsert(el => {
               const $board = $(el);
-              $board.on('keydown', jumpOrCommand(ctrl));
               const $buttons = $board.find('button');
               $buttons.on(
                 'click',
                 selectionHandler(() => ctrl.data.opponent.color, selectSound),
               );
-              $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
-              $buttons.on(
-                'keydown',
-                lastCapturedCommandHandler(
-                  () => ctrl.data.steps.map(step => step.fen),
-                  pieceStyle.get(),
-                  prefixStyle.get(),
-                ),
-              );
-              $buttons.on(
-                'keydown',
-                possibleMovesHandler(
-                  ctrl.data.player.color,
-                  () => ctrl.chessground.state.turnColor,
-                  ctrl.chessground.getFen,
-                  () => ctrl.chessground.state.pieces,
-                  ctrl.data.game.variant.key,
-                  () => ctrl.chessground.state.movable.dests,
-                  () => ctrl.data.steps,
-                ),
-              );
-              $buttons.on('keydown', positionJumpHandler());
-              $buttons.on('keydown', pieceJumpingHandler(selectSound, errorSound));
+              $buttons.on('keydown', (e: KeyboardEvent) => {
+                if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPev(ctrl)(e);
+                else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
+                else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
+                else if (e.key === 'c')
+                  lastCapturedCommandHandler(
+                    () => ctrl.data.steps.map(step => step.fen),
+                    pieceStyle.get(),
+                    prefixStyle.get(),
+                  )();
+                else if (e.code.match(/^Digit([1-8])$/)) positionJumpHandler()(e);
+                else if (e.key.match(/^[kqrbnp]$/i)) pieceJumpingHandler(selectSound, errorSound)(e);
+                else if (e.key.toLowerCase() === 'm')
+                  possibleMovesHandler(
+                    ctrl.data.player.color,
+                    ctrl.chessground,
+                    ctrl.data.game.variant.key,
+                    ctrl.data.steps,
+                  )(e);
+              });
             }),
           },
           renderBoard(
@@ -209,15 +204,7 @@ export function initModule(): NvuiPlugin {
           'p',
           [
             'Type these commands in the move input.',
-            `c: ${i18n.keyboardMove.readOutClocks}`,
-            'l: Read last move.',
-            `o: ${i18n.keyboardMove.readOutOpponentName}`,
-            commands.piece.help,
-            commands.scan.help,
-            `abort: ${i18n.site.abortGame}`,
-            `resign: ${i18n.site.resign}`,
-            `draw: ${i18n.keyboardMove.offerOrAcceptDraw}`,
-            `takeback: ${i18n.site.proposeATakeback}`,
+            ...inputCommands.map(cmd => `${cmd.cmd}${cmd.alt ? ` or ${cmd.alt}` : ''}: ${cmd.help}`),
           ].reduce(addBreaks, []),
         ),
         ...boardCommands(),
@@ -250,67 +237,96 @@ function createSubmitHandler(
       } else notify('Invalid move');
     }
 
-    let input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
+    const input = submitStoredPremove
+      ? nvui.premoveInput
+      : castlingFlavours(($input.val() as string).trim().toLowerCase());
     if (!input) return;
 
     // commands may be submitted with or without a leading /
-    if (isShortCommand(input)) input = '/' + input;
-    if (input[0] === '/') {
-      onCommand(ctrl, notify, input.slice(1), style());
-      $input.val('');
-    } else {
-      const uci = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
-      if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
+    const command = isInputCommand(input) || isInputCommand(input.slice(1));
+    if (command) command.cb(notify, ctrl, style(), input);
+    else {
+      const uciOrDrop = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
+      if (uciOrDrop && typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key))
+        notify(`Invalid input: ${input}`);
+      else if (uciOrDrop) sendMove(uciOrDrop, ctrl, !!nvui.premoveInput);
       else if (ctrl.data.player.color !== ctrl.data.game.player) {
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
         notify(`Will attempt to premove: ${input}. Enter to cancel`);
       } else notify(`Invalid move: ${input}`);
-      $input.val('');
     }
+    $input.val('');
   };
 }
 
-const shortCommands = [
-  'c',
-  'clock',
-  'l',
-  'last',
-  'abort',
-  'resign',
-  'draw',
-  'takeback',
-  'p',
-  's',
-  'o',
-  'opponent',
+const inputCommands: {
+  cmd: string;
+  help: string;
+  cb: (notify: (txt: string) => void, ctrl: RoundController, style: MoveStyle, input: string) => void;
+  alt?: string;
+}[] = [
+  {
+    cmd: 'clock',
+    help: i18n.keyboardMove.readOutClocks,
+    cb: notify => notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text()),
+    alt: 'c',
+  },
+  {
+    cmd: 'last',
+    help: 'Read last move.',
+    cb: notify => notify($('.lastMove').text()),
+    alt: 'l',
+  },
+  { cmd: 'abort', help: i18n.site.abortGame, cb: () => $('.nvui button.abort').trigger('click') },
+  { cmd: 'resign', help: i18n.site.resign, cb: () => $('.nvui button.resign').trigger('click') },
+  {
+    cmd: 'draw',
+    help: i18n.keyboardMove.offerOrAcceptDraw,
+    cb: () => $('.nvui button.draw-yes').trigger('click'),
+  },
+  {
+    cmd: 'takeback',
+    help: i18n.site.proposeATakeback,
+    cb: () => $('.nvui button.takeback-yes').trigger('click'),
+  },
+  {
+    cmd: 'p',
+    help: commands.piece.help,
+    cb: (notify, ctrl, style, input) =>
+      notify(
+        commands.piece.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Exptected format: ${commands.piece.help}`,
+      ),
+  },
+  {
+    cmd: 's',
+    help: commands.scan.help,
+    cb: (notify, ctrl, style, input) =>
+      notify(
+        commands.scan.apply(input, ctrl.chessground.state.pieces, style) ??
+          `Bad input: ${input}. Exptected format: ${commands.scan.help}`,
+      ),
+  },
+  {
+    cmd: 'opponent',
+    help: i18n.keyboardMove.readOutOpponentName,
+    cb: (notify, ctrl) => notify(playerText(ctrl)),
+    alt: 'o',
+  },
 ];
 
-function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0].toLowerCase());
-}
+const isInputCommand = (input: string) => {
+  const firstWordLowerCase = input.split(' ')[0].toLowerCase();
+  return inputCommands.find(c => c.cmd === firstWordLowerCase || c?.alt === firstWordLowerCase);
+};
 
-function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: MoveStyle) {
-  const lowered = c.toLowerCase();
-  if (lowered === 'c' || lowered === 'clock')
-    notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-  else if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
-  else if (lowered === 'abort') $('.nvui button.abort').trigger('click');
-  else if (lowered === 'resign') $('.nvui button.resign').trigger('click');
-  else if (lowered === 'draw') $('.nvui button.draw-yes').trigger('click');
-  else if (lowered === 'takeback') $('.nvui button.takeback-yes').trigger('click');
-  else if (lowered === 'o' || lowered === 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
-  else {
-    const pieces = ctrl.chessground.state.pieces;
-    notify(
-      commands.piece.apply(c, pieces, style) ||
-        commands.scan.apply(c, pieces, style) ||
-        `Invalid command: ${c}`,
-    );
-  }
-}
+const sendMove = (uciOrDrop: string | DropMove, ctrl: RoundController, premove: boolean): void =>
+  typeof uciOrDrop === 'string'
+    ? ctrl.socket.send('move', { u: uciOrDrop }, { ackable: true })
+    : ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key, premove);
 
-function anyClock(ctrl: RoundController, position: Position) {
+function anyClock(ctrl: RoundController, position: Position): VNode | undefined {
   const d = ctrl.data,
     player = ctrl.playerAt(position);
   return (
@@ -346,7 +362,8 @@ function playerHtml(ctrl: RoundController, player: Player) {
     : i18n.site.anonymous;
 }
 
-function playerText(ctrl: RoundController, player: Player) {
+function playerText(ctrl: RoundController) {
+  const player = ctrl.data.opponent;
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const user = player.user,
     rating = player?.rating ?? user?.perfs[ctrl.data.game.perf]?.rating ?? i18n.site.unknown;
@@ -358,15 +375,13 @@ function gameText(ctrl: RoundController) {
   return [
     d.game.status.name === 'started'
       ? ctrl.isPlaying()
-        ? ctrl.data.player.color === 'white'
-          ? i18n.site.youPlayTheWhitePieces
-          : i18n.site.youPlayTheBlackPieces
+        ? i18n.site[ctrl.data.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']
         : 'Spectating.'
       : i18n.site.gameOver,
-    d.game.rated ? i18n.site.rated : i18n.site.casual,
+    i18n.site[ctrl.data.game.rated ? 'rated' : 'casual'],
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
     d.game.perf,
-    i18n.site.gameVsX(playerText(ctrl, ctrl.data.opponent)),
+    i18n.site.gameVsX(playerText(ctrl)),
   ].join(' ');
 }
 
@@ -375,11 +390,9 @@ function doAndRedraw(ctrl: RoundController, f: (ctrl: RoundController) => void) 
   ctrl.redraw();
 }
 
-function jumpOrCommand(ctrl: RoundController) {
+function nextOrPev(ctrl: RoundController) {
   return (e: KeyboardEvent) => {
-    if (e.shiftKey) {
-      if (e.key === 'A') doAndRedraw(ctrl, prev);
-      else if (e.key === 'D') doAndRedraw(ctrl, next);
-    } else boardCommandsHandler()(e);
+    if (e.key === 'A') doAndRedraw(ctrl, prev);
+    else if (e.key === 'D') doAndRedraw(ctrl, next);
   };
 }
