@@ -1,7 +1,9 @@
 import { handOfCards, HandOfCards } from './handOfCards';
 import * as co from 'chessops';
 import * as licon from 'common/licon';
+import * as data from 'common/data';
 import { domDialog, Dialog } from 'common/dialog';
+import { fen960 } from 'chess';
 import { myUsername } from 'common';
 import { pubsub } from 'common/pubsub';
 import { definedMap } from 'common/algo';
@@ -9,6 +11,7 @@ import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
 import { env } from './localEnv';
+import { Chessground as makeChessground } from 'chessground';
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
   pubsub.after('local.images.ready').then(() => new SetupDialog(setup).show());
@@ -30,27 +33,35 @@ class SetupDialog {
     const dlg = await domDialog({
       class: 'game-setup base-view setup-view',
       css: [{ hashed: 'local.setup' }],
-      htmlText: `<div class="with-cards">
-        <div class="vs">
-          <div class="player" data-color="black">
-            <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
-            <div class="placard none" data-color="black">Human Player</div>
+      htmlText: $html`
+        <div class="with-cards">
+          <div class="vs">
+            <div class="player" data-color="black">
+              <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
+              <div class="placard none" data-color="black">Human Player</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="chin">
-        <div class="params">
-          <input type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}" value="${this.setup.setupFen ?? ''}">
-          <label>Clock<select data-type="initial">${this.timeOptions('initial')}</select></label>
-          <label>Increment<select data-type="increment">${this.timeOptions('increment')}</select></label>
-        </div>
-        <div class="actions">
-          <button class="button button-empty white"></button>
-          <button class="button button-empty random"></button>
-          <button class="button button-empty black"></button>
-        </div>
-      </div>`,
+        <div class="chin">
+          <div class="params">
+            <span>
+              <input class="fen" type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}">
+              <button class="button button-empty button-dim fen960" data-icon="${licon.DieSix}"></button>
+            </span>
+            <span>
+              <select data-type="initial">${this.timeOptions('initial')}</select>
+              +
+              <select data-type="increment">${this.timeOptions('increment')}</select>
+            </span>
+          </div>
+          <div class="actions">
+            <button class="button button-metal black"><i></i></button>
+            <button class="button button-metal random"><i></i></button>
+            <button class="button button-metal white"><i></i></button>
+          </div>
+        </div>`,
       modal: true,
+      focus: '.white',
       actions: [
         { selector: '.white', listener: () => this.fight('white') },
         { selector: '.black', listener: () => this.fight('black') },

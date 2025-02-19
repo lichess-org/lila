@@ -263,15 +263,15 @@ class HandOfCardsImpl {
 
   // coords relative to the fan arc's origin
   clientToOrigin(client: [number, number]): [number, number] {
-    const ooX = client[0] - (this.rect.left + window.scrollX) - this.originX;
-    const ooY = this.rect.top + window.scrollY + this.originY - client[1];
+    const ooX = client[0] - this.rect.left /*+ window.scrollX*/ - this.originX;
+    const ooY = this.rect.top /*+ window.scrollY*/ + this.originY - client[1];
     return [ooX, ooY];
   }
 
   // coords relative to top left of this.view
   clientToView(client: [number, number]): [number, number] {
-    const elX = client[0] - (this.rect.left + window.scrollX);
-    const elY = client[1] - (this.rect.top + window.scrollY);
+    const elX = client[0] - this.rect.left; /*+ window.scrollX*/
+    const elY = client[1] - this.rect.top; /*+ window.scrollY*/
     return [elX, elY];
   }
 
@@ -330,9 +330,11 @@ class HandOfCardsImpl {
       this.drag.card = this.visible[this.drag.shape.index];
       this.drag.card.classList.add('hovered', 'dragging');
     }
+    const [viewX, viewY] = this.clientToView([e.clientX, e.clientY]);
+    console.log(viewX, viewY);
     this.drag.transform = {
-      x: (e.clientX - this.rect.left) * (1 - this.cardSize / this.rect.width),
-      y: this.clientToView([e.clientX, e.clientY])[1] - this.cardSize / 1,
+      x: viewX * (1 - this.cardSize / this.rect.width),
+      y: viewY - this.cardSize,
       angle: -this.clientToAzimuth([e.clientX, e.clientY]) / 2 - (this.isLeft ? Math.PI / 2 : 0),
     };
   };
