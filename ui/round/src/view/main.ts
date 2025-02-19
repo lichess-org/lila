@@ -10,6 +10,8 @@ import { renderMaterialDiffs } from 'game/view/material';
 import { renderVoiceBar } from 'voice';
 import { playable } from 'game';
 import { storage } from 'common/storage';
+import viewStatus from 'game/view/status';
+import { snabDialog } from 'common/dialog';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -55,6 +57,7 @@ export function main(ctrl: RoundController): VNode {
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
         ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
+        ctrl.showModalResult && modalResultView(ctrl),
       ]);
 }
 
@@ -64,3 +67,14 @@ export function endGameView(): void {
     window.dispatchEvent(new Event('resize'));
   }
 }
+
+export const modalResultView = (ctrl: RoundController): VNode =>
+  snabDialog({
+    modal: true,
+    noCloseButton: true,
+    htmlText: viewStatus(ctrl),
+    onClose() {
+      ctrl.showModalResult = false;
+      ctrl.redraw();
+    },
+  });
