@@ -103,29 +103,6 @@ const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) =>
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
   prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
 
-export function lastCaptured(
-  fensteps: () => string[],
-  pieceStyle: PieceStyle,
-  prefixStyle: PrefixStyle,
-): string {
-  const fens = fensteps();
-  const oldFen = fens[fens.length - 2];
-  const newFen = fens[fens.length - 1];
-  if (!oldFen || !newFen) return 'none';
-  const oldSplitFen = oldFen.split(' ')[0];
-  const newSplitFen = newFen.split(' ')[0];
-  for (const p of 'kKqQrRbBnNpP') {
-    const diff = oldSplitFen.split(p).length - 1 - (newSplitFen.split(p).length - 1);
-    const pcolor = p.toUpperCase() === p ? 'white' : 'black';
-    if (diff === 1) {
-      const prefix = renderPrefixStyle(pcolor, prefixStyle);
-      const piece = renderPieceStyle(p, pieceStyle);
-      return prefix + piece;
-    }
-  }
-  return 'none';
-}
-
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
     ? 'Game start'
@@ -413,7 +390,25 @@ export function lastCapturedCommandHandler(
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ) {
-  return (): Cash => $('.boardstatus').text(lastCaptured(fensteps, pieceStyle, prefixStyle));
+  const lastCaptured = (): string => {
+    const fens = fensteps();
+    const oldFen = fens[fens.length - 2];
+    const currentFen = fens[fens.length - 1];
+    if (!oldFen || !currentFen) return 'none';
+    const oldBoardFen = oldFen.split(' ')[0];
+    const currentBoardFen = currentFen.split(' ')[0];
+    for (const p of 'kKqQrRbBnNpP') {
+      const diff = oldBoardFen.split(p).length - 1 - (currentBoardFen.split(p).length - 1);
+      const pcolor = p.toUpperCase() === p ? 'white' : 'black';
+      if (diff === 1) {
+        const prefix = renderPrefixStyle(pcolor, prefixStyle);
+        const piece = renderPieceStyle(p, pieceStyle);
+        return `${prefix} ${piece}`;
+      }
+    }
+    return 'none';
+  };
+  return (): Cash => $('.boardstatus').text(lastCaptured());
 }
 
 export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: VariantKey, steps: RoundStep[]) {
