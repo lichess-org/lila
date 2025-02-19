@@ -379,18 +379,16 @@ final class Study(
 
   def embed(studyId: StudyId, chapterId: StudyChapterId) = Anon:
     InEmbedContext:
-      val studyFu =
-        if chapterId.value == "autochap"
-        then env.study.api.byIdWithChapter(studyId)
-        else env.study.api.byIdWithChapterOrFallback(studyId, chapterId)
       def notFound = NotFound.snip(views.study.embed.notFound)
-      studyFu
+      env.study.api
+        .byId(studyId)
         .flatMap:
-          _.fold(notFound.toFuccess): sc =>
+          _.fold(notFound.toFuccess): study =>
+            val finalChapterId = if chapterId.value == "autochap" then study.position.chapterId else chapterId
             env.api.textLpvExpand
-              .getChapterPgn(sc.chapter.id)
+              .getChapterPgn(finalChapterId)
               .map:
-                case Some(LpvEmbed.PublicPgn(pgn)) => Ok.snip(views.study.embed(sc.study, sc.chapter, pgn))
+                case Some(LpvEmbed.PublicPgn(pgn)) => Ok.snip(views.study.embed(study, finalChapterId, pgn))
                 case _                             => notFound
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
