@@ -72,7 +72,8 @@ final class TournamentLilaHttp(
       "ongoingUserGames" -> {
         duelStore
           .get(tour.id)
-          .so { _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",") }: String
+          .so[String]:
+            _.map(d => s"${d.p1.name.id}&${d.p2.name.id}/${d.gameId}").mkString(",")
       },
       "standing" -> fullStanding
     )
