@@ -20,12 +20,10 @@ final private class PuzzleTrustApi(colls: PuzzleColls, userApi: lila.core.user.U
             user.perfs.puzzle.glicko.establishedIntRating.fold(fuccess(-2)): userRating =>
               colls
                 .puzzle(_.primitiveOne[Float]($id(round.id.puzzleId), s"${Puzzle.BSONFields.glicko}.r"))
-                .map {
-                  _.fold(-2) { puzzleRating =>
+                .map:
+                  _.fold(-2): puzzleRating =>
                     (math.abs(puzzleRating - userRating.value) > 300).so(-4)
-                  }
-                }
-          .dmap(w +)
+          .dmap(w + _)
       .dmap(_.some.filter(0 <))
 
   def theme(user: User): Fu[Option[Int]] =

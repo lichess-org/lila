@@ -12,6 +12,12 @@ object header:
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
 
+  private def possibleSeoBot(u: User) =
+    !u.isVerified && !u.hasTitle && u.count.game < 10 && (
+      u.profile.exists(_.links.isDefined) ||
+        u.profile.flatMap(_.bio).exists(_.contains("https://"))
+    )
+
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
     frag(
       div(cls := "box__top user-show__header")(
@@ -174,24 +180,20 @@ object header:
             else (ctx.is(u) && u.count.game < 10).option(ui.newPlayer(u)),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
-                ctx
-                  .isnt(u)
-                  .option(
-                    frag(
-                      u.lame.option(
-                        div(cls := "warning tos_warning")(
-                          span(dataIcon := Icon.CautionCircle, cls := "is4"),
-                          trans.site.thisAccountViolatedTos()
-                        )
-                      )
-                    )
-                  ),
+                (u.lame && ctx.isnt(u)).option:
+                  div(cls := "warning tos_warning")(
+                    span(dataIcon := Icon.CautionCircle, cls := "is4"),
+                    trans.site.thisAccountViolatedTos()
+                  )
+                ,
                 (ctx.kid.no && !hideTroll && !u.kid).option(
                   frag(
                     profile.nonEmptyRealName.map: name =>
                       strong(cls := "name")(name),
-                    profile.nonEmptyBio.map: bio =>
-                      p(cls := "bio")(richText(bio, nl2br = true))
+                    profile.nonEmptyBio
+                      .ifFalse(possibleSeoBot(u))
+                      .map: bio =>
+                        p(cls := "bio")(richText(bio, nl2br = true))
                   )
                 ),
                 div(cls := "stats")(
@@ -228,9 +230,14 @@ object header:
                     ),
                   (!hideTroll && !u.kid).option(
                     div(cls := "social_links col2")(
-                      profile.actualLinks.nonEmpty.option(strong(trans.site.socialMediaLinks())),
-                      profile.actualLinks.map: link =>
-                        a(href := link.url, targetBlank, noFollow, relMe)(link.site.name)
+                      profile.actualLinks.some
+                        .filter(_.nonEmpty && !possibleSeoBot(u))
+                        .map: links =>
+                          frag(
+                            strong(trans.site.socialMediaLinks()),
+                            links.map: link =>
+                              a(href := link.url, targetBlank, noFollow, relMe)(link.site.name)
+                          )
                     )
                   ),
                   (ctx.is(u) || !u.kid).option(

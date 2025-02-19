@@ -42,6 +42,14 @@ object BSONHandlers:
   given BSONHandler[List[RelayGame.Slice]] =
     stringIsoHandler[List[RelayGame.Slice]](using RelayGame.Slices.iso)
 
+  given BSONHandler[Sync.OnlyRound] = quickHandler[Sync.OnlyRound](
+    {
+      case BSONString(s)  => Left(s)
+      case BSONInteger(i) => Right(i)
+    },
+    _.fold(BSONString(_), BSONInteger(_))
+  )
+
   given BSONDocumentHandler[Sync] = Macros.handler
 
   import RelayRound.Starts

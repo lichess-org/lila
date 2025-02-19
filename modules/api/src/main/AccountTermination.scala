@@ -93,7 +93,7 @@ final class AccountTermination(
     _       <- streamerApi.demote(u.id)
     reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
     _ <-
-      if selfClose then modLogApi.selfCloseAccount(u.id, reports)
+      if selfClose then modLogApi.selfCloseAccount(u.id, forever, reports)
       else if teacherClose then modLogApi.teacherCloseAccount(u.id)
       else modLogApi.closeAccount(u.id)
     _ <- appealApi.onAccountClose(u)

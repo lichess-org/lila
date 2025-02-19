@@ -99,6 +99,7 @@ final class Account(
             withFollows = apiC.userWithFollows,
             withTrophies = false,
             withCanChallenge = false,
+            withPlayban = getBool("playban"),
             forWiki = wikiGranted
           )
           .dmap { JsonOk(_) }
