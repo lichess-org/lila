@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">%s としてログイン</string>
   <string name="welcome">ようこそ！</string>
   <string name="welcomeToLichess">Lichess.org へようこそ！</string>
   <string name="thisIsYourProfilePage">これはあなたのプロフィールページです。</string>

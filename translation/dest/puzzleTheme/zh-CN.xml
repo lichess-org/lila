@@ -57,6 +57,7 @@
   <string name="interferenceDescription">走动棋子到对手的两个棋子之间，使其中的一个或两个棋子消除保护，例如将一个马走到两个车之间的防守格上。</string>
   <string name="intermezzo">过渡着</string>
   <string name="intermezzoDescription">不走预期的着法，而是走一着对手必须应对的直接威胁。</string>
+  <string name="vukovicMate">武科维奇杀法</string>
   <string name="vukovicMateDescription">车和马一起合作将死了王。车在第三个子的合作下杀死了王，马用来挡住敌王的出路格子。</string>
   <string name="knightEndgame">马残局</string>
   <string name="knightEndgameDescription">只有马和兵的残局。</string>
