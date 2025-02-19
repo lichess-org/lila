@@ -13,12 +13,13 @@ object header:
   private val dataTab    = attr("data-tab")
 
   private def possibleSeoBot(u: User) =
-    !u.isVerified && !u.hasTitle && u.count.game < 10 && (
+    !u.isVerified && !u.hasTitle && u.count.game < 5 && (
       u.profile.exists(_.links.isDefined) ||
-        u.profile.flatMap(_.bio).exists(_.contains("https://"))
+        u.profile.flatMap(_.nonEmptyBio).exists(_.contains("https://"))
     )
 
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
+    val showLinks = !possibleSeoBot(u) || isGranted(_.Shadowban)
     frag(
       div(cls := "box__top user-show__header")(
         if u.isPatron then
@@ -190,8 +191,8 @@ object header:
                   frag(
                     profile.nonEmptyRealName.map: name =>
                       strong(cls := "name")(name),
-                    profile.nonEmptyBio
-                      .ifFalse(possibleSeoBot(u))
+                    showLinks
+                      .so(profile.nonEmptyBio)
                       .map: bio =>
                         p(cls := "bio")(richText(bio, nl2br = true))
                   )
@@ -230,8 +231,9 @@ object header:
                     ),
                   (!hideTroll && !u.kid).option(
                     div(cls := "social_links col2")(
-                      profile.actualLinks.some
-                        .filter(_.nonEmpty && !possibleSeoBot(u))
+                      showLinks
+                        .option(profile.actualLinks)
+                        .filter(_.nonEmpty)
                         .map: links =>
                           frag(
                             strong(trans.site.socialMediaLinks()),
