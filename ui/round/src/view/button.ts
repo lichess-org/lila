@@ -4,7 +4,6 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { justIcon } from '../util';
 import { replayable, rematchable, moretimeable, type PlayerUser } from 'game';
 import { finished, aborted } from 'game/status';
-import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { RoundData } from '../interfaces';
 import type { ClockData } from '../clock/clockCtrl';
@@ -248,14 +247,8 @@ export function followUp(ctrl: RoundController): VNode {
       !d.swiss &&
       !d.game.boosted,
     newable = (finished(d) || aborted(d)) && ['lobby', 'pool', 'local'].includes(d.game.source),
-    rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [],
-    statusZone = (
-      window.matchMedia('(max-width: 800px) and (orientation: portrait)').matches
-        ? h('section.status', viewStatus(ctrl))
-        : null
-    ) as VNode;
+    rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
-    statusZone,
     ...rematchZone,
     d.tournament &&
       h('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
