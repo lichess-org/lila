@@ -1,0 +1,97 @@
+body:has(.base-view.setup-view) {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+.setup-view {
+  max-width: 640px;
+  max-height: 800px;
+  user-select: none;
+
+  div.player {
+    position: relative;
+    aspect-ratio: 1;
+    width: min(70%, 28vh);
+  }
+  .vs {
+    @extend %flex-column;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  #board-preview {
+    display: block;
+    position: absolute;
+    height: 0;
+    padding-bottom: 100%;
+    width: 100%;
+  }
+
+  .card label {
+    padding: 1px 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: #333;
+    background-color: #f0f0f0dd;
+  }
+  .chin {
+    @extend %flex-center;
+    position: relative;
+    justify-content: center;
+    padding: 1em;
+    gap: 1.5em;
+    border-radius: 5px;
+    border-top: 1px solid $c-border;
+    background: $c-bg-zebra2;
+    label {
+      @extend %flex-center;
+      justify-content: end;
+      gap: 1ch;
+    }
+    span {
+      @extend %flex-center;
+      justify-content: center;
+      gap: 0.5em;
+    }
+    select {
+      height: 32px;
+      box-sizing: border-box;
+      padding: 0;
+    }
+    input {
+      min-height: 32px;
+      flex: auto;
+    }
+    button {
+      padding: 2px; //calc(6px * $scale-factor);
+      i {
+        display: block;
+        padding: 0;
+        width: 64px;
+        height: 64px;
+        background-size: 64px 64px;
+      }
+
+      &.white i {
+        background-image: url(../images/buttons/play-as-white.svg);
+      }
+      &.black i {
+        background-image: url(../images/buttons/play-as-black.svg);
+      }
+      &.random i {
+        background-image: url(../images/buttons/play-as-random.svg);
+      }
+    }
+  }
+
+  .params {
+    @extend %flex-column;
+    flex: auto;
+    gap: 1em;
+  }
+  .actions {
+    @extend %flex-around;
+    align-items: center;
+    gap: 4px; //calc(20px * $scale-factor);
+  }
+}

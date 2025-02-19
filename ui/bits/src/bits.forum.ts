@@ -13,7 +13,7 @@ site.load.then(() => {
         attrs: { view: { action: link.href } },
         modal: true,
       }).then(dlg => {
-        $(dlg.view)
+        $(dlg.viewEl)
           .find('form')
           .attr('action', link.href)
           .on('submit', function (this: HTMLFormElement, e: Event) {
@@ -22,7 +22,7 @@ site.load.then(() => {
             $(link).closest('.forum-post').hide();
             dlg.close();
           });
-        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        $(dlg.viewEl).find('form button.cancel').on('click', dlg.close);
         dlg.show();
       });
       return false;
@@ -34,8 +34,8 @@ site.load.then(() => {
         attrs: { view: { action: link.href } },
         modal: true,
       }).then(dlg => {
-        $(dlg.view).find('form').attr('action', link.href);
-        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        $(dlg.viewEl).find('form').attr('action', link.href);
+        $(dlg.viewEl).find('form button.cancel').on('click', dlg.close);
         dlg.show();
       });
       return false;

@@ -1,6 +1,5 @@
 import * as licon from 'common/licon';
-import { userAnalysable, playable } from 'game';
-import { finished, aborted } from 'game/status';
+import { finished, aborted, userAnalysable, playable } from 'game';
 import * as util from '../util';
 import { bindMobileMousedown, isCol1 } from 'common/device';
 import type RoundController from '../ctrl';
@@ -116,6 +115,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   const forecastCount = ctrl.data.forecastCount;
   return (
     userAnalysable(ctrl.data) &&
+    !ctrl.opts.local &&
     h(
       'a.fbt.analysis',
       {

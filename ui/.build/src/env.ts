@@ -2,7 +2,7 @@ import type { Package } from './parse.ts';
 import fs from 'node:fs';
 import ps from 'node:process';
 import { join, resolve, dirname } from 'node:path';
-import { unique, isEquivalent, trimLines } from './algo.ts';
+import { definedUnique, isEquivalent, trimLines } from './algo.ts';
 import { updateManifest } from './manifest.ts';
 import { taskOk } from './task.ts';
 
@@ -31,7 +31,6 @@ export const env = new (class {
   clean = false;
   prod = false;
   debug = false;
-  rgb = false;
   test = false;
   install = true;
   logTime = true;
@@ -72,7 +71,7 @@ export const env = new (class {
       ...(this.workspaceDeps.get(dep) ?? []).flatMap(d => depList(d)),
       dep,
     ];
-    return unique(depList(pkgName).map(name => this.packages.get(name)));
+    return definedUnique(depList(pkgName).map(name => this.packages.get(name)));
   }
 
   log(d: any, ctx = 'build'): void {

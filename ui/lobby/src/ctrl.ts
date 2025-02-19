@@ -25,6 +25,7 @@ import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { wsPingInterval } from 'common/socket';
+import type { LocalEnv, LiteGame } from 'local';
 
 export default class LobbyController {
   data: LobbyData;
@@ -42,6 +43,8 @@ export default class LobbyController {
   pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
+  local: LocalEnv;
+  localGames: LiteGame[] = [];
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -58,7 +61,12 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
-
+    site.asset.loadEsm<LocalEnv>('local.db').then(async local => {
+      this.local = local;
+      this.localGames = await local.db.ongoing();
+      console.log(this.localGames);
+      this.redraw();
+    });
     hookRepo.initAll(this);
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);

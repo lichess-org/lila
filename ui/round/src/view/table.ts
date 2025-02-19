@@ -1,7 +1,6 @@
 import * as licon from 'common/licon';
 import type { Position } from '../interfaces';
-import { abortable, playable, drawableSwiss, resignable, takebackable } from 'game';
-import { aborted, finished } from 'game/status';
+import { aborted, finished, abortable, playable, drawableSwiss, resignable, takebackable } from 'game';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
 import { render as renderReplay, analysisButton } from './replay';

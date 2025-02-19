@@ -15,7 +15,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     class: 'team-battle__choice',
     modal: true,
     onInsert(dlg) {
-      $('.team-picker__team', dlg.view).on('click', e => {
+      $('.team-picker__team', dlg.viewEl).on('click', e => {
         ctrl.join(e.target.dataset['id']);
         dlg.close();
       });

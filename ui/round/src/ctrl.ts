@@ -35,8 +35,6 @@ import type {
   CrazyPocket,
   RoundOpts,
   RoundData,
-  ApiMove,
-  ApiEnd,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -44,6 +42,8 @@ import type {
   Position,
   NvuiPlugin,
   RoundTour,
+  ApiMove,
+  ApiEnd,
 } from './interfaces';
 import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
@@ -262,8 +262,8 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
-    this.pluginUpdate(s.fen);
     pubsub.emit('ply', ply);
+    this.pluginUpdate(s.fen);
     return true;
   };
 
@@ -522,7 +522,7 @@ export default class RoundController implements MoveRootCtrl {
     this.updateClockCtrl();
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (!this.replaying() && !this.opts.local) groundReload(this);
+    if (!this.replaying()) groundReload(this);
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
@@ -896,7 +896,7 @@ export default class RoundController implements MoveRootCtrl {
       if (this.isPlaying() && d.steps.length === 1) {
         this.blindfold(this.blindfoldStorage.get());
       }
-      wakeLock.request();
+      if (!this.opts.local) wakeLock.request();
 
       setTimeout(() => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {

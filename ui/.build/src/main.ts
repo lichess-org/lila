@@ -103,7 +103,6 @@ env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
 env.remoteLog = stringArg('--log');
 env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
 env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
-env.rgb = argv.includes('--rgb');
 env.test = argv.includes('--test') || oneDashArgs.includes('t');
 
 if (argv.includes('--help') || oneDashArgs.includes('h')) {

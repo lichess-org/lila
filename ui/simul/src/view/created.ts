@@ -40,10 +40,13 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                                 cash: $('.simul .continue-with'),
                                 modal: true,
                               }).then(dlg => {
-                                $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
-                                  xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
-                                  dlg.close();
-                                });
+                                $('button.button', dlg.viewEl).on(
+                                  'click',
+                                  function (this: HTMLButtonElement) {
+                                    xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
+                                    dlg.close();
+                                  },
+                                );
                                 dlg.show();
                               });
                           })

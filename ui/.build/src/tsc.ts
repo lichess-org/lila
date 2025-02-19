@@ -125,28 +125,39 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
     .get(pkgName)
     ?.map(ref => ({ path: join(env.buildTempDir, 'noCheck', `${ref}.tsconfig.json`) }));
 
-  const noEmitData = structuredClone(config);
-  const noEmit = join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`);
-  noEmitData.compilerOptions.noEmit = true;
-  noEmitData.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noEmit', `${pkgName}.tsbuildinfo`);
-  if (env.test && (await readable(join(root, 'tests')))) {
-    noEmitData.include.push(join(root, 'tests'));
-    noEmitData.compilerOptions.rootDir = root;
-    noEmitData.compilerOptions.skipLibCheck = true;
-    noEmitData.size += await folderSize(join(root, 'tests'));
-  }
-  io.push(fs.promises.writeFile(noEmit, JSON.stringify(noEmitData, undefined, 2)));
+  const checkCfg = structuredClone(config);
+  const checkPath = join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`);
+  checkCfg.compilerOptions.noEmit = true;
+  checkCfg.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noEmit', `${pkgName}.tsbuildinfo`);
 
-  const res: SplitConfig[] = [{ type: 'noEmit', configFile: noEmit, pkgName, size: config.size }];
+  io.push(fs.promises.writeFile(checkPath, JSON.stringify(checkCfg, undefined, 2)));
+
+  const res: SplitConfig[] = [{ type: 'noEmit', configFile: checkPath, pkgName, size: config.size }];
+  if (env.test && (await readable(join(root, 'tests')))) {
+    const testCheckCfg = structuredClone(config);
+    const testCheckPath = join(env.buildTempDir, 'noEmit', `${pkgName}.test.tsconfig.json`);
+    testCheckCfg.include.push(join(root, 'tests'));
+    testCheckCfg.compilerOptions.rootDir = env.uiDir;
+    testCheckCfg.compilerOptions.noEmit = true;
+    testCheckCfg.compilerOptions.skipLibCheck = true;
+    testCheckCfg.compilerOptions.tsBuildInfoFile = join(
+      env.buildTempDir,
+      'noEmit',
+      `${pkgName}.test.tsbuildinfo`,
+    );
+    testCheckCfg.size = await folderSize(join(root, 'tests'));
+    io.push(fs.promises.writeFile(testCheckPath, JSON.stringify(testCheckCfg, undefined, 2)));
+    res.push({ type: 'noEmit', configFile: testCheckPath, pkgName, size: testCheckCfg.size });
+  }
 
   if (!co.noEmit) {
-    const noCheckData = structuredClone(config);
-    const noCheck = join(env.buildTempDir, 'noCheck', `${pkgName}.tsconfig.json`);
-    noCheckData.compilerOptions.noCheck = true;
-    noCheckData.compilerOptions.emitDeclarationOnly = true;
-    noCheckData.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noCheck', `${pkgName}.tsbuildinfo`);
-    res.push({ type: 'noCheck', configFile: noCheck, pkgName, size: config.size });
-    io.push(fs.promises.writeFile(noCheck, JSON.stringify(noCheckData, undefined, 2)));
+    const emitCfg = structuredClone(config);
+    const emitPath = join(env.buildTempDir, 'noCheck', `${pkgName}.tsconfig.json`);
+    emitCfg.compilerOptions.noCheck = true;
+    emitCfg.compilerOptions.emitDeclarationOnly = true;
+    emitCfg.compilerOptions.tsBuildInfoFile = join(env.buildTempDir, 'noCheck', `${pkgName}.tsbuildinfo`);
+    res.push({ type: 'noCheck', configFile: emitPath, pkgName, size: config.size });
+    io.push(fs.promises.writeFile(emitPath, JSON.stringify(emitCfg, undefined, 2)));
   }
   await Promise.all(io);
   return res;

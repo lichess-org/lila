@@ -22,6 +22,11 @@
     "node": ">=22.6",
     "pnpm": "^10"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "dependencies": {
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.201",

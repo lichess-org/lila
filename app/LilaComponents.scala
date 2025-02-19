@@ -127,6 +127,7 @@ final class LilaComponents(
   lazy val irwin: Irwin                   = wire[Irwin]
   lazy val learn: Learn                   = wire[Learn]
   lazy val lobby: Lobby                   = wire[Lobby]
+  lazy val localPlay: Local               = wire[Local]
   lazy val main: Main                     = wire[Main]
   lazy val msg: Msg                       = wire[Msg]
   lazy val mod: Mod                       = wire[Mod]
