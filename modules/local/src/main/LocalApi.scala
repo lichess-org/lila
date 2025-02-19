@@ -24,9 +24,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
     FileIO
       .fromPath(file.ref.path)
       .runWith(FileIO.toPath(getFile(s"public/lifat/bots/${tpe}/$name").toPath))
-      .map: result =>
-        if result.wasSuccessful then Right(updateAssets)
-        else Left(s"Error uploading asset $tpe $name")
+      .map(res => Right(updateAssets))
       .recover:
         case e: Exception => Left(s"Exception: ${e.getMessage}")
 
