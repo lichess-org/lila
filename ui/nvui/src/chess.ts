@@ -103,6 +103,9 @@ const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) =>
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
   prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
 
+const renderPieceStr = (piece: string, pieceStyle: PieceStyle, c: Color, prefixStyle: PrefixStyle): string =>
+  `${renderPrefixStyle(c, prefixStyle)} ${renderPieceStyle(piece, pieceStyle)}`;
+
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
     ? 'Game start'
@@ -219,9 +222,9 @@ export function renderBoard(
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
       const roleCh = roleToChar(piece.role);
-      const pieceText = renderPieceStyle(piece.color === 'white' ? roleCh.toUpperCase() : roleCh, pieceStyle);
-      const prefix = renderPrefixStyle(piece.color, prefixStyle);
-      const text = renderPositionStyle(rank, file, prefix + pieceText);
+      const pieceStr = piece.color === 'white' ? roleCh.toUpperCase() : roleCh;
+      const pieceText = renderPieceStr(pieceStr, pieceStyle, piece.color, prefixStyle);
+      const text = renderPositionStyle(rank, file, pieceText);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, text));
     } else {
       const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
@@ -400,11 +403,7 @@ export function lastCapturedCommandHandler(
     for (const p of 'kKqQrRbBnNpP') {
       const diff = oldBoardFen.split(p).length - 1 - (currentBoardFen.split(p).length - 1);
       const pcolor = p.toUpperCase() === p ? 'white' : 'black';
-      if (diff === 1) {
-        const prefix = renderPrefixStyle(pcolor, prefixStyle);
-        const piece = renderPieceStyle(p, pieceStyle);
-        return `${prefix} ${piece}`;
-      }
+      if (diff === 1) return renderPieceStr(p, pieceStyle, pcolor, prefixStyle);
     }
     return 'none';
   };
