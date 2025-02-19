@@ -27,7 +27,7 @@ final class Local(env: Env) extends LilaController(env):
       .map: bots =>
         JsonOk(Json.obj("bots" -> bots))
 
-  def assetKeys = Open: // for service worker
+  def assetKeys = Anon: // for service worker
     JsonOk(env.local.api.assetKeys)
 
   def devIndex = Auth: _ ?=>
