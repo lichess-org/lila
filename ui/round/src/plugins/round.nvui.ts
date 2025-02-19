@@ -106,35 +106,37 @@ export function initModule(): NvuiPlugin {
           // make sure consecutive moves are different so that they get re-read
           renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' '),
         ),
-        ctrl.isPlaying() && h('h2', 'Move form'),
         ctrl.isPlaying() &&
-          h(
-            'form#move-form',
-            {
-              hook: onInsert(el => {
-                const $form = $(el as HTMLFormElement),
-                  $input = $form.find('.move').val('');
-                nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
-                $form.on('submit', (ev: SubmitEvent) => {
-                  ev.preventDefault();
-                  nvui.submitMove?.();
-                });
-              }),
-            },
-            [
-              h('label', [
-                d.player.color === d.game.player ? i18n.site.yourTurn : i18n.site.waiting,
-                h('input.move.mousetrap', {
-                  attrs: {
-                    name: 'move',
-                    type: 'text',
-                    autocomplete: 'off',
-                    autofocus: true,
-                  },
+          h('div.move-input', [
+            h('h2', 'Move form'),
+            h(
+              'form#move-form',
+              {
+                hook: onInsert(el => {
+                  const $form = $(el as HTMLFormElement),
+                    $input = $form.find('.move').val('');
+                  nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
+                  $form.on('submit', (ev: SubmitEvent) => {
+                    ev.preventDefault();
+                    nvui.submitMove?.();
+                  });
                 }),
-              ]),
-            ],
-          ),
+              },
+              [
+                h('label', [
+                  d.player.color === d.game.player ? i18n.site.yourTurn : i18n.site.waiting,
+                  h('input.move.mousetrap', {
+                    attrs: {
+                      name: 'move',
+                      type: 'text',
+                      autocomplete: 'off',
+                      autofocus: true,
+                    },
+                  }),
+                ]),
+              ],
+            ),
+          ]),
         clocks.some(c => !!c) &&
           h('div.clocks', [
             h('h2', 'Your clock'),
