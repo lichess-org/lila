@@ -1,9 +1,5 @@
 package lila.local
 
-import reactivemongo.api.bson.*
-// import reactivemongo.api.bson.collection.BSONCollection
-import play.api.libs.json.*
-
 case class GameSetup(
     white: Option[String],
     black: Option[String],
