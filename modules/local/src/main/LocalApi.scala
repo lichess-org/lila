@@ -37,10 +37,9 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
       Nil
     else
       path
-        .listFiles()
+        .listFiles(_.getName.endsWith(s".${ext}"))
         .toList
         .map(_.getName)
-        .filter(_.endsWith(s".${ext}"))
 
   def updateAssets: JsObject =
     val newAssets = Json.obj(
