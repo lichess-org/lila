@@ -45,4 +45,5 @@ Lichess-ലെ കമ്പ്യൂട്ടർ വിശകലനം Stockfish
   <string name="accounts">അക്കൗണ്ടുകള്‍</string>
   <string name="noUpperCaseDot">ഇല്ല.</string>
   <string name="whatIsProvisionalRating">എന്റെ രേറ്റിങ്ങിന്റെ തോട്ടുമുമ്പു് ഒരു കാകുയടയാളം (?) എന്തിന ഇരിക്കുന്നതു്?</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">ഉപരിഫലകം</string>
 </resources>
