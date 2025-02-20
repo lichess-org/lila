@@ -331,12 +331,22 @@ class DialogWrapper implements Dialog {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {
-      const $focii = $(focusQuery, e.currentTarget as Element),
-        first = $as<HTMLElement>($focii.first()),
-        last = $as<HTMLElement>($focii.last()),
+      const focii = [...this.dialogEl.querySelectorAll<HTMLElement>(focusQuery)].filter(
+        el => el.getAttribute('tabindex') !== '-1',
+      );
+      focii.sort((a, b) => {
+        const ati = Number(a.getAttribute('tabindex') ?? '0');
+        const bti = Number(b.getAttribute('tabindex') ?? '0');
+        if (ati > 0 && (bti === 0 || ati < bti)) return -1;
+        else if (bti > 0 && ati !== bti) return 1;
+        else return a.compareDocumentPosition(b) & 2 ? 1 : -1;
+      });
+      const first = focii[0],
+        last = focii[focii.length - 1],
         focus = document.activeElement as HTMLElement;
-      if (focus === last && !e.shiftKey) first.focus();
-      else if (focus === first && e.shiftKey) last.focus();
+
+      if (focus === last && !e.shiftKey) first?.focus();
+      else if (focus === first && e.shiftKey) last?.focus();
       else return;
       e.preventDefault();
     }

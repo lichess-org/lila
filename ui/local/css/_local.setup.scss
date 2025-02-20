@@ -1,3 +1,14 @@
+@mixin go-to-button {
+  position: absolute;
+  padding: 20px 0;
+  top: 25%;
+  font-size: 4em;
+  color: $c-bg-zebra2;
+  &:hover {
+    color: $c-font-dimmer;
+  }
+}
+
 body:has(.base-view.setup-view) {
   -webkit-user-select: none !important;
   user-select: none !important;
@@ -21,6 +32,12 @@ body:has(.base-view.setup-view) {
 
   .from-position {
     position: relative;
+    .resets {
+      @extend %flex-center;
+      justify-content: center;
+      padding: 2em;
+      gap: 2em;
+    }
   }
 
   .snap-pane {
@@ -29,28 +46,26 @@ body:has(.base-view.setup-view) {
   }
 
   .go-to-board {
-    position: absolute;
-    padding: 10px;
-    color: $c-font-dimmer;
-    top: 40%;
+    @include go-to-button;
     right: 20px;
-    font-size: 4em;
   }
 
   .go-to-opponent {
-    position: absolute;
-    padding: 10px;
-    color: $c-font-dimmer;
-    top: 40%;
+    @include go-to-button;
     left: 20px;
-    font-size: 4em;
   }
 
   div.player {
     position: relative;
     aspect-ratio: 1;
     width: min(70%, 28vh);
+
+    &.drag-over {
+      outline: 2px solid $c-primary;
+      outline-offset: 2px;
+    }
   }
+
   .vs {
     @extend %flex-column;
     align-items: center;
@@ -72,31 +87,27 @@ body:has(.base-view.setup-view) {
     position: relative;
     justify-content: center;
     padding: 1em;
-    gap: 1.5em;
     border-radius: 5px;
     border-top: 1px solid $c-border;
     background: $c-bg-zebra2;
-    label {
-      @extend %flex-center;
-      justify-content: end;
-      gap: 1ch;
+    * {
+      padding: 6px;
+      gap: 0.5em;
     }
     span {
       @extend %flex-center;
       justify-content: center;
-      gap: 0.5em;
-    }
-    select {
-      height: 32px;
-      box-sizing: border-box;
-      padding: 0;
     }
     input {
       min-height: 32px;
       flex: auto;
     }
+    @include mq-is-col1 {
+      select {
+        height: 32px;
+      }
+    }
     button {
-      padding: 2px; //calc(6px * $scale-factor);
       i {
         display: block;
         padding: 0;
@@ -120,11 +131,15 @@ body:has(.base-view.setup-view) {
   .params {
     @extend %flex-column;
     flex: auto;
-    gap: 1em;
+    gap: 0.5em;
   }
   .actions {
-    @extend %flex-around;
-    align-items: center;
-    gap: 4px; //calc(20px * $scale-factor);
+    @extend %flex-center;
+    justify-content: center;
+  }
+  @include mq-is-col1 {
+    .fen {
+      display: none;
+    }
   }
 }

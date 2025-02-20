@@ -3,7 +3,7 @@ import * as co from 'chessops';
 import { domDialog, Dialog } from 'common/dialog';
 import { fen960 } from 'chess';
 import { pubsub } from 'common/pubsub';
-import { definedMap } from 'common/algo';
+import { definedMap, clamp } from 'common/algo';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
@@ -49,91 +49,40 @@ class SetupDialog {
           </div>
           <div class="from-position is2d snap-pane">
             <div class="editor"></div>
-            <span>
+            <div class="resets">
               <button class="button button-metal standard">Standard</button>
               <button class="button button-metal chess960">Chess960</button>
-            </span>
+            </div>
             <button class="button button-empty go-to-opponent" data-icon="${licon.LessThan}"></button>
           </div>
         </div>
         <div class="chin">
           <div class="params">
+            <input class="fen" type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}"
+                    value="${this.setup.setupFen ?? ''}">
             <span>
-              <input class="fen" type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}"
-                     value="${this.setup.setupFen ?? ''}">
-            </span>
-            <span>
+              Clock:
               <select data-type="initial">${this.timeOptions('initial')}</select>
               +
               <select data-type="increment">${this.timeOptions('increment')}</select>
             </span>
           </div>
           <div class="actions">
-            <button class="button button-metal black"><i></i></button>
-            <button class="button button-metal random"><i></i></button>
-            <button class="button button-metal white"><i></i></button>
+            <button class="button button-empty black"><i></i></button>
+            <button class="button button-empty random"><i></i></button>
+            <button class="button button-empty white"><i></i></button>
           </div>
         </div>`,
       modal: true,
       focus: '.white',
       actions: [
-        {
-          selector: '.fen',
-          event: 'focus',
-          listener: () => {
-            const content = dlg.viewEl.querySelector<HTMLElement>('.main-content')!;
-            content.scrollLeft = content.scrollWidth;
-          },
-        },
-        {
-          selector: '.fen',
-          event: 'input',
-          listener: e => {
-            if (!(e.target instanceof HTMLInputElement)) return;
-            const value = e.target.value;
-            this.editor.setFen(e.target.value);
-          },
-        },
-        {
-          selector: '.standard',
-          listener: () => {
-            this.editor.setRules(co.compat.lichessRules('standard'));
-            const input = dlg.viewEl.querySelector<HTMLInputElement>('.fen')!;
-            input.value = '';
-            this.editor.setFen(co.fen.INITIAL_FEN);
-          },
-        },
-        {
-          selector: '.chess960',
-          listener: () => {
-            this.editor.setRules(co.compat.lichessRules('chess960'));
-            const input = dlg.viewEl.querySelector<HTMLInputElement>('.fen')!;
-            input.value = fen960();
-            this.editor.setFen(input.value);
-          },
-        },
-        {
-          selector: '.main-content',
-          event: 'wheel',
-          listener: (e: WheelEvent) => {
-            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) e.preventDefault();
-            else this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!.scrollTop = 0;
-          },
-        },
-        {
-          selector: '.go-to-board',
-          listener: () => {
-            const content = dlg.viewEl.querySelector<HTMLElement>('.main-content')!;
-            content.scrollLeft = content.scrollWidth;
-          },
-        },
-        {
-          selector: '.go-to-opponent',
-          listener: () => {
-            const content = dlg.viewEl.querySelector<HTMLElement>('.main-content')!;
-            content.scrollLeft = 0;
-          },
-        },
+        { selector: '.fen', event: 'focus', listener: this.focusFen },
+        { selector: '.fen', event: 'input', listener: this.inputFen },
+        { selector: '.standard', listener: this.clickStandard },
+        { selector: '.chess960', listener: this.clickChess960 },
+        { selector: '.main-content', event: 'wheel', listener: this.wheel },
+        { selector: '.go-to-board', listener: this.goToBoard },
+        { selector: '.go-to-opponent', listener: this.goToOpponent },
         { selector: '.white', listener: () => this.fight('white') },
         { selector: '.black', listener: () => this.fight('black') },
         { selector: '.random', listener: () => this.fight() },
@@ -150,6 +99,7 @@ class SetupDialog {
     this.dialog = dlg;
     this.initCards();
     this.initEditor();
+    this.goToOpponent();
 
     dlg.show();
 
@@ -168,6 +118,7 @@ class SetupDialog {
       viewEl: this.view,
       select: this.dropSelect,
       orientation: 'bottom',
+      peek: clamp(0.5 + (window.innerHeight - 320) / 960, { min: 0.5, max: 1.0 }),
     });
     this.janitor.addListener(window, 'resize', this.hand.resize);
   }
@@ -211,7 +162,6 @@ class SetupDialog {
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot?.description);
     this.dialog.viewEl.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
-    this.dialog.viewEl.querySelectorAll('.button-empty').forEach(x => x.classList.toggle('disabled', !bot));
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
   }
@@ -241,6 +191,46 @@ class SetupDialog {
       if (key && val) fragParams.push(`${key}=${encodeURIComponent(val)}`);
     }
     site.redirect(`/local${fragParams.length ? `#${fragParams.join('&')}` : ''}`);
+  };
+
+  focusFen = () => {
+    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
+    content.scrollLeft = content.scrollWidth;
+  };
+
+  inputFen = (e: InputEvent) => {
+    if (!(e.target instanceof HTMLInputElement)) return;
+    const value = e.target.value;
+    this.editor.setFen(e.target.value);
+  };
+
+  clickStandard = () => {
+    this.editor.setRules(co.compat.lichessRules('standard'));
+    const input = this.dialog.viewEl.querySelector<HTMLInputElement>('.fen')!;
+    input.value = '';
+    this.editor.setFen(co.fen.INITIAL_FEN);
+  };
+
+  clickChess960 = () => {
+    this.editor.setRules(co.compat.lichessRules('chess960'));
+    const input = this.dialog.viewEl.querySelector<HTMLInputElement>('.fen')!;
+    input.value = fen960();
+    this.editor.setFen(input.value);
+  };
+
+  wheel = (e: WheelEvent) => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) e.preventDefault();
+    else this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!.scrollTop = 0;
+  };
+
+  goToBoard = () => {
+    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
+    content.scrollLeft = content.scrollWidth;
+  };
+
+  goToOpponent = () => {
+    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
+    content.scrollLeft = 0;
   };
 
   private get botColor() {
