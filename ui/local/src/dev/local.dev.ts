@@ -10,6 +10,7 @@ import { renderGameView } from '../gameView';
 import { LocalDb } from '../localDb';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
+import { myUserId, myUsername } from 'common';
 
 const patch = init([classModule, attributesModule]);
 
@@ -37,8 +38,8 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     dev: new DevCtrl(),
     db: new LocalDb(),
     game: new GameCtrl(opts),
-    user: opts.userId,
-    username: opts.username,
+    user: myUserId(),
+    username: myUsername(),
     canPost: opts.canPost,
   });
 

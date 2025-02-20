@@ -6,7 +6,6 @@ import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
 import { showSetupDialog } from './setupDialog';
 import { env, makeEnv } from './localEnv';
-import { LocalGame } from './localGame';
 import { renderGameView } from './gameView';
 import type { LocalPlayOpts, LocalSetup } from './types';
 

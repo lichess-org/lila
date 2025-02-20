@@ -79,8 +79,6 @@ export type MoveResult = { uci: string; thinkTime: Seconds };
 
 export interface LocalPlayOpts {
   pref: any;
-  userId: string;
-  username: string;
   localGameId?: string;
   bots: BotInfo[];
   dev?: boolean;

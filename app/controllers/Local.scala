@@ -80,16 +80,11 @@ final class Local(env: Env) extends LilaController(env):
         .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
   }
 
-  private def indexPage(bots: JsArray, devAssets: Option[JsObject] = none)(using
-      ctx: Context
-  ) =
-    given setupFormat: Format[GameSetup] = Json.format[GameSetup]
+  private def indexPage(bots: JsArray, devAssets: Option[JsObject] = none)(using Context) =
     views.local.index(
       Json
         .obj("pref" -> pref, "bots" -> bots)
         .add("assets", devAssets)
-        .add("userId", ctx.me.map(_.userId))
-        .add("username", ctx.me.map(_.username))
         .add("canPost", isGrantedOpt(_.BotEditor)),
       if devAssets.isDefined then "local.dev" else "local"
     )

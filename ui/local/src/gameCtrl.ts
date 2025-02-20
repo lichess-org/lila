@@ -1,6 +1,6 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
-import { type GameContext, type GameStatus, type LocalGameData, LocalGame } from './localGame';
+import { type GameContext, type GameStatus, LocalGame } from './localGame';
 import { statusOf, clockToSpeed } from 'game';
 import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
