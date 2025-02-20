@@ -4,7 +4,7 @@ import { join, basename } from 'node:path';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { task, stopTask } from './task.ts';
-import { reduceWhitespace } from './algo.ts';
+import { definedMap, reduceWhitespace } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 
@@ -26,7 +26,6 @@ export async function esbuild(): Promise<any> {
     chunkNames: 'common.[hash]',
     plugins,
   };
-
   await fs.promises.mkdir(env.jsOutDir).catch(() => {});
   return Promise.all([
     inlineTask(),
@@ -37,10 +36,10 @@ export async function esbuild(): Promise<any> {
       noEnvStatus: true,
       globListOnly: true,
       glob: env.building.flatMap(pkg =>
-        pkg.bundle
-          .map(bundle => bundle.module)
-          .filter((module): module is string => Boolean(module))
-          .map(path => ({ cwd: pkg.root, path })),
+        definedMap(
+          pkg.bundle.map(bundle => bundle.module),
+          path => ({ cwd: pkg.root, path }),
+        ),
       ),
       execute: async entryPoints => {
         await esbuildCtx?.dispose();
@@ -76,10 +75,10 @@ function inlineTask() {
     debounce: 300,
     noEnvStatus: true,
     glob: env.building.flatMap(pkg =>
-      pkg.bundle
-        .map(b => b.inline)
-        .filter((i): i is string => Boolean(i))
-        .map(i => ({ cwd: pkg.root, path: i })),
+      definedMap(
+        pkg.bundle.map(b => b.inline),
+        path => ({ cwd: pkg.root, path }),
+      ),
     ),
     execute: (_, inlines) =>
       Promise.all(

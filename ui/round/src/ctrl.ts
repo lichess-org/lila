@@ -3,7 +3,6 @@
 import * as ab from 'ab';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
-import { playing } from 'game/status';
 import { boardOrientation, reload as groundReload } from './ground';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
@@ -35,8 +34,6 @@ import type {
   CrazyPocket,
   RoundOpts,
   RoundData,
-  ApiMove,
-  ApiEnd,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -44,6 +41,8 @@ import type {
   Position,
   NvuiPlugin,
   RoundTour,
+  ApiMove,
+  ApiEnd,
 } from './interfaces';
 import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
@@ -245,7 +244,7 @@ export default class RoundController implements MoveRootCtrl {
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = this.stepAt(ply),
+    const s = this.stepAt(this.ply),
       config: CgConfig = {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
@@ -262,8 +261,8 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
-    this.pluginUpdate(s.fen);
     pubsub.emit('ply', ply);
+    this.pluginUpdate(s.fen);
     return true;
   };
 
@@ -278,7 +277,7 @@ export default class RoundController implements MoveRootCtrl {
     );
   };
 
-  isLate = (): boolean => this.replaying() && playing(this.data);
+  isLate = (): boolean => this.replaying() && game.playing(this.data);
 
   playerAt = (position: Position): game.Player =>
     this.flip != (position === 'top') ? this.data.opponent : this.data.player;
@@ -522,7 +521,7 @@ export default class RoundController implements MoveRootCtrl {
     this.updateClockCtrl();
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (!this.replaying() && !this.opts.local) groundReload(this);
+    if (!this.replaying() /* && !this.opts.local*/) groundReload(this);
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
@@ -896,7 +895,7 @@ export default class RoundController implements MoveRootCtrl {
       if (this.isPlaying() && d.steps.length === 1) {
         this.blindfold(this.blindfoldStorage.get());
       }
-      wakeLock.request();
+      if (!this.opts.local) wakeLock.request();
 
       setTimeout(() => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
@@ -906,7 +905,6 @@ export default class RoundController implements MoveRootCtrl {
           location.href = '/page/play-extensions';
         }
       }, 1000);
-
       this.onChange();
     }, 800);
   };

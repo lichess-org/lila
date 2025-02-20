@@ -15,7 +15,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
       student: Option[Student] = None
   )(mods: AttrPair*)(using lila.ui.Context): Page =
     Page(title)
-      .css("bits.clas")
+      .css("bits.clas", "user.activity")
       .js(Esm("bits.clas"))
       .wrap: body =>
         if Granter.opt(_.Teacher) then
