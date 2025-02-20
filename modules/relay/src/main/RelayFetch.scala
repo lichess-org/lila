@@ -376,7 +376,7 @@ private object RelayFetch:
 
   val maxChaptersToShow: Max                 = Max(100)
   private val maxGamesToRead: Max            = Max(256)
-  private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 2)
+  private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 3)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
   object injectTimeControl:

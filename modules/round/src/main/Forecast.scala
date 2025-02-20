@@ -24,10 +24,9 @@ case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: Instant):
   def truncate = copy(steps = steps.take(30).map(_.take(30)))
 
   private def nextMove(g: Game, last: Move) =
-    steps.foldLeft(none[Uci.Move]) {
-      case (None, fst :: snd :: _) if g.ply == fst.ply && fst.is(last) => snd.uciMove
-      case (move, _)                                                   => move
-    }
+    steps.collectFirstSome:
+      case fst :: snd :: _ if g.ply == fst.ply && fst.is(last) => snd.uciMove
+      case _                                                   => none
 
 object Forecast:
 
