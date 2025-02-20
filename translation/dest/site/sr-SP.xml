@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Играј са пријатељем</string>
   <string name="playWithTheMachine">Играј са рачунаром</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете неког да игра, дајте овaј линк</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи овaј линк</string>
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
   <string name="orLetYourOpponentScanQrCode">Или допусти свом противнику да копира овај QR код</string>
