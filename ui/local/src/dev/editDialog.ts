@@ -65,12 +65,6 @@ export class EditDialog {
     });
     pubsub.on('local.dev.import.book', this.onBookImported);
     this.janitor.addCleanupTask(() => pubsub.off('local.dev.import.book', this.onBookImported));
-    //window.addEventListener('resize', this.deck.resize);
-    // setTimeout(() => {
-    //   this.deck.layout();
-    //   //this.dlg.dialogEl.style.visibility = 'visible';
-    //   setTimeout(() => (this.dlg.dialogEl.style.visibility = 'visible'));
-    // });
     return this.dlg.show();
   }
 
@@ -97,11 +91,8 @@ export class EditDialog {
   };
 
   get bot(): WritableBot {
-    //if (!this.bots[this.uid]) this.uid = env.bot.firstUid ?? '#default';
-    const scratchSource = this.bots[this.uid]; // ?? EditDialog.default;
-    if (!scratchSource) console.trace('i did a bad');
     // getter side effects are lovely and wonderful
-    this.scratch[this.uid] ??= Object.defineProperties(structuredClone(scratchSource), {
+    this.scratch[this.uid] ??= Object.defineProperties(structuredClone(this.bots[this.uid]), {
       disabled: { value: new Set<string>() },
       viewing: { value: new Map<string, string>() },
     }) as WritableBot;

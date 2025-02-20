@@ -157,7 +157,7 @@ export class BotCtrl {
   card(bot: BotInfo | undefined): CardData | undefined {
     return (
       bot && {
-        label: bot.name,
+        label: `${bot.name}${bot.ratings.classical ? ' ' + bot.ratings.classical : ''}`,
         domId: uidToDomId(bot.uid)!,
         imageUrl: this.imageUrl(bot),
         classList: [],
