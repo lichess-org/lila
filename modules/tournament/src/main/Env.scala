@@ -103,7 +103,13 @@ final class Env(
 
   lazy val apiJsonView = wire[ApiJsonView]
 
-  lazy val notifier = wire[Notifier]
+  private lazy val notifier = wire[Notifier]
+  system.scheduler.scheduleWithFixedDelay(2 minutes, 30 seconds) { () =>
+    notifier(Notifier.OneDay).unit
+  }
+  system.scheduler.scheduleWithFixedDelay(1 minute, 30 seconds) { () =>
+    notifier(Notifier.Week).unit
+  }
 
   lazy val leaderboardApi = wire[LeaderboardApi]
 
