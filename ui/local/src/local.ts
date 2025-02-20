@@ -35,6 +35,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
 
   if ('go' in setup || 'id' in setup) return;
 
+  console.log(env.bot.bots);
   const lastSetup = localStorage.getItem('local.setup');
   showSetupDialog(lastSetup ? JSON.parse(lastSetup) : {});
 

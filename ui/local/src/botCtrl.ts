@@ -36,12 +36,12 @@ export class BotCtrl {
   }
 
   get firstUid(): string | undefined {
-    return Object.keys(this.bots)[0];
+    return this.bots.keys().next()?.value;
   }
 
   get all(): BotInfo[] {
     // except for rate bots
-    return Object.values(this.bots) as Bot[];
+    return [...this.bots.values()] as Bot[];
   }
 
   get playing(): BotInfo[] {
@@ -101,9 +101,9 @@ export class BotCtrl {
   }
 
   sorted(by: 'alpha' | LocalSpeed = 'alpha'): BotInfo[] {
-    if (by === 'alpha') return Object.values(this.bots).sort((a, b) => a.name.localeCompare(b.name));
+    if (by === 'alpha') return [...this.bots.values()].sort((a, b) => a.name.localeCompare(b.name));
     else
-      return Object.values(this.bots).sort((a, b) => {
+      return [...this.bots.values()].sort((a, b) => {
         return (a.ratings[by] ?? 1500) - (b.ratings[by] ?? 1500) || a.name.localeCompare(b.name);
       });
   }
@@ -155,6 +155,7 @@ export class BotCtrl {
   }
 
   card(bot: BotInfo | undefined): CardData | undefined {
+    console.log('card', bot);
     return (
       bot && {
         label: `${bot.name}${bot.ratings.classical ? ' ' + bot.ratings.classical : ''}`,
@@ -169,7 +170,6 @@ export class BotCtrl {
     const cd = this.card(bot);
     const local = this.localBots[bot.uid];
     const server = this.serverBots[bot.uid];
-
     if (isDirty?.(local ?? server)) cd?.classList.push('dirty');
     if (!server) cd?.classList.push('local-only');
     else if (server.version > bot.version) cd?.classList.push('upstream-changes');

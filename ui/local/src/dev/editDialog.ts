@@ -47,12 +47,12 @@ export class EditDialog {
     this.selectBot();
     this.deck = handOfCards({
       viewEl: this.view,
-      getDrops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
       deckEl: this.view.querySelector('.placeholder') as HTMLElement,
-      getCardData: () => this.cardData,
-      select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
       opaqueSelectedBackground: true,
       fanCenterToWidthRatio: 1 / 3,
+      getCardData: () => this.cardData,
+      getDrops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
+      select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
     });
   }
 
@@ -119,10 +119,10 @@ export class EditDialog {
     return [
       ...this.panes.actions,
       { selector: '[data-bot-action="save-one"]', listener: () => this.save() },
-      { selector: '[data-bot-action="new"]', listener: () => this.newBot() },
+      { selector: '[data-bot-action="new"]', listener: () => this.newBotDialog() },
       { selector: '[data-bot-action="delete"]', listener: () => this.deleteBot() },
       { selector: '[data-bot-action="history-one"]', listener: () => historyDialog(this, this.uid) },
-      { selector: '[data-bot-action="json"]', listener: () => this.json() },
+      { selector: '[data-bot-action="json"]', listener: () => this.jsonDialog() },
       { selector: '[data-bot-action="unrate-all"]', listener: () => this.clearRatings() },
       { selector: '[data-bot-action="assets"]', listener: () => this.assetDialog() },
       { selector: '[data-bot-action="push-one"]', listener: () => this.push() },
@@ -133,9 +133,11 @@ export class EditDialog {
   }
 
   private isDirty = (other: BotInfo | undefined = env.bot.get(this.uid)): boolean => {
-    const scratch = other ? this.scratch.get(other.uid) : undefined;
-    console.log(other, scratch && deadStrip(scratch));
-    return !!scratch && !Bot.isSame(other, deadStrip(scratch)); // TODO avoid structured cloning for this
+    return (
+      other !== undefined &&
+      this.scratch.has(other.uid) &&
+      !Bot.isSame(other, deadStrip(this.scratch.get(other.uid)!)) // TODO avoid structured cloning for this
+    );
   };
 
   private get localChanges(): boolean {
@@ -235,7 +237,7 @@ export class EditDialog {
     alert('ratings cleared');
   }
 
-  private newBot(): void {
+  private newBotDialog(): void {
     const ok = frag<HTMLButtonElement>('<button class="button ok disabled">ok</button>');
     const input = frag<HTMLInputElement>(`<input class="invalid" spellcheck="false" type="text" value="#">`);
     domDialog({
@@ -290,7 +292,7 @@ export class EditDialog {
     });
   }
 
-  private async json(): Promise<void> {
+  private async jsonDialog(): Promise<void> {
     const version = this.bot.version;
     const view = frag<HTMLElement>($html`
       <div class="dev-view json-dialog">
