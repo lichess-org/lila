@@ -14,7 +14,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
     akka.stream.Materializer
 ):
 
-  type LocalAssets = Map[String, List[String]]
+  type LocalAssets = Map[AssetType, List[String]]
 
   @volatile private var cachedAssets: Option[(LocalAssets, JsonStr)] = None
 
@@ -55,7 +55,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
         .map(_.getName)
 
   def updateAssets: (LocalAssets, JsonStr) =
-    val data = Map(
+    val data: LocalAssets = Map(
       "image" -> listFiles("image", "webp"),
       "net"   -> listFiles("net", "pb"),
       "sound" -> listFiles("sound", "mp3"),
