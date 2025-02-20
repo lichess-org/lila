@@ -62,6 +62,12 @@ final private[api] class Cli(
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it",
           )
       }
+    case "pause" :: gameId :: Nil =>
+      Bus.publish(
+        lila.hub.actorApi.map.TellIfExists(gameId, lila.round.actorApi.round.PauseForce),
+        "roundSocket",
+      )
+      fuccess(s"Paused $gameId")
     case "bus" :: "dump" :: Nil =>
       val keys = Bus.keys
       fuccess(s"${keys.size}\n ${keys mkString "\n"}")

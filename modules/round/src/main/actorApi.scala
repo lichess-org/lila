@@ -46,6 +46,7 @@ package round {
   case class DrawClaim(playerId: PlayerId)
   case class DrawYes(playerId: PlayerId)
   case class DrawNo(playerId: PlayerId)
+  case object PauseForce
   case class PauseYes(playerId: PlayerId)
   case class PauseNo(playerId: PlayerId)
   case class ResumeYes(playerId: PlayerId)

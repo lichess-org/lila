@@ -228,6 +228,13 @@ case class Game(
         )
     }
 
+  def forcePause =
+    copy(
+      sentePlayer = sentePlayer.removePauseOffer,
+      gotePlayer = gotePlayer.removePauseOffer,
+      status = Status.Paused,
+    )
+
   def pauseAndSealUsi(
       usi: Usi,
       newShogi: ShogiGame, // new shogi position

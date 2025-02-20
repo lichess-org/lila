@@ -42,13 +42,20 @@ final private class Finisher(
         playban.rageQuit(game, !color)
       }
 
+  def forcePause(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
+    val prog = lila.game.Progress(game, game.forcePause)
+    proxy.save(prog)
+    fuccess(List(lila.game.Event.Reload))
+  }
+
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     if (
       !game.isCorrespondence && !Uptime
         .startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
     ) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
-      other(game, _.Aborted, none)
+      if (game.arrangementId.isDefined) forcePause(game)
+      else other(game, _.Aborted, none)
     } else {
       val winner = Some(!game.player.color)
       apply(game, _.Outoftime, winner) >>-
