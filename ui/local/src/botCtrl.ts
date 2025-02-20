@@ -14,7 +14,7 @@ export class BotCtrl {
   zerofish: Zerofish;
   serverBots: Record<string, BotInfo>;
   localBots: Record<string, BotInfo>;
-  readonly bots: Record<string, Bot & MoveSource> = {};
+  readonly bots: Map<string, Bot & MoveSource> = new Map();
   readonly rateBots: RateBot[] = [];
   readonly uids: Record<Color, string | undefined> = { white: undefined, black: undefined };
   private store: ObjectStorage<BotInfo>;
@@ -71,15 +71,15 @@ export class BotCtrl {
           .then(res => res.bots.filter(Bot.viable)),
     ]);
     for (const b of [...serverBots, ...localBots]) {
-      if (Bot.viable(b)) this.bots[b.uid] = new Bot(b);
+      if (Bot.viable(b)) this.bots.set(b.uid, new Bot(b));
     }
     this.localBots = {};
     this.serverBots = {};
     localBots.forEach((b: BotInfo) => (this.localBots[b.uid] = deepFreeze(b)));
     serverBots.forEach((b: BotInfo) => (this.serverBots[b.uid] = deepFreeze(b)));
     pubsub.complete('local.bots.ready');
-    if (this.uids.white && !this.bots[this.uids.white]) this.uids.white = undefined;
-    if (this.uids.black && !this.bots[this.uids.black]) this.uids.black = undefined;
+    if (this.uids.white && !this.bots.has(this.uids.white)) this.uids.white = undefined;
+    if (this.uids.black && !this.bots.has(this.uids.black)) this.uids.black = undefined;
     return this;
   }
 
@@ -97,7 +97,7 @@ export class BotCtrl {
 
   get(uid: string | undefined): BotInfo | undefined {
     if (uid === undefined) return undefined;
-    return this.bots[uid] ?? this.rateBots[Number(uid.slice(1))];
+    return this.bots.get(uid) ?? this.rateBots[Number(uid.slice(1))];
   }
 
   sorted(by: 'alpha' | LocalSpeed = 'alpha'): BotInfo[] {
@@ -125,7 +125,7 @@ export class BotCtrl {
 
   storeBot(bot: BotInfo): Promise<any> {
     delete this.localBots[bot.uid];
-    this.bots[bot.uid] = new Bot(bot);
+    this.bots.set(bot.uid, new Bot(bot));
     if (Bot.isSame(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
     this.localBots[bot.uid] = deepFreeze(structuredClone(bot));
     return this.store.put(bot.uid, bot);
@@ -133,7 +133,7 @@ export class BotCtrl {
 
   async deleteStoredBot(uid: string): Promise<void> {
     await this.store.remove(uid);
-    delete this.bots[uid];
+    this.bots.delete(uid);
     await this.initBots();
   }
 
@@ -143,7 +143,7 @@ export class BotCtrl {
   }
 
   async setServerBot(bot: BotInfo): Promise<void> {
-    this.bots[bot.uid] = new Bot(bot);
+    this.bots.set(bot.uid, new Bot(bot));
     console.log('from server', bot);
     this.serverBots[bot.uid] = deepFreeze(structuredClone(bot));
     delete this.localBots[bot.uid];

@@ -39,7 +39,7 @@ export class LocalEnv {
   nameOf(uid?: string): string {
     return !uid || uid === this.user
       ? this.username
-      : (uid.startsWith('#') && this.bot.bots[uid]?.name) || uid.charAt(0).toUpperCase() + uid.slice(1);
+      : (uid.startsWith('#') && this.bot.bots.get(uid)?.name) || uid.charAt(0).toUpperCase() + uid.slice(1);
   }
 
   get repo(): DevAssets {

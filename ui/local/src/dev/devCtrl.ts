@@ -150,7 +150,7 @@ export class DevCtrl {
   }
 
   setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<any> {
-    if (!uid || !env.bot.bots[uid]) return Promise.resolve();
+    if (!uid || !env.bot.bots.has(uid)) return Promise.resolve();
     this.ratings[uid] ??= {};
     this.ratings[uid][speed] = rating;
     return this.localRatings.put(uid, this.ratings[uid]);

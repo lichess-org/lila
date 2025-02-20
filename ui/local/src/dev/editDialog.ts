@@ -1,9 +1,9 @@
 import { domIdToUid, uidToDomId } from '../botCtrl';
 import { handOfCards, type HandOfCards } from '../handOfCards';
-import { defined, frag } from 'common';
-import { deepFreeze, definedMap } from 'common/algo';
+import { frag } from 'common';
+import { deepFreeze, definedMap, mapValues } from 'common/algo';
 import { buildFromSchema, Panes } from './panes';
-import { removeObjectProperty, deadStrip } from './devUtil';
+import { deadStrip } from './devUtil';
 import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dialog';
 import type { BotInfo } from '../types';
 import { Bot } from '../bot';
@@ -35,7 +35,7 @@ export class EditDialog {
   assetDlg: AssetDialog | undefined;
   uid: string;
   panes: Panes;
-  scratch: Record<string, WritableBot> = {};
+  scratch: Map<string, WritableBot> = new Map();
   janitor: Janitor = new Janitor();
 
   constructor(readonly color: Color) {
@@ -92,11 +92,15 @@ export class EditDialog {
 
   get bot(): WritableBot {
     // getter side effects are lovely and wonderful
-    this.scratch[this.uid] ??= Object.defineProperties(structuredClone(this.bots[this.uid]), {
-      disabled: { value: new Set<string>() },
-      viewing: { value: new Map<string, string>() },
-    }) as WritableBot;
-    return this.scratch[this.uid];
+    let scratch = this.scratch.get(this.uid);
+    if (!scratch) {
+      scratch = Object.defineProperties(structuredClone(this.bots.get(this.uid)), {
+        disabled: { value: new Set<string>() },
+        viewing: { value: new Map<string, string>() },
+      }) as WritableBot;
+      this.scratch.set(this.uid, scratch);
+    }
+    return scratch;
   }
 
   get localBot(): ReadableBot | undefined {
@@ -107,7 +111,7 @@ export class EditDialog {
     return env.bot.serverBots[this.uid];
   }
 
-  private get bots(): Record<string, Bot> {
+  private get bots(): Map<string, Bot> {
     return env.bot.bots;
   }
 
@@ -129,12 +133,9 @@ export class EditDialog {
   }
 
   private isDirty = (other: BotInfo | undefined = env.bot.get(this.uid)): boolean => {
-    console.log(other, other && this.scratch[other.uid] && deadStrip(this.scratch[other.uid]));
-    return (
-      other !== undefined &&
-      this.scratch[other.uid] !== undefined &&
-      !Bot.isSame(other, deadStrip(this.scratch[other.uid])) // TODO avoid structured cloning for this
-    );
+    const scratch = other ? this.scratch.get(other.uid) : undefined;
+    console.log(other, scratch && deadStrip(scratch));
+    return !!scratch && !Bot.isSame(other, deadStrip(scratch)); // TODO avoid structured cloning for this
   };
 
   private get localChanges(): boolean {
@@ -143,15 +144,16 @@ export class EditDialog {
 
   private get cardData() {
     const speed = 'classical'; //env.game.speed;
-    return definedMap(Object.values({ ...this.bots, ...this.scratch }), b =>
-      env.bot.groupedCard(b, this.isDirty),
-    ).sort(env.bot.groupedSort(speed));
+    const all = [...mapValues(this.bots), ...mapValues(this.scratch)];
+    return definedMap(Array.from(new Set(all)), b => env.bot.groupedCard(b, this.isDirty)).sort(
+      env.bot.groupedSort(speed),
+    );
   }
 
   private async push() {
-    const err = await env.push.pushBot(this.bots[this.uid]);
+    const err = await env.push.pushBot(this.bots.get(this.uid)!);
     if (err) return alert(err);
-    delete this.scratch[this.uid];
+    this.scratch.delete(this.uid);
     this.update();
   }
 
@@ -181,7 +183,7 @@ export class EditDialog {
     });
 
     if (!rsp.ok) return;
-    delete this.scratch[this.uid];
+    this.scratch.delete(this.uid);
     await env.bot.deleteStoredBot(this.uid).then(() => this.selectBot(env.bot.firstUid));
     this.update();
   }
@@ -189,7 +191,7 @@ export class EditDialog {
   private pullBots = async (uids?: string[]) => {
     if (!(await confirm(uids ? `Pull ${uids.join(' ')}?` : 'Pull all server bots?'))) return;
     const clear = (uids ?? Object.keys(this.bots)).filter(uid => env.bot.serverBots[uid]);
-    clear.forEach(uid => delete this.scratch[uid]);
+    clear.forEach(this.scratch.delete);
     await env.bot.clearStoredBots(clear);
     this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
   };
@@ -251,7 +253,7 @@ export class EditDialog {
           event: ['input'],
           listener: () => {
             const newUid = input.value.toLowerCase();
-            const isValid = /^#[a-z][a-z0-9-]{2,19}$/.test(newUid) && this.bots[newUid] === undefined;
+            const isValid = /^#[a-z][a-z0-9-]{2,19}$/.test(newUid) && !this.bots.has(newUid);
             input.dataset.uid = isValid ? newUid : '';
             input.classList.toggle('invalid', !isValid);
             ok.classList.toggle('disabled', !isValid);
@@ -325,10 +327,13 @@ export class EditDialog {
       ...(JSON.parse(view.querySelector<HTMLTextAreaElement>('.json')!.value) as BotInfo),
       version,
     };
-    this.scratch[this.uid] = Object.defineProperties(new Bot(newBot), {
-      disabled: { value: new Set<string>() },
-      viewing: { value: new Map<string, string>() },
-    }) as WritableBot;
+    this.scratch.set(
+      this.uid,
+      Object.defineProperties(new Bot(newBot), {
+        disabled: { value: new Set<string>() },
+        viewing: { value: new Map<string, string>() },
+      }) as WritableBot,
+    );
     this.makeEditView();
     this.update();
   }

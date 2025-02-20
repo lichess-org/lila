@@ -28,7 +28,7 @@ export class Assets {
   }
 
   async preload(uids: string[]): Promise<void> {
-    for (const bot of definedMap(uids, uid => env.bot.bots[uid])) {
+    for (const bot of definedMap(uids, env.bot.bots.get)) {
       for (const sounds of Object.values(bot.sounds ?? {})) {
         sounds.forEach(sound => fetch(botAssetUrl('sound', sound.key)));
       }
