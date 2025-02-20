@@ -91,8 +91,14 @@ final class TournamentPager(
     def getHomepage = get.dmap(_.take(6))
 
     // scala sort is stable
-    private def featured =
-      repo.enterable.map(_.sortBy(_.startsAt.getSeconds).sortBy(calcScore).take(max))
+    private def featured = repo.enterable.map(
+        _.filter(worthSomething).sortBy(_.startsAt.getSeconds).sortBy(calcScore).take(max),
+      )
+
+    private def worthSomething(tour: Tournament) =
+      tour.nbPlayers > 0 ||
+        tour.startsAt.isAfterNow ||
+        tour.finishesAt.plusMinutes(30).isAfterNow
 
     private def calcScore(t: Tournament): Int = {
       val minuteDistance = math.abs(Minutes.minutesBetween(DateTime.now, t.startsAt).getMinutes)
@@ -104,13 +110,14 @@ final class TournamentPager(
       // popular tours near the top
       val playerScore = (t.nbPlayers > 1) ?? t.nbPlayers * playerScaler
       // far off tours closer to bottom
-      val penaltyScore = (daysDistance > daysCutoff) ?? (daysDistance atMost 30)
+      val penaltyScore    = (daysDistance > daysCutoff) ?? (daysDistance atMost 30)
+      val noPlayerStarted = (t.isStarted && t.nbPlayers == 0) ?? 5
 
-      -(timeScore + playerScore - penaltyScore).toInt
+      -(timeScore + playerScore - penaltyScore - noPlayerStarted).toInt
     }
 
     private val featuredCache = cacheApi.unit[List[Tournament]] {
-      _.refreshAfterWrite(25 minutes)
+      _.refreshAfterWrite(10 minutes)
         .buildAsyncFuture(_ => featured)
     }
   }
