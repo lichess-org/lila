@@ -43,6 +43,7 @@ object bits {
       ("recent", trans.tourRecent()),
       ("best", trans.bestResults()),
       ("chart", trans.stats()),
+      ("upcoming", trans.tourUpcoming()),
     )
     views.html.base.layout(
       title = title,
@@ -70,7 +71,11 @@ object bits {
             div(cls := "number-menu number-menu--tabs menu-box-pop")(
               paths.map { ps =>
                 a(
-                  cls  := s"nm-item to-${ps._1}${(ps._1 == path) ?? " active"}",
+                  cls := List(
+                    s"nm-item to-${ps._1}" -> true,
+                    "active"               -> ps._1 == path,
+                    "disabled"             -> !ctx.is(u) && ps._1 == "upcoming",
+                  ),
                   href := routes.UserTournament.path(u.username, ps._1),
                 )(ps._2)
               },

@@ -45,3 +45,9 @@ final class Adapter[A: BSONDocumentReader](
       .cursor[A](readPreference)
       .list(length)
 }
+
+final class StaticAdapter[A](results: Seq[A])(implicit ec: scala.concurrent.ExecutionContext)
+    extends AdapterLike[A] {
+  def nbResults                       = fuccess(results.size)
+  def slice(offset: Int, length: Int) = fuccess(results drop offset take length)
+}
