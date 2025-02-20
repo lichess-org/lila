@@ -1,23 +1,27 @@
 package controllers
 
 import play.api.libs.json.*
+import play.api.mvc.*
 
 import lila.app.{ given, * }
 import lila.common.Json.given
 import lila.local.{ GameSetup, AssetType }
 
 final class Local(env: Env) extends LilaController(env):
+
+  extension (r: Result)
+    def withServiceWorker(using RequestHeader) =
+      r.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
+
   def index = Open:
     for
       bots <- env.local.repo.getLatestBots()
       page <- renderPage(indexPage(bots, none))
-    yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
+    yield Ok(page).withServiceWorker
 
   def bots = Open:
-    env.local.repo
-      .getLatestBots()
-      .map: bots =>
-        JsonOk(Json.obj("bots" -> bots))
+    for bots <- env.local.repo.getLatestBots()
+    yield JsonOk(Json.obj("bots" -> bots))
 
   def assetKeys = Anon: // for service worker
     JsonOk(env.local.api.getJson)
@@ -27,7 +31,7 @@ final class Local(env: Env) extends LilaController(env):
       bots   <- env.local.repo.getLatestBots()
       assets <- env.local.api.devGetAssets
       page   <- renderPage(indexPage(bots, assets.some))
-    yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
+    yield Ok(page).withServiceWorker
 
   def devAssets = Auth: ctx ?=>
     env.local.api.devGetAssets.map(JsonOk)
