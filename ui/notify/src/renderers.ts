@@ -1,3 +1,4 @@
+import { i18n, i18nFormat } from 'i18n';
 import { type VNode, h } from 'snabbdom';
 import type { Notification, Renderers } from './interfaces';
 
@@ -52,11 +53,12 @@ export const renderers: Renderers = {
     text: _ => 'Lishogi Titled Arena',
   },
   tournamentReminder: {
-    html: n =>
-      generic(n, `/tournament/${n.content.id}`, 'g', [
-        h('span', [h('strong', 'Tournament reminder'), drawTime(n)]),
-        h('span', n.content.days),
-      ]),
+    html: n => {
+      return generic(n, `/tournament/${n.content.id}`, 'g', [
+        h('span', [h('strong', [i18n('tournament')]), drawTime(n)]),
+        h('span', [i18n('starting'), ' ', new Date(n.content.date).toLocaleString()]),
+      ]);
+    },
     text: _ => 'Tournament you signed up for is coming up',
   },
   reportedBanned: {
@@ -69,19 +71,45 @@ export const renderers: Renderers = {
   },
   gameEnd: {
     html: n => {
+      let title: string;
+      switch (n.content.win) {
+        case true:
+          title = i18n('youWon');
+          break;
+        case false:
+          title = i18n('youLost');
+          break;
+        default:
+          title = i18n('gameWasDraw');
+      }
       let result: string;
       switch (n.content.win) {
         case true:
-          result = 'Congratulations, you won!';
+          result = i18nFormat(
+            'victoryVsYInZ',
+            i18n('victory'),
+            userFullName(n.content.opponent),
+            `#${n.content.id}`,
+          );
           break;
         case false:
-          result = 'You lost!';
+          result = i18nFormat(
+            'defeatVsYInZ',
+            i18n('defeat'),
+            userFullName(n.content.opponent),
+            `#${n.content.id}`,
+          );
           break;
         default:
-          result = "It's a draw.";
+          result = i18nFormat(
+            'drawVsYInZ',
+            i18n('draw'),
+            userFullName(n.content.opponent),
+            `#${n.content.id}`,
+          );
       }
       return generic(n, `/${n.content.id}`, ';', [
-        h('span', [h('strong', `Game vs ${userFullName(n.content.opponent)}`), drawTime(n)]),
+        h('span', [h('strong', title), drawTime(n)]),
         h('span', result),
       ]);
     },
@@ -89,15 +117,30 @@ export const renderers: Renderers = {
       let result: string;
       switch (n.content.win) {
         case true:
-          result = 'Victory';
+          result = i18nFormat(
+            'victoryVsYInZ',
+            i18n('victory'),
+            userFullName(n.content.opponent),
+            `#${n.content.id}`,
+          );
           break;
         case false:
-          result = 'Defeat';
+          result = i18nFormat(
+            'defeatVsYInZ',
+            i18n('defeat'),
+            userFullName(n.content.opponent),
+            `#${n.content.id}`,
+          );
           break;
         default:
-          result = 'Draw';
+          result = i18nFormat(
+            'drawVsYInZ',
+            i18n('draw'),
+            userFullName(n.content.opponent),
+            `#${n.content.id}`,
+          );
       }
-      return `${result} vs ${userFullName(n.content.opponent)}`;
+      return result;
     },
   },
   pausedGame: {
@@ -111,18 +154,18 @@ export const renderers: Renderers = {
   planStart: {
     html: n =>
       generic(n, '/patron', '', [
-        h('span', [h('strong', 'Thank you!'), drawTime(n)]),
-        h('span', 'You just became a lishogi Patron.'),
+        h('span', [h('strong', i18n('thankYou')), drawTime(n)]),
+        h('span', i18n('patron:justBecamePatron')),
       ]),
-    text: _ => 'You just became a lishogi Patron.',
+    text: _ => i18n('patron:justBecamePatron'),
   },
   planExpire: {
     html: n =>
       generic(n, '/patron', '', [
-        h('span', [h('strong', 'Patron account expired'), drawTime(n)]),
-        h('span', 'Please consider renewing it!'),
+        h('span', [h('strong', i18n('patron:expired')), drawTime(n)]),
+        h('span', i18n('patron:considerRenewing')),
       ]),
-    text: _ => 'Patron account expired',
+    text: _ => i18n('patron:expired'),
   },
   ratingRefund: {
     html: n =>
@@ -135,10 +178,10 @@ export const renderers: Renderers = {
   corresAlarm: {
     html: n =>
       generic(n, `/${n.content.id}`, ';', [
-        h('span', [h('strong', 'Time is almost up!'), drawTime(n)]),
-        h('span', `Game vs ${n.content.op}`),
+        h('span', [h('strong', i18n('timeAlmostUp')), drawTime(n)]),
+        h('span', i18nFormat('gameAgainstX', n.content.op)),
       ]),
-    text: _ => 'Time is almost up!',
+    text: _ => i18n('timeAlmostUp'),
   },
 };
 
