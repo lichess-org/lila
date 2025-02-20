@@ -78,6 +78,7 @@ final private class TournamentScheduler(
 We've had $yo great shogi years together!
 
 Thank you all, you rock!""",
+                homepageHours = 32.some,
               ).some,
             )
           }
