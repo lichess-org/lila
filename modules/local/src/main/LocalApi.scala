@@ -23,7 +23,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
   ): Fu[Either[String, JsObject]] =
     FileIO
       .fromPath(file.ref.path)
-      .runWith(FileIO.toPath(getFile(s"public/lifat/bots/${tpe}/$name").toPath))
+      .runWith(FileIO.toPath(getFile(s"${config.assetPath}/${tpe}/$name").toPath))
       .map(res => Right(updateAssets))
       .recover:
         case e: Exception => Left(s"Exception: ${e.getMessage}")
@@ -31,7 +31,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
   def assetKeys: JsObject = cachedAssets.getOrElse(updateAssets)
 
   private def listFiles(tpe: String, ext: String): List[String] =
-    val path = getFile(s"public/lifat/bots/${tpe}")
+    val path = getFile(s"${config.assetPath}/${tpe}")
     if !path.exists() then
       NioFiles.createDirectories(path.toPath)
       Nil
