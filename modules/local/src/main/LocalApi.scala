@@ -14,18 +14,19 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
     akka.stream.Materializer
 ):
 
-  type LocalAssets = Map[AssetType, List[String]]
+  type AlmostFileName = String
+  type LocalAssets    = Map[AssetType, List[AlmostFileName]]
 
   @volatile private var cachedAssets: Option[(LocalAssets, JsonStr)] = None
 
   def storeAsset(
       tpe: AssetType,
-      name: String,
+      fileName: String,
       file: MultipartFormData.FilePart[Files.TemporaryFile]
   ): Fu[Either[String, (LocalAssets, JsonStr)]] =
     FileIO
       .fromPath(file.ref.path)
-      .runWith(FileIO.toPath(getFile(s"${config.assetPath}/${tpe}/$name").toPath))
+      .runWith(FileIO.toPath(getFile(s"${config.assetPath}/${tpe}/$fileName").toPath))
       .map(res => Right(updateAssets))
       .recover:
         case e: Exception => Left(s"Exception: ${e.getMessage}")
@@ -43,7 +44,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
             name <- m.get(key)
           yield Json.obj("key" -> key, "name" -> name))
 
-  private def listFiles(tpe: String, ext: String): List[String] =
+  private def listFiles(tpe: AssetType, ext: String): List[AlmostFileName] =
     val path = getFile(s"${config.assetPath}/${tpe}")
     if !path.exists() then
       NioFiles.createDirectories(path.toPath)
