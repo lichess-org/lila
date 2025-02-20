@@ -432,6 +432,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      editor:
+        specifier: workspace:*
+        version: link:../editor
       fast-diff:
         specifier: ^1.3.0
         version: 1.3.0

@@ -1,17 +1,17 @@
 import { handOfCards, HandOfCards } from './handOfCards';
 import * as co from 'chessops';
-import * as licon from 'common/licon';
-import * as data from 'common/data';
 import { domDialog, Dialog } from 'common/dialog';
 import { fen960 } from 'chess';
-import { myUsername } from 'common';
 import { pubsub } from 'common/pubsub';
 import { definedMap } from 'common/algo';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
 import { env } from './localEnv';
-import { Chessground as makeChessground } from 'chessground';
+import * as licon from 'common/licon';
+import type { LichessEditor } from 'editor';
+import { json } from 'common/xhr';
+import { Janitor } from 'common/event';
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
   pubsub.after('local.images.ready').then(() => new SetupDialog(setup).show());
@@ -19,11 +19,14 @@ export function showSetupDialog(setup: LocalSetup = {}): void {
 
 class SetupDialog {
   view: HTMLElement;
+  editorEl: HTMLElement;
+  editor: LichessEditor;
   playerColor: Color = 'white';
   setup: LocalSetup = {};
   hand: HandOfCards;
   uid?: string;
   dialog: Dialog;
+  janitor = new Janitor();
 
   constructor(setup: LocalSetup) {
     this.setup = { ...setup };
@@ -34,19 +37,30 @@ class SetupDialog {
       class: 'game-setup base-view setup-view',
       css: [{ hashed: 'local.setup' }],
       htmlText: $html`
-        <div class="with-cards">
-          <div class="vs">
-            <div class="player" data-color="black">
-              <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
-              <div class="placard none" data-color="black">Human Player</div>
+        <div class="main-content">
+          <div class="with-cards snap-pane">
+            <div class="vs">
+              <div class="player" data-color="black">
+                <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
+                <div class="placard none" data-color="black">Human Player</div>
+              </div>
             </div>
+            <button class="button button-empty go-to-board" data-icon="${licon.GreaterThan}"></button>
+          </div>
+          <div class="from-position is2d snap-pane">
+            <div class="editor"></div>
+            <span>
+              <button class="button button-metal standard">Standard</button>
+              <button class="button button-metal chess960">Chess960</button>
+            </span>
+            <button class="button button-empty go-to-opponent" data-icon="${licon.LessThan}"></button>
           </div>
         </div>
         <div class="chin">
           <div class="params">
             <span>
-              <input class="fen" type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}">
-              <button class="button button-empty button-dim fen960" data-icon="${licon.DieSix}"></button>
+              <input class="fen" type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}"
+                     value="${this.setup.setupFen ?? ''}">
             </span>
             <span>
               <select data-type="initial">${this.timeOptions('initial')}</select>
@@ -63,6 +77,63 @@ class SetupDialog {
       modal: true,
       focus: '.white',
       actions: [
+        {
+          selector: '.fen',
+          event: 'focus',
+          listener: () => {
+            const content = dlg.viewEl.querySelector<HTMLElement>('.main-content')!;
+            content.scrollLeft = content.scrollWidth;
+          },
+        },
+        {
+          selector: '.fen',
+          event: 'input',
+          listener: e => {
+            if (!(e.target instanceof HTMLInputElement)) return;
+            const value = e.target.value;
+            this.editor.setFen(e.target.value);
+          },
+        },
+        {
+          selector: '.standard',
+          listener: () => {
+            this.editor.setRules(co.compat.lichessRules('standard'));
+            const input = dlg.viewEl.querySelector<HTMLInputElement>('.fen')!;
+            input.value = '';
+            this.editor.setFen(co.fen.INITIAL_FEN);
+          },
+        },
+        {
+          selector: '.chess960',
+          listener: () => {
+            this.editor.setRules(co.compat.lichessRules('chess960'));
+            const input = dlg.viewEl.querySelector<HTMLInputElement>('.fen')!;
+            input.value = fen960();
+            this.editor.setFen(input.value);
+          },
+        },
+        {
+          selector: '.main-content',
+          event: 'wheel',
+          listener: (e: WheelEvent) => {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) e.preventDefault();
+            else this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!.scrollTop = 0;
+          },
+        },
+        {
+          selector: '.go-to-board',
+          listener: () => {
+            const content = dlg.viewEl.querySelector<HTMLElement>('.main-content')!;
+            content.scrollLeft = content.scrollWidth;
+          },
+        },
+        {
+          selector: '.go-to-opponent',
+          listener: () => {
+            const content = dlg.viewEl.querySelector<HTMLElement>('.main-content')!;
+            content.scrollLeft = 0;
+          },
+        },
         { selector: '.white', listener: () => this.fight('white') },
         { selector: '.black', listener: () => this.fight('black') },
         { selector: '.random', listener: () => this.fight() },
@@ -71,13 +142,23 @@ class SetupDialog {
       ],
       onClose: () => {
         localStorage.setItem('local.setup', JSON.stringify(this.setup));
-        window.removeEventListener('resize', this.hand.resize);
+        this.janitor.cleanup();
       },
       noCloseButton: env.game !== undefined,
       noClickAway: env.game !== undefined,
     });
     this.dialog = dlg;
-    this.view = dlg.viewEl.querySelector('.with-cards')!;
+    this.initCards();
+    this.initEditor();
+
+    dlg.show();
+
+    this.select(this.setup[this.botColor]);
+    this.hand.resize();
+  }
+
+  private initCards() {
+    this.view = this.dialog.viewEl.querySelector('.with-cards')!;
     const cardData = definedMap(env.bot.sorted('classical'), b => env.bot.card(b));
     this.hand = handOfCards({
       getCardData: () => cardData,
@@ -88,10 +169,28 @@ class SetupDialog {
       select: this.dropSelect,
       orientation: 'bottom',
     });
-    window.addEventListener('resize', this.hand.resize);
-    dlg.show();
-    this.select(this.setup[this.botColor]);
-    this.hand.resize();
+    this.janitor.addListener(window, 'resize', this.hand.resize);
+  }
+
+  private initEditor() {
+    this.editorEl = this.dialog.viewEl.querySelector('.editor')!;
+    json('/editor.json').then(async data => {
+      data.el = this.editorEl;
+      data.fen = this.setup.setupFen ?? co.fen.INITIAL_FEN;
+      data.embed = true;
+      data.options = {
+        inlineCastling: true,
+        orientation: 'white',
+        onChange: (fen: string) => {
+          this.setup.setupFen = fen;
+          this.dialog.viewEl.querySelector<HTMLInputElement>('.fen')!.value = fen;
+        },
+        coordinates: false,
+        bindHotkeys: false,
+      };
+      this.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
+      this.editor.setRules(co.compat.lichessRules('chess960'));
+    });
   }
 
   private timeOptions(type: 'initial' | 'increment') {

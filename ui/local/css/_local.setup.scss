@@ -8,6 +8,44 @@ body:has(.base-view.setup-view) {
   max-height: 800px;
   user-select: none;
 
+  .main-content {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 100%;
+    scrollbar-width: none;
+  }
+
+  .from-position {
+    position: relative;
+  }
+
+  .snap-pane {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  .go-to-board {
+    position: absolute;
+    padding: 10px;
+    color: $c-font-dimmer;
+    top: 40%;
+    right: 20px;
+    font-size: 4em;
+  }
+
+  .go-to-opponent {
+    position: absolute;
+    padding: 10px;
+    color: $c-font-dimmer;
+    top: 40%;
+    left: 20px;
+    font-size: 4em;
+  }
+
   div.player {
     position: relative;
     aspect-ratio: 1;
@@ -16,15 +54,9 @@ body:has(.base-view.setup-view) {
   .vs {
     @extend %flex-column;
     align-items: center;
+    justify-content: center;
+    height: 70%;
     gap: 0.5em;
-  }
-
-  #board-preview {
-    display: block;
-    position: absolute;
-    height: 0;
-    padding-bottom: 100%;
-    width: 100%;
   }
 
   .card label {
@@ -34,6 +66,7 @@ body:has(.base-view.setup-view) {
     color: #333;
     background-color: #f0f0f0dd;
   }
+
   .chin {
     @extend %flex-center;
     position: relative;

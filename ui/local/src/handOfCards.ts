@@ -1,6 +1,5 @@
 import { frag } from 'common';
 import { clamp, isEquivalent } from 'common/algo';
-//import { isTouchDevice } from 'common/device';
 import { Janitor } from 'common/event';
 
 export interface CardData {
@@ -8,7 +7,7 @@ export interface CardData {
   label: string;
   domId: DomId;
   classList: string[];
-  group?: string; // user, advanced, intermediate, etc
+  group?: string; // advanced, intermediate, beginner
 }
 
 export type Drop = { el: HTMLElement; selected?: DomId };
@@ -41,8 +40,6 @@ interface HandOpts {
   opaqueSelectedBackground?: boolean; // default false. when true, selected card background is opaque
   fanCenterToWidthRatio?: number; // default 0.5
 }
-
-let counter = 0;
 
 class HandOfCardsImpl {
   cards: HTMLElement[] = [];
@@ -208,7 +205,6 @@ class HandOfCardsImpl {
     const isAfterHovered = hoverIndex === -1 || index <= hoverIndex;
 
     let x, y, cardRotation;
-    //let angle = visibleArc * (0.5 + (0.5 - index) / visibleCards);
     let angle = visibleArc * (0.46 - index / visibleCards);
 
     if (this.isLeft) {
@@ -311,6 +307,7 @@ class HandOfCardsImpl {
       this.touchDragCard(e);
       this.redraw();
     }
+    e.preventDefault();
     e.stopPropagation();
   };
 
@@ -515,7 +512,7 @@ class TouchDragShape {
     const momentum = this.momentum;
     if (momentum.speed < 0.15) return undefined;
     if (momentum.dir === 'towards-drop') return this.drops[0];
-    if (momentum.dir === 'next-group') return 'next-group';
+    if (momentum.dir === 'next-group' && this.last.at.y > this.start.at.y) return 'next-group';
     return undefined;
   }
 }

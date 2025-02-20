@@ -1,7 +1,6 @@
 import { type ObjectStorage, objectStorage, range } from 'common/objectStorage';
 import { type LocalGame, LocalGameData } from './localGame';
-import { status } from 'game';
-import { type StatusId, clockToSpeed } from 'game';
+import { type StatusId, clockToSpeed, status } from 'game';
 import { myUserId } from 'common';
 
 export class LocalDb {

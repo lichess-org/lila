@@ -1,0 +1,208 @@
+.board-editor {
+  margin-top: 2em;
+  display: grid;
+  grid-template-columns: 24% 1fr 24%;
+  grid-template-areas:
+    '. spare-top .'
+    '. board .'
+    '. spare-bottom .'
+    'tools tools tools'
+    'copyables copyables copyables';
+}
+.board-editor .spare {
+  @extend %box-radius;
+
+  display: flex;
+  background: $c-font-dimmer;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
+
+  &-top {
+    grid-area: spare-top;
+    margin-bottom: 2vh;
+  }
+
+  &-bottom {
+    grid-area: spare-bottom;
+    margin-top: 2vh;
+  }
+
+  .no-square {
+    flex: 0 0 12.5%;
+
+    @include transition;
+
+    &:hover {
+      background: $m-primary--fade-80;
+    }
+
+    &.selected-square {
+      background: $m-primary--fade-50;
+    }
+
+    div {
+      @extend %square;
+    }
+
+    &.pointer {
+      @extend %box-radius-left;
+
+      &:hover {
+        background: $m-secondary--fade-80;
+      }
+
+      &.selected-square {
+        background: $m-secondary--fade-40;
+      }
+
+      piece {
+        background-image: url(../images/icons/pointer.svg);
+      }
+    }
+
+    &.trash {
+      @extend %box-radius-right;
+
+      &:hover {
+        background: $m-bad--fade-80;
+      }
+
+      &.selected-square {
+        background: $m-bad--fade-40;
+      }
+
+      piece {
+        background-image: url(../images/icons/trash.svg);
+      }
+    }
+  }
+
+  .is3d & .no-square div {
+    padding-bottom: 90.72%;
+  }
+
+  piece {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+
+    .is3d & {
+      /* original size: width: 140.625%; height: 179.6875%; size on 3D board, with height/width = 90.78571% */
+      width: 100%;
+      height: 140.7465%;
+      @include inline-start(0);
+      top: -34%;
+    }
+  }
+
+  piece.pointer,
+  piece.trash {
+    margin: 14%;
+    width: 72%;
+    height: 72%;
+
+    .is3d & {
+      width: 62%;
+      top: 0;
+    }
+  }
+}
+.board-editor {
+  &__tools {
+    display: none;
+    @extend %flex-column;
+
+    grid-area: tools;
+    align-self: center;
+
+    > * {
+      margin: 0.5rem 0;
+    }
+
+    select {
+      @extend %page-link !optional;
+
+      width: 100%;
+
+      &.positions option:checked {
+        font-style: italic;
+      }
+    }
+
+    .metadata {
+      @extend %box-neat;
+
+      background: $c-bg-box;
+      padding: 1rem;
+      white-space: nowrap;
+
+      .color {
+        margin-bottom: 1em;
+      }
+
+      .castling {
+        div {
+          @extend %flex-between;
+        }
+
+        label,
+        input {
+          display: inline-block;
+          margin: 3px;
+          vertical-align: middle;
+        }
+      }
+
+      .enpassant {
+        @extend %flex-between;
+        margin-top: 1em;
+        label {
+          font-weight: bold;
+        }
+        select {
+          width: 9ch;
+        }
+      }
+    }
+
+    .actions {
+      @extend %flex-column;
+
+      justify-content: stretch;
+
+      .button {
+        @extend %page-link !optional;
+
+        width: 100%;
+        text-align: start;
+      }
+    }
+  }
+}
+
+//@include body-fixed-scroll;
+
+.board-editor {
+  @include prevent-select;
+
+  .main-board {
+    grid-area: board;
+  }
+
+  cg-board {
+    cursor: inherit;
+  }
+
+  .copyables {
+    grid-area: copyables;
+    margin: 2rem 0 0 1rem;
+
+    p {
+      @extend %flex-center-nowrap;
+      gap: 1em;
+      > *:not(strong) {
+        flex: 1 1 auto;
+      }
+    }
+  }
+}
