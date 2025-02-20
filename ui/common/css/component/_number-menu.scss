@@ -55,6 +55,11 @@
       border-bottom: 0;
       background: theme.$c-bg-box;
     }
+
+    &[disabled='true'] {
+      pointer-events: none;
+      opacity: 0.5;
+    }
   }
 
   strong {
