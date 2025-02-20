@@ -19,9 +19,31 @@ body:has(.base-view.setup-view) {
     scrollbar-width: none;
   }
 
+  .from-position {
+    position: relative;
+  }
+
   .snap-pane {
     flex: 0 0 100%;
     scroll-snap-align: start;
+  }
+
+  .go-to-board {
+    position: absolute;
+    padding: 10px;
+    color: $c-font-dimmer;
+    top: 40%;
+    right: 20px;
+    font-size: 4em;
+  }
+
+  .go-to-opponent {
+    position: absolute;
+    padding: 10px;
+    color: $c-font-dimmer;
+    top: 40%;
+    left: 20px;
+    font-size: 4em;
   }
 
   div.player {
@@ -32,6 +54,8 @@ body:has(.base-view.setup-view) {
   .vs {
     @extend %flex-column;
     align-items: center;
+    justify-content: center;
+    height: 70%;
     gap: 0.5em;
   }
 

@@ -307,6 +307,7 @@ class HandOfCardsImpl {
       this.touchDragCard(e);
       this.redraw();
     }
+    e.preventDefault();
     e.stopPropagation();
   };
 
