@@ -28,17 +28,17 @@ final class Local(env: Env) extends LilaController(env):
         JsonOk(Json.obj("bots" -> bots))
 
   def assetKeys = Anon: // for service worker
-    JsonOk(env.local.api.assetKeys)
+    JsonOk(env.local.api.getJson)
 
   def devIndex = Auth: _ ?=>
     for
       bots   <- env.local.repo.getLatestBots()
-      assets <- devGetAssets
+      assets <- env.local.api.devGetAssets
       page   <- renderPage(indexPage(bots, assets.some))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
   def devAssets = Auth: ctx ?=>
-    devGetAssets.map(JsonOk)
+    env.local.api.devGetAssets.map(JsonOk)
 
   def devBotHistory(botId: Option[String]) = Auth: _ ?=>
     env.local.repo
@@ -62,12 +62,12 @@ final class Local(env: Env) extends LilaController(env):
   def devNameAsset(key: String, name: String) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .nameAsset(none, key, name, none)
-      .flatMap(_ => devGetAssets.map(JsonOk))
+      .flatMap(_ => env.local.api.devGetAssets.map(JsonOk))
 
   def devDeleteAsset(key: String) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .deleteAsset(key)
-      .flatMap(_ => devGetAssets.map(JsonOk))
+      .flatMap(_ => env.local.api.devGetAssets.map(JsonOk))
 
   def devPostAsset(notAString: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) {
     ctx ?=>
@@ -101,17 +101,6 @@ final class Local(env: Env) extends LilaController(env):
         .add("canPost", isGrantedOpt(_.BotEditor)),
       if devAssets.isDefined then "local.dev" else "local"
     )
-
-  private def devGetAssets =
-    env.local.repo.getAssets.map: m =>
-      JsObject:
-        env.local.api.assetKeys.fields
-          .collect:
-            case (category, JsArray(keys)) =>
-              category -> JsArray:
-                keys.collect:
-                  case JsString(key) if m.contains(key) =>
-                    Json.obj("key" -> key, "name" -> m(key))
 
   private def pref(using ctx: Context) =
     lila.pref.JsonView
