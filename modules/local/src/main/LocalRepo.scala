@@ -52,14 +52,13 @@ final private class LocalRepo(private[local] val bots: Coll, private[local] val 
       .find($doc())
       .cursor[Bdoc]()
       .list(Int.MaxValue)
-      .map { docs =>
-        docs.flatMap { doc =>
-          for
-            id   <- doc.getAsOpt[String]("_id")
-            name <- doc.getAsOpt[String]("name")
-          yield id -> name
-        }.toMap
-      }
+      .map: docs =>
+        for
+          doc  <- docs
+          id   <- doc.getAsOpt[String]("_id")
+          name <- doc.getAsOpt[String]("name")
+        yield id -> name
+      .map(_.toMap)
 
   def nameAsset(tpe: Option[AssetType], key: String, name: String, author: Option[String]): Funit =
     // filter out bookCovers as they share the same key as the book
