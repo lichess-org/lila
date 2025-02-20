@@ -11,6 +11,8 @@ import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
 import { env } from './localEnv';
+import type { LichessEditor } from 'editor';
+import { json } from 'common/xhr';
 import { Chessground as makeChessground } from 'chessground';
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
@@ -19,6 +21,8 @@ export function showSetupDialog(setup: LocalSetup = {}): void {
 
 class SetupDialog {
   view: HTMLElement;
+  editorEl: HTMLElement;
+  editor: LichessEditor;
   playerColor: Color = 'white';
   setup: LocalSetup = {};
   hand: HandOfCards;
@@ -34,19 +38,24 @@ class SetupDialog {
       class: 'game-setup base-view setup-view',
       css: [{ hashed: 'local.setup' }],
       htmlText: $html`
-        <div class="with-cards">
-          <div class="vs">
-            <div class="player" data-color="black">
-              <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
-              <div class="placard none" data-color="black">Human Player</div>
+        <div class="main-content">
+          <div class="with-cards snap-pane">
+            <div class="vs">
+              <div class="player" data-color="black">
+                <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
+                <div class="placard none" data-color="black">Human Player</div>
+              </div>
             </div>
+          </div>
+          <div class="from-position is2d snap-pane">
+            <div class="editor"></div>
           </div>
         </div>
         <div class="chin">
           <div class="params">
             <span>
-              <input class="fen" type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}">
-              <button class="button button-empty button-dim fen960" data-icon="${licon.DieSix}"></button>
+              <input class="fen" type="text" spellcheck="false" placeholder="${co.fen.INITIAL_FEN}"
+                     value="${this.setup.setupFen ?? ''}">
             </span>
             <span>
               <select data-type="initial">${this.timeOptions('initial')}</select>
@@ -63,6 +72,14 @@ class SetupDialog {
       modal: true,
       focus: '.white',
       actions: [
+        {
+          selector: '.fen',
+          event: 'focus',
+          listener: () => {
+            const content = dlg.viewEl.querySelector<HTMLElement>('.main-content')!;
+            content.scrollLeft = content.scrollWidth;
+          },
+        },
         { selector: '.white', listener: () => this.fight('white') },
         { selector: '.black', listener: () => this.fight('black') },
         { selector: '.random', listener: () => this.fight() },
@@ -78,6 +95,7 @@ class SetupDialog {
     });
     this.dialog = dlg;
     this.view = dlg.viewEl.querySelector('.with-cards')!;
+    this.editorEl = dlg.viewEl.querySelector('.editor')!;
     const cardData = definedMap(env.bot.sorted('classical'), b => env.bot.card(b));
     this.hand = handOfCards({
       getCardData: () => cardData,
@@ -89,6 +107,36 @@ class SetupDialog {
       orientation: 'bottom',
     });
     window.addEventListener('resize', this.hand.resize);
+    dlg.viewEl.querySelector<HTMLElement>('.main-content')?.addEventListener(
+      'wheel',
+      e => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+        } else {
+          dlg.viewEl.querySelector<HTMLElement>('.main-content')!.scrollTop = 0;
+        }
+      },
+      { passive: false },
+    );
+    json('/editor.json').then(async data => {
+      data.el = this.editorEl;
+      data.fen = this.setup.setupFen ?? co.fen.INITIAL_FEN;
+      data.embed = true;
+      data.options = {
+        inlineCastling: true,
+        orientation: 'white',
+        onChange: (fen: string) => {
+          console.log('hayo ' + fen);
+          this.setup.setupFen = fen;
+          dlg.viewEl.querySelector<HTMLInputElement>('.fen')!.value = fen;
+        },
+        coordinates: false,
+        bindHotkeys: false,
+      };
+      this.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
+      this.editor.setRules(co.compat.lichessRules('chess960'));
+    });
+
     dlg.show();
     this.select(this.setup[this.botColor]);
     this.hand.resize();

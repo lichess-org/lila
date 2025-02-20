@@ -7,7 +7,7 @@ export interface CardData {
   label: string;
   domId: DomId;
   classList: string[];
-  group?: string; // user, advanced, intermediate, etc
+  group?: string; // advanced, intermediate, beginner
 }
 
 export type Drop = { el: HTMLElement; selected?: DomId };
