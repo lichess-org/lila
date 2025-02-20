@@ -1001,7 +1001,10 @@
 	<string name="shareMainlineUrl" comment="Mainline means moves without variations (branches)">Share mainline URL</string>
 	<string name="tourCreated" comment="title - tournaments created by user">Created</string>
 	<string name="tourRecent">Recently played</string>
+	<string name="tourUpcoming" comment="Upcoming tournaments">Upcoming</string>
 	<string name="bestResults" comment="Best tournament/simul results achieved">Best results</string>
 	<string name="stats" comment="Game, tournament or simul stats">Stats</string>
 	<string name="dateStartedNewest">Date started (newest)</string>
+	<string name="timeAlmostUp" comment="Notification for correspondence games">Time is almost up!</string>
+	<string name="gameAgainstX" comment="Your game against playerX">Game vs %s</string>
 </resources>
