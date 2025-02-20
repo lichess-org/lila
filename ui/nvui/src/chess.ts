@@ -12,11 +12,11 @@ import { storage } from 'common/storage';
 const moveStyles = ['uci', 'san', 'literate', 'nato', 'anna'] as const;
 export type MoveStyle = (typeof moveStyles)[number];
 const pieceStyles = ['letter', 'white uppercase letter', 'name', 'white uppercase name'] as const;
-export type PieceStyle = (typeof pieceStyles)[number];
+type PieceStyle = (typeof pieceStyles)[number];
 const prefixStyles = ['letter', 'name', 'none'] as const;
-export type PrefixStyle = (typeof prefixStyles)[number];
-export type PositionStyle = 'before' | 'after' | 'none';
-export type BoardStyle = 'plain' | 'table';
+type PrefixStyle = (typeof prefixStyles)[number];
+type PositionStyle = 'before' | 'after' | 'none';
+type BoardStyle = 'plain' | 'table';
 
 interface RoundStep {
   uci?: Uci;
@@ -152,7 +152,7 @@ type CrazyPocket = { [role in Role]?: number };
 export const renderPockets = (pockets: [CrazyPocket, CrazyPocket]): VNode[] =>
   COLORS.map((color, i) => h('h2', `${color} pocket: ${pocketsStr(pockets[i])}`));
 
-export const pocketsStr = (pocket: CrazyPocket): string =>
+const pocketsStr = (pocket: CrazyPocket): string =>
   Object.entries(pocket)
     .map(([role, count]) => `${role}: ${count}`)
     .join(', ');
