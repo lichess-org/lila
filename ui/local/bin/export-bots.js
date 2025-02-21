@@ -1,6 +1,6 @@
 const docs = [];
 
-db.local_bots
+db.local_bot
   .aggregate([
     { $sort: { version: -1 } },
     { $group: { _id: '$uid', doc: { $first: '$$ROOT' } } },
