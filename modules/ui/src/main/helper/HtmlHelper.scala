@@ -33,10 +33,9 @@ object HtmlHelper:
     val base_button = button(cls := "copy-me__button button button-metal", dataIcon := Icon.Clipboard)
     div(cls := "copy-me")(
       target(cls := "copy-me__target"),
-      button_value match {
+      button_value match
         case Some(b) => base_button(value := button_value)
-        case _ => base_button
-      }
+        case _       => base_button
     )
 
 trait HtmlHelper:

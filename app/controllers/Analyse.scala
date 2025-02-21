@@ -77,40 +77,44 @@ final class Analyse(
                 )
               )
               .flatMap: data =>
-                val pgn_without_clocks = pgn.tree match {
+                val pgn_without_clocks = pgn.tree match
                   case Some(t) => pgn.copy(tree = Some(t.map(m => m.copy(timeLeft = None, moveTime = None))))
-                  case _ => pgn
-                }
+                  case _       => pgn
                 def pgnToString(p: Pgn) = env.analyse.annotator.toPgnString(p).toString
-                views.analyse.replay(
-                  pov,
-                  data,
-                  initialFen,
-                  env.analyse.annotator(pgn_without_clocks, pov.game, analysis).render.toString,
-                  pgnToString(env.analyse.annotator(
-                    analysis match {
-                      case Some(a) => env.analyse.annotator.addEvals(pgn, a)
-                      case _ => pgn
-                    },
-                    pov.game,
-                    analysis
-                  )),
-                  pgnToString(pgn_without_clocks),
-                  if pov.game.isPgnImport then
-                    Some(
-                      env.api.gameApiV2.exportOne(
+                views.analyse
+                  .replay(
+                    pov,
+                    data,
+                    initialFen,
+                    env.analyse.annotator(pgn_without_clocks, pov.game, analysis).render.toString,
+                    pgnToString(
+                      env.analyse.annotator(
+                        analysis match
+                          case Some(a) => env.analyse.annotator.addEvals(pgn, a)
+                          case _       => pgn
+                        ,
                         pov.game,
-                        OneConfig(Format.PGN, true, PgnDump.WithFlags(), None)
+                        analysis
                       )
-                  ) else None,
-                  analysis,
-                  analysisInProgress,
-                  simul,
-                  crosstable,
-                  userTv,
-                  chat,
-                  bookmarked = bookmarked
-                ).flatMap(page => Ok.page(page).map(_.enforceCrossSiteIsolation))
+                    ),
+                    pgnToString(pgn_without_clocks),
+                    if pov.game.isPgnImport then
+                      Some(
+                        env.api.gameApiV2.exportOne(
+                          pov.game,
+                          OneConfig(Format.PGN, true, PgnDump.WithFlags(), None)
+                        )
+                      )
+                    else None,
+                    analysis,
+                    analysisInProgress,
+                    simul,
+                    crosstable,
+                    userTv,
+                    chat,
+                    bookmarked = bookmarked
+                  )
+                  .flatMap(page => Ok.page(page).map(_.enforceCrossSiteIsolation))
       yield res
 
   def embed(gameId: GameId, color: Color) = embedReplayGame(gameId, color)
