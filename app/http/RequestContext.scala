@@ -76,7 +76,7 @@ trait RequestContext(using Executor):
 
   def InEmbedContext[A](f: EmbedContext ?=> A)(using ctx: Context): A =
     if !env.net.isProd then env.web.manifest.update()
-    f(using EmbedContext(ctx.req))
+    f(using EmbedContext(ctx))
 
   private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
     env.security.api

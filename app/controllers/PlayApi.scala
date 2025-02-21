@@ -97,9 +97,8 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
             env.bot.player.claimVictory(pov).pipe(toResult)
         case Array("game", id, "berserk") =>
           as(GameAnyId(id).gameId): pov =>
-            fuccess:
-              if env.bot.player.berserk(pov.game) then jsonOkResult
-              else JsonBadRequest(jsonError("Cannot berserk"))
+            if !me.isBot && env.bot.player.berserk(pov.game) then jsonOkResult
+            else JsonBadRequest(jsonError("Cannot berserk"))
         case _ => notFoundJson("No such command")
 
   def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me ?=>

@@ -94,6 +94,7 @@
     @include mq-is-col1 {
       border-radius: 0;
       box-shadow: none;
+      overflow: hidden;
     }
 
     @include mq-at-least-col2 {

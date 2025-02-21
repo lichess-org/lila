@@ -17,9 +17,7 @@ object LangPicker extends lila.core.i18n.LangPicker:
       .getOrElse(defaultLang)
 
   def bestFromRequestHeaders(req: RequestHeader): Option[Lang] =
-    req.acceptLanguages.foldLeft(none[Lang]):
-      case (None, lang) => findCloser(lang)
-      case (found, _)   => found
+    req.acceptLanguages.collectFirstSome(findCloser)
 
   def allFromRequestHeaders(req: RequestHeader): List[Lang] = {
     req.acceptLanguages.flatMap(findCloser) ++

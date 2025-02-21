@@ -12,6 +12,7 @@ import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
+import lila.security.EmailConfirm
 
 final class Auth(
     env: Env,
@@ -61,7 +62,7 @@ final class Auth(
   )(using RequestHeader) =
     result.withCookies(
       env.security.lilaCookie.withSession(remember = remember) {
-        _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
+        _ + (api.sessionIdKey -> sessionId) - api.AccessUri - EmailConfirm.cookie.name
       }
     )
 
@@ -187,7 +188,7 @@ final class Auth(
                   BadRequest.page(views.auth.signup(baseForm.withForm(err)))
               case Signup.Result.ConfirmEmail(user, email) =>
                 Redirect(routes.Auth.checkYourEmail).withCookies(
-                  lila.security.EmailConfirm.cookie
+                  EmailConfirm.cookie
                     .make(env.security.lilaCookie, user, email)(using ctx.req)
                 )
               case Signup.Result.AllSet(user, email) =>
@@ -227,7 +228,7 @@ final class Auth(
 
   def checkYourEmail = Open:
     RedirectToProfileIfLoggedIn:
-      lila.security.EmailConfirm.cookie.get(ctx.req) match
+      EmailConfirm.cookie.get(ctx.req) match
         case None => Ok.async(accountC.renderCheckYourEmail)
         case Some(userEmail) =>
           env.user.repo.exists(userEmail.username).flatMap {
@@ -237,7 +238,7 @@ final class Auth(
 
   // after signup and before confirmation
   def fixEmail = OpenBody:
-    lila.security.EmailConfirm.cookie.get(ctx.req).so { userEmail =>
+    EmailConfirm.cookie.get(ctx.req).so { userEmail =>
       forms.preloadEmailDns() >>
         bindForm(forms.fixEmail(userEmail.email))(
           err => BadRequest.page(views.auth.checkYourEmail(userEmail.email.some, err.some)),
@@ -258,30 +259,35 @@ final class Auth(
                               .send(user, newUserEmail.email)
                               .inject:
                                 Redirect(routes.Auth.checkYourEmail).withCookies:
-                                  lila.security.EmailConfirm.cookie
+                                  EmailConfirm.cookie
                                     .make(env.security.lilaCookie, user, newUserEmail.email)(using ctx.req)
                       else Redirect(routes.Auth.login)
         )
     }
 
   def signupConfirmEmail(token: String) = Open:
-    import lila.security.EmailConfirm.Result
-    env.security.emailConfirm.confirm(token).flatMap {
-      case Result.NotFound =>
-        lila.mon.user.register.confirmEmailResult(false).increment()
-        notFound
-      case Result.AlreadyConfirmed(user) if ctx.is(user) =>
-        Redirect(routes.User.show(user.username))
-      case Result.AlreadyConfirmed(_) =>
-        Redirect(routes.Auth.login)
-      case Result.JustConfirmed(user) =>
-        lila.mon.user.register.confirmEmailResult(true).increment()
-        env.user.repo.email(user.id).flatMap {
-          _.so: email =>
-            authLog(user.username, email.some, s"Confirmed email")
-            welcome(user, email, sendWelcomeEmail = false)
-        } >> redirectNewUser(user)
-    }
+    env.security.emailConfirm.dryTest(token).flatMap(emailConfirmResult(token))
+
+  def signupConfirmEmailPost(token: String) = Open:
+    env.security.emailConfirm.confirm(token).flatMap(emailConfirmResult(token))
+
+  private def emailConfirmResult(token: String)(using ctx: Context): EmailConfirm.Result => Fu[Result] =
+    case EmailConfirm.Result.NotFound =>
+      lila.mon.user.register.confirmEmailResult(false).increment()
+      notFound
+    case EmailConfirm.Result.NeedsConfirm(user) => Ok.page(views.auth.signupConfirm(user, token, none))
+    case EmailConfirm.Result.AlreadyConfirmed(user) =>
+      if ctx.is(user) then Redirect(routes.User.show(user.username))
+      else Redirect(routes.Auth.login)
+    case EmailConfirm.Result.JustConfirmed(user) =>
+      lila.mon.user.register.confirmEmailResult(true).increment()
+      for
+        email <- env.user.repo.email(user.id)
+        _ <- email.so: email =>
+          authLog(user.username, email.some, s"Confirmed email")
+          welcome(user, email, sendWelcomeEmail = false)
+        res <- redirectNewUser(user)
+      yield res
 
   private def redirectNewUser(user: UserModel)(using Context) =
     api
@@ -412,14 +418,11 @@ final class Auth(
                 data =>
                   env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
                     case Some(user, storedEmail) =>
-                      env.security.magicLink.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
-                        lila.mon.user.auth.magicLinkRequest("success").increment()
-                        env.security.magicLink
+                      env.security.loginToken.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
+                        env.security.loginToken
                           .send(user, storedEmail)
                           .inject(Redirect(routes.Auth.magicLinkSent))
-                    case _ =>
-                      lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                      Redirect(routes.Auth.magicLinkSent)
+                    case _ => Redirect(routes.Auth.magicLinkSent)
                   }
               )
           }
@@ -429,30 +432,12 @@ final class Auth(
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
 
-  def magicLinkLogin(token: String) = Open:
-    if ctx.isAuth
-    then Redirect(routes.Lobby.home)
-    else
-      Firewall:
-        limit.magicLink(token, rateLimited):
-          env.security.magicLink.confirm(token).flatMap {
-            case None =>
-              lila.mon.user.auth.magicLinkConfirm("token_fail").increment()
-              notFound
-            case Some(user) =>
-              authLog(user.username, none, "Magic link")
-              for
-                result <- authenticateUser(user, remember = true)
-                _ = lila.mon.user.auth.magicLinkConfirm("success").increment()
-              yield result
-          }
-
   def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>
     if ctx.isOAuth
     then lila.log("oauth").info(s"api makeLoginToken ${me.username} ${HTTPRequest.printClient(ctx.req)}")
     JsonOk:
       env.security.loginToken
-        .generate(me.value)
+        .generate(me)
         .map: token =>
           Json.obj(
             "userId" -> me.userId,
@@ -517,7 +502,7 @@ final class Auth(
     env.security.ipTrust
       .rateLimitCostFactor(req.ipAddress, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
 
-  private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]
+  private[controllers] def EmailConfirmRateLimit = EmailConfirm.rateLimit[Result]
 
   private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.fold(f)(me => Redirect(routes.User.show(me.username)))

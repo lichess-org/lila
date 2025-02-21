@@ -6,16 +6,9 @@ case class Crosstable(
     users: Crosstable.Users,
     results: List[Crosstable.Result] // chronological order, oldest to most recent
 ):
+  export users.{ fromPov as _, * }
 
-  def user1 = users.user1
-  def user2 = users.user2
-  def user  = users.user
-
-  def nonEmpty = results.nonEmpty.option(this)
-
-  def nbGames                 = users.nbGames
-  def showScore               = users.showScore
-  def showOpponentScore       = users.showOpponentScore
+  def nonEmpty                = results.nonEmpty.option(this)
   def fromPov(userId: UserId) = copy(users = users.fromPov(userId))
 
   lazy val size = results.size

@@ -27,6 +27,7 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     challengeGranter: lila.challenge.ChallengeGranter,
+    playbanApi: lila.playban.PlaybanApi,
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
@@ -53,6 +54,7 @@ final class UserApi(
       withFollows: Boolean,
       withTrophies: Boolean,
       withCanChallenge: Boolean,
+      withPlayban: Boolean = false,
       forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
@@ -74,7 +76,8 @@ final class UserApi(
             (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user)),
             streamerApi.listed(u.user),
             withCanChallenge.so(challengeGranter.mayChallenge(u.user).dmap(some)),
-            forWiki.soFu(userRepo.email(u.id))
+            forWiki.soFu(userRepo.email(u.id)),
+            withPlayban.so(playbanApi.currentBan(u))
           ).mapN:
             (
                 gameOption,
@@ -88,7 +91,8 @@ final class UserApi(
                 trophiesAndAwards,
                 streamer,
                 canChallenge,
-                email
+                email,
+                playban
             ) =>
               jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
                 Json
@@ -111,6 +115,7 @@ final class UserApi(
                       "me"       -> nbGamesWithMe
                     )
                   )
+                  .add("kid", u.kid)
                   .add("email", email)
                   .add("groups", forWiki.option(wikiGroups(u.user)))
                   .add("streaming", liveStreamApi.isStreaming(u.id))
@@ -118,6 +123,7 @@ final class UserApi(
                   .add("nbFollowers", withFollows.option(0))
                   .add("trophies", trophiesAndAwards.map(trophiesJson))
                   .add("canChallenge", canChallenge)
+                  .add("playban", playban)
                   .add(
                     "streamer",
                     streamer.map: s =>
