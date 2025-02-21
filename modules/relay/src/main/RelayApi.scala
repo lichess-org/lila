@@ -379,7 +379,7 @@ final class RelayApi(
       yield rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    (tour.isOwnedBy(me) || Granter(_.StudyAdmin))
+    ((tour.isOwnedBy(me) || Granter(_.StudyAdmin)) && !tour.official)
       .so:
         for
           _      <- tourRepo.delete(tour)
