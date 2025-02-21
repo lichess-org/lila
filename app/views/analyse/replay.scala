@@ -10,14 +10,16 @@ import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.round.RoundGame.secondsSinceCreation
 
-import scala.concurrent.{ Future, ExecutionContext, Await }
-import play.api.libs.ws.StandaloneWSClient
+implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
 def replay(
     pov: Pov,
     data: play.api.libs.json.JsObject,
     initialFen: Option[chess.format.Fen.Full],
-    pgn: PgnStr,
+    pgn: String,
+    annotatedPgn: String,
+    rawPgn: String,
+    importedPgn: Option[Future[String]],
     analysis: Option[lila.analyse.Analysis],
     analysisStarted: Boolean,
     simul: Option[lila.simul.Simul],
@@ -25,7 +27,7 @@ def replay(
     userTv: Option[User],
     chatOption: Option[lila.chat.UserChat.Mine],
     bookmarked: Boolean
-)(using ctx: Context, ws: StandaloneWSClient, ec: ExecutionContext) =
+)(using ctx: Context) =
 
   import pov.*
 
@@ -69,22 +71,20 @@ def replay(
     copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
   )
 
-  def pgnCopyMeLink(params_suffix: String, display_name: RawFrag): Tag =
-    val endpointUrl = s"${netBaseUrl}${routes.Game.exportOne(game.id)}?${params_suffix}"
-    copyMeLink(
-      endpointUrl,
-      display_name,
-      Some(Await.result(ws.url(endpointUrl).get().map(_.body), 5.seconds))
-    )
+  val pgnLinks: Future[Frag] = for {
+    annotated <- copyMePgnLink(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated(),
+                               Future.successful(annotatedPgn))
+    raw <- copyMePgnLink(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw(),
+                         Future.successful(rawPgn))
+    fragment <- importedPgn match {
+      case Some(p) => copyMePgnLink(
+        s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported(), p
+      ).map(imported => frag(annotated, raw, imported))
+      case _ => Future.successful(frag(annotated, raw))
+    }
+  } yield fragment
 
-  val pgnLinks = frag(
-    pgnCopyMeLink("literate=1", trans.site.downloadAnnotated()),
-    pgnCopyMeLink("evals=0&clocks=0", trans.site.downloadRaw()),
-    game.isPgnImport.option:
-      pgnCopyMeLink("imported=1", trans.site.downloadImported())
-  )
-
-  bits
+  pgnLinks.map { pgnLinksRes => bits
     .page(ui.titleOf(pov))
     .css("analyse.round")
     .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
@@ -189,7 +189,7 @@ def replay(
                     ),
                     div(
                       strong("PGN"),
-                      pgnLinks
+                      pgnLinksRes
                     ),
                     div(cls := "pgn")(pgn)
                   ),
@@ -204,9 +204,10 @@ def replay(
         ctx.blind.option(
           div(cls := "blind-content none")(
             h2("PGN downloads"),
-            pgnLinks,
+            pgnLinksRes,
             button(cls := "copy-pgn", attr("data-pgn") := pgn):
               "Copy PGN to clipboard"
           )
         )
       )
+  }
