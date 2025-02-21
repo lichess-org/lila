@@ -86,8 +86,6 @@ final class Analyse(
                   pov,
                   data,
                   initialFen,
-                  // todo - see if evals get applied after server analysis on gitpod, and if
-                  // the existing string below is fine just calling render and not toPgnStr
                   env.analyse.annotator(pgn_without_clocks, pov.game, analysis).render.toString,
                   pgnToString(env.analyse.annotator(
                     analysis match {

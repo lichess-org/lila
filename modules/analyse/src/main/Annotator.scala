@@ -37,11 +37,6 @@ final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.A
   def toPgnString(pgn: Pgn): PgnStr = PgnStr:
     s"${pgn.render}\n\n\n".replaceIf("] } { [", "] [")
 
-  // todo - see if master on localhost gives "you already have ongoing requested analysis"
-  // when requesting analysis on imported game
-    // likely just due to having no engines locally
-  // todo - try testing your branch on gitpod (so that you can get eval generated annots)
-
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     StatusText(status, winner, chess.variant.Standard) match
       case ""   => p
