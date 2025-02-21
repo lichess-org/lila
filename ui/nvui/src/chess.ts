@@ -369,6 +369,11 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
     const $moveBox = $('input.move');
     if (!$moveBox.length) return;
 
+    // user can select their own piece again if they change their mind
+    if ($moveBox.val() !== '' && $evBtn.attr('color') === opposite(opponentColor)) {
+      $moveBox.val('');
+    }
+
     // if no move in box yet
     if ($moveBox.val() === '') {
       // if user selects another's piece first
@@ -379,9 +384,6 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
         selectSound();
       }
     } else {
-      // if user selects their own piece second
-      if ($evBtn.attr('color') === opposite(opponentColor)) return;
-
       const first = $moveBox.val();
       if (typeof first !== 'string' || !isKey(first)) return;
       const $firstPiece = $(squareSelector(first[1], first[0]));
