@@ -9,18 +9,17 @@ import play.api.libs.json.*
 import lila.db.dsl.{ *, given }
 
 final private class LocalRepo(private[local] val bots: Coll, private[local] val assets: Coll)(using Executor):
-  given Format[BotMeta] = Json.format
 
-  def getVersions(botId: Option[UserId] = none): Fu[JsArray] =
+  def getVersions(botId: Option[UserId] = none): Fu[List[BotJson]] =
     bots
-      .find(botId.fold[Bdoc]($empty)(v => $doc("uid" -> v)), $doc("_id" -> 0).some)
+      .find(botId.so(v => $doc("uid" -> v)), $doc("_id" -> 0).some)
       .sort($doc("version" -> -1))
       .cursor[Bdoc]()
       .list(Int.MaxValue)
-      .map: docs =>
-        JsArray(docs.map(JSON.jval))
+      .map:
+        _.map(JSON.jval).map(BotJson(_))
 
-  def getLatestBots(): Fu[JsArray] =
+  def getLatestBots(): Fu[List[BotJson]] =
     bots
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
@@ -31,21 +30,15 @@ final private class LocalRepo(private[local] val bots: Coll, private[local] val 
           Project($doc("_id" -> 0))
         )
       .list(Int.MaxValue)
-      .map: docs =>
-        JsArray(docs.flatMap(JSON.jval(_).asOpt[JsObject]))
+      .map:
+        _.map(JSON.jval).map(BotJson(_))
 
-  def putBot(bot: JsObject, author: UserId): Fu[JsObject] =
-    val botId = (bot \ "uid").as[UserId]
-    for
-      nextVersion <- bots
-        .find($doc("uid" -> botId))
-        .sort($doc("version" -> -1))
-        .one[Bdoc]
-        .map(_.flatMap(_.getAsOpt[Int]("version")).getOrElse(-1) + 1) // race condition
-      botMeta = BotMeta(botId, author, nextVersion)
-      newBot  = bot ++ Json.toJson(botMeta).as[JsObject]
-      _ <- bots.insert.one(JSON.bdoc(newBot))
-    yield newBot
+  def putBot(bot: BotJson, author: UserId): Fu[BotJson] = for
+    fullBot <- bots.find($doc("uid" -> bot.uid)).sort($doc("version" -> -1)).one[Bdoc]
+    nextVersion = fullBot.flatMap(_.int("version")).getOrElse(-1) + 1 // race condition
+    newBot      = bot.withMeta(BotMeta(bot.uid, author, nextVersion))
+    _ <- bots.insert.one(JSON.bdoc(newBot.value))
+  yield newBot
 
   def getAssets: Fu[Map[String, String]] =
     assets

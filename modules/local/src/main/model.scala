@@ -1,6 +1,19 @@
 package lila.local
 
+import play.api.libs.json.*
+
+import lila.common.Json.given
+
+private trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]
+
+opaque type BotJson = JsObject
+object BotJson extends OpaqueJson[BotJson]:
+  extension (b: BotJson)
+    def uid                              = (b \ "uid").as[UserId]
+    def withMeta(meta: BotMeta): BotJson = b ++ Json.toJsObject(meta)
+
 case class BotMeta(uid: UserId, author: UserId, version: Int)
+private given OWrites[BotMeta] = Json.writes
 
 type AssetType = "sound" | "image" | "book" | "net"
 type AssetKey  = String

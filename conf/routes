@@ -354,7 +354,7 @@ GET   /local                           controllers.Local.index
 GET   /local/bots                      controllers.Local.bots
 GET   /local/assets                    controllers.Local.assetKeys
 GET   /local/dev                       controllers.Local.devIndex
-GET   /local/dev/history               controllers.Local.devBotHistory(id: Option[String])
+GET   /local/dev/history               controllers.Local.devBotHistory(id: Option[UserStr])
 POST  /local/dev/bot                   controllers.Local.devPostBot
 GET   /local/dev/assets                controllers.Local.devAssets
 POST  /local/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?> controllers.Local.devPostAsset(tpe: String, key: String)

@@ -15,11 +15,8 @@ final private class LocalConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    getFile: (String => java.io.File)
-)(using
-    Executor,
-    akka.stream.Materializer
-)(using mode: play.api.Mode, scheduler: Scheduler):
+    getFile: String => java.io.File
+)(using Executor, akka.stream.Materializer):
 
   private val config: LocalConfig = appConfig.get[LocalConfig]("local")(AutoConfig.loader)
 

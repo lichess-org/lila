@@ -9,7 +9,7 @@ import akka.util.ByteString
 
 // this stuff is for bot devs
 
-final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (String => java.io.File))(using
+final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: String => java.io.File)(using
     Executor,
     akka.stream.Materializer
 ):
@@ -27,7 +27,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
     FileIO
       .fromPath(file.ref.path)
       .runWith(FileIO.toPath(getFile(s"${config.assetPath}/${tpe}/$fileName").toPath))
-      .map(res => Right(updateAssets))
+      .map(_ => Right(updateAssets))
       .recover:
         case e: Exception => Left(s"Exception: ${e.getMessage}")
 

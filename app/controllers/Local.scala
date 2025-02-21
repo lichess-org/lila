@@ -5,7 +5,7 @@ import play.api.mvc.*
 
 import lila.app.{ given, * }
 import lila.common.Json.given
-import lila.local.AssetType
+import lila.local.{ AssetType, BotJson }
 
 final class Local(env: Env) extends LilaController(env):
 
@@ -36,9 +36,9 @@ final class Local(env: Env) extends LilaController(env):
   def devAssets = Auth: ctx ?=>
     env.local.api.devGetAssets.map(JsonOk)
 
-  def devBotHistory(botId: Option[String]) = Auth: _ ?=>
+  def devBotHistory(botId: Option[UserStr]) = Auth: _ ?=>
     env.local.repo
-      .getVersions(botId.map(UserId.apply))
+      .getVersions(botId.map(_.id))
       .map: history =>
         JsonOk(Json.obj("bots" -> history))
 
@@ -46,12 +46,8 @@ final class Local(env: Env) extends LilaController(env):
     ctx.body.body
       .validate[JsObject]
       .fold(
-        err => BadRequest(Json.obj("error" -> err.toString)),
-        bot =>
-          env.local.repo
-            .putBot(bot, me.userId)
-            .map: updatedBot =>
-              JsonOk(updatedBot)
+        err => BadRequest(jsonError(err.toString)),
+        bot => env.local.repo.putBot(BotJson(bot), me.userId).map(JsonOk)
       )
   }
 
@@ -76,15 +72,14 @@ final class Local(env: Env) extends LilaController(env):
           env.local.api
             .storeAsset(tpe, key, file)
             .flatMap:
-              case Left(error) => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
+              case Left(error) => InternalServerError(jsonError(error)).as(JSON)
               case Right(assets) =>
-                env.local.repo
-                  .nameAsset(tpe.some, key, name, author)
-                  .flatMap(_ => (JsonOk(Json.obj("key" -> key, "name" -> name))))
-        .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
+                for _ <- env.local.repo.nameAsset(tpe.some, key, name, author)
+                yield JsonOk(Json.obj("key" -> key, "name" -> name))
+        .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
   }
 
-  private def indexPage(bots: JsArray, devAssets: Option[JsObject] = none)(using Context) =
+  private def indexPage(bots: List[BotJson], devAssets: Option[JsObject] = none)(using Context) =
     views.local.index(
       Json
         .obj("pref" -> pref, "bots" -> bots)
@@ -98,6 +93,3 @@ final class Local(env: Env) extends LilaController(env):
       .write(ctx.pref, false)
       .add("animationDuration", ctx.pref.animationMillis.some)
       .add("enablePremove", ctx.pref.premove.some)
-
-  private def optTrue(s: Option[String]) =
-    s.exists(v => v == "" || v == "1" || v == "true")
