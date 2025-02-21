@@ -5,7 +5,7 @@ import play.api.mvc.*
 
 import lila.app.{ given, * }
 import lila.common.Json.given
-import lila.local.{ GameSetup, AssetType }
+import lila.local.AssetType
 
 final class Local(env: Env) extends LilaController(env):
 
