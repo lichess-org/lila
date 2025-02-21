@@ -63,9 +63,10 @@ final class Local(env: Env) extends LilaController(env):
 
   def devPostAsset(notAString: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) {
     ctx ?=>
-      val tpe: AssetType         = notAString.asInstanceOf[AssetType]
-      val author: Option[String] = ctx.body.body.dataParts.get("author").flatMap(_.headOption)
-      val name                   = ctx.body.body.dataParts.get("name").flatMap(_.headOption).getOrElse(key)
+      val tpe: AssetType           = notAString.asInstanceOf[AssetType]
+      def formValue(field: String) = ctx.body.body.dataParts.get(field).flatMap(_.headOption)
+      val author: Option[UserId]   = formValue("author").flatMap(UserStr.read).map(_.id)
+      val name                     = formValue("name").getOrElse(key)
       ctx.body.body
         .file("file")
         .map: file =>

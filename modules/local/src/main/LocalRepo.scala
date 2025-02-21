@@ -40,7 +40,7 @@ final private class LocalRepo(private[local] val bots: Coll, private[local] val 
     _ <- bots.insert.one(JSON.bdoc(newBot.value))
   yield newBot
 
-  def getAssets: Fu[Map[String, String]] =
+  def getAssets: Fu[Map[String, AssetName]] =
     assets
       .find($doc())
       .cursor[Bdoc]()
@@ -49,15 +49,15 @@ final private class LocalRepo(private[local] val bots: Coll, private[local] val 
         for
           doc  <- docs
           id   <- doc.getAsOpt[String]("_id")
-          name <- doc.getAsOpt[String]("name")
+          name <- doc.getAsOpt[AssetName]("name")
         yield id -> name
       .map(_.toMap)
 
-  def nameAsset(tpe: Option[AssetType], key: String, name: String, author: Option[String]): Funit =
+  def nameAsset(tpe: Option[AssetType], key: AssetKey, name: AssetName, author: Option[UserId]): Funit =
     // filter out bookCovers as they share the same key as the book
     if !(tpe.has("book") && key.endsWith(".png")) then
       val id     = if tpe.has("book") then key.dropRight(4) else key
-      val setDoc = $doc("name" -> name) ++ author.fold($empty)(a => $doc("author" -> a))
+      val setDoc = $doc("name" -> name) ++ author.so(a => $doc("author" -> a))
       assets.update.one($doc("_id" -> id), $doc("$set" -> setDoc), upsert = true).void
     else funit
 
