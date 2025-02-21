@@ -61,23 +61,24 @@ final class Local(env: Env) extends LilaController(env):
       .deleteAsset(key)
       .flatMap(_ => env.local.api.devGetAssets.map(JsonOk))
 
-  def devPostAsset(notAString: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) {
-    ctx ?=>
-      val tpe: AssetType           = notAString.asInstanceOf[AssetType]
-      def formValue(field: String) = ctx.body.body.dataParts.get(field).flatMap(_.headOption)
-      val author: Option[UserId]   = formValue("author").flatMap(UserStr.read).map(_.id)
-      val name                     = formValue("name").getOrElse(key)
-      ctx.body.body
-        .file("file")
-        .map: file =>
-          env.local.api
-            .storeAsset(tpe, key, file)
-            .flatMap:
-              case Left(error) => InternalServerError(jsonError(error)).as(JSON)
-              case Right(assets) =>
-                for _ <- env.local.repo.nameAsset(tpe.some, key, name, author)
-                yield JsonOk(Json.obj("key" -> key, "name" -> name))
-        .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
+  def devPostAsset(tpe: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) { ctx ?=>
+    AssetType
+      .read(tpe)
+      .so: (tpe: AssetType) =>
+        def formValue(field: String) = ctx.body.body.dataParts.get(field).flatMap(_.headOption)
+        val author: Option[UserId]   = formValue("author").flatMap(UserStr.read).map(_.id)
+        val name                     = formValue("name").getOrElse(key)
+        ctx.body.body
+          .file("file")
+          .map: file =>
+            env.local.api
+              .storeAsset(tpe, key, file)
+              .flatMap:
+                case Left(error) => InternalServerError(jsonError(error)).as(JSON)
+                case Right(assets) =>
+                  for _ <- env.local.repo.nameAsset(tpe.some, key, name, author)
+                  yield JsonOk(Json.obj("key" -> key, "name" -> name))
+          .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
   }
 
   private def indexPage(bots: List[BotJson], devAssets: Option[JsObject] = none)(using Context) =
