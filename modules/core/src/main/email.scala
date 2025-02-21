@@ -65,7 +65,8 @@ object email:
       Domain.Lower.from(Set("yandex.com", "yandex.ru", "ya.ru", "yandex.ua", "yandex.kz", "yandex.by"))
 
     // adding normalized domains requires database migration!
-    private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
+    private val gmailLikeNormalizedDomains =
+      gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me", "proton.me")
 
     def isValid(str: String) =
       str.sizeIs < maxLength &&
