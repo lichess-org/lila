@@ -17,7 +17,6 @@ body:has(.base-view.setup-view) {
 .setup-view {
   max-width: 640px;
   max-height: 800px;
-  user-select: none;
 
   .main-content {
     display: flex;
@@ -56,9 +55,8 @@ body:has(.base-view.setup-view) {
   }
 
   div.player {
-    position: relative;
-    aspect-ratio: 1;
     width: min(70%, 28vh);
+    aspect-ratio: 1;
 
     &.drag-over {
       outline: 2px solid $c-primary;
@@ -71,7 +69,6 @@ body:has(.base-view.setup-view) {
     align-items: center;
     justify-content: center;
     height: 70%;
-    gap: 0.5em;
   }
 
   .card label {
@@ -84,7 +81,6 @@ body:has(.base-view.setup-view) {
 
   .chin {
     @extend %flex-center;
-    position: relative;
     justify-content: center;
     padding: 1em;
     border-radius: 5px;
@@ -140,6 +136,34 @@ body:has(.base-view.setup-view) {
   @include mq-is-col1 {
     .fen {
       display: none;
+    }
+  }
+  @include mq-phone-landscape {
+    flex-flow: row nowrap;
+    .fen {
+      display: none;
+    }
+    .main-content {
+      width: 56%;
+    }
+    .from-position {
+      gap: 0;
+      .resets {
+        padding: 4px;
+        button {
+          padding: 4px;
+        }
+      }
+    }
+    .chin {
+      padding-top: 3em;
+      width: 44%;
+    }
+    div.player {
+      width: 38vh;
+      .placard {
+        display: none;
+      }
     }
   }
 }

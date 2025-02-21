@@ -120,7 +120,10 @@ class SetupDialog {
       orientation: 'bottom',
       peek: clamp(0.5 + (window.innerHeight - 320) / 960, { min: 0.5, max: 1.0 }),
     });
-    this.janitor.addListener(window, 'resize', this.hand.resize);
+    this.janitor.addListener(window, 'resize', () => {
+      this.hand.resize();
+      this.snapToPane();
+    });
   }
 
   private initEditor() {
@@ -164,6 +167,11 @@ class SetupDialog {
     this.dialog.viewEl.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
+  }
+
+  private snapToPane() {
+    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
+    if (content.scrollLeft > 0) content.scrollLeft = content.scrollWidth;
   }
 
   private updateClock = () => {
