@@ -79,7 +79,7 @@ export async function alerts(msgs: string[]): Promise<void> {
   for (const msg of msgs) await alert(msg);
 }
 
-export async function info(msg: string, autoDismiss?: Seconds): Promise<Dialog> {
+export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
   const dlg = await domDialog({
     htmlText: escapeHtmlAddBreaks(msg),
     noCloseButton: true,
