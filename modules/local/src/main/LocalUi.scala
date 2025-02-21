@@ -9,28 +9,14 @@ import ScalatagsTemplate.{ *, given }
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def index(data: JsObject, moduleName: String = "local")(using ctx: Context): Page =
+  def index(data: JsObject, moduleName: "local" | "local.dev" = "local")(using ctx: Context): Page =
     Page("Private Play")
       .css(moduleName)
       .css("round")
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
-      .js(
-        PageModule(
-          moduleName,
-          data
-        )
-      )
+      .js(PageModule(moduleName, data))
       .js(Esm("round"))
       .csp(_.withWebAssembly)
-      .graph(
-        OpenGraph(
-          title = "Private Play",
-          description = "Private Play",
-          url = netBaseUrl.value
-        )
-      )
-      .flag(_.zoom)
-      .hrefLangs(lila.ui.LangPath("/")) {
+      .flag(_.zoom):
         emptyFrag
-      }
