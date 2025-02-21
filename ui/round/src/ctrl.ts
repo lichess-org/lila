@@ -92,7 +92,6 @@ export default class RoundController implements MoveRootCtrl {
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   blindfoldStorage: LichessBooleanStorage;
-  showModalResult: boolean = false;
 
   constructor(
     readonly opts: RoundOpts,
@@ -571,7 +570,6 @@ export default class RoundController implements MoveRootCtrl {
         this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
-    this.modalResult();
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
@@ -594,17 +592,6 @@ export default class RoundController implements MoveRootCtrl {
       notify(viewStatus(this));
     }
   };
-
-  private modalResult() {
-    if (!window.matchMedia('(max-width: 800px) and (orientation: portrait)').matches) return;
-    this.showModalResult = true;
-    setTimeout(() => {
-      if (this.showModalResult) {
-        this.showModalResult = false;
-        this.redraw();
-      }
-    }, 3000);
-  }
 
   challengeRematch = async (): Promise<void> => {
     if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
