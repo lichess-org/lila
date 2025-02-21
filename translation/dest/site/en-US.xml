@@ -784,7 +784,6 @@
   <string name="onlineAndOfflinePlay">Online and offline play</string>
   <string name="viewTheSolution">View the solution</string>
   <string name="followAndChallengeFriends">Follow and challenge friends</string>
-  <string name="noChallenges">Challenges.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Available in %s language!</item>
     <item quantity="other">Available in %s languages!</item>
