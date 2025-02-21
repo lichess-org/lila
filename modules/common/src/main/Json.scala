@@ -32,3 +32,5 @@ object Json:
       .add("title", u.title)
       .add("flair", u.flair)
       .add("patron", u.isPatron)
+
+  trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]

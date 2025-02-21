@@ -2,9 +2,7 @@ package lila.local
 
 import play.api.libs.json.*
 
-import lila.common.Json.given
-
-private trait OpaqueJson[A](using A =:= JsObject) extends TotalWrapper[A, JsObject]
+import lila.common.Json.{ *, given }
 
 opaque type BotJson = JsObject
 object BotJson extends OpaqueJson[BotJson]:
