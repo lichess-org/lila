@@ -188,7 +188,6 @@ export class LocalGame extends LocalGameData {
         ply: steps.length + this.initialPly,
       });
     }
-    console.log('roundSteps', steps);
     return steps;
   }
 

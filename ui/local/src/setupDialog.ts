@@ -187,7 +187,6 @@ class SetupDialog {
     if (asColor === 'black') this.setup.white = this.uid;
     else this.setup.black = this.uid;
     if (env.game) {
-      console.log(this.setup);
       env.game.load(this.setup);
       this.dialog.close(this.uid);
       env.redraw();

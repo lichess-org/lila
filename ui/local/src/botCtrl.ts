@@ -144,7 +144,6 @@ export class BotCtrl {
 
   async setServerBot(bot: BotInfo): Promise<void> {
     this.bots.set(bot.uid, new Bot(bot));
-    console.log('from server', bot);
     this.serverBots[bot.uid] = deepFreeze(structuredClone(bot));
     delete this.localBots[bot.uid];
     await this.store.remove(bot.uid);
@@ -155,7 +154,6 @@ export class BotCtrl {
   }
 
   card(bot: BotInfo | undefined): CardData | undefined {
-    console.log('card', bot);
     return (
       bot && {
         label: `${bot.name}${bot.ratings.classical ? ' ' + bot.ratings.classical : ''}`,

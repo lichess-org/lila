@@ -15,7 +15,6 @@ type SetupOpts = LocalSetup & { id?: string; go?: true };
 
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
   const setup = setupOpts();
-  console.log('local init', setup);
   makeEnv({
     redraw,
     bot: new BotCtrl(),
@@ -35,7 +34,6 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
 
   if ('go' in setup || 'id' in setup) return;
 
-  console.log(env.bot.bots);
   const lastSetup = localStorage.getItem('local.setup');
   showSetupDialog(lastSetup ? JSON.parse(lastSetup) : {});
 

@@ -136,11 +136,12 @@ export class GameCtrl {
       );
 
     if (this.live.finished) this.gameOver(moveCtx);
-    env.db.put(this.live);
-    if (this.clock?.increment) {
-      this.clock[this.live.awaiting] += this.clock.increment;
-    }
+    if (this.clock?.increment) this.clock[this.live.awaiting] += this.clock.increment;
+
     this.updateClockUi();
+
+    window.location.hash = `id=${this.live.id}`;
+    env.db.put(this.live);
     env.redraw();
   }
 
@@ -196,7 +197,7 @@ export class GameCtrl {
     this.stop();
     if (this.clock) env.round.clock?.stopClock();
     if (!env.dev?.onGameOver(final)) {
-      // ?? that check
+      // TODO - Re onGameOver conditional logic leak into gameCtrl, fix game scripting in devCtrl
       env.round.endWithData?.({ status: final.status, winner: final.winner, boosted: false });
     }
   }
@@ -225,7 +226,10 @@ export class GameCtrl {
     const main = document.querySelector<HTMLElement>('#main-wrap');
     main?.classList.add('paused');
     setTimeout(() => {
-      // TODO fix
+      // TODO fix this temporary hack for the case when an in-progress realtime game is resumed
+      // and it is the bot's turn. we don't want to start the clock until the user is ready,
+      // so the current idea is to launch into a "paused" state that requires a click
+      // on the board to trigger the bot to resume the game. i'm sure there's a better way.
       const board = main?.querySelector<HTMLElement>('cg-container');
       const onclick = () => {
         main?.classList.remove('paused');
