@@ -79,6 +79,16 @@ export async function alerts(msgs: string[]): Promise<void> {
   for (const msg of msgs) await alert(msg);
 }
 
+export async function info(msg: string, autoDismiss?: Seconds): Promise<Dialog> {
+  const dlg = await domDialog({
+    htmlText: escapeHtmlAddBreaks(msg),
+    noCloseButton: true,
+    actions: { result: 'ok' },
+  });
+  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
+  return dlg.show();
+}
+
 // non-blocking window.confirm-alike
 export async function confirm(
   msg: string,
