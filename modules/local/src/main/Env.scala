@@ -20,6 +20,6 @@ final class Env(
 
   private val config: LocalConfig = appConfig.get[LocalConfig]("local")(AutoConfig.loader)
 
-  val repo = LocalRepo(db(CollName("local_bots")), db(CollName("local_assets")))
+  val repo = LocalRepo(db(CollName("local_bot")), db(CollName("local_asset")))
 
   val api: LocalApi = wire[LocalApi]
