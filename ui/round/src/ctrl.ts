@@ -32,7 +32,6 @@ import { Replay } from 'common/prefs';
 import { endGameView } from './view/main';
 import type {
   Step,
-  CrazyPocket,
   RoundOpts,
   RoundData,
   ApiMove,
@@ -499,7 +498,7 @@ export default class RoundController implements MoveRootCtrl {
 
   crazyValid = (role: Role, key: Key): boolean => crazyValid(this.data, role, key);
 
-  getCrazyhousePockets = (): [CrazyPocket, CrazyPocket] | undefined => this.data.crazyhouse?.pockets;
+  getCrazyhousePockets = (): Tree.NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {

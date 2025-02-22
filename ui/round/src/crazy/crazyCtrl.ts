@@ -7,7 +7,7 @@ import type { RoundData } from '../interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 
-export const pieceRoles: Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+export const pieceRoles: Exclude<Role, 'king'>[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 export function drag(ctrl: RoundController, e: MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
