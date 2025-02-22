@@ -181,7 +181,7 @@
   <string name="signIn">പ്രവേശിക്കൽ</string>
   <string name="rememberMe">എന്നേ നിർഗമിക്കരുത്</string>
   <string name="youNeedAnAccountToDoThat">ഇത് ചെയ്യണമെങ്കില്‍ നിങ്ങള്‍ക്ക് ഒരു അക്കൗണ്ട്‌ വേണം</string>
-  <string name="signUp">രജിസ്റ്റര്‍</string>
+  <string name="signUp">ചേരുക</string>
   <string name="computersAreNotAllowedToPlay">കമ്പ്യൂട്ടറുകള്‍ക്കും കമ്പ്യൂട്ടര്‍ സഹായമുള്ള കളിക്കാര്‍ക്കും കളിക്കാന്‍ അനുവാദമില്ല. ദയവായി കളിക്കിടെ ചെസ്സ്‌ എഞ്ചിനുകളുടെയോ ഡാറ്റാബേസുകളുടെയോ മറ്റു കളിക്കാരുടെയോ സഹായം തേടരുത്. നിരവധി അക്കൗണ്ടുകളുണ്ടാക്കുന്നത് ശക്തമായി നിരുത്സാഹപ്പെടുത്തുകയും അങ്ങനെ ചെയ്താല്‍ വിലക്കേര്‍പ്പെടുത്തും എന്നും പ്രത്യേകം ശ്രദ്ധിക്കുക.</string>
   <string name="games">കളികള്‍</string>
   <string name="forum">ചർച്ചാവേദി</string>
@@ -877,7 +877,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">താങ്ങൾക്കു് Lichess നിന്നു് ഒരു സ്വകാര്യ അറിയിപ്പു് കിട്ടിയിരിക്കുന്നു.</string>
   <string name="clickHereToReadIt">വായ്ക്കാൻ ഇവിടെ അമർത്തിക്കുക</string>
-  <string name="sorry">ക്ഷമിക്കുക :(</string>
+  <string name="sorry">പൊറുക്കണം :(</string>
   <string name="weHadToTimeYouOutForAWhile">ഞങ്ങൾക്ക് നിങ്ങളെ കുറച്ചു സമയം പുറത്തു നിർത്തേണ്ടി വന്നു.</string>
   <string name="why">എന്തുകൊണ്ട്?</string>
   <string name="pleasantChessExperience">ഞങ്ങൾ എല്ലാവര്ക്കും സുഗമമായ ചെസ്സ് അനുഭവം നൽകാൻ ലക്ഷ്യമിടുന്നു.</string>
