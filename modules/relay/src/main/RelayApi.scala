@@ -407,13 +407,14 @@ final class RelayApi(
       syncedAt = none,
       tier = from.tier.map(_ => RelayTour.Tier.`private`)
     )
-    tourRepo.coll.insert.one(tour) >>
-      roundRepo
+    for
+      _ <- tourRepo.coll.insert.one(tour)
+      _ <- roundRepo
         .byTourOrderedCursor(from.id)
         .documentSource()
         .mapAsync(1)(cloneWithStudy(_, tour))
         .runWith(Sink.ignore)
-        .inject(tour)
+    yield tour
 
   private def cloneWithStudy(from: RelayRound, to: RelayTour)(using me: Me): Fu[RelayRound] =
     val round = from.copy(
