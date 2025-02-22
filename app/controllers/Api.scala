@@ -147,12 +147,12 @@ final class Api(
       .flatMap(env.tournament.apiJsonView.apply)
       .map(ApiResult.Data.apply)
 
-  def tournament(id: TourId) = ApiRequest:
+  def tournament(id: TourId) = AnonOrScoped(): _ ?=>
     env.tournament.tournamentRepo
       .byId(id)
-      .flatMapz { tour =>
+      .flatMapz: tour =>
         val page           = (getInt("page") | 1).atLeast(1).atMost(200)
-        given GetMyTeamIds = _ => fuccess(Nil)
+        given GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)
         env.tournament
           .jsonView(
             tour = tour,
@@ -164,8 +164,8 @@ final class Api(
             withAllowList = true
           )
           .map(some)
-      }
       .map(toApiResult)
+      .map(toHttp)
 
   def tournamentGames(id: TourId) = AnonOrScoped(): ctx ?=>
     env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
