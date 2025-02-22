@@ -26,6 +26,7 @@ final class Preload(
     lobbyApi: lila.api.LobbyApi,
     playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
+    relationApi: lila.relation.RelationApi,
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
@@ -79,7 +80,13 @@ final class Preload(
       )
       .zip((ctx.userId.so(playbanApi.currentBan)).mon(_.lobby.segment("playban")))
       .zip(ctx.blind.so(ctx.me).so(roundProxy.urgentGames))
-      .zip(lastPostsCache.get {})
+      .zip((lastPostsCache.get {}).flatMap { posts =>
+        Future.sequence(posts.map(p =>
+          ctx.userId.so(relationApi.fetchBlocks(_, p.created.by))
+        )).map {
+          blocks => (posts zip blocks).filter(!_._2).map(_._1)
+        }
+      })
       .zip(
         ctx.userId
           .ifTrue(nbNotifications > 0)
