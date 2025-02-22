@@ -80,4 +80,9 @@
       align-self: flex-start;
     }
   }
+
+  &.ruser-bottom.user-link.online,
+  &.user-link.online.ruser-top {
+    user-select: none;
+  }
 }
