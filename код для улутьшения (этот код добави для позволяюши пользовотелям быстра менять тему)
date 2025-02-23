@@ -1,0 +1,23 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.createElement("button");
+    button.innerText = "🌙 Переключить тему";
+    button.style.position = "fixed";
+    button.style.bottom = "20px";
+    button.style.right = "20px";
+    button.style.padding = "10px";
+    button.style.background = "#444";
+    button.style.color = "#fff";
+    button.style.border = "none";
+    button.style.cursor = "pointer";
+    button.style.borderRadius = "5px";
+
+    button.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("lichess-theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+    });
+
+    document.body.appendChild(button);
+
+    // Загружаем тему из localStorage
+    if (localStorage.getItem("lichess-theme") === "dark") {
+        document.body.classList.add("dark-mode");});
