@@ -2,12 +2,12 @@ package lila.push
 
 import akka.actor.*
 import play.api.libs.json.*
+import scalalib.data.LazyFu
 
 import lila.common.LilaFuture
 import lila.common.String.shorten
 import lila.core.LightUser
 import lila.core.challenge.Challenge
-import scalalib.data.LazyFu
 import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
 import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }

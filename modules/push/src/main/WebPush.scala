@@ -5,10 +5,10 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.data.LazyFu
 
 import lila.common.Json.given
 import lila.common.autoconfig.*
-import scalalib.data.LazyFu
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
