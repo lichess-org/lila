@@ -44,7 +44,6 @@ final class Env(
       _.refreshAfterWrite(10.seconds).buildAsyncFuture: _ =>
         import scalalib.ThreadLocalRandom
         val lookInto = 15
-        val keep     = 9
         api
           .pinnedPosts(2)
           .zip:
@@ -53,8 +52,7 @@ final class Env(
               .map:
                 _.groupBy(_.blog)
                   .flatMap(_._2.headOption)
-              .map(ThreadLocalRandom.shuffle)
-              .map(_.take(keep).toList)
+              .map(ThreadLocalRandom.shuffle(_).toList)
           .map(_ ++ _)
 
   lila.common.Bus.subscribeFun("shadowban"):
