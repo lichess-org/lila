@@ -78,5 +78,5 @@
   <string name="pastBroadcasts">Các phát sóng đã qua</string>
   <string name="allBroadcastsByMonth">Xem tất cả phát sóng theo tháng</string>
   <string name="backToLiveMove">Trở lại nước đi thực tế</string>
-  <string name="sinceHideResults">Bởi vì bạn đã chọn ẩn kết quả, tất cả các bàn xem trước sẽ trống để tránh tiết lộ thông tin.</string>
+  <string name="sinceHideResults">Bởi vì bạn đã chọn ẩn kết quả, tất cả các bàn đấu xem trước sẽ trống để tránh lộ thông tin.</string>
 </resources>
