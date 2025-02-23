@@ -1,6 +1,7 @@
 .ruser {
   @extend %zen;
 
+  user-select: none;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -79,10 +80,5 @@
     &-bottom {
       align-self: flex-start;
     }
-  }
-
-  &.ruser-bottom.user-link.online,
-  &.user-link.online.ruser-top {
-    user-select: none;
   }
 }
