@@ -40,7 +40,6 @@ $buttons-height: 2.5rem;
   #{$moves-tag},
   .message {
     flex: 0 0 7.4rem;
-    user-select: none;
   }
 
   @import 'moves-col1';
