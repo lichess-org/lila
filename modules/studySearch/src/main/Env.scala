@@ -16,13 +16,13 @@ final class Env(
 
   val api: StudySearchApi = wire[StudySearchApi]
 
-  def apply(me: Option[User])(text: String, page: Int) =
+  def apply(text: String, page: Int)(using me: Option[Me]) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
         def query                           = Query.study(text.take(100), me.map(_.id.value))
         def nbResults                       = api.count(query).dmap(_.toInt)
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
-      .mapFutureList(pager.withChaptersAndLiking(me)),
+      .mapFutureList(pager.withChaptersAndLiking()),
       currentPage = page,
       maxPerPage = pager.maxPerPage
     )
