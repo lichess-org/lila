@@ -52,18 +52,20 @@ final class UblogApi(
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
         if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
 
+  def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
+    getBlog(UblogBlog.Id.User(user.id))
+
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
-    getBlog(UblogBlog.Id.User(user.id)).getOrElse:
-      for
-        user <- userApi.withPerfs(user)
-        blog = UblogBlog.make(user)
-        _ <- insertMissing.so(colls.blog.insert.one(blog).void)
-      yield blog
+    getUserBlogOption(user).getOrElse:
+      if insertMissing then
+        for
+          user <- userApi.withPerfs(user)
+          blog = UblogBlog.make(user)
+          _ <- colls.blog.insert.one(blog).void
+        yield blog
+      else fuccess(UblogBlog.makeWithoutPerfs(user))
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
-
-  def isBlogVisible(userId: UserId): Fu[Option[Boolean]] =
-    getBlog(UblogBlog.Id.User(userId)).dmap(_.map(_.visible))
 
   def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
@@ -171,11 +173,6 @@ final class UblogApi(
 
   def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
     colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
-
-  def onAccountClose(user: User) = for
-    blog <- getBlog(UblogBlog.Id.User(user.id))
-    _    <- blog.filter(_.visible).so(b => setTier(b.id, UblogRank.Tier.HIDDEN))
-  yield ()
 
   def onAccountDelete(user: User) = for
     _ <- colls.blog.delete.one($id(UblogBlog.Id.User(user.id)))

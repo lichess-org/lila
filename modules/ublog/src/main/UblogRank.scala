@@ -26,6 +26,12 @@ object UblogRank:
       else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > IntRating(2200))
       then Tier.NORMAL
       else Tier.LOW
+
+    def defaultWithoutPerfs(user: User) =
+      if user.marks.troll then Tier.HIDDEN
+      else if user.hasTitle then Tier.NORMAL
+      else Tier.LOW
+
     val options = List(
       HIDDEN  -> "Hidden",
       VISIBLE -> "Unlisted",
