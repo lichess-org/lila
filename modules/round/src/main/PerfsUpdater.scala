@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ ByColor, Color, Speed, IntRating }
+import chess.{ ByColor, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
 import chess.rating.glicko.{ Glicko, Player }
 

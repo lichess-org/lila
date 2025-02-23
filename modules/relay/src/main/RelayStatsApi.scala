@@ -1,6 +1,5 @@
 package lila.relay
 
-import scalalib.cache.ExpireSetMemo
 
 import lila.db.dsl.{ *, given }
 

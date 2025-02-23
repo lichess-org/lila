@@ -15,7 +15,7 @@ import chess.{
   Square,
   WithMove
 }
-import org.scalacheck.{ Arbitrary, Cogen, Gen }
+import org.scalacheck.{ Arbitrary, Gen }
 
 import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
 import lila.tree.{ Metas, NewBranch, NewRoot, NewTree, Clock }

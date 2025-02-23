@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 

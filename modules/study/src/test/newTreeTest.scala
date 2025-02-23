@@ -1,9 +1,8 @@
 package lila.study
-import chess.format.pgn.{ PgnStr, Tags }
+import chess.format.pgn.PgnStr
 
 import scala.language.implicitConversions
 
-import lila.tree.{ NewRoot, Root }
 
 class NewTreeTest extends munit.FunSuite:
 

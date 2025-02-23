@@ -1,7 +1,6 @@
 package lila.common
 
 import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
-import scalatags.Text.all.*
 
 import java.lang.Character.isLetterOrDigit
 import java.lang.{ Math, StringBuilder as jStringBuilder }

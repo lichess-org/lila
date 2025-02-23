@@ -2,8 +2,7 @@ package lila.core
 package pref
 
 import lila.core.user.User
-import lila.core.userId.{ MyId, UserId }
-import lila.core.game.Game
+import lila.core.userId.UserId
 
 trait Pref:
   val id: UserId

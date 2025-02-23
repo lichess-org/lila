@@ -1,6 +1,5 @@
 package lila.common
 
-import scala.util.matching.Regex
 
 object LameName:
 

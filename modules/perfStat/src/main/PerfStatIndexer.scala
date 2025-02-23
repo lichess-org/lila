@@ -8,7 +8,6 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(using Executor, Scheduler):
 
-  import PerfType.isLeaderboardable as isRelevant
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),

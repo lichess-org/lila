@@ -26,7 +26,7 @@ object evals:
   def fromScore(score: Score) = Eval(score.cp, score.mate, None)
 
   import play.api.libs.json.*
-  import scalalib.json.Json.{ *, given }
+  import scalalib.json.Json.{ given }
   import chess.json.Json.given
 
   given jsonWrites: Writes[Eval] = Json.writes[Eval]
