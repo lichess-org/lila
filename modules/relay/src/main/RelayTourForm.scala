@@ -100,7 +100,7 @@ object RelayTourForm:
           players = players,
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty),
-          pinnedStream = pinnedStream,
+          pinnedStream = if Granter(_.StudyAdmin) then pinnedStream else tour.pinnedStream,
           note = note
         )
         .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">Đăng nhập với tên %s</string>
   <string name="welcome">Chào mừng!</string>
   <string name="welcomeToLichess">Chào mừng đến với lichess.org!</string>
   <string name="thisIsYourProfilePage">Đây là trang hồ sơ của bạn.</string>
