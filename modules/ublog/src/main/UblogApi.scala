@@ -163,16 +163,26 @@ final class UblogApi(
       .cursor[UblogPost.LightPost]()
       .list(30)
 
-  def delete(post: UblogPost): Funit =
-    colls.post.delete.one($id(post.id)) >> image.deleteAll(post)
+  def delete(post: UblogPost): Funit = for
+    _ <- colls.post.delete.one($id(post.id))
+    _ <- image.deleteAll(post)
+  yield ()
 
-  def setTier(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
+  def setModTier(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
     colls.blog.update
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
 
+  def setTierIfBlogExists(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
+    colls.blog.update.one($id(blog), $set("tier" -> tier)).void
+
   def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
     colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
+
+  def onAccountClose(user: User) = setTierIfBlogExists(UblogBlog.Id.User(user.id), UblogRank.Tier.HIDDEN)
+
+  def onAccountReopen(user: User) = getUserBlogOption(user).flatMapz: blog =>
+    setTierIfBlogExists(UblogBlog.Id.User(user.id), blog.modTier | UblogRank.Tier.defaultWithoutPerfs(user))
 
   def onAccountDelete(user: User) = for
     _ <- colls.blog.delete.one($id(UblogBlog.Id.User(user.id)))
@@ -186,7 +196,7 @@ final class UblogApi(
     if v then fuccess(UblogRank.Tier.HIDDEN)
     else userApi.withPerfs(userId).map(_.fold(UblogRank.Tier.HIDDEN)(UblogRank.Tier.default))
   }.flatMap:
-    setTier(UblogBlog.Id.User(userId), _)
+    setModTier(UblogBlog.Id.User(userId), _)
 
   def canBlog(u: User) =
     !u.isBot && {

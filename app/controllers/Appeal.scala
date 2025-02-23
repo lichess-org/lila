@@ -37,8 +37,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     case None =>
       for
         playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
-        // if no blog, consider it's visible because even if it is not, for now the user
-        // has not been negatively impacted
+        // if no blog, consider it's visible because even if it is not,
+        // for now the user has not been negatively impacted
         ublogIsVisible <- env.ublog.api.getUserBlogOption(me).dmap(_.forall(_.visible))
       yield views.appeal.tree.page(me, playban, ublogIsVisible)
     case Some(a) => views.appeal.discussion(a, me, err | userForm)
