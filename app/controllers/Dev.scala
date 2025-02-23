@@ -17,6 +17,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.report.discordScoreThresholdSetting,
     env.round.selfReportEndGame,
     env.round.selfReportMarkUser,
+    env.bot.boardReport.domainSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
     env.round.ratingFactorsSetting,
