@@ -5,6 +5,7 @@ import com.softwaremill.macwire.*
 
 import lila.core.config.*
 import lila.db.dsl.Coll
+import lila.common.Bus
 
 @Module
 final class Env(
@@ -57,9 +58,13 @@ final class Env(
               .map(_.take(keep).toList)
           .map(_ ++ _)
 
-  lila.common.Bus.subscribeFun("shadowban"):
+  Bus.subscribeFun("shadowban"):
     case lila.core.mod.Shadowban(userId, v) =>
       api.setShadowban(userId, v) >>
         rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
+
+  import lila.core.security.ReopenAccount
+  Bus.sub[ReopenAccount]:
+    case ReopenAccount(user) => api.onAccountReopen(user)
 
 final private class UblogColls(val blog: Coll, val post: Coll)

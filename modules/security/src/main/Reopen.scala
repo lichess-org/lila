@@ -80,7 +80,10 @@ ${trans.common_orPaste.txt()}"""),
 
   def confirm(token: String): Fu[Option[User]] =
     tokener.read(token).flatMapz(userRepo.disabledById).flatMapz { user =>
-      userRepo.reopen(user.id).inject(user.some)
+      for _ <- userRepo.reopen(user.id)
+      yield
+        lila.common.Bus.pub(lila.core.security.ReopenAccount(user))
+        user.some
     }
 
   private val tokener = StringToken.userId(tokenerSecret, 20.minutes)
