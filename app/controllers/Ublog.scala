@@ -183,7 +183,7 @@ final class Ublog(env: Env) extends LilaController(env):
         tier =>
           for
             user <- env.user.repo.byId(blog.userId).orFail("Missing blog user!").dmap(Suspect.apply)
-            _    <- env.ublog.api.setTier(blog.id, tier)
+            _    <- env.ublog.api.setModTier(blog.id, tier)
             _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
             _    <- env.mod.logApi.blogTier(user, UblogRank.Tier.name(tier))
           yield Redirect(urlOfBlog(blog)).flashSuccess
@@ -196,7 +196,7 @@ final class Ublog(env: Env) extends LilaController(env):
         _ => Redirect(urlOfPost(post)).flashFailure,
         (pinned, tier, rankAdjustDays) =>
           for
-            _ <- env.ublog.api.setTier(post.blog, tier)
+            _ <- env.ublog.api.setModTier(post.blog, tier)
             _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays, pinned)
             _ <- logModAction(
               post,

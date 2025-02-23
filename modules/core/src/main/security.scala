@@ -11,6 +11,10 @@ import lila.core.userId.{ UserId, UserName, MyId }
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
+
+case class ReopenAccount(user: User)
+object ReopenAccount extends bus.GivenChannel[ReopenAccount]("reopenAccount")
+
 case class DeletePublicChats(userId: UserId)
 
 trait LilaCookie:
