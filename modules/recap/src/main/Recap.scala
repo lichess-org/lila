@@ -2,11 +2,9 @@ package lila.recap
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.ByColor
-import chess.opening.OpeningFamily
 import lila.common.SimpleOpening
 import chess.format.pgn.SanStr
 import lila.recap.Recap.Counted
-import scalalib.model.Days
 import lila.core.game.Source
 import play.api.libs.json.JsObject
 

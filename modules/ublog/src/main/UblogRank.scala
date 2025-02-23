@@ -26,6 +26,12 @@ object UblogRank:
       else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > IntRating(2200))
       then Tier.NORMAL
       else Tier.LOW
+
+    def defaultWithoutPerfs(user: User) =
+      if user.marks.troll then Tier.HIDDEN
+      else if user.hasTitle then Tier.NORMAL
+      else Tier.LOW
+
     val options = List(
       HIDDEN  -> "Hidden",
       VISIBLE -> "Unlisted",
@@ -59,7 +65,7 @@ object UblogRank:
       tier: Tier,
       hasImage: Boolean,
       days: Int
-  ) = UblogPost.RankDate {
+  ) = UblogPost.RankDate:
     import Tier.*
     liveAt
       .minusMonths(if tier < LOW || !hasImage then 3 else 0)
@@ -70,7 +76,6 @@ object UblogRank:
         val langBonus   = if language == lila.core.i18n.defaultLanguage then 0 else -24 * 10
 
         (tierBase + likesBonus + langBonus + adjustBonus).toInt
-  }
 
 final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materializer):
 

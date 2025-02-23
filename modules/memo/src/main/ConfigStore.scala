@@ -13,9 +13,9 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
 
   private val mongoDocKey = "config"
 
-  private val cache = cacheApi.unit[Option[A]] {
+  private val cache = cacheApi.unit[Option[A]]:
     _.buildAsyncFuture: _ =>
-      rawText.map {
+      rawText.map:
         _.flatMap: text =>
           parse(text).fold(
             errs =>
@@ -24,8 +24,6 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
             ,
             res => res.some
           )
-      }
-  }
 
   def parse(text: String): Either[List[String], A] =
     try Right(loader.load(ConfigFactory.parseString(text)))
@@ -52,9 +50,8 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
         })
       )
     )
-    rawText.map {
+    rawText.map:
       _.fold(form)(form.fill)
-    }
 
 object ConfigStore:
 

@@ -138,13 +138,16 @@ final class ChatApi(
         text: String,
         busChan: BusChan.Select
     )(using mod: MyId): Funit =
-      coll.byId[UserChat](chatId.value).zip(userApi.me(mod)).zip(userApi.byId(userId)).flatMap {
-        case ((Some(chat), Some(me)), Some(user))
-            if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(using me)) ||
-              scope == ChatTimeout.Scope.Local =>
-          doTimeout(chat, user, reason, scope, text, busChan)(using me)
-        case _ => funit
-      }
+      coll
+        .byId[UserChat](chatId.value)
+        .zip(userApi.me(mod))
+        .zip(userApi.byId(userId))
+        .flatMap:
+          case ((Some(chat), Some(me)), Some(user))
+              if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(using me)) ||
+                scope == ChatTimeout.Scope.Local =>
+            doTimeout(chat, user, reason, scope, text, busChan)(using me)
+          case _ => funit
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData)(using MyId): Funit =
       ChatTimeout
@@ -238,7 +241,7 @@ final class ChatApi(
       Speaker
         .get(userId)
         .zip(chatTimeout.isActive(chatId, userId))
-        .dmap {
+        .dmap:
           case (Some(user), false) if user.enabled =>
             Writer.preprocessUserInput(t1, user.username.some).flatMap { t2 =>
               val allow =
@@ -257,7 +260,6 @@ final class ChatApi(
               )
             }
           case _ => none
-        }
 
     def removeMessagesBy(gameIds: Seq[GameId], userId: UserId) =
       val regex  = s"^$userId[" + Line.separatorChars.mkString("") + "]"

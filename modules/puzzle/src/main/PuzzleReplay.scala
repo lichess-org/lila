@@ -54,11 +54,13 @@ final class PuzzleReplayApi(
 
   def onComplete(round: PuzzleRound, days: Days, angle: PuzzleAngle): Funit =
     angle.asTheme.so { theme =>
-      replays.getIfPresent(round.userId).so {
-        _.map { replay =>
-          if replay.days == days && replay.theme == theme then replays.put(round.userId, fuccess(replay.step))
-        }
-      }
+      replays
+        .getIfPresent(round.userId)
+        .so:
+          _.map { replay =>
+            if replay.days == days && replay.theme == theme then
+              replays.put(round.userId, fuccess(replay.step))
+          }
     }
 
   private def createReplayFor(user: User, days: Days, theme: PuzzleTheme.Key): Fu[PuzzleReplay] =

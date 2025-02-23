@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.{ ByColor, Color }
 import chess.eval.WinPercent
-import chess.eval.Eval.{ Cp, Mate }
+import chess.eval.Eval.Cp
 import scalalib.Maths
 import scalalib.model.Percent
 
@@ -44,7 +44,7 @@ print(f"{a} * exp(-{k} * x) + {b}")
 for x in xs:
     print(f"f({x}) = {model_func(x, a, k, b)}");
    */
-  def fromWinPercents(before: WinPercent, after: WinPercent): AccuracyPercent = AccuracyPercent {
+  def fromWinPercents(before: WinPercent, after: WinPercent): AccuracyPercent = AccuracyPercent:
     if after.value >= before.value then 100d
     else
       {
@@ -52,7 +52,6 @@ for x in xs:
         val raw     = 103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411
         raw + 1 // uncertainty bonus (due to imperfect analysis)
       }.atMost(100).atLeast(0)
-  }
 
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))

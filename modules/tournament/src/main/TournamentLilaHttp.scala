@@ -33,7 +33,7 @@ final class TournamentLilaHttp(
   private val channel = "http-out"
   private val conn    = redisClient.connectPubSub()
 
-  LilaScheduler("TournamentLilaHttp", _.Every(1.second), _.AtMost(30.seconds), _.Delay(14.seconds)) {
+  LilaScheduler("TournamentLilaHttp", _.Every(1.second), _.AtMost(30.seconds), _.Delay(14.seconds)):
     tournamentRepo
       .idsCursor(handledIds)
       .documentSource()
@@ -47,7 +47,6 @@ final class TournamentLilaHttp(
       .monSuccess(_.tournament.lilaHttp.tick)
       .addEffect(lila.mon.tournament.lilaHttp.nbTours.update(_))
       .void
-  }
 
   private def arenaFullJson(tour: Tournament): Fu[JsObject] = for
     data  <- jsonView.cachableData.get(tour.id)

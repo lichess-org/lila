@@ -13,15 +13,14 @@ class FloodTest extends munit.FunSuite:
   private val str = "Implementation uses dynamic programming (Wagner–Fischer algorithm)"
   private val msg = m(str)
 
-  test("same") {
+  test("same"):
     assert(!isDup(msg, Nil))
     assert(!isDup(msg, List(m("foo"))))
     assert(isDup(msg, List(msg)))
     assert(isDup(msg, List(m("foo"), msg)))
     assert(isDup(msg, List(m("foo"), msg, m("bar"))))
     assert(!isDup(msg, List(m("foo"), m("bar"), msg)))
-  }
-  test("levenshtein") {
+  test("levenshtein"):
     assert(isDup(msg, List(m(s"$str!"))))
     assert(isDup(msg, List(m(s"-$str"))))
     assert(isDup(msg, List(m(s"$str!!"))))
@@ -32,4 +31,3 @@ class FloodTest extends munit.FunSuite:
 
     assert(isDup(m("hey"), List(m(s"hey!"))))
     assert(!isDup(m("hey"), List(m(s"hey!!"))))
-  }

@@ -1,7 +1,7 @@
 package lila.relay
 
-import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
-import chess.{ Outcome, Ply, TournamentClock }
+import chess.format.pgn.{ PgnStr, Tag, Tags }
+import chess.TournamentClock
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
@@ -381,7 +381,6 @@ private object RelayFetch:
 
   object injectTimeControl:
 
-    private val lookup                               = """[TimeControl """"
     private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
 
     def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:

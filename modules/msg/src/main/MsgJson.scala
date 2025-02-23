@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.relation.Relations
-import cats.data.Cont
 
 final class MsgJson(
     lightUserApi: lila.core.user.LightUserApi,

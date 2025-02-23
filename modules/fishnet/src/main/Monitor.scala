@@ -122,9 +122,10 @@ object Monitor:
     monResult.success(client.userId.value).increment()
 
     work.acquiredAt.foreach { acquiredAt =>
-      lila.mon.fishnet.queueTime(if work.sender.system then "system" else "user").record {
-        acquiredAt.toMillis - work.createdAt.toMillis
-      }
+      lila.mon.fishnet
+        .queueTime(if work.sender.system then "system" else "user")
+        .record:
+          acquiredAt.toMillis - work.createdAt.toMillis
     }
 
   private[fishnet] def failure(work: Work, client: Client, e: Exception) =

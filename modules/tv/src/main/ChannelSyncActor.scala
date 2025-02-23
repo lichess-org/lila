@@ -55,12 +55,13 @@ final private[tv] class ChannelSyncActor(
             .toList
         )
         .foreach { candidates =>
-          oneId.so(proxyGame).foreach {
-            case Some(current) if channel.isFresh(current) =>
-              fuccess(wayBetter(current, candidates)).orElse(rematch(current)).foreach(elect)
-            case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates))).foreach(elect)
-            case _             => elect(bestOf(candidates))
-          }
+          oneId
+            .so(proxyGame)
+            .foreach:
+              case Some(current) if channel.isFresh(current) =>
+                fuccess(wayBetter(current, candidates)).orElse(rematch(current)).foreach(elect)
+              case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates))).foreach(elect)
+              case _             => elect(bestOf(candidates))
           manyIds = candidates
             .sortBy: g =>
               -(g.averageUsersRating.so(_.value))

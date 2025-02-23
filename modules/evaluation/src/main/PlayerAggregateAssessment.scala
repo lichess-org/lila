@@ -56,9 +56,8 @@ case class PlayerAggregateAssessment(
     else Nothing
 
   def countAssessmentValue(assessment: GameAssessment) =
-    playerAssessments.count {
+    playerAssessments.count:
       _.assessment == assessment
-    }
 
   val assessmentsCount = playerAssessments.size match
     case 0 => 1

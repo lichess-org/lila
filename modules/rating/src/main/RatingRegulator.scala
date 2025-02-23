@@ -51,9 +51,11 @@ final class RatingRegulator(factors: RatingFactor.ByKey):
     halvedAgainstBot
 
   private def regulate(key: PerfKey, before: Glicko, after: Glicko): Glicko =
-    factors.get(key).filter(_.value != 1).fold(after) {
-      regulate(_, key, before, after)
-    }
+    factors
+      .get(key)
+      .filter(_.value != 1)
+      .fold(after):
+        regulate(_, key, before, after)
 
   private def regulate(factor: RatingFactor, key: PerfKey, before: Glicko, after: Glicko): Glicko =
     if after.rating > before.rating

@@ -13,19 +13,20 @@ final private class ChallengeJoiner(
 )(using Executor):
 
   def apply(c: Challenge, destUser: GameUser): Fu[Either[String, Pov]] =
-    gameRepo.exists(c.gameId).flatMap {
-      if _ then fuccess(Left("The challenge has already been accepted"))
-      else
-        c.challengerUserId
-          .so(userApi.byIdWithPerf(_, c.perfType))
-          .flatMap: origUser =>
-            val game = ChallengeJoiner.createGame(c, origUser, destUser)
-            gameRepo
-              .insertDenormalized(game)
-              .inject:
-                onStart.exec(game.id)
-                Right(Pov(game, !c.finalColor))
-    }
+    gameRepo
+      .exists(c.gameId)
+      .flatMap:
+        if _ then fuccess(Left("The challenge has already been accepted"))
+        else
+          c.challengerUserId
+            .so(userApi.byIdWithPerf(_, c.perfType))
+            .flatMap: origUser =>
+              val game = ChallengeJoiner.createGame(c, origUser, destUser)
+              gameRepo
+                .insertDenormalized(game)
+                .inject:
+                  onStart.exec(game.id)
+                  Right(Pov(game, !c.finalColor))
 
 private object ChallengeJoiner:
 
@@ -59,9 +60,10 @@ private object ChallengeJoiner:
     def makeChess(variant: Variant): chess.Game =
       chess.Game(situation = Situation(variant), clock = tc.realTime.map(_.toClock))
 
-    val baseState = initialFen.ifTrue(variant.fromPosition || variant.chess960).flatMap {
-      Fen.readWithMoveNumber(variant, _)
-    }
+    val baseState = initialFen
+      .ifTrue(variant.fromPosition || variant.chess960)
+      .flatMap:
+        Fen.readWithMoveNumber(variant, _)
 
     baseState.fold(makeChess(variant) -> none[Situation.AndFullMoveNumber]): sp =>
       val game = chess.Game(
