@@ -53,11 +53,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
     tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
-      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
+      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)):
         u => // anon can see public chats, except for private tournaments
           (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
-          isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
-      }
+            isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
@@ -155,10 +154,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
           )
-          doJoin(id, data).dmap(_.error).map {
-            case None        => jsonOkResult
-            case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-          }
+          doJoin(id, data)
+            .dmap(_.error)
+            .map:
+              case None        => jsonOkResult
+              case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
   }
 
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play) { ctx ?=> me ?=>
@@ -167,10 +167,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         limit.tourJoin(me, rateLimited):
           val data =
             bindForm(TournamentForm.joinForm)(_ => TournamentForm.TournamentJoin(none, none), identity)
-          doJoin(id, data).map {
+          doJoin(id, data).map:
             _.error.fold(jsonOkResult): error =>
               BadRequest(Json.obj("error" -> error))
-          }
   }
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
@@ -408,10 +407,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def terminate(id: TourId) = Auth { ctx ?=> me ?=>
     WithEditableTournament(id): tour =>
-      api.kill(tour).inject {
-        env.mod.logApi.terminateTournament(tour.name())
-        Redirect(routes.Tournament.home)
-      }
+      api
+        .kill(tour)
+        .inject:
+          env.mod.logApi.terminateTournament(tour.name())
+          Redirect(routes.Tournament.home)
   }
 
   def byTeam(id: TeamId) = Anon:

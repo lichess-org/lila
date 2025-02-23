@@ -70,9 +70,8 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>
-    isGranted(_.Cli).so {
+    isGranted(_.Cli).so:
       runCommand(ctx.body.body).map { Ok(_) }
-    }
   }
 
   private def runCommand(command: String)(using Me): Fu[String] =

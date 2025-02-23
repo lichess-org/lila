@@ -243,10 +243,11 @@ abstract private[controllers] class LilaController(val env: Env)
       f: OAuthScope.Scoped => Fu[Result]
   ) =
     val accepted = OAuthScope.select(selectors).into(EndpointScopes)
-    env.security.api.oauthScoped(req, accepted).flatMap {
-      case Left(e)       => handleScopedFail(accepted, e)
-      case Right(scoped) => f(scoped).map(OAuthServer.responseHeaders(accepted, scoped.scopes))
-    }
+    env.security.api
+      .oauthScoped(req, accepted)
+      .flatMap:
+        case Left(e)       => handleScopedFail(accepted, e)
+        case Right(scoped) => f(scoped).map(OAuthServer.responseHeaders(accepted, scoped.scopes))
 
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>

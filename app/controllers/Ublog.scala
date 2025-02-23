@@ -67,22 +67,23 @@ final class Ublog(env: Env) extends LilaController(env):
       import lila.forum.ForumCateg.ublogId
       val topicSlug = s"ublog-${id}"
       val redirect  = Redirect(routes.ForumTopic.show(ublogId, topicSlug))
-      env.forum.topicRepo.existsByTree(ublogId, topicSlug).flatMap {
-        if _ then redirect
-        else
-          env.ublog.api
-            .getPost(id)
-            .flatMapz { post =>
-              env.forum.topicApi.makeUblogDiscuss(
-                slug = topicSlug,
-                name = post.title,
-                url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
-                ublogId = id,
-                authorId = post.created.by
-              )
-            }
-            .inject(redirect)
-      }
+      env.forum.topicRepo
+        .existsByTree(ublogId, topicSlug)
+        .flatMap:
+          if _ then redirect
+          else
+            env.ublog.api
+              .getPost(id)
+              .flatMapz { post =>
+                env.forum.topicApi.makeUblogDiscuss(
+                  slug = topicSlug,
+                  name = post.title,
+                  url = s"${env.net.baseUrl}${routes.Ublog.post(post.created.by, post.slug, id)}",
+                  ublogId = id,
+                  authorId = post.created.by
+                )
+              }
+              .inject(redirect)
   private def WithBlogOf[U: UserIdOf](
       u: U
   )(f: (UserModel, UblogBlog) => Fu[Result])(using Context): Fu[Result] =
