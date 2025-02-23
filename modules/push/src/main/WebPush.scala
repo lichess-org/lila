@@ -57,7 +57,7 @@ final private class WebPush(
           "ttl"     -> 43200
         )
       )
-      .flatMap {
+      .flatMap:
         case res if res.status == 200 =>
           res
             .body[JsValue]
@@ -72,7 +72,6 @@ final private class WebPush(
                 .map: n =>
                   logger.info(s"[push] web: $n/${staleEndpoints.size} stale endpoints unsubscribed")
         case res => fufail(s"[push] web: ${res.status} ${res.body}")
-      }
 
 private object WebPush:
 

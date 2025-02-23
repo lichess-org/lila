@@ -39,8 +39,9 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
   ): Funit =
     if !pov.isMyTurn then funit
     else
-      Uci.Move(uciMove).fold[Funit](fufail(lila.core.round.ClientError(s"Invalid move $uciMove on $pov"))) {
-        uci =>
+      Uci
+        .Move(uciMove)
+        .fold[Funit](fufail(lila.core.round.ClientError(s"Invalid move $uciMove on $pov"))): uci =>
           val promise = Promise[Unit]()
           roundApi.tell(
             pov.gameId,
@@ -52,23 +53,24 @@ final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Ex
             )
           )
           saveSteps(pov, steps) >> promise.future
-      }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable.so(coll.byId[Forecast](pov.fullId)).flatMap {
-      case None => fuccess(none)
-      case Some(fc) =>
-        if firstStep(fc.steps).exists(_.ply != pov.game.ply + 1) then clearPov(pov).inject(none)
-        else fuccess(fc.some)
-    }
+    pov.forecastable
+      .so(coll.byId[Forecast](pov.fullId))
+      .flatMap:
+        case None => fuccess(none)
+        case Some(fc) =>
+          if firstStep(fc.steps).exists(_.ply != pov.game.ply + 1) then clearPov(pov).inject(none)
+          else fuccess(fc.some)
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable.so(coll.byId[Forecast](pov.fullId)).flatMap {
-      case None => fuccess(none)
-      case Some(fc) =>
-        if firstStep(fc.steps).exists(_.ply != pov.game.ply) then clearPov(pov).inject(none)
-        else fuccess(fc.some)
-    }
+    pov.game.forecastable
+      .so(coll.byId[Forecast](pov.fullId))
+      .flatMap:
+        case None => fuccess(none)
+        case Some(fc) =>
+          if firstStep(fc.steps).exists(_.ply != pov.game.ply) then clearPov(pov).inject(none)
+          else fuccess(fc.some)
 
   def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] =
     g.forecastable.so:

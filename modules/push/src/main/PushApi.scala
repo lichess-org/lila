@@ -119,9 +119,8 @@ final private class PushApi(
         .flatMap:
           _.filter(_.playable).so: game =>
             game.players
-              .collect {
+              .collect:
                 case p if p.isProposingTakeback => Pov(game, game.opponent(p))
-              }
               .so { pov => // the pov of the receiver
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>
@@ -148,9 +147,8 @@ final private class PushApi(
         .flatMap:
           _.filter(_.playable).so: game =>
             game.players
-              .collect {
+              .collect:
                 case p if p.isOfferingDraw => Pov(game, game.opponent(p))
-              }
               .so { pov => // the pov of the receiver
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>

@@ -34,7 +34,7 @@ final class ModApi(
     yield if v then notifier.reporters(me.modId, sus)
 
   def setEngine(prev: Suspect, v: Boolean)(using me: MyId): Funit =
-    (prev.user.marks.engine != v).so {
+    (prev.user.marks.engine != v).so:
       for
         _ <- userRepo.setEngine(prev.user.id, v)
         sus = prev.set(_.withMarks(_.set(_.engine, v)))
@@ -44,19 +44,17 @@ final class ModApi(
         if v then
           notifier.reporters(me.modId, sus)
           refunder.schedule(sus)
-    }
 
   def autoMark(suspectId: SuspectId, note: String)(using MyId): Funit =
     for
       sus       <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
-      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so {
+      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined).so:
         reportApi.getMyMod.flatMapz: mod =>
           lila.mon.cheat.autoMark.increment()
           setEngine(sus, v = true) >>
             noteApi.lichessWrite(sus.user, note) >>
             reportApi.autoProcess(sus, Set(Room.Cheat, Room.Print))
-      }
     yield ()
 
   def setBoost(prev: Suspect, v: Boolean)(using me: Me): Fu[Suspect] =

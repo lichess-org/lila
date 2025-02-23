@@ -240,11 +240,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       mustConfirmEmail: Boolean,
       lang: Option[LangTag] = None
   ): Fu[Option[User]] =
-    exists(name).not.flatMapz {
+    exists(name).not.flatMapz:
       val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
-    }
 
   def exists[U: UserIdOf](u: U): Fu[Boolean] = coll.exists($id(u.id))
 

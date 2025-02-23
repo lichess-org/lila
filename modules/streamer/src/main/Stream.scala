@@ -64,15 +64,16 @@ object Stream:
             item.snippet.liveBroadcastContent == "live" &&
               item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
           .flatMap: item =>
-            streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)).map {
-              Stream(
-                item.snippet.channelId,
-                unescapeHtml(item.snippet.title),
-                item.id,
-                _,
-                item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
-              )
-            }
+            streamers
+              .find(s => s.youTube.exists(_.channelId == item.snippet.channelId))
+              .map:
+                Stream(
+                  item.snippet.channelId,
+                  unescapeHtml(item.snippet.title),
+                  item.id,
+                  _,
+                  item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
+                )
     case class Stream(
         channelId: String,
         status: Html,

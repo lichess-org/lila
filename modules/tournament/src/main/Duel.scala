@@ -42,9 +42,8 @@ final private class DuelStore:
   export byTourId.get
 
   def bestRated(tourId: TourId, nb: Int): List[Duel] =
-    get(tourId).so {
+    get(tourId).so:
       scalalib.HeapSort.topNToList(_, nb)(using ratingOrdering)
-    }
 
   def find(tour: Tournament, user: User): Option[GameId] =
     get(tour.id).flatMap { _.find(_.has(user)).map(_.gameId) }

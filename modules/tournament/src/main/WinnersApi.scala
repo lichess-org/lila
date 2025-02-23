@@ -142,7 +142,6 @@ final class WinnersApi(
 
 object WinnersApi:
 
-  val variants = Variant.list.all.filter {
+  val variants = Variant.list.all.filter:
     case Standard | FromPosition => false
     case _                       => true
-  }

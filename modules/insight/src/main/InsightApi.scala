@@ -15,17 +15,17 @@ final class InsightApi(
 
   import InsightApi.*
 
-  private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user") {
+  private val userCache = cacheApi[UserId, InsightUser](1024, "insight.user"):
     _.expireAfterWrite(15.minutes).maximumSize(4096).buildAsyncFuture(computeUser)
-  }
   private def computeUser(userId: UserId): Fu[InsightUser] =
-    storage.count(userId).flatMap {
-      case 0 => fuccess(InsightUser(0, Nil, Nil))
-      case count =>
-        storage.openings(userId).map { case (families, openings) =>
-          InsightUser(count, families, openings)
-        }
-    }
+    storage
+      .count(userId)
+      .flatMap:
+        case 0 => fuccess(InsightUser(0, Nil, Nil))
+        case count =>
+          storage.openings(userId).map { case (families, openings) =>
+            InsightUser(count, families, openings)
+          }
   private given Ordering[GameId] = stringOrdering
 
   def insightUser(user: User): Fu[InsightUser] = userCache.get(user.id)
@@ -36,9 +36,8 @@ final class InsightApi(
       .flatMap { aggDocs =>
         val clusters = AggregationClusters(question, aggDocs)
         withPovs
-          .so {
+          .so:
             gameRepo.userPovsByGameIds(clusters.flatMap(_.gameIds).botN(4), user)
-          }
           .map { Answer(question, clusters, _) }
       }
       .monSuccess(_.insight.user)
@@ -51,15 +50,17 @@ final class InsightApi(
       .monSuccess(_.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =
-    gameRepo.lastFinishedRatedNotFromPosition(user).flatMap {
-      case None => fuccess(UserStatus.NoGame)
-      case Some(game) =>
-        storage.fetchLast(user.id).map {
-          case None                                               => UserStatus.Empty
-          case Some(entry) if entry.date.isBefore(game.createdAt) => UserStatus.Stale
-          case _                                                  => UserStatus.Fresh
-        }
-    }
+    gameRepo
+      .lastFinishedRatedNotFromPosition(user)
+      .flatMap:
+        case None => fuccess(UserStatus.NoGame)
+        case Some(game) =>
+          storage
+            .fetchLast(user.id)
+            .map:
+              case None                                               => UserStatus.Empty
+              case Some(entry) if entry.date.isBefore(game.createdAt) => UserStatus.Stale
+              case _                                                  => UserStatus.Fresh
 
   def indexAll(user: User) =
     for _ <- indexer.all(user).monSuccess(_.insight.index)
@@ -68,9 +69,10 @@ final class InsightApi(
   def updateGame(g: Game) =
     lila.game.Pov.list(g).sequentiallyVoid { pov =>
       pov.player.userId.so: userId =>
-        storage.find(InsightEntry.povToId(pov)).flatMapz {
-          indexer.update(g, userId, _)
-        }
+        storage
+          .find(InsightEntry.povToId(pov))
+          .flatMapz:
+            indexer.update(g, userId, _)
     }
 
   def coll = storage.coll
