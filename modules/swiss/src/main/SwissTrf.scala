@@ -14,9 +14,8 @@ final class SwissTrf(
 
   private type Bits = List[(Int, String)]
 
-  def apply(swiss: Swiss, sorted: Boolean): Source[String, ?] = Source.futureSource {
+  def apply(swiss: Swiss, sorted: Boolean): Source[String, ?] = Source.futureSource:
     fetchPlayerIds(swiss).map { apply(swiss, _, sorted) }
-  }
 
   def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, ?] =
     SwissPlayer.fields { f =>
@@ -79,13 +78,12 @@ final class SwissTrf(
       }
     } ::: {
       p.absent && swiss.round.value < swiss.settings.nbRounds
-    }.so {
+    }.so:
       List( // http://www.rrweb.org/javafo/aum/JaVaFo2_AUM.htm#_Unusual_info_extensions
         95 -> "0000",
         97 -> "",
         99 -> "-"
       ).map { case (l, s) => (l + swiss.round.value * 10, s) }
-    }
 
   private def formatLine(bits: Bits): String =
     bits.foldLeft("") { case (acc, (pos, txt)) =>
@@ -116,7 +114,7 @@ final class SwissTrf(
     if swiss.settings.forbiddenPairings.isEmpty then Source.empty[String]
     else
       Source.fromIterator { () =>
-        swiss.settings.forbiddenPairings.linesIterator.flatMap {
+        swiss.settings.forbiddenPairings.linesIterator.flatMap:
           _.trim.toLowerCase.split(' ').map(_.trim) match
             case Array(u1, u2) if u1 != u2 =>
               for
@@ -124,5 +122,4 @@ final class SwissTrf(
                 id2 <- playerIds.get(UserId(u2))
               yield s"XXP $id1 $id2"
             case _ => none
-        }
       }

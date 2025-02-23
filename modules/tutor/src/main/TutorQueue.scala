@@ -71,14 +71,15 @@ final private class TutorQueue(
   }
 
   private def fetchStatus(user: User): Fu[Status] =
-    colls.queue.primitiveOne[Instant]($id(user.id), F.requestedAt).flatMap {
-      _.fold(fuccess(NotInQueue)) { at =>
-        for
-          position    <- colls.queue.countSel($doc(F.requestedAt.$lte(at)))
-          avgDuration <- durationCache.get({})
-        yield InQueue(position, avgDuration)
-      }
-    }
+    colls.queue
+      .primitiveOne[Instant]($id(user.id), F.requestedAt)
+      .flatMap:
+        _.fold(fuccess(NotInQueue)) { at =>
+          for
+            position    <- colls.queue.countSel($doc(F.requestedAt.$lte(at)))
+            avgDuration <- durationCache.get({})
+          yield InQueue(position, avgDuration)
+        }
 
 object TutorQueue:
 

@@ -181,30 +181,31 @@ final class Mod(
   }
 
   def inquiryToZulip = Secure(_.SendToZulip) { _ ?=> me ?=>
-    env.report.api.inquiries.ofModId(me.id).flatMap {
-      case None => Redirect(routes.Report.list)
-      case Some(report) =>
-        Found(env.user.repo.byId(report.user)): user =>
-          import lila.report.Room
-          import lila.core.irc.ModDomain
-          env.irc.api
-            .inquiry(
-              user = user.light,
-              domain = report.room match
-                case Room.Cheat => ModDomain.Cheat
-                case Room.Boost => ModDomain.Boost
-                case Room.Comm  => ModDomain.Comm
-                // spontaneous inquiry
-                case _ if isGranted(_.Admin)       => ModDomain.Admin
-                case _ if isGranted(_.CheatHunter) => ModDomain.Cheat // heuristic
-                case _ if isGranted(_.Shusher)     => ModDomain.Comm
-                case _ if isGranted(_.BoostHunter) => ModDomain.Boost
-                case _                             => ModDomain.Admin
-              ,
-              room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
-            )
-            .inject(NoContent)
-    }
+    env.report.api.inquiries
+      .ofModId(me.id)
+      .flatMap:
+        case None => Redirect(routes.Report.list)
+        case Some(report) =>
+          Found(env.user.repo.byId(report.user)): user =>
+            import lila.report.Room
+            import lila.core.irc.ModDomain
+            env.irc.api
+              .inquiry(
+                user = user.light,
+                domain = report.room match
+                  case Room.Cheat => ModDomain.Cheat
+                  case Room.Boost => ModDomain.Boost
+                  case Room.Comm  => ModDomain.Comm
+                  // spontaneous inquiry
+                  case _ if isGranted(_.Admin)       => ModDomain.Admin
+                  case _ if isGranted(_.CheatHunter) => ModDomain.Cheat // heuristic
+                  case _ if isGranted(_.Shusher)     => ModDomain.Comm
+                  case _ if isGranted(_.BoostHunter) => ModDomain.Boost
+                  case _                             => ModDomain.Admin
+                ,
+                room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
+              )
+              .inject(NoContent)
   }
 
   def createNameCloseVote(username: UserStr) = Secure(_.SendToZulip) { _ ?=> me ?=>
@@ -327,22 +328,22 @@ final class Mod(
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
       (getBool("appeal") && isGranted(_.Appeals)).so(env.appeal.api.exists(user)).flatMap { isAppeal =>
-        isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)).flatMap {
-          case Some(ongoing) if ongoing.mod != me.id =>
-            env.user.lightUserApi
-              .asyncFallback(ongoing.mod)
-              .map: mod =>
-                Redirect(routes.Appeal.show(user.username))
-                  .flashFailure(s"Currently processed by ${mod.name}")
-          case _ =>
-            val f =
-              if isAppeal then env.report.api.inquiries.appeal
-              else env.report.api.inquiries.spontaneous
-            f(Suspect(user)).inject {
-              if isAppeal then Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
-              else redirect(user.username, mod = true)
-            }
-        }
+        isAppeal
+          .so(env.report.api.inquiries.ongoingAppealOf(user.id))
+          .flatMap:
+            case Some(ongoing) if ongoing.mod != me.id =>
+              env.user.lightUserApi
+                .asyncFallback(ongoing.mod)
+                .map: mod =>
+                  Redirect(routes.Appeal.show(user.username))
+                    .flashFailure(s"Currently processed by ${mod.name}")
+            case _ =>
+              val f =
+                if isAppeal then env.report.api.inquiries.appeal
+                else env.report.api.inquiries.spontaneous
+              f(Suspect(user)).inject:
+                if isAppeal then Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
+                else redirect(user.username, mod = true)
       }
   }
 
@@ -479,18 +480,19 @@ final class Mod(
         val email    = query.headOption.flatMap(EmailAddress.from)
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
-          env.mod.search(q).map(_.users.filter(_.user.enabled.yes)).flatMap {
-            case List(lila.user.WithPerfsAndEmails(user, _)) =>
-              for
-                _ <- (!user.everLoggedIn).so {
-                  lila.mon.user.register.modConfirmEmail.increment()
-                  api.setEmail(user.id, setEmail.some)
-                }
-                email <- env.user.repo.email(user.id)
-                page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
-              yield Ok(page).some
-            case _ => fuccess(none)
-          }
+          env.mod
+            .search(q)
+            .map(_.users.filter(_.user.enabled.yes))
+            .flatMap:
+              case List(lila.user.WithPerfsAndEmails(user, _)) =>
+                for
+                  _ <- (!user.everLoggedIn).so:
+                    lila.mon.user.register.modConfirmEmail.increment()
+                    api.setEmail(user.id, setEmail.some)
+                  email <- env.user.repo.email(user.id)
+                  page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
+                yield Ok(page).some
+              case _ => fuccess(none)
         email
           .so: em =>
             tryWith(em, em.value)

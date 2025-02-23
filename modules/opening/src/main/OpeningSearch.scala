@@ -115,7 +115,7 @@ private object OpeningSearch:
 
   private given Ordering[Match] = Ordering.by { case Match(_, score) => score }
 
-  def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(_.opening.searchTime) {
+  def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(_.opening.searchTime):
     val query = makeQuery(str)
     index
       .flatMap: entry =>
@@ -123,4 +123,3 @@ private object OpeningSearch:
           Match(entry.opening, _)
       .topN(max)
       .map(_.opening)
-  }

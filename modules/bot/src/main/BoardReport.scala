@@ -50,7 +50,7 @@ private final class BoardReport(settingStore: SettingStore.Builder)(using
       .warn:
         s"Marking https://lichess.org/@/${me.username} for https://lichess.org/${game.id} with $ref in $minutes minutes"
     scheduler.scheduleOnce(minutes.minutes):
-      lila.common.Bus.pub(lila.core.mod.BoardApiMark(me.id, ref))
+      lila.common.Bus.pub(lila.core.mod.BoardApiMark(me.userId, ref))
 
   private def checkNow(game: Game): Boolean =
     game.ply.value == 5 + (game.createdAt.toSeconds % 20)

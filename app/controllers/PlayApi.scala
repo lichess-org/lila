@@ -149,10 +149,11 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
         else f(pov)
 
   private def WithPov(id: GameId)(f: Pov => Fu[Result])(using me: Me) =
-    env.round.proxyRepo.game(id).flatMap {
-      case None       => NotFound(jsonError("No such game"))
-      case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
-    }
+    env.round.proxyRepo
+      .game(id)
+      .flatMap:
+        case None       => NotFound(jsonError("No such game"))
+        case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
 
   private val botsCache = env.memo.cacheApi.unit[List[UserWithPerfs]]:
     _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>

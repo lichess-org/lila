@@ -106,7 +106,7 @@ object RawHtml:
           lazy val url     = (if isHttp then "http://" else "https://") + allButScheme
           lazy val text    = if isHttp then url else allButScheme
 
-          sb.append {
+          sb.append:
             if isTldInternal then
               linkRender
                 .flatMap { _(allButScheme, text).map(_.render) }
@@ -121,10 +121,8 @@ object RawHtml:
               {
                 if (end < sArr.length && sArr(end) == '"') || !expandImg then None
                 else imgUrl(url)
-              }.getOrElse {
+              }.getOrElse:
                 s"""<a rel="nofollow noreferrer" href="$url" target="_blank">$text</a>"""
-              }
-          }
 
           lastAppendIdx = end
           m.find
@@ -180,7 +178,7 @@ object RawHtml:
       }
 
   private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
-  def justMarkdownLinks(escapedHtml: Html): Html = Html {
+  def justMarkdownLinks(escapedHtml: Html): Html = Html:
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,
       m =>
@@ -188,7 +186,6 @@ object RawHtml:
         val href    = removeUrlTrackingParameters(m.group(2))
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
     )
-  }
 
   private val trackingParametersRegex =
     """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r

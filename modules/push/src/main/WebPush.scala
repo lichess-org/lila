@@ -5,10 +5,10 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.data.LazyFu
 
 import lila.common.Json.given
 import lila.common.autoconfig.*
-import scalalib.data.LazyFu
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
@@ -57,7 +57,7 @@ final private class WebPush(
           "ttl"     -> 43200
         )
       )
-      .flatMap {
+      .flatMap:
         case res if res.status == 200 =>
           res
             .body[JsValue]
@@ -72,7 +72,6 @@ final private class WebPush(
                 .map: n =>
                   logger.info(s"[push] web: $n/${staleEndpoints.size} stale endpoints unsubscribed")
         case res => fufail(s"[push] web: ${res.status} ${res.body}")
-      }
 
 private object WebPush:
 

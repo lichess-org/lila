@@ -66,9 +66,10 @@ final class NotifyApi(
               allows <- doc.getAsOpt[Allows](event.key)
             yield NotifyAllows(userId, allows)
             val customIds = customAllows.view.map(_.userId).toSet
-            val defaultAllows = userIds.filterNot(customIds.contains).map {
-              NotifyAllows(_, NotificationPref.default.allows(event))
-            }
+            val defaultAllows = userIds
+              .filterNot(customIds.contains)
+              .map:
+                NotifyAllows(_, NotificationPref.default.allows(event))
             customAllows ::: defaultAllows.toList
 
   private val unreadCountCache = cacheApi[UserId, UnreadCount](65_536, "notify.unreadCountCache"):
@@ -117,7 +118,7 @@ final class NotifyApi(
 
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
-    shouldSkip(note).not.flatMapz {
+    shouldSkip(note).not.flatMapz:
       NotificationPref.events.get(content.key) match
         case None => bellOne(note)
         case Some(event) =>
@@ -125,7 +126,6 @@ final class NotifyApi(
             if allows.bell then bellOne(note)
             if allows.push then pushOne(NotifyAllows(note.to, allows), note.content)
           }
-    }
 
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate

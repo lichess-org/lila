@@ -101,14 +101,15 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         .monSuccess(_.picfit.uploadTime(image.user.value))
 
     def delete(image: PicfitImage): Funit =
-      ws.url(s"${config.endpointPost}/${image.id}").delete().flatMap {
-        case res if res.status != 200 =>
-          logger
-            .branch("picfit")
-            .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
-          funit
-        case _ => funit
-      }
+      ws.url(s"${config.endpointPost}/${image.id}")
+        .delete()
+        .flatMap:
+          case res if res.status != 200 =>
+            logger
+              .branch("picfit")
+              .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
+            funit
+          case _ => funit
 
     lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
       for

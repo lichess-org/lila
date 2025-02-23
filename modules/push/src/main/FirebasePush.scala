@@ -6,9 +6,9 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 import scalalib.cache.FrequencyThreshold
+import scalalib.data.LazyFu
 
 import lila.common.Chronometer
-import scalalib.data.LazyFu
 
 final private class FirebasePush(
     deviceApi: DeviceApi,
@@ -33,7 +33,7 @@ final private class FirebasePush(
     deviceApi
       .findLastManyByUserId("firebase", 3)(userId)
       .flatMap:
-        _.sequentiallyVoid { device =>
+        _.sequentiallyVoid: device =>
           val config = if device.isMobile then configs.mobile else configs.lichobile
           config.googleCredentials.so: creds =>
             for
@@ -55,7 +55,6 @@ final private class FirebasePush(
                     _ <- send(token, device, config, data)
                   yield ()
             yield ()
-        }
 
   opaque type StatusCode = Int
   object StatusCode extends OpaqueInt[StatusCode]

@@ -53,13 +53,14 @@ final class LeaderboardApi(
         ChartData:
           aggs
             .flatMap: agg =>
-              PerfType.byId.get(agg._id).map {
-                _ -> ChartData.PerfResult(
-                  nb = agg.nb,
-                  points = ChartData.Ints(agg.points),
-                  rank = ChartData.Ints(agg.ratios)
-                )
-              }
+              PerfType.byId
+                .get(agg._id)
+                .map:
+                  _ -> ChartData.PerfResult(
+                    nb = agg.nb,
+                    points = ChartData.Ints(agg.points),
+                    rank = ChartData.Ints(agg.ratios)
+                  )
             .sortLike(lila.rating.PerfType.leaderboardable, _._1)
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
