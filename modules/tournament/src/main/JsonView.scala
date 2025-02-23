@@ -76,16 +76,14 @@ final class JsonView(
       )
       playerInfoJson <- playerInfoExt.soFu:
         playerInfoExtended(tour, _)
-      verdicts <- full.so:
+      verdicts <- full.soFu:
         (me, myInfo) match
-          case (None, _)                                   => fuccess(tour.conditions.accepted.some)
-          case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
-          case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me).dmap(some)
+          case (None, _)                                   => fuccess(tour.conditions.accepted)
+          case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted)
+          case (Some(me), Some(_))                         => verify.rejoin(tour.conditions)(using me)
           case (Some(me), None) =>
-            userApi
-              .usingPerfOf(me, tour.perfType):
-                verify(tour.conditions, tour.perfType)(using me)
-              .dmap(some)
+            userApi.usingPerfOf(me, tour.perfType):
+              verify(tour.conditions, tour.perfType)(using me)
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi.currentOwner(tour) }
       teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
