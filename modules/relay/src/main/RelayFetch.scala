@@ -381,7 +381,6 @@ private object RelayFetch:
 
   object injectTimeControl:
 
-    
     private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
 
     def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:

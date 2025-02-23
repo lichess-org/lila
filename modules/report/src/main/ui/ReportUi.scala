@@ -157,8 +157,6 @@ final class ReportUi(helpers: Helpers):
       (Other, trans.site.other.txt())
     )
 
-  
-
   def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
     val title = "Thanks for the report"
     Page(title)

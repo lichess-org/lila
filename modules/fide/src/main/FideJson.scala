@@ -1,7 +1,7 @@
 package lila.fide
 
 import play.api.libs.json.*
-import lila.common.Json.{ given }
+import lila.common.Json.given
 
 object FideJson:
 

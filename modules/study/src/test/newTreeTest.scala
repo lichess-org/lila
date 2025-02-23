@@ -3,7 +3,6 @@ import chess.format.pgn.PgnStr
 
 import scala.language.implicitConversions
 
-
 class NewTreeTest extends munit.FunSuite:
 
   import Helpers.*

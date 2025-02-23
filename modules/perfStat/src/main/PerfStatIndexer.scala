@@ -8,7 +8,6 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(using Executor, Scheduler):
 
-
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
     timeout = 10.seconds,

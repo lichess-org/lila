@@ -1,6 +1,5 @@
 package lila.common
 
-
 object LameName:
 
   def username(name: UserName): Boolean =

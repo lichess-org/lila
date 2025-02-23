@@ -1,6 +1,5 @@
 package lila.relay
 
-
 import lila.db.dsl.{ *, given }
 
 private object RelayStats:
