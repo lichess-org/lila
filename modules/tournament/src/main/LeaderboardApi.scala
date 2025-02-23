@@ -130,7 +130,6 @@ final class LeaderboardApi(
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll
             .aggregateList(length, _.sec): framework =>
-              import framework.*
               val sort = if sortBest then framework.Ascending("w") else framework.Descending("d")
               val pipe = aggregateByPlayer(user.id, framework, sort, false, length, offset)
               pipe.head -> pipe.tail

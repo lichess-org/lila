@@ -2,7 +2,6 @@ package lila.coach
 
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.i18n.Lang
 import play.api.libs.json.{ JsSuccess, Json, Reads }
 
 import lila.common.Form.given

@@ -46,7 +46,7 @@ final class Env(
     wire[LobbySyncActor]
 
   // eager initialization for Bus subscription
-  private val abortListener = wire[AbortListener]
+  wire[AbortListener]
 
   private lazy val biter = wire[Biter]
 

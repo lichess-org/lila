@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.{ ByColor, Color }
 import chess.eval.WinPercent
-import chess.eval.Eval.{ Cp, Mate }
+import chess.eval.Eval.Cp
 import scalalib.Maths
 import scalalib.model.Percent
 

@@ -2,7 +2,6 @@ package lila.streamer
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import scalalib.model.Language
 
 import lila.common.Json.given
 import lila.common.String.html.unescapeHtml

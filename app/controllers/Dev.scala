@@ -1,7 +1,6 @@
 package controllers
 
 import lila.app.*
-import play.api.libs.json.*
 
 final class Dev(env: Env) extends LilaController(env):
 

@@ -11,7 +11,6 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
 
 import lila.core.id.ImageId
-import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 
 case class PicfitImage(

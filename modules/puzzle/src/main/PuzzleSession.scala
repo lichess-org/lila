@@ -34,8 +34,6 @@ object PuzzleSettings:
 
 final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using Executor):
 
-  import BsonHandlers.*
-
   def onComplete(round: PuzzleRound, angle: PuzzleAngle): Funit =
     sessions.getIfPresent(round.userId).so {
       _.map { session =>
