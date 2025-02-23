@@ -9,18 +9,26 @@
 
 <img src="https://raw.githubusercontent.com/lichess-org/lila/master/public/images/home-bicolor.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
 
+## What is Lila?
 Lila (li[chess in sca]la) is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
 
-It features a [search engine](https://lichess.org/games/search),
-[computer analysis](https://lichess.org/ief49lif) distributed with [fishnet](https://github.com/lichess-org/fishnet),
-[tournaments](https://lichess.org/tournament),
-[simuls](https://lichess.org/simul),
-[forums](https://lichess.org/forum),
-[teams](https://lichess.org/team),
-[tactic trainer](https://lichess.org/training),
-a [mobile app](https://lichess.org/mobile),
-and a [shared analysis board](https://lichess.org/study).
-The UI is available in more than [140 languages](https://crowdin.com/project/lichess) thanks to the community.
+Lila is the backend system that powers Lichess.com, handling game logic, matchmaking, puzzles, tournaments, and API-based play/requests.
+
+
+
+## Features
+- real-time chess: modes including blitz, bullet, rapid, classical
+- AI integration: play against [Stockfish](https://stockfishchess.org/) AI
+- [search engine](https://lichess.org/games/search)
+- [computer analysis](https://lichess.org/ief49lif) distributed with [fishnet](https://github.com/lichess-org/fishnet)
+- [tournaments](https://lichess.org/tournament)
+- [simuls](https://lichess.org/simul)
+- [forums](https://lichess.org/forum)
+- [teams](https://lichess.org/team)
+- [puzzles and tactic trainer](https://lichess.org/training)
+- [mobile app](https://lichess.org/mobile)
+- [shared analysis board](https://lichess.org/study)
+- The UI is available in more than [140 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 3](https://www.scala-lang.org/),
 and relies on the [Play 2.8](https://www.playframework.com/) framework.
