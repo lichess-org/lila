@@ -44,7 +44,7 @@ final class Study(
           yield res
         case Some(clean) =>
           env
-            .studySearch(ctx.me)(clean.take(100), page)
+            .studySearch(clean.take(100), page)
             .flatMap: pag =>
               negotiate(
                 Ok.page(views.study.list.search(pag, text)),
