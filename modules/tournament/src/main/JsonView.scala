@@ -10,7 +10,7 @@ import lila.common.Json.lightUser.writeNoId
 import lila.common.Uptime
 import lila.core.LightUser
 import lila.core.chess.Rank
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.core.game.LightPov
 import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion

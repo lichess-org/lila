@@ -106,7 +106,7 @@ final class Challenge(env: Env) extends LilaController(env):
             case Right(Some(pov)) =>
               negotiateApi(
                 html = Redirect(routes.Round.watcher(pov.gameId, color | Color.white)),
-                api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map { Ok(_) }
+                api = _ => env.api.roundApi.player(pov, scalalib.data.Preload.none, none).map { Ok(_) }
               ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
             case invalid =>
               negotiate(

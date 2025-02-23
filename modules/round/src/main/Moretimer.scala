@@ -2,7 +2,7 @@ package lila.round
 
 import chess.{ ByColor, Color }
 
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.game.GameExt.withClock
 import lila.game.{ Event, Progress }
 import lila.pref.{ Pref, PrefApi }

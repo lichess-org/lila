@@ -8,7 +8,7 @@ import scala.math
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.core.game.Player as GamePlayer
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf
