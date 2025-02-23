@@ -57,6 +57,10 @@ case class RelayRound(
 
   def shouldHaveStarted1Hour = !hasStarted && startsAtTime.exists(_.isBefore(nowInstant.minusHours(1)))
 
+  def pushShouldHaveFinished = hasStarted && !isFinished && sync.isPush && sync.log.updatedAt.exists(
+    _.isBefore(nowInstant.minusHours(1))
+  )
+
   def shouldGiveUp =
     !hasStarted && startsAtTime.match
       case Some(at) => at.isBefore(nowInstant.minusHours(3))

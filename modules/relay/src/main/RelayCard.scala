@@ -18,4 +18,7 @@ case class RelayCard(
       .orElse:
         round.shouldHaveStarted1Hour.option:
           List(if round.sync.hasUpstream then "Upstream has not started" else "Nothing pushed yet")
+      .orElse:
+        round.pushShouldHaveFinished.option:
+          List("Last pushed have some time")
       .orZero
