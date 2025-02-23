@@ -3,7 +3,6 @@ package ui
 
 import play.api.libs.json.Json
 
-import lila.core.i18n.I18nKey
 import lila.ui.*
 
 import ScalatagsTemplate.*

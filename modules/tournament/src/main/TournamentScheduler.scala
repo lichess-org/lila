@@ -373,7 +373,6 @@ Thank you all, you rock!""".some,
             case 2 => Blitz
             case _ => Rapid
           List(1300, 1500, 1700, 2000).map(IntRating(_)).zipWithIndex.flatMap { (rating, hourDelay) =>
-            import chess.Clock
             val conditions = TournamentCondition.All(
               nbRatedGame = Condition.NbRatedGame(20).some,
               maxRating = Condition.MaxRating(rating).some,

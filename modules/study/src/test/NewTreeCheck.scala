@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.Centis
 import chess.CoreArbitraries.given
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, PgnStr }

@@ -18,16 +18,14 @@ final class LateMultiThrottler(
 
     case Work(id, run, delayOption, timeoutOption) if !executions.contains(id) =>
       given Scheduler = context.system.scheduler
-      lila.common.LilaFuture.delay(delayOption | 0.seconds) {
+      lila.common.LilaFuture.delay(delayOption | 0.seconds):
         timeoutOption
           .orElse(executionTimeout)
           .fold(run()) { timeout =>
             run().withTimeout(timeout, "LateMultiThrottler")
           }
-          .addEffectAnyway {
+          .addEffectAnyway:
             self ! Done(id)
-          }
-      }
       executions = executions + id
 
     case _: Work => // already executing similar work

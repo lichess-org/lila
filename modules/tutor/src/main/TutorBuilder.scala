@@ -30,7 +30,7 @@ final private class TutorBuilder(
   def apply(userId: UserId): Fu[Option[TutorFullReport]] = for
     user     <- userApi.withPerfs(userId).orFail(s"No such user $userId")
     hasFresh <- hasFreshReport(user)
-    report <- (!hasFresh).so {
+    report <- (!hasFresh).so:
       val chrono = lila.common.Chronometer.lapTry(produce(user))
       chrono.mon { r => lila.mon.tutor.buildFull(r.isSuccess) }
       for
@@ -42,7 +42,6 @@ final private class TutorBuilder(
         )
         _ <- colls.report.insert.one(doc).void
       yield report.some
-    }
   yield report
 
   private def produce(user: UserWithPerfs): Fu[TutorFullReport] = for

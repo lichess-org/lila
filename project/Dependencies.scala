@@ -51,7 +51,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.6.1"
+    val version  = "11.6.2"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -96,7 +96,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.10"
+    val version = "2.2.11"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

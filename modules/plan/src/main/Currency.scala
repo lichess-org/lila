@@ -32,7 +32,7 @@ final class CurrencyApi(
     else 1.day
   ) { loader =>
     _.refreshAfterWrite(121.minutes)
-      .buildAsyncFuture {
+      .buildAsyncFuture:
         loader { _ =>
           ws.url(s"$baseUrl/latest.json")
             .withQueryStringParameters("app_id" -> config.appId.value)
@@ -45,7 +45,6 @@ final class CurrencyApi(
                 case Some(rates) => rates.filterValues(0 <)
             }
         }
-      }
   }
 
   def convert(money: Money, currency: Currency): Fu[Option[Money]] =

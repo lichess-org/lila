@@ -44,7 +44,7 @@ final class Study(
           yield res
         case Some(clean) =>
           env
-            .studySearch(ctx.me)(clean.take(100), page)
+            .studySearch(clean.take(100), page)
             .flatMap: pag =>
               negotiate(
                 Ok.page(views.study.list.search(pag, text)),
@@ -453,17 +453,18 @@ final class Study(
       studyUnauthorized: StudyModel => Fu[Result],
       studyForbidden: StudyModel => Fu[Result]
   )(using ctx: Context) =
-    env.study.api.byIdWithChapter(id, chapterId).flatMap {
-      _.fold(studyNotFound) { case WithChapter(study, chapter) =>
-        CanView(study) {
-          env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter).map { pgn =>
-            Ok(pgn.toString)
-              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
-              .as(pgnContentType)
-          }
-        }(studyUnauthorized(study), studyForbidden(study))
-      }
-    }
+    env.study.api
+      .byIdWithChapter(id, chapterId)
+      .flatMap:
+        _.fold(studyNotFound) { case WithChapter(study, chapter) =>
+          CanView(study) {
+            env.study.pgnDump.ofChapter(study, requestPgnFlags)(chapter).map { pgn =>
+              Ok(pgn.toString)
+                .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
+                .as(pgnContentType)
+            }
+          }(studyUnauthorized(study), studyForbidden(study))
+        }
 
   def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val name =
@@ -524,11 +525,12 @@ final class Study(
         env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map { JsonOk(_) }
 
   def topics = Open:
-    env.study.topicApi.popular(50).zip(ctx.userId.soFu(env.study.topicApi.userTopics)).flatMap {
-      (popular, mine) =>
+    env.study.topicApi
+      .popular(50)
+      .zip(ctx.userId.soFu(env.study.topicApi.userTopics))
+      .flatMap: (popular, mine) =>
         val form = mine.map(StudyForm.topicsForm)
         Ok.page(views.study.list.topic.index(popular, mine, form))
-    }
 
   def setTopics = AuthBody { ctx ?=> me ?=>
     bindForm(StudyForm.topicsForm)(

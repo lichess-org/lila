@@ -122,9 +122,11 @@ object RoomSocket:
           }
         case P.RawMsg("tell/room/sri", raw) =>
           raw.get(4) { case arr @ Array(roomId, _, _, _) =>
-            P.In.tellSriMapper.lift(arr.drop(1)).flatten.map {
-              TellRoomSri(RoomId(roomId), _)
-            }
+            P.In.tellSriMapper
+              .lift(arr.drop(1))
+              .flatten
+              .map:
+                TellRoomSri(RoomId(roomId), _)
           }
         case P.RawMsg("room/versions", raw) =>
           SetVersions(P.In.commas(raw.args).map {

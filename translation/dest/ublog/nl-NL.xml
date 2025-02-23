@@ -5,16 +5,16 @@
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
   <string name="blogTopics">Blog onderwerpen</string>
   <plurals name="blogPosts">
-    <item quantity="one">%s Deze blogpost</item>
+    <item quantity="one">%s blogberichten</item>
     <item quantity="other">%s Deze blogposts</item>
   </plurals>
   <string name="lichessOfficialBlog">Officiële blog van Lichess</string>
   <string name="continueReadingPost">Doorgaan met lezen van dit bericht</string>
-  <string name="lichessBlogPostsFromXYear">Lichess blog berichten uit %s</string>
-  <string name="previousBlogPosts">Eerdere blog berichten</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blogberichten uit %s</string>
+  <string name="previousBlogPosts">Eerdere blogberichten</string>
   <string name="xBlog">Blog van %s</string>
-  <string name="newPost">Nieuwe blogpost</string>
-  <string name="editYourBlogPost">Bewerk je blogpost</string>
+  <string name="newPost">Nieuw blogbericht</string>
+  <string name="editYourBlogPost">Bewerk je blogbericht</string>
   <string name="saveDraft">Concept opslaan</string>
   <string name="postTitle">Titel</string>
   <string name="postIntro">Inleiding</string>
@@ -23,12 +23,12 @@
   <string name="published">Gepubliceerd</string>
   <string name="createBlogDiscussion">Reacties toestaan</string>
   <string name="createBlogDiscussionHelp">Een forumbericht zal worden gemaakt waar mensen kunnen reageren op je bericht</string>
-  <string name="publishOnYourBlog">Publiceren op blog</string>
+  <string name="publishOnYourBlog">Publiceren op jouw blog</string>
   <string name="publishHelp">Indien aangevinkt, zal het bericht worden weergegeven op uw blog. Zo niet, zal deze privé tussen uw conceptberichten staan</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Vastgepind bericht</string>
   <string name="stickyPostHelp">Indien aangevinkt, wordt dit bericht als eerste weergegeven bij de recente berichten op jouw profiel.</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="one">Publiceerde een blogpost</item>
+    <item quantity="one">Publiceerde een blogbericht</item>
     <item quantity="other">Publiceerde %s blogposts</item>
   </plurals>
   <plurals name="nbViews">
@@ -49,7 +49,7 @@
   <string name="uploadAnImageForYourPost">Upload een afbeelding voor je bericht</string>
   <string name="imageAlt">Alternatieve tekst voor afbeelding</string>
   <string name="imageCredit">Foto</string>
-  <string name="deleteBlog">Deze blogpost definitief verwijderen</string>
+  <string name="deleteBlog">Dit blogbericht definitief verwijderen</string>
   <string name="safeToUseImages">Het is veilig om afbeeldingen van de volgende websites te gebruiken: </string>
   <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
   <string name="useImagesYouMadeYourself">Je kunt ook afbeeldingen gebruiken die je zelf hebt gemaakt, foto\'s die je hebt gemaakt, screenshots van Lichess... alles waar geen auteursrechten van iemand anders op berusten.</string>

@@ -1,7 +1,5 @@
 package lila.common
 
-import scala.util.matching.Regex
-
 object LameName:
 
   def username(name: UserName): Boolean =

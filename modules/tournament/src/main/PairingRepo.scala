@@ -31,7 +31,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       max: Int
   ): Fu[Pairing.LastOpponents] =
     userIds.nonEmpty
-      .so {
+      .so:
         val nbUsers = userIds.size
         coll
           .find(
@@ -43,14 +43,13 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           .cursor[Bdoc]()
           .documentSource(max)
           .mapConcat(_.getAsOpt[List[UserId]]("u").toList)
-          .scan(Map.empty[UserId, UserId]) {
+          .scan(Map.empty[UserId, UserId]):
             case (acc, List(u1, u2)) =>
               val b1   = userIds.contains(u1)
               val b2   = !b1 || userIds.contains(u2)
               val acc1 = if !b1 || acc.contains(u1) then acc else acc.updated(u1, u2)
               if !b2 || acc.contains(u2) then acc1 else acc1.updated(u2, u1)
             case (acc, _) => acc
-          }
           .takeWhile(
             r => r.sizeIs < nbUsers,
             inclusive = true
@@ -58,7 +57,6 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
           .toMat(Sink.lastOption)(Keep.right)
           .run()
           .dmap(~_)
-      }
       .dmap(Pairing.LastOpponents.apply)
 
   def opponentsOf(tourId: TourId, userId: UserId): Fu[Set[UserId]] =
@@ -69,13 +67,12 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       )
       .cursor[Bdoc]()
       .listAll()
-      .dmap {
+      .dmap:
         _.view
           .flatMap { doc =>
             (~doc.getAsOpt[List[UserId]]("u")).find(userId !=)
           }
           .toSet
-      }
 
   def recentIdsByTourAndUserId(tourId: TourId, userId: UserId, nb: Int): Fu[List[GameId]] =
     coll
@@ -86,9 +83,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       .sort(recentSort)
       .cursor[Bdoc]()
       .list(nb)
-      .dmap {
+      .dmap:
         _.flatMap(_.getAsOpt[GameId]("_id"))
-      }
 
   def playingByTourAndUserId(tourId: TourId, userId: UserId): Fu[Option[GameId]] =
     coll
@@ -98,16 +94,15 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       )
       .sort(recentSort)
       .one[Bdoc]
-      .dmap {
+      .dmap:
         _.flatMap(_.getAsOpt[GameId]("_id"))
-      }
 
   def removeByTour(tourId: TourId) = coll.delete.one(selectTour(tourId)).void
 
   private[tournament] def forfeitByTourAndUserId(tourId: TourId, userId: UserId): Funit =
     coll
       .list[Pairing](selectTourUser(tourId, userId))
-      .flatMap {
+      .flatMap:
         _.withFilter(_.notLostBy(userId))
           .map: p =>
             coll.update.one(
@@ -117,7 +112,6 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
               )
             )
           .parallelVoid
-      }
 
   def count(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId))

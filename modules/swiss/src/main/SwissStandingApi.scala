@@ -26,15 +26,14 @@ final class SwissStandingApi(
 
   def apply(swiss: Swiss, forPage: Int): Fu[JsObject] =
     val page = forPage.atMost(Math.ceil(swiss.nbPlayers.toDouble / perPage).toInt).atLeast(1)
-    fuccess(pageCache.getIfPresent(swiss.id -> page)).getOrElse {
+    fuccess(pageCache.getIfPresent(swiss.id -> page)).getOrElse:
       if page == 1 then first.get(swiss.id)
       else compute(swiss, page)
-    }
 
   def update(res: SwissScoring.Result): Funit =
     lightUserApi
       .asyncManyFallback(res.leaderboard.map(_._1.userId))
-      .map {
+      .map:
         _.zip(res.leaderboard).zipWithIndex
           .grouped(perPage)
           .toList
@@ -61,16 +60,14 @@ final class SwissStandingApi(
             )
             page
           }
-      }
       .map { lastPage =>
         // make sure there's no extra page in the cache in case of players leaving the tournament
         pageCache.invalidate(res.swiss.id -> (lastPage + 1))
       }
 
-  private val first = cacheApi[SwissId, JsObject](256, "swiss.page.first") {
+  private val first = cacheApi[SwissId, JsObject](256, "swiss.page.first"):
     _.expireAfterWrite(1.minute)
       .buildAsyncFuture { compute(_, 1) }
-  }
 
   private def compute(id: SwissId, page: Int): Fu[JsObject] =
     mongo.swiss.byId[Swiss](id).orFail(s"No such tournament: $id").flatMap { compute(_, page) }

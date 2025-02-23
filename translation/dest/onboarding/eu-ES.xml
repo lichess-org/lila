@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="welcome">Ongi etrori!</string>
+  <string name="logInAsUsername">%s gisa sartu</string>
+  <string name="welcome">Ongi etorri!</string>
   <string name="welcomeToLichess">Ongi etorri lichess.org-era!</string>
   <string name="thisIsYourProfilePage">Hau zure profilaren orrialdea da.</string>
   <string name="enabledKidModeSuggestion">Kontu hau haur batek erabiliko du? Agian %s aktibatu nahiko duzu.</string>

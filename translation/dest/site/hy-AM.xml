@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Որևէ մեկին խաղի հրավիրելու համար ուղարկեք ստորև տրված հղումը</string>
   <string name="gameOver">Խաղն ավարտված է</string>
   <string name="waitingForOpponent">Սպասում եմ հակառակորդին</string>
+  <string name="orLetYourOpponentScanQrCode">Կամ թույլ տվեք Ձեր մրցակցին սկանավորել այս QR-կոդը</string>
   <string name="waiting">Սպասում եմ</string>
   <string name="yourTurn">Ձեր հերթն է</string>
   <string name="aiNameLevelAiLevel">%1$s, մակարդակ՝ %2$s</string>
@@ -69,7 +70,10 @@
   <string name="promoteVariation">Փոխել տարբերակը</string>
   <string name="makeMainLine">Դարձնել հիմնական տարբերակ</string>
   <string name="deleteFromHere">Ջնջել այստեղից</string>
+  <string name="collapseVariations">Թաքցնել տարբերակները</string>
+  <string name="expandVariations">Ցուցադրել տարբերակները</string>
   <string name="forceVariation">Պարտադրել վարիացիան</string>
+  <string name="copyVariationPgn">Տարբերակը պատճենել PGN ձևաչափով</string>
   <string name="move">Քայլ</string>
   <string name="variantLoss">Տարբերակը պարտվում է</string>
   <string name="variantWin">Տարբերակը հաղթում է</string>
@@ -186,6 +190,7 @@
   <string name="latestForumPosts">Վերջին գրառումները ֆորումում</string>
   <string name="players">Խաղացողներ</string>
   <string name="friends">Ընկերներ</string>
+  <string name="otherPlayers">այլ խաղացողներ</string>
   <string name="discussions">Հաղորդագրություններ</string>
   <string name="today">Այսօր</string>
   <string name="yesterday">Երեկ</string>
@@ -265,6 +270,7 @@
     <item quantity="one">%s Խաղեր՝ ձեր հետ</item>
     <item quantity="other">%s Խաղեր՝ ձեր հետ</item>
   </plurals>
+  <string name="ok">Լավ</string>
   <string name="cancel">Հերքել</string>
   <string name="whiteTimeOut">Սպիտակների ժամանակը սպառվեց</string>
   <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
@@ -284,6 +290,7 @@
   <string name="abortGame">Կասեցնել խաղը</string>
   <string name="gameAborted">Խաղը կասեցված է</string>
   <string name="standard">Ստանդարտ</string>
+  <string name="customPosition">Կարգավորվող դիրք</string>
   <string name="unlimited">Անսահմանափակ</string>
   <string name="mode">Տեսակը</string>
   <string name="casual">Առանց վարկանիշի</string>
@@ -413,6 +420,7 @@
   <string name="importGame">Խաղ ներմուծել</string>
   <string name="importGameExplanation">Տեղադրեք պարտիայի գրառումը PGN ձևաչափով, և հնարավորություն կստանաք վերախաղարկելու պարտիան, կատարելու համակարգչային վերլուծություն, շփվելու զրուցարանում և կիսվելու այդ պարտիայի հղումով։</string>
   <string name="importGameCaveat">Տարբերակները կհեռացվեն։ Դրանք պահպանելու համար, PGN-ը տեղափոխեք ստուդիա։</string>
+  <string name="importGameDataPrivacyWarning">Այս PGN ֆայլը կարող է հասանելի լինել բոլորին։ Պարտիան անհատապես ներբեռնելու համար օգտագործեք ստուդիան։</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ներմուծված խաղեր</item>
     <item quantity="other">%s ներմուծված խաղեր</item>
@@ -490,6 +498,7 @@
   <string name="movesPlayed">Խաղացած քայլեր</string>
   <string name="whiteWins">Սպիտակները հաղթել են</string>
   <string name="blackWins">Սևերը հաղթել են</string>
+  <string name="drawRate">Ոչ-ոքիների ցուցանիշ</string>
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
@@ -508,7 +517,12 @@
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
+  <string name="realName">Իրական անուն</string>
+  <string name="setFlair">Ընտրեք Ձեր էմոջին</string>
+  <string name="flair">Էմոջի</string>
+  <string name="youCanHideFlair">Այս կարգավորումը թաքցնում է օգտատերերի բոլոր էմոջիներն ամբողջ կայքում։</string>
   <string name="biography">Կենսագրություն</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Երկիր կամ տարածաշրջան</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
   <string name="oneUrlPerLine">Տողում՝ մեկ URL։</string>
@@ -527,12 +541,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
   <string name="puzzles">Խնդիրներ</string>
+  <string name="onlineBots">Առցանց բոտեր</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
   <string name="descPrivate">Մասնավոր նկարագրություն</string>
   <string name="descPrivateHelp">Նկարագրություն, որը կտեսնեն միայն ակումբի անդամները։ Եթե սահմանված է, ապա փոխարինում է ակումբի բոլոր անդամների հրապարակային նկարագրությունը։</string>
   <string name="no">Ոչ</string>
   <string name="yes">այո</string>
+  <string name="website">Կայք</string>
+  <string name="mobile">Բջջային</string>
   <string name="help">Օգնություն.</string>
   <string name="createANewTopic">Ստեղծել նոր թեմա</string>
   <string name="topics">Թեմաներ</string>
@@ -583,6 +600,7 @@
   <string name="slow">Դանդաղ</string>
   <string name="insideTheBoard">Խաղատախտակի ներսում</string>
   <string name="outsideTheBoard">Խաղատախտակից դուրս</string>
+  <string name="allSquaresOfTheBoard">Խաղատախտակի բոլոր դաշտերը</string>
   <string name="onSlowGames">Դանդաղ խաղերում</string>
   <string name="always">Միշտ</string>
   <string name="never">Երբեք</string>
@@ -656,8 +674,10 @@
   <string name="simultaneousExhibitions">Միաժամանակյա խաղաշար</string>
   <string name="host">Խաղաշարն անցկացնողը</string>
   <string name="hostColorX">Խաղաշար անցկացնողի գույնը` %s</string>
+  <string name="yourPendingSimuls">Ձեր առաջիկա խաղաշարերը</string>
   <string name="createdSimuls">Վերջերս ստեղծված խաղաշարեր</string>
   <string name="hostANewSimul">Ստեղծել նոր խաղաշար</string>
+  <string name="signUpToHostOrJoinASimul">Գրանցվեք՝ խաղաշար կազմակերպելու կամ դրան միանալու համար</string>
   <string name="noSimulFound">Խաղաշարը չի գտնվել</string>
   <string name="noSimulExplanation">Այդ միաժամանակյա խաղաշարը գոյություն չունի։</string>
   <string name="returnToSimulHomepage">Վերադառնալ խաղաշարերի էջ</string>
@@ -689,6 +709,8 @@
   <string name="keyNextBlunder">Հաջորդ վրիպումը</string>
   <string name="keyNextMistake">Հաջորդ սխալը</string>
   <string name="keyNextInaccuracy">Հաջորդ անճշտությունը</string>
+  <string name="keyPreviousBranch">Նախորդ ճյուղ</string>
+  <string name="keyNextBranch">Հաջորդ ճյուղ</string>
   <string name="newTournament">Նոր մրցաշար</string>
   <string name="tournamentHomeTitle">Շախմատի զանազան տարբերակներով և ժամակարգերով մրցաշարեր</string>
   <string name="tournamentHomeDescription">Մրցաշարում խաղացե՜ք արագ շախմատ։ Ընտրեք Lichess-ի պաշտոնական մրցաշարերից ցանկացածը կամ ստեղծեք ձերը։ Գնդակ (Bullet), կայծակնային (Blitz), դասական, շախմատ-960 (Ֆիշերի շախմատ, Chess960), արքան կենտրոնում (King of the Hill), երեք շախ (Threecheck) և խաղի այլ տարբերակներ. դրանք կապահովեն ձեր շախմատային հաճույքը։</string>
@@ -938,7 +960,7 @@
   <string name="analysisOptions">Վերլուծության պարամետրերը</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
   <string name="showHelpDialog">Ցույց տալ օգնությունը</string>
-  <string name="reopenYourAccount">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
   <string name="emailAssociatedToaccount">Այս մասնակցային հաշվին կցված էլ. փոստի հասցեն։</string>
   <string name="sentEmailWithLink">Ձեզ ուղարկել ենք հղումով նամակ։</string>
   <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>
