@@ -7,7 +7,7 @@ import lila.common.LilaFuture
 import lila.common.String.shorten
 import lila.core.LightUser
 import lila.core.challenge.Challenge
-import lila.core.data.LazyFu
+import scalalib.data.LazyFu
 import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
 import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }

@@ -8,7 +8,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Json.given
 import lila.common.autoconfig.*
-import lila.core.data.LazyFu
+import scalalib.data.LazyFu
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
