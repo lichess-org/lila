@@ -75,7 +75,10 @@
       display: none;
     }
     .ricons {
-      margin: 1em 0;
+      margin: 0.5em 0;
+      &.empty {
+        margin-bottom: 0;
+      }
     }
     .keyboard-move {
       display: none;
