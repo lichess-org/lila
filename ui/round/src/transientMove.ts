@@ -24,7 +24,7 @@ export default class TransientMove {
   };
 
   expire = (): void => {
-    xhrText('/statlog?e=roundTransientExpire', { method: 'post' });
+    xhrText('/statlog?e=roundTransientExpire', { method: 'post' }).catch(() => {});
     this.socket.reload();
   };
 }
