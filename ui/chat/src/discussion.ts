@@ -177,12 +177,17 @@ const updateText = (opts?: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNod
   }
 };
 
+const profileLinkRegex = /(https:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_-]+)/g;
+
+const processProfileLink = (text: string) => text.replace(profileLinkRegex, '@$2');
+
 function renderText(t: string, opts?: enhance.EnhanceOpts) {
-  if (enhance.isMoreThanText(t)) {
+  const processedText = processProfileLink(t);
+  if (enhance.isMoreThanText(processedText)) {
     const hook = updateText(opts);
-    return h('t', { lichessChat: t, hook: { create: hook, update: hook } });
+    return h('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
   }
-  return h('t', t);
+  return h('t', processedText);
 }
 
 const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair) =>
