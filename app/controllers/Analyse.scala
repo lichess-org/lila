@@ -1,7 +1,6 @@
 package controllers
 
 import chess.format.Fen
-import chess.format.pgn.Pgn
 import play.api.libs.json.JsArray
 import play.api.mvc.*
 
@@ -11,8 +10,6 @@ import lila.core.misc.lpv.LpvEmbed
 import lila.game.PgnDump
 import lila.oauth.AccessToken
 import lila.tree.ExportOptions
-import lila.api.GameApiV2.OneConfig
-import lila.api.GameApiV2.Format
 
 final class Analyse(
     env: Env,
@@ -55,7 +52,7 @@ final class Analyse(
               pov.game,
               initialFen,
               analysis = none,
-              PgnDump.WithFlags(clocks = true, evals = false, rating = ctx.pref.showRatings)
+              PgnDump.WithFlags(clocks = false, rating = ctx.pref.showRatings)
             )
           ).flatMapN: (analysis, analysisInProgress, simul, chat, crosstable, bookmarked, pgn) =>
             env.api.roundApi
@@ -77,35 +74,12 @@ final class Analyse(
                 )
               )
               .flatMap: data =>
-                val pgn_without_clocks = pgn.tree match
-                  case Some(t) => pgn.copy(tree = Some(t.map(m => m.copy(timeLeft = None, moveTime = None))))
-                  case _       => pgn
-                def pgnToString(p: Pgn) = env.analyse.annotator.toPgnString(p).toString
-                views.analyse
-                  .replay(
+                Ok.page(
+                  views.analyse.replay(
                     pov,
                     data,
                     initialFen,
-                    env.analyse.annotator(pgn_without_clocks, pov.game, analysis).render.toString,
-                    pgnToString(
-                      env.analyse.annotator(
-                        analysis match
-                          case Some(a) => env.analyse.annotator.addEvals(pgn, a)
-                          case _       => pgn
-                        ,
-                        pov.game,
-                        analysis
-                      )
-                    ),
-                    pgnToString(pgn_without_clocks),
-                    if pov.game.isPgnImport then
-                      Some(
-                        env.api.gameApiV2.exportOne(
-                          pov.game,
-                          OneConfig(Format.PGN, true, PgnDump.WithFlags(), None)
-                        )
-                      )
-                    else None,
+                    env.analyse.annotator(pgn, pov.game, analysis).render,
                     analysis,
                     analysisInProgress,
                     simul,
@@ -114,7 +88,7 @@ final class Analyse(
                     chat,
                     bookmarked = bookmarked
                   )
-                  .flatMap(page => Ok.page(page).map(_.enforceCrossSiteIsolation))
+                ).map(_.enforceCrossSiteIsolation)
       yield res
 
   def embed(gameId: GameId, color: Color) = embedReplayGame(gameId, color)

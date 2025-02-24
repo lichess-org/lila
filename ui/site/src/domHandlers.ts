@@ -12,18 +12,16 @@ export function attachDomHandlers() {
       $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
       setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
     };
-    const buttonValue = $(this).attr('value');
-    if (buttonValue) {
-      navigator.clipboard.writeText(buttonValue).then(showCheckmark).catch(console.error);
-    } else {
-      $(this.parentElement!.firstElementChild!).each(function (this: any) {
-        try {
-          navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
-        } catch (e) {
-          console.error(e);
-        }
-      });
-    }
+    const copyText = (text: string) => navigator.clipboard.writeText(text).then(showCheckmark);
+    const call_api = $(this).hasClass('call-api');
+    $(this.parentElement!.firstElementChild!).each(function (this: any) {
+      try {
+        if (call_api) xhrText(this.href, { method: 'get' }).then(res => copyText(res));
+        else copyText(this.value || this.href);
+      } catch (e) {
+        console.error(e);
+      }
+    });
     return false;
   });
 

@@ -5,8 +5,6 @@ import scalatags.text.Builder
 import lila.core.config.NetDomain
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-
 object HtmlHelper:
 
   val spinner: Frag = raw:
@@ -21,21 +19,17 @@ object HtmlHelper:
     if blind then t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def copyMeLink(url: String, name: Frag): Tag = copyMe(a(targetBlank, href := url)(name))
+  def copyMeLink(url: String, name: Frag, isPgn: Boolean): Tag =
+    copyMe(a(targetBlank, href := url)(name), isPgn)
 
   def copyMeInput(content: String): Tag =
-    copyMe(input(spellcheck := "false", readonly, value := content))
+    copyMe(input(spellcheck := "false", readonly, value := content), false)
 
-  def copyMePgnLink(url: String, name: Frag, distinct_copy_val: Future[String]): Future[Tag] =
-    distinct_copy_val.map(res => copyMe(a(targetBlank, href := url)(name), Some(res)))
-
-  private def copyMe(target: Tag, button_value: Option[String] = None): Tag =
-    val base_button = button(cls := "copy-me__button button button-metal", dataIcon := Icon.Clipboard)
+  private def copyMe(target: Tag, callApiForButton: Boolean): Tag =
+    val buttonClass = s"copy-me__button button button-metal${if callApiForButton then " call-api" else ""}"
     div(cls := "copy-me")(
       target(cls := "copy-me__target"),
-      button_value match
-        case Some(b) => base_button(value := button_value)
-        case _       => base_button
+      button(cls := buttonClass, dataIcon := Icon.Clipboard)
     )
 
 trait HtmlHelper:

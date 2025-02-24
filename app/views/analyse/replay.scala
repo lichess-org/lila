@@ -10,16 +10,11 @@ import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.round.RoundGame.secondsSinceCreation
 
-implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-
 def replay(
     pov: Pov,
     data: play.api.libs.json.JsObject,
     initialFen: Option[chess.format.Fen.Full],
-    pgn: String,
-    annotatedPgn: String,
-    rawPgn: String,
-    importedPgn: Option[Future[String]],
+    pgn: PgnStr,
     analysis: Option[lila.analyse.Analysis],
     analysisStarted: Boolean,
     simul: Option[lila.simul.Simul],
@@ -47,7 +42,8 @@ def replay(
       cdnUrl(
         routes.Export.gif(pov.gameId, pov.color, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
       ),
-      trans.site.gameAsGIF()
+      trans.site.gameAsGIF(),
+      false
     )(cls := "game-gif"),
     copyMeLink(
       cdnUrl(
@@ -62,7 +58,8 @@ def replay(
           )
           .url
       ),
-      trans.site.screenshotCurrentPosition()
+      trans.site.screenshotCurrentPosition(),
+      false
     )(cls := "position-gif")
   )
 
@@ -70,55 +67,36 @@ def replay(
     a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
     copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
   )
+  val pgnLinks = frag(
+    copyMeLink(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated(), true),
+    copyMeLink(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw(), true),
+    game.isPgnImport.option:
+      copyMeLink(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported(), true)
+  )
 
-  val pgnLinks: Future[Frag] = for
-    annotated <- copyMePgnLink(
-      s"${routes.Game.exportOne(game.id)}?literate=1",
-      trans.site.downloadAnnotated(),
-      Future.successful(annotatedPgn)
-    )
-    raw <- copyMePgnLink(
-      s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
-      trans.site.downloadRaw(),
-      Future.successful(rawPgn)
-    )
-    fragment <- importedPgn match
-      case Some(p) =>
-        copyMePgnLink(
-          s"${routes.Game.exportOne(game.id)}?imported=1",
-          trans.site.downloadImported(),
-          p
-        ).map(imported => frag(annotated, raw, imported))
-      case _ => Future.successful(frag(annotated, raw))
-  yield fragment
-
-  val initial_page =
-    bits
-      .page(ui.titleOf(pov))
-      .css("analyse.round")
-      .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
-      .css(ctx.blind.option("round.nvui"))
-      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-      .i18n(_.puzzle, _.study)
-      .i18nOpt(ctx.blind, _.keyboardMove)
-      .js(analyseNvuiTag)
-      .js(
-        bits.analyseModule(
-          "replay",
-          Json
-            .obj(
-              "data"   -> data,
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-            .add("hunter" -> isGranted(_.ViewBlurs)) ++
-            views.board.explorerAndCevalConfig
-        )
+  bits
+    .page(ui.titleOf(pov))
+    .css("analyse.round")
+    .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
+    .css(ctx.blind.option("round.nvui"))
+    .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+    .i18n(_.puzzle, _.study)
+    .i18nOpt(ctx.blind, _.keyboardMove)
+    .js(analyseNvuiTag)
+    .js(
+      bits.analyseModule(
+        "replay",
+        Json
+          .obj(
+            "data"   -> data,
+            "userId" -> ctx.userId,
+            "chat"   -> chatJson
+          )
+          .add("hunter" -> isGranted(_.ViewBlurs)) ++
+          views.board.explorerAndCevalConfig
       )
-      .graph(views.round.ui.povOpenGraph(pov))
-
-  pgnLinks.map { pgnLinksRes =>
-    initial_page(
+    )
+    .graph(views.round.ui.povOpenGraph(pov)):
       frag(
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(
@@ -201,7 +179,7 @@ def replay(
                     ),
                     div(
                       strong("PGN"),
-                      pgnLinksRes
+                      pgnLinks
                     ),
                     div(cls := "pgn")(pgn)
                   ),
@@ -216,11 +194,9 @@ def replay(
         ctx.blind.option(
           div(cls := "blind-content none")(
             h2("PGN downloads"),
-            pgnLinksRes,
+            pgnLinks,
             button(cls := "copy-pgn", attr("data-pgn") := pgn):
               "Copy PGN to clipboard"
           )
         )
       )
-    )
-  }
