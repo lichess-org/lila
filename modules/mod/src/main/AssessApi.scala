@@ -48,26 +48,27 @@ final class AssessApi(
       userId: UserId,
       nb: Int = 100
   ): Fu[Option[PlayerAggregateAssessment]] =
-    userApi.withPerfs(userId).flatMap {
-      _.filter(_.noBot).so { user =>
-        getPlayerAssessmentsByUserId(userId, nb).map { games =>
-          games.nonEmpty.option(PlayerAggregateAssessment(user, games))
+    userApi
+      .withPerfs(userId)
+      .flatMap:
+        _.filter(_.noBot).so { user =>
+          getPlayerAssessmentsByUserId(userId, nb).map { games =>
+            games.nonEmpty.option(PlayerAggregateAssessment(user, games))
+          }
         }
-      }
-    }
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
-    gameRepo.gamesTemporarilyFromPrimary(pag.playerAssessments.map(_.gameId)).map {
-      PlayerAggregateAssessment.WithGames(pag, _)
-    }
+    gameRepo
+      .gamesTemporarilyFromPrimary(pag.playerAssessments.map(_.gameId))
+      .map:
+        PlayerAggregateAssessment.WithGames(pag, _)
 
   private def buildMissing(povs: List[Pov]): Funit =
     assessRepo.coll
       .distinctEasy[GameId, Set]("gameId", $inIds(povs.map(p => s"${p.gameId}/${p.color.name}")))
       .flatMap { existingIds =>
-        val missing = povs.collect {
+        val missing = povs.collect:
           case pov if pov.game.metadata.analysed && !existingIds.contains(pov.gameId) => pov.gameId
-        }
         missing.nonEmpty.so(
           analysisRepo.coll
             .idsMap[Analysis, GameId](missing)(x => GameId(x.id.value))
@@ -113,9 +114,10 @@ final class AssessApi(
     (!user.isBot).so:
       gameRepo.gamesForAssessment(user.id, 100).flatMap { gs =>
         gs.parallelVoid: g =>
-          analysisRepo.byGame(g).flatMapz {
-            onAnalysisReady(g, _, thenAssessUser = false)
-          }
+          analysisRepo
+            .byGame(g)
+            .flatMapz:
+              onAnalysisReady(g, _, thenAssessUser = false)
       } >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
@@ -135,9 +137,8 @@ final class AssessApi(
         createPlayerAssessment(PlayerAssessment.make(game.pov(White), analysis, holdAlerts.white)) >>
           createPlayerAssessment(PlayerAssessment.make(game.pov(Black), analysis, holdAlerts.black))
       } >> {
-        (shouldAssess && thenAssessUser).so {
+        (shouldAssess && thenAssessUser).so:
           game.whitePlayer.userId.so(assessUser) >> game.blackPlayer.userId.so(assessUser)
-        }
       }
     }
 
@@ -145,16 +146,17 @@ final class AssessApi(
     getPlayerAggregateAssessment(userId).flatMapz { playerAggregateAssessment =>
       playerAggregateAssessment.action match
         case AccountAction.Engine | AccountAction.EngineAndBan =>
-          userRepo.getTitle(userId).flatMap {
-            case None =>
-              modApi
-                .autoMark(
-                  SuspectId(userId),
-                  playerAggregateAssessment.reportText(3)
-                )(using UserId.lichessAsMe)
-            case Some(_) =>
-              reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
-          }
+          userRepo
+            .getTitle(userId)
+            .flatMap:
+              case None =>
+                modApi
+                  .autoMark(
+                    SuspectId(userId),
+                    playerAggregateAssessment.reportText(3)
+                  )(using UserId.lichessAsMe)
+              case Some(_) =>
+                reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
         case AccountAction.Report(_) =>
           reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
         case AccountAction.Nothing =>

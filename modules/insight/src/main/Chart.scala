@@ -98,11 +98,10 @@ object Chart:
         .toList
 
     def sortedSeries =
-      answer.clusters.headOption.fold(series) {
+      answer.clusters.headOption.fold(series):
         _.insight match
           case Insight.Single(_)       => series
           case Insight.Stacked(points) => series.sortLike(points.map(_._1.value), _.name)
-      }
 
     def gameUserJson(player: lila.core.game.Player): Fu[JsObject] =
       player.userId.so(getLightUser).map { lu =>

@@ -35,26 +35,27 @@ final class PerfStatApi(
   ): Fu[Option[PerfStatData]] =
     PerfType(perfKey) match
       case pk: GamePerf =>
-        userApi.withPerfs(name.id).flatMap {
-          _.filter: u =>
-            (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
-          .filter: u =>
-            !u.isBot || (perfKey != PerfKey.ultraBullet)
-          .soFu: u =>
-            for
-              oldPerfStat <- get(u.user.id, pk, computeIfNeeded)
-              perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-              distribution <- u
-                .perfs(perfKey)
-                .established
-                .soFu(weeklyRatingDistribution(perfKey))
-              percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
-              percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
-              percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
-              _              = lightUserApi.preloadUser(u.user)
-              _ <- lightUserApi.preloadMany(perfStat.userIds)
-            yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
-        }
+        userApi
+          .withPerfs(name.id)
+          .flatMap:
+            _.filter: u =>
+              (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
+            .filter: u =>
+              !u.isBot || (perfKey != PerfKey.ultraBullet)
+            .soFu: u =>
+              for
+                oldPerfStat <- get(u.user.id, pk, computeIfNeeded)
+                perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
+                distribution <- u
+                  .perfs(perfKey)
+                  .established
+                  .soFu(weeklyRatingDistribution(perfKey))
+                percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
+                percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
+                percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
+                _              = lightUserApi.preloadUser(u.user)
+                _ <- lightUserApi.preloadMany(perfStat.userIds)
+              yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
       case pk => fuccess(none)
 
   private def calcPercentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] =

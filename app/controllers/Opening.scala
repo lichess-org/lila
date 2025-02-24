@@ -23,9 +23,10 @@ final class Opening(env: Env) extends LilaController(env):
       else Ok.page(views.opening.ui.resultsPage(searchQuery, results, env.opening.api.readConfig))
     else
       FoundPage(env.opening.api.index): page =>
-        isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki).map {
-          views.opening.ui.index(page, _)
-        }
+        isGrantedOpt(_.OpeningWiki)
+          .so(env.opening.wiki.popularOpeningsWithShortWiki)
+          .map:
+            views.opening.ui.index(page, _)
 
   private val openingRateLimit =
     env.security.ipTrust.rateLimit(50, 10.minutes, "opening.byKeyAndMoves", _.proxyMultiplier(3))
@@ -38,7 +39,7 @@ final class Opening(env: Env) extends LilaController(env):
         openingRateLimit(rateLimited):
           env.opening.api
             .lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler)
-            .flatMap {
+            .flatMap:
               case None => Redirect(routes.Opening.index(key.some))
               case Some(page) =>
                 val query = page.query.query
@@ -53,7 +54,6 @@ final class Opening(env: Env) extends LilaController(env):
                       val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
                       views.opening.ui.show(page, puzzleKey)
                     }
-            }
 
   def config(thenTo: String) = OpenBody:
     NoCrawlers:

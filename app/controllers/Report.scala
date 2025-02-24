@@ -82,10 +82,12 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       case AnyContentAsFormUrlEncoded(data) => data.some
       case _                                => none
     def thenGoTo =
-      dataOpt.flatMap(_.get("then")).flatMap(_.headOption).flatMap {
-        case "profile" => modC.userUrl(inquiry.user, mod = true).some
-        case url       => url.some
-      }
+      dataOpt
+        .flatMap(_.get("then"))
+        .flatMap(_.headOption)
+        .flatMap:
+          case "profile" => modC.userUrl(inquiry.user, mod = true).some
+          case url       => url.some
     def process() = (!processed).so(api.process(inquiry))
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
@@ -212,7 +214,8 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .flatMap(UserStr.read)
       .fold(Redirect("/").toFuccess): reported =>
         Ok.async:
-          env.relation.api.fetchBlocks(me, reported.id).map {
-            views.report.ui.thanks(reported.id, _)
-          }
+          env.relation.api
+            .fetchBlocks(me, reported.id)
+            .map:
+              views.report.ui.thanks(reported.id, _)
   }

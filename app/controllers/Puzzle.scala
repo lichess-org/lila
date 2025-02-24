@@ -110,9 +110,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       onComplete(env.puzzle.forms.round)(id, PuzzleAngle.findOrMix(angleStr), mobileBc = false)
 
   def mobileBcRound(nid: Long) = OpenBody:
-    Puz.numericalId(nid).so {
-      onComplete(env.puzzle.forms.bc.round)(_, PuzzleAngle.mix, mobileBc = true)
-    }
+    Puz
+      .numericalId(nid)
+      .so:
+        onComplete(env.puzzle.forms.bc.round)(_, PuzzleAngle.mix, mobileBc = true)
 
   def ofPlayer(name: Option[UserStr], page: Int) = Open:
     val userId = name.flatMap(_.validateId)
@@ -302,11 +303,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     env.puzzle.opening.collection.flatMap: collection =>
       ctx.me
         .so: me =>
-          env.insight.api.insightUser(me).map {
-            _.some.filterNot(_.isEmpty).so { insightUser =>
-              collection.makeMine(insightUser.families, insightUser.openings).some
-            }
-          }
+          env.insight.api
+            .insightUser(me)
+            .map:
+              _.some.filterNot(_.isEmpty).so { insightUser =>
+                collection.makeMine(insightUser.families, insightUser.openings).some
+              }
         .flatMap: mine =>
           negotiate(
             html = Ok.page:
@@ -323,9 +325,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     val langPath = LangPath(routes.Puzzle.show(angleOrId)).some
     PuzzleAngle.find(angleOrId) match
       case Some(angle) =>
-        nextPuzzleForMe(angle, none).flatMap {
+        nextPuzzleForMe(angle, none).flatMap:
           _.fold(redirectNoPuzzle) { renderShow(_, angle, langPath = langPath) }
-        }
       case _ =>
         lila.puzzle.Puzzle.toId(angleOrId) match
           case Some(id) =>
@@ -336,10 +337,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             angleOrId.toLongOption
               .flatMap(Puz.numericalId.apply)
               .so(env.puzzle.api.puzzle.find)
-              .map {
+              .map:
                 case None      => Redirect(routes.Puzzle.home)
                 case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
-              }
 
   def showWithAngle(angleKey: String, id: PuzzleId) = Open:
     NoBot:
@@ -357,9 +357,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .find(angleKey)
         .fold(Redirect(routes.Puzzle.openings()).toFuccess): angle =>
           val color = Color.fromName(colorKey)
-          nextPuzzleForMe(angle, color.some).flatMap {
+          nextPuzzleForMe(angle, color.some).flatMap:
             _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
-          }
 
   def apiNext = AnonOrScoped(_.Puzzle.Read):
     WithPuzzlePerf:
@@ -410,10 +409,11 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def replay(days: Days, themeKey: String) = Auth { ctx ?=> me ?=>
     val theme         = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
-    env.puzzle.replay(me, checkedDayOpt, theme.key).flatMap {
-      case None                 => Redirect(routes.Puzzle.dashboard(days, "home", none))
-      case Some(puzzle, replay) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
-    }
+    env.puzzle
+      .replay(me, checkedDayOpt, theme.key)
+      .flatMap:
+        case None                 => Redirect(routes.Puzzle.dashboard(days, "home", none))
+        case Some(puzzle, replay) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
   }
 
   def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { _ ?=> user =>
@@ -536,9 +536,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       meOrFetch(username)
         .flatMapz: user =>
           (fuccess(user.is(me) || isGranted(_.CheatHunter)) >>|
-            user.enabled.yes.so(env.clas.api.clas.isTeacherOf(me, user.id))).map {
+            user.enabled.yes.so(env.clas.api.clas.isTeacherOf(me, user.id))).map:
             _.option(user)
-          }
         .flatMap:
           case Some(user) => f(user)
           case None       => Redirect(routes.Puzzle.dashboard(Days(30), "home", none))

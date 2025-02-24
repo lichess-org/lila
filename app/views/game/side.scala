@@ -32,7 +32,7 @@ object side:
       userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
-    ctx.noBlind.option {
+    ctx.noBlind.option:
       import pov.*
       div(cls := "game__meta")(
         st.section(
@@ -131,4 +131,3 @@ object side:
               st.section(cls := "game__simul-link"):
                 a(href := routes.Simul.show(sim.id))(sim.fullName)
       )
-    }

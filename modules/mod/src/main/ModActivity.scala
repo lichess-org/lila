@@ -18,7 +18,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
 
   type CacheKey = (Who, Period)
 
-  private val cache = cacheApi[CacheKey, Result](64, "mod.activity") {
+  private val cache = cacheApi[CacheKey, Result](64, "mod.activity"):
     _.expireAfter[CacheKey, Result](
       create = (key, _) =>
         key match
@@ -29,7 +29,6 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
       update = (_, _, current) => current,
       read = (_, _, current) => current
     ).buildAsyncFuture((compute).tupled)
-  }
 
   private val maxDocs = 10_000
 

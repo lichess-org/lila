@@ -37,13 +37,12 @@ final class GifExport(
         )
       )
       .stream()
-      .flatMap {
+      .flatMap:
         case res if res.status == 200 => fuccess(res.bodyAsSource)
         case res if res.status == 400 => fufail(LilaInvalid(res.body))
         case res =>
           logger.warn(s"GifExport study ${chapter.studyId}/${chapter.id} ${res.status}")
           fufail(res.statusText)
-      }
 
   @annotation.tailrec
   private def framesRec(nodes: List[Node], arr: JsArray): JsArray =

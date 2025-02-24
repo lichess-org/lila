@@ -170,20 +170,20 @@ final class TeamApi(
   yield !belongs && !requested
 
   def createRequest(team: Team, msg: String)(using me: Me): Funit =
-    requestable(team).flatMapz {
+    requestable(team).flatMapz:
       val request = TeamRequest.make(
         team = team.id,
         user = me,
         message = if me.marks.troll then TeamRequest.defaultMessage else msg
       )
       for _ <- requestRepo.coll.insert.one(request) yield cached.nbRequests.invalidate(team.createdBy)
-    }
 
   def cancelRequestOrQuit(team: Team)(using me: Me): Funit =
-    requestRepo.cancel(team.id, me).flatMap {
-      if _ then funit
-      else quit(team, me)
-    }
+    requestRepo
+      .cancel(team.id, me)
+      .flatMap:
+        if _ then funit
+        else quit(team, me)
 
   def processRequest(team: Team, request: TeamRequest, decision: String): Funit = {
     if decision == "decline"
@@ -211,7 +211,7 @@ final class TeamApi(
                 _.map(_.user).foreach(cached.nbRequests.invalidate)
 
   def doJoin(team: Team)(using me: Me): Funit = {
-    belongsTo(team.id, me).not.flatMapz {
+    belongsTo(team.id, me).not.flatMapz:
       for
         _ <- memberRepo.add(team.id, me)
         _ <- teamRepo.incMembers(team.id, +1)
@@ -219,7 +219,6 @@ final class TeamApi(
         cached.invalidateTeamIds(me)
         lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
         publish(JoinTeam(id = team.id, userId = me))
-    }
   }.recover(lila.db.ignoreDuplicateKey)
 
   private[team] def addMembers(team: Team, userIds: List[UserId]): Funit =
@@ -307,7 +306,7 @@ final class TeamApi(
   private given Reads[TagifyUser] = Json.reads
 
   private def parseTagifyInput(json: String): Set[UserId] = Try {
-    json.trim.nonEmpty.so {
+    json.trim.nonEmpty.so:
       Json.parse(json).validate[List[TagifyUser]] match
         case JsSuccess(users, _) =>
           users.toList
@@ -315,7 +314,6 @@ final class TeamApi(
             .map(_.id)
             .toSet
         case _ => Set.empty[UserId]
-    }
   }.getOrElse(Set.empty)
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =

@@ -42,7 +42,7 @@ class JsonViewTest extends munit.FunSuite:
   def makeBranch(puzzle: Puzzle): Option[tree.Branch] =
     import chess.format.*
     val init = chess.Game(none, puzzle.fenAfterInitialMove.some).withTurns(puzzle.initialPly + 1)
-    val (_, branchList) = puzzle.line.tail.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
+    val (_, branchList) = puzzle.line.tail.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)):
       case ((prev, branches), uci) =>
         val (game, move) =
           prev(uci.orig, uci.dest, uci.promotion)
@@ -56,5 +56,4 @@ class JsonViewTest extends munit.FunSuite:
           crazyData = none
         )
         (game, branch :: branches)
-    }
     branchList.reduceOption((child, branch) => branch.addChild(child))

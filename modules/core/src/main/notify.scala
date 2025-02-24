@@ -3,7 +3,6 @@ package notify
 
 import alleycats.Zero
 
-import lila.core.chess.Win
 import lila.core.id.*
 import lila.core.study.data.StudyName
 import lila.core.userId.*
@@ -36,7 +35,7 @@ enum NotificationContent(val key: String):
   )                                            extends NotificationContent("genericLink")
   case ReportedBanned                          extends NotificationContent("reportedBanned")
   case RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
-  case GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[Win])
+  case GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[Boolean])
       extends NotificationContent("gameEnd")
   case StreamStart(streamerId: UserId, streamerName: String)    extends NotificationContent("streamStart")
   case BroadcastRound(url: String, title: String, text: String) extends NotificationContent("broadcastRound")
