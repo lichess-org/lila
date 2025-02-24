@@ -47,6 +47,7 @@ final class Preload(
   )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
     withPerfs       <- ctx.user.soFu(perfsRepo.withPerfs)
+    blockedUsers    <- ctx.me.so(relationApi.fetchBlocking(_))
     given Option[UserWithPerfs] = withPerfs
     (
       (
@@ -80,11 +81,7 @@ final class Preload(
       )
       .zip((ctx.userId.so(playbanApi.currentBan)).mon(_.lobby.segment("playban")))
       .zip(ctx.blind.so(ctx.me).so(roundProxy.urgentGames))
-      .zip((lastPostsCache.get {}).flatMap { posts =>
-        Future.sequence(posts.map(p => ctx.userId.so(relationApi.fetchBlocks(_, p.created.by)))).map {
-          blocks => (posts.zip(blocks)).filter(!_._2).map(_._1)
-        }
-      })
+      .zip((lastPostsCache.get {}).map(_.filterNot(p => blockedUsers.contains(p.created.by))))
       .zip(
         ctx.userId
           .ifTrue(nbNotifications > 0)
