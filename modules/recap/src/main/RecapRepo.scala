@@ -2,7 +2,6 @@ package lila.recap
 
 import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
-import lila.game.BSONHandlers.sourceHandler
 import lila.core.game.Source
 import scalalib.Iso
 

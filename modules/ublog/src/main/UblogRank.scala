@@ -65,7 +65,7 @@ object UblogRank:
       tier: Tier,
       hasImage: Boolean,
       days: Int
-  ) = UblogPost.RankDate {
+  ) = UblogPost.RankDate:
     import Tier.*
     liveAt
       .minusMonths(if tier < LOW || !hasImage then 3 else 0)
@@ -76,7 +76,6 @@ object UblogRank:
         val langBonus   = if language == lila.core.i18n.defaultLanguage then 0 else -24 * 10
 
         (tierBase + likesBonus + langBonus + adjustBonus).toInt
-  }
 
 final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materializer):
 

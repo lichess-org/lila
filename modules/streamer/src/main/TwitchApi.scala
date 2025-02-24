@@ -19,7 +19,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
       page: Int,
       pagination: Option[Twitch.Pagination]
   ): Fu[List[Twitch.TwitchStream]] =
-    (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10).so {
+    (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10).so:
       val query = List(
         "game_id" -> "743", // chess
         "first"   -> "100"  // max results per page
@@ -33,7 +33,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
           "Authorization" -> s"Bearer ${tmpToken.value}"
         )
         .get()
-        .flatMap {
+        .flatMap:
           case res if res.status == 200 =>
             res.body[JsValue].validate[Twitch.Result] match
               case JsSuccess(result, _) => fuccess(result)
@@ -42,7 +42,6 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
             logger.warn("Renewing twitch API token")
             renewToken >> fuccess(Twitch.Result(None, None))
           case res => fufail(s"twitch ${lila.log.http(res.status, res.body)}")
-        }
         .recover { case e: Exception =>
           logger.warn(e.getMessage)
           Twitch.Result(None, None)
@@ -53,7 +52,6 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
             fetchStreams(streamers, page + 1, result.pagination).map(result.liveStreams ::: _)
           else fuccess(Nil)
         }
-    }
 
   private def renewToken: Funit =
     ws.url("https://id.twitch.tv/oauth2/token")
@@ -63,7 +61,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
         "grant_type"    -> "client_credentials"
       )
       .post(Map.empty[String, String])
-      .flatMap {
+      .flatMap:
         case res if res.status == 200 =>
           res.body[JsValue].asOpt[JsObject].flatMap(_.str("access_token")) match
             case Some(token) =>
@@ -71,4 +69,3 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
               funit
             case _ => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
         case res => fufail(s"twitch.renewToken ${lila.log.http(res.status, res.body)}")
-      }

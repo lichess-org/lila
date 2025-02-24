@@ -5,7 +5,7 @@ import chess.Centis
 import Statistics.*
 
 class StatisticsTest extends munit.FunSuite:
-  test("be highly consistent (1)") {
+  test("be highly consistent (1)"):
     assert(
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -16,9 +16,8 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }
 
-  test("be highly consistent (2)") {
+  test("be highly consistent (2)"):
     assert(
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -27,9 +26,8 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }
 
-  test("be highly consistent (3)") {
+  test("be highly consistent (3)"):
     assert(
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -38,9 +36,8 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }
 
-  test("be highly consistent (4)") {
+  test("be highly consistent (4)"):
     assert(
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -49,9 +46,8 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }
 
-  test("not be highly consistent (1)") {
+  test("not be highly consistent (1)"):
     assert(
       !cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -60,9 +56,8 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }
 
-  test("not be highly consistent (2)") {
+  test("not be highly consistent (2)"):
     assert(
       !cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -71,9 +66,8 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }
 
-  test("not be highly consistent (3)") {
+  test("not be highly consistent (3)"):
     assert(
       !cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -82,9 +76,8 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }
 
-  test("not be highly consistent (4)") {
+  test("not be highly consistent (4)"):
     assert(
       !cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
@@ -93,4 +86,3 @@ class StatisticsTest extends munit.FunSuite:
         ).get
       )
     )
-  }

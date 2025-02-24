@@ -62,7 +62,7 @@ object StepBuilder:
   ): JsArray =
     val (init, games, error) = chess.Replay.gameMoveWhileValid(sans, initialFen, variant)
     error.foreach(logChessError(id.value))
-    JsArray {
+    JsArray:
       val initStep = Step(
         ply = init.ply,
         move = none,
@@ -83,7 +83,6 @@ object StepBuilder:
           crazyData = g.situation.board.crazyData
         )
       (initStep :: moveSteps).map(_.toJson)
-    }
 
   private val logChessError = (id: String) =>
     (err: chess.ErrorStr) =>

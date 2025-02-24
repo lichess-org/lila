@@ -10,7 +10,7 @@ import lila.common.Json.lightUser.writeNoId
 import lila.common.Uptime
 import lila.core.LightUser
 import lila.core.chess.Rank
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.core.game.LightPov
 import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
@@ -165,11 +165,12 @@ final class JsonView(
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
   private def getOrGuessRank(tour: Tournament, player: Player): Fu[Rank] =
-    cached.ranking(tour).flatMap {
-      _.ranking.get(player.userId) match
-        case Some(rank) => fuccess(rank)
-        case None       => playerRepo.computeRankOf(player)
-    }
+    cached
+      .ranking(tour)
+      .flatMap:
+        _.ranking.get(player.userId) match
+          case Some(rank) => fuccess(rank)
+          case None       => playerRepo.computeRankOf(player)
 
   def playerInfoExtended(tour: Tournament, info: PlayerInfoExt): Fu[JsObject] = for
     ranking <- cached.ranking(tour)
@@ -314,7 +315,7 @@ final class JsonView(
         .obj("rating" -> rating)
         .add("berserk" -> berserk)
 
-  private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](128, "tournament.podiumJson") {
+  private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](128, "tournament.podiumJson"):
     _.expireAfterAccess(15.seconds)
       .expireAfterWrite(1.minute)
       .maximumSize(256)
@@ -346,7 +347,6 @@ final class JsonView(
                     .add("performance" -> rp.player.performance)
               .map: l =>
                 JsArray(l).some
-  }
 
   private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
     lightUserApi

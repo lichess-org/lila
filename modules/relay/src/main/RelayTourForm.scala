@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import io.mola.galimatias.URL
 
-import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, typeIn, url }
+import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, typeIn, url }
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
 import java.time.ZoneId

@@ -19,7 +19,7 @@ final class Env(
   def apply(text: String, page: Int)(using me: Option[Me]) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
-        def query                           = Query.study(text.take(100), me.map(_.id.value))
+        def query                           = Query.study(text.take(100), me.map(_.userId.value))
         def nbResults                       = api.count(query).dmap(_.toInt)
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       .mapFutureList(pager.withChaptersAndLiking()),

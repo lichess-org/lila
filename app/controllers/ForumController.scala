@@ -20,10 +20,11 @@ private[controllers] trait ForumController:
       categId: ForumCategId,
       tryingToPostAsMod: Boolean = false
   )(a: => Fu[A])(using Context, Me): Fu[Result] =
-    access.isGrantedWrite(categId, tryingToPostAsMod).flatMap {
-      if _ then a
-      else Forbidden("You cannot post to this category")
-    }
+    access
+      .isGrantedWrite(categId, tryingToPostAsMod)
+      .flatMap:
+        if _ then a
+        else Forbidden("You cannot post to this category")
 
   protected def CategGrantMod[A <: Result](
       categId: ForumCategId

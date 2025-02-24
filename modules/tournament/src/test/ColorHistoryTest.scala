@@ -18,31 +18,26 @@ object ColorHistoryTest:
 
 class ColorHistoryTest extends munit.FunSuite:
   import ColorHistoryTest.{ apply, couldPlay, firstGetsWhite, sameColors, unpack }
-  test("hand tests") {
+  test("hand tests"):
     assertEquals(unpack("WWW"), ((3, 3)))
     assertEquals(unpack("WWWB"), ((-1, 2)))
     assertEquals(unpack("BBB"), ((-3, -3)))
     assertEquals(unpack("BBBW"), ((1, -2)))
     assertEquals(unpack("WWWBBB"), ((-3, 0)))
-  }
-  test("couldPlay") {
+  test("couldPlay"):
     assert(!couldPlay("WWW", "WWW", 3))
     assert(!couldPlay("BBB", "BBB", 3))
     assert(couldPlay("BB", "BB", 3))
-  }
-  test("sameColors") {
+  test("sameColors"):
     assert(sameColors("WWW", "W"))
     assert(sameColors("BBB", "B"))
-  }
-  test("firstGetsWhite") {
+  test("firstGetsWhite"):
     assert(!firstGetsWhite("WWW", "WW"))
     assert(firstGetsWhite("WW", "WWW"))
     assert(firstGetsWhite("BB", "B"))
     assert(!firstGetsWhite("B", "BB"))
     assert(!firstGetsWhite("WW", "BWW"))
     assert(firstGetsWhite("BB", "WBB"))
-  }
-  test("equals") {
+  test("equals"):
     assertEquals(apply(""), apply(""))
     assertEquals(apply("WBW"), apply("W"))
-  }

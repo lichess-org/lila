@@ -8,13 +8,12 @@ object Chronometer:
     extension [A](fua: Future[A])
 
       def await(duration: FiniteDuration, name: String): A =
-        Chronometer.syncMon(_.blocking.time(name)) {
+        Chronometer.syncMon(_.blocking.time(name)):
           try Await.result(fua, duration)
           catch
             case e: Exception =>
               lila.mon.blocking.timeout(name).increment()
               throw e
-        }
       def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
         try await(duration, name)
         catch case _: Exception => default
@@ -119,11 +118,10 @@ object Chronometer:
 
   def lapTry[A](f: Fu[A]): FuLapTry[A] =
     val start = nowNanosRel
-    FuLapTry {
+    FuLapTry:
       f.transformWith { r =>
         fuccess(LapTry(r, nowNanosRel - start))
       }(scala.concurrent.ExecutionContext.parasitic)
-    }
 
   def sync[A](f: => A): Lap[A] =
     val start = nowNanosRel

@@ -99,12 +99,11 @@ final class GifExport(
   private def upstreamResponse(
       description: String
   )(res: Fu[StandaloneWSResponse]): Fu[Source[ByteString, ?]] =
-    res.flatMap {
+    res.flatMap:
       case res if res.status != 200 =>
         logger.warn(s"GifExport $description ${res.status}")
         fufail(GifExport.UpstreamStatus(res.status))
       case res => fuccess(res.bodyAsSource)
-    }
 
   private def scaleMoveTimes(moveTimes: Vector[Centis]): Vector[Centis] =
     // goal for bullet: close to real-time

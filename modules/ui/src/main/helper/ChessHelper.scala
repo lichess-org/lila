@@ -37,9 +37,9 @@ trait ChessHelper:
       blindfold: Boolean,
       pref: Pref
   ): Frag =
-    wrap {
-      cgBoard {
-        raw {
+    wrap:
+      cgBoard:
+        raw:
           if pref.is3d then ""
           else
             def top(p: Square)  = orient.fold(7 - p.rank.value, p.rank.value) * 12.5
@@ -59,15 +59,10 @@ trait ChessHelper:
                   }
                   .mkString("")
             s"$highlights$pieces"
-        }
-      }
-    }
 
   private def wrap(content: Frag): Frag =
-    cgWrap {
-      cgContainer {
+    cgWrap:
+      cgContainer:
         content
-      }
-    }
 
   lazy val chessgroundBoard = wrap(cgBoard)

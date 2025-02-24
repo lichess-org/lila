@@ -13,8 +13,7 @@ final class Env(
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor):
 
-  private val internalEndpoint = InternalEndpoint {
+  private val internalEndpoint = InternalEndpoint:
     appConfig.get[String]("explorer.internal_endpoint")
-  }
 
   val importer = wire[ExplorerImporter]

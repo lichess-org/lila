@@ -75,10 +75,11 @@ trait Positional:
       Fen.read(f).exists(_.playable(strictFen))
 
   def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] =
-    val baseState = fen.ifTrue(variant.fromPosition).flatMap {
-      Fen.readWithMoveNumber(FromPosition, _)
-    }
-    val (chessGame, state) = baseState.fold(makeGame -> none[Situation.AndFullMoveNumber]) {
+    val baseState = fen
+      .ifTrue(variant.fromPosition)
+      .flatMap:
+        Fen.readWithMoveNumber(FromPosition, _)
+    val (chessGame, state) = baseState.fold(makeGame -> none[Situation.AndFullMoveNumber]):
       case sit @ Situation.AndFullMoveNumber(s, _) =>
         val game = ChessGame(
           situation = s,
@@ -88,7 +89,6 @@ trait Positional:
         )
         if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
         else game                                                          -> baseState
-    }
     builder(chessGame).dmap { game =>
       state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
         game.copy(

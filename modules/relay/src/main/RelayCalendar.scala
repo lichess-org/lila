@@ -1,6 +1,6 @@
 package lila.relay
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 import lila.memo.CacheApi
 import lila.relay.RelayTour.WithFirstRound
 import lila.relay.RelayTourRepo.*
