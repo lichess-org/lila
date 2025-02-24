@@ -7,10 +7,9 @@ import lila.db.dsl.*
 object AggregationClusters:
 
   def apply[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
-    postSort(question) {
+    postSort(question):
       if InsightMetric.isStacked(question.metric) then stacked(question, aggDocs)
       else single(question, aggDocs)
-    }
 
   private def single[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     for

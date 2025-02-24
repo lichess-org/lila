@@ -66,10 +66,10 @@ def replay(
     copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
   )
   val pgnLinks = frag(
-    copyMeLink(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),
-    copyMeLink(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw()),
+    copyMeContent(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),
+    copyMeContent(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw()),
     game.isPgnImport.option:
-      copyMeLink(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
+      copyMeContent(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
   )
 
   bits

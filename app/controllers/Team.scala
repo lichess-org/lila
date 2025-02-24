@@ -43,9 +43,10 @@ final class Team(env: Env) extends LilaController(env):
         canSee.flatMap:
           if _ then
             Ok.async:
-              paginator.teamMembersWithDate(team, page).map {
-                views.team.membersPage(team, _)
-              }
+              paginator
+                .teamMembersWithDate(team, page)
+                .map:
+                  views.team.membersPage(team, _)
           else authorizationFailed
 
   def search(text: String, page: Int) = OpenBody:
@@ -336,13 +337,14 @@ final class Team(env: Env) extends LilaController(env):
   }
 
   private def webJoin(team: TeamModel, request: Option[String], password: Option[String])(using Me) =
-    api.join(team, request = request, password = password).flatMap {
-      case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess
-      case Requesting.NeedRequest | Requesting.NeedPassword =>
-        Redirect(routes.Team.requestForm(team.id)).flashSuccess
-      case Requesting.Blocklist =>
-        Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")
-    }
+    api
+      .join(team, request = request, password = password)
+      .flatMap:
+        case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess
+        case Requesting.NeedRequest | Requesting.NeedPassword =>
+          Redirect(routes.Team.requestForm(team.id)).flashSuccess
+        case Requesting.Blocklist =>
+          Redirect(routes.Team.show(team.id)).flashFailure("You cannot join this team.")
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     Found(for

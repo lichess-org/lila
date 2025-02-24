@@ -29,24 +29,24 @@ final class Tv(
       .flatMapz(gameProxy.game)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)).flatMap {
-      case GameIdAndHistory(gameId, historyIds) =>
-        for
-          game <- gameId.so(gameProxy.game)
-          games <-
-            historyIds
-              .map: id =>
-                gameProxy.game(id).orElse(gameRepo.game(id))
-              .parallel
-              .dmap(_.flatten)
-          history = games.map(Pov.naturalOrientation)
-        yield game.map(_ -> history)
-    }
+    actor
+      .ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _))
+      .flatMap:
+        case GameIdAndHistory(gameId, historyIds) =>
+          for
+            game <- gameId.so(gameProxy.game)
+            games <-
+              historyIds
+                .map: id =>
+                  gameProxy.game(id).orElse(gameRepo.game(id))
+                .parallel
+                .dmap(_.flatten)
+            history = games.map(Pov.naturalOrientation)
+          yield game.map(_ -> history)
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
-    getGameIds(channel, max).flatMap {
+    getGameIds(channel, max).flatMap:
       _.map(gameProxy.game).parallel.map(_.flatten)
-    }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
     actor.ask[List[GameId]](TvSyncActor.GetGameIds(channel, max, _))

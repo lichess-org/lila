@@ -32,7 +32,7 @@ object Score:
       rp = rp
     )
   def make(povs: List[lila.core.game.LightPov]): Score =
-    povs.foldLeft(summon[Zero[Score]].zero) {
+    povs.foldLeft(summon[Zero[Score]].zero):
       case (score, pov) if pov.game.finished =>
         score.plus(
           make(
@@ -41,6 +41,5 @@ object Score:
           )
         )
       case (score, _) => score
-    }
   val empty         = lila.core.rating.Score(0, 0, 0, none)
   given Zero[Score] = Zero(empty)

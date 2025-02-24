@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Turnirlar maydoni</string>
   <string name="isItRated">Reytinggami?</string>
   <string name="willBeNotified">Turnir boshlanganda siz habardaor bo\'lasiz shu tufayli siz qo\'rqmasdan yangi tahlamda boshqa o\'yinni bemalol o\'ynashingiz mumkin.</string>
@@ -19,7 +20,7 @@ Berserk boshlang\'ich vaqti 0 bo\'lgan o\'yinlar uchun yopiq (0+1, 0+2).
 
 Berserk qo\'shimcha bali faqat 7 yurishdan keyingina beriladi.</string>
   <string name="howIsTheWinnerDecided">G\'olib qanday aniqlanadi?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Turnirda belgilangan vaqt davomida eng ko\'p bal to\'plagan o\'yinchi(lar) g\'olib(lar) deb topiladi.
+  <string name="howIsTheWinnerDecidedAnswer">Turnirda belgilangan vaqt davomida eng ko\'p bal to\'plagan o\'yinchilar g\'olib(lar) deb topiladi.
 
 Agar ikkita o\'yinchi bir hil natija qayd etsa turnir natijasi tay-brik (durrang) bo\'ladi.</string>
   <string name="howDoesPairingWork">Sherik topish qanday amalga oshiriladi?</string>
@@ -59,4 +60,27 @@ Tez o\'ynang va turnir zaliga qayting, ko\'p yutib ko\'proq bal to\'plang.</stri
   <string name="averagePerformance">O‘rtcha o‘ynash samaradorligi</string>
   <string name="averageScore">O‘rtacha to‘plangan bal</string>
   <string name="myTournaments">Mening turnirlarim</string>
+  <string name="editTournament">Turnirni tahrirlash</string>
+  <string name="editTeamBattle">Jamoa jangini tahrirlash</string>
+  <string name="defender">Himoyachi</string>
+  <string name="pickYourTeam">Jamoangizni tanlang</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Ushbu jangda qaysi jamoa vakili bo\'lasiz?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Ishtirok etish uchun siz ushbu jamoalardan biriga qo\'shilishingiz kerak!</string>
+  <string name="created">Yaratilgan</string>
+  <string name="recentlyPlayed">Yaqinda o\'ynadi</string>
+  <string name="bestResults">Eng yaxshi natijalar</string>
+  <string name="tournamentStats">Turnir statistikasi</string>
+  <string name="rankAvgHelp">O\'rtacha daraja sizning reytingingizning foizidir. Pastroq - yaxshiroq.
+
+Masalan, 100 nafar o\'yinchidan iborat turnirda 3-o\'rinni egallash = 3%. 1000 nafar o\'yinchi ishtirok etgan turnirda 10-o\'rinni egallash = 1%.</string>
+  <string name="medians">medianlar</string>
+  <string name="allAveragesAreX">Bu sahifadagi barcha oʻrtacha koʻrsatkichlar %s.</string>
+  <string name="total">Jami</string>
+  <string name="pointsAvg">O\'rtacha ball</string>
+  <string name="pointsSum">Ballar yig\'indisi</string>
+  <string name="rankAvg">O\'rtacha daraja</string>
+  <string name="tournamentWinners">Turnir g\'oliblari</string>
+  <string name="tournamentShields">Turnir qalqonlari</string>
+  <string name="onlyTitled">Faqat nomli o\'yinchilar</string>
+  <string name="onlyTitledHelp">Turnirga qo\'shilish uchun rasmiy unvon talab qilinadi</string>
 </resources>

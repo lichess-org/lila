@@ -7,7 +7,7 @@ import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.core.i18n.Translate
 import lila.core.perm.Granter
 import lila.core.user.GameUsers

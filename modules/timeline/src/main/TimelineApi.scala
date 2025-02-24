@@ -35,7 +35,7 @@ private final class TimelineApi(
         case Propagation.ExceptUser(_) => fuccess(Nil)
         case Propagation.ModsOnly(_)   => fuccess(Nil)
       .flatMap: users =>
-        propagations.foldLeft(fuccess(users.flatten.distinct)) {
+        propagations.foldLeft(fuccess(users.flatten.distinct)):
           case (fus, Propagation.ExceptUser(id)) => fus.dmap(_.filter(id !=))
           case (fus, Propagation.ModsOnly(true)) =>
             fus.flatMap: us =>
@@ -54,7 +54,6 @@ private final class TimelineApi(
                     teamApi.leaderIds(teamId).map(us.toSet.intersect).map(_.toList)
                 case _ => fus
           case (fus, _) => fus
-        }
 
   private def modPermissions =
     List(

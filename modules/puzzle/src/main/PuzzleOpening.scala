@@ -74,7 +74,7 @@ final class PuzzleOpeningApi(
       _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
         countedCache
           .get(())
-          .map {
+          .map:
             _.foldLeft(PuzzleOpeningCollection(Nil, Nil)): (acc, obj) =>
               val count = ~obj.int("count")
               obj
@@ -88,7 +88,6 @@ final class PuzzleOpeningApi(
                         .filter(_.ref.variation != SimpleOpening.otherVariations)
                         .fold(acc): op =>
                           acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
-          }
           .map { case PuzzleOpeningCollection(families, openings) =>
             PuzzleOpeningCollection(families.reverse, openings.reverse)
           }
@@ -132,7 +131,7 @@ final class PuzzleOpeningApi(
       .void
 
   private[puzzle] def updateOpening(puzzle: Puzzle): Funit =
-    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36).so {
+    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36).so:
       gameRepo.gameFromSecondary(puzzle.gameId).flatMapz { game =>
         OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
           case None =>
@@ -143,7 +142,6 @@ final class PuzzleOpeningApi(
             colls.puzzle:
               _.updateField($id(puzzle.id), Puzzle.BSONFields.opening, keys).void
       }
-    }
 
 object PuzzleOpening:
 

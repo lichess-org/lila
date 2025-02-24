@@ -75,4 +75,5 @@
   <string name="pastBroadcasts">Transmetime të kaluara</string>
   <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
   <string name="backToLiveMove">Mbrapsht te lëvizja “live”</string>
+  <string name="sinceHideResults">Meqë zgjodhët të fshihen përfundimet, krejt tabelat e paraparjeve janë të zbrazëta, për të shmangur tregime.</string>
 </resources>

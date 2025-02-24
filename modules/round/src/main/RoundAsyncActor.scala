@@ -150,7 +150,7 @@ final private class RoundAsyncActor(
       handle(fullId.playerId): pov =>
         gameRepo
           .hasHoldAlert(pov)
-          .flatMap {
+          .flatMap:
             if _ then funit
             else
               lila
@@ -160,7 +160,6 @@ final private class RoundAsyncActor(
                 )
               lila.mon.cheat.holdAlert.increment()
               gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
-          }
           .inject(Nil)
 
     case lila.tree.AnalysisProgress(payload) =>
@@ -190,11 +189,10 @@ final private class RoundAsyncActor(
 
     case p: BotPlay =>
       val res = proxy
-        .withPov(p.playerId) {
+        .withPov(p.playerId):
           _.so: pov =>
             if pov.game.outoftime(withGrace = true) then finisher.outOfTime(pov.game)
             else player.bot(p.uci, this)(pov)
-        }
         .dmap(publish)
       p.promise.foreach(_.completeWith(res))
       res
@@ -236,22 +234,20 @@ final private class RoundAsyncActor(
     case ResignForce(playerId) =>
       handle(playerId): pov =>
         pov.mightClaimWin.so:
-          getPlayer(!pov.color).isLongGone.flatMap {
+          getPlayer(!pov.color).isLongGone.flatMap:
             if _ then
               finisher.rageQuit(
                 pov.game,
                 Some(pov.color).ifFalse(pov.game.situation.opponentHasInsufficientMaterial)
               )
             else fuccess(List(Event.Reload))
-          }
 
     case DrawForce(playerId) =>
       handle(playerId): pov =>
         (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn).so:
-          getPlayer(!pov.color).isLongGone.flatMap {
+          getPlayer(!pov.color).isLongGone.flatMap:
             if _ then finisher.rageQuit(pov.game, None)
             else fuccess(List(Event.Reload))
-          }
 
     case AbortForce =>
       handle: game =>
@@ -287,10 +283,11 @@ final private class RoundAsyncActor(
 
     case Threefold =>
       proxy.withGame: game =>
-        drawer.autoThreefold(game).map {
-          _.foreach: pov =>
-            this ! DrawClaim(pov.player.id)
-        }
+        drawer
+          .autoThreefold(game)
+          .map:
+            _.foreach: pov =>
+              this ! DrawClaim(pov.player.id)
 
     case Rematch(playerId, rematch) => handle(playerId)(rematcher(_, rematch))
 
@@ -344,12 +341,13 @@ final private class RoundAsyncActor(
 
     case NoStart =>
       handle: game =>
-        game.timeBeforeExpiration.exists(_.centis == 0).so {
-          if game.isSwiss then
-            game.startClock.so: g =>
-              proxy.save(g).inject(List(Event.Reload))
-          else finisher.noStart(game)
-        }
+        game.timeBeforeExpiration
+          .exists(_.centis == 0)
+          .so:
+            if game.isSwiss then
+              game.startClock.so: g =>
+                proxy.save(g).inject(List(Event.Reload))
+            else finisher.noStart(game)
 
     case StartClock =>
       handle: game =>

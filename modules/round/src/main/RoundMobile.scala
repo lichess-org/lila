@@ -6,7 +6,7 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 import lila.chat.Chat
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
 

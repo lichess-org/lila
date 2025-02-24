@@ -21,9 +21,8 @@ object AccuracyCP:
   def prevColorInfos(pov: SideAndStart, analysis: Analysis): List[Info] = {
     if pov.color == pov.startColor then Info.start(pov.startedAtPly) :: analysis.infos
     else analysis.infos
-  }.zipWithIndex.collect {
+  }.zipWithIndex.collect:
     case (e, i) if (i % 2) == 0 => e
-  }
 
   def mean(pov: SideAndStart, analysis: Analysis): Option[Int] =
     scalalib.Maths.mean(diffsList(pov, analysis).flatten).map(x => Math.round(x).toInt)

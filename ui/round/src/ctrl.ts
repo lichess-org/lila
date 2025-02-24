@@ -800,7 +800,7 @@ export default class RoundController implements MoveRootCtrl {
   canOfferDraw = (): boolean =>
     !this.preventDrawOffer &&
     game.drawable(this.data) &&
-    (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
+    (this.data.player.lastDrawOfferAtPly || -99) < this.lastPly() - 20;
 
   cancelTakebackPreventDraws = (): void => {
     this.socket.sendLoading('takeback-no');
@@ -829,7 +829,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private doOfferDraw = () => {
-    this.data.player.lastDrawOfferAtPly = this.ply;
+    this.data.player.lastDrawOfferAtPly = this.lastPly();
     this.socket.sendLoading('draw-yes', null);
   };
 

@@ -165,6 +165,17 @@ final class AuthUi(helpers: Helpers):
           )
         )
 
+  def signupConfirm(user: User, token: String, referrer: Option[String])(using Context) =
+    Page(trans.site.signUp.txt())
+      .css("bits.email-confirm"):
+        main(cls := "page-small box box-pad signup-confirm")(
+          h1(iconFlair(Flair("activity.party-popper")), trans.onboarding.welcomeToLichess()),
+          postForm(action := routes.Auth.signupConfirmEmailPost(token)):
+            submitButton(cls := "button button-fat button-no-upper")(
+              trans.onboarding.logInAsUsername(user.username)
+            )
+        )
+
   def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using Context) =
     Page(trans.site.passwordReset.txt())
       .css("bits.auth")
@@ -270,36 +281,9 @@ final class AuthUi(helpers: Helpers):
       )
 
   def checkYourEmailBanner(user: UserName, email: EmailAddress) =
-    frag(
-      styleTag("""
-body { margin-top: 45px; }
-#email-confirm {
-  height: 40px;
-  background: #3893E8;
-  color: #fff!important;
-  font-size: 1.3em;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #666;
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 107;
-}
-#email-confirm a {
-  color: #fff!important;
-  text-decoration: underline;
-  margin-left: 1em;
-}
-"""),
-      div(id := "email-confirm")(
-        s"Almost there, ${user}! Now check your email (${email.conceal}) for signup confirmation.",
-        a(href := routes.Auth.checkYourEmail)("Click here for help")
-      )
+    div(cls := "email-confirm-banner")(
+      s"Almost there, ${user}! Now check your email (${email.conceal}) for signup confirmation.",
+      a(href := routes.Auth.checkYourEmail)("Need help?")
     )
 
   def pubOrTor(using Context) =

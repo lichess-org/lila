@@ -1,7 +1,7 @@
 package lila.relay
 
-import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
-import chess.{ Outcome, Ply, TournamentClock }
+import chess.format.pgn.{ PgnStr, Tag, Tags }
+import chess.TournamentClock
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
@@ -376,12 +376,11 @@ private object RelayFetch:
 
   val maxChaptersToShow: Max                 = Max(100)
   private val maxGamesToRead: Max            = Max(256)
-  private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 2)
+  private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 3)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
   object injectTimeControl:
 
-    private val lookup                               = """[TimeControl """"
     private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
 
     def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:

@@ -16,16 +16,17 @@ final class ForumAccess(
     ForumCateg
       .toTeamId(categId)
       .fold(fuTrue): teamId =>
-        teamApi.forumAccessOf(teamId).flatMap {
-          case Access.None     => fuFalse
-          case Access.Everyone =>
-            // when the team forum is open to everyone, you still need to belong to the team in order to post
-            op match
-              case Operation.Read  => fuTrue
-              case Operation.Write => me.so(teamApi.belongsTo(teamId, _))
-          case Access.Members => me.so(teamApi.belongsTo(teamId, _))
-          case Access.Leaders => me.so(teamApi.isLeader(teamId, _))
-        }
+        teamApi
+          .forumAccessOf(teamId)
+          .flatMap:
+            case Access.None     => fuFalse
+            case Access.Everyone =>
+              // when the team forum is open to everyone, you still need to belong to the team in order to post
+              op match
+                case Operation.Read  => fuTrue
+                case Operation.Write => me.so(teamApi.belongsTo(teamId, _))
+            case Access.Members => me.so(teamApi.belongsTo(teamId, _))
+            case Access.Leaders => me.so(teamApi.isLeader(teamId, _))
 
   def isGrantedRead(categId: ForumCategId)(using me: Option[Me]): Fu[Boolean] =
     if Granter.opt(_.Shusher) then fuTrue

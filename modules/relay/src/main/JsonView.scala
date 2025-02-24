@@ -184,6 +184,9 @@ object JsonView:
     )
 
   import RelayRound.Sync
+
+  private given Writes[Sync.OnlyRound] = Writes(r => r.fold(JsString(_), JsNumber(_)))
+
   private given OWrites[Sync] = OWrites: s =>
     Json
       .obj(

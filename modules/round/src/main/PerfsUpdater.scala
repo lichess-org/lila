@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ ByColor, Color, Speed, IntRating }
+import chess.{ ByColor, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
 import chess.rating.glicko.{ Glicko, Player }
 
@@ -19,41 +19,41 @@ final class PerfsUpdater(
 )(using Executor):
 
   def save(game: Game, users: ByColor[UserWithPerfs]): Fu[Option[ByColor[IntRatingDiff]]] =
-    farming
-      .botFarming(game)
-      .flatMap:
-        if _ then fuccess(none)
-        else if farming.newAccountBoosting(game, users) then fuccess(none)
-        else calculateRatingAndPerfs(game, users).fold(fuccess(none))(saveRatings(game.id, users))
+    (game.rated && game.finished && (game.playedTurns >= 2 || game.isTournament)).so:
+      for
+        isBotFarming <- farming.botFarming(game)
+        result <-
+          isBotFarming.not.so:
+            (!farming.newAccountBoosting(game, users)).so:
+              calculateRatingAndPerfs(game, users).so(saveRatings(game.id, users))
+      yield result
 
   private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]): Option[
     (ByColor[IntRatingDiff], ByColor[UserWithPerfs], PerfKey)
-  ] =
-    for
-      outcome <- game.outcome
-      perfKey <-
-        if game.variant.fromPosition
-        then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
-        else game.perfKey.some
-      if game.rated && game.finished && (game.playedTurns >= 2 || game.isTournament)
-      if !users.exists(_.user.lame)
-      prevPerfs   = users.map(_.perfs)
-      prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
-      computedPlayers <- computeGlicko(game.id, prevPlayers, outcome)
-    yield
-      val newGlickos = RatingRegulator(ratingFactors())(
-        perfKey,
-        prevPlayers.map(_.glicko),
-        computedPlayers.map(_.glicko),
-        users.map(_.isBot)
-      )
-      val newPerfs = prevPerfs.zip(newGlickos, (perfs, gl) => addToPerfs(game, perfs, perfKey, gl))
-      val ratingDiffs =
-        def ratingOf(perfs: UserPerfs) = perfs(perfKey).glicko.intRating.value
-        prevPerfs.zip(newPerfs, (prev, next) => IntRatingDiff(ratingOf(next) - ratingOf(prev)))
-      val newUsers = users.zip(newPerfs, (user, perfs) => user.copy(perfs = perfs))
-      lila.common.Bus.publish(lila.core.game.PerfsUpdate(game, newUsers), "perfsUpdate")
-      (ratingDiffs, newUsers, perfKey)
+  ] = for
+    outcome <- game.outcome
+    perfKey <-
+      if game.variant.fromPosition
+      then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
+      else game.perfKey.some
+    if !users.exists(_.user.lame)
+    prevPerfs   = users.map(_.perfs)
+    prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
+    computedPlayers <- computeGlicko(game.id, prevPlayers, outcome)
+  yield
+    val newGlickos = RatingRegulator(ratingFactors())(
+      perfKey,
+      prevPlayers.map(_.glicko),
+      computedPlayers.map(_.glicko),
+      users.map(_.isBot)
+    )
+    val newPerfs = prevPerfs.zip(newGlickos, (perfs, gl) => addToPerfs(game, perfs, perfKey, gl))
+    val ratingDiffs =
+      def ratingOf(perfs: UserPerfs) = perfs(perfKey).glicko.intRating.value
+      prevPerfs.zip(newPerfs, (prev, next) => IntRatingDiff(ratingOf(next) - ratingOf(prev)))
+    val newUsers = users.zip(newPerfs, (user, perfs) => user.copy(perfs = perfs))
+    lila.common.Bus.publish(lila.core.game.PerfsUpdate(game, newUsers), "perfsUpdate")
+    (ratingDiffs, newUsers, perfKey)
 
   private def computeGlicko(gameId: GameId, prevPlayers: ByColor[Player], outcome: chess.Outcome) =
     lila.rating.Glicko.calculator

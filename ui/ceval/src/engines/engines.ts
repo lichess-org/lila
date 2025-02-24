@@ -47,7 +47,7 @@ export class Engines {
         variants: [key],
         cloudEval: true,
         assets: {
-          version: 'sfw008',
+          version: 'sfw009',
           root: 'npm/lila-stockfish-web',
           nnue: [`${variantMap(key)}-${nnue}.nnue`],
           js: 'fsf14.js',
@@ -75,7 +75,7 @@ export class Engines {
           minMem: 1536,
           cloudEval: true,
           assets: {
-            version: 'sfw008',
+            version: 'sfw009',
             root: 'npm/lila-stockfish-web',
             js: 'sf16-7.js',
           },
@@ -92,7 +92,7 @@ export class Engines {
           minMem: 2560,
           cloudEval: true,
           assets: {
-            version: 'sfw008',
+            version: 'sfw009',
             root: 'npm/lila-stockfish-web',
             js: 'sf17-79.js',
           },
@@ -127,7 +127,7 @@ export class Engines {
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: variants.map(v => v[0]),
           assets: {
-            version: 'sfw008',
+            version: 'sfw009',
             root: 'npm/lila-stockfish-web',
             js: 'fsf14.js',
           },
