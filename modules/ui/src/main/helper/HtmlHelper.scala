@@ -19,17 +19,17 @@ object HtmlHelper:
     if blind then t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-  def copyMeLink(url: String, name: Frag, isPgn: Boolean): Tag =
-    copyMe(a(targetBlank, href := url)(name), isPgn)
+  def copyMeLink(url: String, name: Frag): Tag = copyMe(a(targetBlank, href := url)(name))
+
+  def copyMeContent(url: String, name: Frag): Tag = copyMeLink(url, name)(cls := "fetch-content")
 
   def copyMeInput(content: String): Tag =
-    copyMe(input(spellcheck := "false", readonly, value := content), false)
+    copyMe(input(spellcheck := "false", readonly, value := content))
 
-  private def copyMe(target: Tag, callApiForButton: Boolean): Tag =
-    val buttonClass = s"copy-me__button button button-metal${if callApiForButton then " call-api" else ""}"
+  private def copyMe(target: Tag): Tag =
     div(cls := "copy-me")(
       target(cls := "copy-me__target"),
-      button(cls := buttonClass, dataIcon := Icon.Clipboard)
+      button(cls := "copy-me__button button button-metal", dataIcon := Icon.Clipboard)
     )
 
 trait HtmlHelper:

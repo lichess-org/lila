@@ -13,10 +13,10 @@ export function attachDomHandlers() {
       setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
     };
     const copyText = (text: string) => navigator.clipboard.writeText(text).then(showCheckmark);
-    const call_api = $(this).hasClass('call-api');
+    const fetchContent = $(this).parent().hasClass('fetch-content');
     $(this.parentElement!.firstElementChild!).each(function (this: any) {
       try {
-        if (call_api) xhrText(this.href, { method: 'get' }).then(res => copyText(res));
+        if (fetchContent) xhrText(this.href, { method: 'get' }).then(res => copyText(res));
         else copyText(this.value || this.href);
       } catch (e) {
         console.error(e);

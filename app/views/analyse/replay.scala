@@ -42,8 +42,7 @@ def replay(
       cdnUrl(
         routes.Export.gif(pov.gameId, pov.color, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
       ),
-      trans.site.gameAsGIF(),
-      false
+      trans.site.gameAsGIF()
     )(cls := "game-gif"),
     copyMeLink(
       cdnUrl(
@@ -58,8 +57,7 @@ def replay(
           )
           .url
       ),
-      trans.site.screenshotCurrentPosition(),
-      false
+      trans.site.screenshotCurrentPosition()
     )(cls := "position-gif")
   )
 
@@ -68,10 +66,10 @@ def replay(
     copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
   )
   val pgnLinks = frag(
-    copyMeLink(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated(), true),
-    copyMeLink(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw(), true),
+    copyMeContent(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),
+    copyMeContent(s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0", trans.site.downloadRaw()),
     game.isPgnImport.option:
-      copyMeLink(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported(), true)
+      copyMeContent(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
   )
 
   bits
