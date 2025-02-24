@@ -16,7 +16,7 @@ export function attachDomHandlers() {
     const fetchContent = $(this).parent().hasClass('fetch-content');
     $(this.parentElement!.firstElementChild!).each(function (this: any) {
       try {
-        if (fetchContent) xhrText(this.href, { method: 'get' }).then(res => copyText(res));
+        if (fetchContent) xhrText(this.href).then(res => copyText(res));
         else copyText(this.value || this.href);
       } catch (e) {
         console.error(e);
