@@ -177,11 +177,9 @@ const updateText = (opts?: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNod
   }
 };
 
-const processProfileLink = (text: string) => {
-  const processedUrlPattern = /(https?:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_]+)/g;
+const profileLinkRegex = /(https:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_-]+)/g;
 
-  return text.replace(processedUrlPattern, '@$2');
-};
+const processProfileLink = (text: string) => text.replace(profileLinkRegex, '@$2');
 
 function renderText(t: string, opts?: enhance.EnhanceOpts) {
   const processedText = processProfileLink(t);
