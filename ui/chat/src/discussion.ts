@@ -178,9 +178,9 @@ const updateText = (opts?: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNod
 };
 
 const processProfileLink = (text: string) => {
-  const profileUrlPattern = /(https?:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_]+)/g;
+  const urlPattern = /(https?:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_]+)/g;
 
-  return text.replace(profileUrlPattern, '@$2');
+  return text.replace(urlPattern, '@$2');
 };
 
 function renderText(t: string, opts?: enhance.EnhanceOpts) {
