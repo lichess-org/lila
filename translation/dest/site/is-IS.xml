@@ -691,22 +691,12 @@
   <string name="security">Öryggi</string>
   <string name="revokeAllSessions">lokað á allar tengingar</string>
   <string name="playChessEverywhere">Tefldu hvar sem er</string>
-  <string name="asFreeAsLichess">Eins frítt og Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Byggt af ást á skák, ekki skildingi</string>
   <string name="everybodyGetsAllFeaturesForFree">Allir fá alla möguleika ókeypis</string>
-  <string name="zeroAdvertisement">Engar auglýsingar</string>
-  <string name="fullFeatured">Fullbúið</string>
-  <string name="phoneAndTablet">Símar og spjaldtölvur</string>
-  <string name="bulletBlitzClassical">Örskák, hraðskák, klassík</string>
-  <string name="correspondenceChess">Bréfskák</string>
-  <string name="onlineAndOfflinePlay">Tengd og ótengd spilun</string>
   <string name="viewTheSolution">Sjá lausn</string>
-  <string name="followAndChallengeFriends">Fylgdu og skoraðu á vini</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Til á %s tungumálum</item>
     <item quantity="other">Til á %s tungumálum</item>
   </plurals>
-  <string name="gameAnalysis">Leikgreining</string>
   <string name="quickPairing">Flýtival</string>
   <string name="lobby">Salur</string>
   <string name="anonymous">Nafnlaus</string>
