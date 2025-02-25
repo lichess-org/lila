@@ -20,7 +20,7 @@
     "@textcomplete/core": "^0.1.13",
     "@textcomplete/textarea": "^0.1.13",
     "@toast-ui/editor": "3.2.2",
-    "@types/canvas-confetti": "^1.6.4",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/debounce-promise": "^3.1.9",
     "@types/fnando__sparkline": "^0.3.7",
     "@types/qrcode": "^1.5.5",
