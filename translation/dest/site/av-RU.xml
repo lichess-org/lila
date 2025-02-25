@@ -737,22 +737,12 @@
   <string name="sessions">Сессияби</string>
   <string name="revokeAllSessions">киналго сессияби къазе</string>
   <string name="playChessEverywhere">Шахматал кибго хӀай</string>
-  <string name="asFreeAsLichess">Lichess гӀадин мугь босулареб буго</string>
-  <string name="builtForTheLoveOfChessNotMoney">Шахматазде рокьиялъ гьабуна, гӀарцуде гуро</string>
   <string name="everybodyGetsAllFeaturesForFree">Киназего киналго алатал чӀобого щола</string>
-  <string name="zeroAdvertisement">Реклама гьечӀо</string>
-  <string name="fullFeatured">Киналго алатал ругеб</string>
-  <string name="phoneAndTablet">Телефонги планшетги</string>
-  <string name="bulletBlitzClassical">Гулла, blitz, киласик</string>
-  <string name="correspondenceChess">Цоцахъе хъвай</string>
-  <string name="onlineAndOfflinePlay">Онлайнги офлайнги бугеб хӀай</string>
   <string name="viewTheSolution">БитӀун гьаби бихьизе</string>
-  <string name="followAndChallengeFriends">Гьудулзабазда нахъвилълъа, къецалдеги ахӀе</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s мацӀалда рагьараб буго!</item>
     <item quantity="other">%s мацӀалда рагьараб буго!</item>
   </plurals>
-  <string name="gameAnalysis">ХӀаялъул анализ</string>
   <string name="xHostsY">%1$s-(и)ца %2$s гьабуна</string>
   <string name="xJoinsY">%1$s %2$s-алде жувана</string>
   <string name="xLikesY">%1$s-(и)е %2$s бокьана</string>
