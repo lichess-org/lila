@@ -157,9 +157,6 @@ final class ReportUi(helpers: Helpers):
       (Other, trans.site.other.txt())
     )
 
-  private def translatedCommReasonChoices(using Translate) =
-    translatedReasonChoices.filter((key, _) => key.isComm)
-
   def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
     val title = "Thanks for the report"
     Page(title)

@@ -67,4 +67,4 @@ object UserAgentParser:
 
     private def isLichobile(ua: UA) = ua.value.contains("Lichobile/")
 
-    private def isLM(ua: UA) = ua.value.startsWith("LM/0.13.13 Android/1")
+    private def isLM(ua: UA) = ua.value.startsWith("LM/0.13.1")

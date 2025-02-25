@@ -22,38 +22,43 @@ final class Reopen(
       email: EmailAddress,
       closedByMod: User => Fu[Boolean]
   ): Fu[Either[(String, String), User]] =
-    userRepo.enabledWithEmail(email.normalize).flatMap {
-      case Some(_) =>
-        fuccess(Left("emailUsed" -> "This email address is already in use by an active account."))
-      case _ =>
-        userRepo.byId(u).flatMap {
-          case None =>
-            fuccess(Left("noUser" -> "No account found with this username."))
-          case Some(user) if user.enabled.yes =>
-            fuccess(Left("alreadyActive" -> "This account is already active."))
-          case Some(user) =>
-            userRepo.currentOrPrevEmail(user.id).flatMap {
+    userRepo
+      .enabledWithEmail(email.normalize)
+      .flatMap:
+        case Some(_) =>
+          fuccess(Left("emailUsed" -> "This email address is already in use by an active account."))
+        case _ =>
+          userRepo
+            .byId(u)
+            .flatMap:
               case None =>
-                fuccess(
-                  Left("noEmail" -> "That account doesn't have any associated email, and cannot be reopened.")
-                )
-              case Some(prevEmail) if !email.similarTo(prevEmail) =>
-                fuccess(Left("differentEmail" -> "That account has a different email address."))
-              case _ =>
-                closedByMod(user).flatMap {
-                  if _ then fuccess(Left("nope" -> "Sorry, that account can no longer be reopened."))
-                  else
-                    userRepo.isForeverClosed(user).map {
-                      if _ then
+                fuccess(Left("noUser" -> "No account found with this username."))
+              case Some(user) if user.enabled.yes =>
+                fuccess(Left("alreadyActive" -> "This account is already active."))
+              case Some(user) =>
+                userRepo
+                  .currentOrPrevEmail(user.id)
+                  .flatMap:
+                    case None =>
+                      fuccess(
                         Left(
-                          "nope" -> "Sorry, but you explicitly requested that your account could never be reopened."
+                          "noEmail" -> "That account doesn't have any associated email, and cannot be reopened."
                         )
-                      else Right(user)
-                    }
-                }
-            }
-        }
-    }
+                      )
+                    case Some(prevEmail) if !email.similarTo(prevEmail) =>
+                      fuccess(Left("differentEmail" -> "That account has a different email address."))
+                    case _ =>
+                      closedByMod(user).flatMap:
+                        if _ then fuccess(Left("nope" -> "Sorry, that account can no longer be reopened."))
+                        else
+                          userRepo
+                            .isForeverClosed(user)
+                            .map:
+                              if _ then
+                                Left(
+                                  "nope" -> "Sorry, but you explicitly requested that your account could never be reopened."
+                                )
+                              else Right(user)
 
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
     tokener.make(user.id).flatMap { token =>
@@ -80,7 +85,10 @@ ${trans.common_orPaste.txt()}"""),
 
   def confirm(token: String): Fu[Option[User]] =
     tokener.read(token).flatMapz(userRepo.disabledById).flatMapz { user =>
-      userRepo.reopen(user.id).inject(user.some)
+      for _ <- userRepo.reopen(user.id)
+      yield
+        lila.common.Bus.pub(lila.core.security.ReopenAccount(user))
+        user.some
     }
 
   private val tokener = StringToken.userId(tokenerSecret, 20.minutes)

@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Քայլ, որով ծածկվում է մրցակցի հեռահար խաղաքարերի համագործակցության գիծը, որի արդյունքում այդ խաղաքարերը կամ նրանցից մեկը դառնում են անպաշտպան։ Օրինակ, ձին կանգնում է նավակների միջև գտնվող պաշտպանված վանդակին։</string>
   <string name="intermezzo">Միջանկյալ քայլ</string>
   <string name="intermezzoDescription">Սպասելի քայլ կատարելու փոխարեն, սկզբում կատարվում է այլ, անմիջական սպառնալիք ստեղծող քայլ, որին մրցակիցը պետք է պատասխանի։ Հայտնի է նաև  «Zwischenzug» կամ «Intermezzo» անուններով։</string>
+  <string name="killBoxMate">«Մահացու տուփ» մատ</string>
+  <string name="killBoxMateDescription">Նավակը տեղադրվում է մրցակցի արքայի կողքին՝ թագուհու պաշտպանության տակ, որը միաժամանակ կանխում է արքայի փախուստը։ Նավակը և թագուհին մրցակցի արքան վերցնում են 3x3 «մահացու տուփի» մեջ։</string>
+  <string name="vukovicMate">Վուկովիչի մատ</string>
+  <string name="vukovicMateDescription">Նավակը և ձին համատեղ մատ են անում արքային։ Մեկ խաղաքարով պաշտպանված նավակը մատ է անում, իսկ ձին կտրում է մրցակցի արքայի նահանջի դաշտերը։</string>
   <string name="knightEndgame">Ձիու վերջնախաղ</string>
   <string name="knightEndgameDescription">Միայն ձիերով և զինվորներով վերջնախաղ։</string>
   <string name="long">Եռաքայլ խնդիր</string>

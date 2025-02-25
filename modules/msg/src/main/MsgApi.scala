@@ -174,12 +174,13 @@ final class MsgApi(
     }
 
   def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
-    colls.thread.one[MsgThread]($id(threadId)).map {
-      case Some(doc) =>
-        if doc.maskFor.contains(maskFor) then doc.maskWith
-        else Some(doc.lastMsg)
-      case None => None
-    }
+    colls.thread
+      .one[MsgThread]($id(threadId))
+      .map:
+        case Some(doc) =>
+          if doc.maskFor.contains(maskFor) then doc.maskWith
+          else Some(doc.lastMsg)
+        case None => None
 
   def setRead(userId: UserId, contactId: UserId): Funit =
     val threadId = MsgThread.id(userId, contactId)
@@ -210,10 +211,11 @@ final class MsgApi(
       .run()
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
-    userApi.me(orig).flatMap {
-      case None     => fuccess(s"Unknown sender $orig")
-      case Some(me) => multiPost(Source(dests), text)(using me).inject("done")
-    }
+    userApi
+      .me(orig)
+      .flatMap:
+        case None     => fuccess(s"Unknown sender $orig")
+        case Some(me) => multiPost(Source(dests), text)(using me).inject("done")
 
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =
     colls.thread

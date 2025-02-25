@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Играјте са пријатељем</string>
-  <string name="playWithTheMachine">Играјте са рачунаром</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовете неког да игра, дајте овaј линк</string>
+  <string name="playWithAFriend">Играј са пријатељем</string>
+  <string name="playWithTheMachine">Играј са рачунаром</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи овaј линк</string>
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
   <string name="orLetYourOpponentScanQrCode">Или допусти свом противнику да копира овај QR код</string>
   <string name="waiting">Чека се</string>
-  <string name="yourTurn">Ваш потез</string>
+  <string name="yourTurn">Твој потез</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
   <string name="strength">Јачина</string>
   <string name="toggleTheChat">Укључи/искључи ћаскање</string>
-  <string name="chat">Ћаскање</string>
+  <string name="chat">Ћаскај</string>
   <string name="resign">Предај</string>
   <string name="checkmate">Шах-мат</string>
   <string name="stalemate">Пат</string>
@@ -961,7 +961,7 @@
   <string name="analysisOptions">Опције при анализи</string>
   <string name="focusChat">Пређи на чет</string>
   <string name="showHelpDialog">Прикажи овај прозор за помоћ</string>
-  <string name="reopenYourAccount">Поново отвори свој налог</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Поново отвори свој налог</string>
   <string name="emailAssociatedToaccount">Мејл адреса повезана са налогом</string>
   <string name="sentEmailWithLink">Послали смо ти мејл са линком.</string>
   <string name="tournamentEntryCode">Код за приступ турниру</string>

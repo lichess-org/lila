@@ -26,11 +26,12 @@ final class LilaComponents(
 
   given executor: Executor = scala.concurrent.ExecutionContextOpportunistic
 
-  lila.log("boot").info {
-    val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
-    val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila version: $appVersionCommit $appVersionDate"
-  }
+  lila
+    .log("boot")
+    .info:
+      val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
+      val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
+      s"lila version: $appVersionCommit $appVersionDate"
 
   import _root_.controllers.*
 

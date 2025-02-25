@@ -47,9 +47,8 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 
   def isLifetime(money: Money): Fu[Boolean] =
-    pricingFor(money.currency).map {
+    pricingFor(money.currency).map:
       _.exists(_.lifetime.amount <= money.amount)
-    }
 
   private def convertAndRound(money: Money, to: Currency): Fu[Option[Money]] =
     currencyApi.convert(money, to).map2 { case Money(amount, locale) =>

@@ -2,7 +2,7 @@ package lila.relay
 
 import play.api.libs.json.*
 import scalalib.model.Seconds
-import chess.{ Centis, Outcome, ByColor }
+import chess.{ Outcome, ByColor }
 import chess.format.pgn.{ PgnStr, SanStr, Move, Tag, Tags }
 
 private object DgtJson:
@@ -43,6 +43,7 @@ private object DgtJson:
   ):
     def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
       case (pairing, i) if pairing.result.forall(_ != "*") => i
+    def formattedDate = date.map(_.replace("-", "."))
 
   case class ClockJson(white: Option[Seconds], black: Option[Seconds], time: Long):
     def referenceTime: Instant = millisToInstant(time)

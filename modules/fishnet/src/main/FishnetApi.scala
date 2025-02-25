@@ -41,10 +41,9 @@ final class FishnetApi(
   }.map {
     case None         => Failure(LilaNoStackTrace("Can't authenticate: invalid key or disabled client"))
     case Some(client) => clientVersion.accept(req.fishnet.version).map(_ => client)
-  }.flatMap {
+  }.flatMap:
     case Success(client) => repo.updateClientInstance(client, req.instance(ip)).map(Success.apply)
     case invalid         => fuccess(invalid)
-  }
 
   def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
     client.skill
@@ -85,7 +84,7 @@ final class FishnetApi(
   ): Fu[PostAnalysisResult] =
     repo
       .getAnalysis(workId)
-      .flatMap {
+      .flatMap:
         case None =>
           Monitor.notFound(workId, client)
           fufail(WorkNotFound)
@@ -104,38 +103,33 @@ final class FishnetApi(
             case partial: PartialAnalysis =>
               {
                 fuccess(work.game.studyId.isDefined) >>| socketExists(GameId(work.game.id))
-              }.flatMap {
+              }.flatMap:
                 if _ then
                   analysisBuilder.partial(client, work, partial.analysis).map { analysis =>
                     PostAnalysisResult.Partial(analysis)
                   }
                 else fuccess(PostAnalysisResult.UnusedPartial)
-              }
           : Fu[PostAnalysisResult]
         case Some(work) =>
           Monitor.notAcquired(work, client)
           fufail(NotAcquired)
-      }
       .chronometer
-      .logIfSlow(200, logger) {
+      .logIfSlow(200, logger):
         case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
         case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"
         case PostAnalysisResult.UnusedPartial => s"unused partial analysis"
-      }
       .result
-      .flatMap {
+      .flatMap:
         case r @ PostAnalysisResult.Complete(res) => sink.save(res).inject(r)
         case r @ PostAnalysisResult.Partial(res)  => sink.progress(res).inject(r)
         case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
-      }
 
   def abort(workId: Work.Id, client: Client): Funit =
-    workQueue {
+    workQueue:
       repo.getAnalysis(workId).map(_.filter(_.isAcquiredBy(client))).flatMapz { work =>
         Monitor.abort(client)
         repo.updateAnalysis(work.abort)
       }
-    }
 
   def userAnalysisExists(gameId: GameId) =
     analysisColl.exists(

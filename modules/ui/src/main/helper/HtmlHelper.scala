@@ -21,6 +21,8 @@ object HtmlHelper:
 
   def copyMeLink(url: String, name: Frag): Tag = copyMe(a(targetBlank, href := url)(name))
 
+  def copyMeContent(url: String, name: Frag): Tag = copyMeLink(url, name)(cls := "fetch-content")
+
   def copyMeInput(content: String): Tag =
     copyMe(input(spellcheck := "false", readonly, value := content))
 

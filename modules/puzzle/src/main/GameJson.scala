@@ -46,10 +46,11 @@ final private class GameJson(
 
   private def generate(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     gameRepo.gameFromSecondary(gameId).orFail(s"Missing puzzle game $gameId!").flatMap { game =>
-      lightUserApi.preloadMany(game.userIds).inject {
-        if bc then generateBc(game, plies)
-        else generate(game, plies)
-      }
+      lightUserApi
+        .preloadMany(game.userIds)
+        .inject:
+          if bc then generateBc(game, plies)
+          else generate(game, plies)
     }
 
   private def generate(game: Game, plies: Ply): JsObject =

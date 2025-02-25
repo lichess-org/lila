@@ -17,9 +17,10 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             ids   <- env.forumSearch(text, page, ctx.troll)
             posts <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
             pager <- posts.mapFutureResults: post =>
-              access.isGrantedRead(post.topic.categId).map {
-                lila.forum.PostView.WithReadPerm(post, _)
-              }
+              access
+                .isGrantedRead(post.topic.categId)
+                .map:
+                  lila.forum.PostView.WithReadPerm(post, _)
             page <- renderPage(views.forum.post.search(text, pager))
           yield Ok(page)
 

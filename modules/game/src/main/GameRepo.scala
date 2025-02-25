@@ -84,9 +84,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       user: U,
       readPref: ReadPref = _.priTemp
   ): Fu[List[Pov]] =
-    coll.byOrderedIds[Game, GameId](gameIds, readPref = readPref)(_.id).dmap {
-      _.flatMap(Pov(_, user))
-    }
+    coll
+      .byOrderedIds[Game, GameId](gameIds, readPref = readPref)(_.id)
+      .dmap:
+        _.flatMap(Pov(_, user))
 
   def recentPovsByUserFromSecondary(user: User, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
     recentGamesFromSecondaryCursor(Query.user(user) ++ select)
@@ -221,9 +222,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted[U: UserIdOf](user: U): Fu[List[Pov]] =
-    coll.list[Game](Query.nowPlaying(user.id), lila.core.game.maxPlaying.value + 5).dmap {
-      _.flatMap { Pov(_, user) }
-    }
+    coll
+      .list[Game](Query.nowPlaying(user.id), lila.core.game.maxPlaying.value + 5)
+      .dmap:
+        _.flatMap { Pov(_, user) }
 
   def countWhereUserTurn(userId: UserId): Fu[Int] = coll
     .countSel(
@@ -329,11 +331,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
           $doc(F.id -> game.id, holdAlertSelector),
           holdAlertProjection
         )
-        .map {
+        .map:
           _.fold(HoldAlert.emptyMap) { doc =>
             chess.ByColor(holdAlertOf(doc, _))
           }
-        }
 
     def povs(povs: Seq[Pov]): Fu[Map[GameId, HoldAlert]] =
       coll
@@ -413,11 +414,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       then g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val fen: Option[Fen.Full] = initialFen.orElse {
+    val fen: Option[Fen.Full] = initialFen.orElse:
       (g2.variant.fromPosition || g2.variant.chess960)
         .option(Fen.write(g2.chess))
         .filterNot(_.isInitial)
-    }
     val checkInHours =
       if g2.isPgnImport then none
       else if g2.sourceIs(_.Api) then some(24 * 7)
@@ -430,9 +430,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     )
     coll.insert
       .one(bson)
-      .addFailureEffect {
+      .addFailureEffect:
         case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment()
-      }
       .void
 
   def removeRecentChallengesOf(userId: UserId) =
@@ -554,10 +553,11 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       )
 
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])] =
-    coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)).dmap {
-      _.fold(none[Source] -> List.empty[UserId]): doc =>
-        (doc.int(F.source).flatMap(Source.apply), ~doc.getAsOpt[List[UserId]](F.playerUids))
-    }
+    coll
+      .one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true))
+      .dmap:
+        _.fold(none[Source] -> List.empty[UserId]): doc =>
+          (doc.int(F.source).flatMap(Source.apply), ~doc.getAsOpt[List[UserId]](F.playerUids))
 
   def recentAnalysableGamesByUserId(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
