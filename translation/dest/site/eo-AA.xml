@@ -769,22 +769,12 @@
   <string name="sessions">Sesioj</string>
   <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
-  <string name="asFreeAsLichess">Tiom libera kiom lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Konstruita por la amo de ŝako , ne mono</string>
   <string name="everybodyGetsAllFeaturesForFree">Ĉiuj ricevas ĉiujn trajtojn senpage</string>
-  <string name="zeroAdvertisement">Nulo anonco</string>
-  <string name="fullFeatured">Plen-trajte</string>
-  <string name="phoneAndTablet">Telefono kaj tablojdo</string>
-  <string name="bulletBlitzClassical">Kuglo , blitz , klasika</string>
-  <string name="correspondenceChess">Korespondado ŝako</string>
-  <string name="onlineAndOfflinePlay">interrete kaj eksterrete ludi</string>
   <string name="viewTheSolution">Vidi la solvon</string>
-  <string name="followAndChallengeFriends">Sekvi kaj defii amikojn</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Havebla en %s lingvo!</item>
     <item quantity="other">Havebla en %s lingvoj!</item>
   </plurals>
-  <string name="gameAnalysis">Ludanalizo</string>
   <string name="xHostsY">%1$s gastigas %2$s</string>
   <string name="xJoinsY">%1$s kuplas %2$s</string>
   <string name="xLikesY">%1$s ŝatas %2$s</string>
@@ -978,7 +968,7 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="analysisOptions">Analizaj agordoj</string>
   <string name="focusChat">Babilejo de fokuso</string>
   <string name="showHelpDialog">Montri ĉi tiun help-dialogujon</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Remalfermi vian konton</string>
+  <string name="reopenYourAccount">Remalfermi vian konton</string>
   <string name="emailAssociatedToaccount">Retpoŝtadreso, ke asociitas al la konto</string>
   <string name="sentEmailWithLink">Ni sendis retmesaĝon kun ligilo al vi.</string>
   <string name="tournamentEntryCode">Turnira enirkodo</string>
