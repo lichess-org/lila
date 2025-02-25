@@ -212,7 +212,7 @@ export function renderBoard(
       {
         attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color, 'trap-bypass': true },
       },
-      text,
+      renderPositionStyle(rank, file, text),
     );
 
   const doPiece = (rank: Ranks, file: Files): VNode => {
@@ -223,12 +223,10 @@ export function renderBoard(
       const roleCh = roleToChar(piece.role);
       const pieceStr = piece.color === 'white' ? roleCh.toUpperCase() : roleCh;
       const pieceText = renderPieceStr(pieceStr, pieceStyle, piece.color, prefixStyle);
-      const text = renderPositionStyle(rank, file, pieceText);
-      return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, text));
+      return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
     } else {
-      const letter = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
-      const text = renderPositionStyle(rank, file, letter);
-      return h(pieceWrapper, doPieceButton(rank, file, letter, 'none', text));
+      const plusOrMinus = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
+      return h(pieceWrapper, doPieceButton(rank, file, plusOrMinus, 'none', plusOrMinus));
     }
   };
 
