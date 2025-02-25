@@ -6,9 +6,9 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "swiper": "^11.1.5",
     "common": "workspace:*",
-    "lichess-pgn-viewer": "^2.4.0"
+    "lichess-pgn-viewer": "^2.4.0",
+    "swiper": "^11.2.4"
   },
   "build": {
     "bundle": "src/recap.ts"
