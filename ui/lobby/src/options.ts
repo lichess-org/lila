@@ -15,7 +15,6 @@ export const variants: Variant[] = [
   { id: 3, icon: licon.Crown, key: 'fromPosition', name: 'From Position' },
 ];
 
-
 export const variantsForGameType = (baseVariants: Variant[], gameType: GameType): Variant[] =>
   gameType === 'hook' ? baseVariants.filter(({ key }) => key !== 'fromPosition') : baseVariants;
 
