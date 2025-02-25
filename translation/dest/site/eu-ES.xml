@@ -773,23 +773,13 @@
   <string name="sessions">Saioak</string>
   <string name="revokeAllSessions">sesio guztiak itxi</string>
   <string name="playChessEverywhere">Jokatu xakean, nonnahi</string>
-  <string name="asFreeAsLichess">Debalde, lichess bezala</string>
-  <string name="builtForTheLoveOfChessNotMoney">Xakea maite dugulako sortuta, ez diruagatik.</string>
   <string name="everybodyGetsAllFeaturesForFree">Ezaugarri guztiak eskuragarri, dohain.</string>
-  <string name="zeroAdvertisement">Publizitaterik gabe</string>
-  <string name="fullFeatured">Aukeraz beteta</string>
-  <string name="phoneAndTablet">Sakelekoan zein tabletan</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasikoa</string>
-  <string name="correspondenceChess">Posta-xakea</string>
-  <string name="onlineAndOfflinePlay">Online zein offline jokatu</string>
   <string name="viewTheSolution">Erantzuna ikusi</string>
-  <string name="followAndChallengeFriends">Jarraitu eta desafio egin lagunei</string>
   <string name="noChallenges">Erronkarik ez.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s hizkuntzatan eskuragarri!</item>
     <item quantity="other">%s hizkuntzatan eskuragarri!</item>
   </plurals>
-  <string name="gameAnalysis">Partidaren analisia</string>
   <string name="xHostsY">%1$s erabiltzaileak %2$s antolatu du</string>
   <string name="xJoinsY">%1$s %2$sra sartu da</string>
   <string name="xLikesY">%1$sk %2$s gogoko du</string>
@@ -982,8 +972,8 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="analysisOptions">Analisiaren aukerak</string>
   <string name="focusChat">Eraman fokua txatera</string>
   <string name="showHelpDialog">Erakutsi laguntza leiho hau</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Berreskuratu zure kontua</string>
-  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Zure kontua itxi bazenuen baina berreskuratu nahi baduzu, hori egiteko aukera duzu.</string>
+  <string name="reopenYourAccount">Berreskuratu zure kontua</string>
+  <string name="reopenYourAccountDescription">Zure kontua itxi bazenuen baina berreskuratu nahi baduzu, hori egiteko aukera duzu.</string>
   <string name="emailAssociatedToaccount">Posta elektronikoa ondo lotu da zure kontura</string>
   <string name="sentEmailWithLink">Posta elektroniko bat bidali dizugu lotura batekin.</string>
   <string name="tournamentEntryCode">Txapelketara sartzeko kodea</string>
