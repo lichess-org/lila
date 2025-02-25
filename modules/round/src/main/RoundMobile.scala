@@ -6,7 +6,7 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 import lila.chat.Chat
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
 
@@ -34,7 +34,7 @@ final class RoundMobile(
     moretimer: Moretimer,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi,
-    bookmarkExists: lila.core.bookmark.BookmarkExists
+    bookmarkExists: lila.core.misc.BookmarkExists
 )(using Executor, lila.core.user.FlairGetMap):
 
   import RoundMobile.*

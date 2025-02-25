@@ -188,7 +188,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
     )
 
   def subscribeButtonFor(s: Streamer.WithContext)(using ctx: Context): Option[Tag] =
-    (ctx.isAuth && ctx.isnt(s.user)).option {
+    (ctx.isAuth && ctx.isnt(s.user)).option:
       val id = s"streamer-subscribe-${s.streamer.userId}"
       label(cls := "streamer-subscribe")(
         `for`          := id,
@@ -203,7 +203,6 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         ),
         trans.site.subscribe()
       )
-    }
 
   def streamerProfile(s: Streamer.WithContext)(using Translate) =
     span(cls := "streamer-profile")(userLink(s.user))

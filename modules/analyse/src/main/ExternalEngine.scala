@@ -86,9 +86,8 @@ object ExternalEngine:
 
 final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
-  private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user") {
+  private val userCache = cacheApi[UserId, List[ExternalEngine]](65_536, "externalEngine.user"):
     _.maximumSize(65_536).buildAsyncFuture(doFetchList)
-  }
   import lila.db.dsl.list
   private def doFetchList(userId: UserId) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
   private def reloadCache(userId: UserId) = userCache.put(userId, doFetchList(userId))

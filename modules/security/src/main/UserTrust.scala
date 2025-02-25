@@ -24,11 +24,6 @@ private final class UserTrustApi(
         then
           lila.mon.security.userTrust(true, "history")
           fuccess(true)
-        else if looksLikeKnownAbuser(user)
-        then
-          logger.info(s"Not trusting user $id because of suspicious metadata")
-          lila.mon.security.userTrust(false, "metadata")
-          fuccess(false)
         else
           sessionStore
             .openSessions(id, 3)
@@ -52,12 +47,4 @@ private final class UserTrustApi(
                         true
 
   private def hasHistory(user: User): Boolean =
-    user.count.lossH > 10 || user.createdSinceDays(15) || !user.plan.isEmpty || user.hasTitle
-
-  private def looksLikeKnownAbuser(user: User): Boolean = List(
-    user.count.lossH < 2,
-    user.lang.has(scalalib.model.LangTag("tr-TR")),
-    user.profile.flatMap(_.flag).has("TR"),
-    user.flair.isDefined,
-    user.id.value.takeRight(2).forall(_.isDigit)
-  ).count(identity) > 3
+    user.count.lossH > 5 || user.createdSinceDays(15) || !user.plan.isEmpty || user.hasTitle

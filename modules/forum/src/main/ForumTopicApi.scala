@@ -72,10 +72,12 @@ final private class ForumTopicApi(
         _.expireAfterWrite(1.hour).build()
     def apply(topic: ForumTopic): Fu[Option[ForumTopic]] = topic.userId.so: uid =>
       val key = (uid, topic.name)
-      cache.getIfPresent(key).so { topicRepo.coll.byId[ForumTopic](_) }.orElse {
-        cache.put(key, topic.id)
-        fuccess(none)
-      }
+      cache
+        .getIfPresent(key)
+        .so { topicRepo.coll.byId[ForumTopic](_) }
+        .orElse:
+          cache.put(key, topic.id)
+          fuccess(none)
 
   def makeTopic(
       categ: ForumCateg,
@@ -99,7 +101,7 @@ final private class ForumTopicApi(
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)).option(true)
       )
-      findDuplicate(topic).flatMap {
+      findDuplicate(topic).flatMap:
         case Some(dup) => fuccess(dup)
         case None =>
           for
@@ -120,7 +122,6 @@ final private class ForumTopicApi(
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.pub(CreatePost(post.mini))
             topic
-      }
     }
 
   def makeUblogDiscuss(
@@ -166,9 +167,8 @@ final private class ForumTopicApi(
 
   def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      (MasterGranter(_.ModerateForum) || topic.isAuthor(me.value)).so {
+      (MasterGranter(_.ModerateForum) || topic.isAuthor(me.value)).so:
         modLog.toggleCloseTopic(categ.id, topic.slug, topic.open)
-      }
     }
 
   def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using Me): Funit =

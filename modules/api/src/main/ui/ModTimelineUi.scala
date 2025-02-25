@@ -175,7 +175,7 @@ final class ModTimelineUi(helpers: Helpers)(
     frag(
       renderMod(n.from.into(ModId)),
       div(cls := "mod-timeline__text"):
-        richText(n.text)
+        richText(n.text, expandImg = false)
     )
 
   private def renderAccountCreation(user: User, at: Instant)(using Translate) =

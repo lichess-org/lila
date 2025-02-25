@@ -61,10 +61,11 @@ object OpeningQuery:
     OpeningDb.shortestLines.mapKeys(_.map(_.toLowerCase))
 
   private def byOpening(str: String, config: OpeningConfig) = {
-    OpeningDb.shortestLines.get(OpeningKey(str)).orElse {
-      val lowercase = (lila.common.String.decodeUriPath(str) | str).toLowerCase
-      openingsByLowerCaseKey.get(OpeningKey.fromName(OpeningName(lowercase)))
-    }
+    OpeningDb.shortestLines
+      .get(OpeningKey(str))
+      .orElse:
+        val lowercase = (lila.common.String.decodeUriPath(str) | str).toLowerCase
+        openingsByLowerCaseKey.get(OpeningKey.fromName(OpeningName(lowercase)))
   }.map(_.pgn).flatMap { fromPgn(_, config) }
 
   private def fromPgn(pgn: PgnMovesStr, config: OpeningConfig) = for

@@ -55,7 +55,8 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:21"
+    "-release:21",
+    "-Wimplausible-patterns"
     // "-Wunused:all",
     // "-Yprofile-enabled",
     // "-Yprofile-trace:compiler.trace"

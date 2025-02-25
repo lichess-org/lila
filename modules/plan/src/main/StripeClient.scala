@@ -133,12 +133,13 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   private val logger = lila.plan.logger.branch("stripe")
 
   private def getOne[A: Reads](url: String, queryString: (String, Matchable)*): Fu[Option[A]] =
-    get[A](url, queryString).dmap(some).recover {
-      case _: NotFoundException => None
-      case e: DeletedException =>
-        logger.warn(e.getMessage)
-        None
-    }
+    get[A](url, queryString)
+      .dmap(some)
+      .recover:
+        case _: NotFoundException => None
+        case e: DeletedException =>
+          logger.warn(e.getMessage)
+          None
 
   // private def getList[A: Reads](url: String, queryString: (String, Matchable)*): Fu[List[A]] =
   //   get[List[A]](url, queryString)(using listReader[A])

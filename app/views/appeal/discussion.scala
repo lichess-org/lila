@@ -34,7 +34,7 @@ object discussion:
       textForm: Form[?],
       modData: ModData
   )(using ctx: Context) =
-    ui.page(s"Appeal by ${modData.suspect.user.username}") {
+    ui.page(s"Appeal by ${modData.suspect.user.username}"):
       main(cls := "box box-pad appeal")(
         renderAppeal(appeal, textForm, Left(modData)),
         div(cls := "appeal__actions", id := "appeal-actions")(
@@ -66,7 +66,6 @@ object discussion:
           )
         )
       )
-    }
 
   private def renderAppeal(
       appeal: Appeal,

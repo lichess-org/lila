@@ -129,6 +129,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       teams: List[LightTeam],
       tour: Option[Tournament]
   )(using ctx: Context)(using FormPrefix) =
+    val disabledAfterStart = tour.exists(!_.isCreated)
     form3.fieldset("Entry conditions", toggle = tour.exists(_.conditions.list.nonEmpty).some)(
       errMsg(form.prefix("conditions")),
       form3.split(
@@ -157,7 +158,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).so {
           gatheringFormUi.titled(form.prefix("conditions.titled"))
         },
-        gatheringFormUi.bots(form.prefix("conditions.bots"))
+        gatheringFormUi.bots(form.prefix("conditions.bots"), disabledAfterStart)
       )
     )
 

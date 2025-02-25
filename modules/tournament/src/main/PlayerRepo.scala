@@ -19,6 +19,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       "uid" -> userId
     )
   private val selectActive   = $doc("w".$ne(true))
+  private val selectBot      = $doc("bot" -> true)
   private val selectWithdraw = $doc("w" -> true)
   private val bestSort       = $doc("m" -> -1)
 
@@ -86,7 +87,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
             )
           )
         )
-      .map {
+      .map:
         _.flatMap: doc =>
           for
             teamId      <- doc.getAsOpt[TeamId]("_id")
@@ -99,18 +100,15 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
           yield new RankedTeam(0, teamId, leaders)
         .sorted.mapWithIndex: (rt, pos) =>
           rt.updateRank(pos + 1)
-      }
-      .map { ranked =>
+      .map: ranked =>
         if ranked.sizeIs == battle.teams.size then ranked
         else
           ranked ::: battle.teams
-            .foldLeft(List.empty[RankedTeam]) {
+            .foldLeft(List.empty[RankedTeam]):
               case (missing, team) if !ranked.exists(_.teamId == team) =>
                 new RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil, 0) :: missing
               case (acc, _) => acc
-            }
             .reverse
-      }
 
   // very expensive
   private[tournament] def teamInfo(
@@ -215,17 +213,19 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
   ) = prev match
     case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
     case Some(_)               => funit
-    case None                  => coll.insert.one(Player.make(tourId, user, team))
+    case None                  => coll.insert.one(Player.make(tourId, user, team, user.user.isBot))
 
   def withdraw(tourId: TourId, userId: UserId) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: TourId): Fu[List[Player]] =
-    coll.list[Player]:
-      selectTour(tourId) ++ $doc("m".$gt(0))
+    coll.list[Player](selectTour(tourId) ++ $doc("m".$gt(0)))
 
   private[tournament] def nbActivePlayers(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
+
+  private[tournament] def activeBotIds(tourId: TourId): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("uid", selectTour(tourId) ++ selectActive ++ selectBot)
 
   def winner(tourId: TourId): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).one[Player]
@@ -243,11 +243,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
         List(
           Match(selectTour(tourId)),
           Sort(Descending("m")),
-          Group(BSONNull)(
-            "all" -> Push(
-              $doc("$concat" -> $arr("$_id", "$uid"))
-            )
-          )
+          Group(BSONNull)("all" -> Push($doc("$concat" -> $arr("$_id", "$uid"))))
         )
       .headOption
       .map:
@@ -287,11 +283,10 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       .result
 
   def pairByTourAndUserIds(tourId: TourId, id1: UserId, id2: UserId): Fu[Option[(Player, Player)]] =
-    byTourAndUserIds(tourId, List(id1, id2)).map {
+    byTourAndUserIds(tourId, List(id1, id2)).map:
       case List(p1, p2) if p1.is(id1) && p2.is(id2) => Some(p1 -> p2)
       case List(p1, p2) if p1.is(id2) && p2.is(id1) => Some(p2 -> p1)
       case _                                        => none
-    }
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players

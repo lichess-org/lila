@@ -14,25 +14,27 @@ final class ExplorerImporter(
   private val masterGameEncodingFixedAt = instantOf(2016, 3, 9, 0, 0)
 
   def apply(id: GameId): Fu[Option[Game]] =
-    gameRepo.game(id).flatMap {
-      case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) =>
-        fuccess(game.some)
-      case _ =>
-        for
-          _   <- gameRepo.remove(id)
-          pgn <- fetchPgn(id)
-          game <- pgn.so: pgn =>
-            gameImporter
-              .importAsGame(
-                pgn,
-                id.some
-              )(using UserId.lichessAsMe.some)
-              .map(some)
-        yield game
-    }
+    gameRepo
+      .game(id)
+      .flatMap:
+        case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) =>
+          fuccess(game.some)
+        case _ =>
+          for
+            _   <- gameRepo.remove(id)
+            pgn <- fetchPgn(id)
+            game <- pgn.so: pgn =>
+              gameImporter
+                .importAsGame(
+                  pgn,
+                  id.some
+                )(using UserId.lichessAsMe.some)
+                .map(some)
+          yield game
 
   private def fetchPgn(id: GameId): Fu[Option[PgnStr]] =
-    ws.url(s"$endpoint/masters/pgn/$id").get().map {
-      case res if res.status == 200 => PgnStr.from(res.body[String].some)
-      case _                        => None
-    }
+    ws.url(s"$endpoint/masters/pgn/$id")
+      .get()
+      .map:
+        case res if res.status == 200 => PgnStr.from(res.body[String].some)
+        case _                        => None

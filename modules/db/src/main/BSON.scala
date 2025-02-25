@@ -27,10 +27,8 @@ abstract class BSONReadOnly[T] extends BSONDocumentReader[T]:
 
   def reads(reader: Reader): T
 
-  def readDocument(doc: Bdoc) =
-    Try {
-      reads(new Reader(doc))
-    }
+  def readDocument(doc: Bdoc) = Try:
+    reads(new Reader(doc))
 
   def read(doc: Bdoc) = readDocument(doc).get
 

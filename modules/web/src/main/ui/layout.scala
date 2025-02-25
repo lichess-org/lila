@@ -172,13 +172,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
 
-  def hrefLangs(path: LangPath) = raw {
+  def hrefLangs(path: LangPath) = raw:
     val pathEnd = if path.value == "/" then "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
       popularAlternateLanguages.map { l =>
         hrefLang(l.value, s"/$l$pathEnd")
       }.mkString
-  }
 
   def pageZoom(using ctx: Context): Int = {
     def oldZoom = ctx.req.session.get("zoom2").flatMap(_.toIntOption).map(_ - 100)

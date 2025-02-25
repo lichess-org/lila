@@ -32,9 +32,8 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor, Sch
   def receive: Receive =
 
     case work: Work if !running(work.id) =>
-      execute(work).addEffectAnyway {
+      execute(work).addEffectAnyway:
         self ! Done(work.id)
-      }
       running = running + work.id
 
     case work: Work => // already executing similar work

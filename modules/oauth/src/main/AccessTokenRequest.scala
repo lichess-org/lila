@@ -78,9 +78,8 @@ object AccessTokenRequest:
           val prefix = "Basic "
           Option.when(authorization.startsWith(prefix))(authorization.stripPrefix(prefix))
         .flatMap(base64.decode)
-        .flatMap {
+        .flatMap:
           _.split(":", 2) match
             case Array(clientId, clientSecret) =>
               Some(BasicAuth(ClientId(clientId), LegacyClientApi.ClientSecret(clientSecret)))
             case _ => None
-        }

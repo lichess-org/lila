@@ -89,12 +89,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def teacherCloseAccount(user: UserId)(using me: Me) = add:
     Modlog(me, user.some, Modlog.teacherCloseAccount)
 
-  def selfCloseAccount(user: UserId, openReports: List[Report]) = add:
+  def selfCloseAccount(user: UserId, forever: Boolean, openReports: List[Report]) = add:
     Modlog(
       UserId.lichess.into(ModId),
       user.some,
       Modlog.selfCloseAccount,
-      details = openReports.map(r => s"${r.room.name} report").mkString(", ").some.filter(_.nonEmpty)
+      details = {
+        forever.so("forever ") + openReports.map(r => s"${r.room.name} report").mkString(", ")
+      }.some.filter(_.nonEmpty)
     )
 
   def closedByMod(user: User): Fu[Boolean] =

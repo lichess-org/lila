@@ -59,6 +59,8 @@
   <string name="intermezzoDescription">Eit trekk som kjem før det venta trekket og som utgjer eit trugsmål motspelaren straks må svare på.</string>
   <string name="killBoxMate">Kassematt</string>
   <string name="killBoxMateDescription">Eit tårn står ved sida av motspelarens konge og er støtta av ei dronning som i tillegg stengjer fluktfelta til kongen. Tårnet og dronninga fangar motspelarkongen i ei 3x3 «kasse».</string>
+  <string name="vukovicMate">Vuković-matt</string>
+  <string name="vukovicMateDescription">Tårn og springar samarbeider om å sette kongen matt. Tårnet gjev matt med støtte frå ein tredje brikke, medan springaren blokkerer fluktfelta til kongen.</string>
   <string name="knightEndgame">Springarsluttspel</string>
   <string name="knightEndgameDescription">Sluttspel med berre springarar og bønder.</string>
   <string name="long">Lang taktikkoppgåve</string>

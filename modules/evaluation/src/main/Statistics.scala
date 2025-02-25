@@ -50,14 +50,13 @@ object Statistics:
   private val instantaneous = Centis(0)
 
   def slidingMoveTimesCvs(pov: Pov): Option[Iterator[Float]] =
-    moveTimes(pov).so {
+    moveTimes(pov).so:
       _.iterator
         .sliding(14)
         .map(_.toList.sorted(intOrdering).drop(1).dropRight(1))
         .filter(_.count(instantaneous ==) < 4)
         .flatMap(moveTimeCoefVariationNoDrop)
         .some
-    }
 
   def moderatelyConsistentMoveTimes(pov: Pov): Boolean =
     moveTimeCoefVariation(pov).so { cvIndicatesModeratelyFlatTimes(_) }

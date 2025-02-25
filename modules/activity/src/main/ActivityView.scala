@@ -8,7 +8,6 @@ import lila.core.rating.Score
 import lila.core.simul.Simul
 import lila.core.swiss.IdName as SwissIdName
 import lila.core.ublog.UblogPost
-import lila.rating.PerfType
 
 case class ActivityView(
     interval: TimeInterval,

@@ -172,9 +172,8 @@ object RatingAt:
       .filter: r =>
         cur.forall: c =>
           r.value.compare(c.int.value) == comp
-      .map {
+      .map:
         RatingAt(_, pov.game.movedAt, pov.gameId)
-      }
       .orElse(cur)
 
 import reactivemongo.api.bson.Macros.Annotations.Key

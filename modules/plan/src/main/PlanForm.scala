@@ -42,9 +42,10 @@ object PlanForm:
 
     def country = Country.from(countryCode)
 
-    def money = CurrencyApi.currencyOption(currencyCode).map {
-      Money(gross, _)
-    }
+    def money = CurrencyApi
+      .currencyOption(currencyCode)
+      .map:
+        Money(gross, _)
 
     val (userId, giftTo) = custom.so(_.trim) match
       case s"$userId $giftTo" => (UserId(userId).some, UserId(giftTo).some)
