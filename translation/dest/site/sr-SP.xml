@@ -788,23 +788,13 @@
   <string name="sessions">Сесије</string>
   <string name="revokeAllSessions">опозвати све сесије</string>
   <string name="playChessEverywhere">Играј шах свуда</string>
-  <string name="asFreeAsLichess">Бесплатно као лицхесс</string>
-  <string name="builtForTheLoveOfChessNotMoney">Од љубави до шаха, а не од новца</string>
   <string name="everybodyGetsAllFeaturesForFree">Сви добијају све функције бесплатно</string>
-  <string name="zeroAdvertisement">Без огласа</string>
-  <string name="fullFeatured">Потпуно опремљен</string>
-  <string name="phoneAndTablet">Телефон или таблет</string>
-  <string name="bulletBlitzClassical">Булит, Блиц, Класична</string>
-  <string name="correspondenceChess">Дописни шах</string>
-  <string name="onlineAndOfflinePlay">Играјте онлине и оффлине</string>
   <string name="viewTheSolution">Погледај решење</string>
-  <string name="followAndChallengeFriends">Прати и изазови пријатеља</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно у %s језику!</item>
     <item quantity="few">Доступно у %s језика!</item>
     <item quantity="other">Доступно у %s језика!</item>
   </plurals>
-  <string name="gameAnalysis">Анализа партије</string>
   <string name="xHostsY">%1$s домаћини %2$s</string>
   <string name="xJoinsY">%1$s учествује у %2$s</string>
   <string name="xLikesY">%1$s каже да му се свиђа %2$s</string>
@@ -961,7 +951,7 @@
   <string name="analysisOptions">Опције при анализи</string>
   <string name="focusChat">Пређи на чет</string>
   <string name="showHelpDialog">Прикажи овај прозор за помоћ</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Поново отвори свој налог</string>
+  <string name="reopenYourAccount">Поново отвори свој налог</string>
   <string name="emailAssociatedToaccount">Мејл адреса повезана са налогом</string>
   <string name="sentEmailWithLink">Послали смо ти мејл са линком.</string>
   <string name="tournamentEntryCode">Код за приступ турниру</string>
