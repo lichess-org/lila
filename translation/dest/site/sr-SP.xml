@@ -22,8 +22,8 @@
   <string name="asBlack">као црни</string>
   <string name="randomColor">Насумична боја</string>
   <string name="createAGame">Започни нову партију</string>
-  <string name="whiteIsVictorious">Бели је победник</string>
-  <string name="blackIsVictorious">Црни је победник</string>
+  <string name="whiteIsVictorious">Бели је поебдио</string>
+  <string name="blackIsVictorious">Црни је победио</string>
   <string name="youPlayTheWhitePieces">Играте са белим фигурама</string>
   <string name="youPlayTheBlackPieces">Играте са црним фигурама</string>
   <string name="itsYourTurn">Ти си на потезу!</string>
