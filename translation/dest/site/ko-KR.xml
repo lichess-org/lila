@@ -732,22 +732,12 @@
   <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
-  <string name="asFreeAsLichess">Lichess처럼 무료예요</string>
-  <string name="builtForTheLoveOfChessNotMoney">오직 체스에 대한 열정으로 만들어졌습니다</string>
   <string name="everybodyGetsAllFeaturesForFree">모두가 모든 기능을 무료로 이용할 수 있습니다</string>
-  <string name="zeroAdvertisement">광고가 없습니다</string>
-  <string name="fullFeatured">모든 기능을 지원합니다</string>
-  <string name="phoneAndTablet">스마트폰과 태블릿 지원</string>
-  <string name="bulletBlitzClassical">불릿, 블리츠, 클래식 방식 지원</string>
-  <string name="correspondenceChess">통신 체스</string>
-  <string name="onlineAndOfflinePlay">온라인/오프라인 게임 모두 지원</string>
   <string name="viewTheSolution">정답 보기</string>
-  <string name="followAndChallengeFriends">친구를 팔로우하고 도전하기</string>
   <string name="noChallenges">도전 없음.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s개의 언어를 지원합니다!</item>
   </plurals>
-  <string name="gameAnalysis">게임 분석기</string>
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
   <string name="xJoinsY">%2$s가 %1$s에 참여했습니다.</string>
   <string name="xLikesY">%1$s(이)가 %2$s를 좋아합니다.</string>
@@ -938,8 +928,8 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="analysisOptions">분석 옵션</string>
   <string name="focusChat">채팅에 포커스 주기</string>
   <string name="showHelpDialog">이 도움말 보기</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">계정 재활성화</string>
-  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">계정을 폐쇄한 후 마음이 바뀌었다면, 계정을 다시 활성화할 수 있는 기회가 한 번 있습니다.</string>
+  <string name="reopenYourAccount">계정 재활성화</string>
+  <string name="reopenYourAccountDescription">계정을 폐쇄한 후 마음이 바뀌었다면, 계정을 다시 활성화할 수 있는 기회가 한 번 있습니다.</string>
   <string name="emailAssociatedToaccount">계정에 등록된 이메일 주소</string>
   <string name="sentEmailWithLink">링크가 포함된 이메일을 보냈습니다.</string>
   <string name="tournamentEntryCode">토너먼트 입장 코드</string>
