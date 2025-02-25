@@ -19,8 +19,10 @@ object BuildSettings {
       Compile / doc / sources                := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
       Compile / packageSrc / publishArtifact := false,
-      Compile / run / fork                   := true,
-      Compile / run / javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
+      Compile / run / fork                   := true,  // Ensure Forking for Run Task
+      Compile / run / javaOptions ++= Seq("-Xms128m", "-Xmx512m"), // Increased Memory Allocation
+      Test / fork                            := true,  // Ensure Forking for Test Task
+      Test / javaOptions ++= Seq("-Xms128m", "-Xmx512m") // Prevents Memory Issues in Testing
     )
 
   def baseLibs: Seq[ModuleID] = Seq(
@@ -42,51 +44,42 @@ object BuildSettings {
     apacheText,
     shogi,
     scaffeine,
-    autoconfig,
+    autoconfig
   )
 
-  def extraLibs(name: String) =
-    name match {
-      case "api" => Seq(hasher, galimatias)
-      case "common" => {
-        Seq(play.jodaForms, scalatags, kamon.core) ++ flexmark.bundle
-      }
-      case "db"       => Seq(hasher, scrimage)
-      case "i18n"     => Seq(scalatags)
-      case "memo"     => Seq(akka.testkit)
-      case "oauth"    => Seq(galimatias, hasher)
-      case "prismic"  => Seq(play.jsonJoda, galimatias)
-      case "push"     => Seq(googleOAuth)
-      case "security" => Seq(hasher, maxmind, uaparser, scalatags)
-      case "socket"   => Seq(lettuce)
-      case "user"     => Seq(hasher)
-      case _          => Seq.empty
-    }
+  def extraLibs(name: String): Seq[ModuleID] = name match {
+    case "api"       => Seq(hasher, galimatias)
+    case "common"    => Seq(play.jodaForms, scalatags, kamon.core) ++ flexmark.bundle
+    case "db"        => Seq(hasher, scrimage)
+    case "i18n"      => Seq(scalatags)
+    case "memo"      => Seq(akka.testkit)
+    case "oauth"     => Seq(galimatias, hasher)
+    case "prismic"   => Seq(play.jsonJoda, galimatias)
+    case "push"      => Seq(googleOAuth)
+    case "security"  => Seq(hasher, maxmind, uaparser, scalatags)
+    case "socket"    => Seq(lettuce)
+    case "user"      => Seq(hasher)
+    case _           => Seq.empty
+  }
 
-  def rootLibs = baseLibs ++ Seq(scalatags, kamon.influxdb, kamon.metrics, kamon.prometheus)
+  def rootLibs: Seq[ModuleID] = baseLibs ++ Seq(scalatags, kamon.influxdb, kamon.metrics, kamon.prometheus)
 
-  def module(
-      name: String,
-      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
-  ) =
-    Project(
-      name,
-      file("modules/" + name),
-    ).dependsOn(deps: _*)
+  def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]]): Project =
+    Project(name, file("modules/" + name))
+      .dependsOn(deps: _*)
       .settings(
         libraryDependencies ++= baseLibs ++ extraLibs(name),
         buildSettings,
-        srcMain,
+        srcMain
       )
 
   val srcMain = Seq(
     Compile / scalaSource := (Compile / sourceDirectory).value,
-    Test / scalaSource    := (Test / sourceDirectory).value,
+    Test / scalaSource    := (Test / sourceDirectory).value
   )
 
   val compilerOptions = Seq(
-    "-encoding",
-    "utf-8",
+    "-encoding", "utf-8",
     "-explaintypes",
     "-feature",
     "-language:higherKinds",
@@ -95,7 +88,6 @@ object BuildSettings {
     "-Ymacro-annotations",
     "-unchecked",
     "-Xcheckinit",
-    // Linting options
     "-Xlint:adapted-args",
     "-Xlint:constant",
     "-Xlint:delayedinit-select",
@@ -110,7 +102,6 @@ object BuildSettings {
     "-Xlint:private-shadow",
     "-Xlint:stars-align",
     "-Xlint:type-parameter-shadow",
-    // Warning options
     "-Wdead-code",
     "-Wextra-implicit",
     "-Wunused:imports",
@@ -121,7 +112,6 @@ object BuildSettings {
     "-Wunused:implicits",
     "-Wmacros:after",
     "-Wvalue-discard",
-    "-Werror",
+    "-Werror"
   )
-
 }
