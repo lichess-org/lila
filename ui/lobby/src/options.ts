@@ -15,19 +15,6 @@ export const variants: Variant[] = [
   { id: 3, icon: licon.Crown, key: 'fromPosition', name: 'From Position' },
 ];
 
-export const variantsBlindMode: Variant[] = variants.filter(({ key }: Variant) =>
-  [
-    'standard',
-    'chess960',
-    'kingOfTheHill',
-    'threeCheck',
-    'fromPosition',
-    'antichess',
-    'atomic',
-    'racingKings',
-    'horde',
-  ].includes(key),
-);
 
 export const variantsForGameType = (baseVariants: Variant[], gameType: GameType): Variant[] =>
   gameType === 'hook' ? baseVariants.filter(({ key }) => key !== 'fromPosition') : baseVariants;
