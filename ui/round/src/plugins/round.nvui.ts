@@ -163,7 +163,7 @@ export function initModule(): NvuiPlugin {
                 selectionHandler(() => ctrl.data.opponent.color, selectSound),
               );
               $buttons.on('keydown', (e: KeyboardEvent) => {
-                if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPev(ctrl)(e);
+                if (e.shiftKey && e.key.match(/^[ad]$/i)) nextOrPrev(ctrl)(e);
                 else if (['o', 'l', 't'].includes(e.key)) boardCommandsHandler()(e);
                 else if (e.key.startsWith('Arrow')) arrowKeyHandler(ctrl.data.player.color, borderSound)(e);
                 else if (e.key === 'c')
@@ -392,7 +392,7 @@ function doAndRedraw(ctrl: RoundController, f: (ctrl: RoundController) => void) 
   ctrl.redraw();
 }
 
-function nextOrPev(ctrl: RoundController) {
+function nextOrPrev(ctrl: RoundController) {
   return (e: KeyboardEvent) => {
     if (e.key === 'A') doAndRedraw(ctrl, prev);
     else if (e.key === 'D') doAndRedraw(ctrl, next);

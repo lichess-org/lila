@@ -91,20 +91,20 @@ export function positionSetting(): Setting<PositionStyle> {
   });
 }
 
-const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) =>
+const renderPieceStyle = (ch: string, pieceStyle: PieceStyle) =>
   pieceStyle === 'letter'
-    ? piece.toLowerCase()
+    ? ch.toLowerCase()
     : pieceStyle === 'white uppercase letter'
-      ? piece
+      ? ch
       : pieceStyle === 'name'
-        ? charToRole(piece)!
-        : `${piece.replace('N', 'K').replace('n', 'k')}${charToRole(piece)!.slice(1)}`;
+        ? charToRole(ch)!
+        : `${ch.replace('N', 'K').replace('n', 'k')}${charToRole(ch)!.slice(1)}`;
 
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
   prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
 
-const renderPieceStr = (piece: string, pieceStyle: PieceStyle, c: Color, prefixStyle: PrefixStyle): string =>
-  `${renderPrefixStyle(c, prefixStyle)} ${renderPieceStyle(piece, pieceStyle)}`;
+const renderPieceStr = (ch: string, pieceStyle: PieceStyle, c: Color, prefixStyle: PrefixStyle): string =>
+  `${renderPrefixStyle(c, prefixStyle)} ${renderPieceStyle(c === 'white' ? ch.toUpperCase() : ch, pieceStyle)}`;
 
 export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
   !san
@@ -221,8 +221,7 @@ export function renderBoard(
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
       const roleCh = roleToChar(piece.role);
-      const pieceStr = piece.color === 'white' ? roleCh.toUpperCase() : roleCh;
-      const pieceText = renderPieceStr(pieceStr, pieceStyle, piece.color, prefixStyle);
+      const pieceText = renderPieceStr(roleCh, pieceStyle, piece.color, prefixStyle);
       return h(pieceWrapper, doPieceButton(rank, file, roleCh, piece.color, pieceText));
     } else {
       const plusOrMinus = (key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+';
@@ -231,7 +230,7 @@ export function renderBoard(
   };
 
   const doRank = (pov: Color, rank: Ranks): VNode => {
-    const rankElements = [];
+    const rankElements: VNode[] = [];
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
     rankElements.push(...files.map(file => doPiece(rank, file)));
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
@@ -410,14 +409,13 @@ export function lastCapturedCommandHandler(
 export function possibleMovesHandler(yourColor: Color, cg: CgApi, variant: VariantKey, steps: RoundStep[]) {
   return (ev: KeyboardEvent): void => {
     if (ev.key.toLowerCase() !== 'm') return;
-    const $boardLive = $('.boardstatus');
-
     const pos = keyFromAttrs(ev.target as HTMLElement);
     if (!pos) return;
+    const $boardLive = $('.boardstatus');
 
     // possible inefficient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
     // if it is your turn
-    const playThroughToFinalDests = () => {
+    const playThroughToFinalDests = (): Dests => {
       {
         const fromSetup = setupPosition(lichessRules(variant), parseFen(steps[0].fen).unwrap()).unwrap();
         steps.forEach(s => {
