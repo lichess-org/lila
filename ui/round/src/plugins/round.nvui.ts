@@ -29,6 +29,7 @@ import {
   inputToLegalUci,
   renderPockets,
   type DropMove,
+  pocketsStr,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -70,7 +71,7 @@ export function initModule(): NvuiPlugin {
         nvui = ctrl.nvui!,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        pockets = ctrl.data.crazyhouse?.pockets,
+        pockets = step.crazy?.pockets,
         clocks = [anyClock(ctrl, 'bottom'), anyClock(ctrl, 'top')];
       if (!ctrl.chessground) {
         ctrl.setChessground(
@@ -206,7 +207,9 @@ export function initModule(): NvuiPlugin {
           'p',
           [
             'Type these commands in the move input.',
-            ...inputCommands.map(cmd => `${cmd.cmd}${cmd.alt ? ` or ${cmd.alt}` : ''}: ${cmd.help}`),
+            ...inputCommands
+              .filter(c => !c.invalid?.(ctrl))
+              .map(cmd => `${cmd.cmd}${cmd.alt ? ` or ${cmd.alt}` : ''}: ${cmd.help}`),
           ].reduce(addBreaks, []),
         ),
         ...boardCommands(),
@@ -262,12 +265,27 @@ function createSubmitHandler(
   };
 }
 
-const inputCommands: {
-  cmd: string;
+type Command =
+  | 'clock'
+  | 'last'
+  | 'abort'
+  | 'resign'
+  | 'draw'
+  | 'takeback'
+  | 'p'
+  | 's'
+  | 'opponent'
+  | 'pocket';
+
+type InputCommand = {
+  cmd: Command;
   help: string;
   cb: (notify: (txt: string) => void, ctrl: RoundController, style: MoveStyle, input: string) => void;
   alt?: string;
-}[] = [
+  invalid?: (ctrl: RoundController) => boolean;
+};
+
+const inputCommands: InputCommand[] = [
   {
     cmd: 'clock',
     help: i18n.keyboardMove.readOutClocks,
@@ -315,6 +333,22 @@ const inputCommands: {
     help: i18n.keyboardMove.readOutOpponentName,
     cb: (notify, ctrl) => notify(playerText(ctrl)),
     alt: 'o',
+  },
+  {
+    cmd: 'pocket',
+    help: 'Read out pockets for white or black. Example: "pocket black"',
+    cb: (notify, ctrl, _, input) => {
+      const pockets = ctrl.data?.crazyhouse?.pockets;
+      const color = input.split(' ')?.[1]?.trim();
+      return notify(
+        pockets
+          ? color
+            ? pocketsStr(color === 'white' ? pockets[0] : pockets[1]) || i18n.site.none
+            : 'Expected format: pocket [white|black]'
+          : 'Command only available in crazyhouse',
+      );
+    },
+    invalid: ctrl => ctrl.data.game.variant.key !== 'crazyhouse',
   },
 ];
 

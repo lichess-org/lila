@@ -28,6 +28,7 @@ import {
   type DropMove,
   possibleMovesHandler,
   renderPockets,
+  pocketsStr,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -237,7 +238,9 @@ export function initModule(ctrl: AnalyseController): NvuiPlugin {
             'p',
             [
               'Type these commands in the command input.',
-              ...inputCommands.map(command => `${command.cmd}: ${command.help}`),
+              ...inputCommands
+                .filter(c => !c.invalid?.(ctrl))
+                .map(command => `${command.cmd}: ${command.help}`),
             ].reduce(addBreaks, []),
           ),
         ]),
@@ -322,7 +325,7 @@ function onSubmit(
     const input = castlingFlavours(($input.val() as string).trim());
     // Allow commands with/without a leading '/'
     const command = getCommand(input) || getCommand(input.slice(1));
-    if (command) command.cb(ctrl, notify, style(), input);
+    if (command && !command.invalid?.(ctrl)) command.cb(ctrl, notify, style(), input);
     else {
       const uciOrDrop = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
       if (!uciOrDrop || (typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)))
@@ -333,11 +336,15 @@ function onSubmit(
   };
 }
 
-const inputCommands: {
-  cmd: string;
+type Command = 'p' | 's' | 'eval' | 'best' | 'prev' | 'next' | 'prev line' | 'next line' | 'pocket';
+type InputCommand = {
+  cmd: Command;
   help: string;
   cb: (ctrl: AnalyseController, notify: (txt: string) => void, style: MoveStyle, input: string) => void;
-}[] = [
+  invalid?: (ctrl: AnalyseController) => boolean;
+};
+
+const inputCommands: InputCommand[] = [
   {
     cmd: 'p',
     help: commands.piece.help,
@@ -381,6 +388,22 @@ const inputCommands: {
     cmd: 'next line',
     help: 'switch to the next variation',
     cb: ctrl => doAndRedraw(ctrl, jumpNextLine),
+  },
+  {
+    cmd: 'pocket',
+    help: 'Read out pockets for white or black. Example: "pocket black"',
+    cb: (ctrl, notify, _, input) => {
+      const pockets = ctrl.node.crazy?.pockets;
+      const color = input.split(' ')?.[1]?.trim();
+      return notify(
+        pockets
+          ? color
+            ? pocketsStr(color === 'white' ? pockets[0] : pockets[1]) || i18n.site.none
+            : 'Expected format: pocket [white|black]'
+          : 'Command only available in crazyhouse',
+      );
+    },
+    invalid: ctrl => ctrl.data.game.variant.key !== 'crazyhouse',
   },
 ];
 

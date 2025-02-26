@@ -151,7 +151,7 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
 export const renderPockets = (pockets: Tree.NodeCrazy['pockets']): VNode[] =>
   COLORS.map((color, i) => h('h2', `${color} pocket: ${pocketsStr(pockets[i])}`));
 
-const pocketsStr = (pocket: Tree.CrazyPocket): string =>
+export const pocketsStr = (pocket: Tree.CrazyPocket): string =>
   Object.entries(pocket)
     .map(([role, count]) => `${role}: ${count}`)
     .join(', ');
