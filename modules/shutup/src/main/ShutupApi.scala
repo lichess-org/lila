@@ -86,7 +86,7 @@ final class ShutupApi(
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
     (analysed.critical || userRecord.reports.exists(_.unacceptable)).so:
-      val text = (analysed.critical.so("Critical comm alert\n")) ++ {
+      val text = analysed.critical.so("Critical comm alert\n") ++ {
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }

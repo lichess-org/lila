@@ -6,7 +6,7 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.shutup.Analyser
 
-def publicLineSource(source: lila.core.shutup.PublicSource)(using Translate): Frag = source match
+def publicLineSource(source: lila.core.shutup.PublicSource)(using Translate): Tag = source match
   case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
   case PublicSource.Simul(id)      => views.simul.ui.link(id)
   case PublicSource.Team(id)       => teamLink(id)
@@ -80,6 +80,27 @@ def communication(
           )
         ),
         views.mod.timeline.renderComm(timeline),
+        publicLines.nonEmpty.option:
+          frag(
+            h2("Recent public chats"),
+            div(cls := "player_chats")(
+              publicLines
+                .groupBy(_.from)
+                .toList
+                .map: (source, lines) =>
+                  div(cls := "game")(
+                    publicLineSource(source)(cls := "title"),
+                    div(cls := "chat"):
+                      lines.map: line =>
+                        div(cls := "line author")(
+                          userIdLink(u.some, withOnline = false, withTitle = false),
+                          nbsp,
+                          span(cls := "message")(Analyser.highlightBad(line.text))
+                        )
+                  )
+            )
+          )
+        ,
         priv.option(
           frag(
             h2("Recent private chats"),
@@ -104,7 +125,7 @@ def communication(
                         div(
                           cls := List(
                             "line"   -> true,
-                            "author" -> (UserStr(line.author).is(u))
+                            "author" -> UserStr(line.author).is(u)
                           )
                         )(
                           userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
