@@ -96,7 +96,7 @@ object StudyPgnImport:
       comments: List[ChessComment],
       annotator: Option[Comment.Author]
   ): (Shapes, Option[Centis], Option[Centis], Comments) =
-    comments.foldLeft((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))) {
+    comments.foldLeft((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))):
       case ((shapes, clock, emt, comments), txt) =>
         CommentParser(txt) match
           case CommentParser.ParsedComment(s, c, e, str) =>
@@ -109,7 +109,6 @@ object StudyPgnImport:
                 case com =>
                   comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
             )
-    }
 
   private def makeBranches(
       context: Context,
@@ -183,10 +182,9 @@ object StudyPgnImport:
   private def removeDuplicatedChildrenFirstNode(children: Branches): Branches =
     children.first match
       case Some(main) if children.variations.exists(_.id == main.id) =>
-        Branches {
+        Branches:
           main +: children.variations.flatMap { node =>
             if node.id == main.id then node.children.nodes
             else List(node)
           }
-        }
       case _ => children

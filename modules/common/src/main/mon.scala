@@ -6,6 +6,7 @@ import kamon.tag.TagSet
 
 import lila.core.id.*
 import lila.core.net.*
+import lila.core.userId.UserName
 
 object mon:
 
@@ -234,9 +235,6 @@ object mon:
       def passwordResetRequest(s: String) = counter("user.auth.passwordResetRequest").withTag("type", s)
       def passwordResetConfirm(s: String) = counter("user.auth.passwordResetConfirm").withTag("type", s)
 
-      def magicLinkRequest(s: String) = counter("user.auth.magicLinkRequest").withTag("type", s)
-      def magicLinkConfirm(s: String) = counter("user.auth.magicLinkConfirm").withTag("type", s)
-
       def reopenRequest(s: String) = counter("user.auth.reopenRequest").withTag("type", s)
       def reopenConfirm(s: String) = counter("user.auth.reopenConfirm").withTag("type", s)
     object oauth:
@@ -291,6 +289,15 @@ object mon:
       timer("relay.http.get").withTags:
         tags("code" -> code.toLong, "host" -> host, "etag" -> etag, "proxy" -> proxy.getOrElse("none"))
     val dedup = counter("relay.fetch.dedup").withoutTags()
+    def push(name: String, user: UserName, client: String, moves: Int, errors: Int) =
+      counter("relay.push").withTags:
+        tags(
+          "name"   -> name,
+          "user"   -> user,
+          "client" -> client,
+          "moves"  -> moves.toLong,
+          "errors" -> errors.toLong
+        )
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)

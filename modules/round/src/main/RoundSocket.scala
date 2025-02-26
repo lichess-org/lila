@@ -334,14 +334,15 @@ object RoundSocket:
       val reader: P.In.Reader =
         case P.RawMsg("r/ons", raw) =>
           PlayerOnlines:
-            P.In.commas(raw.args).map {
-              _.splitAt(GameId.size) match
-                case (gameId, cs) =>
-                  (
-                    GameId(gameId),
-                    cs.nonEmpty.option(RoomCrowd(cs(0) == '+', cs(1) == '+'))
-                  )
-            }
+            P.In
+              .commas(raw.args)
+              .map:
+                _.splitAt(GameId.size) match
+                  case (gameId, cs) =>
+                    (
+                      GameId(gameId),
+                      cs.nonEmpty.option(RoomCrowd(cs(0) == '+', cs(1) == '+'))
+                    )
           .some
         case P.RawMsg("r/do", raw) =>
           raw.get(2) { case Array(fullId, payload) =>
@@ -423,9 +424,8 @@ object RoundSocket:
         else
           e.only
             .map(_.fold('w', 'b'))
-            .orElse {
+            .orElse:
               e.moveBy.map(_.fold('W', 'B'))
-            }
             .foreach(flags.+=)
         if e.troll then flags += 't'
         if flags.isEmpty then flags += '-'

@@ -45,7 +45,8 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
         )
       .map:
         _.flatMap: doc =>
-          doc.getAsOpt[UserId]("_id").map {
-            _ -> ByColor(~doc.int("white"), ~doc.int("black"))
-          }
+          doc
+            .getAsOpt[UserId]("_id")
+            .map:
+              _ -> ByColor(~doc.int("white"), ~doc.int("black"))
         .toMap

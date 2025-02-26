@@ -1841,6 +1841,8 @@ interface I18n {
     learnChessRules: string;
     /** Learn from %1$s and %2$s. */
     learnFromXAndY: I18nFormat;
+    /** Log in as %s */
+    logInAsUsername: I18nFormat;
     /** Play in tournaments. */
     playInTournaments: string;
     /** Play opponents from around the world. */

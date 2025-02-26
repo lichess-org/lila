@@ -21,9 +21,8 @@ final private[video] class VideoApi(
   private def videoViews(userOption: Option[UserId])(videos: Seq[Video]): Fu[Seq[VideoView]] =
     userOption match
       case None =>
-        fuccess {
+        fuccess:
           videos.map { VideoView(_, view = false) }
-        }
       case Some(user) =>
         view.seenVideoIds(user, videos).map { ids =>
           videos.map { v =>
@@ -196,7 +195,7 @@ final private[video] class VideoApi(
 
     private val max = 25
 
-    private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths") {
+    private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths"):
       _.expireAfterAccess(10.minutes)
         .buildAsyncFuture { filterTags =>
           val allPaths =
@@ -234,7 +233,6 @@ final private[video] class VideoApi(
             }
           }
         }
-    }
 
     private val popularCache = cacheApi.unit[List[TagNb]]:
       _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>

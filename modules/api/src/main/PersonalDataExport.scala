@@ -64,7 +64,7 @@ final class PersonalDataExport(
     val streamer = Source.futureSource:
       streamerApi
         .find(user)
-        .map {
+        .map:
           _.map(_.streamer).so: s =>
             List(textTitle("Streamer profile")) :::
               List(
@@ -80,13 +80,12 @@ final class PersonalDataExport(
                 "liveAt"      -> s.liveAt.so(textDate)
               ).map: (k, v) =>
                 s"$k: $v"
-        }
         .map(Source.apply)
 
     val coach = Source.futureSource:
       coachApi
         .find(user)
-        .map {
+        .map:
           _.map(_.coach).so: c =>
             List(textTitle("Coach profile")) :::
               c.profile.textLines :::
@@ -97,7 +96,6 @@ final class PersonalDataExport(
                 "updatedAt" -> textDate(c.updatedAt)
               ).map: (k, v) =>
                 s"$k: $v"
-        }
         .map(Source.apply)
 
     val forumPosts =

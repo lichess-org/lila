@@ -45,7 +45,7 @@ final class Env(
     socketKit: lila.core.socket.ParallelSocketKit,
     userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
-    bookmarkExists: lila.core.bookmark.BookmarkExists,
+    bookmarkExists: lila.core.misc.BookmarkExists,
     simulApiCircularDep: => lila.core.simul.SimulApi,
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown

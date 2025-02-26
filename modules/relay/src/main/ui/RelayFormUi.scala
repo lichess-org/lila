@@ -288,7 +288,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 " tag are dropped."
               ).some,
               half = true
-            )(form3.input(_, typ = "number")),
+            )(form3.input(_)),
             form3.group(
               form("slices"),
               raw("Select slices of the games"),

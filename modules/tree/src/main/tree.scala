@@ -56,11 +56,10 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
         nodes.filterNot(_.id == node.id) :+ prev.merge(node)
 
   def deleteNodeAt(path: UciPath): Option[Branches] =
-    path.split.flatMap {
+    path.split.flatMap:
       case (head, p) if p.isEmpty && hasNode(head) => Branches(nodes.filterNot(_.id == head)).some
       case (_, p) if p.isEmpty                     => none
       case (head, tail)                            => updateChildren(head, _.deleteNodeAt(tail))
-    }
 
   def promoteToMainlineAt(path: UciPath): Option[Branches] =
     path.split match
@@ -440,10 +439,9 @@ object Node:
       def findBy(author: Comment.Author) = a.value.find(_.by.is(author))
       def set(comment: Comment): Comments =
         if a.value.exists(_.by.is(comment.by)) then
-          a.value.map {
+          a.value.map:
             case c if c.by.is(comment.by) => c.copy(text = comment.text, by = comment.by)
             case c                        => c
-          }
         else a.value :+ comment
       def delete(commentId: Comment.Id): Comments = a.value.filterNot(_.id == commentId)
       def +(comment: Comment): Comments           = comment :: a.value
@@ -464,10 +462,9 @@ object Node:
   import chess.json.Json.given
   private val shapeCircleWrites = Json.writes[Shape.Circle]
   private val shapeArrowWrites  = Json.writes[Shape.Arrow]
-  given shapeWrites: Writes[Shape] = Writes[Shape] {
+  given shapeWrites: Writes[Shape] = Writes[Shape]:
     case s: Shape.Circle => shapeCircleWrites.writes(s)
     case s: Shape.Arrow  => shapeArrowWrites.writes(s)
-  }
   given Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.value.map(shapeWrites.writes))
   }
@@ -478,12 +475,11 @@ object Node:
   given Writes[Comment.Text] = Writes { text =>
     JsString(text.value)
   }
-  given Writes[Comment.Author] = Writes[Comment.Author] {
+  given Writes[Comment.Author] = Writes[Comment.Author]:
     case Comment.Author.User(id, name) => Json.obj("id" -> id.value, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
     case Comment.Author.Lichess        => JsString("lichess")
     case Comment.Author.Unknown        => JsNull
-  }
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
 

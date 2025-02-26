@@ -116,9 +116,10 @@ final class JsonView(
       puzzles
         .zip(games)
         .collect { case (puzzle, Some(game)) =>
-          gameJson.noCache(game, puzzle.initialPly).map {
-            puzzleAndGamejson(puzzle, _)
-          }
+          gameJson
+            .noCache(game, puzzle.initialPly)
+            .map:
+              puzzleAndGamejson(puzzle, _)
         }
   yield
     import lila.rating.Glicko.glickoWrites

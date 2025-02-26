@@ -66,7 +66,7 @@
   <string name="showThreat">顯示敵方威脅</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
   <string name="toggleLocalEvaluation">使用您當地的伺服器分析</string>
-  <string name="promoteVariation">增加變化</string>
+  <string name="promoteVariation">升級變化</string>
   <string name="makeMainLine">將這步棋導入主要流程中</string>
   <string name="deleteFromHere">從這處開始刪除</string>
   <string name="collapseVariations">隱藏變體</string>
@@ -937,7 +937,7 @@
   <string name="analysisOptions">分析局面</string>
   <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">顯示此說明欄</string>
-  <string name="reopenYourAccount">重新開啟帳戶</string>
+  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">重新開啟帳戶</string>
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
   <string name="tournamentEntryCode">錦標賽參賽碼</string>

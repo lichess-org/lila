@@ -2,7 +2,6 @@ package lila.plan
 
 import play.api.i18n.Lang
 import reactivemongo.api.*
-import cats.syntax.all.*
 
 import lila.common.Bus
 import lila.core.config.Secret

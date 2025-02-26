@@ -4,7 +4,7 @@ class PlanPricingTest extends munit.FunSuite:
 
   import PlanPricingApi.nicelyRound
 
-  test("round to nice number") {
+  test("round to nice number"):
     // val ns = {
     //   def next(i: Double, j: Double): List[Double] =
     //     // if (i > 1_000_000) List(i)
@@ -34,4 +34,3 @@ class PlanPricingTest extends munit.FunSuite:
     assertEquals(nicelyRound(99.99999999999), BigDecimal(100))
     assertEquals(nicelyRound(99_999.99999999), BigDecimal(100_000))
     assertEquals(nicelyRound(99_999.99999999999), BigDecimal(100_000))
-  }

@@ -6,16 +6,9 @@ case class Crosstable(
     users: Crosstable.Users,
     results: List[Crosstable.Result] // chronological order, oldest to most recent
 ):
+  export users.{ fromPov as _, * }
 
-  def user1 = users.user1
-  def user2 = users.user2
-  def user  = users.user
-
-  def nonEmpty = results.nonEmpty.option(this)
-
-  def nbGames                 = users.nbGames
-  def showScore               = users.showScore
-  def showOpponentScore       = users.showOpponentScore
+  def nonEmpty                = results.nonEmpty.option(this)
   def fromPov(userId: UserId) = copy(users = users.fromPov(userId))
 
   lazy val size = results.size
@@ -127,7 +120,6 @@ object Crosstable:
       val r = new BSON.Reader(doc)
       r.str(id).split('/') match
         case Array(u1Id, u2Id) =>
-          Success {
+          Success:
             Matchup(Users(User(UserId(u1Id), r.intD(score1)), User(UserId(u2Id), r.intD(score2))))
-          }
         case x => lila.db.BSON.handlerBadValue(s"Invalid crosstable id $x")

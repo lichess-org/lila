@@ -110,23 +110,24 @@ final class SecurityApi(
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
   ): Fu[String] =
-    userRepo.mustConfirmEmail(userId).flatMap {
-      if _ then fufail(SecurityApi.MustConfirmEmail(userId))
-      else
-        ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
-          val sessionId = SecureRandom.nextString(22)
-          proxy.name.foreach: p =>
-            logger.info(s"Proxy login $p $userId")
-          store
-            .save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
-            .inject(sessionId)
-    }
+    userRepo
+      .mustConfirmEmail(userId)
+      .flatMap:
+        if _ then fufail(SecurityApi.MustConfirmEmail(userId))
+        else
+          for
+            proxy <- ip2proxy(HTTPRequest.ipAddress(req))
+            _ = proxy.name.foreach(p => logger.info(s"Proxy login $p $userId ${HTTPRequest.print(req)}"))
+            sessionId = SecureRandom.nextString(22)
+            _ <- store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
+          yield sessionId
 
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
   ): Funit =
     val sessionId = SecureRandom.nextString(22)
-    store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
+    ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
+      store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp, proxy = proxy)
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
@@ -137,9 +138,10 @@ final class SecurityApi(
           case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
           case None =>
             store.authInfo(sessionId).flatMapz { d =>
-              userRepo.me(d.user).dmap {
-                _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
-              }
+              userRepo
+                .me(d.user)
+                .dmap:
+                  _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
             }
         : Fu[Option[AppealOrUser]]
       }
@@ -178,10 +180,11 @@ final class SecurityApi(
     else me
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
-    store.openSessions(userId, nb).map {
-      _.map: session =>
-        LocatedSession(session, geoIP(session.ip))
-    }
+    store
+      .openSessions(userId, nb)
+      .map:
+        _.map: session =>
+          LocatedSession(session, geoIP(session.ip))
 
   def dedup(userId: UserId, req: RequestHeader): Funit =
     reqSessionId(req).so(store.dedup(userId, _))

@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ PgnStr, Tags }
-import chess.{ Centis, Node as PgnNode, Tree }
+import chess.{ Node as PgnNode, Tree }
 import monocle.syntax.all.*
 import alleycats.Zero
 
@@ -103,7 +103,7 @@ object Helpers:
     def cleanup: NewBranch =
       node
         .focus(_.metas.clock)
-        .set(none)
+        .replace(none)
         .focus(_.metas.comments)
         .modify(_.cleanup)
 

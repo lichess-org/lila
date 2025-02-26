@@ -18,28 +18,6 @@ case class RelayGame(
   override def toString =
     s"RelayGame ${root.mainlineNodeList.size} ${tags.outcome} ${tags.names} ${tags.fideIds}"
 
-  // We don't use tags.boardNumber.
-  // Organizers change it at any time while reordering the boards.
-  def isSameGame(otherTags: Tags): Boolean =
-    isSameLichessGame(otherTags) || {
-      allSame(otherTags, RelayGame.eventTags) &&
-      otherTags.roundNumber == tags.roundNumber &&
-      playerTagsMatch(otherTags)
-    }
-
-  private def isSameLichessGame(otherTags: Tags) =
-    ~(tags(_.GameId), otherTags(_.GameId)).mapN(_ == _)
-
-  private def playerTagsMatch(otherTags: Tags): Boolean =
-    val bothHaveFideIds = List(otherTags, tags).forall: ts =>
-      RelayGame.fideIdTags.forall(side => ts(side).exists(_ != "0"))
-    if bothHaveFideIds
-    then allSame(otherTags, RelayGame.fideIdTags)
-    else allSame(otherTags, RelayGame.nameTags)
-
-  private def allSame(otherTags: Tags, tagNames: RelayGame.TagNames) = tagNames.forall: tag =>
-    otherTags(tag) == tags(tag)
-
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 
   def hasMoves = root.children.nodes.nonEmpty
@@ -75,8 +53,6 @@ case class RelayGame(
             if root.nodeAt(path).exists(_.clock.isDefined) then root
             else root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
-
-  private def outcome = points.flatMap(Outcome.fromPoints)
 
   def showResult = Outcome.showPoints(points)
 
@@ -150,9 +126,10 @@ private object RelayGame:
       mul => RelayFetch.multiPgnToGames.either(mul).fold(e => throw e, identity)
     )
 
-  def filter(onlyRound: Option[Int])(games: RelayGames): RelayGames =
-    onlyRound.fold(games): round =>
-      games.filter(_.tags.roundNumber.has(round))
+  def filter(onlyRound: Option[Either[String, Int]])(games: RelayGames): RelayGames =
+    onlyRound.fold(games):
+      case Left(r)  => games.filter(_.tags(_.Round).has(r))
+      case Right(r) => games.filter(_.tags.roundNumber.has(r))
 
   // 1-indexed, both inclusive
   case class Slice(from: Int, to: Int)

@@ -6,7 +6,7 @@ import chess.variant.Standard
 import monocle.syntax.all.*
 import play.api.libs.json.JsValue
 
-import lila.analyse.{ Analysis, Annotator }
+import lila.analyse.Annotator
 import lila.core.config.NetDomain
 import lila.core.game.Player
 import lila.core.id.GamePlayerId
@@ -149,7 +149,7 @@ object TreeBuilderTest:
       def cleanup: NewBranch =
         node
           .focus(_.metas.clock)
-          .set(none)
+          .replace(none)
           .focus(_.metas.comments)
           .modify(_.cleanup)
 

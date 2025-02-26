@@ -141,7 +141,7 @@ final class EventStream(
           gameJsonView
             .ownerPreview(pov)(using lightUserApi.sync)
             .add("source" -> game.source.map(_.name)) ++ compatJson(
-            bot = me.isBot && lila.game.Game.isBotCompatible(game),
+            bot = me.isBot && lila.game.Game.isBotCompatible(game).|(true),
             board = lila.game.Game.isBoardCompatible(game)
           ) ++ Json.obj(
             "id" -> game.id // API BC

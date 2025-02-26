@@ -7,12 +7,14 @@ import lila.common.{ Bus, LilaStream }
 import lila.core.msg.{ PostResult, IdText }
 import lila.core.relation.Relations
 import lila.db.dsl.{ *, given }
+import lila.core.perm.Granter
 
 final class MsgApi(
     colls: MsgColls,
     contactApi: ContactApi,
     userApi: lila.core.user.UserApi,
     userRepo: lila.core.user.UserRepo,
+    prefApi: lila.core.pref.PrefApi,
     lightUserApi: lila.core.user.LightUserApi,
     relationApi: lila.core.relation.RelationApi,
     json: MsgJson,
@@ -77,16 +79,23 @@ final class MsgApi(
     val threadId = MsgThread.id(me, userId)
     val before = beforeMillis.flatMap: millis =>
       util.Try(millisToInstant(millis)).toOption
-    (userId
-      .isnt(me))
-      .so(lightUserApi.async(userId).flatMapz { contact =>
-        for
-          _         <- setReadBy(threadId, me, userId)
-          msgs      <- threadMsgsFor(threadId, me, before)
-          relations <- relationApi.fetchRelations(me, userId)
-          postable  <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
-        yield MsgConvo(contact, msgs, relations, postable).some
-      })
+    userId
+      .isnt(me)
+      .so:
+        lightUserApi.async(userId).flatMapz { contact =>
+          for
+            _         <- setReadBy(threadId, me, userId)
+            msgs      <- threadMsgsFor(threadId, me, before)
+            relations <- relationApi.fetchRelations(me, userId)
+            postable  <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
+            details   <- Granter(_.PublicMod).soFu(fetchContactDetailsForMods(userId))
+          yield MsgConvo(contact, msgs, relations, postable, details).some
+        }
+
+  private def fetchContactDetailsForMods(userId: UserId): Fu[ContactDetailsForMods] = for
+    kid  <- userApi.isKid(userId)
+    pref <- prefApi.getMessage(userId)
+  yield ContactDetailsForMods(kid, pref == lila.core.pref.Message.ALWAYS)
 
   def delete(username: UserStr)(using me: Me): Funit =
     val threadId = MsgThread.id(me, username.id)
@@ -165,12 +174,13 @@ final class MsgApi(
     }
 
   def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
-    colls.thread.one[MsgThread]($id(threadId)).map {
-      case Some(doc) =>
-        if doc.maskFor.contains(maskFor) then doc.maskWith
-        else Some(doc.lastMsg)
-      case None => None
-    }
+    colls.thread
+      .one[MsgThread]($id(threadId))
+      .map:
+        case Some(doc) =>
+          if doc.maskFor.contains(maskFor) then doc.maskWith
+          else Some(doc.lastMsg)
+        case None => None
 
   def setRead(userId: UserId, contactId: UserId): Funit =
     val threadId = MsgThread.id(userId, contactId)
@@ -201,10 +211,11 @@ final class MsgApi(
       .run()
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
-    userApi.me(orig).flatMap {
-      case None     => fuccess(s"Unknown sender $orig")
-      case Some(me) => multiPost(Source(dests), text)(using me).inject("done")
-    }
+    userApi
+      .me(orig)
+      .flatMap:
+        case None     => fuccess(s"Unknown sender $orig")
+        case Some(me) => multiPost(Source(dests), text)(using me).inject("done")
 
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =
     colls.thread

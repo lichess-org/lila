@@ -66,7 +66,7 @@ object ModPresets:
           .toList
           .map(_.linesIterator.toList)
           .filter(_.nonEmpty)
-          .flatMap {
+          .flatMap:
             case perms :: rest =>
               val cleanRest = rest.dropWhile(_.isEmpty)
               for
@@ -78,7 +78,6 @@ object ModPresets:
                 toPermissions(perms)
               )
             case _ => none
-          }
 
     private def toPermissions(s: String): Set[Permission] =
       val roles = RoleDbKey.from(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList)

@@ -88,9 +88,10 @@ final class SwissJson(
                 .one[Bdoc]
                 .dmap { _.flatMap(_.getAsOpt[GameId](f.id)) }
             .flatMap: gameId =>
-              rankingApi(swiss).dmap(_.get(player.userId)).map2 {
-                MyInfo(_, gameId, me, player)
-              }
+              rankingApi(swiss)
+                .dmap(_.get(player.userId))
+                .map2:
+                  MyInfo(_, gameId, me, player)
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
@@ -109,7 +110,7 @@ final class SwissJson(
       yield ()
 
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
-    swiss.isFinished.so {
+    swiss.isFinished.so:
       SwissPlayer.fields { f =>
         mongo.player
           .find($doc(f.swissId -> swiss.id))
@@ -136,7 +137,6 @@ final class SwissJson(
             }
           }
       }
-    }
 
   def playerResult(p: SwissPlayer.WithUserAndRank): JsObject = p match
     case SwissPlayer.WithUserAndRank(player, user, rank) =>

@@ -53,13 +53,14 @@ final class LeaderboardApi(
         ChartData:
           aggs
             .flatMap: agg =>
-              PerfType.byId.get(agg._id).map {
-                _ -> ChartData.PerfResult(
-                  nb = agg.nb,
-                  points = ChartData.Ints(agg.points),
-                  rank = ChartData.Ints(agg.ratios)
-                )
-              }
+              PerfType.byId
+                .get(agg._id)
+                .map:
+                  _ -> ChartData.PerfResult(
+                    nb = agg.nb,
+                    points = ChartData.Ints(agg.points),
+                    rank = ChartData.Ints(agg.ratios)
+                  )
             .sortLike(lila.rating.PerfType.leaderboardable, _._1)
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
@@ -130,7 +131,6 @@ final class LeaderboardApi(
         def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
           repo.coll
             .aggregateList(length, _.sec): framework =>
-              import framework.*
               val sort = if sortBest then framework.Ascending("w") else framework.Descending("d")
               val pipe = aggregateByPlayer(user.id, framework, sort, false, length, offset)
               pipe.head -> pipe.tail

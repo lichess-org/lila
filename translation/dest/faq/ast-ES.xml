@@ -1,2 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">Entrugues frecuentes</string>
+  <string name="frequentlyAskedQuestions">Entrugues frecuentes</string>
+  <string name="whyIsLichessCalledLichess">¿Por qué Lichess llámase asina?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ye una combinación de live/light/llibre (en directu , llixeru y llibre , n\'inglés) y chess (axedrez, n\'inglés). Pronúnciase %1$s.</string>
+  <string name="leechess">liches</string>
+  <string name="hearItPronouncedBySpecialist">Asina ye como lo pronuncia un especialista.</string>
+  <string name="whyLiveLightLibre">En directu, porque les partíes xuéguense y vense en tiempu real 24/7; llixeru y llibre porque Lichess ye de códigu abiertu ensin la basura propietaria qu\'abonda n\'otres páxines.</string>
+  <string name="whyIsLilaCalledLila">De la mesma manera, el códigu fonte de Lichess, %1$s, significa li[chess en sca]la , cuidao que la mayor parte de Lichess ta escritu en %2$s, un intuitivu llinguaxe de programación.</string>
+  <string name="howCanIContributeToLichess">¿Cómo puedo contribuyir a Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantiene por les donaciones de patrocinadores y los esfuerzos d\'un equipu de voluntarios.</string>
+  <string name="findMoreAndSeeHowHelp">Pues aprender más sobro %1$s (incluyendo un %2$s). Si quies ayudar a Lichess voluntariamente col to tiempu y habilidaes, hai munches %3$s.</string>
+  <string name="beingAPatron">ser patrón</string>
+  <string name="breakdownOfOurCosts">desglose de los nuestros gastos</string>
+  <string name="otherWaysToHelp">otres formes d\'ayudar</string>
+  <string name="areThereWebsitesBasedOnLichess">¿Hai páxinas web basaes en Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess inspiró otres páxines de códigu abiertu qu\'utilicen el nuestru %1$s, %2$s, o %3$s.</string>
+  <string name="keyboardShortcuts">¿Qué atayos de tecláu hai?</string>
+  <string name="keyboardShortcutsExplanation">Delles páxines de Lichess tienen atayos de tecláu que pues utilizar. Prime la tecla \'?\' nun estudiu , análisis, exerciciu o partida para listar los atayos de tecláu disponibles.</string>
+  <string name="fairPlay">Xuego llimpiu</string>
+  <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdíos contra un tramposu?</string>
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minutu dempués de marcar a un xugador como tramposu, tómense les sos últimes 40 partíes por puntos de los trés últimos díes. Si tu fuisti el so oponente neses partíes, perdisti puntos nelles (bien porque perdisti, bien porque empatasti), y la to puntuación nun yera provisional, entós devuélvensete puntos. Esti reembolsu ta limitao pola to puntuación máxima y por cómo progresara la to puntuación dempués d\'aquella partida.
+(Por exemplu, si la to puntuación xubió muncho depués d\'aquelles partíes, pue que nun se te devuelvan los puntos o namás se te devuelvan dalgunos). La devolución en nengún casu va ser de más de 150 puntos.</string>
+  <string name="preventLeavingGameWithoutResigning">¿Qué se fai con los xugadores qu\'abandonen les partíes ensin rindise ?</string>
+  <string name="leavingGameWithoutResigningExplanation">Si el to oponente abandona munchas partíes márcase-y como \"prohibíu xugar\", lo que significa que ta temporalmente suspendíu pa xugar. Esto nun s\'indica públicamente nel so perfil. Si persiste nesti comportamientu, la duración de la suspensión aumenta y puede traer el zarru de la so cuenta.</string>
+  <string name="howCanIBecomeModerator">¿Cómo puedo convertime en moderador?</string>
+  <string name="youCannotApply">Non pue solicitase ser moderador. Si vemos a daquién que pensamos que sería un bon moderador, ponemos en contactu con él directamente.</string>
+  <string name="isCorrespondenceDifferent">¿L\'axedrez per correspondencia ye distintu del axedrez normal?</string>
+  <string name="pleaseReadFairPlayPage">Pa más información, llei nuestra %s</string>
+  <string name="fairPlayPage">páxina de xuegu llimpiu</string>
+  <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia nes riegles del axedrez per correspondencia ye que se dexa un llibru d\'apertures. L\'usu de motores sigue tando prohibíu y va dar llugar a que s\'etiquete al usuariu como tramposu. Anque la ICCF dexa l\'usu del motor en partíes per correspondencia, Lichess nun lo dexa.</string>
+  <string name="gameplay">Mecánica de xuegu </string>
+  <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempu en Bullet, Blitz y otros?</string>
+  <string name="basedOnGameDuration">Los controles de tiempu de Lichess basar na duración envalorada d\'una partida = %1$s
+Por ejemplu, la duración envalorada d\'una partida de 5+3 ye 5 * 60 + 40 * 3 = 420 segundos.</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(tiempu inicial del reló) + 40 × (incrementu)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">¿Qué variantes puedo xugar en Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess soporta axedrez estándar y %1$s.</string>
+  <string name="eightVariants">otres 8 variantes</string>
+  <string name="whatIsACPL">¿Qué ye la perdida media en centipeones (PMC)?</string>
+  <string name="acplExplanation">El centipeón ye la unidá de midida utilizada nel axedrez como representación de la ventaya. Un centipeón ye igual a una centésima parte d\'un peón. Por lo tanto, 100 centipeones = 1 peón. Estos valores nun xueguen nengún papel formal nel xuegu, pero son útiles pa el xugadores y esenciales nel axedrez por ordenador pa evaluar les posiciones.
+
+El meyor movimientu del ordenador va perder cero centipeones, pero los movimientos inferiores van traer un deterioru de la posición midíu en centipeones.
+
+Esti valor puede ser usáu como un indicador de la fuerza de xuegu. Cuantos menos centipeones perder por movimientu, más fuerte ye el xuegu.
+
+L\'análisis informáticu en Lichess ye proporcionáu por Stockfish.</string>
+  <string name="insufficientMaterial">Perder por tiempu, tables y material insuficiente</string>
+  <string name="lichessFollowFIDErules">Nel casu de qu\'un xugador quedase ensin tiempu, esi xugador de normal va perder la partida. Sin embargu, el xuegu considérase empate si la posición ye tal que l\'oponente nun pue dar mate al rei del xugador por cualquier posible serie de movimientos llegales (%1$s).
+
+En rares ocasiones esto pue ser malo de decidir automáticamente (llínees forzaes, fortaleces). Por defectu, siempres tamos de parte del xugador que nun se quedó ensin tiempu.
+
+Ten en cuenta que ye posible dar mate con un solu caballu o alfil, siempres que l\'oponente tenga una pieza que pueda bloquiar al rei.</string>
+  <string name="fideHandbook">Manual de la FIDE</string>
+  <string name="fideHandbookX">%s del manual de la FIDE</string>
+  <string name="discoveringEnPassant">¿Por qué un peón pue prindar otru peón cuando yá ta pasáu ? (en passant)</string>
+  <string name="explainingEnPassant">Esti movimientu ye llegal, y llámase \"captura al pasu\". L\'artículu de Wikipedia da una %1$s al mesmu.
+
+Describese na sección 3.7.3.1 y 3.7.3.2 de les %2$s:
+
+\"Un peón qu\'ocupa una casiella na mesma fila y nuna columna axacente al peón d\'un oponente qu\'acaba d\'avanzar dos casielles nun movimientu de la so casiella orixinal puede prindar el peón d\'esti oponente como si esti solu fuera movíu una casiella. Esta captura namás ye llegal nel movimientu posterior a esta, denominese captura “al pasu”.
+
+Mira el capítulu del %3$s sobro esti movimientu pa practicar un pocu con él.</string>
+  <string name="goodIntroduction">bona introducción</string>
+  <string name="lichessTraining">Entrenamientu en Lichess</string>
+  <string name="watchIMRosenCheckmate">Ver al Maestru Internacional Eric Rosen dar mate a %s.</string>
+  <string name="threefoldRepetition">Triple repetición</string>
+  <string name="threefoldRepetitionExplanation">Si una posición repitese tres vegaes, los xugadores pueden reclamar un empate por %1$s. Lichess implementa les riegles oficiales de la FIDE, acordies con l\'Artículu 9.2 del %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">triple repetición</string>
+  <string name="notRepeatedMoves">Nun repitimos movimientos, ¿por qué el xuegu sigue siendo tables per repetición?</string>
+  <string name="repeatedPositionsThatMatters">La triple repetición dese por repetición de %1$s, non de movimientos. La repetición nun tien porqué asoceder consecutivamente.</string>
+  <string name="positions">posiciones</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Repitimos una posición trés vegaes. ¿Por qué la partida nun se declara tables?</string>
+  <string name="threeFoldHasToBeClaimed">Les tables por triple repetición tienen que ser reclamaes por unu de los xugadores. Pues faelo pulsiando el botón que s\'amuesa, o ufiertando tables antes de faer el movimientu que cause la tercer repetición, nun va importar qu\'el to oponente refugue la ufierta de tables, les tables por triple repetición van ser reclamaes de toes formes. Tamién pues %1$s Lichess por que reclame automáticamente les repeticiones por ti. Además, la quinta repetición siempres termina la partida al momentu.</string>
+  <string name="configure">configurar</string>
+  <string name="accounts">Cuentes</string>
+  <string name="titlesAvailableOnLichess">¿Qué títulos hai en Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconoz tolos títulos FIDE llograos en torneos presenciales, según %1$s. Equí hai una llista de títulos FIDE:</string>
+  <string name="showYourTitle">Si tienes un títulu llográu nun tornéu presencial, pues solicitar que s\'amuese na to cuenta completando el %1$s, incluyendo una imaxe clara d\'un documentu/tarxeta d\'identificación y una foto de ti portando dichu documento/tarjeta.
+
+La verificación como xugador tituláu en Lichess da accesu a xugar nos torneos pa titulaos.
+
+Finalmente, esiste el títulu honoríficu %2$s.</string>
+  <string name="asWellAsManyNMtitles">munchos títulos de maestros nacionales</string>
+  <string name="verificationForm">formulariu de verificación</string>
+  <string name="canIbecomeLM">¿Puedo llograr el títulu de Maestru Lichess (LM)?</string>
+  <string name="noUpperCaseDot">Non.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Esti títulu honoríficu nun ye oficial y namás esiste en Lichess.
+
+Dacuando otorgamos a xugadores bien destacaos que son bonos ciudadanos de Lichess, al nuestru criteriu. El títulu de LM nun se consigue, sinón que te llega. Si cumples los requisitos, vas recibir un mensaxe nuestru al respeutu y l\'opción d\'aceptar o refugar el títulu.
+
+Nun solicites el títulu de LM.</string>
+  <string name="whatUsernameCanIchoose">¿Cuál pue ser el mio nome d\'usuariu?</string>
+  <string name="usernamesNotOffensive">Polo xeneral, los nomes d\'usuariu nun deben: ser ofensivos, suplantar a daquién o faer publicidá. Pues lleer más sobre les %1$s.</string>
+  <string name="guidelines">pautes</string>
+  <string name="canIChangeMyUsername">¿Puedo camudar el mio nome d\'usuariu?</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Non, los nomes d\'usuariu nun pudeen camudase por razones técniques y práctiques. Los nomes d\'usuariu materialicense en munchos llugares: bases de datos, esportaciones, rexistros y na mente de les persones. Pues camudar les mayúscules/minúscules solo una vegada.</string>
+  <string name="uniqueTrophies">Trofeos únicos</string>
+  <string name="ownerUniqueTrophies">Esi troféu ye únicu na hestoria de Lichess, naide más que %1$s va tenerlo xamás.</string>
+  <string name="wayOfBerserkExplanation">Pa llogralo, hiimgosu desafiose a sigo mesmu a berserk y ganó toles partíes de %s.</string>
+  <string name="aHourlyBulletTournament">un tornéu Bullet per hora</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict taba retransmitiendo y mientres les dos últimes hores tuviera tratando de ganar a la I.A. nivel 8 nuna partida 1+0, ensin ésitu .Thibault díxo-y que si lo llograba mientres la tresmisión, llograría un troféu únicu. Xuna hora dempués, venció a Stockfish y cumplióse la promesa.</string>
+  <string name="ratingSystemUsedByLichess">Les puntuaciones calcúlense utilizando el métodu de clasificación Glicko-2 desenvueltu por Mark Glickman. Ye un métodu de puntuación bien popular y qu\'utilicen munches organizaciones d\'axedrez (la FIDE ye un contraexemplu notable, ya que utilicen el sistema de puntuación Elo).
+
+En resumen, les puntuaciones de Glicko usen \"intervalos de confianza\" al calcular y representar la to puntuación. Cuando empieces a utilizar per primer vez en la páxina, la to puntuación ye de 1500 ± 1000. El 1500 representa la to puntuación, y el 1000 representa l\'intervalu de confianza, que ye una midida de la incertidume que\'l sistema tien sobro la to puntuación real.
+
+Básicamente, el sistema tien un 95% de seguridá de que la to puntuación ta ente 500 y 2500. Ye un intervalu bien ampliu y poco precisu (hai muncha incertidume). Por eso, cuando un xugador acaba d\'empezar, la so puntuación va camudar de forma bien brusca, inclusive pue que dellos cientos de puntos cada vez. Pero dempués de delles partíes contra xugadores más veteranos, l\'intervalu de confianza dirá amenorgándose (el sistema va tener cada vez más clara cuál ye la so puntuación esacta), y la cantidá de puntos ganaos o perdíos dempués de cada partida va menguar.
+
+Otru puntu que cabo señalar ye que, si pasa un tiempu ensin xugar, l\'intervalu de confianza va volver aumentar. Esto déxate ganar o perder puntos más rápido pa igualar cualquier cambiu na to fuerza de xuegu mientres esi tiempu que pasasti ensin xugar.</string>
+  <string name="whyAreRatingHigherExplanation">Lo meyor ye nun considerar les puntuaciones como cifres absolutes nin comparales con otres organizaciones. Distintes organizaciones tienen distintos niveles de xugadores y sistemes de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeres). Estos factores pueden afectar drásticamente los númberos absolutos (puntuaciones).
+
+Ye meyor pensar nes puntuaciones como figures \"relatives\" (a diferencia de les \"figures absolutes\"): dientro d\'un conxuntu de xugadores, les sos diferencies rees nelativs puntuaciones van ayudate a envalorar quién gana/empata/pierde, y con qué frecuencia. Dicir \"tengo puntuación X\" significa nada nun siendo qu\'haya otru xugadores colos que comparar esa puntuación.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, nun podemos devolver puntajes pes pa lartíes perdíes por cuenta de retrasu o desconexón, independientemente de si el problema taba del to llau o del nuestru. Sin embargo, esto ye bien raru. Tamién ten en cuenta que cuando Lichess reiníciase y pierdes el tiempu por cuenta de eso, albortamos el xuegu pa prevenir una perdida inxusta.</string>
+  <string name="enableAutoplayForSoundsA">La mayoría de los navegadores puen evitar que se reproduza soníu nuna páxina recién cargada pa protexer a los usuarios. Imaxínate si tolos sitios web pudieren bombardearte darréu con anuncios d\'audiu.
+
+L\'iconu coloráu de silenciu apaez cuando el to navegador impide que lichess.org reproduza un soníu. Polo xeneral, esta restricción eliminase una vegada que fexes clic en daqué. En dellos navegadores móviles, tocar y arrastrar una pieza nun cunta como un clic. Nesi casu tienes que tocar el tableru pa dexar el soníu al entamu de cada xuegu.
+
+Amosemos l\'iconu coloráu p\'avisate cuando esto asoceda. A menudo, pues dexar explícitamente que lichess.org reproduza soníos. Equí vas atopar instrucciones pa faelo en versiones recién de dellos navegadores populares.</string>
+</resources>

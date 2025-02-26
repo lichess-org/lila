@@ -40,7 +40,6 @@ object ScheduleTestHelpers:
       )
 
   object ExperimentalPruner:
-    import Schedule.*
     import java.time.temporal.ChronoUnit
     import scala.collection.mutable.{ ArrayBuffer, LongMap }
 

@@ -2,12 +2,12 @@ package lila.push
 
 import akka.actor.*
 import play.api.libs.json.*
+import scalalib.data.LazyFu
 
 import lila.common.LilaFuture
 import lila.common.String.shorten
 import lila.core.LightUser
 import lila.core.challenge.Challenge
-import lila.core.data.LazyFu
 import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
 import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
@@ -119,9 +119,8 @@ final private class PushApi(
         .flatMap:
           _.filter(_.playable).so: game =>
             game.players
-              .collect {
+              .collect:
                 case p if p.isProposingTakeback => Pov(game, game.opponent(p))
-              }
               .so { pov => // the pov of the receiver
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>
@@ -148,9 +147,8 @@ final private class PushApi(
         .flatMap:
           _.filter(_.playable).so: game =>
             game.players
-              .collect {
+              .collect:
                 case p if p.isOfferingDraw => Pov(game, game.opponent(p))
-              }
               .so { pov => // the pov of the receiver
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>

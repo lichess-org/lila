@@ -10,14 +10,13 @@ object PgnImport:
   def hash(pgn: PgnStr) = // ByteArray {
     MessageDigest
       .getInstance("MD5")
-      .digest {
+      .digest:
         pgn.value.linesIterator
           .map(_.replace(" ", ""))
           .filter(_.nonEmpty)
           .to(List)
           .mkString("\n")
           .getBytes(UTF_8)
-      }
       .take(12)
 
   def make(user: Option[UserId], date: Option[String], pgn: PgnStr) =

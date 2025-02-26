@@ -29,6 +29,12 @@ export interface Convo {
   msgs: Msg[];
   relations: Relations;
   postable: boolean;
+  modDetails?: ModDetails;
+}
+
+export interface ModDetails {
+  kid: boolean;
+  openInbox: boolean;
 }
 
 export interface Relations {

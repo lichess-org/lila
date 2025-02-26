@@ -34,7 +34,7 @@ final class Coach(env: Env) extends LilaController(env):
       WithVisibleCoach(c):
         for
           stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
-          studies <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
+          studies <- env.study.pager.withChaptersAndLiking(4)(stu)
           posts   <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
           page    <- renderPage(views.coach.show(c, studies, posts))
         yield Ok(page)
@@ -61,9 +61,11 @@ final class Coach(env: Env) extends LilaController(env):
     Found(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
-          api.uploadPicture(c, pic).inject(Redirect(routes.Coach.edit)).recoverWith {
-            case e: lila.core.lilaism.LilaException =>
-              Redirect(routes.Coach.edit)
-          }
+          api
+            .uploadPicture(c, pic)
+            .inject(Redirect(routes.Coach.edit))
+            .recoverWith:
+              case e: lila.core.lilaism.LilaException =>
+                Redirect(routes.Coach.edit)
         case None => Redirect(routes.Coach.edit)
   }

@@ -22,9 +22,8 @@ object UiEnv
   def setEnv(e: Env)              = envVar = Some(e)
   def env: Env                    = envVar.get
 
-  def netConfig           = env.net
-  def contactEmailInClear = env.net.email.value
-  def picfitUrl           = env.memo.picfitUrl
+  def netConfig = env.net
+  def picfitUrl = env.memo.picfitUrl
 
   given lila.core.config.NetDomain                           = env.net.domain
   given (using ctx: PageContext): Option[Nonce]              = ctx.nonce
