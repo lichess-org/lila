@@ -6,11 +6,9 @@
 
   .left-side {
     .stores {
-      display: flex;
-
-      a {
-        @extend %flex-center;
-      }
+      @extend %flex-center;
+      justify-content: center;
+      gap: 1em;
     }
 
     h2 {
@@ -42,13 +40,19 @@
     flex: 0 0 33%;
     text-align: center;
 
+    margin-left: 2em;
+
+    @media (max-width: at-most($x-small)) {
+      display: none;
+    }
+
     .mobile-playing {
       width: 100%;
       height: auto;
     }
+  }
 
-    .qrcode {
-      margin-top: 20px;
-    }
+  .qrcode {
+    margin: 3em 0;
   }
 }

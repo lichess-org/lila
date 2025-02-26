@@ -32,17 +32,18 @@ db.user4.find({ email: /^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, usernam
 
   if (Object.keys(updates).length == 0) return;
   if (dry) nbSkips++;
-  else try {
-    db.user4.updateOne({ _id: user._id }, { $set: updates });
-    db.user_email_backup.update(
-      { _id: user._id },
-      { $set: { email: user.email, verbatimEmail: user.verbatimEmail } },
-      { upsert: true },
-    );
-    nbUpdates++;
-  } catch (e) {
-    if (e.code == 11000) nbDups++;
-  }
+  else
+    try {
+      db.user4.updateOne({ _id: user._id }, { $set: updates });
+      db.user_email_backup.update(
+        { _id: user._id },
+        { $set: { email: user.email, verbatimEmail: user.verbatimEmail } },
+        { upsert: true },
+      );
+      nbUpdates++;
+    } catch (e) {
+      if (e.code == 11000) nbDups++;
+    }
 });
 
 print('skiped:', nbSkips);

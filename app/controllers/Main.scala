@@ -44,7 +44,7 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(env.cms.renderKey("mobile-apk"))(views.mobile)
+    FoundPage(env.cms.renderKey("mobile"))(views.mobile)
 
   def dailyPuzzleSlackApp = Open:
     Ok.page(views.site.ui.dailyPuzzleSlackApp)

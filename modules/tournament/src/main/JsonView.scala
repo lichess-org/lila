@@ -52,10 +52,10 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       withAllowList: Boolean,
-      myInfo: Preload[Option[MyInfo]] = Preload.none
+      myInfo: Preload[Option[MyInfo]] = Preload.none,
+      addReloadEndpoint: Option[Tournament => Boolean] = none
   )(using
-      me: Option[Me]
-  )(using
+      me: Option[Me],
       getMyTeamIds: Condition.GetMyTeamIds,
       lightTeamApi: lila.core.team.LightTeam.Api
   )(using Lang): Fu[JsObject] =
@@ -143,11 +143,10 @@ final class JsonView(
           .add("onlyTitled", tour.conditions.titled.isDefined)
           .add("teamMember", tour.conditions.teamMember.map(_.teamId))
           .add("allowList", withAllowList.so(tour.conditions.allowList).map(_.userIds))
-
-  def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
-    js + ("reloadEndpoint" -> JsString({
-      if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
-    }.replace("{id}", tour.id.value)))
+          .add("reloadEndpoint" -> addReloadEndpoint.map: useLilaHttp =>
+            JsString({
+              if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
+            }.replace("{id}", tour.id.value)))
 
   def clearCache(tour: Tournament): Unit =
     standingApi.clearCache(tour)
@@ -155,22 +154,18 @@ final class JsonView(
 
   def fetchMyInfo(tour: Tournament, me: User): Fu[Option[MyInfo]] =
     playerRepo.find(tour.id, me.id).flatMapz { player =>
-      fetchCurrentGameId(tour, me).flatMap { gameId =>
-        getOrGuessRank(tour, player).dmap { rank =>
-          MyInfo(rank + 1, player.withdraw, gameId, player.team).some
-        }
-      }
+      for
+        gameId <- fetchCurrentGameId(tour, me)
+        rank   <- getOrGuessRank(tour, player)
+      yield MyInfo(rank + 1, player.withdraw, gameId, player.team).some
     }
 
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
-  private def getOrGuessRank(tour: Tournament, player: Player): Fu[Rank] =
-    cached
-      .ranking(tour)
-      .flatMap:
-        _.ranking.get(player.userId) match
-          case Some(rank) => fuccess(rank)
-          case None       => playerRepo.computeRankOf(player)
+  private def getOrGuessRank(tour: Tournament, player: Player): Fu[Rank] = for
+    ranking <- cached.ranking(tour)
+    rank    <- ranking.ranking.get(player.userId).fold(playerRepo.computeRankOf(player))(fuccess)
+  yield rank
 
   def playerInfoExtended(tour: Tournament, info: PlayerInfoExt): Fu[JsObject] = for
     ranking <- cached.ranking(tour)
@@ -222,17 +217,14 @@ final class JsonView(
         gameProxy
           .game(pairing.gameId)
           .flatMapz: game =>
-            cached
-              .ranking(tour)
-              .flatMap: ranking =>
-                playerRepo
-                  .pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2)
-                  .map: pairOption =>
-                    for
-                      (p1, p2) <- pairOption
-                      rp1      <- RankedPlayer(ranking.ranking)(p1)
-                      rp2      <- RankedPlayer(ranking.ranking)(p2)
-                    yield FeaturedGame(game, rp1, rp2)
+            for
+              ranking    <- cached.ranking(tour)
+              pairOption <- playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2)
+            yield for
+              (p1, p2) <- pairOption
+              rp1      <- RankedPlayer(ranking.ranking)(p1)
+              rp2      <- RankedPlayer(ranking.ranking)(p2)
+            yield FeaturedGame(game, rp1, rp2)
 
   private def sheetNbs(s: arena.Sheet) =
     Json.obj(
