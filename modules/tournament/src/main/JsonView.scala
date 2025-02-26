@@ -388,12 +388,11 @@ final class JsonView(
       "rank"  -> rt.rank,
       "id"    -> rt.teamId,
       "score" -> rt.score,
-      "players" -> rt.leaders.map { p =>
+      "players" -> rt.leaders.map: p =>
         Json.obj(
           "user"  -> lightUserApi.sync(p.userId),
           "score" -> p.score
         )
-      }
     )
 
   private def getMyRankedTeam(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.RankedTeam]] =

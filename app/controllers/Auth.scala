@@ -169,8 +169,11 @@ final class Auth(
     forms.signup.website.flatMap: form =>
       Ok.page(views.auth.signup(form))
 
-  private def authLog(user: UserName, email: Option[EmailAddress], msg: String) =
-    lila.log("auth").info(s"$user ${email.fold("-")(_.value)} $msg")
+  private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
+    env.security
+      .ip2proxy(ctx.ip)
+      .foreach: proxy =>
+        lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
     NoTor:
@@ -285,7 +288,7 @@ final class Auth(
       for
         email <- env.user.repo.email(user.id)
         _ <- email.so: email =>
-          authLog(user.username, email.some, s"Confirmed email")
+          authLog(user.username, email.some, "Confirmed email")
           welcome(user, email, sendWelcomeEmail = false)
         res <- redirectNewUser(user)
       yield res

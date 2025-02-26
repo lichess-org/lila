@@ -179,7 +179,7 @@ final class Plan(env: Env) extends LilaController(env):
         ip = ctx.ip
       )
       session <- env.plan.api.stripe.createSession(data)
-    yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
+    yield JsonOk(lila.plan.StripeJson.toClient(session).pp)
   }.recover(badStripeApiCall)
 
   def switchStripePlan(money: Money)(using me: Me) =
@@ -189,6 +189,14 @@ final class Plan(env: Env) extends LilaController(env):
       .recover(badStripeApiCall)
 
   def stripeCheckout = AuthBody { ctx ?=> me ?=>
+    doStripeCheckout
+  }
+
+  def apiStripeCheckout = ScopedBody() { ctx ?=> me ?=>
+    doStripeCheckout
+  }
+
+  def doStripeCheckout(using ctx: BodyContext[?], me: Me) =
     limit.planCheckout(ctx.ip, rateLimited):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
@@ -214,7 +222,6 @@ final class Plan(env: Env) extends LilaController(env):
                       .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
               yield session
           )
-  }
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
     limit.planCapture(ctx.ip, rateLimited):
