@@ -9,6 +9,10 @@ import scala.util.Try
 import lila.common.Json.given
 import lila.core.net.IpAddress
 
+object StripeJson:
+  def toClient(session: StripeSession) =
+    Json.obj("session" -> Json.obj("id" -> session.id, "clientSecret" -> session.clientSecret))
+
 private object JsonHandlers:
 
   given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency.getInstance(code.toUpperCase)))
@@ -33,6 +37,7 @@ private object JsonHandlers:
     given Reads[StripeCharge.BillingDetails] = Json.reads
     given Reads[StripeCharge]                = Json.reads
     given Reads[StripeInvoice]               = Json.reads
+    given Reads[StripePaymentIntent]         = Json.reads
     given Reads[StripeSession]               = Json.reads
     given Reads[StripeCompletedSession]      = Json.reads
     given Reads[StripeCard]                  = Json.reads

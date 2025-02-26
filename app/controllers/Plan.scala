@@ -179,7 +179,7 @@ final class Plan(env: Env) extends LilaController(env):
         ip = ctx.ip
       )
       session <- env.plan.api.stripe.createSession(data)
-    yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
+    yield JsonOk(lila.plan.StripeJson.toClient(session).pp)
   }.recover(badStripeApiCall)
 
   def switchStripePlan(money: Money)(using me: Me) =
