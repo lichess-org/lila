@@ -408,10 +408,12 @@ const inputCommands: InputCommand[] = [
 ];
 
 const getCommand = (input: string) => {
-  const firstWordLowerCase = input.split(' ')[0].toLowerCase();
-  return inputCommands.find(
-    c => c.cmd === input || (firstWordLowerCase.length === 1 && c.cmd === firstWordLowerCase), // 'next line' should not be interpreted as 'next'
-  );
+  const split = input.split(' ');
+  const firstWordLowerCase = split[0].toLowerCase();
+  return (
+    inputCommands.find(c => c.cmd === input) ||
+    inputCommands.find(c => split.length !== 1 && c.cmd === firstWordLowerCase)
+  ); // 'next line' should not be interpreted as 'next'
 };
 
 function sendMove(uciOrDrop: string | DropMove, ctrl: AnalyseController) {
