@@ -52,10 +52,10 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       withAllowList: Boolean,
-      myInfo: Preload[Option[MyInfo]] = Preload.none
+      myInfo: Preload[Option[MyInfo]] = Preload.none,
+      addReloadEndpoint: Option[Tournament => Boolean] = none
   )(using
-      me: Option[Me]
-  )(using
+      me: Option[Me],
       getMyTeamIds: Condition.GetMyTeamIds,
       lightTeamApi: lila.core.team.LightTeam.Api
   )(using Lang): Fu[JsObject] =
@@ -143,11 +143,10 @@ final class JsonView(
           .add("onlyTitled", tour.conditions.titled.isDefined)
           .add("teamMember", tour.conditions.teamMember.map(_.teamId))
           .add("allowList", withAllowList.so(tour.conditions.allowList).map(_.userIds))
-
-  def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
-    js + ("reloadEndpoint" -> JsString({
-      if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
-    }.replace("{id}", tour.id.value)))
+          .add("reloadEndpoint" -> addReloadEndpoint.map: useLilaHttp =>
+            JsString({
+              if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
+            }.replace("{id}", tour.id.value)))
 
   def clearCache(tour: Tournament): Unit =
     standingApi.clearCache(tour)
