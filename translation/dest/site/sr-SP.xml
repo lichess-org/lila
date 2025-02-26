@@ -30,8 +30,8 @@
   <string name="cheatDetected">Детектована превара</string>
   <string name="kingInTheCenter">Краљ је у центру</string>
   <string name="threeChecks">Три шаха</string>
-  <string name="raceFinished">Трка је завршена</string>
-  <string name="variantEnding">Крај варијацијом</string>
+  <string name="raceFinished">Трка се завршила</string>
+  <string name="variantEnding">Завршетак варијанте</string>
   <string name="newOpponent">Нови противник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
   <string name="joinTheGame">Придружи се партији</string>
