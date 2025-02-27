@@ -1,6 +1,8 @@
 package lila.plan
 
 import java.util.Currency
+import play.api.libs.json.*
+import lila.memo.CacheApi
 
 case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
 
@@ -15,7 +17,7 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
 
-final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
+final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using Executor):
 
   import currencyApi.{ EUR, USD }
 
@@ -50,6 +52,15 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
     pricingFor(money.currency).map:
       _.exists(_.lifetime.amount <= money.amount)
 
+  val stripePricesAsJson = cacheApi.unit[JsonStr]:
+    _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+      import PlanPricingApi.pricingWrites
+      CurrencyApi.stripeCurrencyList
+        .sequentially(pricingFor)
+        .map(list => Json.obj("stripe" -> list.flatten))
+        .map(Json.stringify)
+        .dmap(JsonStr.apply)
+
   private def convertAndRound(money: Money, to: Currency): Fu[Option[Money]] =
     currencyApi.convert(money, to).map2 { case Money(amount, locale) =>
       Money(PlanPricingApi.nicelyRound(amount), locale)
@@ -65,7 +76,6 @@ object PlanPricingApi:
     math.round(nice * 10_000) / 10_000
   }.atLeast(1)
 
-  import play.api.libs.json.*
   given pricingWrites: OWrites[PlanPricing] = OWrites: p =>
     Json.obj(
       "currency"    -> p.currencyCode,
