@@ -91,9 +91,9 @@ final class IrcApi(
       slug: String,
       title: String,
       intro: String,
-      topicTier: String
+      topic: String
   ): Funit =
-    zulip(_.blog, topicTier):
+    zulip(_.blog, topic):
       val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
       s":note: $link $intro - by ${markdown.userLink(user)}"
 

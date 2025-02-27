@@ -148,20 +148,14 @@ final class UblogApi(
     def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
   private def sendPostToZulip(user: User, post: UblogPost, modTier: Option[UblogRank.Tier]): Funit =
-    val topic = modTier match
-      case UblogRank.Tier.BEST    => "best tier new posts"
-      case UblogRank.Tier.HIGH    => "high tier new posts"
-      case UblogRank.Tier.NORMAL  => "normal tier new posts"
-      case UblogRank.Tier.LOW     => "low tier new posts"
-      case UblogRank.Tier.VISIBLE => "unlisted tier new posts"
-      case _                      => "non-tiered new posts"
+    val tierName = modTier.fold("non-tiered")(t => s"${UblogRank.Tier.name(t).toLowerCase} tier")
     irc.ublogPost(
       user.light,
       id = post.id,
       slug = post.slug,
       title = post.title,
       intro = post.intro,
-      topicTier = topic
+      topic = s"$tierName new posts"
     )
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
