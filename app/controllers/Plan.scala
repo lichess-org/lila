@@ -164,23 +164,10 @@ final class Plan(env: Env) extends LilaController(env):
       checkout: PlanCheckout,
       customerId: StripeCustomerId,
       giftTo: Option[lila.user.User]
-  )(using ctx: Context, me: Me) = {
-    for
-      isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
-      data = CreateStripeSession(
-        customerId,
-        checkout,
-        NextUrls(
-          cancel = s"${env.net.baseUrl}${routes.Plan.index}",
-          success = s"${env.net.baseUrl}${routes.Plan.thanks}"
-        ),
-        giftTo = giftTo,
-        isLifetime = isLifetime,
-        ip = ctx.ip
-      )
-      session <- env.plan.api.stripe.createSession(data)
-    yield JsonOk(lila.plan.StripeJson.toClient(session).pp)
-  }.recover(badStripeApiCall)
+  )(using Context, Me) =
+    env.plan.api.stripe
+      .createSession(checkout, customerId, giftTo, env.net.baseUrl)
+      .fold(badStripeApiCall, JsonOk)
 
   def switchStripePlan(money: Money)(using me: Me) =
     env.plan.api
