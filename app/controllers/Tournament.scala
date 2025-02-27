@@ -85,8 +85,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 partial = false,
                 withScores = true,
                 withAllowList = false,
-                myInfo = Preload[Option[MyInfo]](myInfo)
-              ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
+                myInfo = Preload[Option[MyInfo]](myInfo),
+                addReloadEndpoint = env.tournament.lilaHttp.handles.some
+              )
               chat <- loadChat(tour, json)
               _ <- tour.teamBattle.so: b =>
                 env.team.cached.preloadSet(b.teams)
@@ -110,7 +111,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 socketVersion = socketVersion,
                 partial = partial,
                 withScores = getBoolOpt("scores") | true,
-                withAllowList = true
+                withAllowList = true,
+                addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chatOpt <- (!partial).so(loadChat(tour, json))
               jsChat <- chatOpt.soFu: c =>
