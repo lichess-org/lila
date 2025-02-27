@@ -6,20 +6,20 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "optionalDependencies": {
-    "sass-embedded-darwin-arm64": "1.83.3",
-    "sass-embedded-darwin-x64": "1.83.3",
-    "sass-embedded-linux-arm64": "1.83.3",
-    "sass-embedded-linux-x64": "1.83.3",
-    "sass-embedded-win32-arm64": "1.83.3",
-    "sass-embedded-win32-x64": "1.83.3"
+    "sass-embedded-darwin-arm64": "1.85.0",
+    "sass-embedded-darwin-x64": "1.85.0",
+    "sass-embedded-linux-arm64": "1.85.0",
+    "sass-embedded-linux-x64": "1.85.0",
+    "sass-embedded-win32-arm64": "1.85.0",
+    "sass-embedded-win32-x64": "1.85.0"
   },
   "dependencies": {
     "@types/micromatch": "^4.0.9",
-    "@types/node": "22.12.0",
+    "@types/node": "22.13.5",
     "@types/tinycolor2": "1.4.6",
-    "esbuild": "0.24.2",
+    "esbuild": "0.25.0",
     "fast-glob": "3.3.3",
-    "fast-xml-parser": "4.5.1",
+    "fast-xml-parser": "4.5.3",
     "micromatch": "4.0.8",
     "tinycolor2": "1.6.0",
     "typescript": "5.7.3"

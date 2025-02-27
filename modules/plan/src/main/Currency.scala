@@ -30,22 +30,19 @@ final class CurrencyApi(
     "currency:rates",
     if mode.isProd then 120.minutes // i.e. 377/month, under the 1000/month limit of free OER plan
     else 1.day
-  ) { loader =>
-    _.refreshAfterWrite(121.minutes)
-      .buildAsyncFuture:
-        loader { _ =>
-          ws.url(s"$baseUrl/latest.json")
-            .withQueryStringParameters("app_id" -> config.appId.value)
-            .get()
-            .dmap { res =>
-              (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match
-                case None =>
-                  logger.error(s"Currency rates unavailable! ${res.status} $baseUrl")
-                  Map("USD" -> 1d)
-                case Some(rates) => rates.filterValues(0 <)
-            }
-        }
-  }
+  ): loader =>
+    _.refreshAfterWrite(121.minutes).buildAsyncFuture:
+      loader: _ =>
+        ws.url(s"$baseUrl/latest.json")
+          .withQueryStringParameters("app_id" -> config.appId.value)
+          .get()
+          .dmap { res =>
+            (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match
+              case None =>
+                logger.error(s"Currency rates unavailable! ${res.status} $baseUrl")
+                Map("USD" -> 1d)
+              case Some(rates) => rates.filterValues(0 <)
+          }
 
   def convert(money: Money, currency: Currency): Fu[Option[Money]] =
     ratesCache.get {}.map { rates =>
@@ -80,6 +77,8 @@ object CurrencyApi:
   private lazy val acceptableCurrencies: Set[Currency] = payPalCurrencies.concat(stripeCurrencies)
 
   lazy val currencyList: List[Currency] = acceptableCurrencies.toList.sortBy(_.getCurrencyCode)
+
+  lazy val stripeCurrencyList: List[Currency] = stripeCurrencies.toList.sortBy(_.getCurrencyCode)
 
   def currencyOption(code: String) = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
   def currencyOption(locale: Locale) =

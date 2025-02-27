@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chart": "workspace:^",
-    "chart.js": "4.4.6",
+    "chart.js": "4.4.8",
     "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*"
   },
