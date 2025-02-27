@@ -192,7 +192,7 @@ final class Plan(env: Env) extends LilaController(env):
     doStripeCheckout
   }
 
-  def apiStripeCheckout = ScopedBody() { ctx ?=> me ?=>
+  def apiStripeCheckout = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     doStripeCheckout
   }
 
