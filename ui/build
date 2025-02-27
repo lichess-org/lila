@@ -18,7 +18,10 @@ if [[ " $* " != *" --no-corepack "* ]]; then
     echo "Corepack not available. Try a userland node such as nvm."
   fi
 fi
-
-pnpm install --silent --ignore-workspace
+if ! pnpm install --ignore-workspace >/dev/null 2>&1; then
+  # possible pnpm bug in 9.x/10.x --silent and --reporter=silent hang on failure for me
+  pnpm install --loglevel debug --ignore-workspace
+  exit $?
+fi
 
 node --experimental-strip-types --no-warnings src/main.ts "$@"
