@@ -149,6 +149,7 @@ final class UblogApi(
 
   private def sendPostToZulip(user: User, post: UblogPost, modTier: Option[UblogRank.Tier]): Funit =
     val topic = modTier match
+      case UblogRank.Tier.BEST    => "best tier new posts"
       case UblogRank.Tier.HIGH    => "high tier new posts"
       case UblogRank.Tier.NORMAL  => "normal tier new posts"
       case UblogRank.Tier.LOW     => "low tier new posts"
