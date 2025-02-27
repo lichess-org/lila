@@ -2769,8 +2769,6 @@ interface I18n {
     apply: string;
     /** as black */
     asBlack: string;
-    /** As free as Lichess */
-    asFreeAsLichess: string;
     /** Your account is managed. Ask your chess teacher about lifting kid mode. */
     askYourChessTeacherAboutLiftingKidMode: string;
     /** as white */
@@ -2863,12 +2861,8 @@ interface I18n {
     bookmarkThisGame: string;
     /** Brightness */
     brightness: string;
-    /** Built for the love of chess, not money */
-    builtForTheLoveOfChessNotMoney: string;
     /** Bullet */
     bullet: string;
-    /** Bullet, blitz, classical */
-    bulletBlitzClassical: string;
     /** Very fast games: less than 3 minutes */
     bulletDesc: string;
     /** by %s */
@@ -2993,8 +2987,6 @@ interface I18n {
     copyVariationPgn: string;
     /** Correspondence */
     correspondence: string;
-    /** Correspondence chess */
-    correspondenceChess: string;
     /** Correspondence games: one or several days per move */
     correspondenceDesc: string;
     /** Country or region */
@@ -3201,8 +3193,6 @@ interface I18n {
     focusChat: string;
     /** Follow */
     follow: string;
-    /** Follow and challenge friends */
-    followAndChallengeFriends: string;
     /** Following */
     following: string;
     /** Follow %s */
@@ -3223,12 +3213,8 @@ interface I18n {
     friends: string;
     /** From position */
     fromPosition: string;
-    /** Full featured */
-    fullFeatured: string;
     /** Game aborted */
     gameAborted: string;
-    /** Game analysis */
-    gameAnalysis: string;
     /** Game as GIF */
     gameAsGIF: string;
     /** You have a game in progress with %s. */
@@ -3647,8 +3633,6 @@ interface I18n {
     oneDay: string;
     /** One URL per line. */
     oneUrlPerLine: string;
-    /** Online and offline play */
-    onlineAndOfflinePlay: string;
     /** Online bots */
     onlineBots: string;
     /** Online players */
@@ -3715,8 +3699,6 @@ interface I18n {
     performance: string;
     /** Rating: %s */
     perfRatingX: I18nFormat;
-    /** Phone and tablet */
-    phoneAndTablet: string;
     /** Piece set */
     pieceSet: string;
     /** Play */
@@ -4423,8 +4405,6 @@ interface I18n {
     yourTopWeeklyPerfRatingIsTooHigh: I18nFormat;
     /** Your turn */
     yourTurn: string;
-    /** Zero advertisement */
-    zeroAdvertisement: string;
   };
   storm: {
     /** Accuracy */

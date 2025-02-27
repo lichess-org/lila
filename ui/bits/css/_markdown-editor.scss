@@ -51,6 +51,9 @@
     }
     &-md-tab-container {
       background: none;
+      /* preview is not accurate to what lichess shows */
+      display: none;
+      width: 0;
     }
     &-tabs {
       @extend %flex-center;
@@ -60,6 +63,8 @@
         height: 2em;
         line-height: 2em;
         margin: 0 0 -1px 0;
+        /* preview is not accurate to what lichess shows */
+        display: none;
       }
     }
     &-popup {

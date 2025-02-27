@@ -127,9 +127,6 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 strong(trans.features.zeroAdsAndNoTracking())
               ),
               tr(unlimited)(
-                trans.site.onlineAndOfflinePlay()
-              ),
-              tr(unlimited)(
                 trans.features.ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess()
               ),
               tr(unlimited)(
