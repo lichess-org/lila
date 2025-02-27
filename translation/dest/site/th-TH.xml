@@ -731,21 +731,11 @@
   <string name="sessions">วาระ</string>
   <string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
-  <string name="asFreeAsLichess">อิสระเหมือนดั่ง lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">สรรสร้างเพื่อคนรักหมากรุก ไม่ใช่เพื่อเงินตรา</string>
   <string name="everybodyGetsAllFeaturesForFree">ทุกคนจะได้รับคุณลักษณะทั้งหมดฟรี</string>
-  <string name="zeroAdvertisement">โฆษณาเป็นศูนย์</string>
-  <string name="fullFeatured">คุณลักษณะครบถ้วน</string>
-  <string name="phoneAndTablet">โทรศัพท์และแท็บเล็ต</string>
-  <string name="bulletBlitzClassical">บุลลิต, บลิตซ์, คลาสสิก</string>
-  <string name="correspondenceChess">หมากรุกแบบยาวนาน</string>
-  <string name="onlineAndOfflinePlay">เล่นออนไลน์ และออฟไลน์</string>
   <string name="viewTheSolution">ดูเฉลย</string>
-  <string name="followAndChallengeFriends">ติดตามและท้าดวลกับเพื่อนๆ</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">รองรับถึง %s ภาษา!</item>
   </plurals>
-  <string name="gameAnalysis">วิเคราะห์เกม</string>
   <string name="xHostsY">%1$s เป็นโฮสต์ %2$s</string>
   <string name="xJoinsY">%1$s เข้าร่วม %2$s</string>
   <string name="xLikesY">%1$s ชื่นชอบ %2$s</string>

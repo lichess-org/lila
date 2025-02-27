@@ -2,6 +2,6 @@
 <resources>
   <string name="settings">პარამეტრები</string>
   <string name="closeAccount">ანგარიშის დახურვა</string>
-  <string name="cantOpenSimilarAccount">დაუშვებელია ახალი ანგარიშის გახსნა იმავე სახელწოდებით, თუნდაც საქმე სხვაგვარად იყოს.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">დაუშვებელია ახალი ანგარიშის გახსნა იმავე სახელწოდებით, თუნდაც საქმე სხვაგვარად იყოს.</string>
   <string name="thisAccountIsClosed">აღნიშნული ანგარიში დახურულია.</string>
 </resources>

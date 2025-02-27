@@ -856,24 +856,14 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="sessions">Sesijos</string>
   <string name="revokeAllSessions">atšaukti visus seansus</string>
   <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
-  <string name="asFreeAsLichess">Nemokama, kaip ir „lichess“</string>
-  <string name="builtForTheLoveOfChessNotMoney">Sukurta iš meilės šachmatams, ne dėl pinigų</string>
   <string name="everybodyGetsAllFeaturesForFree">Kiekvienas gauna visas galimybes už dyką</string>
-  <string name="zeroAdvertisement">Jokių reklamų</string>
-  <string name="fullFeatured">Visiškai parengta</string>
-  <string name="phoneAndTablet">Telefonui ir planšetei</string>
-  <string name="bulletBlitzClassical">Kulka, Žaibas, klasikiniai</string>
-  <string name="correspondenceChess">Korespondenciniai</string>
-  <string name="onlineAndOfflinePlay">Žaidimas su ir be interneto</string>
   <string name="viewTheSolution">Parodyti sprendimą</string>
-  <string name="followAndChallengeFriends">Sekti ir žaisti su draugais</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Galima rinktis iš %s kalbos!</item>
     <item quantity="few">Galima rinktis iš %s kalbų!</item>
     <item quantity="many">Galima rinktis iš %s kalbų!</item>
     <item quantity="other">Galima rinktis iš %s kalbų!</item>
   </plurals>
-  <string name="gameAnalysis">Partijos analizė</string>
   <string name="xHostsY">%1$s veda %2$s</string>
   <string name="xJoinsY">%1$s prisijungė prie %2$s</string>
   <string name="xLikesY">%1$s patiko %2$s</string>

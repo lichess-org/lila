@@ -773,22 +773,12 @@
   <string name="sessions">Oturumlar</string>
   <string name="revokeAllSessions">tüm oturumları kaldır</string>
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
-  <string name="asFreeAsLichess">lichess kadar özgür</string>
-  <string name="builtForTheLoveOfChessNotMoney">Para için değil satranç sevgisi için geliştirilmiştir</string>
   <string name="everybodyGetsAllFeaturesForFree">Bütün özellikler ücretsizdir</string>
-  <string name="zeroAdvertisement">Sıfır reklam</string>
-  <string name="fullFeatured">Tüm özellikler</string>
-  <string name="phoneAndTablet">Telefon ve tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasik</string>
-  <string name="correspondenceChess">Yazışmalı satranç</string>
-  <string name="onlineAndOfflinePlay">Çevrimiçi ve çevrimdışı oyna</string>
   <string name="viewTheSolution">Çözümü göster</string>
-  <string name="followAndChallengeFriends">Arkadaşlarınızı takip edin ve onlarla maç yapın</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s farklı dili destekler!</item>
     <item quantity="other">%s farklı dili destekler!</item>
   </plurals>
-  <string name="gameAnalysis">Oyun analizi</string>
   <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
   <string name="xLikesY">%1$s beğendi: %2$s</string>

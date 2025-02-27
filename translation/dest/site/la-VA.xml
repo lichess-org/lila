@@ -629,22 +629,12 @@
   <string name="sessions">Sessiones</string>
   <string name="revokeAllSessions">recanta sessionem</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
-  <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
-  <string name="builtForTheLoveOfChessNotMoney">Non divitiis, sed scaccorum amori creata.</string>
   <string name="everybodyGetsAllFeaturesForFree">Omnes omnia gratuito sunt.</string>
-  <string name="zeroAdvertisement">Sine praeconiis mercatoriis.</string>
-  <string name="fullFeatured">Omnia inclusa</string>
-  <string name="phoneAndTablet">Sophonum et Tablet</string>
-  <string name="bulletBlitzClassical">Bullet, fullgur, tarda</string>
-  <string name="correspondenceChess">per epistolam ludus</string>
-  <string name="onlineAndOfflinePlay">Online ludus et offline</string>
   <string name="viewTheSolution">Solutionem videre</string>
-  <string name="followAndChallengeFriends">Amicos sequi et provocare</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">In sermonibus %s!</item>
     <item quantity="other">In sermonibus %s!</item>
   </plurals>
-  <string name="gameAnalysis">Analysis ludi</string>
   <string name="xHostsY">%1$s exercituum %2$s</string>
   <string name="xJoinsY">%1$s iungit %2$s</string>
   <string name="xLikesY">%1$s velit %2$s</string>

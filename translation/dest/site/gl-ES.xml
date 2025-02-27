@@ -773,23 +773,13 @@
   <string name="sessions">Sesións</string>
   <string name="revokeAllSessions">pechar todas as sesións</string>
   <string name="playChessEverywhere">Xoga ó xadrez en todas partes</string>
-  <string name="asFreeAsLichess">Tan libre coma Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Construído por amor ó xadrez, non ó diñeiro</string>
   <string name="everybodyGetsAllFeaturesForFree">Todo o mundo obtén todas as funcións gratis</string>
-  <string name="zeroAdvertisement">Sen anuncios</string>
-  <string name="fullFeatured">Repleta de funcións</string>
-  <string name="phoneAndTablet">Teléfono e tableta</string>
-  <string name="bulletBlitzClassical">Bala, lóstrego, clásico</string>
-  <string name="correspondenceChess">Xadrez postal</string>
-  <string name="onlineAndOfflinePlay">Xogar en liña ou sen conexión</string>
   <string name="viewTheSolution">Mirar a solución</string>
-  <string name="followAndChallengeFriends">Segue e reta ós teus amigos</string>
   <string name="noChallenges">Sen desafíos.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dispoñible en %s idioma!</item>
     <item quantity="other">Dispoñible en %s idiomas!</item>
   </plurals>
-  <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
   <string name="xLikesY">A %1$s gústalle %2$s</string>

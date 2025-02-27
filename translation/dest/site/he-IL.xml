@@ -855,17 +855,8 @@
   <string name="sessions">מכשירים מחוברים</string>
   <string name="revokeAllSessions">נתק את כל המכשירים</string>
   <string name="playChessEverywhere">שחקו שחמט בכל מקום</string>
-  <string name="asFreeAsLichess">חינמי לחלוטין, ממש כמו האתר!</string>
-  <string name="builtForTheLoveOfChessNotMoney">נבנה בגלל אהבה למשחק, לא כדי להרוויח כסף</string>
   <string name="everybodyGetsAllFeaturesForFree">כולם מקבלים את כל התוכן בחינם</string>
-  <string name="zeroAdvertisement">אפס פרסומות</string>
-  <string name="fullFeatured">מאפיינים</string>
-  <string name="phoneAndTablet">טלפון וטאבלט</string>
-  <string name="bulletBlitzClassical">קליע, בזק, קלאסי</string>
-  <string name="correspondenceChess">שחמט בהתכתבות</string>
-  <string name="onlineAndOfflinePlay">שחקו עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
-  <string name="followAndChallengeFriends">עקבו אחר חברים והזמינו אותם למשחק</string>
   <string name="noChallenges">אין הזמנות למשחק.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">זמין בשפה %s!</item>
@@ -873,7 +864,6 @@
     <item quantity="many">זמין ב%s שפות!</item>
     <item quantity="other">זמין ב%s שפות!</item>
   </plurals>
-  <string name="gameAnalysis">ניתוח המשחק</string>
   <string name="xHostsY">%1$s מארח/ת %2$s</string>
   <string name="xJoinsY">%1$s מצטרף/ת ל־%2$s</string>
   <string name="xLikesY">%1$s אוהב/ת את %2$s</string>

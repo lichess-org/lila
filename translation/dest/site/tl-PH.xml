@@ -683,22 +683,12 @@
   <string name="sessions">Mga Session</string>
   <string name="revokeAllSessions">bawiin ang lahat ng sesyon</string>
   <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
-  <string name="asFreeAsLichess">Kasinglibre ng lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Ginawa para sa pag-ibig sa chess, hindi sa pera</string>
   <string name="everybodyGetsAllFeaturesForFree">Ang lahat ay nakakuha ng lahat ng tampok ng libre</string>
-  <string name="zeroAdvertisement">Walang advertisement</string>
-  <string name="fullFeatured">Buong tinampok</string>
-  <string name="phoneAndTablet">Telepono at tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasikal</string>
-  <string name="correspondenceChess">Chess ng pagsusulatan</string>
-  <string name="onlineAndOfflinePlay">Online at offline na paglalaro</string>
   <string name="viewTheSolution">Tingnan ang solusyon</string>
-  <string name="followAndChallengeFriends">Sundin at hamunin ang mga kaibigan</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Magagamit sa %s wika!</item>
     <item quantity="other">Magagamit sa %s mga wika!</item>
   </plurals>
-  <string name="gameAnalysis">Pagsusuri ng laro</string>
   <string name="xHostsY">%1$s mga host %2$s</string>
   <string name="xJoinsY">%1$s mga sumali %2$s</string>
   <string name="xLikesY">%1$s mga gusto %2$s</string>

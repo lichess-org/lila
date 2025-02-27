@@ -622,21 +622,11 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="security">Keselamatan</string>
   <string name="revokeAllSessions">batalkan semua sesi</string>
   <string name="playChessEverywhere">Main catur dimana-mana</string>
-  <string name="asFreeAsLichess">Percuma seperti Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Dibina untuk semangat catur bukan duit</string>
   <string name="everybodyGetsAllFeaturesForFree">Semua orang boleh menggunakan semua ciri-ciri percuma</string>
-  <string name="zeroAdvertisement">Sifar iklan</string>
-  <string name="fullFeatured">Ciri-ciri premium</string>
-  <string name="phoneAndTablet">Telefon bimbit dan tablet</string>
-  <string name="bulletBlitzClassical">Peluru, blitz, klasik</string>
-  <string name="correspondenceChess">Catur jangka panjang</string>
-  <string name="onlineAndOfflinePlay">Dalam talian dan luar talian permainan</string>
   <string name="viewTheSolution">Papar jawapan</string>
-  <string name="followAndChallengeFriends">Ikut dan cabar rakan-rakan</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Terdapat dalam %s bahasa!</item>
   </plurals>
-  <string name="gameAnalysis">Analysis permainan</string>
   <string name="xHostsY">%1$s meng\'host\' %2$s</string>
   <string name="xJoinsY">%1$s menyertai %2$s</string>
   <string name="xLikesY">%1$s menyukai%2$s</string>

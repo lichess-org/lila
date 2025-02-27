@@ -761,22 +761,12 @@
   <string name="sessions">Սեսիաներ</string>
   <string name="revokeAllSessions">փակել բոլոր սեսիաները</string>
   <string name="playChessEverywhere">Խաղացեք շախմատ ամենուր</string>
-  <string name="asFreeAsLichess">Անվճար է Lichess-ի պես</string>
-  <string name="builtForTheLoveOfChessNotMoney">Սիրով շախմատի, այլ ոչ` փողի հանդեպ</string>
   <string name="everybodyGetsAllFeaturesForFree">Բոլոր հնարավորությունները բոլորի համար անվճար են</string>
-  <string name="zeroAdvertisement">Ոչ մի գովազդ</string>
-  <string name="fullFeatured">Առավելագույն ֆունկցիոնալություն</string>
-  <string name="phoneAndTablet">Հեռախոսով և պլանշետով</string>
-  <string name="bulletBlitzClassical">Կայծակնային, արագ, դասական</string>
-  <string name="correspondenceChess">Նամակագրական շախմատ</string>
-  <string name="onlineAndOfflinePlay">Առցանց և օֆլայն խաղ</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
-  <string name="followAndChallengeFriends">Բաժանորդագրություններ և խաղ ընկերների հետ</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Հասանելի՜ է %s լեզվով</item>
     <item quantity="other">Հասանելի՜ է %s լեզուներով</item>
   </plurals>
-  <string name="gameAnalysis">Խաղի վերլուծություն</string>
   <string name="xHostsY">%1$s-ը ստեղծել է %2$s-ը</string>
   <string name="xJoinsY">%1$s-ը միացել է %2$s-ին</string>
   <string name="xLikesY">%1$s-ը հավանել է %2$s-ին</string>
@@ -960,7 +950,7 @@
   <string name="analysisOptions">Վերլուծության պարամետրերը</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
   <string name="showHelpDialog">Ցույց տալ օգնությունը</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
+  <string name="reopenYourAccount">Վերաբացեք Ձեր մասնակցային հաշիվը</string>
   <string name="emailAssociatedToaccount">Այս մասնակցային հաշվին կցված էլ. փոստի հասցեն։</string>
   <string name="sentEmailWithLink">Ձեզ ուղարկել ենք հղումով նամակ։</string>
   <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>

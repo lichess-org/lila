@@ -641,22 +641,12 @@
   <string name="security">سیکورٹی</string>
   <string name="revokeAllSessions">تمام سیشنز کالعدم قرار دے دیں</string>
   <string name="playChessEverywhere">شطرنج کھلیں ہر جگا</string>
-  <string name="asFreeAsLichess">لی چیس کی طرح مفت</string>
-  <string name="builtForTheLoveOfChessNotMoney">شطرنج سے محبت کے لئے بنا ،پیسوں کی لئے نہی</string>
   <string name="everybodyGetsAllFeaturesForFree">تمام لوگوں کو ساری خصوصیات مفت ملیں گی</string>
-  <string name="zeroAdvertisement">اشتہارات سے مبرا</string>
-  <string name="fullFeatured">تمام انتظامات</string>
-  <string name="phoneAndTablet">فون یا ٹیبلٹ</string>
-  <string name="bulletBlitzClassical">بلٹ، بلٹز، کلاسکل</string>
-  <string name="correspondenceChess">کورسپونڈنس شطرنج</string>
-  <string name="onlineAndOfflinePlay">ان لائن یا آف لائن کھلیں</string>
   <string name="viewTheSolution">حل دیکھیں</string>
-  <string name="followAndChallengeFriends">دوستوں کو فالو اور چیلنج کریں</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s زبان میں دستیاب ہے!</item>
     <item quantity="other">%s زبانوں میں دستیاب ہے!</item>
   </plurals>
-  <string name="gameAnalysis">بازی کا تجزیہ</string>
   <string name="xHostsY">%1$s میزبانی کر رہا ہے %2$s کی</string>
   <string name="xJoinsY">%1$s نے %2$s کو جوائن کیا</string>
   <string name="xLikesY">%1$s نے %2$s کو پسند کیا</string>

@@ -773,23 +773,13 @@
   <string name="sessions">Sitzungen</string>
   <string name="revokeAllSessions">alle Sitzungen beenden</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
-  <string name="asFreeAsLichess">Frei wie Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Aus Liebe zum Schach</string>
   <string name="everybodyGetsAllFeaturesForFree">Jeder erhält alle Funktionen völlig kostenlos</string>
-  <string name="zeroAdvertisement">Keine Werbung</string>
-  <string name="fullFeatured">Keine Einschränkungen</string>
-  <string name="phoneAndTablet">Handy und Tablet</string>
-  <string name="bulletBlitzClassical">Bullet, Blitz, Klassisch</string>
-  <string name="correspondenceChess">Fernschach</string>
-  <string name="onlineAndOfflinePlay">Spiele online und offline</string>
   <string name="viewTheSolution">Lösung ansehen</string>
-  <string name="followAndChallengeFriends">Folge deinen Freunden und fordere sie heraus</string>
   <string name="noChallenges">Keine Herausforderungen.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfügbar in %s Sprache!</item>
     <item quantity="other">Verfügbar in %s Sprachen!</item>
   </plurals>
-  <string name="gameAnalysis">Spielanalyse</string>
   <string name="xHostsY">%1$s hat %2$s erstellt</string>
   <string name="xJoinsY">%1$s ist %2$s beigetreten</string>
   <string name="xLikesY">%1$s gefällt %2$s</string>

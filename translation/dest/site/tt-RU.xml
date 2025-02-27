@@ -612,21 +612,11 @@
   <string name="security">Хәвефсезлек</string>
   <string name="revokeAllSessions">һәр сессиядан чыгу</string>
   <string name="playChessEverywhere">Уйна шаһмат бөтен җирдә</string>
-  <string name="asFreeAsLichess">Личесс кебек азат</string>
-  <string name="builtForTheLoveOfChessNotMoney">Төздек шаһмат яратучылары өчен, акча түгел</string>
   <string name="everybodyGetsAllFeaturesForFree">Һәркайсы алы барлык әйберләрен азат</string>
-  <string name="zeroAdvertisement">Сәрмая юк</string>
-  <string name="fullFeatured">Барлык үзенчәлекләр</string>
-  <string name="phoneAndTablet">Кәрәзле телефон һәм планшет</string>
-  <string name="bulletBlitzClassical">Мәрми, яшенчә, хуп</string>
-  <string name="correspondenceChess">Язылу шаһматы</string>
-  <string name="onlineAndOfflinePlay">Чилтәрдә һәм чилтәрсез уйнамак</string>
   <string name="viewTheSolution">Чишелешне карап алу</string>
-  <string name="followAndChallengeFriends">Иярергә һәм сынарга дутларны</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s телдә бар!</item>
   </plurals>
-  <string name="gameAnalysis">Уенны уйланырга</string>
   <string name="xHostsY">%1$s хуҗасы %2$s</string>
   <string name="xJoinsY">%1$s Кушлады %2$s</string>
   <string name="xLikesY">%1$s ошады %2$s</string>

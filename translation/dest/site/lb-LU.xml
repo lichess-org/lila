@@ -753,23 +753,13 @@
   <string name="sessions">Sitzungen</string>
   <string name="revokeAllSessions">All Sitzungen ofschléissen</string>
   <string name="playChessEverywhere">Spill iwwerall Schach</string>
-  <string name="asFreeAsLichess">Sou gratis wéi Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Aus Léift zum Schach, net Suen</string>
   <string name="everybodyGetsAllFeaturesForFree">Jiddereen kritt all Features fir näischt</string>
-  <string name="zeroAdvertisement">Keng Reklamm</string>
-  <string name="fullFeatured">Keng Aschränkungen</string>
-  <string name="phoneAndTablet">Handy an Tablet</string>
-  <string name="bulletBlitzClassical">Bullet, Blitz, Klassesch</string>
-  <string name="correspondenceChess">Korrespondenz Schach</string>
-  <string name="onlineAndOfflinePlay">Online an Offline spillen</string>
   <string name="viewTheSolution">Léisung ukucken</string>
-  <string name="followAndChallengeFriends">Kolleege followen an erausfuerderen</string>
   <string name="noChallenges">Keng Erausfuerderungen.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibel an %s Sprooch!</item>
     <item quantity="other">Disponibel an %s Sproochen!</item>
   </plurals>
-  <string name="gameAnalysis">Analys vun der Partie</string>
   <string name="xHostsY">%1$s huet %2$s kreéiert</string>
   <string name="xJoinsY">%1$s mëscht mat bäi %2$s</string>
   <string name="xLikesY">Dem %1$s gefält %2$s</string>
@@ -963,7 +953,7 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="analysisOptions">Analysoptiounen</string>
   <string name="focusChat">Chat fokusséieren</string>
   <string name="showHelpDialog">Dësen Hëllefdialog weisen</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Konto nei opmaachen</string>
+  <string name="reopenYourAccount">Konto nei opmaachen</string>
   <string name="emailAssociatedToaccount">Email Adress associéiert mam Konto</string>
   <string name="sentEmailWithLink">Mir hun dir eng Email mat engem Link geschéckt.</string>
   <string name="tournamentEntryCode">Turnéier Zougangscode</string>

@@ -759,22 +759,12 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="sessions">Munkamenetek</string>
   <string name="revokeAllSessions">eltávolíthatod az összes eszközt</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
-  <string name="asFreeAsLichess">Olyannyira ingyenes mint a Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">A sakk szeretetéért építettük, nem a pénzért</string>
   <string name="everybodyGetsAllFeaturesForFree">Az összes funkció ingyenes, mindenki számára</string>
-  <string name="zeroAdvertisement">Nincsenek hirdetések</string>
-  <string name="fullFeatured">Teljes körű funkciók</string>
-  <string name="phoneAndTablet">Telefon vagy táblagép</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasszikus</string>
-  <string name="correspondenceChess">Levelező sakk</string>
-  <string name="onlineAndOfflinePlay">Játssz adatkapcsolattal vagy adatkapcsolat nélkül</string>
   <string name="viewTheSolution">Megoldás megtekintése</string>
-  <string name="followAndChallengeFriends">Kövesd és hívd ki  a barátaidat</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Elérhető %s nyelven</item>
     <item quantity="other">Elérhető %s nyelven</item>
   </plurals>
-  <string name="gameAnalysis">Játék elemzés</string>
   <string name="xHostsY">%1$s létrehozta a %2$s-t</string>
   <string name="xJoinsY">%1$s csatlakozott a %2$shoz</string>
   <string name="xLikesY">%1$s kedvel egy tanulmányt: %2$s</string>

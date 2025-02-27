@@ -774,22 +774,12 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="sessions">Sessioni</string>
   <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
-  <string name="asFreeAsLichess">Gratuita, proprio come Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Fatto per amore degli scacchi, non del denaro</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutti hanno le stesse funzionalità gratis</string>
-  <string name="zeroAdvertisement">Nessuna pubblicità</string>
-  <string name="fullFeatured">Senza limitazioni</string>
-  <string name="phoneAndTablet">Cellulare e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
-  <string name="correspondenceChess">Scacchi per corrispondenza</string>
-  <string name="onlineAndOfflinePlay">Gioca online e offline</string>
   <string name="viewTheSolution">Visualizza la soluzione</string>
-  <string name="followAndChallengeFriends">Segui e sfida gli amici</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibile in %s lingue!</item>
     <item quantity="other">Disponibile in %s lingue!</item>
   </plurals>
-  <string name="gameAnalysis">Analisi partita</string>
   <string name="xHostsY">%1$s ospita %2$s</string>
   <string name="xJoinsY">%1$s ha partecipato a %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>

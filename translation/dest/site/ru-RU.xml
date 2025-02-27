@@ -855,17 +855,8 @@
   <string name="sessions">Сессии</string>
   <string name="revokeAllSessions">закрыть все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
-  <string name="asFreeAsLichess">Бесплатен, как Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">С любовью к шахматам, а не к деньгам</string>
   <string name="everybodyGetsAllFeaturesForFree">Все возможности для всех бесплатно</string>
-  <string name="zeroAdvertisement">Никакой рекламы</string>
-  <string name="fullFeatured">Максимальная функциональность</string>
-  <string name="phoneAndTablet">На телефоне и планшете</string>
-  <string name="bulletBlitzClassical">Блиц, Рапид, Классика</string>
-  <string name="correspondenceChess">По переписке</string>
-  <string name="onlineAndOfflinePlay">Игра онлайн и офлайн</string>
   <string name="viewTheSolution">Посмотреть решение</string>
-  <string name="followAndChallengeFriends">Подписки и игра с друзьями</string>
   <string name="noChallenges">Нет вызовов.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно на %s языке!</item>
@@ -873,7 +864,6 @@
     <item quantity="many">Доступно на %s языках!</item>
     <item quantity="other">Доступно на %s языках!</item>
   </plurals>
-  <string name="gameAnalysis">Анализ игры</string>
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
   <string name="xLikesY">%1$s понравилось %2$s</string>

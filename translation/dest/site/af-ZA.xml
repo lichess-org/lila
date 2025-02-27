@@ -768,23 +768,13 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies herroep</string>
   <string name="playChessEverywhere">Speel skaak oral</string>
-  <string name="asFreeAsLichess">So gratis soos Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Gebou as gevolg van die liefde vir skaak, nie geld nie</string>
   <string name="everybodyGetsAllFeaturesForFree">Almal kry al die funksies gratis</string>
-  <string name="zeroAdvertisement">Niks advertensies</string>
-  <string name="fullFeatured">Volledige kenmerke</string>
-  <string name="phoneAndTablet">Selfoon en tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassieke</string>
-  <string name="correspondenceChess">Korrespondensie skaak</string>
-  <string name="onlineAndOfflinePlay">Aanlyn en aflyn speel</string>
   <string name="viewTheSolution">Kyk na die oplossing</string>
-  <string name="followAndChallengeFriends">Volg en daag vriende uit</string>
   <string name="noChallenges">Geen uitdagings nie.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beskikbaar in %s taal!</item>
     <item quantity="other">Beskikbaar in %s tale!</item>
   </plurals>
-  <string name="gameAnalysis">Spel analise</string>
   <string name="xHostsY">%1$s bied %2$s aan</string>
   <string name="xJoinsY">%1$s sluit by %2$s aan</string>
   <string name="xLikesY">%1$s hou van %2$s</string>

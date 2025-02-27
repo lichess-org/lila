@@ -743,22 +743,12 @@
   <string name="sessions">सत्र</string>
   <string name="revokeAllSessions">सभी सत्र रद्द</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
-  <string name="asFreeAsLichess">Lichess जैसा मुक्त</string>
-  <string name="builtForTheLoveOfChessNotMoney">शतरंज के प्यार के लिए निर्मित, धन के लिए नहीं</string>
   <string name="everybodyGetsAllFeaturesForFree">हर कोई मुफ्त में सभी सुविधाओं प्राप्त करता है</string>
-  <string name="zeroAdvertisement">शून्य विज्ञापन</string>
-  <string name="fullFeatured">पूरा विशेष रुप से प्रदर्शित</string>
-  <string name="phoneAndTablet">फोन और टैबलेट</string>
-  <string name="bulletBlitzClassical">बुलेट, ब्लिट्ज, क्लासिकल</string>
-  <string name="correspondenceChess">पत्राचार शतरंज</string>
-  <string name="onlineAndOfflinePlay">ऑनलाइन और ऑफ़लाइन खेलने के लिए</string>
   <string name="viewTheSolution">समाधान देखें</string>
-  <string name="followAndChallengeFriends">अपने दोस्तों को चुनौती</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s भाषाओं में उपलब्ध है !</item>
     <item quantity="other">%s भाषाओं में उपलब्ध है !</item>
   </plurals>
-  <string name="gameAnalysis">खेल अध्ययन</string>
   <string name="xHostsY">%1$s मेजबान %2$s</string>
   <string name="xJoinsY">%1$s मेजबान %2$s</string>
   <string name="xLikesY">%1$s ने %2$s पसंद किया:</string>

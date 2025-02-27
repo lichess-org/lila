@@ -754,22 +754,12 @@
   <string name="sessions">کۆبونەوەکان</string>
   <string name="revokeAllSessions">هەموو دانیشتنەکان هەڵبوەشێننەوە</string>
   <string name="playChessEverywhere">یاری شەترنج بکە لە هەموو شوێنێک</string>
-  <string name="asFreeAsLichess">بەخۆڕایی لە لیچێس</string>
-  <string name="builtForTheLoveOfChessNotMoney">لە خۆشەویستی بۆ شەترەنج دروستکراوە، نەک بۆ پارە</string>
   <string name="everybodyGetsAllFeaturesForFree">هەموو کەسێک هەموو تایبەتمەندییەکانی بە خۆڕایی دەست دەکەوێت</string>
-  <string name="zeroAdvertisement">بەبێ بوونی رێکلام</string>
-  <string name="fullFeatured">بە تەواوی تایبەتمەندی</string>
-  <string name="phoneAndTablet">مۆبایل و تابلێت</string>
-  <string name="bulletBlitzClassical">بووڵێت، ئاگرین، کلاسیک</string>
-  <string name="correspondenceChess">نامەناردن بە شەترەنج</string>
-  <string name="onlineAndOfflinePlay">یاری ئۆنلاین و بێ ئینتەرنێت</string>
   <string name="viewTheSolution">سەیری شیکردنەوەکە بکە</string>
-  <string name="followAndChallengeFriends">هاوڕێکانت فۆڵۆو بکە و یاریان لەگەڵ بکە</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">بە %s زمان بەردەستە!</item>
     <item quantity="other">بە %s زمان بەردەستە!</item>
   </plurals>
-  <string name="gameAnalysis">شیکردنەوەی یارییەکان</string>
   <string name="xHostsY">%1$s هۆستەکان %2$s</string>
   <string name="xJoinsY">%1$s بەشدارن لە %2$s</string>
   <string name="xLikesY">%1$s بەدڵیانە %2$s</string>

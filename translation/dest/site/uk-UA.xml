@@ -855,17 +855,8 @@
   <string name="sessions">Сесії</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
-  <string name="asFreeAsLichess">Безкоштовний, як і Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Створений з любов\'ю до шахів, не до грошей</string>
   <string name="everybodyGetsAllFeaturesForFree">Усі можливості безкоштовні для всіх</string>
-  <string name="zeroAdvertisement">Без реклами</string>
-  <string name="fullFeatured">Повнофункціональний</string>
-  <string name="phoneAndTablet">Для смартфонів та планшетів</string>
-  <string name="bulletBlitzClassical">Куля, бліц, класичні шахи</string>
-  <string name="correspondenceChess">Заочні</string>
-  <string name="onlineAndOfflinePlay">Гра онлайн та офлайн</string>
   <string name="viewTheSolution">Дивитись рішення</string>
-  <string name="followAndChallengeFriends">Спостерігайте і кидайте виклик друзям</string>
   <string name="noChallenges">Немає викликів.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Доступно %s мовою!</item>
@@ -873,7 +864,6 @@
     <item quantity="many">Доступно %s мовами!</item>
     <item quantity="other">Доступно %s мовами!</item>
   </plurals>
-  <string name="gameAnalysis">Аналіз гри</string>
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>

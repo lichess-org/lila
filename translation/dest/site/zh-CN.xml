@@ -732,21 +732,11 @@
   <string name="sessions">会话</string>
   <string name="revokeAllSessions">注销所有会话</string>
   <string name="playChessEverywhere">在任何地方下棋！</string>
-  <string name="asFreeAsLichess">Lichess 永远免费</string>
-  <string name="builtForTheLoveOfChessNotMoney">不是为了钱，而是因为对国际象棋的热爱而创建的</string>
   <string name="everybodyGetsAllFeaturesForFree">每个人都可以免费使用所有功能</string>
-  <string name="zeroAdvertisement">没有广告</string>
-  <string name="fullFeatured">功能全面</string>
-  <string name="phoneAndTablet">手机和平板电脑</string>
-  <string name="bulletBlitzClassical">快棋与慢棋</string>
-  <string name="correspondenceChess">非即时比赛</string>
-  <string name="onlineAndOfflinePlay">在线和离线下棋</string>
   <string name="viewTheSolution">看解答</string>
-  <string name="followAndChallengeFriends">关注并挑战朋友</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支持%s种语言！</item>
   </plurals>
-  <string name="gameAnalysis">棋局分析</string>
   <string name="xHostsY">%1$s 主持 %2$s</string>
   <string name="xJoinsY">%1$s 参加 %2$s</string>
   <string name="xLikesY">%1$s点赞%2$s</string>

@@ -774,23 +774,13 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="sessions">Sessões</string>
   <string name="revokeAllSessions">desativar todas as sessões</string>
   <string name="playChessEverywhere">Joga xadrez em qualquer lugar</string>
-  <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Desenvolvido pelo amor ao xadrez, não pelo dinheiro</string>
   <string name="everybodyGetsAllFeaturesForFree">Todos têm todos os recursos gratuitamente</string>
-  <string name="zeroAdvertisement">Zero anúncios</string>
-  <string name="fullFeatured">Cheio de recursos</string>
-  <string name="phoneAndTablet">Telemóvel e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, rápida, clássica</string>
-  <string name="correspondenceChess">Xadrez por correspondência</string>
-  <string name="onlineAndOfflinePlay">Jogar online e offline</string>
   <string name="viewTheSolution">Ver a solução</string>
-  <string name="followAndChallengeFriends">Joga e desafia amigos</string>
   <string name="noChallenges">Sem desafios.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponível em %s língua!</item>
     <item quantity="other">Disponível em %s línguas!</item>
   </plurals>
-  <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s criou a exibição simultânea %2$s</string>
   <string name="xJoinsY">%1$s entrou em %2$s</string>
   <string name="xLikesY">%1$s gostou de %2$s</string>

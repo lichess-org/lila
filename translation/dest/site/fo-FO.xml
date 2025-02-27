@@ -666,22 +666,12 @@
   <string name="security">Trygd</string>
   <string name="revokeAllSessions">strika allar setur (sessions)</string>
   <string name="playChessEverywhere">Telva allastaðni</string>
-  <string name="asFreeAsLichess">Ókeypis sum Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Bygt við alski til telving, ikki pengar</string>
   <string name="everybodyGetsAllFeaturesForFree">Øll fáa allar hentleikar ókeypis</string>
-  <string name="zeroAdvertisement">Ongar lýsingar</string>
-  <string name="fullFeatured">Við øllum hentleikum</string>
-  <string name="phoneAndTablet">Snildfon og teldil</string>
-  <string name="bulletBlitzClassical">Bullet, snartalv, vanligt</string>
-  <string name="correspondenceChess">Brævtalv</string>
-  <string name="onlineAndOfflinePlay">Telva á netinum og uttan net</string>
   <string name="viewTheSolution">Síggj svarið</string>
-  <string name="followAndChallengeFriends">Fylg vinum og bjóða teimum av</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tøkt á %s máli!</item>
     <item quantity="other">Tøkt á %s málum!</item>
   </plurals>
-  <string name="gameAnalysis">Talvgreining</string>
   <string name="xHostsY">%1$s er vertur fyri %2$s</string>
   <string name="xJoinsY">%1$s fer upp í %2$s</string>
   <string name="xLikesY">%1$s dámar %2$s</string>

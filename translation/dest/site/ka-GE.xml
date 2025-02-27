@@ -740,22 +740,12 @@
   <string name="sessions">სესიები</string>
   <string name="revokeAllSessions">გააუქმეთ ყველა სესია</string>
   <string name="playChessEverywhere">ითამაშე ჭადრაკი ყველგან</string>
-  <string name="asFreeAsLichess">ისევე უფასო როგორც lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">შექმნილია ჭადრაკის სიყვარულისთვის და არა ფულისთვის</string>
   <string name="everybodyGetsAllFeaturesForFree">ყველა იღებს ყველა ფუნქციას უფასოდ</string>
-  <string name="zeroAdvertisement">არც ერთი რეკლამა</string>
-  <string name="fullFeatured">სრული თვისებებით</string>
-  <string name="phoneAndTablet">ტელეფონი და ტაბლეტი</string>
-  <string name="bulletBlitzClassical">ტყვია, ბლიცი, კლასიკური</string>
-  <string name="correspondenceChess">მიმოწერით</string>
-  <string name="onlineAndOfflinePlay">ონლაინ და ხაზგარეშე თამაში</string>
   <string name="viewTheSolution">სანახავად გადაწყვეტა</string>
-  <string name="followAndChallengeFriends">გამოყევი და გამოიწვიე მეგობრები</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">ხელმისაწვდომია %s ენაზე!</item>
     <item quantity="other">ხელმისაწვდომია %s ენებზე!</item>
   </plurals>
-  <string name="gameAnalysis">თამაშის ანალიზი</string>
   <string name="xHostsY">%1$s-ს მასპინძლობს %2$s-ს</string>
   <string name="xJoinsY">%1$s-ს უერთდება %2$s-ს</string>
   <string name="xLikesY">%1$s-ს მოსწონს %2$s</string>

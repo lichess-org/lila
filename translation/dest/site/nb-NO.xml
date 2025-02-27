@@ -773,23 +773,13 @@
   <string name="sessions">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spill sjakk overalt</string>
-  <string name="asFreeAsLichess">Like gratis som lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Bygget for kjærlighet til sjakk, ikke penger</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funksjoner gratis</string>
-  <string name="zeroAdvertisement">Ingen reklame</string>
-  <string name="fullFeatured">Fullspekket</string>
-  <string name="phoneAndTablet">Mobil og nettbrett</string>
-  <string name="bulletBlitzClassical">Lyn, hurtig og klassisk</string>
-  <string name="correspondenceChess">Fjernsjakk</string>
-  <string name="onlineAndOfflinePlay">Online og offline spill</string>
   <string name="viewTheSolution">Se løsning</string>
-  <string name="followAndChallengeFriends">Følg og utfordre venner</string>
   <string name="noChallenges">Ingen utfordringer.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgjengelig på %s språk!</item>
     <item quantity="other">Tilgjengelig på %s språk!</item>
   </plurals>
-  <string name="gameAnalysis">Analyse av parti</string>
   <string name="xHostsY">%1$s opprettet %2$s</string>
   <string name="xJoinsY">%1$s ble med på %2$s</string>
   <string name="xLikesY">%1$s liker %2$s</string>

@@ -488,16 +488,10 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
   <string name="playChessEverywhere">Oeral skaken spyljen</string>
-  <string name="asFreeAsLichess">As fergees as lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Boud út de leafde foar skaken, net jild</string>
-  <string name="zeroAdvertisement">Gjin advertinsjes</string>
-  <string name="phoneAndTablet">Telefoan en tablet</string>
-  <string name="onlineAndOfflinePlay">Online en offline spylje</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beskikber yn %s tale!</item>
     <item quantity="other">Beskikber yn %s tale!</item>
   </plurals>
-  <string name="gameAnalysis">Partij-analyze</string>
   <string name="language">Taal</string>
   <string name="background">Achtergrûn</string>
   <string name="light">Ljocht</string>

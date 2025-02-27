@@ -760,22 +760,12 @@
   <string name="sessions">সেশনসমূহ</string>
   <string name="revokeAllSessions">সকল সেশন বাতিল করুন</string>
   <string name="playChessEverywhere">দাবা খেলুন সব জায়গায়</string>
-  <string name="asFreeAsLichess">যেমন লিচাস মুক্ত হিসাবে</string>
-  <string name="builtForTheLoveOfChessNotMoney">দাবার ভালবাসার জন্য তৈরি, টাকা না</string>
   <string name="everybodyGetsAllFeaturesForFree">সকলেই পাবে বিনামূল্যে সব বৈশিষ্ট্য</string>
-  <string name="zeroAdvertisement">শূন্য বিজ্ঞাপন</string>
-  <string name="fullFeatured">সম্পূর্ণ বৈশিষ্ট্যযুক্ত</string>
-  <string name="phoneAndTablet">ফোন এবং ট্যাবলেট</string>
-  <string name="bulletBlitzClassical">গুলি, খুব দ্রুত আক্রমণ, ক্লাসিকাল</string>
-  <string name="correspondenceChess">সাদৃশ্য দাবা</string>
-  <string name="onlineAndOfflinePlay">অনলাইন এবং অফলাইন খেলা</string>
   <string name="viewTheSolution">সমাধান দেখুন</string>
-  <string name="followAndChallengeFriends">অনুসরন করুন এবং বন্ধুদের চ্যালেঞ্জ করুন</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">প্রাপ্য %s ভাষা!</item>
     <item quantity="other">প্রাপ্য %s ভাষা সমূহ!</item>
   </plurals>
-  <string name="gameAnalysis">খেলা বিশ্লেষন</string>
   <string name="xHostsY">%1$s নির্মানকর্তা %2$s</string>
   <string name="xJoinsY">%1$s যোগদেয় %2$s</string>
   <string name="xLikesY">%1$s পচ্ছন্দ %2$s</string>

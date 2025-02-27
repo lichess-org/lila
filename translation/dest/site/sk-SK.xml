@@ -855,17 +855,8 @@
   <string name="sessions">Pripojenia</string>
   <string name="revokeAllSessions">zrušiť všetky pripojenia</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
-  <string name="asFreeAsLichess">Slobodný ako lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Vytvorené z lásky k šachom, nie pre peniaze</string>
   <string name="everybodyGetsAllFeaturesForFree">Každý dostane všetky možnosti zadarmo</string>
-  <string name="zeroAdvertisement">Bez reklám</string>
-  <string name="fullFeatured">Plne vybavený</string>
-  <string name="phoneAndTablet">Mobil a tablet</string>
-  <string name="bulletBlitzClassical">Ultrarýchla hra, blesková hra, klasická hra</string>
-  <string name="correspondenceChess">Korespondenčné šachy</string>
-  <string name="onlineAndOfflinePlay">Hra online i offline</string>
   <string name="viewTheSolution">Pozrite riešenie</string>
-  <string name="followAndChallengeFriends">Sledovať a vyzvať priateľov</string>
   <string name="noChallenges">Žiadne výzvy.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostupné v %s jazyku!</item>
@@ -873,7 +864,6 @@
     <item quantity="many">Dostupné v %s jazykoch!</item>
     <item quantity="other">Dostupné v %s jazykoch!</item>
   </plurals>
-  <string name="gameAnalysis">Analýza hry</string>
   <string name="xHostsY">%1$s založil %2$s</string>
   <string name="xJoinsY">%1$s sa pridal k %2$s</string>
   <string name="xLikesY">%1$s lajkol %2$s</string>

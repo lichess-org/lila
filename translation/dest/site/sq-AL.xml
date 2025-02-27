@@ -764,22 +764,12 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="sessions">Sesione</string>
   <string name="revokeAllSessions">shfuqizoji krejt sesionet</string>
   <string name="playChessEverywhere">Luani shah kudo</string>
-  <string name="asFreeAsLichess">I lirë, si Lichess-i</string>
-  <string name="builtForTheLoveOfChessNotMoney">Ndërtuar nga dashuria për shahun, jo për paranë</string>
   <string name="everybodyGetsAllFeaturesForFree">Gjithkush merr falas krejt veçoritë</string>
-  <string name="zeroAdvertisement">Zero reklama</string>
-  <string name="fullFeatured">I plotë</string>
-  <string name="phoneAndTablet">Telefon dhe tablet</string>
-  <string name="bulletBlitzClassical">Plumb, blic, klasik</string>
-  <string name="correspondenceChess">Shah në korrespodencë</string>
-  <string name="onlineAndOfflinePlay">Lojë në internet dhe jashtë tij</string>
   <string name="viewTheSolution">Shihni zgjidhjen</string>
-  <string name="followAndChallengeFriends">Ndiqni dhe sfidoni shokë</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">I përdorshëm në %s gjuhë!</item>
     <item quantity="other">I përdorshëm në %s gjuhë!</item>
   </plurals>
-  <string name="gameAnalysis">Analiza e lojës</string>
   <string name="xHostsY">%1$s organizon %2$s</string>
   <string name="xJoinsY">%1$s merr pjesë në %2$s</string>
   <string name="xLikesY">%1$s pëlqen %2$s</string>

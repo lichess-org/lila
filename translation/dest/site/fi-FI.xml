@@ -773,23 +773,13 @@
   <string name="sessions">Istunnot</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
-  <string name="asFreeAsLichess">Yhtä ilmainen ja vapaa kuin lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Rakennettu rakkaudesta shakkiin, ei rahaan</string>
   <string name="everybodyGetsAllFeaturesForFree">Jokainen saa kaikki ominaisuudet ilmaiseksi</string>
-  <string name="zeroAdvertisement">Ei mainoksia</string>
-  <string name="fullFeatured">Kaikki ominaisuudet</string>
-  <string name="phoneAndTablet">Puhelin ja tabletti</string>
-  <string name="bulletBlitzClassical">Bullet, pikapeli, klassinen</string>
-  <string name="correspondenceChess">Kirjeshakki</string>
-  <string name="onlineAndOfflinePlay">Online- ja offline-peli</string>
   <string name="viewTheSolution">Katso ratkaisu</string>
-  <string name="followAndChallengeFriends">Seuraa ja haasta kavereitasi</string>
   <string name="noChallenges">Ei haasteita.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Saatavilla %s eri kielellä!</item>
     <item quantity="other">Saatavilla %s eri kielellä!</item>
   </plurals>
-  <string name="gameAnalysis">Pelianalyysi</string>
   <string name="xHostsY">%1$s isännöi %2$s</string>
   <string name="xJoinsY">%1$s liittyi %2$s</string>
   <string name="xLikesY">%1$s tykkää %2$s</string>
