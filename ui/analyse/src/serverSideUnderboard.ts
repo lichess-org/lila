@@ -140,9 +140,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const selection = window.getSelection(),
       range = document.createRange();
     range.selectNodeContents(this);
-    const currently_unselected = selection!.isCollapsed;
+    const currentlyUnselected = selection!.isCollapsed;
     selection!.removeAllRanges();
-    if (currently_unselected) selection!.addRange(range);
+    if (currentlyUnselected) selection!.addRange(range);
   });
 
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {
