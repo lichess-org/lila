@@ -318,6 +318,7 @@ POST  /patron/ipn                      controllers.Plan.payPalIpn
 POST  /patron/paypal/checkout          controllers.Plan.payPalCheckout
 POST  /patron/paypal/capture/:id       controllers.Plan.payPalCapture(id)
 POST  /api/patron/stripe/checkout      controllers.Plan.apiStripeCheckout
+GET   /api/patron/currencies           controllers.Plan.apiCurrencies
 GET   /features                        controllers.Plan.features
 
 # Practice
