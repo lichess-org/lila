@@ -54,9 +54,9 @@ final private class VerifyMail(
 
   private def fetch(domain: Domain.Lower): Fu[Boolean] =
     List(fetchFree(domain), fetchPaid(domain))
-      .map(_.logFailure(logger).recover(_ => true)) // fetch fail = domain ok
+      .map(_.logFailure(logger).recover(_ => false)) // if any fail, return false
       .parallel
-      .map(_.forall(identity)) // ok if both say the domain is ok
+      .map(results => results.exists(identity)) // ok if at least one API says the domain is valid
 
   object fetchFree:
     private var rateLimitedUntil = java.time.Instant.EPOCH
@@ -72,7 +72,7 @@ final private class VerifyMail(
             then
               logger.info(s"Mailcheck rate limited $url")
               rateLimitedUntil = nowInstant.plusMinutes(5)
-              true
+              false // if rate-limited, return false to avoid considering domain as valid
             else
               (for
                 js <- res.body[JsValue].asOpt[JsObject]
@@ -80,12 +80,11 @@ final private class VerifyMail(
                 disposable <- js.boolean("disposable")
               yield
                 val ok = !disposable
-                logger.info:
-                  s"Mailcheck $domain = $ok {disposable:$disposable}"
+                logger.info(s"Mailcheck $domain = $ok {disposable:$disposable}")
                 ok
               ).getOrElse:
                 throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
-          .monTry(res => _.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(true)))
+          .monTry(res => _.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(false)))
 
   private def fetchPaid(domain: Domain.Lower): Fu[Boolean] =
     val url = s"https://verifymail.io/api/$domain"
@@ -102,9 +101,9 @@ final private class VerifyMail(
           privacy    = ~js.boolean("privacy")
         yield
           val ok = !disposable
-          logger.info:
-            s"VerifyMail $domain = $ok {block:$block,disposable:$disposable,privacy:$privacy}"
+          logger.info(s"VerifyMail $domain = $ok {block:$block,disposable:$disposable,privacy:$privacy}")
           ok
         ).getOrElse:
           throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
-      .monTry(res => _.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(true)))
+      .monTry(res => _.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(false)))
+
