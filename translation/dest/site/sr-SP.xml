@@ -35,17 +35,17 @@
   <string name="newOpponent">Нови противник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
   <string name="joinTheGame">Придружи се партији</string>
-  <string name="whitePlays">Бели је на потезу</string>
-  <string name="blackPlays">Црни је на потезу</string>
+  <string name="whitePlays">Бели на потезу</string>
+  <string name="blackPlays">Црни на потезу</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
     <item quantity="few">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
     <item quantity="other">Ваш противник је напустио игру. Победа ће Вам бити приписана за %s секунди.</item>
   </plurals>
   <string name="opponentLeftChoices">Противник је напустио партију. Можеш да се прогласиш победником, да прогласиш партију ремијем или да га сачекаш.</string>
-  <string name="forceResignation">Прогласи се победником</string>
-  <string name="forceDraw">Приморај на реми</string>
-  <string name="talkInChat">Буди љубазан у ћаскању!</string>
+  <string name="forceResignation">Прогласи победу</string>
+  <string name="forceDraw">Приморај реми</string>
+  <string name="talkInChat">Молимо Вас да будете љубазни у ћаскању!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Прва особа која кликне на овај линк ће играти са тобом.</string>
   <string name="whiteResigned">Бели је предао</string>
   <string name="blackResigned">Црни је предао</string>
