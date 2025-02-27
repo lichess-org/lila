@@ -210,6 +210,9 @@ final class Plan(env: Env) extends LilaController(env):
               yield session
           )
 
+  def apiCurrencies = Anon:
+    env.plan.priceApi.stripePricesAsJson.get({}).map(JsonStrOk)
+
   def updatePayment = AuthBody { ctx ?=> me ?=>
     limit.planCapture(ctx.ip, rateLimited):
       env.plan.api.stripe
