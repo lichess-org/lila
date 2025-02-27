@@ -110,29 +110,23 @@ final class Plan(env: Env) extends LilaController(env):
     .map:
         _.withHeaders(crossOriginPolicy.unsafe*)
 
-  private def myCurrency(using ctx: Context): Currency =
-    get("currency")
-      .flatMap(lila.plan.CurrencyApi.currencyOption)
-      .getOrElse(
-        env.plan.currencyApi.currencyByCountryCodeOrLang(
-          env.security.geoIP(ctx.ip).flatMap(_.countryCode),
-          ctx.lang
-        )
-      )
-
   def features = Open:
     pageHit
     Ok.page(views.planPages.features)
 
   def switch = AuthBody { ctx ?=> me ?=>
-    env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
-      bindForm(lila.plan.Switch.form(pricing))(
+    for
+      pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
+      _ <- bindForm(lila.plan.Switch.form(pricing))(
         _ => funit,
         data => env.plan.api.switch(me, data.money)
       )
-        .inject(Redirect(routes.Plan.index()))
-    }
+    yield Redirect(routes.Plan.index())
   }
+
+  private def myCurrency(using ctx: Context) =
+    def ipCountry = env.security.geoIP(ctx.ip).flatMap(_.countryCode)
+    env.plan.currencyApi.guessCurrency(get("currency"), ipCountry)
 
   def cancel = AuthBody { _ ?=> me ?=>
     env.plan.api.cancel(me).inject(Redirect(routes.Plan.index()))
@@ -211,7 +205,7 @@ final class Plan(env: Env) extends LilaController(env):
           )
 
   def apiCurrencies = Anon:
-    env.plan.priceApi.stripePricesAsJson.get({}).map(JsonStrOk)
+    env.plan.priceApi.stripePricesAsJson(myCurrency).map(JsonStrOk)
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
     limit.planCapture(ctx.ip, rateLimited):

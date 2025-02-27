@@ -13,6 +13,7 @@ import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
 import lila.core.config.Secret
 import lila.db.dsl.mapHandler
+import lila.ui.Context
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -36,13 +37,12 @@ final class CurrencyApi(
         ws.url(s"$baseUrl/latest.json")
           .withQueryStringParameters("app_id" -> config.appId.value)
           .get()
-          .dmap { res =>
+          .dmap: res =>
             (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match
               case None =>
                 logger.error(s"Currency rates unavailable! ${res.status} $baseUrl")
                 Map("USD" -> 1d)
               case Some(rates) => rates.filterValues(0 <)
-          }
 
   def convert(money: Money, currency: Currency): Fu[Option[Money]] =
     ratesCache.get {}.map { rates =>
@@ -62,12 +62,15 @@ final class CurrencyApi(
   val USD = Currency.getInstance("USD")
   val EUR = Currency.getInstance("EUR")
 
-  def currencyByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Currency =
-    countryCode
-      .flatMap { code => Try(new Locale.Builder().setRegion(code).build()).toOption }
-      .flatMap(currencyOption)
-      .orElse(currencyOption(lang.locale))
-      .getOrElse(USD)
+  def guessCurrency(requested: Option[String], ipCountry: => Option[String])(using ctx: Context): Currency =
+    requested
+      .flatMap(lila.plan.CurrencyApi.currencyOption)
+      .getOrElse:
+        ipCountry
+          .flatMap { code => Try(new Locale.Builder().setRegion(code).build()).toOption }
+          .flatMap(currencyOption)
+          .orElse(currencyOption(ctx.lang.locale))
+          .getOrElse(USD)
 
 object CurrencyApi:
 

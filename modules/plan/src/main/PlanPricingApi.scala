@@ -52,14 +52,23 @@ final class PlanPricingApi(currencyApi: CurrencyApi, cacheApi: CacheApi)(using E
     pricingFor(money.currency).map:
       _.exists(_.lifetime.amount <= money.amount)
 
-  val stripePricesAsJson = cacheApi.unit[JsonStr]:
-    _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
-      import PlanPricingApi.pricingWrites
-      CurrencyApi.stripeCurrencyList
-        .sequentially(pricingFor)
-        .map(list => Json.obj("stripe" -> list.flatten))
-        .map(Json.stringify)
-        .dmap(JsonStr.apply)
+  object stripePricesAsJson:
+    private val placeholder = "{{myCurrency}}"
+    private val cache = cacheApi.unit[JsonStr]:
+      _.refreshAfterWrite(1.hour).buildAsyncFuture: _ =>
+        import PlanPricingApi.pricingWrites
+        CurrencyApi.stripeCurrencyList
+          .sequentially(pricingFor)
+          .map(list =>
+            Json.obj(
+              "stripe"     -> list.flatten,
+              "myCurrency" -> placeholder
+            )
+          )
+          .map(Json.stringify)
+          .dmap(JsonStr.apply)
+    def apply(currency: Currency): Fu[JsonStr] =
+      cache.get({}).map(_.map(_.replace(placeholder, currency.getCurrencyCode)))
 
   private def convertAndRound(money: Money, to: Currency): Fu[Option[Money]] =
     currencyApi.convert(money, to).map2 { case Money(amount, locale) =>
