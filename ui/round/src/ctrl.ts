@@ -30,6 +30,9 @@ import * as wakeLock from 'common/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'common/prefs';
 import { endGameView } from './view/main';
+import { info as infoDialog } from 'common/dialog';
+import { isCol1 } from 'common/device';
+
 import type {
   Step,
   CrazyPocket,
@@ -570,6 +573,9 @@ export default class RoundController implements MoveRootCtrl {
         this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
+    if (isCol1()) {
+      infoDialog(viewStatus(this), 3000);
+    }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
