@@ -79,9 +79,7 @@ declare namespace Tree {
     pockets: [CrazyPocket, CrazyPocket];
   }
 
-  export interface CrazyPocket {
-    [role: string]: number;
-  }
+  export type CrazyPocket = { [role in Exclude<Role, 'king'>]?: number };
 
   export interface Comment {
     id: string;

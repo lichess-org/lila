@@ -5,7 +5,7 @@ import { onInsert } from 'common/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
-const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'] as const;
 
 type Position = 'top' | 'bottom';
 
