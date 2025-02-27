@@ -10,7 +10,8 @@
     "common": "workspace:*",
     "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
-    "game": "workspace:*"
+    "game": "workspace:*",
+    "local": "workspace:*"
   },
   "build": {
     "bundle": {

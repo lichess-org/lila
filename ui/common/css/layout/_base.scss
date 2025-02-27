@@ -26,10 +26,10 @@ body {
 }
 
 #main-wrap {
+  ---main-max-width: #{$main-max-width};
   display: grid;
   grid-template-areas: '. . main . .';
   grid-template-columns: $main-margin 1fr minmax(auto, var(---main-max-width)) 1fr $main-margin;
-  ---main-max-width: #{$main-max-width};
   margin-top: $site-header-margin;
 
   @include mq-sticky-header {

@@ -1,6 +1,5 @@
 import type RoundController from './ctrl';
-import { aborted, finished } from 'game/status';
-import { isPlayerTurn } from 'game';
+import { aborted, finished, isPlayerTurn } from 'game';
 
 const initialTitle = document.title;
 

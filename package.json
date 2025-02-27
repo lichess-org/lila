@@ -22,6 +22,11 @@
     "node": ">=22.6",
     "pnpm": "^10"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
   "dependencies": {
     "@types/lichess": "workspace:*",
     "@types/web": "^0.0.201",
@@ -59,10 +64,5 @@
     "test": "vitest run --config=ui/vitest.config.mts",
     "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   }
 }

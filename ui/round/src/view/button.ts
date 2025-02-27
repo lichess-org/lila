@@ -2,8 +2,7 @@ import type { VNode, Hooks } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { justIcon } from '../util';
-import { replayable, rematchable, moretimeable, type PlayerUser } from 'game';
-import { finished, aborted } from 'game/status';
+import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'game';
 import { game as gameRoute } from 'game/router';
 import type { RoundData } from '../interfaces';
 import type { ClockData } from '../clock/clockCtrl';
@@ -30,12 +29,12 @@ function analysisButton(ctrl: RoundController): VNode | false {
   return (
     replayable(d) &&
     h(
-      'a.fbt',
+      'button.fbt',
       {
-        attrs: { href: url },
-        hook: bind('click', _ => {
-          // force page load in case the URL is the same
-          if (location.pathname === url.split('#')[0]) location.reload();
+        hook: bind('click', () => {
+          if (ctrl.opts.local) ctrl.opts.local.analyse();
+          else if (location.pathname === url.split('#')[0]) location.reload();
+          else location.href = url;
         }),
       },
       i18n.site.analysis,
@@ -255,11 +254,13 @@ export function followUp(ctrl: RoundController): VNode {
     d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
     newable &&
       h(
-        'a.fbt',
+        'button.fbt.new-opponent',
         {
-          attrs: {
-            href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
-          },
+          hook: bind('click', () => {
+            if (d.game.source === 'local') ctrl.opts.local?.newOpponent();
+            else if (d.game.source === 'pool') location.href = poolUrl(d.clock!, d.opponent.user);
+            else location.href = '/?hook_like=' + d.game.id;
+          }),
         },
         i18n.site.newOpponent,
       ),
