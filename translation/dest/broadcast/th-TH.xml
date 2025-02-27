@@ -34,6 +34,7 @@
   <string name="openLichess">เปิดใน Lichess</string>
   <string name="teams">ทีม</string>
   <string name="boards">กระดาน</string>
+  <string name="uploadImage">อัปโหลดรูปทัวนาเมนต์</string>
   <string name="gamesThisTournament">เกมในทัวร์นาเมนต์นี้</string>
   <string name="score">คะแนน</string>
   <string name="allTeams">ทีมทั้งหมด</string>
