@@ -19,7 +19,6 @@ if [[ " $* " != *" --no-corepack "* ]]; then
   fi
 fi
 if ! pnpm install --ignore-workspace >/dev/null 2>&1; then
-  # possible pnpm bug in 9.x/10.x --silent and --reporter=silent hang on failure for me
   pnpm install --loglevel debug --ignore-workspace
   exit $?
 fi
