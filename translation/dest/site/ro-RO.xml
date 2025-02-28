@@ -814,24 +814,14 @@
   <string name="sessions">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
-  <string name="asFreeAsLichess">Gratis ca Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Creat din dragoste pentru șah, nu pentru bani</string>
   <string name="everybodyGetsAllFeaturesForFree">Toată lumea are access la toate opțiunile, gratuit</string>
-  <string name="zeroAdvertisement">Zero reclame</string>
-  <string name="fullFeatured">Toate opțiunile</string>
-  <string name="phoneAndTablet">Telefon și tabletă</string>
-  <string name="bulletBlitzClassical">Bullet, blitz și clasic</string>
-  <string name="correspondenceChess">Șah prin corespondență</string>
-  <string name="onlineAndOfflinePlay">Joc online și offline</string>
   <string name="viewTheSolution">Vezi soluția</string>
-  <string name="followAndChallengeFriends">Urmărește și provoacă-ți prietenii</string>
   <string name="noChallenges">Nicio provocare.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibil într-o limbă!</item>
     <item quantity="few">Disponibil în %s limbi!</item>
     <item quantity="other">Disponibil în %s limbi!</item>
   </plurals>
-  <string name="gameAnalysis">Analiza jocului</string>
   <string name="xHostsY">%1$s găzduiește %2$s</string>
   <string name="xJoinsY">%1$s se alătură %2$s</string>
   <string name="xLikesY">%1$s îi place %2$s</string>
@@ -1028,8 +1018,8 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="analysisOptions">Opțiuni de analiză</string>
   <string name="focusChat">Focalizează conversația</string>
   <string name="showHelpDialog">Arată acest dialog de ajutor</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Redeschide contul tău</string>
-  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
+  <string name="reopenYourAccount">Redeschide contul tău</string>
+  <string name="reopenYourAccountDescription">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
   <string name="emailAssociatedToaccount">Adresa de e-mail asociată contului</string>
   <string name="sentEmailWithLink">Ți-am trimis un e-mail cu un link.</string>
   <string name="tournamentEntryCode">Cod de intrare în turneu</string>

@@ -773,23 +773,13 @@
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">annuller alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
-  <string name="asFreeAsLichess">Gratis som Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Bygget af kærlighed til skak, ikke penge</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funktioner gratis</string>
-  <string name="zeroAdvertisement">Ingen reklamer</string>
-  <string name="fullFeatured">Alle funktioner</string>
-  <string name="phoneAndTablet">Telefon og tablet</string>
-  <string name="bulletBlitzClassical">Bullet, lyn, klassisk</string>
-  <string name="correspondenceChess">Korrespondanceskak</string>
-  <string name="onlineAndOfflinePlay">Online og offline spil</string>
   <string name="viewTheSolution">Se løsningen</string>
-  <string name="followAndChallengeFriends">Følg og udfordre dine venner</string>
   <string name="noChallenges">Ingen udfordringer.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tilgængelig på %s sprog!</item>
     <item quantity="other">Tilgængelig på %s sprog!</item>
   </plurals>
-  <string name="gameAnalysis">Spilanalyse</string>
   <string name="xHostsY">%1$s er vært for %2$s</string>
   <string name="xJoinsY">%1$s melder sig til %2$s</string>
   <string name="xLikesY">%1$s synes godt om %2$s</string>

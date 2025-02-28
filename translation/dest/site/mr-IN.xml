@@ -755,22 +755,12 @@
   <string name="sessions">सत्र</string>
   <string name="revokeAllSessions">सर्व सत्र रद्द करा</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
-  <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
-  <string name="builtForTheLoveOfChessNotMoney">बुद्धिबळांच्या प्रेमासाठी तयार केले, पैशासाठी नव्हे</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
-  <string name="zeroAdvertisement">शून्य जाहिरात</string>
-  <string name="fullFeatured">पूर्ण वैशिष्ट्यीकृत</string>
-  <string name="phoneAndTablet">फोन आणि टॅबलेट</string>
-  <string name="bulletBlitzClassical">बुलेट, ब्लिट्ज, शास्त्रीय</string>
-  <string name="correspondenceChess">पत्रव्यवहार बुद्धिबळ</string>
-  <string name="onlineAndOfflinePlay">ऑनलाइन आणि ऑफलाइन प्ले</string>
   <string name="viewTheSolution">समाधान पहा</string>
-  <string name="followAndChallengeFriends">मित्रांना अनुसरा आणि आव्हान द्या</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s भाषेत उपलब्ध!</item>
     <item quantity="other">%s भाषेत उपलब्ध!</item>
   </plurals>
-  <string name="gameAnalysis">डेटा विश्लेषण</string>
   <string name="xHostsY">%1$s ने %2$s चे आयोजन केले</string>
   <string name="xJoinsY">%1$s %2$s मध्ये सहभागी झाले</string>
   <string name="xLikesY">%1$s ने %2$s ला पसंत केले</string>

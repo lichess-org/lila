@@ -683,22 +683,12 @@
   <string name="security">Хамгаалалт</string>
   <string name="revokeAllSessions">бүх хандалтыг хүчингүй болгох</string>
   <string name="playChessEverywhere">Хаа газар шатар тоглоцгооё</string>
-  <string name="asFreeAsLichess">Ямар ч үнэ төлбөргүй</string>
-  <string name="builtForTheLoveOfChessNotMoney">Мөнгөний төлөө биш шатарт хайртайдаа бүтээлээ</string>
   <string name="everybodyGetsAllFeaturesForFree">Бүх функциуд үнэгүй</string>
-  <string name="zeroAdvertisement">Ганц ч зар сурталчилгаагүй</string>
-  <string name="fullFeatured">Цахим хөтлүүртэйгээ адил бүх хэрэглүүрүүдтэй</string>
-  <string name="phoneAndTablet">Утас болон таблет дээр тоглох</string>
-  <string name="bulletBlitzClassical">Буллет, блиц, классик төрлүүдийг тоглох</string>
-  <string name="correspondenceChess">Бодит бус цагаар тоглох</string>
-  <string name="onlineAndOfflinePlay">Онлайн болон оффлайн тоглох</string>
   <string name="viewTheSolution">Зөв хариултыг үзэх</string>
-  <string name="followAndChallengeFriends">Найзаа дагах бас өрөгт урих</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s хэл дээр</item>
     <item quantity="other">%s хэл дээр</item>
   </plurals>
-  <string name="gameAnalysis">Өргийн шинжилгээ</string>
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
