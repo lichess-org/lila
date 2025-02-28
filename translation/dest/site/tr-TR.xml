@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
-  <string name="orLetYourOpponentScanQrCode">Veya rakibinize bu QR kodunu taratın</string>
+  <string name="orLetYourOpponentScanQrCode">Veya rakibiniz bu QR kodunu tarasın</string>
   <string name="waiting">Bekleniyor</string>
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
@@ -19,7 +19,7 @@
   <string name="white">Beyaz</string>
   <string name="black">Siyah</string>
   <string name="asWhite">beyazda</string>
-  <string name="asBlack">siyahta</string>
+  <string name="asBlack">siyahlarda</string>
   <string name="randomColor">Rastgele renk</string>
   <string name="createAGame">Yeni bir oyun kur</string>
   <string name="whiteIsVictorious">Zafer Beyazın</string>
@@ -775,6 +775,7 @@
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
   <string name="everybodyGetsAllFeaturesForFree">Bütün özellikler ücretsizdir</string>
   <string name="viewTheSolution">Çözümü göster</string>
+  <string name="noChallenges">Meydan okuma yok.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s farklı dili destekler!</item>
     <item quantity="other">%s farklı dili destekler!</item>
@@ -972,6 +973,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="focusChat">Sohbete odaklan</string>
   <string name="showHelpDialog">Bu yardım iletisini göster</string>
   <string name="reopenYourAccount">Hesabı aktifleştir</string>
+  <string name="reopenYourAccountDescription">Hesabınızı kapattıktan sonra fikrinizi değiştirdiyseniz hesabınızı tekrar açmak için bir şansınız var.</string>
   <string name="emailAssociatedToaccount">Hesabın bağlı olduğu e-posta adresi</string>
   <string name="sentEmailWithLink">Size içinde ilgili bağlantı bulunan bir e-posta gönderdik.</string>
   <string name="tournamentEntryCode">Turnuva giriş kodu</string>
