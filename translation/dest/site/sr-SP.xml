@@ -46,7 +46,7 @@
   <string name="forceResignation">Прогласи победу</string>
   <string name="forceDraw">Приморај реми</string>
   <string name="talkInChat">Молимо Вас да будете љубазни у ћаскању!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Прва особа која кликне на овај линк ће играти са тобом.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Прва особа која дође на овај линк ће играти са тобом.</string>
   <string name="whiteResigned">Бели је предао</string>
   <string name="blackResigned">Црни је предао</string>
   <string name="whiteLeftTheGame">Бели је напустио партију</string>
