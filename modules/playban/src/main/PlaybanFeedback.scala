@@ -16,7 +16,7 @@ final private class PlaybanFeedback(
   def sitting(pov: Pov): Unit =
     tell(
       pov,
-      s"Reminder {user}, repeatedly letting time run out or delaying resignation in lost positions $tempBan"
+      s"Reminder, {user}. Repeatedly letting time run out or delaying resignation in lost positions $tempBan"
     )
 
   def quickResign(pov: Pov): Unit = tell(pov, s"Warning, {user}. Resigning games too quickly $tempBan")
