@@ -761,22 +761,12 @@
   <string name="sessions">Заседания</string>
   <string name="revokeAllSessions">отмени всички сесии</string>
   <string name="playChessEverywhere">Играй шах навсякъде</string>
-  <string name="asFreeAsLichess">Така безплатно, както lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Създадено с любов към шаха, а не към парите</string>
   <string name="everybodyGetsAllFeaturesForFree">Всеки взима всички възможности безплатно</string>
-  <string name="zeroAdvertisement">Без реклами</string>
-  <string name="fullFeatured">С всичките му подробности</string>
-  <string name="phoneAndTablet">Телефон и таблет</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
-  <string name="correspondenceChess">Кореспондентен шах</string>
-  <string name="onlineAndOfflinePlay">Онлайн и офлайн игра</string>
   <string name="viewTheSolution">Виж решението</string>
-  <string name="followAndChallengeFriends">Следвай и предизвикай приятели</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Преведена на %s езика!</item>
     <item quantity="other">Преведена на %s езика!</item>
   </plurals>
-  <string name="gameAnalysis">Анализ на партията</string>
   <string name="xHostsY">%1$s води %2$s</string>
   <string name="xJoinsY">%1$s се присъедини към %2$s</string>
   <string name="xLikesY">%1$s хареса %2$s</string>

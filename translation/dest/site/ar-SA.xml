@@ -940,17 +940,8 @@ https://lichess. org/report.</string>
   <string name="sessions">جلسات</string>
   <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
-  <string name="asFreeAsLichess">مجاني</string>
-  <string name="builtForTheLoveOfChessNotMoney">تم بناؤه حباً في الشطرنج, وليس المال :)</string>
   <string name="everybodyGetsAllFeaturesForFree">كل المميزات لكل الأعضاء مجاناً</string>
-  <string name="zeroAdvertisement">لا دعايات</string>
-  <string name="fullFeatured">كل المميزات</string>
-  <string name="phoneAndTablet">للجوالات والأجهزة اللوحية</string>
-  <string name="bulletBlitzClassical">بالتوقيت المفضل لك</string>
-  <string name="correspondenceChess">شطرنج بالمراسلة</string>
-  <string name="onlineAndOfflinePlay">على الإنترنت أو بدون اتصال</string>
   <string name="viewTheSolution">الحل</string>
-  <string name="followAndChallengeFriends">تابع وتحدى أصدقاءك</string>
   <plurals name="availableInNbLanguages">
     <item quantity="zero">متاح ب %s لغات!</item>
     <item quantity="one">متاح ب %s لغات!</item>
@@ -959,7 +950,6 @@ https://lichess. org/report.</string>
     <item quantity="many">متاح ب %s لغات!</item>
     <item quantity="other">متاح ب %s لغات!</item>
   </plurals>
-  <string name="gameAnalysis">تحليل المباراة</string>
   <string name="xHostsY">%1$s يستضيف %2$s</string>
   <string name="xJoinsY">%1$s إنضم ل %2$s</string>
   <string name="xLikesY">%1$s أعجب ب %2$s</string>

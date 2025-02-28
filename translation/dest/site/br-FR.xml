@@ -832,17 +832,8 @@
   <string name="security">Surentez</string>
   <string name="revokeAllSessions">skarzhañ an holl zalc\'hoù</string>
   <string name="playChessEverywhere">C\'hoari echedoù e pep lec\'h</string>
-  <string name="asFreeAsLichess">Ken digoust ha lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Krouiñ evit an echedoù ha n\'eo ket evit an arc\'hant</string>
   <string name="everybodyGetsAllFeaturesForFree">Forzh piv a c\'hall kaout an holl arc\'hweladurioù, digoust eo</string>
-  <string name="zeroAdvertisement">Tamm bruderezh ebet</string>
-  <string name="fullFeatured">Lichess ha muioc\'h c\'hoazh</string>
-  <string name="phoneAndTablet">Pellgomzer ha tabletenn</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasel</string>
-  <string name="correspondenceChess">Echedoù war hir dermen</string>
-  <string name="onlineAndOfflinePlay">C\'hoari enlinenn pe get</string>
   <string name="viewTheSolution">Gwelet ar respont</string>
-  <string name="followAndChallengeFriends">Heuliañ ha c\'hoari a-enep mignoned</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Gallout a reer dibab etre %s yezh!</item>
     <item quantity="two">Gallout a reer dibab etre %s yezh!</item>
@@ -850,7 +841,6 @@
     <item quantity="many">Gallout a reer dibab etre %s yezh!</item>
     <item quantity="other">Gallout a reer dibab etre %s yezh!</item>
   </plurals>
-  <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
   <string name="xHostsY">%1$s a ro bod da %2$s</string>
   <string name="xJoinsY">%1$s a gemer perzh e %2$s</string>
   <string name="xLikesY">Plijet eo %1$s gant %2$s</string>

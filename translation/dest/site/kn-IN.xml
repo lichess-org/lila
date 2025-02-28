@@ -740,22 +740,12 @@
   <string name="sessions">ಲಾಗಿನ್ ಆಗಿರುವ ಜಾಗಗಳು</string>
   <string name="revokeAllSessions">ಎಲ್ಲ ಸೆಷನ್ಸ್ ಗಳನ್ನೂ ಅಳಿಸಿಬಿಡಿ</string>
   <string name="playChessEverywhere">ಎಲ್ಲೆಡೆಯೂ ಚೆಸ್ ಆಡಿ</string>
-  <string name="asFreeAsLichess">Lichess ನಂತೆಯೇ ಉಚಿತ</string>
-  <string name="builtForTheLoveOfChessNotMoney">ಚೆಸ್ ಮೇಲಿನ ಪ್ರೀತಿಗಾಗಿ ಕಟ್ಟಲಾಗಿದೆ, ದುಡ್ಡಿಗಾಗಿ ಅಲ್ಲ</string>
   <string name="everybodyGetsAllFeaturesForFree">ಪ್ರತಿಯೊಬ್ಬರೂ, ಎಲ್ಲಾ ಸೌಕರ್ಯಗಳನ್ನೂ ಉಚಿತವಾಗಿಯೇ ಪಡೆಯುತ್ತಾರೆ</string>
-  <string name="zeroAdvertisement">ಯಾವುದೇ ಜಾಹೀರಾತುಗಳಿಲ್ಲ</string>
-  <string name="fullFeatured">ಸಂಪೂರ್ಣ ಸೌಕರ್ಯಗಳ ಸಹಿತ</string>
-  <string name="phoneAndTablet">ಫೋನ್ ಮತ್ತು ಟ್ಯಾಬ್ಲೆಟ್</string>
-  <string name="bulletBlitzClassical">ಬುಲೆಟ್, ಬ್ಲಿಟ್ಜ್, ಹಾಗೂ ಶಾಸ್ತ್ರೀಯ</string>
-  <string name="correspondenceChess">ಒಪ್ಪಂದದ ಮೇರೆಗಿನ ಚೆಸ್</string>
-  <string name="onlineAndOfflinePlay">ಆನ್ಲೈನ್ ಮತ್ತು ಆಫ್ಲೈನ್ ಆಟ</string>
   <string name="viewTheSolution">ಉತ್ತರವನ್ನು ನೋಡಿ</string>
-  <string name="followAndChallengeFriends">ಗೆಳೆಯ(ತಿ)ಯರನ್ನು ಹಿಂಬಾಲಿಸಿ ಮತ್ತು ಸವಾಲು ಎಸೆಯಿರಿ</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s ಭಾಷೆಯಲ್ಲಿ ಲಭ್ಯವಿದೆ!</item>
     <item quantity="other">%s ಭಾಷೆಗಳಲ್ಲಿ ಲಭ್ಯವಿದೆ!</item>
   </plurals>
-  <string name="gameAnalysis">ಆಟದ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="xHostsY">%1$s ಅವರು %2$s ಅನ್ನು ರಚಿಸಿದ್ದಾರೆ</string>
   <string name="xJoinsY">%1$s ಅವರು %2$s ಗೆ ಸೇರಿಕೊಂಡಿದ್ದಾರೆ</string>
   <string name="xLikesY">%1$s ಅವರು %2$s ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</string>

@@ -811,24 +811,14 @@
   <string name="sessions">Сэсіі</string>
   <string name="revokeAllSessions">скасаваць усе сесіі</string>
   <string name="playChessEverywhere">Гуляйце ў шахматы дзе заўгодна</string>
-  <string name="asFreeAsLichess">Бясплатна, як і Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Створана дзеля шахматаў, а не дзеля грошай</string>
   <string name="everybodyGetsAllFeaturesForFree">Кожны бясплатна атрымлівае ўсе магчымасці</string>
-  <string name="zeroAdvertisement">Без рэкламы</string>
-  <string name="fullFeatured">Паўнавартасны</string>
-  <string name="phoneAndTablet">Для смартфонаў і планшэтаў</string>
-  <string name="bulletBlitzClassical">«Куля», бліц, класічны рэжым</string>
-  <string name="correspondenceChess">Шахматы па ліставанні</string>
-  <string name="onlineAndOfflinePlay">Гульня анлайн і афлайн</string>
   <string name="viewTheSolution">Паглядзець рашэнне</string>
-  <string name="followAndChallengeFriends">Падпісацца і выклікаць на гульню сяброў</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Даступна на %s мове!</item>
     <item quantity="few">Даступна на %s мовах!</item>
     <item quantity="many">Даступна на %s мовах!</item>
     <item quantity="other">Даступна на %s мовах!</item>
   </plurals>
-  <string name="gameAnalysis">Аналіз гульні</string>
   <string name="xHostsY">%1$s стварыў %2$s</string>
   <string name="xJoinsY">%1$s далучыўся да %2$s</string>
   <string name="xLikesY">%1$s упадабаў %2$s</string>
@@ -1024,7 +1014,7 @@
   <string name="analysisOptions">Параметры аналізу</string>
   <string name="focusChat">Сфакусавацца на чаце</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Пераадкрыць уліковы запіс</string>
+  <string name="reopenYourAccount">Пераадкрыць уліковы запіс</string>
   <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з уліковым запісам</string>
   <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
   <string name="tournamentEntryCode">Код далучэння да турніру</string>

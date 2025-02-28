@@ -773,22 +773,12 @@
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">återkalla alla sessioner</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
-  <string name="asFreeAsLichess">Lika gratis som lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Byggt med kärlek till schack, inte pengar</string>
   <string name="everybodyGetsAllFeaturesForFree">Alla får alla funktioner gratis</string>
-  <string name="zeroAdvertisement">Ingen reklam</string>
-  <string name="fullFeatured">Alla funktioner</string>
-  <string name="phoneAndTablet">Mobil och platta</string>
-  <string name="bulletBlitzClassical">Bullet, blixt och klassiskt</string>
-  <string name="correspondenceChess">Korrespondensschack</string>
-  <string name="onlineAndOfflinePlay">Spela uppkopplad eller nedkopplad</string>
   <string name="viewTheSolution">Visa lösningen</string>
-  <string name="followAndChallengeFriends">Följ och utmana vänner</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Tillgänglig på %s olika språk!</item>
     <item quantity="other">Tillgänglig på %s olika språk!</item>
   </plurals>
-  <string name="gameAnalysis">Partianalys</string>
   <string name="xHostsY">%1$s är värd för %2$s</string>
   <string name="xJoinsY">%1$s deltar i %2$s</string>
   <string name="xLikesY">%1$s gillar %2$s</string>

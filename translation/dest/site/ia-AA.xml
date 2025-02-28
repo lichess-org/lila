@@ -615,22 +615,12 @@
   <string name="security">Securitate</string>
   <string name="revokeAllSessions">revocar tote sessiones</string>
   <string name="playChessEverywhere">Joca chacos ubique!</string>
-  <string name="asFreeAsLichess">Tanto gratis como Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Disveloppate pro le amor al chacos, e non pro le moneta</string>
   <string name="everybodyGetsAllFeaturesForFree">Totes recipe gratuitemente tote le functionalitates</string>
-  <string name="zeroAdvertisement">Sin annuncios</string>
-  <string name="fullFeatured">Plen de functionalitates</string>
-  <string name="phoneAndTablet">Mobile e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classic</string>
-  <string name="correspondenceChess">Chacos per correspondentia</string>
-  <string name="onlineAndOfflinePlay">Joco in linea e disconnectite</string>
   <string name="viewTheSolution">Vider le solution</string>
-  <string name="followAndChallengeFriends">Seque e defia amicos</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibile in %s linguas!</item>
     <item quantity="other">Disponibile in %s linguas!</item>
   </plurals>
-  <string name="gameAnalysis">Analyse de joco</string>
   <string name="xHostsY">%1$s ha create %2$s</string>
   <string name="xJoinsY">%1$s ha unite se a %2$s</string>
   <string name="xLikesY">%1$s ama %2$s</string>

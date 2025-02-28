@@ -855,17 +855,8 @@
   <string name="sessions">Sesje</string>
   <string name="revokeAllSessions">unieważnić wszystkie sesje</string>
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>
-  <string name="asFreeAsLichess">Darmowa jak całe lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Stworzona z miłości do szachów, nie dla pieniędzy</string>
   <string name="everybodyGetsAllFeaturesForFree">Wszystkie funkcje za darmo dla każdego</string>
-  <string name="zeroAdvertisement">Brak reklam</string>
-  <string name="fullFeatured">Bez ograniczeń</string>
-  <string name="phoneAndTablet">Telefon i tablet</string>
-  <string name="bulletBlitzClassical">Superbłyskawiczne, błyskawiczne, klasyczne</string>
-  <string name="correspondenceChess">Szachy korespondencyjne</string>
-  <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
-  <string name="followAndChallengeFriends">Obserwowanie i gra ze znajomymi</string>
   <string name="noChallenges">Brak wyzwań.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostępna w %s języku!</item>
@@ -873,7 +864,6 @@
     <item quantity="many">Dostępna w %s językach!</item>
     <item quantity="other">Dostępna w %s językach!</item>
   </plurals>
-  <string name="gameAnalysis">Analiza partii</string>
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
