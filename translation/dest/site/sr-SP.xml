@@ -53,11 +53,11 @@
   <string name="blackLeftTheGame">Црни је напустио партију</string>
   <string name="whiteDidntMove">Бели се није померијо</string>
   <string name="blackDidntMove">Црни се није померијо</string>
-  <string name="requestAComputerAnalysis">Тражи рачунарску анализу</string>
-  <string name="computerAnalysis">Компјутерска анализа</string>
+  <string name="requestAComputerAnalysis">Затражи рачунарску анализу</string>
+  <string name="computerAnalysis">Рачунарска анализа</string>
   <string name="computerAnalysisAvailable">Рачунарска анализа је доступна</string>
   <string name="computerAnalysisDisabled">Онемогућена компјутерска анализа</string>
-  <string name="analysis">Табла за анализирање</string>
+  <string name="analysis">Табла за анализу</string>
   <string name="depthX">Дубина %s</string>
   <string name="usingServerAnalysis">Анализа помоћу сервера</string>
   <string name="loadingEngine">Рачунар се учитава...</string>
@@ -145,8 +145,8 @@
     <item quantity="few">%s Непрецизности</item>
     <item quantity="other">%s Непрецизности</item>
   </plurals>
-  <string name="moveTimes">Време померања фигура</string>
-  <string name="flipBoard">Обрни таблу</string>
+  <string name="moveTimes">Времена потеза</string>
+  <string name="flipBoard">Окрени таблу</string>
   <string name="threefoldRepetition">Троструко понављање</string>
   <string name="claimADraw">Затражи реми</string>
   <string name="offerDraw">Понуди реми</string>
