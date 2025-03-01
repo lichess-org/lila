@@ -13,30 +13,32 @@ final class Local(env: Env) extends LilaController(env):
     def withServiceWorker(using RequestHeader) =
       r.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
-  def index = Open:
+  def index = Secure(_.Beta) { _ ?=> _ ?=>
     for
       bots <- env.local.repo.getLatestBots()
-      page <- renderPage(indexPage(bots, none))
-    yield Ok(page).withServiceWorker
-
-  def bots = Open:
-    for bots <- env.local.repo.getLatestBots()
-    yield JsonOk(Json.obj("bots" -> bots))
+      res <- negotiate(
+        html =
+          for page <- renderPage(indexPage(bots))
+          yield Ok(page).withServiceWorker,
+        json = JsonOk(Json.obj("bots" -> bots))
+      )
+    yield res
+  }
 
   def assetKeys = Anon: // for service worker
     JsonOk(env.local.api.getJson)
 
-  def devIndex = Auth: _ ?=>
+  def devIndex = Secure(_.BotEditor): _ ?=>
     for
       bots   <- env.local.repo.getLatestBots()
       assets <- env.local.api.devGetAssets
       page   <- renderPage(indexPage(bots, assets.some))
     yield Ok(page).withServiceWorker
 
-  def devAssets = Auth: ctx ?=>
+  def devAssets = Secure(_.BotEditor): ctx ?=>
     env.local.api.devGetAssets.map(JsonOk)
 
-  def devBotHistory(botId: Option[UserStr]) = Auth: _ ?=>
+  def devBotHistory(botId: Option[UserStr]) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .getVersions(botId.map(_.id))
       .map: history =>
