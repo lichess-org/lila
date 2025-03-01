@@ -17,4 +17,14 @@
   <string name="sourceUrlHelp">URL que Lichess comprebará pa obtener actualizacions PGN. Ha d\'estar publicament accesible dende Internet.</string>
   <string name="startDateHelp">Opcional, si sabes quan prencipia l\'evento</string>
   <string name="currentGameUrl">Vinclo d\'a partida actual</string>
+  <string name="tournamentFormat">Formato de torneyo</string>
+  <string name="tournamentLocation">Puesto d\'o torneyo</string>
+  <string name="topPlayers">Millors chugadors</string>
+  <string name="timezone">Zona horaria</string>
+  <string name="fideRatingCategory">Categoría de fading FIDE</string>
+  <string name="optionalDetails">Detalles opcionals</string>
+  <string name="pastBroadcasts">Retransmisions pasadas</string>
+  <string name="allBroadcastsByMonth">Veyer totas las retransmisions per mes</string>
+  <string name="backToLiveMove">Tornar ta movimiento en vivo</string>
+  <string name="sinceHideResults">Como has amagau los resultaus, los taulers son vuedos par privar spoilers.</string>
 </resources>
