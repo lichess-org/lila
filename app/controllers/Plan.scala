@@ -110,29 +110,23 @@ final class Plan(env: Env) extends LilaController(env):
     .map:
         _.withHeaders(crossOriginPolicy.unsafe*)
 
-  private def myCurrency(using ctx: Context): Currency =
-    get("currency")
-      .flatMap(lila.plan.CurrencyApi.currencyOption)
-      .getOrElse(
-        env.plan.currencyApi.currencyByCountryCodeOrLang(
-          env.security.geoIP(ctx.ip).flatMap(_.countryCode),
-          ctx.lang
-        )
-      )
-
   def features = Open:
     pageHit
     Ok.page(views.planPages.features)
 
   def switch = AuthBody { ctx ?=> me ?=>
-    env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
-      bindForm(lila.plan.Switch.form(pricing))(
+    for
+      pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
+      _ <- bindForm(lila.plan.Switch.form(pricing))(
         _ => funit,
         data => env.plan.api.switch(me, data.money)
       )
-        .inject(Redirect(routes.Plan.index()))
-    }
+    yield Redirect(routes.Plan.index())
   }
+
+  private def myCurrency(using ctx: Context) =
+    def ipCountry = env.security.geoIP(ctx.ip).flatMap(_.countryCode)
+    env.plan.currencyApi.guessCurrency(get("currency"), ipCountry)
 
   def cancel = AuthBody { _ ?=> me ?=>
     env.plan.api.cancel(me).inject(Redirect(routes.Plan.index()))
@@ -164,23 +158,10 @@ final class Plan(env: Env) extends LilaController(env):
       checkout: PlanCheckout,
       customerId: StripeCustomerId,
       giftTo: Option[lila.user.User]
-  )(using ctx: Context, me: Me) = {
-    for
-      isLifetime <- env.plan.priceApi.isLifetime(checkout.money)
-      data = CreateStripeSession(
-        customerId,
-        checkout,
-        NextUrls(
-          cancel = s"${env.net.baseUrl}${routes.Plan.index}",
-          success = s"${env.net.baseUrl}${routes.Plan.thanks}"
-        ),
-        giftTo = giftTo,
-        isLifetime = isLifetime,
-        ip = ctx.ip
-      )
-      session <- env.plan.api.stripe.createSession(data)
-    yield JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value)))
-  }.recover(badStripeApiCall)
+  )(using Context, Me) =
+    env.plan.api.stripe
+      .createSession(checkout, customerId, giftTo, env.net.baseUrl)
+      .fold(badStripeApiCall, JsonOk)
 
   def switchStripePlan(money: Money)(using me: Me) =
     env.plan.api
@@ -192,7 +173,7 @@ final class Plan(env: Env) extends LilaController(env):
     doStripeCheckout
   }
 
-  def apiStripeCheckout = ScopedBody() { ctx ?=> me ?=>
+  def apiStripeCheckout = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     doStripeCheckout
   }
 
@@ -222,6 +203,9 @@ final class Plan(env: Env) extends LilaController(env):
                       .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
               yield session
           )
+
+  def apiCurrencies = Anon:
+    env.plan.priceApi.stripePricesAsJson(myCurrency).map(JsonStrOk)
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
     limit.planCapture(ctx.ip, rateLimited):

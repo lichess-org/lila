@@ -13,6 +13,7 @@ import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
 import lila.core.config.Secret
 import lila.db.dsl.mapHandler
+import lila.ui.Context
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -30,22 +31,18 @@ final class CurrencyApi(
     "currency:rates",
     if mode.isProd then 120.minutes // i.e. 377/month, under the 1000/month limit of free OER plan
     else 1.day
-  ) { loader =>
-    _.refreshAfterWrite(121.minutes)
-      .buildAsyncFuture:
-        loader { _ =>
-          ws.url(s"$baseUrl/latest.json")
-            .withQueryStringParameters("app_id" -> config.appId.value)
-            .get()
-            .dmap { res =>
-              (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match
-                case None =>
-                  logger.error(s"Currency rates unavailable! ${res.status} $baseUrl")
-                  Map("USD" -> 1d)
-                case Some(rates) => rates.filterValues(0 <)
-            }
-        }
-  }
+  ): loader =>
+    _.refreshAfterWrite(121.minutes).buildAsyncFuture:
+      loader: _ =>
+        ws.url(s"$baseUrl/latest.json")
+          .withQueryStringParameters("app_id" -> config.appId.value)
+          .get()
+          .dmap: res =>
+            (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match
+              case None =>
+                logger.error(s"Currency rates unavailable! ${res.status} $baseUrl")
+                Map("USD" -> 1d)
+              case Some(rates) => rates.filterValues(0 <)
 
   def convert(money: Money, currency: Currency): Fu[Option[Money]] =
     ratesCache.get {}.map { rates =>
@@ -65,12 +62,15 @@ final class CurrencyApi(
   val USD = Currency.getInstance("USD")
   val EUR = Currency.getInstance("EUR")
 
-  def currencyByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Currency =
-    countryCode
-      .flatMap { code => Try(new Locale.Builder().setRegion(code).build()).toOption }
-      .flatMap(currencyOption)
-      .orElse(currencyOption(lang.locale))
-      .getOrElse(USD)
+  def guessCurrency(requested: Option[String], ipCountry: => Option[String])(using ctx: Context): Currency =
+    requested
+      .flatMap(lila.plan.CurrencyApi.currencyOption)
+      .getOrElse:
+        ipCountry
+          .flatMap { code => Try(new Locale.Builder().setRegion(code).build()).toOption }
+          .flatMap(currencyOption)
+          .orElse(currencyOption(ctx.lang.locale))
+          .getOrElse(USD)
 
 object CurrencyApi:
 
@@ -80,6 +80,8 @@ object CurrencyApi:
   private lazy val acceptableCurrencies: Set[Currency] = payPalCurrencies.concat(stripeCurrencies)
 
   lazy val currencyList: List[Currency] = acceptableCurrencies.toList.sortBy(_.getCurrencyCode)
+
+  lazy val stripeCurrencyList: List[Currency] = stripeCurrencies.toList.sortBy(_.getCurrencyCode)
 
   def currencyOption(code: String) = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
   def currencyOption(locale: Locale) =

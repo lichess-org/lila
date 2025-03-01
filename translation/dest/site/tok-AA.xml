@@ -747,22 +747,12 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="sessions">linja sona ilo pi lipu lawa sina</string>
   <string name="revokeAllSessions">pakala e linja ale</string>
   <string name="playChessEverywhere">o musi lon ma ale</string>
-  <string name="asFreeAsLichess">sama ilo Lichess la, ona li wile ala e mani</string>
-  <string name="builtForTheLoveOfChessNotMoney">jan pali li olin e musi pi lawa mije moli</string>
   <string name="everybodyGetsAllFeaturesForFree">jan ale li ken jo e wawa ale ona</string>
-  <string name="zeroAdvertisement">toki esun ala</string>
-  <string name="fullFeatured">wawa mute</string>
-  <string name="phoneAndTablet">ilo toki en ilo sona pi selo lipu</string>
-  <string name="bulletBlitzClassical">nasin Bullet, Blitz, Classical</string>
-  <string name="correspondenceChess">musi pi tenpo suli</string>
-  <string name="onlineAndOfflinePlay">musi pi linja sona en musi pi linja sona ala</string>
   <string name="viewTheSolution">o lukin e sona pi nasin pona</string>
-  <string name="followAndChallengeFriends">o lukin e jan pona sina, o utala musi e ona</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">mi ken toki e toki %s!</item>
     <item quantity="other">mi ken toki e toki %s!</item>
   </plurals>
-  <string name="gameAnalysis">sona musi</string>
   <string name="xHostsY">jan %1$s li jan musi lawa pi musi %2$s</string>
   <string name="xJoinsY">jan %1$s li lon musi %2$s</string>
   <string name="xLikesY">sona %2$s li pona tawa %1$s</string>
