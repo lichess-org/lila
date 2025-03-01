@@ -448,8 +448,8 @@ importers:
         specifier: workspace:*
         version: link:../round
       zerofish:
-        specifier: link:../../../zerofish
-        version: link:../../../zerofish
+        specifier: 0.0.31
+        version: 0.0.31
 
   ui/mod:
     dependencies:
@@ -1159,6 +1159,9 @@ packages:
   '@types/dragscroll@0.0.3':
     resolution: {integrity: sha512-Nti+uvpcVv2VAkqF1+XJivEdE1rxdvWmE4mtMydm9kYBaT0/QsvQSjzqA2G0SE62RoTjVmhC48ap8yfApl8YJw==}
 
+  '@types/emscripten@1.40.0':
+    resolution: {integrity: sha512-MD2JJ25S4tnjnhjWyalMS6K6p0h+zQV6+Ylm+aGbiS8tSn/aHLSGNzBgduj6FB4zH0ax2GRMGYi/8G1uOxhXWA==}
+
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -1185,6 +1188,9 @@ packages:
 
   '@types/sortablejs@1.15.8':
     resolution: {integrity: sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==}
+
+  '@types/web@0.0.194':
+    resolution: {integrity: sha512-VKseTFF3Y8SNbpZqdVFNWQ677ujwNyrI9LcySEUwZX5iebbcdE235Lq/vqrfCzj1oFsXyVUUBqq4x8enXSakMA==}
 
   '@types/web@0.0.201':
     resolution: {integrity: sha512-pGg1tHPiGUxPB+T3ROqqvYAf/X52c3doP8IDOOyYlZhwE9XsuK5slPu9BJvZufHWonp4tE4eIILdnyD8dFVpkQ==}
@@ -2081,6 +2087,11 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
+  prettier@3.4.2:
+    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   prettier@3.5.2:
     resolution: {integrity: sha512-lc6npv5PH7hVqozBR7lkBNOGXV9vMwROAPlumdBkX0wTbbzPu/U1hk5yL8p2pt4Xoc+2mkT8t/sow2YrV/M5qg==}
     engines: {node: '>=14'}
@@ -2564,6 +2575,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zerofish@0.0.31:
+    resolution: {integrity: sha512-SlGd9oSmILRPdIsOT5VKyBvGw6VTBJDQdVZGdhVlUZYgX7l8utJhv8+L9jQxVoyzlhh0P6jb4q3YUbFy1m3LdA==}
+
   zxcvbn@4.4.2:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
 
@@ -2863,6 +2877,8 @@ snapshots:
 
   '@types/dragscroll@0.0.3': {}
 
+  '@types/emscripten@1.40.0': {}
+
   '@types/estree@1.0.6': {}
 
   '@types/fnando__sparkline@0.3.7': {}
@@ -2886,6 +2902,8 @@ snapshots:
   '@types/serviceworker@0.0.122': {}
 
   '@types/sortablejs@1.15.8': {}
+
+  '@types/web@0.0.194': {}
 
   '@types/web@0.0.201': {}
 
@@ -3859,6 +3877,8 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
+  prettier@3.4.2: {}
+
   prettier@3.5.2: {}
 
   prop-types@15.8.1:
@@ -4322,5 +4342,13 @@ snapshots:
       yargs-parser: 18.1.3
 
   yocto-queue@0.1.0: {}
+
+  zerofish@0.0.31:
+    dependencies:
+      '@types/emscripten': 1.40.0
+      '@types/node': 22.13.4
+      '@types/web': 0.0.194
+      prettier: 3.4.2
+      typescript: 5.7.3
 
   zxcvbn@4.4.2: {}
