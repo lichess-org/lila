@@ -451,7 +451,7 @@ const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
 const dropRegex = /^(([qrnb])@([a-h][1-8])|p?@([a-h][2-7]))$/;
 export type DropMove = { role: Role; key: Key };
 
-export function inputToLegalUci(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
+export function inputToMove(input: string, fen: string, chessground: CgApi): Uci | DropMove | undefined {
   const dests = chessground.state.movable.dests;
   if (!dests) return;
   const legalUcis = destsToUcis(dests),

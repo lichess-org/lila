@@ -23,7 +23,7 @@ import {
   positionJumpHandler,
   pieceJumpingHandler,
   castlingFlavours,
-  inputToLegalUci,
+  inputToMove,
   lastCapturedCommandHandler,
   type DropMove,
   possibleMovesHandler,
@@ -327,10 +327,14 @@ function onSubmit(
     const command = getCommand(input) || getCommand(input.slice(1));
     if (command && !command.invalid?.(ctrl)) command.cb(ctrl, notify, style(), input);
     else {
-      const uciOrDrop = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
-      if (!uciOrDrop || (typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key)))
-        notify(`Invalid input: ${input}`);
-      else sendMove(uciOrDrop, ctrl);
+      const move = inputToMove(input, ctrl.node.fen, ctrl.chessground);
+      const isDrop = (u: undefined | string | DropMove) => !!(u && typeof u !== 'string');
+      const isInvalidDrop = (d: DropMove) =>
+        !ctrl.crazyValid(d.role, d.key) || ctrl.chessground.state.pieces.has(d.key);
+      const isInvalidCrazy = isDrop(move) && isInvalidDrop(move);
+
+      if (!move || isInvalidCrazy) notify(`Invalid move: ${input}`);
+      else sendMove(move, ctrl);
     }
     $input.val('');
   };

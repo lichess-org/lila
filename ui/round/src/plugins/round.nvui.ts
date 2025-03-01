@@ -26,7 +26,7 @@ import {
   positionJumpHandler,
   pieceJumpingHandler,
   castlingFlavours,
-  inputToLegalUci,
+  inputToMove,
   renderPockets,
   type DropMove,
   pocketsStr,
@@ -251,15 +251,19 @@ function createSubmitHandler(
     const command = isInputCommand(input) || isInputCommand(input.slice(1));
     if (command) command.cb(notify, ctrl, style(), input);
     else {
-      const uciOrDrop = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
-      if (uciOrDrop && typeof uciOrDrop !== 'string' && !ctrl.crazyValid(uciOrDrop.role, uciOrDrop.key))
-        notify(`Invalid input: ${input}`);
-      else if (uciOrDrop) sendMove(uciOrDrop, ctrl, !!nvui.premoveInput);
-      else if (ctrl.data.player.color !== ctrl.data.game.player) {
+      const move = inputToMove(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
+      const isDrop = (u: undefined | string | DropMove) => !!(u && typeof u !== 'string');
+      const isOpponentsTurn = ctrl.data.player.color !== ctrl.data.game.player;
+      const isInvalidDrop = (d: DropMove) =>
+        !ctrl.crazyValid(d.role, d.key) || (!isOpponentsTurn && ctrl.chessground.state.pieces.has(d.key));
+
+      if (isOpponentsTurn) {
         // if it is not the user's turn, store this input as a premove
         nvui.premoveInput = input;
         notify(`Will attempt to premove: ${input}. Enter to cancel`);
-      } else notify(`Invalid move: ${input}`);
+      } else if (isDrop(move) && isInvalidDrop(move)) notify(`Invalid drop: ${input}`);
+      else if (move) sendMove(move, ctrl, !!nvui.premoveInput);
+      else notify(`Invalid move: ${input}`);
     }
     $input.val('');
   };

@@ -6,7 +6,7 @@ import {
   boardCommandsHandler,
   boardSetting,
   castlingFlavours,
-  inputToLegalUci,
+  inputToMove,
   lastCapturedCommandHandler,
   pieceJumpingHandler,
   pieceSetting,
@@ -209,7 +209,7 @@ function onSubmit(
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
-      const uci = inputToLegalUci(input, ctrl.node.fen, ground);
+      const uci = inputToMove(input, ctrl.node.fen, ground);
       if (uci && typeof uci === 'string') {
         ctrl.playUci(uci);
         const fback = ctrl.lastFeedback;
