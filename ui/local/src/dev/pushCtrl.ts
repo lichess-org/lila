@@ -31,7 +31,7 @@ export class PushCtrl {
 
     try {
       await Promise.all(localBlobs.map(b => b && this.postFile(b, progress)));
-      const res = await fetch('/local/dev/bot', {
+      const res = await fetch('/bots/dev/bot', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bot),
@@ -53,7 +53,7 @@ export class PushCtrl {
   }
 
   async deleteBot(uid: string): Promise<void> {
-    if (await fetch(`/local/dev/bot`, { method: 'post', body: `{"uid":"${uid}"}` }).then(rsp => rsp.ok)) {
+    if (await fetch(`/bots/dev/bot`, { method: 'post', body: `{"uid":"${uid}"}` }).then(rsp => rsp.ok)) {
       await env.bot.deleteStoredBot(uid);
     }
   }
@@ -92,7 +92,7 @@ export class PushCtrl {
           formData.append('file', file);
           formData.append('author', env.user);
           formData.append('name', name);
-          const url = new URL(`/local/dev/asset/${type}/${key}`, window.location.origin);
+          const url = new URL(`/bots/dev/asset/${type}/${key}`, window.location.origin);
           const xhr = new XMLHttpRequest();
           xhr.open('POST', url, true);
           xhr.upload.onprogress = e => progress?.(e, key);

@@ -9,6 +9,7 @@ import { deepFreeze } from 'common/algo';
 import { pubsub } from 'common/pubsub';
 import type { BotInfo, SoundEvent, MoveSource, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
+import * as xhr from 'common/xhr';
 
 export class BotCtrl {
   zerofish: Zerofish;
@@ -65,10 +66,7 @@ export class BotCtrl {
   async initBots(defBots?: BotInfo[]): Promise<this> {
     const [localBots, serverBots] = await Promise.all([
       this.storedBots(),
-      defBots ??
-        fetch('/local/bots')
-          .then(res => res.json())
-          .then(res => res.bots.filter(Bot.viable)),
+      defBots ?? xhr.json('/bots').then(res => res.bots.filter(Bot.viable)),
     ]);
     for (const b of [...serverBots, ...localBots]) {
       if (Bot.viable(b)) this.bots.set(b.uid, new Bot(b));

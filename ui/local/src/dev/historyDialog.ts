@@ -60,7 +60,7 @@ class HistoryDialog {
   }
 
   async updateHistory() {
-    const history = await (await fetch('/local/dev/history?id=' + encodeURIComponent(this.uid))).json();
+    const history = await (await fetch('/bots/dev/history?id=' + encodeURIComponent(this.uid))).json();
     this.versions = history.bots.reverse();
     if (env.bot.localBots[this.uid])
       this.versions.push({ ...env.bot.localBots[this.uid], version: 'local', author: env.user });

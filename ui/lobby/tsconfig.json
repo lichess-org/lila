@@ -5,6 +5,6 @@
     { "path": "../common/tsconfig.json" },
     { "path": "../dasher/tsconfig.json" },
     { "path": "../game/tsconfig.json" },
-    { "path": "../local/tsconfig.json" }
+    { "path": "../bots/tsconfig.json" }
   ]
 }

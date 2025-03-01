@@ -136,7 +136,7 @@ export class DevAssets extends Assets {
 
   async delete(type: AssetType, key: string): Promise<void> {
     const [assetList] = await Promise.allSettled([
-      fetch(`/local/dev/asset/mv/${key}/.${encodeURIComponent(this.nameOf(key)!)}`, { method: 'post' }),
+      fetch(`/bots/dev/asset/mv/${key}/.${encodeURIComponent(this.nameOf(key)!)}`, { method: 'post' }),
       this.clearLocal(type, key),
     ]);
     if (type === 'book') this.clearLocal('bookCover', key);
@@ -146,7 +146,7 @@ export class DevAssets extends Assets {
   async rename(type: AssetType, key: string, newName: string): Promise<void> {
     if (this.nameOf(key) === newName) return;
     const [assetList] = await Promise.allSettled([
-      fetch(`/local/dev/asset/mv/${key}/${encodeURIComponent(newName)}`, { method: 'post' }),
+      fetch(`/bots/dev/asset/mv/${key}/${encodeURIComponent(newName)}`, { method: 'post' }),
       this.idb[type].mv(key, newName),
     ]);
     if (assetList.status === 'fulfilled') return this.update(await assetList.value.json());
@@ -240,7 +240,7 @@ export class DevAssets extends Assets {
   }
 
   async update(rlist?: AssetList): Promise<void> {
-    if (!rlist) rlist = await fetch('/local/dev/assets').then(res => res.json());
+    if (!rlist) rlist = await fetch('/bots/dev/assets').then(res => res.json());
     Object.values(this.server).forEach(m => m.clear());
     assetTypes.forEach(type => rlist?.[type]?.forEach(a => this.server[type].set(a.key, a.name)));
     const books = Object.entries(this.server.book);

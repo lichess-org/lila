@@ -178,7 +178,7 @@ export class EditDialog {
   private async deleteBot(): Promise<void> {
     if (!(await confirm(`Delete ${this.uid}?`))) return;
 
-    const rsp = await fetch('/local/dev/bot', {
+    const rsp = await fetch('/bots/dev/bot', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: `{"uid":"${this.uid}"}`,

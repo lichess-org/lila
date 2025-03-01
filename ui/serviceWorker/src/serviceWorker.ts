@@ -120,7 +120,7 @@ async function fetchLocalCache(e: FetchEvent, path: string): Promise<Response> {
 async function cacheLocalAssets(cache: Cache): Promise<void[]> {
   const promises: Promise<void>[] = [];
   const assetPaths: string[] = [];
-  const assets: Record<string, string[]> = await fetch('/local/assets').then(res => res.json());
+  const assets: Record<string, string[]> = await fetch('/bots/assets').then(res => res.json());
 
   console.log('caching assets');
   for (const [type, list] of Object.entries(assets)) {
