@@ -5,7 +5,7 @@ import type { Filter, FilterFacet, Filters, Point } from './filter';
 import type { LocalEnv } from './localEnv';
 import type { BotCtrl } from './botCtrl';
 import type { LocalGame } from './localGame';
-import type { LocalDb, MiniGame } from './localDb';
+import type { LocalDb, LiteGame } from './localDb';
 
 export type {
   CardData,
@@ -17,7 +17,7 @@ export type {
   BotCtrl,
   LocalGame,
   LocalDb,
-  MiniGame as LiteGame,
+  LiteGame as LiteGame,
 };
 
 export type SoundEvent =
@@ -67,15 +67,17 @@ export interface MoveSource {
 export interface MoveArgs {
   pos: Position;
   chess: Chess;
+  ply: number; // can exceed moves.length depending on setupFen
   avoid: Uci[];
-  initial: Seconds | undefined;
-  increment: Seconds | undefined;
-  remaining: Seconds | undefined;
-  thinkTime?: Seconds;
+  initial: Seconds;
+  increment: Seconds;
+  remaining: Seconds;
+  opponentRemaining: Seconds;
+  movetime?: Seconds;
   cp?: number;
 }
 
-export type MoveResult = { uci: string; thinkTime: Seconds };
+export type MoveResult = { uci: string; movetime: Seconds };
 
 export interface LocalPlayOpts {
   pref: any;

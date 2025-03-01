@@ -45,8 +45,4 @@ export class LocalEnv {
   get repo(): DevAssets {
     return this.assets as DevAssets;
   }
-
-  get isDevPage(): boolean {
-    return Boolean(this.dev);
-  }
 }

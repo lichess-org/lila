@@ -66,7 +66,6 @@ export class LocalGame extends LocalGameData {
     this.moves = [];
     this.finished = undefined;
     const initialMoves = data && 'moves' in data ? data.moves : [];
-    console.trace(initialMoves, this.initialFen);
     for (const move of initialMoves.slice(0, ply)) {
       this.move(move);
     }

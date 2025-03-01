@@ -49,5 +49,8 @@ function setupOpts(): SetupOpts {
     .split('&')
     .map(p => decodeURIComponent(p).split('='))
     .filter(p => p.length === 2);
-  return Object.fromEntries(params);
+  const opts = Object.fromEntries(params);
+  if ('initial' in opts) opts.initial = Number(opts.initial);
+  if ('increment' in opts) opts.increment = Number(opts.increment);
+  return opts;
 }

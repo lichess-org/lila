@@ -1,5 +1,6 @@
 @import 'defs';
 @import 'app/app';
+@import 'app/playing';
 @import 'table';
 @import 'stream';
 @import 'spotlight';
@@ -85,14 +86,6 @@ body {
   display: block;
   text-align: right;
   margin-inline-end: 1ch;
-}
-
-.now-playing {
-  .meta {
-    @extend %flex-column;
-
-    align-items: center;
-  }
 }
 
 .lobby__blog {

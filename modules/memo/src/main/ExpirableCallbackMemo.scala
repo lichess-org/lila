@@ -2,8 +2,6 @@ package lila.memo
 
 import akka.actor.{ Cancellable, Scheduler }
 
-import scala.jdk.CollectionConverters.*
-
 // calls a function when a key expires
 final class ExpireCallbackMemo[K](
     scheduler: Scheduler,

@@ -6,7 +6,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.gathering.Condition.GetMyTeamIds
 import lila.memo.CacheApi.*
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
@@ -53,11 +53,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
     tour.hasChat && ctx.kid.no && ctx.noBot && // no public chats for kids
-      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)) {
+      ctx.me.fold(!tour.isPrivate && HTTPRequest.isHuman(ctx.req)):
         u => // anon can see public chats, except for private tournaments
           (!tour.isPrivate || json.forall(jsonHasMe) || ctx.is(tour.createdBy) ||
-          isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
-      }
+            isGrantedOpt(_.ChatTimeout)) // private tournament that I joined or has ChatTimeout
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
@@ -86,8 +85,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 partial = false,
                 withScores = true,
                 withAllowList = false,
-                myInfo = Preload[Option[MyInfo]](myInfo)
-              ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
+                myInfo = Preload[Option[MyInfo]](myInfo),
+                addReloadEndpoint = env.tournament.lilaHttp.handles.some
+              )
               chat <- loadChat(tour, json)
               _ <- tour.teamBattle.so: b =>
                 env.team.cached.preloadSet(b.teams)
@@ -111,7 +111,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 socketVersion = socketVersion,
                 partial = partial,
                 withScores = getBoolOpt("scores") | true,
-                withAllowList = true
+                withAllowList = true,
+                addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chatOpt <- (!partial).so(loadChat(tour, json))
               jsChat <- chatOpt.soFu: c =>
@@ -155,22 +156,22 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
           )
-          doJoin(id, data).dmap(_.error).map {
-            case None        => jsonOkResult
-            case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
-          }
+          doJoin(id, data)
+            .dmap(_.error)
+            .map:
+              case None        => jsonOkResult
+              case Some(error) => BadRequest(Json.obj("joined" -> false, "error" -> error))
   }
 
-  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play) { ctx ?=> me ?=>
+  def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { ctx ?=> me ?=>
     NoLame:
       NoPlayban:
         limit.tourJoin(me, rateLimited):
           val data =
             bindForm(TournamentForm.joinForm)(_ => TournamentForm.TournamentJoin(none, none), identity)
-          doJoin(id, data).map {
+          doJoin(id, data).map:
             _.error.fold(jsonOkResult): error =>
               BadRequest(Json.obj("error" -> error))
-          }
   }
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
@@ -186,7 +187,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       else Redirect(routes.Tournament.show(tour.id))
   }
 
-  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play) { _ ?=> me ?=>
+  def apiWithdraw(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { _ ?=> me ?=>
     Found(cachedTour(id)): tour =>
       api.selfPause(tour.id, me).inject(jsonOkResult)
   }
@@ -408,10 +409,11 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
 
   def terminate(id: TourId) = Auth { ctx ?=> me ?=>
     WithEditableTournament(id): tour =>
-      api.kill(tour).inject {
-        env.mod.logApi.terminateTournament(tour.name())
-        Redirect(routes.Tournament.home)
-      }
+      api
+        .kill(tour)
+        .inject:
+          env.mod.logApi.terminateTournament(tour.name())
+          Redirect(routes.Tournament.home)
   }
 
   def byTeam(id: TeamId) = Anon:

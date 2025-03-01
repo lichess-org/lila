@@ -18,7 +18,7 @@ final class EmailChange(
   import Mailer.html.*
 
   def send(user: User, email: EmailAddress): Funit =
-    (!email.looksLikeFakeEmail).so {
+    (!email.looksLikeFakeEmail).so:
       tokener.make(TokenPayload(user.id, email).some).flatMap { token =>
         lila.mon.email.send.change.increment()
         given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
@@ -45,7 +45,6 @@ ${trans.common_orPaste.txt()}
           )
         )
       }
-    }
 
   // also returns the previous email address
   def confirm(token: String): Fu[Option[(Me, Option[EmailAddress])]] =

@@ -38,7 +38,7 @@ export async function startConsole() {
 }
 
 export function jsLogger(): string {
-  const logUrl = new URL(typeof env.remoteLog === 'string' ? env.remoteLog : 'http://localhost:8666').href;
+  const logUrl = typeof env.remoteLog === 'string' ? env.remoteLog : 'http://localhost:8666';
   return (
     `(function(){const o={log:console.log,info:console.info,warn:console.warn,error:console.error},` +
     `l=["log","info","warn","error"];for(const s of l)console[s]=(...a)=>r(s,...a);async function ` +

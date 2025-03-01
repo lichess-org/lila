@@ -53,7 +53,7 @@ export class RateBot implements BotInfo, MoveSource {
       await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level - 10, by: { depth: this.depth } })
     ).bestmove;
     this.traceMove = `  ${ply}. '${this.name} ${this.ratings.classical}' at '${fen}': '${uci}'`;
-    return { uci, thinkTime: 0.2 };
+    return { uci, movetime: 0.2 };
   }
 }
 

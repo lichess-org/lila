@@ -169,8 +169,11 @@ final class Auth(
     forms.signup.website.flatMap: form =>
       Ok.page(views.auth.signup(form))
 
-  private def authLog(user: UserName, email: Option[EmailAddress], msg: String) =
-    lila.log("auth").info(s"$user ${email.fold("-")(_.value)} $msg")
+  private def authLog(user: UserName, email: Option[EmailAddress], msg: String)(using ctx: Context) =
+    env.security
+      .ip2proxy(ctx.ip)
+      .foreach: proxy =>
+        lila.log("auth").info(s"$proxy $user ${email.fold("-")(_.value)} $msg")
 
   def signupPost = OpenBody:
     NoTor:
@@ -231,10 +234,11 @@ final class Auth(
       EmailConfirm.cookie.get(ctx.req) match
         case None => Ok.async(accountC.renderCheckYourEmail)
         case Some(userEmail) =>
-          env.user.repo.exists(userEmail.username).flatMap {
-            if _ then Ok.async(accountC.renderCheckYourEmail)
-            else Redirect(routes.Auth.signup).withCookies(env.security.lilaCookie.newSession)
-          }
+          env.user.repo
+            .exists(userEmail.username)
+            .flatMap:
+              if _ then Ok.async(accountC.renderCheckYourEmail)
+              else Redirect(routes.Auth.signup).withCookies(env.security.lilaCookie.newSession)
 
   // after signup and before confirmation
   def fixEmail = OpenBody:
@@ -284,7 +288,7 @@ final class Auth(
       for
         email <- env.user.repo.email(user.id)
         _ <- email.so: email =>
-          authLog(user.username, email.some, s"Confirmed email")
+          authLog(user.username, email.some, "Confirmed email")
           welcome(user, email, sendWelcomeEmail = false)
         res <- redirectNewUser(user)
       yield res
@@ -332,7 +336,7 @@ final class Auth(
         .flatMap: captcha =>
           if captcha.ok
           then
-            forms.passwordReset.flatMap {
+            forms.passwordReset.flatMap:
               _.form
                 .bindFromRequest()
                 .fold(
@@ -351,52 +355,53 @@ final class Auth(
                         Redirect(routes.Auth.passwordResetSent(data.email.conceal))
                     }
                 )
-            }
           else renderPasswordReset(none, fail = true).map { BadRequest(_) }
 
   def passwordResetSent(email: String) = Open:
     Ok.page(views.auth.passwordResetSent(email))
 
   def passwordResetConfirm(token: String) = Open:
-    env.security.passwordReset.confirm(token).flatMap {
-      case None =>
-        lila.mon.user.auth.passwordResetConfirm("tokenFail").increment()
-        notFound
-      case Some(me) =>
-        given Me = me
-        authLog(me.username, none, "Reset password")
-        lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
-        Ok.page:
-          views.auth.passwordResetConfirm(token, forms.passwdResetForMe, none)
-    }
+    env.security.passwordReset
+      .confirm(token)
+      .flatMap:
+        case None =>
+          lila.mon.user.auth.passwordResetConfirm("tokenFail").increment()
+          notFound
+        case Some(me) =>
+          given Me = me
+          authLog(me.username, none, "Reset password")
+          lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
+          Ok.page:
+            views.auth.passwordResetConfirm(token, forms.passwdResetForMe, none)
 
   def passwordResetConfirmApply(token: String) = OpenBody:
-    env.security.passwordReset.confirm(token).flatMap {
-      case None =>
-        lila.mon.user.auth.passwordResetConfirm("tokenPostFail").increment()
-        notFound
-      case Some(me) =>
-        given Me = me
-        val user = me.value
-        FormFuResult(forms.passwdResetForMe) { err =>
-          renderPage(views.auth.passwordResetConfirm(token, err, false.some))
-        } { data =>
-          HasherRateLimit:
-            for
-              _         <- env.security.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
-              confirmed <- env.user.repo.setEmailConfirmed(user.id)
-              _ <- confirmed.so:
-                welcome(user, _, sendWelcomeEmail = false)
-              _   <- env.user.repo.disableTwoFactor(user.id)
-              _   <- env.security.store.closeAllSessionsOf(user.id)
-              _   <- env.push.webSubscriptionApi.unsubscribeByUser(user)
-              _   <- env.push.unregisterDevices(user)
-              res <- authenticateUser(user, remember = true)
-            yield
-              lila.mon.user.auth.passwordResetConfirm("success").increment()
-              res
-        }
-    }
+    env.security.passwordReset
+      .confirm(token)
+      .flatMap:
+        case None =>
+          lila.mon.user.auth.passwordResetConfirm("tokenPostFail").increment()
+          notFound
+        case Some(me) =>
+          given Me = me
+          val user = me.value
+          FormFuResult(forms.passwdResetForMe) { err =>
+            renderPage(views.auth.passwordResetConfirm(token, err, false.some))
+          } { data =>
+            HasherRateLimit:
+              for
+                _         <- env.security.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
+                confirmed <- env.user.repo.setEmailConfirmed(user.id)
+                _ <- confirmed.so:
+                  welcome(user, _, sendWelcomeEmail = false)
+                _   <- env.user.repo.disableTwoFactor(user.id)
+                _   <- env.security.store.closeAllSessionsOf(user.id)
+                _   <- env.push.webSubscriptionApi.unsubscribeByUser(user)
+                _   <- env.push.unregisterDevices(user)
+                res <- authenticateUser(user, remember = true)
+              yield
+                lila.mon.user.auth.passwordResetConfirm("success").increment()
+                res
+          }
 
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
     env.security.forms.magicLink.map: baseForm =>
@@ -410,7 +415,7 @@ final class Auth(
     Firewall:
       env.security.hcaptcha.verify().flatMap { captcha =>
         if captcha.ok then
-          forms.magicLink.flatMap {
+          forms.magicLink.flatMap:
             _.form
               .bindFromRequest()
               .fold(
@@ -425,7 +430,6 @@ final class Auth(
                     case _ => Redirect(routes.Auth.magicLinkSent)
                   }
               )
-          }
         else BadRequest.async(renderMagicLink(none, fail = true))
       }
 
@@ -452,9 +456,10 @@ final class Auth(
       Firewall:
         consumingToken(token): user =>
           Ok.async:
-            env.security.loginToken.generate(user).map {
-              views.auth.tokenLoginConfirmation(user, _, get("referrer"))
-            }
+            env.security.loginToken
+              .generate(user)
+              .map:
+                views.auth.tokenLoginConfirmation(user, _, get("referrer"))
 
   def loginWithTokenPost(token: String, referrer: Option[String]) =
     Open:
@@ -465,13 +470,14 @@ final class Auth(
           consumingToken(token) { authenticateUser(_, remember = true) }
 
   private def consumingToken(token: String)(f: UserModel => Fu[Result])(using Context) =
-    env.security.loginToken.consume(token).flatMap {
-      case None =>
-        BadRequest.page:
-          import scalatags.Text.all.stringFrag
-          views.site.message("This token has expired.")(stringFrag("Please go back and try again."))
-      case Some(user) => f(user)
-    }
+    env.security.loginToken
+      .consume(token)
+      .flatMap:
+        case None =>
+          BadRequest.page:
+            import scalatags.Text.all.stringFrag
+            views.site.message("This token has expired.")(stringFrag("Please go back and try again."))
+        case Some(user) => f(user)
 
   private[controllers] object LoginRateLimit:
     private val lastAttemptIp =

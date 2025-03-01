@@ -20,7 +20,6 @@ const args: Record<string, string> = {
   '--watch': 'w',
   '--prod': 'p',
   '--debug': 'd',
-  '--test': 't',
   '--clean-exit': '',
   '--clean': 'c',
   '--no-install': 'n',
@@ -37,7 +36,6 @@ Options:
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
   -d, --debug         build assets with site.debug = true
-  -t, --test          typecheck sources in ./tests/**. warning - this enables skipLibCheck for dependencies
   -l, --log=<url>     monkey patch console log functions in javascript manifest to POST log messages to
                       <url> or localhost:8666 (default). if used with --watch, the ui/build process
                       will listen for http on 8666 and display received json as 'web' in build logs
@@ -103,7 +101,6 @@ env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
 env.remoteLog = stringArg('--log');
 env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
 env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
-env.test = argv.includes('--test') || oneDashArgs.includes('t');
 
 if (argv.includes('--help') || oneDashArgs.includes('h')) {
   console.log(usage);

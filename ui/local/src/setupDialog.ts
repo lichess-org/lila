@@ -20,6 +20,7 @@ export function showSetupDialog(setup: LocalSetup = {}): void {
 class SetupDialog {
   view: HTMLElement;
   editorEl: HTMLElement;
+  mainContentEl: HTMLElement;
   editor: LichessEditor;
   playerColor: Color = 'white';
   setup: LocalSetup = {};
@@ -97,6 +98,7 @@ class SetupDialog {
       noClickAway: env.game !== undefined,
     });
     this.dialog = dlg;
+    this.mainContentEl = dlg.viewEl.querySelector('.main-content')!;
     this.initCards();
     this.initEditor();
     this.goToOpponent();
@@ -170,8 +172,7 @@ class SetupDialog {
   }
 
   private snapToPane() {
-    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
-    if (content.scrollLeft > 0) content.scrollLeft = content.scrollWidth;
+    if (this.mainContentEl.scrollLeft > 0) this.mainContentEl.scrollLeft = this.mainContentEl.scrollWidth;
   }
 
   private updateClock = () => {
@@ -201,13 +202,12 @@ class SetupDialog {
   };
 
   focusFen = () => {
-    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
-    content.scrollLeft = content.scrollWidth;
+    this.mainContentEl.scrollLeft = this.mainContentEl.scrollWidth;
   };
 
   inputFen = (e: InputEvent) => {
     if (!(e.target instanceof HTMLInputElement)) return;
-    const value = e.target.value;
+    //const value = e.target.value;
     this.editor.setFen(e.target.value);
   };
 
@@ -227,17 +227,16 @@ class SetupDialog {
 
   wheel = (e: WheelEvent) => {
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) e.preventDefault();
-    else this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!.scrollTop = 0;
+    else this.mainContentEl.scrollTop = 0;
   };
 
   goToBoard = () => {
-    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
-    content.scrollLeft = content.scrollWidth;
+    this.mainContentEl.scrollLeft = this.mainContentEl.scrollWidth;
   };
 
   goToOpponent = () => {
-    const content = this.dialog.viewEl.querySelector<HTMLElement>('.main-content')!;
-    content.scrollLeft = 0;
+    if (this.mainContentEl.scrollLeft === 0) return;
+    this.mainContentEl.scrollLeft = 0;
   };
 
   private get botColor() {

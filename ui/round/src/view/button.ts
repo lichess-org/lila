@@ -32,7 +32,7 @@ function analysisButton(ctrl: RoundController): VNode | false {
       'button.fbt',
       {
         hook: bind('click', () => {
-          if (ctrl.opts.local) ctrl.opts.local.analyse();
+          if (d.local) d.local.analyse();
           else if (location.pathname === url.split('#')[0]) location.reload();
           else location.href = url;
         }),
@@ -257,7 +257,7 @@ export function followUp(ctrl: RoundController): VNode {
         'button.fbt.new-opponent',
         {
           hook: bind('click', () => {
-            if (d.game.source === 'local') ctrl.opts.local?.newOpponent();
+            if (d.game.source === 'local') d.local?.newOpponent();
             else if (d.game.source === 'pool') location.href = poolUrl(d.clock!, d.opponent.user);
             else location.href = '/?hook_like=' + d.game.id;
           }),

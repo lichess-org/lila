@@ -52,9 +52,9 @@ export class BotCtrl {
     this.zerofish = await makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true }),
       wasm: site.asset.url('npm/zerofishEngine.wasm'),
-      dev: env.isDevPage,
+      dev: !!env.dev,
     });
-    if (env.isDevPage) {
+    if (env.dev) {
       for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
         this.rateBots.push(new RateBot(i));
       }
@@ -149,7 +149,8 @@ export class BotCtrl {
     await this.store.remove(bot.uid);
   }
 
-  imageUrl(bot: BotInfo | undefined): string | undefined {
+  imageUrl(bot: BotInfo | string | undefined): string | undefined {
+    if (typeof bot === 'string') bot = this.get(bot);
     return bot?.image && env.assets.getImageUrl(bot.image);
   }
 

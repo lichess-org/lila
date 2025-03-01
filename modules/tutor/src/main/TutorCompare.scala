@@ -22,11 +22,10 @@ case class TutorCompare[D, V](
       avg = number.mean(myPoints.filter(_._1 != dim1).map(_._2))
     yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg), color)
 
-  lazy val peerComparisons: List[AnyComparison] = points.collect {
+  lazy val peerComparisons: List[AnyComparison] = points.collect:
     case (dim, TutorBothValueOptions(Some(mine), Some(peer)))
         if mine.relevantTo(totalCountMine) && peer.reliableEnough =>
       Comparison(dimensionType, dim, metric, mine, Peers(peer), color)
-  }
 
   def allComparisons: List[AnyComparison] = dimensionComparisons ::: peerComparisons
 
@@ -70,12 +69,11 @@ object TutorCompare:
   def sortAndPreventRepetitions(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] =
     comparisons
       .sorted(compOrder.reverse)
-      .foldLeft(Vector.empty[AnyComparison]) {
+      .foldLeft(Vector.empty[AnyComparison]):
         case (Vector(), c)                          => Vector(c)
         case (acc, _) if acc.size >= nb             => acc
         case (acc, c) if acc.exists(_.similarTo(c)) => acc
         case (acc, c)                               => acc :+ c
-      }
       .toList
 
   sealed trait Reference[V]:

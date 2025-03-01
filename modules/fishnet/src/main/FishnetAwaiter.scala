@@ -15,6 +15,7 @@ final class FishnetAwaiter(using Executor, Scheduler) extends lila.core.fishnet.
         case lila.analyse.actorApi.AnalysisReady(game, _) if remainingIds(game.id) =>
           remainingIds = remainingIds - game.id
           if remainingIds.isEmpty then promise.success {}
-      promise.future.withTimeoutDefault(atMost, {}).addEffectAnyway {
-        Bus.unsubscribe(listener, busChannel)
-      }
+      promise.future
+        .withTimeoutDefault(atMost, {})
+        .addEffectAnyway:
+          Bus.unsubscribe(listener, busChannel)

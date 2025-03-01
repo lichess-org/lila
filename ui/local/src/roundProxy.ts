@@ -31,7 +31,7 @@ export class RoundProxy implements RoundProxyType {
         status: { id: 20, name: 'started' },
         player: 'white',
       },
-
+      local: this,
       player: {} as Player,
       opponent: {} as Player,
       pref: { ...prefs, submitMove: 0 },
@@ -97,7 +97,6 @@ export class RoundProxy implements RoundProxyType {
 
   get roundOpts(): RoundOpts {
     return {
-      local: this,
       data: this.data,
       userId: env.user,
       noab: false,

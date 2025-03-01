@@ -57,10 +57,9 @@ object StripeAmount extends OpaqueInt[lila.plan.StripeAmount]:
         else BigDecimal(e) / 100,
         currency
       )
-  def apply(money: Money): StripeAmount = StripeAmount {
+  def apply(money: Money): StripeAmount = StripeAmount:
     if CurrencyApi.zeroDecimalCurrencies(money.currency) then money.amount.toInt
     else (money.amount * 100).toInt
-  }
 
 case class StripeSubscriptions(data: List[StripeSubscription])
 

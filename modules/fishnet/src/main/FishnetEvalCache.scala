@@ -17,7 +17,7 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
     rawEvals(game).dmap(_.map(_._1))
 
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
-    rawEvals(work.game).map {
+    rawEvals(work.game).map:
       _.map { (i, eval) =>
         val pv = eval.pvs.head
         i -> Evaluation(
@@ -34,7 +34,6 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
           depth = eval.depth.some
         )
       }.toMap
-    }
 
   private def rawEvals(game: Work.Game): Fu[List[(Int, CloudEval)]] =
     chess.Replay

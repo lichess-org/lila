@@ -33,12 +33,13 @@ final class User(
 
   def tv(username: UserStr) = Open:
     Found(meOrFetch(username)): user =>
-      currentlyPlaying(user).orElse(lastPlayed(user)).flatMap {
-        _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
-          ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
-            case Some(mine) => Redirect(routes.Round.player(mine.fullId))
-            case _          => roundC.watch(pov, userTv = user.some)
-      }
+      currentlyPlaying(user)
+        .orElse(lastPlayed(user))
+        .flatMap:
+          _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
+            ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
+              case Some(mine) => Redirect(routes.Round.player(mine.fullId))
+              case _          => roundC.watch(pov, userTv = user.some)
 
   def tvExport(username: UserStr) = Anon:
     env.game.cached
@@ -215,9 +216,10 @@ final class User(
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.cached.lastPlayedPlayingId(user.id).flatMapz {
-      env.round.proxyRepo.pov(_, user)
-    }
+    env.game.cached
+      .lastPlayedPlayingId(user.id)
+      .flatMapz:
+        env.round.proxyRepo.pov(_, user)
 
   private def lastPlayed(user: UserModel): Fu[Option[Pov]] =
     env.game.gameRepo
@@ -292,9 +294,10 @@ final class User(
     else topNbUsers(nb, perfKey).flatMap { users => topNbJson(users._1) }
 
   private def topNbUsers(nb: Int, perfKey: PerfKey): Fu[(List[LightPerf], PerfType)] =
-    env.user.cached.top200Perf.get(perfKey.id).dmap {
-      _.take(nb.atLeast(1).atMost(200)) -> PerfType(perfKey)
-    }
+    env.user.cached.top200Perf
+      .get(perfKey.id)
+      .dmap:
+        _.take(nb.atLeast(1).atMost(200)) -> PerfType(perfKey)
 
   private def topNbJson(users: List[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
@@ -456,18 +459,20 @@ final class User(
       }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
-    env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
-      case WithPerfsAndEmails(user, emails) =>
-        env.user.repo.isDeleted(user).flatMap { deleted =>
-          Ok.snip:
-            views.mod.user.actions(
-              user,
-              emails,
-              deleted,
-              env.mod.presets.getPmPresetsOpt
-            )
-        }
-    }
+    env.user.api
+      .withPerfsAndEmails(username)
+      .orFail(s"No such user $username")
+      .flatMap:
+        case WithPerfsAndEmails(user, emails) =>
+          env.user.repo.isDeleted(user).flatMap { deleted =>
+            Ok.snip:
+              views.mod.user.actions(
+                user,
+                emails,
+                deleted,
+                env.mod.presets.getPmPresetsOpt
+              )
+          }
 
   def writeNote(username: UserStr) = AuthBody { ctx ?=> me ?=>
     bindForm(lila.user.UserForm.note)(
@@ -519,16 +524,14 @@ final class User(
 
   def deleteNote(id: String) = Auth { ctx ?=> me ?=>
     Found(env.user.noteApi.byId(id)): note =>
-      (note.isFrom(me) && !note.mod).so {
+      (note.isFrom(me) && !note.mod).so:
         env.user.noteApi.delete(note._id).inject(Redirect(routes.User.show(note.to).url + "?note"))
-      }
   }
 
   def setDoxNote(id: String, dox: Boolean) = Secure(_.Admin) { ctx ?=> _ ?=>
     Found(env.user.noteApi.byId(id)): note =>
-      note.mod.so {
+      note.mod.so:
         env.user.noteApi.setDox(note._id, dox).inject(Redirect(routes.User.show(note.to).url + "?note"))
-      }
   }
 
   def opponents = Auth { ctx ?=> me ?=>

@@ -40,9 +40,10 @@ final private class TvBroadcast(
         .mapMaterializedValue { queue =>
           val client = Client(queue, compat)
           self ! Add(client)
-          queue.watchCompletion().addEffectAnyway {
-            self ! Remove(client)
-          }
+          queue
+            .watchCompletion()
+            .addEffectAnyway:
+              self ! Remove(client)
           featured
             .ifFalse(compat)
             .foreach: f =>

@@ -115,7 +115,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   const forecastCount = ctrl.data.forecastCount;
   return (
     userAnalysable(ctrl.data) &&
-    !ctrl.opts.local &&
+    !ctrl.data.local &&
     h(
       'a.fbt.analysis',
       {

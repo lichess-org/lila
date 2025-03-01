@@ -64,6 +64,7 @@ export interface RoundData extends GameData {
     id: string;
   };
   expiration?: Expiration;
+  local?: RoundProxy;
 }
 
 export interface Expiration {
@@ -100,7 +101,6 @@ export interface RoundOpts {
   element?: HTMLElement;
   crosstableEl?: HTMLElement;
   chat?: ChatOpts;
-  local?: RoundProxy;
 }
 
 export interface ChatOpts {

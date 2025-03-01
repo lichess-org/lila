@@ -31,9 +31,8 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
 
   def channels = apiC.ApiRequest:
     env.tv.tv.getChampions
-      .map {
+      .map:
         _.channels.map { (chan, champ) => chan.key -> champ }
-      }
       .map { Json.toJson(_) }
       .dmap(Api.ApiResult.Data.apply)
 

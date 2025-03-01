@@ -5,17 +5,17 @@ import { myUserId } from 'common';
 
 export class LocalDb {
   store: ObjectStorage<LocalGameData> | undefined;
-  miniStore: ObjectStorage<MiniGame> | undefined;
+  liteStore: ObjectStorage<LiteGame> | undefined;
 
   constructor() {}
 
   async init(): Promise<this> {
-    [this.store, this.miniStore] = await Promise.all([
+    [this.store, this.liteStore] = await Promise.all([
       objectStorage<LocalGame>({
         store: 'local.games',
         version: 1,
       }),
-      objectStorage<MiniGame>({
+      objectStorage<LiteGame>({
         store: 'local.games.lite',
         version: 1,
         indices: [
@@ -45,41 +45,41 @@ export class LocalDb {
     return id ? await this.store?.get(id) : Promise.resolve(undefined);
   }
 
-  async byDate(after: number | undefined, until: number | undefined): Promise<MiniGame[]> {
-    const games: MiniGame[] = [];
-    await this.miniStore?.readCursor(
+  async byDate(after: number | undefined, until: number | undefined): Promise<LiteGame[]> {
+    const games: LiteGame[] = [];
+    await this.liteStore?.readCursor(
       { index: 'createdAt', query: range({ above: after, max: until }) },
       info => games.push(info),
     );
     return games;
   }
 
-  async ongoing(): Promise<MiniGame[]> {
-    const games: MiniGame[] = [];
-    await this.miniStore?.readCursor({ index: 'status', query: status.started }, info => games.push(info));
+  async ongoing(): Promise<LiteGame[]> {
+    const games: LiteGame[] = [];
+    await this.liteStore?.readCursor({ index: 'status', query: status.started }, info => games.push(info));
     return games;
   }
 
   async put(game: LocalGame): Promise<void> {
-    const lite = makeMini(game);
+    const lite = makeLite(game);
     const data = structuredClone(game);
-    await Promise.all([this.store?.put(data.id, data), this.miniStore?.put(lite.id, lite)]);
-    this.lastId = data.id;
+    await Promise.all([this.store?.put(data.id, data), this.liteStore?.put(data.id, lite)]);
+    this.lastId = lite.status === status['started'] ? data.id : undefined;
   }
 
-  // delete(ids?: string[] | string): Promise<any> {
-  //   if (!ids) return Promise.all([this.store?.clear(), this.lite?.clear()]);
-  //   else
-  //     return Promise.all(
-  //       [ids].flat().map(id => {
-  //         this.store?.remove(id);
-  //         this.lite?.remove(id);
-  //       }),
-  //     );
-  // }
+  delete(ids?: string[] | string): Promise<any> {
+    if (!ids) return Promise.all([this.store?.clear(), this.liteStore?.clear()]);
+    else
+      return Promise.all(
+        [ids].flat().map(id => {
+          this.store?.remove(id);
+          this.liteStore?.remove(id);
+        }),
+      );
+  }
 }
 
-export class MiniGame extends LocalGameData {
+export class LiteGame extends LocalGameData {
   speed: Speed;
   fen: FEN;
   turn: Color;
@@ -88,7 +88,7 @@ export class MiniGame extends LocalGameData {
   winner?: string;
 }
 
-function makeMini(game: LocalGame): MiniGame {
+function makeLite(game: LocalGame): LiteGame {
   return {
     ...game,
     speed: game.initial === Infinity ? 'correspondence' : clockToSpeed(game.initial, game.increment),

@@ -31,7 +31,7 @@ final private class OpeningExplorer(
       )
       .withRequestTimeout(requestTimeout)
       .get()
-      .flatMap {
+      .flatMap:
         case res if res.status == 404 => fuccess(none)
         case res if res.status != 200 =>
           fufail(s"Couldn't reach the opening explorer: ${res.status}")
@@ -43,7 +43,6 @@ final private class OpeningExplorer(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.some)
             )
-      }
       .recover { case e: Exception =>
         logger.warn(s"Opening stats $play $config", e)
         none
@@ -61,7 +60,7 @@ final private class OpeningExplorer(
       )
       .withRequestTimeout(requestTimeout)
       .get()
-      .flatMap {
+      .flatMap:
         case res if res.status == 404 => fuccess(none)
         case res if res.status != 200 =>
           fufail(s"Couldn't reach the opening explorer: ${res.status}")
@@ -73,7 +72,6 @@ final private class OpeningExplorer(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.sum.some)
             )
-      }
       .recover { case e: Exception =>
         logger.warn(s"Opening simple popularity $opening", e)
         none

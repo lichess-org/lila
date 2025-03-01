@@ -118,7 +118,7 @@ final class ModInquiryUi(helpers: Helpers):
       allReports: List[Report],
       reportee: User
   ): Option[NonEmptyList[UserId]] =
-    (report.is(_.Boost) || reportee.marks.boost).so {
+    (report.is(_.Boost) || reportee.marks.boost).so:
       allReports
         .filter(_.is(_.Boost))
         .flatMap(_.atoms.toList)
@@ -132,7 +132,6 @@ final class ModInquiryUi(helpers: Helpers):
         .flatMap(_.validateId)
         .distinct
         .toNel
-    }
 
   private val farmWithRegex =
     ("^Boosting: farms rating points from @(" + UserName.historicalRegex.pattern + ")").r.unanchored

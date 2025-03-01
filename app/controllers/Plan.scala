@@ -34,25 +34,27 @@ final class Plan(env: Env) extends LilaController(env):
       else
         ctx.me.foldUse(indexAnon): me ?=>
           import lila.plan.PlanApi.SyncResult.*
-          env.plan.api.sync(me).flatMap {
-            case ReloadUser => Redirect(routes.Plan.index())
-            case Synced(Some(patron), None, None) =>
-              env.user.repo.email(me).flatMap { email =>
-                renderIndex(email, patron.some)
-              }
-            case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(patron, stripeCus)
-            case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(patron, payPalSub)
-            case _                                        => indexFreeUser
-          }
+          env.plan.api
+            .sync(me)
+            .flatMap:
+              case ReloadUser => Redirect(routes.Plan.index())
+              case Synced(Some(patron), None, None) =>
+                env.user.repo.email(me).flatMap { email =>
+                  renderIndex(email, patron.some)
+                }
+              case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(patron, stripeCus)
+              case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(patron, payPalSub)
+              case _                                        => indexFreeUser
 
   def list = Open:
     ctx.me.foldUse(Redirect(routes.Plan.index()).toFuccess): me ?=>
       import lila.plan.PlanApi.SyncResult.*
-      env.plan.api.sync(me).flatMap {
-        case ReloadUser            => Redirect(routes.Plan.list)
-        case Synced(Some(_), _, _) => indexFreeUser
-        case _                     => Redirect(routes.Plan.index())
-      }
+      env.plan.api
+        .sync(me)
+        .flatMap:
+          case ReloadUser            => Redirect(routes.Plan.list)
+          case Synced(Some(_), _, _) => indexFreeUser
+          case _                     => Redirect(routes.Plan.index())
 
   private def indexAnon(using Context) = renderIndex(email = none, patron = none)
 
@@ -93,9 +95,10 @@ final class Plan(env: Env) extends LilaController(env):
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
       case None =>
-        env.user.repo.email(me).flatMap {
-          renderIndex(_, patron.some)
-        }
+        env.user.repo
+          .email(me)
+          .flatMap:
+            renderIndex(_, patron.some)
   yield res
 
   private def indexPayPalPatron(patron: lila.plan.Patron, sub: PayPalSubscription)(using
@@ -151,12 +154,11 @@ final class Plan(env: Env) extends LilaController(env):
     else env.plan.webhook.stripe(body).inject(Ok("kthxbye"))
 
   import lila.plan.StripeClient.{ StripeException, CantUseException }
-  def badStripeApiCall: PartialFunction[Throwable, Result] = {
+  def badStripeApiCall: PartialFunction[Throwable, Result] =
     case e @ CantUseException => BadRequest(jsonError(e.getMessage))
     case e: StripeException =>
       logger.error("Plan.stripeCheckout", e)
       BadRequest(jsonError("Stripe API call failed"))
-  }
 
   private def createStripeSession(
       checkout: PlanCheckout,
@@ -187,6 +189,14 @@ final class Plan(env: Env) extends LilaController(env):
       .recover(badStripeApiCall)
 
   def stripeCheckout = AuthBody { ctx ?=> me ?=>
+    doStripeCheckout
+  }
+
+  def apiStripeCheckout = ScopedBody() { ctx ?=> me ?=>
+    doStripeCheckout
+  }
+
+  def doStripeCheckout(using ctx: BodyContext[?], me: Me) =
     limit.planCheckout(ctx.ip, rateLimited):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
@@ -212,34 +222,35 @@ final class Plan(env: Env) extends LilaController(env):
                       .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
               yield session
           )
-  }
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
     limit.planCapture(ctx.ip, rateLimited):
-      env.plan.api.stripe.userCustomer(me).flatMap {
-        _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)).so { sub =>
-          env.plan.api.stripe
-            .createPaymentUpdateSession(
-              sub,
-              NextUrls(
-                cancel = s"${env.net.baseUrl}${routes.Plan.index}",
-                success =
-                  s"${env.net.baseUrl}${routes.Plan.updatePaymentCallback}?session={CHECKOUT_SESSION_ID}"
+      env.plan.api.stripe
+        .userCustomer(me)
+        .flatMap:
+          _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)).so { sub =>
+            env.plan.api.stripe
+              .createPaymentUpdateSession(
+                sub,
+                NextUrls(
+                  cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+                  success =
+                    s"${env.net.baseUrl}${routes.Plan.updatePaymentCallback}?session={CHECKOUT_SESSION_ID}"
+                )
               )
-            )
-            .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
-            .recover(badStripeApiCall)
-        }
-      }
+              .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
+              .recover(badStripeApiCall)
+          }
   }
 
   def updatePaymentCallback = AuthBody { ctx ?=> me ?=>
     get("session").so { session =>
-      env.plan.api.stripe.userCustomer(me).flatMap {
-        _.flatMap(_.firstSubscription).so { sub =>
-          env.plan.api.stripe.updatePaymentMethod(sub, session).inject(Redirect(routes.Plan.index()))
-        }
-      }
+      env.plan.api.stripe
+        .userCustomer(me)
+        .flatMap:
+          _.flatMap(_.firstSubscription).so { sub =>
+            env.plan.api.stripe.updatePaymentMethod(sub, session).inject(Redirect(routes.Plan.index()))
+          }
     }
   }
 

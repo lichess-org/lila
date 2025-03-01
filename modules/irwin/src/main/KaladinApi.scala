@@ -124,12 +124,14 @@ final class KaladinApi(
       ()
 
     if pred.percent >= thresholds.get().mark then
-      userApi.getTitle(user.id).dmap(_.isDefined).flatMap {
-        if _ then sendReport
-        else
-          for _ <- modApi.autoMark(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
-          yield lila.mon.mod.kaladin.mark.increment()
-      }
+      userApi
+        .getTitle(user.id)
+        .dmap(_.isDefined)
+        .flatMap:
+          if _ then sendReport
+          else
+            for _ <- modApi.autoMark(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
+            yield lila.mon.mod.kaladin.mark.increment()
     else if pred.percent >= thresholds.get().report then sendReport
     else funit
 
@@ -171,7 +173,7 @@ final class KaladinApi(
         else if speed == Speed.Rapid then copy(rapid = rapid + nb)
         else this
       def isEnough = blitz >= minMoves || rapid >= minMoves
-    private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves") {
+    private val cache = cacheApi[UserId, Boolean](1024, "kaladin.hasEnoughRecentMoves"):
       _.expireAfterWrite(1.hour).buildAsyncFuture(userId =>
         {
           import lila.game.Query
@@ -197,7 +199,6 @@ final class KaladinApi(
 
         }.dmap(_.isEnough)
       )
-    }
     def apply(u: UserWithPerfs): Fu[Boolean] =
       fuccess(u.perfs.blitz.nb + u.perfs.rapid.nb > 30) >>& cache.get(u.id)
 

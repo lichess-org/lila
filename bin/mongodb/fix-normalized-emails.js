@@ -1,4 +1,4 @@
-const dry = false;
+const dry = true;
 const gmailOrProton = [
   'protonmail.com',
   'protonmail.ch',
@@ -19,6 +19,7 @@ function normalize(email) {
 
 let nbUpdates = 0;
 let nbDups = 0;
+let nbSkips = 0;
 
 db.user4.find({ email: /^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, username: 1 }).forEach(user => {
   const normalized = normalize(user.email);
@@ -29,7 +30,9 @@ db.user4.find({ email: /^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, usernam
   if (normalized != user.email) updates.email = normalized;
   if (verbatim != user.email) updates.verbatimEmail = verbatim;
 
-  if (!dry && Object.keys(updates).length) {
+  if (Object.keys(updates).length == 0) return;
+  if (dry) nbSkips++;
+  else
     try {
       db.user4.updateOne({ _id: user._id }, { $set: updates });
       db.user_email_backup.update(
@@ -41,8 +44,8 @@ db.user4.find({ email: /^[^+]+\+.*@.+$/ }, { email: 1, verbatimEmail: 1, usernam
     } catch (e) {
       if (e.code == 11000) nbDups++;
     }
-  }
 });
 
+print('skiped:', nbSkips);
 print('updated:', nbUpdates);
 print('skiped duplicates:', nbDups);

@@ -33,7 +33,7 @@ export class GameCtrl {
     this.proxy.reset();
     this.updateClockUi();
     env.round?.redraw();
-    this.triggerStart(this.live.ply > 0 && Number.isFinite(this.initial));
+    this.triggerStart(this.live.ply > 1 && Number.isFinite(this.initial));
   }
 
   start(): void {
@@ -105,10 +105,6 @@ export class GameCtrl {
     return this.clock?.increment ?? 0;
   }
 
-  // get initialFen(): string {
-  //   return this.live.setupFen; //this.setup.initialFen ?? co.fen.INITIAL_FEN;
-  // }
-
   move(uci: Uci): void {
     if (this.rewind) this.live = this.rewind;
     this.rewind = undefined;
@@ -136,35 +132,39 @@ export class GameCtrl {
       );
 
     if (this.live.finished) this.gameOver(moveCtx);
+    else env.db.put(this.live);
+
     if (this.clock?.increment) this.clock[this.live.awaiting] += this.clock.increment;
 
     this.updateClockUi();
 
     window.location.hash = `id=${this.live.id}`;
-    env.db.put(this.live);
     env.redraw();
   }
 
   private async maybeBotMove(): Promise<void> {
-    const [bot, game] = [env.bot[this.live.turn], this.live];
+    const bot = env.bot[this.live.turn];
+    const game = this.live;
     if (!bot || game.finished || this.isStopped || this.resolveThink) return;
     const move = await env.bot.move({
       pos: { fen: game.setupFen, moves: game.moves.map(x => x.uci) },
-      chess: this.live.chess,
-      avoid: this.live.threefoldMoves,
-      remaining: this.clock?.[this.live.turn],
-      initial: this.clock?.initial,
-      increment: this.clock?.increment,
+      chess: game.chess,
+      avoid: game.threefoldMoves,
+      initial: this.clock?.initial ?? Infinity,
+      remaining: this.clock?.[game.turn] ?? Infinity,
+      opponentRemaining: this.clock?.[game.awaiting] ?? Infinity,
+      increment: this.clock?.increment ?? 0,
+      ply: game.ply,
     });
     if (!move) return;
     await new Promise<void>(resolve => {
       if (this.clock) {
-        this.clock[this.live.turn] -= move.thinkTime;
+        this.clock[game.turn] -= move.movetime;
         this.clock.since = undefined;
       }
       if (env.dev?.hurry) return resolve();
       this.resolveThink = resolve;
-      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? move.thinkTime : 0);
+      const realWait = Math.min(1 + Math.random(), game.ply > 0 ? move.movetime : 0);
       setTimeout(resolve, realWait * 1000);
     });
     this.resolveThink = undefined;
@@ -172,9 +172,10 @@ export class GameCtrl {
     else setTimeout(() => this.updateTurn(), 200);
   }
 
+  // investigate setting rewind = live to pause
   private jump = (ply: number) => {
     this.rewind = ply < this.live.moves.length ? new LocalGame(this.live, ply) : undefined;
-    if (this.clock) this.clock.since = this.rewind ? undefined : performance.now();
+    if (this.clock) this.clock.since = this.rewind || ply < 2 ? undefined : performance.now();
     this.updateTurn();
     setTimeout(env.redraw);
   };
@@ -188,7 +189,7 @@ export class GameCtrl {
 
   private updateClockUi() {
     if (!this.clock) return;
-    this.clock.running = this.isLive && this.live.ply > 0 && !this.isStopped;
+    this.clock.running = this.isLive && this.live.ply > 1 && !this.isStopped;
     env.round?.clock?.setClock(this.proxy.data, this.clock.white, this.clock.black);
     if (this.isStopped || !this.isLive) env.round?.clock?.stopClock();
   }
@@ -196,10 +197,11 @@ export class GameCtrl {
   private gameOver(final: GameStatus) {
     this.stop();
     if (this.clock) env.round.clock?.stopClock();
-    if (!env.dev?.onGameOver(final)) {
-      // TODO - Re onGameOver conditional logic leak into gameCtrl, fix game scripting in devCtrl
-      env.round.endWithData?.({ status: final.status, winner: final.winner, boosted: false });
-    }
+    this.live.finish(final);
+    env.db.put(this.live);
+    if (env.dev?.onGameOver(final)) return;
+    // TODO - onGameOver conditional logic leak into gameCtrl, fix game scripting in devCtrl
+    env.round.endWithData?.({ status: final.status, winner: final.winner, boosted: false });
   }
 
   private playSounds(moveCtx: GameContext) {
@@ -223,13 +225,13 @@ export class GameCtrl {
       setTimeout(() => this.start(), 200);
       return;
     }
+    // TODO fix this temporary hack for the case when an in-progress realtime game is resumed
+    // and it is the bot's turn. we don't want to start the clock until the user is ready,
+    // so the current idea is to launch into a "paused" state that requires a click
+    // on the board to trigger the bot to resume the game. i'm sure there's a better way.
     const main = document.querySelector<HTMLElement>('#main-wrap');
     main?.classList.add('paused');
     setTimeout(() => {
-      // TODO fix this temporary hack for the case when an in-progress realtime game is resumed
-      // and it is the bot's turn. we don't want to start the clock until the user is ready,
-      // so the current idea is to launch into a "paused" state that requires a click
-      // on the board to trigger the bot to resume the game. i'm sure there's a better way.
       const board = main?.querySelector<HTMLElement>('cg-container');
       const onclick = () => {
         main?.classList.remove('paused');

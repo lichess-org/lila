@@ -1,9 +1,11 @@
 import * as co from 'chessops';
 import { zip, clamp } from 'common/algo';
+import { clockToSpeed } from 'game';
 import { quantizeFilter, filterParameter, filterFacets, combine, type FilterValue } from './filter';
 import type { FishSearch, SearchResult, Line } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
+import { movetime } from './movetime';
 import type {
   BotInfo,
   ZeroSearch,
@@ -91,11 +93,13 @@ export class Bot implements BotInfo, MoveSource {
         `[move] - ${args.avoid?.length ? 'avoid = [' + args.avoid.join(', ') + '], ' : ''}` +
           (args.cp ? `cp = ${args.cp?.toFixed(2)}, ` : ''),
       );
-    const opening = await this.bookMove(chess);
-    args.thinkTime = this.thinkTime(args);
-
+    const openingMove = await this.bookMove(chess);
+    args.movetime = movetime(
+      args,
+      this.ratings?.[clockToSpeed(args.initial, args.increment)] ?? this.ratings?.classical ?? 1500,
+    );
     // i need a better way to handle thinkTime, we probably need to adjust it in chooseMove
-    if (opening) return { uci: opening, thinkTime: args.thinkTime };
+    if (openingMove) return { uci: openingMove, movetime: args.movetime };
 
     const zeroSearch = zero
       ? {
@@ -121,7 +125,7 @@ export class Bot implements BotInfo, MoveSource {
       this.stats.cpl += cpl;
     }
     this.trace(`[move] - chose ${uci} in ${thinkTime.toFixed(1)}s`);
-    return { uci, thinkTime: thinkTime };
+    return { uci, movetime: thinkTime };
   }
 
   private hasFilter(op: FilterType): boolean {
@@ -129,7 +133,7 @@ export class Bot implements BotInfo, MoveSource {
     return Boolean(f && (f.move?.length || f.score?.length || f.time?.length));
   }
 
-  private filter(op: FilterType, { chess, cp, thinkTime }: MoveArgs): number | undefined {
+  private filter(op: FilterType, { chess, cp, movetime: thinkTime }: MoveArgs): number | undefined {
     if (!this.hasFilter(op)) return undefined;
     const f = this.filters![op];
     const x: FilterValue = Object.fromEntries(
@@ -147,21 +151,6 @@ export class Bot implements BotInfo, MoveSource {
     const y = combine(vals, f.by);
     this.trace(`[filter] - ${op} ${stringify(x)} -> ${stringify(vals)} by ${f.by} yields ${y.toFixed(2)}`);
     return y;
-  }
-
-  private thinkTime({ initial, remaining, increment }: MoveArgs): number {
-    initial ??= Infinity;
-    increment ??= 0;
-    if (!remaining || !Number.isFinite(initial)) return 60;
-    const pace = 45 * (remaining < initial / Math.log2(initial) && !increment ? 2 : 1);
-    const quickest = Math.min(initial / 150, 1);
-    const variateMax = Math.min(remaining, increment + initial / pace);
-    const thinkTime = quickest + Math.random() * variateMax;
-    this.trace(
-      `[thinkTime] - remaining = ${remaining.toFixed(1)}s, thinktime = ${thinkTime.toFixed(1)}s, pace = ` +
-        `${pace.toFixed(1)}, quickest = ${quickest.toFixed(1)}s, variateMax = ${variateMax.toFixed(1)}`,
-    );
-    return thinkTime;
   }
 
   private async bookMove(chess: co.Chess) {
@@ -200,7 +189,8 @@ export class Bot implements BotInfo, MoveSource {
   ): { uci: Uci; cpl?: number; thinkTime: number } {
     const moves = this.parseMoves(results, args);
     this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
-    let thinkTime = args.thinkTime ?? 0;
+    let thinkTime = args.movetime ?? 0;
+    console.log(thinkTime);
     if (this.hasFilter('cplTarget')) {
       this.scoreByCpl(moves, args);
       this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);

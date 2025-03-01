@@ -20,7 +20,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
           h('i.line'),
           h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
         ])
-      : (ctrl.opts.local?.userVNode(player, position) ?? userHtml(ctrl, player, position));
+      : /*ctrl.data.local?.userVNode(player, position) ??*/ userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;

@@ -10,7 +10,7 @@ import lila.common.Json.lightUser.writeNoId
 import lila.common.Uptime
 import lila.core.LightUser
 import lila.core.chess.Rank
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.core.game.LightPov
 import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
@@ -52,10 +52,10 @@ final class JsonView(
       partial: Boolean,
       withScores: Boolean,
       withAllowList: Boolean,
-      myInfo: Preload[Option[MyInfo]] = Preload.none
+      myInfo: Preload[Option[MyInfo]] = Preload.none,
+      addReloadEndpoint: Option[Tournament => Boolean] = none
   )(using
-      me: Option[Me]
-  )(using
+      me: Option[Me],
       getMyTeamIds: Condition.GetMyTeamIds,
       lightTeamApi: lila.core.team.LightTeam.Api
   )(using Lang): Fu[JsObject] =
@@ -76,16 +76,14 @@ final class JsonView(
       )
       playerInfoJson <- playerInfoExt.soFu:
         playerInfoExtended(tour, _)
-      verdicts <- full.so:
+      verdicts <- full.soFu:
         (me, myInfo) match
-          case (None, _)                                   => fuccess(tour.conditions.accepted.some)
-          case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
-          case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me).dmap(some)
+          case (None, _)                                   => fuccess(tour.conditions.accepted)
+          case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted)
+          case (Some(me), Some(_))                         => verify.rejoin(tour.conditions)(using me)
           case (Some(me), None) =>
-            userApi
-              .usingPerfOf(me, tour.perfType):
-                verify(tour.conditions, tour.perfType)(using me)
-              .dmap(some)
+            userApi.usingPerfOf(me, tour.perfType):
+              verify(tour.conditions, tour.perfType)(using me)
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi.currentOwner(tour) }
       teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
@@ -145,11 +143,10 @@ final class JsonView(
           .add("onlyTitled", tour.conditions.titled.isDefined)
           .add("teamMember", tour.conditions.teamMember.map(_.teamId))
           .add("allowList", withAllowList.so(tour.conditions.allowList).map(_.userIds))
-
-  def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
-    js + ("reloadEndpoint" -> JsString({
-      if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
-    }.replace("{id}", tour.id.value)))
+          .add("reloadEndpoint" -> addReloadEndpoint.map: useLilaHttp =>
+            JsString({
+              if useLilaHttp(tour) then reloadEndpointSetting.get() else reloadEndpointSetting.default
+            }.replace("{id}", tour.id.value)))
 
   def clearCache(tour: Tournament): Unit =
     standingApi.clearCache(tour)
@@ -157,21 +154,18 @@ final class JsonView(
 
   def fetchMyInfo(tour: Tournament, me: User): Fu[Option[MyInfo]] =
     playerRepo.find(tour.id, me.id).flatMapz { player =>
-      fetchCurrentGameId(tour, me).flatMap { gameId =>
-        getOrGuessRank(tour, player).dmap { rank =>
-          MyInfo(rank + 1, player.withdraw, gameId, player.team).some
-        }
-      }
+      for
+        gameId <- fetchCurrentGameId(tour, me)
+        rank   <- getOrGuessRank(tour, player)
+      yield MyInfo(rank + 1, player.withdraw, gameId, player.team).some
     }
 
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
-  private def getOrGuessRank(tour: Tournament, player: Player): Fu[Rank] =
-    cached.ranking(tour).flatMap {
-      _.ranking.get(player.userId) match
-        case Some(rank) => fuccess(rank)
-        case None       => playerRepo.computeRankOf(player)
-    }
+  private def getOrGuessRank(tour: Tournament, player: Player): Fu[Rank] = for
+    ranking <- cached.ranking(tour)
+    rank    <- ranking.ranking.get(player.userId).fold(playerRepo.computeRankOf(player))(fuccess)
+  yield rank
 
   def playerInfoExtended(tour: Tournament, info: PlayerInfoExt): Fu[JsObject] = for
     ranking <- cached.ranking(tour)
@@ -223,17 +217,14 @@ final class JsonView(
         gameProxy
           .game(pairing.gameId)
           .flatMapz: game =>
-            cached
-              .ranking(tour)
-              .flatMap: ranking =>
-                playerRepo
-                  .pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2)
-                  .map: pairOption =>
-                    for
-                      (p1, p2) <- pairOption
-                      rp1      <- RankedPlayer(ranking.ranking)(p1)
-                      rp2      <- RankedPlayer(ranking.ranking)(p2)
-                    yield FeaturedGame(game, rp1, rp2)
+            for
+              ranking    <- cached.ranking(tour)
+              pairOption <- playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2)
+            yield for
+              (p1, p2) <- pairOption
+              rp1      <- RankedPlayer(ranking.ranking)(p1)
+              rp2      <- RankedPlayer(ranking.ranking)(p2)
+            yield FeaturedGame(game, rp1, rp2)
 
   private def sheetNbs(s: arena.Sheet) =
     Json.obj(
@@ -316,7 +307,7 @@ final class JsonView(
         .obj("rating" -> rating)
         .add("berserk" -> berserk)
 
-  private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](128, "tournament.podiumJson") {
+  private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](128, "tournament.podiumJson"):
     _.expireAfterAccess(15.seconds)
       .expireAfterWrite(1.minute)
       .maximumSize(256)
@@ -348,7 +339,6 @@ final class JsonView(
                     .add("performance" -> rp.player.performance)
               .map: l =>
                 JsArray(l).some
-  }
 
   private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
     lightUserApi
@@ -398,12 +388,11 @@ final class JsonView(
       "rank"  -> rt.rank,
       "id"    -> rt.teamId,
       "score" -> rt.score,
-      "players" -> rt.leaders.map { p =>
+      "players" -> rt.leaders.map: p =>
         Json.obj(
           "user"  -> lightUserApi.sync(p.userId),
           "score" -> p.score
         )
-      }
     )
 
   private def getMyRankedTeam(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.RankedTeam]] =
