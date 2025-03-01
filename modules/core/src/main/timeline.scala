@@ -1,7 +1,6 @@
 package lila.core
 package timeline
 
-import lila.core.bus.WithChannel
 import lila.core.id.*
 import lila.core.perf.PerfKey
 import lila.core.study.data.StudyName
@@ -63,5 +62,4 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
   def modsOnly(value: Boolean)         = add(ModsOnly(value))
   private def add(p: Propagation)      = copy(propagations = p :: propagations)
 
-object Propagate:
-  given WithChannel[Propagate] = WithChannel("timeline")
+object Propagate extends scalalib.bus.GivenChannel[Propagate]("timeline")
