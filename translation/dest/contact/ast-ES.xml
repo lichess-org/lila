@@ -2,4 +2,8 @@
 <resources>
   <string name="contact">Contactar</string>
   <string name="contactLichess">Contactar Lichess</string>
+  <string name="whatCanWeHelpYouWith">¿En qué podemos ayudate?</string>
+  <string name="visitThisPage">Visita esta páxina pa resolver el problema</string>
+  <string name="iCantLogIn">Nun puedo aniciar sesión</string>
+  <string name="noConfirmationEmail">Nun recibo el mio corréu de confirmación</string>
 </resources>
