@@ -149,7 +149,7 @@ lazy val racer = module("racer",
 )
 
 lazy val local = module("local",
-  Seq(pref),
+  Seq(db, ui),
   Seq()
 )
 
