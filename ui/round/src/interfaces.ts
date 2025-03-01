@@ -102,15 +102,6 @@ export interface ChatOpts {
   instance?: ChatCtrl;
 }
 
-export interface Step {
-  ply: Ply;
-  fen: FEN;
-  san: San;
-  uci: Uci;
-  check?: boolean;
-  crazy?: Tree.NodeCrazy;
-}
-
 export interface ApiMove {
   dests: string | { [key: string]: string };
   ply: number;
