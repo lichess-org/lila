@@ -40,6 +40,7 @@ const themes: string[] = [
     'kiwen-suwi',
     'horsey',
     'anarcandy',
+    'xkcd',
     'shapes',
     'letter',
     'disguised',

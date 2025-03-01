@@ -731,22 +731,12 @@
   <string name="security">Ewlehî</string>
   <string name="revokeAllSessions">hemû danişînan betal bikî</string>
   <string name="playChessEverywhere">Kişikê bilîze li her derî</string>
-  <string name="asFreeAsLichess">Bi qasî lichessê azad</string>
-  <string name="builtForTheLoveOfChessNotMoney">Bi evîna kişikê hatiye avakirin, ne bi pereyê</string>
   <string name="everybodyGetsAllFeaturesForFree">Herkes dikare temamiya taybetmendiyan bi belaşî bi dest bixe</string>
-  <string name="zeroAdvertisement">Sifir reklam</string>
-  <string name="fullFeatured">Li gel temamiya taybetiyan</string>
-  <string name="phoneAndTablet">Telefon û tablet</string>
-  <string name="bulletBlitzClassical">Şerê guleyî, birûskî, an klasîkî</string>
-  <string name="correspondenceChess">Kişika bi pêwendî</string>
-  <string name="onlineAndOfflinePlay">Serhêl û derhêl bilîze</string>
   <string name="viewTheSolution">Çareseriyê bibîne</string>
-  <string name="followAndChallengeFriends">Hevalan bişopîne û vexwîne lîstikan</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Bi zimanê %s berdest e!</item>
     <item quantity="other">Bi zimanên %s berdest e!</item>
   </plurals>
-  <string name="gameAnalysis">Analîza lîstikê</string>
   <string name="xHostsY">%1$s mêvandariya %2$s kir</string>
   <string name="xJoinsY">%1$s tevlî %2$s bû</string>
   <string name="xLikesY">%1$s %2$s eciband</string>

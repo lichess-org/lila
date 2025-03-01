@@ -133,7 +133,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
   site.mousetrap.bind('c', () => chatEl.focus());
 
   // Ensure clicks remove chat focus.
-  // See lichess-org/chessground#109
+  // See https://github.com/lichess-org/lila/pull/5323
 
   const mouchEvents = ['touchstart', 'mousedown'];
 
@@ -141,7 +141,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     mouchEvents.forEach(event => document.body.removeEventListener(event, mouchListener, { capture: true }));
 
   mouchListener = (e: MouseEvent) => {
-    if (!e.shiftKey && e.buttons !== 2 && e.button !== 2) chatEl.blur();
+    if (!e.shiftKey && e.buttons !== 2 && e.button !== 2 && e.target !== chatEl) chatEl.blur();
   };
 
   chatEl.onfocus = () =>

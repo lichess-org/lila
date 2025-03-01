@@ -5,7 +5,7 @@ final private class PlaybanFeedback(
     lightUser: lila.core.LightUser.Getter
 )(using Executor):
 
-  private val tempBan = "will result in a temporary ban."
+  private val tempBan = "may lead to temporary playing restrictions."
 
   def abort(pov: Pov): Unit = tell(pov, s"Warning, {user}. Aborting too many games $tempBan")
 
@@ -14,7 +14,10 @@ final private class PlaybanFeedback(
   def rageQuit(pov: Pov): Unit = tell(pov, s"Warning, {user}. Leaving games without resigning $tempBan")
 
   def sitting(pov: Pov): Unit =
-    tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
+    tell(
+      pov,
+      s"Reminder, {user}. Repeatedly letting time run out or delaying resignation in lost positions $tempBan"
+    )
 
   def quickResign(pov: Pov): Unit = tell(pov, s"Warning, {user}. Resigning games too quickly $tempBan")
 

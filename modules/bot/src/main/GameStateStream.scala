@@ -9,6 +9,7 @@ import scalalib.ThreadLocalRandom
 
 import lila.chat.{ Chat, UserLine }
 import lila.common.{ Bus, HTTPRequest }
+import lila.common.actorBus.*
 import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.misc.map.Tell
 import lila.core.round.{ BotConnected, QuietFlag }
@@ -84,7 +85,7 @@ final class GameStateStream(
 
     override def postStop(): Unit =
       super.postStop()
-      Bus.unsubscribe(self, classifiers)
+      classifiers.foreach(Bus.unsubscribe(self, _))
       // hang around if game is over
       // so the opponent has a chance to rematch
       context.system.scheduler.scheduleOnce(if gameOver then 10.second else 1.second):
