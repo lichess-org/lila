@@ -7,13 +7,14 @@ import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
 import scalalib.Debouncer
-import chess.IntRating
+import chess.{ IntRating, ByColor }
 
 import lila.common.Bus
 import lila.core.game.LightPov
 import lila.core.round.{ AbortForce, GoBerserk }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
+import lila.core.chess.Rank
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 
@@ -45,7 +46,7 @@ final class TournamentApi(
     akka.actor.ActorSystem,
     akka.stream.Materializer,
     lila.core.i18n.Translator
-) extends lila.core.tournament.TournamentApi:
+):
 
   export tournamentRepo.byId as get
 
@@ -570,7 +571,7 @@ final class TournamentApi(
 
     def player(pov: Pov): Fu[Option[GameView]] =
       OfGame(pov.game): tour =>
-        getTeamVs(tour, pov.game).zip(getGameRanks(tour, pov.game)).flatMap { (teamVs, ranks) =>
+        (getTeamVs(tour, pov.game), getGameRanks(tour, pov.game)).flatMapN { (teamVs, ranks) =>
           teamVs
             .fold(tournamentTop(tour.id)): vs =>
               cached.teamInfo.get(tour.id -> vs.teams(pov.color)).map { info =>
@@ -599,12 +600,12 @@ final class TournamentApi(
       OfGame(game): tour =>
         getTeamVs(tour, game).dmap(TourAndTeamVs(tour, _))
 
-    private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] =
+    def getGameRanks(tour: lila.core.tournament.Tournament, game: Game): Fu[Option[ByColor[Rank]]] =
       game.whitePlayer.userId.ifTrue(tour.isStarted).so { whiteId =>
         game.blackPlayer.userId.so: blackId =>
           cached.ranking(tour).map { ranking =>
             (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)).mapN: (whiteR, blackR) =>
-              GameRanks(whiteR + 1, blackR + 1)
+              ByColor(whiteR + 1, blackR + 1)
           }
       }
 

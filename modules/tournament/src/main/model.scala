@@ -1,6 +1,7 @@
 package lila.tournament
 
 import play.api.i18n.Lang
+import chess.ByColor
 
 import lila.core.chess.Rank
 import lila.core.id.GameFullId
@@ -21,7 +22,7 @@ case class TourAndTeamVs(tour: Tournament, teamVs: Option[TeamBattle.TeamVs])
 case class GameView(
     tour: Tournament,
     teamVs: Option[TeamBattle.TeamVs],
-    ranks: Option[GameRanks],
+    ranks: Option[ByColor[Rank]],
     top: Option[TournamentTop]
 ):
   def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
@@ -51,8 +52,6 @@ case class PlayerInfoExt(
 )
 
 case class FullRanking(ranking: Map[UserId, Rank], playerIndex: Array[TourPlayerId])
-
-case class GameRanks(whiteRank: Rank, blackRank: Rank)
 
 case class RankedPairing(pairing: Pairing, rank1: Rank, rank2: Rank):
 
