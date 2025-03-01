@@ -59,9 +59,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   switch (p.success()) {
     case true:
       if (p.autoNext()) {
-        return [
-          h('span.feedback.win', 'Success!'),
-        ];
+        return [h('span.feedback.win', 'Success!')];
       } else {
         return [
           h(
