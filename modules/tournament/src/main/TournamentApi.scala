@@ -392,17 +392,21 @@ final class TournamentApi(
       .flatMap:
         _.filter(_.berserkable).so { game =>
           game.tournamentId.so: tourId =>
-            pairingRepo
-              .findPlaying(tourId, userId)
-              .flatMap:
-                case Some(pairing) if !pairing.berserkOf(userId) =>
-                  pairing.colorOf(userId).so { color =>
-                    roundApi
-                      .ask(gameId)(GoBerserk(color, _))
-                      .flatMapz:
-                        pairingRepo.setBerserk(pairing, userId)
-                  }
-                case _ => funit
+            lightUserApi
+              .isBotSync(userId)
+              .not
+              .so:
+                pairingRepo
+                  .findPlaying(tourId, userId)
+                  .flatMap:
+                    case Some(pairing) if !pairing.berserkOf(userId) =>
+                      pairing.colorOf(userId).so { color =>
+                        roundApi
+                          .ask(gameId)(GoBerserk(color, _))
+                          .flatMapz:
+                            pairingRepo.setBerserk(pairing, userId)
+                      }
+                    case _ => funit
         }
 
   private[tournament] def finishGame(game: Game): Funit =
