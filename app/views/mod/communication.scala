@@ -35,7 +35,7 @@ def communication(
     .js(isGranted(_.UserModView).option(Esm("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
         h1(
-          div(cls := "title")(userLink(u), " communications"),
+          div(cls := "title")(userLink(u, params = "?mod"), " communications"),
           div(cls := "actions")(
             a(
               cls  := "button button-empty mod-zone-toggle",
