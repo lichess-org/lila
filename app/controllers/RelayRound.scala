@@ -163,7 +163,7 @@ final class RelayRound(
           group       <- env.relay.api.withTours.get(rt.tour.id)
           previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           targetRound <- env.relay.api.officialTarget(rt.round)
-          sVersion    <- ctx.isMobileOauth.soFu(env.study.version(study.id))
+          sVersion    <- HTTPRequest.isLichessMobile(ctx.req).soFu(env.study.version(study.id))
         yield JsonOk:
           env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound, sVersion)
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
