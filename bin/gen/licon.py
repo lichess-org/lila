@@ -158,7 +158,7 @@ def gen_fonts():
     """).encode('utf-8'))
 
     if platform.system() == 'Darwin':
-        exepath = '/Applications/FontForge.app/Contents/Resources/opt/bots/bin/fontforge'
+        exepath = '/Applications/FontForge.app/Contents/Resources/opt/local/bin/fontforge'
     else:
         exepath = 'fontforge'
     subprocess.run([exepath, '-script', name])
