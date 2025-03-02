@@ -16,11 +16,13 @@ interface Candidate {
 
 function toYouTubeEmbedUrl(url: string) {
   const m = url?.match(
-    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i,
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(watch|embed)?(?:\?v=|\/)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i,
   );
   if (!m) return;
+  const [, linkType, videoId, linkParams] = m;
+  if (linkType === 'embed') return url.startsWith('https://') ? url : 'https://' + url;
   let start = 0;
-  m[2].split('&').forEach(p => {
+  linkParams.split('&').forEach(p => {
     const s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
       if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
@@ -31,7 +33,7 @@ function toYouTubeEmbedUrl(url: string) {
     }
   });
   const params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
-  return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
+  return 'https://www.youtube.com/embed/' + videoId + '?' + params;
 }
 
 function toTwitterEmbedUrl(url: string) {
