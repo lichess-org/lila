@@ -147,8 +147,8 @@
   </plurals>
   <string name="moveTimes">Времена потеза</string>
   <string name="flipBoard">Окрени таблу</string>
-  <string name="threefoldRepetition">Троструко понављање</string>
-  <string name="claimADraw">Затражи реми</string>
+  <string name="threefoldRepetition">Троструко поновљена позиција</string>
+  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">Прогласи реми</string>
   <string name="offerDraw">Понуди реми</string>
   <string name="draw">Реми</string>
   <plurals name="nbPlayers">
@@ -158,7 +158,7 @@
   </plurals>
   <string name="drawByMutualAgreement">Нерешено по договору</string>
   <string name="fiftyMovesWithoutProgress">Педесет потеза без прогреса</string>
-  <string name="currentGames">Партије које се управо играју</string>
+  <string name="currentGames">Партије у току</string>
   <plurals name="nbGames">
     <item quantity="one">%s партија</item>
     <item quantity="few">%s партије</item>
