@@ -119,11 +119,37 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   def isUnfinished(tourId: TourId): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
 
+  private def statusField(): Bdoc =
+    $doc("$getField" -> $doc("input" -> "$$CURRENT", "field" -> "status"))
+
   def byTeamCursor(teamId: TeamId) =
+    import coll.AggregationFramework.*
     coll
-      .find(forTeamSelect(teamId))
-      .sort($sort.desc("startsAt"))
-      .cursor[Tournament]()
+      .aggregatorContext[Tournament]:
+        List(
+          Match(forTeamSelect(teamId)),
+          AddFields(
+            $doc:
+              "addedSortField" -> $doc:
+                "$switch" -> $doc(
+                  "branches" -> $arr(
+                    $doc(
+                      "case" -> $eq($arr(statusField(), 20)),
+                      "then" -> 10
+                    ),
+                    $doc(
+                      "case" -> $eq($arr(statusField(), 10)),
+                      "then" -> 20
+                    )
+                  ),
+                  "default" -> statusField()
+                )
+          ),
+          Sort(Ascending("addedSortField"), Ascending("startsAt")),
+          Project($doc("addedSortField" -> false))
+        )
+      .prepared
+      .cursor
 
   private[tournament] def upcomingByTeam(teamId: TeamId, nb: Int) =
     (nb > 0).so(
