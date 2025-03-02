@@ -1,7 +1,7 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-import lila.core.shutup.PublicSource
+import lila.core.shutup.{ PublicLine, PublicSource }
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.shutup.Analyser
@@ -23,119 +23,31 @@ def communication(
     timeline: lila.api.ModTimeline,
     players: List[(Pov, lila.chat.MixedChat)],
     convos: List[lila.msg.ModMsgConvo],
-    publicLines: List[lila.shutup.PublicLine],
+    publicLines: List[PublicLine],
     logins: lila.security.UserLogins.TableData[UserWithModlog],
     appeals: List[lila.appeal.Appeal],
     priv: Boolean
-)(using ctx: Context, renderIp: RenderIp) =
+)(using Context, Me, RenderIp) =
   val u = timeline.user
   Page(s"${u.username} communications")
     .css("mod.communication")
     .css(isGranted(_.UserModView).option("mod.user"))
     .js(isGranted(_.UserModView).option(Esm("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
-        h1(
-          div(cls := "title")(userLink(u, params = "?mod"), " communications"),
-          div(cls := "actions")(
-            a(
-              cls  := "button button-empty mod-zone-toggle",
-              href := routes.User.mod(u.username),
-              titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := Icon.Agent
-            ),
-            isGranted(_.ViewPrivateComms)
-              .option {
-                if priv then
-                  a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
-                else
-                  a(
-                    cls   := "priv button",
-                    href  := routes.Mod.communicationPrivate(u.username),
-                    title := "View private messages. This will be logged in #commlog"
-                  )("PMs")
-              },
-            (priv && isGranted(_.FullCommsExport))
-              .option {
-                postForm(
-                  action := routes.Mod.fullCommsExport(u.username)
-                )(
-                  form3.action(
-                    form3.submit(
-                      "Full comms export",
-                      icon = none,
-                      confirm =
-                        s"Confirm you want to export all comms from **${u.username}** (including other party)".some
-                    )(cls := "button-red button-empty comms-export")
-                  )
-                )
-              }
-          )
-        ),
-        isGranted(_.UserModView).option(
+        commUi.commsHeader(u, priv),
+        isGranted(_.UserModView).option:
           frag(
             div(cls := "mod-zone mod-zone-full none"),
             views.user.mod.otherUsers(mod, u, logins, appeals)(
               cls := "mod-zone communication__logins"
             )
           )
-        ),
-        views.mod.timeline.renderComm(timeline),
-        publicLines.nonEmpty.option:
-          frag(
-            h2("Recent public chats"),
-            div(cls := "player_chats")(
-              publicLines
-                .groupBy(_.from)
-                .toList
-                .map: (source, lines) =>
-                  div(cls := "game")(
-                    publicLineSource(source)(cls := "title"),
-                    div(cls := "chat"):
-                      lines.map: line =>
-                        div(cls := "line author")(
-                          userIdLink(u.some, withOnline = false, withTitle = false),
-                          nbsp,
-                          span(cls := "message")(Analyser.highlightBad(line.text))
-                        )
-                  )
-            )
-          )
         ,
+        views.mod.timeline.renderComm(timeline),
+        commUi.publicChats(u, publicLines, publicLineSource),
         priv.option(
           frag(
-            h2("Recent private chats"),
-            players.nonEmpty.option:
-              div(cls := "player_chats")(
-                players.map: (pov, chat) =>
-                  div(cls := "game")(
-                    a(
-                      href := routes.Round.player(pov.fullId),
-                      cls := List(
-                        "title"        -> true,
-                        "friend_title" -> pov.game.sourceIs(_.Friend)
-                      ),
-                      title := pov.game.sourceIs(_.Friend).option("Friend game")
-                    )(
-                      titleNameOrAnon(pov.opponent.userId),
-                      " – ",
-                      momentFromNowServer(pov.game.movedAt)
-                    ),
-                    div(cls := "chat")(
-                      chat.lines.map: line =>
-                        div(
-                          cls := List(
-                            "line"   -> true,
-                            "author" -> UserStr(line.author).is(u)
-                          )
-                        )(
-                          userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
-                          nbsp,
-                          span(cls := "message")(Analyser.highlightBad(line.text))
-                        )
-                    )
-                  )
-              )
-            ,
+            commUi.privateChats(u, players),
             h2("Recent inbox messages"),
             div(cls := "threads")(
               convos.nonEmpty.option:
@@ -143,25 +55,26 @@ def communication(
                   div(cls := "thread")(
                     p(cls := "title")(
                       strong(userLink(modConvo.contact)),
-                      showSbMark(modConvo.contact),
+                      modConvo.contact.marks.troll.option:
+                        span(cls := "user_marks")(iconTag(Icon.BubbleSpeech))
+                      ,
                       modConvo.relations.in
                         .exists(_.isFollow)
-                        .option(
+                        .option:
                           span(cls := "friend_title")(
                             "is following this user",
                             br
                           )
-                        )
                     ),
                     table(cls := "slist")(
                       tbody(
-                        modConvo.truncated.option(
+                        modConvo.truncated.option:
                           div(cls := "truncated-convo")(
                             s"Truncated, showing last ${modConvo.msgs.length} messages"
                           )
-                        ),
+                        ,
                         modConvo.msgs.reverse.map: msg =>
-                          val author = msg.user == u.id
+                          val author = msg.user.is(u)
                           tr(cls := List("post" -> true, "author" -> author))(
                             td(momentFromNowServer(msg.date)),
                             td(strong(if author then u.username else modConvo.contact.username)),
@@ -174,6 +87,3 @@ def communication(
           )
         )
       )
-
-private def showSbMark(u: User) =
-  u.marks.troll.option(span(cls := "user_marks")(iconTag(Icon.BubbleSpeech)))
