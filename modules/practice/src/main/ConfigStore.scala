@@ -1,12 +1,14 @@
-package lila.memo
+package lila.practice
 
 import com.typesafe.config.ConfigFactory
 import play.api.ConfigLoader
 import play.api.data.Form
 
 import lila.db.dsl.*
+import lila.memo.CacheApi
+import lila.memo.MemoConfig
 
-final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(using
+private final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(using
     ec: Executor,
     loader: ConfigLoader[A]
 ):
@@ -53,7 +55,7 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
     rawText.map:
       _.fold(form)(form.fill)
 
-object ConfigStore:
+private object ConfigStore:
 
   final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(using
       Executor

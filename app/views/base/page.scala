@@ -8,7 +8,6 @@ import lila.ui.{ RenderedPage, PageFlags }
 object page:
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
-    isRTL = lila.i18n.LangList.isRTL,
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,
     reportScore = () => env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0)
