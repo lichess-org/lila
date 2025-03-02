@@ -2,7 +2,7 @@ import type { GameData, StatusName, Status } from './interfaces';
 
 // https://github.com/lichess-org/scalachess/blob/master/core/src/main/scala/Status.scala
 
-export const ids: { [name in StatusName]: number } = {
+export const status: { [name in StatusName]: number } = {
   created: 10,
   started: 20,
   aborted: 25,
@@ -18,12 +18,12 @@ export const ids: { [name in StatusName]: number } = {
   variantEnd: 60,
 };
 
-export const statusOf = (name: StatusName): Status => ({ id: ids[name], name });
+export const statusOf = (name: StatusName): Status => ({ id: status[name], name });
 
-export const started = (data: GameData): boolean => data.game.status.id >= ids.started;
+export const started = (data: GameData): boolean => data.game.status.id >= status.started;
 
-export const finished = (data: GameData): boolean => data.game.status.id >= ids.mate;
+export const finished = (data: GameData): boolean => data.game.status.id >= status.mate;
 
-export const aborted = (data: GameData): boolean => data.game.status.id === ids.aborted;
+export const aborted = (data: GameData): boolean => data.game.status.id === status.aborted;
 
 export const playing = (data: GameData): boolean => started(data) && !finished(data) && !aborted(data);

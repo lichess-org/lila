@@ -4,7 +4,7 @@ import { type VNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { numberRow, player as renderPlayer } from './util';
 import { fullName } from 'common/userLink';
 import { teamName } from './battle';
-import { ids } from 'game/status';
+import { status } from 'game';
 import type TournamentController from '../ctrl';
 import type { Player } from '../interfaces';
 
@@ -15,7 +15,7 @@ function result(win: boolean, stat: number): string {
     case false:
       return '0';
     default:
-      return stat >= ids.mate ? '½' : '*';
+      return stat >= status.mate ? '½' : '*';
   }
 }
 

@@ -50,16 +50,16 @@ export async function initModule(opts?: DiagnosticOpts): Promise<void> {
   const select = () =>
     setTimeout(() => {
       const range = document.createRange();
-      range.selectNodeContents(dlg.view.querySelector('.err')!);
+      range.selectNodeContents(dlg.viewEl.querySelector('.err')!);
       window.getSelection()?.removeAllRanges();
       window.getSelection()?.addRange(range);
     }, 0);
-  $('.err', dlg.view).on('focus', select);
-  $('.clear', dlg.view).on('click', () => log.clear().then(() => dlg.close()));
-  $('.copy', dlg.view).on('click', () =>
+  $('.err', dlg.viewEl).on('focus', select);
+  $('.clear', dlg.viewEl).on('click', () => log.clear().then(() => dlg.close()));
+  $('.copy', dlg.viewEl).on('click', () =>
     navigator.clipboard.writeText(text).then(() => {
       const copied = $(`<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`);
-      $('.copy', dlg.view).before(copied);
+      $('.copy', dlg.viewEl).before(copied);
       setTimeout(() => copied.remove(), 2000);
     }),
   );
