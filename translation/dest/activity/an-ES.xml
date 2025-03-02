@@ -34,6 +34,10 @@
     <item quantity="one">Ha chugau %s partida per correspondencia</item>
     <item quantity="other">Ha chugau %s partidas per correspondencia</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Has chugau %1$s %2$s partida per correspondencia</item>
+    <item quantity="other">Has chugau %1$s %2$s partidas per correspondencia</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Sigue a %s chugador</item>
     <item quantity="other">Sigue a %s chugadors</item>

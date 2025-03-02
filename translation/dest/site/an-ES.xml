@@ -775,6 +775,7 @@
   <string name="playChessEverywhere">Chuga a los escaques an que siga</string>
   <string name="everybodyGetsAllFeaturesForFree">Toz tienen acceso gratuito a totas las funcions</string>
   <string name="viewTheSolution">Veyer la solución</string>
+  <string name="noChallenges">Sin desafíos.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponible en %s idioma!</item>
     <item quantity="other">Disponible en %s idiomas!</item>
@@ -969,6 +970,7 @@
   <string name="focusChat">Meter lo foco en a conversa</string>
   <string name="showHelpDialog">Amostrar este dialogo d\'aduya</string>
   <string name="reopenYourAccount">Reubrir la tuya cuenta</string>
+  <string name="reopenYourAccountDescription">Si has zarrau la tuya cuenta, pero agora has cambiau d\'opinión, tiens una oportunidat de tornar a reactivar-la.</string>
   <string name="emailAssociatedToaccount">Adreza de correu-e asociada a la cuenta</string>
   <string name="sentEmailWithLink">T\'hemos ninviau un correu-e con un vinclo.</string>
   <string name="tournamentEntryCode">Codigo de participación en o torneyo</string>
