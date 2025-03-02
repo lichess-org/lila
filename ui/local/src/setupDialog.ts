@@ -4,7 +4,7 @@ import { domDialog, Dialog } from 'common/dialog';
 import { fen960 } from 'chess';
 import { pubsub } from 'common/pubsub';
 import { definedMap, clamp } from 'common/algo';
-import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
+import { domIdToUid, uidToDomId } from './botCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
 import { env } from './localEnv';
@@ -157,7 +157,7 @@ class SetupDialog {
       .join('');
   }
 
-  private dropSelect = (target: HTMLElement, domId?: string) => {
+  private dropSelect = (_: HTMLElement, domId?: string) => {
     this.select(domIdToUid(domId));
   };
 

@@ -511,7 +511,7 @@ class TouchDragShape {
     return { speed, dir };
   }
 
-  outcome(e: PointerEvent): HTMLElement | 'next-group' | undefined {
+  outcome(_: PointerEvent): HTMLElement | 'next-group' | undefined {
     const momentum = this.momentum;
     if (momentum.speed < 0.15) return undefined;
     if (momentum.dir === 'towards-drop') return this.drops[0].el;

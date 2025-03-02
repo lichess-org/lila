@@ -105,7 +105,6 @@ export class DevCtrl {
   }
 
   afterMove(moveResult: GameContext): void {
-    const ply = env.game.live.ply - 1;
     const lastColor = env.game.live.awaiting;
     env.round.chessground?.set({ animation: { enabled: !this.hurry } });
     if (this.hurry) moveResult.silent = true;

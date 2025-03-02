@@ -25,9 +25,13 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.assets.init()]);
   env.game.load('id' in setup ? await env.db.get(setup.id) : setup);
 
-  const el = document.createElement('main');
-  document.getElementById('main-wrap')?.appendChild(el);
+  const el = document.querySelector('#main-wrap > main') as HTMLElement;
   let vnode = patch(el, renderGameView());
+
+  function redraw() {
+    vnode = patch(vnode, renderGameView());
+    env.round.redraw();
+  }
 
   env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
@@ -36,11 +40,6 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
 
   const lastSetup = localStorage.getItem('local.setup');
   showSetupDialog(lastSetup ? JSON.parse(lastSetup) : {});
-
-  function redraw() {
-    vnode = patch(vnode, renderGameView());
-    env.round.redraw();
-  }
 }
 
 function setupOpts(): SetupOpts {

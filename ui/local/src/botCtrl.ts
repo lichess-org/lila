@@ -152,15 +152,13 @@ export class BotCtrl {
     return bot?.image && env.assets.getImageUrl(bot.image);
   }
 
-  card(bot: BotInfo | undefined): CardData | undefined {
-    return (
-      bot && {
-        label: `${bot.name}${bot.ratings.classical ? ' ' + bot.ratings.classical : ''}`,
-        domId: uidToDomId(bot.uid)!,
-        imageUrl: this.imageUrl(bot),
-        classList: [],
-      }
-    );
+  card(bot: BotInfo): CardData {
+    return {
+      label: `${bot.name}${bot.ratings.classical ? ' ' + bot.ratings.classical : ''}`,
+      domId: uidToDomId(bot.uid)!,
+      imageUrl: this.imageUrl(bot),
+      classList: [],
+    };
   }
 
   groupedCard(bot: BotInfo, isDirty?: (b: BotInfo) => boolean): CardData | undefined {

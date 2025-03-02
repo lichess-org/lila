@@ -32,7 +32,7 @@ export class LocalEnv {
   constructor(cfg: Partial<LocalEnv>) {
     Object.assign(this, cfg);
     this.user ??= myUserId() ?? 'anonymous';
-    this.username ??= myUsername() ?? this.user.charAt(0).toUpperCase() + this.user.slice(1);
+    this.username ??= myUsername() ?? this.user;
     this.canPost = Boolean(this.canPost);
   }
 

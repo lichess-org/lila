@@ -10,7 +10,7 @@ final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def index(data: JsObject, moduleName: "local" | "local.dev" = "local")(using ctx: Context): Page =
-    Page("Private Play")
+    Page("Lichess bots")
       .css(moduleName)
       .css("round")
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
@@ -19,4 +19,4 @@ final class LocalUi(helpers: Helpers):
       .js(Esm("round"))
       .csp(_.withWebAssembly)
       .flag(_.zoom):
-        emptyFrag
+        main

@@ -47,7 +47,7 @@ export class Bot implements BotInfo, MoveSource {
   static isSame(a: BotInfo | undefined, b: BotInfo | undefined): boolean {
     if (!closeEnough(a, b, ['filters', 'version'])) return false;
     const [aFilters, bFilters] = [a, b].map(bot =>
-      Object.entries(bot?.filters ?? {}).filter(([k, v]) => v.move || v.time || v.score),
+      Object.entries(bot?.filters ?? {}).filter(([_, v]) => v.move || v.time || v.score),
     );
     return closeEnough(aFilters, bFilters); // allow empty filter craplets to differ
   }
@@ -314,7 +314,7 @@ function getNormal(): number {
 
 function stringify(obj: any) {
   if (!obj) return '';
-  return JSON.stringify(obj, (k, v) => (typeof v === 'number' ? v.toFixed(2) : v));
+  return JSON.stringify(obj, (_, v) => (typeof v === 'number' ? v.toFixed(2) : v));
 }
 
 function closeEnough(a: any, b: any, ignore: string[] = []): boolean {
