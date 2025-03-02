@@ -58,15 +58,19 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
     case true:
-      return [
-        h(
-          'a.feedback.win',
-          ctrl.nextChapter()
-            ? { hook: bind('click', ctrl.goToNextChapter) }
-            : { attrs: { href: '/practice' } },
-          [h('span', 'Success!'), ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu'],
-        ),
-      ];
+      if (p.autoNext()) {
+        return [h('span.feedback.win', 'Success!')];
+      } else {
+        return [
+          h(
+            'a.feedback.win',
+            ctrl.nextChapter()
+              ? { hook: bind('click', ctrl.goToNextChapter) }
+              : { attrs: { href: '/practice' } },
+            [h('span', 'Success!'), ctrl.nextChapter() ? 'Go to next exercise' : 'Back to practice menu'],
+          ),
+        ];
+      }
     case false:
       return [
         h('a.feedback.fail', { hook: bind('click', p.reset, ctrl.redraw) }, [
