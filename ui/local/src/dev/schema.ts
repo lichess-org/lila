@@ -158,7 +158,7 @@ export const schema: Schema = deepFreeze<Schema>({
           class: ['setting'],
           value: 12,
           min: 1,
-          max: 20,
+          max: 14,
           step: 1,
           toggle: true,
         },

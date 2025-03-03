@@ -15,6 +15,7 @@ import type {
   MoveSource,
   MoveArgs,
   MoveResult,
+  LocalSpeed,
   SoundEvents,
   Ratings,
 } from './types';
@@ -57,6 +58,10 @@ export class Bot implements BotInfo, MoveSource {
     return oldDbVersion, oldBot;
   }
 
+  static rating(bot: BotInfo | undefined, speed: LocalSpeed): number {
+    return bot?.ratings[speed] ?? bot?.ratings.classical ?? 1500;
+  }
+
   constructor(info: BotInfo) {
     Object.assign(this, structuredClone(info));
     if (this.filters) Object.values(this.filters).forEach(quantizeFilter);
@@ -94,10 +99,7 @@ export class Bot implements BotInfo, MoveSource {
           (args.cp ? `cp = ${args.cp?.toFixed(2)}, ` : ''),
       );
     const openingMove = await this.bookMove(chess);
-    args.movetime = movetime(
-      args,
-      this.ratings?.[clockToSpeed(args.initial, args.increment)] ?? this.ratings?.classical ?? 1500,
-    );
+    args.movetime = movetime(args, Bot.rating(this, clockToSpeed(args.initial, args.increment)));
     // i need a better way to handle thinkTime, we probably need to adjust it in chooseMove
     if (openingMove) return { uci: openingMove, movetime: args.movetime };
 
@@ -190,7 +192,6 @@ export class Bot implements BotInfo, MoveSource {
     const moves = this.parseMoves(results, args);
     this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
     let thinkTime = args.movetime ?? 0;
-    console.log(thinkTime);
     if (this.hasFilter('cplTarget')) {
       this.scoreByCpl(moves, args);
       this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);

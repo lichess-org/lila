@@ -79,3 +79,27 @@ export const loadEsmPage = async (name: string) => {
 export function embedChessground() {
   return import(url('npm/chessground.min.js'));
 }
+
+let isWorkerPatched = false;
+
+export function patchWorkerConstructor() {
+  // this might be the cleanest way to bootstrap emscripten artifacts from a content hashed link.
+  // the EXPORT_ES6 code path in allocateUnusedWorker is hardwired to import the bare module script
+  // filename as a relative URL, but we need to hash that filename for auto-versioning
+  if (isWorkerPatched) return;
+  isWorkerPatched = true;
+  globalThis.Worker = class extends globalThis.Worker {
+    constructor(urlOrStr: string | URL, opts?: WorkerOptions) {
+      const url = new URL(urlOrStr);
+      const file = url.pathname.split('/').pop();
+      if (file?.endsWith('.js') && (url.host === location.host || url.origin === baseUrl())) {
+        const key = Object.keys(site.manifest.hashed).find(k => k.endsWith(file));
+        if (key) {
+          super(new URL(`assets/${asHashed(key, site.manifest.hashed[key])}`, url.origin), opts);
+          return;
+        }
+      }
+      super(urlOrStr, opts);
+    }
+  };
+}

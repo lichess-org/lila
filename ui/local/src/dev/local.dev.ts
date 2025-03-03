@@ -46,7 +46,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
   env.game.load(await env.db.get());
 
-  const el = document.createElement('main');
+  const el = document.querySelector('main') ?? document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
 
   let vnode = patch(el, renderGameView(renderDevSide()));

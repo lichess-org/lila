@@ -26,6 +26,7 @@ interface Site {
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
+    patchWorkerConstructor(): void;
   };
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;

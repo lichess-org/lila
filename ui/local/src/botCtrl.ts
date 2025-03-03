@@ -50,9 +50,9 @@ export class BotCtrl {
   }
 
   async init(serverBots: BotInfo[]): Promise<this> {
+    site.asset.patchWorkerConstructor();
     this.zerofish = await makeZerofish({
-      root: site.asset.url('npm', { documentOrigin: true }),
-      wasm: site.asset.url('npm/zerofishEngine.wasm'),
+      locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('.js') }),
       dev: !!env.dev,
     });
     if (env.dev) {
@@ -88,7 +88,7 @@ export class BotCtrl {
     this.busy = true;
     const cp = bot instanceof Bot && bot.needsScore ? (await this.fetchBestMove(args.pos)).cp : undefined;
     const move = await bot?.move({ ...args, cp });
-    if (!this[co.opposite(args.chess.turn)]) this.bestMove = await this.fetchBestMove(args.pos);
+    //if (!this[co.opposite(args.chess.turn)]) this.bestMove = await this.fetchBestMove(args.pos);
     this.busy = false;
     return move?.uci !== '0000' ? move : undefined;
   }
@@ -102,7 +102,7 @@ export class BotCtrl {
     if (by === 'alpha') return [...this.bots.values()].sort((a, b) => a.name.localeCompare(b.name));
     else
       return [...this.bots.values()].sort((a, b) => {
-        return (a.ratings[by] ?? 1500) - (b.ratings[by] ?? 1500) || a.name.localeCompare(b.name);
+        return Bot.rating(a, by) - Bot.rating(b, by) || a.name.localeCompare(b.name);
       });
   }
 
@@ -179,7 +179,7 @@ export class BotCtrl {
         if (!a.classList.includes(c) && b.classList.includes(c)) return 1;
       }
       const [ab, bb] = [this.get(domIdToUid(a.domId)), this.get(domIdToUid(b.domId))];
-      return (ab?.ratings[speed] ?? 1500) - (bb?.ratings[speed] ?? 1500) || a.label.localeCompare(b.label);
+      return Bot.rating(ab, speed) - Bot.rating(bb, speed) || a.label.localeCompare(b.label);
     };
   }
 

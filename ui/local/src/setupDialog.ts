@@ -198,7 +198,7 @@ class SetupDialog {
     for (const [key, val] of Object.entries(this.setup)) {
       if (key && val) fragParams.push(`${key}=${encodeURIComponent(val)}`);
     }
-    site.redirect(`/local${fragParams.length ? `#${fragParams.join('&')}` : ''}`);
+    site.redirect(`/bots${fragParams.length ? `#${fragParams.join('&')}` : ''}`);
   };
 
   focusFen = () => {
