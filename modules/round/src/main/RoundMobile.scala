@@ -9,6 +9,7 @@ import lila.core.LightUser
 import scalalib.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
+import lila.core.tournament.Tournament
 
 object RoundMobile:
 
@@ -34,7 +35,8 @@ final class RoundMobile(
     moretimer: Moretimer,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi,
-    bookmarkExists: lila.core.misc.BookmarkExists
+    bookmarkExists: lila.core.misc.BookmarkExists,
+    tourApi: lila.core.data.CircularDep[lila.core.tournament.TournamentApi]
 )(using Executor, lila.core.user.FlairGetMap):
 
   import RoundMobile.*
@@ -64,6 +66,7 @@ final class RoundMobile(
       chat         <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
       chatLines    <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
       bookmarked   <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
+      tournament   <- tourInfo(game)
     yield
       def playerJson(color: Color) =
         val pov = Pov(game, color)
@@ -74,6 +77,7 @@ final class RoundMobile(
           .add("offeringRematch" -> isOfferingRematch.exec(pov.ref))
           .add("offeringDraw" -> pov.player.isOfferingDraw)
           .add("proposingTakeback" -> pov.player.isProposingTakeback)
+          .add("berserk" -> pov.player.berserk)
       Json
         .obj(
           "game" -> {
@@ -104,6 +108,25 @@ final class RoundMobile(
               .add("restricted", c.restricted)
         )
         .add("bookmarked", bookmarked)
+        .add("tournament", tournament)
+
+  private def tourInfo(game: Game): Fu[Option[JsObject]] =
+    game.tournamentId
+      .so(tourApi.resolve().getCached)
+      .flatMapz: tour =>
+        tourApi
+          .resolve()
+          .getGameRanks(tour, game)
+          .map: ranks =>
+            Json
+              .obj(
+                "id"          -> tour.id,
+                "name"        -> tour.name,
+                "secondsLeft" -> tour.secondsToFinish
+              )
+              .add("berserkable" -> tour.isStarted.option(tour.berserkable))
+              .add("ranks" -> ranks)
+          .dmap(some)
 
   private def prefsJson(game: Game, pref: Pref): JsObject = Json
     .obj(

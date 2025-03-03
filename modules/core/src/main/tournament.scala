@@ -2,10 +2,13 @@ package lila.core
 package tournament
 
 import play.api.i18n.Lang
+import scalalib.model.Seconds
+import _root_.chess.ByColor
 
 import lila.core.chess.Rank
 import lila.core.id.{ TourId, TourPlayerId }
 import lila.core.userId.UserId
+import lila.core.game.Game
 
 enum Status(val id: Int):
   case Created  extends Status(10)
@@ -27,10 +30,15 @@ trait Tournament:
   val status: Status
   def nbPlayers: Int
   def isFinished: Boolean
+  def isStarted: Boolean
+  def berserkable: Boolean
+  def secondsToFinish: Seconds
 
 trait TournamentApi:
   def allCurrentLeadersInStandard: Fu[Map[Tournament, List[UserId]]]
   def fetchModable: Fu[List[Tournament]]
+  def getCached(id: TourId): Fu[Option[Tournament]]
+  def getGameRanks(tour: Tournament, game: Game): Fu[Option[ByColor[Rank]]]
 
 object leaderboard:
 
