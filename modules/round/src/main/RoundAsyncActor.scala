@@ -128,9 +128,8 @@ final private class RoundAsyncActor(
       getSocketStatus.tap(promise.completeWith)
 
     case GetGameAndSocketStatus(promise) =>
-      getSocketStatus
-        .zip(getGame)
-        .map: (socket, game) =>
+      (getSocketStatus, getGame)
+        .mapN: (socket, game) =>
           GameAndSocketStatus(game.err(s"Game $gameId not found"), socket)
         .tap(promise.completeWith)
 
@@ -148,19 +147,16 @@ final private class RoundAsyncActor(
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>
-        gameRepo
-          .hasHoldAlert(pov)
-          .flatMap:
-            if _ then funit
-            else
-              lila
-                .log("cheat")
-                .info(
-                  s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
-                )
-              lila.mon.cheat.holdAlert.increment()
-              gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
-          .inject(Nil)
+        for
+          has <- gameRepo.hasHoldAlert(pov)
+          _ <- has.not.so:
+            lila
+              .log("cheat")
+              .info:
+                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+            lila.mon.cheat.holdAlert.increment()
+            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
+        yield Nil
 
     case lila.tree.AnalysisProgress(payload) =>
       fuccess:
