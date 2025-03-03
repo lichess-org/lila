@@ -173,8 +173,8 @@
   <string name="logOut">Одјави се</string>
   <string name="signIn">Пријави се</string>
   <string name="rememberMe">Остани пријављен</string>
-  <string name="youNeedAnAccountToDoThat">Треба вам налог да бисте то урадили</string>
-  <string name="signUp">Региструјте се</string>
+  <string name="youNeedAnAccountToDoThat">Треба ти налог да то урадиш</string>
+  <string name="signUp">Региструј се</string>
   <string name="computersAreNotAllowedToPlay">Игра уз асистенцију рачунара није дозвољена. Молимо Вас да не користите шаховске програме, базе података, и помоћ других играча. Отварање вишеструких налога такође није пожељно док ће прекомерно отварање налога резултирати бановањем.</string>
   <string name="games">Партије</string>
   <string name="forum">Форум</string>
