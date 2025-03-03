@@ -88,21 +88,20 @@ def games(
               )
             ),
             tbody(
-              games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
+              games.fold(_.map(_ -> None), _.map { (pov, ass) => pov -> Some(ass) }).map {
                 case (pov, assessment) =>
                   val analysable = lila.game.GameExt.analysable(pov.game)
                   tr(
-                    td(cls := analysable.option("input"))(
-                      analysable.option(
+                    td(cls := analysable.option("input")):
+                      analysable.option:
                         input(
                           tpe      := "checkbox",
                           name     := s"game[]",
                           st.value := pov.gameId
                         )
-                      )
-                    ),
-                    td(dataSort := pov.opponent.rating.fold(0)(_.value))(
-                      playerLink(pov.opponent, withDiff = false)
+                    ,
+                    td(dataSort := pov.opponent.rating.so(_.value))(
+                      playerLink(pov.opponent, withDiff = false, mod = true)
                     ),
                     td(
                       dataSort := pov.game.clock.fold(
@@ -113,20 +112,18 @@ def games(
                       shortClockName(pov.game)
                     ),
                     td(dataSort := pov.game.tournamentId.so(_.value))(
-                      pov.game.tournamentId.map { tourId =>
+                      pov.game.tournamentId.map: tourId =>
                         a(
                           dataIcon := Icon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
                           title    := views.tournament.ui.tournamentIdToName(tourId)
-                        )
-                      },
-                      pov.game.swissId.map { swissId =>
+                        ),
+                      pov.game.swissId.map: swissId =>
                         a(
                           dataIcon := Icon.Trophy,
                           href     := routes.Swiss.show(swissId).url,
                           title    := s"Swiss #${swissId}"
                         )
-                      }
                     ),
                     td(dataSort := pov.moves)(pov.moves),
                     td(dataSort := ~pov.player.ratingDiff)(
@@ -146,27 +143,24 @@ def games(
                     ,
                     assessment match
                       case Some(ass) =>
-                        ass.fold(_.basics, identity).pipe { basics =>
-                          frag(
-                            td(dataSort := basics.moveTimes.sd)(
-                              s"${basics.moveTimes / 10}",
-                              basics.mtStreak.so(frag(br, "streak"))
-                            ),
-                            td(dataSort := basics.blurs)(
-                              s"${basics.blurs}%",
-                              basics.blurStreak.filter(8 <=).map { s =>
-                                frag(br, s"streak $s/12")
-                              }
-                            )
+                        val basics = ass.fold(_.basics, identity)
+                        frag(
+                          td(dataSort := basics.moveTimes.sd)(
+                            s"${basics.moveTimes / 10}",
+                            basics.mtStreak.so(frag(br, "streak"))
+                          ),
+                          td(dataSort := basics.blurs)(
+                            s"${basics.blurs}%",
+                            basics.blurStreak.filter(8 <=).map { s =>
+                              frag(br, s"streak $s/12")
+                            }
                           )
-                        }
+                        )
                       case _ => frag(td, td)
                     ,
-                    td(dataSort := pov.game.movedAt.toSeconds.toString)(
-                      a(href := routes.Round.watcher(pov.gameId, pov.color), cls := "glpt")(
+                    td(dataSort := pov.game.movedAt.toSeconds.toString):
+                      a(href := routes.Round.watcher(pov.gameId, pov.color), cls := "glpt"):
                         momentFromNowServerText(pov.game.movedAt)
-                      )
-                    )
                   )
               }
             )

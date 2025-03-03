@@ -23,7 +23,7 @@ final class ModInquiryUi(helpers: Helpers):
           div(cls := "atom")(
             h3(
               lila.report.ui.ReportUi.reportScore(atom.score),
-              userIdLink(atom.by.userId.some, withOnline = false),
+              userIdLink(atom.by.userId.some, withOnline = false, params = "?mod"),
               " for ",
               if r.is(_.Comm)
               then a(href := routes.Mod.communicationPublic(r.user))(strong(atom.reason.name))
