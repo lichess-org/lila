@@ -3,7 +3,7 @@
   <string name="playWithAFriend">தோழருடன் விளையாடு</string>
   <string name="playWithTheMachine">கணினியுடன் விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URL ளைக்கொடு</string>
-  <string name="gameOver">ஆட்டம் முற்றிற்று</string>
+  <string name="gameOver">ஆட்டம் முடிந்துவிட்டது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
   <string name="orLetYourOpponentScanQrCode">அல்லது உங்கள் எதிராளியை இந்த QR குறியீட்டை மேவ அனுமதிக்கவும்</string>
   <string name="waiting">காத்திருக்கின்றது</string>
@@ -155,7 +155,7 @@
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மீள்நிகழ்வு</string>
-  <string name="claimADraw">இழுபறி பெறு</string>
+  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">இழுபறி பெறு</string>
   <string name="offerDraw">இழுபறி அளித்திடுக</string>
   <string name="draw">சமநிலை</string>
   <plurals name="nbPlayers">
