@@ -90,7 +90,7 @@ export function patchWorkerConstructor() {
   isWorkerPatched = true;
   globalThis.Worker = class extends globalThis.Worker {
     constructor(urlOrStr: string | URL, opts?: WorkerOptions) {
-      const url = new URL(urlOrStr);
+      const url = new URL(urlOrStr.toString());
       const file = url.pathname.split('/').pop();
       if (file?.endsWith('.js') && (url.host === location.host || url.origin === baseUrl())) {
         const key = Object.keys(site.manifest.hashed).find(k => k.endsWith(file));
