@@ -22,7 +22,7 @@
     "fast-xml-parser": "4.5.3",
     "micromatch": "4.0.8",
     "tinycolor2": "1.6.0",
-    "typescript": "5.7.3"
+    "typescript": "5.8.2"
   },
   "scripts": {
     "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"

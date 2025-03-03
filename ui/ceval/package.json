@@ -30,6 +30,7 @@
   "build": {
     "sync": {
       "node_modules/*stockfish*/*.{js,wasm}": "/public/npm"
-    }
+    },
+    "hash": "/public/npm/lila-stockfish-web/*"
   }
 }

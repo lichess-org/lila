@@ -10,6 +10,7 @@
     "strict": true,
     "esModuleInterop": true,
     "isolatedModules": true,
+    "erasableSyntaxOnly": true,
     "moduleResolution": "node",
     "module": "es2022",
     "target": "es2023",

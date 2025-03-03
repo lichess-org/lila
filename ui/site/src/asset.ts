@@ -79,3 +79,28 @@ export const loadEsmPage = async (name: string) => {
 export function embedChessground() {
   return import(url('npm/chessground.min.js'));
 }
+
+let isWorkerPatched = false;
+
+export function patchWorkerConstructor() {
+  // this might be the cleanest way to bootstrap emscripted wasm as es6 with a different link.
+  // libpthread.js:allocateUnusedWorker is hardwired to import the bare module script
+  // filename relative to import.meta.url, but we need it hashed for auto-versioning
+  if (isWorkerPatched) return;
+  isWorkerPatched = true;
+
+  window.Worker = class extends window.Worker {
+    constructor(urlOrStr: string | URL, opts?: WorkerOptions) {
+      const url = new URL(urlOrStr.toString());
+      const file = url.pathname.split('/').pop();
+      if (file?.endsWith('.js') && (url.host === location.host || url.origin === baseUrl())) {
+        const key = Object.keys(site.manifest.hashed).find(k => k.endsWith(file));
+        if (key) {
+          super(new URL(`assets/${asHashed(key, site.manifest.hashed[key])}`, url.origin), opts);
+          return;
+        }
+      }
+      super(urlOrStr, opts);
+    }
+  };
+}
