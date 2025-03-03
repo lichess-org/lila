@@ -458,7 +458,7 @@ final class User(
           .pipe(noProxyBuffer)
       }
 
-  protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
+  protected[controllers] def renderModZoneActions(username: UserStr)(using Context, Me) =
     env.user.api
       .withPerfsAndEmails(username)
       .orFail(s"No such user $username")
@@ -470,7 +470,7 @@ final class User(
                 user,
                 emails,
                 deleted,
-                env.mod.presets.getPmPresetsOpt
+                env.mod.presets.getPmPresets
               )
           }
 
@@ -482,7 +482,7 @@ final class User(
           if getBool("inquiry") then
             Ok.snipAsync:
               env.user.noteApi.toUserForMod(user.id).map {
-                views.mod.inquiry.ui.noteZone(user, _)
+                views.mod.inquiryUi.noteZone(user, _)
               }
           else
             Ok.snipAsync:

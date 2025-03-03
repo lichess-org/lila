@@ -6,18 +6,6 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.shutup.Analyser
 
-def publicLineSource(source: lila.core.shutup.PublicSource)(using Translate): Tag = source match
-  case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
-  case PublicSource.Simul(id)      => views.simul.ui.link(id)
-  case PublicSource.Team(id)       => teamLink(id)
-  case PublicSource.Watcher(id) =>
-    a(href := routes.Round.watcher(id, Color.white))("Game #", id)
-  case PublicSource.Study(id) => a(href := routes.Study.show(id))("Study #", id)
-  case PublicSource.Swiss(id) => views.swiss.ui.link(id)
-  case PublicSource.Forum(id) => a(href := routes.ForumPost.redirect(id))("Forum #", id)
-  case PublicSource.Ublog(id) => a(href := routes.Ublog.redirect(id))("User blog #", id)
-  case PublicSource.Relay(id) => a(href := routes.RelayRound.show("-", "-", id))("Broadcast #", id)
-
 def communication(
     mod: Me,
     timeline: lila.api.ModTimeline,
