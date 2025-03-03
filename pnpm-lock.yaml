@@ -448,8 +448,8 @@ importers:
         specifier: workspace:*
         version: link:../round
       zerofish:
-        specifier: 0.0.32
-        version: 0.0.32
+        specifier: 0.0.33
+        version: 0.0.33
 
   ui/mod:
     dependencies:
@@ -2583,8 +2583,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zerofish@0.0.32:
-    resolution: {integrity: sha512-VnjDcdHqO4ymiukyAVXv1fClAFBi8rpehfY2r1nWC/VR2qEp9+EXUfgOXxMxqSu3Uy9zpp54wxOHmNE/SJDuPg==}
+  zerofish@0.0.33:
+    resolution: {integrity: sha512-1rQheitAhk0mPC2bV1qgQuTruYBjAY928pOFsqs6yGAP67ZMz5+LsmkLATaxbXbF/JIXNKCrtBH2x1LY13wkIw==}
 
   zxcvbn@4.4.2:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
@@ -4357,7 +4357,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zerofish@0.0.32:
+  zerofish@0.0.33:
     dependencies:
       '@types/emscripten': 1.40.0
       '@types/node': 22.13.8

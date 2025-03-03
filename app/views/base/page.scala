@@ -122,7 +122,7 @@ object page:
                                           else netConfig.socketDomains).mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
-          dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
+          dataNonce        := ctx.nonce,
           dataTheme        := pref.currentBg,
           dataBoard        := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
