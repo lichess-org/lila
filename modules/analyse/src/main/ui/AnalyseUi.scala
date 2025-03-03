@@ -14,6 +14,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
   def userAnalysis(
       data: JsObject,
       pov: Pov,
+      chess960PositionNum: Option[Int],
       withForecast: Boolean = false
   )(using ctx: Context) =
     Page(trans.site.analysis.txt())
@@ -42,13 +43,37 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
               lila.ui.bits.mselect(
                 "analyse-variant",
                 span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-                Variant.list.all.filter(FromPosition != _).map { v =>
-                  a(
-                    dataIcon := iconByVariant(v),
-                    cls      := (pov.game.variant == v).option("current"),
-                    href     := routes.UserAnalysis.parseArg(v.key.value)
-                  )(v.name)
-                }
+                Variant.list.all
+                  .filter(FromPosition != _)
+                  .map: v =>
+                    a(
+                      dataIcon := iconByVariant(v),
+                      cls      := (pov.game.variant == v).option("current"),
+                      href     := routes.UserAnalysis.parseArg(v.key.value)
+                    )(v.name)
+              ),
+              pov.game.variant.chess960.option(
+                div(cls := "jump-960")(
+                  chess960PositionNum.map(pos =>
+                    label(`for` := "chess960-position")(trans.site.chess960StartPosition.txt(pos))
+                  ),
+                  br,
+                  form(
+                    cls    := "control-960",
+                    method := "GET",
+                    action := routes.UserAnalysis.parseArg("chess960")
+                  )(
+                    input(
+                      id     := "chess960-position",
+                      `type` := "number",
+                      name   := "position",
+                      min    := 0,
+                      max    := 959,
+                      value  := chess960PositionNum
+                    ),
+                    form3.submit(trans.site.apply())
+                  )
+                )
               ),
               pov.game.variant.standard.option(
                 fieldset(cls := "analyse__wiki empty toggle-box toggle-box--toggle", id := "wikibook-field")(
