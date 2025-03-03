@@ -238,7 +238,7 @@ Thank you all, you rock!""".some,
         nextSunday   -> Bullet
       ).map: (day, speed) =>
         at(day, 17).pipe: date =>
-          Schedule(Weekend, speed, Standard, none, date.pipe(orNextWeek)).plan,
+          Schedule(Weekend, speed, Standard, none, date).plan,
       // Note: these should be scheduled close to the hour of weekly or weekend tournaments
       // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily tournaments!
