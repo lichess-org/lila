@@ -175,10 +175,10 @@
   <string name="rememberMe">Остани пријављен</string>
   <string name="youNeedAnAccountToDoThat">Треба ти налог да то урадиш</string>
   <string name="signUp">Региструј се</string>
-  <string name="computersAreNotAllowedToPlay">Игра уз асистенцију рачунара није дозвољена. Молимо Вас да не користите шаховске програме, базе података, и помоћ других играча. Отварање вишеструких налога такође није пожељно док ће прекомерно отварање налога резултирати бановањем.</string>
+  <string name="computersAreNotAllowedToPlay">Рачунарима и играчима који користе рачунарску помоћ није дозвољено играти. Молимо Вас да не користите шаховске програме, базе података или помоћ других играча током играња. Такође имајте на уму да је отварање више налога строго непожељно и да ће претерано коришћење више налога довести до забрањивања приступа.</string>
   <string name="games">Партије</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s је написао/ла коментар на теми %2$s</string>
+  <string name="xPostedInForumY">%1$s је објавио/ла у теми %2$s</string>
   <string name="latestForumPosts">Последње објаве на форуму</string>
   <string name="players">Шахисти</string>
   <string name="friends">Пријатељи</string>
