@@ -77,7 +77,7 @@ body {
     margin: $analyse-block-gap 0 0 0;
   }
 
-  grid-template-rows: auto auto auto minmax(20em, 36vh);
+  grid-template-rows: auto auto auto minmax(20em, 40vh);
   grid-template-areas:
     'board'
     'controls'
