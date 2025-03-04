@@ -2735,6 +2735,8 @@ object I18nKey:
   object ublog:
     val `communityBlogs`: I18nKey = "ublog:communityBlogs"
     val `friendBlogs`: I18nKey = "ublog:friendBlogs"
+    val `lichessBlog`: I18nKey = "ublog:lichessBlog"
+    val `myBlog`: I18nKey = "ublog:myBlog"
     val `likedBlogs`: I18nKey = "ublog:likedBlogs"
     val `blogTopics`: I18nKey = "ublog:blogTopics"
     val `lichessOfficialBlog`: I18nKey = "ublog:lichessOfficialBlog"

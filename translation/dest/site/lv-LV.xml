@@ -809,23 +809,13 @@
   <string name="sessions">Sesijas</string>
   <string name="revokeAllSessions">dzēst visas sesijas</string>
   <string name="playChessEverywhere">Spēlējiet šahu jebkur</string>
-  <string name="asFreeAsLichess">Bezmaksas kā Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Radīts šaha mīlestības - ne naudas dēļ</string>
   <string name="everybodyGetsAllFeaturesForFree">Visas iespējas ir pieejamas jebkuram bez maksas</string>
-  <string name="zeroAdvertisement">Nekādu reklāmu</string>
-  <string name="fullFeatured">Pilnas iespējas</string>
-  <string name="phoneAndTablet">Telefonam un planšetei</string>
-  <string name="bulletBlitzClassical">Bullet, blics, klasiskais</string>
-  <string name="correspondenceChess">Korespondencšahs</string>
-  <string name="onlineAndOfflinePlay">Spēles tiešsaistē un bezsaistē</string>
   <string name="viewTheSolution">Skatīt atrisinājumu</string>
-  <string name="followAndChallengeFriends">Sekojiet draugiem un izaiciniet tos</string>
   <plurals name="availableInNbLanguages">
     <item quantity="zero">Pieejama %s valodās!</item>
     <item quantity="one">Pieejama %s valodā!</item>
     <item quantity="other">Pieejama %s valodās!</item>
   </plurals>
-  <string name="gameAnalysis">Spēles analīze</string>
   <string name="xHostsY">%1$s vada %2$s</string>
   <string name="xJoinsY">%1$s pievienojas %2$s</string>
   <string name="xLikesY">%1$s patīk %2$s</string>

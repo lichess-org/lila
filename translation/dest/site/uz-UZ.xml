@@ -773,23 +773,13 @@
   <string name="sessions">Sessiyalar</string>
   <string name="revokeAllSessions">barcha sessiyalarni bekor qilish</string>
   <string name="playChessEverywhere">Shahmatni xamma joyda o\'ynash</string>
-  <string name="asFreeAsLichess">Lichess kabi bepul</string>
-  <string name="builtForTheLoveOfChessNotMoney">Pulga qiziqib emas, shahmatga bo\'lgan sevgi orqali yasalgan</string>
   <string name="everybodyGetsAllFeaturesForFree">Barcha xamma funksiyaga bepul foydalanish huquqiga ega</string>
-  <string name="zeroAdvertisement">Reklamalar umuman yo\'q</string>
-  <string name="fullFeatured">To\'laqonfunksiyali</string>
-  <string name="phoneAndTablet">Telefon va planshet</string>
-  <string name="bulletBlitzClassical">Tezkor, blitz, klassik</string>
-  <string name="correspondenceChess">Yozishmali shahmat</string>
-  <string name="onlineAndOfflinePlay">Online va offline o\'ynash</string>
   <string name="viewTheSolution">Yechimni ko\'rish</string>
-  <string name="followAndChallengeFriends">Do\'stlarni kuzating va ular bilan bellashing</string>
   <string name="noChallenges">Qiyinchiliklar yo\'q.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s tilda mavjud!</item>
     <item quantity="other">%s tillarda mavjud!</item>
   </plurals>
-  <string name="gameAnalysis">O\'yin tahlili</string>
   <string name="xHostsY">%1$s o\'yinchi %2$s da sessiyachi bo\'ldi</string>
   <string name="xJoinsY">%1$s o\'yinchi %2$s ga qo\'shilayabdi</string>
   <string name="xLikesY">%1$s o\'yinchi %2$s ni yoqtirdi</string>
@@ -983,8 +973,8 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="analysisOptions">Tahlil ko‘rsatkichlari</string>
   <string name="focusChat">Fokusli suhbat</string>
   <string name="showHelpDialog">Ushbu yordamchi dialogni namoyish etish</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Sizning akkountingizni qayta ochish</string>
-  <string name="reopenYourAccountDescription" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">Agar siz hisobingizni yopgan bo\'lsangiz, lekin keyin fikringizni o\'zgartirgan bo\'lsangiz, hisobingizni qaytarib olish imkoniyatiga ega bo\'lasiz.</string>
+  <string name="reopenYourAccount">Sizning akkountingizni qayta ochish</string>
+  <string name="reopenYourAccountDescription">Agar siz hisobingizni yopgan bo\'lsangiz, lekin keyin fikringizni o\'zgartirgan bo\'lsangiz, hisobingizni qaytarib olish imkoniyatiga ega bo\'lasiz.</string>
   <string name="emailAssociatedToaccount">Email manzil akkountga bog‘landi</string>
   <string name="sentEmailWithLink">Biz sizga email va link jo‘natamiz.</string>
   <string name="tournamentEntryCode">Turnirda ishtirok etish kodi</string>

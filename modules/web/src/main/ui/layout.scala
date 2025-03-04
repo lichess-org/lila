@@ -11,7 +11,6 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
-    isRTL: Lang => Boolean,
     popularAlternateLanguages: List[Language],
     reportScoreThreshold: () => ScoreThresholds,
     reportScore: () => Int
@@ -345,3 +344,17 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               .getOrElse { (!error).option(anonDasher) }
         )
       )
+
+  private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
+
+  private def isRTL(lang: Lang): Boolean =
+    rtlCache.getOrElseUpdate(
+      lang,
+      lang.locale
+        .getDisplayName(lang.locale)
+        .headOption
+        .map(_.getDirectionality)
+        .exists: dir =>
+          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
+            dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
+    )

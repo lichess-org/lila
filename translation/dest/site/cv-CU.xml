@@ -434,21 +434,11 @@
   <string name="security">Сыхӑлӑх</string>
   <string name="sessions">Сесси</string>
   <string name="playChessEverywhere">Шахматла пур ҫӗрте выљасси</string>
-  <string name="asFreeAsLichess">Lichess пекех тӳлевсӗр</string>
-  <string name="builtForTheLoveOfChessNotMoney">Укҫашӑн мар, шахматшӑн хайланӑ</string>
   <string name="everybodyGetsAllFeaturesForFree">Мӗнпур мехел пуриншӗн те тӳлевсӗр</string>
-  <string name="zeroAdvertisement">Пӗр рекламӑ та ҫукки</string>
-  <string name="fullFeatured">Тулли меллӗ</string>
-  <string name="phoneAndTablet">Телефон тата планшет майлӑ</string>
-  <string name="bulletBlitzClassical">Bullet, блитс, классикла</string>
-  <string name="correspondenceChess">Куҫӑн мар шахмат</string>
-  <string name="onlineAndOfflinePlay">Онлайн тата офлайн выльасси</string>
   <string name="viewTheSolution">Тупсӑмне тишкер</string>
-  <string name="followAndChallengeFriends">Тус ҫине ҫырӑнасси, туса выљатасси</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s чӗлхене куҫарнӑ!</item>
   </plurals>
-  <string name="gameAnalysis">Вӑййа тишкересси</string>
   <string name="quickPairing">Хӑвӑрт парлани</string>
   <string name="lobby">Тӗп картиш</string>
   <string name="anonymous">Йатсӑр ҫын</string>

@@ -732,21 +732,11 @@
   <string name="sessions">裝置</string>
   <string name="revokeAllSessions">登出所有裝置</string>
   <string name="playChessEverywhere">隨處下棋！</string>
-  <string name="asFreeAsLichess">完全、永遠免費。</string>
-  <string name="builtForTheLoveOfChessNotMoney">不是為了錢，是為了西洋棋所創建。</string>
   <string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
-  <string name="zeroAdvertisement">沒有廣告</string>
-  <string name="fullFeatured">功能全面</string>
-  <string name="phoneAndTablet">手機和平板電腦</string>
-  <string name="bulletBlitzClassical">快或慢都隨你！</string>
-  <string name="correspondenceChess">通訊賽</string>
-  <string name="onlineAndOfflinePlay">線上或離線下棋</string>
   <string name="viewTheSolution">看解答</string>
-  <string name="followAndChallengeFriends">添加好友並與他們對戰</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支援%s種語言！</item>
   </plurals>
-  <string name="gameAnalysis">棋局分析研究</string>
   <string name="xHostsY">%1$s主持%2$s</string>
   <string name="xJoinsY">%1$s加入%2$s</string>
   <string name="xLikesY">%1$s對%2$s按讚</string>
@@ -937,7 +927,7 @@
   <string name="analysisOptions">分析局面</string>
   <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">顯示此說明欄</string>
-  <string name="reopenYourAccount" comment="Appears on the page where players can reopen their closed account - https://lichess.org/account/reopen (you can only see this when you logged out).">重新開啟帳戶</string>
+  <string name="reopenYourAccount">重新開啟帳戶</string>
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
   <string name="tournamentEntryCode">錦標賽參賽碼</string>

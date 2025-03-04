@@ -6,6 +6,7 @@ import chess.format.Fen
 import play.api.libs.json.*
 
 import lila.common.Bus
+import lila.common.actorBus.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.game.TvSelect

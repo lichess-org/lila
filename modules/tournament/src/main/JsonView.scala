@@ -156,8 +156,9 @@ final class JsonView(
     playerRepo.find(tour.id, me.id).flatMapz { player =>
       for
         gameId <- fetchCurrentGameId(tour, me)
+        pov    <- gameId.so(gameProxy.pov(_, me))
         rank   <- getOrGuessRank(tour, player)
-      yield MyInfo(rank + 1, player.withdraw, gameId, player.team).some
+      yield MyInfo(rank + 1, player.withdraw, pov.map(_.fullId), player.team).some
     }
 
   // if the user is not yet in the cached ranking,
@@ -298,7 +299,8 @@ final class JsonView(
     Json
       .obj("rank" -> i.rank)
       .add("withdraw", i.withdraw)
-      .add("gameId", i.gameId)
+      .add("gameId", i.fullId.map(_.gameId))
+      .add("fullId", i.fullId)
       .add("pauseDelay", delay)
 
   private def gameUserJson(userId: Option[UserId], rating: Option[IntRating], berserk: Boolean): JsObject =
@@ -494,6 +496,7 @@ object JsonView:
         .add("title" -> user.title)
         .add("flair" -> user.flair)
         .add("performance" -> player.performance)
+        .add("withdraw" -> player.withdraw)
         .add("team" -> player.team)
         .add("sheet", sheet.map(sheetJson(streakFire = false, withScores = true)))
 
