@@ -128,10 +128,26 @@
   <string name="blunder">Pagkakamali</string>
   <string name="mistake">Pagkakamali</string>
   <string name="inaccuracy">Hindi tama</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s na malaking pagkakamali</item>
+    <item quantity="other">%s mga malaking pagkakamali</item>
+  </plurals>
+  <plurals name="numberBlunders">
+    <item quantity="one">%s Na malaking pagkakamali</item>
+    <item quantity="other">%s Mga malaking pagkakamali</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s na pagkakamali</item>
+    <item quantity="other">%s mga pagkakamali</item>
+  </plurals>
+  <plurals name="numberMistakes">
+    <item quantity="one">%s Na pagkakamali</item>
+    <item quantity="other">%s Mga pagkakamali</item>
+  </plurals>
   <string name="moveTimes">Mga bilang ng galaw</string>
   <string name="flipBoard">Baligtarin ang board</string>
   <string name="threefoldRepetition">Tatlong pag-uulit</string>
-  <string name="claimADraw">Magdeklara ng tabla</string>
+  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">Magdeklara ng tabla</string>
   <string name="offerDraw">Mag-alok ng tabla</string>
   <string name="draw">Tabla</string>
   <plurals name="nbPlayers">
@@ -144,6 +160,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s na laro</item>
     <item quantity="other">%s na mga laro</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s marka sa %2$s laro</item>
+    <item quantity="other">%1$s marka sa higit ng %2$s laro</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s minarkahan sa libro</item>
@@ -161,6 +181,7 @@
   <string name="latestForumPosts">Pinakabagong mga naipaskil sa forum</string>
   <string name="players">Mga Manlalaro</string>
   <string name="friends">Mga Kaibigan</string>
+  <string name="otherPlayers">ibang mga manlalaro</string>
   <string name="discussions">Mga Usapan</string>
   <string name="today">Ngayong araw</string>
   <string name="yesterday">Kahapon</string>
@@ -200,9 +221,11 @@
   <string name="email">Email</string>
   <string name="passwordReset">Ibalik ang password</string>
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
+  <string name="error.weakPassword">Ang password na ito ay sobrang karaniwan, at napakadaling hulaan.</string>
   <string name="error.namePassword">Mangyaring huwag gamitin ang iyong username bilang iyong password.</string>
   <string name="youAreLeavingLichess">Aalis ka sa Laro</string>
   <string name="neverTypeYourPassword">Wag mong ilagay ang iyong Password sa ibang website!</string>
+  <string name="proceedToX">Magpatuloy sa %s</string>
   <string name="passwordSuggestion">Wag mo gamitin ang password na galing sa iba. Dahil gagamitin nila ito sa pagnanakaw ng iyong account.</string>
   <string name="emailSuggestion">Wag mo ilagay ang email na galing sa iba. Dahil gagamitin nila iyon para nakawin ang iyong account.</string>
   <string name="emailForSignupHelp">If everything else fails, then send us this email:</string>
@@ -240,6 +263,7 @@
   <string name="abortGame">Itigil ang laro</string>
   <string name="gameAborted">Ang laro ay natigil</string>
   <string name="standard">Pamantayan</string>
+  <string name="customPosition">Pasadyang posisyon</string>
   <string name="unlimited">Walang katapusan</string>
   <string name="mode">Mode</string>
   <string name="casual">Kaswal</string>
@@ -344,6 +368,7 @@
   <string name="siteDescription">Libreng online na server ng chess. Maglaro ng Chess ngayon sa isang malinis na interface. Walang rehistrasyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o kahit sinong mga kalaban.</string>
   <string name="xJoinedTeamY">%1$s sumali sa koponan %2$s</string>
   <string name="xCreatedTeamY">%1$s nagawa na koponan %2$s</string>
+  <string name="startedStreaming">nagsimulang mag-stream</string>
   <string name="xStartedStreaming">%s nagsimulang mag-stream</string>
   <string name="averageElo">Karaniwang marka</string>
   <string name="location">Lokasyon</string>
@@ -458,8 +483,10 @@
   <string name="ifNoneLeaveEmpty">Kung wala, iwang walang laman</string>
   <string name="profile">Profile</string>
   <string name="editProfile">I-edit ang profile</string>
+  <string name="realName">Totoong pangalan</string>
   <string name="setFlair">Itakda ang iyong flair</string>
   <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Mayroong isang kagustuhan upang itago ang lahat ng mga user flairs sa buong site. </string>
   <string name="biography">Talambuhay</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa o rehiyon</string>
   <string name="thankYou">Salamat!</string>
@@ -480,6 +507,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Awtomatikong pumupunta sa sunod na laro pagkatapos ng paggalaw</string>
   <string name="autoSwitch">Awtomatikong paglipat</string>
   <string name="puzzles">Mga palaisipan</string>
+  <string name="onlineBots">Mga online na bot</string>
   <string name="name">Pangalan</string>
   <string name="description">Paglalarawan</string>
   <string name="descPrivate">Pribadong deskripsyon</string>
