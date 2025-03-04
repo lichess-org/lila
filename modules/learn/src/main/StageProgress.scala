@@ -24,6 +24,6 @@ object StageProgress:
   val form = play.api.data.Form:
     mapping(
       "stage" -> nonEmptyText,
-      "level" -> number,
+      "level" -> number(min = 1, max = 10),
       "score" -> number
     )(Tuple3.apply)(lila.common.extensions.unapply)
