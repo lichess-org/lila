@@ -2,6 +2,8 @@
 <resources>
   <string name="communityBlogs">Blogs fra fællesskabet</string>
   <string name="friendBlogs">Venners blogs</string>
+  <string name="lichessBlog">Lichess blog</string>
+  <string name="myBlog">Min blog</string>
   <string name="likedBlogs">Blogindlæg, du synes godt om</string>
   <string name="blogTopics">Blog-emner</string>
   <plurals name="blogPosts">
