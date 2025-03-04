@@ -23,7 +23,7 @@
     "game": "workspace:*",
     "json-stringify-pretty-compact": "4.0.0",
     "round": "workspace:*",
-    "zerofish": "0.0.33"
+    "zerofish": "0.0.34"
   },
   "scripts": {
     "import-bots": "mongoimport --db=lichess --collection=local_bot --drop --jsonArray --file",

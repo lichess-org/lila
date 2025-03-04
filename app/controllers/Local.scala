@@ -13,7 +13,7 @@ final class Local(env: Env) extends LilaController(env):
     def withServiceWorker(using RequestHeader) =
       r.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
-  def index = Secure(_.Beta) { _ ?=> _ ?=>
+  def index = Anon:
     for
       bots <- env.local.repo.getLatestBots()
       res <- negotiate(
@@ -23,7 +23,6 @@ final class Local(env: Env) extends LilaController(env):
         json = JsonOk(Json.obj("bots" -> bots))
       )
     yield res
-  }
 
   def assetKeys = Anon: // for service worker
     JsonOk(env.local.api.getJson)

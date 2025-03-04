@@ -51,7 +51,7 @@ export class BotCtrl {
 
   async init(serverBots: BotInfo[]): Promise<this> {
     this.zerofish = await makeZerofish({
-      locator: (file: string) => site.asset.url(`npm/${file}`),
+      locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
       nonce: document.body.dataset.nonce,
       dev: !!env.dev,
     });

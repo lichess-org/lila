@@ -2,6 +2,7 @@ import { type ObjectStorage, objectStorage, range } from 'common/objectStorage';
 import { type LocalGame, LocalGameData } from './localGame';
 import { type StatusId, clockToSpeed, status } from 'game';
 import { myUserId } from 'common';
+import { hasFeature } from 'common/device';
 
 export class LocalDb {
   store: ObjectStorage<LocalGameData> | undefined;
@@ -10,8 +11,10 @@ export class LocalDb {
   constructor() {}
 
   async init(): Promise<this> {
+    if (!hasFeature('structuredClone')) globalThis.structuredClone = obj => JSON.parse(JSON.stringify(obj));
+
     [this.store, this.liteStore] = await Promise.all([
-      objectStorage<LocalGame>({
+      objectStorage<LocalGameData>({
         store: 'local.games',
         version: 1,
       }),

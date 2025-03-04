@@ -17,7 +17,8 @@ export async function esbuild(): Promise<any> {
     treeShaking: true,
     splitting: true,
     format: 'esm',
-    target: 'es2020',
+    target: 'es6',
+    supported: { bigint: true },
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,
@@ -89,6 +90,7 @@ function inlineTask() {
             const res = await es.transform(await fs.promises.readFile(inlineSrc), {
               minify: true,
               loader: 'ts',
+              target: 'es6',
             });
             esbuildLog(res.warnings);
             js[moduleName] ??= {};
@@ -149,7 +151,7 @@ function splitPath(path: string) {
 //   `<div> ${ x ? `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
 //
 // nested template literals in interpolations are unchanged and still work, but they
-// won't be minified. this is fine, we don't need an ast parser as it's pretty rare
+// won't be minified.
 
 const plugins = [
   {
