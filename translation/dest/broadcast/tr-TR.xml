@@ -78,4 +78,6 @@
   <string name="optionalDetails">İsteğe bağlı ayrıntılar</string>
   <string name="pastBroadcasts">Geçmiş yayınlar</string>
   <string name="allBroadcastsByMonth">Tüm yayınları aylara göre görüntüleyin</string>
+  <string name="backToLiveMove">Canlı hamleye dön</string>
+  <string name="sinceHideResults">Sonuçları gizlemeyi seçtiğiniz için, spoiler vermemek adına tüm tahta görünümleri boş olacak.</string>
 </resources>

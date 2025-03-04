@@ -734,6 +734,7 @@
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="everybodyGetsAllFeaturesForFree">每个人都可以免费使用所有功能</string>
   <string name="viewTheSolution">看解答</string>
+  <string name="noChallenges">暂无挑战。</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支持%s种语言！</item>
   </plurals>

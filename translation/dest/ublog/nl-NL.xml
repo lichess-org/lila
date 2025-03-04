@@ -2,6 +2,8 @@
 <resources>
   <string name="communityBlogs">Blogs uit de gemeenschap</string>
   <string name="friendBlogs">Blogs van vrienden</string>
+  <string name="lichessBlog">Lichess-blog</string>
+  <string name="myBlog">Mijn blog</string>
   <string name="likedBlogs">Blogberichten leuk gevonden</string>
   <string name="blogTopics">Blog onderwerpen</string>
   <plurals name="blogPosts">

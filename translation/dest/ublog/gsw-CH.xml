@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Gemeinschaftlichi Tagebüecher</string>
-  <string name="friendBlogs">Tagebüecher vu Fründe</string>
-  <string name="likedBlogs">Bevorzugti Tagebuech Biträg</string>
-  <string name="blogTopics">Tagebuech Theme</string>
+  <string name="communityBlogs">Gemeinschafts Blogs</string>
+  <string name="friendBlogs">Blogs vu Fründe</string>
+  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess Blog</string>
+  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Min Blog</string>
+  <string name="likedBlogs">Bevorzugti Blog-Biträg</string>
+  <string name="blogTopics">Blog Theme</string>
   <plurals name="blogPosts">
-    <item quantity="one">%s Tagebuech-Bitrag</item>
-    <item quantity="other">%s Tagebuech-Biträg</item>
+    <item quantity="one">%s Blog-Bitrag</item>
+    <item quantity="other">%s Blog-Biträg</item>
   </plurals>
-  <string name="lichessOfficialBlog">Offiziells Lichess Tagebuech</string>
+  <string name="lichessOfficialBlog">Offizielle Lichess Blog</string>
   <string name="continueReadingPost">De Bitrag witer läse</string>
-  <string name="lichessBlogPostsFromXYear">Lichess Tagebuech-Biträg in %s</string>
-  <string name="previousBlogPosts">Vorherigi Tagebuech-Biträg</string>
+  <string name="lichessBlogPostsFromXYear">Lichess Blog-Biträg im Jahr %s</string>
+  <string name="previousBlogPosts">Vorherigi Blog-Biträg</string>
   <string name="xBlog">%s\'s Blog</string>
   <string name="newPost">Neue Bitrag</string>
-  <string name="editYourBlogPost">Bearbeit din Tagebuech-Bitrag</string>
+  <string name="editYourBlogPost">Din Blog-Bitrag bearbeite</string>
   <string name="saveDraft">Entwurf schpeichere</string>
   <string name="postTitle">Bitrag Titel</string>
   <string name="postIntro">Bitrag Iileitig</string>
-  <string name="postBody">Bitrag Inhalt</string>
+  <string name="postBody">Bitrags-Inhalt</string>
   <string name="drafts">Entwürf</string>
   <string name="published">Veröffentlicht</string>
   <string name="createBlogDiscussion">Kommentär erlaube</string>
   <string name="createBlogDiscussionHelp">Es Forum - Thema erschtelle, für Lüt wo din Bitrag wänd kommentiere</string>
-  <string name="publishOnYourBlog">Machs im Tagebuech öffentlich</string>
-  <string name="publishHelp">Isch er aktiviert, wird de Bitrag i dim Tagebuech zeigt. Wänn nöd, wird er i dine Entwürf, privat blibe</string>
+  <string name="publishOnYourBlog">Machs i dim Blog öffentlich</string>
+  <string name="publishHelp">Isch er aktiviert, wird de Bitrag i dim Blog zeigt. Wänn nöd, wird er i dine Entwürf, privat blibe</string>
   <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Post-Chläber</string>
   <string name="stickyPostHelp">Wänn das aktiviert isch, chunnt de Post im Profil als Erschte vu de neuschte Biträg.</string>
   <plurals name="publishedNbBlogPosts">
