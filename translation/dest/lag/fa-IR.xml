@@ -7,7 +7,7 @@
   <string name="yesItWillBeFixedSoon">بله. به زودی درست خواهد شد!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">و حالا، پاسخ مفصل! تاخیر بازی ناشی از دو مقدار نامربوط است (هر چه کمتر بهتر):</string>
   <string name="lichessServerLatency">تاخیر کارسازِ Lichess</string>
-  <string name="lichessServerLatencyExplanation">زمان پردازش یک حرکت در زاوَر. برای همه یکسان است و فقط به بارگذاری زاوَر بستگی دارد. هرچه تعداد بازیکنان بیشتر باشد، بالاتر می‌رود، اما توسعه‌دهندگان Lichess تمام تلاش خود را می‌کنند تا آن را پایین نگه دارند. به ندرت از 10 هزارمِ ثانیه تجاوز می‌کند.</string>
+  <string name="lichessServerLatencyExplanation">زمان پردازش یک حرکت در کارساز. برای همه یکسان است و فقط به بارگذاری زاوَر بستگی دارد. هرچه تعداد بازیکنان بیشتر باشد، بالاتر می‌رود، اما توسعه‌دهندگان Lichess تمام تلاش خود را می‌کنند تا آن را پایین نگه دارند. به ندرت از ۱۰ هزارمِ ثانیه تجاوز می‌کند.</string>
   <string name="networkBetweenLichessAndYou">شبکه بین Lichess و شما</string>
   <string name="networkBetweenLichessAndYouExplanation">زمانی که طول می‌کشد تا یک حرکت از رایانه شما به سِروِر Lichess ارسال شود، و پاسخ را برگرداند. این مختص به فاصله شما تا Lichess (فرانسه) و کیفیت اتصال اینترنت شما می‌باشد. توسعه‌دهندگان Lichess نمی‌توانند وای‌فای شما را تنظیم کنند یا کاری کنند که نور سریع‌تر حرکت کند.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">شما همیشه می‌توانید با کلیک کردن روی نام کاربری خود در نوار فوقانی، هر دوی این مقادیر را پیدا کنید.</string>
