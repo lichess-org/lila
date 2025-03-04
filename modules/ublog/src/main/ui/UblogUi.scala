@@ -314,8 +314,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       ctx.me
         .ifTrue(ctx.kid.no)
         .map: me =>
-          a(cls := mine.option("active"), href := routes.Ublog.index(me.username))("My blog"),
-      a(cls := lichess.option("active"), href := routes.Ublog.index(UserName.lichess))("Lichess blog")
+          a(cls := mine.option("active"), href := routes.Ublog.index(me.username))(trans.ublog.myBlog()),
+      a(cls := lichess.option("active"), href := routes.Ublog.index(UserName.lichess))(
+        trans.ublog.lichessBlog()
+      )
     )
 
   object atom:

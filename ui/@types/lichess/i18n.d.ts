@@ -5401,6 +5401,8 @@ interface I18n {
     inappropriateContentAccountClosed: string;
     /** Latest blog posts */
     latestBlogPosts: string;
+    /** Lichess blog */
+    lichessBlog: string;
     /** Lichess blog posts in %s */
     lichessBlogPostsFromXYear: I18nFormat;
     /** Lichess Official Blog */
@@ -5409,6 +5411,8 @@ interface I18n {
     likedBlogs: string;
     /** More blog posts by %s */
     moreBlogPostsBy: I18nFormat;
+    /** My blog */
+    myBlog: string;
     /** %s views */
     nbViews: I18nPlural;
     /** New post */
