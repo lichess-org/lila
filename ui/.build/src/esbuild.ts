@@ -4,7 +4,7 @@ import { join, basename } from 'node:path';
 import { env, errorMark, warnMark, c } from './env.ts';
 import { type Manifest, updateManifest } from './manifest.ts';
 import { task, stopTask } from './task.ts';
-import { reduceWhitespace } from './algo.ts';
+import { definedMap, reduceWhitespace } from './algo.ts';
 
 let esbuildCtx: es.BuildContext | undefined;
 
@@ -17,7 +17,8 @@ export async function esbuild(): Promise<any> {
     treeShaking: true,
     splitting: true,
     format: 'esm',
-    target: 'es2020',
+    target: 'es6',
+    supported: { bigint: true },
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,
@@ -37,10 +38,10 @@ export async function esbuild(): Promise<any> {
       noEnvStatus: true,
       globListOnly: true,
       glob: env.building.flatMap(pkg =>
-        pkg.bundle
-          .map(bundle => bundle.module)
-          .filter((module): module is string => Boolean(module))
-          .map(path => ({ cwd: pkg.root, path })),
+        definedMap(
+          pkg.bundle.map(bundle => bundle.module),
+          path => ({ cwd: pkg.root, path }),
+        ),
       ),
       execute: async entryPoints => {
         await esbuildCtx?.dispose();
@@ -76,10 +77,10 @@ function inlineTask() {
     debounce: 300,
     noEnvStatus: true,
     glob: env.building.flatMap(pkg =>
-      pkg.bundle
-        .map(b => b.inline)
-        .filter((i): i is string => Boolean(i))
-        .map(i => ({ cwd: pkg.root, path: i })),
+      definedMap(
+        pkg.bundle.map(b => b.inline),
+        path => ({ cwd: pkg.root, path }),
+      ),
     ),
     execute: (_, inlines) =>
       Promise.all(
@@ -89,6 +90,7 @@ function inlineTask() {
             const res = await es.transform(await fs.promises.readFile(inlineSrc), {
               minify: true,
               loader: 'ts',
+              target: 'es6',
             });
             esbuildLog(res.warnings);
             js[moduleName] ??= {};
@@ -149,7 +151,7 @@ function splitPath(path: string) {
 //   `<div> ${ x ? `<- 2nd backtick   ${y}${z}` : ''    }     </div>`
 //
 // nested template literals in interpolations are unchanged and still work, but they
-// won't be minified. this is fine, we don't need an ast parser as it's pretty rare
+// won't be minified.
 
 const plugins = [
   {

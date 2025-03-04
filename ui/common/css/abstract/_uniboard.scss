@@ -2,7 +2,7 @@
 
 $scrollbar-width: 20px;
 
-$col3-uniboard-side-min: 250px;
+$col3-uniboard-side-min: var(---col3-uniboard-side-min, 250px);
 $col3-uniboard-table-min: 240px;
 $col3-uniboard-side: minmax(#{$col3-uniboard-side-min}, 350px);
 $col3-uniboard-table: minmax(#{$col3-uniboard-table-min}, 400px);

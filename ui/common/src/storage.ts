@@ -146,10 +146,8 @@ export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
   return novTog;
 };
 
-export function once(key: string, mod?: 'always' | undefined): boolean {
-  if (mod === 'always') return true;
+export function once(key: string): boolean {
   if (storage.get(key)) return false;
-
   storage.set(key, '1');
   return true;
 }

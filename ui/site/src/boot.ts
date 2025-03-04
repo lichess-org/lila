@@ -7,15 +7,17 @@ import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
 import { watchers } from 'common/watchers';
-import { isIos } from 'common/device';
+import { isIos, isBrowserSupported } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 import { attachDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
+import { once } from 'common/storage';
 import { toggleBoxInit } from 'common/controls';
 import { addExceptionListeners } from './unhandledError';
 import { eventuallySetupDefaultConnection } from 'common/socket';
+import { alert } from 'common/dialog';
 
 export function boot() {
   addExceptionListeners();
@@ -71,6 +73,10 @@ export function boot() {
 
     // if not already connected by a ui module, setup default connection
     eventuallySetupDefaultConnection();
+
+    if (!isBrowserSupported() && once('upgrade.nag')) {
+      alert('Your web browser is out of date. Lichess may not function properly.');
+    }
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {

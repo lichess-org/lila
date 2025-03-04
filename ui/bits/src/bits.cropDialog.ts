@@ -88,7 +88,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   dlg.show();
 
   async function crop() {
-    const view = dlg.view.querySelector('.crop-view') as HTMLElement;
+    const view = dlg.viewEl.querySelector('.crop-view') as HTMLElement;
     view.style.display = 'flex';
     view.style.alignItems = 'center';
     view.innerHTML = spinnerHtml;
@@ -100,6 +100,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
+          console.log(blob?.size, quality, opts.max?.pixels, opts.max?.megabytes);
           if (blob && blob.size < (opts.max?.megabytes ?? 100) * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
