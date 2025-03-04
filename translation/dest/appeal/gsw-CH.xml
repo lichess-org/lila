@@ -12,10 +12,10 @@
   <string name="excludedFromLeaderboards">Dis Konto isch vu de Beschtelischte usgschlosse.</string>
   <string name="excludedFromLeaderboardsInfo">Mir definiered das als es Usnütze vu jegliche unfaire Methode, zum uf d\'Beschtelischte zcho.</string>
   <string name="closedByModerators">Dis Konto isch vu de Moderatore g\'schlosse worde.</string>
-  <string name="hiddenBlog">Dini Tagebüecher (Blogs) händ d\'Moderatore unsichtbar g\'macht.</string>
+  <string name="hiddenBlog">Moderatore händ dini Blogs unsichtbar g\'macht.</string>
   <string name="hiddenBlogInfo">Lies unbedingt nomal euseri %s.</string>
   <string name="playTimeout">Du häsch es Schpil - Timeout.</string>
   <string name="communicationGuidelines">Kommunikations - Richtlinie</string>
-  <string name="blogRules">Tagebuech Regle</string>
+  <string name="blogRules">Blog-Regle</string>
   <string name="fairPlay">Fair Play</string>
 </resources>
