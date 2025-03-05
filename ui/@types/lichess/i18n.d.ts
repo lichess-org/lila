@@ -3703,6 +3703,16 @@ interface I18n {
     pieceSet: string;
     /** Play */
     play: string;
+    /** Warning, %s. Aborting too many games may lead to temporary playing restrictions. */
+    playbanFeedbackAbort: I18nFormat;
+    /** Warning, %s. Failing to start games  may lead to temporary playing restrictions. */
+    playbanFeedbackNoStart: I18nFormat;
+    /** Warning, %s. Resigning games too quickly  may lead to temporary playing restrictions. */
+    playbanFeedbackQuickResign: I18nFormat;
+    /** Warning, %s. Leaving games without resigning  may lead to temporary playing restrictions. */
+    playbanFeedbackRageQuit: I18nFormat;
+    /** Reminder, %s. Repeatedly letting time run out or delaying resignation in lost positions may lead to temporary playing restrictions. */
+    playbanFeedbackSitting: I18nFormat;
     /** Play chess everywhere */
     playChessEverywhere: string;
     /** Play chess in style */
