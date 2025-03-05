@@ -151,7 +151,7 @@ function clockOptions() {
 
 function reset(params: Partial<LocalSetup>): void {
   env.game.load(params);
-  //localStorage.setItem('local.dev.setup', JSON.stringify(env.game.localSetup));
+  localStorage.setItem('local.dev.setup', JSON.stringify(env.game.live.setup));
   env.redraw();
 }
 

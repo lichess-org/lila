@@ -71,7 +71,7 @@ export function filterParameter(f: Filter, x: FilterValue): FilterValue {
 
     if (to.length === 0) value[facet] = (f.range.max + f.range.min) / 2;
     else if (to.length === 1 || x[facet] <= to[0][0]) value[facet] = clamp(to[0][1], f.range);
-    else
+    else {
       for (let i = 0; i < to.length - 1; i++) {
         const p1 = to[i];
         const p2 = to[i + 1];
@@ -81,7 +81,8 @@ export function filterParameter(f: Filter, x: FilterValue): FilterValue {
           continue facetIteration;
         }
       }
-    value[facet] = to[to.length - 1][1];
+      value[facet] = to[to.length - 1][1];
+    }
   }
   return value;
 }

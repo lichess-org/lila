@@ -44,7 +44,11 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   });
 
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
-  env.game.load(await env.db.get());
+  env.game.load(
+    hashGameId()
+      ? await env.db.get(hashGameId())
+      : JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}'),
+  );
 
   const el = document.querySelector('main') ?? document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
@@ -58,4 +62,13 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     vnode = patch(vnode, renderGameView(renderDevSide()));
     env.round.redraw();
   }
+}
+
+function hashGameId() {
+  const params = location.hash
+    .slice(1)
+    .split('&')
+    .map(p => decodeURIComponent(p).split('='))
+    .filter(p => p.length === 2);
+  return params.find(p => p[0] === 'id')?.[1];
 }
