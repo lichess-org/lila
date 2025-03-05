@@ -1,4 +1,4 @@
-import type { StudyChapterConfig, ReloadData } from './interfaces';
+import type { StudyChapterConfig, ReloadData, ChapterData } from './interfaces';
 import { text as xhrText, json as xhrJson, form as xhrForm } from 'common/xhr';
 
 export const reload = (
@@ -26,7 +26,7 @@ export const practiceComplete = (chapterId: string, nbMoves: number) =>
     method: 'POST',
   });
 
-export const importPgn = (studyId: string, data: any) =>
+export const importPgn = (studyId: string, data: ChapterData & { sticky: boolean }) =>
   xhrText(`/study/${studyId}/import-pgn?sri=${site.sri}`, {
     method: 'POST',
     body: xhrForm(data),
