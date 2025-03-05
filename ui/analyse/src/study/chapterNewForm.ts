@@ -142,6 +142,8 @@ export function view(ctrl: StudyChapterNewForm): VNode {
         ? 'gamebook'
         : 'normal';
 
+  const defaultChapterName = () => i18n.study.chapterX(ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
+
   return snabDialog({
     class: 'chapter-new',
     onClose() {
@@ -167,7 +169,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
           hook: bindSubmit(
             e =>
               ctrl.submit({
-                name: fieldValue(e, 'name'),
+                name: fieldValue(e, 'name') || defaultChapterName(),
                 game: fieldValue(e, 'game'),
                 variant: fieldValue(e, 'variant') as VariantKey,
                 pgn: fieldValue(e, 'pgn'),
@@ -186,8 +188,8 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               attrs: { minlength: 2, maxlength: 80 },
               hook: onInsert<HTMLInputElement>(el => {
                 if (!el.value) {
-                  el.value = i18n.study.chapterX(ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
-                  el.onchange = () => ctrl.isDefaultName(false);
+                  el.value = defaultChapterName();
+                  el.onchange = () => ctrl.isDefaultName(!el.value);
                   el.select();
                 }
                 el.addEventListener('focus', () => el.select());
