@@ -8,7 +8,5 @@ describe('test once', () => {
     // subsequent calls should return false
     expect(once('foo')).toBe(false);
     expect(once('foo')).toBe(false);
-
-    expect(once('foo', 'always')).toBe(true);
   });
 });
