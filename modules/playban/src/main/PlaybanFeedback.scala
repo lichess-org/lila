@@ -1,25 +1,25 @@
 package lila.playban
 
+import lila.core.i18n.I18nKey.site as trans
+
 final private class PlaybanFeedback(
     chatApi: lila.core.chat.ChatApi,
     lightUser: lila.core.LightUser.Getter
 )(using Executor):
 
-  private val tempBan = "may lead to temporary playing restrictions."
+  def abort(pov: Pov): Unit = tell(pov, s"i18n.${trans.playbanFeedbackAbort} {user}")
 
-  def abort(pov: Pov): Unit = tell(pov, s"Warning, {user}. Aborting too many games $tempBan")
+  def noStart(pov: Pov): Unit = tell(pov, s"i18n.${trans.playbanFeedbackNoStart} {user}")
 
-  def noStart(pov: Pov): Unit = tell(pov, s"Warning, {user}. Failing to start games $tempBan")
-
-  def rageQuit(pov: Pov): Unit = tell(pov, s"Warning, {user}. Leaving games without resigning $tempBan")
+  def rageQuit(pov: Pov): Unit = tell(pov, s"i18n.${trans.playbanFeedbackRageQuit} {user}")
 
   def sitting(pov: Pov): Unit =
     tell(
       pov,
-      s"Reminder, {user}. Repeatedly letting time run out or delaying resignation in lost positions $tempBan"
+      s"i18n.${trans.playbanFeedbackSitting} {user}"
     )
 
-  def quickResign(pov: Pov): Unit = tell(pov, s"Warning, {user}. Resigning games too quickly $tempBan")
+  def quickResign(pov: Pov): Unit = tell(pov, s"i18n.${trans.playbanFeedbackQuickResign} {user}")
 
   private def tell(pov: Pov, template: String): Unit =
     pov.player.userId.foreach { userId =>
