@@ -38,10 +38,9 @@ object MsgThread:
 
   val idSep = '/'
 
-  def id(u1: UserId, u2: UserId): Id = Id {
+  def id(u1: UserId, u2: UserId): Id = Id:
     val (user1, user2) = sortUsers(u1, u2)
     s"$user1$idSep$user2"
-  }
 
   def make(u1: UserId, u2: UserId, msg: Msg, maskFor: Option[UserId], maskWith: Option[Msg.Last]): MsgThread =
     val (user1, user2) = sortUsers(u1, u2)

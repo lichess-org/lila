@@ -48,7 +48,7 @@ final class MsgCompat(
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
-  private val unreadCountCache = cacheApi[UserId, Int](256, "message.unreadCount") {
+  private val unreadCountCache = cacheApi[UserId, Int](256, "message.unreadCount"):
     _.expireAfterWrite(10.seconds)
       .buildAsyncFuture[UserId, Int] { userId =>
         colls.thread
@@ -62,7 +62,6 @@ final class MsgCompat(
             )
           .map(~_.flatMap(_.getAsOpt[Int]("nb")))
       }
-  }
 
   def thread(c: MsgConvo)(using me: Me): JsObject =
     Json.obj(

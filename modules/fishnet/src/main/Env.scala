@@ -95,14 +95,16 @@ final class Env(
   def cli = new lila.common.Cli:
     def process =
       case "fishnet" :: "client" :: "create" :: name :: Nil =>
-        userApi.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
-          if _ then
-            api.createClient(UserStr(name).id).map { client =>
-              Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")
-              s"Created key: ${client.key.value} for: $name"
-            }
-          else fuccess("User missing, closed, or banned")
-        }
+        userApi
+          .enabledById(UserStr(name))
+          .map(_.exists(_.marks.clean))
+          .flatMap:
+            if _ then
+              api.createClient(UserStr(name).id).map { client =>
+                Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+                s"Created key: ${client.key.value} for: $name"
+              }
+            else fuccess("User missing, closed, or banned")
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
         repo.toKey(key).flatMap(repo.deleteClient).inject("done!")
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>

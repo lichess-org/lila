@@ -28,13 +28,15 @@ final private class SwissBoardApi(
     .build[SwissId, List[SwissBoard]]()
 
   def get(id: SwissId): Fu[List[SwissBoard.WithGame]] =
-    boardsCache.getIfPresent(id).so {
-      _.parallel { board =>
-        gameProxy.game(board.gameId).map2 {
-          SwissBoard.WithGame(board, _)
-        }
-      }.dmap(_.flatten)
-    }
+    boardsCache
+      .getIfPresent(id)
+      .so:
+        _.parallel { board =>
+          gameProxy
+            .game(board.gameId)
+            .map2:
+              SwissBoard.WithGame(board, _)
+        }.dmap(_.flatten)
 
   def update(data: SwissScoring.Result): Funit =
     import data.*
@@ -43,9 +45,10 @@ final private class SwissBoardApi(
         .collect:
           case (player, _) if player.present => player
         .flatMap: player =>
-          pairings.get(player.userId).flatMap {
-            _.get(swiss.round)
-          }
+          pairings
+            .get(player.userId)
+            .flatMap:
+              _.get(swiss.round)
         .filter(_.isOngoing)
         .distinct
         .take(displayBoards)

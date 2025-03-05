@@ -11,7 +11,6 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
-    isRTL: Lang => Boolean,
     popularAlternateLanguages: List[Language],
     reportScoreThreshold: () => ScoreThresholds,
     reportScore: () => Int
@@ -172,13 +171,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
 
-  def hrefLangs(path: LangPath) = raw {
+  def hrefLangs(path: LangPath) = raw:
     val pathEnd = if path.value == "/" then "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
       popularAlternateLanguages.map { l =>
         hrefLang(l.value, s"/$l$pathEnd")
       }.mkString
-  }
 
   def pageZoom(using ctx: Context): Int = {
     def oldZoom = ctx.req.session.get("zoom2").flatMap(_.toIntOption).map(_ - 100)
@@ -346,3 +344,17 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               .getOrElse { (!error).option(anonDasher) }
         )
       )
+
+  private val rtlCache = scala.collection.mutable.AnyRefMap.empty[Lang, Boolean]
+
+  private def isRTL(lang: Lang): Boolean =
+    rtlCache.getOrElseUpdate(
+      lang,
+      lang.locale
+        .getDisplayName(lang.locale)
+        .headOption
+        .map(_.getDirectionality)
+        .exists: dir =>
+          dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT ||
+            dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
+    )

@@ -1,7 +1,7 @@
 package lila.relay
 
-import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
-import chess.{ Outcome, Ply, TournamentClock }
+import chess.format.pgn.{ PgnStr, Tag, Tags }
+import chess.TournamentClock
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
@@ -340,7 +340,7 @@ final private class RelayFetch(
               round.pairings
                 .mapWithIndex: (pairing, i) =>
                   val game = i + 1
-                  val tags = pairing.tags(lcc.round, game, round.date)
+                  val tags = pairing.tags(lcc.round, game, round.formattedDate)
                   lccCache(lcc, game, tags, lookForStart): () =>
                     httpGetGameJson(lcc.gameUrl(game)).recover:
                       case _: Exception => GameJson(moves = Nil, result = none)
@@ -358,7 +358,7 @@ final private class RelayFetch(
             .map: round =>
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
-                  PgnStr(s"${pairing.tags(lcc.round, i + 1, round.date)}\n\n${pairing.result}")
+                  PgnStr(s"${pairing.tags(lcc.round, i + 1, round.formattedDate)}\n\n${pairing.result}")
             .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
 
@@ -381,7 +381,6 @@ private object RelayFetch:
 
   object injectTimeControl:
 
-    private val lookup                               = """[TimeControl """"
     private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
 
     def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:

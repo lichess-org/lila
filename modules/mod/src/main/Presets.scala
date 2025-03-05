@@ -21,9 +21,6 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
   def getPmPresets(using Me): ModPresets =
     ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_))))
 
-  def getPmPresetsOpt(using mod: Option[Me]): ModPresets =
-    mod.map(getPmPresets(using _)).getOrElse(ModPresets(Nil))
-
   def permissionsByName(name: String): Set[Permission] =
     pmPresets.get().value.find(_.name == name).so(_.permissions)
 
@@ -66,7 +63,7 @@ object ModPresets:
           .toList
           .map(_.linesIterator.toList)
           .filter(_.nonEmpty)
-          .flatMap {
+          .flatMap:
             case perms :: rest =>
               val cleanRest = rest.dropWhile(_.isEmpty)
               for
@@ -78,7 +75,6 @@ object ModPresets:
                 toPermissions(perms)
               )
             case _ => none
-          }
 
     private def toPermissions(s: String): Set[Permission] =
       val roles = RoleDbKey.from(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList)

@@ -1,6 +1,7 @@
 package lila.core
 package misc
 
+import scalalib.bus
 import lila.core.id.GameId
 import lila.core.userId.*
 

@@ -62,6 +62,7 @@ public/piece/kiwen-suwi | [neverRare](https://github.com/neverRare) | [CC BY 4.0
 public/piece/mpchess | [Maxime Chupin](https://github.com/chupinmaxime) | [GPL3v3+](https://www.gnu.org/licenses/quick-guide-gplv3.en.html)
 public/piece/cooke | [fejfar](https://github.com/fejfar) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/monarchy | [slither77](https://github.com/slither77) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/xkcd | [Randall Munroe](https://xkcd.com/about) | [CC BY-NC-SA 2.5](https://xkcd.com/license.html)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -96,7 +97,7 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [YouTube](https://www.youtube.com) for featured livestreams and the [Video library](https://lichess.org/video)
 - [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
 - [openexchangerates.org](https://openexchangerates.org/) for donations in local currencies
-- [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
+- [Spreadshirt](https://lichess.myspreadshop.com/) for the [Swag store](https://lichess.org/swag)
 - [mailcheck.p.rapidapi.com](https://rapidapi.com/Top-Rated/api/e-mail-check-invalid-or-disposable-domain)
 - [Amazon SES](https://aws.amazon.com/ses/) for transactional email
 - [check.torproject.org](https://check.torproject.org/torbulkexitlist) for a list or Tor exit nodes

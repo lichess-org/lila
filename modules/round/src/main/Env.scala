@@ -47,6 +47,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     bookmarkExists: lila.core.misc.BookmarkExists,
     simulApiCircularDep: => lila.core.simul.SimulApi,
+    tourApiCircularDep: => lila.core.tournament.TournamentApi,
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
@@ -85,6 +86,7 @@ final class Env(
         roundApi.tell(game.id, lila.core.round.NoStart)
 
   private val simulApi = lila.core.data.CircularDep(() => simulApiCircularDep)
+  private val tourApi  = lila.core.data.CircularDep(() => tourApiCircularDep)
 
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
@@ -197,7 +199,7 @@ final class Env(
 
   // core APIs
   val gameProxy: lila.core.game.GameProxy = new:
-    export proxyRepo.{ game, updateIfPresent, flushIfPresent, upgradeIfPresent }
+    export proxyRepo.{ game, pov, updateIfPresent, flushIfPresent, upgradeIfPresent }
   val roundJson: lila.core.round.RoundJson = new:
     export mobile.offline as mobileOffline
 

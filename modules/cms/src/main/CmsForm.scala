@@ -2,7 +2,6 @@ package lila.cms
 
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.data.validation.Constraints
 import scalalib.model.Language
 
 import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, into, slugConstraint }

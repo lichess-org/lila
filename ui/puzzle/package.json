@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "ceval": "workspace:*",
-    "chart.js": "4.4.6",
+    "chart.js": "4.4.8",
     "chess": "workspace:*",
     "common": "workspace:*",
     "keyboardMove": "workspace:*",

@@ -97,7 +97,7 @@ final class HcaptchaReal(
           "sitekey"  -> config.publicKey
         )
       )
-      .flatMap {
+      .flatMap:
         case res if res.status == 200 =>
           res.body[JsValue].validate[GoodResponse] match
             case JsSuccess(res, _) =>
@@ -132,4 +132,3 @@ final class HcaptchaReal(
           lila.mon.security.hCaptcha.hit(client, res.status.toString).increment()
           logger.info(s"hcaptcha ${res.status} ${res.body}")
           Result.Fail
-      }

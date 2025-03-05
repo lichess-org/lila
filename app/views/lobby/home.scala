@@ -142,7 +142,7 @@ object home:
                 span(trans.patron.becomePatron())
               )
             ),
-            a(href := "https://shop.spreadshirt.com/lichess-org")(
+            a(href := "https://lichess.myspreadshop.com/")(
               iconTag(Icon.Tshirt),
               span(cls := "lobby__support__text")(
                 strong("Swag Store"),

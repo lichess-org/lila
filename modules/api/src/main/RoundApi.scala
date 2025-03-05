@@ -7,7 +7,7 @@ import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.core.i18n.Translate
 import lila.core.perm.Granter
 import lila.core.user.GameUsers
@@ -254,12 +254,7 @@ final private[api] class RoundApi(
         .add("nbSecondsForFirstMove" -> v.tour.isStarted.option {
           pov.game.timeForFirstMove.toSeconds
         })
-        .add("ranks" -> v.ranks.map { r =>
-          Json.obj(
-            "white" -> r.whiteRank,
-            "black" -> r.blackRank
-          )
-        })
+        .add("ranks" -> v.ranks)
         .add(
           "top",
           v.top.map:

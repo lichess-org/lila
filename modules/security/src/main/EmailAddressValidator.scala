@@ -78,11 +78,13 @@ final class EmailAddressValidator(
    */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
     val variations = domainAliasVariationsOf(email.normalize)
-    userRepo.idByAnyEmail(variations).dmap(_ -> forUser).dmap {
-      case (None, _)                  => false
-      case (Some(userId), Some(user)) => user.isnt(userId)
-      case (_, _)                     => true
-    }
+    userRepo
+      .idByAnyEmail(variations)
+      .dmap(_ -> forUser)
+      .dmap:
+        case (None, _)                  => false
+        case (Some(userId), Some(user)) => user.isnt(userId)
+        case (_, _)                     => true
 
   private def domainAliasVariationsOf(email: NormalizedEmailAddress): List[NormalizedEmailAddress] =
     val variations = email

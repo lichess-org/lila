@@ -21,7 +21,7 @@ final class UciToSanTest extends munit.FunSuite:
       case Reader.Result.Complete(replay)      => replay
       case Reader.Result.Incomplete(replay, _) => replay
 
-  test("convert UCI analysis to PGN") {
+  test("convert UCI analysis to PGN"):
     val uciAnalysis = Analysis(
       Analysis.Id(GameId("ke5ssdgj")),
       List(
@@ -250,8 +250,7 @@ final class UciToSanTest extends munit.FunSuite:
       .get
     UciToSan(rep, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
-  }
-  test("even in KotH") {
+  test("even in KotH"):
     val pgn = SanStr.from(
       List(
         "e4",
@@ -324,4 +323,3 @@ final class UciToSanTest extends munit.FunSuite:
     val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), Nil, 0, now, None, None)
     UciToSan(rep, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
-  }

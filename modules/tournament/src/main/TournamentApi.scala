@@ -7,13 +7,14 @@ import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
 import scalalib.Debouncer
-import chess.IntRating
+import chess.{ IntRating, ByColor }
 
 import lila.common.Bus
 import lila.core.game.LightPov
 import lila.core.round.{ AbortForce, GoBerserk }
 import lila.core.team.LightTeam
 import lila.core.tournament.Status
+import lila.core.chess.Rank
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 
@@ -45,7 +46,7 @@ final class TournamentApi(
     akka.actor.ActorSystem,
     akka.stream.Materializer,
     lila.core.i18n.Translator
-) extends lila.core.tournament.TournamentApi:
+):
 
   export tournamentRepo.byId as get
 
@@ -91,9 +92,11 @@ final class TournamentApi(
 
   private def ejectPlayersNonLongerOnAllowList(old: Tournament, tour: Tournament): Funit =
     tour.isCreated.so:
-      tour.conditions.removedFromAllowList(old.conditions).toList.sequentiallyVoid {
-        withdraw(tour.id, _, false, false)
-      }
+      tour.conditions
+        .removedFromAllowList(old.conditions)
+        .toList
+        .sequentiallyVoid:
+          withdraw(tour.id, _, false, false)
 
   private def ejectBotPlayersNonLongerAllowed(old: Tournament, tour: Tournament): Funit =
     (tour.isCreated && old.conditions.allowsBots && !tour.conditions.allowsBots).so:
@@ -171,14 +174,15 @@ final class TournamentApi(
       .map2(RankedPairing(ranking))
       .map(_.flatten)
       .flatMap { curOption =>
-        pairings.flatMap(p => RankedPairing(ranking)(p.pairing)).minimumByOption(_.bestRank.value).so {
-          bestCandidate =>
+        pairings
+          .flatMap(p => RankedPairing(ranking)(p.pairing))
+          .minimumByOption(_.bestRank.value)
+          .so: bestCandidate =>
             def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
             curOption.filter(_.pairing.playing) match
               case Some(current) if bestCandidate.bestRank < current.bestRank => switch
               case Some(_)                                                    => funit
               case _                                                          => switch
-        }
       }
 
   private[tournament] def start(oldTour: Tournament): Funit =
@@ -200,30 +204,32 @@ final class TournamentApi(
 
   private[tournament] def finish(oldTour: Tournament): Funit =
     Parallel(oldTour.id, "finish")(cached.tourCache.started) { tour =>
-      pairingRepo.count(tour.id).flatMap {
-        case 0 => destroy(tour)
-        case _ =>
-          for
-            _      <- tournamentRepo.setStatus(tour.id, Status.Finished)
-            _      <- playerRepo.unWithdraw(tour.id)
-            _      <- pairingRepo.removePlaying(tour.id)
-            winner <- playerRepo.winner(tour.id)
-            _      <- winner.so(p => tournamentRepo.setWinnerId(tour.id, p.userId))
-          yield
-            cached.tourCache.clear(tour.id)
-            callbacks.clearJsonViewCache(tour)
-            socket.finish(tour.id)
-            publish()
-            playerRepo.withPoints(tour.id).foreach {
-              _.foreach: p =>
-                userApi.incToints(p.userId, p.score)
-            }
-            awardTrophies(tour).logFailure(logger, _ => s"${tour.id} awardTrophies")
-            callbacks.indexLeaderboard(tour).logFailure(logger, _ => s"${tour.id} indexLeaderboard")
-            callbacks.clearWinnersCache(tour)
-            callbacks.clearTrophyCache(tour)
-            duelStore.remove(tour)
-      }
+      pairingRepo
+        .count(tour.id)
+        .flatMap:
+          case 0 => destroy(tour)
+          case _ =>
+            for
+              _      <- tournamentRepo.setStatus(tour.id, Status.Finished)
+              _      <- playerRepo.unWithdraw(tour.id)
+              _      <- pairingRepo.removePlaying(tour.id)
+              winner <- playerRepo.winner(tour.id)
+              _      <- winner.so(p => tournamentRepo.setWinnerId(tour.id, p.userId))
+            yield
+              cached.tourCache.clear(tour.id)
+              callbacks.clearJsonViewCache(tour)
+              socket.finish(tour.id)
+              publish()
+              playerRepo
+                .withPoints(tour.id)
+                .foreach:
+                  _.foreach: p =>
+                    userApi.incToints(p.userId, p.score)
+              awardTrophies(tour).logFailure(logger, _ => s"${tour.id} awardTrophies")
+              callbacks.indexLeaderboard(tour).logFailure(logger, _ => s"${tour.id} indexLeaderboard")
+              callbacks.clearWinnersCache(tour)
+              callbacks.clearTrophyCache(tour)
+              duelStore.remove(tour)
     }
 
   private[tournament] val killSchedule = scala.collection.mutable.Set.empty[TourId]
@@ -309,9 +315,10 @@ final class TournamentApi(
           else fuccess(JoinResult.WrongEntryCode)
         fuResult.map: result =>
           if result.ok then
-            data.team.ifTrue(asLeader && tour.isTeamBattle).foreach {
-              tournamentRepo.setForTeam(tour.id, _)
-            }
+            data.team
+              .ifTrue(asLeader && tour.isTeamBattle)
+              .foreach:
+                tournamentRepo.setForTeam(tour.id, _)
             if ~data.pairMeAsap then
               pairingRepo.isPlaying(tourId, me).foreach { isPlaying =>
                 if !isPlaying then waitingUsers.addApiUser(tour, me)
@@ -330,11 +337,13 @@ final class TournamentApi(
     promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
 
   def pageOf(tour: Tournament, userId: UserId): Fu[Option[Int]] =
-    cached.ranking(tour).map {
-      _.ranking.get(userId).map {
-        _.value / 10 + 1
-      }
-    }
+    cached
+      .ranking(tour)
+      .map:
+        _.ranking
+          .get(userId)
+          .map:
+            _.value / 10 + 1
 
   private object updateNbPlayers:
     private val onceEvery = scalalib.cache.OnceEvery[TourId](1.second)
@@ -372,26 +381,34 @@ final class TournamentApi(
       case _ => funit
 
   def withdrawAll(user: User): Funit =
-    tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll").flatMap {
-      _.sequentiallyVoid:
-        withdraw(_, user.id, isPause = false, isStalling = false)
-    }
+    tournamentRepo
+      .withdrawableIds(user.id, reason = "withdrawAll")
+      .flatMap:
+        _.sequentiallyVoid:
+          withdraw(_, user.id, isPause = false, isStalling = false)
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =
-    gameProxy.game(gameId).flatMap {
-      _.filter(_.berserkable).so { game =>
-        game.tournamentId.so: tourId =>
-          pairingRepo.findPlaying(tourId, userId).flatMap {
-            case Some(pairing) if !pairing.berserkOf(userId) =>
-              pairing.colorOf(userId).so { color =>
-                roundApi.ask(gameId)(GoBerserk(color, _)).flatMapz {
-                  pairingRepo.setBerserk(pairing, userId)
-                }
-              }
-            case _ => funit
-          }
-      }
-    }
+    gameProxy
+      .game(gameId)
+      .flatMap:
+        _.filter(_.berserkable).so { game =>
+          game.tournamentId.so: tourId =>
+            lightUserApi
+              .isBotSync(userId)
+              .not
+              .so:
+                pairingRepo
+                  .findPlaying(tourId, userId)
+                  .flatMap:
+                    case Some(pairing) if !pairing.berserkOf(userId) =>
+                      pairing.colorOf(userId).so { color =>
+                        roundApi
+                          .ask(gameId)(GoBerserk(color, _))
+                          .flatMapz:
+                            pairingRepo.setBerserk(pairing, userId)
+                      }
+                    case _ => funit
+        }
 
   private[tournament] def finishGame(game: Game): Funit =
     game.tournamentId.so: tourId =>
@@ -450,25 +467,27 @@ final class TournamentApi(
       yield withdraw(tourId, userId, isPause = false, isStalling = false)
 
   def pausePlaybanned(userId: UserId) =
-    tournamentRepo.withdrawableIds(userId, reason = "pausePlaybanned").flatMap {
-      _.sequentiallyVoid(playerRepo.withdraw(_, userId))
-    }
+    tournamentRepo
+      .withdrawableIds(userId, reason = "pausePlaybanned")
+      .flatMap:
+        _.sequentiallyVoid(playerRepo.withdraw(_, userId))
 
   def isForBots(tourId: TourId): Fu[Boolean] =
     for tour <- cached.tourCache.byId(tourId)
     yield tour.exists(_.conditions.allowsBots)
 
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
-    tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam").flatMap {
-      _.sequentiallyVoid: tourId =>
-        Parallel(tourId, "kickFromTeam")(tournamentRepo.byId): tour =>
-          for
-            _ <-
-              if tour.isCreated then playerRepo.remove(tour.id, userId)
-              else playerRepo.withdraw(tour.id, userId)
-            _ <- updateNbPlayers(tourId)
-          yield socket.reload(tourId)
-    }
+    tournamentRepo
+      .withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam")
+      .flatMap:
+        _.sequentiallyVoid: tourId =>
+          Parallel(tourId, "kickFromTeam")(tournamentRepo.byId): tour =>
+            for
+              _ <-
+                if tour.isCreated then playerRepo.remove(tour.id, userId)
+                else playerRepo.withdraw(tour.id, userId)
+              _ <- updateNbPlayers(tourId)
+            yield socket.reload(tourId)
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
   private[tournament] def ejectLameFromEnterable(tourId: TourId, userId: UserId): Funit =
@@ -526,11 +545,12 @@ final class TournamentApi(
     Parallel(tourId, "removePlayerAndRewriteHistory")(tournamentRepo.finishedById): tour =>
       for
         _ <- playerRepo.remove(tourId, userId)
-        _ <- tour.winnerId.contains(userId).so {
-          playerRepo.winner(tour.id).flatMapz { p =>
-            tournamentRepo.setWinnerId(tour.id, p.userId)
-          }
-        }
+        _ <- tour.winnerId
+          .contains(userId)
+          .so:
+            playerRepo.winner(tour.id).flatMapz { p =>
+              tournamentRepo.setWinnerId(tour.id, p.userId)
+            }
       yield ()
 
   private val tournamentTopNb = 20
@@ -551,7 +571,7 @@ final class TournamentApi(
 
     def player(pov: Pov): Fu[Option[GameView]] =
       OfGame(pov.game): tour =>
-        getTeamVs(tour, pov.game).zip(getGameRanks(tour, pov.game)).flatMap { (teamVs, ranks) =>
+        (getTeamVs(tour, pov.game), getGameRanks(tour, pov.game)).flatMapN { (teamVs, ranks) =>
           teamVs
             .fold(tournamentTop(tour.id)): vs =>
               cached.teamInfo.get(tour.id -> vs.teams(pov.color)).map { info =>
@@ -580,12 +600,12 @@ final class TournamentApi(
       OfGame(game): tour =>
         getTeamVs(tour, game).dmap(TourAndTeamVs(tour, _))
 
-    private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] =
+    def getGameRanks(tour: lila.core.tournament.Tournament, game: Game): Fu[Option[ByColor[Rank]]] =
       game.whitePlayer.userId.ifTrue(tour.isStarted).so { whiteId =>
         game.blackPlayer.userId.so: blackId =>
           cached.ranking(tour).map { ranking =>
             (ranking.ranking.get(whiteId), ranking.ranking.get(blackId)).mapN: (whiteR, blackR) =>
-              GameRanks(whiteR + 1, blackR + 1)
+              ByColor(whiteR + 1, blackR + 1)
           }
       }
 
@@ -648,9 +668,10 @@ final class TournamentApi(
         withSheet.soFu(cached.sheet(tour, player.userId)).dmap(player -> _)
       .zipWithIndex
       .mapAsync(8) { case ((player, sheet), index) =>
-        lightUserApi.asyncFallback(player.userId).map {
-          Player.Result(player, _, index.toInt + 1, sheet)
-        }
+        lightUserApi
+          .asyncFallback(player.userId)
+          .map:
+            Player.Result(player, _, index.toInt + 1, sheet)
       }
 
   def byOwnerStream(
@@ -718,9 +739,11 @@ final class TournamentApi(
       .runWith(Sink.ignore)
 
   private def playerPovs(tour: Tournament, userId: UserId, nb: Int): Fu[List[LightPov]] =
-    pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb).flatMap(gameRepo.light.gamesFromPrimary).map {
-      _.flatMap { LightPov(_, userId) }
-    }
+    pairingRepo
+      .recentIdsByTourAndUserId(tour.id, userId, nb)
+      .flatMap(gameRepo.light.gamesFromPrimary)
+      .map:
+        _.flatMap { LightPov(_, userId) }
 
   private def Parallel(tourId: TourId, action: String)(
       fetch: TourId => Fu[Option[Tournament]]

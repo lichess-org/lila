@@ -146,12 +146,11 @@ object JsonApi:
         .and((__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)))
         .and((__ \ "depth").readNullable[Depth])
     )(Request.Evaluation.apply)
-    given Reads[Option[EvalOrSkip]] = Reads {
+    given Reads[Option[EvalOrSkip]] = Reads:
       case JsNull => JsSuccess(None)
       case obj =>
         if ~(obj.boolean("skipped")) then JsSuccess(EvalOrSkip.Skipped.some)
         else EvaluationReads.reads(obj).map(EvalOrSkip.Evaluated(_).some)
-    }
     given Reads[Request.PostAnalysis] = Json.reads
 
   object writers:

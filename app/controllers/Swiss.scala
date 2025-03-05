@@ -136,17 +136,18 @@ final class Swiss(
   def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     if me.isBot || me.lame then notFoundJson("This account cannot create tournaments")
     else
-      env.team.api.isGranted(teamId, me, _.Tour).flatMap {
-        if _ then
-          bindForm(env.swiss.forms.create(me))(
-            doubleJsonFormError,
-            data =>
-              tourC.rateLimitCreation(isPrivate = true, rateLimited):
-                JsonOk(env.swiss.api.create(data, teamId).flatMap(apiJson))
-          )
-        else notFoundJson("You're not a leader of that team")
+      env.team.api
+        .isGranted(teamId, me, _.Tour)
+        .flatMap:
+          if _ then
+            bindForm(env.swiss.forms.create(me))(
+              doubleJsonFormError,
+              data =>
+                tourC.rateLimitCreation(isPrivate = true, rateLimited):
+                  JsonOk(env.swiss.api.create(data, teamId).flatMap(apiJson))
+            )
+          else notFoundJson("You're not a leader of that team")
 
-      }
   }
 
   def apiTerminate(id: SwissId) = ScopedBody(_.Tournament.Write) { _ ?=> me ?=>
@@ -238,12 +239,13 @@ final class Swiss(
         JsonOk(lila.swiss.SwissJson.playerJsonExt(swiss, player))
 
   def exportTrf(id: SwissId) = Anon:
-    env.swiss.cache.swissCache.byId(id).map {
-      case None => NotFound("Tournament not found")
-      case Some(swiss) =>
-        Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
-          .pipe(asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf")))
-    }
+    env.swiss.cache.swissCache
+      .byId(id)
+      .map:
+        case None => NotFound("Tournament not found")
+        case Some(swiss) =>
+          Ok.chunked(env.swiss.trf(swiss, sorted = true).intersperse("\n"))
+            .pipe(asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf")))
 
   def byTeam(id: TeamId) = Anon:
     apiC.jsonDownload:

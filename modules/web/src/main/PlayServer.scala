@@ -28,11 +28,12 @@ object PlayServer:
 
       val config: ServerConfig = readServerConfigSettings(process)
 
-      lila.log("boot").info {
-        val java = System.getProperty("java.version")
-        val mem  = Runtime.getRuntime.maxMemory() / 1024 / 1024
-        s"lila ${config.mode} / java $java, memory: ${mem}MB"
-      }
+      lila
+        .log("boot")
+        .info:
+          val java = System.getProperty("java.version")
+          val mem  = Runtime.getRuntime.maxMemory() / 1024 / 1024
+          s"lila ${config.mode} / java $java, memory: ${mem}MB"
 
       val environment: Environment = Environment(config.rootDir, process.classLoader, config.mode)
 

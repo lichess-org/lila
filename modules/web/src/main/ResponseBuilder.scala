@@ -55,7 +55,7 @@ trait ResponseBuilder(using Executor)
       else path
 
   private val movedMap: Map[String, String] = Map(
-    "swag" -> "https://shop.spreadshirt.com/lichess-org",
+    "swag" -> "https://lichess.myspreadshop.com/",
     "yt"   -> "https://youtube.com/@LichessDotOrg",
     "dmca" -> "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform",
     "fishnet"      -> "https://github.com/lichess-org/fishnet",

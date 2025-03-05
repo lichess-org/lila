@@ -8,7 +8,7 @@ class StringTest extends munit.FunSuite:
 
   given NetDomain = NetDomain("lichess.org")
 
-  test("richText handle nl") {
+  test("richText handle nl"):
     val url = "http://imgur.com/gallery/pMtTE"
     assertEquals(
       String.html.richText(s"link to $url here\n"),
@@ -17,13 +17,11 @@ class StringTest extends munit.FunSuite:
     )
 
     assertEquals(String.html.richText(s"link\n", false), raw("link\n"))
-  }
 
-  test("richText escape chars") {
+  test("richText escape chars"):
     assertEquals(String.html.richText(s"&"), raw("&amp;"))
-  }
 
-  test("richText keep trailing dash on url") {
+  test("richText keep trailing dash on url"):
     // We use trailing dashes (-) >> our own URL slugs. Always consider them
     // to be part of the URL.
     assertEquals(
@@ -31,11 +29,10 @@ class StringTest extends munit.FunSuite:
       raw:
         """a <a rel="nofollow noreferrer" href="https://example.com/foo--" target="_blank">example.com/foo--</a>. b"""
     )
-  }
 
   def extractPosts(s: String) = String.forumPostPathRegex.findAllMatchIn(s).toList.map(_.group(1))
 
-  test("richText forum post path regex find forum post path") {
+  test("richText forum post path regex find forum post path"):
     assertEquals(
       extractPosts("[mod](https://lichess.org/@/mod) :gear: Unfeature topic  general-chess-discussion/abc"),
       List("general-chess-discussion/abc")
@@ -52,15 +49,12 @@ class StringTest extends munit.FunSuite:
         "off-topic-discussion/how-come"
       )
     )
-  }
 
-  test("richText Not find forum post path") {
+  test("richText Not find forum post path"):
     assertEquals(extractPosts("yes/no/maybe"), Nil)
     assertEquals(extractPosts("go/to/some/very/long/path"), Nil)
     assertEquals(extractPosts("Answer me yes/no?"), Nil)
-  }
 
-  test("noShouting") {
+  test("noShouting"):
     assertEquals(String.noShouting("HELLO SIR"), "hello sir")
     assertEquals(String.noShouting("1. Nf3 O-O-O#"), "1. Nf3 O-O-O#")
-  }

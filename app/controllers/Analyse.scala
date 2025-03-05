@@ -97,18 +97,19 @@ final class Analyse(
 
   def embedReplayGame(gameId: GameId, color: Color) = Anon:
     InEmbedContext:
-      env.api.textLpvExpand.getPgn(gameId).map {
-        case Some(LpvEmbed.PublicPgn(pgn)) =>
-          render:
-            case AcceptsPgn() => Ok(pgn)
-            case _ =>
-              Ok.snip:
-                views.analyse.embed.lpv(pgn, color.some, getPgn = true)
-        case _ =>
-          render:
-            case AcceptsPgn() => NotFound("*")
-            case _            => NotFound.snip(views.analyse.embed.notFound)
-      }
+      env.api.textLpvExpand
+        .getPgn(gameId)
+        .map:
+          case Some(LpvEmbed.PublicPgn(pgn)) =>
+            render:
+              case AcceptsPgn() => Ok(pgn)
+              case _ =>
+                Ok.snip:
+                  views.analyse.embed.lpv(pgn, color.some, getPgn = true)
+          case _ =>
+            render:
+              case AcceptsPgn() => NotFound("*")
+              case _            => NotFound.snip(views.analyse.embed.notFound)
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Full])(or: => Fu[Result])(using
       Context

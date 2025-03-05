@@ -1,21 +1,23 @@
-package lila.memo
+package lila.practice
 
 import com.typesafe.config.ConfigFactory
 import play.api.ConfigLoader
 import play.api.data.Form
 
 import lila.db.dsl.*
+import lila.memo.CacheApi
+import lila.memo.MemoConfig
 
-final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(using
+private final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(using
     ec: Executor,
     loader: ConfigLoader[A]
 ):
 
   private val mongoDocKey = "config"
 
-  private val cache = cacheApi.unit[Option[A]] {
+  private val cache = cacheApi.unit[Option[A]]:
     _.buildAsyncFuture: _ =>
-      rawText.map {
+      rawText.map:
         _.flatMap: text =>
           parse(text).fold(
             errs =>
@@ -24,8 +26,6 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
             ,
             res => res.some
           )
-      }
-  }
 
   def parse(text: String): Either[List[String], A] =
     try Right(loader.load(ConfigFactory.parseString(text)))
@@ -52,11 +52,10 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
         })
       )
     )
-    rawText.map {
+    rawText.map:
       _.fold(form)(form.fill)
-    }
 
-object ConfigStore:
+private object ConfigStore:
 
   final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(using
       Executor
