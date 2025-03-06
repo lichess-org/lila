@@ -101,8 +101,12 @@
   <string name="openingExplorer">Penjelajah pembukaan</string>
   <string name="openingEndgameExplorer">Penjelajah pembukaan/babak akhir</string>
   <string name="xOpeningExplorer">Menjelajahi pembukaan %s</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Saya</string>
   <string name="winPreventedBy50MoveRule">Tidak bisa menang karena peraturan 50 langkah</string>
   <string name="lossSavedBy50MoveRule">Kekalahan terhindari karena peraturan 50 langkah</string>
+  <string name="winOr50MovesByPriorMistake">Saya1</string>
+  <string name="lossOr50MovesByPriorMistake">Saya2</string>
+  <string name="unknownDueToRounding">Saya</string>
   <string name="allSet">Semua siap!</string>
   <string name="importPgn">Impor PGN</string>
   <string name="delete">Hapus</string>
@@ -143,7 +147,7 @@
   <string name="moveTimes">Waktu gerak</string>
   <string name="flipBoard">Putar papan catur</string>
   <string name="threefoldRepetition">Pengulangan 3x posisi yang sama</string>
-  <string name="claimADraw">Klaim remis</string>
+  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">Klaim remis</string>
   <string name="offerDraw">Tawarkan remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
