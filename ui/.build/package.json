@@ -20,6 +20,7 @@
     "esbuild": "0.24.2",
     "fast-glob": "3.3.3",
     "fast-xml-parser": "4.5.3",
+    "json-stringify-pretty-compact": "4.0.0",
     "micromatch": "4.0.8",
     "tinycolor2": "1.6.0",
     "typescript": "5.7.3"
