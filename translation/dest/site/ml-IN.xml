@@ -14,7 +14,7 @@
   <string name="toggleTheChat">സംഭാഷണം തുടങ്ങുകയോ നിര്തുകയോ ചെയ്യുന്നതിന്</string>
   <string name="chat">സംഭാഷണം</string>
   <string name="resign">കീഴടങ്ങുക</string>
-  <string name="checkmate">ചെക്ക്മേറ്റ്</string>
+  <string name="checkmate">അടിയറവു്</string>
   <string name="stalemate">സമനില</string>
   <string name="white">വെളുപ്പ്‌</string>
   <string name="black">കറുപ്പ്</string>
@@ -45,13 +45,13 @@
   <string name="forceResignation">വിജയം പ്രഖ്യാപിക്കുക</string>
   <string name="forceDraw">സമനില പ്രഖ്യാപിക്കുക</string>
   <string name="talkInChat">ദയവായി ചാറ്റില്‍ സൗമ്യമായി പെരുമാറുക!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ഈ ലിങ്കിൽ വരുന്ന ആദ്യത്തെ വ്യക്തി നിങ്ങളുമായി കളിക്കും</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ഈ കണ്ണിയിൽ വരുന്ന ആദ്യത്തെ വ്യക്തി നിങ്ങളുമായി കളിക്കും.</string>
   <string name="whiteResigned">വെള്ള തോൽവി സമ്മതിച്ചു</string>
   <string name="blackResigned">കറുപ്പു തോൽവി സമ്മതിച്ചു</string>
   <string name="whiteLeftTheGame">വെള്ള കളി ഉപേക്ഷിച്ചു</string>
   <string name="blackLeftTheGame">കറുപ്പു കളി ഉപേക്ഷിച്ചു</string>
-  <string name="whiteDidntMove">വൈറ്റ് നീക്കം നടത്തിയില്ല</string>
-  <string name="blackDidntMove">ബ്ലാക്ക് നീക്കം നടത്തിയില്ല</string>
+  <string name="whiteDidntMove">വെള്ള നീക്കം നടത്തിയില്ല</string>
+  <string name="blackDidntMove">കറുപ്പു് നീക്കം നടത്തിയില്ല</string>
   <string name="requestAComputerAnalysis">ഗണനിക പരിശോധനക്ക് അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">ഗണനിക പരിശോധന</string>
   <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് ഗണനിക വിശകലനം ലഭ്യമാണ്</string>
