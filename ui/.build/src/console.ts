@@ -42,6 +42,7 @@ export async function startConsole() {
     });
   }).listen(8666);
 }
+declare const window: any;
 
 export async function jsLogger(): Promise<string> {
   const iife = (
@@ -68,7 +69,7 @@ export async function jsLogger(): Promise<string> {
             return;
           Object.assign(console, o);
         }
-        r('log', (globalThis as any).navigator.userAgent);
+        r('log', (window as any).navigator.userAgent);
       }.toString(),
       { loader: 'ts', minify: true, target: 'es2018' },
     )

@@ -118,10 +118,12 @@ export function boot() {
           ),
       );
     });
-    prefersLight().addEventListener('change', e => {
-      if (document.body.dataset.theme === 'system')
-        document.documentElement.className = e.matches ? 'light' : 'dark';
-    });
+    const mql = prefersLight();
+    if ('addEventListener' in mql)
+      mql.addEventListener('change', e => {
+        if (document.body.dataset.theme === 'system')
+          document.documentElement.className = e.matches ? 'light' : 'dark';
+      });
   }, 800);
 }
 
