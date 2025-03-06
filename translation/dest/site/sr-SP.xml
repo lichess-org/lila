@@ -190,8 +190,8 @@
   <string name="variant">Варијанта</string>
   <string name="variants">Варијанте</string>
   <string name="timeControl">Временска контрола</string>
-  <string name="realTime">Стварно време</string>
-  <string name="correspondence">Дописни шах</string>
+  <string name="realTime">Стварновременски</string>
+  <string name="correspondence">Дописни</string>
   <string name="daysPerTurn">Дана по потезу</string>
   <string name="oneDay">Један дан</string>
   <plurals name="nbDays">
