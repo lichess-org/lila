@@ -9,10 +9,10 @@ describe('test once', () => {
     expect(once('foo')).toBe(false);
     expect(once('foo')).toBe(false);
     vi.useFakeTimers();
-    expect(once('secs', { secs: 1 })).toBe(true);
-    expect(once('secs', { secs: 1 })).toBe(false);
+    expect(once('secs', { seconds: 1 })).toBe(true);
+    expect(once('secs', { seconds: 1 })).toBe(false);
     vi.advanceTimersByTime(1050);
-    expect(once('secs', { secs: 1 })).toBe(true);
+    expect(once('secs', { seconds: 1 })).toBe(true);
     vi.useRealTimers();
   });
 });

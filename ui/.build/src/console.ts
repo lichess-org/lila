@@ -17,6 +17,7 @@ export async function startConsole() {
         })
         .end();
     if (req.method !== 'POST') return res.writeHead(404).end();
+
     let body = '';
 
     req.on('data', chunk => (body += chunk.toString()));
