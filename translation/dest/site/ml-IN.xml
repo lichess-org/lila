@@ -44,7 +44,7 @@
   <string name="opponentLeftChoices">എതിരാളി പോയിരിക്കാം. നിങ്ങൾക്ക് വിജയിക്കുകയോ സമനില കൊടുക്കുകയോ കാത്തിരിക്കുകയോ ചെയ്യാം.</string>
   <string name="forceResignation">വിജയം പ്രഖ്യാപിക്കുക</string>
   <string name="forceDraw">സമനില പ്രഖ്യാപിക്കുക</string>
-  <string name="talkInChat">ദയവായി ചാറ്റില്‍ സൗമ്യമായി പെരുമാറുക!</string>
+  <string name="talkInChat">ദയവായി സല്ലാപമുറിയിൽ സൗമ്യമായി പെരുമാറുക!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ഈ കണ്ണിയിൽ വരുന്ന ആദ്യത്തെ വ്യക്തി നിങ്ങളുമായി കളിക്കും.</string>
   <string name="whiteResigned">വെള്ള തോൽവി സമ്മതിച്ചു</string>
   <string name="blackResigned">കറുപ്പു തോൽവി സമ്മതിച്ചു</string>
@@ -65,7 +65,7 @@
   <string name="cloudAnalysis">ക്ലൗഡ് ഉപയോഗിച്ചുള്ള വിശകലനം</string>
   <string name="goDeeper">ആഴം കൂട്ടുക</string>
   <string name="showThreat">ഭീഷണി വെളിപ്പെടുത്തുക</string>
-  <string name="inLocalBrowser">ഈ ബ്രൗസറിൽ</string>
+  <string name="inLocalBrowser">ഈ അന്വേഷിയന്ത്രത്തിൽ</string>
   <string name="toggleLocalEvaluation">ഈ കമ്പ്യൂട്ടറിൽ തന്നെ മൂല്യനിർണം നടത്തുക</string>
   <string name="promoteVariation">ഈ വേരിയേഷൻ പ്രചരിപ്പിക്കുക</string>
   <string name="makeMainLine">മെയിൻ ലൈൻ ആകുക</string>
@@ -116,7 +116,7 @@
   <string name="realtimeReplay">തത്സമയം</string>
   <string name="byCPL">CPL മുഖേന</string>
   <string name="enable">വേണോ</string>
-  <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ arrow</string>
+  <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ അമ്പു്</string>
   <string name="showVariationArrows">വ്യതിയാനയമ്പുകൾ കാണിക്കുക</string>
   <string name="evaluationGauge">മൂല്യനിർണയ സംവിധാനം</string>
   <string name="multipleLines">ഒന്നിലധികം വരികൾ</string>
