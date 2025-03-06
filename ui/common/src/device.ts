@@ -101,8 +101,8 @@ const webkitVersion = memoize<string | false>(
     (lowerAgent.includes('safari') &&
       !lowerAgent.includes('chrome') &&
       !lowerAgent.includes('android') &&
-      lowerAgent.match(/version\/(.*)/)?.[1]) ||
-    (lowerAgent.includes('crios/') && lowerAgent.match(/ os ((?:\d+[._]?){1,3})/i)?.[1]) ||
+      (lowerAgent.match(/version\/(.*)/)?.[1] ||
+        (lowerAgent.includes('crios/') && lowerAgent.match(/ os ((?:\d+[._]?){1,3})/i)?.[1]))) ||
     false,
 );
 

@@ -75,7 +75,9 @@ export function boot() {
     eventuallySetupDefaultConnection();
 
     if (isUnsupportedBrowser() && once('upgrade.nag', { days: 14 })) {
-      alert('Your browser is out of date.\nLichess may not work properly.');
+      pubsub
+        .after('dialog.polyfill')
+        .then(() => alert('Your browser is out of date.\nLichess may not work properly.'));
     }
 
     // socket default receive handlers
