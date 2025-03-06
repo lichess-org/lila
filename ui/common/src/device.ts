@@ -93,7 +93,7 @@ export const isIosChrome = (constraint?: VersionConstraint): boolean =>
   lowerAgent.includes('crios/') && isVersionCompatible(webkitVersion(), constraint);
 
 export const isApple: () => boolean = memoize<boolean>(
-  () => /macintosh|iphone|ipad|ipod/.test(navigator.userAgent), // macOS or iOS
+  () => /macintosh|iphone|ipad|ipod/.test(lowerAgent), // macOS or iOS
 );
 
 const webkitVersion = memoize<string | false>(
