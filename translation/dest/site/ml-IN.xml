@@ -154,7 +154,7 @@
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
   <string name="flipBoard">കളം തിരിക്കുക</string>
   <string name="threefoldRepetition">മൂന്നാമതും ആവര്‍ത്തിച്ചിരിക്കുന്നു</string>
-  <string name="claimADraw">സമനില ആവശ്യപ്പെടുക</string>
+  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">സമനില ആവശ്യപ്പെടുക</string>
   <string name="offerDraw">സമനിലയ്ക്ക് സമ്മതിക്കുക</string>
   <string name="draw">സമനില</string>
   <plurals name="nbPlayers">
@@ -777,7 +777,7 @@
   <string name="xHostsY">%1$s %2$s host ചെയ്യുന്നു</string>
   <string name="xJoinsY">%1$s %2$s -ൽ ചേർന്നിരിക്കുന്നു</string>
   <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടപെട്ടു</string>
-  <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
+  <string name="quickPairing">പെട്ടെന്ന് ഇണചേൎക്കൽ നടത്തുക</string>
   <string name="lobby">ഇടനാഴി</string>
   <string name="anonymous">അജ്ഞാത</string>
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
