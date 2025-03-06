@@ -119,7 +119,7 @@ export function boot() {
       );
     });
     const mql = prefersLight();
-    if ('addEventListener' in mql)
+    if (typeof mql.addEventListener === 'function')
       mql.addEventListener('change', e => {
         if (document.body.dataset.theme === 'system')
           document.documentElement.className = e.matches ? 'light' : 'dark';
