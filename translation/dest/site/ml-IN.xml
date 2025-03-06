@@ -484,7 +484,7 @@
   <string name="losses">പരാജയങ്ങൾ</string>
   <string name="createdBy">നിർമ്മാണം</string>
   <string name="tournamentIsStarting">പരമ്പര തുടങ്ങുന്നു</string>
-  <string name="tournamentPairingsAreNowClosed">ടൂർണമെന്റ് പെയറിങ് കഴിഞ്ഞിരിക്കുന്നു.</string>
+  <string name="tournamentPairingsAreNowClosed">മത്സര ഇണചേൎക്കലുകൾ തീൎന്നിരിക്കുന്നു.</string>
   <string name="standByX">ദയവായി കാത്തിരിക്കൂ %s, കളിക്കാരെ പെയർ ചെയ്യുന്നു, തയ്യാറാവൂ!</string>
   <string name="pause">നിറുത്തുക</string>
   <string name="resume">തുടരുക</string>
