@@ -25,8 +25,8 @@ object FlairApi:
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
-final class FlairApi(environment: Environment, lightUserApi: LightUserApi)(using Executor)(using
-    scheduler: Scheduler
+final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.GetRelativeFile)(using Executor)(
+    using scheduler: Scheduler
 ) extends lila.core.user.FlairApi:
 
   import FlairApi.*
@@ -46,7 +46,7 @@ final class FlairApi(environment: Environment, lightUserApi: LightUserApi)(using
         pairs.toMap
 
   private def refresh(): Unit =
-    val pathname = environment.getFile("public/flair/list.txt").toPath.toString
+    val pathname = getFile.exec("public/flair/list.txt").toPath.toString
     val source   = scala.io.Source.fromFile(pathname, "UTF-8")
     try
       db = Flair.from(source.getLines.toSet)

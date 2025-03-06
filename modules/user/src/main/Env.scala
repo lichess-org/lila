@@ -9,7 +9,7 @@ import lila.core.userId
 @Module
 final class Env(
     db: lila.db.Db,
-    environment: play.api.Environment,
+    getFile: lila.common.config.GetRelativeFile,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
