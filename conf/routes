@@ -674,6 +674,7 @@ GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id: PuzzleId)
 GET   /api/puzzle/next                 controllers.Puzzle.apiNext
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
+GET   /api/puzzle/replay/$days<\d+>/:theme controllers.Puzzle.apiReplay(days: Days, theme)
 GET   /api/user/:user/tournament/created controllers.UserTournament.apiTournamentsByOwner(user: UserStr, status: List[Int])
 GET   /api/user/:user/tournament/played  controllers.UserTournament.apiTournamentsByPlayer(user: UserStr)
 GET   /api/user/:user                  controllers.Api.user(user: UserStr)

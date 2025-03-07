@@ -30,17 +30,16 @@ final class PuzzleReplayApi(
     _.expireAfterWrite(1.hour).buildAsync()
 
   def apply(
-      user: User,
       maybeDays: Option[Days],
       theme: PuzzleTheme.Key
-  ): Fu[Option[(Puzzle, PuzzleReplay)]] =
+  )(using me: Me): Fu[Option[(Puzzle, PuzzleReplay)]] =
     maybeDays.so: days =>
       for
-        current <- replays.getFuture(user.id, _ => createReplayFor(user, days, theme))
+        current <- replays.getFuture(me.userId, _ => createReplayFor(me, days, theme))
         replay <-
           if current.days == days && current.theme == theme && current.remaining.nonEmpty
           then fuccess(current)
-          else createReplayFor(user, days, theme).tap { replays.put(user.id, _) }
+          else createReplayFor(me, days, theme).tap { replays.put(me.userId, _) }
         puzzle <- replay.remaining.headOption.so: id =>
           colls.puzzle(_.byId[Puzzle](id))
       yield puzzle.map(_ -> replay)
