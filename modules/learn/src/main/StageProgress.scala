@@ -19,7 +19,8 @@ object StageProgress:
 
   def empty = StageProgress(scores = Vector.empty)
 
-  case class Score(value: Int) extends AnyVal
+  opaque type Score = Int
+  object Score extends OpaqueInt[Score]
 
   val allStageNames = Set(
     "bishop",

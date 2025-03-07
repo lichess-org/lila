@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 
 final class LearnApi(coll: Coll)(using Executor):
 
-  import BSONHandlers.given
+  import LearnHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     reset(del.id)

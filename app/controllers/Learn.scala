@@ -6,7 +6,7 @@ import lila.app.*
 
 final class Learn(env: Env) extends LilaController(env):
 
-  import lila.learn.JSONHandlers.given
+  import lila.learn.LearnHandlers.given
 
   def index     = Open(serveIndex)
   def indexLang = LangPage(routes.Learn.index)(serveIndex)
@@ -21,7 +21,7 @@ final class Learn(env: Env) extends LilaController(env):
 
   def score = AuthBody { ctx ?=> me ?=>
     bindForm(lila.learn.StageProgress.form)(
-      _ => BadRequest,
+      jsonFormError,
       (stage, level, s) =>
         val score = lila.learn.StageProgress.Score(s)
         for
