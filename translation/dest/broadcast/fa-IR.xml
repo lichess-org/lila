@@ -78,4 +78,5 @@
   <string name="optionalDetails">جزئیات اختیاری</string>
   <string name="pastBroadcasts">پخش‌های گذشته</string>
   <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
+  <string name="backToLiveMove">%s برگشت به حرکت فعلی</string>
 </resources>
