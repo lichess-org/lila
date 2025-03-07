@@ -33,3 +33,6 @@ object config:
   def strLoader[A](using sr: SameRuntime[String, A]): ConfigLoader[A]   = strLoader(sr.apply)
   def intLoader[A](using sr: SameRuntime[Int, A]): ConfigLoader[A]      = intLoader(sr.apply)
   def boolLoader[A](using sr: SameRuntime[Boolean, A]): ConfigLoader[A] = boolLoader(sr.apply)
+
+  opaque type GetRelativeFile = String => java.io.File
+  object GetRelativeFile extends FunctionWrapper[GetRelativeFile, String => java.io.File]

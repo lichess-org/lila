@@ -22,14 +22,16 @@ export async function startConsole() {
     req.on('data', chunk => (body += chunk.toString()));
     req.on('end', () => {
       try {
-        let [[level, val]] = Object.entries<any>(JSON.parse(body));
-        const pre = level === 'error' ? `${errorMark} ` : level === 'warn' ? `${warnMark} ` : '';
+        let [[level, val]] = Object.entries<string>(JSON.parse(body));
+        const mark = level === 'error' ? `${errorMark} ` : level === 'warn' ? `${warnMark} ` : '';
+
         if (!Array.isArray(val)) throw new Error();
-        if (val.length <= 1) val = val[0] ?? '';
+        else if (val.length <= 1) val = val[0] ?? '';
         else if (val.every(x => typeof x !== 'object')) val = val.join(' ');
+
         if (typeof val !== 'string') val = stringify(val, { indent: 2, maxLength: 80 });
 
-        env.log(pre + c.grey(val), ip);
+        env.log(`${mark}${c.grey(val)}`, ip);
         res
           .writeHead(200, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST' })
           .end();
@@ -39,6 +41,7 @@ export async function startConsole() {
     });
   }).listen(8666);
 }
+declare const window: any;
 
 export async function jsLogger(): Promise<string> {
   const iife = (
@@ -65,6 +68,7 @@ export async function jsLogger(): Promise<string> {
             return;
           Object.assign(console, o);
         }
+        r('log', (window as any).navigator.userAgent);
       }.toString(),
       { loader: 'ts', minify: true, target: 'es2018' },
     )

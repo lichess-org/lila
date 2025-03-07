@@ -6,6 +6,7 @@ import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ ConfigLoader, Configuration, Environment, Mode }
 
 import lila.core.config.*
+import lila.common.config.GetRelativeFile
 
 final class Env(
     val config: Configuration,
@@ -17,7 +18,8 @@ final class Env(
     StandaloneWSClient,
     akka.stream.Materializer
 ):
-  val net: NetConfig = config.get[NetConfig]("net")
+  val net: NetConfig           = config.get[NetConfig]("net")
+  val getFile: GetRelativeFile = GetRelativeFile(environment.getFile(_))
 
   export net.{ baseUrl, assetBaseUrlInternal }
 

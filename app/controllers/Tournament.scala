@@ -151,7 +151,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me ?=>
     NoLame:
       NoPlayban:
-        limit.tourJoin(me, rateLimited):
+        limit.tourJoin(me, rateLimited, cost = joinLimitCost):
           val data = TournamentForm.TournamentJoin(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
@@ -166,13 +166,15 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { ctx ?=> me ?=>
     NoLame:
       NoPlayban:
-        limit.tourJoin(me, rateLimited):
+        limit.tourJoin(me, rateLimited, cost = joinLimitCost):
           val data =
             bindForm(TournamentForm.joinForm)(_ => TournamentForm.TournamentJoin(none, none), identity)
           doJoin(id, data).map:
             _.error.fold(jsonOkResult): error =>
               BadRequest(Json.obj("error" -> error))
   }
+
+  private def joinLimitCost(using me: Me) = if me.isBot then 1 else 3
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
     data.team

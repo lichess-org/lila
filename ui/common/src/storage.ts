@@ -146,9 +146,13 @@ export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
   return novTog;
 };
 
-export function once(key: string): boolean {
-  if (storage.get(key)) return false;
-  storage.set(key, '1');
+export function once(key: string, every?: { seconds?: number; hours?: number; days?: number }): boolean {
+  const now = Date.now();
+  const last = Number(storage.get(key)) || 0;
+  const seconds = (every?.seconds ?? 0) + (every?.hours ?? 0) * 3600 + (every?.days ?? 0) * 24 * 3600;
+
+  if (last && (!every || now - last < seconds * 1000)) return false;
+  storage.set(key, now.toString());
   return true;
 }
 

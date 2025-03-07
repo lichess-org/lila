@@ -7,7 +7,7 @@ import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
 import { watchers } from 'common/watchers';
-import { isIos, isBrowserSupported } from 'common/device';
+import { isIos, isWebkit } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 import { attachDomHandlers } from './domHandlers';
@@ -74,8 +74,10 @@ export function boot() {
     // if not already connected by a ui module, setup default connection
     eventuallySetupDefaultConnection();
 
-    if (!isBrowserSupported() && once('upgrade.nag')) {
-      alert('Your web browser is out of date. Lichess may not function properly.');
+    if (isUnsupportedBrowser() && once('upgrade.nag', { days: 14 })) {
+      pubsub
+        .after('dialog.polyfill')
+        .then(() => alert('Your browser is out of date.\nLichess may not work properly.'));
     }
 
     // socket default receive handlers
@@ -116,9 +118,15 @@ export function boot() {
           ),
       );
     });
-    prefersLight().addEventListener('change', e => {
-      if (document.body.dataset.theme === 'system')
-        document.documentElement.className = e.matches ? 'light' : 'dark';
-    });
+    const mql = prefersLight();
+    if (typeof mql.addEventListener === 'function')
+      mql.addEventListener('change', e => {
+        if (document.body.dataset.theme === 'system')
+          document.documentElement.className = e.matches ? 'light' : 'dark';
+      });
   }, 800);
+}
+
+function isUnsupportedBrowser() {
+  return isWebkit({ below: '15.4' });
 }

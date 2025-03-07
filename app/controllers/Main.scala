@@ -42,6 +42,9 @@ final class Main(
     pageHit
     Redirect(StaticContent.appStoreUrl)
 
+  def redirectToSwag = Anon:
+    Redirect(StaticContent.swagUrl(env.security.geoIP(ctx.ip).so(_.countryCode)))
+
   private def serveMobile(using Context) =
     pageHit
     FoundPage(env.cms.renderKey("mobile"))(views.mobile)
