@@ -135,38 +135,16 @@ export default class ChatCtrl {
 
   // Lichess feedback format: 'i18n.key username'
   translateLichessFeedback = (line: Line): void => {
-    const text = line.t;
-    const parts = text.split(' ');
-    const key = parts[0].split('.');
-    const isAboutMe = `${myUserId()}` == parts[1].toLowerCase();
-    switch (key[1]) {
-      case 'playbanFeedbackAbort':
-        line.t = i18n.site.playbanFeedbackAbort(parts[1]);
-        line.showModal = isAboutMe;
-        break;
-      case 'playbanFeedbackNoStart':
-        line.t = i18n.site.playbanFeedbackNoStart(parts[1]);
-        line.showModal = isAboutMe;
-        break;
-      case 'playbanFeedbackRageQuit':
-        line.t = i18n.site.playbanFeedbackRageQuit(parts[1]);
-        line.showModal = isAboutMe;
-        break;
-      case 'playbanFeedbackSitting':
-        line.t = i18n.site.playbanFeedbackSitting(parts[1]);
-        line.showModal = isAboutMe;
-        break;
-      case 'playbanFeedbackQuickResign':
-        line.showModal = isAboutMe;
-        line.t = i18n.site.playbanFeedbackQuickResign(parts[1]);
-        break;
-    }
+    if (line.u !== 'lichess' || !line.t.startsWith('i18n.')) return;
+    const [msgKey, username] = line.t.slice(5).split(' ');
+    const translation = i18n.site[msgKey as keyof typeof i18n.site] as I18nFormat | undefined;
+    if (!translation) return;
+    line.showModal = `${myUserId()}` == username.toLowerCase();
+    line.t = translation(username);
   };
 
   private onMessage = (line: Line): void => {
-    if (line.u === 'lichess' && line.t.startsWith('i18n.')) {
-      this.translateLichessFeedback(line);
-    }
+    this.translateLichessFeedback(line);
     this.data.lines.push(line);
 
     const nb = this.data.lines.length;
