@@ -6,6 +6,7 @@ import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { bind, looseH as h, type VNode } from 'common/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
+import { prompt } from 'common/dialog';
 
 type Board = string;
 type Range = { min: number; max: number; step: number };
@@ -180,7 +181,26 @@ export class BoardCtrl extends PaneCtrl {
       `div.${prop}`,
       { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },
       [
-        h('label', label),
+        h(
+          'button.button.button-empty',
+          {
+            hook: {
+              insert: (vnode: VNode) => {
+                (vnode.elm as HTMLElement).addEventListener('click', async () => {
+                  const val = await prompt(
+                    `${label} between ${range.min} and ${range.max}`,
+                    `${this.getVar(prop)}`,
+                    (num: string) => num !== '' && Number(num) >= range.min && Number(num) <= range.max,
+                  );
+                  if (val === null) return;
+                  this.setVar(prop, Number(val));
+                  this.redraw();
+                });
+              },
+            },
+          },
+          label,
+        ),
         h('input.range', {
           key: this.sliderKey + prop,
           attrs: { ...range, type: 'range', value: this.getVar(prop) },

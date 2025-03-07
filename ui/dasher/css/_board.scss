@@ -57,9 +57,13 @@
     display: grid;
     grid-template-columns: 45% 55%;
     align-items: center;
-    padding: 0.5rem 1rem;
-    label {
-      white-space: nowrap;
+    padding: 0.5rem;
+    button {
+      @extend %base-font;
+      text-align: start;
+      text-transform: none;
+      padding: 0.5rem;
+      margin-inline-end: 1ch;
     }
   }
 
