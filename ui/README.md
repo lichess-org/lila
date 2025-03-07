@@ -144,16 +144,7 @@ Hash object entries identify files for which a symlink named with their content 
       "/public/piece-css/*"
     ]
 ```
-They may also be `{ "glob": "<pattern>", "update": "<package-relative-path>" }` objects. When these are processed, symlinks for globbed files are created in /public/hashed. Then all occurrence of those globbed filenames are replaced with their hashed symlinks within the "update" file's contents. The updated contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. For example: [/ui/common/css/theme/font-face.css](./common/css/theme/font-face.css) is transformed via this hash entry from [/ui/common/package.json](./common/package.json):
-
-```json
-    "hash": [
-      {
-        "glob": "/public/font/*.woff2",
-        "update": "css/theme/font-face.css"
-      }
-    ]
-```
+They may also be `{ "glob": "<pattern>", "update": "<package-relative-path>" }` objects. When these are processed, symlinks for globbed files are created in /public/hashed. Then all occurrence of those globbed filenames are replaced with their hashed symlinks within the "update" file's contents. The updated contents are also content-hashed and written to /public/hashed. This is useful when an asset references other files by name and those references must be updated to reflect the hashed URLs. An asset mapping within a static json or text file can be kept current in this way.
 
 Note that "update" files must be package relative.
 
