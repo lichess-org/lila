@@ -190,8 +190,8 @@
   <string name="variant">Варијанта</string>
   <string name="variants">Варијанте</string>
   <string name="timeControl">Временска контрола</string>
-  <string name="realTime">Стварновременски</string>
-  <string name="correspondence">Дописни</string>
+  <string name="realTime">Стварновременa</string>
+  <string name="correspondence">Дописнa</string>
   <string name="daysPerTurn">Дана по потезу</string>
   <string name="oneDay">Један дан</string>
   <plurals name="nbDays">
@@ -211,9 +211,9 @@
   </plurals>
   <string name="time">Време</string>
   <string name="rating">Рејтинг</string>
-  <string name="ratingStats">Статистика рејтинга</string>
+  <string name="ratingStats">Рејтинг статистике</string>
   <string name="username">Корисничко име</string>
-  <string name="usernameOrEmail">Корисничко име или е-пошта</string>
+  <string name="usernameOrEmail">Корисничко име или и-мејл</string>
   <string name="changeUsername">Промените корисничко име</string>
   <string name="changeUsernameNotSame">Само се величина слова може променити. На пример \"johndoe\" у \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промените ваше корисничко име. Можете променити ваше корисничко име само једном и то само величину слова.</string>
