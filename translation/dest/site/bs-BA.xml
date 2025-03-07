@@ -781,23 +781,13 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="sessions">Sesije</string>
   <string name="revokeAllSessions">opozvati sve sesije</string>
   <string name="playChessEverywhere">Igrajte šah svugdje</string>
-  <string name="asFreeAsLichess">Besplatno kao i lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Napravljeno iz ljubavi prema šahu, ne novcu</string>
   <string name="everybodyGetsAllFeaturesForFree">Svi dobijaju sve mogućnosti besplatno</string>
-  <string name="zeroAdvertisement">Bez reklama</string>
-  <string name="fullFeatured">Sa svim mogućnostima</string>
-  <string name="phoneAndTablet">Mobitel i tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasični šah</string>
-  <string name="correspondenceChess">Dopisni šah</string>
-  <string name="onlineAndOfflinePlay">Igrajte sa i bez mreže</string>
   <string name="viewTheSolution">Pogledaj rješenje</string>
-  <string name="followAndChallengeFriends">Prati i izazovi prijatelje</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dostupno u %s jezika!</item>
     <item quantity="few">Dostupno u %s jezika!</item>
     <item quantity="other">Dostupno u %s jezika!</item>
   </plurals>
-  <string name="gameAnalysis">Analiza partije</string>
   <string name="xHostsY">%1$s održava %2$s</string>
   <string name="xJoinsY">%1$s se pridružuje %2$s</string>
   <string name="xLikesY">%1$s se sviđa %2$s</string>

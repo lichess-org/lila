@@ -317,6 +317,8 @@ GET   /patron/stripe/update-payment    controllers.Plan.updatePaymentCallback
 POST  /patron/ipn                      controllers.Plan.payPalIpn
 POST  /patron/paypal/checkout          controllers.Plan.payPalCheckout
 POST  /patron/paypal/capture/:id       controllers.Plan.payPalCapture(id)
+POST  /api/patron/stripe/checkout      controllers.Plan.apiStripeCheckout
+GET   /api/patron/currencies           controllers.Plan.apiCurrencies
 GET   /features                        controllers.Plan.features
 
 # Practice
@@ -526,6 +528,7 @@ GET   /$lang<\w\w\w?>/signup           controllers.Auth.signupLang(lang: Languag
 GET   /signup/check-your-email         controllers.Auth.checkYourEmail
 POST  /signup/fix-email                controllers.Auth.fixEmail
 GET   /signup/confirm/:token           controllers.Auth.signupConfirmEmail(token)
+POST  /signup/confirm/:token           controllers.Auth.signupConfirmEmailPost(token)
 GET   /password/reset                  controllers.Auth.passwordReset
 POST  /password/reset/send             controllers.Auth.passwordResetApply
 GET   /password/reset/sent/:email      controllers.Auth.passwordResetSent(email)
@@ -538,7 +541,6 @@ POST  /auth/token/:token               controllers.Auth.loginWithTokenPost(token
 GET   /auth/magic-link                 controllers.Auth.magicLink
 POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
 GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
-GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token)
 
 # Mod
 POST  /mod/:username/alt/:v            controllers.Mod.alt(username: UserStr, v: Boolean)
@@ -849,6 +851,7 @@ POST  /cms/:id/delete                 controllers.Cms.delete(id: CmsPageId)
 GET   /developers                      controllers.Main.webmasters
 GET   /mobile                          controllers.Main.mobile
 GET   /app-store                       controllers.Main.redirectToAppStore
+GET   /swag                            controllers.Main.redirectToSwag
 GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Language)
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet

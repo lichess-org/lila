@@ -68,7 +68,7 @@ site.load.then(async () => {
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {
   await domDialog({
-    htmlText: escapeHtml(msg),
+    htmlText: escapeHtmlAddBreaks(msg),
     class: 'alert',
     modal: true,
     show: true,
@@ -77,6 +77,16 @@ export async function alert(msg: string): Promise<void> {
 
 export async function alerts(msgs: string[]): Promise<void> {
   for (const msg of msgs) await alert(msg);
+}
+
+export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
+  const dlg = await domDialog({
+    htmlText: escapeHtmlAddBreaks(msg),
+    noCloseButton: true,
+    actions: { result: 'ok' },
+  });
+  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
+  return dlg.show();
 }
 
 // non-blocking window.confirm-alike
@@ -254,7 +264,10 @@ class DialogWrapper implements Dialog {
     view.parentElement?.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
 
-    this.dialogEvents.addListener(dialog, 'cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
+    this.dialogEvents.addListener(dialog, 'cancel', e => {
+      if (o.noClickAway && o.noCloseButton && o.class !== 'alert') return e.preventDefault();
+      if (!this.returnValue) this.returnValue = 'cancel';
+    });
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
     if (!o.noCloseButton)
       this.dialogEvents.addListener(
@@ -276,7 +289,7 @@ class DialogWrapper implements Dialog {
       else where.appendChild(app.node);
     }
     this.updateActions();
-    this.dialogEvents.addListener(this.dialog, 'keydown', onKeydown);
+    this.dialogEvents.addListener(this.dialog, 'keydown', this.onKeydown);
   }
 
   get open(): boolean {
@@ -322,6 +335,23 @@ class DialogWrapper implements Dialog {
     }
   };
 
+  private onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && !(this.o.noCloseButton && this.o.noClickAway)) {
+      this.close('cancel');
+      e.preventDefault();
+    } else if (e.key === 'Tab') {
+      const $focii = $(focusQuery, e.currentTarget as Element),
+        first = $as<HTMLElement>($focii.first()),
+        last = $as<HTMLElement>($focii.last()),
+        focus = document.activeElement as HTMLElement;
+      if (focus === last && !e.shiftKey) first.focus();
+      else if (focus === first && e.shiftKey) last.focus();
+      else return;
+      e.preventDefault();
+    }
+    e.stopPropagation();
+  };
+
   private autoFocus() {
     const focus =
       (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
@@ -363,20 +393,6 @@ function loadAssets(o: DialogOpts) {
 
 function escapeHtmlAddBreaks(s: string) {
   return escapeHtml(s).replace(/\n/g, '<br>');
-}
-
-function onKeydown(e: KeyboardEvent) {
-  if (e.key === 'Tab') {
-    const $focii = $(focusQuery, e.currentTarget as Element),
-      first = $as<HTMLElement>($focii.first()),
-      last = $as<HTMLElement>($focii.last()),
-      focus = document.activeElement as HTMLElement;
-    if (focus === last && !e.shiftKey) first.focus();
-    else if (focus === first && e.shiftKey) last.focus();
-    else return;
-    e.preventDefault();
-  }
-  e.stopPropagation();
 }
 
 function onResize() {

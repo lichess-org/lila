@@ -20,13 +20,13 @@ case class ChapterPreview(
     lastMoveAt: Option[Instant],
     check: Option[Chapter.Check],
     /* None = No Result PGN tag, the chapter may not be a game
-     * Some(None) = Result PGN tag is "*", the game is ongoing
+     * Some(None) = Result PGN tag is "*", the game is new or ongoing
      * Some(Some(GamePoints)) = Game is over with a result
      */
     points: Option[Option[Outcome.GamePoints]]
 ):
   def finished              = points.exists(_.isDefined)
-  def thinkTime             = (!finished).so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
+  def thinkTime             = finished.not.so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
   def fideIds: List[FideId] = players.so(_.mapList(_.fideId)).flatten
 
 final class ChapterPreviewApi(
@@ -105,7 +105,7 @@ final class ChapterPreviewApi(
       orientation = setup.orientation,
       fen = denorm.fold(Fen.initial)(_.fen),
       lastMove = denorm.flatMap(_.uci),
-      lastMoveAt = relay.map(_.lastMoveAt),
+      lastMoveAt = relay.flatMap(_.lastMoveAt),
       check = denorm.flatMap(_.check),
       points = tags.points.isDefined.option(tags.points)
     )

@@ -66,7 +66,7 @@
   <string name="showThreat">顯示敵方威脅</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
   <string name="toggleLocalEvaluation">使用您當地的伺服器分析</string>
-  <string name="promoteVariation">增加變化</string>
+  <string name="promoteVariation">升級變化</string>
   <string name="makeMainLine">將這步棋導入主要流程中</string>
   <string name="deleteFromHere">從這處開始刪除</string>
   <string name="collapseVariations">隱藏變體</string>
@@ -732,21 +732,11 @@
   <string name="sessions">裝置</string>
   <string name="revokeAllSessions">登出所有裝置</string>
   <string name="playChessEverywhere">隨處下棋！</string>
-  <string name="asFreeAsLichess">完全、永遠免費。</string>
-  <string name="builtForTheLoveOfChessNotMoney">不是為了錢，是為了西洋棋所創建。</string>
   <string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
-  <string name="zeroAdvertisement">沒有廣告</string>
-  <string name="fullFeatured">功能全面</string>
-  <string name="phoneAndTablet">手機和平板電腦</string>
-  <string name="bulletBlitzClassical">快或慢都隨你！</string>
-  <string name="correspondenceChess">通訊賽</string>
-  <string name="onlineAndOfflinePlay">線上或離線下棋</string>
   <string name="viewTheSolution">看解答</string>
-  <string name="followAndChallengeFriends">添加好友並與他們對戰</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支援%s種語言！</item>
   </plurals>
-  <string name="gameAnalysis">棋局分析研究</string>
   <string name="xHostsY">%1$s主持%2$s</string>
   <string name="xJoinsY">%1$s加入%2$s</string>
   <string name="xLikesY">%1$s對%2$s按讚</string>

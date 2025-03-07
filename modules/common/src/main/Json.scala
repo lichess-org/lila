@@ -21,6 +21,8 @@ object Json:
 
   given Writes[chess.PlayerTitle] = tile => JsString(tile.value)
 
+  given [A: Writes]: OWrites[chess.ByColor[A]] = PlayJson.writes
+
   given NoJsonHandler[chess.Square] with {}
 
   import lila.core.LightUser

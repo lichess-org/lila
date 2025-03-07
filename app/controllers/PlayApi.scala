@@ -3,7 +3,7 @@ package controllers
 import play.api.i18n.Lang
 import play.api.mvc.*
 
-import lila.app.*
+import lila.app.{ *, given }
 import lila.core.id.GameAnyId
 import lila.core.perf.UserWithPerfs
 
@@ -50,8 +50,9 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
 
   def boardMove(id: GameId, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ ?=> me ?=>
-      WithPovAsBoard(id):
-        impl.move(_, uci, offeringDraw)
+      WithPovAsBoard(id): pov =>
+        env.bot.boardReport.move(pov.game)
+        impl.move(pov, uci, offeringDraw)
     }
 
   def boardCommandPost(cmd: String) = ScopedBody(_.Board.Play) { ctx ?=> me ?=>
@@ -97,9 +98,8 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
             env.bot.player.claimVictory(pov).pipe(toResult)
         case Array("game", id, "berserk") =>
           as(GameAnyId(id).gameId): pov =>
-            fuccess:
-              if env.bot.player.berserk(pov.game) then jsonOkResult
-              else JsonBadRequest(jsonError("Cannot berserk"))
+            if !me.isBot && env.bot.player.berserk(pov.game) then jsonOkResult
+            else JsonBadRequest(jsonError("Cannot berserk"))
         case _ => notFoundJson("No such command")
 
   def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me ?=>
@@ -131,9 +131,15 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
         BadRequest:
           jsonError:
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
-      else if !lila.game.Game.isBotCompatible(pov.game) then
-        BadRequest(jsonError("This game cannot be played with the Bot API."))
-      else f(pov)
+      else
+        isReallyBotCompatible(pov.game).flatMap:
+          if _ then f(pov)
+          else BadRequest(jsonError("This game cannot be played with the Bot API."))
+
+  private def isReallyBotCompatible(game: lila.core.game.Game): Fu[Boolean] =
+    lila.game.Game.isBotCompatible(game) match
+      case Some(known) => fuccess(known)
+      case None        => game.tournamentId.so(env.tournament.api.isForBots)
 
   private def WithPovAsBoard(id: GameId)(f: Pov => Fu[Result])(using ctx: Context)(using Me) =
     WithPov(id): pov =>
@@ -143,10 +149,11 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
         else f(pov)
 
   private def WithPov(id: GameId)(f: Pov => Fu[Result])(using me: Me) =
-    env.round.proxyRepo.game(id).flatMap {
-      case None       => NotFound(jsonError("No such game"))
-      case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
-    }
+    env.round.proxyRepo
+      .game(id)
+      .flatMap:
+        case None       => NotFound(jsonError("No such game"))
+        case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
 
   private val botsCache = env.memo.cacheApi.unit[List[UserWithPerfs]]:
     _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>

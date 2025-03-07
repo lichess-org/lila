@@ -21,15 +21,14 @@ final private[video] class VideoApi(
   private def videoViews(userOption: Option[UserId])(videos: Seq[Video]): Fu[Seq[VideoView]] =
     userOption match
       case None =>
-        fuccess {
+        fuccess:
           videos.map { VideoView(_, view = false) }
-        }
       case Some(user) =>
-        view.seenVideoIds(user, videos).map { ids =>
-          videos.map { v =>
-            VideoView(v, ids contains v.id)
-          }
-        }
+        view
+          .seenVideoIds(user, videos)
+          .map: ids =>
+            videos.map: v =>
+              VideoView(v, ids contains v.id)
 
   object video:
 
@@ -41,19 +40,18 @@ final private[video] class VideoApi(
     def search(user: Option[UserId], query: String, page: Int): Fu[Paginator[VideoView]] =
       val q = query
         .split(' ')
-        .map { word =>
+        .map: word =>
           s""""$word""""
-        }
         .mkString(" ")
       val textScore = $doc("score" -> $doc("$meta" -> "textScore"))
       Paginator(
-        adapter = (new Adapter[Video](
+        adapter = new Adapter[Video](
           collection = videoColl,
           selector = $text(q),
           projection = textScore.some,
           sort = textScore,
           _.sec
-        )).mapFutureList(videoViews(user)),
+        ).mapFutureList(videoViews(user)),
         currentPage = page,
         maxPerPage = maxPerPage
       )
@@ -84,13 +82,13 @@ final private[video] class VideoApi(
 
     def popular(user: Option[UserId], page: Int): Fu[Paginator[VideoView]] =
       Paginator(
-        adapter = (new Adapter[Video](
+        adapter = new Adapter[Video](
           collection = videoColl,
           selector = $empty,
           projection = none,
           sort = $doc("metadata.likes" -> -1),
           _.sec
-        )).mapFutureList(videoViews(user)),
+        ).mapFutureList(videoViews(user)),
         currentPage = page,
         maxPerPage = maxPerPage
       )
@@ -99,26 +97,26 @@ final private[video] class VideoApi(
       if tags.isEmpty then popular(user, page)
       else
         Paginator(
-          adapter = (new Adapter[Video](
+          adapter = new Adapter[Video](
             collection = videoColl,
             selector = $doc("tags".$all(tags)),
             projection = none,
             sort = $doc("metadata.likes" -> -1),
             _.sec
-          )).mapFutureList(videoViews(user)),
+          ).mapFutureList(videoViews(user)),
           currentPage = page,
           maxPerPage = maxPerPage
         )
 
     def byAuthor(user: Option[UserId], author: String, page: Int): Fu[Paginator[VideoView]] =
       Paginator(
-        adapter = (new Adapter[Video](
+        adapter = new Adapter[Video](
           collection = videoColl,
           selector = $doc("author" -> author),
           projection = none,
           sort = $doc("metadata.likes" -> -1),
           _.sec
-        )).mapFutureList(videoViews(user)),
+        ).mapFutureList(videoViews(user)),
         currentPage = page,
         maxPerPage = maxPerPage
       )
@@ -196,45 +194,37 @@ final private[video] class VideoApi(
 
     private val max = 25
 
-    private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths") {
-      _.expireAfterAccess(10.minutes)
-        .buildAsyncFuture { filterTags =>
-          val allPaths =
-            if filterTags.isEmpty then
-              allPopular.map { tags =>
-                tags.filterNot(_.isNumeric)
-              }
-            else
-              videoColl
-                .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
-                  import framework.*
-                  Match($doc("tags".$all(filterTags))) -> List(
-                    Project($doc("tags" -> true)),
-                    UnwindField("tags"),
-                    GroupField("tags")("nb" -> SumAll)
-                  )
-                .dmap { _.flatMap(_.asOpt[TagNb]) }
+    private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths"):
+      _.expireAfterAccess(10.minutes).buildAsyncFuture: filterTags =>
+        val allPaths =
+          if filterTags.isEmpty then
+            allPopular.map: tags =>
+              tags.filterNot(_.isNumeric)
+          else
+            videoColl
+              .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
+                import framework.*
+                Match($doc("tags".$all(filterTags))) -> List(
+                  Project($doc("tags" -> true)),
+                  UnwindField("tags"),
+                  GroupField("tags")("nb" -> SumAll)
+                )
+              .dmap { _.flatMap(_.asOpt[TagNb]) }
 
-          allPopular.zip(allPaths).map { case (all, paths) =>
-            val tags = all
-              .map { t =>
-                paths.find(_._id == t._id).getOrElse(TagNb(t._id, 0))
-              }
-              .filterNot(_.empty)
-              .take(max)
-            val missing = filterTags.filterNot { t =>
-              tags.exists(_.tag == t)
-            }
-            val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
-              all.find(_.tag == t)
-            }
-            list.sortBy { t =>
-              if filterTags contains t.tag then Int.MinValue
-              else -t.nb
-            }
-          }
+        allPopular.zip(allPaths).map { case (all, paths) =>
+          val tags = all
+            .map: t =>
+              paths.find(_._id == t._id).getOrElse(TagNb(t._id, 0))
+            .filterNot(_.empty)
+            .take(max)
+          val missing = filterTags.filterNot: t =>
+            tags.exists(_.tag == t)
+          val list = tags.take(max - missing.size) ::: missing.flatMap: t =>
+            all.find(_.tag == t)
+          list.sortBy: t =>
+            if filterTags contains t.tag then Int.MinValue
+            else -t.nb
         }
-    }
 
     private val popularCache = cacheApi.unit[List[TagNb]]:
       _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
@@ -246,5 +236,5 @@ final private[video] class VideoApi(
               GroupField("tags")("nb" -> SumAll),
               Sort(Descending("nb"))
             )
-          .dmap:
+          .map:
             _.flatMap(_.asOpt[TagNb])

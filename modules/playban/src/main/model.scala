@@ -113,7 +113,7 @@ object TempBan:
     *   - >3 days quick drop off Account less than 3 days old --> 2x the usual time
     */
   def make(bans: Vector[TempBan], age: Days, trust: UserTrust): TempBan =
-    make {
+    make:
       val base = bans.lastOption
         .so: prev =>
           prev.endsAt.toNow.toHours.toSaturatedInt match
@@ -123,7 +123,6 @@ object TempBan:
       val multiplier      = if age == Days(0) then 3 else if age <= 3 then 2 else 1
       val trustMultiplier = if trust.yes then 1 else 2
       base * multiplier * trustMultiplier
-    }
 
 enum Outcome(val id: Int, val name: String):
 

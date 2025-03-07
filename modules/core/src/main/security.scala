@@ -7,10 +7,14 @@ import play.api.mvc.RequestHeader
 import lila.core.email.EmailAddress
 import lila.core.net.IpAddress
 import lila.core.user.User
-import lila.core.userId.{ UserId, UserName, MyId }
+import lila.core.userId.{ UserId, UserName }
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
+
+case class ReopenAccount(user: User)
+object ReopenAccount extends scalalib.bus.GivenChannel[ReopenAccount]("reopenAccount")
+
 case class DeletePublicChats(userId: UserId)
 
 trait LilaCookie:

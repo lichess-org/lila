@@ -36,16 +36,17 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def follow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api.reachedMaxFollowing(me).flatMap {
-        if _ then
-          val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
-          env.msg.api.postPreset(me, msg) >> rateLimited(msg.name)
-        else
-          api.follow(me, user.id).recoverDefault >> negotiate(
-            renderActions(user.name, getBool("mini")),
-            jsonOkResult
-          )
-      }
+      api
+        .reachedMaxFollowing(me)
+        .flatMap:
+          if _ then
+            val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
+            env.msg.api.postPreset(me, msg) >> rateLimited(msg.name)
+          else
+            api.follow(me, user.id).recoverDefault >> negotiate(
+              renderActions(user.name, getBool("mini")),
+              jsonOkResult
+            )
   }
   def followBc = follow
 
@@ -118,9 +119,8 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
       Ok.async:
-        RelatedPager(api.blockingPaginatorAdapter(me), page).map {
+        RelatedPager(api.blockingPaginatorAdapter(me), page).map:
           views.relation.blocks(me, _)
-        }
   }
 
   private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using Context) =

@@ -773,23 +773,13 @@
   <string name="sessions">Sesiones</string>
   <string name="revokeAllSessions">cerrar toles sesiones</string>
   <string name="playChessEverywhere">Xuega al axedrez onde sía</string>
-  <string name="asFreeAsLichess">Tan gratis como Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Construyíu por amor al axedrez, non por dineru</string>
   <string name="everybodyGetsAllFeaturesForFree">Toos tienen accesu gratuitu a toles funciones</string>
-  <string name="zeroAdvertisement">Ensin anuncios</string>
-  <string name="fullFeatured">Toles funciones</string>
-  <string name="phoneAndTablet">Teléfonu y tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
-  <string name="correspondenceChess">Axedrez per correspondencia</string>
-  <string name="onlineAndOfflinePlay">Xugar en llínea o ensin conexón</string>
   <string name="viewTheSolution">Ver la solución</string>
-  <string name="followAndChallengeFriends">Sigue y reta a collacios</string>
   <string name="noChallenges">Nun hai desafíos.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">¡Disponible en %s idioma!</item>
     <item quantity="other">¡Disponible en %s idiomes!</item>
   </plurals>
-  <string name="gameAnalysis">Análisis de partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s uniose a %2$s</string>
   <string name="xLikesY">a %1$s gustale %2$s</string>
@@ -985,6 +975,7 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="focusChat">Enfocar chat</string>
   <string name="showHelpDialog">Amosar esti cuadru de diálogu d\'ayuda</string>
   <string name="reopenYourAccount">Reactivar la to cuenta</string>
+  <string name="reopenYourAccountDescription">Si cerrasti la to cuenta y camudasti d\'opinión, entá tienes una oportunidá de recuperala.</string>
   <string name="emailAssociatedToaccount">Dirección de corréu electrónicu asociada a la cuenta</string>
   <string name="sentEmailWithLink">Te unviemos un corréu electrónicu con un enllaz.</string>
   <string name="tournamentEntryCode">Códigu d\'accesu al tornéu</string>

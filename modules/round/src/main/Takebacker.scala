@@ -3,7 +3,7 @@ package lila.round
 import chess.{ ByColor, Color }
 
 import lila.common.Bus
-import lila.core.data.Preload
+import scalalib.data.Preload
 import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.round.*
 import lila.game.{ Event, GameRepo, Progress, Rewind, UciMemo }
@@ -133,14 +133,14 @@ final private class Takebacker(
     proxy.save(p2).inject(p2.events)
 
   private def publishTakebackOffer(game: Game): Unit =
-    if lila.game.Game.isBoardOrBotCompatible(game) then
+    if lila.game.Game.mightBeBoardOrBotCompatible(game) then
       Bus.publish(
         lila.game.actorApi.BoardTakebackOffer(game),
         lila.game.actorApi.BoardTakebackOffer.makeChan(game.id)
       )
 
   private def publishTakeback(prevPov: Pov)(using proxy: GameProxy): Unit =
-    if lila.game.Game.isBoardOrBotCompatible(prevPov.game) then
+    if lila.game.Game.mightBeBoardOrBotCompatible(prevPov.game) then
       proxy.withPov(prevPov.color): p =>
         fuccess:
           Bus.publish(

@@ -128,9 +128,8 @@ final private class RoundAsyncActor(
       getSocketStatus.tap(promise.completeWith)
 
     case GetGameAndSocketStatus(promise) =>
-      getSocketStatus
-        .zip(getGame)
-        .map: (socket, game) =>
+      (getSocketStatus, getGame)
+        .mapN: (socket, game) =>
           GameAndSocketStatus(game.err(s"Game $gameId not found"), socket)
         .tap(promise.completeWith)
 
@@ -148,20 +147,16 @@ final private class RoundAsyncActor(
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>
-        gameRepo
-          .hasHoldAlert(pov)
-          .flatMap {
-            if _ then funit
-            else
-              lila
-                .log("cheat")
-                .info(
-                  s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
-                )
-              lila.mon.cheat.holdAlert.increment()
-              gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
-          }
-          .inject(Nil)
+        for
+          has <- gameRepo.hasHoldAlert(pov)
+          _ <- has.not.so:
+            lila
+              .log("cheat")
+              .info:
+                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.ply} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+            lila.mon.cheat.holdAlert.increment()
+            gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.ply, mean = mean, sd = sd)).void
+        yield Nil
 
     case lila.tree.AnalysisProgress(payload) =>
       fuccess:
@@ -190,11 +185,10 @@ final private class RoundAsyncActor(
 
     case p: BotPlay =>
       val res = proxy
-        .withPov(p.playerId) {
+        .withPov(p.playerId):
           _.so: pov =>
             if pov.game.outoftime(withGrace = true) then finisher.outOfTime(pov.game)
             else player.bot(p.uci, this)(pov)
-        }
         .dmap(publish)
       p.promise.foreach(_.completeWith(res))
       res
@@ -236,22 +230,20 @@ final private class RoundAsyncActor(
     case ResignForce(playerId) =>
       handle(playerId): pov =>
         pov.mightClaimWin.so:
-          getPlayer(!pov.color).isLongGone.flatMap {
+          getPlayer(!pov.color).isLongGone.flatMap:
             if _ then
               finisher.rageQuit(
                 pov.game,
                 Some(pov.color).ifFalse(pov.game.situation.opponentHasInsufficientMaterial)
               )
             else fuccess(List(Event.Reload))
-          }
 
     case DrawForce(playerId) =>
       handle(playerId): pov =>
         (pov.game.forceDrawable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn).so:
-          getPlayer(!pov.color).isLongGone.flatMap {
+          getPlayer(!pov.color).isLongGone.flatMap:
             if _ then finisher.rageQuit(pov.game, None)
             else fuccess(List(Event.Reload))
-          }
 
     case AbortForce =>
       handle: game =>
@@ -287,10 +279,11 @@ final private class RoundAsyncActor(
 
     case Threefold =>
       proxy.withGame: game =>
-        drawer.autoThreefold(game).map {
-          _.foreach: pov =>
-            this ! DrawClaim(pov.player.id)
-        }
+        drawer
+          .autoThreefold(game)
+          .map:
+            _.foreach: pov =>
+              this ! DrawClaim(pov.player.id)
 
     case Rematch(playerId, rematch) => handle(playerId)(rematcher(_, rematch))
 
@@ -344,12 +337,13 @@ final private class RoundAsyncActor(
 
     case NoStart =>
       handle: game =>
-        game.timeBeforeExpiration.exists(_.centis == 0).so {
-          if game.isSwiss then
-            game.startClock.so: g =>
-              proxy.save(g).inject(List(Event.Reload))
-          else finisher.noStart(game)
-        }
+        game.timeBeforeExpiration
+          .exists(_.centis == 0)
+          .so:
+            if game.isSwiss then
+              game.startClock.so: g =>
+                proxy.save(g).inject(List(Event.Reload))
+            else finisher.noStart(game)
 
     case StartClock =>
       handle: game =>
@@ -411,7 +405,7 @@ final private class RoundAsyncActor(
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if lila.game.Game.isBoardOrBotCompatible(pov.game) then
+    if lila.game.Game.mightBeBoardOrBotCompatible(pov.game) then
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone.makeChan(gameId)

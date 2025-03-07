@@ -6,6 +6,7 @@ import chess.format.Fen
 import play.api.libs.json.*
 
 import lila.common.Bus
+import lila.common.actorBus.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.game.TvSelect
@@ -40,9 +41,10 @@ final private class TvBroadcast(
         .mapMaterializedValue { queue =>
           val client = Client(queue, compat)
           self ! Add(client)
-          queue.watchCompletion().addEffectAnyway {
-            self ! Remove(client)
-          }
+          queue
+            .watchCompletion()
+            .addEffectAnyway:
+              self ! Remove(client)
           featured
             .ifFalse(compat)
             .foreach: f =>

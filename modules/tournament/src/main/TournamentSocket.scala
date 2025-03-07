@@ -70,9 +70,8 @@ final private class TournamentSocket(
   private lazy val send = socketKit.send("tour-out")
 
   socketKit
-    .subscribe("tour-in", Protocol.In.reader.orElse(RP.In.reader))(
+    .subscribe("tour-in", Protocol.In.reader.orElse(RP.In.reader)):
       tourHandler.orElse(handler).orElse(socketKit.baseHandler)
-    )
     .andDo(send.exec(P.Out.boot))
 
   object Protocol:

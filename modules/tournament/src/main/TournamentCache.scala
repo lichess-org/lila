@@ -16,6 +16,7 @@ final class TournamentCache(
   object tourCache:
     private val cache = cacheApi[TourId, Option[Tournament]](128, "tournament.tournament"):
       _.expireAfterWrite(1.second)
+        .maximumSize(256)
         .buildAsyncFuture(tournamentRepo.byId)
     export cache.get as byId
     def clear(id: TourId)     = cache.invalidate(id)
@@ -35,7 +36,7 @@ final class TournamentCache(
     expireAfter = Syncache.ExpireAfter.Access(20.minutes)
   )
 
-  def ranking(tour: Tournament): Fu[FullRanking] =
+  def ranking(tour: lila.core.tournament.Tournament): Fu[FullRanking] =
     if tour.isFinished then finishedRanking.get(tour.id)
     else ongoingRanking.get(tour.id)
 
@@ -45,13 +46,13 @@ final class TournamentCache(
       .buildAsyncFuture(playerRepo.computeRanking)
 
   // only applies to finished tournaments
-  private val finishedRanking = cacheApi[TourId, FullRanking](1024, "tournament.finishedRanking"):
+  private val finishedRanking = cacheApi[TourId, FullRanking](2_048, "tournament.finishedRanking"):
     _.expireAfterAccess(1.hour)
-      .maximumSize(2048)
+      .maximumSize(2_048)
       .buildAsyncFuture(playerRepo.computeRanking)
 
   private[tournament] val teamInfo =
-    cacheApi[(TourId, TeamId), TeamBattle.TeamInfo](16, "tournament.teamInfo"):
+    cacheApi[(TourId, TeamId), TeamBattle.TeamInfo](32, "tournament.teamInfo"):
       _.expireAfterWrite(5.seconds)
         .maximumSize(64)
         .buildAsyncFuture: (tourId, teamId) =>
@@ -113,9 +114,9 @@ final class TournamentCache(
         .map:
           arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable, key.variant)
 
-    private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet"):
+    private val cache = cacheApi[SheetKey, Sheet](32_768, "tournament.sheet"):
       _.expireAfterAccess(4.minutes)
-        .maximumSize(65536)
+        .maximumSize(65_536)
         .buildAsyncFuture(compute)
 
   private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]]:

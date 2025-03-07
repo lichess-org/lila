@@ -86,14 +86,14 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
         )
     )
 
-  def tournamentLink(tour: Tournament)(using Translate): Frag =
+  def tournamentLink(tour: Tournament)(using Translate): Tag =
     a(
       dataIcon := Icon.Trophy.value,
       cls      := (if tour.isScheduled then "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id).url
     )(tour.name())
 
-  def tournamentLink(tourId: TourId)(using Translate): Frag =
+  def tournamentLink(tourId: TourId)(using Translate): Tag =
     a(
       dataIcon := Icon.Trophy.value,
       cls      := "text",

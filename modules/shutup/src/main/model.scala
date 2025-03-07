@@ -55,11 +55,10 @@ enum TextType(val key: String, val rotation: Int, val name: String):
   case PublicChat         extends TextType("puc", 60, "Public chat")
 
 object TextType:
-  def of(source: PublicSource) =
-    source match
-      case PublicSource.Forum(_) => TextType.PublicForumMessage
-      case PublicSource.Ublog(_) => TextType.UblogPost
-      case _                     => TextType.PublicChat
+  def of: PublicSource => TextType =
+    case PublicSource.Forum(_) => TextType.PublicForumMessage
+    case PublicSource.Ublog(_) => TextType.UblogPost
+    case _                     => TextType.PublicChat
 
 case class TextReport(textType: TextType, ratios: List[Double]):
 

@@ -773,22 +773,13 @@
   <string name="sessions">جلسه</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
-  <string name="asFreeAsLichess">کاملا رایگان</string>
-  <string name="builtForTheLoveOfChessNotMoney">ساخته شده با عشق به شطرنج نه پول</string>
   <string name="everybodyGetsAllFeaturesForFree">همگی از مزایا بصورت رایگان استفاده می کنند</string>
-  <string name="zeroAdvertisement">بدون تبلیغات</string>
-  <string name="fullFeatured">با تمامی امکانات</string>
-  <string name="phoneAndTablet">گوشی و رایانک</string>
-  <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، فکری</string>
-  <string name="correspondenceChess">شطرنج مکاتبه ای</string>
-  <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راه‌حل</string>
-  <string name="followAndChallengeFriends">دنبالیدن و پیشنهاد بازی دادن به دوستان</string>
+  <string name="noChallenges">هیچ چالشی موجود نیست.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">در %s زبان موجود است!</item>
     <item quantity="other">در %s زبان موجود است!</item>
   </plurals>
-  <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
   <string name="xHostsY">%1$s میزبان %2$s است</string>
   <string name="xJoinsY">%1$s به %2$s می‌پیوندد</string>
   <string name="xLikesY">%1$s، %2$s را می‌پسندد</string>
@@ -984,6 +975,7 @@
   <string name="focusChat">به گپ برو</string>
   <string name="showHelpDialog">نمایش این پنجره راهنما</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
+  <string name="reopenYourAccountDescription">اگر حسابتان را بسته اید ولی نظرتان عوض شده، فرصت بازپس‌گیری آن را دارید.</string>
   <string name="emailAssociatedToaccount">آدرس ایمیلی که به حساب کاربری مربوط شده است</string>
   <string name="sentEmailWithLink">ما رایانامه‌ای شامل یک پیوند را به شما فرستاده‌ایم.</string>
   <string name="tournamentEntryCode">کد ورودی مسابقه</string>

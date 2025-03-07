@@ -2,7 +2,6 @@ package lila.plan
 
 import play.api.i18n.Lang
 import reactivemongo.api.*
-import cats.syntax.all.*
 
 import lila.common.Bus
 import lila.core.config.Secret
@@ -12,6 +11,8 @@ import lila.memo.CacheApi.*
 import scalalib.paginator.Paginator
 import lila.core.LightUser
 import lila.db.paginator.Adapter
+import lila.ui.Context
+import lila.core.config.BaseUrl
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -169,16 +170,35 @@ final class PlanApi(
     def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
       patron.stripe.map(_.customerId).so(stripeClient.getCustomer)
 
-    def createSession(data: CreateStripeSession)(using Lang)(using me: Me): Fu[StripeSession] =
-      canUse(data.ip, data.checkout.freq).flatMap { can =>
-        if can.yes then
-          data.checkout.freq match
-            case Freq.Onetime => stripeClient.createOneTimeSession(data)
-            case Freq.Monthly => stripeClient.createMonthlySession(data)
-        else
-          logger.warn(s"${me.username} ${data.ip} ${data.customerId} can't use stripe for ${data.checkout}")
-          fufail(StripeClient.CantUseException)
-      }
+    def createSession(
+        checkout: PlanCheckout,
+        customerId: StripeCustomerId,
+        giftTo: Option[User],
+        baseUrl: BaseUrl
+    )(using ctx: Context, me: Me, lang: Lang) =
+      for
+        isLifetime <- pricingApi.isLifetime(checkout.money)
+        data = CreateStripeSession(
+          customerId,
+          checkout,
+          NextUrls(
+            cancel = s"${baseUrl}${routes.Plan.index}",
+            success = s"${baseUrl}${routes.Plan.thanks}"
+          ),
+          giftTo = giftTo,
+          isLifetime = isLifetime,
+          ip = ctx.ip
+        )
+        session <- canUse(data.ip, data.checkout.freq).flatMap { can =>
+          if can.yes then
+            data.checkout.freq match
+              case Freq.Onetime => stripeClient.createOneTimeSession(data)
+              case Freq.Monthly => stripeClient.createMonthlySession(data)
+          else
+            logger.warn(s"${me.username} ${data.ip} ${data.customerId} can't use stripe for ${data.checkout}")
+            fufail(StripeClient.CantUseException)
+        }
+      yield StripeJson.toClient(session)
 
     def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
       stripeClient.createPaymentUpdateSession(sub, nextUrls)

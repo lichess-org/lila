@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">ამოცანები</string>
-  <string name="puzzleThemes">lichess. org / ვარჯიში/თემები
-ამოცანების თემები</string>
+  <string name="puzzles">თავსატეხები</string>
   <string name="recommended">გირჩევთ და გთავაზობთ</string>
   <string name="phases">ფაზები, ეტაპები</string>
   <string name="motifs">მოტივები</string>

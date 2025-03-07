@@ -53,6 +53,7 @@
   <string name="teams">Команди</string>
   <string name="boards">Дошки</string>
   <string name="overview">Огляд</string>
+  <string name="subscribeTitle">Підпишіться, аби отримувати сповіщення перед початком кожного раунду. Ви можете перемикати дзвінок та push-сповіщення трансляцій у налаштуваннях вашого облікового запису.</string>
   <string name="uploadImage">Завантажити зображення турніру</string>
   <string name="noBoardsYet">Ще немає дощок. Вони з\'являться, коли ігри будуть завантажені.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Дошки можна завантажити із джерела або через %s</string>
@@ -77,4 +78,5 @@
   <string name="fideRatingCategory">Категорія рейтингу FIDE</string>
   <string name="optionalDetails">Додаткові деталі</string>
   <string name="pastBroadcasts">Минулі трансляції</string>
+  <string name="backToLiveMove">Повернутися до поточного ходу</string>
 </resources>

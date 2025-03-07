@@ -13,7 +13,7 @@ class BinaryCLMTest extends munit.FunSuite:
   def read(bytes: List[String]): CastleLastMove =
     BinaryFormat.castleLastMove.read(ByteArray.parseBytes(bytes))
 
-  test("binary CastleLastMove write") {
+  test("binary CastleLastMove write"):
     val clmt = CastleLastMove.init
     assertEquals(write(clmt), "11110000" :: _0_ :: Nil)
     assertEquals(write(clmt.copy(castles = clmt.castles.without(White))), "00110000" :: _0_ :: Nil)
@@ -23,8 +23,7 @@ class BinaryCLMTest extends munit.FunSuite:
     )
     assertEquals(write(clmt.copy(lastMove = Uci("a1a2"))), "11110000" :: "00000001" :: Nil)
     assertEquals(write(clmt.copy(lastMove = Uci("b1h8"))), "11110010" :: "00111111" :: Nil)
-  }
-  test("binary CastleLastMove read") {
+  test("binary CastleLastMove read"):
     val clmt = CastleLastMove.init
     assertEquals(read("11110000" :: _0_ :: List.fill(3)(_0_)), clmt)
     assertEquals(
@@ -51,4 +50,3 @@ class BinaryCLMTest extends munit.FunSuite:
 
     // check from old format ignored
     assertEquals(read("11110000" :: _0_ :: "00000001" :: "10000110" :: "10011111" :: "00111111" :: Nil), clmt)
-  }

@@ -6,17 +6,23 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import scalalib.model.Seconds
-import lila.common.Form.{ cleanText, formatter, into, stringIn, LocalDateTimeOrTimestamp, partial }
+import lila.common.Form.{
+  cleanText,
+  cleanNonEmptyText,
+  formatter,
+  into,
+  stringIn,
+  LocalDateTimeOrTimestamp,
+  partial
+}
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
 import lila.relay.RelayRound.Sync.url.*
-import lila.common.Form.PrettyDateTime
 
 final class RelayRoundForm(using mode: Mode):
 
   import RelayRoundForm.*
-  import lila.common.Form.ISOInstantOrTimestamp
 
   private given (using Me): Formatter[Upstream.Url] =
     formatter.stringTryFormatter(str => validateUpstreamUrl(str).map(Upstream.Url.apply), _.url.toString)
@@ -69,7 +75,7 @@ final class RelayRoundForm(using mode: Mode):
           case ok: Data.Status => ok,
       "period"    -> optional(number(min = 2, max = 60).into[Seconds]),
       "delay"     -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
-      "onlyRound" -> optional(number(min = 1, max = 999)),
+      "onlyRound" -> optional(cleanNonEmptyText(maxLength = 50)),
       "slices" -> optional:
         nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
@@ -144,20 +150,21 @@ object RelayRoundForm:
       startsAfterPrevious = prev.exists(_.startsAfterPrevious).option(true),
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
-      onlyRound = prev.flatMap(_.sync.onlyRound).map(_ + 1),
+      onlyRound = prev.flatMap(_.sync.onlyRound).map(_.map(_ + 1)).map(Sync.OnlyRound.toString),
       slices = prev.flatMap(_.sync.slices)
     )
 
   case class GameIds(ids: List[GameId])
 
-  private def cleanUrl(source: String)(using mode: Mode): Option[URL] =
+  private[relay] def cleanUrl(source: String)(using mode: Mode): Option[URL] =
     for
       url <- lila.common.url.parse(source).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)
       if mode.notProd || !blocklist.exists(subdomain(host, _))
-      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
+      if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub") || url.toString
+        .startsWith("https://www.chess.com/events/v1/api")
     yield url
 
   private def validateUpstreamUrl(s: String)(using Me, Mode): Either[String, URL] = for
@@ -210,7 +217,7 @@ object RelayRoundForm:
       status: Option[Data.Status] = None,
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None,
-      onlyRound: Option[Int] = None,
+      onlyRound: Option[String] = None,
       slices: Option[List[RelayGame.Slice]] = None
   ):
     def upstream: Option[Upstream] = syncSource.match
@@ -245,7 +252,7 @@ object RelayRoundForm:
         nextAt = none,
         period = if Granter(_.StudyAdmin) then period else prev.flatMap(_.period),
         delay = delay,
-        onlyRound = onlyRound.ifFalse(upstream.exists(_.isInternal)),
+        onlyRound = onlyRound.ifFalse(upstream.exists(_.isInternal)).map(Sync.OnlyRound.parse),
         slices = slices,
         log = SyncLog.empty
       )
@@ -296,7 +303,7 @@ object RelayRoundForm:
           else "new"
         ,
         period = relay.sync.period,
-        onlyRound = relay.sync.onlyRound,
+        onlyRound = relay.sync.onlyRound.map(Sync.OnlyRound.toString),
         slices = relay.sync.slices,
         delay = relay.sync.delay
       )

@@ -53,10 +53,11 @@ final class Fishnet(env: Env) extends LilaController(env):
     }
 
   def keyExists(key: String) = Anon:
-    api.keyExists(lila.fishnet.Client.Key(key)).map {
-      if _ then Ok
-      else NotFound
-    }
+    api
+      .keyExists(lila.fishnet.Client.Key(key))
+      .map:
+        if _ then Ok
+        else NotFound
 
   val status = Anon:
     api.status.map { JsonStrOk(_) }

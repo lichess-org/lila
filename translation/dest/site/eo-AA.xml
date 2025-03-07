@@ -190,6 +190,7 @@
   <string name="latestForumPosts">Plej novaj forumaj afiŝoj</string>
   <string name="players">Ŝakludantoj</string>
   <string name="friends">Amikoj</string>
+  <string name="otherPlayers">aliaj ludantoj</string>
   <string name="discussions">Konversacioj</string>
   <string name="today">Hodiaŭ</string>
   <string name="yesterday">Hieraŭ</string>
@@ -269,6 +270,7 @@
     <item quantity="one">%s ludo kun vi</item>
     <item quantity="other">%s ludoj kun vi</item>
   </plurals>
+  <string name="ok">Bone</string>
   <string name="cancel">Nuligi</string>
   <string name="whiteTimeOut">La tempo de blanko finiĝis</string>
   <string name="blackTimeOut">La tempo de nigro finiĝis</string>
@@ -546,6 +548,7 @@
   <string name="descPrivateHelp">Teksto kiun nur la teama grupo rigardos. Se estas agordata, oni anstataŭos la publikan priskribon por la teama grupo.</string>
   <string name="no">Ne</string>
   <string name="yes">Jes</string>
+  <string name="website">Retejo</string>
   <string name="help">Helpo:</string>
   <string name="createANewTopic">Krei novan temon</string>
   <string name="topics">Temoj</string>
@@ -766,22 +769,12 @@
   <string name="sessions">Sesioj</string>
   <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
-  <string name="asFreeAsLichess">Tiom libera kiom lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Konstruita por la amo de ŝako , ne mono</string>
   <string name="everybodyGetsAllFeaturesForFree">Ĉiuj ricevas ĉiujn trajtojn senpage</string>
-  <string name="zeroAdvertisement">Nulo anonco</string>
-  <string name="fullFeatured">Plen-trajte</string>
-  <string name="phoneAndTablet">Telefono kaj tablojdo</string>
-  <string name="bulletBlitzClassical">Kuglo , blitz , klasika</string>
-  <string name="correspondenceChess">Korespondado ŝako</string>
-  <string name="onlineAndOfflinePlay">interrete kaj eksterrete ludi</string>
   <string name="viewTheSolution">Vidi la solvon</string>
-  <string name="followAndChallengeFriends">Sekvi kaj defii amikojn</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Havebla en %s lingvo!</item>
     <item quantity="other">Havebla en %s lingvoj!</item>
   </plurals>
-  <string name="gameAnalysis">Ludanalizo</string>
   <string name="xHostsY">%1$s gastigas %2$s</string>
   <string name="xJoinsY">%1$s kuplas %2$s</string>
   <string name="xLikesY">%1$s ŝatas %2$s</string>

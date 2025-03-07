@@ -82,9 +82,8 @@ object GameFilterMenu:
             nb = nb
           )(page)
         case All =>
-          std(Query.started(user.id)).flatMap {
+          std(Query.started(user.id)).flatMap:
             _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
-          }
         case Me    => std(Query.opponents(user, me | user))
         case Rated => std(Query.rated(user.id))
         case Win   => std(Query.win(user.id))

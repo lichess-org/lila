@@ -101,10 +101,6 @@ final class Env(
     def mk = (s: Secret) => wire[PasswordReset]
     mk(config.passwordResetSecret)
 
-  lazy val magicLink =
-    def mk = (s: Secret) => wire[MagicLink]
-    mk(config.passwordResetSecret)
-
   lazy val reopen =
     def mk = (s: Secret) => wire[Reopen]
     mk(config.passwordResetSecret)
@@ -113,7 +109,9 @@ final class Env(
     def mk = (s: Secret) => wire[EmailChange]
     mk(config.emailChangeSecret)
 
-  lazy val loginToken = LoginToken(config.loginTokenSecret, userRepo)
+  lazy val loginToken =
+    def mk = (s: Secret) => wire[LoginToken]
+    mk(config.loginTokenSecret)
 
   lazy val disposableEmailAttempt = wire[DisposableEmailAttempt]
 

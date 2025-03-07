@@ -21,7 +21,12 @@
   <plurals name="nbViews">
     <item quantity="other">คนดู %s</item>
   </plurals>
+  <string name="latestBlogPosts">โพสต์บล็อกล่าสุด</string>
+  <string name="uploadAnImageForYourPost">อัปโหลดรูปสำหรับบล็อกของคุณ</string>
   <string name="imageCredit">เครดิตภาพ</string>
+  <string name="selectPostTopics">เลือกหัวข้อที่โพสต์ของคุณเกี่ยวกับ</string>
+  <string name="inappropriateContentAccountClosed">อะไรก็ตามที่ไม่เหมาะสมอาจทำให้บัญชีของคุณโดนปิดได้</string>
+  <string name="blogTips">เคล็ดลับง่ายๆของเราในการเขียนบล็อกที่ดี</string>
   <string name="discussThisBlogPostInTheForum">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>
   <string name="youBlockedByBlogAuthor">คุณถูกปิดกั้นโดยผู้เขียนบล็อก</string>
 </resources>

@@ -23,9 +23,6 @@ private object RelayPlanUpdateFixtures:
 
   val initialChapter = mkChapter(1, Tags.empty)
 
-  lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
-    mkChapter(i + 1, game.tags)
-
   val games: RelayGames = RelayGame.iso.to:
     MultiPgn.split(
       PgnStr("""
@@ -105,3 +102,50 @@ private object RelayPlanUpdateFixtures:
 """),
       Max(64)
     )
+
+  lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
+    mkChapter(i + 1, game.tags)
+
+  object repeatedPairings:
+    val games: RelayGames = RelayGame.iso.to:
+      MultiPgn.split(
+        PgnStr("""
+[White "Banh Gia Huy"]
+[Black "Yaniv, Yuval"]
+[Round "1.1"]
+
+1. c4 { [%eval 0.13] } 1... g6 
+
+
+[White "Banh Gia Huy"]
+[Black "Yaniv, Yuval"]
+[Round "1.2"]
+
+1. e4 { [%eval 0.15] [%clk 1:20:10] } 1... c5 { [%eval 0.25] [%clk 1:30:56] } 
+
+
+[White "Banh Gia Huy"]
+[Black "Yaniv, Yuval"]
+[Round "1.3"]
+
+1. c4 { [%eval 0.13] [%clk 1:27:40] } 1... e6 
+
+
+[White "Berczes, David"]
+[Black "Pap, Misa"]
+[Round "1.1"]
+
+1. Nf3 { [%eval 0.14] } 1... Nf6 { [%eval 0.22] } 
+
+
+[White "Berczes, David"]
+[Black "Pap, Misa"]
+[Round "1.2"]
+
+1. d4 { [%eval 0.16] [%clk 1:27:11] } 1... f5 { [%eval 0.5] [%clk 1:30:31] } 
+  """),
+        Max(64)
+      )
+
+    lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
+      mkChapter(i + 1, game.tags)

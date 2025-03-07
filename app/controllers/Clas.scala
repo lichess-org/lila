@@ -21,9 +21,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         case None                 => renderHome
         case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
           Ok.async:
-            env.clas.api.clas.of(me).map {
-              views.clas.clas.teacherIndex(_, getBool("closed"))
-            }
+            env.clas.api.clas
+              .of(me)
+              .map:
+                views.clas.clas.teacherIndex(_, getBool("closed"))
         case Some(me) =>
           for
             hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| couldBeTeacher.not
@@ -117,15 +118,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result],
       orDefault: Context => Fu[Result] = notFound(using _)
   )(using ctx: Context, me: Me): Fu[Result] =
-    isGranted(_.Teacher).so(env.clas.api.clas.isTeacherOf(me, id)).flatMap {
-      if _ then forTeacher
-      else
-        Found(env.clas.api.clas.byId(id)): clas =>
-          env.clas.api.student.activeWithUsers(clas).flatMap { students =>
-            if students.exists(_.student.is(me)) then forStudent(clas, students)
-            else orDefault(ctx)
-          }
-    }
+    isGranted(_.Teacher)
+      .so(env.clas.api.clas.isTeacherOf(me, id))
+      .flatMap:
+        if _ then forTeacher
+        else
+          Found(env.clas.api.clas.byId(id)): clas =>
+            env.clas.api.student.activeWithUsers(clas).flatMap { students =>
+              if students.exists(_.student.is(me)) then forStudent(clas, students)
+              else orDefault(ctx)
+            }
 
   def wall(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAny(id)(
@@ -142,9 +144,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def wallEdit(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       Ok.async:
-        env.clas.api.student.activeWithUsers(clas).map {
-          views.clas.teacherDashboard.wall.edit(clas, _, env.clas.forms.clas.wall.fill(clas.wall))
-        }
+        env.clas.api.student
+          .activeWithUsers(clas)
+          .map:
+            views.clas.teacherDashboard.wall.edit(clas, _, env.clas.forms.clas.wall.fill(clas.wall))
   }
 
   def wallUpdate(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
@@ -235,9 +238,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def edit(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       Ok.async:
-        env.clas.api.student.activeWithUsers(clas).map {
-          views.clas.clas.edit(clas, _, env.clas.forms.clas.edit(clas))
-        }
+        env.clas.api.student
+          .activeWithUsers(clas)
+          .map:
+            views.clas.clas.edit(clas, _, env.clas.forms.clas.edit(clas))
   }
 
   def update(id: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
@@ -266,13 +270,15 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     else
       WithClassAndStudents(id): (clas, students) =>
         for
-          created <- ctx.req.flash.get("created").map(_.split(' ')).so {
-            case Array(userId, password) =>
-              env.clas.api.student
-                .get(clas, UserId(userId))
-                .map2(lila.clas.Student.WithPassword(_, ClearPassword(password)))
-            case _ => fuccess(none)
-          }
+          created <- ctx.req.flash
+            .get("created")
+            .map(_.split(' '))
+            .so:
+              case Array(userId, password) =>
+                env.clas.api.student
+                  .get(clas, UserId(userId))
+                  .map2(lila.clas.Student.WithPassword(_, ClearPassword(password)))
+              case _ => fuccess(none)
           nbStudents <- env.clas.api.student.count(clas.id)
           createForm <- env.clas.forms.student.generate
           inviteForm = env.clas.forms.student.invite(clas)
@@ -305,18 +311,19 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def studentManyForm(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
       for
-        created <- ctx.req.flash.get("created").so {
-          _.split('/').toList
-            .flatMap:
-              _.split(' ') match
-                case Array(u, p) => (UserId(u), p).some
-                case _           => none
-            .sequentially: (u, p) =>
-              env.clas.api.student
-                .get(clas, u)
-                .map2(lila.clas.Student.WithPassword(_, ClearPassword(p)))
-            .map(_.flatten)
-        }
+        created <- ctx.req.flash
+          .get("created")
+          .so:
+            _.split('/').toList
+              .flatMap:
+                _.split(' ') match
+                  case Array(u, p) => (UserId(u), p).some
+                  case _           => none
+              .sequentially: (u, p) =>
+                env.clas.api.student
+                  .get(clas, u)
+                  .map2(lila.clas.Student.WithPassword(_, ClearPassword(p)))
+              .map(_.flatten)
         nbStudents <- env.clas.api.student.count(clas.id)
         form = env.clas.forms.student.manyCreate(lila.clas.Clas.maxStudents - nbStudents)
         page <- renderPage(views.clas.student.manyForm(clas, students, form, nbStudents, created))

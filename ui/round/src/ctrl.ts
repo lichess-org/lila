@@ -30,9 +30,11 @@ import * as wakeLock from 'common/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'common/prefs';
 import { endGameView } from './view/main';
+import { info as infoDialog } from 'common/dialog';
+import { isCol1 } from 'common/device';
+
 import type {
   Step,
-  CrazyPocket,
   RoundOpts,
   RoundData,
   ApiMove,
@@ -499,7 +501,7 @@ export default class RoundController implements MoveRootCtrl {
 
   crazyValid = (role: Role, key: Key): boolean => crazyValid(this.data, role, key);
 
-  getCrazyhousePockets = (): [CrazyPocket, CrazyPocket] | undefined => this.data.crazyhouse?.pockets;
+  getCrazyhousePockets = (): Tree.NodeCrazy['pockets'] | undefined => this.data.crazyhouse?.pockets;
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
@@ -570,6 +572,9 @@ export default class RoundController implements MoveRootCtrl {
         this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
+    if (isCol1()) {
+      infoDialog(viewStatus(this), 3000);
+    }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
@@ -794,7 +799,7 @@ export default class RoundController implements MoveRootCtrl {
   canOfferDraw = (): boolean =>
     !this.preventDrawOffer &&
     game.drawable(this.data) &&
-    (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
+    (this.data.player.lastDrawOfferAtPly || -99) < this.lastPly() - 20;
 
   cancelTakebackPreventDraws = (): void => {
     this.socket.sendLoading('takeback-no');
@@ -823,7 +828,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private doOfferDraw = () => {
-    this.data.player.lastDrawOfferAtPly = this.ply;
+    this.data.player.lastDrawOfferAtPly = this.lastPly();
     this.socket.sendLoading('draw-yes', null);
   };
 

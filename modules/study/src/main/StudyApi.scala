@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 
@@ -50,16 +49,18 @@ final class StudyApi(
 
   def byIdWithChapter(id: StudyId): Fu[Option[Study.WithChapter]] =
     byId(id).flatMapz: study =>
-      chapterRepo.byId(study.position.chapterId).flatMap {
-        case None =>
-          chapterRepo.firstByStudy(study.id).flatMap {
-            case None => fixNoChapter(study)
-            case Some(chapter) =>
-              val fixed = study.withChapter(chapter)
-              studyRepo.updateSomeFields(fixed).inject(Study.WithChapter(fixed, chapter).some)
-          }
-        case Some(chapter) => fuccess(Study.WithChapter(study, chapter).some)
-      }
+      chapterRepo
+        .byId(study.position.chapterId)
+        .flatMap:
+          case None =>
+            chapterRepo
+              .firstByStudy(study.id)
+              .flatMap:
+                case None => fixNoChapter(study)
+                case Some(chapter) =>
+                  val fixed = study.withChapter(chapter)
+                  studyRepo.updateSomeFields(fixed).inject(Study.WithChapter(fixed, chapter).some)
+          case Some(chapter) => fuccess(Study.WithChapter(study, chapter).some)
 
   def byIdWithChapter(id: StudyId, chapterId: StudyChapterId): Fu[Option[Study.WithChapter]] =
     studyRepo.byIdWithChapter(chapterRepo.coll)(id, chapterId)
@@ -89,20 +90,21 @@ final class StudyApi(
 
   private def fixNoChapter(study: Study): Fu[Option[Study.WithChapter]] =
     sequenceStudy(study.id) { study =>
-      chapterRepo.existsByStudy(study.id).flatMap {
-        if _ then funit
-        else
-          for
-            chap <- chapterMaker
-              .fromFenOrPgnOrBlank(
-                study,
-                ChapterMaker.Data(StudyChapterName("Chapter 1")),
-                order = 1,
-                userId = study.ownerId
-              )
-            _ <- chapterRepo.insert(chap)
-          yield preview.invalidate(study.id)
-      }
+      chapterRepo
+        .existsByStudy(study.id)
+        .flatMap:
+          if _ then funit
+          else
+            for
+              chap <- chapterMaker
+                .fromFenOrPgnOrBlank(
+                  study,
+                  ChapterMaker.Data(StudyChapterName("Chapter 1")),
+                  order = 1,
+                  userId = study.ownerId
+                )
+              _ <- chapterRepo.insert(chap)
+            yield preview.invalidate(study.id)
     } >> byIdWithFirstChapter(study.id)
 
   def recentByOwnerWithChapterCount       = studyRepo.recentByOwnerWithChapterCount(chapterRepo.coll)
@@ -196,15 +198,16 @@ final class StudyApi(
   def talk(userId: UserId, studyId: StudyId, text: String) =
     byId(studyId).foreach:
       _.foreach: study =>
-        (study.canChat(userId)).so {
-          chatApi.write(
-            study.id.into(ChatId),
-            userId = userId,
-            text = text,
-            publicSource = lila.core.shutup.PublicSource.Study(studyId).some,
-            busChan = _.study
-          )
-        }
+        (study
+          .canChat(userId))
+          .so:
+            chatApi.write(
+              study.id.into(ChatId),
+              userId = userId,
+              text = text,
+              publicSource = lila.core.shutup.PublicSource.Study(studyId).some,
+              busChan = _.study
+            )
 
   def setPath(studyId: StudyId, position: Position.Ref)(who: Who): Funit =
     sequenceStudy(studyId): study =>
@@ -542,21 +545,23 @@ final class StudyApi(
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
           if data.insert then
-            explorerGameHandler.insert(study, Position(chapter, data.position.path), data.gameId).flatMap {
-              case None =>
-                reloadSriBecauseOf(study, who.sri, chapter.id)
-                fufail(s"Invalid explorerGame insert $studyId $data")
-              case Some(chapter, path) =>
-                studyRepo.updateNow(study)
-                chapter.root.nodeAt(path).so { parent =>
-                  for _ <- chapterRepo.setChildren(parent.children)(chapter, path)
-                  yield sendTo(study.id)(_.reloadAll)
-                }
-            }
+            explorerGameHandler
+              .insert(study, Position(chapter, data.position.path), data.gameId)
+              .flatMap:
+                case None =>
+                  reloadSriBecauseOf(study, who.sri, chapter.id)
+                  fufail(s"Invalid explorerGame insert $studyId $data")
+                case Some(chapter, path) =>
+                  studyRepo.updateNow(study)
+                  chapter.root.nodeAt(path).so { parent =>
+                    for _ <- chapterRepo.setChildren(parent.children)(chapter, path)
+                    yield sendTo(study.id)(_.reloadAll)
+                  }
           else
-            explorerGameHandler.quote(data.gameId).flatMapz {
-              doSetComment(study, Position(chapter, data.position.path), _, who)
-            }
+            explorerGameHandler
+              .quote(data.gameId)
+              .flatMapz:
+                doSetComment(study, Position(chapter, data.position.path), _, who)
 
   def addChapter(studyId: StudyId, data: ChapterMaker.Data, sticky: Boolean, withRatings: Boolean)(
       who: Who
@@ -776,11 +781,12 @@ final class StudyApi(
     studyRepo.like(studyId, who.u, v).map { likes =>
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))
       if v then
-        studyRepo.byId(studyId).foreach {
-          _.filter(_.isPublic).foreach { study =>
-            lila.common.Bus.pub(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
-          }
-        }
+        studyRepo
+          .byId(studyId)
+          .foreach:
+            _.filter(_.isPublic).foreach { study =>
+              lila.common.Bus.pub(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
+            }
     }
 
   def chapterIdNames(studyIds: List[StudyId]): Fu[Map[StudyId, Vector[Chapter.IdName]]] =

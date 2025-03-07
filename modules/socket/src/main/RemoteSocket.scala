@@ -69,7 +69,7 @@ final class RemoteSocket(
     "impersonate",
     "relation",
     "onlineApiUsers"
-  ) {
+  ):
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds.intersect(onlineUserIds.get)
       if connectedUsers.nonEmpty then send.exec(Out.tellUsers(connectedUsers, payload))
@@ -100,7 +100,6 @@ final class RemoteSocket(
       if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send.exec(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send.exec(Out.unfollow(u1, u2))
-  }
   Bus.sub[StreamersOnline]:
     case StreamersOnline(streamers) =>
       send.exec(Out.streamersOnline(streamers))

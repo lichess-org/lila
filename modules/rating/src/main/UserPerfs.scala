@@ -1,7 +1,7 @@
 package lila.rating
 
 import chess.{ Speed, IntRating }
-import chess.rating.{ IntRatingDiff, RatingProvisional }
+import chess.rating.IntRatingDiff
 import scalalib.HeapSort.*
 
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }

@@ -75,6 +75,10 @@ final class TournamentForm:
             "Can't change time control after players have joined",
             _.speed == tour.speed || tour.nbPlayers == 0
           )
+          .verifying(
+            "Can't change bot entry condition after the tournament started",
+            d => (d.conditions.allowsBots == tour.conditions.allowsBots) || tour.isCreated
+          )
 
   private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =
     val manager       = Granter(_.ManageTournament)
@@ -101,6 +105,7 @@ final class TournamentForm:
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(unapply)
       .verifying("Invalid clock", _.validClock)
+      .verifying("Invalid clock for bot games", _.validClockForBots)
       .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
       .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
       .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
@@ -160,6 +165,8 @@ private[tournament] case class TournamentSetup(
 ):
 
   def validClock = (clockTime + clockIncrement.value) > 0
+
+  def validClockForBots = !conditions.allowsBots || lila.core.game.isBotCompatible(clockConfig)
 
   def realMode =
     if realPosition.isDefined && !thematicPosition then Mode.Casual

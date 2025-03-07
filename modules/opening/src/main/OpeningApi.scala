@@ -6,7 +6,6 @@ import lila.core.game.{ GameRepo, PgnDump }
 import lila.core.i18n.{ Translate, Translator }
 import lila.core.net.Crawler
 import lila.memo.CacheApi
-import lila.core.security.Ip2ProxyApi
 
 final class OpeningApi(
     wikiApi: OpeningWikiApi,
@@ -67,14 +66,14 @@ final class OpeningApi(
       query: PopularityHistoryAbsolute,
       config: PopularityHistoryAbsolute
   ): PopularityHistoryPercent =
-    query.zipAll(config, 0L, 0L).map {
-      case (_, 0)     => 0
-      case (cur, all) => ((cur.toDouble / all) * 100).toFloat
-    }
+    query
+      .zipAll(config, 0L, 0L)
+      .map:
+        case (_, 0)     => 0
+        case (cur, all) => ((cur.toDouble / all) * 100).toFloat
 
   private val allGamesHistory =
-    cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory") {
+    cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory"):
       _.expireAfterWrite(1.hour).buildAsyncFuture(config =>
         explorer.stats(Vector.empty, config, Crawler(false)).map(_.so(_.popularityHistory))
       )
-    }

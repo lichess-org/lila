@@ -8,7 +8,6 @@ import lila.ui.{ RenderedPage, PageFlags }
 object page:
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
-    isRTL = lila.i18n.LangList.isRTL,
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,
     reportScore = () => env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0)
@@ -122,7 +121,7 @@ object page:
                                           else netConfig.socketDomains).mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
-          dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
+          dataNonce        := ctx.nonce.ifTrue(sameAssetDomain),
           dataTheme        := pref.currentBg,
           dataBoard        := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
@@ -132,13 +131,14 @@ object page:
           style            := boardStyle(p.flags(PageFlags.zoom))
         )(
           blindModeForm,
-          ctx.data.inquiry.map { views.mod.inquiry(_) },
+          for in <- ctx.data.inquiry; me <- ctx.me yield views.mod.inquiryUi(in)(using ctx, me),
           ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.bits.stage),
-          lila.security.EmailConfirm.cookie
-            .get(ctx.req)
-            .ifTrue(ctx.isAnon)
-            .map(u => views.auth.checkYourEmailBanner(u.username, u.email)),
+          ctx.isAnon
+            .so(lila.security.EmailConfirm.cookie.get(ctx.req))
+            .map(u =>
+              frag(cssTag("bits.email-confirm"), views.auth.checkYourEmailBanner(u.username, u.email))
+            ),
           zenable.option(zenZone),
           ui.siteHeader(
             zenable = zenable,

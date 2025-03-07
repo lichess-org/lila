@@ -1,6 +1,7 @@
 package lila.core
 package misc
 
+import scalalib.bus
 import lila.core.id.GameId
 import lila.core.userId.*
 
@@ -70,3 +71,5 @@ trait PicfitUrl:
   def thumbnail(id: lila.core.id.ImageId, width: Int, height: Int): String
   def resize(id: lila.core.id.ImageId, size: Either[Int, Int]): String
   def raw(id: lila.core.id.ImageId): String
+
+type BookmarkExists = (game.Game, Option[userId.UserId]) => Fu[Boolean]

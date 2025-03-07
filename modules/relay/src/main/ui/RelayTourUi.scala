@@ -132,7 +132,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             lila.ui.bits.mselect(
               s"relay-calendar__month--$id",
               span(showMonth(at.getMonth)),
-              java.time.Month.values.map: m =>
+              java.time.Month.values.toIndexedSeq.map: m =>
                 a(
                   cls  := (m == at.getMonth).option("current"),
                   href := url(at.getYear, m)

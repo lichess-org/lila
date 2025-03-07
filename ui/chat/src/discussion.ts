@@ -15,10 +15,10 @@ const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
-  const scrollCb = (vnode: VNode) => {
+  const scrollCb = (vnode: VNode, insert: boolean) => {
       const el = vnode.elm as HTMLElement;
       if (ctrl.data.lines.length > 5) {
-        const autoScroll = el.scrollTop > el.scrollHeight - el.clientHeight - 50;
+        const autoScroll = insert || el.scrollTop > el.scrollHeight - el.clientHeight - 100;
         if (autoScroll) {
           el.scrollTop = 999999;
           setTimeout((_: any) => (el.scrollTop = 999999), 300);
@@ -44,9 +44,9 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               $el.on('click', '.flag', (e: Event) =>
                 report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement),
               );
-            scrollCb(vnode);
+            scrollCb(vnode, true);
           },
-          postpatch: (_, vnode) => scrollCb(vnode),
+          postpatch: (_, vnode) => scrollCb(vnode, false),
         },
       },
       selectLines(ctrl).map(line => renderLine(ctrl, line)),
@@ -133,7 +133,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
   site.mousetrap.bind('c', () => chatEl.focus());
 
   // Ensure clicks remove chat focus.
-  // See lichess-org/chessground#109
+  // See https://github.com/lichess-org/lila/pull/5323
 
   const mouchEvents = ['touchstart', 'mousedown'];
 
@@ -141,7 +141,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     mouchEvents.forEach(event => document.body.removeEventListener(event, mouchListener, { capture: true }));
 
   mouchListener = (e: MouseEvent) => {
-    if (!e.shiftKey && e.buttons !== 2 && e.button !== 2) chatEl.blur();
+    if (!e.shiftKey && e.buttons !== 2 && e.button !== 2 && e.target !== chatEl) chatEl.blur();
   };
 
   chatEl.onfocus = () =>
@@ -177,12 +177,17 @@ const updateText = (opts?: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNod
   }
 };
 
+const profileLinkRegex = /(https:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_-]+)/g;
+
+const processProfileLink = (text: string) => text.replace(profileLinkRegex, '@$2');
+
 function renderText(t: string, opts?: enhance.EnhanceOpts) {
-  if (enhance.isMoreThanText(t)) {
+  const processedText = processProfileLink(t);
+  if (enhance.isMoreThanText(processedText)) {
     const hook = updateText(opts);
-    return h('t', { lichessChat: t, hook: { create: hook, update: hook } });
+    return h('t', { lichessChat: processedText, hook: { create: hook, update: hook } });
   }
-  return h('t', t);
+  return h('t', processedText);
 }
 
 const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair) =>

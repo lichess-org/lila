@@ -94,30 +94,6 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       )
       .void
 
-  private[security] def save(
-      sessionId: String,
-      userId: UserId,
-      req: RequestHeader,
-      apiVersion: Option[ApiVersion],
-      up: Boolean,
-      fp: Option[FingerPrint],
-      sri: Option[Sri] = None
-  ): Funit =
-    coll.insert
-      .one:
-        $doc(
-          "_id"  -> sessionId,
-          "user" -> userId,
-          "ip"   -> HTTPRequest.ipAddress(req),
-          "ua"   -> HTTPRequest.userAgent(req).fold("?")(_.value),
-          "date" -> nowInstant,
-          "up"   -> up,
-          "api"  -> apiVersion,
-          "fp"   -> fp.flatMap(lila.security.FingerHash.from).map(_.value).orElse(sri.map(_.value)),
-          "sri"  -> sri
-        )
-      .void
-
   def delete(sessionId: String): Funit =
     for _ <- coll.update.one($id(sessionId), $set("up" -> false))
     yield uncache(sessionId)

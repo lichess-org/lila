@@ -714,22 +714,12 @@
   <string name="security">Təhlükəsizlik</string>
   <string name="revokeAllSessions">bütün sessiyaları ləğv et</string>
   <string name="playChessEverywhere">Şahmatı hər yerdə oyna</string>
-  <string name="asFreeAsLichess">Lichess kimi azad</string>
-  <string name="builtForTheLoveOfChessNotMoney">Pula görə deyil, şahmat sevgisinə görə yaradılmışdır</string>
   <string name="everybodyGetsAllFeaturesForFree">Hər kəs bütün özəllikləri pulsuz əldə edir</string>
-  <string name="zeroAdvertisement">Sıfır reklam</string>
-  <string name="fullFeatured">Tam özəllikli</string>
-  <string name="phoneAndTablet">Telefon və tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassik</string>
-  <string name="correspondenceChess">Yazışmalı şahmat</string>
-  <string name="onlineAndOfflinePlay">Onlayn və oflayn oyun</string>
   <string name="viewTheSolution">Həllə bax</string>
-  <string name="followAndChallengeFriends">Dostlarını izlə və oyuna çağır</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s dildə mövcuddur!</item>
     <item quantity="other">%s dildə mövcuddur!</item>
   </plurals>
-  <string name="gameAnalysis">Oyun təhlili</string>
   <string name="xHostsY">%1$s ev sahibi: %2$s</string>
   <string name="xJoinsY">%1$s qoşuldu: %2$s</string>
   <string name="xLikesY">%1$s bəyəndi: %2$s</string>

@@ -7,6 +7,7 @@ import play.api.libs.json.*
 
 import lila.challenge.Challenge
 import lila.common.Bus
+import lila.common.actorBus.*
 import lila.common.Json.given
 import lila.core.game.{ FinishGame, StartGame }
 import lila.game.Rematches
@@ -66,7 +67,7 @@ final class EventStream(
 
       override def postStop() =
         super.postStop()
-        Bus.unsubscribe(self, classifiers)
+        classifiers.foreach(Bus.unsubscribe(self, _))
         queue.complete()
         online = false
 
@@ -141,7 +142,7 @@ final class EventStream(
           gameJsonView
             .ownerPreview(pov)(using lightUserApi.sync)
             .add("source" -> game.source.map(_.name)) ++ compatJson(
-            bot = me.isBot && lila.game.Game.isBotCompatible(game),
+            bot = me.isBot && lila.game.Game.isBotCompatible(game).|(true),
             board = lila.game.Game.isBoardCompatible(game)
           ) ++ Json.obj(
             "id" -> game.id // API BC
