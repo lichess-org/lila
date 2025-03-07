@@ -1,6 +1,6 @@
 package lila.web
 
-import play.api.Environment
+import play.api.Mode
 import play.api.libs.json.{ JsObject, JsValue, Json, JsString }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
@@ -8,6 +8,7 @@ import play.api.libs.ws.StandaloneWSClient
 import java.nio.file.Files
 
 import lila.core.config.NetConfig
+import lila.common.config.GetRelativeFile
 
 case class SplitAsset(path: Option[String], imports: List[String], inlineJs: Option[String]):
   val allModules = path.toList ++ imports
@@ -19,8 +20,9 @@ case class AssetMaps(
     modified: Instant
 )
 
-final class AssetManifest(environment: Environment, net: NetConfig, ws: StandaloneWSClient)(using
-    Executor
+final class AssetManifest(net: NetConfig, ws: StandaloneWSClient, getFile: GetRelativeFile)(using
+    Executor,
+    Mode
 ):
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
@@ -36,12 +38,12 @@ final class AssetManifest(environment: Environment, net: NetConfig, ws: Standalo
   def lastUpdate: Instant                   = maps.modified
 
   def update(): Unit =
-    if environment.mode.isProd || net.externalManifest then
+    if summon[Mode].isProd || net.externalManifest then
       fetchManifestJson(filename).foreach:
         _.foreach: manifestJson =>
           maps = readMaps(manifestJson)
     else
-      val pathname = environment.getFile(s"public/compiled/$filename").toPath
+      val pathname = getFile.exec(s"public/compiled/$filename").toPath
       try
         val current = Files.getLastModifiedTime(pathname).toInstant
         if current.isAfter(maps.modified)

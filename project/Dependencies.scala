@@ -32,7 +32,7 @@ object Dependencies {
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.13.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.4.0"
+  val kittens     = "org.typelevel"              %% "kittens"       % "3.5.0"
 
   val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
   val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.1.0"  % Test
@@ -78,7 +78,8 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC13"
+    val driver = ("org.reactivemongo" %% "reactivemongo" % "1.1.0-RC13")
+      .exclude("org.scala-lang.modules", "scala-java8-compat_2.13")
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC15"
     val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC15"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"

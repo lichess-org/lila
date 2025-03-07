@@ -61,7 +61,7 @@ object StudyForm:
 
     lazy val form = Form(
       mapping(
-        "name"          -> cleanNonEmptyText(minLength = 1, maxLength = 100),
+        "name"          -> optional(cleanNonEmptyText(minLength = 1, maxLength = 100)),
         "orientation"   -> optional(of[ChapterMaker.Orientation]),
         "variant"       -> optional(of[Variant]),
         "mode"          -> defaulting(of[ChapterMaker.Mode], ChapterMaker.Mode.Normal),
@@ -73,7 +73,7 @@ object StudyForm:
     )
 
     case class Data(
-        name: String,
+        name: Option[String],
         orientation: Option[ChapterMaker.Orientation] = None,
         variant: Option[Variant] = None,
         mode: ChapterMaker.Mode,
@@ -88,13 +88,13 @@ object StudyForm:
         pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
-            name = StudyChapterName((index == 0).so(name)),
+            name = StudyChapterName((index == 0).so(~name)),
             variant = variant,
             pgn = onePgn.some,
             orientation = orientation | ChapterMaker.Orientation.Auto,
             mode = mode,
             initial = initial && index == 0,
-            isDefaultName = index > 0 || isDefaultName
+            isDefaultName = index > 0 || name.isEmpty
           )
 
   def topicsForm = Form(single("topics" -> text))
