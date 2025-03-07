@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def index(data: JsObject, moduleName: "local" | "local.dev" = "local")(using ctx: Context): Page =
+  def index(data: JsObject, moduleName: "botPlay" | "local.dev" = "botPlay")(using ctx: Context): Page =
     Page("Lichess bots")
       .css(moduleName)
       .css("round")
@@ -19,4 +19,4 @@ final class LocalUi(helpers: Helpers):
       .js(Esm("round"))
       .csp(_.withWebAssembly)
       .flag(_.zoom):
-        main
+        main(cls := "bot-play-app")

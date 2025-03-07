@@ -215,6 +215,12 @@ importers:
         specifier: ^4.4.2
         version: 4.4.2
 
+  ui/botPlay:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+
   ui/ceval:
     dependencies:
       '@badrap/result':

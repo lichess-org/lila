@@ -88,7 +88,7 @@ final class Local(env: Env) extends LilaController(env):
         .obj("pref" -> pref, "bots" -> bots)
         .add("assets", devAssets)
         .add("canPost", isGrantedOpt(_.BotEditor)),
-      if devAssets.isDefined then "local.dev" else "local"
+      if devAssets.isDefined then "local.dev" else "botPlay"
     )
 
   private def pref(using ctx: Context) =
