@@ -6,9 +6,10 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "common": "workspace:*"
+    "common": "workspace:*",
+    "local": "workspace:*"
   },
   "build": {
-    "bundle": "src/main.ts"
+    "bundle": "src/botPlay.ts"
   }
 }

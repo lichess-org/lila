@@ -220,6 +220,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      local:
+        specifier: workspace:*
+        version: link:../local
 
   ui/ceval:
     dependencies:

@@ -1,12 +1,24 @@
+import { init, classModule, attributesModule } from 'snabbdom';
+
 import { BotOpts } from './interfaces';
+import { BotPlayCtrl } from './ctrl';
+import { Assets } from 'local/assets';
 
-import { looseH as h } from 'common/snabbdom';
+export async function initModule(opts: BotOpts) {
+  const element = document.querySelector('.bot-play-app') as HTMLElement,
+    patch = init([classModule, attributesModule]);
 
-export class BotPlay {
-  constructor(
-    readonly opts: BotOpts,
-    readonly redraw: () => void,
-  ) {}
+  const assets = new Assets();
+  // await Promise.all([assets.init()]);
+  const ctrl = new BotPlayCtrl(opts, assets, redraw);
 
-  view = () => h('main.bot-play-app', 'bot play app');
+  const blueprint = ctrl.view();
+  element.innerHTML = '';
+  let vnode = patch(element, blueprint);
+
+  function redraw() {
+    vnode = patch(vnode, ctrl.view());
+  }
+
+  redraw();
 }

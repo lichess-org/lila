@@ -11,6 +11,9 @@
       ]
     }
   },
+  "exports": {
+    "./*": "./src/*.ts"
+  },
   "dependencies": {
     "@types/lichess": "workspace:*",
     "bits": "workspace:*",
