@@ -99,7 +99,7 @@ def meta(
             )
         )
       ),
-      game.variant.chess960.so:
+      game.variant.chess960.option:
         chess.variant.Chess960
           .positionNumber(initialFen | chess.format.Fen.initial)
           .map: number =>
