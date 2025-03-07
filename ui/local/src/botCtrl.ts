@@ -147,8 +147,7 @@ export class BotCtrl {
     await this.store.remove(bot.uid);
   }
 
-  imageUrl(bot: BotInfo | string | undefined): string | undefined {
-    if (typeof bot === 'string') bot = this.get(bot);
+  imageUrl(bot: BotInfo | undefined): string | undefined {
     return bot?.image && env.assets.getImageUrl(bot.image);
   }
 

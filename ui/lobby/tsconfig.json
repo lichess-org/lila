@@ -4,7 +4,6 @@
   "references": [
     { "path": "../common/tsconfig.json" },
     { "path": "../dasher/tsconfig.json" },
-    { "path": "../game/tsconfig.json" },
-    { "path": "../bots/tsconfig.json" }
+    { "path": "../game/tsconfig.json" }
   ]
 }

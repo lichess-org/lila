@@ -417,9 +417,6 @@ importers:
       game:
         specifier: workspace:*
         version: link:../game
-      local:
-        specifier: workspace:*
-        version: link:../local
 
   ui/local:
     dependencies:

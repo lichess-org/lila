@@ -16,8 +16,8 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
 }
 
 export default function (ctrl: LobbyController) {
-  const nbPlaying = ctrl.data.nbNowPlaying + ctrl.localGames.length,
-    myTurnPovsNb = ctrl.data.nowPlaying.filter(p => p.isMyTurn).length + ctrl.localGames.length,
+  const nbPlaying = ctrl.data.nbNowPlaying,
+    myTurnPovsNb = ctrl.data.nowPlaying.filter(p => p.isMyTurn).length,
     active = ctrl.tab,
     isBot = ctrl.me?.isBot;
   return [
