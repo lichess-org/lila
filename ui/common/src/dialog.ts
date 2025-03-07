@@ -68,7 +68,7 @@ site.load.then(async () => {
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {
   await domDialog({
-    htmlText: escapeHtml(msg),
+    htmlText: escapeHtmlAddBreaks(msg),
     class: 'alert',
     modal: true,
     show: true,
