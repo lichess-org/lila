@@ -18,8 +18,7 @@ final class Env(
     StandaloneWSClient,
     akka.stream.Materializer
 ):
-  val net: NetConfig           = config.get[NetConfig]("net")
-  val getFile: GetRelativeFile = GetRelativeFile(environment.getFile(_))
+  val net: NetConfig = config.get[NetConfig]("net")
 
   export net.{ baseUrl, assetBaseUrlInternal }
 
@@ -28,7 +27,7 @@ final class Env(
   given scheduler: Scheduler                  = system.scheduler
   given RateLimit                             = net.rateLimit
   given NetDomain                             = net.domain
-  given getFile: (String => java.io.File)     = environment.getFile
+  val getFile: GetRelativeFile                = GetRelativeFile(environment.getFile(_))
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type = lila.i18n.Env

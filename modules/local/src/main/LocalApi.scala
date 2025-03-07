@@ -6,10 +6,11 @@ import play.api.libs.Files
 import play.api.mvc.*
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
+import lila.common.config.GetRelativeFile
 
 // this stuff is for bot devs
 
-final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: String => java.io.File)(using
+final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: GetRelativeFile)(using
     Executor,
     akka.stream.Materializer
 ):
@@ -26,7 +27,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: Stri
   ): Fu[Either[String, (LocalAssets, JsonStr)]] =
     FileIO
       .fromPath(file.ref.path)
-      .runWith(FileIO.toPath(getFile(s"${config.assetPath}/${tpe}/$fileName").toPath))
+      .runWith(FileIO.toPath(getFile.exec(s"${config.assetPath}/${tpe}/$fileName").toPath))
       .map(_ => Right(updateAssets))
       .recover:
         case e: Exception => Left(s"Exception: ${e.getMessage}")
@@ -45,7 +46,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: Stri
           yield Json.obj("key" -> key, "name" -> name))
 
   private def listFiles(tpe: AssetType, ext: String): List[AlmostFileName] =
-    val path = getFile(s"${config.assetPath}/${tpe}")
+    val path = getFile.exec(s"${config.assetPath}/${tpe}")
     if !path.exists() then
       NioFiles.createDirectories(path.toPath)
       Nil

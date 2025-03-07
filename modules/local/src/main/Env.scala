@@ -5,6 +5,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
+import lila.common.config.GetRelativeFile
 
 @Module
 final private class LocalConfig(
@@ -15,7 +16,7 @@ final private class LocalConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    getFile: String => java.io.File
+    getFile: GetRelativeFile
 )(using Executor, akka.stream.Materializer):
 
   private val config: LocalConfig = appConfig.get[LocalConfig]("local")(AutoConfig.loader)
