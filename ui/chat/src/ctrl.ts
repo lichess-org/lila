@@ -14,11 +14,10 @@ import type {
 import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop } from 'common';
+import { prop, myUserId } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
 import { alert } from 'common/dialog';
-import { myUserId } from 'common';
 
 export default class ChatCtrl {
   data: ChatData;
