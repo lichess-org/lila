@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 
 final class LearnApi(coll: Coll)(using Executor):
 
-  import BSONHandlers.given
+  import LearnHandlers.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     reset(del.id)
@@ -16,9 +16,8 @@ final class LearnApi(coll: Coll)(using Executor):
     coll.update.one($id(p.id), p, upsert = true).void
 
   def setScore(user: UserId, stage: String, level: Int, score: StageProgress.Score) =
-    get(user).flatMap { prog =>
+    get(user).flatMap: prog =>
       save(prog.withScore(stage, level, score))
-    }
 
   def reset(user: UserId) =
     coll.delete.one($id(user)).void
