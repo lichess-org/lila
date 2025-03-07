@@ -28,7 +28,7 @@ on:
       - 'conf/application.conf.default'
       - '.sbtopts.default'
 env:
-  SBT_OPTS: '-Xmx2048M'
+  SBT_OPTS: '-Xmx4096M'  # Increased memory allocation to 4096M to prevent build failures due to memory issues.
 
 jobs:
   build:
@@ -65,6 +65,5 @@ jobs:
           cache: sbt
       - name: Setup sbt
         uses: sbt/setup-sbt@v1
-
       - name: Check Formatting
         run: sbt scalafmtCheckAll
