@@ -6,6 +6,7 @@ import lila.rating.PerfType
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import play.api.i18n.Lang
 
 final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }
@@ -100,8 +101,8 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
       href     := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: TourId)(using translate: Translate): String =
-    getTourName.sync(id)(using translate.lang).getOrElse(s"Tournament #$id")
+  def tournamentIdToName(id: TourId)(using Lang): String =
+    getTourName.sync(id).getOrElse(s"Tournament #$id")
 
   object scheduledTournamentNameShortHtml:
     private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
