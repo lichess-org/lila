@@ -213,7 +213,7 @@
   <string name="rating">Рејтинг</string>
   <string name="ratingStats">Рејтинг статистике</string>
   <string name="username">Корисничко име</string>
-  <string name="usernameOrEmail">Корисничко име или и-мејл</string>
+  <string name="usernameOrEmail">Корисничко име или имејл</string>
   <string name="changeUsername">Промените корисничко име</string>
   <string name="changeUsernameNotSame">Само се величина слова може променити. На пример \"johndoe\" у \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Промените ваше корисничко име. Можете променити ваше корисничко име само једном и то само величину слова.</string>
