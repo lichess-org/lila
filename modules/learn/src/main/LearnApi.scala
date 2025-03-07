@@ -16,9 +16,8 @@ final class LearnApi(coll: Coll)(using Executor):
     coll.update.one($id(p.id), p, upsert = true).void
 
   def setScore(user: UserId, stage: String, level: Int, score: StageProgress.Score) =
-    get(user).flatMap { prog =>
+    get(user).flatMap: prog =>
       save(prog.withScore(stage, level, score))
-    }
 
   def reset(user: UserId) =
     coll.delete.one($id(user)).void

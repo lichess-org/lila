@@ -24,11 +24,14 @@ final class Learn(env: Env) extends LilaController(env):
       _ => BadRequest,
       (stage, level, s) =>
         val score = lila.learn.StageProgress.Score(s)
-        (env.learn.api.setScore(me, stage, level, score) >>
-          env.activity.write.learn(me, stage)).inject(Ok(Json.obj("ok" -> true)))
+        for
+          _ <- env.learn.api.setScore(me, stage, level, score)
+          _ <- env.activity.write.learn(me, stage)
+        yield jsonOkResult
     )
   }
 
   def reset = AuthBody { _ ?=> me ?=>
-    env.learn.api.reset(me).inject(Ok(Json.obj("ok" -> true)))
+    for _ <- env.learn.api.reset(me)
+    yield jsonOkResult
   }
