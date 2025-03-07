@@ -887,10 +887,10 @@
   <string name="wishYouGreatGames">and wish you great games on lichess.org.</string>
   <string name="thankYouForReading">Thank you for reading!</string>
   <string name="playbanFeedbackAbort" comment="%s is a user name">Warning, %s. Aborting too many games may lead to temporary playing restrictions.</string>
-  <string name="playbanFeedbackNoStart" comment="%s is a user name">Warning, %s. Failing to start games  may lead to temporary playing restrictions.</string>
-  <string name="playbanFeedbackRageQuit" comment="%s is a user name">Warning, %s. Leaving games without resigning  may lead to temporary playing restrictions.</string>
+  <string name="playbanFeedbackNoStart" comment="%s is a user name">Warning, %s. Failing to start games may lead to temporary playing restrictions.</string>
+  <string name="playbanFeedbackRageQuit" comment="%s is a user name">Warning, %s. Leaving games without resigning may lead to temporary playing restrictions.</string>
   <string name="playbanFeedbackSitting" comment="%s is a user name">Reminder, %s. Repeatedly letting time run out or delaying resignation in lost positions may lead to temporary playing restrictions.</string>
-  <string name="playbanFeedbackQuickResign" comment="%s is a user name">Warning, %s. Resigning games too quickly  may lead to temporary playing restrictions.</string>
+  <string name="playbanFeedbackQuickResign" comment="%s is a user name">Warning, %s. Resigning games too quickly may lead to temporary playing restrictions.</string>
   <string name="lifetimeScore">Lifetime score</string>
   <string name="currentMatchScore">Current match score</string>
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
