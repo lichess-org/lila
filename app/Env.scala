@@ -18,9 +18,7 @@ final class Env(
     StandaloneWSClient,
     akka.stream.Materializer
 ):
-  val net: NetConfig           = lila.web.WebConfig.netConfig(config)
-  val getFile: GetRelativeFile = GetRelativeFile(environment.getFile(_))
-
+  val net: NetConfig = lila.web.WebConfig.netConfig(config)
   export net.{ baseUrl, assetBaseUrlInternal }
 
   given mode: Mode                            = environment.mode
