@@ -142,7 +142,7 @@ export async function prompt(
         listener: (e: KeyboardEvent, dlg) => {
           if (e.key !== 'Enter' && e.key !== 'Escape') return;
           e.preventDefault();
-          if (e.key === 'Enter' && valid(dlg.view.querySelector<HTMLInputElement>('input')!.value))
+          if (e.key === 'Enter' && valid(dlg.viewEl.querySelector<HTMLInputElement>('input')!.value))
             dlg.close('ok');
           else if (e.key === 'Escape') dlg.close('cancel');
         },
@@ -152,7 +152,7 @@ export async function prompt(
         event: 'input',
         listener: (e, dlg) => {
           if (!(e.target instanceof HTMLInputElement)) return;
-          const ok = dlg.view.querySelector<HTMLButtonElement>('.ok')!;
+          const ok = dlg.viewEl.querySelector<HTMLButtonElement>('.ok')!;
           const invalid = !valid(e.target.value);
           e.target.classList.toggle('invalid', invalid);
           ok.classList.toggle('disabled', invalid);
