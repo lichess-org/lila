@@ -94,21 +94,22 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
 
   def titleOf(pov: Pov)(using Translate) =
-    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
-        .fold(trans.site.analysis.txt())(_.opening.name)}"
+    val opening = pov.game.opening.fold(trans.site.analysis.txt())(_.opening.name)
+    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: $opening"
 
   object bits:
 
     val dataPanel = attr("data-panel")
 
     def page(title: String)(using Context): Page =
-      Page(title).flag(_.zoom).flag(_.noRobots).csp(csp)
+      Page(title)
+        .flag(_.zoom)
+        .flag(_.noRobots)
+        .csp:
+          cspExternalEngine.compose(_.withPeer.withInlineIconFont.withChessDbCn)
 
     def cspExternalEngine: Update[ContentSecurityPolicy] =
       _.withWebAssembly.withExternalEngine(endpoints.externalEngine)
-
-    def csp: Update[lila.ui.ContentSecurityPolicy] =
-      cspExternalEngine.compose(_.withPeer.withInlineIconFont.withChessDbCn)
 
     def analyseModule(mode: String, json: JsObject) =
       PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
