@@ -91,7 +91,7 @@ const opponentLink = (o: LightUser): VNode =>
 
 const userFallbackFlair = new Map<string, string>();
 const noFlair = (o: LightUser): VNode => {
-  let randomFlair =
+  const randomFlair =
     userFallbackFlair.get(o.id) ||
     userFallbackFlair
       .set(
