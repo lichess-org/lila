@@ -118,6 +118,7 @@
   <string name="byCPL">tan nanpa CPL</string>
   <string name="enable">o open</string>
   <string name="bestMoveArrow">palisa alasa pi tawa pona</string>
+  <string name="showVariationArrows">o sitelen linja e tawa ante</string>
   <string name="evaluationGauge">palisa wawa</string>
   <string name="multipleLines">mute linja</string>
   <string name="cpus">pilin pi ilo sona</string>
@@ -262,6 +263,7 @@
     <item quantity="one">musi sina %s</item>
     <item quantity="other">musi sina %s</item>
   </plurals>
+  <string name="ok">pona</string>
   <string name="cancel">o weka</string>
   <string name="whiteTimeOut">tenpo walo li pini</string>
   <string name="blackTimeOut">tenpo pimeja li pini</string>
@@ -509,6 +511,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="realName">nimi jan lon ma</string>
   <string name="setFlair">o sitelen namako</string>
   <string name="flair">sitelen namako</string>
+  <string name="youCanHideFlair">wile la ilo li ken len e sitelen namako ale.</string>
   <string name="biography">sona jan sina</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ma</string>
   <string name="thankYou">pona tawa sina!</string>
@@ -680,6 +683,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="simulClockHint">nasin tenpo pi jan Bobby Fischer. mute pi jan musi ante li suli, tenpo pi tawa sina li suli.</string>
   <string name="simulAddExtraTime">musi mute pi tenpo sama li pali kiwen tawa sina la, sina ken suli e tenpo tawa.</string>
   <string name="simulHostExtraTime">tenpo sin tawa jan musi lawa</string>
+  <string name="simulHostExtraTimePerPlayer">jan utala li kama la jan lawa li kama jo e tenpo ni</string>
   <string name="lichessTournaments">utala musi pi ilo Lichess</string>
   <string name="tournamentFAQ">wile sona pi jan mute pi utala musi</string>
   <string name="timeBeforeTournamentStarts">tenpo open pi utala musi li kama lon</string>
@@ -965,4 +969,5 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="lichessPatronInfo">ilo Lichess li mani ala li pona. ale li ken lukin e lipu ilo pi ilo Lichess li ken ante e ilo Lichess.
 ona li wile e mani la jan li wile pana e mani tawa ona.</string>
   <string name="nothingToSeeHere">tenpo ni la ijo ala li lon.</string>
+  <string name="stats">nanpa</string>
 </resources>

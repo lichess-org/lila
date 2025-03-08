@@ -77,4 +77,6 @@
   <string name="optionalDetails">其他細節</string>
   <string name="pastBroadcasts">直播紀錄</string>
   <string name="allBroadcastsByMonth">以月份顯示所有直播</string>
+  <string name="backToLiveMove">返回及時走法</string>
+  <string name="sinceHideResults">由於您選擇隱藏結果，所有預覽棋盤都是空的，以避免劇透。</string>
 </resources>

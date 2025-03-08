@@ -2,6 +2,8 @@
 <resources>
   <string name="communityBlogs">社群部落格</string>
   <string name="friendBlogs">好友的部落格</string>
+  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess 部落格</string>
+  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">我的部落格</string>
   <string name="likedBlogs">已喜歡的部落格</string>
   <string name="blogTopics">部落格主題</string>
   <plurals name="blogPosts">

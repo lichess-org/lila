@@ -147,7 +147,7 @@
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻轉棋盤</string>
   <string name="threefoldRepetition">三次重複局面</string>
-  <string name="claimADraw">要求和棋</string>
+  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">要求和棋</string>
   <string name="offerDraw">提出和棋</string>
   <string name="draw">和棋</string>
   <plurals name="nbPlayers">
@@ -734,6 +734,7 @@
   <string name="playChessEverywhere">隨處下棋！</string>
   <string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
   <string name="viewTheSolution">看解答</string>
+  <string name="noChallenges">沒有挑戰。</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支援%s種語言！</item>
   </plurals>
@@ -928,6 +929,7 @@
   <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">顯示此說明欄</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
+  <string name="reopenYourAccountDescription">如果你停用了自己的帳號，但是改變了心意，你有一次的機會可以拿回帳號。</string>
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
   <string name="tournamentEntryCode">錦標賽參賽碼</string>

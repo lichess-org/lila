@@ -57,7 +57,10 @@
   <string name="interferenceDescription">Хід фігурою між двома фігурами суперника, що перешкоджає одній або двом фігурам суперника і робить їх незахищеними, наприклад, кінь на захищеному полі між двома турами.</string>
   <string name="intermezzo">Проміжний хід</string>
   <string name="intermezzoDescription">Замість очікуваного ходу, спочатку робиться інший хід з безпосередньою атакою, на яку суперник має відповісти. Також відомий як \"Zwischenzug\" або \"In between\".</string>
+  <string name="killBoxMate">Мат: Смертельна коробка</string>
+  <string name="killBoxMateDescription">Тура стає біля ворожого короля під захистом ферзя. Ферзь у той самий час блокує всі поля, через які король може втекти. Тура й ферзь ловлять ворожого короля у «смертельну коробку» розміру 3 на 3.</string>
   <string name="vukovicMate">Мат Вуковіча</string>
+  <string name="vukovicMateDescription">Тура й кінь об\'єднуються, аби поставити мат королю. Тура, яку захищає третя фігура, ставить мат, а кінь блокує всі поля, через які король може втекти.</string>
   <string name="knightEndgame">Коньовий ендшпіль</string>
   <string name="knightEndgameDescription">Ендшпіль лише з конями та пішаками.</string>
   <string name="long">Багатоходова задача</string>

@@ -79,4 +79,5 @@
   <string name="pastBroadcasts">கடந்த ஒளிபரப்புகள்</string>
   <string name="allBroadcastsByMonth">மாதம்தோறும் அனைத்து ஒளிபரப்புகளையும் பார்க்க</string>
   <string name="backToLiveMove">நேரலை நகர்வுக்குத் திரும்பு</string>
+  <string name="sinceHideResults">நீங்கள் முடிவையை மறைத்ததால் முன்னோட்ட பலகை எல்லாம் காலியாக இருக்கின்றன.</string>
 </resources>
