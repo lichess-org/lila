@@ -156,7 +156,7 @@
   <string name="flipBoard">Flip board</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
-  <string name="drawClaimedByInsufficientMaterial">Draw claimed by insufficient mating material</string>
+  <string name="drawClaimed">Draw claimed</string>
   <string name="offerDraw">Offer draw</string>
   <string name="draw">Draw</string>
   <plurals name="nbPlayers">
