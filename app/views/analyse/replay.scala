@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Crazyhouse
 import play.api.libs.json.Json
-import views.analyse.bits.dataPanel
+import views.analyse.ui.bits.dataPanel
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
@@ -72,7 +72,7 @@ def replay(
       copyMeContent(s"${routes.Game.exportOne(game.id)}?imported=1", trans.site.downloadImported())
   )
 
-  bits
+  ui.bits
     .page(ui.titleOf(pov))
     .css("analyse.round")
     .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
@@ -82,7 +82,7 @@ def replay(
     .i18nOpt(ctx.blind, _.keyboardMove)
     .js(analyseNvuiTag)
     .js(
-      bits.analyseModule(
+      ui.bits.analyseModule(
         "replay",
         Json
           .obj(
@@ -91,7 +91,7 @@ def replay(
             "chat"   -> chatJson
           )
           .add("hunter" -> isGranted(_.ViewBlurs)) ++
-          views.board.explorerAndCevalConfig
+          ui.explorerAndCevalConfig
       )
     )
     .graph(views.round.ui.povOpenGraph(pov)):

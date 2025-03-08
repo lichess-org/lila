@@ -1,24 +1,10 @@
 package views.analyse
 
 import chess.format.pgn.PgnStr
-import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.UiEnv.{ *, given }
 
-val ui = lila.analyse.ui.AnalyseUi(helpers)(externalEngineEndpoint)
-
-object bits:
-
-  val dataPanel = attr("data-panel")
-
-  def page(title: String)(using Context): Page =
-    Page(title).flag(_.zoom).flag(_.noRobots).csp(csp)
-
-  def csp(using Context): Update[lila.ui.ContentSecurityPolicy] =
-    ui.csp.compose(_.withPeer.withInlineIconFont.withChessDbCn)
-
-  def analyseModule(mode: String, json: JsObject) =
-    PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
+val ui = lila.analyse.ui.AnalyseUi(helpers)(analyseEndpoints)
 
 object embed:
 

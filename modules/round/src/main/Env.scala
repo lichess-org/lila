@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
-
 import scala.util.matching.Regex
 
 import lila.common.autoconfig.{ *, given }

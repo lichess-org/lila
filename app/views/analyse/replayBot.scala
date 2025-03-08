@@ -12,7 +12,7 @@ def replayBot(
   Page(ui.titleOf(pov))
     .css("analyse.round")
     .graph(views.round.ui.povOpenGraph(pov))
-    .csp(bits.csp)
+    .csp(ui.bits.csp)
     .flag(_.noRobots):
       main(cls := "analyse")(
         st.aside(cls := "analyse__side"):
