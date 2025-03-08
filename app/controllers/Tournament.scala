@@ -85,8 +85,9 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 partial = false,
                 withScores = true,
                 withAllowList = false,
-                myInfo = Preload[Option[MyInfo]](myInfo)
-              ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
+                myInfo = Preload[Option[MyInfo]](myInfo),
+                addReloadEndpoint = env.tournament.lilaHttp.handles.some
+              )
               chat <- loadChat(tour, json)
               _ <- tour.teamBattle.so: b =>
                 env.team.cached.preloadSet(b.teams)
@@ -110,7 +111,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 socketVersion = socketVersion,
                 partial = partial,
                 withScores = getBoolOpt("scores") | true,
-                withAllowList = true
+                withAllowList = true,
+                addReloadEndpoint = env.tournament.lilaHttp.handles.some
               )
               chatOpt <- (!partial).so(loadChat(tour, json))
               jsChat <- chatOpt.soFu: c =>
@@ -149,7 +151,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me ?=>
     NoLame:
       NoPlayban:
-        limit.tourJoin(me, rateLimited):
+        limit.tourJoin(me, rateLimited, cost = joinLimitCost):
           val data = TournamentForm.TournamentJoin(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
@@ -164,13 +166,15 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write, _.Bot.Play, _.Web.Mobile) { ctx ?=> me ?=>
     NoLame:
       NoPlayban:
-        limit.tourJoin(me, rateLimited):
+        limit.tourJoin(me, rateLimited, cost = joinLimitCost):
           val data =
             bindForm(TournamentForm.joinForm)(_ => TournamentForm.TournamentJoin(none, none), identity)
           doJoin(id, data).map:
             _.error.fold(jsonOkResult): error =>
               BadRequest(Json.obj("error" -> error))
   }
+
+  private def joinLimitCost(using me: Me) = if me.isBot then 1 else 3
 
   private def doJoin(tourId: TourId, data: TournamentForm.TournamentJoin)(using me: Me) =
     data.team

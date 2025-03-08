@@ -82,7 +82,7 @@ function localInfo(ctrl: ParentCtrl, ev?: Tree.ClientEval | false): EvalInfo {
 }
 
 function threatButton(ctrl: ParentCtrl): VNode | null {
-  if (ctrl.getCeval().download || (ctrl.disableThreatMode && ctrl.disableThreatMode())) return null;
+  if (ctrl.getCeval().download || ctrl.disableThreatMode?.()) return null;
   return h('button.show-threat', {
     class: { active: ctrl.threatMode(), hidden: !!ctrl.getNode().check },
     attrs: { 'data-icon': licon.Target, title: i18n.site.showThreat + ' (x)' },
@@ -116,25 +116,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     : [];
 }
 
-const serverNodes = 4e6;
-
-export function getBestEval(evs: NodeEvals): EvalScore | undefined {
-  const serverEv = evs.server,
-    localEv = evs.client;
-
-  if (!serverEv) return localEv;
-  if (!localEv) return serverEv;
-
-  // Prefer localEv if it exceeds fishnet node limit or finds a better mate.
-  if (
-    localEv.nodes > serverNodes ||
-    (typeof localEv.mate !== 'undefined' &&
-      (typeof serverEv.mate === 'undefined' || Math.abs(localEv.mate) < Math.abs(serverEv.mate)))
-  )
-    return localEv;
-
-  return serverEv;
-}
+export const getBestEval = (evs: NodeEvals): EvalScore | undefined => evs.client || evs.server;
 
 export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return;

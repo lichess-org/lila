@@ -4,11 +4,12 @@ package ui
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 
-import lila.core.game.Game
+import lila.core.game.{ Game, Player }
 import lila.game.GameExt.*
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import lila.game.Player.nameSplit
 
 final class GameUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -144,6 +145,10 @@ final class GameUi(helpers: Helpers):
 
   object crosstable:
 
+    def option(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
+      cross.map: c =>
+        apply(ctx.userId.fold(c)(c.fromPov), game.id.some)
+
     def apply(ct: Crosstable.WithMatchup, currentId: Option[GameId])(using Context): Frag =
       apply(ct.crosstable, ct.matchup, currentId)
 
@@ -236,3 +241,152 @@ final class GameUi(helpers: Helpers):
               form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
             )
           )
+
+  object widgets:
+
+    val separator = " • "
+
+    def apply(g: Game, note: Option[String], user: Option[User], ownerLink: Boolean)(
+        contextLink: Option[Tag]
+    )(using Context): Frag =
+      val fromPlayer  = user.flatMap(g.player)
+      val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
+      st.article(cls := "game-row paginated")(
+        a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
+        div(cls := "game-row__board")(miniBoard(Pov(g, firstPlayer))(span)),
+        div(cls := "game-row__infos")(
+          div(cls := "header", dataIcon := gameIcon(g))(
+            div(cls := "header__text")(
+              source(g),
+              g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
+              contextLink.map(l => frag(separator, l))
+            )
+          ),
+          content(g, note, fromPlayer)
+        )
+      )
+
+    def miniBoard(pov: Pov)(using ctx: Context): Tag => Tag =
+      chessgroundMini(
+        if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
+        then Fen.Board("8/8/8/8/8/8/8/8")
+        else Fen.writeBoard(pov.game.board),
+        if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color,
+        pov.game.history.lastMove
+      )
+
+    def content(g: Game, note: Option[String], as: Option[Player])(using Context) = frag(
+      div(cls := "versus")(
+        gamePlayer(g.whitePlayer),
+        div(cls := "swords", dataIcon := Icon.Swords),
+        gamePlayer(g.blackPlayer)
+      ),
+      result(g, as),
+      if g.playedTurns > 0 then opening(g) else frag(br, br),
+      note.map: note =>
+        div(cls := "notes")(strong("Notes: "), note),
+      g.metadata.analysed.option(
+        div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
+      ),
+      g.pgnImport.flatMap(_.user).map { user =>
+        div(cls := "metadata")("PGN import by ", userIdLink(user.some))
+      }
+    )
+
+    def source(g: Game)(using Context) =
+      strong(
+        if g.sourceIs(_.Import) then
+          frag(
+            span("IMPORT"),
+            g.pgnImport.flatMap(_.user).map { user =>
+              frag(" ", trans.site.by(userIdLink(user.some, None, withOnline = false)))
+            },
+            separator,
+            variantLink(g.variant, g.perfType)
+          )
+        else
+          frag(
+            showClock(g),
+            separator,
+            if g.fromPosition then g.variant.name else g.perfType.trans,
+            separator,
+            (if g.rated then trans.site.rated else trans.site.casual).txt()
+          )
+      )
+
+    private def gamePlayer(player: Player)(using ctx: Context) =
+      div(cls := s"player ${player.color.name}"):
+        player.userId
+          .flatMap: uid =>
+            player.rating.map { (uid, _) }
+          .map: (userId, rating) =>
+            frag(
+              userIdLink(userId.some, withOnline = false),
+              br,
+              player.berserk.option(berserkIconSpan),
+              ctx.pref.showRatings.option(
+                frag(
+                  rating,
+                  player.provisional.yes.option("?"),
+                  player.ratingDiff.map: d =>
+                    frag(" ", showRatingDiff(d))
+                )
+              )
+            )
+          .getOrElse:
+            player.aiLevel
+              .map: level =>
+                span(aiNameFrag(level))
+              .getOrElse:
+                player.nameSplit.fold(span(cls := "anon")(UserName.anonymous)): (name, rating) =>
+                  frag(
+                    span(name),
+                    rating.map:
+                      frag(br, _)
+                  )
+
+    private def opening(g: Game)(using Context) =
+      div(cls := "opening")(
+        g.fromPosition.not.so(g.opening).map { opening =>
+          strong(opening.opening.name)
+        },
+        div(cls := "pgn")(
+          g.sans
+            .take(6)
+            .grouped(2)
+            .zipWithIndex
+            .map:
+              case (Vector(w, b), i) => s"${i + 1}. $w $b"
+              case (Vector(w), i)    => s"${i + 1}. $w"
+              case _                 => ""
+            .mkString(" "),
+          (g.ply > 6).option(s" ... ${1 + (g.ply.value - 1) / 2} moves ")
+        )
+      )
+
+    private def result(g: Game, as: Option[Player])(using Context) = div(cls := "result")(
+      if g.isBeingPlayed then trans.site.playingRightNow()
+      else if g.finishedOrAborted then
+        span(cls := g.winner.flatMap(w => as.map(p => if p == w then "win" else "loss")))(
+          gameEndStatus(g),
+          g.winner.map: winner =>
+            frag(
+              " • ",
+              winner.color.fold(trans.site.whiteIsVictorious(), trans.site.blackIsVictorious())
+            )
+        )
+      else g.turnColor.fold(trans.site.whitePlays(), trans.site.blackPlays())
+    )
+
+    def showClock(game: Game)(using Context) =
+      game.clock
+        .map: clock =>
+          frag(clock.config.show)
+        .getOrElse:
+          game.daysPerTurn
+            .map: days =>
+              span(title := trans.site.correspondence.txt()):
+                if days.value == 1 then trans.site.oneDay()
+                else trans.site.nbDays.pluralSame(days.value)
+            .getOrElse:
+              span(title := trans.site.unlimited.txt())("∞")

@@ -36,7 +36,7 @@ final class TournamentCache(
     expireAfter = Syncache.ExpireAfter.Access(20.minutes)
   )
 
-  def ranking(tour: Tournament): Fu[FullRanking] =
+  def ranking(tour: lila.core.tournament.Tournament): Fu[FullRanking] =
     if tour.isFinished then finishedRanking.get(tour.id)
     else ongoingRanking.get(tour.id)
 

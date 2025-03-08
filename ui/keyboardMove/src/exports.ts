@@ -40,10 +40,6 @@ export interface KeyboardMove {
   goBerserk?: () => void;
 }
 
-interface CrazyPocket {
-  [role: string]: number;
-}
-
 export interface RootData {
   game: { variant: { key: VariantKey } };
   player: { color: Color | 'both' };
@@ -58,7 +54,7 @@ export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   handleArrowKey?: (arrowKey: ArrowKey) => void;
   submitMove?: (v: boolean) => void;
   crazyValid?: (role: Role, key: Key) => boolean;
-  getCrazyhousePockets?: () => [CrazyPocket, CrazyPocket] | undefined;
+  getCrazyhousePockets?: () => Tree.NodeCrazy['pockets'] | undefined;
   data: RootData;
 }
 
@@ -117,7 +113,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
       // Square occupied
       if (!role || !crazyhousePockets || cg.state.pieces.has(key)) return;
       // Piece not in Pocket
-      if (!crazyhousePockets[color === 'white' ? 0 : 1][role]) return;
+      if (role === 'king' || !crazyhousePockets[color === 'white' ? 0 : 1][role]) return;
       if (!root.crazyValid(role, key)) return;
       cg.cancelMove();
       cg.newPiece({ role, color }, key);

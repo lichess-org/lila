@@ -260,7 +260,7 @@ lazy val round = module("round",
 )
 
 lazy val pool = module("pool",
-  Seq(db, rating),
+  Seq(rating),
   Seq()
 )
 

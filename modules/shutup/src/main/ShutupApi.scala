@@ -2,7 +2,7 @@ package lila.shutup
 
 import reactivemongo.api.bson.*
 
-import lila.core.shutup.PublicSource
+import lila.core.shutup.{ PublicLine, PublicSource }
 import lila.db.dsl.{ *, given }
 
 final class ShutupApi(
@@ -15,7 +15,7 @@ final class ShutupApi(
     extends lila.core.shutup.ShutupApi:
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
-  import PublicLine.given
+  import lila.shutup.PublicLine.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     coll.delete.one($id(del.id))
@@ -62,7 +62,7 @@ final class ShutupApi(
               pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
                 $doc(
                   "pub" -> $doc(
-                    "$each"  -> List(PublicLine.make(text, source)),
+                    "$each"  -> List(lila.shutup.PublicLine.make(text, source)),
                     "$slice" -> -20
                   )
                 )
@@ -86,7 +86,7 @@ final class ShutupApi(
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
     (analysed.critical || userRecord.reports.exists(_.unacceptable)).so:
-      val text = (analysed.critical.so("Critical comm alert\n")) ++ {
+      val text = analysed.critical.so("Critical comm alert\n") ++ {
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }

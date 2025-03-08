@@ -773,23 +773,13 @@
   <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
   <string name="playChessEverywhere">Schaak overal</string>
-  <string name="asFreeAsLichess">Zo gratis als lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Gemaakt met liefde voor het schaken, niet voor geld</string>
   <string name="everybodyGetsAllFeaturesForFree">Iedereen krijgt gratis alle mogelijkheden</string>
-  <string name="zeroAdvertisement">Geen advertenties</string>
-  <string name="fullFeatured">Volledig geïntegreerd</string>
-  <string name="phoneAndTablet">Telefoon en tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klassiek</string>
-  <string name="correspondenceChess">Correspondentiepartijen</string>
-  <string name="onlineAndOfflinePlay">Online en offline spelen</string>
   <string name="viewTheSolution">Bekijk de oplossing</string>
-  <string name="followAndChallengeFriends">Volg vrienden en daag ze uit</string>
   <string name="noChallenges">Geen uitdagingen.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Beschikbaar in %s taal!</item>
     <item quantity="other">Beschikbaar in %s talen!</item>
   </plurals>
-  <string name="gameAnalysis">Partijanalyse</string>
   <string name="xHostsY">%1$s organiseert %2$s</string>
   <string name="xJoinsY">%1$s neemt deel aan %2$s</string>
   <string name="xLikesY">%1$s vindt %2$s leuk</string>

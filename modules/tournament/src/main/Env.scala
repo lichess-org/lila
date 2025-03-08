@@ -85,6 +85,11 @@ final class Env(
 
   lazy val api: TournamentApi = wire[TournamentApi]
 
+  lazy val coreApi: lila.core.tournament.TournamentApi = new:
+    export cached.tourCache.byId as getCached
+    export api.{ allCurrentLeadersInStandard, fetchModable }
+    export api.gameView.getGameRanks
+
   lazy val crudApi = wire[crud.CrudApi]
 
   lazy val crudForm = wire[crud.CrudForm]

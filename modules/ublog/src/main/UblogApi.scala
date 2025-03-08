@@ -50,7 +50,7 @@ final class UblogApi(
           tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
             .toFollowersOf(post.created.by)
         shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
-        if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
+        sendPostToZulip(author, post, blog.modTier)
 
   def getUserBlogOption(user: User, insertMissing: Boolean = false): Fu[Option[UblogBlog]] =
     getBlog(UblogBlog.Id.User(user.id))
@@ -147,15 +147,16 @@ final class UblogApi(
 
     def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
-  private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
-    (post.markdown.value.sizeIs > 1000).so:
-      irc.ublogPost(
-        user.light,
-        id = post.id,
-        slug = post.slug,
-        title = post.title,
-        intro = post.intro
-      )
+  private def sendPostToZulip(user: User, post: UblogPost, modTier: Option[UblogRank.Tier]): Funit =
+    val tierName = modTier.fold("non-tiered")(t => s"${UblogRank.Tier.name(t).toLowerCase} tier")
+    irc.ublogPost(
+      user.light,
+      id = post.id,
+      slug = post.slug,
+      title = post.title,
+      intro = post.intro,
+      topic = s"$tierName new posts"
+    )
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post

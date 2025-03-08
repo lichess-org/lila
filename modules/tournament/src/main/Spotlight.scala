@@ -19,8 +19,8 @@ object Spotlight:
 
   private given Ordering[Tournament] = Ordering.by[Tournament, (Int, Int)]: tour =>
     tour.scheduleFreq match
-      case Some(freq) => (freq.importance, -tour.secondsToStart)
-      case None       => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart)
+      case Some(freq) => (freq.importance, -tour.secondsToStart.value)
+      case None       => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart.value)
 
   def select(tours: List[Tournament], max: Int)(using me: Option[UserWithPerfs]): List[Tournament] =
     me.foldUse(select(tours))(selectForMe(tours)).topN(max)
