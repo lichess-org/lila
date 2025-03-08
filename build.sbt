@@ -385,7 +385,7 @@ lazy val practice = module("practice",
 )
 
 lazy val playban = module("playban",
-  Seq(memo),
+  Seq(memo, coreI18n),
   tests.bundle
 )
 
