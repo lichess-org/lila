@@ -3083,6 +3083,8 @@ interface I18n {
     drawByFiftyMoves: string;
     /** Draw by mutual agreement */
     drawByMutualAgreement: string;
+    /** Draw claimed by insufficient mating material */
+    drawClaimedByInsufficientMaterial: string;
     /** Drawn */
     drawn: string;
     /** Draw offer accepted */
