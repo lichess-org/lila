@@ -1,5 +1,4 @@
 import makeZerofish, { type Zerofish, type Position } from 'zerofish';
-import * as co from 'chessops';
 import { Bot, score } from './bot';
 import { RateBot } from './dev/rateBot';
 import { type CardData } from './handOfCards';
@@ -20,7 +19,7 @@ export class BotCtrl {
   readonly uids: Record<Color, string | undefined> = { white: undefined, black: undefined };
   private store: ObjectStorage<BotInfo>;
   private busy = false;
-  private bestMove = { uci: '0000', cp: 0 };
+  // private bestMove = { uci: '0000', cp: 0 };
 
   constructor() {}
 
@@ -117,7 +116,7 @@ export class BotCtrl {
   // }
 
   reset(): void {
-    this.bestMove = { uci: '0000', cp: 0 };
+    // this.bestMove = { uci: '0000', cp: 0 };
     return this.zerofish.reset();
   }
 

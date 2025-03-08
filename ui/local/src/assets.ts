@@ -5,6 +5,11 @@ import { env } from './localEnv';
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
 
+interface NetData {
+  key: string;
+  data: Uint8Array;
+}
+
 export class Assets {
   net: Map<string, Promise<NetData>> = new Map();
   book: Map<string, Promise<OpeningBook>> = new Map();
@@ -82,8 +87,3 @@ export function botAssetUrl(type: AssetType, path: string): string {
       ? `${site.asset.baseUrl()}/assets/${path}`
       : site.asset.url(`lifat/bots/${type}/${encodeURIComponent(path)}`);
 }
-
-type NetData = {
-  key: string;
-  data: Uint8Array;
-};

@@ -338,14 +338,14 @@ function blobArrayBuffer(file: Blob): Promise<ArrayBuffer> {
   });
 }
 
-function blobString(file: Blob): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsText(file);
-  });
-}
+// function blobString(file: Blob): Promise<string> {
+//   return new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.onload = () => resolve(reader.result as string);
+//     reader.onerror = reject;
+//     reader.readAsText(file);
+//   });
+// }
 
 function mimeOf(filename: string) {
   // go live with webp and mp3 only, but support more formats during dev work
