@@ -841,17 +841,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="sessions">Seisiúin</string>
   <string name="revokeAllSessions">cealaigh gach seisiún</string>
   <string name="playChessEverywhere">Imir ficheall i ngach áit</string>
-  <string name="asFreeAsLichess">Chomh saor le Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Cruthaithe mar gheall ar ghrá don fhicheall, ní d\'airgead</string>
   <string name="everybodyGetsAllFeaturesForFree">Faigheann gach duine gach gné saor in aisce</string>
-  <string name="zeroAdvertisement">Gan fógraíocht</string>
-  <string name="fullFeatured">Uirlisí iomlána le feiceáil</string>
-  <string name="phoneAndTablet">Fón agus táibléad</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, clasaiceach</string>
-  <string name="correspondenceChess">Ficheall chomhfhreagrais</string>
-  <string name="onlineAndOfflinePlay">Imirt ar líne agus as líne</string>
   <string name="viewTheSolution">Féach ar an réiteach</string>
-  <string name="followAndChallengeFriends">Lean agus tabhair dúshlán do chairde</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Ar fáil i %s teanga!</item>
     <item quantity="two">Ar fáil i %s theanga!</item>
@@ -859,7 +850,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
     <item quantity="many">Ar fáil i %s teanga!</item>
     <item quantity="other">Ar fáil i %s teangacha!</item>
   </plurals>
-  <string name="gameAnalysis">Anailís cluichí</string>
   <string name="xHostsY">Óstálann %1$s %2$s</string>
   <string name="xJoinsY">tagann %1$s %2$s</string>
   <string name="xLikesY">Is maith le %1$s %2$s</string>

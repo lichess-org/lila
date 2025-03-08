@@ -7,7 +7,7 @@ import type { RoundData } from '../interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 
-export const pieceRoles: Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+export const pieceRoles: Exclude<Role, 'king'>[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 export function drag(ctrl: RoundController, e: MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
@@ -72,7 +72,7 @@ export function init(ctrl: RoundController): void {
       if (!crazyData) return;
 
       const nb = crazyData.pockets[color === 'white' ? 0 : 1][role];
-      setDropMode(ctrl.chessground.state, nb > 0 ? { color, role } : undefined);
+      setDropMode(ctrl.chessground.state, nb ? { color, role } : undefined);
       activeCursor = `cursor-${color}-${role}`;
       document.body.classList.add(activeCursor);
     } else {

@@ -63,7 +63,7 @@ async function writeManifest() {
     `window.site.info.message='${commitMessage}';`,
     `window.site.debug=${env.debug};`,
   ];
-  if (env.remoteLog) clientJs.push(jsLogger());
+  if (env.remoteLog) clientJs.push(await jsLogger());
 
   const pairLine = ([name, info]: [string, SplitAsset]) => `'${name.replaceAll("'", "\\'")}':'${info.hash}'`;
   const jsLines = Object.entries(manifest.js)

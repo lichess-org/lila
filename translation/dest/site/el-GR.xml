@@ -774,23 +774,13 @@
   <string name="sessions">Συνεδρίες</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
-  <string name="asFreeAsLichess">Δωρεάν</string>
-  <string name="builtForTheLoveOfChessNotMoney">Φτιαγμένο από αγάπη για το σκάκι, όχι για τα χρήματα</string>
   <string name="everybodyGetsAllFeaturesForFree">Όλα τα στοιχεία είναι δωρεάν για όλους</string>
-  <string name="zeroAdvertisement">Χωρίς διαφημίσεις</string>
-  <string name="fullFeatured">Πλήρη χαρακτηριστικά</string>
-  <string name="phoneAndTablet">Τηλέφωνο και τάμπλετ</string>
-  <string name="bulletBlitzClassical">Υπερταχέα, ταχέα, κλασικά</string>
-  <string name="correspondenceChess">Σκάκι δι\' αλληλογραφίας</string>
-  <string name="onlineAndOfflinePlay">Παιχνίδια διαδικτυακώς και εκτός σύνδεσης</string>
   <string name="viewTheSolution">Δείτε τη λύση</string>
-  <string name="followAndChallengeFriends">Ακολουθήστε και προκαλέστε φίλους</string>
   <string name="noChallenges">Δεν έχετε προκλήσεις.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Διαθέσιμο σε %s γλώσσες!</item>
     <item quantity="other">Διαθέσιμο σε %s γλώσσες!</item>
   </plurals>
-  <string name="gameAnalysis">Ανάλυση παιχνιδιού</string>
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">%2$s αρέσει στην/ον %1$s</string>

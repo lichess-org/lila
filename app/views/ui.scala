@@ -75,7 +75,7 @@ object opening:
 
 val video = lila.video.ui.VideoUi(helpers)
 
-val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(game.widgets(_))
+val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
 
 val auth = lila.web.ui.AuthUi(helpers)
 

@@ -254,12 +254,7 @@ final private[api] class RoundApi(
         .add("nbSecondsForFirstMove" -> v.tour.isStarted.option {
           pov.game.timeForFirstMove.toSeconds
         })
-        .add("ranks" -> v.ranks.map { r =>
-          Json.obj(
-            "white" -> r.whiteRank,
-            "black" -> r.blackRank
-          )
-        })
+        .add("ranks" -> v.ranks)
         .add(
           "top",
           v.top.map:

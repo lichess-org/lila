@@ -14,5 +14,12 @@ describe('test isVersionCompatible', () => {
     expect(isVersionCompatible('15.1', { atLeast: '15.1', below: '15.1' })).toBe(false);
     expect(isVersionCompatible('122_2a7', { below: '122.2' })).toBe(false);
     expect(isVersionCompatible('122_2a7', { atLeast: '122.2' })).toBe(true);
+    expect(isVersionCompatible('132.0.0.0', { below: '132' })).toBe(false);
+    expect(isVersionCompatible('132.0.0.0', { atLeast: '132' })).toBe(true);
+    expect(isVersionCompatible('5', {})).toBe(true);
+    expect(isVersionCompatible('1')).toBe(true);
+    expect(isVersionCompatible('', { below: '6' })).toBe(false);
+    expect(isVersionCompatible('', {})).toBe(false);
+    expect(isVersionCompatible(false, {})).toBe(false);
   });
 });

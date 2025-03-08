@@ -55,6 +55,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("kiwen-suwi"),
     PieceSet("horsey"),
     PieceSet("anarcandy"),
+    PieceSet("xkcd"),
     PieceSet("shapes"),
     PieceSet("letter"),
     PieceSet("disguised")

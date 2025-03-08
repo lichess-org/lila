@@ -14,7 +14,7 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler }
 import lila.core.id.{ GameFullId, GameId, GamePlayerId, TeamId }
 import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.core.user.User
-import lila.core.userId.UserId
+import lila.core.userId.{ UserId, UserIdOf }
 
 val maxPlaying           = Max(200) // including correspondence
 val maxPlayingRealtime   = Max(100)
@@ -124,6 +124,7 @@ abstract class GameRepo(val coll: BSONCollection):
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Update[Game]): Funit
   def game(gameId: GameId): Fu[Option[Game]]
+  def pov[U: UserIdOf](gameId: GameId, user: U): Fu[Option[Pov]]
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
   def flushIfPresent(gameId: GameId): Funit
 

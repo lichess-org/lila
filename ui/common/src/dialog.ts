@@ -68,7 +68,7 @@ site.load.then(async () => {
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {
   await domDialog({
-    htmlText: escapeHtml(msg),
+    htmlText: escapeHtmlAddBreaks(msg),
     class: 'alert',
     modal: true,
     show: true,
@@ -77,6 +77,16 @@ export async function alert(msg: string): Promise<void> {
 
 export async function alerts(msgs: string[]): Promise<void> {
   for (const msg of msgs) await alert(msg);
+}
+
+export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
+  const dlg = await domDialog({
+    htmlText: escapeHtmlAddBreaks(msg),
+    noCloseButton: true,
+    actions: { result: 'ok' },
+  });
+  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
+  return dlg.show();
 }
 
 // non-blocking window.confirm-alike
@@ -88,10 +98,9 @@ export async function confirm(
   return (
     (
       await domDialog({
-        htmlText:
-          `<div>${escapeHtmlAddBreaks(msg)}</div>` +
-          `<span><button class="button button-empty no">${no}</button>` +
-          `<button class="button yes">${yes}</button></span>`,
+        htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
+          <span><button class="button button-empty no">${no}</button>
+          <button class="button yes">${yes}</button></span>`,
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
@@ -108,13 +117,16 @@ export async function confirm(
 }
 
 // non-blocking window.prompt-alike
-export async function prompt(msg: string, def: string = ''): Promise<string | null> {
+export async function prompt(
+  msg: string,
+  def: string = '',
+  valid: (text: string) => boolean = () => true,
+): Promise<string | null> {
   const res = await domDialog({
-    htmlText:
-      `<div>${escapeHtmlAddBreaks(msg)}</div>` +
-      `<input type="text" value="${escapeHtml(def)}" />` +
-      `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
-      `<button class="button ok">${i18n.site.ok}</button></span>`,
+    htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
+      <input type="text"${valid(def) ? '' : ' class="invalid"'} value="${escapeHtml(def)}">
+      <span><button class="button button-empty cancel">${i18n.site.cancel}</button>
+      <button class="button ok${valid(def) ? '"' : ' disabled" disabled'}>${i18n.site.ok}</button></span>`,
     class: 'alert',
     noCloseButton: true,
     noClickAway: true,
@@ -130,8 +142,21 @@ export async function prompt(msg: string, def: string = ''): Promise<string | nu
         listener: (e: KeyboardEvent, dlg) => {
           if (e.key !== 'Enter' && e.key !== 'Escape') return;
           e.preventDefault();
-          if (e.key === 'Enter') dlg.close('ok');
+          if (e.key === 'Enter' && valid(dlg.view.querySelector<HTMLInputElement>('input')!.value))
+            dlg.close('ok');
           else if (e.key === 'Escape') dlg.close('cancel');
+        },
+      },
+      {
+        selector: 'input',
+        event: 'input',
+        listener: (e, dlg) => {
+          if (!(e.target instanceof HTMLInputElement)) return;
+          const ok = dlg.view.querySelector<HTMLButtonElement>('.ok')!;
+          const invalid = !valid(e.target.value);
+          e.target.classList.toggle('invalid', invalid);
+          ok.classList.toggle('disabled', invalid);
+          ok.disabled = invalid;
         },
       },
     ],
