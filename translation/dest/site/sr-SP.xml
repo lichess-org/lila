@@ -220,11 +220,11 @@
   <string name="signupUsernameHint">Постарај се да одабереш пристојно корисничко име. Касније га нећеш моћи променити, а налози са непристојним корисничким именима биће затворени!</string>
   <string name="signupEmailHint">Биће коришћено само аз ресетовање лозинке.</string>
   <string name="password">Лозинка</string>
-  <string name="changePassword">Промените лозинку</string>
-  <string name="changeEmail">Промени е-пошту</string>
-  <string name="email">Е-пошта</string>
+  <string name="changePassword">Промени лозинку</string>
+  <string name="changeEmail">Промени имејл</string>
+  <string name="email">Имејл</string>
   <string name="passwordReset">Мењање лозинке</string>
-  <string name="forgotPassword">Заборавили сте лозинку?</string>
+  <string name="forgotPassword">Заборавили лозинку?</string>
   <string name="error.weakPassword">Ова лозинка је изузетно честа и сувише лака да се погоди.</string>
   <string name="error.namePassword">Не користите своје корисничко име као шифру.</string>
   <string name="blankedPassword">Користио си исту лозинку на другом сајту и тај сајт је био хакован. Да бисмо обезбедили сигурност твог Lichess налога, неопходно је да поставимо нову лозинку. Хвала на разумевању.</string>
