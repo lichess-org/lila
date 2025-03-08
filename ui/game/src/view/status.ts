@@ -73,7 +73,7 @@ export default function status(ctrl: Ctrl): string {
       if (insufficientMaterial(d.game.variant.key, d.game.fen))
         return `${i18n.site.insufficientMaterial} • ${i18n.site.draw}`;
       if (d.game.drawOffers?.some(turn => turn >= d.game.turns)) return i18n.site.drawByMutualAgreement;
-      return i18n.site.draw;
+      return i18n.site.drawClaimedByInsufficientMaterial;
     }
     case 'outoftime':
       return `${d.game.turns % 2 === 0 ? i18n.site.whiteTimeOut : i18n.site.blackTimeOut}${
