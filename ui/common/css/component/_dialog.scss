@@ -117,5 +117,8 @@ dialog {
       align-self: center;
       width: 40ch;
     }
+    .invalid {
+      background-color: $m-bad_bg--mix-30;
+    }
   }
 }

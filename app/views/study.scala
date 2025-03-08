@@ -77,12 +77,12 @@ def show(
             ),
           "socketUrl"     -> socketUrl(s.id),
           "socketVersion" -> socketVersion
-        ) ++ views.board.explorerAndCevalConfig
+        ) ++ views.analyse.ui.explorerAndCevalConfig
       )
     )
     .flag(_.noRobots, !s.isPublic)
     .flag(_.zoom)
-    .csp(views.analyse.ui.csp.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id).url}",

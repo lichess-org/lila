@@ -15,7 +15,7 @@ final class JsonView(
     gameRepo: lila.core.game.GameRepo
 )(using Executor, Translator):
 
-  import JsonView.*
+  import JsonView.{ *, given }
 
   def apply(
       puzzle: Puzzle,
@@ -34,15 +34,7 @@ final class JsonView(
           "angle",
           angle.map: a =>
             Json
-              .obj(
-                "key" -> a.key,
-                "name" -> {
-                  if a == PuzzleAngle.mix
-                  then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
-                  else a.name.txt()
-                },
-                "desc" -> a.description.txt()
-              )
+              .toJsObject(a)
               .add("chapter" -> a.asTheme.flatMap(PuzzleTheme.studyChapterIds.get))
               .add("opening" -> a.opening.map: op =>
                 Json.obj("key" -> op.key, "name" -> op.name))
@@ -174,6 +166,20 @@ final class JsonView(
     )
 
 object JsonView:
+
+  given (using Translate): OWrites[PuzzleAngle] = a =>
+    Json
+      .obj(
+        "key" -> a.key,
+        "name" -> {
+          if a == PuzzleAngle.mix
+          then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
+          else a.name.txt()
+        },
+        "desc" -> a.description.txt()
+      )
+
+  given OWrites[PuzzleReplay] = Json.writes[PuzzleReplay]
 
   def makeTree(puzzle: Puzzle): Option[NewTree] =
 

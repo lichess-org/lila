@@ -39,3 +39,10 @@ object WebConfig:
         c.get[Secret]("pagerDuty.apiKey")
       )
     )
+
+  def analyseEndpoints(c: play.api.Configuration) =
+    lila.ui.AnalyseEndpoints(
+      explorer = c.get[String]("explorer.endpoint"),
+      tablebase = c.get[String]("explorer.tablebase_endpoint"),
+      externalEngine = c.get[String]("externalEngine.endpoint")
+    )

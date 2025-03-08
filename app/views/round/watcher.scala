@@ -47,7 +47,7 @@ def watcher(
           chatOption.map(_ => views.chat.frag)
         ),
         ui.roundAppPreload(pov),
-        div(cls := "round__underboard")(crosstable(cross, pov.game)),
+        div(cls := "round__underboard")(views.game.ui.crosstable.option(cross, pov.game)),
         div(cls := "round__underchat")(underchat(pov.game))
       )
 

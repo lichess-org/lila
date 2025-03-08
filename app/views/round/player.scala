@@ -65,7 +65,7 @@ def player(
         ),
         ui.roundAppPreload(pov),
         div(cls := "round__underboard")(
-          crosstable(cross, pov.game),
+          views.game.ui.crosstable.option(cross, pov.game),
           (playing.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
             div(cls := "round__now-playing")(
               ui.others(playing, simul.filter(_.isHost(ctx.me)).map(views.simul.ui.roundOtherGames))
