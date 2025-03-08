@@ -16,12 +16,11 @@ def apply(
     userTv: Option[User] = None,
     bookmarked: Boolean
 )(using ctx: Context): Option[Frag] =
-  ctx.noBlind.option(
+  ctx.noBlind.option:
     frag(
       meta(pov, initialFen, tour, simul, userTv, bookmarked),
       pov.game.userIds.filter(isStreaming).map(views.streamer.bits.contextual)
     )
-  )
 
 def meta(
     pov: Pov,

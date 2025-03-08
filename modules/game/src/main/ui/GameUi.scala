@@ -149,12 +149,12 @@ final class GameUi(helpers: Helpers):
       cross.map: c =>
         apply(ctx.userId.fold(c)(c.fromPov), game.id.some)
 
-    def apply(ct: Crosstable.WithMatchup, currentId: Option[GameId])(using Context): Frag =
+    def apply(ct: Crosstable.WithMatchup, currentId: Option[GameId])(using Context): Tag =
       apply(ct.crosstable, ct.matchup, currentId)
 
     def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[GameId])(using
         Context
-    ): Frag =
+    ): Tag =
       val matchup = trueMatchup.filter(_.users != ct.users)
       val matchupSepAt: Option[Int] = matchup.map: m =>
         (ct.nbGames.min(Crosstable.maxGames)) - m.users.nbGames

@@ -51,8 +51,8 @@ object account:
   val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
-  csp = analyse.ui.csp,
-  board.explorerAndCevalConfig,
+  csp = analyse.ui.bits.cspExternalEngine,
+  views.analyse.ui.explorerAndCevalConfig,
   modMenu = mod.ui.menu("practice")
 )
 
