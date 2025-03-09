@@ -172,6 +172,7 @@
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="claimADraw">Ogłoś remis</string>
+  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Stwierdzono remis</string>
   <string name="offerDraw">Zaproponuj remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
