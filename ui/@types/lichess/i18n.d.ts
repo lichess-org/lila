@@ -2747,6 +2747,8 @@ interface I18n {
     aiNameLevelAiLevel: I18nFormat;
     /** All information is public and optional. */
     allInformationIsPublicAndOptional: string;
+    /** All languages */
+    allLanguages: string;
     /** All set! */
     allSet: string;
     /** All squares of the board */
