@@ -155,7 +155,7 @@
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Tre gongar stillingsgjentaking</string>
-  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">Krev remis</string>
+  <string name="claimADraw">Krev remis</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
