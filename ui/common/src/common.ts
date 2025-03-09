@@ -113,12 +113,7 @@ export function escapeHtml(str: string): string {
 }
 
 export function frag<T extends Node = Node>(html: string): T {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-
-  const fragment: DocumentFragment = document.createDocumentFragment();
-  while (div.firstChild) fragment.appendChild(div.firstChild);
-
+  const fragment = document.createRange().createContextualFragment(html);
   return (fragment.childElementCount === 1 ? fragment.firstElementChild : fragment) as unknown as T;
 }
 
