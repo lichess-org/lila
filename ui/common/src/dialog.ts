@@ -171,7 +171,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
-  if (isTouchDevice()) dialog.classList.add('touch-scroll');
+  if (isTouchDevice() && o.actions) dialog.classList.add('touch-scroll');
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
@@ -293,8 +293,8 @@ class DialogWrapper implements Dialog {
 
     if (!o.noClickAway)
       setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'click', cancelOnInterval);
-        this.dialogEvents.addListener(dialog, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
+        this.dialogEvents.addListener(dialog, 'pointerdown', cancelOnInterval);
       });
     for (const app of o.append ?? []) {
       if (app.node === view) break;
