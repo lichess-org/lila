@@ -78,6 +78,4 @@
   <string name="optionalDetails">جزئیات اختیاری</string>
   <string name="pastBroadcasts">پخش‌های گذشته</string>
   <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
-  <string name="backToLiveMove">%s برگشت به حرکت فعلی</string>
-  <string name="sinceHideResults">%s از آنجایی که شما انتخاب کردید نتایج را مخفی کنید، همه تابلوهای پیش نمایش خالی هستند تا از فهمیدن نتایج جلوگیری شود.</string>
 </resources>
