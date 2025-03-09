@@ -2,6 +2,7 @@
 <resources>
   <string name="communityBlogs">Yhteisön blogit</string>
   <string name="friendBlogs">Ystävien blogit</string>
+  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Oma blogi</string>
   <string name="likedBlogs">Tykätyt blogikirjoitukset</string>
   <string name="blogTopics">Blogin aiheet</string>
   <string name="lichessOfficialBlog">Lichessin virallinen blogi</string>
