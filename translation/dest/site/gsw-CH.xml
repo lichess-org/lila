@@ -156,6 +156,7 @@
   <string name="flipBoard">Brätt umcheere</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
+  <string name="drawClaimed" comment="This is a condition that can end the game. Appears when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Remis g\'forderet</string>
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
