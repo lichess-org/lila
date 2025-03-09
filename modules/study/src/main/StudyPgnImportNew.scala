@@ -3,7 +3,7 @@ package lila.study
 import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
-import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, ByColor }
+import chess.{ ErrorStr, Node as PgnNode, ByColor }
 import monocle.syntax.all.*
 
 import lila.core.LightUser

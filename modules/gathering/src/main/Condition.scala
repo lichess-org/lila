@@ -38,8 +38,8 @@ object Condition:
 
   case class Bots(allowed: Boolean) extends Condition with FlatCond:
     def name(pt: PerfType)(using Translate) =
-      if allowed then "Bot players are allowed."
-      else "Bot players are not allowed."
+      if allowed then "Bot players are allowed"
+      else "Bot players are not allowed"
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if me.isBot && !allowed then Refused(name(pt)(using _)) else Accepted
 

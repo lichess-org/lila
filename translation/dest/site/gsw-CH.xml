@@ -782,23 +782,13 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="sessions">Sitzige</string>
   <string name="revokeAllSessions">alli Sitzige beände</string>
   <string name="playChessEverywhere">Schpill überall Schach</string>
-  <string name="asFreeAsLichess">So gratis wie Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Erschaffe us Liebi zum Schach, nöd zum Gäld</string>
   <string name="everybodyGetsAllFeaturesForFree">Jede chann alli Funktione gratis nutze</string>
-  <string name="zeroAdvertisement">Null Werbig</string>
-  <string name="fullFeatured">Alli Funktione</string>
-  <string name="phoneAndTablet">Smart Phone und Tablet</string>
-  <string name="bulletBlitzClassical">Bullet, Blitz, Klassisch</string>
-  <string name="correspondenceChess">Fernschach</string>
-  <string name="onlineAndOfflinePlay">Online und offline schpille</string>
   <string name="viewTheSolution">Lueg d\'Lösig a</string>
-  <string name="followAndChallengeFriends">Folg Fründe und forder sie zum Schpil</string>
   <string name="noChallenges">Kei Useforderige.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Verfüegbar i %s Schprach!</item>
     <item quantity="other">Verfüegbar i %s Schprache!</item>
   </plurals>
-  <string name="gameAnalysis">Schpil-Analyse</string>
   <string name="xHostsY">%1$s hät %2$s erschtellt</string>
   <string name="xJoinsY">%1$s isch %2$s biträte</string>
   <string name="xLikesY">%1$s gfallt %2$s</string>

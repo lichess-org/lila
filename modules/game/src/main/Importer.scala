@@ -28,10 +28,12 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
             g <- parseImport(pgn, me).toFuture
             game = forceId.fold(g.sloppy)(g.withId)
             _ <- gameRepo.insertDenormalized(game, initialFen = g.initialFen)
-            _ <- game.pgnImport.flatMap(_.user).isDefined.so {
-              // import date, used to make a compound sparse index with the user
-              gameRepo.coll.updateField($id(game.id), s"${F.pgnImport}.ca", game.createdAt).void
-            }
+            _ <- game.pgnImport
+              .flatMap(_.user)
+              .isDefined
+              .so:
+                // import date, used to make a compound sparse index with the user
+                gameRepo.coll.updateField($id(game.id), s"${F.pgnImport}.ca", game.createdAt).void
             _ <- gameRepo.finish(game.id, game.winnerColor, None, game.status)
           yield game
 

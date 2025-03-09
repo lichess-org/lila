@@ -73,6 +73,11 @@ object HTTPRequest:
       // http libs
       """|HeadlessChrome|okhttp|axios|undici|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus|imroc/req"""
 
+  def isImagePreviewCrawler(req: RequestHeader) = Crawler(imagePreviewCrawlerMatcher(req))
+
+  private val imagePreviewCrawlerMatcher = UaMatcher:
+    """BingPreview|Discordbot|WhatsApp"""
+
   final class UaMatcher(rStr: String):
     private val pattern                    = rStr.r.pattern
     def apply(req: RequestHeader): Boolean = userAgent(req).exists(ua => pattern.matcher(ua.value).find)

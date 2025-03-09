@@ -733,22 +733,12 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="sessions">Phiên</string>
   <string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
-  <string name="asFreeAsLichess">Miễn phí như Lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Được xây dựng trên nền tảng tình yêu dành cho cờ vua, không phải vì tiền bạc</string>
   <string name="everybodyGetsAllFeaturesForFree">Mọi người đều được sử dụng tất cả các tính năng hoàn toàn miễn phí</string>
-  <string name="zeroAdvertisement">Không có quảng cáo</string>
-  <string name="fullFeatured">Toàn bộ chức năng hiện có</string>
-  <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
-  <string name="bulletBlitzClassical">Cờ đạn, cờ chớp, cờ nhanh, cờ chậm</string>
-  <string name="correspondenceChess">Cờ qua thư</string>
-  <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
   <string name="viewTheSolution">Xem đáp án</string>
-  <string name="followAndChallengeFriends">Theo dõi và thách đấu bạn bè</string>
   <string name="noChallenges">Không có lời thách đấu nào.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
   </plurals>
-  <string name="gameAnalysis">Phân tích ván cờ</string>
   <string name="xHostsY">%1$s đã chủ trì %2$s</string>
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
   <string name="xLikesY">%1$s thích %2$s</string>

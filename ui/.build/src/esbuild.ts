@@ -17,7 +17,8 @@ export async function esbuild(): Promise<any> {
     treeShaking: true,
     splitting: true,
     format: 'esm',
-    target: 'es2020',
+    target: 'es2018',
+    supported: { bigint: true },
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,
@@ -89,6 +90,7 @@ function inlineTask() {
             const res = await es.transform(await fs.promises.readFile(inlineSrc), {
               minify: true,
               loader: 'ts',
+              target: 'es2018',
             });
             esbuildLog(res.warnings);
             js[moduleName] ??= {};

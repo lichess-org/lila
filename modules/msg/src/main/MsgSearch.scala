@@ -22,15 +22,17 @@ final class MsgSearch(
     if kid.yes then forKid(q)
     else
       val search = UserSearch.read(q)
-      searchThreads(q).zip(search.so(searchFriends)).zip(search.so(searchUsers)).map {
-        case ((threads, friends), users) =>
-          MsgSearch
-            .Result(
-              threads,
-              friends.filterNot(f => threads.exists(_.other.is(f))).take(10),
-              users.filterNot(u => u.is(me) || friends.exists(_.is(u))).take(10)
-            )
-      }
+      searchThreads(q)
+        .zip(search.so(searchFriends))
+        .zip(search.so(searchUsers))
+        .map:
+          case ((threads, friends), users) =>
+            MsgSearch
+              .Result(
+                threads,
+                friends.filterNot(f => threads.exists(_.other.is(f))).take(10),
+                users.filterNot(u => u.is(me) || friends.exists(_.is(u))).take(10)
+              )
 
   private def forKid(q: String)(using me: Me): Fu[MsgSearch.Result] = for
     threads  <- searchThreads(q)

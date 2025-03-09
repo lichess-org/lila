@@ -50,8 +50,9 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
 
   def boardMove(id: GameId, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ ?=> me ?=>
-      WithPovAsBoard(id):
-        impl.move(_, uci, offeringDraw)
+      WithPovAsBoard(id): pov =>
+        env.bot.boardReport.move(pov.game)
+        impl.move(pov, uci, offeringDraw)
     }
 
   def boardCommandPost(cmd: String) = ScopedBody(_.Board.Play) { ctx ?=> me ?=>
@@ -97,9 +98,8 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
             env.bot.player.claimVictory(pov).pipe(toResult)
         case Array("game", id, "berserk") =>
           as(GameAnyId(id).gameId): pov =>
-            fuccess:
-              if env.bot.player.berserk(pov.game) then jsonOkResult
-              else JsonBadRequest(jsonError("Cannot berserk"))
+            if !me.isBot && env.bot.player.berserk(pov.game) then jsonOkResult
+            else JsonBadRequest(jsonError("Cannot berserk"))
         case _ => notFoundJson("No such command")
 
   def boardCommandGet(cmd: String) = ScopedBody(_.Board.Play) { _ ?=> me ?=>
@@ -149,10 +149,11 @@ final class PlayApi(env: Env)(using akka.stream.Materializer) extends LilaContro
         else f(pov)
 
   private def WithPov(id: GameId)(f: Pov => Fu[Result])(using me: Me) =
-    env.round.proxyRepo.game(id).flatMap {
-      case None       => NotFound(jsonError("No such game"))
-      case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
-    }
+    env.round.proxyRepo
+      .game(id)
+      .flatMap:
+        case None       => NotFound(jsonError("No such game"))
+        case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
 
   private val botsCache = env.memo.cacheApi.unit[List[UserWithPerfs]]:
     _.expireAfterWrite(10.seconds).buildAsyncFuture: _ =>

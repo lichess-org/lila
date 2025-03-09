@@ -94,14 +94,12 @@ enum Phase(val id: Int, val name: String):
 object Phase:
   val byId = values.mapBy(_.id)
   def of(div: chess.Division, ply: Ply): Phase =
-    div.middle.fold[Phase](Opening) {
+    div.middle.fold[Phase](Opening):
       case m if ply < m => Opening
       case _ =>
-        div.end.fold[Phase](Middle) {
+        div.end.fold[Phase](Middle):
           case e if ply < e => Middle
           case _            => End
-        }
-    }
 
 enum Castling(val id: Int, val name: String):
   case Kingside  extends Castling(1, "Kingside castling")

@@ -222,9 +222,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .list(5)
 
   private[tournament] def scheduledStillWorthEntering: Fu[List[Tournament]] =
-    coll.list[Tournament](startedSelect ++ scheduledSelect).dmap {
-      _.filter(_.isStillWorthEntering)
-    }
+    coll
+      .list[Tournament](startedSelect ++ scheduledSelect)
+      .dmap:
+        _.filter(_.isStillWorthEntering)
 
   def uniques(max: Int): Fu[List[Tournament]] =
     coll
@@ -247,7 +248,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .sort($doc("startsAt" -> 1))
       .cursor[Tournament]()
       .listAll()
-      .map {
+      .map:
         _.flatMap { tour =>
           tour.scheduleFreq.map(tour -> _)
         }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
@@ -262,7 +263,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
             )
         }._1
           .reverse
-      }
 
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: Instant): Fu[List[Tournament]] =
     coll

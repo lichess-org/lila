@@ -5,7 +5,7 @@ import scala.util.Success
 import chess.{ IntRating, ByColor }
 import chess.rating.IntRatingDiff
 
-import lila.core.perf.{ PerfId, UserPerfs, UserWithPerfs }
+import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.user.LightPerf
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }

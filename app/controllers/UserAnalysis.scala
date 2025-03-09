@@ -56,7 +56,7 @@ final class UserAnalysis(
         orientation,
         owner = false
       )
-      page <- renderPage(views.board.userAnalysis(data, pov, chess960PositionNum))
+      page <- renderPage(views.analyse.ui.userAnalysis(data, pov, chess960PositionNum))
     yield Ok(page)
       .withCanonical(routes.UserAnalysis.index)
       .enforceCrossSiteIsolation
@@ -73,7 +73,7 @@ final class UserAnalysis(
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false)
         .map: data =>
-          views.board.userAnalysis(data, pov, inlinePgn = decodedPgn)
+          views.analyse.ui.userAnalysis(data, pov, inlinePgn = decodedPgn)
     .map(_.enforceCrossSiteIsolation)
 
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
@@ -116,7 +116,7 @@ final class UserAnalysis(
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
-                  views.board.userAnalysis(data, pov, withForecast = withForecast)
+                  views.analyse.ui.userAnalysis(data, pov, withForecast = withForecast)
               yield Ok(page).noCache
           ,
           api = _ => mobileAnalysis(pov)

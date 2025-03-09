@@ -6,7 +6,7 @@ import scalatags.text.Builder
 import lila.ui.ScalatagsTemplate.*
 import scala.util.Try
 import play.api.i18n.Lang
-import lila.core.data.SimpleMemo
+import scalalib.data.SimpleMemo
 
 trait FormHelper:
   self: I18nHelper & AssetHelper =>

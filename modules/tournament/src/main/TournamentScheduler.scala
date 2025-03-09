@@ -131,11 +131,10 @@ Thank you all, you rock!""".some,
         secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY)    -> Rapid,
         secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY)     -> Classical,
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> HyperBullet
-      ).flatMap { (day, speed) =>
+      ).flatMap: (day, speed) =>
         at(day, 17).some.filter(farFuture.isAfter).map { date =>
           Schedule(Yearly, speed, Standard, none, date).plan
-        }
-      },
+        },
       List( // yearly variant tournaments!
         secondWeekOf(JANUARY).withDayOfWeek(WEDNESDAY) -> Chess960,
         secondWeekOf(FEBRUARY).withDayOfWeek(THURSDAY) -> Crazyhouse,
@@ -145,11 +144,10 @@ Thank you all, you rock!""".some,
         secondWeekOf(JUNE).withDayOfWeek(TUESDAY)      -> Atomic,
         secondWeekOf(JULY).withDayOfWeek(WEDNESDAY)    -> Horde,
         secondWeekOf(AUGUST).withDayOfWeek(THURSDAY)   -> ThreeCheck
-      ).flatMap { (day, variant) =>
+      ).flatMap: (day, variant) =>
         at(day, 17).some.filter(farFuture.isAfter).map { date =>
           Schedule(Yearly, SuperBlitz, variant, none, date).plan
-        }
-      },
+        },
       List(thisMonth, nextMonth).flatMap { month =>
         List(
           List( // monthly standard tournaments!
@@ -160,11 +158,9 @@ Thank you all, you rock!""".some,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
-          ).map { (day, speed) =>
-            at(day, 17).pipe { date =>
-              Schedule(Monthly, speed, Standard, none, date).plan
-            }
-          },
+          ).map: (day, speed) =>
+            at(day, 17).pipe: date =>
+              Schedule(Monthly, speed, Standard, none, date).plan,
           List( // monthly variant tournaments!
             month.lastWeek.withDayOfWeek(MONDAY)    -> Chess960,
             month.lastWeek.withDayOfWeek(TUESDAY)   -> Crazyhouse,
@@ -174,17 +170,15 @@ Thank you all, you rock!""".some,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> Atomic,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> Horde,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
-          ).map { (day, variant) =>
-            at(day, 19).pipe { date =>
+          ).map: (day, variant) =>
+            at(day, 19).pipe: date =>
               Schedule(
                 Monthly,
                 if variant == Chess960 || variant == Crazyhouse then Blitz else SuperBlitz,
                 variant,
                 none,
                 date
-              ).plan
-            }
-          },
+              ).plan,
           List( // shield tournaments!
             month.firstWeek.withDayOfWeek(MONDAY)    -> Bullet,
             month.firstWeek.withDayOfWeek(TUESDAY)   -> SuperBlitz,
@@ -218,11 +212,9 @@ Thank you all, you rock!""".some,
         nextFriday    -> Classical,
         nextSaturday  -> HyperBullet,
         nextSunday    -> UltraBullet
-      ).map { (day, speed) =>
-        at(day, 17).pipe { date =>
-          Schedule(Weekly, speed, Standard, none, date.pipe(orNextWeek)).plan
-        }
-      },
+      ).map: (day, speed) =>
+        at(day, 17).pipe: date =>
+          Schedule(Weekly, speed, Standard, none, date.pipe(orNextWeek)).plan,
       List( // weekly variant tournaments!
         nextMonday    -> ThreeCheck,
         nextTuesday   -> Crazyhouse,
@@ -232,85 +224,64 @@ Thank you all, you rock!""".some,
         nextSaturday  -> Atomic,
         nextSunday    -> Horde,
         nextSunday    -> Chess960
-      ).map { (day, variant) =>
-        at(day, 19).pipe { date =>
+      ).map: (day, variant) =>
+        at(day, 19).pipe: date =>
           Schedule(
             Weekly,
             if variant == Chess960 || variant == Crazyhouse then Blitz else SuperBlitz,
             variant,
             none,
             date.pipe(orNextWeek)
-          ).plan
-        }
-      },
+          ).plan,
       List( // week-end elite tournaments!
         nextSaturday -> SuperBlitz,
         nextSunday   -> Bullet
-      ).map { (day, speed) =>
-        at(day, 17).pipe { date =>
-          Schedule(Weekend, speed, Standard, none, date.pipe(orNextWeek)).plan
-        }
-      },
+      ).map: (day, speed) =>
+        at(day, 17).pipe: date =>
+          Schedule(Weekend, speed, Standard, none, date).plan,
       // Note: these should be scheduled close to the hour of weekly or weekend tournaments
       // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily tournaments!
-        at(today, 16).pipe { date =>
-          Schedule(Daily, Bullet, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 17).pipe { date =>
-          Schedule(Daily, SuperBlitz, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 18).pipe { date =>
-          Schedule(Daily, Blitz, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 19).pipe { date =>
-          Schedule(Daily, Rapid, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 20).pipe { date =>
-          Schedule(Daily, HyperBullet, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 21).pipe { date =>
+        at(today, 16).pipe: date =>
+          Schedule(Daily, Bullet, Standard, none, date.pipe(orTomorrow)).plan,
+        at(today, 17).pipe: date =>
+          Schedule(Daily, SuperBlitz, Standard, none, date.pipe(orTomorrow)).plan,
+        at(today, 18).pipe: date =>
+          Schedule(Daily, Blitz, Standard, none, date.pipe(orTomorrow)).plan,
+        at(today, 19).pipe: date =>
+          Schedule(Daily, Rapid, Standard, none, date.pipe(orTomorrow)).plan,
+        at(today, 20).pipe: date =>
+          Schedule(Daily, HyperBullet, Standard, none, date.pipe(orTomorrow)).plan,
+        at(today, 21).pipe: date =>
           Schedule(Daily, UltraBullet, Standard, none, date.pipe(orTomorrow)).plan
-        }
       ),
       // Note: these should be scheduled close to the hour of weekly variant tournaments
       // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily variant tournaments!
-        at(today, 20).pipe { date =>
-          Schedule(Daily, Blitz, Crazyhouse, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 21).pipe { date =>
-          Schedule(Daily, Blitz, Chess960, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 22).pipe { date =>
-          Schedule(Daily, SuperBlitz, KingOfTheHill, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 23).pipe { date =>
-          Schedule(Daily, SuperBlitz, Atomic, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 0).pipe { date =>
-          Schedule(Daily, SuperBlitz, Antichess, none, date.pipe(orTomorrow)).plan
-        },
-        at(tomorrow, 1).pipe { date =>
-          Schedule(Daily, SuperBlitz, ThreeCheck, none, date).plan
-        },
-        at(tomorrow, 2).pipe { date =>
-          Schedule(Daily, SuperBlitz, Horde, none, date).plan
-        },
-        at(tomorrow, 3).pipe { date =>
+        at(today, 20).pipe: date =>
+          Schedule(Daily, Blitz, Crazyhouse, none, date.pipe(orTomorrow)).plan,
+        at(today, 21).pipe: date =>
+          Schedule(Daily, Blitz, Chess960, none, date.pipe(orTomorrow)).plan,
+        at(today, 22).pipe: date =>
+          Schedule(Daily, SuperBlitz, KingOfTheHill, none, date.pipe(orTomorrow)).plan,
+        at(today, 23).pipe: date =>
+          Schedule(Daily, SuperBlitz, Atomic, none, date.pipe(orTomorrow)).plan,
+        at(today, 0).pipe: date =>
+          Schedule(Daily, SuperBlitz, Antichess, none, date.pipe(orTomorrow)).plan,
+        at(tomorrow, 1).pipe: date =>
+          Schedule(Daily, SuperBlitz, ThreeCheck, none, date).plan,
+        at(tomorrow, 2).pipe: date =>
+          Schedule(Daily, SuperBlitz, Horde, none, date).plan,
+        at(tomorrow, 3).pipe: date =>
           Schedule(Daily, SuperBlitz, RacingKings, none, date).plan
-        }
       ),
       List( // eastern tournaments!
-        at(today, 4).pipe { date =>
-          Schedule(Eastern, Bullet, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 5).pipe { date =>
-          Schedule(Eastern, SuperBlitz, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 6).pipe { date =>
+        at(today, 4).pipe: date =>
+          Schedule(Eastern, Bullet, Standard, none, date.pipe(orTomorrow)).plan,
+        at(today, 5).pipe: date =>
+          Schedule(Eastern, SuperBlitz, Standard, none, date.pipe(orTomorrow)).plan,
+        at(today, 6).pipe: date =>
           Schedule(Eastern, Blitz, Standard, none, date.pipe(orTomorrow)).plan
-        }
       ), {
         {
           for
@@ -331,22 +302,18 @@ Thank you all, you rock!""".some,
             11 -> openingAt(offset = 1),
             19 -> openingAt(offset = 0)
           )
-      }.flatMap { (hour, opening) =>
+      }.flatMap: (hour, opening) =>
         List(
-          atOption(today, hour).map { date =>
-            Schedule(Hourly, Bullet, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
-          },
-          atOption(today, hour + 1).map { date =>
-            Schedule(Hourly, SuperBlitz, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
-          },
-          atOption(today, hour + 2).map { date =>
-            Schedule(Hourly, Blitz, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
-          },
+          atOption(today, hour).map: date =>
+            Schedule(Hourly, Bullet, Standard, opening.fen.some, date.pipe(orTomorrow)).plan,
+          atOption(today, hour + 1).map: date =>
+            Schedule(Hourly, SuperBlitz, Standard, opening.fen.some, date.pipe(orTomorrow)).plan,
+          atOption(today, hour + 2).map: date =>
+            Schedule(Hourly, Blitz, Standard, opening.fen.some, date.pipe(orTomorrow)).plan,
           (hour < 21).so(atOption(today, hour + 3)).map { date =>
             Schedule(Hourly, Rapid, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
           }
-        ).flatten
-      },
+        ).flatten,
       // hourly standard tournaments!
       (-1 to 6).toList
         .flatMap { hourDelta =>
@@ -373,7 +340,6 @@ Thank you all, you rock!""".some,
             case 2 => Blitz
             case _ => Rapid
           List(1300, 1500, 1700, 2000).map(IntRating(_)).zipWithIndex.flatMap { (rating, hourDelay) =>
-            import chess.Clock
             val conditions = TournamentCondition.All(
               nbRatedGame = Condition.NbRatedGame(20).some,
               maxRating = Condition.MaxRating(rating).some,

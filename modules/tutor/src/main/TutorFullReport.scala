@@ -15,10 +15,9 @@ case class TutorFullReport(
   lazy val totalTime: FiniteDuration =
     perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 
-  def favouritePerfs: List[TutorPerfReport] = perfs.headOption.so {
+  def favouritePerfs: List[TutorPerfReport] = perfs.headOption.so:
     _ :: perfs.tailSafe.takeWhile: perf =>
       perf.estimateTotalTime.exists(_ > totalTime * 0.25)
-  }
 
   def percentTimeOf(perf: PerfType): Option[GoodPercent] =
     apply(perf).flatMap(_.estimateTotalTime).map { time =>

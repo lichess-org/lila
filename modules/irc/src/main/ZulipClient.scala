@@ -29,13 +29,12 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
   def sendAndGetLink(stream: String, topic: String)(
       content: String
   ): Fu[Option[String]] =
-    send(ZulipMessage(stream = stream, topic = topic, content = content)).map {
+    send(ZulipMessage(stream = stream, topic = topic, content = content)).map:
       // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
       _.map: msgId =>
         s"https://${config.domain}/#narrow/stream/${urlencode(stream)}/topic/${urlencode(topic)}/near/$msgId"
-    }
 
-  private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg).so {
+  private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg).so:
     if config.domain.isEmpty then fuccess(lila.log("zulip").info(msg.toString)).inject(None)
     else
       ws
@@ -49,18 +48,15 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
             "content" -> msg.content
           )
         )
-        .flatMap {
+        .flatMap:
           case res if res.status == 200 =>
             (res.body[JsValue] \ "id").validate[ZulipMessage.ID] match
               case JsSuccess(result, _) => fuccess(result.some)
               case JsError(err)         => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
           case res => fufail(s"[zulip] $msg ${res.status} ${res.body}")
-        }
         .monSuccess(_.irc.zulip.say(msg.stream))
         .logFailure(lila.log("zulip"))
         .recoverDefault
-
-  }
 
 private object ZulipClient:
 

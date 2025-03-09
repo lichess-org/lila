@@ -15,10 +15,6 @@ export { type CorresClockData } from './corresClock/corresClockCtrl';
 export type { default as RoundController } from './ctrl';
 export type { ClockData } from './clock/clockCtrl';
 
-export interface Untyped {
-  [key: string]: any;
-}
-
 export interface NvuiPlugin {
   submitMove?: (submitStoredPremove?: boolean) => void;
   playPremove: (ctrl: RoundController) => void;
@@ -57,7 +53,7 @@ export interface RoundData extends GameData {
   possibleDrops?: string;
   forecastCount?: number;
   opponentSignal?: number;
-  crazyhouse?: CrazyData;
+  crazyhouse?: Tree.NodeCrazy;
   correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
@@ -77,13 +73,6 @@ export interface Tv {
   flip: boolean;
 }
 
-interface CrazyData {
-  pockets: [CrazyPocket, CrazyPocket];
-}
-
-export interface CrazyPocket {
-  [role: string]: number;
-}
 export interface RoundProxy extends RoundSocket {
   analyse(): void;
   newOpponent(): void;
@@ -119,7 +108,7 @@ export interface Step {
   san: San;
   uci: Uci;
   check?: boolean;
-  crazy?: StepCrazy;
+  crazy?: Tree.NodeCrazy;
 }
 
 export interface ApiMove {
@@ -140,7 +129,7 @@ export interface ApiMove {
   fiftyMoves?: boolean;
   wDraw?: boolean;
   bDraw?: boolean;
-  crazyhouse?: CrazyData;
+  crazyhouse?: Tree.NodeCrazy;
   role?: Role;
   drops?: string;
   promotion?: {
@@ -170,8 +159,6 @@ export interface ApiEnd {
     bc: Centis;
   };
 }
-
-export interface StepCrazy extends Untyped {}
 
 export interface Pref {
   animationDuration: number;

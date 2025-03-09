@@ -55,23 +55,21 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ),
           div(cls := "meta box__pad")(
             div(cls := "target")(video.targets.map(Target.name).mkString(", ")),
-            a(cls := "author", href := s"${routes.Video.author(video.author)}?${control.queryString}")(
-              video.author
-            ),
+            a(
+              cls  := "author",
+              href := s"${routes.Video.author(video.author)}?${control.queryString}"
+            )(video.author),
             video.tags.map: tag =>
               a(
                 cls      := "tag",
                 dataIcon := Icon.Tag,
                 href     := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
-              )(
-                tag.capitalize
-              ),
+              )(tag.capitalize),
             video.metadata.description.map: desc =>
               p(cls := "description")(richText(desc))
           ),
-          div(cls := "similar list box__pad")(
-            similar.map { card(_, control) }
-          )
+          div(cls := "similar list box__pad"):
+            similar.map(card(_, control))
         )
 
   def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: Context) =

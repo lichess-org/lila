@@ -99,6 +99,7 @@ final class Account(
             withFollows = apiC.userWithFollows,
             withTrophies = false,
             withCanChallenge = false,
+            withPlayban = getBool("playban"),
             forWiki = wikiGranted
           )
           .dmap { JsonOk(_) }
@@ -373,17 +374,18 @@ final class Account(
     Ok.page(pages.reopen.sent)
 
   def reopenLogin(token: String) = Open:
-    env.security.reopen.confirm(token).flatMap {
-      case None =>
-        lila.mon.user.auth.reopenConfirm("token_fail").increment()
-        notFound
-      case Some(user) =>
-        for
-          _      <- env.report.api.reopenReports(lila.report.Suspect(user))
-          result <- auth.authenticateUser(user, remember = true)
-          _ = lila.mon.user.auth.reopenConfirm("success").increment()
-        yield result
-    }
+    env.security.reopen
+      .confirm(token)
+      .flatMap:
+        case None =>
+          lila.mon.user.auth.reopenConfirm("token_fail").increment()
+          notFound
+        case Some(user) =>
+          for
+            _      <- env.report.api.reopenReports(lila.report.Suspect(user))
+            result <- auth.authenticateUser(user, remember = true)
+            _ = lila.mon.user.auth.reopenConfirm("success").increment()
+          yield result
 
   def data = Auth { _ ?=> me ?=>
     meOrFetch(getUserStr("user"))

@@ -84,11 +84,10 @@ object Line:
     s"$tit${x.username}$sep${x.text}"
 
   def strToLine(str: String): Option[Line] =
-    strToUserLine(str).orElse {
+    strToUserLine(str).orElse:
       str.headOption.flatMap(Color.apply).map { color =>
         PlayerLine(color, str.drop(2))
       }
-    }
   def lineToStr(x: Line) =
     x match
       case u: UserLine   => userLineToStr(u)

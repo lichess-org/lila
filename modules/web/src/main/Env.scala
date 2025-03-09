@@ -7,17 +7,19 @@ import play.api.libs.ws.StandaloneWSClient
 @Module
 final class Env(
     appConfig: play.api.Configuration,
-    environment: play.api.Environment,
     cacheApi: lila.memo.CacheApi,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
-    net: lila.core.config.NetConfig
+    net: lila.core.config.NetConfig,
+    getFile: lila.common.config.GetRelativeFile
 )(using mode: play.api.Mode, scheduler: Scheduler)(using Executor):
 
   val config = WebConfig.loadFrom(appConfig)
   export config.pagerDuty as pagerDutyConfig
   export net.baseUrl
+
+  val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
 
   val manifest = wire[AssetManifest]
 

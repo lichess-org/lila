@@ -71,10 +71,11 @@ final private class LobbySyncActor(
         gameApi.nbPlaying(user.id).foreach { nbPlaying =>
           if lila.core.game.maxPlaying > nbPlaying then
             lila.mon.lobby.seek.join.increment()
-            seekApi.find(seekId).foreach {
-              _.foreach: seek =>
-                biter(seek, user).foreach(this.!)
-            }
+            seekApi
+              .find(seekId)
+              .foreach:
+                _.foreach: seek =>
+                  biter(seek, user).foreach(this.!)
         }
 
     case msg @ JoinHook(_, hook, game, _) =>
@@ -169,9 +170,10 @@ final private class LobbySyncActor(
     def exists(u1: UserId, u2: UserId) = cache.get(makeKey(u1, u2))
 
   private def findCompatible(seek: Seek): Fu[Option[Seek]] =
-    seekApi.forUser(seek.user).map {
-      _.find(_.compatibleWith(seek))
-    }
+    seekApi
+      .forUser(seek.user)
+      .map:
+        _.find(_.compatibleWith(seek))
 
   private def remove(hook: Hook) =
     if hookRepo.exists(hook) then

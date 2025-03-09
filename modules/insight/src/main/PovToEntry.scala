@@ -82,9 +82,8 @@ final private class PovToEntry(
   private def makeMoves(from: RichPov): List[InsightMove] =
     val sideAndStart = from.pov.sideAndStart
     def cpDiffs      = from.analysis.so { AccuracyCP.diffsList(sideAndStart, _).toVector }
-    val accuracyPercents = from.analysis.map {
+    val accuracyPercents = from.analysis.map:
       AccuracyPercent.fromAnalysisAndPov(sideAndStart, _).toVector
-    }
     val prevInfos = from.analysis.so { an =>
       AccuracyCP.prevColorInfos(sideAndStart, an).pipe { is =>
         from.pov.color.fold(is, is.map(_.invert))
@@ -93,9 +92,8 @@ final private class PovToEntry(
     val roles = from.pov.game.sansOf(from.pov.color).map(sanToRole)
     val situations =
       val pivot = if from.pov.color == from.pov.game.startColor then 0 else 1
-      from.situations.toList.zipWithIndex.collect {
+      from.situations.toList.zipWithIndex.collect:
         case (e, i) if (i % 2) == pivot => e
-      }
     val blurs =
       val bools = from.pov.player.blurs.booleans
       bools ++ Array.fill(roles.size - bools.length)(false)
@@ -109,26 +107,29 @@ final private class PovToEntry(
       .mapWithIndex { case ((((((role, situation), blur), timeCv), clock), movetime), i) =>
         val ply      = Ply(i * 2 + from.pov.color.fold(1, 2))
         val prevInfo = prevInfos.lift(i)
-        val awareness = from.advices.get(ply - 1).flatMap {
-          case o if o.judgment.isMistakeOrBlunder =>
-            from.advices.get(ply) match
-              case Some(p) if p.judgment.isMistakeOrBlunder => false.some
-              case _                                        => true.some
-          case _ => none
-        }
-        val luck = from.advices.get(ply).flatMap {
-          case o if o.judgment.isMistakeOrBlunder =>
-            from.advices.get(ply + 1) match
-              case Some(p) if p.judgment.isMistakeOrBlunder => true.some
-              case _                                        => false.some
-          case _ => none
-        }
+        val awareness = from.advices
+          .get(ply - 1)
+          .flatMap:
+            case o if o.judgment.isMistakeOrBlunder =>
+              from.advices.get(ply) match
+                case Some(p) if p.judgment.isMistakeOrBlunder => false.some
+                case _                                        => true.some
+            case _ => none
+        val luck = from.advices
+          .get(ply)
+          .flatMap:
+            case o if o.judgment.isMistakeOrBlunder =>
+              from.advices.get(ply + 1) match
+                case Some(p) if p.judgment.isMistakeOrBlunder => true.some
+                case _                                        => false.some
+            case _ => none
         val accuracyPercent = accuracyPercents.flatMap { accs =>
-          accs.lift(i).orElse {
-            if i == situations.size - 1 then // last eval missing if checkmate
-              (~from.pov.win && from.pov.game.status.is(_.Mate)).option(AccuracyPercent.perfect)
-            else none // evals can be missing in super long games (300 plies, used to be 200)
-          }
+          accs
+            .lift(i)
+            .orElse:
+              if i == situations.size - 1 then // last eval missing if checkmate
+                (~from.pov.win && from.pov.game.status.is(_.Mate)).option(AccuracyPercent.perfect)
+              else none // evals can be missing in super long games (300 plies, used to be 200)
         }
 
         InsightMove(

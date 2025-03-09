@@ -26,40 +26,32 @@ final class PuzzleReplayApi(
 
   private val maxPuzzles = 100
 
-  private val replays = cacheApi.notLoading[UserId, PuzzleReplay](512, "puzzle.replay")(
+  private val replays = cacheApi.notLoading[UserId, PuzzleReplay](512, "puzzle.replay"):
     _.expireAfterWrite(1.hour).buildAsync()
-  )
 
   def apply(
-      user: User,
       maybeDays: Option[Days],
       theme: PuzzleTheme.Key
-  ): Fu[Option[(Puzzle, PuzzleReplay)]] =
-    maybeDays
-      .map { days =>
-        replays
-          .getFuture(user.id, _ => createReplayFor(user, days, theme))
-          .flatMap { current =>
-            if current.days == days && current.theme == theme && current.remaining.nonEmpty then
-              fuccess(current)
-            else createReplayFor(user, days, theme).tap { replays.put(user.id, _) }
-          }
-          .flatMap { replay =>
-            replay.remaining.headOption.so { id =>
-              colls.puzzle(_.byId[Puzzle](id)).map2(_ -> replay)
-            }
-          }
-      }
-      .getOrElse(fuccess(None))
+  )(using me: Me): Fu[Option[(Puzzle, PuzzleReplay)]] =
+    maybeDays.so: days =>
+      for
+        current <- replays.getFuture(me.userId, _ => createReplayFor(me, days, theme))
+        replay <-
+          if current.days == days && current.theme == theme && current.remaining.nonEmpty
+          then fuccess(current)
+          else createReplayFor(me, days, theme).tap { replays.put(me.userId, _) }
+        puzzle <- replay.remaining.headOption.so: id =>
+          colls.puzzle(_.byId[Puzzle](id))
+      yield puzzle.map(_ -> replay)
 
   def onComplete(round: PuzzleRound, days: Days, angle: PuzzleAngle): Funit =
-    angle.asTheme.so { theme =>
-      replays.getIfPresent(round.userId).so {
-        _.map { replay =>
-          if replay.days == days && replay.theme == theme then replays.put(round.userId, fuccess(replay.step))
-        }
-      }
-    }
+    angle.asTheme.so: theme =>
+      replays
+        .getIfPresent(round.userId)
+        .so:
+          _.map: replay =>
+            if replay.days == days && replay.theme == theme then
+              replays.put(round.userId, fuccess(replay.step))
 
   private def createReplayFor(user: User, days: Days, theme: PuzzleTheme.Key): Fu[PuzzleReplay] =
     colls

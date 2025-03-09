@@ -36,38 +36,39 @@ final class SwissStatsApi(
     _.expireAfterAccess(5.seconds).maximumSize(256).buildAsyncFuture(loader(fetch))
 
   private def fetch(id: SwissId): Fu[SwissStats] =
-    mongo.swiss.byId[Swiss](id).flatMap {
-      _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
-        sheetApi
-          .source(swiss, sort = $empty)
-          .toMat(Sink.fold(SwissStats()) { case (stats, (player, pairings, sheet)) =>
-            val (games, whiteWins, blackWins, draws) =
-              pairings.values.foldLeft((0, 0, 0, 0)):
-                case ((games, whiteWins, blackWins, draws), pairing) =>
+    mongo.swiss
+      .byId[Swiss](id)
+      .flatMap:
+        _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
+          sheetApi
+            .source(swiss, sort = $empty)
+            .toMat(Sink.fold(SwissStats()) { case (stats, (player, pairings, sheet)) =>
+              val (games, whiteWins, blackWins, draws) =
+                pairings.values.foldLeft((0, 0, 0, 0)):
+                  case ((games, whiteWins, blackWins, draws), pairing) =>
+                    (
+                      games + 1,
+                      whiteWins + pairing.whiteWins.so(1),
+                      blackWins + pairing.blackWins.so(1),
+                      draws + pairing.isDraw.so(1)
+                    )
+              val (byes, absences) = sheet.outcomes.foldLeft((0, 0)):
+                case ((byes, absences), outcome) =>
                   (
-                    games + 1,
-                    whiteWins + pairing.whiteWins.so(1),
-                    blackWins + pairing.blackWins.so(1),
-                    draws + pairing.isDraw.so(1)
+                    byes + (outcome == SwissSheet.Outcome.Bye).so(1),
+                    absences + (outcome == SwissSheet.Outcome.Absent).so(1)
                   )
-            val (byes, absences) = sheet.outcomes.foldLeft((0, 0)):
-              case ((byes, absences), outcome) =>
-                (
-                  byes + (outcome == SwissSheet.Outcome.Bye).so(1),
-                  absences + (outcome == SwissSheet.Outcome.Absent).so(1)
-                )
-            stats.copy(
-              games = stats.games + games,
-              whiteWins = stats.whiteWins + whiteWins,
-              blackWins = stats.blackWins + blackWins,
-              draws = stats.draws + draws,
-              byes = stats.byes + byes,
-              absences = stats.absences + absences,
-              averageRating = stats.averageRating + player.rating
-            )
-          })(Keep.right)
-          .run()
-          .dmap: s =>
-            s.copy(games = s.games / 2, averageRating = IntRating(s.averageRating.value / swiss.nbPlayers))
-      }
-    }
+              stats.copy(
+                games = stats.games + games,
+                whiteWins = stats.whiteWins + whiteWins,
+                blackWins = stats.blackWins + blackWins,
+                draws = stats.draws + draws,
+                byes = stats.byes + byes,
+                absences = stats.absences + absences,
+                averageRating = stats.averageRating + player.rating
+              )
+            })(Keep.right)
+            .run()
+            .dmap: s =>
+              s.copy(games = s.games / 2, averageRating = IntRating(s.averageRating.value / swiss.nbPlayers))
+        }

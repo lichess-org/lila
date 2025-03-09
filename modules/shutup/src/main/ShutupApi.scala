@@ -2,7 +2,7 @@ package lila.shutup
 
 import reactivemongo.api.bson.*
 
-import lila.core.shutup.PublicSource
+import lila.core.shutup.{ PublicLine, PublicSource }
 import lila.db.dsl.{ *, given }
 
 final class ShutupApi(
@@ -15,7 +15,7 @@ final class ShutupApi(
     extends lila.core.shutup.ShutupApi:
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
-  import PublicLine.given
+  import lila.shutup.PublicLine.given
 
   lila.common.Bus.sub[lila.core.user.UserDelete]: del =>
     coll.delete.one($id(del.id))
@@ -32,11 +32,12 @@ final class ShutupApi(
     record(userId, text, TextType.of(source), source.some)
 
   def privateChat(chatId: String, userId: UserId, text: String) =
-    gameRepo.getSourceAndUserIds(GameId(chatId)).flatMap {
-      case (source, _) if source.has(lila.core.game.Source.Friend) => funit // ignore challenges
-      case (_, userIds) =>
-        record(userId, text, TextType.PrivateChat, none, userIds.find(userId !=))
-    }
+    gameRepo
+      .getSourceAndUserIds(GameId(chatId))
+      .flatMap:
+        case (source, _) if source.has(lila.core.game.Source.Friend) => funit // ignore challenges
+        case (_, userIds) =>
+          record(userId, text, TextType.PrivateChat, none, userIds.find(userId !=))
 
   def privateMessage(userId: UserId, toUserId: UserId, text: String) =
     record(userId, text, TextType.PrivateMessage, none, toUserId.some)
@@ -61,7 +62,7 @@ final class ShutupApi(
               pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
                 $doc(
                   "pub" -> $doc(
-                    "$each"  -> List(PublicLine.make(text, source)),
+                    "$each"  -> List(lila.shutup.PublicLine.make(text, source)),
                     "$slice" -> -20
                   )
                 )
@@ -84,8 +85,8 @@ final class ShutupApi(
             yield ()
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
-    (analysed.critical || userRecord.reports.exists(_.unacceptable)).so {
-      val text = (analysed.critical.so("Critical comm alert\n")) ++ {
+    (analysed.critical || userRecord.reports.exists(_.unacceptable)).so:
+      val text = analysed.critical.so("Critical comm alert\n") ++ {
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }
@@ -96,12 +97,10 @@ final class ShutupApi(
           $unset(TextType.values.map(_.key))
         )
       yield ()
-    }
 
   private def reportText(userRecord: UserRecord) =
     userRecord.reports
-      .collect {
+      .collect:
         case r if r.unacceptable =>
           s"${r.textType.name}: ${r.nbBad} dubious (out of ${r.ratios.size})"
-      }
       .mkString("\n")

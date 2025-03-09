@@ -2,28 +2,55 @@ package lila.analyse
 package ui
 
 import chess.variant.*
+import chess.format.{ Uci, Fen }
 import play.api.libs.json.*
 
 import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Json.{ *, given }
 
-import ScalatagsTemplate.{ *, given }
-
-final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
+final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
   import helpers.{ *, given }
+
+  def miniSpan(fen: Fen.Board, color: Color = chess.White, lastMove: Option[Uci] = None) =
+    chessgroundMini(fen, color, lastMove)(span)
+
+  def explorerAndCevalConfig(using ctx: Context) =
+    Json.obj(
+      "explorer" -> Json.obj(
+        "endpoint"          -> endpoints.explorer,
+        "tablebaseEndpoint" -> endpoints.tablebase,
+        "showRatings"       -> ctx.pref.showRatings
+      ),
+      "externalEngineEndpoint" -> endpoints.externalEngine
+    )
 
   def userAnalysis(
       data: JsObject,
       pov: Pov,
-      chess960PositionNum: Option[Int],
-      withForecast: Boolean = false
-  )(using ctx: Context) =
+      chess960PositionNum: Option[Int] = None,
+      withForecast: Boolean = false,
+      inlinePgn: Option[String] = None
+  )(using ctx: Context): Page =
     Page(trans.site.analysis.txt())
       .css("analyse.free")
       .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .css(withForecast.option("analyse.forecast"))
       .css(ctx.blind.option("round.nvui"))
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-      .csp(csp.compose(_.withExternalAnalysisApis))
+      .csp(bits.cspExternalEngine.compose(_.withExternalAnalysisApis))
+      .js(analyseNvuiTag)
+      .js:
+        bits.analyseModule(
+          "userAnalysis",
+          Json
+            .obj(
+              "data" -> data,
+              "wiki" -> pov.game.variant.standard
+            )
+            .add("inlinePgn", inlinePgn) ++
+            explorerAndCevalConfig
+        )
       .i18n(_.puzzle, _.study)
       .i18nOpt(ctx.blind, _.keyboardMove)
       .graph(
@@ -91,12 +118,26 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
   private def iconByVariant(variant: Variant): Icon =
     PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
 
-  def csp: Update[ContentSecurityPolicy] =
-    _.withWebAssembly.withExternalEngine(externalEngineEndpoint)
-
   def titleOf(pov: Pov)(using Translate) =
-    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
-        .fold(trans.site.analysis.txt())(_.opening.name)}"
+    val opening = pov.game.opening.fold(trans.site.analysis.txt())(_.opening.name)
+    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: $opening"
+
+  object bits:
+
+    val dataPanel = attr("data-panel")
+
+    def page(title: String)(using Context): Page =
+      Page(title)
+        .flag(_.zoom)
+        .flag(_.noRobots)
+        .csp:
+          cspExternalEngine.compose(_.withPeer.withInlineIconFont.withChessDbCn)
+
+    def cspExternalEngine: Update[ContentSecurityPolicy] =
+      _.withWebAssembly.withExternalEngine(endpoints.externalEngine)
+
+    def analyseModule(mode: String, json: JsObject) =
+      PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
 
   object embed:
 

@@ -34,7 +34,7 @@ final class Analyse(
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
-    if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
+    if HTTPRequest.isCrawler(ctx.req).yes then replayForCrawler(pov)
     else
       for
         initialFen <- env.game.gameRepo.initialFen(pov.gameId)
@@ -75,7 +75,7 @@ final class Analyse(
               )
               .flatMap: data =>
                 Ok.page(
-                  views.analyse.replay(
+                  views.analyse.replay.forBrowser(
                     pov,
                     data,
                     initialFen,
@@ -97,18 +97,19 @@ final class Analyse(
 
   def embedReplayGame(gameId: GameId, color: Color) = Anon:
     InEmbedContext:
-      env.api.textLpvExpand.getPgn(gameId).map {
-        case Some(LpvEmbed.PublicPgn(pgn)) =>
-          render:
-            case AcceptsPgn() => Ok(pgn)
-            case _ =>
-              Ok.snip:
-                views.analyse.embed.lpv(pgn, color.some, getPgn = true)
-        case _ =>
-          render:
-            case AcceptsPgn() => NotFound("*")
-            case _            => NotFound.snip(views.analyse.embed.notFound)
-      }
+      env.api.textLpvExpand
+        .getPgn(gameId)
+        .map:
+          case Some(LpvEmbed.PublicPgn(pgn)) =>
+            render:
+              case AcceptsPgn() => Ok(pgn)
+              case _ =>
+                Ok.snip:
+                  views.analyse.embed.lpv(pgn, color.some, getPgn = true)
+          case _ =>
+            render:
+              case AcceptsPgn() => NotFound("*")
+              case _            => NotFound.snip(views.analyse.embed.notFound)
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Full])(or: => Fu[Result])(using
       Context
@@ -125,17 +126,17 @@ final class Analyse(
           ply => Redirect(s"$url#$ply")
         )
 
-  private def replayBot(pov: Pov)(using Context) = for
+  private def replayForCrawler(pov: Pov)(using Context) = for
     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
     analysis   <- env.analyse.analyser.get(pov.game)
     simul      <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
     pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
     page <- renderPage:
-      views.analyse.replayBot(
+      views.analyse.replay.forCrawler(
         pov,
         initialFen,
-        env.analyse.annotator(pgn, pov.game, analysis).toString,
+        env.analyse.annotator(pgn, pov.game, analysis).render,
         simul,
         crosstable
       )

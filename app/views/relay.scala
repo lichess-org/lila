@@ -7,7 +7,7 @@ import lila.core.socket.SocketVersion
 val ui = lila.relay.ui.RelayUi(helpers)(
   picfitUrl,
   views.study.socketUrl,
-  views.board.explorerAndCevalConfig
+  views.analyse.ui.explorerAndCevalConfig
 )
 val tour = lila.relay.ui.RelayTourUi(helpers, ui)
 val form = lila.relay.ui.RelayFormUi(helpers, ui, tour)
@@ -34,7 +34,7 @@ def show(
         hostIds = rt.study.members.ids.toList
       ) -> views.chat.frag
   ui.show(rt, data, chat, socketVersion)
-    .csp(crossSiteIsolation.so(views.analyse.ui.csp).compose(_.withExternalAnalysisApis))
+    .csp(crossSiteIsolation.so(views.analyse.ui.bits.cspExternalEngine).compose(_.withExternalAnalysisApis))
 
 def embed(
     rt: WithTourAndStudy,

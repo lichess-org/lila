@@ -1,5 +1,6 @@
 package lila.user
 
+import play.api.Environment
 import lila.core.user.{ FlairGet, FlairGetMap }
 
 object FlairApi:
@@ -24,8 +25,9 @@ object FlairApi:
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
-final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: Scheduler)
-    extends lila.core.user.FlairApi:
+final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.GetRelativeFile)(using Executor)(
+    using scheduler: Scheduler
+) extends lila.core.user.FlairApi:
 
   import FlairApi.*
   export FlairApi.{ find, formField, adminFlairs }
@@ -44,7 +46,8 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
         pairs.toMap
 
   private def refresh(): Unit =
-    val source = scala.io.Source.fromFile("public/flair/list.txt", "UTF-8")
+    val pathname = getFile.exec("public/flair/list.txt").toPath.toString
+    val source   = scala.io.Source.fromFile(pathname, "UTF-8")
     try
       db = Flair.from(source.getLines.toSet)
       logger.info(s"Updated flair db with ${db.size} flairs")

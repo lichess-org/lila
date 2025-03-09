@@ -30,7 +30,6 @@ ivyLoggingLevel     := UpdateLogging.DownloadOnly
 Compile / mainClass := Some("lila.app.Lila")
 // Adds the Play application directory to the command line args passed to Play
 bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
-Compile / RoutesKeys.generateReverseRouter := false
 Compile / RoutesKeys.routes / sources ++= {
   val dirs = (Compile / unmanagedResourceDirectories).value
   (dirs * "routes").get ++ (dirs * "*.routes").get
@@ -261,7 +260,7 @@ lazy val round = module("round",
 )
 
 lazy val pool = module("pool",
-  Seq(db, rating),
+  Seq(rating),
   Seq()
 )
 

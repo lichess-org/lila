@@ -52,5 +52,5 @@ final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker
     coll
       .list[CmsPage]($doc("key" -> key, "language".$in(prefered)))
       .map: pages =>
-        prefered.foldLeft(none[CmsPage]): (found, language) =>
-          found.orElse(pages.find(_.language == language))
+        prefered.collectFirstSome: language =>
+          pages.find(_.language == language)
