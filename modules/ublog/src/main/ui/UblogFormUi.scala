@@ -206,4 +206,4 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     href     := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
     cls      := "text",
     targetBlank
-  )("Mandatory if direct or undirect promotion of commercial offering, affiliate links")
+  )("Mandatory for sponsored content, affiliate links or commercial advertisement")
