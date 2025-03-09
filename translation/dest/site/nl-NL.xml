@@ -155,7 +155,7 @@
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
-  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">Remise opeisen</string>
+  <string name="claimADraw">Remise opeisen</string>
   <string name="offerDraw">Remise aanbieden</string>
   <string name="draw">Remise</string>
   <plurals name="nbPlayers">
