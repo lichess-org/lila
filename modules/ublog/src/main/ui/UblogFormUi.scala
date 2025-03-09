@@ -116,6 +116,11 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
                 form("sticky"),
                 trans.ublog.stickyPost(),
                 help = trans.ublog.stickyPostHelp().some
+              ),
+              form3.checkbox(
+                form("ads"),
+                "Includes promotion",
+                help = ads.some
               )
             )
           )
@@ -195,3 +200,10 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())
+
+  val ads = a(
+    dataIcon := Icon.InfoCircle,
+    href     := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
+    cls      := "text",
+    targetBlank
+  )("Mandatory if direct or undirect promotion of commercial offering, affiliate links")

@@ -64,6 +64,16 @@
   &__tier {
     margin-inline-start: 1em;
   }
+  &__ads_disclosure {
+    @extend %box-radius;
+
+    border-radius: 20px;
+    padding: 1rem;
+    background: $c-bg-zebra2;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+  }
   &__like {
     font-weight: bold;
     cursor: pointer;

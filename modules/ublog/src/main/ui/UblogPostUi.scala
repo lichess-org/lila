@@ -101,6 +101,11 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
               post.topics.map: topic =>
                 a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
             ),
+            (~post.ads).option(
+              div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads_disclosure text")(
+                "Includes promotion of commercial offering and/or affiliate links"
+              )
+            ),
             strong(cls := "ublog-post__intro")(post.intro),
             div(cls := "ublog-post__markup expand-text")(markup),
             post.isLichess.option(
