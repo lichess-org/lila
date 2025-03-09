@@ -262,7 +262,7 @@
     <item quantity="few">%s тактике</item>
     <item quantity="other">%s тактика</item>
   </plurals>
-  <string name="gamesPlayed">Број одиграних партија</string>
+  <string name="gamesPlayed">Одиграних партија</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s игра са вама</item>
     <item quantity="few">%s игара са вама</item>
