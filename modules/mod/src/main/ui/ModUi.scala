@@ -11,8 +11,6 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-case class PendingCounts(streamers: Int, appeals: Int, titles: Int)
-
 final class ModUi(helpers: Helpers):
   import helpers.{ *, given }
 
@@ -147,7 +145,8 @@ final class ModUi(helpers: Helpers):
       )
 
   def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
-      ctx: Context
+      Context,
+      Me
   ) =
     Page("Email confirmation")
       .css("mod.misc")
@@ -262,55 +261,43 @@ final class ModUi(helpers: Helpers):
           )
         )
 
-  def menu(active: String)(using Context): Frag =
+  def reportMenu(using Context) = menu("report")
+
+  def menu(active: String)(using ctx: Context): Frag = ctx.me.foldUse(emptyFrag):
     lila.ui.bits.pageMenuSubnav(
-      Granter
-        .opt(_.SeeReport)
+      Granter(_.SeeReport)
         .option(a(cls := active.active("report"), href := routes.Report.list)("Reports")),
-      Granter
-        .opt(_.PublicChatView)
+      Granter(_.PublicChatView)
         .option(a(cls := active.active("public-chat"), href := routes.Mod.publicChat)("Public Chats")),
-      Granter
-        .opt(_.GamifyView)
+      Granter(_.GamifyView)
         .option(a(cls := active.active("activity"), href := routes.Mod.activity)("Mod activity")),
-      Granter
-        .opt(_.GamifyView)
+      Granter(_.GamifyView)
         .option(a(cls := active.active("queues"), href := routes.Mod.queues("month"))("Queues stats")),
-      Granter
-        .opt(_.GamifyView)
+      Granter(_.GamifyView)
         .option(a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame")),
-      Granter.opt(_.GamifyView).option(a(cls := active.active("log"), href := routes.Mod.log)("My logs")),
-      Granter
-        .opt(_.UserSearch)
+      Granter(_.GamifyView).option(a(cls := active.active("log"), href := routes.Mod.log)("My logs")),
+      Granter(_.UserSearch)
         .option(a(cls := active.active("search"), href := routes.Mod.search)("Search users")),
-      Granter.opt(_.Admin).option(a(cls := active.active("notes"), href := routes.Mod.notes())("Mod notes")),
-      Granter
-        .opt(_.SetEmail)
+      Granter(_.Admin).option(a(cls := active.active("notes"), href := routes.Mod.notes())("Mod notes")),
+      Granter(_.SetEmail)
         .option(a(cls := active.active("email"), href := routes.Mod.emailConfirm)("Email confirm")),
-      Granter.opt(_.Pages).option(a(cls := active.active("cms"), href := routes.Cms.index)("Pages")),
-      Granter
-        .opt(_.PracticeConfig)
+      Granter(_.Pages).option(a(cls := active.active("cms"), href := routes.Cms.index)("Pages")),
+      Granter(_.PracticeConfig)
         .option(a(cls := active.active("practice"), href := routes.Practice.config)("Practice")),
-      Granter
-        .opt(_.ManageTournament)
+      Granter(_.ManageTournament)
         .option(a(cls := active.active("tour"), href := routes.TournamentCrud.index(1))("Tournaments")),
-      Granter
-        .opt(_.ManageEvent)
+      Granter(_.ManageEvent)
         .option(a(cls := active.active("event"), href := routes.Event.manager)("Events")),
-      Granter
-        .opt(_.MarkEngine)
+      Granter(_.MarkEngine)
         .option(a(cls := active.active("irwin"), href := routes.Irwin.dashboard)("Irwin dashboard")),
-      Granter
-        .opt(_.MarkEngine)
+      Granter(_.MarkEngine)
         .option(a(cls := active.active("kaladin"), href := routes.Irwin.kaladin)("Kaladin dashboard")),
-      Granter.opt(_.Admin).option(a(cls := active.active("mods"), href := routes.Mod.table)("Mods")),
-      Granter
-        .opt(_.Presets)
+      Granter(_.Admin).option(a(cls := active.active("mods"), href := routes.Mod.table)("Mods")),
+      Granter(_.Presets)
         .option(a(cls := active.active("presets"), href := routes.Mod.presets("PM"))("Msg presets")),
-      Granter
-        .opt(_.Settings)
+      Granter(_.Settings)
         .option(a(cls := active.active("setting"), href := routes.Dev.settings)("Settings")),
-      Granter.opt(_.Cli).option(a(cls := active.active("cli"), href := routes.Dev.cli)("CLI"))
+      Granter(_.Cli).option(a(cls := active.active("cli"), href := routes.Dev.cli)("CLI"))
     )
 
   def modUserSearchResult(r: ModUserSearchResult) =

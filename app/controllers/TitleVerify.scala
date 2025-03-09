@@ -16,7 +16,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
     cmsC.orCreateOrNotFound(CmsPageKey("title-verify-index")): page =>
       api.getCurrent.flatMap:
         case Some(req) => Redirect(routes.TitleVerify.show(req.id))
-        case None      => Ok.async(ui.index(inSiteMenu(page.title), views.site.page.pageContent(page)))
+        case None      => Ok.async(ui.index(inSiteMenu(page.title), views.cms.pageContent(page)))
   }
 
   def form = Auth { _ ?=> _ ?=>
