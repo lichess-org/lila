@@ -155,7 +155,7 @@
   <string name="moveTimes">مدت حركت‌ها</string>
   <string name="flipBoard">چرخاندن صفحه</string>
   <string name="threefoldRepetition">تکرار سه‌گانه</string>
-  <string name="claimADraw" comment="Appears as a button,after certain conditions such as repetition and multiple moves without capture.&#10;&#10;Interacting this button will force the game to end in a draw. ">ادعای تساوی</string>
+  <string name="claimADraw">ادعای تساوی</string>
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
