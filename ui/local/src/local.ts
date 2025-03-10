@@ -4,8 +4,8 @@ import { LocalDb } from './localDb';
 import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
-import { showSetupDialog } from './dev/setupDialog';
-import { env, makeEnv } from './localEnv';
+//import { showSetupDialog } from './dev/setupDialog';
+import { type LocalEnv, env, makeEnv } from './localEnv';
 import { renderGameView } from './gameView';
 import type { LocalPlayOpts, LocalSetup } from './types';
 import makeZerofish from 'zerofish';
@@ -18,8 +18,7 @@ const zerofish = makeZerofish({
 
 type SetupOpts = LocalSetup & { id?: string; go?: true };
 
-export async function initModule(opts: LocalPlayOpts): Promise<void> {
-  const setup = setupOpts();
+export async function initModule(opts: LocalPlayOpts): Promise<LocalEnv> {
   makeEnv({
     redraw,
     bot: new BotCtrl(await zerofish),
@@ -28,7 +27,8 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
     game: new GameCtrl(opts),
   });
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.assets.init()]);
-  env.game.load('id' in setup ? await env.db.get(setup.id) : setup);
+  const setup = hashOpts();
+  //env.game.load('id' in setup ? await env.db.get(setup.id) : setup);
 
   const el = document.querySelector('#main-wrap > main') as HTMLElement;
   let vnode = patch(el, renderGameView());
@@ -41,13 +41,13 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
   env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
 
-  if ('go' in setup || 'id' in setup) return;
+  //if ('go' in setup || 'id' in setup)
+  return env;
 
-  const lastSetup = localStorage.getItem('local.setup');
-  showSetupDialog(lastSetup ? JSON.parse(lastSetup) : {});
+  //showSetupDialog(JSON.parse(localStorage.getItem('local.setup') ?? '{}'));
 }
 
-function setupOpts(): SetupOpts {
+function hashOpts(): SetupOpts {
   const params = location.hash
     .slice(1)
     .split('&')
