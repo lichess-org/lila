@@ -1,5 +1,5 @@
 import type { VNode } from 'common/snabbdom';
-import type { GameData, Status, Player, RoundStep } from 'game';
+import type { GameData, Status, RoundStep } from 'game';
 import type { ClockData } from './clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type RoundController from './ctrl';
@@ -77,7 +77,6 @@ export interface Tv {
 export interface RoundProxy extends RoundSocket {
   analyse(): void;
   newOpponent(): void;
-  userVNode(player: Player, postion: Position): VNode | undefined; // TODO fix
 }
 
 export interface RoundOpts {

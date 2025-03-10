@@ -3,14 +3,14 @@ import { GameCtrl } from '../gameCtrl';
 import { DevCtrl } from './devCtrl';
 import { DevAssets, type AssetList } from './devAssets';
 import { renderDevSide } from './devSideView';
-import { BotCtrl } from '../botCtrl';
+import { DevBotCtrl } from './devBotCtrl';
 import { PushCtrl } from './pushCtrl';
-import { env, makeEnv } from '../localEnv';
+import { env, makeEnv } from './devEnv';
 import { renderGameView } from '../gameView';
 import { LocalDb } from '../localDb';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
-import { myUserId, myUsername } from 'common';
+import makeZerofish from 'zerofish';
 
 const patch = init([classModule, attributesModule]);
 
@@ -23,26 +23,33 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   if (opts.pgn && opts.name) {
-    makeEnv({ bot: new BotCtrl(), assets: new DevAssets() });
-    await Promise.all([env.bot.initBots(), env.assets.init()]);
-    await env.repo.importPgn(opts.name, new Blob([opts.pgn], { type: 'application/x-chess-pgn' }), 16, true);
+    makeEnv({ bot: new DevBotCtrl(), assets: new DevAssets() });
+    await Promise.all([env.bot.initBotsOnly(), env.assets.init()]);
+    await env.assets.importPgn(
+      opts.name,
+      new Blob([opts.pgn], { type: 'application/x-chess-pgn' }),
+      16,
+      true,
+    );
     return;
   }
   if (window.screen.width < 1260) return;
-
   makeEnv({
     redraw,
-    bot: new BotCtrl(),
+    bot: new DevBotCtrl(
+      await makeZerofish({
+        locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+        nonce: document.body.dataset.nonce,
+        dev: true,
+      }),
+    ),
     push: new PushCtrl(),
     assets: new DevAssets(opts.assets),
     dev: new DevCtrl(),
     db: new LocalDb(),
     game: new GameCtrl(opts),
-    user: myUserId(),
-    username: myUsername(),
     canPost: opts.canPost,
   });
-
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
   env.game.load(
     hashGameId()

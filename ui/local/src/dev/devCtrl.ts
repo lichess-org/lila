@@ -9,6 +9,7 @@ import type { GameStatus, GameContext } from '../localGame';
 import { env } from '../localEnv';
 import { pubsub } from 'common/pubsub';
 import { type PermaLog, makeLog } from 'common/permalog';
+import type { DevHarness } from '../gameCtrl';
 
 export interface Result {
   winner: Color | undefined;
@@ -35,7 +36,7 @@ export type Glicko = { r: number; rd: number };
 
 type DevRatings = { [speed in LocalSpeed]?: Glicko };
 
-export class DevCtrl {
+export class DevCtrl implements DevHarness {
   hurryProp: Prop<boolean> = storedBooleanProp('local.dev.hurry', false);
   // skip animations, sounds, and artificial think times (clock still adjusted)
   script: Script;
@@ -44,8 +45,6 @@ export class DevCtrl {
   private trace: string[] = [];
   ratings: { [uid: string]: DevRatings } = {};
   private localRatings: ObjectStorage<DevRatings>;
-
-  constructor() {}
 
   async init(): Promise<void> {
     this.resetScript();

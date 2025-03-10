@@ -3,7 +3,7 @@ import { frag } from 'common';
 import * as licon from 'common/licon';
 import { renderRemoveButton } from './devUtil';
 import { wireCropDialog } from 'bits/crop';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 
 export type AssetType = 'image' | 'book' | 'sound';
 
@@ -29,11 +29,11 @@ export class AssetDialog {
   }
 
   private get local() {
-    return env.repo.localKeyNames(this.type);
+    return env.assets.localKeyNames(this.type);
   }
 
   private get server() {
-    return env.repo.serverKeyNames(this.type);
+    return env.assets.serverKeyNames(this.type);
   }
 
   show(): Promise<string | undefined> {
@@ -90,14 +90,14 @@ export class AssetDialog {
 
   private renderAsset([key, name]: [string, string]) {
     const wrap = frag<HTMLElement>(`<div class="asset-item${
-      env.repo.isLocalOnly(key) ? ' local-only' : ''
+      env.assets.isLocalOnly(key) ? ' local-only' : ''
     }" data-asset="${key}">
         <div class="asset-preview"></div>
         <input type="text" class="asset-label" data-type="string" value="${name}"
 ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       </div>`);
     if (!this.isChooser) {
-      const localOnly = env.repo.isLocalOnly(key);
+      const localOnly = env.assets.isLocalOnly(key);
       if (localOnly || env.canPost) wrap.append(renderRemoveButton('upper-right'));
       if (localOnly && env.canPost) {
         wrap.append(
@@ -132,7 +132,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     const el = e.target as HTMLInputElement;
     const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
     if (this.local.get(key) === el.value) return;
-    if (this.validName(el.value)) env.repo.rename(this.type, key, el.value);
+    if (this.validName(el.value)) env.assets.rename(this.type, key, el.value);
   };
 
   private nameKeyDown = (e: KeyboardEvent): void => {
@@ -140,7 +140,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     if (e.key === 'Enter') {
       const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
       const name = (el as HTMLInputElement).value;
-      if (this.validName(name)) env.repo.rename(this.type, key, name);
+      if (this.validName(name)) env.assets.rename(this.type, key, name);
       el.blur();
     } else if (e.key === 'Escape') {
       const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
@@ -153,8 +153,8 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item')!;
     const key = el.getAttribute('data-asset')!;
-    if (!env.repo.isLocalOnly(key) && !(await confirm('delete this asset from the server?'))) return;
-    await env.repo.delete(this.type, key);
+    if (!env.assets.isLocalOnly(key) && !(await confirm('delete this asset from the server?'))) return;
+    await env.assets.delete(this.type, key);
     this.update();
   };
 
@@ -180,12 +180,12 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
     ).returnValue;
     if (!name || name === 'cancel') return key;
     try {
-      await env.push.pushAsset(env.repo.assetBlob(this.type, key));
+      await env.push.pushAsset(env.assets.assetBlob(this.type, key));
     } catch (x) {
       console.error('push failed', x);
       return undefined;
     }
-    await env.repo.update();
+    await env.assets.update();
     this.update();
     return name;
   };
@@ -249,7 +249,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
   private categories = {
     image: {
       placeholder: '<img src="/assets/lifat/bots/image/gray-torso.webp">',
-      preview: (key: string) => frag<HTMLElement>(`<img src="${env.repo.getImageUrl(key)}">`),
+      preview: (key: string) => frag<HTMLElement>(`<img src="${env.assets.getImageUrl(key)}">`),
       process: (file: File, onSuccess: (key: string) => void) => {
         if (!file.type.startsWith('image/')) return;
         // TODO this doesn't seem to always work. find out why.
@@ -260,7 +260,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
             max: { megabytes: 0.05, pixels: 512 },
             onCropped: (r: Blob | boolean) => {
               if (!(r instanceof Blob)) return;
-              env.repo.import('image', file.name, r).then(onSuccess);
+              env.assets.import('image', file.name, r).then(onSuccess);
             },
           },
         });
@@ -271,13 +271,13 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       preview: (key: string) => {
         const divEl = document.createElement('div');
         const imgEl = document.createElement('img');
-        imgEl.src = env.repo.getBookCoverUrl(key);
+        imgEl.src = env.assets.getBookCoverUrl(key);
         divEl.append(imgEl);
         return divEl;
       },
       process: (file: File, onSuccess: (key: string) => void) => {
         if (file.type === 'application/octet-stream' || file.name.endsWith('.bin')) {
-          env.repo.importPolyglot(file.name, file).then(onSuccess);
+          env.assets.importPolyglot(file.name, file).then(onSuccess);
         } else if (file.type.endsWith('chess-pgn') || file.name.endsWith('.pgn')) {
           const suggested = file.name.endsWith('.pgn') ? file.name.slice(0, -4) : file.name;
           domDialog({
@@ -325,7 +325,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
                     const bar = progress.querySelector('.bar') as HTMLElement;
                     const text = progress.querySelector('.text') as HTMLElement;
                     progress.classList.remove('none');
-                    const key = await env.repo.importPgn(
+                    const key = await env.assets.importPgn(
                       name,
                       file,
                       ply,
@@ -352,7 +352,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       placeholder: '',
       preview: (key: string) => {
         const soundEl = document.createElement('span');
-        const audioEl = frag<HTMLAudioElement>(`<audio src="${env.repo.getSoundUrl(key)}"></audio>`);
+        const audioEl = frag<HTMLAudioElement>(`<audio src="${env.assets.getSoundUrl(key)}"></audio>`);
         const buttonEl = frag<Node>(
           `<button class="button button-empty preview-sound" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
         );
@@ -369,7 +369,7 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       },
       process: (file: File, onSuccess: (key: string) => void) => {
         if (!file.type.startsWith('audio/')) return;
-        env.repo.import('sound', file.name, file).then(onSuccess);
+        env.assets.import('sound', file.name, file).then(onSuccess);
       },
     },
   };

@@ -2,7 +2,7 @@ import { domDialog, type Dialog } from 'common/dialog';
 import { frag, escapeHtml } from 'common';
 import * as licon from 'common/licon';
 import type { EditDialog } from './editDialog';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 import type { BotInfo } from '../types';
 import stringify from 'json-stringify-pretty-compact';
 import diff from 'fast-diff';

@@ -1,5 +1,5 @@
-import { domIdToUid, uidToDomId } from '../botCtrl';
-import { handOfCards, type HandOfCards } from '../handOfCards';
+import { domIdToUid, uidToDomId } from './devBotCtrl';
+import { handOfCards, type HandOfCards } from './handOfCards';
 import { frag } from 'common';
 import { deepFreeze, definedMap, mapValues } from 'common/algo';
 import { buildFromSchema, Panes } from './panes';
@@ -9,7 +9,7 @@ import type { BotInfo } from '../types';
 import { Bot } from '../bot';
 import { AssetDialog, type AssetType } from './assetDialog';
 import { historyDialog } from './historyDialog';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 import { pubsub } from 'common/pubsub';
 import { Janitor } from 'common/event';
 import stringify from 'json-stringify-pretty-compact';

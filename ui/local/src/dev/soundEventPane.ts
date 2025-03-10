@@ -4,7 +4,7 @@ import { frag } from 'common';
 import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';
 import type { Sound } from '../types';
 import { renderRemoveButton } from './devUtil';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 
 export class SoundEventPane extends Pane {
   info: SoundEventInfo;
@@ -64,7 +64,7 @@ export class SoundEventPane extends Pane {
     const audioEl = frag<HTMLAudioElement>(`<audio src="${env.assets.getSoundUrl(key)}"></audio>`);
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);
-    soundEl.prepend(frag(`<legend>${env.repo.nameOf(key)}</legend>`), buttonEl);
+    soundEl.prepend(frag(`<legend>${env.assets.nameOf(key)}</legend>`), buttonEl);
     soundEl.append(renderRemoveButton());
     this.el.append(soundEl);
   }

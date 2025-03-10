@@ -83,7 +83,6 @@ export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
   const dlg = await domDialog({
     htmlText: escapeHtmlAddBreaks(msg),
     noCloseButton: true,
-    actions: { result: 'ok' },
   });
   if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
   return dlg.show();
@@ -171,7 +170,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
-  if (isTouchDevice()) dialog.classList.add('touch-scroll');
+  if (isTouchDevice() && o.actions) dialog.classList.add('touch-scroll');
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
@@ -294,8 +293,8 @@ class DialogWrapper implements Dialog {
 
     if (!o.noClickAway)
       setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'click', cancelOnInterval);
-        this.dialogEvents.addListener(dialogEl, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
+        this.dialogEvents.addListener(dialogEl, 'pointerdown', cancelOnInterval);
       });
     for (const app of o.append ?? []) {
       if (app.node === viewEl) break;

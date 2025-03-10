@@ -3,7 +3,7 @@ import { findMap } from 'common/algo';
 import { frag } from 'common';
 import { getSchemaDefault, requiresOpRe } from './schema';
 import type { EditDialog } from './editDialog';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 import type {
   PaneArgs,
   SelectInfo,
@@ -253,7 +253,7 @@ export class SelectSetting extends Pane<SelectInfo> {
   }
   get choices(): { name: string; value: string }[] {
     if (!this.info.assetType) return this.info.choices ?? [];
-    return [...env.repo.allKeyNames(this.info.assetType).entries()].map(([key, name]) => ({
+    return [...env.assets.allKeyNames(this.info.assetType).entries()].map(([key, name]) => ({
       name,
       value: key,
     }));

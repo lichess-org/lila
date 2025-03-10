@@ -6,12 +6,12 @@ import { domDialog } from 'common/dialog';
 import { EditDialog } from './editDialog';
 import { Bot } from '../bot';
 import { resultsString, playersWithResults } from './devUtil';
-import { type Drop, type HandOfCards, handOfCards } from '../handOfCards';
-import { domIdToUid, uidToDomId } from '../botCtrl';
+import { type Drop, type HandOfCards, handOfCards } from './handOfCards';
+import { domIdToUid, uidToDomId } from './devBotCtrl';
 import { rangeTicks } from '../gameView';
 import { definedMap } from 'common/algo';
 import type { LocalSpeed, LocalSetup } from '../types';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 
 export function renderDevSide(): VNode {
   return h('div.dev-side.dev-view', [

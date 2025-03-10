@@ -45,9 +45,7 @@ export class RateBot implements BotInfo, MoveSource {
     return `Stockfish ${this.ratings.classical} Skill Level ${this.level - 10} Depth ${this.depth}`;
   }
 
-  async move({ pos }: MoveArgs): Promise<MoveResult> {
-    const ply = env.game.live.ply;
-    const turn = env.game.live.turn;
+  async move({ pos, ply }: MoveArgs): Promise<MoveResult> {
     const fen = pos.fen;
     const uci = (
       await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level - 10, by: { depth: this.depth } })

@@ -1,7 +1,7 @@
 import type { BotInfo } from '../types';
 import { defined } from 'common';
 import type { AssetBlob, AssetType, ShareType } from './devAssets';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 
 // not sure why this is a class yet
 
@@ -13,18 +13,18 @@ export class PushCtrl {
     progress?: (e: ProgressEvent, key: string) => void,
   ): Promise<undefined | string> {
     const localBlobs: (AssetBlob | undefined)[] = [];
-    if (bot.image) localBlobs.push(env.repo.assetBlob('image', bot.image));
+    if (bot.image) localBlobs.push(env.assets.assetBlob('image', bot.image));
     for (const key of new Set(
       Object.values(bot.sounds ?? {})
         .flat()
         .map(s => s.key),
     )) {
-      localBlobs.push(env.repo.assetBlob('sound', key));
+      localBlobs.push(env.assets.assetBlob('sound', key));
     }
-    for (const book of (bot.books ?? []).map(b => env.repo.assetBlob('book', b.key))) {
+    for (const book of (bot.books ?? []).map(b => env.assets.assetBlob('book', b.key))) {
       if (!book) continue;
       localBlobs.push({ ...book, key: `${book.key}.bin` });
-      const bookCover = env.repo.assetBlob('bookCover', book.key);
+      const bookCover = env.assets.assetBlob('bookCover', book.key);
       if (!bookCover) continue;
       localBlobs.push({ ...bookCover, type: 'book', key: `${book.key}.png` });
     }
@@ -44,7 +44,7 @@ export class PushCtrl {
         if (b.type === 'book' || b.type === 'bookCover') b.key = b.key.slice(0, -4);
         clearLocals.push(b);
       }
-      await Promise.all(clearLocals.map(b => env.repo.clearLocal(b.type, b.key)));
+      await Promise.all(clearLocals.map(b => env.assets.clearLocal(b.type, b.key)));
       return undefined;
     } catch (x) {
       console.error('share failed', x);
@@ -70,14 +70,14 @@ export class PushCtrl {
     if (type === 'book')
       posts.push(
         env.push.postFile({
-          ...env.repo.assetBlob('bookCover', asset.key)!,
+          ...env.assets.assetBlob('bookCover', asset.key)!,
           type: 'book',
           key: `${asset.key}.png`,
         }),
       );
     await Promise.all(posts);
-    const clears = [env.repo.clearLocal(asset.type, asset.key)];
-    if (type === 'book') clears.push(env.repo.clearLocal('bookCover', asset.key));
+    const clears = [env.assets.clearLocal(asset.type, asset.key)];
+    if (type === 'book') clears.push(env.assets.clearLocal('bookCover', asset.key));
     await Promise.all(clears);
   }
 

@@ -1,6 +1,6 @@
 import * as co from 'chessops';
 import { looseH as h, VNode } from 'common/snabbdom';
-import { showSetupDialog } from './setupDialog';
+import { showSetupDialog } from './dev/setupDialog';
 import { LocalGame } from './localGame';
 import { type Player, clockToSpeed } from 'game';
 import type { RoundProxy as RoundProxyType, RoundData, RoundOpts, Position } from 'round';
@@ -42,7 +42,6 @@ export class RoundProxy implements RoundProxyType {
   }
 
   newOpponent = (): void => showSetupDialog(env.game.live.setup);
-  userVNode = (player: Player, position: Position): VNode | undefined => botVNode(player, position);
   analyse = (): void => analyse(env.game);
   moreTime = (): void => {};
   outoftime = (): void => env.game.flag();
@@ -126,15 +125,4 @@ function player(color: Color): RoundData['player'] {
     onGame: true,
     version: 0,
   };
-}
-
-function botVNode(player: Player, position: Position): VNode | undefined {
-  return player.id.startsWith('#') || player.name === 'White' || player.name === 'Black'
-    ? h(`div.ruser-${position}.ruser.user-link.fancy-bot.online`, [
-        h('span', [h('i.line.patron', {}), h('name', player.name)]),
-        env.dev
-          ? h('rating', player.rating ? `${player.rating}` : '')
-          : !!player.image && h('img', { attrs: { src: player.image } }),
-      ])
-    : undefined;
 }

@@ -4,7 +4,7 @@ import { frag } from 'common';
 import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
 import type { Book } from '../types';
 import { renderRemoveButton } from './devUtil';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 import { opposite } from 'chessops';
 
 export class BooksPane extends Pane {
@@ -82,7 +82,7 @@ export class BooksPane extends Pane {
       host: this.host,
       info: {
         ...this.template,
-        label: env.repo.nameOf(book.key) ?? `unknown '${book.key}'`,
+        label: env.assets.nameOf(book.key) ?? `unknown '${book.key}'`,
         value: book.weight,
         color: book.color,
         id: `${this.id}_${idCounter++}`,
@@ -132,7 +132,7 @@ class BookPane extends RangeSetting {
     this.el.append(this.colorInput);
     this.el.append(renderRemoveButton());
     const span = this.label.firstElementChild as HTMLElement;
-    span.dataset.src = env.repo.getBookCoverUrl(key);
+    span.dataset.src = env.assets.getBookCoverUrl(key);
     span.classList.add('image-powertip');
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }

@@ -4,12 +4,17 @@ import { LocalDb } from './localDb';
 import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
-import { showSetupDialog } from './setupDialog';
+import { showSetupDialog } from './dev/setupDialog';
 import { env, makeEnv } from './localEnv';
 import { renderGameView } from './gameView';
 import type { LocalPlayOpts, LocalSetup } from './types';
+import makeZerofish from 'zerofish';
 
 const patch = init([classModule, attributesModule]);
+const zerofish = makeZerofish({
+  locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+  nonce: document.body.dataset.nonce,
+});
 
 type SetupOpts = LocalSetup & { id?: string; go?: true };
 
@@ -17,7 +22,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
   const setup = setupOpts();
   makeEnv({
     redraw,
-    bot: new BotCtrl(),
+    bot: new BotCtrl(await zerofish),
     assets: new Assets(),
     db: new LocalDb(),
     game: new GameCtrl(opts),

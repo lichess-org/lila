@@ -1,5 +1,5 @@
 import type { Position, FishSearch } from 'zerofish';
-import type { CardData } from './handOfCards';
+import type { CardData } from './dev/handOfCards';
 import type { Chess } from 'chessops';
 import type { Filter, FilterFacet, Filters, Point } from './filter';
 import type { LocalEnv } from './localEnv';
@@ -83,7 +83,6 @@ export interface LocalPlayOpts {
   pref: any;
   localGameId?: string;
   bots: BotInfo[];
-  dev?: boolean;
 }
 
 export interface LocalSetup {

@@ -9,7 +9,7 @@ import {
 } from 'bits/polyglot';
 import { alert } from 'common/dialog';
 import { zip } from 'common/algo';
-import { env } from '../localEnv';
+import { env } from './devEnv';
 import { pubsub } from 'common/pubsub';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
