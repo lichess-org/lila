@@ -20,7 +20,6 @@ import lila.gathering.GatheringJson.*
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
-import lila.ui.Icon.iconWrites
 
 final class JsonView(
     lightUserApi: LightUserApi,

@@ -669,10 +669,10 @@
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s کاملا رایگان(%2$s)، آزاد، بدون تبلیغات و سرور متن باز است.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">وبگاه %1$s (%2$s) رایگان، آزاد، بی‌تبلیغ و با کارسازِ متن‌بازِ شطرنج است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
-  <string name="termsOfService">قوانین</string>
+  <string name="termsOfService">شرایطِ استفاده</string>
   <string name="sourceCode">کد منبع</string>
   <string name="simultaneousExhibitions">نمایش هم زمان</string>
   <string name="host">میزبان</string>
@@ -748,7 +748,7 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه میان شما و Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
+  <string name="timeToProcessAMoveOnLichessServer">زمانِ پردازش یک حرکت در کارسازِ Lichess</string>
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">بارگیری خام</string>
   <string name="downloadImported">بارگیری درونبُرد</string>

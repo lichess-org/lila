@@ -17,7 +17,7 @@
   <string name="youHaveLifetime">شما دارای یک حساب پشنیبان مادام‌العمر هستید. واقعاً خیلی عالی است!</string>
   <string name="patronUntil">شما تا %s حساب یاور دارید.</string>
   <string name="ifNotRenewedThenAccountWillRevert">اگر تمدید نشود، حساب شما به حالت عادی باز خواهد گشت.</string>
-  <string name="weAreNonProfit">ما یک انجمن ناسودبریم زیرا باور داریم همه باید به یک پَتادیس رایگان و در ردهٔ جهانی شطرنج دسترسی داشته باشند.</string>
+  <string name="weAreNonProfit">ما یک انجمن ناسودبریم زیرا باور داریم همه باید به یک پَندیس رایگان و در ردهٔ جهانی شطرنج دسترسی داشته باشند.</string>
   <string name="weRelyOnSupport">ما بر روی کمک از سوی کسانی چون شما برای تحقق آن تکیه می‌کنیم. اگر از استفاده از Lichess لذت می‌برید، لطفاً با کمک مالی و پشتیبان شدن، ما را یاری برسانید!</string>
   <string name="lifetime">مادام‌العمر</string>
   <string name="payLifetimeOnce">یکبار %s بپردازید. برای همیشه پشتیبانِ Lichess باشید!</string>
@@ -34,7 +34,7 @@
   <string name="celebratedPatrons">پشتبان‌های ارجمند که Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
   <string name="serversAndDeveloper">اول از همه، کارسازهای قدرتمند.
-سپس به یک توسعه‌دهنده تمام‌وقت پرداخت می‌کنیم: %s، بنیان‌گذارِ Lichess.</string>
+سپس به یک توسعه‌دهنده تمام‌وقت می‌پردازیم: %s، بنیان‌گذارِ Lichess.</string>
   <string name="costBreakdown">ساختار ریز هزینه را ببینید</string>
   <string name="officialNonProfit">آیا Lichess به صورت رسمی غیرانتفاعی است؟</string>
   <string name="actOfCreation">بله، مصوبه تاسیس (به زبان فرانسوی) این‌جا است</string>

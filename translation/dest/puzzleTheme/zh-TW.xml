@@ -57,6 +57,10 @@
   <string name="interferenceDescription">將一子擋在兩個敵方子之間以切斷防護，例如以騎士在兩車之間阻擋。</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">與其走正常的棋譜，不如威脅敵方子吧！這樣不但可以破壞敵方原先計畫，還可以讓敵人必須對威脅採取對應的動作。這種戰術又稱為「Zwischenzug」或「In between」。</string>
+  <string name="killBoxMate">殺戮箱將死</string>
+  <string name="killBoxMateDescription">一個城堡在敵方國王旁邊，由皇后支援，同時封鎖國王的逃脫路徑。城堡和皇后會將敵方國王困在 3×3 的『殺戮箱』中。</string>
+  <string name="vukovicMate">武科維奇將死</string>
+  <string name="vukovicMateDescription">一個城堡和一個騎士合作對國王發動將死。城堡執行將死攻擊，並由第三個棋子支援，而騎士則負責封鎖國王的逃脫路徑。</string>
   <string name="knightEndgame">馬殘局</string>
   <string name="knightEndgameDescription">只剩馬和兵的殘局</string>
   <string name="long">長謎題</string>

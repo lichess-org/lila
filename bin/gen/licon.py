@@ -31,7 +31,7 @@ object Icon:
   extension (icon: Icon) def value: String = icon
   given scalalib.Iso.StringIso[Icon]       = scalalib.Iso.string(apply, value)
   import play.api.libs.json.{ Writes, JsString }
-  given iconWrites: Writes[Icon] = icon => JsString(Icon.value(icon))
+  given Writes[Icon] = JsString(_)
 """
 
 debug_preamble = """<!--""" + comment_preamble + """-->
