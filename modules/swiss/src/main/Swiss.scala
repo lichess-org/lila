@@ -128,3 +128,7 @@ object Swiss:
       teamId: TeamId,
       chatFor: ChatFor
   )
+
+  enum Status:
+    case created, started, finished
+  def status(str: String) = scala.util.Try(Status.valueOf(str)).toOption

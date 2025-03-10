@@ -492,9 +492,14 @@ final class SwissApi(
 
   def roundInfo = cache.roundInfo.get
 
-  def byTeamCursor(teamId: TeamId) =
+  def byTeamCursor(teamId: TeamId, status: Option[Swiss.Status]) =
+    val selector = $doc("teamId" -> teamId) ++
+      status.so:
+        case Swiss.Status.created  => $doc("round" -> 0)
+        case Swiss.Status.started  => $doc("round".$gt(0), "finishedAt" -> $exists(false))
+        case Swiss.Status.finished => $doc("finishedAt" -> $exists(true))
     mongo.swiss
-      .find($doc("teamId" -> teamId))
+      .find(selector)
       .sort($sort.desc("startsAt"))
       .cursor[Swiss]()
 
