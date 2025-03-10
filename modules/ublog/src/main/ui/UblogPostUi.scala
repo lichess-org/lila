@@ -103,7 +103,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
             ),
             (~post.ads).option(
               div(dataIcon := Icon.InfoCircle, cls := "ublog-post__ads-disclosure text")(
-                "Disclosure: This post contains sponsored content, affiliate links or commercial advertisement"
+                "Contains sponsored content, affiliate links or commercial advertisement"
               )
             ),
             strong(cls := "ublog-post__intro")(post.intro),
