@@ -23,6 +23,7 @@ const scrollMax = 99999,
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
+    if (ctrl.data.steps.length < 7 && !finished(ctrl.data)) return;
     let st: number | undefined;
     if (ctrl.ply < 3) st = 0;
     else if (ctrl.ply === util.lastPly(ctrl.data)) st = scrollMax;
