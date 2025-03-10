@@ -64,5 +64,4 @@ const views = {
       createButtons(ctrl),
     ]),
   ],
-  local: (): MaybeVNodes => [],
 };

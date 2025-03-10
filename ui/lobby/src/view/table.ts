@@ -19,9 +19,9 @@ export default function table(ctrl: LobbyController) {
           ['hook', i18n.site.createAGame, hookDisabled],
           ['friend', i18n.site.playWithAFriend, hasOngoingRealTimeGame],
           ['ai', i18n.site.playWithTheMachine, hasOngoingRealTimeGame],
-          ['local', 'play bot', false],
+          ['bots', 'play bot', false],
           ['dev', 'bot development', false],
-        ].map(([gameType, text, disabled]: [GameType | 'dev' | 'local', string, boolean]) =>
+        ].map(([gameType, text, disabled]: [GameType | 'dev' | 'bots', string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,
             {
@@ -32,7 +32,7 @@ export default function table(ctrl: LobbyController) {
                 : bind(
                     'click',
                     () => {
-                      if (gameType === 'local') location.href = '/bots';
+                      if (gameType === 'bots') location.href = '/bots';
                       else if (gameType === 'dev') location.href = '/bots/dev';
                       else ctrl.setupCtrl.openModal(gameType);
                     },
