@@ -37,7 +37,7 @@ final class SwissStandingApi(
         _.zip(res.leaderboard).zipWithIndex
           .grouped(perPage)
           .toList
-          .foldLeft(0) { case (i, pagePlayers) =>
+          .foldLeft(0): (i, pagePlayers) =>
             val page = i + 1
             pageCache.put(
               res.swiss.id -> page,
@@ -59,11 +59,9 @@ final class SwissStandingApi(
               )
             )
             page
-          }
-      .map { lastPage =>
+      .map: lastPage =>
         // make sure there's no extra page in the cache in case of players leaving the tournament
         pageCache.invalidate(res.swiss.id -> (lastPage + 1))
-      }
 
   private val first = cacheApi[SwissId, JsObject](256, "swiss.page.first"):
     _.expireAfterWrite(1.minute)
