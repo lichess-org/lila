@@ -1,4 +1,4 @@
-import makeZerofish, { type Zerofish } from 'zerofish';
+import { type Zerofish } from 'zerofish';
 import { Bot } from '../bot';
 import { RateBot } from './rateBot';
 import { BotCtrl } from '../botCtrl';
@@ -12,17 +12,13 @@ export class DevBotCtrl extends BotCtrl {
 
   constructor(zf?: Zerofish) {
     super(zf);
+    for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
+      this.rateBots.push(new RateBot(i));
+    }
   }
 
   get firstUid(): string | undefined {
     return this.bots.keys().next()?.value;
-  }
-
-  async init(serverBots: BotInfo[]): Promise<this> {
-    for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
-      this.rateBots.push(new RateBot(i));
-    }
-    return this.initBotsOnly(serverBots.filter(Bot.viable));
   }
 
   storeBot(bot: BotInfo): Promise<any> {
@@ -36,12 +32,12 @@ export class DevBotCtrl extends BotCtrl {
   async deleteStoredBot(uid: string): Promise<void> {
     await this.store.remove(uid);
     this.bots.delete(uid);
-    await this.initBotsOnly();
+    await this.init();
   }
 
   async clearStoredBots(uids?: string[]): Promise<void> {
     await (uids ? Promise.all(uids.map(uid => this.store.remove(uid))) : this.store.clear());
-    await this.initBotsOnly();
+    await this.init();
   }
 
   async setServerBot(bot: BotInfo): Promise<void> {
@@ -49,6 +45,11 @@ export class DevBotCtrl extends BotCtrl {
     this.serverBots[bot.uid] = deepFreeze(structuredClone(bot));
     delete this.localBots[bot.uid];
     await this.store.remove(bot.uid);
+  }
+
+  get(uid: string | undefined): BotInfo | undefined {
+    if (uid === undefined) return undefined;
+    return this.bots.get(uid) ?? this.rateBots[Number(uid.slice(1))];
   }
 
   card(bot: BotInfo): CardData {

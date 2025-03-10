@@ -9,10 +9,12 @@ import { env, makeEnv } from './devEnv';
 import { renderGameView } from '../gameView';
 import { LocalDb } from '../localDb';
 import type { RoundController } from 'round';
-import type { LocalPlayOpts } from '../types';
+import type { LocalPlayOpts, LocalSetup } from '../types';
 import makeZerofish from 'zerofish';
 
 const patch = init([classModule, attributesModule]);
+
+type SetupOpts = LocalSetup & { id?: string; go?: true };
 
 interface LocalPlayDevOpts extends LocalPlayOpts {
   assets?: AssetList;
@@ -24,7 +26,7 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   if (opts.pgn && opts.name) {
     makeEnv({ bot: new DevBotCtrl(), assets: new DevAssets() });
-    await Promise.all([env.bot.initBotsOnly(), env.assets.init()]);
+    await Promise.all([env.bot.init(), env.assets.init()]);
     await env.assets.importPgn(
       opts.name,
       new Blob([opts.pgn], { type: 'application/x-chess-pgn' }),
@@ -50,12 +52,13 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     game: new GameCtrl(opts),
     canPost: opts.canPost,
   });
+
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
-  env.game.load(
-    hashGameId()
-      ? await env.db.get(hashGameId())
-      : JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}'),
-  );
+  const hash = hashOpts();
+  env.game.load({
+    ...JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}'),
+    ...(hash.id || !Object.keys(hash).length ? await env.db.get(hash.id) : hash),
+  });
 
   const el = document.querySelector('main') ?? document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
@@ -71,11 +74,14 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   }
 }
 
-function hashGameId() {
+function hashOpts(): SetupOpts {
   const params = location.hash
     .slice(1)
     .split('&')
     .map(p => decodeURIComponent(p).split('='))
     .filter(p => p.length === 2);
-  return params.find(p => p[0] === 'id')?.[1];
+  const opts = Object.fromEntries(params);
+  if ('initial' in opts) opts.initial = Number(opts.initial);
+  if ('increment' in opts) opts.increment = Number(opts.increment);
+  return opts;
 }

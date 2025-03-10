@@ -27,7 +27,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<LocalEnv> {
     game: new GameCtrl(opts),
   });
   await Promise.all([env.db.init(), env.bot.init(opts.bots), env.assets.init()]);
-  const setup = hashOpts();
+  //const setup = hashOpts();
   //env.game.load('id' in setup ? await env.db.get(setup.id) : setup);
 
   const el = document.querySelector('#main-wrap > main') as HTMLElement;
@@ -47,14 +47,14 @@ export async function initModule(opts: LocalPlayOpts): Promise<LocalEnv> {
   //showSetupDialog(JSON.parse(localStorage.getItem('local.setup') ?? '{}'));
 }
 
-function hashOpts(): SetupOpts {
-  const params = location.hash
-    .slice(1)
-    .split('&')
-    .map(p => decodeURIComponent(p).split('='))
-    .filter(p => p.length === 2);
-  const opts = Object.fromEntries(params);
-  if ('initial' in opts) opts.initial = Number(opts.initial);
-  if ('increment' in opts) opts.increment = Number(opts.increment);
-  return opts;
-}
+// function hashOpts(): SetupOpts {
+//   const params = location.hash
+//     .slice(1)
+//     .split('&')
+//     .map(p => decodeURIComponent(p).split('='))
+//     .filter(p => p.length === 2);
+//   const opts = Object.fromEntries(params);
+//   if ('initial' in opts) opts.initial = Number(opts.initial);
+//   if ('increment' in opts) opts.increment = Number(opts.increment);
+//   return opts;
+// }

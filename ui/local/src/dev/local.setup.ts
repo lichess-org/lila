@@ -9,8 +9,10 @@ export default async function initModule(opts: LocalSetup = {}): Promise<void> {
   opts.initial ??= Infinity;
   makeEnv({
     redraw: () => {},
-    bot: await new DevBotCtrl().initBotsOnly(),
-    assets: await new DevAssets().init(),
+    bot: await new DevBotCtrl().init(),
+    assets: new DevAssets(),
   });
+  await env.assets.init();
+  console.log('hayo');
   showSetupDialog(opts);
 }

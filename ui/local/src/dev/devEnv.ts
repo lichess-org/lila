@@ -23,7 +23,7 @@ export class DevEnv extends LocalEnv {
   constructor(cfg: Partial<LocalEnv>) {
     super(cfg);
     env = this;
-    this.game.dev = this.dev;
+    if (this.game) this.game.observer = this.dev;
     this.canPost = Boolean(this.canPost);
   }
 

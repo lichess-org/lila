@@ -9,7 +9,7 @@ import type { GameStatus, GameContext } from '../localGame';
 import { env } from '../localEnv';
 import { pubsub } from 'common/pubsub';
 import { type PermaLog, makeLog } from 'common/permalog';
-import type { DevHarness } from '../gameCtrl';
+import type { GameObserver } from '../gameCtrl';
 
 export interface Result {
   winner: Color | undefined;
@@ -36,7 +36,7 @@ export type Glicko = { r: number; rd: number };
 
 type DevRatings = { [speed in LocalSpeed]?: Glicko };
 
-export class DevCtrl implements DevHarness {
+export class DevCtrl implements GameObserver {
   hurryProp: Prop<boolean> = storedBooleanProp('local.dev.hurry', false);
   // skip animations, sounds, and artificial think times (clock still adjusted)
   script: Script;
@@ -114,7 +114,7 @@ export class DevCtrl implements DevHarness {
   onGameOver({ winner, reason, status }: GameStatus): boolean {
     const last = { winner, white: this.white?.uid, black: this.black?.uid };
     this.log.push(last);
-    const matchup = `'${env.game.nameOf('white')}' vs '${env.game.nameOf('black')}'`;
+    const matchup = `${env.game.live.id} '${env.game.nameOf('white')}' vs '${env.game.nameOf('black')}'`;
     const error =
       status === statusOf('unknownFinish') &&
       `${matchup} - ${env.game.live.turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`;

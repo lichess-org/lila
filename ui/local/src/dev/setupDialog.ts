@@ -94,8 +94,8 @@ class SetupDialog {
         localStorage.setItem('local.setup', JSON.stringify(this.setup));
         this.janitor.cleanup();
       },
-      noCloseButton: env.game !== undefined,
-      noClickAway: env.game !== undefined,
+      noCloseButton: true, //env.game === undefined,
+      noClickAway: env.game === undefined,
     });
     this.dialog = dlg;
     this.mainContentEl = dlg.viewEl.querySelector('.main-content')!;
@@ -105,7 +105,7 @@ class SetupDialog {
 
     dlg.show();
 
-    this.select(this.setup[this.botColor]);
+    this.select(this.setup[this.botColor] ?? env.bot.firstUid);
     this.hand.resize();
   }
 
@@ -193,12 +193,11 @@ class SetupDialog {
       env.redraw();
       return;
     }
-    const fragParams = ['go=true'];
-    localStorage.setItem('local.setup', JSON.stringify(this.setup));
+    const fragParams = [];
     for (const [key, val] of Object.entries(this.setup)) {
       if (key && val) fragParams.push(`${key}=${encodeURIComponent(val)}`);
     }
-    site.redirect(`/bots${fragParams.length ? `#${fragParams.join('&')}` : ''}`);
+    site.redirect(`/bots/dev${fragParams.length ? `#${fragParams.join('&')}` : ''}`);
   };
 
   focusFen = () => {

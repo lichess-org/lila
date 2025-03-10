@@ -45,11 +45,7 @@ export class BotCtrl {
     return [this.white, this.black].filter(defined);
   }
 
-  async init(serverBots: BotInfo[]): Promise<this> {
-    return this.initBotsOnly(serverBots.filter(Bot.viable));
-  }
-
-  async initBotsOnly(defBots?: BotInfo[]): Promise<this> {
+  async init(defBots?: BotInfo[]): Promise<this> {
     const [localBots, serverBots] = await Promise.all([
       this.storedBots(),
       defBots?.filter(Bot.viable) ?? xhr.json('/bots').then(res => res.bots.filter(Bot.viable)),
@@ -73,7 +69,6 @@ export class BotCtrl {
     this.busy = true;
     const cp = bot instanceof Bot && bot.needsScore ? (await this.fetchBestMove(args.pos)).cp : undefined;
     const move = await bot?.move({ ...args, cp });
-    //if (!this[co.opposite(args.chess.turn)]) this.bestMove = await this.fetchBestMove(args.pos);
     this.busy = false;
     return move?.uci !== '0000' ? move : undefined;
   }
@@ -84,11 +79,9 @@ export class BotCtrl {
   }
 
   sorted(by: 'alpha' | LocalSpeed = 'alpha'): BotInfo[] {
-    if (by === 'alpha') return [...this.bots.values()].sort((a, b) => a.name.localeCompare(b.name));
-    else
-      return [...this.bots.values()].sort((a, b) => {
-        return Bot.rating(a, by) - Bot.rating(b, by) || a.name.localeCompare(b.name);
-      });
+    return [...this.bots.values()].sort((a, b) => {
+      return (by !== 'alpha' && Bot.rating(a, by) - Bot.rating(b, by)) || a.name.localeCompare(b.name);
+    });
   }
 
   setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
@@ -97,12 +90,7 @@ export class BotCtrl {
     env.assets.preload([white, black].filter(defined));
   }
 
-  // stop(): void {
-  //   return this.zerofish.stop();
-  // }
-
   reset(): void {
-    // this.bestMove = { uci: '0000', cp: 0 };
     return this.zerofish?.reset();
   }
 

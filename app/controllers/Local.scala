@@ -27,17 +27,17 @@ final class Local(env: Env) extends LilaController(env):
   def assetKeys = Anon: // for service worker
     JsonOk(env.local.api.getJson)
 
-  def devIndex = Secure(_.BotEditor): _ ?=>
+  def devIndex = Anon: _ ?=>
     for
       bots   <- env.local.repo.getLatestBots()
       assets <- env.local.api.devGetAssets
       page   <- renderPage(indexPage(bots, assets.some))
     yield Ok(page).withServiceWorker
 
-  def devAssets = Secure(_.BotEditor): ctx ?=>
+  def devAssets = Anon: ctx ?=>
     env.local.api.devGetAssets.map(JsonOk)
 
-  def devBotHistory(botId: Option[UserStr]) = Secure(_.BotEditor): _ ?=>
+  def devBotHistory(botId: Option[UserStr]) = Anon: _ ?=>
     env.local.repo
       .getVersions(botId.map(_.id))
       .map: history =>

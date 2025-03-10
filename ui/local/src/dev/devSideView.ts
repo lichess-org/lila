@@ -7,6 +7,7 @@ import { EditDialog } from './editDialog';
 import { Bot } from '../bot';
 import { resultsString, playersWithResults } from './devUtil';
 import { type Drop, type HandOfCards, handOfCards } from './handOfCards';
+import { showSetupDialog } from './setupDialog';
 import { domIdToUid, uidToDomId } from './devBotCtrl';
 import { rangeTicks } from '../gameView';
 import { definedMap } from 'common/algo';
@@ -184,7 +185,12 @@ function dashboard() {
       ]),
     ]),
     h('span', [
-      h('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'round robin'),
+      h(
+        'button.button.button-metal',
+        { hook: bind('click', () => showSetupDialog(env.game.live.setup)) },
+        'setup',
+      ),
+      h('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'tour'),
       h('div.spacer'),
       h('button.button.button-metal', {
         attrs: { 'data-icon': licon.ShareIos },

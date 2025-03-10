@@ -7,8 +7,8 @@ import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types'
 import { env } from './localEnv';
 import { pubsub } from 'common/pubsub';
 
-export interface DevHarness {
-  get hurry(): boolean;
+export interface GameObserver {
+  hurry: boolean;
   beforeMove(uci: string): void;
   afterMove(moveCtx: any): void;
   onGameOver(status: any): boolean;
@@ -20,7 +20,7 @@ export class GameCtrl {
   proxy: RoundProxy;
   clock?: ClockData & { since?: number };
   orientation: Color = 'white';
-  dev?: DevHarness;
+  observer?: GameObserver;
 
   private stopped = true;
   private resolveThink?: () => void;
@@ -117,14 +117,14 @@ export class GameCtrl {
     if (this.rewind) this.live = this.rewind;
     this.rewind = undefined;
     this.stopped = false;
-    this.dev?.beforeMove(uci);
+    this.observer?.beforeMove(uci);
 
     if (this.clock?.since) this.clock[this.live.turn] -= (performance.now() - this.clock.since) / 1000;
     const moveCtx = this.live.move({ uci, clock: this.clock });
 
     this.proxy.data.steps.splice(this.live.moves.length);
 
-    this.dev?.afterMove?.(moveCtx);
+    this.observer?.afterMove?.(moveCtx);
 
     this.playSounds(moveCtx);
     env.round.apiMove(moveCtx);
@@ -146,7 +146,7 @@ export class GameCtrl {
 
     this.updateClockUi();
 
-    window.location.hash = `id=${this.live.id}`;
+    if (!this.observer) window.location.hash = `id=${this.live.id}`;
     env.redraw();
   }
 
@@ -170,7 +170,7 @@ export class GameCtrl {
         this.clock[game.turn] -= move.movetime;
         this.clock.since = undefined;
       }
-      if (this.dev?.hurry) return resolve();
+      if (this.observer?.hurry) return resolve();
       this.resolveThink = resolve;
       const realWait = Math.min(1 + Math.random(), game.ply > 0 ? move.movetime : 0);
       setTimeout(resolve, realWait * 1000);
@@ -207,9 +207,9 @@ export class GameCtrl {
     if (this.clock) env.round.clock?.stopClock();
     this.live.finish(final);
     env.db.put(this.live);
-    if (this.dev?.onGameOver(final)) return;
-    // TODO - onGameOver conditional logic leak into gameCtrl, fix game scripting in devCtrl
+
     env.round.endWithData?.({ status: final.status, winner: final.winner, boosted: false });
+    this.observer?.onGameOver(final);
   }
 
   private playSounds(moveCtx: GameContext) {
@@ -228,7 +228,7 @@ export class GameCtrl {
 
   private triggerStart(inProgress = false) {
     ['white', 'black'].forEach(c => env.bot.playSound(c as Color, ['greeting']));
-    if (this.dev || !env.bot[this.live.turn]) return;
+    if (!env.bot[this.live.turn] || env.bot[this.live.awaiting]) return;
     if (!inProgress) {
       setTimeout(() => this.start(), 200);
       return;

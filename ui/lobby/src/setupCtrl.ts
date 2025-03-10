@@ -35,8 +35,8 @@ const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, incre
 
 export default class SetupController {
   root: LobbyController;
-  store: Record<Exclude<GameType, 'local'>, Prop<SetupStore>>;
-  gameType: Exclude<GameType, 'local'> | null = null;
+  store: Record<GameType, Prop<SetupStore>>;
+  gameType: GameType | null = null;
   lastValidFen = '';
   fenError = false;
   friendUser = '';
