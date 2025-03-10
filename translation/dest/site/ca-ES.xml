@@ -156,6 +156,7 @@
   <string name="flipBoard">Girar el tauler</string>
   <string name="threefoldRepetition">Triple repetició</string>
   <string name="claimADraw">Reclamar taules</string>
+  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Taules reclamades</string>
   <string name="offerDraw">Oferir taules</string>
   <string name="draw">Taules</string>
   <plurals name="nbPlayers">
