@@ -241,9 +241,8 @@ function hashBoard({ board, castles, epSquare, turn }: co.Chess) {
     if (
       ((mv & 0x7) > 0 && board.get(mv - 1)?.role === 'pawn' && board.get(mv - 1)?.color === turn) ||
       ((mv & 0x7) < 7 && board.get(mv + 1)?.role === 'pawn' && board.get(mv + 1)?.color === turn)
-    ) {
+    )
       hash ^= hashish[772 + (epSquare & 0x7)];
-    }
   }
   return hash;
 }

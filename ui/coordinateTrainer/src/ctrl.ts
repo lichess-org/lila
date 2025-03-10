@@ -26,9 +26,7 @@ const newKey = (oldKey: Key | '', selectedFiles?: Set<Files>, selectedRanks?: Se
   let files = 'abcdefgh'.split('') as Files[];
   let rows = '12345678'.split('') as Ranks[];
 
-  if (selectedFiles?.size) {
-    files = files.filter((f: Files) => selectedFiles.has(f));
-  }
+  if (selectedFiles?.size) files = files.filter((f: Files) => selectedFiles.has(f));
   if (selectedRanks?.size) rows = rows.filter((r: Ranks) => selectedRanks.has(r));
 
   // disallow the previous coordinate's row or file from being selected

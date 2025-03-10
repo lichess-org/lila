@@ -156,9 +156,8 @@ export default class ExplorerCtrl {
     if (!this.enabled()) return;
     this.gameMenu(null);
     const node = this.root.node;
-    if (node.ply >= MAX_DEPTH && !this.tablebaseRelevant(this.effectiveVariant, node.fen)) {
+    if (node.ply >= MAX_DEPTH && !this.tablebaseRelevant(this.effectiveVariant, node.fen))
       this.cache[node.fen] = this.empty;
-    }
     const cached = this.cache[node.fen];
     if (cached) {
       this.movesAway(cached.moves.length ? 0 : this.movesAway() + 1);

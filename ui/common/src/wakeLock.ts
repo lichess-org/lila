@@ -32,9 +32,9 @@ function acquire() {
 // visibilitychange events won't affect it either
 primerEvents.forEach(e => window.addEventListener(e, primer, { capture: true }));
 document.addEventListener('visibilitychange', () => {
-  if (keepScreenAwake && (!wakeLock || wakeLock.released) && document.visibilityState === 'visible') {
+  if (keepScreenAwake && (!wakeLock || wakeLock.released) && document.visibilityState === 'visible')
     acquire();
-  } else if (document.visibilityState === 'hidden') {
+  else if (document.visibilityState === 'hidden') {
     wakeLock?.release().catch(() => {});
     wakeLock = null;
   }

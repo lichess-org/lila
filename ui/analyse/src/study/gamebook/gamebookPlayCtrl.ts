@@ -36,18 +36,15 @@ export default class GamebookPlayCtrl {
     if (
       (this.root.onMainline && !node.children[0]) ||
       (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath))
-    ) {
+    )
       state.feedback = 'end';
-    } else if (this.isMyMove()) {
+    else if (this.isMyMove()) {
       state.feedback = 'play';
       state.hint = (node.gamebook || {}).hint;
-    } else if (this.root.onMainline) {
-      state.feedback = 'good';
-    } else {
+    } else if (this.root.onMainline) state.feedback = 'good';
+    else {
       state.feedback = 'bad';
-      if (!state.comment) {
-        state.comment = parNode.children[0].gamebook?.deviation;
-      }
+      if (!state.comment) state.comment = parNode.children[0].gamebook?.deviation;
     }
     this.state = state as State;
     if (!state.comment) {

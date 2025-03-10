@@ -21,9 +21,8 @@ const PROMOTABLE_ROLES: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
 export function promote(g: CgApi, key: Key, role: Role): void {
   const piece = g.state.pieces.get(key);
-  if (piece && piece.role === 'pawn') {
+  if (piece && piece.role === 'pawn')
     g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
-  }
 }
 
 export class PromotionCtrl {

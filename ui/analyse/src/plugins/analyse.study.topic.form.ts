@@ -28,9 +28,8 @@ site.load.then(() => {
     .on('click', e => {
       clearTimeout(clickDebounce);
       clickDebounce = setTimeout(() => {
-        if (!e.detail.tag.classList.contains('tagify__tag--editable')) {
+        if (!e.detail.tag.classList.contains('tagify__tag--editable'))
           location.href = `/study/topic/${encodeURIComponent(e.detail.data.value)}/mine`;
-        }
       }, 200);
     })
     .on('dblclick', _ => clearTimeout(clickDebounce));

@@ -146,11 +146,8 @@ export async function initModule(o?: CropOpts): Promise<void> {
 
   function constrain(aspectRatio: number, bounds: { width: number; height: number }, byMax = false) {
     const constrained = { ...bounds };
-    if (bounds.width / bounds.height > aspectRatio) {
-      constrained.width = bounds.height * aspectRatio;
-    } else {
-      constrained.height = bounds.width / aspectRatio;
-    }
+    if (bounds.width / bounds.height > aspectRatio) constrained.width = bounds.height * aspectRatio;
+    else constrained.height = bounds.width / aspectRatio;
     if (!byMax) return constrained;
     const reduce = opts.max?.pixels ? Math.max(constrained.width, constrained.height) / opts.max.pixels : 1;
     constrained.width /= reduce;

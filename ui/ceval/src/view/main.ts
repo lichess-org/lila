@@ -155,9 +155,8 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
     else if ('depth' in search.by) percent = Math.min(100, (100 * evs.client.depth) / search.by.depth);
     else if ('nodes' in search.by) percent = Math.min(100, (100 * evs.client.nodes) / search.by.nodes);
   }
-  if (bestEv && typeof bestEv.cp !== 'undefined') {
-    pearl = renderEval(bestEv.cp);
-  } else if (bestEv && defined(bestEv.mate)) {
+  if (bestEv && typeof bestEv.cp !== 'undefined') pearl = renderEval(bestEv.cp);
+  else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
   } else {
@@ -382,15 +381,9 @@ function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: Posi
   const data: any = {};
   const children: VNode[] = [renderPvWrapToggle()];
   if (pv) {
-    if (!threat) {
-      data.attrs = { 'data-uci': pv.moves[0] };
-    }
-    if (multiPv > 1) {
-      children.push(h('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
-    }
-    if (pos) {
-      children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
-    }
+    if (!threat) data.attrs = { 'data-uci': pv.moves[0] };
+    if (multiPv > 1) children.push(h('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
+    if (pos) children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
   }
   return h('div.pv.pv--nowrap', data, children);
 }
@@ -417,20 +410,13 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
   let key = makeBoardFen(pos.board);
   for (let i = 0; i < pv.length; i++) {
     let text;
-    if (pos.turn === 'white') {
-      text = `${pos.fullmoves}.`;
-    } else if (i === 0) {
-      text = `${pos.fullmoves}...`;
-    }
-    if (text) {
-      vnodes.push(h('span', { key: text }, text));
-    }
+    if (pos.turn === 'white') text = `${pos.fullmoves}.`;
+    else if (i === 0) text = `${pos.fullmoves}...`;
+    if (text) vnodes.push(h('span', { key: text }, text));
     const uci = pv[i];
     const san = makeSanAndPlay(pos, parseUci(uci)!);
     const fen = makeBoardFen(pos.board); // Chessground uses only board fen
-    if (san === '--') {
-      break;
-    }
+    if (san === '--') break;
     key += '|' + uci;
     vnodes.push(
       h('span.pv-san', { key, attrs: { 'data-move-index': i, 'data-board': `${fen}|${uci}` } }, san),
@@ -442,9 +428,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
 function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
   const ceval = ctrl.getCeval();
   const pvBoard = ceval.pvBoard();
-  if (!pvBoard) {
-    return;
-  }
+  if (!pvBoard) return;
   const { fen, uci } = pvBoard;
   const orientation = ctrl.getOrientation();
   const cgConfig = {
@@ -480,7 +464,7 @@ const analysisDisabled = (ctrl: ParentCtrl): VNode | undefined =>
 
 function loadingText(ctrl: ParentCtrl): string {
   const d = ctrl.getCeval().download;
-  if (d && d.total)
-    return `Downloaded ${Math.round((d.bytes * 100) / d.total)}% of ${Math.round(d.total / 1000 / 1000)}MB`;
-  else return i18n.site.loadingEngine;
+  return d?.total
+    ? `Downloaded ${Math.round((d.bytes * 100) / d.total)}% of ${Math.round(d.total / 1000 / 1000)}MB`
+    : i18n.site.loadingEngine;
 }

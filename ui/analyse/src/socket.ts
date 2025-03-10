@@ -155,9 +155,8 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
         ctrl.forecast &&
         e.id === ctrl.data.game.id &&
         treeOps.last(ctrl.mainline)!.fen.indexOf(e.fen) !== 0
-      ) {
+      )
         ctrl.forecast.reloadToLastPly();
-      }
     },
     analysisProgress(data: ServerEvalData) {
       ctrl.mergeAnalysisData(data);

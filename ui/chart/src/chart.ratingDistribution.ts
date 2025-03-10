@@ -86,9 +86,8 @@ export async function initModule(data: DistributionData): Promise<void> {
       });
     if (data.myRating && data.myRating <= maxRating)
       pushLine('#55bf3b', data.myRating, `${i18n.site.yourRating} (${data.myRating})`);
-    if (data.otherRating && data.otherPlayer) {
+    if (data.otherRating && data.otherPlayer)
       pushLine('#eeaaee', Math.min(data.otherRating, maxRating), `${data.otherPlayer} (${data.otherRating})`);
-    }
     const chartData: ChartData<'line'> = {
       labels: ratings,
       datasets: datasets,

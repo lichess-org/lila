@@ -13,9 +13,7 @@ export function initModule(): void {
   const interval = setInterval(function () {
     const timeLeft = endAt - Date.now();
 
-    if (timeLeft <= 0) {
-      return clearInterval(interval);
-    }
+    if (timeLeft <= 0) return clearInterval(interval);
 
     const global: confetti.GlobalOptions = {
       useWorker: true,

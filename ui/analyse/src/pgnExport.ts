@@ -65,9 +65,7 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
 
 export function renderVariationPgn(game: Game, nodeList: Tree.Node[]): string {
   const filteredNodeList = nodeList.filter(node => node.san);
-  if (filteredNodeList.length === 0) {
-    return '';
-  }
+  if (filteredNodeList.length === 0) return '';
 
   let variationPgn = '';
 
