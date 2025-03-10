@@ -6,6 +6,8 @@ import scalalib.paginator.Paginator
 import scalalib.model.Language
 import lila.ui.*
 
+import java.time.{ Year, YearMonth }
+
 import ScalatagsTemplate.{ *, given }
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.PicfitUrl):
@@ -215,6 +217,15 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       byDate.some
     )
 
+  def month(yearMonth: YearMonth, posts: Paginator[UblogPost.PreviewPost])(using Context) =
+    list(
+      title = s"Top posts of $yearMonth",
+      posts = posts,
+      menuItem = "best-of",
+      route = (p, bd) => routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue, p),
+      onEmpty = "Nothing to show."
+    )
+
   private def list(
       title: String,
       posts: Paginator[UblogPost.PreviewPost],
@@ -271,6 +282,32 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         )
       )
 
+  // TODO refactor with topics
+  def year(year: Option[Year], bests: Seq[UblogBestOf.WithPosts])(using Context) =
+    Page("All blog topics").css("bits.ublog"):
+      main(cls := "page-menu")(
+        menu(Right("best-of")),
+        div(cls := "page-menu__content box")(
+          boxTop(h1(s"best of ${year.fold("last year")(_.toString)}")),
+          div(cls := "ublog-topics")(
+            bests.map { case UblogBestOf.WithPosts(yearMonth, posts) =>
+              a(
+                cls  := "ublog-topics__topic",
+                href := routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue)
+              )(
+                h2(
+                  s"best of $yearMonth",
+                  span(cls := "ublog-topics__topic__nb")("check them out DEBUG »")
+                ),
+                span(cls := "ublog-topics__topic__posts ublog-post-cards")(
+                  posts.map(miniCard)
+                )
+              )
+            }
+          )
+        )
+      )
+
   def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match
     case UblogBlog.Id.User(userId) => routes.Ublog.index(usernameOrId(userId))
@@ -283,8 +320,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     )
 
   def menu(active: Either[UserId, String])(using ctx: Context) =
-    def isRight(s: String) = active.fold(_ => false, _ == s)
-    val lichess            = active.left.toOption.has(UserId.lichess)
+    def isRight(s: String)  = active.fold(_ => false, _ == s)
+    def isActive(s: String) = isRight(s).option("active")
+    val lichess             = active.left.toOption.has(UserId.lichess)
     val community = active == Right("community") || (active.left.toOption.exists(ctx.isnt) && !lichess)
     val mine      = active.left.toOption.exists(ctx.is)
     lila.ui.bits.pageMenuSubnav(
@@ -296,18 +334,24 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         )(trans.ublog.communityBlogs())
       ),
       ctx.kid.no.option(
-        a(cls := isRight("topics").option("active"), href := routes.Ublog.topics)(
+        a(
+          cls  := isActive("best-of"),
+          href := langHref(routes.Ublog.bestOfYear())
+        )("Best of")
+      ),
+      ctx.kid.no.option(
+        a(cls := isActive("topics"), href := routes.Ublog.topics)(
           trans.ublog.blogTopics()
         )
       ),
       (ctx.isAuth && ctx.kid.no).option(
         a(
-          cls  := isRight("friends").option("active"),
+          cls  := isActive("friends"),
           href := routes.Ublog.friends()
         )(trans.ublog.friendBlogs())
       ),
       ctx.kid.no.option(
-        a(cls := isRight("liked").option("active"), href := routes.Ublog.liked())(
+        a(cls := isActive("liked"), href := routes.Ublog.liked())(
           trans.ublog.likedBlogs()
         )
       ),

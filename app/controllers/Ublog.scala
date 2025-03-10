@@ -1,5 +1,8 @@
 package controllers
 
+import java.time.YearMonth
+import scala.util.Try
+
 import play.api.i18n.Lang
 import play.api.mvc.Result
 
@@ -7,7 +10,7 @@ import lila.app.{ *, given }
 import scalalib.model.Language
 import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
+import lila.ublog.{ UblogBlog, UblogPost, UblogRank, UblogBestOf }
 import lila.core.i18n.toLanguage
 
 final class Ublog(env: Env) extends LilaController(env):
@@ -293,6 +296,27 @@ final class Ublog(env: Env) extends LilaController(env):
                 .liveByTopic(top, page, byDate)
                 .map:
                   views.ublog.ui.topic(top, _, byDate)
+
+  def bestOfYear(year: Option[Int]) = Open:
+    NotForKids:
+      val yearY = year.flatMap(UblogBestOf.readYear)
+      Ok.async:
+        yearY
+          .fold(env.ublog.bestOf.latest)(env.ublog.bestOf.ofYear)
+          .map:
+            views.ublog.ui.year(yearY, _)
+
+  def bestOfMonth(year: Int, month: Int, page: Int) = Open:
+    NotForKids:
+      Reasonable(page, Max(100)):
+        UblogBestOf
+          .readYearMonth(year, month)
+          .so: yearMonth =>
+            Ok.async:
+              env.ublog.paginator
+                .liveByMonth(yearMonth, page)
+                .map:
+                  views.ublog.ui.month(yearMonth, _)
 
   def userAtom(username: UserStr) = Anon:
     env.user.repo

@@ -10,6 +10,7 @@ import lila.memo.PicfitApi
 
 final class UblogApi(
     colls: UblogColls,
+    userRepo: lila.core.user.UserRepo,
     rank: UblogRank,
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
@@ -201,3 +202,48 @@ final class UblogApi(
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
+
+  // So far this only hits a prod index if $select contains `topics`, or if byDate is false
+  // i.e. byDate can only be true if $select contains `topics`
+  private[ublog] def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int, byDate: Boolean = false) =
+    colls.post
+      .aggregateList(length, _.sec): framework =>
+        import framework.*
+        Match(select ++ $doc("live" -> true)) -> List(
+          Sort(Descending(if byDate then "lived.at" else "rank")),
+          Limit(500),
+          PipelineOperator:
+            $lookup.pipelineBC(
+              from = colls.blog,
+              as = "blog",
+              local = "blog",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogRank.Tier.LOW)))),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ,
+          UnwindField("blog"),
+          PipelineOperator:
+            $lookup.pipelineBC(
+              from = userRepo.coll,
+              as = "user",
+              local = "created.by",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $doc(lila.core.user.BSONFields.enabled -> true)),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ,
+          UnwindField("user"),
+          Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
+          Skip(offset),
+          Limit(length)
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          post <- doc.asOpt[UblogPost.PreviewPost]
+        yield post
