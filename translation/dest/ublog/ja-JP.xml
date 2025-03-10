@@ -2,6 +2,8 @@
 <resources>
   <string name="communityBlogs">コミュニティブログ</string>
   <string name="friendBlogs">友達のブログ</string>
+  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichess ブログ</string>
+  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">自分のブログ</string>
   <string name="likedBlogs">いいねを押したブログ投稿</string>
   <string name="blogTopics">ブログのトピック</string>
   <plurals name="blogPosts">
