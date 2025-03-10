@@ -29,9 +29,7 @@ export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
     vnode.data!.cachedA = a;
   },
   postpatch(old: VNode, vnode: VNode) {
-    if (old.data!.cachedA !== a) {
-      (vnode.elm as HTMLElement).innerHTML = toHtml(a);
-    }
+    if (old.data!.cachedA !== a) (vnode.elm as HTMLElement).innerHTML = toHtml(a);
     vnode.data!.cachedA = a;
   },
 });

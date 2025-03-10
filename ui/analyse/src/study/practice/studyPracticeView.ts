@@ -58,9 +58,8 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
     case true:
-      if (p.autoNext()) {
-        return [h('span.feedback.win', 'Success!')];
-      } else {
+      if (p.autoNext()) return [h('span.feedback.win', 'Success!')];
+      else {
         return [
           h(
             'a.feedback.win',

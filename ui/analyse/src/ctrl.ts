@@ -270,9 +270,8 @@ export default class AnalyseCtrl {
     this.chessground?.set({
       orientation: this.bottomColor(),
     });
-    if (this.retro && this.data.game.variant.key !== 'racingKings') {
+    if (this.retro && this.data.game.variant.key !== 'racingKings')
       this.retro = makeRetro(this, this.bottomColor());
-    }
     if (this.practice) this.restartPractice();
     this.explorer.onFlip();
     this.onChange();
@@ -543,9 +542,8 @@ export default class AnalyseCtrl {
       !this.promotion.start(orig, dest, {
         submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom),
       })
-    ) {
+    )
       this.sendMove(orig, dest, capture);
-    }
   };
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: Role): void => {

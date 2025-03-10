@@ -100,9 +100,8 @@ export function renderMain(
         insert: vn => {
           const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars !== document.body.classList.contains('header-margin')) {
+          if (!!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
-          }
           !hasRelayTour && makeChatEl(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },

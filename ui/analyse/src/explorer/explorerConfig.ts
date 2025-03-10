@@ -119,9 +119,7 @@ export class ExplorerConfigCtrl {
     const previous = this.data.playerName.previous().filter(n => n !== name);
     this.data.playerName.previous(previous);
 
-    if (this.data.playerName.value() === name) {
-      this.data.playerName.value('');
-    }
+    if (this.data.playerName.value() === name) this.data.playerName.value('');
   };
 
   toggleMany =
@@ -330,13 +328,9 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     dlg.close();
   };
   const nameToOptionalColor = (name: string | undefined) => {
-    if (!name) {
-      return;
-    } else if (name === ctrl.myName) {
-      return '.button-green';
-    } else if (ctrl.data.playerName.previous().includes(name)) {
-      return '';
-    }
+    if (!name) return;
+    else if (name === ctrl.myName) return '.button-green';
+    else if (ctrl.data.playerName.previous().includes(name)) return '';
     return '.button-metal';
   };
   return snabDialog({
