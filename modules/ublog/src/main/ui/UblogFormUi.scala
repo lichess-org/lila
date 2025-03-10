@@ -119,7 +119,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
               ),
               form3.checkbox(
                 form("ads"),
-                "Includes promotion",
+                "Includes promoted/sponsored content or referral links",
                 help = ads.some
               )
             )
