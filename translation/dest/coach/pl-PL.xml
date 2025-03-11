@@ -26,4 +26,5 @@
   <string name="youtubeVideos">Filmy z YouTube</string>
   <string name="allCountries">Wszystkie kraje</string>
   <string name="lastLogin">Ostatnie logowanie</string>
+  <string name="lichessRating">Ranking Lichess</string>
 </resources>
