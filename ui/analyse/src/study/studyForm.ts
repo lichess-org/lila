@@ -1,6 +1,7 @@
 import * as licon from 'common/licon';
 import { prop } from 'common';
-import { confirm, prompt, snabDialog } from 'common/dialog';
+import { snabDialog } from 'common/dialog';
+import { confirm, prompt } from 'common/dialogs';
 import flairPickerLoader from 'bits/flairPicker';
 import { type VNode, bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';

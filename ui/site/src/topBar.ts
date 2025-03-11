@@ -1,6 +1,6 @@
 import { loadCssPath, loadEsm } from './asset';
 import { memoize } from 'common';
-import { spinnerHtml } from 'common/spinner';
+import { spinnerHtml } from 'common/controls';
 import { clamp } from 'common/algo';
 import { pubsub } from 'common/pubsub';
 import { wsSend } from 'common/socket';

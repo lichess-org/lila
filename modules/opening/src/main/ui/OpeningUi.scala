@@ -101,7 +101,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           ),
           div(cls := "opening__intro")(
             div(cls := "opening__intro__result-lpv")(
-              div(cls := "opening__intro__result result-bar")(page.explored.map { exp =>
+              div(cls := "opening__intro__result result-bar")(page.exploredOption.map { exp =>
                 resultSegments(exp.result)
               }),
               div(
@@ -127,14 +127,20 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
                     href     := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                   )(trans.site.openingExplorer())
                 ),
-                if page.explored.so(_.history).nonEmpty then
-                  div(cls := "opening__popularity opening__popularity--chart")(
-                    canvas(cls := "opening__popularity__chart")
-                  )
-                else
-                  p(cls := "opening__popularity opening__error")(
-                    "Couldn't fetch the popularity history, try again later."
-                  )
+                page.explored.fold(
+                  _ =>
+                    p(cls := "opening__popularity opening__error")(
+                      "Couldn't fetch the popularity history, try again later."
+                    ),
+                  exp =>
+                    exp
+                      .so(_.history)
+                      .nonEmpty
+                      .option:
+                        div(cls := "opening__popularity opening__popularity--chart")(
+                          canvas(cls := "opening__popularity__chart")
+                        )
+                )
               )
             )
           ),
@@ -210,7 +216,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
     }
 
   private def exampleGames(page: OpeningPage) =
-    div(cls := "opening__games")(page.explored.so(_.games).map { game =>
+    div(cls := "opening__games")(page.exploredOption.so(_.games).map { game =>
       div(
         cls              := "opening__games__game lpv lpv--todo lpv--moves-bottom is2d",
         st.data("pgn")   := game.pgn.toString,

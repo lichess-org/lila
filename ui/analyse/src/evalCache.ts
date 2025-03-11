@@ -1,5 +1,5 @@
 import { defined, prop } from 'common';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import type { AnalyseSocketSend } from './socket';
 import { pubsub } from 'common/pubsub';

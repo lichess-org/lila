@@ -1,21 +1,22 @@
 import * as licon from 'common/licon';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
-import { prefersLight } from 'common/theme';
 import { text as xhrText } from 'common/xhr';
 import announce from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
 import { watchers } from 'common/watchers';
-import { isIos } from 'common/device';
+import { isIos, isWebkit, prefersLightThemeQuery } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
-import { dispatchChessgroundResize } from 'common/resize';
+import { dispatchChessgroundResize } from 'common/chessgroundResize';
 import { attachDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
+import { once } from 'common/storage';
 import { toggleBoxInit } from 'common/controls';
 import { addExceptionListeners } from './unhandledError';
 import { eventuallySetupDefaultConnection } from 'common/socket';
+import { alert } from 'common/dialogs';
 
 export function boot() {
   addExceptionListeners();
@@ -72,6 +73,12 @@ export function boot() {
     // if not already connected by a ui module, setup default connection
     eventuallySetupDefaultConnection();
 
+    if (isUnsupportedBrowser() && once('upgrade.nag', { days: 14 })) {
+      pubsub
+        .after('dialog.polyfill')
+        .then(() => alert('Your browser is out of date.\nLichess may not work properly.'));
+    }
+
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
       site.unload.expected = true;
@@ -110,9 +117,15 @@ export function boot() {
           ),
       );
     });
-    prefersLight().addEventListener('change', e => {
-      if (document.body.dataset.theme === 'system')
-        document.documentElement.className = e.matches ? 'light' : 'dark';
-    });
+    const mql = prefersLightThemeQuery();
+    if (typeof mql.addEventListener === 'function')
+      mql.addEventListener('change', e => {
+        if (document.body.dataset.theme === 'system')
+          document.documentElement.className = e.matches ? 'light' : 'dark';
+      });
   }, 800);
+}
+
+function isUnsupportedBrowser() {
+  return isWebkit({ below: '15.4' });
 }

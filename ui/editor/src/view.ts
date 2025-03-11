@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { copyMeInput } from 'common/copyMe';
+import { copyMeInput } from 'common/controls';
 import type { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';

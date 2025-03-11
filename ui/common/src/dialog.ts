@@ -1,6 +1,6 @@
 import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml, frag, $as } from './common';
+import { frag, $as } from './common';
 import { Janitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -65,80 +65,6 @@ site.load.then(async () => {
   pubsub.complete('dialog.polyfill');
 });
 
-// non-blocking window.alert-alike
-export async function alert(msg: string): Promise<void> {
-  await domDialog({
-    htmlText: escapeHtml(msg),
-    class: 'alert',
-    modal: true,
-    show: true,
-  });
-}
-
-export async function alerts(msgs: string[]): Promise<void> {
-  for (const msg of msgs) await alert(msg);
-}
-
-// non-blocking window.confirm-alike
-export async function confirm(
-  msg: string,
-  yes: string = i18n.site.yes,
-  no: string = i18n.site.no,
-): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText:
-          `<div>${escapeHtmlAddBreaks(msg)}</div>` +
-          `<span><button class="button button-empty no">${no}</button>` +
-          `<button class="button yes">${yes}</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        modal: true,
-        show: true,
-        focus: '.yes',
-        actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
-        ],
-      })
-    ).returnValue === 'yes'
-  );
-}
-
-// non-blocking window.prompt-alike
-export async function prompt(msg: string, def: string = ''): Promise<string | null> {
-  const res = await domDialog({
-    htmlText:
-      `<div>${escapeHtmlAddBreaks(msg)}</div>` +
-      `<input type="text" value="${escapeHtml(def)}" />` +
-      `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
-      `<button class="button ok">${i18n.site.ok}</button></span>`,
-    class: 'alert',
-    noCloseButton: true,
-    noClickAway: true,
-    modal: true,
-    show: true,
-    focus: 'input',
-    actions: [
-      { selector: '.ok', result: 'ok' },
-      { selector: '.cancel', result: 'cancel' },
-      {
-        selector: 'input',
-        event: 'keydown',
-        listener: (e: KeyboardEvent, dlg) => {
-          if (e.key !== 'Enter' && e.key !== 'Escape') return;
-          e.preventDefault();
-          if (e.key === 'Enter') dlg.close('ok');
-          else if (e.key === 'Escape') dlg.close('cancel');
-        },
-      },
-    ],
-  });
-  return res.returnValue === 'ok' ? res.view.querySelector('input')!.value : null;
-}
-
 // when opts contains 'show', domDialog function's result promise resolves on dialog closure.
 // otherwise, the promise resolves once assets are loaded and it is safe to call show
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
@@ -146,7 +72,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
-  if (isTouchDevice()) dialog.classList.add('touch-scroll');
+  if (isTouchDevice() && o.actions) dialog.classList.add('touch-scroll');
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
@@ -268,8 +194,8 @@ class DialogWrapper implements Dialog {
 
     if (!o.noClickAway)
       setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'click', cancelOnInterval);
-        this.dialogEvents.addListener(dialog, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
+        this.dialogEvents.addListener(dialog, 'pointerdown', cancelOnInterval);
       });
     for (const app of o.append ?? []) {
       if (app.node === view) break;
@@ -379,10 +305,6 @@ function loadAssets(o: DialogOpts) {
       'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
     ),
   ]);
-}
-
-function escapeHtmlAddBreaks(s: string) {
-  return escapeHtml(s).replace(/\n/g, '<br>');
 }
 
 function onResize() {

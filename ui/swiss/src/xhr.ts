@@ -1,4 +1,4 @@
-import { throttlePromiseDelay } from 'common/timing';
+import { throttlePromiseDelay } from 'common/async';
 import { json, form } from 'common/xhr';
 import type SwissCtrl from './ctrl';
 import { isOutcome } from './util';

@@ -13,7 +13,7 @@ import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
 import { pubsub } from 'common/pubsub';
 import { myUserId } from 'common';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 const patch = init([classModule, attributesModule]);
 

@@ -3,7 +3,7 @@ package views.appeal
 import lila.app.UiEnv.{ *, given }
 import lila.appeal.Appeal
 import lila.appeal.Appeal.Filter
-import lila.mod.ui.PendingCounts
+import lila.report.ui.PendingCounts
 import lila.report.Report.Inquiry
 
 object queue:
@@ -15,8 +15,8 @@ object queue:
       markedByMe: Set[UserId],
       scores: lila.report.Room.Scores,
       pending: PendingCounts
-  )(using Context) =
-    views.report.layout("appeal", scores, pending):
+  )(using Context, Me) =
+    views.report.ui.list.layout("appeal", scores, pending)(views.mod.ui.reportMenu):
       table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(

@@ -93,13 +93,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       case Some(me) =>
         given Me = me
         WithPuzzlePerf:
-          ctx.req.session
-            .get(cookieDifficulty)
-            .flatMap(PuzzleDifficulty.find)
-            .so(env.puzzle.session.setDifficulty)
-            >>
-              color.so(env.puzzle.session.setAngleAndColor(angle, _)) >>
-              env.puzzle.selector.nextPuzzleFor(angle)
+          val diff = ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find)
+          for
+            _   <- diff.so(env.puzzle.session.setDifficulty)
+            _   <- color.so(env.puzzle.session.setAngleAndColor(angle, _))
+            puz <- env.puzzle.selector.nextPuzzleFor(angle)
+          yield puz
       case None => env.puzzle.anon.getOneFor(angle, difficulty, ~color)
 
   private def redirectNoPuzzle: Fu[Result] =
@@ -171,7 +170,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                               case (Some(replayDays), Some(theme)) =>
                                 for
                                   _    <- env.puzzle.replay.onComplete(round, replayDays, angle)
-                                  next <- env.puzzle.replay(me, replayDays.some, theme)
+                                  next <- env.puzzle.replay(replayDays.some, theme)
                                   json <- next match
                                     case None => fuccess(Json.obj("replayComplete" -> true))
                                     case Some(puzzle, replay) =>
@@ -407,14 +406,23 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def replay(days: Days, themeKey: String) = Auth { ctx ?=> me ?=>
+    replayOf(days, themeKey).flatMap:
+      case None                          => Redirect(routes.Puzzle.dashboard(days, "home", none))
+      case Some((puzzle, replay), angle) => renderShow(puzzle, angle, replay = replay.some)
+  }
+
+  def apiReplay(days: Days, themeKey: String) = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
+    replayOf(days, themeKey).map:
+      _.fold(notFoundJson("No puzzles to replay")):
+        case ((puzzle, replay), angle) =>
+          import lila.puzzle.JsonView.given
+          JsonOk(Json.obj("replay" -> replay, "angle" -> angle))
+  }
+
+  private def replayOf(days: Days, themeKey: String)(using Me) =
     val theme         = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
-    env.puzzle
-      .replay(me, checkedDayOpt, theme.key)
-      .flatMap:
-        case None                 => Redirect(routes.Puzzle.dashboard(days, "home", none))
-        case Some(puzzle, replay) => renderShow(puzzle, PuzzleAngle(theme), replay = replay.some)
-  }
+    env.puzzle.replay(checkedDayOpt, theme.key).map2(_ -> PuzzleAngle(theme))
 
   def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { _ ?=> user =>
     Reasonable(page):
@@ -525,7 +533,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             env.puzzle.api.vote.update(_, me, intVote == 1).inject(jsonOkResult)
           }
       )
-
   }
 
   def help = Open:

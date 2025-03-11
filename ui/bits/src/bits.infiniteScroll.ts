@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { spinnerHtml } from 'common/spinner';
+import { spinnerHtml } from 'common/controls';
 import { pubsub } from 'common/pubsub';
 
 export function initModule(selector: string = '.infinite-scroll'): void {

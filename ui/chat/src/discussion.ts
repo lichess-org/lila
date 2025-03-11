@@ -4,12 +4,12 @@ import { userLink } from 'common/userLink';
 import * as spam from './spam';
 import type { Line } from './interfaces';
 import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
-import { lineAction as modLineAction, report } from './moderation';
+import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
 import type ChatCtrl from './ctrl';
 import { tempStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -40,10 +40,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               $el.on('click', '.mod', (e: Event) =>
                 ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
-            else
-              $el.on('click', '.flag', (e: Event) =>
-                report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement),
-              );
+            else $el.on('click', '.flag', (e: Event) => flagReport(ctrl, e.target as HTMLElement));
             scrollCb(vnode, true);
           },
           postpatch: (_, vnode) => scrollCb(vnode, false),
@@ -172,9 +169,8 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
 }
 
 const updateText = (opts?: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNode) => {
-  if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
+  if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat)
     (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessChat, opts);
-  }
 };
 
 const profileLinkRegex = /(https:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_-]+)/g;
@@ -224,7 +220,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       : [
           myUserId && line.u && myUserId !== line.u
             ? h('action.flag', {
-                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
+                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
               })
             : null,
           userNode,

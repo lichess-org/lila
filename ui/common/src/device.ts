@@ -41,6 +41,16 @@ export const bindMobileMousedown =
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
+export const prefersLightThemeQuery = (): MediaQueryList =>
+  window.matchMedia('(prefers-color-scheme: light)');
+
+export const currentTheme = (): 'light' | 'dark' => {
+  const dataTheme = document.body.dataset.theme!;
+  if (dataTheme === 'system') return prefersLightThemeQuery().matches ? 'light' : 'dark';
+  else if (dataTheme === 'light') return 'light';
+  else return 'dark';
+};
+
 let col1cache: 'init' | 'rec' | boolean = 'init';
 
 export function isCol1(): boolean {
@@ -61,36 +71,49 @@ export function isCol1(): boolean {
   return col1cache;
 }
 
-export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice()
-// only use other matches for workarounds or specific presentation issues
+const lowerAgent = navigator.userAgent.toLowerCase();
+
+export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice() to below matches
 
 export const isMobile = (): boolean => isAndroid() || isIos();
 
-export const isAndroid: () => boolean = memoize(() => /Android/.test(navigator.userAgent));
+export const isAndroid: () => boolean = memoize(() => lowerAgent.includes('android'));
 
-export const isIos: () => boolean = memoize(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
+export const isIos: () => boolean = memoize(() => /iphone|ipod/.test(lowerAgent) || isIPad());
 
-export const isIPad = (): boolean =>
-  navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
-
-export const isChrome = (): boolean => /Chrome\//.test(navigator.userAgent);
+export const isIPad = (): boolean => navigator?.maxTouchPoints > 2 && /ipad|macintosh/.test(lowerAgent);
 
 export type VersionConstraint = { atLeast?: string; below?: string }; // '11', '14.1.x', '127_2_7'
 
+export const isChrome = (constraint?: VersionConstraint): boolean =>
+  isVersionCompatible(lowerAgent.match(/chrome\/(.*)/)?.[1], constraint);
+
 export const isFirefox = (constraint?: VersionConstraint): boolean =>
-  /Firefox/.test(navigator.userAgent) &&
-  isVersionCompatible(navigator.userAgent.slice(navigator.userAgent.indexOf('Firefox/') + 8), constraint);
+  isVersionCompatible(lowerAgent.match(/firefox\/(.*)/)?.[1], constraint);
 
 export const isSafari = (constraint?: VersionConstraint): boolean =>
-  /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
-  isVersionCompatible(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8), constraint);
+  lowerAgent.includes('version/') && isVersionCompatible(webkitVersion(), constraint);
 
 export const isIosSafari = (constraint?: VersionConstraint): boolean => isIos() && isSafari(constraint);
 
-export const isIosChrome = (): boolean => /CriOS/.test(navigator.userAgent);
+export const isWebkit = (constraint?: VersionConstraint): boolean =>
+  isVersionCompatible(webkitVersion(), constraint);
+
+export const isIosChrome = (constraint?: VersionConstraint): boolean =>
+  lowerAgent.includes('crios/') && isVersionCompatible(webkitVersion(), constraint);
 
 export const isApple: () => boolean = memoize<boolean>(
-  () => /Macintosh|iPhone|iPad|iPod/.test(navigator.userAgent), // macOS or iOS
+  () => /macintosh|iphone|ipad|ipod/.test(lowerAgent), // macOS or iOS
+);
+
+const webkitVersion = memoize<string | false>(
+  () =>
+    (lowerAgent.includes('safari') &&
+      !lowerAgent.includes('chrome') &&
+      !lowerAgent.includes('android') &&
+      (lowerAgent.match(/version\/(.*)/)?.[1] ||
+        (lowerAgent.includes('crios/') && lowerAgent.match(/ os ((?:\d+[._]?){1,3})/i)?.[1]))) ||
+    false,
 );
 
 export const shareIcon: () => string = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
@@ -149,8 +172,10 @@ function sharedMemoryTest(): boolean {
   return mem.buffer instanceof SharedArrayBuffer;
 }
 
-export function isVersionCompatible(version: string, vc?: VersionConstraint): boolean {
+export function isVersionCompatible(version: string | undefined | false, vc?: VersionConstraint): boolean {
+  if (!version) return false;
   if (!vc) return true;
+
   const v = split(version);
 
   if (vc.atLeast && isGreaterThan(split(vc.atLeast), v)) return false; // atLeast is an inclusive min
@@ -161,10 +186,10 @@ export function isVersionCompatible(version: string, vc?: VersionConstraint): bo
     return v
       .split(/[._]/)
       .map(x => parseInt(x) || 0)
-      .concat([0, 0, 0]);
+      .concat([0, 0, 0, 0]);
   }
   function isGreaterThan(left: number[], right: number[]): boolean {
-    for (let i = 0; i < 3; i++)
+    for (let i = 0; i < 4; i++)
       if (left[i] > right[i]) return true;
       else if (left[i] < right[i]) return false;
     return false;

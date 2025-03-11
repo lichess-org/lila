@@ -79,14 +79,9 @@ export const onClickAway =
   (el: HTMLElement): void => {
     const listen: () => void = () =>
       $(document).one('click', e => {
-        if (!document.contains(el)) {
-          return;
-        }
-        if (el.contains(e.target)) {
-          listen();
-        } else {
-          f();
-        }
+        if (!document.contains(el)) return;
+        if (el.contains(e.target)) listen();
+        else f();
       });
     setTimeout(listen, 300);
   };

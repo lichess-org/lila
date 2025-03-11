@@ -172,6 +172,7 @@
   <string name="flipBoard">Otočiť šachovnicu</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
   <string name="claimADraw">Požadovať remízu</string>
+  <string name="drawClaimed">Požiadavka na remízu</string>
   <string name="offerDraw">Ponúknuť remízu</string>
   <string name="draw">Remíza</string>
   <plurals name="nbPlayers">

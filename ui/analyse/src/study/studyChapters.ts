@@ -25,7 +25,7 @@ import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import type Sortable from 'sortablejs';
 import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
@@ -170,9 +170,7 @@ export function view(ctrl: StudyCtrl): VNode {
       vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
-      if (current.id !== ctrl.chapters.list.first().id) {
-        scrollToInnerSelector(el, '.active');
-      }
+      if (current.id !== ctrl.chapters.list.first().id) scrollToInnerSelector(el, '.active');
     } else if (vData.currentId !== ctrl.data.chapter.id) {
       vData.currentId = ctrl.data.chapter.id;
       scrollToInnerSelector(el, '.active');

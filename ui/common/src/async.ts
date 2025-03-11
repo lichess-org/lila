@@ -103,45 +103,33 @@ export function throttle<T extends (...args: any) => void>(
   });
 }
 
-export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void {
-  const events = ['mousemove', 'touchstart'];
+export interface Sync<T> {
+  promise: Promise<T>;
+  sync: T | undefined;
+}
 
-  let listening = false,
-    active = true,
-    lastSeenActive = performance.now();
-
-  const onActivity = () => {
-    if (!active) {
-      // console.log('Wake up');
-      onWakeUp();
-    }
-    active = true;
-    lastSeenActive = performance.now();
-    stopListening();
+export function sync<T>(promise: Promise<T>): Sync<T> {
+  const sync: Sync<T> = {
+    sync: undefined,
+    promise: promise.then(v => {
+      sync.sync = v;
+      return v;
+    }),
   };
+  return sync;
+}
 
-  const startListening = () => {
-    if (!listening) {
-      events.forEach(e => document.addEventListener(e, onActivity));
-      listening = true;
-    }
-  };
+// Call an async function with a maximum time limit (in milliseconds) for the timeout
+export async function promiseTimeout<A>(asyncPromise: Promise<A>, timeLimit: number): Promise<A> {
+  let timeoutHandle: Timeout | undefined = undefined;
 
-  const stopListening = () => {
-    if (listening) {
-      events.forEach(e => document.removeEventListener(e, onActivity));
-      listening = false;
-    }
-  };
+  const timeoutPromise = new Promise<A>((_, reject) => {
+    timeoutHandle = setTimeout(() => reject(new Error('Async call timeout limit reached')), timeLimit);
+  });
 
-  setInterval(() => {
-    if (active && performance.now() - lastSeenActive > delay) {
-      // console.log('Idle mode');
-      onIdle();
-      active = false;
-    }
-    startListening();
-  }, 10000);
+  const result = await Promise.race([asyncPromise, timeoutPromise]);
+  if (timeoutHandle) clearTimeout(timeoutHandle);
+  return result;
 }
 
 export function debounce<T extends (...args: any) => void>(
@@ -169,31 +157,17 @@ export function debounce<T extends (...args: any) => void>(
   };
 }
 
-export function browserTaskQueueMonitor(interval = 1000): { wasSuspended: boolean; reset: () => void } {
-  let lastTime: number;
-  let timeout: Timeout;
-  let suspended = false;
+export interface Deferred<A> {
+  promise: Promise<A>;
+  resolve(a: A | PromiseLike<A>): void;
+  reject(err: unknown): void;
+}
 
-  start();
-
-  return {
-    get wasSuspended() {
-      return suspended;
-    },
-    reset() {
-      suspended = false;
-      clearTimeout(timeout);
-      start();
-    },
-  };
-
-  function monitor() {
-    if (performance.now() - lastTime > interval + 400) suspended = true;
-    else start();
-  }
-
-  function start() {
-    lastTime = performance.now();
-    timeout = setTimeout(monitor, interval);
-  }
+export function defer<A>(): Deferred<A> {
+  const deferred: Partial<Deferred<A>> = {};
+  deferred.promise = new Promise<A>((resolve, reject) => {
+    deferred.resolve = resolve;
+    deferred.reject = reject;
+  });
+  return deferred as Deferred<A>;
 }

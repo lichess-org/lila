@@ -154,8 +154,9 @@
   </plurals>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
-  <string name="threefoldRepetition">Trefaldig trekkgjentaking</string>
+  <string name="threefoldRepetition">Tre gongar stillingsgjentaking</string>
   <string name="claimADraw">Krev remis</string>
+  <string name="drawClaimed">Remis kravd</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">

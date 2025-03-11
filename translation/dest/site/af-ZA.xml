@@ -156,6 +156,7 @@
   <string name="flipBoard">Keer bord om</string>
   <string name="threefoldRepetition">Drie-malige herhaling</string>
   <string name="claimADraw">Eis gelykop</string>
+  <string name="drawClaimed">Gelykop geëis</string>
   <string name="offerDraw">Bied gelykop aan</string>
   <string name="draw">Gelykop</string>
   <plurals name="nbPlayers">

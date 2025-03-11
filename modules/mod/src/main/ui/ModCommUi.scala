@@ -51,22 +51,27 @@ final class ModCommUi(helpers: Helpers)(highlightBad: String => Frag):
     publicLines.nonEmpty.option:
       frag(
         h2("Recent public chats"),
-        div(cls := "player_chats")(
+        div(cls := "player_chats"):
           publicLines
             .groupBy(_.from)
             .toList
+            .flatMap: (source, lines) =>
+              lines.toNel.map(source -> _)
+            .sortBy(_._2.head.date)(Ordering[Instant].reverse)
             .map: (source, lines) =>
               div(cls := "game")(
-                sourceOf(source)(cls := "title"),
+                sourceOf(source)(cls := "title")(
+                  " – ",
+                  momentFromNowServer(lines.head.date)
+                ),
                 div(cls := "chat"):
-                  lines.map: line =>
+                  lines.toList.map: line =>
                     div(cls := "line author")(
                       userIdLink(u.some, withOnline = false, withTitle = false),
                       nbsp,
                       span(cls := "message")(highlightBad(line.text))
                     )
               )
-        )
       )
 
   def privateChats(u: User, players: List[(Pov, MixedChat)])(using Context) = frag(

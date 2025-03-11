@@ -1,5 +1,5 @@
 import { h, type VNodeData } from 'snabbdom';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import renderTabs from './tabs';
 import * as renderPools from './pools';
 import renderRealTime from './realTime/main';

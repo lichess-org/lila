@@ -3,7 +3,7 @@ import type { RetroCtrl } from './retroCtrl';
 import type AnalyseCtrl from '../ctrl';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import { h, type VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {

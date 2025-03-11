@@ -1,7 +1,7 @@
 import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import { userLink } from 'common/userLink';
 import { initMiniBoard } from 'common/miniBoard';
 import { opposite } from 'chessground/util';

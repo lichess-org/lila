@@ -1,12 +1,21 @@
 import type { Elements } from 'chessground/types';
 import * as xhr from './xhr';
-import { debounce } from './timing';
+import { debounce } from './async';
 import { ShowResizeHandle } from './prefs';
 import { pubsub } from './pubsub';
 
 type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 type Visible = (ply: Ply) => boolean;
+
+let boundChessgroundResize = false;
+
+export const bindChessgroundResizeOnce = (f: () => void): void => {
+  if (!boundChessgroundResize) {
+    boundChessgroundResize = true;
+    bindChessgroundResize(f);
+  }
+};
 
 export const dispatchChessgroundResize = (): boolean =>
   document.body.dispatchEvent(new Event('chessground.resize'));

@@ -162,7 +162,7 @@ case class Game(
 
   def resignable = playable && !abortable
   def forceResignable =
-    resignable && nonAi && !sourceIs(_.Friend) && hasClock && !isSwiss && !hasRule(_.noClaimWin)
+    resignable && nonAi && hasClock && !isSwiss && !hasRule(_.noClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved
   def drawable           = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
 

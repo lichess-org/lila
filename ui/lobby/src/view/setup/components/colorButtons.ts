@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { spinnerVdom } from 'common/spinner';
+import { spinnerVdom } from 'common/controls';
 import type LobbyController from '../../../ctrl';
 import { colors, variantsWhereWhiteIsBetter } from '../../../options';
 import { option } from './option';

@@ -8,12 +8,13 @@ lazy val ui    = lila.title.ui.TitleUi(helpers)(picfitUrl)
 lazy val modUi = lila.title.ui.TitleModUi(helpers)(ui)
 
 object mod:
+
   def queue(
       reqs: List[TitleRequest],
       scores: lila.report.Room.Scores,
-      pending: lila.mod.ui.PendingCounts
-  )(using Context) =
-    views.report.layout("title", scores, pending):
+      pending: lila.report.ui.PendingCounts
+  )(using Context, Me) =
+    views.report.ui.list.layout("title", scores, pending)(views.mod.ui.reportMenu):
       modUi.queue(reqs)
 
   def show(req: TitleRequest, similar: List[TitleRequest], data: ModData)(using Context)(using me: Me) =

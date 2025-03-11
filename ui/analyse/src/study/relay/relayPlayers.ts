@@ -1,7 +1,7 @@
 import { type Redraw, type VNode, bind, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
 import { json as xhrJson } from 'common/xhr';
 import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';

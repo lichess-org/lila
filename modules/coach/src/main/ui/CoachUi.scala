@@ -211,7 +211,7 @@ final class CoachUi(helpers: Helpers)(
       .css("bits.coach")
       .js(infiniteScrollEsmInit)
       .hrefLangs(lila.ui.LangPath(routes.Coach.all(1))):
-        val langSelections = ("all", "All languages") :: languages(langCodes).map: l =>
+        val langSelections = ("all", trans.site.allLanguages.txt()) :: languages(langCodes).map: l =>
           l.code -> langList.name(l)
         main(cls := "coach-list coach-full-page")(
           st.aside(cls := "coach-list__side coach-side")(
@@ -228,7 +228,7 @@ final class CoachUi(helpers: Helpers)(
               div(cls := "box__top__actions")(
                 lila.ui.bits.mselect(
                   "coach-lang",
-                  lang.fold("All languages")(langList.name),
+                  lang.fold(trans.site.allLanguages.txt())(langList.name),
                   langSelections.map: (code, name) =>
                     a(
                       href := routes.Coach.search(code, order.key, country.fold("all")(_.code)),
@@ -237,8 +237,8 @@ final class CoachUi(helpers: Helpers)(
                 ),
                 lila.ui.bits.mselect(
                   "coach-country",
-                  country.fold("All countries")(flagApi.name),
-                  countries.value.map: (code, name) =>
+                  country.fold(trans.coach.allCountries.txt())(flagApi.name),
+                  (("all", trans.coach.allCountries.txt()) :: countries.value).map: (code, name) =>
                     a(
                       href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
                       cls  := (code == country.fold("all")(_.code)).option("current")
@@ -246,13 +246,13 @@ final class CoachUi(helpers: Helpers)(
                 ),
                 lila.ui.bits.mselect(
                   "coach-sort",
-                  order.name,
+                  order.i18nKey(),
                   CoachPager.Order.list.map: o =>
                     a(
                       href := routes.Coach
                         .search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
                       cls := (order == o).option("current")
-                    )(o.name)
+                    )(o.i18nKey())
                 )
               )
             ),

@@ -116,7 +116,7 @@ export function initModule(): StudyTour {
       ],
     });
 
-    tourCtrl.startTour(steps);
+    tourCtrl.toggleTour(steps);
   }
 
   function chapter(setTab: (tab: ChapterTab) => void) {
@@ -192,7 +192,7 @@ export function initModule(): StudyTour {
       },
     ];
 
-    tourCtrl.startTour(steps);
+    tourCtrl.toggleTour(steps);
   }
 }
 
@@ -227,9 +227,11 @@ class TourCtrl {
     );
   }
 
-  startTour(steps: Shepherd.Step.StepOptions[]) {
-    Shepherd.activeTour?.cancel();
-    this.buildTour(steps);
-    this.tour.start();
+  toggleTour(steps: Shepherd.Step.StepOptions[]) {
+    if (Shepherd.activeTour) Shepherd.activeTour.cancel();
+    else {
+      this.buildTour(steps);
+      this.tour.start();
+    }
   }
 }

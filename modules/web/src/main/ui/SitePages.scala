@@ -152,9 +152,8 @@ final class SitePages(helpers: Helpers):
               h1(cls := "box__top")("Embed a broadcast in your site"),
               div(cls := "body")(
                 div(cls := "center"):
-                  raw(
+                  raw:
                     s"""<iframe src="https://lichess.org/embed/broadcast/fide-world-rapidblitz-team-championships-2024--rapid-matches-1-10/G1YjiG7j" $args></iframe>"""
-                  )
                 ,
                 p(
                   "On a broadcast page, select the embed iframe code, then optionally add query parameters to customize the appearance."
@@ -166,8 +165,8 @@ final class SitePages(helpers: Helpers):
           }
         )
 
-  def source(title: String, rendered: Frag, commit: String, date: Option[String], message: Option[String])(
-      using Context
+  def source(title: String, rendered: Frag, version: Option[WebConfig.LilaVersion])(using
+      Context
   ) =
     SitePage(title = title, active = "source", contentCls = "page force-ltr")
       .css("bits.source")
@@ -183,13 +182,19 @@ final class SitePages(helpers: Helpers):
                 )
               ),
               tbody(
-                tr(
-                  td("Server"),
-                  td(date),
-                  td(a(href := s"https://github.com/lichess-org/lila/commits/$commit")(pre(commit.take(7)))),
-                  td(message),
-                  td(a(href := s"https://github.com/lichess-org/lila/compare/$commit...master")(pre("...")))
-                ),
+                version.map: v =>
+                  tr(
+                    td("Server"),
+                    td(v.date),
+                    td:
+                      a(href := s"https://github.com/lichess-org/lila/commits/${v.commit}"):
+                        pre(v.commit.take(7))
+                    ,
+                    td(v.message),
+                    td:
+                      a(href := s"https://github.com/lichess-org/lila/compare/${v.commit}...master"):
+                        pre("...")
+                  ),
                 tr(
                   td("Assets"),
                   td(id := "asset-version-date"),

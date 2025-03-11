@@ -156,6 +156,7 @@
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
+  <string name="drawClaimed">Offre de nulle</string>
   <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">

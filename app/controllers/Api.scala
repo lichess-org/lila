@@ -110,8 +110,10 @@ final class Api(
         extensions
           .fold(fuccess(users.map(toJson))):
             _.map: exts =>
-              (users, exts).mapN: (u, ext) =>
-                ext(toJson(u))
+              users
+                .zip(exts)
+                .map: (u, ext) =>
+                  ext(toJson(u))
           .map(toApiResult)
       }
 
@@ -161,7 +163,7 @@ final class Api(
             withScores = true,
             withAllowList = true
           )
-          .map(some)
+          .dmap(some)
       .map(toApiResult)
       .map(toHttp)
 
