@@ -140,10 +140,7 @@ export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => voi
     lastSeenActive = performance.now();
 
   const onActivity = () => {
-    if (!active) {
-      // console.log('Wake up');
-      onWakeUp();
-    }
+    if (!active) onWakeUp();
     active = true;
     lastSeenActive = performance.now();
     stopListening();
@@ -165,7 +162,6 @@ export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => voi
 
   setInterval(() => {
     if (active && performance.now() - lastSeenActive > delay) {
-      // console.log('Idle mode');
       onIdle();
       active = false;
     }

@@ -95,9 +95,7 @@ export class ExternalEngine implements CevalEngine {
         console.error(err);
         this.state = CevalState.Failed;
         this.status?.({ error: String(err) });
-      } else {
-        this.state = CevalState.Initial;
-      }
+      } else this.state = CevalState.Initial;
     }
   }
 
