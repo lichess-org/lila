@@ -1,6 +1,6 @@
 package lila.ublog
 
-import java.time.{ Year, YearMonth, ZoneOffset }
+import java.time.{ Year, YearMonth, ZoneOffset, LocalTime }
 
 import scala.util.Try
 
@@ -13,6 +13,7 @@ object UblogBestOf:
 
   private val ublogOrigin      = YearMonth.of(2020, 1) // TODO FIXME check the actual date
   private def currentYearMonth = YearMonth.now(ZoneOffset.UTC)
+  def allYears                 = (ublogOrigin.getYear to currentYearMonth.getYear + 1).toList
 
   def selector(month: YearMonth) =
     val (start, end) = boundsOfMonth(month)
@@ -20,7 +21,7 @@ object UblogBestOf:
 
   private def boundsOfMonth(month: YearMonth): (Instant, Instant) =
     val start = month.atDay(1).atStartOfDay()
-    val end   = month.atEndOfMonth().atTime(23, 59, 59)
+    val end   = month.atEndOfMonth().atTime(LocalTime.MAX)
     (start.toInstant(ZoneOffset.UTC), end.toInstant(ZoneOffset.UTC))
 
     // TODO sanitize input
