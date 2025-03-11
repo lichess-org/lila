@@ -6,7 +6,7 @@
   <string name="arenaBanned">Dis Konto isch gschperrt für Spiel - Arenas.</string>
   <string name="prizeBanned">Dis Konto isch gschperrt, für Turnier mit ächte Prise.</string>
   <string name="boosterMarked">Dis Konto isch markiert wäge Wertigs - Manipulation.</string>
-  <string name="boosterMarkedInfo">Mir definiered das als absichtlichi Manipulation vu de Wertig, dur absichtlichs Verlüre vu Schpil oder dur Schpille gäge es anders Konto, wo ansichtlich Schpil verlürt.</string>
+  <string name="boosterMarkedInfo">Mir definiereds Wertigs-Manipulation so: Absichtlichs Verlüre vu Schpil oder s\'Schpille mit Gägner, wo absichtlich ihri Schpil verlüred.</string>
   <string name="accountMuted">Dis Konto isch schtumm g\'schaltet.</string>
   <string name="accountMutedInfo">Lies euseri %s. D\'Nödihaltig vu de Kommunikationsrichtlinie chann dezue fühere, dass Konte schtumm g\'eschaltet werded.</string>
   <string name="excludedFromLeaderboards">Dis Konto isch vu de Beschtelischte usgschlosse.</string>

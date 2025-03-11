@@ -18,4 +18,5 @@
   <string name="startTraining">دەست بە ڕاهێنان بکە</string>
   <string name="findSquare">چوارگۆشەکە بدۆزەوە</string>
   <string name="nameSquare">ناوی چوارگۆشەکە</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">تەنها راهێنانی چەند دێڕ و ڕیزێک بکە</string>
 </resources>

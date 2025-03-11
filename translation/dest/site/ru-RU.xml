@@ -873,6 +873,7 @@
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
+  <string name="allLanguages">Все языки</string>
   <string name="background">Тема</string>
   <string name="light">Светлая</string>
   <string name="dark">Тёмная</string>
