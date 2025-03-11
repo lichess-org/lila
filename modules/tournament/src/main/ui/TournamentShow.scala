@@ -63,7 +63,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
           ,
           div(cls := "tour__main")(div(cls := "box")),
           tour.isCreated.option(div(cls := "tour__faq"):
-            faq(tour.mode.rated.some, tour.isPrivate.option(tour.id)))
+            faq(tour.mode.rated.some, tour.isPrivate.option(tour.id), tour.conditions.allowsBots))
         )
 
   object side:
@@ -188,13 +188,29 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
         div(cls := "body")(apply())
       )
 
-    def apply(rated: Option[Boolean] = None, privateId: Option[TourId] = None)(using Context) =
+    def apply(rated: Option[Boolean] = None, privateId: Option[TourId] = None, botsAllowed: Boolean = false)(
+        using Context
+    ) =
       frag(
         privateId.map: id =>
           frag(
             h2(trans.arena.thisIsPrivate()),
             p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}"))
           ),
+        botsAllowed.option:
+          div(cls := "tour__faq__bots")(
+            img(src := staticAssetUrl("images/icons/bot.png")),
+            div(
+              h2("Bot tournament"),
+              p(
+                "The organizer has decided to let ",
+                userTitleTag(chess.PlayerTitle.BOT),
+                " accounts play in this tournament."
+              ),
+              p("You will have to face ", strong("chess engines"), " in some of your games.")
+            )
+          )
+        ,
         p(trans.arena.willBeNotified()),
         h2(trans.arena.isItRated()),
         rated match
