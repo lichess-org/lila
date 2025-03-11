@@ -172,6 +172,7 @@
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="claimADraw">Потребовать ничью</string>
+  <string name="drawClaimed">Объявлена ничья</string>
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">

@@ -17,7 +17,7 @@ def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
     main(cls := "page-menu")(
       list.menu("staffPicks", Order.mine, Nil),
       main(cls := "page-menu__content box box-pad page"):
-        views.site.page.pageContent(p)
+        views.cms.pageContent(p)
     )
 
 def streamers(streamers: List[UserId])(using Translate) =
@@ -77,12 +77,12 @@ def show(
             ),
           "socketUrl"     -> socketUrl(s.id),
           "socketVersion" -> socketVersion
-        ) ++ views.board.explorerAndCevalConfig
+        ) ++ views.analyse.ui.explorerAndCevalConfig
       )
     )
     .flag(_.noRobots, !s.isPublic)
     .flag(_.zoom)
-    .csp(views.analyse.ui.csp.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.bits.cspExternalEngine.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id).url}",

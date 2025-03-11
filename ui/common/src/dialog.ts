@@ -98,10 +98,9 @@ export async function confirm(
   return (
     (
       await domDialog({
-        htmlText:
-          `<div>${escapeHtmlAddBreaks(msg)}</div>` +
-          `<span><button class="button button-empty no">${no}</button>` +
-          `<button class="button yes">${yes}</button></span>`,
+        htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
+          <span><button class="button button-empty no">${no}</button>
+          <button class="button yes">${yes}</button></span>`,
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
@@ -118,13 +117,16 @@ export async function confirm(
 }
 
 // non-blocking window.prompt-alike
-export async function prompt(msg: string, def: string = ''): Promise<string | null> {
+export async function prompt(
+  msg: string,
+  def: string = '',
+  valid: (text: string) => boolean = () => true,
+): Promise<string | null> {
   const res = await domDialog({
-    htmlText:
-      `<div>${escapeHtmlAddBreaks(msg)}</div>` +
-      `<input type="text" value="${escapeHtml(def)}" />` +
-      `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
-      `<button class="button ok">${i18n.site.ok}</button></span>`,
+    htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
+      <input type="text"${valid(def) ? '' : ' class="invalid"'} value="${escapeHtml(def)}">
+      <span><button class="button button-empty cancel">${i18n.site.cancel}</button>
+      <button class="button ok${valid(def) ? '"' : ' disabled" disabled'}>${i18n.site.ok}</button></span>`,
     class: 'alert',
     noCloseButton: true,
     noClickAway: true,
@@ -140,8 +142,21 @@ export async function prompt(msg: string, def: string = ''): Promise<string | nu
         listener: (e: KeyboardEvent, dlg) => {
           if (e.key !== 'Enter' && e.key !== 'Escape') return;
           e.preventDefault();
-          if (e.key === 'Enter') dlg.close('ok');
+          if (e.key === 'Enter' && valid(dlg.view.querySelector<HTMLInputElement>('input')!.value))
+            dlg.close('ok');
           else if (e.key === 'Escape') dlg.close('cancel');
+        },
+      },
+      {
+        selector: 'input',
+        event: 'input',
+        listener: (e, dlg) => {
+          if (!(e.target instanceof HTMLInputElement)) return;
+          const ok = dlg.view.querySelector<HTMLButtonElement>('.ok')!;
+          const invalid = !valid(e.target.value);
+          e.target.classList.toggle('invalid', invalid);
+          ok.classList.toggle('disabled', invalid);
+          ok.disabled = invalid;
         },
       },
     ],
@@ -156,7 +171,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
-  if (isTouchDevice()) dialog.classList.add('touch-scroll');
+  if (isTouchDevice() && o.actions) dialog.classList.add('touch-scroll');
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
@@ -278,8 +293,8 @@ class DialogWrapper implements Dialog {
 
     if (!o.noClickAway)
       setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'click', cancelOnInterval);
-        this.dialogEvents.addListener(dialog, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
+        this.dialogEvents.addListener(dialog, 'pointerdown', cancelOnInterval);
       });
     for (const app of o.append ?? []) {
       if (app.node === view) break;

@@ -156,6 +156,7 @@
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
   <string name="claimADraw">Απαίτηση ισοπαλίας</string>
+  <string name="drawClaimed">Απαιτήθηκε ισοπαλία</string>
   <string name="offerDraw">Προσφορά ισοπαλίας</string>
   <string name="draw">Ισοπαλία</string>
   <plurals name="nbPlayers">

@@ -18,7 +18,7 @@ final class Env(
     StandaloneWSClient,
     akka.stream.Materializer
 ):
-  val net: NetConfig           = config.get[NetConfig]("net")
+  val net: NetConfig           = lila.web.WebConfig.netConfig(config)
   val getFile: GetRelativeFile = GetRelativeFile(environment.getFile(_))
 
   export net.{ baseUrl, assetBaseUrlInternal }
@@ -107,14 +107,6 @@ final class Env(
   val web: lila.web.Env                 = wire[lila.web.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
 
-  val explorerEndpoint       = config.get[String]("explorer.endpoint")
-  val tablebaseEndpoint      = config.get[String]("explorer.tablebase_endpoint")
-  val externalEngineEndpoint = config.get[String]("externalEngine.endpoint")
-
-  val appVersionDate    = config.getOptional[String]("app.version.date")
-  val appVersionCommit  = config.getOptional[String]("app.version.commit")
-  val appVersionMessage = config.getOptional[String]("app.version.message")
-
   val preloader     = wire[mashup.Preload]
   val socialInfo    = wire[mashup.UserInfo.SocialApi]
   val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
@@ -130,27 +122,3 @@ final class Env(
       promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
 
 end Env
-
-given ConfigLoader[NetConfig] = ConfigLoader(config =>
-  path =>
-    def get[A](at: String)(using loader: ConfigLoader[A]): A = loader.load(config, s"$path.$at")
-    import lila.common.config.given
-    NetConfig(
-      domain = get[NetDomain]("domain"),
-      prodDomain = get[NetDomain]("prodDomain"),
-      baseUrl = get[BaseUrl]("base_url"),
-      assetDomain = get[AssetDomain]("asset.domain"),
-      assetBaseUrl = get[AssetBaseUrl]("asset.base_url"),
-      assetBaseUrlInternal = get[AssetBaseUrlInternal]("asset.base_url_internal"),
-      minifiedAssets = get[Boolean]("asset.minified"),
-      externalManifest = get[Boolean]("asset.external_manifest"),
-      stageBanner = get[Boolean]("stage.banner"),
-      siteName = get[String]("site.name"),
-      socketDomains = get[List[String]]("socket.domains"),
-      socketAlts = get[List[String]]("socket.alts"),
-      crawlable = get[Boolean]("crawlable"),
-      rateLimit = get[RateLimit]("ratelimit"),
-      email = get[EmailAddress]("email"),
-      logRequests = get[Boolean]("http.log")
-    )
-)

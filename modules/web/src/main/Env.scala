@@ -19,6 +19,9 @@ final class Env(
   export config.pagerDuty as pagerDutyConfig
   export net.baseUrl
 
+  val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
+  lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
+
   val manifest = wire[AssetManifest]
 
   val realPlayers = wire[RealPlayerApi]

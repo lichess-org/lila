@@ -643,6 +643,8 @@ interface I18n {
     aboutMe: string;
     /** Accepting students */
     accepting: string;
+    /** All countries */
+    allCountries: string;
     /** Are you a great chess coach with a %s? */
     areYouCoach: I18nFormat;
     /** Availability */
@@ -655,10 +657,14 @@ interface I18n {
     hourlyRate: string;
     /** Languages */
     languages: string;
+    /** Last login */
+    lastLogin: string;
     /** Lichess coach */
     lichessCoach: string;
     /** Lichess coaches */
     lichessCoaches: string;
+    /** Lichess rating */
+    lichessRating: string;
     /** Location */
     location: string;
     /** NM or FIDE title */
@@ -861,6 +867,8 @@ interface I18n {
     mostChessCourses: string;
     /** Name square */
     nameSquare: string;
+    /** Practice only some files & ranks */
+    practiceOnlySomeFilesAndRanks: string;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
@@ -2747,6 +2755,8 @@ interface I18n {
     aiNameLevelAiLevel: I18nFormat;
     /** All information is public and optional. */
     allInformationIsPublicAndOptional: string;
+    /** All languages */
+    allLanguages: string;
     /** All set! */
     allSet: string;
     /** All squares of the board */
@@ -3075,6 +3085,8 @@ interface I18n {
     drawByFiftyMoves: string;
     /** Draw by mutual agreement */
     drawByMutualAgreement: string;
+    /** Draw claimed */
+    drawClaimed: string;
     /** Drawn */
     drawn: string;
     /** Draw offer accepted */

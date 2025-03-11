@@ -31,7 +31,7 @@ object Icon:
   extension (icon: Icon) def value: String = icon
   given scalalib.Iso.StringIso[Icon]       = scalalib.Iso.string(apply, value)
   import play.api.libs.json.{ Writes, JsString }
-  given iconWrites: Writes[Icon] = icon => JsString(Icon.value(icon))
+  given Writes[Icon]        = JsString(_)
 """
 
 debug_preamble = """<!--""" + comment_preamble + """-->
@@ -131,7 +131,7 @@ def parse_codes():
 
 def gen_sources(codes):
     with_type = lambda name: f'{name}: Icon'
-    longest = len(max(codes.keys(), key=len)) + 11
+    longest = len(max(codes.keys(), key=len)) + 6
 
     with open('../../modules/ui/src/main/Icon.scala', 'w') as scala, \
          open('../../ui/common/src/licon.ts', 'w') as ts, \
