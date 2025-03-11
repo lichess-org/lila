@@ -20,11 +20,6 @@ import type {
   Ratings,
 } from './types';
 
-export function score(pv: Line, depth: number = pv.scores.length - 1): number {
-  const sc = pv.scores[clamp(depth, { min: 0, max: pv.scores.length - 1 })];
-  return isNaN(sc) ? 0 : clamp(sc, { min: -10000, max: 10000 });
-}
-
 export class Bot implements BotInfo, MoveSource {
   private openings: Promise<OpeningBook[]>;
   private stats: { cplMoves: number; cpl: number };
@@ -269,6 +264,11 @@ export class Bot implements BotInfo, MoveSource {
     if (Array.isArray(msg)) this.traces = msg;
     else this.traces.push('      ' + msg);
   }
+}
+
+export function score(pv: Line, depth: number = pv.scores.length - 1): number {
+  const sc = pv.scores[clamp(depth, { min: 0, max: pv.scores.length - 1 })];
+  return isNaN(sc) ? 0 : clamp(sc, { min: -10000, max: 10000 });
 }
 
 type Weights = 'lc0bias' | 'acpl';

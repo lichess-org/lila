@@ -9,7 +9,7 @@ import { resultsString, playersWithResults } from './devUtil';
 import { type Drop, type HandOfCards, handOfCards } from './handOfCards';
 import { showSetupDialog } from './setupDialog';
 import { domIdToUid, uidToDomId } from './devBotCtrl';
-import { rangeTicks } from '../gameView';
+import { rangeTicks } from './devUtil';
 import { definedMap } from 'common/algo';
 import type { LocalSpeed, LocalSetup } from '../types';
 import { env } from './devEnv';

@@ -5,7 +5,7 @@ import { fen960 } from 'chess';
 import { pubsub } from 'common/pubsub';
 import { definedMap, clamp } from 'common/algo';
 import { domIdToUid, uidToDomId } from './devBotCtrl';
-import { rangeTicks } from '../gameView';
+import { rangeTicks } from './devUtil';
 import type { LocalSetup } from '../types';
 import { env } from './devEnv';
 import * as licon from 'common/licon';

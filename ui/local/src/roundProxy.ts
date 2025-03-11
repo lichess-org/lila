@@ -1,9 +1,8 @@
 import * as co from 'chessops';
-import { looseH as h, VNode } from 'common/snabbdom';
 import { showSetupDialog } from './dev/setupDialog';
 import { LocalGame } from './localGame';
 import { type Player, clockToSpeed } from 'game';
-import type { RoundProxy as RoundProxyType, RoundData, RoundOpts, Position } from 'round';
+import type { RoundProxy as RoundProxyType, RoundData, RoundOpts } from 'round';
 import { analyse } from './analyse';
 import { env } from './localEnv';
 
