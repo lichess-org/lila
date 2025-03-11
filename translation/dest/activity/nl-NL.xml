@@ -24,7 +24,7 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Speelde %1$s zet</item>
-    <item quantity="other">Speelde %1$s zet</item>
+    <item quantity="other">Speelde %1$s zetten</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">in %1$s correspondentiepartij</item>
