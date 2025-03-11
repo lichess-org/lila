@@ -156,7 +156,7 @@
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Tre gongar stillingsgjentaking</string>
   <string name="claimADraw">Krev remis</string>
-  <string name="drawClaimed" comment="This is a condition that can end the game. Appears when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Krav om remis</string>
+  <string name="drawClaimed">Remis kravd</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -790,6 +790,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
+  <string name="allLanguages">Alle språk</string>
   <string name="background">Bakgrunn</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>

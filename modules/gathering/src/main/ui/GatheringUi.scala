@@ -116,7 +116,7 @@ final class GatheringFormUi(helpers: Helpers):
       help = frag(
         "Let ",
         a(href := "/@/lichess/blog/welcome-lichess-bots/WvDNticA")("bots"),
-        " join the tournament and play with their engines."
+        " join the tournament and play with their engines. This often repels human players."
       ).some,
       half = true,
       disabled = disabledAfterStart

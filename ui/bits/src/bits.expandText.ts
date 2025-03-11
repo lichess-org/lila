@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { currentTheme } from 'common/theme';
+import { currentTheme } from 'common/device';
 
 type LinkType = 'youtube' | 'twitter';
 
@@ -89,9 +89,7 @@ site.load.then(() => {
       const originalCreateElement = document.createElement;
       document.createElement = function () {
         const element = originalCreateElement.apply(this, arguments as any);
-        if (element instanceof HTMLIFrameElement) {
-          (element as any).credentialless = true;
-        }
+        if (element instanceof HTMLIFrameElement) (element as any).credentialless = true;
         return element;
       };
 

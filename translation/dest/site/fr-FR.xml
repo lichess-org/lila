@@ -156,7 +156,7 @@
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
-  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Offre de nulle</string>
+  <string name="drawClaimed">Offre de nulle</string>
   <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
@@ -789,6 +789,7 @@
   <string name="anonymous">Anonyme</string>
   <string name="yourScore">Votre score : %s</string>
   <string name="language">Langue</string>
+  <string name="allLanguages">Toutes les langues</string>
   <string name="background">Arrière-plan</string>
   <string name="light">Lumineux</string>
   <string name="dark">Sombre</string>

@@ -41,6 +41,16 @@ export const bindMobileMousedown =
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
+export const prefersLightThemeQuery = (): MediaQueryList =>
+  window.matchMedia('(prefers-color-scheme: light)');
+
+export const currentTheme = (): 'light' | 'dark' => {
+  const dataTheme = document.body.dataset.theme!;
+  if (dataTheme === 'system') return prefersLightThemeQuery().matches ? 'light' : 'dark';
+  else if (dataTheme === 'light') return 'light';
+  else return 'dark';
+};
+
 let col1cache: 'init' | 'rec' | boolean = 'init';
 
 export function isCol1(): boolean {

@@ -164,7 +164,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
   <string name="claimADraw">Cere remiză</string>
-  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Remiză revendicată</string>
+  <string name="drawClaimed">Remiză revendicată</string>
   <string name="offerDraw">Propune remiză</string>
   <string name="draw">Remiză</string>
   <plurals name="nbPlayers">

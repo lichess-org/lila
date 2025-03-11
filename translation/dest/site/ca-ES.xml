@@ -156,6 +156,7 @@
   <string name="flipBoard">Girar el tauler</string>
   <string name="threefoldRepetition">Triple repetició</string>
   <string name="claimADraw">Reclamar taules</string>
+  <string name="drawClaimed">Taules reclamades</string>
   <string name="offerDraw">Oferir taules</string>
   <string name="draw">Taules</string>
   <plurals name="nbPlayers">
@@ -788,6 +789,7 @@
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
   <string name="language">Llengua</string>
+  <string name="allLanguages">Tots els idiomes</string>
   <string name="background">Fons</string>
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>

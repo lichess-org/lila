@@ -10,7 +10,7 @@ import type {
   Pane,
   Redraw,
 } from './interfaces';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import * as network from './network';
 import { scroller } from './view/scroller';
 import { storage, type LichessStorage } from 'common/storage';

@@ -1,6 +1,6 @@
 import type { VNode, Classes } from 'snabbdom';
 import { defined } from 'common';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
 import { type MaybeVNode, type LooseVNodes, looseH as h } from 'common/snabbdom';

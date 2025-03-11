@@ -31,7 +31,12 @@ final class OpeningApi(
     val config   = if crawler.yes then OpeningConfig.default else readConfig
     def doLookup = lookup(q, config, withWikiRevisions, crawler)
     if crawler.no && config.isDefault && !withWikiRevisions
-    then defaultCache.getFuture(q, _ => doLookup)
+    then
+      defaultCache
+        .getFuture(q, _ => doLookup)
+        .addEffect:
+          _.foreach: page =>
+            if page.explored.isFailure then defaultCache.synchronous().invalidate(q)
     else doLookup
 
   private def lookup(
@@ -49,16 +54,19 @@ final class OpeningApi(
   )(using accessControl: OpeningAccessControl): Fu[Option[OpeningPage]] =
     given Translate = summon[Translator].toDefault
     for
-      wiki       <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
-      loadStats  <- accessControl.canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler)
-      stats      <- loadStats.so(explorer.stats(query.uci, query.config, crawler))
+      wiki      <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
+      loadStats <- accessControl.canLoadExpensiveStats(wiki.exists(_.hasMarkup), crawler)
+      stats <-
+        if loadStats then explorer.stats(query.uci, query.config, crawler)
+        else fuccess(scala.util.Success(none))
+      statsOption = stats.toOption.flatten
       allHistory <- allGamesHistory.get(query.config)
-      games      <- gameRepo.gamesFromSecondary(stats.so(_.games).map(_.id))
+      games      <- gameRepo.gamesFromSecondary(statsOption.so(_.games).map(_.id))
       withPgn <- games.traverse: g =>
         pgnDump(g, None, PgnDump.WithFlags(evals = false)).dmap { GameWithPgn(g, _) }
-      history    = stats.so(_.popularityHistory)
+      history    = statsOption.so(_.popularityHistory)
       relHistory = query.uci.nonEmpty.so(historyPercent(history, allHistory))
-    yield OpeningPage(query, stats, withPgn, relHistory, wiki).some
+    yield makeOpeningPage(query, stats, withPgn, relHistory, wiki).some
 
   def readConfig(using RequestHeader) = configStore.read
 
@@ -74,6 +82,7 @@ final class OpeningApi(
 
   private val allGamesHistory =
     cacheApi[OpeningConfig, PopularityHistoryAbsolute](32, "opening.allGamesHistory"):
-      _.expireAfterWrite(1.hour).buildAsyncFuture(config =>
-        explorer.stats(Vector.empty, config, Crawler(false)).map(_.so(_.popularityHistory))
-      )
+      _.expireAfterWrite(1.hour).buildAsyncFuture: config =>
+        explorer
+          .stats(Vector.empty, config, Crawler(false))
+          .map(_.toOption.flatten.so(_.popularityHistory))

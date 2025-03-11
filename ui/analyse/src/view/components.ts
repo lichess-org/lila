@@ -27,14 +27,13 @@ import * as chessground from '../ground';
 import type AnalyseCtrl from '../ctrl';
 import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner, stepwiseScroll } from 'common/controls';
 import * as Prefs from 'common/prefs';
 import statusView from 'game/view/status';
-import { stepwiseScroll } from 'common/controls';
 import { renderNextChapter } from '../study/nextChapter';
 import { render as renderTreeView } from '../treeView/treeView';
 import * as gridHacks from './gridHacks';
-import { dispatchChessgroundResize } from 'common/resize';
+import { dispatchChessgroundResize } from 'common/chessgroundResize';
 import serverSideUnderboard from '../serverSideUnderboard';
 import type StudyCtrl from '../study/studyCtrl';
 import type RelayCtrl from '../study/relay/relayCtrl';
@@ -100,9 +99,8 @@ export function renderMain(
         insert: vn => {
           const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars !== document.body.classList.contains('header-margin')) {
+          if (!!playerBars !== document.body.classList.contains('header-margin'))
             $('body').toggleClass('header-margin', !!playerBars);
-          }
           !hasRelayTour && makeChatEl(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },

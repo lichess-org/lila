@@ -1,7 +1,7 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { numberFormat } from 'common/number';
-import perfIcons from 'common/perfIcons';
+import { numberFormat } from 'common/i18n';
+import perfIcons from 'game/perfIcons';
 import { bind, dataIcon, type MaybeVNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';

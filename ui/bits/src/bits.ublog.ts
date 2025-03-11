@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/timing';
+import { throttlePromiseDelay } from 'common/async';
 
 site.load.then(() => {
   $('.flash').addClass('fade');

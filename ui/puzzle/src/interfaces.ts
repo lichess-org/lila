@@ -1,7 +1,7 @@
 import type { Move } from 'chessops/types';
 import type { VNode } from 'snabbdom';
 import type { Coords } from 'common/prefs';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'game/perfIcons';
 import type PuzzleCtrl from './ctrl';
 import type { ExternalEngineInfo } from 'ceval';
 

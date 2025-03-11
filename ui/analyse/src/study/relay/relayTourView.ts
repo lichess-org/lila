@@ -8,7 +8,7 @@ import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo }
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'common';
 import type StudyCtrl from '../studyCtrl';
-import { toggle } from 'common/controls';
+import { toggle, copyMeInput } from 'common/controls';
 import { text as xhrText } from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
@@ -17,7 +17,6 @@ import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
-import { copyMeInput } from 'common/copyMe';
 import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'common/i18n';
 import { watchers } from 'common/watchers';

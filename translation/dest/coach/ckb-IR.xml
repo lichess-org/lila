@@ -24,4 +24,7 @@
   <string name="teachingMethod">شێوازی وانەوتنەوە</string>
   <string name="publicStudies">لێکۆڵینەوە گشتییەکان</string>
   <string name="youtubeVideos">ڤیدیۆکانی یوتیوب</string>
+  <string name="allCountries">هەموو وڵاتەکان</string>
+  <string name="lastLogin">دوا چوونەژوورەوە</string>
+  <string name="lichessRating">پلەبەندی لیچێس</string>
 </resources>

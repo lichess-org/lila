@@ -1,4 +1,4 @@
-import * as licon from './licon';
+import * as licon from 'common/licon';
 
 const perfIcons: Record<Exclude<Perf, 'fromPosition'>, string> = {
   ultraBullet: licon.UltraBullet,

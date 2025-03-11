@@ -156,7 +156,7 @@
   <string name="flipBoard">Xirar o taboleiro</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
   <string name="claimADraw">Reclamar táboas</string>
-  <string name="drawClaimed" comment="This is a condition that can end the game. Appears when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Reclamáronse as táboas</string>
+  <string name="drawClaimed">Reclamáronse as táboas</string>
   <string name="offerDraw">Ofrecer táboas</string>
   <string name="draw">Táboas</string>
   <plurals name="nbPlayers">
@@ -789,6 +789,7 @@
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Os teus resultados: %s</string>
   <string name="language">Idioma</string>
+  <string name="allLanguages">Todos os idiomas</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>

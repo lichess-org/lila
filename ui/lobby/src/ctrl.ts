@@ -1,4 +1,4 @@
-import { numberFormat } from 'common/number';
+import { numberFormat } from 'common/i18n';
 import variantConfirm from './variant';
 import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';

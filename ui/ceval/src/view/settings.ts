@@ -7,7 +7,7 @@ import { type VNode, onInsert, bind, dataIcon, looseH as h } from 'common/snabbd
 import * as Licon from 'common/licon';
 import { onClickAway } from 'common';
 import { clamp } from 'common/algo';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 
 const allSearchTicks: [number, string][] = [
   [4000, '4s'],
