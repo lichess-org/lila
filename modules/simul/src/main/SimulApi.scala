@@ -125,11 +125,11 @@ final class SimulApi(
                         publish()
 
   def removeApplicant(simulId: SimulId, user: User): Funit =
-    WithSimul(repo.findCreated, simulId) { _.removeApplicant(user.id) }
+    UpdateCreatedSimul(simulId) { _.removeApplicant(user.id) }
 
   def accept(simulId: SimulId, userId: UserId, v: Boolean): Funit =
     userApi.byId(userId).flatMapz { user =>
-      WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
+      UpdateCreatedSimul(simulId) { _.accept(user.id, v) }
     }
 
   def start(simulId: SimulId): Funit =
@@ -218,7 +218,7 @@ final class SimulApi(
         online <- socket.filterPresent(simul, applicantIds)
         leaving = applicantIds.diff(online.toSet)
         _ <- leaving.nonEmpty.so:
-          WithSimul(repo.findCreated, simul.id):
+          UpdateCreatedSimul(simul.id):
             _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
       yield ()
 
@@ -305,13 +305,12 @@ final class SimulApi(
       socket.reload(simul.id)
       publish()
 
-  private def WithSimul(
-      finding: SimulId => Fu[Option[Simul]],
-      simulId: SimulId
-  )(updating: Simul => Simul): Funit =
+  private def UpdateCreatedSimul(simulId: SimulId)(updating: Simul => Simul): Funit =
     workQueue(simulId):
-      finding(simulId).flatMapz: simul =>
-        update(updating(simul))
+      repo
+        .findCreated(simulId)
+        .flatMapz: simul =>
+          update(updating(simul))
 
   private object publish:
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
