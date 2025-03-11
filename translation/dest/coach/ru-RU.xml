@@ -24,4 +24,7 @@
   <string name="teachingMethod">Методика преподавания</string>
   <string name="publicStudies">Открытые уроки</string>
   <string name="youtubeVideos">Видео на YouTube</string>
+  <string name="allCountries">Все страны</string>
+  <string name="lastLogin">Последний вход</string>
+  <string name="lichessRating">Рейтинг Lichess</string>
 </resources>
