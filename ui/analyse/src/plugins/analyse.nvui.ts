@@ -306,9 +306,8 @@ function renderAriaResult(ctrl: AnalyseController): VNode[] {
 }
 
 function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChildren {
-  if (ctrl.path.length === 0) {
-    return renderMainline(ctrl.mainline, ctrl.path, style);
-  } else {
+  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, style);
+  else {
     const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
     return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style);
   }

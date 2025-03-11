@@ -131,12 +131,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci!))
-        onWin(); // found in opening explorer
-      else if (node.san?.endsWith('#'))
-        onWin(); // checkmate ends the game
-      else if (node.comp)
-        onWin(); // the computer solution line
+      if (cur.openingUcis.includes(node.uci!) || node.san?.endsWith('#') || node.comp)
+        onWin(); // found in opening explorer, checkmate ends the game, or comp solution line
       else if (node.eval)
         onFail(); // the move that was played in the game
       else {
@@ -144,9 +140,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         if (!root.ceval.enabled()) root.toggleCeval();
         checkCeval();
       }
-    } else if (isSolving() && cur.prev.path !== root.path) {
-      feedback('offTrack');
-    }
+    } else if (isSolving() && cur.prev.path !== root.path) feedback('offTrack');
     root.setAutoShapes();
   }
 

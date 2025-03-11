@@ -19,9 +19,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       if (ctrl.path !== '') autoScroll(ctrl, el);
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
-        if (path !== null) {
-          contextMenu(e, { path, root: ctrl });
-        }
+        if (path !== null) contextMenu(e, { path, root: ctrl });
         ctrl.redraw();
         return false;
       };

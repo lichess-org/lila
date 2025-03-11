@@ -650,9 +650,8 @@ export default class StudyCtrl {
         this.vm.behind++;
         return this.redraw();
       }
-      if (position.chapterId !== this.data.position.chapterId || !this.ctrl.tree.pathExists(position.path)) {
+      if (position.chapterId !== this.data.position.chapterId || !this.ctrl.tree.pathExists(position.path))
         return this.xhrReload();
-      }
       this.data.position.path = position.path;
       if (who && who.s === site.sri) return;
       this.ctrl.userJump(position.path);

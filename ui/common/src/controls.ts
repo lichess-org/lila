@@ -69,8 +69,6 @@ export function stepwiseScroll(inner: (e: WheelEvent, scroll: boolean) => void):
     if (Math.abs(scrollTotal) >= 4) {
       inner(e, true);
       scrollTotal = 0;
-    } else {
-      inner(e, false);
-    }
+    } else inner(e, false);
   };
 }

@@ -6,9 +6,7 @@ export function initModule(id: string = 'form3-newPasswd1'): void {
     updatePasswordComplexityMeter(passwordInput.value);
   });
   // Update the meter if script loaded after user has already typed something
-  if (passwordInput.value) {
-    updatePasswordComplexityMeter(passwordInput.value);
-  }
+  if (passwordInput.value) updatePasswordComplexityMeter(passwordInput.value);
 }
 
 function updatePasswordComplexityMeter(password: string): void {

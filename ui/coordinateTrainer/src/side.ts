@@ -97,9 +97,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
                 ctrl.mode(target.value as Mode);
                 if (target.value === 'nameSquare') {
                   if (ctrl.voice.enabled()) ctrl.voice.mic.start();
-                } else {
-                  ctrl.voice.mic.stop();
-                }
+                } else ctrl.voice.mic.stop();
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
