@@ -67,7 +67,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
     ],
     onInsert: dlg => {
       dlg.show();
-      (dlg.viewEl.querySelector('.tagify__input') as HTMLElement)?.focus();
+      (dlg.view.querySelector('.tagify__input') as HTMLElement)?.focus();
     },
   });
 

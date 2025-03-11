@@ -10,6 +10,7 @@
     "chart.js": "4.4.8",
     "chess": "workspace:*",
     "common": "workspace:*",
+    "game": "workspace:*",
     "keyboardMove": "workspace:*",
     "nvui": "workspace:*",
     "tree": "workspace:*",

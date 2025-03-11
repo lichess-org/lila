@@ -790,6 +790,7 @@
   <string name="anonymous">Anonymous</string>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
+  <string name="allLanguages">All languages</string>
   <string name="background">Background</string>
   <string name="light">Light</string>
   <string name="dark">Dark</string>

@@ -152,8 +152,24 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
             })
         ),
         streamers,
+        sideBotsWarning(tour),
         chat
       )
+
+    private def sideBotsWarning(tour: Tournament)(using ctx: Context) =
+      tour.conditions.allowsBots.option:
+        div(cls := "tour__bots-warning")(
+          img(src := staticAssetUrl("images/icons/bot.png")),
+          div(
+            h2("Bot tournament"),
+            p(
+              "The organizer has decided to let ",
+              userTitleTag(chess.PlayerTitle.BOT),
+              " accounts play in this tournament."
+            ),
+            p("You will have to face ", strong("chess engines"), " in some of your games.")
+          )
+        )
 
     private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
       st.section(cls := "team-battle", dataIcon := Icon.Group):
@@ -188,7 +204,9 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
         div(cls := "body")(apply())
       )
 
-    def apply(rated: Option[Boolean] = None, privateId: Option[TourId] = None)(using Context) =
+    def apply(rated: Option[Boolean] = None, privateId: Option[TourId] = None)(using
+        Context
+    ) =
       frag(
         privateId.map: id =>
           frag(

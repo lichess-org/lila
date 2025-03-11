@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import { type VNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { numberRow, player as renderPlayer } from './util';
 import { fullName } from 'common/userLink';

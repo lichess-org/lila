@@ -30,8 +30,8 @@ export const onClick = (a: HTMLLinkElement): boolean => {
       </div>`,
     modal: true,
   }).then(dlg => {
-    $('.cancel', dlg.viewEl).on('click', dlg.close);
-    $('a', dlg.viewEl).on('click', () => setTimeout(dlg.close, 1000));
+    $('.cancel', dlg.view).on('click', dlg.close);
+    $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
     dlg.show();
   });
   return false;

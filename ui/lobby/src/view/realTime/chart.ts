@@ -3,7 +3,7 @@ import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { h, type VNode } from 'snabbdom';
 import type { Hook } from '../../interfaces';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'game/perfIcons';
 import { memoize } from 'common';
 
 const percents = (v: number) => v + '%';

@@ -93,13 +93,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       case Some(me) =>
         given Me = me
         WithPuzzlePerf:
-          ctx.req.session
-            .get(cookieDifficulty)
-            .flatMap(PuzzleDifficulty.find)
-            .so(env.puzzle.session.setDifficulty)
-            >>
-              color.so(env.puzzle.session.setAngleAndColor(angle, _)) >>
-              env.puzzle.selector.nextPuzzleFor(angle)
+          val diff = ctx.req.session.get(cookieDifficulty).flatMap(PuzzleDifficulty.find)
+          for
+            _   <- diff.so(env.puzzle.session.setDifficulty)
+            _   <- color.so(env.puzzle.session.setAngleAndColor(angle, _))
+            puz <- env.puzzle.selector.nextPuzzleFor(angle)
+          yield puz
       case None => env.puzzle.anon.getOneFor(angle, difficulty, ~color)
 
   private def redirectNoPuzzle: Fu[Result] =
@@ -534,7 +533,6 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             env.puzzle.api.vote.update(_, me, intVote == 1).inject(jsonOkResult)
           }
       )
-
   }
 
   def help = Open:

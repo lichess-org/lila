@@ -561,6 +561,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      game:
+        specifier: workspace:*
+        version: link:../game
       keyboardMove:
         specifier: workspace:*
         version: link:../keyboardMove
@@ -591,6 +594,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      game:
+        specifier: workspace:*
+        version: link:../game
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0

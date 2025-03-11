@@ -4,9 +4,9 @@ import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'common/snabbd
 import { formatNumber, loadOpeningLpv } from './ui';
 import { shuffle } from 'common/algo';
 import { fullName, userFlair, userTitle } from 'common/userLink';
-import { spinnerVdom } from 'common/spinner';
+import { spinnerVdom } from 'common/controls';
 import { formatDuration, perfLabel, perfNames } from './util';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'game/perfIcons';
 
 const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
 

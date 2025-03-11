@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 import { log } from 'common/permalog';
 
 const showError = (error: string) => alert(error);

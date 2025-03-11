@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { text as xhrText } from 'common/xhr';
 import { requestIdleCallback, $as } from 'common';
-import { spinnerHtml } from 'common/spinner';
+import { spinnerHtml } from 'common/controls';
 import { pubsub } from 'common/pubsub';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip

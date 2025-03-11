@@ -7,7 +7,7 @@ import {
   PgnProgress,
   PgnFilter,
 } from 'bits/polyglot';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 import { zip } from 'common/algo';
 import { env } from './devEnv';
 import { pubsub } from 'common/pubsub';

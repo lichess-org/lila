@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
-import { makeLinkPopups } from 'common/linkPopup';
-import { alert } from 'common/dialog';
+import { alert, makeLinkPopups } from 'common/dialogs';
 import { pubsub } from 'common/pubsub';
 import * as licon from 'common/licon';
 import { frag } from 'common';

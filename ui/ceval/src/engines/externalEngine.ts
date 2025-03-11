@@ -7,7 +7,7 @@ import {
 } from '../types';
 import { randomToken } from 'common/algo';
 import { readNdJson } from 'common/xhr';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 
 interface ExternalEngineOutput {
   time: number;
@@ -95,9 +95,7 @@ export class ExternalEngine implements CevalEngine {
         console.error(err);
         this.state = CevalState.Failed;
         this.status?.({ error: String(err) });
-      } else {
-        this.state = CevalState.Initial;
-      }
+      } else this.state = CevalState.Initial;
     }
   }
 

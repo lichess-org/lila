@@ -131,7 +131,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
               div(cls := "box__top__actions")(
                 lila.ui.bits.mselect(
                   "ublog-lang",
-                  language.fold("All languages")(langList.nameByLanguage),
+                  language.fold(trans.site.allLanguages.txt())(langList.nameByLanguage),
                   langSelections
                     .map: (languageSel, name) =>
                       a(

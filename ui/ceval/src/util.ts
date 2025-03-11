@@ -59,11 +59,11 @@ export function showEngineError(engine: string, error: string): void {
     const select = () =>
       setTimeout(() => {
         const range = document.createRange();
-        range.selectNodeContents(dlg.viewEl.querySelector('.err')!);
+        range.selectNodeContents(dlg.view.querySelector('.err')!);
         window.getSelection()?.removeAllRanges();
         window.getSelection()?.addRange(range);
       }, 0);
-    dlg.viewEl.querySelector('.err')?.addEventListener('focus', select);
+    dlg.view.querySelector('.err')?.addEventListener('focus', select);
     dlg.show();
   });
 }

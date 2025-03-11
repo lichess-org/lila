@@ -8,7 +8,7 @@ import format from 'date-fns/format';
 import type { Tournament } from '../interfaces';
 import type { Ctrl, Lanes } from '../tournament.calendar';
 import * as licon from 'common/licon';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'game/perfIcons';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
   const classes = {

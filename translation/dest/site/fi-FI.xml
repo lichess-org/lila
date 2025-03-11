@@ -156,7 +156,7 @@
   <string name="flipBoard">Käännä lauta</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="claimADraw">Vaadi tasapeli</string>
-  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Tasapeli vaadittu</string>
+  <string name="drawClaimed">Tasapeli vaadittu</string>
   <string name="offerDraw">Ehdota tasapeliä</string>
   <string name="draw">Tasapeli</string>
   <plurals name="nbPlayers">

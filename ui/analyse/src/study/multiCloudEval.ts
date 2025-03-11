@@ -4,7 +4,7 @@ import { storedBooleanPropWithEffect } from 'common/storage';
 import { povChances } from 'ceval/winningChances';
 import { type VNode, bind, looseH as h } from 'common/snabbdom';
 import type { StudyChapters } from './studyChapters';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import type { ServerNodeMsg } from './interfaces';
 
 export interface CloudEval extends EvalHitMulti {

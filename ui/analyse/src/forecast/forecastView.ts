@@ -4,7 +4,7 @@ import { bind, dataIcon } from 'common/snabbdom';
 import type { ForecastStep } from './interfaces';
 import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import { fixCrazySan } from 'chess';
 import { findCurrentPath } from '../treeView/common';
 import type ForecastCtrl from './forecastCtrl';

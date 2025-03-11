@@ -1,4 +1,4 @@
-import resizeHandle from 'common/resize';
+import resizeHandle from 'common/chessgroundResize';
 import type { PuzPrefs, UserMove } from '../interfaces';
 import { ShowResizeHandle, Coords } from 'common/prefs';
 import { storage } from 'common/storage';

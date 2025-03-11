@@ -1,6 +1,6 @@
 import { header } from './util';
 import { hyphenToCamel, toggle } from 'common';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as licon from 'common/licon';
 import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { bind, looseH as h, type VNode } from 'common/snabbdom';

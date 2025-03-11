@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
-import { spinnerHtml } from 'common/spinner';
+import { spinnerHtml } from 'common/controls';
 import { contactEmail } from './bits';
-import { alert, prompt } from 'common/dialog';
+import { alert, prompt } from 'common/dialogs';
 import { myUserId } from 'common';
 
 export interface Pricing {

@@ -1,11 +1,11 @@
 import { formToXhr, text as xhrText } from 'common/xhr';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as licon from 'common/licon';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
-import { spinnerHtml } from 'common/spinner';
-import { confirm } from 'common/dialog';
+import { spinnerHtml } from 'common/controls';
+import { confirm } from 'common/dialogs';
 import { pubsub } from 'common/pubsub';
 import { commonDateFormat, toDate } from 'common/i18n';
 

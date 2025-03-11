@@ -41,9 +41,9 @@ site.load.then(() => {
     $('#communication').on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
       const $l = $(this);
       domDialog({ cash: $('.timeout-modal'), modal: true }).then(dlg => {
-        $('.username', dlg.viewEl).text($l.find('.user-link').text());
-        $('.text', dlg.viewEl).text($l.text().split(' ').slice(1).join(' '));
-        $('.button', dlg.viewEl).on('click', function (this: HTMLButtonElement) {
+        $('.username', dlg.view).text($l.find('.user-link').text());
+        $('.text', dlg.view).text($l.text().split(' ').slice(1).join(' '));
+        $('.button', dlg.view).on('click', function (this: HTMLButtonElement) {
           const roomId = $l.parents('.game').data('room');
           const chan = $l.parents('.game').data('chan');
           text('/mod/public-chat/timeout', {
@@ -51,9 +51,9 @@ site.load.then(() => {
             body: form({
               roomId,
               chan,
-              userId: $('.username', dlg.viewEl).text().toLowerCase(),
+              userId: $('.username', dlg.view).text().toLowerCase(),
               reason: this.value,
-              text: $('.text', dlg.viewEl).text(),
+              text: $('.text', dlg.view).text(),
             }),
           }).then(_ => setTimeout(reloadNow, 1000));
           dlg.close();

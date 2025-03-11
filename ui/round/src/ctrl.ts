@@ -30,7 +30,7 @@ import * as wakeLock from 'common/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import { Replay } from 'common/prefs';
 import { endGameView } from './view/main';
-import { info as infoDialog } from 'common/dialog';
+import { info as infoDialog } from 'common/dialogs';
 import { isCol1 } from 'common/device';
 
 import type {

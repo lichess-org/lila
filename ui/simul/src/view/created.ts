@@ -1,6 +1,8 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { confirm, domDialog } from 'common/dialog';
+import { domDialog } from 'common/dialog';
+import { confirm } from 'common/dialogs';
+
 import { bind, looseH as h } from 'common/snabbdom';
 import type SimulCtrl from '../ctrl';
 import type { Applicant } from '../interfaces';
@@ -40,13 +42,10 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                                 cash: $('.simul .continue-with'),
                                 modal: true,
                               }).then(dlg => {
-                                $('button.button', dlg.viewEl).on(
-                                  'click',
-                                  function (this: HTMLButtonElement) {
-                                    xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
-                                    dlg.close();
-                                  },
-                                );
+                                $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
+                                  xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
+                                  dlg.close();
+                                });
                                 dlg.show();
                               });
                           })

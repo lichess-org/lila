@@ -1,9 +1,8 @@
 import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
 import * as licon from 'common/licon';
 import { type VNode, dataIcon, onInsert, type MaybeVNode, looseH as h } from 'common/snabbdom';
-import { numberFormat } from 'common/number';
-import perfIcons from 'common/perfIcons';
-import { withLang } from 'common/router';
+import { numberFormat } from 'common/i18n';
+import perfIcons from 'game/perfIcons';
 import { userLink } from 'common/userLink';
 import type PuzzleStreak from '../streak';
 import type PuzzleCtrl from '../ctrl';
@@ -36,7 +35,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
                 'a',
                 {
                   attrs: {
-                    href: withLang(`/training/${puzzle.id}`),
+                    href: ctrl.routerWithLang(`/training/${puzzle.id}`),
                     ...(ctrl.streak ? { target: '_blank' } : {}),
                   },
                 },
@@ -103,7 +102,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', i18n.puzzle.toGetPersonalizedPuzzles),
-      h('a.button', { attrs: { href: withLang('/signup') } }, i18n.site.signUp),
+      h('a.button', { attrs: { href: ctrl.routerWithLang('/signup') } }, i18n.site.signUp),
     ]);
   const diff = ctrl.round?.ratingDiff,
     ratedId = `puzzle-toggle-rated_hint-${ctrl.hintHasBeenShown()}`;

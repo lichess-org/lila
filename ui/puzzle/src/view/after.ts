@@ -1,6 +1,5 @@
 import * as licon from 'common/licon';
 import { type VNode, type MaybeVNodes, bind, dataIcon, looseH as h } from 'common/snabbdom';
-import * as router from 'common/router';
 import type PuzzleCtrl from '../ctrl';
 
 const renderVote = (ctrl: PuzzleCtrl): VNode =>
@@ -32,7 +31,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
     h('span.game-over', 'GAME OVER'),
     h('span', i18n.puzzle.yourStreakX.asArray(h('strong', `${ctrl.streak?.data.index ?? 0}`))),
   ]),
-  h('a.continue', { attrs: { href: router.withLang('/streak') } }, [
+  h('a.continue', { attrs: { href: ctrl.routerWithLang('/streak') } }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
     i18n.puzzle.newStreak,
   ]),

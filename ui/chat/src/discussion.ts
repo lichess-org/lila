@@ -9,7 +9,7 @@ import { presetView } from './preset';
 import type ChatCtrl from './ctrl';
 import { tempStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -169,9 +169,8 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
 }
 
 const updateText = (opts?: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNode) => {
-  if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
+  if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat)
     (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessChat, opts);
-  }
 };
 
 const profileLinkRegex = /(https:\/\/)?lichess\.org\/@\/([a-zA-Z0-9_-]+)/g;

@@ -76,9 +76,8 @@ export function definedUnique<T>(items: (T | undefined)[]): T[] {
 export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
-  if (Array.isArray(a)) {
+  if (Array.isArray(a))
     return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
-  }
   if (typeof a !== 'object') return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
   if (aKeys.length !== bKeys.length) return false;
@@ -89,9 +88,8 @@ export function isEquivalent(a: any, b: any): boolean {
 export function isContained(o: any, sub: any): boolean {
   if (o === sub || sub === undefined) return true;
   if (typeof o !== typeof sub) return false;
-  if (Array.isArray(o)) {
+  if (Array.isArray(o))
     return Array.isArray(sub) && o.length === sub.length && o.every((x, i) => isEquivalent(x, sub[i]));
-  }
   if (typeof o !== 'object') return false;
   const [aKeys, subKeys] = [Object.keys(o), Object.keys(sub)];
   if (aKeys.length < subKeys.length) return false;

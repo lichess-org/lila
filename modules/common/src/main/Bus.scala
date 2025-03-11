@@ -7,15 +7,16 @@ val Bus = scalalib.bus.Bus(initialCapacity = 4096)
 
 object actorBus:
 
+  case class ActorTellable(ref: ActorRef) extends Tellable:
+    def !(msg: Matchable) = ref ! msg
+
   extension (bus: scalalib.bus.Bus)
 
     def subscribe(ref: ActorRef, to: Channel*): Unit =
-      to.foreach(Bus.subscribe(actorTellable(ref), _))
+      to.foreach(Bus.subscribe(ActorTellable(ref), _))
 
     def subscribe(ref: ActorRef, to: Iterable[Channel]) =
-      to.foreach(Bus.subscribe(actorTellable(ref), _))
+      to.foreach(Bus.subscribe(ActorTellable(ref), _))
 
-    def unsubscribe(ref: ActorRef, from: Channel) = Bus.unsubscribe(actorTellable(ref), from)
-
-  private def actorTellable(ref: ActorRef): Tellable = new:
-    def !(msg: Matchable) = ref ! msg
+    def unsubscribe(ref: ActorRef, from: Channel) =
+      Bus.unsubscribe(ActorTellable(ref), from)

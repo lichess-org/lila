@@ -315,11 +315,11 @@ function roundRobin() {
       {
         selector: '#start-tournament',
         listener: (_, dlg) => {
-          const participants = Array.from(dlg.viewEl.querySelectorAll('input:checked')).map(
+          const participants = Array.from(dlg.view.querySelectorAll('input:checked')).map(
             (el: HTMLInputElement) => el.value,
           );
           if (participants.length < 2) return;
-          const iterationField = dlg.viewEl.querySelector('input[type="number"]') as HTMLInputElement;
+          const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
           const iterations = Number(iterationField.value);
           env.dev.run(
             {

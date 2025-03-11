@@ -98,7 +98,7 @@ class SetupDialog {
       noClickAway: env.game === undefined,
     });
     this.dialog = dlg;
-    this.mainContentEl = dlg.viewEl.querySelector('.main-content')!;
+    this.mainContentEl = dlg.view.querySelector('.main-content')!;
     this.initCards();
     this.initEditor();
     this.goToOpponent();
@@ -110,7 +110,7 @@ class SetupDialog {
   }
 
   private initCards() {
-    this.view = this.dialog.viewEl.querySelector('.with-cards')!;
+    this.view = this.dialog.view.querySelector('.with-cards')!;
     const cardData = definedMap(env.bot.sorted('classical'), b => env.bot.card(b));
     this.hand = handOfCards({
       getCardData: () => cardData,
@@ -129,7 +129,7 @@ class SetupDialog {
   }
 
   private initEditor() {
-    this.editorEl = this.dialog.viewEl.querySelector('.editor')!;
+    this.editorEl = this.dialog.view.querySelector('.editor')!;
     json('/editor.json').then(async data => {
       data.el = this.editorEl;
       data.fen = this.setup.setupFen ?? co.fen.INITIAL_FEN;
@@ -139,7 +139,7 @@ class SetupDialog {
         orientation: 'white',
         onChange: (fen: string) => {
           this.setup.setupFen = fen;
-          this.dialog.viewEl.querySelector<HTMLInputElement>('.fen')!.value = fen;
+          this.dialog.view.querySelector<HTMLInputElement>('.fen')!.value = fen;
         },
         coordinates: false,
         bindHotkeys: false,
@@ -166,7 +166,7 @@ class SetupDialog {
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot?.description);
-    this.dialog.viewEl.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
+    this.dialog.view.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
     this.setup[this.botColor] = this.uid = bot?.uid;
     if (!bot) this.hand.redraw();
   }
@@ -177,7 +177,7 @@ class SetupDialog {
 
   private updateClock = () => {
     for (const type of ['initial', 'increment'] as const) {
-      const selectEl = this.dialog.viewEl.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
+      const selectEl = this.dialog.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
       this.setup[type] = Number(selectEl?.value);
     }
   };
@@ -212,14 +212,14 @@ class SetupDialog {
 
   clickStandard = () => {
     this.editor.setRules(co.compat.lichessRules('standard'));
-    const input = this.dialog.viewEl.querySelector<HTMLInputElement>('.fen')!;
+    const input = this.dialog.view.querySelector<HTMLInputElement>('.fen')!;
     input.value = '';
     this.editor.setFen(co.fen.INITIAL_FEN);
   };
 
   clickChess960 = () => {
     this.editor.setRules(co.compat.lichessRules('chess960'));
-    const input = this.dialog.viewEl.querySelector<HTMLInputElement>('.fen')!;
+    const input = this.dialog.view.querySelector<HTMLInputElement>('.fen')!;
     input.value = fen960();
     this.editor.setFen(input.value);
   };
