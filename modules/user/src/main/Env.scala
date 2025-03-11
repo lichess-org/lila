@@ -65,3 +65,6 @@ final class Env(
       rankingApi.remove(userId)
     }
   )
+
+  lila.common.Bus.sub[lila.core.misc.puzzle.StreakRun]:
+    case r => api.addPuzRun("streak", r.userId, r.score)
