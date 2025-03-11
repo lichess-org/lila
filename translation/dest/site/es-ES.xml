@@ -789,6 +789,7 @@
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
+  <string name="allLanguages">Todos los idiomas</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>

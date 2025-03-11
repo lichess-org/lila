@@ -873,6 +873,7 @@
   <string name="anonymous">Anonimowy</string>
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
+  <string name="allLanguages">Wszystkie języki</string>
   <string name="background">Tło</string>
   <string name="light">Jasne</string>
   <string name="dark">Ciemne</string>

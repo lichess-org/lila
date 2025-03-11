@@ -789,6 +789,7 @@
   <string name="anonymous">Anoniem</string>
   <string name="yourScore">Uw score: %s</string>
   <string name="language">Taal</string>
+  <string name="allLanguages">Alle talen</string>
   <string name="background">Achtergrond</string>
   <string name="light">Licht</string>
   <string name="dark">Donker</string>

@@ -24,4 +24,7 @@
   <string name="teachingMethod">Metodologia d\'ensenyament</string>
   <string name="publicStudies">Estudis públics</string>
   <string name="youtubeVideos">Vídeos de YouTube</string>
+  <string name="allCountries">Tots els països</string>
+  <string name="lastLogin">Darrer inici de sessió</string>
+  <string name="lichessRating">Puntuació de Lichess</string>
 </resources>
