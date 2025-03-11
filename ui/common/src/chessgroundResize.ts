@@ -8,6 +8,15 @@ type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 type Visible = (ply: Ply) => boolean;
 
+let boundChessgroundResize = false;
+
+export const bindChessgroundResizeOnce = (f: () => void): void => {
+  if (!boundChessgroundResize) {
+    boundChessgroundResize = true;
+    bindChessgroundResize(f);
+  }
+};
+
 export const dispatchChessgroundResize = (): boolean =>
   document.body.dispatchEvent(new Event('chessground.resize'));
 

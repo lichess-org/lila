@@ -6,7 +6,7 @@ import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';
-import perfIcons from 'common/perfIcons';
+import perfIcons from 'game/perfIcons';
 import { ucfirst } from './explorerUtil';
 import { opposite } from 'chessground/util';
 import { userComplete } from 'common/userComplete';

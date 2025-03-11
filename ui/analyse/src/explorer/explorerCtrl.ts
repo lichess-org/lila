@@ -1,9 +1,8 @@
 import { type Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { pieceCount } from 'chess';
-import { defer } from 'common/defer';
 import { fenColor } from 'common/miniBoard';
-import { debounce, sync, type Sync } from 'common/async';
+import { debounce, defer, sync, type Sync } from 'common/async';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';

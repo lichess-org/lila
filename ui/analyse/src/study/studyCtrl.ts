@@ -50,7 +50,7 @@ import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;

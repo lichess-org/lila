@@ -1,12 +1,19 @@
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
-import { spinnerVdom, chartSpinner } from 'common/spinner';
+import { spinnerVdom } from 'common/controls';
 import { requestIdleCallback } from 'common';
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import type { ChartGame, AcplChart } from 'chart';
 import type { AnalyseData } from '../interfaces';
 import { pubsub } from 'common/pubsub';
+import { stockfishName } from '../serverSideUnderboard';
+
+export const chartSpinner = (): VNode =>
+  h('div#acpl-chart-container-loader', [
+    h('span', [stockfishName, h('br'), 'Server analysis']),
+    spinnerVdom(),
+  ]);
 
 export default class ServerEval {
   requested = false;

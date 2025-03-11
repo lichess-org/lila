@@ -2,7 +2,7 @@ import { makeSocket, type SimulSocket } from './socket';
 import xhr from './xhr';
 import type { SimulData, SimulOpts } from './interfaces';
 import { storage } from 'common/storage';
-import { idleTimer } from 'common/async';
+import { idleTimer } from 'common/event';
 
 export default class SimulCtrl {
   data: SimulData;

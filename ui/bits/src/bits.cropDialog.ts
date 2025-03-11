@@ -1,6 +1,6 @@
 import { defined } from 'common';
 import { domDialog } from 'common/dialog';
-import { spinnerHtml } from 'common/spinner';
+import { spinnerHtml } from 'common/controls';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {

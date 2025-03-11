@@ -1,6 +1,6 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import * as licon from 'common/licon';
-import { numberFormat } from 'common/number';
+import { numberFormat } from 'common/i18n';
 import { dataIcon } from 'common/snabbdom';
 import { fullName, userRating } from 'common/userLink';
 import type { SimplePlayer } from '../interfaces';

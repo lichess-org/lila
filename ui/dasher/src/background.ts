@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 import { debounce, throttlePromiseDelay } from 'common/async';
-import { prefersLight } from 'common/theme';
+import { prefersLightThemeQuery } from 'common/device';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'common/xhr';
@@ -97,7 +97,8 @@ export class BackgroundCtrl extends PaneCtrl {
   private apply = () => {
     const key = this.data.current;
     document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
-    document.documentElement.className = key === 'system' ? (prefersLight().matches ? 'light' : 'dark') : key;
+    document.documentElement.className =
+      key === 'system' ? (prefersLightThemeQuery().matches ? 'light' : 'dark') : key;
 
     if (key === 'transp') {
       const bgData = document.getElementById('bg-data');

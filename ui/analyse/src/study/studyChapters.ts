@@ -25,7 +25,7 @@ import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import type Sortable from 'sortablejs';
 import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */

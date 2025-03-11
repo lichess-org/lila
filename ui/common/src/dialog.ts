@@ -1,6 +1,6 @@
 import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml, frag, $as } from './common';
+import { frag, $as } from './common';
 import { Janitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -64,105 +64,6 @@ site.load.then(async () => {
       ?.default;
   pubsub.complete('dialog.polyfill');
 });
-
-// non-blocking window.alert-alike
-export async function alert(msg: string): Promise<void> {
-  await domDialog({
-    htmlText: escapeHtmlAddBreaks(msg),
-    class: 'alert',
-    modal: true,
-    show: true,
-  });
-}
-
-export async function alerts(msgs: string[]): Promise<void> {
-  for (const msg of msgs) await alert(msg);
-}
-
-export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
-  const dlg = await domDialog({
-    htmlText: escapeHtmlAddBreaks(msg),
-    noCloseButton: true,
-    actions: { result: 'ok' },
-  });
-  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
-  return dlg.show();
-}
-
-// non-blocking window.confirm-alike
-export async function confirm(
-  msg: string,
-  yes: string = i18n.site.yes,
-  no: string = i18n.site.no,
-): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
-          <span><button class="button button-empty no">${no}</button>
-          <button class="button yes">${yes}</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        modal: true,
-        show: true,
-        focus: '.yes',
-        actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
-        ],
-      })
-    ).returnValue === 'yes'
-  );
-}
-
-// non-blocking window.prompt-alike
-export async function prompt(
-  msg: string,
-  def: string = '',
-  valid: (text: string) => boolean = () => true,
-): Promise<string | null> {
-  const res = await domDialog({
-    htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
-      <input type="text"${valid(def) ? '' : ' class="invalid"'} value="${escapeHtml(def)}">
-      <span><button class="button button-empty cancel">${i18n.site.cancel}</button>
-      <button class="button ok${valid(def) ? '"' : ' disabled" disabled'}>${i18n.site.ok}</button></span>`,
-    class: 'alert',
-    noCloseButton: true,
-    noClickAway: true,
-    modal: true,
-    show: true,
-    focus: 'input',
-    actions: [
-      { selector: '.ok', result: 'ok' },
-      { selector: '.cancel', result: 'cancel' },
-      {
-        selector: 'input',
-        event: 'keydown',
-        listener: (e: KeyboardEvent, dlg) => {
-          if (e.key !== 'Enter' && e.key !== 'Escape') return;
-          e.preventDefault();
-          if (e.key === 'Enter' && valid(dlg.view.querySelector<HTMLInputElement>('input')!.value))
-            dlg.close('ok');
-          else if (e.key === 'Escape') dlg.close('cancel');
-        },
-      },
-      {
-        selector: 'input',
-        event: 'input',
-        listener: (e, dlg) => {
-          if (!(e.target instanceof HTMLInputElement)) return;
-          const ok = dlg.view.querySelector<HTMLButtonElement>('.ok')!;
-          const invalid = !valid(e.target.value);
-          e.target.classList.toggle('invalid', invalid);
-          ok.classList.toggle('disabled', invalid);
-          ok.disabled = invalid;
-        },
-      },
-    ],
-  });
-  return res.returnValue === 'ok' ? res.view.querySelector('input')!.value : null;
-}
 
 // when opts contains 'show', domDialog function's result promise resolves on dialog closure.
 // otherwise, the promise resolves once assets are loaded and it is safe to call show
@@ -404,10 +305,6 @@ function loadAssets(o: DialogOpts) {
       'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
     ),
   ]);
-}
-
-function escapeHtmlAddBreaks(s: string) {
-  return escapeHtml(s).replace(/\n/g, '<br>');
 }
 
 function onResize() {

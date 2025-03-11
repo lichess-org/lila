@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import { throttle } from 'common/async';
-import { currentTheme } from 'common/theme';
+import { currentTheme } from 'common/device';
 import tablesort from 'tablesort';
 import { storedJsonProp } from 'common/storage';
 import { Editor, type EditorType } from '@toast-ui/editor';

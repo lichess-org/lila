@@ -3,11 +3,11 @@ import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { userLink } from 'common/userLink';
 import type { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
-import { numberFormat } from 'common/number';
+import { numberFormat } from 'common/i18n';
 import { userModInfo, flag, timeout } from './xhr';
 import type ChatCtrl from './ctrl';
 import { pubsub } from 'common/pubsub';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;

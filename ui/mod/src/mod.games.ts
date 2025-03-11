@@ -3,7 +3,7 @@ import tablesort from 'tablesort';
 import { debounce } from 'common/async';
 import { formToXhr } from 'common/xhr';
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 
 site.load.then(() => {
   setupTable();

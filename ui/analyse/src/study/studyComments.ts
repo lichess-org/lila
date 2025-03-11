@@ -5,7 +5,7 @@ import { richHTML } from 'common/richText';
 import type AnalyseCtrl from '../ctrl';
 import { nodeFullName } from '../view/util';
 import type StudyCtrl from './studyCtrl';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 
 export type AuthorObj = {
   id: string;

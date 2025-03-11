@@ -17,7 +17,7 @@ import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 export default class ChatCtrl {
   data: ChatData;

@@ -1,8 +1,7 @@
 import * as licon from 'common/licon';
 import { bind, bindNonPassive, type MaybeVNodes } from 'common/snabbdom';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner, toggle } from 'common/controls';
 import { h, thunk, type VNode } from 'snabbdom';
-import { toggle } from 'common/controls';
 import { richHTML } from 'common/richText';
 import { option, plural } from '../../view/util';
 import { view as descView } from '../description';

@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import type { Elements } from 'chessground/types';
-import resizeHandle from 'common/resize';
+import resizeHandle from 'common/chessgroundResize';
 import { storage } from 'common/storage';
 import type AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
