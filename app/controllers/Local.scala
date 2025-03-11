@@ -13,7 +13,7 @@ final class Local(env: Env) extends LilaController(env):
     def withServiceWorker(using RequestHeader) =
       r.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
-  def index = Anon:
+  def index = Secure(_.Beta) { _ ?=> _ ?=>
     for
       bots <- env.local.repo.getLatestBots()
       res <- negotiate(
@@ -23,25 +23,29 @@ final class Local(env: Env) extends LilaController(env):
         json = JsonOk(Json.obj("bots" -> bots))
       )
     yield res
+  }
 
   def assetKeys = Anon: // for service worker
     JsonOk(env.local.api.getJson)
 
-  def devIndex = Anon: _ ?=>
+  def devIndex = Secure(_.BotEditor) { _ ?=> _ ?=>
     for
       bots   <- env.local.repo.getLatestBots()
       assets <- env.local.api.devGetAssets
       page   <- renderPage(indexPage(bots, assets.some))
     yield Ok(page).withServiceWorker
+  }
 
-  def devAssets = Anon: ctx ?=>
+  def devAssets = Secure(_.BotEditor) { _ ?=> _ ?=>
     env.local.api.devGetAssets.map(JsonOk)
+  }
 
-  def devBotHistory(botId: Option[UserStr]) = Anon: _ ?=>
+  def devBotHistory(botId: Option[UserStr]) = Secure(_.BotEditor) { _ ?=> _ ?=>
     env.local.repo
       .getVersions(botId.map(_.id))
       .map: history =>
         JsonOk(Json.obj("bots" -> history))
+  }
 
   def devPostBot = SecureBody(parse.json)(_.BotEditor) { ctx ?=> me ?=>
     ctx.body.body
