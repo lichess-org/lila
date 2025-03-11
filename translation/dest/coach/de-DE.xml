@@ -24,4 +24,7 @@
   <string name="teachingMethod">Lehrmethode</string>
   <string name="publicStudies">Öffentliche Studien</string>
   <string name="youtubeVideos">Youtube-Videos</string>
+  <string name="allCountries">Alle Länder</string>
+  <string name="lastLogin">Letzter Login</string>
+  <string name="lichessRating">Lichess-Wertung</string>
 </resources>
