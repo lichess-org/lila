@@ -156,7 +156,7 @@
   <string name="flipBoard">Keer bord om</string>
   <string name="threefoldRepetition">Drie-malige herhaling</string>
   <string name="claimADraw">Eis gelykop</string>
-  <string name="drawClaimed" comment="This is a condition that can end the game. Appears when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Gelykop geëis</string>
+  <string name="drawClaimed">Gelykop geëis</string>
   <string name="offerDraw">Bied gelykop aan</string>
   <string name="draw">Gelykop</string>
   <plurals name="nbPlayers">
