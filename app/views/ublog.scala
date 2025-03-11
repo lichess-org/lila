@@ -3,7 +3,7 @@ package views.ublog
 import scalalib.paginator.Paginator
 import scalalib.model.Language
 
-import lila.app.UiEnv.*
+import lila.app.UiEnv.{ *, given }
 import lila.i18n.LangList
 import lila.ublog.UblogPost
 import lila.core.i18n.toLanguage
@@ -23,7 +23,7 @@ lazy val form = lila.ublog.ui.UblogFormUi(helpers, ui)(
 )
 
 def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
-  val langSelections: List[(Language, String)] = (Language("all"), "All languages") ::
+  val langSelections: List[(Language, String)] = (Language("all"), trans.site.allLanguages.txt()) ::
     lila.i18n.LangPicker
       .sortFor(LangList.popularNoRegion, ctx.req)
       .map: l =>
