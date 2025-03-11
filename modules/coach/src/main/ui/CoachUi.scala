@@ -246,13 +246,13 @@ final class CoachUi(helpers: Helpers)(
                 ),
                 lila.ui.bits.mselect(
                   "coach-sort",
-                  order.i18nKey.txt(),
+                  order.i18nKey(),
                   CoachPager.Order.list.map: o =>
                     a(
                       href := routes.Coach
                         .search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
                       cls := (order == o).option("current")
-                    )(o.i18nKey.txt())
+                    )(o.i18nKey())
                 )
               )
             ),
