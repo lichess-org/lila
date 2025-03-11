@@ -4,7 +4,7 @@ import { userLink } from 'common/userLink';
 import * as spam from './spam';
 import type { Line } from './interfaces';
 import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
-import { lineAction as modLineAction, report } from './moderation';
+import { lineAction as modLineAction, flagReport } from './moderation';
 import { presetView } from './preset';
 import type ChatCtrl from './ctrl';
 import { tempStorage } from 'common/storage';
@@ -40,10 +40,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               $el.on('click', '.mod', (e: Event) =>
                 ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
-            else
-              $el.on('click', '.flag', (e: Event) =>
-                report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement),
-              );
+            else $el.on('click', '.flag', (e: Event) => flagReport(ctrl, e.target as HTMLElement));
             scrollCb(vnode, true);
           },
           postpatch: (_, vnode) => scrollCb(vnode, false),
@@ -224,7 +221,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       : [
           myUserId && line.u && myUserId !== line.u
             ? h('action.flag', {
-                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
+                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
               })
             : null,
           userNode,

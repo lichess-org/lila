@@ -74,7 +74,7 @@ final class Ublog(env: Env) extends LilaController(env):
           else
             env.ublog.api
               .getPost(id)
-              .flatMapz { post =>
+              .flatMapz: post =>
                 env.forum.topicApi.makeUblogDiscuss(
                   slug = topicSlug,
                   name = post.title,
@@ -82,7 +82,6 @@ final class Ublog(env: Env) extends LilaController(env):
                   ublogId = id,
                   authorId = post.created.by
                 )
-              }
               .inject(redirect)
   private def WithBlogOf[U: UserIdOf](
       u: U
@@ -148,9 +147,10 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def delete(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
-      (env.ublog.api.delete(post) >>
-        logModAction(post, "delete")).inject(Redirect(urlOfBlog(post.blog)).flashSuccess)
-
+      for
+        _ <- env.ublog.api.delete(post)
+        _ <- logModAction(post, "delete")
+      yield Redirect(urlOfBlog(post.blog)).flashSuccess
   }
 
   private def logModAction(post: UblogPost, action: String, logIncludingMe: Boolean = false)(using

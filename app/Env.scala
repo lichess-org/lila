@@ -107,10 +107,6 @@ final class Env(
   val web: lila.web.Env                 = wire[lila.web.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
 
-  val appVersionDate    = config.getOptional[String]("app.version.date")
-  val appVersionCommit  = config.getOptional[String]("app.version.commit")
-  val appVersionMessage = config.getOptional[String]("app.version.message")
-
   val preloader     = wire[mashup.Preload]
   val socialInfo    = wire[mashup.UserInfo.SocialApi]
   val userNbGames   = wire[mashup.UserInfo.NbGamesApi]

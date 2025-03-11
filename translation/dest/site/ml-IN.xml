@@ -14,7 +14,7 @@
   <string name="toggleTheChat">സംഭാഷണം തുടങ്ങുകയോ നിര്തുകയോ ചെയ്യുന്നതിന്</string>
   <string name="chat">സംഭാഷണം</string>
   <string name="resign">കീഴടങ്ങുക</string>
-  <string name="checkmate">ചെക്ക്മേറ്റ്</string>
+  <string name="checkmate">അടിയറവു്</string>
   <string name="stalemate">സമനില</string>
   <string name="white">വെളുപ്പ്‌</string>
   <string name="black">കറുപ്പ്</string>
@@ -44,14 +44,14 @@
   <string name="opponentLeftChoices">എതിരാളി പോയിരിക്കാം. നിങ്ങൾക്ക് വിജയിക്കുകയോ സമനില കൊടുക്കുകയോ കാത്തിരിക്കുകയോ ചെയ്യാം.</string>
   <string name="forceResignation">വിജയം പ്രഖ്യാപിക്കുക</string>
   <string name="forceDraw">സമനില പ്രഖ്യാപിക്കുക</string>
-  <string name="talkInChat">ദയവായി ചാറ്റില്‍ സൗമ്യമായി പെരുമാറുക!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ഈ ലിങ്കിൽ വരുന്ന ആദ്യത്തെ വ്യക്തി നിങ്ങളുമായി കളിക്കും</string>
+  <string name="talkInChat">ദയവായി സല്ലാപമുറിയിൽ സൗമ്യമായി പെരുമാറുക!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ഈ കണ്ണിയിൽ വരുന്ന ആദ്യത്തെ വ്യക്തി നിങ്ങളുമായി കളിക്കും.</string>
   <string name="whiteResigned">വെള്ള തോൽവി സമ്മതിച്ചു</string>
   <string name="blackResigned">കറുപ്പു തോൽവി സമ്മതിച്ചു</string>
   <string name="whiteLeftTheGame">വെള്ള കളി ഉപേക്ഷിച്ചു</string>
   <string name="blackLeftTheGame">കറുപ്പു കളി ഉപേക്ഷിച്ചു</string>
-  <string name="whiteDidntMove">വൈറ്റ് നീക്കം നടത്തിയില്ല</string>
-  <string name="blackDidntMove">ബ്ലാക്ക് നീക്കം നടത്തിയില്ല</string>
+  <string name="whiteDidntMove">വെള്ള നീക്കം നടത്തിയില്ല</string>
+  <string name="blackDidntMove">കറുപ്പു് നീക്കം നടത്തിയില്ല</string>
   <string name="requestAComputerAnalysis">ഗണനിക പരിശോധനക്ക് അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">ഗണനിക പരിശോധന</string>
   <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് ഗണനിക വിശകലനം ലഭ്യമാണ്</string>
@@ -65,7 +65,7 @@
   <string name="cloudAnalysis">ക്ലൗഡ് ഉപയോഗിച്ചുള്ള വിശകലനം</string>
   <string name="goDeeper">ആഴം കൂട്ടുക</string>
   <string name="showThreat">ഭീഷണി വെളിപ്പെടുത്തുക</string>
-  <string name="inLocalBrowser">ഈ ബ്രൗസറിൽ</string>
+  <string name="inLocalBrowser">ഈ അന്വേഷിയന്ത്രത്തിൽ</string>
   <string name="toggleLocalEvaluation">ഈ കമ്പ്യൂട്ടറിൽ തന്നെ മൂല്യനിർണം നടത്തുക</string>
   <string name="promoteVariation">ഈ വേരിയേഷൻ പ്രചരിപ്പിക്കുക</string>
   <string name="makeMainLine">മെയിൻ ലൈൻ ആകുക</string>
@@ -116,7 +116,7 @@
   <string name="realtimeReplay">തത്സമയം</string>
   <string name="byCPL">CPL മുഖേന</string>
   <string name="enable">വേണോ</string>
-  <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ arrow</string>
+  <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ അമ്പു്</string>
   <string name="showVariationArrows">വ്യതിയാനയമ്പുകൾ കാണിക്കുക</string>
   <string name="evaluationGauge">മൂല്യനിർണയ സംവിധാനം</string>
   <string name="multipleLines">ഒന്നിലധികം വരികൾ</string>
@@ -484,7 +484,7 @@
   <string name="losses">പരാജയങ്ങൾ</string>
   <string name="createdBy">നിർമ്മാണം</string>
   <string name="tournamentIsStarting">പരമ്പര തുടങ്ങുന്നു</string>
-  <string name="tournamentPairingsAreNowClosed">ടൂർണമെന്റ് പെയറിങ് കഴിഞ്ഞിരിക്കുന്നു.</string>
+  <string name="tournamentPairingsAreNowClosed">മത്സര ഇണചേൎക്കലുകൾ തീൎന്നിരിക്കുന്നു.</string>
   <string name="standByX">ദയവായി കാത്തിരിക്കൂ %s, കളിക്കാരെ പെയർ ചെയ്യുന്നു, തയ്യാറാവൂ!</string>
   <string name="pause">നിറുത്തുക</string>
   <string name="resume">തുടരുക</string>
@@ -777,7 +777,7 @@
   <string name="xHostsY">%1$s %2$s host ചെയ്യുന്നു</string>
   <string name="xJoinsY">%1$s %2$s -ൽ ചേർന്നിരിക്കുന്നു</string>
   <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടപെട്ടു</string>
-  <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
+  <string name="quickPairing">പെട്ടെന്ന് ഇണചേൎക്കൽ നടത്തുക</string>
   <string name="lobby">ഇടനാഴി</string>
   <string name="anonymous">അജ്ഞാത</string>
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>

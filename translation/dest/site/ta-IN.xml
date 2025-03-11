@@ -3,7 +3,7 @@
   <string name="playWithAFriend">தோழருடன் விளையாடு</string>
   <string name="playWithTheMachine">கணினியுடன் விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">பிறரை ஆட்டத்திற்கு அழைக்க, இந்த URL ளைக்கொடு</string>
-  <string name="gameOver">ஆட்டம் முற்றிற்று</string>
+  <string name="gameOver">ஆட்டம் முடிந்துவிட்டது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
   <string name="orLetYourOpponentScanQrCode">அல்லது உங்கள் எதிராளியை இந்த QR குறியீட்டை மேவ அனுமதிக்கவும்</string>
   <string name="waiting">காத்திருக்கின்றது</string>
@@ -681,7 +681,7 @@
   <string name="createdSimuls">புதிதாக உருவாக்கப்பட்ட ஒருங்கமை</string>
   <string name="hostANewSimul">புதிய, ஒருங்கமை நடத்துங்கள்</string>
   <string name="signUpToHostOrJoinASimul">ஒரு ஹோஸ்டை சேர நீங்கள் உங்களைப் பதிவு செய்யவும் அல்லது ஒருங்கமை யில் சேரவும்</string>
-  <string name="noSimulFound">ஒருங்கமை கிடைக்கவில்லை</string>
+  <string name="noSimulFound">சிமுல் கண்டுபிடிக்க முடியவில்லை</string>
   <string name="noSimulExplanation">இந்த ஒருங்கமை இல்லை.</string>
   <string name="returnToSimulHomepage">ஒருங்கமை முகப்புப்பக்கத்திற்குத் திரும்பு</string>
   <string name="aboutSimul">ஒரே நேரத்தில் பல வீரர்களை எதிர்கொள்ளும் ஒரு வீரரை ஒருங்கமை உள்ளடக்கியது.</string>

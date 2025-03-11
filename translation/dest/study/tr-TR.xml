@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Senkronize edilen bütün üyeler aynı pozisyonda kalır</string>
   <string name="shareChanges">Değişiklikleri izleyiciler ile paylaşın ve sunucuya kaydedin</string>
   <string name="playing">Oynanıyor</string>
+  <string name="showResults">Sonuçlar</string>
   <string name="showEvalBar">Değerlendirme çubuğu</string>
   <string name="first">İlk</string>
   <string name="previous">Önceki</string>
@@ -102,12 +103,12 @@
   <string name="loadAPositionFromFen">FEN kullanarak pozisyon yükle</string>
   <string name="loadAGameFromPgn">PGN ile oyun yükle</string>
   <string name="automatic">Otomatik</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="%s is the number of games. A study may have up to 64 chapters as of February 2025.&#10;&#10;Appears as a hint in a text box that permits the study creator to paste game(s) in PGN format into their code.&#10;&#10;The text for plurals was extended in February 2025. It is long for a placeholder hint. Because of where it is displayed, we encourage you to keep your translation short.&#10;&#10;&quot;PGN&quot; should not be translated or transliterated into a different alphabet or script.">
     <item quantity="one">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
     <item quantity="other">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
   </plurals>
   <string name="urlOfTheGame">Oyunun bağlantısı</string>
-  <string name="loadAGameFromXOrY">%1$s veya %2$s kullanarak oyun yükle</string>
+  <string name="loadAGameFromXOrY" comment="%1$s is lichess.org %2$s is chessgames.com.&#10;&#10;Users can paste URLs to games from either of these websites and import the games into their studies.">%1$s veya %2$s kullanarak oyun yükle</string>
   <string name="createChapter">Bölüm oluştur</string>
   <string name="createStudy">Çalışma oluştur</string>
   <string name="editStudy">Çalışmayı düzenle</string>

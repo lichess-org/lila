@@ -17,7 +17,7 @@ def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
     main(cls := "page-menu")(
       list.menu("staffPicks", Order.mine, Nil),
       main(cls := "page-menu__content box box-pad page"):
-        views.site.page.pageContent(p)
+        views.cms.pageContent(p)
     )
 
 def streamers(streamers: List[UserId])(using Translate) =

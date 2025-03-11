@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Mover una pieza entre dos piezas de l\'oponent que deixa una u dos piezas indefensas de l\'oponent, como un caballo en un cuadret defendiu entre dos torres.</string>
   <string name="intermezzo">Chugada intermedia</string>
   <string name="intermezzoDescription">En cuenta de fer la chugada esperada, interposar un movimiento previo que chenera un periglo imminent a lo cual l\'oponent ha de responder. Tamién se conoixe como \"Zwichenzug\" u \"Intermezzo\".</string>
+  <string name="killBoxMate">Mate d\'a caixa mortal</string>
+  <string name="killBoxMateDescription">Una torre ye a lo costau d\'o rei enemigo sostenida per una dama que tamién bloqueya los cuadrez d\'escape. La torre y la dama cazan a lo rei enemigo con una \"caixa mortal\" 3x3.</string>
+  <string name="vukovicMate">Mate de Vukovic</string>
+  <string name="vukovicMateDescription">Una torre y un caballo colaboran pa fer mate a lo rei. La torre da lo mate mientres ye defendida per una atra pieza. Lo caballo se fa servir pa blocar los cuadrez de salida d\'o rei.</string>
   <string name="knightEndgame">Final de caballos</string>
   <string name="knightEndgameDescription">Un final con caballos y peons nomás.</string>
   <string name="long">Problema largo</string>
