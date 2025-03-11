@@ -4,7 +4,7 @@ import { finished, aborted } from 'game/status';
 import * as util from '../util';
 import { bindMobileMousedown, isCol1 } from 'common/device';
 import type RoundController from '../ctrl';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { Step } from '../interfaces';

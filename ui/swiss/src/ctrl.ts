@@ -1,6 +1,6 @@
 import { makeSocket, type SwissSocket } from './socket';
 import xhr from './xhr';
-import { throttlePromiseDelay } from 'common/timing';
+import { throttlePromiseDelay } from 'common/async';
 import { maxPerPage, myPage, players } from './pagination';
 import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';

@@ -3,7 +3,7 @@ import { playable, playedTurns } from 'game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
 import { plural } from './view/util';
-import { debounce, throttle } from 'common/timing';
+import { debounce, throttle } from 'common/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'common/device';

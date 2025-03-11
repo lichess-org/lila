@@ -1,6 +1,6 @@
 import type { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
-import { debounce, throttle, throttlePromiseDelay } from 'common/timing';
+import { debounce, throttle, throttlePromiseDelay } from 'common/async';
 import type AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';

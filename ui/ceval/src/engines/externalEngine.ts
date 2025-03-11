@@ -7,7 +7,7 @@ import {
 } from '../types';
 import { randomToken } from 'common/algo';
 import { readNdJson } from 'common/xhr';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 
 interface ExternalEngineOutput {
   time: number;

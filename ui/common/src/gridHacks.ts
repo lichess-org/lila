@@ -1,5 +1,5 @@
 import { bindChessgroundResize } from './resize';
-import { throttle } from './timing';
+import { throttle } from './async';
 
 export const runner = (hacks: () => void, throttleMs = 100): void => {
   let timeout: Timeout | undefined;

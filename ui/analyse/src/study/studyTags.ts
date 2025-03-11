@@ -1,5 +1,5 @@
 import { onInsert } from 'common/snabbdom';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import { h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';

@@ -1,6 +1,6 @@
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import { formToXhr } from 'common/xhr';
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
 import { confirm } from 'common/dialog';

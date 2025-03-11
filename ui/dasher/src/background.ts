@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import { elementScrollBarWidthSlowGuess, header } from './util';
-import { debounce, throttlePromiseDelay } from 'common/timing';
+import { debounce, throttlePromiseDelay } from 'common/async';
 import { prefersLight } from 'common/theme';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
