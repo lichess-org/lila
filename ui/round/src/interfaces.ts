@@ -53,6 +53,7 @@ export interface RoundData extends GameData {
   possibleDrops?: string;
   forecastCount?: number;
   opponentSignal?: number;
+  playerSignal?: number;
   crazyhouse?: Tree.NodeCrazy;
   correspondence?: CorresClockData;
   tv?: Tv;

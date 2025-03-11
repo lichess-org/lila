@@ -10,7 +10,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
     rating = player.rating || perf?.rating,
-    signal = user?.id === d.opponent.user?.id ? d.opponentSignal : undefined;
+    signal = user?.id === d.opponent.user?.id ? d.opponentSignal : d.playerSignal;
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
