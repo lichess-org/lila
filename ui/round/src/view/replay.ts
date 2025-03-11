@@ -4,7 +4,7 @@ import { finished, aborted } from 'game/status';
 import * as util from '../util';
 import { bindMobileMousedown, isCol1 } from 'common/device';
 import type RoundController from '../ctrl';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { Step } from '../interfaces';
@@ -23,7 +23,7 @@ const scrollMax = 99999,
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
-    if (ctrl.data.steps.length < 7) return;
+    if (ctrl.data.steps.length < 7 && !finished(ctrl.data)) return;
     let st: number | undefined;
     if (ctrl.ply < 3) st = 0;
     else if (ctrl.ply === util.lastPly(ctrl.data)) st = scrollMax;

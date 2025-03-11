@@ -20,7 +20,6 @@ import lila.gathering.GatheringJson.*
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
-import lila.ui.Icon.iconWrites
 
 final class JsonView(
     lightUserApi: LightUserApi,
@@ -138,7 +137,7 @@ final class JsonView(
           .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
           .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
           .add("minRatedGames", tour.conditions.nbRatedGame)
-          .add("botsAllowed", tour.conditions.bots.exists(_.allowed))
+          .add("botsAllowed", tour.conditions.allowsBots)
           .add("minAccountAgeInDays", tour.conditions.accountAge.map(_.days))
           .add("onlyTitled", tour.conditions.titled.isDefined)
           .add("teamMember", tour.conditions.teamMember.map(_.teamId))

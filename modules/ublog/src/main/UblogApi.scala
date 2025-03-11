@@ -23,9 +23,7 @@ final class UblogApi(
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
     colls.post.insert
-      .one(
-        bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id))
-      )
+      .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
       .inject(post)
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
@@ -67,16 +65,16 @@ final class UblogApi(
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
-  def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
+  def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byIdProj[UblogPost](id, postProjection)
 
   def findEditableByMe(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
     colls.post
-      .byId[UblogPost](id)
+      .byIdProj[UblogPost](id, postProjection)
       .dmap:
         _.filter(_.allows.edit)
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
-    colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
+    colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog), postProjection)
 
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post

@@ -1,4 +1,4 @@
-import { promiseTimeout } from 'common/promise';
+import { promiseTimeout } from 'common/async';
 import { wsDestroy } from 'common/socket';
 
 let redirectInProgress: false | string = false;

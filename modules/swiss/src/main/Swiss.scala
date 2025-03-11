@@ -25,9 +25,13 @@ case class Swiss(
     finishedAt: Option[Instant],
     winnerId: Option[UserId] = None
 ):
-  def isCreated            = round.value == 0
-  def isStarted            = !isCreated && !isFinished
-  def isFinished           = finishedAt.isDefined
+  def status: Swiss.Status =
+    if round.value == 0 then Swiss.Status.created
+    else if finishedAt.isDefined then Swiss.Status.finished
+    else Swiss.Status.started
+  def isCreated            = status == Swiss.Status.created
+  def isStarted            = status == Swiss.Status.started
+  def isFinished           = status == Swiss.Status.finished
   def isNotFinished        = !isFinished
   def isNowOrSoon          = startsAt.isBefore(nowInstant.plusMinutes(15)) && !isFinished
   def finishedSinceSeconds = finishedAt.map(nowSeconds - _.toSeconds)
@@ -128,3 +132,7 @@ object Swiss:
       teamId: TeamId,
       chatFor: ChatFor
   )
+
+  enum Status:
+    case created, started, finished
+  def status(str: String) = scala.util.Try(Status.valueOf(str)).toOption

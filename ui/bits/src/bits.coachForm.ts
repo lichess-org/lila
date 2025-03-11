@@ -1,4 +1,4 @@
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as xhr from 'common/xhr';
 import { isSafari } from 'common/device';
 import { notNull } from 'common';

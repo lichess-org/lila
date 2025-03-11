@@ -2,6 +2,8 @@
 <resources>
   <string name="communityBlogs">Bloggar frå sjakkmiljøet</string>
   <string name="friendBlogs">Bloggane til vener</string>
+  <string name="lichessBlog">Lichess-blogg</string>
+  <string name="myBlog">Min blogg</string>
   <string name="likedBlogs">Likte blogginnlegg</string>
   <string name="blogTopics">Bloggemner</string>
   <plurals name="blogPosts">

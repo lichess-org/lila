@@ -156,6 +156,7 @@
   <string name="flipBoard">Brätt umcheere</string>
   <string name="threefoldRepetition">Drüüfachi Stelligswiederholig</string>
   <string name="claimADraw">Es Remis beaschpruche</string>
+  <string name="drawClaimed">Remis g\'forderet</string>
   <string name="offerDraw">Remis abüte</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">

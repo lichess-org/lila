@@ -23,8 +23,6 @@ final class ModTimelineUi(helpers: Helpers)(
   def renderComm(t: ModTimeline)(using Translate)    = render(t)(using Angle.Comm)
   def renderPlay(t: ModTimeline)(using Translate)    = render(t)(using Angle.Play)
 
-  private val eventOrdering = summon[Ordering[Instant]].reverse
-
   private def render(t: ModTimeline)(using angle: Angle)(using Translate) = div(cls := "mod-timeline"):
     val today = nowInstant.date
     t.all
@@ -37,7 +35,7 @@ final class ModTimelineUi(helpers: Helpers)(
       .view
       .mapValues(_.map(_._2))
       .toList
-      .sortBy(x => x._2.head.at)(eventOrdering)
+      .sortBy(_._2.head.at)(Ordering[Instant].reverse)
       .map: (period, events) =>
         (period, ModTimeline.aggregateEvents(events))
       .map(renderPeriod(t))

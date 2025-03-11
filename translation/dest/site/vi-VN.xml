@@ -148,6 +148,7 @@
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ 3 lần</string>
   <string name="claimADraw">Nhận hòa</string>
+  <string name="drawClaimed">Hòa cờ</string>
   <string name="offerDraw">Đề nghị hoà</string>
   <string name="draw">Hoà</string>
   <plurals name="nbPlayers">

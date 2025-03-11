@@ -156,6 +156,7 @@
   <string name="flipBoard">Kthe fushën</string>
   <string name="threefoldRepetition">Përsëritje trefishe</string>
   <string name="claimADraw">Kërko barazim</string>
+  <string name="drawClaimed">U kërkua barazim</string>
   <string name="offerDraw">Ofro barazim</string>
   <string name="draw">Barazim</string>
   <plurals name="nbPlayers">

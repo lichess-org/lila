@@ -156,6 +156,7 @@
   <string name="flipBoard">Girar el tablero</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar tablas</string>
+  <string name="drawClaimed">Tablas reclamadas</string>
   <string name="offerDraw">Ofrecer tablas</string>
   <string name="draw">Tablas</string>
   <plurals name="nbPlayers">

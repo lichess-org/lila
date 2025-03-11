@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
 import { spinnerHtml } from 'common/spinner';

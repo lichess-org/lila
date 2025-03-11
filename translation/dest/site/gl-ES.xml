@@ -156,6 +156,7 @@
   <string name="flipBoard">Xirar o taboleiro</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
   <string name="claimADraw">Reclamar táboas</string>
+  <string name="drawClaimed">Reclamáronse as táboas</string>
   <string name="offerDraw">Ofrecer táboas</string>
   <string name="draw">Táboas</string>
   <plurals name="nbPlayers">

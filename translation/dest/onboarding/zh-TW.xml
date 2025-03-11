@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="logInAsUsername">以 %s 登入</string>
   <string name="welcome">歡迎！</string>
   <string name="welcomeToLichess">歡迎來到 lichess.org！</string>
   <string name="thisIsYourProfilePage">這是你的個人資料頁面。</string>
@@ -13,5 +14,5 @@
   <string name="playInTournaments">參加錦標賽</string>
   <string name="learnFromXAndY">在 %1$s 與 %2$s 學習</string>
   <string name="configureLichess">設定 Lichess</string>
-  <string name="exploreTheSiteAndHaveFun">在 Lichess 上到處探索：）</string>
+  <string name="exploreTheSiteAndHaveFun">在 Lichess 上到處探索：)</string>
 </resources>

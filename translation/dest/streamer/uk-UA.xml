@@ -33,6 +33,9 @@
   <string name="streamerLanguageSettings">Сторінка стримера Lichess націлена на глядачів за мовою, наданою вашою стримінговою платформою. Встановіть правильну мову за замовчуванням для ваших шахових трансляцій в додатку чи сервісі, який ви використовуєте для трансляцій.</string>
   <string name="twitchUsername">Ваше ім\'я користувача Twitch або посилання</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">Потрібний Twitch або YouTube</string>
+  <string name="twitchOrYouTubeMustBeVerified">Потрібно підтвердити зміни в Twitch та YouTube.
+  
+  Ваш значок стримера та поява в списку будуть призупинені в період перегляду. Це може зайняти до 72 годин.</string>
   <string name="youTubeChannelId">ID вашого YouTube каналу</string>
   <string name="streamerName">Ваше ім\'я для трансляцій на Lichess</string>
   <plurals name="keepItShort">

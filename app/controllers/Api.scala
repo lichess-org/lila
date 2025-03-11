@@ -163,7 +163,7 @@ final class Api(
             withScores = true,
             withAllowList = true
           )
-          .map(some)
+          .dmap(some)
       .map(toApiResult)
       .map(toHttp)
 

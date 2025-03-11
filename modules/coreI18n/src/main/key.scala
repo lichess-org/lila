@@ -363,6 +363,9 @@ object I18nKey:
     val `teachingMethod`: I18nKey = "coach:teachingMethod"
     val `publicStudies`: I18nKey = "coach:publicStudies"
     val `youtubeVideos`: I18nKey = "coach:youtubeVideos"
+    val `allCountries`: I18nKey = "coach:allCountries"
+    val `lastLogin`: I18nKey = "coach:lastLogin"
+    val `lichessRating`: I18nKey = "coach:lichessRating"
 
   object contact:
     val `contact`: I18nKey = "contact:contact"
@@ -459,6 +462,7 @@ object I18nKey:
     val `startTraining`: I18nKey = "coordinates:startTraining"
     val `findSquare`: I18nKey = "coordinates:findSquare"
     val `nameSquare`: I18nKey = "coordinates:nameSquare"
+    val `practiceOnlySomeFilesAndRanks`: I18nKey = "coordinates:practiceOnlySomeFilesAndRanks"
 
   object dgt:
     val `dgtBoard`: I18nKey = "dgt:dgtBoard"
@@ -1511,6 +1515,7 @@ object I18nKey:
     val `flipBoard`: I18nKey = "flipBoard"
     val `threefoldRepetition`: I18nKey = "threefoldRepetition"
     val `claimADraw`: I18nKey = "claimADraw"
+    val `drawClaimed`: I18nKey = "drawClaimed"
     val `offerDraw`: I18nKey = "offerDraw"
     val `draw`: I18nKey = "draw"
     val `drawByMutualAgreement`: I18nKey = "drawByMutualAgreement"
@@ -2007,6 +2012,7 @@ object I18nKey:
     val `anonymous`: I18nKey = "anonymous"
     val `yourScore`: I18nKey = "yourScore"
     val `language`: I18nKey = "language"
+    val `allLanguages`: I18nKey = "allLanguages"
     val `background`: I18nKey = "background"
     val `light`: I18nKey = "light"
     val `dark`: I18nKey = "dark"

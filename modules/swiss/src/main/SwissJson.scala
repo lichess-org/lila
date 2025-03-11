@@ -167,11 +167,7 @@ object SwissJson:
         "nbRounds"  -> swiss.settings.nbRounds,
         "nbPlayers" -> swiss.nbPlayers,
         "nbOngoing" -> swiss.nbOngoing,
-        "status" -> {
-          if swiss.isStarted then "started"
-          else if swiss.isFinished then "finished"
-          else "created"
-        }
+        "status"    -> swiss.status.toString
       )
       .add("nextRound" -> swiss.nextRoundAt.map { next =>
         Json.obj(

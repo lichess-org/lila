@@ -1,6 +1,6 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
-import { throttle, throttlePromiseDelay } from 'common/timing';
+import { throttle, throttlePromiseDelay } from 'common/async';
 import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { Boost } from './boost';
 import { Clock } from 'puz/clock';

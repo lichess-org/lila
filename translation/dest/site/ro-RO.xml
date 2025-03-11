@@ -164,6 +164,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
   <string name="claimADraw">Cere remiză</string>
+  <string name="drawClaimed">Remiză revendicată</string>
   <string name="offerDraw">Propune remiză</string>
   <string name="draw">Remiză</string>
   <plurals name="nbPlayers">

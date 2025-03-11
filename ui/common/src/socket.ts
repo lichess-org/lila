@@ -1,5 +1,5 @@
 import * as xhr from './xhr';
-import { idleTimer, browserTaskQueueMonitor } from './timing';
+import { idleTimer, browserTaskQueueMonitor } from './async';
 import { storage, once, type LichessStorage } from './storage';
 import { pubsub, type PubsubEvent } from './pubsub';
 import { myUserId } from './common';
