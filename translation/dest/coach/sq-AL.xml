@@ -24,4 +24,7 @@
   <string name="teachingMethod">Metodologji mësimdhenieje</string>
   <string name="publicStudies">Studime publike</string>
   <string name="youtubeVideos">Video YouTube</string>
+  <string name="allCountries">Krejt vendet</string>
+  <string name="lastLogin">Hyrja e fundit</string>
+  <string name="lichessRating">Vlerësim Lichess</string>
 </resources>
