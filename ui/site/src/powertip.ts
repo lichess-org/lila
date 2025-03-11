@@ -239,6 +239,7 @@ type Coords = {
   right: number | 'auto';
   top: number | 'auto';
   bottom: number | 'auto';
+  [key: string]: number | 'auto';
 };
 
 function cssCoordinates(): Coords {
@@ -375,6 +376,10 @@ function placementCalculator() {
           coords.top = position.top + offset;
           break;
       }
+      if ($as<WithTooltip>(element).classList.contains('mobile-powertip'))
+        Object.keys(coords).forEach(k => {
+          if (coords[k] !== 'auto') coords[k] = Math.max(coords[k], 0);
+        });
       return coords;
     },
   };
