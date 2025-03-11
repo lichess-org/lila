@@ -212,14 +212,15 @@ final class SimulApi(
 
   def hostPing(simul: Simul): Funit =
     simul.isCreated.so:
-      repo.setHostSeenNow(simul) >> {
-        val applicantIds = simul.applicants.view.map(_.player.user).toSet
-        socket.filterPresent(simul, applicantIds).flatMap { online =>
-          val leaving = applicantIds.diff(online.toSet)
-          leaving.nonEmpty.so(WithSimul(repo.findCreated, simul.id):
-            _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user))))
-        }
-      }
+      for
+        _ <- repo.setHostSeenNow(simul)
+        applicantIds = simul.applicants.view.map(_.player.user).toSet
+        online <- socket.filterPresent(simul, applicantIds)
+        leaving = applicantIds.diff(online.toSet)
+        _ <- leaving.nonEmpty.so:
+          WithSimul(repo.findCreated, simul.id):
+            _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
+      yield ()
 
   def idToName(id: SimulId): Fu[Option[String]] =
     repo.coll.primitiveOne[String]($id(id), "name").dmap2(_ + " simul")
