@@ -282,10 +282,10 @@
   <string name="yourOpponentOffersADraw">Твој противник нуди реми</string>
   <string name="accept">Прихвати</string>
   <string name="decline">Одбиј</string>
-  <string name="playingRightNow">Управо игра</string>
+  <string name="playingRightNow">Тренутно се игра</string>
   <string name="eventInProgress">Управо игра</string>
-  <string name="finished">Завршен</string>
-  <string name="abortGame">Прекините партију</string>
+  <string name="finished">Завршено</string>
+  <string name="abortGame">Прекини партију</string>
   <string name="gameAborted">Партија прекинута</string>
   <string name="standard">Стандардно</string>
   <string name="customPosition">Произвољна позиција</string>
