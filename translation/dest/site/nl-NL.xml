@@ -156,7 +156,7 @@
   <string name="flipBoard">Bord draaien</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="claimADraw">Remise opeisen</string>
-  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Remise geclaimd</string>
+  <string name="drawClaimed">Remise geclaimd</string>
   <string name="offerDraw">Remise aanbieden</string>
   <string name="draw">Remise</string>
   <plurals name="nbPlayers">

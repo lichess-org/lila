@@ -1,5 +1,5 @@
 import { formToXhr, text as xhrText } from 'common/xhr';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as licon from 'common/licon';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';

@@ -92,6 +92,23 @@
   }
 }
 
+.tour__bots-warning {
+  @extend %box-neat, %flex-center-nowrap;
+  gap: 1em;
+  margin-top: 1em;
+  background: $m-accent_bg--mix-10;
+  padding: 1em;
+
+  h2 {
+    margin: 0em 0 0.5em 0;
+  }
+
+  img {
+    aspect-ratio: 1 / 1;
+    width: 5em;
+  }
+}
+
 .chat__members {
   overflow: visible;
 

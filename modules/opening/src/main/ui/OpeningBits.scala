@@ -16,11 +16,11 @@ final class OpeningBits(helpers: Helpers):
       "opening",
       page.fold(JsNull): p =>
         import lila.common.Json.given
-        Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
+        Json.obj("history" -> p.exploredOption.so[List[Float]](_.history), "sans" -> p.query.sans)
     )
 
   def whatsNext(page: OpeningPage): Option[Tag] =
-    page.explored.map: explored =>
+    page.exploredOption.map: explored =>
       div(cls := "opening__nexts")(
         explored.next.map: next =>
           val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)

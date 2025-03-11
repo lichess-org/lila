@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import { currentTheme } from 'common/theme';
 import tablesort from 'tablesort';
 import { storedJsonProp } from 'common/storage';

@@ -1,5 +1,5 @@
 import { type Prop, propWithEffect } from 'common';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as xhr from 'common/xhr';
 import { storedJsonProp } from 'common/storage';
 import { clockToSpeed } from 'game';

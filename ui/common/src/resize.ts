@@ -1,6 +1,6 @@
 import type { Elements } from 'chessground/types';
 import * as xhr from './xhr';
-import { debounce } from './timing';
+import { debounce } from './async';
 import { ShowResizeHandle } from './prefs';
 import { pubsub } from './pubsub';
 

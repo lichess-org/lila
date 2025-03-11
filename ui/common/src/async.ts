@@ -103,6 +103,35 @@ export function throttle<T extends (...args: any) => void>(
   });
 }
 
+export interface Sync<T> {
+  promise: Promise<T>;
+  sync: T | undefined;
+}
+
+export function sync<T>(promise: Promise<T>): Sync<T> {
+  const sync: Sync<T> = {
+    sync: undefined,
+    promise: promise.then(v => {
+      sync.sync = v;
+      return v;
+    }),
+  };
+  return sync;
+}
+
+// Call an async function with a maximum time limit (in milliseconds) for the timeout
+export async function promiseTimeout<A>(asyncPromise: Promise<A>, timeLimit: number): Promise<A> {
+  let timeoutHandle: Timeout | undefined = undefined;
+
+  const timeoutPromise = new Promise<A>((_, reject) => {
+    timeoutHandle = setTimeout(() => reject(new Error('Async call timeout limit reached')), timeLimit);
+  });
+
+  const result = await Promise.race([asyncPromise, timeoutPromise]);
+  if (timeoutHandle) clearTimeout(timeoutHandle);
+  return result;
+}
+
 export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void {
   const events = ['mousemove', 'touchstart'];
 
@@ -111,10 +140,7 @@ export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => voi
     lastSeenActive = performance.now();
 
   const onActivity = () => {
-    if (!active) {
-      // console.log('Wake up');
-      onWakeUp();
-    }
+    if (!active) onWakeUp();
     active = true;
     lastSeenActive = performance.now();
     stopListening();
@@ -136,7 +162,6 @@ export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => voi
 
   setInterval(() => {
     if (active && performance.now() - lastSeenActive > delay) {
-      // console.log('Idle mode');
       onIdle();
       active = false;
     }

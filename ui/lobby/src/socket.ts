@@ -2,7 +2,7 @@ import * as xhr from './xhr';
 import * as hookRepo from './hookRepo';
 import type LobbyController from './ctrl';
 import type { PoolMember, Hook } from './interfaces';
-import { idleTimer } from 'common/timing';
+import { idleTimer } from 'common/async';
 
 interface Handlers {
   [key: string]: (data: any) => void;

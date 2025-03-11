@@ -5,7 +5,7 @@ import keyboard from './keyboard';
 import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import type {
   PuzzleOpts,
   PuzzleData,

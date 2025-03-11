@@ -1,6 +1,6 @@
 import type { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
-import { debounce, throttle, throttlePromiseDelay } from 'common/timing';
+import { debounce, throttle, throttlePromiseDelay } from 'common/async';
 import type AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';
@@ -650,9 +650,8 @@ export default class StudyCtrl {
         this.vm.behind++;
         return this.redraw();
       }
-      if (position.chapterId !== this.data.position.chapterId || !this.ctrl.tree.pathExists(position.path)) {
+      if (position.chapterId !== this.data.position.chapterId || !this.ctrl.tree.pathExists(position.path))
         return this.xhrReload();
-      }
       this.data.position.path = position.path;
       if (who && who.s === site.sri) return;
       this.ctrl.userJump(position.path);

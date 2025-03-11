@@ -28,9 +28,7 @@ export class VideoPlayer {
   }
 
   cover = (el?: HTMLElement) => {
-    if (this.animationFrameId) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
+    if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
     this.animationFrameId = requestAnimationFrame(() => {
       if (!el) {
         this.iframe.remove();
