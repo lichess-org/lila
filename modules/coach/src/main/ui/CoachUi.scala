@@ -237,8 +237,8 @@ final class CoachUi(helpers: Helpers)(
                 ),
                 lila.ui.bits.mselect(
                   "coach-country",
-                  country.fold("All countries")(flagApi.name),
-                  countries.value.map: (code, name) =>
+                  country.fold(trans.coach.allCountries.txt())(flagApi.name),
+                  (("all", trans.coach.allCountries.txt()) :: countries.value).map: (code, name) =>
                     a(
                       href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
                       cls  := (code == country.fold("all")(_.code)).option("current")
@@ -246,13 +246,13 @@ final class CoachUi(helpers: Helpers)(
                 ),
                 lila.ui.bits.mselect(
                   "coach-sort",
-                  order.name,
+                  order.i18nKey.txt(),
                   CoachPager.Order.list.map: o =>
                     a(
                       href := routes.Coach
                         .search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
                       cls := (order == o).option("current")
-                    )(o.name)
+                    )(o.i18nKey.txt())
                 )
               )
             ),

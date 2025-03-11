@@ -89,10 +89,10 @@ final class CoachPager(
 
 object CoachPager:
 
-  enum Order(val key: String, val name: String):
-    case Login         extends Order("login", "Last login")
-    case LichessRating extends Order("rating", "Lichess rating")
-    case Alphabetical  extends Order("alphabetical", "Alphabetical")
+  enum Order(val key: String, val i18nKey: lila.core.i18n.I18nKey):
+    case Login         extends Order("login", lila.core.i18n.I18nKey.coach.lastLogin)
+    case LichessRating extends Order("rating", lila.core.i18n.I18nKey.coach.lichessRating)
+    case Alphabetical  extends Order("alphabetical", lila.core.i18n.I18nKey.study.alphabetical)
 
   object Order:
     val default                   = Login

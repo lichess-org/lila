@@ -363,6 +363,9 @@ object I18nKey:
     val `teachingMethod`: I18nKey = "coach:teachingMethod"
     val `publicStudies`: I18nKey = "coach:publicStudies"
     val `youtubeVideos`: I18nKey = "coach:youtubeVideos"
+    val `allCountries`: I18nKey = "coach:allCountries"
+    val `lastLogin`: I18nKey = "coach:lastLogin"
+    val `lichessRating`: I18nKey = "coach:lichessRating"
 
   object contact:
     val `contact`: I18nKey = "contact:contact"

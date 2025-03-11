@@ -643,6 +643,8 @@ interface I18n {
     aboutMe: string;
     /** Accepting students */
     accepting: string;
+    /** All countries */
+    allCountries: string;
     /** Are you a great chess coach with a %s? */
     areYouCoach: I18nFormat;
     /** Availability */
@@ -655,10 +657,14 @@ interface I18n {
     hourlyRate: string;
     /** Languages */
     languages: string;
+    /** Last login */
+    lastLogin: string;
     /** Lichess coach */
     lichessCoach: string;
     /** Lichess coaches */
     lichessCoaches: string;
+    /** Lichess rating */
+    lichessRating: string;
     /** Location */
     location: string;
     /** NM or FIDE title */
