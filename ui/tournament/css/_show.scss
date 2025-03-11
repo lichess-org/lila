@@ -41,21 +41,4 @@
   h2 {
     margin: 1.5em 0 0.5em 0;
   }
-
-  &__bots {
-    @extend %box-neat, %flex-center-nowrap;
-    gap: 2em;
-    margin-bottom: 2em;
-    background: $m-accent_bg--mix-10;
-    padding: 1.5em;
-
-    h2 {
-      margin: 0em 0 0.5em 0;
-    }
-
-    img {
-      aspect-ratio: 1 / 1;
-      width: 8em;
-    }
-  }
 }
