@@ -462,6 +462,7 @@ object I18nKey:
     val `startTraining`: I18nKey = "coordinates:startTraining"
     val `findSquare`: I18nKey = "coordinates:findSquare"
     val `nameSquare`: I18nKey = "coordinates:nameSquare"
+    val `practiceOnlySomeFilesAndRanks`: I18nKey = "coordinates:practiceOnlySomeFilesAndRanks"
 
   object dgt:
     val `dgtBoard`: I18nKey = "dgt:dgtBoard"

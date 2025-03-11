@@ -867,6 +867,8 @@ interface I18n {
     mostChessCourses: string;
     /** Name square */
     nameSquare: string;
+    /** Practice only some files & ranks */
+    practiceOnlySomeFilesAndRanks: string;
     /** Show coordinates */
     showCoordinates: string;
     /** Coordinates on every square */
