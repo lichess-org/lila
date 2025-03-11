@@ -172,7 +172,7 @@
   <string name="flipBoard">Otočiť šachovnicu</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
   <string name="claimADraw">Požadovať remízu</string>
-  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Požiadavka na remízu</string>
+  <string name="drawClaimed">Požiadavka na remízu</string>
   <string name="offerDraw">Ponúknuť remízu</string>
   <string name="draw">Remíza</string>
   <plurals name="nbPlayers">
