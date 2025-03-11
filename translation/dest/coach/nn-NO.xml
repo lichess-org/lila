@@ -24,4 +24,7 @@
   <string name="teachingMethod">Undervisningsmetode</string>
   <string name="publicStudies">Offentlege studiar</string>
   <string name="youtubeVideos">YouTube-videoar</string>
+  <string name="allCountries">Alle land</string>
+  <string name="lastLogin">Siste innlogging</string>
+  <string name="lichessRating">Lichess-rating</string>
 </resources>
