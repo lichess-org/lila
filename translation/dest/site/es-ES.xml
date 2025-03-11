@@ -156,7 +156,7 @@
   <string name="flipBoard">Girar el tablero</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar tablas</string>
-  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Tablas reclamadas</string>
+  <string name="drawClaimed">Tablas reclamadas</string>
   <string name="offerDraw">Ofrecer tablas</string>
   <string name="draw">Tablas</string>
   <plurals name="nbPlayers">
