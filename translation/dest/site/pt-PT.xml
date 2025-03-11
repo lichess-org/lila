@@ -156,7 +156,7 @@
   <string name="flipBoard">Inverter o tabuleiro</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="claimADraw">Declarar empate</string>
-  <string name="drawClaimed" comment="Appears after a game has ended.&#10;This is a way the game can end - when a player finished a game by claiming a draw (e.g. after threefold repetition, or 50 moves without a capture).">Empate reivindicado</string>
+  <string name="drawClaimed">Empate reivindicado</string>
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
