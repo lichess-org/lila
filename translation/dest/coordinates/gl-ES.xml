@@ -18,4 +18,5 @@
   <string name="startTraining">Comezar adestramento</string>
   <string name="findSquare">Buscar a casa</string>
   <string name="nameSquare">Nomea a casa</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Practicar só algunhas filas &amp; columnas</string>
 </resources>
