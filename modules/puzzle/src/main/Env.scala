@@ -24,6 +24,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
     gameRepo: lila.core.game.GameRepo,
+    myEngines: lila.core.misc.analysis.MyEnginesAsJson,
     mongo: lila.db.Env
 )(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.core.i18n.Translator)(using
     scheduler: Scheduler,
@@ -56,9 +57,9 @@ final class Env(
 
   val session: PuzzleSessionApi = wire[PuzzleSessionApi]
 
-  val selector: PuzzleSelector = wire[PuzzleSelector]
-
   val anon: PuzzleAnon = wire[PuzzleAnon]
+
+  val selector: PuzzleSelector = wire[PuzzleSelector]
 
   val batch: PuzzleBatch = wire[PuzzleBatch]
 
@@ -77,6 +78,8 @@ final class Env(
   val history = wire[PuzzleHistoryApi]
 
   val streak = wire[PuzzleStreakApi]
+
+  val complete = wire[PuzzleComplete]
 
   private val tagger = wire[PuzzleTagger]
 

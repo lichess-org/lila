@@ -24,4 +24,7 @@
   <string name="teachingMethod">Metodologia de ensino</string>
   <string name="publicStudies">Estudos públicos</string>
   <string name="youtubeVideos">Vídeos no YouTube</string>
+  <string name="allCountries">Todos os países</string>
+  <string name="lastLogin">Último acesso</string>
+  <string name="lichessRating">Rating Lichess</string>
 </resources>

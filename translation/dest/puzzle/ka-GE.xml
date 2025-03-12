@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">თავსატეხები თემების მიხედვით</string>
+  <string name="puzzleThemes">თავსატეხები თემების მიხედვით
+ა</string>
   <string name="recommended">გირჩევთ და გთავაზობთ</string>
   <string name="phases">ფაზები, ეტაპები</string>
   <string name="motifs">მოტივები</string>
