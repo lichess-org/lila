@@ -15,7 +15,8 @@ export class BotCtrl {
   }
 
   private start = (bot: BotInfo) => {
-    this.playCtrl = new PlayCtrl({ opponent: bot, moves: [] }, this.redraw);
+    const game = { opponent: bot, moves: [] };
+    this.playCtrl = new PlayCtrl(game, this.redraw);
     this.redraw();
   };
 
