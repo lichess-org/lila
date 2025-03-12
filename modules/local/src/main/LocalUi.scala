@@ -10,16 +10,27 @@ import lila.common.Json.{ *, given }
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def index(
+  def play(
+      bots: List[BotJson],
+      prefs: JsObject
+  )(using ctx: Context): Page =
+    val data = Json.obj("pref" -> prefs, "bots" -> bots)
+    Page("Lichess bots")
+      .css("bot")
+      .js(PageModule("bot.main", data))
+      .csp(_.withWebAssembly)
+      .flag(_.zoom):
+        main(cls := "bot-play")
+
+  def dev(
       bots: List[BotJson],
       prefs: JsObject,
-      devAssets: Option[JsObject] = none
+      devAssets: JsObject
   )(using ctx: Context): Page =
     val data = Json
-      .obj("pref" -> prefs, "bots" -> bots)
-      .add("assets", devAssets)
+      .obj("pref" -> prefs, "bots" -> bots, "assets" -> devAssets)
       .add("canPost", Granter.opt(_.BotEditor))
-    val moduleName = if devAssets.isDefined then "local.dev" else "botPlay"
+    val moduleName = "local.dev"
     Page("Lichess bots")
       .css(moduleName)
       .css("round")

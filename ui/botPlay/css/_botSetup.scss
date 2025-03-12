@@ -1,9 +1,9 @@
-.bot-play-app {
+.bot-app {
   @media (min-width: at-least($x-large)) {
     width: 1200px;
   }
 }
-.bpa__setup__bots {
+.bot-setup__bots {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 1em;
@@ -20,7 +20,7 @@
   }
 }
 
-.bpa__bot-card {
+.bot-setup__bot-card {
   @extend %box-neat, %flex-column;
 
   @include transition(box-shadow);
@@ -42,7 +42,7 @@
     margin-top: -20%;
     line-height: 0;
     @include transition(opacity);
-    .bpa__bot-card:hover & {
+    .bot-setup__bot-card:hover & {
       opacity: 1;
     }
   }

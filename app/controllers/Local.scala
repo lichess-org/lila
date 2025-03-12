@@ -18,7 +18,7 @@ final class Local(env: Env) extends LilaController(env):
       bots <- env.local.repo.getLatestBots()
       res <- negotiate(
         html =
-          for page <- renderPage(views.local.index(bots, prefJson))
+          for page <- renderPage(views.local.play(bots, prefJson))
           yield Ok(page).withServiceWorker,
         json = JsonOk(Json.obj("bots" -> bots))
       )
@@ -32,7 +32,7 @@ final class Local(env: Env) extends LilaController(env):
     for
       bots   <- env.local.repo.getLatestBots()
       assets <- env.local.api.devGetAssets
-      page   <- renderPage(views.local.index(bots, prefJson, assets.some))
+      page   <- renderPage(views.local.dev(bots, prefJson, assets))
     yield Ok(page).withServiceWorker
   }
 
