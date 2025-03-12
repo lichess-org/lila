@@ -873,6 +873,7 @@
   <string name="anonymous">Anonymný</string>
   <string name="yourScore">Vaše skóre: %s</string>
   <string name="language">Jazyk</string>
+  <string name="allLanguages">Všetky jazyky</string>
   <string name="background">Pozadie</string>
   <string name="light">Svetlé</string>
   <string name="dark">Tmavé</string>

@@ -3,6 +3,7 @@ package lila.analyse
 import com.softwaremill.macwire.*
 
 import lila.core.config.{ CollName, NetConfig }
+import lila.core.misc.analysis.MyEnginesAsJson
 
 @Module
 final class Env(
@@ -21,6 +22,8 @@ final class Env(
   lazy val annotator = Annotator(net.domain)
 
   lazy val externalEngine = ExternalEngineApi(db(CollName("external_engine")), cacheApi)
+
+  val enginesAsJson = MyEnginesAsJson(externalEngine.myExternalEnginesAsJson)
 
   val jsonView = JsonView
 

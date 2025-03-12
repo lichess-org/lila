@@ -24,4 +24,7 @@
   <string name="teachingMethod">Metodoloxía de adestramento</string>
   <string name="publicStudies">Estudos públicos</string>
   <string name="youtubeVideos">Vídeos do YouTube</string>
+  <string name="allCountries">Todos os países</string>
+  <string name="lastLogin">Último inicio de sesión</string>
+  <string name="lichessRating">Puntuación en Lichess</string>
 </resources>

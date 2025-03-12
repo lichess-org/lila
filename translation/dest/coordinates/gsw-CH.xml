@@ -22,4 +22,5 @@ wänn me d\'Koordinate schnäll gseht.</string>
   <string name="startTraining">Training schtarte</string>
   <string name="findSquare">Fäld finde</string>
   <string name="nameSquare">Fäld benänne</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Üeb nur einigi Dateie und Räng</string>
 </resources>

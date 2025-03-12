@@ -24,4 +24,7 @@
   <string name="teachingMethod">Методологія викладання</string>
   <string name="publicStudies">Публічні дослідження</string>
   <string name="youtubeVideos">Відео на YouTube</string>
+  <string name="allCountries">Усі країни</string>
+  <string name="lastLogin">Останній вхід</string>
+  <string name="lichessRating">Рейтинг Lichess</string>
 </resources>

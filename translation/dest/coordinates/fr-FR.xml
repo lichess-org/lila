@@ -18,4 +18,5 @@
   <string name="startTraining">Démarrer l\'entrainement</string>
   <string name="findSquare">Trouver la case</string>
   <string name="nameSquare">Nommer la case</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Entraînement rangées/colonnes</string>
 </resources>
