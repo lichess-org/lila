@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Mga Palaisipan</string>
+  <string name="puzzleThemes">Mga Tema ng Palaisipan</string>
+  <string name="recommended">Inirerekomenda</string>
+  <string name="lengths">Mga haba</string>
   <string name="mates">Mga Mate</string>
   <string name="origin">Pinagmulan</string>
   <string name="specialMoves">Di-pangkaraniwan na tira</string>
   <string name="didYouLikeThisPuzzle">Nagustuhan mo ba ang palaisipang ito?</string>
   <string name="voteToLoadNextOne">Bumoto ka upang mapunta ka sa susunod na palaisipan!</string>
+  <string name="yourPuzzleRatingWillNotChange">Ang iyong palaisipang marka ay hindi magbabago. Tandaan na ang mga palaisipan ay hindi isang kompetisyon. Ang iyong marka ay tumutulong sa pagpili ng pinakamahusay na mga palaisipan para sa iyong antas na kasanayan.</string>
   <string name="findTheBestMoveForWhite">Hanapin ang pinakamahusay na galaw para sa puti.</string>
   <string name="findTheBestMoveForBlack">Hanapin ang pinakamahusay na galaw para sa itim.</string>
   <string name="puzzleId">Palaisipang %s</string>
@@ -21,6 +25,7 @@
   <string name="ratingX">Marka: %s</string>
   <string name="hidden">nakakubli</string>
   <string name="fromGameLink">Mula sa larong %s</string>
+  <string name="continueTraining">Ipagpatuloy ang pagsasanay</string>
   <string name="difficultyLevel">Antas ng kahirapan</string>
   <string name="normal">Pangkaraniwan</string>
   <string name="easier">Mas madali</string>
@@ -53,4 +58,5 @@ Maglaro ng mabilisan at mga klasikong laro para tumaas ang iyong mga tsansa na m
     <item quantity="other">%s nalaro</item>
   </plurals>
   <string name="noPuzzlesToShow">Walang maipapakita, maglaro ka muna ng mga palaisipan!</string>
+  <string name="improvementAreasDescription">Sanayin ang mga ito upang mapabilis ang iyong pag-unlad!</string>
 </resources>
