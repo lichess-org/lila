@@ -25,6 +25,7 @@ const themes: string[] = [
     'california',
     'caliente',
     'pixel',
+    'rhosgfx',
     'maestro',
     'fresca',
     'cardinal',
