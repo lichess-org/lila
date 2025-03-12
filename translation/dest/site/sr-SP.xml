@@ -287,9 +287,9 @@
   <string name="finished">Завршено</string>
   <string name="abortGame">Прекини партију</string>
   <string name="gameAborted">Партија прекинута</string>
-  <string name="standard">Стандардно</string>
+  <string name="standard">Стандардна</string>
   <string name="customPosition">Произвољна позиција</string>
-  <string name="unlimited">Неограничено</string>
+  <string name="unlimited">Неограничена</string>
   <string name="mode">Начин</string>
   <string name="casual">Неформална</string>
   <string name="rated">Рангирана</string>
