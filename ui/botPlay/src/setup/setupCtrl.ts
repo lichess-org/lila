@@ -11,9 +11,7 @@ export class SetupCtrl {
     readonly opts: BotOpts,
     readonly start: (bot: BotInfo) => void,
     readonly redraw: () => void,
-  ) {
-    console.log('BotPlayCtrl', opts);
-  }
+  ) {}
 
   view = () => h('main.bot-app.bot-setup', [this.viewBotList(), this.viewSetupDialog()]);
 

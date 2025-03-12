@@ -7,5 +7,5 @@ export class PlayCtrl {
     readonly redraw: () => void,
   ) {}
 
-  view = () => h('div');
+  view = () => h('div', 'now playing!');
 }

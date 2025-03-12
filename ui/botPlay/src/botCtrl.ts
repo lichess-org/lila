@@ -16,6 +16,7 @@ export class BotCtrl {
 
   private start = (bot: BotInfo) => {
     this.playCtrl = new PlayCtrl({ opponent: bot, moves: [] }, this.redraw);
+    this.redraw();
   };
 
   view = () => (this.playCtrl ? this.playCtrl.view() : this.setupCtrl.view());
