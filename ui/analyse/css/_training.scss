@@ -10,7 +10,8 @@
     justify-content: center;
 
     @include mq-is-col1 {
-      &.view {
+      &.view,
+      &.win {
         flex-flow: row;
       }
     }
