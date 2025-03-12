@@ -440,7 +440,9 @@ final class Mod(
   }
 
   def blankPassword(username: UserStr) = Secure(_.SetEmail) { _ ?=> _ ?=>
-    for _ <- env.mod.api.blankPassword(username)
+    for
+      _ <- env.mod.api.blankPassword(username)
+      _ <- env.security.store.closeAllSessionsOf(username.id)
     yield Redirect(routes.User.show(username)).flashSuccess("Password blanked")
   }
 
