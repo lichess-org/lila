@@ -38,11 +38,10 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
     sessions
       .getIfPresent(round.userId)
       .so:
-        _.map { session =>
+        _.map: session =>
           // yes, even if the completed puzzle was not the current session puzzle
           // in that case we just skip a puzzle on the path, which doesn't matter
           if session.path.angle == angle then sessions.put(round.userId, fuccess(session.next))
-        }
 
   def getSettings(user: User): Fu[PuzzleSettings] =
     sessions

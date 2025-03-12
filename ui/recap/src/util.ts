@@ -5,7 +5,7 @@ export function formatDuration(seconds: number, glue = '<br>'): string {
   const h = Math.floor((seconds % (24 * 3600)) / 3600);
   const m = Math.floor((seconds % 3600) / 60);
 
-  let result: string[] = [];
+  const result: string[] = [];
   if (d > 0) {
     result.push(simplePlural(d, 'day'));
   }

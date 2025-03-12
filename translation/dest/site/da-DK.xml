@@ -789,6 +789,7 @@
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
+  <string name="allLanguages">Alle sprog</string>
   <string name="background">Baggrund</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>
