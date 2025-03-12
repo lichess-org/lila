@@ -97,7 +97,7 @@ export class Bot implements BotInfo, MoveSource {
       );
     const openingMove = await this.bookMove(chess);
     args.movetime = movetime(args, Bot.rating(this, clockToSpeed(args.initial, args.increment)));
-    // i need a better way to handle thinkTime, we probably need to adjust it in chooseMove
+
     if (openingMove) return { uci: openingMove, movetime: args.movetime };
 
     const zeroSearch = zero
@@ -258,7 +258,7 @@ export class Bot implements BotInfo, MoveSource {
       if (mv.cpl === undefined) continue;
       const distance = Math.abs((mv.cpl ?? 0) - cplTarget);
       // cram cpl into [0, 1] with sigmoid
-      mv.weights.acpl = distance === 0 ? 1 : 1 / (1 + Math.E ** (gain * (distance - threshold)));
+      mv.weights.cplBias = distance === 0 ? 1 : 1 / (1 + Math.E ** (gain * (distance - threshold)));
     }
   }
 
@@ -273,7 +273,7 @@ export function score(pv: Line, depth: number = pv.scores.length - 1): number {
   return isNaN(sc) ? 0 : clamp(sc, { min: -10000, max: 10000 });
 }
 
-type Weights = 'lc0bias' | 'acpl';
+type Weights = 'lc0bias' | 'cplBias';
 
 interface SearchMove {
   uci: Uci;
