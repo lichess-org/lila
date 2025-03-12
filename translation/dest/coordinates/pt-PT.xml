@@ -18,4 +18,5 @@
   <string name="startTraining">Começar o treino</string>
   <string name="findSquare">Encontrar quadrado</string>
   <string name="nameSquare">Designar quadrado</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Pratica só algumas linhas &amp; colunas</string>
 </resources>
