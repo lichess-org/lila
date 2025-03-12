@@ -14,7 +14,7 @@ import type {
 import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
-import { prop } from 'common';
+import { prop, myUserId } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
 import { alert } from 'common/dialogs';
@@ -133,8 +133,20 @@ export default class ChatCtrl {
     }
   };
 
+  // Lichess feedback format: 'i18n.key username'
+  translateLichessFeedback = (line: Line): void => {
+    if (line.u !== 'lichess' || !line.t.startsWith('i18n.')) return;
+    const [msgKey, username] = line.t.slice(5).split(' ');
+    const translation = i18n.site[msgKey as keyof typeof i18n.site] as I18nFormat | undefined;
+    if (!translation) return;
+    line.showModal = `${myUserId()}` == username.toLowerCase();
+    line.t = translation(username);
+  };
+
   private onMessage = (line: Line): void => {
+    this.translateLichessFeedback(line);
     this.data.lines.push(line);
+
     const nb = this.data.lines.length;
     if (nb > this.maxLines) {
       this.data.lines.splice(0, nb - this.maxLines + this.maxLinesDrop);
