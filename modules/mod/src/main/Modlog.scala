@@ -82,6 +82,7 @@ case class Modlog(
     case Modlog.teamEdit            => "edited team"
     case Modlog.setKidMode          => "set kid mode"
     case Modlog.weakPassword        => "log in with weak password"
+    case Modlog.blankPassword       => "blank password"
     case Modlog.blankedPassword     => "log in with blanked password"
     case a                          => a
 
