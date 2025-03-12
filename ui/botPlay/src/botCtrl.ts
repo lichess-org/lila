@@ -12,6 +12,8 @@ export class BotCtrl {
     readonly redraw: () => void,
   ) {
     this.setupCtrl = new SetupCtrl(opts, this.start, redraw);
+    // debug, reach the game screen immediately:
+    setTimeout(() => this.start(opts.bots[0]), 100);
   }
 
   private start = (bot: BotInfo) => {

@@ -13,6 +13,7 @@ export class PlayCtrl {
     readonly game: Game,
     readonly redraw: () => void,
   ) {
+    this.chess = Chess.default();
     this.pov = 'white';
   }
 
