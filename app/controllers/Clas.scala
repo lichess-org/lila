@@ -424,11 +424,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     Secure(_.Teacher) { _ ?=> me ?=>
       WithClass(id): clas =>
         WithStudent(clas, username): s =>
-          (env.security.store.closeAllSessionsOf(s.user.id) >>
-            env.clas.api.student.resetPassword(s.student)).map { password =>
-            Redirect(routes.Clas.studentShow(clas.id, s.user.username))
-              .flashing("password" -> password.value)
-          }
+          for
+            _        <- env.security.store.closeAllSessionsOf(s.user.id)
+            password <- env.clas.api.student.resetPassword(s.student)
+          yield Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+            .flashing("password" -> password.value)
     }
 
   def studentRelease(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
