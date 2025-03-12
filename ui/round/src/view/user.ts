@@ -4,13 +4,15 @@ import type { Player } from 'game';
 import type { Position } from '../interfaces';
 import type RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'common/userLink';
+import { wsAverageLag } from 'common/socket';
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {
   const d = ctrl.data,
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
     rating = player.rating || perf?.rating,
-    signal = user?.id === d.opponent.user?.id ? d.opponentSignal : undefined;
+    isPlayer = user?.id === d.player.user?.id && ctrl.isPlaying(),
+    signal = user?.id === d.opponent.user?.id ? d.opponentSignal : isPlayer ? playerLag() : undefined;
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
@@ -41,7 +43,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           online: false,
           line: false,
         }),
-        !!signal && signalBars(signal),
+        !!signal && signalBars(signal, isPlayer),
         !!rating && h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
@@ -66,10 +68,36 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
   );
 }
 
-const signalBars = (signal: number) => {
-  const bars = [];
+const bars = (signal: number) => {
+  const bars: VNode[] = [];
   for (let i = 1; i <= 4; i++) bars.push(h(i <= signal ? 'i' : 'i.off'));
-  return h('signal.q' + signal, bars);
+  return bars;
+};
+
+const playerLag = () => {
+  const ping = Math.round(wsAverageLag());
+  return !ping ? 0 : ping < 150 ? 4 : ping < 300 ? 3 : ping < 500 ? 2 : 1;
+};
+
+const signalBars = (signal: number, isPlayer: boolean = false) => {
+  return h(
+    'signal.q' + signal,
+    {
+      hook: {
+        update(node) {
+          const el = node.elm as HTMLSpanElement;
+          if (isPlayer) {
+            setInterval(() => {
+              const signal = playerLag();
+              el.className = 'q' + signal;
+              node.children = bars(signal);
+            }, 1000);
+          }
+        },
+      },
+    },
+    bars(signal),
+  );
 };
 
 export const userTxt = (player: Player): string =>
