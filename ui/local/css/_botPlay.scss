@@ -1,5 +1,7 @@
 .bot-play-app {
-  min-width: 80vw;
+  @media (min-width: at-least($x-large)) {
+    width: 1200px;
+  }
 }
 .bpa__setup__bots {
   display: grid;
