@@ -12,7 +12,7 @@ import lila.core.security.ClearPassword
 import lila.memo.RateLimit
 
 final class Signup(
-    store: Store,
+    store: SessionStore,
     api: SecurityApi,
     ipTrust: IpTrust,
     forms: SecurityForm,
