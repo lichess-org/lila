@@ -13,9 +13,9 @@ import lila.core.socket.Sri
 import lila.db.dsl.{ *, given }
 import lila.oauth.AccessToken
 
-final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
+final class SessionStore(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  import Store.*
+  import SessionStore.*
   import FingerHash.given
 
   private val authCache = cacheApi[String, Option[AuthInfo]](65_536, "security.authCache"):
@@ -226,7 +226,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
         $doc("fp" -> hash, "date" -> $gt(nowInstant.minusDays(7)))
     }
 
-object Store:
+object SessionStore:
 
   case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: Instant):
     def datedIp = Dated(ip, date)

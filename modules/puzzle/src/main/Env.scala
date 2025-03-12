@@ -57,9 +57,9 @@ final class Env(
 
   val session: PuzzleSessionApi = wire[PuzzleSessionApi]
 
-  val selector: PuzzleSelector = wire[PuzzleSelector]
-
   val anon: PuzzleAnon = wire[PuzzleAnon]
+
+  val selector: PuzzleSelector = wire[PuzzleSelector]
 
   val batch: PuzzleBatch = wire[PuzzleBatch]
 

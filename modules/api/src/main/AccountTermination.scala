@@ -45,7 +45,7 @@ final class AccountTermination(
     swissApi: lila.swiss.SwissApi,
     planApi: lila.plan.PlanApi,
     seekApi: lila.lobby.SeekApi,
-    securityStore: lila.security.Store,
+    securityStore: lila.security.SessionStore,
     pushEnv: lila.push.Env,
     streamerApi: lila.streamer.StreamerApi,
     reportApi: lila.report.ReportApi,
