@@ -84,7 +84,7 @@ const signalBars = (signal: number, isPlayer: boolean = false) => {
     'signal.q' + signal,
     {
       hook: {
-        update(node) {
+        insert(node) {
           const el = node.elm as HTMLSpanElement;
           if (isPlayer) {
             setInterval(() => {
