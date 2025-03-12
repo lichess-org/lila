@@ -15,7 +15,7 @@ import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
-import { storage, type LichessStorage } from 'common/storage';
+import { storage, tempStorage, type LichessStorage } from 'common/storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
 import { alert } from 'common/dialogs';
 
@@ -38,6 +38,15 @@ export default class ChatCtrl {
     readonly opts: ChatOpts,
     readonly redraw: Redraw,
   ) {
+    const competitionRegex = new RegExp(
+      `^https:\\/\\/lichess\\.org\\/((tournament)|(swiss))\\/${tempStorage.get('competition.id')}\\/?$`,
+    );
+    const newGameRegex = new RegExp(`^https:\\/\\/lichess\\.org\\/(${tempStorage.get('newGame.id')})\\/?$`);
+
+    if (!competitionRegex.test(location.href) && !newGameRegex.test(location.href)) {
+      tempStorage.make('chat.input').remove();
+    }
+
     this.data = opts.data;
     if (!opts.kidMode) this.allTabs.push('discussion');
     if (opts.noteId) this.allTabs.push('note');
