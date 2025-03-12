@@ -439,6 +439,11 @@ final class Mod(
       else Redirect(routes.Mod.singleIp(ip))
   }
 
+  def blankPassword(username: UserStr) = Secure(_.SetEmail) { _ ?=> _ ?=>
+    for _ <- env.mod.api.blankPassword(username)
+    yield Redirect(routes.User.show(username)).flashSuccess("Password blanked")
+  }
+
   def chatUser(username: UserStr) = SecureOrScoped(_.ChatTimeout) { _ ?=> _ ?=>
     JsonOptionOk:
       env.chat.api.userChat

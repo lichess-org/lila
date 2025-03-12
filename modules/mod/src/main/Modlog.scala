@@ -219,6 +219,7 @@ object Modlog:
   val teamEdit            = "teamEdit"
   val setKidMode          = "setKidMode"
   val weakPassword        = "weakPassword"
+  val blankPassword       = "blankPassword"
   val blankedPassword     = "blankedPassword"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
