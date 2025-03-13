@@ -3,6 +3,7 @@ import { text as xhrText } from 'common/xhr';
 import { requestIdleCallback, $as } from 'common';
 import { spinnerHtml } from 'common/controls';
 import { pubsub } from 'common/pubsub';
+import { isTouchDevice } from 'common/device';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
 
@@ -376,7 +377,7 @@ function placementCalculator() {
           coords.top = position.top + offset;
           break;
       }
-      if ($as<WithTooltip>(element).classList.contains('mobile-powertip'))
+      if (isTouchDevice() && $as<WithTooltip>(element).classList.contains('mobile-powertip'))
         Object.keys(coords).forEach(k => {
           if (coords[k] !== 'auto') coords[k] = Math.max(coords[k], 0);
         });
