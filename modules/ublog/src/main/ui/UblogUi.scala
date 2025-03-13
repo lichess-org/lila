@@ -305,8 +305,8 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                 href := routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue)
               )(
                 h2(
-                  s"best of $yearMonth",
-                  span(cls := "ublog-topics__topic__nb")("check them out DEBUG »")
+                  s"best of ${showYearMonth(yearMonth)}",
+                  span(cls := "ublog-topics__topic__nb")("check them out »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
                   posts.map(miniCard)
