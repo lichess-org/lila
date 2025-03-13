@@ -297,8 +297,8 @@
   <string name="ratedTournament">Рангирано</string>
   <string name="thisGameIsRated">Ова партија се рангира</string>
   <string name="rematch">Реванш</string>
-  <string name="rematchOfferSent">Понуда за реванш је послата</string>
-  <string name="rematchOfferAccepted">Понуда за реванш је прихваћена</string>
+  <string name="rematchOfferSent">Понуда за реванш послата</string>
+  <string name="rematchOfferAccepted">Понуда за реванш прихваћена</string>
   <string name="rematchOfferCanceled">Понуда за реванш је отказана</string>
   <string name="rematchOfferDeclined">Понуда за реванш је одбијена</string>
   <string name="cancelRematchOffer">Откажи понуду за реванш</string>
