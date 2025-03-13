@@ -90,7 +90,9 @@ const signalBars = (signal: number, isPlayer: boolean = false) => {
             setInterval(() => {
               const signal = playerLag();
               el.className = 'q' + signal;
-              node.children = bars(signal);
+              node.children?.map(
+                (n: VNode, i) => ((n.elm as HTMLElement).className = i < signal ? '' : 'off'),
+              );
             }, 1000);
           }
         },
