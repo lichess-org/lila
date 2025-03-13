@@ -12,7 +12,7 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
     fen: makeFen(ctrl.chess.toSetup()),
     orientation: ctrl.pov,
     turnColor: ctrl.chess.turn,
-    lastMove: uciToMove(ctrl.moves[ctrl.moves.length - 1]),
+    lastMove: uciToMove(ctrl.sans[ctrl.sans.length - 1]),
     check: ctrl.chess.isCheck(),
     coordinates: ctrl.pref.coords !== Coords.Hidden,
     coordinatesOnSquares: ctrl.pref.coords === Coords.All,
