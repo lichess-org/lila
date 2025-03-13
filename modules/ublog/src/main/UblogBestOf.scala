@@ -14,10 +14,10 @@ import lila.memo.CacheApi
 
 object UblogBestOf:
 
-  private val ublogOrigin      = YearMonth.of(2021, 9)
-  private def nbMonthsBackward = 
+  private val ublogOrigin = YearMonth.of(2021, 9)
+  private def nbMonthsBackward =
     ublogOrigin.until(currentYearMonth, ChronoUnit.MONTHS).toInt
-  
+
   private def currentYearMonth = YearMonth.now(ZoneOffset.UTC)
   def allYears                 = (ublogOrigin.getYear to currentYearMonth.getYear + 1).toList
 
@@ -53,31 +53,6 @@ final class UblogBestOf(colls: UblogColls, ublogApi: UblogApi, cacheApi: CacheAp
 
   import UblogBsonHandlers.{ *, given }
 
-  // FIXME 12 queries for one cache entry!!
-  // compose aggregation to fix
-  private val withPostsCache =
-    // the seq is sorted by most recent first
-    cacheApi[Year, Seq[UblogBestOf.WithPosts]](16, "ublog.bestOf.withPosts"):
-      _.refreshAfterWrite(1.hour).buildAsyncFuture: year =>
-        (1 to 12)
-          .map(x => year.atMonth(x))
-          .map: month =>
-            ublogApi
-              .aggregateVisiblePosts(UblogBestOf.selector(month), 0, 4)
-              .map: preview =>
-                UblogBestOf.WithPosts(month, preview)
-          .parallel
-          .map(_.sortBy(_.yearMonth)(Ordering[YearMonth].reverse))
-
-  def ofYear(year: Year): Fu[Seq[UblogBestOf.WithPosts]] = withPostsCache.get(year)
-  // latest 12 months rolling
-  def latest =
-    val curYear = Year.now(ZoneOffset.UTC)
-    for
-      a <- withPostsCache.get(curYear)
-      b <- withPostsCache.get(curYear.minusYears(1))
-    yield (a ++ b).take(12)
-
   def paginatorQuery(offset: Int, length: Int): Fu[List[UblogBestOf.WithPosts]] =
     colls.post
       .aggregateList(length, _.sec): framework =>
@@ -86,16 +61,11 @@ final class UblogBestOf(colls: UblogColls, ublogApi: UblogApi, cacheApi: CacheAp
           UblogBestOf
             .slice(offset = offset, length = length)
             .map: (month, i) =>
-              s"$i" -> List(
-                Match($doc("live" -> true) ++ UblogBestOf.selector(month)),
-                Project(
-                  previewPostProjection ++ $doc(
-                    "timelessRank" -> $doc("$subtract" -> $arr("$rank", "$lived.at"))
-                  )
-                ),
-                Sort(Descending("timelessRank")),
+              s"$i" -> (List(
+                Match($doc("live" -> true) ++ UblogBestOf.selector(month))
+              ) ++ UblogRank.Type.ByTimelessRank.sortingQuery(colls.post, framework) ++ List(
                 Limit(4)
-              )
+              ) ++ ublogApi.removeUnlistedOrClosed(colls.post, framework))
         ) -> List(
           Project($doc("all" -> $doc("$objectToArray" -> "$$ROOT"))),
           UnwindField("all"),
@@ -128,4 +98,3 @@ final class UblogBestOf(colls: UblogColls, ublogApi: UblogApi, cacheApi: CacheAp
       currentPage = page,
       maxPerPage = maxPerPage
     )
-

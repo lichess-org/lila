@@ -77,6 +77,25 @@ object UblogRank:
 
         (tierBase + likesBonus + langBonus + adjustBonus).toInt
 
+  // `byRank` by default takes into acount the date at which the post was published
+  enum Type:
+    case ByDate, ByRank, ByTimelessRank
+
+    def sortingQuery(coll: Coll, framework: coll.AggregationFramework.type) =
+      import framework.*
+      this match
+        case ByDate => List(Sort(Descending("lived.at")))
+        case ByRank => List(Sort(Descending("rank")))
+        case ByTimelessRank =>
+          List(
+            Project(
+              $doc(
+                "timelessRank" -> $doc("$subtract" -> $arr("$rank", "$lived.at"))
+              ) ++ UblogBsonHandlers.previewPostProjection
+            ),
+            Sort(Descending("timelessRank"))
+          )
+
 final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materializer):
 
   import UblogBsonHandlers.given, UblogRank.Tier
