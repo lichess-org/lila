@@ -40,6 +40,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("california"),
     PieceSet("caliente"),
     PieceSet("pixel"),
+    PieceSet("rhosgfx"),
     PieceSet("maestro"),
     PieceSet("fresca"),
     PieceSet("cardinal"),

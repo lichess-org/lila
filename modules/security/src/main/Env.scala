@@ -65,7 +65,7 @@ final class Env(
 
   lazy val userLogins = wire[UserLoginsApi]
 
-  lazy val store = Store(db(config.collection.security), cacheApi)
+  lazy val store = SessionStore(db(config.collection.security), cacheApi)
 
   private lazy val tor: Tor = wire[Tor]
 

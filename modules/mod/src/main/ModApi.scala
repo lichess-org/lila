@@ -161,6 +161,13 @@ final class ModApi(
         _ <- logApi.setEmail(user.id)
       yield ()
 
+  def blankPassword(username: UserStr)(using Me): Funit =
+    withUser(username): user =>
+      for
+        _ <- userRepo.blankPassword(user.id)
+        _ <- logApi.blankPassword(user.id)
+      yield ()
+
   def setPermissions(username: UserStr, permissions: Set[Permission])(using Me): Funit =
     withUser(username): user =>
       val finalPermissions = Permission(user).filter { p =>
