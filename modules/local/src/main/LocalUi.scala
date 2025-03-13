@@ -16,8 +16,8 @@ final class LocalUi(helpers: Helpers):
   )(using ctx: Context): Page =
     val data = Json.obj("pref" -> prefs, "bots" -> bots)
     Page("Lichess bots")
-      .css("bot")
-      .js(PageModule("bot.main", data))
+      .css("botPlay")
+      .js(PageModule("botPlay.main", data))
       .csp(_.withWebAssembly)
       .flag(_.zoom):
         main(cls := "bot-play")

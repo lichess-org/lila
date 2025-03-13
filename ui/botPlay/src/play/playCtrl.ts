@@ -1,60 +1,30 @@
 import { Chess, opposite } from 'chessops';
-import { Game } from '../interfaces';
-import { looseH as h } from 'common/snabbdom';
-import { Chessground } from 'chessground';
-import { makeFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
+import { Game, Pref } from '../interfaces';
 
-export class PlayCtrl {
+export default class PlayCtrl {
   chess: Chess;
+  moves: San[];
+  onPly: number;
   ground?: CgApi;
   pov: Color;
   constructor(
+    readonly pref: Pref,
     readonly game: Game,
     readonly redraw: () => void,
   ) {
     this.chess = Chess.default();
+    this.moves = [];
+    this.onPly = this.moves.length;
     this.pov = 'white';
   }
 
-  view = () => h('main.bot-app.bot-game', [this.viewBoard()]);
+  setGround = (cg: CgApi) => (this.ground = cg);
 
-  private setGround = (cg: CgApi) => (this.ground = cg);
+  isPlaying = () => true;
 
-  private isPlaying = () => true;
+  onMove = (_orig: Key, _dest: Key) => {};
 
-  private onUserMove = (_orig: Key, _dest: Key) => {
+  onUserMove = (_orig: Key, _dest: Key) => {
     this.ground?.set({ turnColor: opposite(this.pov) });
   };
-
-  private chessgroundConfig = () => ({
-    orientation: this.pov,
-    fen: makeFen(this.chess.toSetup()),
-    // lastMove: this.lastMove,
-    turnColor: this.chess.turn,
-    check: !!this.chess.isCheck(),
-    movable: {
-      free: false,
-      color: this.isPlaying() ? this.pov : undefined,
-      dests: chessgroundDests(this.chess),
-    },
-    events: {
-      move: this.onUserMove,
-    },
-  });
-
-  private viewBoard = () =>
-    h('div.bot-game__board', [
-      h(
-        'div.cg-wrap',
-        {
-          hook: {
-            insert: vnode => {
-              this.setGround(Chessground(vnode.elm as HTMLElement, this.chessgroundConfig()));
-            },
-          },
-        },
-        'loading...',
-      ),
-    ]);
 }

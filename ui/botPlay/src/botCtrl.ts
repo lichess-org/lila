@@ -1,7 +1,8 @@
-import { SetupCtrl } from './setup/setupCtrl';
-import { PlayCtrl } from './play/playCtrl';
+import SetupCtrl from './setup/setupCtrl';
+import PlayCtrl from './play/playCtrl';
 import { BotOpts } from './interfaces';
 import { BotInfo } from 'local';
+import { playView } from './play/playView';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -18,9 +19,9 @@ export class BotCtrl {
 
   private start = (bot: BotInfo) => {
     const game = { opponent: bot, moves: [] };
-    this.playCtrl = new PlayCtrl(game, this.redraw);
+    this.playCtrl = new PlayCtrl(this.opts.pref, game, this.redraw);
     this.redraw();
   };
 
-  view = () => (this.playCtrl ? this.playCtrl.view() : this.setupCtrl.view());
+  view = () => (this.playCtrl ? playView(this.playCtrl) : this.setupCtrl.view());
 }

@@ -4,7 +4,7 @@ import { bind, looseH as h } from 'common/snabbdom';
 import { snabDialog } from 'common/dialog';
 import { BotInfo } from 'local';
 
-export class SetupCtrl {
+export default class SetupCtrl {
   dialogBot: BotInfo | undefined;
 
   constructor(
