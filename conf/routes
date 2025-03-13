@@ -123,7 +123,7 @@ GET   /dasher                          controllers.Dasher.get
 GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
 GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
-GET   /blog/best-of                    controllers.Ublog.bestOfYear(year: Option[Int] ?= None)
+GET   /blog/best-of                    controllers.Ublog.bestOfYear(page: Int ?= 1)
 GET   /blog/best-of/:year/:month       controllers.Ublog.bestOfMonth(year: Int, month: Int, page: Int ?= 1)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)

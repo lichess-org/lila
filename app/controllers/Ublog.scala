@@ -297,14 +297,13 @@ final class Ublog(env: Env) extends LilaController(env):
                 .map:
                   views.ublog.ui.topic(top, _, byDate)
 
-  def bestOfYear(year: Option[Int]) = Open:
+  def bestOfYear(page: Int) = Open:
     NotForKids:
-      val yearY = year.flatMap(UblogBestOf.readYear)
       Ok.async:
-        yearY
-          .fold(env.ublog.bestOf.latest)(env.ublog.bestOf.ofYear)
+        env.ublog.bestOf
+          .liveByYear(page)
           .map:
-            views.ublog.ui.year(yearY, _)
+            views.ublog.ui.year
 
   def bestOfMonth(year: Int, month: Int, page: Int) = Open:
     NotForKids:

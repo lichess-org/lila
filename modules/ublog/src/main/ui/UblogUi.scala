@@ -291,31 +291,33 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         )
       )
 
-  // TODO refactor with topics
-  def year(year: Option[Year], bests: Seq[UblogBestOf.WithPosts])(using Context) =
-    Page("All blog topics").css("bits.ublog"):
-      main(cls := "page-menu")(
-        menu(Right("best-of")),
-        div(cls := "page-menu__content box")(
-          boxTop(h1(s"best of ${year.fold("last year")(_.toString)}")),
-          div(cls := "ublog-topics")(
-            bests.map { case UblogBestOf.WithPosts(yearMonth, posts) =>
-              a(
-                cls  := "ublog-topics__topic",
-                href := routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue)
-              )(
-                h2(
-                  s"best of ${showYearMonth(yearMonth)}",
-                  span(cls := "ublog-topics__topic__nb")("check them out »")
-                ),
-                span(cls := "ublog-topics__topic__posts ublog-post-cards")(
-                  posts.map(miniCard)
+  def year(bests: Paginator[UblogBestOf.WithPosts])(using Context) =
+    Page("Bests blogs per month")
+      .css("bits.ublog")
+      .js(bests.hasNextPage.option(infiniteScrollEsmInit)):
+        main(cls := "page-menu")(
+          menu(Right("best-of")),
+          div(cls := "page-menu__content box")(
+            boxTop(h1(s"Bests blogs per month")),
+            div(cls := "ublog-topics infinite-scroll")(
+              bests.currentPageResults.map { case UblogBestOf.WithPosts(yearMonth, posts) =>
+                a(
+                  cls  := "ublog-topics__topic",
+                  href := routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue)
+                )(
+                  h2(
+                    s"best of ${showYearMonth(yearMonth)}",
+                    span(cls := "ublog-topics__topic__nb")("check them out »")
+                  ),
+                  span(cls := "ublog-topics__topic__posts ublog-post-cards")(
+                    posts.map(miniCard)
+                  )
                 )
-              )
-            }
+              },
+              pagerNext(bests, np => routes.Ublog.bestOfYear(np).url)
+            )
           )
         )
-      )
 
   def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match
