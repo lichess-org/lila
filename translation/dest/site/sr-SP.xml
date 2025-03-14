@@ -300,9 +300,9 @@
   <string name="rematchOfferSent">Понуда за реванш послата</string>
   <string name="rematchOfferAccepted">Понуда за реванш прихваћена</string>
   <string name="rematchOfferCanceled">Понуда за реванш је отказана</string>
-  <string name="rematchOfferDeclined">Понуда за реванш је одбијена</string>
+  <string name="rematchOfferDeclined">Понуда за реванш одбијена</string>
   <string name="cancelRematchOffer">Откажи понуду за реванш</string>
-  <string name="viewRematch">Погледајте реванш</string>
+  <string name="viewRematch">Погледај реванш</string>
   <string name="confirmMove">Потврди потез</string>
   <string name="play">Играј</string>
   <string name="inbox">Пријемно сандуче</string>
