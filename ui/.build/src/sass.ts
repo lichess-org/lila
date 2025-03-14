@@ -1,15 +1,15 @@
 import cps from 'node:child_process';
-import fs from 'node:fs';
-import ps from 'node:process';
 import crypto from 'node:crypto';
-import { join, relative, basename, dirname, resolve } from 'node:path';
+import fs from 'node:fs';
+import { basename, dirname, join, relative, resolve } from 'node:path';
+import ps from 'node:process';
 import clr from 'tinycolor2';
-import { env, c, errorMark } from './env.ts';
-import { readable, glob } from './parse.ts';
-import { task } from './task.ts';
-import { updateManifest } from './manifest.ts';
 import { clamp, isEquivalent, trimLines } from './algo.ts';
-import { symlinkTargetHashes, hashedBasename } from './hash.ts';
+import { c, env, errorMark } from './env.ts';
+import { hashedBasename, symlinkTargetHashes } from './hash.ts';
+import { updateManifest } from './manifest.ts';
+import { glob, readable } from './parse.ts';
+import { task } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
@@ -168,7 +168,6 @@ async function parseScss(src: string, processed: Set<string>) {
 async function parseThemeColorDefs() {
   const themeFiles = await glob('ui/common/css/theme/_*.scss', { absolute: false });
   const themes: string[] = ['dark'];
-  const capturedColors = new Map<string, string>();
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
@@ -176,6 +175,7 @@ async function parseThemeColorDefs() {
       continue;
     }
     const text = fs.readFileSync(themeFile, 'utf8');
+    const capturedColors = new Map<string, string>();
     for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
       capturedColors.set(match[1], match[2]);
     }
