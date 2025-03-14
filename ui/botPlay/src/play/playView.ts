@@ -24,8 +24,8 @@ const viewMoves = (ctrl: PlayCtrl): LooseVNodes => {
   const els: LooseVNodes = [];
   for (let i = 0; i < pairs.length; i++) {
     els.push(h('turn', i + 1 + ''));
-    els.push(renderMove(i * 2 - 1, pairs[i][0], ctrl.onPly));
-    els.push(renderMove(i * 2, pairs[i][1], ctrl.onPly));
+    els.push(renderMove(i * 2 - 1, pairs[i][0], ctrl.board.onPly));
+    els.push(renderMove(i * 2, pairs[i][1], ctrl.board.onPly));
   }
   // els.push(renderResult(ctrl));
 

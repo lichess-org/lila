@@ -3,7 +3,7 @@ import { Game, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
+import { chessgroundDests, chessgroundMove } from 'chessops/compat';
 import { BotInfo } from 'local';
 import { parsePgn } from 'chessops/pgn';
 
@@ -16,23 +16,32 @@ export interface PlayOpts {
   close: () => void;
 }
 
+interface Board {
+  onPly: number;
+  chess: Chess;
+  lastMove?: Move;
+}
+
 export default class PlayCtrl {
   game: Game;
-  chess: Chess;
-  onPly: number;
+  board: Board; // the state of the board being displayed
   ground?: CgApi;
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
-    this.chess = Chess.default();
+    this.board = {
+      onPly: 0,
+      chess: Chess.default(),
+    };
     const pgn = parsePgn(opts.game.sans.join(' '))[0];
     if (pgn) {
       for (const node of pgn.moves.mainline()) {
-        const move = parseSan(this.chess, node.san);
+        const move = parseSan(this.board.chess, node.san);
         if (!move) break; // Illegal move
-        this.chess.play(move);
+        this.board.chess.play(move);
+        this.board.onPly++;
+        this.board.lastMove = move;
       }
     }
-    this.onPly = this.game.sans.length;
     this.opts.save(this.game);
   }
 
@@ -43,7 +52,7 @@ export default class PlayCtrl {
   onMove = (_orig: Key, _dest: Key) => {};
 
   onUserMove = (orig: Key, dest: Key) => {
-    const move = normalizeMove(this.chess, { from: parseSquare(orig)!, to: parseSquare(dest)! });
+    const move = normalizeMove(this.board.chess, { from: parseSquare(orig)!, to: parseSquare(dest)! });
     this.addMove(move);
     this.scheduleBotMove();
   };
@@ -53,7 +62,7 @@ export default class PlayCtrl {
   };
 
   private botMoveNow = () => {
-    const dests = this.chess.allDests();
+    const dests = this.board.chess.allDests();
     // list all possible moves
     const moves = Array.from(dests.entries()).flatMap(([from, tos]) =>
       Array.from(tos).map(to => ({ from, to })),
@@ -63,15 +72,18 @@ export default class PlayCtrl {
   };
 
   private addMove = (move: Move) => {
-    const san = makeSanAndPlay(this.chess, normalizeMove(this.chess, move));
+    const san = makeSanAndPlay(this.board.chess, normalizeMove(this.board.chess, move));
+    this.game.sans = this.game.sans.slice(0, this.board.onPly);
     this.game.sans.push(san);
-    this.onPly = this.game.sans.length;
+    this.board.onPly = this.game.sans.length;
+    this.board.lastMove = move;
     this.ground?.set({
-      fen: makeFen(this.chess.toSetup()),
-      check: this.chess.isCheck(),
+      fen: makeFen(this.board.chess.toSetup()),
+      check: this.board.chess.isCheck(),
       turnColor: this.game.sans.length % 2 === 0 ? 'white' : 'black',
+      lastMove: this.board.lastMove && chessgroundMove(this.board.lastMove),
       movable: {
-        dests: this.isPlaying() ? chessgroundDests(this.chess) : new Map(),
+        dests: this.isPlaying() ? chessgroundDests(this.board.chess) : new Map(),
       },
     });
     this.opts.redraw();

@@ -1,20 +1,20 @@
 import resizeHandle from 'common/chessgroundResize';
 import type PlayCtrl from './playCtrl';
-import { uciToMove } from 'chessground/util';
 import { ShowResizeHandle, Coords, MoveEvent } from 'common/prefs';
 import { storage } from 'common/storage';
 import { makeFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
+import { chessgroundDests, chessgroundMove } from 'chessops/compat';
 
 export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
   const playing = ctrl.isPlaying();
   const pref = ctrl.opts.pref;
+  const chess = ctrl.board.chess;
   return {
-    fen: makeFen(ctrl.chess.toSetup()),
+    fen: makeFen(chess.toSetup()),
     orientation: ctrl.game.pov,
-    turnColor: ctrl.chess.turn,
-    lastMove: uciToMove(ctrl.game.sans[ctrl.game.sans.length - 1]),
-    check: ctrl.chess.isCheck(),
+    turnColor: chess.turn,
+    lastMove: ctrl.board.lastMove && chessgroundMove(ctrl.board.lastMove),
+    check: chess.isCheck(),
     coordinates: pref.coords !== Coords.Hidden,
     coordinatesOnSquares: pref.coords === Coords.All,
     addPieceZIndex: pref.is3d,
@@ -29,14 +29,14 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
         resizeHandle(
           elements,
           playing ? pref.resizeHandle : ShowResizeHandle.Always,
-          ctrl.onPly,
+          ctrl.board.onPly,
           p => p <= 2,
         ),
     },
     movable: {
       free: false,
       color: playing ? ctrl.game.pov : undefined,
-      dests: playing ? chessgroundDests(ctrl.chess) : new Map(),
+      dests: playing ? chessgroundDests(chess) : new Map(),
       showDests: pref.destination,
       rookCastle: pref.rookCastle,
       events: {
