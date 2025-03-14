@@ -69,4 +69,5 @@
   <string name="notifyDevice">Device</string>
   <string name="bellNotificationSound">Bell notification sound</string>
   <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
+  <string name="halfBlindfold">Half Blindfold</string>
 </resources>

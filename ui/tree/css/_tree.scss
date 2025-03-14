@@ -130,6 +130,10 @@
     border: 1px solid $c-accent;
   }
 
+  move.lastvisible {
+    border: 1px solid $c-inaccuracy;
+  }
+
   move.active {
     font-weight: bold;
     background: $m-primary_bg--mix-25;
