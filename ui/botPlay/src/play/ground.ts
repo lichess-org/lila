@@ -10,9 +10,9 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
   const playing = ctrl.isPlaying();
   return {
     fen: makeFen(ctrl.chess.toSetup()),
-    orientation: ctrl.pov,
+    orientation: ctrl.game.pov,
     turnColor: ctrl.chess.turn,
-    lastMove: uciToMove(ctrl.sans[ctrl.sans.length - 1]),
+    lastMove: uciToMove(ctrl.game.sans[ctrl.game.sans.length - 1]),
     check: ctrl.chess.isCheck(),
     coordinates: ctrl.pref.coords !== Coords.Hidden,
     coordinatesOnSquares: ctrl.pref.coords === Coords.All,
@@ -34,7 +34,7 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
     },
     movable: {
       free: false,
-      color: playing ? ctrl.pov : undefined,
+      color: playing ? ctrl.game.pov : undefined,
       dests: playing ? chessgroundDests(ctrl.chess) : new Map(),
       showDests: ctrl.pref.destination,
       rookCastle: ctrl.pref.rookCastle,

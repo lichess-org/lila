@@ -4,9 +4,18 @@ import { stepwiseScroll } from 'common/controls';
 import type PlayCtrl from './playCtrl';
 import { chessgroundConfig } from './ground';
 
-export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoard(ctrl)]);
+export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoard(ctrl), viewTable(ctrl)]);
 
-export const viewBoard = (ctrl: PlayCtrl) =>
+const viewTable = (ctrl: PlayCtrl) =>
+  h('div.bot-game__table', [
+    h('div.bot-game__table__player', ['bot']),
+    h(
+      'div.bot-game__table__moves',
+      ctrl.game.sans.map((san, i) => h('div.bot-game__table__move', { key: i }, san)),
+    ),
+  ]);
+
+const viewBoard = (ctrl: PlayCtrl) =>
   h(
     'div.bot-game__board.main-board',
     {

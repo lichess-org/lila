@@ -1,25 +1,33 @@
 import { Chess, Move, parseSquare } from 'chessops';
 import { Game, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
-import { makeSanAndPlay } from 'chessops/san';
+import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
+import { BotInfo } from 'local';
+import { parsePgn } from 'chessops/pgn';
 
 export default class PlayCtrl {
   chess: Chess;
-  sans: San[];
   onPly: number;
   ground?: CgApi;
-  pov: Color;
   constructor(
     readonly pref: Pref,
     readonly game: Game,
+    readonly bot: BotInfo,
     readonly redraw: () => void,
+    readonly save: (game: Game) => void,
   ) {
     this.chess = Chess.default();
-    this.sans = [];
-    this.onPly = this.sans.length;
-    this.pov = 'white';
+    const pgn = parsePgn(game.sans.join(' '))[0];
+    if (pgn) {
+      for (const node of pgn.moves.mainline()) {
+        const move = parseSan(this.chess, node.san);
+        if (!move) break; // Illegal move
+        this.chess.play(move);
+      }
+    }
+    this.onPly = this.game.sans.length;
   }
 
   setGround = (cg: CgApi) => (this.ground = cg);
@@ -50,16 +58,17 @@ export default class PlayCtrl {
 
   private addMove = (move: Move) => {
     const san = makeSanAndPlay(this.chess, normalizeMove(this.chess, move));
-    this.sans.push(san);
-    this.onPly = this.sans.length;
+    this.game.sans.push(san);
+    this.onPly = this.game.sans.length;
     this.ground?.set({
       fen: makeFen(this.chess.toSetup()),
       check: this.chess.isCheck(),
-      turnColor: this.sans.length % 2 === 0 ? 'white' : 'black',
+      turnColor: this.game.sans.length % 2 === 0 ? 'white' : 'black',
       movable: {
         dests: this.isPlaying() ? chessgroundDests(this.chess) : new Map(),
       },
     });
     this.redraw();
+    this.save(this.game);
   };
 }

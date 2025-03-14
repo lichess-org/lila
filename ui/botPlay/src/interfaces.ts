@@ -1,4 +1,4 @@
-import { BotInfo } from 'local';
+import { BotId, BotInfo } from 'local';
 import * as Prefs from 'common/prefs';
 
 export interface BotOpts {
@@ -7,8 +7,9 @@ export interface BotOpts {
 }
 
 export interface Game {
-  opponent: BotInfo;
-  moves: San[];
+  botId: BotId;
+  sans: San[];
+  pov: Color;
 }
 
 export interface Pref {
