@@ -7,19 +7,24 @@ import { chessgroundDests } from 'chessops/compat';
 import { BotInfo } from 'local';
 import { parsePgn } from 'chessops/pgn';
 
+export interface PlayOpts {
+  pref: Pref;
+  game: Game;
+  bot: BotInfo;
+  redraw: () => void;
+  save: (game: Game) => void;
+  close: () => void;
+}
+
 export default class PlayCtrl {
+  game: Game;
   chess: Chess;
   onPly: number;
   ground?: CgApi;
-  constructor(
-    readonly pref: Pref,
-    readonly game: Game,
-    readonly bot: BotInfo,
-    readonly redraw: () => void,
-    readonly save: (game: Game) => void,
-  ) {
+  constructor(readonly opts: PlayOpts) {
+    this.game = opts.game;
     this.chess = Chess.default();
-    const pgn = parsePgn(game.sans.join(' '))[0];
+    const pgn = parsePgn(opts.game.sans.join(' '))[0];
     if (pgn) {
       for (const node of pgn.moves.mainline()) {
         const move = parseSan(this.chess, node.san);
@@ -68,7 +73,7 @@ export default class PlayCtrl {
         dests: this.isPlaying() ? chessgroundDests(this.chess) : new Map(),
       },
     });
-    this.redraw();
-    this.save(this.game);
+    this.opts.redraw();
+    this.opts.save(this.game);
   };
 }

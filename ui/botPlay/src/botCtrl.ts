@@ -3,6 +3,7 @@ import PlayCtrl from './play/playCtrl';
 import { BotOpts, Game } from './interfaces';
 import { BotInfo } from 'local';
 import { playView } from './play/playView';
+import { setupView } from './setup/setupView';
 import { storedJsonProp } from 'common/storage';
 import { alert } from 'common/dialogs';
 
@@ -37,8 +38,20 @@ export class BotCtrl {
       alert(`Couldn't find your opponent ${game.botId}`);
       return;
     }
-    this.playCtrl = new PlayCtrl(this.opts.pref, game, bot, this.redraw, g => this.currentGame(g));
+    this.playCtrl = new PlayCtrl({
+      pref: this.opts.pref,
+      game,
+      bot,
+      redraw: this.redraw,
+      save: g => this.currentGame(g),
+      close: this.closeGame,
+    });
   };
 
-  view = () => (this.playCtrl ? playView(this.playCtrl) : this.setupCtrl.view());
+  private closeGame = () => {
+    this.playCtrl = undefined;
+    this.redraw();
+  };
+
+  view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 }

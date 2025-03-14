@@ -110,8 +110,14 @@ $col1-moves-height: 4em;
   @include mq-is-col2-squeeze {
     grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
   }
+}
 
-  &__board {
-    grid-area: board;
-  }
+.bot-game__board {
+  grid-area: board;
+}
+
+.bot-game__table {
+  @extend %box-neat;
+  background: $c-bg-box;
+  padding: 1em;
 }

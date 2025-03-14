@@ -8,26 +8,27 @@ import { chessgroundDests } from 'chessops/compat';
 
 export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
   const playing = ctrl.isPlaying();
+  const pref = ctrl.opts.pref;
   return {
     fen: makeFen(ctrl.chess.toSetup()),
     orientation: ctrl.game.pov,
     turnColor: ctrl.chess.turn,
     lastMove: uciToMove(ctrl.game.sans[ctrl.game.sans.length - 1]),
     check: ctrl.chess.isCheck(),
-    coordinates: ctrl.pref.coords !== Coords.Hidden,
-    coordinatesOnSquares: ctrl.pref.coords === Coords.All,
-    addPieceZIndex: ctrl.pref.is3d,
+    coordinates: pref.coords !== Coords.Hidden,
+    coordinatesOnSquares: pref.coords === Coords.All,
+    addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
     highlight: {
-      lastMove: ctrl.pref.highlight,
-      check: ctrl.pref.highlight,
+      lastMove: pref.highlight,
+      check: pref.highlight,
     },
     events: {
       move: ctrl.onMove,
       insert: elements =>
         resizeHandle(
           elements,
-          playing ? ctrl.pref.resizeHandle : ShowResizeHandle.Always,
+          playing ? pref.resizeHandle : ShowResizeHandle.Always,
           ctrl.onPly,
           p => p <= 2,
         ),
@@ -36,30 +37,30 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
       free: false,
       color: playing ? ctrl.game.pov : undefined,
       dests: playing ? chessgroundDests(ctrl.chess) : new Map(),
-      showDests: ctrl.pref.destination,
-      rookCastle: ctrl.pref.rookCastle,
+      showDests: pref.destination,
+      rookCastle: pref.rookCastle,
       events: {
         after: ctrl.onUserMove,
       },
     },
     animation: {
       enabled: true,
-      duration: ctrl.pref.animationDuration,
+      duration: pref.animationDuration,
     },
     premovable: {
-      enabled: ctrl.pref.enablePremove,
-      showDests: ctrl.pref.destination,
+      enabled: pref.enablePremove,
+      showDests: pref.destination,
       // events: {
       //   set: hooks.onPremove,
       //   unset: hooks.onCancelPremove,
       // },
     },
     draggable: {
-      enabled: ctrl.pref.moveEvent !== MoveEvent.Click,
-      showGhost: ctrl.pref.highlight,
+      enabled: pref.moveEvent !== MoveEvent.Click,
+      showGhost: pref.highlight,
     },
     selectable: {
-      enabled: ctrl.pref.moveEvent !== MoveEvent.Drag,
+      enabled: pref.moveEvent !== MoveEvent.Drag,
     },
     drawable: {
       enabled: true,
