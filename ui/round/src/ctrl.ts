@@ -37,8 +37,6 @@ import type {
   Step,
   RoundOpts,
   RoundData,
-  ApiMove,
-  ApiEnd,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -46,6 +44,8 @@ import type {
   Position,
   NvuiPlugin,
   RoundTour,
+  ApiMove,
+  ApiEnd,
 } from './interfaces';
 import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
@@ -111,7 +111,7 @@ export default class RoundController implements MoveRootCtrl {
       this.firstSeconds = false;
       this.redraw();
     }, 3000);
-    this.socket = opts.local ?? makeSocket(opts.socketSend!, this);
+    this.socket = d.local ?? makeSocket(opts.socketSend!, this);
     this.blindfoldStorage = storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     this.updateClockCtrl();
@@ -128,7 +128,7 @@ export default class RoundController implements MoveRootCtrl {
     this.setQuietMode();
     this.confirmMoveToggle = toggle(d.pref.submitMove);
     this.moveOn = new MoveOn(this, 'move-on');
-    if (!opts.local) this.transientMove = new TransientMove(this.socket);
+    if (!d.local) this.transientMove = new TransientMove(this.socket);
 
     this.menu = toggle(false, redraw);
 
@@ -221,14 +221,14 @@ export default class RoundController implements MoveRootCtrl {
   makeCgHooks = (): any => ({
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
-    onMove: this.opts.local ? undefined : this.onMove,
+    onMove: this.data.local ? undefined : this.onMove,
     onNewPiece: this.onNewPiece,
     onPremove: this.onPremove,
     onCancelPremove: this.onCancelPremove,
     onPredrop: this.onPredrop,
   });
 
-  replaying = (): boolean => this.ply !== this.lastPly() && !this.opts.local;
+  replaying = (): boolean => this.ply !== this.lastPly() && !this.data.local;
 
   userJump = (ply: Ply): void => {
     this.toSubmit = undefined;
@@ -264,8 +264,8 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
-    this.pluginUpdate(s.fen);
     pubsub.emit('ply', ply);
+    this.pluginUpdate(s.fen);
     return true;
   };
 
@@ -372,7 +372,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   showYourMoveNotification = (): void => {
-    if (this.opts.local) return;
+    if (this.data.local) return;
     const d = this.data;
     const opponent = $('body').hasClass('zen') ? 'Your opponent' : userTxt(d.opponent);
     const joined = `${opponent}\njoined the game.`;
@@ -494,7 +494,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.pluginUpdate(step.fen);
-    if (!this.opts.local) site.sound.move({ ...o, filter: 'music' });
+    if (!this.data.local) site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
@@ -524,7 +524,7 @@ export default class RoundController implements MoveRootCtrl {
     this.updateClockCtrl();
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (!this.replaying() && !this.opts.local) groundReload(this);
+    if (!this.replaying()) groundReload(this);
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
@@ -877,7 +877,7 @@ export default class RoundController implements MoveRootCtrl {
 
         if (d.crazyhouse) crazyInit(this);
 
-        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost() && !this.opts.local)
+        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost() && !d.local)
           window.addEventListener('beforeunload', e => {
             if (site.unload.expected || !this.isPlaying()) return;
             this.socket.send('bye2');
@@ -901,7 +901,7 @@ export default class RoundController implements MoveRootCtrl {
       if (this.isPlaying() && d.steps.length === 1) {
         this.blindfold(this.blindfoldStorage.get());
       }
-      wakeLock.request();
+      if (!d.local) wakeLock.request();
 
       setTimeout(() => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
