@@ -33,6 +33,7 @@ export default class PlayCtrl {
       }
     }
     this.onPly = this.game.sans.length;
+    this.opts.save(this.game);
   }
 
   setGround = (cg: CgApi) => (this.ground = cg);
@@ -48,7 +49,7 @@ export default class PlayCtrl {
   };
 
   private scheduleBotMove = () => {
-    setTimeout(this.botMoveNow, 1000);
+    setTimeout(this.botMoveNow, 500);
   };
 
   private botMoveNow = () => {
@@ -75,5 +76,6 @@ export default class PlayCtrl {
     });
     this.opts.redraw();
     this.opts.save(this.game);
+    this.ground?.playPremove();
   };
 }

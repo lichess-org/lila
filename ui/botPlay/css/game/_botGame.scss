@@ -115,9 +115,3 @@ $col1-moves-height: 4em;
 .bot-game__board {
   grid-area: board;
 }
-
-.bot-game__table {
-  @extend %box-neat;
-  background: $c-bg-box;
-  padding: 1em;
-}

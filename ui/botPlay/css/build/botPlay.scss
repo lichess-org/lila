@@ -11,4 +11,6 @@
 @import '../../../chess/css/blindfold';
 
 @import '../botSetup';
-@import '../botGame';
+@import '../game/botGame';
+@import '../game/botTable';
+@import '../game/botOpponent';
