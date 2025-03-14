@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { looseH as h, onInsert } from 'common/snabbdom';
 import type LobbyController from '../ctrl';
 import type { NowPlaying } from '../interfaces';
 import { initMiniBoard } from 'common/miniBoard';
@@ -6,23 +6,12 @@ import { timeago } from 'common/i18n';
 
 function timer(pov: NowPlaying) {
   const date = Date.now() + pov.secondsLeft! * 1000;
-  return h(
-    'time.timeago',
-    {
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLElement).setAttribute('datetime', '' + date);
-        },
-      },
-    },
-    timeago(date),
-  );
+  return h('time.timeago', { hook: onInsert(el => el.setAttribute('datetime', '' + date)) }, timeago(date));
 }
 
 export default function (ctrl: LobbyController) {
-  return h(
-    'div.now-playing',
-    ctrl.data.nowPlaying.map(pov =>
+  return h('div.now-playing', [
+    ...ctrl.data.nowPlaying.map(pov =>
       h('a.' + pov.variant.key, { key: `${pov.gameId}${pov.lastMove}`, attrs: { href: '/' + pov.fullId } }, [
         h('span.mini-board.cg-wrap.is2d', {
           attrs: { 'data-state': `${pov.fen},${pov.orientation || pov.color},${pov.lastMove}` },
@@ -43,5 +32,5 @@ export default function (ctrl: LobbyController) {
         ]),
       ]),
     ),
-  );
+  ]);
 }

@@ -17,7 +17,7 @@
     "@types/micromatch": "^4.0.9",
     "@types/node": "22.13.9",
     "@types/tinycolor2": "1.4.6",
-    "esbuild": "0.25.0",
+    "esbuild": "0.24.2",
     "fast-glob": "3.3.3",
     "fast-xml-parser": "5.0.8",
     "json-stringify-pretty-compact": "4.0.0",
