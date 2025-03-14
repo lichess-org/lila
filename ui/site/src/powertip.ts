@@ -65,7 +65,7 @@ const imagePowertip = (el: HTMLElement) =>
     });
 
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
-  if ('ontouchstart' in window && !el.classList.contains('mobile-powertip')) return;
+  if ('ontouchstart' in window && !el.classList.contains('touch-powertip')) return;
   f(el);
   $.powerTip.show(el, ev);
 }
@@ -377,10 +377,13 @@ function placementCalculator() {
           coords.top = position.top + offset;
           break;
       }
-      if (isTouchDevice() && $as<WithTooltip>(element).classList.contains('mobile-powertip'))
+      if (isTouchDevice() && $as<WithTooltip>(element).classList.contains('touch-powertip')) {
+        // If the touch devices is narrow (i.e., mobile phones), ensure the powertip doesn't
+        // appear offscreen at the left or top:
         Object.keys(coords).forEach(k => {
           if (coords[k] !== 'auto') coords[k] = Math.max(coords[k], 0);
         });
+      }
       return coords;
     },
   };

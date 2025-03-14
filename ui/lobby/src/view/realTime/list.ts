@@ -25,7 +25,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     },
     tds([
       hook.rating
-        ? h('span.ulink.ulpt.mobile-powertip', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
+        ? h('span.ulink.ulpt.touch-powertip', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : i18n.site.anonymous,
       hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
       hook.clock,
