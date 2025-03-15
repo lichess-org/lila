@@ -167,7 +167,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList)!;
-    if (!this.halfBlindfold() || (path.length < this.visiblePath.length))
+    if (!this.halfBlindfold() || (path.length < this.visiblePath.length) || this.mode == "view")
     {
       this.visibleNode = this.node;
     }
@@ -436,12 +436,12 @@ export default class PuzzleCtrl implements ParentCtrl {
       }
     } else if (progress === 'win') {
       if (this.streak) this.sound.good();
+      this.visibleNode = this.node;
+      this.withGround(this.showGround);
       this.lastFeedback = 'win';
       if (this.mode != 'view') {
         const sent = this.mode === 'play' ? this.sendResult(true) : Promise.resolve();
         this.mode = 'view';
-        this.visibleNode = this.node;
-        this.withGround(this.showGround);
         sent.then(_ => (this.autoNext() ? this.nextPuzzle() : this.startCeval()));
       }
     } else if (progress) {
@@ -645,6 +645,8 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     this.autoScrollRequested = true;
     this.voteDisabled = true;
+    this.visibleNode = this.node;
+    this.withGround(this.showGround)
     this.redraw();
     this.startCeval();
     setTimeout(() => {
