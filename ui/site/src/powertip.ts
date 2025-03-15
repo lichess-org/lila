@@ -552,7 +552,7 @@ class TooltipController {
           this.tipElement.outerHeight() || this.options.defaultSize[1],
         );
         // continue/break if there were/weren't collisions (cash loop mechanism):
-        return collisions !== Collision.none
+        return collisions !== Collision.none;
       });
     } else {
       // if we're not going to use the smart placement feature then just
