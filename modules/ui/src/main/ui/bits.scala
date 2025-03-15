@@ -1,5 +1,9 @@
 package lila.ui
 
+import play.api.i18n.Lang
+
+import java.time.{ Month, Year, YearMonth }
+
 import chess.format.Fen
 
 import lila.core.i18n.Translate
@@ -27,6 +31,49 @@ object bits:
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
       st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item")))
+    )
+
+  // url: (year: Int, month: Int)
+  def calendarMselect(
+      helpers: Helpers,
+      id: String,
+      allYears: List[Int],
+      url: (Int, Int) => play.api.mvc.Call
+  )(at: YearMonth)(using
+      Lang
+  ) =
+    import helpers.showMonth
+    val prefix                   = s"calendar-mselect"
+    def prefixed(suffix: String) = s"${prefix}$suffix"
+    div(cls := s"$prefix $prefix--$id")(
+      a(
+        href     := url(at.minusMonths(1).getYear, at.minusMonths(1).getMonthValue),
+        dataIcon := Icon.LessThan
+      ),
+      div(cls := prefixed("__selects"))(
+        mselect(
+          prefixed(s"__year--$id"),
+          span(at.getYear),
+          allYears.map: y =>
+            a(
+              cls  := (y == at.getYear).option("current"),
+              href := url(y, at.getMonthValue)
+            )(y)
+        ),
+        mselect(
+          prefixed(s"__month--$id"),
+          span(showMonth(at.getMonth)),
+          java.time.Month.values.toIndexedSeq.map: m =>
+            a(
+              cls  := (m == at.getMonth).option("current"),
+              href := url(at.getYear, m.getValue)
+            )(showMonth(m))
+        )
+      ),
+      a(
+        href     := url(at.plusMonths(1).getYear, at.plusMonths(1).getMonthValue),
+        dataIcon := Icon.GreaterThan
+      )
     )
 
   def fenAnalysisLink(fen: Fen.Full)(using Translate) =

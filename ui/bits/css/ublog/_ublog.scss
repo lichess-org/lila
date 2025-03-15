@@ -5,6 +5,10 @@
 
 .ublog {
   &-index {
+    &__calendar {
+      margin-bottom: 2em;
+    }
+
     .box__top__actions {
       @extend %flex-center;
       .atom {
