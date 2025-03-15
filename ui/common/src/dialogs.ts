@@ -19,7 +19,6 @@ export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
   const dlg = await domDialog({
     htmlText: escapeHtmlAddBreaks(msg),
     noCloseButton: true,
-    actions: { result: 'ok' },
   });
   if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
   return dlg.show();

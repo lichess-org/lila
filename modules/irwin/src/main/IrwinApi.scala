@@ -97,20 +97,21 @@ final class IrwinApi(
       insert(suspect, _.Moderator)
 
     private[irwin] def insert(suspect: Suspect, origin: Origin.type => Origin): Funit =
-      for
-        analyzed <- getAnalyzedGames(suspect, 15)
-        more     <- getMoreGames(suspect, 20 - analyzed.size)
-        all = analyzed.map { (game, analysis) =>
-          game -> analysis.some
-        } ::: more.map(_ -> none)
-      yield Bus.publish(
-        IrwinRequest(
-          suspect = suspect,
-          origin = origin(Origin),
-          games = all
-        ),
-        "irwin"
-      )
+      suspect.user.noBot.so:
+        for
+          analyzed <- getAnalyzedGames(suspect, 15)
+          more     <- getMoreGames(suspect, 20 - analyzed.size)
+          all = analyzed.map { (game, analysis) =>
+            game -> analysis.some
+          } ::: more.map(_ -> none)
+        yield Bus.publish(
+          IrwinRequest(
+            suspect = suspect,
+            origin = origin(Origin),
+            games = all
+          ),
+          "irwin"
+        )
 
     private[irwin] def fromTournamentLeaders(suspects: List[Suspect]): Funit =
       suspects.sequentiallyVoid(insert(_, _.Tournament))

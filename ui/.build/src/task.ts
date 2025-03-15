@@ -3,7 +3,7 @@ import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
-import { randomToken } from './algo.ts';
+import { randomToken, unique } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
@@ -155,8 +155,8 @@ async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
       event = 'rename';
     }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
-    const fullglobs = watch.glob.map(({ cwd, path }) => join(cwd, path));
-    if (!mm.isMatch(fullpath, fullglobs)) {
+    const fullglobs = unique(watch.glob.map(({ cwd, path }) => join(cwd, path)));
+    if (!mm.isMatch(fullpath, fullglobs) && fullglobs.some(glob => fullpath.startsWith(mm.scan(glob).base))) {
       if (event === 'change') continue;
       try {
         if (!(await fs.promises.stat(fullpath)).isDirectory()) continue;
