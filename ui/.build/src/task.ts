@@ -107,9 +107,8 @@ async function execute(t: Task): Promise<void> {
       }),
     );
   }
-  if (modified.length === 0)
-  {
-    t.status = "ok";
+  if (modified.length === 0) {
+    t.status = 'ok';
     return;
   }
 

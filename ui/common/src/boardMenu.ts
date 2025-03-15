@@ -80,14 +80,14 @@ export class BoardMenu {
       disabled: !enabled,
     });
 
-    halfBlindfold = (toggle: Toggle, enabled = true): VNode =>
-      this.cmnToggle({
-        name: i18n.preferences.halfBlindfold,
-        id: 'halfBlindfold',
-        checked: toggle(),
-        change: toggle,
-        disabled: !enabled,
-      });
+  halfBlindfold = (toggle: Toggle, enabled = true): VNode =>
+    this.cmnToggle({
+      name: i18n.preferences.halfBlindfold,
+      id: 'halfBlindfold',
+      checked: toggle(),
+      change: toggle,
+      disabled: !enabled,
+    });
 
   confirmMove = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({

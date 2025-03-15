@@ -92,7 +92,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
     active: path === ctx.ctrl.path,
     current: path === ctx.ctrl.initialPath,
     hist: node.ply < ctx.ctrl.initialNode.ply,
-    lastvisible: (path === ctx.ctrl.visiblePath) && ctx.ctrl.halfBlindfolded
+    lastvisible: path === ctx.ctrl.visiblePath && ctx.ctrl.halfBlindfolded,
   };
   if (node.puzzle) classes[node.puzzle] = true;
   return h('move', { attrs: { p: path }, class: classes }, renderMove(node));

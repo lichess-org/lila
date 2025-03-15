@@ -30,7 +30,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
       free: false,
       color: opts.movable!.color,
       dests: opts.movable!.dests,
-      showDests: ctrl.pref.destination && (!ctrl.blindfold() && !ctrl.halfBlindfold()),
+      showDests: ctrl.pref.destination && !ctrl.blindfold() && !ctrl.halfBlindfold(),
       rookCastle: ctrl.pref.rookCastle,
       shadowMove: ctrl.halfBlindfold(),
     },
