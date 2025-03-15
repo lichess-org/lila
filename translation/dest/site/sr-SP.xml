@@ -309,9 +309,9 @@
   <string name="chatRoom">Соба за ћаскање</string>
   <string name="loginToChat">Улогуј се за ћаскање</string>
   <string name="youHaveBeenTimedOut">Стављени сте на тајм-аут.</string>
-  <string name="spectatorRoom">Соба за посматраче</string>
-  <string name="composeMessage">Напиши поруку</string>
-  <string name="subject">Тема</string>
+  <string name="spectatorRoom">Соба за гледаоце</string>
+  <string name="composeMessage">Састави поруку</string>
+  <string name="subject">Наслов</string>
   <string name="send">Пошаљи</string>
   <string name="incrementInSeconds">Додавање у секундама</string>
   <string name="freeOnlineChess">Бесплатан интернет шах</string>
