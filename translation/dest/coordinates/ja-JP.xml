@@ -18,4 +18,5 @@
   <string name="startTraining">トレーニングを開始</string>
   <string name="findSquare">マスを探す</string>
   <string name="nameSquare">マスの名前を入力</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">一部のファイルとランクだけ練習</string>
 </resources>

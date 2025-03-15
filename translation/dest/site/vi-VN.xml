@@ -748,6 +748,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="anonymous">Ẩn danh</string>
   <string name="yourScore">Điểm của bạn: %s</string>
   <string name="language">Ngôn ngữ</string>
+  <string name="allLanguages">Tất cả ngôn ngữ</string>
   <string name="background">Nền</string>
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>

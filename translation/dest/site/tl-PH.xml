@@ -223,7 +223,7 @@
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="error.weakPassword">Ang password na ito ay sobrang karaniwan, at napakadaling hulaan.</string>
   <string name="error.namePassword">Mangyaring huwag gamitin ang iyong username bilang iyong password.</string>
-  <string name="youAreLeavingLichess">Aalis ka sa Laro</string>
+  <string name="youAreLeavingLichess">Aalis ka sa Lichess</string>
   <string name="neverTypeYourPassword">Wag mong ilagay ang iyong Password sa ibang website!</string>
   <string name="proceedToX">Magpatuloy sa %s</string>
   <string name="passwordSuggestion">Wag mo gamitin ang password na galing sa iba. Dahil gagamitin nila ito sa pagnanakaw ng iyong account.</string>
@@ -244,6 +244,7 @@
     <item quantity="one">%s laro ko</item>
     <item quantity="other">%s mga laro ko</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Ikansela</string>
   <string name="whiteTimeOut">Puti oras na</string>
   <string name="blackTimeOut">Itim oras na</string>
@@ -662,6 +663,8 @@
   <string name="keyGoToStartOrEnd">pumunta sa simula/huli</string>
   <string name="keyShowOrHideComments">ipakita/itago ang mga komento</string>
   <string name="keyEnterOrExitVariation">pumasok/lumabas na pagkakaiba-iba</string>
+  <string name="keyNextBlunder">Susunod na malaking pagkakamali</string>
+  <string name="keyNextMistake">Susunod na pagkakamali</string>
   <string name="newTournament">Bagong torneo</string>
   <string name="tournamentHomeTitle">Paligsahan ng Chess tampok ang ibat-ibang pagkontrol sa oras at mga pagkakaiba-iba</string>
   <string name="tournamentHomeDescription">Maglaro ng mabilis sa mga paligsahn ng chess! Sumali sa opisyal na nakaiskedyul na mga paligsahan, o gumawa na iyong sarili. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, at marami pang magagamit para sa walang katapusang kasayahan ng chess.</string>
