@@ -44,4 +44,12 @@ Los xugadores a los que nun-yos guste recibir los tos mensaxes pueden abandonar 
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Quies incluyir un enllaz a dalgún d\'estos próximos torneos?</string>
   <string name="leadersChat">Chat de líderes</string>
+  <string name="closeTeam">Dar de baxa l\'equipu</string>
+  <string name="closeTeamDescription">Da de baxa l\'equipu definitivamente.</string>
+  <string name="entryCode">Códigu d\'entrada al equipu</string>
+  <string name="entryCodeDescriptionForLeader">(Opcional) Un códigu d\'entrada que los nuevos miembros tien que saber pa xunise a esti equipu.</string>
+  <string name="incorrectEntryCode">Códigu d\'entrada incorrectu.</string>
+  <string name="teamAlreadyExists">Esti equipu yá esiste.</string>
+  <string name="upcomingTournaments">Próximos torneos</string>
+  <string name="completedTourns">Torneos terminaos</string>
 </resources>
