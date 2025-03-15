@@ -58,7 +58,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   cgConfig?: CgConfig;
   path: Tree.Path;
   node: Tree.Node;
-  visibleNode : Tree.Node;
+  visibleNode: Tree.Node;
   nodeList: Tree.Node[];
   mainline: Tree.Node[];
   initialPath: Tree.Path;
@@ -167,12 +167,9 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList)!;
-    if (!this.halfBlindfold() || (path.length < this.visiblePath.length) || this.mode == "view")
-    {
+    if (!this.halfBlindfold() || path.length < this.visiblePath.length || this.mode == 'view') {
       this.visibleNode = this.node;
-    }
-    else
-    {
+    } else {
       const visibleNodeList = this.tree.getNodeList(this.visiblePath);
       const visibleNode = treeOps.last(visibleNodeList)!;
       this.visibleNode = visibleNode;
@@ -225,9 +222,11 @@ export default class PuzzleCtrl implements ParentCtrl {
   initiate = (fromData: PuzzleData): void => {
     this.data = fromData;
     this.tree = treeBuild(pgnToTree(this.data.game.pgn.split(' ')));
-    const initialNodeList = treeOps.mainlineNodeList(this.tree.root)
+    const initialNodeList = treeOps.mainlineNodeList(this.tree.root);
     const initialPath = treePath.fromNodeList(initialNodeList);
-    const visiblePath = treePath.fromNodeList(initialNodeList.slice(0, initialNodeList.length - Math.min(initialNodeList.length, 4)));
+    const visiblePath = treePath.fromNodeList(
+      initialNodeList.slice(0, initialNodeList.length - Math.min(initialNodeList.length, 4)),
+    );
     this.mode = 'play';
     this.next = defer();
     this.round = undefined;
@@ -280,7 +279,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     const dests = chessgroundDests(this.position());
     const nextNode = this.node.children[0];
     const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle === 'fail'));
-    const showDests = (!this.blindfold() && !this.halfBlindfold());
+    const showDests = !this.blindfold() && !this.halfBlindfold();
     const movable = canMove
       ? {
           color: dests.size > 0 ? color : undefined,
@@ -291,7 +290,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       : {
           color: undefined,
           dests: new Map(),
-          showDests : showDests
+          showDests: showDests,
         };
     const config = {
       fen: this.visibleNode.fen,
@@ -603,7 +602,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   userJump = (path: Tree.Path): void => {
-    // if (this.halfBlindfolded && path.length > this.visiblePath.length) return; 
+    // if (this.halfBlindfolded && path.length > this.visiblePath.length) return;
     if (this.tree.nodeAtPath(path)?.puzzle === 'fail' && this.mode != 'view') return;
     this.withGround(g => g.selectSquare(null));
     this.jump(path);
@@ -646,7 +645,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.autoScrollRequested = true;
     this.voteDisabled = true;
     this.visibleNode = this.node;
-    this.withGround(this.showGround)
+    this.withGround(this.showGround);
     this.redraw();
     this.startCeval();
     setTimeout(() => {
@@ -703,10 +702,10 @@ export default class PuzzleCtrl implements ParentCtrl {
   halfBlindfold = (v?: boolean): boolean => {
     if (v !== undefined && v !== this.halfBlindfolded) {
       this.halfBlindfolded = v;
-      this.withGround(this.showGround)
+      this.withGround(this.showGround);
       this.redraw();
       //we reset the path in case it's longer than visible path
-      this.jump(this.path)
+      this.jump(this.path);
     }
     return this.halfBlindfolded;
   };
