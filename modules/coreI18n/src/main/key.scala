@@ -1143,6 +1143,7 @@ object I18nKey:
     val `notifyDevice`: I18nKey = "preferences:notifyDevice"
     val `bellNotificationSound`: I18nKey = "preferences:bellNotificationSound"
     val `blindfold`: I18nKey = "preferences:blindfold"
+    val `halfBlindfold`: I18nKey = "preferences:halfBlindfold"
 
   object puzzle:
     val `puzzles`: I18nKey = "puzzle:puzzles"

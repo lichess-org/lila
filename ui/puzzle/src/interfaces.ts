@@ -49,6 +49,7 @@ export interface PuzzlePrefs {
     duration: number;
   };
   blindfold: boolean;
+  halfBlindfold: boolean;
   keyboardMove: boolean;
   voiceMove: boolean;
 }

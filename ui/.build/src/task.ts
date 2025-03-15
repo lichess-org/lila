@@ -107,7 +107,11 @@ async function execute(t: Task): Promise<void> {
       }),
     );
   }
-  if (modified.length === 0) return;
+  if (modified.length === 0)
+  {
+    t.status = "ok";
+    return;
+  }
 
   if (t.ctx) env.begin(t.ctx);
   t.status = undefined;

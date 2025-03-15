@@ -18,6 +18,10 @@ export default function (ctrl: PuzzleCtrl) {
         toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
         true,
       ),
+      menu.halfBlindfold(
+        toggle(ctrl.halfBlindfold(), v => ctrl.halfBlindfold(v)),
+        true,
+      ),
       menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), true),
       menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), true),
     ]),
