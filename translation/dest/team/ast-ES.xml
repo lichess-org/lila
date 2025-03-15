@@ -12,5 +12,36 @@
   <string name="myTeams">Los mios equipos</string>
   <string name="noTeamFound">Nengún equipu atopáu</string>
   <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Xunirse al equipu</string>
+  <string name="onlyLeaderLeavesTeam">Por favor, añede un nuevu líder d\'equipu antes de salir, o cierra l\'equipu.</string>
   <string name="quitTeam">Abandonar l\'equipu</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualmente les solicitúes d\'almisión</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Si ta marcáu, los xugadores van tener qu\'escribir una solicitú pa xunise al equipu, que tu pues refugar o aceptar.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Líder del equipu</item>
+    <item quantity="other">Líderes del equipu</item>
+  </plurals>
+  <string name="teamRecentMembers">Miembros recién</string>
+  <string name="kickSomeone">Espulsar a daquién del equipu</string>
+  <string name="whoToKick">¿A quién quies espulsar del equipu?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s solicitú d\'ingresu</item>
+    <item quantity="other">%s solicitúes d\'ingresu</item>
+  </plurals>
+  <string name="willBeReviewed">El líder del equipu va revisar la to solicitú d\'ingresu.</string>
+  <string name="beingReviewed">El líder del equipu ta revisando la to solicitú d\'ingresu.</string>
+  <string name="requestDeclined">La to solicitú d\'ingresu foi refugada por un líder del equipu.</string>
+  <string name="subToTeamMessages">Suscribise a los mensaxes del equipu</string>
+  <string name="teamBattle">Batalla por Equipos</string>
+  <string name="teamBattleOverview">Xuna batalla de dellos equipos, cada xugador anota puntos pal so equipu</string>
+  <string name="teamTournament">Tornéu d\'equipu</string>
+  <string name="teamTournamentOverview">Un tornéu al que namás pueden xunise los miembros del to equipu</string>
+  <string name="swissTournamentOverview">Un tornéu por sistema suizu nel que namás pueden participar los miembros d\'esti equipu</string>
+  <string name="messageAllMembers">Unviar mensaxe a tolos miembros</string>
+  <string name="messageAllMembersOverview">Unviar un mensaxe priváu a cada miembru del equipu</string>
+  <string name="messageAllMembersLongDescription">Esti mensaxe va unviase a TOOS los miembros del equipu.
+Pues usar esto pa convocar a xugadores a un tornéu o a una batalla d\'equipu.
+Los xugadores a los que nun-yos guste recibir los tos mensaxes pueden abandonar l\'equipu.</string>
+  <string name="teamsIlead">Equipos que lidero</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">¿Quies incluyir un enllaz a dalgún d\'estos próximos torneos?</string>
+  <string name="leadersChat">Chat de líderes</string>
 </resources>
