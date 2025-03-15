@@ -58,4 +58,34 @@
   .content a {
     margin-inline-end: 1em;
   }
+
+
+
+  @media screen and (orientation: portrait) {
+    .board-wrapper div button {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .board-wrapper {
+      max-width: $xx-small;
+    }
+    @media (max-width: at-most($xx-small)) {
+      .board-wrapper div button {
+        width: 12.5vw;
+      }
+      .board {
+        text-align: left;
+      }
+    }
+    @media (min-width: at-least($xx-small)) {
+      .board-wrapper div button {
+        width: 12.5%;
+      }
+      .board {
+        text-align: center;
+      }
+    }
+  }
+
 }
