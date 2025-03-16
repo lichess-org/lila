@@ -3,7 +3,7 @@ import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
-import { randomToken } from './algo.ts';
+import { randomToken, unique } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
@@ -39,24 +39,25 @@ type TaskOpts = {
   globListOnly?: boolean; // default false - ignore file mods, only execute when glob list changes
   monitorOnly?: boolean; // default false - do not execute on initial traverse, only on future changes
   noEnvStatus?: boolean; // default false - don't inform env.done of task status
+  always?: boolean; // default false - always call <myTask>.execute(...), even when modified is []
 };
 
 export async function task(o: TaskOpts): Promise<TaskKey> {
-  const { monitorOnly: noInitial, debounce, key: inKey } = o;
+  const { monitorOnly, debounce, key: inKey } = o;
   const glob = Array<CwdPath>().concat(o.glob ?? []);
   if (inKey) stopTask(inKey);
-  const newWatch: Task = {
+  const t: Task = {
     ...o,
     glob,
     key: inKey ?? randomToken(),
-    status: noInitial ? 'ok' : undefined,
-    debounce: { time: debounce ?? 0, rename: !noInitial, files: new Set<AbsPath>() },
-    fileTimes: noInitial ? await globTimes(glob) : new Map(),
+    status: monitorOnly ? 'ok' : undefined,
+    debounce: { time: debounce ?? 0, rename: !monitorOnly, files: new Set<AbsPath>() },
+    fileTimes: monitorOnly ? await globTimes(glob) : new Map(),
   };
-  tasks.set(newWatch.key, newWatch);
-  if (env.watch) newWatch.glob.forEach(g => watchGlob(g, newWatch.key));
-  if (!noInitial) await execute(newWatch);
-  return newWatch.key;
+  tasks.set(t.key, t);
+  if (env.watch) t.glob.forEach(g => watchGlob(g, t.key));
+  if (!monitorOnly) await execute(t, true);
+  return t.key;
 }
 
 export function stopTask(keys?: TaskKey | TaskKey[]) {
@@ -78,7 +79,7 @@ export function taskOk(ctx?: Context): boolean {
   return all.filter(w => !w.monitorOnly).length > 0 && all.every(w => w.status === 'ok');
 }
 
-async function execute(t: Task): Promise<void> {
+async function execute(t: Task, firstRun = false): Promise<void> {
   const makeRelative = (files: AbsPath[]) => (t.root ? files.map(f => relative(t.root!, f)) : files);
   const debounced = [...t.debounce.files];
   const modified: AbsPath[] = [];
@@ -107,7 +108,7 @@ async function execute(t: Task): Promise<void> {
       }),
     );
   }
-  if (modified.length === 0) return;
+  if (modified.length === 0 && !firstRun && !t.always) return;
 
   if (t.ctx) env.begin(t.ctx);
   t.status = undefined;
@@ -155,8 +156,8 @@ async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
       event = 'rename';
     }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
-    const fullglobs = watch.glob.map(({ cwd, path }) => join(cwd, path));
-    if (!mm.isMatch(fullpath, fullglobs)) {
+    const fullglobs = unique(watch.glob.map(({ cwd, path }) => join(cwd, path)));
+    if (!mm.isMatch(fullpath, fullglobs) && fullglobs.some(glob => fullpath.startsWith(mm.scan(glob).base))) {
       if (event === 'change') continue;
       try {
         if (!(await fs.promises.stat(fullpath)).isDirectory()) continue;
