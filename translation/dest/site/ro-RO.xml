@@ -312,7 +312,7 @@
   <string name="customPosition">Poziție personalizată</string>
   <string name="unlimited">Nelimitat</string>
   <string name="mode">Mod</string>
-  <string name="casual">Amical</string>
+  <string name="casual" comment="Indicates that the game is/will be Casual (unrated).&#10;&#10;There is another string that says &quot;Casual&quot; for casual tournaments specifically.">Amical</string>
   <string name="rated">Oficial</string>
   <string name="casualTournament">Amical</string>
   <string name="ratedTournament">Oficial</string>
@@ -831,6 +831,7 @@
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Scorul tău: %s</string>
   <string name="language">Limbă</string>
+  <string name="allLanguages" comment="Appears as a select box option on the Coaches page (https://lichess.org/coach). As such, please keep this string short.&#10;&#10;It is the default option. When selected, it means you are not filtering by language at all. Could alternatively be stated as 'Any language' or 'Show all languages'.&#10;&#10;This string refers to the user's viewing options; a coach cannot state they speak any/all languages.">Orice limbă</string>
   <string name="background">Fundal</string>
   <string name="light">Luminos</string>
   <string name="dark">Culoare închisă</string>
