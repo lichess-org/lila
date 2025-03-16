@@ -61,11 +61,13 @@ interface OpeningPlayer {
 export type TablebaseCategory =
   | 'loss'
   | 'unknown'
+  | 'syzygy-loss'
   | 'maybe-loss'
   | 'blessed-loss'
   | 'draw'
   | 'cursed-win'
   | 'maybe-win'
+  | 'syzygy-win'
   | 'win';
 
 export interface TablebaseData extends ExplorerData {
