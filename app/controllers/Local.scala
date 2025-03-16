@@ -18,7 +18,7 @@ final class Local(env: Env) extends LilaController(env):
       bots <- env.local.repo.getLatestBots()
       res <- negotiate(
         html =
-          for page <- renderPage(indexPage(bots))
+          for page <- renderPage(views.local.play(bots, prefJson))
           yield Ok(page).withServiceWorker,
         json = JsonOk(Json.obj("bots" -> bots))
       )
@@ -31,7 +31,7 @@ final class Local(env: Env) extends LilaController(env):
     for
       bots   <- env.local.repo.getLatestBots()
       assets <- env.local.api.devGetAssets
-      page   <- renderPage(indexPage(bots, assets.some))
+      page   <- renderPage(views.local.dev(bots, prefJson, assets))
     yield Ok(page).withServiceWorker
 
   def devAssets = Open:
@@ -82,16 +82,7 @@ final class Local(env: Env) extends LilaController(env):
           .getOrElse(BadRequest(jsonError("missing file")).as(JSON))
   }
 
-  private def indexPage(bots: List[BotJson], devAssets: Option[JsObject] = none)(using Context) =
-    views.local.index(
-      Json
-        .obj("pref" -> pref, "bots" -> bots)
-        .add("assets", devAssets)
-        .add("canPost", isGrantedOpt(_.BotEditor)),
-      if devAssets.isDefined then "local.dev" else "botPlay"
-    )
-
-  private def pref(using ctx: Context) =
+  private def prefJson(using ctx: Context) =
     lila.pref.JsonView
       .write(ctx.pref, false)
       .add("animationDuration", ctx.pref.animationMillis.some)

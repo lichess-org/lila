@@ -45,8 +45,10 @@ export type Ratings = { [speed in LocalSpeed]?: number };
 
 export type FilterType = 'cplTarget' | 'cplStdev' | 'lc0bias' | 'moveDecay';
 
+export type BotId = string;
+
 export interface BotInfo {
-  readonly uid: string;
+  readonly uid: BotId;
   readonly name: string;
   readonly description: string;
   readonly version: number;

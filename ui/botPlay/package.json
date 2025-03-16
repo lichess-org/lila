@@ -10,6 +10,6 @@
     "local": "workspace:*"
   },
   "build": {
-    "bundle": "src/botPlay.ts"
+    "bundle": "src/botPlay.main.ts"
   }
 }

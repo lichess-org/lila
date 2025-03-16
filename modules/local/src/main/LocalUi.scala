@@ -1,15 +1,36 @@
 package lila.local
 package ui
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
 
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Json.{ *, given }
 
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def index(data: JsObject, moduleName: "botPlay" | "local.dev" = "botPlay")(using ctx: Context): Page =
+  def play(
+      bots: List[BotJson],
+      prefs: JsObject
+  )(using ctx: Context): Page =
+    val data = Json.obj("pref" -> prefs, "bots" -> bots)
+    Page("Lichess bots")
+      .css("botPlay")
+      .js(PageModule("botPlay.main", data))
+      .csp(_.withWebAssembly)
+      .flag(_.zoom):
+        main(cls := "bot-play")
+
+  def dev(
+      bots: List[BotJson],
+      prefs: JsObject,
+      devAssets: JsObject
+  )(using ctx: Context): Page =
+    val data = Json
+      .obj("pref" -> prefs, "bots" -> bots, "assets" -> devAssets)
+      .add("canPost", Granter.opt(_.BotEditor))
+    val moduleName = "local.dev"
     Page("Lichess bots")
       .css(moduleName)
       .css("round")
