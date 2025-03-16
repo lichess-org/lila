@@ -3731,6 +3731,8 @@ interface I18n {
     playFirstOpeningEndgameExplorerMove: string;
     /** Playing right now */
     playingRightNow: string;
+    /** Play offline */
+    playOffline: string;
     /** play selected move */
     playSelectedMove: string;
     /** Play a variation to create conditional premoves */

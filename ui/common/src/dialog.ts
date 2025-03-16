@@ -9,8 +9,8 @@ import { pubsub } from './pubsub';
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
 export interface Dialog {
-  readonly open: boolean; // is visible?
   readonly view: HTMLElement; // your content div
+  readonly dialog: HTMLDialogElement; // the dialog element
   readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
   show(): Promise<Dialog>; // promise resolves on close
@@ -44,7 +44,7 @@ export interface DomDialogOpts extends DialogOpts {
 // for snabDialog, show is inferred from !onInsert
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: LooseVNodes; // content, overrides all other content properties
-  onInsert?: (dialog: Dialog) => void; // if provided you must also call show
+  onInsert?: (dialog: Dialog) => void; // if provided you must call show
 }
 
 export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
@@ -147,9 +147,9 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private resolve?: (dialog: Dialog) => void;
-  private actionEvents = new Janitor();
   private dialogEvents = new Janitor();
+  private actionEvents = new Janitor();
+  private resolve?: (dialog: Dialog) => void;
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -171,7 +171,8 @@ class DialogWrapper implements Dialog {
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
-      if (Date.now() - justThen < 200) return; // removed isConnected() check. we catch leaks this way
+      if (!this.dialog.isConnected) console.trace('likely zombie dialog. Always Be Close()ing');
+      if (Date.now() - justThen < 200) return;
       const r = dialog.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
         this.close('cancel');
@@ -256,12 +257,22 @@ class DialogWrapper implements Dialog {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {
-      const $focii = $(focusQuery, e.currentTarget as Element),
-        first = $as<HTMLElement>($focii.first()),
-        last = $as<HTMLElement>($focii.last()),
+      const focii = [...this.dialog.querySelectorAll<HTMLElement>(focusQuery)].filter(
+        el => el.getAttribute('tabindex') !== '-1',
+      );
+      focii.sort((a, b) => {
+        const ati = Number(a.getAttribute('tabindex') ?? '0');
+        const bti = Number(b.getAttribute('tabindex') ?? '0');
+        if (ati > 0 && (bti === 0 || ati < bti)) return -1;
+        else if (bti > 0 && ati !== bti) return 1;
+        else return a.compareDocumentPosition(b) & 2 ? 1 : -1;
+      });
+      const first = focii[0],
+        last = focii[focii.length - 1],
         focus = document.activeElement as HTMLElement;
-      if (focus === last && !e.shiftKey) first.focus();
-      else if (focus === first && e.shiftKey) last.focus();
+
+      if (focus === last && !e.shiftKey) first?.focus();
+      else if (focus === first && e.shiftKey) last?.focus();
       else return;
       e.preventDefault();
     }
@@ -314,5 +325,5 @@ function onResize() {
 
 const focusQuery = ['button', 'input', 'select', 'textarea']
   .map(sel => `${sel}:not(:disabled)`)
-  .concat(['[href]', '[tabindex="0"]', '[role="tab"]'])
+  .concat(['[href]', '[tabindex]', '[role="tab"]'])
   .join(',');

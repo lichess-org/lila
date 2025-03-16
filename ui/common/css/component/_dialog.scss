@@ -15,6 +15,7 @@ dialog {
   }
   padding: 0;
   border: none;
+  outline: none;
   background: $c-bg-high;
   z-index: $z-modal-111;
   &:has(.dialog-content.alert) {

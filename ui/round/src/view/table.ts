@@ -1,7 +1,6 @@
 import * as licon from 'common/licon';
 import type { Position } from '../interfaces';
-import { abortable, playable, drawableSwiss, resignable, takebackable } from 'game';
-import { aborted, finished } from 'game/status';
+import { aborted, finished, abortable, playable, drawableSwiss, resignable, takebackable } from 'game';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
 import { render as renderReplay, analysisButton } from './replay';
@@ -21,7 +20,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
           h('i.line'),
           h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
         ])
-      : (ctrl.opts.local?.userVNode(player, position) ?? userHtml(ctrl, player, position));
+      : /*ctrl.data.local?.userVNode(player, position) ??*/ userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;

@@ -1,5 +1,5 @@
 import type { VNode } from 'common/snabbdom';
-import type { GameData, Status, Player } from 'game';
+import type { GameData, Status, RoundStep } from 'game';
 import type { ClockData } from './clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type RoundController from './ctrl';
@@ -11,7 +11,7 @@ import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
-
+export type { RoundStep as Step } from 'game';
 export type { default as RoundController } from './ctrl';
 export type { ClockData } from './clock/clockCtrl';
 
@@ -48,7 +48,7 @@ export type EncodedDests =
 export interface RoundData extends GameData {
   clock?: ClockData;
   pref: Pref;
-  steps: Step[];
+  steps: RoundStep[];
   possibleMoves?: EncodedDests;
   possibleDrops?: string;
   forecastCount?: number;
@@ -60,6 +60,7 @@ export interface RoundData extends GameData {
     id: string;
   };
   expiration?: Expiration;
+  local?: RoundProxy;
 }
 
 export interface Expiration {
@@ -76,7 +77,6 @@ export interface Tv {
 export interface RoundProxy extends RoundSocket {
   analyse(): void;
   newOpponent(): void;
-  userVNode(player: Player, postion: Position): VNode | undefined;
 }
 
 export interface RoundOpts {
@@ -88,7 +88,6 @@ export interface RoundOpts {
   element?: HTMLElement;
   crosstableEl?: HTMLElement;
   chat?: ChatOpts;
-  local?: RoundProxy;
 }
 
 export interface ChatOpts {
@@ -100,15 +99,6 @@ export interface ChatOpts {
   noteAge?: number;
   noteText?: string;
   instance?: ChatCtrl;
-}
-
-export interface Step {
-  ply: Ply;
-  fen: FEN;
-  san: San;
-  uci: Uci;
-  check?: boolean;
-  crazy?: Tree.NodeCrazy;
 }
 
 export interface ApiMove {

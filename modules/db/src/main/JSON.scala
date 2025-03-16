@@ -16,9 +16,8 @@ object JSON:
     case JsArray(arr)     => BSONArray(arr.map(bval))
     case _                => BSONNull
 
-  def jval(bson: BSONDocument): JsValue = Json.obj(
-    bson.elements.map(el => el.name -> jval(el.value))*
-  )
+  def jval(bson: BSONDocument): JsObject = JsObject:
+    bson.elements.map(el => el.name -> jval(el.value))
 
   def jval(bson: BSONValue): JsValue = bson match
     case BSONString(value)  => JsString(value)

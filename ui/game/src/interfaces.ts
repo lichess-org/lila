@@ -41,6 +41,8 @@ export interface Status {
   name: StatusName;
 }
 
+export * from './status';
+
 export type StatusName =
   | 'created'
   | 'started'
@@ -197,4 +199,13 @@ export type MaterialDiffSide = {
 export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
+}
+
+export interface RoundStep {
+  ply: Ply;
+  fen: FEN;
+  san: San;
+  uci: Uci;
+  check?: boolean;
+  crazy?: Record<string, any>;
 }
