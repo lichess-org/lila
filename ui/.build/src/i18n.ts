@@ -174,7 +174,7 @@ function parseXml(xmlData: string): Map<string, string | Plural> {
   return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
 }
 
-async function min(js: string): Promise<string> {
+async function minify(js: string): Promise<string> {
   return (await transform(js, { minify: true, loader: 'js' })).code;
 }
 
@@ -219,7 +219,7 @@ interface I18n {
 
 const jsPrelude =
   '"use strict";(()=>{' +
-  (await min(
+  (await minify(
     // s(...) is the standard format function, p(...) is the plural format function.
     // both have an asArray method for vdom.
     `function p(t) {
@@ -248,7 +248,7 @@ const jsPrelude =
       }`,
   ));
 
-const siteInit = await min(
+const siteInit = await minify(
   `window.i18n = function(k) {
       for (let v of Object.values(window.i18n)) {
         if (v[k]) return v[k];
