@@ -368,7 +368,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${PF.holdAlert}"
 
   private val finishUnsets = $doc(
-    F.positionHashes               -> true,
     F.playingUids                  -> true,
     F.unmovedRooks                 -> true,
     ("p0." + PF.isOfferingDraw)    -> true,
