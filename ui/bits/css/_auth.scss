@@ -2,6 +2,14 @@
   min-height: calc(95vh - #{$site-header-outer-height} - 4em);
 }
 
+.checklist {
+  font-size: 1.5em;
+  font-weight: 700;
+  li {
+    list-style: disc inside;
+  }
+}
+
 .auth {
   width: 100%;
   margin: auto;
