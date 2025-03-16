@@ -47,9 +47,10 @@ export function i18n(): Promise<any> {
 
 async function compileTypings(): Promise<void> {
   const typingsPathname = join(env.typesDir, 'lichess', `i18n.d.ts`);
-  const [tstat, catStats] = await Promise.all([
+  const [tstat, catStats, previousCode] = await Promise.all([
     fs.promises.stat(typingsPathname).catch(() => undefined),
     Promise.all(cats.map(cat => updated(cat))),
+    fs.promises.readFile(typingsPathname).catch(() => ''),
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
 
@@ -62,27 +63,27 @@ async function compileTypings(): Promise<void> {
         ),
       ),
     );
-    await fs.promises.writeFile(
-      typingsPathname,
+    const currentCode =
       tsPrelude +
-        [...dicts]
-          .map(
-            ([cat, dict]) =>
-              `  ${cat}: {\n` +
-              [...dict.entries()]
-                .map(([k, v]) => {
-                  if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
-                  const tpe =
-                    typeof v !== 'string' ? 'I18nPlural' : formatStringRe.test(v) ? 'I18nFormat' : 'string';
-                  const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
-                  return `    /** ${comment} */\n    ${k}: ${tpe};`;
-                })
-                .join('\n') +
-              '\n  };\n',
-          )
-          .join('') +
-        '}\n',
-    );
+      [...dicts]
+        .map(
+          ([cat, dict]) =>
+            `  ${cat}: {\n` +
+            [...dict.entries()]
+              .map(([k, v]) => {
+                if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
+                const tpe =
+                  typeof v !== 'string' ? 'I18nPlural' : formatStringRe.test(v) ? 'I18nFormat' : 'string';
+                const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
+                return `    /** ${comment} */\n    ${k}: ${tpe};`;
+              })
+              .join('\n') +
+            '\n  };\n',
+        )
+        .join('') +
+      '}\n';
+    if (currentCode !== previousCode) await fs.promises.writeFile(typingsPathname, currentCode);
+
     const histat = catStats.reduce((a, b) => (a && b && a.mtimeMs - b.mtimeMs > 2 ? a : b), tstat || false);
     if (histat) await fs.promises.utimes(typingsPathname, histat.mtime, histat.mtime);
   }
