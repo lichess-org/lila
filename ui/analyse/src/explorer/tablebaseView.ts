@@ -20,7 +20,7 @@ export function showTablebase(
         moves.map(move =>
           h('tr', { key: move.uci, attrs: { 'data-uci': move.uci } }, [
             h('td', move.san),
-            h('td', [showDtz(fen, move), showDtm(fen, move), showDtw(fen, move)]),
+            h('td', [showDtz(fen, move), showDtc(fen, move), showDtm(fen, move), showDtw(fen, move)]),
           ]),
         ),
       ),
@@ -46,6 +46,16 @@ function showDtw(fen: FEN, move: TablebaseMoveStats) {
       'result.' + winnerOf(fen, move),
       { attrs: { title: 'Depth To Win' } },
       'DTW ' + Math.abs(move.dtw),
+    );
+  return undefined;
+}
+
+function showDtc(fen: FEN, move: TablebaseMoveStats) {
+  if (move.dtc)
+    return h(
+      'result.' + winnerOf(fen, move),
+      { attrs: { title: 'Depth To Conversion (experimental)' } },
+      'DTC ' + Math.abs(move.dtc),
     );
   return undefined;
 }

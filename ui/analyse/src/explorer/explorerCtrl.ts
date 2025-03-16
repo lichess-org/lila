@@ -19,7 +19,7 @@ function tablebasePieces(variant: VariantKey) {
     case 'standard':
     case 'fromPosition':
     case 'chess960':
-      return 7;
+      return 8;
     case 'atomic':
     case 'antichess':
       return 6;
