@@ -349,7 +349,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
-  <string name="takeback">Повлачење потеза</string>
+  <string name="takeback">Враћање потеза</string>
   <string name="proposeATakeback">Предложи повлачење потеза</string>
   <string name="takebackPropositionSent">Предлог повлачења потеза је послат</string>
   <string name="takebackPropositionDeclined">Предлог повлачења потеза је одбијен</string>
