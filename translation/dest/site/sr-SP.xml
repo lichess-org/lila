@@ -291,7 +291,7 @@
   <string name="customPosition">Произвољна позиција</string>
   <string name="unlimited">Неограничена</string>
   <string name="mode">Тип</string>
-  <string name="casual">Нерангирана</string>
+  <string name="casual" comment="Indicates that the game is/will be Casual (unrated).&#10;&#10;There is another string that says &quot;Casual&quot; for casual tournaments specifically.">Нерангирана</string>
   <string name="rated">Рангирана</string>
   <string name="casualTournament">Неформално</string>
   <string name="ratedTournament">Рангирано</string>
@@ -313,8 +313,8 @@
   <string name="composeMessage">Састави поруку</string>
   <string name="subject">Наслов</string>
   <string name="send">Пошаљи</string>
-  <string name="incrementInSeconds">Додавање у секундама</string>
-  <string name="freeOnlineChess">Бесплатан интернет шах</string>
+  <string name="incrementInSeconds">Додатак у секундама</string>
+  <string name="freeOnlineChess">Бесплатан Интернетски Шах</string>
   <plurals name="nbRated">
     <item quantity="one">%s рангирана</item>
     <item quantity="few">%s рангиране</item>
@@ -340,8 +340,8 @@
     <item quantity="few">%s играју</item>
     <item quantity="other">%s играју</item>
   </plurals>
-  <string name="exportGames">Извоз партија</string>
-  <string name="ratingRange">Опсег рејтинга</string>
+  <string name="exportGames">Извези партије</string>
+  <string name="ratingRange">Распон рејтинга</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Додај %s секунд</item>
     <item quantity="few">Додај %s секунде</item>
