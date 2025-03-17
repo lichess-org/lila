@@ -350,13 +350,13 @@
   <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Враћање потеза</string>
-  <string name="proposeATakeback">Предложи повлачење потеза</string>
+  <string name="proposeATakeback">Предложи враћање потеза</string>
   <string name="takebackPropositionSent">Предлог повлачења потеза је послат</string>
   <string name="takebackPropositionDeclined">Предлог повлачења потеза је одбијен</string>
   <string name="takebackPropositionAccepted">Предлог повлачења потеза је прихваћен</string>
   <string name="takebackPropositionCanceled">Предлог повлачења потеза је отказан</string>
-  <string name="yourOpponentProposesATakeback">Противник предлаже повлачење потеза</string>
-  <string name="bookmarkThisGame">Забележите ову партију</string>
+  <string name="yourOpponentProposesATakeback">Твој противник предлаже враћање потеза</string>
+  <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Поени на турнирима</string>
