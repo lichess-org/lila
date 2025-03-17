@@ -37,12 +37,14 @@ export default class PlayCtrl {
     scheduleBotMove(this.board, this.addMove);
   };
 
-  navigate = (plyDiff: number) => {
-    const ply = Math.max(0, Math.min(this.game.sans.length, this.board.onPly + plyDiff));
-    this.board = makeBoardAt(this.opts.game, ply);
+  goTo = (ply: Ply) => {
+    const newPly = Math.max(0, Math.min(this.game.sans.length, ply));
+    this.board = makeBoardAt(this.opts.game, newPly);
     this.ground?.set(updateGround(this.board, this.game));
     this.opts.redraw();
   };
+
+  goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
 
   private addMove = (move: Move) => {
     addMove(this.board, this.game, move);

@@ -1,4 +1,4 @@
-import { bind, looseH as h, LooseVNodes } from 'common/snabbdom';
+import { bind, looseH as h, onInsert, LooseVNodes } from 'common/snabbdom';
 import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'common/controls';
 import type PlayCtrl from './playCtrl';
@@ -11,7 +11,26 @@ export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoar
 const viewTable = (ctrl: PlayCtrl) =>
   h('div.bot-game__table', [
     viewOpponent(ctrl.opts.bot),
-    h('div.bot-game__table__moves', viewMoves(ctrl)),
+    h(
+      'div.bot-game__table__moves',
+      {
+        hook: onInsert(el => {
+          el.addEventListener('mousedown', e => {
+            let node = e.target as HTMLElement,
+              offset = -2;
+            if (node.tagName !== 'MOVE') return;
+            while ((node = node.previousSibling as HTMLElement)) {
+              offset++;
+              if (node.tagName === 'TURN') {
+                ctrl.goTo(2 * parseInt(node.textContent || '') + offset);
+                break;
+              }
+            }
+          });
+        }),
+      },
+      viewMoves(ctrl),
+    ),
     h('div.bot-game__table__actions', [
       h('button.bot-game__close.fbt', { hook: bind('click', ctrl.opts.close) }, 'Back'),
     ]),
@@ -57,8 +76,8 @@ const viewBoard = (ctrl: PlayCtrl) =>
               'wheel',
               stepwiseScroll((e: WheelEvent, scroll: boolean) => {
                 e.preventDefault();
-                if (e.deltaY > 0 && scroll) ctrl.navigate(1);
-                else if (e.deltaY < 0 && scroll) ctrl.navigate(-1);
+                if (e.deltaY > 0 && scroll) ctrl.goDiff(1);
+                else if (e.deltaY < 0 && scroll) ctrl.goDiff(-1);
               }),
               undefined,
               false,
