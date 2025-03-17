@@ -10,6 +10,7 @@ export interface Game {
   botId: BotId;
   sans: San[];
   pov: Color;
+  createdAt: number;
 }
 
 export interface Pref {

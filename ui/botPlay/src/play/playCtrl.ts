@@ -16,6 +16,7 @@ export interface PlayOpts {
   redraw: () => void;
   save: (game: Game) => void;
   close: () => void;
+  rematch: () => void;
 }
 
 export default class PlayCtrl {
@@ -69,6 +70,14 @@ export default class PlayCtrl {
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
 
   goToLast = () => this.goTo(this.lastPly());
+
+  restart = () => {
+    this.game.sans = [];
+    this.game.createdAt = Date.now();
+    this.board = makeBoardAt(this.game, this.game.sans.length);
+    this.opts.save(this.game);
+    this.opts.redraw();
+  };
 
   private addMove = (move: Move) => {
     const san = addMove(this.board, move);

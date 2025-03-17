@@ -10,6 +10,7 @@ import { alert } from 'common/dialogs';
 import { Bot } from 'local/bot';
 import { Assets } from 'local/assets';
 import makeZerofish from 'zerofish';
+import { opposite } from 'chessops';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -30,8 +31,8 @@ export class BotCtrl {
     if (game) this.resumeGame(game);
   };
 
-  private newGame = (bot: BotInfo) => {
-    const game: Game = { botId: bot.uid, sans: [], pov: 'white' };
+  private newGame = (bot: BotInfo, pov: Color) => {
+    const game: Game = { botId: bot.uid, sans: [], pov, createdAt: Date.now() };
     this.resumeGame(game);
     this.redraw();
   };
@@ -42,7 +43,7 @@ export class BotCtrl {
       alert(`Couldn't find your opponent ${game.botId}`);
       return;
     }
-    const source = this.makeLocalSource(bot);
+    const source = this.makeLocalSource(bot, opposite(game.pov));
     this.playCtrl = new PlayCtrl({
       pref: this.opts.pref,
       game,
@@ -51,6 +52,7 @@ export class BotCtrl {
       redraw: this.redraw,
       save: g => this.currentGame(g),
       close: this.closeGame,
+      rematch: () => this.newGame(bot, opposite(game.pov)),
     });
   };
 
@@ -61,14 +63,14 @@ export class BotCtrl {
 
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
-  private makeLocalSource = async (info: BotInfo): Promise<MoveSource> => {
+  private makeLocalSource = async (info: BotInfo, color: Color): Promise<MoveSource> => {
     const zerofish = await makeZerofish({
       locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
       nonce: document.body.dataset.nonce,
     });
     const bots = new LocalBotCtrl(zerofish);
     const assets = new Assets();
-    const uids = { white: undefined, black: info.uid };
+    const uids = { [opposite(color)]: undefined, [color]: info.uid };
     bots.setUids(uids);
     await Promise.all([bots.init(this.opts.bots), assets.init(bots)]);
     const bot = new Bot(info);

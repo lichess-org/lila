@@ -1,5 +1,5 @@
 import { Chess, Move } from 'chessops';
-import { parsePgn } from 'chessops/pgn';
+import { defaultGame, parsePgn } from 'chessops/pgn';
 import { Game } from '../interfaces';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
@@ -49,7 +49,7 @@ export const addMove = (board: Board, move: Move): San => {
 };
 
 export const toPgn = (game: Game, plies?: Ply) =>
-  parsePgn((defined(plies) ? game.sans.slice(0, plies) : game.sans).join(' '))[0];
+  parsePgn((defined(plies) ? game.sans.slice(0, plies) : game.sans).join(' '))[0] || defaultGame();
 
 const endOf = (chess: Chess): GameEnd | undefined => {
   if (!chess.isEnd()) return;

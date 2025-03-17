@@ -6,12 +6,12 @@ export default class SetupCtrl {
 
   constructor(
     readonly opts: BotOpts,
-    private readonly start: (bot: BotInfo) => void,
+    private readonly start: (bot: BotInfo, pov: Color | undefined) => void,
     readonly redraw: () => void,
   ) {}
 
   play = (bot: BotInfo) => {
     this.dialogBot = undefined;
-    this.start(bot);
+    this.start(bot, Math.random() < 0.5 ? 'white' : 'black');
   };
 }

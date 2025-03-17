@@ -24,10 +24,16 @@ const viewTable = (ctrl: PlayCtrl) =>
 
 const viewActions = (ctrl: PlayCtrl) =>
   h('div.bot-game__table__actions', [
+    ctrl.board.end && h('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
     h(
       'button.bot-game__close.text',
       { attrs: dataIcon(licon.Back), hook: bind('click', ctrl.opts.close) },
       'More opponents',
+    ),
+    h(
+      'button.bot-game__restart.text',
+      { attrs: dataIcon(licon.Reload), hook: bind('click', ctrl.restart) },
+      'Restart game',
     ),
   ]);
 
@@ -161,7 +167,7 @@ const viewBoard = (ctrl: PlayCtrl) =>
     },
     [
       h(
-        'div.cg-wrap',
+        'div.cg-wrap.unique-game-' + ctrl.game.createdAt,
         {
           hook: {
             insert: vnode => {

@@ -81,10 +81,21 @@
   }
 }
 .bot-game__table__actions {
-  margin: 0.3em 0;
-  font-size: 0.9em;
   button {
     @extend %button-none;
-    padding: 0.5em 1.2em;
+  }
+  .bot-game__close {
+    font-size: 0.9em;
+    padding: 0.7em 1.2em;
+  }
+  .bot-game__rematch {
+    width: 100%;
+    background: $m-primary_bg--mix-70;
+    color: $c-over;
+    padding: 1em 2em;
+    font-size: 1.5em;
+    &:hover {
+      background: $c-primary;
+    }
   }
 }
