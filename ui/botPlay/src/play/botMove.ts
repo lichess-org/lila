@@ -6,6 +6,7 @@ import { INITIAL_FEN } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
 
 export const requestBotMove = async (source: MoveSource, game: Game): Promise<Move> => {
+  const now = performance.now();
   const pgn = toPgn(game);
   const chess = Chess.default();
   const ucis = Array.from(pgn.moves.mainline()).map(node => {
@@ -30,6 +31,12 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
   };
 
   const res = await source.move(moveRequest);
+  const uci = res && parseUci(res.uci);
 
-  return parseUci(res!.uci)!;
+  if (uci)
+    return new Promise(resolve => {
+      const waitTime = Math.max(0, res.movetime * 1000 - (performance.now() - now));
+      setTimeout(() => resolve(uci), waitTime);
+    });
+  else return Promise.reject('no move');
 };
