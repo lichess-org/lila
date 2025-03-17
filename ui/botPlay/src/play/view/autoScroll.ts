@@ -8,7 +8,7 @@ export const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: PlayCtrl) =
   window.requestAnimationFrame(() => {
     let st: number | undefined;
     if (ctrl.board.onPly < 3) st = 0;
-    else if (ctrl.board.onPly === ctrl.game.sans.length) st = scrollMax;
+    else if (ctrl.isOnLastPly()) st = scrollMax;
     else {
       const plyEl = movesEl.querySelector('.current') as HTMLElement | undefined;
       if (plyEl)

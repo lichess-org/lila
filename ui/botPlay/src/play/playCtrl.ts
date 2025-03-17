@@ -33,9 +33,15 @@ export default class PlayCtrl {
 
   isPlaying = () => true;
 
+  isOnLastPly = () => this.board.onPly === this.game.sans.length;
+
   onMove = (_orig: Key, _dest: Key) => {};
 
   onUserMove = (orig: Key, dest: Key) => {
+    if (!this.isOnLastPly()) {
+      // allow branching out from anywhere
+      this.game.sans = this.game.sans.slice(0, this.board.onPly);
+    }
     const move = normalizeMove(this.board.chess, { from: parseSquare(orig)!, to: parseSquare(dest)! });
     this.addMove(move);
     scheduleBotMove(this.board, this.addMove);
