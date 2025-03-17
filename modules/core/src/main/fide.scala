@@ -40,6 +40,7 @@ object diacritics:
   private val replacements = List(
     "ö" -> "oe",
     "ø" -> "o",
+    "å" -> "aa",
     "ä" -> "ae",
     "ü" -> "ue",
     "ß" -> "ss"
