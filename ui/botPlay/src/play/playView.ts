@@ -5,6 +5,7 @@ import type PlayCtrl from './playCtrl';
 import { initialGround } from './ground';
 import { botAssetUrl } from 'local/assets';
 import { BotInfo } from 'local';
+import { autoScroll } from './view/autoScroll';
 
 export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoard(ctrl), viewTable(ctrl)]);
 
@@ -27,6 +28,8 @@ const viewTable = (ctrl: PlayCtrl) =>
               }
             }
           });
+          ctrl.autoScroll = () => autoScroll(el, ctrl);
+          ctrl.autoScroll();
         }),
       },
       viewMoves(ctrl),
@@ -37,11 +40,11 @@ const viewTable = (ctrl: PlayCtrl) =>
   ]);
 
 const viewMoves = (ctrl: PlayCtrl): LooseVNodes => {
-  const pairs: Array<Array<any>> = [];
+  const pairs: Array<[any, any]> = [];
   for (let i = 0; i < ctrl.game.sans.length; i += 2) pairs.push([ctrl.game.sans[i], ctrl.game.sans[i + 1]]);
 
   const els: LooseVNodes = [];
-  for (let i = 1; i < pairs.length - 1; i++) {
+  for (let i = 1; i <= pairs.length; i++) {
     els.push(h('turn', i + ''));
     els.push(renderMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
     els.push(renderMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));

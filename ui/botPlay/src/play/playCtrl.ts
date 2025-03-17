@@ -20,6 +20,8 @@ export default class PlayCtrl {
   game: Game;
   board: Board; // the state of the board being displayed
   ground?: CgApi;
+  // will be replaced by view layer
+  autoScroll: () => void = () => {};
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
     this.board = makeBoardAt(opts.game, opts.game.sans.length);
@@ -44,6 +46,7 @@ export default class PlayCtrl {
     this.board = makeBoardAt(this.opts.game, newPly);
     this.ground?.set(updateGround(this.board, this.game));
     this.opts.redraw();
+    this.autoScroll();
   };
 
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
@@ -54,5 +57,6 @@ export default class PlayCtrl {
     this.opts.redraw();
     this.opts.save(this.game);
     this.ground?.playPremove();
+    this.autoScroll();
   };
 }
