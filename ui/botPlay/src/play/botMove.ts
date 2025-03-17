@@ -31,8 +31,6 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
 
   const res = await source.move(moveRequest);
 
-  console.log(res);
-
   return parseUci(res!.uci)!;
 };
 

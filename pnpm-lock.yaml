@@ -223,6 +223,9 @@ importers:
       local:
         specifier: workspace:*
         version: link:../local
+      zerofish:
+        specifier: 0.0.34
+        version: 0.0.34
 
   ui/ceval:
     dependencies:

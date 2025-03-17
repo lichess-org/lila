@@ -9,6 +9,7 @@ import { storedJsonProp } from 'common/storage';
 import { alert } from 'common/dialogs';
 import { Bot } from 'local/bot';
 import { Assets } from 'local/assets';
+import makeZerofish from 'zerofish';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -61,7 +62,11 @@ export class BotCtrl {
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
   private makeLocalSource = async (info: BotInfo): Promise<MoveSource> => {
-    const bots = new LocalBotCtrl();
+    const zerofish = await makeZerofish({
+      locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+      nonce: document.body.dataset.nonce,
+    });
+    const bots = new LocalBotCtrl(zerofish);
     const assets = new Assets();
     const uids = { white: undefined, black: info.uid };
     bots.setUids(uids);
