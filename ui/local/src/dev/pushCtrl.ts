@@ -1,6 +1,6 @@
 import type { BotInfo } from '../types';
 import { defined } from 'common';
-import type { AssetBlob, AssetType, ShareType } from './devAssets';
+import type { AssetBlob, AssetType } from './devAssets';
 import { env } from './devEnv';
 
 // not sure why this is a class yet

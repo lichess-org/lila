@@ -3,7 +3,7 @@ import type { DevBotCtrl } from './devBotCtrl';
 import type { DevCtrl } from './devCtrl';
 import type { DevAssets } from './devAssets';
 import type { PushCtrl } from './pushCtrl';
-import { LocalEnv, env as localEnv } from '../localEnv';
+import { LocalEnv } from '../localEnv';
 //import type { RoundController } from 'round';
 
 export let env: DevEnv;

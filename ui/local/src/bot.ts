@@ -186,9 +186,10 @@ export class Bot implements BotInfo, MoveSource {
     results: (SearchResult | undefined)[],
     args: MoveArgs,
   ): { uci: Uci; cpl?: number; thinkTime: number } {
+    console.log(results);
     const moves = this.parseMoves(results, args);
     this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
-    let thinkTime = args.movetime ?? 0;
+    const thinkTime = args.movetime ?? 0;
     if (this.hasFilter('cplTarget')) {
       this.scoreByCpl(moves, args);
       this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);

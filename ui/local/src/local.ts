@@ -7,7 +7,7 @@ import { Assets } from './assets';
 //import { showSetupDialog } from './dev/setupDialog';
 import { type LocalEnv, env, makeEnv } from './localEnv';
 import { renderGameView } from './gameView';
-import type { LocalPlayOpts, LocalSetup } from './types';
+import type { LocalPlayOpts } from './types';
 import makeZerofish from 'zerofish';
 
 const patch = init([classModule, attributesModule]);
@@ -16,7 +16,7 @@ const zerofish = makeZerofish({
   nonce: document.body.dataset.nonce,
 });
 
-type SetupOpts = LocalSetup & { id?: string; go?: true };
+// type SetupOpts = LocalSetup & { id?: string; go?: true };
 
 export async function initModule(opts: LocalPlayOpts): Promise<LocalEnv> {
   makeEnv({
