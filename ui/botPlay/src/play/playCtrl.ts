@@ -49,10 +49,16 @@ export default class PlayCtrl {
     scheduleBotMove(this.board, this.addMove);
   };
 
+  onPieceSelect = () => {
+    // fast-forward to last position when attempting to move out of turn
+    if (this.board.chess.turn !== this.opts.game.pov) this.goTo(999);
+  };
+
   goTo = (ply: Ply) => {
     const newPly = Math.max(0, Math.min(this.lastPly(), ply));
+    if (newPly === this.board.onPly) return;
     this.board = makeBoardAt(this.opts.game, newPly);
-    this.ground?.set(updateGround(this.board, this.game));
+    this.ground?.set(updateGround(this.board));
     this.opts.redraw();
     this.autoScroll();
   };
@@ -61,7 +67,7 @@ export default class PlayCtrl {
 
   private addMove = (move: Move) => {
     addMove(this.board, this.game, move);
-    this.ground?.set(updateGround(this.board, this.game));
+    this.ground?.set(updateGround(this.board));
     this.opts.redraw();
     this.opts.save(this.game);
     this.ground?.playPremove();

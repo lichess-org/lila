@@ -6,12 +6,6 @@ export interface BotOpts {
   pref: Pref;
 }
 
-export interface Position {
-  fen: FEN;
-  uci?: Uci;
-  san?: San;
-}
-
 export interface Game {
   botId: BotId;
   sans: San[];
