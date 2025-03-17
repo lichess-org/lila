@@ -5,6 +5,7 @@ import { BotInfo } from 'local';
 import { addMove, Board, makeBoardAt } from './chess';
 import { updateGround } from './ground';
 import { scheduleBotMove } from './botMove';
+import keyboard from './keyboard';
 
 export interface PlayOpts {
   pref: Pref;
@@ -23,6 +24,7 @@ export default class PlayCtrl {
     this.game = opts.game;
     this.board = makeBoardAt(opts.game, opts.game.sans.length);
     this.opts.save(this.game);
+    keyboard(this);
   }
 
   setGround = (cg: CgApi) => (this.ground = cg);
