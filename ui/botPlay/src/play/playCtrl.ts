@@ -33,7 +33,9 @@ export default class PlayCtrl {
 
   isPlaying = () => true;
 
-  isOnLastPly = () => this.board.onPly === this.game.sans.length;
+  lastPly = () => this.game.sans.length;
+
+  isOnLastPly = () => this.board.onPly === this.lastPly();
 
   onMove = (_orig: Key, _dest: Key) => {};
 
@@ -48,7 +50,7 @@ export default class PlayCtrl {
   };
 
   goTo = (ply: Ply) => {
-    const newPly = Math.max(0, Math.min(this.game.sans.length, ply));
+    const newPly = Math.max(0, Math.min(this.lastPly(), ply));
     this.board = makeBoardAt(this.opts.game, newPly);
     this.ground?.set(updateGround(this.board, this.game));
     this.opts.redraw();

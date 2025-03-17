@@ -2,6 +2,22 @@
   @extend %flex-column, %box-neat;
   background: $c-bg-box;
 }
+.bot-game__table__nav {
+  @extend %box-shadow;
+  $buttons-height: 2.5rem;
+  flex: 0 0 $buttons-height;
+  display: flex;
+  justify-content: stretch;
+  background: $c-bg-zebra;
+  font-size: 0.9em;
+  .fbt,
+  .noop {
+    flex: 0 0 calc(100% / 6);
+    text-align: center;
+    height: $buttons-height;
+    line-height: calc($buttons-height - 0.1rem);
+  }
+}
 .bot-game__table__moves {
   @include prevent-select;
   flex: 0 0 7.4rem;
