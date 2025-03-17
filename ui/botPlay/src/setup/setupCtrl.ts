@@ -3,8 +3,6 @@ import { BotInfo } from 'local';
 import { makeBoardAt } from '../chess';
 
 export default class SetupCtrl {
-  dialogBot: BotInfo | undefined;
-
   constructor(
     readonly opts: BotOpts,
     private readonly ongoing: () => Game | null,
@@ -14,7 +12,6 @@ export default class SetupCtrl {
   ) {}
 
   play = (bot: BotInfo) => {
-    this.dialogBot = undefined;
     this.start(bot, Math.random() < 0.5 ? 'white' : 'black');
   };
 

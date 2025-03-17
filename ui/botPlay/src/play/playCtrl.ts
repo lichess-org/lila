@@ -28,7 +28,6 @@ export default class PlayCtrl {
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
     this.board = makeBoardAt(opts.game);
-    this.opts.save(this.game);
     keyboard(this);
   }
 
