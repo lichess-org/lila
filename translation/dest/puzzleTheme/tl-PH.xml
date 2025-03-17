@@ -3,10 +3,17 @@
   <string name="advancedPawn">Sumulong na pawn</string>
   <string name="advancedPawnDescription">Isa sa iyong pawn ay malalim na sa posisyon ng kalaban, maaaring magbanta ng promosyon.</string>
   <string name="advantage">Lamang</string>
+  <string name="advantageDescription">Kunin mo ang pagkakataon mo upang makukuha ng malaking bentahe. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate ni Anastasia</string>
+  <string name="attackingF2F7">Pag-atake sa f2 o f7</string>
+  <string name="attackingF2F7Description">Isang atake na nakatuong sa f2 o f7 pawn, tulad ng sa pagbubukas ng fried liver.</string>
   <string name="attraction">Atraksyon</string>
   <string name="castling">Castling</string>
+  <string name="capturingDefender">Kunin ang tagapagtanggol</string>
+  <string name="crushing">Pagdurog</string>
+  <string name="crushingDescription">Makita ang malaking pagkakamali ng kalaban upang makakuha ng pagdurog na bentahe. (eval ≥ 600cp)</string>
   <string name="equality">Pantay</string>
+  <string name="equalityDescription">Bumalik mula sa isang pagkatalo na posisyon, at makakuha ng isang tabla o isang balanseng posisyon. (eval ≤ 200cp)</string>
   <string name="endgameDescription">Isang taktika sa huling yugto ng laro.</string>
   <string name="enPassantDescription">Isang taktika na kinasasangkutan ng en passant na panuntunan, kung saan ang isang pawn ay maaaring makuha ang isang pawn ng kalaban na na-bypass ito gamit ang paunang dalawang-parisukat na paglipat.</string>
   <string name="exposedKing">Nakalantad na hari</string>
@@ -38,6 +45,7 @@
   <string name="veryLong">Napakahabang palaisipan</string>
   <string name="veryLongDescription">Apat na galaw o higit pa para manalo.</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="mix">Malusog na halo</string>
   <string name="mixDescription">Kaunting sa lahat. Hindi mo alam kung ano ang aasahan, kaya laging handa ka sa anumang bagay! Tulad sa mga totoong laro.</string>
   <string name="playerGames">Mga laro ng manlalaro</string>
   <string name="playerGamesDescription">Mga palaisipan na nabuo sa iyong mga laro, o mula sa mga laro ng ibang manlalaro.</string>
