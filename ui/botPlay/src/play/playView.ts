@@ -2,7 +2,7 @@ import { bind, looseH as h, LooseVNodes } from 'common/snabbdom';
 import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'common/controls';
 import type PlayCtrl from './playCtrl';
-import { chessgroundConfig } from './ground';
+import { initialGround } from './ground';
 import { botAssetUrl } from 'local/assets';
 import { BotInfo } from 'local';
 
@@ -22,10 +22,10 @@ const viewMoves = (ctrl: PlayCtrl): LooseVNodes => {
   for (let i = 0; i < ctrl.game.sans.length; i += 2) pairs.push([ctrl.game.sans[i], ctrl.game.sans[i + 1]]);
 
   const els: LooseVNodes = [];
-  for (let i = 0; i < pairs.length; i++) {
-    els.push(h('turn', i + 1 + ''));
-    els.push(renderMove(i * 2 - 1, pairs[i][0], ctrl.board.onPly));
-    els.push(renderMove(i * 2, pairs[i][1], ctrl.board.onPly));
+  for (let i = 1; i < pairs.length - 1; i++) {
+    els.push(h('turn', i + ''));
+    els.push(renderMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
+    els.push(renderMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
   }
   // els.push(renderResult(ctrl));
 
@@ -56,13 +56,9 @@ const viewBoard = (ctrl: PlayCtrl) =>
           : bind(
               'wheel',
               stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                if (!ctrl.isPlaying()) {
-                  e.preventDefault();
-                  console.log(scroll);
-                  // if (e.deltaY > 0 && scroll) next(ctrl);
-                  // else if (e.deltaY < 0 && scroll) prev(ctrl);
-                  ctrl.opts.redraw();
-                }
+                e.preventDefault();
+                if (e.deltaY > 0 && scroll) ctrl.navigate(1);
+                else if (e.deltaY < 0 && scroll) ctrl.navigate(-1);
               }),
               undefined,
               false,
@@ -74,7 +70,7 @@ const viewBoard = (ctrl: PlayCtrl) =>
         {
           hook: {
             insert: vnode => {
-              ctrl.setGround(Chessground(vnode.elm as HTMLElement, chessgroundConfig(ctrl)));
+              ctrl.setGround(Chessground(vnode.elm as HTMLElement, initialGround(ctrl)));
             },
           },
         },

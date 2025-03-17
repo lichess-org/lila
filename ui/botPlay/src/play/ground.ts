@@ -4,8 +4,20 @@ import { ShowResizeHandle, Coords, MoveEvent } from 'common/prefs';
 import { storage } from 'common/storage';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
+import { Board } from './chess';
+import { Game } from '../interfaces';
 
-export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
+export const updateGround = (board: Board, game: Game): CgConfig => ({
+  fen: makeFen(board.chess.toSetup()),
+  check: board.chess.isCheck(),
+  turnColor: game.sans.length % 2 === 0 ? 'white' : 'black',
+  lastMove: board.lastMove && chessgroundMove(board.lastMove),
+  movable: {
+    dests: chessgroundDests(board.chess),
+  },
+});
+
+export function initialGround(ctrl: PlayCtrl): CgConfig {
   const playing = ctrl.isPlaying();
   const pref = ctrl.opts.pref;
   const chess = ctrl.board.chess;
