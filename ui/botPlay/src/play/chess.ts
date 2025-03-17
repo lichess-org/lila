@@ -19,7 +19,12 @@ export const makeBoardAt = (game: Game, onPly: Ply): Board => {
   if (!pgn) return board;
   for (const node of pgn.moves.mainline()) {
     const move = parseSan(board.chess, node.san);
-    if (!move) break; // Illegal move
+    if (!move) {
+      // Illegal move
+      console.warn('Illegal move', node.san);
+      game.sans = game.sans.slice(0, board.onPly);
+      break;
+    }
     board.chess.play(move);
     board.onPly++;
     board.lastMove = move;
