@@ -220,6 +220,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      game:
+        specifier: workspace:*
+        version: link:../game
       local:
         specifier: workspace:*
         version: link:../local

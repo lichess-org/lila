@@ -160,10 +160,6 @@ export interface Perf {
   prov?: boolean;
 }
 
-export interface Ctrl {
-  data: GameData;
-}
-
 export interface Blurs {
   nb: number;
   percent: number;
@@ -179,7 +175,7 @@ export interface Hold {
 export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
-  status(ctrl: Ctrl): string;
+  status(data: GameData): string;
 }
 
 export interface CheckState {

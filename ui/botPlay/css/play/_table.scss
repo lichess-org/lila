@@ -61,6 +61,24 @@
       color: $c-font-clear;
     }
   }
+
+  .result-wrap {
+    width: 100%;
+    text-align: center;
+  }
+
+  .result {
+    border-top: $border;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 5px 0 3px 0;
+    margin: 0;
+  }
+
+  .status {
+    font-style: italic;
+    margin-bottom: 0.5em;
+  }
 }
 .bot-game__table__actions {
   margin: 0.3em 0;

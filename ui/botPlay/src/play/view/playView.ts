@@ -9,6 +9,7 @@ import { BotInfo } from 'local';
 import { autoScroll } from './autoScroll';
 import { repeater } from 'common';
 import { bindMobileMousedown } from 'common/device';
+import { StatusData, statusOf as viewStatus } from 'game/view/status';
 // import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 
 export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoard(ctrl), viewTable(ctrl)]);
@@ -30,17 +31,45 @@ const viewActions = (ctrl: PlayCtrl) =>
     ),
   ]);
 
+const viewResult = (ctrl: PlayCtrl) => {
+  const { end } = ctrl.board;
+  if (!end) return;
+  const result = end.winner == 'white' ? '1-0' : end.winner == 'black' ? '0-1' : '½-½';
+  const statusData: StatusData = {
+    winner: end.winner,
+    ply: ctrl.game.sans.length,
+    status: end.status,
+    fen: end.fen,
+    variant: 'standard',
+  };
+  return result
+    ? h('div.result-wrap', [
+        h('p.result', result || ''),
+        h(
+          'p.status',
+          {
+            hook: onInsert(() => {
+              if (ctrl.autoScroll) ctrl.autoScroll();
+              else setTimeout(() => ctrl.autoScroll(), 200);
+            }),
+          },
+          viewStatus(statusData),
+        ),
+      ])
+    : undefined;
+};
+
 const viewMoves = (ctrl: PlayCtrl) => {
   const pairs: Array<[any, any]> = [];
   for (let i = 0; i < ctrl.lastPly(); i += 2) pairs.push([ctrl.game.sans[i], ctrl.game.sans[i + 1]]);
 
-  const moveEls: LooseVNodes = [];
+  const els: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {
-    moveEls.push(h('turn', i + ''));
-    moveEls.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
-    moveEls.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
+    els.push(h('turn', i + ''));
+    els.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
+    els.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
   }
-  // els.push(renderResult(ctrl));
+  els.push(viewResult(ctrl));
 
   return h(
     'div.bot-game__table__moves',
@@ -62,7 +91,7 @@ const viewMoves = (ctrl: PlayCtrl) => {
         ctrl.autoScroll();
       }),
     },
-    moveEls,
+    els,
   );
 };
 
@@ -103,13 +132,13 @@ const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
 
 const viewOpponent = (bot: BotInfo) =>
   h('div.bot-game__opponent', [
-    h('img.bot-game__opponent__image', {
-      attrs: { src: bot.image && botAssetUrl('image', bot.image) },
-    }),
-    h('div.bot-game__opponent__content', [
+    h('div.bot-game__opponent__head', [
+      h('img.bot-game__opponent__image', {
+        attrs: { src: bot.image && botAssetUrl('image', bot.image) },
+      }),
       h('h2.bot-game__opponent__name', bot.name),
-      h('p.bot-game__opponent__description', bot.description),
     ]),
+    h('div.bot-game__opponent__description', bot.description),
   ]);
 
 const viewBoard = (ctrl: PlayCtrl) =>

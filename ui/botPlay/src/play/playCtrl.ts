@@ -83,7 +83,7 @@ export default class PlayCtrl {
   private safelyRequestBotMove = async () => {
     const source = await this.opts.moveSource;
     this.goToLast();
-    if (this.board.isEnd || this.game.pov == this.board.chess.turn) return;
+    if (this.board.end || this.game.pov == this.board.chess.turn) return;
     const preState = makeFen(this.board.chess.toSetup());
     const move = await requestBotMove(source, this.game);
     this.goToLast();
