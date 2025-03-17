@@ -171,7 +171,7 @@ export function side(ctrl: StudyCtrl, withSearch: boolean): VNode {
     ctrl.members.size() > 0 && makeTab('members', i18n.study.nbMembers(ctrl.members.size())),
     withSearch &&
       h('span.search.narrow', {
-        attrs: { ...dataIcon(licon.Search), title: 'Search' },
+        attrs: { ...dataIcon(licon.Search) },
         hook: bind('click', () => ctrl.search.open(true)),
       }),
     ctrl.members.isOwner() &&
