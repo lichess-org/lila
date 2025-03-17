@@ -3,9 +3,9 @@ import { Game, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { BotInfo } from 'local';
 import { addMove, Board, makeBoardAt } from './chess';
-import { updateGround } from './ground';
 import { scheduleBotMove } from './botMove';
 import keyboard from './keyboard';
+import { updateGround } from './view/ground';
 
 export interface PlayOpts {
   pref: Pref;

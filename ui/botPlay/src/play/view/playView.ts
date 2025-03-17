@@ -1,11 +1,11 @@
 import { bind, looseH as h, onInsert, LooseVNodes } from 'common/snabbdom';
 import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'common/controls';
-import type PlayCtrl from './playCtrl';
+import type PlayCtrl from '../playCtrl';
 import { initialGround } from './ground';
 import { botAssetUrl } from 'local/assets';
 import { BotInfo } from 'local';
-import { autoScroll } from './view/autoScroll';
+import { autoScroll } from './autoScroll';
 
 export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoard(ctrl), viewTable(ctrl)]);
 

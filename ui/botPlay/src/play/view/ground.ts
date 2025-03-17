@@ -1,11 +1,11 @@
 import resizeHandle from 'common/chessgroundResize';
-import type PlayCtrl from './playCtrl';
+import type PlayCtrl from '../playCtrl';
 import { ShowResizeHandle, Coords, MoveEvent } from 'common/prefs';
 import { storage } from 'common/storage';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
-import { Board } from './chess';
-import { Game } from '../interfaces';
+import { Board } from '../chess';
+import { Game } from '../../interfaces';
 
 export const updateGround = (board: Board, game: Game): CgConfig => ({
   fen: makeFen(board.chess.toSetup()),

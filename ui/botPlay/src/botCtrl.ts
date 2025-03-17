@@ -2,8 +2,8 @@ import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
 import { BotOpts, Game } from './interfaces';
 import { BotInfo } from 'local';
-import { playView } from './play/playView';
 import { setupView } from './setup/setupView';
+import { playView } from './play/view/playView';
 import { storedJsonProp } from 'common/storage';
 import { alert } from 'common/dialogs';
 
