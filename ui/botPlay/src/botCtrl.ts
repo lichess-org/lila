@@ -65,7 +65,7 @@ export class BotCtrl {
     const assets = new Assets();
     const uids = { white: undefined, black: info.uid };
     bots.setUids(uids);
-    await Promise.all([bots.init(this.opts.bots), assets.init()]);
+    await Promise.all([bots.init(this.opts.bots), assets.init(bots)]);
     const bot = new Bot(info);
 
     return {

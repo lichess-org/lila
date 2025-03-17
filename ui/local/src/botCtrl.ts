@@ -87,7 +87,6 @@ export class BotCtrl {
   setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
     this.uids.white = white;
     this.uids.black = black;
-    env.assets.preload([white, black].filter(defined));
   }
 
   reset(): void {

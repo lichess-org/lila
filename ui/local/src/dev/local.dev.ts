@@ -26,7 +26,7 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   if (opts.pgn && opts.name) {
     makeEnv({ bot: new DevBotCtrl(), assets: new DevAssets() });
-    await Promise.all([env.bot.init(), env.assets.init()]);
+    await Promise.all([env.bot.init(), env.assets.initAssumingGlobalEnv()]);
     await env.assets.importPgn(
       opts.name,
       new Blob([opts.pgn], { type: 'application/x-chess-pgn' }),
@@ -53,7 +53,12 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     canPost: opts.canPost,
   });
 
-  await Promise.all([env.db.init(), env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);
+  await Promise.all([
+    env.db.init(),
+    env.bot.init(opts.bots),
+    env.dev.init(),
+    env.assets.initAssumingGlobalEnv(),
+  ]);
   const hash = hashOpts();
   env.game.load({
     ...JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}'),

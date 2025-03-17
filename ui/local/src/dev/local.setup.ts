@@ -12,7 +12,7 @@ export default async function initModule(opts: LocalSetup = {}): Promise<void> {
     bot: await new DevBotCtrl().init(),
     assets: new DevAssets(),
   });
-  await env.assets.init();
+  await env.assets.initAssumingGlobalEnv();
   console.log('hayo');
   showSetupDialog(opts);
 }
