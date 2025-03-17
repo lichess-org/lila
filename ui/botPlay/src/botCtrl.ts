@@ -2,6 +2,7 @@ import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
 import { BotOpts, Game } from './interfaces';
 import { BotInfo } from 'local';
+import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
 import { storedJsonProp } from 'common/storage';
@@ -42,6 +43,7 @@ export class BotCtrl {
       pref: this.opts.pref,
       game,
       bot,
+      bots: new LocalBotCtrl().init(),
       redraw: this.redraw,
       save: g => this.currentGame(g),
       close: this.closeGame,

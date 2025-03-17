@@ -3,6 +3,7 @@ import { parsePgn } from 'chessops/pgn';
 import { Game } from '../interfaces';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
+import { defined } from 'common';
 
 /* The currently displayed position, not necessarily the last one played */
 export interface Board {
@@ -13,7 +14,7 @@ export interface Board {
 }
 
 export const makeBoardAt = (game: Game, onPly: Ply): Board => {
-  const pgn = parsePgn(game.sans.slice(0, onPly).join(' '))[0];
+  const pgn = toPgn(game, onPly);
   const board: Board = { onPly: 0, chess: Chess.default() };
   if (!pgn) return board;
   for (const node of pgn.moves.mainline()) {
@@ -34,3 +35,6 @@ export const addMove = (board: Board, move: Move): San => {
   board.isEnd = board.chess.isEnd();
   return san;
 };
+
+export const toPgn = (game: Game, plies?: Ply) =>
+  parsePgn((defined(plies) ? game.sans.slice(0, plies) : game.sans).join(' '))[0];
