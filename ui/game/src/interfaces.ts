@@ -9,6 +9,7 @@ export interface GameData {
   moretimeable: boolean;
   clock?: Clock;
   correspondence?: CorrespondenceClock;
+  treeParts?: Tree.Node[];
 }
 
 export interface Game {

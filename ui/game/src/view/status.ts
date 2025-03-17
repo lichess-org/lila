@@ -1,4 +1,5 @@
-import type { Ctrl } from '../interfaces';
+import { fenToEpd } from 'chess';
+import type { Ctrl, GameData } from '../interfaces';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
@@ -39,6 +40,13 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
     return (!bishopOnColor(expandedFen, 0) || !bishopOnColor(expandedFen, 1)) && !/[pPnN]/.test(pieces);
   }
   return false;
+}
+
+function isThreefold(data: GameData): boolean {
+  if (data.game.threefold) return true;
+  if (!data.treeParts) return false;
+  const currentEpd = fenToEpd(data.treeParts[data.treeParts.length - 1].fen);
+  return data.treeParts.filter(n => fenToEpd(n.fen) === currentEpd).length > 2;
 }
 
 export default function status(ctrl: Ctrl): string {

@@ -18,6 +18,7 @@
     "./*": "./src/*.ts"
   },
   "dependencies": {
+    "chess": "workspace:*",
     "common": "workspace:*"
   }
 }
