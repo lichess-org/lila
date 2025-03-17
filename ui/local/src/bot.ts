@@ -84,10 +84,12 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   async move(args: MoveArgs): Promise<MoveResult> {
+    const bots = args.bots ?? env.bot;
+    const assets = args.assets ?? env.assets;
     const { pos, chess } = args;
     const { fish, zero } = this;
 
-    this.trace([`  ${env.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
+    this.trace([`  ${env?.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
     if (args.avoid?.length || args.cp)
       this.trace(
         `[move] - ${args.avoid?.length ? 'avoid = [' + args.avoid.join(', ') + '], ' : ''}` +
@@ -104,7 +106,7 @@ export class Bot implements BotInfo, MoveSource {
           multipv: Math.max(zero.multipv, args.avoid.length + 1), // avoid threefold
           net: {
             key: this.name + '-' + zero.net,
-            fetch: () => env.assets.getNet(zero.net),
+            fetch: () => assets.getNet(zero.net),
           },
         }
       : undefined;
@@ -112,8 +114,8 @@ export class Bot implements BotInfo, MoveSource {
     if (zeroSearch) this.trace(`[move] - zero: ${stringify(zeroSearch)}`);
     const { uci, cpl, thinkTime } = this.chooseMove(
       await Promise.all([
-        fish && env.bot.zerofish.goFish(pos, fish),
-        zeroSearch && env.bot.zerofish.goZero(pos, zeroSearch),
+        fish && bots.zerofish.goFish(pos, fish),
+        zeroSearch && bots.zerofish.goZero(pos, zeroSearch),
       ]),
       args,
     );

@@ -6,6 +6,7 @@ import type { LocalEnv } from './localEnv';
 import type { BotCtrl } from './botCtrl';
 import type { LocalGame } from './localGame';
 import type { LocalDb, LiteGame } from './localDb';
+import { Assets } from './assets';
 
 export type {
   CardData,
@@ -77,6 +78,8 @@ export interface MoveArgs {
   opponentRemaining: Seconds;
   movetime?: Seconds;
   cp?: number;
+  bots?: BotCtrl;
+  assets?: Assets;
 }
 
 export type MoveResult = { uci: string; movetime: Seconds };

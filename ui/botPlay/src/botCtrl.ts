@@ -1,12 +1,14 @@
 import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
 import { BotOpts, Game } from './interfaces';
-import { BotInfo, MoveSource } from 'local';
+import { BotInfo, MoveArgs, MoveSource } from 'local';
+import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
 import { storedJsonProp } from 'common/storage';
 import { alert } from 'common/dialogs';
 import { Bot } from 'local/bot';
+import { Assets } from 'local/assets';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -59,11 +61,15 @@ export class BotCtrl {
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
   private makeLocalSource = async (info: BotInfo): Promise<MoveSource> => {
+    const bots = new LocalBotCtrl();
+    const assets = new Assets();
+    const uids = { white: undefined, black: info.uid };
+    bots.setUids(uids);
+    await Promise.all([bots.init(this.opts.bots), assets.init()]);
     const bot = new Bot(info);
-    return bot;
-    // const bots = new LocalBotCtrl();
-    // const uids = {};
-    // bots.setUids(uids);
-    // await bots.init(this.opts.bots);
+
+    return {
+      move: (args: MoveArgs) => bot.move({ ...args, bots, assets }),
+    };
   };
 }
