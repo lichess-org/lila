@@ -1,13 +1,16 @@
 import resizeHandle from 'common/chessgroundResize';
-import type PlayCtrl from '../playCtrl';
+import type PlayCtrl from './play/playCtrl';
 import { ShowResizeHandle, Coords, MoveEvent } from 'common/prefs';
 import { storage } from 'common/storage';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
-import { Board } from '../chess';
+import { Board } from './chess';
+import { h } from 'snabbdom';
+import { initMiniBoard } from 'common/miniBoard';
+import { makeUci } from 'chessops';
 
 export const updateGround = (board: Board): CgConfig => ({
-  fen: makeFen(board.chess.toSetup()),
+  fen: fenOf(board),
   check: board.chess.isCheck(),
   turnColor: board.chess.turn,
   lastMove: board.lastMove && chessgroundMove(board.lastMove),
@@ -15,6 +18,9 @@ export const updateGround = (board: Board): CgConfig => ({
     dests: board.end ? new Map() : chessgroundDests(board.chess),
   },
 });
+
+const lastMove = (board: Board) => board.lastMove && chessgroundMove(board.lastMove);
+const fenOf = (board: Board) => makeFen(board.chess.toSetup());
 
 export function initialGround(ctrl: PlayCtrl): CgConfig {
   const playing = ctrl.isPlaying();
@@ -24,7 +30,7 @@ export function initialGround(ctrl: PlayCtrl): CgConfig {
     fen: makeFen(chess.toSetup()),
     orientation: ctrl.game.pov,
     turnColor: chess.turn,
-    lastMove: ctrl.board.lastMove && chessgroundMove(ctrl.board.lastMove),
+    lastMove: lastMove(ctrl.board),
     check: chess.isCheck(),
     coordinates: pref.coords !== Coords.Hidden,
     coordinatesOnSquares: pref.coords === Coords.All,
@@ -76,3 +82,11 @@ export function initialGround(ctrl: PlayCtrl): CgConfig {
     disableContextMenu: true,
   };
 }
+
+export const miniBoard = (board: Board, pov: Color) =>
+  h('span.mini-board.is2d', {
+    attrs: {
+      'data-state': `${fenOf(board)},${pov},${board.lastMove ? makeUci(board.lastMove) : ''}`,
+    },
+    hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
+  });

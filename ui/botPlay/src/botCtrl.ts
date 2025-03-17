@@ -22,19 +22,18 @@ export class BotCtrl {
     readonly opts: BotOpts,
     readonly redraw: () => void,
   ) {
-    this.setupCtrl = new SetupCtrl(opts, this.newGame, redraw);
-    this.loadSavedGame();
+    this.setupCtrl = new SetupCtrl(opts, this.currentGame, this.resume, this.newGame, redraw);
   }
 
-  private loadSavedGame = () => {
+  private resume = () => {
     const game = this.currentGame();
+    console.log('resume', game);
     if (game) this.resumeGame(game);
   };
 
   private newGame = (bot: BotInfo, pov: Color) => {
     const game: Game = { botId: bot.uid, sans: [], pov, createdAt: Date.now() };
     this.resumeGame(game);
-    this.redraw();
   };
 
   private resumeGame = (game: Game) => {
@@ -54,6 +53,7 @@ export class BotCtrl {
       close: this.closeGame,
       rematch: () => this.newGame(bot, opposite(game.pov)),
     });
+    this.redraw();
   };
 
   private closeGame = () => {

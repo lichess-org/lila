@@ -2,10 +2,10 @@ import { Move, opposite, parseSquare } from 'chessops';
 import { Game, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { BotInfo, MoveSource } from 'local';
-import { addMove, Board, makeBoardAt } from './chess';
+import { addMove, Board, makeBoardAt } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
-import { updateGround } from './view/ground';
+import { updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
 
 export interface PlayOpts {
@@ -27,7 +27,7 @@ export default class PlayCtrl {
   autoScroll: () => void = () => {};
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
-    this.board = makeBoardAt(opts.game, opts.game.sans.length);
+    this.board = makeBoardAt(opts.game);
     this.opts.save(this.game);
     keyboard(this);
   }
@@ -75,7 +75,7 @@ export default class PlayCtrl {
     this.game.sans = [];
     this.game.pov = opposite(this.game.pov);
     this.game.createdAt = Date.now();
-    this.board = makeBoardAt(this.game, this.game.sans.length);
+    this.board = makeBoardAt(this.game);
     this.opts.save(this.game);
     this.opts.redraw();
   };

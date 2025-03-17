@@ -3,9 +3,27 @@ import { bind, looseH as h } from 'common/snabbdom';
 import { snabDialog } from 'common/dialog';
 import SetupCtrl from './setupCtrl';
 import { BotInfo } from 'local';
+import { miniBoard } from '../ground';
 
 export const setupView = (ctrl: SetupCtrl) =>
-  h('main.bot-app.bot-setup', [viewBotList(ctrl), viewSetupDialog(ctrl)]);
+  h('main.bot-app.bot-setup', [viewOngoing(ctrl), viewBotList(ctrl), viewSetupDialog(ctrl)]);
+
+const viewOngoing = (ctrl: SetupCtrl) => {
+  const g = ctrl.ongoingGame();
+  return g
+    ? h('div.bot-setup__ongoing', { hook: bind('click', ctrl.resume) }, [
+        h('div.bot-setup__ongoing__preview', miniBoard(g.board, g.game.pov)),
+        g.bot.image &&
+          h('img.bot-setup__ongoing__image', {
+            attrs: { src: botAssetUrl('image', g.bot.image) },
+          }),
+        h('div.bot-setup__ongoing__content', [
+          h('h2.bot-setup__ongoing__name', g.bot.name),
+          h('p.bot-setup__ongoing__text', 'Should we resume our game?'),
+        ]),
+      ])
+    : undefined;
+};
 
 const viewBotList = (ctrl: SetupCtrl) =>
   h(

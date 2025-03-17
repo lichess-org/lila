@@ -1,6 +1,6 @@
 import { Chess, Move } from 'chessops';
 import { defaultGame, parsePgn } from 'chessops/pgn';
-import { Game } from '../interfaces';
+import { Game } from './interfaces';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
 import { defined } from 'common';
@@ -20,8 +20,8 @@ interface GameEnd {
   fen: FEN;
 }
 
-export const makeBoardAt = (game: Game, onPly: Ply): Board => {
-  const pgn = toPgn(game, onPly);
+export const makeBoardAt = (game: Game, onPly?: Ply): Board => {
+  const pgn = toPgn(game, onPly ?? game.sans.length);
   const board: Board = { onPly: 0, chess: Chess.default() };
   if (!pgn) return board;
   for (const node of pgn.moves.mainline()) {

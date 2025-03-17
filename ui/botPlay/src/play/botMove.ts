@@ -1,7 +1,7 @@
 import { Chess, makeUci, Move, parseUci } from 'chessops';
 import type { MoveArgs, MoveSource } from 'local';
 import type { Game } from '../interfaces';
-import { toPgn } from './chess';
+import { toPgn } from '../chess';
 import { INITIAL_FEN } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
 

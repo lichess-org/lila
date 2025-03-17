@@ -3,6 +3,9 @@
     width: 1200px;
   }
 }
+.bot-setup {
+  @extend %flex-column;
+}
 .bot-setup__bots {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

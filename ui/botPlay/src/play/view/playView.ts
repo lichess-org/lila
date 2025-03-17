@@ -3,7 +3,7 @@ import { bind, looseH as h, onInsert, LooseVNodes, dataIcon } from 'common/snabb
 import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'common/controls';
 import type PlayCtrl from '../playCtrl';
-import { initialGround } from './ground';
+import { initialGround } from '../../ground';
 import { botAssetUrl } from 'local/assets';
 import { BotInfo } from 'local';
 import { autoScroll } from './autoScroll';
