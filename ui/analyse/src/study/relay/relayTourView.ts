@@ -72,7 +72,7 @@ export const tourSide = (ctx: RelayViewContext) => {
                   hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
                 }),
               h('button.relay-tour__side__search', {
-                attrs: { 'data-icon': licon.Search, title: 'Search' },
+                attrs: { 'data-icon': licon.Search },
                 hook: bind('click', study.search.open.toggle),
               }),
             ]),

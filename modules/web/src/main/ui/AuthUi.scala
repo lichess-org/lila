@@ -198,11 +198,15 @@ final class AuthUi(helpers: Helpers):
         )
 
   def passwordResetSent(email: String)(using Context) =
-    Page(trans.site.passwordReset.txt()):
+    Page(trans.site.passwordReset.txt()).css("bits.auth"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
         p(trans.site.weHaveSentYouAnEmailTo(email)),
-        p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
+        p(trans.site.ifYouDoNotGetTheEmail()),
+        ul(cls := "checklist")(
+          li(trans.site.checkAllEmailFolders()),
+          li(trans.site.verifyYourAddress(email))
+        )
       )
 
   def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using
