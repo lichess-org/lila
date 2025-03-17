@@ -745,6 +745,9 @@
   <string name="checkYourEmail">Revisa tu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te hemos enviado un correo. Activa tu cuenta en el enlace proporcionado.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
+  <string name="ifYouDoNotGetTheEmail">Si no recibes el correo electrónico en 5 minutos:</string>
+  <string name="checkAllEmailFolders">Marca toda la basura, spam y otras carpetas</string>
+  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Verifica que %s es tu dirección de correo electrónico</string>
   <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña haciendo clic en el enlace.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, aceptas las %s.</string>
   <string name="readAboutOur">Lee acerca de nuestra %s.</string>
