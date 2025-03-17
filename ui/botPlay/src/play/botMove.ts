@@ -1,11 +1,11 @@
 import { Chess, makeUci, Move, parseUci } from 'chessops';
-import type { BotCtrl, MoveArgs } from 'local';
+import type { MoveArgs, MoveSource } from 'local';
 import type { Game } from '../interfaces';
 import { toPgn } from './chess';
 import { makeFen } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
 
-export const requestBotMove = async (bots: BotCtrl, game: Game): Promise<Move> => {
+export const requestBotMove = async (source: MoveSource, game: Game): Promise<Move> => {
   const pgn = toPgn(game);
   const chess = Chess.default();
   const ucis = Array.from(pgn.moves.mainline()).map(node => {
@@ -29,7 +29,7 @@ export const requestBotMove = async (bots: BotCtrl, game: Game): Promise<Move> =
     ply: game.sans.length,
   };
 
-  const res = await bots.move(moveRequest);
+  const res = await source.move(moveRequest);
 
   console.log(res);
 

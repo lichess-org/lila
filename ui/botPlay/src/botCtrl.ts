@@ -1,12 +1,12 @@
 import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
 import { BotOpts, Game } from './interfaces';
-import { BotInfo } from 'local';
-import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
+import { BotInfo, MoveSource } from 'local';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
 import { storedJsonProp } from 'common/storage';
 import { alert } from 'common/dialogs';
+import { Bot } from 'local/bot';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -39,11 +39,12 @@ export class BotCtrl {
       alert(`Couldn't find your opponent ${game.botId}`);
       return;
     }
+    const source = this.makeLocalSource(bot);
     this.playCtrl = new PlayCtrl({
       pref: this.opts.pref,
       game,
       bot,
-      bots: new LocalBotCtrl().init(),
+      moveSource: source,
       redraw: this.redraw,
       save: g => this.currentGame(g),
       close: this.closeGame,
@@ -56,4 +57,13 @@ export class BotCtrl {
   };
 
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
+
+  private makeLocalSource = async (info: BotInfo): Promise<MoveSource> => {
+    const bot = new Bot(info);
+    return bot;
+    // const bots = new LocalBotCtrl();
+    // const uids = {};
+    // bots.setUids(uids);
+    // await bots.init(this.opts.bots);
+  };
 }

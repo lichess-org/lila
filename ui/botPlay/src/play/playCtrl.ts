@@ -1,7 +1,7 @@
 import { Move, parseSquare } from 'chessops';
 import { Game, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
-import { BotCtrl, BotInfo } from 'local';
+import { BotInfo, MoveSource } from 'local';
 import { addMove, Board, makeBoardAt } from './chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
@@ -12,7 +12,7 @@ export interface PlayOpts {
   pref: Pref;
   game: Game;
   bot: BotInfo;
-  bots: Promise<BotCtrl>;
+  moveSource: Promise<MoveSource>;
   redraw: () => void;
   save: (game: Game) => void;
   close: () => void;
@@ -81,11 +81,11 @@ export default class PlayCtrl {
   };
 
   private safelyRequestBotMove = async () => {
+    const source = await this.opts.moveSource;
     this.goToLast();
     if (this.board.isEnd || this.game.pov == this.board.chess.turn) return;
-    const bots = await this.opts.bots;
     const preState = makeFen(this.board.chess.toSetup());
-    const move = await requestBotMove(bots, this.game);
+    const move = await requestBotMove(source, this.game);
     this.goToLast();
     const postState = makeFen(this.board.chess.toSetup());
     if (preState === postState) this.addMove(move);
