@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import { bind, looseH as h, onInsert, LooseVNodes } from 'common/snabbdom';
+import { bind, looseH as h, onInsert, LooseVNodes, dataIcon } from 'common/snabbdom';
 import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'common/controls';
 import type PlayCtrl from '../playCtrl';
@@ -16,50 +16,54 @@ export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoar
 const viewTable = (ctrl: PlayCtrl) =>
   h('div.bot-game__table', [
     viewOpponent(ctrl.opts.bot),
-    h(
-      'div.bot-game__table__moves',
-      {
-        hook: onInsert(el => {
-          el.addEventListener('mousedown', e => {
-            let node = e.target as HTMLElement,
-              offset = -2;
-            if (node.tagName !== 'MOVE') return;
-            while ((node = node.previousSibling as HTMLElement)) {
-              offset++;
-              if (node.tagName === 'TURN') {
-                ctrl.goTo(2 * parseInt(node.textContent || '') + offset);
-                break;
-              }
-            }
-          });
-          ctrl.autoScroll = () => autoScroll(el, ctrl);
-          ctrl.autoScroll();
-        }),
-      },
-      viewMoves(ctrl),
-    ),
+    viewMoves(ctrl),
     viewNavigation(ctrl),
     viewActions(ctrl),
   ]);
 
 const viewActions = (ctrl: PlayCtrl) =>
   h('div.bot-game__table__actions', [
-    h('button.bot-game__close.fbt', { hook: bind('click', ctrl.opts.close) }, 'Back'),
+    h(
+      'button.bot-game__close.text',
+      { attrs: dataIcon(licon.Back), hook: bind('click', ctrl.opts.close) },
+      'More opponents',
+    ),
   ]);
 
-const viewMoves = (ctrl: PlayCtrl): LooseVNodes => {
+const viewMoves = (ctrl: PlayCtrl) => {
   const pairs: Array<[any, any]> = [];
   for (let i = 0; i < ctrl.lastPly(); i += 2) pairs.push([ctrl.game.sans[i], ctrl.game.sans[i + 1]]);
 
-  const els: LooseVNodes = [];
+  const moveEls: LooseVNodes = [];
   for (let i = 1; i <= pairs.length; i++) {
-    els.push(h('turn', i + ''));
-    els.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
-    els.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
+    moveEls.push(h('turn', i + ''));
+    moveEls.push(viewMove(i * 2 - 1, pairs[i - 1][0], ctrl.board.onPly));
+    moveEls.push(viewMove(i * 2, pairs[i - 1][1], ctrl.board.onPly));
   }
   // els.push(renderResult(ctrl));
 
-  return els;
+  return h(
+    'div.bot-game__table__moves',
+    {
+      hook: onInsert(el => {
+        el.addEventListener('mousedown', e => {
+          let node = e.target as HTMLElement,
+            offset = -2;
+          if (node.tagName !== 'MOVE') return;
+          while ((node = node.previousSibling as HTMLElement)) {
+            offset++;
+            if (node.tagName === 'TURN') {
+              ctrl.goTo(2 * parseInt(node.textContent || '') + offset);
+              break;
+            }
+          }
+        });
+        ctrl.autoScroll = () => autoScroll(el, ctrl);
+        ctrl.autoScroll();
+      }),
+    },
+    moveEls,
+  );
 };
 
 const viewMove = (ply: number, san: San, curPly: number) =>

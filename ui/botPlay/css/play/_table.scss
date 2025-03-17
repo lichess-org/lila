@@ -63,5 +63,10 @@
   }
 }
 .bot-game__table__actions {
-  margin: 1em;
+  margin: 0.3em 0;
+  font-size: 0.9em;
+  button {
+    @extend %button-none;
+    padding: 0.5em 1.2em;
+  }
 }
