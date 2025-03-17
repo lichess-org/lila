@@ -9,10 +9,10 @@ import { Board } from '../chess';
 export const updateGround = (board: Board): CgConfig => ({
   fen: makeFen(board.chess.toSetup()),
   check: board.chess.isCheck(),
-  turnColor: board.onPly % 2 === 0 ? 'white' : 'black',
+  turnColor: board.chess.turn,
   lastMove: board.lastMove && chessgroundMove(board.lastMove),
   movable: {
-    dests: chessgroundDests(board.chess),
+    dests: board.isEnd ? new Map() : chessgroundDests(board.chess),
   },
 });
 

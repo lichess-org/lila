@@ -67,7 +67,8 @@ export default class PlayCtrl {
   goToLast = () => this.goTo(this.lastPly());
 
   private addMove = (move: Move) => {
-    addMove(this.board, this.game, move);
+    const san = addMove(this.board, move);
+    this.game.sans = [...this.game.sans.slice(0, this.board.onPly), san];
     this.ground?.set(updateGround(this.board));
     this.opts.redraw();
     this.opts.save(this.game);
@@ -77,7 +78,7 @@ export default class PlayCtrl {
 
   private safelyRequestBotMove = async () => {
     this.goToLast();
-    if (this.game.pov == this.board.chess.turn) return;
+    if (this.board.isEnd || this.game.pov == this.board.chess.turn) return;
     const preState = makeFen(this.board.chess.toSetup());
     const move = await requestBotMove(this.board);
     this.goToLast();

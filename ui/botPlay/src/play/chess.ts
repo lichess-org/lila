@@ -4,10 +4,12 @@ import { Game } from '../interfaces';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
 
+/* The currently displayed position, not necessarily the last one played */
 export interface Board {
   onPly: Ply;
   chess: Chess;
   lastMove?: Move;
+  isEnd?: boolean;
 }
 
 export const makeBoardAt = (game: Game, onPly: Ply): Board => {
@@ -21,13 +23,14 @@ export const makeBoardAt = (game: Game, onPly: Ply): Board => {
     board.onPly++;
     board.lastMove = move;
   }
+  board.isEnd = board.chess.isEnd();
   return board;
 };
 
-export const addMove = (board: Board, game: Game, move: Move) => {
+export const addMove = (board: Board, move: Move): San => {
   const san = makeSanAndPlay(board.chess, normalizeMove(board.chess, move));
-  game.sans = game.sans.slice(0, board.onPly);
-  game.sans.push(san);
-  board.onPly = game.sans.length;
+  board.onPly++;
   board.lastMove = move;
+  board.isEnd = board.chess.isEnd();
+  return san;
 };
