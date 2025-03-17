@@ -81,10 +81,12 @@
   }
 }
 .bot-game__table__actions {
+  @extend %flex-between;
   button {
     @extend %button-none;
   }
-  .bot-game__close {
+  .bot-game__close,
+  .bot-game__restart {
     font-size: 0.9em;
     padding: 0.7em 1.2em;
   }

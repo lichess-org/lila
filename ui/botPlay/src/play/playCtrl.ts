@@ -1,4 +1,4 @@
-import { Move, parseSquare } from 'chessops';
+import { Move, opposite, parseSquare } from 'chessops';
 import { Game, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { BotInfo, MoveSource } from 'local';
@@ -73,6 +73,7 @@ export default class PlayCtrl {
 
   restart = () => {
     this.game.sans = [];
+    this.game.pov = opposite(this.game.pov);
     this.game.createdAt = Date.now();
     this.board = makeBoardAt(this.game, this.game.sans.length);
     this.opts.save(this.game);
@@ -92,14 +93,12 @@ export default class PlayCtrl {
   private safelyRequestBotMove = async () => {
     const source = await this.opts.moveSource;
     this.goToLast();
+    const sign = () => this.game.pov + makeFen(this.board.chess.toSetup());
     if (this.board.end || this.game.pov == this.board.chess.turn) return;
-    const preState = makeFen(this.board.chess.toSetup());
+    const before = sign();
     const move = await requestBotMove(source, this.game);
     this.goToLast();
-    const postState = makeFen(this.board.chess.toSetup());
-    if (preState === postState) this.addMove(move);
-    else {
-      console.warn('Bot move ignored due to board state mismatch');
-    }
+    if (sign() == before) this.addMove(move);
+    else console.warn('Bot move ignored due to board state mismatch');
   };
 }
