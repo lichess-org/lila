@@ -2,7 +2,7 @@ import { Chess, makeUci, Move, parseUci } from 'chessops';
 import type { MoveArgs, MoveSource } from 'local';
 import type { Game } from '../interfaces';
 import { toPgn } from './chess';
-import { makeFen } from 'chessops/fen';
+import { INITIAL_FEN } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
 
 export const requestBotMove = async (source: MoveSource, game: Game): Promise<Move> => {
@@ -15,7 +15,7 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
   });
 
   const moveRequest: MoveArgs = {
-    pos: { fen: makeFen(chess.toSetup()), moves: ucis },
+    pos: { fen: INITIAL_FEN, moves: ucis },
     chess: chess,
     avoid: [], // threefold moves
     initial: Infinity,
@@ -33,12 +33,3 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
 
   return parseUci(res!.uci)!;
 };
-
-// const randomMove = (board: Board): Move => {
-//   const dests = board.chess.allDests();
-//   const moves = Array.from(dests.entries()).flatMap(([from, tos]) =>
-//     Array.from(tos).map(to => ({ from, to })),
-//   );
-//   const move = moves[Math.floor(Math.random() * moves.length)];
-//   return move;
-// };
