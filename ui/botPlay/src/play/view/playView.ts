@@ -16,7 +16,6 @@ export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoar
 const viewTable = (ctrl: PlayCtrl) =>
   h('div.bot-game__table', [
     viewOpponent(ctrl.opts.bot),
-    viewNavigation(ctrl),
     h(
       'div.bot-game__table__moves',
       {
@@ -39,9 +38,13 @@ const viewTable = (ctrl: PlayCtrl) =>
       },
       viewMoves(ctrl),
     ),
-    h('div.bot-game__table__actions', [
-      h('button.bot-game__close.fbt', { hook: bind('click', ctrl.opts.close) }, 'Back'),
-    ]),
+    viewNavigation(ctrl),
+    viewActions(ctrl),
+  ]);
+
+const viewActions = (ctrl: PlayCtrl) =>
+  h('div.bot-game__table__actions', [
+    h('button.bot-game__close.fbt', { hook: bind('click', ctrl.opts.close) }, 'Back'),
   ]);
 
 const viewMoves = (ctrl: PlayCtrl): LooseVNodes => {

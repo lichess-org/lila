@@ -3,8 +3,9 @@
 
   &__image {
     aspect-ratio: 1;
-    width: 100%;
-    margin-top: -30%;
+    height: calc(var(---cg-width) / 4);
+    margin: 0 auto;
+    margin-top: calc(var(---cg-width) / -12);
     line-height: 0;
   }
 
