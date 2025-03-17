@@ -290,7 +290,7 @@
   <string name="customPosition">পছন্দসই পজিশন</string>
   <string name="unlimited">সীমাহীন সময়</string>
   <string name="mode">ধরন</string>
-  <string name="casual" comment="Indicates that the game is/will be Casual (unrated).&#10;&#10;There is another string that says &quot;Casual&quot; for casual tournaments specifically.">সাধারণ</string>
+  <string name="casual">সাধারণ</string>
   <string name="rated">রেট করা</string>
   <string name="casualTournament">সাধারন</string>
   <string name="ratedTournament">অনুপাত</string>
