@@ -3,9 +3,10 @@ import { Game, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { BotInfo } from 'local';
 import { addMove, Board, makeBoardAt } from './chess';
-import { scheduleBotMove } from './botMove';
+import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { updateGround } from './view/ground';
+import { makeFen } from 'chessops/fen';
 
 export interface PlayOpts {
   pref: Pref;
@@ -37,8 +38,6 @@ export default class PlayCtrl {
 
   isOnLastPly = () => this.board.onPly === this.lastPly();
 
-  onMove = (_orig: Key, _dest: Key) => {};
-
   onUserMove = (orig: Key, dest: Key) => {
     if (!this.isOnLastPly()) {
       // allow branching out from anywhere
@@ -46,12 +45,12 @@ export default class PlayCtrl {
     }
     const move = normalizeMove(this.board.chess, { from: parseSquare(orig)!, to: parseSquare(dest)! });
     this.addMove(move);
-    scheduleBotMove(this.board, this.addMove);
+    this.safelyRequestBotMove();
   };
 
   onPieceSelect = () => {
     // fast-forward to last position when attempting to move out of turn
-    if (this.board.chess.turn !== this.opts.game.pov) this.goTo(999);
+    if (this.board.chess.turn !== this.opts.game.pov) this.goToLast();
   };
 
   goTo = (ply: Ply) => {
@@ -65,6 +64,8 @@ export default class PlayCtrl {
 
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
 
+  goToLast = () => this.goTo(this.lastPly());
+
   private addMove = (move: Move) => {
     addMove(this.board, this.game, move);
     this.ground?.set(updateGround(this.board));
@@ -72,5 +73,18 @@ export default class PlayCtrl {
     this.opts.save(this.game);
     this.ground?.playPremove();
     this.autoScroll();
+  };
+
+  private safelyRequestBotMove = async () => {
+    this.goToLast();
+    if (this.game.pov == this.board.chess.turn) return;
+    const preState = makeFen(this.board.chess.toSetup());
+    const move = await requestBotMove(this.board);
+    this.goToLast();
+    const postState = makeFen(this.board.chess.toSetup());
+    if (preState === postState) this.addMove(move);
+    else {
+      console.warn('Bot move ignored due to board state mismatch');
+    }
   };
 }

@@ -35,7 +35,6 @@ export function initialGround(ctrl: PlayCtrl): CgConfig {
       check: pref.highlight,
     },
     events: {
-      move: ctrl.onMove,
       select: ctrl.onPieceSelect,
       insert: elements =>
         resizeHandle(
@@ -62,10 +61,6 @@ export function initialGround(ctrl: PlayCtrl): CgConfig {
     premovable: {
       enabled: pref.enablePremove,
       showDests: pref.destination,
-      // events: {
-      //   set: hooks.onPremove,
-      //   unset: hooks.onCancelPremove,
-      // },
     },
     draggable: {
       enabled: pref.moveEvent !== MoveEvent.Click,

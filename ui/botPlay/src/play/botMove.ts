@@ -1,11 +1,12 @@
 import { Move } from 'chessops';
 import { Board } from './chess';
 
-export const scheduleBotMove = (board: Board, move: (m: Move) => void): void => {
-  setTimeout(() => move(selectMove(board)), 500);
-};
+export const requestBotMove = (board: Board): Promise<Move> =>
+  new Promise(resolve => setTimeout(() => resolve(selectMove(board)), selectWait()));
 
 const selectMove = (board: Board): Move => randomMove(board);
+
+const selectWait = () => 500 + Math.floor(Math.random() * 1000);
 
 const randomMove = (board: Board): Move => {
   const dests = board.chess.allDests();
