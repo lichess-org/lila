@@ -77,7 +77,7 @@ export default function status(ctrl: Ctrl): string {
     case 'draw': {
       if (d.game.fiftyMoves || d.game.fen.split(' ')[4] === '100')
         return `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`;
-      if (d.game.threefold) return `${i18n.site.threefoldRepetition} • ${i18n.site.draw}`;
+      if (isThreefold(d)) return `${i18n.site.threefoldRepetition} • ${i18n.site.draw}`;
       if (insufficientMaterial(d.game.variant.key, d.game.fen))
         return `${i18n.site.insufficientMaterial} • ${i18n.site.draw}`;
       if (d.game.drawOffers?.some(turn => turn >= d.game.turns)) return i18n.site.drawByMutualAgreement;
