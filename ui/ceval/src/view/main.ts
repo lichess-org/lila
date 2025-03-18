@@ -336,11 +336,10 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           el.addEventListener(
             'wheel',
             stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              // todos:
-              /*
-              Check zoom still works as expected on phone (and all places in code that use stepwisescroll func)
+              /* todos:
+              Check zoom still works as expected on phone (e.g., pinch zooming, "flick" after scrolling
+              (and all places in code that use stepwisescroll func)
               check ceval update works as expected on gitpod
-              Make common code for round and analysis boards for scroll/zoom
               */
               if (scroll) e.preventDefault();
               if (pvIndex !== null) {
