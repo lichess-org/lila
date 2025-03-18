@@ -15,10 +15,7 @@ export default function (ctrl: PlayCtrl): LooseVNode {
     ]),
     h('section', [
       menu.zenMode(true),
-      // menu.blindfold(
-      //   toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
-      //   !spectator,
-      // ),
+      menu.blindfold(ctrl.blindfold),
       // menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
       // menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
       // !spectator && (d.pref.submitMove || ctrl.voiceMove)

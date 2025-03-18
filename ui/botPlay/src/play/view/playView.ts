@@ -150,7 +150,7 @@ const viewOpponent = (bot: BotInfo) =>
   ]);
 
 const viewBoard = (ctrl: PlayCtrl) =>
-  h('div.bot-game__board.main-board', { hook: boardScroll(ctrl) }, [
+  h(`div.bot-game__board.main-board${ctrl.blindfold() ? '.blindfold' : ''}`, { hook: boardScroll(ctrl) }, [
     h('div.cg-wrap.unique-game-' + ctrl.game.id, {
       hook: onInsert(el => ctrl.setGround(Chessground(el, initialGround(ctrl)))),
     }),

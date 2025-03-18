@@ -29,10 +29,12 @@ export default class PlayCtrl {
   autoScroll: () => void = () => {};
   menu: Toggle;
   flipped: Toggle = toggle(false);
+  blindfold: Toggle;
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
     this.board = makeBoardAt(opts.game);
     this.menu = toggle(false, opts.redraw);
+    this.blindfold = toggle(false, opts.redraw);
     keyboard(this);
   }
 

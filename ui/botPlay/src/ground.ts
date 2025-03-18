@@ -54,7 +54,7 @@ export function initialGround(ctrl: PlayCtrl): CgConfig {
       free: false,
       color: playing ? ctrl.game.pov : undefined,
       dests: playing ? chessgroundDests(chess) : new Map(),
-      showDests: pref.destination,
+      showDests: pref.destination && !ctrl.blindfold(),
       rookCastle: pref.rookCastle,
       events: {
         after: ctrl.onUserMove,
