@@ -13,6 +13,7 @@ import makeZerofish from 'zerofish';
 import { opposite } from 'chessops';
 import { Game, makeGame } from './game';
 import { debugCli } from './debug';
+import { pubsub } from 'common/pubsub';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -25,8 +26,10 @@ export class BotCtrl {
     readonly redraw: () => void,
   ) {
     this.setupCtrl = new SetupCtrl(opts, this.currentGame, this.resume, this.newGame, redraw);
-    this.resume(); // auto-join the ongoing game
     debugCli(this.resumeGame);
+    addZenSupport();
+
+    this.resume(); // auto-join the ongoing game
   }
 
   private resume = () => {
@@ -81,3 +84,11 @@ export class BotCtrl {
     };
   };
 }
+
+const addZenSupport = () => {
+  pubsub.on('zen', () => {
+    $('body').toggleClass('zen');
+    window.dispatchEvent(new Event('resize'));
+  });
+  $('#zentog').on('click', () => pubsub.emit('zen'));
+};

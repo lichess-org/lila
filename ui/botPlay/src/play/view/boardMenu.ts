@@ -13,18 +13,18 @@ export default function (ctrl: PlayCtrl): LooseVNode {
         ctrl.menu.toggle();
       }),
     ]),
-    // h('section', [
-    //   menu.zenMode(true),
-    //   menu.blindfold(
-    //     toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
-    //     !spectator,
-    //   ),
-    //   menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
-    //   menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
-    //   !spectator && (d.pref.submitMove || ctrl.voiceMove)
-    //     ? menu.confirmMove(ctrl.confirmMoveToggle)
-    //     : undefined,
-    // ]),
+    h('section', [
+      menu.zenMode(true),
+      // menu.blindfold(
+      //   toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
+      //   !spectator,
+      // ),
+      // menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
+      // menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
+      // !spectator && (d.pref.submitMove || ctrl.voiceMove)
+      //   ? menu.confirmMove(ctrl.confirmMoveToggle)
+      //   : undefined,
+    ]),
     h('section.board-menu__links', [
       h('a', { attrs: { target: '_blank', href: '/account/preferences/display' } }, i18n.preferences.display),
       h(
