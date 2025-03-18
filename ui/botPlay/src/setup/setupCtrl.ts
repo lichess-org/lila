@@ -1,6 +1,7 @@
-import { BotOpts, Game } from '../interfaces';
+import { BotOpts } from '../interfaces';
 import { BotInfo } from 'local';
 import { makeBoardAt } from '../chess';
+import { Game } from '../game';
 
 export default class SetupCtrl {
   constructor(

@@ -167,7 +167,7 @@ const viewBoard = (ctrl: PlayCtrl) =>
     },
     [
       h(
-        'div.cg-wrap.unique-game-' + ctrl.game.createdAt,
+        'div.cg-wrap.unique-game-' + ctrl.game.id,
         {
           hook: {
             insert: vnode => {

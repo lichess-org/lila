@@ -1,6 +1,6 @@
 import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
-import { BotOpts, Game } from './interfaces';
+import { BotOpts } from './interfaces';
 import { BotInfo, MoveArgs, MoveSource } from 'local';
 import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
 import { setupView } from './setup/setupView';
@@ -11,6 +11,7 @@ import { Bot } from 'local/bot';
 import { Assets } from 'local/assets';
 import makeZerofish from 'zerofish';
 import { opposite } from 'chessops';
+import { Game, makeGame } from './game';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -32,8 +33,7 @@ export class BotCtrl {
   };
 
   private newGame = (bot: BotInfo, pov: Color) => {
-    const game: Game = { botId: bot.uid, sans: [], pov, createdAt: Date.now() };
-    this.resumeGame(game);
+    this.resumeGame(makeGame(bot.uid, pov));
   };
 
   private resumeGame = (game: Game) => {
@@ -42,12 +42,11 @@ export class BotCtrl {
       alert(`Couldn't find your opponent ${game.botId}`);
       return;
     }
-    const source = this.makeLocalSource(bot, opposite(game.pov));
     this.playCtrl = new PlayCtrl({
       pref: this.opts.pref,
       game,
       bot,
-      moveSource: source,
+      moveSource: this.makeLocalSource(bot, opposite(game.pov)),
       redraw: this.redraw,
       save: g => this.currentGame(g),
       close: this.closeGame,

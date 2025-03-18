@@ -1,6 +1,6 @@
 import { Chess, Move } from 'chessops';
 import { defaultGame, parsePgn } from 'chessops/pgn';
-import { Game } from './interfaces';
+import { Game } from './game';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
 import { defined } from 'common';
