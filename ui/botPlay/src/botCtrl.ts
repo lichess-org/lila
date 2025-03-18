@@ -1,7 +1,7 @@
 import SetupCtrl from './setup/setupCtrl';
 import PlayCtrl from './play/playCtrl';
-import { BotOpts } from './interfaces';
-import { BotInfo, MoveArgs, MoveSource } from 'local';
+import { BotOpts, LocalBridge } from './interfaces';
+import { BotInfo } from 'local';
 import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
@@ -49,7 +49,7 @@ export class BotCtrl {
       pref: this.opts.pref,
       game,
       bot,
-      moveSource: this.makeLocalSource(bot, opposite(game.pov)),
+      bridge: this.makeLocalBridge(bot, opposite(game.pov)),
       redraw: this.redraw,
       save: g => this.currentGame(g),
       close: this.closeGame,
@@ -69,7 +69,7 @@ export class BotCtrl {
 
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
-  private makeLocalSource = async (info: BotInfo, color: Color): Promise<MoveSource> => {
+  private makeLocalBridge = async (info: BotInfo, color: Color): Promise<LocalBridge> => {
     const zerofish = await makeZerofish({
       locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
       nonce: document.body.dataset.nonce,
@@ -82,7 +82,8 @@ export class BotCtrl {
     const bot = new Bot(info);
 
     return {
-      move: (args: MoveArgs) => bot.move({ ...args, bots, assets }),
+      move: args => bot.move({ ...args, bots, assets }),
+      playSound: (c, eventList) => bots.playSound(c, eventList, assets),
     };
   };
 }

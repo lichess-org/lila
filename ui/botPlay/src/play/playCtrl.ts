@@ -1,7 +1,7 @@
 import { Move, opposite, parseSquare } from 'chessops';
-import { Pref } from '../interfaces';
+import { LocalBridge, Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
-import { BotInfo, MoveSource } from 'local';
+import { BotInfo } from 'local';
 import { addMove, Board, makeBoardAt } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
@@ -9,12 +9,13 @@ import { updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
 import { makeEndOf, Game } from '../game';
 import { toggle, Toggle } from 'common';
+import { playMoveSounds } from './sound';
 
 export interface PlayOpts {
   pref: Pref;
   game: Game;
   bot: BotInfo;
-  moveSource: Promise<MoveSource>;
+  bridge: Promise<LocalBridge>;
   redraw: () => void;
   save: (game: Game) => void;
   close: () => void;
@@ -43,7 +44,7 @@ export default class PlayCtrl {
     this.safelyRequestBotMove();
   };
 
-  isPlaying = () => true;
+  isPlaying = () => !this.game.end;
 
   lastPly = () => this.game.sans.length;
 
@@ -93,13 +94,14 @@ export default class PlayCtrl {
     this.ground?.set(updateGround(this.board));
     this.opts.redraw();
     this.opts.save(this.game);
-    this.ground?.playPremove();
     this.autoScroll();
+    playMoveSounds(this, san);
+    this.ground?.playPremove();
   };
 
   private safelyRequestBotMove = async () => {
     if (!this.isOnLastPly() || this.game.pov == this.board.chess.turn || this.board.chess.isEnd()) return;
-    const source = await this.opts.moveSource;
+    const source = await this.opts.bridge;
     const sign = () => this.game.pov + makeFen(this.board.chess.toSetup());
     const before = sign();
     const move = await requestBotMove(source, this.game);

@@ -6,6 +6,7 @@ import { pubsub } from 'common/pubsub';
 import type { BotInfo, SoundEvent, MoveSource, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
 import * as xhr from 'common/xhr';
+import { Assets } from './assets';
 
 export class BotCtrl {
   zerofish: Zerofish;
@@ -97,7 +98,7 @@ export class BotCtrl {
     return bot?.image && env.assets.getImageUrl(bot.image);
   }
 
-  playSound(c: Color, eventList: SoundEvent[]): number {
+  playSound(c: Color, eventList: SoundEvent[], assets?: Assets): number {
     const prioritized = soundPriority.filter(e => eventList.includes(e));
     for (const soundList of prioritized.map(priority => this[c]?.sounds?.[priority] ?? [])) {
       let r = Math.random();
@@ -107,7 +108,7 @@ export class BotCtrl {
         // right now we play at most one sound per move, might want to revisit this.
         // also definitely need cancelation of the timeout
         site.sound
-          .load(key, env.assets.getSoundUrl(key))
+          .load(key, (assets || env.assets).getSoundUrl(key))
           .then(() => setTimeout(() => site.sound.play(key, Math.min(1, mix * 2)), delay * 1000));
         return Math.min(1, (1 - mix) * 2);
       }

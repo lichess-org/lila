@@ -222,7 +222,7 @@ export class GameCtrl {
     if (this.live.chess.isCheck()) sounds.push(`${prefix}Check`);
     if (this.live.finished) sounds.push(`${prefix}Win`);
     sounds.push(`${prefix}Move`);
-    const boardSoundVolume = sounds ? env.bot.playSound(justPlayed, sounds) : 1;
+    const boardSoundVolume = sounds.length ? env.bot.playSound(justPlayed, sounds) : 1;
     if (boardSoundVolume) site.sound.move({ ...moveCtx, volume: boardSoundVolume });
   }
 
