@@ -1,12 +1,12 @@
-$height: 128px;
+$height: 144px;
 
 .bot-setup__ongoing {
   @extend %flex-center-nowrap, %box-neat;
   background: $c-bg-zebra;
-  height: $height;
   margin: 2em 0;
   gap: 1em;
-  // align-self: center;
+  padding-right: 1em;
+  align-self: center;
   cursor: pointer;
   box-shadow:
     0 0 5px $c-brag,
@@ -18,22 +18,26 @@ $height: 128px;
       0 0 20px $c-link;
     color: $c-link;
   }
-  &__preview {
-    flex: 0 0 $height;
+  .mini-board {
+    width: $height;
+  }
+  @media (max-width: at-most($x-small)) {
+    .mini-board {
+      display: none;
+    }
   }
   cg-board {
     @extend %box-radius-left;
   }
   &__image {
+    flex: 0 0 150px;
     aspect-ratio: 1;
     height: 150px;
     margin-top: -25px;
     opacity: 0.9;
     line-height: 0;
   }
-  &__content {
-    flex: 3 0 40ch;
-  }
+
   &__name {
     color: $c-font;
     margin: 0.3em 0;
