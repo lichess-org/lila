@@ -48,7 +48,8 @@ const makeUcisAndHashes = (game: Game): [Uci[], bigint[], Chess] => {
     const move = parseSan(chess, node.san)!;
     chess.play(move);
     ucis.push(makeUci(move));
-    hashes.push(hashBoard(chess.board));
+    if (chess.halfmoves == 0) hashes.length = 0;
+    else hashes.push(hashBoard(chess.board));
   }
   return [ucis, hashes, chess];
 };
