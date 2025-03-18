@@ -9,7 +9,7 @@ export const setupView = (ctrl: SetupCtrl) =>
 
 const viewOngoing = (ctrl: SetupCtrl) => {
   const g = ctrl.ongoingGame();
-  return g
+  return g && !g.game.end
     ? h('div.bot-setup__ongoing', { hook: bind('click', ctrl.resume) }, [
         h('div.bot-setup__ongoing__preview', miniBoard(g.board, g.game.pov)),
         g.bot.image &&
