@@ -12,6 +12,5 @@ export const playMoveSounds = async (ctrl: PlayCtrl, san: San) => {
   sounds.push(`${prefix}Move`);
   const bridge = await ctrl.opts.bridge;
   const boardSoundVolume = sounds.length ? bridge.playSound(justPlayed, sounds) : 1;
-  console.log(boardSoundVolume);
   if (boardSoundVolume) site.sound.move({ san, volume: boardSoundVolume });
 };

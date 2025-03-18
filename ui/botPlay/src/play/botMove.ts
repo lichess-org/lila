@@ -14,8 +14,8 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
   const threefoldMoves = makeThreefoldMoves(chess, hashes);
 
   const moveRequest: MoveArgs = {
-    pos: { fen: INITIAL_FEN, moves: ucis },
-    chess: Chess.default(),
+    pos: { fen: game.initialFen || INITIAL_FEN, moves: ucis },
+    chess: chess,
     avoid: threefoldMoves,
     initial: Infinity,
     remaining: Infinity,
@@ -40,8 +40,7 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
 };
 
 const makeUcisAndHashes = (game: Game): [Uci[], bigint[], Chess] => {
-  const pgn = toPgn(game);
-  const chess = Chess.default();
+  const [pgn, chess] = toPgn(game);
   const ucis: Uci[] = [];
   const hashes: bigint[] = [];
   for (const node of pgn.moves.mainline()) {

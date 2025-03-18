@@ -58,12 +58,22 @@ export default class PlayCtrl {
     this.opts.redraw();
   };
 
-  onUserMove = (orig: Key, dest: Key) => {
+  onUserMove = (orig: Key, dest: Key): void => {
+    if (!this.promotion.start(orig, dest, { submit: this.playUserMove })) {
+      this.playUserMove(orig, dest);
+    }
+  };
+
+  private playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
     if (!this.isOnLastPly()) {
       // allow branching out from anywhere
       this.game.sans = this.game.sans.slice(0, this.board.onPly);
     }
-    const move = normalizeMove(this.board.chess, { from: parseSquare(orig)!, to: parseSquare(dest)! });
+    const move = normalizeMove(this.board.chess, {
+      from: parseSquare(orig)!,
+      to: parseSquare(dest)!,
+      promotion,
+    });
     this.addMove(move);
     this.safelyRequestBotMove();
   };
