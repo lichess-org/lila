@@ -12,6 +12,7 @@ import { Assets } from 'local/assets';
 import makeZerofish from 'zerofish';
 import { opposite } from 'chessops';
 import { Game, makeGame } from './game';
+import { debugCli } from './debug';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;
@@ -24,6 +25,7 @@ export class BotCtrl {
     readonly redraw: () => void,
   ) {
     this.setupCtrl = new SetupCtrl(opts, this.currentGame, this.resume, this.newGame, redraw);
+    debugCli(this.resumeGame);
   }
 
   private resume = () => {
