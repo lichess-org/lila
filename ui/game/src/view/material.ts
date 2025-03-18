@@ -2,6 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import type { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
 import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
 import { opposite } from 'chessground/util';
+import { Chess } from 'chessops';
 
 function renderMaterialDiff(
   material: MaterialDiffSide,
@@ -26,12 +27,12 @@ function renderMaterialDiff(
 export function renderMaterialDiffs(
   showCaptured: boolean,
   bottomColor: Color,
-  fen: FEN,
+  chess: FEN | Chess,
   showChecks: boolean,
   checkStates: CheckState[],
   ply: Ply,
 ): [VNode, VNode] {
-  const material = getMaterialDiff(showCaptured ? fen : '');
+  const material = getMaterialDiff(showCaptured ? chess : '');
   const score = getScore(material) * (bottomColor === 'white' ? 1 : -1);
   const checks: CheckCount = showChecks ? countChecks(checkStates, ply) : NO_CHECKS;
   const topColor = opposite(bottomColor);

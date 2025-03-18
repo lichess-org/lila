@@ -12,17 +12,22 @@ import { bindMobileMousedown } from 'common/device';
 import { StatusData, statusOf as viewStatus } from 'game/view/status';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import boardMenu from './boardMenu';
+import { renderMaterialDiffs } from 'game/view/material';
 
 export const playView = (ctrl: PlayCtrl) =>
   h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [viewBoard(ctrl), viewTable(ctrl)]);
 
-const viewTable = (ctrl: PlayCtrl) =>
-  h('div.bot-game__table', [
+const viewTable = (ctrl: PlayCtrl) => {
+  const diffs = materialDiffs(ctrl);
+  return h('div.bot-game__table', [
     viewOpponent(ctrl.opts.bot),
+    diffs[0],
     viewMoves(ctrl),
     viewNavigation(ctrl),
     viewActions(ctrl),
+    diffs[1],
   ]);
+};
 
 const viewActions = (ctrl: PlayCtrl) =>
   h('div.bot-game__table__actions', [
@@ -171,3 +176,13 @@ const boardScroll = (ctrl: PlayCtrl) =>
         undefined,
         false,
       );
+
+const materialDiffs = (ctrl: PlayCtrl) =>
+  renderMaterialDiffs(
+    ctrl.opts.pref.showCaptured,
+    ctrl.bottomColor(),
+    ctrl.board.chess,
+    false,
+    [],
+    ctrl.lastPly(),
+  );

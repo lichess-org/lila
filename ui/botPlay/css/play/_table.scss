@@ -109,3 +109,19 @@
     }
   }
 }
+
+.bot-game .material {
+  padding-inline-end: 1px;
+
+  mpiece {
+    width: 20px;
+    height: 20px;
+
+    &.pawn {
+      margin-inline-start: -10px;
+    }
+  }
+  score {
+    margin-top: -2px;
+  }
+}
