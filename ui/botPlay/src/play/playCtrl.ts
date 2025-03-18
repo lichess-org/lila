@@ -65,6 +65,7 @@ export default class PlayCtrl {
     this.ground?.set(updateGround(this.board));
     this.opts.redraw();
     this.autoScroll();
+    this.safelyRequestBotMove();
   };
 
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
@@ -83,13 +84,11 @@ export default class PlayCtrl {
   };
 
   private safelyRequestBotMove = async () => {
+    if (!this.isOnLastPly() || this.game.pov == this.board.chess.turn || this.board.chess.isEnd()) return;
     const source = await this.opts.moveSource;
-    this.goToLast();
     const sign = () => this.game.pov + makeFen(this.board.chess.toSetup());
-    if (this.board.chess.isEnd() || this.game.pov == this.board.chess.turn) return;
     const before = sign();
     const move = await requestBotMove(source, this.game);
-    this.goToLast();
     if (sign() == before) this.addMove(move);
     else console.warn('Bot move ignored due to board state mismatch');
   };
