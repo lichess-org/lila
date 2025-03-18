@@ -25,17 +25,18 @@ export class BotCtrl {
     readonly redraw: () => void,
   ) {
     this.setupCtrl = new SetupCtrl(opts, this.currentGame, this.resume, this.newGame, redraw);
+    this.resume(); // auto-join the ongoing game
     debugCli(this.resumeGame);
   }
 
   private resume = () => {
     const game = this.currentGame();
-    console.log('resume', game);
     if (game) this.resumeGame(game);
   };
 
   private newGame = (bot: BotInfo, pov: Color) => {
     this.resumeGame(makeGame(bot.uid, pov));
+    this.redraw();
   };
 
   private resumeGame = (game: Game) => {
@@ -54,7 +55,6 @@ export class BotCtrl {
       close: this.closeGame,
       rematch: () => this.newGame(bot, opposite(game.pov)),
     });
-    this.redraw();
   };
 
   private closeGame = () => {

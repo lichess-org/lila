@@ -10,7 +10,8 @@ import { autoScroll } from './autoScroll';
 import { repeater } from 'common';
 import { bindMobileMousedown } from 'common/device';
 import { StatusData, statusOf as viewStatus } from 'game/view/status';
-// import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
+import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
+import boardMenu from './boardMenu';
 
 export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoard(ctrl), viewTable(ctrl)]);
 
@@ -106,6 +107,7 @@ const viewMove = (ply: number, san: San, curPly: number) =>
 
 const viewNavigation = (ctrl: PlayCtrl) => {
   return h('div.bot-game__table__nav', [
+    boardMenu(ctrl),
     h('div.noop'),
     ...[
       [licon.JumpFirst, 0],
@@ -120,7 +122,7 @@ const viewNavigation = (ctrl: PlayCtrl) => {
         hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
       });
     }),
-    // boardMenuToggleButton(ctrl.menu, i18n.site.menu),
+    boardMenuToggleButton(ctrl.menu, i18n.site.menu),
   ]);
 };
 
@@ -148,34 +150,22 @@ const viewOpponent = (bot: BotInfo) =>
   ]);
 
 const viewBoard = (ctrl: PlayCtrl) =>
-  h(
-    'div.bot-game__board.main-board',
-    {
-      hook:
-        'ontouchstart' in window
-          ? undefined
-          : bind(
-              'wheel',
-              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                e.preventDefault();
-                if (e.deltaY > 0 && scroll) ctrl.goDiff(1);
-                else if (e.deltaY < 0 && scroll) ctrl.goDiff(-1);
-              }),
-              undefined,
-              false,
-            ),
-    },
-    [
-      h(
-        'div.cg-wrap.unique-game-' + ctrl.game.id,
-        {
-          hook: {
-            insert: vnode => {
-              ctrl.setGround(Chessground(vnode.elm as HTMLElement, initialGround(ctrl)));
-            },
-          },
-        },
-        'loading...',
-      ),
-    ],
-  );
+  h('div.bot-game__board.main-board', { hook: boardScroll(ctrl) }, [
+    h('div.cg-wrap.unique-game-' + ctrl.game.id, {
+      hook: onInsert(el => ctrl.setGround(Chessground(el, initialGround(ctrl)))),
+    }),
+  ]);
+
+const boardScroll = (ctrl: PlayCtrl) =>
+  'ontouchstart' in window
+    ? undefined
+    : bind(
+        'wheel',
+        stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+          e.preventDefault();
+          if (e.deltaY > 0 && scroll) ctrl.goDiff(1);
+          else if (e.deltaY < 0 && scroll) ctrl.goDiff(-1);
+        }),
+        undefined,
+        false,
+      );

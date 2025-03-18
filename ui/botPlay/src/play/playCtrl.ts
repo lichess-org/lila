@@ -1,4 +1,4 @@
-import { Move, parseSquare } from 'chessops';
+import { Move, opposite, parseSquare } from 'chessops';
 import { Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { BotInfo, MoveSource } from 'local';
@@ -8,6 +8,7 @@ import keyboard from './keyboard';
 import { updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
 import { makeEndOf, Game } from '../game';
+import { toggle, Toggle } from 'common';
 
 export interface PlayOpts {
   pref: Pref;
@@ -26,9 +27,12 @@ export default class PlayCtrl {
   ground?: CgApi;
   // will be replaced by view layer
   autoScroll: () => void = () => {};
+  menu: Toggle;
+  flipped: Toggle = toggle(false);
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
     this.board = makeBoardAt(opts.game);
+    this.menu = toggle(false, opts.redraw);
     keyboard(this);
   }
 
@@ -42,6 +46,14 @@ export default class PlayCtrl {
   lastPly = () => this.game.sans.length;
 
   isOnLastPly = () => this.board.onPly === this.lastPly();
+
+  bottomColor = () => (this.flipped() ? opposite(this.game.pov) : this.game.pov);
+
+  flip = () => {
+    this.flipped.toggle();
+    this.ground?.set({ orientation: this.bottomColor() });
+    this.opts.redraw();
+  };
 
   onUserMove = (orig: Key, dest: Key) => {
     if (!this.isOnLastPly()) {

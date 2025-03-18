@@ -7,5 +7,6 @@ export default function keyboard(ctrl: PlayCtrl): void {
     .bind(['right', 'j'], () => ctrl.goDiff(1))
     .bind(['up', '0', 'home'], () => ctrl.goTo(0))
     .bind(['down', '$', 'end'], () => ctrl.goToLast())
-    .bind('z', () => pubsub.emit('zen'));
+    .bind('z', () => pubsub.emit('zen'))
+    .bind('f', ctrl.flip);
 }

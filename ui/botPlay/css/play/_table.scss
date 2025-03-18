@@ -4,6 +4,7 @@
 }
 .bot-game__table__nav {
   @extend %box-shadow;
+  position: relative;
   $buttons-height: 2.5rem;
   flex: 0 0 $buttons-height;
   display: flex;
@@ -16,6 +17,13 @@
     text-align: center;
     height: $buttons-height;
     line-height: calc($buttons-height - 0.1rem);
+  }
+  .board-menu {
+    @include mq-at-least-col2 {
+      bottom: $buttons-height;
+      border-radius: $box-radius-size $box-radius-size 0 0;
+      border-bottom: 2px solid $c-secondary;
+    }
   }
 }
 .bot-game__table__moves {

@@ -28,7 +28,7 @@ export function initialGround(ctrl: PlayCtrl): CgConfig {
   const chess = ctrl.board.chess;
   return {
     fen: makeFen(chess.toSetup()),
-    orientation: ctrl.game.pov,
+    orientation: ctrl.bottomColor(),
     turnColor: chess.turn,
     lastMove: lastMove(ctrl.board),
     check: chess.isCheck(),
