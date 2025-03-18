@@ -1,9 +1,12 @@
+$height: 128px;
+
 .bot-setup__ongoing {
   @extend %flex-center-nowrap, %box-neat;
   background: $c-bg-zebra;
+  height: $height;
   margin: 2em 0;
   gap: 1em;
-  align-self: center;
+  // align-self: center;
   cursor: pointer;
   box-shadow:
     0 0 5px $c-brag,
@@ -16,17 +19,20 @@
     color: $c-link;
   }
   &__preview {
-    flex: 0 0 10em;
+    flex: 0 0 $height;
+  }
+  cg-board {
+    @extend %box-radius-left;
   }
   &__image {
     aspect-ratio: 1;
-    width: 12em;
-    margin-top: -5%;
+    height: 150px;
+    margin-top: -25px;
     opacity: 0.9;
     line-height: 0;
   }
   &__content {
-    min-width: 30vw;
+    flex: 3 0 40ch;
   }
   &__name {
     color: $c-font;
