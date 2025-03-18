@@ -13,7 +13,8 @@ import { StatusData, statusOf as viewStatus } from 'game/view/status';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import boardMenu from './boardMenu';
 
-export const playView = (ctrl: PlayCtrl) => h('main.bot-app.bot-game', [viewBoard(ctrl), viewTable(ctrl)]);
+export const playView = (ctrl: PlayCtrl) =>
+  h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [viewBoard(ctrl), viewTable(ctrl)]);
 
 const viewTable = (ctrl: PlayCtrl) =>
   h('div.bot-game__table', [
@@ -151,7 +152,7 @@ const viewOpponent = (bot: BotInfo) =>
 
 const viewBoard = (ctrl: PlayCtrl) =>
   h(`div.bot-game__board.main-board${ctrl.blindfold() ? '.blindfold' : ''}`, { hook: boardScroll(ctrl) }, [
-    h('div.cg-wrap.unique-game-' + ctrl.game.id, {
+    h('div.cg-wrap', {
       hook: onInsert(el => ctrl.setGround(Chessground(el, initialGround(ctrl)))),
     }),
   ]);

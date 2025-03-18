@@ -26,7 +26,7 @@ export class BotCtrl {
     readonly redraw: () => void,
   ) {
     this.setupCtrl = new SetupCtrl(opts, this.currentGame, this.resume, this.newGame, redraw);
-    debugCli(this.resumeGame);
+    debugCli(this.resumeGameAndRedraw);
     addZenSupport();
 
     this.resume(); // auto-join the ongoing game
@@ -37,10 +37,7 @@ export class BotCtrl {
     if (game) this.resumeGame(game);
   };
 
-  private newGame = (bot: BotInfo, pov: Color) => {
-    this.resumeGame(makeGame(bot.uid, pov));
-    this.redraw();
-  };
+  private newGame = (bot: BotInfo, pov: Color) => this.resumeGameAndRedraw(makeGame(bot.uid, pov));
 
   private resumeGame = (game: Game) => {
     const bot = this.opts.bots.find(b => b.uid === game.botId);
@@ -58,6 +55,11 @@ export class BotCtrl {
       close: this.closeGame,
       rematch: () => this.newGame(bot, opposite(game.pov)),
     });
+  };
+
+  private resumeGameAndRedraw = (game: Game) => {
+    this.resumeGame(game);
+    this.redraw();
   };
 
   private closeGame = () => {
