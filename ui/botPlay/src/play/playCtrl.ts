@@ -1,4 +1,4 @@
-import { Move, opposite, parseSquare } from 'chessops';
+import { Move, parseSquare } from 'chessops';
 import { Pref } from '../interfaces';
 import { normalizeMove } from 'chessops/chess';
 import { BotInfo, MoveSource } from 'local';
@@ -7,7 +7,6 @@ import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
 import { updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
-import { randomId } from 'common/algo';
 import { makeEndOf, Game } from '../game';
 
 export interface PlayOpts {
@@ -71,15 +70,6 @@ export default class PlayCtrl {
   goDiff = (plyDiff: number) => this.goTo(this.board.onPly + plyDiff);
 
   goToLast = () => this.goTo(this.lastPly());
-
-  restart = () => {
-    this.game.sans = [];
-    this.game.pov = opposite(this.game.pov);
-    this.game.id = randomId();
-    this.board = makeBoardAt(this.game);
-    this.opts.save(this.game);
-    this.opts.redraw();
-  };
 
   private addMove = (move: Move) => {
     const san = addMove(this.board, move);

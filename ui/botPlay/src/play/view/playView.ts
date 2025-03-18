@@ -32,7 +32,7 @@ const viewActions = (ctrl: PlayCtrl) =>
     ),
     h(
       'button.bot-game__restart.text',
-      { attrs: dataIcon(licon.Reload), hook: bind('click', ctrl.restart) },
+      { attrs: dataIcon(licon.Reload), hook: bind('click', ctrl.opts.rematch) },
       'New game',
     ),
   ]);
