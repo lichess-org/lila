@@ -15,7 +15,7 @@ export const updateGround = (board: Board): CgConfig => ({
   turnColor: board.chess.turn,
   lastMove: board.lastMove && chessgroundMove(board.lastMove),
   movable: {
-    dests: board.end ? new Map() : chessgroundDests(board.chess),
+    dests: board.chess.isEnd() ? new Map() : chessgroundDests(board.chess),
   },
 });
 

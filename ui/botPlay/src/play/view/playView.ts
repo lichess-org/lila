@@ -24,7 +24,7 @@ const viewTable = (ctrl: PlayCtrl) =>
 
 const viewActions = (ctrl: PlayCtrl) =>
   h('div.bot-game__table__actions', [
-    ctrl.board.end && h('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
+    ctrl.game.end && h('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
     h(
       'button.bot-game__close.text',
       { attrs: dataIcon(licon.Back), hook: bind('click', ctrl.opts.close) },
@@ -38,7 +38,7 @@ const viewActions = (ctrl: PlayCtrl) =>
   ]);
 
 const viewResult = (ctrl: PlayCtrl) => {
-  const { end } = ctrl.board;
+  const end = ctrl.game.end;
   if (!end) return;
   const result = end.winner == 'white' ? '1-0' : end.winner == 'black' ? '0-1' : '½-½';
   const statusData: StatusData = {

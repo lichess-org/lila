@@ -8,7 +8,7 @@ import keyboard from './keyboard';
 import { updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
 import { randomId } from 'common/algo';
-import { Game } from '../game';
+import { makeEndOf, Game } from '../game';
 
 export interface PlayOpts {
   pref: Pref;
@@ -84,6 +84,7 @@ export default class PlayCtrl {
   private addMove = (move: Move) => {
     const san = addMove(this.board, move);
     this.game.sans = [...this.game.sans.slice(0, this.board.onPly), san];
+    this.game.end = makeEndOf(this.board.chess);
     this.ground?.set(updateGround(this.board));
     this.opts.redraw();
     this.opts.save(this.game);
@@ -95,7 +96,7 @@ export default class PlayCtrl {
     const source = await this.opts.moveSource;
     this.goToLast();
     const sign = () => this.game.pov + makeFen(this.board.chess.toSetup());
-    if (this.board.end || this.game.pov == this.board.chess.turn) return;
+    if (this.board.chess.isEnd() || this.game.pov == this.board.chess.turn) return;
     const before = sign();
     const move = await requestBotMove(source, this.game);
     this.goToLast();
