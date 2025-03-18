@@ -359,7 +359,7 @@
   <string name="bookmarkThisGame">Обележи ову партију</string>
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
-  <string name="tournamentPoints">Поени на турнирима</string>
+  <string name="tournamentPoints">Бодови са турнира</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s поен на турнирима</item>
     <item quantity="few">%s поена на турнирима</item>
@@ -371,7 +371,7 @@
     <item quantity="other">%s студија</item>
   </plurals>
   <string name="viewTournament">Погледај турнир</string>
-  <string name="backToTournament">Повратак у турнир</string>
+  <string name="backToTournament">Назад на турнир</string>
   <string name="noDrawBeforeSwissLimit">Не можеш ремизирати пре 30. потеза на турниру играном према швајцарском систему.</string>
   <string name="thematic">Тематски</string>
   <plurals name="moreThanNbRatedGames">
@@ -402,9 +402,9 @@
   <string name="ratedLessThanInPerf">Рејтинг ≤ %1$s у %2$s</string>
   <string name="mustBeInTeam">Морате бити у тиму %s</string>
   <string name="youAreNotInTeam">Ви нисте члан тима %s</string>
-  <string name="backToGame">Повратак у игру</string>
+  <string name="backToGame">Назад на партију</string>
   <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
-  <string name="xJoinedTeamY">%1$s придружио/ла се тиму %2$s</string>
+  <string name="xJoinedTeamY">%1$s је ушао/ла у тим %2$s</string>
   <string name="xCreatedTeamY">%1$s креирао/ла тим %2$s</string>
   <string name="startedStreaming">стриминг започет</string>
   <string name="xStartedStreaming">%s је почео са приказивањем</string>
