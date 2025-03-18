@@ -8,6 +8,7 @@ export interface Game {
   id: string;
   botId: BotId;
   pov: Color;
+  initialFen?: FEN;
   sans: San[];
   end?: GameEnd;
 }
