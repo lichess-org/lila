@@ -17,11 +17,11 @@ interface GameEnd {
   fen: FEN;
 }
 
-export const makeGame = (botId: BotId, pov: Color): Game => ({
+export const makeGame = (botId: BotId, pov: Color, sans: San[] = []): Game => ({
   id: randomId(),
   botId,
   pov,
-  sans: [],
+  sans,
 });
 
 export const makeEndOf = (chess: Chess): GameEnd | undefined => {
