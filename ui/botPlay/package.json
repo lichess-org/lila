@@ -8,6 +8,7 @@
   "dependencies": {
     "common": "workspace:*",
     "local": "workspace:*",
+    "chess": "workspace:*",
     "game": "workspace:*",
     "zerofish": "0.0.34"
   },

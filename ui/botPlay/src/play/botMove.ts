@@ -4,21 +4,19 @@ import type { Game } from '../game';
 import { toPgn } from '../chess';
 import { INITIAL_FEN } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
+import { hashBoard } from 'chess/hash';
 
 export const requestBotMove = async (source: MoveSource, game: Game): Promise<Move> => {
   const now = performance.now();
-  const pgn = toPgn(game);
-  const chess = Chess.default();
-  const ucis = Array.from(pgn.moves.mainline()).map(node => {
-    const move = parseSan(chess, node.san)!;
-    chess.play(move);
-    return makeUci(move);
-  });
+
+  const [ucis, hashes, chess] = makeUcisAndHashes(game);
+
+  const threefoldMoves = makeThreefoldMoves(chess, hashes);
 
   const moveRequest: MoveArgs = {
     pos: { fen: INITIAL_FEN, moves: ucis },
-    chess: chess,
-    avoid: [], // threefold moves
+    chess: Chess.default(),
+    avoid: threefoldMoves,
     initial: Infinity,
     remaining: Infinity,
     opponentRemaining: Infinity,
@@ -39,4 +37,31 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
       setTimeout(() => resolve(uci), waitTime);
     });
   else return Promise.reject('no move');
+};
+
+const makeUcisAndHashes = (game: Game): [Uci[], bigint[], Chess] => {
+  const pgn = toPgn(game);
+  const chess = Chess.default();
+  const ucis: Uci[] = [];
+  const hashes: bigint[] = [];
+  for (const node of pgn.moves.mainline()) {
+    const move = parseSan(chess, node.san)!;
+    chess.play(move);
+    ucis.push(makeUci(move));
+    hashes.push(hashBoard(chess.board));
+  }
+  return [ucis, hashes, chess];
+};
+
+const makeThreefoldMoves = (chess: Chess, hashes: bigint[]): Uci[] => {
+  const tfms: Uci[] = [];
+  for (const [from, dests] of chess.allDests()) {
+    for (const to of dests) {
+      const next = chess.clone();
+      next.play({ from, to });
+      const moveHash = hashBoard(next.board);
+      if (hashes.filter(h => h == moveHash).length > 1) tfms.push(makeUci({ from, to }));
+    }
+  }
+  return tfms;
 };
