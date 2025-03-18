@@ -9,9 +9,7 @@ export async function initModule(opts: BotOpts) {
 
   const ctrl = new BotCtrl(opts, redraw);
 
-  const blueprint = ctrl.view();
-  element.innerHTML = '';
-  let vnode = patch(element, blueprint);
+  let vnode = patch(element, ctrl.view());
 
   function redraw() {
     vnode = patch(vnode, ctrl.view());

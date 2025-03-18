@@ -5,11 +5,13 @@ import { BotInfo } from 'local';
 import { addMove, Board, makeBoardAt } from '../chess';
 import { requestBotMove } from './botMove';
 import keyboard from './keyboard';
-import { updateGround } from '../ground';
+import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
 import { makeEndOf, Game } from '../game';
-import { toggle, Toggle } from 'common';
+import { prop, toggle, Toggle } from 'common';
 import { playMoveSounds } from './sound';
+import { PromotionCtrl } from 'chess/promotion';
+import type { WithGround } from 'chess/ground';
 
 export interface PlayOpts {
   pref: Pref;
@@ -25,24 +27,22 @@ export interface PlayOpts {
 export default class PlayCtrl {
   game: Game;
   board: Board; // the state of the board being displayed
-  ground?: CgApi;
-  // will be replaced by view layer
-  autoScroll: () => void = () => {};
+  promotion: PromotionCtrl;
   menu: Toggle;
   flipped: Toggle = toggle(false);
   blindfold: Toggle;
+  // will be replaced by view layer
+  ground = prop<CgApi | false>(false);
+  autoScroll: () => void = () => {};
   constructor(readonly opts: PlayOpts) {
     this.game = opts.game;
     this.board = makeBoardAt(opts.game);
+    this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.opts.redraw);
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
     keyboard(this);
+    setTimeout(this.safelyRequestBotMove, 500);
   }
-
-  setGround = (cg: CgApi) => {
-    this.ground = cg;
-    this.safelyRequestBotMove();
-  };
 
   isPlaying = () => !this.game.end;
 
@@ -54,7 +54,7 @@ export default class PlayCtrl {
 
   flip = () => {
     this.flipped.toggle();
-    this.ground?.set({ orientation: this.bottomColor() });
+    this.withGround(cg => cg.set({ orientation: this.bottomColor() }));
     this.opts.redraw();
   };
 
@@ -77,7 +77,7 @@ export default class PlayCtrl {
     const newPly = Math.max(0, Math.min(this.lastPly(), ply));
     if (newPly === this.board.onPly) return;
     this.board = makeBoardAt(this.opts.game, newPly);
-    this.ground?.set(updateGround(this.board));
+    this.withGround(cg => cg.set(updateGround(this.board)));
     this.opts.redraw();
     this.autoScroll();
     this.safelyRequestBotMove();
@@ -91,12 +91,12 @@ export default class PlayCtrl {
     const san = addMove(this.board, move);
     this.game.sans = [...this.game.sans.slice(0, this.board.onPly), san];
     this.game.end = makeEndOf(this.board.chess);
-    this.ground?.set(updateGround(this.board));
+    this.withGround(cg => cg.set(updateGround(this.board)));
     this.opts.redraw();
     this.opts.save(this.game);
     this.autoScroll();
     playMoveSounds(this, san);
-    this.ground?.playPremove();
+    this.withGround(cg => cg.playPremove());
   };
 
   private safelyRequestBotMove = async () => {
@@ -107,5 +107,12 @@ export default class PlayCtrl {
     const move = await requestBotMove(source, this.game);
     if (sign() == before) this.addMove(move);
     else console.warn('Bot move ignored due to board state mismatch');
+  };
+
+  private setGround = () => this.withGround(g => g.set(initialGround(this)));
+
+  private withGround: WithGround = f => {
+    const g = this.ground();
+    return g ? f(g) : undefined;
   };
 }
