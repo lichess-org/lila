@@ -21,10 +21,6 @@ export const requestBotMove = async (source: MoveSource, game: Game): Promise<Mo
     remaining: Infinity,
     opponentRemaining: Infinity,
     increment: 0,
-    // initial: this.clock?.initial ?? Infinity,
-    // remaining: this.clock?.[game.turn] ?? Infinity,
-    // opponentRemaining: this.clock?.[game.awaiting] ?? Infinity,
-    // increment: this.clock?.increment ?? 0,
     ply: game.sans.length,
   };
 
