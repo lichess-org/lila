@@ -336,7 +336,13 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           el.addEventListener(
             'wheel',
             stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              e.preventDefault();
+              // todos:
+              /*
+              Check zoom still works as expected on phone (and all places in code that use stepwisescroll func)
+              check ceval update works as expected on gitpod
+              Make common code for round and analysis boards for scroll/zoom
+              */
+              if (scroll) e.preventDefault();
               if (pvIndex !== null) {
                 if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
                 else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;

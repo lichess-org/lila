@@ -165,7 +165,7 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
                   target.tagName !== 'CG-BOARD'
                 )
                   return;
-                e.preventDefault();
+                if (scroll) e.preventDefault();
                 if (e.deltaY > 0 && scroll) control.next(ctrl);
                 else if (e.deltaY < 0 && scroll) control.prev(ctrl);
                 ctrl.redraw();

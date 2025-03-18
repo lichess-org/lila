@@ -36,12 +36,10 @@ export function main(ctrl: RoundController): VNode {
                 : bind(
                     'wheel',
                     stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                      if (!ctrl.isPlaying()) {
-                        e.preventDefault();
-                        if (e.deltaY > 0 && scroll) next(ctrl);
-                        else if (e.deltaY < 0 && scroll) prev(ctrl);
-                        ctrl.redraw();
-                      }
+                      if (scroll) e.preventDefault();
+                      if (e.deltaY > 0 && scroll) next(ctrl);
+                      else if (e.deltaY < 0 && scroll) prev(ctrl);
+                      ctrl.redraw();
                     }),
                     undefined,
                     false,
