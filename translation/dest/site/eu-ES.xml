@@ -156,6 +156,7 @@
   <string name="flipBoard">Taula biratu</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>
   <string name="claimADraw">Berdinketa eskatu</string>
+  <string name="drawClaimed">Berdinketa eskatuta</string>
   <string name="offerDraw">Berdinketa eskaini</string>
   <string name="draw">Berdinketa</string>
   <plurals name="nbPlayers">
@@ -744,6 +745,9 @@
   <string name="checkYourEmail">Zure emailean begiratu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Email mezua  bidali dizugu. Zure kontua aktibatzeko, egizu klik mezuan.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
+  <string name="ifYouDoNotGetTheEmail">Mezua ez baduzu 5 minutuan jasotzen:</string>
+  <string name="checkAllEmailFolders">Begiratu spam karpetan</string>
+  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Egiaztatu %s zure eposta helbidea dela</string>
   <string name="weHaveSentYouAnEmailTo">Mezu bat bidali dugu %s helbidera. Egizu klik mezuan zure pasahitza berrizteko.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Izena ematean, gure %s onartzen dituzu.</string>
   <string name="readAboutOur">Irakurri gure %s.</string>
@@ -788,6 +792,7 @@
   <string name="anonymous">Anonimoa</string>
   <string name="yourScore">Zure puntuaketa: %s</string>
   <string name="language">Hizkuntza</string>
+  <string name="allLanguages">Hizkuntza guztiak</string>
   <string name="background">Atzeko planoa</string>
   <string name="light">Argia</string>
   <string name="dark">Iluna</string>
