@@ -7,7 +7,7 @@ export const playMoveSounds = async (ctrl: PlayCtrl, san: San) => {
   const sounds: SoundEvent[] = [];
   const prefix = ctrl.board.chess.turn === ctrl.game.pov ? 'bot' : 'player';
   if (san.includes('x')) sounds.push(`${prefix}Capture`);
-  if (ctrl.board.chess.isCheck()) sounds.push(`${prefix}Check`);
+  if (san.includes('+')) sounds.push(`${prefix}Check`);
   if (ctrl.game.end) sounds.push(`${prefix}Win`);
   sounds.push(`${prefix}Move`);
   const bridge = await ctrl.opts.bridge;
