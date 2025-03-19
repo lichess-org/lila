@@ -94,7 +94,7 @@ object StudyForm:
             orientation = orientation | ChapterMaker.Orientation.Auto,
             mode = mode,
             initial = initial && index == 0,
-            isDefaultName = index > 0 || name.isEmpty
+            isDefaultName = index > 0 || name.isEmpty || isDefaultName
           )
 
   def topicsForm = Form(single("topics" -> text))
