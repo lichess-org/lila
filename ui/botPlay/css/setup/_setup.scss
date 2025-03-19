@@ -23,7 +23,7 @@
   }
 }
 
-.bot-setup__bot-card {
+.bot-card {
   @extend %box-neat, %flex-column;
 
   @include transition(box-shadow);
@@ -57,6 +57,11 @@
     padding: 0em 0.6em 0 0.8em;
   }
 
+  &__header {
+    @extend %flex-center;
+    justify-content: center;
+    gap: 1ch;
+  }
   &__name {
     @include line-clamp(2);
     margin: 0.3em 0;
@@ -64,5 +69,8 @@
     color: $c-font-clearer;
     font-size: 1.6em;
     text-align: center;
+  }
+  &__rating {
+    color: $c-font-dim;
   }
 }

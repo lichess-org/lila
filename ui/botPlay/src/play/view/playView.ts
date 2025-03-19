@@ -150,7 +150,10 @@ const viewOpponent = (bot: BotInfo) =>
       h('img.bot-game__opponent__image', {
         attrs: { src: bot.image && botAssetUrl('image', bot.image) },
       }),
-      h('h2.bot-game__opponent__name', bot.name),
+      h('div.bot-game__opponent__info', [
+        h('h2.bot-game__opponent__name', bot.name),
+        h('h2.bot-game__opponent__rating', '' + bot.ratings['blitz']),
+      ]),
     ]),
     h('div.bot-game__opponent__description', bot.description),
   ]);

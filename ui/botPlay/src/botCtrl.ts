@@ -29,7 +29,7 @@ export class BotCtrl {
     debugCli(this.resumeGameAndRedraw);
     addZenSupport();
 
-    this.resume(); // auto-join the ongoing game
+    // this.resume(); // auto-join the ongoing game
   }
 
   private resume = () => {
