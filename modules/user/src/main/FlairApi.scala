@@ -52,6 +52,7 @@ final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.Get
     try
       db = Flair.from(source.getLines.toSet)
       logger.info(s"Updated flair db with ${db.size} flairs")
+    catch case e: Exception => logger.error(s"Cannot read flairs", e)
     finally source.close()
 
   scheduler.scheduleOnce(11.seconds)(refresh())
