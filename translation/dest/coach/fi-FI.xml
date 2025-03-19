@@ -24,4 +24,5 @@
   <string name="teachingMethod">Opetusmetodit</string>
   <string name="publicStudies">Julkiset tutkielmat</string>
   <string name="youtubeVideos">YouTube-videot</string>
+  <string name="allCountries" comment="Appears as a select box option on the Coaches page (https://lichess.org/coach). As such, please keep this string short.&#10;&#10;It is the default option. When selected. it means you are not filtering by country at all. Could alternatively be stated as 'Any country' or 'Show all countries'.&#10;&#10;This string refers to the user's viewing options. A coach cannot state 'any country' on their profile.">Kaikki maat</string>
 </resources>
