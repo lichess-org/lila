@@ -46,13 +46,17 @@ final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.Get
         pairs.toMap
 
   private def refresh(): Unit =
-    // val pathname = getFile.exec("public/flair/list.txt").toPath.toString
-    // val source   = scala.io.Source.fromFile(pathname, "UTF-8")
-    val source = scala.io.Source.fromFile("public/flair/list.txt", "UTF-8")
+    try refreshFrom(scala.io.Source.fromFile("public/flair/list.txt", "UTF-8"))
+    catch
+      case e: Exception =>
+        logger.error("Cannot read flairs, trying alternative path", e)
+        val pathname = getFile.exec("public/flair/list.txt").toPath.toString
+        refreshFrom(scala.io.Source.fromFile(pathname, "UTF-8"))
+
+  private def refreshFrom(source: scala.io.Source): Unit =
     try
       db = Flair.from(source.getLines.toSet)
       logger.info(s"Updated flair db with ${db.size} flairs")
-    catch case e: Exception => logger.error(s"Cannot read flairs", e)
     finally source.close()
 
   scheduler.scheduleOnce(11.seconds)(refresh())
