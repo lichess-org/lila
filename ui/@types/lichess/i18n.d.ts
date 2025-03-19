@@ -2919,6 +2919,8 @@ interface I18n {
     cheat: string;
     /** Cheat Detected */
     cheatDetected: string;
+    /** Check all junk, spam, and other folders */
+    checkAllEmailFolders: string;
     /** Checkmate */
     checkmate: string;
     /** Also check your spam folder, it might end up there. If so, mark it as not spam. */
@@ -3275,6 +3277,8 @@ interface I18n {
     ifRatingIsPlusMinusX: I18nFormat;
     /** If registered */
     ifRegistered: string;
+    /** If you do not get the email within 5 minutes: */
+    ifYouDoNotGetTheEmail: string;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
     ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
     /** Important */
@@ -4223,6 +4227,8 @@ interface I18n {
     variantWin: string;
     /** Variation arrows let you navigate without using the move list. */
     variationArrowsInfo: string;
+    /** Verify that %s is your email address */
+    verifyYourAddress: I18nFormat;
     /** Victory */
     victory: string;
     /** %1$s vs %2$s in %3$s */

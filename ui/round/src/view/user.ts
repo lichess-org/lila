@@ -4,13 +4,22 @@ import type { Player } from 'game';
 import type { Position } from '../interfaces';
 import type RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'common/userLink';
+import { wsAverageLag } from 'common/socket';
+import { defined } from 'common';
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {
   const d = ctrl.data,
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
     rating = player.rating || perf?.rating,
-    signal = user?.id === d.opponent.user?.id ? d.opponentSignal : undefined;
+    showSignals = defined(d.opponentSignal) && defined(user?.id) && ctrl.isPlaying(),
+    signal = showSignals
+      ? user.id === d.opponent.user?.id
+        ? d.opponentSignal
+        : user.id === d.player.user?.id
+          ? myWsLagAsSignal()
+          : undefined
+      : undefined;
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
@@ -67,9 +76,14 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 }
 
 const signalBars = (signal: number) => {
-  const bars = [];
+  const bars: VNode[] = [];
   for (let i = 1; i <= 4; i++) bars.push(h(i <= signal ? 'i' : 'i.off'));
   return h('signal.q' + signal, bars);
+};
+
+const myWsLagAsSignal = () => {
+  const ping = wsAverageLag();
+  return !ping ? 0 : ping < 150 ? 4 : ping < 300 ? 3 : ping < 500 ? 2 : 1;
 };
 
 export const userTxt = (player: Player): string =>

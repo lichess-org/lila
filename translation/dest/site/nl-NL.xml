@@ -745,6 +745,8 @@
   <string name="checkYourEmail">Controleer je email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We hebben je een email gestuurd. Klik op de link in de email om je account te activeren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
+  <string name="ifYouDoNotGetTheEmail">Als u de e-mail niet binnen 5 minuten ontvangt:</string>
+  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Controleer of %s je e-mailadres is</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
   <string name="readAboutOur">Lees meer over ons %s.</string>

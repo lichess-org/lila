@@ -40,7 +40,7 @@ export async function sass(): Promise<any> {
   return task({
     ctx: 'sass',
     glob: [
-      { cwd: env.uiDir, path: '*/css/**/*.scss' },
+      { cwd: env.uiDir, path: '*/css/**/!(gen)/*.scss' },
       { cwd: env.hashOutDir, path: '*' },
     ],
     debounce: 300,
@@ -166,43 +166,77 @@ async function parseScss(src: string, processed: Set<string>) {
 
 // collect mixable scss color definitions from theme files
 async function parseThemeColorDefs() {
-  const themeFiles = await glob('ui/common/css/theme/_*.scss', { absolute: false });
   const themes: string[] = ['dark'];
+
+  const defaultThemeColors = await loadThemeColorDefs(join(env.themeDir, '_default.scss'));
+  themeColorMap.set('default', defaultThemeColors);
+
+  const themeFiles = await glob(join(env.themeDir, '_*.scss'), { absolute: false });
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
       env.log(`${errorMark} Invalid theme filename '${c.cyan(themeFile)}'`, 'sass');
       continue;
     }
-    const text = fs.readFileSync(themeFile, 'utf8');
-    const capturedColors = new Map<string, string>();
-    for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
-      capturedColors.set(match[1], match[2]);
+    if (theme === 'default') {
+      continue;
     }
-    const colorMap = new Map<string, clr.Instance>();
-    for (const [color, colorVal] of capturedColors) {
-      let val = colorVal;
-      const visitedVariables = new Set();
-      while (val.startsWith('$')) {
-        const inferredValue = capturedColors.get(val.substring(3)) ?? '#000';
-        if (visitedVariables.has(inferredValue)) {
-          break;
-        }
-        visitedVariables.add(inferredValue);
-        val = inferredValue;
-      }
-      colorMap.set(color, clr(val));
-    }
-    if (theme !== 'default') themes.push(theme);
-    themeColorMap.set(theme, colorMap);
+    themes.push(theme);
+    themeColorMap.set(theme, await loadThemeColorDefs(themeFile, defaultThemeColors));
   }
+
   for (const theme of themes) {
     const colorDefMap = themeColorMap.get(theme) ?? new Map<string, clr.Instance>();
 
-    for (const [color, colorVal] of themeColorMap.get('default') ?? []) {
+    for (const [color, colorVal] of defaultThemeColors) {
       if (!colorDefMap.has(color)) colorDefMap.set(color, colorVal.clone());
     }
   }
+}
+
+async function loadThemeColorDefs(themeFile: string, fallbackColors: Map<string, clr.Instance> = new Map()) {
+  const text = await fs.promises.readFile(themeFile, 'utf8');
+
+  const capturedColors = new Map<string, string>();
+  for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
+    capturedColors.set(match[1], match[2]);
+  }
+
+  const colorMap = new Map<string, clr.Instance>();
+  for (const [color, colorVal] of capturedColors) {
+    colorMap.set(color, resolveVariablesInValue(colorVal, capturedColors, fallbackColors));
+  }
+
+  return colorMap;
+}
+
+// if value is a variable (i.e. starts with $), recursively resolve it to the value of the referenced variable
+// if the variable is unknown, try to fall back to fallbackColors
+function resolveVariablesInValue(
+  value: string,
+  variables: Map<string, string>,
+  fallbackColors: Map<string, clr.Instance>,
+) {
+  const visitedVariables = new Set<string>();
+  while (value.startsWith('$')) {
+    const colorName = value.substring(3);
+    const resolvedValue = variables.get(colorName);
+    if (!resolvedValue) {
+      const fallbackColor = fallbackColors.get(colorName);
+      if (!fallbackColor) {
+        env.log(`${errorMark} Failed to resolve variable: '${c.magenta(value)}'`, 'sass');
+        return clr('black');
+      }
+      return fallbackColor;
+    }
+    if (visitedVariables.has(resolvedValue)) {
+      env.log(`${errorMark} Detected loop resolving variable: '${c.magenta(value)}'`, 'sass');
+      return clr('black');
+    }
+    visitedVariables.add(resolvedValue);
+    value = resolvedValue;
+  }
+  return clr(value);
 }
 
 // given color definitions and mix instructions, build mixed color css variables in themed scss mixins
