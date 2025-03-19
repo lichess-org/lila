@@ -20,12 +20,12 @@
   <string name="newPost">Новая запись</string>
   <string name="editYourBlogPost">Редактировать запись в блоге</string>
   <string name="saveDraft">Сохранить черновик</string>
-  <string name="postTitle">Название записи</string>
+  <string name="postTitle">Название поста</string>
   <string name="postIntro">Цитата из записи</string>
-  <string name="postBody">Полная запись</string>
+  <string name="postBody">Содержание поста</string>
   <string name="drafts">Черновики</string>
   <string name="published">Опубликовано</string>
-  <string name="createBlogDiscussion">Включить комментарии</string>
+  <string name="createBlogDiscussion">Разрешить комментарии</string>
   <string name="createBlogDiscussionHelp">Тема форума будет создана с возможностью оставлять комментарии в ней</string>
   <string name="publishOnYourBlog">Опубликовать в вашем блоге</string>
   <string name="publishHelp">Если отмечено, сообщение будет отображаться в вашем блоге. В противном случае оно будет приватным, в ваших черновиках сообщений</string>
@@ -56,7 +56,7 @@
     <item quantity="many">Посмотреть %s записей</item>
     <item quantity="other">Посмотреть все %s записей</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">Загрузите фото для вашей записи</string>
+  <string name="uploadAnImageForYourPost">Загрузить фото для вашего поста</string>
   <string name="imageAlt">Текстовое описание изображения</string>
   <string name="imageCredit">Права на изображение</string>
   <string name="deleteBlog">Окончательно удалить эту запись блога</string>

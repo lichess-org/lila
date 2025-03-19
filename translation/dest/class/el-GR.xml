@@ -57,6 +57,7 @@
     <item quantity="one">Μία πρόσκληση εκκρεμεί</item>
     <item quantity="other">%s προσκλήσεις εκκρεμούν</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Εκκρεμεί</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="managed">Διαχειριζόμενος</string>
@@ -101,17 +102,18 @@
 Θα εμφανιστεί μια οριζόντια γραμμή.</string>
   <string name="invite">Πρόσκληση</string>
   <string name="youHaveBeenInvitedByX">Έχετε προσκληθεί από τον χρήστη %s.</string>
-  <string name="youAcceptedThisInvitation">Αποδεχθήκατε την πρόσκληση.</string>
-  <string name="youDeclinedThisInvitation">Απορρίψατε την πρόσκληση.</string>
+  <string name="youAcceptedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already accepted.">Αποδεχθήκατε την πρόσκληση.</string>
+  <string name="youDeclinedThisInvitation" comment="Appears when revisiting the page of an invitation to a class, which you have already declined.">Απορρίψατε την πρόσκληση.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ή</string>
   <string name="createMultipleAccounts">Δημιουργία πολλών λογαριασμών Lichess ταυτόχρονα</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Μπορείτε επίσης να %s για να δημιουργήσετε πολλούς λογαριασμούς Lichess από μια λίστα με ονόματα μαθητών.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">χρησιμοποιήσετε αυτήν τη φόρμα</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Μία τάξη μπορεί να έχει έως %1$s μαθητές. Για να διαχειριστείτε περισσότερους μαθητές, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">δημιουργήστε περισσότερες τάξεις</string>
-  <string name="studentsRealNamesOnePerLine">Τα πραγματικά ονόματα των μαθητών, ένα ανά γραμμή</string>
-  <string name="xisNowAStudentOfTheClass">Ο %s είναι πλέον μαθητής αυτής της τάξης</string>
-  <string name="anInvitationHasBeenSentToX">Μια πρόσκληση στάλθηκε στον χρήστη %s</string>
-  <string name="xAlreadyHasAPendingInvitation">Έχει ήδη σταλεί πρόσκληση στον χρήστη %s</string>
-  <string name="xIsAKidAccountWarning">Ο χρήστης %1$s είναι λογαριασμός παιδιού και δεν μπορεί να λάβει το μήνυμά σας. Πρέπει να του δώσετε το URL της πρόσκλησης: %2$s</string>
+  <string name="studentsRealNamesOnePerLine" comment="An instruction on how to enter students' names when creating new accounts for them.">Τα πραγματικά ονόματα των μαθητών, ένα ανά γραμμή</string>
+  <string name="xisNowAStudentOfTheClass" comment="%s is the player's name">Ο %s είναι πλέον μαθητής αυτής της τάξης</string>
+  <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Μια πρόσκληση στάλθηκε στον χρήστη %s</string>
+  <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">Έχει ήδη σταλεί πρόσκληση στον χρήστη %s</string>
+  <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">Ο χρήστης %1$s είναι λογαριασμός παιδιού και δεν μπορεί να λάβει το μήνυμά σας. Πρέπει να του δώσετε το URL της πρόσκλησης: %2$s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Μετακίνηση σε %s</string>
 </resources>
