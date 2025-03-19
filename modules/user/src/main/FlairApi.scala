@@ -46,8 +46,9 @@ final class FlairApi(lightUserApi: LightUserApi, getFile: lila.common.config.Get
         pairs.toMap
 
   private def refresh(): Unit =
-    val pathname = getFile.exec("public/flair/list.txt").toPath.toString
-    val source   = scala.io.Source.fromFile(pathname, "UTF-8")
+    // val pathname = getFile.exec("public/flair/list.txt").toPath.toString
+    // val source   = scala.io.Source.fromFile(pathname, "UTF-8")
+    val source = scala.io.Source.fromFile("public/flair/list.txt", "UTF-8")
     try
       db = Flair.from(source.getLines.toSet)
       logger.info(s"Updated flair db with ${db.size} flairs")
