@@ -152,7 +152,7 @@ const viewOpponent = (bot: BotInfo) =>
       }),
       h('div.bot-game__opponent__info', [
         h('h2.bot-game__opponent__name', bot.name),
-        h('h2.bot-game__opponent__rating', '' + bot.ratings['blitz']),
+        h('span.bot-game__opponent__rating', '' + bot.ratings['classical']),
       ]),
     ]),
     h('div.bot-game__opponent__description', bot.description),
