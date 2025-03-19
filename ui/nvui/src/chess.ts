@@ -166,7 +166,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): st
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
-  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : 'none'}`;
+  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
 }
 
 export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
@@ -175,7 +175,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveSt
       key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
     [],
   );
-  return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : 'blank';
+  return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : i18n.site.none;
 }
 
 export function renderBoard(
