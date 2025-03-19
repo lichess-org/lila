@@ -405,10 +405,10 @@
   <string name="backToGame">Назад на партију</string>
   <string name="siteDescription">Бесплатни интернет шах. Играј сада у чистом окружењу. Без регистрације, реклама, захтеваних података. Играј шах ротив рачунара, пријатеља или насумичних противника.</string>
   <string name="xJoinedTeamY">%1$s је ушао/ла у тим %2$s</string>
-  <string name="xCreatedTeamY">%1$s креирао/ла тим %2$s</string>
+  <string name="xCreatedTeamY">%1$s је основао/ла тим %2$s</string>
   <string name="startedStreaming">стриминг започет</string>
   <string name="xStartedStreaming">%s је почео са приказивањем</string>
-  <string name="averageElo">Просечан рејтинг</string>
+  <string name="averageElo">Просечни рејтинг</string>
   <string name="location">Локација</string>
   <string name="filterGames">Филтрирај партије</string>
   <string name="reset">Ресетуј</string>
