@@ -792,6 +792,7 @@
   <string name="anonymous">Nimetön</string>
   <string name="yourScore">Pisteesi: %s</string>
   <string name="language">Kieli</string>
+  <string name="allLanguages">Kaikki kielet</string>
   <string name="background">Tausta</string>
   <string name="light">Vaalea</string>
   <string name="dark">Tumma</string>
