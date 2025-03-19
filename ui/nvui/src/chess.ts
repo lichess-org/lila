@@ -170,11 +170,13 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): st
 }
 
 export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
-  const renderedKeysWithPiece = Array.from(pieces).reduce<string[]>(
-    (acc, [key, p]) =>
-      key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
-    [],
-  );
+  const renderedKeysWithPiece = Array.from(pieces)
+    .sort(([key1], [key2]) => key1.localeCompare(key2))
+    .reduce<string[]>(
+      (acc, [key, p]) =>
+        key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
+      [],
+    );
   return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : i18n.site.none;
 }
 
