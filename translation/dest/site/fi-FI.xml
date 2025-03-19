@@ -745,6 +745,9 @@
   <string name="checkYourEmail">Tarkista sähköpostisi</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Olemme lähettäneet sinulle sähköpostiviestin. Klikkaa viestissä olevaa linkkiä aktivoidaksesi käyttäjätunnuksesi.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
+  <string name="ifYouDoNotGetTheEmail">Jos et saa sähköpostia 5 minuutin kuluessa:</string>
+  <string name="checkAllEmailFolders">Tarkista kaikki roskaposti-, spam- ja muut kansiot</string>
+  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Tarkista, että %s on sinun sähköpostiosoitteesi</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rekisteröitymällä hyväksyt Lichessin %s ja sitoudut noudattamaan niitä.</string>
   <string name="readAboutOur">Lue lisää %s.</string>
