@@ -40,7 +40,7 @@ export async function sass(): Promise<any> {
   return task({
     ctx: 'sass',
     glob: [
-      { cwd: env.uiDir, path: '*/css/**/!(gen)/*.scss' },
+      { cwd: env.uiDir, path: '*/css/**/*.scss' },
       { cwd: env.hashOutDir, path: '*' },
     ],
     debounce: 300,
@@ -389,7 +389,7 @@ function isConcrete(src: string) {
 }
 
 function isPartial(src: string) {
-  return src.startsWith('ui/') && basename(src).startsWith('_');
+  return src.startsWith('ui/') && basename(src).startsWith('_') && !src.includes('/gen/');
 }
 
 function isUrlTarget(src: string) {
