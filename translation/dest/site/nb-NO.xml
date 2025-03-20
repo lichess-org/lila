@@ -745,6 +745,9 @@
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt en e-post til deg. Klikk på lenken i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
+  <string name="ifYouDoNotGetTheEmail">Hvis du ikke mottar e-posten innen 5 minutter:</string>
+  <string name="checkAllEmailFolders">Sjekk alle mapper</string>
+  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Sjekk at %s er e-postadressen din</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Klikk på lenken i e-posten for å tilbakestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtar du våre %s.</string>
   <string name="readAboutOur">Les %s vår.</string>
