@@ -414,11 +414,11 @@
   <string name="reset">Ресетуј</string>
   <string name="apply">Примени</string>
   <string name="save">Сачувај</string>
-  <string name="leaderboard">Табела</string>
+  <string name="leaderboard">Најбољи играчи</string>
   <string name="screenshotCurrentPosition">Сними тренутну позицију</string>
   <string name="gameAsGIF">Партију као ГИФ</string>
-  <string name="pasteTheFenStringHere">Убаци FEN текст овде</string>
-  <string name="pasteThePgnStringHere">Убаци PGN текст овде</string>
+  <string name="pasteTheFenStringHere">Налепи FEN текст овде</string>
+  <string name="pasteThePgnStringHere">Налепи PGN текст овде</string>
   <string name="orUploadPgnFile">Или учитај PGN фајл</string>
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
