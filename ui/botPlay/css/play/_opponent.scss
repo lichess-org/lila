@@ -2,14 +2,14 @@
   @extend %flex-column;
 
   &__head {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
     gap: 2em;
   }
 
   &__image {
     flex: 0 0 auto;
     max-height: calc(var(---cg-width) / 3);
-    max-width: 60%;
+    max-width: 50%;
     aspect-ratio: 1;
     margin-top: calc(var(---cg-width) / -10);
     line-height: 0;
@@ -22,7 +22,7 @@
 
   &__name {
     @include line-clamp(2);
-    margin: 0.3em 0;
+    margin-top: 0.3em;
     font-weight: normal;
     color: $c-brag;
     font-size: 1.6em;

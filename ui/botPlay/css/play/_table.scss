@@ -28,7 +28,7 @@
 }
 .bot-game__moves {
   @include prevent-select;
-  flex: 0 0 7.4rem;
+  height: 8em;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
