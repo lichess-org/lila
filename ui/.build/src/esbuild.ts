@@ -37,7 +37,7 @@ export async function esbuild(): Promise<any> {
       debounce: 300,
       noEnvStatus: true,
       globListOnly: true,
-      glob: env.building.flatMap(pkg =>
+      includes: env.building.flatMap(pkg =>
         definedMap(
           pkg.bundle.map(bundle => bundle.module),
           path => ({ cwd: pkg.root, path }),
@@ -76,7 +76,7 @@ function inlineTask() {
     ctx: 'esbuild',
     debounce: 300,
     noEnvStatus: true,
-    glob: env.building.flatMap(pkg =>
+    includes: env.building.flatMap(pkg =>
       definedMap(
         pkg.bundle.map(b => b.inline),
         path => ({ cwd: pkg.root, path }),
