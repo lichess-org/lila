@@ -1,0 +1,25 @@
+.bot-game__opponent {
+  @extend %flex-column;
+
+  &__image {
+    aspect-ratio: 1;
+    width: 100%;
+    margin-top: -30%;
+    line-height: 0;
+  }
+
+  &__content {
+    flex: 1;
+    background: $c-bg-zebra;
+    padding: 0em 0.6em 0 0.8em;
+  }
+
+  &__name {
+    @include line-clamp(2);
+    margin: 0.3em 0;
+    font-weight: normal;
+    color: $c-font-clearer;
+    font-size: 1.6em;
+    text-align: center;
+  }
+}

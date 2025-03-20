@@ -3,7 +3,7 @@ import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
-import { randomToken, unique } from './algo.ts';
+import { randomId, definedUnique } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
@@ -31,7 +31,7 @@ type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
 type TaskOpts = {
   glob: CwdPath | CwdPath[];
   execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
-  key?: TaskKey; // optional key for overwrite, stop, tickle
+  key?: TaskKey; // optional key for task overwrite and stopTask
   ctx?: Context; // optional build step context for logging
   pkg?: Package; // optional package reference
   debounce?: number; // optional number in ms
@@ -49,7 +49,7 @@ export async function task(o: TaskOpts): Promise<TaskKey> {
   const t: Task = {
     ...o,
     glob,
-    key: inKey ?? randomToken(),
+    key: inKey ?? randomId(),
     status: monitorOnly ? 'ok' : undefined,
     debounce: { time: debounce ?? 0, rename: !monitorOnly, files: new Set<AbsPath>() },
     fileTimes: monitorOnly ? await globTimes(glob) : new Map(),
@@ -156,7 +156,7 @@ async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
       event = 'rename';
     }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
-    const fullglobs = unique(watch.glob.map(({ cwd, path }) => join(cwd, path)));
+    const fullglobs = definedUnique(watch.glob.map(({ cwd, path }) => join(cwd, path)));
     if (!mm.isMatch(fullpath, fullglobs) && fullglobs.some(glob => fullpath.startsWith(mm.scan(glob).base))) {
       if (event === 'change') continue;
       try {
