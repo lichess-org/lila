@@ -166,16 +166,18 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): st
   const color: Color = p === p.toUpperCase() ? 'white' : 'black';
   const role = charToRole(p)!;
   const keys = keysWithPiece(pieces, role, color);
-  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : 'none'}`;
+  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : i18n.site.none}`;
 }
 
 export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
-  const renderedKeysWithPiece = Array.from(pieces).reduce<string[]>(
-    (acc, [key, p]) =>
-      key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
-    [],
-  );
-  return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : 'blank';
+  const renderedKeysWithPiece = Array.from(pieces)
+    .sort(([key1], [key2]) => key1.localeCompare(key2))
+    .reduce<string[]>(
+      (acc, [key, p]) =>
+        key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
+      [],
+    );
+  return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : i18n.site.none;
 }
 
 export function renderBoard(

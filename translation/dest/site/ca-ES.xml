@@ -745,6 +745,9 @@
   <string name="checkYourEmail">Comprova el teu email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">T\'hem enviat un email. Clica l\'enllaç de l\'email per a activar el teu compte</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
+  <string name="ifYouDoNotGetTheEmail">Si no reps el correu electrònic en 5 minuts:</string>
+  <string name="checkAllEmailFolders">Comprova el correu brossa i altres carpetes</string>
+  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Verifica que el teu correu electrònic és %s</string>
   <string name="weHaveSentYouAnEmailTo">Hem enviat un correu electrònic a %s. Clica a l\'enllaç per renovar la teva contrasenya.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En registrar-te,dones la teva conformitat a estar legalment obligats per el nostre %s.</string>
   <string name="readAboutOur">Llegeix sobre la nostre %s.</string>

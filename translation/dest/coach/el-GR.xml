@@ -24,4 +24,7 @@
   <string name="teachingMethod">Μέθοδοι διδασκαλίας</string>
   <string name="publicStudies">Δημόσιες μελέτες</string>
   <string name="youtubeVideos">Βίντεο στο YouTube</string>
+  <string name="allCountries">Όλες οι χώρες</string>
+  <string name="lastLogin">Τελευταία είσοδος</string>
+  <string name="lichessRating">Βαθμολογία στο Lichess</string>
 </resources>

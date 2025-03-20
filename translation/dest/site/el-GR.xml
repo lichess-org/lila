@@ -790,6 +790,7 @@
   <string name="anonymous">Ανώνυμος</string>
   <string name="yourScore">Η βαθμολογία σας: %s</string>
   <string name="language">Γλώσσα</string>
+  <string name="allLanguages">Όλες οι γλώσσες</string>
   <string name="background">Φόντο</string>
   <string name="light">Φωτεινό</string>
   <string name="dark">Σκοτεινό</string>

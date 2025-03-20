@@ -826,6 +826,9 @@
   <string name="checkYourEmail">Preveri svoj poštni nabiralnik</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti elektronsko sporočilo. Klikni na povezavo v sporočilu za aktiviranje računa.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Če ne vidite elektronskega sporočila, preverite druga mesta, kjer bi lahko bilo, npr. v smetnjaku ali v drugih mapah.</string>
+  <string name="ifYouDoNotGetTheEmail">Če e-pošte ne prejmete v 5 minutah:</string>
+  <string name="checkAllEmailFolders">Preverite vse mape z neželeno, vsiljeno pošto in druge mape</string>
+  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Preverite, ali je %s vaš elektronski naslov</string>
   <string name="weHaveSentYouAnEmailTo">Elektronsko pošto smo poslali na %s. Kliknite na povezavo v emailu, da obnovite svoje geslo.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Z registracijo se strinjate z našimi %s.</string>
   <string name="readAboutOur">Preberite o naši %s.</string>
