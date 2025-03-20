@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .node-version
       - uses: pnpm/action-setup@v4
       - run: pnpm run piece-css
       - name: Verify generated piece CSS matches SVG files
