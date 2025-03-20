@@ -23,7 +23,7 @@ object Spotlight:
       case None       => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart.value)
 
   def select(tours: List[Tournament], max: Int)(using me: Option[UserWithPerfs]): List[Tournament] =
-    me.foldUse(select(tours))(selectForMe(tours)).topN(max)
+    me.foldUse(select(tours))(selectForMe(tours)).distinct.topN(max)
 
   private def select(tours: List[Tournament]): List[Tournament] =
     tours.filter: tour =>
