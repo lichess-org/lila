@@ -40,8 +40,8 @@ export function main(ctrl: RoundController): VNode {
                         e.preventDefault();
                         if (e.deltaY > 0) next(ctrl);
                         else if (e.deltaY < 0) prev(ctrl);
+                        ctrl.redraw();
                       }
-                      ctrl.redraw();
                     }),
                     undefined,
                     false,

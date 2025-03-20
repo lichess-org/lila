@@ -167,8 +167,8 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
                   e.preventDefault();
                   if (e.deltaY > 0) control.next(ctrl);
                   else if (e.deltaY < 0) control.prev(ctrl);
+                  ctrl.redraw();
                 }
-                ctrl.redraw();
               }),
             ),
     },
