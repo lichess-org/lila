@@ -34,9 +34,17 @@
     <item quantity="one">Nakumpleto ang laro ng pagsusulat sa %s</item>
     <item quantity="other">Nakumpleto ang mga laro sa pagsusulat ng %s</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Nakumpleto ang %1$s %2$s na laro sa pagsusulatan</item>
+    <item quantity="other">Nakumpleto ang %1$s %2$s na mga laro sa pagsusulatan</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Sinimulan ang pagsunod sa %s isang manlalaro</item>
     <item quantity="other">Sinimulan ang pagsunod sa %s mga manlalaro</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Nakuha ang %s na bagong tagasunod</item>
+    <item quantity="other">Nakuha ang %s na mga bagong tagasunod</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Hosted %s sabay na eksibisyon</item>
@@ -46,6 +54,11 @@
     <item quantity="one">Sumali sa %s sabay-sabay na eksibisyon</item>
     <item quantity="other">Sumali sa %s sabay-sabay na eksibisyon</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Na-ranggo #%1$s (top %2$s%%) na may %3$s laro sa %4$s</item>
+    <item quantity="other">Na-ranggo #%1$s (top %2$s%%) na may %3$s mga laro sa %4$s</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Na-ranggo #%1$s sa %2$s</string>
   <string name="signedUp">Sumali sa lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Sumali ng %s grupo</item>

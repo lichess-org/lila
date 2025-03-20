@@ -182,7 +182,7 @@ final class PlanApi(
           customerId,
           checkout,
           NextUrls(
-            cancel = s"${baseUrl}${routes.Plan.index}",
+            cancel = s"${baseUrl}${routes.Plan.index()}",
             success = s"${baseUrl}${routes.Plan.thanks}"
           ),
           giftTo = giftTo,

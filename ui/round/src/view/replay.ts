@@ -76,7 +76,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
             else setTimeout(() => ctrl.autoScroll(), 200);
           }),
         },
-        viewStatus(ctrl),
+        viewStatus(ctrl.data),
       ),
     ]);
   }

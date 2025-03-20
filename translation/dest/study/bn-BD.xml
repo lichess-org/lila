@@ -48,6 +48,7 @@
   <string name="previous">আগের ধাপ</string>
   <string name="next">পরের ধাপ</string>
   <string name="last">সর্বশেষ</string>
+  <string name="cloneStudy">ডুপ্লিকেট/নকল করবেন</string>
   <string name="studyPgn">অধ্যায়ন PGN আকারে</string>
   <string name="downloadAllGames">ডাউনলোড করুন সকল গেম</string>
   <string name="open">ওপেন</string>
@@ -56,12 +57,12 @@
   <string name="loadAPositionFromFen">FEN থেকে একটি অবস্থান লোড করুন</string>
   <string name="loadAGameFromPgn">PGN থেকে খেলা লোড করুন</string>
   <string name="automatic">স্বয়ংক্রিয়</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="%s is the number of games. A study may have up to 64 chapters as of February 2025.&#10;&#10;Appears as a hint in a text box that permits the study creator to paste game(s) in PGN format into their code.&#10;&#10;The text for plurals was extended in February 2025. It is long for a placeholder hint. Because of where it is displayed, we encourage you to keep your translation short.&#10;&#10;&quot;PGN&quot; should not be translated or transliterated into a different alphabet or script.">
     <item quantity="one">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>
     <item quantity="other">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>
   </plurals>
   <string name="urlOfTheGame">খেলাগুলোর URL, লাইনপ্রতি একটি</string>
-  <string name="loadAGameFromXOrY">%1$s অথবা %2$s থেকে খেলাসমূহ লোড করুন</string>
+  <string name="loadAGameFromXOrY" comment="%1$s is lichess.org %2$s is chessgames.com.&#10;&#10;Users can paste URLs to games from either of these websites and import the games into their studies.">%1$s অথবা %2$s থেকে খেলাসমূহ লোড করুন</string>
   <string name="createChapter">অধ্যায় তৈরি করুন</string>
   <string name="createStudy">স্টাডি তৈরি করুন</string>
   <string name="editStudy">স্টাডি সম্পাদনা করুন</string>

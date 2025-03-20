@@ -1,4 +1,5 @@
-import type { Ctrl } from '../interfaces';
+import type { GameData } from '../interfaces';
+import { imported } from '../game';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
@@ -41,11 +42,10 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
   return false;
 }
 
-export default function status(ctrl: Ctrl): string {
-  const d = ctrl.data,
-    winnerSuffix = d.game.winner
-      ? ' • ' + i18n.site[d.game.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
-      : '';
+export default function status(d: GameData): string {
+  const winnerSuffix = d.game.winner
+    ? ' • ' + i18n.site[d.game.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
+    : '';
   switch (d.game.status.name) {
     case 'started':
       return i18n.site.playingRightNow;
@@ -73,6 +73,7 @@ export default function status(ctrl: Ctrl): string {
       if (insufficientMaterial(d.game.variant.key, d.game.fen))
         return `${i18n.site.insufficientMaterial} • ${i18n.site.draw}`;
       if (d.game.drawOffers?.some(turn => turn >= d.game.turns)) return i18n.site.drawByMutualAgreement;
+      if (imported(d)) return i18n.site.draw;
       return `${i18n.site.drawClaimed} • ${i18n.site.insufficientMaterial}`;
     }
     case 'outoftime':

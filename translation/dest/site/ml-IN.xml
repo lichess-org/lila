@@ -297,9 +297,9 @@
   <string name="casualTournament">Casual</string>
   <string name="ratedTournament">റേറ്റഡ്</string>
   <string name="thisGameIsRated">ഈ മത്സരം മൂല്യാധിഷ്ഠിതമാണ്</string>
-  <string name="rematch">റീമാച്ച് (വീണ്ടും കളിക്കുക)</string>
-  <string name="rematchOfferSent">റീമാച്ച് വാഗ്ദാനം അയച്ചു</string>
-  <string name="rematchOfferAccepted">റീമാച്ച് വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>
+  <string name="rematch">പിന്നെയും കളിക്കുക</string>
+  <string name="rematchOfferSent">പിന്നെയും കളിക്കാൻ വാഗ്ദാനം അയച്ചു</string>
+  <string name="rematchOfferAccepted">പിന്നെയും കളിക്കാനുള്ള വാഗ്ദാനം കൈകൊണ്ടു</string>
   <string name="rematchOfferCanceled">വീണ്ടും കളിക്കാനുള്ള നിർദേശം നിരാകരിച്ചു</string>
   <string name="rematchOfferDeclined">റീമാച്ച് വാഗ്ദാനം നിരസിക്കപ്പെട്ടു</string>
   <string name="cancelRematchOffer">റീമാച്ച് വാഗ്ദാനം റദ്ദാക്കുക</string>
@@ -694,7 +694,7 @@
   <string name="simulAddExtraTimePerPlayer">ഓരോ കളിക്കാരൻ ഒരേവേളകളിയിൽ കൂട്ടച്ചേരുമ്പോൾ താങ്ങളുടെ തുടക്കത്തിലുള്ള കളിസമയം കൂട്ടിക്കുക.</string>
   <string name="simulHostExtraTimePerPlayer">അതിഥേയനിനു് ഓരോ കളിക്കാരനുമധിക നാഴികമണിയിൽ സമയം</string>
   <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
-  <string name="tournamentFAQ">അറീന പരമ്പര</string>
+  <string name="tournamentFAQ">പോർക്കള മത്സര പരമ്പര</string>
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
   <string name="averageCentipawnLoss">ശരാശരി centipawn നഷ്ടം</string>
   <string name="accuracy">കൃത്യത</string>

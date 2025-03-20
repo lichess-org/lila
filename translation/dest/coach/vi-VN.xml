@@ -24,4 +24,7 @@
   <string name="teachingMethod">Phương pháp giảng dạy</string>
   <string name="publicStudies">Nghiên cứu công khai</string>
   <string name="youtubeVideos">Các thước phim trên YouTube</string>
+  <string name="allCountries">Tất cả quốc gia</string>
+  <string name="lastLogin">Lần đăng nhập cuối</string>
+  <string name="lichessRating">Hệ số Lichess</string>
 </resources>

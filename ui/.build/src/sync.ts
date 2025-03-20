@@ -9,12 +9,14 @@ export async function sync(): Promise<any> {
   if (!env.begin('sync')) return;
   return Promise.all(
     [...env.tasks('sync')].map(async ([pkg, sync]) => {
-      const root = await syncRoot(env.rootDir, sync.src);
+      const { root, exact } = await srcRoot(env.rootDir, sync.src);
       await task({
         glob: { path: sync.src, cwd: env.rootDir },
         ctx: 'sync',
+        always: true,
         debounce: 300,
         execute: (files, fullList) => {
+          if (exact && files.length === 0) throw `Not found '${c.cyan(sync.src)}`;
           const logEvery = !isEquivalent(files, fullList);
           if (!logEvery)
             env.log(`${c.grey(pkg.name)} '${c.cyan(sync.src)}' -> '${c.cyan(sync.dest)}'`, 'sync');
@@ -50,9 +52,10 @@ async function syncOne(absSrc: string, absDest: string): Promise<boolean> {
   return false;
 }
 
-async function syncRoot(cwd: string, path: string): Promise<string> {
-  if (!(isGlob(path) || (await isFolder(join(cwd, path))))) return join(cwd, dirname(path));
+async function srcRoot(cwd: string, path: string): Promise<{ root: string; exact: boolean }> {
+  if (!isGlob(path) && !(await isFolder(join(cwd, path))))
+    return { root: join(cwd, dirname(path)), exact: true };
   const [head, ...tail] = path.split('/');
-  if (isGlob(head)) return cwd;
-  return syncRoot(join(cwd, head), tail.join('/'));
+  if (isGlob(head)) return { root: cwd, exact: false };
+  return srcRoot(join(cwd, head), tail.join('/'));
 }

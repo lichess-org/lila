@@ -242,9 +242,7 @@ function createSubmitHandler(
       } else notify('Invalid move');
     }
 
-    const input = submitStoredPremove
-      ? nvui.premoveInput
-      : castlingFlavours(($input.val() as string).trim().toLowerCase());
+    const input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
     if (!input) return;
 
     // commands may be submitted with or without a leading /
