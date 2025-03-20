@@ -30,11 +30,11 @@ $col1-moves-height: 4em;
     grid-template-areas:
       'board voice'
       'board .'
-      'board mat-top'
       'board clock-top'
-      'board user-top'
+      'board opponent'
       'board moves'
-      'board controls'
+      'board nav'
+      'board actions'
       'board user-bot'
       'board clock-bot'
       'board mat-bot'
@@ -45,7 +45,7 @@ $col1-moves-height: 4em;
     grid-column-gap: $block-gap;
 
     &__table {
-      grid-area: 5 / 2 / 10 / 3;
+      grid-area: 6 / 2 / 10 / 3;
     }
 
     .keyboard-move {
@@ -68,6 +68,21 @@ $col1-moves-height: 4em;
   }
 }
 
+.bot-game__opponent {
+  grid-area: opponent;
+}
+.bot-game__moves {
+  grid-area: moves;
+}
+.bot-game__nav {
+  grid-area: nav;
+}
+.bot-game__actions {
+  grid-area: actions;
+}
 .bot-game__board {
   grid-area: board;
+}
+.material-bottom {
+  grid-area: mat-bot;
 }

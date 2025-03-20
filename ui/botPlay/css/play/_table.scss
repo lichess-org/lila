@@ -1,8 +1,8 @@
 .bot-game__table {
-  @extend %flex-column, %box-neat;
+  @extend %box-neat;
   background: $c-bg-box;
 }
-.bot-game__table__nav {
+.bot-game__nav {
   @extend %box-shadow;
   position: relative;
   $buttons-height: 2.5rem;
@@ -26,7 +26,7 @@
     }
   }
 }
-.bot-game__table__moves {
+.bot-game__moves {
   @include prevent-select;
   flex: 0 0 7.4rem;
   display: flex;
@@ -88,7 +88,7 @@
     margin-bottom: 0.5em;
   }
 }
-.bot-game__table__actions {
+.bot-game__actions {
   @extend %flex-between;
   button {
     @extend %button-none;
