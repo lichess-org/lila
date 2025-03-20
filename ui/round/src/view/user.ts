@@ -12,7 +12,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
     rating = player.rating || perf?.rating,
-    showSignals = defined(d.opponentSignal) && defined(user?.id) && ctrl.isPlaying(),
+    showSignals = defined(user?.id) && ctrl.isPlaying(),
     signal = showSignals
       ? user.id === d.opponent.user?.id
         ? d.opponentSignal
