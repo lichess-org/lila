@@ -24,4 +24,7 @@
   <string name="teachingMethod">指導方法</string>
   <string name="publicStudies">公開研究</string>
   <string name="youtubeVideos">YouTube 動画</string>
+  <string name="allCountries">すべての国</string>
+  <string name="lastLogin">最終ログイン</string>
+  <string name="lichessRating">Lichess のレーティング</string>
 </resources>

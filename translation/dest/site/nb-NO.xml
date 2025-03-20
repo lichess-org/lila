@@ -156,6 +156,7 @@
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="claimADraw">Krev remis</string>
+  <string name="drawClaimed">Remiskrav</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -788,6 +789,7 @@
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
+  <string name="allLanguages">Alle språk</string>
   <string name="background">Bakgrunn</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>

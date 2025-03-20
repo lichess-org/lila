@@ -748,6 +748,7 @@
   <string name="anonymous">匿名</string>
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
+  <string name="allLanguages">すべての言語</string>
   <string name="background">背景</string>
   <string name="light">明るい</string>
   <string name="dark">暗い</string>

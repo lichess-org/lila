@@ -754,6 +754,9 @@ gits nöd und es isch nie g\'wertet.</string>
   <string name="checkYourEmail">Check dini E-Mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mir händ dir es Mail gschickt: Klick de Link i de Nachricht, um dis Konto z\'aktiviere.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wänn du die E-Mail nöd findsch, dursuech witeri Ordner: z. B. de Spamordner oder au de Papierchorb.</string>
+  <string name="ifYouDoNotGetTheEmail">Wänn die E-Mail nöd innerhalb 5 Minute chunnt:</string>
+  <string name="checkAllEmailFolders">Suech im Junk, Spam und andere Ordner</string>
+  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Prüef ob %s würkli dini E-Mail-Adrässe isch</string>
   <string name="weHaveSentYouAnEmailTo">Mir händ dir es Email a %s gschickt. Klick im Mail uf de Link und setz dis Passwort zrugg.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Mit dinere Regischtrierig schtimmsch du de %s zue.</string>
   <string name="readAboutOur">Lies euseri %s.</string>

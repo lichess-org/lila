@@ -45,7 +45,11 @@ async function loadPgnAndStart(el: HTMLElement, url: string, opts: LpvOpts) {
       Accept: 'application/x-chess-pgn',
     },
   });
-  return Lpv(el, { ...opts, pgn });
+  return Lpv(el, {
+    ...opts,
+    lichess: location.origin,
+    pgn,
+  });
 }
 
 function toGamebook(lpv: PgnViewer) {
