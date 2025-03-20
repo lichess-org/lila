@@ -11,7 +11,7 @@ export async function sync(): Promise<any> {
     [...env.tasks('sync')].map(async ([pkg, sync]) => {
       const { root, exact } = await srcRoot(env.rootDir, sync.src);
       await task({
-        glob: { path: sync.src, cwd: env.rootDir },
+        includes: { path: sync.src, cwd: env.rootDir },
         ctx: 'sync',
         always: true,
         debounce: 300,

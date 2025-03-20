@@ -1,4 +1,4 @@
-import type { Ctrl } from '../interfaces';
+import type { GameData } from '../interfaces';
 import { imported } from '../game';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
@@ -42,11 +42,10 @@ export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean
   return false;
 }
 
-export default function status(ctrl: Ctrl): string {
-  const d = ctrl.data,
-    winnerSuffix = d.game.winner
-      ? ' • ' + i18n.site[d.game.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
-      : '';
+export default function status(d: GameData): string {
+  const winnerSuffix = d.game.winner
+    ? ' • ' + i18n.site[d.game.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
+    : '';
   switch (d.game.status.name) {
     case 'started':
       return i18n.site.playingRightNow;

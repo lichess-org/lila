@@ -242,7 +242,12 @@
 
       span {
         display: block;
-        animation: rubber-band 5s infinite;
+        // this animation somewhat changes the element width,
+        // and can cause overflow on narrow screens, where it already
+        // is at 100% width
+        @include mq-at-least-col2 {
+          animation: rubber-band 5s infinite;
+        }
       }
     }
 

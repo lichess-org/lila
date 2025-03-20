@@ -23,7 +23,7 @@ export function i18n(): Promise<any> {
   if (!env.begin('i18n')) return Promise.resolve();
 
   return task({
-    glob: [
+    includes: [
       { cwd: env.i18nSrcDir, path: '*.xml' },
       { cwd: join(env.i18nDestDir, 'site'), path: '*.xml' },
     ],
