@@ -113,7 +113,7 @@ final class MsgApi(
       date: Instant = nowInstant,
       ignoreSecurity: Boolean = false
   ): Fu[PostResult] =
-    Msg.make(text, orig, date).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
+    orig.isnt(dest).so(Msg.make(text, orig, date)).fold(fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for
         contacts <- contactApi.contacts(orig, dest).orFail(s"Missing convo contact user $orig->$dest")
