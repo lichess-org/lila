@@ -705,6 +705,9 @@
   <string name="checkYourEmail">メールを確認してください</string>
   <string name="weHaveSentYouAnEmailClickTheLink">メールを送信しました。リンクをクリックしてアカウントの作成を完了してください。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
+  <string name="ifYouDoNotGetTheEmail">5 分以内にメールが届かない場合は：</string>
+  <string name="checkAllEmailFolders">ジャンクメール、スパムメールなどのフォルダをチェックする</string>
+  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">%s があなたのメールアドレスであることを確認する</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
   <string name="readAboutOur">Lichess の %s 文書です。</string>
@@ -748,6 +751,7 @@
   <string name="anonymous">匿名</string>
   <string name="yourScore">通算成績：%s</string>
   <string name="language">言語</string>
+  <string name="allLanguages">すべての言語</string>
   <string name="background">背景</string>
   <string name="light">明るい</string>
   <string name="dark">暗い</string>

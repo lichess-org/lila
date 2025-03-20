@@ -827,6 +827,9 @@
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
+  <string name="ifYouDoNotGetTheEmail">Jeśli nie otrzymasz e-maila w ciągu 5 minut:</string>
+  <string name="checkAllEmailFolders">Sprawdź folder ze spamem, kosz oraz inne foldery</string>
+  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Sprawdź, czy %s jest Twoim adresem e-mail</string>
   <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości, aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
   <string name="readAboutOur">Przeczytaj o %s w naszym serwisie.</string>

@@ -31,12 +31,17 @@ const viewBotList = (ctrl: SetupCtrl) =>
   );
 
 const viewBotCard = (ctrl: SetupCtrl, bot: BotInfo) =>
-  h('div.bot-setup__bot-card', { hook: bind('click', () => ctrl.play(bot)) }, [
-    h('img.bot-setup__bot-card__image', {
+  h('div.bot-card', { hook: bind('click', () => ctrl.play(bot)) }, [
+    h('img.bot-card__image', {
       attrs: { src: bot?.image && botAssetUrl('image', bot.image) },
     }),
-    h('div.bot-setup__bot-card__content', [
-      h('h2.bot-setup__bot-card__name', bot.name),
-      h('p.bot-setup__bot-card__description', bot.description),
+    h('div.bot-card__content', [
+      h('div.bot-card__header', [
+        h('h2.bot-card__name', bot.name),
+        h('span.bot-card__rating', botRating(bot)),
+      ]),
+      h('p.bot-card__description', bot.description),
     ]),
   ]);
+
+const botRating = (bot: BotInfo) => (bot.ratings['classical'] || 1500).toString();

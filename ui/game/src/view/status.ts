@@ -1,4 +1,4 @@
-import { GameData, StatusName } from '../interfaces';
+import type { GameData, Source, StatusName } from '../interfaces';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
@@ -50,6 +50,7 @@ export interface StatusData {
   fiftyMoves?: boolean;
   threefold?: boolean;
   drawOffers?: number[];
+  source?: Source;
 }
 
 export default function status(d: GameData): string {
@@ -62,6 +63,7 @@ export default function status(d: GameData): string {
     fiftyMoves: d.game.fiftyMoves,
     threefold: d.game.threefold,
     drawOffers: d.game.drawOffers,
+    source: d.game.source,
   });
 }
 export function statusOf(d: StatusData): string {
@@ -95,6 +97,7 @@ export function statusOf(d: StatusData): string {
       if (insufficientMaterial(d.variant, d.fen))
         return `${i18n.site.insufficientMaterial} • ${i18n.site.draw}`;
       if (d.drawOffers?.some(turn => turn >= d.ply)) return i18n.site.drawByMutualAgreement;
+      if (d.source === 'import') return i18n.site.draw;
       return `${i18n.site.drawClaimed} • ${i18n.site.insufficientMaterial}`;
     }
     case 'outoftime':

@@ -3,6 +3,8 @@
   <string name="contactLichess">Kontakin ang Lichess</string>
   <string name="whatCanWeHelpYouWith">Ano ang maari naming maitulong?</string>
   <string name="iCantLogIn">Hindi ako makapag-log-in</string>
+  <string name="forgotPassword">Nakalimutan ko ang aking password</string>
+  <string name="forgotUsername">Nakalimutan ko ang aking username</string>
   <string name="closeYourAccount">Maaari mong isarado ang iyong account sa page na ito</string>
   <string name="wantReopen">Gusto kong buksan muli ang aking account</string>
   <string name="reopenOnThisPage">Maaari mong mabuksan ang iyong account sa page na ito. Isang beses lang ito gumagana.</string>
@@ -12,6 +14,7 @@
   <string name="wantReportBug">Gusto ko mag-report ng bug</string>
   <string name="illegalPawnCapture">Iligal na pagkain ng pawn</string>
   <string name="calledEnPassant">Tinatawag itong \"en passant\" at isa ito sa mga patakaran ng chess.</string>
+  <string name="tryEnPassant">Sukuban ang maliit na interaktibong larong ito upang matuto pa tungkol sa \"en passant\".</string>
   <string name="illegalCastling">Iligal o imposibleng castling</string>
   <string name="castlingPrevented">Ang castling ay napipigilan lang pag ang hari ay pupunta sa isang kontroladong tatsulok.</string>
   <string name="castlingImported">Kapag in-import ang laro, o simulan ito mula sa posisyon, siguraduhing tamang ang pagkakatakda ng castling rights.</string>

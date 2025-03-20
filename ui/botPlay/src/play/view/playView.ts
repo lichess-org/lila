@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import { bind, looseH as h, onInsert, LooseVNodes, dataIcon } from 'common/snabbdom';
+import { bind, looseH as h, onInsert, LooseVNodes, dataIcon, VNode } from 'common/snabbdom';
 import { Chessground } from 'chessground';
 import { stepwiseScroll } from 'common/controls';
 import type PlayCtrl from '../playCtrl';
@@ -15,22 +15,25 @@ import boardMenu from './boardMenu';
 import { renderMaterialDiffs } from 'game/view/material';
 
 export const playView = (ctrl: PlayCtrl) =>
-  h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [viewBoard(ctrl), viewTable(ctrl)]);
+  h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [
+    viewBoard(ctrl),
+    h('div.bot-game__table'),
+    ...viewTable(ctrl),
+  ]);
 
 const viewTable = (ctrl: PlayCtrl) => {
   const diffs = materialDiffs(ctrl);
-  return h('div.bot-game__table', [
-    viewOpponent(ctrl.opts.bot),
-    diffs[0],
+  return [
+    viewOpponent(ctrl.opts.bot, diffs[0]),
     viewMoves(ctrl),
     viewNavigation(ctrl),
     viewActions(ctrl),
     diffs[1],
-  ]);
+  ];
 };
 
 const viewActions = (ctrl: PlayCtrl) =>
-  h('div.bot-game__table__actions', [
+  h('div.bot-game__actions', [
     ctrl.game.end && h('button.bot-game__rematch', { hook: bind('click', ctrl.opts.rematch) }, 'Rematch'),
     h(
       'button.bot-game__close.text',
@@ -85,7 +88,7 @@ const viewMoves = (ctrl: PlayCtrl) => {
   els.push(viewResult(ctrl));
 
   return h(
-    'div.bot-game__table__moves',
+    'div.bot-game__moves',
     {
       hook: onInsert(el => {
         el.addEventListener('mousedown', e => {
@@ -112,7 +115,7 @@ const viewMove = (ply: number, san: San, curPly: number) =>
   h('move', { class: { current: ply === curPly } }, san);
 
 const viewNavigation = (ctrl: PlayCtrl) => {
-  return h('div.bot-game__table__nav', [
+  return h('div.bot-game__nav', [
     boardMenu(ctrl),
     h('div.noop'),
     ...[
@@ -144,13 +147,17 @@ const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
   );
 };
 
-const viewOpponent = (bot: BotInfo) =>
+const viewOpponent = (bot: BotInfo, materialDiff: VNode) =>
   h('div.bot-game__opponent', [
     h('div.bot-game__opponent__head', [
       h('img.bot-game__opponent__image', {
         attrs: { src: bot.image && botAssetUrl('image', bot.image) },
       }),
-      h('h2.bot-game__opponent__name', bot.name),
+      h('div.bot-game__opponent__info', [
+        h('h2.bot-game__opponent__name', bot.name),
+        h('span.bot-game__opponent__rating', '' + bot.ratings['classical']),
+        materialDiff,
+      ]),
     ]),
     h('div.bot-game__opponent__description', bot.description),
   ]);
