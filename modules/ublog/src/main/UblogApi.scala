@@ -216,7 +216,7 @@ final class UblogApi(
         import framework.*
         Match(select ++ $doc("live" -> true)) -> (ranking.sortingQuery(colls.post, framework) ++
           List(Limit(100))
-          ++ removeUnlistedOrClosed(colls.post, framework) ++ List(
+          ++ removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) ++ List(
             Skip(offset),
             Limit(length)
           ))
@@ -226,7 +226,10 @@ final class UblogApi(
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
 
-  private[ublog] def removeUnlistedOrClosed(coll: Coll, framework: coll.AggregationFramework.type) =
+  private[ublog] def removeUnlistedOrClosedAndProjectForPreview(
+      coll: Coll,
+      framework: coll.AggregationFramework.type
+  ) =
     import framework.*
     List(
       PipelineOperator:
