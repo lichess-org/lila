@@ -215,7 +215,7 @@ final class UblogApi(
       .aggregateList(length, _.sec): framework =>
         import framework.*
         Match(select ++ $doc("live" -> true)) -> (ranking.sortingQuery(colls.post, framework) ++
-          List(Limit(500))
+          List(Limit(100))
           ++ removeUnlistedOrClosed(colls.post, framework) ++ List(
             Skip(offset),
             Limit(length)
