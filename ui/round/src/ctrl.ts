@@ -48,7 +48,7 @@ import type {
   RoundTour,
 } from './interfaces';
 import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
-import { storage, once, type LichessBooleanStorage } from 'common/storage';
+import { storage, once, type LichessBooleanStorage, tempStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { readFen, almostSanOf, speakable } from 'chess/sanWriter';
 import { plyToTurn } from 'chess';
@@ -716,6 +716,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   setLoading = (v: boolean, duration = 1500): void => {
+    if (this.data.game.rematch) tempStorage.make('newGame.id').set(this.data.game.rematch);
     clearTimeout(this.loadingTimeout);
     if (v) {
       this.loading = true;
