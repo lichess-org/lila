@@ -294,7 +294,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   def year(bests: Paginator[UblogBestOf.WithPosts])(using Context) =
     Page("Bests blogs per month")
       .css("bits.ublog")
-      .js(bests.hasNextPage.option(infiniteScrollEsmInit)):
+      .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           menu(Right("best-of")),
           div(cls := "page-menu__content box")(
@@ -306,12 +306,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                   href := routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue)
                 )(
                   h2(
-                    s"best of ${showYearMonth(yearMonth)}",
-                    span(cls := "ublog-topics__topic__nb")("check them out »")
+                    s"Best of ${showYearMonth(yearMonth)}",
+                    span(cls := "ublog-topics__topic__nb")(trans.site.more(), " »")
                   ),
-                  span(cls := "ublog-topics__topic__posts ublog-post-cards")(
-                    posts.map(miniCard)
-                  )
+                  span(cls := "ublog-topics__topic__posts ublog-post-cards")(posts.map(miniCard))
                 )
               },
               pagerNext(bests, np => routes.Ublog.bestOfYear(np).url)
