@@ -1,7 +1,6 @@
-import { type Zerofish, type Position } from 'zerofish';
-import { Bot, score } from './bot';
+import makeZerofish, { type Zerofish } from 'zerofish';
+import { Bot } from './bot';
 import { defined } from 'common';
-import { deepFreeze } from 'common/algo';
 import { pubsub } from 'common/pubsub';
 import type { BotInfo, SoundEvent, MoveSource, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
@@ -10,20 +9,21 @@ import { Assets } from './assets';
 
 export class BotCtrl {
   zerofish: Zerofish;
-  localBots: Record<string, BotInfo> = {};
-  serverBots: Record<string, BotInfo>;
   readonly bots: Map<string, Bot & MoveSource> = new Map();
   readonly uids: Record<Color, string | undefined> = { white: undefined, black: undefined };
   protected busy = false;
 
-  constructor(zf?: Zerofish) {
-    this.zerofish = zf ?? {
-      goZero: () => Promise.resolve({ lines: [], bestmove: '', engine: 'zero' }),
-      goFish: () => Promise.resolve({ lines: [], bestmove: '', engine: 'fish' }),
-      quit: () => {},
-      stop: () => {},
-      reset: () => {},
-    };
+  constructor(zf?: Zerofish | false) {
+    // pass nothing for normal behavior, custom instance, or false to stub
+    if (zf) this.zerofish = zf;
+    else if (zf === false)
+      this.zerofish = {
+        goZero: () => Promise.resolve({ lines: [], bestmove: '', engine: 'zero' }),
+        goFish: () => Promise.resolve({ lines: [], bestmove: '', engine: 'fish' }),
+        quit: () => {},
+        stop: () => {},
+        reset: () => {},
+      };
   }
 
   get white(): BotInfo | undefined {
@@ -47,18 +47,20 @@ export class BotCtrl {
   }
 
   async init(defBots?: BotInfo[]): Promise<this> {
-    const [localBots, serverBots] = await Promise.all([
-      this.storedBots(),
-      defBots?.filter(Bot.viable) ?? xhr.json('/bots').then(res => res.bots.filter(Bot.viable)),
+    const [bots] = await Promise.all([
+      defBots ?? xhr.json('/bots').then(res => res.bots),
+      this.zerofish ??
+        makeZerofish({
+          locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
+          nonce: document.body.dataset.nonce,
+        }).then(zf => (this.zerofish = zf)),
     ]);
-    for (const b of [...serverBots, ...localBots]) {
-      if (Bot.viable(b)) this.bots.set(b.uid, new Bot(b));
+    for (const b of [...bots]) {
+      this.bots.set(b.uid, new Bot(b));
     }
-    this.serverBots = {};
-    localBots.forEach((b: BotInfo) => (this.localBots[b.uid] = deepFreeze(b)));
-    serverBots.forEach((b: BotInfo) => (this.serverBots[b.uid] = deepFreeze(b)));
     if (this.uids.white && !this.bots.has(this.uids.white)) this.uids.white = undefined;
     if (this.uids.black && !this.bots.has(this.uids.black)) this.uids.black = undefined;
+    this.reset();
     pubsub.complete('local.bots.ready');
     return this;
   }
@@ -68,8 +70,7 @@ export class BotCtrl {
     if (!bot) return undefined;
     if (this.busy) return undefined; // ignore different call stacks
     this.busy = true;
-    const cp = bot instanceof Bot && bot.needsScore ? (await this.fetchBestMove(args.pos)).cp : undefined;
-    const move = await bot?.move({ ...args, cp });
+    const move = await bot?.move(args);
     this.busy = false;
     return move?.uci !== '0000' ? move : undefined;
   }
@@ -88,6 +89,7 @@ export class BotCtrl {
   setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
     this.uids.white = white;
     this.uids.black = black;
+    this.reset();
   }
 
   reset(): void {
@@ -120,10 +122,10 @@ export class BotCtrl {
     return Promise.resolve([]);
   }
 
-  protected async fetchBestMove(pos: Position): Promise<{ uci: string; cp: number }> {
-    const best = (await this.zerofish.goFish(pos, { multipv: 1, by: { depth: 12 } })).lines[0];
-    return { uci: best.moves[0], cp: score(best) };
-  }
+  // protected async fetchBestMove(pos: Position): Promise<{ uci: string; cp: number }> {
+  //   const best = (await this.zerofish.goFish(pos, { multipv: 1, by: { depth: 12 } })).lines[0];
+  //   return { uci: best.moves[0], cp: score(best) };
+  // }
 }
 
 const soundPriority: SoundEvent[] = [

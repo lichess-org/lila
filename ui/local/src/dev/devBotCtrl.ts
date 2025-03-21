@@ -4,17 +4,45 @@ import { RateBot } from './rateBot';
 import { BotCtrl } from '../botCtrl';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { deepFreeze } from 'common/algo';
+import { pubsub } from 'common/pubsub';
+import { botAssetUrl } from '../assets';
 import type { CardData, BotInfo, LocalSpeed } from '../types';
+
+const currentBotDbVersion = 3;
 
 export class DevBotCtrl extends BotCtrl {
   readonly rateBots: RateBot[] = [];
   private store: ObjectStorage<BotInfo>;
+  localBots: Record<string, BotInfo> = {};
+  serverBots: Record<string, BotInfo> = {};
 
   constructor(zf?: Zerofish) {
     super(zf);
     for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
       this.rateBots.push(new RateBot(i));
     }
+  }
+
+  async init(defBots?: BotInfo[]): Promise<this> {
+    const [localBots] = await Promise.all([this.storedBots(), super.init(defBots)]);
+    this.localBots = Object.fromEntries(localBots.map(b => [b.uid, deepFreeze(b)]));
+    this.serverBots = Object.fromEntries(
+      [...this.bots.entries()].map(x => [x[0], deepFreeze(structuredClone(x[1]))]),
+    );
+    for (const [uid, botInfo] of Object.entries(this.localBots)) this.bots.set(uid, new Bot(botInfo));
+    await Promise.all(
+      [...new Set<string>(Object.values(this.bots).map(b => botAssetUrl('image', b.image)))].map(
+        url =>
+          new Promise<void>(resolve => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+          }),
+      ),
+    );
+    pubsub.complete('local.images.ready');
+    return this;
   }
 
   get firstUid(): string | undefined {
@@ -24,7 +52,7 @@ export class DevBotCtrl extends BotCtrl {
   storeBot(bot: BotInfo): Promise<any> {
     delete this.localBots[bot.uid];
     this.bots.set(bot.uid, new Bot(bot));
-    if (Bot.isSame(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
+    if (botEquals(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
     this.localBots[bot.uid] = deepFreeze(structuredClone(bot));
     return this.store.put(bot.uid, bot);
   }
@@ -68,7 +96,7 @@ export class DevBotCtrl extends BotCtrl {
     if (isDirty?.(local ?? server)) cd?.classList.push('dirty');
     if (!server) cd?.classList.push('local-only');
     else if (server.version > bot.version) cd?.classList.push('upstream-changes');
-    else if (local && !Bot.isSame(local, server)) cd?.classList.push('local-changes');
+    else if (local && !botEquals(local, server)) cd?.classList.push('local-changes');
     return cd;
   }
 
@@ -86,7 +114,11 @@ export class DevBotCtrl extends BotCtrl {
   protected storedBots(): Promise<BotInfo[]> {
     return (
       this.store?.getMany() ??
-      objectStorage<BotInfo>({ store: 'local.bots', version: 2, upgrade: this.upgrade }).then(s => {
+      objectStorage<BotInfo>({
+        store: 'local.bots',
+        version: currentBotDbVersion,
+        upgrade: this.upgrade,
+      }).then(s => {
         this.store = s;
         return s.getMany();
       })
@@ -98,7 +130,7 @@ export class DevBotCtrl extends BotCtrl {
     req.onsuccess = e => {
       const cursor = (e.target as IDBRequest<IDBCursorWithValue>).result;
       if (!cursor) return;
-      cursor.update(Bot.migrate(change.oldVersion, cursor.value));
+      cursor.update(migrate(change.oldVersion, cursor.value));
       cursor.continue();
     };
   };
@@ -110,4 +142,49 @@ export function uidToDomId(uid: string | undefined): string | undefined {
 
 export function domIdToUid(domId: string | undefined): string | undefined {
   return domId && domId.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
+}
+
+export function botEquals(a: BotInfo | undefined, b: BotInfo | undefined): boolean {
+  if (!closeEnough(a, b, ['filters', 'version'])) return false;
+  const [aFilters, bFilters] = [a, b].map(bot =>
+    Object.entries(bot?.filters ?? {}).filter(([_, v]) => v.move || v.time || v.score),
+  );
+  return closeEnough(aFilters, bFilters); // allow empty filter craplets to differ
+}
+
+function closeEnough(a: any, b: any, ignore: string[] = []): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (Array.isArray(a)) {
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => closeEnough(x, b[i], ignore));
+  }
+  if (typeof a !== 'object') return false;
+
+  const [aKeys, bKeys] = [filteredKeys(a, ignore), filteredKeys(b, ignore)];
+  if (aKeys.length !== bKeys.length) return false;
+
+  for (const key of aKeys) {
+    if (!bKeys.includes(key) || !closeEnough(a[key], b[key], ignore)) return false;
+  }
+  return true;
+}
+
+function filteredKeys(obj: any, ignore: string[] = []): string[] {
+  if (typeof obj !== 'object') return obj;
+  return Object.entries(obj)
+    .filter(([k, v]) => !ignore.includes(k) && !isEmpty(v))
+    .map(([k]) => k);
+}
+
+function isEmpty(prop: any): boolean {
+  return Array.isArray(prop) ? false : typeof prop === 'object' ? Object.keys(prop).length === 0 : false;
+}
+
+function migrate(oldDbVersion: number, oldBot: any): BotInfo {
+  const bot = structuredClone(oldBot);
+  if (oldDbVersion < currentBotDbVersion && bot && bot.fish) {
+    // fish search params recently flattened in BotInfo schema, delete before release
+    bot.fish.depth = 'by' in bot.fish && 'depth' in bot.fish.depth ? bot.fish.by.depth : 10;
+  }
+  return bot;
 }

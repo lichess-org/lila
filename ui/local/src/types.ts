@@ -1,4 +1,4 @@
-import type { Position, FishSearch } from 'zerofish';
+import type { Position } from 'zerofish';
 import type { CardData } from './dev/handOfCards';
 import type { Chess } from 'chessops';
 import type { Filter, FilterFacet, Filters, Point } from './filter';
@@ -37,6 +37,8 @@ export type Sound = { key: string; chance: number; delay: Seconds; mix: number }
 export type SoundEvents = { [key in SoundEvent]?: Sound[] };
 
 export type ZeroSearch = { multipv: number; net: string; nodes?: number };
+
+export type FishSearch = { multipv: number; depth: number };
 
 export type Book = { key: string; weight: number; color?: Color };
 
@@ -77,7 +79,6 @@ export interface MoveArgs {
   remaining: Seconds;
   opponentRemaining: Seconds;
   movetime?: Seconds;
-  cp?: number;
   bots?: BotCtrl;
   assets?: Assets;
 }

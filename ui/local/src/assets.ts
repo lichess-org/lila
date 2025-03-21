@@ -15,28 +15,6 @@ export class Assets {
   net: Map<string, Promise<NetData>> = new Map();
   book: Map<string, Promise<OpeningBook>> = new Map();
 
-  async initAssumingGlobalEnv(): Promise<this> {
-    return this.init(env.bot);
-  }
-
-  async init(bots: BotCtrl): Promise<this> {
-    // prefetch stuff here or in service worker install \o/
-    await pubsub.after('local.bots.ready');
-    await Promise.all(
-      [...new Set<string>(Object.values(bots.bots).map(b => this.getImageUrl(b.image)))].map(
-        url =>
-          new Promise<void>(resolve => {
-            const img = new Image();
-            img.src = url;
-            img.onload = () => resolve();
-            img.onerror = () => resolve();
-          }),
-      ),
-    );
-    pubsub.complete('local.images.ready');
-    return this;
-  }
-
   async preload(uids: string[]): Promise<void> {
     for (const bot of definedMap(uids, uid => env.bot.bots.get(uid))) {
       for (const sounds of Object.values(bot.sounds ?? {})) {

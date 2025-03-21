@@ -9,8 +9,7 @@
     "common": "workspace:*",
     "local": "workspace:*",
     "chess": "workspace:*",
-    "game": "workspace:*",
-    "zerofish": "0.0.34"
+    "game": "workspace:*"
   },
   "build": {
     "bundle": "src/botPlay.main.ts"

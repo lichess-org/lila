@@ -9,7 +9,6 @@ import { storedJsonProp } from 'common/storage';
 import { alert } from 'common/dialogs';
 import { Bot } from 'local/bot';
 import { Assets } from 'local/assets';
-import makeZerofish from 'zerofish';
 import { opposite } from 'chessops';
 import { Game, makeGame } from './game';
 import { debugCli } from './debug';
@@ -70,15 +69,12 @@ export class BotCtrl {
   view = () => (this.playCtrl ? playView(this.playCtrl) : setupView(this.setupCtrl));
 
   private makeLocalBridge = async (info: BotInfo, color: Color): Promise<LocalBridge> => {
-    const zerofish = await makeZerofish({
-      locator: (file: string) => site.asset.url(`npm/${file}`, { documentOrigin: file.endsWith('js') }),
-      nonce: document.body.dataset.nonce,
-    });
-    const bots = new LocalBotCtrl(zerofish);
+    const bots = new LocalBotCtrl();
     const assets = new Assets();
     const uids = { [opposite(color)]: undefined, [color]: info.uid };
     bots.setUids(uids);
-    await Promise.all([bots.init(this.opts.bots), assets.init(bots)]);
+    bots.reset();
+    await bots.init(this.opts.bots);
     const bot = new Bot(info);
 
     return {

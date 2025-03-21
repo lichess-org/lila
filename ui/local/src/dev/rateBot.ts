@@ -1,3 +1,4 @@
+import * as co from 'chessops';
 import { clamp } from 'common/algo';
 import { botScore } from './devUtil';
 import type { BotInfo, MoveSource, MoveResult, MoveArgs, Book, Ratings } from '../types';
@@ -45,13 +46,13 @@ export class RateBot implements BotInfo, MoveSource {
     return `Stockfish ${this.ratings.classical} Skill Level ${this.level - 10} Depth ${this.depth}`;
   }
 
-  async move({ pos, ply }: MoveArgs): Promise<MoveResult> {
-    const fen = pos.fen;
+  async move({ chess, ply, pos }: MoveArgs): Promise<MoveResult> {
+    const fen = co.fen.makeFen(chess.toSetup());
     const uci = (
       await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level - 10, by: { depth: this.depth } })
     ).bestmove;
     this.traceMove = `  ${ply}. '${this.name} ${this.ratings.classical}' at '${fen}': '${uci}'`;
-    return { uci, movetime: 0.2 };
+    return { uci, movetime: 0.1 };
   }
 }
 

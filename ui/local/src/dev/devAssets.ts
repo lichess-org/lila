@@ -47,7 +47,7 @@ export class DevAssets extends Assets {
     window.addEventListener('storage', this.onStorageEvent);
   }
 
-  async initAssumingGlobalEnv(): Promise<this> {
+  async init(): Promise<this> {
     localStorage.removeItem('local.dev.import.book');
     for (const type of urlTypes) {
       for (const url of this.urls[type].values()) {
@@ -64,7 +64,7 @@ export class DevAssets extends Assets {
         this.urls[type].set(key, URL.createObjectURL(new Blob([data.blob], { type: mimeOf(key) })));
       }
     });
-    return super.initAssumingGlobalEnv();
+    return this;
   }
 
   localKeyNames(type: AssetType): Map<string, string> {
@@ -251,7 +251,7 @@ export class DevAssets extends Assets {
   private onStorageEvent = async (e: StorageEvent) => {
     if (e.key !== 'local.dev.import.book' || !e.newValue) return;
 
-    await this.initAssumingGlobalEnv();
+    await this.init();
     const [key, oldKey] = e.newValue.split(',');
     pubsub.emit('local.dev.import.book', key, oldKey);
   };
