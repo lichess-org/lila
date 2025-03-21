@@ -123,11 +123,7 @@ async function boot(
       opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));
       if (myUserId())
         chatOpts.instance.listenToIncoming(line => {
-          if (
-            line.u === 'lichess' &&
-            (startsWithPrefix(line.t, 'warning') || startsWithPrefix(line.t, 'reminder'))
-          )
-            alert(line.t);
+          if (line.u === 'lichess' && line.showModal) alert(line.t);
         });
     }
   }
@@ -150,9 +146,6 @@ async function boot(
   }
   return ctrl;
 }
-
-const startsWithPrefix = (t: string, prefix: string) =>
-  t.toLowerCase().startsWith(`${prefix}, ${myUserId()}`);
 
 interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
