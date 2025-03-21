@@ -5,7 +5,7 @@ import ts from 'typescript';
 import fg from 'fast-glob';
 import { Worker } from 'node:worker_threads';
 import { env, c, errorMark } from './env.ts';
-import { folderSize, readable } from './parse.ts';
+import { folderSize } from './parse.ts';
 import { clamp } from './algo.ts';
 import type { WorkerData, Message, ErrorMessage } from './tscWorker.ts';
 
@@ -39,10 +39,10 @@ export async function tsc(): Promise<void> {
       )
       .push(cfg);
 
-  tscLog(`Typing ${c.grey('--noCheck')} (${workBuckets.noCheck.length} workers)`);
+  env.log(`Typing ${c.grey('--noCheck')} (${workBuckets.noCheck.length} workers)`, 'tsc');
   await assignWork(workBuckets.noCheck, 'noCheck');
 
-  tscLog(`Checking ${c.grey('--noEmit')} (${workBuckets.noEmit.length} workers)`);
+  env.log(`Checking ${c.grey('--noEmit')} (${workBuckets.noEmit.length} workers)`, 'tsc');
   await assignWork(workBuckets.noEmit, 'noEmit');
 }
 
@@ -52,21 +52,26 @@ export async function stopTsc(): Promise<void> {
 }
 
 function assignWork(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit'): Promise<void> {
-  let okResolve: (() => void) | undefined = undefined;
+  let okResolve: () => void;
   const status: ('ok' | 'busy' | 'error')[] = [];
   const okPromise = new Promise<void>(res => (okResolve = res));
   const onError = (err: Error): void => env.exit(err.message, 'tsc');
   const onMessage = (msg: Message): void => {
-    // the watch builder always gives us a 6194 first time thru, even when errors are found
-    if (env.watch && okResolve && msg.type === 'ok' && status[msg.index] === 'error') return;
+    // direct error -> ok transition should be ignored. it must transition to busy first
+    if (env.watch && msg.type === 'ok' && status[msg.index] === 'error') return;
 
     status[msg.index] = msg.type;
 
-    if (msg.type === 'error') return tscError(msg.data);
-    if (status.some(s => s !== 'ok')) return;
-
-    okResolve?.();
-    if (key === 'noEmit') env.done('tsc');
+    switch (msg.type) {
+      case 'error':
+        return tscError(msg.data);
+      case 'busy':
+        return env.done('tsc', undefined);
+      case 'ok':
+        if (status.some(s => s !== 'ok')) return;
+        env.done('tsc', key === 'noEmit' ? 0 : undefined);
+        okResolve();
+    }
   };
 
   for (const bucket of buckets) {
@@ -101,6 +106,7 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   const pkgName = basename(root);
   const { config, error } = ts.readConfigFile(cfgPath, ts.sys.readFile);
   const io: Promise<any>[] = [];
+  const fixGlobs = (globs?: string[]) => globs?.map(glob => resolve(root, glob.replace('${configDir}', '.')));
 
   if (error) throw new Error(`'${cfgPath}': ${error.messageText}`);
 
@@ -115,11 +121,8 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
 
   config.compilerOptions = co;
   config.size = await folderSize(join(root, 'src'));
-  config.include = config.include?.map((glob: string) => resolve(root, glob.replace('${configDir}', '.')));
-  config.include ??= [co.rootDir ? `${co.rootDir}/**/*` : `${root}/src/**/*`];
-  config.exclude = config.exclude
-    ?.filter((glob: string) => !env.test || !glob.includes('tests'))
-    .map((glob: string) => resolve(root, glob.replace('${configDir}', '.')));
+  config.include = fixGlobs(config.include) ?? [co.rootDir ? `${co.rootDir}/**/*` : `${root}/src/**/*`];
+  config.exclude = fixGlobs(config.exclude);
   config.extends = undefined;
   config.references = env.workspaceDeps
     .get(pkgName)
@@ -133,22 +136,6 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   io.push(fs.promises.writeFile(checkPath, JSON.stringify(checkCfg, undefined, 2)));
 
   const res: SplitConfig[] = [{ type: 'noEmit', configFile: checkPath, pkgName, size: config.size }];
-  if (env.test && (await readable(join(root, 'tests')))) {
-    const testCheckCfg = structuredClone(config);
-    const testCheckPath = join(env.buildTempDir, 'noEmit', `${pkgName}.test.tsconfig.json`);
-    testCheckCfg.include.push(join(root, 'tests'));
-    testCheckCfg.compilerOptions.rootDir = env.uiDir;
-    testCheckCfg.compilerOptions.noEmit = true;
-    testCheckCfg.compilerOptions.skipLibCheck = true;
-    testCheckCfg.compilerOptions.tsBuildInfoFile = join(
-      env.buildTempDir,
-      'noEmit',
-      `${pkgName}.test.tsbuildinfo`,
-    );
-    testCheckCfg.size = await folderSize(join(root, 'tests'));
-    io.push(fs.promises.writeFile(testCheckPath, JSON.stringify(testCheckCfg, undefined, 2)));
-    res.push({ type: 'noEmit', configFile: testCheckPath, pkgName, size: testCheckCfg.size });
-  }
 
   if (!co.noEmit) {
     const emitCfg = structuredClone(config);
@@ -163,10 +150,6 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   return res;
 }
 
-function tscLog(msg: string): void {
-  env.log(msg, 'tsc');
-}
-
 function tscError({ code, text, file, line, col }: ErrorMessage['data']): void {
   const key = `${code}:${text}:${file}`;
   if (performance.now() > (spamGuard.get(key) ?? -Infinity)) {
@@ -178,7 +161,7 @@ function tscError({ code, text, file, line, col }: ErrorMessage['data']): void {
       if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
       location += `' - `;
     }
-    tscLog(`${prelude}${location}${message}`);
+    env.log(`${prelude}${location}${message}`, 'tsc');
   }
   spamGuard.set(key, performance.now() + 1000);
   env.done('tsc', -2);

@@ -46,7 +46,7 @@ export type LocalSpeed = Exclude<Speed, 'correspondence'>;
 
 export type Ratings = { [speed in LocalSpeed]?: number };
 
-export type FilterType = 'cplTarget' | 'cplStdev' | 'lc0bias' | 'moveDecay';
+export type FilterType = 'cplTarget' | 'cplStdev' | 'aggression' | 'lc0bias' | 'moveDecay';
 
 export type BotId = string;
 

@@ -119,7 +119,7 @@ async function execute(t: Task, firstRun = false): Promise<void> {
   try {
     await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
-    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx);
+    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx, 0);
   } catch (e) {
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);

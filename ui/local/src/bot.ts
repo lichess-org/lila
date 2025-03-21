@@ -99,6 +99,8 @@ export class Bot implements BotInfo, MoveSource {
       bots.zerofish.goFish(pos, fishSearch),
       zeroSearch && bots.zerofish.goZero(pos, zeroSearch),
     ]);
+    this.cp = fishResults.lines[fishResults.lines.length - 1][0].score;
+
     const { uci, cpl, movetime } = this.chooseMove(fishResults, fish?.depth ?? 0, zeroResults, args);
     if (cpl !== undefined && cpl < 1000) {
       this.stats.cplMoves++; // debug stats
@@ -176,7 +178,9 @@ export class Bot implements BotInfo, MoveSource {
       this.scoreByCpl(moves, args);
       this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);
     }
-
+    if (this.hasFilter('aggression')) {
+      this.scoreByAggression(moves, args);
+    }
     moves.sort(weightSort);
     if (args.pos.moves?.length) {
       const last = args.pos.moves[args.pos.moves.length - 1].slice(2, 4);
@@ -190,7 +194,7 @@ export class Bot implements BotInfo, MoveSource {
     const filtered = moves.filter(mv => !args.avoid.includes(mv.uci));
     this.trace(`[chooseMove] - sorted & filtered = ${stringify(filtered)}`);
     const decayed =
-      moveQualityDecay(filtered, this.filter('moveDecay', args) ?? 0) ?? filtered[0] ?? moves[0];
+      this.scoreByMoveQualityDecay(filtered, this.filter('moveDecay', args) ?? 0) ?? filtered[0] ?? moves[0];
     return { ...decayed, movetime };
   }
 
@@ -208,8 +212,6 @@ export class Bot implements BotInfo, MoveSource {
       return [{ uci: '0000', weights: {} }];
     }
     const parsed: SearchMove[] = [];
-    const deepFish = fish.lines[fish.lines.length - 1];
-    this.cp = deepFish[0].score;
     const lc0bias = this.filter('lc0bias', args) ?? 0;
     const stockfishVariate = lc0bias ? (this.hasFilter('cplTarget') ? 0 : Math.random()) : 0;
     this.trace(
@@ -221,8 +223,8 @@ export class Bot implements BotInfo, MoveSource {
         .forEach(line =>
           parsed.push({
             uci: line.moves[0],
-            cpl: Math.abs(this.cp - line.score),
-            weights: { lc0bias: stockfishVariate },
+            cpl: Math.abs(this.cp - line.score), // cpl diff should be against the best cp at [fishDepth]
+            weights: { lc0bias: stockfishVariate }, // rather than this.cp, but let's see wot happen
           }),
         );
 
@@ -254,16 +256,21 @@ export class Bot implements BotInfo, MoveSource {
     }
   }
 
+  private scoreByAggression(sorted: SearchMove[], args: MoveArgs) {}
+  private scoreByMoveQualityDecay(sorted: SearchMove[], decay: number) {
+    // in this weighted random selection, each move's weight is given by a quality decay parameter
+    // raised to the power of the move's index as sorted by previous filters. a random number between
+    // 0 and the sum of all weights will identify the final move
+
+    let variate = sorted.reduce((sum, mv, i) => (sum += mv.P = decay ** i), 0) * Math.random();
+    return sorted.find(mv => (variate -= mv.P!) <= 0);
+  }
+
   private trace(msg: string | string[]) {
     if (Array.isArray(msg)) this.traces = msg;
     else this.traces.push('      ' + msg);
   }
 }
-
-// export function score(pv: Line, depth: number = pv.scores.length - 1): number {
-//   const sc = pv.scores[clamp(depth, { min: 0, max: pv.scores.length - 1 })];
-//   return isNaN(sc) ? 0 : clamp(sc, { min: -10000, max: 10000 });
-// }
 
 type Weights = 'lc0bias' | 'cplBias';
 
@@ -273,15 +280,6 @@ interface SearchMove {
   cpl?: number;
   weights: { [key in Weights]?: number };
   P?: number;
-}
-
-function moveQualityDecay(sorted: SearchMove[], decay: number) {
-  // in this weighted random selection, each move's weight is given by a quality decay parameter
-  // raised to the power of the move's index as sorted by previous filters. a random number between
-  // 0 and the sum of all weights will identify the final move
-
-  let variate = sorted.reduce((sum, mv, i) => (sum += mv.P = decay ** i), 0) * Math.random();
-  return sorted.find(mv => (variate -= mv.P!) <= 0);
 }
 
 function weightSort(a: SearchMove, b: SearchMove) {
