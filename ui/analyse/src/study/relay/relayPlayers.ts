@@ -394,19 +394,14 @@ const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
 const tableAugment = (el: HTMLTableElement) => {
   extendTablesortNumber();
   // This allows to sort by default the player names from A to Z instead of Z to A
+  // Until https://github.com/tristen/tablesort/pull/244
   tablesort.extend(
     'string',
-    function () {
-      return false;
-    },
-    function (a: string, b: string) {
+    () => false,
+    (a: string, b: string) => {
       a = a.trim().toLowerCase();
       b = b.trim().toLowerCase();
-
-      if (a === b) return 0;
-      if (a < b) return -1;
-
-      return 1;
+      return a === b ? 0 : a < b ? -1 : 1;
     },
   );
   $(el).each(function (this: HTMLElement) {
