@@ -88,11 +88,7 @@ object UblogRank:
         case ByRank => List(Sort(Descending("rank")))
         case ByTimelessRank =>
           List(
-            Project(
-              $doc(
-                "timelessRank" -> $doc("$subtract" -> $arr("$rank", "$lived.at"))
-              ) ++ UblogBsonHandlers.previewPostProjection
-            ),
+            AddFields($doc("timelessRank" -> $doc("$subtract" -> $arr("$rank", "$lived.at")))),
             Sort(Descending("timelessRank"))
           )
 
