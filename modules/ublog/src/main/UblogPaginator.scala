@@ -20,7 +20,7 @@ final class UblogPaginator(
   import UblogBsonHandlers.{ *, given }
   import UblogPost.PreviewPost
   import ublogApi.aggregateVisiblePosts
-  import UblogRank.Type.{ ByDate, ByRank, ByTimelessRank }
+  import UblogRank.Sorting.{ ByDate, ByRank, ByTimelessRank }
 
   val maxPerPage = MaxPerPage(9)
 

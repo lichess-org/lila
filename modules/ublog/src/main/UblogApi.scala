@@ -209,7 +209,7 @@ final class UblogApi(
       select: Bdoc,
       offset: Int,
       length: Int,
-      ranking: UblogRank.Type = UblogRank.Type.ByRank
+      ranking: UblogRank.Sorting = UblogRank.Sorting.ByRank
   ) =
     colls.post
       .aggregateList(length, _.sec): framework =>

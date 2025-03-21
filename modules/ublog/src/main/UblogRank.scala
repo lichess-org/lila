@@ -78,7 +78,7 @@ object UblogRank:
         (tierBase + likesBonus + langBonus + adjustBonus).toInt
 
   // `byRank` by default takes into acount the date at which the post was published
-  enum Type:
+  enum Sorting:
     case ByDate, ByRank, ByTimelessRank
 
     def sortingQuery(coll: Coll, framework: coll.AggregationFramework.type) =
