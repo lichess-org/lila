@@ -58,7 +58,7 @@ object UblogRank:
       case (t, n) if t == tier => n
     } | "???"
 
-  def computeRank(
+  private def computeRank(
       likes: UblogPost.Likes,
       liveAt: Instant,
       language: Language,

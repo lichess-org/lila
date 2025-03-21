@@ -297,10 +297,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def bestOfYear(page: Int) = Open:
     NotForKids:
       Ok.async:
-        env.ublog.bestOf
-          .liveByYear(page)
-          .map:
-            views.ublog.ui.year
+        env.ublog.bestOf.liveByYear(page).map(views.ublog.ui.year)
 
   def bestOfMonth(year: Int, month: Int, page: Int) = Open:
     NotForKids:
@@ -322,8 +319,8 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.api
             .getUserBlog(user)
             .flatMap: blog =>
-              (isBlogVisible(user, blog)
-                .so(env.ublog.paginator.byUser(user, true, 1)))
+              isBlogVisible(user, blog)
+                .so(env.ublog.paginator.byUser(user, true, 1))
                 .map: posts =>
                   Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
 
