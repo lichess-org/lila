@@ -184,7 +184,7 @@ function migrate(oldDbVersion: number, oldBot: any): BotInfo {
   const bot = structuredClone(oldBot);
   if (oldDbVersion < currentBotDbVersion && bot && bot.fish) {
     // fish search params recently flattened in BotInfo schema, delete before release
-    bot.fish.depth = 'by' in bot.fish && 'depth' in bot.fish.depth ? bot.fish.by.depth : 10;
+    bot.fish.depth = 'by' in bot.fish && 'depth' in bot.fish.by ? bot.fish.by.depth : 10;
   }
   return bot;
 }
