@@ -126,18 +126,33 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       tbody:
         val isMod = Granter.opt(_.ModerateForum)
         categs.map: view =>
-          view.lastPost.map: (topic, post, page) =>
-            val canBrowse = isMod || !view.categ.hidden
-            val postUrl   = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
-            val categUrl =
-              if canBrowse then routes.ForumCateg.show(view.slug).url
-              else routes.ForumTopic.show(view.slug, topic.slug, 1).url
-            tr(
-              td(cls := "subject")(h2(a(href := categUrl)(view.name)), p(view.desc)),
-              td(cls := "right")((if canBrowse then view.nbTopics else 1).localize),
-              td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
-              td(a(href := postUrl)(momentFromNow(post.createdAt)), br, trans.site.by(bits.authorLink(post)))
-            )
+          view.lastPost match
+            case None =>
+              tr( // the last post was deleted!
+                td(cls := "subject")(
+                  h2(a(href := routes.ForumCateg.show(view.slug))(view.name)),
+                  p(view.desc)
+                ),
+                td(cls := "right")(view.nbTopics.localize),
+                td(cls := "right")(view.nbPosts.localize),
+                td
+              )
+            case Some((topic, post, page)) =>
+              val canBrowse = isMod || !view.categ.hidden
+              val postUrl   = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
+              val categUrl =
+                if canBrowse then routes.ForumCateg.show(view.slug)
+                else routes.ForumTopic.show(view.slug, topic.slug, 1)
+              tr(
+                td(cls := "subject")(h2(a(href := categUrl)(view.name)), p(view.desc)),
+                td(cls := "right")((if canBrowse then view.nbTopics else 1).localize),
+                td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
+                td(
+                  a(href := postUrl)(momentFromNow(post.createdAt)),
+                  br,
+                  trans.site.by(bits.authorLink(post))
+                )
+              )
     )
 
   def modFeed(
