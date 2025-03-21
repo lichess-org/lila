@@ -22,7 +22,7 @@ final class UblogPaginator(
   import ublogApi.aggregateVisiblePosts
   import UblogRank.Sorting.{ ByDate, ByRank, ByTimelessRank }
 
-  val maxPerPage = MaxPerPage(9)
+  val maxPerPage = MaxPerPage(15)
 
   def byUser[U: UserIdOf](user: U, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     byBlog(UblogBlog.Id.User(user.id), live, page)
