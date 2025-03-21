@@ -20,17 +20,13 @@ final private class TournamentBusHandler(
     case lila.core.game.FinishGame(game, _) => api.finishGame(game)
 
     case lila.core.mod.MarkCheater(userId, true) =>
-      ejectFromEnterable(userId) >>
-        leaderboard
-          .getAndDeleteRecent(userId, nowInstant.minusDays(30))
-          .flatMap {
-            _.map {
-              api.removePlayerAndRewriteHistory(_, userId)
-            }.parallel
-          } >>
-        shieldApi.clearAfterMarking(userId) >>
-        winnersApi.clearAfterMarking(userId)
-      ()
+      for
+        _      <- ejectFromEnterable(userId)
+        recent <- leaderboard.getAndDeleteRecent(userId, nowInstant.minusDays(3))
+        _      <- recent.parallelVoid(api.removePlayerAndRewriteHistory(_, userId))
+        _      <- shieldApi.clearAfterMarking(userId)
+        _      <- winnersApi.clearAfterMarking(userId)
+      yield ()
 
     case lila.core.mod.MarkBooster(userId)              => ejectFromEnterable(userId)
     case lila.core.round.Berserk(gameId, userId)        => api.berserk(gameId, userId)

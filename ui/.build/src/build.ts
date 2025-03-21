@@ -11,7 +11,7 @@ import { hash } from './hash.ts';
 import { stopManifest } from './manifest.ts';
 import { env, errorMark, c } from './env.ts';
 import { i18n } from './i18n.ts';
-import { unique } from './algo.ts';
+import { definedUnique } from './algo.ts';
 import { clean } from './clean.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
@@ -29,7 +29,8 @@ export async function build(pkgs: string[]): Promise<void> {
       .filter(x => !env.packages.has(x))
       .forEach(x => env.exit(`${errorMark} - unknown package '${c.magenta(x)}'`));
 
-    env.building = pkgs.length === 0 ? [...env.packages.values()] : unique(pkgs.flatMap(p => env.deps(p)));
+    env.building =
+      pkgs.length === 0 ? [...env.packages.values()] : definedUnique(pkgs.flatMap(p => env.deps(p)));
 
     if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
 
@@ -53,7 +54,7 @@ function monitor(pkgs: string[]) {
   if (!env.watch) return;
   return task({
     key: 'monitor',
-    glob: [
+    includes: [
       { cwd: env.rootDir, path: 'package.json' },
       { cwd: env.typesDir, path: '*/package.json' },
       { cwd: env.uiDir, path: '*/package.json' },

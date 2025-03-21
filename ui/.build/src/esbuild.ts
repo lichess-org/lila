@@ -37,7 +37,7 @@ export async function esbuild(): Promise<any> {
       debounce: 300,
       noEnvStatus: true,
       globListOnly: true,
-      glob: env.building.flatMap(pkg =>
+      includes: env.building.flatMap(pkg =>
         pkg.bundle
           .map(bundle => bundle.module)
           .filter((module): module is string => Boolean(module))
@@ -76,7 +76,7 @@ function inlineTask() {
     ctx: 'esbuild',
     debounce: 300,
     noEnvStatus: true,
-    glob: env.building.flatMap(pkg =>
+    includes: env.building.flatMap(pkg =>
       pkg.bundle
         .map(b => b.inline)
         .filter((i): i is string => Boolean(i))
