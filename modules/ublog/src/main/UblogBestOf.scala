@@ -42,9 +42,9 @@ object UblogBestOf:
     currentYearMonth.minusMonths(n)
 
   // from `now` go back to `offset` months and from that point gives all `length` precedecing months
-  def slice(offset: Int, length: Int): Seq[(YearMonth, Int)] =
+  private def slice(offset: Int, length: Int): Seq[(YearMonth, Int)] =
     val from = currentYearMonth.minusMonths(offset)
-    (0 to length).map(x => from.minusMonths(x.toInt)).zip((0 to length))
+    (0 until length).map(x => from.minusMonths(x.toInt)).zip((0 until length))
 
   case class WithPosts(yearMonth: YearMonth, posts: List[UblogPost.PreviewPost])
 
