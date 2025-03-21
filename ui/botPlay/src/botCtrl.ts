@@ -70,7 +70,7 @@ export class BotCtrl {
 
   private makeLocalBridge = async (info: BotInfo, color: Color): Promise<LocalBridge> => {
     const bots = new LocalBotCtrl();
-    const assets = new Assets();
+    const assets = new Assets(bots);
     const uids = { [opposite(color)]: undefined, [color]: info.uid };
     bots.setUids(uids);
     bots.reset();

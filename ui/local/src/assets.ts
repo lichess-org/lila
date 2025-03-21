@@ -1,8 +1,7 @@
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
+import { type BotCtrl } from './botCtrl';
 import { definedMap } from 'common/algo';
-import { pubsub } from 'common/pubsub';
 import { env } from './localEnv';
-import { BotCtrl } from './types';
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
 
@@ -15,8 +14,10 @@ export class Assets {
   net: Map<string, Promise<NetData>> = new Map();
   book: Map<string, Promise<OpeningBook>> = new Map();
 
+  constructor(readonly botCtrl?: BotCtrl | undefined) {}
+
   async preload(uids: string[]): Promise<void> {
-    for (const bot of definedMap(uids, uid => env.bot.bots.get(uid))) {
+    for (const bot of definedMap(uids, uid => (this.botCtrl ?? env.bot).bots.get(uid))) {
       for (const sounds of Object.values(bot.sounds ?? {})) {
         sounds.forEach(sound => fetch(botAssetUrl('sound', sound.key)));
       }
