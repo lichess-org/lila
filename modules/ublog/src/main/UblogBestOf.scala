@@ -14,22 +14,21 @@ import lila.memo.CacheApi
 
 object UblogBestOf:
 
-  private val ublogOrigin = YearMonth.of(2021, 9)
-  private def nbMonthsBackward =
-    ublogOrigin.until(currentYearMonth, ChronoUnit.MONTHS).toInt
+  private val ublogOrigin      = YearMonth.of(2021, 9)
+  private def nbMonthsBackward = ublogOrigin.until(currentYearMonth, ChronoUnit.MONTHS).toInt
 
   private def currentYearMonth = YearMonth.now(ZoneOffset.UTC)
   def allYears                 = (ublogOrigin.getYear to currentYearMonth.getYear + 1).toList
 
   def selector(month: YearMonth) =
-    val (start, end) = boundsOfMonth(month)
+    val (start, until) = boundsOfMonth(month)
     // to hit topic prod index
-    $doc("topics".$ne(UblogTopic.offTopic), "lived.at".$gt(start).$lt(end))
+    $doc("topics".$ne(UblogTopic.offTopic), "lived.at".$gt(start).$lt(until))
 
   private def boundsOfMonth(month: YearMonth): (Instant, Instant) =
     val start = month.atDay(1).atStartOfDay()
-    val end   = month.atEndOfMonth().atTime(LocalTime.MAX)
-    (start.toInstant(ZoneOffset.UTC), end.toInstant(ZoneOffset.UTC))
+    val until = month.atEndOfMonth().atTime(LocalTime.MAX)
+    (start.toInstant(ZoneOffset.UTC), until.toInstant(ZoneOffset.UTC))
 
   def readYear(year: Int): Option[Year] =
     (ublogOrigin.getYear <= year && year <= currentYearMonth.getYear).so(Try(Year.of(year)).toOption)
