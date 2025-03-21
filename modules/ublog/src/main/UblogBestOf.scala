@@ -42,9 +42,9 @@ object UblogBestOf:
     currentYearMonth.minusMonths(n)
 
   // from `now` go back to `offset` months and from that point gives all `length` precedecing months
-  private def slice(offset: Int, length: Int): Seq[(YearMonth, Int)] =
+  private def slice(offset: Int, length: Int): Seq[YearMonth] =
     val from = currentYearMonth.minusMonths(offset)
-    (0 until length).map(x => from.minusMonths(x.toInt)).zip((0 until length))
+    (0 until length).map(x => from.minusMonths(x.toInt))
 
   case class WithPosts(yearMonth: YearMonth, posts: List[UblogPost.PreviewPost])
 
@@ -62,6 +62,7 @@ final class UblogBestOf(colls: UblogColls, ublogApi: UblogApi, cacheApi: CacheAp
         Facet(
           UblogBestOf
             .slice(offset = offset, length = length)
+            .zipWithIndex
             .map: (month, i) =>
               s"$i" -> (List(
                 Match($doc("live" -> true) ++ UblogBestOf.selector(month))
