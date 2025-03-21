@@ -39,10 +39,11 @@ export async function sass(): Promise<any> {
 
   return task({
     ctx: 'sass',
-    glob: [
-      { cwd: env.uiDir, path: '*/css/**/!(gen)/*.scss' },
+    includes: [
+      { cwd: env.uiDir, path: '*/css/**/*.scss' },
       { cwd: env.hashOutDir, path: '*' },
     ],
+    excludes: '**/gen/**',
     debounce: 300,
     root: env.rootDir,
     execute: async (modified, fullList) => {
