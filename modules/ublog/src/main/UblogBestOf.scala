@@ -52,7 +52,10 @@ final class UblogBestOf(colls: UblogColls, ublogApi: UblogApi, cacheApi: CacheAp
 
   import UblogBsonHandlers.{ *, given }
 
-  def paginatorQuery(offset: Int, length: Int): Fu[List[UblogBestOf.WithPosts]] =
+  private val cache = cacheApi[(Int, Int), List[UblogBestOf.WithPosts]](16, "ublog.bestOf"):
+    _.expireAfterWrite(1.hour).buildAsyncFuture(runMonstrousAggregation)
+
+  private def runMonstrousAggregation(offset: Int, length: Int): Fu[List[UblogBestOf.WithPosts]] =
     colls.post
       .aggregateList(length, _.sec): framework =>
         import framework.*
@@ -90,9 +93,8 @@ final class UblogBestOf(colls: UblogColls, ublogApi: UblogApi, cacheApi: CacheAp
   def liveByYear(page: Int): Fu[Paginator[UblogBestOf.WithPosts]] =
     Paginator(
       adapter = new AdapterLike[UblogBestOf.WithPosts]:
-        def nbResults: Fu[Int] = fuccess(UblogBestOf.nbMonthsBackward)
-        def slice(offset: Int, length: Int) =
-          paginatorQuery(offset = offset, length = length)
+        def nbResults: Fu[Int]              = fuccess(UblogBestOf.nbMonthsBackward)
+        def slice(offset: Int, length: Int) = cache.get(offset -> length)
       ,
       currentPage = page,
       maxPerPage = maxPerPage
