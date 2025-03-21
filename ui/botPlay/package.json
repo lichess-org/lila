@@ -7,7 +7,9 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "common": "workspace:*",
-    "local": "workspace:*"
+    "local": "workspace:*",
+    "chess": "workspace:*",
+    "game": "workspace:*"
   },
   "build": {
     "bundle": "src/botPlay.main.ts"

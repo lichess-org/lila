@@ -7,7 +7,7 @@ import { Assets } from './assets';
 //import { showSetupDialog } from './dev/setupDialog';
 import { type LocalEnv, env, makeEnv } from './localEnv';
 import { renderGameView } from './gameView';
-import type { LocalPlayOpts, LocalSetup } from './types';
+import type { LocalPlayOpts } from './types';
 import makeZerofish from 'zerofish';
 
 const patch = init([classModule, attributesModule]);
@@ -16,7 +16,7 @@ const zerofish = makeZerofish({
   nonce: document.body.dataset.nonce,
 });
 
-type SetupOpts = LocalSetup & { id?: string; go?: true };
+// type SetupOpts = LocalSetup & { id?: string; go?: true };
 
 export async function initModule(opts: LocalPlayOpts): Promise<LocalEnv> {
   makeEnv({
@@ -26,7 +26,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<LocalEnv> {
     db: new LocalDb(),
     game: new GameCtrl(opts),
   });
-  await Promise.all([env.db.init(), env.bot.init(opts.bots), env.assets.init()]);
+  await Promise.all([env.db.init(), env.bot.init(opts.bots)]);
   //const setup = hashOpts();
   //env.game.load('id' in setup ? await env.db.get(setup.id) : setup);
 

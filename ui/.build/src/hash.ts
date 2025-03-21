@@ -28,7 +28,7 @@ export async function hash(): Promise<void> {
         ctx: 'hash',
         debounce: 300,
         root: env.rootDir,
-        glob: Array<string>()
+        includes: Array<string>()
           .concat(glob)
           .map(path => ({ cwd: env.rootDir, path })),
         execute: async (files, fullList) => {

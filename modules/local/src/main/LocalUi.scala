@@ -18,6 +18,8 @@ final class LocalUi(helpers: Helpers):
     Page("Lichess bots")
       .css("botPlay")
       .js(PageModule("botPlay.main", data))
+      .flag(_.zen)
+      .flag(_.playing)
       .csp(_.withWebAssembly)
       .flag(_.zoom):
         main(cls := "bot-play")

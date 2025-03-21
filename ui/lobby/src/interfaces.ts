@@ -64,6 +64,7 @@ export interface LobbyOpts {
   playban: boolean;
   showRatings: boolean;
   data: LobbyData;
+  bots?: boolean;
 }
 
 export interface LobbyMe {

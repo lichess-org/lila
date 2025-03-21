@@ -87,3 +87,4 @@ final class Local(env: Env) extends LilaController(env):
       .write(ctx.pref, false)
       .add("animationDuration", ctx.pref.animationMillis.some)
       .add("enablePremove", ctx.pref.premove.some)
+      .add("showCaptured", ctx.pref.captured.some)

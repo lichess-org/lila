@@ -55,7 +55,7 @@ function monitor(pkgs: string[]) {
   if (!env.watch) return;
   return task({
     key: 'monitor',
-    glob: [
+    includes: [
       { cwd: env.rootDir, path: 'package.json' },
       { cwd: env.typesDir, path: '*/package.json' },
       { cwd: env.uiDir, path: '*/package.json' },

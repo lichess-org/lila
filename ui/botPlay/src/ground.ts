@@ -1,19 +1,36 @@
 import resizeHandle from 'common/chessgroundResize';
-import type PlayCtrl from './playCtrl';
+import type PlayCtrl from './play/playCtrl';
 import { ShowResizeHandle, Coords, MoveEvent } from 'common/prefs';
 import { storage } from 'common/storage';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
+import { Board } from './chess';
+import { h } from 'snabbdom';
+import { initMiniBoard } from 'common/miniBoard';
+import { makeUci } from 'chessops';
 
-export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
+export const updateGround = (board: Board): CgConfig => ({
+  fen: fenOf(board),
+  check: board.chess.isCheck(),
+  turnColor: board.chess.turn,
+  lastMove: board.lastMove && chessgroundMove(board.lastMove),
+  movable: {
+    dests: board.chess.isEnd() ? new Map() : chessgroundDests(board.chess),
+  },
+});
+
+const lastMove = (board: Board) => board.lastMove && chessgroundMove(board.lastMove);
+const fenOf = (board: Board) => makeFen(board.chess.toSetup());
+
+export function initialGround(ctrl: PlayCtrl): CgConfig {
   const playing = ctrl.isPlaying();
   const pref = ctrl.opts.pref;
   const chess = ctrl.board.chess;
   return {
     fen: makeFen(chess.toSetup()),
-    orientation: ctrl.game.pov,
+    orientation: ctrl.bottomColor(),
     turnColor: chess.turn,
-    lastMove: ctrl.board.lastMove && chessgroundMove(ctrl.board.lastMove),
+    lastMove: lastMove(ctrl.board),
     check: chess.isCheck(),
     coordinates: pref.coords !== Coords.Hidden,
     coordinatesOnSquares: pref.coords === Coords.All,
@@ -24,7 +41,7 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
       check: pref.highlight,
     },
     events: {
-      move: ctrl.onMove,
+      select: ctrl.onPieceSelect,
       insert: elements =>
         resizeHandle(
           elements,
@@ -37,7 +54,7 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
       free: false,
       color: playing ? ctrl.game.pov : undefined,
       dests: playing ? chessgroundDests(chess) : new Map(),
-      showDests: pref.destination,
+      showDests: pref.destination && !ctrl.blindfold(),
       rookCastle: pref.rookCastle,
       events: {
         after: ctrl.onUserMove,
@@ -50,10 +67,6 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
     premovable: {
       enabled: pref.enablePremove,
       showDests: pref.destination,
-      // events: {
-      //   set: hooks.onPremove,
-      //   unset: hooks.onCancelPremove,
-      // },
     },
     draggable: {
       enabled: pref.moveEvent !== MoveEvent.Click,
@@ -69,3 +82,11 @@ export function chessgroundConfig(ctrl: PlayCtrl): CgConfig {
     disableContextMenu: true,
   };
 }
+
+export const miniBoard = (board: Board, pov: Color) =>
+  h('span.mini-board.is2d', {
+    attrs: {
+      'data-state': `${fenOf(board)},${pov},${board.lastMove ? makeUci(board.lastMove) : ''}`,
+    },
+    hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
+  });

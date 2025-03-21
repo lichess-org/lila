@@ -1,4 +1,4 @@
-import { domIdToUid, uidToDomId } from './devBotCtrl';
+import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
 import { handOfCards, type HandOfCards } from './handOfCards';
 import { frag } from 'common';
 import { deepFreeze, definedMap, mapValues } from 'common/algo';
@@ -23,7 +23,7 @@ export class EditDialog {
     description: '',
     image: 'gray-torso.webp',
     books: [],
-    fish: { multipv: 1, by: { depth: 1 } },
+    fish: { multipv: 1, depth: 1 },
     version: 0,
     ratings: { classical: 1500 },
     filters: {},
@@ -137,12 +137,12 @@ export class EditDialog {
     return (
       other !== undefined &&
       this.scratch.has(other.uid) &&
-      !Bot.isSame(other, deadStrip(this.scratch.get(other.uid)!)) // TODO avoid structured cloning for this
+      !botEquals(other, deadStrip(this.scratch.get(other.uid)!)) // TODO avoid structured cloning for this
     );
   };
 
   private get localChanges(): boolean {
-    return this.localBot !== undefined && !Bot.isSame(this.localBot, this.serverBot);
+    return this.localBot !== undefined && !botEquals(this.localBot, this.serverBot);
   }
 
   private get cardData() {

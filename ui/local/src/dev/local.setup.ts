@@ -13,6 +13,5 @@ export default async function initModule(opts: LocalSetup = {}): Promise<void> {
     assets: new DevAssets(),
   });
   await env.assets.init();
-  console.log('hayo');
   showSetupDialog(opts);
 }

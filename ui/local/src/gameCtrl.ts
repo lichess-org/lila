@@ -36,6 +36,7 @@ export class GameCtrl {
     this.rewind = undefined;
     this.live = new LocalGame({ ...this.live?.setup, ...game });
     env.bot.setUids(this.live);
+    env.bot.reset();
     this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
     this.resetClock();
     this.proxy.reset();
@@ -156,13 +157,13 @@ export class GameCtrl {
     if (!bot || game.finished || this.isStopped || this.resolveThink) return;
     const move = await env.bot.move({
       pos: { fen: game.setupFen, moves: game.moves.map(x => x.uci) },
+      ply: game.ply,
       chess: game.chess,
       avoid: game.threefoldMoves,
       initial: this.clock?.initial ?? Infinity,
+      increment: this.clock?.increment ?? 0,
       remaining: this.clock?.[game.turn] ?? Infinity,
       opponentRemaining: this.clock?.[game.awaiting] ?? Infinity,
-      increment: this.clock?.increment ?? 0,
-      ply: game.ply,
     });
     if (!move) return;
     await new Promise<void>(resolve => {
@@ -222,7 +223,7 @@ export class GameCtrl {
     if (this.live.chess.isCheck()) sounds.push(`${prefix}Check`);
     if (this.live.finished) sounds.push(`${prefix}Win`);
     sounds.push(`${prefix}Move`);
-    const boardSoundVolume = sounds ? env.bot.playSound(justPlayed, sounds) : 1;
+    const boardSoundVolume = sounds.length ? env.bot.playSound(justPlayed, sounds) : 1;
     if (boardSoundVolume) site.sound.move({ ...moveCtx, volume: boardSoundVolume });
   }
 

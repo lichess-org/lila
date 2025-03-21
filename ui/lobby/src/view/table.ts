@@ -19,8 +19,12 @@ export default function table(ctrl: LobbyController) {
           ['hook', i18n.site.createAGame, hookDisabled],
           ['friend', i18n.site.playWithAFriend, hasOngoingRealTimeGame],
           ['ai', i18n.site.playWithTheMachine, hasOngoingRealTimeGame],
-          ['bots', 'play bot', false],
-          ['dev', 'bot development', false],
+          ...(opts.bots
+            ? [
+                ['bots', 'play bot', false],
+                ['dev', 'bot development', false],
+              ]
+            : []),
         ].map(([gameType, text, disabled]: [GameType | 'dev' | 'bots', string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,

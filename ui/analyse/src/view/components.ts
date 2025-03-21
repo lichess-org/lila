@@ -352,7 +352,7 @@ export function renderResult(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode[
   if (ctrl.data.game.status.id >= 30) {
     const winner = ctrl.data.game.winner;
     const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
-    return render(result, statusView(ctrl));
+    return render(result, statusView(ctrl.data));
   } else if (ctrl.study) {
     const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
     if (!result || result === '*') return [];

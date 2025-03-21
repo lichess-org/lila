@@ -55,9 +55,8 @@ object Activity:
   val recentNb = 7
 
   case class Id(userId: UserId, day: LichessDay)
-  object Id:
-    def today(userId: UserId) = Id(userId, LichessDay.today)
+  def today(userId: UserId) = Id(userId, LichessDay.today)
 
   case class WithUserId(activity: Activity, userId: UserId)
 
-  def make(userId: UserId) = Activity(Id.today(userId))
+  def make(userId: UserId) = Activity(today(userId))

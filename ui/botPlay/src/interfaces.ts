@@ -1,21 +1,9 @@
-import { BotId, BotInfo } from 'local';
+import { BotInfo, MoveSource, SoundEvent } from 'local';
 import * as Prefs from 'common/prefs';
 
 export interface BotOpts {
   bots: BotInfo[];
   pref: Pref;
-}
-
-export interface Position {
-  fen: FEN;
-  uci?: Uci;
-  san?: San;
-}
-
-export interface Game {
-  botId: BotId;
-  sans: San[];
-  pov: Color;
 }
 
 export interface Pref {
@@ -33,4 +21,8 @@ export interface Pref {
   rookCastle: boolean;
   showCaptured: boolean;
   resizeHandle: Prefs.ShowResizeHandle;
+}
+
+export interface LocalBridge extends MoveSource {
+  playSound: (c: Color, eventList: SoundEvent[]) => number;
 }
