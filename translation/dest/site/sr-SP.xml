@@ -440,7 +440,7 @@
   <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
   <string name="retry">Покушај поново</string>
-  <string name="reconnecting">Поновно повезивање</string>
+  <string name="reconnecting">Поново повезујемо</string>
   <string name="noNetwork">Ван мреже</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s пријатељ на мрежи</item>
@@ -449,8 +449,8 @@
   </plurals>
   <string name="favoriteOpponents">Омиљени противници</string>
   <string name="follow">Прати</string>
-  <string name="following">Праћен</string>
-  <string name="unfollow">Не прати</string>
+  <string name="following">Пратиш</string>
+  <string name="unfollow">Отпрати</string>
   <string name="followX">Прати %s</string>
   <string name="unfollowX">Престани да пратиш %s</string>
   <string name="block">Блокирај</string>
