@@ -60,10 +60,10 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="averageScore">Ortalama skor</string>
   <string name="myTournaments">Turnuvalarım</string>
   <string name="editTournament">Turnuvayı düzenle</string>
-  <string name="editTeamBattle">Takım savaşını düzenle</string>
+  <string name="editTeamBattle">Takım çarpışmasını düzenle</string>
   <string name="defender">Savunucu</string>
   <string name="pickYourTeam">Takımınızı seçin</string>
-  <string name="whichTeamWillYouRepresentInThisBattle">Bu mücadelede hangi takımı temsil edeceksiniz?</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Bu çarpışmada hangi takımı temsil edeceksiniz?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Katılmak için bu takımlardan birine katılmanız gerekir!</string>
   <string name="created">Oluşturuldu</string>
   <string name="recentlyPlayed">Son oynananlar</string>
