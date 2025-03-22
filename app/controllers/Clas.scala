@@ -366,18 +366,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         ,
         data =>
           Found(env.user.repo.enabledById(data.username)): user =>
-            import lila.clas.ClasInvite.Feedback as F
-            import lila.core.i18n.I18nKey as trans
             env.clas.api.invite.create(clas, user, data.realName).map { feedback =>
-              Redirect(routes.Clas.studentForm(clas.id)).flashing:
-                feedback match
-                  case F.Already => "success" -> trans.clas.xisNowAStudentOfTheClass.txt(user.username)
-                  case F.Invited =>
-                    "success" -> trans.clas.anInvitationHasBeenSentToX.txt(user.username)
-                  case F.Found =>
-                    "warning" -> trans.clas.xAlreadyHasAPendingInvitation.txt(user.username)
-                  case F.CantMsgKid(url) =>
-                    "warning" -> trans.clas.xIsAKidAccountWarning.txt(user.username, url)
+              Redirect(routes.Clas.studentForm(clas.id)).flashing(feedback.flash(user.username))
             }
       )
   }
@@ -470,11 +460,12 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAndStudents(id): (clas, _) =>
       WithStudent(clas, username): s =>
         if s.student.managed then
-          (env.clas.api.student.closeAccount(s) >>
-            env.api.accountTermination.disable(s.user, forever = false)).inject(redirectTo(clas).flashSuccess)
+          for
+            _ <- env.clas.api.student.closeAccount(s)
+            _ <- env.api.accountTermination.disable(s.user, forever = false)
+          yield redirectTo(clas).flashSuccess
         else if s.student.isArchived then
-          env.clas.api.student.closeAccount(s) >>
-            redirectTo(clas).flashSuccess
+          for _ <- env.clas.api.student.closeAccount(s) yield redirectTo(clas).flashSuccess
         else redirectTo(clas)
   }
 
@@ -499,9 +490,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
     couldBeTeacher.elseNotFound:
       val perm = lila.core.perm.Permission.Teacher.dbKey
-      ((!me.roles.has(perm))
-        .so(env.user.repo.setRoles(me, perm :: me.roles).void))
-        .inject(Redirect(routes.Clas.index))
+      for _ <- me.roles.has(perm).not.so(env.user.repo.setRoles(me, perm :: me.roles).void)
+      yield Redirect(routes.Clas.index)
   }
 
   private def couldBeTeacher(using ctx: Context): Fu[Boolean] = ctx.me.soUse: me ?=>
