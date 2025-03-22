@@ -1,7 +1,7 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
 import { type GameContext, type GameStatus, LocalGame } from './localGame';
-import { statusOf, clockToSpeed } from 'game';
+import { statusOf, clockToSpeed, playable } from 'game';
 import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
 import { env } from './localEnv';
@@ -199,7 +199,12 @@ export class GameCtrl {
   private updateClockUi() {
     if (!this.clock) return;
     this.clock.running = this.isLive && this.live.ply > 1 && !this.isStopped;
-    env.round?.clock?.setClock(this.proxy.data, this.clock.white, this.clock.black);
+    env.round?.clock?.setClock({
+      white: this.clock.white,
+      black: this.clock.black,
+      ticking:
+        playable(this.proxy.data) && this.proxy.data.clock!.running ? this.proxy.data.game.player : undefined,
+    });
     if (this.isStopped || !this.isLive) env.round?.clock?.stopClock();
   }
 

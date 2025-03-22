@@ -1,6 +1,4 @@
 import { updateElements } from './clockView';
-import type { RoundData } from '../interfaces';
-import { playedTurns, playable } from 'game';
 import { ShowClockTenths } from 'common/prefs';
 import { reducedMotion } from 'common/device';
 
@@ -46,6 +44,17 @@ interface EmergSound {
   };
 }
 
+interface ClockDeps {
+  clock: ClockData;
+  ticking: Color | undefined;
+}
+interface SetData {
+  white: Seconds;
+  black: Seconds;
+  ticking: Color | undefined;
+  delay?: Centis;
+}
+
 export class ClockController {
   emergSound: EmergSound = {
     play: () => site.sound.play('lowTime'),
@@ -72,10 +81,10 @@ export class ClockController {
   private tickCallback?: number;
 
   constructor(
-    d: RoundData,
+    d: ClockDeps,
     readonly opts: ClockOpts,
   ) {
-    const cdata = d.clock!;
+    const cdata = d.clock;
 
     if (cdata.showTenths === ShowClockTenths.Never) this.showTenths = () => false;
     else {
@@ -89,23 +98,26 @@ export class ClockController {
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
 
-    this.setClock(d, cdata.white, cdata.black);
+    this.setClock({
+      white: cdata.white,
+      black: cdata.black,
+      ticking: d.ticking,
+    });
   }
 
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
-  setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0): void => {
-    const isClockRunning = playable(d) && ((playedTurns(d) > 1 && !d.local) || d.clock!.running),
-      delayMs = delay * 10;
+  setClock = (d: SetData): void => {
+    const delayMs = (d.delay || 0) * 10;
 
     this.times = {
-      white: white * 1000,
-      black: black * 1000,
-      activeColor: isClockRunning ? d.game.player : undefined,
+      white: d.white * 1000,
+      black: d.black * 1000,
+      activeColor: d.ticking,
       lastUpdate: performance.now() + delayMs,
     };
 
-    if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
+    if (d.ticking) this.scheduleTick(this.times[d.ticking], delayMs);
   };
 
   addTime = (color: Color, time: Centis): void => {

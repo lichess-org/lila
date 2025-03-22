@@ -465,7 +465,13 @@ export default class RoundController implements MoveRootCtrl {
       this.shouldSendMoveTime = true;
       const oc = o.clock,
         delay = playing && activeColor ? 0 : oc.lag || 1;
-      if (this.clock) this.clock.setClock(d, oc.white, oc.black, delay);
+      if (this.clock)
+        this.clock.setClock({
+          white: oc.white,
+          black: oc.black,
+          ticking: this.tickingClockColor(),
+          delay,
+        });
       else if (this.corresClock) this.corresClock.update(oc.white, oc.black);
     }
     if (this.data.expiration) {
@@ -522,7 +528,12 @@ export default class RoundController implements MoveRootCtrl {
     this.clearJust();
     this.shouldSendMoveTime = false;
     this.updateClockCtrl();
-    if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
+    if (this.clock)
+      this.clock.setClock({
+        white: d.clock!.white,
+        black: d.clock!.black,
+        ticking: this.tickingClockColor(),
+      });
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
     if (!this.replaying()) groundReload(this);
     this.setTitle();
@@ -581,7 +592,12 @@ export default class RoundController implements MoveRootCtrl {
     this.moveOn.next();
     this.setQuietMode();
     this.setLoading(false);
-    if (this.clock && o.clock) this.clock.setClock(d, o.clock.wc * 0.01, o.clock.bc * 0.01);
+    if (this.clock && o.clock)
+      this.clock.setClock({
+        white: o.clock.wc * 0.01,
+        black: o.clock.bc * 0.01,
+        ticking: undefined,
+      });
     this.redraw();
     this.autoScroll();
     this.onChange();
@@ -616,17 +632,28 @@ export default class RoundController implements MoveRootCtrl {
     const d = this.data;
     if (d.clock) {
       this.corresClock = undefined;
-      this.clock ??= new ClockController(d, {
-        onFlag: this.socket.outoftime,
-        soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
-        nvui: !!this.nvui,
-      });
+      this.clock ??= new ClockController(
+        {
+          clock: d.clock,
+          ticking: this.tickingClockColor(),
+        },
+        {
+          onFlag: this.socket.outoftime,
+          soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
+          nvui: !!this.nvui,
+        },
+      );
     } else {
       this.clock = undefined;
       if (d.correspondence)
         this.corresClock ??= new CorresClockController(this, d.correspondence, this.socket.outoftime);
     }
   }
+
+  private tickingClockColor = (): Color | undefined =>
+    game.playable(this.data) && (game.playedTurns(this.data) > 1 || this.data.clock?.running)
+      ? this.data.game.player
+      : undefined;
 
   private setQuietMode = () => {
     const was = site.quietMode;
