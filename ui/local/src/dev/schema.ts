@@ -154,7 +154,7 @@ export const schema: Schema = deepFreeze<Schema>({
         label: 'depth',
         type: 'range',
         class: ['setting'],
-        value: 12,
+        value: 10,
         min: 1,
         max: 14,
         step: 1,
@@ -170,8 +170,15 @@ export const schema: Schema = deepFreeze<Schema>({
       value: { range: { min: 0, max: 1 }, by: 'max' },
       requires: { every: ['behavior_zero', 'behavior_fish'] },
       title: condense(
-        `lc0 bias controls the likelihood of choosing an lc0 move over stockfish.
-        0 will always choose from stockfish, 1 will always choose from lc0.`,
+        `this filter assigns a weight in order to bias moves from the lc0 engine.
+        a higher weight makes a move more likely to be selected.
+        
+        if the engine is configured to return multiple lines, the same bias is
+        applied to every move, but the order lc0 prefers them is still respected.
+        
+        generally, moves are preferred in descending order of
+        the sum of their weights. so lc0 bias can compensate for (by
+        adding to) weights from other filters`,
       ),
     },
     cplTarget: {
@@ -181,8 +188,8 @@ export const schema: Schema = deepFreeze<Schema>({
       value: { range: { min: 0, max: 150 }, by: 'max' },
       requires: { every: ['behavior_fish', 'behavior_fish_multipv > 1'] },
       title: condense(
-        `cpl target influences the average centipawn loss relative to bestmove according
-        to stockfish.
+        `cpl target assigns a weight calculated from the average centipawn loss relative
+        to bestmove according to stockfish at the chosen depth.
         
         it identifies the mean of a folded normal distribution of target cpl values. 
         
@@ -200,8 +207,31 @@ export const schema: Schema = deepFreeze<Schema>({
       class: ['filter'],
       value: { range: { min: 0, max: 100 }, by: 'max' },
       requires: 'bot_filters_cplTarget',
-      title: `cpl stdev describes the standard deviation of the normal distribution
-        from which noisy cpl targets are chosen.`,
+      title: `cpl stdev, if given, describes the standard deviation of the folder normal
+      distribution from which each move's random cpl target is chosen. if not given, it defaults
+      to 50. cpl stdev participates in the cpl target
+      weight calculation. it does not assign its own weight.`,
+    },
+    aggression: {
+      label: 'aggression',
+      type: 'filter',
+      class: ['filter'],
+      value: { range: { min: -1, max: 1 }, by: 'avg' },
+      requires: {
+        some: [
+          'behavior_fish_multipv > 1',
+          'behavior_zero_multipv > 1',
+          { every: ['behavior_zero', 'behavior_fish'] },
+        ],
+      },
+      title: condense(
+        `aggression assigns weights to moves that remove opponent material from the board.
+
+        a value of 1 will increase the likelihood of captures, 0 is neutral, and -1 will avoid
+        captures.
+        
+        this one should be combined with other filters.`,
+      ),
     },
     moveDecay: {
       label: 'move quality decay',
@@ -209,7 +239,6 @@ export const schema: Schema = deepFreeze<Schema>({
       class: ['filter'],
       value: { range: { min: 0, max: 1 }, by: 'max' },
       requires: {
-        // moveDecay needs more than 1 line, whatever the source
         some: [
           'behavior_fish_multipv > 1',
           'behavior_zero_multipv > 1',

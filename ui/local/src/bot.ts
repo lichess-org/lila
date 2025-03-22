@@ -6,6 +6,7 @@ import type { SearchResult } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
 import { movetime as getMovetime } from './movetime';
+import { normalMove } from './localGame';
 import type {
   BotInfo,
   FishSearch,
@@ -180,6 +181,7 @@ export class Bot implements BotInfo, MoveSource {
     }
     if (this.hasFilter('aggression')) {
       this.scoreByAggression(moves, args);
+      this.trace(`[chooseMove] - aggression scored = ${stringify(moves)}`);
     }
     moves.sort(weightSort);
     if (args.pos.moves?.length) {
@@ -213,18 +215,16 @@ export class Bot implements BotInfo, MoveSource {
     }
     const parsed: SearchMove[] = [];
     const lc0bias = this.filter('lc0bias', args) ?? 0;
-    const stockfishVariate = lc0bias ? (this.hasFilter('cplTarget') ? 0 : Math.random()) : 0;
-    this.trace(
-      `[parseMoves] - cp = ${this.cp.toFixed(2)}, lc0bias = ${lc0bias.toFixed(2)}, stockfishVariate = ${stockfishVariate.toFixed(2)}`,
-    );
+    const cp = fishDepth ? fish.lines[fishDepth - 1][0].score : this.cp;
+    this.trace(`[parseMoves] - cp = ${cp.toFixed(2)}, lc0bias = ${lc0bias.toFixed(2)}`);
     if (fishDepth)
       fish.lines[fishDepth - 1]
         .filter(line => line.moves[0])
         .forEach(line =>
           parsed.push({
             uci: line.moves[0],
-            cpl: Math.abs(this.cp - line.score), // cpl diff should be against the best cp at [fishDepth]
-            weights: { lc0bias: stockfishVariate }, // rather than this.cp, but let's see wot happen
+            cpl: Math.abs(cp - line.score),
+            weights: { lc0bias: 0 },
           }),
         );
 
@@ -242,7 +242,7 @@ export class Bot implements BotInfo, MoveSource {
 
   private scoreByCpl(sorted: SearchMove[], args: MoveArgs) {
     if (!this.filters?.cplTarget) return;
-    const mean = this.filter('cplTarget', args) ?? 0;
+    const mean = this.filter('cplTarget', args)!;
     const stdev = this.filter('cplStdev', args) ?? 80;
     const cplTarget = Math.abs(mean + stdev * getNormal());
     // folding the normal at zero skews the observed distribution mean a bit further from the target
@@ -256,7 +256,18 @@ export class Bot implements BotInfo, MoveSource {
     }
   }
 
-  private scoreByAggression(sorted: SearchMove[], args: MoveArgs) {}
+  private scoreByAggression(sorted: SearchMove[], args: MoveArgs) {
+    const aggression = this.filter('aggression', args) ?? 0;
+    for (const mv of sorted) {
+      const chess = args.chess.clone();
+      const normal = normalMove(chess, mv.uci)?.move;
+      if (!normal) {
+        console.error('scoreByAggression wtf', mv, args);
+        continue;
+      }
+      mv.weights.aggressionBias = co.san.makeSan(chess, normal).includes('x') ? aggression : 0;
+    }
+  }
   private scoreByMoveQualityDecay(sorted: SearchMove[], decay: number) {
     // in this weighted random selection, each move's weight is given by a quality decay parameter
     // raised to the power of the move's index as sorted by previous filters. a random number between
@@ -272,7 +283,7 @@ export class Bot implements BotInfo, MoveSource {
   }
 }
 
-type Weights = 'lc0bias' | 'cplBias';
+type Weights = 'lc0bias' | 'cplBias' | 'aggressionBias';
 
 interface SearchMove {
   uci: Uci;
