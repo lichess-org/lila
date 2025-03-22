@@ -1,0 +1,25 @@
+%zen {
+  .zen & {
+    display: none;
+  }
+}
+
+body.zenable.zen {
+  #top {
+    justify-content: center;
+  }
+
+  .bot-game__opponent,
+  .bot-game__table__moves {
+    display: none;
+  }
+  .bot-game__table__nav {
+    @extend %box-radius-top;
+  }
+}
+
+#friend_box,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
+}

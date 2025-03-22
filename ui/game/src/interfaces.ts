@@ -41,6 +41,8 @@ export interface Status {
   name: StatusName;
 }
 
+export * from './status';
+
 export type StatusName =
   | 'created'
   | 'started'
@@ -158,10 +160,6 @@ export interface Perf {
   prov?: boolean;
 }
 
-export interface Ctrl {
-  data: GameData;
-}
-
 export interface Blurs {
   nb: number;
   percent: number;
@@ -177,7 +175,7 @@ export interface Hold {
 export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
-  status(ctrl: Ctrl): string;
+  status(data: GameData): string;
 }
 
 export interface CheckState {
@@ -197,4 +195,13 @@ export type MaterialDiffSide = {
 export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
+}
+
+export interface RoundStep {
+  ply: Ply;
+  fen: FEN;
+  san: San;
+  uci: Uci;
+  check?: boolean;
+  crazy?: Record<string, any>;
 }

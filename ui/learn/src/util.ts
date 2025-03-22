@@ -4,8 +4,6 @@ import { h } from 'snabbdom';
 import type { DrawShape } from 'chessground/draw';
 import type { BrushColor } from 'chessground/types';
 
-export type WithGround = <A>(f: (cg: CgApi) => A) => A | false | undefined;
-
 export function toLevel(l: LevelPartial, it: number): Level {
   if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
 

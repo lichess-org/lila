@@ -18,7 +18,7 @@ import { alert } from 'common/dialogs';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: RoundOpts): Promise<RoundController> {
-  return opts.local ? app(opts) : boot(opts, app);
+  return opts.data.local ? app(opts) : boot(opts, app);
 }
 
 async function app(opts: RoundOpts): Promise<RoundController> {

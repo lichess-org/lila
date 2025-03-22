@@ -6,7 +6,8 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "common": "workspace:*"
+    "common": "workspace:*",
+    "chess": "workspace:*"
   },
   "build": {
     "bundle": "src/learn.ts"

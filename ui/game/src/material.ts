@@ -1,23 +1,33 @@
 import { opposite } from 'chessground/util';
 import type { CheckCount, CheckState, MaterialDiff } from './interfaces';
-import { charToRole } from 'chessops';
+import { charToRole, ROLES, type Chess } from 'chessops';
 
-export function getMaterialDiff(fenLike: string): MaterialDiff {
+export function getMaterialDiff(chess: FEN | Chess): MaterialDiff {
   const diff: MaterialDiff = {
     white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
     black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
-  for (let i = 0, part = 0; i < fenLike.length && part < 8; i++) {
-    const ch = fenLike[i];
-    const lower = ch.toLowerCase();
-    const role = charToRole(ch);
-    if (role) {
-      const color = ch === lower ? 'black' : 'white';
-      const them = diff[opposite(color)];
-      if (them[role] > 0) them[role]--;
-      else diff[color][role]++;
-    } else if (ch === '[' || ch === ' ') break;
-    else if (ch === '/') part++;
+  if (isFen(chess)) {
+    const fenLike = chess.split(' ')[0];
+    for (let i = 0, part = 0; i < fenLike.length && part < 8; i++) {
+      const ch = fenLike[i];
+      const lower = ch.toLowerCase();
+      const role = charToRole(ch);
+      if (role) {
+        const color = ch === lower ? 'black' : 'white';
+        const them = diff[opposite(color)];
+        if (them[role] > 0) them[role]--;
+        else diff[color][role]++;
+      } else if (ch === '[' || ch === ' ') break;
+      else if (ch === '/') part++;
+    }
+  } else {
+    const b = chess.board;
+    for (const role of ROLES) {
+      const c = [b.pieces('white', role).size(), b.pieces('black', role).size()];
+      diff.white[role] = c[0] > c[1] ? c[0] - c[1] : 0;
+      diff.black[role] = c[1] > c[0] ? c[1] - c[0] : 0;
+    }
   }
   return diff;
 }
@@ -47,4 +57,8 @@ export function countChecks(steps: CheckState[], ply: Ply): CheckCount {
     }
   }
   return checks;
+}
+
+function isFen(chess: FEN | Chess): chess is FEN {
+  return typeof chess === 'string';
 }

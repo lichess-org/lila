@@ -36,6 +36,7 @@ import { uciToMove } from 'chessground/util';
 import type { ParentCtrl } from 'ceval/types';
 import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialogs';
+import { type WithGround } from 'chess/ground';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
@@ -204,9 +205,9 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   pref = this.opts.pref;
 
-  withGround = <A>(f: (cg: CgApi) => A): A | undefined => {
+  withGround: WithGround = f => {
     const g = this.ground();
-    return g && f(g);
+    return g ? f(g) : undefined;
   };
 
   initiate = (fromData: PuzzleData): void => {
