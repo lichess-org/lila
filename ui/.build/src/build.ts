@@ -17,9 +17,9 @@ import { clean } from './clean.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
   env.startTime = Date.now();
-  chdir(env.rootDir);
   try {
     try {
+      chdir(env.rootDir);
       if (env.install) execSync('pnpm install', { stdio: 'inherit' });
       if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
 

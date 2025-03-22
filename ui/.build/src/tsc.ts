@@ -57,7 +57,7 @@ function assignWork(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit'): Promis
   const okPromise = new Promise<void>(res => (okResolve = res));
   const onError = (err: Error): void => env.exit(err.message, 'tsc');
   const onMessage = (msg: Message): void => {
-    // direct error -> ok transition should be ignored. it must transition to busy first
+    // direct error -> ok transition must be ignored. error must transition to busy first
     if (env.watch && msg.type === 'ok' && status[msg.index] === 'error') return;
 
     status[msg.index] = msg.type;

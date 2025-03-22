@@ -9,12 +9,7 @@ import lila.forum.ForumTopic
 private[controllers] trait ForumController:
   self: LilaController =>
 
-  protected def categApi  = env.forum.categApi
-  protected def topicApi  = env.forum.topicApi
-  protected def topicRepo = env.forum.topicRepo
-  protected def postApi   = env.forum.postApi
-  protected def forms     = env.forum.forms
-  protected def access    = env.forum.forumAccess
+  export env.forum.{ categApi, topicApi, topicRepo, postApi, forms, access }
 
   protected def CategGrantWrite[A <: Result](
       categId: ForumCategId,

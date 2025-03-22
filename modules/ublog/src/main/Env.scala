@@ -34,6 +34,8 @@ final class Env(
 
   val paginator = wire[UblogPaginator]
 
+  val bestOf = wire[UblogBestOf]
+
   val markup = wire[UblogMarkup]
 
   val form = wire[UblogForm]
