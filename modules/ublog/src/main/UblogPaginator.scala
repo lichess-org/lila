@@ -78,16 +78,19 @@ final class UblogPaginator(
 
   // All blogs ranked by `ByTimelessRank` lived during a specific month
   def liveByMonth(month: YearMonth, page: Int): Fu[Paginator[PreviewPost]] =
-    Paginator(
-      adapter = new AdapterLike[PreviewPost]:
-        def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
-        def slice(offset: Int, length: Int) =
-          // topics included to hit prod index
-          aggregateVisiblePosts(UblogBestOf.selector(month), offset, length, ByTimelessRank)
-      ,
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
+    UblogBestOf
+      .isValid(month)
+      .so:
+        Paginator(
+          adapter = new AdapterLike[PreviewPost]:
+            def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
+            def slice(offset: Int, length: Int) =
+              // topics included to hit prod index
+              aggregateVisiblePosts(UblogBestOf.selector(month), offset, length, ByTimelessRank)
+          ,
+          currentPage = page,
+          maxPerPage = maxPerPage
+        )
 
   object liveByFollowed:
 

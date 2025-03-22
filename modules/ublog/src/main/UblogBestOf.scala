@@ -33,10 +33,12 @@ object UblogBestOf:
   def readYear(year: Int): Option[Year] =
     (ublogOrigin.getYear <= year && year <= currentYearMonth.getYear).so(Try(Year.of(year)).toOption)
 
+  def isValid(ym: YearMonth): Boolean =
+    // writing it as negative allow bounds to be included
+    !(ym.isBefore(ublogOrigin) || ym.isAfter(currentYearMonth))
+
   def readYearMonth(year: Int, month: Int): Option[YearMonth] =
-    Try(YearMonth.of(year, month)).toOption.filter: ym =>
-      // writing it as negative allow bounds to be included
-      !(ym.isBefore(ublogOrigin) || ym.isAfter(currentYearMonth))
+    Try(YearMonth.of(year, month)).toOption
 
   private def monthsBack(n: Int): YearMonth =
     currentYearMonth.minusMonths(n)
