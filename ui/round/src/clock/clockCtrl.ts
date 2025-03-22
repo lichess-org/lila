@@ -29,8 +29,6 @@ interface Times {
   lastUpdate: Millis;
 }
 
-type ColorMap<T> = { [C in Color]: T };
-
 export interface ClockElements {
   time?: HTMLElement;
   clock?: HTMLElement;
@@ -69,7 +67,7 @@ export class ClockController {
   elements = {
     white: {},
     black: {},
-  } as ColorMap<ClockElements>;
+  } as ByColor<ClockElements>;
 
   private tickCallback?: number;
 

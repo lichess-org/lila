@@ -228,6 +228,8 @@ type Seconds = number;
 type Centis = number;
 type Millis = number;
 
+type ByColor<T> = { [C in Color]: T };
+
 interface Variant {
   key: VariantKey;
   name: string;
