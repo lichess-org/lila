@@ -433,14 +433,14 @@
     <item quantity="few">%s увезене игре</item>
     <item quantity="other">%s увезених игара</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ово је шаховска Капча.</string>
+  <string name="thisIsAChessCaptcha">Ово је шаховска капча.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликај на таблу да направиш свој потез и докажи да си људско биће.</string>
   <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
   <string name="notACheckmate">Није шах-мат</string>
   <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
   <string name="retry">Покушај поново</string>
-  <string name="reconnecting">Поново повезујемо</string>
+  <string name="reconnecting" comment="Appears when you lose a live (WebSocket) connection. Effectively says you are disconnected, and an attempt to Reconnect is being made.">Поново повезујемо</string>
   <string name="noNetwork">Ван мреже</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s пријатељ на мрежи</item>
