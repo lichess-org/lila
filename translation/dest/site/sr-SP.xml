@@ -101,7 +101,7 @@
   <string name="noGameFound">Партија није нађена</string>
   <string name="maxDepthReached">Достигнут максимални број потеза!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можда укључите више партија у менију за подешавања?</string>
-  <string name="openings">Отваранја</string>
+  <string name="openings">Отварања</string>
   <string name="openingExplorer">Претраживач отварања</string>
   <string name="openingEndgameExplorer">Претраживач отварања/завршница</string>
   <string name="xOpeningExplorer">%s претаживач отварања</string>
