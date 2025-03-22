@@ -18,7 +18,7 @@ object UblogBestOf:
   private def nbMonthsBackward = ublogOrigin.until(currentYearMonth, ChronoUnit.MONTHS).toInt
 
   private def currentYearMonth = YearMonth.now(ZoneOffset.UTC)
-  def allYears                 = (ublogOrigin.getYear to currentYearMonth.getYear + 1).toList
+  def allYears                 = (ublogOrigin.getYear to currentYearMonth.getYear).toList
 
   def selector(month: YearMonth) =
     val (start, until) = boundsOfMonth(month)
