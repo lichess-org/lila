@@ -56,7 +56,7 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="joinLichessVariantTeam">Haber ve etkinlikler için resmî %s takımına katılın</string>
   <string name="teamPage">Takım sayfası</string>
   <string name="thisTeamBattleIsOver">Bu turnuva sona erdi ve takımlar artık güncellenemez.</string>
-  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Bu savaşta yarışacak takımları listeleyin.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Bu çarpışmada yarışacak takımları listeleyin.</string>
   <string name="oneTeamPerLine">Her satırda bir takım kullanın. Otomatik tamamlayıcıyı kullanabilirsiniz.</string>
   <string name="oneTeamPerLineHelp">Bu listedeki takımları bir turnuvadan diğerine kopyalayabilirsiniz!
 
@@ -65,7 +65,7 @@ Bir oyuncu zaten bu takımlardan birine katıldıysa, takımı kaldıramazsını
   <string name="numberOfLeadsPerTeamHelp">Turnuva başladıktan sonra bu değeri değiştirmemeniz daha iyi olur!</string>
   <string name="innerTeam">Takım içi</string>
   <plurals name="battleOfNbTeams">
-    <item quantity="one">%s takımın savaşı</item>
+    <item quantity="one">%s takımın çarpışması</item>
     <item quantity="other">%s takımın savaşı</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
