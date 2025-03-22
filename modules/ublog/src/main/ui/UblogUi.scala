@@ -222,9 +222,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       title = s"Top posts of $yearMonth",
       posts = posts,
       menuItem = "best-of",
-      route = (p, bd) => routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue, p),
+      route = (p, _) => routes.Ublog.bestOfMonth(yearMonth.getYear, yearMonth.getMonthValue, p),
       onEmpty = "Nothing to show.",
       header = div(cls := "ublog-index__calendar")(
+        h1(cls := "box__top")("Best blog posts per month"),
         lila.ui.bits.calendarMselect(
           helpers,
           "best-of",
@@ -298,7 +299,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         main(cls := "page-menu")(
           menu(Right("best-of")),
           div(cls := "page-menu__content box")(
-            boxTop(h1("Best blogs per month")),
+            boxTop(h1("Best blog posts per month")),
             div(cls := "ublog-topics infinite-scroll")(
               bests.currentPageResults.map { case UblogBestOf.WithPosts(yearMonth, posts) =>
                 a(
