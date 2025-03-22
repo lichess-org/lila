@@ -230,7 +230,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def friends(page: Int) = Auth { _ ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         Ok.async:
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
@@ -250,7 +250,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         pageHit
         Ok.async:
           val language = l.map(toLanguage)
@@ -268,7 +268,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         Ok.async:
           env.ublog.paginator
             .liveByLiked(page)
@@ -284,7 +284,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(50)):
         lila.ublog.UblogTopic
           .fromUrl(str)
           .so: top =>
@@ -301,7 +301,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def bestOfMonth(year: Int, month: Int, page: Int) = Open:
     NotForKids:
-      Reasonable(page, Max(100)):
+      Reasonable(page, Max(20)):
         UblogBestOf
           .readYearMonth(year, month)
           .so: yearMonth =>
