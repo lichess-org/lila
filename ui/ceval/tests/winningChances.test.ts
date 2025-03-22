@@ -1,17 +1,27 @@
 import { describe, expect, test } from 'vitest';
 import * as winningChances from '../src/winningChances';
 
-const toEv = (x: number | string) => {
+type CentipawnsOrMate = number | string;
+
+const toEv = (x: CentipawnsOrMate): EvalScore => {
   if (typeof x === 'number') return { cp: x, mate: undefined };
   if (typeof x === 'string' && x.startsWith('#')) return { cp: undefined, mate: parseInt(x.slice(1)) };
-  // error
+  throw new Error('Invalid input');
 };
 
-const similarEvalsCp = (color: Color, bestEval: number, secondBestEval: number): boolean => {
+const similarEvalsCp = (
+  color: Color,
+  bestEval: CentipawnsOrMate,
+  secondBestEval: CentipawnsOrMate,
+): boolean => {
   return winningChances.areSimilarEvals(color, toEv(bestEval), toEv(secondBestEval));
 };
 
-const hasMultipleSolutionsCp = (color: Color, bestEval: number, secondBestEval: number): boolean => {
+const hasMultipleSolutionsCp = (
+  color: Color,
+  bestEval: CentipawnsOrMate,
+  secondBestEval: CentipawnsOrMate,
+): boolean => {
   return winningChances.hasMultipleSolutions(color, toEv(bestEval), toEv(secondBestEval));
 };
 
@@ -35,7 +45,7 @@ describe('similarEvals', () => {
 
   // taken from the list of reported puzzles on zulip, and subjectively considered
   // false positives
-  test.each<[Color, number, number]>([
+  test.each<[Color, CentipawnsOrMate, CentipawnsOrMate]>([
     ['white', 265, -3],
     ['white', 269, 0],
     ['white', 322, -6],
@@ -56,7 +66,7 @@ describe('similarEvals', () => {
 });
 
 describe('hasMultipleSolutions', () => {
-  test.each<[Color, number, number]>([
+  test.each<[Color, CentipawnsOrMate, CentipawnsOrMate]>([
     // https://lichess.org/training/ZIRBc
     // It is unclear if this should not be a false positive
     // but try to report more puzzles like that for the moment to get more opinions

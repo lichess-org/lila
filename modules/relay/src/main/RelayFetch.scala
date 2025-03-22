@@ -191,7 +191,7 @@ final private class RelayFetch(
       else if tour.official then 2
       else 3
     } * {
-      if upstream.hasLcc && !highPriorityTier && round.crowd.exists(_ < 10) then 2 else 1
+      if upstream.hasLcc && !highPriorityTier && round.crowd.exists(_ < Crowd(10)) then 2 else 1
     } * {
       if round.hasStarted then 1 else 2
     }

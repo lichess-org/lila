@@ -13,3 +13,6 @@ private type RelayGames = Vector[RelayGame]
 // so they can all be replayed on another value
 case class Updating[A](current: A, reRun: Update[A] = (a: A) => a):
   def apply(up: Update[A]) = Updating(up(current), up.compose(reRun))
+
+opaque type Crowd = Int
+object Crowd extends RichOpaqueInt[Crowd]

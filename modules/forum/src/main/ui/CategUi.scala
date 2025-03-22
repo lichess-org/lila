@@ -19,20 +19,19 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
         url = s"$netBaseUrl${routes.ForumCateg.index.url}",
         description = "Chess discussions and feedback about Lichess development"
       ):
+        val (teamCategs, globalCategs) = categs.partition(_.categ.isTeam)
         main(cls := "forum index box")(
           boxTop(
             h1(dataIcon := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
             bits.searchForm()
           ),
-          showCategs(categs.filterNot(_.categ.isTeam)),
-          categs
-            .exists(_.categ.isTeam)
-            .option(
-              frag(
-                boxTop(h1("Your Team Boards")),
-                showCategs(categs.filter(_.categ.isTeam))
-              )
+          showCategs(globalCategs),
+          teamCategs.nonEmpty.option(
+            frag(
+              boxTop(h1("Your Team Boards")),
+              showCategs(categs.filter(_.categ.isTeam))
             )
+          )
         )
 
   def show(

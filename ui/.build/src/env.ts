@@ -31,8 +31,6 @@ export const env = new (class {
   clean = false;
   prod = false;
   debug = false;
-  rgb = false;
-  test = false;
   install = true;
   logTime = true;
   logCtx = true;
@@ -102,8 +100,8 @@ export const env = new (class {
     return this.status[ctx] !== false;
   }
 
-  done(ctx: Context, code: number = 0): void {
-    if (code !== this.status[ctx] && ['tsc', 'esbuild', 'sass', 'i18n'].includes(ctx)) {
+  done(ctx: Context, code: number | undefined): void {
+    if (code !== undefined && code !== this.status[ctx] && ['tsc', 'esbuild', 'sass', 'i18n'].includes(ctx)) {
       this.log(
         `${code === 0 ? 'Done' : c.red('Failed')}` + (this.watch ? ` - ${c.grey('Watching')}...` : ''),
         ctx,
