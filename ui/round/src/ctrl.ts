@@ -11,7 +11,7 @@ import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'game/view/status';
-import { ClockController } from './clock/clockCtrl';
+import { ClockCtrl } from './clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
@@ -65,7 +65,7 @@ export default class RoundController implements MoveRootCtrl {
   data: RoundData;
   socket: RoundSocket;
   chessground: CgApi;
-  clock?: ClockController;
+  clock?: ClockCtrl;
   corresClock?: CorresClockController;
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
@@ -632,7 +632,7 @@ export default class RoundController implements MoveRootCtrl {
     const d = this.data;
     if (d.clock) {
       this.corresClock = undefined;
-      this.clock ??= new ClockController(
+      this.clock ??= new ClockCtrl(
         {
           clock: d.clock,
           ticking: this.tickingClockColor(),

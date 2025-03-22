@@ -55,7 +55,7 @@ interface SetData {
   delay?: Centis;
 }
 
-export class ClockController {
+export class ClockCtrl {
   emergSound: EmergSound = {
     play: () => site.sound.play('lowTime'),
     delay: 20000,

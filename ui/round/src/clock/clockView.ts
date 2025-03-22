@@ -3,7 +3,7 @@ import { moretime } from '../view/button';
 import { playable, berserkableBy, bothPlayersHavePlayed, type Player } from 'game';
 import type RoundController from '../ctrl';
 import { justIcon } from '../util';
-import type { ClockElements, ClockController } from './clockCtrl';
+import type { ClockElements, ClockCtrl } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
 import { looseH as h, type VNode, bind } from 'common/snabbdom';
 import { isCol1 } from 'common/device';
@@ -114,7 +114,7 @@ function showBar(ctrl: RoundController, color: Color) {
       });
 }
 
-export function updateElements(clock: ClockController, els: ClockElements, millis: Millis): void {
+export function updateElements(clock: ClockCtrl, els: ClockElements, millis: Millis): void {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   // 12/02/2025 Brave 1.74.51 android flickers the bar oninline transforms, even though .bar is display: none
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
