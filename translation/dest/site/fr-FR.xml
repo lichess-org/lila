@@ -70,7 +70,7 @@
   <string name="promoteVariation">Promouvoir la variante</string>
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
-  <string name="collapseVariations">Fermer les variantes</string>
+  <string name="collapseVariations">Masquer les variantes</string>
   <string name="expandVariations">Afficher les variantes</string>
   <string name="forceVariation">Forcer la variante</string>
   <string name="copyVariationPgn">Copier le PGN de la variante</string>
@@ -133,8 +133,8 @@
     <item quantity="other">%s gaffes</item>
   </plurals>
   <plurals name="numberBlunders">
-    <item quantity="one">%s Erreur grave</item>
-    <item quantity="other">%s Erreurs graves</item>
+    <item quantity="one">%s Gaffe</item>
+    <item quantity="other">%s Gaffes</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s erreur</item>
@@ -156,7 +156,7 @@
   <string name="flipBoard">Tourner l\'échiquier</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="claimADraw">Revendiquer la partie nulle</string>
-  <string name="drawClaimed">Offre de nulle</string>
+  <string name="drawClaimed">Nulle réclamée</string>
   <string name="offerDraw">Proposer la nulle</string>
   <string name="draw">Partie nulle</string>
   <plurals name="nbPlayers">
@@ -223,7 +223,7 @@
   <string name="changeUsername">Modifier le nom d\'utilisateur</string>
   <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
   <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seule la casse des lettres peut être modifiée.</string>
-  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte !</string>
+  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier par la suite et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte !</string>
   <string name="signupEmailHint">Nous l\'utiliserons uniquement pour la réinitialisation du mot de passe.</string>
   <string name="password">Mot de passe</string>
   <string name="changePassword">Changer votre mot de passe</string>
@@ -476,7 +476,7 @@
   <string name="tournamentCalendar">Calendrier des tournois</string>
   <string name="conditionOfEntry">Condition d\'admission :</string>
   <string name="advancedSettings">Paramètres avancés</string>
-  <string name="safeTournamentName">Choisissez un sage nom pour le tournoi.</string>
+  <string name="safeTournamentName">Choisissez un nom sage pour le tournoi.</string>
   <string name="inappropriateNameWarning">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
   <string name="emptyTournamentName">Laissez vide pour que le tournoi soit nommé d\'après le nom d\'un grand maître.</string>
   <string name="makePrivateTournament">Rendre le tournoi privé et en restreindre l\'accès avec un mot de passe</string>
@@ -518,10 +518,10 @@
   <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
-  <string name="realName">Nom réel</string>
-  <string name="setFlair">Choisir votre émoji</string>
-  <string name="flair">Émoji</string>
-  <string name="youCanHideFlair">Un paramètre permet de cacher les émojis des utilisateurs sur tout le site.</string>
+  <string name="realName">Vrai nom</string>
+  <string name="setFlair">Choisir votre flair</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Un paramètre permet de cacher les flairs des utilisateurs sur tout le site.</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Pays ou région</string>
   <string name="thankYou">Merci !</string>
@@ -747,7 +747,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
   <string name="ifYouDoNotGetTheEmail">Si vous ne recevez pas le courriel dans les 5 minutes :</string>
   <string name="checkAllEmailFolders">Vérifiez vos dossiers de pourriels et de courriels indésirables</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Vérifiez que %s est votre adresse de courriel</string>
+  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Vérifiez que %s est votre adresse de courriel</string>
   <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un email à %s. Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à nos %s.</string>
   <string name="readAboutOur">En savoir plus sur notre %s.</string>
