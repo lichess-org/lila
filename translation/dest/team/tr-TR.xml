@@ -63,7 +63,7 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
 Bir oyuncu zaten bu takımlardan birine katıldıysa, takımı kaldıramazsınız.</string>
   <string name="numberOfLeadsPerTeam">Her takımdaki liderlerin sayısı. Onların puanlarının toplamı takımın puanıdır.</string>
   <string name="numberOfLeadsPerTeamHelp">Turnuva başladıktan sonra bu değeri değiştirmemeniz daha iyi olur!</string>
-  <string name="innerTeam">İçerideki takım</string>
+  <string name="innerTeam">Takım içi</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">%s takımın savaşı</item>
     <item quantity="other">%s takımın savaşı</item>
