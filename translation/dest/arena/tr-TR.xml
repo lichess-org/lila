@@ -63,7 +63,7 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="editTeamBattle">Takım çarpışmasını düzenle</string>
   <string name="defender">Savunucu</string>
   <string name="pickYourTeam">Takımınızı seçin</string>
-  <string name="whichTeamWillYouRepresentInThisBattle">Bu çarpışmada hangi takımı temsil edeceksiniz?</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Bu mücadelede hangi takımı temsil edeceksiniz?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Katılmak için bu takımlardan birine katılmanız gerekir!</string>
   <string name="created">Oluşturuldu</string>
   <string name="recentlyPlayed">Son oynananlar</string>
