@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Chugar contra un amigo</string>
   <string name="playWithTheMachine">Chugar contra l\'ordinador</string>
+  <string name="playOffline">Chugar sin connexión</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pa convidar a belún a chugar, comparte este vinclo</string>
   <string name="gameOver">Fin d\'a partida</string>
   <string name="waitingForOpponent">Aguardando a l\'oponent</string>
