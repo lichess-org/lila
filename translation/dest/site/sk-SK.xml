@@ -829,7 +829,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
   <string name="ifYouDoNotGetTheEmail">Ak nedostanete e-mail do 5 minút:</string>
   <string name="checkAllEmailFolders">Skontrolujte všetky priečinky nevyžiadanej pošty</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Overte, či %s je Vaša e-mailová adresa</string>
+  <string name="verifyYourAddress">Overte, či %s je Vaša e-mailová adresa</string>
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
   <string name="readAboutOur">Prečítajte si o našej %s.</string>
