@@ -49,11 +49,6 @@ interface EmergSound {
   };
 }
 
-interface ClockDeps {
-  clock: ClockData;
-  pref: ClockPref;
-  ticking: Color | undefined;
-}
 interface SetData {
   white: Seconds;
   black: Seconds;
@@ -84,27 +79,28 @@ export class ClockCtrl {
   private tickCallback?: number;
 
   constructor(
-    d: ClockDeps,
+    data: ClockData,
+    pref: ClockPref,
+    ticking: Color | undefined,
     readonly opts: ClockOpts,
   ) {
-    const cdata = d.clock;
+    this.showTenths =
+      pref.showTenths === ShowClockTenths.Never
+        ? () => false
+        : ShowClockTenths.Below10Secs
+          ? time => time < 10000
+          : time => time < 3600000;
 
-    if (d.pref.showTenths === ShowClockTenths.Never) this.showTenths = () => false;
-    else {
-      const cutoff = d.pref.showTenths === ShowClockTenths.Below10Secs ? 10000 : 3600000;
-      this.showTenths = time => time < cutoff;
-    }
-
-    this.showBar = d.pref.showBar && !this.opts.nvui && !reducedMotion();
-    this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    pref.showBar = pref.showBar && !this.opts.nvui && !reducedMotion();
+    this.barTime = 1000 * (Math.max(data.initial, 2) + 5 * data.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
-    this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
+    this.emergMs = 1000 * Math.min(60, Math.max(10, data.initial * 0.125));
 
     this.setClock({
-      white: cdata.white,
-      black: cdata.black,
-      ticking: d.ticking,
+      white: data.white,
+      black: data.black,
+      ticking,
     });
   }
 
