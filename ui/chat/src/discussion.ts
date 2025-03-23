@@ -208,7 +208,7 @@ const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair
 const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   if (!ctrl.data.userId || !line.u || ctrl.data.userId === line.u) return [];
   const icons = [];
-  if (ctrl.vm.writeable && !ctrl.data.resourceId.startsWith('game'))
+  if (ctrl.canPostArbitraryText() && !ctrl.data.resourceId.startsWith('game'))
     icons.push(
       h('action.reply', {
         attrs: { 'data-icon': licon.Back, title: 'Reply', 'data-user': line.u },

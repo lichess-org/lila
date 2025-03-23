@@ -97,6 +97,12 @@ export default class ChatCtrl {
     return this.opts.plugin;
   }
 
+  canPostArbitraryText = (): boolean =>
+    this.vm.writeable &&
+    !this.vm.timeout &&
+    (!this.data.loginRequired || !!this.data.userId) &&
+    !this.data.restricted;
+
   post = (text: string): boolean => {
     text = text.trim();
     if (!text) return false;
