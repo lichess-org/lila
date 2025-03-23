@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Do‘stingiz bilan o‘ynang</string>
   <string name="playWithTheMachine">Kompyuter bilan o\'ynang</string>
+  <string name="playOffline">Offline o\'ynash</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
