@@ -829,7 +829,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
   <string name="ifYouDoNotGetTheEmail">Если вы не получили письмо в течение 5 минут:</string>
   <string name="checkAllEmailFolders">Проверьте папку «Спам» и подобные</string>
-  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Проверьте, что %s — это ваш адрес электронной почты</string>
+  <string name="verifyYourAddress">Проверьте, что %s — это ваш адрес электронной почты</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
   <string name="readAboutOur">Ознакомьтесь с нашей %s.</string>
