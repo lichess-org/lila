@@ -36,9 +36,12 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
               pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
-            $el.on('click', '.reply', (e: Event) =>
-              prependChatInput(`@${(e.target as HTMLElement).dataset['user']!} `),
-            );
+            $el.on('click', '.reply', (e: Event) => {
+              prependChatInput(
+                (vnode.elm as Element).closest('.mchat')!.querySelector('input.mchat__say')!,
+                `@${(e.target as HTMLElement).dataset['user']!} `,
+              );
+            });
             if (hasMod)
               $el.on('click', '.mod', (e: Event) =>
                 ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
@@ -85,8 +88,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   });
 }
 
-function prependChatInput(prefix: string): void {
-  const chatInput = document.querySelector('input.mchat__say') as HTMLInputElement;
+function prependChatInput(chatInput: HTMLInputElement, prefix: string): void {
   if (chatInput.value.startsWith(prefix)) return;
   const newVal = prefix + chatInput.value;
   chatInput.focus();
