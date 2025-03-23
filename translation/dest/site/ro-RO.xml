@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jucați cu un prieten</string>
   <string name="playWithTheMachine">Jucați cu calculatorul</string>
+  <string name="playOffline">Joacă offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
