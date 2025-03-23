@@ -738,7 +738,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nëse nuk e shihni email-in, kontrolloni në vendet e tjera ku mund të jetë, bie fjala dosje të pavlerash, hedhurinash, shoqërore, ose dosje të tjera.</string>
   <string name="ifYouDoNotGetTheEmail">Nëse s’e merrni email-in brenda 5 minutash:</string>
   <string name="checkAllEmailFolders">Kontrolloni krejt dosjet e të pavlerëve, të padëshiruarve dhe të tjera</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Verifikoni se %s është adresa juaj email</string>
+  <string name="verifyYourAddress">Verifikoni se %s është adresa juaj email</string>
   <string name="weHaveSentYouAnEmailTo">Kemi dërguar një email te %s. Që të ricaktoni fjalëkalimin tuaj, klikoni mbi lidhjen te email-i.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Duke u regjistruar, pajtoheni me %s.</string>
   <string name="readAboutOur">Lexoni rreth %s tona.</string>
