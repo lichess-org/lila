@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">சுவிசு</string>
+  <string name="swiss">சுவிசு</string>
   <string name="swissTournaments">சுவிசு பந்தயங்கள்</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">இந்த சுற்றைக் காண்க</item>
@@ -10,7 +10,7 @@
     <item quantity="one">%s சுற்று</item>
     <item quantity="other">%s சுற்றுகள்</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">%s சுற்று சுவிசு</item>
     <item quantity="other">%s சுற்றுகள் சுவிசு</item>
   </plurals>
@@ -27,7 +27,7 @@
     <item quantity="one">சுற்றுகளுக்கு இடையே %s மணித்துளி</item>
     <item quantity="other">சுற்றுகளுக்கு இடையே %s மணித்துளிகள்</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">துவங்குவதற்கு இன்னும்</string>
+  <string name="startingIn" comment="Displayed above a timer">துவங்குவதற்கு இன்னும்</string>
   <string name="nextRound">அடுத்த சுற்று</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">தொடரும் ஆட்டம்</item>
@@ -79,7 +79,7 @@
 பின்னர் அமைப்பால் அவ்வீரர் பந்தயத்திலிருந்து வெளியேற்றப்படுவார்கள், அதனால் அவர்கள் அதிக ஆட்டங்களில் தோல்வியடையமாட்டார்கள்.
  அவர்கள் எந்நேரத்திலும் போட்டியில் மீண்டும் சேரலாம்.</string>
   <string name="protectionAgainstNoShowQ">காட்சியளிக்காதது தொடர்பாக என்ன செய்யப்படுகிறது?</string>
-  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">சுவிசு நிகழ்வுகளுக்கு பதிவு செய்யும் வீரர்கள் ஆனால் தங்கள் ஆட்டங்களை விளையாடாதவர்கள் சிக்கலாக இருக்கலாம்.
+  <string name="protectionAgainstNoShowA">சுவிசு நிகழ்வுகளுக்கு பதிவு செய்யும் வீரர்கள் ஆனால் தங்கள் ஆட்டங்களை விளையாடாதவர்கள் சிக்கலாக இருக்கலாம்.
 இந்தச் சிக்கலைத் தணிக்க, ஒரு ஆட்டத்தை விளையாடத் தவறிய வீரர்களை ஒரு குறிப்பிட்ட நேரத்திற்கு புதிய சுவிசு நிகழ்வில் சேர்வதை லிசெஸ் தடுக்கும்.
 இருப்பினும் சுவிசு நிகழ்வை படைப்பவர் அவர்களை நிகழ்வில் சேர அனுமதிப்பதை முடிவெடுக்கலாம்.</string>
   <string name="lateJoinQ">வீரர்கள் தாமதமாகச் சேர முடியுமா?</string>
