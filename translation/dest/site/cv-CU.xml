@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Туспа выльа</string>
   <string name="playWithTheMachine">Машшинпа выльа</string>
+  <string name="playOffline">Офлайн вӑйӑ</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленнӗ</string>
   <string name="waitingForOpponent">Ӑмӑртуҫа кӗтсе тӑни</string>
