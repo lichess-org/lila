@@ -463,9 +463,9 @@
     <item quantity="other">%s пратиоца</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s прати</item>
-    <item quantity="few">прати %s</item>
-    <item quantity="other">прати %s</item>
+    <item quantity="one">%s праћење</item>
+    <item quantity="few">%s праћења</item>
+    <item quantity="other">%s праћења</item>
   </plurals>
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>
