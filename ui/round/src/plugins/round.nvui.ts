@@ -368,7 +368,7 @@ function anyClock(ctrl: RoundController, position: Position): VNode | undefined 
   const d = ctrl.data,
     player = ctrl.playerAt(position);
   return (
-    (ctrl.clock && renderClock(ctrl, player, position)) ||
+    (ctrl.clock && renderClock(ctrl.clock, player.color, position, _ => [])) ||
     (d.correspondence && renderCorresClock(ctrl.corresClock!, player.color, position, d.game.player))
   );
 }

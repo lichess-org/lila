@@ -11,7 +11,7 @@ import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'game/view/status';
-import { ClockCtrl } from './clock/clockCtrl';
+import { ClockCtrl, ClockOpts } from './clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
@@ -54,6 +54,7 @@ import { readFen, almostSanOf, speakable } from 'chess/sanWriter';
 import { plyToTurn } from 'chess';
 import { wsDestroy } from 'common/socket';
 
+// #TODO use ByColor<boolean>
 interface GoneBerserk {
   white?: boolean;
   black?: boolean;
@@ -637,11 +638,7 @@ export default class RoundController implements MoveRootCtrl {
           clock: d.clock,
           ticking: this.tickingClockColor(),
         },
-        {
-          onFlag: this.socket.outoftime,
-          soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
-          nvui: !!this.nvui,
-        },
+        this.makeClockOpts(),
       );
     } else {
       this.clock = undefined;
@@ -649,6 +646,21 @@ export default class RoundController implements MoveRootCtrl {
         this.corresClock ??= new CorresClockController(this, d.correspondence, this.socket.outoftime);
     }
   }
+
+  private makeClockOpts: () => ClockOpts = () => ({
+    onFlag: this.socket.outoftime,
+    playable: () => game.playable(this.data),
+    bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
+    hasGoneBerserk: this.hasGoneBerserk,
+    goBerserk: this.goBerserk,
+    tournamentRanks: () => this.data.tournament?.ranks || this.data.swiss?.ranks,
+    asPlayer: this.data.player.spectator ? undefined : this.data.player.color,
+    soundColor:
+      this.data.simul || this.data.player.spectator || !this.data.pref.clockSound
+        ? undefined
+        : this.data.player.color,
+    nvui: !!this.nvui,
+  });
 
   private tickingClockColor = (): Color | undefined =>
     game.playable(this.data) && (game.playedTurns(this.data) > 1 || this.data.clock?.running)
@@ -726,6 +738,8 @@ export default class RoundController implements MoveRootCtrl {
       this.redraw();
     }
   };
+
+  hasGoneBerserk = (color: Color): boolean => !!this.goneBerserk[color];
 
   goBerserk = (): void => {
     if (!game.berserkableBy(this.data)) return;

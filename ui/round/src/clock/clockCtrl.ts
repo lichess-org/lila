@@ -1,9 +1,16 @@
 import { updateElements } from './clockView';
 import { ShowClockTenths } from 'common/prefs';
 import { reducedMotion } from 'common/device';
+import type { TournamentRanks } from 'game';
 
-interface ClockOpts {
+export interface ClockOpts {
   onFlag(): void;
+  playable(): boolean;
+  bothPlayersHavePlayed(): boolean;
+  hasGoneBerserk(color: Color): boolean;
+  goBerserk(): void;
+  tournamentRanks(): TournamentRanks | undefined;
+  asPlayer?: Color; // am I playing this game?
   soundColor?: Color;
   nvui: boolean;
 }
