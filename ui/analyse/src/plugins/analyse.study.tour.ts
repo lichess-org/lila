@@ -31,26 +31,22 @@ export function initModule(): StudyTour {
 
     const steps: Shepherd.Step.StepOptions[] = [
       {
-        title: 'Welcome to Lichess Study!',
-        text:
-          'This is a shared analysis board.<br><br>' +
-          'Use it to analyse and annotate games,<br>' +
-          'discuss positions with friends,<br>' +
-          'and of course for chess lessons!<br><br>' +
-          "It's a powerful tool, let's take some time to see how it works.",
+        title: i18n.study.welcomeToLichessStudyTitle,
+        text: i18n.study.welcomeToLichessStudyText,
         attachTo: { element: helpButtonSelector, on: 'top' },
       },
       {
-        title: 'Shared and saved',
-        text: 'Other members can see your moves in real time!<br>' + 'Plus, everything is saved forever.',
+        title: i18n.study.sharedAndSaveTitle,
+        text: i18n.study.sharedAndSaveText,
         attachTo: { element: 'main.analyse .areplay', on: 'left' },
         when: closeActionMenu,
       },
       {
-        title: 'Study members',
-        text:
-          `<i data-icon='${licon.Eye}'></i> Spectators can view the study and talk in the chat.<br>` +
-          `<br><i data-icon='${licon.User}'></i> Contributors can make moves and update the study.`,
+        title: i18n.study.studyMembersTitle,
+        text: i18n.study.studyMembersText(
+          `<i data-icon='${licon.Eye}'></i>`,
+          `<i data-icon='${licon.User}'></i>`,
+        ),
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -58,55 +54,43 @@ export function initModule(): StudyTour {
 
     if (ctrl.study?.members.isOwner()) {
       steps.push({
-        title: 'Invite members',
-        text:
-          `By clicking the <i data-icon='${licon.PlusButton}'></i> button.<br>` +
-          'Then decide who can contribute or not.',
+        title: i18n.study.inviteMembersTitle,
+        text: i18n.study.inviteMembersText(`<i data-icon='${licon.PlusButton}'></i>`),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
     }
 
     steps.push({
-      title: 'Study chapters',
-      text:
-        'A study can contain several chapters.<br>' +
-        'Each chapter has a distinct initial position and move tree.',
+      title: i18n.study.studyChaptersTitle,
+      text: i18n.study.studyChaptersText,
       attachTo: { element: '.study__chapters', on: 'right' },
       when: onTab('chapters'),
     });
 
     if (ctrl.study?.members.canContribute()) {
       steps.push({
-        title: 'Create new chapters',
-        text: `By clicking the <i data-icon='${licon.PlusButton}'></i> button.`,
+        title: i18n.study.createNewChaptersTitle,
+        text: i18n.study.createNewChaptersText(`<i data-icon='${licon.PlusButton}'></i>`),
         attachTo: { element: '.study__chapters .add', on: 'right' },
         when: onTab('chapters'),
         scrollTo: true,
       });
       steps.push({
-        title: 'Comment on a position',
-        text:
-          `With the <i data-icon='${licon.BubbleSpeech}'></i> button, or a right click on the move ` +
-          'list on the right.<br>Comments are shared and persisted.',
+        title: i18n.study.commentPositionTitle,
+        text: i18n.study.commentPositionText(`<i data-icon='${licon.BubbleSpeech}'></i>`),
         attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
       });
       steps.push({
-        title: 'Annotate a position',
-        text:
-          'With the !? button, or a right click on the move list on the right.<br>' +
-          'Annotation glyphs are shared and persisted.',
+        title: i18n.study.annotatePositionTitle,
+        text: i18n.study.annotatePositionText,
         attachTo: { element: '.study__buttons .left-buttons .glyphs', on: 'top' },
       });
     }
 
     steps.push({
-      title: 'Thanks for your time',
-      text:
-        "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +
-        "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>" +
-        'Power users might want to press "?" to see keyboard shortcuts.<br>' +
-        'Have fun!',
+      title: i18n.study.conclusionTitle,
+      text: i18n.study.conclusionText,
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {

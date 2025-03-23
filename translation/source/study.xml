@@ -169,4 +169,23 @@
   <string name="whatWouldYouPlay">What would you play in this position?</string>
   <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
   <string name="perPage">%s per page</string>
+  <string name="getTheTour">Need help? Get the tour!</string>
+  <string name="welcomeToLichessStudyTitle">Welcome to Lichess Study!</string>
+  <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyse and annotate games,&lt;br&gt;discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It's a powerful tool, let's take some time to see how it works.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Shared and saved</string>
+  <string name="sharedAndSaveText">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
+  <string name="studyMembersTitle">Study members</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spectators can view the study and talk in the chat.&lt;br&gt;&lt;br&gt;%2$s Contributors can make moves and update the study.</string>
+  <string name="inviteMembersTitle">Invite members</string>
+  <string name="inviteMembersText" comment="%s is an icon that will added at runtime">Invite members by clicking the %s button.&lt;br&gt;Then decide who can contribute or not.</string>
+  <string name="studyChaptersTitle">Study chapters</string>
+  <string name="studyChaptersText">A study can contain several chapters.&lt;br&gt;Each chapter has a distinct initial position and move tree.</string>
+  <string name="createNewChaptersTitle">Create new chapters</string>
+  <string name="createNewChaptersText" comment="%s is an icon that will added at runtime">Create a new chapter by clicking the %s button.</string>
+  <string name="commentPositionTitle">Comment on a position</string>
+  <string name="commentPositionText" comment="%s is an icon that will added at runtime">Click the %s button, or right click on the move list on the right.&lt;br&gt;Comments are shared and persisted.</string>
+  <string name="annotatePositionTitle">Annotate a position</string>
+  <string name="annotatePositionText">Click the !? button, or a right click on the move list on the right.&lt;br&gt;Annotation glyphs are shared and persisted.</string>
+  <string name="conclusionTitle">Thanks for your time</string>
+  <string name="conclusionText">You can find your &lt;a href='/study/mine/hot'&gt;previous studies&lt;/a&gt; from your profile page.&lt;br&gt;There is also a &lt;a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'&gt;blog post about studies&lt;/a&gt;.&lt;br&gt;Power users might want to press "?" to see keyboard shortcuts.&lt;br&gt;Have fun!</string>
 </resources>

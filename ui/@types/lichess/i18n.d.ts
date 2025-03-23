@@ -4641,6 +4641,10 @@ interface I18n {
     alphabetical: string;
     /** Analysis mode */
     analysisMode: string;
+    /** Click the !? button, or a right click on the move list on the right.<br>Annotation glyphs are shared and persisted. */
+    annotatePositionText: string;
+    /** Annotate a position */
+    annotatePositionTitle: string;
     /** Annotate with glyphs */
     annotateWithGlyphs: string;
     /** Attack */
@@ -4673,10 +4677,18 @@ interface I18n {
     clearVariations: string;
     /** Clone */
     cloneStudy: string;
+    /** Click the %s button, or right click on the move list on the right.<br>Comments are shared and persisted. */
+    commentPositionText: I18nFormat;
+    /** Comment on a position */
+    commentPositionTitle: string;
     /** Comment on this move */
     commentThisMove: string;
     /** Comment on this position */
     commentThisPosition: string;
+    /** You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>Power users might want to press "?" to see keyboard shortcuts.<br>Have fun! */
+    conclusionText: string;
+    /** Thanks for your time */
+    conclusionTitle: string;
     /** Delete the entire study? There is no going back! Type the name of the study to confirm: %s */
     confirmDeleteStudy: I18nFormat;
     /** Contributor */
@@ -4689,6 +4701,10 @@ interface I18n {
     counterplay: string;
     /** Create chapter */
     createChapter: string;
+    /** Create a new chapter by clicking the %s button. */
+    createNewChaptersText: I18nFormat;
+    /** Create new chapters */
+    createNewChaptersTitle: string;
     /** Create study */
     createStudy: string;
     /** Current chapter URL */
@@ -4733,6 +4749,8 @@ interface I18n {
     first: string;
     /** Get a full server-side computer analysis of the mainline. */
     getAFullComputerAnalysis: string;
+    /** Need help? Get the tour! */
+    getTheTour: string;
     /** Good move */
     goodMove: string;
     /** Hide next moves */
@@ -4747,6 +4765,10 @@ interface I18n {
     interactiveLesson: string;
     /** Interesting move */
     interestingMove: string;
+    /** Invite members by clicking the %s button.<br>Then decide who can contribute or not. */
+    inviteMembersText: I18nFormat;
+    /** Invite members */
+    inviteMembersTitle: string;
     /** Invite only */
     inviteOnly: string;
     /** Invite to the study */
@@ -4867,6 +4889,10 @@ interface I18n {
     shareAndExport: string;
     /** Share changes with spectators and save them on the server */
     shareChanges: string;
+    /** Other members can see your moves in real time!<br>Plus, everything is saved forever. */
+    sharedAndSaveText: string;
+    /** Shared and saved */
+    sharedAndSaveTitle: string;
     /** Evaluation bars */
     showEvalBar: string;
     /** Results */
@@ -4889,6 +4915,14 @@ interface I18n {
     studiesIContributeTo: string;
     /** Study actions */
     studyActions: string;
+    /** A study can contain several chapters.<br>Each chapter has a distinct initial position and move tree. */
+    studyChaptersText: string;
+    /** Study chapters */
+    studyChaptersTitle: string;
+    /** %1$s Spectators can view the study and talk in the chat.<br><br>%2$s Contributors can make moves and update the study. */
+    studyMembersText: I18nFormat;
+    /** Study members */
+    studyMembersTitle: string;
     /** Study not found */
     studyNotFound: string;
     /** Study PGN */
@@ -4911,6 +4945,10 @@ interface I18n {
     urlOfTheGame: string;
     /** Visibility */
     visibility: string;
+    /** This is a shared analysis board.<br><br>Use it to analyse and annotate games,<br>discuss positions with friends,<br>and of course for chess lessons!<br><br>It's a powerful tool, let's take some time to see how it works. */
+    welcomeToLichessStudyText: string;
+    /** Welcome to Lichess Study! */
+    welcomeToLichessStudyTitle: string;
     /** What are studies? */
     whatAreStudies: string;
     /** What would you play in this position? */

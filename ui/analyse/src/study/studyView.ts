@@ -113,7 +113,7 @@ function buttons(root: AnalyseCtrl): VNode {
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         h('span.help', {
-          attrs: { title: 'Need help? Get the tour!', ...dataIcon(licon.InfoCircle) },
+          attrs: { title: i18n.study.getTheTour, ...dataIcon(licon.InfoCircle) },
           hook: bind('click', ctrl.startTour),
         }),
     ]),
