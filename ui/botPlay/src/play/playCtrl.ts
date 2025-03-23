@@ -12,6 +12,7 @@ import { prop, toggle, Toggle } from 'common';
 import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'chess/promotion';
 import type { WithGround } from 'chess/ground';
+import { ClockCtrl, ClockOpts } from 'game/clock/clockCtrl';
 
 export interface PlayOpts {
   pref: Pref;
@@ -27,6 +28,7 @@ export interface PlayOpts {
 export default class PlayCtrl {
   game: Game;
   board: Board; // the state of the board being displayed
+  clock?: ClockCtrl;
   promotion: PromotionCtrl;
   menu: Toggle;
   flipped: Toggle = toggle(false);
@@ -40,6 +42,9 @@ export default class PlayCtrl {
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.opts.redraw);
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
+
+    this.clock =
+      this.game.clock && new ClockCtrl(this.game.clock, opts.pref, undefined, this.makeClockOpts());
     keyboard(this);
     setTimeout(this.safelyRequestBotMove, 500);
   }
@@ -83,6 +88,8 @@ export default class PlayCtrl {
     if (this.board.chess.turn !== this.opts.game.pov) this.goToLast();
   };
 
+  onFlag = () => alert('flagged');
+
   goTo = (ply: Ply) => {
     const newPly = Math.max(0, Math.min(this.lastPly(), ply));
     if (newPly === this.board.onPly) return;
@@ -118,6 +125,15 @@ export default class PlayCtrl {
     if (sign() == before) this.addMove(move);
     else console.warn('Bot move ignored due to board state mismatch');
   };
+
+  private makeClockOpts: () => ClockOpts = () => ({
+    onFlag: this.onFlag,
+    playable: () => true,
+    bothPlayersHavePlayed: () => this.game.sans.length > 1,
+    hasGoneBerserk: () => false,
+    soundColor: this.game.pov,
+    nvui: false,
+  });
 
   private setGround = () => this.withGround(g => g.set(initialGround(this)));
 

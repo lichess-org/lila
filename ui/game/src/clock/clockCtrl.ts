@@ -10,19 +10,21 @@ export interface ClockOpts {
   nvui: boolean;
 }
 
-// JSON data from the server
-export interface ClockData {
-  running: boolean;
+export interface ClockConfig {
   initial: Seconds;
   increment: Seconds;
-  white: Seconds;
-  black: Seconds;
-  emerg: Seconds;
   moretime: Seconds;
 }
+
+// JSON data from the server
+export interface ClockData extends ClockConfig {
+  running: boolean;
+  white: Seconds;
+  black: Seconds;
+}
 export interface ClockPref {
-  showTenths: ShowClockTenths;
-  showBar: boolean;
+  clockTenths: ShowClockTenths;
+  clockBar: boolean;
 }
 
 interface Times {
@@ -85,13 +87,13 @@ export class ClockCtrl {
     readonly opts: ClockOpts,
   ) {
     this.showTenths =
-      pref.showTenths === ShowClockTenths.Never
+      pref.clockTenths === ShowClockTenths.Never
         ? () => false
         : ShowClockTenths.Below10Secs
           ? time => time < 10000
           : time => time < 3600000;
 
-    pref.showBar = pref.showBar && !this.opts.nvui && !reducedMotion();
+    this.showBar = pref.clockBar && !this.opts.nvui && !reducedMotion();
     this.barTime = 1000 * (Math.max(data.initial, 2) + 5 * data.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 

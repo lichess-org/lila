@@ -264,7 +264,6 @@ export class GameCtrl {
           increment: this.live.increment ?? 0,
           white: this.live.clock?.white ?? initial,
           black: this.live.clock?.black ?? initial,
-          emerg: 0,
           running: false,
           since: undefined,
           moretime: 0,

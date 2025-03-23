@@ -21,6 +21,8 @@ export interface Pref {
   rookCastle: boolean;
   showCaptured: boolean;
   resizeHandle: Prefs.ShowResizeHandle;
+  clockTenths: Prefs.ShowClockTenths;
+  clockBar: boolean;
 }
 
 export interface LocalBridge extends MoveSource {

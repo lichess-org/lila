@@ -628,15 +628,7 @@ export default class RoundController implements MoveRootCtrl {
     const d = this.data;
     if (d.clock) {
       this.corresClock = undefined;
-      this.clock ??= new ClockCtrl(
-        d.clock,
-        {
-          showTenths: d.pref.clockTenths,
-          showBar: d.pref.clockBar,
-        },
-        this.tickingClockColor(),
-        this.makeClockOpts(),
-      );
+      this.clock ??= new ClockCtrl(d.clock, d.pref, this.tickingClockColor(), this.makeClockOpts());
     } else {
       this.clock = undefined;
       if (d.correspondence)
