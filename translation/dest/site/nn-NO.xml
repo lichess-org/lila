@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spel mot ein ven</string>
   <string name="playWithTheMachine">Spel mot sjakkprogrammet</string>
+  <string name="playOffline">Spel fråkopla</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
