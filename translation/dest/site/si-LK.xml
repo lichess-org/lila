@@ -414,7 +414,7 @@
   <string name="whiteCheckmatesInOneMove">සුදුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
   <string name="blackCheckmatesInOneMove">කළුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
   <string name="retry">නැවත උත්සාහ කරන්න</string>
-  <string name="reconnecting" comment="Appears when you lose a live (WebSocket) connection. Effectively says you are disconnected, and an attempt to Reconnect is being made.">නැවත සම්බන්ධ වෙමින්</string>
+  <string name="reconnecting">නැවත සම්බන්ධ වෙමින්</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s යහළුවන් සජීවීව සිටියි</item>
     <item quantity="other">%s යාළුවන් සජීවීව සිටියි</item>
