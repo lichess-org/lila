@@ -4892,7 +4892,7 @@ interface I18n {
     /** Share changes with spectators and save them on the server */
     shareChanges: string;
     /** Other members can see your moves in real time!<br>Plus, everything is saved forever. */
-    sharedAndSaveText: string;
+    sharedAndSavedText: string;
     /** Shared and saved */
     sharedAndSaveTitle: string;
     /** Evaluation bars */

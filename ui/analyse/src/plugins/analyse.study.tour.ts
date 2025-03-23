@@ -37,7 +37,7 @@ export function initModule(): StudyTour {
       },
       {
         title: i18n.study.sharedAndSaveTitle,
-        text: i18n.study.sharedAndSaveText,
+        text: i18n.study.sharedAndSavedText,
         attachTo: { element: 'main.analyse .areplay', on: 'left' },
         when: closeActionMenu,
       },

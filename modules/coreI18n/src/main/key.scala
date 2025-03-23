@@ -2513,7 +2513,7 @@ object I18nKey:
     val `welcomeToLichessStudyTitle`: I18nKey = "study:welcomeToLichessStudyTitle"
     val `welcomeToLichessStudyText`: I18nKey = "study:welcomeToLichessStudyText"
     val `sharedAndSaveTitle`: I18nKey = "study:sharedAndSaveTitle"
-    val `sharedAndSaveText`: I18nKey = "study:sharedAndSaveText"
+    val `sharedAndSavedText`: I18nKey = "study:sharedAndSavedText"
     val `studyMembersTitle`: I18nKey = "study:studyMembersTitle"
     val `studyMembersText`: I18nKey = "study:studyMembersText"
     val `inviteMembersTitle`: I18nKey = "study:inviteMembersTitle"

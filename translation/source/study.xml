@@ -173,7 +173,7 @@
   <string name="welcomeToLichessStudyTitle">Welcome to Lichess Study!</string>
   <string name="welcomeToLichessStudyText">This is a shared analysis board.&lt;br&gt;&lt;br&gt;Use it to analyse and annotate games,&lt;br&gt;discuss positions with friends,&lt;br&gt;and of course for chess lessons!&lt;br&gt;&lt;br&gt;It's a powerful tool, let's take some time to see how it works.</string>
   <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Shared and saved</string>
-  <string name="sharedAndSaveText">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
+  <string name="sharedAndSavedText">Other members can see your moves in real time!&lt;br&gt;Plus, everything is saved forever.</string>
   <string name="studyMembersTitle">Study members</string>
   <string name="studyMembersText" comment="%1$s and %2$s are icons that will added at runtime">%1$s Spectators can view the study and talk in the chat.&lt;br&gt;&lt;br&gt;%2$s Contributors can make moves and update the study.</string>
   <string name="inviteMembersTitle">Invite members</string>
