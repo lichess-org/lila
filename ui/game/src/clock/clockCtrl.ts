@@ -4,10 +4,8 @@ import { reducedMotion } from 'common/device';
 
 export interface ClockOpts {
   onFlag(): void;
-  playable(): boolean;
   bothPlayersHavePlayed(): boolean;
   hasGoneBerserk(color: Color): boolean;
-  asPlayer?: Color; // am I playing this game?
   soundColor?: Color;
   nvui: boolean;
 }

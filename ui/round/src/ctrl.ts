@@ -53,11 +53,7 @@ import { readFen, almostSanOf, speakable } from 'chess/sanWriter';
 import { plyToTurn } from 'chess';
 import { wsDestroy } from 'common/socket';
 
-// #TODO use ByColor<boolean>
-interface GoneBerserk {
-  white?: boolean;
-  black?: boolean;
-}
+type GoneBerserk = Partial<ByColor<boolean>>;
 
 type Timeout = number;
 
@@ -651,7 +647,6 @@ export default class RoundController implements MoveRootCtrl {
     playable: () => game.playable(this.data),
     bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
     hasGoneBerserk: this.hasGoneBerserk,
-    asPlayer: this.data.player.spectator ? undefined : this.data.player.color,
     soundColor:
       this.data.simul || this.data.player.spectator || !this.data.pref.clockSound
         ? undefined
@@ -739,10 +734,10 @@ export default class RoundController implements MoveRootCtrl {
   hasGoneBerserk = (color: Color): boolean => !!this.goneBerserk[color];
 
   goBerserk = (): void => {
-    if (!game.berserkableBy(this.data)) return;
-    if (this.goneBerserk[this.data.player.color]) return;
-    this.socket.berserk();
-    site.sound.play('berserk');
+    if (game.berserkableBy(this.data) && !this.hasGoneBerserk(this.data.player.color)) {
+      this.socket.berserk();
+      site.sound.play('berserk');
+    }
   };
 
   setBerserk = (color: Color): void => {

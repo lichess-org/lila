@@ -88,11 +88,7 @@ export interface Player {
   blindfold?: boolean;
 }
 
-// #TODO use ByColor<number>
-export interface TournamentRanks {
-  white: number;
-  black: number;
-}
+export type TournamentRanks = ByColor<number>;
 
 export interface Tournament {
   id: string;
