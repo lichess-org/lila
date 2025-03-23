@@ -103,7 +103,7 @@
   <string name="loadAPositionFromFen">Lataa asema FEN:istä</string>
   <string name="loadAGameFromPgn">Ota peli PGN:stä</string>
   <string name="automatic">Automaattinen</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Liitä PGN tähän, enintään %s peli</item>
     <item quantity="other">Liitä PGN tähän, enintään %s peliä</item>
   </plurals>
