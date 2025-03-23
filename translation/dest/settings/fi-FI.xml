@@ -3,7 +3,7 @@
   <string name="settings">Asetukset</string>
   <string name="closeAccount">Sulje tili</string>
   <string name="managedAccountCannotBeClosed">Käyttäjätunnuksesi on hallinnassa, eikä sitä voi sulkea.</string>
-  <string name="cantOpenSimilarAccount">Et voi luoda uutta käyttäjätunnusta samalla nimellä, et vaikka muuttaisit isoja kirjaimia pieniksi tai päinvastoin.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Et voi luoda uutta käyttäjätunnusta samalla nimellä, et vaikka muuttaisit isoja kirjaimia pieniksi tai päinvastoin.</string>
   <string name="cancelKeepAccount">Peruuta ja säilytä tunnukseni</string>
   <string name="closeAccountAreYouSure">Oletko varma, että haluat sulkea käyttäjätunnuksesi?</string>
   <string name="thisAccountIsClosed">Tämä tunnus on suljettu.</string>
