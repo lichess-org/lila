@@ -454,7 +454,7 @@
   <string name="followX">Прати %s</string>
   <string name="unfollowX">Престани да пратиш %s</string>
   <string name="block">Блокирај</string>
-  <string name="blocked">Блокиран</string>
+  <string name="blocked">Блокиран/а</string>
   <string name="unblock">Одблокирај</string>
   <string name="xStartedFollowingY">%1$s је почео/ла пратити %2$s</string>
   <plurals name="nbFollowers">
@@ -463,7 +463,7 @@
     <item quantity="other">%s пратиоца</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">прати %s</item>
+    <item quantity="one">%s прати</item>
     <item quantity="few">прати %s</item>
     <item quantity="other">прати %s</item>
   </plurals>
