@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spiele mit einem Freund</string>
   <string name="playWithTheMachine">Spiele mit dem Computer</string>
+  <string name="playOffline">Spiele offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
@@ -747,7 +748,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wenn du die E-Mail nicht findest, prüfe in deinem E-Mail-Konto, ob sie in einem anderen Ordner wie z.B. dem Spamordner oder dem Papierkorb ist.</string>
   <string name="ifYouDoNotGetTheEmail">Falls du keine E-Mail innerhalb der nächsten 5 Minuten erhältst:</string>
   <string name="checkAllEmailFolders">Überprüfe alle Müll-, Spam- und anderen Ordner</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Überprüfen, ob %s deine E-Mail-Adresse ist</string>
+  <string name="verifyYourAddress">Überprüfen, ob %s deine E-Mail-Adresse ist</string>
   <string name="weHaveSentYouAnEmailTo">Wir haben dir eine Email an %s gesendet. Klicke auf den Link in der E-Mail, um dein Passwort zurück zu setzen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Durch die Anmeldung wird den %s zugestimmt.</string>
   <string name="readAboutOur">Lies unsere %s.</string>
