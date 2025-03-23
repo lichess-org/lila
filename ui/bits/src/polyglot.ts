@@ -13,7 +13,7 @@ export async function makeBookFromPolyglot(init: {
   bytes: DataView;
   cover?: boolean | { boardSize: number };
 }): Promise<PolyglotResult> {
-  return await site.asset.loadEsm<PolyglotResult>('bits.polyglot', { init });
+  return site.asset.loadEsm<PolyglotResult>('bits.polyglot', { init });
 }
 
 export async function makeBookFromPgn(init: {
@@ -23,7 +23,7 @@ export async function makeBookFromPgn(init: {
   progress?: PgnProgress;
   filter?: PgnFilter;
 }): Promise<PolyglotResult> {
-  return await site.asset.loadEsm<PolyglotResult>('bits.polyglot', { init });
+  return site.asset.loadEsm<PolyglotResult>('bits.polyglot', { init });
 }
 
 export async function makeCover(init: {

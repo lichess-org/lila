@@ -17,6 +17,7 @@ export interface EditorState {
 
 export interface LichessEditor {
   getFen(): FEN;
+  setFen(fen: FEN): void;
   setOrientation(o: Color): void;
   setRules(rules: Rules): void;
 }

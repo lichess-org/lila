@@ -1,9 +1,5 @@
 import * as licon from 'common/licon';
-import type { Position } from '../interfaces';
-import { abortable, playable, drawableSwiss, resignable, takebackable } from 'game';
-import { aborted, finished } from 'game/status';
-import { renderClock } from '../clock/clockView';
-import renderCorresClock from '../corresClock/corresClockView';
+import { abortable, playable, drawableSwiss, resignable, takebackable, TopOrBottom } from 'game';
 import { render as renderReplay, analysisButton } from './replay';
 import renderExpiration from './expiration';
 import { userHtml } from './user';
@@ -11,8 +7,9 @@ import * as button from './button';
 import type RoundController from '../ctrl';
 import { type LooseVNodes, looseH as h, bind } from 'common/snabbdom';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
+import { anyClockView } from './clock';
 
-function renderPlayer(ctrl: RoundController, position: Position) {
+function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
   const player = ctrl.playerAt(position);
   return ctrl.nvui
     ? undefined
@@ -21,7 +18,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
           h('i.line'),
           h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
         ])
-      : (ctrl.opts.local?.userVNode(player, position) ?? userHtml(ctrl, player, position));
+      : userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
@@ -132,29 +129,6 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
   ];
 };
 
-function whosTurn(ctrl: RoundController, color: Color, position: Position) {
-  const d = ctrl.data;
-  if (finished(d) || aborted(d)) return;
-  return h(
-    'div.rclock.rclock-turn.rclock-' + position,
-    d.game.player === color &&
-      h(
-        'div.rclock-turn__text',
-        d.player.spectator
-          ? i18n.site[d.game.player === 'white' ? 'whitePlays' : 'blackPlays']
-          : i18n.site[d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'],
-      ),
-  );
-}
-
-function anyClock(ctrl: RoundController, position: Position) {
-  const player = ctrl.playerAt(position);
-  if (ctrl.clock) return renderClock(ctrl, player, position);
-  else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
-    return renderCorresClock(ctrl.corresClock!, player.color, position, ctrl.data.game.player);
-  else return whosTurn(ctrl, player.color, position);
-}
-
 export const renderTable = (ctrl: RoundController): LooseVNodes => [
   h('div.round__app__table'),
   renderExpiration(ctrl),
@@ -169,6 +143,6 @@ export const renderTable = (ctrl: RoundController): LooseVNodes => [
    * since they occupy the same grid cell. This is required to avoid
    * having two columns with min-content, which causes the horizontal moves
    * to overflow: it couldn't be contained in the parent anymore */
-  anyClock(ctrl, 'top'),
-  anyClock(ctrl, 'bottom'),
+  anyClockView(ctrl, 'top'),
+  anyClockView(ctrl, 'bottom'),
 ];

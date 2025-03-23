@@ -1,13 +1,13 @@
 import { type VNode, looseH as h, onInsert } from 'common/snabbdom';
 import type RoundController from '../ctrl';
-import { renderClock } from '../clock/clockView';
+import { renderClock } from 'game/clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../util';
-import type { Step, Position, NvuiPlugin } from '../interfaces';
-import { type Player, playable } from 'game';
+import type { Step, NvuiPlugin } from '../interfaces';
+import { type Player, type TopOrBottom, playable } from 'game';
 import {
   type MoveStyle,
   renderSan,
@@ -364,11 +364,11 @@ const sendMove = (uciOrDrop: string | DropMove, ctrl: RoundController, premove: 
     ? ctrl.socket.send('move', { u: uciOrDrop }, { ackable: true })
     : ctrl.sendNewPiece(uciOrDrop.role, uciOrDrop.key, premove);
 
-function anyClock(ctrl: RoundController, position: Position): VNode | undefined {
+function anyClock(ctrl: RoundController, position: TopOrBottom): VNode | undefined {
   const d = ctrl.data,
     player = ctrl.playerAt(position);
   return (
-    (ctrl.clock && renderClock(ctrl, player, position)) ||
+    (ctrl.clock && renderClock(ctrl.clock, player.color, position, _ => [])) ||
     (d.correspondence && renderCorresClock(ctrl.corresClock!, player.color, position, d.game.player))
   );
 }

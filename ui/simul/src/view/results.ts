@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import * as status from 'game/status';
+import { status } from 'game';
 import type { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
 import type SimulCtrl from '../ctrl';
@@ -8,7 +8,7 @@ export default function (ctrl: SimulCtrl) {
   return h('div.results', [
     h(
       'div',
-      trans(ctrl, i18n.site.nbPlaying, p => p.game.status < status.ids.aborted),
+      trans(ctrl, i18n.site.nbPlaying, p => p.game.status < status.aborted),
     ),
     h(
       'div',
@@ -16,7 +16,7 @@ export default function (ctrl: SimulCtrl) {
     ),
     h(
       'div',
-      trans(ctrl, i18n.site.nbDraws, p => p.game.status >= status.ids.mate && !p.game.winner),
+      trans(ctrl, i18n.site.nbDraws, p => p.game.status >= status.mate && !p.game.winner),
     ),
     h(
       'div',

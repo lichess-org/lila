@@ -1,0 +1,7 @@
+.bot-game {
+  @include mq-is-col1 {
+    cg-board {
+      box-shadow: none;
+    }
+  }
+}
