@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Speel teen \'n vriend</string>
   <string name="playWithTheMachine">Speel teen die rekenaar</string>
+  <string name="playOffline">Speel vanlyn</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Nooi iemand vir \'n spel, gebruik hierdie URL</string>
   <string name="gameOver">Spel Verby</string>
   <string name="waitingForOpponent">Wag vir uitdager</string>
