@@ -747,7 +747,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
   <string name="ifYouDoNotGetTheEmail">Si vous ne recevez pas le courriel dans les 5 minutes :</string>
   <string name="checkAllEmailFolders">Vérifiez vos dossiers de pourriels et de courriels indésirables</string>
-  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Vérifiez que %s est votre adresse de courriel</string>
+  <string name="verifyYourAddress">Vérifiez que %s est votre adresse de courriel</string>
   <string name="weHaveSentYouAnEmailTo">Nous avons envoyé un email à %s. Cliquez le lien qui s\'y trouve pour réinitialiser votre mot de passe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En vous inscrivant, vous acceptez d\'être lié à nos %s.</string>
   <string name="readAboutOur">En savoir plus sur notre %s.</string>
