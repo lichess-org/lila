@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">സുഹൃത്തിനോടൊപ്പം കളിക്കുക</string>
   <string name="playWithTheMachine">ഗണനികയിനെതിരെ മത്സരിക്കുക</string>
+  <string name="playOffline">ഓഫ്‌ലൈൻ കളിക്കുക</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
