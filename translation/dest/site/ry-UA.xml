@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Бавити против цімборы</string>
   <string name="playWithTheMachine">Бавити против компютора</string>
+  <string name="playOffline">Бавити не у мрежи</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Обы дакого закликати, дайте му се одкликованя</string>
   <string name="gameOver">Бавка довершена</string>
   <string name="waitingForOpponent">Чекаєме противника</string>
