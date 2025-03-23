@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">שחק/י עם חבר/ה</string>
   <string name="playWithTheMachine">שחק/י מול המחשב</string>
+  <string name="playOffline">שחק/י (לא מקוון)</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
