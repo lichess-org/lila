@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Найзтайгаа тоглох</string>
   <string name="playWithTheMachine">Компьютертай тоглох</string>
+  <string name="playOffline">Сүлжээний бус орчинд тоглох</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Тоглох хүндээ энэ холбоос хаягыг илгээж өрөгт урина уу</string>
   <string name="gameOver">Өрөг өндөрлөлөө</string>
   <string name="waitingForOpponent">Өрсөлдөгчийг хүлээж байна</string>
