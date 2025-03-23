@@ -8,7 +8,7 @@ export function renderClock(
   ctrl: ClockCtrl,
   color: Color,
   position: TopOrBottom,
-  onTheSide: (ctrl: ClockCtrl, color: Color, position: TopOrBottom) => LooseVNodes,
+  onTheSide: (color: Color, position: TopOrBottom) => LooseVNodes,
 ): VNode {
   const millis = ctrl.millisOf(color),
     isRunning = color === ctrl.times.activeColor;
@@ -34,7 +34,7 @@ export function renderClock(
       : [
           ctrl.showBar && ctrl.opts.bothPlayersHavePlayed() ? showBar(ctrl, color) : undefined,
           h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
-          ...onTheSide(ctrl, color, position),
+          ...onTheSide(color, position),
         ],
   );
 }

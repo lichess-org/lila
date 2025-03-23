@@ -1,11 +1,10 @@
 import { type LooseVNode, looseH as h, bind } from 'common/snabbdom';
 import * as licon from 'common/licon';
-import { ClockCtrl } from 'game/clock/clockCtrl';
 import { renderClock } from 'game/clock/clockView';
 import RoundController from '../ctrl';
 import renderCorresClock from '../corresClock/corresClockView';
 import { moretime } from './button';
-import { aborted, finished, TopOrBottom } from 'game';
+import { aborted, bothPlayersHavePlayed, finished, playable, TopOrBottom, TournamentRanks } from 'game';
 import { justIcon } from '../util';
 
 export const anyClockView = (ctrl: RoundController, position: TopOrBottom): LooseVNode => {
@@ -16,11 +15,12 @@ export const anyClockView = (ctrl: RoundController, position: TopOrBottom): Loos
   else return whosTurn(ctrl, player.color, position);
 };
 
-const onTheSide = (round: RoundController) => (ctrl: ClockCtrl, color: Color, position: TopOrBottom) => {
+const onTheSide = (round: RoundController) => (color: Color, position: TopOrBottom) => {
   const isPlayer = !round.data.player.spectator && round.data.player.color == color;
+  const ranks = round.data.tournament?.ranks || round.data.swiss?.ranks;
   return [
-    renderBerserk(ctrl, color, position) || (isPlayer ? goBerserk(ctrl, color) : moretime(round)),
-    clockSide(ctrl, color, position),
+    renderBerserk(round, color, position) || (isPlayer ? goBerserk(round, color) : moretime(round)),
+    clockSide(round, color, position, ranks),
   ];
 };
 
@@ -39,24 +39,25 @@ function whosTurn(ctrl: RoundController, color: Color, position: TopOrBottom) {
   );
 }
 
-const showBerserk = (ctrl: ClockCtrl, color: Color): boolean =>
-  ctrl.opts.hasGoneBerserk(color) && !ctrl.opts.bothPlayersHavePlayed() && ctrl.opts.playable();
+const showBerserk = (ctrl: RoundController, color: Color): boolean =>
+  ctrl.hasGoneBerserk(color) && !bothPlayersHavePlayed(ctrl.data) && playable(ctrl.data);
 
-const renderBerserk = (ctrl: ClockCtrl, color: Color, position: TopOrBottom) =>
+const renderBerserk = (ctrl: RoundController, color: Color, position: TopOrBottom) =>
   showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon(licon.Berserk)) : null;
 
-const goBerserk = (ctrl: ClockCtrl, color: Color) =>
+const goBerserk = (ctrl: RoundController, color: Color) =>
   showBerserk(ctrl, color) &&
   h('button.fbt.go-berserk', {
     attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', 'data-icon': licon.Berserk },
-    hook: bind('click', ctrl.opts.goBerserk),
+    hook: bind('click', ctrl.goBerserk),
   });
 
-const clockSide = (ctrl: ClockCtrl, color: Color, position: TopOrBottom) =>
-  ctrl.opts.tournamentRanks() &&
+const clockSide = (
+  ctrl: RoundController,
+  color: Color,
+  position: TopOrBottom,
+  ranks: TournamentRanks | undefined,
+) =>
+  ranks &&
   !showBerserk(ctrl, color) &&
-  h(
-    'div.tour-rank.' + position,
-    { attrs: { title: 'Current tournament rank' } },
-    '#' + ctrl.opts.tournamentRanks()?.[color],
-  );
+  h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]);

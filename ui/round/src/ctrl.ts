@@ -651,8 +651,6 @@ export default class RoundController implements MoveRootCtrl {
     playable: () => game.playable(this.data),
     bothPlayersHavePlayed: () => game.bothPlayersHavePlayed(this.data),
     hasGoneBerserk: this.hasGoneBerserk,
-    goBerserk: this.goBerserk,
-    tournamentRanks: () => this.data.tournament?.ranks || this.data.swiss?.ranks,
     asPlayer: this.data.player.spectator ? undefined : this.data.player.color,
     soundColor:
       this.data.simul || this.data.player.spectator || !this.data.pref.clockSound
