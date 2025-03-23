@@ -748,7 +748,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vires o e-mail, verifica outros locais onde este possa estar, como pastas de lixo, spam, social ou outras.</string>
   <string name="ifYouDoNotGetTheEmail">Se não receberes o e-mail dentro de 5 minutos:</string>
   <string name="checkAllEmailFolders">Verifica as pastas de lixo, spam e as outras</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Verifica se %s é teu endereço de email</string>
+  <string name="verifyYourAddress">Verifica se %s é teu endereço de email</string>
   <string name="weHaveSentYouAnEmailTo">Enviámos-te um e-mail para %s. Clica no link nesse e-mail para redefinires a tua palavra-passe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ao criares uma conta, concordas comprometeres-te com os nossos %s.</string>
   <string name="readAboutOur">Lê sobre a nossa %s.</string>
