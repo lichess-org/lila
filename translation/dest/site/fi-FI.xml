@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Pelaa kaveria vastaan</string>
   <string name="playWithTheMachine">Pelaa tietokonetta vastaan</string>
+  <string name="playOffline">Pelaa offline-tilassa</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
