@@ -742,7 +742,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">As jy nie die e-pos sien nie, kyk na ander plekke waar dit kan wees, soos jou gemorspos, sosiaal en ander leêrs.</string>
   <string name="ifYouDoNotGetTheEmail">Indien jy nie die e-pos binne 5 minute ontvang nie:</string>
   <string name="checkAllEmailFolders">Kyk in al jou gemorspos- en ander vouers</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Maak seker dat %s wel jou adres is</string>
+  <string name="verifyYourAddress">Maak seker dat %s wel jou adres is</string>
   <string name="weHaveSentYouAnEmailTo">Ons het \'n e-pos na %s gestuur. Klik die skakel in die e-pos om die wagwoord te herstel.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Deur te regisreer, stem jy in om aan ons %s gebonde te wees.</string>
   <string name="readAboutOur">Lees oor ons %s.</string>
