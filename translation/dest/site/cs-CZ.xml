@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Hrát proti kamarádovi</string>
   <string name="playWithTheMachine">Hrát proti počítači</string>
+  <string name="playOffline">Hrát offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
