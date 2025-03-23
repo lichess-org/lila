@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spēlēt ar draugu</string>
   <string name="playWithTheMachine">Spēlēt ar datoru</string>
+  <string name="playOffline">Spēlēt bezsaistē</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lai uzaicinātu kādu spēlēt, iedod šo saiti</string>
   <string name="gameOver">Spēle galā</string>
   <string name="waitingForOpponent">Gaidām pretinieku</string>
