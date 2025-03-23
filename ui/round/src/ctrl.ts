@@ -921,9 +921,7 @@ export default class RoundController implements MoveRootCtrl {
           window.addEventListener('beforeunload', e => {
             if (site.unload.expected || !this.isPlaying()) return;
             this.socket.send('bye2');
-            const msg = 'There is a game in progress!';
-            (e || window.event).returnValue = msg;
-            return msg;
+            e.preventDefault();
           });
 
         if (!this.nvui && d.pref.submitMove) {
