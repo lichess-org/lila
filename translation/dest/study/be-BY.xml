@@ -108,7 +108,7 @@
   <string name="loadAPositionFromFen">Загрузіць пазіцыю з FEN</string>
   <string name="loadAGameFromPgn">Загрузіць гульні з PGN</string>
   <string name="automatic">Аўтаматычна</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Устаўце сюды ваш PGN тэкст, не больш за %s гульню</item>
     <item quantity="few">Устаўце сюды ваш PGN тэкст, не больш за %s гульні</item>
     <item quantity="many">Устаўце сюды ваш PGN тэкст, не больш за %s гульняў</item>
