@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Telva móti einum vini</string>
   <string name="playWithTheMachine">Telva móti telduni</string>
+  <string name="playOffline">Telva ótongt (offline)</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Bjóða einum at telva við at geva honum hesa adressuna</string>
   <string name="gameOver">Talvið er liðugt</string>
   <string name="waitingForOpponent">Bíða eftir móttelvara</string>
