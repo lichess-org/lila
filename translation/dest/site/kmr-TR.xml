@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Bi hevalekê re bilîze</string>
   <string name="playWithTheMachine">Bi kompîtûrê ra bilîze</string>
+  <string name="playOffline">Derhêl bilîze</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Vê girêdankê parve bike da ku hevalên te bi te ra bilîzin</string>
   <string name="gameOver">Lîstik bi dawî bû</string>
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
