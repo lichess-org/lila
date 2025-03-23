@@ -3,6 +3,6 @@
   <string name="settings">Կարգավորումներ</string>
   <string name="closeAccount">Փակել հաշիվը</string>
   <string name="managedAccountCannotBeClosed">Ձեր հաշիվը կառավարվում է և չի կարող փակվել։</string>
-  <string name="cantOpenSimilarAccount">Դուք չեք կարողանա ստեղծել նույն անունով մասնակցային հաշիվ, նույնիսկ եթե տառաշարերը (մեծատառ-փոքրատառ) տարբերվեն։</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Դուք չեք կարողանա ստեղծել նույն անունով մասնակցային հաշիվ, նույնիսկ եթե տառաշարերը (մեծատառ-փոքրատառ) տարբերվեն։</string>
   <string name="thisAccountIsClosed">Այս հաշիվը փակված է:</string>
 </resources>
