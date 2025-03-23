@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">o musi lon poka pi jan pona</string>
   <string name="playWithTheMachine">o musi lon poka ilo</string>
+  <string name="playOffline">musi lon ala ilo sona</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">sina wile kama e jan la o pana e linja ni</string>
   <string name="gameOver">musi li pini</string>
   <string name="waitingForOpponent">o awen. jan ante li kama.</string>
