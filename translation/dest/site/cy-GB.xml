@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Chwarae efo ffrind</string>
   <string name="playWithTheMachine">Chwarae yn erbyn y cyfrifiadur</string>
+  <string name="playOffline">Chwarae all-lein</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">I wahodd rhywun i chwarae, rhowch y cyfeiriad hwn</string>
   <string name="gameOver">Gêm drosodd</string>
   <string name="waitingForOpponent">Aros am wrthwynebydd</string>
