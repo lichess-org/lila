@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">دوست کے ساتھ کھیلیں</string>
   <string name="playWithTheMachine">کمپیوٹر کے ساتھ کھیلیں</string>
+  <string name="playOffline">بغیر انٹرنیٹ کے کھیلیں</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">کھیل کی دعوت کے لیے اس رابطے کا استعمال کریں</string>
   <string name="gameOver">کھیل ختم</string>
   <string name="waitingForOpponent">حریف کا انتظار</string>
