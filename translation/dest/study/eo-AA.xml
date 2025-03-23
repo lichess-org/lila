@@ -102,7 +102,7 @@
   <string name="loadAPositionFromFen">Ŝarĝi posicion el FEN kodo</string>
   <string name="loadAGameFromPgn">Ŝarĝi ludon el PGN</string>
   <string name="automatic">Aŭtomata</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Algluu ĉi tie vian PGN kodon, maksimume ĝis %s ludo</item>
     <item quantity="other">Algluu ĉi tie vian PGN kodon, ĝis maksimume %s ludoj</item>
   </plurals>
