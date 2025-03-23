@@ -3,7 +3,7 @@
   <string name="settings">Nastavitve</string>
   <string name="closeAccount">Zapri račun</string>
   <string name="managedAccountCannotBeClosed">Vaš račun je upravljan in ga ni mogoče zapreti.</string>
-  <string name="cantOpenSimilarAccount">Računa z enakim imenom ne boste mogli odpreti, tudi če z drugačnimi velikostmi črk.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Računa z enakim imenom ne boste mogli odpreti, tudi če z drugačnimi velikostmi črk.</string>
   <string name="cancelKeepAccount">Prekliči in obdrži moj račun</string>
   <string name="closeAccountAreYouSure">Ali ste prepričani, da želite zapreti ta račun?</string>
   <string name="thisAccountIsClosed">Račun je zaprt.</string>
