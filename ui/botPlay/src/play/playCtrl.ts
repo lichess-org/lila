@@ -13,6 +13,7 @@ import { playMoveSounds } from './sound';
 import { PromotionCtrl } from 'chess/promotion';
 import type { WithGround } from 'chess/ground';
 import { ClockCtrl, ClockOpts } from 'game/clock/clockCtrl';
+import { TopOrBottom } from 'game';
 
 export interface PlayOpts {
   pref: Pref;
@@ -55,7 +56,9 @@ export default class PlayCtrl {
 
   isOnLastPly = () => this.board.onPly === this.lastPly();
 
-  bottomColor = () => (this.flipped() ? opposite(this.game.pov) : this.game.pov);
+  colorAt = (position: TopOrBottom) => (position === 'bottom' ? this.game.pov : opposite(this.game.pov));
+
+  bottomColor = () => this.colorAt(this.flipped() ? 'top' : 'bottom');
 
   flip = () => {
     this.flipped.toggle();

@@ -13,6 +13,8 @@ import { StatusData, statusOf as viewStatus } from 'game/view/status';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import boardMenu from './boardMenu';
 import { renderMaterialDiffs } from 'game/view/material';
+import { TopOrBottom } from 'game';
+import { renderClock } from 'game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>
   h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [
@@ -25,12 +27,17 @@ const viewTable = (ctrl: PlayCtrl) => {
   const diffs = materialDiffs(ctrl);
   return [
     viewOpponent(ctrl.opts.bot, diffs[0]),
+    viewClock(ctrl, 'top'),
     viewMoves(ctrl),
     viewNavigation(ctrl),
     viewActions(ctrl),
+    viewClock(ctrl, 'bottom'),
     diffs[1],
   ];
 };
+
+const viewClock = (ctrl: PlayCtrl, position: TopOrBottom) =>
+  ctrl.clock && renderClock(ctrl.clock, ctrl.colorAt(position), position, () => []);
 
 const viewActions = (ctrl: PlayCtrl) =>
   h('div.bot-game__actions', [

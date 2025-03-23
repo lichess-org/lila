@@ -18,8 +18,8 @@ $col1-moves-height: 4em;
   display: grid;
 
   @include mq-is-col1 {
-    grid-template-rows: auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto auto auto auto 0;
-    grid-template-areas: 'pocket-top' 'user-top' 'mat-top' 'board' 'mat-bot' 'user-bot' 'pocket-bot' 'controls' 'moves' 'voice' 'kb-move';
+    grid-template-rows: $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto auto auto 0;
+    grid-template-areas: 'user-top' 'mat-top' 'board' 'mat-bot' 'user-bot' 'controls' 'moves' 'voice' 'kb-move';
   }
 
   @include mq-at-least-col2 {
@@ -41,7 +41,7 @@ $col1-moves-height: 4em;
     grid-column-gap: $block-gap;
 
     &__table {
-      grid-area: 4 / 2 / 10 / 3;
+      grid-area: 4 / 2 / 9 / 3;
     }
 
     .keyboard-move {
@@ -81,4 +81,10 @@ $col1-moves-height: 4em;
 }
 .material-bottom {
   grid-area: mat-bot;
+}
+.rclock-top {
+  grid-area: clock-top;
+}
+.rclock-bottom {
+  grid-area: clock-bot;
 }
