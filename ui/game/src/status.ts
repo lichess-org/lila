@@ -1,4 +1,4 @@
-import type { GameData, StatusName, Status } from './interfaces';
+import type { GameData } from './interfaces';
 
 // https://github.com/lichess-org/scalachess/blob/master/core/src/main/scala/Status.scala
 
@@ -17,6 +17,28 @@ export const status: { [name in StatusName]: number } = {
   unknownFinish: 38,
   variantEnd: 60,
 };
+
+export type StatusName =
+  | 'created'
+  | 'started'
+  | 'aborted'
+  | 'mate'
+  | 'resign'
+  | 'stalemate'
+  | 'timeout'
+  | 'draw'
+  | 'outoftime'
+  | 'noStart'
+  | 'cheat'
+  | 'variantEnd'
+  | 'unknownFinish';
+
+export interface Status {
+  id: StatusId;
+  name: StatusName;
+}
+
+export type StatusId = number;
 
 export const statusOf = (name: StatusName): Status => ({ id: status[name], name });
 

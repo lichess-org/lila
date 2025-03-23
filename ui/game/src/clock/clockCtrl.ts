@@ -10,6 +10,7 @@ export interface ClockOpts {
   nvui: boolean;
 }
 
+// JSON data from the server
 export interface ClockData {
   running: boolean;
   initial: Seconds;
@@ -17,9 +18,11 @@ export interface ClockData {
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
+  moretime: Seconds;
+}
+export interface ClockPref {
   showTenths: ShowClockTenths;
   showBar: boolean;
-  moretime: number;
 }
 
 interface Times {
@@ -48,6 +51,7 @@ interface EmergSound {
 
 interface ClockDeps {
   clock: ClockData;
+  pref: ClockPref;
   ticking: Color | undefined;
 }
 interface SetData {
@@ -75,10 +79,7 @@ export class ClockCtrl {
   timeRatioDivisor: number;
   emergMs: Millis;
 
-  elements = {
-    white: {},
-    black: {},
-  } as ByColor<ClockElements>;
+  elements: ByColor<ClockElements> = { white: {}, black: {} };
 
   private tickCallback?: number;
 
@@ -88,13 +89,13 @@ export class ClockCtrl {
   ) {
     const cdata = d.clock;
 
-    if (cdata.showTenths === ShowClockTenths.Never) this.showTenths = () => false;
+    if (d.pref.showTenths === ShowClockTenths.Never) this.showTenths = () => false;
     else {
-      const cutoff = cdata.showTenths === ShowClockTenths.Below10Secs ? 10000 : 3600000;
+      const cutoff = d.pref.showTenths === ShowClockTenths.Below10Secs ? 10000 : 3600000;
       this.showTenths = time => time < cutoff;
     }
 
-    this.showBar = cdata.showBar && !this.opts.nvui && !reducedMotion();
+    this.showBar = d.pref.showBar && !this.opts.nvui && !reducedMotion();
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 

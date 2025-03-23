@@ -1,3 +1,5 @@
+import { Status } from './status';
+
 export interface GameData {
   game: Game;
   player: Player;
@@ -38,29 +40,7 @@ export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaim
 
 export type TopOrBottom = 'top' | 'bottom';
 
-export interface Status {
-  id: StatusId;
-  name: StatusName;
-}
-
 export * from './status';
-
-export type StatusName =
-  | 'created'
-  | 'started'
-  | 'aborted'
-  | 'mate'
-  | 'resign'
-  | 'stalemate'
-  | 'timeout'
-  | 'draw'
-  | 'outoftime'
-  | 'noStart'
-  | 'cheat'
-  | 'variantEnd'
-  | 'unknownFinish';
-
-export type StatusId = number;
 
 export interface Player {
   id: string;

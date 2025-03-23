@@ -96,7 +96,7 @@ export default class RoundController implements MoveRootCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin | undefined,
   ) {
-    util.massage(opts.data);
+    util.upgradeServerData(opts.data);
 
     const d = (this.data = opts.data);
 
@@ -519,7 +519,7 @@ export default class RoundController implements MoveRootCtrl {
 
   reload = (d: RoundData): void => {
     if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
-    util.massage(d);
+    util.upgradeServerData(d);
     this.data = d;
     this.clearJust();
     this.shouldSendMoveTime = false;
@@ -631,6 +631,10 @@ export default class RoundController implements MoveRootCtrl {
       this.clock ??= new ClockCtrl(
         {
           clock: d.clock,
+          pref: {
+            showTenths: d.pref.clockTenths,
+            showBar: d.pref.clockBar,
+          },
           ticking: this.tickingClockColor(),
         },
         this.makeClockOpts(),

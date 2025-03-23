@@ -265,11 +265,9 @@ export class GameCtrl {
           white: this.live.clock?.white ?? initial,
           black: this.live.clock?.black ?? initial,
           emerg: 0,
-          showTenths: this.opts.pref.clockTenths,
-          showBar: true,
-          moretime: 0,
           running: false,
           since: undefined,
+          moretime: 0,
         }
       : undefined;
   }
