@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Bir arkadaşınla oyna</string>
   <string name="playWithTheMachine">Bilgisayara karşı oyna</string>
+  <string name="playOffline">Çevrimdışı Oyna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
