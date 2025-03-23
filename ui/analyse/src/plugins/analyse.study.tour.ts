@@ -94,7 +94,7 @@ export function initModule(): StudyTour {
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: 'Done',
+          text: i18n.study.done,
           action: tourCtrl.tour.next,
         },
       ],
@@ -199,7 +199,7 @@ class TourCtrl {
   buildTour(steps: Shepherd.Step.StepOptions[]) {
     const buttons: Shepherd.Step.StepOptionsButton[] = [
       {
-        text: 'Next',
+        text: i18n.study.next,
         action: this.tour.next,
       },
     ];

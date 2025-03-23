@@ -2528,6 +2528,7 @@ object I18nKey:
     val `annotatePositionText`: I18nKey = "study:annotatePositionText"
     val `conclusionTitle`: I18nKey = "study:conclusionTitle"
     val `conclusionText`: I18nKey = "study:conclusionText"
+    val `done`: I18nKey = "study:done"
     val `nbChapters`: I18nKey = "study:nbChapters"
     val `nbGames`: I18nKey = "study:nbGames"
     val `nbMembers`: I18nKey = "study:nbMembers"

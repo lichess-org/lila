@@ -4723,6 +4723,8 @@ interface I18n {
     deleteThisChapter: string;
     /** Development */
     development: string;
+    /** Done */
+    done: string;
     /** Download all games */
     downloadAllGames: string;
     /** Download game */
