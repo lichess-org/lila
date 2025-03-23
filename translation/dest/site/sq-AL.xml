@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Luani me një shok</string>
   <string name="playWithTheMachine">Luaj me kompjuterin</string>
+  <string name="playOffline">Luani jashtë interneti</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
