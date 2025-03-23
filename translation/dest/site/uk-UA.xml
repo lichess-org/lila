@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Грати з другом</string>
   <string name="playWithTheMachine">Грати з комп’ютером</string>
+  <string name="playOffline">Грати офлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
