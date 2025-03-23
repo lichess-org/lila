@@ -103,12 +103,12 @@
   <string name="loadAPositionFromFen">Cargar unha posición dende o FEN</string>
   <string name="loadAGameFromPgn">Cargar as partidas dende o PGN</string>
   <string name="automatic">Automática</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="%s is the number of games. A study may have up to 64 chapters as of February 2025.&#10;&#10;Appears as a hint in a text box that permits the study creator to paste game(s) in PGN format into their code.&#10;&#10;The text for plurals was extended in February 2025. It is long for a placeholder hint. Because of where it is displayed, we encourage you to keep your translation short.&#10;&#10;&quot;PGN&quot; should not be translated or transliterated into a different alphabet or script.">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Pega o teu texto PGN aquí, ata %s partida</item>
     <item quantity="other">Pega aquí o PGN das partidas: por cada unha créase un novo capítulo. O estudo pode conter ata %s capítulos.</item>
   </plurals>
   <string name="urlOfTheGame">Ligazóns das partidas, unha por liña</string>
-  <string name="loadAGameFromXOrY" comment="%1$s is lichess.org %2$s is chessgames.com.&#10;&#10;Users can paste URLs to games from either of these websites and import the games into their studies.">Cargar partidas dende %1$s ou %2$s</string>
+  <string name="loadAGameFromXOrY">Cargar partidas dende %1$s ou %2$s</string>
   <string name="createChapter">Crear capítulo</string>
   <string name="createStudy">Crear estudo</string>
   <string name="editStudy">Editar estudo</string>
