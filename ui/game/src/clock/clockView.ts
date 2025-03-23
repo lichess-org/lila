@@ -2,7 +2,7 @@ import type { ClockElements, ClockCtrl } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
 import { looseH as h, type VNode, LooseVNodes } from 'common/snabbdom';
 import { isCol1 } from 'common/device';
-import { TopOrBottom } from 'game';
+import { TopOrBottom } from '../game';
 
 export function renderClock(
   ctrl: ClockCtrl,

@@ -1,6 +1,5 @@
 import * as licon from 'common/licon';
-import type { Position } from '../interfaces';
-import { abortable, playable, drawableSwiss, resignable, takebackable } from 'game';
+import { abortable, playable, drawableSwiss, resignable, takebackable, TopOrBottom } from 'game';
 import { render as renderReplay, analysisButton } from './replay';
 import renderExpiration from './expiration';
 import { userHtml } from './user';
@@ -10,7 +9,7 @@ import { type LooseVNodes, looseH as h, bind } from 'common/snabbdom';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import { anyClockView } from './clock';
 
-function renderPlayer(ctrl: RoundController, position: Position) {
+function renderPlayer(ctrl: RoundController, position: TopOrBottom) {
   const player = ctrl.playerAt(position);
   return ctrl.nvui
     ? undefined

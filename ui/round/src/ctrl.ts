@@ -41,7 +41,6 @@ import type {
   SocketDrop,
   SocketOpts,
   MoveMetadata,
-  Position,
   NvuiPlugin,
   RoundTour,
   ApiMove,
@@ -283,7 +282,7 @@ export default class RoundController implements MoveRootCtrl {
 
   isLate = (): boolean => this.replaying() && playing(this.data);
 
-  playerAt = (position: Position): game.Player =>
+  playerAt = (position: game.TopOrBottom): game.Player =>
     this.flip != (position === 'top') ? this.data.opponent : this.data.player;
 
   flipNow = (): void => {

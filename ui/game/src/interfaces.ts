@@ -36,6 +36,8 @@ export interface Game {
 }
 export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
+export type TopOrBottom = 'top' | 'bottom';
+
 export interface Status {
   id: StatusId;
   name: StatusName;

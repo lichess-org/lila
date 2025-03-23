@@ -1,13 +1,12 @@
 import { looseH as h, type VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
-import type { Player } from 'game';
-import type { Position } from '../interfaces';
+import type { Player, TopOrBottom } from 'game';
 import type RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'common/userLink';
 import { wsAverageLag } from 'common/socket';
 import { defined } from 'common';
 
-export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {
+export function userHtml(ctrl: RoundController, player: Player, position: TopOrBottom): VNode {
   const d = ctrl.data,
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],

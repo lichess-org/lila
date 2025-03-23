@@ -180,8 +180,6 @@ export interface MoveMetadata extends CgMoveMetadata {
   justCaptured?: Piece;
 }
 
-export type Position = 'top' | 'bottom';
-
 export interface RoundTour {
   corresRematchOffline: () => void;
 }
