@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">بازی با دوستان</string>
   <string name="playWithTheMachine">بازی با رایانه</string>
+  <string name="playOffline">بازی بُرون‌خط</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
