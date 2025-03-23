@@ -10,6 +10,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     lightUserApi: lila.core.user.LightUserApi,
     lightUserSync: lila.core.LightUser.GetterSync,
+    userApi: lila.core.user.UserApi,
     gameProxy: lila.core.game.GameProxy,
     system: ActorSystem,
     onTvGame: lila.game.core.OnTvGame,

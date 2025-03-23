@@ -363,6 +363,7 @@ object mon:
   object tv:
     object selector:
       def candidates(channel: String) = histogram("tv.selector.candidates").withTag("channel", channel)
+      def cheats(channel: String)     = histogram("tv.selector.cheats").withTag("channel", channel)
     object streamer:
       def present(n: String) = gauge("tv.streamer.present").withTag("name", n)
       def twitch             = future("tv.streamer.twitch")

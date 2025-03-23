@@ -10,7 +10,8 @@ final private[tv] class TvSyncActor(
     lightUserApi: lila.core.user.LightUserApi,
     onTvGame: lila.game.core.OnTvGame,
     gameProxy: lila.core.game.GameProxy,
-    rematches: lila.game.Rematches
+    rematches: lila.game.Rematches,
+    userApi: lila.core.user.UserApi
 )(using Executor, Scheduler)
     extends SyncActor:
 
@@ -24,7 +25,8 @@ final private[tv] class TvSyncActor(
       onSelect = this.!,
       gameProxy.game,
       rematches.getAcceptedId,
-      lightUserApi.sync
+      lightUserApi.sync,
+      userApi
     )
   }.toMap
 
