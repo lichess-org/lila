@@ -1,7 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="voiceCommands">හඬ විධාන</string>
-  <string name="watchTheVideoTutorial">වීඩියෝ නිබන්ධනය බලන්න</string>
-  <string name="instructions1">හඬ හඳුනාගැනීම ටොගල කිරීමට %1$s බොත්තම, මෙම උදවු සංවාදය විවෘත කිරීමට %2$s බොත්තම සහ කථන සැකසීම් වෙනස් කිරීමට %3$s මෙනුව භාවිත කරන්න.</string>
-  <string name="instructions2">අපට විශ්වාස නැති විට අපි බහු චලනයන් සඳහා ඊතල පෙන්වමු. එය තේරීමට චලනය ඊතලයක වර්ණය හෝ අංකය කථා කරන්න.</string>
-</resources>
+<resources></resources>
