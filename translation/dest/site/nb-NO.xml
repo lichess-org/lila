@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spill mot en venn</string>
   <string name="playWithTheMachine">Spill mot maskinen</string>
+  <string name="playOffline">Spill frakoblet</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">For å invitere noen til å spille, gi dem denne lenken</string>
   <string name="gameOver">Partiet er avsluttet</string>
   <string name="waitingForOpponent">Venter på motstander</string>
