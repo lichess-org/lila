@@ -114,7 +114,7 @@
   <string name="loadAPositionFromFen">تحميل موقف من FEN</string>
   <string name="loadAGameFromPgn">استرد لعبة من PGN</string>
   <string name="automatic">تلقائي</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="zero">ألصق نص PGN هنا، حتى %s مباراة</item>
     <item quantity="one">الصق نص الPGN هنا، حتى %s لعبة واحدة</item>
     <item quantity="two">ألصق نص PGN هنا، حتى %s مباراة</item>
