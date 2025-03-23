@@ -45,16 +45,15 @@ final private[tv] class ChannelSyncActor(
       history = game.id :: history.take(2)
 
     case TvSyncActor.Select =>
+      lila.mon.tv.selector.candidates(channel.name).record(candidateIds.count)
       candidateIds.keys
         .parallel(proxyGame)
-        .map(
+        .map:
           _.view
-            .collect {
+            .collect:
               case Some(g) if channel.isFresh(g) => g
-            }
             .toList
-        )
-        .foreach { candidates =>
+        .foreach: candidates =>
           oneId
             .so(proxyGame)
             .foreach:
@@ -67,7 +66,6 @@ final private[tv] class ChannelSyncActor(
               -(g.averageUsersRating.so(_.value))
             .take(50)
             .map(_.id)
-        }
 
   def addCandidate(game: Game): Unit = candidateIds.put(game.id)
 
