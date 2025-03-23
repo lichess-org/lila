@@ -747,7 +747,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
   <string name="ifYouDoNotGetTheEmail">Mezua ez baduzu 5 minutuan jasotzen:</string>
   <string name="checkAllEmailFolders">Begiratu spam karpetan</string>
-  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Egiaztatu %s zure eposta helbidea dela</string>
+  <string name="verifyYourAddress">Egiaztatu %s zure eposta helbidea dela</string>
   <string name="weHaveSentYouAnEmailTo">Mezu bat bidali dugu %s helbidera. Egizu klik mezuan zure pasahitza berrizteko.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Izena ematean, gure %s onartzen dituzu.</string>
   <string name="readAboutOur">Irakurri gure %s.</string>
