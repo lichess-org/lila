@@ -103,6 +103,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ApiHog            extends Permission("API_HOG", "API hog")
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam       extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
+  case BotEditor         extends Permission("BOT_EDITOR", "Bot editor")
   case TimeoutMod
       extends Permission(
         "TIMEOUT_MOD",
@@ -188,6 +189,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
       extends Permission(
         "ADMIN",
         List(
+          BotEditor,
           LichessTeam,
           UserSearch,
           PrizeBan,
@@ -243,7 +245,7 @@ object Permission:
   val all: Set[Permission] = values.toSet
 
   val nonModPermissions: Set[Permission] =
-    Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, BroadcastTeam, ApiHog)
+    Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, BroadcastTeam, ApiHog, BotEditor)
 
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 

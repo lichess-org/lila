@@ -36,10 +36,14 @@ export interface Game {
 }
 export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
+export type TopOrBottom = 'top' | 'bottom';
+
 export interface Status {
   id: StatusId;
   name: StatusName;
 }
+
+export * from './status';
 
 export type StatusName =
   | 'created'
@@ -84,10 +88,7 @@ export interface Player {
   blindfold?: boolean;
 }
 
-export interface TournamentRanks {
-  white: number;
-  black: number;
-}
+export type TournamentRanks = ByColor<number>;
 
 export interface Tournament {
   id: string;
@@ -158,10 +159,6 @@ export interface Perf {
   prov?: boolean;
 }
 
-export interface Ctrl {
-  data: GameData;
-}
-
 export interface Blurs {
   nb: number;
   percent: number;
@@ -177,7 +174,7 @@ export interface Hold {
 export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
-  status(ctrl: Ctrl): string;
+  status(data: GameData): string;
 }
 
 export interface CheckState {
@@ -197,4 +194,13 @@ export type MaterialDiffSide = {
 export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
+}
+
+export interface RoundStep {
+  ply: Ply;
+  fen: FEN;
+  san: San;
+  uci: Uci;
+  check?: boolean;
+  crazy?: Record<string, any>;
 }

@@ -5,8 +5,8 @@ import { type Stage, type Level, byId as stageById } from '../stage/list';
 import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
-import type { WithGround } from '../util';
 import { pubsub } from 'common/pubsub';
+import type { WithGround } from 'chess/ground';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
