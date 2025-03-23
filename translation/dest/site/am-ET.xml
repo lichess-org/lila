@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">ከጓደኛዎ ጋር ይጫወቱ</string>
   <string name="playWithTheMachine">ከኮምፒውተር ጋር ይጫወቱ</string>
+  <string name="playOffline">ከመስመር ውጭ ለመጫወት</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">ሌላ ሰው ለመጋበዝ ፣ ይህን ማስፈንጠሪያ ያጋሩ</string>
   <string name="gameOver">ጨዋታው አልቋል</string>
   <string name="waitingForOpponent">ተጫዋቹን እየጠበቀ</string>
