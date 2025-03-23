@@ -114,61 +114,52 @@ export function initModule(): StudyTour {
 
     const steps: Shepherd.Step.StepOptions[] = [
       {
-        title: "Let's create a study chapter",
-        text:
-          'A study can have several chapters.<br>' +
-          'Each chapter has a distinct move tree,<br>' +
-          'and can be created in various ways.',
+        title: i18n.study.createChapterTitle,
+        text: i18n.study.createChapterText,
         attachTo: { element: `${viewSel} label[for=chapter-name]`, on: 'left' },
       },
       {
-        title: 'From initial position',
-        text: 'Just a board setup for a new game.<br>' + 'Suited to explore openings.',
+        title: i18n.study.fromInitialPositionTitle,
+        text: i18n.study.fromInitialPositionText,
         attachTo: { element: `${viewSel} .tabs-horiz .init`, on: 'top' },
         when: onTab('init'),
       },
       {
-        title: 'Custom position',
-        text: 'Setup the board your way.<br>' + 'Suited to explore endgames.',
+        title: i18n.study.customPositionTitle,
+        text: i18n.study.customPositionText,
         attachTo: { element: `${viewSel} .tabs-horiz .edit`, on: 'bottom' },
         when: onTab('edit'),
       },
       {
-        title: 'Load an existing lichess game',
-        text:
-          'Paste a lichess game URL<br>' +
-          '(like lichess.org/7fHIU0XI)<br>' +
-          'to load the game moves in the chapter.',
+        title: i18n.study.loadExistingLichessGameTitle,
+        text: i18n.study.loadExistingLichessGameText,
         attachTo: { element: `${viewSel} .tabs-horiz .game`, on: 'top' },
         when: onTab('game'),
       },
       {
-        title: 'From a FEN string',
-        text:
-          'Paste a position in FEN format<br>' +
-          '<i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>' +
-          'to start the chapter from a position.',
+        title: i18n.study.fromFenStringTitle,
+        text: i18n.study.fromFenStringText,
         attachTo: { element: `${viewSel} .tabs-horiz .fen`, on: 'top' },
         when: onTab('fen'),
       },
       {
-        title: 'From a PGN game',
-        text: 'Paste a game in PGN format.<br>' + 'to load moves, comments and variations in the chapter.',
+        title: i18n.study.fromPgnGameTitle,
+        text: i18n.study.fromPgnGameText,
         attachTo: { element: `${viewSel} .tabs-horiz .pgn`, on: 'top' },
         when: onTab('pgn'),
       },
       {
-        title: 'Studies support variants',
-        text: 'Yes, you can study crazyhouse,<br>' + 'and all lichess variants!',
+        title: i18n.study.variantsAreSupportedTitle,
+        text: i18n.study.variantsAreSupportedText,
         attachTo: { element: `${viewSel} label[for=chapter-variant]`, on: 'left' },
         when: onTab('init'),
       },
       {
-        title: 'Thanks for your time',
-        text: 'Chapters are saved forever.<br>' + 'Have fun organizing your chess content!',
+        title: i18n.study.conclusionTitle,
+        text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: 'Done',
+            text: i18n.study.done,
             action: tourCtrl.tour.next,
           },
         ],

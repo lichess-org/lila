@@ -189,4 +189,19 @@
   <string name="conclusionTitle">Thanks for your time</string>
   <string name="conclusionText">You can find your &lt;a href='/study/mine/hot'&gt;previous studies&lt;/a&gt; from your profile page.&lt;br&gt;There is also a &lt;a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'&gt;blog post about studies&lt;/a&gt;.&lt;br&gt;Power users might want to press "?" to see keyboard shortcuts.&lt;br&gt;Have fun!</string>
   <string name="done" comment="As in: you have completed the tour">Done</string>
+  <string name="createChapterTitle">Let's create a study chapter</string>
+  <string name="createChapterText">A study can have several chapters.&lt;br&gt;Each chapter has a distinct move tree,&lt;br&gt;and can be created in various ways.</string>
+  <string name="fromInitialPositionTitle">From initial position</string>
+  <string name="fromInitialPositionText">Just a board setup for a new game.&lt;br&gt;Suited to explore openings.</string>
+  <string name="customPositionTitle">Custom position</string>
+  <string name="customPositionText">Setup the board your way.&lt;br&gt;Suited to explore endgames.</string>
+  <string name="loadExistingLichessGameTitle">Load an existing lichess game</string>
+  <string name="loadExistingLichessGameText">Paste a lichess game URL&lt;br&gt;(like lichess.org/7fHIU0XI)&lt;br&gt;to load the game moves in the chapter.</string>
+  <string name="fromFenStringTitle">From a FEN string</string>
+  <string name="fromFenStringText">Paste a position in FEN format&lt;br&gt;&lt;i&gt;4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w&lt;/i&gt;&lt;br&gt;to start the chapter from a position.</string>
+  <string name="fromPgnGameTitle">From a PGN game</string>
+  <string name="fromPgnGameText">Paste a game in PGN format.&lt;br&gt;to load moves, comments and variations in the chapter.</string>
+  <string name="variantsAreSupportedTitle">Studies support variants</string>
+  <string name="variantsAreSupportedText">Yes, you can study crazyhouse&lt;br&gt;and all lichess variants!</string>
+  <string name="chapterConclusionText">Chapters are saved forever.&lt;br&gt;Have fun organizing your chess content!</string>
 </resources>

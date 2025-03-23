@@ -4641,7 +4641,7 @@ interface I18n {
     alphabetical: string;
     /** Analysis mode */
     analysisMode: string;
-    /** Click the !? button, or a right click on the move list on the right.<br>Annotation glyphs are shared and persisted. */
+    /** Click the !? button, or a right click on the move list on the right.<br>Annotation glyphs are shared and saved. */
     annotatePositionText: string;
     /** Annotate a position */
     annotatePositionTitle: string;
@@ -4663,6 +4663,8 @@ interface I18n {
     blunder: string;
     /** Brilliant move */
     brilliantMove: string;
+    /** Chapters are saved forever.<br>Have fun organizing your chess content! */
+    chapterConclusionText: string;
     /** Chapter PGN */
     chapterPgn: string;
     /** Chapter %s */
@@ -4677,7 +4679,7 @@ interface I18n {
     clearVariations: string;
     /** Clone */
     cloneStudy: string;
-    /** Click the %s button, or right click on the move list on the right.<br>Comments are shared and persisted. */
+    /** Click the %s button, or right click on the move list on the right.<br>Comments are shared and saved. */
     commentPositionText: I18nFormat;
     /** Comment on a position */
     commentPositionTitle: string;
@@ -4701,7 +4703,11 @@ interface I18n {
     counterplay: string;
     /** Create chapter */
     createChapter: string;
-    /** Create a new chapter by clicking the %s button. */
+    /** A study can have several chapters.<br>Each chapter has a distinct move tree,<br>and can be created in various ways. */
+    createChapterText: string;
+    /** Let's create a study chapter */
+    createChapterTitle: string;
+    /** Click the %s button. */
     createNewChaptersText: I18nFormat;
     /** Create new chapters */
     createNewChaptersTitle: string;
@@ -4709,6 +4715,10 @@ interface I18n {
     createStudy: string;
     /** Current chapter URL */
     currentChapterUrl: string;
+    /** Setup the board your way.<br>Suited to explore endgames. */
+    customPositionText: string;
+    /** Custom position */
+    customPositionTitle: string;
     /** Date added (newest) */
     dateAddedNewest: string;
     /** Date added (oldest) */
@@ -4749,6 +4759,18 @@ interface I18n {
     everyone: string;
     /** First */
     first: string;
+    /** Paste a position in FEN format<br><i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>to start the chapter from a position. */
+    fromFenStringText: string;
+    /** From a FEN string */
+    fromFenStringTitle: string;
+    /** Just a board setup for a new game.<br>Suited to explore openings. */
+    fromInitialPositionText: string;
+    /** From initial position */
+    fromInitialPositionTitle: string;
+    /** Paste a game in PGN format.<br>to load moves, comments and variations in the chapter. */
+    fromPgnGameText: string;
+    /** From a PGN game */
+    fromPgnGameTitle: string;
     /** Get a full server-side computer analysis of the mainline. */
     getAFullComputerAnalysis: string;
     /** Need help? Get the tour! */
@@ -4767,7 +4789,7 @@ interface I18n {
     interactiveLesson: string;
     /** Interesting move */
     interestingMove: string;
-    /** Invite members by clicking the %s button.<br>Then decide who can contribute or not. */
+    /** Click the %s button.<br>Then decide who can contribute or not. */
     inviteMembersText: I18nFormat;
     /** Invite members */
     inviteMembersTitle: string;
@@ -4791,6 +4813,10 @@ interface I18n {
     loadAGameFromXOrY: I18nFormat;
     /** Load a position from FEN */
     loadAPositionFromFen: string;
+    /** Paste a lichess game URL<br>(like lichess.org/7fHIU0XI)<br>to load the game moves in the chapter. */
+    loadExistingLichessGameText: string;
+    /** Load an existing lichess game */
+    loadExistingLichessGameTitle: string;
     /** Make sure the chapter is complete. You can only request analysis once. */
     makeSureTheChapterIsComplete: string;
     /** Manage topics */
@@ -4945,6 +4971,10 @@ interface I18n {
     unlisted: string;
     /** URL of the games, one per line */
     urlOfTheGame: string;
+    /** Yes, you can study crazyhouse<br>and all lichess variants! */
+    variantsAreSupportedText: string;
+    /** Studies support variants */
+    variantsAreSupportedTitle: string;
     /** Visibility */
     visibility: string;
     /** This is a shared analysis board.<br><br>Use it to analyse and annotate games,<br>discuss positions with friends,<br>and of course for chess lessons!<br><br>It's a powerful tool, let's take some time to see how it works. */
