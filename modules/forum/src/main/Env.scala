@@ -58,7 +58,15 @@ final class Env(
   lazy val forms                            = wire[ForumForm]
 
   lazy val recentTeamPosts = RecentTeamPosts: id =>
-    postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
+    val categId = ForumCateg.fromTeamId(id)
+    for
+      categOpt   <- categRepo.byId(categId)
+      topicViews <- categOpt.so(categ => topicApi.getSticky(categ, None))
+      stickyPostIds = topicViews.map(_.topic.lastPostId).take(6)
+      recentPostIds <- postRepo.recentIdsInCateg(categId, 6)
+      combinedIds = (stickyPostIds ++ recentPostIds.filterNot(stickyPostIds.contains)).take(6)
+      miniViews <- postApi.miniViews(combinedIds)
+    yield miniViews
 
   lazy val access = wire[ForumAccess]
 
