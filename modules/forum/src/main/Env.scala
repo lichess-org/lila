@@ -60,7 +60,7 @@ final class Env(
   lazy val recentTeamPosts = RecentTeamPosts: id =>
     val categId = ForumCateg.fromTeamId(id)
     for
-      categOpt <- categRepo.byId(categId)
+      categOpt   <- categRepo.byId(categId)
       topicViews <- categOpt.so(categ => topicApi.getSticky(categ, None))
       stickyPostIds = topicViews.map(_.topic.lastPostId).take(6)
       recentPostIds <- postRepo.recentIdsInCateg(categId, 6)
