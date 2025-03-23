@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">साथी सङ्ग खेल्नुहोस् ।</string>
   <string name="playWithTheMachine">कम्प्युटर सँग खेल्नुहोस् ।</string>
+  <string name="playOffline">अफलाइन खेल्नुहोस्</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कसैलाई खैलको लागी निम्तो दिनु परेमा यो लिङ्क (URL) दिनुहोला । </string>
   <string name="gameOver">खेल सक्कियो ।</string>
   <string name="waitingForOpponent">प्रतिद्वन्दी को प्रतिक्षा गर्दै</string>
