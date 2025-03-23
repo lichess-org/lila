@@ -207,7 +207,7 @@ const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair
 
 const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   if (!ctrl.data.userId || !line.u || ctrl.data.userId === line.u) return [null];
-  let icons = [];
+  const icons = [];
   if (!ctrl.data.resourceId.startsWith('game'))
     icons.push(
       h('action.reply', {
