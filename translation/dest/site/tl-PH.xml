@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Makipaglaro sa Kaibigan</string>
   <string name="playWithTheMachine">Makipaglaro sa Makina</string>
+  <string name="playOffline">Maglaro Offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para mag-anyaya ng iba, ibigay itong URL</string>
   <string name="gameOver">Tapos</string>
   <string name="waitingForOpponent">Hinihintay ang Kalaban</string>
