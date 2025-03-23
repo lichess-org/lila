@@ -109,7 +109,7 @@
   <string name="loadAPositionFromFen">Naloži pozicijo iz FEN</string>
   <string name="loadAGameFromPgn">Naloži partijo iz PGN</string>
   <string name="automatic">Samodejno</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Prilepite PGN besedilo, z največ %s partijo</item>
     <item quantity="two">Prilepite PGN besedilo, z največ %s partijama</item>
     <item quantity="few">Prilepite PGN besedilo, z največ %s partijami</item>
