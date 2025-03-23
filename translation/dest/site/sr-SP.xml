@@ -440,7 +440,7 @@
   <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
   <string name="retry">Покушај поново</string>
-  <string name="reconnecting" comment="Appears when you lose a live (WebSocket) connection. Effectively says you are disconnected, and an attempt to Reconnect is being made.">Поново повезујемо</string>
+  <string name="reconnecting">Поново повезујемо</string>
   <string name="noNetwork">Ван мреже</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s пријатељ на мрежи</item>
