@@ -162,6 +162,7 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="flipBoard">බෝර්ඩ් එකේ පැති මාරු කරන්න</string>
   <string name="threefoldRepetition">ත්‍රීෆෝල්ඩ් රෙපිටිෂන්</string>
   <string name="claimADraw">ඩ්‍රෝ එක ගන්න</string>
+  <string name="drawClaimed">සමය ඉල්ලන්න</string>
   <string name="offerDraw">ඩ්‍රෝ එකක් පිරිනමන්න</string>
   <string name="draw">ඩ්‍රෝ</string>
   <plurals name="nbPlayers">
@@ -436,7 +437,7 @@ You are playing chess.</string>
   <string name="whiteCheckmatesInOneMove">සුදුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
   <string name="blackCheckmatesInOneMove">කළුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
   <string name="retry">නැවත උත්සාහ කරන්න</string>
-  <string name="reconnecting">නැවත සම්බන්ධ වෙමින්</string>
+  <string name="reconnecting" comment="Appears when you lose a live (WebSocket) connection. Effectively says you are disconnected, and an attempt to Reconnect is being made.">නැවත සම්බන්ධ වෙමින්</string>
   <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s යහළුවන් සජීවීව සිටියි</item>
@@ -607,6 +608,7 @@ You are playing chess.</string>
   <string name="slow">සෙමින්</string>
   <string name="insideTheBoard">පුවරුව ඇතුළත</string>
   <string name="outsideTheBoard">පුවරුවෙන් පිටත</string>
+  <string name="allSquaresOfTheBoard">පියසලයේ සියලුම කොටස්</string>
   <string name="onSlowGames">මන්දගාමී ක්‍රීඩා මත​​</string>
   <string name="always">සැමවිටම</string>
   <string name="never">කවදාවත් නැහැ</string>
@@ -699,6 +701,7 @@ You are playing chess.</string>
   <string name="lichessTournaments">Lichess tournaments</string>
   <string name="tournamentFAQ">තරඟාවලිය FAQ</string>
   <string name="timeBeforeTournamentStarts">තරඟාවලිය</string>
+  <string name="averageCentipawnLoss">සාමාන්‍ය සෙන්ටිපාන් හානි</string>
   <string name="accuracy">නිවරදිතවය</string>
   <string name="keyboardShortcuts">යතුරු පුවරු කෙටි පිවිසුම්</string>
   <string name="keyMoveBackwardOrForward">ඉස්සරහට/පිටුපසට අදින්න</string>
@@ -711,5 +714,6 @@ You are playing chess.</string>
   <string name="keyNextInaccuracy">ඊලඟ අතපසු වීම</string>
   <string name="keyPreviousBranch">පෙර ශාඛාව</string>
   <string name="weeklyPerfTypeRatingDistribution">සතිපතා %s ශ්‍රේණි බෙදා හැරීම</string>
+  <string name="letOtherPlayersMessageYou">Venath puthgalaintha obata message yawanna denna</string>
   <string name="pieceSet">ඉත්තන් පෙළ</string>
 </resources>
