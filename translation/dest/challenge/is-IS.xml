@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengesX">Áskoranir: %1$s</string>
+  <string name="challengeToPlay">Skora á</string>
   <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Skráðu þig inn til að senda áskorarnir þessa notanda.</string>
   <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Ekki er hægt að skora á vegna tímabundinna skákstiga í %s.</string>
