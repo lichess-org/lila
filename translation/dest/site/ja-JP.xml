@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
   <string name="playWithTheMachine">コンピューターとチェスする</string>
+  <string name="playOffline">オフラインで対局する</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
