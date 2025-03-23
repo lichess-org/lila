@@ -101,7 +101,7 @@
   <string name="loadAPositionFromFen">Բեռնել դիրքը FEN-ով</string>
   <string name="loadAGameFromPgn">Բեռնել դիրքն ըստ PGN-ի</string>
   <string name="automatic">Ինքնաբերաբար</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Տեղադրեք տեսքտը PGN ձևաչափով, %s պարտիայից ոչ ավելի</item>
     <item quantity="other">Տեղադրեք տեսքտը PGN ձևաչափով, %s պարտիայից ոչ ավելի</item>
   </plurals>
