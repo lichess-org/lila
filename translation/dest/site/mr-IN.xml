@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">मित्रा सोबत खेळा</string>
   <string name="playWithTheMachine">संगणकाविरूद्ध खेळा</string>
+  <string name="playOffline">ऑफलाईन खेळा</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
