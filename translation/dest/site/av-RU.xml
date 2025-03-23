@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Гьудулгун хӀазе</string>
   <string name="playWithTheMachine">Компутергун хӀазе</string>
+  <string name="playOffline">Офлайн хӀазе</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щивалиго ахӀизе, гьаб бухьен кье</string>
   <string name="gameOver">ХӀай лъугӀана</string>
   <string name="waitingForOpponent">Дандиясухъ балагьун чӀун</string>
