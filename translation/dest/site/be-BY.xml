@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Гуляць з сябрам</string>
   <string name="playWithTheMachine">Гуляць з камп\'ютарам</string>
+  <string name="playOffline">Гуляць афлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
