@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Lagun baten aurka jokatu</string>
   <string name="playWithTheMachine">Ordenagailuaren aurka jokatu</string>
+  <string name="playOffline">Jokatu offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
