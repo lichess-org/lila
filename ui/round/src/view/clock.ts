@@ -1,9 +1,9 @@
 import { type LooseVNode, looseH as h, bind } from 'common/snabbdom';
 import * as licon from 'common/licon';
-import { renderClock } from '../clock/clockView';
+import { ClockCtrl } from 'game/clock/clockCtrl';
+import { renderClock } from 'game/clock/clockView';
 import RoundController from '../ctrl';
 import renderCorresClock from '../corresClock/corresClockView';
-import { ClockCtrl } from '../clock/clockCtrl';
 import { moretime } from './button';
 import { aborted, finished, TopOrBottom } from 'game';
 import { justIcon } from '../util';

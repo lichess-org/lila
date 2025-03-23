@@ -1,6 +1,6 @@
 import { type VNode, looseH as h, onInsert } from 'common/snabbdom';
 import type RoundController from '../ctrl';
-import { renderClock } from '../clock/clockView';
+import { renderClock } from 'game/clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';

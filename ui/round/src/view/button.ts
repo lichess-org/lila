@@ -5,7 +5,7 @@ import { justIcon } from '../util';
 import { finished, aborted, replayable, rematchable, moretimeable, type PlayerUser } from 'game';
 import { game as gameRoute } from 'game/router';
 import type { RoundData } from '../interfaces';
-import type { ClockData } from '../clock/clockCtrl';
+import type { ClockData } from 'game/clock/clockCtrl';
 import type RoundController from '../ctrl';
 import { type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
 import { pubsub } from 'common/pubsub';
