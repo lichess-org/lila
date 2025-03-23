@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spill géint e Kolleeg</string>
   <string name="playWithTheMachine">Spill géint de Computer</string>
+  <string name="playOffline">Offline spillen</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
