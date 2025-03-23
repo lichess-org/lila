@@ -786,6 +786,9 @@
   <string name="checkYourEmail">Verifică-ți adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Dă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, gunoi, mesaje sociale sau alte foldere.</string>
+  <string name="ifYouDoNotGetTheEmail">Dacă nu primești emailul în decurs de 5 minute:</string>
+  <string name="checkAllEmailFolders">Verifică secțiunile de spam, junk și altele</string>
+  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Asigură-te că %s este adresa ta de email</string>
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Dă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Înregistrându-te, ești de acord cu %s.</string>
   <string name="readAboutOur">Citește despre %s.</string>
@@ -831,6 +834,7 @@
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Scorul tău: %s</string>
   <string name="language">Limbă</string>
+  <string name="allLanguages">Orice limbă</string>
   <string name="background">Fundal</string>
   <string name="light">Luminos</string>
   <string name="dark">Culoare închisă</string>

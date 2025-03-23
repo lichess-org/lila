@@ -1,5 +1,7 @@
 package lila.ublog
 
+import java.time.YearMonth
+
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONNull
 import scalalib.paginator.{ AdapterLike, Paginator }
@@ -10,15 +12,17 @@ import lila.db.paginator.Adapter
 
 final class UblogPaginator(
     colls: UblogColls,
+    ublogApi: UblogApi,
     relationApi: lila.core.relation.RelationApi,
-    userRepo: lila.core.user.UserRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
   import UblogBsonHandlers.{ *, given }
   import UblogPost.PreviewPost
+  import ublogApi.aggregateVisiblePosts
+  import UblogRank.Sorting.{ ByDate, ByRank, ByTimelessRank }
 
-  val maxPerPage = MaxPerPage(9)
+  val maxPerPage = MaxPerPage(15)
 
   def byUser[U: UserIdOf](user: U, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     byBlog(UblogBlog.Id.User(user.id), live, page)
@@ -66,56 +70,27 @@ final class UblogPaginator(
       adapter = new AdapterLike[PreviewPost]:
         def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
-          aggregateVisiblePosts($doc("topics" -> topic), offset, length, byDate)
+          aggregateVisiblePosts($doc("topics" -> topic), offset, length, if byDate then ByDate else ByRank)
       ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
-  // So far this only hits a prod index if $select contains `topics`, or if byDate is false
-  // i.e. byDate can only be true if $select contains `topics`
-  private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int, byDate: Boolean = false) =
-    colls.post
-      .aggregateList(length, _.sec): framework =>
-        import framework.*
-        Match(select ++ $doc("live" -> true)) -> List(
-          Sort(Descending(if byDate then "lived.at" else "rank")),
-          Limit(500),
-          PipelineOperator:
-            $lookup.pipelineBC(
-              from = colls.blog,
-              as = "blog",
-              local = "blog",
-              foreign = "_id",
-              pipe = List(
-                $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogRank.Tier.LOW)))),
-                $doc("$project" -> $id(true))
-              )
-            )
+  // All blogs ranked by `ByTimelessRank` lived during a specific month
+  def liveByMonth(month: YearMonth, page: Int): Fu[Paginator[PreviewPost]] =
+    UblogBestOf
+      .isValid(month)
+      .so:
+        Paginator(
+          adapter = new AdapterLike[PreviewPost]:
+            def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
+            def slice(offset: Int, length: Int) =
+              // topics included to hit prod index
+              aggregateVisiblePosts(UblogBestOf.selector(month), offset, length, ByTimelessRank)
           ,
-          UnwindField("blog"),
-          PipelineOperator:
-            $lookup.pipelineBC(
-              from = userRepo.coll,
-              as = "user",
-              local = "created.by",
-              foreign = "_id",
-              pipe = List(
-                $doc("$match"   -> $doc(lila.core.user.BSONFields.enabled -> true)),
-                $doc("$project" -> $id(true))
-              )
-            )
-          ,
-          UnwindField("user"),
-          Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
-          Skip(offset),
-          Limit(length)
+          currentPage = page,
+          maxPerPage = maxPerPage
         )
-      .map: docs =>
-        for
-          doc  <- docs
-          post <- doc.asOpt[PreviewPost]
-        yield post
 
   object liveByFollowed:
 

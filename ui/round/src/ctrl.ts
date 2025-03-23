@@ -573,7 +573,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     endGameView();
     if (isCol1()) {
-      infoDialog(viewStatus(this), 3000);
+      infoDialog(viewStatus(this.data), 3000);
     }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
@@ -588,13 +588,13 @@ export default class RoundController implements MoveRootCtrl {
     if (d.tv) setTimeout(site.reload, 10000);
     wakeLock.release();
     if (this.data.game.status.name === 'started') site.sound.saySan(this.stepAt(this.ply).san, false);
-    else site.sound.say(viewStatus(this), false, false, true);
+    else site.sound.say(viewStatus(this.data), false, false, true);
     if (
       !d.player.spectator &&
       o.status.name === 'outoftime' &&
       this.chessground.state.turnColor === d.opponent.color
     ) {
-      notify(viewStatus(this));
+      notify(viewStatus(this.data));
     }
   };
 

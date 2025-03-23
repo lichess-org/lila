@@ -40,6 +40,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
 export default function (ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;
   const win = ctrl.lastFeedback === 'win';
+  const canContinue = !ctrl.node.san?.includes('#');
   return h(
     'div.puzzle__feedback.after',
     ctrl.streak && !win
@@ -48,14 +49,16 @@ export default function (ctrl: PuzzleCtrl): VNode {
           h('div.complete', i18n.puzzle[win ? 'puzzleSuccess' : 'puzzleComplete']),
           data.user ? renderVote(ctrl) : renderContinue(ctrl),
           h('div.puzzle__more', [
-            h('a', {
-              attrs: {
-                'data-icon': licon.Bullseye,
-                href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
-                title: i18n.site.playWithTheMachine,
-                target: '_blank',
-              },
-            }),
+            canContinue
+              ? h('a', {
+                  attrs: {
+                    'data-icon': licon.Bullseye,
+                    href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
+                    title: i18n.site.playWithTheMachine,
+                    target: '_blank',
+                  },
+                })
+              : h('a'),
             data.user &&
               !ctrl.autoNexting() &&
               h(

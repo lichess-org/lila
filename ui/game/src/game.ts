@@ -46,7 +46,7 @@ export const moretimeable = (data: GameData): boolean =>
     (!!data.correspondence &&
       data.correspondence[data.opponent.color] < data.correspondence.increment - 3600));
 
-const imported = (data: GameData): boolean => data.game.source === 'import';
+export const imported = (data: GameData): boolean => data.game.source === 'import';
 
 export const replayable = (data: GameData): boolean =>
   imported(data) || finished(data) || (aborted(data) && bothPlayersHavePlayed(data));

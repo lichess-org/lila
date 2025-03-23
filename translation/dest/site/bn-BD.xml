@@ -152,6 +152,7 @@
   <string name="flipBoard">বোর্ডকে ঘোরান</string>
   <string name="threefoldRepetition">তিনবার একই চাল</string>
   <string name="claimADraw">সমান দাবী করুন</string>
+  <string name="drawClaimed">ড্র সম্মত</string>
   <string name="offerDraw">সমানের জন্য আহ্‌বান জানান</string>
   <string name="draw">সমান</string>
   <plurals name="nbPlayers">

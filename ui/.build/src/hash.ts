@@ -28,7 +28,7 @@ export async function hash(): Promise<void> {
         ctx: 'hash',
         debounce: 300,
         root: env.rootDir,
-        glob: Array<string>()
+        includes: Array<string>()
           .concat(glob)
           .map(path => ({ cwd: env.rootDir, path })),
         execute: async (files, fullList) => {
@@ -45,11 +45,11 @@ export async function hash(): Promise<void> {
             }),
           );
           if (update && pkg?.root) {
-            const updates: Record<string, string> = {};
+            const replacements: Record<string, string> = {};
             for (const src of fullList.map(f => relative(env.outDir, f))) {
-              updates[src] = hashedBasename(src, hashed[src].hash!);
+              replacements[src] = `hashed/${hashedBasename(src, hashed[src].hash!)}`;
             }
-            const { name, hash } = await replaceHash(relative(pkg.root, update), pkg.root, updates);
+            const { name, hash } = await replaceAllWithHashUrls(update, replacements);
             hashed[name] = { hash };
             if (shouldLog) hashLog(name, hashedBasename(name, hash), pkg.name);
           }
@@ -96,14 +96,14 @@ async function isLinkStale(symlink: string | undefined) {
   return !isClose(linkMs, targetMs);
 }
 
-async function replaceHash(name: string, root: string, files: Record<string, string>) {
+async function replaceAllWithHashUrls(name: string, files: Record<string, string>) {
   const result = Object.entries(files).reduce(
     (data, [from, to]) => data.replaceAll(from, to),
-    await fs.promises.readFile(join(root, name), 'utf8'),
+    await fs.promises.readFile(name, 'utf8'),
   );
   const hash = crypto.createHash('sha256').update(result).digest('hex').slice(0, 8);
   await fs.promises.writeFile(join(env.hashOutDir, hashedBasename(name, hash)), result);
-  return { name, hash };
+  return { name: relative(env.outDir, name), hash };
 }
 
 async function hashAndLink(name: string) {

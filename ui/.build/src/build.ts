@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { execSync } from 'node:child_process';
 import { chdir } from 'node:process';
+import { join } from 'node:path';
 import { parsePackages } from './parse.ts';
 import { task, stopTask } from './task.ts';
 import { tsc, stopTsc } from './tsc.ts';
@@ -11,35 +12,36 @@ import { hash } from './hash.ts';
 import { stopManifest } from './manifest.ts';
 import { env, errorMark, c } from './env.ts';
 import { i18n } from './i18n.ts';
-import { unique } from './algo.ts';
+import { definedUnique } from './algo.ts';
 import { clean } from './clean.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
+  env.startTime = Date.now();
   try {
-    env.startTime = Date.now();
+    try {
+      chdir(env.rootDir);
+      if (env.install) execSync('pnpm install', { stdio: 'inherit' });
+      if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
 
-    chdir(env.rootDir);
+      await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);
 
-    if (env.install) execSync('pnpm install', { stdio: 'inherit' });
-    if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
+      pkgs
+        .filter(x => !env.packages.has(x))
+        .forEach(x => env.exit(`${errorMark} - unknown package '${c.magenta(x)}'`));
 
-    await Promise.allSettled([parsePackages(), fs.promises.mkdir(env.buildTempDir)]);
+      env.building =
+        pkgs.length === 0 ? [...env.packages.values()] : definedUnique(pkgs.flatMap(p => env.deps(p)));
 
-    pkgs
-      .filter(x => !env.packages.has(x))
-      .forEach(x => env.exit(`${errorMark} - unknown package '${c.magenta(x)}'`));
-
-    env.building = pkgs.length === 0 ? [...env.packages.values()] : unique(pkgs.flatMap(p => env.deps(p)));
-
-    if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
-
+      if (pkgs.length) env.log(`Building ${c.grey(env.building.map(x => x.name).join(', '))}`);
+    } finally {
+      monitor(pkgs);
+    }
     await Promise.all([i18n(), sync().then(hash).then(sass), tsc(), esbuild()]);
   } catch (e) {
-    const errorText = `${errorMark} ${e instanceof Error ? (e.stack ?? e.message) : String(e)}`;
-    if (env.watch) env.log(errorText);
-    else env.exit(errorText);
+    env.log(`${errorMark} ${e instanceof Error ? (e.stack ?? e.message) : String(e)}`);
+    if (env.watch) env.log(c.grey('Watching...'));
+    else env.exit();
   }
-  await monitor(pkgs);
 }
 
 function stopBuild(): Promise<any> {
@@ -53,7 +55,7 @@ function monitor(pkgs: string[]) {
   if (!env.watch) return;
   return task({
     key: 'monitor',
-    glob: [
+    includes: [
       { cwd: env.rootDir, path: 'package.json' },
       { cwd: env.typesDir, path: '*/package.json' },
       { cwd: env.uiDir, path: '*/package.json' },
@@ -67,10 +69,12 @@ function monitor(pkgs: string[]) {
         if (!env.install) env.exit('Exiting due to package.json change');
         await stopBuild();
         if (env.clean) await clean();
+        else await clean([join(env.buildTempDir, 'noCheck/*')]);
         build(pkgs);
       } else if (files.some(x => x.endsWith('.d.ts') || x.endsWith('tsconfig.json'))) {
         stopManifest();
         await Promise.allSettled([stopTsc(), stopEsbuild()]);
+        await clean([join(env.buildTempDir, 'noCheck/*')]);
         tsc();
         esbuild();
       }
