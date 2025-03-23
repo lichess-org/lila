@@ -46,30 +46,35 @@ final private[tv] class ChannelSyncActor(
 
     case TvSyncActor.Select =>
       lila.mon.tv.selector.candidates(channel.name).record(candidateIds.count)
-      candidateIds.keys
-        .parallel(proxyGame)
-        .map:
-          _.view
-            .collect:
-              case Some(g) if channel.isFresh(g) => g
-            .toList
-        .foreach: candidates =>
-          oneId
-            .so(proxyGame)
-            .foreach:
-              case Some(current) if channel.isFresh(current) =>
-                fuccess(wayBetter(current, candidates)).orElse(rematch(current)).foreach(elect)
-              case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates))).foreach(elect)
-              case _             => elect(bestOf(candidates))
-          manyIds = candidates
-            .sortBy: g =>
-              -(g.averageUsersRating.so(_.value))
-            .take(50)
-            .map(_.id)
+      doSelectNow().foreach: (one, many) =>
+        manyIds = many
+        one.foreach: game =>
+          this ! SetGame(game)
 
   def addCandidate(game: Game): Unit = candidateIds.put(game.id)
 
-  private def elect(gameOption: Option[Game]): Unit = gameOption.foreach { this ! SetGame(_) }
+  private def doSelectNow(): Fu[(Option[Game], List[GameId])] =
+    candidateIds.keys
+      .parallel(proxyGame)
+      .map:
+        _.view
+          .collect:
+            case Some(g) if channel.isFresh(g) => g
+          .toList
+      .flatMap: candidates =>
+        def manyIds = candidates
+          .sortBy: g =>
+            -(g.averageUsersRating.so(_.value))
+          .take(50)
+          .map(_.id)
+        oneId
+          .so(proxyGame)
+          .flatMap:
+            case Some(current) if channel.isFresh(current) =>
+              fuccess(wayBetter(current, candidates)).orElse(rematch(current))
+            case Some(current) => rematch(current).orElse(fuccess(bestOf(candidates)))
+            case _             => fuccess(bestOf(candidates))
+          .map(_ -> manyIds)
 
   private def wayBetter(game: Game, candidates: List[Game]) =
     bestOf(candidates).filter { isWayBetter(game, _) }
