@@ -100,7 +100,7 @@
   <string name="loadAPositionFromFen">局面を FEN で読み込み</string>
   <string name="loadAGameFromPgn">棋譜を PGN で読み込み</string>
   <string name="automatic">自動</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="other">ここに PGN をペースト（%s 局まで）</item>
   </plurals>
   <string name="urlOfTheGame">棋譜の URL</string>
