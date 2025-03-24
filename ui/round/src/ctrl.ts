@@ -936,8 +936,6 @@ export default class RoundController implements MoveRootCtrl {
           location.href = '/page/play-extensions';
         }
       }, 1000);
-
-      site.asset.loadEsm('round.yeet');
     }, 800);
   };
 }
