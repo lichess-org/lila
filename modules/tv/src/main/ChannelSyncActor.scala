@@ -11,7 +11,7 @@ import lila.core.LightUser
 final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,
     onSelect: TvSyncActor.Selected => Unit,
-    proxyGame: GameId => Fu[Option[Game]],
+    gameProxy: lila.core.game.GameProxy,
     rematchOf: GameId => Option[GameId],
     lightUserSync: LightUser.GetterSync,
     userApi: lila.core.user.UserApi
@@ -59,14 +59,14 @@ final private[tv] class ChannelSyncActor(
   private val ratingOrdering = Ordering.by[Game, Int](_.averageUsersRating.so(_.value))
 
   private def doSelectNow(): Fu[(Option[Game], List[GameId])] = for
-    allCandidates <- candidateIds.keys.parallel(proxyGame)
+    allCandidates <- candidateIds.keys.parallel(gameProxy.gameIfPresent)
     freshCandidates = allCandidates.view.collect:
       case Some(g) if channel.isFresh(g) => g
     sortedCandidates = topNToList(freshCandidates, 64)(using ratingOrdering)
     cheaters <- userApi.filterEngines(sortedCandidates.flatMap(_.userIds))
     candidates = sortedCandidates.filterNot(_.userIds.toSet.intersect(cheaters).nonEmpty)
     _          = lila.mon.tv.selector.cheats(channel.name).record(sortedCandidates.size - candidates.size)
-    currentBest <- oneId.so(proxyGame)
+    currentBest <- oneId.so(gameProxy.gameIfPresent)
     newBest <- currentBest match
       case Some(current) if channel.isFresh(current) =>
         fuccess(wayBetter(current, candidates)).orElse(rematch(current))
@@ -82,7 +82,7 @@ final private[tv] class ChannelSyncActor(
 
   private def isWayBetter(g1: Game, g2: Game) = score(resetTurns(g2)) > (score(resetTurns(g1)) * 1.17)
 
-  private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id).so(proxyGame)
+  private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id).so(gameProxy.game)
 
   private def bestOf(candidates: List[Game]) =
     candidates.maximumByOption(score)

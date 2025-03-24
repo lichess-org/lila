@@ -23,7 +23,7 @@ final private[tv] class TvSyncActor(
     c -> ChannelSyncActor(
       c,
       onSelect = this.!,
-      gameProxy.game,
+      gameProxy,
       rematches.getAcceptedId,
       lightUserApi.sync,
       userApi
