@@ -64,7 +64,7 @@ const imagePowertip = (el: HTMLElement) =>
     });
 
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
-  if ('ontouchstart' in window && !el.classList.contains('challenge-powertip')) return;
+  if ('ontouchstart' in window && !el.classList.contains('mobile-powertip')) return;
   f(el);
   $.powerTip.show(el, ev);
 }
@@ -539,7 +539,7 @@ class TooltipController {
   resetPosition(element: Cash) {
     if (this.options.smartPlacement) {
       let priorityList = smartPlacementLists[this.options.placement!];
-      if ($as<WithTooltip>(element).classList.contains('challenge-powertip'))
+      if ($as<WithTooltip>(element).classList.contains('mobile-powertip'))
         priorityList = [...priorityList, 's']; // so that 's' is used in case all are incorrectly judged as collisions on phones
       // iterate over the priority list and use the first placement option
       // that does not collide with the view port. If they all collide
