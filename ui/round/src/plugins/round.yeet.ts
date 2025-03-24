@@ -15,10 +15,14 @@ export function initModule(): void {
 
   document.head.insertAdjacentHTML(
     'beforeend',
-    '<style>cg-board:not(.clone)::before {background-image: none !important}',
+    `<style>
+    .main-board cg-board { box-shadow: none !important; }
+    .main-board cg-board:not(.clone)::before {background-image: none !important}
+</style>`,
   );
-  $('square.last-move').remove();
-  $('.cg-shapes').remove();
+  $('.main-board square.last-move').remove();
+  $('.main-board .cg-shapes').remove();
+  $('.main-board coords').remove();
   var clone = document.createElement('cg-board');
   clone.className = 'clone';
   document.getElementsByTagName('cg-container')[0].appendChild(clone);
