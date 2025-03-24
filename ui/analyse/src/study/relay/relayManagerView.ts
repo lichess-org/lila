@@ -1,8 +1,8 @@
-import * as licon from 'common/licon';
-import { looseH as h, bind, onInsert, dataIcon, type MaybeVNode } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { looseH as h, bind, onInsert, dataIcon, type MaybeVNode } from 'lib/snabbdom';
 import type { LogEvent } from './interfaces';
 import type RelayCtrl from './relayCtrl';
-import { memoize } from 'common';
+import { memoize } from 'lib';
 import { side as studyViewSide } from '../studyView';
 import type StudyCtrl from '../studyCtrl';
 

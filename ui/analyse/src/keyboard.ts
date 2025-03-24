@@ -1,9 +1,9 @@
 import * as control from './control';
 import type AnalyseCtrl from './ctrl';
-import * as xhr from 'common/xhr';
-import { snabDialog } from 'common/dialog';
+import * as xhr from 'lib/xhr';
+import { snabDialog } from 'lib/dialog';
 import type { VNode } from 'snabbdom';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;

@@ -1,6 +1,6 @@
 import { Pane } from './pane';
-import * as licon from 'common/licon';
-import { frag } from 'common';
+import * as licon from 'lib/licon';
+import { frag } from 'lib';
 import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';
 import type { Sound } from '../types';
 import { renderRemoveButton } from './devUtil';

@@ -8,7 +8,7 @@
   "types": "dist/palantir.d.ts",
   "dependencies": {
     "@types/webrtc": "^0.0.44",
-    "common": "workspace:*",
+    "lib": "workspace:*",
     "peerjs": "^1.5.4"
   },
   "build": {

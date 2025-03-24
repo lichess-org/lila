@@ -1,4 +1,4 @@
-import { shuffle } from 'common/algo';
+import { shuffle } from 'lib/algo';
 
 const list: string[] = [
   i18n.learn.awesome,

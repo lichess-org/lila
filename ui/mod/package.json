@@ -10,7 +10,7 @@
     "@types/yaireo__tagify": "4.27.0",
     "@yaireo/tagify": "4.17.9",
     "apexcharts": "^3.54.1",
-    "common": "workspace:*",
+    "lib": "workspace:*",
     "debounce-promise": "^3.1.2",
     "prop-types": "^15.8.1",
     "tablesort": "^5.3.0"

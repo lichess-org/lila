@@ -1,4 +1,4 @@
-import { commonDateFormat, toDate, formatAgo } from 'common/i18n';
+import { commonDateFormat, toDate, formatAgo } from 'lib/i18n';
 
 interface ElementWithDate extends Element {
   lichessDate: Date;

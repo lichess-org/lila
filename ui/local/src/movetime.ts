@@ -1,4 +1,4 @@
-import { clamp } from 'common/algo';
+import { clamp } from 'lib/algo';
 import { MoveArgs } from './types';
 
 export function movetime(

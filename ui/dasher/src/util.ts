@@ -1,6 +1,6 @@
-import * as licon from 'common/licon';
-import { bind, looseH as h, type VNode } from 'common/snabbdom';
-import { memoize } from 'common';
+import * as licon from 'lib/licon';
+import { bind, looseH as h, type VNode } from 'lib/snabbdom';
+import { memoize } from 'lib';
 
 export const header = (name: string, close: () => void): VNode =>
   h(

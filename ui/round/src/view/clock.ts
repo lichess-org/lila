@@ -1,6 +1,6 @@
-import { type LooseVNode, looseH as h, bind } from 'common/snabbdom';
-import * as licon from 'common/licon';
-import { renderClock } from 'game/clock/clockView';
+import { type LooseVNode, looseH as h, bind } from 'lib/snabbdom';
+import * as licon from 'lib/licon';
+import { renderClock } from 'lib/game/clock/clockView';
 import RoundController from '../ctrl';
 import renderCorresClock from '../corresClock/corresClockView';
 import { moretime } from './button';
@@ -12,7 +12,7 @@ import {
   playable,
   TopOrBottom,
   TournamentRanks,
-} from 'game';
+} from 'lib/game/game';
 import { justIcon } from '../util';
 
 export const anyClockView = (ctrl: RoundController, position: TopOrBottom): LooseVNode => {

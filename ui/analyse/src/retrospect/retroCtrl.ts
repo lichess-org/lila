@@ -1,8 +1,8 @@
 import { opposite } from 'chessground/util';
 import { evalSwings } from '../nodeFinder';
-import { winningChances } from 'ceval';
-import { path as treePath } from 'tree';
-import { isEmpty, type Prop, prop } from 'common';
+import { winningChances } from 'lib/ceval/ceval';
+import { path as treePath } from 'lib/tree/tree';
+import { isEmpty, type Prop, prop } from 'lib';
 import type { OpeningData } from '../explorer/interfaces';
 import type AnalyseCtrl from '../ctrl';
 

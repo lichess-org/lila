@@ -1,5 +1,5 @@
 import type { Point as CjsPoint } from 'chart.js';
-import { clamp, quantize } from 'common/algo';
+import { clamp, quantize } from 'lib/algo';
 
 export type Point = [number, number];
 export type FilterFacet = keyof typeof filterData;

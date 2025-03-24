@@ -1,9 +1,9 @@
 import { h } from 'snabbdom';
-import type { LooseVNode } from 'common/snabbdom';
+import type { LooseVNode } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
-import { boardMenu as menuDropdown } from 'common/boardMenu';
-import { toggle } from 'common';
-import { boolPrefXhrToggle } from 'common/controls';
+import { boardMenu as menuDropdown } from 'lib/boardMenu';
+import { toggle } from 'lib';
+import { boolPrefXhrToggle } from 'lib/controls';
 
 export default function (ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => {

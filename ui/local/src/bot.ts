@@ -1,6 +1,6 @@
 import * as co from 'chessops';
-import { zip } from 'common/algo';
-import { clockToSpeed } from 'game';
+import { zip } from 'lib/algo';
+import { clockToSpeed } from 'lib/game/game';
 import { quantizeFilter, filterParameter, filterFacets, combine, type FilterValue } from './filter';
 import type { SearchResult } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';

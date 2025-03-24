@@ -10,9 +10,7 @@
     ".": "./src/voice.ts"
   },
   "dependencies": {
-    "chess": "workspace:*",
-    "common": "workspace:*",
-    "game": "workspace:*",
+    "lib": "workspace:*",
     "vosk-browser": "^0.0.8"
   },
   "scripts": {

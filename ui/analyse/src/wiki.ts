@@ -1,6 +1,6 @@
-import { debounce } from 'common/async';
-import { storedBooleanPropWithEffect } from 'common/storage';
-import { pubsub } from 'common/pubsub';
+import { debounce } from 'lib/async';
+import { storedBooleanPropWithEffect } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
 
 export type WikiTheory = (nodes: Tree.Node[]) => void;
 

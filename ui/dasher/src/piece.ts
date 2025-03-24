@@ -1,9 +1,9 @@
 import { h, type VNode } from 'snabbdom';
-import { text as xhrText, form as xhrForm } from 'common/xhr';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { header, elementScrollBarWidthSlowGuess } from './util';
-import { bind } from 'common/snabbdom';
+import { bind } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 type Piece = string;
 type PieceDimData = { current: Piece; list: Piece[] };

@@ -1,7 +1,7 @@
-import { view as cevalView } from 'ceval';
-import { onClickAway } from 'common';
-import { bind, dataIcon, looseH as h, onInsert, type VNode } from 'common/snabbdom';
-import * as licon from 'common/licon';
+import { view as cevalView } from 'lib/ceval/ceval';
+import { onClickAway } from 'lib';
+import { bind, dataIcon, looseH as h, onInsert, type VNode } from 'lib/snabbdom';
+import * as licon from 'lib/licon';
 import type AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../studyDeps';

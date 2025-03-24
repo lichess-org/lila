@@ -1,5 +1,5 @@
-import { throttlePromiseDelay } from 'common/async';
-import { json } from 'common/xhr';
+import { throttlePromiseDelay } from 'lib/async';
+import { json } from 'lib/xhr';
 
 // when the simul no longer exists
 const onFail = () => site.reload();

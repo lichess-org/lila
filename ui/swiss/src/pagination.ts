@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { bind, type MaybeVNodes } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, type MaybeVNodes } from 'lib/snabbdom';
 import type SwissCtrl from './ctrl';
 import type { Pager } from './interfaces';
 import * as search from './search';

@@ -1,5 +1,5 @@
-import { propWithEffect, toggle as commonToggle } from 'common';
-import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import { propWithEffect, toggle as commonToggle } from 'lib';
+import { MoveRootCtrl, MoveUpdate } from 'lib/chess/moveRootCtrl';
 import type { VoiceCtrl, VoiceModule } from './interfaces';
 import type { VoiceMove } from './move/interfaces';
 import { Mic } from './mic';
@@ -9,7 +9,7 @@ import {
   storedBooleanProp,
   storedStringPropWithEffect,
   storedBooleanPropWithEffect,
-} from 'common/storage';
+} from 'lib/storage';
 
 export * from './interfaces';
 export * from './move/interfaces';

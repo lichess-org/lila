@@ -3,7 +3,7 @@ import type { GameCtrl } from './gameCtrl';
 import type { Assets } from './assets';
 import type { LocalDb } from './localDb';
 import type { RoundController } from 'round';
-import { myUserId, myUsername } from 'common';
+import { myUserId, myUsername } from 'lib';
 
 /** spaghetti and globals */
 export let env: LocalEnv;

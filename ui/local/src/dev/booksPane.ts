@@ -1,6 +1,6 @@
 import { Pane, RangeSetting } from './pane';
-import * as licon from 'common/licon';
-import { frag } from 'common';
+import * as licon from 'lib/licon';
+import { frag } from 'lib';
 import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
 import type { Book } from '../types';
 import { renderRemoveButton } from './devUtil';

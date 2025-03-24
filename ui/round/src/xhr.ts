@@ -1,6 +1,6 @@
 import type RoundController from './ctrl';
-import { throttlePromiseDelay } from 'common/async';
-import { text, json, form } from 'common/xhr';
+import { throttlePromiseDelay } from 'lib/async';
+import { text, json, form } from 'lib/xhr';
 import type { RoundData } from './interfaces';
 
 export const reload = (ctrl: RoundController): Promise<RoundData> => {

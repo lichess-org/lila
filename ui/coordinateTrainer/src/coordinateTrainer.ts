@@ -6,7 +6,7 @@ import {
   propsModule,
   styleModule,
 } from 'snabbdom';
-import menuHover from 'common/menuHover';
+import menuHover from 'lib/menuHover';
 import view from './view';
 import type { CoordinateTrainerConfig } from './interfaces';
 import CoordinateTrainerCtrl from './ctrl';

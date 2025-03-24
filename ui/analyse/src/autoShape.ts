@@ -1,9 +1,9 @@
 import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
-import { winningChances } from 'ceval';
+import { winningChances } from 'lib/ceval/ceval';
 import { opposite } from 'chessground/util';
 import type { DrawModifiers, DrawShape } from 'chessground/draw';
-import { annotationShapes } from 'chess/glyphs';
+import { annotationShapes } from 'lib/chess/glyphs';
 import type AnalyseCtrl from './ctrl';
 
 const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({

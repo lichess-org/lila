@@ -6,10 +6,8 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "common": "workspace:*",
-    "local": "workspace:*",
-    "chess": "workspace:*",
-    "game": "workspace:*"
+    "lib": "workspace:*",
+    "local": "workspace:*"
   },
   "build": {
     "bundle": "src/botPlay.main.ts"

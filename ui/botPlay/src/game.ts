@@ -1,8 +1,8 @@
 import { Chess } from 'chessops';
 import { makeFen } from 'chessops/fen';
-import { randomId } from 'common/algo';
-import { StatusName } from 'game';
-import { ClockConfig, ClockData } from 'game/clock/clockCtrl';
+import { randomId } from 'lib/algo';
+import { StatusName } from 'lib/game/game';
+import { ClockConfig, ClockData } from 'lib/game/clock/clockCtrl';
 import { BotId } from 'local';
 
 export interface Game {

@@ -7,8 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "types": "dist/editor.d.ts",
   "dependencies": {
-    "common": "workspace:*",
-    "chess": "workspace:*"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/editor.ts"

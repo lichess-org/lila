@@ -1,11 +1,11 @@
-import { type Simul, setOnGame, isPlayerTurn } from 'game';
-import { throttle } from 'common/async';
+import { type Simul, setOnGame, isPlayerTurn } from 'lib/game/game';
+import { throttle } from 'lib/async';
 import { reload as xhrReload } from './xhr';
 import type RoundController from './ctrl';
-import { defined } from 'common';
-import { domDialog } from 'common/dialog';
-import { pubsub } from 'common/pubsub';
-import { wsSign, wsVersion } from 'common/socket';
+import { defined } from 'lib';
+import { domDialog } from 'lib/dialog';
+import { pubsub } from 'lib/pubsub';
+import { wsSign, wsVersion } from 'lib/socket';
 
 export interface RoundSocket {
   send: SocketSend;

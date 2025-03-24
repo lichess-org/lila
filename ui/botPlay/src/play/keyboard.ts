@@ -1,4 +1,4 @@
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 import PlayCtrl from './playCtrl';
 
 export default function keyboard(ctrl: PlayCtrl): void {

@@ -1,6 +1,6 @@
-import { throttle } from 'common/async';
-import { bindChessgroundResizeOnce } from 'common/chessgroundResize';
-import { pubsub } from 'common/pubsub';
+import { throttle } from 'lib/async';
+import { bindChessgroundResizeOnce } from 'lib/chessgroundResize';
+import { pubsub } from 'lib/pubsub';
 
 let booted = false;
 

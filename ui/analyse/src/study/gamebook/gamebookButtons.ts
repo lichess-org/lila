@@ -1,5 +1,5 @@
-import * as licon from 'common/licon';
-import { bind, dataIcon, type VNode, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, dataIcon, type VNode, looseH as h } from 'lib/snabbdom';
 import type AnalyseCtrl from '../../ctrl';
 import type StudyCtrl from '../studyCtrl';
 

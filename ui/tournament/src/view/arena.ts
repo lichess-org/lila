@@ -1,13 +1,13 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { bind, dataIcon, type MaybeVNodes } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, dataIcon, type MaybeVNodes } from 'lib/snabbdom';
 import type TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent } from './util';
 import { teamName } from './battle';
 import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import { joinWithdraw } from './button';
 import { renderPager } from '../pagination';
-import { userLink } from 'common/userLink';
+import { userLink } from 'lib/userLink';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));

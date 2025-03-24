@@ -1,7 +1,7 @@
 import * as control from './control';
 import type PuzzleCtrl from './ctrl';
-import { snabDialog } from 'common/dialog';
-import { pubsub } from 'common/pubsub';
+import { snabDialog } from 'lib/dialog';
+import { pubsub } from 'lib/pubsub';
 
 export default (ctrl: PuzzleCtrl) =>
   site.mousetrap

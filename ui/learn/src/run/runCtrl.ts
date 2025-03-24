@@ -1,12 +1,12 @@
 import { stageStart, stageEnd } from '../sound';
-import { type Prop, prop } from 'common';
+import { type Prop, prop } from 'lib';
 import type { LearnProgress, LearnOpts } from '../learn';
 import { type Stage, type Level, byId as stageById } from '../stage/list';
 import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
-import { pubsub } from 'common/pubsub';
-import type { WithGround } from 'chess/ground';
+import { pubsub } from 'lib/pubsub';
+import type { WithGround } from 'lib/chess/ground';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;

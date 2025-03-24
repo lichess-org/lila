@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
-import * as licon from 'common/licon';
-import * as xhr from 'common/xhr';
-import { bind } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import * as xhr from 'lib/xhr';
+import { bind } from 'lib/snabbdom';
 import type LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {

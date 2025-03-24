@@ -1,17 +1,17 @@
 import config from './config';
-import CurrentPuzzle from 'puz/current';
-import { throttle, throttlePromiseDelay } from 'common/async';
-import { text as xhrText, form as xhrForm } from 'common/xhr';
+import CurrentPuzzle from 'lib/puz/current';
+import { throttle, throttlePromiseDelay } from 'lib/async';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
 import { Boost } from './boost';
-import { Clock } from 'puz/clock';
-import { Combo } from 'puz/combo';
+import { Clock } from 'lib/puz/clock';
+import { Combo } from 'lib/puz/combo';
 import { Countdown } from './countdown';
-import { getNow, puzzlePov, sound } from 'puz/util';
-import { makeCgOpts } from 'puz/run';
+import { getNow, puzzlePov, sound } from 'lib/puz/util';
+import { makeCgOpts } from 'lib/puz/run';
 import { parseUci } from 'chessops/util';
-import type { PuzCtrl, Run } from 'puz/interfaces';
-import { PuzFilters } from 'puz/filters';
-import { defined, prop } from 'common';
+import type { PuzCtrl, Run } from 'lib/puz/interfaces';
+import { PuzFilters } from 'lib/puz/filters';
+import { defined, prop } from 'lib';
 import type {
   RacerOpts,
   RacerData,
@@ -21,11 +21,11 @@ import type {
   UpdatableData,
   RaceStatus,
 } from './interfaces';
-import { storedBooleanProp } from 'common/storage';
-import { PromotionCtrl } from 'chess/promotion';
-import { wsConnect, wsSend } from 'common/socket';
-import { pubsub } from 'common/pubsub';
-import { type WithGround } from 'chess/ground';
+import { storedBooleanProp } from 'lib/storage';
+import { PromotionCtrl } from 'lib/chess/promotion';
+import { wsConnect, wsSend } from 'lib/socket';
+import { pubsub } from 'lib/pubsub';
+import { type WithGround } from 'lib/chess/ground';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;

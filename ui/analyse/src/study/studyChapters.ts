@@ -1,6 +1,6 @@
-import { defined, prop, Prop, scrollToInnerSelector } from 'common';
-import * as licon from 'common/licon';
-import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
+import { defined, prop, Prop, scrollToInnerSelector } from 'lib';
+import * as licon from 'lib/licon';
+import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
@@ -22,10 +22,10 @@ import type {
 } from './interfaces';
 import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
-import { fenColor } from 'common/miniBoard';
+import { fenColor } from 'lib/miniBoard';
 import type Sortable from 'sortablejs';
-import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialogs';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */

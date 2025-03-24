@@ -1,13 +1,13 @@
-import { onInsert, looseH as h } from 'common/snabbdom';
+import { onInsert, looseH as h } from 'lib/snabbdom';
 import type SimulCtrl from '../ctrl';
 import { title } from './util';
 import created from './created';
-import { richHTML } from 'common/richText';
+import { richHTML } from 'lib/richText';
 import results from './results';
 import pairings from './pairings';
-import { initMiniGames } from 'common/miniBoard';
-import { watchers } from 'common/watchers';
-import { makeChat } from 'chat';
+import { initMiniGames } from 'lib/miniBoard';
+import { watchers } from 'lib/watchers';
+import { makeChat } from 'lib/chat/chat';
 
 export default function (ctrl: SimulCtrl) {
   const handler = ctrl.data.isRunning ? started : ctrl.data.isFinished ? finished : created(showText);

@@ -1,8 +1,8 @@
-import * as xhr from 'common/xhr';
-import { domDialog } from 'common/dialog';
+import * as xhr from 'lib/xhr';
+import { domDialog } from 'lib/dialog';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
-import { tempStorage } from 'common/storage';
+import { tempStorage } from 'lib/storage';
 
 site.load.then(() => {
   $('.forum')

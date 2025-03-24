@@ -1,5 +1,5 @@
 import type { BotInfo } from '../types';
-import { defined } from 'common';
+import { defined } from 'lib';
 import type { AssetBlob, AssetType } from './devAssets';
 import { env } from './devEnv';
 

@@ -1,10 +1,10 @@
-import { type Prop, defined } from 'common';
+import { type Prop, defined } from 'lib';
 import type { EvalHitMulti } from '../interfaces';
-import { storedBooleanPropWithEffect } from 'common/storage';
-import { povChances } from 'ceval/winningChances';
-import { type VNode, bind, looseH as h } from 'common/snabbdom';
+import { storedBooleanPropWithEffect } from 'lib/storage';
+import { povChances } from 'lib/ceval/winningChances';
+import { type VNode, bind, looseH as h } from 'lib/snabbdom';
 import type { StudyChapters } from './studyChapters';
-import { debounce } from 'common/async';
+import { debounce } from 'lib/async';
 import type { ServerNodeMsg } from './interfaces';
 
 export interface CloudEval extends EvalHitMulti {

@@ -1,6 +1,6 @@
 import Lpv from 'lichess-pgn-viewer';
 import { Opening } from './interfaces';
-import { set } from 'common/data';
+import { set } from 'lib/data';
 
 const numberFormat = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
 export const formatNumber = (n: number): string => (numberFormat ? numberFormat.format(n) : '' + n);

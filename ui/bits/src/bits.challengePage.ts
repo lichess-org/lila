@@ -1,8 +1,8 @@
-import * as xhr from 'common/xhr';
-import { wsConnect, wsSend } from 'common/socket';
-import { userComplete } from 'common/userComplete';
-import { isTouchDevice, isIos } from 'common/device';
-import { pubsub } from 'common/pubsub';
+import * as xhr from 'lib/xhr';
+import { wsConnect, wsSend } from 'lib/socket';
+import { userComplete } from 'lib/userComplete';
+import { isTouchDevice, isIos } from 'lib/device';
+import { pubsub } from 'lib/pubsub';
 
 interface ChallengeOpts {
   xhrUrl: string;
