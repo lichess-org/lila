@@ -157,13 +157,14 @@ final private class ForumTopicApi(
     _ <- postRepo.coll.insert.one(post)
   yield Bus.pub(CreatePost(post.mini))
 
-  def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
-    topicRepo.stickyByCateg(categ).flatMap { topics =>
-      topics.sequentially: topic =>
-        postRepo.coll.byId[ForumPost](topic.lastPostId(forUser)).map { post =>
+  def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] = for
+    topics <- topicRepo.stickyByCateg(categ)
+    views <- topics.sequentially: topic =>
+      postRepo.coll
+        .byId[ForumPost](topic.lastPostId(forUser))
+        .map: post =>
           TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), forUser)
-        }
-    }
+  yield views
 
   def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.close(topic.id, topic.open) >> {
