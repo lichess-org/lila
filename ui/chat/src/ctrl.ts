@@ -89,7 +89,8 @@ export default class ChatCtrl {
   }
 
   get isOptional(): boolean {
-    return this.visibleTabs.length === 1;
+    const tabs = this.visibleTabs;
+    return tabs.length === 1 && tabs[0].key === 'discussion';
   }
 
   get visibleTabs(): Tab[] {
