@@ -93,11 +93,8 @@ function prependChatInput(chatInput: HTMLInputElement, prefix: string): void {
   const newVal = prefix + chatInput.value;
   chatInput.focus();
   chatInput.select();
-  if (!document.execCommand('insertText', false, newVal)) {
-    // execCommand unsupported, fall back to manually updating the value:
-    chatInput.value = newVal;
-    chatInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
-  }
+  chatInput.value = newVal;
+  chatInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
 }
 
 let mouchListener: EventListener;
