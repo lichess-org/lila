@@ -6,6 +6,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">I wahodd rhywun i chwarae, rhowch y cyfeiriad hwn</string>
   <string name="gameOver">Gêm drosodd</string>
   <string name="waitingForOpponent">Aros am wrthwynebydd</string>
+  <string name="orLetYourOpponentScanQrCode">Neu caniatáu eich gwrthwynebwr sganio cod QR yma</string>
   <string name="waiting">Aros</string>
   <string name="yourTurn">Dy dro di</string>
   <string name="aiNameLevelAiLevel">%1$s safon %2$s</string>
@@ -18,6 +19,8 @@
   <string name="stalemate">Methmat</string>
   <string name="white">Gwyn</string>
   <string name="black">Du</string>
+  <string name="asWhite">fel gwyn</string>
+  <string name="asBlack">fel du</string>
   <string name="randomColor">Ochr ar hap</string>
   <string name="createAGame">Creu gêm</string>
   <string name="whiteIsVictorious">Gwyn wedi ennill</string>
@@ -54,6 +57,8 @@
   <string name="depthX">Dyfnder%s</string>
   <string name="usingServerAnalysis">Dadansoddiad gweinydd</string>
   <string name="loadingEngine">Llwytho\'r injan...</string>
+  <string name="calculatingMoves">Cyfrifo symudiadau...</string>
+  <string name="engineFailed">Gwall wrth llwytho peiriant</string>
   <string name="cloudAnalysis">Dadansoddiad y \"cwmwl\"</string>
   <string name="goDeeper">Mynd yn ddyfnach</string>
   <string name="showThreat">Dangos bygythiad</string>
@@ -62,7 +67,10 @@
   <string name="promoteVariation">Blaenoriaethu\'r edefyn</string>
   <string name="makeMainLine">Gwneud yn brif linell</string>
   <string name="deleteFromHere">Dileu o fama ymlaen</string>
+  <string name="collapseVariations">Cwympo amrywiadau</string>
+  <string name="expandVariations">Ehangu amrywiadau</string>
   <string name="forceVariation">Gorfodi amrywiad</string>
+  <string name="copyVariationPgn">Copio amrywiad PGN</string>
   <string name="move">Symudiad</string>
   <string name="variantLoss">Yn colli</string>
   <string name="variantWin">Yn enill</string>
@@ -82,6 +90,7 @@
   <string name="masterDbExplanation">Dau filiwn o gemau gan %1$s o chwaraewyr FIDE a chwaraewyd rhwng %2$s a %3$s</string>
   <string name="noGameFound">Dim gem wedi\'w ddarganfod</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Efallai y dylswch gynnwys mwy o gemau yn y dewislen gosodiadau.</string>
+  <string name="openings">Agoriadau</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
   <string name="openingEndgameExplorer">Chwiliwr agoriad/diweddgem</string>
   <string name="xOpeningExplorer">Archwiliwr agoriad %s</string>
@@ -157,6 +166,7 @@
   <string name="flipBoard">Troi\'r bwrdd</string>
   <string name="threefoldRepetition">Ailadrodd triphlyg</string>
   <string name="claimADraw">Hawlio gêm gyfartal</string>
+  <string name="drawClaimed">Gêm cyfartal hawlir</string>
   <string name="offerDraw">Cynnig gêm gyfartal</string>
   <string name="draw">Gêm gyfartal</string>
   <string name="drawByMutualAgreement">Gêm cyfartal wedi ei cytuno</string>
@@ -173,6 +183,7 @@
   <string name="viewInFullSize">Edrych yn maint llawn</string>
   <string name="logOut">Allgofnodi</string>
   <string name="signIn">Mewngofnodi</string>
+  <string name="rememberMe">Cadwch fi wedi mewngofnodi</string>
   <string name="youNeedAnAccountToDoThat">Rhaid ichi gofrestru i wneud hynny</string>
   <string name="signUp">Cofrestru</string>
   <string name="computersAreNotAllowedToPlay">Ni chanateir chwarae gyda help cyfrifiaduron. Peidiwch â chael help gan injan wyddbwyll, cronfeydd data neu chwaraewyr eraill wrth chwarae. Cofiwch fod cofrestru mwy nag unwaith yn erbyn y rheolau a gall chwaraewr wedi\'i gofrestru llawergwaith gael ei ysgymuno.</string>
@@ -182,6 +193,7 @@
   <string name="latestForumPosts">Postiau diwethaf</string>
   <string name="players">Chwaraewyr gwyddbwyll</string>
   <string name="friends">Ffrindiau</string>
+  <string name="otherPlayers">chwaraewyr eraill</string>
   <string name="discussions">Trafodaethau</string>
   <string name="today">Heddiw</string>
   <string name="yesterday">Ddoe</string>
@@ -209,12 +221,28 @@
   <string name="changeUsername">Newid enw defnyddiwr</string>
   <string name="changeUsernameNotSame">Dim ond cyfnewid llythrennau bras a man y gellid ei neud. e. e. newid \"mabglyndwr\" i \"MabGlyndwr\".</string>
   <string name="changeUsernameDescription">Newid eich enw defnyddiwr. Gallwch wneud hyn unwaith yn unig a does dim modd cyfnewid llythrennau mawr a bach yn eich enw defnyddiwr.</string>
+  <string name="signupUsernameHint">Sicrhewch eich fod yn ddewis enw defnyddiwr sydd yn addas i bawb. Nid ydych medru ei newid yn hwyrach ymlaen a fydd unrhyw cyfrif hefo enw defnyddiwr anaddas yn cael ei cloi!</string>
+  <string name="signupEmailHint">Fydden ni mond yn ei ddefnyddio ar gyfer ailosod cyfrinair.</string>
   <string name="password">Cyfrinair</string>
   <string name="changePassword">Newid cyfrinair</string>
   <string name="changeEmail">Newid cyfeiriad e-bost</string>
   <string name="email">Cyfeiriad e-bost</string>
   <string name="passwordReset">Ailosod y cyfrinair</string>
   <string name="forgotPassword">Wedi anghofio\'r cyfrinair?</string>
+  <string name="error.weakPassword">Mae cyfrinair yma yn gyffredin iawn ac yn rhy hawdd i dyfalu.</string>
+  <string name="error.namePassword">Os gwelwch yn dda peidiwch â ddefnyddio eich enw defnyddiwr ar gyfer eich cyfrinair.</string>
+  <string name="blankedPassword">Rydych chi wedi ddefnyddio yr un cyfrinair ar gwefan arall, mae gwefan yna wedi ei cyfaddawdu. I sicrhau diogelwch eich cyfrif Lichess rydym ni angen iddych chi osod cyfrinair newydd. Diolch am eich dealltwriaeth.</string>
+  <string name="youAreLeavingLichess">Rydych chi\'n gadael Lichess</string>
+  <string name="neverTypeYourPassword">Peidiwch byth ysgrifennu eich cyfrinair Lichess ar gwefan arall!</string>
+  <string name="passwordSuggestion">Peidiwch osod cyfrinair wedi ei awgrymu gan rhywun arall. Fydden nhw\'n ei ddefnyddio i dwyn eich cyfrif.</string>
+  <string name="emailSuggestion">Peidiwch osod e-bost wedi ei awgrymu gan rhywun arall. Fydden nhw\'n ei ddefnyddio i dwyn eich cyfrif.</string>
+  <string name="usernameCanBeUsedForNewAccount">Gallech chi ddefnyddio enw defnyddiwr yma i creu cyfrif newydd</string>
+  <string name="emailSent">Rydym ni wedi anfon e-bost i %s.</string>
+  <string name="emailCanTakeSomeTime">Gall cymryd dipyn o amser i cyrraedd.</string>
+  <string name="refreshInboxAfterFiveMinutes">Arhoswch 5 munud ac yna adnewyddwch mewnflwch eich e-bost.</string>
+  <string name="checkSpamFolder">Yn ychwanegol gwirio eich ffolder sbam, mae hi\'n bosib iddo cyrraedd yna. Os felly, nodwch o fel ddim yn sbam.</string>
+  <string name="emailForSignupHelp">Os mae popeth arall yn methu, anfonwch y e-bost yma iddyn ni:</string>
+  <string name="copyTextToEmail">Copiwch a gludwch y testun uchod ac anfonwch at %s</string>
   <string name="rank">Safle</string>
   <string name="rankX">Safle: %s</string>
   <string name="gamesPlayed">Gêmau wedi\'u chwarae</string>
