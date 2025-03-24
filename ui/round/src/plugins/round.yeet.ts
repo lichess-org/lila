@@ -24,6 +24,13 @@ function yeet() {
     `<style>
     .main-board cg-board { box-shadow: none !important; }
     .main-board cg-board:not(.clone)::before {background-image: none !important}
+    button.yeet-reload {
+      position: fixed;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      zIndex: 100000;
+    }
 </style>`,
   );
   $('.main-board square').remove();
@@ -99,6 +106,8 @@ function yeet() {
     });
     if (keepGoing) {
       requestAnimationFrame(movePieces);
+    } else {
+      setTimeout(whenAllIsDone, 500);
     }
   }
 
@@ -116,4 +125,13 @@ function yeet() {
   });
 
   requestAnimationFrame(movePieces);
+}
+
+function whenAllIsDone() {
+  // insert a button to reload the page
+  var button = document.createElement('button');
+  button.classList.add('yeet-reload', 'button', 'button-red');
+  button.textContent = 'Yeet! Reload the page';
+  button.addEventListener('click', () => location.reload());
+  document.body.appendChild(button);
 }
