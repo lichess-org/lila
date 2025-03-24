@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Tefla við vin</string>
   <string name="playWithTheMachine">Tefla við tölvuna</string>
+  <string name="playOffline">Spila ótengt</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Leik lokið</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>

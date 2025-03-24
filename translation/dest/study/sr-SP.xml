@@ -99,7 +99,7 @@
   <string name="loadAPositionFromFen">Учитајте позицију из FEN-а</string>
   <string name="loadAGameFromPgn">Учитајте партију из PGN-а</string>
   <string name="automatic">Аутоматски</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Налепите свој PGN текст овде, до %s партије</item>
     <item quantity="few">Налепите свој PGN текст овде, до %s партије</item>
     <item quantity="other">Налепите свој PGN текст овде, до %s партија</item>

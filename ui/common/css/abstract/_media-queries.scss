@@ -3,6 +3,11 @@
     @content;
   }
 }
+@mixin mq-phone-landscape {
+  @media (max-height: at-most($tall)) and (orientation: landscape) {
+    @content;
+  }
+}
 @mixin mq-at-least-col2 {
   @media (min-width: at-least($small)), (orientation: landscape) {
     @content;

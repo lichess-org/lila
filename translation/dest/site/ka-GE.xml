@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">ეთამაშე მეგობარს</string>
   <string name="playWithTheMachine">ეთამაშე კომპიუტერს</string>
+  <string name="playOffline">ოფლაინ თამაში</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">მეტოქეს, მოსაწვევად, გაუგზავნეთ აღნიშნული ბმული</string>
   <string name="gameOver">თამაში დასრულებულია</string>
   <string name="waitingForOpponent">მეტოქის მოლოდინი</string>

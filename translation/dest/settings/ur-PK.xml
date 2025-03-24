@@ -2,6 +2,6 @@
 <resources>
   <string name="settings">اختیارات</string>
   <string name="closeAccount">اکاؤنٹ بند کریں</string>
-  <string name="cantOpenSimilarAccount">آپ کو نیا اکاونٹ اسی نام کے ساتھ بنانے کی اجازت نہیں ہے، بےشک معاملہ مختلف ہو.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">آپ کو نیا اکاونٹ اسی نام کے ساتھ بنانے کی اجازت نہیں ہے، بےشک معاملہ مختلف ہو.</string>
   <string name="thisAccountIsClosed">اکاؤنٹ بند کردیا گیا ہے</string>
 </resources>

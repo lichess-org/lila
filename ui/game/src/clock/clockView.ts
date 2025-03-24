@@ -1,26 +1,24 @@
-import * as licon from 'common/licon';
-import { moretime } from '../view/button';
-import { playable, berserkableBy, bothPlayersHavePlayed, type Player } from 'game';
-import type RoundController from '../ctrl';
-import { justIcon } from '../util';
-import type { ClockElements, ClockController } from './clockCtrl';
+import type { ClockElements, ClockCtrl } from './clockCtrl';
 import type { Hooks } from 'snabbdom';
-import { looseH as h, type VNode, bind } from 'common/snabbdom';
+import { looseH as h, type VNode, LooseVNodes } from 'common/snabbdom';
 import { isCol1 } from 'common/device';
-import type { Position } from '../interfaces';
+import { TopOrBottom } from '../game';
 
-export function renderClock(ctrl: RoundController, player: Player, position: Position): VNode {
-  const clock = ctrl.clock!,
-    millis = clock.millisOf(player.color),
-    isPlayer = ctrl.data.player.color === player.color,
-    isRunning = player.color === clock.times.activeColor;
+export function renderClock(
+  ctrl: ClockCtrl,
+  color: Color,
+  position: TopOrBottom,
+  onTheSide: (color: Color, position: TopOrBottom) => LooseVNodes,
+): VNode {
+  const millis = ctrl.millisOf(color),
+    isRunning = color === ctrl.times.activeColor;
   const update = (el: HTMLElement) => {
-    const els = clock.elements[player.color],
-      millis = clock.millisOf(player.color),
-      isRunning = player.color === clock.times.activeColor;
+    const els = ctrl.elements[color],
+      millis = ctrl.millisOf(color),
+      isRunning = color === ctrl.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.opts.nvui);
+    el.innerHTML = formatClockTime(millis, ctrl.showTenths(millis), isRunning, ctrl.opts.nvui);
   };
   const timeHook: Hooks = {
     insert: vnode => update(vnode.elm as HTMLElement),
@@ -29,16 +27,14 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
   return h(
     // the player.color class ensures that when the board is flipped, the clock is redrawn. solves bug where clock
     // would be incorrectly latched to red color: https://github.com/lichess-org/lila/issues/10774
-    `div.rclock.rclock-${position}.rclock-${player.color}`,
-    { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < clock.emergMs } },
-    clock.opts.nvui
+    `div.rclock.rclock-${position}.rclock-${color}`,
+    { class: { outoftime: millis <= 0, running: isRunning, emerg: millis < ctrl.emergMs } },
+    ctrl.opts.nvui
       ? [h('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
       : [
-          clock.showBar && bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
+          ctrl.showBar && ctrl.opts.bothPlayersHavePlayed() ? showBar(ctrl, color) : undefined,
           h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
-          renderBerserk(ctrl, player.color, position),
-          isPlayer ? goBerserk(ctrl) : moretime(ctrl),
-          clockSide(ctrl, player.color, position),
+          ...onTheSide(color, position),
         ],
   );
 }
@@ -75,22 +71,21 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, 
   }
 }
 
-function showBar(ctrl: RoundController, color: Color) {
-  const clock = ctrl.clock!;
+function showBar(ctrl: ClockCtrl, color: Color) {
   const update = (el: HTMLElement) => {
     if (el.animate !== undefined) {
-      let anim = clock.elements[color].barAnim;
+      let anim = ctrl.elements[color].barAnim;
       if (anim === undefined || !anim.effect || (anim.effect as KeyframeEffect).target !== el) {
         anim = el.animate([{ transform: 'scale(1)' }, { transform: 'scale(0, 1)' }], {
-          duration: clock.barTime,
+          duration: ctrl.barTime,
           fill: 'both',
         });
-        clock.elements[color].barAnim = anim;
+        ctrl.elements[color].barAnim = anim;
       }
-      const remaining = clock.millisOf(color);
-      anim.currentTime = clock.barTime - remaining;
-      if (color === clock.times.activeColor) {
-        if (remaining > clock.barTime) {
+      const remaining = ctrl.millisOf(color);
+      anim.currentTime = ctrl.barTime - remaining;
+      if (color === ctrl.times.activeColor) {
+        if (remaining > ctrl.barTime) {
           // Player was given more time than the duration of the animation. So we update the duration to reflect this.
           el.style.animationDuration = String(remaining / 1000) + 's';
         } else if (remaining > 0) {
@@ -99,14 +94,14 @@ function showBar(ctrl: RoundController, color: Color) {
         }
       } else anim.pause();
     } else {
-      clock.elements[color].bar = el;
-      el.style.transform = 'scale(' + clock.timeRatio(clock.millisOf(color)) + ',1)';
+      ctrl.elements[color].bar = el;
+      el.style.transform = 'scale(' + ctrl.timeRatio(ctrl.millisOf(color)) + ',1)';
     }
   };
   return isCol1()
     ? undefined
     : h('div.bar', {
-        class: { berserk: !!ctrl.goneBerserk[color] },
+        class: { berserk: ctrl.opts.hasGoneBerserk(color) },
         hook: {
           insert: vnode => update(vnode.elm as HTMLElement),
           postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
@@ -114,7 +109,7 @@ function showBar(ctrl: RoundController, color: Color) {
       });
 }
 
-export function updateElements(clock: ClockController, els: ClockElements, millis: Millis): void {
+export function updateElements(clock: ClockCtrl, els: ClockElements, millis: Millis): void {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   // 12/02/2025 Brave 1.74.51 android flickers the bar oninline transforms, even though .bar is display: none
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
@@ -124,28 +119,3 @@ export function updateElements(clock: ClockController, els: ClockElements, milli
     else if (cl.contains('emerg')) cl.remove('emerg');
   }
 }
-
-const showBerserk = (ctrl: RoundController, color: Color): boolean =>
-  !!ctrl.goneBerserk[color] && ctrl.data.game.turns <= 1 && playable(ctrl.data);
-
-const renderBerserk = (ctrl: RoundController, color: Color, position: Position) =>
-  showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon(licon.Berserk)) : null;
-
-const goBerserk = (ctrl: RoundController) => {
-  if (!berserkableBy(ctrl.data)) return;
-  if (ctrl.goneBerserk[ctrl.data.player.color]) return;
-  return h('button.fbt.go-berserk', {
-    attrs: { title: 'GO BERSERK! Half the time, no increment, bonus point', 'data-icon': licon.Berserk },
-    hook: bind('click', ctrl.goBerserk),
-  });
-};
-
-const clockSide = (ctrl: RoundController, color: Color, position: Position) => {
-  const d = ctrl.data,
-    ranks = d.tournament?.ranks || d.swiss?.ranks;
-  return (
-    ranks &&
-    !showBerserk(ctrl, color) &&
-    h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color])
-  );
-};

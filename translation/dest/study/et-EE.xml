@@ -98,7 +98,7 @@
   <string name="loadAPositionFromFen">Laadi alla positsioon FEN-ist</string>
   <string name="loadAGameFromPgn">Lae mänge PGN-ist</string>
   <string name="automatic">Automaatne</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Aseta oma PGN tekst siia, kuni %s mäng</item>
     <item quantity="other">Aseta oma PGN tekst siia, kuni %s mängu</item>
   </plurals>

@@ -20,7 +20,12 @@
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
   "engines": {
     "node": ">=22.6",
-    "pnpm": "^10"
+    "pnpm": "10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
@@ -31,7 +36,6 @@
     "chessground": "^9.1.1",
     "chessops": "^0.14.2",
     "eslint": "^9.21.0",
-    "jsdom": "^26.0.0",
     "lint-staged": "^15.4.3",
     "onchange": "^7.1.0",
     "prettier": "^3.5.2",
@@ -59,10 +63,5 @@
     "test": "vitest run --config=ui/vitest.config.mts",
     "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
   }
 }

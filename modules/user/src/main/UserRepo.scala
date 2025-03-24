@@ -524,6 +524,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def countEngines(userIds: List[UserId]): Fu[Int] =
     coll.secondaryPreferred.countSel($inIds(userIds) ++ engineSelect(true))
 
+  def filterEngines(userIds: Seq[UserId]): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ engineSelect(true), _.sec)
+
   def countLameOrTroll(userIds: List[UserId]): Fu[Int] =
     coll.secondaryPreferred.countSel($inIds(userIds) ++ lameOrTroll)
 
