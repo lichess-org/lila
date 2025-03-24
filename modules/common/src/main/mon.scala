@@ -367,9 +367,6 @@ object mon:
     object streamer:
       def present(n: String) = gauge("tv.streamer.present").withTag("name", n)
       def twitch             = future("tv.streamer.twitch")
-  object playTime:
-    val create         = future("playTime.create.time")
-    val createPlayTime = histogram("playTime.create.playTime").withoutTags()
   object relation:
     private val c = counter("relation.action")
     val follow    = c.withTag("type", "follow")
