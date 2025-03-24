@@ -61,10 +61,16 @@ object String:
       html.map(org.apache.commons.text.StringEscapeUtils.unescapeHtml4)
 
     def markdownLinksOrRichText(text: String)(using NetDomain): Frag =
-      val escaped = Html(escapeHtmlRaw(text))
-      val marked  = RawHtml.justMarkdownLinks(escaped)
-      if marked == escaped then richText(text)
-      else nl2brUnsafe(marked.value)
+      val sb        = new StringBuilder
+      var lastIndex = 0
+      for m <- RawHtml.markdownLinkRegex.findAllMatchIn(text) do
+        val before = text.substring(lastIndex, m.start)
+        sb.append(richText(before).render)
+        sb.append(RawHtml.justMarkdownLinks(Html(m.matched)).value)
+        lastIndex = m.end
+      val remaining = text.substring(lastIndex)
+      sb.append(richText(remaining).render)
+      nl2brUnsafe(sb.toString)
 
     def safeJsonValue(jsValue: JsValue): SafeJsonStr = SafeJsonStr:
       // Borrowed from:
