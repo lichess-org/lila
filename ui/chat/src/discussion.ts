@@ -89,7 +89,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
 }
 
 function prependChatInput(chatInput: HTMLInputElement, prefix: string): void {
-  if (!chatInput.value.startsWith(prefix)) chatInput.value = prefix + chatInput.value;
+  if (!chatInput.value.includes(prefix)) chatInput.value = prefix + chatInput.value;
   chatInput.focus();
   chatInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
 }
