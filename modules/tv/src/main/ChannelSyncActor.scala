@@ -8,7 +8,7 @@ import scalalib.HeapSort.topNToList
 
 import lila.core.LightUser
 
-final private[tv] class ChannelSyncActor(
+final private class ChannelSyncActor(
     channel: Tv.Channel,
     onSelect: TvSyncActor.Selected => Unit,
     gameProxy: lila.core.game.GameProxy,

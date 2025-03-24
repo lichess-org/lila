@@ -37,9 +37,8 @@ final class Tv(
             game <- gameId.so(gameProxy.game)
             games <-
               historyIds
-                .map: id =>
+                .traverse: id =>
                   gameProxy.game(id).orElse(gameRepo.game(id))
-                .parallel
                 .dmap(_.flatten)
             history = games.map(Pov.naturalOrientation)
           yield game.map(_ -> history)
