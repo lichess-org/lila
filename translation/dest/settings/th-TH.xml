@@ -3,6 +3,6 @@
   <string name="settings">การตั้งค่า</string>
   <string name="closeAccount">ปิดบัญชี</string>
   <string name="managedAccountCannotBeClosed">บัญชีของคุณถูกควบคุมและไม่สามารถปิดได้</string>
-  <string name="cantOpenSimilarAccount">คุณไม่ได้รับอนุญาตให้เปิดบัญชีใหม่ด้วยที่ชื่อเหมือนกัน แม้อักษรจะต่างขนาดตัวพิมพ์</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">คุณไม่ได้รับอนุญาตให้เปิดบัญชีใหม่ด้วยที่ชื่อเหมือนกัน แม้อักษรจะต่างขนาดตัวพิมพ์</string>
   <string name="thisAccountIsClosed">บัญชีนี้ถูกปิดแล้ว</string>
 </resources>

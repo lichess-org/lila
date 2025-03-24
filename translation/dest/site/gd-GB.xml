@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Cluich còmhla ri caraid</string>
   <string name="playWithTheMachine">Cluich an aghaidh a\' choimpiutair</string>
+  <string name="playOffline">Cluich far loidhne</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gus cuireadh a thoirt do chuideigin, thoir an url seo dha</string>
   <string name="gameOver">Crìoch a’ gheama</string>
   <string name="waitingForOpponent">A’ feitheamh air nàmhaid</string>

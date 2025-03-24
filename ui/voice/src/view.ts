@@ -150,7 +150,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     }
     html += '</tbody></table>';
     dlg.view.innerHTML = html;
-    if (!dlg.open) dlg.show();
+    if (!dlg.dialog.open) dlg.show();
   };
 
   return snabDialog({

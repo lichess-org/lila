@@ -109,7 +109,7 @@
   <string name="loadAPositionFromFen">Načítať pozíciu z FEN</string>
   <string name="loadAGameFromPgn">Načítať hru z PGN</string>
   <string name="automatic">Automatická</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Váš PGN text vložte sem, maximálne %s partiu</item>
     <item quantity="few">Váš PGN text vložte sem, maximálne %s partie</item>
     <item quantity="many">Váš PGN text vložte sem, maximálne %s partií</item>

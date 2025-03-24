@@ -15,6 +15,7 @@ export type PubsubEvent =
   | 'content-loaded'
   | 'flip'
   | 'jump'
+  | 'local.dev.import.book'
   | 'notify-app.set-read'
   | 'palantir.toggle'
   | 'ply'
@@ -51,7 +52,12 @@ export type PubsubEvent =
   | 'top.toggle.user_tag'
   | 'zen';
 
-export type PubsubOneTimeEvent = 'dialog.polyfill' | 'socket.hasConnected';
+export type PubsubOneTimeEvent =
+  | 'dialog.polyfill'
+  | 'socket.hasConnected'
+  | 'local.images.ready'
+  | 'local.gameDb.ready'
+  | 'local.bots.ready';
 
 export type PubsubCallback = (...data: any[]) => void;
 
@@ -73,23 +79,23 @@ export class Pubsub {
     for (const fn of this.allSubs.get(name) || []) fn.apply(null, args);
   }
 
-  after(event: PubsubOneTimeEvent): Promise<void> {
+  after<T>(event: PubsubOneTimeEvent): Promise<T> {
     const found = this.oneTimeEvents.get(event);
     if (found) return found.promise;
 
-    const handler = {} as OneTimeHandler;
-    handler.promise = new Promise<void>(resolve => (handler!.resolve = resolve));
+    const handler = {} as OneTimeHandler<T>;
+    handler.promise = new Promise<T>(resolve => (handler!.resolve = resolve));
     this.oneTimeEvents.set(event, handler);
 
     return handler.promise;
   }
 
-  complete(event: PubsubOneTimeEvent): void {
+  complete<T>(event: PubsubOneTimeEvent, value?: T): void {
     const found = this.oneTimeEvents.get(event);
     if (found) {
-      found.resolve?.();
+      found.resolve?.(value);
       found.resolve = undefined;
-    } else this.oneTimeEvents.set(event, { promise: Promise.resolve() });
+    } else this.oneTimeEvents.set(event, { promise: Promise.resolve(value) });
   }
 
   past(event: PubsubOneTimeEvent): boolean {
@@ -99,7 +105,7 @@ export class Pubsub {
 
 export const pubsub: Pubsub = new Pubsub();
 
-interface OneTimeHandler {
-  promise: Promise<void>;
-  resolve?: () => void;
+interface OneTimeHandler<T = any> {
+  promise: Promise<T>;
+  resolve?: (value: T) => void;
 }

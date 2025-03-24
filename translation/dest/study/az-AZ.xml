@@ -97,7 +97,7 @@
   <string name="loadAPositionFromFen">FEN ilə pozisiya yüklə</string>
   <string name="loadAGameFromPgn">PGN ilə oyun yüklə</string>
   <string name="automatic">Avtomatik</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
     <item quantity="other">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>
   </plurals>

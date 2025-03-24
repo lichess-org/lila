@@ -1,25 +1,30 @@
 import { updateElements } from './clockView';
-import type { RoundData } from '../interfaces';
-import { playedTurns, playable } from 'game';
 import { ShowClockTenths } from 'common/prefs';
 import { reducedMotion } from 'common/device';
 
-interface ClockOpts {
+export interface ClockOpts {
   onFlag(): void;
+  bothPlayersHavePlayed(): boolean;
+  hasGoneBerserk(color: Color): boolean;
   soundColor?: Color;
   nvui: boolean;
 }
 
-export interface ClockData {
-  running: boolean;
+export interface ClockConfig {
   initial: Seconds;
   increment: Seconds;
+  moretime: Seconds;
+}
+
+// JSON data from the server
+export interface ClockData extends ClockConfig {
+  running: boolean;
   white: Seconds;
   black: Seconds;
-  emerg: Seconds;
-  showTenths: ShowClockTenths;
-  showBar: boolean;
-  moretime: number;
+}
+export interface ClockPref {
+  clockTenths: ShowClockTenths;
+  clockBar: boolean;
 }
 
 interface Times {
@@ -28,8 +33,6 @@ interface Times {
   activeColor?: Color;
   lastUpdate: Millis;
 }
-
-type ColorMap<T> = { [C in Color]: T };
 
 export interface ClockElements {
   time?: HTMLElement;
@@ -48,7 +51,14 @@ interface EmergSound {
   };
 }
 
-export class ClockController {
+interface SetData {
+  white: Seconds;
+  black: Seconds;
+  ticking: Color | undefined;
+  delay?: Centis;
+}
+
+export class ClockCtrl {
   emergSound: EmergSound = {
     play: () => site.sound.play('lowTime'),
     delay: 20000,
@@ -66,48 +76,49 @@ export class ClockController {
   timeRatioDivisor: number;
   emergMs: Millis;
 
-  elements = {
-    white: {},
-    black: {},
-  } as ColorMap<ClockElements>;
+  elements: ByColor<ClockElements> = { white: {}, black: {} };
 
   private tickCallback?: number;
 
   constructor(
-    d: RoundData,
+    data: ClockData,
+    pref: ClockPref,
+    ticking: Color | undefined,
     readonly opts: ClockOpts,
   ) {
-    const cdata = d.clock!;
+    this.showTenths =
+      pref.clockTenths === ShowClockTenths.Never
+        ? () => false
+        : pref.clockTenths === ShowClockTenths.Below10Secs
+          ? time => time < 10000
+          : time => time < 3600000;
 
-    if (cdata.showTenths === ShowClockTenths.Never) this.showTenths = () => false;
-    else {
-      const cutoff = cdata.showTenths === ShowClockTenths.Below10Secs ? 10000 : 3600000;
-      this.showTenths = time => time < cutoff;
-    }
-
-    this.showBar = cdata.showBar && !this.opts.nvui && !reducedMotion();
-    this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.showBar = pref.clockBar && !this.opts.nvui && !reducedMotion();
+    this.barTime = 1000 * (Math.max(data.initial, 2) + 5 * data.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
-    this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
+    this.emergMs = 1000 * Math.min(60, Math.max(10, data.initial * 0.125));
 
-    this.setClock(d, cdata.white, cdata.black);
+    this.setClock({
+      white: data.white,
+      black: data.black,
+      ticking,
+    });
   }
 
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
-  setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0): void => {
-    const isClockRunning = playable(d) && (playedTurns(d) > 1 || d.clock!.running),
-      delayMs = delay * 10;
+  setClock = (d: SetData): void => {
+    const delayMs = (d.delay || 0) * 10;
 
     this.times = {
-      white: white * 1000,
-      black: black * 1000,
-      activeColor: isClockRunning ? d.game.player : undefined,
+      white: d.white * 1000,
+      black: d.black * 1000,
+      activeColor: d.ticking,
       lastUpdate: performance.now() + delayMs,
     };
 
-    if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
+    if (d.ticking) this.scheduleTick(this.times[d.ticking], delayMs);
   };
 
   addTime = (color: Color, time: Centis): void => {

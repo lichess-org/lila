@@ -105,7 +105,7 @@
   <string name="loadAPositionFromFen">Učitajte partiju pomoću FEN koda</string>
   <string name="loadAGameFromPgn">Učitajte partiju pomoću PGN formata</string>
   <string name="automatic">Automatska</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s partije</item>
     <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s partije</item>
     <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s partija</item>

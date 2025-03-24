@@ -198,7 +198,7 @@ final class Env(
 
   // core APIs
   val gameProxy: lila.core.game.GameProxy = new:
-    export proxyRepo.{ game, pov, updateIfPresent, flushIfPresent, upgradeIfPresent }
+    export proxyRepo.{ game, pov, gameIfPresent, updateIfPresent, flushIfPresent, upgradeIfPresent }
   val roundJson: lila.core.round.RoundJson = new:
     export mobile.offline as mobileOffline
 
