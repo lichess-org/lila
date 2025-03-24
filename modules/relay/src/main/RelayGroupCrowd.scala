@@ -5,7 +5,11 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 
 // We sum up the crowds of all rounds of all tours of a group
-private final class RelayGroupCrowd(colls: RelayColls, cacheApi: lila.memo.CacheApi)(using Executor):
+private final class RelayGroupCrowd(
+    colls: RelayColls,
+    groupRepo: RelayGroupRepo,
+    cacheApi: lila.memo.CacheApi
+)(using Executor):
 
   export cache.get
 
@@ -13,28 +17,11 @@ private final class RelayGroupCrowd(colls: RelayColls, cacheApi: lila.memo.Cache
     _.expireAfterWrite(14.seconds).buildAsyncFuture(compute)
 
   private def compute(tourId: RelayTourId): Fu[Crowd] = Crowd.from:
-    colls.group
-      .aggregateOne(_.sec): framework =>
-        import framework.*
-        Match($doc("tours" -> tourId)) -> List(
-          PipelineOperator:
-            $lookup.pipelineFull(
-              from = colls.round.name,
-              as = "round",
-              let = $doc("tid" -> "$tours"),
-              pipe = List(
-                $doc(
-                  "$match" -> $doc(
-                    "$expr"   -> $doc("$in" -> $arr("$tourId", "$$tid")),
-                    "crowdAt" -> $doc("$gt" -> nowInstant.minus(1.hours))
-                  )
-                ),
-                $doc("$project" -> $doc("_id" -> false, "crowd" -> true))
-              )
-            )
-          ,
-          Project($doc("_id" -> false, "round" -> true)),
-          UnwindField("round"),
-          Group(BSONNull)("sum" -> SumField("round.crowd"))
-        )
-      .map(_.headOption.flatMap(_.int("sum")).orZero)
+    for
+      tourIds <- groupRepo.allTourIdsOfGroup(tourId)
+      res <- colls.round
+        .aggregateOne(_.sec): framework =>
+          import framework.*
+          Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+            List(Group(BSONNull)("sum" -> SumField("crowd")))
+    yield res.headOption.flatMap(_.int("sum")).orZero
