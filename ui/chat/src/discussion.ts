@@ -37,10 +37,13 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             $el.on('click', '.reply', (e: Event) => {
-              prependChatInput(
-                (vnode.elm as Element).closest('.mchat')!.querySelector('input.mchat__say')!,
-                `@${(e.target as HTMLElement).dataset['user']!} `,
-              );
+              const el = e.target as HTMLElement;
+              const username = el.parentElement
+                ?.querySelector<HTMLLinkElement>('.user-link')
+                ?.getAttribute('href')
+                ?.slice(3);
+              const input = el.closest('.mchat')?.querySelector<HTMLInputElement>('input.mchat__say');
+              if (username && input) prependChatInput(input, `@${username} `);
             });
             if (hasMod)
               $el.on('click', '.mod', (e: Event) =>
@@ -207,7 +210,7 @@ const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
   if (ctrl.canPostArbitraryText() && !ctrl.data.resourceId.startsWith('game'))
     icons.push(
       h('action.reply', {
-        attrs: { 'data-icon': licon.Back, title: 'Reply', 'data-user': line.u },
+        attrs: { 'data-icon': licon.Back, title: 'Reply' },
       }),
     );
   icons.push(
