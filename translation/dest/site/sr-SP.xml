@@ -470,9 +470,9 @@
   </plurals>
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>
-  <string name="lastSeenActive">Последња посета %s</string>
+  <string name="lastSeenActive">Активан/на %s</string>
   <string name="player">Играч</string>
-  <string name="list">Списак</string>
+  <string name="list">Листа</string>
   <string name="graph">Графикон</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Мање од %s минут</item>
