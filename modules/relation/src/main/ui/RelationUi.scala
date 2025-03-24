@@ -166,7 +166,7 @@ final class RelationUi(helpers: Helpers):
         main(cls := "box page-small")(body)
 
   private def pagTable(pager: Paginator[Related[UserWithPerfs]], call: Call)(using ctx: Context) =
-    table(cls := "slist slist-pad")(
+    table(cls := "slist slist-pad slist-invert")(
       if pager.nbResults > 0
       then
         tbody(cls := "infinite-scroll")(
