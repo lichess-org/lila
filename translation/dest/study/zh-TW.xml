@@ -100,11 +100,11 @@
   <string name="loadAPositionFromFen">透過FEN讀取局面</string>
   <string name="loadAGameFromPgn">以PGN文件導入棋局</string>
   <string name="automatic">自動</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="%s is the number of games. A study may have up to 64 chapters as of February 2025.&#10;&#10;Appears as a hint in a text box that permits the study creator to paste game(s) in PGN format into their code.&#10;&#10;The text for plurals was extended in February 2025. It is long for a placeholder hint. Because of where it is displayed, we encourage you to keep your translation short.&#10;&#10;&quot;PGN&quot; should not be translated or transliterated into a different alphabet or script.">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="other">在此貼上PGN文本，最多可導入%s個棋局</item>
   </plurals>
   <string name="urlOfTheGame">棋局連結，一行一個</string>
-  <string name="loadAGameFromXOrY" comment="%1$s is lichess.org %2$s is chessgames.com.&#10;&#10;Users can paste URLs to games from either of these websites and import the games into their studies.">從%1$s或%2$s載入棋局</string>
+  <string name="loadAGameFromXOrY">從%1$s或%2$s載入棋局</string>
   <string name="createChapter">建立章節</string>
   <string name="createStudy">建立研究</string>
   <string name="editStudy">編輯此研究</string>

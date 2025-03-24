@@ -104,7 +104,7 @@ export function view(ctrl: StudyForm): VNode {
             h(
               'div.flair-picker.none',
               data.admin || { attrs: { 'data-except-emojis': 'activity.lichess' } },
-              h(removeEmojiButton, 'clear'),
+              h('button.button.button-metal.emoji-remove', { attrs: { type: 'button' } }, 'clear'),
             ),
           ],
         ),
@@ -302,5 +302,3 @@ export function view(ctrl: StudyForm): VNode {
     ],
   });
 }
-
-const removeEmojiButton = 'button.button.button-metal.emoji-remove';

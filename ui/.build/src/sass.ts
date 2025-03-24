@@ -39,10 +39,11 @@ export async function sass(): Promise<any> {
 
   return task({
     ctx: 'sass',
-    glob: [
-      { cwd: env.uiDir, path: '*/css/**/!(gen)/*.scss' },
+    includes: [
+      { cwd: env.uiDir, path: '*/css/**/*.scss' },
       { cwd: env.hashOutDir, path: '*' },
     ],
+    excludes: '**/gen/**',
     debounce: 300,
     root: env.rootDir,
     execute: async (modified, fullList) => {
@@ -112,6 +113,7 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.on('close', async (code: number) => {
+      sassPs = undefined;
       if (code === 0) resolveWithErrors([]);
       else
         Promise.all(sources.filter(scss => !readable(absTempCss(scss))))
@@ -138,8 +140,8 @@ async function parseScss(src: string, processed: Set<string>) {
     colorMixMap.set(mixName, mixColor);
   }
 
-  for (const [, scssUrl] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
-    const url = scssUrl.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
+  for (const [, urlProp] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
+    const url = urlProp.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
 
     if (url.includes('*')) {
       for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
@@ -261,7 +263,7 @@ async function buildColorMixes() {
             return c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })));
         }
       })();
-      if (mixed) colors.push(`  --m-${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};`);
+      if (mixed) colors.push(`  --m-${colorMix}: ${mixed.toHslString()};`);
       else env.log(`${errorMark} Invalid mix op: '${c.magenta(colorMix)}'`, 'sass');
     }
     out.write(colors.sort().join('\n') + '\n}\n\n');

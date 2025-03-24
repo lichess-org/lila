@@ -99,7 +99,7 @@
   <string name="loadAPositionFromFen">โหลดตำแหน่งจาก FEN</string>
   <string name="loadAGameFromPgn">โหลดเกมจาก PGN</string>
   <string name="automatic">อัตโนมัติ</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="other">วางข้อความ PGN ของคุณที่นี่, ได้ถึง %s เกม</item>
   </plurals>
   <string name="urlOfTheGame">URL ของเกม</string>

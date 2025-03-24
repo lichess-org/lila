@@ -3,6 +3,6 @@
   <string name="settings">Mga setting</string>
   <string name="closeAccount">Isara ang akawnt</string>
   <string name="managedAccountCannotBeClosed">Ang iyong akawnt ay pinamamahalaan, at hindi maaaring masarado.</string>
-  <string name="cantOpenSimilarAccount">Hindi ka maaaring gumawa ng bagong akawnt gamit ang parehong pangalan, kahit na iba ang kaso.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Hindi ka maaaring gumawa ng bagong akawnt gamit ang parehong pangalan, kahit na iba ang kaso.</string>
   <string name="thisAccountIsClosed">Ang akawnt na ito ay sarado.</string>
 </resources>

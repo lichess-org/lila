@@ -92,6 +92,10 @@
       }
     }
 
+    action.reply {
+      @include inline-end(25px);
+    }
+
     li:hover action {
       display: block;
       text-shadow:

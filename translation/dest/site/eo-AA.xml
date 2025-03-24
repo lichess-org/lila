@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Ludi kun amiko</string>
   <string name="playWithTheMachine">Ludi kontraŭ la komputilo</string>
+  <string name="playOffline">Ludi eksterrete</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>

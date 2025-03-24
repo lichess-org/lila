@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Gioca con un amico</string>
   <string name="playWithTheMachine">Gioca contro il computer</string>
+  <string name="playOffline">Gioca offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>

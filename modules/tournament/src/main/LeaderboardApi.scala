@@ -33,7 +33,7 @@ final class LeaderboardApi(
       .find(
         $doc(
           "u" -> userId,
-          "d".$gt(range.start).$lt(range.end)
+          "d".$gte(range.start).$lt(range.end)
         )
       )
       .sort($sort.desc("d"))

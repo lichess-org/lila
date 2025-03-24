@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Играј со пријател</string>
   <string name="playWithTheMachine">Играј со компјутерот</string>
+  <string name="playOffline">Играј offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да поканиш некој да игра, прати му го овој линк</string>
   <string name="gameOver">Крај на играта</string>
   <string name="waitingForOpponent">Се чека противникот</string>

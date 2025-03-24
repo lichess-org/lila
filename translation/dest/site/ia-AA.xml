@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jocar con un amico</string>
   <string name="playWithTheMachine">Jocar con le machina</string>
+  <string name="playOffline">Jocar disconnectite</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro invitar alcuno a jocar, da le iste adresse</string>
   <string name="gameOver">Partita finite</string>
   <string name="waitingForOpponent">Attendente le adversario</string>

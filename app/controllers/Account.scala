@@ -113,7 +113,7 @@ final class Account(
       .map:
         _.take((getInt("nb") | 9).atMost(50))
       .map:
-        _.filterNot(_.game.isTournament).map(env.api.lobbyApi.nowPlaying)
+        _.map(env.api.lobbyApi.nowPlaying)
       .map: povs =>
         Ok(Json.obj("nowPlaying" -> JsArray(povs)))
 

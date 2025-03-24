@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">La ciyaar saaxiib</string>
   <string name="playWithTheMachine">La ciyaar komyuutar</string>
+  <string name="playOffline">Ciyaar khad la\'aan</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Si aad u casuumtid qof kula ciyaara, u dir laynkan</string>
   <string name="gameOver">Ciyaarti way dhamaatay</string>
   <string name="waitingForOpponent">Sugaya herjeede cusub</string>

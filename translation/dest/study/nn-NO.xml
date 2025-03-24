@@ -103,7 +103,7 @@
   <string name="loadAPositionFromFen">Last opp ein stilling frå FEN</string>
   <string name="loadAGameFromPgn">Last opp eit parti frå PGN</string>
   <string name="automatic">Automatisk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Sett inn PGN-teksten din her, maksimum %s parti</item>
     <item quantity="other">Sett inn PGN-teksten din her, maksimum %s parti</item>
   </plurals>

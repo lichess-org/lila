@@ -145,10 +145,10 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
     button(
       tpe := "button",
       cls := List(
-        "ublog-post__like is"                                -> true,
-        "ublog-post__like--liked"                            -> liked,
-        "ublog-post__like--big button button-big button-red" -> showText,
-        "ublog-post__like--mini button-link"                 -> !showText
+        "ublog-post__like is"                     -> true,
+        "ublog-post__like--liked"                 -> liked,
+        "ublog-post__like--big button button-red" -> showText,
+        "ublog-post__like--mini button-link"      -> !showText
       ),
       dataRel := post.id,
       title   := text
@@ -175,7 +175,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
         ("no", trans.site.followX, routes.Relation.follow, Icon.ThumbsUp)
       ).map: (role, text, route, icon) =>
         button(
-          cls      := s"ublog-post__follow__$role button button-big",
+          cls      := s"ublog-post__follow__$role button",
           dataIcon := icon,
           dataRel  := route(user.id)
         )(

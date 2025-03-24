@@ -1,9 +1,9 @@
 import type { GameData, Player } from './interfaces';
-import { finished, aborted, ids } from './status';
+import { finished, aborted, status } from './status';
 
 export * from './interfaces';
 
-export const playable = (data: GameData): boolean => data.game.status.id < ids.aborted && !imported(data);
+export const playable = (data: GameData): boolean => data.game.status.id < status.aborted && !imported(data);
 
 export const isPlayerPlaying = (data: GameData): boolean => playable(data) && !data.player.spectator;
 

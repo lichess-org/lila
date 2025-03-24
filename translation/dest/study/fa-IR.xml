@@ -103,12 +103,12 @@
   <string name="loadAPositionFromFen">بار کردن وضعیت از FEN</string>
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="%s is the number of games. A study may have up to 64 chapters as of February 2025.&#10;&#10;Appears as a hint in a text box that permits the study creator to paste game(s) in PGN format into their code.&#10;&#10;The text for plurals was extended in February 2025. It is long for a placeholder hint. Because of where it is displayed, we encourage you to keep your translation short.&#10;&#10;&quot;PGN&quot; should not be translated or transliterated into a different alphabet or script.">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
     <item quantity="other">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
   </plurals>
   <string name="urlOfTheGame">وب‌نشانی بازی‌ها، یکی در هر خط</string>
-  <string name="loadAGameFromXOrY" comment="%1$s is lichess.org %2$s is chessgames.com.&#10;&#10;Users can paste URLs to games from either of these websites and import the games into their studies.">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
+  <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
   <string name="createChapter">ساخت بخش</string>
   <string name="createStudy">ساخت مطالعه</string>
   <string name="editStudy">ویرایش مطالعه</string>

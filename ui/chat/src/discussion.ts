@@ -36,6 +36,15 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
               pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
+            $el.on('click', '.reply', (e: Event) => {
+              const el = e.target as HTMLElement;
+              const username = el.parentElement
+                ?.querySelector<HTMLLinkElement>('.user-link')
+                ?.getAttribute('href')
+                ?.slice(3);
+              const input = el.closest('.mchat')?.querySelector<HTMLInputElement>('input.mchat__say');
+              if (username && input) prependChatInput(input, `@${username} `);
+            });
             if (hasMod)
               $el.on('click', '.mod', (e: Event) =>
                 ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
@@ -80,6 +89,12 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
       },
     },
   });
+}
+
+function prependChatInput(chatInput: HTMLInputElement, prefix: string): void {
+  if (!chatInput.value.includes(prefix)) chatInput.value = prefix + chatInput.value;
+  chatInput.focus();
+  chatInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
 }
 
 let mouchListener: EventListener;
@@ -189,6 +204,25 @@ function renderText(t: string, opts?: enhance.EnhanceOpts) {
 const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair) =>
   userLink({ name, title, patron, line: !!patron, flair });
 
+const actionIcons = (ctrl: ChatCtrl, line: Line): Array<VNode | null> => {
+  if (!ctrl.data.userId || !line.u || ctrl.data.userId === line.u) return [];
+  const icons = [];
+  if (ctrl.canPostArbitraryText() && !ctrl.data.resourceId.startsWith('game'))
+    icons.push(
+      h('action.reply', {
+        attrs: { 'data-icon': licon.Back, title: 'Reply' },
+      }),
+    );
+  icons.push(
+    ctrl.moderation
+      ? modLineAction()
+      : h('action.flag', {
+          attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
+        }),
+  );
+  return icons;
+};
+
 function renderLine(ctrl: ChatCtrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.enhance);
 
@@ -215,17 +249,6 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
         mentioned,
       },
     },
-    ctrl.moderation
-      ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
-      : [
-          myUserId && line.u && myUserId !== line.u
-            ? h('action.flag', {
-                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report', 'data-text': line.t },
-              })
-            : null,
-          userNode,
-          ' ',
-          textNode,
-        ],
+    [...actionIcons(ctrl, line), userNode, ' ', textNode],
   );
 }

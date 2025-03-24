@@ -18,4 +18,5 @@
   <string name="startTraining">Entrenatzen hasi</string>
   <string name="findSquare">Bilatu laukia</string>
   <string name="nameSquare">Izendatu laukia</string>
+  <string name="practiceOnlySomeFilesAndRanks" comment="Label for a checkbox, keep it very short">Zutabe eta errenkada batzuk bakarrik praktikatu</string>
 </resources>

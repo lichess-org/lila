@@ -90,7 +90,7 @@
   <string name="loadAPositionFromFen">FEN बाट पोजिसन लोड गरौं</string>
   <string name="loadAGameFromPgn">PGN बाट खेल लोड गरौं</string>
   <string name="automatic">स्वचालित</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं, %s खेल सम्म</item>
     <item quantity="other">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं, %s खेल सम्म</item>
   </plurals>
