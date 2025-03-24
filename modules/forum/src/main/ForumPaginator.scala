@@ -78,5 +78,5 @@ final class ForumPaginator(
                 post = doc.getAsOpt[List[ForumPost]]("post").flatMap(_.headOption)
               yield TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), me)
 
-        private def selector = topicRepo.forUser(me).byCategNotStickyQuery(categ)
+        private def selector = topicRepo.forUser(me).byCategNotStickyQuery(categ.id)
     )
