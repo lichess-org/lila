@@ -109,7 +109,7 @@
   <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
   <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
   <string name="automatic">Automatycznie</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Wklej tutaj swój PGN, max %s partię</item>
     <item quantity="few">Wklej tutaj swój PGN, max %s partie</item>
     <item quantity="many">Wklej tutaj swój PGN, max %s partii</item>

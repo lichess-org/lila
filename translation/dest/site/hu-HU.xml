@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Játék egy ismerőssel</string>
   <string name="playWithTheMachine">Játék a gép ellen</string>
+  <string name="playOffline">Offline játék</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>

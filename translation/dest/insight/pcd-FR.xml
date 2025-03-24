@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="xChessInsights">Synthèse des parties de %s</string>
+  <string name="xHasNoChessInsights">Pas encore de synthèse pour les parties de %s</string>
+  <string name="insightsAreProtected">La synthèse des parties de %s est protégée</string>
+  <string name="cantSeeInsights">Désolé, vous ne pouvez pas voir la synthèse des parties de %s.</string>
+  <string name="generateInsights">Générer la synthèse des parties de %s</string>
+  <string name="crunchingData">Et maintenant, l’analyse de vos données, rien que pour vous !</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Peut-être pouvez-vous leur demander de changer leurs %s ?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">paramètres de synthèse des parties</string>
+</resources>

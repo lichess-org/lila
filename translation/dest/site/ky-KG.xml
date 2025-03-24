@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Дос менен ойноо</string>
   <string name="playWithTheMachine">Компьютер менен ойноо</string>
+  <string name="playOffline">Оффлайн ойноо</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Бул шилтеме менен чакыруу</string>
   <string name="gameOver">Оюн бутту</string>
   <string name="waitingForOpponent">Өнөктөш менен ойноо</string>

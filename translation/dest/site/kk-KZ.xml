@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Доспен ойнау</string>
   <string name="playWithTheMachine">Компьютермен ойнау</string>
+  <string name="playOffline">Оффлайн ойнау</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
   <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты күтудеміз</string>

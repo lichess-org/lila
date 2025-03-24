@@ -36,7 +36,14 @@ export class BotCtrl {
     if (game) this.resumeGame(game);
   };
 
-  private newGame = (bot: BotInfo, pov: Color) => this.resumeGameAndRedraw(makeGame(bot.uid, pov));
+  private newGame = (bot: BotInfo, pov: Color) =>
+    this.resumeGameAndRedraw(
+      makeGame(bot.uid, pov, {
+        initial: 300,
+        increment: 2,
+        moretime: 0,
+      }),
+    );
 
   private resumeGame = (game: Game) => {
     const bot = this.opts.bots.find(b => b.uid === game.botId);

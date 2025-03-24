@@ -101,7 +101,7 @@
   <string name="loadAPositionFromFen">Laai posisie vanaf FEN</string>
   <string name="loadAGameFromPgn">Laai wedstryd vanaf PGN</string>
   <string name="automatic">Outomaties</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Plak jou PGN teks hier, tot by %s spel</item>
     <item quantity="other">Plak jou PGN teks hier, tot by %s spelle</item>
   </plurals>

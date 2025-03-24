@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Main bersama rakan</string>
   <string name="playWithTheMachine">Bermain dengan mesin</string>
+  <string name="playOffline">Main tanpa talian</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Permainan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>

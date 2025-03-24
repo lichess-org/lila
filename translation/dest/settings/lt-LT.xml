@@ -3,6 +3,6 @@
   <string name="settings">Nuostatos</string>
   <string name="closeAccount">Uždaryti paskyrą</string>
   <string name="managedAccountCannotBeClosed">Jūsų paskyra yra valdoma ir negali būti uždaryta.</string>
-  <string name="cantOpenSimilarAccount">Negalėsite susikurti kitos paskyros su tokiu pačiu vardu, net jeigu skirsis didžiosios / mažosios raidės.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Negalėsite susikurti kitos paskyros su tokiu pačiu vardu, net jeigu skirsis didžiosios / mažosios raidės.</string>
   <string name="thisAccountIsClosed">Ši paskyra uždaryta.</string>
 </resources>

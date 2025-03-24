@@ -103,7 +103,7 @@
   <string name="loadAPositionFromFen">Posizioa FEN batetik kargatu</string>
   <string name="loadAGameFromPgn">Partida PGN batetik kargatu</string>
   <string name="automatic">Automatikoa</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Itsatsi hemen zure PGNa, gehienez partida %s</item>
     <item quantity="other">Itsatsi hemen zure PGNa, gehienez %s partida</item>
   </plurals>

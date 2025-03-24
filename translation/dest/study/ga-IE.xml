@@ -110,7 +110,7 @@
   <string name="loadAPositionFromFen">Luchtaigh suíomh ó FEN</string>
   <string name="loadAGameFromPgn">Lódáil cluichí ó PGN</string>
   <string name="automatic">Uathoibríoch</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Greamaigh do théacs PGN anseo, suas le %s cluiche</item>
     <item quantity="two">Greamaigh do théacs PGN anseo, suas le %s chluiche</item>
     <item quantity="few">Greamaigh do théacs PGN anseo, suas le %s gcluiche</item>

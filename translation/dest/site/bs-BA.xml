@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Igrajte protiv prijatelja</string>
   <string name="playWithTheMachine">Igrajte protiv računara</string>
+  <string name="playOffline">Igraj bez mreže</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Da bi ste pozvali nekoga na partiju, pošaljite ovaj link</string>
   <string name="gameOver">Partija je gotova</string>
   <string name="waitingForOpponent">Čekanje na protivnika</string>

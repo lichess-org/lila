@@ -58,7 +58,7 @@
     <item quantity="one">%s புதிய கற்கையை உருவாக்கப்பட்டது</item>
     <item quantity="other">%s புதிய கற்கைகள் உருவாக்கப்பட்டது</item>
   </plurals>
-  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
+  <plurals name="competedInNbTournaments">
     <item quantity="one">%s அரினா போட்டியில் போட்டியிட்டார்</item>
     <item quantity="other">%s அரினா போட்டிகளில் போட்டியிட்டார்</item>
   </plurals>

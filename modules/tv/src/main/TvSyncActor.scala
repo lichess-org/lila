@@ -6,7 +6,7 @@ import scalalib.actor.SyncActor
 import lila.common.Bus
 import lila.common.Json.given
 
-final private[tv] class TvSyncActor(
+final private class TvSyncActor(
     lightUserApi: lila.core.user.LightUserApi,
     onTvGame: lila.game.core.OnTvGame,
     gameProxy: lila.core.game.GameProxy,
@@ -23,7 +23,7 @@ final private[tv] class TvSyncActor(
     c -> ChannelSyncActor(
       c,
       onSelect = this.!,
-      gameProxy.game,
+      gameProxy,
       rematches.getAcceptedId,
       lightUserApi.sync,
       userApi
@@ -102,7 +102,7 @@ final private[tv] class TvSyncActor(
             )
             Bus.publish(event, "changeFeaturedGame")
 
-private[tv] object TvSyncActor:
+private object TvSyncActor:
 
   case class GetGameId(channel: Tv.Channel, promise: Promise[Option[GameId]])
   case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[GameId]])
