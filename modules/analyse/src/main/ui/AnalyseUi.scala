@@ -110,7 +110,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
           max    := 959,
           value  := num
         ),
-        form3.submit(trans.site.apply())
+        form3.submit(trans.site.loadPosition(), icon = none)
       )
     )
 
