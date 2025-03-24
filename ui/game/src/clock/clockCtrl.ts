@@ -89,7 +89,7 @@ export class ClockCtrl {
     this.showTenths =
       pref.clockTenths === ShowClockTenths.Never
         ? () => false
-        : ShowClockTenths.Below10Secs
+        : pref.clockTenths === ShowClockTenths.Below10Secs
           ? time => time < 10000
           : time => time < 3600000;
 
