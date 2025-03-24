@@ -55,7 +55,7 @@ final private[tv] class ChannelSyncActor(
 
   def addCandidate(game: Game): Unit = candidateIds.put(game.id)
 
-  private val ratingOrdering = Ordering.by[Game, Int](_.averageUsersRating.so(_.value)).reverse
+  private val ratingOrdering = Ordering.by[Game, Int](_.averageUsersRating.so(_.value))
 
   private def doSelectNow(): Fu[(Option[Game], List[GameId])] = for
     allCandidates <- candidateIds.keys.parallel(proxyGame)
@@ -87,9 +87,8 @@ final private[tv] class ChannelSyncActor(
     candidates.maximumByOption(score)
 
   private def score(game: Game): Int =
-    heuristics.foldLeft(0) { case (score, fn) =>
+    heuristics.foldLeft(0): (score, fn) =>
       score + fn(game)
-    }
 
   private type Heuristic = Game => Int
 
@@ -107,9 +106,8 @@ final private[tv] class ChannelSyncActor(
     ~game
       .player(color)
       .some
-      .flatMap { p =>
+      .flatMap: p =>
         p.stableRating.exists(_ > IntRating(2100)).so(p.userId)
-      }
       .flatMap(lightUserSync)
       .flatMap(_.title)
       .flatMap(Tv.titleScores.get)
