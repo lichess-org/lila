@@ -15,7 +15,7 @@ final class ForumCategApi(
 
   def makeTeam(teamId: TeamId, name: String, author: UserId): Funit =
     val categ = ForumCateg(
-      _id = ForumCateg.fromTeamId(teamId),
+      id = ForumCateg.fromTeamId(teamId),
       name = name,
       desc = s"Forum of the team $name",
       team = teamId.some,
