@@ -52,10 +52,10 @@ object RelayGroup:
     val mapping: Mapping[Option[Data]] = optional(of[Data])
 
 import lila.db.dsl.{ *, given }
+import reactivemongo.api.bson.*
 
 final private class RelayGroupRepo(coll: Coll)(using Executor):
 
-  import reactivemongo.api.bson.*
   import BSONHandlers.given
 
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
@@ -82,3 +82,24 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
           coll.update.one($doc("_id".$ne(id), "tours" -> tourId), $pull("tours" -> tourId), multi = true)
         }
     yield ()
+
+final class RelayGroupCrowdSumCache(
+    colls: RelayColls,
+    groupRepo: RelayGroupRepo,
+    cacheApi: lila.memo.CacheApi
+)(using Executor):
+
+  export cache.get
+
+  private val cache = cacheApi[RelayTourId, Crowd](64, "relay.groupCrowd"):
+    _.expireAfterWrite(14.seconds).buildAsyncFuture(compute)
+
+  private def compute(tourId: RelayTourId): Fu[Crowd] = Crowd.from:
+    for
+      tourIds <- groupRepo.allTourIdsOfGroup(tourId)
+      res <- colls.round
+        .aggregateOne(_.sec): framework =>
+          import framework.*
+          Match($doc("tourId".$in(tourIds), "crowdAt".$gt(nowInstant.minus(1.hours)))) ->
+            List(Group(BSONNull)("sum" -> SumField("crowd")))
+    yield res.headOption.flatMap(_.int("sum")).orZero
