@@ -79,29 +79,7 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                       href     := routes.UserAnalysis.parseArg(v.key.value)
                     )(v.name)
               ),
-              pov.game.variant.chess960.option(
-                div(cls := "jump-960")(
-                  chess960PositionNum.map(pos =>
-                    label(`for` := "chess960-position")(trans.site.chess960StartPosition.txt(pos))
-                  ),
-                  br,
-                  form(
-                    cls    := "control-960",
-                    method := "GET",
-                    action := routes.UserAnalysis.parseArg("chess960")
-                  )(
-                    input(
-                      id     := "chess960-position",
-                      `type` := "number",
-                      name   := "position",
-                      min    := 0,
-                      max    := 959,
-                      value  := chess960PositionNum
-                    ),
-                    form3.submit(trans.site.apply())
-                  )
-                )
-              ),
+              pov.game.variant.chess960.option(chess960selector(chess960PositionNum)),
               pov.game.variant.standard.option(
                 fieldset(cls := "analyse__wiki empty toggle-box toggle-box--toggle", id := "wikibook-field")(
                   legend(tabindex := 0)("WikiBook"),
@@ -114,6 +92,27 @@ final class AnalyseUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
           div(cls := "analyse__tools"),
           div(cls := "analyse__controls")
         )
+
+  private def chess960selector(num: Option[Int])(using Translate) =
+    div(cls := "jump-960")(
+      num.map(pos => label(`for` := "chess960-position")(trans.site.chess960StartPosition(pos))),
+      br,
+      form(
+        cls    := "control-960",
+        method := "GET",
+        action := routes.UserAnalysis.parseArg("chess960")
+      )(
+        input(
+          id     := "chess960-position",
+          `type` := "number",
+          name   := "position",
+          min    := 0,
+          max    := 959,
+          value  := num
+        ),
+        form3.submit(trans.site.apply())
+      )
+    )
 
   private def iconByVariant(variant: Variant): Icon =
     PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.perfIcon)
