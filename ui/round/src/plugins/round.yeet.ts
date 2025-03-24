@@ -5,6 +5,10 @@
 export async function initModule(): Promise<void> {
   await site.sound.load('yeet', site.asset.url('sound/other/yeet.mp3'));
   site.sound.play('yeet');
+  setTimeout(yeet, 200);
+}
+
+function yeet() {
   const gravity = 1.5; // higher -> pieces fall down faster
   const frictionMultiplier = 0.98; // lower -> more friction
   var minAngle = -0.436; // min angle for starting velocity
