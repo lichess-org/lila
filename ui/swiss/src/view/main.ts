@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { numberRow } from './util';
 import type SwissCtrl from '../ctrl';
@@ -16,7 +16,7 @@ import { once } from 'common/storage';
 import { initMiniGames } from 'common/miniBoard';
 import { watchers } from 'common/watchers';
 import { makeChat } from 'chat';
-import { prompt } from 'common/dialog';
+import { prompt } from 'common/dialogs';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;

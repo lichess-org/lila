@@ -3,7 +3,6 @@
   <string name="lichessCoaches">Lichess පුහුණුකරුවන්</string>
   <string name="lichessCoach">Lichess පුහුණුකරුවා</string>
   <string name="areYouCoach">ඔබ %s ඇති හොඳ චෙස් පුහුණුකරුවෙක්ද​?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM or FIDE title</string>
   <string name="confirmTitle">ඔබේ Title එක මෙහි තහවුරු කරන්න, අපි ඔබේ අයදුම්පත සමාලෝචනය කරන්නෙමු.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">%s ට අපට විද්‍යුත් තැපෑලක් එවන්න, අපි ඔබේ අයදුම්පත සමාලෝචනය කරන්නෙමු.</string>
   <string name="location">ස්ථානය</string>

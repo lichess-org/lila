@@ -108,7 +108,7 @@
   <string name="loadAPositionFromFen">Pakrauti poziciją iš FEN</string>
   <string name="loadAGameFromPgn">Pakrauti partijas iš PGN</string>
   <string name="automatic">Automatinis</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Įklijuokite savo PGN tekstą čia, iki %s žaidimo</item>
     <item quantity="few">Įklijuokite savo PGN tekstą čia, iki %s žaidimų</item>
     <item quantity="many">Įklijuokite savo PGN tekstą čia, iki %s žaidimo</item>

@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">与好友下棋</string>
   <string name="playWithTheMachine">和电脑下棋</string>
+  <string name="playOffline">离线下棋</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
@@ -734,6 +735,7 @@
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="everybodyGetsAllFeaturesForFree">每个人都可以免费使用所有功能</string>
   <string name="viewTheSolution">看解答</string>
+  <string name="noChallenges">暂无挑战。</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支持%s种语言！</item>
   </plurals>

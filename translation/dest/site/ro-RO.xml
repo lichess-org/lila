@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jucați cu un prieten</string>
   <string name="playWithTheMachine">Jucați cu calculatorul</string>
+  <string name="playOffline">Joacă offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
@@ -164,6 +165,7 @@
   <string name="flipBoard">Rotiţi tabla</string>
   <string name="threefoldRepetition">Repetare de trei ori</string>
   <string name="claimADraw">Cere remiză</string>
+  <string name="drawClaimed">Remiză revendicată</string>
   <string name="offerDraw">Propune remiză</string>
   <string name="draw">Remiză</string>
   <plurals name="nbPlayers">
@@ -785,6 +787,9 @@
   <string name="checkYourEmail">Verifică-ți adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Dă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, gunoi, mesaje sociale sau alte foldere.</string>
+  <string name="ifYouDoNotGetTheEmail">Dacă nu primești emailul în decurs de 5 minute:</string>
+  <string name="checkAllEmailFolders">Verifică secțiunile de spam, junk și altele</string>
+  <string name="verifyYourAddress">Asigură-te că %s este adresa ta de email</string>
   <string name="weHaveSentYouAnEmailTo">Am trimis un email la %s. Dă click pe link-ul trimis în acel email pentru a-ți reseta parola.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Înregistrându-te, ești de acord cu %s.</string>
   <string name="readAboutOur">Citește despre %s.</string>
@@ -830,6 +835,7 @@
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Scorul tău: %s</string>
   <string name="language">Limbă</string>
+  <string name="allLanguages">Orice limbă</string>
   <string name="background">Fundal</string>
   <string name="light">Luminos</string>
   <string name="dark">Culoare închisă</string>

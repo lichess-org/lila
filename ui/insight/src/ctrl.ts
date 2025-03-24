@@ -1,4 +1,4 @@
-import { throttlePromiseDelay } from 'common/timing';
+import { throttlePromiseDelay } from 'common/async';
 import { json as xhrJson } from 'common/xhr';
 import type {
   InsightData,

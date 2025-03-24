@@ -98,7 +98,7 @@
   <string name="loadAPositionFromFen">Muat posisi dari FEN</string>
   <string name="loadAGameFromPgn">Muat permainan dari PGN</string>
   <string name="automatic">Otomatis</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="other">Tempelkan PGN kamu disini, lebih dari %s permainan</item>
   </plurals>
   <string name="urlOfTheGame">URL permainan</string>

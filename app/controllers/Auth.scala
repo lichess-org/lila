@@ -349,10 +349,10 @@ final class Auth(
                           .send(user, storedEmail)
                           .inject:
                             Redirect:
-                              routes.Auth.passwordResetSent(storedEmail.conceal)
+                              routes.Auth.passwordResetSent(storedEmail.value)
                       case _ =>
                         lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                        Redirect(routes.Auth.passwordResetSent(data.email.conceal))
+                        Redirect(routes.Auth.passwordResetSent(data.email.value))
                     }
                 )
           else renderPasswordReset(none, fail = true).map { BadRequest(_) }

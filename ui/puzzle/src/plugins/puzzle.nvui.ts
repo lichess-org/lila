@@ -28,7 +28,7 @@ import { Notify } from 'nvui/notify';
 import { commands, boardCommands, addBreaks } from 'nvui/command';
 import { next as controlNext, prev } from '../control';
 import { bind, onInsert } from 'common/snabbdom';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
 import { opposite } from 'chessops';

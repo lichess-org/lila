@@ -34,7 +34,7 @@ jobs:
       - name: Setup node and restore pnpm cache
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .node-version
           cache: 'pnpm'
       - name: Corepack (remove this step once https://github.com/pnpm/pnpm/issues/9029 is resolved)
         run: pnpm install -g corepack@latest

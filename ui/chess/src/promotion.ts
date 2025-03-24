@@ -4,6 +4,7 @@ import { type MaybeVNode, bind, onInsert } from 'common/snabbdom';
 import type { DrawShape } from 'chessground/draw';
 import { opposite, key2pos } from 'chessground/util';
 import type { MoveMetadata } from 'chessground/types';
+import type { WithGround } from './ground';
 
 export type Hooks = {
   submit: (orig: Key, dest: Key, role: Role) => void;
@@ -21,9 +22,8 @@ const PROMOTABLE_ROLES: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
 export function promote(g: CgApi, key: Key, role: Role): void {
   const piece = g.state.pieces.get(key);
-  if (piece && piece.role === 'pawn') {
+  if (piece && piece.role === 'pawn')
     g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
-  }
 }
 
 export class PromotionCtrl {
@@ -31,9 +31,9 @@ export class PromotionCtrl {
   private prePromotionRole?: Role;
 
   constructor(
-    private withGround: <A>(f: (cg: CgApi) => A) => A | false | undefined,
+    private withGround: WithGround,
     private onCancel: () => void,
-    private redraw: () => void,
+    private redraw: Redraw,
     private autoQueenPref: AutoQueen = AutoQueen.Never,
   ) {}
 

@@ -41,7 +41,7 @@ object bits:
       cls := "unread-lichess-message",
       p(trans.site.showUnreadLichessMessage()),
       p:
-        a(cls := "button button-big", href := routes.Msg.convo(UserId.lichess)):
+        a(cls := "button button-fat", href := routes.Msg.convo(UserId.lichess)):
           trans.site.clickHereToReadIt()
     )
 

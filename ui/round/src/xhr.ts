@@ -1,5 +1,5 @@
 import type RoundController from './ctrl';
-import { throttlePromiseDelay } from 'common/timing';
+import { throttlePromiseDelay } from 'common/async';
 import { text, json, form } from 'common/xhr';
 import type { RoundData } from './interfaces';
 

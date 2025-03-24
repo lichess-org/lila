@@ -3,13 +3,16 @@ package lila.opening
 import chess.format.pgn.{ Pgn, SanStr }
 import chess.format.{ Fen, StandardFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
+import scala.util.Try
 
 case class OpeningPage(
     query: OpeningQuery,
-    explored: Option[OpeningExplored],
+    explored: Try[Option[OpeningExplored]],
     wiki: Option[OpeningWiki]
 ):
   export query.{ closestOpening, exactOpening, name, openingAndExtraMoves }
+
+  def exploredOption = explored.toOption.flatten
 
   def nameParts: NamePart.NamePartList = openingAndExtraMoves match
     case (op, moves) => (op.so(NamePart.from)) ::: NamePart.from(moves)
@@ -60,17 +63,17 @@ case class OpeningExplored(
 ):
   def lastPopularityPercent: Option[Float] = history.lastOption
 
-object OpeningPage:
-  def apply(
-      query: OpeningQuery,
-      exploredPosition: Option[OpeningExplorer.Position],
-      games: List[GameWithPgn],
-      history: PopularityHistoryPercent,
-      wiki: Option[OpeningWiki]
-  ): OpeningPage =
-    OpeningPage(
-      query = query,
-      exploredPosition.map { exp =>
+def makeOpeningPage(
+    query: OpeningQuery,
+    exploredPosition: Try[Option[OpeningExplorer.Position]],
+    games: List[GameWithPgn],
+    history: PopularityHistoryPercent,
+    wiki: Option[OpeningWiki]
+): OpeningPage =
+  OpeningPage(
+    query = query,
+    exploredPosition.map:
+      _.map { exp =>
         OpeningExplored(
           result = ResultCounts(exp.white, exp.draws, exp.black),
           games = games,
@@ -96,6 +99,7 @@ object OpeningPage:
             .sortBy(-_.result.sum),
           history = history
         )
-      },
-      wiki
-    )
+      }
+    ,
+    wiki
+  )

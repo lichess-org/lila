@@ -27,7 +27,9 @@ final class SecurityForm(
     newPasswordField.verifying(PasswordCheck.sameConstraint(me.username.into(UserStr)))
 
   def myUsernameField(using me: Me) =
-    LilaForm.cleanNonEmptyText.into[UserStr].verifying("Please log into your account first.", _.is(me))
+    LilaForm.cleanNonEmptyText
+      .into[UserStr]
+      .verifying("Username doesn't match the currently logged-in account.", _.is(me))
 
   private val anyEmail: Mapping[EmailAddress] =
     LilaForm

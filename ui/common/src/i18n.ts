@@ -1,37 +1,3 @@
-type I18nKey = string;
-type I18nDict = Record<I18nKey, string>;
-type Trans = any;
-
-export const trans = (i18n: I18nDict): Trans => {
-  const trans: Trans = (key: I18nKey, ...args: Array<string | number>) => {
-    const str = i18n[key];
-    return str ? format(str, args) : key;
-  };
-
-  // see optimisations in project/MessageCompiler.scala
-  const resolvePlural = (key: I18nKey, count: number) =>
-    i18n[`${key}:${site.quantity(count)}`] || i18n[`${key}:other`] || i18n[key] || i18n[`${key}:one`];
-
-  trans.pluralSame = (key: I18nKey, count: number, ...args: Array<string | number>) =>
-    trans.plural(key, count, count, ...args);
-
-  trans.plural = function (key: I18nKey, count: number, ...args: Array<string | number>) {
-    const str = resolvePlural(key, count);
-    return str ? format(str, args) : key;
-  };
-  // optimisation for translations without arguments
-  trans.noarg = (key: I18nKey) => i18n[key] || key;
-  trans.vdom = <T>(key: I18nKey, ...args: T[]) => {
-    const str = i18n[key];
-    return str ? list(str, args) : [key];
-  };
-  trans.vdomPlural = <T>(key: I18nKey, count: number, ...args: T[]) => {
-    const str = resolvePlural(key, count);
-    return str ? list(str, args) : [key];
-  };
-  return trans;
-};
-
 // for many users, using the islamic calendar is not practical on the internet
 // due to international context, so we make sure it's displayed using the gregorian calendar
 export const displayLocale: string = document.documentElement.lang.startsWith('ar-')
@@ -80,24 +46,34 @@ const agoUnits: [keyof I18n['timeago'] | undefined, keyof I18n['timeago'], numbe
   ['rightNow', 'justNow', 1, 0],
 ];
 
-function format(str: string, args: Array<string | number>): string {
-  if (args.length) {
-    if (str.includes('%s')) str = str.replace('%s', args[0] as string);
-    else for (let i = 0; i < args.length; i++) str = str.replace('%' + (i + 1) + '$s', args[i] as string);
-  }
-  return str;
-}
+let numberFormatter: false | Intl.NumberFormat | null = false;
 
-function list<T>(str: string, args: T[]): Array<string | T> {
-  const segments: Array<string | T> = str.split(/(%(?:\d\$)?s)/g);
-  if (args.length) {
-    const singlePlaceholder = segments.indexOf('%s');
-    if (singlePlaceholder !== -1) segments[singlePlaceholder] = args[0];
-    else
-      for (let i = 0; i < args.length; i++) {
-        const placeholder = segments.indexOf('%' + (i + 1) + '$s');
-        if (placeholder !== -1) segments[placeholder] = args[i];
-      }
-  }
-  return segments;
-}
+export const numberFormat = (n: number): string => {
+  if (numberFormatter === false)
+    numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
+  if (numberFormatter === null) return '' + n;
+  return numberFormatter.format(n);
+};
+
+export const numberSpread = (el: HTMLElement, nbSteps: number, duration: number, previous: number) => {
+  let displayed: string;
+  const display = (prev: number, cur: number, it: number) => {
+    const val = numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));
+    if (val !== displayed) {
+      el.textContent = val;
+      displayed = val;
+    }
+  };
+  let timeouts: Timeout[] = [];
+  return (nb: number, overrideNbSteps?: number): void => {
+    if (!el || (!nb && nb !== 0)) return;
+    if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
+    timeouts.forEach(clearTimeout);
+    timeouts = [];
+    const prev = previous === 0 ? 0 : previous || nb;
+    previous = nb;
+    const interv = Math.abs(duration / nbSteps);
+    for (let i = 0; i < nbSteps; i++)
+      timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
+  };
+};

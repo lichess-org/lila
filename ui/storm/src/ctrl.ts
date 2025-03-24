@@ -15,6 +15,7 @@ import { PuzFilters } from 'puz/filters';
 import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+import type { WithGround } from 'chess/ground';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;
@@ -170,9 +171,9 @@ export default class StormCtrl implements PuzCtrl {
     return false;
   };
 
-  withGround = <A>(f: (cg: CgApi) => A): A | false => {
+  withGround: WithGround = f => {
     const g = this.ground();
-    return g && f(g);
+    return g ? f(g) : undefined;
   };
 
   private setGround = () => this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));

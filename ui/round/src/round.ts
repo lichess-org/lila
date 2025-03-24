@@ -13,12 +13,12 @@ import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
 import { pubsub } from 'common/pubsub';
 import { myUserId } from 'common';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: RoundOpts): Promise<RoundController> {
-  return opts.local ? app(opts) : boot(opts, app);
+  return opts.data.local ? app(opts) : boot(opts, app);
 }
 
 async function app(opts: RoundOpts): Promise<RoundController> {

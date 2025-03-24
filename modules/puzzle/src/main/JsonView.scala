@@ -9,10 +9,13 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.i18n.{ Translate, Translator }
 import lila.tree.{ Metas, NewBranch, NewTree }
+import lila.core.net.ApiVersion
+import lila.ui.Context
 
 final class JsonView(
     gameJson: GameJson,
-    gameRepo: lila.core.game.GameRepo
+    gameRepo: lila.core.game.GameRepo,
+    myEngines: lila.core.misc.analysis.MyEnginesAsJson
 )(using Executor, Translator):
 
   import JsonView.{ *, given }
@@ -43,6 +46,22 @@ final class JsonView(
                 case _                       => false)
         )
 
+  def analysis(
+      puzzle: Puzzle,
+      angle: PuzzleAngle,
+      replay: Option[lila.puzzle.PuzzleReplay] = None,
+      newMe: Option[Me] = None,
+      apiVersion: Option[ApiVersion] = None
+  )(using ctx: Context)(using Perf, Translate): Fu[JsObject] =
+    given me: Option[Me] = newMe.orElse(ctx.me)
+    for
+      puzzleJson <-
+        if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
+        then bc(puzzle)
+        else apply(puzzle, angle.some, replay)
+      enginesJson <- myEngines.get(me)
+    yield puzzleJson ++ enginesJson
+
   def userJson(using me: Option[Me], perf: Perf) = me.map: me =>
     Json
       .obj(
@@ -55,8 +74,8 @@ final class JsonView(
     Json.obj("days" -> r.days, "i" -> r.i, "of" -> r.nb)
 
   object roundJson:
-    def web(round: PuzzleRound, perf: Perf)(using me: Me, prevPerf: Perf) =
-      base(round, IntRatingDiff(perf.intRating.value - prevPerf.intRating.value))
+    def web(round: PuzzleRound, perf: Perf)(using prevPerf: Perf) =
+      base(round, (perf.intRating - prevPerf.intRating).into(IntRatingDiff))
         .add("vote" -> round.vote)
         .add("themes" -> round.nonEmptyThemes.map: rt =>
           JsObject:

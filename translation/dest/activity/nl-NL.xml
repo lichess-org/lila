@@ -24,7 +24,7 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Speelde %1$s zet</item>
-    <item quantity="other">Speelde %1$s zet</item>
+    <item quantity="other">Speelde %1$s zetten</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">in %1$s correspondentiepartij</item>
@@ -58,7 +58,7 @@
     <item quantity="one">%s nieuwe studie aangemaakt</item>
     <item quantity="other">%s nieuwe studies aangemaakt</item>
   </plurals>
-  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
+  <plurals name="competedInNbTournaments">
     <item quantity="one">Nam deel in %s toernooi</item>
     <item quantity="other">Nam deel in %s toernooien</item>
   </plurals>

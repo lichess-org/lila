@@ -228,9 +228,8 @@ class TourCtrl {
   }
 
   toggleTour(steps: Shepherd.Step.StepOptions[]) {
-    if (Shepherd.activeTour) {
-      Shepherd.activeTour.cancel();
-    } else {
+    if (Shepherd.activeTour) Shepherd.activeTour.cancel();
+    else {
       this.buildTour(steps);
       this.tour.start();
     }

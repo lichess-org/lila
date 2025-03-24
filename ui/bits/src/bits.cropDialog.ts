@@ -1,6 +1,6 @@
 import { defined } from 'common';
 import { domDialog } from 'common/dialog';
-import { spinnerHtml } from 'common/spinner';
+import { spinnerHtml } from 'common/controls';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -100,6 +100,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
+          console.log(blob?.size, quality, opts.max?.pixels, opts.max?.megabytes);
           if (blob && blob.size < (opts.max?.megabytes ?? 100) * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
@@ -146,11 +147,8 @@ export async function initModule(o?: CropOpts): Promise<void> {
 
   function constrain(aspectRatio: number, bounds: { width: number; height: number }, byMax = false) {
     const constrained = { ...bounds };
-    if (bounds.width / bounds.height > aspectRatio) {
-      constrained.width = bounds.height * aspectRatio;
-    } else {
-      constrained.height = bounds.width / aspectRatio;
-    }
+    if (bounds.width / bounds.height > aspectRatio) constrained.width = bounds.height * aspectRatio;
+    else constrained.height = bounds.width / aspectRatio;
     if (!byMax) return constrained;
     const reduce = opts.max?.pixels ? Math.max(constrained.width, constrained.height) / opts.max.pixels : 1;
     constrained.width /= reduce;

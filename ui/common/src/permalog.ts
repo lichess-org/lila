@@ -70,9 +70,8 @@ export function makeLog(dbInfo: DbInfo, windowSize: number): PermaLog {
     if (!store) return '';
     try {
       const keys = await store.list();
-      if (windowSize >= 0 && keys.length > windowSize) {
+      if (windowSize >= 0 && keys.length > windowSize)
         await store.remove(IDBKeyRange.upperBound(keys[keys.length - windowSize], true));
-      }
     } catch (e) {
       console.error(e);
       store.clear();

@@ -197,17 +197,14 @@ final class StudyApi(
 
   def talk(userId: UserId, studyId: StudyId, text: String) =
     byId(studyId).foreach:
-      _.foreach: study =>
-        (study
-          .canChat(userId))
-          .so:
-            chatApi.write(
-              study.id.into(ChatId),
-              userId = userId,
-              text = text,
-              publicSource = lila.core.shutup.PublicSource.Study(studyId).some,
-              busChan = _.study
-            )
+      _.filter(_.canChat(userId)).foreach: study =>
+        chatApi.write(
+          study.id.into(ChatId),
+          userId = userId,
+          text = text,
+          publicSource = study.isPublic.option(lila.core.shutup.PublicSource.Study(studyId)),
+          busChan = _.study
+        )
 
   def setPath(studyId: StudyId, position: Position.Ref)(who: Who): Funit =
     sequenceStudy(studyId): study =>

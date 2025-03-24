@@ -8,6 +8,7 @@ import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+import scala.util.{ Failure, Success, Try }
 
 import lila.core.net.Crawler
 
@@ -19,7 +20,8 @@ final private class OpeningExplorer(
 
   private val requestTimeout = 4.seconds
 
-  def stats(play: Vector[Uci], config: OpeningConfig, crawler: Crawler): Fu[Option[Position]] =
+  // weird looking return type, but it was convenient here
+  def stats(play: Vector[Uci], config: OpeningConfig, crawler: Crawler): Fu[Try[Option[Position]]] =
     ws.url(s"$explorerEndpoint/lichess")
       .withQueryStringParameters(
         "since"   -> OpeningQuery.firstMonth,
@@ -43,10 +45,11 @@ final private class OpeningExplorer(
               err => fufail(s"Couldn't parse $err"),
               data => fuccess(data.some)
             )
-      .recover { case e: Exception =>
-        logger.warn(s"Opening stats $play $config", e)
-        none
-      }
+      .map(Success(_))
+      .recover:
+        case e: Exception =>
+          logger.warn(s"Opening stats $play $config", e)
+          Failure(e)
 
   def simplePopularity(opening: Opening): Fu[Option[Long]] =
     ws.url(s"$explorerEndpoint/lichess")

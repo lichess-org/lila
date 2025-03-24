@@ -29,7 +29,7 @@ object WebConfig:
 
   final class PagerDuty(val serviceId: String, val apiKey: Secret)
 
-  def loadFrom(c: play.api.Configuration) =
+  def loadFrom(c: Configuration) =
     WebConfig(
       c.get[Secret]("api.token"),
       c.get[String]("api.influx_event.endpoint"),
@@ -41,7 +41,7 @@ object WebConfig:
       )
     )
 
-  def analyseEndpoints(c: play.api.Configuration) =
+  def analyseEndpoints(c: Configuration) =
     lila.ui.AnalyseEndpoints(
       explorer = c.get[String]("explorer.endpoint"),
       tablebase = c.get[String]("explorer.tablebase_endpoint"),
@@ -66,3 +66,11 @@ object WebConfig:
     email = c.get[EmailAddress]("net.email"),
     logRequests = c.get[Boolean]("net.http.log")
   )
+
+  final class LilaVersion(val date: String, val commit: String, val message: String)
+
+  def lilaVersion(c: Configuration): Option[LilaVersion] = (
+    c.getOptional[String]("app.version.date"),
+    c.getOptional[String]("app.version.commit"),
+    c.getOptional[String]("app.version.message")
+  ).mapN(LilaVersion.apply)

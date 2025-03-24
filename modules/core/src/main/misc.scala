@@ -4,6 +4,7 @@ package misc
 import scalalib.bus
 import lila.core.id.GameId
 import lila.core.userId.*
+import lila.core.user.Me
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
@@ -66,6 +67,9 @@ package push:
 
 package oauth:
   case class TokenRevoke(id: String)
+
+package analysis:
+  final class MyEnginesAsJson(val get: Option[Me] => Fu[play.api.libs.json.JsObject])
 
 trait PicfitUrl:
   def thumbnail(id: lila.core.id.ImageId, width: Int, height: Int): String

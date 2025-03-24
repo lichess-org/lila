@@ -1,9 +1,9 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { storage } from 'common/storage';
-import { addPasswordVisibilityToggleListener } from 'common/password';
+import { addPasswordVisibilityToggleListener } from 'common/controls';
 import flairPickerLoader from 'bits/flairPicker';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 import { $as } from 'common';
 
 site.load.then(() => {

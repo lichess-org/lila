@@ -91,12 +91,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
     )
 
-  def botImage =
-    img(
-      src   := staticAssetUrl("images/icons/bot.png"),
-      title := "Robot chess",
-      style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
-    )
+  def botImage = img(
+    src   := staticAssetUrl("images/icons/bot.png"),
+    title := "Robot chess",
+    style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
+  )
 
   val manifests = raw:
     """<link rel="manifest" href="/manifest.json">"""
@@ -141,13 +140,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
     )
 
-  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList, isInquiry: Boolean)(using
-      ctx: Context
-  ) =
+  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList)(using ctx: Context) =
     val i18nModules = i18nMods.map(mod => s"i18n/${mod(I18nModule)}.${ctx.lang.code}")
-    scriptsPreload(
-      i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
-    )
+    scriptsPreload(i18nModules ::: "site" :: modules.map(_.map(_.key)).flatten)
 
   def scriptsPreload(keys: List[String]) =
     frag(

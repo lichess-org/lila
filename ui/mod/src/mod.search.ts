@@ -2,7 +2,7 @@ import { text as xhrText } from 'common/xhr';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { checkBoxAll, expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 
 site.load.then(() => {
   $('.slist, slist-pad')

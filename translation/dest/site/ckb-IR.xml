@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">یاریکردن لەگەڵ هاوڕێ</string>
   <string name="playWithTheMachine">یاریکردن لەگەڵ کۆمپیوتەر</string>
+  <string name="playOffline">یاریکردن بەبێ ئینتەرنێت</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
@@ -768,6 +769,7 @@
   <string name="anonymous">نەناسراو</string>
   <string name="yourScore">نمرەکەت: %s</string>
   <string name="language">زمان</string>
+  <string name="allLanguages">هەموو زمانەکان</string>
   <string name="background">پاشبنەما</string>
   <string name="light">روناکی</string>
   <string name="dark">تاریک</string>

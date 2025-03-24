@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import type { Elements } from 'chessground/types';
-import resizeHandle from 'common/resize';
+import resizeHandle from 'common/chessgroundResize';
 import type CoordinateTrainerCtrl from './ctrl';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';

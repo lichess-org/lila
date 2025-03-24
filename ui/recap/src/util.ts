@@ -1,11 +1,11 @@
-import { RecapPerf } from './interfaces';
+import type { RecapPerf } from './interfaces';
 
 export function formatDuration(seconds: number, glue = '<br>'): string {
   const d = Math.floor(seconds / (24 * 3600));
   const h = Math.floor((seconds % (24 * 3600)) / 3600);
   const m = Math.floor((seconds % 3600) / 60);
 
-  let result: string[] = [];
+  const result: string[] = [];
   if (d > 0) {
     result.push(simplePlural(d, 'day'));
   }

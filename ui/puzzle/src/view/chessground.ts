@@ -1,4 +1,4 @@
-import resizeHandle from 'common/resize';
+import resizeHandle from 'common/chessgroundResize';
 import { h, type VNode } from 'snabbdom';
 import { Coords, ShowResizeHandle } from 'common/prefs';
 import type PuzzleCtrl from '../ctrl';

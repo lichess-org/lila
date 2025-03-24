@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Сыграть с другом</string>
   <string name="playWithTheMachine">Сыграть с компьютером</string>
+  <string name="playOffline">Играть офлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Чтобы пригласить друга, отправьте ему эту ссылку</string>
   <string name="gameOver">Партия окончена</string>
   <string name="waitingForOpponent">Ожидание соперника</string>
@@ -172,6 +173,7 @@
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="claimADraw">Потребовать ничью</string>
+  <string name="drawClaimed">Объявлена ничья</string>
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">
@@ -826,6 +828,9 @@
   <string name="checkYourEmail">Проверьте свой почтовый ящик</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
+  <string name="ifYouDoNotGetTheEmail">Если вы не получили письмо в течение 5 минут:</string>
+  <string name="checkAllEmailFolders">Проверьте папку «Спам» и подобные</string>
+  <string name="verifyYourAddress">Проверьте, что %s — это ваш адрес электронной почты</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
   <string name="readAboutOur">Ознакомьтесь с нашей %s.</string>
@@ -872,6 +877,7 @@
   <string name="anonymous">Аноним</string>
   <string name="yourScore">Ваш счёт: %s</string>
   <string name="language">Язык (Language)</string>
+  <string name="allLanguages">Все языки</string>
   <string name="background">Тема</string>
   <string name="light">Светлая</string>
   <string name="dark">Тёмная</string>

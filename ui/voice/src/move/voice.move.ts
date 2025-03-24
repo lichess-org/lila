@@ -626,7 +626,7 @@ export function initModule({
 
   function valWord(val: string, tag?: string) {
     // if no tag, returns only the first matching input word for val, there may be others
-    let v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
+    const v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
     if (v instanceof Set) {
       if (tag) return [...v].find(e => e.tags.includes(tag))?.in ?? val;
       else return (v.values().next().value as Entry).in;

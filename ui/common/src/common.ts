@@ -79,14 +79,9 @@ export const onClickAway =
   (el: HTMLElement): void => {
     const listen: () => void = () =>
       $(document).one('click', e => {
-        if (!document.contains(el)) {
-          return;
-        }
-        if (el.contains(e.target)) {
-          listen();
-        } else {
-          f();
-        }
+        if (!document.contains(el)) return;
+        if (el.contains(e.target)) listen();
+        else f();
       });
     setTimeout(listen, 300);
   };
@@ -113,12 +108,7 @@ export function escapeHtml(str: string): string {
 }
 
 export function frag<T extends Node = Node>(html: string): T {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-
-  const fragment: DocumentFragment = document.createDocumentFragment();
-  while (div.firstChild) fragment.appendChild(div.firstChild);
-
+  const fragment = document.createRange().createContextualFragment(html);
   return (fragment.childElementCount === 1 ? fragment.firstElementChild : fragment) as unknown as T;
 }
 

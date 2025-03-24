@@ -32,7 +32,7 @@ case class UserLogins(
 
 final class UserLoginsApi(
     firewall: Firewall,
-    store: Store,
+    store: SessionStore,
     userRepo: UserRepo,
     geoIP: GeoIP,
     ip2proxy: Ip2ProxyApi,

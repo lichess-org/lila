@@ -1,7 +1,7 @@
 import type { Redraw } from 'common/snabbdom';
 import { DasherCtrl } from './ctrl';
 import { json as xhrJson } from 'common/xhr';
-import { spinnerVdom, spinnerHtml } from 'common/spinner';
+import { spinnerVdom, spinnerHtml } from 'common/controls';
 import { init as initSnabbdom, type VNode, classModule, attributesModule, h } from 'snabbdom';
 
 const patch = initSnabbdom([classModule, attributesModule]);

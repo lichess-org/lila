@@ -2,7 +2,7 @@ import { formToXhr } from 'common/xhr';
 
 import { expandMentions } from 'common/richText';
 import { storage } from 'common/storage';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 import { highlightSearchTerm } from 'common/highlight';
 import { pubsub } from 'common/pubsub';
 

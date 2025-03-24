@@ -7,7 +7,6 @@ import lila.core.id.GameFullId
 import lila.core.socket.{ SocketVersion, userLag }
 import lila.game.JsonView.given
 import lila.ui.Icon
-import lila.ui.Icon.iconWrites
 
 final class JsonView(
     baseUrl: lila.core.config.BaseUrl,

@@ -236,9 +236,7 @@ const makePreview =
                 },
                 postpatch(old, vnode) {
                   if (!showResults) return;
-                  if (old.data!.fen !== preview.fen) {
-                    old.data!.cg?.set(previewToCgConfig(preview));
-                  }
+                  if (old.data!.fen !== preview.fen) old.data!.cg?.set(previewToCgConfig(preview));
                   vnode.data!.fen = preview.fen;
                   vnode.data!.cg = old.data!.cg;
                 },
@@ -315,9 +313,7 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
     if (defined(preview.lastMoveAt) && defined(preview.lastMove) && fenColor(preview.fen) === color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
       return Math.max(0, clock / 100 - spent);
-    } else {
-      return clock / 100;
-    }
+    } else return clock / 100;
   } else return;
 };
 

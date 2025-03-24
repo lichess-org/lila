@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Play with a friend</string>
   <string name="playWithTheMachine">Play with the computer</string>
+  <string name="playOffline">Play offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Flip board</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
+  <string name="drawClaimed">Draw claimed</string>
   <string name="offerDraw">Offer draw</string>
   <string name="draw">Draw</string>
   <plurals name="nbPlayers">
@@ -787,6 +789,7 @@
   <string name="anonymous">Anonymous</string>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
+  <string name="allLanguages">All languages</string>
   <string name="background">Background</string>
   <string name="light">Light</string>
   <string name="dark">Dark</string>

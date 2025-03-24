@@ -1,6 +1,6 @@
 import { storage } from 'common/storage';
 import { isIos } from 'common/device';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import { defined } from 'common';
 import { speakable } from 'chess/sanWriter';
 

@@ -6,7 +6,7 @@ import lila.core.security.UserTrust
 private final class UserTrustApi(
     cacheApi: lila.memo.CacheApi,
     ipTrust: IpTrust,
-    sessionStore: Store,
+    sessionStore: SessionStore,
     userRepo: UserRepo
 )(using Executor)
     extends lila.core.security.UserTrustApi:

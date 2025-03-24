@@ -1,10 +1,9 @@
 import * as licon from 'common/licon';
-import { userAnalysable, playable } from 'game';
-import { finished, aborted } from 'game/status';
+import { finished, aborted, userAnalysable, playable } from 'game';
 import * as util from '../util';
 import { bindMobileMousedown, isCol1 } from 'common/device';
 import type RoundController from '../ctrl';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { Step } from '../interfaces';
@@ -23,7 +22,7 @@ const scrollMax = 99999,
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
-    if (ctrl.data.steps.length < 7) return;
+    if (ctrl.data.steps.length < 7 && !finished(ctrl.data)) return;
     let st: number | undefined;
     if (ctrl.ply < 3) st = 0;
     else if (ctrl.ply === util.lastPly(ctrl.data)) st = scrollMax;
@@ -76,7 +75,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
             else setTimeout(() => ctrl.autoScroll(), 200);
           }),
         },
-        viewStatus(ctrl),
+        viewStatus(ctrl.data),
       ),
     ]);
   }
@@ -116,6 +115,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   const forecastCount = ctrl.data.forecastCount;
   return (
     userAnalysable(ctrl.data) &&
+    !ctrl.data.local &&
     h(
       'a.fbt.analysis',
       {

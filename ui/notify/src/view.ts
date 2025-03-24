@@ -1,7 +1,7 @@
 import type { Ctrl, NotifyData, Notification } from './interfaces';
 import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import makeRenderers from './renderers';
 import { pubsub } from 'common/pubsub';
 

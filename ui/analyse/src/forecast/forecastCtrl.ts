@@ -33,9 +33,7 @@ export default class ForecastCtrl {
 
   collides = (fc1: ForecastStep[], fc2: ForecastStep[]): boolean => {
     for (let i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
-      if (fc1[i].uci !== fc2[i].uci) {
-        return this.cfg.onMyTurn ? i !== 0 && i % 2 === 0 : i % 2 === 1;
-      }
+      if (fc1[i].uci !== fc2[i].uci) return this.cfg.onMyTurn ? i !== 0 && i % 2 === 0 : i % 2 === 1;
     }
     return true;
   };

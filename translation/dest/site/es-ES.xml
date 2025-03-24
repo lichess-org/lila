@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jugar contra un amigo</string>
   <string name="playWithTheMachine">Jugar contra el ordenador</string>
+  <string name="playOffline">Jugar sin conexión</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguien a jugar, comparte este enlace</string>
   <string name="gameOver">Fin de la partida</string>
   <string name="waitingForOpponent">Esperando al oponente</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Girar el tablero</string>
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar tablas</string>
+  <string name="drawClaimed">Tablas reclamadas</string>
   <string name="offerDraw">Ofrecer tablas</string>
   <string name="draw">Tablas</string>
   <plurals name="nbPlayers">
@@ -744,6 +746,9 @@
   <string name="checkYourEmail">Revisa tu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te hemos enviado un correo. Activa tu cuenta en el enlace proporcionado.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
+  <string name="ifYouDoNotGetTheEmail">Si no recibes el correo electrónico en 5 minutos:</string>
+  <string name="checkAllEmailFolders">Revisa todo el correo basura, spam y otras carpetas</string>
+  <string name="verifyYourAddress">Verifica que %s es tu dirección de correo electrónico</string>
   <string name="weHaveSentYouAnEmailTo">Te hemos enviado un correo a %s. Restablece tu contraseña haciendo clic en el enlace.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Al registrarte, aceptas las %s.</string>
   <string name="readAboutOur">Lee acerca de nuestra %s.</string>
@@ -788,6 +793,7 @@
   <string name="anonymous">Anónimo</string>
   <string name="yourScore">Tu puntuación: %s</string>
   <string name="language">Idioma</string>
+  <string name="allLanguages">Todos los idiomas</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
   <string name="dark">Oscuro</string>

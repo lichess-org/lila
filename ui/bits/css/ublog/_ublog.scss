@@ -3,32 +3,34 @@
 @import 'topic';
 @import 'post';
 
-.ublog {
-  &-index {
-    .box__top__actions {
-      @extend %flex-center;
-      .atom {
-        font-size: 2.6em;
-        color: $c-font-dimmer;
-        &:hover {
-          color: $c-accent;
-        }
+.ublog-index {
+  &__calendar {
+    margin-bottom: 2em;
+  }
+
+  .box__top__actions {
+    @extend %flex-center;
+    .atom {
+      font-size: 2.6em;
+      color: $c-font-dimmer;
+      &:hover {
+        color: $c-accent;
       }
     }
-    h1 {
-      .user-link {
-        color: $c-link;
-      }
+  }
+  h1 {
+    .user-link {
+      color: $c-link;
     }
-    #form3-tier {
-      border: none;
-      background: none;
-    }
-    &__posts {
-      &--empty {
-        margin: 20vh auto;
-        text-align: center;
-      }
+  }
+  #form3-tier {
+    border: none;
+    background: none;
+  }
+  &__posts {
+    &--empty {
+      margin: 20vh auto;
+      text-align: center;
     }
   }
 }

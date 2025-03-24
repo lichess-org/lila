@@ -24,6 +24,7 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
       "live"        -> boolean,
       "discuss"     -> boolean,
       "sticky"      -> boolean,
+      "ads"         -> boolean,
       "gameId"      -> of[GameId],
       "move"        -> text
     )(UblogPostData.apply)(unapply)
@@ -43,6 +44,7 @@ final class UblogForm(val captcher: CaptchaApi, langList: LangList):
       live = post.live,
       discuss = ~post.discuss,
       sticky = ~post.sticky,
+      ads = ~post.ads,
       gameId = GameId(""),
       move = ""
     )
@@ -60,6 +62,7 @@ object UblogForm:
       live: Boolean,
       discuss: Boolean,
       sticky: Boolean,
+      ads: Boolean,
       gameId: GameId,
       move: String
   ) extends WithCaptcha:
@@ -77,6 +80,7 @@ object UblogForm:
         live = false,
         discuss = Option(false),
         sticky = Option(false),
+        ads = Option(false),
         created = UblogPost.Recorded(user.id, nowInstant),
         updated = none,
         lived = none,
@@ -98,6 +102,7 @@ object UblogForm:
         live = live,
         discuss = Option(discuss),
         sticky = Option(sticky),
+        ads = Option(ads),
         updated = UblogPost.Recorded(user.id, nowInstant).some,
         lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )

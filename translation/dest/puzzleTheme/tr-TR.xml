@@ -57,6 +57,10 @@
   <string name="interferenceDescription">Rakip taşların arasına kendi taşını koyarak rakibin bir taşını ya da iki taşını da savunmasız bırak. Rakibin iki kalesinin arasındaki güvenli bir kareye atı oynamak gibi.</string>
   <string name="intermezzo">Ara hamle</string>
   <string name="intermezzoDescription">Beklenen hamleyi oynamadan önce rakibin derhal yanıt vermesi gereken başka bir tehdit oluştur. Bu taktik aynı zamanda \"Zwischenzug\" olarak da bilinir.</string>
+  <string name="killBoxMate">Kafesleme matı</string>
+  <string name="killBoxMateDescription">Rakip şahının yanında bir kale bulunur ve bir vezir tarafından desteklenir ve bu kale aynı zamanda şahın kaçış karelerini de engeller. Kale ve vezir, düşman şahını 3\'e 3\'lük bir \"kafeste\" sıkıştırır.</string>
+  <string name="vukovicMate">Vukovic matı</string>
+  <string name="vukovicMateDescription">Bir kale ve at, şahı mat etmek için bir araya gelir. Kale, üçüncü bir taşla desteklenerek mat eder ve at şahın kaçış karelerini engellemek için kullanılır.</string>
   <string name="knightEndgame">At oyunsonu</string>
   <string name="knightEndgameDescription">Sadece at ve piyon içeren oyunsonu.</string>
   <string name="long">Uzun bulmaca</string>

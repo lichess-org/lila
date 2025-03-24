@@ -32,7 +32,6 @@ def communication(
           )
         ,
         views.mod.timeline.renderComm(timeline),
-        commUi.publicChats(u, publicLines, publicLineSource),
         priv.option(
           frag(
             commUi.privateChats(u, players),
@@ -73,5 +72,6 @@ def communication(
                   )
             )
           )
-        )
+        ),
+        commUi.publicChats(u, publicLines, publicLineSource)
       )

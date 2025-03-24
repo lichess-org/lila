@@ -2,6 +2,8 @@
 <resources>
   <string name="communityBlogs">Yhteisön blogit</string>
   <string name="friendBlogs">Ystävien blogit</string>
+  <string name="lichessBlog" comment="This string refers to the official Lichess blog.">Lichessin blogi</string>
+  <string name="myBlog" comment="Appears as a link, taking you to your own blog.">Oma blogi</string>
   <string name="likedBlogs">Tykätyt blogikirjoitukset</string>
   <string name="blogTopics">Blogin aiheet</string>
   <string name="lichessOfficialBlog">Lichessin virallinen blogi</string>
@@ -21,6 +23,8 @@
   <string name="createBlogDiscussionHelp">Muut voivat kommentoida kirjoitustasi foorumiin luotavassa viestiketjussa</string>
   <string name="publishOnYourBlog">Julkaise blogissasi</string>
   <string name="publishHelp">Jos valitset tämän, kirjoitus näytetään blogissasi. Jos et, kirjoituksesi on yksityinen ja tallentuu luonnoksiin</string>
+  <string name="stickyPost" comment="Label for the toggle that can make this blog post sticky.">Kiinnitä artikkeli</string>
+  <string name="stickyPostHelp">Jos tämä on valittuna, artikkeli näkyy profiilisi viimeisimpien artikkelien listalla sekä blogissasi ensimmäisenä.</string>
   <plurals name="publishedNbBlogPosts">
     <item quantity="one">Julkaisi blogikirjoituksen</item>
     <item quantity="other">Julkaisi %s blogikirjoitusta</item>

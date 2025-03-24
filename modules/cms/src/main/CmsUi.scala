@@ -12,6 +12,21 @@ import ScalatagsTemplate.{ *, given }
 final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ *, given }
 
+  def pageContent(p: CmsPage.Render)(using Context) = frag(
+    h1(cls := "box__top")(p.title),
+    div(cls := "body expand-text")(render(p))
+  )
+
+  def lone(p: CmsPage.Render)(using Context): Page =
+    Page(p.title)
+      .css("bits.page")
+      .js(Esm("bits.expandText"))
+      .js(
+        (p.key == lila.core.id.CmsPageKey("fair-play"))
+          .option(esmInitBit("colorizeYesNoTable"))
+      ):
+        main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
+
   def render(page: CmsPage.Render)(using Context): Frag =
     if !page.live && !Granter.opt(_.Pages)
     then p("Oops, looks like there will be something here soon... but not yet!")

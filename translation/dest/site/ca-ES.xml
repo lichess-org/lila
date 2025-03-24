@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Juga amb un amic</string>
   <string name="playWithTheMachine">Juga contra la màquina</string>
+  <string name="playOffline">Juga sense connexió</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Girar el tauler</string>
   <string name="threefoldRepetition">Triple repetició</string>
   <string name="claimADraw">Reclamar taules</string>
+  <string name="drawClaimed">Taules reclamades</string>
   <string name="offerDraw">Oferir taules</string>
   <string name="draw">Taules</string>
   <plurals name="nbPlayers">
@@ -744,6 +746,9 @@
   <string name="checkYourEmail">Comprova el teu email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">T\'hem enviat un email. Clica l\'enllaç de l\'email per a activar el teu compte</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
+  <string name="ifYouDoNotGetTheEmail">Si no reps el correu electrònic en 5 minuts:</string>
+  <string name="checkAllEmailFolders">Comprova el correu brossa i altres carpetes</string>
+  <string name="verifyYourAddress">Verifica que el teu correu electrònic és %s</string>
   <string name="weHaveSentYouAnEmailTo">Hem enviat un correu electrònic a %s. Clica a l\'enllaç per renovar la teva contrasenya.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En registrar-te,dones la teva conformitat a estar legalment obligats per el nostre %s.</string>
   <string name="readAboutOur">Llegeix sobre la nostre %s.</string>
@@ -788,6 +793,7 @@
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
   <string name="language">Llengua</string>
+  <string name="allLanguages">Tots els idiomes</string>
   <string name="background">Fons</string>
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>

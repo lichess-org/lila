@@ -7,13 +7,16 @@ import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import lila.core.perf.UserWithPerfs
+
+case class PendingCounts(streamers: Int, appeals: Int, titles: Int)
 
 object ReportUi:
 
   def reportScore(score: Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
-final class ReportUi(helpers: Helpers):
+final class ReportUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ given, * }
   import ReportUi.*
 
@@ -178,7 +181,151 @@ final class ReportUi(helpers: Helpers):
           ),
           br,
           br,
-          p(
-            a(href := routes.Lobby.home)("Return to Lichess homepage")
-          )
+          p(a(href := routes.Lobby.home)("Return to Lichess homepage"))
         )
+
+  object list:
+
+    private val scoreTag = tag("score")
+
+    def layout(filter: String, scores: Room.Scores, pending: PendingCounts)(using Context, Me) =
+      Page("Reports")
+        .css("mod.report")
+        .wrap: body =>
+          main(cls := "page-menu")(
+            menu,
+            div(id := "report_list", cls := "page-menu__content box")(
+              div(cls := "header")(
+                i(cls := "icon"),
+                span(cls := "tabs")(
+                  Granter(_.SeeReport).option:
+                    a(
+                      href := routes.Report.listWithFilter("all"),
+                      cls  := List("active" -> (filter == "all"))
+                    )(
+                      "All",
+                      scoreTag(scores.highest)
+                    )
+                  ,
+                  Room.values
+                    .filter(Room.isGranted)
+                    .map { room =>
+                      a(
+                        href := routes.Report.listWithFilter(room.key),
+                        cls := List(
+                          "active"            -> (filter == room.key),
+                          s"room-${room.key}" -> true
+                        )
+                      )(
+                        room.name,
+                        scores.get(room).filter(20 <=).map(scoreTag(_))
+                      )
+                    }
+                    .toList,
+                  Granter(_.Appeals).option(
+                    a(
+                      href := routes.Appeal.queue(),
+                      cls := List(
+                        "new"    -> true,
+                        "active" -> (filter == "appeal")
+                      )
+                    )(
+                      countTag(pending.appeals),
+                      "Appeals"
+                    )
+                  ),
+                  Granter(_.Streamers).option(
+                    a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
+                      countTag(pending.streamers),
+                      "Streamers"
+                    )
+                  ),
+                  Granter(_.TitleRequest).option(
+                    a(
+                      href := routes.TitleVerify.queue,
+                      cls := List(
+                        "new"    -> true,
+                        "active" -> (filter == "title")
+                      )
+                    )(
+                      countTag(pending.titles),
+                      "Titles"
+                    )
+                  )
+                )
+              ),
+              body
+            )
+          )
+
+    def reportTable(reports: List[Report.WithSuspect])(
+        bestPerfs: UserWithPerfs => List[Frag],
+        userMarks: User => Frag
+    )(using Context, Me) =
+      table(cls := "slist slist-pad see")(
+        thead(
+          tr(
+            th("Report"),
+            th("By"),
+            th
+          )
+        ),
+        tbody(
+          reports.map {
+            case Report.WithSuspect(r, sus, _) if !r.is(_.Comm) || Granter(_.Shadowban) =>
+              tr(cls := List("new" -> r.open))(
+                td(
+                  reportScore(r.score),
+                  strong(r.bestAtom.reason.name.capitalize),
+                  br,
+                  userLink(sus.user, params = "?mod"),
+                  br,
+                  p(cls := "perfs")(bestPerfs(sus)),
+                  userMarks(sus.user)
+                ),
+                td(cls := "atoms")(
+                  r.bestAtoms(3)
+                    .map: a =>
+                      div(cls := "atom")(
+                        span(cls := "head")(
+                          reportScore(a.score),
+                          " ",
+                          strong(a.reason.name.capitalize),
+                          " ",
+                          userIdLink(a.by.userId.some),
+                          " ",
+                          momentFromNowOnce(a.at)
+                        ),
+                        p(
+                          cls := List(
+                            "text"  -> true,
+                            "large" -> (a.text.length > 100 || a.text.linesIterator.size > 3)
+                          )
+                        )(shorten(a.text, 200))
+                      ),
+                  (r.atoms.size > 3).option(i(cls := "more")("And ", r.atoms.size - 3, " more"))
+                ),
+                td(
+                  r.inquiry match
+                    case None =>
+                      if r.done.isDefined then
+                        postForm(action := routes.Report.inquiry(r.id.value), cls := "reopen")(
+                          submitButton(dataIcon := Icon.PlayTriangle, cls := "text button button-metal")(
+                            "Reopen"
+                          )
+                        )
+                      else
+                        postForm(action := routes.Report.inquiry(r.id.value), cls := "inquiry")(
+                          submitButton(dataIcon := Icon.PlayTriangle, cls := "button button-metal")
+                        )
+                    case Some(inquiry) =>
+                      frag(
+                        "Open by ",
+                        userIdLink(inquiry.mod.some)
+                      )
+                )
+              )
+            case _ => emptyFrag
+          }
+        )
+      )

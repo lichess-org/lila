@@ -109,7 +109,7 @@
   <string name="loadAPositionFromFen">טען עמדה מFEN</string>
   <string name="loadAGameFromPgn">טען משחק מPGN</string>
   <string name="automatic">אוטומטי</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">הדבק את טקסט הPGN שלך כאן, עד למשחק %s</item>
     <item quantity="two">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>
     <item quantity="many">הדבק את טקסט הPGN שלך כאן, עד ל%s משחקים</item>

@@ -59,6 +59,6 @@ final class WikiUi(helpers: Helpers, bits: OpeningBits):
 
   private val priorityTexts = Vector("Highest", "High", "Average", "Low", "Lowest")
   def priorityTag(page: OpeningPage) =
-    val score = page.explored.fold(priorityTexts.size - 1)(OpeningWiki.priorityOf)
+    val score = page.exploredOption.fold(priorityTexts.size - 1)(OpeningWiki.priorityOf)
     val text  = priorityTexts.lift(score) | priorityTexts.last
     strong(cls := s"priority priority--$score")(text, " priority")

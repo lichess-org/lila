@@ -18,7 +18,7 @@ if [[ " $* " != *" --no-corepack "* ]]; then
     echo "Corepack not available. Try a userland node such as nvm."
   fi
 fi
-if ! pnpm install --ignore-workspace >/dev/null 2>&1; then
+if ! yes | pnpm install --ignore-workspace >/dev/null 2>&1; then
   pnpm install --loglevel debug --ignore-workspace
   exit $?
 fi

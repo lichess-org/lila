@@ -34,7 +34,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands, boardCommands, addBreaks } from 'nvui/command';
 import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
 import { view as cevalView, renderEval, type CevalCtrl } from 'ceval';
@@ -306,9 +306,8 @@ function renderAriaResult(ctrl: AnalyseController): VNode[] {
 }
 
 function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChildren {
-  if (ctrl.path.length === 0) {
-    return renderMainline(ctrl.mainline, ctrl.path, style);
-  } else {
+  if (ctrl.path.length === 0) return renderMainline(ctrl.mainline, ctrl.path, style);
+  else {
     const futureNodes = ctrl.node.children.length > 0 ? ops.mainlineNodeList(ctrl.node.children[0]) : [];
     return renderMainline(ctrl.nodeList.concat(futureNodes), ctrl.path, style);
   }

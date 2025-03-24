@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Pribado</string>
+  <string name="myStudies">Ang aking pag-aaral</string>
+  <string name="allStudies">Lahat ng pag-aaral</string>
+  <string name="studiesCreatedByX">Mga pag-aaral na nilikha ni %s</string>
+  <string name="noneYet">Wala pa.</string>
+  <string name="alphabetical">Alpabetikal</string>
   <string name="spectator">Manonood</string>
   <string name="contributor">Taga-ambag</string>
   <string name="kick">Paalisin</string>
@@ -18,6 +24,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Lahat ng miyembro ng SYNC ay mananatili sa parehas na position</string>
   <string name="shareChanges">Ibahagi ang mga pagbabago sa mga manonood at i-save sila sa server</string>
   <string name="playing">Naglalaro</string>
+  <string name="showResults">Mga Resulta</string>
   <string name="first">Una</string>
   <string name="previous">Nakaraan</string>
   <string name="next">Sunod</string>
@@ -34,6 +41,7 @@
   <string name="readMoreAboutEmbedding">Magbasa pa tungkol sa embedding</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Mga publikong pag-aaral lamang ang maaaring maging embedded!</string>
   <string name="open">Bukas</string>
+  <string name="xBroughtToYouByY">%1$s, galing sa %2$s</string>
   <string name="studyNotFound">Hindi matagpuan ang pag-aaral na ito</string>
   <string name="editChapter">I-edit ang kabanata</string>
   <string name="newChapter">Bagong kabanata</string>
@@ -43,6 +51,14 @@
   <string name="clearAnnotations">Tanggalin ang mga anotasyon</string>
   <string name="deleteChapter">I-delete ang kabanata</string>
   <string name="deleteThisChapter">I-delete ang kabanata? Hindi na ito mababawi muli!</string>
+  <string name="noPinnedComment">Wala</string>
+  <string name="interactiveLesson">Interaktibong aralin</string>
+  <string name="chapterX">Kabanata %s</string>
+  <string name="automatic">Awtomatiko</string>
+  <string name="public">Publiko</string>
+  <string name="unlisted">Hindi nakalista</string>
+  <string name="onlyMe">Ako lang</string>
+  <string name="members">Mga miyembro</string>
   <string name="save">I-save</string>
   <string name="goodMove">Magandang galaw</string>
   <string name="mistake">Pagkakamali</string>
@@ -61,4 +77,11 @@
   <string name="blackIsWinning">Nananalo na si Black</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Pagdevelop</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atake</string>
+  <string name="nextChapter">Susunod na kabanata</string>
+  <string name="prevChapter">Nakaraang kabanata</string>
+  <string name="back">Bumalik</string>
+  <string name="playAgain">Maglaro ulit</string>
+  <string name="whatWouldYouPlay">Ano ang lalaruin mo sa posisyong ito?</string>
+  <string name="youCompletedThisLesson">Binabati kita! Nakumpleto mo ang araling ito.</string>
+  <string name="perPage">%s bawat pahina</string>
 </resources>

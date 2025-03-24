@@ -113,7 +113,7 @@ final class Account(
       .map:
         _.take((getInt("nb") | 9).atMost(50))
       .map:
-        _.filterNot(_.game.isTournament).map(env.api.lobbyApi.nowPlaying)
+        _.map(env.api.lobbyApi.nowPlaying)
       .map: povs =>
         Ok(Json.obj("nowPlaying" -> JsArray(povs)))
 
@@ -274,7 +274,7 @@ final class Account(
 
   def deleteDone = Open { ctx ?=>
     if ctx.isAuth then Redirect(routes.Lobby.home)
-    else FoundPage(env.cms.renderKey("delete-done"))(views.site.page.lone)
+    else FoundPage(env.cms.renderKey("delete-done"))(views.cms.lone)
   }
 
   def kid = Auth { _ ?=> me ?=>

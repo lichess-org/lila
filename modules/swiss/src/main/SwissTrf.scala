@@ -21,12 +21,11 @@ final class SwissTrf(
     SwissPlayer.fields { f =>
       tournamentLines(swiss)
         .concat(forbiddenPairings(swiss, playerIds))
-        .concat(
+        .concat:
           sheetApi
             .source(swiss, sort = sorted.so($doc(f.rating -> -1)))
             .map((playerLine(swiss, playerIds)).tupled)
             .map(formatLine)
-        )
     }
 
   private def tournamentLines(swiss: Swiss) =
@@ -96,13 +95,12 @@ final class SwissTrf(
   def fetchPlayerIds(swiss: Swiss): Fu[PlayerIds] =
     SwissPlayer.fields: p =>
       mongo.player
-        .aggregateOne() { framework =>
+        .aggregateOne(): framework =>
           import framework.*
           Match($doc(p.swissId -> swiss.id)) -> List(
             Sort(Descending(p.rating)),
             Group(BSONNull)("us" -> PushField(p.userId))
           )
-        }
         .map:
           ~_.flatMap(_.getAsOpt[List[UserId]]("us"))
         .map:
@@ -113,7 +111,7 @@ final class SwissTrf(
   private def forbiddenPairings(swiss: Swiss, playerIds: PlayerIds): Source[String, ?] =
     if swiss.settings.forbiddenPairings.isEmpty then Source.empty[String]
     else
-      Source.fromIterator { () =>
+      Source.fromIterator: () =>
         swiss.settings.forbiddenPairings.linesIterator.flatMap:
           _.trim.toLowerCase.split(' ').map(_.trim) match
             case Array(u1, u2) if u1 != u2 =>
@@ -122,4 +120,3 @@ final class SwissTrf(
                 id2 <- playerIds.get(UserId(u2))
               yield s"XXP $id1 $id2"
             case _ => none
-      }

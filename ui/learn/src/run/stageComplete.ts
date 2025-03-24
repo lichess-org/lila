@@ -1,6 +1,6 @@
 import { withLinebreaks } from '../util';
 import { getStageRank } from '../score';
-import { numberSpread } from 'common/number';
+import { numberSpread } from 'common/i18n';
 import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';

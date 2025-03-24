@@ -176,6 +176,7 @@ wog
   def ru = dict("""
 suka
 blyat
+gandon
 p[ie]d[aoe]?r
 uebok
 (|на|по)ху(й|и|ю|е|ё|ям?и?|йням?и?|йнёй|йней|йло|йла|йлу|йцам?и?|йцу|йцо|иням?и?|инёй|иней|ило|ила|илу)
@@ -286,6 +287,7 @@ cornutt?o
 cretino
 di merda
 figa
+li mortacci tua
 putt?ana
 stronzo
 troia
@@ -304,10 +306,12 @@ gaa?ndu?
 batard
 connard
 cr[eé]tin
-encul[eé]
+encul[eé]r?
 fdp
 pd
 pute
+p[eé]d[eé]raste
+salope
 triche(ur|)
 conn?ard?
 """)

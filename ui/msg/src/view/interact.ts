@@ -3,8 +3,8 @@ import * as licon from 'common/licon';
 import { bindSubmit } from 'common/snabbdom';
 import type { User } from '../interfaces';
 import type MsgCtrl from '../ctrl';
-import { throttle } from 'common/timing';
-import { alert } from 'common/dialog';
+import { throttle } from 'common/async';
+import { alert } from 'common/dialogs';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();

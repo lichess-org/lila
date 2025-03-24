@@ -17,7 +17,7 @@ import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 export default class ChatCtrl {
   data: ChatData;
@@ -96,6 +96,12 @@ export default class ChatCtrl {
   get plugin(): ChatPlugin | undefined {
     return this.opts.plugin;
   }
+
+  canPostArbitraryText = (): boolean =>
+    this.vm.writeable &&
+    !this.vm.timeout &&
+    (!this.data.loginRequired || !!this.data.userId) &&
+    !this.data.restricted;
 
   post = (text: string): boolean => {
     text = text.trim();

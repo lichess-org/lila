@@ -1,15 +1,14 @@
 import * as licon from 'common/licon';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
-import { prefersLight } from 'common/theme';
 import { text as xhrText } from 'common/xhr';
 import announce from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
 import { watchers } from 'common/watchers';
-import { isIos, isWebkit } from 'common/device';
+import { isIos, isWebkit, prefersLightThemeQuery } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
-import { dispatchChessgroundResize } from 'common/resize';
+import { dispatchChessgroundResize } from 'common/chessgroundResize';
 import { attachDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
@@ -17,7 +16,7 @@ import { once } from 'common/storage';
 import { toggleBoxInit } from 'common/controls';
 import { addExceptionListeners } from './unhandledError';
 import { eventuallySetupDefaultConnection } from 'common/socket';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 export function boot() {
   addExceptionListeners();
@@ -118,7 +117,7 @@ export function boot() {
           ),
       );
     });
-    const mql = prefersLight();
+    const mql = prefersLightThemeQuery();
     if (typeof mql.addEventListener === 'function')
       mql.addEventListener('change', e => {
         if (document.body.dataset.theme === 'system')

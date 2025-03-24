@@ -61,11 +61,13 @@ interface OpeningPlayer {
 export type TablebaseCategory =
   | 'loss'
   | 'unknown'
+  | 'syzygy-loss'
   | 'maybe-loss'
   | 'blessed-loss'
   | 'draw'
   | 'cursed-win'
   | 'maybe-win'
+  | 'syzygy-win'
   | 'win';
 
 export interface TablebaseData extends ExplorerData {
@@ -73,6 +75,7 @@ export interface TablebaseData extends ExplorerData {
   dtz: number | null;
   dtm: number | null;
   dtw: number | null;
+  dtc: number | null;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;
@@ -100,6 +103,7 @@ export interface TablebaseMoveStats extends MoveStats {
   dtz: number | null;
   dtm: number | null;
   dtw: number | null;
+  dtc: number | null;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;

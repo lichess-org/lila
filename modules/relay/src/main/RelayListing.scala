@@ -10,7 +10,8 @@ final class RelayListing(
     colls: RelayColls,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    groupCrowd: RelayGroupCrowd
 )(using Executor):
 
   import BSONHandlers.{ *, given }
@@ -45,13 +46,13 @@ final class RelayListing(
             yield Selected(tour, round, group.name.some)
             // sorted preserves the original ordering while adding its own
             all.sorted(using Ordering.by(s => (tierPriority(s.t.tour), !s.round.hasStarted))).take(3).toNel
-        cards = selected.map(toRelayCard)
+        cards <- selected.traverse(toRelayCard)
         sorted = cards.sortBy: t =>
           val startAt       = t.display.startedAt.orElse(t.display.startsAtTime)
           val crowdRelevant = startAt.exists(_.isBefore(nowInstant.plusHours(1)))
           (
             tierPriority(t.tour),                   // by tier
-            crowdRelevant.so(0 - ~t.link.crowd),    // then by viewers
+            crowdRelevant.so(0 - t.crowd.value),    // then by viewers
             startAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
       yield
@@ -61,15 +62,19 @@ final class RelayListing(
             tr.display.hasStarted || tr.display.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(30)))
         sorted
 
-  private def toRelayCard(s: NonEmptyList[Selected]): RelayCard =
+  private def toRelayCard(s: NonEmptyList[Selected]): Fu[RelayCard] =
     val main = s.head
-    RelayCard(
-      tour = main.t.tour,
-      display = main.round,
-      link = RelayListing.defaultRoundToLink(main.t) | main.round,
-      group = main.group,
-      alts = s.tail.filter(_.round.hasStarted).map(s => s.round.withTour(s.t.tour))
-    )
+    groupCrowd
+      .get(main.t.tour.id)
+      .map: crowd =>
+        RelayCard(
+          tour = main.t.tour,
+          display = main.round,
+          link = RelayListing.defaultRoundToLink(main.t) | main.round,
+          crowd = crowd,
+          group = main.group,
+          alts = s.tail.filter(_.round.hasStarted).map(s => s.round.withTour(s.t.tour))
+        )
 
   private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
 

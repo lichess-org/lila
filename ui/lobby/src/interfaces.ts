@@ -1,7 +1,7 @@
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
-export type GameType = 'hook' | 'friend' | 'ai' | 'local';
+export type GameType = 'hook' | 'friend' | 'ai';
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 export type GameMode = 'casual' | 'rated';
 
@@ -64,6 +64,7 @@ export interface LobbyOpts {
   playban: boolean;
   showRatings: boolean;
   data: LobbyData;
+  bots?: boolean;
 }
 
 export interface LobbyMe {

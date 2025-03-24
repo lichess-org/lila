@@ -1,5 +1,5 @@
 import ApexCharts from 'apexcharts';
-import { currentTheme } from 'common/theme';
+import { currentTheme } from 'common/device';
 
 const light = currentTheme() === 'light';
 const gridC = light ? '#dddddd' : '#333333';

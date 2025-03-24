@@ -131,9 +131,9 @@ final class ActivityWriteApi(
 
   private def update(userId: UserId)(makeSetters: Activity => Bdoc): Funit =
     withColl: coll =>
-      coll.byId[Activity](Id.today(userId)).dmap { _ | Activity.make(userId) }.flatMap { activity =>
+      coll.byId[Activity](today(userId)).dmap(_ | Activity.make(userId)).flatMap { activity =>
         val setters = makeSetters(activity)
-        (!setters.isEmpty).so:
+        setters.isEmpty.not.so:
           coll.update
             .one($id(activity.id), $set(setters), upsert = true)
             .flatMap:
@@ -144,7 +144,7 @@ final class ActivityWriteApi(
   private def truncateAfterInserting(coll: Coll, id: Activity.Id): Funit = {
     // no need to do it every day
     (id.userId.hashCode % 3) == (id.day.value % 3)
-  }.so(
+  }.so:
     coll
       .find(regexId(id.userId), $id(true).some)
       .sort($sort.desc("_id"))
@@ -162,4 +162,3 @@ final class ActivityWriteApi(
               )
             .void
         }
-  )

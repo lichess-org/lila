@@ -97,9 +97,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
                 ctrl.mode(target.value as Mode);
                 if (target.value === 'nameSquare') {
                   if (ctrl.voice.enabled()) ctrl.voice.mic.start();
-                } else {
-                  ctrl.voice.mic.stop();
-                }
+                } else ctrl.voice.mic.stop();
               },
               keyup: ctrl.onRadioInputKeyUp,
             },
@@ -228,7 +226,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
     ctrl.mode() === 'findSquare'
       ? toggle(
           {
-            name: 'Practice only some files & ranks',
+            name: i18n.coordinates.practiceOnlySomeFilesAndRanks,
             id: 'enableSelection',
             checked: ctrl.selectionEnabled(),
             change: ctrl.selectionEnabled,

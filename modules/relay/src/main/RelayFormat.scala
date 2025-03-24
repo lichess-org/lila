@@ -35,11 +35,10 @@ final private class RelayFormatApi(
       .match
         case Some(lcc) =>
           looksLikeJson(lcc.indexUrl).flatMapz:
-            looksLikeJson(lcc.gameUrl(1))
-              .recoverDefault(false)(_ => ())
-              .map:
-                if _ then LccWithGames(lcc).some
-                else LccWithoutGames(lcc).some
+            def gameExists(index: Int) = looksLikeJson(lcc.gameUrl(index)).recoverDefault(false)(_ => ())
+            (gameExists(1) >>| gameExists(2)).map:
+              if _ then LccWithGames(lcc).some
+              else LccWithoutGames(lcc).some
         case None =>
           guessRelayRound(url).orElse:
             looksLikePgn(url).mapz(SingleFile(url).some)

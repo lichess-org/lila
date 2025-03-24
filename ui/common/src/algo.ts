@@ -7,6 +7,12 @@ export const randomToken = (): string => {
   }
 };
 
+export function randomId(len = 8): string {
+  const charSet32 = 'abcdefghkmnpqrstuvwxyz0123456789';
+  const buffer = globalThis.crypto.getRandomValues(new Uint8Array(len));
+  return Array.from(buffer, byte => charSet32[byte % 32]).join('');
+}
+
 export function clamp(value: number, bounds: { min?: number; max?: number }): number {
   return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
 }
@@ -15,12 +21,13 @@ export function quantize(n: number | undefined, factor: number): number {
   return Math.round((n ?? 0) / factor) * factor;
 }
 
-export function shuffle<T>(array: T[]): T[] {
-  for (let i = array.length - 1; i > 0; i--) {
+export function shuffle<T>(arr: T[]): T[] {
+  const shuffled = arr.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return array;
+  return shuffled;
 }
 
 export function deepFreeze<T>(obj: T): T {
@@ -29,32 +36,6 @@ export function deepFreeze<T>(obj: T): T {
       .filter(v => v !== null && typeof v === 'object')
       .forEach(o => deepFreeze(o));
   return Object.freeze(obj);
-}
-
-// comparison of enumerable primitives. complex properties get reference equality only
-export function isEquivalent(a: any, b: any): boolean {
-  if (a === b) return true;
-  if (typeof a !== typeof b) return false;
-  if (Array.isArray(a)) {
-    return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
-  }
-  if (typeof a !== 'object') return false;
-  const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
-  if (aKeys.length !== bKeys.length) return false;
-  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key]));
-}
-
-// true if a merge of sub into o would result in no change to o (structural containment)
-export function isContained(o: any, sub: any): boolean {
-  if (o === sub || sub === undefined) return true;
-  if (typeof o !== typeof sub) return false;
-  if (Array.isArray(o)) {
-    return Array.isArray(sub) && o.length === sub.length && o.every((x, i) => isEquivalent(x, sub[i]));
-  }
-  if (typeof o !== 'object') return false;
-  const [aKeys, subKeys] = [Object.keys(o), Object.keys(sub)];
-  if (aKeys.length < subKeys.length) return false;
-  return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
 }
 
 export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
@@ -66,16 +47,53 @@ export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
   return result;
 }
 
-export function findMapped<T, U>(arr: T[], callback: (el: T) => U | undefined): U | undefined {
+export function mapValues<V>(map: Map<unknown, V>): V[] {
+  return Array.from(map.values());
+}
+
+export function findMap<T, U>(arr: T[], fn: (el: T) => U | undefined): U | undefined {
   for (const el of arr) {
-    const result = callback(el);
+    const result = fn(el);
     if (result) return result;
   }
   return undefined;
 }
 
-export function unique<T>(items: (T | undefined)[]): T[] {
+export function definedMap<T, U>(arr: (T | undefined)[], fn: (v: T) => U | undefined): U[] {
+  return arr.reduce<U[]>((acc, v) => {
+    if (v === undefined) return acc;
+    const result = fn(v);
+    if (result !== undefined) acc.push(result);
+    return acc;
+  }, []);
+}
+
+export function definedUnique<T>(items: (T | undefined)[]): T[] {
   return [...new Set(items.filter((item): item is T => item !== undefined))];
+}
+
+// comparison of enumerable primitives. complex properties get reference equality only
+export function isEquivalent(a: any, b: any): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (Array.isArray(a))
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
+  if (typeof a !== 'object') return false;
+  const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
+  if (aKeys.length !== bKeys.length) return false;
+  return aKeys.every(key => bKeys.includes(key) && isEquivalent(a[key], b[key]));
+}
+
+// true if a merge of sub into o would result in no change to o (structural containment)
+export function isContained(o: any, sub: any): boolean {
+  if (o === sub || sub === undefined) return true;
+  if (typeof o !== typeof sub) return false;
+  if (Array.isArray(o))
+    return Array.isArray(sub) && o.length === sub.length && o.every((x, i) => isEquivalent(x, sub[i]));
+  if (typeof o !== 'object') return false;
+  const [aKeys, subKeys] = [Object.keys(o), Object.keys(sub)];
+  if (aKeys.length < subKeys.length) return false;
+  return subKeys.every(key => aKeys.includes(key) && isContained(o[key], sub[key]));
 }
 
 export function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {

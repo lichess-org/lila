@@ -58,9 +58,7 @@ export default async function (
 
   const tree = data.treeParts;
   const firstPly = tree[0].ply;
-  for (let i = 0; i <= firstPly; i++) {
-    labels.push('');
-  }
+  for (let i = 0; i <= firstPly; i++) labels.push('');
   const showTotal = !hunter;
 
   const logC = Math.pow(Math.log(3), 2);

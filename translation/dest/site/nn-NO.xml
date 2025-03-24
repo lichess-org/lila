@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spel mot ein ven</string>
   <string name="playWithTheMachine">Spel mot sjakkprogrammet</string>
+  <string name="playOffline">Spel fråkopla</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
@@ -154,8 +155,9 @@
   </plurals>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
-  <string name="threefoldRepetition">Trefaldig trekkgjentaking</string>
+  <string name="threefoldRepetition">Tre gongar stillingsgjentaking</string>
   <string name="claimADraw">Krev remis</string>
+  <string name="drawClaimed">Remis kravd</string>
   <string name="offerDraw">Tilby remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -745,6 +747,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt deg ein e-post. Trykk på lenka i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
+  <string name="ifYouDoNotGetTheEmail">Dersom du ikkje får e-posten innan 5 minutt:</string>
+  <string name="checkAllEmailFolders">Sjekk alle mapper for søppel, spam og anna</string>
+  <string name="verifyYourAddress">Verifiser at %s er e-postadressa di</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Trykk på lenka i e-posten for å attendestille passordet ditt.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrera deg godtek du å binda deg til våre %s.</string>
   <string name="readAboutOur">Les om vår %s.</string>
@@ -789,6 +794,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Din poengsum: %s</string>
   <string name="language">Språk</string>
+  <string name="allLanguages">Alle språk</string>
   <string name="background">Bakgrunn</string>
   <string name="light">Lys</string>
   <string name="dark">Mørk</string>

@@ -1,4 +1,4 @@
-import { numberFormat } from 'common/number';
+import { numberFormat } from 'common/i18n';
 import variantConfirm from './variant';
 import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
@@ -58,7 +58,6 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
-
     hookRepo.initAll(this);
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);

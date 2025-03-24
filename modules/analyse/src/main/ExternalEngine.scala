@@ -25,7 +25,7 @@ case class ExternalEngine(
     providerData: Option[String], // Arbitrary string the provider can use to store associated data
     userId: UserId,               // The user it has been registered for
     clientSecret: String          // Secret unique id of the registration
-) {}
+)
 
 object ExternalEngine:
 
@@ -120,9 +120,12 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
     }
 
   def withExternalEngines(json: JsObject)(using me: Option[Me]): Fu[JsObject] =
+    myExternalEnginesAsJson(me).map(json ++ _)
+
+  def myExternalEnginesAsJson(me: Option[Me]): Fu[JsObject] =
     me.so(u => list(u.userId))
       .map: engines =>
-        json.add("externalEngines", engines.nonEmpty.option(engines))
+        engines.nonEmpty.so(Json.obj("externalEngines" -> engines))
 
   private[analyse] def onTokenRevoke(id: String) =
     coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId").flatMapz { userId =>

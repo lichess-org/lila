@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Speel teen \'n vriend</string>
   <string name="playWithTheMachine">Speel teen die rekenaar</string>
+  <string name="playOffline">Speel vanlyn</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Nooi iemand vir \'n spel, gebruik hierdie URL</string>
   <string name="gameOver">Spel Verby</string>
   <string name="waitingForOpponent">Wag vir uitdager</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Keer bord om</string>
   <string name="threefoldRepetition">Drie-malige herhaling</string>
   <string name="claimADraw">Eis gelykop</string>
+  <string name="drawClaimed">Gelykop geëis</string>
   <string name="offerDraw">Bied gelykop aan</string>
   <string name="draw">Gelykop</string>
   <plurals name="nbPlayers">
@@ -739,6 +741,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="checkYourEmail">Kyk na jou e-pos</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ons het vir jou \'n e-pos gestuur. Klik die skakel in die e-pos om jou rekening te aktiveer.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">As jy nie die e-pos sien nie, kyk na ander plekke waar dit kan wees, soos jou gemorspos, sosiaal en ander leêrs.</string>
+  <string name="ifYouDoNotGetTheEmail">Indien jy nie die e-pos binne 5 minute ontvang nie:</string>
+  <string name="checkAllEmailFolders">Kyk in al jou gemorspos- en ander vouers</string>
+  <string name="verifyYourAddress">Maak seker dat %s wel jou adres is</string>
   <string name="weHaveSentYouAnEmailTo">Ons het \'n e-pos na %s gestuur. Klik die skakel in die e-pos om die wagwoord te herstel.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Deur te regisreer, stem jy in om aan ons %s gebonde te wees.</string>
   <string name="readAboutOur">Lees oor ons %s.</string>
@@ -783,6 +788,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="anonymous">Anoniem</string>
   <string name="yourScore">Jou puntetelling: %s</string>
   <string name="language">Taal</string>
+  <string name="allLanguages">Alle tale</string>
   <string name="background">Agtergrond</string>
   <string name="light">Lig</string>
   <string name="dark">Donker</string>

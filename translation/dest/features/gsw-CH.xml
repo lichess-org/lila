@@ -15,11 +15,11 @@
   <string name="allChessBasicsLessons">Alli Schach - Grundlektione</string>
   <string name="tacticalPuzzlesFromUserGames">Taktischi Ufgabe us Schpiel vu Mitglieder</string>
   <string name="personalOpeningExplorerX">%1$s (funzt au uf %2$s)</string>
-  <string name="personalOpeningExplorer">Persönliche Eröffnigs - Explorer</string>
+  <string name="personalOpeningExplorer">Personalisierte Eröffnigs-Explorer</string>
   <string name="globalOpeningExplorerInNbGames">Globale Eröffnigs - Explorer (%s Schpiel!)</string>
   <string name="endgameTablebase">7-teiligi Endschpiel - Tabälle</string>
   <string name="downloadOrUploadAnyGameAsPgn">Abelade/Ufelade vu Schpiel als PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Tagebuech, Forum, Teams, TV, Benachrichtige, Fründe, Useforderige</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, Forum, Teams, TV, Benachrichtige, Fründe, Useforderige</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Hell/dunkel - Version, Brätt- und Figurewahl und Hindergrund</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Rapid, Klassisch, Fernschach</string>
   <string name="allFeaturesToCome">Alli Funktione chömmed no, für immer!</string>

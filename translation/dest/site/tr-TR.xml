@@ -2,10 +2,11 @@
 <resources>
   <string name="playWithAFriend">Bir arkadaşınla oyna</string>
   <string name="playWithTheMachine">Bilgisayara karşı oyna</string>
+  <string name="playOffline">Çevrimdışı Oyna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
-  <string name="orLetYourOpponentScanQrCode">Veya rakibinize bu QR kodunu taratın</string>
+  <string name="orLetYourOpponentScanQrCode">Veya rakibiniz bu QR kodunu tarasın</string>
   <string name="waiting">Bekleniyor</string>
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
@@ -19,7 +20,7 @@
   <string name="white">Beyaz</string>
   <string name="black">Siyah</string>
   <string name="asWhite">beyazda</string>
-  <string name="asBlack">siyahta</string>
+  <string name="asBlack">siyahlarda</string>
   <string name="randomColor">Rastgele renk</string>
   <string name="createAGame">Yeni bir oyun kur</string>
   <string name="whiteIsVictorious">Zafer Beyazın</string>
@@ -744,6 +745,7 @@
   <string name="checkYourEmail">E-postanızı kontrol edin</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size e-posta yolladık. Hesabınızı aktifleştirmek için e-postanızdaki linke tıklayın.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
+  <string name="ifYouDoNotGetTheEmail">Eğer 5 dakika içerisinde mail size ulaşmazsa:</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
   <string name="readAboutOur">%s hakkında bilgi edinin.</string>
@@ -775,6 +777,7 @@
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
   <string name="everybodyGetsAllFeaturesForFree">Bütün özellikler ücretsizdir</string>
   <string name="viewTheSolution">Çözümü göster</string>
+  <string name="noChallenges">Meydan okuma yok.</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s farklı dili destekler!</item>
     <item quantity="other">%s farklı dili destekler!</item>
@@ -787,6 +790,7 @@
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Puan durumu: %s</string>
   <string name="language">Dil</string>
+  <string name="allLanguages">Tüm diller</string>
   <string name="background">Arkaplan</string>
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
@@ -972,6 +976,7 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="focusChat">Sohbete odaklan</string>
   <string name="showHelpDialog">Bu yardım iletisini göster</string>
   <string name="reopenYourAccount">Hesabı aktifleştir</string>
+  <string name="reopenYourAccountDescription">Hesabınızı kapattıktan sonra fikrinizi değiştirdiyseniz hesabınızı tekrar açmak için bir şansınız var.</string>
   <string name="emailAssociatedToaccount">Hesabın bağlı olduğu e-posta adresi</string>
   <string name="sentEmailWithLink">Size içinde ilgili bağlantı bulunan bir e-posta gönderdik.</string>
   <string name="tournamentEntryCode">Turnuva giriş kodu</string>

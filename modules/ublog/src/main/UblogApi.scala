@@ -10,6 +10,7 @@ import lila.memo.PicfitApi
 
 final class UblogApi(
     colls: UblogColls,
+    userRepo: lila.core.user.UserRepo,
     rank: UblogRank,
     userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
@@ -23,9 +24,7 @@ final class UblogApi(
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
     colls.post.insert
-      .one(
-        bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id))
-      )
+      .one(bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id)))
       .inject(post)
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
@@ -67,16 +66,16 @@ final class UblogApi(
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
-  def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
+  def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byIdProj[UblogPost](id, postProjection)
 
   def findEditableByMe(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
     colls.post
-      .byId[UblogPost](id)
+      .byIdProj[UblogPost](id, postProjection)
       .dmap:
         _.filter(_.allows.edit)
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
-    colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
+    colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog), postProjection)
 
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
@@ -203,3 +202,61 @@ final class UblogApi(
     !u.isBot && {
       (u.count.game > 0 && u.createdSinceDays(2)) || u.hasTitle || u.isVerified || u.isPatron
     }
+
+  // So far this only hits a prod index if $select contains `topics`, or if byDate is false
+  // i.e. byDate can only be true if $select contains `topics`
+  private[ublog] def aggregateVisiblePosts(
+      select: Bdoc,
+      offset: Int,
+      length: Int,
+      ranking: UblogRank.Sorting = UblogRank.Sorting.ByRank
+  ) =
+    colls.post
+      .aggregateList(length, _.sec): framework =>
+        import framework.*
+        Match(select ++ $doc("live" -> true)) -> (ranking.sortingQuery(colls.post, framework) ++
+          List(Limit(100))
+          ++ removeUnlistedOrClosedAndProjectForPreview(colls.post, framework) ++ List(
+            Skip(offset),
+            Limit(length)
+          ))
+      .map: docs =>
+        for
+          doc  <- docs
+          post <- doc.asOpt[UblogPost.PreviewPost]
+        yield post
+
+  private[ublog] def removeUnlistedOrClosedAndProjectForPreview(
+      coll: Coll,
+      framework: coll.AggregationFramework.type
+  ) =
+    import framework.*
+    List(
+      PipelineOperator:
+        $lookup.pipelineBC(
+          from = colls.blog,
+          as = "blog",
+          local = "blog",
+          foreign = "_id",
+          pipe = List(
+            $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogRank.Tier.LOW)))),
+            $doc("$project" -> $id(true))
+          )
+        )
+      ,
+      UnwindField("blog"),
+      PipelineOperator:
+        $lookup.pipelineBC(
+          from = userRepo.coll,
+          as = "user",
+          local = "created.by",
+          foreign = "_id",
+          pipe = List(
+            $doc("$match"   -> $doc(lila.core.user.BSONFields.enabled -> true)),
+            $doc("$project" -> $id(true))
+          )
+        )
+      ,
+      UnwindField("user"),
+      Project(previewPostProjection ++ $doc("blog" -> "$blog._id"))
+    )

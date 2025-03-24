@@ -1,5 +1,5 @@
 import { type Simul, setOnGame, isPlayerTurn } from 'game';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import { reload as xhrReload } from './xhr';
 import type RoundController from './ctrl';
 import { defined } from 'common';

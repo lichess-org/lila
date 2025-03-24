@@ -3,7 +3,7 @@ import mm from 'micromatch';
 import fs from 'node:fs';
 import { join, relative, basename } from 'node:path';
 import { type Package, glob, isFolder, subfolders, isClose } from './parse.ts';
-import { randomToken } from './algo.ts';
+import { randomToken, definedUnique } from './algo.ts';
 import { type Context, env, c, errorMark } from './env.ts';
 
 const fsWatches = new Map<AbsPath, FSWatch>();
@@ -22,16 +22,18 @@ type Debounce = {
   files: Set<AbsPath>;
 };
 type Task = Omit<TaskOpts, 'glob' | 'debounce'> & {
-  glob: CwdPath[];
+  includes: CwdPath[];
+  excludes: Path[];
   key: TaskKey;
   debounce: Debounce;
   fileTimes: Map<AbsPath, number>;
   status: 'ok' | 'error' | undefined;
 };
 type TaskOpts = {
-  glob: CwdPath | CwdPath[];
+  includes: CwdPath | CwdPath[];
   execute: (touched: AbsPath[], fullList: AbsPath[]) => Promise<any>;
-  key?: TaskKey; // optional key for overwrite, stop, tickle
+  excludes?: Path | Path[];
+  key?: TaskKey; // optional key for task overwrite and stopTask
   ctx?: Context; // optional build step context for logging
   pkg?: Package; // optional package reference
   debounce?: number; // optional number in ms
@@ -39,24 +41,27 @@ type TaskOpts = {
   globListOnly?: boolean; // default false - ignore file mods, only execute when glob list changes
   monitorOnly?: boolean; // default false - do not execute on initial traverse, only on future changes
   noEnvStatus?: boolean; // default false - don't inform env.done of task status
+  always?: boolean; // default false - always call <myTask>.execute(...), even when modified is []
 };
 
 export async function task(o: TaskOpts): Promise<TaskKey> {
-  const { monitorOnly: noInitial, debounce, key: inKey } = o;
-  const glob = Array<CwdPath>().concat(o.glob ?? []);
+  const { monitorOnly, debounce, key: inKey } = o;
+  const includes = Array.isArray(o.includes) ? o.includes : [o.includes];
+  const excludes = o.excludes ? (Array.isArray(o.excludes) ? o.excludes : [o.excludes]) : [];
   if (inKey) stopTask(inKey);
-  const newWatch: Task = {
+  const t: Task = {
     ...o,
-    glob,
+    includes,
+    excludes,
     key: inKey ?? randomToken(),
-    status: noInitial ? 'ok' : undefined,
-    debounce: { time: debounce ?? 0, rename: !noInitial, files: new Set<AbsPath>() },
-    fileTimes: noInitial ? await globTimes(glob) : new Map(),
+    status: monitorOnly ? 'ok' : undefined,
+    debounce: { time: debounce ?? 0, rename: !monitorOnly, files: new Set<AbsPath>() },
+    fileTimes: monitorOnly ? await globTimes(includes, excludes) : new Map(),
   };
-  tasks.set(newWatch.key, newWatch);
-  if (env.watch) newWatch.glob.forEach(g => watchGlob(g, newWatch.key));
-  if (!noInitial) await execute(newWatch);
-  return newWatch.key;
+  tasks.set(t.key, t);
+  if (env.watch) t.includes.forEach(g => watchGlob(g, t.key));
+  if (!monitorOnly) await execute(t, true);
+  return t.key;
 }
 
 export function stopTask(keys?: TaskKey | TaskKey[]) {
@@ -78,7 +83,7 @@ export function taskOk(ctx?: Context): boolean {
   return all.filter(w => !w.monitorOnly).length > 0 && all.every(w => w.status === 'ok');
 }
 
-async function execute(t: Task): Promise<void> {
+async function execute(t: Task, firstRun = false): Promise<void> {
   const makeRelative = (files: AbsPath[]) => (t.root ? files.map(f => relative(t.root!, f)) : files);
   const debounced = [...t.debounce.files];
   const modified: AbsPath[] = [];
@@ -87,7 +92,7 @@ async function execute(t: Task): Promise<void> {
   t.debounce.files.clear();
 
   if (rename) {
-    const files = await globTimes(t.glob);
+    const files = await globTimes(t.includes, t.excludes);
     const keys = [...files.keys()];
     if (t.globListOnly && !(t.fileTimes.size === files.size && keys.every(f => t.fileTimes.has(f)))) {
       modified.push(...keys);
@@ -107,14 +112,14 @@ async function execute(t: Task): Promise<void> {
       }),
     );
   }
-  if (modified.length === 0) return;
+  if (modified.length === 0 && !firstRun && !t.always) return;
 
   if (t.ctx) env.begin(t.ctx);
   t.status = undefined;
   try {
     await t.execute(makeRelative(modified), makeRelative([...t.fileTimes.keys()]));
     t.status = 'ok';
-    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx);
+    if (t.ctx && !t.noEnvStatus && taskOk(t.ctx)) env.done(t.ctx, 0);
   } catch (e) {
     t.status = 'error';
     const message = e instanceof Error ? (e.stack ?? e.message) : String(e);
@@ -155,8 +160,8 @@ async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
       event = 'rename';
     }
   for (const watch of [...fsw.keys].map(k => tasks.get(k)!)) {
-    const fullglobs = watch.glob.map(({ cwd, path }) => join(cwd, path));
-    if (!mm.isMatch(fullpath, fullglobs)) {
+    const fullglobs = definedUnique(watch.includes.map(({ cwd, path }) => join(cwd, path)));
+    if (!mm.isMatch(fullpath, fullglobs) && fullglobs.some(glob => fullpath.startsWith(mm.scan(glob).base))) {
       if (event === 'change') continue;
       try {
         if (!(await fs.promises.stat(fullpath)).isDirectory()) continue;
@@ -170,7 +175,7 @@ async function onFsEvent(fsw: FSWatch, event: string, filename: string | null) {
         continue;
     }
     if (event === 'rename') watch.debounce.rename = true;
-    if (event === 'change') watch.debounce.files.add(fullpath);
+    if (event === 'change' && !mm.isMatch(fullpath, watch.excludes)) watch.debounce.files.add(fullpath);
     clearTimeout(watch.debounce.timer);
     watch.debounce.timer = setTimeout(() => execute(watch), watch.debounce.time);
   }
@@ -193,11 +198,14 @@ async function cachedFileTime(file: AbsPath, update = false): Promise<number> {
   return stat;
 }
 
-async function globTimes(paths: CwdPath[]): Promise<Map<AbsPath, number>> {
-  const globs = paths.map(({ path, cwd }) => fg.glob(path, { cwd, absolute: true }));
+async function globTimes(includes: CwdPath[], excludes: Path[]): Promise<Map<AbsPath, number>> {
+  const globs = includes.map(({ path, cwd }) => fg.glob(path, { cwd, absolute: true }));
   return new Map(
     await Promise.all(
-      (await Promise.all(globs)).flat().map(async f => [f, await cachedFileTime(f)] as [string, number]),
+      (await Promise.all(globs))
+        .flat()
+        .filter(f => !mm.isMatch(f, excludes))
+        .map(async f => [f, await cachedFileTime(f)] as [string, number]),
     ),
   );
 }

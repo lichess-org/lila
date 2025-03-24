@@ -20,10 +20,7 @@ final class SwissStatsApi(
     mongo: SwissMongo,
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
-):
+)(using Executor, akka.stream.Materializer):
 
   import BsonHandlers.given
 

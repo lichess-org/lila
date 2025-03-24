@@ -56,11 +56,9 @@ export class Protocol {
 
       this.send?.('ucinewgame');
       this.send?.('isready');
-    } else if (parts[0] === 'readyok') {
-      this.swapWork();
-    } else if (parts[0] === 'id' && parts[1] === 'name') {
-      this.engineName = parts.slice(2).join(' ');
-    } else if (parts[0] === 'bestmove') {
+    } else if (parts[0] === 'readyok') this.swapWork();
+    else if (parts[0] === 'id' && parts[1] === 'name') this.engineName = parts.slice(2).join(' ');
+    else if (parts[0] === 'bestmove') {
       if (this.work && this.currentEval) this.work.emit(this.currentEval);
       this.work = undefined;
       this.swapWork();

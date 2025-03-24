@@ -2,7 +2,7 @@ import { prev } from '../../control';
 import type AnalyseCtrl from '../../ctrl';
 import { requestIdleCallback } from 'common';
 import * as licon from 'common/licon';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import { iconTag, bind, type MaybeVNodes } from 'common/snabbdom';
 import { h, type Hooks, type VNode } from 'snabbdom';
 

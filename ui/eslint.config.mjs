@@ -20,6 +20,7 @@ export default [
       ],
 
       'linebreak-style': ['error', 'unix'],
+      'prefer-const': 'error',
       'prefer-spread': 'off',
       'prefer-rest-params': 'off',
       'no-duplicate-imports': 'error',

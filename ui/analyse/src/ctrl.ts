@@ -3,7 +3,7 @@ import { playable, playedTurns } from 'game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
 import { plural } from './view/util';
-import { debounce, throttle } from 'common/timing';
+import { debounce, throttle } from 'common/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'common/device';
@@ -45,7 +45,7 @@ import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 import api from './api';
 
 export default class AnalyseCtrl {
@@ -214,7 +214,9 @@ export default class AnalyseCtrl {
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (this.data.game.status.name === 'draw') add3or5FoldGlyphs(mainline);
+    if (this.data.game.status.name === 'draw') {
+      if (add3or5FoldGlyphs(mainline)) this.data.game.threefold = true;
+    }
 
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
@@ -270,9 +272,8 @@ export default class AnalyseCtrl {
     this.chessground?.set({
       orientation: this.bottomColor(),
     });
-    if (this.retro && this.data.game.variant.key !== 'racingKings') {
+    if (this.retro && this.data.game.variant.key !== 'racingKings')
       this.retro = makeRetro(this, this.bottomColor());
-    }
     if (this.practice) this.restartPractice();
     this.explorer.onFlip();
     this.onChange();
@@ -543,9 +544,8 @@ export default class AnalyseCtrl {
       !this.promotion.start(orig, dest, {
         submit: (orig, dest, prom) => this.sendMove(orig, dest, capture, prom),
       })
-    ) {
+    )
       this.sendMove(orig, dest, capture);
-    }
   };
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: Role): void => {

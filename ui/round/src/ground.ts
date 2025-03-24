@@ -1,6 +1,6 @@
 import * as util from './util';
 import { onInsert } from 'common/snabbdom';
-import resizeHandle from 'common/resize';
+import resizeHandle from 'common/chessgroundResize';
 import type RoundController from './ctrl';
 import { h, type VNode } from 'snabbdom';
 import { plyStep } from './util';

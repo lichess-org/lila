@@ -22,6 +22,12 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, red
   el.addEventListener('touchend', () => clearTimeout(longPressCountdown));
 }
 
+export function isBrowserSupported(): boolean {
+  // when feature detection is not enough
+  if (isSafari({ below: '15.4' })) return false;
+  return true; // TODO add unsupported browsers
+}
+
 export const bindMobileMousedown =
   (f: (e: Event) => unknown, redraw?: () => void) =>
   (el: HTMLElement): void => {
@@ -40,6 +46,16 @@ export const bindMobileMousedown =
 
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
+
+export const prefersLightThemeQuery = (): MediaQueryList =>
+  window.matchMedia('(prefers-color-scheme: light)');
+
+export const currentTheme = (): 'light' | 'dark' => {
+  const dataTheme = document.body.dataset.theme!;
+  if (dataTheme === 'system') return prefersLightThemeQuery().matches ? 'light' : 'dark';
+  else if (dataTheme === 'light') return 'light';
+  else return 'dark';
+};
 
 let col1cache: 'init' | 'rec' | boolean = 'init';
 
@@ -108,12 +124,20 @@ const webkitVersion = memoize<string | false>(
 
 export const shareIcon: () => string = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
-export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'dynamicImportFromWorker';
+export type Feature =
+  | 'wasm'
+  | 'sharedMem'
+  | 'simd'
+  | 'dynamicImportFromWorker'
+  | 'bigint'
+  | 'structuredClone';
 
-export const hasFeature = (feat?: string): boolean => !feat || features().includes(feat as Feature);
+export const hasFeature = (feat?: Feature): boolean => !feat || features().includes(feat as Feature);
 
 export const features: () => readonly Feature[] = memoize<readonly Feature[]>(() => {
   const features: Feature[] = [];
+  if (typeof BigInt === 'function') features.push('bigint');
+  if (typeof structuredClone !== 'undefined') features.push('structuredClone');
   if (
     typeof WebAssembly === 'object' &&
     typeof WebAssembly.validate === 'function' &&

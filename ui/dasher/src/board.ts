@@ -1,6 +1,6 @@
 import { header } from './util';
 import { hyphenToCamel, toggle } from 'common';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as licon from 'common/licon';
 import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { bind, looseH as h, type VNode } from 'common/snabbdom';
@@ -187,11 +187,18 @@ export class BoardCtrl extends PaneCtrl {
           hook: {
             insert: (vnode: VNode) => {
               const input = vnode.elm as HTMLInputElement;
-              $(input).on('input', () => {
-                this.setVar(prop, parseInt(input.value));
+              const setAndSave = (v: number) => {
+                if (v < range.min || v > range.max) return;
+                this.setVar(prop, v);
                 this.redraw();
                 this.postPref(prop);
-              });
+              };
+              $(input)
+                .on('input', () => setAndSave(parseInt(input.value)))
+                .on('wheel', e => {
+                  e.preventDefault();
+                  setAndSave(this.getVar(prop) + (e.deltaY > 0 ? -range.step : range.step));
+                });
             },
           },
         }),

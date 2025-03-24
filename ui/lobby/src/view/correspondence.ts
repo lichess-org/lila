@@ -3,8 +3,8 @@ import { bind, type MaybeVNodes } from 'common/snabbdom';
 import { tds, perfNames } from './util';
 import type LobbyController from '../ctrl';
 import type { Seek } from '../interfaces';
-import perfIcons from 'common/perfIcons';
-import { confirm } from 'common/dialog';
+import perfIcons from 'game/perfIcons';
+import { confirm } from 'common/dialogs';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';

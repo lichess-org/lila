@@ -1,15 +1,15 @@
 import cps from 'node:child_process';
-import fs from 'node:fs';
-import ps from 'node:process';
 import crypto from 'node:crypto';
-import { join, relative, basename, dirname, resolve } from 'node:path';
+import fs from 'node:fs';
+import { basename, dirname, join, relative, resolve } from 'node:path';
+import ps from 'node:process';
 import clr from 'tinycolor2';
-import { env, c, errorMark } from './env.ts';
-import { readable, glob } from './parse.ts';
-import { task } from './task.ts';
-import { updateManifest } from './manifest.ts';
 import { clamp, isEquivalent, trimLines } from './algo.ts';
-import { symlinkTargetHashes, hashedBasename } from './hash.ts';
+import { c, env, errorMark } from './env.ts';
+import { hashedBasename, symlinkTargetHashes } from './hash.ts';
+import { updateManifest } from './manifest.ts';
+import { glob, readable } from './parse.ts';
+import { task } from './task.ts';
 
 const importMap = new Map<string, Set<string>>();
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
@@ -39,10 +39,11 @@ export async function sass(): Promise<any> {
 
   return task({
     ctx: 'sass',
-    glob: [
+    includes: [
       { cwd: env.uiDir, path: '*/css/**/*.scss' },
       { cwd: env.hashOutDir, path: '*' },
     ],
+    excludes: '**/gen/**',
     debounce: 300,
     root: env.rootDir,
     execute: async (modified, fullList) => {
@@ -112,6 +113,7 @@ async function compile(sources: string[], logAll = true): Promise<string[]> {
     sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.stdout?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
     sassPs.on('close', async (code: number) => {
+      sassPs = undefined;
       if (code === 0) resolveWithErrors([]);
       else
         Promise.all(sources.filter(scss => !readable(absTempCss(scss))))
@@ -138,8 +140,8 @@ async function parseScss(src: string, processed: Set<string>) {
     colorMixMap.set(mixName, mixColor);
   }
 
-  for (const [, scssUrl] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
-    const url = scssUrl.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
+  for (const [, urlProp] of text.matchAll(/[^a-zA-Z0-9\-_]url\((?:['"])?(\.\.\/[^'")]+)/g)) {
+    const url = urlProp.replaceAll(/#\{[^}]+\}/g, '*'); // scss interpolation -> glob
 
     if (url.includes('*')) {
       for (const file of await glob(url, { cwd: env.cssOutDir, absolute: false })) {
@@ -166,43 +168,77 @@ async function parseScss(src: string, processed: Set<string>) {
 
 // collect mixable scss color definitions from theme files
 async function parseThemeColorDefs() {
-  const themeFiles = await glob('ui/common/css/theme/_*.scss', { absolute: false });
   const themes: string[] = ['dark'];
-  const capturedColors = new Map<string, string>();
+
+  const defaultThemeColors = await loadThemeColorDefs(join(env.themeDir, '_default.scss'));
+  themeColorMap.set('default', defaultThemeColors);
+
+  const themeFiles = await glob(join(env.themeDir, '_*.scss'), { absolute: false });
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
       env.log(`${errorMark} Invalid theme filename '${c.cyan(themeFile)}'`, 'sass');
       continue;
     }
-    const text = fs.readFileSync(themeFile, 'utf8');
-    for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
-      capturedColors.set(match[1], match[2]);
+    if (theme === 'default') {
+      continue;
     }
-    const colorMap = new Map<string, clr.Instance>();
-    for (const [color, colorVal] of capturedColors) {
-      let val = colorVal;
-      const visitedVariables = new Set();
-      while (val.startsWith('$')) {
-        const inferredValue = capturedColors.get(val.substring(3)) ?? '#000';
-        if (visitedVariables.has(inferredValue)) {
-          break;
-        }
-        visitedVariables.add(inferredValue);
-        val = inferredValue;
-      }
-      colorMap.set(color, clr(val));
-    }
-    if (theme !== 'default') themes.push(theme);
-    themeColorMap.set(theme, colorMap);
+    themes.push(theme);
+    themeColorMap.set(theme, await loadThemeColorDefs(themeFile, defaultThemeColors));
   }
+
   for (const theme of themes) {
     const colorDefMap = themeColorMap.get(theme) ?? new Map<string, clr.Instance>();
 
-    for (const [color, colorVal] of themeColorMap.get('default') ?? []) {
+    for (const [color, colorVal] of defaultThemeColors) {
       if (!colorDefMap.has(color)) colorDefMap.set(color, colorVal.clone());
     }
   }
+}
+
+async function loadThemeColorDefs(themeFile: string, fallbackColors: Map<string, clr.Instance> = new Map()) {
+  const text = await fs.promises.readFile(themeFile, 'utf8');
+
+  const capturedColors = new Map<string, string>();
+  for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
+    capturedColors.set(match[1], match[2]);
+  }
+
+  const colorMap = new Map<string, clr.Instance>();
+  for (const [color, colorVal] of capturedColors) {
+    colorMap.set(color, resolveVariablesInValue(colorVal, capturedColors, fallbackColors));
+  }
+
+  return colorMap;
+}
+
+// if value is a variable (i.e. starts with $), recursively resolve it to the value of the referenced variable
+// if the variable is unknown, try to fall back to fallbackColors
+function resolveVariablesInValue(
+  value: string,
+  variables: Map<string, string>,
+  fallbackColors: Map<string, clr.Instance>,
+) {
+  const visitedVariables = new Set<string>();
+  while (value.startsWith('$')) {
+    const colorName = value.substring(3);
+    const resolvedValue = variables.get(colorName);
+    if (!resolvedValue) {
+      const fallbackColor = fallbackColors.get(colorName);
+      if (!fallbackColor) {
+        env.log(`${errorMark} Failed to resolve variable: '${c.magenta(value)}'`, 'sass');
+        return clr('black');
+      }
+      return fallbackColor;
+    }
+    if (visitedVariables.has(resolvedValue)) {
+      env.log(`${errorMark} Detected loop resolving variable: '${c.magenta(value)}'`, 'sass');
+      return clr('black');
+    }
+    visitedVariables.add(resolvedValue);
+    value = resolvedValue;
+  }
+  return clr(value);
 }
 
 // given color definitions and mix instructions, build mixed color css variables in themed scss mixins
@@ -227,7 +263,7 @@ async function buildColorMixes() {
             return c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })));
         }
       })();
-      if (mixed) colors.push(`  --m-${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};`);
+      if (mixed) colors.push(`  --m-${colorMix}: ${mixed.toHslString()};`);
       else env.log(`${errorMark} Invalid mix op: '${c.magenta(colorMix)}'`, 'sass');
     }
     out.write(colors.sort().join('\n') + '\n}\n\n');

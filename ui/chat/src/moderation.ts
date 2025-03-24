@@ -3,11 +3,11 @@ import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { userLink } from 'common/userLink';
 import type { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
-import { numberFormat } from 'common/number';
+import { numberFormat } from 'common/i18n';
 import { userModInfo, flag, timeout } from './xhr';
 import type ChatCtrl from './ctrl';
 import { pubsub } from 'common/pubsub';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -56,10 +56,11 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function report(ctrl: ChatCtrl, line: HTMLElement): void {
-  const userA = line.querySelector('a.user-link') as HTMLLinkElement;
-  const text = (line.querySelector('t') as HTMLElement).innerText;
-  if (userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
+export function flagReport(ctrl: ChatCtrl, flag: HTMLElement): void {
+  const line = flag.parentNode as HTMLElement;
+  const text = flag.dataset['text'] as string;
+  const userA = line.querySelector<HTMLLinkElement>('a.user-link');
+  if (text && userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
 }
 async function reportUserText(resourceId: string, username: string, text: string) {
   if (await confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);

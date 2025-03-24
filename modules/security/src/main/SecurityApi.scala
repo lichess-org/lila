@@ -20,7 +20,7 @@ import lila.core.user.RoleDbKey
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,
-    store: Store,
+    store: SessionStore,
     firewall: Firewall,
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,

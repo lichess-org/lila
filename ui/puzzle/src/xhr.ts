@@ -1,6 +1,6 @@
 import { json as xhrJson, form as xhrForm, text as xhrText } from 'common/xhr';
 import type PuzzleStreak from './streak';
-import { throttlePromiseDelay } from 'common/timing';
+import { throttlePromiseDelay } from 'common/async';
 import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 

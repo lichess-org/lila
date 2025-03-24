@@ -1,6 +1,6 @@
 import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml, frag, $as } from './common';
+import { frag, $as } from './common';
 import { Janitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -9,8 +9,8 @@ import { pubsub } from './pubsub';
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
 export interface Dialog {
-  readonly open: boolean; // is visible?
   readonly view: HTMLElement; // your content div
+  readonly dialog: HTMLDialogElement; // the dialog element
   readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
   show(): Promise<Dialog>; // promise resolves on close
@@ -44,7 +44,7 @@ export interface DomDialogOpts extends DialogOpts {
 // for snabDialog, show is inferred from !onInsert
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: LooseVNodes; // content, overrides all other content properties
-  onInsert?: (dialog: Dialog) => void; // if provided you must also call show
+  onInsert?: (dialog: Dialog) => void; // if provided you must call show
 }
 
 export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
@@ -65,105 +65,6 @@ site.load.then(async () => {
   pubsub.complete('dialog.polyfill');
 });
 
-// non-blocking window.alert-alike
-export async function alert(msg: string): Promise<void> {
-  await domDialog({
-    htmlText: escapeHtmlAddBreaks(msg),
-    class: 'alert',
-    modal: true,
-    show: true,
-  });
-}
-
-export async function alerts(msgs: string[]): Promise<void> {
-  for (const msg of msgs) await alert(msg);
-}
-
-export async function info(msg: string, autoDismiss?: Millis): Promise<Dialog> {
-  const dlg = await domDialog({
-    htmlText: escapeHtmlAddBreaks(msg),
-    noCloseButton: true,
-    actions: { result: 'ok' },
-  });
-  if (autoDismiss) setTimeout(() => dlg.close(), autoDismiss);
-  return dlg.show();
-}
-
-// non-blocking window.confirm-alike
-export async function confirm(
-  msg: string,
-  yes: string = i18n.site.yes,
-  no: string = i18n.site.no,
-): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
-          <span><button class="button button-empty no">${no}</button>
-          <button class="button yes">${yes}</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        modal: true,
-        show: true,
-        focus: '.yes',
-        actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
-        ],
-      })
-    ).returnValue === 'yes'
-  );
-}
-
-// non-blocking window.prompt-alike
-export async function prompt(
-  msg: string,
-  def: string = '',
-  valid: (text: string) => boolean = () => true,
-): Promise<string | null> {
-  const res = await domDialog({
-    htmlText: $html`<div>${escapeHtmlAddBreaks(msg)}</div>
-      <input type="text"${valid(def) ? '' : ' class="invalid"'} value="${escapeHtml(def)}">
-      <span><button class="button button-empty cancel">${i18n.site.cancel}</button>
-      <button class="button ok${valid(def) ? '"' : ' disabled" disabled'}>${i18n.site.ok}</button></span>`,
-    class: 'alert',
-    noCloseButton: true,
-    noClickAway: true,
-    modal: true,
-    show: true,
-    focus: 'input',
-    actions: [
-      { selector: '.ok', result: 'ok' },
-      { selector: '.cancel', result: 'cancel' },
-      {
-        selector: 'input',
-        event: 'keydown',
-        listener: (e: KeyboardEvent, dlg) => {
-          if (e.key !== 'Enter' && e.key !== 'Escape') return;
-          e.preventDefault();
-          if (e.key === 'Enter' && valid(dlg.view.querySelector<HTMLInputElement>('input')!.value))
-            dlg.close('ok');
-          else if (e.key === 'Escape') dlg.close('cancel');
-        },
-      },
-      {
-        selector: 'input',
-        event: 'input',
-        listener: (e, dlg) => {
-          if (!(e.target instanceof HTMLInputElement)) return;
-          const ok = dlg.view.querySelector<HTMLButtonElement>('.ok')!;
-          const invalid = !valid(e.target.value);
-          e.target.classList.toggle('invalid', invalid);
-          ok.classList.toggle('disabled', invalid);
-          ok.disabled = invalid;
-        },
-      },
-    ],
-  });
-  return res.returnValue === 'ok' ? res.view.querySelector('input')!.value : null;
-}
-
 // when opts contains 'show', domDialog function's result promise resolves on dialog closure.
 // otherwise, the promise resolves once assets are loaded and it is safe to call show
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
@@ -171,7 +72,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
-  if (isTouchDevice()) dialog.classList.add('touch-scroll');
+  if (isTouchDevice() && o.actions) dialog.classList.add('touch-scroll');
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
@@ -246,9 +147,9 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private resolve?: (dialog: Dialog) => void;
-  private actionEvents = new Janitor();
   private dialogEvents = new Janitor();
+  private actionEvents = new Janitor();
+  private resolve?: (dialog: Dialog) => void;
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -270,7 +171,8 @@ class DialogWrapper implements Dialog {
 
     const justThen = Date.now();
     const cancelOnInterval = (e: PointerEvent) => {
-      if (Date.now() - justThen < 200) return; // removed isConnected() check. we catch leaks this way
+      if (!this.dialog.isConnected) console.trace('likely zombie dialog. Always Be Close()ing');
+      if (Date.now() - justThen < 200) return;
       const r = dialog.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
         this.close('cancel');
@@ -293,8 +195,8 @@ class DialogWrapper implements Dialog {
 
     if (!o.noClickAway)
       setTimeout(() => {
-        this.dialogEvents.addListener(document.body, 'click', cancelOnInterval);
-        this.dialogEvents.addListener(dialog, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(document.body, 'pointerdown', cancelOnInterval);
+        this.dialogEvents.addListener(dialog, 'pointerdown', cancelOnInterval);
       });
     for (const app of o.append ?? []) {
       if (app.node === view) break;
@@ -355,12 +257,22 @@ class DialogWrapper implements Dialog {
       this.close('cancel');
       e.preventDefault();
     } else if (e.key === 'Tab') {
-      const $focii = $(focusQuery, e.currentTarget as Element),
-        first = $as<HTMLElement>($focii.first()),
-        last = $as<HTMLElement>($focii.last()),
+      const focii = [...this.dialog.querySelectorAll<HTMLElement>(focusQuery)].filter(
+        el => el.getAttribute('tabindex') !== '-1',
+      );
+      focii.sort((a, b) => {
+        const ati = Number(a.getAttribute('tabindex') ?? '0');
+        const bti = Number(b.getAttribute('tabindex') ?? '0');
+        if (ati > 0 && (bti === 0 || ati < bti)) return -1;
+        else if (bti > 0 && ati !== bti) return 1;
+        else return a.compareDocumentPosition(b) & 2 ? 1 : -1;
+      });
+      const first = focii[0],
+        last = focii[focii.length - 1],
         focus = document.activeElement as HTMLElement;
-      if (focus === last && !e.shiftKey) first.focus();
-      else if (focus === first && e.shiftKey) last.focus();
+
+      if (focus === last && !e.shiftKey) first?.focus();
+      else if (focus === first && e.shiftKey) last?.focus();
       else return;
       e.preventDefault();
     }
@@ -406,10 +318,6 @@ function loadAssets(o: DialogOpts) {
   ]);
 }
 
-function escapeHtmlAddBreaks(s: string) {
-  return escapeHtml(s).replace(/\n/g, '<br>');
-}
-
 function onResize() {
   // ios safari vh behavior workaround
   $('dialog > div.scrollable').css('---viewport-height', `${window.innerHeight}px`);
@@ -417,5 +325,5 @@ function onResize() {
 
 const focusQuery = ['button', 'input', 'select', 'textarea']
   .map(sel => `${sel}:not(:disabled)`)
-  .concat(['[href]', '[tabindex="0"]', '[role="tab"]'])
+  .concat(['[href]', '[tabindex]', '[role="tab"]'])
   .join(',');

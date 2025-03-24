@@ -1,5 +1,5 @@
 import type { Redraw } from 'common/snabbdom';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import type { RelayRound } from './interfaces';
 import { json as xhrJson } from 'common/xhr';
 import { h } from 'snabbdom';

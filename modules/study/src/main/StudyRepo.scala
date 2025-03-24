@@ -81,11 +81,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   private[study] def selectOwnerId(ownerId: UserId) = $doc("ownerId" -> ownerId)
   def selectMemberId(memberId: UserId)              = $doc(F.uids -> memberId)
-  private[study] val selectPublic = $doc:
-    "visibility" -> (Visibility.public: Visibility)
-  private[study] val selectPrivateOrUnlisted =
-    "visibility".$ne(Visibility.public: Visibility)
-  private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
+  private[study] val selectPublic                   = $doc("visibility" -> Visibility.public)
+  private[study] val selectPrivateOrUnlisted        = "visibility".$ne(Visibility.public)
+  private[study] def selectLiker(userId: UserId)    = $doc(F.likers -> userId)
   private[study] def selectContributorId(userId: UserId): BSONDocument =
     selectMemberId(userId) ++ // use the index
       $doc("ownerId".$ne(userId)) ++

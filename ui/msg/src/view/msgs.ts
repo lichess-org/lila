@@ -3,10 +3,9 @@ import { json as xhrJson, form as xhrForm } from 'common/xhr';
 import { bind } from 'common/snabbdom';
 import type { Convo, Msg, Daily } from '../interfaces';
 import { enhance, isMoreThanText, expandLpvs } from './enhance';
-import { makeLinkPopups } from 'common/linkPopup';
 import { scroller } from './scroller';
 import type MsgCtrl from '../ctrl';
-import { alert, confirm } from 'common/dialog';
+import { alert, confirm, makeLinkPopups } from 'common/dialogs';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo__msgs', { hook: { insert: setupMsgs(true), postpatch: setupMsgs(false) } }, [

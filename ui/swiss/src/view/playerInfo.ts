@@ -1,6 +1,6 @@
 import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { player as renderPlayer, numberRow } from './util';
 import type { Pairing } from '../interfaces';

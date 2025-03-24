@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import { type VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
 import type StudyCtrl from './studyCtrl';
-import { confirm } from 'common/dialog';
+import { confirm } from 'common/dialogs';
 
 export type Save = (t: string) => void;
 

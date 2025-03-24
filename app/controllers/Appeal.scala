@@ -20,14 +20,14 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
       FoundPage(env.cms.renderKey("appeal-landing")):
-        views.site.page.lone
+        views.cms.lone
     else notFound
   }
 
   def closedByTeacher = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
       FoundPage(env.cms.renderKey("account-closed-by-teacher")):
-        views.site.page.lone
+        views.cms.lone
     else notFound
   }
 

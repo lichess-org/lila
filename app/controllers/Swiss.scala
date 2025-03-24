@@ -249,8 +249,9 @@ final class Swiss(
 
   def byTeam(id: TeamId) = Anon:
     apiC.jsonDownload:
+      val status = get("status").flatMap(lila.swiss.Swiss.status)
       env.swiss.api
-        .byTeamCursor(id)
+        .byTeamCursor(id, status, getAs[UserStr]("createdBy"), get("name"))
         .documentSource(getInt("max") | 100)
         .mapAsync(4)(apiJson)
         .throttle(20, 1.second)

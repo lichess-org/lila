@@ -9,10 +9,7 @@ export const highlightSearchTerm = (search: string, selector: string): void => {
 
   // remove previous highlight
   CSS.highlights.delete(highlightName);
-  if (!search) {
-    // nothing to highlight
-    return;
-  }
+  if (!search) return; // nothing to highlight
   // find all text nodes containing the search term
   const ranges: AbstractRange[] = [];
   try {
@@ -37,9 +34,7 @@ const getTextNodesInElementContainingText = (element: HTMLElement, text: string)
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
   let node;
   while ((node = walker.nextNode())) {
-    if (node.textContent?.toLowerCase().includes(lowerCaseText)) {
-      nodes.push(node);
-    }
+    if (node.textContent?.toLowerCase().includes(lowerCaseText)) nodes.push(node);
   }
   return nodes;
 };

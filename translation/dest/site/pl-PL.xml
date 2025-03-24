@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Zagraj ze znajomym</string>
   <string name="playWithTheMachine">Zagraj z komputerem</string>
+  <string name="playOffline">Graj offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na ruch przeciwnika</string>
@@ -172,6 +173,7 @@
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="claimADraw">Ogłoś remis</string>
+  <string name="drawClaimed">Stwierdzono remis</string>
   <string name="offerDraw">Zaproponuj remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
@@ -826,6 +828,9 @@
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
+  <string name="ifYouDoNotGetTheEmail">Jeśli nie otrzymasz e-maila w ciągu 5 minut:</string>
+  <string name="checkAllEmailFolders">Sprawdź folder ze spamem, kosz oraz inne foldery</string>
+  <string name="verifyYourAddress">Sprawdź, czy %s jest Twoim adresem e-mail</string>
   <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości, aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
   <string name="readAboutOur">Przeczytaj o %s w naszym serwisie.</string>
@@ -872,6 +877,7 @@
   <string name="anonymous">Anonimowy</string>
   <string name="yourScore">Twój wynik: %s</string>
   <string name="language">Język</string>
+  <string name="allLanguages">Wszystkie języki</string>
   <string name="background">Tło</string>
   <string name="light">Jasne</string>
   <string name="dark">Ciemne</string>

@@ -67,9 +67,7 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
     txn: (mode: IDBTransactionMode) => db.transaction(dbInfo.store, mode),
     cursor,
     readCursor: async (opts: CursorOpts, it: (v: V) => any): Promise<void> => {
-      for await (const c of cursor(opts, 'readonly')) {
-        await it(c.value);
-      }
+      for await (const c of cursor(opts, 'readonly')) await it(c.value);
     },
     writeCursor: async (opts: CursorOpts, it: WriteCursorCallback<V>): Promise<void> => {
       for await (const c of cursor(opts, 'readwrite')) {

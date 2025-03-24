@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 import { text as xhrText, form as xhrForm } from 'common/xhr';
-import { throttle, throttlePromiseDelay } from 'common/timing';
+import { throttle, throttlePromiseDelay } from 'common/async';
 import { h, type VNode } from 'snabbdom';
 import { header } from './util';
 import { bind } from 'common/snabbdom';

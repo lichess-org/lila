@@ -68,7 +68,7 @@ final class Mod(
 
   def booster(username: UserStr, v: Boolean) = OAuthModBody(_.MarkBooster) { me ?=>
     withSuspect(username): prev =>
-      api.setBoost(prev, v).map(some)
+      api.setBoost(prev, v).dmap(some)
   }(reportC.onModAction)
 
   def troll(username: UserStr, v: Boolean) = OAuthModBody(_.Shadowban) { me ?=>
@@ -97,7 +97,7 @@ final class Mod(
   }(reportC.onModAction)
 
   def kid(username: UserStr) = OAuthMod(_.SetKidMode) { _ ?=> me ?=>
-    api.setKid(me.id.into(ModId), username).map(some)
+    api.setKid(me.id.into(ModId), username).dmap(some)
   }(actionResult(username))
 
   def deletePmsAndChats(username: UserStr) = OAuthMod(_.Shadowban) { _ ?=> _ ?=>
@@ -111,36 +111,36 @@ final class Mod(
   }(actionResult(username))
 
   def disableTwoFactor(username: UserStr) = OAuthMod(_.DisableTwoFactor) { _ ?=> me ?=>
-    api.disableTwoFactor(me.id.into(ModId), username).map(some)
+    api.disableTwoFactor(me.id.into(ModId), username).dmap(some)
   }(actionResult(username))
 
   def closeAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
     meOrFetch(username).flatMapz: user =>
-      env.api.accountTermination.disable(user, forever = false).map(some)
+      env.api.accountTermination.disable(user, forever = false).dmap(some)
   }(actionResult(username))
 
   def reopenAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
-    api.reopenAccount(username).map(some)
+    api.reopenAccount(username).dmap(some)
   }(actionResult(username))
 
   def reportban(username: UserStr, v: Boolean) = OAuthMod(_.ReportBan) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      api.setReportban(sus, v).map(some)
+      api.setReportban(sus, v).dmap(some)
   }(actionResult(username))
 
   def rankban(username: UserStr, v: Boolean) = OAuthMod(_.RemoveRanking) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      api.setRankban(sus, v).map(some)
+      api.setRankban(sus, v).dmap(some)
   }(actionResult(username))
 
   def arenaBan(username: UserStr, v: Boolean) = OAuthMod(_.ArenaBan) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      api.setArenaBan(sus, v).map(some)
+      api.setArenaBan(sus, v).dmap(some)
   }(actionResult(username))
 
   def prizeban(username: UserStr, v: Boolean) = OAuthMod(_.PrizeBan) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      api.setPrizeban(sus, v).map(some)
+      api.setPrizeban(sus, v).dmap(some)
   }(actionResult(username))
 
   def impersonate(username: String) = Auth { _ ?=> me ?=>
@@ -437,6 +437,13 @@ final class Mod(
     op(ipAddr.toList).inject:
       if HTTPRequest.isXhr(ctx.req) then jsonOkResult
       else Redirect(routes.Mod.singleIp(ip))
+  }
+
+  def blankPassword(username: UserStr) = Secure(_.SetEmail) { _ ?=> _ ?=>
+    for
+      _ <- env.mod.api.blankPassword(username)
+      _ <- env.security.store.closeAllSessionsOf(username.id)
+    yield Redirect(routes.User.show(username)).flashSuccess("Password blanked")
   }
 
   def chatUser(username: UserStr) = SecureOrScoped(_.ChatTimeout) { _ ?=> _ ?=>

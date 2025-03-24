@@ -82,6 +82,7 @@ case class Modlog(
     case Modlog.teamEdit            => "edited team"
     case Modlog.setKidMode          => "set kid mode"
     case Modlog.weakPassword        => "log in with weak password"
+    case Modlog.blankPassword       => "blank password"
     case Modlog.blankedPassword     => "log in with blanked password"
     case a                          => a
 
@@ -219,6 +220,7 @@ object Modlog:
   val teamEdit            = "teamEdit"
   val setKidMode          = "setKidMode"
   val weakPassword        = "weakPassword"
+  val blankPassword       = "blankPassword"
   val blankedPassword     = "blankedPassword"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r

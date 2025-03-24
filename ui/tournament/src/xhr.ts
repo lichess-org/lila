@@ -1,7 +1,7 @@
-import { finallyDelay, throttlePromiseDelay } from 'common/timing';
+import { finallyDelay, throttlePromiseDelay } from 'common/async';
 import * as xhr from 'common/xhr';
 import type TournamentController from './ctrl';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 
 // when the tournament no longer exists
 // randomly delay reloads in case of massive tournament to avoid ddos

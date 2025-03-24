@@ -4,11 +4,14 @@ import * as licon from 'common/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { stockfishName, spinnerHtml } from 'common/spinner';
-import { alert, confirm, domDialog } from 'common/dialog';
+import { spinnerHtml } from 'common/controls';
+import { domDialog } from 'common/dialog';
+import { alert, confirm } from 'common/dialogs';
 import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+
+export const stockfishName = 'Stockfish 17';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);

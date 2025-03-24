@@ -20,6 +20,7 @@ final class Env(
   export net.baseUrl
 
   val analyseEndpoints = WebConfig.analyseEndpoints(appConfig)
+  lazy val lilaVersion = WebConfig.lilaVersion(appConfig)
 
   val manifest = wire[AssetManifest]
 

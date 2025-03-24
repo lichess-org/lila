@@ -1,6 +1,6 @@
 import type AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
-import { throttle } from 'common/timing';
+import { throttle } from 'common/async';
 import { enrichText, innerHTML } from 'common/richText';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { bindMobileTapHold } from 'common/device';
@@ -19,9 +19,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       if (ctrl.path !== '') autoScroll(ctrl, el);
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
-        if (path !== null) {
-          contextMenu(e, { path, root: ctrl });
-        }
+        if (path !== null) contextMenu(e, { path, root: ctrl });
         ctrl.redraw();
         return false;
       };

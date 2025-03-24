@@ -1,5 +1,5 @@
 import { thunk } from 'snabbdom';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as licon from 'common/licon';
 import axis from './axis';
 import filters from './filters';

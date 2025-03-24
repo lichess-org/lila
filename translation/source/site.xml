@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Play with a friend</string>
   <string name="playWithTheMachine">Play with the computer</string>
+  <string name="playOffline">Play offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Flip board</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
+  <string name="drawClaimed">Draw claimed</string>
   <string name="offerDraw">Offer draw</string>
   <string name="draw">Draw</string>
   <plurals name="nbPlayers">
@@ -744,6 +746,9 @@
   <string name="checkYourEmail">Check your Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We've sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
+  <string name="ifYouDoNotGetTheEmail">If you do not get the email within 5 minutes:</string>
+  <string name="checkAllEmailFolders">Check all junk, spam, and other folders</string>
+  <string name="verifyYourAddress">Verify that %s is your email address</string>
   <string name="weHaveSentYouAnEmailTo">We've sent an email to %s. Click the link in the email to reset your password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to the %s.</string>
   <string name="readAboutOur">Read about our %s.</string>
@@ -788,6 +793,7 @@
   <string name="anonymous">Anonymous</string>
   <string name="yourScore">Your score: %s</string>
   <string name="language">Language</string>
+  <string name="allLanguages">All languages</string>
   <string name="background">Background</string>
   <string name="light">Light</string>
   <string name="dark">Dark</string>

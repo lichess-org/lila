@@ -17,13 +17,14 @@ export async function startConsole() {
         })
         .end();
     if (req.method !== 'POST') return res.writeHead(404).end();
-
     let body = '';
 
     req.on('data', chunk => (body += chunk.toString()));
     req.on('end', () => {
       try {
-        let [[level, val]] = Object.entries<string>(JSON.parse(body));
+        const [levelAndVal] = Object.entries<string>(JSON.parse(body));
+        const level = levelAndVal[0];
+        let val = levelAndVal[1];
         const mark = level === 'error' ? `${errorMark} ` : level === 'warn' ? `${warnMark} ` : '';
 
         if (!Array.isArray(val)) throw new Error();

@@ -1,6 +1,7 @@
 import * as licon from 'common/licon';
 import { prop } from 'common';
-import { confirm, prompt, snabDialog } from 'common/dialog';
+import { snabDialog } from 'common/dialog';
+import { confirm, prompt } from 'common/dialogs';
 import flairPickerLoader from 'bits/flairPicker';
 import { type VNode, bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
@@ -103,7 +104,7 @@ export function view(ctrl: StudyForm): VNode {
             h(
               'div.flair-picker.none',
               data.admin || { attrs: { 'data-except-emojis': 'activity.lichess' } },
-              h(removeEmojiButton, 'clear'),
+              h('button.button.button-metal.emoji-remove', { attrs: { type: 'button' } }, 'clear'),
             ),
           ],
         ),
@@ -301,5 +302,3 @@ export function view(ctrl: StudyForm): VNode {
     ],
   });
 }
-
-const removeEmojiButton = 'button.button.button-metal.emoji-remove';

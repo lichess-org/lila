@@ -100,7 +100,7 @@
   <string name="loadAPositionFromFen">Tải thế cờ từ chuỗi FEN</string>
   <string name="loadAGameFromPgn">Tải ván cờ từ PGN</string>
   <string name="automatic">Tự động</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="other">Dán PGN ở đây, tối đa %s ván</item>
   </plurals>
   <string name="urlOfTheGame">URL của các ván, một URL mỗi dòng</string>

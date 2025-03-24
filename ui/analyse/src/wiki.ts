@@ -1,4 +1,4 @@
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import { storedBooleanPropWithEffect } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 

@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Chơi với bạn bè</string>
   <string name="playWithTheMachine">Chơi với máy tính</string>
+  <string name="playOffline">Chơi ngoại tuyến</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
   <string name="gameOver">Ván cờ kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
@@ -148,6 +149,7 @@
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ 3 lần</string>
   <string name="claimADraw">Nhận hòa</string>
+  <string name="drawClaimed">Hòa cờ</string>
   <string name="offerDraw">Đề nghị hoà</string>
   <string name="draw">Hoà</string>
   <plurals name="nbPlayers">
@@ -704,6 +706,9 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi đã gửi cho bạn một email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong email, kiểm tra lại ở các nơi khác có thể có, như thư mục rác, thư rác, mạng xã hội hay các thư mục khác.</string>
+  <string name="ifYouDoNotGetTheEmail">Nếu bạn không nhận được email trong vòng 5 phút:</string>
+  <string name="checkAllEmailFolders">Kiểm tra tất cả thư rác, thư spam và các thư mục khác</string>
+  <string name="verifyYourAddress">Xác minh rằng %s là địa chỉ email của bạn</string>
   <string name="weHaveSentYouAnEmailTo">Chúng tôi đã gửi một email đến %s. Nhấp vào liên kết trong email để đặt lại mật khẩu của bạn.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý tuân thủ %s của chúng tôi.</string>
   <string name="readAboutOur">Đọc về %s của chúng tôi.</string>
@@ -747,6 +752,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="anonymous">Ẩn danh</string>
   <string name="yourScore">Điểm của bạn: %s</string>
   <string name="language">Ngôn ngữ</string>
+  <string name="allLanguages">Tất cả ngôn ngữ</string>
   <string name="background">Nền</string>
   <string name="light">Sáng</string>
   <string name="dark">Tối</string>

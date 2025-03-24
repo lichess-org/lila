@@ -54,6 +54,7 @@ export interface TournamentData {
     accepted: boolean;
     list: { condition: string; verdict: string }[];
   };
+  botsAllowed?: boolean;
   secondsToStart?: number;
   nbPlayers: number;
   podium?: PodiumPlayer[];

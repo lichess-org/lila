@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Грати з другом</string>
   <string name="playWithTheMachine">Грати з комп’ютером</string>
+  <string name="playOffline">Грати офлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
@@ -172,6 +173,7 @@
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Триразове повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
+  <string name="drawClaimed">Оголошена нічия</string>
   <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
   <plurals name="nbPlayers">
@@ -826,6 +828,9 @@
   <string name="checkYourEmail">Перевірте електронну пошту</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ми надіслали вам лист. Перейдіть за посиланням у листі для активації облікового запису.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Якщо Ви не бачите листа, перевірте інші місця, де б він міг бути, наприклад, корзину, спам та інші папки.</string>
+  <string name="ifYouDoNotGetTheEmail">Якщо ви не отримаєте лист протягом 5 хвилин:</string>
+  <string name="checkAllEmailFolders">Перевірте кошик, спам та інші папки</string>
+  <string name="verifyYourAddress">Перевірте, чи %s дійсно є вашою адресою електронної пошти</string>
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на адресу %s. Перейдіть за посиланням у повідомленні для скидання паролю.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Реєструючись, Ви даєте згоду дотримуватись наших %s.</string>
   <string name="readAboutOur">Читайте про наш %s.</string>
@@ -872,6 +877,7 @@
   <string name="anonymous">Анонім</string>
   <string name="yourScore">Ваш рахунок: %s</string>
   <string name="language">Мова</string>
+  <string name="allLanguages">Усі мови</string>
   <string name="background">Фон</string>
   <string name="light">Світлий</string>
   <string name="dark">Темний</string>

@@ -1,6 +1,6 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
-import { throttle, throttlePromiseDelay } from 'common/timing';
+import { throttle, throttlePromiseDelay } from 'common/async';
 import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { Boost } from './boost';
 import { Clock } from 'puz/clock';
@@ -20,12 +20,12 @@ import type {
   Race,
   UpdatableData,
   RaceStatus,
-  WithGround,
 } from './interfaces';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 import { wsConnect, wsSend } from 'common/socket';
 import { pubsub } from 'common/pubsub';
+import { type WithGround } from 'chess/ground';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;
@@ -247,7 +247,7 @@ export default class RacerCtrl implements PuzCtrl {
 
   withGround: WithGround = f => {
     const g = this.ground();
-    return g && f(g);
+    return g ? f(g) : undefined;
   };
 
   flip = () => {

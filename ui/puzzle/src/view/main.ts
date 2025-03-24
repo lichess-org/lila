@@ -17,7 +17,7 @@ import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import boardMenu from './boardMenu';
 import { Coords } from 'common/prefs';
 import type PuzzleCtrl from '../ctrl';
-import { dispatchChessgroundResize } from 'common/resize';
+import { dispatchChessgroundResize } from 'common/chessgroundResize';
 import { storage } from 'common/storage';
 
 const renderAnalyse = (ctrl: PuzzleCtrl): VNode => lh('div.puzzle__moves.areplay', [treeView(ctrl)]);

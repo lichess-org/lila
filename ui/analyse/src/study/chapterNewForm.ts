@@ -1,13 +1,14 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, type Prop, toggle } from 'common';
-import { type Dialog, snabDialog, alert } from 'common/dialog';
+import { type Dialog, snabDialog } from 'common/dialog';
+import { alert } from 'common/dialogs';
 import * as licon from 'common/licon';
 import { bind, bindSubmit, onInsert, looseH as h, dataIcon, type VNode } from 'common/snabbdom';
 import { storedProp } from 'common/storage';
 import { json as xhrJson, text as xhrText } from 'common/xhr';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
-import { spinnerVdom as spinner } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/controls';
 import { option } from '../view/util';
 import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';

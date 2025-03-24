@@ -1,3 +1,5 @@
+import { Status } from './status';
+
 export interface GameData {
   game: Game;
   player: Player;
@@ -36,27 +38,9 @@ export interface Game {
 }
 export declare type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin';
 
-export interface Status {
-  id: StatusId;
-  name: StatusName;
-}
+export type TopOrBottom = 'top' | 'bottom';
 
-export type StatusName =
-  | 'created'
-  | 'started'
-  | 'aborted'
-  | 'mate'
-  | 'resign'
-  | 'stalemate'
-  | 'timeout'
-  | 'draw'
-  | 'outoftime'
-  | 'noStart'
-  | 'cheat'
-  | 'variantEnd'
-  | 'unknownFinish';
-
-export type StatusId = number;
+export * from './status';
 
 export interface Player {
   id: string;
@@ -84,10 +68,7 @@ export interface Player {
   blindfold?: boolean;
 }
 
-export interface TournamentRanks {
-  white: number;
-  black: number;
-}
+export type TournamentRanks = ByColor<number>;
 
 export interface Tournament {
   id: string;
@@ -136,7 +117,7 @@ export interface CorrespondenceClock {
   black: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool' | 'friend' | 'local';
+export type Source = 'import' | 'lobby' | 'pool' | 'friend' | 'ai' | 'local';
 
 export interface PlayerUser {
   id: string;
@@ -158,10 +139,6 @@ export interface Perf {
   prov?: boolean;
 }
 
-export interface Ctrl {
-  data: GameData;
-}
-
 export interface Blurs {
   nb: number;
   percent: number;
@@ -177,7 +154,7 @@ export interface Hold {
 export type ContinueMode = 'friend' | 'ai';
 
 export interface GameView {
-  status(ctrl: Ctrl): string;
+  status(data: GameData): string;
 }
 
 export interface CheckState {
@@ -197,4 +174,13 @@ export type MaterialDiffSide = {
 export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
+}
+
+export interface RoundStep {
+  ply: Ply;
+  fen: FEN;
+  san: San;
+  uci: Uci;
+  check?: boolean;
+  crazy?: Record<string, any>;
 }

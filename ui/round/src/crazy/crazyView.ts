@@ -2,13 +2,13 @@ import type { MouchEvent } from 'chessground/types';
 import { onInsert, type LooseVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import type RoundController from '../ctrl';
-import type { Position } from '../interfaces';
+import type { TopOrBottom } from 'game';
 import { plyStep } from '../util';
 import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
 
 const eventNames = ['mousedown', 'touchstart'];
 
-export default function pocket(ctrl: RoundController, color: Color, position: Position): LooseVNode {
+export default function pocket(ctrl: RoundController, color: Color, position: TopOrBottom): LooseVNode {
   const step = plyStep(ctrl.data, ctrl.ply);
   if (!step.crazy) return;
   const droppedRole = ctrl.justDropped,

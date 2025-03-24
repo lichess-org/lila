@@ -106,6 +106,7 @@ export interface Game {
   opening?: Opening;
   perf: string;
   rated?: boolean;
+  threefold?: boolean;
 }
 
 export interface Opening {

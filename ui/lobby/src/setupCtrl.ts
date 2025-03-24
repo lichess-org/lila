@@ -1,9 +1,9 @@
 import { type Prop, propWithEffect } from 'common';
-import { debounce } from 'common/timing';
+import { debounce } from 'common/async';
 import * as xhr from 'common/xhr';
 import { storedJsonProp } from 'common/storage';
 import { clockToSpeed } from 'game';
-import { alert } from 'common/dialog';
+import { alert } from 'common/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {
@@ -35,8 +35,8 @@ const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, incre
 
 export default class SetupController {
   root: LobbyController;
-  store: Record<Exclude<GameType, 'local'>, Prop<SetupStore>>;
-  gameType: Exclude<GameType, 'local'> | null = null;
+  store: Record<GameType, Prop<SetupStore>>;
+  gameType: GameType | null = null;
   lastValidFen = '';
   fenError = false;
   friendUser = '';

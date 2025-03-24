@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Jogar com um amigo</string>
   <string name="playWithTheMachine">Jogar contra o computador</string>
+  <string name="playOffline">Jogar offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
@@ -156,6 +157,7 @@
   <string name="flipBoard">Inverter o tabuleiro</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="claimADraw">Declarar empate</string>
+  <string name="drawClaimed">Empate reivindicado</string>
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
@@ -745,6 +747,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="checkYourEmail">Verifica o teu e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviámos-te um e-mail. Clica no link nesse e-mail para ativares a tua conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vires o e-mail, verifica outros locais onde este possa estar, como pastas de lixo, spam, social ou outras.</string>
+  <string name="ifYouDoNotGetTheEmail">Se não receberes o e-mail dentro de 5 minutos:</string>
+  <string name="checkAllEmailFolders">Verifica as pastas de lixo, spam e as outras</string>
+  <string name="verifyYourAddress">Verifica se %s é teu endereço de email</string>
   <string name="weHaveSentYouAnEmailTo">Enviámos-te um e-mail para %s. Clica no link nesse e-mail para redefinires a tua palavra-passe.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ao criares uma conta, concordas comprometeres-te com os nossos %s.</string>
   <string name="readAboutOur">Lê sobre a nossa %s.</string>
@@ -789,6 +794,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="anonymous">Anônimo</string>
   <string name="yourScore">O teu resultado: %s</string>
   <string name="language">Lingua</string>
+  <string name="allLanguages">Todos os idiomas</string>
   <string name="background">Fundo</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
