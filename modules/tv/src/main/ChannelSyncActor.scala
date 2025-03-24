@@ -45,6 +45,7 @@ final private[tv] class ChannelSyncActor(
     case SetGame(game) =>
       onSelect(TvSyncActor.Selected(channel, game))
       history = game.id :: history.take(2)
+      lila.mon.tv.selector.rating(channel.name).record(game.averageUsersRating.so(_.value))
 
     case TvSyncActor.Select =>
       lila.mon.tv.selector.candidates(channel.name).record(candidateIds.count)
