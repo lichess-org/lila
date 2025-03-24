@@ -96,7 +96,7 @@
   <string name="loadAPositionFromFen">Les inn talvstøðu frá FEN</string>
   <string name="loadAGameFromPgn">Les inn talv frá PGN</string>
   <string name="automatic">Sjálvvirkið</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Set PGN tekstin hjá tær inn her, upp til %s talv</item>
     <item quantity="other">Set PGN tekstin hjá tær inn her, upp til %s talv</item>
   </plurals>

@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Pelaa kaveria vastaan</string>
   <string name="playWithTheMachine">Pelaa tietokonetta vastaan</string>
+  <string name="playOffline">Pelaa offline-tilassa</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
@@ -747,7 +748,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jos et näe viestiä, tarkista muut paikat joihin se voi olla joutunut (kuten roskaposti- ja spämmikansiot).</string>
   <string name="ifYouDoNotGetTheEmail">Jos et saa sähköpostia 5 minuutin kuluessa:</string>
   <string name="checkAllEmailFolders">Tarkista kaikki roskaposti-, spam- ja muut kansiot</string>
-  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">Tarkista, että %s on sinun sähköpostiosoitteesi</string>
+  <string name="verifyYourAddress">Tarkista, että %s on sinun sähköpostiosoitteesi</string>
   <string name="weHaveSentYouAnEmailTo">Olemme lähettäneet sähköpostiviestin osoitteeseen %s. Klikkaa viestissä olevaa linkkiä nollataksesi salasanasi.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rekisteröitymällä hyväksyt Lichessin %s ja sitoudut noudattamaan niitä.</string>
   <string name="readAboutOur">Lue lisää %s.</string>

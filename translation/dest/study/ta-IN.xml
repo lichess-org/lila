@@ -103,7 +103,7 @@
   <string name="loadAPositionFromFen">FEN இலிருந்து ஒரு நிலையை ஏற்றவும்</string>
   <string name="loadAGameFromPgn">PGN இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
   <string name="automatic">தானியங்கி</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">%s ஆட்டம்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
     <item quantity="other">%s ஆட்டங்கள்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
   </plurals>

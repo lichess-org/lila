@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Ghjucà cù un amicu</string>
   <string name="playWithTheMachine">Ghjucà cù l\'urdinatore</string>
+  <string name="playOffline">Ghjucà offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invità qualchissia à ghjucà, dà lu questu URL</string>
   <string name="gameOver">Persu</string>
   <string name="waitingForOpponent">Aspittendu un aversariu</string>

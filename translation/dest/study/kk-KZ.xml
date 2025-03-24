@@ -101,7 +101,7 @@
   <string name="loadAPositionFromFen">FEN арқылы ойындарды жүктеп салу</string>
   <string name="loadAGameFromPgn">PGN арқылы ойындарды жүктеп салу</string>
   <string name="automatic">Автоматты түрде</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">PGN мәтінін осында қойыңыз, %s ойын ғана</item>
     <item quantity="other">PGN мәтінін осында қойыңыз, %s ойынға дейін</item>
   </plurals>

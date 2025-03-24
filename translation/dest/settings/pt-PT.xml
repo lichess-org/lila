@@ -3,7 +3,7 @@
   <string name="settings">Configurações</string>
   <string name="closeAccount">Encerrar a conta</string>
   <string name="managedAccountCannotBeClosed">A sua conta é gerida e não pode ser encerrada.</string>
-  <string name="cantOpenSimilarAccount">O nome de utilizador NÃO estará disponível para registo novamente.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">O nome de utilizador NÃO estará disponível para registo novamente.</string>
   <string name="cancelKeepAccount">Cancelar e manter a minha conta</string>
   <string name="closeAccountAreYouSure">Tens certeza que desejas encerrar a tua conta?</string>
   <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>

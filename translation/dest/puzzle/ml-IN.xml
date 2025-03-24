@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">പസ്സിലുകള്‍</string>
-  <string name="puzzleThemes">പസ്സില്‍ വിഷയങ്ങൾ</string>
+  <string name="puzzleThemes">പസ്സില്‍ തുറങ്ങൾ</string>
   <string name="recommended">മികച്ചതു്</string>
   <string name="phases">ഘട്ടങ്ങള്‍</string>
   <string name="motifs">വിഷയം</string>

@@ -2,6 +2,6 @@
 <resources>
   <string name="settings">Налады</string>
   <string name="closeAccount">Выдаліць уліковы запіс</string>
-  <string name="cantOpenSimilarAccount">Вам не будзе дазволена стварыць новы ўліковы запіс з тым жа імем, нават калі рэгістр сімвалаў адрозніваецца.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Вам не будзе дазволена стварыць новы ўліковы запіс з тым жа імем, нават калі рэгістр сімвалаў адрозніваецца.</string>
   <string name="thisAccountIsClosed">Гэты ўліковы запіс зачынены.</string>
 </resources>

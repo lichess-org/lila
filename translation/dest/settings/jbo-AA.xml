@@ -2,6 +2,6 @@
 <resources>
   <string name="settings">lo konfigu</string>
   <string name="closeAccount">co\'upli lo jaspu</string>
-  <string name="cantOpenSimilarAccount">baku lonu co\'a jaspu fi la litces. me\'e ga ti poi cmene gi lo cmene poi frica ti poi cmene ku\'o lo ka ga\'elto\'a cu na cumki .i</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">baku lonu co\'a jaspu fi la litces. me\'e ga ti poi cmene gi lo cmene poi frica ti poi cmene ku\'o lo ka ga\'elto\'a cu na cumki .i</string>
   <string name="thisAccountIsClosed">co\'upli ti poi jaspu</string>
 </resources>

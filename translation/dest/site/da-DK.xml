@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spil mod en ven</string>
   <string name="playWithTheMachine">Spil mod computeren</string>
+  <string name="playOffline">Spil offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
@@ -747,7 +748,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se e-mailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
   <string name="ifYouDoNotGetTheEmail">Hvis du ikke får e-mailen inden for 5 minutter:</string>
   <string name="checkAllEmailFolders">Tjek spam og andre mapper</string>
-  <string name="verifyYourAddress" comment="%s is the email address you have input as a user">Bekræft at %s er din e-mailadresse</string>
+  <string name="verifyYourAddress">Bekræft at %s er din e-mailadresse</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-mail til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved at registrere, accepterer du at være bundet af vores %s.</string>
   <string name="readAboutOur">Læs om vores %s.</string>

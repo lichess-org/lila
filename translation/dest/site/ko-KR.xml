@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">친구와 체스 두기</string>
   <string name="playWithTheMachine">컴퓨터와 체스 두기</string>
+  <string name="playOffline">오프라인 플레이</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">대국 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>

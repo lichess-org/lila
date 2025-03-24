@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Ελβετικό</string>
+  <string name="swiss">Ελβετικό</string>
   <string name="swissTournaments">Ελβετικά τουρνουά</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Δείτε τον γύρο</item>
@@ -10,7 +10,7 @@
     <item quantity="one">%s γύροι</item>
     <item quantity="other">%s γύροι</item>
   </plurals>
-  <plurals name="xRoundsSwiss" comment="%s is a number.&#10;&#10;This is basically saying &quot;This is a Swiss tournament with %s rounds&quot;. The string should be as short as possible, as it must fit in a table.">
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
     <item quantity="one">Ελβετικό %s γύρου</item>
     <item quantity="other">Ελβετικό %s γύρων</item>
   </plurals>
@@ -27,7 +27,7 @@
     <item quantity="one">%s λεπτό μεταξύ γύρων</item>
     <item quantity="other">%s λεπτά μεταξύ γύρων</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Εκκίνηση σε</string>
+  <string name="startingIn" comment="Displayed above a timer">Εκκίνηση σε</string>
   <string name="nextRound">Επόμενος γύρος</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Παιχνίδι σε εξέλιξη</item>
@@ -68,7 +68,7 @@
 Κατόπιν, το σύστημα θα αποκλείσει αυτόματα τον παίκτη από το τουρνουά, έτσι ώστε να μη χάσει περισσότερα παιχνίδια.
 Μπορούν να ξανασυμμετέχουν στο τουρνουά οποιαδήποτε στιγμή.</string>
   <string name="protectionAgainstNoShowQ">Τί συμβαίνει αν ένας παίκτης δεν εμφανιστεί στο τουρνουά;</string>
-  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Οι παίκτες που εγγράφονται σε ελβετικά τουρνουά αλλά δεν παίζουν τα παιχνίδια τους μπορεί να είναι προβληματικοί.
+  <string name="protectionAgainstNoShowA">Οι παίκτες που εγγράφονται σε ελβετικά τουρνουά αλλά δεν παίζουν τα παιχνίδια τους μπορεί να είναι προβληματικοί.
 Για να μετριάσει αυτό το πρόβλημα, το Lichess αποτρέπει τους παίκτες που δεν έπαιξαν κανένα παιχνίδι από το να συμμετάσχουν σε νέο ελβετικό τουρνουά, για ένα συγκεκριμένο χρονικό διάστημα.
 Ο δημιουργός του ελβετικού τουρνουά μπορεί, ούτως ή άλλως, να τους αφήσει να συμμετάσχουν στο τουρνουά.</string>
   <string name="lateJoinQ">Μπορούν οι παίκτες να δηλώσουν συμμετοχή ακόμα και μετά τον πρώτο γύρο;</string>

@@ -7,7 +7,6 @@
   <string name="motifs">මෝස්තර</string>
   <string name="advanced">උසස්</string>
   <string name="lengths">දිග</string>
-  <string name="mates">Mates</string>
   <string name="goals">ඉලක්ක</string>
   <string name="origin">සම්භවය</string>
   <string name="specialMoves">විශේෂ ඇදීම්</string>
@@ -35,7 +34,6 @@
   <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ඔබේ ප්‍රියතම Opening එක සොයා ගැනීමට Ctrl+f භාවිතා කරන්න!</string>
   <string name="notTheMove">එය හරි ඇදීම නොවේ!</string>
   <string name="trySomethingElse">වෙනත් දෙයක් උත්සාහ කරන්න.</string>
-  <string name="ratingX">Rating: %s</string>
   <string name="hidden">සැඟවී ඇත</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s වතාවක් ක්‍රීඩා කර ඇත​</item>

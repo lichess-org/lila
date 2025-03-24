@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">友達と対局する</string>
   <string name="playWithTheMachine">コンピューターとチェスする</string>
+  <string name="playOffline">オフラインで対局する</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
@@ -707,7 +708,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
   <string name="ifYouDoNotGetTheEmail">5 分以内にメールが届かない場合は：</string>
   <string name="checkAllEmailFolders">ジャンクメール、スパムメールなどのフォルダをチェックする</string>
-  <string name="verifyYourAddress" comment="%s is the email address the user entered when registering.">%s があなたのメールアドレスであることを確認する</string>
+  <string name="verifyYourAddress">%s があなたのメールアドレスであることを確認する</string>
   <string name="weHaveSentYouAnEmailTo">%sにメールを送信しました。リンクをクリックしてパスワードの変更を完了してください。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">登録するとあなたは %s に従うと同意したことになります。</string>
   <string name="readAboutOur">Lichess の %s 文書です。</string>
