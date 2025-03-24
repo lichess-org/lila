@@ -484,6 +484,7 @@
   <string name="reportProcessedFasterInEnglish">Bydd eich adroddiad yn cael ei prosesu yn gyflymach os ydi hi wedi ei ysgrifennu yn Saesneg.</string>
   <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>
   <string name="by">gan %s</string>
+  <string name="importedByX">Wedi ei mewnforio gan %s</string>
   <string name="thisTopicIsNowClosed">Mae\'r pwnc ma wedi\'i gau rwan.</string>
   <string name="blog">Blog</string>
   <string name="notes">Nodau</string>
@@ -538,6 +539,7 @@
   <string name="community">Cymdeithas</string>
   <string name="tools">Offer</string>
   <string name="increment">Cynyddiad</string>
+  <string name="error.unknown">Gwerth annilys</string>
   <string name="error.required">Maes gofynnol</string>
   <string name="error.email">Nid yw\'r cyfeiriad ebost yma\'n ddilys</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
