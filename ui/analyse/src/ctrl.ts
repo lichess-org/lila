@@ -7,7 +7,14 @@ import { debounce, throttle } from 'common/async';
 import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import type StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'common/device';
-import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import type {
+  AnalyseOpts,
+  AnalyseData,
+  ServerEvalData,
+  JustCaptured,
+  NvuiPlugin,
+  MultiRedraw,
+} from './interfaces';
 import type { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'tree';
@@ -124,7 +131,7 @@ export default class AnalyseCtrl {
 
   constructor(
     readonly opts: AnalyseOpts,
-    readonly redraw: Redraw,
+    readonly redraw: MultiRedraw,
     makeStudy?: typeof StudyCtrl,
   ) {
     this.data = opts.data;

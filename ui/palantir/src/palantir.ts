@@ -1,4 +1,4 @@
-import type * as snabbdom from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import * as licon from 'common/licon';
 import Peer from 'peerjs';
 import { pubsub } from 'common/pubsub';
@@ -21,7 +21,7 @@ interface PalantirOpts {
 }
 
 export interface Palantir {
-  render(h: typeof snabbdom.h): any;
+  render(): VNode | undefined;
 }
 
 export function initModule(opts: PalantirOpts): Palantir | undefined {
@@ -206,7 +206,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }, 3000);
 
   return {
-    render: h => {
+    render: () => {
       const connections = allOpenConnections();
       return devices
         ? h(
@@ -236,7 +236,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
                 )
               : [],
           )
-        : null;
+        : undefined;
     },
   };
 }

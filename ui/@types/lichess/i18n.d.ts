@@ -285,6 +285,8 @@ interface I18n {
     howToUseLichessBroadcasts: string;
     /** More options on the %s */
     iframeHelp: I18nFormat;
+    /** Live board */
+    liveboard: string;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
     /** My broadcasts */

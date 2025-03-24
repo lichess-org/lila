@@ -1,6 +1,5 @@
-import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
+import { type VNode, looseH as h, bind } from 'common/snabbdom';
 import type { Tab } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';
@@ -11,7 +10,7 @@ import type ChatCtrl from './ctrl';
 
 export default function (ctrl: ChatCtrl): VNode {
   return h(
-    'section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'),
+    'section.mchat' + (ctrl.isOptional ? '.mchat-optional' : ''),
     { class: { 'mchat-mod': !!ctrl.moderation }, hook: { destroy: ctrl.destroy } },
     moderationView(ctrl.moderation) || normalView(ctrl),
   );
@@ -21,7 +20,7 @@ function renderPalantir(ctrl: ChatCtrl) {
   const p = ctrl.palantir;
   if (!p.enabled()) return;
   return p.instance
-    ? p.instance.render(h)
+    ? p.instance.render()
     : h('div.mchat__tab.palantir.palantir-slot', {
         attrs: { 'data-icon': licon.Handset, title: 'Voice chat' },
         hook: bind('click', () => {
@@ -41,17 +40,17 @@ function renderPalantir(ctrl: ChatCtrl) {
 }
 
 function normalView(ctrl: ChatCtrl) {
-  const active = ctrl.vm.tab;
+  const active = ctrl.getTab();
   return [
-    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, { attrs: { role: 'tablist' } }, [
-      ...ctrl.allTabs.map(t => renderTab(ctrl, t, active)),
+    h('div.mchat__tabs.nb_' + ctrl.visibleTabs.length, { attrs: { role: 'tablist' } }, [
+      ...ctrl.visibleTabs.map(t => renderTab(ctrl, t, active)),
       renderPalantir(ctrl),
     ]),
     h(
-      'div.mchat__content.' + active,
-      active === 'note' && ctrl.note
+      'div.mchat__content.' + active.key,
+      active.key === 'note' && ctrl.note
         ? [noteView(ctrl.note, ctrl.vm.autofocus)]
-        : ctrl.plugin && active === ctrl.plugin.tab.key
+        : ctrl.plugin && active.key === ctrl.plugin.key
           ? [ctrl.plugin.view()]
           : discussionView(ctrl),
     ),
@@ -60,42 +59,44 @@ function normalView(ctrl: ChatCtrl) {
 
 const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
   h(
-    'div.mchat__tab.' + tab,
+    'div.mchat__tab.' + tab.key,
     {
       attrs: { role: 'tab' },
-      class: { 'mchat__tab-active': tab === active },
-      hook: bind('click', () => ctrl.setTab(tab)),
+      class: { 'mchat__tab-active': tab.key === active.key },
+      hook: bind('click', e => {
+        if ((e.target as HTMLElement).closest('input,label')) return;
+        ctrl.setTab(tab);
+        if (tab.key === 'discussion') ctrl.chatEnabled(true);
+        ctrl.redraw();
+      }),
     },
     tabName(ctrl, tab),
   );
 
 function tabName(ctrl: ChatCtrl, tab: Tab) {
-  if (tab === 'discussion') {
+  if (tab.key === 'discussion') {
     const id = `chat-toggle-${ctrl.data.id}`;
     return [
       h('span', ctrl.data.name),
-      ctrl.opts.alwaysEnabled
-        ? undefined
-        : h('div.switch', [
-            h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
-              attrs: {
-                type: 'checkbox',
-                checked: ctrl.vm.enabled,
-              },
-              hook: bind('change', e => {
-                ctrl.setEnabled((e.target as HTMLInputElement).checked);
-              }),
+      ctrl.isOptional &&
+        h('div.switch', [
+          h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+            attrs: { type: 'checkbox', checked: ctrl.chatEnabled() },
+            hook: bind('change', e => {
+              ctrl.chatEnabled((e.target as HTMLInputElement).checked);
+              ctrl.redraw();
             }),
-            h('label', {
-              attrs: {
-                for: id,
-                title: i18n.site.toggleTheChat,
-              },
-            }),
-          ]),
+          }),
+          h('label', {
+            attrs: {
+              for: id,
+              title: i18n.site.toggleTheChat,
+            },
+          }),
+        ]),
     ];
   }
-  if (tab === 'note') return [h('span', i18n.site.notes)];
-  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];
+  if (tab.key === 'note') return [h('span', i18n.site.notes)];
+  if (tab.key === ctrl.plugin?.key) return [h('span', ctrl.plugin.name)];
   return [];
 }

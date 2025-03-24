@@ -165,13 +165,14 @@ export default class StudyCtrl {
         this.data.id,
         relayData,
         this.send,
-        (redrawOnly = false) => (redrawOnly ? this.redraw() : this.redrawAndUpdateAddressBar()),
+        ctrl.redraw,
         ctrl.isEmbed,
         this.members,
         this.chapters.list,
         this.multiCloudEval,
         () => this.data.federations,
         this.chapterSelect,
+        this.updateHistoryAndAddressBar,
       );
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
@@ -381,7 +382,7 @@ export default class StudyCtrl {
     this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
     this.redraw();
     this.ctrl.startCeval();
-    this.updateAddressBar();
+    this.updateHistoryAndAddressBar();
   };
 
   xhrReload = throttlePromiseDelay(
@@ -469,9 +470,9 @@ export default class StudyCtrl {
       console.warn(`Chapter ${idOrNumber} not found`);
       return false;
     }
-    const componentCallbacks = () => {
-      this.relay?.onChapterChange();
-      this.multiBoard.onChapterChange(this.data.chapter.id);
+    const componentCallbacks = (id = this.data.chapter.id) => {
+      this.relay?.onChapterChange(id);
+      this.multiBoard.onChapterChange(id);
     };
     const alreadySet = id === this.vm.chapterId && !force;
     if (alreadySet) {
@@ -491,8 +492,8 @@ export default class StudyCtrl {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
+      componentCallbacks(id);
       await this.xhrReload();
-      componentCallbacks();
     }
     window.scrollTo(0, 0);
     return true;
@@ -501,6 +502,7 @@ export default class StudyCtrl {
   chapterSelect: ChapterSelect = {
     is: (idOrNumber: ChapterId | number) => defined(this.chapters.list.get(idOrNumber)),
     set: this.setChapter,
+    get: () => this.data.chapter.id,
   };
 
   private deltaChapter = (delta: number): ChapterPreview | undefined => {
@@ -614,16 +616,12 @@ export default class StudyCtrl {
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
     return studyIdOffset === -1 ? `/study/${this.data.id}` : current.slice(0, studyIdOffset + 9);
   };
-  updateAddressBar = () => {
+  updateHistoryAndAddressBar = () => {
     if (this.ctrl.isEmbed) return;
     const studyUrl = this.baseUrl();
     const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
     else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
-  };
-  redrawAndUpdateAddressBar = () => {
-    this.redraw();
-    this.updateAddressBar();
   };
   socketHandler = (t: string, d: any) => {
     const handler = (this.socketHandlers as any as SocketHandlers)[t];

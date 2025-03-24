@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
-import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
+import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'common/richText';
 import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
@@ -12,14 +12,14 @@ import { toggle, copyMeInput } from 'common/controls';
 import { text as xhrText } from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
-import { makeChatEl, type RelayViewContext } from '../../view/components';
+import { type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'common/i18n';
-import { watchers } from 'common/watchers';
+import { relayChatView } from './relayChat';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -79,13 +79,7 @@ export const tourSide = (ctx: RelayViewContext) => {
           ]),
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
       !empty && gamesList(study, relay),
-      !ctrl.isEmbed &&
-        h('div.chat__members', {
-          hook: onInsert(el => {
-            makeChatEl(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-            watchers(el);
-          }),
-        }),
+      relayChatView(ctx),
     ],
   );
 };

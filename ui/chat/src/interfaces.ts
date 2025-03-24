@@ -19,16 +19,16 @@ export interface ChatOpts {
   noteId?: string;
   noteText?: string;
   plugin?: ChatPlugin;
-  alwaysEnabled: boolean;
   kidMode: boolean;
 }
 
-export interface ChatPlugin {
-  tab: {
-    key: string;
-    name: string;
-  };
+export type Tab = { key: string; hidden?: boolean };
+
+export interface ChatPlugin extends Tab {
+  name: string;
   view(): VNode;
+  childSafe?: boolean; // default false
+  redraw?: () => void; // populated by chat module, not you.
 }
 
 export interface ChatData {
@@ -61,8 +61,6 @@ export interface Permissions {
   shadowban?: boolean;
 }
 
-export type Tab = string;
-
 export interface ChatPalantir {
   instance?: Palantir;
   loaded: boolean;
@@ -70,8 +68,6 @@ export interface ChatPalantir {
 }
 
 export interface ViewModel {
-  tab: Tab;
-  enabled: boolean;
   loading: boolean;
   autofocus: boolean;
   timeout: boolean;

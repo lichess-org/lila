@@ -307,4 +307,5 @@ export type WithWhoAndChap = WithWho & WithChapterId;
 export interface ChapterSelect {
   is: (idOrNumber: ChapterId | number) => boolean;
   set: (idOrNumber: ChapterId | number, force?: boolean) => Promise<boolean>;
+  get: () => ChapterId;
 }

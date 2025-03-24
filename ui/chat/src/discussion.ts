@@ -14,7 +14,7 @@ import { alert } from 'common/dialogs';
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
 export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
-  if (!ctrl.vm.enabled) return [];
+  if (!ctrl.chatEnabled()) return [];
   const scrollCb = (vnode: VNode, insert: boolean) => {
       const el = vnode.elm as HTMLElement;
       if (ctrl.data.lines.length > 5) {

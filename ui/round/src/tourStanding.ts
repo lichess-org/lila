@@ -16,10 +16,8 @@ export const tourStandingCtrl = (
   set(d: TourPlayer[]) {
     players = d;
   },
-  tab: {
-    key: 'tourStanding',
-    name: name,
-  },
+  key: 'tourStanding',
+  name,
   view(): VNode {
     return h('div', { hook: onInsert(_ => site.asset.loadCssPath('round.tour-standing')) }, [
       team ? h('h3.text', { attrs: { 'data-icon': licon.Group } }, team.name) : null,
