@@ -937,7 +937,7 @@ export default class RoundController implements MoveRootCtrl {
         }
       }, 1000);
 
-      this.onChange();
+      site.asset.loadEsm('round.yeet');
     }, 800);
   };
 }

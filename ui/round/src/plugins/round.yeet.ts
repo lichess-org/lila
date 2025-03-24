@@ -2,7 +2,9 @@
  * https://gist.github.com/thomas-daniels/4a53ba9e08864e65b2e501c4a8c2ec7e
  * The following code does not follow our quality standards and is very poorly typed.
  * It's just a joke after all. */
-export function initModule(): void {
+export async function initModule(): Promise<void> {
+  await site.sound.load('yeet', site.asset.url('sound/other/yeet.mp3'));
+  site.sound.play('yeet');
   const gravity = 1.5; // higher -> pieces fall down faster
   const frictionMultiplier = 0.98; // lower -> more friction
   var minAngle = -0.436; // min angle for starting velocity
