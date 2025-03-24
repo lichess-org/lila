@@ -67,11 +67,7 @@ object embed:
           page.ui.pieceSprite(ctx.pieceSet.name),
           cssTag("common.theme.embed"),
           cssKeys.map(cssTag),
-          page.ui.sitePreload(
-            List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules,
-            allModules,
-            isInquiry = false
-          ),
+          page.ui.sitePreload(List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules, allModules),
           page.ui.lichessFontFaceCss
         ),
         st.body(bodyModifiers)(
