@@ -22,7 +22,7 @@ export async function initModule(): Promise<void> {
     .main-board cg-board:not(.clone)::before {background-image: none !important}
 </style>`,
   );
-  $('.main-board square.last-move').remove();
+  $('.main-board square').remove();
   $('.main-board .cg-shapes').remove();
   $('.main-board coords').remove();
   var clone = document.createElement('cg-board');
@@ -88,7 +88,7 @@ export async function initModule(): Promise<void> {
 
       if (
         (Math.abs(xSpeed) > 0.5 && Math.abs(ySpeed) > 0.5) ||
-        window.innerHeight - p.getBoundingClientRect().bottom > 10
+        window.innerHeight - p.getBoundingClientRect().bottom > 12
       ) {
         keepGoing = true;
       }
