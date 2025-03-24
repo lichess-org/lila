@@ -6,9 +6,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "chess": "workspace:*",
-    "common": "workspace:*",
-    "puz": "workspace:*"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/racer.ts"

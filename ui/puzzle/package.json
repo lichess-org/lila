@@ -6,14 +6,9 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "ceval": "workspace:*",
     "chart.js": "4.4.8",
-    "chess": "workspace:*",
-    "common": "workspace:*",
-    "game": "workspace:*",
+    "lib": "workspace:*",
     "keyboardMove": "workspace:*",
-    "nvui": "workspace:*",
-    "tree": "workspace:*",
     "voice": "workspace:*"
   },
   "build": {

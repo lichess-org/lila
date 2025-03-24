@@ -1,9 +1,5 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": { "noEmit": true },
-  "references": [
-    { "path": "../common/tsconfig.json" },
-    { "path": "../chess/tsconfig.json" },
-    { "path": "../puz/tsconfig.json" }
-  ]
+  "references": [{ "path": "../lib/tsconfig.json" }]
 }

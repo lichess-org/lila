@@ -1,7 +1,7 @@
 import type TournamentController from '../ctrl';
-import { bind, type MaybeVNode } from 'common/snabbdom';
-import { fullName, userFlair } from 'common/userLink';
-import { snabDialog } from 'common/dialog';
+import { bind, type MaybeVNode } from 'lib/snabbdom';
+import { fullName, userFlair } from 'lib/userLink';
+import { snabDialog } from 'lib/dialog';
 import { h, type VNode } from 'snabbdom';
 import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 

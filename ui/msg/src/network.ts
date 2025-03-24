@@ -1,7 +1,7 @@
 import type MsgCtrl from './ctrl';
 import type { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
-import { json, form } from 'common/xhr';
-import { pubsub } from 'common/pubsub';
+import { json, form } from 'lib/xhr';
+import { pubsub } from 'lib/pubsub';
 
 export function loadConvo(userId: string): Promise<MsgData> {
   return json(`/inbox/${userId}`).then(upgradeData);

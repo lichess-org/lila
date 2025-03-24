@@ -1,8 +1,8 @@
-import * as xhr from 'common/xhr';
-import { spinnerHtml } from 'common/controls';
+import * as xhr from 'lib/xhr';
+import { spinnerHtml } from 'lib/controls';
 import { contactEmail } from './bits';
-import { alert, prompt } from 'common/dialogs';
-import { myUserId } from 'common';
+import { alert, prompt } from 'lib/dialogs';
+import { myUserId } from 'lib';
 
 export interface Pricing {
   currency: string;

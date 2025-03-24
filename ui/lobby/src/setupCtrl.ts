@@ -1,9 +1,9 @@
-import { type Prop, propWithEffect } from 'common';
-import { debounce } from 'common/async';
-import * as xhr from 'common/xhr';
-import { storedJsonProp } from 'common/storage';
-import { clockToSpeed } from 'game';
-import { alert } from 'common/dialogs';
+import { type Prop, propWithEffect } from 'lib';
+import { debounce } from 'lib/async';
+import * as xhr from 'lib/xhr';
+import { storedJsonProp } from 'lib/storage';
+import { clockToSpeed } from 'lib/game/game';
+import { alert } from 'lib/dialogs';
 import { INITIAL_FEN } from 'chessops/fen';
 import type LobbyController from './ctrl';
 import type {

@@ -1,12 +1,12 @@
 import { h, type VNode } from 'snabbdom';
-import { onInsert, type MaybeVNodes } from 'common/snabbdom';
+import { onInsert, type MaybeVNodes } from 'lib/snabbdom';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import type TournamentController from '../ctrl';
-import { watchers } from 'common/watchers';
-import { makeChat } from 'chat';
+import { watchers } from 'lib/watchers';
+import { makeChat } from 'lib/chat/chat';
 
 export default function (ctrl: TournamentController) {
   let handler: {

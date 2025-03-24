@@ -5,7 +5,7 @@ import { SoundEventPane } from './soundEventPane';
 import { BooksPane } from './booksPane';
 import type { EditDialog } from './editDialog';
 import type { PaneInfo, InfoKey } from './devTypes';
-import type { ActionListener, Action } from 'common/dialog';
+import type { ActionListener, Action } from 'lib/dialog';
 
 export class Panes {
   byId: { [id: string]: Pane } = {};

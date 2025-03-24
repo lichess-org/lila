@@ -1,7 +1,7 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import ChallengeCtrl from './ctrl';
 import { loaded, loading } from './view';
-import { json } from 'common/xhr';
+import { json } from 'lib/xhr';
 import type { ChallengeOpts, ChallengeData } from './interfaces';
 
 const patch = init([classModule, attributesModule]);

@@ -1,9 +1,9 @@
-import { winningChances, type Search } from 'ceval';
-import { path as treePath } from 'tree';
+import { winningChances, type Search } from 'lib/ceval/ceval';
+import { path as treePath } from 'lib/tree/tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import type AnalyseCtrl from '../ctrl';
-import { defined, prop, type Prop, requestIdleCallback } from 'common';
+import { defined, prop, type Prop, requestIdleCallback } from 'lib';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
 

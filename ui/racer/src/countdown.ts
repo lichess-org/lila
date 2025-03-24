@@ -1,4 +1,4 @@
-import type { Clock } from 'puz/clock';
+import type { Clock } from 'lib/puz/clock';
 
 export class Countdown {
   played = new Set<number>();

@@ -7,13 +7,9 @@
   "license": "AGPL-3.0-or-later",
   "types": "dist/interfaces.d.ts",
   "dependencies": {
-    "chat": "workspace:*",
-    "chess": "workspace:*",
-    "common": "workspace:*",
-    "game": "workspace:*",
+    "lib": "workspace:*",
     "keyboardMove": "workspace:*",
     "voice": "workspace:*",
-    "nvui": "workspace:*",
     "shepherd.js": "^11.2.0"
   },
   "build": {

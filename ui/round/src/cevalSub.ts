@@ -1,8 +1,8 @@
 import { lastStep } from './util';
 import type RoundController from './ctrl';
 import type { ApiMove, RoundData } from './interfaces';
-import { text as xhrText } from 'common/xhr';
-import { storage } from 'common/storage';
+import { text as xhrText } from 'lib/xhr';
+import { storage } from 'lib/storage';
 
 let found = false;
 

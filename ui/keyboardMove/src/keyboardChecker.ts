@@ -1,4 +1,4 @@
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export default class KeyboardChecker {
   keys: string[] = [];

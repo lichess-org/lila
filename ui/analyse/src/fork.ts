@@ -1,5 +1,5 @@
-import { defined } from 'common';
-import { onInsert } from 'common/snabbdom';
+import { defined } from 'lib';
+import { onInsert } from 'lib/snabbdom';
 import { h } from 'snabbdom';
 import type AnalyseCtrl from './ctrl';
 import type { ConcealOf } from './interfaces';

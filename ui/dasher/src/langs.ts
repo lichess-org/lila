@@ -1,5 +1,5 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import { header } from './util';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 

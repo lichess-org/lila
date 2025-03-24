@@ -1,6 +1,6 @@
-import * as licon from 'common/licon';
-import { spinnerVdom as spinner } from 'common/controls';
-import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { spinnerVdom as spinner } from 'lib/controls';
+import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, looseH as h } from 'lib/snabbdom';
 import { numberRow } from './util';
 import type SwissCtrl from '../ctrl';
 import { players, renderPager } from '../pagination';
@@ -11,12 +11,12 @@ import * as boards from './boards';
 import podium from './podium';
 import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
-import { use24h } from 'common/i18n';
-import { once } from 'common/storage';
-import { initMiniGames } from 'common/miniBoard';
-import { watchers } from 'common/watchers';
-import { makeChat } from 'chat';
-import { prompt } from 'common/dialogs';
+import { use24h } from 'lib/i18n';
+import { once } from 'lib/storage';
+import { initMiniGames } from 'lib/miniBoard';
+import { watchers } from 'lib/watchers';
+import { makeChat } from 'lib/chat/chat';
+import { prompt } from 'lib/dialogs';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;

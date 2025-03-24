@@ -1,6 +1,6 @@
 import { url as assetUrl, jsModule } from './asset';
-import { log } from 'common/permalog';
-import { storage } from 'common/storage';
+import { log } from 'lib/permalog';
+import { storage } from 'lib/storage';
 
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;

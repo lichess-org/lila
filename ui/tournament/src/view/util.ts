@@ -1,8 +1,8 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
-import * as licon from 'common/licon';
-import { numberFormat } from 'common/i18n';
-import { dataIcon } from 'common/snabbdom';
-import { fullName, userRating } from 'common/userLink';
+import * as licon from 'lib/licon';
+import { numberFormat } from 'lib/i18n';
+import { dataIcon } from 'lib/snabbdom';
+import { fullName, userRating } from 'lib/userLink';
 import type { SimplePlayer } from '../interfaces';
 
 export const ratio2percent = (r: number) => Math.round(100 * r) + '%';

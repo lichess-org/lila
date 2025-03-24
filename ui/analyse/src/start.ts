@@ -1,5 +1,5 @@
 import makeCtrl from './ctrl';
-import menuHover from 'common/menuHover';
+import menuHover from 'lib/menuHover';
 import makeView from './view/main';
 import type { AnalyseApi, AnalyseOpts } from './interfaces';
 import type { VNode } from 'snabbdom';

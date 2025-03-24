@@ -22,7 +22,7 @@ target/
 data/
 dist/
 node_modules/
-ui/common/css/theme/gen/*.scss
+ui/lib/css/theme/gen/*.scss
 ui/.build/build
 ui/voice/crowdv
 ui/*/tsconfig.tsbuildinfo

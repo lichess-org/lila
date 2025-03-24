@@ -1,13 +1,13 @@
-import { type VNode, looseH as h, onInsert } from 'common/snabbdom';
+import { type VNode, looseH as h, onInsert } from 'lib/snabbdom';
 import type RoundController from '../ctrl';
-import { renderClock } from 'game/clock/clockView';
+import { renderClock } from 'lib/game/clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../util';
 import type { Step, NvuiPlugin } from '../interfaces';
-import { type Player, type TopOrBottom, playable } from 'game';
+import { type Player, type TopOrBottom, playable } from 'lib/game/game';
 import {
   type MoveStyle,
   renderSan,
@@ -30,13 +30,13 @@ import {
   renderPockets,
   type DropMove,
   pocketsStr,
-} from 'nvui/chess';
-import { renderSetting } from 'nvui/setting';
-import { Notify } from 'nvui/notify';
-import { commands, boardCommands, addBreaks } from 'nvui/command';
+} from 'lib/nvui/chess';
+import { renderSetting } from 'lib/nvui/setting';
+import { Notify } from 'lib/nvui/notify';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { Chessground as makeChessground } from 'chessground';
-import { pubsub } from 'common/pubsub';
-import { plyToTurn } from 'chess';
+import { pubsub } from 'lib/pubsub';
+import { plyToTurn } from 'lib/chess/chess';
 import { next, prev } from '../keyboard';
 
 const selectSound = () => site.sound.play('select');

@@ -1,5 +1,5 @@
 import { BotInfo, MoveSource, SoundEvent } from 'local';
-import * as Prefs from 'common/prefs';
+import * as Prefs from 'lib/prefs';
 
 export interface BotOpts {
   bots: BotInfo[];

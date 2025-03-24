@@ -1,5 +1,5 @@
 import { botAssetUrl } from 'local/assets';
-import { bind, looseH as h } from 'common/snabbdom';
+import { bind, looseH as h } from 'lib/snabbdom';
 import SetupCtrl from './setupCtrl';
 import { BotInfo } from 'local';
 import { miniBoard } from '../ground';

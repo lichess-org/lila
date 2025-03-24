@@ -1,10 +1,10 @@
 import makeZerofish, { type Zerofish } from 'zerofish';
 import { Bot } from './bot';
-import { defined } from 'common';
-import { pubsub } from 'common/pubsub';
+import { defined } from 'lib';
+import { pubsub } from 'lib/pubsub';
 import type { BotInfo, SoundEvent, MoveSource, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
-import * as xhr from 'common/xhr';
+import * as xhr from 'lib/xhr';
 import { Assets } from './assets';
 
 export class BotCtrl {

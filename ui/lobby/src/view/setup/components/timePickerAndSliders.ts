@@ -1,5 +1,5 @@
-import type { Prop } from 'common';
-import { looseH as h } from 'common/snabbdom';
+import type { Prop } from 'lib';
+import { looseH as h } from 'lib/snabbdom';
 import type LobbyController from '../../../ctrl';
 import type { InputValue, TimeMode } from '../../../interfaces';
 import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';

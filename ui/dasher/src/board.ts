@@ -1,11 +1,11 @@
 import { header } from './util';
-import { hyphenToCamel, toggle } from 'common';
-import { debounce } from 'common/async';
-import * as licon from 'common/licon';
-import { text as xhrText, form as xhrForm } from 'common/xhr';
-import { bind, looseH as h, type VNode } from 'common/snabbdom';
+import { hyphenToCamel, toggle } from 'lib';
+import { debounce } from 'lib/async';
+import * as licon from 'lib/licon';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+import { bind, looseH as h, type VNode } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 type Board = string;
 type Range = { min: number; max: number; step: number };
@@ -131,8 +131,8 @@ export class BoardCtrl extends PaneCtrl {
       site.announce({ msg: 'Failed to save preference' }),
     );
 
-    if (v) await site.asset.loadCssPath('common.board-3d');
-    else site.asset.removeCssPath('common.board-3d');
+    if (v) await site.asset.loadCssPath('lib.board-3d');
+    else site.asset.removeCssPath('lib.board-3d');
     $('#main-wrap')
       .removeClass(v ? 'is2d' : 'is3d')
       .addClass(v ? 'is3d' : 'is2d');

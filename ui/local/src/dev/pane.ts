@@ -1,6 +1,6 @@
 import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
-import { findMap } from 'common/algo';
-import { frag } from 'common';
+import { findMap } from 'lib/algo';
+import { frag } from 'lib';
 import { getSchemaDefault, requiresOpRe } from './schema';
 import type { EditDialog } from './editDialog';
 import { env } from './devEnv';

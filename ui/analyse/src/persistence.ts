@@ -1,6 +1,6 @@
 import type AnalyseCtrl from './ctrl';
 import type { AnalyseState } from './interfaces';
-import { objectStorage, type ObjectStorage } from 'common/objectStorage';
+import { objectStorage, type ObjectStorage } from 'lib/objectStorage';
 
 export default class Persistence {
   isDirty = false; // there are persisted user moves

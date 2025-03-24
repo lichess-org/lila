@@ -1,9 +1,9 @@
 import { prev } from '../../control';
 import type AnalyseCtrl from '../../ctrl';
-import { requestIdleCallback } from 'common';
-import * as licon from 'common/licon';
-import { throttle } from 'common/async';
-import { iconTag, bind, type MaybeVNodes } from 'common/snabbdom';
+import { requestIdleCallback } from 'lib';
+import * as licon from 'lib/licon';
+import { throttle } from 'lib/async';
+import { iconTag, bind, type MaybeVNodes } from 'lib/snabbdom';
 import { h, type Hooks, type VNode } from 'snabbdom';
 
 export function running(ctrl: AnalyseCtrl): boolean {

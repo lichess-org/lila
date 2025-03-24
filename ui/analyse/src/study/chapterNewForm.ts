@@ -1,20 +1,20 @@
 import { parseFen } from 'chessops/fen';
-import { defined, prop, type Prop, toggle } from 'common';
-import { type Dialog, snabDialog } from 'common/dialog';
-import { alert } from 'common/dialogs';
-import * as licon from 'common/licon';
-import { bind, bindSubmit, onInsert, looseH as h, dataIcon, type VNode } from 'common/snabbdom';
-import { storedProp } from 'common/storage';
-import { json as xhrJson, text as xhrText } from 'common/xhr';
+import { defined, prop, type Prop, toggle } from 'lib';
+import { type Dialog, snabDialog } from 'lib/dialog';
+import { alert } from 'lib/dialogs';
+import * as licon from 'lib/licon';
+import { bind, bindSubmit, onInsert, looseH as h, dataIcon, type VNode } from 'lib/snabbdom';
+import { storedProp } from 'lib/storage';
+import { json as xhrJson, text as xhrText } from 'lib/xhr';
 import type AnalyseCtrl from '../ctrl';
 import type { StudySocketSend } from '../socket';
-import { spinnerVdom as spinner } from 'common/controls';
+import { spinnerVdom as spinner } from 'lib/controls';
 import { option } from '../view/util';
 import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
 import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 import { lichessRules } from 'chessops/compat';
 
 export const modeChoices = [

@@ -1,8 +1,8 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { dataIcon } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { dataIcon } from 'lib/snabbdom';
 import type SwissCtrl from '../ctrl';
-import { setClockWidget } from 'common/clock';
+import { setClockWidget } from 'lib/clock';
 
 const startClock = (time: number): Hooks => ({
   insert: (vnode: VNode) => setClockWidget(vnode.elm as HTMLElement, { time }),

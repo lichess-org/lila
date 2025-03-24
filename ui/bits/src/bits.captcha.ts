@@ -1,5 +1,5 @@
-import * as xhr from 'common/xhr';
-import * as domData from 'common/data';
+import * as xhr from 'lib/xhr';
+import * as domData from 'lib/data';
 
 function init() {
   let failed = false;

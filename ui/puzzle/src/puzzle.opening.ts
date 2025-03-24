@@ -1,4 +1,4 @@
-import { initMiniBoardWith } from 'common/miniBoard';
+import { initMiniBoardWith } from 'lib/miniBoard';
 
 site.load.then(() => {
   const rootEl = document.querySelector('.puzzle-openings') as HTMLElement | undefined;

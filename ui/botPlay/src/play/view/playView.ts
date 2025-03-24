@@ -1,20 +1,20 @@
-import * as licon from 'common/licon';
-import { bind, looseH as h, onInsert, LooseVNodes, dataIcon, VNode } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, looseH as h, onInsert, LooseVNodes, dataIcon, VNode } from 'lib/snabbdom';
 import { Chessground } from 'chessground';
-import { stepwiseScroll } from 'common/controls';
+import { stepwiseScroll } from 'lib/controls';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';
 import { botAssetUrl } from 'local/assets';
 import { BotInfo } from 'local';
 import { autoScroll } from './autoScroll';
-import { repeater } from 'common';
-import { bindMobileMousedown } from 'common/device';
-import { StatusData, statusOf as viewStatus } from 'game/view/status';
-import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
+import { repeater } from 'lib';
+import { bindMobileMousedown } from 'lib/device';
+import { StatusData, statusOf as viewStatus } from 'lib/game/view/status';
+import { toggleButton as boardMenuToggleButton } from 'lib/boardMenu';
 import boardMenu from './boardMenu';
-import { renderMaterialDiffs } from 'game/view/material';
-import { TopOrBottom } from 'game';
-import { renderClock } from 'game/clock/clockView';
+import { renderMaterialDiffs } from 'lib/game/view/material';
+import { TopOrBottom } from 'lib/game/game';
+import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>
   h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [

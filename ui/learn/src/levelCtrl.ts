@@ -9,10 +9,10 @@ import makeScenario, { type Scenario } from './scenario';
 import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
 import type { CgMove } from './chessground';
 import { PromotionCtrl } from './promotionCtrl';
-import { type Prop, prop } from 'common';
+import { type Prop, prop } from 'lib';
 import type { DrawShape } from 'chessground/draw';
 import { makeAppleShape } from './apple';
-import { type WithGround } from 'chess/ground';
+import { type WithGround } from 'lib/chess/ground';
 
 export interface LevelVm {
   score: number;

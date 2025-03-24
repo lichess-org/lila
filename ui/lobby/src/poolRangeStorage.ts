@@ -1,5 +1,5 @@
 import type { LobbyMe, PoolMember } from './interfaces';
-import { storage } from 'common/storage';
+import { storage } from 'lib/storage';
 
 const makeKey = (me: LobbyMe | undefined, poolId: string) =>
   `lobby-pool-range.${me?.username || 'anon'}.${poolId}`;
