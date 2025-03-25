@@ -407,7 +407,6 @@
   <string name="wins">o fuddugoliaethau</string>
   <string name="losses">o gêmau wedi\'u colli</string>
   <string name="createdBy">greuwyd gan</string>
-  <string name="tournamentIsStarting">Mae\'r cystadleuaeth yn dechrau</string>
   <string name="tournamentPairingsAreNowClosed">Ni fydd gemau newydd yn y talwrn.</string>
   <string name="standByX">Ar eich marciau %s, wrthi\'n dewis gwrthwynebwyr!</string>
   <string name="pause">Seibiant</string>
@@ -421,7 +420,6 @@
   <string name="whiteWins">Enill fel gwyn</string>
   <string name="blackWins">Enill fel du</string>
   <string name="draws">Yn gyfartal</string>
-  <string name="nextXTournament">Talwrn %s nesaf:</string>
   <string name="averageOpponent">Gradd cyfartalog y gwrthwynebwyr</string>
   <string name="boardEditor">Golygydd bwrdd</string>
   <string name="setTheBoard">Gosod y bwrdd</string>
