@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Spil mod en ven</string>
   <string name="playWithTheMachine">Spil mod computeren</string>
-  <string name="playOffline">Spil offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
