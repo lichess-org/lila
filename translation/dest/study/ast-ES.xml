@@ -55,10 +55,7 @@
   <string name="playing">En xuego</string>
   <string name="showResults">Resultaos</string>
   <string name="showEvalBar">Barres d\'evaluación</string>
-  <string name="first">Primero</string>
-  <string name="previous">Anterior</string>
   <string name="next">Siguiente</string>
-  <string name="last">Postreru</string>
   <string name="shareAndExport">Compartir &amp; esportar</string>
   <string name="cloneStudy">Clonar</string>
   <string name="studyPgn">PGN del estudiu</string>
