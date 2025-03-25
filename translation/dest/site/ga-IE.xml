@@ -569,7 +569,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="wins">Buanna</string>
   <string name="losses">Cailliúintí</string>
   <string name="createdBy">Cruthaithe ag</string>
-  <string name="tournamentIsStarting">Tá an comórtas ag tosú</string>
   <string name="tournamentPairingsAreNowClosed">Níl cluichí á socrú níos mó.</string>
   <string name="standByX">Bí réidh %s, ag roinnt imreoirí ina bpéirí, faigh faoi réir!</string>
   <string name="pause">Cuir ar sos</string>
@@ -583,7 +582,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="whiteWins">Buanna ag bán</string>
   <string name="blackWins">Buanna ag dubh</string>
   <string name="draws">Comhscór</string>
-  <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="averageOpponent">Gnáth-céile comhraic</string>
   <string name="boardEditor">Eagarthóir boird</string>
   <string name="setTheBoard">Socraigh an bord</string>
