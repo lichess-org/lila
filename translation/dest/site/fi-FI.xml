@@ -486,7 +486,6 @@
   <string name="wins">Voitot</string>
   <string name="losses">Tappiot</string>
   <string name="createdBy">Tekijä:</string>
-  <string name="tournamentIsStarting">Turnaus alkaa</string>
   <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="pause">Pidä tauko</string>
@@ -501,7 +500,6 @@
   <string name="blackWins">Mustan voittoja</string>
   <string name="drawRate">Tasapelien osuus</string>
   <string name="draws">Tasapelejä</string>
-  <string name="nextXTournament">Seuraava %s-turnaus:</string>
   <string name="averageOpponent">Keskimääräinen vastustaja</string>
   <string name="boardEditor">Lautaeditori</string>
   <string name="setTheBoard">Asettele lauta</string>
