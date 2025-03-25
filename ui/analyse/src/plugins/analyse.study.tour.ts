@@ -10,6 +10,10 @@ export function initModule(): StudyTour {
     chapter,
   };
 
+  function iconTag(i: string) {
+    return `<i data-icon='${i}'></i>`;
+  }
+
   function study(ctrl: AnalyseCtrl) {
     if (ctrl.study?.data.chapter.gamebook) return;
 
@@ -43,10 +47,7 @@ export function initModule(): StudyTour {
       },
       {
         title: i18n.study.studyMembersTitle,
-        text: i18n.study.studyMembersText(
-          `<i data-icon='${licon.Eye}'></i>`,
-          `<i data-icon='${licon.User}'></i>`,
-        ),
+        text: i18n.study.studyMembersText(iconTag(licon.Eye), iconTag(licon.User)),
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -55,7 +56,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.isOwner()) {
       steps.push({
         title: i18n.study.addMembers,
-        text: i18n.study.addMembersText(`<i data-icon='${licon.PlusButton}'></i>`),
+        text: i18n.study.addMembersText(iconTag(licon.PlusButton)),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
@@ -71,7 +72,7 @@ export function initModule(): StudyTour {
     if (ctrl.study?.members.canContribute()) {
       steps.push({
         title: i18n.study.commentPositionTitle,
-        text: i18n.study.commentPositionText(`<i data-icon='${licon.BubbleSpeech}'></i>`),
+        text: i18n.study.commentPositionText(iconTag(licon.BubbleSpeech)),
         attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
       });
       steps.push({
@@ -87,7 +88,7 @@ export function initModule(): StudyTour {
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: `<i data-icon='${licon.Checkmark}'></i>`,
+          text: iconTag(licon.Checkmark),
           action: tourCtrl.tour.next,
         },
       ],
@@ -152,7 +153,7 @@ export function initModule(): StudyTour {
         text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: `<i data-icon='${licon.Checkmark}'></i>`,
+            text: iconTag(licon.Checkmark),
             action: tourCtrl.tour.next,
           },
         ],
