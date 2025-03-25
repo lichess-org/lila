@@ -452,7 +452,6 @@
   <string name="wins">Vinningar</string>
   <string name="losses">Töp</string>
   <string name="createdBy">Búið til af</string>
-  <string name="tournamentIsStarting">Mótið er að byrja</string>
   <string name="tournamentPairingsAreNowClosed">Nú er pörun mótsins lokið.</string>
   <string name="standByX">Hinkraðu %s, pörun keppanda stendur yfir, vertu tilbúin(n)!</string>
   <string name="pause">Hlé</string>
@@ -467,7 +466,6 @@
   <string name="blackWins">Svartur vinnur</string>
   <string name="drawRate">Jafntefli</string>
   <string name="draws">Jafntefli</string>
-  <string name="nextXTournament">Næsta %s mót:</string>
   <string name="averageOpponent">Meðalstyrkur andstæðings</string>
   <string name="boardEditor">Skákborðsritill</string>
   <string name="setTheBoard">Uppstilling</string>
