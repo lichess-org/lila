@@ -52,10 +52,7 @@
   <string name="playing">正在对局</string>
   <string name="showResults">结果</string>
   <string name="showEvalBar">评估条</string>
-  <string name="first">首页</string>
-  <string name="previous">上一页</string>
   <string name="next">下一页</string>
-  <string name="last">末页</string>
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
   <string name="studyPgn">研究 PGN</string>
