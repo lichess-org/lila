@@ -186,4 +186,5 @@
   <string name="customPositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Stel die bord op soos jy dit wil hê.&lt;br&gt;Geskik vir eindspelle.</string>
   <string name="loadExistingLichessGameTitle">Laai \'n bestaande lichess-spel</string>
   <string name="fromFenStringTitle">Vanaf \'n FEN-string</string>
+  <string name="fromPgnGameTitle">Vanaf \'n PGN-spel</string>
 </resources>
