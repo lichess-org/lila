@@ -53,10 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Minden szinkronizált tag ugyanazt az állást látja</string>
   <string name="shareChanges">A módosítások láthatóak a nézők számára, és mentésre kerülnek a szerveren</string>
   <string name="playing">Folyamatban</string>
-  <string name="first">Első</string>
-  <string name="previous">Előző</string>
   <string name="next">Következő</string>
-  <string name="last">Utolsó</string>
   <string name="shareAndExport">Megosztás és exportálás</string>
   <string name="cloneStudy">Klónozás</string>
   <string name="studyPgn">PGN a tanulmányról</string>
