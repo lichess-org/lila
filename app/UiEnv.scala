@@ -32,12 +32,12 @@ object UiEnv
   def apiVersion = lila.security.Mobile.Api.currentVersion
 
   // helpers dependencies
-  lazy val assetBaseUrl            = netConfig.assetBaseUrl
-  lazy val netBaseUrl              = netConfig.baseUrl
+  def assetBaseUrl                 = netConfig.assetBaseUrl
+  def netBaseUrl                   = netConfig.baseUrl
   protected val ratingApi          = lila.rating.ratingApi
   protected lazy val flairApi      = env.user.flairApi
-  lazy val isOnline                = env.socket.isOnline
-  lazy val lightUserSync           = env.user.lightUserSync
+  def isOnline                     = env.socket.isOnline
+  def lightUserSync                = env.user.lightUserSync
   def manifest                     = env.web.manifest
   def analyseEndpoints             = env.web.analyseEndpoints
   protected val translator         = lila.i18n.Translator

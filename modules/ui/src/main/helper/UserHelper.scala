@@ -12,8 +12,8 @@ trait UserHelper:
   self: I18nHelper & NumberHelper & AssetHelper =>
 
   protected val ratingApi: RatingApi
-  lazy val isOnline: IsOnline
-  lazy val lightUserSync: LightUser.GetterSync
+  def isOnline: IsOnline
+  def lightUserSync: LightUser.GetterSync
 
   given Conversion[UserWithPerfs, User] = _.user
 
