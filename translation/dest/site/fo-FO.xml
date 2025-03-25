@@ -427,7 +427,6 @@
   <string name="wins">Sigrar</string>
   <string name="losses">Tapt</string>
   <string name="createdBy">Stovnað hevur</string>
-  <string name="tournamentIsStarting">Kappingin byrjar</string>
   <string name="tournamentPairingsAreNowClosed">Liðugt er at seta luttakararnar saman tveir og tveir.</string>
   <string name="standByX">Bíða %s, telvarar verða greipaðir, ger teg til reiðar!</string>
   <string name="youArePlaying">Tú telvar!</string>
@@ -439,7 +438,6 @@
   <string name="whiteWins">Sigrar við hvítum</string>
   <string name="blackWins">Sigrar við svørtum</string>
   <string name="draws">Javnleikir</string>
-  <string name="nextXTournament">Næsta %s kapping:</string>
   <string name="averageOpponent">Miðalmótleikari</string>
   <string name="boardEditor">Talvborðsritil</string>
   <string name="setTheBoard">Set talvborðið upp</string>
