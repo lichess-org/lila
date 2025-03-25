@@ -269,6 +269,12 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
             h('label.fullscreen-mask', clickHook),
             h(
               'div.relay-tour__round-select__list.mselect__list',
+              {
+                hook: onInsert(el => {
+                  const goTo = el.querySelector('.ongoing-round') ?? el.querySelector('.current-round');
+                  goTo?.scrollIntoView();
+                }),
+              },
               h(
                 'table',
                 h(
@@ -281,31 +287,40 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                     }),
                   },
                   relay.data.rounds.map((round, i) =>
-                    h(`tr.mselect__item${round.id === study.data.id ? '.current-round' : ''}`, [
-                      h(
-                        'td.name',
+                    h(
+                      'tr.mselect__item',
+                      {
+                        class: {
+                          ['current-round']: round.id === study.data.id,
+                          ['ongoing-round']: !!round.ongoing,
+                        },
+                      },
+                      [
                         h(
-                          'a',
-                          { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
-                          round.name,
+                          'td.name',
+                          h(
+                            'a',
+                            { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
+                            round.name,
+                          ),
                         ),
-                      ),
-                      h(
-                        'td.time',
-                        round.startsAt
-                          ? commonDateFormat(new Date(round.startsAt))
-                          : round.startsAfterPrevious
-                            ? i18n.broadcast.startsAfter(
-                                relay.data.rounds[i - 1]?.name || 'the previous round',
-                              )
-                            : '',
-                      ),
-                      h(
-                        'td.status',
-                        roundStateIcon(round, false) ||
-                          (round.startsAt ? timeago(round.startsAt) : undefined),
-                      ),
-                    ]),
+                        h(
+                          'td.time',
+                          round.startsAt
+                            ? commonDateFormat(new Date(round.startsAt))
+                            : round.startsAfterPrevious
+                              ? i18n.broadcast.startsAfter(
+                                  relay.data.rounds[i - 1]?.name || 'the previous round',
+                                )
+                              : '',
+                        ),
+                        h(
+                          'td.status',
+                          roundStateIcon(round, false) ||
+                            (round.startsAt ? timeago(round.startsAt) : undefined),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
