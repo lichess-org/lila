@@ -2,7 +2,6 @@
 <resources>
   <string name="playWithAFriend">Igraj s prijateljem</string>
   <string name="playWithTheMachine">Igraj proti računalniku</string>
-  <string name="playOffline">Igraj brez spletne povezave</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
