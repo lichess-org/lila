@@ -481,7 +481,6 @@
   <string name="wins">براوە</string>
   <string name="losses">دۆڕان</string>
   <string name="createdBy">دروستکراوە لەلایەن</string>
-  <string name="tournamentIsStarting">پاڵەوانیەتیەکە دەستیپێکرد</string>
   <string name="tournamentPairingsAreNowClosed">بەشداربوون لەپاڵەوانێتییەکە تەواوبوو.</string>
   <string name="standByX">لەم بەشە بوەستە %s, یاریزانە بەشداربوەکان, ئامادەبە!</string>
   <string name="pause">وەستان</string>
@@ -496,7 +495,6 @@
   <string name="blackWins">بردنەوەکانی ڕەش</string>
   <string name="drawRate">رێژەی یەکسانبوون</string>
   <string name="draws">یەکسانبووەکان</string>
-  <string name="nextXTournament">داهاتوو %s پاڵەوانیەتی:</string>
   <string name="averageOpponent">تێکڕای ڕکابەر</string>
   <string name="boardEditor">دەستکاریکردنی تەختە</string>
   <string name="setTheBoard">تەختەکە ڕێکبخە</string>
