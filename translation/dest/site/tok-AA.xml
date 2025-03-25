@@ -476,7 +476,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="wins">pona</string>
   <string name="losses">ike</string>
   <string name="createdBy">tan jan</string>
-  <string name="tournamentIsStarting">musi li open</string>
   <string name="tournamentPairingsAreNowClosed">mi pini pali e linja tawa jan musi pi utala musi ni.</string>
   <string name="standByX">jan %s o, mi lukin e jan musi ante tawa sina. o awen!</string>
   <string name="pause">o tawa ala</string>
@@ -491,7 +490,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="blackWins">pini pona pimeja</string>
   <string name="drawRate">nanpa pi pini sama</string>
   <string name="draws">sama</string>
-  <string name="nextXTournament">musi mute %s kama:</string>
   <string name="averageOpponent">nanpa insa wawa pi jan musi</string>
   <string name="boardEditor">ilo pi ante e supa</string>
   <string name="setTheBoard">o ante e supa musi</string>
