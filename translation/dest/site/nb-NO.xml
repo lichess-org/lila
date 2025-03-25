@@ -486,7 +486,6 @@
   <string name="wins">Seire</string>
   <string name="losses">Tap</string>
   <string name="createdBy">Opprettet av</string>
-  <string name="tournamentIsStarting">Turneringen begynner</string>
   <string name="tournamentPairingsAreNowClosed">Oppsettet av turneringen er nå lukket.</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
   <string name="pause">Pause</string>
@@ -501,7 +500,6 @@
   <string name="blackWins">Svart vinner</string>
   <string name="drawRate">Remisrate</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Neste %s turnering:</string>
   <string name="averageOpponent">Gjennomsnittlig motstand</string>
   <string name="boardEditor">Oppsett</string>
   <string name="setTheBoard">Still opp brett</string>
