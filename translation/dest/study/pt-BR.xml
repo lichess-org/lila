@@ -55,10 +55,7 @@
   <string name="playing">Jogando</string>
   <string name="showResults">Resultados</string>
   <string name="showEvalBar">Barras de avaliação</string>
-  <string name="first">Primeiro</string>
-  <string name="previous">Anterior</string>
   <string name="next">Próximo</string>
-  <string name="last">Último</string>
   <string name="shareAndExport">Compartilhar &amp; exportar</string>
   <string name="cloneStudy">Duplicar</string>
   <string name="studyPgn">PGN de estudo</string>
