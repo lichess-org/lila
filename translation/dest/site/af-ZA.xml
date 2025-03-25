@@ -487,7 +487,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="wins">Oorwinnings</string>
   <string name="losses">Verliese</string>
   <string name="createdBy">Geskep deur</string>
-  <string name="tournamentIsStarting">Toernooi gaan nou begin</string>
   <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
   <string name="standByX">Op jou merke, %s, plaas tans spelers, maak gereed!</string>
   <string name="pause">Onderbreek</string>
@@ -502,7 +501,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="blackWins">Gewen deur swart</string>
   <string name="drawRate">Gelykopwaarskynlikheid</string>
   <string name="draws">Gelykop gespeel</string>
-  <string name="nextXTournament">Volgende %s toernooi:</string>
   <string name="averageOpponent">Gemmidelde opponent</string>
   <string name="boardEditor">Bord redigeerder</string>
   <string name="setTheBoard">Pak die bord</string>
