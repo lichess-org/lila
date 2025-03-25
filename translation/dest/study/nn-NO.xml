@@ -166,4 +166,6 @@
   <string name="whatWouldYouPlay">Kva vil du spela i denne stillinga?</string>
   <string name="youCompletedThisLesson">Gratulerar! Du har fullført denne leksjonen.</string>
   <string name="perPage">%s per side</string>
+  <string name="getTheTour">Treng du hjelp? Ta omvisinga!</string>
+  <string name="welcomeToLichessStudyTitle">Velkomen til Lichess-studiet!</string>
 </resources>
