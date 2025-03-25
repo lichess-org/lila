@@ -488,7 +488,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="wins">Fitore</string>
   <string name="losses">Humbje</string>
   <string name="createdBy">Krijuar nga</string>
-  <string name="tournamentIsStarting">Turneu po fillon</string>
+  <string name="startingIn" comment="Displayed above a timer">Fillon më</string>
   <string name="tournamentPairingsAreNowClosed">Çiftimet e turnet tani u mbyllën.</string>
   <string name="standByX">Mos u largoni nga %s, çiftimi i lojtarëve po bëhet, bëhuni gati!</string>
   <string name="pause">Pauzë</string>
@@ -502,7 +502,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="whiteWins">I bardhi fiton</string>
   <string name="blackWins">I ziu fiton</string>
   <string name="draws">Barazime</string>
-  <string name="nextXTournament">Turneu %s i radhës:</string>
   <string name="averageOpponent">Kundërshtari mesatar</string>
   <string name="boardEditor">Përpunues fushe</string>
   <string name="setTheBoard">Rregulloni fushën</string>
