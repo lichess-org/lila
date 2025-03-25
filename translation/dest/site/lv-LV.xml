@@ -520,7 +520,6 @@
   <string name="wins">Uzvaras</string>
   <string name="losses">Zaudējumi</string>
   <string name="createdBy">Izveidoja</string>
-  <string name="tournamentIsStarting">Turnīrs sākas</string>
   <string name="tournamentPairingsAreNowClosed">Turnīra pārošana ir beigusies.</string>
   <string name="standByX">Lūdzu, uzgaidiet, %s, sapāro spēlētājus, esiet gatavs!</string>
   <string name="pause">Pauzēt</string>
@@ -535,7 +534,6 @@
   <string name="blackWins">Melno uzvaras</string>
   <string name="drawRate">Neizšķirtu biežums</string>
   <string name="draws">Neizšķirti</string>
-  <string name="nextXTournament">Nākamais %s turnīrs:</string>
   <string name="averageOpponent">Vidējais pretinieks</string>
   <string name="boardEditor">Galdiņa redaktors</string>
   <string name="setTheBoard">Uzstādīt galdiņu</string>
