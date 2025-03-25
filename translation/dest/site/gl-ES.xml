@@ -486,7 +486,7 @@
   <string name="wins">Vitorias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Creado por</string>
-  <string name="tournamentIsStarting">O torneo vai comezar</string>
+  <string name="startingIn" comment="Displayed above a timer">Comeza en</string>
   <string name="tournamentPairingsAreNowClosed">Os emparellamentos do torneo xa están pechados.</string>
   <string name="standByX">Agarda %s, emparellando xogadores, prepárate!</string>
   <string name="pause">Pausa</string>
@@ -501,7 +501,6 @@
   <string name="blackWins">Vitorias das negras</string>
   <string name="drawRate">Taxa de táboas</string>
   <string name="draws">Táboas</string>
-  <string name="nextXTournament">Seguinte torneo %s:</string>
   <string name="averageOpponent">Opoñente medio</string>
   <string name="boardEditor">Editor de taboleiro</string>
   <string name="setTheBoard">Configurar o taboleiro</string>
