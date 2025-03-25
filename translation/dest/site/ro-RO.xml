@@ -522,7 +522,6 @@
   <string name="wins">Victorii</string>
   <string name="losses">Înfrângeri</string>
   <string name="createdBy">Creat de</string>
-  <string name="tournamentIsStarting">Turneul începe</string>
   <string name="tournamentPairingsAreNowClosed">Cuplarea partenerilor de turneu s-a încheiat.</string>
   <string name="standByX">Fii pe fază, %s, jucătorii sunt cuplați, pregătește-te!</string>
   <string name="pause">Pauză</string>
@@ -537,7 +536,6 @@
   <string name="blackWins">Negrul câștigă</string>
   <string name="drawRate">Rata de remiză</string>
   <string name="draws">Remize</string>
-  <string name="nextXTournament">Următorul turneu %s:</string>
   <string name="averageOpponent">Cota medie a adversarilor</string>
   <string name="boardEditor">Editorul de tablă</string>
   <string name="setTheBoard">Așează tabla</string>
