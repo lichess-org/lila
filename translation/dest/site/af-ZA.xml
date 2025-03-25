@@ -751,6 +751,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="downloadAnnotated">Laai geannoteerde af</string>
   <string name="downloadRaw">Laai rou af</string>
   <string name="downloadImported">Aflaai ingevoer</string>
+  <string name="downloadAllGames">Laai alle spelle af</string>
   <string name="crosstable">Kruistabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Jy kan ook blaai oor die bord om te beweeg in die spel.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Hou die muis oor die rekenaar variante om dit te voorskou.</string>
