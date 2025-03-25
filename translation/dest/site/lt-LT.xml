@@ -558,7 +558,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="wins">Pergalės</string>
   <string name="losses">Pralaimėjimai</string>
   <string name="createdBy">Sukūrė</string>
-  <string name="tournamentIsStarting">Turnyras prasideda</string>
   <string name="tournamentPairingsAreNowClosed">Suporavimai turnyrui jau baigėsi.</string>
   <string name="standByX">%s, būkite pasiruošę, suporuojami žaidėjai!</string>
   <string name="pause">Pristabdyti</string>
@@ -573,7 +572,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="blackWins">Juodųjų pergalės</string>
   <string name="drawRate">Lygiųjų dažnumas</string>
   <string name="draws">Lygiosios</string>
-  <string name="nextXTournament">Kitas %s turnyras:</string>
   <string name="averageOpponent">Vidutinis varžovas</string>
   <string name="boardEditor">Lentos rengyklė</string>
   <string name="setTheBoard">Paruošti lentą</string>
