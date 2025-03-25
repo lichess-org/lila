@@ -486,6 +486,7 @@
   <string name="wins">Seire</string>
   <string name="losses">Tap</string>
   <string name="createdBy">Opprettet av</string>
+  <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="tournamentPairingsAreNowClosed">Oppsettet av turneringen er nå lukket.</string>
   <string name="standByX">Vent litt %s, kobler sammen spillere, vær klar!</string>
   <string name="pause">Pause</string>
