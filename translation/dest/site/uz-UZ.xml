@@ -485,7 +485,6 @@
   <string name="wins">Yutuqlar</string>
   <string name="losses">Mag\'lubiyatlar</string>
   <string name="createdBy">Yaratgan tomon</string>
-  <string name="tournamentIsStarting">Turnir boshlandi</string>
   <string name="tournamentPairingsAreNowClosed">Turnirda sherikchilik yopilgan.</string>
   <string name="standByX">%s kuting, sherik topilayabdi, tayyor turing!</string>
   <string name="pause">Pauza</string>
@@ -500,7 +499,6 @@
   <string name="blackWins">Qoralar g\'alabalari</string>
   <string name="drawRate">Oʻyin tezligi</string>
   <string name="draws">Durranglar</string>
-  <string name="nextXTournament">Keyingi %s turnir:</string>
   <string name="averageOpponent">O\'rtacha raqiblar soni</string>
   <string name="boardEditor">Doskani tahrilovchi</string>
   <string name="setTheBoard">Doskani sozlash</string>
