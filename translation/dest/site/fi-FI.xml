@@ -486,6 +486,7 @@
   <string name="wins">Voitot</string>
   <string name="losses">Tappiot</string>
   <string name="createdBy">Tekijä:</string>
+  <string name="startingIn" comment="Displayed above a timer">Aikaa alkuun:</string>
   <string name="tournamentPairingsAreNowClosed">Turnauksen peliparien määritys on päättynyt.</string>
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="pause">Pidä tauko</string>
@@ -754,6 +755,7 @@
   <string name="downloadAnnotated">Lataa kommenttien kanssa</string>
   <string name="downloadRaw">Lataa ilman kommentteja</string>
   <string name="downloadImported">Imuroi tuotu PGN</string>
+  <string name="downloadAllGames">Lataa kaikki pelit</string>
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>
