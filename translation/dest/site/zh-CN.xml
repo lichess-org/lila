@@ -449,7 +449,6 @@
   <string name="wins">胜</string>
   <string name="losses">负</string>
   <string name="createdBy">创建者:</string>
-  <string name="tournamentIsStarting">锦标赛已开始</string>
   <string name="tournamentPairingsAreNowClosed">本锦标赛已不再产生新的对局</string>
   <string name="standByX">%s 做好准备，你马上就要开始对局了！</string>
   <string name="pause">暂停</string>
@@ -464,7 +463,6 @@
   <string name="blackWins">黑方胜率</string>
   <string name="drawRate">平局率</string>
   <string name="draws">和棋</string>
-  <string name="nextXTournament">下一个 %s 锦标赛：</string>
   <string name="averageOpponent">对手平均等级分</string>
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
