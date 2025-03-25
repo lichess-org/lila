@@ -53,10 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC lede bly op dieselfde posisie</string>
   <string name="shareChanges">Deel veranderinge met toeskouers en stoor dit op die bediener</string>
   <string name="playing">Besig om te speel</string>
-  <string name="first">Eerste</string>
-  <string name="previous">Vorige</string>
   <string name="next">Volgende</string>
-  <string name="last">Laaste</string>
   <string name="shareAndExport">Deel &amp; voer uit</string>
   <string name="cloneStudy">Kloneer</string>
   <string name="studyPgn">Studie PGN</string>
