@@ -486,7 +486,6 @@
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Criado por</string>
-  <string name="tournamentIsStarting">O torneio está começando</string>
   <string name="tournamentPairingsAreNowClosed">Os pareamentos do torneio estão fechados agora.</string>
   <string name="standByX">%s, aguarde: o pareamento está em andamento, prepare-se!</string>
   <string name="pause">Pausar</string>
@@ -501,7 +500,6 @@
   <string name="blackWins">Pretas venceram</string>
   <string name="drawRate">Taxa de empates</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio de %s:</string>
   <string name="averageOpponent">Pontuação média adversários</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Defina a posição</string>
