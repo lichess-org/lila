@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Mängi sõbraga</string>
   <string name="playWithTheMachine">Mängi arvuti vastu</string>
+  <string name="playOffline">Mängi võrguta</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Et kutsuda kedagi mängima, anna talle see URL</string>
   <string name="gameOver">Mäng läbi</string>
   <string name="waitingForOpponent">Ootan vastast</string>

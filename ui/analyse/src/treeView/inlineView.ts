@@ -1,10 +1,10 @@
 import { h, type VNode } from 'snabbdom';
-import { fixCrazySan } from 'chess';
-import { path as treePath, ops as treeOps } from 'tree';
+import { fixCrazySan } from 'lib/chess/chess';
+import { path as treePath, ops as treeOps } from 'lib/tree/tree';
 import * as moveView from '../view/moveView';
 import type AnalyseCtrl from '../ctrl';
-import * as licon from 'common/licon';
-import type { MaybeVNodes } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import type { MaybeVNodes } from 'lib/snabbdom';
 import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine, Ctx, Opts, renderingCtx } from './common';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {

@@ -1,1 +1,1 @@
-../../common/src/algo.ts
+../../lib/src/algo.ts

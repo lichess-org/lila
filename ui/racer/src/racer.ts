@@ -1,5 +1,5 @@
 import { attributesModule, classModule, init, type VNode } from 'snabbdom';
-import menuHover from 'common/menuHover';
+import menuHover from 'lib/menuHover';
 import RacerCtrl from './ctrl';
 import type { RacerOpts } from './interfaces';
 

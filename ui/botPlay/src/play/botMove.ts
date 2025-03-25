@@ -4,7 +4,7 @@ import type { Game } from '../game';
 import { toPgn } from '../chess';
 import { INITIAL_FEN } from 'chessops/fen';
 import { parseSan } from 'chessops/san';
-import { hashBoard } from 'chess/hash';
+import { hashBoard } from 'lib/chess/hash';
 
 export const requestBotMove = async (source: MoveSource, game: Game): Promise<Move> => {
   const now = performance.now();

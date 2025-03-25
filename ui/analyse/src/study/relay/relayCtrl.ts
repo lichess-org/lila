@@ -2,14 +2,14 @@ import type { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './inte
 import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
 import type { StudyMemberCtrl } from '../studyMembers';
 import type { AnalyseSocketSend } from '../../socket';
-import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'common';
+import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'lib';
 import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
 import type { StudyChapters } from '../studyChapters';
 import type { MultiCloudEval } from '../multiCloudEval';
 import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];

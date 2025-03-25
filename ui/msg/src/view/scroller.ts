@@ -1,4 +1,4 @@
-import { throttle } from 'common/async';
+import { throttle } from 'lib/async';
 
 class Scroller {
   enabled = false;

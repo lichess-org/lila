@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
-import { defined, notNull } from 'common';
-import * as licon from 'common/licon';
-import { iconTag } from 'common/snabbdom';
+import { defined, notNull } from 'lib';
+import * as licon from 'lib/licon';
+import { iconTag } from 'lib/snabbdom';
 
 interface ClockOpts {
   centis: number | undefined;

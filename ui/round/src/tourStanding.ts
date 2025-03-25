@@ -1,8 +1,8 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { onInsert } from 'common/snabbdom';
-import type { ChatPlugin } from 'chat';
-import type { Team, TourPlayer } from 'game';
+import * as licon from 'lib/licon';
+import { onInsert } from 'lib/snabbdom';
+import type { ChatPlugin } from 'lib/chat/chat';
+import type { Team, TourPlayer } from 'lib/game/game';
 
 export interface TourStandingCtrl extends ChatPlugin {
   set(players: TourPlayer[]): void;

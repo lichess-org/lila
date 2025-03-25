@@ -1,9 +1,9 @@
 import { h, thunk } from 'snabbdom';
-import { bind, onInsert } from 'common/snabbdom';
+import { bind, onInsert } from 'lib/snabbdom';
 import type LobbyController from '../ctrl';
 import type { GameType } from '../interfaces';
 import renderSetupModal from './setup/modal';
-import { numberFormat } from 'common/i18n';
+import { numberFormat } from 'lib/i18n';
 
 export default function table(ctrl: LobbyController) {
   const { data, opts } = ctrl;

@@ -1,6 +1,6 @@
-import * as xhr from 'common/xhr';
-import { alert } from 'common/dialogs';
-import { log } from 'common/permalog';
+import * as xhr from 'lib/xhr';
+import { alert } from 'lib/dialogs';
+import { log } from 'lib/permalog';
 
 const showError = (error: string) => alert(error);
 

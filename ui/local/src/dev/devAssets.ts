@@ -1,4 +1,4 @@
-import { type ObjectStorage, objectStorage } from 'common/objectStorage';
+import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
 import { botAssetUrl, Assets } from '../assets';
 import {
   type OpeningBook,
@@ -7,10 +7,10 @@ import {
   PgnProgress,
   PgnFilter,
 } from 'bits/polyglot';
-import { alert } from 'common/dialogs';
-import { zip } from 'common/algo';
+import { alert } from 'lib/dialogs';
+import { zip } from 'lib/algo';
 import { env } from './devEnv';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
 // dev asset names are strictly cosmetic and can be renamed at any time

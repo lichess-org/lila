@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Bir arkadaşınla oyna</string>
   <string name="playWithTheMachine">Bilgisayara karşı oyna</string>
+  <string name="playOffline">Çevrimdışı Oyna</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
@@ -744,6 +745,7 @@
   <string name="checkYourEmail">E-postanızı kontrol edin</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size e-posta yolladık. Hesabınızı aktifleştirmek için e-postanızdaki linke tıklayın.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
+  <string name="ifYouDoNotGetTheEmail">Eğer 5 dakika içerisinde mail size ulaşmazsa:</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
   <string name="readAboutOur">%s hakkında bilgi edinin.</string>
@@ -788,6 +790,7 @@
   <string name="anonymous">Anonim</string>
   <string name="yourScore">Puan durumu: %s</string>
   <string name="language">Dil</string>
+  <string name="allLanguages">Tüm diller</string>
   <string name="background">Arkaplan</string>
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>

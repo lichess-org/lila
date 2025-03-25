@@ -1,5 +1,5 @@
 import type AnalyseCtrl from '../../ctrl';
-import { path as treePath } from 'tree';
+import { path as treePath } from 'lib/tree/tree';
 import { makeShapesFromUci } from '../../autoShape';
 
 export type Feedback = 'play' | 'good' | 'bad' | 'end';

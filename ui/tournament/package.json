@@ -7,11 +7,9 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/dragscroll": "0.0.3",
-    "chat": "workspace:*",
-    "common": "workspace:*",
+    "lib": "workspace:*",
     "date-fns": "2.30.0",
-    "dragscroll": "^0.0.8",
-    "game": "workspace:*"
+    "dragscroll": "^0.0.8"
   },
   "build": {
     "bundle": "src/tournament.*ts"

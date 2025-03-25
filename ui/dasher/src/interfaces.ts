@@ -3,7 +3,7 @@ import type { BackgroundData } from './background';
 import type { BoardData } from './board';
 import type { PieceData } from './piece';
 import type { DasherCtrl } from './ctrl';
-import type { Redraw, VNode } from 'common/snabbdom';
+import type { Redraw, VNode } from 'lib/snabbdom';
 
 export { DasherCtrl };
 

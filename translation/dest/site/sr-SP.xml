@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Играј са пријатељем</string>
   <string name="playWithTheMachine">Играј са рачунаром</string>
+  <string name="playOffline">Играј offline</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Да позовеш некога да игра, проследи овaј линк</string>
   <string name="gameOver">Партија Завршена</string>
   <string name="waitingForOpponent">Чека се противник</string>
@@ -101,7 +102,7 @@
   <string name="noGameFound">Партија није нађена</string>
   <string name="maxDepthReached">Достигнут максимални број потеза!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можда укључите више партија у менију за подешавања?</string>
-  <string name="openings">Отваранја</string>
+  <string name="openings">Отварања</string>
   <string name="openingExplorer">Претраживач отварања</string>
   <string name="openingEndgameExplorer">Претраживач отварања/завршница</string>
   <string name="xOpeningExplorer">%s претаживач отварања</string>
@@ -414,16 +415,16 @@
   <string name="reset">Ресетуј</string>
   <string name="apply">Примени</string>
   <string name="save">Сачувај</string>
-  <string name="leaderboard">Табела</string>
+  <string name="leaderboard">Најбољи играчи</string>
   <string name="screenshotCurrentPosition">Сними тренутну позицију</string>
   <string name="gameAsGIF">Партију као ГИФ</string>
-  <string name="pasteTheFenStringHere">Убаци FEN текст овде</string>
-  <string name="pasteThePgnStringHere">Убаци PGN текст овде</string>
+  <string name="pasteTheFenStringHere">Налепи FEN текст овде</string>
+  <string name="pasteThePgnStringHere">Налепи PGN текст овде</string>
   <string name="orUploadPgnFile">Или учитај PGN фајл</string>
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
   <string name="toStudy">Проучи</string>
-  <string name="importGame">Увези игру</string>
+  <string name="importGame">Увези партију</string>
   <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
 рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
   <string name="importGameCaveat">Варијације ће бити избрисане. Ако желиш да их сачуваш, увези PGN путем студије.</string>
@@ -433,14 +434,14 @@
     <item quantity="few">%s увезене игре</item>
     <item quantity="other">%s увезених игара</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ово је шаховска CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
+  <string name="thisIsAChessCaptcha">Ово је шаховска капча.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Кликај на таблу да направиш свој потез и докажи да си људско биће.</string>
   <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
-  <string name="notACheckmate">Није шахмат</string>
+  <string name="notACheckmate">Није шах-мат</string>
   <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
   <string name="retry">Покушај поново</string>
-  <string name="reconnecting">Поновно повезивање</string>
+  <string name="reconnecting">Поново повезујемо</string>
   <string name="noNetwork">Ван мреже</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s пријатељ на мрежи</item>
@@ -449,12 +450,12 @@
   </plurals>
   <string name="favoriteOpponents">Омиљени противници</string>
   <string name="follow">Прати</string>
-  <string name="following">Праћен</string>
-  <string name="unfollow">Не прати</string>
+  <string name="following">Пратиш</string>
+  <string name="unfollow">Отпрати</string>
   <string name="followX">Прати %s</string>
   <string name="unfollowX">Престани да пратиш %s</string>
   <string name="block">Блокирај</string>
-  <string name="blocked">Блокиран</string>
+  <string name="blocked">Блокиран/а</string>
   <string name="unblock">Одблокирај</string>
   <string name="xStartedFollowingY">%1$s је почео/ла пратити %2$s</string>
   <plurals name="nbFollowers">
@@ -463,9 +464,9 @@
     <item quantity="other">%s пратиоца</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">прати %s</item>
-    <item quantity="few">прати %s</item>
-    <item quantity="other">прати %s</item>
+    <item quantity="one">%s праћење</item>
+    <item quantity="few">%s праћења</item>
+    <item quantity="other">%s праћења</item>
   </plurals>
   <string name="more">Више</string>
   <string name="memberSince">Члан од</string>

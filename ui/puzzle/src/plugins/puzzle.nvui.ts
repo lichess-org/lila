@@ -21,14 +21,14 @@ import {
   selectionHandler,
   styleSetting,
   type MoveStyle,
-} from 'nvui/chess';
+} from 'lib/nvui/chess';
 import { makeConfig } from '../view/chessground';
-import { renderSetting } from 'nvui/setting';
-import { Notify } from 'nvui/notify';
-import { commands, boardCommands, addBreaks } from 'nvui/command';
+import { renderSetting } from 'lib/nvui/setting';
+import { Notify } from 'lib/nvui/notify';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
 import { next as controlNext, prev } from '../control';
-import { bind, onInsert } from 'common/snabbdom';
-import { throttle } from 'common/async';
+import { bind, onInsert } from 'lib/snabbdom';
+import { throttle } from 'lib/async';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
 import { opposite } from 'chessops';

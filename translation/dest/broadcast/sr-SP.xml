@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Емитовања</string>
+  <string name="myBroadcasts">Моји преноси</string>
   <string name="liveBroadcasts">Уживо емитовање турнира</string>
   <string name="newBroadcast">Нова ужива емитовања</string>
   <string name="ongoing">Текућа</string>

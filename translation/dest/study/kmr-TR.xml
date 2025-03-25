@@ -90,7 +90,7 @@
   <string name="loadAPositionFromFen">Pozisyonek bar bike ji FENê</string>
   <string name="loadAGameFromPgn">Lîstikek bar bike ji PGN</string>
   <string name="automatic">Otomatîk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Nivîsa xwe ya PGNê bi vir ve bize, herî zêde %s lîstik</item>
     <item quantity="other">Nivîsa xwe ya PGNê bi vir ve bize, herî zêde %s lîstik</item>
   </plurals>

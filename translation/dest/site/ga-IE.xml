@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Imir le cara</string>
   <string name="playWithTheMachine">Imir in aghaidh an ríomhaire</string>
+  <string name="playOffline">Imir as líne</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Chun cuireadh a thabhairt do dhuine, tabhair an URL seo dóibh</string>
   <string name="gameOver">Cluiche Thart</string>
   <string name="waitingForOpponent">Ag fanacht ar chéile comhraic</string>

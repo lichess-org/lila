@@ -1,10 +1,10 @@
 import type RacerCtrl from '../ctrl';
-import { makeCgOpts } from 'puz/run';
-import { makeConfig as makeCgConfig } from 'puz/view/chessground';
+import { makeCgOpts } from 'lib/puz/run';
+import { makeConfig as makeCgConfig } from 'lib/puz/view/chessground';
 import { h, type VNode } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 import { Chessground as makeChessground } from 'chessground';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
   const secs = ctrl.countdownSeconds();

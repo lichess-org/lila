@@ -1,7 +1,8 @@
 import { Chess } from 'chessops';
 import { makeFen } from 'chessops/fen';
-import { randomId } from 'common/algo';
-import { StatusName } from 'game';
+import { randomId } from 'lib/algo';
+import { StatusName } from 'lib/game/game';
+import { ClockConfig, ClockData } from 'lib/game/clock/clockCtrl';
 import { BotId } from 'local';
 
 export interface Game {
@@ -10,6 +11,7 @@ export interface Game {
   pov: Color;
   initialFen?: FEN;
   sans: San[];
+  clock?: ClockData;
   end?: GameEnd;
 }
 interface GameEnd {
@@ -18,11 +20,17 @@ interface GameEnd {
   fen: FEN;
 }
 
-export const makeGame = (botId: BotId, pov: Color, sans: San[] = []): Game => ({
+export const makeGame = (botId: BotId, pov: Color, clock?: ClockConfig, sans: San[] = []): Game => ({
   id: randomId(),
   botId,
   pov,
   sans,
+  clock: clock && {
+    ...clock,
+    white: clock.initial,
+    black: clock.initial,
+    running: false,
+  },
 });
 
 export const makeEndOf = (chess: Chess): GameEnd | undefined => {

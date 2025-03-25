@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Хъаз де \'мбалимæ</string>
   <string name="playWithTheMachine">Хъаз компьютеримæ</string>
+  <string name="playOffline">Хъазын оффлайн</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Цæмæй кæйдæр æрбахонын хъазынмæ, арвит ын ацы дæнцæг</string>
   <string name="gameOver">Хъазт фæци</string>
   <string name="waitingForOpponent">Ныхмæлæууæгмæ æнхъæлмæкæсын</string>

@@ -1,11 +1,11 @@
 import { h, type Hooks, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { dataIcon } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { dataIcon } from 'lib/snabbdom';
 import type TournamentController from '../ctrl';
-import perfIcons from 'game/perfIcons';
+import perfIcons from 'lib/game/perfIcons';
 import type { TournamentData } from '../interfaces';
-import { setClockWidget } from 'common/clock';
-import { userTitle } from 'common/userLink';
+import { setClockWidget } from 'lib/clock';
+import { userTitle } from 'lib/userLink';
 
 const startClock = (time: number): Hooks => ({
   insert: vnode => setClockWidget(vnode.elm as HTMLElement, { time }),

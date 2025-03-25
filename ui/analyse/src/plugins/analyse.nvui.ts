@@ -1,10 +1,10 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
-import { defined, prop, type Prop } from 'common';
-import { text as xhrText } from 'common/xhr';
+import { defined, prop, type Prop } from 'lib';
+import { text as xhrText } from 'lib/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import type { AnalyseData, NvuiPlugin } from '../interfaces';
-import type { Player } from 'game';
+import type { Player } from 'lib/game/game';
 import {
   type MoveStyle,
   renderSan,
@@ -29,24 +29,24 @@ import {
   possibleMovesHandler,
   renderPockets,
   pocketsStr,
-} from 'nvui/chess';
-import { renderSetting } from 'nvui/setting';
-import { Notify } from 'nvui/notify';
-import { commands, boardCommands, addBreaks } from 'nvui/command';
-import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
-import { throttle } from 'common/async';
+} from 'lib/nvui/chess';
+import { renderSetting } from 'lib/nvui/setting';
+import { Notify } from 'lib/nvui/notify';
+import { commands, boardCommands, addBreaks } from 'lib/nvui/command';
+import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'lib/snabbdom';
+import { throttle } from 'lib/async';
 import explorerView from '../explorer/explorerView';
-import { ops, path as treePath } from 'tree';
-import { view as cevalView, renderEval, type CevalCtrl } from 'ceval';
+import { ops, path as treePath } from 'lib/tree/tree';
+import { view as cevalView, renderEval, type CevalCtrl } from 'lib/ceval/ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
 import { charToRole, opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from 'chess';
+import { plyToTurn } from 'lib/chess/chess';
 import { Chessground as makeChessground } from 'chessground';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 import { renderResult } from '../view/components';
 import { view as chapterNewFormView } from '../study/chapterNewForm';
 import { view as chapterEditFormView } from '../study/chapterEditForm';

@@ -1,10 +1,10 @@
 import type AnalyseCtrl from '../ctrl';
 import column from './columnView';
 import inline from './inlineView';
-import { isCol1 } from 'common/device';
+import { isCol1 } from 'lib/device';
 import type { VNode } from 'snabbdom';
 import type { ConcealOf } from '../interfaces';
-import { storedProp, type StoredProp } from 'common/storage';
+import { storedProp, type StoredProp } from 'lib/storage';
 
 export type TreeViewKey = 'column' | 'inline';
 

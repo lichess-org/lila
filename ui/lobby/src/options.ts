@@ -1,4 +1,4 @@
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 
 import type { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
 

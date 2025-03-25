@@ -1,5 +1,5 @@
 import type { StudyChapterConfig, ReloadData } from './interfaces';
-import { text as xhrText, json as xhrJson, form as xhrForm } from 'common/xhr';
+import { text as xhrText, json as xhrJson, form as xhrForm } from 'lib/xhr';
 
 export const reload = (
   baseUrl: string,

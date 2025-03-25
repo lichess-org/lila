@@ -4,7 +4,7 @@ import keyboard from './keyboard';
 import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
-import { type Deferred, defer, throttle } from 'common/async';
+import { type Deferred, defer, throttle } from 'lib/async';
 import type {
   PuzzleOpts,
   PuzzleData,
@@ -15,28 +15,28 @@ import type {
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
-import { build as treeBuild, ops as treeOps, path as treePath, type TreeWrapper } from 'tree';
+import { build as treeBuild, ops as treeOps, path as treePath, type TreeWrapper } from 'lib/tree/tree';
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
-import { CevalCtrl } from 'ceval';
+import { CevalCtrl } from 'lib/ceval/ceval';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
-import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'common';
+import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'lib';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
-import { PromotionCtrl } from 'chess/promotion';
+import { PromotionCtrl } from 'lib/chess/promotion';
 import type { Role, Move, Outcome } from 'chessops/types';
-import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
-import { fromNodeList } from 'tree/path';
+import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'lib/storage';
+import { fromNodeList } from 'lib/tree/path';
 import Report from './report';
-import { last } from 'tree/ops';
+import { last } from 'lib/tree/ops';
 import { uciToMove } from 'chessground/util';
-import type { ParentCtrl } from 'ceval/types';
-import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialogs';
-import { type WithGround } from 'chess/ground';
+import type { ParentCtrl } from 'lib/ceval/types';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/dialogs';
+import { type WithGround } from 'lib/chess/ground';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;

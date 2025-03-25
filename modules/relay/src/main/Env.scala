@@ -54,7 +54,7 @@ final class Env(
 
   private lazy val groupRepo = RelayGroupRepo(colls.group)
 
-  private lazy val groupCrowd = wire[RelayGroupCrowd]
+  private lazy val groupCrowd = wire[RelayGroupCrowdSumCache]
 
   private lazy val playerEnrich = wire[RelayPlayerEnrich]
 

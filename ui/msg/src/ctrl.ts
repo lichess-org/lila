@@ -10,11 +10,11 @@ import type {
   Pane,
   Redraw,
 } from './interfaces';
-import { throttle } from 'common/async';
+import { throttle } from 'lib/async';
 import * as network from './network';
 import { scroller } from './view/scroller';
-import { storage, type LichessStorage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
+import { storage, type LichessStorage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
 
 export default class MsgCtrl {
   data: MsgData;

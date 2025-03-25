@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Švicarski</string>
+  <string name="swiss">Švicarski</string>
   <string name="swissTournaments">Švicarski turniri</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Pogledajte kolo</item>
@@ -33,7 +33,7 @@
     <item quantity="few">%s minute između kola</item>
     <item quantity="other">%s minuta između kola</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Počinje za</string>
+  <string name="startingIn" comment="Displayed above a timer">Počinje za</string>
   <string name="nextRound">Slijedeće kolo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Tekuća partija</item>

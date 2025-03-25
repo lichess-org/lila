@@ -1,7 +1,7 @@
 import { h, type Hooks } from 'snabbdom';
-import { spinnerVdom as spinner } from 'common/controls';
+import { spinnerVdom as spinner } from 'lib/controls';
 import type LobbyController from '../ctrl';
-import { onInsert } from 'common/snabbdom';
+import { onInsert } from 'lib/snabbdom';
 
 const createHandler = (ctrl: LobbyController) => (e: Event) => {
   if (ctrl.redirecting) return;

@@ -1,7 +1,7 @@
 import type AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
-import { fixCrazySan, plyToTurn } from 'chess';
-import { type MaybeVNodes } from 'common/snabbdom';
+import { fixCrazySan, plyToTurn } from 'lib/chess/chess';
+import { type MaybeVNodes } from 'lib/snabbdom';
 import { INITIAL_FEN } from 'chessops/fen';
 import { Game } from './interfaces';
 

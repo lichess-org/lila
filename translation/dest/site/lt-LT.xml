@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Žaisti su draugu</string>
   <string name="playWithTheMachine">Žaisti su kompiuteriu</string>
+  <string name="playOffline">Žaisti atsijungus</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>

@@ -2,9 +2,9 @@ import { h, type VNode } from 'snabbdom';
 import type { MouchEvent } from 'chessground/types';
 import { eventPosition, opposite } from 'chessground/util';
 import type EditorCtrl from './ctrl';
-import { storage } from 'common/storage';
+import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from 'chessground';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {

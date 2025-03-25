@@ -1,6 +1,6 @@
 import { type Classes, h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import perfIcons from 'game/perfIcons';
+import * as licon from 'lib/licon';
+import perfIcons from 'lib/game/perfIcons';
 import type { Tournament, Clock } from '../interfaces';
 import type { Ctrl, Lane } from '../tournament.schedule';
 import dragscroll from 'dragscroll';

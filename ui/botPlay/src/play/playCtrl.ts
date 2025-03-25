@@ -8,10 +8,12 @@ import keyboard from './keyboard';
 import { initialGround, updateGround } from '../ground';
 import { makeFen } from 'chessops/fen';
 import { makeEndOf, Game } from '../game';
-import { prop, toggle, Toggle } from 'common';
+import { prop, toggle, Toggle } from 'lib';
 import { playMoveSounds } from './sound';
-import { PromotionCtrl } from 'chess/promotion';
-import type { WithGround } from 'chess/ground';
+import { PromotionCtrl } from 'lib/chess/promotion';
+import type { WithGround } from 'lib/chess/ground';
+import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
+import { TopOrBottom } from 'lib/game/game';
 
 export interface PlayOpts {
   pref: Pref;
@@ -27,6 +29,7 @@ export interface PlayOpts {
 export default class PlayCtrl {
   game: Game;
   board: Board; // the state of the board being displayed
+  clock?: ClockCtrl;
   promotion: PromotionCtrl;
   menu: Toggle;
   flipped: Toggle = toggle(false);
@@ -40,6 +43,9 @@ export default class PlayCtrl {
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.opts.redraw);
     this.menu = toggle(false, opts.redraw);
     this.blindfold = toggle(false, opts.redraw);
+
+    this.clock =
+      this.game.clock && new ClockCtrl(this.game.clock, opts.pref, undefined, this.makeClockOpts());
     keyboard(this);
     setTimeout(this.safelyRequestBotMove, 500);
   }
@@ -50,7 +56,9 @@ export default class PlayCtrl {
 
   isOnLastPly = () => this.board.onPly === this.lastPly();
 
-  bottomColor = () => (this.flipped() ? opposite(this.game.pov) : this.game.pov);
+  colorAt = (position: TopOrBottom) => (position === 'bottom' ? this.game.pov : opposite(this.game.pov));
+
+  bottomColor = () => this.colorAt(this.flipped() ? 'top' : 'bottom');
 
   flip = () => {
     this.flipped.toggle();
@@ -82,6 +90,8 @@ export default class PlayCtrl {
     // fast-forward to last position when attempting to move out of turn
     if (this.board.chess.turn !== this.opts.game.pov) this.goToLast();
   };
+
+  onFlag = () => alert('flagged');
 
   goTo = (ply: Ply) => {
     const newPly = Math.max(0, Math.min(this.lastPly(), ply));
@@ -118,6 +128,15 @@ export default class PlayCtrl {
     if (sign() == before) this.addMove(move);
     else console.warn('Bot move ignored due to board state mismatch');
   };
+
+  private makeClockOpts: () => ClockOpts = () => ({
+    onFlag: this.onFlag,
+    playable: () => true,
+    bothPlayersHavePlayed: () => this.game.sans.length > 1,
+    hasGoneBerserk: () => false,
+    soundColor: this.game.pov,
+    nvui: false,
+  });
 
   private setGround = () => this.withGround(g => g.set(initialGround(this)));
 

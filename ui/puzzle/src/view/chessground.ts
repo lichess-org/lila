@@ -1,8 +1,8 @@
-import resizeHandle from 'common/chessgroundResize';
+import resizeHandle from 'lib/chessgroundResize';
 import { h, type VNode } from 'snabbdom';
-import { Coords, ShowResizeHandle } from 'common/prefs';
+import { Coords, ShowResizeHandle } from 'lib/prefs';
 import type PuzzleCtrl from '../ctrl';
-import { storage } from 'common/storage';
+import { storage } from 'lib/storage';
 import { Chessground as makeChessground } from 'chessground';
 
 export default function (ctrl: PuzzleCtrl): VNode {

@@ -1,7 +1,7 @@
 import * as co from 'chessops';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import type { BotInfo } from '../types';
-import { frag } from 'common';
+import { frag } from 'lib';
 import type { NumberInfo, RangeInfo } from './devTypes';
 import type { Result } from './devCtrl';
 

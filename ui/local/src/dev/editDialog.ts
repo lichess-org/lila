@@ -1,20 +1,20 @@
 import { domIdToUid, uidToDomId, botEquals } from './devBotCtrl';
 import { handOfCards, type HandOfCards } from './handOfCards';
-import { frag } from 'common';
-import { deepFreeze, definedMap, mapValues } from 'common/algo';
+import { frag } from 'lib';
+import { deepFreeze, definedMap, mapValues } from 'lib/algo';
 import { buildFromSchema, Panes } from './panes';
 import { deadStrip } from './devUtil';
-import { domDialog, type Dialog, type Action } from 'common/dialog';
-import { confirm, alert } from 'common/dialogs';
+import { domDialog, type Dialog, type Action } from 'lib/dialog';
+import { confirm, alert } from 'lib/dialogs';
 import type { BotInfo } from '../types';
 import { Bot } from '../bot';
 import { AssetDialog, type AssetType } from './assetDialog';
 import { historyDialog } from './historyDialog';
 import { env } from './devEnv';
-import { pubsub } from 'common/pubsub';
-import { Janitor } from 'common/event';
+import { pubsub } from 'lib/pubsub';
+import { Janitor } from 'lib/event';
 import stringify from 'json-stringify-pretty-compact';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 
 export class EditDialog {
   static default: BotInfo = deepFreeze<BotInfo>({

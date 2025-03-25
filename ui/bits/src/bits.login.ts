@@ -1,8 +1,8 @@
-import * as xhr from 'common/xhr';
-import { debounce } from 'common/async';
-import { addPasswordVisibilityToggleListener, spinnerHtml } from 'common/controls';
-import { storedJsonProp } from 'common/storage';
-import { alert } from 'common/dialogs';
+import * as xhr from 'lib/xhr';
+import { debounce } from 'lib/async';
+import { addPasswordVisibilityToggleListener, spinnerHtml } from 'lib/controls';
+import { storedJsonProp } from 'lib/storage';
+import { alert } from 'lib/dialogs';
 
 export function initModule(mode: 'login' | 'signup' | 'reset'): void {
   mode === 'login' ? loginStart() : mode === 'signup' ? signupStart() : resetStart();

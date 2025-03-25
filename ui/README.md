@@ -22,11 +22,11 @@ pnpm test:watch
 
 Our client source code is arranged as a pnpm monorepo workspace described by [/pnpm-workspace.yaml](../pnpm-workspace.yaml). Each individual workspace package in the /ui/ folder has a package.json file that describes source files, dependencies, and build steps.
 
-One workspace package (such as /ui/analyse) may depend on another (such as /ui/common) using a "dependencies" property keyed by the package name with "workspace:\*" as the version. That tells [pnpm](https://pnpm.io) and our build script that the dependency should be resolved by [/pnpm-workspace.yaml](../pnpm-workspace.yaml) (spoiler - it's in ui/common).
+One workspace package (such as /ui/analyse) may depend on another (such as /ui/lib) using a "dependencies" property keyed by the package name with "workspace:\*" as the version. That tells [pnpm](https://pnpm.io) and our build script that the dependency should be resolved by [/pnpm-workspace.yaml](../pnpm-workspace.yaml) (spoiler - it's in ui/lib).
 
 ```json
   "dependencies": {
-    "common": "workspace:*"
+    "lib": "workspace:*"
   }
 ```
 
@@ -58,22 +58,20 @@ The [esbuild bundler](https://esbuild.github.io/getting-started/#your-first-bund
 In this example from [/ui/opening/src/opening.ts](./opening/src/opening.ts):
 
 ```typescript
-import { initMiniBoards } from 'common/miniBoard';
-import { requestIdleCallback } from 'common';
+import { initMiniBoards } from 'lib/miniBoard';
+import { requestIdleCallback } from 'lib';
 ```
 
-The above 'common' and 'common/miniBoard' import declarations are mapped to the correct typescript sources by this snippet from [/ui/common/package.json](./common/package.json):
+The above 'lib/miniBoard' and 'lib' import declarations are mapped to the correct typescript sources by this snippet from [/ui/lib/package.json](./lib/package.json):
 
 ```json
   "exports": {
-    ".": {
-      ".": "./src/common.ts",
-      "./*": "./src/*.ts"
-    }
+    ".": "./src/common.ts",
+    "./*": "./src/*.ts"
   },
 ```
 
-While esbuild may bundle imported code directly into the entry point module, it may also split imported code into "common" chunk modules that are shared and imported by other workspace modules. This chunked approach is called code splitting and reduces the overall footprint of asset transfers over the wire and within the browser cache.
+While esbuild may bundle imported code directly into the entry point module, it may also split imported code into "lib" chunk modules that are shared and imported by other workspace modules. This chunked approach is called code splitting and reduces the overall footprint of asset transfers over the wire and within the browser cache.
 
 ## "build" property (top-level in package.json)
 

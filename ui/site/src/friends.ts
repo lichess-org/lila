@@ -1,6 +1,6 @@
-import { notNull } from 'common/common';
-import * as licon from 'common/licon';
-import { api as lichess } from 'api';
+import { notNull } from 'lib';
+import * as licon from 'lib/licon';
+import { api as lichess } from 'lib/api';
 
 type TitleName = string;
 

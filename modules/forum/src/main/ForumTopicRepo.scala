@@ -41,10 +41,10 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def sticky(id: ForumTopicId, value: Boolean): Funit =
     coll.updateField($id(id), "sticky", value).void
 
-  def byCateg(categ: ForumCateg): Fu[List[ForumTopic]] =
+  def byCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
     coll.list[ForumTopic](byCategQuery(categ))
 
-  def countByCateg(categ: ForumCateg): Fu[Int] =
+  def countByCateg(categ: ForumCategId): Fu[Int] =
     coll.countSel(byCategQuery(categ))
 
   def byTree(categId: ForumCategId, slug: String): Fu[Option[ForumTopic]] =
@@ -53,7 +53,7 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   def existsByTree(categId: ForumCategId, slug: String): Fu[Boolean] =
     coll.exists($doc("categId" -> categId, "slug" -> slug))
 
-  def stickyByCateg(categ: ForumCateg): Fu[List[ForumTopic]] =
+  def stickyByCateg(categ: ForumCategId): Fu[List[ForumTopic]] =
     coll.list[ForumTopic](byCategQuery(categ) ++ stickyQuery)
 
   def nextSlug(categ: ForumCateg, name: String, it: Int = 1): Fu[String] =
@@ -64,5 +64,5 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
       else fuccess(slug)
     }
 
-  def byCategQuery(categ: ForumCateg)          = $doc("categId" -> categ.id) ++ trollFilter
-  def byCategNotStickyQuery(categ: ForumCateg) = byCategQuery(categ) ++ notStickyQuery
+  def byCategQuery(categ: ForumCategId)          = $doc("categId" -> categ) ++ trollFilter
+  def byCategNotStickyQuery(categ: ForumCategId) = byCategQuery(categ) ++ notStickyQuery

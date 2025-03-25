@@ -3,7 +3,7 @@ import { defaultGame, parsePgn, type PgnNodeData, type Game as PgnGame } from 'c
 import { Game } from './game';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { normalizeMove } from 'chessops/chess';
-import { defined } from 'common';
+import { defined } from 'lib';
 import { parseFen } from 'chessops/fen';
 
 /* The currently displayed position, not necessarily the last one played */

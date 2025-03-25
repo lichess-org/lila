@@ -24,7 +24,7 @@ export async function esbuild(): Promise<any> {
     minify: env.prod,
     outdir: env.jsOutDir,
     entryNames: '[name].[hash]',
-    chunkNames: 'common.[hash]',
+    chunkNames: 'lib.[hash]',
     plugins,
   };
 
@@ -110,8 +110,8 @@ function bundleManifest(meta: es.Metafile = { inputs: {}, outputs: {} }) {
   for (const [filename, info] of Object.entries(meta.outputs)) {
     const out = splitPath(filename);
     if (!out) continue;
-    if (out.name === 'common') {
-      out.name = `common.${out.hash}`;
+    if (out.name === 'lib') {
+      out.name = `lib.${out.hash}`;
       js[out.name] = {};
     } else js[out.name] = { hash: out.hash };
     const imports: string[] = [];

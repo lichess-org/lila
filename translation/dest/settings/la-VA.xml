@@ -3,6 +3,6 @@
   <string name="settings">Optiones</string>
   <string name="closeAccount">Claude rationem</string>
   <string name="managedAccountCannotBeClosed">Tuus ratio moderatur, et claudere non potest.</string>
-  <string name="cantOpenSimilarAccount">Non licebit tibi rationem novam nominis eiusdem creare, etiam si casum alium uteris.</string>
+  <string name="cantOpenSimilarAccount" comment="Please note this string was simplified in January 2025. Before this, it used to state &quot;You will not be allowed to open a new account with the same name, even if the case is different.&quot; Please update existing translations as required.">Non licebit tibi rationem novam nominis eiusdem creare, etiam si casum alium uteris.</string>
   <string name="thisAccountIsClosed">Haec ratio clausa est.</string>
 </resources>

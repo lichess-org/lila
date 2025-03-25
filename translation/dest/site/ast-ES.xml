@@ -2,6 +2,7 @@
 <resources>
   <string name="playWithAFriend">Xuega con un collacio</string>
   <string name="playWithTheMachine">Xuega contra l\'ordenador</string>
+  <string name="playOffline">Xugar ensin conexón</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar a daquién a xugar, da-y esti enllaz</string>
   <string name="gameOver">Xuegu termináu</string>
   <string name="waitingForOpponent">Esperando al oponente</string>

@@ -1,5 +1,5 @@
-import { script as xhrScript } from 'common/xhr';
-import { memoize } from 'common';
+import { script as xhrScript } from 'lib/xhr';
+import { memoize } from 'lib';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 

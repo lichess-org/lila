@@ -1,6 +1,6 @@
 import { practiceComplete } from '../studyXhr';
-import { type Prop, prop } from 'common';
-import { storedBooleanProp } from 'common/storage';
+import { type Prop, prop } from 'lib';
+import { storedBooleanProp } from 'lib/storage';
 import makeSuccess from './studyPracticeSuccess';
 import { readOnlyProp } from '../../util';
 import type { StudyPracticeData, Goal } from './interfaces';

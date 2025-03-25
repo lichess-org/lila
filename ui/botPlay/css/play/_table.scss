@@ -1,5 +1,6 @@
 .bot-game__table {
   @extend %box-neat;
+  border-radius: $box-radius-size 0 $box-radius-size 0;
   background: $c-bg-box;
 }
 .bot-game__nav {
@@ -108,6 +109,10 @@
       background: $c-primary;
     }
   }
+}
+
+.bot-game__clock-mat {
+  @extend %flex-between;
 }
 
 .bot-game .material {

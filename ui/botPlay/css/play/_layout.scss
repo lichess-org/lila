@@ -18,22 +18,21 @@ $col1-moves-height: 4em;
   display: grid;
 
   @include mq-is-col1 {
-    grid-template-rows: auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto auto auto auto 0;
-    grid-template-areas: 'pocket-top' 'user-top' 'mat-top' 'board' 'mat-bot' 'user-bot' 'pocket-bot' 'controls' 'moves' 'voice' 'kb-move';
+    // TODO
+    // grid-template-rows: $col1-user-height $col1-mat-height auto auto $col1-mat-height auto auto auto 0;
+    // grid-template-areas: 'user-top' 'mat-top' 'board' 'mat-bot' 'user-bot' 'controls' 'moves' 'voice' 'kb-move';
   }
 
   @include mq-at-least-col2 {
     grid-template-areas:
       'board voice'
       'board .'
-      'board clock-top'
+      'board clock-mat-top'
       'board opponent'
       'board moves'
       'board nav'
       'board actions'
-      'board user-bot'
-      'board clock-bot'
-      'board mat-bot'
+      'board clock-mat-bottom'
       'board .'
       'kb-move .';
     grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
@@ -41,7 +40,10 @@ $col1-moves-height: 4em;
     grid-column-gap: $block-gap;
 
     &__table {
-      grid-area: 4 / 2 / 10 / 3;
+      grid-area: 5 / 2 / 9 / 3;
+    }
+    &__opponent-img {
+      grid-area: 3 / 2 / 4 / 3;
     }
 
     .keyboard-move {
@@ -79,6 +81,9 @@ $col1-moves-height: 4em;
 .bot-game__board {
   grid-area: board;
 }
-.material-bottom {
-  grid-area: mat-bot;
+.bot-game__clock-mat--top {
+  grid-area: clock-mat-top;
+}
+.bot-game__clock-mat--bottom {
+  grid-area: clock-mat-bottom;
 }

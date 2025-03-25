@@ -103,7 +103,7 @@
   <string name="loadAPositionFromFen">Importera en position med FEN-kod</string>
   <string name="loadAGameFromPgn">Importera ett spel med PGN-kod</string>
   <string name="automatic">Automatisk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
+  <plurals name="pasteYourPgnTextHereUpToNbGames" comment="It is possible to create multiple chapters in one go. Please try to convey this using a short translation.">
     <item quantity="one">Klistra in din PGN-kod här, upp till %s parti</item>
     <item quantity="other">Klistra in din PGN-kod här, upp till %s partier</item>
   </plurals>

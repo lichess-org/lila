@@ -9,10 +9,7 @@
   "isolatedModules": true,
   "references": [
     { "path": "../bits/tsconfig.json" },
-    { "path": "../common/tsconfig.json" },
-    { "path": "../chess/tsconfig.json" },
-    { "path": "../game/tsconfig.json" },
-    { "path": "../ceval/tsconfig.json" },
+    { "path": "../lib/tsconfig.json" },
     { "path": "../round/tsconfig.json" }
   ]
 }
