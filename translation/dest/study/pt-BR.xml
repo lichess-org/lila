@@ -167,4 +167,6 @@
   <string name="youCompletedThisLesson">Parabéns! Você completou essa lição.</string>
   <string name="perPage">%s por página</string>
   <string name="getTheTour">Perdido(a)? Faça o tour!</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Compartilhado e salvo</string>
+  <string name="conclusionTitle">Obrigado pelo seu tempo.</string>
 </resources>
