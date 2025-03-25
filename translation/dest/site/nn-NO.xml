@@ -487,7 +487,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="wins">Sigrar</string>
   <string name="losses">Tap</string>
   <string name="createdBy">Oppretta av</string>
-  <string name="tournamentIsStarting">Turneringa startar</string>
   <string name="tournamentPairingsAreNowClosed">Turneringsoppsettet er no stengd.</string>
   <string name="standByX">Vent litt %s, koplar saman spelarar, hald deg klar!</string>
   <string name="pause">Pause</string>
@@ -502,7 +501,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blackWins">Svart vinn</string>
   <string name="drawRate">Remis-rate</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Neste %s turnering:</string>
   <string name="averageOpponent">Gjennomsnittleg motstand</string>
   <string name="boardEditor">Brettskipar</string>
   <string name="setTheBoard">Still opp brett</string>
