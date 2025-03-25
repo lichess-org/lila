@@ -485,7 +485,6 @@
   <string name="wins">Victories</string>
   <string name="losses">Perdíes</string>
   <string name="createdBy">Fechu por</string>
-  <string name="tournamentIsStarting">El tornéu ta entamando</string>
   <string name="tournamentPairingsAreNowClosed">Los emparexamientos del tornéu tan zarraos.</string>
   <string name="standByX">Espera %s, empareyando xugadores, ¡prepárate!</string>
   <string name="pause">Pausa</string>
@@ -500,7 +499,6 @@
   <string name="blackWins">Victories prietes</string>
   <string name="drawRate">Tasa de tables</string>
   <string name="draws">Tables</string>
-  <string name="nextXTournament">Siguiente tornéu %s:</string>
   <string name="averageOpponent">Oponente promediu</string>
   <string name="boardEditor">Editor de tableru</string>
   <string name="setTheBoard">Configurar tableru</string>
