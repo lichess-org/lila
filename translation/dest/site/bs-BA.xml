@@ -513,7 +513,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
   <string name="createdBy">Kreirao/la</string>
-  <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Pričekajte %s, uparivanje igrača je u toku, pripremite se za igru!</string>
   <string name="pause">Pauza</string>
@@ -527,7 +526,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="whiteWins">Pobjede bijelog</string>
   <string name="blackWins">Pobjede crnog</string>
   <string name="draws">Remi</string>
-  <string name="nextXTournament">Sljedeći %s turnir:</string>
   <string name="averageOpponent">Prosječni protivnik</string>
   <string name="boardEditor">Namjestite ploču</string>
   <string name="setTheBoard">Postavite ploču</string>
