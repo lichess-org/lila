@@ -85,7 +85,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
             trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)
           )
         ),
-        table(cls := "team-members slist slist-pad"):
+        table(cls := "team-members slist slist-pad slist-invert"):
           tbody(cls := "infinite-scroll")(
             pager.currentPageResults.map { case TeamMember.UserAndDate(u, date) =>
               tr(cls := "paginated")(
@@ -125,7 +125,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
               flashMessage("failure"):
                 s"You have joined ${teams.size} out of ${Team.maxJoin(me)} teams. Leave some teams before you can join others."
             },
-            table(cls := "slist slist-pad")(
+            table(cls := "slist slist-pad slist-invert")(
               if teams.nonEmpty then tbody(teams.map(teamTr(_)))
               else noTeam()
             )
@@ -139,7 +139,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
           div(cls := "page-menu__content box")(
             h1(cls := "box__top")(trt.teamsIlead()),
             standardFlash,
-            table(cls := "slist slist-pad")(
+            table(cls := "slist slist-pad slist-invert")(
               if teams.nonEmpty then tbody(teams.map(Team.WithMyLeadership(_, true)).map(teamTr(_)))
               else noTeam()
             )
@@ -165,7 +165,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
               )
             ),
             standardFlash,
-            table(cls := "slist slist-pad")(
+            table(cls := "slist slist-pad slist-invert")(
               if teams.nbResults > 0 then
                 tbody(cls := "infinite-scroll")(
                   teams.currentPageResults.map(teamTr),

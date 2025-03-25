@@ -53,7 +53,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        i18n.study.downloadAllGames,
+        i18n.site.downloadAllGames,
       ),
       data.me &&
         h(

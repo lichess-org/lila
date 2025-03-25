@@ -102,7 +102,7 @@ export function view(ctrl: StudyShare): VNode {
                   download: true,
                 },
               },
-              ctrl.relay ? i18n.study.downloadAllGames : i18n.study.studyPgn,
+              ctrl.relay ? i18n.site.downloadAllGames : i18n.study.studyPgn,
             ),
             h(
               'a.button.text',
