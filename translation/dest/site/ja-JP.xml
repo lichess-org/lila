@@ -451,7 +451,6 @@
   <string name="wins">勝</string>
   <string name="losses">敗</string>
   <string name="createdBy">トーナメント作成者</string>
-  <string name="tournamentIsStarting">トーナメント開始</string>
   <string name="tournamentPairingsAreNowClosed">トーナメントの対局の組み合わせは終了しました。</string>
   <string name="standByX">%s さん、現在ペアリング中です。用意して！</string>
   <string name="pause">休む</string>
@@ -466,7 +465,6 @@
   <string name="blackWins">黒勝ち</string>
   <string name="drawRate">ドロー率</string>
   <string name="draws">ドロー</string>
-  <string name="nextXTournament">次の %s トーナメント:</string>
   <string name="averageOpponent">対局相手の平均</string>
   <string name="boardEditor">盤面入力</string>
   <string name="setTheBoard">盤面を指定</string>
