@@ -558,7 +558,6 @@
   <string name="wins">Wygrane</string>
   <string name="losses">Przegrane</string>
   <string name="createdBy">Stworzony przez</string>
-  <string name="tournamentIsStarting">Rozpoczęcie turnieju</string>
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="pause">Pauza</string>
@@ -573,7 +572,6 @@
   <string name="blackWins">Wygranych czarnych</string>
   <string name="drawRate">Częstość remisowania</string>
   <string name="draws">Remisów</string>
-  <string name="nextXTournament">Następny turniej %s:</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
   <string name="boardEditor">Edytor pozycji</string>
   <string name="setTheBoard">Ustaw szachownicę</string>
