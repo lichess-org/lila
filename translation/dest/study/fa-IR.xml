@@ -55,10 +55,7 @@
   <string name="playing">جاری</string>
   <string name="showResults">نمایش نتایج</string>
   <string name="showEvalBar">نوار ارزیابی</string>
-  <string name="first">اولین</string>
-  <string name="previous">پیشین</string>
   <string name="next">بعدی</string>
-  <string name="last">آخرین</string>
   <string name="shareAndExport">همرسانی و برون‏بُرد</string>
   <string name="cloneStudy">همسانیدن</string>
   <string name="studyPgn">PGN مطالعه</string>
