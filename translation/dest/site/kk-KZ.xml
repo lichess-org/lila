@@ -478,7 +478,6 @@
   <string name="wins">Жеңіс</string>
   <string name="losses">Ұтылыс</string>
   <string name="createdBy">Жасаған</string>
-  <string name="tournamentIsStarting">Жарыс басталуда</string>
   <string name="tournamentPairingsAreNowClosed">Жарысқа жұпталу аяқталды.</string>
   <string name="standByX">%s күтіңіз, ойыншылар жұпталуда, дайын болыңыз!</string>
   <string name="pause">Кідіру</string>
@@ -492,7 +491,6 @@
   <string name="whiteWins">Ақтардың жеңісі</string>
   <string name="blackWins">Қаралардың жеңісі</string>
   <string name="draws">Тепе-теңдік</string>
-  <string name="nextXTournament">Келесі %s жарыс:</string>
   <string name="averageOpponent">Орташа қарсылас</string>
   <string name="boardEditor">Еркін тақта</string>
   <string name="setTheBoard">Тақтаны орнатыңыз</string>
