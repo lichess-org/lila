@@ -55,10 +55,7 @@
   <string name="playing">Po luhet</string>
   <string name="showResults">Përfundime</string>
   <string name="showEvalBar">Shtylla vlerësimi</string>
-  <string name="first">E para</string>
-  <string name="previous">E mëparshmja</string>
   <string name="next">Pasuesja</string>
-  <string name="last">E fundit</string>
   <string name="shareAndExport">Ndajeni me të tjerë &amp; eksportoni</string>
   <string name="cloneStudy">Klonoje</string>
   <string name="studyPgn">Studioni PGN</string>
