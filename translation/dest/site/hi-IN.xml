@@ -480,7 +480,6 @@
   <string name="wins">जीतें</string>
   <string name="losses">हारें</string>
   <string name="createdBy">द्वारा रचित</string>
-  <string name="tournamentIsStarting">प्रतियोगित शुरू हो रही है</string>
   <string name="tournamentPairingsAreNowClosed">टूर्नामेंट जोड़ियां अब बंद हो गयी हैं।</string>
   <string name="standByX">%s, खिलाड़ियों, बाँधना द्वारा खड़े हो जाओ तैयार हो जाओ!</string>
   <string name="pause">ठहराव</string>
@@ -494,7 +493,6 @@
   <string name="whiteWins">सफ़ेद विजयी हुआ</string>
   <string name="blackWins">काला विजयी हुआ</string>
   <string name="draws">ड्रा</string>
-  <string name="nextXTournament">अगले %s टूर्नामेंट:</string>
   <string name="averageOpponent">औसत प्रतिद्वंद्वी</string>
   <string name="boardEditor">बोर्ड संपादक</string>
   <string name="setTheBoard">बोर्ड सेट करें</string>
