@@ -480,6 +480,8 @@
   <string name="cheat">Twyll</string>
   <string name="troll">Trôl</string>
   <string name="other">Arall</string>
+  <string name="reportCheatBoostHelp">Gludwch y dolen i\'r gêm(au) ac esboniwch beth sydd yn anghywir am ymddygiad y defnyddiwr yma. Peidiwch mond a ddweud \"mae nhw\'n twyllo\", dywedwch sut daethoch i\'r canlyniad yma.</string>
+  <string name="reportUsernameHelp">Esboniwch pam mae\'r enw defnyddiwr yma yn sarhaus. Peidiwch mond a ddweud \"mae\'n sarhaus/anaddas\", dywedwch sut daethoch i\'r canlyniad yma, yn enwedig os mae\'r sarhad yn aneglur, ddim yn saesneg, yn bratiaith neu yn cyfeirio at rhywbeth hanesyddol/diwylliannol.</string>
   <string name="reportProcessedFasterInEnglish">Bydd eich adroddiad yn cael ei prosesu yn gyflymach os ydi hi wedi ei ysgrifennu yn Saesneg.</string>
   <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>
   <string name="by">gan %s</string>
