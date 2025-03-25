@@ -87,4 +87,6 @@ Na przykład, będąc 3 w rankingu turnieju liczącym 100 graczy = 3%. Będąc 1
   <string name="tournamentShields">Tarcze turniejowe</string>
   <string name="onlyTitled">Tylko gracze z tytułem</string>
   <string name="onlyTitledHelp">Wymagany oficjalny tytuł, aby dołączyć do turnieju</string>
+  <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
+  <string name="berserkRate">Udział berserków</string>
 </resources>
