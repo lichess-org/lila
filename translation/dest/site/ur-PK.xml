@@ -414,7 +414,6 @@
   <string name="wins">فتوحات</string>
   <string name="losses">ہاریں</string>
   <string name="createdBy">خالق</string>
-  <string name="tournamentIsStarting">مسابقہ شروع ہوا چاہتا ہے</string>
   <string name="tournamentPairingsAreNowClosed">ٹورنامنٹ میں کھلاڑیوں کی جوڑیاں بند ہو چکی ہیں.</string>
   <string name="standByX">انتظار فرمائیں %s ، کھلاڑیوں کی جوڑیاں کی جا رہی ہیں، تیار رہیں!</string>
   <string name="youArePlaying">آپ کھیل رہے ہیں!</string>
@@ -426,7 +425,6 @@
   <string name="whiteWins">سفید کی فتح</string>
   <string name="blackWins">سیاہ کی فتح</string>
   <string name="draws">برابر</string>
-  <string name="nextXTournament">اگلا %s ٹورنامنٹ:</string>
   <string name="averageOpponent">اوسط کھلاڑی</string>
   <string name="boardEditor">بساط بنائیں</string>
   <string name="setTheBoard">بساط لگائیں</string>
