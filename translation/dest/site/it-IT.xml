@@ -486,7 +486,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="wins">Vittorie</string>
   <string name="losses">Sconfitte</string>
   <string name="createdBy">Creato da</string>
-  <string name="tournamentIsStarting">Sta per iniziare il torneo</string>
   <string name="tournamentPairingsAreNowClosed">Gli accoppiamenti del torneo sono ora chiusi.</string>
   <string name="standByX">Resta in attesa %s, accoppiamento giocatori, preparati!</string>
   <string name="pause">Pausa</string>
@@ -501,7 +500,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="blackWins">Il Nero vince</string>
   <string name="drawRate">Tasso di pareggio</string>
   <string name="draws">Patte</string>
-  <string name="nextXTournament">Prossimo torneo %s:</string>
   <string name="averageOpponent">Punteggio medio degli avversari</string>
   <string name="boardEditor">Editor scacchiera</string>
   <string name="setTheBoard">Imposta la scacchiera</string>
