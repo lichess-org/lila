@@ -87,7 +87,7 @@ export function initModule(): StudyTour {
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: i18n.study.done,
+          text: `<i data-icon='${licon.Checkmark}'></i>`,
           action: tourCtrl.tour.next,
         },
       ],
@@ -152,7 +152,7 @@ export function initModule(): StudyTour {
         text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: i18n.study.done,
+            text: `<i data-icon='${licon.Checkmark}'></i>`,
             action: tourCtrl.tour.next,
           },
         ],
