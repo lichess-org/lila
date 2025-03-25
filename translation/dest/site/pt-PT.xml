@@ -487,7 +487,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="wins">Vitórias</string>
   <string name="losses">Derrotas</string>
   <string name="createdBy">Criado por</string>
-  <string name="tournamentIsStarting">O torneio está a começar</string>
   <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
   <string name="pause">Pausa</string>
@@ -502,7 +501,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="blackWins">Vitórias com as pretas</string>
   <string name="drawRate">Taxa de empate</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio de %s:</string>
   <string name="averageOpponent">Pontuação média dos adversários</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Partilha o tabuleiro</string>
