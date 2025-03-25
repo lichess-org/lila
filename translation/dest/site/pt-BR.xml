@@ -756,6 +756,7 @@
   <string name="downloadAnnotated">Baixar anotação</string>
   <string name="downloadRaw">Baixar texto</string>
   <string name="downloadImported">Baixar partida importada</string>
+  <string name="downloadAllGames">Baixar todas as partidas</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>
