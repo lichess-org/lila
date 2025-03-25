@@ -481,7 +481,6 @@
   <string name="wins">एकूण  विजय</string>
   <string name="losses">एकूण  पराभव</string>
   <string name="createdBy">निर्माता</string>
-  <string name="tournamentIsStarting">क्रीडासत्र सुरू होत आहे</string>
   <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="pause">विराम</string>
@@ -496,7 +495,6 @@
   <string name="blackWins">काळ्याचे विजय</string>
   <string name="drawRate">अनिर्मितीचे दर</string>
   <string name="draws">बरोबरी सुटलेले</string>
-  <string name="nextXTournament">पुढील %s क्रीडासत्र:</string>
   <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
   <string name="boardEditor">पट संपादक</string>
   <string name="setTheBoard">पट मांडा</string>
