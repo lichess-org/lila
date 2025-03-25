@@ -54,8 +54,8 @@ export function initModule(): StudyTour {
 
     if (ctrl.study?.members.isOwner()) {
       steps.push({
-        title: i18n.study.inviteMembersTitle,
-        text: i18n.study.inviteMembersText(`<i data-icon='${licon.PlusButton}'></i>`),
+        title: i18n.study.addMembers,
+        text: i18n.study.addMembersText(`<i data-icon='${licon.PlusButton}'></i>`),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });

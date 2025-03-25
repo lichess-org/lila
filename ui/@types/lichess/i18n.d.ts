@@ -4631,6 +4631,8 @@ interface I18n {
   study: {
     /** Add members */
     addMembers: string;
+    /** Click the %s button.<br>Then decide who can contribute or not. */
+    addMembersText: I18nFormat;
     /** Add a new chapter */
     addNewChapter: string;
     /** Allow cloning */
@@ -4789,10 +4791,6 @@ interface I18n {
     interactiveLesson: string;
     /** Interesting move */
     interestingMove: string;
-    /** Click the %s button.<br>Then decide who can contribute or not. */
-    inviteMembersText: I18nFormat;
-    /** Invite members */
-    inviteMembersTitle: string;
     /** Invite only */
     inviteOnly: string;
     /** Invite to the study */
