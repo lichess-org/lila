@@ -486,7 +486,6 @@
   <string name="wins">Victòries</string>
   <string name="losses">Derrotes</string>
   <string name="createdBy">Creat per</string>
-  <string name="tournamentIsStarting">El torneig està començant</string>
   <string name="tournamentPairingsAreNowClosed">Els emparellaments del torneig ja estan tancats.</string>
   <string name="standByX">Estigues a punt %s, emparellant jugadors, prepara\'t!</string>
   <string name="pause">Pausar</string>
@@ -501,7 +500,6 @@
   <string name="blackWins">Victòries negres</string>
   <string name="drawRate">Percentatge de taules</string>
   <string name="draws">Entaulades</string>
-  <string name="nextXTournament">Proper torneig de %s:</string>
   <string name="averageOpponent">Oponent mitjà</string>
   <string name="boardEditor">Editor del tauler</string>
   <string name="setTheBoard">Disposa el tauler</string>
