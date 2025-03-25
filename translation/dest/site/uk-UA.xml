@@ -558,7 +558,6 @@
   <string name="wins">Перемоги</string>
   <string name="losses">Поразки</string>
   <string name="createdBy">Створив</string>
-  <string name="tournamentIsStarting">Турнір починається</string>
   <string name="tournamentPairingsAreNowClosed">Жеребкування турніру завершено.</string>
   <string name="standByX">Очікуйте, %s, йде жеребкування, будьте готові!</string>
   <string name="pause">Пауза</string>
@@ -573,7 +572,6 @@
   <string name="blackWins">Перемог чорними</string>
   <string name="drawRate">Шанс нічиєї</string>
   <string name="draws">Нічиїх</string>
-  <string name="nextXTournament">Наступний турнір з %s:</string>
   <string name="averageOpponent">Середній рейтинг суперника</string>
   <string name="boardEditor">Редактор дошки</string>
   <string name="setTheBoard">Встановити позицію</string>
