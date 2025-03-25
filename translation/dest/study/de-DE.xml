@@ -55,10 +55,7 @@
   <string name="playing">Laufende Partien</string>
   <string name="showResults">Ergebnisse</string>
   <string name="showEvalBar">Stellungsbewertungs-Balken</string>
-  <string name="first">Erste Seite</string>
-  <string name="previous">Zurück</string>
   <string name="next">Weiter</string>
-  <string name="last">Letzte Seite</string>
   <string name="shareAndExport">Teilen und exportieren</string>
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">Studien PGN</string>
