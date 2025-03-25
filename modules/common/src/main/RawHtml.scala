@@ -177,15 +177,32 @@ object RawHtml:
         Html(s"""<img class="embed" src="$img" alt="$url"/>""")
       }
 
-  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
-  def justMarkdownLinks(escapedHtml: Html): Html = Html:
+  private def isUnsafeProtocol(url: String): Boolean =
+    val colonIndex = url.indexOf(':')
+    colonIndex > 0 && {
+      val protocol = url.substring(0, colonIndex).toLowerCase
+      protocol != "http" && protocol != "https"
+    }
+
+  val markdownLinkRegex = """\[([^\]]+)\]\(([^\)]+)\)""".r
+
+  def justMarkdownLinks(escapedHtml: Html)(using NetDomain): Html = Html(
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,
       m =>
-        val content = Matcher.quoteReplacement(m.group(1))
-        val href    = removeUrlTrackingParameters(m.group(2))
-        s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
+        val text        = Matcher.quoteReplacement(escapeHtmlRaw(m.group(1)))
+        val originalUrl = m.group(2)
+        val rawUrl      = removeUrlTrackingParameters(originalUrl)
+        if isUnsafeProtocol(rawUrl) then Matcher.quoteReplacement(m.matched)
+        else
+          val href = Matcher.quoteReplacement(
+            rawUrl match
+              case u if u.startsWith("http") => u
+              case _                         => s"https://${NetDomain.value}/$rawUrl"
+          )
+          s"""<a rel="nofollow noopener noreferrer" href="$href">$text</a>"""
     )
+  )
 
   private val trackingParametersRegex =
     """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
