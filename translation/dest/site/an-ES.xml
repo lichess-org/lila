@@ -485,7 +485,6 @@
   <string name="wins">Victorias</string>
   <string name="losses">Redotas</string>
   <string name="createdBy">Creau per</string>
-  <string name="tournamentIsStarting">Lo torneyo va a empecipiar</string>
   <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los emparellamientos d\'o torneyo.</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
   <string name="pause">Pausa</string>
@@ -500,7 +499,6 @@
   <string name="blackWins">Victorias negras</string>
   <string name="drawRate">Percentache de taulas</string>
   <string name="draws">Taulas</string>
-  <string name="nextXTournament">Siguient torneyo %s:</string>
   <string name="averageOpponent">Oponent meyo</string>
   <string name="boardEditor">Editor d\'escaquero</string>
   <string name="setTheBoard">Configurar escaquero</string>
