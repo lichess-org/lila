@@ -557,7 +557,6 @@
   <string name="wins">Zmage</string>
   <string name="losses">Porazi</string>
   <string name="createdBy">Ustvaril</string>
-  <string name="tournamentIsStarting">Turnir se začenja</string>
   <string name="tournamentPairingsAreNowClosed">Pari turnirja so zaključeni.</string>
   <string name="standByX">%s počakajte. Delajo se pari, bodite pripravljeni!</string>
   <string name="pause">Premor</string>
@@ -572,7 +571,6 @@
   <string name="blackWins">Črnih zmag</string>
   <string name="drawRate">Stopnja remija</string>
   <string name="draws">Odstotek remijev</string>
-  <string name="nextXTournament">Naslednji %s turnir:</string>
   <string name="averageOpponent">Povprečen nasprotnik</string>
   <string name="boardEditor">Urejevalec igralne površine</string>
   <string name="setTheBoard">Uredi šahovnico</string>
