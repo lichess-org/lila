@@ -34,10 +34,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">СССК-ийн бүх гишүүд ижил байрлалд байна</string>
   <string name="shareChanges">Сонирхогчдын өөрчлөлтийг хуваалцаж, тэднийг сервер дээр хадгалах</string>
   <string name="playing">Тоглож байна</string>
-  <string name="first">Нэгтэх</string>
-  <string name="previous">Өмнөх</string>
   <string name="next">Дараах</string>
-  <string name="last">Хамгийн сүүлд</string>
   <string name="shareAndExport">Хуваалцах &amp; amp; экспорт</string>
   <string name="cloneStudy">Цэвэрлэх</string>
   <string name="studyPgn">PGN судалгаа</string>
