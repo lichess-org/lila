@@ -31,26 +31,22 @@ export function initModule(): StudyTour {
 
     const steps: Shepherd.Step.StepOptions[] = [
       {
-        title: 'Welcome to Lichess Study!',
-        text:
-          'This is a shared analysis board.<br><br>' +
-          'Use it to analyse and annotate games,<br>' +
-          'discuss positions with friends,<br>' +
-          'and of course for chess lessons!<br><br>' +
-          "It's a powerful tool, let's take some time to see how it works.",
+        title: i18n.study.welcomeToLichessStudyTitle,
+        text: i18n.study.welcomeToLichessStudyText,
         attachTo: { element: helpButtonSelector, on: 'top' },
       },
       {
-        title: 'Shared and saved',
-        text: 'Other members can see your moves in real time!<br>' + 'Plus, everything is saved forever.',
+        title: i18n.study.sharedAndSaveTitle,
+        text: i18n.study.sharedAndSavedText,
         attachTo: { element: 'main.analyse .areplay', on: 'left' },
         when: closeActionMenu,
       },
       {
-        title: 'Study members',
-        text:
-          `<i data-icon='${licon.Eye}'></i> Spectators can view the study and talk in the chat.<br>` +
-          `<br><i data-icon='${licon.User}'></i> Contributors can make moves and update the study.`,
+        title: i18n.study.studyMembersTitle,
+        text: i18n.study.studyMembersText(
+          `<i data-icon='${licon.Eye}'></i>`,
+          `<i data-icon='${licon.User}'></i>`,
+        ),
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
       },
@@ -58,59 +54,40 @@ export function initModule(): StudyTour {
 
     if (ctrl.study?.members.isOwner()) {
       steps.push({
-        title: 'Invite members',
-        text:
-          `By clicking the <i data-icon='${licon.PlusButton}'></i> button.<br>` +
-          'Then decide who can contribute or not.',
+        title: i18n.study.addMembers,
+        text: i18n.study.addMembersText(`<i data-icon='${licon.PlusButton}'></i>`),
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
       });
     }
 
     steps.push({
-      title: 'Study chapters',
-      text:
-        'A study can contain several chapters.<br>' +
-        'Each chapter has a distinct initial position and move tree.',
+      title: i18n.study.studyChaptersTitle,
+      text: i18n.study.studyChaptersText,
       attachTo: { element: '.study__chapters', on: 'right' },
       when: onTab('chapters'),
     });
 
     if (ctrl.study?.members.canContribute()) {
       steps.push({
-        title: 'Create new chapters',
-        text: `By clicking the <i data-icon='${licon.PlusButton}'></i> button.`,
-        attachTo: { element: '.study__chapters .add', on: 'right' },
-        when: onTab('chapters'),
-        scrollTo: true,
-      });
-      steps.push({
-        title: 'Comment on a position',
-        text:
-          `With the <i data-icon='${licon.BubbleSpeech}'></i> button, or a right click on the move ` +
-          'list on the right.<br>Comments are shared and persisted.',
+        title: i18n.study.commentPositionTitle,
+        text: i18n.study.commentPositionText(`<i data-icon='${licon.BubbleSpeech}'></i>`),
         attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
       });
       steps.push({
-        title: 'Annotate a position',
-        text:
-          'With the !? button, or a right click on the move list on the right.<br>' +
-          'Annotation glyphs are shared and persisted.',
+        title: i18n.study.annotatePositionTitle,
+        text: i18n.study.annotatePositionText,
         attachTo: { element: '.study__buttons .left-buttons .glyphs', on: 'top' },
       });
     }
 
     steps.push({
-      title: 'Thanks for your time',
-      text:
-        "You can find your <a href='/study/mine/hot'>previous studies</a> from your profile page.<br>" +
-        "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>" +
-        'Power users might want to press "?" to see keyboard shortcuts.<br>' +
-        'Have fun!',
+      title: i18n.study.conclusionTitle,
+      text: i18n.study.conclusionText,
       attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
-          text: 'Done',
+          text: `<i data-icon='${licon.Checkmark}'></i>`,
           action: tourCtrl.tour.next,
         },
       ],
@@ -130,61 +107,52 @@ export function initModule(): StudyTour {
 
     const steps: Shepherd.Step.StepOptions[] = [
       {
-        title: "Let's create a study chapter",
-        text:
-          'A study can have several chapters.<br>' +
-          'Each chapter has a distinct move tree,<br>' +
-          'and can be created in various ways.',
+        title: i18n.study.createChapterTitle,
+        text: i18n.study.createChapterText,
         attachTo: { element: `${viewSel} label[for=chapter-name]`, on: 'left' },
       },
       {
-        title: 'From initial position',
-        text: 'Just a board setup for a new game.<br>' + 'Suited to explore openings.',
+        title: i18n.study.fromInitialPositionTitle,
+        text: i18n.study.fromInitialPositionText,
         attachTo: { element: `${viewSel} .tabs-horiz .init`, on: 'top' },
         when: onTab('init'),
       },
       {
-        title: 'Custom position',
-        text: 'Setup the board your way.<br>' + 'Suited to explore endgames.',
+        title: i18n.study.customPositionTitle,
+        text: i18n.study.customPositionText,
         attachTo: { element: `${viewSel} .tabs-horiz .edit`, on: 'bottom' },
         when: onTab('edit'),
       },
       {
-        title: 'Load an existing lichess game',
-        text:
-          'Paste a lichess game URL<br>' +
-          '(like lichess.org/7fHIU0XI)<br>' +
-          'to load the game moves in the chapter.',
+        title: i18n.study.loadExistingLichessGameTitle,
+        text: i18n.study.loadExistingLichessGameText,
         attachTo: { element: `${viewSel} .tabs-horiz .game`, on: 'top' },
         when: onTab('game'),
       },
       {
-        title: 'From a FEN string',
-        text:
-          'Paste a position in FEN format<br>' +
-          '<i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>' +
-          'to start the chapter from a position.',
+        title: i18n.study.fromFenStringTitle,
+        text: i18n.study.fromFenStringText,
         attachTo: { element: `${viewSel} .tabs-horiz .fen`, on: 'top' },
         when: onTab('fen'),
       },
       {
-        title: 'From a PGN game',
-        text: 'Paste a game in PGN format.<br>' + 'to load moves, comments and variations in the chapter.',
+        title: i18n.study.fromPgnGameTitle,
+        text: i18n.study.fromPgnGameText,
         attachTo: { element: `${viewSel} .tabs-horiz .pgn`, on: 'top' },
         when: onTab('pgn'),
       },
       {
-        title: 'Studies support variants',
-        text: 'Yes, you can study crazyhouse,<br>' + 'and all lichess variants!',
+        title: i18n.study.variantsAreSupportedTitle,
+        text: i18n.study.variantsAreSupportedText,
         attachTo: { element: `${viewSel} label[for=chapter-variant]`, on: 'left' },
         when: onTab('init'),
       },
       {
-        title: 'Thanks for your time',
-        text: 'Chapters are saved forever.<br>' + 'Have fun organizing your chess content!',
+        title: i18n.study.conclusionTitle,
+        text: i18n.study.chapterConclusionText,
         buttons: [
           {
-            text: 'Done',
+            text: `<i data-icon='${licon.Checkmark}'></i>`,
             action: tourCtrl.tour.next,
           },
         ],
@@ -215,7 +183,7 @@ class TourCtrl {
   buildTour(steps: Shepherd.Step.StepOptions[]) {
     const buttons: Shepherd.Step.StepOptionsButton[] = [
       {
-        text: 'Next',
+        text: i18n.study.next,
         action: this.tour.next,
       },
     ];

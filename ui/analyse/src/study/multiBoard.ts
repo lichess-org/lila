@@ -135,11 +135,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton(i18n.study.first, licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton(i18n.study.previous, licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
+    pagerButton(licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton(i18n.study.next, licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton(i18n.study.last, licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',
@@ -167,15 +167,9 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
     : undefined;
 };
 
-function pagerButton(
-  text: string,
-  icon: string,
-  click: () => void,
-  enable: boolean,
-  ctrl: MultiBoardCtrl,
-): VNode {
+function pagerButton(icon: string, click: () => void, enable: boolean, ctrl: MultiBoardCtrl): VNode {
   return h('button.fbt', {
-    attrs: { 'data-icon': icon, disabled: !enable, title: text },
+    attrs: { 'data-icon': icon, disabled: !enable },
     hook: bind('mousedown', click, ctrl.redraw),
   });
 }
