@@ -18,7 +18,7 @@ final private class ExplorerGameApi(
 
   def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, UciPath)]] =
     if position.chapter.isOverweight then
-      logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
+      logger.error(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     else
       explorer(gameId).mapz: game =>
