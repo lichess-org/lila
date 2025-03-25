@@ -747,6 +747,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="downloadAnnotated">Shkarkoje me shënimet</string>
   <string name="downloadRaw">Shkarkoje shqeto</string>
   <string name="downloadImported">Shkarko të importuarën</string>
+  <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>
