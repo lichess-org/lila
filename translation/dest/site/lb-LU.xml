@@ -483,7 +483,6 @@
   <string name="wins">Victoiren</string>
   <string name="losses">Defaiten</string>
   <string name="createdBy">Kreéiert vum</string>
-  <string name="tournamentIsStarting">Den Turnéier geet lass</string>
   <string name="tournamentPairingsAreNowClosed">Turnéierpaarungen sin elo zou.</string>
   <string name="standByX">Turnéier-Paarungen lafen. Maach dech prett, %s!</string>
   <string name="pause">Paus</string>
@@ -498,7 +497,6 @@
   <string name="blackWins">Schwaarz Victoiren</string>
   <string name="drawRate">Remisquot</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerchschnëttleche Géigner</string>
   <string name="boardEditor">Briet-Editor</string>
   <string name="setTheBoard">Briet opbauen</string>
