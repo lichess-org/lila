@@ -756,6 +756,7 @@
   <string name="downloadAnnotated">Descàrrega anotada</string>
   <string name="downloadRaw">Descàrrega prima</string>
   <string name="downloadImported">Descàrrega importada</string>
+  <string name="downloadAllGames">Descarrega totes les partides</string>
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu el ratolí sobre les variants d\'anàlisi per a previsualitzar-les.</string>
