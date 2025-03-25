@@ -55,10 +55,7 @@
   <string name="playing">Spelar no</string>
   <string name="showResults">Resultat</string>
   <string name="showEvalBar">Evalueringssøyler</string>
-  <string name="first">Første</string>
-  <string name="previous">Attende</string>
   <string name="next">Neste</string>
-  <string name="last">Siste</string>
   <string name="shareAndExport">Del &amp; eksporter</string>
   <string name="cloneStudy">Klon</string>
   <string name="studyPgn">Studie-PGN</string>
