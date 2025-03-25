@@ -166,4 +166,23 @@
   <string name="whatWouldYouPlay">Que jugaríeu en aquesta posició?</string>
   <string name="youCompletedThisLesson">Enhorabona, heu completat aquesta lliçó.</string>
   <string name="perPage">%s per pàgina</string>
+  <string name="getTheTour">Necessites ajuda? Segueix el gira!</string>
+  <string name="welcomeToLichessStudyTitle">Benvingut/da als estudis de Lichess!</string>
+  <string name="welcomeToLichessStudyText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Això és un tauler d\'anàlisis compartit.&lt;br&gt;&lt;br&gt;Utilitzal per analitzar i anotar partides,&lt;br&gt;discutir posicions amb els amics,&lt;br&gt; i per descomptat per lliçons d\'escacs!&lt;br&gt;&lt;br&gt;És una eina molt poderosa, anem a veure com funciona.</string>
+  <string name="sharedAndSaveTitle" comment="As in: shared with other members and saved to database">Compartit i guardat</string>
+  <string name="sharedAndSavedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Els altres membres poden veure els teus moviments en temps real!&lt;br&gt;A més a més, tot es guarda per sempre.</string>
+  <string name="studyMembersTitle">Membres de l\'estudi</string>
+  <string name="studyMembersText" comment="%1$s and %2$s are icons that are shown inline with the text.&#10;%1$s is the icon for spectators, while %2$s is the icon for contributors.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">%1$s Els espectadors poden veure l\'estudi i parlar al xat.&lt;br&gt;&lt;br&gt;%2$s Els contribuïdors poden realitzar moviments i actualitzar l\'estudi.</string>
+  <string name="addMembersText" comment="%s is an icon that shows what the button looks like.&#10;&#10;The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line.">Cliqueu el botó %s.&lt;br&gt; Aleshores decideix qui pot contribuir i qui no.</string>
+  <string name="studyChaptersTitle">Capítols de l\'estudi</string>
+  <string name="studyChaptersText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Un estudi pot tenir diversos capítols.&lt;br&gt;Cada capítol té una posició inicial i un arbre de jugades diferent.</string>
+  <string name="commentPositionTitle">Comentar una posició</string>
+  <string name="annotatePositionTitle">Anotar una posició</string>
+  <string name="conclusionTitle">Gràcies pel teu temps</string>
+  <string name="createChapterTitle">Creem un capítol de l\'estudi</string>
+  <string name="fromInitialPositionTitle">A partir de la posició inicial</string>
+  <string name="customPositionTitle">Posició personalitzada</string>
+  <string name="loadExistingLichessGameTitle">Carrega una partida existent de Lichess</string>
+  <string name="fromFenStringTitle">A partir d\'una cadena FEN</string>
+  <string name="fromPgnGameTitle">A partir d\'una partida en PGN</string>
 </resources>
