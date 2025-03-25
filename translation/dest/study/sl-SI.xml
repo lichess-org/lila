@@ -61,10 +61,7 @@
   <string name="playing">V teku</string>
   <string name="showResults">Rezultati</string>
   <string name="showEvalBar">Ocenjevalne vrstice</string>
-  <string name="first">Prva stran</string>
-  <string name="previous">Prejšnja stran</string>
   <string name="next">Naslednja stran</string>
-  <string name="last">Zadnja stran</string>
   <string name="shareAndExport">Deli in Izvozi podatke</string>
   <string name="cloneStudy">Kloniraj</string>
   <string name="studyPgn">PGN študije</string>
