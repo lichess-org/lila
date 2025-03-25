@@ -488,7 +488,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="wins">Sieg</string>
   <string name="losses">Niederlage</string>
   <string name="createdBy">Erschtellt vo</string>
-  <string name="tournamentIsStarting">s\'Turnier fangt a</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
   <string name="standByX">Achtung %s, es git neui Paarige, mach dich parat!</string>
   <string name="pause">Pausiere</string>
@@ -503,7 +502,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="blackWins">Sieg mit Schwarz</string>
   <string name="drawRate">Remis-Rate</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Nächschts %s Turnier:</string>
   <string name="averageOpponent">Durchschnitt - Gägner</string>
   <string name="boardEditor">Schtellig ufbaue</string>
   <string name="setTheBoard">Brätt ufbaue</string>
