@@ -52,10 +52,7 @@
   <string name="playing">Đang chơi</string>
   <string name="showResults">Kết quả</string>
   <string name="showEvalBar">Thanh lợi thế</string>
-  <string name="first">Trang đầu</string>
-  <string name="previous">Trang trước</string>
   <string name="next">Trang tiếp theo</string>
-  <string name="last">Trang cuối</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Nhân bản</string>
   <string name="studyPgn">PGN nghiên cứu</string>
