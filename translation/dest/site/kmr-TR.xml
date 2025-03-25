@@ -485,7 +485,6 @@
   <string name="wins">Serkeftin</string>
   <string name="losses">Mexlûbiyet</string>
   <string name="createdBy">Hate çêkirin ji aliyê</string>
-  <string name="tournamentIsStarting">Pêşbirk dest pê dike</string>
   <string name="tournamentPairingsAreNowClosed">Lihevanînên pêşbirkê vê gavê girtî ye.</string>
   <string name="standByX">Amade be %s, lîzer têne lihevanîn!</string>
   <string name="pause">Bisekîne</string>
@@ -500,7 +499,6 @@
   <string name="blackWins">Serkeftinên reş</string>
   <string name="drawRate">Rêjeya wekhevmayînê</string>
   <string name="draws">Wekhevî</string>
-  <string name="nextXTournament">Pêşbirka li dû %s:</string>
   <string name="averageOpponent">Dijbera averaj</string>
   <string name="boardEditor">Edîtorê texteyê</string>
   <string name="setTheBoard">Texteyê bisazîne</string>
