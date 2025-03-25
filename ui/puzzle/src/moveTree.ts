@@ -3,7 +3,7 @@ import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { makeSquare, makeUci, parseUci } from 'chessops/util';
 import { scalachessCharPair } from 'chessops/compat';
-import { type TreeWrapper, path as pathOps } from 'tree';
+import { type TreeWrapper, path as pathOps } from 'lib/tree/tree';
 import { isNormal, type Move, type NormalMove } from 'chessops/types';
 import type PuzzleCtrl from './ctrl';
 

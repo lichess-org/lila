@@ -4,10 +4,5 @@
     "skipLibCheck": true,
     "noImplicitReturns": false
   },
-  "references": [
-    { "path": "../chat/tsconfig.json" },
-    { "path": "../chess/tsconfig.json" },
-    { "path": "../common/tsconfig.json" },
-    { "path": "../voice/tsconfig.json" }
-  ]
+  "references": [{ "path": "../lib/tsconfig.json" }, { "path": "../voice/tsconfig.json" }]
 }

@@ -1,6 +1,6 @@
-import { domDialog, type Dialog } from 'common/dialog';
-import { frag, escapeHtml } from 'common';
-import * as licon from 'common/licon';
+import { domDialog, type Dialog } from 'lib/dialog';
+import { frag, escapeHtml } from 'lib';
+import * as licon from 'lib/licon';
 import type { EditDialog } from './editDialog';
 import { env } from './devEnv';
 import type { BotInfo } from '../types';

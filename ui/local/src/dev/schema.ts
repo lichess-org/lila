@@ -1,5 +1,5 @@
 import type { Schema, InfoKey, PropertyValue } from './devTypes';
-import { deepFreeze } from 'common/algo';
+import { deepFreeze } from 'lib/algo';
 
 // describe dialog content, define constraints, maps to Bot instance data
 

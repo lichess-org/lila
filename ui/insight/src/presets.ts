@@ -1,5 +1,5 @@
-import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind } from 'lib/snabbdom';
 import { h } from 'snabbdom';
 import type Ctrl from './ctrl';
 import type { Preset } from './interfaces';

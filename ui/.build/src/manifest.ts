@@ -67,7 +67,7 @@ async function writeManifest() {
 
   const pairLine = ([name, info]: [string, SplitAsset]) => `'${name.replaceAll("'", "\\'")}':'${info.hash}'`;
   const jsLines = Object.entries(manifest.js)
-    .filter(([name, _]) => !/common\.[A-Z0-9]{8}/.test(name))
+    .filter(([name, _]) => !/lib\.[A-Z0-9]{8}/.test(name))
     .map(pairLine)
     .join(',');
   const cssLines = Object.entries(manifest.css).map(pairLine).join(',');

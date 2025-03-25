@@ -1,5 +1,5 @@
-import { text as xhrText, json as xhrJson, form as xhrForm } from 'common/xhr';
-import { throttlePromiseDelay } from 'common/async';
+import { text as xhrText, json as xhrJson, form as xhrForm } from 'lib/xhr';
+import { throttlePromiseDelay } from 'lib/async';
 import type { RunResponse, StormRecap } from './interfaces';
 
 export function record(run: StormRecap): Promise<RunResponse> {

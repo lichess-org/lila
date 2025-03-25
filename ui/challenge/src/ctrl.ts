@@ -1,5 +1,5 @@
-import { text as xhrText, form as xhrForm } from 'common/xhr';
-import { once } from 'common/storage';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+import { once } from 'lib/storage';
 import type { ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 
 export default class ChallengeCtrl {

@@ -1,15 +1,15 @@
 import * as co from 'chessops';
-import { type VNode, looseH as h, onInsert, bind } from 'common/snabbdom';
-import * as licon from 'common/licon';
-import { storedBooleanProp, storedIntProp } from 'common/storage';
-import { domDialog } from 'common/dialog';
+import { type VNode, looseH as h, onInsert, bind } from 'lib/snabbdom';
+import * as licon from 'lib/licon';
+import { storedBooleanProp, storedIntProp } from 'lib/storage';
+import { domDialog } from 'lib/dialog';
 import { EditDialog } from './editDialog';
 import { Bot } from '../bot';
 import { resultsString, playersWithResults, rangeTicks } from './devUtil';
 import { type Drop, type HandOfCards, handOfCards } from './handOfCards';
 import { showSetupDialog } from './setupDialog';
 import { domIdToUid, uidToDomId } from './devBotCtrl';
-import { definedMap } from 'common/algo';
+import { definedMap } from 'lib/algo';
 import type { LocalSpeed, LocalSetup } from '../types';
 import { env } from './devEnv';
 

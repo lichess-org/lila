@@ -5,14 +5,14 @@ import { BotInfo } from 'local';
 import { BotCtrl as LocalBotCtrl } from 'local/botCtrl';
 import { setupView } from './setup/setupView';
 import { playView } from './play/view/playView';
-import { storedJsonProp } from 'common/storage';
-import { alert } from 'common/dialogs';
+import { storedJsonProp } from 'lib/storage';
+import { alert } from 'lib/dialogs';
 import { Bot } from 'local/bot';
 import { Assets } from 'local/assets';
 import { opposite } from 'chessops';
 import { Game, makeGame } from './game';
 import { debugCli } from './debug';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export class BotCtrl {
   setupCtrl: SetupCtrl;

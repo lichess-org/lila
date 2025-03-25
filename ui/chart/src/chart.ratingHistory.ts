@@ -20,8 +20,8 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import utc from 'dayjs/plugin/utc';
-import { memoize } from 'common';
-import { pubsub } from 'common/pubsub';
+import { memoize } from 'lib';
+import { pubsub } from 'lib/pubsub';
 
 interface Opts {
   data: PerfRatingHistory[];

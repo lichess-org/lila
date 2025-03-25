@@ -1,20 +1,20 @@
-import * as licon from 'common/licon';
-import { bind, looseH as h, onInsert, LooseVNodes, dataIcon, VNode } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, looseH as h, onInsert, LooseVNodes, dataIcon, VNode } from 'lib/snabbdom';
 import { Chessground } from 'chessground';
-import { stepwiseScroll } from 'common/controls';
+import { stepwiseScroll } from 'lib/controls';
 import type PlayCtrl from '../playCtrl';
 import { initialGround } from '../../ground';
 import { botAssetUrl } from 'local/assets';
 import { BotInfo } from 'local';
 import { autoScroll } from './autoScroll';
-import { repeater } from 'common';
-import { bindMobileMousedown } from 'common/device';
-import { StatusData, statusOf as viewStatus } from 'game/view/status';
-import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
+import { repeater } from 'lib';
+import { bindMobileMousedown } from 'lib/device';
+import { StatusData, statusOf as viewStatus } from 'lib/game/view/status';
+import { toggleButton as boardMenuToggleButton } from 'lib/boardMenu';
 import boardMenu from './boardMenu';
-import { renderMaterialDiffs } from 'game/view/material';
-import { TopOrBottom } from 'game';
-import { renderClock } from 'game/clock/clockView';
+import { renderMaterialDiffs } from 'lib/game/view/material';
+import { TopOrBottom } from 'lib/game/game';
+import { renderClock } from 'lib/game/clock/clockView';
 
 export const playView = (ctrl: PlayCtrl) =>
   h('main.bot-app.bot-game.unique-game-' + ctrl.game.id, [
@@ -26,18 +26,21 @@ export const playView = (ctrl: PlayCtrl) =>
 const viewTable = (ctrl: PlayCtrl) => {
   const diffs = materialDiffs(ctrl);
   return [
-    viewOpponent(ctrl.opts.bot, diffs[0]),
-    viewClock(ctrl, 'top'),
+    viewOpponentImage(ctrl.opts.bot),
+    viewClockMat(ctrl, 'top', diffs[0]),
+    viewOpponent(ctrl.opts.bot),
     viewMoves(ctrl),
     viewNavigation(ctrl),
     viewActions(ctrl),
-    viewClock(ctrl, 'bottom'),
-    diffs[1],
+    viewClockMat(ctrl, 'bottom', diffs[1]),
   ];
 };
 
-const viewClock = (ctrl: PlayCtrl, position: TopOrBottom) =>
-  ctrl.clock && renderClock(ctrl.clock, ctrl.colorAt(position), position, () => []);
+const viewClockMat = (ctrl: PlayCtrl, position: TopOrBottom, material: VNode) =>
+  h(`div.bot-game__clock-mat.bot-game__clock-mat--${position}`, [
+    ctrl.clock && renderClock(ctrl.clock, ctrl.colorAt(position), position, () => []),
+    material,
+  ]);
 
 const viewActions = (ctrl: PlayCtrl) =>
   h('div.bot-game__actions', [
@@ -154,17 +157,16 @@ const goThroughMoves = (ctrl: PlayCtrl, e: Event) => {
   );
 };
 
-const viewOpponent = (bot: BotInfo, materialDiff: VNode) =>
+const viewOpponentImage = (bot: BotInfo) =>
+  h('img.bot-game__opponent-img', {
+    attrs: { src: bot.image && botAssetUrl('image', bot.image) },
+  });
+
+const viewOpponent = (bot: BotInfo) =>
   h('div.bot-game__opponent', [
     h('div.bot-game__opponent__head', [
-      h('img.bot-game__opponent__image', {
-        attrs: { src: bot.image && botAssetUrl('image', bot.image) },
-      }),
-      h('div.bot-game__opponent__info', [
-        h('h2.bot-game__opponent__name', bot.name),
-        h('span.bot-game__opponent__rating', '' + bot.ratings['classical']),
-        materialDiff,
-      ]),
+      h('h2.bot-game__opponent__name', bot.name),
+      h('span.bot-game__opponent__rating', '' + bot.ratings['classical']),
     ]),
     h('div.bot-game__opponent__description', bot.description),
   ]);

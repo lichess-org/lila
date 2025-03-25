@@ -7,8 +7,8 @@ import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
 import format from 'date-fns/format';
 import type { Tournament } from '../interfaces';
 import type { Ctrl, Lanes } from '../tournament.calendar';
-import * as licon from 'common/licon';
-import perfIcons from 'game/perfIcons';
+import * as licon from 'lib/licon';
+import perfIcons from 'lib/game/perfIcons';
 
 function tournamentClass(tour: Tournament, day: Date): Classes {
   const classes = {

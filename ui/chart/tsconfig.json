@@ -1,8 +1,4 @@
 {
   "extends": "../tsconfig.base.json",
-  "references": [
-    { "path": "../common/tsconfig.json" },
-    { "path": "../ceval/tsconfig.json" },
-    { "path": "../chess/tsconfig.json" }
-  ]
+  "references": [{ "path": "../lib/tsconfig.json" }]
 }

@@ -1,7 +1,7 @@
-import * as xhr from 'common/xhr';
+import * as xhr from 'lib/xhr';
 import type { LearnProgress } from './learn';
 import type { Stage } from './stage/list';
-import { storage } from 'common/storage';
+import { storage } from 'lib/storage';
 
 export interface Storage {
   data: LearnProgress;

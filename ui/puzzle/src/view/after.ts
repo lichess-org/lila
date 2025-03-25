@@ -1,5 +1,5 @@
-import * as licon from 'common/licon';
-import { type VNode, type MaybeVNodes, bind, dataIcon, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { type VNode, type MaybeVNodes, bind, dataIcon, looseH as h } from 'lib/snabbdom';
 import type PuzzleCtrl from '../ctrl';
 
 const renderVote = (ctrl: PuzzleCtrl): VNode =>

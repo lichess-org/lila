@@ -140,13 +140,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
     )
 
-  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList, isInquiry: Boolean)(using
-      ctx: Context
-  ) =
+  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList)(using ctx: Context) =
     val i18nModules = i18nMods.map(mod => s"i18n/${mod(I18nModule)}.${ctx.lang.code}")
-    scriptsPreload(
-      i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
-    )
+    scriptsPreload(i18nModules ::: "site" :: modules.map(_.map(_.key)).flatten)
 
   def scriptsPreload(keys: List[String]) =
     frag(

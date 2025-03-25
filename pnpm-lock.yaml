@@ -79,36 +79,21 @@ importers:
       bits:
         specifier: workspace:*
         version: link:../bits
-      ceval:
-        specifier: workspace:*
-        version: link:../ceval
       chart:
         specifier: workspace:*
         version: link:../chart
-      chat:
-        specifier: workspace:*
-        version: link:../chat
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
       editor:
         specifier: workspace:*
         version: link:../editor
-      game:
-        specifier: workspace:*
-        version: link:../game
       keyboardMove:
         specifier: workspace:*
         version: link:../keyboardMove
-      nvui:
+      lib:
         specifier: workspace:*
-        version: link:../nvui
+        version: link:../lib
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -121,15 +106,6 @@ importers:
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
-      tree:
-        specifier: workspace:*
-        version: link:../tree
-
-  ui/api:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
 
   ui/bits:
     dependencies:
@@ -166,21 +142,9 @@ importers:
       '@yaireo/tagify':
         specifier: 4.17.9
         version: 4.17.9(prop-types@15.8.1)
-      api:
-        specifier: workspace:*
-        version: link:../api
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
-      chat:
-        specifier: workspace:*
-        version: link:../chat
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
       cropperjs:
         specifier: ^1.6.2
         version: 1.6.2
@@ -193,9 +157,9 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
-      game:
+      lib:
         specifier: workspace:*
-        version: link:../game
+        version: link:../lib
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0
@@ -217,30 +181,128 @@ importers:
 
   ui/botPlay:
     dependencies:
-      chess:
+      lib:
         specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
+        version: link:../lib
       local:
         specifier: workspace:*
         version: link:../local
 
-  ui/ceval:
+  ui/challenge:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/chart:
+    dependencies:
+      '@juggle/resize-observer':
+        specifier: ^3.4.0
+        version: 3.4.0
+      chart.js:
+        specifier: 4.4.8
+        version: 4.4.8
+      chartjs-adapter-dayjs-4:
+        specifier: ^1.0.4
+        version: 1.0.4(chart.js@4.4.8)(dayjs@1.11.13)
+      chartjs-plugin-datalabels:
+        specifier: ^2.2.0
+        version: 2.2.0(chart.js@4.4.8)
+      chartjs-plugin-zoom:
+        specifier: ^2.2.0
+        version: 2.2.0(chart.js@4.4.8)
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+      nouislider:
+        specifier: ^15.8.1
+        version: 15.8.1
+
+  ui/cli:
+    dependencies:
+      dasher:
+        specifier: workspace:*
+        version: link:../dasher
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/coordinateTrainer:
+    dependencies:
+      '@fnando/sparkline':
+        specifier: ^0.3.10
+        version: 0.3.10
+      '@types/fnando__sparkline':
+        specifier: ^0.3.7
+        version: 0.3.7
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+      voice:
+        specifier: workspace:*
+        version: link:../voice
+
+  ui/dasher:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/dgt: {}
+
+  ui/editor:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/insight:
+    dependencies:
+      chart:
+        specifier: workspace:^
+        version: link:../chart
+      chart.js:
+        specifier: 4.4.8
+        version: 4.4.8
+      chartjs-plugin-datalabels:
+        specifier: ^2.2.0
+        version: 2.2.0(chart.js@4.4.8)
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/keyboardMove:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/learn:
+    dependencies:
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
+  ui/lib:
     dependencies:
       '@badrap/result':
         specifier: ^0.2.13
         version: 0.2.13
-      common:
-        specifier: workspace:*
-        version: link:../common
+      '@types/debounce-promise':
+        specifier: ^3.1.9
+        version: 3.1.9
+      debounce-promise:
+        specifier: ^3.1.2
+        version: 3.1.2
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
+      lichess-pgn-viewer:
+        specifier: ^2.4.0
+        version: 2.4.0
       lila-stockfish-web:
         specifier: 0.0.9
         version: 0.0.9
@@ -256,176 +318,24 @@ importers:
       stockfish.wasm:
         specifier: ^0.10.0
         version: 0.10.0
-
-  ui/challenge:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-
-  ui/chart:
-    dependencies:
-      '@juggle/resize-observer':
-        specifier: ^3.4.0
-        version: 3.4.0
-      ceval:
-        specifier: workspace:*
-        version: link:../ceval
-      chart.js:
-        specifier: 4.4.8
-        version: 4.4.8
-      chartjs-adapter-dayjs-4:
-        specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.8)(dayjs@1.11.13)
-      chartjs-plugin-datalabels:
-        specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.8)
-      chartjs-plugin-zoom:
-        specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.8)
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      dayjs:
-        specifier: ^1.11.13
-        version: 1.11.13
-      nouislider:
-        specifier: ^15.8.1
-        version: 15.8.1
-
-  ui/chat:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-      palantir:
-        specifier: workspace:*
-        version: link:../palantir
-
-  ui/chess:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-
-  ui/cli:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-      dasher:
-        specifier: workspace:*
-        version: link:../dasher
-
-  ui/common:
-    dependencies:
-      '@types/debounce-promise':
-        specifier: ^3.1.9
-        version: 3.1.9
-      debounce-promise:
-        specifier: ^3.1.2
-        version: 3.1.2
-      lichess-pgn-viewer:
-        specifier: ^2.4.0
-        version: 2.4.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
-
-  ui/coordinateTrainer:
-    dependencies:
-      '@fnando/sparkline':
-        specifier: ^0.3.10
-        version: 0.3.10
-      '@types/fnando__sparkline':
-        specifier: ^0.3.7
-        version: 0.3.7
-      common:
-        specifier: workspace:*
-        version: link:../common
-      voice:
-        specifier: workspace:*
-        version: link:../voice
-
-  ui/dasher:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-
-  ui/dgt: {}
-
-  ui/editor:
-    dependencies:
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-
-  ui/game:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-
-  ui/insight:
-    dependencies:
-      chart:
-        specifier: workspace:^
-        version: link:../chart
-      chart.js:
-        specifier: 4.4.8
-        version: 4.4.8
-      chartjs-plugin-datalabels:
-        specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.8)
-      common:
-        specifier: workspace:*
-        version: link:../common
-
-  ui/keyboardMove:
-    dependencies:
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
-
-  ui/learn:
-    dependencies:
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
 
   ui/lobby:
     dependencies:
       '@types/debounce-promise':
         specifier: ^3.1.9
         version: 3.1.9
-      common:
-        specifier: workspace:*
-        version: link:../common
       dasher:
         specifier: workspace:*
         version: link:../dasher
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
-      game:
+      lib:
         specifier: workspace:*
-        version: link:../game
+        version: link:../lib
 
   ui/local:
     dependencies:
@@ -438,27 +348,21 @@ importers:
       chart.js:
         specifier: 4.4.3
         version: 4.4.3
-      chess:
-        specifier: workspace:*
-        version: link:../chess
       chessops:
         specifier: ^0.14.0
         version: 0.14.2
-      common:
-        specifier: workspace:*
-        version: link:../common
       editor:
         specifier: workspace:*
         version: link:../editor
       fast-diff:
         specifier: ^1.3.0
         version: 1.3.0
-      game:
-        specifier: workspace:*
-        version: link:../game
       json-stringify-pretty-compact:
         specifier: 4.0.0
         version: 4.0.0
+      lib:
+        specifier: workspace:*
+        version: link:../lib
       round:
         specifier: workspace:*
         version: link:../round
@@ -480,12 +384,12 @@ importers:
       apexcharts:
         specifier: ^3.54.1
         version: 3.54.1
-      common:
-        specifier: workspace:*
-        version: link:../common
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
+      lib:
+        specifier: workspace:*
+        version: link:../lib
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -495,24 +399,15 @@ importers:
 
   ui/msg:
     dependencies:
-      common:
+      lib:
         specifier: workspace:*
-        version: link:../common
+        version: link:../lib
 
   ui/notify:
     dependencies:
-      common:
+      lib:
         specifier: workspace:*
-        version: link:../common
-
-  ui/nvui:
-    dependencies:
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
+        version: link:../lib
 
   ui/opening:
     dependencies:
@@ -525,15 +420,15 @@ importers:
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
         version: 1.0.4(chart.js@4.4.8)(dayjs@1.11.13)
-      common:
-        specifier: workspace:*
-        version: link:../common
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
+      lib:
+        specifier: workspace:*
+        version: link:../lib
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0
@@ -543,69 +438,39 @@ importers:
       '@types/webrtc':
         specifier: ^0.0.44
         version: 0.0.44
-      common:
+      lib:
         specifier: workspace:*
-        version: link:../common
+        version: link:../lib
       peerjs:
         specifier: ^1.5.4
         version: 1.5.4
 
-  ui/puz:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-
   ui/puzzle:
     dependencies:
-      ceval:
-        specifier: workspace:*
-        version: link:../ceval
       chart.js:
         specifier: 4.4.8
         version: 4.4.8
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
       keyboardMove:
         specifier: workspace:*
         version: link:../keyboardMove
-      nvui:
+      lib:
         specifier: workspace:*
-        version: link:../nvui
-      tree:
-        specifier: workspace:*
-        version: link:../tree
+        version: link:../lib
       voice:
         specifier: workspace:*
         version: link:../voice
 
   ui/racer:
     dependencies:
-      chess:
+      lib:
         specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      puz:
-        specifier: workspace:*
-        version: link:../puz
+        version: link:../lib
 
   ui/recap:
     dependencies:
-      common:
+      lib:
         specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
+        version: link:../lib
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0
@@ -615,24 +480,12 @@ importers:
 
   ui/round:
     dependencies:
-      chat:
-        specifier: workspace:*
-        version: link:../chat
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
       keyboardMove:
         specifier: workspace:*
         version: link:../keyboardMove
-      nvui:
+      lib:
         specifier: workspace:*
-        version: link:../nvui
+        version: link:../lib
       shepherd.js:
         specifier: ^11.2.0
         version: 11.2.0
@@ -648,33 +501,18 @@ importers:
 
   ui/simul:
     dependencies:
-      chat:
+      lib:
         specifier: workspace:*
-        version: link:../chat
-      common:
-        specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
+        version: link:../lib
 
   ui/site:
     dependencies:
-      api:
-        specifier: workspace:*
-        version: link:../api
-      chat:
-        specifier: workspace:*
-        version: link:../chat
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
       dialog-polyfill:
         specifier: 0.5.6
         version: 0.5.6
+      lib:
+        specifier: workspace:*
+        version: link:../lib
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0
@@ -684,63 +522,39 @@ importers:
 
   ui/storm:
     dependencies:
-      chess:
+      lib:
         specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      puz:
-        specifier: workspace:*
-        version: link:../puz
+        version: link:../lib
 
   ui/swiss:
     dependencies:
-      chat:
-        specifier: workspace:*
-        version: link:../chat
-      common:
-        specifier: workspace:*
-        version: link:../common
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
-      game:
+      lib:
         specifier: workspace:*
-        version: link:../game
+        version: link:../lib
 
   ui/tournament:
     dependencies:
       '@types/dragscroll':
         specifier: 0.0.3
         version: 0.0.3
-      chat:
-        specifier: workspace:*
-        version: link:../chat
-      common:
-        specifier: workspace:*
-        version: link:../common
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
       dragscroll:
         specifier: ^0.0.8
         version: 0.0.8
-      game:
+      lib:
         specifier: workspace:*
-        version: link:../game
-
-  ui/tree:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
+        version: link:../lib
 
   ui/tutor:
     dependencies:
-      common:
+      lib:
         specifier: workspace:*
-        version: link:../common
+        version: link:../lib
       lichess-pgn-viewer:
         specifier: ^2.4.0
         version: 2.4.0
@@ -750,27 +564,15 @@ importers:
       bits:
         specifier: workspace:*
         version: link:../bits
-      common:
+      lib:
         specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
-      local:
-        specifier: workspace:*
-        version: link:../local
+        version: link:../lib
 
   ui/voice:
     dependencies:
-      chess:
+      lib:
         specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
+        version: link:../lib
       vosk-browser:
         specifier: ^0.0.8
         version: 0.0.8

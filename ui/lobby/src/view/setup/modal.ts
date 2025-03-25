@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
-import type { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
-import { userLink } from 'common/userLink';
-import { snabDialog } from 'common/dialog';
+import type { MaybeVNode, MaybeVNodes } from 'lib/snabbdom';
+import { userLink } from 'lib/userLink';
+import { snabDialog } from 'lib/dialog';
 import type LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
 import { timePickerAndSliders } from './components/timePickerAndSliders';

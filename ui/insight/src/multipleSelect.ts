@@ -1,5 +1,5 @@
-import { isTouchDevice } from 'common/device';
-import { escapeHtml } from 'common';
+import { isTouchDevice } from 'lib/device';
+import { escapeHtml } from 'lib';
 
 export const registerMultipleSelect = () => {
   $.fn.multipleSelectHover = function (fnOver, fnOut) {

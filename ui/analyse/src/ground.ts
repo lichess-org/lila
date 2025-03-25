@@ -1,9 +1,9 @@
 import { h, type VNode } from 'snabbdom';
 import type { Elements } from 'chessground/types';
-import resizeHandle from 'common/chessgroundResize';
-import { storage } from 'common/storage';
+import resizeHandle from 'lib/chessgroundResize';
+import { storage } from 'lib/storage';
 import type AnalyseCtrl from './ctrl';
-import * as Prefs from 'common/prefs';
+import * as Prefs from 'lib/prefs';
 import { Chessground as makeChessground } from 'chessground';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>

@@ -1,7 +1,7 @@
-import { isSwitchable, isPlayerTurn } from 'game';
+import { isSwitchable, isPlayerTurn } from 'lib/game/game';
 import { whatsNext } from './xhr';
 import type RoundController from './ctrl';
-import { storage } from 'common/storage';
+import { storage } from 'lib/storage';
 
 export default class MoveOn {
   private storage = storage.boolean(this.key);

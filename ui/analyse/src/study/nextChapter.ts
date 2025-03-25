@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
-import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind } from 'lib/snabbdom';
 import type AnalyseCtrl from '../ctrl';
-import { ops as treeOps } from 'tree';
+import { ops as treeOps } from 'lib/tree/tree';
 
 export const renderNextChapter = (ctrl: AnalyseCtrl) =>
   !ctrl.opts.relay && ctrl.study?.hasNextChapter()

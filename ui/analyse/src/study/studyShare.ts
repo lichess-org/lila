@@ -1,8 +1,8 @@
-import { prop } from 'common';
-import * as licon from 'common/licon';
-import { type VNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
-import { copyMeInput } from 'common/controls';
-import { text as xhrText, url as xhrUrl } from 'common/xhr';
+import { prop } from 'lib';
+import * as licon from 'lib/licon';
+import { type VNode, bind, dataIcon, looseH as h } from 'lib/snabbdom';
+import { copyMeInput } from 'lib/controls';
+import { text as xhrText, url as xhrUrl } from 'lib/xhr';
 import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
 import type { ChapterPreview, StudyData } from './interfaces';

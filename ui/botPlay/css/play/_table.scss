@@ -111,6 +111,10 @@
   }
 }
 
+.bot-game__clock-mat {
+  @extend %flex-between;
+}
+
 .bot-game .material {
   padding-inline-end: 1px;
 

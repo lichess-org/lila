@@ -1,4 +1,4 @@
-import { looseH as h, type Redraw, type VNode, onInsert } from 'common/snabbdom';
+import { looseH as h, type Redraw, type VNode, onInsert } from 'lib/snabbdom';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {

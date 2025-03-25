@@ -1,7 +1,7 @@
-import { domDialog, type Dialog } from 'common/dialog';
-import { alert, confirm } from 'common/dialogs';
-import { frag } from 'common';
-import * as licon from 'common/licon';
+import { domDialog, type Dialog } from 'lib/dialog';
+import { alert, confirm } from 'lib/dialogs';
+import { frag } from 'lib';
+import * as licon from 'lib/licon';
 import { renderRemoveButton } from './devUtil';
 import { wireCropDialog } from 'bits/crop';
 import { env } from './devEnv';

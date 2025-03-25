@@ -1,7 +1,4 @@
-@import '../../../game/css/clock';
+@import '../../../lib/css/game/clock';
 .rclock .time {
   font-size: 2em;
-}
-.rclock-top {
-  justify-content: flex-end;
 }

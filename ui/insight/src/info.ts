@@ -1,11 +1,11 @@
-import * as licon from 'common/licon';
-import { onInsert } from 'common/snabbdom';
-import { numberFormat } from 'common/i18n';
-import { userLink } from 'common/userLink';
+import * as licon from 'lib/licon';
+import { onInsert } from 'lib/snabbdom';
+import { numberFormat } from 'lib/i18n';
+import { userLink } from 'lib/userLink';
 import { h } from 'snabbdom';
 import type Ctrl from './ctrl';
 import { registerFormHandler } from './insight';
-import { spinnerHtml } from 'common/controls';
+import { spinnerHtml } from 'lib/controls';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 

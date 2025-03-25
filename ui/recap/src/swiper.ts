@@ -4,9 +4,9 @@ import * as mod from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import { animateNumber } from './ui';
-import { get } from 'common/data';
+import { get } from 'lib/data';
 import { formatDuration } from './util';
-import { defined } from 'common';
+import { defined } from 'lib';
 import { Opts } from './interfaces';
 
 export const makeSwiper =

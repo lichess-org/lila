@@ -1,7 +1,7 @@
-import { prop } from 'common';
-import { bind, bindSubmit, onInsert } from 'common/snabbdom';
-import { json as xhrJson, url as xhrUrl } from 'common/xhr';
-import { snabDialog } from 'common/dialog';
+import { prop } from 'lib';
+import { bind, bindSubmit, onInsert } from 'lib/snabbdom';
+import { json as xhrJson, url as xhrUrl } from 'lib/xhr';
+import { snabDialog } from 'lib/dialog';
 import { h, type VNode } from 'snabbdom';
 import type { Topic } from './interfaces';
 import type StudyCtrl from './studyCtrl';

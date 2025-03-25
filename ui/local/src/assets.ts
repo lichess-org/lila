@@ -1,6 +1,6 @@
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 import { type BotCtrl } from './botCtrl';
-import { definedMap } from 'common/algo';
+import { definedMap } from 'lib/algo';
 import { env } from './localEnv';
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';

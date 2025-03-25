@@ -11,7 +11,7 @@ final class RelayListing(
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
     cacheApi: lila.memo.CacheApi,
-    groupCrowd: RelayGroupCrowd
+    groupCrowd: RelayGroupCrowdSumCache
 )(using Executor):
 
   import BSONHandlers.{ *, given }

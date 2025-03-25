@@ -1,7 +1,7 @@
 import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
-import * as licon from 'common/licon';
-import { type VNode, iconTag, bind, dataIcon, looseH as h } from 'common/snabbdom';
-import { richHTML } from 'common/richText';
+import * as licon from 'lib/licon';
+import { type VNode, iconTag, bind, dataIcon, looseH as h } from 'lib/snabbdom';
+import { richHTML } from 'lib/richText';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;

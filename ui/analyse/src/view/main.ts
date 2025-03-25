@@ -1,8 +1,8 @@
-import { view as cevalView } from 'ceval';
-import * as licon from 'common/licon';
-import { type VNode, onInsert, looseH as h } from 'common/snabbdom';
-import { playable } from 'game';
-import * as router from 'game/router';
+import { view as cevalView } from 'lib/ceval/ceval';
+import * as licon from 'lib/licon';
+import { type VNode, onInsert, looseH as h } from 'lib/snabbdom';
+import { playable } from 'lib/game/game';
+import * as router from 'lib/game/router';
 import { render as trainingView } from './roundTraining';
 import crazyView from '../crazy/crazyView';
 import type AnalyseCtrl from '../ctrl';
@@ -20,7 +20,7 @@ import {
   renderUnderboard,
 } from './components';
 import { wikiToggleBox } from '../wiki';
-import { watchers } from 'common/watchers';
+import { watchers } from 'lib/watchers';
 
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {

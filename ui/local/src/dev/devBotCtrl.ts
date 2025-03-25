@@ -2,9 +2,9 @@ import { type Zerofish } from 'zerofish';
 import { Bot } from '../bot';
 import { RateBot } from './rateBot';
 import { BotCtrl } from '../botCtrl';
-import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { deepFreeze } from 'common/algo';
-import { pubsub } from 'common/pubsub';
+import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
+import { deepFreeze } from 'lib/algo';
+import { pubsub } from 'lib/pubsub';
 import { botAssetUrl } from '../assets';
 import type { CardData, BotInfo, LocalSpeed } from '../types';
 

@@ -1,11 +1,11 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
 import { type GameContext, type GameStatus, LocalGame } from './localGame';
-import { statusOf, clockToSpeed, playable } from 'game';
+import { statusOf, clockToSpeed, playable } from 'lib/game/game';
 import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
 import { env } from './localEnv';
-import { pubsub } from 'common/pubsub';
+import { pubsub } from 'lib/pubsub';
 
 export interface GameObserver {
   hurry: boolean;

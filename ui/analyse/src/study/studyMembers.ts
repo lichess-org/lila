@@ -1,16 +1,16 @@
 import type { AnalyseSocketSend } from '../socket';
-import * as licon from 'common/licon';
-import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, looseH as h } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, looseH as h } from 'lib/snabbdom';
 import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
 import type { NotifCtrl } from './notif';
-import { prop, Prop, scrollTo } from 'common';
+import { prop, Prop, scrollTo } from 'lib';
 import { titleNameToId } from '../view/util';
 import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { textRaw as xhrTextRaw } from 'common/xhr';
-import { userLink } from 'common/userLink';
+import { textRaw as xhrTextRaw } from 'lib/xhr';
+import { userLink } from 'lib/userLink';
 import type StudyCtrl from './studyCtrl';
-import { once } from 'common/storage';
-import { pubsub } from 'common/pubsub';
+import { once } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
 
 interface Opts {
   initDict: StudyMemberMap;

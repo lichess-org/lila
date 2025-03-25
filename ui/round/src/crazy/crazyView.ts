@@ -1,8 +1,8 @@
 import type { MouchEvent } from 'chessground/types';
-import { onInsert, type LooseVNode } from 'common/snabbdom';
+import { onInsert, type LooseVNode } from 'lib/snabbdom';
 import { h } from 'snabbdom';
 import type RoundController from '../ctrl';
-import type { TopOrBottom } from 'game';
+import type { TopOrBottom } from 'lib/game/game';
 import { plyStep } from '../util';
 import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
 

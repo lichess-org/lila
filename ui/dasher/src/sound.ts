@@ -1,12 +1,12 @@
-import * as licon from 'common/licon';
-import { text as xhrText, form as xhrForm } from 'common/xhr';
-import { throttle, throttlePromiseDelay } from 'common/async';
+import * as licon from 'lib/licon';
+import { text as xhrText, form as xhrForm } from 'lib/xhr';
+import { throttle, throttlePromiseDelay } from 'lib/async';
 import { h, type VNode } from 'snabbdom';
 import { header } from './util';
-import { bind } from 'common/snabbdom';
+import { bind } from 'lib/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
-import { pubsub } from 'common/pubsub';
-import { isSafari } from 'common/device';
+import { pubsub } from 'lib/pubsub';
+import { isSafari } from 'lib/device';
 
 type Key = string;
 

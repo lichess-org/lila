@@ -1,15 +1,15 @@
 import { next, prev, view } from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import type RoundController from '../ctrl';
-import { stepwiseScroll } from 'common/controls';
-import { type VNode, looseH as h, bind } from 'common/snabbdom';
+import { stepwiseScroll } from 'lib/controls';
+import { type VNode, looseH as h, bind } from 'lib/snabbdom';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
-import { renderMaterialDiffs } from 'game/view/material';
+import { renderMaterialDiffs } from 'lib/game/view/material';
 import { renderVoiceBar } from 'voice';
-import { playable } from 'game';
-import { storage } from 'common/storage';
+import { playable } from 'lib/game/game';
+import { storage } from 'lib/storage';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,

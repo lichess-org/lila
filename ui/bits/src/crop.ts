@@ -1,4 +1,4 @@
-import { isSafari } from 'common/device';
+import { isSafari } from 'lib/device';
 import { type CropOpts } from './bits.cropDialog';
 export { type CropOpts } from './bits.cropDialog';
 

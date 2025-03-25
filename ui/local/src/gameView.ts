@@ -1,4 +1,4 @@
-import { looseH as h, VNode } from 'common/snabbdom';
+import { looseH as h, VNode } from 'lib/snabbdom';
 
 export function renderGameView(side?: VNode): VNode {
   return h('main.round', [

@@ -1,4 +1,4 @@
-import type { Prop } from 'common';
+import type { Prop } from 'lib';
 import type { AnalyseData } from '../interfaces';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { Opening } from '../explorer/interfaces';

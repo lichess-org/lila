@@ -1,17 +1,17 @@
 import { handOfCards, HandOfCards } from './handOfCards';
 import * as co from 'chessops';
-import { domDialog, Dialog } from 'common/dialog';
-import { fen960 } from 'chess';
-import { pubsub } from 'common/pubsub';
-import { definedMap, clamp } from 'common/algo';
+import { domDialog, Dialog } from 'lib/dialog';
+import { fen960 } from 'lib/chess/chess';
+import { pubsub } from 'lib/pubsub';
+import { definedMap, clamp } from 'lib/algo';
 import { domIdToUid, uidToDomId } from './devBotCtrl';
 import { rangeTicks } from './devUtil';
 import type { LocalSetup } from '../types';
 import { env } from './devEnv';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import type { LichessEditor } from 'editor';
-import { json } from 'common/xhr';
-import { Janitor } from 'common/event';
+import { json } from 'lib/xhr';
+import { Janitor } from 'lib/event';
 
 export function showSetupDialog(setup: LocalSetup = {}): void {
   pubsub.after('local.images.ready').then(() => new SetupDialog(setup).show());

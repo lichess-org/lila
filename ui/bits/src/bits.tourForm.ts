@@ -1,5 +1,5 @@
 import flatpickr from 'flatpickr';
-import { use24h } from 'common/i18n';
+import { use24h } from 'lib/i18n';
 
 site.load.then(() => {
   const $variant = $('#form3-variant'),

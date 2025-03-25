@@ -1,12 +1,12 @@
-import resizeHandle from 'common/chessgroundResize';
+import resizeHandle from 'lib/chessgroundResize';
 import type PlayCtrl from './play/playCtrl';
-import { ShowResizeHandle, Coords, MoveEvent } from 'common/prefs';
-import { storage } from 'common/storage';
+import { ShowResizeHandle, Coords, MoveEvent } from 'lib/prefs';
+import { storage } from 'lib/storage';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests, chessgroundMove } from 'chessops/compat';
 import { Board } from './chess';
 import { h } from 'snabbdom';
-import { initMiniBoard } from 'common/miniBoard';
+import { initMiniBoard } from 'lib/miniBoard';
 import { makeUci } from 'chessops';
 
 export const updateGround = (board: Board): CgConfig => ({
