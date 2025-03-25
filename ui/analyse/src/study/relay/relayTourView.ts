@@ -1,7 +1,7 @@
 import type AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'lib/licon';
-import { bind, dataIcon, looseH as h } from 'lib/snabbdom';
+import { bind, dataIcon, onInsert, looseH as h } from 'lib/snabbdom';
 import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'lib/richText';
 import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
