@@ -55,10 +55,7 @@
   <string name="playing">Spelend</string>
   <string name="showResults">Resultaten</string>
   <string name="showEvalBar">Evaluatiebalk</string>
-  <string name="first">Eerste</string>
-  <string name="previous">Vorige</string>
   <string name="next">Volgende</string>
-  <string name="last">Laatste</string>
   <string name="shareAndExport">Deel &amp; exporteer</string>
   <string name="cloneStudy">Kopiëren</string>
   <string name="studyPgn">PGN bestuderen</string>
