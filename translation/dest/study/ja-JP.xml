@@ -52,10 +52,7 @@
   <string name="playing">プレイ中</string>
   <string name="showResults">結果</string>
   <string name="showEvalBar">評価値バー</string>
-  <string name="first">最初</string>
-  <string name="previous">前</string>
   <string name="next">次</string>
-  <string name="last">最後</string>
   <string name="shareAndExport">共有とエクスポート</string>
   <string name="cloneStudy">研究をコピー</string>
   <string name="studyPgn">研究の PGN</string>
