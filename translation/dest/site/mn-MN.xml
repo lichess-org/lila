@@ -436,7 +436,6 @@
   <string name="wins">Ялалт</string>
   <string name="losses">Ялагдал</string>
   <string name="createdBy">Зохион байгуулагч:</string>
-  <string name="tournamentIsStarting">Тэмцээний удахгүй эхэллээ</string>
   <string name="tournamentPairingsAreNowClosed">Тэмцээний оноолт хаагдсан байна.</string>
   <string name="standByX">%s бэлтэнэ үү, тоглолтын оноолт явагдаж байна!</string>
   <string name="pause">Паузлах</string>
@@ -451,7 +450,6 @@
   <string name="blackWins">Хараар авсан ялалт</string>
   <string name="drawRate">Тэнцсэн үзүүлэлт</string>
   <string name="draws">Тэнцээ</string>
-  <string name="nextXTournament">Дараагийн %s тэмцээн:</string>
   <string name="averageOpponent">Өрсөлдөгчдийн дундаж чансаа</string>
   <string name="boardEditor">Өргийн байрлал өөрчлөгч</string>
   <string name="setTheBoard">Өргийн байрлалыг тохируулах</string>
