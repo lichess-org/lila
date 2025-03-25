@@ -757,6 +757,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
   <string name="downloadRaw">Last ned rådata</string>
   <string name="downloadImported">Last ned importert</string>
+  <string name="downloadAllGames">Last ned alle partia</string>
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også scrolle over brettet for å flytte.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over datamaskin-variasjonane for å førehandsvisa dei.</string>
