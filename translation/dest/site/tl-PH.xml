@@ -452,7 +452,6 @@
   <string name="wins">Mga Panalo</string>
   <string name="losses">Mga Talo</string>
   <string name="createdBy">Ginawa ni</string>
-  <string name="tournamentIsStarting">Mag sisimula na yung torneo</string>
   <string name="tournamentPairingsAreNowClosed">Ang pagpares-pares ng paligsahan ay sarado na ngayon.</string>
   <string name="standByX">Tumayo sa %s, pagpares-pares ng mga manlalaro, humanda!</string>
   <string name="pause">I-hinto</string>
@@ -467,7 +466,6 @@
   <string name="blackWins">Nanalo ang itim</string>
   <string name="drawRate">Porsiyento ng tabla</string>
   <string name="draws">Mga tabla</string>
-  <string name="nextXTournament">Sunod na %s paligsahan:</string>
   <string name="averageOpponent">Karaniwang kalaban</string>
   <string name="boardEditor">Taga-edit ng board</string>
   <string name="setTheBoard">Tingnan ang board</string>
