@@ -13,7 +13,7 @@ object AnnounceApi:
 
   def cli(words: List[String]): Fu[String] = words match
     case "cancel" :: Nil =>
-      set(none)
+      current = none
       Bus.publish(cancel, "announce")
       fuccess("Removed announce")
     case sentence =>
@@ -30,14 +30,11 @@ object AnnounceApi:
       if c.date.isBeforeNow then current = none
     current
 
-  private def set(announce: Option[Announce]) =
-    current = announce
-
   // examples:
   // 5 minutes Lichess will restart
   // 20 seconds Cthulhu will awake
   private def set(str: String): Option[Announce] =
-    set(str.split(" ").toList match
+    current = str.split(" ").toList match
       case length :: unit :: rest =>
         Try {
           val msg     = rest.mkString(" ")
@@ -46,7 +43,7 @@ object AnnounceApi:
           val json    = Json.obj("msg" -> msg, "date" -> isoDate)
           Announce(msg, date, json)
         }.toOption
-      case _ => none)
+      case _ => none
     get
 
   def cancel = Announce("", nowInstant, Json.obj())

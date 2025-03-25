@@ -1,7 +1,7 @@
 import * as licon from 'lib/licon';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'lib/miniBoard';
 import { text as xhrText } from 'lib/xhr';
-import announce from './announce';
+import { display as announceDisplay } from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
@@ -63,9 +63,6 @@ export function boot() {
     if (site.debug) site.asset.loadEsm('bits.devMode');
     if (showDebug) site.asset.loadEsm('bits.diagnosticDialog');
 
-    const pageAnnounce = document.body.getAttribute('data-announce');
-    if (pageAnnounce) announce(JSON.parse(pageAnnounce));
-
     serviceWorker();
 
     console.info('Lichess is open source! See https://lichess.org/source');
@@ -90,7 +87,7 @@ export function boot() {
     pubsub.on('socket.in.finish', e =>
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => finishMiniGame(el, e.win)),
     );
-    pubsub.on('socket.in.announce', announce);
+    pubsub.on('socket.in.announce', announceDisplay);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
       if ($('#announce').length || document.body.dataset.tournamentId === data.id) return;
       const url = '/tournament/' + data.id;
