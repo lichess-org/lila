@@ -4759,8 +4759,6 @@ interface I18n {
     equalPosition: string;
     /** Everyone */
     everyone: string;
-    /** First */
-    first: string;
     /** Paste a position in FEN format<br><i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>to start the chapter from a position. */
     fromFenStringText: string;
     /** From a FEN string */
@@ -4801,8 +4799,6 @@ interface I18n {
     inviteToTheStudy: string;
     /** Kick */
     kick: string;
-    /** Last */
-    last: string;
     /** Leave the study */
     leaveTheStudy: string;
     /** Like */
@@ -4897,8 +4893,6 @@ interface I18n {
     popularTopics: string;
     /** Previous chapter */
     prevChapter: string;
-    /** Previous */
-    previous: string;
     /** Private */
     private: string;
     /** Public */
