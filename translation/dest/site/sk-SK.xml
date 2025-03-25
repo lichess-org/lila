@@ -558,7 +558,6 @@
   <string name="wins">Výhier</string>
   <string name="losses">Prehier</string>
   <string name="createdBy">Vytvorené</string>
-  <string name="tournamentIsStarting">Turnaj sa začína</string>
   <string name="tournamentPairingsAreNowClosed">Párovanie hráčov v turnaji je už uzavreté.</string>
   <string name="standByX">Čakajte %s, vyberám súpera, pripravte sa!</string>
   <string name="pause">Pozastaviť</string>
@@ -573,7 +572,6 @@
   <string name="blackWins">Výhry ako čierny</string>
   <string name="drawRate">Pomer remíz</string>
   <string name="draws">Remízy</string>
-  <string name="nextXTournament">Ďalší %s turnaj:</string>
   <string name="averageOpponent">Priemerná sila súpera</string>
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upraviť šachovnicu</string>
