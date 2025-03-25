@@ -448,7 +448,6 @@
   <string name="wins">Menang</string>
   <string name="losses">Kalah</string>
   <string name="createdBy">Dibuat oleh</string>
-  <string name="tournamentIsStarting">Turnamen sudah dimulai</string>
   <string name="tournamentPairingsAreNowClosed">Pairing pemain sudah ditutup.</string>
   <string name="standByX">Bersiaplah %s, pairing pemain sedang dilakukan!</string>
   <string name="pause">Jeda</string>
@@ -463,7 +462,6 @@
   <string name="blackWins">Hitam Menang</string>
   <string name="drawRate">Persentase imbang</string>
   <string name="draws">Remis</string>
-  <string name="nextXTournament">Turnamen %s selanjutnya:</string>
   <string name="averageOpponent">Rata-rata rating lawan</string>
   <string name="boardEditor">Edit Papan</string>
   <string name="setTheBoard">Atur papan</string>
