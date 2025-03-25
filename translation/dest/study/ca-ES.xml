@@ -182,7 +182,11 @@
   <string name="createChapterTitle">Creem un capítol de l\'estudi</string>
   <string name="fromInitialPositionTitle">A partir de la posició inicial</string>
   <string name="customPositionTitle">Posició personalitzada</string>
+  <string name="customPositionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Munta el tauler a la teva manera.&lt;br&gt; Preparat per estudiar finals.</string>
   <string name="loadExistingLichessGameTitle">Carrega una partida existent de Lichess</string>
   <string name="fromFenStringTitle">A partir d\'una cadena FEN</string>
   <string name="fromPgnGameTitle">A partir d\'una partida en PGN</string>
+  <string name="variantsAreSupportedTitle">Els estudis també suporten variants</string>
+  <string name="variantsAreSupportedText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Sí, podeu estudiar crazyhouse &lt;br&gt; i totes les variants de Lichess!</string>
+  <string name="chapterConclusionText" comment="The special text tags must be retained in exact order, for example &amp;lt;br&amp;gt; must stay exactly as-is. You do not need to add spaces or new lines before or after them.&#10;&#10;Note that &quot;br&quot; in particular means &quot;line break&quot;. In other words, it will start a new line in the final text.">Els capítols es guarden per sempre.&lt;br&gt;Passa-t\'ho bé organitzant el teu material d\'escacs!</string>
 </resources>
