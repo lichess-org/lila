@@ -70,13 +70,6 @@ export function initModule(): StudyTour {
 
     if (ctrl.study?.members.canContribute()) {
       steps.push({
-        title: i18n.study.createNewChaptersTitle,
-        text: i18n.study.createNewChaptersText(`<i data-icon='${licon.PlusButton}'></i>`),
-        attachTo: { element: '.study__chapters .add', on: 'right' },
-        when: onTab('chapters'),
-        scrollTo: true,
-      });
-      steps.push({
         title: i18n.study.commentPositionTitle,
         text: i18n.study.commentPositionText(`<i data-icon='${licon.BubbleSpeech}'></i>`),
         attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },

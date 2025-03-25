@@ -2517,8 +2517,6 @@ object I18nKey:
     val `addMembersText`: I18nKey = "study:addMembersText"
     val `studyChaptersTitle`: I18nKey = "study:studyChaptersTitle"
     val `studyChaptersText`: I18nKey = "study:studyChaptersText"
-    val `createNewChaptersTitle`: I18nKey = "study:createNewChaptersTitle"
-    val `createNewChaptersText`: I18nKey = "study:createNewChaptersText"
     val `commentPositionTitle`: I18nKey = "study:commentPositionTitle"
     val `commentPositionText`: I18nKey = "study:commentPositionText"
     val `annotatePositionTitle`: I18nKey = "study:annotatePositionTitle"

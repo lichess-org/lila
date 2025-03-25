@@ -4711,10 +4711,6 @@ interface I18n {
     createChapterText: string;
     /** Let's create a study chapter */
     createChapterTitle: string;
-    /** Click the %s button. */
-    createNewChaptersText: I18nFormat;
-    /** Create new chapters */
-    createNewChaptersTitle: string;
     /** Create study */
     createStudy: string;
     /** Current chapter URL */

@@ -176,8 +176,6 @@
   <string name="addMembersText" comment="%s is an icon that will added at runtime">Click the %s button.&lt;br&gt;Then decide who can contribute or not.</string>
   <string name="studyChaptersTitle">Study chapters</string>
   <string name="studyChaptersText">A study can contain several chapters.&lt;br&gt;Each chapter has a distinct initial position and move tree.</string>
-  <string name="createNewChaptersTitle">Create new chapters</string>
-  <string name="createNewChaptersText" comment="%s is an icon that will added at runtime">Click the %s button.</string>
   <string name="commentPositionTitle">Comment on a position</string>
   <string name="commentPositionText" comment="%s is an icon that will added at runtime">Click the %s button, or right click on the move list on the right.&lt;br&gt;Comments are shared and saved.</string>
   <string name="annotatePositionTitle">Annotate a position</string>
