@@ -31,7 +31,7 @@ export class RelayChatPlugin implements ChatPlugin {
 
   key = 'liveboard';
   name = i18n.broadcast.liveboard;
-  childSafe = true;
+  kidSafe = true;
   redraw: () => void;
 
   constructor(

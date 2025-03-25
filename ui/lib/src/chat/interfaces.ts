@@ -26,7 +26,7 @@ export type Tab = { key: string; hidden?: boolean };
 export interface ChatPlugin extends Tab {
   name: string;
   view(): VNode;
-  childSafe?: boolean; // default false
+  kidSafe?: boolean; // default false
   redraw?: () => void; // populated by chat module, not you.
 }
 
