@@ -487,7 +487,6 @@
   <string name="wins">Νίκες</string>
   <string name="losses">Ήττες</string>
   <string name="createdBy">Δημιουργήθηκε από</string>
-  <string name="tournamentIsStarting">Το τουρνουά αρχίζει</string>
   <string name="tournamentPairingsAreNowClosed">Οι αντιστοιχίσεις του διαγωνισμού έχουν κλείσει.</string>
   <string name="standByX">Αναμένετε %s, αντιστοίχιση παικτών, ετοιμαστείτε!</string>
   <string name="pause">Παύση</string>
@@ -502,7 +501,6 @@
   <string name="blackWins">Τα μαύρα νικούν</string>
   <string name="drawRate">Ποσοστά ισοπαλίας</string>
   <string name="draws">Ισοπαλίες</string>
-  <string name="nextXTournament">Επόμενο τουρνουά %s:</string>
   <string name="averageOpponent">Μέση βαθμολογία αντιπάλων</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="setTheBoard">Στήστε την σκακιέρα</string>
