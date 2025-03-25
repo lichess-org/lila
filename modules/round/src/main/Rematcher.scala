@@ -131,9 +131,13 @@ final private class Rematcher(
         case _ => ()
 
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.core.game.Player =
-    game.opponent(color).aiLevel match
+    val fromColor =
+      if game.fromPosition && users.count(_.exists(_.user.isBot)) == 1
+      then color
+      else !color
+    game.player(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
-      case None     => lila.game.Player.make(color, users(!color))
+      case None     => lila.game.Player.make(color, users(fromColor))
 
   def redirectEvents(game: Game): Events =
     val ownerRedirects = ByColor: color =>
