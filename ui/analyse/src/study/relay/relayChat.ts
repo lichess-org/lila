@@ -7,6 +7,7 @@ import { type ChatPlugin, makeChat } from 'lib/chat/chat';
 import { watchers } from 'lib/watchers';
 import { uciToMove } from 'chessground/util';
 import { frag } from 'lib';
+import { ChapterId } from '../interfaces';
 
 export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefined {
   if (ctrl.isEmbed || !ctrl.opts.chat) return undefined;
@@ -26,7 +27,7 @@ export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefi
 }
 
 export class RelayChatPlugin implements ChatPlugin {
-  private chapter: string | undefined;
+  private chapter: ChapterId | undefined;
   private animate = false;
 
   key = 'liveboard';
@@ -39,7 +40,7 @@ export class RelayChatPlugin implements ChatPlugin {
     readonly isDisabled: () => boolean,
   ) {}
 
-  set chapterId(id: string) {
+  set chapterId(id: ChapterId) {
     if (id === this.chapter) return;
     this.chapter = id;
     this.animate = false;
