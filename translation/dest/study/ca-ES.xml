@@ -55,10 +55,7 @@
   <string name="playing">Jugant</string>
   <string name="showResults">Resultats</string>
   <string name="showEvalBar">Barres d\'avaluació</string>
-  <string name="first">Primer</string>
-  <string name="previous">Anterior</string>
   <string name="next">Següent</string>
-  <string name="last">Últim</string>
   <string name="shareAndExport">Comparteix i exporta</string>
   <string name="cloneStudy">Clona</string>
   <string name="studyPgn">PGN de l’estudi</string>
