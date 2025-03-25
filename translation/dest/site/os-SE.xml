@@ -409,7 +409,6 @@
   <string name="wins">Уæлахизтæ</string>
   <string name="losses">Дæрæнтæ</string>
   <string name="createdBy">Сфæлдисæг</string>
-  <string name="tournamentIsStarting">Турнир райдайы</string>
   <string name="tournamentPairingsAreNowClosed">Турниры халæппæрст фæци.</string>
   <string name="standByX">Æнхъæлмæ кæс, %s, халæппарæм. Цæттæ у!</string>
   <string name="youArePlaying">Ды хъазыс!</string>
@@ -421,7 +420,6 @@
   <string name="whiteWins">Урсыты уæлахизты</string>
   <string name="blackWins">Сауты уæлахизты</string>
   <string name="draws">Хæрæгсастыты</string>
-  <string name="nextXTournament">Иннæ %s турнир:</string>
   <string name="averageOpponent">Ныхмæлæууæджыты астæуккаг рейтинг</string>
   <string name="boardEditor">Фæйнæджы редактор</string>
   <string name="setTheBoard">Æрæвæрын позици</string>
