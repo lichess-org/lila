@@ -10,7 +10,7 @@ export async function initModule(): Promise<void> {
 
 function yeet() {
   const gravity = 1.5; // higher -> pieces fall down faster
-  const frictionMultiplier = 0.98; // lower -> more friction
+  const frictionMultiplier = 0.97; // lower -> more friction
   const minAngle = -0.436; // min angle for starting velocity
   const maxAngle = 3.576; // max angle for starting velocity
   const minMagnitude = 250; // min magnitude for starting velocity
