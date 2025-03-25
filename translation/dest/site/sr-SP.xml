@@ -497,7 +497,6 @@
   <string name="wins">Победа</string>
   <string name="losses">Пораза</string>
   <string name="createdBy">Направио/ла:</string>
-  <string name="tournamentIsStarting">Турнир почиње</string>
   <string name="tournamentPairingsAreNowClosed">Упаривање за турнир је заустављено.</string>
   <string name="standByX">Стрпи се %s, упарујемо играче, будите спремни!</string>
   <string name="pause">Заустави</string>
@@ -512,7 +511,6 @@
   <string name="blackWins">Победе као црни</string>
   <string name="drawRate">Проценат ремија</string>
   <string name="draws">Ремија</string>
-  <string name="nextXTournament">Следећи %s турнир:</string>
   <string name="averageOpponent">Просечан противник</string>
   <string name="boardEditor">Уређивач табле</string>
   <string name="setTheBoard">Постави таблу</string>
