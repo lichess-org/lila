@@ -2548,6 +2548,7 @@ object I18nKey:
     val `swiss`: I18nKey = "swiss:swiss"
     val `swissTournaments`: I18nKey = "swiss:swissTournaments"
     val `roundsAreStartedManually`: I18nKey = "swiss:roundsAreStartedManually"
+    val `startingIn`: I18nKey = "swiss:startingIn"
     val `nextRound`: I18nKey = "swiss:nextRound"
     val `tournStartDate`: I18nKey = "swiss:tournStartDate"
     val `numberOfRounds`: I18nKey = "swiss:numberOfRounds"
