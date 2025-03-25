@@ -1734,7 +1734,6 @@ object I18nKey:
     val `losses`: I18nKey = "losses"
     val `createdBy`: I18nKey = "createdBy"
     val `startingIn`: I18nKey = "startingIn"
-    val `tournamentIsStarting`: I18nKey = "tournamentIsStarting"
     val `tournamentPairingsAreNowClosed`: I18nKey = "tournamentPairingsAreNowClosed"
     val `standByX`: I18nKey = "standByX"
     val `pause`: I18nKey = "pause"

@@ -487,7 +487,6 @@
   <string name="losses">Losses</string>
   <string name="createdBy">Created by</string>
   <string name="startingIn" comment="Displayed above a timer">Starting in</string>
-  <string name="tournamentIsStarting">The tournament is starting</string>
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
   <string name="pause">Pause</string>

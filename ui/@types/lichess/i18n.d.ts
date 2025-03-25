@@ -4139,8 +4139,6 @@ interface I18n {
     tournamentHomeDescription: string;
     /** Chess tournaments featuring various time controls and variants */
     tournamentHomeTitle: string;
-    /** The tournament is starting */
-    tournamentIsStarting: string;
     /** The tournament may have been cancelled if all players left before it started. */
     tournamentMayHaveBeenCanceled: string;
     /** Tournament not found */
