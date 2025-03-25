@@ -142,7 +142,7 @@ final class RelationUi(helpers: Helpers):
             ")"
           )
         ,
-        table(cls := "slist slist-pad"):
+        table(cls := "slist slist-pad slist-invert"):
           tbody:
             if sugs.nonEmpty then
               sugs.map: r =>
