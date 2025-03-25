@@ -486,7 +486,6 @@
   <string name="wins">Wins</string>
   <string name="losses">Losses</string>
   <string name="createdBy">Created by</string>
-  <string name="tournamentIsStarting">The tournament is starting</string>
   <string name="tournamentPairingsAreNowClosed">The tournament pairings are now closed.</string>
   <string name="standByX">Stand by %s, pairing players, get ready!</string>
   <string name="pause">Pause</string>
@@ -501,7 +500,6 @@
   <string name="blackWins">Black wins</string>
   <string name="drawRate">Draw rate</string>
   <string name="draws">Draws</string>
-  <string name="nextXTournament">Next %s tournament:</string>
   <string name="averageOpponent">Average opponent</string>
   <string name="boardEditor">Board editor</string>
   <string name="setTheBoard">Set the board</string>
