@@ -756,6 +756,7 @@
   <string name="downloadAnnotated">Descargar anotada</string>
   <string name="downloadRaw">Descargar sen anotar</string>
   <string name="downloadImported">Descargar importadas</string>
+  <string name="downloadAllGames">Descargar todas as partidas</string>
   <string name="crosstable">Táboa de cruces</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
