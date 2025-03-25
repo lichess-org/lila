@@ -4015,6 +4015,8 @@ interface I18n {
     startedStreaming: string;
     /** Starting: */
     starting: string;
+    /** Starting in */
+    startingIn: string;
     /** Starting position */
     startPosition: string;
     /** Stats */
@@ -5131,8 +5133,6 @@ interface I18n {
     similarToOTB: string;
     /** Sonneborn–Berger score */
     sonnebornBergerScore: string;
-    /** Starting in */
-    startingIn: string;
     /** Starting soon */
     startingSoon: string;
     /** Streaks and Berserk */
