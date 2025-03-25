@@ -55,10 +55,7 @@
   <string name="playing">Meneillään</string>
   <string name="showResults">Tulokset</string>
   <string name="showEvalBar">Arviopalkit</string>
-  <string name="first">Alkuun</string>
-  <string name="previous">Edellinen</string>
   <string name="next">Seuraava</string>
-  <string name="last">Loppuun</string>
   <string name="shareAndExport">Jaa &amp; vie</string>
   <string name="cloneStudy">Kloonaa</string>
   <string name="studyPgn">Tutkielman PGN</string>
