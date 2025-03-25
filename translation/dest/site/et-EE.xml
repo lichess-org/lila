@@ -463,7 +463,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="wins">Võidud</string>
   <string name="losses">Kaotused</string>
   <string name="createdBy">Loodud</string>
-  <string name="tournamentIsStarting">Turniir algab</string>
   <string name="tournamentPairingsAreNowClosed">Turniiri paaride loomine on nüüd lõppenud.</string>
   <string name="standByX">Palun oodake %s, loome mängijate paare, olge valmis!</string>
   <string name="pause">Peata</string>
@@ -477,7 +476,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="whiteWins">Valge võite</string>
   <string name="blackWins">Musta võite</string>
   <string name="draws">Viike</string>
-  <string name="nextXTournament">Järgmine %s turniir:</string>
   <string name="averageOpponent">Keskmine vastane</string>
   <string name="boardEditor">Muudetav laud</string>
   <string name="setTheBoard">Seadista lauda</string>
