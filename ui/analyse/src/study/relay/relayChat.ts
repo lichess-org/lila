@@ -33,7 +33,7 @@ export class RelayChatPlugin implements ChatPlugin {
   key = 'liveboard';
   name = i18n.broadcast.liveboard;
   kidSafe = true;
-  redraw: () => void;
+  redraw: Redraw;
 
   constructor(
     readonly chapters: StudyChapters,
@@ -47,7 +47,7 @@ export class RelayChatPlugin implements ChatPlugin {
   }
 
   get hidden(): boolean {
-    return this.isDisabled() || !Boolean(this.chapter);
+    return this.isDisabled() || !this.chapter;
   }
 
   view(): VNode {

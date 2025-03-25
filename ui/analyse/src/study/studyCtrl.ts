@@ -470,13 +470,13 @@ export default class StudyCtrl {
       console.warn(`Chapter ${idOrNumber} not found`);
       return false;
     }
-    const componentCallbacks = (id = this.data.chapter.id) => {
+    const componentCallbacks = (id: ChapterId) => {
       this.relay?.onChapterChange(id);
       this.multiBoard.onChapterChange(id);
     };
     const alreadySet = id === this.vm.chapterId && !force;
     if (alreadySet) {
-      componentCallbacks();
+      componentCallbacks(this.data.chapter.id);
       this.redraw();
       return true;
     }

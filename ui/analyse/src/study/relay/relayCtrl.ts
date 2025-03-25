@@ -100,7 +100,7 @@ export default class RelayCtrl {
     this.redraw();
   };
 
-  onChapterChange = (id: string) => {
+  onChapterChange = (id: ChapterId) => {
     if (this.tourShow()) {
       this.tourShow(false);
     }

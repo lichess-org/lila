@@ -40,7 +40,7 @@ export default class ChatCtrl {
     this.data = opts.data;
     if (!opts.kidMode) this.allTabs.push({ key: 'discussion' });
     if (opts.noteId) this.allTabs.push({ key: 'note' });
-    if (opts.plugin && (opts.plugin?.kidSafe || !opts.kidMode)) {
+    if (opts.plugin && (opts.plugin.kidSafe || !opts.kidMode)) {
       opts.plugin.redraw = redraw;
       this.allTabs.push(opts.plugin);
     }
