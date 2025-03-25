@@ -55,10 +55,7 @@
   <string name="playing">Laufend</string>
   <string name="showResults">Resultat</string>
   <string name="showEvalBar">Bewertigs-Skala</string>
-  <string name="first">zur erschte Site</string>
-  <string name="previous">zrugg</string>
   <string name="next">nächschti</string>
-  <string name="last">zur letschte Site</string>
   <string name="shareAndExport">Teile &amp; exportiere</string>
   <string name="cloneStudy">Klone</string>
   <string name="studyPgn">Schtudie PGN</string>
