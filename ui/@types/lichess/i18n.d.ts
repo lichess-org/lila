@@ -3075,6 +3075,8 @@ interface I18n {
     doneReviewingWhiteMistakes: string;
     /** Download */
     download: string;
+    /** Download all games */
+    downloadAllGames: string;
     /** Download annotated */
     downloadAnnotated: string;
     /** Download imported */

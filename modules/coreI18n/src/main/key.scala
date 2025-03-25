@@ -1983,6 +1983,7 @@ object I18nKey:
     val `downloadAnnotated`: I18nKey = "downloadAnnotated"
     val `downloadRaw`: I18nKey = "downloadRaw"
     val `downloadImported`: I18nKey = "downloadImported"
+    val `downloadAllGames`: I18nKey = "downloadAllGames"
     val `crosstable`: I18nKey = "crosstable"
     val `youCanAlsoScrollOverTheBoardToMoveInTheGame`: I18nKey = "youCanAlsoScrollOverTheBoardToMoveInTheGame"
     val `scrollOverComputerVariationsToPreviewThem`: I18nKey = "scrollOverComputerVariationsToPreviewThem"
