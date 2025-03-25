@@ -482,7 +482,6 @@
   <string name="wins">Győzelmek</string>
   <string name="losses">Vereségek</string>
   <string name="createdBy">Készítette</string>
-  <string name="tournamentIsStarting">A verseny kezdődik</string>
   <string name="tournamentPairingsAreNowClosed">A verseny párosításai lezárultak.</string>
   <string name="standByX">Állj készen %s, hamarosan ellenfelet kapsz!</string>
   <string name="pause">Szünet</string>
@@ -497,7 +496,6 @@
   <string name="blackWins">Sötét győzelmek</string>
   <string name="drawRate">Döntetlenek aránya</string>
   <string name="draws">Döntetlenek</string>
-  <string name="nextXTournament">Következő %s verseny:</string>
   <string name="averageOpponent">Ellenfelek átlaga</string>
   <string name="boardEditor">Táblaszerkesztő</string>
   <string name="setTheBoard">Táblaállás</string>
