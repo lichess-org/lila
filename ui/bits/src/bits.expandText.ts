@@ -1,5 +1,5 @@
-import * as xhr from 'common/xhr';
-import { currentTheme } from 'common/device';
+import * as xhr from 'lib/xhr';
+import { currentTheme } from 'lib/device';
 
 type LinkType = 'youtube' | 'twitter';
 

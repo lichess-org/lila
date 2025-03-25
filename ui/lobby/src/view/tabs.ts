@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { bind, type MaybeVNodes } from 'common/snabbdom';
+import { bind, type MaybeVNodes } from 'lib/snabbdom';
 import type LobbyController from '../ctrl';
 import type { Tab } from '../interfaces';
 

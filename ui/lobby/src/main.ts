@@ -1,5 +1,5 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
-import { requestIdleCallback } from 'common';
+import { requestIdleCallback } from 'lib';
 import type { LobbyOpts } from './interfaces';
 import makeCtrl from './ctrl';
 import appView from './view/main';

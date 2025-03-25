@@ -10,7 +10,7 @@
     ".": "./src/dasher.ts"
   },
   "dependencies": {
-    "common": "workspace:*"
+    "lib": "workspace:*"
   },
   "build": {
     "bundle": "src/dasher.ts"

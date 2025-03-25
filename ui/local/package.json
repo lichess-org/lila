@@ -18,12 +18,10 @@
     "@types/lichess": "workspace:*",
     "bits": "workspace:*",
     "chart.js": "4.4.3",
-    "chess": "workspace:*",
     "chessops": "^0.14.0",
-    "common": "workspace:*",
+    "lib": "workspace:*",
     "editor": "workspace:*",
     "fast-diff": "^1.3.0",
-    "game": "workspace:*",
     "json-stringify-pretty-compact": "4.0.0",
     "round": "workspace:*",
     "zerofish": "0.0.35"

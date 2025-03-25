@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
-import { bind, type MaybeVNodes, onInsert } from 'common/snabbdom';
+import * as licon from 'lib/licon';
+import { bind, type MaybeVNodes, onInsert } from 'lib/snabbdom';
 import type SwissCtrl from '../ctrl';
 import { player as renderPlayer } from './util';
 import type { Player, Pager } from '../interfaces';

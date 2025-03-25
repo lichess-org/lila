@@ -1,5 +1,5 @@
-import type { PromotionCtrl } from 'chess/promotion';
-import type { MoveUpdate } from 'chess/moveRootCtrl';
+import type { PromotionCtrl } from 'lib/chess/promotion';
+import type { MoveUpdate } from 'lib/chess/moveRootCtrl';
 import type { VoiceModule } from '../interfaces';
 
 export interface VoiceMove extends VoiceModule {

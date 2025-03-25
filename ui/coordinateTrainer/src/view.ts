@@ -1,5 +1,5 @@
 import type { VNode, VNodeStyle } from 'snabbdom';
-import { bind, looseH as h } from 'common/snabbdom';
+import { bind, looseH as h } from 'lib/snabbdom';
 import { renderVoiceBar } from 'voice';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';

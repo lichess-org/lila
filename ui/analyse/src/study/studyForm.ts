@@ -1,9 +1,9 @@
-import * as licon from 'common/licon';
-import { prop } from 'common';
-import { snabDialog } from 'common/dialog';
-import { confirm, prompt } from 'common/dialogs';
+import * as licon from 'lib/licon';
+import { prop } from 'lib';
+import { snabDialog } from 'lib/dialog';
+import { confirm, prompt } from 'lib/dialogs';
 import flairPickerLoader from 'bits/flairPicker';
-import { type VNode, bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
+import { type VNode, bindSubmit, bindNonPassive, onInsert, looseH as h } from 'lib/snabbdom';
 import { emptyRedButton } from '../view/util';
 import type { StudyData } from './interfaces';
 import type RelayCtrl from './relay/relayCtrl';

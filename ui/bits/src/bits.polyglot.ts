@@ -1,6 +1,6 @@
 import * as co from 'chessops';
-import { hashBoard, hashChess } from 'chess/hash';
-import { deepFreeze } from 'common/algo';
+import { hashBoard, hashChess } from 'lib/chess/hash';
+import { deepFreeze } from 'lib/algo';
 import { normalizeMove } from 'chessops/chess';
 
 export type OpeningMove = { uci: string; weight: number };

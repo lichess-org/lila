@@ -7,10 +7,9 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",
-    "common": "workspace:*",
+    "lib": "workspace:*",
     "dasher": "workspace:*",
-    "debounce-promise": "^3.1.2",
-    "game": "workspace:*"
+    "debounce-promise": "^3.1.2"
   },
   "build": {
     "bundle": {

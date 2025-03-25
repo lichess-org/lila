@@ -1,17 +1,17 @@
 /// <reference types="../types/ab" />
 
 import * as ab from 'ab';
-import * as game from 'game';
-import { game as gameRoute } from 'game/router';
-import { playing } from 'game/status';
+import * as game from 'lib/game/game';
+import { game as gameRoute } from 'lib/game/router';
+import { playing } from 'lib/game/status';
 import { boardOrientation, reload as groundReload } from './ground';
-import * as licon from 'common/licon';
-import notify from 'common/notification';
+import * as licon from 'lib/licon';
+import notify from 'lib/notification';
 import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
-import viewStatus from 'game/view/status';
-import { ClockCtrl, ClockOpts } from 'game/clock/clockCtrl';
+import viewStatus from 'lib/game/view/status';
+import { ClockCtrl, ClockOpts } from 'lib/game/clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
@@ -19,19 +19,19 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import type { MoveRootCtrl } from 'chess/moveRootCtrl';
+import type { MoveRootCtrl } from 'lib/chess/moveRootCtrl';
 import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, type VoiceMove } from 'voice';
 import { userTxt } from './view/user';
 import * as cevalSub from './cevalSub';
 import { init as keyboardInit } from './keyboard';
-import { PromotionCtrl, promote } from 'chess/promotion';
-import * as wakeLock from 'common/wakeLock';
+import { PromotionCtrl, promote } from 'lib/chess/promotion';
+import * as wakeLock from 'lib/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
-import { Replay } from 'common/prefs';
+import { Replay } from 'lib/prefs';
 import { endGameView } from './view/main';
-import { info as infoDialog } from 'common/dialogs';
-import { isCol1 } from 'common/device';
+import { info as infoDialog } from 'lib/dialogs';
+import { isCol1 } from 'lib/device';
 
 import type {
   Step,
@@ -46,12 +46,12 @@ import type {
   ApiMove,
   ApiEnd,
 } from './interfaces';
-import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
-import { storage, once, type LichessBooleanStorage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
-import { readFen, almostSanOf, speakable } from 'chess/sanWriter';
-import { plyToTurn } from 'chess';
-import { wsDestroy } from 'common/socket';
+import { defined, type Toggle, toggle, requestIdleCallback } from 'lib';
+import { storage, once, type LichessBooleanStorage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
+import { readFen, almostSanOf, speakable } from 'lib/chess/sanWriter';
+import { plyToTurn } from 'lib/chess/chess';
+import { wsDestroy } from 'lib/socket';
 
 type GoneBerserk = Partial<ByColor<boolean>>;
 

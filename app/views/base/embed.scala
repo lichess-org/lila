@@ -20,7 +20,7 @@ object embed:
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
           page.ui.pieceSprite(ctx.pieceSet.name),
-          cssTag("common.theme.embed"),
+          cssTag("lib.theme.embed"),
           cssKeys.map(cssTag),
           page.ui.scriptsPreload(modules.flatMap(_.map(_.key)))
         ),
@@ -65,7 +65,7 @@ object embed:
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
           page.ui.pieceSprite(ctx.pieceSet.name),
-          cssTag("common.theme.embed"),
+          cssTag("lib.theme.embed"),
           cssKeys.map(cssTag),
           page.ui.sitePreload(List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules, allModules),
           page.ui.lichessFontFaceCss

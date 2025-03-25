@@ -1,14 +1,14 @@
 import config from '../config';
 import type RacerCtrl from '../ctrl';
-import renderClock from 'puz/view/clock';
-import renderHistory from 'puz/view/history';
-import * as licon from 'common/licon';
-import { copyMeInput } from 'common/controls';
-import { type VNode, type MaybeVNodes, bind, looseH as h } from 'common/snabbdom';
-import { playModifiers, renderCombo } from 'puz/view/util';
+import renderClock from 'lib/puz/view/clock';
+import renderHistory from 'lib/puz/view/history';
+import * as licon from 'lib/licon';
+import { copyMeInput } from 'lib/controls';
+import { type VNode, type MaybeVNodes, bind, looseH as h } from 'lib/snabbdom';
+import { playModifiers, renderCombo } from 'lib/puz/view/util';
 import { renderRace } from './race';
 import { renderBoard } from './board';
-import { povMessage } from 'puz/run';
+import { povMessage } from 'lib/puz/run';
 
 export default function (ctrl: RacerCtrl): VNode {
   return h(

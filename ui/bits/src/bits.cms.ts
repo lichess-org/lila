@@ -1,8 +1,8 @@
-import * as xhr from 'common/xhr';
-import { throttle } from 'common/async';
-import { currentTheme } from 'common/device';
+import * as xhr from 'lib/xhr';
+import { throttle } from 'lib/async';
+import { currentTheme } from 'lib/device';
 import tablesort from 'tablesort';
-import { storedJsonProp } from 'common/storage';
+import { storedJsonProp } from 'lib/storage';
 import { Editor, type EditorType } from '@toast-ui/editor';
 
 site.load.then(() => {

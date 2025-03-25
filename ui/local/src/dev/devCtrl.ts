@@ -1,14 +1,14 @@
 import { RateBot, rateBotMatchup } from './rateBot';
 import type { BotInfo, LocalSpeed } from '../types';
-import { statusOf } from 'game';
-import { defined, Prop } from 'common';
-import { shuffle } from 'common/algo';
-import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { storedBooleanProp } from 'common/storage';
+import { statusOf } from 'lib/game/game';
+import { defined, Prop } from 'lib';
+import { shuffle } from 'lib/algo';
+import { type ObjectStorage, objectStorage } from 'lib/objectStorage';
+import { storedBooleanProp } from 'lib/storage';
 import type { GameStatus, GameContext } from '../localGame';
 import { env } from '../localEnv';
-import { pubsub } from 'common/pubsub';
-import { type PermaLog, makeLog } from 'common/permalog';
+import { pubsub } from 'lib/pubsub';
+import { type PermaLog, makeLog } from 'lib/permalog';
 import type { GameObserver } from '../gameCtrl';
 
 export interface Result {

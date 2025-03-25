@@ -1,10 +1,5 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
-  "references": [
-    { "path": "../bits/tsconfig.json" },
-    { "path": "../common/tsconfig.json" },
-    { "path": "../game/tsconfig.json" },
-    { "path": "../bots/tsconfig.json" }
-  ]
+  "references": [{ "path": "../bits/tsconfig.json" }, { "path": "../lib/tsconfig.json" }]
 }

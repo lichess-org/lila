@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { clamp } from 'common/algo';
+import { clamp } from 'lib/algo';
 import { botScore } from './devUtil';
 import type { BotInfo, MoveSource, MoveResult, MoveArgs, Book, Ratings } from '../types';
 import type { Result, Matchup, Glicko } from './devCtrl';

@@ -1,4 +1,4 @@
-import type { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
+import type { Config, PuzPrefs, Puzzle } from 'lib/puz/interfaces';
 
 export type RaceStatus = 'pre' | 'racing' | 'post';
 

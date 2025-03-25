@@ -1,19 +1,19 @@
-import type { VNode } from 'common/snabbdom';
-import type { GameData, Status, RoundStep } from 'game';
-import type { ClockData } from 'game/clock/clockCtrl';
+import type { VNode } from 'lib/snabbdom';
+import type { GameData, Status, RoundStep } from 'lib/game/game';
+import type { ClockData } from 'lib/game/clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type RoundController from './ctrl';
-import type { ChatCtrl, ChatPlugin } from 'chat';
-import * as Prefs from 'common/prefs';
-import type { EnhanceOpts } from 'common/richText';
+import type { ChatCtrl, ChatPlugin } from 'lib/chat/chat';
+import * as Prefs from 'lib/prefs';
+import type { EnhanceOpts } from 'lib/richText';
 import type { RoundSocket } from './socket';
 import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
-export type { RoundStep as Step } from 'game';
+export type { RoundStep as Step } from 'lib/game/game';
 export type { default as RoundController } from './ctrl';
-export type { ClockData } from 'game/clock/clockCtrl';
+export type { ClockData } from 'lib/game/clock/clockCtrl';
 
 export interface NvuiPlugin {
   submitMove?: (submitStoredPremove?: boolean) => void;

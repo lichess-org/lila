@@ -1,8 +1,8 @@
-import * as licon from 'common/licon';
-import { text as xhrText } from 'common/xhr';
-import { requestIdleCallback, $as } from 'common';
-import { spinnerHtml } from 'common/controls';
-import { pubsub } from 'common/pubsub';
+import * as licon from 'lib/licon';
+import { text as xhrText } from 'lib/xhr';
+import { requestIdleCallback, $as } from 'lib';
+import { spinnerHtml } from 'lib/controls';
+import { pubsub } from 'lib/pubsub';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
 

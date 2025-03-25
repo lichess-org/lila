@@ -59,9 +59,9 @@ object page:
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
-          cssTag("common.theme.all"),
+          cssTag("lib.theme.all"),
           cssTag("site"),
-          pref.is3d.option(cssTag("common.board-3d")),
+          pref.is3d.option(cssTag("lib.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
           ctx.blind.option(cssTag("bits.blind")),

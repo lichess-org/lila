@@ -1,5 +1,5 @@
-import { looseH as h, type VNode } from 'common/snabbdom';
-import type { TopOrBottom } from 'game';
+import { looseH as h, type VNode } from 'lib/snabbdom';
+import type { TopOrBottom } from 'lib/game/game';
 import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
 

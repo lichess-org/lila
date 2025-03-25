@@ -1,4 +1,4 @@
-import { frag } from 'common';
+import { frag } from 'lib';
 
 export default async function flairPickerLoader(element: HTMLElement): Promise<void> {
   const selectEl = element.querySelector('select')!;

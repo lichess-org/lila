@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 
 import type { Player } from '../interfaces';
 import type SimulCtrl from '../ctrl';
-import { fullName, userLine, userRating } from 'common/userLink';
+import { fullName, userLine, userRating } from 'lib/userLink';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(

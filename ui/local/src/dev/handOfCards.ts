@@ -1,6 +1,6 @@
-import { frag } from 'common';
-import { clamp, isEquivalent } from 'common/algo';
-import { Janitor } from 'common/event';
+import { frag } from 'lib';
+import { clamp, isEquivalent } from 'lib/algo';
+import { Janitor } from 'lib/event';
 
 export interface CardData {
   imageUrl?: string;

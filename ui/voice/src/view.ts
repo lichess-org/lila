@@ -1,8 +1,8 @@
-import * as licon from 'common/licon';
-import { onInsert, bind, looseH as h, type VNode } from 'common/snabbdom';
-import { jsonSimple } from 'common/xhr';
-import { snabDialog, type Dialog } from 'common/dialog';
-import { onClickAway, $as } from 'common';
+import * as licon from 'lib/licon';
+import { onInsert, bind, looseH as h, type VNode } from 'lib/snabbdom';
+import { jsonSimple } from 'lib/xhr';
+import { snabDialog, type Dialog } from 'lib/dialog';
+import { onClickAway, $as } from 'lib';
 import type { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './voice';
 

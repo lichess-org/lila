@@ -1,6 +1,6 @@
-import { objectStorage } from 'common/objectStorage';
+import { objectStorage } from 'lib/objectStorage';
 import { Switch, type Selectable } from './switch';
-import { storedStringProp } from 'common/storage';
+import { storedStringProp } from 'lib/storage';
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 
 export class Mic implements Microphone {

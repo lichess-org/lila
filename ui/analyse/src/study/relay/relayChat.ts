@@ -1,12 +1,12 @@
 import { type RelayViewContext } from '../../view/components';
 import type { StudyChapters } from '../studyChapters';
-import { spinnerVdom } from 'common/controls';
-import { looseH as h, VNode, onInsert } from 'common/snabbdom';
-import { initMiniBoard } from 'common/miniBoard';
-import { type ChatPlugin, makeChat } from 'chat';
-import { watchers } from 'common/watchers';
+import { spinnerVdom } from 'lib/controls';
+import { looseH as h, VNode, onInsert } from 'lib/snabbdom';
+import { initMiniBoard } from 'lib/miniBoard';
+import { type ChatPlugin, makeChat } from 'lib/chat/chat';
+import { watchers } from 'lib/watchers';
 import { uciToMove } from 'chessground/util';
-import { frag } from 'common';
+import { frag } from 'lib';
 
 export function relayChatView({ ctrl, relay }: RelayViewContext): VNode | undefined {
   if (ctrl.isEmbed || !ctrl.opts.chat) return undefined;

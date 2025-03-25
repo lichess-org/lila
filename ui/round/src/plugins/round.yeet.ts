@@ -11,13 +11,13 @@ export async function initModule(): Promise<void> {
 function yeet() {
   const gravity = 1.5; // higher -> pieces fall down faster
   const frictionMultiplier = 0.98; // lower -> more friction
-  var minAngle = -0.436; // min angle for starting velocity
-  var maxAngle = 3.576; // max angle for starting velocity
-  var minMagnitude = 250; // min magnitude for starting velocity
-  var maxMagnitude = 500; // max magnitude for starting velocity
-  var boardRotateX = 445; // degrees
-  var boardRotateZ = 15;
-  var boardAnimationDurationMs = 750;
+  const minAngle = -0.436; // min angle for starting velocity
+  const maxAngle = 3.576; // max angle for starting velocity
+  const minMagnitude = 250; // min magnitude for starting velocity
+  const maxMagnitude = 500; // max magnitude for starting velocity
+  const boardRotateX = 445; // degrees
+  const boardRotateZ = 15;
+  const boardAnimationDurationMs = 750;
 
   document.head.insertAdjacentHTML(
     'beforeend',
@@ -36,11 +36,11 @@ function yeet() {
   $('.main-board square').remove();
   $('.main-board .cg-shapes').remove();
   $('.main-board coords').remove();
-  var clone = document.createElement('cg-board');
+  const clone = document.createElement('cg-board');
   clone.className = 'clone';
   document.getElementsByTagName('cg-container')[0].appendChild(clone);
 
-  var pieces = document.querySelectorAll<HTMLElement>('piece:not(.ghost)');
+  const pieces = document.querySelectorAll<HTMLElement>('piece:not(.ghost)');
 
   clone.animate([{ transform: 'rotateX(' + boardRotateX + 'deg) rotateZ(' + boardRotateZ + 'deg)' }], {
     duration: boardAnimationDurationMs,
@@ -48,28 +48,28 @@ function yeet() {
   });
 
   function movePieces() {
-    var keepGoing = false;
+    let keepGoing = false;
     pieces.forEach(p => {
       const d = p.dataset as any;
-      var xTranslate = parseFloat(d.xTranslate);
-      var yTranslate = parseFloat(d.yTranslate);
-      var rot = parseFloat(d.rot);
-      var xSpeed = parseFloat(d.xSpeed);
-      var ySpeed = parseFloat(d.ySpeed);
-      var rotSpeed = parseFloat(d.rotSpeed);
+      const xTranslate = parseFloat(d.xTranslate);
+      const yTranslate = parseFloat(d.yTranslate);
+      let rot = parseFloat(d.rot);
+      let xSpeed = parseFloat(d.xSpeed);
+      let ySpeed = parseFloat(d.ySpeed);
+      let rotSpeed = parseFloat(d.rotSpeed);
 
-      let newXTr = xTranslate + xSpeed;
-      let newYTr = yTranslate + ySpeed;
+      const newXTr = xTranslate + xSpeed;
+      const newYTr = yTranslate + ySpeed;
 
       d.xTranslate = newXTr;
       d.yTranslate = newYTr;
       p.style.translate = newXTr + 'px ' + newYTr + 'px';
 
-      var bounds = p.getBoundingClientRect();
-      var leftBounce = bounds.x <= 0;
-      var topBounce = bounds.y <= 0;
-      var rightBounce = bounds.right >= window.innerWidth;
-      var bottomBounce = bounds.bottom >= window.innerHeight;
+      const bounds = p.getBoundingClientRect();
+      const leftBounce = bounds.x <= 0;
+      const topBounce = bounds.y <= 0;
+      const rightBounce = bounds.right >= window.innerWidth;
+      const bottomBounce = bounds.bottom >= window.innerHeight;
 
       if (leftBounce || topBounce || rightBounce || bottomBounce) {
         // reset position
@@ -116,8 +116,8 @@ function yeet() {
     d.xTranslate = 0;
     d.yTranslate = 0;
     d.rot = 0;
-    var angle = Math.random() * (maxAngle - minAngle) + minAngle;
-    var magnitude = Math.random() * (maxMagnitude - minMagnitude) + minMagnitude;
+    const angle = Math.random() * (maxAngle - minAngle) + minAngle;
+    const magnitude = Math.random() * (maxMagnitude - minMagnitude) + minMagnitude;
     d.xSpeed = Math.cos(angle) * magnitude;
     d.ySpeed = Math.sin(angle) * magnitude;
     d.rotSpeed = (Math.random() - 0.5) * 1.5;
@@ -129,7 +129,7 @@ function yeet() {
 
 function whenAllIsDone() {
   // insert a button to reload the page
-  var button = document.createElement('button');
+  const button = document.createElement('button');
   button.classList.add('yeet-reload', 'button', 'button-red');
   button.textContent = 'Yeet! Reload the page';
   button.addEventListener('click', () => location.reload());

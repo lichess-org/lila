@@ -1,10 +1,10 @@
-import { formToXhr } from 'common/xhr';
+import { formToXhr } from 'lib/xhr';
 
-import { expandMentions } from 'common/richText';
-import { storage } from 'common/storage';
-import { alert } from 'common/dialogs';
-import { highlightSearchTerm } from 'common/highlight';
-import { pubsub } from 'common/pubsub';
+import { expandMentions } from 'lib/richText';
+import { storage } from 'lib/storage';
+import { alert } from 'lib/dialogs';
+import { highlightSearchTerm } from 'lib/highlight';
+import { pubsub } from 'lib/pubsub';
 
 site.load.then(() => {
   const noteStore = storage.make('inquiry-note');

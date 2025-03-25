@@ -1,6 +1,6 @@
-import * as xhr from 'common/xhr';
-import { spinnerHtml } from 'common/controls';
-import { pubsub } from 'common/pubsub';
+import * as xhr from 'lib/xhr';
+import { spinnerHtml } from 'lib/controls';
+import { pubsub } from 'lib/pubsub';
 
 export function initModule(selector: string = '.infinite-scroll'): void {
   $(selector).each(function (this: HTMLElement) {

@@ -1,7 +1,7 @@
 import { h, type VNode } from 'snabbdom';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 import type { Notification, Renderer, Renderers } from './interfaces';
-import { timeago } from 'common/i18n';
+import { timeago } from 'lib/i18n';
 
 export default function makeRenderers(): Renderers {
   return {

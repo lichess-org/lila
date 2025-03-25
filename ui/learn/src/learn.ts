@@ -8,8 +8,8 @@ import {
 } from 'snabbdom';
 import { LearnCtrl } from './ctrl';
 import { view } from './view';
-import { Coords } from 'common/prefs';
-import { pubsub } from 'common/pubsub';
+import { Coords } from 'lib/prefs';
+import { pubsub } from 'lib/pubsub';
 
 import storage, { type Storage } from './storage';
 
@@ -65,7 +65,7 @@ export function initModule({ data, pref }: LearnServerOpts) {
 
   redraw();
 
-  const was3d = document.head.querySelector(`link[data-css-key='common.board-3d']`) !== null;
+  const was3d = document.head.querySelector(`link[data-css-key='lib.board-3d']`) !== null;
   pubsub.on('board.change', (is3d: boolean) => {
     if (is3d !== was3d) setTimeout(site.reload, 200);
   });

@@ -57,7 +57,7 @@ export async function sass(): Promise<any> {
         ? new Set([...remaining, ...concreteTouched].filter(x => concreteAll.has(x)))
         : concreteAll;
 
-      if (partialTouched.some(src => src.startsWith('ui/common/css/theme/_'))) {
+      if (partialTouched.some(src => src.startsWith('ui/lib/css/theme/_'))) {
         await parseThemeColorDefs();
       }
 
@@ -68,7 +68,7 @@ export async function sass(): Promise<any> {
       if (!isEquivalent(oldMixes, Object.fromEntries(colorMixMap))) {
         await buildColorMixes();
         await buildColorWrap();
-        for (const src of await glob('common.theme.*.scss', { cwd: 'ui/common/css/build' }))
+        for (const src of await glob('lib.theme.*.scss', { cwd: 'ui/lib/css/build' }))
           remaining.add(relative(env.rootDir, src)); // TODO test me
       }
       const buildSources = [...remaining];

@@ -1,8 +1,9 @@
-import { type VNode, h } from 'snabbdom';
-import * as licon from 'common/licon';
+import { looseH as h } from 'lib/snabbdom';
+import * as licon from 'lib/licon';
 import Peer from 'peerjs';
-import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialogs';
+import { pubsub } from 'lib/pubsub';
+import { alert } from 'lib/dialogs';
+import type { Palantir } from 'lib/chat/interfaces';
 
 type State =
   | 'off'
@@ -18,10 +19,6 @@ type State =
 interface PalantirOpts {
   uid: string;
   redraw(): void;
-}
-
-export interface Palantir {
-  render(): VNode | undefined;
 }
 
 export function initModule(opts: PalantirOpts): Palantir | undefined {

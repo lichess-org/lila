@@ -1,7 +1,7 @@
-import { winningChances } from 'ceval';
-import { fenToEpd } from 'chess';
-import { defined } from 'common';
-import { zip } from 'common/algo';
+import { winningChances } from 'lib/ceval/ceval';
+import { fenToEpd } from 'lib/chess/chess';
+import { defined } from 'lib';
+import { zip } from 'lib/algo';
 
 const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
 

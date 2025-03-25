@@ -3,7 +3,7 @@ import type { Level } from './stage/list';
 import { h } from 'snabbdom';
 import { hashHref } from './hashRouting';
 import type { RunCtrl } from './run/runCtrl';
-import * as licon from 'common/licon';
+import * as licon from 'lib/licon';
 
 const star = h('i', { attrs: { 'data-icon': licon.Star } });
 

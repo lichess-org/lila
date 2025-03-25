@@ -1,8 +1,8 @@
 import type AnalyseCtrl from '../ctrl';
 import Shepherd from 'shepherd.js';
 import type { ChapterTab, StudyTour, Tab } from '../study/interfaces';
-import { pubsub } from 'common/pubsub';
-import * as licon from 'common/licon';
+import { pubsub } from 'lib/pubsub';
+import * as licon from 'lib/licon';
 
 export function initModule(): StudyTour {
   return {

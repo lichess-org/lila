@@ -1,15 +1,15 @@
 import type AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
-import * as licon from 'common/licon';
-import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
+import * as licon from 'lib/licon';
+import { url as xhrUrl, textRaw as xhrTextRaw } from 'lib/xhr';
 import type { AnalyseData } from './interfaces';
 import type { ChartGame, AcplChart } from 'chart';
-import { spinnerHtml } from 'common/controls';
-import { domDialog } from 'common/dialog';
-import { alert, confirm } from 'common/dialogs';
-import { escapeHtml } from 'common';
-import { storage } from 'common/storage';
-import { pubsub } from 'common/pubsub';
+import { spinnerHtml } from 'lib/controls';
+import { domDialog } from 'lib/dialog';
+import { alert, confirm } from 'lib/dialogs';
+import { escapeHtml } from 'lib';
+import { storage } from 'lib/storage';
+import { pubsub } from 'lib/pubsub';
 
 export const stockfishName = 'Stockfish 17';
 
